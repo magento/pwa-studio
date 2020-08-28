@@ -1,10 +1,11 @@
-import React from 'react';
-import gql from 'graphql-tag';
+import React, { Fragment } from 'react';
+import { gql } from '@apollo/client';
 import { Form } from 'informed';
 import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
 
 import { mergeClasses } from '../../../../classify';
 import Button from '../../../Button';
+import FormError from '../../../FormError';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
@@ -12,21 +13,22 @@ import defaultClasses from './productForm.css';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 
 const ProductForm = props => {
-    const { item: cartItem, setIsCartUpdating } = props;
+    const { item: cartItem, setIsCartUpdating, setVariantPrice } = props;
     const talonProps = useProductForm({
         cartItem,
         getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
         setIsCartUpdating,
+        setVariantPrice,
         updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS_MUTATION,
         updateQuantityMutation: UPDATE_QUANTITY_MUTATION
     });
     const {
         configItem,
+        errors,
         handleOptionSelection,
         handleSubmit,
         isLoading,
-        isSaving,
-        setFormApi
+        isSaving
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -42,30 +44,41 @@ const ProductForm = props => {
         );
     }
 
+    if (!configItem) {
+        return (
+            <span className={classes.dataError}>
+                Something went wrong. Please refresh and try again.
+            </span>
+        );
+    }
+
     return (
-        <Form
-            getApi={setFormApi}
-            initialValues={{ quantity: cartItem.quantity }}
-            onSubmit={handleSubmit}
-        >
-            <Options
-                classes={{ root: classes.optionRoot }}
-                onSelectionChange={handleOptionSelection}
-                options={configItem.configurable_options}
-                selectedValues={cartItem.configurable_options}
+        <Fragment>
+            <FormError
+                classes={{ root: classes.errorContainer }}
+                errors={Array.from(errors.values())}
+                scrollOnError={false}
             />
-            <h3 className={classes.quantityLabel}>Quantity</h3>
-            <QuantityFields
-                classes={{ root: classes.quantityRoot }}
-                initialValue={cartItem.quantity}
-                itemId={cartItem.id}
-            />
-            <div className={classes.submit}>
-                <Button priority="high" type="submit">
-                    Update
-                </Button>
-            </div>
-        </Form>
+            <Form onSubmit={handleSubmit}>
+                <Options
+                    classes={{ root: classes.optionRoot }}
+                    onSelectionChange={handleOptionSelection}
+                    options={configItem.configurable_options}
+                    selectedValues={cartItem.configurable_options}
+                />
+                <h3 className={classes.quantityLabel}>Quantity</h3>
+                <QuantityFields
+                    classes={{ root: classes.quantityRoot }}
+                    initialValue={cartItem.quantity}
+                    itemId={cartItem.id}
+                />
+                <div className={classes.submit}>
+                    <Button priority="high" type="submit">
+                        Update
+                    </Button>
+                </div>
+            </Form>
+        </Fragment>
     );
 };
 
@@ -104,6 +117,14 @@ export const GET_CONFIGURABLE_OPTIONS = gql`
                         }
                         product {
                             id
+                            price {
+                                regularPrice {
+                                    amount {
+                                        currency
+                                        value
+                                    }
+                                }
+                            }
                             sku
                         }
                     }

@@ -1,12 +1,12 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
 import { useCouponCode } from '../useCouponCode';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
-        useLazyQuery: jest.fn(() => [jest.fn(), { data: null, error: null }]),
+        useQuery: jest.fn(() => ({ data: null, error: null })),
         useMutation: jest.fn(() => [jest.fn(), { data: null, error: null }])
     };
 });
@@ -76,4 +76,41 @@ describe('#useCouponCode', () => {
             }
         });
     });
+});
+
+test('returns applyCoupon error message', () => {
+    const errorResult = new Error('applyCoupon Error');
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        {
+            error: errorResult
+        }
+    ]);
+
+    createTestInstance(<Component />);
+    const { errors } = log.mock.calls[0][0];
+
+    expect(errors.get('applyCouponMutation')).toEqual(errorResult);
+});
+
+test('returns removeCoupon error', () => {
+    const errorResult = new Error('removeCoupon Error');
+    useMutation
+        .mockReturnValueOnce([
+            jest.fn(),
+            {
+                error: undefined
+            }
+        ])
+        .mockReturnValueOnce([
+            jest.fn(),
+            {
+                error: errorResult
+            }
+        ]);
+
+    createTestInstance(<Component />);
+    const { errors } = log.mock.calls[0][0];
+
+    expect(errors.get('removeCouponMutation')).toEqual(errorResult);
 });

@@ -22,8 +22,13 @@ Object {
 }
 `;
 
+exports[`returns Apollo error 1`] = `undefined`;
+
 exports[`returns correct shape 1`] = `
 Object {
+  "errors": Map {
+    "setGuestShippingMutation" => undefined,
+  },
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {

@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-spec",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -26,11 +26,9 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/upward-spec#readme",
   "dependencies": {
-    "apollo-server": "~2.6.3",
     "chalk": "~2.4.2",
     "csv-parse": "~4.4.6",
-    "graphql": "~14.3.1",
-    "graphql-tag": "~2.10.1",
+    "graphql": "~15.3.0",
     "js-yaml": "~3.13.1",
     "node-fetch": "~2.3.0",
     "tap-diff": "~0.1.1",

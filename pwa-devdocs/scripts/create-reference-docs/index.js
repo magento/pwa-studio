@@ -14,13 +14,17 @@ const createFunctionDocs = require('./createFunctionDocs');
 const docsProjectRoot = process.cwd();
 
 config.files.forEach(file => {
-    let { target, overrides } = file;
+    let { target, overrides, type, childComponents: children = [] } = file;
 
     let sourcePath = path.join(
         path.dirname(docsProjectRoot),
         config.packagesPath,
         target
     );
+
+    const childComponents = children.map(child => {
+        return path.join(path.dirname(docsProjectRoot),config.packagesPath, child);
+    })
 
     let githubSource = "https://"+ path.join(
         config.baseGitHubPath,
@@ -34,7 +38,7 @@ config.files.forEach(file => {
         path.join(path.dirname(target), path.basename(target, '.js')) + '.md'
     );
 
-    switch (file.type) {
+    switch (type) {
         case 'class':
             createClassDocs({ sourcePath, overrides, githubSource }).then(
                 fileContent => {
@@ -44,9 +48,12 @@ config.files.forEach(file => {
             break;
 
         case 'function':
-            createFunctionDocs({ sourcePath, githubSource }).then(
+            createFunctionDocs({ sourcePath, githubSource, childComponents }).then(
                 fileContent => {
                     writeToFile(fileDestination, fileContent);
+                },
+                error => {
+                    console.log(error)
                 }
             );
             break;

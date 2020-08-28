@@ -8,20 +8,20 @@
 .forgotPassword {
     display: block;
     text-decoration: underline;
-    color: rgb(var(--venia-error));
+    color: rgb(var(--venia-global-color-error));
     font-size: 0.8rem;
 }
 
 .form {
     display: grid;
-    row-gap: 1rem;
+    row-gap: 0.9375rem;
 }
 
 .modal {
     visibility: hidden;
     height: 100%;
     width: 100%;
-    background-color: rgb(var(--venia-grey));
+    background-color: rgb(var(--venia-global-color-gray));
     text-align: center;
     position: absolute;
     bottom: 0;
@@ -33,40 +33,30 @@
     opacity: 0.9;
 }
 
-.createAccountButton,
-.forgotPasswordButton,
-.signInButton {
+.buttonsContainer {
+    display: grid;
+    gap: 1.5rem;
+    grid-auto-flow: row;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.forgotPasswordButtonContainer {
     align-items: center;
     display: flex;
     justify-content: center;
+    justify-self: start;
     text-align: center;
 }
 
-.forgotPasswordButtonRoot {
-    composes: root_lowPriority from '../Button/button.css';
-    color: rgb(var(--venia-error));
+.forgotPasswordButton {
+    composes: root from '../LinkButton/linkButton.css';
+
+    padding: 0;
 }
 
-.signInButton {
-    margin-top: 1rem;
-}
-
-.signInDivider {
-    border-color: rgb(var(--venia-border));
-    border-style: solid;
-    border-width: 0 0 1px;
-    margin: 1.5rem 1rem;
-}
-
-.signInError {
-    background-color: rgb(var(--venia-grey));
-    border-radius: 4px;
-    color: rgb(var(--venia-error));
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    padding: 1rem;
-}
-
-.signInError:empty {
-    display: none;
+.title {
+    padding-top: 0.5rem;
+    text-transform: capitalize;
 }

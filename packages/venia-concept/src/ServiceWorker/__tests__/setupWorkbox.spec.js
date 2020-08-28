@@ -1,15 +1,22 @@
 import setupWorkbox from '../setupWorkbox';
+import { skipWaiting, clientsClaim } from 'workbox-core';
+import { precacheAndRoute } from 'workbox-precaching';
+
+jest.mock('global');
+jest.mock('workbox-core', () => {
+    return {
+        skipWaiting: jest.fn(),
+        clientsClaim: jest.fn()
+    };
+});
+
+jest.mock('workbox-precaching', () => {
+    return {
+        precacheAndRoute: jest.fn()
+    };
+});
 
 beforeEach(() => {
-    global.workbox = {
-        core: {
-            skipWaiting: () => {},
-            clientsClaim: () => {}
-        },
-        precaching: {
-            precacheAndRoute: () => {}
-        }
-    };
     global.importScripts = () => {};
     self.__WB_MANIFEST = [];
 });
@@ -25,27 +32,18 @@ test('importScripts should be called to fetch workbox-sw.js file', () => {
 });
 
 test('skipWaiting should be called on workbox.core object', () => {
-    const skipWaiting = jest.spyOn(global.workbox.core, 'skipWaiting');
-
     setupWorkbox();
 
     expect(skipWaiting).toHaveBeenCalled();
 });
 
 test('clientsClaim should be called on workbox.core object', () => {
-    const clientsClaim = jest.spyOn(global.workbox.core, 'clientsClaim');
-
     setupWorkbox();
 
     expect(clientsClaim).toHaveBeenCalled();
 });
 
 test('precacheAndRoute should be called with self.__WB_MANIFEST is a truthy value', () => {
-    const precacheAndRoute = jest.spyOn(
-        global.workbox.precaching,
-        'precacheAndRoute'
-    );
-
     const testObj = [{ url: '/qwerty.12345.js', revision: '12345' }];
 
     self.__WB_MANIFEST = testObj;
@@ -56,11 +54,6 @@ test('precacheAndRoute should be called with self.__WB_MANIFEST is a truthy valu
 });
 
 test('precacheAndRoute should be called with [] if self.__WB_MANIFEST is a falsy value', () => {
-    const precacheAndRoute = jest.spyOn(
-        global.workbox.precaching,
-        'precacheAndRoute'
-    );
-
     self.__WB_MANIFEST = null;
 
     setupWorkbox();

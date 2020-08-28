@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Form } from 'informed';
 import { func, shape, string, arrayOf } from 'prop-types';
 import { useGuestForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
@@ -8,6 +8,7 @@ import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
 import Country from '../../../Country';
 import Field, { Message } from '../../../Field';
+import FormError from '../../../FormError';
 import Region from '../../../Region';
 import TextInput from '../../../TextInput';
 import defaultClasses from './guestForm.css';
@@ -23,6 +24,7 @@ const GuestForm = props => {
         shippingData
     });
     const {
+        errors,
         handleCancel,
         handleSubmit,
         initialValues,
@@ -41,14 +43,7 @@ const GuestForm = props => {
     ) : null;
 
     const cancelButton = isUpdate ? (
-        <Button
-            classes={{
-                root_normalPriority: classes.submit
-            }}
-            disabled={isSaving}
-            onClick={handleCancel}
-            priority="normal"
-        >
+        <Button disabled={isSaving} onClick={handleCancel} priority="low">
             {'Cancel'}
         </Button>
     ) : null;
@@ -58,73 +53,76 @@ const GuestForm = props => {
         : 'Continue to Shipping Method';
 
     const submitButtonProps = {
-        classes: {
-            root_normalPriority: classes.submit,
-            root_highPriority: classes.submit_update
-        },
         disabled: isSaving,
         priority: isUpdate ? 'high' : 'normal',
         type: 'submit'
     };
 
     return (
-        <Form
-            className={classes.root}
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-        >
-            <div className={classes.email}>
-                <Field id="email" label="Email">
-                    <TextInput field="email" validate={isRequired} />
-                    {guestEmailMessage}
-                </Field>
-            </div>
-            <div className={classes.firstname}>
-                <Field id="firstname" label="First Name">
-                    <TextInput field="firstname" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.lastname}>
-                <Field id="lastname" label="Last Name">
-                    <TextInput field="lastname" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.country}>
-                <Country validate={isRequired} />
-            </div>
-            <div className={classes.street0}>
-                <Field id="street0" label="Street Address">
-                    <TextInput field="street[0]" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.street1}>
-                <Field id="street1" label="Street Address 2">
-                    <TextInput field="street[1]" />
-                </Field>
-            </div>
-            <div className={classes.city}>
-                <Field id="city" label="City">
-                    <TextInput field="city" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.region}>
-                <Region validate={isRequired} />
-            </div>
-            <div className={classes.postcode}>
-                <Field id="postcode" label="ZIP / Postal Code">
-                    <TextInput field="postcode" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.telephone}>
-                <Field id="telephone" label="Phone Number">
-                    <TextInput field="telephone" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.buttons}>
-                {cancelButton}
-                <Button {...submitButtonProps}>{submitButtonText}</Button>
-            </div>
-        </Form>
+        <Fragment>
+            <FormError errors={Array.from(errors.values())} />
+            <Form
+                className={classes.root}
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+            >
+                <div className={classes.email}>
+                    <Field id="email" label="Email">
+                        <TextInput field="email" validate={isRequired} />
+                        {guestEmailMessage}
+                    </Field>
+                </div>
+                <div className={classes.firstname}>
+                    <Field id="firstname" label="First Name">
+                        <TextInput field="firstname" validate={isRequired} />
+                    </Field>
+                </div>
+                <div className={classes.lastname}>
+                    <Field id="lastname" label="Last Name">
+                        <TextInput field="lastname" validate={isRequired} />
+                    </Field>
+                </div>
+                <div className={classes.country}>
+                    <Country validate={isRequired} />
+                </div>
+                <div className={classes.street0}>
+                    <Field id="street0" label="Street Address">
+                        <TextInput field="street[0]" validate={isRequired} />
+                    </Field>
+                </div>
+                <div className={classes.street1}>
+                    <Field
+                        id="street1"
+                        label="Street Address 2"
+                        optional={true}
+                    >
+                        <TextInput field="street[1]" />
+                    </Field>
+                </div>
+                <div className={classes.city}>
+                    <Field id="city" label="City">
+                        <TextInput field="city" validate={isRequired} />
+                    </Field>
+                </div>
+                <div className={classes.region}>
+                    <Region validate={isRequired} />
+                </div>
+                <div className={classes.postcode}>
+                    <Field id="postcode" label="ZIP / Postal Code">
+                        <TextInput field="postcode" validate={isRequired} />
+                    </Field>
+                </div>
+                <div className={classes.telephone}>
+                    <Field id="telephone" label="Phone Number">
+                        <TextInput field="telephone" validate={isRequired} />
+                    </Field>
+                </div>
+                <div className={classes.buttons}>
+                    {cancelButton}
+                    <Button {...submitButtonProps}>{submitButtonText}</Button>
+                </div>
+            </Form>
+        </Fragment>
     );
 };
 

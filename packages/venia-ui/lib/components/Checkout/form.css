@@ -12,13 +12,13 @@
 }
 
 .informationPrompt {
-    color: rgb(var(--venia-error));
+    color: rgb(var(--venia-global-color-error));
     text-transform: capitalize;
 }
 
 .disabledPrompt {
     composes: informationPrompt;
-    color: rgb(var(--venia-grey-dark));
+    color: rgb(var(--venia-global-color-gray-dark));
 }
 
 .paymentDisplayPrimary {

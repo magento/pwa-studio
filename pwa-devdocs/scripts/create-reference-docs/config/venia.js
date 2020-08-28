@@ -24,7 +24,7 @@ module.exports = [
         type: 'function'
     },
     {
-        target: 'venia-ui/lib/components/Modal/modal.js',
+        target: 'venia-ui/lib/components/Portal/portal.js',
         type: 'function'
     },
     {
@@ -34,5 +34,41 @@ module.exports = [
     {
         target: 'venia-ui/lib/components/Trigger/trigger.js',
         type: 'function'
-    }
+    },
+    {
+        target: 'venia-ui/lib/targets/venia-ui-declare.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/targets/RichContentRendererList.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/CartPage/cartPage.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/CartPage/GiftCards/giftCards.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/CartPage/PriceAdjustments/priceAdjustments.js',
+        type: 'function',
+        childComponents: [
+            'venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.js',
+            'venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.js',
+            'venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.js',
+        ]
+    },
+    {
+        target: 'venia-ui/lib/components/CartPage/PriceSummary/priceSummary.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/CartPage/ProductListing/productListing.js',
+        type: 'function',
+        childComponents: [
+            'venia-ui/lib/components/CartPage/ProductListing/EditModal/editModal.js',
+        ]
+    },
 ];

@@ -1,9 +1,9 @@
 .root {
-    color: rgb(var(--venia-text));
+    color: rgb(var(--venia-global-color-text));
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1rem;
-    padding: 0.375rem 0.125rem 0.125rem;
+    padding: 0.625rem 0.125rem 0.125rem;
 }
 
 .root:empty {
@@ -12,5 +12,6 @@
 
 .root_error {
     composes: root;
-    color: rgb(var(--venia-error));
+    color: rgb(var(--venia-global-color-error));
+    font-weight: var(--venia-global-fontWeight-semibold);
 }

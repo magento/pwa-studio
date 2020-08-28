@@ -11,7 +11,7 @@ jest.mock('../checkoutButton', () => 'CheckoutButton');
 jest.mock('../form', () => 'Form');
 jest.mock('../Receipt', () => 'Receipt');
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {

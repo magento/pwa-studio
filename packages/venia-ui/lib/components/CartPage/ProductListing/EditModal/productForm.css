@@ -1,5 +1,5 @@
 .optionRoot {
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
     padding: 1rem 0;
 }
 
@@ -27,4 +27,15 @@
     composes: root from '../../../LoadingIndicator/indicator.css';
     height: unset;
     text-align: center;
+}
+
+.dataError {
+    color: rgb(var(--venia-global-color-error));
+    display: inline-block;
+    padding-top: 1rem;
+    line-height: var(--venia-global-lineHeight-300);
+}
+
+.errorContainer {
+    padding-top: 1rem;
 }

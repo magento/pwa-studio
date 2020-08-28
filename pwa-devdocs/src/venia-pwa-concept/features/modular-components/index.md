@@ -13,6 +13,16 @@ This lets you leverage Venia functionality in your own PWA projects.
 
 -   Node >=10.14.1
 
+### Node 12 deprecation warning
+
+If you are using Node 12, you may see the following deprecation warning in the log when you run `yarn watch:venia`.
+
+```sh
+(node:89176) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+```
+
+This is caused by a project dependency used by PWA Studio and not by PWA Studio itself.
+
 ## Install package dependency
 
 Use **Yarn** to install the `@magento/venia-concept` package:
@@ -52,7 +62,7 @@ Import and use the [Venia Adapter][] in your project if your storefront already 
 import VeniaAdapter from '@magento/venia-concept/src/drivers/adapter';
 
 import { createStore } from 'redux';
-import { ApolloClient } from 'apollo-client';
+import { ApolloClient } from '@apollo/client/core';
 
 const myApplicationStore = createStore()
 const myClient = new ApolloClient({ uri: "https://mystore.com/graphql"})

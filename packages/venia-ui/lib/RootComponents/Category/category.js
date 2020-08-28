@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { usePagination, useSort } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
@@ -28,6 +28,9 @@ const Category = props => {
     const sortProps = useSort();
     const [currentSort] = sortProps;
 
+    // Keep track of the sort criteria so we can tell when they change.
+    const previousSort = useRef(currentSort);
+
     const pageControl = {
         currentPage,
         setPage: setCurrentPage,
@@ -42,15 +45,7 @@ const Category = props => {
     const previousSearch = useRef(search);
 
     // Get "allowed" filters by intersection of schema and aggregations
-    const { data: introspectionData, error: introspectionError } = useQuery(
-        FILTER_INTROSPECTION
-    );
-
-    useEffect(() => {
-        if (introspectionError) {
-            console.error(introspectionError);
-        }
-    }, [introspectionError]);
+    const { data: introspectionData } = useQuery(FILTER_INTROSPECTION);
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
@@ -89,7 +84,6 @@ const Category = props => {
                 currentPage: Number(currentPage),
                 id: Number(id),
                 filters: newFilters,
-                onServer: false,
                 pageSize: Number(pageSize),
                 sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
             }
@@ -128,8 +122,8 @@ const Category = props => {
         }
     }, [currentPage, error, loading, setCurrentPage]);
 
-    // Reset the current page back to one (1) when the search string or filters
-    // change.
+    // Reset the current page back to one (1) when the search string, filters
+    // or sort criteria change.
     useEffect(() => {
         // We don't want to compare page value.
         const prevSearch = new URLSearchParams(previousSearch.current);
@@ -137,13 +131,20 @@ const Category = props => {
         prevSearch.delete('page');
         nextSearch.delete('page');
 
-        if (prevSearch.toString() != nextSearch.toString()) {
+        if (
+            prevSearch.toString() !== nextSearch.toString() ||
+            previousSort.current.sortAttribute.toString() !==
+                currentSort.sortAttribute.toString() ||
+            previousSort.current.sortDirection.toString() !==
+                currentSort.sortDirection.toString()
+        ) {
             // The search term changed.
             setCurrentPage(1);
             // And update the ref.
             previousSearch.current = search;
+            previousSort.current = currentSort;
         }
-    }, [previousSearch, search, setCurrentPage]);
+    }, [currentSort, previousSearch, search, setCurrentPage]);
 
     if (error && currentPage === 1 && !loading) {
         if (process.env.NODE_ENV !== 'production') {
@@ -157,14 +158,14 @@ const Category = props => {
         return fullPageLoadingIndicator;
     }
 
+    const metaDescription =
+        data && data.category && data.category.meta_description
+            ? data.category.meta_description
+            : '';
+
     return (
-        <>
-            <Meta
-                name="description"
-                content={
-                    data && data.category && data.category.meta_description
-                }
-            />
+        <Fragment>
+            <Meta name="description" content={metaDescription} />
             <CategoryContent
                 categoryId={id}
                 classes={classes}
@@ -172,7 +173,7 @@ const Category = props => {
                 pageControl={pageControl}
                 sortProps={sortProps}
             />
-        </>
+        </Fragment>
     );
 };
 

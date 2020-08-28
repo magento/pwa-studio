@@ -10,6 +10,7 @@ import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
+import { mergeCartsMutation } from '../../queries/mergeCarts.gql';
 import combine from '../../util/combineValidators';
 import {
     hasLengthAtLeast,
@@ -22,6 +23,7 @@ import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
 import defaultClasses from './createAccount.css';
+import FormError from '../FormError';
 
 const LEAD =
     'Check out faster, use multiple addresses, track orders and more by creating an account!';
@@ -35,7 +37,8 @@ const CreateAccount = props => {
         mutations: {
             createCartMutation: CREATE_CART_MUTATION,
             getCartDetailsQuery: GET_CART_DETAILS_QUERY,
-            signInMutation: SIGN_IN_MUTATION
+            signInMutation: SIGN_IN_MUTATION,
+            mergeCartsMutation
         },
         initialValues: props.initialValues,
         onSubmit: props.onSubmit
@@ -48,13 +51,6 @@ const CreateAccount = props => {
         isSignedIn,
         initialValues
     } = talonProps;
-
-    // Map over any errors we get and display an appropriate error.
-    const errorMessage = errors.length
-        ? errors
-              .map(({ message }) => message)
-              .reduce((acc, msg) => msg + '\n' + acc, '')
-        : null;
 
     if (isSignedIn) {
         return <Redirect to="/" />;
@@ -69,7 +65,8 @@ const CreateAccount = props => {
             onSubmit={handleSubmit}
         >
             <p className={classes.lead}>{LEAD}</p>
-            <Field label="First Name" required={true}>
+            <FormError errors={Array.from(errors.values())} />
+            <Field label="First Name">
                 <TextInput
                     field="customer.firstname"
                     autoComplete="given-name"
@@ -77,7 +74,7 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Last Name" required={true}>
+            <Field label="Last Name">
                 <TextInput
                     field="customer.lastname"
                     autoComplete="family-name"
@@ -85,7 +82,7 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Email" required={true}>
+            <Field label="Email">
                 <TextInput
                     field="customer.email"
                     autoComplete="email"
@@ -93,7 +90,7 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Password" required={true}>
+            <Field label="Password">
                 <TextInput
                     field="password"
                     type="password"
@@ -106,7 +103,7 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Confirm Password" required={true}>
+            <Field label="Confirm Password">
                 <TextInput
                     field="confirm"
                     type="password"
@@ -120,7 +117,6 @@ const CreateAccount = props => {
                     label="Subscribe to news and updates"
                 />
             </div>
-            <div className={classes.error}>{errorMessage}</div>
             <div className={classes.actions}>
                 <Button disabled={isDisabled} type="submit" priority="high">
                     {'Submit'}
@@ -133,7 +129,6 @@ const CreateAccount = props => {
 CreateAccount.propTypes = {
     classes: shape({
         actions: string,
-        error: string,
         lead: string,
         root: string,
         subscribe: string

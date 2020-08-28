@@ -1,5 +1,6 @@
 .error {
-    color: rgb(var(--venia-error));
+    color: rgb(var(--venia-global-color-error));
+    line-height: var(--venia-global-lineHeight-300);
 }
 
 .radioLabel {

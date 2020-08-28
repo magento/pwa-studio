@@ -1,16 +1,21 @@
-import { useQuery } from '@apollo/react-hooks';
+import React from 'react';
+import { act } from 'react-test-renderer';
+import { useQuery } from '@apollo/client';
+import { useFieldApi, useFieldState } from 'informed';
 
+import createTestInstance from '../../../util/createTestInstance';
 import { useRegion } from '../useRegion';
 
 jest.mock('informed', () => {
     const useFieldState = jest.fn().mockReturnValue({
         value: 'US'
     });
+    const useFieldApi = jest.fn();
 
-    return { useFieldState };
+    return { useFieldApi, useFieldState };
 });
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useQuery: jest.fn().mockReturnValue({
         data: {
             country: {
@@ -25,17 +30,43 @@ jest.mock('@apollo/react-hooks', () => ({
     })
 }));
 
+const Component = props => {
+    const talonProps = useRegion(props);
+    return <i talonProps={talonProps} />;
+};
+
 const props = {
     queries: {}
 };
 
+test('returns placeholder option while loading', () => {
+    useQuery.mockReturnValueOnce({
+        error: false,
+        loading: true
+    });
+
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps).toMatchSnapshot();
+});
+
 test('returns formatted regions', () => {
-    const talonProps = useRegion(props);
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
     expect(talonProps).toMatchSnapshot();
 });
 
 test('returns formatted regions with id as the key', () => {
-    const talonProps = useRegion({ ...props, optionValueKey: 'id' });
+    const tree = createTestInstance(
+        <Component {...props} optionValueKey={'id'} />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
     expect(talonProps).toMatchSnapshot();
 });
 
@@ -50,6 +81,26 @@ test('returns empty array if no available regions', () => {
         loading: false
     });
 
-    const talonProps = useRegion(props);
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
     expect(talonProps).toMatchSnapshot();
+});
+
+test('resets value on country change', () => {
+    const mockReset = jest.fn();
+
+    useFieldState.mockReturnValueOnce({ value: 'FR' });
+    useFieldApi.mockReturnValue({ reset: mockReset });
+
+    const tree = createTestInstance(<Component {...props} />);
+
+    expect(mockReset).not.toHaveBeenCalled();
+
+    act(() => {
+        tree.update(<Component {...props} />);
+    });
+
+    expect(mockReset).toHaveBeenCalled();
 });

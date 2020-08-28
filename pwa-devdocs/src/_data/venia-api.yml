@@ -1,26 +1,51 @@
 title: Venia UI API
 entries:
+    - label: Extension points
+      entries:
+        - label: Targets
+          url: /venia-ui/reference/targets/
 
-    - label: Button
-      url: /venia-ui/reference/components/Button/
+    - label: Application components
+      entries:
 
-    - label: ButtonGroup
-      url: /venia-ui/reference/components/ButtonGroup/
+      - label: Button
+        url: /venia-ui/reference/components/Button/
 
-    - label: Logo
-      url: /venia-ui/reference/components/Logo/
+      - label: ButtonGroup
+        url: /venia-ui/reference/components/ButtonGroup/
 
-    - label: Mask
-      url: /venia-ui/reference/components/Mask/
+      - label: Logo
+        url: /venia-ui/reference/components/Logo/
 
-    - label: Modal
-      url: /venia-ui/reference/components/Modal/
+      - label: Mask
+        url: /venia-ui/reference/components/Mask/
 
-    - label: ProductImageCarousel
-      url: /venia-ui/reference/components/ProductImageCarousel/
+      - label: Portal
+        url: /venia-ui/reference/components/Portal/
 
-    - label: ToastContainer
-      url: /venia-ui/reference/components/ToastContainer/
+      - label: ProductImageCarousel
+        url: /venia-ui/reference/components/ProductImageCarousel/
 
-    - label: Trigger
-      url: /venia-ui/reference/components/Trigger/
+      - label: ToastContainer
+        url: /venia-ui/reference/components/ToastContainer/
+
+      - label: Trigger
+        url: /venia-ui/reference/components/Trigger/
+
+    - label: Shopping cart components
+      entries:
+
+      - label: Cart Page
+        url: /venia-ui/reference/components/CartPage/
+
+      - label: Gift Cards
+        url: /venia-ui/reference/components/CartPage/GiftCards/
+
+      - label: Price Adjustments
+        url: /venia-ui/reference/components/CartPage/PriceAdjustments/
+
+      - label: Price Summary
+        url: /venia-ui/reference/components/CartPage/PriceSummary/
+
+      - label: Product Listing
+        url: /venia-ui/reference/components/CartPage/ProductListing/

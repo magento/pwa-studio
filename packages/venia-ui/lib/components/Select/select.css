@@ -6,7 +6,8 @@
     height: 2.25rem;
 }
 
-.input {
+.input,
+.input_error {
     composes: input from '../Field/field.css';
     grid-area: input-start / input-start / input-end / icon-end;
     padding-right: calc(2.25rem - 1px);
@@ -14,5 +15,9 @@
 
 .input:disabled {
     pointer-events: none;
-    color: rgb(var(--venia-grey-darker));
+    color: rgb(var(--venia-global-color-gray-darker));
+}
+
+.input_error {
+    border-color: rgb(var(--venia-global-color-red-400));
 }

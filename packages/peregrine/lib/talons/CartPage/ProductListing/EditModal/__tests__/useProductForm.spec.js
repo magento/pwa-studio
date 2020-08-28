@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useAppContext } from '../../../../../context/app';
 import createTestInstance from '../../../../../util/createTestInstance';
@@ -10,10 +10,13 @@ import {
 } from '../__fixtures__/configurableProduct';
 import { useProductForm } from '../useProductForm';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useMutation: jest
         .fn()
-        .mockReturnValue([jest.fn(), { called: false, loading: false }]),
+        .mockReturnValue([
+            jest.fn(),
+            { called: false, error: null, loading: false }
+        ]),
     useQuery: jest.fn().mockReturnValue({
         data: null,
         error: null,
@@ -46,11 +49,15 @@ const Component = props => {
     return <i talonProps={talonProps} />;
 };
 
+const mockProps = {
+    cartItem,
+    setIsCartUpdating: jest.fn(),
+    setVariantPrice: jest.fn()
+};
+
 test('returns correct shape with fetched options', () => {
     useQuery.mockReturnValueOnce(configurableItemResponse);
-    const tree = createTestInstance(
-        <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-    );
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
@@ -58,13 +65,37 @@ test('returns correct shape with fetched options', () => {
 });
 
 test('returns loading while fetching options', () => {
-    const tree = createTestInstance(
-        <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-    );
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
     expect(talonProps.isLoading).toEqual(true);
+});
+
+test('returns error from quantity mutation', () => {
+    const errorResult = new Error();
+    useMutation.mockReturnValueOnce([jest.fn(), { error: errorResult }]);
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.errors.get('updateQuantityMutation')).toEqual(
+        errorResult
+    );
+});
+
+test('returns error from configurable option mutation', () => {
+    const errorResult = new Error();
+    useMutation
+        .mockReturnValueOnce([jest.fn(), { error: null }])
+        .mockReturnValueOnce([jest.fn(), { error: errorResult }]);
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.errors.get('updateConfigurableOptionsMutation')).toEqual(
+        errorResult
+    );
 });
 
 describe('effect calls setIsCartUpdating', () => {
@@ -77,10 +108,7 @@ describe('effect calls setIsCartUpdating', () => {
         const setIsCartUpdating = jest.fn();
 
         createTestInstance(
-            <Component
-                cartItem={cartItem}
-                setIsCartUpdating={setIsCartUpdating}
-            />
+            <Component {...mockProps} setIsCartUpdating={setIsCartUpdating} />
         );
 
         expect(setIsCartUpdating).toHaveBeenLastCalledWith(true);
@@ -94,48 +122,11 @@ describe('effect calls setIsCartUpdating', () => {
         const setIsCartUpdating = jest.fn();
 
         createTestInstance(
-            <Component
-                cartItem={cartItem}
-                setIsCartUpdating={setIsCartUpdating}
-            />
+            <Component {...mockProps} setIsCartUpdating={setIsCartUpdating} />
         );
 
         expect(setIsCartUpdating).toHaveBeenLastCalledWith(true);
     });
-});
-
-test('sync quantity state using form api', () => {
-    const tree = createTestInstance(
-        <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-    );
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-    const { setFormApi } = talonProps;
-    const formApi = {
-        setValue: jest.fn()
-    };
-
-    act(() => {
-        setFormApi(formApi);
-    });
-
-    expect(formApi.setValue).toHaveBeenLastCalledWith('quantity', 5);
-
-    const newQuantityCartItem = {
-        ...cartItem,
-        quantity: 10
-    };
-
-    act(() => {
-        tree.update(
-            <Component
-                cartItem={newQuantityCartItem}
-                setIsCartUpdating={jest.fn()}
-            />
-        );
-    });
-
-    expect(formApi.setValue).toHaveBeenLastCalledWith('quantity', 10);
 });
 
 describe('form submission', () => {
@@ -167,9 +158,7 @@ describe('form submission', () => {
     });
 
     test('does nothing if values do not change', () => {
-        const tree = createTestInstance(
-            <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-        );
+        const tree = createTestInstance(<Component {...mockProps} />);
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
         const { handleSubmit } = talonProps;
@@ -184,9 +173,7 @@ describe('form submission', () => {
     });
 
     test('calls update quantity mutation when only quantity changes', async () => {
-        const tree = createTestInstance(
-            <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-        );
+        const tree = createTestInstance(<Component {...mockProps} />);
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
         const { handleSubmit } = talonProps;
@@ -203,9 +190,7 @@ describe('form submission', () => {
     test('calls configurable item mutation when options change', async () => {
         // since this test renders twice, we need to double up the mocked returns
         setupMockedReturns();
-        const tree = createTestInstance(
-            <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-        );
+        const tree = createTestInstance(<Component {...mockProps} />);
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
         const { handleOptionSelection } = talonProps;
@@ -225,4 +210,24 @@ describe('form submission', () => {
         expect(updateConfigurableOptions.mock.calls[0][0]).toMatchSnapshot();
         expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
+});
+
+test('does not close drawer on error', async () => {
+    const updateItemQuantity = jest.fn().mockRejectedValue('Apollo Error');
+    const closeDrawer = jest.fn();
+
+    useAppContext.mockReturnValueOnce([{}, { closeDrawer }]);
+    useMutation.mockReturnValueOnce([updateItemQuantity, {}]);
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleSubmit } = talonProps;
+
+    await act(async () => {
+        await handleSubmit({ quantity: 10 });
+    });
+
+    expect(updateItemQuantity).toHaveBeenCalled();
+    expect(closeDrawer).not.toHaveBeenCalled();
 });

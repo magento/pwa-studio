@@ -1,11 +1,13 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 import { ShippingInformationFragment } from './shippingInformationFragments.gql';
 import { ShippingMethodsCheckoutFragment } from '../ShippingMethod/shippingMethodFragments.gql';
+import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments';
+import { AvailablePaymentMethodsFragment } from '../PaymentInformation/paymentInformation.gql';
 
 export const GET_SHIPPING_INFORMATION = gql`
     query GetShippingInformation($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...ShippingInformationFragment
         }
@@ -34,11 +36,15 @@ export const SET_CUSTOMER_ADDRESS_ON_CART = gql`
                 id
                 ...ShippingInformationFragment
                 ...ShippingMethodsCheckoutFragment
+                ...PriceSummaryFragment
+                ...AvailablePaymentMethodsFragment
             }
         }
     }
     ${ShippingInformationFragment}
     ${ShippingMethodsCheckoutFragment}
+    ${PriceSummaryFragment}
+    ${AvailablePaymentMethodsFragment}
 `;
 
 export default {

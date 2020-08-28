@@ -25,7 +25,7 @@ const getRouteComponent = async (apiBase, pathname) => {
             throw new Error('404');
         }
 
-        const { type, id } = resolvedRoute;
+        const { type, id, redirectCode, relative_url } = resolvedRoute;
         // if resolution and destructuring succeed but return no match
         // then we have a straightforward 404 Not Found
         if (!type || !id) {
@@ -41,7 +41,9 @@ const getRouteComponent = async (apiBase, pathname) => {
             component,
             id,
             pathname,
-            type
+            type,
+            redirectCode,
+            relativeUrl: relative_url
         };
     } catch (e) {
         const routeError = e.message === '404' ? NOT_FOUND : INTERNAL_ERROR;

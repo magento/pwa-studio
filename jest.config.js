@@ -42,7 +42,6 @@ const testGlob = '/**/{src,lib,_buildpack}/**/__tests__/*.(test|spec).js';
 // Reusable test configuration for Venia UI and storefront packages.
 const testReactComponents = inPackage => ({
     // Expose jsdom to tests.
-    browser: true,
     moduleNameMapper: {
         // Mock binary files to avoid excess RAM usage.
         '\\.(jpg|jpeg|png)$':
@@ -52,7 +51,9 @@ const testReactComponents = inPackage => ({
         // This mapping forces CSS Modules to return literal identies,
         // so e.g. `classes.root` is always `"root"`.
         '\\.css$': 'identity-obj-proxy',
-        '\\.svg$': 'identity-obj-proxy'
+        '\\.svg$': 'identity-obj-proxy',
+        '@magento/venia-drivers':
+            '<rootDir>/packages/venia-ui/lib/drivers/index.js'
     },
     moduleFileExtensions: ['ee.js', 'ce.js', 'js', 'json', 'jsx', 'node'],
     // Reproduce the Webpack resolution config that lets Venia import
@@ -73,7 +74,7 @@ const testReactComponents = inPackage => ({
         // import `.graphql` files into JS.
         '\\.(gql|graphql)$': 'jest-transform-graphql',
         // Use the default babel-jest for everything else.
-        '\\.(js|css)$': 'babel-jest'
+        '\\.(jsx?|css)$': 'babel-jest'
     },
     // Normally babel-jest ignores node_modules and only transpiles the current
     // package's source. The below setting forces babel-jest to transpile
@@ -84,109 +85,63 @@ const testReactComponents = inPackage => ({
         'node_modules/(?!@magento|jarallax|video-worker/)'
     ],
     globals: {
-        UNION_AND_INTERFACE_TYPES: {
-            __schema: {
-                types: [
-                    {
-                        kind: 'INTERFACE',
-                        name: 'ProductInterface',
-                        possibleTypes: [
-                            { name: 'VirtualProduct' },
-                            { name: 'SimpleProduct' },
-                            { name: 'DownloadableProduct' },
-                            { name: 'BundleProduct' },
-                            { name: 'GiftCardProduct' },
-                            { name: 'GroupedProduct' },
-                            { name: 'ConfigurableProduct' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'MediaGalleryInterface',
-                        possibleTypes: [
-                            { name: 'ProductImage' },
-                            { name: 'ProductVideo' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'ProductLinksInterface',
-                        possibleTypes: [{ name: 'ProductLinks' }]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'CategoryInterface',
-                        possibleTypes: [{ name: 'CategoryTree' }]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'LayerFilterItemInterface',
-                        possibleTypes: [
-                            { name: 'LayerFilterItem' },
-                            { name: 'SwatchLayerFilterItem' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'PhysicalProductInterface',
-                        possibleTypes: [
-                            { name: 'SimpleProduct' },
-                            { name: 'BundleProduct' },
-                            { name: 'GiftCardProduct' },
-                            { name: 'GroupedProduct' },
-                            { name: 'ConfigurableProduct' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'CustomizableOptionInterface',
-                        possibleTypes: [
-                            { name: 'CustomizableAreaOption' },
-                            { name: 'CustomizableDateOption' },
-                            { name: 'CustomizableDropDownOption' },
-                            { name: 'CustomizableMultipleOption' },
-                            { name: 'CustomizableFieldOption' },
-                            { name: 'CustomizableFileOption' },
-                            { name: 'CustomizableRadioOption' },
-                            { name: 'CustomizableCheckboxOption' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'CustomizableProductInterface',
-                        possibleTypes: [
-                            { name: 'VirtualProduct' },
-                            { name: 'SimpleProduct' },
-                            { name: 'DownloadableProduct' },
-                            { name: 'BundleProduct' },
-                            { name: 'GiftCardProduct' },
-                            { name: 'ConfigurableProduct' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'CartItemInterface',
-                        possibleTypes: [
-                            { name: 'SimpleCartItem' },
-                            { name: 'VirtualCartItem' },
-                            { name: 'ConfigurableCartItem' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'CartAddressInterface',
-                        possibleTypes: [
-                            { name: 'ShippingCartAddress' },
-                            { name: 'BillingCartAddress' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'SwatchLayerFilterItemInterface',
-                        possibleTypes: [{ name: 'SwatchLayerFilterItem' }]
-                    }
-                ]
-            }
+        POSSIBLE_TYPES: {
+            CartAddressInterface: ['BillingCartAddress', 'ShippingCartAddress'],
+            CartItemInterface: [
+                'SimpleCartItem',
+                'VirtualCartItem',
+                'DownloadableCartItem',
+                'BundleCartItem',
+                'ConfigurableCartItem'
+            ],
+            ProductInterface: [
+                'VirtualProduct',
+                'SimpleProduct',
+                'DownloadableProduct',
+                'GiftCardProduct',
+                'BundleProduct',
+                'GroupedProduct',
+                'ConfigurableProduct'
+            ],
+            CategoryInterface: ['CategoryTree'],
+            MediaGalleryInterface: ['ProductImage', 'ProductVideo'],
+            ProductLinksInterface: ['ProductLinks'],
+            AggregationOptionInterface: ['AggregationOption'],
+            LayerFilterItemInterface: [
+                'LayerFilterItem',
+                'SwatchLayerFilterItem'
+            ],
+            PhysicalProductInterface: [
+                'SimpleProduct',
+                'GiftCardProduct',
+                'BundleProduct',
+                'GroupedProduct',
+                'ConfigurableProduct'
+            ],
+            CustomizableOptionInterface: [
+                'CustomizableAreaOption',
+                'CustomizableDateOption',
+                'CustomizableDropDownOption',
+                'CustomizableMultipleOption',
+                'CustomizableFieldOption',
+                'CustomizableFileOption',
+                'CustomizableRadioOption',
+                'CustomizableCheckboxOption'
+            ],
+            CustomizableProductInterface: [
+                'VirtualProduct',
+                'SimpleProduct',
+                'DownloadableProduct',
+                'GiftCardProduct',
+                'BundleProduct',
+                'ConfigurableProduct'
+            ],
+            SwatchDataInterface: [
+                'ImageSwatchData',
+                'TextSwatchData',
+                'ColorSwatchData'
+            ],
+            SwatchLayerFilterItemInterface: ['SwatchLayerFilterItem']
         },
         STORE_NAME: 'Venia'
     }
@@ -256,7 +211,6 @@ const jestConfig = {
         configureProject('pagebuilder', 'Pagebuilder', testReactComponents),
         configureProject('peregrine', 'Peregrine', inPackage => ({
             // Expose jsdom to tests.
-            browser: true,
             setupFiles: [
                 // Shim DOM properties not supported by jsdom
                 inPackage('scripts/shim.js'),
@@ -318,6 +272,7 @@ const jestConfig = {
         // Not node_modules
         '!**/node_modules/**',
         // Not __tests__, __helpers__, or __any_double_underscore_folders__
+        '!**/TestHelpers/**',
         '!**/__[[:alpha:]]*__/**',
         '!**/.*/__[[:alpha:]]*__/**',
         // Not this file itself

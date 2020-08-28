@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns correct shape 1`] = `
+Object {
+  "errors": Map {
+    "setShippingAddressMutation" => undefined,
+  },
+  "handleOnSubmit": [Function],
+  "handleZipChange": [Function],
+  "isSetShippingLoading": false,
+}
+`;
+
+exports[`returns errors and loading state from Apollo 1`] = `
+Object {
+  "errors": Map {
+    "setShippingAddressMutation" => "Apollo Error",
+  },
+  "handleOnSubmit": [Function],
+  "handleZipChange": [Function],
+  "isSetShippingLoading": true,
+}
+`;

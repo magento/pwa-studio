@@ -1,10 +1,12 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import { useApolloClient, useMutation } from '@apollo/client';
+
+import { useUserContext } from '../../../lib/context/user';
+import { useCartContext } from '../../../lib/context/cart';
+import { useAwaitQuery } from '../../../lib/hooks/useAwaitQuery';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import { retrieveCartId } from '../../store/actions/cart';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -16,7 +18,7 @@ import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCa
  * @param {String} createAccountQuery the graphql query for creating the account
  * @param {String} signInQuery the graphql query for logging in the user (and obtaining the token)
  * @returns {{
- *   errors: array,
+ *   errors: Map<String, Error>,
  *   handleSubmit: function,
  *   isDisabled: boolean,
  *   isSignedIn: boolean,
@@ -26,19 +28,24 @@ import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCa
 export const useCreateAccount = props => {
     const {
         queries: { createAccountQuery, customerQuery, getCartDetailsQuery },
-        mutations: { createCartMutation, signInMutation },
+        mutations: { createCartMutation, signInMutation, mergeCartsMutation },
         initialValues = {},
         onSubmit
     } = props;
     const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
+    const [
+        { cartId },
+        { createCart, removeCart, getCartDetails }
+    ] = useCartContext();
     const [
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
     ] = useUserContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
+
+    const [mergeCarts] = useMutation(mergeCartsMutation);
 
     // For create account and sign in mutations, we don't want to cache any
     // personally identifiable information (PII). So we set fetchPolicy to 'no-cache'.
@@ -48,6 +55,7 @@ export const useCreateAccount = props => {
             fetchPolicy: 'no-cache'
         }
     );
+
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
@@ -55,19 +63,14 @@ export const useCreateAccount = props => {
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
-    const errors = [];
-    if (createAccountError) {
-        errors.push(createAccountError.graphQLErrors[0]);
-    }
-    if (signInError) {
-        errors.push(signInError.graphQLErrors[0]);
-    }
-
     const handleSubmit = useCallback(
         async formValues => {
             setIsSubmitting(true);
             try {
-                // Try to create an account with the mutation.
+                // Get source cart id (guest cart id).
+                const sourceCartId = cartId;
+
+                // Create the account and then sign in.
                 await createAccount({
                     variables: {
                         email: formValues.customer.email,
@@ -77,32 +80,36 @@ export const useCreateAccount = props => {
                         is_subscribed: !!formValues.subscribe
                     }
                 });
-
-                // Sign in and save the token
-                const response = await signIn({
+                const signInResponse = await signIn({
                     variables: {
                         email: formValues.customer.email,
                         password: formValues.password
                     }
                 });
-
-                const token =
-                    response && response.data.generateCustomerToken.token;
-
+                const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
-                await getUserDetails({ fetchUserDetails });
 
-                // Then remove the old guest cart and get the cart id from gql.
-                // TODO: This logic may be replacable with mergeCart in 2.3.4
-                await removeCart();
-
+                // Clear all cart/customer data from cache and redux.
                 await clearCartDataFromCache(apolloClient);
                 await clearCustomerDataFromCache(apolloClient);
+                await removeCart();
 
+                // Create and get the customer's cart id.
                 await createCart({
                     fetchCartId
                 });
+                const destinationCartId = await retrieveCartId();
 
+                // Merge the guest cart into the customer cart.
+                await mergeCarts({
+                    variables: {
+                        destinationCartId,
+                        sourceCartId
+                    }
+                });
+
+                // Ensure old stores are updated with any new data.
+                await getUserDetails({ fetchUserDetails });
                 await getCartDetails({
                     fetchCartId,
                     fetchCartDetails
@@ -113,25 +120,27 @@ export const useCreateAccount = props => {
                     onSubmit();
                 }
             } catch (error) {
-                if (process.env.NODE_ENV === 'development') {
+                if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
                 }
                 setIsSubmitting(false);
             }
         },
         [
+            cartId,
             apolloClient,
+            removeCart,
             createAccount,
+            signIn,
+            setToken,
             createCart,
-            fetchCartDetails,
             fetchCartId,
+            mergeCarts,
+            getUserDetails,
             fetchUserDetails,
             getCartDetails,
-            getUserDetails,
-            onSubmit,
-            removeCart,
-            setToken,
-            signIn
+            fetchCartDetails,
+            onSubmit
         ]
     );
 
@@ -143,6 +152,15 @@ export const useCreateAccount = props => {
             ...rest
         };
     }, [initialValues]);
+
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['createAccountQuery', createAccountError],
+                ['signInMutation', signInError]
+            ]),
+        [createAccountError, signInError]
+    );
 
     return {
         errors,

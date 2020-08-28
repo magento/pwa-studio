@@ -100,7 +100,7 @@ const Dialog = props => {
                                 <Button
                                     disabled={shouldDisableAllButtons}
                                     onClick={onCancel}
-                                    priority="normal"
+                                    priority="low"
                                     type="reset"
                                 >
                                     {cancelText}

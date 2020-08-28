@@ -4,7 +4,7 @@ import {
     useApolloClient,
     useMutation,
     useQuery
-} from '@apollo/react-hooks';
+} from '@apollo/client';
 import { act } from 'react-test-renderer';
 
 import { useCheckoutPage, CHECKOUT_STEP } from '../useCheckoutPage';
@@ -12,12 +12,13 @@ import createTestInstance from '../../../util/createTestInstance';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
 import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
+import CheckoutError from '../CheckoutError';
 
 /**
  * Mocks
  */
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useLazyQuery: jest.fn(),
         useApolloClient: jest.fn(),
@@ -46,6 +47,16 @@ jest.mock('../../../context/cart', () => ({
 jest.mock('../../../Apollo/clearCartDataFromCache', () => ({
     clearCartDataFromCache: jest.fn()
 }));
+
+jest.mock('../CheckoutError', () => {
+    class CheckoutError extends Error {
+        constructor(props) {
+            super(props);
+        }
+    }
+
+    return CheckoutError;
+});
 
 /**
  * Constants
@@ -101,7 +112,8 @@ const placeOrderMutationResult = jest.fn().mockReturnValue([
     {
         error: null,
         loading: false,
-        data: null
+        data: null,
+        called: false
     }
 ]);
 
@@ -135,7 +147,7 @@ const getTalonProps = props => {
  * beforeAll
  */
 
-beforeAll(() => {
+beforeEach(() => {
     useQuery.mockImplementation(query => {
         if (query === getCheckoutDetailsQuery) {
             return getCheckoutDetailsQueryResult();
@@ -216,8 +228,18 @@ test('isLoading should be set to true if the customer details query is loading',
     expect(talonProps.isLoading).toBeTruthy();
 });
 
+test('returns cartItems from getOrderDetails query', () => {
+    const cartItems = ['item1', 'item2'];
+    getCheckoutDetailsQueryResult.mockReturnValueOnce({
+        data: { cart: { items: cartItems } }
+    });
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.cartItems).toEqual(cartItems);
+});
+
 test('returned error prop should be error from place order mutation', () => {
-    const error = 'some error';
+    const error = { gqlError: { message: 'some error' } };
     placeOrderMutationResult.mockReturnValueOnce([
         () => {},
         {
@@ -229,59 +251,63 @@ test('returned error prop should be error from place order mutation', () => {
 
     const { talonProps } = getTalonProps(props);
 
-    expect(talonProps.error).toBe(error);
+    expect(talonProps.error).toBeInstanceOf(CheckoutError);
 });
 
-describe('handlePlaceOrder', () => {
-    test('should get order details and place order', async () => {
-        useCartContext.mockReturnValueOnce([
-            { cartId: '123' },
-            { createCart: () => {}, removeCart: () => {} }
-        ]);
+test('should get order details when handlePlaceOrder called', () => {
+    useCartContext.mockReturnValueOnce([
+        { cartId: '123' },
+        { createCart: () => {}, removeCart: () => {} }
+    ]);
 
-        const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(props);
 
-        await talonProps.handlePlaceOrder();
-
-        expect(getOrderDetails).toHaveBeenCalledWith({
-            variables: { cartId: '123' }
-        });
-        expect(placeOrder).toHaveBeenCalledWith({
-            variables: { cartId: '123' }
-        });
+    act(() => {
+        talonProps.handlePlaceOrder();
     });
 
-    test('should remove and create new cart', async () => {
-        const createCart = jest.fn();
-        const removeCart = jest.fn();
-        const fetchCartId = jest.fn();
-        useCartContext.mockReturnValueOnce([
-            { cartId: '123' },
-            { createCart, removeCart }
-        ]);
-        createCartMutationResult.mockReturnValue([fetchCartId]);
+    expect(getOrderDetails).toHaveBeenCalledWith({
+        variables: { cartId: '123' }
+    });
+});
 
-        const { talonProps } = getTalonProps(props);
+test("should place order and cleanup when we have order details and place order hasn't been called yet", async () => {
+    const createCart = jest.fn();
+    const removeCart = jest.fn();
+    const fetchCartId = jest.fn();
 
-        await talonProps.handlePlaceOrder();
+    useCartContext.mockReturnValueOnce([
+        { cartId: '123' },
+        { createCart, removeCart }
+    ]);
+    createCartMutationResult.mockReturnValue([fetchCartId]);
 
-        expect(removeCart).toHaveBeenCalled();
-        expect(createCart).toHaveBeenCalledWith({ fetchCartId });
+    useLazyQuery.mockImplementation(() => {
+        return [jest.fn(), { data: {}, loading: false }];
     });
 
-    test('should clear cart data from cache', async () => {
-        const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(props);
 
+    await act(async () => {
         await talonProps.handlePlaceOrder();
-
-        expect(clearCartDataFromCache).toHaveBeenCalledWith(client);
     });
+
+    expect(placeOrder).toHaveBeenCalledWith({
+        variables: { cartId: '123' }
+    });
+    expect(removeCart).toHaveBeenCalled();
+    expect(clearCartDataFromCache).toHaveBeenCalled();
+    expect(createCart).toHaveBeenCalledWith({ fetchCartId });
 });
 
 test('hasError should be true if place order mutation failed with errors', () => {
     placeOrderMutationResult.mockReturnValueOnce([
         () => {},
-        { data: null, loading: false, error: 'some error' }
+        {
+            data: null,
+            loading: false,
+            error: { gqlError: { message: 'some error' } }
+        }
     ]);
 
     const { talonProps } = getTalonProps(props);

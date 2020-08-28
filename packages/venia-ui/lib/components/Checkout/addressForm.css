@@ -16,9 +16,9 @@
 /* fields */
 .textInput {
     background: white;
-    border: 1px solid rgb(var(--venia-text-alt));
+    border: 1px solid rgb(var(--venia-global-color-text-alt));
     border-radius: 2px;
-    color: rgb(var(--venia-text));
+    color: rgb(var(--venia-global-color-text));
     display: inline-flex;
     flex: 0 0 100%;
     font-size: 0.9375rem;
@@ -28,7 +28,7 @@
 }
 
 .textInput:focus {
-    border-color: rgb(var(--venia-text));
+    border-color: rgb(var(--venia-global-color-text));
     outline: 0 none;
 }
 

@@ -3,12 +3,13 @@
 exports[`Should return correct shape 1`] = `
 Object {
   "activeContent": "checkout",
+  "cartItems": Array [],
   "checkoutStep": 1,
   "customer": Object {
     "id": "goose123",
     "name": "gooseton",
   },
-  "error": null,
+  "error": undefined,
   "handlePlaceOrder": [Function],
   "handleReviewOrder": [Function],
   "handleSignIn": [Function],

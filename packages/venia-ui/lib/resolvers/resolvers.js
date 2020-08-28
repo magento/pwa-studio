@@ -1,6 +1,8 @@
-import { giftOptionsResolvers } from '../components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql';
-import { paymentInformationResolvers } from '../components/CheckoutPage/PaymentInformation/paymentInformation.gql';
+import { WishlistResolvers } from '../components/WishlistPage/wishlistPage.gql';
+
 /**
+ * @deprecated Resolvers are deprecated in ApolloClient v3.
+ *
  * Type resolvers are merged by the client so spread each resolver into a
  * separate object.
  *
@@ -24,7 +26,4 @@ import { paymentInformationResolvers } from '../components/CheckoutPage/PaymentI
  * ]
  */
 
-export default [
-    { ...paymentInformationResolvers },
-    { ...giftOptionsResolvers }
-];
+export default [{ ...WishlistResolvers }];

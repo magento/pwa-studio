@@ -1,17 +1,20 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
+import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments';
 
-// We disable linting for local fields because there is no way to add them to
-// the fetched schema.
-// https://github.com/apollographql/eslint-plugin-graphql/issues/99
-/* eslint-disable graphql/template-strings */
+export const AvailablePaymentMethodsFragment = gql`
+    fragment AvailablePaymentMethodsFragment on Cart {
+        id
+        available_payment_methods {
+            code
+            title
+        }
+    }
+`;
+
 export const GET_PAYMENT_INFORMATION = gql`
     query getPaymentInformation($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
-            available_payment_methods {
-                code
-                title
-            }
             selected_payment_method {
                 code
             }
@@ -29,6 +32,20 @@ export const GET_PAYMENT_INFORMATION = gql`
                 }
                 telephone
             }
+            ...AvailablePaymentMethodsFragment
+        }
+    }
+    ${AvailablePaymentMethodsFragment}
+`;
+// We disable linting for local fields because there is no way to add them to
+// the fetched schema.
+// https://github.com/apollographql/eslint-plugin-graphql/issues/99
+/* eslint-disable graphql/template-strings */
+export const GET_PAYMENT_NONCE = gql`
+    query getPaymentNonce($cartId: String!) {
+        cart(cart_id: $cartId) @client {
+            id
+            paymentNonce
         }
     }
 `;
@@ -80,9 +97,13 @@ export const SET_BILLING_ADDRESS = gql`
                     postcode
                     telephone
                 }
+                ...PriceSummaryFragment
+                ...AvailablePaymentMethodsFragment
             }
         }
     }
+    ${PriceSummaryFragment}
+    ${AvailablePaymentMethodsFragment}
 `;
 
 // Sets the provided payment method object on the cart.
@@ -102,43 +123,9 @@ export const SET_FREE_PAYMENT_METHOD_ON_CART = gql`
     }
 `;
 
-export const paymentInformationResolvers = {
-    Cart: {
-        paymentNonce: (cart, _, { cache }) => {
-            try {
-                const cacheData = cache.readQuery({
-                    query: GET_PAYMENT_NONCE
-                });
-                return cacheData.cart.paymentNonce || null;
-            } catch (err) {
-                // Normally you can rely on apollo's built-in behavior to
-                // resolve @client directives, but _only_ if you init the cache.
-                // This resolver and try-catch are just another way to handle
-                // not having initialized cache.
-                // See https://www.apollographql.com/docs/react/data/local-state/#querying-local-state
-                return null;
-            }
-        },
-        isBillingAddressSame: (cart, _, { cache }) => {
-            try {
-                const cacheData = cache.readQuery({
-                    query: GET_IS_BILLING_ADDRESS_SAME
-                });
-                return cacheData.cart.isBillingAddressSame || true;
-            } catch (err) {
-                // Normally you can rely on apollo's built-in behavior to
-                // resolve @client directives, but _only_ if you init the cache.
-                // This resolver and try-catch are just another way to handle
-                // not having initialized cache.
-                // See https://www.apollographql.com/docs/react/data/local-state/#querying-local-state
-                return true;
-            }
-        }
-    }
-};
-
 export default {
     queries: {
+        getPaymentNonceQuery: GET_PAYMENT_NONCE,
         getPaymentInformation: GET_PAYMENT_INFORMATION
     },
     mutations: {

@@ -6,17 +6,21 @@ import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentIn
 import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
 
-import summaryOperations from './summary.gql';
+import summaryOperations, { CUSTOM_TYPES } from './summary.gql';
 
 import defaultClasses from './summary.css';
 import LoadingIndicator from '../../LoadingIndicator';
+import LinkButton from '../../LinkButton';
 
 const Summary = props => {
     const { classes: propClasses, onEdit } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const talonProps = useSummary({ ...summaryOperations });
+    const talonProps = useSummary({
+        ...summaryOperations,
+        typePolicies: CUSTOM_TYPES
+    });
 
     const {
         billingAddress,
@@ -26,7 +30,7 @@ const Summary = props => {
         selectedPaymentMethod
     } = talonProps;
 
-    if (isLoading) {
+    if (isLoading && !selectedPaymentMethod) {
         return (
             <LoadingIndicator classes={{ root: classes.loading }}>
                 Fetching Payment Information
@@ -93,7 +97,7 @@ const Summary = props => {
             <div className={classes.root}>
                 <div className={classes.heading_container}>
                     <h5 className={classes.heading}>Payment Information</h5>
-                    <button
+                    <LinkButton
                         className={classes.edit_button}
                         onClick={onEdit}
                         type="button"
@@ -104,7 +108,7 @@ const Summary = props => {
                             classes={{ icon: classes.edit_icon }}
                         />
                         <span className={classes.edit_text}>{'Edit'}</span>
-                    </button>
+                    </LinkButton>
                 </div>
                 <div className={classes.card_details_container}>
                     <span className={classes.payment_type}>Credit Card</span>

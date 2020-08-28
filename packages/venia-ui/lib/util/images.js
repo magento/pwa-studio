@@ -30,7 +30,8 @@ export const generateUrl = (imageURL, mediaBase) => (width, height) =>
 export const generateUrlFromContainerWidth = (
     imageURL,
     containerWidth,
-    type = 'image-product'
+    type = 'image-product',
+    ratio = DEFAULT_WIDTH_TO_HEIGHT_RATIO
 ) => {
     const intrinsicWidth = window.devicePixelRatio * containerWidth;
 
@@ -51,15 +52,13 @@ export const generateUrlFromContainerWidth = (
         null
     );
 
-    return generateUrl(imageURL, type)(
-        actualWidth,
-        actualWidth / DEFAULT_WIDTH_TO_HEIGHT_RATIO
-    );
+    return generateUrl(imageURL, type)(actualWidth, actualWidth / ratio);
 };
 
-export const generateSrcset = (imageURL, type) => {
+export const generateSrcset = (imageURL, type, ratio) => {
     if (!imageURL || !type) return '';
 
+    const imageRatio = ratio || DEFAULT_WIDTH_TO_HEIGHT_RATIO;
     const generateSrcsetUrl = generateUrl(imageURL, type);
 
     return Array.from(imageWidths, ([, value]) => value)
@@ -67,7 +66,7 @@ export const generateSrcset = (imageURL, type) => {
             width =>
                 `${generateSrcsetUrl(
                     width,
-                    Math.round(width / DEFAULT_WIDTH_TO_HEIGHT_RATIO)
+                    Math.round(width / imageRatio)
                 )} ${width}w`
         )
         .join(',\n');

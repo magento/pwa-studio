@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "6.0.0",
+  "version": "7.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -29,9 +29,8 @@
     "wait-for-expect": "~1.2.0"
   },
   "peerDependencies": {
-    "@apollo/react-hooks": "~3.1.2",
+    "@apollo/client": "~3.1.2",
     "@babel/runtime": "~7.4.2",
-    "apollo-client": "~2.6.4",
     "informed": "~2.11.17",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -43,6 +42,12 @@
   "engines": {
     "node": ">=10.x",
     "yarn": ">=1.12.0"
+  },
+  "pwa-studio": {
+    "targets": {
+      "declare": "./lib/targets/peregrine-declare",
+      "intercept": "./lib/targets/peregrine-intercept"
+    }
   },
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",

@@ -36,6 +36,7 @@ jest.mock('@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage', () => {
 jest.mock('../../../classify');
 
 jest.mock('../../../components/Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
 jest.mock('../ItemsReview', () => 'ItemsReview');
 jest.mock('../OrderSummary', () => 'OrderSummary');
 jest.mock('../OrderConfirmationPage', () => 'OrderConfirmationPage');
@@ -47,6 +48,7 @@ jest.mock('../AddressBook', () => 'AddressBook');
 
 const defaultTalonProps = {
     activeContent: 'checkout',
+    cartItems: [],
     checkoutStep: 1,
     customer: null,
     error: false,
@@ -59,7 +61,7 @@ const defaultTalonProps = {
     isUpdating: false,
     orderDetailsData: null,
     orderDetailsLoading: false,
-    orderNumber: 1,
+    orderNumber: null,
     placeOrderLoading: false,
     setIsUpdating: jest.fn().mockName('setIsUpdating'),
     setShippingInformationDone: jest
@@ -87,7 +89,8 @@ describe('CheckoutPage', () => {
             ...defaultTalonProps,
             placeOrderLoading: false,
             hasError: false,
-            orderDetailsData: {}
+            orderDetailsData: {},
+            orderNumber: 1
         });
 
         const instance = createTestInstance(<CheckoutPage />);
@@ -101,7 +104,8 @@ describe('CheckoutPage', () => {
             checkoutStep: CHECKOUT_STEP.REVIEW,
             isUpdating: true,
             placeOrderLoading: true,
-            orderDetailsLoading: true
+            orderDetailsLoading: true,
+            orderNumber: null
         });
 
         const instance = createTestInstance(<CheckoutPage />);

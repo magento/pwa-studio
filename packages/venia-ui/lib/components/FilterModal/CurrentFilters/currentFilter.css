@@ -1,11 +1,18 @@
 .root {
     align-items: center;
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 4px;
+    background-color: rgb(var(--venia-global-color-gray-700));
+    border-radius: 6px;
+    color: rgb(var(--venia-global-color-gray-50));
     display: inline-grid;
+    font-weight: var(--venia-global-fontWeight-semibold);
     gap: 0.5rem;
     grid-auto-flow: column;
     justify-content: center;
-    padding: 0.5rem;
+    min-height: 2.5rem;
+    padding: 0.625rem 0.75rem 0.625rem 0.5rem;
     white-space: nowrap;
+}
+
+.root svg {
+    stroke: rgb(var(--venia-global-color-gray-50));
 }

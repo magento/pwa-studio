@@ -13,7 +13,7 @@ ReactTestInstance {
       "useEffect",
       "useCallback",
     ],
-    "_debugID": 63,
+    "_debugID": 45,
     "_debugIsCurrentlyTiming": false,
     "_debugNeedsRemount": false,
     "_debugOwner": null,
@@ -23,7 +23,7 @@ ReactTestInstance {
     "alternate": null,
     "child": FiberNode {
       "_debugHookTypes": null,
-      "_debugID": 64,
+      "_debugID": 46,
       "_debugIsCurrentlyTiming": false,
       "_debugNeedsRemount": false,
       "_debugOwner": [Circular],
@@ -33,7 +33,7 @@ ReactTestInstance {
       "alternate": null,
       "child": FiberNode {
         "_debugHookTypes": null,
-        "_debugID": 65,
+        "_debugID": 47,
         "_debugIsCurrentlyTiming": false,
         "_debugNeedsRemount": false,
         "_debugOwner": [Circular],
@@ -43,7 +43,7 @@ ReactTestInstance {
         "alternate": null,
         "child": FiberNode {
           "_debugHookTypes": null,
-          "_debugID": 66,
+          "_debugID": 48,
           "_debugIsCurrentlyTiming": false,
           "_debugNeedsRemount": false,
           "_debugOwner": [Circular],
@@ -53,7 +53,7 @@ ReactTestInstance {
           "alternate": null,
           "child": FiberNode {
             "_debugHookTypes": null,
-            "_debugID": 70,
+            "_debugID": 52,
             "_debugIsCurrentlyTiming": false,
             "_debugNeedsRemount": false,
             "_debugOwner": null,
@@ -113,7 +113,7 @@ ReactTestInstance {
           "selfBaseDuration": 0,
           "sibling": FiberNode {
             "_debugHookTypes": null,
-            "_debugID": 67,
+            "_debugID": 49,
             "_debugIsCurrentlyTiming": false,
             "_debugNeedsRemount": false,
             "_debugOwner": [Circular],
@@ -145,7 +145,7 @@ ReactTestInstance {
             "selfBaseDuration": 0,
             "sibling": FiberNode {
               "_debugHookTypes": null,
-              "_debugID": 68,
+              "_debugID": 50,
               "_debugIsCurrentlyTiming": false,
               "_debugNeedsRemount": false,
               "_debugOwner": [Circular],
@@ -155,7 +155,7 @@ ReactTestInstance {
               "alternate": null,
               "child": FiberNode {
                 "_debugHookTypes": null,
-                "_debugID": 71,
+                "_debugID": 53,
                 "_debugIsCurrentlyTiming": false,
                 "_debugNeedsRemount": false,
                 "_debugOwner": [Circular],
@@ -165,7 +165,7 @@ ReactTestInstance {
                 "alternate": null,
                 "child": FiberNode {
                   "_debugHookTypes": null,
-                  "_debugID": 72,
+                  "_debugID": 54,
                   "_debugIsCurrentlyTiming": false,
                   "_debugNeedsRemount": false,
                   "_debugOwner": [Circular],
@@ -334,7 +334,7 @@ ReactTestInstance {
               "selfBaseDuration": 0,
               "sibling": FiberNode {
                 "_debugHookTypes": null,
-                "_debugID": 69,
+                "_debugID": 51,
                 "_debugIsCurrentlyTiming": false,
                 "_debugNeedsRemount": false,
                 "_debugOwner": [Circular],
@@ -747,8 +747,27 @@ Debug: 1 1",
                   "type": "error",
                 },
               ],
+              Array [
+                Object {
+                  "icon": <Icon
+                    attrs={
+                      Object {
+                        "width": 18,
+                      }
+                    }
+                    src={[Function]}
+                  />,
+                  "message": "You are online.",
+                  "timeout": 3000,
+                  "type": "info",
+                },
+              ],
             ],
             "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
               Object {
                 "type": "return",
                 "value": undefined,
@@ -782,8 +801,27 @@ Debug: 1 1",
                     "type": "error",
                   },
                 ],
+                Array [
+                  Object {
+                    "icon": <Icon
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "You are online.",
+                    "timeout": 3000,
+                    "type": "info",
+                  },
+                ],
               ],
               "results": Array [
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
                 Object {
                   "type": "return",
                   "value": undefined,
@@ -817,8 +855,27 @@ Debug: 1 1",
                       "type": "error",
                     },
                   ],
+                  Array [
+                    Object {
+                      "icon": <Icon
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "You are online.",
+                      "timeout": 3000,
+                      "type": "info",
+                    },
+                  ],
                 ],
                 "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
                   Object {
                     "type": "return",
                     "value": undefined,
@@ -877,7 +934,7 @@ Debug: 1 1",
                     "deps": Array [
                       [Function],
                       [Function],
-                      false,
+                      true,
                       true,
                     ],
                     "destroy": undefined,
@@ -894,7 +951,7 @@ Debug: 1 1",
                     "deps": Array [
                       [Function],
                       [Function],
-                      false,
+                      true,
                       true,
                     ],
                     "destroy": undefined,
@@ -963,7 +1020,7 @@ Debug: 1 1",
     "ref": null,
     "return": FiberNode {
       "_debugHookTypes": null,
-      "_debugID": 61,
+      "_debugID": 43,
       "_debugIsCurrentlyTiming": false,
       "_debugNeedsRemount": false,
       "_debugOwner": null,
@@ -972,7 +1029,7 @@ Debug: 1 1",
       "actualStartTime": -1,
       "alternate": FiberNode {
         "_debugHookTypes": null,
-        "_debugID": 61,
+        "_debugID": 43,
         "_debugIsCurrentlyTiming": false,
         "_debugNeedsRemount": false,
         "_debugOwner": null,
@@ -1071,7 +1128,7 @@ Debug: 1 1",
           "firstBatch": null,
           "firstPendingTime": 0,
           "hydrate": false,
-          "interactionThreadID": 5,
+          "interactionThreadID": 4,
           "lastPendingTime": 0,
           "memoizedInteractions": Set {},
           "pendingChildren": null,
@@ -1251,7 +1308,7 @@ Debug: 1 1",
         "firstBatch": null,
         "firstPendingTime": 0,
         "hydrate": false,
-        "interactionThreadID": 5,
+        "interactionThreadID": 4,
         "lastPendingTime": 0,
         "memoizedInteractions": Set {},
         "pendingChildren": null,
@@ -1304,7 +1361,7 @@ Debug: 1 1",
         "deps": Array [
           [Function],
           [Function],
-          false,
+          true,
           true,
         ],
         "destroy": undefined,
@@ -1348,7 +1405,7 @@ ReactTestInstance {
       "useEffect",
       "useCallback",
     ],
-    "_debugID": 75,
+    "_debugID": 57,
     "_debugIsCurrentlyTiming": false,
     "_debugNeedsRemount": false,
     "_debugOwner": null,
@@ -1358,7 +1415,7 @@ ReactTestInstance {
     "alternate": null,
     "child": FiberNode {
       "_debugHookTypes": null,
-      "_debugID": 76,
+      "_debugID": 58,
       "_debugIsCurrentlyTiming": false,
       "_debugNeedsRemount": false,
       "_debugOwner": [Circular],
@@ -1368,7 +1425,7 @@ ReactTestInstance {
       "alternate": null,
       "child": FiberNode {
         "_debugHookTypes": null,
-        "_debugID": 77,
+        "_debugID": 59,
         "_debugIsCurrentlyTiming": false,
         "_debugNeedsRemount": false,
         "_debugOwner": [Circular],
@@ -1378,7 +1435,7 @@ ReactTestInstance {
         "alternate": null,
         "child": FiberNode {
           "_debugHookTypes": null,
-          "_debugID": 78,
+          "_debugID": 60,
           "_debugIsCurrentlyTiming": false,
           "_debugNeedsRemount": false,
           "_debugOwner": [Circular],
@@ -1388,7 +1445,7 @@ ReactTestInstance {
           "alternate": null,
           "child": FiberNode {
             "_debugHookTypes": null,
-            "_debugID": 84,
+            "_debugID": 65,
             "_debugIsCurrentlyTiming": false,
             "_debugNeedsRemount": false,
             "_debugOwner": null,
@@ -1448,7 +1505,7 @@ ReactTestInstance {
           "selfBaseDuration": 0,
           "sibling": FiberNode {
             "_debugHookTypes": null,
-            "_debugID": 79,
+            "_debugID": 61,
             "_debugIsCurrentlyTiming": false,
             "_debugNeedsRemount": false,
             "_debugOwner": [Circular],
@@ -1458,7 +1515,7 @@ ReactTestInstance {
             "alternate": null,
             "child": FiberNode {
               "_debugHookTypes": null,
-              "_debugID": 85,
+              "_debugID": 66,
               "_debugIsCurrentlyTiming": false,
               "_debugNeedsRemount": false,
               "_debugOwner": [Circular],
@@ -1536,14 +1593,6 @@ ReactTestInstance {
                           "props": Object {},
                           "rootContainerInstance": [Circular],
                           "tag": "INSTANCE",
-                          "type": "MiniCart",
-                        },
-                        Object {
-                          "children": Array [],
-                          "isHidden": false,
-                          "props": Object {},
-                          "rootContainerInstance": [Circular],
-                          "tag": "INSTANCE",
                           "type": "ToastContainer",
                         },
                       ],
@@ -1563,7 +1612,6 @@ ReactTestInstance {
                             isActive={false}
                           />,
                           <Navigation />,
-                          <MiniCart />,
                           <ToastContainer />,
                         ],
                       },
@@ -1608,7 +1656,7 @@ ReactTestInstance {
             "selfBaseDuration": 0,
             "sibling": FiberNode {
               "_debugHookTypes": null,
-              "_debugID": 80,
+              "_debugID": 62,
               "_debugIsCurrentlyTiming": false,
               "_debugNeedsRemount": false,
               "_debugOwner": [Circular],
@@ -1618,7 +1666,7 @@ ReactTestInstance {
               "alternate": null,
               "child": FiberNode {
                 "_debugHookTypes": null,
-                "_debugID": 86,
+                "_debugID": 67,
                 "_debugIsCurrentlyTiming": false,
                 "_debugNeedsRemount": false,
                 "_debugOwner": [Circular],
@@ -1628,7 +1676,7 @@ ReactTestInstance {
                 "alternate": null,
                 "child": FiberNode {
                   "_debugHookTypes": null,
-                  "_debugID": 87,
+                  "_debugID": 68,
                   "_debugIsCurrentlyTiming": false,
                   "_debugNeedsRemount": false,
                   "_debugOwner": [Circular],
@@ -1712,14 +1760,6 @@ ReactTestInstance {
                               "props": Object {},
                               "rootContainerInstance": [Circular],
                               "tag": "INSTANCE",
-                              "type": "MiniCart",
-                            },
-                            Object {
-                              "children": Array [],
-                              "isHidden": false,
-                              "props": Object {},
-                              "rootContainerInstance": [Circular],
-                              "tag": "INSTANCE",
                               "type": "ToastContainer",
                             },
                           ],
@@ -1739,7 +1779,6 @@ ReactTestInstance {
                                 isActive={false}
                               />,
                               <Navigation />,
-                              <MiniCart />,
                               <ToastContainer />,
                             ],
                           },
@@ -1833,7 +1872,7 @@ ReactTestInstance {
               "selfBaseDuration": 0,
               "sibling": FiberNode {
                 "_debugHookTypes": null,
-                "_debugID": 81,
+                "_debugID": 63,
                 "_debugIsCurrentlyTiming": false,
                 "_debugNeedsRemount": false,
                 "_debugOwner": [Circular],
@@ -1861,7 +1900,7 @@ ReactTestInstance {
                 "selfBaseDuration": 0,
                 "sibling": FiberNode {
                   "_debugHookTypes": null,
-                  "_debugID": 82,
+                  "_debugID": 64,
                   "_debugIsCurrentlyTiming": false,
                   "_debugNeedsRemount": false,
                   "_debugOwner": [Circular],
@@ -1873,7 +1912,7 @@ ReactTestInstance {
                   "childExpirationTime": 0,
                   "dependencies": null,
                   "effectTag": 0,
-                  "elementType": "MiniCart",
+                  "elementType": "ToastContainer",
                   "expirationTime": 0,
                   "firstEffect": null,
                   "index": 4,
@@ -1887,133 +1926,7 @@ ReactTestInstance {
                   "ref": null,
                   "return": [Circular],
                   "selfBaseDuration": 0,
-                  "sibling": FiberNode {
-                    "_debugHookTypes": null,
-                    "_debugID": 83,
-                    "_debugIsCurrentlyTiming": false,
-                    "_debugNeedsRemount": false,
-                    "_debugOwner": [Circular],
-                    "_debugSource": null,
-                    "actualDuration": 0,
-                    "actualStartTime": -1,
-                    "alternate": null,
-                    "child": null,
-                    "childExpirationTime": 0,
-                    "dependencies": null,
-                    "effectTag": 0,
-                    "elementType": "ToastContainer",
-                    "expirationTime": 0,
-                    "firstEffect": null,
-                    "index": 5,
-                    "key": null,
-                    "lastEffect": null,
-                    "memoizedProps": Object {},
-                    "memoizedState": null,
-                    "mode": 0,
-                    "nextEffect": null,
-                    "pendingProps": Object {},
-                    "ref": null,
-                    "return": [Circular],
-                    "selfBaseDuration": 0,
-                    "sibling": null,
-                    "stateNode": Object {
-                      "children": Array [],
-                      "isHidden": false,
-                      "props": Object {},
-                      "rootContainerInstance": Object {
-                        "children": Array [
-                          Object {
-                            "children": Array [
-                              Object {
-                                "isHidden": false,
-                                "tag": "TEXT",
-                                "text": "Title",
-                              },
-                              Object {
-                                "children": Array [
-                                  Object {
-                                    "children": Array [],
-                                    "isHidden": false,
-                                    "props": Object {},
-                                    "rootContainerInstance": [Circular],
-                                    "tag": "INSTANCE",
-                                    "type": "Routes",
-                                  },
-                                ],
-                                "isHidden": false,
-                                "props": Object {
-                                  "children": <Routes />,
-                                  "isMasked": false,
-                                },
-                                "rootContainerInstance": [Circular],
-                                "tag": "INSTANCE",
-                                "type": "Main",
-                              },
-                              Object {
-                                "children": Array [],
-                                "isHidden": false,
-                                "props": Object {
-                                  "className": undefined,
-                                  "onClick": [Function],
-                                },
-                                "rootContainerInstance": [Circular],
-                                "tag": "INSTANCE",
-                                "type": "button",
-                              },
-                              Object {
-                                "children": Array [],
-                                "isHidden": false,
-                                "props": Object {},
-                                "rootContainerInstance": [Circular],
-                                "tag": "INSTANCE",
-                                "type": "Navigation",
-                              },
-                              Object {
-                                "children": Array [],
-                                "isHidden": false,
-                                "props": Object {},
-                                "rootContainerInstance": [Circular],
-                                "tag": "INSTANCE",
-                                "type": "MiniCart",
-                              },
-                              [Circular],
-                            ],
-                            "isHidden": false,
-                            "props": Object {
-                              "children": Array [
-                                <Title>
-                                  Home Page - Venia
-                                </Title>,
-                                <Main
-                                  isMasked={false}
-                                >
-                                  <Routes />
-                                </Main>,
-                                <Classify(Mask)
-                                  dismiss={[Function]}
-                                  isActive={false}
-                                />,
-                                <Navigation />,
-                                <MiniCart />,
-                                <ToastContainer />,
-                              ],
-                            },
-                            "rootContainerInstance": [Circular],
-                            "tag": "INSTANCE",
-                            "type": "div",
-                          },
-                        ],
-                        "createNodeMock": [Function],
-                        "tag": "CONTAINER",
-                      },
-                      "tag": "INSTANCE",
-                      "type": "ToastContainer",
-                    },
-                    "tag": 5,
-                    "treeBaseDuration": 0,
-                    "type": "ToastContainer",
-                    "updateQueue": null,
-                  },
+                  "sibling": null,
                   "stateNode": Object {
                     "children": Array [],
                     "isHidden": false,
@@ -2067,14 +1980,6 @@ ReactTestInstance {
                               "type": "Navigation",
                             },
                             [Circular],
-                            Object {
-                              "children": Array [],
-                              "isHidden": false,
-                              "props": Object {},
-                              "rootContainerInstance": [Circular],
-                              "tag": "INSTANCE",
-                              "type": "ToastContainer",
-                            },
                           ],
                           "isHidden": false,
                           "props": Object {
@@ -2092,7 +1997,6 @@ ReactTestInstance {
                                 isActive={false}
                               />,
                               <Navigation />,
-                              <MiniCart />,
                               <ToastContainer />,
                             ],
                           },
@@ -2105,11 +2009,11 @@ ReactTestInstance {
                       "tag": "CONTAINER",
                     },
                     "tag": "INSTANCE",
-                    "type": "MiniCart",
+                    "type": "ToastContainer",
                   },
                   "tag": 5,
                   "treeBaseDuration": 0,
-                  "type": "MiniCart",
+                  "type": "ToastContainer",
                   "updateQueue": null,
                 },
                 "stateNode": Object {
@@ -2163,14 +2067,6 @@ ReactTestInstance {
                             "props": Object {},
                             "rootContainerInstance": [Circular],
                             "tag": "INSTANCE",
-                            "type": "MiniCart",
-                          },
-                          Object {
-                            "children": Array [],
-                            "isHidden": false,
-                            "props": Object {},
-                            "rootContainerInstance": [Circular],
-                            "tag": "INSTANCE",
                             "type": "ToastContainer",
                           },
                         ],
@@ -2190,7 +2086,6 @@ ReactTestInstance {
                               isActive={false}
                             />,
                             <Navigation />,
-                            <MiniCart />,
                             <ToastContainer />,
                           ],
                         },
@@ -2273,14 +2168,6 @@ ReactTestInstance {
                             "props": Object {},
                             "rootContainerInstance": [Circular],
                             "tag": "INSTANCE",
-                            "type": "MiniCart",
-                          },
-                          Object {
-                            "children": Array [],
-                            "isHidden": false,
-                            "props": Object {},
-                            "rootContainerInstance": [Circular],
-                            "tag": "INSTANCE",
                             "type": "ToastContainer",
                           },
                         ],
@@ -2300,7 +2187,6 @@ ReactTestInstance {
                               isActive={false}
                             />,
                             <Navigation />,
-                            <MiniCart />,
                             <ToastContainer />,
                           ],
                         },
@@ -2356,14 +2242,6 @@ ReactTestInstance {
                         "props": Object {},
                         "rootContainerInstance": [Circular],
                         "tag": "INSTANCE",
-                        "type": "MiniCart",
-                      },
-                      Object {
-                        "children": Array [],
-                        "isHidden": false,
-                        "props": Object {},
-                        "rootContainerInstance": [Circular],
-                        "tag": "INSTANCE",
                         "type": "ToastContainer",
                       },
                     ],
@@ -2383,7 +2261,6 @@ ReactTestInstance {
                           isActive={false}
                         />,
                         <Navigation />,
-                        <MiniCart />,
                         <ToastContainer />,
                       ],
                     },
@@ -2433,7 +2310,6 @@ ReactTestInstance {
               isActive={false}
             />,
             <Navigation />,
-            <MiniCart />,
             <ToastContainer />,
           ],
         },
@@ -2455,7 +2331,6 @@ ReactTestInstance {
               isActive={false}
             />,
             <Navigation />,
-            <MiniCart />,
             <ToastContainer />,
           ],
         },
@@ -2545,20 +2420,6 @@ ReactTestInstance {
                 "tag": "CONTAINER",
               },
               "tag": "INSTANCE",
-              "type": "MiniCart",
-            },
-            Object {
-              "children": Array [],
-              "isHidden": false,
-              "props": Object {},
-              "rootContainerInstance": Object {
-                "children": Array [
-                  [Circular],
-                ],
-                "createNodeMock": [Function],
-                "tag": "CONTAINER",
-              },
-              "tag": "INSTANCE",
               "type": "ToastContainer",
             },
           ],
@@ -2578,7 +2439,6 @@ ReactTestInstance {
                 isActive={false}
               />,
               <Navigation />,
-              <MiniCart />,
               <ToastContainer />,
             ],
           },
@@ -2621,7 +2481,6 @@ ReactTestInstance {
             isActive={false}
           />,
           <Navigation />,
-          <MiniCart />,
           <ToastContainer />,
         ],
       },
@@ -2643,7 +2502,6 @@ ReactTestInstance {
             isActive={false}
           />,
           <Navigation />,
-          <MiniCart />,
           <ToastContainer />,
         ],
       },
@@ -2908,7 +2766,7 @@ Debug: undefined undefined",
     "ref": null,
     "return": FiberNode {
       "_debugHookTypes": null,
-      "_debugID": 73,
+      "_debugID": 55,
       "_debugIsCurrentlyTiming": false,
       "_debugNeedsRemount": false,
       "_debugOwner": null,
@@ -2917,7 +2775,7 @@ Debug: undefined undefined",
       "actualStartTime": -1,
       "alternate": FiberNode {
         "_debugHookTypes": null,
-        "_debugID": 73,
+        "_debugID": 55,
         "_debugIsCurrentlyTiming": false,
         "_debugNeedsRemount": false,
         "_debugOwner": null,
@@ -3001,14 +2859,6 @@ Debug: undefined undefined",
                     "props": Object {},
                     "rootContainerInstance": [Circular],
                     "tag": "INSTANCE",
-                    "type": "MiniCart",
-                  },
-                  Object {
-                    "children": Array [],
-                    "isHidden": false,
-                    "props": Object {},
-                    "rootContainerInstance": [Circular],
-                    "tag": "INSTANCE",
                     "type": "ToastContainer",
                   },
                 ],
@@ -3028,7 +2878,6 @@ Debug: undefined undefined",
                       isActive={false}
                     />,
                     <Navigation />,
-                    <MiniCart />,
                     <ToastContainer />,
                   ],
                 },
@@ -3047,7 +2896,7 @@ Debug: undefined undefined",
           "firstBatch": null,
           "firstPendingTime": 0,
           "hydrate": false,
-          "interactionThreadID": 6,
+          "interactionThreadID": 5,
           "lastPendingTime": 0,
           "memoizedInteractions": Set {},
           "pendingChildren": null,
@@ -3230,14 +3079,6 @@ Debug: undefined undefined",
                   "props": Object {},
                   "rootContainerInstance": [Circular],
                   "tag": "INSTANCE",
-                  "type": "MiniCart",
-                },
-                Object {
-                  "children": Array [],
-                  "isHidden": false,
-                  "props": Object {},
-                  "rootContainerInstance": [Circular],
-                  "tag": "INSTANCE",
                   "type": "ToastContainer",
                 },
               ],
@@ -3257,7 +3098,6 @@ Debug: undefined undefined",
                     isActive={false}
                   />,
                   <Navigation />,
-                  <MiniCart />,
                   <ToastContainer />,
                 ],
               },
@@ -3276,7 +3116,7 @@ Debug: undefined undefined",
         "firstBatch": null,
         "firstPendingTime": 0,
         "hydrate": false,
-        "interactionThreadID": 6,
+        "interactionThreadID": 5,
         "lastPendingTime": 0,
         "memoizedInteractions": Set {},
         "pendingChildren": null,

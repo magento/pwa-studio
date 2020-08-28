@@ -1,25 +1,42 @@
-import { useCallback } from 'react';
-import { useUserContext } from '../../context/user';
+import { useCallback, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
-const DEFAULT_TITLE = 'My Account';
-const UNAUTHED_TITLE = 'Signing Out';
-const UNAUTHED_SUBTITLE = 'Please wait...';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
+/**
+ * The useMyAccount talon complements the MyAccount component.
+ *
+ * @param {Object}      props
+ * @param {Function}    props.onSignOut - a function to call when the user signs out.
+ *
+ * @returns {Object}    result
+ * @returns {Function}  result.handleSignOut - A callback function to attach to the sign out button.
+ */
 export const useMyAccount = props => {
     const { onSignOut } = props;
-    const [{ currentUser }] = useUserContext();
-    const { email, firstname, lastname } = currentUser;
-    const name = `${firstname} ${lastname}`.trim() || DEFAULT_TITLE;
-    const title = email ? name : UNAUTHED_TITLE;
-    const subtitle = email ? email : UNAUTHED_SUBTITLE;
+
+    const [, { closeDrawer }] = useAppContext();
+    const location = useLocation();
+    const shouldCloseDrawer = useRef(false);
 
     const handleSignOut = useCallback(() => {
+        closeDrawer();
         onSignOut();
-    }, [onSignOut]);
+    }, [closeDrawer, onSignOut]);
+
+    // Whenever the page changes, close the drawer.
+    useEffect(() => {
+        // The very first time MyAccount renders, this effect is fired.
+        // Don't close the drawer on that occasion, but do so every time
+        // location changes thereafter.
+        if (shouldCloseDrawer.current) {
+            closeDrawer();
+        } else {
+            shouldCloseDrawer.current = true;
+        }
+    }, [closeDrawer, location.key]);
 
     return {
-        handleSignOut,
-        subtitle,
-        title
+        handleSignOut
     };
 };

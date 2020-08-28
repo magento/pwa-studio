@@ -1,4 +1,4 @@
-query productDetail($urlKey: String, $onServer: Boolean!) {
+query productDetail($urlKey: String) {
     productDetail: products(filter: { url_key: { eq: $urlKey } }) {
         items {
             __typename
@@ -19,9 +19,9 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                 disabled
                 file
             }
-            meta_title @include(if: $onServer)
-            meta_keyword @include(if: $onServer)
-            meta_description @include(if: $onServer)
+            meta_title
+            meta_keyword
+            meta_description
         }
     }
 }

@@ -1,0 +1,18 @@
+.options {
+    font-size: 13px;
+    grid-area: options;
+    line-height: 1.5;
+    margin-top: 0.25rem;
+    max-height: 54px;
+    overflow-y: auto;
+}
+
+.optionLabel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+}
+
+.optionValue {
+    margin-left: 0.25rem;
+}

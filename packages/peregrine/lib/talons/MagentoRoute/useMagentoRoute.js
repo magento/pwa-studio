@@ -1,54 +1,45 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useApolloClient } from '@apollo/client';
 
 import addToCache from './addToCache';
 import getRouteComponent from './getRouteComponent';
 
-const IS_LOADING = { isLoading: true };
+const CODE_PERMANENT_REDIRECT = 301;
+const CODE_TEMPORARY_REDIRECT = 302;
+const REDIRECT_CODES = [CODE_PERMANENT_REDIRECT, CODE_TEMPORARY_REDIRECT];
+
+const talonResponses = {
+    ERROR: routeError => ({ hasError: true, routeError }),
+    LOADING: { isLoading: true },
+    NOT_FOUND: { isNotFound: true },
+    FOUND: (component, id, type) => ({ component, id, type }),
+    REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
+};
+
+const shouldFetch = data => {
+    // Should fetch if we don't have any data.
+    if (!data) return true;
+
+    // Should fetch again following a prior failure.
+    if (data.isNotFound && navigator.onLine) {
+        return true;
+    }
+
+    return false;
+};
 
 export const useMagentoRoute = () => {
     const [componentMap, setComponentMap] = useState(new Map());
     const { apiBase } = useApolloClient();
+    const history = useHistory();
     const { pathname } = useLocation();
     const isMountedRef = useRef(false);
 
     const routeData = componentMap.get(pathname);
 
-    // ask Magento for a RootComponent that matches the current pathname
-    useEffect(() => {
-        // avoid asking if we already know the answer
-        const isKnown = componentMap.has(pathname);
-
-        // ask again following a prior failure
-        const isNotFound = isKnown && componentMap.get(pathname).id === -1;
-        const shouldReload = isNotFound && navigator.onLine;
-
-        if (!isKnown || shouldReload) {
-            getRouteComponent(apiBase, pathname).then(
-                ({ component, id, pathname, type,routeError }) => {
-                    // avoid setting state if unmounted
-                    if (!isMountedRef.current) {
-                        return;
-                    }
-
-                    // add the pathname to the browser cache
-                    addToCache(pathname);
-
-                    // then add the pathname and result to local state
-                    setComponentMap(prevMap => {
-                        const nextMap = new Map(prevMap);
-                        const nextValue = routeError
-                            ? { hasError: true, routeError }
-                            : { component, id ,type};
-
-                        return nextMap.set(pathname, nextValue);
-                    });
-                }
-            );
-        }
-    }, [apiBase, componentMap, pathname]);
-
+    // Keep track of whether we have been mounted yet.
+    // Note that we are not unmounted on page transitions.
     useEffect(() => {
         isMountedRef.current = true;
 
@@ -57,5 +48,52 @@ export const useMagentoRoute = () => {
         };
     }, []);
 
-    return routeData || IS_LOADING;
+    // If the entry for this pathname is a redirect, perform the redirect.
+    useEffect(() => {
+        if (routeData && routeData.isRedirect) {
+            history.replace(routeData.relativeUrl);
+        }
+    }, [componentMap, history, pathname, routeData]);
+
+    // ask Magento for a RootComponent that matches the current pathname
+    useEffect(() => {
+        // Avoid setting state if unmounted.
+        if (!isMountedRef.current) {
+            return;
+        }
+
+        if (shouldFetch(routeData)) {
+            getRouteComponent(apiBase, pathname).then(
+                ({
+                    component,
+                    id,
+                    pathname,
+                    redirectCode,
+                    relativeUrl,
+                    routeError,
+                    type
+                }) => {
+                    // add the pathname to the browser cache
+                    addToCache(pathname);
+
+                    // Update our Map in local state for this path.
+                    setComponentMap(prevMap => {
+                        const nextMap = new Map(prevMap);
+
+                        const nextValue = routeError
+                            ? talonResponses.ERROR(routeError)
+                            : id === -1
+                            ? talonResponses.NOT_FOUND
+                            : REDIRECT_CODES.includes(redirectCode)
+                            ? talonResponses.REDIRECT(relativeUrl)
+                            : talonResponses.FOUND(component, id, type);
+
+                        return nextMap.set(pathname, nextValue);
+                    });
+                }
+            );
+        }
+    }, [apiBase, componentMap, history, pathname, routeData]);
+
+    return routeData || talonResponses.LOADING;
 };

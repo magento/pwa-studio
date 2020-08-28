@@ -1,20 +1,20 @@
 .root {
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 5px;
-    padding: 1.5rem 1rem;
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    padding: 2rem;
 }
 
 .root_editMode {
     composes: root;
     border: none;
     border-radius: 0px;
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray-400));
     padding: 0;
 }
 
 .root_updated {
     composes: root;
-    animation: flash var(--venia-anim-bounce) 640ms 2;
+    animation: flash var(--venia-global-anim-bounce) 640ms 2;
 }
 
 .cardHeader {
@@ -27,8 +27,16 @@
     font-weight: 600;
 }
 
+.editButton {
+    padding: 1rem;
+    margin: -1rem;
+    color: rgb(var(--venia-brand-color-1-700));
+}
+
 .editWrapper {
+    display: grid;
     padding: 1rem 0 1.5rem;
+    row-gap: 0.5rem;
 }
 
 .editTitle {
@@ -36,10 +44,8 @@
     text-transform: uppercase;
 }
 
-.editText {
-    line-height: 1;
-    padding-left: 0.5rem;
-    vertical-align: top;
+.editIcon {
+    stroke: rgb(var(--venia-brand-color-1-700));
 }
 
 .loading {

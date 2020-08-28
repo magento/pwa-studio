@@ -1,6 +1,6 @@
 import React from 'react';
 import { array, func, oneOfType, shape, string } from 'prop-types';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { mergeClasses } from '../../classify';
 import Block from './block';

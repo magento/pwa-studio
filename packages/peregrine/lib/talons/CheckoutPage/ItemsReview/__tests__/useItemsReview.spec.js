@@ -1,12 +1,12 @@
 import React from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 
 import createTestInstance from '../../../../../lib/util/createTestInstance';
 import { useItemsReview } from '../useItemsReview';
 
 import cartItems from '../__fixtures__/cartItems';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useLazyQuery: jest.fn().mockReturnValue([
         () => {},
         {

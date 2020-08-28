@@ -15,6 +15,7 @@ import { mergeClasses } from '../../../classify';
 import creditCardPaymentOperations from './creditCard.gql';
 
 import defaultClasses from './creditCard.css';
+import FormError from '../../FormError';
 
 const STEP_DESCRIPTIONS = [
     'Loading Payment',
@@ -46,13 +47,13 @@ const CreditCard = props => {
     });
 
     const {
+        errors,
         shouldRequestPaymentNonce,
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady,
         isBillingAddressSame,
         isLoading,
-        errors,
         /**
          * `stepNumber` depicts the state of the process flow in credit card
          * payment flow.
@@ -100,22 +101,6 @@ const CreditCard = props => {
         }, {});
     }, [classes]);
 
-    const errorMessage = useMemo(() => {
-        if (errors.length) {
-            return (
-                <div className={classes.errors_container}>
-                    {errors.map(error => (
-                        <span className={classes.error} key={error}>
-                            {error}
-                        </span>
-                    ))}
-                </div>
-            );
-        } else {
-            return null;
-        }
-    }, [errors, classes.error, classes.errors_container]);
-
     /**
      * These 2 functions are wrappers around the `isRequired` function
      * of `formValidators`. They perform validations only if the
@@ -148,6 +133,10 @@ const CreditCard = props => {
     return (
         <div className={classes.root}>
             <div className={creditCardComponentClassName}>
+                <FormError
+                    classes={{ root: classes.formErrorContainer }}
+                    errors={Array.from(errors.values())}
+                />
                 <div className={classes.dropin_root}>
                     <BrainTreeDropin
                         onError={onPaymentError}
@@ -204,6 +193,7 @@ const CreditCard = props => {
                     <Field
                         classes={fieldClasses.street2}
                         label="Street Address 2"
+                        optional={true}
                     >
                         <TextInput
                             field="street2"
@@ -244,7 +234,6 @@ const CreditCard = props => {
                         />
                     </Field>
                 </div>
-                {errorMessage}
             </div>
             {loadingIndicator}
         </div>

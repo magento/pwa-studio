@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useFieldState } from 'informed';
 
 import { useCartContext } from '../../../context/cart';
@@ -9,6 +9,7 @@ export const usePaymentMethods = props => {
     const [{ cartId }] = useCartContext();
 
     const { data, loading } = useQuery(getPaymentMethodsQuery, {
+        skip: !cartId,
         variables: { cartId }
     });
 

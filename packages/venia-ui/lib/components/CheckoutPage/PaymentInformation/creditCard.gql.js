@@ -1,32 +1,35 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
+
+import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments';
+import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
 
 // We disable linting for local fields because there is no way to add them to
 // the fetched schema. Additionally, since we don't want to make a network call
 // for "id" we disable "required-fields"
 // https://github.com/apollographql/eslint-plugin-graphql/issues/99
 /* eslint-disable graphql/template-strings */
-/* eslint-disable graphql/required-fields */
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
-            isBillingAddressSame @client
+        cart(cart_id: $cartId) @client {
+            id
+            isBillingAddressSame
         }
     }
 `;
 
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
-            paymentNonce @client
+        cart(cart_id: $cartId) @client {
+            id
+            paymentNonce
         }
     }
 `;
 /* eslint-enable graphql/template-strings */
-/* eslint-disable graphql/required-fields */
 
 export const GET_BILLING_ADDRESS = gql`
     query getBillingAddress($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             billingAddress: billing_address {
                 firstName: firstname
@@ -48,7 +51,7 @@ export const GET_BILLING_ADDRESS = gql`
 
 export const GET_SHIPPING_ADDRESS = gql`
     query getSelectedShippingAddress($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             shippingAddresses: shipping_addresses {
                 firstName: firstname
@@ -115,9 +118,13 @@ export const SET_BILLING_ADDRESS = gql`
                     postcode
                     telephone
                 }
+                ...PriceSummaryFragment
+                ...AvailablePaymentMethodsFragment
             }
         }
     }
+    ${PriceSummaryFragment}
+    ${AvailablePaymentMethodsFragment}
 `;
 
 export const SET_CC_DETAILS_ON_CART = gql`

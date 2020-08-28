@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useCallback, useMemo } from 'react';
+import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../../context/cart';
 
@@ -13,7 +13,7 @@ export const useGuestForm = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const [setGuestShipping, { loading }] = useMutation(
+    const [setGuestShipping, { error, loading }] = useMutation(
         setGuestShippingMutation
     );
 
@@ -44,8 +44,8 @@ export const useGuestForm = props => {
                         }
                     }
                 });
-            } catch (error) {
-                console.error(error);
+            } catch {
+                return;
             }
 
             if (afterSubmit) {
@@ -59,7 +59,13 @@ export const useGuestForm = props => {
         onCancel();
     }, [onCancel]);
 
+    const errors = useMemo(
+        () => new Map([['setGuestShippingMutation', error]]),
+        [error]
+    );
+
     return {
+        errors,
         handleCancel,
         handleSubmit,
         initialValues,

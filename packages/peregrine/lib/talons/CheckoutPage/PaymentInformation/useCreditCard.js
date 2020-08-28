@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
-import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
 
@@ -48,13 +48,13 @@ export const mapAddressData = rawAddressData => {
  * @param {DocumentNode} props.mutations.setCreditCardDetailsOnCartMutation mutation to update payment method and payment nonce on the cart
  *
  * @returns {
+ *   errors: Map<String, Error>,
  *   shouldRequestPaymentNonce: Boolean,
  *   onPaymentError: Function,
  *   onPaymentSuccess: Function,
  *   onPaymentReady: Function,
  *   isBillingAddressSame: Boolean,
  *   isLoading: Boolean,
- *   errors: Array<String>,
  *   stepNumber: Number,
  *   initialValues: {
  *      firstName: String,
@@ -125,27 +125,30 @@ export const useCreditCard = props => {
     const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 3);
 
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
+        skip: !cartId,
         variables: { cartId }
     });
     const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
+        skip: !cartId,
         variables: { cartId }
     });
     const { data: isBillingAddressSameData } = useQuery(
         getIsBillingAddressSameQuery,
-        { variables: { cartId } }
+        { skip: !cartId, variables: { cartId } }
     );
     const [
         updateBillingAddress,
         {
-            error: billingAddressMutationErrors,
+            error: billingAddressMutationError,
             called: billingAddressMutationCalled,
             loading: billingAddressMutationLoading
         }
     ] = useMutation(setBillingAddressMutation);
+
     const [
         updateCCDetails,
         {
-            error: ccMutationErrors,
+            error: ccMutationError,
             called: ccMutationCalled,
             loading: ccMutationLoading
         }
@@ -179,28 +182,6 @@ export const useCreditCard = props => {
 
         return { isBillingAddressSame, ...billingAddress };
     }, [isBillingAddressSameData, billingAddressData]);
-
-    const errors = useMemo(() => {
-        const errors = [];
-
-        if (ccMutationErrors && ccMutationErrors.graphQLErrors) {
-            ccMutationErrors.graphQLErrors.forEach(({ message }) => {
-                errors.push(message);
-            });
-        }
-        if (
-            billingAddressMutationErrors &&
-            billingAddressMutationErrors.graphQLErrors
-        ) {
-            billingAddressMutationErrors.graphQLErrors.forEach(
-                ({ message }) => {
-                    errors.push(message);
-                }
-            );
-        }
-
-        return errors;
-    }, [ccMutationErrors, billingAddressMutationErrors]);
 
     /**
      * Helpers
@@ -446,7 +427,7 @@ export const useCreditCard = props => {
 
             if (
                 billingAddressMutationCompleted &&
-                !billingAddressMutationErrors
+                !billingAddressMutationError
             ) {
                 /**
                  * Billing address save mutation is successful
@@ -458,7 +439,7 @@ export const useCreditCard = props => {
 
             if (
                 billingAddressMutationCompleted &&
-                billingAddressMutationErrors
+                billingAddressMutationError
             ) {
                 /**
                  * Billing address save mutation is not successful.
@@ -473,7 +454,7 @@ export const useCreditCard = props => {
             setShouldRequestPaymentNonce(false);
         }
     }, [
-        billingAddressMutationErrors,
+        billingAddressMutationError,
         billingAddressMutationCalled,
         billingAddressMutationLoading,
         resetShouldSubmit
@@ -494,7 +475,7 @@ export const useCreditCard = props => {
         try {
             const ccMutationCompleted = ccMutationCalled && !ccMutationLoading;
 
-            if (ccMutationCompleted && errors.length === 0) {
+            if (ccMutationCompleted && !ccMutationError) {
                 if (onSuccess) {
                     onSuccess();
                 }
@@ -502,7 +483,7 @@ export const useCreditCard = props => {
                 setStepNumber(4);
             }
 
-            if (ccMutationCompleted && errors.length) {
+            if (ccMutationCompleted && ccMutationError) {
                 /**
                  * If credit card mutation failed, reset update button clicked so the
                  * user can click again and set `stepNumber` to 0.
@@ -519,19 +500,28 @@ export const useCreditCard = props => {
     }, [
         ccMutationCalled,
         ccMutationLoading,
-        errors,
         onSuccess,
         setShouldRequestPaymentNonce,
-        resetShouldSubmit
+        resetShouldSubmit,
+        ccMutationError
     ]);
 
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['setBillingAddressMutation', billingAddressMutationError],
+                ['setCreditCardDetailsOnCartMutation', ccMutationError]
+            ]),
+        [billingAddressMutationError, ccMutationError]
+    );
+
     return {
+        errors,
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady,
         isBillingAddressSame,
         isLoading,
-        errors,
         shouldRequestPaymentNonce,
         stepNumber,
         initialValues,

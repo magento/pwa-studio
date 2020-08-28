@@ -1,45 +1,56 @@
 .root {
     align-items: center;
-    color: rgb(var(--venia-text));
-    display: inline-grid;
-    font-size: 1rem;
-    font-weight: 400;
-    gap: 0.5rem;
+    color: rgb(var(--venia-global-color-gray-900));
+    display: grid;
+    gap: 0.75rem;
     grid-auto-flow: column;
-    grid-template-columns: auto min-content;
-    margin: 0.5rem;
-    vertical-align: top;
+    grid-template-areas: 'input label';
+    grid-template-columns: min-content 1fr;
+    margin: 0;
+    justify-items: center;
+    line-height: 1.5rem;
 }
 
 .input {
+    -webkit-appearance: none;
     background: none;
     background-clip: content-box;
-    border: 1px solid rgb(var(--venia-text-alt));
+    border: 7px solid transparent;
     border-radius: 50%;
-    height: 1.25rem;
+    grid-area: input;
+    height: 1.5rem;
     margin: 0;
-    padding: 5px;
-    position: relative;
-    width: 1.25rem;
-    -webkit-appearance: none;
+    width: 1.5rem;
+    z-index: 2;
 }
 
-.input:checked {
-    background-color: rgb(var(--venia-text));
-    border-color: rgb(var(--venia-text));
+.icon {
+    grid-area: input;
+    height: 1.5rem;
+    width: 1.5rem;
+    z-index: 1;
 }
 
-.input:focus {
-    border-color: rgb(var(--venia-teal));
-    box-shadow: 0 0 0 2px rgb(var(--venia-teal-light)),
-        0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
-    outline: none;
+.icon svg {
+    stroke: rgb(var(--venia-global-color-gray-600));
 }
 
 .label {
-    align-items: center;
-    color: currentColor;
-    display: inline-flex;
-    font-size: 1rem;
-    line-height: 1rem;
+    font-size: var(--venia-typography-body-S-fontSize);
+    grid-area: label;
+    justify-self: start;
+}
+
+.input:checked {
+    background-color: rgb(var(--venia-brand-color-1-700));
+}
+
+.input:checked + .icon svg {
+    stroke: rgb(var(--venia-brand-color-1-700));
+}
+
+.input:active,
+.input:focus {
+    box-shadow: -3px 3px rgb(var(--venia-brand-color-1-100));
+    outline: none;
 }

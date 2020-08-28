@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import CartContextProvider, { useCartContext } from '../cart';
+jest.mock('@apollo/client', () => ({
+    useApolloClient: jest.fn(),
+    useMutation: jest.fn(() => [jest.fn()])
+}));
 
 jest.mock('react-redux', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
@@ -56,9 +60,13 @@ test('mapDispatchToProps maps dispatch to props', () => {
 
 test('renders children', () => {
     const { Component } = CartContextProvider;
+    const props = {
+        asyncActions: { getCartDetails: jest.fn() }
+    };
+
     const symbol = Symbol();
     const { root } = createTestInstance(
-        <Component>
+        <Component {...props}>
             <i symbol={symbol} />
         </Component>
     );
@@ -71,7 +79,7 @@ test('provides state and actions via context', () => {
     const props = {
         actions: { one: 'one' },
         cartState: { details: {} },
-        asyncActions: { one: 'one', two: 'two' }
+        asyncActions: { getCartDetails: jest.fn(), one: 'one', two: 'two' }
     };
 
     createTestInstance(
@@ -96,7 +104,7 @@ test('appends derivedDetails and isEmpty value from state with empty cart', () =
     const props = {
         actions: { one: 'one' },
         cartState: { details: {} },
-        asyncActions: { one: 'one', two: 'two' }
+        asyncActions: { getCartDetails: jest.fn(), one: 'one', two: 'two' }
     };
 
     createTestInstance(
@@ -135,7 +143,7 @@ test('calculates derivedDetails and isEmpty from state with cart data', () => {
                 }
             }
         },
-        asyncActions: { one: 'one', two: 'two' }
+        asyncActions: { getCartDetails: jest.fn(), one: 'one', two: 'two' }
     };
 
     createTestInstance(

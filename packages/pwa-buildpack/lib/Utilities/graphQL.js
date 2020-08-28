@@ -1,23 +1,22 @@
 const fetch = require('node-fetch');
 const graphQLQueries = require('../queries');
-const { Agent: HTTPSAgent } = require('https');
+const https = require('https');
 
 // To be used with `node-fetch` in order to allow self-signed certificates.
-const fetchAgent = new HTTPSAgent({ rejectUnauthorized: false });
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const fetchQuery = query => {
-    return fetch(
-        new URL('graphql', process.env.MAGENTO_BACKEND_URL).toString(),
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept-Encoding': 'gzip'
-            },
-            body: JSON.stringify({ query }),
-            agent: fetchAgent
-        }
-    )
+    const targetURL = new URL('graphql', process.env.MAGENTO_BACKEND_URL);
+
+    return fetch(targetURL.toString(), {
+        agent: targetURL.protocol === 'https:' ? httpsAgent : null,
+        body: JSON.stringify({ query }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip'
+        },
+        method: 'POST'
+    })
         .then(result => result.json())
         .then(json => json.data)
         .catch(err => {
@@ -61,8 +60,31 @@ const getUnionAndInterfaceTypes = () => {
     });
 };
 
+/**
+ * Generate, from schema, the possible types.
+ *
+ * https://www.apollographql.com/docs/react/data/fragments/#generating-possibletypes-automatically
+ * @returns {Object}  This object maps the name of an interface or union type (the supertype) to the types that implement or belong to it (the subtypes).
+ */
+const getPossibleTypes = async () => {
+    const data = await getSchemaTypes();
+
+    const possibleTypes = {};
+
+    data.__schema.types.forEach(supertype => {
+        if (supertype.possibleTypes) {
+            possibleTypes[supertype.name] = supertype.possibleTypes.map(
+                subtype => subtype.name
+            );
+        }
+    });
+
+    return possibleTypes;
+};
+
 module.exports = {
     getMediaURL,
+    getPossibleTypes,
     getSchemaTypes,
     getUnionAndInterfaceTypes
 };
