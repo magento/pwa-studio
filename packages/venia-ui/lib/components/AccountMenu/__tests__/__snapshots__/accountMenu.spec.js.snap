@@ -37,6 +37,8 @@ exports[`it renders create account component when the view is CREATE_ACCOUNT 1`]
 </aside>
 `;
 
+exports[`it renders empty aside element when accountMenuIsOpen is false 1`] = `<aside />`;
+
 exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1`] = `
 <aside>
   <Forgot Password Component

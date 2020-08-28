@@ -32,19 +32,27 @@ const defaultTalonProps = {
 };
 
 const defaultProps = {
-    accountMenuIsOpen: false,
+    accountMenuIsOpen: true,
     classes: {
         modal_active: 'modal_active_class'
     },
     setAccountMenuIsOpen: jest.fn()
 };
 
-test('it renders AccountMenuItems when the user is signed in', () => {
-    useAccountMenu.mockReturnValueOnce({
-        ...defaultTalonProps,
-        view: 'ACCOUNT'
-    });
+test('it renders empty aside element when accountMenuIsOpen is false', () => {
+    const props = {
+        ...defaultProps,
+        accountMenuIsOpen: false
+    };
 
+    // Act.
+    const instance = createTestInstance(<AccountMenu {...props} />);
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it renders AccountMenuItems when the user is signed in', () => {
     // Act.
     const instance = createTestInstance(<AccountMenu {...defaultProps} />);
 
