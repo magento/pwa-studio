@@ -16,7 +16,7 @@ import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
 
 import {
-    GET_CART_GIFT_CARDS_QUERY,
+    GET_APPLIED_GIFT_CARDS_QUERY,
     GET_GIFT_CARD_BALANCE_QUERY,
     APPLY_GIFT_CARD_MUTATION,
     REMOVE_GIFT_CARD_MUTATION
@@ -25,6 +25,22 @@ import LinkButton from '../../LinkButton';
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
+/**
+ * GiftCards is a child component of the CartPage component.
+ * This component shows a form for applying gift cards along with a list of applied
+ * Gift Cards in the shopping cart.
+ *
+ * @param {Object} props Component props
+ * @param {Function} props.setIsCartUpdating Callback function to call when adding or removing a gift card
+ * @param {Object} props.classes CSS className overrides.
+ * See [giftCards.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCards.css}
+ * for a list of classes you can override.
+ *
+ * @returns {React.Element}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import GiftCards from '@magento/venia-ui/lib/components/CartPage/GiftCards';
+ */
 const GiftCards = props => {
     const talonProps = useGiftCards({
         setIsCartUpdating: props.setIsCartUpdating,
@@ -33,7 +49,7 @@ const GiftCards = props => {
             removeCardMutation: REMOVE_GIFT_CARD_MUTATION
         },
         queries: {
-            appliedCardsQuery: GET_CART_GIFT_CARDS_QUERY,
+            appliedCardsQuery: GET_APPLIED_GIFT_CARDS_QUERY,
             cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY
         }
     });
@@ -70,13 +86,6 @@ const GiftCards = props => {
     if (isLoadingGiftCards) {
         return <LoadingIndicator>{'Loading Gift Cards...'}</LoadingIndicator>;
     }
-    if (errorLoadingGiftCards) {
-        return (
-            <span>
-                {'There was an error loading gift cards. Please try again.'}
-            </span>
-        );
-    }
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const cardEntryErrorMessage = shouldDisplayCardError
@@ -84,6 +93,15 @@ const GiftCards = props => {
         : null;
 
     let appliedGiftCards = null;
+    if (errorLoadingGiftCards) {
+        appliedGiftCards = (
+            <span className={classes.errorText}>
+                {
+                    'There was an error loading applied gift cards. Please refresh and try again.'
+                }
+            </span>
+        );
+    }
     if (giftCardsData.length > 0) {
         const cardList = giftCardsData.map(giftCardData => {
             const { code, current_balance } = giftCardData;

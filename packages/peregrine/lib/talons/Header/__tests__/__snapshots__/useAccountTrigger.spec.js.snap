@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return correct shape 1`] = `
+Object {
+  "accountMenuIsOpen": false,
+  "accountMenuRef": "elementRef",
+  "accountMenuTriggerRef": [MockFunction],
+  "handleTriggerClick": [Function],
+  "setAccountMenuIsOpen": [MockFunction],
+}
+`;

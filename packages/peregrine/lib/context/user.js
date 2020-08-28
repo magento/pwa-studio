@@ -42,4 +42,37 @@ export default connect(
     mapDispatchToProps
 )(UserContextProvider);
 
+/**
+ * @typedef {Object} UserState
+ *
+ * @property {CurrentUser} currentUser Current user details
+ * @property {Error} getDetailsError Get Details call related error
+ * @property {Boolean} isGettingDetails Boolean if true indicates that user details are being fetched. False otherwise.
+ * @property {Boolean} isResettingPassword Deprecated
+ * @property {Boolean} isSignedIn Boolean if true indicates that the user is signed in. False otherwise.
+ * @property {Error} resetPasswordError Deprecated
+ *
+ */
+
+/**
+ * @typedef {Object} CurrentUser
+ *
+ * @property {String} email Current user's email
+ * @property {String} firstname Current user's first name
+ * @property {String} lastname Current user's last name
+ */
+
+/**
+ * @typedef {Object} UserActions
+ *
+ * @property {Function} clearToken Callback to clear user token in browser persistence storage
+ * @property {Function} getUserDetails Callback to get user details
+ * @property {Function} resetPassword Deprecated
+ * @property {Function} setToken Callback to set user token in browser persistence storage
+ * @property {Function} signOut Callback to sign the user out
+ */
+
+/**
+ * @returns {[UserState, UserActions]}
+ */
 export const useUserContext = () => useContext(UserContext);

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { Form } from 'informed';
 import { func, shape, string } from 'prop-types';
 import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
@@ -31,7 +31,7 @@ const ShippingForm = props => {
         }
     });
     const {
-        formErrors,
+        errors,
         handleOnSubmit,
         handleZipChange,
         isSetShippingLoading
@@ -42,7 +42,7 @@ const ShippingForm = props => {
     return (
         <Fragment>
             <h3 className={classes.formTitle}>Destination</h3>
-            <FormError errors={formErrors} />
+            <FormError errors={Array.from(errors.values)} />
             <Form
                 className={classes.root}
                 initialValues={selectedShippingFields}

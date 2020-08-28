@@ -1,11 +1,11 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { runQuery, queryResult, useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 
 import { useCategoryTree } from '../useCategoryTree';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const queryResult = {
         data: null,
@@ -14,7 +14,7 @@ jest.mock('@apollo/react-hooks', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { runQuery, queryResult, useLazyQuery };
+    return { useLazyQuery };
 });
 
 const props = {
@@ -75,6 +75,14 @@ const Component = props => {
 };
 
 test('runs the lazy query on mount', () => {
+    const runQuery = jest.fn();
+    const queryResult = {
+        data: null,
+        error: null,
+        loading: false
+    };
+
+    useLazyQuery.mockReturnValueOnce([runQuery, queryResult]);
     createTestInstance(<Component {...props} />);
 
     act(() => {});
@@ -88,6 +96,14 @@ test('runs the lazy query on mount', () => {
 });
 
 test('runs the lazy query when categoryId changes', () => {
+    const runQuery = jest.fn();
+    const queryResult = {
+        data: null,
+        error: null,
+        loading: false
+    };
+
+    useLazyQuery.mockReturnValue([runQuery, queryResult]);
     const instance = createTestInstance(<Component {...props} />);
 
     act(() => {
@@ -103,6 +119,14 @@ test('runs the lazy query when categoryId changes', () => {
 });
 
 test('avoids running the query without a category id', () => {
+    const runQuery = jest.fn();
+    const queryResult = {
+        data: null,
+        error: null,
+        loading: false
+    };
+
+    useLazyQuery.mockReturnValueOnce([runQuery, queryResult]);
     createTestInstance(<Component {...props} categoryId={null} />);
 
     act(() => {});
@@ -120,6 +144,13 @@ test('avoids calling updateCategories without data', () => {
 });
 
 test('calls updateCategories when data changes', () => {
+    const runQuery = jest.fn();
+    const queryResult = {
+        data: null,
+        error: null,
+        loading: false
+    };
+
     const { updateCategories } = props;
     const category = categories[1];
     const data = {
@@ -131,7 +162,7 @@ test('calls updateCategories when data changes', () => {
 
     const nextqueryResult = { ...queryResult, data };
 
-    useLazyQuery.mockImplementationOnce(() => [runQuery, nextqueryResult]);
+    useLazyQuery.mockReturnValueOnce([runQuery, nextqueryResult]);
 
     createTestInstance(<Component {...props} />);
 

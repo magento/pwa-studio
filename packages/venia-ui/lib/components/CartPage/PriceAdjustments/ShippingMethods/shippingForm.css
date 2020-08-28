@@ -21,10 +21,6 @@
     justify-self: flex-start;
 }
 
-.error {
-    color: rgb(var(--venia-global-color-error));
-}
-
 @media (max-width: 640px) {
     .root {
         /* Only one column in mobile view. */

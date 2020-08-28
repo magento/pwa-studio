@@ -1,0 +1,32 @@
+.root {
+    display: grid;
+    padding: 2.5rem 3rem;
+    row-gap: 2rem;
+}
+
+.title {
+    justify-self: center;
+    font-family: var(--venia-global-fontFamily-serif);
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.form {
+    display: grid;
+    row-gap: 2rem;
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: flex-start;
+}
+
+@media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .buttonsContainer {
+        justify-content: center;
+    }
+}

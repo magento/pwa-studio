@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/client';
 
 import { useUserContext } from '../../../lib/context/user';
 import { useCartContext } from '../../../lib/context/cart';
@@ -18,7 +18,7 @@ import { retrieveCartId } from '../../store/actions/cart';
  * @param {String} createAccountQuery the graphql query for creating the account
  * @param {String} signInQuery the graphql query for logging in the user (and obtaining the token)
  * @returns {{
- *   errors: array,
+ *   errors: Map<String, Error>,
  *   handleSubmit: function,
  *   isDisabled: boolean,
  *   isSignedIn: boolean,
@@ -55,20 +55,13 @@ export const useCreateAccount = props => {
             fetchPolicy: 'no-cache'
         }
     );
+
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
 
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
-
-    const errors = [];
-    if (createAccountError) {
-        errors.push(createAccountError.graphQLErrors[0]);
-    }
-    if (signInError) {
-        errors.push(signInError.graphQLErrors[0]);
-    }
 
     const handleSubmit = useCallback(
         async formValues => {
@@ -159,6 +152,15 @@ export const useCreateAccount = props => {
             ...rest
         };
     }, [initialValues]);
+
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['createAccountQuery', createAccountError],
+                ['signInMutation', signInError]
+            ]),
+        [createAccountError, signInError]
+    );
 
     return {
         errors,

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
@@ -31,15 +31,7 @@ export const useFilterModal = props => {
     const history = useHistory();
     const { pathname, search } = useLocation();
 
-    const { data: introspectionData, error: introspectionError } = useQuery(
-        filterIntrospection
-    );
-
-    useEffect(() => {
-        if (introspectionError) {
-            console.error(introspectionError);
-        }
-    }, [introspectionError]);
+    const { data: introspectionData } = useQuery(filterIntrospection);
 
     const inputFields = introspectionData
         ? introspectionData.__type.inputFields

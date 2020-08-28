@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`return correct shape 1`] = `
+Object {
+  "errors": Map {
+    "getCustomerWishlistQuery" => undefined,
+  },
+  "wishlists": Array [],
+}
+`;
+
+exports[`return wishlist data 1`] = `
+Array [
+  "wishlist1",
+  "wishlist2",
+]
+`;

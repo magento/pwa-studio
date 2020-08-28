@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useCallback, useMemo } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 
 export const useCustomerForm = props => {
     const {
@@ -33,17 +33,9 @@ export const useCustomerForm = props => {
         }
     ] = useMutation(updateCustomerAddressMutation);
 
-    const {
-        error: getCustomerError,
-        data: customerData,
-        loading: getCustomerLoading
-    } = useQuery(getCustomerQuery);
-
-    useEffect(() => {
-        if (getCustomerError) {
-            console.error(getCustomerError);
-        }
-    }, [getCustomerError]);
+    const { data: customerData, loading: getCustomerLoading } = useQuery(
+        getCustomerQuery
+    );
 
     const isSaving =
         createCustomerAddressLoading || updateCustomerAddressLoading;
@@ -131,8 +123,17 @@ export const useCustomerForm = props => {
         onCancel();
     }, [onCancel]);
 
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['createCustomerAddressMutation', createCustomerAddressError],
+                ['updateCustomerAddressMutation', updateCustomerAddressError]
+            ]),
+        [createCustomerAddressError, updateCustomerAddressError]
+    );
+
     return {
-        formErrors: [createCustomerAddressError, updateCustomerAddressError],
+        errors,
         handleCancel,
         handleSubmit,
         hasDefaultShipping,

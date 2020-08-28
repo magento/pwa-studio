@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 
 export const useEditItem = props => {
     const { item, query } = props;
@@ -17,8 +17,7 @@ export const useEditItem = props => {
         if (itemHasOptions) {
             runQuery({
                 variables: {
-                    sku: item.product.sku,
-                    onServer: false
+                    sku: item.product.sku
                 }
             });
         }
