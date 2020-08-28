@@ -2,7 +2,7 @@
     border: 2px solid rgb(var(--venia-global-color-gray-400));
     border-radius: 0.375rem;
     display: grid;
-    grid-template-columns: minmax(9rem, 1fr) minmax(9rem, 1fr) minmax(9rem, 1fr) 15rem 2fr 3rem;
+    grid-template-columns: minmax(9rem, 1fr) minmax(9rem, 1fr) minmax(9rem, 1fr) 16rem 2fr 3rem;
 }
 
 .cell {

@@ -2,13 +2,14 @@
     align-items: center;
     column-gap: 0.25rem;
     display: grid;
-    height: 100%;
     grid-auto-columns: 1fr;
     grid-auto-flow: column;
+    height: 100%;
     padding: 0 0.25rem;
 }
 
 .remainderCount {
     color: rgb(var(--venia-global-color-text-hint));
     font-size: var(--venia-typography-body-S-fontSize);
+    justify-self: center;
 }

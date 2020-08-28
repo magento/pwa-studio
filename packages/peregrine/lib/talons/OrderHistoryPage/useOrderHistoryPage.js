@@ -2,8 +2,9 @@ import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useAppContext } from '../../context/app';
+import { useUserContext } from '../../context/user';
+import { useTypePolicies } from '../../hooks/useTypePolicies';
 
 /**
  *  A talon to support the functionality of the Order History page.
@@ -14,8 +15,10 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  *      order history data is loading.
  */
 export const useOrderHistoryPage = props => {
-    const { queries } = props;
+    const { queries, types } = props;
     const { getCustomerOrdersQuery } = queries;
+
+    useTypePolicies(types);
 
     const [
         ,

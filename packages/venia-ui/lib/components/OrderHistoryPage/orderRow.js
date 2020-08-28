@@ -51,6 +51,9 @@ const OrderRow = props => {
     const contentClass = isOpen ? classes.content : classes.content_collapsed;
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
+    const collapsedImageGalleryElement = isOpen ? null : (
+        <CollapsedImageGallery items={items} />
+    );
 
     return (
         <li className={classes.root}>
@@ -69,7 +72,7 @@ const OrderRow = props => {
                 </div>
             </div>
             <div className={classes.orderItemsContainer}>
-                <CollapsedImageGallery items={items} />
+                {collapsedImageGalleryElement}
             </div>
             <div className={classes.orderStatusContainer}>
                 <span className={classes.orderStatusBadge}>
