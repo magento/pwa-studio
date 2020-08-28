@@ -4,6 +4,28 @@ import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../../context/cart';
 
+/**
+ * Contains logic for a component that renders a radio selector for shipping.
+ * It performs effects and returns props data used for rendering that component.
+ *
+ * This talon performs the following effects:
+ *
+ * - Sets the value of the shipping method to a default value if there is no current method selected
+ * - Manage the updating state of the cart while a shipping method is being applied
+ *
+ * @function
+ *
+ * @param {Object} props
+ * @param {function} props.setIsCartUpdating Function for setting the updating state of the shopping cart
+ * @param {String} props.selectedShippingMethod A serialized string of <carrier-code>|<method-code>, eg. usps|priority.
+ * @param {Array<Object>} props.shippingMethods An array of available shipping methods
+ * @param {ShippingRadiosMutations} props.mutations GraphQL mutations for a shipping radio selector component.
+ *
+ * @return {ShippingRadiosTalonProps}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
+ */
 export const useShippingRadios = props => {
     const {
         setIsCartUpdating,
@@ -71,3 +93,24 @@ export const useShippingRadios = props => {
         handleShippingSelection
     };
 };
+
+/** JSDoc type definitions */
+
+/**
+ * GraphQL mutations for a shipping radio selector component.
+ * This is a type used by the {@link useShippingRadios} talon.
+ *
+ * @typedef {Object} ShippingRadiosMutations
+ *
+ * @property {GraphQLAST} setShippingMethodMutation Mutation for setting the shipping method on a cart.
+ */
+
+/**
+ * Object type returned by the {@link useShippingRadios} talon.
+ * It provides data to use when rendering a radio selector for shipping methods.
+ *
+ * @typedef {Object} ShippingRadiosTalonProps
+ *
+ * @property {Object} formattedShippingMethods Shipping method data that has been formatted.
+ * @property {function} handleShippingSelection Callback function for handling shipping selection form updates.
+ */

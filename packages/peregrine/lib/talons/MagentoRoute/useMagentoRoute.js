@@ -13,7 +13,7 @@ const talonResponses = {
     ERROR: routeError => ({ hasError: true, routeError }),
     LOADING: { isLoading: true },
     NOT_FOUND: { isNotFound: true },
-    FOUND: (component, id) => ({ component, id }),
+    FOUND: (component, id, type) => ({ component, id, type }),
     REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
 };
 
@@ -70,7 +70,8 @@ export const useMagentoRoute = () => {
                     pathname,
                     redirectCode,
                     relativeUrl,
-                    routeError
+                    routeError,
+                    type
                 }) => {
                     // add the pathname to the browser cache
                     addToCache(pathname);
@@ -85,7 +86,7 @@ export const useMagentoRoute = () => {
                             ? talonResponses.NOT_FOUND
                             : REDIRECT_CODES.includes(redirectCode)
                             ? talonResponses.REDIRECT(relativeUrl)
-                            : talonResponses.FOUND(component, id);
+                            : talonResponses.FOUND(component, id, type);
 
                         return nextMap.set(pathname, nextValue);
                     });

@@ -45,6 +45,8 @@ const getSchemaTypes = () => {
 };
 
 /**
+ * @deprecated use {@link getPossibleTypes} with ApolloClient v3.
+ *
  * Get only the Union and Interface types in the schema.
  */
 const getUnionAndInterfaceTypes = () => {

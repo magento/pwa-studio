@@ -24,24 +24,25 @@ const Tree = props => {
         updateCategories
     });
 
-    const { childCategories } = talonProps;
+    const { data, childCategories } = talonProps;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     // for each child category, render a direct link if it has no children
     // otherwise render a branch
-    const branches = Array.from(childCategories, childCategory => {
-        const [id, { category, isLeaf }] = childCategory;
-
-        return isLeaf ? (
-            <Leaf key={id} category={category} onNavigate={onNavigate} />
-        ) : (
-            <Branch
-                key={id}
-                category={category}
-                setCategoryId={setCategoryId}
-            />
-        );
-    });
+    const branches = data
+        ? Array.from(childCategories, childCategory => {
+              const [id, { category, isLeaf }] = childCategory;
+              return isLeaf ? (
+                  <Leaf key={id} category={category} onNavigate={onNavigate} />
+              ) : (
+                  <Branch
+                      key={id}
+                      category={category}
+                      setCategoryId={setCategoryId}
+                  />
+              );
+          })
+        : null;
 
     return (
         <div className={classes.root}>
