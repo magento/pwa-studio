@@ -12,7 +12,7 @@ export const GET_CUSTOMER_ORDERS = gql`
     query GetCustomerOrders {
         customer {
             id
-            orders {
+            orders @client {
                 items {
                     id
                     invoices {
@@ -97,27 +97,27 @@ export const OrderHistoryResolvers = {
                         {
                             __typename: 'OrderItem',
                             id: '1',
-                            product_sku: 'dress-1'
+                            product_sku: 'VSW01'
                         },
                         {
                             __typename: 'OrderItem',
                             id: '2',
-                            product_sku: 'dress-2'
+                            product_sku: 'VD02'
                         },
                         {
                             __typename: 'OrderItem',
                             id: '3',
-                            product_sku: 'dress-3'
+                            product_sku: 'VT02'
                         },
                         {
                             __typename: 'OrderItem',
                             id: '4',
-                            product_sku: 'dress-4'
+                            product_sku: 'VP08'
                         },
                         {
                             __typename: 'OrderItem',
                             id: '5',
-                            product_sku: 'dress-5'
+                            product_sku: 'VA03'
                         }
                     ],
                     number: '000000002',
@@ -141,7 +141,7 @@ export const OrderHistoryResolvers = {
                         {
                             __typename: 'OrderItem',
                             id: '20',
-                            product_sku: 'pants'
+                            product_sku: 'VA03'
                         }
                     ],
                     number: '000000005',

@@ -33,6 +33,7 @@ const CollapsedImageGallery = props => {
             if (remainderCount > 0) {
                 baseImageElements.push(
                     <span
+                        key={'remainder-column'}
                         className={classes.remainderCount}
                     >{`+${remainderCount}`}</span>
                 );
