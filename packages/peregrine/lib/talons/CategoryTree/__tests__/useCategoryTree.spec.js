@@ -141,17 +141,18 @@ test('calls updateCategories when data changes', () => {
     expect(updateCategories).toHaveBeenNthCalledWith(1, data.category);
 });
 
-describe('returns the correct shape', () => {
-    test('is a Map', () => {
-        createTestInstance(<Component {...props} categories={categories} />);
+test('returns the correct shape', () => {
+    // Act.
+    createTestInstance(<Component {...props} categories={categories} />);
 
-        // Assert.
-        const talonProps = log.mock.calls[0][0];
-        const expectedProperties = ['data', 'childCategories'];
-        const actualProperties = Object.keys(talonProps);
-        expect(actualProperties.sort()).toEqual(expectedProperties.sort());
-    });
+    // Assert.
+    const talonProps = log.mock.calls[0][0];
+    const expectedProperties = ['data', 'childCategories'];
+    const actualProperties = Object.keys(talonProps);
+    expect(actualProperties.sort()).toEqual(expectedProperties.sort());
+});
 
+describe('child categories', () => {
     test('is empty when categoryId is not in the category list', () => {
         // Arrange: purposefully set a categoryId that isn't in the category list.
         const myProps = {
