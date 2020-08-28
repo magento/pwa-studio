@@ -44,7 +44,6 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
     <CreateAccount
       email="badvirus@covid.com"
       firstname="Stuck"
-      isCancelButtonHidden={true}
       lastname="Indoors"
     />
   </div>
