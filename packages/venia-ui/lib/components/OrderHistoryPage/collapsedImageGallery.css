@@ -2,9 +2,9 @@
     align-items: center;
     column-gap: 0.25rem;
     display: grid;
-    grid-auto-columns: 1fr;
-    grid-auto-flow: column;
+    grid-template-columns: repeat(5, 1fr);
     height: 100%;
+    justify-items: center;
     padding: 0 0.25rem;
 }
 

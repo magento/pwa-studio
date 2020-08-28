@@ -76,3 +76,53 @@
 .content_collapsed {
     display: none;
 }
+
+@media (max-width: 960px) {
+    .root {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cell {
+        border-left: none;
+    }
+
+    .contentToggleContainer {
+        grid-column-start: 2;
+        grid-row-start: 1;
+        justify-self: flex-end;
+        padding: 0 1.5rem;
+    }
+
+    .orderStatusContainer {
+        grid-column-end: span 2;
+    }
+
+    .orderItemsContainer {
+        border-bottom: 2px solid rgb(var(--venia-global-color-gray));
+        grid-column-end: span 2;
+        padding: 1rem 0;
+    }
+
+    .orderItemsContainer:empty {
+        display: none;
+    }
+
+    .orderNumberContainer {
+        align-items: center;
+        column-gap: 0.5rem;
+        grid-auto-flow: column;
+        grid-column: 1 / span 2;
+        grid-row: 1;
+        justify-content: flex-start;
+    }
+
+    .orderDateContainer {
+        border: 2px solid rgb(var(--venia-global-color-gray));
+        border-left: none;
+    }
+
+    .orderTotalContainer {
+        border-bottom: 2px solid rgb(var(--venia-global-color-gray));
+        border-top: 2px solid rgb(var(--venia-global-color-gray));
+    }
+}
