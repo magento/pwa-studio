@@ -51,7 +51,8 @@ const Component = props => {
 const routeComponentResults = {
     COMPONENT_FOUND: {
         component: {},
-        id: 1
+        id: 1,
+        type: 'PRODUCT'
     },
     COMPONENT_NOT_FOUND: {
         isNotFound: true
