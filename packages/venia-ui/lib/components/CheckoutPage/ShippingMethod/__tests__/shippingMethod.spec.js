@@ -1,5 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
+import { IntlProvider } from 'react-intl';
 import {
     displayStates,
     useShippingMethod
@@ -72,7 +73,11 @@ test('it renders correctly', () => {
     useShippingMethod.mockReturnValueOnce(talonProps);
 
     // Act.
-    const instance = createTestInstance(<ShippingMethod {...props} />);
+    const instance = createTestInstance(
+        <IntlProvider locale="en-US">
+            <ShippingMethod {...props} />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -88,7 +93,11 @@ test('it renders correctly in initializing mode', () => {
     useShippingMethod.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const instance = createTestInstance(<ShippingMethod {...props} />);
+    const instance = createTestInstance(
+        <IntlProvider locale="en-US">
+            <ShippingMethod {...props} />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -104,7 +113,11 @@ test('it renders correctly in done mode', () => {
     useShippingMethod.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const instance = createTestInstance(<ShippingMethod {...props} />);
+    const instance = createTestInstance(
+        <IntlProvider locale="en-US">
+            <ShippingMethod {...props} />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -119,7 +132,11 @@ test('it disables inputs when the page is updating', () => {
     useShippingMethod.mockReturnValueOnce(talonProps);
 
     // Act.
-    const instance = createTestInstance(<ShippingMethod {...myProps} />);
+    const instance = createTestInstance(
+        <IntlProvider locale="en-US">
+            <ShippingMethod {...myProps} />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();

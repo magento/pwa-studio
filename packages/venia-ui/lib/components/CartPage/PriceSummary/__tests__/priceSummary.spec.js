@@ -2,6 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import PriceSummary from '../priceSummary';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('../../../../classify');
 jest.mock('@magento/venia-drivers', () => ({
@@ -117,7 +118,11 @@ jest.mock('@magento/peregrine', () => {
 });
 
 test('renders PriceSummary correctly on cart page', () => {
-    const tree = createTestInstance(<PriceSummary />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <PriceSummary />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -128,7 +133,11 @@ test('renders PriceSummary correctly on checkout page', () => {
         isCheckout: true
     });
 
-    const tree = createTestInstance(<PriceSummary />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <PriceSummary />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -139,7 +148,11 @@ test('renders an error state if query fails', () => {
         hasError: true
     });
 
-    const tree = createTestInstance(<PriceSummary />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <PriceSummary />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -150,7 +163,11 @@ test('renders summary with loading state if query is loading', () => {
         isLoading: true
     });
 
-    const tree = createTestInstance(<PriceSummary />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <PriceSummary />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -161,7 +178,11 @@ test('renders nothing if query returns no items', () => {
         hasItems: false
     });
 
-    const tree = createTestInstance(<PriceSummary />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <PriceSummary />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

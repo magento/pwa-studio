@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-
+import { IntlProvider } from 'react-intl';
 import Gallery from '../gallery';
 
 jest.mock('@magento/venia-drivers', () => ({
@@ -57,14 +57,18 @@ const items = [
 
 test('renders if `items` is an empty array', () => {
     const wrapper = createTestInstance(
-        <Gallery classes={classes} items={[]} />
+        <IntlProvider locale="en-US">
+            <Gallery classes={classes} items={[]} />
+        </IntlProvider>
     );
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
 test('renders if `items` is an array of objects', () => {
     const wrapper = createTestInstance(
-        <Gallery classes={classes} items={items} />
+        <IntlProvider locale="en-US">
+            <Gallery classes={classes} items={items} />
+        </IntlProvider>
     );
     expect(wrapper.toJSON()).toMatchSnapshot();
 });

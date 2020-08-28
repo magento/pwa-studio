@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-
+import { IntlProvider } from 'react-intl';
 import Product from '../product';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 
@@ -82,7 +82,11 @@ test('renders simple product correctly', () => {
             urlSuffix: '.html'
         }
     });
-    const tree = createTestInstance(<Product {...props} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <Product {...props} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -108,7 +112,11 @@ test('renders out of stock product', () => {
             urlSuffix: ''
         }
     });
-    const tree = createTestInstance(<Product {...props} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <Product {...props} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -143,7 +151,11 @@ test('renders configurable product with options', () => {
         }
     });
 
-    const tree = createTestInstance(<Product {...props} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <Product {...props} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
-
+import { IntlProvider } from 'react-intl';
 import Item from '../item';
 
 jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
@@ -52,7 +52,11 @@ const validItem = {
  * `item` is `null` or `undefined`
  */
 test('renders a placeholder item while awaiting item', () => {
-    const wrapper = createTestInstance(<Item classes={classes} />);
+    const wrapper = createTestInstance(
+        <IntlProvider locale="en-US">
+            <Item classes={classes} />
+        </IntlProvider>
+    );
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
@@ -62,9 +66,11 @@ test('renders a placeholder item while awaiting item', () => {
  */
 test('renders correctly with valid item data', () => {
     const wrapper = createTestInstance(
-        <MemoryRouter>
-            <Item classes={classes} item={validItem} />
-        </MemoryRouter>
+        <IntlProvider locale="en-US">
+            <MemoryRouter>
+                <Item classes={classes} item={validItem} />
+            </MemoryRouter>
+        </IntlProvider>
     );
     expect(wrapper.toJSON()).toMatchSnapshot();
 });

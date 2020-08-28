@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-
+import { IntlProvider } from 'react-intl';
 import ProductDetail from '../productDetail';
 
 jest.mock('../../../../../classify');
@@ -43,7 +43,11 @@ describe('renders product details', () => {
             }
         };
 
-        const tree = createTestInstance(<ProductDetail item={item} />);
+        const tree = createTestInstance(
+            <IntlProvider locale="en-US">
+                <ProductDetail item={item} />
+            </IntlProvider>
+        );
         expect(tree.toJSON()).toMatchSnapshot();
     });
 
@@ -62,7 +66,9 @@ describe('renders product details', () => {
         };
 
         const tree = createTestInstance(
-            <ProductDetail item={item} variantPrice={variantPrice} />
+            <IntlProvider locale="en-US">
+                <ProductDetail item={item} variantPrice={variantPrice} />
+            </IntlProvider>
         );
         expect(tree.toJSON()).toMatchSnapshot();
     });
@@ -77,6 +83,10 @@ test('renders product details with unknown stock value', () => {
         }
     };
 
-    const tree = createTestInstance(<ProductDetail item={item} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <ProductDetail item={item} />
+        </IntlProvider>
+    );
     expect(tree.toJSON()).toMatchSnapshot();
 });

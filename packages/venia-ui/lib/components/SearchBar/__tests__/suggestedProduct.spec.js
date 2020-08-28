@@ -1,6 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-
+import { IntlProvider } from 'react-intl';
 import SuggestedProduct from '../suggestedProduct';
 
 jest.mock('../../../classify');
@@ -26,7 +26,9 @@ const defaultProps = {
 
 test('renders a suggestedProduct component', () => {
     const component = TestRenderer.create(
-        <SuggestedProduct {...defaultProps} />
+        <IntlProvider locale="en-US">
+            <SuggestedProduct {...defaultProps} />
+        </IntlProvider>
     );
 
     expect(component.toJSON()).toMatchSnapshot();

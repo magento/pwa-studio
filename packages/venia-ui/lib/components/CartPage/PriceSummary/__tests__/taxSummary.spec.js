@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-
+import { IntlProvider } from 'react-intl';
 import TaxSummary from '../taxSummary';
 
 jest.mock('../../../../classify');
@@ -30,7 +30,11 @@ const defaultProps = {
 };
 
 test('renders tax summary line item correctly', () => {
-    const tree = createTestInstance(<TaxSummary {...defaultProps} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <TaxSummary {...defaultProps} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -47,7 +51,11 @@ test('renders tax summary line item correctly if tax value is "0"', () => {
             }
         ]
     };
-    const tree = createTestInstance(<TaxSummary {...props} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <TaxSummary {...props} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -77,7 +85,11 @@ test('renders accumulated tax value', () => {
         ]
     };
 
-    const tree = createTestInstance(<TaxSummary {...props} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <TaxSummary {...props} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -87,7 +99,11 @@ test('renders nothing if tax data is empty', () => {
         ...defaultProps,
         data: []
     };
-    const tree = createTestInstance(<TaxSummary {...props} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <TaxSummary {...props} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-
+import { IntlProvider } from 'react-intl';
 import DiscountSummary from '../discountSummary';
 
 jest.mock('../../../../classify');
@@ -30,7 +30,11 @@ const defaultProps = {
 };
 
 test('renders discount summary line item correctly', () => {
-    const tree = createTestInstance(<DiscountSummary {...defaultProps} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <DiscountSummary {...defaultProps} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -60,7 +64,11 @@ test('renders accumulated discount value', () => {
         ]
     };
 
-    const tree = createTestInstance(<DiscountSummary {...props} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <DiscountSummary {...props} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -70,7 +78,11 @@ test('renders nothing if discount data is empty', () => {
         ...defaultProps,
         data: []
     };
-    const tree = createTestInstance(<DiscountSummary {...props} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <DiscountSummary {...props} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -87,7 +99,11 @@ test('renders nothing if discount value is "0"', () => {
             }
         ]
     };
-    const tree = createTestInstance(<DiscountSummary {...props} />);
+    const tree = createTestInstance(
+        <IntlProvider locale="en-US">
+            <DiscountSummary {...props} />
+        </IntlProvider>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

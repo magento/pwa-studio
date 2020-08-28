@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-
+import { IntlProvider } from 'react-intl';
 import UpdateModal from '../updateModal';
 
 jest.mock('../../../../classify');
@@ -12,30 +12,32 @@ jest.mock('../../../Portal', () => ({
 test('it renders correctly', () => {
     // Act.
     const instance = createTestInstance(
-        <UpdateModal
-            formErrors={[]}
-            formInitialValues={{ shipping_method: 'flatrate|flatrate' }}
-            handleCancel={jest.fn()}
-            handleSubmit={jest.fn()}
-            isLoading={false}
-            isOpen={true}
-            pageIsUpdating={false}
-            setFormApi={jest.fn()}
-            shippingMethods={[
-                {
-                    amount: {
-                        currency: 'USD',
-                        value: 99
-                    },
-                    available: true,
-                    carrier_code: 'flatrate',
-                    carrier_title: 'Flat Rate',
-                    method_code: 'flatrate',
-                    method_title: 'Flat Rate',
-                    serializedValue: 'flatrate|flatrate'
-                }
-            ]}
-        />
+        <IntlProvider locale="en-US">
+            <UpdateModal
+                formErrors={[]}
+                formInitialValues={{ shipping_method: 'flatrate|flatrate' }}
+                handleCancel={jest.fn()}
+                handleSubmit={jest.fn()}
+                isLoading={false}
+                isOpen={true}
+                pageIsUpdating={false}
+                setFormApi={jest.fn()}
+                shippingMethods={[
+                    {
+                        amount: {
+                            currency: 'USD',
+                            value: 99
+                        },
+                        available: true,
+                        carrier_code: 'flatrate',
+                        carrier_title: 'Flat Rate',
+                        method_code: 'flatrate',
+                        method_title: 'Flat Rate',
+                        serializedValue: 'flatrate|flatrate'
+                    }
+                ]}
+            />
+        </IntlProvider>
     );
 
     // Assert.
@@ -45,30 +47,32 @@ test('it renders correctly', () => {
 test('it disables the submit button while loading', () => {
     // Act.
     const instance = createTestInstance(
-        <UpdateModal
-            formErrors={[{ message: 'Form Error' }]}
-            formInitialValues={{ shipping_method: 'flatrate|flatrate' }}
-            handleCancel={jest.fn()}
-            handleSubmit={jest.fn()}
-            isLoading={true}
-            isOpen={true}
-            pageIsUpdating={false}
-            setFormApi={jest.fn()}
-            shippingMethods={[
-                {
-                    amount: {
-                        currency: 'USD',
-                        value: 99
-                    },
-                    available: true,
-                    carrier_code: 'flatrate',
-                    carrier_title: 'Flat Rate',
-                    method_code: 'flatrate',
-                    method_title: 'Flat Rate',
-                    serializedValue: 'flatrate|flatrate'
-                }
-            ]}
-        />
+        <IntlProvider locale="en-US">
+            <UpdateModal
+                formErrors={[{ message: 'Form Error' }]}
+                formInitialValues={{ shipping_method: 'flatrate|flatrate' }}
+                handleCancel={jest.fn()}
+                handleSubmit={jest.fn()}
+                isLoading={true}
+                isOpen={true}
+                pageIsUpdating={false}
+                setFormApi={jest.fn()}
+                shippingMethods={[
+                    {
+                        amount: {
+                            currency: 'USD',
+                            value: 99
+                        },
+                        available: true,
+                        carrier_code: 'flatrate',
+                        carrier_title: 'Flat Rate',
+                        method_code: 'flatrate',
+                        method_title: 'Flat Rate',
+                        serializedValue: 'flatrate|flatrate'
+                    }
+                ]}
+            />
+        </IntlProvider>
     );
 
     // Assert.

@@ -1,6 +1,6 @@
 import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
-
+import { IntlProvider } from 'react-intl';
 import MiniCart from '../miniCart';
 
 jest.mock('../../../classify');
@@ -59,7 +59,11 @@ test('it renders correctly', () => {
     };
 
     // Act.
-    const instance = createTestInstance(<MiniCart {...props} />);
+    const instance = createTestInstance(
+        <IntlProvider locale="en-US">
+            <MiniCart {...props} />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();

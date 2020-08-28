@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-
+import { IntlProvider } from 'react-intl';
 import ShippingRadios from '../shippingRadios';
 import { Form } from 'informed';
 
@@ -50,12 +50,14 @@ jest.mock('@magento/peregrine', () => {
 
 test('renders list of shipping methods', () => {
     const instance = createTestInstance(
-        <Form>
-            <ShippingRadios
-                selectedShippingMethod="fedex|nextday"
-                shippingMethods={shippingMethods}
-            />
-        </Form>
+        <IntlProvider locale="en-US">
+            <Form>
+                <ShippingRadios
+                    selectedShippingMethod="fedex|nextday"
+                    shippingMethods={shippingMethods}
+                />
+            </Form>
+        </IntlProvider>
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
@@ -63,9 +65,11 @@ test('renders list of shipping methods', () => {
 
 test('automatically selects first option when none selected', () => {
     const instance = createTestInstance(
-        <Form>
-            <ShippingRadios shippingMethods={shippingMethods} />
-        </Form>
+        <IntlProvider locale="en-US">
+            <Form>
+                <ShippingRadios shippingMethods={shippingMethods} />
+            </Form>
+        </IntlProvider>
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
