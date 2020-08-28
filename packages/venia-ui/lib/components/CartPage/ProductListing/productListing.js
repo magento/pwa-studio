@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
 
 import { mergeClasses } from '../../../classify';
@@ -9,6 +9,21 @@ import defaultClasses from './productListing.css';
 import Product from './product';
 import { ProductListingFragment } from './productListingFragments';
 
+/**
+ * A child component of the CartPage component.
+ * This component renders the product listing on the cart page.
+ *
+ * @param {Object} props
+ * @param {Function} props.setIsCartUpdating Function for setting the updating state of the cart.
+ * @param {Object} props.classes CSS className overrides.
+ * See [productListing.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListing.css}
+ * for a list of classes you can override.
+ *
+ * @returns {React.Element}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import ProductListing from "@magento/venia-ui/lib/components/CartPage/ProductListing";
+ */
 const ProductListing = props => {
     const { setIsCartUpdating } = props;
     const talonProps = useProductListing({
@@ -50,7 +65,7 @@ const ProductListing = props => {
 
 export const GET_PRODUCT_LISTING = gql`
     query getProductListing($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...ProductListingFragment
         }

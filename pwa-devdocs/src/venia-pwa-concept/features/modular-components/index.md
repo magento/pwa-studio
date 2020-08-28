@@ -62,7 +62,7 @@ Import and use the [Venia Adapter][] in your project if your storefront already 
 import VeniaAdapter from '@magento/venia-concept/src/drivers/adapter';
 
 import { createStore } from 'redux';
-import { ApolloClient } from 'apollo-client';
+import { ApolloClient } from '@apollo/client/core';
 
 const myApplicationStore = createStore()
 const myClient = new ApolloClient({ uri: "https://mystore.com/graphql"})
