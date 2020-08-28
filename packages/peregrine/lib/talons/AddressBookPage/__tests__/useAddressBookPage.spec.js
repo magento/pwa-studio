@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useAddressBookPage } from '../useAddressBookPage';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
-        ...jest.requireActual('@apollo/react-hooks'),
+        ...jest.requireActual('@apollo/client'),
         useQuery: jest.fn(() => ({
             data: null,
             loading: false
