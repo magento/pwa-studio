@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 // Just incase the data is unsorted, lets sort it.
 const sortCrumbs = (a, b) => a.category_level > b.category_level;

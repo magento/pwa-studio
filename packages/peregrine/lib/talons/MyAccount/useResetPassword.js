@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 /**
  * Returns props necessary to render a ResetPassword form.

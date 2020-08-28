@@ -4,12 +4,12 @@ import { useHistory } from 'react-router-dom';
 import createTestInstance from '../../../util/createTestInstance';
 import { useUserContext } from '../../../context/user';
 import { useWishlistPage } from '../useWishlistPage';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn()
 }));
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useQuery: jest.fn().mockReturnValue({})
 }));
 jest.mock('../../../context/user', () => ({

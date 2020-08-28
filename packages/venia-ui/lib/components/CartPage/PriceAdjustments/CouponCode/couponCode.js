@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useToasts } from '@magento/peregrine';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
@@ -23,7 +23,7 @@ const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...AppliedCouponsFragment
         }

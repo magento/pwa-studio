@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';

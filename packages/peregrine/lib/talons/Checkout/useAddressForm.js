@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 /**
@@ -34,8 +34,10 @@ export const useAddressForm = props => {
     const [{ isSignedIn }] = useUserContext();
 
     const [setGuestEmail] = useMutation(setGuestEmailMutation, {
+        // For security, never cache this mutation or the mutation results.
         fetchPolicy: 'no-cache'
     });
+
     const [setShippingAddressOnCart] = useMutation(
         setShippingAddressOnCartMutation
     );

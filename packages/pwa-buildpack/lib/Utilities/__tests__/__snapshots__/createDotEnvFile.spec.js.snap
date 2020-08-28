@@ -51,8 +51,8 @@ MAGENTO_BACKEND_EDITION=CE
 #### Magento Store View ########################################################
 #
 #   Specify the Magento store view code set in Stores > Settings > All Stores > Store View name
-#   - Default when not set: default
-STORE_VIEW_CODE=default
+#   - Default when not set: 
+STORE_VIEW_CODE=
 #
 ################################################################################
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import CategoryList from '../../../components/CategoryList';
 import RichContent from '../../../components/RichContent';
 import { Title } from '../../../components/Head';
@@ -36,7 +36,7 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
     return { useAppContext };
 });
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const queryResult = {
         data: null,
         error: null,
