@@ -34,7 +34,7 @@ jest.mock('../useFilterState', () => {
 });
 
 // Mock introspection to return all the filters from the test data
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const introspectionData = {
         __type: {
             inputFields: [

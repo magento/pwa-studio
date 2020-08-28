@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { Price } from '@magento/peregrine';
 import { useIntl } from 'react-intl';
 import { mergeClasses } from '../../../classify';

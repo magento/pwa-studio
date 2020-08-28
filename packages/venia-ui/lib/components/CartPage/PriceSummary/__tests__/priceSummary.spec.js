@@ -8,7 +8,7 @@ jest.mock('../../../../classify');
 jest.mock('@magento/venia-drivers', () => ({
     Link: jest.fn(() => 'Proceed to Checkout')
 }));
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const queryResult = {
         data: {
@@ -62,7 +62,10 @@ jest.mock('@apollo/react-hooks', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { useLazyQuery };
+    return {
+        gql: jest.fn(),
+        useLazyQuery
+    };
 });
 
 const defaultTalonProps = {

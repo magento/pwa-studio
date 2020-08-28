@@ -32,7 +32,7 @@ The PWA Studio convention for GraphQL query files is to define and export them i
 Create a `countries.gql.js` file under `src/components/Countries` with the following content:
 
 ```js
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 const GET_COUNTRIES_QUERY = gql`
     query GetCountries {
@@ -58,7 +58,7 @@ This file exports a query that requests the ID and name of countries from the Ma
 Create a `country.gql.js` file under `src/components/Country` with the following content:
 
 ```js
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 const GET_COUNTRY_QUERY = gql`
     query GetCountry($id: String) {
@@ -122,7 +122,7 @@ Under `src/component/Countries`, create a `countries.js` file with the following
 
 ```jsx
 import React, { useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { Link } from '@magento/venia-drivers';
 import path from 'path';
 
@@ -176,7 +176,7 @@ export default Countries;
 This file defines a component that creates a list of countries where the backend Magento store does business.
 Each country listed is a link that points to a page for that country.
 
-In the code, the component imports and destructures the GraphQL query from the `countries.gql.js` file and makes a request using `useQuery()` from the `@apollo/react-hooks` library.
+In the code, the component imports and destructures the GraphQL query from the `countries.gql.js` file and makes a request using `useQuery()` from the `@apollo/client` library.
 
 Next, create an `index.js` file under `src/components/Countries`.
 Add the following content to export the Countries component from the directory.
@@ -193,7 +193,7 @@ Under `src/components/Country`, create a `country.js` file with the following co
 
 ```jsx
 import React, { useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useParams } from '@magento/venia-ui/lib/drivers';
 
 import countryOperations from './country.gql';

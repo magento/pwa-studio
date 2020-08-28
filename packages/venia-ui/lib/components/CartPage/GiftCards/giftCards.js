@@ -16,7 +16,7 @@ import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
 
 import {
-    GET_CART_GIFT_CARDS_QUERY,
+    GET_APPLIED_GIFT_CARDS_QUERY,
     GET_GIFT_CARD_BALANCE_QUERY,
     APPLY_GIFT_CARD_MUTATION,
     REMOVE_GIFT_CARD_MUTATION
@@ -34,7 +34,7 @@ const GiftCards = props => {
             removeCardMutation: REMOVE_GIFT_CARD_MUTATION
         },
         queries: {
-            appliedCardsQuery: GET_CART_GIFT_CARDS_QUERY,
+            appliedCardsQuery: GET_APPLIED_GIFT_CARDS_QUERY,
             cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY
         }
     });

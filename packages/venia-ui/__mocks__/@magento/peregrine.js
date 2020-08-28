@@ -18,6 +18,7 @@ const useDropdown = jest.fn(peregrine.useDropdown);
 const useSearchParam = jest.fn(peregrine.useSearchParam);
 const useWindowSize = jest.fn(peregrine.useWindowSize);
 const useToasts = jest.fn(peregrine.useToasts);
+const useTypePolicies = jest.fn(peregrine.useTypePolicies);
 // components
 
 /**
@@ -36,5 +37,6 @@ module.exports = {
     useDropdown,
     useSearchParam,
     useWindowSize,
-    useToasts
+    useToasts,
+    useTypePolicies
 };

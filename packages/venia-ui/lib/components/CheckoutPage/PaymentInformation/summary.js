@@ -6,7 +6,7 @@ import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentIn
 import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
 
-import summaryOperations from './summary.gql';
+import summaryOperations, { CUSTOM_TYPES } from './summary.gql';
 
 import defaultClasses from './summary.css';
 import LoadingIndicator from '../../LoadingIndicator';
@@ -17,7 +17,10 @@ const Summary = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const talonProps = useSummary({ ...summaryOperations });
+    const talonProps = useSummary({
+        ...summaryOperations,
+        typePolicies: CUSTOM_TYPES
+    });
 
     const {
         billingAddress,
@@ -27,7 +30,7 @@ const Summary = props => {
         selectedPaymentMethod
     } = talonProps;
 
-    if (isLoading) {
+    if (isLoading && !selectedPaymentMethod) {
         return (
             <LoadingIndicator classes={{ root: classes.loading }}>
                 Fetching Payment Information
