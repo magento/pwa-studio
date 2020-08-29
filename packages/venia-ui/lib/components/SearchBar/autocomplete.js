@@ -34,6 +34,7 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                     url
                 }
                 url_key
+                url_suffix
                 price {
                     regularPrice {
                         amount {

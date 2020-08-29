@@ -6,14 +6,12 @@ import { mergeClasses } from '../../classify';
 import { Link, resourceUrl } from '../../drivers';
 import defaultClasses from './categoryLeaf.css';
 
-const suffix = '.html';
-
 const Leaf = props => {
-    const { category, onNavigate } = props;
+    const { category, onNavigate, categorySuffixUrl } = props;
     const { name, url_path, children } = category;
     const classes = mergeClasses(defaultClasses, props.classes);
     const { handleClick } = useCategoryLeaf({ onNavigate });
-    const destination = resourceUrl(`/${url_path}${suffix}`);
+    const destination = resourceUrl(`/${url_path}${categorySuffixUrl}`);
 
     return (
         <li className={classes.root}>

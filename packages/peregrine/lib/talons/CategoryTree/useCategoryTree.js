@@ -43,6 +43,9 @@ export const useCategoryTree = props => {
 
     const rootCategory = categories[categoryId];
     const { children } = rootCategory || {};
+    const categorySuffixUrl = data
+        ? data.storeConfig.category_url_suffix
+        : '.html';
 
     const childCategories = useMemo(() => {
         const childCategories = new Map();
@@ -69,5 +72,5 @@ export const useCategoryTree = props => {
         return childCategories;
     }, [categories, children, rootCategory]);
 
-    return { childCategories, data };
+    return { childCategories, data, categorySuffixUrl };
 };

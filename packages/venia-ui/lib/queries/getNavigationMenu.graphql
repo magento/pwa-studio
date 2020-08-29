@@ -1,4 +1,8 @@
 query navigationMenu($id: Int!) {
+    storeConfig {
+        id
+        category_url_suffix
+    }
     category(id: $id) {
         id
         name
