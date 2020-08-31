@@ -47,6 +47,18 @@ export const useCategoryTree = props => {
     const childCategories = useMemo(() => {
         const childCategories = new Map();
 
+        // Add the root category when appropriate.
+        if (
+            rootCategory &&
+            rootCategory.include_in_menu &&
+            rootCategory.url_path
+        ) {
+            childCategories.set(rootCategory.id, {
+                category: rootCategory,
+                isLeaf: true
+            });
+        }
+
         for (const id of children || '') {
             const category = categories[id];
             const isLeaf = !parseInt(category.children_count);
@@ -55,7 +67,7 @@ export const useCategoryTree = props => {
         }
 
         return childCategories;
-    }, [categories, children]);
+    }, [categories, children, rootCategory]);
 
-    return { childCategories };
+    return { childCategories, data };
 };

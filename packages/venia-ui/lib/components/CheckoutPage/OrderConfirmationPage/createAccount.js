@@ -17,6 +17,8 @@ import Checkbox from '../../Checkbox';
 import Field from '../../Field';
 import FormError from '../../FormError';
 import TextInput from '../../TextInput';
+import Password from '../../Password';
+
 import defaultClasses from './createAccount.css';
 
 import CREATE_ACCOUNT_MUTATION from '../../../queries/createAccount.graphql';
@@ -103,19 +105,18 @@ const CreateAccount = props => {
                         validateOnBlur
                     />
                 </Field>
-                <Field label="Password">
-                    <TextInput
-                        field="password"
-                        type="password"
-                        autoComplete="new-password"
-                        validate={combine([
-                            isRequired,
-                            [hasLengthAtLeast, 8],
-                            validatePassword
-                        ])}
-                        validateOnBlur
-                    />
-                </Field>
+                <Password
+                    label="Password"
+                    fieldName="password"
+                    isToggleButtonHidden={false}
+                    autoComplete="new-password"
+                    validate={combine([
+                        isRequired,
+                        [hasLengthAtLeast, 8],
+                        validatePassword
+                    ])}
+                    validateOnBlur
+                />
                 <div className={classes.subscribe}>
                     <Checkbox
                         field="subscribe"
