@@ -28,7 +28,7 @@ const fetchQuery = query => {
             throw err;
         })
         .then(json =>
-            json.errors.length > 0
+            json && json.errors && json.errors.length > 0
                 ? Promise.reject(
                       new Error(
                           json.errors[0].message +
