@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly when there are existing addresses 1`] = `
+<div
+  className="root"
+>
+  Title
+  <h1
+    className="heading"
+  >
+    Address Book
+  </h1>
+  <div
+    className="content"
+  >
+    <button
+      className="addButton"
+      disabled={false}
+      onClick={[MockFunction handleAddAddress]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <Icon
+          classes={
+            Object {
+              "icon": "addIcon",
+            }
+          }
+          size={24}
+          src={[Function]}
+        />
+        <span
+          className="addText"
+        >
+          Add an Address
+        </span>
+      </span>
+    </button>
+    <AddressCard
+      address="a"
+    />
+    <AddressCard
+      address="b"
+    />
+    <AddressCard
+      address="c"
+    />
+  </div>
+</div>
+`;
+
+exports[`renders correctly when there are no existing addresses 1`] = `
+<div
+  className="root"
+>
+  Title
+  <h1
+    className="heading"
+  >
+    Address Book
+  </h1>
+  <div
+    className="content"
+  >
+    <button
+      className="addButton"
+      disabled={false}
+      onClick={[MockFunction handleAddAddress]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <Icon
+          classes={
+            Object {
+              "icon": "addIcon",
+            }
+          }
+          size={24}
+          src={[Function]}
+        />
+        <span
+          className="addText"
+        >
+          Add an Address
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;
