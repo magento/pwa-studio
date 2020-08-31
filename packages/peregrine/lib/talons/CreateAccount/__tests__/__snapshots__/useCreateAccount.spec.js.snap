@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`errros should render properly 1`] = `
+Map {
+  "createAccountQuery" => "Create Account Mutation Error",
+  "signInMutation" => "Sign In Mutation Error",
+}
+`;
+
+exports[`should return properly 1`] = `
+Object {
+  "errors": Map {
+    "createAccountQuery" => null,
+    "signInMutation" => null,
+  },
+  "handleCancel": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "gooston@goosemail.com",
+      "firstname": "Gooseton",
+      "lastname": "Jr",
+    },
+    "userName": "gooseton",
+  },
+  "isDisabled": false,
+  "isSignedIn": false,
+}
+`;
