@@ -56,12 +56,16 @@ export const useAccountMenu = props => {
         setView('FORGOT_PASSWORD');
     }, []);
 
-    const handleForgotPasswordCancel = useCallback(() => {
+    const handleCancel = useCallback(() => {
         setView('SIGNIN');
     }, []);
 
     const handleCreateAccount = useCallback(() => {
         setView('CREATE_ACCOUNT');
+    }, []);
+
+    const handleAccountCreation = useCallback(() => {
+        setView('ACCOUNT');
     }, []);
 
     // Close the Account Menu on page change.
@@ -81,12 +85,13 @@ export const useAccountMenu = props => {
     }, [accountMenuIsOpen, isUserSignedIn]);
 
     return {
-        view,
-        username,
-        handleSignOut,
-        handleForgotPassword,
-        handleForgotPasswordCancel,
+        handleAccountCreation,
         handleCreateAccount,
-        updateUsername: setUsername
+        handleForgotPassword,
+        handleCancel,
+        handleSignOut,
+        updateUsername: setUsername,
+        username,
+        view
     };
 };

@@ -149,3 +149,13 @@ test('handleSignOut should call setAccountMenuIsOpen with false', () => {
 
     expect(setAccountMenuIsOpen).toHaveBeenCalledWith(false);
 });
+
+test('handleAccoutCreation should set view to ACCOUNT', () => {
+    const { talonProps, update } = getTalonProps(defaultProps);
+
+    talonProps.handleAccountCreation();
+
+    const updatedTalonProps = update();
+
+    expect(updatedTalonProps.view).toBe('ACCOUNT');
+});
