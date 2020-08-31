@@ -23,11 +23,20 @@ const fetchQuery = query => {
         method: 'POST'
     })
         .then(result => result.json())
-        .then(json => json.data)
         .catch(err => {
             console.error(err);
             throw err;
-        });
+        })
+        .then(json =>
+            json.errors.length > 0
+                ? Promise.reject(
+                      new Error(
+                          json.errors[0].message +
+                              ` (... ${json.errors.length} errors total)`
+                      )
+                  )
+                : json.data
+        );
 };
 
 /**
