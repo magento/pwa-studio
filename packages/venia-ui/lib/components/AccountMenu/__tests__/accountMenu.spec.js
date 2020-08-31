@@ -5,9 +5,18 @@ import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountM
 
 import AccountMenu from '../accountMenu';
 
-jest.mock('../accountMenuItems', () => 'AccountMenuItems');
-jest.mock('../../SignIn/signIn', () => 'SignIn Component');
-jest.mock('../../ForgotPassword', () => 'Forgot Password Component');
+jest.mock('../accountMenuItems', () => props => (
+    <div {...props}>{'AccountMenuItems'}</div>
+));
+jest.mock('../../SignIn/signIn', () => props => (
+    <div {...props}> {'SignInComponent'}</div>
+));
+jest.mock('../../ForgotPassword', () => props => (
+    <div {...props}> {'ForgotPasswordComponent'}</div>
+));
+jest.mock('../../CreateAccount', () => props => (
+    <div {...props}> {'CreateAccountComponent'}</div>
+));
 
 jest.mock('@magento/peregrine/lib/talons/Header/useAccountMenu', () => ({
     useAccountMenu: jest.fn().mockReturnValue({
