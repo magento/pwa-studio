@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { useSuggestions } from '@magento/peregrine/lib/talons/SearchBar';
 
@@ -42,7 +43,9 @@ const Suggestions = props => {
                 value={searchValue}
             />
             <h2 className={classes.heading}>
-                <span>{'Product Suggestions'}</span>
+                <span>
+                    <FormattedMessage id={'Product Suggestions'} />
+                </span>
             </h2>
             <SuggestedProducts onNavigate={onNavigate} products={items} />
         </Fragment>
