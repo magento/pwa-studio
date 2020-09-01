@@ -13,7 +13,12 @@ const MESSAGES = new Map()
     .set(INTERNAL_ERROR, 'Something went wrong. Please try again.');
 
 const MagentoRoute = () => {
-    const talonProps = useMagentoRoute();
+    const magentoRouteProps = {};
+    // If we have a specific store view code configured pass it into the url resolver
+    if (STORE_VIEW_CODE) {
+        magentoRouteProps.store = STORE_VIEW_CODE;
+    }
+    const talonProps = useMagentoRoute(magentoRouteProps);
     const {
         component: RootComponent,
         id,
