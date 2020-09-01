@@ -20,15 +20,12 @@ export const useCategoryList = props => {
         runQuery({ variables: { id } });
     }, [id, runQuery]);
 
-    const categoryUrlSuffix = data
-        ? data.storeConfig.category_url_suffix
-        : '.html';
-
     return {
         childCategories:
             (data && data.category && data.category.children) || null,
         error,
         loading,
-        categoryUrlSuffix
+        categoryUrlSuffix:
+            (data && data.category && data.category.url_suffix) || '.html'
     };
 };

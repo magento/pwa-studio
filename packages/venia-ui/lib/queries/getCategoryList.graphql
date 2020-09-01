@@ -2,6 +2,7 @@
 query categoryList($id: Int!) {
     category(id: $id) {
         id
+        url_suffix
         children {
             id
             name
@@ -19,9 +20,5 @@ query categoryList($id: Int!) {
                 }
             }
         }
-    }
-    storeConfig {
-        id
-        category_url_suffix
     }
 }
