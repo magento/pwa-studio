@@ -43,7 +43,7 @@ mkdir -p src/components/GreetingPage
 
 ### Create `greetingPage.js` module
 
-Inside the GreetingPage component directory, create a `foo.js` file with the following content:
+Inside the GreetingPage component directory, create a `greetingPage.js` file with the following content:
 
 ```jsx
 /* src/components/GreetingPage/greetingPage.js */
