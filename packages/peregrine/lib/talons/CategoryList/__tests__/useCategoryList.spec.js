@@ -1,5 +1,4 @@
-
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import { act } from 'react-test-renderer';
@@ -44,7 +43,7 @@ test('runs the lazy query on mount', () => {
     useLazyQuery.mockReturnValueOnce([runQuery, queryResult]);
     createTestInstance(<Component {...props} />);
 
-    act(() => { });
+    act(() => {});
 
     expect(runQuery).toHaveBeenCalledTimes(1);
     expect(runQuery).toHaveBeenNthCalledWith(1, {
@@ -53,7 +52,6 @@ test('runs the lazy query on mount', () => {
         }
     });
 });
-
 
 test('runs the lazy query when id changes', () => {
     const runQuery = jest.fn();
@@ -84,7 +82,12 @@ test('returns the correct shape', () => {
 
     // Assert.
     const talonProps = log.mock.calls[0][0];
-    const expectedProperties = ['childCategories', 'error', 'loading', 'categoryUrlSuffix'];
+    const expectedProperties = [
+        'childCategories',
+        'error',
+        'loading',
+        'categoryUrlSuffix'
+    ];
     const actualProperties = Object.keys(talonProps);
     expect(actualProperties.sort()).toEqual(expectedProperties.sort());
 });
