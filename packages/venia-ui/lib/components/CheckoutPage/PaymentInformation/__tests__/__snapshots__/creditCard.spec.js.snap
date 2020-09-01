@@ -101,10 +101,10 @@ exports[`Should return correct shape 1`] = `
       <div
         classes={
           Object {
-            "root": "state",
+            "root": "region",
           }
         }
-        field="state"
+        initialValue="sample region"
         validate={[Function]}
       >
         Region Component
