@@ -6,14 +6,6 @@ import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useTypePolicies } from '../../hooks/useTypePolicies';
 
-/**
- *  A talon to support the functionality of the Order History page.
- *
- *  @returns {Object}   talonProps
- *  @returns {Object}   talonProps.orders - The user's order history data.
- *  @returns {Boolean}  talonProps.isLoadingWithoutData - Indicates whether the user's
- *      order history data is loading.
- */
 export const useOrderHistoryPage = props => {
     const { queries, types } = props;
     const { getCustomerOrdersQuery } = queries;
