@@ -33,13 +33,14 @@ export const useRegion = props => {
     const regionInputFieldApi = useFieldApi(fieldInput);
     const regionSelectFieldApi = useFieldApi(fieldSelect);
 
-    // Reset region value when country changes. Because of how Informed sets initialValues,
-    // we want to skip the first state change of the value being initialized.
+    // Reset region value when country changes. Because of how Informed sets
+    // initialValues, we want to skip the first state change of the value being
+    // initialized.
     useEffect(() => {
         if (country) {
             if (hasInitialized.current) {
-                regionInputFieldApi.reset();
-                regionSelectFieldApi.reset();
+                regionInputFieldApi.exists() && regionInputFieldApi.reset();
+                regionSelectFieldApi.exists() && regionSelectFieldApi.reset();
             } else {
                 hasInitialized.current = true;
             }
