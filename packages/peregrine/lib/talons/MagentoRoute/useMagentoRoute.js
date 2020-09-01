@@ -74,7 +74,7 @@ export const useMagentoRoute = () => {
                     type
                 }) => {
                     // add the pathname to the browser cache
-                    addToCache(pathname);
+                    // addToCache(pathname);
 
                     // Update our Map in local state for this path.
                     setComponentMap(prevMap => {

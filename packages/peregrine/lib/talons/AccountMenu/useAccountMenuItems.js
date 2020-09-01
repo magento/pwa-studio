@@ -48,7 +48,7 @@ export const useAccountMenuItems = props => {
         {
             name: 'Account Information',
             id: 'accountMenu.accountInfoLink',
-            url: ''
+            url: 'account-information'
         }
     ];
 
