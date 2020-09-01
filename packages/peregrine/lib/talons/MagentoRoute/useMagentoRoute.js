@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
 
-import addToCache from './addToCache';
 import getRouteComponent from './getRouteComponent';
 
 const CODE_PERMANENT_REDIRECT = 301;
@@ -13,11 +12,11 @@ const talonResponses = {
     ERROR: routeError => ({ hasError: true, routeError }),
     LOADING: { isLoading: true },
     NOT_FOUND: { isNotFound: true },
-    FOUND: (component, id, type) => ({ component, id, type }),
+    FOUND: (component, id, type, store) => ({ component, id, type, store }),
     REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
 };
 
-const shouldFetch = data => {
+const shouldFetch = (data, store) => {
     // Should fetch if we don't have any data.
     if (!data) return true;
 
@@ -26,10 +25,12 @@ const shouldFetch = data => {
         return true;
     }
 
-    return false;
+    // If we have data for the route, but the stores don't match fetch the correct route
+    return !!(data.id && data.store !== store);
 };
 
-export const useMagentoRoute = () => {
+export const useMagentoRoute = props => {
+    const { store } = props;
     const [componentMap, setComponentMap] = useState(new Map());
     const { apiBase } = useApolloClient();
     const history = useHistory();
@@ -62,8 +63,8 @@ export const useMagentoRoute = () => {
             return;
         }
 
-        if (shouldFetch(routeData)) {
-            getRouteComponent(apiBase, pathname).then(
+        if (shouldFetch(routeData, store)) {
+            getRouteComponent(apiBase, pathname, store).then(
                 ({
                     component,
                     id,
@@ -73,9 +74,6 @@ export const useMagentoRoute = () => {
                     routeError,
                     type
                 }) => {
-                    // add the pathname to the browser cache
-                    addToCache(pathname);
-
                     // Update our Map in local state for this path.
                     setComponentMap(prevMap => {
                         const nextMap = new Map(prevMap);
@@ -86,14 +84,14 @@ export const useMagentoRoute = () => {
                             ? talonResponses.NOT_FOUND
                             : REDIRECT_CODES.includes(redirectCode)
                             ? talonResponses.REDIRECT(relativeUrl)
-                            : talonResponses.FOUND(component, id, type);
+                            : talonResponses.FOUND(component, id, type, store);
 
                         return nextMap.set(pathname, nextValue);
                     });
                 }
             );
         }
-    }, [apiBase, componentMap, history, pathname, routeData]);
+    }, [apiBase, componentMap, history, pathname, routeData, store]);
 
     return routeData || talonResponses.LOADING;
 };

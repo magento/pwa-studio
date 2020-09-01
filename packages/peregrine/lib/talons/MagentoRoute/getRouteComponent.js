@@ -3,7 +3,15 @@ import resolveUnknownRoute from '../../Router/resolveUnknownRoute';
 export const INTERNAL_ERROR = 'INTERNAL_ERROR';
 export const NOT_FOUND = 'NOT_FOUND';
 
-const getRouteComponent = async (apiBase, pathname) => {
+/**
+ * Get the route component for a specific path
+ *
+ * @param apiBase
+ * @param pathname
+ * @param store
+ * @returns {Promise<{component: *, id: *, type: *, redirectCode: *, relativeUrl: *, pathname: *}|{routeError: *, pathname: *}>}
+ */
+const getRouteComponent = async (apiBase, pathname, store) => {
     // At build time, `fetchRootComponent` is injected as a global.
     // Depending on the environment, this global will be either an
     // ES module with a `default` property, or a plain CJS module.
@@ -17,7 +25,8 @@ const getRouteComponent = async (apiBase, pathname) => {
         // if this throws, we essentially have a 500 Internal Error
         const resolvedRoute = await resolveUnknownRoute({
             apiBase,
-            route: pathname
+            route: pathname,
+            store: store
         });
 
         // urlResolver query returns null if a route can't be found
