@@ -4,6 +4,7 @@ import {
     ToastContextProvider,
     WindowSizeContextProvider
 } from '@magento/peregrine';
+import LocaleProvider from './localeProvider';
 
 /**
  * List of context providers that are required to run Venia
@@ -11,6 +12,7 @@ import {
  * @property {React.Component[]} contextProviders
  */
 const contextProviders = [
+    LocaleProvider,
     Peregrine,
     WindowSizeContextProvider,
     ToastContextProvider

@@ -2,17 +2,11 @@ import React from 'react';
 import { gql } from '@apollo/client';
 import { bool, func, shape, string } from 'prop-types';
 import { useAutocomplete } from '@magento/peregrine/lib/talons/SearchBar';
+import { useIntl } from 'react-intl';
 
 import defaultClasses from './autocomplete.css';
 import { mergeClasses } from '../../classify';
 import Suggestions from './suggestions';
-
-const MESSAGES = new Map()
-    .set('ERROR', 'An error occurred while fetching results.')
-    .set('LOADING', 'Fetching results...')
-    .set('PROMPT', 'Search for a product')
-    .set('EMPTY_RESULT', 'No results were found.')
-    .set('RESULT_SUMMARY', (_, resultCount) => `${resultCount} items`);
 
 const GET_AUTOCOMPLETE_RESULTS = gql`
     query getAutocompleteResults($inputText: String!) {
@@ -72,6 +66,24 @@ const Autocomplete = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = visible ? classes.root_visible : classes.root_hidden;
+
+    const { formatMessage } = useIntl();
+    const MESSAGES = new Map()
+        .set(
+            'ERROR',
+            formatMessage({
+                id: 'An error occurred while fetching results.'
+            })
+        )
+        .set('LOADING', formatMessage({ id: 'Fetching results...' }))
+        .set('PROMPT', formatMessage({ id: 'Search for a product' }))
+        .set('EMPTY_RESULT', formatMessage({ id: 'No results were found.' }))
+        .set('RESULT_SUMMARY', (_, resultCount) =>
+            formatMessage(
+                { id: '{resultCount} items' },
+                { resultCount: resultCount }
+            )
+        );
 
     const messageTpl = MESSAGES.get(messageType);
     const message =
