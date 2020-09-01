@@ -41,7 +41,7 @@ export default class Price extends PureComponent {
         const { value, currencyCode, classes, locale } = this.props;
 
         const parts = patches.toParts.call(
-            Intl.NumberFormat(locale, {
+            new Intl.NumberFormat(locale, {
                 style: 'currency',
                 currency: currencyCode
             }),
