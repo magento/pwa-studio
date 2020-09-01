@@ -24,6 +24,17 @@
             ]
         },
         {
+            "name": "Magento Store View",
+            "variables": [
+                {
+                    "name": "STORE_VIEW_CODE",
+                    "type": "str",
+                    "desc": "Specify the Magento store view code set in Stores > Settings > All Stores > Store View name",
+                    "default": ""
+                }
+            ]
+        },
+        {
             "name": "Image Optimizing Origin",
             "variables": [
                 {

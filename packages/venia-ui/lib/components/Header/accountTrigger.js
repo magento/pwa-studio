@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
 import { useAccountTrigger } from '@magento/peregrine/lib/talons/Header/useAccountTrigger';
@@ -28,17 +29,20 @@ const AccountTrigger = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = accountMenuIsOpen ? classes.root_open : classes.root;
+    const { formatMessage } = useIntl();
 
     return (
         <Fragment>
             <div className={rootClassName} ref={accountMenuTriggerRef}>
                 <button
-                    aria-label={'Toggle My Account Menu'}
+                    aria-label={formatMessage({
+                        id: 'Toggle My Account Menu'
+                    })}
                     className={classes.trigger}
                     onClick={handleTriggerClick}
                 >
                     <AccountChip
-                        fallbackText={'Sign In'}
+                        fallbackText={formatMessage({ id: 'Sign In' })}
                         shouldIndicateLoading={true}
                     />
                 </button>

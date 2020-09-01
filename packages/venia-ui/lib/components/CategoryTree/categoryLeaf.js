@@ -10,7 +10,7 @@ const suffix = '.html';
 
 const Leaf = props => {
     const { category, onNavigate } = props;
-    const { name, url_path } = category;
+    const { name, url_path, children } = category;
     const classes = mergeClasses(defaultClasses, props.classes);
     const { handleClick } = useCategoryLeaf({ onNavigate });
     const destination = resourceUrl(`/${url_path}${suffix}`);
@@ -22,7 +22,9 @@ const Leaf = props => {
                 to={destination}
                 onClick={handleClick}
             >
-                <span className={classes.text}>{name}</span>
+                <span className={classes.text}>
+                    {children && children.length ? 'All ' + name : name}
+                </span>
             </Link>
         </li>
     );

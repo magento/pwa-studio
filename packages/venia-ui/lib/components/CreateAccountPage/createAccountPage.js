@@ -15,6 +15,7 @@ const CreateAccountPage = props => {
         <div className={classes.container}>
             <CreateAccountForm
                 initialValues={initialValues}
+                isCancelButtonHidden={true}
                 onSubmit={handleCreateAccount}
             />
         </div>

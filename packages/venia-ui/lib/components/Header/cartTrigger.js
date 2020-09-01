@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
 import { ShoppingBag as ShoppingCartIcon } from 'react-feather';
+import { useIntl } from 'react-intl';
 
 import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrigger';
 
@@ -26,7 +27,13 @@ const CartTrigger = props => {
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
+    const { formatMessage } = useIntl();
+    const buttonAriaLabel = formatMessage(
+        {
+            id: 'Toggle mini cart. You have {count} items in your cart.'
+        },
+        { count: itemCount }
+    );
     const itemCountDisplay = itemCount > 99 ? '99+' : itemCount;
     const triggerClassName = miniCartIsOpen
         ? classes.triggerContainer_open
