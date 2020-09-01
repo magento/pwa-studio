@@ -12,7 +12,7 @@ const talonResponses = {
     ERROR: routeError => ({ hasError: true, routeError }),
     LOADING: { isLoading: true },
     NOT_FOUND: { isNotFound: true },
-    FOUND: (component, id, store) => ({ component, id, store }),
+    FOUND: (component, id, type, store) => ({ component, id, type, store }),
     REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
 };
 
@@ -71,7 +71,8 @@ export const useMagentoRoute = props => {
                     pathname,
                     redirectCode,
                     relativeUrl,
-                    routeError
+                    routeError,
+                    type
                 }) => {
                     // Update our Map in local state for this path.
                     setComponentMap(prevMap => {
@@ -83,7 +84,7 @@ export const useMagentoRoute = props => {
                             ? talonResponses.NOT_FOUND
                             : REDIRECT_CODES.includes(redirectCode)
                             ? talonResponses.REDIRECT(relativeUrl)
-                            : talonResponses.FOUND(component, id, store);
+                            : talonResponses.FOUND(component, id, type, store);
 
                         return nextMap.set(pathname, nextValue);
                     });
