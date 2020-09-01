@@ -12,7 +12,7 @@ const MENU_ITEMS = [
     { name: 'Store Credit & Gift Cards', url: '' },
     { name: 'Favorites Lists', url: '/wishlist' },
     { name: 'Address Book', url: '/address-book' },
-    { name: 'Saved Payments', url: '' },
+    { name: 'Saved Payments', url: '/saved-payments' },
     { name: 'Communications', url: '/communications' },
     { name: 'Account Information', url: '' }
 ];
