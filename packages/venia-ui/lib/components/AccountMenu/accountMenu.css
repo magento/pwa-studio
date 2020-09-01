@@ -28,7 +28,10 @@
 }
 
 .createAccount {
-    padding: 2rem;
+    display: grid;
+    gap: 0.9375rem;
+    justify-items: stretch;
+    padding: 1rem 1.5rem;
 }
 
 .forgotPassword {

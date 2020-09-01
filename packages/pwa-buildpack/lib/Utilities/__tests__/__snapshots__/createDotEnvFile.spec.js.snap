@@ -48,6 +48,14 @@ MAGENTO_BACKEND_EDITION=CE
 #
 ################################################################################
 
+#### Magento Store View ########################################################
+#
+#   Specify the Magento store view code set in Stores > Settings > All Stores > Store View name
+#   - Default when not set: 
+STORE_VIEW_CODE=
+#
+################################################################################
+
 #### Image Optimizing Origin ###################################################
 #
 #   Specify the origin to use for images in the UI. Set to \`backend\` when Fastly or another CDN is optimizing images, and the frontend will load images directly from the Magento instance at MAGENTO_BACKEND_URL. To force usage of the onboard image optimizer, set to \`onboard\`. Set to \`auto\` to autodetect whether the backend is using FastlyIO and optimize onboard only if it needs to.

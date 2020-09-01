@@ -322,7 +322,13 @@ This is the easiest way to work with the released versions of PWA Studio.
 
 #### Upgrade method: Update `package.json`
 
-To upgrade to 7.0.0, update the project's `package.json` file and change the version string for any PWA Studio package dependencies.
+To upgrade to the latest version (currently 7.0.0), simply call `yarn add` on each of the `@magento` packages. This will both update `package.json` in your project, as well as install the latest versions.
+
+Sample command:
+
+```
+yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento/pwa-buildpack @magento/upward-js @magento/venia-ui
+```
 
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
 
