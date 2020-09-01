@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './orderProgressBar.css';
@@ -32,3 +33,12 @@ const OrderProgressBar = props => {
 };
 
 export default OrderProgressBar;
+
+OrderProgressBar.propTypes = {
+    classes: shape({
+        root: string,
+        step: string,
+        step_completed: string
+    }),
+    status: string.isRequired
+};

@@ -1,13 +1,14 @@
 import React from 'react';
-import { mergeClasses } from '../../classify';
-
-import defaultClasses from './orderRow.css';
-import { Price } from '@magento/peregrine';
-import OrderProgressBar from './orderProgressBar';
-import { useOrderRow } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderRow';
+import { object, shape, string } from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
+import { Price } from '@magento/peregrine';
+import { useOrderRow } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderRow';
+
+import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import CollapsedImageGallery from './collapsedImageGallery';
+import OrderProgressBar from './orderProgressBar';
+import defaultClasses from './orderRow.css';
 
 const OrderRow = props => {
     const { order } = props;
@@ -93,3 +94,29 @@ const OrderRow = props => {
 };
 
 export default OrderRow;
+
+OrderRow.propTypes = {
+    classes: shape({
+        root: string,
+        cell: string,
+        stackedCell: string,
+        label: string,
+        value: string,
+        orderNumberContainer: string,
+        orderDateContainer: string,
+        orderTotalContainer: string,
+        orderStatusContainer: string,
+        orderItemsContainer: string,
+        contentToggleContainer: string,
+        orderNumberLabel: string,
+        orderDateLabel: string,
+        orderTotalLabel: string,
+        orderNumber: string,
+        orderDate: string,
+        orderTotal: string,
+        orderStatusBadge: string,
+        content: string,
+        content_collapsed: string
+    }),
+    order: object.isRequired
+};

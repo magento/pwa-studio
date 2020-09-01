@@ -3,8 +3,11 @@ import { useCollapsedImageGallery } from '@magento/peregrine/lib/talons/OrderHis
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './collapsedImageGallery.css';
-import imageGalleryOperations from './collapsedImageGallery.gql';
+import imageGalleryOperations, {
+    DISPLAY_COUNT
+} from './collapsedImageGallery.gql';
 import Image from '../Image';
+import { arrayOf, object, shape, string } from 'prop-types';
 
 const CollapsedImageGallery = props => {
     const { items } = props;
@@ -16,7 +19,7 @@ const CollapsedImageGallery = props => {
     const { imageData } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const remainderCount = items.length - 4;
+    const remainderCount = items.length - DISPLAY_COUNT;
 
     const imageElements = useMemo(() => {
         if (imageData) {
@@ -30,6 +33,7 @@ const CollapsedImageGallery = props => {
                 return <Image key={id} alt={label} src={url} width={48} />;
             });
 
+            // If the order contains more than four products, render a remainder count in the last column.
             if (remainderCount > 0) {
                 baseImageElements.push(
                     <span
@@ -47,3 +51,11 @@ const CollapsedImageGallery = props => {
 };
 
 export default CollapsedImageGallery;
+
+CollapsedImageGallery.propTypes = {
+    classes: shape({
+        root: string,
+        remainderCount: string
+    }),
+    items: arrayOf(object)
+};

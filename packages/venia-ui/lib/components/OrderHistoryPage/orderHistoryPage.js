@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-
+import { shape, string } from 'prop-types';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import { mergeClasses } from '../../classify';
 import { Title } from '../Head';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './orderHistoryPage.css';
 import orderHistoryOperations from './orderHistoryPage.gql';
 import OrderRow from './orderRow';
@@ -52,3 +52,12 @@ const OrderHistoryPage = props => {
 };
 
 export default OrderHistoryPage;
+
+OrderHistoryPage.propTypes = {
+    classes: shape({
+        root: string,
+        heading: string,
+        emptyHistoryMessage: string,
+        orderHistoryTable: string
+    })
+};
