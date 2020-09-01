@@ -1,7 +1,5 @@
 import { useMemo } from 'react';
 
-// TODO: get categoryUrlSuffix from graphql storeOptions when it is ready
-const categoryUrlSuffix = '.html';
 const previewImageSize = 480;
 
 /**
@@ -12,7 +10,7 @@ const previewImageSize = 480;
  * @returns {Object} .item - an object containing name and url for the category tile
  */
 export const useCategoryTile = props => {
-    const { item } = props;
+    const { item, categoryUrlSuffix } = props;
     const { image, productImagePreview } = item;
 
     const imageObj = useMemo(() => {
@@ -43,7 +41,7 @@ export const useCategoryTile = props => {
             name: item.name,
             url: `/${item.url_key}${categoryUrlSuffix}`
         }),
-        [item]
+        [item, categoryUrlSuffix]
     );
 
     return {

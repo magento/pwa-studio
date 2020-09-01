@@ -12,7 +12,8 @@ const IMAGE_WIDTH = 80;
 
 const CategoryTile = props => {
     const talonProps = useCategoryTile({
-        item: props.item
+        item: props.item,
+        categorySuffixUrl: props.categorySuffixUrl
     });
 
     const { image, item } = talonProps;

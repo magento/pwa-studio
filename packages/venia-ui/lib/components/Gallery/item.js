@@ -19,8 +19,6 @@ const IMAGE_WIDTHS = new Map()
     .set(640, IMAGE_WIDTH)
     .set(UNCONSTRAINED_SIZE_KEY, 840);
 
-// TODO: get productUrlSuffix from graphql when it is ready
-
 const ItemPlaceholder = ({ classes }) => (
     <div className={classes.root_pending}>
         <div className={classes.images_pending}>

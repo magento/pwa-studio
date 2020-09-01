@@ -20,4 +20,8 @@ query categoryList($id: Int!) {
             }
         }
     }
+    storeConfig {
+        id
+        category_url_suffix
+    }
 }
