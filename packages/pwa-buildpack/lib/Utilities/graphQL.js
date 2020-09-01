@@ -23,11 +23,20 @@ const fetchQuery = query => {
         method: 'POST'
     })
         .then(result => result.json())
-        .then(json => json.data)
         .catch(err => {
             console.error(err);
             throw err;
-        });
+        })
+        .then(json =>
+            json && json.errors && json.errors.length > 0
+                ? Promise.reject(
+                      new Error(
+                          json.errors[0].message +
+                              ` (... ${json.errors.length} errors total)`
+                      )
+                  )
+                : json.data
+        );
 };
 
 /**
@@ -62,6 +71,8 @@ const getSchemaTypes = () => {
 };
 
 /**
+ * @deprecated use {@link getPossibleTypes} with ApolloClient v3.
+ *
  * Get only the Union and Interface types in the schema.
  */
 const getUnionAndInterfaceTypes = () => {

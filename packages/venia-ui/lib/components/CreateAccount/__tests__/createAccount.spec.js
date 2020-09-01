@@ -67,3 +67,11 @@ test('attaches the submit handler', () => {
 
     expect(typeof onSubmit).toBe('function');
 });
+
+test('should not render cancel button if isCancelButtonHidden is true', () => {
+    const tree = createTestInstance(
+        <CreateAccount {...props} isCancelButtonHidden={true} />
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+});

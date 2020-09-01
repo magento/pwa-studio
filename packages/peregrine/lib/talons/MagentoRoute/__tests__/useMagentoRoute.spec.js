@@ -51,6 +51,7 @@ const routeComponentResults = {
     COMPONENT_FOUND: {
         component: {},
         id: 1,
+        type: 'PRODUCT',
         store: 'default'
     },
     COMPONENT_NOT_FOUND: {
