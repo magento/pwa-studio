@@ -2,26 +2,24 @@ import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
 
-import { useSavedPaymentsPage } from '../useSavedPaymentsPage';
+import { useSavedPaymentsPage, normalizeTokens } from '../useSavedPaymentsPage';
 
 const MOCK_SAVED_PAYMENTS_DATA = {
-    data: {
-        customerPaymentTokens: {
-            items: [
-                {
-                    details:
-                        '{"type":"VI","maskedCC":"1111","expirationDate":"09\\/2022"}',
-                    public_hash: '377c1514e0...',
-                    payment_method_code: 'braintree'
-                },
-                {
-                    details:
-                        '{"type":"DI","maskedCC":"1117","expirationDate":"11\\/2023"}',
-                    public_hash: 'f5816fe2ab...',
-                    payment_method_code: 'braintree'
-                }
-            ]
-        }
+    customerPaymentTokens: {
+        items: [
+            {
+                details:
+                    '{"type":"VI","maskedCC":"1111","expirationDate":"09\\/2022"}',
+                public_hash: '377c1514e0...',
+                payment_method_code: 'braintree'
+            },
+            {
+                details:
+                    '{"type":"DI","maskedCC":"1117","expirationDate":"11\\/2023"}',
+                public_hash: 'f5816fe2ab...',
+                payment_method_code: 'braintree'
+            }
+        ]
     }
 };
 
@@ -89,16 +87,14 @@ test('it returns the proper shape', () => {
 
 test('it returns the savedPayments correctly when present', () => {
     // Arrange.
-    useQuery.mockReturnValueOnce(MOCK_SAVED_PAYMENTS_DATA);
+    useQuery.mockReturnValueOnce({ data: MOCK_SAVED_PAYMENTS_DATA });
 
     // Act.
     createTestInstance(<Component {...props} />);
 
     // Assert.
     const { savedPayments } = log.mock.calls[0][0];
-    expect(savedPayments).toEqual(
-        MOCK_SAVED_PAYMENTS_DATA.data.customerPaymentTokens.items
-    );
+    expect(savedPayments).toEqual(normalizeTokens(MOCK_SAVED_PAYMENTS_DATA));
 });
 
 test('it returns an empty savedPayments array when data is empty', () => {

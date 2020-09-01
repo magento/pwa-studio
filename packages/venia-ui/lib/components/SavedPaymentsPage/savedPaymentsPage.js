@@ -26,10 +26,15 @@ const SavedPaymentsPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const savedPaymentElements = useMemo(() => {
-        return savedPayments.map(paymentEntry => (
-            // TODO in PWA-636
-            <div>{paymentEntry}</div>
-        ));
+        return savedPayments.map(
+            ({ details, public_hash, payment_method_code }) => (
+                // TODO: Clean up in PWA-636
+                <div key={public_hash}>
+                    <div>{payment_method_code}</div>
+                    <div>{JSON.stringify(details, null, 2)}</div>
+                </div>
+            )
+        );
     }, [savedPayments]);
 
     return (

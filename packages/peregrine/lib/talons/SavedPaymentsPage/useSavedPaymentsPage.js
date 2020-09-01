@@ -5,6 +5,40 @@ import { useQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
+// https://devdocs.magento.com/guides/v2.4/graphql/queries/customer-payment-tokens.html
+// TODO: Looks like we need a map of the string code type to "VISA", "Discover", etc.
+const MOCK_SAVED_PAYMENTS_DATA = {
+    customerPaymentTokens: {
+        items: [
+            {
+                details:
+                    '{"type":"VI","maskedCC":"1111","expirationDate":"09\\/2022"}',
+                public_hash: '377c1514e0...',
+                payment_method_code: 'braintree'
+            },
+            {
+                details:
+                    '{"type":"DI","maskedCC":"1117","expirationDate":"11\\/2023"}',
+                public_hash: 'f5816fe2ab...',
+                payment_method_code: 'braintree'
+            }
+        ]
+    }
+};
+
+export const normalizeTokens = responseData => {
+    const paymentTokens =
+        (responseData && responseData.customerPaymentTokens.items) || [];
+
+    return paymentTokens.map(
+        ({ details, public_hash, payment_method_code }) => ({
+            // details is a stringified object.
+            details: JSON.parse(details),
+            public_hash,
+            payment_method_code
+        })
+    );
+};
 /**
  * This talon contains logic for a saved payment page component.
  * It performs effects and returns prop data for rendering the component.
@@ -57,11 +91,9 @@ export const useSavedPaymentsPage = props => {
         // TODO in PWA-637
     }, []);
 
-    const savedPayments =
-        (savedPaymentsData &&
-            savedPaymentsData.customerPaymentTokens &&
-            savedPaymentsData.customerPaymentTokens.items) ||
-        [];
+    // TODO: Unmock in PWA-636
+    // const savedPayments = normalizeTokens(savedPaymentsData);
+    const savedPayments = normalizeTokens(MOCK_SAVED_PAYMENTS_DATA);
 
     return {
         savedPayments,
