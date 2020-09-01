@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Price } from '@magento/peregrine';
-import { IntlProvider, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { mergeClasses } from '../../../classify';
 
 const DEFAULT_AMOUNT = {
@@ -40,7 +40,6 @@ export default props => {
     const { locale } = useIntl();
 
     return cards.value ? (
-        <IntlProvider locale="en-US">
             <Fragment>
                 <span className={classes.lineItemLabel}>
                     {'Gift Card(s) applied'}
@@ -54,6 +53,5 @@ export default props => {
                     />
                 </span>
             </Fragment>
-        </IntlProvider>
     ) : null;
 };
