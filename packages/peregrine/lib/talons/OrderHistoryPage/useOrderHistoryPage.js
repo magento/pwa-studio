@@ -10,8 +10,8 @@ import { useTypePolicies } from '../../hooks/useTypePolicies';
  *  A talon to support the functionality of the Order History page.
  *
  *  @returns {Object}   talonProps
- *  @returns {Object}   talonProps.data - The user's order history data.
- *  @returns {Boolean}  talonProps.isLoading - Indicates whether the user's
+ *  @returns {Object}   talonProps.orders - The user's order history data.
+ *  @returns {Boolean}  talonProps.isLoadingWithoutData - Indicates whether the user's
  *      order history data is loading.
  */
 export const useOrderHistoryPage = props => {
@@ -35,7 +35,7 @@ export const useOrderHistoryPage = props => {
     });
 
     const isLoadingWithoutData = !data && loading;
-    const isBackgroundLoading = data && loading;
+    const isBackgroundLoading = !!data && loading;
     const orders = useMemo(() => {
         if (data) {
             return data.customer.orders.items;
