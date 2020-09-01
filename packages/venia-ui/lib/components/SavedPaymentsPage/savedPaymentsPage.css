@@ -14,7 +14,6 @@
 }
 
 .subHeading {
-    /* line-height: 1.25em; */
     margin-bottom: 2rem;
     text-align: center;
 }
@@ -45,5 +44,9 @@
 @media (max-width: 960px) {
     .content {
         grid-template-columns: 1fr;
+    }
+
+    .subHeading {
+        text-align: left;
     }
 }
