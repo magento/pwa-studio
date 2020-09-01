@@ -91,7 +91,7 @@ const CreditCard = props => {
             'street1',
             'street2',
             'city',
-            'state',
+            'region',
             'postal_code',
             'phone_number'
         ].reduce((acc, fieldName) => {
@@ -208,7 +208,7 @@ const CreditCard = props => {
                         />
                     </Field>
                     <Region
-                        classes={fieldClasses.state}
+                        classes={fieldClasses.region}
                         initialValue={initialValues.region}
                         validate={isFieldRequired}
                     />
@@ -249,7 +249,7 @@ CreditCard.propTypes = {
         first_name: string,
         last_name: string,
         city: string,
-        state: string,
+        region: string,
         postal_code: string,
         phone_number: string,
         country: string,
