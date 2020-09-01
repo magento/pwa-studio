@@ -157,6 +157,10 @@ test('calls updateCategories when data changes', () => {
         category: {
             ...category,
             children: Array.from(category.children, id => categories[id])
+        },
+        storeConfig: {
+            id: 1,
+            category_url_suffix: '.html'
         }
     };
 
@@ -178,7 +182,7 @@ test('returns the correct shape', () => {
 
     // Assert.
     const talonProps = log.mock.calls[0][0];
-    const expectedProperties = ['data', 'childCategories'];
+    const expectedProperties = ['data', 'childCategories', 'categorySuffixUrl'];
     const actualProperties = Object.keys(talonProps);
     expect(actualProperties.sort()).toEqual(expectedProperties.sort());
 });
