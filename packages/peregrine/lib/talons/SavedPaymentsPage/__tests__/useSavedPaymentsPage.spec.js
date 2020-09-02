@@ -97,21 +97,6 @@ test('it returns the savedPayments correctly when present', () => {
     expect(savedPayments).toEqual(normalizeTokens(MOCK_SAVED_PAYMENTS_DATA));
 });
 
-test('it returns an empty savedPayments array when data is empty', () => {
-    // Arrange.
-    useQuery.mockReturnValueOnce({
-        data: {}
-    });
-
-    // Act.
-    createTestInstance(<Component {...props} />);
-
-    // Assert.
-    const { savedPayments } = log.mock.calls[0][0];
-    expect(savedPayments).toBeInstanceOf(Array);
-    expect(savedPayments).toHaveLength(0);
-});
-
 test('it returns an empty savedPayments array when token data is missing', () => {
     // Arrange.
     useQuery.mockReturnValueOnce({

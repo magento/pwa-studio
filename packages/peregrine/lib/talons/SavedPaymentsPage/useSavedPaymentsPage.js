@@ -5,27 +5,6 @@ import { useQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
-// https://devdocs.magento.com/guides/v2.4/graphql/queries/customer-payment-tokens.html
-// TODO: Looks like we need a map of the string code type to "VISA", "Discover", etc.
-const MOCK_SAVED_PAYMENTS_DATA = {
-    customerPaymentTokens: {
-        items: [
-            {
-                details:
-                    '{"type":"VI","maskedCC":"1111","expirationDate":"09\\/2022"}',
-                public_hash: '377c1514e0...',
-                payment_method_code: 'braintree'
-            },
-            {
-                details:
-                    '{"type":"DI","maskedCC":"1117","expirationDate":"11\\/2023"}',
-                public_hash: 'f5816fe2ab...',
-                payment_method_code: 'braintree'
-            }
-        ]
-    }
-};
-
 export const normalizeTokens = responseData => {
     const paymentTokens =
         (responseData && responseData.customerPaymentTokens.items) || [];
@@ -66,6 +45,7 @@ export const useSavedPaymentsPage = props => {
     ] = useAppContext();
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
+
     const { data: savedPaymentsData, loading } = useQuery(
         getSavedPaymentsQuery,
         {
@@ -91,9 +71,7 @@ export const useSavedPaymentsPage = props => {
         // TODO in PWA-637
     }, []);
 
-    // TODO: Unmock in PWA-636
-    // const savedPayments = normalizeTokens(savedPaymentsData);
-    const savedPayments = normalizeTokens(MOCK_SAVED_PAYMENTS_DATA);
+    const savedPayments = normalizeTokens(savedPaymentsData);
 
     return {
         savedPayments,
@@ -108,7 +86,7 @@ export const useSavedPaymentsPage = props => {
  *
  * @typedef {Object} SavedPaymentsPageQueries
  *
- * @property {GraphQLAST} getSavedPaymentsQuery Query for getting saved payments
+ * @property {GraphQLAST} getSavedPaymentsQuery Query for getting saved payments. See https://devdocs.magento.com/guides/v2.4/graphql/queries/customer-payment-tokens.html
  *
  * @see [savedPaymentsPage.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/SavedPaymentsPage/savedPaymentsPage.gql.js}
  * for queries used in Venia
