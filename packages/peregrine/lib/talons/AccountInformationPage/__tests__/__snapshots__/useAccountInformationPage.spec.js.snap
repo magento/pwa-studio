@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`return correct shape for initial customer data 1`] = `
+Object {
+  "activeChangePassword": false,
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
+  "handleChangePassword": [Function],
+  "handleEditInformation": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "huykon@gmail.com",
+      "firtname": "Huy",
+      "id": null,
+      "lastname": "Kon",
+    },
+  },
+  "isDisabled": false,
+  "isSignedIn": true,
+  "loadDataError": null,
+}
+`;
+
+exports[`return correct shape for new value and fire create mutation update customer information 1`] = `
+Object {
+  "activeChangePassword": false,
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
+  "handleChangePassword": [Function],
+  "handleEditInformation": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "huykon@gmail.com",
+      "firtname": "Marco",
+      "id": 7,
+      "lastname": "Reus",
+    },
+  },
+  "isDisabled": false,
+  "isSignedIn": true,
+  "loadDataError": null,
+}
+`;
+
+exports[`return correct shape for new value and fire create mutation update customer information 2`] = `
+Object {
+  "variables": Object {
+    "email": "huykon@gmail.com",
+    "firtname": "Marco",
+    "lastname": "Reus",
+  },
+}
+`;
+
+exports[`return correct shape while data is loading 1`] = `
+Object {
+  "activeChangePassword": false,
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
+  "handleChangePassword": [Function],
+  "handleEditInformation": [Function],
+  "handleSubmit": [Function],
+  "initialValues": undefined,
+  "isDisabled": false,
+  "isSignedIn": true,
+  "loadDataError": undefined,
+}
+`;

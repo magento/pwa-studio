@@ -215,7 +215,10 @@ describe('validateDifferentCurrentPassword', () => {
             password: 'qwerty12345'
         };
         const password = 'qwertz12345';
-        const result = validators.validateDifferentCurrentPassword(password, values);
+        const result = validators.validateDifferentCurrentPassword(
+            password,
+            values
+        );
 
         expect(result).toBeUndefined();
     });
@@ -240,7 +243,10 @@ describe('validateDifferentCurrentPassword', () => {
             password: 'qwerty12345'
         };
         const password = 'qwerty12345';
-        const result = validators.validateDifferentCurrentPassword(password, values);
+        const result = validators.validateDifferentCurrentPassword(
+            password,
+            values
+        );
 
         expect(typeof result).toBe('string');
     });
