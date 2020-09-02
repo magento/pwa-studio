@@ -9,6 +9,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
+import StoreSwitcher from '../Header/storeSwitcher';
 
 const AuthModal = React.lazy(() => import('../AuthModal'));
 
@@ -70,6 +71,7 @@ const Navigation = props => {
                 />
             </div>
             <div className={classes.footer}>
+                <StoreSwitcher mobileView={true} />
                 <AuthBar
                     disabled={hasModal}
                     showMyAccount={showMyAccount}

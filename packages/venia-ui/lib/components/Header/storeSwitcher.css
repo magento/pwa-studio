@@ -1,6 +1,46 @@
+.root {
+    background-color: rgb(var(--venia-global-color-gray-100));
+    width: 100%;
+}
+
 .storeSwitcherContainer {
     align-items: center;
     display: grid;
     /* The full height of the site header minus (box shadow height * 2). */
     height: calc(5rem - 8px);
+    justify-items: end;
+    margin: 0 auto;
+    max-width: var(--venia-global-maxWidth);
+    padding: 0 1rem;
+}
+
+/*
+ * Desktop specific styles
+ */
+@media (min-width: 961px) {
+    .root_mobile {
+        display: none;
+    }
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+.root_mobile {
+    composes: root;
+}
+
+.root_mobile .storeSwitcherContainer {
+    justify-items: start;
+}
+
+@media (max-width: 960px) {
+    .root {
+        display: none;
+    }
+
+    .root_mobile {
+        display: block;
+    }
 }
