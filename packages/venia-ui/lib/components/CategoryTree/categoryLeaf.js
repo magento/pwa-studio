@@ -7,11 +7,11 @@ import { Link, resourceUrl } from '../../drivers';
 import defaultClasses from './categoryLeaf.css';
 
 const Leaf = props => {
-    const { category, onNavigate, categorySuffixUrl } = props;
-    const { name, url_path, children } = category;
+    const { category, onNavigate } = props;
+    const { name, url_path, url_suffix, children } = category;
     const classes = mergeClasses(defaultClasses, props.classes);
     const { handleClick } = useCategoryLeaf({ onNavigate });
-    const destination = resourceUrl(`/${url_path}${categorySuffixUrl}`);
+    const destination = resourceUrl(`/${url_path}${url_suffix}`);
 
     return (
         <li className={classes.root}>

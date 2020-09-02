@@ -10,7 +10,7 @@ const previewImageSize = 480;
  * @returns {Object} .item - an object containing name and url for the category tile
  */
 export const useCategoryTile = props => {
-    const { item, categoryUrlSuffix } = props;
+    const { item } = props;
     const { image, productImagePreview } = item;
 
     const imageObj = useMemo(() => {
@@ -39,9 +39,9 @@ export const useCategoryTile = props => {
     const itemObject = useMemo(
         () => ({
             name: item.name,
-            url: `/${item.url_key}${categoryUrlSuffix}`
+            url: `/${item.url_key}${item.url_suffix}`
         }),
-        [item, categoryUrlSuffix]
+        [item]
     );
 
     return {

@@ -24,8 +24,6 @@ export const useCategoryList = props => {
         childCategories:
             (data && data.category && data.category.children) || null,
         error,
-        loading,
-        categoryUrlSuffix:
-            (data && data.category && data.category.url_suffix) || '.html'
+        loading
     };
 };

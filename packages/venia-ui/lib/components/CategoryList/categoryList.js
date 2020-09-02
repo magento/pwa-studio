@@ -34,7 +34,7 @@ const CategoryList = props => {
         id
     });
 
-    const { childCategories, error, loading, categorySuffixUrl } = talonProps;
+    const { childCategories, error, loading } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -64,11 +64,7 @@ const CategoryList = props => {
         child = (
             <div className={classes.content}>
                 {childCategories.map(item => (
-                    <CategoryTile
-                        item={mapCategory(item)}
-                        key={item.url_key}
-                        categorySuffixUrl={categorySuffixUrl}
-                    />
+                    <CategoryTile item={mapCategory(item)} key={item.url_key} />
                 ))}
             </div>
         );

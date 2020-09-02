@@ -4,7 +4,6 @@ import { createTestInstance } from '@magento/peregrine';
 import { useCategoryTile } from '../useCategoryTile';
 
 const props = {
-    categoryUrlSuffix: '.html',
     item: {
         productImagePreview: {
             items: [
@@ -20,6 +19,7 @@ const props = {
         },
         name: 'Tiki',
         url_key: 'tiki',
+        url_suffix: '.html',
         image: '/pub/media/1-large.png'
     }
 };
@@ -42,4 +42,15 @@ test('returns the correct shape', () => {
     const expectedProperties = ['image', 'item'];
     const actualProperties = Object.keys(talonProps);
     expect(actualProperties.sort()).toEqual(expectedProperties.sort());
+});
+
+test('formats the item object', () => {
+    // Act.
+    createTestInstance(<Component {...props} />);
+
+    // Assert.
+    const talonProps = log.mock.calls[0][0];
+
+    expect(talonProps.item.url).toEqual('/tiki.html');
+    expect(talonProps.item.name).toEqual(props.item.name);
 });

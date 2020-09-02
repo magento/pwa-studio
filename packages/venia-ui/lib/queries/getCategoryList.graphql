@@ -2,12 +2,12 @@
 query categoryList($id: Int!) {
     category(id: $id) {
         id
-        url_suffix
         children {
             id
             name
             url_key
             url_path
+            url_suffix
             children_count
             path
             image

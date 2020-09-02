@@ -82,12 +82,7 @@ test('returns the correct shape', () => {
 
     // Assert.
     const talonProps = log.mock.calls[0][0];
-    const expectedProperties = [
-        'childCategories',
-        'error',
-        'loading',
-        'categoryUrlSuffix'
-    ];
+    const expectedProperties = ['childCategories', 'error', 'loading'];
     const actualProperties = Object.keys(talonProps);
     expect(actualProperties.sort()).toEqual(expectedProperties.sort());
 });
