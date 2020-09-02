@@ -20,7 +20,8 @@ module.exports = targets => {
             esModules: true,
             graphqlQueries: true,
             rootComponents: true,
-            upward: true
+            upward: true,
+            i18n: true
         };
     });
 

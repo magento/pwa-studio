@@ -15,9 +15,23 @@ async function getModuleRules(helper) {
         getModuleRules.graphql(helper),
         getModuleRules.js(helper),
         getModuleRules.css(helper),
-        getModuleRules.files(helper)
+        getModuleRules.files(helper),
+        getModuleRules.i18n(helper)
     ]);
 }
+
+/**
+ * @param {Buildpack/WebpackTools~WebpackConfigHelper} helper
+ * @returns Rule object for finding all translation files within an npm package
+ *
+ * Matches any file within i18n/ with a valid locale code and the .json file extension
+ *  - i18n/en_US.json
+ *  - i18n/fr_FR.json
+ */
+getModuleRules.i18n = async ({ paths, hasFlag }) => ({
+    test: /i18n\/[a-z]{2}_[A-Z]{2}\.json$/,
+    include: [paths.src, ...hasFlag('i18n')],
+});
 
 /**
  * @param {Buildpack/WebpackTools~WebpackConfigHelper} helper
