@@ -1,14 +1,10 @@
-import React, { useCallback } from 'react';
-import { Form } from 'informed';
+import React, { Fragment } from 'react';
 import { Redirect } from '@magento/venia-drivers';
-import { useToasts } from '@magento/peregrine';
 import { useAccountInformationPage } from '@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage';
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
-import Checkbox from '../Checkbox';
-import Field from '../Field';
-import FormError from '../FormError';
+import { Message } from '../Field';
 import { Title } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import EditModal from './editModal';
@@ -19,46 +15,89 @@ const AccountInformationPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useAccountInformationPage({
-        // afterSubmit,
         ...AccountInformationPageOperations
     });
 
     const {
+        loadDataError,
         formErrors,
-        // handleSubmit,
+        handleSubmit,
         initialValues,
-        /* isDisabled, */
+        isDisabled,
         isSignedIn,
-        handleEditInformation
+        handleEditInformation,
+        activeChangePassword,
+        handleChangePassword
     } = talonProps;
 
     if (!isSignedIn) {
         return <Redirect to="/" />;
     }
 
+    const errorMessage = loadDataError ? (
+        <Message>
+            {
+                'Something went wrong. Please refresh and try again.'
+            }
+        </Message>
+    ) : null;
+
+    let pageContent = null;
     if (!initialValues) {
         return fullPageLoadingIndicator;
+    } else {
+        const { customer } = initialValues;
+
+        pageContent = (
+            <Fragment>
+                <div className={classes.cardArea}>
+                    <div className={classes.lineItems}>
+                        <span className={classes.lineItemLabel}>{'Name'}</span>
+                        <span className={classes.lineItemValue}>{`${
+                            customer.firstname
+                        } ${customer.lastname}`}</span>
+                        <span className={classes.lineItemLabel}>{'Email'}</span>
+                        <span className={classes.lineItemValue}>
+                            {customer.email}
+                        </span>
+                        <span className={classes.lineItemLabel}>
+                            {'Password'}
+                        </span>
+                        <span className={classes.lineItemValue}>
+                            {'***********'}
+                        </span>
+                        <span className={classes.lineItemLabel} />
+                        <span className={classes.lineItemValue}>
+                            <Button
+                                className={classes.editInformationButton}
+                                disabled={false}
+                                onClick={handleEditInformation}
+                                priority="normal"
+                            >
+                                {'Edit'}
+                            </Button>
+                        </span>
+                    </div>
+                </div>
+                <EditModal
+                    informationData={customer}
+                    activeChangePassword={activeChangePassword}
+                    handleChangePassword={handleChangePassword}
+                    handleSubmit={handleSubmit}
+                    isDisabled={isDisabled}
+                    formErrors={formErrors}
+                />
+            </Fragment>
+        );
     }
 
-    return <div className={classes.root}>
-        <Title>{`Account Information - ${STORE_NAME}`}</Title>
-        <h1 className={classes.title}>{'Account Information'}</h1>
-        <FormError errors={formErrors} />
-
-        <div className={classes.cardArea}>
-            <div className={classes.lineItems}>
-                <span className={classes.lineItemLabel}>{'Name'}</span>
-                <span className={classes.lineItemValue}>{initialValues.customer.firstname + ' ' + initialValues.customer.lastname}</span>
-                <span className={classes.lineItemLabel}>{'Email'}</span>
-                <span className={classes.lineItemValue}>{initialValues.customer.email}</span>
-                <span className={classes.lineItemLabel}>{'Password'}</span>
-                <span className={classes.lineItemValue}>{'***********'}</span>
-                <span className={classes.lineItemLabel}></span>
-                <span className={classes.lineItemValue}><Button className={classes.editInformationButton} disabled={false} onClick={handleEditInformation} priority="normal">{'Edit'}</Button></span>
-            </div>
+    return (
+        <div className={classes.root}>
+            <Title>{`Account Information - ${STORE_NAME}`}</Title>
+            <h1 className={classes.title}>{'Account Information'}</h1>
+            {errorMessage ? errorMessage : pageContent}
         </div>
-        <EditModal /* shippingData={activeAddress} */ />
-    </div>
-}
+    );
+};
 
 export default AccountInformationPage;

@@ -106,3 +106,13 @@ export const validateConfirmPassword = (
 ) => {
     return value === values[passwordKey] ? SUCCESS : 'Passwords must match.';
 };
+
+export const validateDifferentCurrentPassword = (
+    value,
+    values,
+    passwordKey = 'password'
+) => {
+    return value !== values[passwordKey]
+        ? SUCCESS
+        : 'New Password and Current Password are same';
+};

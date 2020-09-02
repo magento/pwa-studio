@@ -1,15 +1,38 @@
 import gql from 'graphql-tag';
 
-/* export const SET_NEWSLETTER_SUBSCRIPTION = gql`
-    mutation SetNewsletterSubscription($isSubscribed: Boolean!) {
-        updateCustomer(input: { is_subscribed: $isSubscribed }) {
+export const SET_CUSTOMER_INFORMATION = gql`
+    mutation SetCustomerInformation(
+        $firstname: String!
+        $lastname: String!
+        $email: String!
+    ) {
+        updateCustomer(
+            input: { firstname: $firstname, lastname: $lastname, email: $email }
+        ) {
             customer {
                 id
-                is_subscribed
+                firstname
+                lastname
+                email
             }
         }
     }
-`; */
+`;
+
+export const CHANGE_CUSTOMER_PASSWORD = gql`
+    mutation ChangeCustomerPassword(
+        $currentPassword: String!
+        $newPassword: String!
+    ) {
+        changeCustomerPassword(
+            currentPassword: $currentPassword
+            newPassword: $newPassword
+        ) {
+            id
+            email
+        }
+    }
+`;
 
 export const GET_CUSTOMER_INFORMATION = gql`
     query GetCustomerInformation {
@@ -18,15 +41,15 @@ export const GET_CUSTOMER_INFORMATION = gql`
             firstname
             lastname
             email
-            # password
         }
     }
 `;
 
 export default {
-    /* mutations: {
-        setNewsletterSubscriptionMutation: SET_NEWSLETTER_SUBSCRIPTION
-    }, */
+    mutations: {
+        setCustomerInformationMutation: SET_CUSTOMER_INFORMATION,
+        changeCustomerPasswordMutation: CHANGE_CUSTOMER_PASSWORD
+    },
     queries: {
         getCustomerInformationQuery: GET_CUSTOMER_INFORMATION
     }
