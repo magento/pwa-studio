@@ -65,7 +65,14 @@ const typePolicies = {
         }
     },
     Customer: {
-        keyFields: () => 'Customer'
+        keyFields: () => 'Customer',
+        fields: {
+            addresses: {
+                merge(existing, incoming) {
+                    return incoming;
+                }
+            }
+        }
     },
     CustomerAddress: {
         fields: {
