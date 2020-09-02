@@ -137,5 +137,55 @@ describe('Pagination State', () => {
             // Note: One (1) is the default value in usePagination.
             expect(state.totalPages).toEqual(1);
         });
+
+        test('overwrites its internal state when props change', async () => {
+            const prevProps = { initialPage: 1, initialTotalPages: 2 };
+            const nextProps = { initialPage: 2, initialTotalPages: 2 };
+
+            // first, render the component (call the hook) with original props
+            const instance = createTestInstance(<Component {...prevProps} />);
+
+            // then, re-render it with new props
+            await act(() => {
+                instance.update(<Component {...nextProps} />);
+            });
+
+            // this assertion reveals a new issue
+            // the second hook call is stale, while it runs the effect
+            expect(log).toHaveBeenCalledTimes(3);
+
+            // first call is accurate
+            expect(log).toHaveBeenNthCalledWith(
+                1,
+                expect.arrayContaining([
+                    {
+                        currentPage: 1,
+                        totalPages: 2
+                    }
+                ])
+            );
+
+            // second call is inaccurate. this assertion should fail
+            expect(log).toHaveBeenNthCalledWith(
+                2,
+                expect.arrayContaining([
+                    {
+                        currentPage: 1,
+                        totalPages: 2
+                    }
+                ])
+            );
+
+            // third call is accurate. this should be the second call
+            expect(log).toHaveBeenNthCalledWith(
+                3,
+                expect.arrayContaining([
+                    {
+                        currentPage: 2,
+                        totalPages: 2
+                    }
+                ])
+            );
+        });
     });
 });
