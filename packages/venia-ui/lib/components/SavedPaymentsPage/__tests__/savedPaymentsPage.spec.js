@@ -23,7 +23,7 @@ const talonProps = {
     handleAddPayment: jest.fn().mockName('handleAddPayment')
 };
 
-it('renders correctly when there are no existing addresses', () => {
+it('renders correctly when there are no existing saved payments', () => {
     // Arrange.
     useSavedPaymentsPage.mockReturnValueOnce(talonProps);
 
@@ -34,7 +34,7 @@ it('renders correctly when there are no existing addresses', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-it('renders correctly when there are existing addresses', () => {
+it('renders correctly when there are existing saved payments', () => {
     // Arrange.
     const myTalonProps = {
         ...talonProps,
