@@ -5,16 +5,17 @@ import { useQuery } from '@apollo/client';
  * @function
  *
  * @param {Object} props
+ * @param {Number} props.imageCount Count for how many images to fetch
  * @param {Array<Object>} props.items Collection of items in Order
  * @param {CollapsedImageGalleryQueries} props.queries GraphQL queries for Collapsed Image Gallery
  *
  * @returns {CollapsedImageGalleryTalonProps}
  */
 export const useCollapsedImageGallery = props => {
-    const { items, queries } = props;
+    const { imageCount, items, queries } = props;
     const { getProductThumbnailsQuery } = queries;
 
-    const productSkus = useMemo(() => {
+    const skus = useMemo(() => {
         return items.map(item => item.product_sku);
     }, [items]);
 
@@ -22,7 +23,8 @@ export const useCollapsedImageGallery = props => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         variables: {
-            skus: productSkus
+            imageCount,
+            skus
         }
     });
 

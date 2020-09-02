@@ -22,6 +22,7 @@ test('returns correct shape', () => {
     useQuery.mockReturnValue({ data: 'getProducyThumbnailQuery Response' });
 
     const props = {
+        imageCount: 4,
         items: [{ product_sku: 'sku1' }, { product_sku: 'sku2' }],
         queries: {}
     };

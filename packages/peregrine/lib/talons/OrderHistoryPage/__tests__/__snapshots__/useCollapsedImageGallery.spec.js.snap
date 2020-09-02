@@ -11,6 +11,7 @@ Object {
   "fetchPolicy": "cache-and-network",
   "nextFetchPolicy": "cache-first",
   "variables": Object {
+    "imageCount": 4,
     "skus": Array [
       "sku1",
       "sku2",

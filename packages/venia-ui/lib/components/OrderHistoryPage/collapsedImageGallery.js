@@ -3,16 +3,17 @@ import { useCollapsedImageGallery } from '@magento/peregrine/lib/talons/OrderHis
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './collapsedImageGallery.css';
-import imageGalleryOperations, {
-    DISPLAY_COUNT
-} from './collapsedImageGallery.gql';
+import imageGalleryOperations from './collapsedImageGallery.gql';
 import Image from '../Image';
 import { arrayOf, object, shape, string } from 'prop-types';
+
+const DISPLAY_COUNT = 4;
 
 const CollapsedImageGallery = props => {
     const { items } = props;
 
     const talonProps = useCollapsedImageGallery({
+        imageCount: DISPLAY_COUNT,
         items,
         ...imageGalleryOperations
     });
