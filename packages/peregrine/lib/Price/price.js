@@ -40,6 +40,8 @@ export default class Price extends PureComponent {
     render() {
         const { value, currencyCode, classes, locale } = this.props;
 
+        // If the optional locale prop is not provided or is undefined,
+        // the runtime's default locale is used in the Intl.NumberFormat() constructor.
         const parts = patches.toParts.call(
             new Intl.NumberFormat(locale, {
                 style: 'currency',
