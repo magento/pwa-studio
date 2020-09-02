@@ -9,7 +9,7 @@ import LinkButton from '../LinkButton';
 import { Title } from '../Head';
 
 import { GET_SAVED_PAYMENTS_QUERY } from './savedPaymentsPage.gql';
-import defaultClasses from './SavedPaymentsPage.css';
+import defaultClasses from './savedPaymentsPage.css';
 
 const PAGE_TITLE = 'Saved Payments';
 const SUB_HEADING =
