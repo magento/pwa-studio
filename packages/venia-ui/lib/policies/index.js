@@ -12,6 +12,9 @@ const typePolicies = {
             cart: {
                 // Replaces @connection(key: "Cart")
                 keyArgs: () => 'Cart'
+            },
+            customer: {
+                keyArgs: () => 'Customer'
             }
         }
     },
