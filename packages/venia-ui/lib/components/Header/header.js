@@ -14,6 +14,7 @@ import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './header.css';
 import PageLoadingIndicator from '../PageLoadingIndicator';
+import StoreSwitcher from "./storeSwitcher";
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
@@ -61,12 +62,14 @@ const Header = props => {
                     <Logo classes={{ logo: classes.logo }} />
                 </Link>
                 <div className={classes.secondaryActions}>
+                    <StoreSwitcher />
                     <SearchTrigger
                         active={searchOpen}
                         onClick={handleSearchTriggerClick}
                     />
                     <AccountTrigger />
                     <CartTrigger />
+
                 </div>
             </div>
             {searchBar}

@@ -31,11 +31,13 @@ const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists.
     const storage = new BrowserPersistence();
     const token = storage.getItem('signin_token');
+    const store = storage.getItem('store_view_code') || STORE_VIEW_CODE;
 
     // return the headers to the context so httpLink can read them
     return {
         headers: {
             ...headers,
+            store: store,
             authorization: token ? `Bearer ${token}` : ''
         }
     };
