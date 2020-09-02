@@ -1,6 +1,5 @@
 query getBreadcrumbData($category_id: Int!) {
     category(id: $category_id) {
-        id
         breadcrumbs {
             category_id
             # We may not need level if `breadcrumbs` is sorted.
