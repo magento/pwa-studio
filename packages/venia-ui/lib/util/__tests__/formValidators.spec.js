@@ -208,3 +208,40 @@ describe('validateConfirmPassword', () => {
         expect(typeof result).toBe('string');
     });
 });
+
+describe('validateDifferentCurrentPassword', () => {
+    test('it returns undefined on success', () => {
+        const values = {
+            password: 'qwerty12345'
+        };
+        const password = 'qwertz12345';
+        const result = validators.validateDifferentCurrentPassword(password, values);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('it returns undefined on success with a password key', () => {
+        const values = {
+            password_key: 'qwerty12345'
+        };
+        const password = 'qwertz12345';
+        const passwordKey = 'password_key';
+        const result = validators.validateDifferentCurrentPassword(
+            password,
+            values,
+            passwordKey
+        );
+
+        expect(result).toBeUndefined();
+    });
+
+    test('it returns a string on failure', () => {
+        const values = {
+            password: 'qwerty12345'
+        };
+        const password = 'qwerty12345';
+        const result = validators.validateDifferentCurrentPassword(password, values);
+
+        expect(typeof result).toBe('string');
+    });
+});
