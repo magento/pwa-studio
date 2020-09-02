@@ -36,9 +36,7 @@ const AccountInformationPage = props => {
 
     const errorMessage = loadDataError ? (
         <Message>
-            {
-                'Something went wrong. Please refresh and try again.'
-            }
+            {'Something went wrong. Please refresh and try again.'}
         </Message>
     ) : null;
 
