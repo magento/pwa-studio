@@ -19,6 +19,7 @@
   "devDependencies": {
     "@magento/eslint-config": "~1.5.0",
     "intl": "~1.2.5",
+    "intl-locales-supported": "~1.8.12",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-redux": "~7.1.1",

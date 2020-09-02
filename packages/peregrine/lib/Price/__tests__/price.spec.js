@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import { shallow } from 'enzyme';
+import React from 'react';
 import Price from '../price';
+import { createTestInstance } from '@magento/peregrine';
 import IntlPolyfill from 'intl';
 import areIntlLocalesSupported from 'intl-locales-supported';
 
@@ -20,50 +20,21 @@ if (global.Intl.NumberFormat.prototype.formatToParts) {
 }
 
 test('Renders a USD price', () => {
-    const wrapper = shallow(<Price value={100.99} currencyCode="USD" />);
-    expect(
-        wrapper.equals(
-            <Fragment>
-                <span>$</span>
-                <span>100</span>
-                <span>.</span>
-                <span>99</span>
-            </Fragment>
-        )
-    ).toBe(true);
+    const instance = createTestInstance(<Price value={100.99} currencyCode="USD" />);
+
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('Renders a EUR price', () => {
-    const wrapper = shallow(<Price value={100.99} currencyCode="EUR" />);
-    expect(
-        wrapper.equals(
-            <Fragment>
-                <span>€</span>
-                <span>100</span>
-                <span>.</span>
-                <span>99</span>
-            </Fragment>
-        )
-    ).toBe(true);
+    const instance = createTestInstance(<Price value={100.99} currencyCode="EUR" />);
+
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('Renders a EUR price with locale set to French', () => {
-    const wrapper = shallow(
-        <Price value={1000.99} currencyCode="EUR" locale="fr-FR" />
-    );
-    expect(
-        wrapper.equals(
-            <Fragment>
-                <span>1</span>
-                <span>&nbsp;</span>
-                <span>000</span>
-                <span>,</span>
-                <span>99</span>
-                <span>&nbsp;</span>
-                <span>€</span>
-            </Fragment>
-        )
-    ).toBe(true);
+    const instance = createTestInstance(<Price value={1000.99} currencyCode="EUR" locale="fr-FR" />);
+
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('Allows custom classnames for each part', () => {
@@ -73,17 +44,8 @@ test('Allows custom classnames for each part', () => {
         decimal: 'dec',
         fraction: 'fract'
     };
-    const wrapper = shallow(
-        <Price value={88.81} currencyCode="USD" classes={classes} />
-    );
-    expect(
-        wrapper.equals(
-            <Fragment>
-                <span className="curr">$</span>
-                <span className="int">88</span>
-                <span className="dec">.</span>
-                <span className="fract">81</span>
-            </Fragment>
-        )
-    ).toBe(true);
+
+    const instance = createTestInstance(<Price value={88.81} currencyCode="USD" classes={classes} />);
+
+    expect(instance.toJSON()).toMatchSnapshot();
 });
