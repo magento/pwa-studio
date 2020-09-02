@@ -30,7 +30,11 @@ export default class Price extends PureComponent {
             integer: string,
             decimal: string,
             fraction: string
-        })
+        }),
+        /**
+         * A string with a BCP 47 language tag to be used in Intl.NumberFormat constructor
+         */
+        locale: string
     };
 
     static defaultProps = {
