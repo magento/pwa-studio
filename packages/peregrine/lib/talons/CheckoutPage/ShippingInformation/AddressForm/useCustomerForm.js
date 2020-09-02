@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/client';
 
 export const useCustomerForm = props => {
     const {
@@ -43,14 +43,12 @@ export const useCustomerForm = props => {
     // Simple heuristic to indicate form was submitted prior to this render
     const isUpdate = !!shippingData.city;
 
-    const { country, region } = shippingData;
+    const { country } = shippingData;
     const { code: countryCode } = country;
-    const { id: regionId } = region;
 
     let initialValues = {
         ...shippingData,
-        country: countryCode,
-        region: regionId && regionId.toString()
+        country: countryCode
     };
 
     const hasDefaultShipping =
@@ -70,14 +68,11 @@ export const useCustomerForm = props => {
     const handleSubmit = useCallback(
         async formValues => {
             // eslint-disable-next-line no-unused-vars
-            const { country, email, region, ...address } = formValues;
+            const { country, email, ...address } = formValues;
             try {
                 const customerAddress = {
                     ...address,
-                    country_code: country,
-                    region: {
-                        region_id: region
-                    }
+                    country_code: country
                 };
 
                 if (isUpdate) {

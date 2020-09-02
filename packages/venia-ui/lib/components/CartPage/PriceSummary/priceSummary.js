@@ -1,5 +1,5 @@
 import React from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { Price } from '@magento/peregrine';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
@@ -13,7 +13,7 @@ import { PriceSummaryFragment } from './priceSummaryFragments';
 
 const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...PriceSummaryFragment
         }
@@ -22,13 +22,19 @@ const GET_PRICE_SUMMARY = gql`
 `;
 
 /**
- * A component that fetches and renders cart data including:
- *  - subtotal
- *  - discounts applied
- *  - gift cards applied
- *  - tax
- *  - shipping
- *  - total
+ * A child component of the CartPage component.
+ * This component fetches and renders cart data, such as subtotal, discounts applied,
+ * gift cards applied, tax, shipping, and cart total.
+ *
+ * @param {Object} props
+ * @param {Object} props.classes CSS className overrides.
+ * See [priceSummary.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.css}
+ * for a list of classes you can override.
+ *
+ * @returns {React.Element}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import PriceSummary from "@magento/venia-ui/lib/components/CartPage/PriceSummary";
  */
 const PriceSummary = props => {
     const { isUpdating } = props;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useAccountTrigger } from '@magento/peregrine/lib/talons/Header/useAccountTrigger';
+import { IntlProvider } from 'react-intl';
 
 import AccountTrigger from '../accountTrigger';
 
@@ -27,7 +28,11 @@ test('it renders correctly', () => {
     useAccountTrigger.mockReturnValueOnce(talonProps);
 
     // Act.
-    const instance = createTestInstance(<AccountTrigger />);
+    const instance = createTestInstance(
+        <IntlProvider locale="en-US">
+            <AccountTrigger />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();

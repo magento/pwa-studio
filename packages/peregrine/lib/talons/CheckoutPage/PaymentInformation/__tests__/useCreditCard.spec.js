@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 import { useFormState } from 'informed';
 
 import createTestInstance from '../../../../util/createTestInstance';
@@ -120,7 +120,7 @@ const mutations = {
     setCreditCardDetailsOnCartMutation
 };
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useQuery: jest.fn(),
         useApolloClient: jest.fn(),
@@ -411,7 +411,7 @@ describe('Testing payment nonce request workflow', () => {
             street1: 'test value',
             street2: 'test value',
             city: 'test value',
-            state: 'test value',
+            region: 'test value',
             postalCode: 'test value',
             phoneNumber: 'test value'
         };

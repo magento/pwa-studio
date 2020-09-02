@@ -1,10 +1,10 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 import { ShippingMethodsCartFragment } from './shippingMethodsFragments.gql';
 
 export const GET_SHIPPING_METHODS = gql`
     query GetShippingMethods($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...ShippingMethodsCartFragment
         }

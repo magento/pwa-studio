@@ -1,9 +1,16 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
-import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
 
+/**
+ * Maps address response data from GET_BILLING_ADDRESS and GET_SHIPPING_ADDRESS
+ * queries to input names in the billing address form.
+ * {@link creditCard.gql.js}.
+ *
+ * @param {ShippingCartAddress|BillingCartAddress} rawAddressData query data
+ */
 export const mapAddressData = rawAddressData => {
     if (rawAddressData) {
         const {
@@ -26,7 +33,7 @@ export const mapAddressData = rawAddressData => {
             street1: street[0],
             street2: street[1],
             country: country.code,
-            state: region.code
+            region: region.code
         };
     } else {
         return {};
@@ -235,10 +242,11 @@ export const useCreditCard = props => {
             street1,
             street2,
             city,
-            state,
+            region,
             postalCode,
             phoneNumber
         } = formState.values;
+
         updateBillingAddress({
             variables: {
                 cartId,
@@ -248,7 +256,7 @@ export const useCreditCard = props => {
                 street1,
                 street2,
                 city,
-                state,
+                region,
                 postalCode,
                 phoneNumber,
                 sameAsShipping: false

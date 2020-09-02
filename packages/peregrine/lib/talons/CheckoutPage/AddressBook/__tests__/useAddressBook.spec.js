@@ -4,7 +4,7 @@ import { act } from 'react-test-renderer';
 import { useAddressBook } from '../useAddressBook';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useAppContext } from '../../../../context/app';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 const mockGetCustomerAddresses = jest.fn().mockReturnValue({
     data: {
@@ -53,7 +53,7 @@ const mockGetCustomerCartAddress = jest.fn().mockReturnValue({
 
 const mockSetCustomerAddressOnCart = jest.fn();
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useQuery: jest.fn().mockImplementation(query => {
         if (query === 'getCustomerAddressesQuery')
             return mockGetCustomerAddresses();

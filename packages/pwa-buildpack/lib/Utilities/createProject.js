@@ -73,6 +73,10 @@ const makeCopyStream = ({
                 !isMatch(p, ignores)
         });
 
+        copyStream.on('error', e => {
+            failed = true;
+            fail(e);
+        });
         copyStream.on('readable', function() {
             let item;
             while (!failed && (item = this.read())) {
@@ -80,14 +84,10 @@ const makeCopyStream = ({
                 try {
                     visit(item);
                 } catch (e) {
-                    failed = true;
-                    fail(e);
+                    this.emit('error', e);
+                    break;
                 }
             }
-        });
-        copyStream.on('error', () => {
-            failed = true;
-            fail();
         });
         copyStream.on('end', () => {
             if (!failed) {
@@ -102,20 +102,18 @@ async function createProject(options) {
     const { instructions, packageRoot } = getBuildpackInstructions(template, [
         'create'
     ]);
+
     const {
-        after,
-        before,
-        visitor,
-        ignores = getIgnores(packageRoot)
+        after = () => {},
+        before = () => {},
+        ignores = getIgnores(packageRoot),
+        visitor
     } = instructions.create({
         fs: fse,
         tasks: makeCommonTasks(fse),
         options
     });
-
-    if (before) {
-        await before({ options });
-    }
+    await before({ options });
     await makeCopyStream({
         fs: fse,
         packageRoot,
@@ -124,9 +122,7 @@ async function createProject(options) {
         ignores,
         visitor
     });
-    if (after) {
-        await after({ options });
-    }
+    await after({ options });
 }
 
 module.exports = createProject;

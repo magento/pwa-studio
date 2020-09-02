@@ -1,5 +1,6 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
+import { useTypePolicies } from '@magento/peregrine';
 import { useCartContext } from '../../../context/cart';
 
 const mapBillingAddressData = rawBillingAddressData => {
@@ -53,8 +54,10 @@ const mapBillingAddressData = rawBillingAddressData => {
  * }
  */
 export const useSummary = props => {
-    const { queries } = props;
+    const { queries, typePolicies } = props;
     const { getSummaryData } = queries;
+
+    useTypePolicies(typePolicies);
 
     /**
      * Definitions

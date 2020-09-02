@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { clearCartDataFromCache } from '@magento/peregrine/lib/Apollo/clearCartDataFromCache';
@@ -56,8 +56,16 @@ export const useAccountMenu = props => {
         setView('FORGOT_PASSWORD');
     }, []);
 
+    const handleCancel = useCallback(() => {
+        setView('SIGNIN');
+    }, []);
+
     const handleCreateAccount = useCallback(() => {
         setView('CREATE_ACCOUNT');
+    }, []);
+
+    const handleAccountCreation = useCallback(() => {
+        setView('ACCOUNT');
     }, []);
 
     // Close the Account Menu on page change.
@@ -77,11 +85,13 @@ export const useAccountMenu = props => {
     }, [accountMenuIsOpen, isUserSignedIn]);
 
     return {
-        view,
-        username,
-        handleSignOut,
-        handleForgotPassword,
+        handleAccountCreation,
         handleCreateAccount,
-        updateUsername: setUsername
+        handleForgotPassword,
+        handleCancel,
+        handleSignOut,
+        updateUsername: setUsername,
+        username,
+        view
     };
 };
