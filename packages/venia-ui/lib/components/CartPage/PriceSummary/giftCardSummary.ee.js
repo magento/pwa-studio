@@ -40,18 +40,18 @@ export default props => {
     const { locale } = useIntl();
 
     return cards.value ? (
-            <Fragment>
-                <span className={classes.lineItemLabel}>
-                    {'Gift Card(s) applied'}
-                </span>
-                <span className={classes.price}>
-                    {'-'}
-                    <Price
-                        value={cards.value}
-                        currencyCode={cards.currency}
-                        locale={locale}
-                    />
-                </span>
-            </Fragment>
+        <Fragment>
+            <span className={classes.lineItemLabel}>
+                {'Gift Card(s) applied'}
+            </span>
+            <span className={classes.price}>
+                {'-'}
+                <Price
+                    value={cards.value}
+                    currencyCode={cards.currency}
+                    locale={locale}
+                />
+            </span>
+        </Fragment>
     ) : null;
 };
