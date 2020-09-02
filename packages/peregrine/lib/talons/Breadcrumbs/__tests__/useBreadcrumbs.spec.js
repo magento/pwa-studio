@@ -1,7 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import { act } from 'react-test-renderer';
 import { useQuery } from '@apollo/client';
 
 import { useBreadcrumbs } from '../useBreadcrumbs';
@@ -16,16 +15,16 @@ jest.mock('@apollo/client', () => ({
                 url_suffix: '.html',
                 breadcrumbs: [
                     {
-                        category_id: 10,
-                        category_name: 'Shopee',
-                        category_level: 2,
-                        category_url_path: 'tiki/shopee'
-                    },
-                    {
                         category_id: 12,
                         category_name: 'Shopee',
                         category_level: 1,
                         category_url_path: 'tiki/shopee'
+                    },
+                    {
+                        category_id: 10,
+                        category_name: 'Foo',
+                        category_level: 2,
+                        category_url_path: 'tiki/shopee/foo'
                     }
                 ]
             }
@@ -54,13 +53,17 @@ test('return correct shape while data is loading', () => {
         loading: true
     });
 
-    const tree = createTestInstance(<Component {...props} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
+    createTestInstance(<Component {...props} />);
 
-    expect(talonProps).toMatchSnapshot();
+    const talonProps = log.mock.calls[0][0];
+    expect(talonProps).toEqual({
+        currentCategory: '',
+        currentCategoryPath: '#',
+        isLoading: true,
+        hasError: false,
+        normalizedData: []
+    });
 });
-
 
 test('returns sorted data', () => {
     useQuery.mockReturnValueOnce({
@@ -79,9 +82,9 @@ test('returns sorted data', () => {
                     },
                     {
                         category_id: 10,
-                        category_name: 'Shopee',
+                        category_name: 'Foo',
                         category_level: 2,
-                        category_url_path: 'tiki/shopee'
+                        category_url_path: 'tiki/shopee/foo'
                     }
                 ]
             }
@@ -89,10 +92,26 @@ test('returns sorted data', () => {
         error: false,
         loading: false
     });
-    const tree = createTestInstance(<Component {...props} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-    expect(talonProps).toMatchSnapshot();
+
+    createTestInstance(<Component {...props} />);
+    const talonProps = log.mock.calls[0][0];
+
+    expect(talonProps).toEqual({
+        currentCategory: 'Tiki',
+        currentCategoryPath: 'tiki.html',
+        isLoading: false,
+        hasError: false,
+        normalizedData: [
+            {
+                path: '/tiki/shopee.html',
+                text: 'Shopee'
+            },
+            {
+                path: '/tiki/shopee/foo.html',
+                text: 'Foo'
+            }
+        ]
+    });
 });
 
 test('returns the correct shape', () => {
