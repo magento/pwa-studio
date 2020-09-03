@@ -1,19 +1,17 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useEditModal } from '@magento/peregrine/lib/talons/AccountInformationPage/useEditModal';
 
 import EditModal from '../editModal';
 
-jest.mock('@magento/peregrine/lib/talons/AccountInformationPage/useEditModal');
 jest.mock('../../../classify');
 jest.mock('../../Portal', () => ({
     Portal: props => <portal-mock>{props.children}</portal-mock>
 }));
 jest.mock('../editForm', () => 'EditForm');
 
-const handleClose = jest.fn().mockName('handleClose');
-const handleChangePassword = jest.fn().mockName('handleChangePassword');
+const handleActivePassword = jest.fn().mockName('handleActivePassword');
 const handleSubmit = jest.fn().mockName('handleSubmit');
+const handleCancel = jest.fn().mockName('handleCancel');
 
 const props = {
     classes: {},
@@ -25,26 +23,26 @@ const props = {
     isDisabled: false,
     formErrors: [],
     activeChangePassword: false,
-    handleChangePassword,
-    handleSubmit
+    handleActivePassword,
+    handleSubmit,
+    isOpen: true,
+    handleCancel
 };
 
-test('renders open modal', () => {
-    useEditModal.mockReturnValueOnce({
-        handleClose,
-        isOpen: true
-    });
+test('it renders correctly', () => {
+    // Act.
+    const instance = createTestInstance(<EditModal {...props} />);
 
-    const tree = createTestInstance(<EditModal {...props} />);
-    expect(tree.toJSON()).toMatchSnapshot();
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('renders closed modal', () => {
-    useEditModal.mockReturnValueOnce({
-        handleClose,
-        isOpen: false
-    });
+test('it disables the submit button while loading', () => {
+    // Act.
+    const instance = createTestInstance(
+        <EditModal {...props} isDisabled={true} />
+    );
 
-    const tree = createTestInstance(<EditModal {...props} />);
-    expect(tree.toJSON()).toMatchSnapshot();
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
 });

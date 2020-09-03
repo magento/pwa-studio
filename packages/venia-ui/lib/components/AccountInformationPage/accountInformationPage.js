@@ -25,9 +25,11 @@ const AccountInformationPage = props => {
         initialValues,
         isDisabled,
         isSignedIn,
-        handleEditInformation,
         activeChangePassword,
-        handleChangePassword
+        handleActivePassword,
+        isUpdateMode,
+        handleCancelUpdate,
+        showUpdateMode
     } = talonProps;
 
     if (!isSignedIn) {
@@ -69,7 +71,7 @@ const AccountInformationPage = props => {
                             <Button
                                 className={classes.editInformationButton}
                                 disabled={false}
-                                onClick={handleEditInformation}
+                                onClick={showUpdateMode}
                                 priority="normal"
                             >
                                 {'Edit'}
@@ -80,10 +82,12 @@ const AccountInformationPage = props => {
                 <EditModal
                     informationData={customer}
                     activeChangePassword={activeChangePassword}
-                    handleChangePassword={handleChangePassword}
+                    handleActivePassword={handleActivePassword}
                     handleSubmit={handleSubmit}
                     isDisabled={isDisabled}
                     formErrors={formErrors}
+                    isOpen={isUpdateMode}
+                    handleCancel={handleCancelUpdate}
                 />
             </Fragment>
         );

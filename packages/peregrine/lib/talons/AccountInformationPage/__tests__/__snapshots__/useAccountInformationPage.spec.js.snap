@@ -7,8 +7,8 @@ Object {
     undefined,
     undefined,
   ],
-  "handleChangePassword": [Function],
-  "handleEditInformation": [Function],
+  "handleActivePassword": [Function],
+  "handleCancelUpdate": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
@@ -20,7 +20,9 @@ Object {
   },
   "isDisabled": false,
   "isSignedIn": true,
+  "isUpdateMode": false,
   "loadDataError": null,
+  "showUpdateMode": [Function],
 }
 `;
 
@@ -31,8 +33,8 @@ Object {
     undefined,
     undefined,
   ],
-  "handleChangePassword": [Function],
-  "handleEditInformation": [Function],
+  "handleActivePassword": [Function],
+  "handleCancelUpdate": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
@@ -44,7 +46,9 @@ Object {
   },
   "isDisabled": false,
   "isSignedIn": true,
+  "isUpdateMode": false,
   "loadDataError": null,
+  "showUpdateMode": [Function],
 }
 `;
 
@@ -65,12 +69,14 @@ Object {
     undefined,
     undefined,
   ],
-  "handleChangePassword": [Function],
-  "handleEditInformation": [Function],
+  "handleActivePassword": [Function],
+  "handleCancelUpdate": [Function],
   "handleSubmit": [Function],
   "initialValues": undefined,
   "isDisabled": false,
   "isSignedIn": true,
+  "isUpdateMode": false,
   "loadDataError": undefined,
+  "showUpdateMode": [Function],
 }
 `;

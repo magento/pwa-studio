@@ -1,7 +1,5 @@
 import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-
-import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 
 export const useAccountInformationPage = props => {
@@ -13,11 +11,11 @@ export const useAccountInformationPage = props => {
         queries: { getCustomerInformationQuery }
     } = props;
 
-    const [, { toggleDrawer, closeDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
 
     const [activeChangePassword, setActiveChangePassword] = useState(false);
     const [updatedData, setUpdatedData] = useState(false);
+    const [isUpdateMode, setIsUpdateMode] = useState(false);
 
     const { data: accountInformationData, error: loadDataError } = useQuery(
         getCustomerInformationQuery,
@@ -49,20 +47,13 @@ export const useAccountInformationPage = props => {
         }
     }, [customerInformationUpdated, accountInformationData]);
 
-    const handleEditInformation = useCallback(() => {
-        toggleDrawer('accountInformation.edit');
-    }, [toggleDrawer]);
+    const handleActivePassword = useCallback(() => {
+        setActiveChangePassword(true);
+    }, [setActiveChangePassword]);
 
-    const handleCloseDrawer = useCallback(() => {
-        closeDrawer('accountInformation.edit');
-    }, [closeDrawer]);
-
-    const handleChangePassword = useCallback(
-        status => {
-            setActiveChangePassword(status);
-        },
-        [setActiveChangePassword]
-    );
+    const handleDeActivePassword = useCallback(() => {
+        setActiveChangePassword(false);
+    }, [setActiveChangePassword]);
 
     const handleSubmit = useCallback(
         async formValues => {
@@ -89,13 +80,22 @@ export const useAccountInformationPage = props => {
         [setCustomerInformation, changeCustomerPassword, activeChangePassword]
     );
 
+    const handleCancelUpdate = useCallback(() => {
+        setIsUpdateMode(false);
+        handleDeActivePassword();
+    }, [setIsUpdateMode, handleDeActivePassword]);
+
+    const showUpdateMode = useCallback(() => {
+        setIsUpdateMode(true);
+    }, [setIsUpdateMode]);
+
     useEffect(() => {
         if (
             updatedData &&
             (!setCustomerInformationError ||
                 (activeChangePassword && !changeCustomerPasswordError))
         ) {
-            handleCloseDrawer();
+            handleCancelUpdate();
             setUpdatedData(false);
         }
     }, [
@@ -103,7 +103,7 @@ export const useAccountInformationPage = props => {
         setCustomerInformationError,
         changeCustomerPasswordError,
         activeChangePassword,
-        handleCloseDrawer
+        handleCancelUpdate
     ]);
 
     return {
@@ -111,10 +111,12 @@ export const useAccountInformationPage = props => {
         loadDataError,
         isSignedIn,
         handleSubmit,
-        handleEditInformation,
         activeChangePassword,
-        handleChangePassword,
+        handleActivePassword,
         isDisabled: isSubmittingInfo || isSubmittingPassword,
-        formErrors: [setCustomerInformationError, changeCustomerPasswordError]
+        formErrors: [setCustomerInformationError, changeCustomerPasswordError],
+        isUpdateMode,
+        handleCancelUpdate,
+        showUpdateMode
     };
 };
