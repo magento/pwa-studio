@@ -11,7 +11,8 @@ const props = {
     category: {
         id: 1,
         name: 'One',
-        url_path: 'one'
+        url_path: 'one',
+        url_suffix: '.html'
     },
     onNavigate: jest.fn()
 };
