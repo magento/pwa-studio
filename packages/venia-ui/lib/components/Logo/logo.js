@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { mergeClasses } from '../../classify';
 import Image from '../Image';
@@ -17,14 +18,15 @@ import logo from './VeniaLogo.svg';
 const Logo = props => {
     const { height, width } = props;
     const classes = mergeClasses({}, props.classes);
+    const { formatMessage } = useIntl();
 
     return (
         <Image
-            alt="Venia"
+            alt={formatMessage({ id: 'Venia' })}
             classes={{ image: classes.logo }}
             height={height}
             src={logo}
-            title="Venia"
+            title={formatMessage({ id: 'Venia' })}
             width={width}
         />
     );

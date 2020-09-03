@@ -5,9 +5,18 @@ import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountM
 
 import AccountMenu from '../accountMenu';
 
-jest.mock('../accountMenuItems', () => 'AccountMenuItems');
-jest.mock('../../SignIn/signIn', () => 'SignIn Component');
-jest.mock('../../ForgotPassword', () => 'Forgot Password Component');
+jest.mock('../accountMenuItems', () => props => (
+    <div {...props}>{'AccountMenuItems'}</div>
+));
+jest.mock('../../SignIn/signIn', () => props => (
+    <div {...props}> {'SignInComponent'}</div>
+));
+jest.mock('../../ForgotPassword', () => props => (
+    <div {...props}> {'ForgotPasswordComponent'}</div>
+));
+jest.mock('../../CreateAccount', () => props => (
+    <div {...props}> {'CreateAccountComponent'}</div>
+));
 
 jest.mock('@magento/peregrine/lib/talons/Header/useAccountMenu', () => ({
     useAccountMenu: jest.fn().mockReturnValue({
@@ -32,19 +41,27 @@ const defaultTalonProps = {
 };
 
 const defaultProps = {
-    accountMenuIsOpen: false,
+    accountMenuIsOpen: true,
     classes: {
         modal_active: 'modal_active_class'
     },
     setAccountMenuIsOpen: jest.fn()
 };
 
-test('it renders AccountMenuItems when the user is signed in', () => {
-    useAccountMenu.mockReturnValueOnce({
-        ...defaultTalonProps,
-        view: 'ACCOUNT'
-    });
+test('it renders empty aside element when accountMenuIsOpen is false', () => {
+    const props = {
+        ...defaultProps,
+        accountMenuIsOpen: false
+    };
 
+    // Act.
+    const instance = createTestInstance(<AccountMenu {...props} />);
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it renders AccountMenuItems when the user is signed in', () => {
     // Act.
     const instance = createTestInstance(<AccountMenu {...defaultProps} />);
 

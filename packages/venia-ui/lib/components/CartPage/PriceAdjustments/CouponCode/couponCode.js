@@ -68,6 +68,21 @@ const REMOVE_COUPON_MUTATION = gql`
     ${CartPageFragment}
 `;
 
+/**
+ * A child component of the PriceAdjustments component.
+ * This component renders a form for addingg a coupon code to the cart.
+ *
+ * @param {Object} props
+ * @param {Function} props.setIsCartUpdating Function for setting the updating state for the cart.
+ * @param {Object} props.classes CSS className overrides.
+ * See [couponCode.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.css}
+ * for a list of classes you can override.
+ *
+ * @returns {React.Element}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import CouponCode from "@magento/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode";
+ */
 const CouponCode = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 

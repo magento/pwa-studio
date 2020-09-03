@@ -31,7 +31,6 @@ jest.mock('react-router-dom', () => {
 jest.mock('@apollo/client', () => ({
     useApolloClient: jest.fn(() => ({ apiBase: 'Unit Test API Base' }))
 }));
-jest.mock('../addToCache', () => jest.fn());
 jest.mock('../getRouteComponent', () => jest.fn());
 
 /*
@@ -51,7 +50,9 @@ const Component = props => {
 const routeComponentResults = {
     COMPONENT_FOUND: {
         component: {},
-        id: 1
+        id: 1,
+        type: 'PRODUCT',
+        store: 'default'
     },
     COMPONENT_NOT_FOUND: {
         isNotFound: true
@@ -66,7 +67,9 @@ const routeComponentResults = {
     }
 };
 
-const props = {};
+const props = {
+    store: 'default'
+};
 
 /*
  *  Tests.
@@ -106,6 +109,28 @@ it('does not fetch when a match exists in local state', () => {
 
     // Assert.
     expect(getRouteComponent).not.toHaveBeenCalled();
+});
+
+it('refetches when the stores do not match', () => {
+    // Arrange.
+    const componentMap = new Map().set(
+        'Unit Test Pathname',
+        routeComponentResults.COMPONENT_FOUND
+    );
+    useState.mockReturnValueOnce([componentMap, jest.fn()]);
+    getRouteComponent.mockImplementationOnce(() => {
+        return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
+    });
+
+    props.store = 'other';
+
+    // Act.
+    act(() => {
+        createTestInstance(<Component {...props} />);
+    });
+
+    // Assert.
+    expect(getRouteComponent).toHaveBeenCalled();
 });
 
 it('redirects when instructed', () => {
