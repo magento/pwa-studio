@@ -2,6 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import Suggestions from '../suggestions';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('../suggestedCategories', () => () => null);
 jest.mock('../suggestedProducts', () => () => null);
@@ -14,12 +15,14 @@ test('renders correctly', () => {
     const filters = [];
 
     const instance = createTestInstance(
-        <Suggestions
-            displayResult={true}
-            filters={filters}
-            products={products}
-            visible={true}
-        />
+        <IntlProvider locale="en-US">
+            <Suggestions
+                displayResult={true}
+                filters={filters}
+                products={products}
+                visible={true}
+            />
+        </IntlProvider>
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
@@ -98,12 +101,14 @@ test('renders a category list', () => {
     };
 
     const { root } = createTestInstance(
-        <Suggestions
-            displayResult={true}
-            filters={filters}
-            products={products}
-            visible={true}
-        />
+        <IntlProvider locale="en-US">
+            <Suggestions
+                displayResult={true}
+                filters={filters}
+                products={products}
+                visible={true}
+            />
+        </IntlProvider>
     );
 
     expect(root.findByProps({ categories: filters[1].options })).toBeTruthy();

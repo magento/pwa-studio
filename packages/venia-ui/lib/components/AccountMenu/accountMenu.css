@@ -12,7 +12,7 @@
     transition-property: opacity, transform, visibility;
     visibility: hidden;
     width: 27.5rem;
-    min-height: 18rem;
+    min-height: 10rem;
 }
 
 .root_open {
@@ -28,7 +28,10 @@
 }
 
 .createAccount {
-    padding: 2rem;
+    display: grid;
+    gap: 0.9375rem;
+    justify-items: stretch;
+    padding: 1rem 1.5rem;
 }
 
 .forgotPassword {

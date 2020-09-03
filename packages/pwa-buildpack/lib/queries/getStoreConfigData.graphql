@@ -1,0 +1,9 @@
+# Get store configuration.
+query {
+    storeConfig {
+        id
+        code
+        locale
+        secure_base_media_url
+    }
+}

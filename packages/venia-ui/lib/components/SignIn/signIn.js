@@ -16,6 +16,8 @@ import TextInput from '../TextInput';
 import defaultClasses from './signIn.css';
 import { GET_CART_DETAILS_QUERY } from './signIn.gql';
 import LinkButton from '../LinkButton';
+import Password from '../Password';
+import FormError from '../FormError/formError';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -41,13 +43,6 @@ const SignIn = props => {
         setFormApi
     } = talonProps;
 
-    // Map over any errors we get and display an appropriate error.
-    const errorMessage = errors.length
-        ? errors
-              .map(({ message }) => message)
-              .reduce((acc, msg) => msg + '\n' + acc, '')
-        : null;
-
     if (isBusy) {
         return (
             <div className={classes.modal_active}>
@@ -63,6 +58,7 @@ const SignIn = props => {
     return (
         <div className={classes.root}>
             <h2 className={classes.title}>{`Sign-in to Your Account`}</h2>
+            <FormError errors={Array.from(errors.values())} />
             <Form
                 getApi={setFormApi}
                 className={classes.form}
@@ -75,14 +71,13 @@ const SignIn = props => {
                         validate={isRequired}
                     />
                 </Field>
-                <Field label="Password">
-                    <TextInput
-                        autoComplete="current-password"
-                        field="password"
-                        type="password"
-                        validate={isRequired}
-                    />
-                </Field>
+                <Password
+                    fieldName="password"
+                    label="Password"
+                    validate={isRequired}
+                    autoComplete="current-password"
+                    isToggleButtonHidden={false}
+                />
                 <div className={classes.forgotPasswordButtonContainer}>
                     <LinkButton
                         classes={forgotPasswordClasses}
@@ -92,7 +87,6 @@ const SignIn = props => {
                         {'Forgot Password?'}
                     </LinkButton>
                 </div>
-                <div className={classes.signInError}>{errorMessage}</div>
                 <div className={classes.buttonsContainer}>
                     <Button priority="high" type="submit">
                         {'Sign In'}
@@ -119,7 +113,6 @@ SignIn.propTypes = {
         forgotPasswordButton: string,
         forgotPasswordButtonContainer: string,
         root: string,
-        signInError: string,
         title: string
     }),
     setDefaultUsername: func,

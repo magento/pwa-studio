@@ -22,9 +22,6 @@ class UpwardDevServerPlugin {
         const oldAfter = devServer.after;
         devServer.after = (app, ...rest) => {
             if (oldAfter) oldAfter(app, ...rest);
-            // compression and security middlewares run before upward-js
-            // but can run after everything else
-            app.use(upward.bestPractices());
             app.use((req, res, next) => this.handleRequest(req, res, next));
         };
     }

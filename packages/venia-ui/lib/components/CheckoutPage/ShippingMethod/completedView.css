@@ -23,6 +23,7 @@
 .error {
     align-self: center;
     color: rgb(var(--venia-global-color-error));
+    line-height: var(--venia-global-lineHeight-300);
 }
 
 .free {

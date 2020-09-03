@@ -2,10 +2,22 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import CouponCode from '../couponCode';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 
-jest.mock('@apollo/react-hooks', () => {
-    const runQuery = jest.fn();
+const mockAddToast = jest.fn();
+jest.mock('@magento/peregrine', () => {
+    const useToasts = jest.fn(() => [
+        { toasts: new Map() },
+        { addToast: mockAddToast }
+    ]);
+
+    return {
+        ...jest.requireActual('@magento/peregrine'),
+        useToasts
+    };
+});
+
+jest.mock('@apollo/client', () => {
     const runMutation = jest.fn();
     const queryResult = {
         data: {
@@ -23,10 +35,14 @@ jest.mock('@apollo/react-hooks', () => {
         loading: false
     };
 
-    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
+    const useQuery = jest.fn(() => queryResult);
     const useMutation = jest.fn(() => [runMutation, mutationResult]);
 
-    return { useLazyQuery, useMutation };
+    return {
+        gql: jest.fn(),
+        useQuery,
+        useMutation
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
@@ -47,12 +63,9 @@ const defaultProps = {
 };
 
 test('renders nothing if no data is returned', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        {
-            data: null
-        }
-    ]);
+    useQuery.mockReturnValueOnce({
+        data: null
+    });
 
     const tree = createTestInstance(<CouponCode {...defaultProps} />);
 
@@ -60,13 +73,10 @@ test('renders nothing if no data is returned', () => {
 });
 
 test('renders an error state if unable to fetch applied coupons', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        {
-            data: {},
-            error: true
-        }
-    ]);
+    useQuery.mockReturnValueOnce({
+        data: {},
+        error: true
+    });
 
     const tree = createTestInstance(<CouponCode {...defaultProps} />);
 
@@ -106,40 +116,34 @@ test('renders an error message if an error occurs on code entry', () => {
 });
 
 test('renders the coupon code view if applied coupons has data', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        {
-            data: {
-                cart: {
-                    applied_coupons: [
-                        {
-                            code: 'COUPON'
-                        }
-                    ]
-                }
+    useQuery.mockReturnValueOnce({
+        data: {
+            cart: {
+                applied_coupons: [
+                    {
+                        code: 'COUPON'
+                    }
+                ]
             }
         }
-    ]);
+    });
     const instance = createTestInstance(<CouponCode {...defaultProps} />);
 
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('disables remove button on click', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        {
-            data: {
-                cart: {
-                    applied_coupons: [
-                        {
-                            code: 'COUPON'
-                        }
-                    ]
-                }
+    useQuery.mockReturnValueOnce({
+        data: {
+            cart: {
+                applied_coupons: [
+                    {
+                        code: 'COUPON'
+                    }
+                ]
             }
         }
-    ]);
+    });
 
     // Mock the click of the remove button
     useMutation

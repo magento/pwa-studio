@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
 
 import ShippingMethods from '../shippingMethods';
@@ -7,8 +7,11 @@ import Button from '../../../../Button';
 
 jest.mock('../../../../../classify');
 
-jest.mock('@apollo/react-hooks', () => {
-    return { useQuery: jest.fn() };
+jest.mock('@apollo/client', () => {
+    return {
+        gql: jest.fn(),
+        useQuery: jest.fn()
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {

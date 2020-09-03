@@ -80,7 +80,7 @@ jest.mock('@magento/peregrine/lib/util/createErrorRecord', () => ({
     })
 }));
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn().mockImplementation(() => {
             return {

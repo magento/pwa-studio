@@ -33,13 +33,8 @@
     opacity: 0;
 }
 
-.errors_container {
-    display: grid;
-    gap: 0.5rem;
-}
-
-.error {
-    color: rgb(var(--venia-global-color-error));
+.formErrorContainer {
+    padding-top: 1.5rem;
 }
 
 .first_name,
@@ -52,7 +47,7 @@
 .street2,
 .address_check,
 .city,
-.state,
+.region,
 .postal_code,
 .phone_number {
     grid-column-end: span 2;
@@ -66,7 +61,7 @@
     .first_name,
     .last_name,
     .city,
-    .state,
+    .region,
     .postal_code,
     .phone_number,
     .street1,

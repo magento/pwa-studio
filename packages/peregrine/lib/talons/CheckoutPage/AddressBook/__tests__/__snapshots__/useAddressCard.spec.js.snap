@@ -9,7 +9,7 @@ Object {
   "firstname": "Philip",
   "id": 66,
   "region": Object {
-    "id": 22,
+    "region_id": 22,
   },
 }
 `;

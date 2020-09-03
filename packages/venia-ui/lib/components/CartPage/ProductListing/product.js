@@ -1,23 +1,19 @@
-import React, { useEffect, useMemo } from 'react';
-import gql from 'graphql-tag';
-import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import React, { useMemo } from 'react';
+import { gql } from '@apollo/client';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
-import { Price, useToasts } from '@magento/peregrine';
+import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
 import Kebab from '../../LegacyMiniCart/kebab';
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Quantity from './quantity';
 import Section from '../../LegacyMiniCart/section';
-import Icon from '../../Icon';
 import Image from '../../Image';
 import defaultClasses from './product.css';
 import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
 const IMAGE_SIZE = 100;
-
-const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const Product = props => {
     const { item, setActiveEditItem, setIsCartUpdating } = props;
@@ -41,19 +37,6 @@ const Product = props => {
         isFavorite,
         product
     } = talonProps;
-
-    const [, { addToast }] = useToasts();
-    useEffect(() => {
-        if (errorMessage) {
-            addToast({
-                type: 'error',
-                icon: errorIcon,
-                message: errorMessage,
-                dismissable: true,
-                timeout: 10000
-            });
-        }
-    }, [addToast, errorMessage]);
 
     const {
         currency,
@@ -88,63 +71,66 @@ const Product = props => {
 
     return (
         <li className={classes.root}>
-            <Link to={itemLink} className={classes.imageContainer}>
-                <Image
-                    alt={name}
-                    classes={{
-                        root: classes.imageRoot,
-                        image: classes.image
-                    }}
-                    width={IMAGE_SIZE}
-                    resource={image}
-                />
-            </Link>
-            <div className={classes.details}>
-                <Link to={itemLink} className={classes.name}>
-                    {name}
-                </Link>
-                <ProductOptions
-                    options={options}
-                    classes={{
-                        options: classes.options,
-                        optionLabel: classes.optionLabel
-                    }}
-                />
-                <span className={classes.price}>
-                    <Price currencyCode={currency} value={unitPrice} />
-                    {' ea.'}
-                </span>
-                <span className={classes.stockStatusMessage}>
-                    {stockStatusMessage}
-                </span>
-                <div className={classes.quantity}>
-                    <Quantity
-                        itemId={item.id}
-                        initialValue={quantity}
-                        onChange={handleUpdateItemQuantity}
+            <span className={classes.errorText}>{errorMessage}</span>
+            <div className={classes.item}>
+                <Link to={itemLink} className={classes.imageContainer}>
+                    <Image
+                        alt={name}
+                        classes={{
+                            root: classes.imageRoot,
+                            image: classes.image
+                        }}
+                        width={IMAGE_SIZE}
+                        resource={image}
                     />
+                </Link>
+                <div className={classes.details}>
+                    <Link to={itemLink} className={classes.name}>
+                        {name}
+                    </Link>
+                    <ProductOptions
+                        options={options}
+                        classes={{
+                            options: classes.options,
+                            optionLabel: classes.optionLabel
+                        }}
+                    />
+                    <span className={classes.price}>
+                        <Price currencyCode={currency} value={unitPrice} />
+                        {' ea.'}
+                    </span>
+                    <span className={classes.stockStatusMessage}>
+                        {stockStatusMessage}
+                    </span>
+                    <div className={classes.quantity}>
+                        <Quantity
+                            itemId={item.id}
+                            initialValue={quantity}
+                            onChange={handleUpdateItemQuantity}
+                        />
+                    </div>
                 </div>
+                <Kebab classes={{ root: classes.kebab }} disabled={true}>
+                    <Section
+                        text={
+                            isFavorite
+                                ? 'Remove from favorites'
+                                : 'Move to favorites'
+                        }
+                        onClick={handleToggleFavorites}
+                        icon="Heart"
+                        isFilled={isFavorite}
+                        classes={{ text: classes.sectionText }}
+                    />
+                    {editItemSection}
+                    <Section
+                        text="Remove from cart"
+                        onClick={handleRemoveFromCart}
+                        icon="Trash"
+                        classes={{ text: classes.sectionText }}
+                    />
+                </Kebab>
             </div>
-            <Kebab classes={{ root: classes.kebab }} disabled={true}>
-                <Section
-                    text={
-                        isFavorite
-                            ? 'Remove from favorites'
-                            : 'Move to favorites'
-                    }
-                    onClick={handleToggleFavorites}
-                    icon="Heart"
-                    isFilled={isFavorite}
-                    classes={{ text: classes.sectionText }}
-                />
-                {editItemSection}
-                <Section
-                    text="Remove from cart"
-                    onClick={handleRemoveFromCart}
-                    icon="Trash"
-                    classes={{ text: classes.sectionText }}
-                />
-            </Kebab>
         </li>
     );
 };

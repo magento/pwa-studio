@@ -14,7 +14,7 @@ jest.mock('react-router-dom', () => ({
     })
 }));
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useApolloClient: jest.fn().mockReturnValue({}),
     useMutation: jest
         .fn()
@@ -148,4 +148,14 @@ test('handleSignOut should call setAccountMenuIsOpen with false', () => {
     talonProps.handleSignOut();
 
     expect(setAccountMenuIsOpen).toHaveBeenCalledWith(false);
+});
+
+test('handleAccoutCreation should set view to ACCOUNT', () => {
+    const { talonProps, update } = getTalonProps(defaultProps);
+
+    talonProps.handleAccountCreation();
+
+    const updatedTalonProps = update();
+
+    expect(updatedTalonProps.view).toBe('ACCOUNT');
 });

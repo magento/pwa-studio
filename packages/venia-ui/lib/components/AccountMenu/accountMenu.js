@@ -4,8 +4,10 @@ import { shape, string } from 'prop-types';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountMenu';
 
+import CreateAccount from '../CreateAccount';
 import SignIn from '../SignIn/signIn';
 import AccountMenuItems from './accountMenuItems';
+import ForgotPassword from '../ForgotPassword';
 
 import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 
@@ -21,8 +23,10 @@ const AccountMenu = React.forwardRef((props, ref) => {
     const {
         view,
         username,
+        handleAccountCreation,
         handleSignOut,
         handleForgotPassword,
+        handleCancel,
         handleCreateAccount,
         updateUsername
     } = talonProps;
@@ -40,26 +44,23 @@ const AccountMenu = React.forwardRef((props, ref) => {
         }
         case 'FORGOT_PASSWORD': {
             dropdownContents = (
-                // username will be used by forgot password component
-                <div
-                    className={classes.forgotPassword}
+                <ForgotPassword
                     initialValues={{ email: username }}
-                >
-                    To be handled in PWA-77
-                </div>
+                    onCancel={handleCancel}
+                />
             );
 
             break;
         }
         case 'CREATE_ACCOUNT': {
             dropdownContents = (
-                // username will be used by create account component
-                <div
-                    className={classes.createAccount}
+                <CreateAccount
+                    classes={{ root: classes.createAccount }}
                     initialValues={{ email: username }}
-                >
-                    To be handled in PWA-804
-                </div>
+                    isCancelButtonHidden={false}
+                    onSubmit={handleAccountCreation}
+                    onCancel={handleCancel}
+                />
             );
 
             break;
@@ -83,7 +84,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
 
     return (
         <aside className={rootClass} ref={ref}>
-            {dropdownContents}
+            {accountMenuIsOpen ? dropdownContents : null}
         </aside>
     );
 });

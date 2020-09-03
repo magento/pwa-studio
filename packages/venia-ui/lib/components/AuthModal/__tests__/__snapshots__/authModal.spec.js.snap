@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render create account component if view is CREATE_ACCOUNT 1`] = `
+<div>
+  <div
+    initialValues={
+      Object {
+        "email": "",
+      }
+    }
+    isCancelButtonHidden={false}
+    onCancel={[MockFunction]}
+    onSubmit={[MockFunction]}
+  >
+    CreateAccount
+  </div>
+</div>
+`;
+
+exports[`should render forgot password component if view is FORGOT_PASSWORD 1`] = `
+<div>
+  <div
+    initialValues={
+      Object {
+        "email": "",
+      }
+    }
+    onCancel={[MockFunction]}
+  >
+    ForgotPassword
+  </div>
+</div>
+`;
+
+exports[`should render my account component if view is MY_ACCOUNT 1`] = `
+<div>
+  <div
+    onSignOut={[MockFunction]}
+  >
+    MyAccount
+  </div>
+</div>
+`;
+
+exports[`should render properly 1`] = `
+<div>
+  <div
+    setDefaultUsername={[MockFunction]}
+    showCreateAccount={[MockFunction]}
+    showForgotPassword={[MockFunction]}
+    showMyAccount={[MockFunction]}
+  >
+    SignIn
+  </div>
+</div>
+`;
