@@ -101,12 +101,6 @@ const typePolicies = {
                 merge(existing, incoming) {
                     return incoming;
                 }
-            },
-            region: {
-                merge(existing, incoming) {
-                    // eslint-disable-next-line no-unused-vars
-                    return incoming;
-                }
             }
         }
     },
