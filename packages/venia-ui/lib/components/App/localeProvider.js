@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { fromReactIntl, toReactIntl } from '../../util/formatLocale';
 import { IntlProvider } from 'react-intl';
+import { Util } from '@magento/peregrine';
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
 
-const language = toReactIntl(STORE_VIEW_LOCALE);
+const language = toReactIntl(
+    storage.getItem('store_view') ? storage.getItem('store_view').locale : STORE_VIEW_LOCALE
+);
 const locale = fromReactIntl(language);
 
 const LocaleProvider = props => {

@@ -31,13 +31,24 @@ const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists.
     const storage = new BrowserPersistence();
     const token = storage.getItem('signin_token');
-    const store = storage.getItem('store_view_code') || STORE_VIEW_CODE;
+
+    if (!storage.getItem('store_view')) {
+        storage.setItem('store_view',
+            {
+                code: STORE_VIEW_CODE,
+                locale: STORE_VIEW_LOCALE
+            }
+        );
+    }
+
+    const store = storage.getItem('store_view').code;
 
     // return the headers to the context so httpLink can read them
     return {
         headers: {
             ...headers,
             store: store,
+            //"Content-Currency": storage.getItem('store_view').currency,
             authorization: token ? `Bearer ${token}` : ''
         }
     };
