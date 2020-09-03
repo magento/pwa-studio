@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
-import { IntlProvider } from 'react-intl';
+
 import Overview from '../overview';
 import Section from '../section';
 
@@ -41,11 +41,7 @@ beforeEach(() => {
 });
 
 test('renders an Overview component', () => {
-    const component = createTestInstance(
-        <IntlProvider locale="en-US">
-            <Overview {...defaultProps} />
-        </IntlProvider>
-    );
+    const component = createTestInstance(<Overview {...defaultProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -55,11 +51,7 @@ test('Confirm Order button is disabled if submitting', () => {
         ...defaultProps,
         submitting: true
     };
-    const component = createTestInstance(
-        <IntlProvider locale="en-US">
-            <Overview {...props} />
-        </IntlProvider>
-    );
+    const component = createTestInstance(<Overview {...props} />);
     expect(component.toJSON()).toMatchSnapshot();
 });
 
@@ -68,20 +60,12 @@ test('Confirm Order button is disabled if not ready', () => {
         ...defaultProps,
         ready: false
     };
-    const component = createTestInstance(
-        <IntlProvider locale="en-US">
-            <Overview {...props} />
-        </IntlProvider>
-    );
+    const component = createTestInstance(<Overview {...props} />);
     expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('clicking address form edit sets `editing` state value to "address"', () => {
-    const component = createTestInstance(
-        <IntlProvider locale="en-US">
-            <Overview {...defaultProps} />
-        </IntlProvider>
-    );
+    const component = createTestInstance(<Overview {...defaultProps} />);
 
     act(() => {
         component.root.findAllByType(Section)[0].props.onClick();
@@ -91,11 +75,7 @@ test('clicking address form edit sets `editing` state value to "address"', () =>
 });
 
 test('clicking payment form edit sets `editing` state value to "paymentMethod"', () => {
-    const component = createTestInstance(
-        <IntlProvider locale="en-US">
-            <Overview {...defaultProps} />
-        </IntlProvider>
-    );
+    const component = createTestInstance(<Overview {...defaultProps} />);
 
     act(() => {
         component.root.findAllByType(Section)[1].props.onClick();
@@ -105,11 +85,7 @@ test('clicking payment form edit sets `editing` state value to "paymentMethod"',
 });
 
 test('clicking shipping form edit sets `editing` state value to "shippingMethod"', () => {
-    const component = createTestInstance(
-        <IntlProvider locale="en-US">
-            <Overview {...defaultProps} />
-        </IntlProvider>
-    );
+    const component = createTestInstance(<Overview {...defaultProps} />);
 
     act(() => {
         component.root.findAllByType(Section)[2].props.onClick();

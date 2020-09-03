@@ -9,7 +9,6 @@ exports[`it renders the correct tree 1`] = `
     <span>
       <mockConstructor
         currencyCode="USD"
-        locale="en-US"
         value={99}
       />
     </span>

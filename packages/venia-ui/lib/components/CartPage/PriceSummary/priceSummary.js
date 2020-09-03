@@ -10,7 +10,6 @@ import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
 import { PriceSummaryFragment } from './priceSummaryFragments';
-import { useIntl } from 'react-intl';
 
 const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
@@ -54,7 +53,6 @@ const PriceSummary = props => {
         isLoading,
         flatData
     } = talonProps;
-    const { locale } = useIntl();
 
     if (hasError) {
         return (
@@ -96,7 +94,6 @@ const PriceSummary = props => {
                     <Price
                         value={subtotal.value}
                         currencyCode={subtotal.currency}
-                        locale={locale}
                     />
                 </span>
                 <DiscountSummary
@@ -133,11 +130,7 @@ const PriceSummary = props => {
                     {isCheckout ? 'Total' : 'Estimated Total'}
                 </span>
                 <span className={totalPriceClass}>
-                    <Price
-                        value={total.value}
-                        currencyCode={total.currency}
-                        locale={locale}
-                    />
+                    <Price value={total.value} currencyCode={total.currency} />
                 </span>
             </div>
             {proceedToCheckoutButton}

@@ -1,9 +1,8 @@
 import React from 'react';
 import { gql } from '@apollo/client';
 import { Price } from '@magento/peregrine';
-import { useIntl } from 'react-intl';
-import { mergeClasses } from '../../../classify';
 
+import { mergeClasses } from '../../../classify';
 /**
  * A component that renders the shipping summary line item after address and
  * method are selected
@@ -14,7 +13,6 @@ import { mergeClasses } from '../../../classify';
 const ShippingSummary = props => {
     const classes = mergeClasses({}, props.classes);
     const { data, isCheckout } = props;
-    const { locale } = useIntl();
 
     // Don't render estimated shipping until an address has been provided and
     // a method has been selected.
@@ -26,11 +24,7 @@ const ShippingSummary = props => {
 
     // For a value of "0", display "FREE".
     const price = shipping.value ? (
-        <Price
-            value={shipping.value}
-            currencyCode={shipping.currency}
-            locale={locale}
-        />
+        <Price value={shipping.value} currencyCode={shipping.currency} />
     ) : (
         <span>{'FREE'}</span>
     );

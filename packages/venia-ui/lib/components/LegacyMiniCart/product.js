@@ -14,7 +14,6 @@ import Kebab from './kebab';
 import defaultClasses from './product.css';
 import ProductOptions from './productOptions';
 import Section from './section';
-import { useIntl } from 'react-intl';
 
 const PRODUCT_IMAGE_WIDTH = 80;
 
@@ -61,7 +60,6 @@ const Product = props => {
     }, [classes.image, classes.imageContainer, productImage, productName]);
 
     const mask = isLoading ? <div className={classes.mask} /> : null;
-    const { locale } = useIntl();
 
     return (
         <li className={classes.root}>
@@ -76,7 +74,6 @@ const Product = props => {
                         <Price
                             currencyCode={currencyCode}
                             value={productPrice}
-                            locale={locale}
                         />
                     </span>
                 </div>

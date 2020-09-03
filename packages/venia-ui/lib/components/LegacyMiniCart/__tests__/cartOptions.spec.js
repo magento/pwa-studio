@@ -1,5 +1,6 @@
 import React from 'react';
 import ShallowRenderer from 'react-test-renderer/shallow';
+
 import CartOptions from '../cartOptions';
 
 const renderer = new ShallowRenderer();
@@ -28,13 +29,6 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
     const useAwaitQuery = jest.fn().mockResolvedValue({ data: { cart: {} } });
 
     return { useAwaitQuery };
-});
-
-jest.mock('react-intl', () => {
-    const props = { locale: 'en-US' };
-    const useIntl = jest.fn(() => props);
-
-    return { useIntl };
 });
 
 test('it renders the correct tree', () => {

@@ -42,13 +42,6 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
     return { useAwaitQuery };
 });
 
-jest.mock('react-intl', () => {
-    const props = { locale: 'en-US' };
-    const useIntl = jest.fn(() => props);
-
-    return { useIntl };
-});
-
 const renderer = new ShallowRenderer();
 
 const props = {

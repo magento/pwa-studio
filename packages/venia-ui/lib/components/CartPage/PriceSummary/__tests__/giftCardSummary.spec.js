@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { IntlProvider } from 'react-intl';
+
 import GiftCardSummary from '../giftCardSummary';
 
 jest.mock('../../../../classify');
@@ -30,11 +30,7 @@ const defaultProps = {
 };
 
 test('renders gift card summary line item correctly', () => {
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <GiftCardSummary {...defaultProps} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<GiftCardSummary {...defaultProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -64,11 +60,7 @@ test('renders accumulated gift card value', () => {
         ]
     };
 
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <GiftCardSummary {...props} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<GiftCardSummary {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -78,11 +70,7 @@ test('renders nothing if gift card data is empty', () => {
         ...defaultProps,
         data: []
     };
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <GiftCardSummary {...props} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<GiftCardSummary {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -99,11 +87,7 @@ test('renders nothing if gift card value is "0"', () => {
             }
         ]
     };
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <GiftCardSummary {...props} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<GiftCardSummary {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

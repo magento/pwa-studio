@@ -6,7 +6,6 @@ import { Link, resourceUrl } from '@magento/venia-drivers';
 
 import Image from '../Image';
 import defaultClasses from './suggestedProduct.css';
-import { useIntl } from 'react-intl';
 
 const PRODUCT_URL_SUFFIX = '.html';
 const IMAGE_WIDTH = 60;
@@ -24,7 +23,6 @@ const SuggestedProduct = props => {
     const uri = useMemo(() => resourceUrl(`/${url_key}${PRODUCT_URL_SUFFIX}`), [
         url_key
     ]);
-    const { locale } = useIntl();
 
     return (
         <Link className={classes.root} to={uri} onClick={handleClick}>
@@ -39,7 +37,6 @@ const SuggestedProduct = props => {
                 <Price
                     currencyCode={price.regularPrice.amount.currency}
                     value={price.regularPrice.amount.value}
-                    locale={locale}
                 />
             </span>
         </Link>

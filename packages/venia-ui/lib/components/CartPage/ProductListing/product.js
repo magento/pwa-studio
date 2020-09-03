@@ -13,7 +13,6 @@ import Image from '../../Image';
 import defaultClasses from './product.css';
 import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
-import { useIntl } from 'react-intl';
 const IMAGE_SIZE = 100;
 
 const Product = props => {
@@ -70,8 +69,6 @@ const Product = props => {
     const stockStatusMessage =
         stockStatus === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
 
-    const { locale } = useIntl();
-
     return (
         <li className={classes.root}>
             <span className={classes.errorText}>{errorMessage}</span>
@@ -99,11 +96,7 @@ const Product = props => {
                         }}
                     />
                     <span className={classes.price}>
-                        <Price
-                            currencyCode={currency}
-                            value={unitPrice}
-                            locale={locale}
-                        />
+                        <Price currencyCode={currency} value={unitPrice} />
                         {' ea.'}
                     </span>
                     <span className={classes.stockStatusMessage}>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { IntlProvider } from 'react-intl';
 
 import ProductFullDetail from '../productFullDetail';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
@@ -166,9 +165,7 @@ test('it renders correctly', () => {
     useProductFullDetail.mockReturnValueOnce(talonProps);
 
     const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ProductFullDetail product={mockConfigurableProduct} />
-        </IntlProvider>
+        <ProductFullDetail product={mockConfigurableProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -181,9 +178,7 @@ test('it renders form level errors', () => {
     });
 
     const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ProductFullDetail product={mockConfigurableProduct} />
-        </IntlProvider>
+        <ProductFullDetail product={mockConfigurableProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -196,9 +191,7 @@ test('it renders an error for an invalid user token when adding to cart', () => 
     });
 
     const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ProductFullDetail product={mockConfigurableProduct} />
-        </IntlProvider>
+        <ProductFullDetail product={mockConfigurableProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -212,9 +205,7 @@ test('it renders field level errors for quantity - message 1', () => {
     });
 
     const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ProductFullDetail product={mockConfigurableProduct} />
-        </IntlProvider>
+        <ProductFullDetail product={mockConfigurableProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -227,9 +218,7 @@ test('it renders field level errors for quantity - message 2', () => {
     });
 
     const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ProductFullDetail product={mockConfigurableProduct} />
-        </IntlProvider>
+        <ProductFullDetail product={mockConfigurableProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -241,9 +230,7 @@ test('it renders field level errors for quantity - message 3', () => {
     });
 
     const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ProductFullDetail product={mockConfigurableProduct} />
-        </IntlProvider>
+        <ProductFullDetail product={mockConfigurableProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -253,9 +240,7 @@ test('it does not render options if the product is not a ConfigurableProduct', (
     useProductFullDetail.mockReturnValueOnce(talonProps);
 
     const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ProductFullDetail product={mockSimpleProduct} />
-        </IntlProvider>
+        <ProductFullDetail product={mockSimpleProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -268,9 +253,7 @@ test('it renders breadcrumbs if there is a breadcrumb category id', () => {
     });
 
     const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ProductFullDetail product={mockConfigurableProduct} />
-        </IntlProvider>
+        <ProductFullDetail product={mockConfigurableProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -283,9 +266,7 @@ test('it disables the add to cart button when the talon indicates', () => {
     });
 
     const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ProductFullDetail product={mockConfigurableProduct} />
-        </IntlProvider>
+        <ProductFullDetail product={mockConfigurableProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
-import { IntlProvider } from 'react-intl';
+
 import Item from '../item';
 
 jest.mock('../../../../classify');
@@ -43,11 +43,7 @@ const props = {
 };
 
 test('Should render correctly', () => {
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <Item {...props} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<Item {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -60,11 +56,7 @@ test('Should render correctly with out of stock product', () => {
             stock_status: 'OUT_OF_STOCK'
         }
     };
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <Item {...outOfStockProps} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<Item {...outOfStockProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -74,11 +66,7 @@ test('Should disable delete icon while loading', () => {
         isDeleting: true,
         removeItem: () => {}
     });
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <Item {...props} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<Item {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

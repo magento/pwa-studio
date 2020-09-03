@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { gql } from '@apollo/client';
 import { Price } from '@magento/peregrine';
-import { useIntl } from 'react-intl';
+
 import { mergeClasses } from '../../../classify';
 
 const DEFAULT_AMOUNT = {
@@ -38,7 +38,6 @@ const getDiscount = (discounts = []) => {
 const DiscountSummary = props => {
     const classes = mergeClasses({}, props.classes);
     const discount = getDiscount(props.data);
-    const { locale } = useIntl();
 
     return discount.value ? (
         <Fragment>
@@ -48,7 +47,6 @@ const DiscountSummary = props => {
                 <Price
                     value={discount.value}
                     currencyCode={discount.currency}
-                    locale={locale}
                 />
             </span>
         </Fragment>

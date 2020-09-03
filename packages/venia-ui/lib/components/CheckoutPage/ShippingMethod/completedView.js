@@ -3,7 +3,7 @@ import { func, number, shape, string } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 
 import { Price } from '@magento/peregrine';
-import { useIntl } from 'react-intl';
+
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import defaultClasses from './completedView.css';
@@ -11,7 +11,7 @@ import LinkButton from '../../LinkButton';
 
 const CompletedView = props => {
     const { selectedShippingMethod, showUpdateMode } = props;
-    const { locale } = useIntl();
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let contents;
@@ -28,7 +28,7 @@ const CompletedView = props => {
 
         const priceElement = value ? (
             <div>
-                <Price value={value} currencyCode={currency} locale={locale} />
+                <Price value={value} currencyCode={currency} />
             </div>
         ) : (
             <span className={classes.free}>Free</span>

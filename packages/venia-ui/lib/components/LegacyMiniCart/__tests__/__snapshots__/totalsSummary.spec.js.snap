@@ -9,7 +9,6 @@ exports[`renders correctly when it has a subtotal 1`] = `
       <span>
         Cart Total : 
         <mockConstructor
-          locale="en-US"
           value={99}
         />
       </span>

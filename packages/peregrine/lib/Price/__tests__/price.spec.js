@@ -3,6 +3,7 @@ import Price from '../price';
 import { createTestInstance } from '@magento/peregrine';
 import IntlPolyfill from 'intl';
 import areIntlLocalesSupported from 'intl-locales-supported';
+import { IntlProvider } from 'react-intl';
 
 if (global.Intl.NumberFormat.prototype.formatToParts) {
     // Determine if the built-in `Intl` has the locale data we need.
@@ -20,19 +21,31 @@ if (global.Intl.NumberFormat.prototype.formatToParts) {
 }
 
 test('Renders a USD price', () => {
-    const instance = createTestInstance(<Price value={100.99} currencyCode="USD" />);
+    const instance = createTestInstance(
+        <IntlProvider locale={'en-US'}>
+            <Price value={100.99} currencyCode="USD" />
+        </IntlProvider>
+    );
 
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('Renders a EUR price', () => {
-    const instance = createTestInstance(<Price value={100.99} currencyCode="EUR" />);
+    const instance = createTestInstance(
+        <IntlProvider locale={'en-US'}>
+            <Price value={100.99} currencyCode="EUR" />
+        </IntlProvider>
+    );
 
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('Renders a EUR price with locale set to French', () => {
-    const instance = createTestInstance(<Price value={1000.99} currencyCode="EUR" locale="fr-FR" />);
+    const instance = createTestInstance(
+        <IntlProvider locale={'fr-FR'}>
+            <Price value={1000.99} currencyCode="EUR" locale="fr-FR" />
+        </IntlProvider>
+    );
 
     expect(instance.toJSON()).toMatchSnapshot();
 });
@@ -45,7 +58,11 @@ test('Allows custom classnames for each part', () => {
         fraction: 'fract'
     };
 
-    const instance = createTestInstance(<Price value={88.81} currencyCode="USD" classes={classes} />);
+    const instance = createTestInstance(
+        <IntlProvider locale={'en-US'}>
+            <Price value={88.81} currencyCode="USD" classes={classes} />
+        </IntlProvider>
+    );
 
     expect(instance.toJSON()).toMatchSnapshot();
 });

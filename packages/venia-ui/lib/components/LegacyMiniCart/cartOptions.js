@@ -18,7 +18,7 @@ import {
 } from '../ProductFullDetail/productFullDetail.gql';
 import defaultClasses from './cartOptions.css';
 import { REMOVE_ITEM_MUTATION, UPDATE_ITEM_MUTATION } from './cartOptions.gql';
-import { useIntl } from 'react-intl';
+
 const Options = React.lazy(() => import('../ProductOptions'));
 
 const loadingIndicator = (
@@ -52,7 +52,7 @@ const CartOptions = props => {
         handleValueChange,
         isUpdateDisabled
     } = talonProps;
-    const { locale } = useIntl();
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const options = isProductConfigurable(configItem) ? (
@@ -72,11 +72,7 @@ const CartOptions = props => {
             <div className={classes.focusItem}>
                 <span className={classes.name}>{itemName}</span>
                 <span className={classes.price}>
-                    <Price
-                        currencyCode={currencyCode}
-                        value={itemPrice}
-                        locale={locale}
-                    />
+                    <Price currencyCode={currencyCode} value={itemPrice} />
                 </span>
             </div>
             <div className={classes.form}>

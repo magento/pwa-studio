@@ -22,7 +22,6 @@ import {
     REMOVE_GIFT_CARD_MUTATION
 } from './giftCardQueries';
 import LinkButton from '../../LinkButton';
-import { useIntl } from 'react-intl';
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
@@ -71,7 +70,6 @@ const GiftCards = props => {
         shouldDisplayCardError
     } = talonProps;
 
-    const { locale } = useIntl();
     const [, { addToast }] = useToasts();
     useEffect(() => {
         if (errorRemovingCard) {
@@ -131,7 +129,6 @@ const GiftCards = props => {
                 <Price
                     value={checkBalanceData.balance.value}
                     currencyCode={checkBalanceData.balance.currency}
-                    locale={locale}
                 />
             </span>
         </div>

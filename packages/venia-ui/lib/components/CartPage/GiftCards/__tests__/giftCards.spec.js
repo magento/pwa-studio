@@ -65,11 +65,7 @@ test('it renders correctly with no cards', () => {
     useGiftCards.mockReturnValueOnce(talonProps);
 
     // Act.
-    const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <GiftCards />
-        </IntlProvider>
-    );
+    const wrapper = createTestInstance(<GiftCards />);
 
     // Assert.
     expect(wrapper.toJSON()).toMatchSnapshot();

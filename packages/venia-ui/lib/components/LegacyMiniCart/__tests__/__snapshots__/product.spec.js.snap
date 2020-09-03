@@ -32,7 +32,6 @@ exports[`it renders correctly 1`] = `
       <span>
         <mockConstructor
           currencyCode="US"
-          locale="en-US"
           value={99}
         />
       </span>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { IntlProvider } from 'react-intl';
+
 import ShippingSummary from '../shippingSummary';
 
 jest.mock('../../../../classify');
@@ -32,11 +32,7 @@ const defaultProps = {
 };
 
 test('renders shipping summary line item correctly', () => {
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ShippingSummary {...defaultProps} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<ShippingSummary {...defaultProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -55,11 +51,7 @@ test('renders "FREE"" if shipping value is "0"', () => {
             }
         ]
     };
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ShippingSummary {...props} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<ShippingSummary {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -69,11 +61,7 @@ test('renders nothing if shipping data is empty', () => {
         ...defaultProps,
         data: []
     };
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ShippingSummary {...props} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<ShippingSummary {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -87,11 +75,7 @@ test('renders nothing if there is no selected shipping method', () => {
             }
         ]
     };
-    const tree = createTestInstance(
-        <IntlProvider locale="en-US">
-            <ShippingSummary {...props} />
-        </IntlProvider>
-    );
+    const tree = createTestInstance(<ShippingSummary {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

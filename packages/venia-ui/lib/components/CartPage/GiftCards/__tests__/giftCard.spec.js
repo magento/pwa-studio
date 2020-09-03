@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useGiftCard } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCard';
-import { IntlProvider } from 'react-intl';
+
 import GiftCard from '../giftCard';
 
 /*
@@ -44,11 +44,7 @@ test('it renders correctly', () => {
     useGiftCard.mockReturnValueOnce(talonProps);
 
     // Act.
-    const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <GiftCard {...props} />
-        </IntlProvider>
-    );
+    const wrapper = createTestInstance(<GiftCard {...props} />);
 
     // Assert.
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -63,11 +59,7 @@ test('it disables the button when in progress', () => {
     useGiftCard.mockReturnValueOnce(talonProps);
 
     // Act.
-    const wrapper = createTestInstance(
-        <IntlProvider locale="en-US">
-            <GiftCard {...myProps} />
-        </IntlProvider>
-    );
+    const wrapper = createTestInstance(<GiftCard {...myProps} />);
 
     // Assert.
     expect(wrapper.toJSON()).toMatchSnapshot();

@@ -5,13 +5,6 @@ import TotalsSummary from '../totalsSummary';
 
 const renderer = new ShallowRenderer();
 
-jest.mock('react-intl', () => {
-    const props = { locale: 'en-US' };
-    const useIntl = jest.fn(() => props);
-
-    return { useIntl };
-});
-
 test('renders correctly when it has a subtotal', () => {
     const props = {
         subtotal: 99

@@ -2,7 +2,7 @@ import React from 'react';
 import { number, shape, string } from 'prop-types';
 
 import { Price } from '@magento/peregrine';
-import { useIntl } from 'react-intl';
+
 import { mergeClasses } from '../../classify';
 
 import defaultClasses from './totalsSummary.css';
@@ -15,7 +15,7 @@ const TotalsSummary = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const hasSubtotal = Boolean(subtotal);
     const numItemsText = numItems === 1 ? 'item' : 'items';
-    const { locale } = useIntl();
+
     return (
         <div className={classes.root}>
             {hasSubtotal && (
@@ -26,7 +26,6 @@ const TotalsSummary = props => {
                             <Price
                                 currencyCode={currencyCode}
                                 value={subtotal}
-                                locale={locale}
                             />
                         </span>
                     </dt>

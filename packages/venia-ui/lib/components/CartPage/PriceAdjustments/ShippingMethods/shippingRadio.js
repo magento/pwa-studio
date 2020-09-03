@@ -4,16 +4,10 @@ import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../../classify';
 import defaultClasses from './shippingRadio.css';
-import { useIntl } from 'react-intl';
 
 const ShippingRadio = props => {
-    const { locale } = useIntl();
     const priceElement = props.price ? (
-        <Price
-            value={props.price}
-            currencyCode={props.currency}
-            locale={locale}
-        />
+        <Price value={props.price} currencyCode={props.currency} />
     ) : (
         <span>FREE</span>
     );
