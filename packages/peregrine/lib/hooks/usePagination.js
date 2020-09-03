@@ -38,7 +38,7 @@ const defaultInitialPage = 1;
  * @param {String} config.namespace='' The namespace to append to config.parameter in the query. For example: ?namespace_parameter=value
  * @param {String} config.parameter='page' The name of the query parameter to use for page
  * @param {Number} config.initialPage The initial current page value
- * @param {Number} config.intialTotalPages=1 The total pages expected to be usable by this hook
+ * @param {Number} config.initialTotalPages=1 The total pages expected to be usable by this hook
  *
  * @return {Object[]} An array with two entries containing the following content: [ {@link PaginationState}, {@link API} ]
  */
@@ -50,9 +50,11 @@ export const usePagination = (props = {}) => {
     const location = useLocation();
 
     // Fetch the initial page value from location to avoid initializing twice.
-    const initialPage =
-        props.initialPage ||
-        parseInt(getSearchParam(searchParam, location) || defaultInitialPage);
+    const initialPage = parseInt(
+        getSearchParam(searchParam, location) ||
+            props.initialPage ||
+            defaultInitialPage
+    );
 
     const [currentPage, setCurrentPage] = useState(initialPage);
     const [totalPages, setTotalPages] = useState(initialTotalPages);
