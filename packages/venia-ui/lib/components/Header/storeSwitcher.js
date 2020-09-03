@@ -8,7 +8,7 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './storeSwitcher.css';
 import GET_AVAILABLE_STORES_CONFIG_DATA from '../../queries/getAvailableStoresConfigData.graphql';
 import LinkButton from '../LinkButton';
-import LoadingIndicator from "../LoadingIndicator";
+import LoadingIndicator from '../LoadingIndicator';
 
 const StoreSwitcher = props => {
     const { mobileView } = props;
@@ -26,13 +26,12 @@ const StoreSwitcher = props => {
     let children = null;
 
     if (isLoading) {
-        children = (
-            <LoadingIndicator classes={{ root: classes.loading }} />
-        );
+        children = <LoadingIndicator classes={{ root: classes.loading }} />;
     }
 
     if (availableStores) {
-        const hasMultipleStores = Object.keys(availableStores).length > 1 || null;
+        const hasMultipleStores =
+            Object.keys(availableStores).length > 1 || null;
         const stores = Object.keys(availableStores).map(storeCode => {
             return (
                 <LinkButton
@@ -41,11 +40,19 @@ const StoreSwitcher = props => {
                         handleSwitchStore(storeCode);
                     }}
                 >
-                    <span>{availableStores[storeCode].storeName} {availableStores[storeCode].is_current}</span>
+                    <span>
+                        {availableStores[storeCode].storeName}{' '}
+                        {availableStores[storeCode].is_current}
+                    </span>
                 </LinkButton>
             );
         });
-
+        if (hasMultipleStores) {
+            window.document.documentElement.style.setProperty(
+                '--header-height',
+                '10rem'
+            );
+        }
         children = hasMultipleStores ? (
             <div className={triggerClassName}>{stores}</div>
         ) : null;

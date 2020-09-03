@@ -1,6 +1,7 @@
 .root {
     align-items: stretch;
     background-color: white;
+    box-shadow: 0 -1px rgb(var(--venia-global-color-border));
     display: grid;
     gap: 0.75rem;
     grid-auto-flow: column;

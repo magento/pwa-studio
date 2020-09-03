@@ -1,3 +1,7 @@
+:root {
+    --header-height: 5rem;
+}
+
 .root {
     background-color: rgb(var(--venia-global-color-gray-50));
     box-shadow: 0 2px rgb(var(--venia-global-color-gray-100));

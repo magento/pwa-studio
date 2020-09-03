@@ -17,7 +17,7 @@
 /*
  * Desktop specific styles
  */
-@media (min-width: 961px) {
+@media (min-width: 641px) {
     .root_mobile {
         display: none;
     }
@@ -35,7 +35,7 @@
     justify-items: start;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 640px) {
     .root {
         display: none;
     }
