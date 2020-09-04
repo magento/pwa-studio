@@ -40,14 +40,14 @@ const MagentoRoute = () => {
     } else if (routeError === NOT_FOUND) {
         return (
             <ErrorView>
-                <h1>{ formatMessage({ id: MESSAGES.get(routeError) }) }</h1>
+                <h1>{formatMessage({ id: MESSAGES.get(routeError) })}</h1>
             </ErrorView>
         );
     }
 
     return (
         <ErrorView>
-            <h1>{ formatMessage({ id: MESSAGES.get(INTERNAL_ERROR) }) }</h1>
+            <h1>{formatMessage({ id: MESSAGES.get(INTERNAL_ERROR) })}</h1>
         </ErrorView>
     );
 };

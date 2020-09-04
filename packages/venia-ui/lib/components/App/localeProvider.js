@@ -6,7 +6,9 @@ const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
 const language = toReactIntl(
-    storage.getItem('store_view') ? storage.getItem('store_view').locale : STORE_VIEW_LOCALE
+    storage.getItem('store_view')
+        ? storage.getItem('store_view').locale
+        : STORE_VIEW_LOCALE
 );
 const locale = fromReactIntl(language);
 

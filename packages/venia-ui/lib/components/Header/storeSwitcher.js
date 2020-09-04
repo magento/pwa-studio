@@ -7,8 +7,9 @@ import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreS
 import { mergeClasses } from '../../classify';
 import defaultClasses from './storeSwitcher.css';
 import GET_AVAILABLE_STORES_CONFIG_DATA from '../../queries/getAvailableStoresConfigData.graphql';
-import LinkButton from '../LinkButton';
 import LoadingIndicator from '../LoadingIndicator';
+import { Check, MapPin } from 'react-feather';
+import Icon from '../Icon';
 
 const StoreSwitcher = props => {
     const { mobileView } = props;
@@ -16,10 +17,19 @@ const StoreSwitcher = props => {
         query: GET_AVAILABLE_STORES_CONFIG_DATA
     });
 
-    const { handleSwitchStore, availableStores, isLoading } = talonProps;
+    const {
+        handleSwitchStore,
+        availableStores,
+        isLoading,
+        storeMenuRef,
+        storeMenuTriggerRef,
+        storeMenuIsOpen,
+        handleTriggerClick
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const className = mobileView ? classes.root_mobile : classes.root;
+    const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;
     const { formatMessage } = useIntl();
     const triggerClassName = classes.storeSwitcherContainer;
 
@@ -33,28 +43,52 @@ const StoreSwitcher = props => {
         const hasMultipleStores =
             Object.keys(availableStores).length > 1 || null;
         const stores = Object.keys(availableStores).map(storeCode => {
+            const activeIcon = availableStores[storeCode].is_current ? (
+                <Icon size={20} src={Check} />
+            ) : null;
+
             return (
-                <LinkButton
-                    key={storeCode}
-                    onClick={() => {
-                        handleSwitchStore(storeCode);
-                    }}
-                >
-                    <span>
-                        {availableStores[storeCode].storeName}{' '}
-                        {availableStores[storeCode].is_current}
-                    </span>
-                </LinkButton>
+                <li key={storeCode} className={classes.menuItem}>
+                    <button
+                        className={classes.menuItemButton}
+                        onClick={() => {
+                            handleSwitchStore(storeCode);
+                        }}
+                    >
+                        <span className={classes.content}>
+                            <span className={classes.text}>
+                                {availableStores[storeCode].storeName}
+                            </span>
+                            {activeIcon}
+                        </span>
+                    </button>
+                </li>
             );
         });
+
         if (hasMultipleStores) {
             window.document.documentElement.style.setProperty(
                 '--header-height',
-                '10rem'
+                '7.5rem'
             );
         }
+
+        const currentStore = 'My Current Store';
+
         children = hasMultipleStores ? (
-            <div className={triggerClassName}>{stores}</div>
+            <div className={triggerClassName} ref={storeMenuTriggerRef}>
+                <button
+                    className={classes.trigger}
+                    aria-label={currentStore}
+                    onClick={handleTriggerClick}
+                >
+                    <Icon src={MapPin} />
+                    <span className={classes.label}>{currentStore}</span>
+                </button>
+                <div ref={storeMenuRef} className={menuClassName}>
+                    <ul>{stores}</ul>
+                </div>
+            </div>
         ) : null;
     }
 
@@ -68,6 +102,13 @@ StoreSwitcher.propTypes = {
         root: string,
         root_mobile: string,
         storeSwitcherContainer: string,
+        trigger: string,
+        menu: string,
+        menu_open: string,
+        menuItem: string,
+        menuItemButton: string,
+        content: string,
+        text: string,
         current: string
     }),
     mobileView: bool

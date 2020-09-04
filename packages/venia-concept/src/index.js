@@ -33,12 +33,10 @@ const authLink = setContext((_, { headers }) => {
     const token = storage.getItem('signin_token');
 
     if (!storage.getItem('store_view')) {
-        storage.setItem('store_view',
-            {
-                code: STORE_VIEW_CODE,
-                locale: STORE_VIEW_LOCALE
-            }
-        );
+        storage.setItem('store_view', {
+            code: STORE_VIEW_CODE,
+            locale: STORE_VIEW_LOCALE
+        });
     }
 
     const store = storage.getItem('store_view').code;

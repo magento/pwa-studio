@@ -6,12 +6,80 @@
 .storeSwitcherContainer {
     align-items: center;
     display: grid;
-    /* The full height of the site header minus (box shadow height * 2). */
-    height: calc(5rem - 8px);
     justify-items: end;
     margin: 0 auto;
     max-width: var(--venia-global-maxWidth);
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
+    position: relative;
+}
+
+.trigger {
+    align-items: center;
+    display: flex;
+    column-gap: 0.5rem;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+}
+
+.menu {
+    background-color: rgb(var(--venia-global-color-gray-50));
+    border: 1px solid rgb(var(--venia-global-color-gray-dark));
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    position: absolute;
+    right: 1rem;
+    top: 2.5rem;
+    transform: translate3d(0, -8px, 0);
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-global-anim-out);
+    transition-property: opacity, transform, visibility;
+    visibility: hidden;
+    z-index: 2;
+}
+
+.menu_open {
+    composes: menu;
+
+    opacity: 1;
+    transform: translate3d(0, 4px, 0);
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-global-anim-in);
+    visibility: visible;
+}
+
+.menuItemButton {
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+.menuItem {
+    border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
+}
+
+.menuItem:last-child {
+    border-bottom: none;
+}
+
+.menuItem:hover {
+    background-color: rgb(var(--venia-global-color-gray));
+}
+
+.content {
+    align-items: center;
+    display: grid;
+    gap: 0.75rem;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+    height: 2.5rem;
+    padding: 0 0.75rem;
+    width: 100%;
+}
+
+.text {
+    text-align: left;
+    white-space: nowrap;
 }
 
 /*
@@ -33,6 +101,18 @@
 
 .root_mobile .storeSwitcherContainer {
     justify-items: start;
+}
+
+.root_mobile .menu {
+    bottom: 2.5rem;
+    left: 1rem;
+    right: auto;
+    top: auto;
+    transform: translate3d(0, 8px, 0);
+}
+
+.root_mobile .menu_open {
+    transform: translate3d(0, -4px, 0);
 }
 
 @media (max-width: 640px) {
