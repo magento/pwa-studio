@@ -40,9 +40,44 @@ class TalonWrapperConfig {
         this.Checkout = {
             /**
              * useOverview {@link WrappableTalon} object for the `useOverview()` talon
+             * useFlow {@link WrappableTalon} object for the `useFlow()` talon
              * @type {WrappableTalon}
              */
-            useOverview: new WrappableTalon(addTransforms, 'Checkout/useOverview')
+            useOverview: new WrappableTalon(addTransforms, 'Checkout/useOverview'),
+            useFlow: new WrappableTalon(addTransforms, 'Checkout/useFlow')
+        };
+        /**
+         * Provides access to the talon used in Venia's MiniCart UI component.
+         * @instance
+         */
+        this.MiniCart = {
+            /**
+             * useMiniCart {@link WrappableTalon} object for the `useMiniCart()` talon
+             * @type {WrappableTalon}
+             */
+            useMiniCart: new WrappableTalon(addTransforms, 'MiniCart/useMiniCart')
+        };
+        /**
+         * Provides access to the talon used in Venia's MyAccount UI component.
+         * @instance
+         */
+        this.MyAccount = {
+            /**
+             * useMyAccount {@link WrappableTalon} object for the `useOverview()` talon
+             * @type {WrappableTalon}
+             */
+            useMyAccount: new WrappableTalon(addTransforms, 'MyAccount/useMyAccount')
+        };
+        /**
+         * Provides access to the talon used in Venia's SignIn UI component.
+         * @instance
+         */
+        this.SignIn = {
+            /**
+             * useSignin {@link WrappableTalon} object for the `useSignin()` talon
+             * @type {WrappableTalon}
+             */
+            useSignin: new WrappableTalon(addTransforms, 'SignIn/useSignin')
         };
     }
 }
