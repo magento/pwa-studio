@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns correct shape 1`] = `
+Object {
+  "handleContentToggle": [Function],
+  "isOpen": false,
+}
+`;
