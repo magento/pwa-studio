@@ -10,10 +10,15 @@ import GET_AVAILABLE_STORES_CONFIG_DATA from '../../queries/getAvailableStoresCo
 import LinkButton from '../LinkButton';
 import LoadingIndicator from '../LoadingIndicator';
 
+import CREATE_CART_MUTATION from "../../queries/createCart.graphql";
+import {mergeCartsMutation} from "../../queries/mergeCarts.gql";
+
 const StoreSwitcher = props => {
     const { mobileView } = props;
     const talonProps = useStoreSwitcher({
-        query: GET_AVAILABLE_STORES_CONFIG_DATA
+        query: GET_AVAILABLE_STORES_CONFIG_DATA,
+        createCartMutation: CREATE_CART_MUTATION,
+        mergeCartsMutation,
     });
 
     const { handleSwitchStore, availableStores, isLoading } = talonProps;
@@ -56,6 +61,10 @@ const StoreSwitcher = props => {
         children = hasMultipleStores ? (
             <div className={triggerClassName}>{stores}</div>
         ) : null;
+
+        if (hasMultipleStores) {
+            window.document.documentElement.style.setProperty('--header-height', '10rem');
+        }
     }
 
     return <div className={className}>{children}</div>;

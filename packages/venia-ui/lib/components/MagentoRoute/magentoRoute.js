@@ -16,7 +16,7 @@ const MESSAGES = new Map()
     .set(INTERNAL_ERROR, 'Something went wrong. Please try again.');
 
 const MagentoRoute = () => {
-    const { formatMessage, locale } = useIntl();
+    const { formatMessage } = useIntl();
     const magentoRouteProps = {};
     // If we have a specific store view code configured pass it into the url resolver
     const storage = new BrowserPersistence();
