@@ -35,8 +35,7 @@ export const useBreadcrumbs = props => {
     });
 
     // Default to .html for when the query has not yet returned.
-    const categoryUrlSuffix =
-        (data && data.storeConfig.category_url_suffix) || '.html';
+    const categoryUrlSuffix = (data && data.category.url_suffix) || '.html';
 
     // When we have breadcrumb data sort and normalize it for easy rendering.
     const normalizedData = useMemo(() => {

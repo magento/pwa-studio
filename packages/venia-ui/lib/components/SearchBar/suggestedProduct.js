@@ -7,12 +7,11 @@ import { Link, resourceUrl } from '@magento/venia-drivers';
 import Image from '../Image';
 import defaultClasses from './suggestedProduct.css';
 
-const PRODUCT_URL_SUFFIX = '.html';
 const IMAGE_WIDTH = 60;
 
 const SuggestedProduct = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { url_key, small_image, name, onNavigate, price } = props;
+    const { url_key, small_image, name, onNavigate, price, url_suffix } = props;
 
     const handleClick = useCallback(() => {
         if (typeof onNavigate === 'function') {
@@ -20,8 +19,9 @@ const SuggestedProduct = props => {
         }
     }, [onNavigate]);
 
-    const uri = useMemo(() => resourceUrl(`/${url_key}${PRODUCT_URL_SUFFIX}`), [
-        url_key
+    const uri = useMemo(() => resourceUrl(`/${url_key}${url_suffix}`), [
+        url_key,
+        url_suffix
     ]);
 
     return (
