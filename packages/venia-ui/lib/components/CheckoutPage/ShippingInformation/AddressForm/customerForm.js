@@ -11,6 +11,7 @@ import Country from '../../../Country';
 import Field, { Message } from '../../../Field';
 import FormError from '../../../FormError';
 import Region from '../../../Region';
+import Postcode from '../../../Postcode';
 import TextInput from '../../../TextInput';
 import defaultClasses from './customerForm.css';
 import CustomerFormOperations from './customerForm.gql';
@@ -75,8 +76,8 @@ const CustomerForm = props => {
     const submitButtonText = !hasDefaultShipping
         ? 'Save and Continue'
         : isUpdate
-        ? 'Update'
-        : 'Add';
+            ? 'Update'
+            : 'Add';
 
     const submitButtonProps = {
         disabled: isSaving,
@@ -94,8 +95,8 @@ const CustomerForm = props => {
             />
         </div>
     ) : (
-        <Text type="hidden" field="default_shipping" initialValue={true} />
-    );
+            <Text type="hidden" field="default_shipping" initialValue={true} />
+        );
 
     return (
         <Fragment>
@@ -156,9 +157,7 @@ const CustomerForm = props => {
                     />
                 </div>
                 <div className={classes.postcode}>
-                    <Field id="postcode" label="ZIP / Postal Code">
-                        <TextInput field="postcode" validate={isRequired} />
-                    </Field>
+                    <Postcode validate={isRequired} />
                 </div>
                 <div className={classes.telephone}>
                     <Field id="telephone" label="Phone Number">
