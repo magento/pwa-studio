@@ -109,18 +109,11 @@ Open the `routes.js` file and update the relative import statements to use compo
 
 ```diff
 - import { fullPageLoadingIndicator } from '../LoadingIndicator';
+- import HomePage from "../HomePage";
 - import MagentoRoute from '../MagentoRoute';
 + import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
++ import HomePage from "@magento/venia-ui/lib/components/HomePage";
 + import MagentoRoute from '@magento/venia-ui/lib/components/MagentoRoute';
- 
-- const CartPage = lazy(() => import('../CartPage'));
-- const CheckoutPage = lazy(() => import('../CheckoutPage'));
-- const CreateAccountPage = lazy(() => import('../CreateAccountPage'));
-- const Search = lazy(() => import('../../RootComponents/Search'));
-+ const CartPage = lazy(() => import('@magento/venia-ui/lib/components/CartPage'));
-+ const CheckoutPage = lazy(() => import('@magento/venia-ui/lib/components/CheckoutPage'));
-+ const CreateAccountPage = lazy(() => import('@magento/venia-ui/lib/components/CreateAccountPage'));
-+ const Search = lazy(() => import('@magento/venia-ui/lib/RootComponents/Search'));
 ```
 
 ### Import your custom component
