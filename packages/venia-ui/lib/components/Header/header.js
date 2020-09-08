@@ -26,7 +26,6 @@ const Header = props => {
         isSearchOpen,
         searchRef,
         searchTriggerRef
-        // setIsSearchOpen
     } = useHeader();
 
     const classes = mergeClasses(defaultClasses, props.classes);

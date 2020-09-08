@@ -34,7 +34,6 @@ export const useHeader = () => {
         isPageLoading,
         isSearchOpen,
         searchRef,
-        searchTriggerRef,
-        setIsSearchOpen
+        searchTriggerRef
     };
 };
