@@ -5,6 +5,3 @@ export const toggleDrawer = name => async dispatch =>
 
 export const closeDrawer = () => async dispatch =>
     dispatch(actions.toggleDrawer(null));
-
-export const toggleSearch = () => async dispatch =>
-    dispatch(actions.toggleSearch());

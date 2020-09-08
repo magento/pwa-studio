@@ -9,7 +9,6 @@ const initialState = {
     hasBeenOffline: !navigator.onLine,
     isOnline: navigator.onLine,
     overlay: false,
-    searchOpen: false,
     pending: {},
     isPageLoading: false
 };
@@ -20,12 +19,6 @@ const reducerMap = {
             ...state,
             drawer: payload,
             overlay: !!payload
-        };
-    },
-    [actions.toggleSearch]: state => {
-        return {
-            ...state,
-            searchOpen: !state.searchOpen
         };
     },
     [actions.setOnline]: state => {

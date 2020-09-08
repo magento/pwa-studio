@@ -1,5 +1,5 @@
 import actions from '../actions';
-import { closeDrawer, toggleDrawer, toggleSearch } from '../asyncActions';
+import { closeDrawer, toggleDrawer } from '../asyncActions';
 
 const dispatch = jest.fn();
 const getState = jest.fn();
@@ -38,21 +38,5 @@ test('closeDrawer thunk dispatches actions', async () => {
     await closeDrawer()(...thunkArgs);
 
     expect(dispatch).toHaveBeenCalledWith(actions.toggleDrawer(null));
-    expect(dispatch).toHaveBeenCalledTimes(1);
-});
-
-test('toggleSearch() to return a thunk ', () => {
-    expect(toggleSearch()).toBeInstanceOf(Function);
-});
-
-test('toggleSearch thunk returns undefined', async () => {
-    const result = await toggleSearch()(...thunkArgs);
-
-    expect(result).toBeUndefined();
-});
-
-test('toggleSearch thunk dispatches actions', async () => {
-    await toggleSearch()(...thunkArgs);
-
     expect(dispatch).toHaveBeenCalledTimes(1);
 });

@@ -38,9 +38,8 @@ export const useSearchPage = props => {
     const { setCurrentPage, setTotalPages } = paginationApi;
 
     // retrieve app state and action creators
-    const [appState, appApi] = useAppContext();
-    const { searchOpen } = appState;
-    const { toggleDrawer, toggleSearch } = appApi;
+    const [, appApi] = useAppContext();
+    const { toggleDrawer } = appApi;
 
     // get the URL query parameters.
     const location = useLocation();
@@ -53,17 +52,6 @@ export const useSearchPage = props => {
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
     }, [toggleDrawer]);
-
-    // derive initial state from query params
-    // never re-run this effect, even if deps change
-    /* eslint-disable react-hooks/exhaustive-deps */
-    useEffect(() => {
-        // ensure search is open to begin with
-        if (toggleSearch && !searchOpen && inputText) {
-            toggleSearch();
-        }
-    }, []);
-    /* eslint-enable react-hooks/exhaustive-deps */
 
     // Get "allowed" filters by intersection of schema and aggregations
     const {

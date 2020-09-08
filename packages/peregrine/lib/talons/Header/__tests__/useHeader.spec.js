@@ -31,9 +31,7 @@ test('useHeader returns correct values from useAppContext', () => {
                 isOnline: true,
                 isPageLoading: false
             },
-            {
-                toggleSearch: jest.fn()
-            }
+            {}
         ];
     });
 
@@ -45,26 +43,4 @@ test('useHeader returns correct values from useAppContext', () => {
         isOnline: true,
         isPageLoading: false
     });
-});
-
-test('handleSearchTriggerClick calls toggleSearch from useAppContext', () => {
-    const toggleSearchFn = jest.fn();
-
-    useAppContext.mockImplementation(() => {
-        return [
-            {},
-            {
-                toggleSearch: toggleSearchFn
-            }
-        ];
-    });
-
-    const component = createTestInstance(<Component />);
-    const talonProps = component.root.findByProps({ id: 'header' }).props;
-
-    act(() => {
-        talonProps.handleSearchTriggerClick();
-    });
-
-    expect(toggleSearchFn).toHaveBeenCalled();
 });
