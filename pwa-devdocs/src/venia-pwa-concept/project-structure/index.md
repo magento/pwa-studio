@@ -54,7 +54,6 @@ It also combines Redux reducers and middlewares.
 
 The `src/sw.js` file contains the service worker configuration.
 
-
 [Magento theme structure]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-structure.html
 [UPWARD]: https://github.com/magento/pwa-studio/tree/master/packages/upward-spec
 [Webpack]: https://webpack.js.org/
