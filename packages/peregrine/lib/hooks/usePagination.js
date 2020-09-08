@@ -44,22 +44,17 @@ const defaultInitialPage = 1;
  */
 export const usePagination = (props = {}) => {
     const { namespace = '', parameter = 'page', initialTotalPages = 1 } = props;
-    const searchParam = namespace ? `${namespace}_${parameter}` : parameter;
 
     const history = useHistory();
     const location = useLocation();
-
-    // Fetch the initial page value from location to avoid initializing twice.
-    const initialPage = parseInt(
-        getSearchParam(searchParam, location) ||
-            props.initialPage ||
-            defaultInitialPage
-    );
-
-    const [currentPage, setCurrentPage] = useState(initialPage);
     const [totalPages, setTotalPages] = useState(initialTotalPages);
 
-    const setPage = useCallback(
+    const searchParam = namespace ? `${namespace}_${parameter}` : parameter;
+    const initialPage = props.initialPage || defaultInitialPage;
+    const currentPage = parseInt(getSearchParam(searchParam, location));
+
+    // use the location to hold state
+    const setCurrentPage = useCallback(
         page => {
             // Update the query parameter.
             setQueryParam({
@@ -68,18 +63,16 @@ export const usePagination = (props = {}) => {
                 parameter: searchParam,
                 value: page
             });
-
-            // Update the state object.
-            setCurrentPage(page);
         },
         [history, location, searchParam]
     );
 
+    // ensure the location contains a page number
     useEffect(() => {
-        if (initialPage !== currentPage) {
+        if (!currentPage) {
             setCurrentPage(initialPage);
         }
-    }, [currentPage, initialPage]);
+    }, [currentPage, initialPage, setCurrentPage]);
 
     /**
      * The current pagination state
@@ -91,7 +84,10 @@ export const usePagination = (props = {}) => {
      * @property {Number} currentPage The current page number
      * @property {Number} totalPages The total number of pages
      */
-    const paginationState = { currentPage, totalPages };
+    const paginationState = {
+        currentPage: currentPage || initialPage,
+        totalPages
+    };
 
     /**
      * The API object used for modifying the PaginationState.
@@ -116,10 +112,10 @@ export const usePagination = (props = {}) => {
      */
     const api = useMemo(
         () => ({
-            setCurrentPage: setPage,
+            setCurrentPage,
             setTotalPages
         }),
-        [setPage, setTotalPages]
+        [setCurrentPage, setTotalPages]
     );
 
     return [paginationState, api];
