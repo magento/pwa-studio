@@ -7,6 +7,7 @@ query categoryList($id: Int!) {
             name
             url_key
             url_path
+            url_suffix
             children_count
             path
             image

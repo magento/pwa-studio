@@ -156,7 +156,8 @@ test('calls updateCategories when data changes', () => {
     const data = {
         category: {
             ...category,
-            children: Array.from(category.children, id => categories[id])
+            children: Array.from(category.children, id => categories[id]),
+            url_suffix: '.html'
         }
     };
 

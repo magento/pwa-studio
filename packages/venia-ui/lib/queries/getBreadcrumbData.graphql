@@ -1,10 +1,5 @@
 query getBreadcrumbData($category_id: Int!) {
-    storeConfig {
-        id
-        category_url_suffix
-    }
     category(id: $category_id) {
-        id
         breadcrumbs {
             category_id
             # We may not need level if `breadcrumbs` is sorted.
@@ -15,5 +10,6 @@ query getBreadcrumbData($category_id: Int!) {
         id
         name
         url_path
+        url_suffix
     }
 }
