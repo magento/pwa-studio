@@ -13,6 +13,7 @@ const getResolveLoader = require('./getResolveLoader');
 const RootComponentsPlugin = require('../plugins/RootComponentsPlugin');
 const ServiceWorkerPlugin = require('../plugins/ServiceWorkerPlugin');
 const UpwardIncludePlugin = require('../plugins/UpwardIncludePlugin');
+const LocalizationPlugin = require('../plugins/LocalizationPlugin');
 
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
@@ -131,6 +132,9 @@ async function getClientConfig(opts) {
                     swSrc: './src/ServiceWorker/sw.js',
                     swDest: './sw.js'
                 }
+            }),
+            new LocalizationPlugin({
+                dirs: [...hasFlag('i18n'), context]
             }),
             new ReactRefreshWebpackPlugin()
         ],
