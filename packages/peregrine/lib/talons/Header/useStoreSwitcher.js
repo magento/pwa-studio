@@ -49,7 +49,8 @@ export const useStoreSwitcher = props => {
                     storeViews[store.code] = {
                         storeName: store['store_name'],
                         locale: store.locale,
-                        //is_current: store.code === storage.getItem('store_view').code,
+                        is_current:
+                            store.code === storage.getItem('store_view').code,
                         currency: store['base_currency_code']
                     };
                     return storeViews;
@@ -59,7 +60,7 @@ export const useStoreSwitcher = props => {
         }
 
         return filteredData;
-    }, [availableStoresData]);
+    }, [availableStoresData, storage]);
 
     // Shopping cart part
     const apolloClient = useApolloClient();

@@ -47,10 +47,17 @@ const StoreSwitcher = props => {
     if (availableStores) {
         const hasMultipleStores =
             Object.keys(availableStores).length > 1 || null;
+        let currentStoreName = null;
         const stores = Object.keys(availableStores).map(storeCode => {
-            const activeIcon = availableStores[storeCode].is_current ? (
+            const isCurrentStore = availableStores[storeCode].is_current;
+            const storeName = availableStores[storeCode].storeName;
+            const activeIcon = isCurrentStore ? (
                 <Icon size={20} src={Check} />
             ) : null;
+
+            if (isCurrentStore) {
+                currentStoreName = storeName;
+            }
 
             return (
                 <li key={storeCode} className={classes.menuItem}>
@@ -61,9 +68,7 @@ const StoreSwitcher = props => {
                         }}
                     >
                         <span className={classes.content}>
-                            <span className={classes.text}>
-                                {availableStores[storeCode].storeName}
-                            </span>
+                            <span className={classes.text}>{storeName}</span>
                             {activeIcon}
                         </span>
                     </button>
@@ -71,17 +76,15 @@ const StoreSwitcher = props => {
             );
         });
 
-        const currentStore = 'My Current Store';
-
         children = hasMultipleStores ? (
             <div className={triggerClassName} ref={storeMenuTriggerRef}>
                 <button
                     className={classes.trigger}
-                    aria-label={currentStore}
+                    aria-label={currentStoreName}
                     onClick={handleTriggerClick}
                 >
                     <Icon src={MapPin} />
-                    <span className={classes.label}>{currentStore}</span>
+                    <span className={classes.label}>{currentStoreName}</span>
                 </button>
                 <div ref={storeMenuRef} className={menuClassName}>
                     <ul>{stores}</ul>
