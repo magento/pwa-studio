@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with data with remainder 1`] = `
+<div
+  className="root"
+>
+  <Image
+    alt="Shoes"
+    src="https://venia.test/shoes.png"
+    width={48}
+  />
+  <span
+    className="remainderCount"
+  >
+    +5
+  </span>
+</div>
+`;
+
+exports[`renders correctly with data without remainder 1`] = `
+<div
+  className="root"
+>
+  <Image
+    alt="Shoes"
+    src="https://venia.test/shoes.png"
+    width={48}
+  />
+</div>
+`;
+
+exports[`renders empty container without image data 1`] = `
+<div
+  className="root"
+/>
+`;
