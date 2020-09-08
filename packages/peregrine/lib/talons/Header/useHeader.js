@@ -1,5 +1,4 @@
-import { useCallback, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useCallback } from 'react';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
@@ -13,28 +12,10 @@ export const useHeader = () => {
         triggerRef: searchTriggerRef
     } = useDropdown();
 
-    const location = useLocation();
-
-    const isOnSearchPage = location.pathname === '/search.html';
-
-    // Don't show the header search input on the search page,
-    // it has its own.
-    useEffect(() => {
-        if (isOnSearchPage) {
-            setIsSearchOpen(false);
-        }
-    }, [isOnSearchPage, setIsSearchOpen]);
-
     const handleSearchTriggerClick = useCallback(() => {
-        if (isOnSearchPage) {
-            // The search page has its own input,
-            // purposefully do not show the one from the header.
-            return;
-        }
-
         // Toggle the Search input form.
         setIsSearchOpen(isOpen => !isOpen);
-    }, [isOnSearchPage, setIsSearchOpen]);
+    }, [setIsSearchOpen]);
 
     return {
         handleSearchTriggerClick,
@@ -43,6 +24,7 @@ export const useHeader = () => {
         isPageLoading,
         isSearchOpen,
         searchRef,
-        searchTriggerRef
+        searchTriggerRef,
+        setIsSearchOpen
     };
 };
