@@ -1,0 +1,11 @@
+.root {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+}
+
+@media (max-width: 480px) {
+    .root {
+        grid-template-columns: 1fr 1fr;
+    }
+}

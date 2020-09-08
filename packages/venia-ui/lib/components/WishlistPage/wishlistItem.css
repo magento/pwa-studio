@@ -1,0 +1,29 @@
+.root {
+    align-content: flex-start;
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.name {
+    font-size: var(--venia-typography-detail-XL-fontSize);
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.detail {
+    color: rgb(var(--venia-global-color-text-alt));
+    font-size: var(--venia-typography-detail-L-fontSize);
+}
+
+.option {
+    composes: detail;
+}
+
+.priceContainer {
+    composes: detail;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
