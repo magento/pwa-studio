@@ -1,14 +1,9 @@
-import { useApolloClient, useMutation, useQuery } from '@apollo/client';
-import { useCallback, useMemo, useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Util } from '@magento/peregrine';
 const { BrowserPersistence } = Util;
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
-
-import { retrieveCartId } from '../../store/actions/cart';
-import { useCartContext } from '../../context/cart';
-import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 
 /**
  * The useStoreSwitcher talon complements the StoreSwitcher component.
@@ -24,7 +19,7 @@ import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCa
  */
 
 export const useStoreSwitcher = props => {
-    const { query, createCartMutation } = props;
+    const { query } = props;
     const history = useHistory();
     const storage = new BrowserPersistence();
     const {
@@ -50,7 +45,7 @@ export const useStoreSwitcher = props => {
                         storeName: store['store_name'],
                         locale: store.locale,
                         is_current:
-                            store.code === storage.getItem('store_view').code,
+                            store.code === availableStoresData.storeConfig.code,
                         currency: store['base_currency_code']
                     };
                     return storeViews;
@@ -60,12 +55,7 @@ export const useStoreSwitcher = props => {
         }
 
         return filteredData;
-    }, [availableStoresData, storage]);
-
-    // Shopping cart part
-    const apolloClient = useApolloClient();
-    const [{ cartId }, { createCart, removeCart }] = useCartContext();
-    const [fetchCartId] = useMutation(createCartMutation);
+    }, [availableStoresData]);
 
     const handleSwitchStore = useCallback(
         // Refresh shopping cart
@@ -77,25 +67,13 @@ export const useStoreSwitcher = props => {
                 locale: locale,
                 currency: availableStores[storeCode].currency
             });
-            // Shopping cart part
-            await removeCart();
-            await clearCartDataFromCache(apolloClient);
-            await clearCustomerDataFromCache(apolloClient);
-            await removeCart();
-            await createCart({
-                fetchCartId
-            });
 
             history.go(0);
         },
         [
-            apolloClient,
             history,
             storage,
             availableStores,
-            removeCart,
-            createCart,
-            fetchCartId
         ]
     );
 

@@ -2,5 +2,14 @@ query storeConfigData {
     storeConfig {
         id
         copyright
+        code
+    }
+    availableStores {
+        base_currency_code
+        code
+        default_display_currency_code
+        id
+        locale
+        store_name
     }
 }

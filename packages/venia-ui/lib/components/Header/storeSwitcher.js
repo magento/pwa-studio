@@ -6,20 +6,15 @@ import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreS
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './storeSwitcher.css';
-import GET_AVAILABLE_STORES_CONFIG_DATA from '../../queries/getAvailableStoresConfigData.graphql';
+import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 import LoadingIndicator from '../LoadingIndicator';
 import { Check, MapPin } from 'react-feather';
 import Icon from '../Icon';
 
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
-import { mergeCartsMutation } from '../../queries/mergeCarts.gql';
-
 const StoreSwitcher = props => {
     const { mobileView } = props;
     const talonProps = useStoreSwitcher({
-        query: GET_AVAILABLE_STORES_CONFIG_DATA,
-        createCartMutation: CREATE_CART_MUTATION,
-        mergeCartsMutation
+        query: GET_CONFIG_DATA,
     });
 
     const {
