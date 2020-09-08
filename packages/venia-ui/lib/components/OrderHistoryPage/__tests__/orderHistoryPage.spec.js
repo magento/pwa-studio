@@ -4,45 +4,46 @@ import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryP
 
 import OrderHistoryPage from '../orderHistoryPage';
 
-jest.mock('@magento/venia-ui/lib/classify');
-
-jest.mock('../../Head', () => ({ Title: () => 'Title' }));
 jest.mock(
     '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage',
-    () => {
-        return {
-            useOrderHistoryPage: jest.fn()
-        };
-    }
+    () => ({
+        useOrderHistoryPage: jest.fn()
+    })
 );
 
-const props = {};
-const talonProps = {
-    data: null
-};
+jest.mock('../../../classify');
+jest.mock('../../Head', () => ({ Title: () => 'Title' }));
+jest.mock('../orderRow', () => 'OrderRow');
 
-it('renders correctly with no data', () => {
-    // Arrange.
-    useOrderHistoryPage.mockReturnValueOnce(talonProps);
+test('renders full page loading indicator', () => {
+    useOrderHistoryPage.mockReturnValueOnce({
+        isLoadingWithoutData: true,
+        orders: []
+    });
 
-    // Act.
-    const tree = createTestInstance(<OrderHistoryPage {...props} />);
+    const tree = createTestInstance(<OrderHistoryPage />);
 
-    // Assert.
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-it('renders correctly with data', () => {
-    // Arrange.
-    const myTalonProps = {
-        ...talonProps,
-        data: {}
-    };
-    useOrderHistoryPage.mockReturnValueOnce(myTalonProps);
+test('renders correctly without data', () => {
+    useOrderHistoryPage.mockReturnValueOnce({
+        isLoadingWithoutData: false,
+        orders: []
+    });
 
-    // Act.
-    const tree = createTestInstance(<OrderHistoryPage {...props} />);
+    const tree = createTestInstance(<OrderHistoryPage />);
 
-    // Assert.
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders correctly with data', () => {
+    useOrderHistoryPage.mockReturnValueOnce({
+        isLoadingWithoutData: false,
+        orders: [{ id: 1 }, { id: 2 }, { id: 3 }]
+    });
+
+    const tree = createTestInstance(<OrderHistoryPage />);
+
     expect(tree.toJSON()).toMatchSnapshot();
 });

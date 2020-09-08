@@ -9,9 +9,6 @@ import { mergeClasses } from '../../../classify';
 import noProductsFound from './noProductsFound.png';
 import defaultClasses from './noProductsFound.css';
 
-// TODO: get categoryUrlSuffix from graphql storeOptions when it is ready
-const categoryUrlSuffix = '.html';
-
 const NoProductsFound = props => {
     const { recommendedCategories } = useNoProductsFound(props);
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -19,7 +16,7 @@ const NoProductsFound = props => {
     const categoryItems = useMemo(() => {
         return recommendedCategories.map(category => {
             const uri = resourceUrl(
-                `/${category.url_path}${categoryUrlSuffix}`
+                `/${category.url_path}${category.url_suffix}`
             );
 
             return (
