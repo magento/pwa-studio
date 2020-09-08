@@ -14,19 +14,81 @@ export const GET_CUSTOMER_ORDERS = gql`
             id
             orders @client {
                 items {
+                    billing_address {
+                        city
+                        country {
+                            code
+                            label
+                        }
+                        firstname
+                        lastname
+                        postcode
+                        region {
+                            code
+                            label
+                        }
+                        street
+                        telephone
+                    }
                     id
                     invoices {
                         id
                     }
                     items {
                         id
+                        product_name
+                        product_sale_price
                         product_sku
+                        product_url_key
+                        selected_options {
+                            id
+                            value
+                        }
+                        quantity_ordered
                     }
                     number
                     order_date
+                    order_total {
+                        discounts {
+                            amount {
+                                currency
+                                value
+                            }
+                            label
+                        }
+                        grand_total
+                        subtotal
+                        taxes {
+                            amount
+                            rate
+                            title
+                        }
+                        total_shipping
+                    }
+                    payment_methods {
+                        name
+                        type
+                    }
                     shipments {
                         id
                     }
+                    shipping_address {
+                        city
+                        country {
+                            code
+                            label
+                        }
+                        firstname
+                        lastname
+                        postcode
+                        region {
+                            code
+                            label
+                        }
+                        street
+                        telephone
+                    }
+                    shipping_method
                     status
                     total {
                         grand_total {
@@ -44,12 +106,36 @@ export const GET_CUSTOMER_ORDERS = gql`
 const MOCK_ORDERS = {
     items: [
         {
+            billing_address: {
+                city: 'Austin',
+                country: {
+                    code: 'US',
+                    label: 'United States of America'
+                },
+                firstname: 'Gooseton',
+                lastname: 'Jr',
+                postcode: '78759',
+                region: {
+                    code: 'TX',
+                    label: 'Texas'
+                },
+                street: 'Goose Dr',
+                telephone: '9123456789'
+            },
             id: 1,
             invoices: [{ id: 1 }],
             items: [
                 {
                     id: '1',
-                    product_sku: 'VSW01'
+                    product_name: 'Product 1',
+                    product_sale_price: '100',
+                    product_sku: 'VSW01',
+                    product_url_key: '',
+                    selected_options: {
+                        id: 'Color',
+                        value: 'Green'
+                    },
+                    quantity_ordered: 1
                 },
                 {
                     id: '2',
