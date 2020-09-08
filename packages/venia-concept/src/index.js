@@ -46,7 +46,6 @@ const authLink = setContext((_, { headers }) => {
         headers: {
             ...headers,
             store: store,
-            //"Content-Currency": storage.getItem('store_view').currency,
             authorization: token ? `Bearer ${token}` : ''
         }
     };

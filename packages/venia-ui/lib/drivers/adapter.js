@@ -9,7 +9,6 @@ import { BrowserRouter } from 'react-router-dom';
 const { BrowserPersistence } = Util;
 
 import resolvers from '../resolvers';
-import typeDefs from '../typedefs';
 import typePolicies from '../policies';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
 import {Util} from "@magento/peregrine";
@@ -66,8 +65,7 @@ const VeniaAdapter = props => {
         apolloClient = new ApolloClient({
             cache,
             link,
-            resolvers,
-            typeDefs
+            resolvers
         });
         apolloClient.apiBase = apiBase;
     }

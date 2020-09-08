@@ -40,92 +40,6 @@ The `venia-static` directory contains the `favicon.ico` icon file, `icons` folde
 
 The `src` directory contains the PWA source code for the Venia theme, which are split into functional subdirectories.
 
-### `src/RootComponents`
-
-This directory contains directories for all Venia root components.
-Root components provide the main React component entry point for the different page types.
-
-Examples of page types include:
-
-* CMS
-* Category
-* Product
-
-When a page is requested, the [Peregrine router][] determines which root component to use based on the URL path.
-
-### `src/actions`
-
-The `src/actions` directory contains all [Redux][] action creator definitions.
-The files in this directory group the action creators together based on the application feature they affect.
-
-action creator
-: As its name suggests, an action creator is a function that returns an **action** object.
-
-action
-: An action object is a JavaScript object that contains information about the activity being performed.
-  It is used by [reducers][] to update the application state through the [Store][].
-
-For more information on actions, see the [official documentation for Redux actions][].
-
-### `src/components`
-
-The `src/components` directory contains the project-specific components used in the Venia theme.
-
-Components in the Venia theme are React components.
-They define the structure and render the visual elements of the different pieces on a page.
-
-React components are generally written to be small and re-usable, so
-you will find multiple component definition files in a single feature directory.
-
-{: .bs-callout .bs-callout-info}
-**Note:**
-Not all components used in the Venia theme are in this directory.
-Some components are imported from the [Peregrine][] project or other sources.
-
-For more information on components, see the [official documentation for React components][].
-
-#### CSS modules
-
-CSS modules are style definitions that are scoped to a specific component.
-This allows for component-specific style definitions without side effects on other pieces of the page.
-
-These CSS files are in the same directory and have the same base name as the components that use them.
-For example, the styles defined in `Footer/footer.css` are applied only to the component defined in `Footer/footer.js`.
-
-For more information see [CSS modules][].
-
-### `src/middleware`
-
-The `src/middleware` directory contains a Redux middleware for development that logs dispatched actions and updated state to the browser console.
-This functionality adheres to the [Redux middleware pattern][].
-
-### `src/reducers`
-
-The `src/reducers` directory contains [Redux][] reducer definitions.
-A reducer updates the application state given the current state and an [action][] object.
-
-Each file in this directory contains a reducer that manages a specific part of the application state.
-
-Reducers are written as pure functions.
-This means that when it is given the same set of arguments, it will return the same results.
-
-For more information on reducers, see the [official documentation for Redux reducers][].
-
-### `src/shared`
-
-The `src/shared` directory contains placeholder data used in the application.
-They are used to simulate API calls or as temporary data for proofs of concepts during the development phase of this project.
-
-### `src/util`
-
-The `src/util` directory contain useful JavaScript utility functions used throughout the project.
-
-### `src/classify.js`
-
-The `src/classify.js` file is a module that returns a component with the combined classes of its default classes, className property, and the classes provided through the `classes` prop.
-
-Example: `Classify(Main)`, `Classify(Cart)`, `Classify(Header)`.
-
 ### `src/index.js`
 
 The `src/index.js` file is the entry point of Venia.
@@ -139,7 +53,6 @@ It also combines Redux reducers and middlewares.
 ### `src/sw.js`
 
 The `src/sw.js` file contains the service worker configuration.
-
 
 [Magento theme structure]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-structure.html
 [UPWARD]: https://github.com/magento/pwa-studio/tree/master/packages/upward-spec

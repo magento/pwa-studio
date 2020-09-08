@@ -1,39 +1,53 @@
-import React, { Fragment } from 'react';
-import { shallow } from 'enzyme';
+import React from 'react';
 import Price from '../price';
+import { createTestInstance } from '@magento/peregrine';
 import IntlPolyfill from 'intl';
+import areIntlLocalesSupported from 'intl-locales-supported';
+import { IntlProvider } from 'react-intl';
 
-if (!global.Intl.NumberFormat.prototype.formatToParts) {
+if (global.Intl.NumberFormat.prototype.formatToParts) {
+    // Determine if the built-in `Intl` has the locale data we need.
+    if (!areIntlLocalesSupported('fr-FR')) {
+        // `Intl` exists, but it doesn't have the data we need, so load the
+        // polyfill and patch the constructors we need with the polyfill's.
+        //global.Intl = IntlPolyfill;
+        Intl.NumberFormat = IntlPolyfill.NumberFormat;
+    }
+} else {
+    // No `Intl`, so use and load the polyfill.
     global.Intl = IntlPolyfill;
     require('intl/locale-data/jsonp/en.js');
+    require('intl/locale-data/jsonp/fr-FR.js');
 }
 
 test('Renders a USD price', () => {
-    const wrapper = shallow(<Price value={100.99} currencyCode="USD" />);
-    expect(
-        wrapper.equals(
-            <Fragment>
-                <span>$</span>
-                <span>100</span>
-                <span>.</span>
-                <span>99</span>
-            </Fragment>
-        )
-    ).toBe(true);
+    const instance = createTestInstance(
+        <IntlProvider locale={'en-US'}>
+            <Price value={100.99} currencyCode="USD" />
+        </IntlProvider>
+    );
+
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('Renders a EUR price', () => {
-    const wrapper = shallow(<Price value={100.99} currencyCode="EUR" />);
-    expect(
-        wrapper.equals(
-            <Fragment>
-                <span>€</span>
-                <span>100</span>
-                <span>.</span>
-                <span>99</span>
-            </Fragment>
-        )
-    ).toBe(true);
+    const instance = createTestInstance(
+        <IntlProvider locale={'en-US'}>
+            <Price value={100.99} currencyCode="EUR" />
+        </IntlProvider>
+    );
+
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('Renders a EUR price with locale set to French', () => {
+    const instance = createTestInstance(
+        <IntlProvider locale={'fr-FR'}>
+            <Price value={1000.99} currencyCode="EUR" locale="fr-FR" />
+        </IntlProvider>
+    );
+
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('Allows custom classnames for each part', () => {
@@ -43,17 +57,12 @@ test('Allows custom classnames for each part', () => {
         decimal: 'dec',
         fraction: 'fract'
     };
-    const wrapper = shallow(
-        <Price value={88.81} currencyCode="USD" classes={classes} />
+
+    const instance = createTestInstance(
+        <IntlProvider locale={'en-US'}>
+            <Price value={88.81} currencyCode="USD" classes={classes} />
+        </IntlProvider>
     );
-    expect(
-        wrapper.equals(
-            <Fragment>
-                <span className="curr">$</span>
-                <span className="int">88</span>
-                <span className="dec">.</span>
-                <span className="fract">81</span>
-            </Fragment>
-        )
-    ).toBe(true);
+
+    expect(instance.toJSON()).toMatchSnapshot();
 });
