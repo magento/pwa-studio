@@ -43,7 +43,8 @@ test('it returns the correct shape', () => {
         'isPageLoading',
         'isSearchOpen',
         'searchRef',
-        'searchTriggerRef'
+        'searchTriggerRef',
+        'setIsSearchOpen'
     ];
     expect(actualKeys.sort()).toEqual(expectedKeys.sort());
 });
