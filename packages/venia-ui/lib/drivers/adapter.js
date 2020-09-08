@@ -6,11 +6,13 @@ import { ApolloClient } from '@apollo/client/core';
 import { InMemoryCache } from '@apollo/client/cache';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+const { BrowserPersistence } = Util;
 
 import resolvers from '../resolvers';
 import typeDefs from '../typedefs';
 import typePolicies from '../policies';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
+import {Util} from "@magento/peregrine";
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
@@ -45,11 +47,16 @@ const VeniaAdapter = props => {
 
     const cache = apollo.cache || preInstantiatedCache;
     const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
+    const storage = new BrowserPersistence();
+    const storeCode = typeof storage.getItem('store_view') === 'undefined' ?
+        STORE_VIEW_CODE :
+        storage.getItem('store_view').code;
 
     const persistor = new CachePersistor({
         cache,
         storage: window.localStorage,
-        debug: process.env.NODE_ENV === 'development'
+        debug: process.env.NODE_ENV === 'development',
+        key: `apollo-cache-persist_${storeCode}`
     });
 
     let apolloClient;

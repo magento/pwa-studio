@@ -11,10 +11,15 @@ import LoadingIndicator from '../LoadingIndicator';
 import { Check, MapPin } from 'react-feather';
 import Icon from '../Icon';
 
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import { mergeCartsMutation } from '../../queries/mergeCarts.gql';
+
 const StoreSwitcher = props => {
     const { mobileView } = props;
     const talonProps = useStoreSwitcher({
-        query: GET_AVAILABLE_STORES_CONFIG_DATA
+        query: GET_AVAILABLE_STORES_CONFIG_DATA,
+        createCartMutation: CREATE_CART_MUTATION,
+        mergeCartsMutation
     });
 
     const {
@@ -66,13 +71,6 @@ const StoreSwitcher = props => {
             );
         });
 
-        if (hasMultipleStores) {
-            window.document.documentElement.style.setProperty(
-                '--header-height',
-                '7.5rem'
-            );
-        }
-
         const currentStore = 'My Current Store';
 
         children = hasMultipleStores ? (
@@ -90,6 +88,13 @@ const StoreSwitcher = props => {
                 </div>
             </div>
         ) : null;
+
+        if (hasMultipleStores) {
+            window.document.documentElement.style.setProperty(
+                '--header-height',
+                '7.5rem'
+            );
+        }
     }
 
     return <div className={className}>{children}</div>;
