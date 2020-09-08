@@ -29,7 +29,6 @@ test('useHeader returns correct values from useAppContext', () => {
             {
                 hasBeenOffline: false,
                 isOnline: true,
-                searchOpen: false,
                 isPageLoading: false
             },
             {
@@ -44,8 +43,7 @@ test('useHeader returns correct values from useAppContext', () => {
         handleSearchTriggerClick: expect.any(Function),
         hasBeenOffline: false,
         isOnline: true,
-        isPageLoading: false,
-        searchOpen: false
+        isPageLoading: false
     });
 });
 

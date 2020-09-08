@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useFieldState, useFormApi } from 'informed';
 
-import { useAppContext } from '../../context/app';
 /**
  * Returns props necessary to render a SearchField component.
  */
-export const useSearchField = () => {
-    const [{ searchOpen }] = useAppContext();
+export const useSearchField = props => {
+    const { isSearchOpen } = props;
     const inputRef = useRef();
 
     const { value } = useFieldState('search_query');
@@ -18,10 +17,10 @@ export const useSearchField = () => {
 
     // When the search field is opened focus on the input.
     useEffect(() => {
-        if (searchOpen && inputRef.current) {
+        if (isSearchOpen && inputRef.current) {
             inputRef.current.focus();
         }
-    }, [searchOpen]);
+    }, [isSearchOpen]);
 
     return {
         inputRef,

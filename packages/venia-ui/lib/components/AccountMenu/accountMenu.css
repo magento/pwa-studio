@@ -2,6 +2,7 @@
     background-color: rgb(var(--venia-global-color-background));
     border-radius: 1px;
     box-shadow: 1px 1px 5px rgb(var(--venia-global-color-gray-darker));
+    min-height: 10rem;
     opacity: 0;
     position: fixed;
     right: -100vw;
@@ -12,7 +13,6 @@
     transition-property: opacity, transform, visibility;
     visibility: hidden;
     width: 27.5rem;
-    min-height: 10rem;
 }
 
 .root_open {
