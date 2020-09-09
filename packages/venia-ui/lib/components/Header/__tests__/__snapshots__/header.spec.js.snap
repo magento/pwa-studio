@@ -4,6 +4,9 @@ exports[`verify Header can render in default state 1`] = `
 <header
   className="closed"
 >
+  <StoreSwitcher
+    mobileView={false}
+  />
   <div
     className="toolbar"
   >
