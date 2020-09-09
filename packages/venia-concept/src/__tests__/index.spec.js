@@ -44,10 +44,15 @@ const mockSw = {
     register: jest.fn(async () => 'REGISTRATION')
 };
 
-const getItem = jest.fn();
+const getItem = jest.fn(args => {
+    if (args === 'store_view') {
+        return { code: 'default', locale: 'en_US' };
+    }
+});
+const setItem = jest.fn();
 jest.spyOn(Util, 'BrowserPersistence').mockImplementation(
     function BrowserPersistence() {
-        return { getItem };
+        return { getItem, setItem };
     }
 );
 
@@ -85,6 +90,7 @@ test('renders the root and subscribes to global events', async () => {
         ).toMatchObject({
             headers: {
                 foo: 'bar',
+                store: 'default',
                 authorization: ''
             }
         });
