@@ -1,2 +1,39 @@
 .root {
+    display: grid;
+    gap: 1rem;
+}
+
+.shipping_information_container {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+}
+
+.shipping_method_container {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+}
+
+.billing_information_container {
+    grid-row: 1 / span 1;
+    grid-column: 3 / span 1;
+}
+
+.payment_method_container {
+    grid-row: 1 / span 1;
+    grid-column: 4 / span 1;
+}
+
+.items_container {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 2;
+}
+
+.order_total_container {
+    grid-row: 2 / span 1;
+    grid-column: 3 / span 2;
+}
+
+.print_button {
+    grid-row: 3 / span 1;
+    grid-column: 3 / span 1;
 }

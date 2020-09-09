@@ -64,6 +64,10 @@ export const GET_CUSTOMER_ORDERS = gql`
                     }
                     shipments {
                         id
+                        tracking {
+                            carrier
+                            number
+                        }
                     }
                     shipping_address {
                         city
@@ -175,7 +179,17 @@ const MOCK_ORDERS = {
                     type: 'Visa'
                 }
             ],
-            shipments: [],
+            shipments: [
+                {
+                    id: '1',
+                    tracking: [
+                        {
+                            carrier: 'Fedex',
+                            number: 'FEDEX516351813216541'
+                        }
+                    ]
+                }
+            ],
             shipping_address: {
                 city: 'Austin',
                 country_code: 'US',
@@ -278,7 +292,17 @@ const MOCK_ORDERS = {
                     type: 'Visa'
                 }
             ],
-            shipments: [{ id: 1 }],
+            shipments: [
+                {
+                    id: '1',
+                    tracking: [
+                        {
+                            carrier: 'Fedex',
+                            number: 'FEDEX5885541235452125'
+                        }
+                    ]
+                }
+            ],
             shipping_address: {
                 city: 'Austin',
                 country_code: 'US',

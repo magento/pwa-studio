@@ -15,7 +15,7 @@ const ShippingInformation = props => {
         region_id,
         street
     } = data;
-    const classes = mergeClasses(propsClasses, defaultClasses);
+    const classes = mergeClasses(defaultClasses, propsClasses);
 
     return (
         <div className={classes.root}>
@@ -26,11 +26,7 @@ const ShippingInformation = props => {
             </div>
             <div className={classes.addressLine1}>{street}</div>
             <div className={classes.addressLine2}>
-                <span>{city}</span>
-                <span>{', '}</span>
-                <span>{region_id}</span>
-                <span>{', '}</span>
-                <span>{postcode}</span>
+                {`${city}, ${region_id}, ${postcode}`}
             </div>
             <div className={classes.country}>{country_code}</div>
         </div>
