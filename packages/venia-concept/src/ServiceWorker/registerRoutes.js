@@ -79,6 +79,9 @@ export default function() {
     registerRoute(
         ({ url }) => isHTMLRoute(url),
         new StaleWhileRevalidate({
+            fetchOptions: {
+                credentials: 'same-origin',
+            },
             plugins: [
                 {
                     cacheKeyWillBeUsed: () => 'index.html'
