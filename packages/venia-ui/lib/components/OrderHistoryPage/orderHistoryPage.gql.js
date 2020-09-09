@@ -61,6 +61,13 @@ export const GET_CUSTOMER_ORDERS = gql`
                     payment_methods {
                         name
                         type
+                        additional_data {
+                            # additional data is not a constant documented in the schema architecture doc because
+                            # it changes based on the type of payment method. This schema I have here is temp based
+                            # on what braintree returns in checkout step. Once orders GQL coverage is ready, we have to revist this.
+                            card_type
+                            last_four
+                        }
                     }
                     shipments {
                         id
@@ -175,8 +182,12 @@ const MOCK_ORDERS = {
             },
             payment_methods: [
                 {
-                    name: 'Credit Card',
-                    type: 'Visa'
+                    name: 'Braintree',
+                    type: 'Credit Card',
+                    additional_data: {
+                        card_type: 'Visa',
+                        last_four: '1234'
+                    }
                 }
             ],
             shipments: [
@@ -288,8 +299,12 @@ const MOCK_ORDERS = {
             },
             payment_methods: [
                 {
-                    name: 'Credit Card',
-                    type: 'Visa'
+                    name: 'Braintree',
+                    type: 'Credit Card',
+                    additional_data: {
+                        card_type: 'Visa',
+                        last_four: '1234'
+                    }
                 }
             ],
             shipments: [
