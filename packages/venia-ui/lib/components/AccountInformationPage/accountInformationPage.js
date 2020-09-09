@@ -67,7 +67,7 @@ const AccountInformationPage = props => {
                             {'***********'}
                         </span>
                         <span className={classes.lineItemLabel} />
-                        <span className={classes.lineItemValue}>
+                        <span className={classes.lineItemButton}>
                             <Button
                                 className={classes.editInformationButton}
                                 disabled={false}

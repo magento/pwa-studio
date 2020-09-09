@@ -36,6 +36,7 @@ const EditModal = props => {
             shouldDisableAllButtons={isDisabled}
             shouldDisableConfirmButton={isDisabled}
             title={'Edit Account Information'}
+            classes={{ body: classes.bodyEditAccountInformation }}
         >
             <FormError
                 errors={formErrors}

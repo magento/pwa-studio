@@ -39,8 +39,7 @@
         grid-template-columns: 1fr;
     }
 
-    .editInformationButton {
-        /* composes: root_highPriority from '../Button/button.css'; */
-        float: right;
+    .lineItemButton {
+        text-align: center;
     }
 }
