@@ -6,8 +6,7 @@ import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreS
 import { mergeClasses } from '../../classify';
 import defaultClasses from './storeSwitcher.css';
 import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
-import LoadingIndicator from '../LoadingIndicator';
-import { Check, MapPin } from 'react-feather';
+import { Check, Loader, MapPin } from 'react-feather';
 import Icon from '../Icon';
 
 const StoreSwitcher = props => {
@@ -34,7 +33,16 @@ const StoreSwitcher = props => {
     let children = null;
 
     if (isLoading) {
-        children = <LoadingIndicator classes={{ root: classes.loading }} />;
+        children = (
+            <Icon
+                size={24}
+                classes={{
+                    root: classes.loadingContainer,
+                    icon: classes.loading
+                }}
+                src={Loader}
+            />
+        );
     }
 
     if (availableStores) {

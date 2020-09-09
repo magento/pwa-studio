@@ -3,6 +3,16 @@
     width: 100%;
 }
 
+.loadingContainer {
+    composes: root from '../LoadingIndicator/indicator.css';
+    margin: 0;
+    padding: 0.5rem 0;
+}
+
+.loading {
+    composes: indicator from '../LoadingIndicator/indicator.css';
+}
+
 .storeSwitcherContainer {
     align-items: center;
     display: grid;
