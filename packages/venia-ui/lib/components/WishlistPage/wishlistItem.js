@@ -75,7 +75,6 @@ const WishlistItem = props => {
                 >
                     {addToCartLabel}
                 </button>
-                <span className={classes.spacer} />
                 <button
                     className={classes.moreActions}
                     onClick={handleMoreActions}

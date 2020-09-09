@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 /*
     This feature is being built ahead of GraphQL coverage that is landing in 2.4.2 of Magento. We're going to mock
@@ -6,8 +6,6 @@ import gql from 'graphql-tag';
 
     @see https://github.com/magento/architecture/blob/master/design-documents/graph-ql/coverage/Wishlist.graphqls
  */
-
-/* eslint-disable graphql/template-strings */
 export const GET_CUSTOMER_WISHLIST = gql`
     query GetCustomerWishlist {
         customer {
@@ -49,7 +47,6 @@ export const GET_CUSTOMER_WISHLIST = gql`
         }
     }
 `;
-/* eslint-enable graphql/template-strings */
 
 const MOCK_WISHLISTS = [
     {

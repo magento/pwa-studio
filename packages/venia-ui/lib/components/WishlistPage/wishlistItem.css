@@ -29,10 +29,9 @@
 }
 
 .actionsContainer {
-    column-gap: 0.5rem;
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .addToCart {
@@ -46,11 +45,6 @@
 .addToCart:focus {
     box-shadow: none;
     outline: auto;
-}
-
-.spacer {
-    height: 100%;
-    border-left: 2px solid rgb(var(--venia-global-color-border));
 }
 
 .moreActions {

@@ -6,6 +6,7 @@
 
 @media (max-width: 480px) {
     .root {
+        column-gap: 1rem;
         grid-template-columns: 1fr 1fr;
     }
 }
