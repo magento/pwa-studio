@@ -39,13 +39,13 @@ const authLink = setContext((_, { headers }) => {
         });
     }
 
-    const store = storage.getItem('store_view').code;
+    const storeCode = storage.getItem('store_view').code;
 
     // return the headers to the context so httpLink can read them
     return {
         headers: {
             ...headers,
-            store: store,
+            store: storeCode,
             authorization: token ? `Bearer ${token}` : ''
         }
     };
