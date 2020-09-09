@@ -27,3 +27,36 @@
     height: 100%;
     object-fit: contain;
 }
+
+.actionsContainer {
+    column-gap: 0.5rem;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: flex-start;
+}
+
+.addToCart {
+    composes: root from '../Button/button.css';
+    border: none;
+    min-width: auto;
+    min-height: auto;
+    padding: 0;
+}
+
+.addToCart:focus {
+    box-shadow: none;
+    outline: auto;
+}
+
+.spacer {
+    height: 100%;
+    border-left: 2px solid rgb(var(--venia-global-color-border));
+}
+
+.moreActions {
+    align-items: center;
+    background-color: rgb(var(--venia-global-color-gray-100));
+    border-radius: 50%;
+    display: inline-flex;
+    padding: 0.125rem;
+}
