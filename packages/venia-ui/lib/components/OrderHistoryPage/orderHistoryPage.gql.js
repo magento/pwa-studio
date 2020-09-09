@@ -39,7 +39,6 @@ export const GET_CUSTOMER_ORDERS = gql`
                         product_name
                         product_sale_price
                         product_sku
-                        product_url_key
                         selected_options {
                             id
                             value
@@ -130,33 +129,88 @@ const MOCK_ORDERS = {
                     product_name: 'Product 1',
                     product_sale_price: '100',
                     product_sku: 'VSW01',
-                    product_url_key: '',
-                    selected_options: {
-                        id: 'Color',
-                        value: 'Green'
-                    },
+                    selected_options: [
+                        {
+                            id: 'Color',
+                            value: 'Green'
+                        }
+                    ],
                     quantity_ordered: 1
                 },
                 {
                     id: '2',
-                    product_sku: 'VD02'
+                    product_name: 'Product 2',
+                    product_sale_price: '100',
+                    product_sku: 'VD02',
+                    selected_options: [
+                        {
+                            id: 'Color',
+                            value: 'Red'
+                        }
+                    ],
+                    quantity_ordered: 10
                 },
                 {
                     id: '3',
-                    product_sku: 'VT02'
-                },
-                {
-                    id: '4',
-                    product_sku: 'VP08'
-                },
-                {
-                    id: '5',
-                    product_sku: 'VA03'
+                    product_name: 'Product 3',
+                    product_sale_price: '100',
+                    product_sku: 'VT02',
+                    selected_options: [
+                        {
+                            id: 'Color',
+                            value: 'Black'
+                        }
+                    ],
+                    quantity_ordered: 1
                 }
             ],
             number: '000000002',
             order_date: '2020-08-26 18:22:35',
+            order_total: {
+                discounts: [
+                    {
+                        amount: {
+                            currency: 'USD',
+                            value: 123
+                        },
+                        label: 'Discount'
+                    }
+                ],
+                grand_total: 12345,
+                subtotal: 12340,
+                taxes: [
+                    {
+                        amount: 123,
+                        rate: 5,
+                        title: 'Sales Tax'
+                    }
+                ],
+                total_shipping: 234
+            },
+            payment_methods: [
+                {
+                    name: 'Credit Card',
+                    type: 'Visa'
+                }
+            ],
             shipments: [],
+            shipping_address: {
+                city: 'Austin',
+                country: {
+                    code: 'US',
+                    label: 'United States of America'
+                },
+                firstname: 'Gooseton',
+                lastname: 'Jr',
+                postcode: '78759',
+                region: {
+                    code: 'TX',
+                    label: 'Texas'
+                },
+                street: 'Goose Dr',
+                telephone: '9123456789'
+            },
+            shipping_method: 'Free',
             status: 'Processing',
             total: {
                 grand_total: {
@@ -166,17 +220,112 @@ const MOCK_ORDERS = {
             }
         },
         {
+            billing_address: {
+                city: 'Austin',
+                country: {
+                    code: 'US',
+                    label: 'United States of America'
+                },
+                firstname: 'Gooseton',
+                lastname: 'Jr',
+                postcode: '78759',
+                region: {
+                    code: 'TX',
+                    label: 'Texas'
+                },
+                street: 'Goose Dr',
+                telephone: '9123456789'
+            },
             id: 2,
             invoices: [{ id: 1 }],
             items: [
                 {
-                    id: '20',
-                    product_sku: 'VA03'
+                    id: '3',
+                    product_name: 'Product 3',
+                    product_sale_price: '100',
+                    product_sku: 'VA03',
+                    selected_options: [
+                        {
+                            id: 'Color',
+                            value: 'Blue'
+                        }
+                    ],
+                    quantity_ordered: 1
+                },
+                {
+                    id: '4',
+                    product_name: 'Product 4',
+                    product_sale_price: '100',
+                    product_sku: 'VP08',
+                    selected_options: [
+                        {
+                            id: 'Color',
+                            value: 'Black'
+                        }
+                    ],
+                    quantity_ordered: 1
+                },
+                {
+                    id: '5',
+                    product_name: 'Product 5',
+                    product_sale_price: '100',
+                    product_sku: 'VA03',
+                    selected_options: [
+                        {
+                            id: 'Color',
+                            value: 'Orange'
+                        }
+                    ],
+                    quantity_ordered: 1
                 }
             ],
             number: '000000005',
             order_date: '2020-05-26 18:22:35',
+            order_total: {
+                discounts: [
+                    {
+                        amount: {
+                            currency: 'USD',
+                            value: 123
+                        },
+                        label: 'Discount'
+                    }
+                ],
+                grand_total: 12345,
+                subtotal: 12340,
+                taxes: [
+                    {
+                        amount: 123,
+                        rate: 5,
+                        title: 'Sales Tax'
+                    }
+                ],
+                total_shipping: 234
+            },
+            payment_methods: [
+                {
+                    name: 'Credit Card',
+                    type: 'Visa'
+                }
+            ],
             shipments: [{ id: 1 }],
+            shipping_address: {
+                city: 'Austin',
+                country: {
+                    code: 'US',
+                    label: 'United States of America'
+                },
+                firstname: 'Gooseton',
+                lastname: 'Jr',
+                postcode: '78759',
+                region: {
+                    code: 'TX',
+                    label: 'Texas'
+                },
+                street: 'Goose Dr',
+                telephone: '9123456789'
+            },
+            shipping_method: 'Free',
             status: 'Complete',
             total: {
                 grand_total: {
