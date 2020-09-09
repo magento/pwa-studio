@@ -11,7 +11,7 @@ const { BrowserPersistence } = Util;
 import resolvers from '../resolvers';
 import typePolicies from '../policies';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
-import {Util} from "@magento/peregrine";
+import { Util } from '@magento/peregrine';
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
@@ -47,9 +47,10 @@ const VeniaAdapter = props => {
     const cache = apollo.cache || preInstantiatedCache;
     const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
     const storage = new BrowserPersistence();
-    const storeCode = typeof storage.getItem('store_view') === 'undefined' ?
-        STORE_VIEW_CODE :
-        storage.getItem('store_view').code;
+    const storeCode =
+        typeof storage.getItem('store_view') === 'undefined'
+            ? STORE_VIEW_CODE
+            : storage.getItem('store_view').code;
 
     const persistor = new CachePersistor({
         cache,

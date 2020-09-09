@@ -1,6 +1,5 @@
 import React from 'react';
 import { bool, shape, string } from 'prop-types';
-import { useIntl } from 'react-intl';
 
 import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
 
@@ -14,7 +13,7 @@ import Icon from '../Icon';
 const StoreSwitcher = props => {
     const { mobileView } = props;
     const talonProps = useStoreSwitcher({
-        query: GET_CONFIG_DATA,
+        query: GET_CONFIG_DATA
     });
 
     const {
@@ -30,7 +29,6 @@ const StoreSwitcher = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const className = mobileView ? classes.root_mobile : classes.root;
     const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;
-    const { formatMessage } = useIntl();
     const triggerClassName = classes.storeSwitcherContainer;
 
     let children = null;

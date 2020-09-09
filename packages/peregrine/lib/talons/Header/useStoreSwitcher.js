@@ -70,11 +70,7 @@ export const useStoreSwitcher = props => {
 
             history.go(0);
         },
-        [
-            history,
-            storage,
-            availableStores,
-        ]
+        [history, storage, availableStores]
     );
 
     const handleTriggerClick = useCallback(() => {
