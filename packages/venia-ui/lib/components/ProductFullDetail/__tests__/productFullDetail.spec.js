@@ -26,7 +26,7 @@ jest.mock('../../Breadcrumbs', () => 'Breadcrumbs');
 jest.mock('../../FormError', () => 'FormError');
 jest.mock('../../ProductImageCarousel', () => 'ProductImageCarousel');
 jest.mock('../../ProductOptions', () => () => 'ProductOptions');
-jest.mock('../../ProductQuantity', () => 'ProductQuantity');
+jest.mock('../../CartPage/ProductListing/quantity', () => ({ QuantityFields: () => 'QuantityFields' }));
 jest.mock('../../RichText', () => 'RichText');
 
 jest.mock('../../../classify');

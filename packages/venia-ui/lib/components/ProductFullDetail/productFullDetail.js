@@ -12,7 +12,7 @@ import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
 import FormError from '../FormError';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import Quantity from '../ProductQuantity';
+import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichText from '../RichText';
 
 import defaultClasses from './productFullDetail.css';
@@ -145,10 +145,10 @@ const ProductFullDetail = props => {
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>Quantity</h2>
-                    <Quantity
+                    <QuantityFields
+                        classes={{ root: classes.quantityRoot }}
                         initialValue={quantity}
-                        onValueChange={handleSetQuantity}
-                        message={errors.get('quantity')}
+                        onChange={handleSetQuantity}
                     />
                 </section>
                 <section className={classes.cartActions}>

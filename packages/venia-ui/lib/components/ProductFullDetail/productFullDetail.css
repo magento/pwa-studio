@@ -166,3 +166,9 @@
 .relatedTitle {
     composes: sectionTitle;
 }
+
+.quantityRoot {
+    composes: root from '../CartPage/ProductListing/quantity.css';
+    grid-template-columns: auto 1fr auto;
+    padding: 0 1rem;
+}
