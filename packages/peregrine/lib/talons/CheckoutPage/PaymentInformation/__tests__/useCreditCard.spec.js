@@ -411,7 +411,7 @@ describe('Testing payment nonce request workflow', () => {
             street1: 'test value',
             street2: 'test value',
             city: 'test value',
-            state: 'test value',
+            region: 'test value',
             postalCode: 'test value',
             phoneNumber: 'test value'
         };

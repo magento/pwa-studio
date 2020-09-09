@@ -28,16 +28,12 @@ export const useAddressCard = props => {
     }, [hasRendered, address]);
 
     const addressForEdit = useMemo(() => {
-        const { country_code: countryCode, region, ...addressRest } = address;
-        const { region_id: regionId } = region;
+        const { country_code: countryCode, ...addressRest } = address;
 
         return {
             ...addressRest,
             country: {
                 code: countryCode
-            },
-            region: {
-                id: regionId
             }
         };
     }, [address]);

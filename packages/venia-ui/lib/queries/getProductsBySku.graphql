@@ -8,6 +8,7 @@ query getProductsBySku($skus: [String], $pageSize: Int!) {
                 url
             }
             url_key
+            url_suffix
             price {
                 regularPrice {
                     amount {

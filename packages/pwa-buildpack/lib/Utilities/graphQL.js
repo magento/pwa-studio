@@ -7,22 +7,36 @@ const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const fetchQuery = query => {
     const targetURL = new URL('graphql', process.env.MAGENTO_BACKEND_URL);
+    const headers = {
+        'Content-Type': 'application/json',
+        'Accept-Encoding': 'gzip'
+    };
+
+    if (process.env.STORE_VIEW_CODE) {
+        headers['store'] = process.env.STORE_VIEW_CODE;
+    }
 
     return fetch(targetURL.toString(), {
         agent: targetURL.protocol === 'https:' ? httpsAgent : null,
         body: JSON.stringify({ query }),
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept-Encoding': 'gzip'
-        },
+        headers: headers,
         method: 'POST'
     })
         .then(result => result.json())
-        .then(json => json.data)
         .catch(err => {
             console.error(err);
             throw err;
-        });
+        })
+        .then(json =>
+            json && json.errors && json.errors.length > 0
+                ? Promise.reject(
+                      new Error(
+                          json.errors[0].message +
+                              ` (... ${json.errors.length} errors total)`
+                      )
+                  )
+                : json.data
+        );
 };
 
 /**
@@ -38,6 +52,18 @@ const getMediaURL = () => {
 };
 
 /**
+ * An Async function that will asynchronously fetch the
+ * store config data from magento graphql server.
+ *
+ * @returns Promise that will resolve to the store config data.
+ */
+const getStoreConfigData = () => {
+    return fetchQuery(graphQLQueries.getStoreConfigData).then(
+        data => data.storeConfig
+    );
+};
+
+/**
  * Get the schema's types.
  */
 const getSchemaTypes = () => {
@@ -45,6 +71,8 @@ const getSchemaTypes = () => {
 };
 
 /**
+ * @deprecated use {@link getPossibleTypes} with ApolloClient v3.
+ *
  * Get only the Union and Interface types in the schema.
  */
 const getUnionAndInterfaceTypes = () => {
@@ -84,6 +112,7 @@ const getPossibleTypes = async () => {
 
 module.exports = {
     getMediaURL,
+    getStoreConfigData,
     getPossibleTypes,
     getSchemaTypes,
     getUnionAndInterfaceTypes

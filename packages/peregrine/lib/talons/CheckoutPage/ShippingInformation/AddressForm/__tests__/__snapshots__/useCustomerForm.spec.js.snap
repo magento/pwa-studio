@@ -14,7 +14,9 @@ Object {
     "email": "fry@planet.express",
     "firstname": "Philip",
     "lastname": "Fry",
-    "region": null,
+    "region": Object {
+      "id": null,
+    },
   },
   "isLoading": false,
   "isSaving": false,
@@ -33,7 +35,9 @@ Object {
   "hasDefaultShipping": true,
   "initialValues": Object {
     "country": "US",
-    "region": null,
+    "region": Object {
+      "id": null,
+    },
   },
   "isLoading": true,
   "isSaving": false,
@@ -55,9 +59,7 @@ Object {
     "address": Object {
       "country_code": "US",
       "firstname": "Philip",
-      "region": Object {
-        "region_id": 2,
-      },
+      "region": 2,
     },
   },
 }
@@ -76,7 +78,9 @@ Object {
     "city": "New York",
     "country": "US",
     "id": 66,
-    "region": null,
+    "region": Object {
+      "id": null,
+    },
   },
   "isLoading": false,
   "isSaving": false,
@@ -95,9 +99,7 @@ Object {
     "address": Object {
       "country_code": "UK",
       "firstname": "Bender",
-      "region": Object {
-        "region_id": 5,
-      },
+      "region": 5,
     },
     "addressId": 66,
   },
