@@ -16,17 +16,11 @@ export const GET_CUSTOMER_ORDERS = gql`
                 items {
                     billing_address {
                         city
-                        country {
-                            code
-                            label
-                        }
+                        country_code
                         firstname
                         lastname
                         postcode
-                        region {
-                            code
-                            label
-                        }
+                        region_id
                         street
                         telephone
                     }
@@ -73,17 +67,11 @@ export const GET_CUSTOMER_ORDERS = gql`
                     }
                     shipping_address {
                         city
-                        country {
-                            code
-                            label
-                        }
+                        country_code
                         firstname
                         lastname
                         postcode
-                        region {
-                            code
-                            label
-                        }
+                        region_id
                         street
                         telephone
                     }
@@ -107,17 +95,11 @@ const MOCK_ORDERS = {
         {
             billing_address: {
                 city: 'Austin',
-                country: {
-                    code: 'US',
-                    label: 'United States of America'
-                },
+                country_code: 'US',
                 firstname: 'Gooseton',
                 lastname: 'Jr',
                 postcode: '78759',
-                region: {
-                    code: 'TX',
-                    label: 'Texas'
-                },
+                region_id: 'TX',
                 street: 'Goose Dr',
                 telephone: '9123456789'
             },
@@ -196,17 +178,11 @@ const MOCK_ORDERS = {
             shipments: [],
             shipping_address: {
                 city: 'Austin',
-                country: {
-                    code: 'US',
-                    label: 'United States of America'
-                },
+                country_code: 'US',
                 firstname: 'Gooseton',
                 lastname: 'Jr',
                 postcode: '78759',
-                region: {
-                    code: 'TX',
-                    label: 'Texas'
-                },
+                region_id: 'TX',
                 street: 'Goose Dr',
                 telephone: '9123456789'
             },
@@ -222,17 +198,11 @@ const MOCK_ORDERS = {
         {
             billing_address: {
                 city: 'Austin',
-                country: {
-                    code: 'US',
-                    label: 'United States of America'
-                },
+                country_code: 'US',
                 firstname: 'Gooseton',
                 lastname: 'Jr',
                 postcode: '78759',
-                region: {
-                    code: 'TX',
-                    label: 'Texas'
-                },
+                region_id: 'TX',
                 street: 'Goose Dr',
                 telephone: '9123456789'
             },
@@ -311,17 +281,11 @@ const MOCK_ORDERS = {
             shipments: [{ id: 1 }],
             shipping_address: {
                 city: 'Austin',
-                country: {
-                    code: 'US',
-                    label: 'United States of America'
-                },
+                country_code: 'US',
                 firstname: 'Gooseton',
                 lastname: 'Jr',
                 postcode: '78759',
-                region: {
-                    code: 'TX',
-                    label: 'Texas'
-                },
+                region_id: 'TX',
                 street: 'Goose Dr',
                 telephone: '9123456789'
             },

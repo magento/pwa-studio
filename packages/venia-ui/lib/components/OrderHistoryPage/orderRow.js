@@ -8,6 +8,8 @@ import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import CollapsedImageGallery from './collapsedImageGallery';
 import OrderProgressBar from './orderProgressBar';
+import OrderDetails from './OrderDetails';
+
 import defaultClasses from './orderRow.css';
 
 const OrderRow = props => {
@@ -90,7 +92,9 @@ const OrderRow = props => {
             >
                 {contentToggleIcon}
             </button>
-            <div className={contentClass}>To be completed by PWA-627</div>
+            <div className={contentClass}>
+                <OrderDetails order={order} />
+            </div>
         </li>
     );
 };
