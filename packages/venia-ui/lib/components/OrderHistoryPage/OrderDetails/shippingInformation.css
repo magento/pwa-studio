@@ -1,9 +1,12 @@
 .root {
     display: grid;
+    row-gap: 0.35rem;
 }
 
 .heading {
     grid-row: 1 / span 1;
+    font-weight: var(--venia-global-fontWeight-bold);
+    padding-bottom: 0.35rem;
 }
 
 .name {
