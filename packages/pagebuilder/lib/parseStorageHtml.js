@@ -90,7 +90,9 @@ const convertToInlineStyles = document => {
             const cssRules = styleBlock.sheet.cssRules;
 
             Array.from(cssRules).forEach(rule => {
-                const selectors = rule.selectorText.split(',').map(selector => selector.trim());
+                const selectors = rule.selectorText
+                    .split(',')
+                    .map(selector => selector.trim());
                 selectors.forEach(selector => {
                     if (!styles[selector]) {
                         styles[selector] = [];
@@ -105,11 +107,14 @@ const convertToInlineStyles = document => {
         const element = document.querySelector(selector);
 
         styles[selector].map(style => {
-            element.setAttribute('style', element.style.cssText + style.cssText);
+            element.setAttribute(
+                'style',
+                element.style.cssText + style.cssText
+            );
         });
         element.removeAttribute(pbStyleAttribute);
     });
-}
+};
 
 /**
  * Parse the master format storage HTML
