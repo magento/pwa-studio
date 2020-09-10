@@ -1,5 +1,5 @@
 .root {
-    align-content: flex-start;
+    align-content: start;
     display: grid;
     row-gap: 0.5rem;
 }
@@ -31,7 +31,13 @@
 .actionsContainer {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    --gap: 0.5rem;
+    /** polyfill to support flexbox gap in Safari */
+    margin: calc(var(--gap) / -2) calc(var(--gap) / -2);
+}
+
+.actionsContainer > * {
+    margin: calc(var(--gap) / 2) calc(var(--gap) / 2);
 }
 
 .addToCart {

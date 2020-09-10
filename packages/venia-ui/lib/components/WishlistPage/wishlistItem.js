@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MoreHorizontal } from 'react-feather';
-import { Price } from '@magento/peregrine';
+import { Price, useToasts } from '@magento/peregrine';
 import { useWishlistItem } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItem';
 
 import { mergeClasses } from '../../classify';
@@ -19,7 +19,7 @@ const WishlistItem = props => {
     } = item;
     const { image, name, price_range: priceRange, sku } = product;
 
-    const { label, url } = image;
+    const { label: imageLabel, url } = image;
 
     const { maximum_price: maximumPrice } = priceRange;
     const { final_price: finalPrice } = maximumPrice;
@@ -31,11 +31,24 @@ const WishlistItem = props => {
         ...wishlistItemOperations
     });
     const {
-        addToCartLabel,
         handleAddToCart,
         handleMoreActions,
-        isLoading
+        hasError,
+        isLoading,
+        labels
     } = talonProps;
+
+    const [, { addToast }] = useToasts();
+
+    useEffect(() => {
+        if (hasError) {
+            addToast({
+                type: 'error',
+                message: labels.get('addToCartError'),
+                timeout: 5000
+            });
+        }
+    }, [addToast, hasError, labels]);
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -57,7 +70,7 @@ const WishlistItem = props => {
     return (
         <div className={classes.root}>
             <Image
-                alt={label}
+                alt={imageLabel}
                 classes={{ image: classes.image }}
                 src={url}
                 width={400}
@@ -73,7 +86,7 @@ const WishlistItem = props => {
                     disabled={isLoading}
                     onClick={handleAddToCart}
                 >
-                    {addToCartLabel}
+                    {labels.get('addToCart')}
                 </button>
                 <button
                     className={classes.moreActions}

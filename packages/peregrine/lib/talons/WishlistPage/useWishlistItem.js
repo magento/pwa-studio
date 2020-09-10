@@ -2,23 +2,17 @@ import { useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
-import { useToasts } from '../../Toasts';
 
-const ADD_TO_CART_LABEL = 'Add to Cart';
-const ADD_TO_CART_ERROR_MESSAGE =
-    'Something went wrong. Please refresh and try again.';
+const labelsMap = new Map([
+    ['addToCart', 'Add to Cart'],
+    ['addToCartError', 'Something went wrong. Please refresh and try again.']
+]);
 
 export const useWishlistItem = props => {
-    const {
-        addToCartErrorMessage = ADD_TO_CART_ERROR_MESSAGE,
-        childSku,
-        mutations,
-        sku
-    } = props;
+    const { childSku, mutations, sku } = props;
     const { addWishlistItemToCartMutation } = mutations;
 
     const [{ cartId }] = useCartContext();
-    const [, { addToast }] = useToasts();
 
     const cartItem = {
         data: {
@@ -35,7 +29,7 @@ export const useWishlistItem = props => {
         });
     }
 
-    const [addWishlistItemToCart, { loading }] = useMutation(
+    const [addWishlistItemToCart, { error, loading }] = useMutation(
         addWishlistItemToCartMutation,
         {
             variables: {
@@ -49,22 +43,19 @@ export const useWishlistItem = props => {
         try {
             await addWishlistItemToCart();
         } catch {
-            addToast({
-                type: 'error',
-                message: addToCartErrorMessage,
-                timeout: 5000
-            });
+            return;
         }
-    }, [addToCartErrorMessage, addToast, addWishlistItemToCart]);
+    }, [addWishlistItemToCart]);
 
     const handleMoreActions = useCallback(() => {
         console.log('To be handled by PWA-632');
     }, []);
 
     return {
-        addToCartLabel: ADD_TO_CART_LABEL,
         handleAddToCart,
         handleMoreActions,
-        isLoading: loading
+        hasError: !!error,
+        isLoading: loading,
+        labels: labelsMap
     };
 };
