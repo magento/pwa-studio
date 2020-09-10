@@ -112,6 +112,13 @@ class LocalizationPlugin {
 }
 
 module.exports = LocalizationPlugin;
+
+/**
+ * Expose combined locales to the loader
+ *
+ * @param locale
+ * @returns {{}|*}
+ */
 module.exports.getCombinedLocales = (locale) => {
     if (combinedLocales[locale]) {
         return combinedLocales[locale];

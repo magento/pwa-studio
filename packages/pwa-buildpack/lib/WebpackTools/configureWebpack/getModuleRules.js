@@ -22,11 +22,14 @@ async function getModuleRules(helper) {
     ]);
 }
 
+/**
+ * @returns Use loader for any JSON language pack
+ */
 getModuleRules.i18n = async () => ({
     test: /i18n\/(.*)\.json$/,
     use: [
         {
-            loader: path.resolve('../pwa-buildpack/lib/WebpackTools/loaders/localization-loader.js')
+            loader: 'localization-loader'
         }
     ]
 });
