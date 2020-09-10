@@ -74,6 +74,43 @@ const walk = (rootEl, contentTypeStructureObj) => {
     return contentTypeStructureObj;
 };
 
+const pbStyleAttribute = 'data-pb-style';
+const bodyId = 'html-body';
+
+/**
+ * Convert styles block to inline styles.
+ * @param {HTMLDocument} document
+ */
+const convertToInlineStyles = document => {
+    const styleBlocks = document.getElementsByTagName('style');
+    const styles = {};
+
+    if (styleBlocks.length > 0) {
+        Array.from(styleBlocks).forEach(styleBlock => {
+            const cssRules = styleBlock.sheet.cssRules;
+
+            Array.from(cssRules).forEach(rule => {
+                const selectors = rule.selectorText.split(',').map(selector => selector.trim());
+                selectors.forEach(selector => {
+                    if (!styles[selector]) {
+                        styles[selector] = [];
+                    }
+                    styles[selector].push(rule.style);
+                });
+            });
+        });
+    }
+
+    Object.keys(styles).map(selector => {
+        const element = document.querySelector(selector);
+
+        styles[selector].map(style => {
+            element.setAttribute('style', element.style.cssText + style.cssText);
+        });
+        element.removeAttribute(pbStyleAttribute);
+    });
+}
+
 /**
  * Parse the master format storage HTML
  *
@@ -84,6 +121,9 @@ const parseStorageHtml = htmlStr => {
     const container = new DOMParser().parseFromString(htmlStr, 'text/html');
 
     const stageContentType = createContentTypeObject('root-container');
+
+    container.body.id = bodyId;
+    convertToInlineStyles(container);
 
     return walk(container.body, stageContentType);
 };
