@@ -1,3 +1,5 @@
+const path = require('path');
+
 /**
  * @module Buildpack/WebpackTools
  */
@@ -15,9 +17,19 @@ async function getModuleRules(helper) {
         getModuleRules.graphql(helper),
         getModuleRules.js(helper),
         getModuleRules.css(helper),
-        getModuleRules.files(helper)
+        getModuleRules.files(helper),
+        getModuleRules.i18n(helper)
     ]);
 }
+
+getModuleRules.i18n = async () => ({
+    test: /i18n\/(.*)\.json$/,
+    use: [
+        {
+            loader: path.resolve('../pwa-buildpack/lib/WebpackTools/loaders/localization-loader.js')
+        }
+    ]
+});
 
 /**
  * @param {Buildpack/WebpackTools~WebpackConfigHelper} helper

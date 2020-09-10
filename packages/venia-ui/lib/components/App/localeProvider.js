@@ -9,7 +9,13 @@ const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
 
     useEffect(() => {
-        import(`../../i18n/${locale}.json`)
+        /**
+         * This is automatically created during the build by LocalizationPlugin
+         * https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
+         */
+        import(
+            `i18n/${locale}.json`
+            )
             .then(data => {
                 setMessages(data.default);
             })

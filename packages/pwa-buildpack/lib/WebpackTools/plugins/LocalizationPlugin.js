@@ -6,6 +6,8 @@ const fs = require('fs');
 const i18nDir = 'i18n';
 const localeFileNameRegex = /([a-z]{2}_[A-Z]{2})\.json$/;
 
+const combinedLocales = {};
+
 /**
  * Localization Plugin to collect all translations from NPM modules and create single translation file for each locale
  */
@@ -19,7 +21,7 @@ class LocalizationPlugin {
     }
 
     apply(compiler) {
-        compiler.hooks.emit.tapAsync('LocalizationPlugin', async (compilation, callback) => {
+        compiler.hooks.beforeRun.tapAsync('LocalizationPlugin', async (compiler, callback) => {
             const dirs = this.options.dirs;
             let locales = {};
             for (const dir of dirs) {
@@ -44,10 +46,8 @@ class LocalizationPlugin {
                 const asset = JSON.stringify(combined);
 
                 debug(`Creating compilation asset i18n/${locale}.json`);
-                compilation.assets[`i18n/${locale}.json`] = {
-                    source: () => asset,
-                    size: () => asset.length
-                };
+
+                combinedLocales[locale] = asset;
             }
 
             callback();
@@ -112,3 +112,10 @@ class LocalizationPlugin {
 }
 
 module.exports = LocalizationPlugin;
+module.exports.getCombinedLocales = (locale) => {
+    if (combinedLocales[locale]) {
+        return combinedLocales[locale];
+    }
+
+    return {};
+};
