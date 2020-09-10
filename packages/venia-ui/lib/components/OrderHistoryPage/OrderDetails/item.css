@@ -1,0 +1,47 @@
+.root {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) auto;
+    gap: 0.35rem;
+}
+
+.thumbnailContainer {
+    grid-row: 1 / span 3;
+    grid-column: 1 / span 1;
+}
+
+.thumbnail {
+}
+
+.name {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+}
+
+.options {
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+}
+
+.quantity {
+    grid-row: 2 / span 1;
+    grid-column: 3 / span 1;
+}
+
+.price {
+    grid-row: 2 / span 1;
+    grid-column: 4 / span 1;
+}
+
+.buyAgainButton {
+    composes: root_normalPriority from '../../Button/button.css';
+
+    grid-row: 1 / span 2;
+    grid-column: 5 / span 1;
+    width: 10rem;
+}
+
+.returnThisButton {
+    grid-row: 3 / span 1;
+    grid-column: 5 / span 1;
+    text-decoration: underline;
+}

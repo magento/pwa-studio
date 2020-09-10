@@ -5,6 +5,7 @@ export const GET_PRODUCT_THUMBNAILS_BY_SKU = gql`
         products(filter: { sku: { in: $skus } }) {
             items {
                 id
+                sku
                 thumbnail {
                     label
                     url

@@ -34,7 +34,7 @@ export const GET_CUSTOMER_ORDERS = gql`
                         product_sale_price
                         product_sku
                         selected_options {
-                            id
+                            label
                             value
                         }
                         quantity_ordered
@@ -120,11 +120,11 @@ const MOCK_ORDERS = {
                 {
                     id: '1',
                     product_name: 'Product 1',
-                    product_sale_price: '100',
+                    product_sale_price: '$100.00',
                     product_sku: 'VSW01',
                     selected_options: [
                         {
-                            id: 'Color',
+                            label: 'Color',
                             value: 'Green'
                         }
                     ],
@@ -133,11 +133,11 @@ const MOCK_ORDERS = {
                 {
                     id: '2',
                     product_name: 'Product 2',
-                    product_sale_price: '100',
+                    product_sale_price: '$100.00',
                     product_sku: 'VD02',
                     selected_options: [
                         {
-                            id: 'Color',
+                            label: 'Color',
                             value: 'Red'
                         }
                     ],
@@ -146,11 +146,11 @@ const MOCK_ORDERS = {
                 {
                     id: '3',
                     product_name: 'Product 3',
-                    product_sale_price: '100',
+                    product_sale_price: '$100.00',
                     product_sku: 'VT02',
                     selected_options: [
                         {
-                            id: 'Color',
+                            label: 'Color',
                             value: 'Black'
                         }
                     ],
@@ -159,11 +159,11 @@ const MOCK_ORDERS = {
                 {
                     id: '4',
                     product_name: 'Product 4',
-                    product_sale_price: '100',
+                    product_sale_price: '$100.00',
                     product_sku: 'VT11',
                     selected_options: [
                         {
-                            id: 'Color',
+                            label: 'Color',
                             value: 'Pink'
                         }
                     ],
@@ -172,11 +172,11 @@ const MOCK_ORDERS = {
                 {
                     id: '5',
                     product_name: 'Product 5',
-                    product_sale_price: '100',
+                    product_sale_price: '$100.00',
                     product_sku: 'VSW09',
                     selected_options: [
                         {
-                            id: 'Color',
+                            label: 'Color',
                             value: 'Grey'
                         }
                     ],
@@ -263,11 +263,11 @@ const MOCK_ORDERS = {
                 {
                     id: '3',
                     product_name: 'Product 3',
-                    product_sale_price: '100',
+                    product_sale_price: '$100.00',
                     product_sku: 'VA03',
                     selected_options: [
                         {
-                            id: 'Color',
+                            label: 'Color',
                             value: 'Blue'
                         }
                     ],
@@ -276,11 +276,11 @@ const MOCK_ORDERS = {
                 {
                     id: '4',
                     product_name: 'Product 4',
-                    product_sale_price: '100',
+                    product_sale_price: '$100.00',
                     product_sku: 'VP08',
                     selected_options: [
                         {
-                            id: 'Color',
+                            label: 'Color',
                             value: 'Black'
                         }
                     ],
@@ -289,11 +289,11 @@ const MOCK_ORDERS = {
                 {
                     id: '5',
                     product_name: 'Product 5',
-                    product_sale_price: '100',
+                    product_sale_price: '$100.00',
                     product_sku: 'VSW09',
                     selected_options: [
                         {
-                            id: 'Color',
+                            label: 'Color',
                             value: 'Orange'
                         }
                     ],

@@ -107,7 +107,7 @@ const OrderRow = props => {
                 {contentToggleIcon}
             </button>
             <div className={contentClass}>
-                <OrderDetails order={order} imagesData={imagesData} />
+                <OrderDetails orderData={order} imagesData={imagesData} />
             </div>
         </li>
     );

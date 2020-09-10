@@ -3,6 +3,7 @@ import React from 'react';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import BillingInformation from './billingInformation';
+import Items from './items';
 import PaymentMethod from './paymentMethod';
 import ShippingInformation from './shippingInformation';
 import ShippingMethod from './shippingMethod';
@@ -10,6 +11,7 @@ import ShippingMethod from './shippingMethod';
 import defaultClasses from './orderDetails.css';
 
 const OrderDetails = props => {
+    const { classes: propClasses, imagesData, orderData } = props;
     const {
         billing_address,
         items,
@@ -21,8 +23,8 @@ const OrderDetails = props => {
         shipments,
         status,
         total
-    } = props.order;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    } = orderData;
+    const classes = mergeClasses(defaultClasses, propClasses);
 
     const shippingMethodData = {
         shippingMethod: shipping_method,
@@ -42,6 +44,9 @@ const OrderDetails = props => {
             </div>
             <div className={classes.payment_method_container}>
                 <PaymentMethod data={payment_methods} />
+            </div>
+            <div className={classes.items_container}>
+                <Items data={{ imagesData, items }} />
             </div>
         </div>
     );
