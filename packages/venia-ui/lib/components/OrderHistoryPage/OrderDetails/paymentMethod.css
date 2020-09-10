@@ -9,22 +9,10 @@
     padding-bottom: 0.35rem;
 }
 
-.methods {
-    grid-row: 2 / span 1;
-
-    display: grid;
-    row-gap: 0.35rem;
-}
-
-.payment_container {
-    display: grid;
-    row-gap: 0.35rem;
-}
-
 .payment_type {
-    grid-row: 1 / span 1;
+    grid-row: 2 / span 1;
 }
 
 .payment_last_four_digits {
-    grid-row: 2 / span 1;
+    grid-row: 3 / span 1;
 }

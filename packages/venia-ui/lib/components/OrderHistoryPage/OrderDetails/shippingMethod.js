@@ -8,6 +8,11 @@ const ShippingMethod = props => {
     const { data, classes: propsClasses } = props;
     const { shipments, shippingMethod } = data;
     const classes = mergeClasses(defaultClasses, propsClasses);
+    /**
+     * Shipments and Tracking are arrays. Since Venia does not
+     * support multiple shipping arrdresses in checkout we will
+     * be picking the first value in those arrays for now.
+     */
     const [{ tracking }] = shipments;
     const [{ carrier, number }] = tracking;
 

@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
     This feature is being built ahead of GraphQL coverage that is landing in 2.4.1 of Magento. We're going to mock
     the data based on the approved schema to make removing the mocking layer as seamless as possible.
 
-    @see https://github.com/magento/architecture/blob/master/design-documents/graph-ql/coverage/customer-orders.md
+    @see https://github.com/magento/architecture/blob/master/design-documents/graph-ql/coverage/customer/customer-orders.md
  */
 
 /* eslint-disable graphql/template-strings */
