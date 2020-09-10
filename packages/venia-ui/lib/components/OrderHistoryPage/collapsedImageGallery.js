@@ -1,33 +1,20 @@
 import React, { useMemo } from 'react';
-import { useCollapsedImageGallery } from '@magento/peregrine/lib/talons/OrderHistoryPage/useCollapsedImageGallery';
+import { arrayOf, object, shape, string, number } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
-import defaultClasses from './collapsedImageGallery.css';
-import imageGalleryOperations from './collapsedImageGallery.gql';
 import Image from '../Image';
-import { arrayOf, object, shape, string } from 'prop-types';
 
-const DISPLAY_COUNT = 4;
+import defaultClasses from './collapsedImageGallery.css';
 
 const CollapsedImageGallery = props => {
-    const { items } = props;
-
-    const talonProps = useCollapsedImageGallery({
-        imageCount: DISPLAY_COUNT,
-        items,
-        ...imageGalleryOperations
-    });
-    const { imageData } = talonProps;
+    const { displayCount, items, totalItemsCount } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const remainderCount = items.length - DISPLAY_COUNT;
+    const remainderCount = totalItemsCount - displayCount;
 
     const imageElements = useMemo(() => {
-        if (imageData) {
-            const { products } = imageData;
-            const { items } = products;
-
-            const baseImageElements = items.map(item => {
+        if (items) {
+            const baseImageElements = items.slice(0, displayCount).map(item => {
                 const { id, thumbnail } = item;
                 const { label, url } = thumbnail;
 
@@ -46,7 +33,7 @@ const CollapsedImageGallery = props => {
 
             return baseImageElements;
         }
-    }, [classes.remainderCount, imageData, remainderCount]);
+    }, [classes.remainderCount, displayCount, items, remainderCount]);
 
     return <div className={classes.root}>{imageElements}</div>;
 };
@@ -58,5 +45,7 @@ CollapsedImageGallery.propTypes = {
         root: string,
         remainderCount: string
     }),
-    items: arrayOf(object)
+    displayCount: number,
+    items: arrayOf(object),
+    totalItemsCount: number
 };

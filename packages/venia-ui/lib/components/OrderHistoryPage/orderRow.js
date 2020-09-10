@@ -10,7 +10,11 @@ import CollapsedImageGallery from './collapsedImageGallery';
 import OrderProgressBar from './orderProgressBar';
 import OrderDetails from './OrderDetails';
 
+import orderRowOperations from './orderRow.gql';
+
 import defaultClasses from './orderRow.css';
+
+const DISPLAY_COUNT = 4;
 
 const OrderRow = props => {
     const { order } = props;
@@ -48,16 +52,26 @@ const OrderRow = props => {
             ? 'Ready to ship'
             : 'Processing';
 
-    const talonProps = useOrderRow();
-    const { isOpen, handleContentToggle } = talonProps;
+    const talonProps = useOrderRow({
+        items,
+        ...orderRowOperations
+    });
+    const { isOpen, handleContentToggle, imagesData } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const contentClass = isOpen ? classes.content : classes.content_collapsed;
+
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
+
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
+
     const collapsedImageGalleryElement = isOpen ? null : (
-        <CollapsedImageGallery items={items} />
+        <CollapsedImageGallery
+            totalItemsCount={items.length}
+            displayCount={DISPLAY_COUNT}
+            items={imagesData}
+        />
     );
 
     return (
@@ -93,7 +107,7 @@ const OrderRow = props => {
                 {contentToggleIcon}
             </button>
             <div className={contentClass}>
-                <OrderDetails order={order} />
+                <OrderDetails order={order} imagesData={imagesData} />
             </div>
         </li>
     );

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_PRODUCT_THUMBNAILS_BY_SKU = gql`
-    query GetProductThumbnailsBySku($imageCount: Int!, $skus: [String!]!) {
-        products(filter: { sku: { in: $skus } }, pageSize: $imageCount) {
+    query GetProductThumbnailsBySku($skus: [String!]!) {
+        products(filter: { sku: { in: $skus } }) {
             items {
                 id
                 thumbnail {

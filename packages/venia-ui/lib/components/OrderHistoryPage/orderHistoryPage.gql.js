@@ -155,6 +155,32 @@ const MOCK_ORDERS = {
                         }
                     ],
                     quantity_ordered: 1
+                },
+                {
+                    id: '4',
+                    product_name: 'Product 4',
+                    product_sale_price: '100',
+                    product_sku: 'VT11',
+                    selected_options: [
+                        {
+                            id: 'Color',
+                            value: 'Pink'
+                        }
+                    ],
+                    quantity_ordered: 1
+                },
+                {
+                    id: '5',
+                    product_name: 'Product 5',
+                    product_sale_price: '100',
+                    product_sku: 'VSW09',
+                    selected_options: [
+                        {
+                            id: 'Color',
+                            value: 'Grey'
+                        }
+                    ],
+                    quantity_ordered: 1
                 }
             ],
             number: '000000002',
@@ -264,7 +290,7 @@ const MOCK_ORDERS = {
                     id: '5',
                     product_name: 'Product 5',
                     product_sale_price: '100',
-                    product_sku: 'VA03',
+                    product_sku: 'VSW09',
                     selected_options: [
                         {
                             id: 'Color',
