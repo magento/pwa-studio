@@ -9,7 +9,6 @@ jest.mock('../../Portal', () => ({
 }));
 jest.mock('../editForm', () => 'EditForm');
 
-const showChangePassword = jest.fn().mockName('showChangePassword');
 const handleSubmit = jest.fn().mockName('handleSubmit');
 const handleCancel = jest.fn().mockName('handleCancel');
 
@@ -23,10 +22,8 @@ const props = {
         lastname: 'Bar',
         email: 'foobar@express.net'
     },
-    isChangingPassword: false,
     isDisabled: false,
-    isOpen: true,
-    showChangePassword
+    isOpen: true
 };
 
 test('it renders correctly', () => {

@@ -16,57 +16,9 @@ import {
 import defaultClasses from './editForm.css';
 
 const EditForm = props => {
-    const {
-        classes: propClasses,
-        isChangingPassword,
-        showChangePassword
-    } = props;
+    const { classes: propClasses } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
-
-    const passwordArea = !isChangingPassword ? (
-        <Fragment>
-            <div className={classes.passwordLabel}>
-                <Field id="password" label="Password">
-                    <span>{'**********'}</span>
-                </Field>
-            </div>
-            <div className={classes.changePasswordButtonContainer}>
-                <LinkButton
-                    classes={classes.changePasswordButton}
-                    type="button"
-                    onClick={showChangePassword}
-                >
-                    {'Change Password'}
-                </LinkButton>
-            </div>
-        </Fragment>
-    ) : (
-        <Fragment>
-            <div className={classes.password}>
-                <Password
-                    fieldName="password"
-                    label="Current Password"
-                    validate={isRequired}
-                    autoComplete="current-password"
-                    isToggleButtonHidden={false}
-                />
-            </div>
-            <div className={classes.newPassword}>
-                <Password
-                    fieldName="newPassword"
-                    label="New Password"
-                    validate={combine([
-                        isRequired,
-                        [hasLengthAtLeast, 8],
-                        validatePassword,
-                        validateDifferentCurrentPassword
-                    ])}
-                    isToggleButtonHidden={false}
-                />
-            </div>
-        </Fragment>
-    );
 
     return (
         <div className={classes.root}>
@@ -85,7 +37,23 @@ const EditForm = props => {
                     <TextInput field="email" validate={isRequired} />
                 </Field>
             </div>
-            {passwordArea}
+            <div className={classes.password}>
+                <Password
+                    fieldName="password"
+                    label="Current Password"
+                    validate={isRequired}
+                    autoComplete="current-password"
+                    isToggleButtonHidden={false}
+                />
+            </div>
+            <div className={classes.newPassword}>
+                <Password
+                    fieldName="newPassword"
+                    label="New Password"
+                    validate={validateDifferentCurrentPassword}
+                    isToggleButtonHidden={false}
+                />
+            </div>
         </div>
     );
 };
@@ -101,11 +69,7 @@ EditForm.propTypes = {
         lastname: string,
         buttons: string,
         passwordLabel: string,
-        changePasswordButtonContainer: string,
-        changePasswordButton: string,
         password: string,
         newPassword: string
-    }),
-    isChangingPassword: bool,
-    showChangePassword: func
+    })
 };

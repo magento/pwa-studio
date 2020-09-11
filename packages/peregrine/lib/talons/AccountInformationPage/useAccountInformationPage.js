@@ -13,7 +13,6 @@ export const useAccountInformationPage = props => {
 
     const [{ isSignedIn }] = useUserContext();
 
-    const [isChangingPassword, setIsChangingPassword] = useState(false);
     const [isUpdateMode, setIsUpdateMode] = useState(false);
 
     const { data: accountInformationData, error: loadDataError } = useQuery(
@@ -55,16 +54,11 @@ export const useAccountInformationPage = props => {
 
     const cancelUpdateMode = useCallback(() => {
         setIsUpdateMode(false);
-        setIsChangingPassword(false);
     }, [setIsUpdateMode]);
 
     const showUpdateMode = useCallback(() => {
         setIsUpdateMode(true);
     }, [setIsUpdateMode]);
-
-    const showChangePassword = useCallback(() => {
-        setIsChangingPassword(true);
-    }, [setIsChangingPassword]);
 
     const handleSubmit = useCallback(
         async formValues => {
@@ -73,7 +67,7 @@ export const useAccountInformationPage = props => {
                     variables: formValues
                 });
 
-                if (isChangingPassword) {
+                if (formValues.password && formValues.newPassword) {
                     await changeCustomerPassword({
                         variables: {
                             currentPassword: formValues.password,
@@ -90,12 +84,7 @@ export const useAccountInformationPage = props => {
                 return;
             }
         },
-        [
-            setCustomerInformation,
-            isChangingPassword,
-            cancelUpdateMode,
-            changeCustomerPassword
-        ]
+        [setCustomerInformation, cancelUpdateMode, changeCustomerPassword]
     );
 
     return {
@@ -106,12 +95,10 @@ export const useAccountInformationPage = props => {
         ],
         handleSubmit,
         initialValues,
-        isChangingPassword,
         isDisabled: isUpdatingCustomerInformation || isChangingCustomerPassword,
         isUpdateMode,
         isSignedIn,
         loadDataError,
-        showUpdateMode,
-        showChangePassword
+        showUpdateMode
     };
 };

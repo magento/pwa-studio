@@ -23,12 +23,10 @@ const AccountInformationPage = props => {
         formErrors,
         handleSubmit,
         initialValues,
-        isChangingPassword,
         isDisabled,
         isSignedIn,
         isUpdateMode,
         loadDataError,
-        showChangePassword,
         showUpdateMode
     } = talonProps;
 
@@ -84,10 +82,8 @@ const AccountInformationPage = props => {
                     handleCancel={cancelUpdateMode}
                     handleSubmit={handleSubmit}
                     initialValues={customer}
-                    isChangingPassword={isChangingPassword}
                     isDisabled={isDisabled}
                     isOpen={isUpdateMode}
-                    showChangePassword={showChangePassword}
                 />
             </Fragment>
         );

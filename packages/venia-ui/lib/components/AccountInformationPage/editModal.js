@@ -14,10 +14,8 @@ const EditModal = props => {
         handleCancel,
         handleSubmit,
         initialValues,
-        isChangingPassword,
         isDisabled,
-        isOpen,
-        showChangePassword
+        isOpen
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -40,10 +38,7 @@ const EditModal = props => {
                 classes={{ root: classes.errorContainer }}
                 errors={formErrors}
             />
-            <EditForm
-                isChangingPassword={isChangingPassword}
-                showChangePassword={showChangePassword}
-            />
+            <EditForm />
         </Dialog>
     );
 };
@@ -58,8 +53,6 @@ EditModal.propTypes = {
     handleCancel: func,
     handleSubmit: func,
     initialValues: object,
-    isChangingPassword: bool,
     isDisabled: bool,
-    isOpen: bool,
-    onChangePassword: func
+    isOpen: bool
 };

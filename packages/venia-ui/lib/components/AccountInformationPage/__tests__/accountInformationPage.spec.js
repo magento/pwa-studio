@@ -13,7 +13,6 @@ jest.mock('../../../classify');
 const handleSubmit = jest.fn().mockName('handleSubmit');
 const cancelUpdateMode = jest.fn().mockName('cancelUpdateMode');
 const showUpdateMode = jest.fn().mockName('showUpdateMode');
-const showChangePassword = jest.fn().mockName('showChangePassword');
 
 const emptyFormProps = {
     cancelUpdateMode,
@@ -26,12 +25,10 @@ const emptyFormProps = {
             email: 'foobar@express.net'
         }
     },
-    isChangingPassword: false,
     isDisabled: false,
     isSignedIn: true,
     isUpdateMode: false,
     loadDataError: null,
-    showChangePassword,
     showUpdateMode
 };
 

@@ -16,12 +16,10 @@ Object {
       "lastname": "Bar",
     },
   },
-  "isChangingPassword": false,
   "isDisabled": false,
   "isSignedIn": true,
   "isUpdateMode": false,
   "loadDataError": null,
-  "showChangePassword": [Function],
   "showUpdateMode": [Function],
 }
 `;
@@ -42,12 +40,10 @@ Object {
       "lastname": "Foo",
     },
   },
-  "isChangingPassword": false,
   "isDisabled": false,
   "isSignedIn": true,
   "isUpdateMode": false,
   "loadDataError": null,
-  "showChangePassword": [Function],
   "showUpdateMode": [Function],
 }
 `;
@@ -71,12 +67,10 @@ Object {
   ],
   "handleSubmit": [Function],
   "initialValues": undefined,
-  "isChangingPassword": false,
   "isDisabled": false,
   "isSignedIn": true,
   "isUpdateMode": false,
   "loadDataError": undefined,
-  "showChangePassword": [Function],
   "showUpdateMode": [Function],
 }
 `;
