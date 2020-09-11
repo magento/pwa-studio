@@ -27,7 +27,7 @@
 }
 
 @media (min-width: 961px) {
-    .cardArea {
+    .accountDetails {
         display: grid;
         gap: 1rem;
         grid-template-columns: 1fr 1fr 1fr;

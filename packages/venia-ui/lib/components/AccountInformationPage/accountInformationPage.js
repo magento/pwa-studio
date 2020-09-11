@@ -25,8 +25,8 @@ const AccountInformationPage = props => {
         initialValues,
         isDisabled,
         isSignedIn,
-        activeChangePassword,
-        handleActivePassword,
+        isChangingPassword,
+        handleChangePassword,
         isUpdateMode,
         handleCancelUpdate,
         showUpdateMode
@@ -50,7 +50,7 @@ const AccountInformationPage = props => {
 
         pageContent = (
             <Fragment>
-                <div className={classes.cardArea}>
+                <div className={classes.accountDetails}>
                     <div className={classes.lineItems}>
                         <span className={classes.lineItemLabel}>{'Name'}</span>
                         <span className={classes.lineItemValue}>{`${
@@ -80,9 +80,9 @@ const AccountInformationPage = props => {
                     </div>
                 </div>
                 <EditModal
-                    informationData={customer}
-                    activeChangePassword={activeChangePassword}
-                    handleActivePassword={handleActivePassword}
+                    initialValues={customer}
+                    isChangingPassword={isChangingPassword}
+                    handleActivePassword={handleChangePassword}
                     handleSubmit={handleSubmit}
                     isDisabled={isDisabled}
                     formErrors={formErrors}

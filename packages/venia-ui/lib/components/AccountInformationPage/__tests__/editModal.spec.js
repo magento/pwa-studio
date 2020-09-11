@@ -16,13 +16,13 @@ const handleCancel = jest.fn().mockName('handleCancel');
 const props = {
     classes: {},
     informationData: {
-        firstname: 'Huy',
-        lastname: 'Kon',
-        email: 'huykon@gmail.com'
+        firstname: 'Gooseton',
+        lastname: 'Jr',
+        email: 'gooston@goosemail.com'
     },
     isDisabled: false,
     formErrors: [],
-    activeChangePassword: false,
+    isChangingPassword: false,
     handleActivePassword,
     handleSubmit,
     isOpen: true,

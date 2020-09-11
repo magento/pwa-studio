@@ -13,47 +13,50 @@ export const useAccountInformationPage = props => {
 
     const [{ isSignedIn }] = useUserContext();
 
-    const [activeChangePassword, setActiveChangePassword] = useState(false);
+    const [isChangingPassword, setIsChangingPassword] = useState(false);
     const [updatedData, setUpdatedData] = useState(false);
     const [isUpdateMode, setIsUpdateMode] = useState(false);
 
     const { data: accountInformationData, error: loadDataError } = useQuery(
         getCustomerInformationQuery,
-        { skip: !isSignedIn, fetchPolicy: 'cache-and-network' }
+        {
+            skip: !isSignedIn,
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
     );
 
     const [
         setCustomerInformation,
         {
-            data: customerInformationUpdated,
-            error: setCustomerInformationError,
-            loading: isSubmittingInfo
+            data: customerInformationUpdateData,
+            error: customerInformationUpdateError,
+            loading: isUpdatingCustomerInformation
         }
     ] = useMutation(setCustomerInformationMutation);
 
     const [
         changeCustomerPassword,
-        { error: changeCustomerPasswordError, loading: isSubmittingPassword }
+        {
+            error: customerPasswordChangeError,
+            loading: isChangingCustomerPassword
+        }
     ] = useMutation(changeCustomerPasswordMutation);
 
     const initialValues = useMemo(() => {
-        if (customerInformationUpdated) {
+        if (customerInformationUpdateData) {
             return {
-                customer: customerInformationUpdated.updateCustomer.customer
+                customer: customerInformationUpdateData.updateCustomer.customer
             };
         }
         if (accountInformationData) {
             return { customer: accountInformationData.customer };
         }
-    }, [customerInformationUpdated, accountInformationData]);
+    }, [customerInformationUpdateData, accountInformationData]);
 
-    const handleActivePassword = useCallback(() => {
-        setActiveChangePassword(true);
-    }, [setActiveChangePassword]);
-
-    const handleDeActivePassword = useCallback(() => {
-        setActiveChangePassword(false);
-    }, [setActiveChangePassword]);
+    const handleChangePassword = useCallback(() => {
+        setIsChangingPassword(true);
+    }, [setIsChangingPassword]);
 
     const handleSubmit = useCallback(
         async formValues => {
@@ -62,7 +65,7 @@ export const useAccountInformationPage = props => {
                     variables: formValues
                 });
 
-                if (activeChangePassword) {
+                if (isChangingPassword) {
                     await changeCustomerPassword({
                         variables: {
                             currentPassword: formValues.password,
@@ -72,18 +75,19 @@ export const useAccountInformationPage = props => {
                 }
                 setUpdatedData(true);
             } catch {
-                // we have an onError link that logs errors, and FormError already renders this error, so just return
-                // to avoid triggering the success callback
+                // we have an onError link that logs errors, and FormError
+                // already renders this error, so just return to avoid
+                // triggering the success callback
                 return;
             }
         },
-        [setCustomerInformation, changeCustomerPassword, activeChangePassword]
+        [setCustomerInformation, changeCustomerPassword, isChangingPassword]
     );
 
     const handleCancelUpdate = useCallback(() => {
         setIsUpdateMode(false);
-        handleDeActivePassword();
-    }, [setIsUpdateMode, handleDeActivePassword]);
+        setIsChangingPassword(false);
+    }, [setIsUpdateMode, setIsChangingPassword]);
 
     const showUpdateMode = useCallback(() => {
         setIsUpdateMode(true);
@@ -92,17 +96,17 @@ export const useAccountInformationPage = props => {
     useEffect(() => {
         if (
             updatedData &&
-            (!setCustomerInformationError ||
-                (activeChangePassword && !changeCustomerPasswordError))
+            (!customerInformationUpdateError ||
+                (isChangingPassword && !customerPasswordChangeError))
         ) {
             handleCancelUpdate();
             setUpdatedData(false);
         }
     }, [
         updatedData,
-        setCustomerInformationError,
-        changeCustomerPasswordError,
-        activeChangePassword,
+        customerInformationUpdateError,
+        customerPasswordChangeError,
+        isChangingPassword,
         handleCancelUpdate
     ]);
 
@@ -111,10 +115,13 @@ export const useAccountInformationPage = props => {
         loadDataError,
         isSignedIn,
         handleSubmit,
-        activeChangePassword,
-        handleActivePassword,
-        isDisabled: isSubmittingInfo || isSubmittingPassword,
-        formErrors: [setCustomerInformationError, changeCustomerPasswordError],
+        isChangingPassword,
+        handleChangePassword,
+        isDisabled: isUpdatingCustomerInformation || isChangingCustomerPassword,
+        formErrors: [
+            customerInformationUpdateError,
+            customerPasswordChangeError
+        ],
         isUpdateMode,
         handleCancelUpdate,
         showUpdateMode

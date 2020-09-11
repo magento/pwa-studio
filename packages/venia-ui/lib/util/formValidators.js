@@ -114,5 +114,5 @@ export const validateDifferentCurrentPassword = (
 ) => {
     return value !== values[passwordKey]
         ? SUCCESS
-        : 'New Password and Current Password are same';
+        : 'New password cannot be current password.';
 };

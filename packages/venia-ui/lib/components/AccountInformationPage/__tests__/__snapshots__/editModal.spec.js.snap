@@ -72,16 +72,8 @@ exports[`it disables the submit button while loading 1`] = `
             className="contents"
           >
             <EditForm
-              activeChangePassword={false}
               handleActivePassword={[MockFunction handleActivePassword]}
-              informationData={
-                Object {
-                  "email": "huykon@gmail.com",
-                  "firstname": "Huy",
-                  "lastname": "Kon",
-                }
-              }
-              isDisabled={true}
+              isChangingPassword={false}
             />
           </div>
           <div
@@ -190,16 +182,8 @@ exports[`it renders correctly 1`] = `
             className="contents"
           >
             <EditForm
-              activeChangePassword={false}
               handleActivePassword={[MockFunction handleActivePassword]}
-              informationData={
-                Object {
-                  "email": "huykon@gmail.com",
-                  "firstname": "Huy",
-                  "lastname": "Kon",
-                }
-              }
-              isDisabled={false}
+              isChangingPassword={false}
             />
           </div>
           <div

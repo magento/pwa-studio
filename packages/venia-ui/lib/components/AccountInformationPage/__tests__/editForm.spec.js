@@ -14,12 +14,12 @@ const mockProps = {
     onCancelModal,
     handleSubmit,
     handleChangePassword,
-    activeChangePassword: false,
+    isChangingPassword: false,
     isDisabled: false,
     informationData: {
-        firstname: 'Huy',
-        lastname: 'Kon',
-        email: 'huykon@gmail.com'
+        firstname: 'Gooseton',
+        lastname: 'Jr',
+        email: 'gooston@goosemail.com'
     }
 };
 
@@ -48,7 +48,7 @@ describe('renders prefilled form with data', () => {
         const newProps = {
             ...mockProps,
             informationData,
-            activeChangePassword: true
+            isChangingPassword: true
         };
 
         const tree = createTestInstance(<EditForm {...newProps} />);

@@ -20,15 +20,15 @@ const emptyFormProps = {
     handleSubmit,
     initialValues: {
         customer: {
-            firstname: 'Huy',
-            lastname: 'Kon',
-            email: 'huykon@gmail.com'
+            firstname: 'Gooseton',
+            lastname: 'Jr',
+            email: 'gooston@goosemail.com'
         }
     },
     isDisabled: false,
     isSignedIn: true,
     handleEditInformation,
-    activeChangePassword: false,
+    isChangingPassword: false,
     handleChangePassword
 };
 

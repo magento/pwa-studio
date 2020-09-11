@@ -19,12 +19,12 @@ const EditForm = props => {
     const {
         classes: propClasses,
         handleActivePassword,
-        activeChangePassword
+        isChangingPassword
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const passwordArea = !activeChangePassword ? (
+    const passwordArea = !isChangingPassword ? (
         <Fragment>
             <div className={classes.passwordLabel}>
                 <Field id="password" label="Password">
@@ -72,11 +72,7 @@ const EditForm = props => {
         <div className={classes.root}>
             <div className={classes.firstname}>
                 <Field id="firstname" label="First Name">
-                    <TextInput
-                        field="firstname"
-                        validate={isRequired}
-                        value={'lll'}
-                    />
+                    <TextInput field="firstname" validate={isRequired} />
                 </Field>
             </div>
             <div className={classes.lastname}>
@@ -111,5 +107,5 @@ EditForm.propTypes = {
         newPassword: string
     }),
     handleActivePassword: func,
-    activeChangePassword: bool
+    isChangingPassword: bool
 };

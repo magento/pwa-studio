@@ -10,10 +10,10 @@ import defaultClasses from './editModal.css';
 const EditModal = props => {
     const {
         classes: propClasses,
-        informationData,
+        initialValues,
         isDisabled,
         formErrors,
-        activeChangePassword,
+        isChangingPassword,
         handleActivePassword,
         handleSubmit,
         isOpen,
@@ -22,9 +22,7 @@ const EditModal = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const dialogFormProps = {
-        initialValues: informationData
-    };
+    const dialogFormProps = { initialValues };
 
     return (
         <Dialog
@@ -43,9 +41,7 @@ const EditModal = props => {
                 classes={{ root: classes.errorContainer }}
             />
             <EditForm
-                informationData={informationData}
-                activeChangePassword={activeChangePassword}
-                isDisabled={isDisabled}
+                isChangingPassword={isChangingPassword}
                 handleActivePassword={handleActivePassword}
             />
         </Dialog>
@@ -61,7 +57,7 @@ EditModal.propTypes = {
     informationData: object,
     isDisabled: bool,
     formErrors: array,
-    activeChangePassword: bool,
+    isChangingPassword: bool,
     isOpen: bool,
     handleActivePassword: func,
     handleSubmit: func,

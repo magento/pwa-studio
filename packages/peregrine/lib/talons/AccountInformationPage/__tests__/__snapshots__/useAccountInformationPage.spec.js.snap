@@ -2,13 +2,12 @@
 
 exports[`return correct shape for initial customer data 1`] = `
 Object {
-  "activeChangePassword": false,
   "formErrors": Array [
     undefined,
     undefined,
   ],
-  "handleActivePassword": [Function],
   "handleCancelUpdate": [Function],
+  "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
@@ -18,6 +17,7 @@ Object {
       "lastname": "Kon",
     },
   },
+  "isChangingPassword": false,
   "isDisabled": false,
   "isSignedIn": true,
   "isUpdateMode": false,
@@ -28,13 +28,12 @@ Object {
 
 exports[`return correct shape for new value and fire create mutation update customer information 1`] = `
 Object {
-  "activeChangePassword": false,
   "formErrors": Array [
     undefined,
     undefined,
   ],
-  "handleActivePassword": [Function],
   "handleCancelUpdate": [Function],
+  "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
@@ -44,6 +43,7 @@ Object {
       "lastname": "Reus",
     },
   },
+  "isChangingPassword": false,
   "isDisabled": false,
   "isSignedIn": true,
   "isUpdateMode": false,
@@ -64,15 +64,15 @@ Object {
 
 exports[`return correct shape while data is loading 1`] = `
 Object {
-  "activeChangePassword": false,
   "formErrors": Array [
     undefined,
     undefined,
   ],
-  "handleActivePassword": [Function],
   "handleCancelUpdate": [Function],
+  "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": undefined,
+  "isChangingPassword": false,
   "isDisabled": false,
   "isSignedIn": true,
   "isUpdateMode": false,

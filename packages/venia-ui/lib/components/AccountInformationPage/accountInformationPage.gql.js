@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const SET_CUSTOMER_INFORMATION = gql`
     mutation SetCustomerInformation(
@@ -8,7 +8,7 @@ export const SET_CUSTOMER_INFORMATION = gql`
     ) {
         updateCustomer(
             input: { firstname: $firstname, lastname: $lastname, email: $email }
-        ) {
+        ) @connection(key: "updateCustomer") {
             customer {
                 id
                 firstname
@@ -27,7 +27,7 @@ export const CHANGE_CUSTOMER_PASSWORD = gql`
         changeCustomerPassword(
             currentPassword: $currentPassword
             newPassword: $newPassword
-        ) {
+        ) @connection(key: "changeCustomerPassword") {
             id
             email
         }
