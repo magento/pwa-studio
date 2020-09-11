@@ -35,11 +35,9 @@
 }
 
 .buyAgainButton {
-    composes: root_normalPriority from '../../Button/button.css';
-
     grid-row: 1 / span 2;
     grid-column: 5 / span 1;
-    min-width: 8rem;
+    text-decoration: underline;
 }
 
 .returnThisButton {
@@ -82,11 +80,9 @@
     }
 
     .buyAgainButton {
-        composes: root_normalPriority from '../../Button/button.css';
-
         grid-row: 5 / span 1;
         grid-column: 2 / span 1;
-        min-width: 8rem;
+        text-decoration: underline;
         width: fit-content;
     }
 
@@ -95,6 +91,5 @@
         grid-column: 2 / span 1;
         text-decoration: underline;
         width: fit-content;
-        padding-left: 1.5rem;
     }
 }

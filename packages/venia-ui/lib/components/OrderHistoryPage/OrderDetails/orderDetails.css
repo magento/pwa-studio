@@ -1,7 +1,6 @@
 .root {
     display: grid;
-    column-gap: 1rem;
-    row-gap: 1.5rem;
+    gap: 2rem;
 }
 
 .shippingInformationContainer {
@@ -59,7 +58,7 @@
     .root {
         display: grid;
         column-gap: 0rem;
-        row-gap: 1.5rem;
+        gap: 1.5rem;
     }
 
     .shippingInformationContainer {
