@@ -77,7 +77,7 @@ class TalonWrapperConfig {
              * useSignin {@link WrappableTalon} object for the `useSignin()` talon
              * @type {WrappableTalon}
              */
-            useSignin: new WrappableTalon(addTransforms, 'SignIn/useSignin')
+            useSignIn: new WrappableTalon(addTransforms, 'SignIn/useSignIn')
         };
     }
 }
