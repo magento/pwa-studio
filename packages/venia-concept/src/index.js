@@ -31,16 +31,8 @@ const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists.
     const storage = new BrowserPersistence();
     const token = storage.getItem('signin_token');
-
-    if (!storage.getItem('store_view')) {
-        storage.setItem('store_view', {
-            code: STORE_VIEW_CODE,
-            currency: STORE_VIEW_CURRENCY
-        });
-    }
-
-    const storeCode = storage.getItem('store_view').code;
-    const storeCurrency = storage.getItem('store_view').currency;
+    const storeCode = storage.getItem('store_view').code || STORE_VIEW_CODE;
+    const storeCurrency = storage.getItem('store_view').currency || STORE_VIEW_CURRENCY;
 
     // return the headers to the context so httpLink can read them
     return {
