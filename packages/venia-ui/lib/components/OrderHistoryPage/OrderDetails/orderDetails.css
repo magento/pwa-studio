@@ -35,8 +35,20 @@
 }
 
 .printButton {
-    grid-row: 4 / span 2;
-    grid-column: 3 / span 1;
+    grid-row: 4 / span 1;
+    grid-column: 3 / span 2;
+
+    align-items: center;
+    column-gap: 0.5rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+    width: fit-content;
+    margin: auto;
+}
+
+.printLabel {
+    text-decoration: underline;
 }
 
 /*

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Printer } from 'react-feather';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import BillingInformation from './billingInformation';
@@ -7,9 +8,11 @@ import Items from './items';
 import PaymentMethod from './paymentMethod';
 import ShippingInformation from './shippingInformation';
 import ShippingMethod from './shippingMethod';
+import OrderTotal from './orderTotal';
+import Icon from '../../Icon';
+import Button from '../../Button';
 
 import defaultClasses from './orderDetails.css';
-import OrderTotal from './orderTotal';
 
 const OrderDetails = props => {
     const { classes: propClasses, imagesData, orderData } = props;
@@ -49,7 +52,10 @@ const OrderDetails = props => {
             <div className={classes.orderTotalContainer}>
                 <OrderTotal data={total} />
             </div>
-            <div className={classes.printButton}>Print Button</div>
+            <Button className={classes.printButton} onClick={() => {}}>
+                <Icon src={Printer} />
+                <span className={classes.printLabel}>{'Print Receipt'}</span>
+            </Button>
         </div>
     );
 };
