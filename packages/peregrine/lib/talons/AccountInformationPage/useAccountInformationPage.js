@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, useEffect } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useUserContext } from '../../context/user';
 
@@ -14,7 +14,6 @@ export const useAccountInformationPage = props => {
     const [{ isSignedIn }] = useUserContext();
 
     const [isChangingPassword, setIsChangingPassword] = useState(false);
-    const [updatedData, setUpdatedData] = useState(false);
     const [isUpdateMode, setIsUpdateMode] = useState(false);
 
     const { data: accountInformationData, error: loadDataError } = useQuery(
@@ -54,7 +53,16 @@ export const useAccountInformationPage = props => {
         }
     }, [customerInformationUpdateData, accountInformationData]);
 
-    const handleChangePassword = useCallback(() => {
+    const cancelUpdateMode = useCallback(() => {
+        setIsUpdateMode(false);
+        setIsChangingPassword(false);
+    }, [setIsUpdateMode]);
+
+    const showUpdateMode = useCallback(() => {
+        setIsUpdateMode(true);
+    }, [setIsUpdateMode]);
+
+    const showChangePassword = useCallback(() => {
         setIsChangingPassword(true);
     }, [setIsChangingPassword]);
 
@@ -73,7 +81,8 @@ export const useAccountInformationPage = props => {
                         }
                     });
                 }
-                setUpdatedData(true);
+                // After submission, close the form if there were no errors.
+                cancelUpdateMode(false);
             } catch {
                 // we have an onError link that logs errors, and FormError
                 // already renders this error, so just return to avoid
@@ -81,49 +90,28 @@ export const useAccountInformationPage = props => {
                 return;
             }
         },
-        [setCustomerInformation, changeCustomerPassword, isChangingPassword]
+        [
+            setCustomerInformation,
+            isChangingPassword,
+            cancelUpdateMode,
+            changeCustomerPassword
+        ]
     );
 
-    const handleCancelUpdate = useCallback(() => {
-        setIsUpdateMode(false);
-        setIsChangingPassword(false);
-    }, [setIsUpdateMode, setIsChangingPassword]);
-
-    const showUpdateMode = useCallback(() => {
-        setIsUpdateMode(true);
-    }, [setIsUpdateMode]);
-
-    useEffect(() => {
-        if (
-            updatedData &&
-            (!customerInformationUpdateError ||
-                (isChangingPassword && !customerPasswordChangeError))
-        ) {
-            handleCancelUpdate();
-            setUpdatedData(false);
-        }
-    }, [
-        updatedData,
-        customerInformationUpdateError,
-        customerPasswordChangeError,
-        isChangingPassword,
-        handleCancelUpdate
-    ]);
-
     return {
-        initialValues,
-        loadDataError,
-        isSignedIn,
-        handleSubmit,
-        isChangingPassword,
-        handleChangePassword,
-        isDisabled: isUpdatingCustomerInformation || isChangingCustomerPassword,
+        cancelUpdateMode,
         formErrors: [
             customerInformationUpdateError,
             customerPasswordChangeError
         ],
+        handleSubmit,
+        initialValues,
+        isChangingPassword,
+        isDisabled: isUpdatingCustomerInformation || isChangingCustomerPassword,
         isUpdateMode,
-        handleCancelUpdate,
-        showUpdateMode
+        isSignedIn,
+        loadDataError,
+        showUpdateMode,
+        showChangePassword
     };
 };

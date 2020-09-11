@@ -19,16 +19,16 @@ const AccountInformationPage = props => {
     });
 
     const {
-        loadDataError,
+        cancelUpdateMode,
         formErrors,
         handleSubmit,
         initialValues,
+        isChangingPassword,
         isDisabled,
         isSignedIn,
-        isChangingPassword,
-        handleChangePassword,
         isUpdateMode,
-        handleCancelUpdate,
+        loadDataError,
+        showChangePassword,
         showUpdateMode
     } = talonProps;
 
@@ -80,14 +80,14 @@ const AccountInformationPage = props => {
                     </div>
                 </div>
                 <EditModal
+                    formErrors={formErrors}
+                    handleCancel={cancelUpdateMode}
+                    handleSubmit={handleSubmit}
                     initialValues={customer}
                     isChangingPassword={isChangingPassword}
-                    handleActivePassword={handleChangePassword}
-                    handleSubmit={handleSubmit}
                     isDisabled={isDisabled}
-                    formErrors={formErrors}
                     isOpen={isUpdateMode}
-                    handleCancel={handleCancelUpdate}
+                    showChangePassword={showChangePassword}
                 />
             </Fragment>
         );

@@ -72,8 +72,8 @@ exports[`it disables the submit button while loading 1`] = `
             className="contents"
           >
             <EditForm
-              handleActivePassword={[MockFunction handleActivePassword]}
               isChangingPassword={false}
+              showChangePassword={[MockFunction showChangePassword]}
             />
           </div>
           <div
@@ -182,8 +182,8 @@ exports[`it renders correctly 1`] = `
             className="contents"
           >
             <EditForm
-              handleActivePassword={[MockFunction handleActivePassword]}
               isChangingPassword={false}
+              showChangePassword={[MockFunction showChangePassword]}
             />
           </div>
           <div

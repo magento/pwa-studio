@@ -11,11 +11,12 @@ jest.mock(
 jest.mock('../../../classify');
 
 const handleSubmit = jest.fn().mockName('handleSubmit');
-const handleEditInformation = jest.fn().mockName('handleEditInformation');
-const handleChangePassword = jest.fn().mockName('handleChangePassword');
+const cancelUpdateMode = jest.fn().mockName('cancelUpdateMode');
+const showUpdateMode = jest.fn().mockName('showUpdateMode');
+const showChangePassword = jest.fn().mockName('showChangePassword');
 
 const emptyFormProps = {
-    loadDataError: null,
+    cancelUpdateMode,
     formErrors: [],
     handleSubmit,
     initialValues: {
@@ -25,11 +26,13 @@ const emptyFormProps = {
             email: 'foobar@express.net'
         }
     },
+    isChangingPassword: false,
     isDisabled: false,
     isSignedIn: true,
-    handleEditInformation,
-    isChangingPassword: false,
-    handleChangePassword
+    isUpdateMode: false,
+    loadDataError: null,
+    showChangePassword,
+    showUpdateMode
 };
 
 jest.mock('../../Head', () => ({ Title: () => 'Account Information' }));

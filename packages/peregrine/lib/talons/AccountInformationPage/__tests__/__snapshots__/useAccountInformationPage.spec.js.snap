@@ -2,12 +2,11 @@
 
 exports[`return correct shape for initial customer data 1`] = `
 Object {
+  "cancelUpdateMode": [Function],
   "formErrors": Array [
     undefined,
     undefined,
   ],
-  "handleCancelUpdate": [Function],
-  "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
@@ -22,18 +21,18 @@ Object {
   "isSignedIn": true,
   "isUpdateMode": false,
   "loadDataError": null,
+  "showChangePassword": [Function],
   "showUpdateMode": [Function],
 }
 `;
 
 exports[`return correct shape for new value and fire create mutation update customer information 1`] = `
 Object {
+  "cancelUpdateMode": [Function],
   "formErrors": Array [
     undefined,
     undefined,
   ],
-  "handleCancelUpdate": [Function],
-  "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
@@ -48,6 +47,7 @@ Object {
   "isSignedIn": true,
   "isUpdateMode": false,
   "loadDataError": null,
+  "showChangePassword": [Function],
   "showUpdateMode": [Function],
 }
 `;
@@ -64,12 +64,11 @@ Object {
 
 exports[`return correct shape while data is loading 1`] = `
 Object {
+  "cancelUpdateMode": [Function],
   "formErrors": Array [
     undefined,
     undefined,
   ],
-  "handleCancelUpdate": [Function],
-  "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": undefined,
   "isChangingPassword": false,
@@ -77,6 +76,7 @@ Object {
   "isSignedIn": true,
   "isUpdateMode": false,
   "loadDataError": undefined,
+  "showChangePassword": [Function],
   "showUpdateMode": [Function],
 }
 `;

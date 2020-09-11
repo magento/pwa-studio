@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, shape, string, bool, array, func } from 'prop-types';
+import { shape, string, bool, array, func, object } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import EditForm from './editForm';
@@ -10,14 +10,14 @@ import defaultClasses from './editModal.css';
 const EditModal = props => {
     const {
         classes: propClasses,
-        initialValues,
-        isDisabled,
         formErrors,
-        isChangingPassword,
-        handleActivePassword,
+        handleCancel,
         handleSubmit,
+        initialValues,
+        isChangingPassword,
+        isDisabled,
         isOpen,
-        handleCancel
+        showChangePassword
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -26,6 +26,7 @@ const EditModal = props => {
 
     return (
         <Dialog
+            classes={{ body: classes.bodyEditAccountInformation }}
             confirmText={'Save'}
             formProps={dialogFormProps}
             isOpen={isOpen}
@@ -34,15 +35,14 @@ const EditModal = props => {
             shouldDisableAllButtons={isDisabled}
             shouldDisableConfirmButton={isDisabled}
             title={'Edit Account Information'}
-            classes={{ body: classes.bodyEditAccountInformation }}
         >
             <FormError
-                errors={formErrors}
                 classes={{ root: classes.errorContainer }}
+                errors={formErrors}
             />
             <EditForm
                 isChangingPassword={isChangingPassword}
-                handleActivePassword={handleActivePassword}
+                showChangePassword={showChangePassword}
             />
         </Dialog>
     );
@@ -54,12 +54,12 @@ EditModal.propTypes = {
     classes: shape({
         errorContainer: string
     }),
-    informationData: object,
-    isDisabled: bool,
     formErrors: array,
-    isChangingPassword: bool,
-    isOpen: bool,
-    handleActivePassword: func,
+    handleCancel: func,
     handleSubmit: func,
-    handleCancel: func
+    initialValues: object,
+    isChangingPassword: bool,
+    isDisabled: bool,
+    isOpen: bool,
+    onChangePassword: func
 };

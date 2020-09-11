@@ -18,8 +18,8 @@ import defaultClasses from './editForm.css';
 const EditForm = props => {
     const {
         classes: propClasses,
-        handleActivePassword,
-        isChangingPassword
+        isChangingPassword,
+        showChangePassword
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -35,7 +35,7 @@ const EditForm = props => {
                 <LinkButton
                     classes={classes.changePasswordButton}
                     type="button"
-                    onClick={handleActivePassword}
+                    onClick={showChangePassword}
                 >
                     {'Change Password'}
                 </LinkButton>
@@ -106,6 +106,6 @@ EditForm.propTypes = {
         password: string,
         newPassword: string
     }),
-    handleActivePassword: func,
-    isChangingPassword: bool
+    isChangingPassword: bool,
+    showChangePassword: func
 };
