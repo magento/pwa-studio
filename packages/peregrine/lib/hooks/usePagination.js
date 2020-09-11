@@ -9,16 +9,17 @@ import { getSearchParam } from './useSearchParam';
  *
  * @private
  */
-const setQueryParam = ({ history, location, parameter, value }) => {
+const setQueryParam = ({ history, location, parameter, replace, value }) => {
     const { search } = location;
     const queryParams = new URLSearchParams(search);
-    queryParams.set(parameter, value);
 
-    if (history.push) {
-        history.push({ search: queryParams.toString() });
+    queryParams.set(parameter, value);
+    const destination = { search: queryParams.toString() };
+
+    if (replace) {
+        history.replace(destination);
     } else {
-        // Use the native pushState. See https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState()_method
-        history.pushState('', '', `?${queryParams.toString()}`);
+        history.push(destination);
     }
 };
 
@@ -55,12 +56,13 @@ export const usePagination = (props = {}) => {
 
     // use the location to hold state
     const setCurrentPage = useCallback(
-        page => {
+        (page, replace = false) => {
             // Update the query parameter.
             setQueryParam({
-                location,
                 history,
+                location,
                 parameter: searchParam,
+                replace,
                 value: page
             });
         },
@@ -70,7 +72,7 @@ export const usePagination = (props = {}) => {
     // ensure the location contains a page number
     useEffect(() => {
         if (!currentPage) {
-            setCurrentPage(initialPage);
+            setCurrentPage(initialPage, true);
         }
     }, [currentPage, initialPage, setCurrentPage]);
 

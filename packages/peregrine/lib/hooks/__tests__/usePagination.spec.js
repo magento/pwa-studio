@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { push } from 'react-router-dom';
+import { push, replace } from 'react-router-dom';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
@@ -8,11 +8,13 @@ import { getSearchParam } from '../useSearchParam';
 
 jest.mock('react-router-dom', () => {
     const push = jest.fn();
+    const replace = jest.fn();
 
     return {
-        useHistory: jest.fn(() => ({ push })),
+        useHistory: jest.fn(() => ({ push, replace })),
         useLocation: jest.fn(() => ({ search: '' })),
-        push
+        push,
+        replace
     };
 });
 jest.mock('../useSearchParam', () => ({
@@ -115,7 +117,7 @@ describe('Pagination State', () => {
                 initialPage: 2,
                 initialTotalPages: 3
             };
-            getSearchParam.mockReturnValueOnce('').mockReturnValueOnce("2");
+            getSearchParam.mockReturnValueOnce('').mockReturnValueOnce('2');
 
             // Act.
             const instance = createTestInstance(<Component {...localProps} />);
@@ -135,8 +137,9 @@ describe('Pagination State', () => {
             expect(stateA.currentPage).toBe(2);
             expect(stateB.currentPage).toBe(2);
 
-            expect(push).toHaveBeenCalledTimes(1);
-            expect(push).toHaveBeenNthCalledWith(1, {
+            expect(push).not.toHaveBeenCalled();
+            expect(replace).toHaveBeenCalledTimes(1);
+            expect(replace).toHaveBeenNthCalledWith(1, {
                 search: 'page=2'
             });
         });
