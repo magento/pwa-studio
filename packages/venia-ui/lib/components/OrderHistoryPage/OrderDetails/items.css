@@ -1,4 +1,13 @@
 .root {
     display: grid;
     row-gap: 1rem;
+    padding-right: 1.5rem;
+}
+
+@media (max-width: 960px) {
+    .root {
+        display: grid;
+        row-gap: 1rem;
+        padding-right: 0rem;
+    }
 }

@@ -1,7 +1,8 @@
 .root {
     display: grid;
-    grid-template-columns: repeat(4, 1fr) auto;
-    gap: 0.35rem;
+    grid-template-columns: repeat(3, auto) 1fr auto;
+    row-gap: 0.35rem;
+    column-gap: 1.5rem;
 }
 
 .thumbnailContainer {
@@ -37,7 +38,7 @@
 
     grid-row: 1 / span 2;
     grid-column: 5 / span 1;
-    width: 10rem;
+    min-width: 8rem;
 }
 
 .returnThisButton {
