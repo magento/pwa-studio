@@ -15,17 +15,26 @@ export const useHeader = () => {
 
     const location = useLocation();
 
+    const isOnSearchPage = location.pathname === '/search.html';
+
+    // Don't show the header search input on the search page,
+    // it has its own.
+    useEffect(() => {
+        if (isOnSearchPage) {
+            setIsSearchOpen(false);
+        }
+    }, [isOnSearchPage, setIsSearchOpen]);
+
     const handleSearchTriggerClick = useCallback(() => {
+        if (isOnSearchPage) {
+            // The search page has its own input,
+            // purposefully do not show the one from the header.
+            return;
+        }
+
         // Toggle the Search input form.
         setIsSearchOpen(isOpen => !isOpen);
-    }, [setIsSearchOpen]);
-
-    // If we're on the search page, ensure the search textbox is open to begin with.
-    useEffect(() => {
-        if (location.pathname === '/search.html') {
-            setIsSearchOpen(true);
-        }
-    }, [location.pathname, setIsSearchOpen]);
+    }, [isOnSearchPage, setIsSearchOpen]);
 
     return {
         handleSearchTriggerClick,
