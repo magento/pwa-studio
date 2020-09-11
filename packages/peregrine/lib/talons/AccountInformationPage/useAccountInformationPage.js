@@ -12,8 +12,8 @@ export const useAccountInformationPage = props => {
     } = props;
 
     const [{ isSignedIn }] = useUserContext();
+    const [shouldShowNewPassword, setShouldShowNewPassword] = useState(false);
 
-    const [isChangingPassword, setIsChangingPassword] = useState(false);
     const [isUpdateMode, setIsUpdateMode] = useState(false);
 
     const { data: accountInformationData, error: loadDataError } = useQuery(
@@ -53,18 +53,18 @@ export const useAccountInformationPage = props => {
         }
     }, [customerInformationUpdateData, accountInformationData]);
 
+    const handleChangePassword = useCallback(() => {
+        setShouldShowNewPassword(true);
+    }, [setShouldShowNewPassword]);
+
     const cancelUpdateMode = useCallback(() => {
         setIsUpdateMode(false);
-        setIsChangingPassword(false);
+        setShouldShowNewPassword(false);
     }, [setIsUpdateMode]);
 
     const showUpdateMode = useCallback(() => {
         setIsUpdateMode(true);
     }, [setIsUpdateMode]);
-
-    const showChangePassword = useCallback(() => {
-        setIsChangingPassword(true);
-    }, [setIsChangingPassword]);
 
     const handleSubmit = useCallback(
         async formValues => {
@@ -73,7 +73,7 @@ export const useAccountInformationPage = props => {
                     variables: formValues
                 });
 
-                if (isChangingPassword) {
+                if (formValues.password && formValues.newPassword) {
                     await changeCustomerPassword({
                         variables: {
                             currentPassword: formValues.password,
@@ -90,12 +90,7 @@ export const useAccountInformationPage = props => {
                 return;
             }
         },
-        [
-            setCustomerInformation,
-            isChangingPassword,
-            cancelUpdateMode,
-            changeCustomerPassword
-        ]
+        [setCustomerInformation, cancelUpdateMode, changeCustomerPassword]
     );
 
     return {
@@ -105,13 +100,13 @@ export const useAccountInformationPage = props => {
             customerPasswordChangeError
         ],
         handleSubmit,
+        handleChangePassword,
         initialValues,
-        isChangingPassword,
         isDisabled: isUpdatingCustomerInformation || isChangingCustomerPassword,
         isUpdateMode,
         isSignedIn,
         loadDataError,
-        showUpdateMode,
-        showChangePassword
+        shouldShowNewPassword,
+        showUpdateMode
     };
 };

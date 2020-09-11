@@ -5,9 +5,15 @@ export const SET_CUSTOMER_INFORMATION = gql`
         $firstname: String!
         $lastname: String!
         $email: String!
+        $password: String!
     ) {
         updateCustomer(
-            input: { firstname: $firstname, lastname: $lastname, email: $email }
+            input: {
+                firstname: $firstname
+                lastname: $lastname
+                email: $email
+                password: $password
+            }
         ) @connection(key: "updateCustomer") {
             customer {
                 id

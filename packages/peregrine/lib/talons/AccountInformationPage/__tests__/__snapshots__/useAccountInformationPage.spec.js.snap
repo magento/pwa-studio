@@ -7,6 +7,7 @@ Object {
     undefined,
     undefined,
   ],
+  "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
@@ -16,12 +17,11 @@ Object {
       "lastname": "Bar",
     },
   },
-  "isChangingPassword": false,
   "isDisabled": false,
   "isSignedIn": true,
   "isUpdateMode": false,
   "loadDataError": null,
-  "showChangePassword": [Function],
+  "shouldShowNewPassword": false,
   "showUpdateMode": [Function],
 }
 `;
@@ -33,6 +33,7 @@ Object {
     undefined,
     undefined,
   ],
+  "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
@@ -42,12 +43,11 @@ Object {
       "lastname": "Foo",
     },
   },
-  "isChangingPassword": false,
   "isDisabled": false,
   "isSignedIn": true,
   "isUpdateMode": false,
   "loadDataError": null,
-  "showChangePassword": [Function],
+  "shouldShowNewPassword": false,
   "showUpdateMode": [Function],
 }
 `;
@@ -69,14 +69,14 @@ Object {
     undefined,
     undefined,
   ],
+  "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": undefined,
-  "isChangingPassword": false,
   "isDisabled": false,
   "isSignedIn": true,
   "isUpdateMode": false,
   "loadDataError": undefined,
-  "showChangePassword": [Function],
+  "shouldShowNewPassword": false,
   "showUpdateMode": [Function],
 }
 `;

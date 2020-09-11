@@ -23,6 +23,10 @@
     padding: 1rem;
 }
 
+.changePasswordButtonContainer {
+    padding-top: 1rem;
+}
+
 @media (max-width: 960px) {
     .firstname,
     .lastname,
