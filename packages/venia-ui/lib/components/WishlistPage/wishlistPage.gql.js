@@ -21,31 +21,32 @@ export const GET_CUSTOMER_WISHLIST = gql`
         }
     }
 `;
-
-export const WishlistTypeDefs = gql`
-    extend type Customer {
-        wishlists: [Wishlist!]!
-    }
-`;
 /* eslint-enable graphql/template-strings */
 
-export const WishlistResolvers = {
+const MOCK_WISHLISTS = [
+    {
+        id: 123,
+        items_count: 0,
+        name: 'Favorites',
+        sharing_code: null
+    }
+];
+
+export const CUSTOM_TYPES = {
     Customer: {
-        wishlists: () => [
-            {
-                __typename: 'Wishlist',
-                id: 123,
-                items_count: 0,
-                name: 'Favorites',
-                sharing_code: null
+        fields: {
+            wishlists: {
+                read(cached) {
+                    return cached || MOCK_WISHLISTS;
+                }
             }
-        ]
+        }
     }
 };
 
 export default {
-    mutations: {},
     queries: {
         getCustomerWishlistQuery: GET_CUSTOMER_WISHLIST
-    }
+    },
+    types: CUSTOM_TYPES
 };

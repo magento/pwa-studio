@@ -36,6 +36,7 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
+            store: STORE_VIEW_CODE,
             authorization: token ? `Bearer ${token}` : ''
         }
     };
