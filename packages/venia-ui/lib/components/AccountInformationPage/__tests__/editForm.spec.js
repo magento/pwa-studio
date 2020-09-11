@@ -17,9 +17,9 @@ const mockProps = {
     isChangingPassword: false,
     isDisabled: false,
     informationData: {
-        firstname: 'Gooseton',
-        lastname: 'Jr',
-        email: 'gooston@goosemail.com'
+        firtname: 'Foo',
+        lastname: 'Bar',
+        email: 'foobar@express.net'
     }
 };
 
@@ -39,9 +39,9 @@ test('renders form error', () => {
 
 describe('renders prefilled form with data', () => {
     const informationData = {
-        email: 'fry@planet.express',
-        firstname: 'Philip',
-        lastname: 'Fry'
+        email: 'barfoo@express.net',
+        firstname: 'Bar',
+        lastname: 'Foo'
     };
 
     test('with enabled change password form', () => {

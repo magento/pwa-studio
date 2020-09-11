@@ -20,9 +20,9 @@ const emptyFormProps = {
     handleSubmit,
     initialValues: {
         customer: {
-            firstname: 'Gooseton',
-            lastname: 'Jr',
-            email: 'gooston@goosemail.com'
+            firtname: 'Foo',
+            lastname: 'Bar',
+            email: 'foobar@express.net'
         }
     },
     isDisabled: false,

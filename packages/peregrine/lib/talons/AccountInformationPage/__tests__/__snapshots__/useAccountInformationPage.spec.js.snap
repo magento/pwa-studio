@@ -11,10 +11,10 @@ Object {
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
-      "email": "huykon@gmail.com",
-      "firtname": "Huy",
+      "email": "foobar@express.net",
+      "firtname": "Foo",
       "id": null,
-      "lastname": "Kon",
+      "lastname": "Bar",
     },
   },
   "isChangingPassword": false,
@@ -37,10 +37,10 @@ Object {
   "handleSubmit": [Function],
   "initialValues": Object {
     "customer": Object {
-      "email": "huykon@gmail.com",
-      "firtname": "Marco",
+      "email": "barfoo@express.net",
+      "firtname": "Bar",
       "id": 7,
-      "lastname": "Reus",
+      "lastname": "Foo",
     },
   },
   "isChangingPassword": false,
@@ -55,9 +55,9 @@ Object {
 exports[`return correct shape for new value and fire create mutation update customer information 2`] = `
 Object {
   "variables": Object {
-    "email": "huykon@gmail.com",
-    "firtname": "Marco",
-    "lastname": "Reus",
+    "email": "foobar@express.net",
+    "firtname": "Foo",
+    "lastname": "Bar",
   },
 }
 `;

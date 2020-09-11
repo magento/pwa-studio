@@ -42,9 +42,9 @@ jest.mock('@apollo/client', () => ({
         data: {
             customer: {
                 id: null,
-                firtname: 'Huy',
-                lastname: 'Kon',
-                email: 'huykon@gmail.com'
+                firtname: 'Foo',
+                lastname: 'Bar',
+                email: 'foobar@express.net'
             }
         },
         error: null,
@@ -92,9 +92,9 @@ test('return correct shape for new value and fire create mutation update custome
         data: {
             customer: {
                 id: 7,
-                firtname: 'Marco',
-                lastname: 'Reus',
-                email: 'huykon@gmail.com'
+                firtname: 'Bar',
+                lastname: 'Foo',
+                email: 'barfoo@express.net'
             }
         },
         error: null,
@@ -110,39 +110,11 @@ test('return correct shape for new value and fire create mutation update custome
     const { handleSubmit } = talonProps;
 
     await handleSubmit({
-        firtname: 'Marco',
-        lastname: 'Reus',
-        email: 'huykon@gmail.com'
+        firtname: 'Foo',
+        lastname: 'Bar',
+        email: 'foobar@express.net'
     });
 
     expect(mockSetCustomerInformation).toHaveBeenCalled();
     expect(mockSetCustomerInformation.mock.calls[0][0]).toMatchSnapshot();
 });
-
-/* test('return correct shape for new value and fire create mutation update customer password', async () => {
-    useQuery.mockReturnValueOnce({
-        data: {
-            id: 7,
-            email: 'huykon@gmail.com'
-        },
-        error: null,
-        loading: true
-    });
-    useState.mockReturnValueOnce([true, jest.fn()]);
-
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-
-    expect(talonProps).toMatchSnapshot();
-
-    const { handleSubmit } = talonProps;
-
-    await handleSubmit({
-        currentPassword: 'Alibaba123@',
-        newPassword: 'Aladanz@123'
-    });
-
-    expect(mockChangeCustomerPassword).toHaveBeenCalled();
-    expect(mockChangeCustomerPassword.mock.calls[0][0]).toMatchSnapshot();
-}); */
