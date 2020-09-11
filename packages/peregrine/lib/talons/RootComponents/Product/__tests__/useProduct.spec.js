@@ -96,12 +96,12 @@ test('product is null when items array is empty', () => {
     expect(product).toBeNull();
 });
 
-test('product is null when items array contains unsupported product types only', () => {
+test('product is null when items array doesnt contain requested urlKey', () => {
     // Arrange.
     useQuery.mockReturnValueOnce({
         data: {
             products: {
-                items: [{ name: 'INVALID', __typename: 'GroupedProduct' }]
+                items: [{ name: 'INVALID', url_key: 'INVALID' }]
             }
         },
         error: null,
@@ -117,15 +117,14 @@ test('product is null when items array contains unsupported product types only',
     expect(product).toBeNull();
 });
 
-test('product is the first supported product type', () => {
+test('product is correct when included in items array', () => {
     // Arrange.
     useQuery.mockReturnValueOnce({
         data: {
             products: {
                 items: [
-                    { name: 'INVALID', __typename: 'GroupedProduct' },
-                    { name: 'VALID', __typename: 'SimpleProduct' },
-                    { name: 'VALID', __typename: 'ConfigurableProduct' }
+                    { name: 'INVALID', url_key: 'INVALID' },
+                    { name: 'VALID', url_key: props.urlKey }
                 ]
             }
         },
@@ -139,5 +138,5 @@ test('product is the first supported product type', () => {
     // Assert.
     const talonProps = log.mock.calls[0][0];
     const { product } = talonProps;
-    expect(product).toEqual({ name: 'VALID', __typename: 'SimpleProduct' });
+    expect(product).toEqual({ name: 'VALID', url_key: props.urlKey });
 });

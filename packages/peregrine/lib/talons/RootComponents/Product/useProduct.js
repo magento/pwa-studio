@@ -1,11 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useMemo } from 'react';
 
-const VENIA_SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
-const isSupportedProductType = product => {
-    return VENIA_SUPPORTED_PRODUCT_TYPES.includes(product.__typename);
-};
-
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
  * controls the logic for the Product Root Component.
@@ -39,19 +34,20 @@ export const useProduct = props => {
             return null;
         }
 
-        const supportedProducts = data.products.items.filter(
-            isSupportedProductType
-        );
-        // If a product is out of stock _and_ the backend specifies not to
+        // Note: if a product is out of stock _and_ the backend specifies not to
         // display OOS items, the items array will be empty.
-        // Additionally, we may have an empty array after filtering out unsupported product types.
-        if (!supportedProducts.length) {
+
+        // Only return the product that we queried for.
+        const product = data.products.items.find(
+            item => item.url_key === urlKey
+        );
+
+        if (!product) {
             return null;
         }
 
-        // Pick the first supported product.
-        return mapProduct(supportedProducts[0]);
-    }, [data, mapProduct]);
+        return mapProduct(product);
+    }, [data, mapProduct, urlKey]);
 
     return {
         error,
