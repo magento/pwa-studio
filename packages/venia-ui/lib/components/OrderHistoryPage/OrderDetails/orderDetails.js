@@ -9,19 +9,17 @@ import ShippingInformation from './shippingInformation';
 import ShippingMethod from './shippingMethod';
 
 import defaultClasses from './orderDetails.css';
+import OrderTotal from './orderTotal';
 
 const OrderDetails = props => {
     const { classes: propClasses, imagesData, orderData } = props;
     const {
         billing_address,
         items,
-        order_date,
-        order_total,
         payment_methods,
         shipping_address,
         shipping_method,
         shipments,
-        status,
         total
     } = orderData;
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -33,21 +31,25 @@ const OrderDetails = props => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.shipping_information_container}>
+            <div className={classes.shippingInformationContainer}>
                 <ShippingInformation data={shipping_address} />
             </div>
-            <div className={classes.shipping_method_container}>
+            <div className={classes.shippingMethodContainer}>
                 <ShippingMethod data={shippingMethodData} />
             </div>
-            <div className={classes.billing_information_container}>
+            <div className={classes.billingInformationContainer}>
                 <BillingInformation data={billing_address} />
             </div>
-            <div className={classes.payment_method_container}>
+            <div className={classes.paymentMethodContainer}>
                 <PaymentMethod data={payment_methods} />
             </div>
-            <div className={classes.items_container}>
+            <div className={classes.itemsContainer}>
                 <Items data={{ imagesData, items }} />
             </div>
+            <div className={classes.orderTotalContainer}>
+                <OrderTotal data={total} />
+            </div>
+            <div className={classes.printButton}>Print Button</div>
         </div>
     );
 };

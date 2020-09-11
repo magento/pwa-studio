@@ -4,38 +4,38 @@
     row-gap: 1.5rem;
 }
 
-.shipping_information_container {
+.shippingInformationContainer {
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
 }
 
-.shipping_method_container {
+.shippingMethodContainer {
     grid-row: 1 / span 1;
     grid-column: 2 / span 1;
 }
 
-.billing_information_container {
+.billingInformationContainer {
     grid-row: 1 / span 1;
     grid-column: 3 / span 1;
 }
 
-.payment_method_container {
+.paymentMethodContainer {
     grid-row: 1 / span 1;
     grid-column: 4 / span 1;
 }
 
-.items_container {
-    grid-row: 2 / span 1;
+.itemsContainer {
+    grid-row: 2 / span 4;
     grid-column: 1 / span 2;
 }
 
-.order_total_container {
-    grid-row: 2 / span 1;
+.orderTotalContainer {
+    grid-row: 2 / span 2;
     grid-column: 3 / span 2;
 }
 
-.print_button {
-    grid-row: 3 / span 1;
+.printButton {
+    grid-row: 4 / span 2;
     grid-column: 3 / span 1;
 }
 
@@ -50,37 +50,37 @@
         row-gap: 1.5rem;
     }
 
-    .shipping_information_container {
+    .shippingInformationContainer {
         grid-row: 1 / span 1;
         grid-column: 1 / span 1;
     }
 
-    .shipping_method_container {
+    .shippingMethodContainer {
         grid-row: 2 / span 1;
         grid-column: 1 / span 1;
     }
 
-    .billing_information_container {
+    .billingInformationContainer {
         grid-row: 3 / span 1;
         grid-column: 1 / span 1;
     }
 
-    .payment_method_container {
+    .paymentMethodContainer {
         grid-row: 4 / span 1;
         grid-column: 1 / span 1;
     }
 
-    .items_container {
+    .itemsContainer {
         grid-row: 5 / span 1;
         grid-column: 1 / span 1;
     }
 
-    .order_total_container {
+    .orderTotalContainer {
         grid-row: 6 / span 1;
         grid-column: 1 / span 1;
     }
 
-    .print_button {
+    .printButton {
         grid-row: 7 / span 1;
         grid-column: 1 / span 1;
     }

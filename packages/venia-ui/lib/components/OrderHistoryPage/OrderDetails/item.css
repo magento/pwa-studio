@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: repeat(3, auto) 1fr auto;
     row-gap: 0.35rem;
-    column-gap: 1.5rem;
+    column-gap: 1rem;
 }
 
 .thumbnailContainer {
@@ -16,6 +16,7 @@
 .name {
     grid-row: 1 / span 1;
     grid-column: 2 / span 1;
+    font-weight: var(--venia-global-fontWeight-bold);
 }
 
 .options {
@@ -45,4 +46,55 @@
     grid-row: 3 / span 1;
     grid-column: 5 / span 1;
     text-decoration: underline;
+}
+
+@media (max-width: 960px) {
+    .root {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        row-gap: 0.5rem;
+        column-gap: 1rem;
+    }
+
+    .thumbnailContainer {
+        grid-row: 1 / span 6;
+        grid-column: 1 / span 1;
+    }
+
+    .name {
+        grid-row: 1 / span 1;
+        grid-column: 2 / span 1;
+    }
+
+    .options {
+        grid-row: 2 / span 1;
+        grid-column: 2 / span 1;
+    }
+
+    .quantity {
+        grid-row: 3 / span 1;
+        grid-column: 2 / span 1;
+    }
+
+    .price {
+        grid-row: 4 / span 1;
+        grid-column: 2 / span 1;
+    }
+
+    .buyAgainButton {
+        composes: root_normalPriority from '../../Button/button.css';
+
+        grid-row: 5 / span 1;
+        grid-column: 2 / span 1;
+        min-width: 8rem;
+        width: fit-content;
+    }
+
+    .returnThisButton {
+        grid-row: 6 / span 1;
+        grid-column: 2 / span 1;
+        text-decoration: underline;
+        width: fit-content;
+        padding-left: 1.5rem;
+    }
 }

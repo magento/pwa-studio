@@ -41,23 +41,6 @@ export const GET_CUSTOMER_ORDERS = gql`
                     }
                     number
                     order_date
-                    order_total {
-                        discounts {
-                            amount {
-                                currency
-                                value
-                            }
-                            label
-                        }
-                        grand_total
-                        subtotal
-                        taxes {
-                            amount
-                            rate
-                            title
-                        }
-                        total_shipping
-                    }
                     payment_methods {
                         name
                         type
@@ -89,7 +72,25 @@ export const GET_CUSTOMER_ORDERS = gql`
                     shipping_method
                     status
                     total {
+                        discounts {
+                            amount {
+                                currency
+                                value
+                            }
+                        }
                         grand_total {
+                            currency
+                            value
+                        }
+                        subtotal {
+                            currency
+                            value
+                        }
+                        total_shipping {
+                            currency
+                            value
+                        }
+                        total_tax {
                             currency
                             value
                         }
@@ -185,27 +186,6 @@ const MOCK_ORDERS = {
             ],
             number: '000000002',
             order_date: '2020-08-26 18:22:35',
-            order_total: {
-                discounts: [
-                    {
-                        amount: {
-                            currency: 'USD',
-                            value: 123
-                        },
-                        label: 'Discount'
-                    }
-                ],
-                grand_total: 12345,
-                subtotal: 12340,
-                taxes: [
-                    {
-                        amount: 123,
-                        rate: 5,
-                        title: 'Sales Tax'
-                    }
-                ],
-                total_shipping: 234
-            },
             payment_methods: [
                 {
                     name: 'Braintree',
@@ -240,9 +220,29 @@ const MOCK_ORDERS = {
             shipping_method: 'Free',
             status: 'Processing',
             total: {
+                discounts: [
+                    {
+                        amount: {
+                            currency: 'USD',
+                            value: 123
+                        }
+                    }
+                ],
                 grand_total: {
                     currency: 'USD',
-                    value: 1234.56
+                    value: 1434
+                },
+                subtotal: {
+                    currency: 'USD',
+                    value: 1234
+                },
+                total_tax: {
+                    currency: 'USD',
+                    value: 34
+                },
+                total_shipping: {
+                    currency: 'USD',
+                    value: 12
                 }
             }
         },
@@ -302,27 +302,6 @@ const MOCK_ORDERS = {
             ],
             number: '000000005',
             order_date: '2020-05-26 18:22:35',
-            order_total: {
-                discounts: [
-                    {
-                        amount: {
-                            currency: 'USD',
-                            value: 123
-                        },
-                        label: 'Discount'
-                    }
-                ],
-                grand_total: 12345,
-                subtotal: 12340,
-                taxes: [
-                    {
-                        amount: 123,
-                        rate: 5,
-                        title: 'Sales Tax'
-                    }
-                ],
-                total_shipping: 234
-            },
             payment_methods: [
                 {
                     name: 'Braintree',
@@ -357,9 +336,29 @@ const MOCK_ORDERS = {
             shipping_method: 'Free',
             status: 'Complete',
             total: {
+                discounts: [
+                    {
+                        amount: {
+                            currency: 'USD',
+                            value: 123
+                        }
+                    }
+                ],
                 grand_total: {
                     currency: 'USD',
-                    value: 200.0
+                    value: 1434
+                },
+                subtotal: {
+                    currency: 'USD',
+                    value: 1234
+                },
+                total_tax: {
+                    currency: 'USD',
+                    value: 34
+                },
+                total_shipping: {
+                    currency: 'USD',
+                    value: 12
                 }
             }
         }
