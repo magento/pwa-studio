@@ -34,17 +34,15 @@ class TalonWrapperConfig {
             useApp: new WrappableTalon(addTransforms, 'App/useApp')
         };
         /**
-         * Provides access to the talon used in Venia's Checkout UI component.
+         * Provides access to the talon used in Venia's CheckoutPage UI component.
          * @instance
          */
-        this.Checkout = {
+        this.CheckoutPage = {
             /**
-             * useOverview {@link WrappableTalon} object for the `useOverview()` talon
-             * useFlow {@link WrappableTalon} object for the `useFlow()` talon
+             * useCheckoutPage {@link WrappableTalon} object for the `useCheckoutPage()` talon
              * @type {WrappableTalon}
              */
-            useOverview: new WrappableTalon(addTransforms, 'Checkout/useOverview'),
-            useFlow: new WrappableTalon(addTransforms, 'Checkout/useFlow')
+            useCheckoutPage: new WrappableTalon(addTransforms, 'CheckoutPage/useCheckoutPage')
         };
         /**
          * Provides access to the talon used in Venia's MiniCart UI component.
