@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const ShippingInformationFragment = gql`
     fragment ShippingInformationFragment on Cart {

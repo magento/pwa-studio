@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 import { ProductListFragment } from './ProductList/productList.gql';
 import { CartPageFragment } from '../CartPage/cartPageFragments.gql';
@@ -20,7 +20,7 @@ export const MiniCartFragment = gql`
 
 export const MINI_CART_QUERY = gql`
     query MiniCartQuery($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...MiniCartFragment
         }

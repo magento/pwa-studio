@@ -17,14 +17,16 @@ import { GET_REGIONS_QUERY } from './region.gql';
 const Region = props => {
     const {
         classes: propClasses,
-        field,
+        fieldInput,
+        fieldSelect,
         label,
         optionValueKey,
         ...inputProps
     } = props;
 
     const talonProps = useRegion({
-        field,
+        fieldInput,
+        fieldSelect,
         optionValueKey,
         queries: { getRegionsQuery: GET_REGIONS_QUERY }
     });
@@ -34,19 +36,20 @@ const Region = props => {
     const regionProps = {
         classes,
         disabled: loading,
-        field,
         ...inputProps
     };
 
     const regionField =
         regions.length || loading ? (
-            <Select {...regionProps} items={regions} />
+            <Select {...regionProps} field={fieldSelect} items={regions} />
         ) : (
-            <TextInput {...regionProps} />
+            <TextInput {...regionProps} field={fieldInput} />
         );
 
+    const fieldId = regions.length ? fieldSelect : fieldInput;
+
     return (
-        <Field id={field} label={label} classes={{ root: classes.root }}>
+        <Field id={fieldId} label={label} classes={{ root: classes.root }}>
             {regionField}
         </Field>
     );
@@ -55,7 +58,8 @@ const Region = props => {
 export default Region;
 
 Region.defaultProps = {
-    field: 'region',
+    fieldInput: 'region',
+    fieldSelect: 'region',
     label: 'State',
     optionValueKey: 'code'
 };
@@ -64,7 +68,8 @@ Region.propTypes = {
     classes: shape({
         root: string
     }),
-    field: string,
+    fieldInput: string,
+    fieldSelect: string,
     label: string,
     optionValueKey: string,
     validate: func,

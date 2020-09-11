@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = () => ({
     mode: 'development',
@@ -68,9 +69,11 @@ module.exports = () => ({
                 collapseWhitespace: true,
                 removeComments: true
             }
-        })
+        }),
+        new ReactRefreshWebpackPlugin()
     ],
     devServer: {
-        historyApiFallback: true
+        historyApiFallback: true,
+        hot: true
     }
 });

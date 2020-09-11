@@ -10,7 +10,7 @@ The following example shows how a component looks after its logic has been extra
 
 ```js
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 const MyComponent = props => {
     const { loading, error, data } = useQuery(MY_QUERY);

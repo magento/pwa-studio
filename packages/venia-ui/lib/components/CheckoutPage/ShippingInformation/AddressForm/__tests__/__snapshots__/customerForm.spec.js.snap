@@ -326,6 +326,8 @@ Array [
       className="region"
     >
       <Region
+        fieldInput="region[region]"
+        fieldSelect="region[region_id]"
         optionValueKey="id"
         validate={[Function]}
       />
@@ -749,6 +751,8 @@ Array [
       className="region"
     >
       <Region
+        fieldInput="region[region]"
+        fieldSelect="region[region_id]"
         optionValueKey="id"
         validate={[Function]}
       />
@@ -926,9 +930,7 @@ Array [
   <FormError
     errors={
       Array [
-        Object {
-          "message": "Form Error",
-        },
+        [Error: Form Error],
       ]
     }
   />,
@@ -1230,6 +1232,8 @@ Array [
       className="region"
     >
       <Region
+        fieldInput="region[region]"
+        fieldSelect="region[region_id]"
         optionValueKey="id"
         validate={[Function]}
       />

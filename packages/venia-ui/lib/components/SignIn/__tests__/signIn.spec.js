@@ -7,9 +7,10 @@ import Button from '../../Button';
 import LoadingIndicator from '../../LoadingIndicator';
 import SignIn from '../signIn';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useApolloClient: jest.fn().mockImplementation(() => {}),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
@@ -20,6 +21,7 @@ jest.mock('@apollo/react-hooks', () => ({
 }));
 jest.mock('../../../classify');
 jest.mock('../../Button', () => () => <i />);
+jest.mock('../../FormError/formError', () => 'FormError');
 jest.mock('../../LoadingIndicator', () => () => <i />);
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {

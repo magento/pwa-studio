@@ -64,7 +64,6 @@ test('places a server call and returns results', async () => {
     expect(fetchUri).toBe(defs.theEndpoint);
 
     expect(JSON.parse(fetchOptions.body)).toMatchObject({
-        operationName: null,
         query: `{\n  foo {\n    bar\n  }\n}\n`,
         variables: {}
     });
@@ -93,7 +92,6 @@ test('recognizes deprecated "url" parameter', async () => {
     expect(fetchUri).toBe(defs.theUrl);
 
     expect(JSON.parse(fetchOptions.body)).toMatchObject({
-        operationName: null,
         query: `{\n  foo {\n    bar\n  }\n}\n`,
         variables: {}
     });

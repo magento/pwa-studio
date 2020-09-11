@@ -26,7 +26,7 @@ const CustomerForm = props => {
         shippingData
     });
     const {
-        formErrors,
+        errors,
         handleCancel,
         handleSubmit,
         hasDefaultShipping,
@@ -99,7 +99,7 @@ const CustomerForm = props => {
 
     return (
         <Fragment>
-            <FormError errors={formErrors} />
+            <FormError errors={Array.from(errors.values())} />
             <Form
                 className={classes.root}
                 initialValues={initialValues}
@@ -148,7 +148,12 @@ const CustomerForm = props => {
                     </Field>
                 </div>
                 <div className={classes.region}>
-                    <Region validate={isRequired} optionValueKey="id" />
+                    <Region
+                        validate={isRequired}
+                        fieldInput={'region[region]'}
+                        fieldSelect={'region[region_id]'}
+                        optionValueKey="id"
+                    />
                 </div>
                 <div className={classes.postcode}>
                     <Field id="postcode" label="ZIP / Postal Code">

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
@@ -69,15 +69,8 @@ export const useSearchPage = props => {
     const {
         called: introspectionCalled,
         data: introspectionData,
-        error: introspectionError,
         loading: introspectionLoading
     } = useQuery(filterIntrospection);
-
-    useEffect(() => {
-        if (introspectionError) {
-            console.error(introspectionError);
-        }
-    }, [introspectionError]);
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
@@ -179,15 +172,9 @@ export const useSearchPage = props => {
     }, [currentSort, search, setCurrentPage]);
 
     // Fetch category filters for when a user is searching in a category.
-    const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(
+    const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersBySearch
     );
-
-    useEffect(() => {
-        if (filterError) {
-            console.error(filterError);
-        }
-    }, [filterError]);
 
     useEffect(() => {
         if (inputText) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../../../util/createTestInstance';
 import { useCustomerForm } from '../useCustomerForm';
@@ -7,7 +7,7 @@ import { useCustomerForm } from '../useCustomerForm';
 const mockCreateCustomerAddress = jest.fn();
 const mockUpdateCustomerAddress = jest.fn();
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useMutation: jest.fn().mockImplementation(mutation => {
         if (mutation === 'createCustomerAddressMutation')
             return [mockCreateCustomerAddress, { loading: false }];

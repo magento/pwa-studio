@@ -4,7 +4,8 @@ import { createTestInstance } from '@magento/peregrine';
 
 import CreateAccount from '../createAccount';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useApolloClient: jest.fn().mockImplementation(() => {}),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
@@ -65,4 +66,12 @@ test('attaches the submit handler', () => {
     const { onSubmit } = root.findByType(Form).props;
 
     expect(typeof onSubmit).toBe('function');
+});
+
+test('should not render cancel button if isCancelButtonHidden is true', () => {
+    const tree = createTestInstance(
+        <CreateAccount {...props} isCancelButtonHidden={true} />
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
 });

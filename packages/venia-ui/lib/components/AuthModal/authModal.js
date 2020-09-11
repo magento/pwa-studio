@@ -1,18 +1,21 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
+
 import CreateAccount from '../CreateAccount';
 import ForgotPassword from '../ForgotPassword';
 import MyAccount from '../MyAccount';
 import SignIn from '../SignIn';
-import defaultClasses from './authModal.css';
-import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
+import { mergeClasses } from '../../classify';
+
 import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
+
+import defaultClasses from './authModal.css';
 
 const AuthModal = props => {
     const {
-        handleClose,
+        handleCancel,
         handleCreateAccount,
         handleSignOut,
         setUsername,
@@ -31,7 +34,9 @@ const AuthModal = props => {
             child = (
                 <CreateAccount
                     initialValues={{ email: username }}
+                    isCancelButtonHidden={false}
                     onSubmit={handleCreateAccount}
+                    onCancel={handleCancel}
                 />
             );
             break;
@@ -40,18 +45,17 @@ const AuthModal = props => {
             child = (
                 <ForgotPassword
                     initialValues={{ email: username }}
-                    onClose={handleClose}
+                    onCancel={handleCancel}
                 />
             );
             break;
         }
         case 'MY_ACCOUNT': {
-            child = (
-                <MyAccount onSignOut={handleSignOut} onClose={handleClose} />
-            );
+            child = <MyAccount onSignOut={handleSignOut} />;
             break;
         }
-        case 'SIGN_IN': {
+        case 'SIGN_IN':
+        default: {
             child = (
                 <SignIn
                     setDefaultUsername={setUsername}
@@ -74,9 +78,11 @@ AuthModal.propTypes = {
     classes: shape({
         root: string
     }),
+    closeDrawer: func.isRequired,
     showCreateAccount: func.isRequired,
     showForgotPassword: func.isRequired,
-    showMainMenu: func.isRequired,
     showMyAccount: func.isRequired,
-    view: string.isRequired
+    showMainMenu: func.isRequired,
+    showSignIn: func.isRequired,
+    view: string
 };

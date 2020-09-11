@@ -86,4 +86,4 @@ Caching for Apollo is set up in the [`src/drivers/adapter.js`][] file.
 [cache first]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network
 [`inmemorycache`]: https://www.apollographql.com/docs/react/advanced/caching
 [`apollo-cache-persist`]: https://github.com/apollographql/apollo-cache-persist
-[`src/drivers/adapter.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js
+[`src/drivers/adapter.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-ui/lib/drivers/adapter.js

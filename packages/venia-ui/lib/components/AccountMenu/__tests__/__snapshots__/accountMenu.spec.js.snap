@@ -2,15 +2,17 @@
 
 exports[`it renders AccountMenuItems when the user is signed in 1`] = `
 <aside>
-  <AccountMenuItems
+  <div
     onSignOut={[MockFunction]}
-  />
+  >
+    AccountMenuItems
+  </div>
 </aside>
 `;
 
 exports[`it renders SignIn component when the view is SIGNIN 1`] = `
 <aside>
-  <SignIn Component
+  <div
     classes={
       Object {
         "modal_active": undefined,
@@ -19,23 +21,35 @@ exports[`it renders SignIn component when the view is SIGNIN 1`] = `
     setDefaultUsername={[MockFunction]}
     showCreateAccount={[MockFunction]}
     showForgotPassword={[MockFunction]}
-  />
+  >
+     
+    SignInComponent
+  </div>
 </aside>
 `;
 
-exports[`it renders forgot password component when the view is CREATE_ACCOUNT 1`] = `
+exports[`it renders create account component when the view is CREATE_ACCOUNT 1`] = `
 <aside>
   <div
+    classes={
+      Object {
+        "root": undefined,
+      }
+    }
     initialValues={
       Object {
         "email": "gooseton",
       }
     }
+    isCancelButtonHidden={false}
   >
-    To be handled in PWA-804
+     
+    CreateAccountComponent
   </div>
 </aside>
 `;
+
+exports[`it renders empty aside element when accountMenuIsOpen is false 1`] = `<aside />`;
 
 exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1`] = `
 <aside>
@@ -46,7 +60,8 @@ exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1
       }
     }
   >
-    To be handled in PWA-77
+     
+    ForgotPasswordComponent
   </div>
 </aside>
 `;
