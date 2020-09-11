@@ -1,24 +1,20 @@
 import React, { useEffect } from 'react';
+import { push } from 'react-router-dom';
+import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
+import { usePagination } from '../usePagination';
 import { getSearchParam } from '../useSearchParam';
 
-import { usePagination } from '../usePagination';
-import { act } from 'react-test-renderer';
-
-jest.mock('react', () => {
-    const React = jest.requireActual('react');
-    const spy = jest.spyOn(React, 'useState');
+jest.mock('react-router-dom', () => {
+    const push = jest.fn();
 
     return {
-        ...React,
-        useState: spy
+        useHistory: jest.fn(() => ({ push })),
+        useLocation: jest.fn(() => ({ search: '' })),
+        push
     };
 });
-jest.mock('react-router-dom', () => ({
-    useHistory: jest.fn(() => ({ push: jest.fn() })),
-    useLocation: jest.fn(() => ({ search: '' }))
-}));
 jest.mock('../useSearchParam', () => ({
     getSearchParam: jest.fn()
 }));
@@ -63,46 +59,86 @@ test('it returns the proper shape', () => {
 
 describe('Pagination State', () => {
     describe('Current Page', () => {
-        test('is set properly when included in props', () => {
-            // Arrange: set the initialPage prop.
-            const myProps = {
-                ...props,
-                initialPage: 7
-            };
-
-            // Act.
-            createTestInstance(<Component {...myProps} />);
-
-            // Assert.
-            const [state] = log.mock.calls[0][0];
-            expect(state.currentPage).toEqual(7);
-        });
-
-        test('it falls back to the search param if necessary', () => {
+        test('uses the default initial page if necessary', () => {
             // Arrange.
-            // Note that `props` does not contain an `initialPage` prop.
-            getSearchParam.mockReturnValueOnce(99);
-
-            // Act.
-            createTestInstance(<Component {...props} />);
-
-            // Assert.
-            const [state] = log.mock.calls[0][0];
-            expect(state.currentPage).toEqual(99);
-        });
-
-        test('it falls back to the default if necessary', () => {
-            // Arrange.
-            // Note that `props` does not contain an `initialPage` prop.
+            // Note that `localProps` does not contain an `initialPage` prop.
+            const localProps = { ...props, initialTotalPages: 2 };
             getSearchParam.mockReturnValueOnce('');
 
             // Act.
-            createTestInstance(<Component {...props} />);
+            createTestInstance(<Component {...localProps} />);
 
             // Assert.
             const [state] = log.mock.calls[0][0];
             // The defaultInitialPage in usePagination is 1.
             expect(state.currentPage).toEqual(1);
+        });
+
+        test('uses the initial page from props if necessary', () => {
+            // Arrange.
+            const localProps = {
+                ...props,
+                initialPage: 2,
+                initialTotalPages: 2
+            };
+            getSearchParam.mockReturnValueOnce('');
+
+            // Act.
+            createTestInstance(<Component {...localProps} />);
+
+            // Assert.
+            const [state] = log.mock.calls[0][0];
+            expect(state.currentPage).toEqual(2);
+        });
+
+        test('prefers the page value from location if available', () => {
+            // Arrange.
+            const localProps = {
+                ...props,
+                initialPage: 2,
+                initialTotalPages: 2
+            };
+            getSearchParam.mockReturnValueOnce('1');
+
+            // Act.
+            createTestInstance(<Component {...localProps} />);
+
+            // Assert.
+            const [state] = log.mock.calls[0][0];
+            expect(state.currentPage).toEqual(1);
+        });
+
+        test('writes the value to location if necessary', async () => {
+            // Arrange.
+            const localProps = {
+                ...props,
+                initialPage: 2,
+                initialTotalPages: 3
+            };
+            getSearchParam.mockReturnValueOnce('').mockReturnValueOnce("2");
+
+            // Act.
+            const instance = createTestInstance(<Component {...localProps} />);
+
+            // simulate the update that router hooks would trigger
+            // await it so the effect is done
+            await act(() => {
+                instance.update(<Component {...localProps} />);
+            });
+
+            // Assert.
+            const [stateA] = log.mock.calls[0][0];
+            const [stateB] = log.mock.calls[1][0];
+
+            // two renders, but at least they're both accurate
+            expect(log).toHaveBeenCalledTimes(2);
+            expect(stateA.currentPage).toBe(2);
+            expect(stateB.currentPage).toBe(2);
+
+            expect(push).toHaveBeenCalledTimes(1);
+            expect(push).toHaveBeenNthCalledWith(1, {
+                search: 'page=2'
+            });
         });
     });
 
@@ -136,56 +172,6 @@ describe('Pagination State', () => {
             const [state] = log.mock.calls[0][0];
             // Note: One (1) is the default value in usePagination.
             expect(state.totalPages).toEqual(1);
-        });
-
-        test('overwrites its internal state when props change', async () => {
-            const prevProps = { initialPage: 1, initialTotalPages: 2 };
-            const nextProps = { initialPage: 2, initialTotalPages: 2 };
-
-            // first, render the component (call the hook) with original props
-            const instance = createTestInstance(<Component {...prevProps} />);
-
-            // then, re-render it with new props
-            await act(() => {
-                instance.update(<Component {...nextProps} />);
-            });
-
-            // this assertion reveals a new issue
-            // the second hook call is stale, while it runs the effect
-            expect(log).toHaveBeenCalledTimes(3);
-
-            // first call is accurate
-            expect(log).toHaveBeenNthCalledWith(
-                1,
-                expect.arrayContaining([
-                    {
-                        currentPage: 1,
-                        totalPages: 2
-                    }
-                ])
-            );
-
-            // second call is inaccurate. this assertion should fail
-            expect(log).toHaveBeenNthCalledWith(
-                2,
-                expect.arrayContaining([
-                    {
-                        currentPage: 1,
-                        totalPages: 2
-                    }
-                ])
-            );
-
-            // third call is accurate. this should be the second call
-            expect(log).toHaveBeenNthCalledWith(
-                3,
-                expect.arrayContaining([
-                    {
-                        currentPage: 2,
-                        totalPages: 2
-                    }
-                ])
-            );
         });
     });
 });
