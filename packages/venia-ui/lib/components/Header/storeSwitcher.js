@@ -12,7 +12,7 @@ import Icon from '../Icon';
 const StoreSwitcher = props => {
     const { mobileView } = props;
     const talonProps = useStoreSwitcher({
-        query: GET_CONFIG_DATA
+        getStoreConfig: GET_CONFIG_DATA
     });
 
     const {

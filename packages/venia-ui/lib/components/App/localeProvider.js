@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { fromReactIntl, toReactIntl } from '../../util/formatLocale';
 import { IntlProvider } from 'react-intl';
-import { Util } from '@magento/peregrine';
-const { BrowserPersistence } = Util;
-const storage = new BrowserPersistence();
-
-const language = toReactIntl(
-    storage.getItem('store_view')
-        ? storage.getItem('store_view').locale
-        : STORE_VIEW_LOCALE
-);
-const locale = fromReactIntl(language);
+import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
+import { useQuery } from "@apollo/client";
+import { fullPageLoadingIndicator } from "../LoadingIndicator";
 
 const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
+    const {
+        data,
+        loading
+    } = useQuery(GET_CONFIG_DATA, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const language = (data && data.storeConfig.locale) ? toReactIntl(data.storeConfig.locale) : null;
 
     useEffect(() => {
-        import(`../../i18n/${locale}.json`)
-            .then(data => {
-                setMessages(data.default);
-            })
-            .catch(error => {
-                console.error(`Unable to load translation file. \n${error}`);
-            });
-    }, [setMessages]);
+        if (language) {
+            const locale = fromReactIntl(language);
+            import(`../../i18n/${locale}.json`)
+                .then(data => {
+                    setMessages(data.default);
+                })
+                .catch(error => {
+                    console.error(`Unable to load translation file. \n${error}`);
+                });
+        }
+    }, [setMessages, language]);
 
     const onIntlError = error => {
         if (messages) {
@@ -34,6 +39,8 @@ const LocaleProvider = props => {
             throw error;
         }
     };
+
+    if (loading) return fullPageLoadingIndicator;
 
     return (
         <IntlProvider

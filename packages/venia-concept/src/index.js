@@ -35,17 +35,19 @@ const authLink = setContext((_, { headers }) => {
     if (!storage.getItem('store_view')) {
         storage.setItem('store_view', {
             code: STORE_VIEW_CODE,
-            locale: STORE_VIEW_LOCALE
+            currency: STORE_VIEW_CURRENCY
         });
     }
 
     const storeCode = storage.getItem('store_view').code;
+    const storeCurrency = storage.getItem('store_view').currency;
 
     // return the headers to the context so httpLink can read them
     return {
         headers: {
             ...headers,
             store: storeCode,
+            currency: storeCurrency,
             authorization: token ? `Bearer ${token}` : ''
         }
     };

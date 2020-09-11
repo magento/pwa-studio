@@ -42,7 +42,11 @@ export const useCategoryContent = props => {
     }, [setLoadFilters, toggleDrawer]);
 
     const [getFilters, { data: filterData }] = useLazyQuery(
-        getProductFiltersByCategory
+        getProductFiltersByCategory,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
     );
 
     useEffect(() => {

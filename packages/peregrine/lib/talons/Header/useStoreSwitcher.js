@@ -8,7 +8,7 @@ import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 /**
  * The useStoreSwitcher talon complements the StoreSwitcher component.
  *
- * @param {*} props.query the store switcher data query
+ * @param {*} props.getStoreConfig the store switcher data getStoreConfig
  *
  * @returns {Object}    talonProps.availableStores - Details about the available store views.
  * @returns {Boolean}   talonProps.storeMenuIsOpen - Whether the menu that this trigger toggles is open or not.
@@ -19,7 +19,7 @@ import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
  */
 
 export const useStoreSwitcher = props => {
-    const { query } = props;
+    const { getStoreConfig } = props;
     const history = useHistory();
     const storage = new BrowserPersistence();
     const {
@@ -32,7 +32,10 @@ export const useStoreSwitcher = props => {
     const {
         data: availableStoresData,
         loading: getAvailableStoresDataLoading
-    } = useQuery(query);
+    } = useQuery(getStoreConfig, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
 
     const isLoading = getAvailableStoresDataLoading;
 
@@ -46,7 +49,7 @@ export const useStoreSwitcher = props => {
                         locale: store.locale,
                         is_current:
                             store.code === availableStoresData.storeConfig.code,
-                        currency: store['base_currency_code']
+                        currency: store['default_display_currency']
                     };
                     return storeViews;
                 },
@@ -60,11 +63,9 @@ export const useStoreSwitcher = props => {
     const handleSwitchStore = useCallback(
         // Refresh shopping cart
         async storeCode => {
-            const locale = availableStores[storeCode].locale;
 
             await storage.setItem('store_view', {
                 code: storeCode,
-                locale: locale,
                 currency: availableStores[storeCode].currency
             });
 

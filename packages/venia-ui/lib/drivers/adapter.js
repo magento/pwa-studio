@@ -6,7 +6,6 @@ import { ApolloClient } from '@apollo/client/core';
 import { InMemoryCache } from '@apollo/client/cache';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-const { BrowserPersistence } = Util;
 
 import resolvers from '../resolvers';
 import typePolicies from '../policies';
@@ -46,17 +45,12 @@ const VeniaAdapter = props => {
 
     const cache = apollo.cache || preInstantiatedCache;
     const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
-    const storage = new BrowserPersistence();
-    const storeCode =
-        typeof storage.getItem('store_view') === 'undefined'
-            ? STORE_VIEW_CODE
-            : storage.getItem('store_view').code;
 
     const persistor = new CachePersistor({
         cache,
         storage: window.localStorage,
         debug: process.env.NODE_ENV === 'development',
-        key: `apollo-cache-persist_${storeCode}`
+        key: `apollo-cache-persist`
     });
 
     let apolloClient;
