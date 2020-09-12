@@ -45,6 +45,10 @@ const EditForm = props => {
         </div>
     ) : null;
 
+    const passwordLabel = shouldShowNewPassword
+        ? 'Current Password'
+        : 'Password';
+
     return (
         <Fragment>
             <div className={classes.root}>
@@ -66,7 +70,7 @@ const EditForm = props => {
                 <div className={classes.password}>
                     <Password
                         fieldName="password"
-                        label="Current Password"
+                        label={passwordLabel}
                         validate={isRequired}
                         autoComplete="current-password"
                         isToggleButtonHidden={false}
