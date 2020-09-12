@@ -12,6 +12,7 @@ export const useAccountInformationPage = props => {
     } = props;
 
     const [{ isSignedIn }] = useUserContext();
+    const [shouldShowNewPassword, setShouldShowNewPassword] = useState(false);
 
     const [isUpdateMode, setIsUpdateMode] = useState(false);
 
@@ -52,8 +53,13 @@ export const useAccountInformationPage = props => {
         }
     }, [customerInformationUpdateData, accountInformationData]);
 
+    const handleChangePassword = useCallback(() => {
+        setShouldShowNewPassword(true);
+    }, [setShouldShowNewPassword]);
+
     const cancelUpdateMode = useCallback(() => {
         setIsUpdateMode(false);
+        setShouldShowNewPassword(false);
     }, [setIsUpdateMode]);
 
     const showUpdateMode = useCallback(() => {
@@ -94,11 +100,13 @@ export const useAccountInformationPage = props => {
             customerPasswordChangeError
         ],
         handleSubmit,
+        handleChangePassword,
         initialValues,
         isDisabled: isUpdatingCustomerInformation || isChangingCustomerPassword,
         isUpdateMode,
         isSignedIn,
         loadDataError,
+        shouldShowNewPassword,
         showUpdateMode
     };
 };

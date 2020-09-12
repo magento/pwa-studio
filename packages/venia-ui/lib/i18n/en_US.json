@@ -1,6 +1,7 @@
 {
     "About Us": "About Us",
     "Account": "Account",
+    "accountChip.greeting": "Hi, {name}",
     "An error occurred while fetching results.": "An error occurred while fetching results.",
     "Contact Us": "Contact Us",
     "Copyright © 2013-present Magento, Inc. All rights reserved.": "Copyright © 2013-present Magento, Inc. All rights reserved.",
@@ -9,7 +10,6 @@
     "Follow Us!": "Follow Us!",
     "Give Back": "Give Back",
     "Help": "Help",
-    "Hi, {name}": "Hi, {name}",
     "Live Chat": "Live Chat",
     "Lorem ipsum dolor sit amet, consectetur adipsicing elit, sed do eiusmod tempor incididunt ut labore et dolore.": "Lorem ipsum dolor sit amet, consectetur adipsicing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
     "No results were found.": "No results were found.",
