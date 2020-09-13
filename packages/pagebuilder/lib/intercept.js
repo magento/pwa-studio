@@ -1,12 +1,7 @@
 const myName = '@magento/pagebuilder';
 module.exports = targets => {
     const builtins = targets.of('@magento/pwa-buildpack');
-    builtins.specialFeatures.tap(featuresByModule => {
-        featuresByModule[myName] = {
-            esModules: true,
-            cssModules: true
-        };
-    });
+
     builtins.envVarDefinitions.tap(defs => {
         defs.sections.push({
             name: 'PageBuilder',

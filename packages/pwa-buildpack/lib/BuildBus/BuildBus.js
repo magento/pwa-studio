@@ -194,6 +194,20 @@ class BuildBus extends Trackable {
             }
             targetProvider.phase = phase;
             this.track('requireDep', { phase, dep });
+
+            if (this.targetProviders.has('@magento/pwa-buildpack')) {
+                let buildpackTarget = targetProvider.of('@magento/pwa-buildpack');
+
+                if (buildpackTarget.specialFeatures) {
+                    buildpackTarget.specialFeatures.tap(featuresByModule => {
+                        featuresByModule[dep.name] = {
+                            esModules: true,
+                            cssModules: true
+                        };
+                    });
+                }
+            }
+
             dep[phase](targetProvider);
             targetProvider.phase = null;
         });
