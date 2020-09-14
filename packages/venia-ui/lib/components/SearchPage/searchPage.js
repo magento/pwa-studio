@@ -14,7 +14,6 @@ import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectio
 import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
 import ProductSort from '../ProductSort';
 import Button from '../Button';
-import SearchBar from '../SearchBar';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -94,7 +93,6 @@ const SearchPage = props => {
 
     return (
         <article className={classes.root}>
-            <SearchBar isOpen={true} />
             <div className={classes.categoryTop}>
                 <div className={classes.totalPages}>
                     {`${totalCount} items`}

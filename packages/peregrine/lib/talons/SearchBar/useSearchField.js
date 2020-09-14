@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useFieldState, useFormApi } from 'informed';
 
-import { getSearchParam } from '../../hooks/useSearchParam';
+import { getSearchParam } from '@magento/peregrine/lib/hooks/useSearchParam';
 
 /**
  * Returns props necessary to render a SearchField component.
@@ -13,7 +12,6 @@ export const useSearchField = props => {
     const inputRef = useRef();
     const { value } = useFieldState('search_query');
     const formApi = useFormApi();
-    const location = useLocation();
 
     const resetForm = useCallback(() => {
         formApi.reset();
@@ -26,16 +24,19 @@ export const useSearchField = props => {
         }
     }, [isSearchOpen]);
 
-    // On the search page, seed the search input to the 'query' URL parameter.
-    // We never want to re-run this effect, even if deps change.
+    // Pre-populate the search field with the search term from the URL.
+    // We purposefully only ever run this effect on initial mount.
+    /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
-        const onSearchPage = location.pathname === '/search.html';
-        const urlValue = getSearchParam('query', location);
+        const urlTerm = getSearchParam('query', location);
 
-        if (onSearchPage && urlValue) {
-            formApi.setValue('search_query', urlValue);
+        if (!formApi || !urlTerm) {
+            return;
         }
-    }, [formApi, location]);
+
+        formApi.setValue('search_query', urlTerm);
+    }, []);
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     return {
         inputRef,
