@@ -90,9 +90,10 @@ test('returns empty array if no available regions', () => {
 
 test('resets value on country change', () => {
     const mockReset = jest.fn();
+    const mockExists = jest.fn(() => true);
 
     useFieldState.mockReturnValueOnce({ value: 'FR' });
-    useFieldApi.mockReturnValue({ reset: mockReset });
+    useFieldApi.mockReturnValue({ reset: mockReset, exists: mockExists });
 
     const tree = createTestInstance(<Component {...props} />);
 

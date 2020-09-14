@@ -15,6 +15,9 @@ jest.mock('@apollo/client', () => ({
 jest.mock('../../../context/user', () => ({
     useUserContext: jest.fn().mockReturnValue([{ isSignedIn: true }])
 }));
+jest.mock('../../../hooks/useTypePolicies', () => ({
+    useTypePolicies: jest.fn()
+}));
 
 const Component = props => {
     const talonProps = useWishlistPage(props);

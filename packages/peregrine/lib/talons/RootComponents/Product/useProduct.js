@@ -29,15 +29,25 @@ export const useProduct = props => {
     });
 
     const product = useMemo(() => {
-        // If a product is out of stock _and_ the backend specifies not to
-        // display OOS items, the items array will be empty.
-        if (data && data.products.items[0]) {
-            return mapProduct(data.products.items[0]);
+        if (!data) {
+            // The product isn't in the cache and we don't have a response from GraphQL yet.
+            return null;
         }
 
-        // The product isn't in the cache and we don't have a response from GraphQL yet.
-        return null;
-    }, [data, mapProduct]);
+        // Note: if a product is out of stock _and_ the backend specifies not to
+        // display OOS items, the items array will be empty.
+
+        // Only return the product that we queried for.
+        const product = data.products.items.find(
+            item => item.url_key === urlKey
+        );
+
+        if (!product) {
+            return null;
+        }
+
+        return mapProduct(product);
+    }, [data, mapProduct, urlKey]);
 
     return {
         error,

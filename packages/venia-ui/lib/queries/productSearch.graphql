@@ -19,6 +19,7 @@ query productSearch(
                 url
             }
             url_key
+            url_suffix
             price {
                 regularPrice {
                     amount {
