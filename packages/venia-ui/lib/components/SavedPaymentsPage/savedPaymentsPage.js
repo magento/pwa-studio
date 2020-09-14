@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { PlusSquare } from 'react-feather';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { useSavedPaymentsPage } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useSavedPaymentsPage';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -35,9 +35,11 @@ const SavedPaymentsPage = props => {
         );
     }, [savedPayments]);
 
-    const title = <FormattedMessage id="savedPaymentsPage.title" />;
-    const subHeading = <FormattedMessage id="savedPaymentsPage.subHeading" />;
-    const addText = <FormattedMessage id="savedPaymentsPage.addButtonText" />;
+    const { formatMessage } = useIntl();
+    const title = formatMessage({ id: 'savedPaymentsPage.title' });
+
+    const subHeading = formatMessage({ id: 'savedPaymentsPage.subHeading' });
+    const addText = formatMessage({ id: 'savedPaymentsPage.addButtonText' });
 
     return (
         <div className={classes.root}>
