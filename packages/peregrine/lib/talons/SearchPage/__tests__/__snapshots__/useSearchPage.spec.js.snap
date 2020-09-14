@@ -18,6 +18,7 @@ Object {
     "setPage": [MockFunction],
     "totalPages": 6,
   },
+  "searchTerm": "",
   "sortProps": Array [
     Object {
       "sortAttribute": "relevance",
