@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { PlusSquare } from 'react-feather';
+import { FormattedMessage } from 'react-intl';
 
 import { useSavedPaymentsPage } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useSavedPaymentsPage';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -11,17 +12,14 @@ import { Title } from '../Head';
 import { GET_SAVED_PAYMENTS_QUERY } from './savedPaymentsPage.gql';
 import defaultClasses from './savedPaymentsPage.css';
 
-const PAGE_TITLE = 'Saved Payments';
-const SUB_HEADING =
-    'Credit Cards saved here will be available during checkout.';
-
 const SavedPaymentsPage = props => {
     const talonProps = useSavedPaymentsPage({
         queries: {
             getSavedPaymentsQuery: GET_SAVED_PAYMENTS_QUERY
         }
     });
-    const { savedPayments, handleAddPayment } = talonProps;
+
+    const { handleAddPayment, savedPayments } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -37,12 +35,16 @@ const SavedPaymentsPage = props => {
         );
     }, [savedPayments]);
 
+    const title = <FormattedMessage id="savedPaymentsPage.title" />;
+    const subHeading = <FormattedMessage id="savedPaymentsPage.subHeading" />;
+    const addText = <FormattedMessage id="savedPaymentsPage.addButtonText" />;
+
     return (
         <div className={classes.root}>
             {/* STORE_NAME is injected by Webpack at build time. */}
-            <Title>{`${PAGE_TITLE} - ${STORE_NAME}`}</Title>
-            <h1 className={classes.heading}>{PAGE_TITLE}</h1>
-            <h3 className={classes.subHeading}>{SUB_HEADING}</h3>
+            <Title>{`${title} - ${STORE_NAME}`}</Title>
+            <h1 className={classes.heading}>{title}</h1>
+            <h3 className={classes.subHeading}>{subHeading}</h3>
             <div className={classes.content}>
                 <LinkButton
                     className={classes.addButton}
@@ -54,9 +56,7 @@ const SavedPaymentsPage = props => {
                         size={24}
                         src={PlusSquare}
                     />
-                    <span className={classes.addText}>
-                        {'Add a credit card'}
-                    </span>
+                    <span className={classes.addText}>{addText}</span>
                 </LinkButton>
                 {savedPaymentElements}
             </div>
