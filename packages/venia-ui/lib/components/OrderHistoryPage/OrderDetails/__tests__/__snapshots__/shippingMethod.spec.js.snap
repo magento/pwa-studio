@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    Shipping Method
+  </div>
+  <div />
+  <div>
+    Fedex Tracking: FEDEX5885541235452125
+  </div>
+</div>
+`;

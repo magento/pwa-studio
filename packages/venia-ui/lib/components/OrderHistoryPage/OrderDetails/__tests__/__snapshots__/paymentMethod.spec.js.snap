@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    Payment Method
+  </div>
+  <div>
+    Credit Card - Visa
+  </div>
+  <div>
+    1234
+  </div>
+</div>
+`;

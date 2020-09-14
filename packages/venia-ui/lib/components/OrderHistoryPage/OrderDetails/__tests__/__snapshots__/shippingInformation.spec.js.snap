@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    Shipping Information
+  </div>
+  <div>
+    <span>
+      Gooseton
+    </span>
+    <span>
+      Jr
+    </span>
+  </div>
+  <div>
+    Goose Dr
+  </div>
+  <div>
+    Austin, TX, 78759
+  </div>
+  <div>
+    US
+  </div>
+</div>
+`;

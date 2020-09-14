@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    Order Total
+  </div>
+  <div>
+    <span>
+      Subtotal
+    </span>
+    <span>
+      <div
+        componentName="Price Component"
+        currencyCode="USD"
+        value={1234}
+      />
+    </span>
+  </div>
+  <div>
+    <span>
+      Discount
+    </span>
+    <span>
+      <div
+        componentName="Price Component"
+        currencyCode="USD"
+        value={123}
+      />
+    </span>
+  </div>
+  <div>
+    <span>
+      Tax
+    </span>
+    <span>
+      <div
+        componentName="Price Component"
+        currencyCode="USD"
+        value={34}
+      />
+    </span>
+  </div>
+  <div>
+    <span>
+      Shipping
+    </span>
+    <span>
+      <div
+        componentName="Price Component"
+        currencyCode="USD"
+        value={12}
+      />
+    </span>
+  </div>
+  <div>
+    <span>
+      Total
+    </span>
+    <span>
+      <div
+        componentName="Price Component"
+        currencyCode="USD"
+        value={1434}
+      />
+    </span>
+  </div>
+   
+</div>
+`;
