@@ -74,8 +74,9 @@ export const useSavedPaymentsPage = props => {
     const savedPayments = normalizeTokens(savedPaymentsData);
 
     return {
-        savedPayments,
-        handleAddPayment
+        handleAddPayment,
+        isLoading: loading,
+        savedPayments
     };
 };
 
@@ -97,6 +98,7 @@ export const useSavedPaymentsPage = props => {
  *
  * @typedef {Object} SavedPaymentsPageTalonProps
  *
- * @property {Array<Object>} savedPayments  An array of saved payment data.
  * @property {function} handleAddPayment Callback function to add a payment.
+ * @property {boolean} isLoading true if the query is refreshing from network
+ * @property {Array<Object>} savedPayments  An array of saved payment data.
  */
