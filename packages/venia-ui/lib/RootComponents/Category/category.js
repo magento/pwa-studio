@@ -37,7 +37,10 @@ const Category = props => {
         totalPages
     };
 
-    const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY);
+    const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
     const { loading, error, data } = queryResponse;
     const { search } = useLocation();
 
@@ -169,7 +172,7 @@ const Category = props => {
             <CategoryContent
                 categoryId={id}
                 classes={classes}
-                data={loading ? null : data}
+                data={loading && !data ? null : data}
                 pageControl={pageControl}
                 sortProps={sortProps}
             />

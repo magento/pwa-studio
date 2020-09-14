@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { fromReactIntl, toReactIntl } from '../../util/formatLocale';
 import { IntlProvider } from 'react-intl';
 import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
-import { useQuery } from "@apollo/client";
-import { fullPageLoadingIndicator } from "../LoadingIndicator";
+import { useQuery } from '@apollo/client';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
-    const {
-        data,
-        loading
-    } = useQuery(GET_CONFIG_DATA, {
+    const { data, loading } = useQuery(GET_CONFIG_DATA, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const language = (data && data.storeConfig.locale) ? toReactIntl(data.storeConfig.locale) : null;
+    const language =
+        data && data.storeConfig.locale
+            ? toReactIntl(data.storeConfig.locale)
+            : null;
 
     useEffect(() => {
         if (language) {
@@ -25,7 +25,9 @@ const LocaleProvider = props => {
                     setMessages(data.default);
                 })
                 .catch(error => {
-                    console.error(`Unable to load translation file. \n${error}`);
+                    console.error(
+                        `Unable to load translation file. \n${error}`
+                    );
                 });
         }
     }, [setMessages, language]);

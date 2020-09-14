@@ -10,7 +10,6 @@ import { BrowserRouter } from 'react-router-dom';
 import resolvers from '../resolvers';
 import typePolicies from '../policies';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
-import { Util } from '@magento/peregrine';
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
@@ -49,8 +48,7 @@ const VeniaAdapter = props => {
     const persistor = new CachePersistor({
         cache,
         storage: window.localStorage,
-        debug: process.env.NODE_ENV === 'development',
-        key: `apollo-cache-persist`
+        debug: process.env.NODE_ENV === 'development'
     });
 
     let apolloClient;

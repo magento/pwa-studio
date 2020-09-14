@@ -5,10 +5,8 @@ import {
     NOT_FOUND,
     useMagentoRoute
 } from '@magento/peregrine/lib/talons/MagentoRoute';
-const { BrowserPersistence } = Util;
 
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import { Util } from '@magento/peregrine';
 import { useIntl } from 'react-intl';
 import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 
@@ -18,7 +16,7 @@ const MESSAGES = new Map()
 
 const MagentoRoute = () => {
     const { formatMessage } = useIntl();
-    const magentoRouteProps = {getStoreConfig: GET_CONFIG_DATA};
+    const magentoRouteProps = { getStoreConfig: GET_CONFIG_DATA };
     // If we have a specific store view code configured pass it into the url resolver
 
     const talonProps = useMagentoRoute(magentoRouteProps);

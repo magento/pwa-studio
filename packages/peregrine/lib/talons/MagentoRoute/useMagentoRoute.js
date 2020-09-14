@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import {useApolloClient, useQuery} from '@apollo/client';
+import { useApolloClient, useQuery } from '@apollo/client';
 
 import getRouteComponent from './getRouteComponent';
 
@@ -38,14 +38,12 @@ export const useMagentoRoute = props => {
     const isMountedRef = useRef(false);
     const routeData = componentMap.get(pathname);
 
-    const {
-        data
-    } = useQuery(getStoreConfig, {
+    const { data } = useQuery(getStoreConfig, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const store = (data && data.storeConfig.code);
+    const store = data && data.storeConfig.code;
 
     // Keep track of whether we have been mounted yet.
     // Note that we are not unmounted on page transitions.

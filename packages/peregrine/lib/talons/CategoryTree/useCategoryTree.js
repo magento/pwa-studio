@@ -24,7 +24,10 @@ import { useLazyQuery } from '@apollo/client';
 export const useCategoryTree = props => {
     const { categories, categoryId, query, updateCategories } = props;
 
-    const [runQuery, queryResult] = useLazyQuery(query);
+    const [runQuery, queryResult] = useLazyQuery(query, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
     const { data } = queryResult;
 
     // fetch categories

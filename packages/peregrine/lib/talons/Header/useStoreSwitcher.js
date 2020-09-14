@@ -63,7 +63,6 @@ export const useStoreSwitcher = props => {
     const handleSwitchStore = useCallback(
         // Refresh shopping cart
         async storeCode => {
-
             await storage.setItem('store_view', {
                 code: storeCode,
                 currency: availableStores[storeCode].currency
