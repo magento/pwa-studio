@@ -3,6 +3,18 @@
 exports[`returns correct shape 1`] = `
 Object {
   "handleContentToggle": [Function],
+  "imagesData": Array [
+    Object {
+      "thumbnail": Object {
+        "url": "sku1 thumbnail url",
+      },
+    },
+    Object {
+      "thumbnail": Object {
+        "url": "sku2 thumbnail url",
+      },
+    },
+  ],
   "isOpen": false,
 }
 `;

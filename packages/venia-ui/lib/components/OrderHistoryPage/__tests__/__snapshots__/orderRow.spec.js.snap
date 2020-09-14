@@ -15,7 +15,7 @@ exports[`it renders collapsed order row 1`] = `
     <span
       className="orderNumber"
     >
-      000001
+      000000005
     </span>
   </div>
   <div
@@ -29,7 +29,7 @@ exports[`it renders collapsed order row 1`] = `
     <span
       className="orderDate"
     >
-      Aug 26, 2020
+      May 26, 2020
     </span>
   </div>
   <div
@@ -44,20 +44,48 @@ exports[`it renders collapsed order row 1`] = `
       className="orderTotal"
     >
       <span>
-        $123.45
+        $1434
       </span>
     </div>
   </div>
   <div
     className="orderItemsContainer"
   >
-    <CollapsedImageGallery
+    <div
+      componentName="CollapsedImageGallery"
+      displayCount={4}
       items={
         Array [
-          "item1",
-          "item2",
+          Object {
+            "id": 1094,
+            "sku": "VA03",
+            "thumbnail": Object {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            },
+            "url_key": "valeria-two-layer-tank",
+            "url_suffix": ".html",
+          },
+          Object {
+            "id": 1103,
+            "sku": "VP08",
+            "thumbnail": Object {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            },
+            "url_key": "chloe-silk-shell",
+            "url_suffix": ".html",
+          },
+          Object {
+            "id": 1108,
+            "sku": "VSW09",
+            "thumbnail": Object {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            },
+            "url_key": "helena-cardigan",
+            "url_suffix": ".html",
+          },
         ]
       }
+      totalItemsCount={3}
     />
   </div>
   <div
@@ -66,10 +94,11 @@ exports[`it renders collapsed order row 1`] = `
     <span
       className="orderStatusBadge"
     >
-      Processing
+      Delivered
     </span>
-    <OrderProgressBar
-      status="Processing"
+    <div
+      componentName="OrderProgressBar"
+      status="Delivered"
     />
   </div>
   <button
@@ -101,7 +130,162 @@ exports[`it renders collapsed order row 1`] = `
   <div
     className="content_collapsed"
   >
-    To be completed by PWA-627
+    <div
+      componentName="Order Details"
+      imagesData={
+        Array [
+          Object {
+            "id": 1094,
+            "sku": "VA03",
+            "thumbnail": Object {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            },
+            "url_key": "valeria-two-layer-tank",
+            "url_suffix": ".html",
+          },
+          Object {
+            "id": 1103,
+            "sku": "VP08",
+            "thumbnail": Object {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            },
+            "url_key": "chloe-silk-shell",
+            "url_suffix": ".html",
+          },
+          Object {
+            "id": 1108,
+            "sku": "VSW09",
+            "thumbnail": Object {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            },
+            "url_key": "helena-cardigan",
+            "url_suffix": ".html",
+          },
+        ]
+      }
+      orderData={
+        Object {
+          "billing_address": Object {
+            "city": "Austin",
+            "country_code": "US",
+            "firstname": "Gooseton",
+            "lastname": "Jr",
+            "postcode": "78759",
+            "region_id": "TX",
+            "street": "Goose Dr",
+            "telephone": "9123456789",
+          },
+          "id": 2,
+          "invoices": Array [
+            Object {
+              "id": 1,
+            },
+          ],
+          "items": Array [
+            Object {
+              "id": "3",
+              "product_name": "Product 3",
+              "product_sale_price": "$100.00",
+              "product_sku": "VA03",
+              "quantity_ordered": 1,
+              "selected_options": Array [
+                Object {
+                  "label": "Color",
+                  "value": "Blue",
+                },
+              ],
+            },
+            Object {
+              "id": "4",
+              "product_name": "Product 4",
+              "product_sale_price": "$100.00",
+              "product_sku": "VP08",
+              "quantity_ordered": 1,
+              "selected_options": Array [
+                Object {
+                  "label": "Color",
+                  "value": "Black",
+                },
+              ],
+            },
+            Object {
+              "id": "5",
+              "product_name": "Product 5",
+              "product_sale_price": "$100.00",
+              "product_sku": "VSW09",
+              "quantity_ordered": 1,
+              "selected_options": Array [
+                Object {
+                  "label": "Color",
+                  "value": "Orange",
+                },
+              ],
+            },
+          ],
+          "number": "000000005",
+          "order_date": "2020-05-26 18:22:35",
+          "payment_methods": Array [
+            Object {
+              "additional_data": Object {
+                "card_type": "Visa",
+                "last_four": "1234",
+              },
+              "name": "Braintree",
+              "type": "Credit Card",
+            },
+          ],
+          "shipments": Array [
+            Object {
+              "id": "1",
+              "tracking": Array [
+                Object {
+                  "carrier": "Fedex",
+                  "number": "FEDEX5885541235452125",
+                },
+              ],
+            },
+          ],
+          "shipping_address": Object {
+            "city": "Austin",
+            "country_code": "US",
+            "firstname": "Gooseton",
+            "lastname": "Jr",
+            "postcode": "78759",
+            "region_id": "TX",
+            "street": "Goose Dr",
+            "telephone": "9123456789",
+          },
+          "shipping_method": "Free",
+          "status": "Complete",
+          "total": Object {
+            "discounts": Array [
+              Object {
+                "amount": Object {
+                  "currency": "USD",
+                  "value": 123,
+                },
+              },
+            ],
+            "grand_total": Object {
+              "currency": "USD",
+              "value": 1434,
+            },
+            "subtotal": Object {
+              "currency": "USD",
+              "value": 1234,
+            },
+            "total_shipping": Object {
+              "currency": "USD",
+              "value": 12,
+            },
+            "total_tax": Object {
+              "currency": "USD",
+              "value": 34,
+            },
+          },
+        }
+      }
+    />
   </div>
 </li>
 `;
@@ -121,7 +305,7 @@ exports[`it renders open order row 1`] = `
     <span
       className="orderNumber"
     >
-      000001
+      000000005
     </span>
   </div>
   <div
@@ -135,7 +319,7 @@ exports[`it renders open order row 1`] = `
     <span
       className="orderDate"
     >
-      Aug 26, 2020
+      May 26, 2020
     </span>
   </div>
   <div
@@ -150,7 +334,7 @@ exports[`it renders open order row 1`] = `
       className="orderTotal"
     >
       <span>
-        $123.45
+        $1434
       </span>
     </div>
   </div>
@@ -163,10 +347,11 @@ exports[`it renders open order row 1`] = `
     <span
       className="orderStatusBadge"
     >
-      Shipped
+      Delivered
     </span>
-    <OrderProgressBar
-      status="Shipped"
+    <div
+      componentName="OrderProgressBar"
+      status="Delivered"
     />
   </div>
   <button
@@ -198,7 +383,154 @@ exports[`it renders open order row 1`] = `
   <div
     className="content"
   >
-    To be completed by PWA-627
+    <div
+      componentName="Order Details"
+      imagesData={
+        Array [
+          Object {
+            "id": 1094,
+            "sku": "VA03",
+            "thumbnail": Object {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            },
+            "url_key": "valeria-two-layer-tank",
+            "url_suffix": ".html",
+          },
+          Object {
+            "id": 1103,
+            "sku": "VP08",
+            "thumbnail": Object {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            },
+            "url_key": "chloe-silk-shell",
+            "url_suffix": ".html",
+          },
+          Object {
+            "id": 1108,
+            "sku": "VSW09",
+            "thumbnail": Object {
+              "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg",
+            },
+            "url_key": "helena-cardigan",
+            "url_suffix": ".html",
+          },
+        ]
+      }
+      orderData={
+        Object {
+          "billing_address": Object {
+            "city": "Austin",
+            "country_code": "US",
+            "firstname": "Gooseton",
+            "lastname": "Jr",
+            "postcode": "78759",
+            "region_id": "TX",
+            "street": "Goose Dr",
+            "telephone": "9123456789",
+          },
+          "id": 2,
+          "invoices": Array [
+            Object {
+              "id": 1,
+            },
+          ],
+          "items": Array [
+            Object {
+              "id": "3",
+              "product_name": "Product 3",
+              "product_sale_price": "$100.00",
+              "product_sku": "VA03",
+              "quantity_ordered": 1,
+              "selected_options": Array [
+                Object {
+                  "label": "Color",
+                  "value": "Blue",
+                },
+              ],
+            },
+            Object {
+              "id": "4",
+              "product_name": "Product 4",
+              "product_sale_price": "$100.00",
+              "product_sku": "VP08",
+              "quantity_ordered": 1,
+              "selected_options": Array [
+                Object {
+                  "label": "Color",
+                  "value": "Black",
+                },
+              ],
+            },
+            Object {
+              "id": "5",
+              "product_name": "Product 5",
+              "product_sale_price": "$100.00",
+              "product_sku": "VSW09",
+              "quantity_ordered": 1,
+              "selected_options": Array [
+                Object {
+                  "label": "Color",
+                  "value": "Orange",
+                },
+              ],
+            },
+          ],
+          "number": "000000005",
+          "order_date": "2020-05-26 18:22:35",
+          "payment_methods": Array [
+            Object {
+              "additional_data": Object {
+                "card_type": "Visa",
+                "last_four": "1234",
+              },
+              "name": "Braintree",
+              "type": "Credit Card",
+            },
+          ],
+          "shipments": Array [
+            1,
+          ],
+          "shipping_address": Object {
+            "city": "Austin",
+            "country_code": "US",
+            "firstname": "Gooseton",
+            "lastname": "Jr",
+            "postcode": "78759",
+            "region_id": "TX",
+            "street": "Goose Dr",
+            "telephone": "9123456789",
+          },
+          "shipping_method": "Free",
+          "status": "Complete",
+          "total": Object {
+            "discounts": Array [
+              Object {
+                "amount": Object {
+                  "currency": "USD",
+                  "value": 123,
+                },
+              },
+            ],
+            "grand_total": Object {
+              "currency": "USD",
+              "value": 1434,
+            },
+            "subtotal": Object {
+              "currency": "USD",
+              "value": 1234,
+            },
+            "total_shipping": Object {
+              "currency": "USD",
+              "value": 12,
+            },
+            "total_tax": Object {
+              "currency": "USD",
+              "value": 34,
+            },
+          },
+        }
+      }
+    />
   </div>
 </li>
 `;

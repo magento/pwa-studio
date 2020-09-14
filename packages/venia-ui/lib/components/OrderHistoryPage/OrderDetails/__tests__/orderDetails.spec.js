@@ -19,13 +19,12 @@ jest.mock('../orderTotal', () => props => (
     <div componentName="Order Total" {...props} />
 ));
 jest.mock('../items', () => props => <div componentName="Items" {...props} />);
-jest.mock('../item', () => props => <div componentName="Item" {...props} />);
 
 const defaultProps = {
     imagesData: [
         {
             id: 1094,
-            sku: 'VT11',
+            sku: 'VA03',
             thumbnail: {
                 url:
                     'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg'
@@ -35,7 +34,7 @@ const defaultProps = {
         },
         {
             id: 1103,
-            sku: 'VT02',
+            sku: 'VP08',
             thumbnail: {
                 url:
                     'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg'
@@ -52,26 +51,6 @@ const defaultProps = {
             },
             url_key: 'helena-cardigan',
             url_suffix: '.html'
-        },
-        {
-            id: 1116,
-            sku: 'VSW01',
-            thumbnail: {
-                url:
-                    'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg'
-            },
-            url_key: 'carina-cardigan',
-            url_suffix: '.html'
-        },
-        {
-            id: 1151,
-            sku: 'VD02',
-            thumbnail: {
-                url:
-                    'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw01-rn_main_2.jpg'
-            },
-            url_key: 'candace-dress',
-            url_suffix: '.html'
         }
     ],
     orderData: {
@@ -87,7 +66,6 @@ const defaultProps = {
         },
         id: 2,
         invoices: [{ id: 1 }],
-
         items: [
             {
                 id: '3',
