@@ -134,6 +134,7 @@ async function getClientConfig(opts) {
                 }
             }),
             new LocalizationPlugin({
+                context,
                 dirs: [...hasFlag('i18n'), context]
             }),
             new ReactRefreshWebpackPlugin()

@@ -1,12 +1,13 @@
 const debug = require('../../util/debug').makeFileLogger(__filename);
+const path = require('path');
 const walk = require('../../util/klaw-bound-fs');
 const merge = require('merge');
 const fs = require('fs');
+const rimraf = require("rimraf");
+const InjectPlugin = require('webpack-inject-plugin').default;
 
 const i18nDir = 'i18n';
 const localeFileNameRegex = /([a-z]{2}_[A-Z]{2})\.json$/;
-
-const combinedLocales = {};
 
 /**
  * Localization Plugin to collect all translations from NPM modules and create single translation file for each locale
@@ -14,44 +15,72 @@ const combinedLocales = {};
 class LocalizationPlugin {
 
     /**
-     * @param {object} options
+     * @param {object} opts
      */
-    constructor(options) {
-        this.options = options;
+    constructor(opts) {
+        this.opts = opts;
     }
 
     apply(compiler) {
-        compiler.hooks.beforeRun.tapAsync('LocalizationPlugin', async (compiler, callback) => {
-            const dirs = this.options.dirs;
-            let locales = {};
-            for (const dir of dirs) {
-                const localeDir = `${dir}/${i18nDir}`;
-                if (fs.existsSync(localeDir)) {
-                    const packageTranslations = await this.findTranslationFiles(compiler, localeDir);
-                    locales = this.mergeTranslationFiles(locales, packageTranslations);
-                }
+        this.compiler = compiler;
+        this.injectLocalizationLoader();
+    }
+
+    injectLocalizationLoader() {
+        debug('applying InjectPlugin to create global');
+        new InjectPlugin(() => this.buildFetchModule()).apply(this.compiler);
+    }
+
+    async buildFetchModule() {
+        const { context, dirs } = this.opts;
+
+        const distDirectory = path.join(context, 'i18n', 'dist');
+        rimraf.sync(distDirectory);
+
+        let locales = {};
+        for (const dir of dirs) {
+            const localeDir = `${dir}/${i18nDir}`;
+            if (fs.existsSync(localeDir)) {
+                const packageTranslations = await this.findTranslationFiles(this.compiler, localeDir);
+                locales = this.mergeTranslationFiles(locales, packageTranslations);
+            }
+        }
+
+        // Make our dist directory
+        fs.mkdirSync(distDirectory, { recursive: true });
+
+        debug('Located all translation files.', locales);
+
+        const combinedPaths = {};
+
+        for (const locale of Object.keys(locales)) {
+            debug(`Combining locale for ${locale}`);
+            const files = locales[locale];
+            let combined = {};
+            for (const file of files) {
+                const data = fs.readFileSync(file, 'utf8');
+                combined = merge.recursive(combined, JSON.parse(data));
             }
 
-            debug('Located all translation files.', locales);
+            const localePath = path.join(distDirectory, `${locale}.json`);
+            fs.writeFileSync(
+                localePath,
+                JSON.stringify(combined)
+            );
+            combinedPaths[locale] = localePath;
+        }
 
-            for (const locale of Object.keys(locales)) {
-                debug(`Combining locale for ${locale}`);
-                const files = locales[locale];
-                let combined = {};
-                for (const file of files) {
-                    const data = fs.readFileSync(file, 'utf8');
-                    combined = merge.recursive(combined, JSON.parse(data));
-                }
-
-                const asset = JSON.stringify(combined);
-
-                debug(`Creating compilation asset i18n/${locale}.json`);
-
-                combinedLocales[locale] = asset;
+        const importerFactory = `function () {
+            return function getLocale(locale) {
+                ${Object.keys(locales).map((combinedLocale) => {
+                    return `if (locale === "${combinedLocale}") { return import(/* webpackChunkName: "i18n" */'${combinedPaths[combinedLocale]}') }`;
+                })}
+                
+                throw new Error('Unable to locate locale ' + locale + ' within generated dist directory.');
             }
+        }`;
 
-            callback();
-        });
+        return `;window.fetchLocaleData = (${importerFactory})()`;
     }
 
     /**
@@ -112,17 +141,3 @@ class LocalizationPlugin {
 }
 
 module.exports = LocalizationPlugin;
-
-/**
- * Expose combined locales to the loader
- *
- * @param locale
- * @returns {{}|*}
- */
-module.exports.getCombinedLocales = (locale) => {
-    if (combinedLocales[locale]) {
-        return combinedLocales[locale];
-    }
-
-    return {};
-};

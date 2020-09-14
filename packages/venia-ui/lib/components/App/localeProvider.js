@@ -8,21 +8,24 @@ const locale = fromReactIntl(language);
 const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
 
+    // At build time, `fetchLocaleData` is injected as a global.
+    // Depending on the environment, this global will be either an
+    // ES module with a `default` property, or a plain CJS module.
+    const fetchLocale =
+        'default' in fetchLocaleData
+            ? fetchLocaleData.default
+            : fetchLocaleData;
+
     useEffect(() => {
-        /**
-         * This is automatically created during the build by LocalizationPlugin
-         * https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
-         */
-        import(
-            `i18n/${locale}.json`
-            )
+        fetchLocale(locale)
             .then(data => {
+                console.log(data);
                 setMessages(data.default);
             })
             .catch(error => {
                 console.error(`Unable to load translation file. \n${error}`);
             });
-    }, [setMessages]);
+    }, [fetchLocale, setMessages]);
 
     const onIntlError = error => {
         if (messages) {
