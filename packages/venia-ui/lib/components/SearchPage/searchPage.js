@@ -33,6 +33,7 @@ const SearchPage = props => {
         loading,
         openDrawer,
         pageControl,
+        searchTerm,
         sortProps
     } = talonProps;
 
@@ -94,8 +95,14 @@ const SearchPage = props => {
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
-                <div className={classes.totalPages}>
-                    {`${totalCount} items`}
+                <div className={classes.resultSummary}>
+                    <span className={classes.searchTermContainer}>
+                        {'Showing results for '}
+                        <span className={classes.searchTerm}>{searchTerm}</span>
+                    </span>
+                    <span className={classes.totalPages}>
+                        {`${totalCount} items`}
+                    </span>
                 </div>
                 <div className={classes.headerButtons}>
                     {maybeFilterButtons}

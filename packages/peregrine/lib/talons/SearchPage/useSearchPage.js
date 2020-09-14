@@ -191,6 +191,7 @@ export const useSearchPage = props => {
         loading,
         openDrawer,
         pageControl,
+        searchTerm: inputText,
         sortProps
     };
 };

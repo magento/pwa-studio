@@ -3,12 +3,16 @@
 }
 
 .categoryTop {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 0 1rem 0;
     color: rgb(var(--venia-global-color-text-alt));
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-auto-flow: row;
+    justify-items: center;
+    padding: 0 0 1rem 0;
+    row-gap: 1rem;
+}
+
+.categoryField {
+    line-height: var(--venia-typography-body-lineHeight);
 }
 
 .noResult {
@@ -16,10 +20,11 @@
 }
 
 .headerButtons {
+    composes: categoryField;
+
     display: flex;
     justify-content: center;
     flex-basis: 100%;
-    padding-top: 0.5rem;
 }
 
 .filterButton {
@@ -27,11 +32,37 @@
     min-width: 6.25rem;
 }
 
+.resultSummary {
+    column-gap: 0.25rem;
+    display: grid;
+    grid-auto-flow: row;
+    justify-items: center;
+}
+
+.searchTermContainer {
+    composes: categoryField;
+
+    max-width: 100vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.searchTerm {
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
 .sortContainer {
+    composes: categoryField;
+
     font-size: 0.875rem;
-    padding: 1rem 0;
 }
 
 .sortText {
     font-weight: 600;
+}
+
+.totalPages {
+    composes: categoryField;
+
+    font-size: 0.875rem;
 }
