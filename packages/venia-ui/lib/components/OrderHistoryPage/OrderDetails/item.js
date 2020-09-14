@@ -15,10 +15,15 @@ const Item = props => {
         product_sale_price,
         quantity_ordered,
         selected_options,
-        thumbnail
+        thumbnail,
+        url_key,
+        url_suffix
     } = props;
     const { url } = thumbnail;
-    const itemLink = useMemo(() => resourceUrl(url), [url]);
+    const itemLink = useMemo(() => resourceUrl(`/${url_key}${url_suffix}`), [
+        url_key,
+        url_suffix
+    ]);
     const mappedOptions = useMemo(
         () =>
             selected_options.map(option => ({

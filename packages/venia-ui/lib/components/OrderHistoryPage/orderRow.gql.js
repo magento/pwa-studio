@@ -10,6 +10,8 @@ export const GET_PRODUCT_THUMBNAILS_BY_SKU = gql`
                     label
                     url
                 }
+                url_key
+                url_suffix
             }
         }
     }
