@@ -4,8 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { getSearchParam } from './useSearchParam';
 
 /**
- * Sets a query parameter in history. Attempt to use React Router if provided
- * otherwise fallback to builtins.
+ * Sets a query parameter in history.
  *
  * @private
  */
