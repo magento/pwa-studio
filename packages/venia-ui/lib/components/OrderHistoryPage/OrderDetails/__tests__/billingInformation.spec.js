@@ -1,0 +1,20 @@
+import React from 'react';
+import { createTestInstance } from '@magento/peregrine';
+
+import BillingInformation from '../billingInformation';
+
+const defaultData = {
+    city: 'Austin',
+    country_code: 'USA',
+    firstname: 'Gooseton',
+    lastname: 'Jr',
+    postcode: '78451',
+    region_id: 'TX',
+    street: '2134, Apt 123, Goose Drive'
+};
+
+test('should render properly', () => {
+    const tree = createTestInstance(<BillingInformation data={defaultData} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
