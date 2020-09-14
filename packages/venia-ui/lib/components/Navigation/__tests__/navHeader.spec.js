@@ -1,24 +1,12 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import NavHeader from '../navHeader';
 import { IntlProvider } from 'react-intl';
 import AccountChip from '../../AccountChip';
 
-jest.mock('../../AccountChip', () => 'AccountChip');
-jest.mock('@magento/peregrine/lib/context/user', () => {
-    const state = {
-        currentUser: null,
-        isSignedIn: false
-    };
-    const api = {};
-    const useUserContext = jest.fn(() => [state, api]);
-
-    return { useUserContext };
-});
-
 jest.mock('../../../classify');
+jest.mock('../../AccountChip', () => 'AccountChip');
 jest.mock('../../Trigger', () => () => '<Trigger>');
 
 const props = {
