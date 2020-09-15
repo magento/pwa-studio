@@ -13,6 +13,7 @@ const localeFileNameRegex = /([a-z]{2}_[A-Z]{2})\.json$/;
  * Options:
  *  - context: string provide the context that the build is running within
  *  - dirs[]: array of directories to search for i18n/*.csv files
+ *  - virtualModules: instance of VirtualModulesPlugin to create virtual modules during the build
  */
 class LocalizationPlugin {
     /**
@@ -66,7 +67,7 @@ class LocalizationPlugin {
         }
 
         // Merge all located translation files together and return their paths for a dynamic import
-        const mergedLocalesPaths = await this.writeMergedLocales(
+        const mergedLocalesPaths = await this.writeMergedVirtualLocales(
             context,
             locales,
             inputFileSystem,
@@ -96,7 +97,7 @@ class LocalizationPlugin {
     }
 
     /**
-     * Merge single locales into combined files and write to disk for webpack's dynamic import
+     * Merge single locales into combined files and create virtual modules for webpack to import
      *
      * @param context
      * @param locales
@@ -104,7 +105,7 @@ class LocalizationPlugin {
      * @param virtualModules
      * @returns {Promise<void>}
      */
-    async writeMergedLocales(
+    async writeMergedVirtualLocales(
         context,
         locales,
         inputFileSystem,

@@ -138,13 +138,13 @@ async function getClientConfig(opts) {
                     swDest: './sw.js'
                 }
             }),
+            new ReactRefreshWebpackPlugin(),
             new LocalizationPlugin({
                 virtualModules,
                 context,
                 dirs: [...hasFlag('i18n'), context], // Directories to search for i18n/*.json files
                 cleanup: true // Optionally disable clean up of merged files for debugging
             }),
-            new ReactRefreshWebpackPlugin(),
             virtualModules
         ],
         devtool: 'source-map',
