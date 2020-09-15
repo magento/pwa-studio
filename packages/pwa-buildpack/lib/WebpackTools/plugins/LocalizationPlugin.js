@@ -2,8 +2,6 @@ const debug = require('../../util/debug').makeFileLogger(__filename);
 const path = require('path');
 const walk = require('../../util/klaw-bound-fs');
 const merge = require('merge');
-const fs = require('fs');
-const rimraf = require("rimraf");
 const InjectPlugin = require('webpack-inject-plugin').default;
 
 const i18nDir = 'i18n';
@@ -32,55 +30,103 @@ class LocalizationPlugin {
     }
 
     async buildFetchModule() {
-        const { context, dirs } = this.opts;
-
-        const distDirectory = path.join(context, 'i18n', 'dist');
-        rimraf.sync(distDirectory);
+        const { outputFileSystem, inputFileSystem } = this.compiler;
+        const { dirs, context, cleanup } = this.opts;
 
         let locales = {};
         for (const dir of dirs) {
-            const localeDir = `${dir}/${i18nDir}`;
-            if (fs.existsSync(localeDir)) {
-                const packageTranslations = await this.findTranslationFiles(this.compiler, localeDir);
-                locales = this.mergeTranslationFiles(locales, packageTranslations);
+            const localeDir = path.join(dir, i18nDir);
+            try {
+                const stats = inputFileSystem.statSync(localeDir);
+
+                if (stats.isDirectory()) {
+                    const packageTranslations = await this.findTranslationFiles(inputFileSystem, localeDir);
+                    locales = this.mergeTranslationFiles(locales, packageTranslations);
+                }
+            }
+            catch (e) {
+                console.error(e);
+                debug(e);
             }
         }
 
-        // Make our dist directory
-        fs.mkdirSync(distDirectory, { recursive: true });
+        if (!locales) {
+            debug('No locales found while traversing all modules with i18n flag.');
+        }
+
+        // Merge all located translation files together and return their paths for a dynamic import
+        const mergedLocalesPaths = await this.writeMergedLocales(context, locales, inputFileSystem, outputFileSystem);
+
+        debug('Merged locales into path.', mergedLocalesPaths);
+
+        // Build our importer factory up
+        const importerFactory = `function () {
+            return function getLocale(locale) {
+                ${Object.keys(locales).map((locale) => {
+                return `if (locale === "${locale}") { return import(/* webpackChunkName: "i18n" */'${mergedLocalesPaths[locale]}') }`;
+            })}
+                
+                throw new Error('Unable to locate locale ' + locale + ' within generated dist directory.');
+            }
+        }`;
+
+        // Once the process has completed and clean up is enabled, remove up our merged build files
+        if (cleanup) {
+            this.compiler.hooks.afterEmit.tapAsync('LocalizationPlugin', async (compilation, callback) => {
+                await Promise.all(Object.values(mergedLocalesPaths).map((path) => {
+                    return new Promise((resolve) => {
+                        outputFileSystem.unlink(path, resolve);
+                    });
+                }));
+
+                callback();
+            });
+        }
+
+        return `;window.fetchLocaleData = (${importerFactory})()`;
+    }
+
+    /**
+     *
+     * @param context
+     * @param locales
+     * @param inputFileSystem
+     * @param outputFileSystem
+     * @returns {Promise<void>}
+     */
+    async writeMergedLocales(context, locales, inputFileSystem, outputFileSystem) {
+        const distDirectory = context;
 
         debug('Located all translation files.', locales);
 
-        const combinedPaths = {};
+        const writePromises = [];
+        const combinedLocale = {};
 
         for (const locale of Object.keys(locales)) {
             debug(`Combining locale for ${locale}`);
             const files = locales[locale];
             let combined = {};
             for (const file of files) {
-                const data = fs.readFileSync(file, 'utf8');
+                const data = inputFileSystem.readFileSync(file, 'utf8');
                 combined = merge.recursive(combined, JSON.parse(data));
             }
 
             const localePath = path.join(distDirectory, `${locale}.json`);
-            fs.writeFileSync(
-                localePath,
-                JSON.stringify(combined)
-            );
-            combinedPaths[locale] = localePath;
+            writePromises.push(new Promise((resolve) => {
+                outputFileSystem.writeFile(
+                    localePath,
+                    JSON.stringify(combined),
+                    () => {
+                        combinedLocale[locale] = localePath;
+                        resolve(localePath);
+                    }
+                );
+            }));
         }
 
-        const importerFactory = `function () {
-            return function getLocale(locale) {
-                ${Object.keys(locales).map((combinedLocale) => {
-                    return `if (locale === "${combinedLocale}") { return import(/* webpackChunkName: "i18n" */'${combinedPaths[combinedLocale]}') }`;
-                })}
-                
-                throw new Error('Unable to locate locale ' + locale + ' within generated dist directory.');
-            }
-        }`;
+        await Promise.all(writePromises);
 
-        return `;window.fetchLocaleData = (${importerFactory})()`;
+        return combinedLocale;
     }
 
     /**
@@ -106,15 +152,15 @@ class LocalizationPlugin {
     /**
      * Locate translation files within a specific i18n directory
      *
-     * @param compiler
+     * @param inputFileSystem
      * @param dir
      * @returns {Promise<object>}
      */
-    findTranslationFiles(compiler, dir) {
+    findTranslationFiles(inputFileSystem, dir) {
         return new Promise(resolve => {
             const translations = {};
             const done = () => resolve(translations);
-            walk(dir, { fs: compiler.inputFileSystem })
+            walk(dir, { fs: inputFileSystem })
                 .on('readable', function() {
                     let item;
                     while ((item = this.read())) {
