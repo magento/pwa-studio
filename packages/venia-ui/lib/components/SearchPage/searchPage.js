@@ -104,10 +104,10 @@ const SearchPage = props => {
                 </div>
                 {maybeSortContainer}
             </div>
-            <h2 className={classes.heading}>
+            <div className={classes.heading}>
                 {'Showing results for '}
                 <span className={classes.headingHighlight}>{searchTerm}</span>:
-            </h2>
+            </div>
             {content}
             <Suspense fallback={null}>{maybeFilterModal}</Suspense>
         </article>
