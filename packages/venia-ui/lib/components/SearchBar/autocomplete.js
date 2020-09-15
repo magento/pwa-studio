@@ -28,6 +28,7 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                     url
                 }
                 url_key
+                url_suffix
                 price {
                     regularPrice {
                         amount {
@@ -71,15 +72,37 @@ const Autocomplete = props => {
         .set(
             'ERROR',
             formatMessage({
-                id: 'An error occurred while fetching results.'
+                id: 'autocomplete.error',
+                defaultMessage: 'An error occurred while fetching results.'
             })
         )
-        .set('LOADING', formatMessage({ id: 'Fetching results...' }))
-        .set('PROMPT', formatMessage({ id: 'Search for a product' }))
-        .set('EMPTY_RESULT', formatMessage({ id: 'No results were found.' }))
+        .set(
+            'LOADING',
+            formatMessage({
+                id: 'autocomplete.loading',
+                defaultMessage: 'Fetching results...'
+            })
+        )
+        .set(
+            'PROMPT',
+            formatMessage({
+                id: 'autocomplete.prompt',
+                defaultMessage: 'Search for a product'
+            })
+        )
+        .set(
+            'EMPTY_RESULT',
+            formatMessage({
+                id: 'autocomplete.emptyResult',
+                defaultMessage: 'No results were found.'
+            })
+        )
         .set('RESULT_SUMMARY', (_, resultCount) =>
             formatMessage(
-                { id: '{resultCount} items' },
+                {
+                    id: 'autocomplete.resultSummary',
+                    defaultMessage: '{resultCount} items'
+                },
                 { resultCount: resultCount }
             )
         );

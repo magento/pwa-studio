@@ -9,7 +9,6 @@ In its current state, the storefront contains examples for Product Details and C
 
 * [Project structure][] - an overview of the project directory structure
 * [Venia storefront setup][] - instructions for setting up a development environment
-* [Checkout][] - a walkthrough of how Venia implements checkout
 
 ## Contribute
 
@@ -21,5 +20,3 @@ Visit the [`venia-pwa-concept`][] package in the PWA Studio repository to contri
 
 [Project structure]: {% link venia-pwa-concept/project-structure/index.md %}
 [Venia storefront setup]: {% link venia-pwa-concept/setup/index.md %}
-[Checkout]: {% link venia-pwa-concept/features/checkout/index.md %}
-
