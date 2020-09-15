@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useAccountInformationPage } from '../useAccountInformationPage';
@@ -15,17 +15,6 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
     const useUserContext = jest.fn(() => [state, api]);
 
     return { useUserContext };
-});
-
-jest.mock('@magento/peregrine/lib/context/app', () => {
-    const state = {};
-    const api = {
-        toggleDrawer: jest.fn(),
-        closeDrawer: jest.fn()
-    };
-    const useAppContext = jest.fn(() => [state, api]);
-
-    return { useAppContext };
 });
 
 jest.mock('@apollo/client', () => ({
@@ -87,26 +76,14 @@ test('return correct shape for initial customer data', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-test('return correct shape for new value and fire create mutation update customer information', async () => {
-    useQuery.mockReturnValueOnce({
-        data: {
-            customer: {
-                id: 7,
-                firtname: 'Bar',
-                lastname: 'Foo',
-                email: 'barfoo@express.net'
-            }
-        },
-        error: null,
-        loading: true
-    });
+test('handleChangePassword sets shouldShowNewPassword to true', () => {});
 
+test('showUpdateMode sets isUpdateMode to true', () => {});
+
+test('handleSubmit calls setCustomerInformationQuery', async () => {
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
-
-    expect(talonProps).toMatchSnapshot();
-
     const { handleSubmit } = talonProps;
 
     await handleSubmit({
@@ -116,5 +93,47 @@ test('return correct shape for new value and fire create mutation update custome
     });
 
     expect(mockSetCustomerInformation).toHaveBeenCalled();
+    expect(mockChangeCustomerPassword).not.toHaveBeenCalled();
     expect(mockSetCustomerInformation.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('handleSubmit calls changeCustomerPassword if new password is provided', async () => {
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleSubmit } = talonProps;
+
+    await handleSubmit({
+        firtname: 'Foo',
+        lastname: 'Bar',
+        email: 'foobar@express.net',
+        password: 'bar',
+        newPassword: 'notBar'
+    });
+
+    expect(mockChangeCustomerPassword).toHaveBeenCalled();
+    expect(mockChangeCustomerPassword.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('handleSubmit does not throw', async () => {
+    const mockSetCustomerInformation = jest
+        .fn()
+        .mockRejectedValue(new Error('Async error'));
+    useMutation.mockReturnValue([mockSetCustomerInformation, {}]);
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleSubmit } = talonProps;
+
+    expect(async () => {
+        await handleSubmit({
+            firtname: 'Foo',
+            lastname: 'Bar',
+            email: 'foobar@express.net'
+        });
+    }).not.toThrow();
+
+    expect(mockSetCustomerInformation).toHaveBeenCalled();
+    expect(mockChangeCustomerPassword).not.toHaveBeenCalled();
 });

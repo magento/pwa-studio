@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`handleSubmit calls changeCustomerPassword if new password is provided 1`] = `
+Object {
+  "variables": Object {
+    "currentPassword": "bar",
+    "newPassword": "notBar",
+  },
+}
+`;
+
+exports[`handleSubmit calls setCustomerInformationQuery 1`] = `
+Object {
+  "variables": Object {
+    "email": "foobar@express.net",
+    "firtname": "Foo",
+    "lastname": "Bar",
+  },
+}
+`;
+
 exports[`return correct shape for initial customer data 1`] = `
 Object {
   "cancelUpdateMode": [Function],
@@ -23,42 +42,6 @@ Object {
   "loadDataError": null,
   "shouldShowNewPassword": false,
   "showUpdateMode": [Function],
-}
-`;
-
-exports[`return correct shape for new value and fire create mutation update customer information 1`] = `
-Object {
-  "cancelUpdateMode": [Function],
-  "formErrors": Array [
-    undefined,
-    undefined,
-  ],
-  "handleChangePassword": [Function],
-  "handleSubmit": [Function],
-  "initialValues": Object {
-    "customer": Object {
-      "email": "barfoo@express.net",
-      "firtname": "Bar",
-      "id": 7,
-      "lastname": "Foo",
-    },
-  },
-  "isDisabled": false,
-  "isSignedIn": true,
-  "isUpdateMode": false,
-  "loadDataError": null,
-  "shouldShowNewPassword": false,
-  "showUpdateMode": [Function],
-}
-`;
-
-exports[`return correct shape for new value and fire create mutation update customer information 2`] = `
-Object {
-  "variables": Object {
-    "email": "foobar@express.net",
-    "firtname": "Foo",
-    "lastname": "Bar",
-  },
 }
 `;
 
