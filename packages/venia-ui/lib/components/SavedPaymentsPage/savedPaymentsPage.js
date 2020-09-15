@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { PlusSquare } from 'react-feather';
-import { useIntl } from 'react-intl';
 
 import { useSavedPaymentsPage } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useSavedPaymentsPage';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -19,7 +18,7 @@ const SavedPaymentsPage = props => {
         }
     });
 
-    const { handleAddPayment, savedPayments } = talonProps;
+    const { handleAddPayment, savedPayments, strings } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -35,18 +34,11 @@ const SavedPaymentsPage = props => {
         );
     }, [savedPayments]);
 
-    const { formatMessage } = useIntl();
-    const title = formatMessage({ id: 'savedPaymentsPage.title' });
-
-    const subHeading = formatMessage({ id: 'savedPaymentsPage.subHeading' });
-    const addText = formatMessage({ id: 'savedPaymentsPage.addButtonText' });
-
     return (
         <div className={classes.root}>
-            {/* STORE_NAME is injected by Webpack at build time. */}
-            <Title>{`${title} - ${STORE_NAME}`}</Title>
-            <h1 className={classes.heading}>{title}</h1>
-            <h3 className={classes.subHeading}>{subHeading}</h3>
+            <Title>{strings.title}</Title>
+            <h1 className={classes.heading}>{strings.title}</h1>
+            <h3 className={classes.subHeading}>{strings.subHeading}</h3>
             <div className={classes.content}>
                 <LinkButton
                     className={classes.addButton}
@@ -58,7 +50,9 @@ const SavedPaymentsPage = props => {
                         size={24}
                         src={PlusSquare}
                     />
-                    <span className={classes.addText}>{addText}</span>
+                    <span className={classes.addText}>
+                        {strings.addButtonText}
+                    </span>
                 </LinkButton>
                 {savedPaymentElements}
             </div>

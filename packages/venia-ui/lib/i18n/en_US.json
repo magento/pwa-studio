@@ -20,7 +20,7 @@
     "Register": "Register",
     "Returns": "Returns",
     "savedPaymentsPage.addButtonText": "Add a credit card",
-    "savedPaymentsPage.title": "Saved Payments",
+    "savedPaymentsPage.title": "Saved Payments - {store_name}",
     "savedPaymentsPage.subHeading": "Credit Cards saved here will be available during checkout.",
     "Search": "Search",
     "Search for a product": "Search for a product",
