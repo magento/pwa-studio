@@ -13,7 +13,6 @@ const localeFileNameRegex = /([a-z]{2}_[A-Z]{2})\.json$/;
  * Options:
  *  - context: string provide the context that the build is running within
  *  - dirs[]: array of directories to search for i18n/*.csv files
- *  - cleanup: boolean defining whether to clean up merged files after build
  */
 class LocalizationPlugin {
     /**
@@ -29,13 +28,13 @@ class LocalizationPlugin {
     }
 
     injectLocalizationLoader() {
-        debug('applying InjectPlugin to create global');
+        debug('applying InjectPlugin to create global for localization import');
         new InjectPlugin(() => this.buildFetchModule()).apply(this.compiler);
     }
 
     async buildFetchModule() {
-        const { outputFileSystem, inputFileSystem } = this.compiler;
-        const { dirs, context, cleanup } = this.opts;
+        const { inputFileSystem } = this.compiler;
+        const { dirs, context, virtualModules } = this.opts;
 
         /**
          * Iterate through each provided directory, this is context (so venia-concept) plus modules which declare a
@@ -71,7 +70,7 @@ class LocalizationPlugin {
             context,
             locales,
             inputFileSystem,
-            outputFileSystem
+            virtualModules
         );
 
         debug('Merged locales into path.', mergedLocalesPaths);
@@ -93,24 +92,6 @@ class LocalizationPlugin {
             }
         }`;
 
-        // Once the process has completed and clean up is enabled, remove up our merged build files
-        if (cleanup) {
-            this.compiler.hooks.afterEmit.tapAsync(
-                'LocalizationPlugin',
-                async (compilation, callback) => {
-                    await Promise.all(
-                        Object.values(mergedLocalesPaths).map(path => {
-                            return new Promise(resolve => {
-                                outputFileSystem.unlink(path, resolve);
-                            });
-                        })
-                    );
-
-                    callback();
-                }
-            );
-        }
-
         return `;window.fetchLocaleData = (${importerFactory})()`;
     }
 
@@ -120,20 +101,19 @@ class LocalizationPlugin {
      * @param context
      * @param locales
      * @param inputFileSystem
-     * @param outputFileSystem
+     * @param virtualModules
      * @returns {Promise<void>}
      */
     async writeMergedLocales(
         context,
         locales,
         inputFileSystem,
-        outputFileSystem
+        virtualModules
     ) {
         const distDirectory = context;
 
         debug('Located all translation files.', locales);
 
-        const writePromises = [];
         const combinedLocale = {};
 
         for (const locale of Object.keys(locales)) {
@@ -146,21 +126,10 @@ class LocalizationPlugin {
             }
 
             const localePath = path.join(distDirectory, `${locale}.json`);
-            writePromises.push(
-                new Promise(resolve => {
-                    outputFileSystem.writeFile(
-                        localePath,
-                        JSON.stringify(combined),
-                        () => {
-                            combinedLocale[locale] = localePath;
-                            resolve(localePath);
-                        }
-                    );
-                })
-            );
-        }
 
-        await Promise.all(writePromises);
+            virtualModules.writeModule(localePath, JSON.stringify(combined));
+            combinedLocale[locale] = localePath;
+        }
 
         return combinedLocale;
     }
@@ -200,7 +169,6 @@ class LocalizationPlugin {
                 .on('readable', function() {
                     let item;
                     while ((item = this.read())) {
-                        console.log(item.path);
                         if (
                             item.stats.isFile() &&
                             localeFileNameRegex.test(item.path)

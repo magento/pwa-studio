@@ -15,6 +15,8 @@ const ServiceWorkerPlugin = require('../plugins/ServiceWorkerPlugin');
 const UpwardIncludePlugin = require('../plugins/UpwardIncludePlugin');
 const LocalizationPlugin = require('../plugins/LocalizationPlugin');
 
+const VirtualModulesPlugin = require('webpack-virtual-modules');
+
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 function isDevServer() {
@@ -47,6 +49,9 @@ async function getClientConfig(opts) {
     }
 
     debug('Creating client config');
+
+    // Create an instance of virtual modules enabling any plugin to create new virtual modules
+    const virtualModules = new VirtualModulesPlugin();
 
     const config = {
         mode,
@@ -134,11 +139,13 @@ async function getClientConfig(opts) {
                 }
             }),
             new LocalizationPlugin({
+                virtualModules,
                 context,
                 dirs: [...hasFlag('i18n'), context], // Directories to search for i18n/*.json files
                 cleanup: true // Optionally disable clean up of merged files for debugging
             }),
-            new ReactRefreshWebpackPlugin()
+            new ReactRefreshWebpackPlugin(),
+            virtualModules
         ],
         devtool: 'source-map',
         optimization: {
