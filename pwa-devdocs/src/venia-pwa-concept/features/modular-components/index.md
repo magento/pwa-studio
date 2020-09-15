@@ -2,6 +2,9 @@
 title: Modular components
 ---
 
+{:.bs-callout .bs-callout-warning}
+This topic is subject to change as the progress of venia-ui implementation need to be updated!
+
 The Venia storefront is a [React][] application composed of multiple React components.
 Some of these components come from third-party dependencies, and
 the rest come from [Peregrine][] or defined in the Venia project itself.
