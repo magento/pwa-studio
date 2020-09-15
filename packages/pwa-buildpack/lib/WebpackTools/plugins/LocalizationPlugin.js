@@ -34,13 +34,10 @@ class LocalizationPlugin {
     }
 
     async buildFetchModule() {
-        const { inputFileSystem } = this.compiler;
+        const { inputFileSystem, hooks } = this.compiler;
         const { dirs, context, virtualModules } = this.opts;
 
-        /**
-         * Iterate through each provided directory, this is context (so venia-concept) plus modules which declare a
-         * i18n special flag
-         */
+        // Iterate through every module which declares the i18n specialFlag along with the context venia-concept dir
         let locales = {};
         for (const dir of dirs) {
             const localeDir = path.join(dir, i18nDir);
@@ -53,10 +50,17 @@ class LocalizationPlugin {
                         localeDir
                     );
                     locales = this.mergeLocales(locales, packageTranslations);
+                } else {
+                    throw new Error('Path is not directory.');
                 }
             } catch (e) {
-                console.error(e);
                 debug(e);
+
+                if (dir !== context) {
+                    throw new Error(
+                        `${dir} module has i18n special flag, but i18n directory does not exist at ${localeDir}.`
+                    );
+                }
             }
         }
 
@@ -84,14 +88,47 @@ class LocalizationPlugin {
         const importerFactory = `function () {
             return function getLocale(locale) {
                 ${Object.keys(locales).map(locale => {
-                    return `if (locale === "${locale}") { return import(/* webpackChunkName: "i18n" */'${
-                        mergedLocalesPaths[locale]
-                    }') }`;
+                    return `if (locale === "${locale}") { 
+                        return import(/* webpackChunkName: "i18n" */'${
+                            mergedLocalesPaths[locale]
+                        }');
+                    }`;
                 })}
                 
                 throw new Error('Unable to locate locale ' + locale + ' within generated dist directory.');
             }
         }`;
+
+        hooks.afterCompile.tap('LocalizationPlugin', compilation => {
+            // Add global file dependencies for all the found translation files
+            Object.values(locales).forEach(localePaths => {
+                localePaths.forEach(localePath => {
+                    compilation.fileDependencies.add(localePath);
+                });
+            });
+        });
+
+        hooks.emit.tap('LocalizationPlugin', compilation => {
+            // Add individual fileDependencies for each i18n chunk
+            compilation.chunks.forEach(chunk => {
+                if (chunk.name === 'i18n') {
+                    chunk.getModules().forEach(chunkModule => {
+                        const chunkLocale = path.parse(chunkModule.resource)
+                            .name;
+                        if (
+                            locales[chunkLocale] &&
+                            Array.isArray(locales[chunkLocale])
+                        ) {
+                            locales[chunkLocale].forEach(localePath => {
+                                chunkModule.buildInfo.fileDependencies.add(
+                                    localePath
+                                );
+                            });
+                        }
+                    });
+                }
+            });
+        });
 
         return `;window.fetchLocaleData = (${importerFactory})()`;
     }

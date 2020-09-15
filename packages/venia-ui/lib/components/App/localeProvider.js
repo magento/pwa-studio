@@ -8,9 +8,12 @@ const locale = fromReactIntl(language);
 const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
 
-    // At build time, `fetchLocaleData` is injected as a global.
-    // Depending on the environment, this global will be either an
-    // ES module with a `default` property, or a plain CJS module.
+    /**
+     * At build time, `fetchLocaleData` is injected as a global. Depending on the environment, this global will be
+     * either an ES module with a `default` property, or a plain CJS module.
+     *
+     * Please see {LocalizationPlugin} from pwa-buildpack
+     */
     const fetchLocale =
         'default' in fetchLocaleData
             ? fetchLocaleData.default
