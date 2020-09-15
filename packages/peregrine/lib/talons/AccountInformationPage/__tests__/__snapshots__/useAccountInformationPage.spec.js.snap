@@ -1,5 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`handleChangePassword sets shouldShowNewPassword to true 1`] = `
+Object {
+  "cancelUpdateMode": [Function],
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
+  "handleChangePassword": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "foobar@express.net",
+      "firtname": "Foo",
+      "id": null,
+      "lastname": "Bar",
+    },
+  },
+  "isDisabled": false,
+  "isSignedIn": true,
+  "isUpdateMode": false,
+  "loadDataError": null,
+  "shouldShowNewPassword": false,
+  "showUpdateMode": [Function],
+}
+`;
+
 exports[`handleSubmit calls changeCustomerPassword if new password is provided 1`] = `
 Object {
   "variables": Object {
@@ -19,7 +45,7 @@ Object {
 }
 `;
 
-exports[`return correct shape for initial customer data 1`] = `
+exports[`return correct shape 1`] = `
 Object {
   "cancelUpdateMode": [Function],
   "formErrors": Array [
@@ -59,6 +85,38 @@ Object {
   "isSignedIn": true,
   "isUpdateMode": false,
   "loadDataError": undefined,
+  "shouldShowNewPassword": false,
+  "showUpdateMode": [Function],
+}
+`;
+
+exports[`returns updated data as initial values 1`] = `
+Object {
+  "customer": "FOO",
+}
+`;
+
+exports[`showUpdateMode sets isUpdateMode to true 1`] = `
+Object {
+  "cancelUpdateMode": [Function],
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
+  "handleChangePassword": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "foobar@express.net",
+      "firtname": "Foo",
+      "id": null,
+      "lastname": "Bar",
+    },
+  },
+  "isDisabled": false,
+  "isSignedIn": true,
+  "isUpdateMode": false,
+  "loadDataError": null,
   "shouldShowNewPassword": false,
   "showUpdateMode": [Function],
 }

@@ -46,6 +46,20 @@ const Component = props => {
     return <i talonProps={talonProps} />;
 };
 
+const getTalonProps = props => {
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    const update = newProps => {
+        tree.update(<Component {...{ ...props, ...newProps }} />);
+
+        return root.findByType('i').props.talonProps;
+    };
+
+    return { talonProps, tree, update };
+};
+
 const mockProps = {
     mutations: {
         setCustomerInformationMutation: 'setCustomerInformationMutation',
@@ -56,34 +70,66 @@ const mockProps = {
     }
 };
 
+test('return correct shape', () => {
+    const { talonProps } = getTalonProps(mockProps);
+
+    expect(talonProps).toMatchSnapshot();
+});
+
+test('returns updated data as initial values', () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        {
+            data: {
+                updateCustomer: {
+                    customer: 'FOO'
+                }
+            }
+        }
+    ]);
+    const { talonProps } = getTalonProps(mockProps);
+
+    expect(talonProps.initialValues).toMatchSnapshot();
+});
+
 test('return correct shape while data is loading', () => {
     useQuery.mockReturnValueOnce({
         loading: true
     });
 
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
+    const { talonProps } = getTalonProps(mockProps);
 
     expect(talonProps).toMatchSnapshot();
 });
 
-test('return correct shape for initial customer data', () => {
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
+test('handleChangePassword sets shouldShowNewPassword to true', () => {
+    const { talonProps, update } = getTalonProps(mockProps);
 
     expect(talonProps).toMatchSnapshot();
+    expect(talonProps.shouldShowNewPassword).toBe(false);
+
+    talonProps.handleChangePassword();
+
+    const newTalonProps = update();
+
+    expect(newTalonProps.shouldShowNewPassword).toBe(true);
 });
 
-test('handleChangePassword sets shouldShowNewPassword to true', () => {});
+test('showUpdateMode sets isUpdateMode to true', () => {
+    const { talonProps, update } = getTalonProps(mockProps);
 
-test('showUpdateMode sets isUpdateMode to true', () => {});
+    expect(talonProps).toMatchSnapshot();
+    expect(talonProps.isUpdateMode).toBe(false);
+
+    talonProps.showUpdateMode();
+
+    const newTalonProps = update();
+
+    expect(newTalonProps.isUpdateMode).toBe(true);
+});
 
 test('handleSubmit calls setCustomerInformationQuery', async () => {
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
+    const { talonProps } = getTalonProps(mockProps);
     const { handleSubmit } = talonProps;
 
     await handleSubmit({
@@ -98,9 +144,7 @@ test('handleSubmit calls setCustomerInformationQuery', async () => {
 });
 
 test('handleSubmit calls changeCustomerPassword if new password is provided', async () => {
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
+    const { talonProps } = getTalonProps(mockProps);
     const { handleSubmit } = talonProps;
 
     await handleSubmit({
@@ -121,9 +165,7 @@ test('handleSubmit does not throw', async () => {
         .mockRejectedValue(new Error('Async error'));
     useMutation.mockReturnValue([mockSetCustomerInformation, {}]);
 
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
+    const { talonProps } = getTalonProps(mockProps);
     const { handleSubmit } = talonProps;
 
     expect(async () => {
