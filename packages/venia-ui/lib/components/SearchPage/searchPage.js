@@ -1,5 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
 
@@ -33,6 +34,7 @@ const SearchPage = props => {
         loading,
         openDrawer,
         pageControl,
+        searchCategory,
         searchTerm,
         sortProps
     } = talonProps;
@@ -92,6 +94,15 @@ const SearchPage = props => {
         </div>
     ) : null;
 
+    const searchTermElement = searchCategory ? (
+        <FormattedMessage
+            id={'searchPage.searchTermValue'}
+            values={{ term: searchTerm, category: searchCategory }}
+        />
+    ) : (
+        searchTerm
+    );
+
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
@@ -105,8 +116,12 @@ const SearchPage = props => {
                 {maybeSortContainer}
             </div>
             <div className={classes.heading}>
-                {'Showing results for '}
-                <span className={classes.headingHighlight}>{searchTerm}</span>:
+                <FormattedMessage id={'searchPage.searchTermLabel'} />
+                &nbsp;
+                <span className={classes.headingHighlight}>
+                    {searchTermElement}
+                </span>
+                :
             </div>
             {content}
             <Suspense fallback={null}>{maybeFilterModal}</Suspense>

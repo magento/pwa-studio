@@ -22,7 +22,7 @@
 
 .heading {
     line-height: var(--venia-global-typography-heading-lineHeight);
-    margin: 1rem 0;
+    margin: 2.5rem 0 1rem;
     max-width: 75vw;
     overflow: hidden;
     text-overflow: ellipsis;
