@@ -1,16 +1,27 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import NavHeader from '../navHeader';
+import { IntlProvider } from 'react-intl';
+
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = {
+        currentUser: null,
+        isSignedIn: false
+    };
+    const api = {};
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
 
 jest.mock('../../../classify');
-jest.mock('../../Icon', () => () => <i />);
-jest.mock('../../Trigger', () => () => <i />);
+jest.mock('../../Trigger', () => () => '<Trigger>');
 
 const props = {
     isTopLevel: true,
     onBack: jest.fn(),
-    onClose: jest.fn(),
     view: 'MENU'
 };
 
@@ -53,20 +64,35 @@ describe('derives the title from the view', () => {
     });
 
     test('MY_ACCOUNT', () => {
-        const title = 'My Account';
+        // Arrange.
+        const userName = 'Elsa';
+        useUserContext.mockReturnValueOnce([
+            {
+                currentUser: { firstname: userName },
+                isSignedIn: true
+            },
+            {}
+        ]);
+
+        // Act.
         const { root } = createTestInstance(
-            <NavHeader {...props} view="MY_ACCOUNT" />
+            <IntlProvider locale="en-US">
+                <NavHeader {...props} view="MY_ACCOUNT" />
+            </IntlProvider>
         );
 
+        // Assert.
         expect(
-            root.find(({ children }) => children.includes(title))
+            root.find(({ children }) => children.includes(`Hi, {name}`))
         ).toBeTruthy();
     });
 
     test('SIGN_IN', () => {
-        const title = 'Sign In';
+        const title = 'Account';
         const { root } = createTestInstance(
-            <NavHeader {...props} view="SIGN_IN" />
+            <IntlProvider locale="en-US">
+                <NavHeader {...props} view="SIGN_IN" />
+            </IntlProvider>
         );
 
         expect(

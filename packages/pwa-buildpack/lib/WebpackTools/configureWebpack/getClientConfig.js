@@ -14,6 +14,8 @@ const RootComponentsPlugin = require('../plugins/RootComponentsPlugin');
 const ServiceWorkerPlugin = require('../plugins/ServiceWorkerPlugin');
 const UpwardIncludePlugin = require('../plugins/UpwardIncludePlugin');
 
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
 function isDevServer() {
     return process.argv.find(v => v.includes('webpack-dev-server'));
 }
@@ -33,7 +35,8 @@ async function getClientConfig(opts) {
         vendor,
         projectConfig,
         stats,
-        resolver
+        resolver,
+        bus
     } = opts;
 
     let vendorTest = '[\\/]node_modules[\\/]';
@@ -82,6 +85,7 @@ async function getClientConfig(opts) {
             }),
             new webpack.EnvironmentPlugin(projectConfig.env),
             new UpwardIncludePlugin({
+                bus,
                 upwardDirs: [...hasFlag('upward'), context]
             }),
             new WebpackAssetsManifest({
@@ -127,7 +131,8 @@ async function getClientConfig(opts) {
                     swSrc: './src/ServiceWorker/sw.js',
                     swDest: './sw.js'
                 }
-            })
+            }),
+            new ReactRefreshWebpackPlugin()
         ],
         devtool: 'source-map',
         optimization: {

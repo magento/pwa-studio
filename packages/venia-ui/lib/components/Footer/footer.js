@@ -1,9 +1,11 @@
 import React from 'react';
 import { Facebook, Instagram, Twitter } from 'react-feather';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
+import Logo from '@magento/venia-ui/lib/components/Logo';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './footer.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
@@ -23,10 +25,12 @@ const Footer = props => {
             const itemKey = `text: ${text} path:${path}`;
             const child = path ? (
                 <Link className={classes.link} to={path}>
-                    {text}
+                    <FormattedMessage id={text} />
                 </Link>
             ) : (
-                <span className={classes.label}>{text}</span>
+                <span className={classes.label}>
+                    <FormattedMessage id={text} />
+                </span>
             );
 
             return (
@@ -45,29 +49,41 @@ const Footer = props => {
 
     return (
         <footer className={classes.root}>
-            <div className={classes.links}>{linkGroups}</div>
-            <div className={classes.callout}>
-                <h3 className={classes.calloutHeading}>{'Follow Us!'}</h3>
-                <p className={classes.calloutBody}>{LOREM_IPSUM}</p>
-                <ul className={classes.socialLinks}>
-                    <li>
-                        <Instagram size={20} />
-                    </li>
-                    <li>
-                        <Facebook size={20} />
-                    </li>
-                    <li>
-                        <Twitter size={20} />
-                    </li>
-                </ul>
+            <div className={classes.links}>
+                {linkGroups}
+                <div className={classes.callout}>
+                    <h3 className={classes.calloutHeading}>
+                        <FormattedMessage id={'Follow Us!'} />
+                    </h3>
+                    <p className={classes.calloutBody}>
+                        <FormattedMessage id={LOREM_IPSUM} />
+                    </p>
+                    <ul className={classes.socialLinks}>
+                        <li>
+                            <Instagram size={20} />
+                        </li>
+                        <li>
+                            <Facebook size={20} />
+                        </li>
+                        <li>
+                            <Twitter size={20} />
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div className={classes.branding}>
                 <ul className={classes.legal}>
-                    <li className={classes.terms}>{'Terms of Use'}</li>
-                    <li className={classes.privacy}>{'Privacy Policy'}</li>
+                    <li className={classes.terms}>
+                        <FormattedMessage id={'Terms of Use'} />
+                    </li>
+                    <li className={classes.privacy}>
+                        <FormattedMessage id={'Privacy Policy'} />
+                    </li>
                 </ul>
                 <p className={classes.copyright}>{copyrightText || null}</p>
-                <div>{'Venia'}</div>
+                <Link className={classes.logo} to="/">
+                    <Logo />
+                </Link>
             </div>
         </footer>
     );

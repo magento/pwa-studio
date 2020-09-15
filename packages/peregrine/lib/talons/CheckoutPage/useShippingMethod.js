@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -63,11 +63,10 @@ export const useShippingMethod = props => {
     const { data, loading: isLoadingShippingMethods } = useQuery(
         getSelectedAndAvailableShippingMethods,
         {
-            variables: {
-                cartId
-            },
             fetchPolicy: 'cache-and-network',
-            skip: !cartId
+            nextFetchPolicy: 'cache-first',
+            skip: !cartId,
+            variables: { cartId }
         }
     );
 
@@ -209,9 +208,14 @@ export const useShippingMethod = props => {
         setShippingMethodCall
     ]);
 
+    const errors = useMemo(
+        () => new Map([['setShippingMethod', setShippingMethodError]]),
+        [setShippingMethodError]
+    );
+
     return {
         displayState,
-        formErrors: [setShippingMethodError],
+        errors,
         handleCancelUpdate,
         handleSubmit,
         isLoading: isLoadingShippingMethods,

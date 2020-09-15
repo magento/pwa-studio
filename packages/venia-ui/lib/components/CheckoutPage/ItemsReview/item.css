@@ -8,8 +8,8 @@
     transition-delay: 64ms;
     transition-duration: 384ms;
     transition-property: opacity, visbility;
-    transition-timing-function: var(--venia-anim-standard);
-    margin-top: 2rem;
+    transition-timing-function: var(--venia-global-anim-standard);
+    margin-top: 1.5rem;
 }
 
 .root_hidden {
@@ -23,7 +23,7 @@
 .thumbnail {
     grid-column: 1 / span 1;
     grid-row: 1 / span 3;
-    border: solid 1px rgb(var(--venia-border));
+    border: solid 1px rgb(var(--venia-global-color-border));
 }
 
 .name {

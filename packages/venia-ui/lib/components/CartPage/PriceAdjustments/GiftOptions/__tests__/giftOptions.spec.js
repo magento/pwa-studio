@@ -11,11 +11,10 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
-jest.mock('@apollo/react-hooks', () => {
-    const runQuery = jest.fn();
+jest.mock('@apollo/client', () => {
     const queryResult = {
         data: {
-            gift_options: {
+            cart: {
                 include_gift_receipt: true,
                 include_printed_card: false,
                 gift_message: 'Sample Message'
@@ -25,11 +24,18 @@ jest.mock('@apollo/react-hooks', () => {
         loading: false
     };
 
-    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
+    const useQuery = jest.fn(() => queryResult);
 
     const useMutation = jest.fn(() => [() => {}]);
 
-    return { useLazyQuery, useMutation };
+    return {
+        gql: jest.fn(),
+        useApolloClient: jest.fn(() => ({
+            cache: {}
+        })),
+        useQuery,
+        useMutation
+    };
 });
 
 test('it renders gift options in venia cart page', () => {

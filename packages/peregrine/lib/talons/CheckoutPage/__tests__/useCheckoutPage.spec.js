@@ -4,7 +4,7 @@ import {
     useApolloClient,
     useMutation,
     useQuery
-} from '@apollo/react-hooks';
+} from '@apollo/client';
 import { act } from 'react-test-renderer';
 
 import { useCheckoutPage, CHECKOUT_STEP } from '../useCheckoutPage';
@@ -18,7 +18,7 @@ import CheckoutError from '../CheckoutError';
  * Mocks
  */
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useLazyQuery: jest.fn(),
         useApolloClient: jest.fn(),
@@ -226,6 +226,16 @@ test('isLoading should be set to true if the customer details query is loading',
     const { talonProps } = getTalonProps(props);
 
     expect(talonProps.isLoading).toBeTruthy();
+});
+
+test('returns cartItems from getOrderDetails query', () => {
+    const cartItems = ['item1', 'item2'];
+    getCheckoutDetailsQueryResult.mockReturnValueOnce({
+        data: { cart: { items: cartItems } }
+    });
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.cartItems).toEqual(cartItems);
 });
 
 test('returned error prop should be error from place order mutation', () => {

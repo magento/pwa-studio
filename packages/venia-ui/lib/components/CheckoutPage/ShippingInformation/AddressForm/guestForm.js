@@ -24,7 +24,7 @@ const GuestForm = props => {
         shippingData
     });
     const {
-        formErrors,
+        errors,
         handleCancel,
         handleSubmit,
         initialValues,
@@ -43,14 +43,7 @@ const GuestForm = props => {
     ) : null;
 
     const cancelButton = isUpdate ? (
-        <Button
-            classes={{
-                root_normalPriority: classes.submit
-            }}
-            disabled={isSaving}
-            onClick={handleCancel}
-            priority="normal"
-        >
+        <Button disabled={isSaving} onClick={handleCancel} priority="low">
             {'Cancel'}
         </Button>
     ) : null;
@@ -60,10 +53,6 @@ const GuestForm = props => {
         : 'Continue to Shipping Method';
 
     const submitButtonProps = {
-        classes: {
-            root_normalPriority: classes.submit,
-            root_highPriority: classes.submit_update
-        },
         disabled: isSaving,
         priority: isUpdate ? 'high' : 'normal',
         type: 'submit'
@@ -71,7 +60,7 @@ const GuestForm = props => {
 
     return (
         <Fragment>
-            <FormError errors={formErrors} />
+            <FormError errors={Array.from(errors.values())} />
             <Form
                 className={classes.root}
                 initialValues={initialValues}
@@ -102,7 +91,11 @@ const GuestForm = props => {
                     </Field>
                 </div>
                 <div className={classes.street1}>
-                    <Field id="street1" label="Street Address 2">
+                    <Field
+                        id="street1"
+                        label="Street Address 2"
+                        optional={true}
+                    >
                         <TextInput field="street[1]" />
                     </Field>
                 </div>

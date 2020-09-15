@@ -2,30 +2,28 @@
     height: 100%;
 }
 
-.container {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    height: 100%;
-    row-gap: 1em;
-}
-
 .contents {
     display: grid;
     grid-template-rows: auto auto;
-    margin-top: 1rem;
+    margin-top: 1.125rem;
     row-gap: 0.5rem;
     text-align: left;
 }
 
-.editButtonText {
-    line-height: 1;
-    padding-left: 0.5rem;
-    vertical-align: top;
+.editButton {
+    color: rgb(var(--venia-brand-color-1-700));
+    padding: 1rem;
+    margin: -1rem;
+}
+
+.editIcon {
+    stroke: rgb(var(--venia-brand-color-1-700));
 }
 
 .error {
     align-self: center;
-    color: rgb(var(--venia-error));
+    color: rgb(var(--venia-global-color-error));
+    line-height: var(--venia-global-lineHeight-300);
 }
 
 .free {

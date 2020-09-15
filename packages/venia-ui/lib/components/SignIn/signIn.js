@@ -15,6 +15,9 @@ import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
 import defaultClasses from './signIn.css';
 import { GET_CART_DETAILS_QUERY } from './signIn.gql';
+import LinkButton from '../LinkButton';
+import Password from '../Password';
+import FormError from '../FormError/formError';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -40,13 +43,6 @@ const SignIn = props => {
         setFormApi
     } = talonProps;
 
-    // Map over any errors we get and display an appropriate error.
-    const errorMessage = errors.length
-        ? errors
-              .map(({ message }) => message)
-              .reduce((acc, msg) => msg + '\n' + acc, '')
-        : null;
-
     if (isBusy) {
         return (
             <div className={classes.modal_active}>
@@ -54,57 +50,56 @@ const SignIn = props => {
             </div>
         );
     }
+
+    const forgotPasswordClasses = {
+        root: classes.forgotPasswordButton
+    };
+
     return (
         <div className={classes.root}>
+            <h2 className={classes.title}>{`Sign-in to Your Account`}</h2>
+            <FormError errors={Array.from(errors.values())} />
             <Form
                 getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
             >
-                <Field label="Email" required={true}>
+                <Field label="Email address">
                     <TextInput
                         autoComplete="email"
                         field="email"
                         validate={isRequired}
                     />
                 </Field>
-                <Field label="Password" required={true}>
-                    <TextInput
-                        autoComplete="current-password"
-                        field="password"
-                        type="password"
-                        validate={isRequired}
-                    />
-                </Field>
-                <div className={classes.signInError}>{errorMessage}</div>
-                <div className={classes.signInButton}>
+                <Password
+                    fieldName="password"
+                    label="Password"
+                    validate={isRequired}
+                    autoComplete="current-password"
+                    isToggleButtonHidden={false}
+                />
+                <div className={classes.forgotPasswordButtonContainer}>
+                    <LinkButton
+                        classes={forgotPasswordClasses}
+                        type="button"
+                        onClick={handleForgotPassword}
+                    >
+                        {'Forgot Password?'}
+                    </LinkButton>
+                </div>
+                <div className={classes.buttonsContainer}>
                     <Button priority="high" type="submit">
                         {'Sign In'}
                     </Button>
+                    <Button
+                        priority="normal"
+                        type="button"
+                        onClick={handleCreateAccount}
+                    >
+                        {'Create an Account'}
+                    </Button>
                 </div>
             </Form>
-            <div className={classes.forgotPasswordButton}>
-                <Button
-                    priority="low"
-                    type="button"
-                    onClick={handleForgotPassword}
-                    classes={{
-                        root_lowPriority: classes.forgotPasswordButtonRoot
-                    }}
-                >
-                    {'Forgot Password?'}
-                </Button>
-            </div>
-            <div className={classes.signInDivider} />
-            <div className={classes.createAccountButton}>
-                <Button
-                    priority="normal"
-                    type="button"
-                    onClick={handleCreateAccount}
-                >
-                    {'Create an Account'}
-                </Button>
-            </div>
         </div>
     );
 };
@@ -113,16 +108,20 @@ export default SignIn;
 
 SignIn.propTypes = {
     classes: shape({
-        createAccountButton: string,
+        buttonsContainer: string,
         form: string,
         forgotPasswordButton: string,
-        forgotPasswordButtonRoot: string,
+        forgotPasswordButtonContainer: string,
         root: string,
-        signInButton: string,
-        signInDivider: string,
-        signInError: string
+        title: string
     }),
-    setDefaultUsername: func.isRequired,
-    showCreateAccount: func.isRequired,
-    showForgotPassword: func.isRequired
+    setDefaultUsername: func,
+    showCreateAccount: func,
+    showForgotPassword: func
+};
+
+SignIn.defaultProps = {
+    setDefaultUsername: () => {},
+    showCreateAccount: () => {},
+    showForgotPassword: () => {}
 };

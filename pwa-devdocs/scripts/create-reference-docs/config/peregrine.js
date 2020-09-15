@@ -42,5 +42,51 @@ module.exports = [
     {
         target: 'peregrine/lib/Toasts/useToasts.js',
         type: 'function'
+    },
+    {
+        target: 'peregrine/lib/talons/CartPage/useCartPage.js',
+        type: 'function',
+    },
+    {
+        target: 'peregrine/lib/talons/CartPage/GiftCards/useGiftCards.js',
+        type: 'function',
+        childComponents: [
+            'peregrine/lib/talons/CartPage/GiftCards/useGiftCard.js'
+        ]
+    },
+    {
+        target: 'peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions.js',
+        type: 'function',
+    },
+    {
+        target: 'peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode.js',
+        type: 'function',
+        childComponents: [
+            'peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm.js',
+            'peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods.js',
+            'peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios.js'
+        ]
+    },
+    {
+        target: 'peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary.js',
+        type: 'function',
+    },
+    {
+        target: 'peregrine/lib/talons/CartPage/ProductListing/useProductListing.js',
+        type: 'function',
+        childComponents: [
+            'peregrine/lib/talons/CartPage/ProductListing/useProduct.js',
+            'peregrine/lib/talons/CartPage/ProductListing/useQuantity.js',
+            'peregrine/lib/talons/CartPage/ProductListing/EditModal/useEditModal.js',
+            'peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm.js',
+        ]
+    },
+    {
+        target: 'peregrine/lib/targets/peregrine-declare.js',
+        type: 'function'
+    },
+    {
+        target: 'peregrine/lib/targets/TalonWrapperConfig.js',
+        type: 'function'
     }
 ];

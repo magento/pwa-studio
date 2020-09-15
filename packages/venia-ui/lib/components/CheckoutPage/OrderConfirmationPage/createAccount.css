@@ -10,12 +10,18 @@
     gap: 0.5rem;
 }
 
-.error {
-    color: rgb(var(--venia-error));
-}
-
 .actions {
     text-align: center;
+}
+
+/*
+ * Desktop specific styles
+ */
+@media (min-width: 961px) {
+    .root {
+        position: sticky;
+        top: 5.5rem;
+    }
 }
 
 /*

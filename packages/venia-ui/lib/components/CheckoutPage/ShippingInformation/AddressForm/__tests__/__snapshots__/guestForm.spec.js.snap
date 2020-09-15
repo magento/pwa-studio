@@ -210,6 +210,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
@@ -406,9 +411,7 @@ Array [
   <FormError
     errors={
       Array [
-        Object {
-          "message": "Form Error",
-        },
+        [Error: Form Error],
       ]
     }
   />,
@@ -617,6 +620,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
@@ -1013,6 +1021,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
@@ -1189,7 +1202,7 @@ Array [
       className="buttons"
     >
       <button
-        className="root_normalPriority"
+        className="root_lowPriority"
         disabled={true}
         onClick={[MockFunction handleCancel]}
         type="button"
@@ -1421,6 +1434,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
@@ -1597,7 +1615,7 @@ Array [
       className="buttons"
     >
       <button
-        className="root_normalPriority"
+        className="root_lowPriority"
         disabled={false}
         onClick={[MockFunction handleCancel]}
         type="button"

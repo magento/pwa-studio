@@ -157,6 +157,7 @@ Array [
     >
       <button
         className="root_highPriority"
+        disabled={false}
         type="submit"
       >
         <span
@@ -317,6 +318,7 @@ exports[`renders form with data 1`] = `
   >
     <button
       className="root_highPriority"
+      disabled={false}
       type="submit"
     >
       <span

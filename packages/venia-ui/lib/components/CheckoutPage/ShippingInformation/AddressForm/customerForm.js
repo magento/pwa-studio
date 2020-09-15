@@ -26,7 +26,7 @@ const CustomerForm = props => {
         shippingData
     });
     const {
-        formErrors,
+        errors,
         handleCancel,
         handleSubmit,
         hasDefaultShipping,
@@ -67,14 +67,7 @@ const CustomerForm = props => {
     ) : null;
 
     const cancelButton = isUpdate ? (
-        <Button
-            classes={{
-                root_normalPriority: classes.submit
-            }}
-            disabled={isSaving}
-            onClick={handleCancel}
-            priority="normal"
-        >
+        <Button disabled={isSaving} onClick={handleCancel} priority="low">
             {'Cancel'}
         </Button>
     ) : null;
@@ -86,12 +79,8 @@ const CustomerForm = props => {
         : 'Add';
 
     const submitButtonProps = {
-        classes: {
-            root_normalPriority: classes.submit,
-            root_highPriority: classes.submit_update
-        },
         disabled: isSaving,
-        priority: isUpdate ? 'high' : 'normal',
+        priority: !hasDefaultShipping ? 'normal' : 'high',
         type: 'submit'
     };
 
@@ -110,7 +99,7 @@ const CustomerForm = props => {
 
     return (
         <Fragment>
-            <FormError errors={formErrors} />
+            <FormError errors={Array.from(errors.values())} />
             <Form
                 className={classes.root}
                 initialValues={initialValues}
@@ -145,7 +134,11 @@ const CustomerForm = props => {
                     </Field>
                 </div>
                 <div className={classes.street1}>
-                    <Field id="street1" label="Street Address 2">
+                    <Field
+                        id="street1"
+                        label="Street Address 2"
+                        optional={true}
+                    >
                         <TextInput field="street[1]" />
                     </Field>
                 </div>
@@ -155,7 +148,12 @@ const CustomerForm = props => {
                     </Field>
                 </div>
                 <div className={classes.region}>
-                    <Region validate={isRequired} optionValueKey="id" />
+                    <Region
+                        validate={isRequired}
+                        fieldInput={'region[region]'}
+                        fieldSelect={'region[region_id]'}
+                        optionValueKey="id"
+                    />
                 </div>
                 <div className={classes.postcode}>
                     <Field id="postcode" label="ZIP / Postal Code">
@@ -206,8 +204,6 @@ CustomerForm.propTypes = {
         postcode: string,
         telephone: string,
         buttons: string,
-        submit: string,
-        submit_update: string,
         formMessage: string,
         defaultShipping: string
     }),

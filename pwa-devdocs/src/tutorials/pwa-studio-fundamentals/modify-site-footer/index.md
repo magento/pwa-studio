@@ -123,35 +123,21 @@ cp node_modules/@magento/venia-ui/lib/components/Footer/footer.js src/components
 
 Open `src/components/Footer/footer.js` and make the following modifications to add a link to the footer element.
 
-Import **Link** from Venia's driver component.
-
-```diff
-  import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
-+
-+ import { Link } from '@magento/venia-ui/lib/drivers';
-
-  import { mergeClasses } from '../../classify';
-```
-
 Use the Link component to create a link to an internal route defined in the [Add a static route tutorial][]:
 
 ```diff
-        <footer className={classes.root}>
-+           <div className={classes.tile}>
-+               <p className={classes.tileBody}>
-+                   <Link to="/foo">Foo Demo Page</Link>
-+               </p>
-+           </div>
-            <div className={classes.tile}>
-                <h2 className={classes.tileTitle}>
-                    <span>Your Account</span>
-                </h2>
-                <p className={classes.tileBody}>
-                    <span>
-                        Sign up and get access to our wonderful rewards program.
-                    </span>
-                </p>
-            </div>
+
+    <footer className={classes.root}>
+      <div className={classes.links}>
++       <div className={classes.link}>
++         <Link to="/foo">
++           <span className={classes.label}>Foo Demo Page</span>
++         </Link>
++       </div>
+        {linkGroups}
+      </div>
+      <div className={classes.callout}>
+        <h3 className={classes.calloutHeading}>{"Follow Us!"}</h3>
 ```
 
 ## Connect everything together
@@ -166,9 +152,11 @@ Update the relative imports in `src/components/Footer/footer.js`.
 ```diff
 - import { mergeClasses } from '../../classify';
 - import defaultClasses from './footer.css';
+- import { DEFAULT_LINKS, LOREM_IPSUM } from "./sampleData";
 - import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 + import { mergeClasses } from '@magento/venia-ui/lib/classify';
 + import defaultClasses from '@magento/venia-ui/lib/components/Footer/footer.css';
++ import { DEFAULT_LINKS, LOREM_IPSUM } from "@magento/venia-ui/lib/components/Footer/sampleData";
 + import GET_STORE_CONFIG_DATA from '@magento/venia-ui/lib/queries/getStoreConfigData.graphql';
 ```
 
@@ -188,7 +176,7 @@ Skip updating the Footer import statement to use your project's modified Footer 
 ```diff
 - import { mergeClasses } from '../../classify';
 + import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import Footer from '../Footer';
+  import Footer from '../Footer';
 - import Header from '../Header';
 - import defaultClasses from './main.css';
 + import Header from '@magento/venia-ui/lib/components/Header';
@@ -213,19 +201,13 @@ Skip updating the Main import statement to use your project's copy of the Main c
 + import { HeadProvider, Title } from '@magento/venia-ui/lib/components/Head';
   import Main from '../Main';
 - import Mask from '../Mask';
-- import MiniCart from '../MiniCart';
 - import Navigation from '../Navigation';
 - import Routes from '../Routes';
-- import { registerMessageHandler } from '../../util/swUtils';
-- import { HTML_UPDATE_AVAILABLE } from '../../constants/swMessageTypes';
 - import ToastContainer from '../ToastContainer';
 - import Icon from '../Icon';
 + import Mask from '@magento/venia-ui/lib/components/Mask';
-+ import MiniCart from '@magento/venia-ui/lib/components/MiniCart';
 + import Navigation from '@magento/venia-ui/lib/components/Navigation';
 + import Routes from '@magento/venia-ui/lib/components/Routes';
-+ import { registerMessageHandler } from '@magento/venia-ui/lib/util/swUtils';
-+ import { HTML_UPDATE_AVAILABLE } from '@magento/venia-ui/lib/constants/swMessageTypes';
 + import ToastContainer from '@magento/venia-ui/lib/components/ToastContainer';
 + import Icon from '@magento/venia-ui/lib/components/Icon';
 ```

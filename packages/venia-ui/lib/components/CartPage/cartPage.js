@@ -1,18 +1,34 @@
 import React from 'react';
-
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
-import { Title } from '../../components/Head';
-import Button from '../Button';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
-
-import PriceAdjustments from './PriceAdjustments';
-import PriceSummary from './PriceSummary';
-import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
+import { Title } from '../Head';
+import LinkButton from '../LinkButton';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import StockStatusMessage from '../StockStatusMessage';
+import PriceAdjustments from './PriceAdjustments';
+import ProductListing from './ProductListing';
+import PriceSummary from './PriceSummary';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
 
+/**
+ * Structural page component for the shopping cart.
+ * This is the main component used in the `/cart` route in Venia.
+ * It uses child components to render the different pieces of the cart page.
+ *
+ * @see {@link https://venia.magento.com/cart}
+ *
+ * @param {Object} props
+ * @param {Object} props.classes CSS className overrides for the component.
+ * See [cartPage.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.css}
+ * for a list of classes you can override.
+ *
+ * @returns {React.Element}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import CartPage from "@magento/venia-ui/lib/components/CartPage";
+ */
 const CartPage = props => {
     const talonProps = useCartPage({
         queries: {
@@ -21,6 +37,7 @@ const CartPage = props => {
     });
 
     const {
+        cartItems,
         handleSignIn,
         hasItems,
         isSignedIn,
@@ -36,13 +53,12 @@ const CartPage = props => {
     }
 
     const signInDisplay = !isSignedIn ? (
-        <Button
-            className={classes.sign_in}
+        <LinkButton
+            classes={{ root: classes.signInLink }}
             onClick={handleSignIn}
-            priority="high"
         >
             {'Sign In'}
-        </Button>
+        </LinkButton>
     ) : null;
 
     const productListing = hasItems ? (
@@ -64,6 +80,9 @@ const CartPage = props => {
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
                 {signInDisplay}
+                <div className={classes.stockStatusMessageContainer}>
+                    <StockStatusMessage cartItems={cartItems} />
+                </div>
             </div>
             <div className={classes.body}>
                 <div className={classes.items_container}>{productListing}</div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import createTestInstance from '../../../../../util/createTestInstance';
 import { useGuestForm } from '../useGuestForm';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useMutation: jest
         .fn()
         .mockReturnValue([jest.fn(), { called: false, loading: false }])

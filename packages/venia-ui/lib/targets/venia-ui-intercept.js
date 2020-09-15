@@ -1,8 +1,7 @@
 /**
  * @module VeniaUI/Targets
  */
-const path = require('path');
-const loader = require.resolve('./rendererCollectionLoader');
+const RichContentRendererList = require('./RichContentRendererList');
 
 /**
  * TODO: This code intercepts the Webpack module for a specific file in this
@@ -10,25 +9,7 @@ const loader = require.resolve('./rendererCollectionLoader');
  * a utility function.
  */
 
-// Guard condition for detecting the actual module we want to change.
-const isRCR = mod =>
-    mod.resource ===
-    path.resolve(
-        __dirname,
-        '../components/RichContent/richContentRenderers.js'
-    );
-
-/**
- * Webpack can process loaders best when each one has a unique identity. We
- * use the filename, since there should only be one of these loaders per
- * compilation.
- */
-const ident = __filename;
-
 const name = '@magento/venia-ui';
-
-// Guard condition for whether the loader has already been installed.
-const loaderIsInstalled = mod => mod.loaders.some(l => l.ident === ident);
 
 module.exports = targets => {
     const builtins = targets.of('@magento/pwa-buildpack');
@@ -44,34 +25,23 @@ module.exports = targets => {
     });
 
     builtins.webpackCompiler.tap(compiler =>
-        compiler.hooks.compilation.tap(name, compilation =>
+        compiler.hooks.compilation.tap(name, compilation => {
+            const renderers = new RichContentRendererList();
             compilation.hooks.normalModuleLoader.tap(
-                name,
+                `${name}:RichContentRendererInjector`,
                 (loaderContext, mod) => {
-                    if (isRCR(mod) && !loaderIsInstalled(mod)) {
-                        const renderers = [];
-                        const api = {
-                            add(renderer) {
-                                renderers.push(renderer);
-                            }
-                        };
-                        targets.own.richContentRenderers.call(api);
-                        mod.loaders.push({
-                            ident: ident,
-                            loader,
-                            options: {
-                                renderers: renderers.reverse()
-                            }
-                        });
+                    if (renderers.shouldInject(mod)) {
+                        targets.own.richContentRenderers.call(renderers);
+                        renderers.inject(mod);
                     }
                 }
-            )
-        )
+            );
+        })
     );
 
     // Dogfood our own richContentRenderer hook to insert the fallback renderer.
-    targets.own.richContentRenderers.tap(api =>
-        api.add({
+    targets.own.richContentRenderers.tap(rendererInjector =>
+        rendererInjector.add({
             componentName: 'PlainHtmlRenderer',
             importPath: './plainHtmlRenderer'
         })
@@ -97,8 +67,15 @@ module.exports = targets => {
         });
     });
 
+    // The paths below are relative to packages/venia-ui/lib/components/Routes/routes.js.
     targets.own.routes.tap(routes => [
         ...routes,
+        {
+            name: 'AddressBook',
+            pattern: '/address-book',
+            exact: true,
+            path: '../AddressBookPage'
+        },
         {
             name: 'Cart',
             pattern: '/cart',
@@ -106,10 +83,16 @@ module.exports = targets => {
             path: '../CartPage'
         },
         {
-            name: 'Search',
-            pattern: '/search.html',
+            name: 'CheckoutPage',
+            pattern: '/checkout',
             exact: true,
-            path: '../../RootComponents/Search'
+            path: '../CheckoutPage'
+        },
+        {
+            name: 'CommunicationsPage',
+            pattern: '/communications',
+            exact: true,
+            path: '../CommunicationsPage'
         },
         {
             name: 'CreateAccountPage',
@@ -118,10 +101,32 @@ module.exports = targets => {
             path: '../CreateAccountPage'
         },
         {
-            name: 'CheckoutPage',
-            pattern: '/checkout',
+            name: 'OrderHistory',
+            pattern: '/order-history',
             exact: true,
-            path: '../CheckoutPage'
+            path: '../OrderHistoryPage'
+        },
+        {
+            /**
+             * This path is configured in the forgot password
+             * email template in the admin panel.
+             */
+            name: 'Reset Password',
+            pattern: '/customer/account/createPassword',
+            exact: true,
+            path: '../MyAccount/ResetPassword'
+        },
+        {
+            name: 'Search',
+            pattern: '/search.html',
+            exact: true,
+            path: '../../RootComponents/Search'
+        },
+        {
+            name: 'WishlistPage',
+            pattern: '/wishlist',
+            exact: true,
+            path: '../WishlistPage'
         }
     ]);
 };

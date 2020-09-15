@@ -4,7 +4,7 @@ import {
     useLazyQuery,
     useMutation,
     useQuery
-} from '@apollo/react-hooks';
+} from '@apollo/client';
 
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { useAppContext } from '../../context/app';
@@ -61,7 +61,7 @@ export const useCheckoutPage = props => {
         // We use this query to fetch details _just_ before submission, so we
         // want to make sure it is fresh. We also don't want to cache this data
         // because it may contain PII.
-        fetchPolicy: 'network-only'
+        fetchPolicy: 'no-cache'
     });
 
     const { data: customerData, loading: customerLoading } = useQuery(
@@ -83,6 +83,10 @@ export const useCheckoutPage = props => {
             cartId
         }
     });
+
+    const cartItems = useMemo(() => {
+        return (checkoutData && checkoutData.cart.items) || [];
+    }, [checkoutData]);
 
     /**
      * For more info about network statues check this out
@@ -138,6 +142,11 @@ export const useCheckoutPage = props => {
 
     const setPaymentInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
+            window.scrollTo({
+                left: 0,
+                top: 0,
+                behavior: 'smooth'
+            });
             setCheckoutStep(CHECKOUT_STEP.REVIEW);
         }
     }, [checkoutStep, setCheckoutStep]);
@@ -196,9 +205,10 @@ export const useCheckoutPage = props => {
 
     return {
         activeContent,
+        cartItems,
         checkoutStep,
-        error: checkoutError,
         customer,
+        error: checkoutError,
         handleSignIn,
         handlePlaceOrder,
         hasError: !!checkoutError,

@@ -4,6 +4,7 @@ import { shape, string } from 'prop-types';
 import Logo from '../Logo';
 import { Link, resourceUrl, Route } from '@magento/venia-drivers';
 
+import AccountTrigger from './accountTrigger';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
@@ -50,8 +51,8 @@ const Header = props => {
             <div className={classes.toolbar}>
                 <div className={classes.primaryActions}>
                     <NavTrigger />
-                    {pageLoadingIndicator}
                 </div>
+                {pageLoadingIndicator}
                 <OnlineIndicator
                     hasBeenOffline={hasBeenOffline}
                     isOnline={isOnline}
@@ -64,6 +65,7 @@ const Header = props => {
                         active={searchOpen}
                         onClick={handleSearchTriggerClick}
                     />
+                    <AccountTrigger />
                     <CartTrigger />
                 </div>
             </div>

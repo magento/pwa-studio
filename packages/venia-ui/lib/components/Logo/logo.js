@@ -1,8 +1,9 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { mergeClasses } from '../../classify';
 import Image from '../Image';
-import logo from './logo.svg';
+import logo from './VeniaLogo.svg';
 
 /**
  * A component that renders a logo in the header.
@@ -17,14 +18,17 @@ import logo from './logo.svg';
 const Logo = props => {
     const { height, width } = props;
     const classes = mergeClasses({}, props.classes);
+    const { formatMessage } = useIntl();
+
+    const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
 
     return (
         <Image
-            alt="Venia"
+            alt={title}
             classes={{ image: classes.logo }}
             height={height}
             src={logo}
-            title="Venia"
+            title={title}
             width={width}
         />
     );
@@ -49,8 +53,8 @@ Logo.propTypes = {
 };
 
 Logo.defaultProps = {
-    height: 24,
-    width: 48
+    height: 18,
+    width: 102
 };
 
 export default Logo;

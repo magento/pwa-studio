@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
 
@@ -35,12 +35,6 @@ export const useItemsReview = props => {
             });
         }
     }, [cartId, fetchItemsInCart, props.data]);
-
-    useEffect(() => {
-        if (error) {
-            console.error(error);
-        }
-    }, [error]);
 
     useEffect(() => {
         /**

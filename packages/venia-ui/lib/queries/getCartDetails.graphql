@@ -1,8 +1,13 @@
 query getCartDetails($cartId: String!) {
-    cart(cart_id: $cartId) @connection(key: "Cart") {
+    cart(cart_id: $cartId) {
         id
         items {
             id
+            prices {
+                price {
+                    value
+                }
+            }
             product {
                 id
                 name

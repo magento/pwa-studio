@@ -240,6 +240,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
@@ -321,6 +326,8 @@ Array [
       className="region"
     >
       <Region
+        fieldInput="region[region]"
+        fieldSelect="region[region_id]"
         optionValueKey="id"
         validate={[Function]}
       />
@@ -432,7 +439,28 @@ Array [
         />
         <span
           className="icon"
-        />
+        >
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              ry="2"
+              width="18"
+              x="3"
+              y="3"
+            />
+          </svg>
+        </span>
         <span
           className="label"
         >
@@ -447,7 +475,7 @@ Array [
       className="buttons"
     >
       <button
-        className="root_normalPriority"
+        className="root_lowPriority"
         disabled={true}
         onClick={[MockFunction handleCancel]}
         type="button"
@@ -637,6 +665,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
@@ -718,6 +751,8 @@ Array [
       className="region"
     >
       <Region
+        fieldInput="region[region]"
+        fieldSelect="region[region_id]"
         optionValueKey="id"
         validate={[Function]}
       />
@@ -830,26 +865,24 @@ Array [
         <span
           className="icon"
         >
-          <span
-            className="root"
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={18}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={18}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <polyline
-                points="20 6 9 17 4 12"
-              />
-            </svg>
-          </span>
+            <polyline
+              points="9 11 12 14 22 4"
+            />
+            <path
+              d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+            />
+          </svg>
         </span>
         <span
           className="label"
@@ -865,7 +898,7 @@ Array [
       className="buttons"
     >
       <button
-        className="root_normalPriority"
+        className="root_lowPriority"
         disabled={false}
         onClick={[MockFunction handleCancel]}
         type="button"
@@ -897,9 +930,7 @@ Array [
   <FormError
     errors={
       Array [
-        Object {
-          "message": "Form Error",
-        },
+        [Error: Form Error],
       ]
     }
   />,
@@ -1115,6 +1146,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
@@ -1196,6 +1232,8 @@ Array [
       className="region"
     >
       <Region
+        fieldInput="region[region]"
+        fieldSelect="region[region_id]"
         optionValueKey="id"
         validate={[Function]}
       />

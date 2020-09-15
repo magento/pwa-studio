@@ -72,8 +72,7 @@ It showcases Page Builder content types such as Sliders, Banners, and Gallery It
 
 This new page replaces the old home page content in Venia.
 
-<!-- TODO: Update this to https://develop.pwa-venia.com/ when the release branch is merged back into develop -->
-[Check out the new Venia homepage](https://mcstaging-jnz3dtiuj77ca.dummycachetest.com/)
+[Check out the new Venia homepage](https://venia.magento.com/)
 
 ### Standalone Cart and Checkout pages
 
@@ -264,6 +263,34 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 The method for updating to 7.0.0 from a previous version depends on how PWA Studio is incorporated into your project.
 The following are common use cases we have identified and how to update the project code.
 
+### Scaffolded project
+
+Using the [scaffolding tool][] is the recommended method for starting a new storefront project.
+This tool generates a copy of the storefront project defined in the [Venia concept][] package.
+
+#### Upgrade method: Update dependencies and manual merge
+
+Since scaffolded projects consume PWA Studio libraries as dependencies, you just need to update your PWA Studio dependencies in your `package.json` file to use the released version.
+
+After that, install the new dependencies using the install command:
+
+```sh
+yarn install
+```
+
+or
+
+```sh
+npm install
+```
+
+If you need to update other project files, such as configuration and build scripts,
+you need to use a diff tool to compare your projects files with those of [Venia concept][].
+This will help determine what changes you need to manually copy into your project files.
+
+[scaffolding tool]: http://pwastudio.io/pwa-buildpack/scaffolding/
+[venia concept]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
+
 ### PWA Studio fork
 
 Many PWA Studio users have forked the PWA Studio Git repository.
@@ -295,7 +322,13 @@ This is the easiest way to work with the released versions of PWA Studio.
 
 #### Upgrade method: Update `package.json`
 
-To upgrade to 7.0.0, update the project's `package.json` file and change the version string for any PWA Studio package dependencies.
+To upgrade to the latest version (currently 7.0.0), simply call `yarn add` on each of the `@magento` packages. This will both update `package.json` in your project, as well as install the latest versions.
+
+Sample command:
+
+```
+yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento/pwa-buildpack @magento/upward-js @magento/venia-ui
+```
 
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
 

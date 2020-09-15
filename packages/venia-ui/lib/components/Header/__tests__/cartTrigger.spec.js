@@ -1,10 +1,13 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 
 import CartTrigger from '../cartTrigger';
+import { IntlProvider } from 'react-intl';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useApolloClient: jest.fn().mockImplementation(() => {}),
     useQuery: jest.fn().mockReturnValue({ data: null }),
     useMutation: jest.fn().mockImplementation(() => [
@@ -14,6 +17,16 @@ jest.mock('@apollo/react-hooks', () => ({
         }
     ])
 }));
+
+jest.mock('react-router-dom', () => {
+    return {
+        useHistory: jest.fn().mockReturnValue({
+            location: {
+                pathname: '/'
+            }
+        })
+    };
+});
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
@@ -40,12 +53,18 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
     return { useAwaitQuery };
 });
 
+jest.mock('../../MiniCart', () => 'MiniCart Component');
+
 const classes = {
     root: 'a'
 };
 
-test('Cart icon svg has no fill when cart is empty', () => {
-    const component = createTestInstance(<CartTrigger classes={classes} />);
+test('No counter when cart is empty', () => {
+    const component = createTestInstance(
+        <IntlProvider locale="en-US">
+            <CartTrigger classes={classes} />
+        </IntlProvider>
+    );
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -53,7 +72,39 @@ test('Cart icon svg has no fill when cart is empty', () => {
 test('Cart icon svg has fill and correct value when cart contains items', () => {
     useQuery.mockReturnValueOnce({ data: { cart: { total_quantity: 10 } } });
 
-    const component = createTestInstance(<CartTrigger classes={classes} />);
+    const component = createTestInstance(
+        <IntlProvider locale="en-US">
+            <CartTrigger classes={classes} />
+        </IntlProvider>
+    );
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('Cart counter displays 99+ when items quantity is more than 99', () => {
+    useQuery.mockReturnValueOnce({ data: { cart: { total_quantity: 100 } } });
+
+    const component = createTestInstance(
+        <IntlProvider locale="en-US">
+            <CartTrigger classes={classes} />
+        </IntlProvider>
+    );
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('Cart trigger should not be rendered on the checkout page', () => {
+    useHistory.mockReturnValueOnce({
+        location: {
+            pathname: '/checkout'
+        }
+    });
+
+    const component = createTestInstance(
+        <IntlProvider locale="en-US">
+            <CartTrigger classes={classes} />
+        </IntlProvider>
+    );
 
     expect(component.toJSON()).toMatchSnapshot();
 });

@@ -20,7 +20,7 @@ const mockProps = {
 const handleCancel = jest.fn().mockName('handleCancel');
 const handleSubmit = jest.fn().mockName('handleSubmit');
 const emptyFormProps = {
-    formErrors: [],
+    errors: new Map(),
     handleCancel,
     handleSubmit,
     initialValues: {
@@ -41,7 +41,7 @@ test('renders empty form without data', () => {
 test('renders form error', () => {
     useGuestForm.mockReturnValueOnce({
         ...emptyFormProps,
-        formErrors: [{ message: 'Form Error' }]
+        errors: new Map([['error', new Error('Form Error')]])
     });
 
     const tree = createTestInstance(<GuestForm {...mockProps} />);
@@ -63,7 +63,7 @@ describe('renders prefilled form with data', () => {
 
     test('with enabled buttons', () => {
         useGuestForm.mockReturnValueOnce({
-            formErrors: [],
+            errors: new Map(),
             handleCancel,
             handleSubmit,
             initialValues,
@@ -77,7 +77,7 @@ describe('renders prefilled form with data', () => {
 
     test('with disabled buttons', () => {
         useGuestForm.mockReturnValueOnce({
-            formErrors: [],
+            errors: new Map(),
             handleCancel,
             handleSubmit,
             initialValues,

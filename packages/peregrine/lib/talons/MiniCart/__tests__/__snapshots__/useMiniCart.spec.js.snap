@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "closeMiniCart": [Function],
+  "errorMessage": "Hey I am a mutation error, Hey I am another mutation error",
+  "handleEditCart": [Function],
+  "handleProceedToCheckout": [Function],
+  "handleRemoveItem": [Function],
+  "loading": false,
+  "productList": Array [
+    Object {
+      "configurable_options": Array [
+        Object {
+          "label": "Color",
+          "value": "red",
+        },
+      ],
+      "id": "p1",
+      "prices": Object {
+        "price": Object {
+          "currency": "USD",
+          "value": 420,
+        },
+      },
+      "product": Object {
+        "name": "P1",
+        "thumbnail": Object {
+          "url": "www.venia.com/p1",
+        },
+      },
+      "quantity": 10,
+    },
+  ],
+  "subTotal": 4200,
+  "totalQuantity": 10,
+}
+`;

@@ -1,0 +1,14 @@
+.root {
+    column-gap: 0.25rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-rows: 6px;
+}
+
+.step {
+    background-color: rgb(var(--venia-global-color-gray-dark));
+}
+
+.step_completed {
+    background-color: rgb(var(--venia-brand-color-1-700));
+}

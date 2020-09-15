@@ -1,0 +1,28 @@
+.root {
+    display: grid;
+    padding: 2rem 3rem;
+    row-gap: 2rem;
+}
+
+.heading {
+    font-family: var(--venia-global-fontFamily-serif);
+    font-weight: var(--venia-global-fontWeight-bold);
+    justify-self: center;
+    text-transform: capitalize;
+}
+
+.emptyHistoryMessage {
+    text-align: center;
+}
+
+.orderHistoryTable {
+    display: grid;
+    row-gap: 1rem;
+}
+
+@media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}

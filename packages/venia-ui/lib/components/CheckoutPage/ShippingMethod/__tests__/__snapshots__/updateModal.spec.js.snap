@@ -101,6 +101,27 @@ exports[`it disables the submit button while loading 1`] = `
                   value="flatrate|flatrate"
                 />
                 <span
+                  className="icon"
+                >
+                  <svg
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                  </svg>
+                </span>
+                <span
                   className="label"
                 >
                   <span>
@@ -122,7 +143,7 @@ exports[`it disables the submit button while loading 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               onClick={[MockFunction]}
               type="reset"
@@ -247,6 +268,27 @@ exports[`it renders correctly 1`] = `
                   value="flatrate|flatrate"
                 />
                 <span
+                  className="icon"
+                >
+                  <svg
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                  </svg>
+                </span>
+                <span
                   className="label"
                 >
                   <span>
@@ -268,7 +310,7 @@ exports[`it renders correctly 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               onClick={[MockFunction]}
               type="reset"

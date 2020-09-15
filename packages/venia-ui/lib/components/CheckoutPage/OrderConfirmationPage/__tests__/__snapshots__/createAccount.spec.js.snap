@@ -8,6 +8,9 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
   <p>
     Set a password and save your information for next time in one easy step!
   </p>
+  <FormError
+    errors={Array []}
+  />
   <form
     onKeyDown={[Function]}
     onReset={[Function]}
@@ -98,7 +101,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
       <span
         style={
           Object {
-            "--iconsAfter": 0,
+            "--iconsAfter": 1,
             "--iconsBefore": 0,
           }
         }
@@ -114,7 +117,37 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           />
         </span>
         <span />
-        <span />
+        <span>
+          <button
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <span>
+              <svg
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+                />
+                <line
+                  x1="1"
+                  x2="23"
+                  y1="1"
+                  y2="23"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
       <p />
     </div>
@@ -127,14 +160,34 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           onChange={[Function]}
           type="checkbox"
         />
-        <span />
+        <span>
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              ry="2"
+              width="18"
+              x="3"
+              y="3"
+            />
+          </svg>
+        </span>
         <span>
           Subscribe to news and updates
         </span>
       </label>
       <p />
     </div>
-    <div />
     <div>
       <button
         disabled={false}
@@ -157,6 +210,13 @@ exports[`CreateAccount renders errors 1`] = `
   <p>
     Set a password and save your information for next time in one easy step!
   </p>
+  <FormError
+    errors={
+      Array [
+        [Error: Oops.],
+      ]
+    }
+  />
   <form
     onKeyDown={[Function]}
     onReset={[Function]}
@@ -247,7 +307,7 @@ exports[`CreateAccount renders errors 1`] = `
       <span
         style={
           Object {
-            "--iconsAfter": 0,
+            "--iconsAfter": 1,
             "--iconsBefore": 0,
           }
         }
@@ -263,7 +323,37 @@ exports[`CreateAccount renders errors 1`] = `
           />
         </span>
         <span />
-        <span />
+        <span>
+          <button
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <span>
+              <svg
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+                />
+                <line
+                  x1="1"
+                  x2="23"
+                  y1="1"
+                  y2="23"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
       <p />
     </div>
@@ -276,15 +366,33 @@ exports[`CreateAccount renders errors 1`] = `
           onChange={[Function]}
           type="checkbox"
         />
-        <span />
+        <span>
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              ry="2"
+              width="18"
+              x="3"
+              y="3"
+            />
+          </svg>
+        </span>
         <span>
           Subscribe to news and updates
         </span>
       </label>
       <p />
-    </div>
-    <div>
-      Oops.
     </div>
     <div>
       <button

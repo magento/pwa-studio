@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useFieldApi, useFieldState } from 'informed';
 
 import createTestInstance from '../../../util/createTestInstance';
@@ -15,7 +15,7 @@ jest.mock('informed', () => {
     return { useFieldApi, useFieldState };
 });
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useQuery: jest.fn().mockReturnValue({
         data: {
             country: {
@@ -90,9 +90,10 @@ test('returns empty array if no available regions', () => {
 
 test('resets value on country change', () => {
     const mockReset = jest.fn();
+    const mockExists = jest.fn(() => true);
 
     useFieldState.mockReturnValueOnce({ value: 'FR' });
-    useFieldApi.mockReturnValue({ reset: mockReset });
+    useFieldApi.mockReturnValue({ reset: mockReset, exists: mockExists });
 
     const tree = createTestInstance(<Component {...props} />);
 

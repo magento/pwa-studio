@@ -83,13 +83,15 @@ const Overview = props => {
                 </Section>
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleCancel}>Back to Cart</Button>
                 <Button
                     priority="high"
                     disabled={isSubmitDisabled}
                     onClick={handleSubmit}
                 >
-                    Confirm Order
+                    {'Confirm Order'}
+                </Button>
+                <Button onClick={handleCancel} priority="low">
+                    {'Back to Cart'}
                 </Button>
             </div>
         </Fragment>

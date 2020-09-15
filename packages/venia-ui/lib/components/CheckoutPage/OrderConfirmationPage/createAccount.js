@@ -15,7 +15,10 @@ import {
 import Button from '../../Button';
 import Checkbox from '../../Checkbox';
 import Field from '../../Field';
+import FormError from '../../FormError';
 import TextInput from '../../TextInput';
+import Password from '../../Password';
+
 import defaultClasses from './createAccount.css';
 
 import CREATE_ACCOUNT_MUTATION from '../../../queries/createAccount.graphql';
@@ -64,11 +67,6 @@ const CreateAccount = props => {
 
     const { errors, handleSubmit, isDisabled, initialValues } = talonProps;
 
-    // Map over any errors we get and display an appropriate error.
-    const errorMessage = errors.length
-        ? errors.map(({ message }) => message).join('\n')
-        : null;
-
     return (
         <div className={classes.root}>
             <h2>{'Quick Checkout When You Return'}</h2>
@@ -77,6 +75,7 @@ const CreateAccount = props => {
                     'Set a password and save your information for next time in one easy step!'
                 }
             </p>
+            <FormError errors={Array.from(errors.values())} />
             <Form
                 className={classes.form}
                 initialValues={initialValues}
@@ -106,26 +105,24 @@ const CreateAccount = props => {
                         validateOnBlur
                     />
                 </Field>
-                <Field label="Password">
-                    <TextInput
-                        field="password"
-                        type="password"
-                        autoComplete="new-password"
-                        validate={combine([
-                            isRequired,
-                            [hasLengthAtLeast, 8],
-                            validatePassword
-                        ])}
-                        validateOnBlur
-                    />
-                </Field>
+                <Password
+                    label="Password"
+                    fieldName="password"
+                    isToggleButtonHidden={false}
+                    autoComplete="new-password"
+                    validate={combine([
+                        isRequired,
+                        [hasLengthAtLeast, 8],
+                        validatePassword
+                    ])}
+                    validateOnBlur
+                />
                 <div className={classes.subscribe}>
                     <Checkbox
                         field="subscribe"
                         label="Subscribe to news and updates"
                     />
                 </div>
-                <div className={classes.error}>{errorMessage}</div>
                 <div className={classes.actions}>
                     <Button disabled={isDisabled} type="submit">
                         {'Create Account'}
@@ -141,7 +138,6 @@ export default CreateAccount;
 CreateAccount.propTypes = {
     classes: shape({
         actions: string,
-        error: string,
         form: string,
         root: string,
         subscribe: string

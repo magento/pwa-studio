@@ -1,0 +1,49 @@
+.root {
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    display: grid;
+    padding: 2rem;
+    row-gap: 2rem;
+}
+
+.header {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+}
+
+.nameContainer {
+    align-items: center;
+    gap: 0.5rem 1rem;
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.name {
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.buttonsContainer {
+    align-items: center;
+    column-gap: 1rem;
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.content_hidden {
+    display: none;
+}
+
+@media (max-width: 960px) {
+    .root {
+        padding: 1.5rem;
+    }
+
+    .nameContainer {
+        grid-auto-flow: row;
+    }
+
+    .buttonsContainer {
+        align-items: flex-start;
+    }
+}

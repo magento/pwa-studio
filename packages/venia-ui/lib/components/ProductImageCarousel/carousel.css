@@ -23,7 +23,7 @@
 
 .currentImage_placeholder {
     composes: currentImage;
-    background-color: rgb(var(--venia-grey));
+    background-color: rgb(var(--venia-global-color-gray));
 }
 
 .previousButton,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { storiesOf } from '@storybook/react';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
@@ -17,7 +17,9 @@ stories.add('Search Bar Open', () => {
         const { toggleSearch } = api;
 
         // Open the search
-        toggleSearch();
+        useEffect(() => {
+            toggleSearch();
+        }, [toggleSearch]);
 
         return <Header classes={defaultClasses} />;
     };
