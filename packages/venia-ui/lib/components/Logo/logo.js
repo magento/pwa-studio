@@ -20,13 +20,15 @@ const Logo = props => {
     const classes = mergeClasses({}, props.classes);
     const { formatMessage } = useIntl();
 
+    const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
+
     return (
         <Image
-            alt={formatMessage({ id: 'Venia' })}
+            alt={title}
             classes={{ image: classes.logo }}
             height={height}
             src={logo}
-            title={formatMessage({ id: 'Venia' })}
+            title={title}
             width={width}
         />
     );
