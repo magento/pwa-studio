@@ -47,3 +47,11 @@
     grid-row: 6 / span 1;
     font-weight: var(--venia-global-fontWeight-bold);
 }
+
+@media (max-width: 960px) {
+    .root {
+        border: none;
+        border-radius: 0rem;
+        padding: 1rem 0rem;
+    }
+}
