@@ -12,6 +12,12 @@ const typePolicies = {
             cart: {
                 // Replaces @connection(key: "Cart")
                 keyArgs: () => 'Cart'
+            },
+            customer: {
+                keyArgs: () => 'Customer'
+            },
+            customerCart: {
+                keyArgs: () => 'Cart'
             }
         }
     },
@@ -59,7 +65,34 @@ const typePolicies = {
         }
     },
     Customer: {
-        keyFields: () => 'Customer'
+        keyFields: () => 'Customer',
+        fields: {
+            addresses: {
+                merge(existing, incoming) {
+                    return incoming;
+                },
+                read(cachedAddresses, { toReference }) {
+                    if (cachedAddresses) {
+                        return cachedAddresses.map(address => {
+                            // Update v2 identifiers to new references. Previous
+                            // entries had `id: CustomerAddress:1` which caused
+                            // v3's lookup to fail. If we find a legacy id,
+                            // point it at the object using a reference.
+                            if (
+                                address.id &&
+                                address.id.includes('CustomerAddress')
+                            ) {
+                                return toReference(address.id);
+                            } else {
+                                return address;
+                            }
+                        });
+                    }
+                    // If there are no cached addresses that's fine - the schema
+                    // shows that it is a nullable field.
+                }
+            }
+        }
     },
     CustomerAddress: {
         fields: {
