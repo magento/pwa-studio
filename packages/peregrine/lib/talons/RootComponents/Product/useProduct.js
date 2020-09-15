@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
@@ -19,6 +20,12 @@ import { useMemo } from 'react';
  */
 export const useProduct = props => {
     const { mapProduct, queries, urlKey } = props;
+    const [
+        ,
+        {
+            actions: { setPageLoading }
+        }
+    ] = useAppContext();
 
     const { error, loading, data } = useQuery(queries.getProductQuery, {
         fetchPolicy: 'cache-and-network',
@@ -27,6 +34,8 @@ export const useProduct = props => {
             urlKey
         }
     });
+
+    const isBackgroundLoading = !!data && loading;
 
     const product = useMemo(() => {
         // If a product is out of stock _and_ the backend specifies not to
@@ -38,6 +47,11 @@ export const useProduct = props => {
         // The product isn't in the cache and we don't have a response from GraphQL yet.
         return null;
     }, [data, mapProduct]);
+
+    // Update the page indicator if the GraphQL query is in flight.
+    useEffect(() => {
+        setPageLoading(isBackgroundLoading);
+    }, [isBackgroundLoading, setPageLoading]);
 
     return {
         error,

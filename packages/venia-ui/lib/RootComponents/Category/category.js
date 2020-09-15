@@ -3,10 +3,10 @@ import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { usePagination, useSort } from '@magento/peregrine';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import LoadingIndicator from '../../components/LoadingIndicator';
 
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
@@ -38,12 +38,26 @@ const Category = props => {
         totalPages
     };
 
+    const [
+        ,
+        {
+            actions: { setPageLoading }
+        }
+    ] = useAppContext();
+
     const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
     const { loading, error, data } = queryResponse;
     const { search } = useLocation();
+
+    const isBackgroundLoading = !!data && loading;
+
+    // Update the page indicator if the GraphQL query is in flight.
+    useEffect(() => {
+        setPageLoading(isBackgroundLoading);
+    }, [isBackgroundLoading, setPageLoading]);
 
     // Keep track of the search terms so we can tell when they change.
     const previousSearch = useRef(search);
@@ -158,15 +172,9 @@ const Category = props => {
     }
 
     // Show the loading indicator until data has been fetched.
-    if (totalPagesFromData === null || (loading && data)) {
+    if (totalPagesFromData === null) {
         return fullPageLoadingIndicator;
     }
-
-    // if (loading && data) {
-    //     return <LoadingIndicator>{'data refresh...'}</LoadingIndicator>;
-    // }
-
-    //const refresh = loading && data ? (<LoadingIndicator>{'data refresh...'}</LoadingIndicator>) : null;
 
     const metaDescription =
         data && data.category && data.category.meta_description
@@ -176,11 +184,10 @@ const Category = props => {
     return (
         <Fragment>
             <Meta name="description" content={metaDescription} />
-            {/*{refresh}*/}
             <CategoryContent
                 categoryId={id}
                 classes={classes}
-                data={loading ? null : data}
+                data={loading && !data ? null : data}
                 pageControl={pageControl}
                 sortProps={sortProps}
             />

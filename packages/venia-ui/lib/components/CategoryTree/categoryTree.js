@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, number, objectOf, shape, string } from 'prop-types';
+import { func, number, shape, string } from 'prop-types';
 import { useCategoryTree } from '@magento/peregrine/lib/talons/CategoryTree';
 
 import { mergeClasses } from '../../classify';
@@ -9,12 +9,7 @@ import Leaf from './categoryLeaf';
 import defaultClasses from './categoryTree.css';
 
 const Tree = props => {
-    const {
-        categoryId,
-        onNavigate,
-        setCategoryId,
-        updateCategories
-    } = props;
+    const { categoryId, onNavigate, setCategoryId, updateCategories } = props;
 
     const talonProps = useCategoryTree({
         categoryId,
