@@ -62,6 +62,53 @@ Object {
 }
 `;
 
+exports[`return correct shape for new value and fire create mutation update customer information and update new password 1`] = `
+Object {
+  "cancelUpdateMode": [Function],
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
+  "handleChangePassword": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "barfoo@express.net",
+      "firtname": "Bar",
+      "id": 7,
+      "lastname": "Foo",
+    },
+  },
+  "isDisabled": false,
+  "isSignedIn": true,
+  "isUpdateMode": false,
+  "loadDataError": null,
+  "shouldShowNewPassword": false,
+  "showUpdateMode": [Function],
+}
+`;
+
+exports[`return correct shape for new value and fire create mutation update customer information and update new password 2`] = `
+Object {
+  "variables": Object {
+    "email": "foobar@express.net",
+    "firtname": "Foo",
+    "lastname": "Bar",
+    "newPassword": "Gooseton123@",
+    "password": "Gooseton123?",
+  },
+}
+`;
+
+exports[`return correct shape for new value and fire create mutation update customer information and update new password 3`] = `
+Object {
+  "variables": Object {
+    "currentPassword": "Gooseton123?",
+    "newPassword": "Gooseton123@",
+  },
+}
+`;
+
 exports[`return correct shape while data is loading 1`] = `
 Object {
   "cancelUpdateMode": [Function],

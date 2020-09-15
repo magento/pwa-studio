@@ -17,17 +17,6 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
     return { useUserContext };
 });
 
-jest.mock('@magento/peregrine/lib/context/app', () => {
-    const state = {};
-    const api = {
-        toggleDrawer: jest.fn(),
-        closeDrawer: jest.fn()
-    };
-    const useAppContext = jest.fn(() => [state, api]);
-
-    return { useAppContext };
-});
-
 jest.mock('@apollo/client', () => ({
     useMutation: jest.fn().mockImplementation(mutation => {
         if (mutation === 'setCustomerInformationMutation')
@@ -117,4 +106,40 @@ test('return correct shape for new value and fire create mutation update custome
 
     expect(mockSetCustomerInformation).toHaveBeenCalled();
     expect(mockSetCustomerInformation.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('return correct shape for new value and fire create mutation update customer information and update new password', async () => {
+    useQuery.mockReturnValueOnce({
+        data: {
+            customer: {
+                id: 7,
+                firtname: 'Bar',
+                lastname: 'Foo',
+                email: 'barfoo@express.net'
+            }
+        },
+        error: null,
+        loading: true
+    });
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps).toMatchSnapshot();
+
+    const { handleSubmit } = talonProps;
+
+    await handleSubmit({
+        firtname: 'Foo',
+        lastname: 'Bar',
+        email: 'foobar@express.net',
+        password: 'Gooseton123?',
+        newPassword: 'Gooseton123@'
+    });
+
+    expect(mockSetCustomerInformation).toHaveBeenCalled();
+    expect(mockSetCustomerInformation.mock.calls[0][0]).toMatchSnapshot();
+    expect(mockChangeCustomerPassword).toHaveBeenCalled();
+    expect(mockChangeCustomerPassword.mock.calls[0][0]).toMatchSnapshot();
 });
