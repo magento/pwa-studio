@@ -19,7 +19,6 @@ const LocaleProvider = props => {
     useEffect(() => {
         fetchLocale(locale)
             .then(data => {
-                console.log(data);
                 setMessages(data.default);
             })
             .catch(error => {
