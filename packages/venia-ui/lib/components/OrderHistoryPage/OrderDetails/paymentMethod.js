@@ -1,4 +1,5 @@
 import React from 'react';
+import { arrayOf, shape, string } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -27,3 +28,21 @@ const PaymentMethod = props => {
 };
 
 export default PaymentMethod;
+
+PaymentMethod.propTypes = {
+    classes: shape({
+        root: string,
+        heading: string,
+        payment_type: string,
+        payment_last_four_digits: string
+    }),
+    data: arrayOf(
+        shape({
+            type: string,
+            additional_data: shape({
+                card_type: string,
+                last_four: string
+            })
+        })
+    )
+};

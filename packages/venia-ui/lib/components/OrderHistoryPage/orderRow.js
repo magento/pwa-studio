@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, shape, string } from 'prop-types';
+import { arrayOf, number, shape, string } from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { Price } from '@magento/peregrine';
 import { useOrderRow } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderRow';
@@ -138,5 +138,95 @@ OrderRow.propTypes = {
         content: string,
         content_collapsed: string
     }),
-    order: object.isRequired
+    order: shape({
+        billing_address: shape({
+            city: string,
+            country_code: string,
+            firstname: string,
+            lastname: string,
+            postcode: string,
+            region_id: string,
+            street: string
+        }),
+        items: arrayOf(
+            shape({
+                id: string,
+                product_name: string,
+                product_sale_price: string,
+                product_sku: string,
+                selected_options: arrayOf(
+                    shape({
+                        label: string,
+                        value: string
+                    })
+                ),
+                quantity_ordered: number
+            })
+        ),
+        invoices: arrayOf(
+            shape({
+                id: number
+            })
+        ),
+        number: string,
+        order_date: string,
+        payment_methods: arrayOf(
+            shape({
+                type: string,
+                additional_data: shape({
+                    card_type: string,
+                    last_four: string
+                })
+            })
+        ),
+        shipping_address: shape({
+            city: string,
+            country_code: string,
+            firstname: string,
+            lastname: string,
+            postcode: string,
+            region_id: string,
+            street: string,
+            telephone: string
+        }),
+        shipping_method: string,
+        shipments: arrayOf(
+            shape({
+                id: string,
+                tracking: arrayOf(
+                    shape({
+                        carrier: string,
+                        number: string
+                    })
+                )
+            })
+        ),
+        status: string,
+        total: shape({
+            discounts: arrayOf(
+                shape({
+                    amount: shape({
+                        currency: string,
+                        value: number
+                    })
+                })
+            ),
+            grand_total: shape({
+                currency: string,
+                value: number
+            }),
+            subtotal: shape({
+                currency: string,
+                value: number
+            }),
+            total_tax: shape({
+                currency: string,
+                value: number
+            }),
+            total_shipping: shape({
+                currency: string,
+                value: number
+            })
+        })
+    })
 };

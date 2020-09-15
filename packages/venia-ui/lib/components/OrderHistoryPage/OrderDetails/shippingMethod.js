@@ -1,4 +1,5 @@
 import React from 'react';
+import { arrayOf, shape, string } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -28,3 +29,26 @@ const ShippingMethod = props => {
 };
 
 export default ShippingMethod;
+
+ShippingMethod.propTypes = {
+    classes: shape({
+        root: string,
+        heading: string,
+        method: string,
+        tracking: string
+    }),
+    data: shape({
+        shippingMethod: string,
+        shipments: arrayOf(
+            shape({
+                id: string,
+                tracking: arrayOf(
+                    shape({
+                        carrier: string,
+                        number: string
+                    })
+                )
+            })
+        )
+    })
+};

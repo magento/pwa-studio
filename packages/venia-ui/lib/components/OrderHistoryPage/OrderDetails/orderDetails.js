@@ -1,4 +1,5 @@
 import React from 'react';
+import { shape, string, arrayOf, number } from 'prop-types';
 
 import { Printer } from 'react-feather';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -61,3 +62,111 @@ const OrderDetails = props => {
 };
 
 export default OrderDetails;
+
+OrderDetails.propTypes = {
+    classes: shape({
+        root: string,
+        shippingInformationContainer: string,
+        shippingMethodContainer: string,
+        billingInformationContainer: string,
+        paymentMethodContainer: string,
+        itemsContainer: string,
+        orderTotalContainer: string,
+        printButton: string,
+        printLabel: string
+    }),
+    imagesData: arrayOf(
+        shape({
+            id: number,
+            sku: string,
+            thumbnail: shape({
+                url: string
+            }),
+            url_key: string,
+            url_suffix: string
+        })
+    ),
+    orderData: shape({
+        billing_address: shape({
+            city: string,
+            country_code: string,
+            firstname: string,
+            lastname: string,
+            postcode: string,
+            region_id: string,
+            street: string
+        }),
+        items: arrayOf(
+            shape({
+                id: string,
+                product_name: string,
+                product_sale_price: string,
+                product_sku: string,
+                selected_options: arrayOf(
+                    shape({
+                        label: string,
+                        value: string
+                    })
+                ),
+                quantity_ordered: number
+            })
+        ),
+        payment_methods: arrayOf(
+            shape({
+                type: string,
+                additional_data: shape({
+                    card_type: string,
+                    last_four: string
+                })
+            })
+        ),
+        shipping_address: shape({
+            city: string,
+            country_code: string,
+            firstname: string,
+            lastname: string,
+            postcode: string,
+            region_id: string,
+            street: string,
+            telephone: string
+        }),
+        shipping_method: string,
+        shipments: arrayOf(
+            shape({
+                id: string,
+                tracking: arrayOf(
+                    shape({
+                        carrier: string,
+                        number: string
+                    })
+                )
+            })
+        ),
+        total: shape({
+            discounts: arrayOf(
+                shape({
+                    amount: shape({
+                        currency: string,
+                        value: number
+                    })
+                })
+            ),
+            grand_total: shape({
+                currency: string,
+                value: number
+            }),
+            subtotal: shape({
+                currency: string,
+                value: number
+            }),
+            total_tax: shape({
+                currency: string,
+                value: number
+            }),
+            total_shipping: shape({
+                currency: string,
+                value: number
+            })
+        })
+    })
+};

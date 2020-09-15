@@ -1,4 +1,5 @@
 import React from 'react';
+import { arrayOf, string, shape, number } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { Price } from '@magento/peregrine';
@@ -95,3 +96,41 @@ const OrderTotal = props => {
 };
 
 export default OrderTotal;
+
+OrderTotal.propTypes = {
+    classes: shape({
+        root: string,
+        heading: string,
+        subTotal: string,
+        discount: string,
+        tax: string,
+        shipping: string,
+        total: string
+    }),
+    data: shape({
+        discounts: arrayOf(
+            shape({
+                amount: shape({
+                    currency: string,
+                    value: number
+                })
+            })
+        ),
+        grand_total: shape({
+            currency: string,
+            value: number
+        }),
+        subtotal: shape({
+            currency: string,
+            value: number
+        }),
+        total_tax: shape({
+            currency: string,
+            value: number
+        }),
+        total_shipping: shape({
+            currency: string,
+            value: number
+        })
+    })
+};

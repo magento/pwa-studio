@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { shape, arrayOf, string, number } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -31,3 +32,37 @@ const Items = props => {
 };
 
 export default Items;
+
+Items.propTypes = {
+    classes: shape({
+        root: string
+    }),
+    data: shape({
+        items: arrayOf(
+            shape({
+                id: string,
+                product_name: string,
+                product_sale_price: string,
+                product_sku: string,
+                selected_options: arrayOf(
+                    shape({
+                        label: string,
+                        value: string
+                    })
+                ),
+                quantity_ordered: number
+            })
+        ),
+        imagesData: arrayOf(
+            shape({
+                id: number,
+                sku: string,
+                thumbnail: shape({
+                    url: string
+                }),
+                url_key: string,
+                url_suffix: string
+            })
+        )
+    })
+};
