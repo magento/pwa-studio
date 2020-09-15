@@ -7,12 +7,7 @@
     display: grid;
     grid-auto-flow: row;
     justify-items: center;
-    padding: 0 0 1rem 0;
-    row-gap: 1rem;
-}
-
-.categoryField {
-    line-height: var(--venia-typography-body-lineHeight);
+    gap: 1rem;
 }
 
 .noResult {
@@ -20,11 +15,21 @@
 }
 
 .headerButtons {
-    composes: categoryField;
-
     display: flex;
     justify-content: center;
     flex-basis: 100%;
+}
+
+.heading {
+    line-height: var(--venia-global-typography-heading-lineHeight);
+    margin: 1rem 0;
+    max-width: 75vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.headingHighlight {
+    font-weight: var(--venia-global-fontWeight-bold);
 }
 
 .filterButton {
@@ -32,37 +37,10 @@
     min-width: 6.25rem;
 }
 
-.resultSummary {
-    column-gap: 0.25rem;
-    display: grid;
-    grid-auto-flow: row;
-    justify-items: center;
-}
-
-.searchTermContainer {
-    composes: categoryField;
-
-    max-width: 100vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.searchTerm {
-    font-weight: var(--venia-global-fontWeight-bold);
-}
-
 .sortContainer {
-    composes: categoryField;
-
     font-size: 0.875rem;
 }
 
 .sortText {
     font-weight: 600;
-}
-
-.totalPages {
-    composes: categoryField;
-
-    font-size: 0.875rem;
 }

@@ -95,14 +95,8 @@ const SearchPage = props => {
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
-                <div className={classes.resultSummary}>
-                    <span className={classes.searchTermContainer}>
-                        {'Showing results for '}
-                        <span className={classes.searchTerm}>{searchTerm}</span>
-                    </span>
-                    <span className={classes.totalPages}>
-                        {`${totalCount} items`}
-                    </span>
+                <div className={classes.totalPages}>
+                    {`${totalCount} items`}
                 </div>
                 <div className={classes.headerButtons}>
                     {maybeFilterButtons}
@@ -110,6 +104,10 @@ const SearchPage = props => {
                 </div>
                 {maybeSortContainer}
             </div>
+            <h2 className={classes.heading}>
+                {'Showing results for '}
+                <span className={classes.headingHighlight}>{searchTerm}</span>:
+            </h2>
             {content}
             <Suspense fallback={null}>{maybeFilterModal}</Suspense>
         </article>
