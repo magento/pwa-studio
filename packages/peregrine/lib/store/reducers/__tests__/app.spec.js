@@ -6,7 +6,8 @@ const state = {
     isOnline: true,
     overlay: false,
     pending: {},
-    query: ''
+    query: '',
+    searchOpen: false
 };
 
 test('toggleDrawer sets the overlay flag and the drawer to the action payload', () => {
@@ -19,6 +20,33 @@ test('toggleDrawer sets the overlay flag and the drawer to the action payload', 
 
     expect(result).toHaveProperty('drawer', action.payload);
     expect(result).toHaveProperty('overlay', true);
+});
+
+describe('toggleSearch', () => {
+    test('toggleSearch flips the searchOpen flag to true', () => {
+        const action = {
+            type: 'APP/TOGGLE_SEARCH'
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('searchOpen', true);
+    });
+
+    test('toggleSearch flips the searchOpen flag to false', () => {
+        const action = {
+            type: 'APP/TOGGLE_SEARCH'
+        };
+
+        const testState = {
+            ...state,
+            searchOpen: true
+        };
+
+        const result = reducer(testState, action);
+
+        expect(result).toHaveProperty('searchOpen', false);
+    });
 });
 
 test('setOnline sets the isOnline flag to true', () => {
