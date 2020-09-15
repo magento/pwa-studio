@@ -16,7 +16,6 @@ const AuthModal = React.lazy(() => import('../AuthModal'));
 const Navigation = props => {
     const {
         catalogActions,
-        categories,
         categoryId,
         handleBack,
         handleClose,
@@ -64,7 +63,6 @@ const Navigation = props => {
             <div className={bodyClassName}>
                 <CategoryTree
                     categoryId={categoryId}
-                    categories={categories}
                     onNavigate={handleClose}
                     setCategoryId={setCategoryId}
                     updateCategories={catalogActions.updateCategories}

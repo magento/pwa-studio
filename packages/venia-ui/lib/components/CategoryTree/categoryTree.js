@@ -10,7 +10,6 @@ import defaultClasses from './categoryTree.css';
 
 const Tree = props => {
     const {
-        categories,
         categoryId,
         onNavigate,
         setCategoryId,
@@ -18,7 +17,6 @@ const Tree = props => {
     } = props;
 
     const talonProps = useCategoryTree({
-        categories,
         categoryId,
         query: MENU_QUERY,
         updateCategories
@@ -54,12 +52,6 @@ const Tree = props => {
 export default Tree;
 
 Tree.propTypes = {
-    categories: objectOf(
-        shape({
-            id: number.isRequired,
-            name: string
-        })
-    ),
     categoryId: number.isRequired,
     classes: shape({
         root: string,

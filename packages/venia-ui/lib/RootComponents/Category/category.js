@@ -6,6 +6,7 @@ import { usePagination, useSort } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
@@ -157,9 +158,15 @@ const Category = props => {
     }
 
     // Show the loading indicator until data has been fetched.
-    if (totalPagesFromData === null) {
+    if (totalPagesFromData === null || (loading && data)) {
         return fullPageLoadingIndicator;
     }
+
+    // if (loading && data) {
+    //     return <LoadingIndicator>{'data refresh...'}</LoadingIndicator>;
+    // }
+
+    //const refresh = loading && data ? (<LoadingIndicator>{'data refresh...'}</LoadingIndicator>) : null;
 
     const metaDescription =
         data && data.category && data.category.meta_description
@@ -169,10 +176,11 @@ const Category = props => {
     return (
         <Fragment>
             <Meta name="description" content={metaDescription} />
+            {/*{refresh}*/}
             <CategoryContent
                 categoryId={id}
                 classes={classes}
-                data={loading && !data ? null : data}
+                data={loading ? null : data}
                 pageControl={pageControl}
                 sortProps={sortProps}
             />

@@ -127,7 +127,16 @@ const typePolicies = {
                 merge: true
             }
         }
-    }
+    },
+    CategoryTree: {
+        fields: {
+            children: {
+                merge(existing, incoming) {
+                    return incoming;
+                }
+            }
+        }
+    },
 };
 
 export default typePolicies;
