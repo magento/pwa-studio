@@ -9,9 +9,13 @@ const localeFileNameRegex = /([a-z]{2}_[A-Z]{2})\.json$/;
 
 /**
  * Localization Plugin to collect all translations from NPM modules and create single translation file for each locale
+ *
+ * Options:
+ *  - context: string provide the context that the build is running within
+ *  - dirs[]: array of directories to search for i18n/*.csv files
+ *  - cleanup: boolean defining whether to clean up merged files after build
  */
 class LocalizationPlugin {
-
     /**
      * @param {object} opts
      */
@@ -33,6 +37,10 @@ class LocalizationPlugin {
         const { outputFileSystem, inputFileSystem } = this.compiler;
         const { dirs, context, cleanup } = this.opts;
 
+        /**
+         * Iterate through each provided directory, this is context (so venia-concept) plus modules which declare a
+         * i18n special flag
+         */
         let locales = {};
         for (const dir of dirs) {
             const localeDir = path.join(dir, i18nDir);
@@ -40,31 +48,46 @@ class LocalizationPlugin {
                 const stats = inputFileSystem.statSync(localeDir);
 
                 if (stats.isDirectory()) {
-                    const packageTranslations = await this.findTranslationFiles(inputFileSystem, localeDir);
-                    locales = this.mergeTranslationFiles(locales, packageTranslations);
+                    const packageTranslations = await this.findTranslationFiles(
+                        inputFileSystem,
+                        localeDir
+                    );
+                    locales = this.mergeLocales(locales, packageTranslations);
                 }
-            }
-            catch (e) {
+            } catch (e) {
                 console.error(e);
                 debug(e);
             }
         }
 
         if (!locales) {
-            debug('No locales found while traversing all modules with i18n flag.');
+            debug(
+                'No locales found while traversing all modules with i18n flag.'
+            );
         }
 
         // Merge all located translation files together and return their paths for a dynamic import
-        const mergedLocalesPaths = await this.writeMergedLocales(context, locales, inputFileSystem, outputFileSystem);
+        const mergedLocalesPaths = await this.writeMergedLocales(
+            context,
+            locales,
+            inputFileSystem,
+            outputFileSystem
+        );
 
         debug('Merged locales into path.', mergedLocalesPaths);
 
-        // Build our importer factory up
+        /**
+         * Build up our importer factory, this provides a global function called fetchLocaleData which in turn completes
+         * a dynamic import of the combined file generated in the step above.
+         * @type {string}
+         */
         const importerFactory = `function () {
             return function getLocale(locale) {
-                ${Object.keys(locales).map((locale) => {
-                return `if (locale === "${locale}") { return import(/* webpackChunkName: "i18n" */'${mergedLocalesPaths[locale]}') }`;
-            })}
+                ${Object.keys(locales).map(locale => {
+                    return `if (locale === "${locale}") { return import(/* webpackChunkName: "i18n" */'${
+                        mergedLocalesPaths[locale]
+                    }') }`;
+                })}
                 
                 throw new Error('Unable to locate locale ' + locale + ' within generated dist directory.');
             }
@@ -72,21 +95,27 @@ class LocalizationPlugin {
 
         // Once the process has completed and clean up is enabled, remove up our merged build files
         if (cleanup) {
-            this.compiler.hooks.afterEmit.tapAsync('LocalizationPlugin', async (compilation, callback) => {
-                await Promise.all(Object.values(mergedLocalesPaths).map((path) => {
-                    return new Promise((resolve) => {
-                        outputFileSystem.unlink(path, resolve);
-                    });
-                }));
+            this.compiler.hooks.afterEmit.tapAsync(
+                'LocalizationPlugin',
+                async (compilation, callback) => {
+                    await Promise.all(
+                        Object.values(mergedLocalesPaths).map(path => {
+                            return new Promise(resolve => {
+                                outputFileSystem.unlink(path, resolve);
+                            });
+                        })
+                    );
 
-                callback();
-            });
+                    callback();
+                }
+            );
         }
 
         return `;window.fetchLocaleData = (${importerFactory})()`;
     }
 
     /**
+     * Merge single locales into combined files and write to disk for webpack's dynamic import
      *
      * @param context
      * @param locales
@@ -94,7 +123,12 @@ class LocalizationPlugin {
      * @param outputFileSystem
      * @returns {Promise<void>}
      */
-    async writeMergedLocales(context, locales, inputFileSystem, outputFileSystem) {
+    async writeMergedLocales(
+        context,
+        locales,
+        inputFileSystem,
+        outputFileSystem
+    ) {
         const distDirectory = context;
 
         debug('Located all translation files.', locales);
@@ -112,16 +146,18 @@ class LocalizationPlugin {
             }
 
             const localePath = path.join(distDirectory, `${locale}.json`);
-            writePromises.push(new Promise((resolve) => {
-                outputFileSystem.writeFile(
-                    localePath,
-                    JSON.stringify(combined),
-                    () => {
-                        combinedLocale[locale] = localePath;
-                        resolve(localePath);
-                    }
-                );
-            }));
+            writePromises.push(
+                new Promise(resolve => {
+                    outputFileSystem.writeFile(
+                        localePath,
+                        JSON.stringify(combined),
+                        () => {
+                            combinedLocale[locale] = localePath;
+                            resolve(localePath);
+                        }
+                    );
+                })
+            );
         }
 
         await Promise.all(writePromises);
@@ -130,14 +166,14 @@ class LocalizationPlugin {
     }
 
     /**
-     * Merge translation file strings into their respective locales
+     * Merge locales together creating an object with each locale and the located translations for the locale
      *
      * @param current
      * @param update
      * @returns {*}
      */
-    mergeTranslationFiles(current, update) {
-        Object.keys(update).forEach((key) => {
+    mergeLocales(current, update) {
+        Object.keys(update).forEach(key => {
             if (typeof current[key] === 'undefined') {
                 current[key] = [];
             }
@@ -164,12 +200,15 @@ class LocalizationPlugin {
                 .on('readable', function() {
                     let item;
                     while ((item = this.read())) {
+                        console.log(item.path);
                         if (
                             item.stats.isFile() &&
                             localeFileNameRegex.test(item.path)
                         ) {
                             debug(`Found localization file: ${item.path}`);
-                            const localeMatch = item.path.match(localeFileNameRegex);
+                            const localeMatch = item.path.match(
+                                localeFileNameRegex
+                            );
                             if (localeMatch && localeMatch[1]) {
                                 const locale = localeMatch[1];
                                 if (!Array.isArray(translations[locale])) {
@@ -182,7 +221,7 @@ class LocalizationPlugin {
                 })
                 .on('error', done)
                 .on('end', done);
-        })
+        });
     }
 }
 
