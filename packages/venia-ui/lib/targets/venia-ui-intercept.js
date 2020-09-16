@@ -10,6 +10,7 @@ const RichContentRendererList = require('./RichContentRendererList');
  */
 
 const name = '@magento/venia-ui';
+const isEE = process.env.MAGENTO_BACKEND_EDITION === 'EE';
 
 module.exports = targets => {
     const builtins = targets.of('@magento/pwa-buildpack');
@@ -67,9 +68,19 @@ module.exports = targets => {
         });
     });
 
+    const eeOnlyRoutes = [
+        {
+            name: 'SavedPayments',
+            pattern: '/saved-payments',
+            exact: true,
+            path: '../SavedPaymentsPage'
+        }
+    ];
+
     // The paths below are relative to packages/venia-ui/lib/components/Routes/routes.js.
     targets.own.routes.tap(routes => [
         ...routes,
+        ...(isEE ? eeOnlyRoutes : []),
         {
             name: 'AddressBook',
             pattern: '/address-book',
@@ -115,12 +126,6 @@ module.exports = targets => {
             pattern: '/customer/account/createPassword',
             exact: true,
             path: '../MyAccount/ResetPassword'
-        },
-        {
-            name: 'SavedPayments',
-            pattern: '/saved-payments',
-            exact: true,
-            path: '../SavedPaymentsPage'
         },
         {
             name: 'Search',

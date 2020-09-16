@@ -14,7 +14,18 @@ export const useAccountMenuItems = props => {
         onSignOut();
     }, [onSignOut]);
 
+    const eeOnlyMenuItems = [
+        {
+            name: 'Saved Payments',
+            id: 'accountMenu.savedPaymentsLink',
+            url: '/saved-payments'
+        }
+    ];
+
     const MENU_ITEMS = [
+        ...(process.env.MAGENTO_BACKEND_EDITION === 'EE'
+            ? eeOnlyMenuItems
+            : []),
         {
             name: 'Order History',
             id: 'accountMenu.orderHistoryLink',
@@ -34,11 +45,6 @@ export const useAccountMenuItems = props => {
             name: 'Address Book',
             id: 'accountMenu.addressBookLink',
             url: '/address-book'
-        },
-        {
-            name: 'Saved Payments',
-            id: 'accountMenu.savedPaymentsLink',
-            url: '/saved-payments'
         },
         {
             name: 'Communications',
