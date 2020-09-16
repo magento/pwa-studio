@@ -49,7 +49,7 @@ const compile = config =>
         });
     });
 
-const evalSource = (source) => {
+const evalSource = source => {
     const webpackJsonp = [];
     const vmContext = {
         window: {
@@ -102,7 +102,9 @@ test('Creates i18n chunk from multiple modules containing single language with c
 
     expect(stats.compilation.assets['i18n-en_US.chunk.js']).toBeTruthy();
 
-    const output = evalSource(stats.compilation.assets['i18n-en_US.chunk.js'].source());
+    const output = evalSource(
+        stats.compilation.assets['i18n-en_US.chunk.js'].source()
+    );
 
     expect(output).toEqual({
         'Module 1 English': 'Module 1 English',
@@ -111,7 +113,6 @@ test('Creates i18n chunk from multiple modules containing single language with c
         'Context English': 'Context English'
     });
 });
-
 
 test('Creates multiple i18n chunks from multiple modules containing multiple locales with context overrides', async () => {
     const context = join(multipleLocalesMultipleModules, 'Context');
@@ -151,7 +152,9 @@ test('Creates multiple i18n chunks from multiple modules containing multiple loc
     // Expect translations in single module to be present
     expect(stats.compilation.assets['i18n-de_DE.chunk.js']).toBeTruthy();
 
-    const enUsOutput = evalSource(stats.compilation.assets['i18n-en_US.chunk.js'].source());
+    const enUsOutput = evalSource(
+        stats.compilation.assets['i18n-en_US.chunk.js'].source()
+    );
     expect(enUsOutput).toEqual({
         'Module 1 English': 'Module 1 English',
         'Module 1 Override': 'Context Override',
@@ -159,7 +162,9 @@ test('Creates multiple i18n chunks from multiple modules containing multiple loc
         'Context English': 'Context English'
     });
 
-    const frFrOutput = evalSource(stats.compilation.assets['i18n-fr_FR.chunk.js'].source());
+    const frFrOutput = evalSource(
+        stats.compilation.assets['i18n-fr_FR.chunk.js'].source()
+    );
     expect(frFrOutput).toEqual({
         'Module 1 French': 'Module 1 French',
         'Module 2 French': 'Module 2 French',
@@ -167,19 +172,18 @@ test('Creates multiple i18n chunks from multiple modules containing multiple loc
         'Context French': 'Context French'
     });
 
-    const deDeOutput = evalSource(stats.compilation.assets['i18n-de_DE.chunk.js'].source());
+    const deDeOutput = evalSource(
+        stats.compilation.assets['i18n-de_DE.chunk.js'].source()
+    );
     expect(deDeOutput).toEqual({
-        'German': 'German Translation'
+        German: 'German Translation'
     });
 });
 
 test('Throws error on missing i18n directory within module provided to plugin', async () => {
     const context = join(noLocaleSingleModule, 'Context');
 
-    const dirs = [
-        join(noLocaleSingleModule, 'Module1'),
-        context
-    ];
+    const dirs = [join(noLocaleSingleModule, 'Module1'), context];
 
     const config = {
         context: noLocaleSingleModule,
@@ -201,5 +205,7 @@ test('Throws error on missing i18n directory within module provided to plugin', 
         ]
     };
 
-    await expect(compile(config)).rejects.toThrow(/module has i18n special flag, but i18n directory does not exist at/);
+    await expect(compile(config)).rejects.toThrow(
+        /module has i18n special flag, but i18n directory does not exist at/
+    );
 });
