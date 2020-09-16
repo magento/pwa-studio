@@ -1,10 +1,11 @@
 const path = require('path');
 const {
-    graphQL: { getPossibleTypes },
+    graphQL: { getPossibleTypes, getStoreConfigData },
     Utilities: { loadEnvironment }
 } = require('@magento/pwa-buildpack');
 const baseWebpackConfig = require('../../webpack.config');
 const { DefinePlugin, EnvironmentPlugin } = require('webpack');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 // Storybook 5.2.8 uses a different signature for webpack config than webpack
 // defines in the docs.
@@ -20,6 +21,8 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
     }
 
     const possibleTypes = await getPossibleTypes();
+    const storeConfigData = await getStoreConfigData();
+    global.LOCALE = storeConfigData.locale.replace('_', '-');
 
     const webpackConfig = await baseWebpackConfig(mode);
 
@@ -31,9 +34,14 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
         ...storybookBaseConfig.plugins,
         new DefinePlugin({
             POSSIBLE_TYPES: JSON.stringify(possibleTypes),
-            STORE_NAME: JSON.stringify('Storybook')
+            STORE_NAME: JSON.stringify('Storybook'),
+            STORE_VIEW_LOCALE: JSON.stringify(global.LOCALE),
+            STORE_VIEW_CODE: process.env.STORE_VIEW_CODE
+                ? JSON.stringify(process.env.STORE_VIEW_CODE)
+                : JSON.stringify(storeConfigData.code)
         }),
-        new EnvironmentPlugin(projectConfig.env)
+        new EnvironmentPlugin(projectConfig.env),
+        new ReactRefreshWebpackPlugin()
     ];
 
     return storybookBaseConfig;
