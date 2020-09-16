@@ -7,7 +7,6 @@ import { usePagination, useSort } from '@magento/peregrine';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
-const PAGE_SIZE = 6;
 
 /**
  * Return props necessary to render a SearchPage component.
@@ -20,9 +19,17 @@ export const useSearchPage = props => {
         queries: {
             filterIntrospection,
             getProductFiltersBySearch,
-            productSearch
+            productSearch,
+            getStoreConfig
         }
     } = props;
+
+    const { data: storeConfigData } = useQuery(getStoreConfig, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+    const pageSize =
+        storeConfigData && storeConfigData.storeConfig.grid_per_page;
 
     const sortProps = useSort();
 
@@ -40,7 +47,11 @@ export const useSearchPage = props => {
     // retrieve app state and action creators
     const [appState, appApi] = useAppContext();
     const { searchOpen } = appState;
-    const { toggleDrawer, toggleSearch } = appApi;
+    const {
+        toggleDrawer,
+        toggleSearch,
+        actions: { setPageLoading }
+    } = appApi;
 
     // get the URL query parameters.
     const location = useLocation();
@@ -99,6 +110,13 @@ export const useSearchPage = props => {
         nextFetchPolicy: 'cache-first'
     });
 
+    const isBackgroundLoading = !!data && searchLoading;
+
+    // Update the page indicator if the GraphQL query is in flight.
+    useEffect(() => {
+        setPageLoading(isBackgroundLoading);
+    }, [isBackgroundLoading, setPageLoading]);
+
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
         if (!filterTypeMap.size) {
@@ -117,21 +135,16 @@ export const useSearchPage = props => {
                 currentPage: Number(currentPage),
                 filters: newFilters,
                 inputText,
-                pageSize: Number(PAGE_SIZE),
+                pageSize: Number(pageSize),
                 sort: { [sortAttribute]: sortDirection }
             }
-        });
-
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
         });
     }, [
         currentPage,
         filterTypeMap,
         inputText,
         runQuery,
+        pageSize,
         search,
         sortDirection,
         sortAttribute

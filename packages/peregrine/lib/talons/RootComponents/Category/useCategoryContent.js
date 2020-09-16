@@ -3,10 +3,6 @@ import { useLazyQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 const DRAWER_NAME = 'filter';
-// TODO: This can be replaced by the value from `storeConfig when the PR,
-// https://github.com/magento/graphql-ce/pull/650, is released.
-const pageSize = 6;
-const placeholderItems = Array.from({ length: pageSize }).fill(null);
 
 /**
  * Returns props necessary to render the categoryContent component.
@@ -27,9 +23,11 @@ export const useCategoryContent = props => {
     const {
         categoryId,
         data,
+        pageSize,
         queries: { getProductFiltersByCategory }
     } = props;
 
+    const placeholderItems = Array.from({ length: pageSize }).fill(null);
     const [loadFilters, setLoadFilters] = useState(false);
     const [, { toggleDrawer }] = useAppContext();
 

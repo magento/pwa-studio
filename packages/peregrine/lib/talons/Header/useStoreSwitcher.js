@@ -61,7 +61,7 @@ export const useStoreSwitcher = props => {
     }, [availableStoresData]);
 
     const handleSwitchStore = useCallback(
-        // Refresh shopping cart
+        // Change store view code and currency to be used in Appollo link request headers
         async storeCode => {
             await storage.setItem('store_view', {
                 code: storeCode,
