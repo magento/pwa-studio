@@ -89,7 +89,7 @@ class LocalizationPlugin {
             return function getLocale(locale) {
                 ${Object.keys(locales).map(locale => {
                     return `if (locale === "${locale}") { 
-                        return import(/* webpackChunkName: "i18n" */'${
+                        return import(/* webpackChunkName: "i18n-${locale}" */'${
                             mergedLocalesPaths[locale]
                         }');
                     }`;
@@ -111,7 +111,7 @@ class LocalizationPlugin {
         hooks.emit.tap('LocalizationPlugin', compilation => {
             // Add individual fileDependencies for each i18n chunk
             compilation.chunks.forEach(chunk => {
-                if (chunk.name === 'i18n') {
+                if (chunk.name && chunk.name.startsWith('i18n')) {
                     chunk.getModules().forEach(chunkModule => {
                         const chunkLocale = path.parse(chunkModule.resource)
                             .name;
