@@ -93,7 +93,7 @@ class LocalizationPlugin {
                             mergedLocalesPaths[locale]
                         }');
                     }`;
-                })}
+                }).join('')}
                 
                 throw new Error('Unable to locate locale ' + locale + ' within generated dist directory.');
             }
