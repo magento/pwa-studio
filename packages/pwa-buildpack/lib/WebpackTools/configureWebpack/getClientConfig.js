@@ -142,8 +142,7 @@ async function getClientConfig(opts) {
             new LocalizationPlugin({
                 virtualModules,
                 context,
-                dirs: [...hasFlag('i18n'), context], // Directories to search for i18n/*.json files
-                cleanup: true // Optionally disable clean up of merged files for debugging
+                dirs: [...hasFlag('i18n'), context] // Directories to search for i18n/*.json files
             }),
             virtualModules
         ],
