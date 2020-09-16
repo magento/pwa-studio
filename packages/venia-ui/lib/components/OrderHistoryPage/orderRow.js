@@ -14,8 +14,6 @@ import orderRowOperations from './orderRow.gql';
 
 import defaultClasses from './orderRow.css';
 
-const DISPLAY_COUNT = 4;
-
 const OrderRow = props => {
     const { order } = props;
     const {
@@ -67,11 +65,7 @@ const OrderRow = props => {
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
 
     const collapsedImageGalleryElement = isOpen ? null : (
-        <CollapsedImageGallery
-            totalItemsCount={items.length}
-            displayCount={DISPLAY_COUNT}
-            items={imagesData}
-        />
+        <CollapsedImageGallery items={imagesData} />
     );
 
     return (

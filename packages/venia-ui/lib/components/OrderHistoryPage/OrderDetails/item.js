@@ -20,7 +20,7 @@ const Item = props => {
         url_key,
         url_suffix
     } = props;
-    const { url } = thumbnail;
+    const thumbnailUrl = thumbnail ? thumbnail.url : '';
     const itemLink = useMemo(() => resourceUrl(`/${url_key}${url_suffix}`), [
         url_key,
         url_suffix
@@ -42,7 +42,7 @@ const Item = props => {
                     alt={product_name}
                     classes={{ root: classes.thumbnail }}
                     width={50}
-                    resource={url}
+                    resource={thumbnailUrl}
                 />
             </Link>
             <Link className={classes.name} to={itemLink}>

@@ -15,7 +15,7 @@ export const useOrderRow = props => {
     const { getProductThumbnailsQuery } = queries;
 
     const skus = useMemo(() => {
-        return items.map(item => item.product_sku);
+        return items.map(item => item.product_sku).sort();
     }, [items]);
 
     const { data } = useQuery(getProductThumbnailsQuery, {

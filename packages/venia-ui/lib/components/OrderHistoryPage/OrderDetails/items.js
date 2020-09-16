@@ -22,10 +22,7 @@ const Items = props => {
     }, [imagesData]);
 
     const itemsComponent = items.map(item => (
-        <Item
-            key={item.id}
-            {...{ ...item, ...mappedImagesData[item.product_sku] }}
-        />
+        <Item key={item.id} {...item} {...mappedImagesData[item.product_sku]} />
     ));
 
     return <div className={classes.root}>{itemsComponent}</div>;
