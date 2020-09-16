@@ -94,15 +94,6 @@ const SearchPage = props => {
         </div>
     ) : null;
 
-    const searchTermElement = searchCategory ? (
-        <FormattedMessage
-            id={'searchPage.searchTermValue'}
-            values={{ term: searchTerm, category: searchCategory }}
-        />
-    ) : (
-        searchTerm
-    );
-
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
@@ -116,12 +107,18 @@ const SearchPage = props => {
                 {maybeSortContainer}
             </div>
             <div className={classes.heading}>
-                <FormattedMessage id={'searchPage.searchTermLabel'} />
-                &nbsp;
-                <span className={classes.headingHighlight}>
-                    {searchTermElement}
-                </span>
-                :
+                <FormattedMessage
+                    id={'searchPage.searchTerm'}
+                    values={{
+                        highlight: chunks => (
+                            <span className={classes.headingHighlight}>
+                                {chunks}
+                            </span>
+                        ),
+                        category: searchCategory,
+                        term: searchTerm
+                    }}
+                />
             </div>
             {content}
             <Suspense fallback={null}>{maybeFilterModal}</Suspense>
