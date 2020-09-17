@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { func, shape, string, bool } from 'prop-types';
 import { Redirect } from '@magento/venia-drivers';
@@ -50,6 +51,7 @@ const CreateAccount = props => {
         isSignedIn,
         initialValues
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     if (isSignedIn) {
         return <Redirect to="/" />;
@@ -65,7 +67,7 @@ const CreateAccount = props => {
             priority="normal"
             onClick={handleCancel}
         >
-            {'Cancel'}
+            <FormattedMessage id={'Cancel'} defaultMessage={'Cancel'} />
         </Button>
     );
 
@@ -76,7 +78,10 @@ const CreateAccount = props => {
             type="submit"
             priority="high"
         >
-            {'Create an Account'}
+            <FormattedMessage
+                id={'Create an Account'}
+                defaultMessage={'Create an Account'}
+            />
         </Button>
     );
 
@@ -87,7 +92,12 @@ const CreateAccount = props => {
             onSubmit={handleSubmit}
         >
             <FormError errors={Array.from(errors.values())} />
-            <Field label="First Name">
+            <Field
+                label={formatMessage({
+                    id: 'First Name',
+                    defaultMessage: 'First Name'
+                })}
+            >
                 <TextInput
                     field="customer.firstname"
                     autoComplete="given-name"
@@ -95,7 +105,12 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Last Name">
+            <Field
+                label={formatMessage({
+                    id: 'Last Name',
+                    defaultMessage: 'Last Name'
+                })}
+            >
                 <TextInput
                     field="customer.lastname"
                     autoComplete="family-name"
@@ -103,7 +118,12 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Email">
+            <Field
+                label={formatMessage({
+                    id: 'Email',
+                    defaultMessage: 'Email'
+                })}
+            >
                 <TextInput
                     field="customer.email"
                     autoComplete="email"
@@ -115,7 +135,10 @@ const CreateAccount = props => {
                 autoComplete="new-password"
                 fieldName="password"
                 isToggleButtonHidden={false}
-                label="Password"
+                label={formatMessage({
+                    id: 'Password',
+                    defaultMessage: 'Password'
+                })}
                 validate={combine([
                     isRequired,
                     [hasLengthAtLeast, 8],
@@ -126,7 +149,10 @@ const CreateAccount = props => {
             <div className={classes.subscribe}>
                 <Checkbox
                     field="subscribe"
-                    label="Subscribe to news and updates"
+                    label={formatMessage({
+                        id: 'Subscribe to news and updates',
+                        defaultMessage: 'Subscribe to news and updates'
+                    })}
                 />
             </div>
             <div className={classes.actions}>
