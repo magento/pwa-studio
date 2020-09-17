@@ -29,7 +29,8 @@ const StoreSwitcher = props => {
     const className = mobileView ? classes.root_mobile : classes.root;
     const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;
 
-    if (!availableStores || Object.keys(availableStores).length === 1) return null;
+    if (!availableStores || Object.keys(availableStores).length === 1)
+        return null;
 
     let currentStoreName = null;
 
