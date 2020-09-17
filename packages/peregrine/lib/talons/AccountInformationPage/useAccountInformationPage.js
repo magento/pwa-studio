@@ -63,10 +63,18 @@ export const useAccountInformationPage = props => {
     const handleSubmit = useCallback(
         async formValues => {
             try {
-                await setCustomerInformation({
-                    variables: { customerInput: formValues }
-                });
-
+                if (
+                    initialValues.customer.email !== formValues.email ||
+                    initialValues.customer.firstname !== formValues.firstname ||
+                    initialValues.customer.lastname !== formValues.lastname
+                ) {
+                    if (formValues.hasOwnProperty('newPassword')) {
+                        delete formValues.newPassword;
+                    }
+                    await setCustomerInformation({
+                        variables: { customerInput: formValues }
+                    });
+                }
                 if (formValues.password && formValues.newPassword) {
                     await changeCustomerPassword({
                         variables: {
@@ -84,7 +92,12 @@ export const useAccountInformationPage = props => {
                 return;
             }
         },
-        [setCustomerInformation, handleCancel, changeCustomerPassword]
+        [
+            setCustomerInformation,
+            handleCancel,
+            changeCustomerPassword,
+            initialValues
+        ]
     );
 
     return {

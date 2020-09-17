@@ -9,8 +9,11 @@ import TextInput from '../TextInput';
 
 import {
     isRequired,
+    hasLengthAtLeast,
+    validatePassword,
     validateDifferentCurrentPassword
 } from '../../util/formValidators';
+import combine from '../../util/combineValidators';
 import defaultClasses from './editForm.css';
 
 const EditForm = props => {
@@ -27,7 +30,12 @@ const EditForm = props => {
             <Password
                 fieldName="newPassword"
                 label="New Password"
-                validate={validateDifferentCurrentPassword}
+                validate={combine([
+                    isRequired,
+                    [hasLengthAtLeast, 8],
+                    validatePassword,
+                    validateDifferentCurrentPassword
+                ])}
                 isToggleButtonHidden={false}
             />
         </div>
