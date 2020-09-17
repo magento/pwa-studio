@@ -29,15 +29,10 @@ export const useStoreSwitcher = props => {
         triggerRef: storeMenuTriggerRef
     } = useDropdown();
 
-    const {
-        data: availableStoresData,
-        loading: getAvailableStoresDataLoading
-    } = useQuery(getStoreConfig, {
+    const { data: availableStoresData } = useQuery(getStoreConfig, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
-
-    const isLoading = getAvailableStoresDataLoading;
 
     const availableStores = useMemo(() => {
         let filteredData;
@@ -49,7 +44,7 @@ export const useStoreSwitcher = props => {
                         locale: store.locale,
                         is_current:
                             store.code === availableStoresData.storeConfig.code,
-                        currency: store['default_display_currency']
+                        currency: store['default_display_currency_code']
                     };
                     return storeViews;
                 },
@@ -62,11 +57,15 @@ export const useStoreSwitcher = props => {
 
     const handleSwitchStore = useCallback(
         // Change store view code and currency to be used in Appollo link request headers
-        async storeCode => {
-            await storage.setItem('store_view', {
-                code: storeCode,
-                currency: availableStores[storeCode].currency
-            });
+        storeCode => {
+            // Do nothing when store view is not present in available stores
+            if (!availableStores[storeCode]) return;
+
+            storage.setItem('store_view_code', storeCode);
+            storage.setItem(
+                'store_view_currency',
+                availableStores[storeCode].currency
+            );
 
             // Refresh the page to re-trigger the queries once code/currency are saved in local storage.
             history.go(0);
@@ -75,7 +74,7 @@ export const useStoreSwitcher = props => {
     );
 
     const handleTriggerClick = useCallback(() => {
-        // Toggle the Account Menu.
+        // Toggle Stores Menu.
         setStoreMenuIsOpen(isOpen => !isOpen);
     }, [setStoreMenuIsOpen]);
 
@@ -85,7 +84,6 @@ export const useStoreSwitcher = props => {
         storeMenuTriggerRef,
         storeMenuIsOpen,
         handleTriggerClick,
-        handleSwitchStore,
-        isLoading
+        handleSwitchStore
     };
 };

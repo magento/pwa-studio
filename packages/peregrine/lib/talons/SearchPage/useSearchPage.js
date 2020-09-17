@@ -7,7 +7,7 @@ import { usePagination, useSort } from '@magento/peregrine';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
-import {useScrollTopOnChange} from "../../hooks/useScrollTopOnChange";
+import { useScrollTopOnChange } from '../../hooks/useScrollTopOnChange';
 
 /**
  * Return props necessary to render a SearchPage component.

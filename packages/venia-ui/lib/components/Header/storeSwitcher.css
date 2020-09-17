@@ -1,19 +1,4 @@
 .root {
-    background-color: rgb(var(--venia-global-color-gray-100));
-    width: 100%;
-}
-
-.loadingContainer {
-    composes: root from '../LoadingIndicator/indicator.css';
-    margin: 0;
-    padding: 0.5rem 0;
-}
-
-.loading {
-    composes: indicator from '../LoadingIndicator/indicator.css';
-}
-
-.storeSwitcherContainer {
     align-items: center;
     display: grid;
     justify-items: end;
@@ -58,12 +43,6 @@
     visibility: visible;
 }
 
-.menuItemButton {
-    align-items: center;
-    display: flex;
-    width: 100%;
-}
-
 .menuItem {
     border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
 }
@@ -74,22 +53,6 @@
 
 .menuItem:hover {
     background-color: rgb(var(--venia-global-color-gray));
-}
-
-.content {
-    align-items: center;
-    display: grid;
-    gap: 0.75rem;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr;
-    height: 2.5rem;
-    padding: 0 0.75rem;
-    width: 100%;
-}
-
-.text {
-    text-align: left;
-    white-space: nowrap;
 }
 
 /*
@@ -107,10 +70,6 @@
 
 .root_mobile {
     composes: root;
-}
-
-.root_mobile .storeSwitcherContainer {
-    justify-items: start;
 }
 
 .root_mobile .menu {
@@ -131,6 +90,7 @@
     }
 
     .root_mobile {
+        justify-items: start;
         display: block;
     }
 }

@@ -7,7 +7,7 @@ import {
     getFiltersFromSearch,
     getFilterInput
 } from '@magento/peregrine/lib/talons/FilterModal/helpers';
-import {useScrollTopOnChange} from "../../../hooks/useScrollTopOnChange";
+import { useScrollTopOnChange } from '../../../hooks/useScrollTopOnChange';
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that

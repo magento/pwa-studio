@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return correct shape 1`] = `
+Object {
+  "availableStores": Object {
+    "store1": Object {
+      "currency": "USD",
+      "is_current": false,
+      "locale": "locale1",
+      "storeName": "Store 1",
+    },
+    "store2": Object {
+      "currency": "EUR",
+      "is_current": true,
+      "locale": "locale2",
+      "storeName": "Store 2",
+    },
+  },
+  "handleSwitchStore": [Function],
+  "handleTriggerClick": [Function],
+  "storeMenuIsOpen": false,
+  "storeMenuRef": "elementRef",
+  "storeMenuTriggerRef": [MockFunction],
+}
+`;

@@ -38,6 +38,6 @@
     "accountMenu.savedPaymentsLink": "Saved Payments",
     "accountMenu.communicationsLink": "Communications",
     "accountMenu.accountInfoLink": "Account Information",
-    "That page could not be found. Please try again.": "That page could not be found. Please try again.",
-    "Something went wrong. Please try again.": "Something went wrong. Please try again."
+    "magentoRoute.routeError": "That page could not be found. Please try again.",
+    "magentoRoute.internalError": "Something went wrong. Please try again."
 }

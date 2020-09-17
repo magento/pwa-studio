@@ -47,9 +47,19 @@ const Header = props => {
         <PageLoadingIndicator />
     ) : null;
 
-    return (
-        <header className={rootClass}>
+    const switchers = StoreSwitcher ? (
+        <div className={classes.switchers}>
             <StoreSwitcher mobileView={false} />
+        </div>
+    ) : null;
+
+    const style = {
+        ...(switchers && { '--header-height': '7.5rem' })
+    };
+
+    return (
+        <header className={rootClass} style={style}>
+            {switchers}
             <div className={classes.toolbar}>
                 <div className={classes.primaryActions}>
                     <NavTrigger />
@@ -83,7 +93,8 @@ Header.propTypes = {
         open: string,
         primaryActions: string,
         secondaryActions: string,
-        toolbar: string
+        toolbar: string,
+        switchers: string
     })
 };
 

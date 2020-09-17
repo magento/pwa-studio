@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
-import {useCategory} from '../useCategory';
+import { useCategory } from '../useCategory';
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),

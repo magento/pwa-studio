@@ -73,6 +73,11 @@
 .footer {
 }
 
+.switchers {
+    background-color: rgb(var(--venia-global-color-gray-100));
+    width: 100%;
+}
+
 .modal {
     composes: exit hidden;
     background-color: white;

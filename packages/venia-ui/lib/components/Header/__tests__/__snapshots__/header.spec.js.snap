@@ -3,10 +3,19 @@
 exports[`verify Header can render in default state 1`] = `
 <header
   className="closed"
+  style={
+    Object {
+      "--header-height": "7.5rem",
+    }
+  }
 >
-  <StoreSwitcher
-    mobileView={false}
-  />
+  <div
+    className="switchers"
+  >
+    <StoreSwitcher
+      mobileView={false}
+    />
+  </div>
   <div
     className="toolbar"
   >

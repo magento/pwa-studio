@@ -44,15 +44,10 @@ const mockSw = {
     register: jest.fn(async () => 'REGISTRATION')
 };
 
-const getItem = jest.fn(args => {
-    if (args === 'store_view') {
-        return { code: 'default', locale: 'en_US' };
-    }
-});
-const setItem = jest.fn();
+const getItem = jest.fn();
 jest.spyOn(Util, 'BrowserPersistence').mockImplementation(
     function BrowserPersistence() {
-        return { getItem, setItem };
+        return { getItem };
     }
 );
 

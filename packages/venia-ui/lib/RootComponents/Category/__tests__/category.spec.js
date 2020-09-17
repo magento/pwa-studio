@@ -40,7 +40,7 @@ const talonProps = {
         jest.fn()
     ],
     pageSize: 12
-}
+};
 
 const categoryProps = {
     id: 3

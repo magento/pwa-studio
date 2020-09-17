@@ -54,9 +54,6 @@ module.exports = async env => {
              */
             POSSIBLE_TYPES: JSON.stringify(possibleTypes),
             STORE_NAME: JSON.stringify('Venia'),
-            STORE_VIEW_CURRENCY: JSON.stringify(
-                storeConfigData['default_display_currency']
-            ),
             STORE_VIEW_CODE: process.env.STORE_VIEW_CODE
                 ? JSON.stringify(process.env.STORE_VIEW_CODE)
                 : JSON.stringify(storeConfigData.code)

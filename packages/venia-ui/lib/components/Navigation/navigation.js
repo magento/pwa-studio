@@ -51,6 +51,12 @@ const Navigation = props => {
         </Suspense>
     ) : null;
 
+    const switchers = StoreSwitcher ? (
+        <div className={classes.switchers}>
+            <StoreSwitcher mobileView={true} />
+        </div>
+    ) : null;
+
     return (
         <aside className={rootClassName}>
             <header className={classes.header}>
@@ -69,7 +75,7 @@ const Navigation = props => {
                 />
             </div>
             <div className={classes.footer}>
-                <StoreSwitcher mobileView={true} />
+                {switchers}
                 <AuthBar
                     disabled={hasModal}
                     showMyAccount={showMyAccount}
