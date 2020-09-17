@@ -29,50 +29,56 @@ const StoreSwitcher = props => {
     const className = mobileView ? classes.root_mobile : classes.root;
     const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;
 
-    if (Object.keys(availableStores).length === 1) return null;
+    if (!availableStores || Object.keys(availableStores).length === 1) return null;
 
     let currentStoreName = null;
 
-    const stores = Object.keys(availableStores).map(storeCode => {
-        const isActive = availableStores[storeCode].is_current;
-        const storeName = availableStores[storeCode].storeName;
+    if (availableStores) {
+        if (Object.keys(availableStores).length === 1) return null;
 
-        const switcherItem = {
-            label: storeName,
-            code: storeCode
-        };
+        const stores = Object.keys(availableStores).map(storeCode => {
+            const isActive = availableStores[storeCode].is_current;
+            const storeName = availableStores[storeCode].storeName;
 
-        if (isActive) {
-            currentStoreName = storeName;
-        }
+            const switcherItem = {
+                label: storeName,
+                code: storeCode
+            };
+
+            if (isActive) {
+                currentStoreName = storeName;
+            }
+
+            return (
+                <li key={storeCode} className={classes.menuItem}>
+                    <SwitcherItem
+                        active={isActive}
+                        onClick={handleSwitchStore}
+                        switcherItem={switcherItem}
+                    />
+                </li>
+            );
+        });
 
         return (
-            <li key={storeCode} className={classes.menuItem}>
-                <SwitcherItem
-                    active={isActive}
-                    onClick={handleSwitchStore}
-                    switcherItem={switcherItem}
-                />
-            </li>
-        );
-    });
-
-    return (
-        <div className={className}>
-            <button
-                className={classes.trigger}
-                aria-label={currentStoreName}
-                onClick={handleTriggerClick}
-                ref={storeMenuTriggerRef}
-            >
-                <Icon src={MapPin} />
-                <span className={classes.label}>{currentStoreName}</span>
-            </button>
-            <div ref={storeMenuRef} className={menuClassName}>
-                <ul>{stores}</ul>
+            <div className={className}>
+                <button
+                    className={classes.trigger}
+                    aria-label={currentStoreName}
+                    onClick={handleTriggerClick}
+                    ref={storeMenuTriggerRef}
+                >
+                    <Icon src={MapPin} />
+                    <span className={classes.label}>{currentStoreName}</span>
+                </button>
+                <div ref={storeMenuRef} className={menuClassName}>
+                    <ul>{stores}</ul>
+                </div>
             </div>
-        </div>
-    );
+        );
+    } else {
+        return null;
+    }
 };
 
 export default StoreSwitcher;
