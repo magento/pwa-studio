@@ -10,7 +10,14 @@
     font-weight: var(--venia-global-fontWeight-bold);
 }
 
-.lineItems {
+.accountDetails {
+    display: grid;
+    row-gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.lineItemsContainer {
+    grid-column: 1 / span 1;
     display: grid;
     gap: 1rem;
     grid-template-columns: 1fr 1fr;
@@ -32,9 +39,13 @@
 .passwordValue {
 }
 
+.editButtonContainer {
+    grid-column: 1 / span 1;
+    text-align: center;
+}
+
 .editInformationButton {
     composes: root_normalPriority from '../Button/button.css';
-    margin: auto;
 }
 
 @media (min-width: 961px) {
@@ -42,12 +53,15 @@
     .emailLabel,
     .passwordLabel {
         composes: lineItemLabel;
-        justify-self: right;
     }
 }
 
 @media (max-width: 960px) {
-    .lineItems {
+    .accountDetails {
+        grid-template-columns: 1fr;
+    }
+
+    .lineItemsContainer {
         grid-template-columns: 1fr;
         grid-gap: 0.75rem;
     }
