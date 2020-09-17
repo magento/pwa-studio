@@ -53,7 +53,6 @@ exports[`it renders collapsed order row 1`] = `
   >
     <div
       componentName="CollapsedImageGallery"
-      displayCount={4}
       items={
         Array [
           Object {
@@ -85,7 +84,6 @@ exports[`it renders collapsed order row 1`] = `
           },
         ]
       }
-      totalItemsCount={3}
     />
   </div>
   <div
@@ -226,10 +224,16 @@ exports[`it renders collapsed order row 1`] = `
           "order_date": "2020-05-26 18:22:35",
           "payment_methods": Array [
             Object {
-              "additional_data": Object {
-                "card_type": "Visa",
-                "last_four": "1234",
-              },
+              "additional_data": Array [
+                Object {
+                  "name": "card_type",
+                  "value": "Visa",
+                },
+                Object {
+                  "name": "last_four",
+                  "value": "1234",
+                },
+              ],
               "name": "Braintree",
               "type": "Credit Card",
             },
@@ -479,10 +483,16 @@ exports[`it renders open order row 1`] = `
           "order_date": "2020-05-26 18:22:35",
           "payment_methods": Array [
             Object {
-              "additional_data": Object {
-                "card_type": "Visa",
-                "last_four": "1234",
-              },
+              "additional_data": Array [
+                Object {
+                  "name": "card_type",
+                  "value": "Visa",
+                },
+                Object {
+                  "name": "last_four",
+                  "value": "1234",
+                },
+              ],
               "name": "Braintree",
               "type": "Credit Card",
             },

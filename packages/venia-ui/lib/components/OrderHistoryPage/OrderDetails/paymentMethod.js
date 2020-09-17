@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -14,7 +14,15 @@ const PaymentMethod = props => {
      * we are picking the first method in the array.
      */
     const [{ type, additional_data }] = data;
-    const { card_type, last_four } = additional_data;
+    const { card_type, last_four } = useMemo(() => {
+        const mappedAdditionalData = {};
+
+        additional_data.forEach(additionalData => {
+            mappedAdditionalData[additionalData.name] = additionalData.value;
+        });
+
+        return mappedAdditionalData;
+    }, [additional_data]);
 
     return (
         <div className={classes.root}>
@@ -39,10 +47,12 @@ PaymentMethod.propTypes = {
     data: arrayOf(
         shape({
             type: string,
-            additional_data: shape({
-                card_type: string,
-                last_four: string
-            })
+            additional_data: arrayOf(
+                shape({
+                    name: string,
+                    value: string
+                })
+            )
         })
     )
 };

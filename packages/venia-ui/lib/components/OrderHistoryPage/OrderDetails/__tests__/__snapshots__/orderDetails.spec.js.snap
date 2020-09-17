@@ -63,10 +63,16 @@ exports[`should render properly 1`] = `
       data={
         Array [
           Object {
-            "additional_data": Object {
-              "card_type": "Visa",
-              "last_four": "1234",
-            },
+            "additional_data": Array [
+              Object {
+                "name": "card_type",
+                "value": "Visa",
+              },
+              Object {
+                "name": "last_four",
+                "value": "1234",
+              },
+            ],
             "name": "Braintree",
             "type": "Credit Card",
           },

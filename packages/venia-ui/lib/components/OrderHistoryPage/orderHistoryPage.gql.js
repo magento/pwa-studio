@@ -45,11 +45,8 @@ export const GET_CUSTOMER_ORDERS = gql`
                         name
                         type
                         additional_data {
-                            # additional data is not a constant documented in the schema architecture doc because
-                            # it changes based on the type of payment method. This schema I have here is temp based
-                            # on what braintree returns in checkout step. Once orders GQL coverage is ready, we have to revist this.
-                            card_type
-                            last_four
+                            name
+                            value
                         }
                     }
                     shipments {
@@ -190,10 +187,16 @@ const MOCK_ORDERS = {
                 {
                     name: 'Braintree',
                     type: 'Credit Card',
-                    additional_data: {
-                        card_type: 'Visa',
-                        last_four: '1234'
-                    }
+                    additional_data: [
+                        {
+                            name: 'card_type',
+                            value: 'Visa'
+                        },
+                        {
+                            name: 'last_four',
+                            value: '1234'
+                        }
+                    ]
                 }
             ],
             shipments: [
@@ -306,10 +309,16 @@ const MOCK_ORDERS = {
                 {
                     name: 'Braintree',
                     type: 'Credit Card',
-                    additional_data: {
-                        card_type: 'Visa',
-                        last_four: '1234'
-                    }
+                    additional_data: [
+                        {
+                            name: 'card_type',
+                            value: 'Master Card'
+                        },
+                        {
+                            name: 'last_four',
+                            value: '7894'
+                        }
+                    ]
                 }
             ],
             shipments: [

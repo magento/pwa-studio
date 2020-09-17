@@ -114,10 +114,12 @@ OrderDetails.propTypes = {
         payment_methods: arrayOf(
             shape({
                 type: string,
-                additional_data: shape({
-                    card_type: string,
-                    last_four: string
-                })
+                additional_data: arrayOf(
+                    shape({
+                        name: string,
+                        value: string
+                    })
+                )
             })
         ),
         shipping_address: shape({

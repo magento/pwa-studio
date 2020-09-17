@@ -113,10 +113,16 @@ const defaultProps = {
             {
                 name: 'Braintree',
                 type: 'Credit Card',
-                additional_data: {
-                    card_type: 'Visa',
-                    last_four: '1234'
-                }
+                additional_data: [
+                    {
+                        name: 'card_type',
+                        value: 'Visa'
+                    },
+                    {
+                        name: 'last_four',
+                        value: '1234'
+                    }
+                ]
             }
         ],
         shipments: [
