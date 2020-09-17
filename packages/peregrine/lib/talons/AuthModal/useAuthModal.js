@@ -2,9 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useApolloClient, useMutation } from '@apollo/client';
 
-import { useUserContext } from '../../context/user';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import { useUserContext } from '../../context/user';
+import SIGN_OUT_MUTATION from '../../gql/operations/signOut.graphql';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -35,14 +36,15 @@ const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 export const useAuthModal = props => {
     const {
         closeDrawer,
+        mutations = DEFAULT_MUTATIONS,
         showCreateAccount,
         showForgotPassword,
         showMainMenu,
         showMyAccount,
         showSignIn,
-        signOutMutation,
         view
     } = props;
+    const { signOutMutation } = mutations;
 
     const apolloClient = useApolloClient();
     const [isSigningOut, setIsSigningOut] = useState(false);
@@ -105,4 +107,8 @@ export const useAuthModal = props => {
         showMyAccount,
         username
     };
+};
+
+export const DEFAULT_MUTATIONS = {
+    signOutMutation: SIGN_OUT_MUTATION
 };

@@ -2,9 +2,10 @@ import { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useApolloClient, useMutation } from '@apollo/client';
 
-import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { clearCartDataFromCache } from '@magento/peregrine/lib/Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearCustomerDataFromCache';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import { useUserContext } from '../../context/user';
+import SIGN_OUT_MUTATION from '../../gql/operations/signOut.graphql';
 
 /**
  * The useAccountMenu talon complements the AccountMenu component.
@@ -25,7 +26,11 @@ import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearC
  */
 
 export const useAccountMenu = props => {
-    const { mutations, accountMenuIsOpen, setAccountMenuIsOpen } = props;
+    const {
+        mutations = DEFAULT_MUTATIONS,
+        accountMenuIsOpen,
+        setAccountMenuIsOpen
+    } = props;
     const { signOut: signOutMutation } = mutations;
 
     const [view, setView] = useState('SIGNIN');
@@ -95,3 +100,5 @@ export const useAccountMenu = props => {
         view
     };
 };
+
+export const DEFAULT_MUTATIONS = { signOut: SIGN_OUT_MUTATION };
