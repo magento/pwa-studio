@@ -107,7 +107,7 @@ const getTalonProps = props => {
  * Tests
  */
 
-test('Should return correct shape', () => {
+test('returns the correct shape', () => {
     useLazyQuery.mockImplementation(() => {
         return getNavigationMenuQueryResult();
     });
@@ -186,17 +186,6 @@ test('avoids calling updateCategories without data', () => {
     expect(updateCategories).not.toHaveBeenCalled();
 });
 
-test('returns the correct shape', () => {
-    // Act.
-    createTestInstance(<Component {...props} />);
-
-    // Assert.
-    const talonProps = log.mock.calls[0][0];
-    const expectedProperties = ['data', 'childCategories'];
-    const actualProperties = Object.keys(talonProps);
-    expect(actualProperties.sort()).toEqual(expectedProperties.sort());
-});
-
 describe('child categories', () => {
     test('is empty when categoryId is not in the category list', () => {
         // Arrange: purposefully set a categoryId that isn't in the category list.
@@ -246,7 +235,7 @@ describe('child categories', () => {
         });
 
         // Act.
-        createTestInstance(<Component {...props} categoryId={2} />);
+        createTestInstance(<Component {...props} />);
 
         // Assert.
         const { childCategories } = log.mock.calls[0][0];
