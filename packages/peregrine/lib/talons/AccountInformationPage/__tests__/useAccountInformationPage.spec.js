@@ -31,7 +31,7 @@ jest.mock('@apollo/client', () => ({
         data: {
             customer: {
                 id: null,
-                firtname: 'Foo',
+                firstname: 'Foo',
                 lastname: 'Bar',
                 email: 'foobar@express.net'
             }
@@ -133,8 +133,8 @@ test('handleSubmit calls setCustomerInformationQuery', async () => {
     const { handleSubmit } = talonProps;
 
     await handleSubmit({
-        firtname: 'Foo',
-        lastname: 'Bar',
+        firstname: 'Updated',
+        lastname: 'Name',
         email: 'foobar@express.net'
     });
 
@@ -148,7 +148,7 @@ test('handleSubmit calls changeCustomerPassword if new password is provided', as
     const { handleSubmit } = talonProps;
 
     await handleSubmit({
-        firtname: 'Foo',
+        firstname: 'Foo',
         lastname: 'Bar',
         email: 'foobar@express.net',
         password: 'bar',

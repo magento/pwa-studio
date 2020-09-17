@@ -12,7 +12,7 @@ Object {
   "initialValues": Object {
     "customer": Object {
       "email": "foobar@express.net",
-      "firtname": "Foo",
+      "firstname": "Foo",
       "id": null,
       "lastname": "Bar",
     },
@@ -40,8 +40,9 @@ Object {
   "variables": Object {
     "customerInput": Object {
       "email": "foobar@express.net",
-      "firtname": "Foo",
-      "lastname": "Bar",
+      "firstname": "Updated",
+      "lastname": "Name",
+      "password": undefined,
     },
   },
 }
@@ -59,7 +60,7 @@ Object {
   "initialValues": Object {
     "customer": Object {
       "email": "foobar@express.net",
-      "firtname": "Foo",
+      "firstname": "Foo",
       "id": null,
       "lastname": "Bar",
     },
@@ -96,7 +97,7 @@ exports[`returns updated data as initial values 1`] = `
 Object {
   "customer": Object {
     "email": "foobar@express.net",
-    "firtname": "Foo",
+    "firstname": "Foo",
     "id": null,
     "lastname": "Bar",
   },
@@ -115,7 +116,7 @@ Object {
   "initialValues": Object {
     "customer": Object {
       "email": "foobar@express.net",
-      "firtname": "Foo",
+      "firstname": "Foo",
       "id": null,
       "lastname": "Bar",
     },

@@ -172,13 +172,13 @@ describe('validatePassword', () => {
     });
 });
 
-describe('validateConfirmPassword', () => {
+describe('isEqualToField', () => {
     test('it returns undefined on success', () => {
         const values = {
             password: 'qwerty12345'
         };
         const password = 'qwerty12345';
-        const result = validators.validateConfirmPassword(password, values);
+        const result = validators.isEqualToField(password, values, 'password');
 
         expect(result).toBeUndefined();
     });
@@ -188,12 +188,8 @@ describe('validateConfirmPassword', () => {
             password_key: 'qwerty12345'
         };
         const password = 'qwerty12345';
-        const passwordKey = 'password_key';
-        const result = validators.validateConfirmPassword(
-            password,
-            values,
-            passwordKey
-        );
+        const fieldKey = 'password_key';
+        const result = validators.isEqualToField(password, values, fieldKey);
 
         expect(result).toBeUndefined();
     });
@@ -203,21 +199,22 @@ describe('validateConfirmPassword', () => {
             password: 'qwertz12345'
         };
         const password = 'qwerty12345';
-        const result = validators.validateConfirmPassword(password, values);
+        const result = validators.isEqualToField(password, values, 'password');
 
         expect(typeof result).toBe('string');
     });
 });
 
-describe('validateDifferentCurrentPassword', () => {
+describe('isNotEqualToField', () => {
     test('it returns undefined on success', () => {
         const values = {
             password: 'qwerty12345'
         };
         const password = 'qwertz12345';
-        const result = validators.validateDifferentCurrentPassword(
+        const result = validators.isNotEqualToField(
             password,
-            values
+            values,
+            'password'
         );
 
         expect(result).toBeUndefined();
@@ -228,12 +225,8 @@ describe('validateDifferentCurrentPassword', () => {
             password_key: 'qwerty12345'
         };
         const password = 'qwertz12345';
-        const passwordKey = 'password_key';
-        const result = validators.validateDifferentCurrentPassword(
-            password,
-            values,
-            passwordKey
-        );
+        const fieldKey = 'password_key';
+        const result = validators.isNotEqualToField(password, values, fieldKey);
 
         expect(result).toBeUndefined();
     });
@@ -243,9 +236,10 @@ describe('validateDifferentCurrentPassword', () => {
             password: 'qwerty12345'
         };
         const password = 'qwerty12345';
-        const result = validators.validateDifferentCurrentPassword(
+        const result = validators.isNotEqualToField(
             password,
-            values
+            values,
+            'password'
         );
 
         expect(typeof result).toBe('string');
