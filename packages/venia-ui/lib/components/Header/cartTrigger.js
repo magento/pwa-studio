@@ -30,7 +30,9 @@ const CartTrigger = props => {
     const { formatMessage } = useIntl();
     const buttonAriaLabel = formatMessage(
         {
-            id: 'Toggle mini cart. You have {count} items in your cart.'
+            id: 'cartTrigger.ariaLabel',
+            defaultMessage:
+                'Toggle mini cart. You have {count} items in your cart.'
         },
         { count: itemCount }
     );

@@ -3,7 +3,7 @@ import { configure, addDecorator } from '@storybook/react';
 import { Adapter } from '@magento/venia-drivers';
 import store from '../store';
 import '@magento/venia-ui/lib/index.css';
-import { PeregrineContextProvider } from '@magento/peregrine';
+import { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 
 const loadStories = () => {
     // Load all stories from venia-ui
@@ -28,7 +28,7 @@ addDecorator(storyFn => (
         apollo={{ link: Adapter.apolloLink(apiBase) }}
         store={store}
     >
-        <PeregrineContextProvider>{storyFn()}</PeregrineContextProvider>
+        <AppContextProvider>{storyFn()}</AppContextProvider>
     </Adapter>
 ));
 
