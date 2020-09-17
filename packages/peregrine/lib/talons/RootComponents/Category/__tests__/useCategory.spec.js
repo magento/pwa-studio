@@ -1,8 +1,7 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-
-import { useSearchPage } from '../useSearchPage';
-import createTestInstance from '../../../util/createTestInstance';
+import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
+import {useCategory} from '../useCategory';
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
@@ -11,10 +10,9 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('@magento/peregrine/lib/hooks/useScrollTopOnChange');
 
-jest.mock('../../../context/app', () => {
+jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
     const api = {
-        toggleDrawer: jest.fn(),
         actions: { setPageLoading: jest.fn() }
     };
     const useAppContext = jest.fn(() => [state, api]);
@@ -96,7 +94,7 @@ const mockProps = {
 };
 
 const Component = props => {
-    const talonProps = useSearchPage(props);
+    const talonProps = useCategory(props);
     return <i talonProps={talonProps} />;
 };
 

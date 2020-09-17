@@ -11,7 +11,6 @@ import { Meta } from '../../components/Head';
 import GET_CATEGORY from '../../queries/getCategory.graphql';
 import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
 import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
-import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 
 const Category = props => {
     const { id } = props;
@@ -36,7 +35,6 @@ const Category = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    useScrollTopOnChange(pageControl.currentPage);
 
     if (error && pageControl.currentPage === 1 && !loading) {
         if (process.env.NODE_ENV !== 'production') {

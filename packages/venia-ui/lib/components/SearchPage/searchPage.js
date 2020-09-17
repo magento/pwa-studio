@@ -15,7 +15,6 @@ import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySear
 import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 import ProductSort from '../ProductSort';
 import Button from '../Button';
-import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -40,7 +39,6 @@ const SearchPage = props => {
     } = talonProps;
 
     const [currentSort] = sortProps;
-    useScrollTopOnChange(pageControl.currentPage);
 
     if (loading && !data) return fullPageLoadingIndicator;
     if (error) {

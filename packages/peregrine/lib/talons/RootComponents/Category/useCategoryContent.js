@@ -23,7 +23,7 @@ export const useCategoryContent = props => {
     const {
         categoryId,
         data,
-        pageSize,
+        pageSize = 6,
         queries: { getProductFiltersByCategory }
     } = props;
 

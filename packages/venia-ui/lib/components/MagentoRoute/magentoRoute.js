@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import ErrorView from '../ErrorView';
 import {
     INTERNAL_ERROR,
@@ -7,7 +8,6 @@ import {
 } from '@magento/peregrine/lib/talons/MagentoRoute';
 
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import { useIntl } from 'react-intl';
 import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 
 const MESSAGES = new Map()

@@ -68,6 +68,7 @@ export const useStoreSwitcher = props => {
                 currency: availableStores[storeCode].currency
             });
 
+            // Refresh the page to re-trigger the queries once code/currency are saved in local storage.
             history.go(0);
         },
         [history, storage, availableStores]

@@ -7,6 +7,7 @@ import {
     getFiltersFromSearch,
     getFilterInput
 } from '@magento/peregrine/lib/talons/FilterModal/helpers';
+import {useScrollTopOnChange} from "../../../hooks/useScrollTopOnChange";
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
@@ -201,6 +202,8 @@ export const useCategory = props => {
         (introspectionCalled && !categoryCalled) ||
         (categoryLoading && !data) ||
         introspectionLoading;
+
+    useScrollTopOnChange(currentPage);
 
     return {
         error,

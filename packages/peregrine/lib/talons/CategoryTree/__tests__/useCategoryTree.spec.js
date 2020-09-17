@@ -17,62 +17,105 @@ jest.mock('@apollo/client', () => {
     return { useLazyQuery };
 });
 
-const props = {
-    categories: {},
-    categoryId: 1,
-    query: {},
-    updateCategories: jest.fn()
-};
-
-const categories = {
-    1: {
-        children: [2, 4],
-        children_count: 2,
-        id: 1,
-        include_in_menu: 1,
-        name: 'One',
-        url_path: '1'
-    },
-    2: {
-        id: 2,
-        include_in_menu: 1,
-        name: 'Two',
-        parentId: 1,
-        url_path: '1/2',
-        productImagePreview: {
-            items: [{ small_image: 'media/img-2.jpg' }]
-        }
-    },
-    3: {
-        id: 3,
-        include_in_menu: 1,
-        name: 'Three',
-        parentId: 2,
-        url_path: '1/2/3',
-        productImagePreview: {
-            items: [{ small_image: 'media/img-3.jpg' }]
-        }
-    },
-    4: {
-        id: 4,
-        include_in_menu: 1,
-        name: 'Four',
-        parentId: 1,
-        url_path: '1/4',
-        productImagePreview: {
-            items: [{ small_image: 'media/img-4.jpg' }]
+const result = {
+    data: {
+        category: {
+            id: 1,
+            name: 'One',
+            url_path: '1',
+            include_in_menu: 1,
+            children_count: 3,
+            url_suffix: '.html',
+            children: [
+                {
+                    id: 2,
+                    include_in_menu: 1,
+                    children_count: 1,
+                    name: 'Two',
+                    parentId: 1,
+                    position: 0,
+                    url_suffix: '.html',
+                    url_path: '1/2'
+                },
+                {
+                    id: 3,
+                    include_in_menu: 1,
+                    children_count: 0,
+                    name: 'Three',
+                    parentId: 2,
+                    position: 0,
+                    url_suffix: '.html',
+                    url_path: '1/2/3'
+                },
+                {
+                    id: 4,
+                    include_in_menu: 1,
+                    children_count: 0,
+                    name: 'Four',
+                    parentId: 1,
+                    position: 0,
+                    url_suffix: '.html',
+                    url_path: '1/4'
+                }
+            ]
         }
     }
 };
 
+const getNavigationMenuQuery = 'getNavigationMenuQuery';
+const getNavigationMenu = jest.fn();
+const getNavigationMenuQueryResult = jest
+    .fn()
+    .mockReturnValue([getNavigationMenu, result]);
+
+const props = {
+    categoryId: 2,
+    query: getNavigationMenuQuery,
+    updateCategories: jest.fn()
+};
+
 const log = jest.fn();
+
+/**
+ * Helpers
+ */
 
 const Component = props => {
     const talonProps = useCategoryTree(props);
     log(talonProps);
 
-    return <i />;
+    return <i talonProps={talonProps} />;
 };
+
+const getTalonProps = props => {
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    const update = newProps => {
+        act(() => {
+            tree.update(<Component {...{ ...props, ...newProps }} />);
+        });
+
+        return root.findByType('i').props.talonProps;
+    };
+
+    return { talonProps, tree, update };
+};
+
+/**
+ * Tests
+ */
+
+test('Should return correct shape', () => {
+    useLazyQuery.mockImplementation(() => {
+        return getNavigationMenuQueryResult();
+    });
+
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps).toMatchSnapshot();
+});
 
 test('runs the lazy query on mount', () => {
     const runQuery = jest.fn();
@@ -107,13 +150,13 @@ test('runs the lazy query when categoryId changes', () => {
     const instance = createTestInstance(<Component {...props} />);
 
     act(() => {
-        instance.update(<Component {...props} categoryId={2} />);
+        instance.update(<Component {...props} categoryId={3} />);
     });
 
     expect(runQuery).toHaveBeenCalledTimes(2);
     expect(runQuery).toHaveBeenNthCalledWith(2, {
         variables: {
-            id: 2
+            id: 3
         }
     });
 });
@@ -143,39 +186,9 @@ test('avoids calling updateCategories without data', () => {
     expect(updateCategories).not.toHaveBeenCalled();
 });
 
-test('calls updateCategories when data changes', () => {
-    const runQuery = jest.fn();
-    const queryResult = {
-        data: null,
-        error: null,
-        loading: false
-    };
-
-    const { updateCategories } = props;
-    const category = categories[1];
-    const data = {
-        category: {
-            ...category,
-            children: Array.from(category.children, id => categories[id]),
-            url_suffix: '.html'
-        }
-    };
-
-    const nextqueryResult = { ...queryResult, data };
-
-    useLazyQuery.mockReturnValueOnce([runQuery, nextqueryResult]);
-
-    createTestInstance(<Component {...props} />);
-
-    act(() => {});
-
-    expect(updateCategories).toHaveBeenCalledTimes(1);
-    expect(updateCategories).toHaveBeenNthCalledWith(1, data.category);
-});
-
 test('returns the correct shape', () => {
     // Act.
-    createTestInstance(<Component {...props} categories={categories} />);
+    createTestInstance(<Component {...props} />);
 
     // Assert.
     const talonProps = log.mock.calls[0][0];
@@ -193,7 +206,7 @@ describe('child categories', () => {
         };
 
         // Act.
-        createTestInstance(<Component {...myProps} categories={categories} />);
+        createTestInstance(<Component {...myProps} />);
 
         // Assert.
         const { childCategories } = log.mock.calls[0][0];
@@ -202,12 +215,15 @@ describe('child categories', () => {
 
     test('includes the root category when appropriate', () => {
         // Arrange.
+        useLazyQuery.mockImplementation(() => {
+            return getNavigationMenuQueryResult();
+        });
         // There's nothing to arrange here, the default values for props
         // and categories are already arranged for this test to succeed.
 
         // Act.
-        createTestInstance(<Component {...props} categories={categories} />);
-
+        createTestInstance(<Component {...props} />);
+        //
         // Assert.
         const { childCategories } = log.mock.calls[0][0];
         expect(childCategories.has(1)).toEqual(true);
@@ -215,16 +231,22 @@ describe('child categories', () => {
 
     test('does not include root category when include_in_menu is falsy', () => {
         // Arrange.
-        const myCategories = {
-            ...categories,
-            1: {
-                ...categories['1'],
-                include_in_menu: 0
-            }
-        };
+        useLazyQuery.mockImplementation(() => {
+            return jest.fn().mockReturnValue([
+                getNavigationMenu,
+                {
+                    data: {
+                        category: {
+                            ...result.data.category,
+                            include_in_menu: 0
+                        }
+                    }
+                }
+            ])();
+        });
 
         // Act.
-        createTestInstance(<Component {...props} categories={myCategories} />);
+        createTestInstance(<Component {...props} categoryId={2} />);
 
         // Assert.
         const { childCategories } = log.mock.calls[0][0];
@@ -233,16 +255,22 @@ describe('child categories', () => {
 
     test('does not include root category when url_path is falsy', () => {
         // Arrange.
-        const myCategories = {
-            ...categories,
-            1: {
-                ...categories['1'],
-                url_path: ''
-            }
-        };
+        useLazyQuery.mockImplementation(() => {
+            return jest.fn().mockReturnValue([
+                getNavigationMenu,
+                {
+                    data: {
+                        category: {
+                            ...result.data.category,
+                            url_path: ''
+                        }
+                    }
+                }
+            ])();
+        });
 
         // Act.
-        createTestInstance(<Component {...props} categories={myCategories} />);
+        createTestInstance(<Component {...props} />);
 
         // Assert.
         const { childCategories } = log.mock.calls[0][0];
