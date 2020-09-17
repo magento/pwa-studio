@@ -11,7 +11,7 @@ import {
     isRequired,
     hasLengthAtLeast,
     validatePassword,
-    validateDifferentCurrentPassword
+    isNotEqualToField
 } from '../../util/formValidators';
 import combine from '../../util/combineValidators';
 import defaultClasses from './editForm.css';
@@ -34,7 +34,7 @@ const EditForm = props => {
                     isRequired,
                     [hasLengthAtLeast, 8],
                     validatePassword,
-                    validateDifferentCurrentPassword
+                    [isNotEqualToField, 'password']
                 ])}
                 isToggleButtonHidden={false}
             />

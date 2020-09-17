@@ -99,20 +99,12 @@ export const validatePassword = value => {
     return SUCCESS;
 };
 
-export const validateConfirmPassword = (
-    value,
-    values,
-    passwordKey = 'password'
-) => {
-    return value === values[passwordKey] ? SUCCESS : 'Passwords must match.';
+export const isEqualToField = (value, values, fieldKey) => {
+    return value === values[fieldKey] ? SUCCESS : `${fieldKey} must match.`;
 };
 
-export const validateDifferentCurrentPassword = (
-    value,
-    values,
-    passwordKey = 'password'
-) => {
-    return value !== values[passwordKey]
+export const isNotEqualToField = (value, values, fieldKey) => {
+    return value !== values[fieldKey]
         ? SUCCESS
-        : 'New password cannot be current password.';
+        : `${fieldKey} must be different`;
 };
