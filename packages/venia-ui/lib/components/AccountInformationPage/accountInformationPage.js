@@ -50,35 +50,26 @@ const AccountInformationPage = props => {
 
         pageContent = (
             <Fragment>
-                <div className={classes.accountDetails}>
-                    <div className={classes.lineItems}>
-                        <span className={classes.lineItemLabel}>{'Name'}</span>
-                        <span className={classes.lineItemValue}>{`${
-                            customer.firstname
-                        } ${customer.lastname}`}</span>
-                        <span className={classes.lineItemLabel}>{'Email'}</span>
-                        <span className={classes.lineItemValue}>
-                            {customer.email}
-                        </span>
-                        <span className={classes.lineItemLabel}>
-                            {'Password'}
-                        </span>
-                        <span className={classes.lineItemValue}>
-                            {'***********'}
-                        </span>
-                        <span className={classes.lineItemLabel} />
-                        <span className={classes.lineItemButton}>
-                            <Button
-                                className={classes.editInformationButton}
-                                disabled={false}
-                                onClick={showUpdateMode}
-                                priority="normal"
-                            >
-                                {'Edit'}
-                            </Button>
-                        </span>
-                    </div>
+                <div className={classes.lineItems}>
+                    <span className={classes.nameLabel}>{'Name'}</span>
+                    <span className={classes.nameValue}>{`${
+                        customer.firstname
+                    } ${customer.lastname}`}</span>
+                    <span className={classes.emailLabel}>{'Email'}</span>
+                    <span className={classes.emailValue}>{customer.email}</span>
+                    <span className={classes.passwordLabel}>{'Password'}</span>
+                    <span className={classes.passwordValue}>
+                        {'***********'}
+                    </span>
                 </div>
+                <Button
+                    className={classes.editInformationButton}
+                    disabled={false}
+                    onClick={showUpdateMode}
+                    priority="normal"
+                >
+                    {'Edit'}
+                </Button>
                 <EditModal
                     formErrors={formErrors}
                     onCancel={handleCancel}

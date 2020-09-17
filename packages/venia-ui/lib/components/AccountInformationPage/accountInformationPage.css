@@ -12,13 +12,24 @@
 
 .lineItems {
     display: grid;
-    grid-gap: 0.75rem;
-    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
     line-height: 1.5rem;
 }
 
 .lineItemLabel {
     font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.nameLabel,
+.emailLabel,
+.passwordLabel {
+    composes: lineItemLabel;
+}
+
+.nameValue,
+.emailValue,
+.passwordValue {
 }
 
 .editInformationButton {
@@ -27,19 +38,17 @@
 }
 
 @media (min-width: 961px) {
-    .accountDetails {
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: 1fr 1fr 1fr;
+    .nameLabel,
+    .emailLabel,
+    .passwordLabel {
+        composes: lineItemLabel;
+        justify-self: right;
     }
 }
 
 @media (max-width: 960px) {
     .lineItems {
         grid-template-columns: 1fr;
-    }
-
-    .lineItemButton {
-        text-align: center;
+        grid-gap: 0.75rem;
     }
 }
