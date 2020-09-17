@@ -61,25 +61,31 @@ export const useAccountInformationPage = props => {
     }, [setIsUpdateMode]);
 
     const handleSubmit = useCallback(
-        async formValues => {
+        async ({ email, firstname, lastname, password, newPassword }) => {
             try {
                 if (
-                    initialValues.customer.email !== formValues.email ||
-                    initialValues.customer.firstname !== formValues.firstname ||
-                    initialValues.customer.lastname !== formValues.lastname
+                    initialValues.customer.email !== email ||
+                    initialValues.customer.firstname !== firstname ||
+                    initialValues.customer.lastname !== lastname
                 ) {
-                    if (formValues.hasOwnProperty('newPassword')) {
-                        delete formValues.newPassword;
-                    }
                     await setCustomerInformation({
-                        variables: { customerInput: formValues }
+                        variables: {
+                            customerInput: {
+                                email,
+                                firstname,
+                                lastname,
+                                // You must send password because it is required
+                                // when changing email.
+                                password
+                            }
+                        }
                     });
                 }
-                if (formValues.password && formValues.newPassword) {
+                if (password && newPassword) {
                     await changeCustomerPassword({
                         variables: {
-                            currentPassword: formValues.password,
-                            newPassword: formValues.newPassword
+                            currentPassword: password,
+                            newPassword: newPassword
                         }
                     });
                 }
