@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { Util } from '@magento/peregrine';
 import { useStoreSwitcher } from '../useStoreSwitcher';
