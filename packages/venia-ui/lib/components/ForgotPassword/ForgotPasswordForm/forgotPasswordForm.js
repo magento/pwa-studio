@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -13,13 +14,20 @@ const ForgotPasswordForm = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { initialValues, isResettingPassword, onSubmit, onCancel } = props;
 
+    const { formatMessage } = useIntl();
+
     return (
         <Form
             className={classes.root}
             initialValues={initialValues}
             onSubmit={onSubmit}
         >
-            <Field label="Email address">
+            <Field
+                label={formatMessage({
+                    id: 'Email address',
+                    defaultMessage: 'Email address'
+                })}
+            >
                 <TextInput
                     autoComplete="email"
                     field="email"
@@ -34,7 +42,7 @@ const ForgotPasswordForm = props => {
                     priority="normal"
                     onClick={onCancel}
                 >
-                    Cancel
+                    <FormattedMessage id={'Cancel'} defaultMessage={'Cancel'} />
                 </Button>
                 <Button
                     className={classes.submitButton}
@@ -42,7 +50,7 @@ const ForgotPasswordForm = props => {
                     type="submit"
                     priority="high"
                 >
-                    Submit
+                    <FormattedMessage id={'Submit'} defaultMessage={'Submit'} />
                 </Button>
             </div>
         </Form>
