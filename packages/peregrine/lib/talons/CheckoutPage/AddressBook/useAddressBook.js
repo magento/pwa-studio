@@ -32,12 +32,20 @@ export const useAddressBook = props => {
     const {
         data: customerAddressesData,
         loading: customerAddressesLoading
-    } = useQuery(getCustomerAddressesQuery, { skip: !isSignedIn });
+    } = useQuery(getCustomerAddressesQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !isSignedIn
+    });
 
     const {
         data: customerCartAddressData,
         loading: customerCartAddressLoading
-    } = useQuery(getCustomerCartAddressQuery, { skip: !isSignedIn });
+    } = useQuery(getCustomerCartAddressQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !isSignedIn
+    });
 
     const derivedErrorMessage = useMemo(
         () => deriveErrorMessage([setCustomerAddressOnCartError]),

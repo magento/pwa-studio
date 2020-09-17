@@ -9,6 +9,7 @@ query navigationMenu($id: Int!) {
             name
             position
             url_path
+            url_suffix
         }
     }
 }
