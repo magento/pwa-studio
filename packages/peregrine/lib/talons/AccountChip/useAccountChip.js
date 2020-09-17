@@ -14,9 +14,12 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  * @returns {Bool}   talonProps.isUserSignedIn - Indicates whether we have a signed-in user.
  */
 export const useAccountChip = props => {
+    const {
+        queries: { getCustomerDetailsQuery }
+    } = props;
     const [{ isSignedIn: isUserSignedIn }] = useUserContext();
 
-    const { data } = useQuery(props.queries.getCustomerDetailsQuery, {
+    const { data } = useQuery(getCustomerDetailsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !isUserSignedIn

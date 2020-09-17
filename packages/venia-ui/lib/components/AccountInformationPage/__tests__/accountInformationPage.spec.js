@@ -11,11 +11,11 @@ jest.mock(
 jest.mock('../../../classify');
 
 const handleSubmit = jest.fn().mockName('handleSubmit');
-const cancelUpdateMode = jest.fn().mockName('cancelUpdateMode');
+const handleCancel = jest.fn().mockName('handleCancel');
 const showUpdateMode = jest.fn().mockName('showUpdateMode');
 
 const emptyFormProps = {
-    cancelUpdateMode,
+    handleCancel,
     formErrors: [],
     handleSubmit,
     initialValues: {

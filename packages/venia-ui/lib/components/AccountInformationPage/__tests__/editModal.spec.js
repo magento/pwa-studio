@@ -9,14 +9,14 @@ jest.mock('../../Portal', () => ({
 }));
 jest.mock('../editForm', () => 'EditForm');
 
-const handleSubmit = jest.fn().mockName('handleSubmit');
-const handleCancel = jest.fn().mockName('handleCancel');
+const onSubmit = jest.fn().mockName('onSubmit');
+const onCancel = jest.fn().mockName('onCancel');
 
 const props = {
     classes: {},
     formErrors: [],
-    handleCancel,
-    handleSubmit,
+    onCancel,
+    onSubmit,
     initialValues: {
         firstname: 'Foo',
         lastname: 'Bar',

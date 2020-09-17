@@ -19,7 +19,7 @@ const AccountInformationPage = props => {
     });
 
     const {
-        cancelUpdateMode,
+        handleCancel,
         formErrors,
         handleChangePassword,
         handleSubmit,
@@ -81,9 +81,9 @@ const AccountInformationPage = props => {
                 </div>
                 <EditModal
                     formErrors={formErrors}
-                    handleCancel={cancelUpdateMode}
-                    handleChangePassword={handleChangePassword}
-                    handleSubmit={handleSubmit}
+                    onCancel={handleCancel}
+                    onChangePassword={handleChangePassword}
+                    onSubmit={handleSubmit}
                     initialValues={customer}
                     isDisabled={isDisabled}
                     isOpen={isUpdateMode}

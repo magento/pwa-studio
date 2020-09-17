@@ -11,9 +11,9 @@ const EditModal = props => {
     const {
         classes: propClasses,
         formErrors,
-        handleCancel,
-        handleChangePassword,
-        handleSubmit,
+        onCancel,
+        onChangePassword,
+        onSubmit,
         initialValues,
         isDisabled,
         isOpen,
@@ -30,8 +30,8 @@ const EditModal = props => {
             confirmText={'Save'}
             formProps={dialogFormProps}
             isOpen={isOpen}
-            onCancel={handleCancel}
-            onConfirm={handleSubmit}
+            onCancel={onCancel}
+            onConfirm={onSubmit}
             shouldDisableAllButtons={isDisabled}
             shouldDisableConfirmButton={isDisabled}
             title={'Edit Account Information'}
@@ -41,7 +41,7 @@ const EditModal = props => {
                 errors={formErrors}
             />
             <EditForm
-                handleChangePassword={handleChangePassword}
+                handleChangePassword={onChangePassword}
                 shouldShowNewPassword={shouldShowNewPassword}
             />
         </Dialog>

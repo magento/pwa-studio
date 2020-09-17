@@ -46,10 +46,8 @@ test('return correct shape while data is loading', () => {
         loading: true
     });
 
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-
+    createTestInstance(<Component {...mockProps} />);
+    const talonProps = log.mock.calls[0][0];
     expect(talonProps).toMatchSnapshot();
 });
 

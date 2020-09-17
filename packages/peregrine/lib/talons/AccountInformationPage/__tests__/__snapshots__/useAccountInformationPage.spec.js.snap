@@ -2,11 +2,11 @@
 
 exports[`handleChangePassword sets shouldShowNewPassword to true 1`] = `
 Object {
-  "cancelUpdateMode": [Function],
   "formErrors": Array [
     undefined,
     undefined,
   ],
+  "handleCancel": [Function],
   "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
@@ -38,20 +38,22 @@ Object {
 exports[`handleSubmit calls setCustomerInformationQuery 1`] = `
 Object {
   "variables": Object {
-    "email": "foobar@express.net",
-    "firtname": "Foo",
-    "lastname": "Bar",
+    "customerInput": Object {
+      "email": "foobar@express.net",
+      "firtname": "Foo",
+      "lastname": "Bar",
+    },
   },
 }
 `;
 
 exports[`return correct shape 1`] = `
 Object {
-  "cancelUpdateMode": [Function],
   "formErrors": Array [
     undefined,
     undefined,
   ],
+  "handleCancel": [Function],
   "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
@@ -73,11 +75,11 @@ Object {
 
 exports[`return correct shape while data is loading 1`] = `
 Object {
-  "cancelUpdateMode": [Function],
   "formErrors": Array [
     undefined,
     undefined,
   ],
+  "handleCancel": [Function],
   "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": undefined,
@@ -92,17 +94,22 @@ Object {
 
 exports[`returns updated data as initial values 1`] = `
 Object {
-  "customer": "FOO",
+  "customer": Object {
+    "email": "foobar@express.net",
+    "firtname": "Foo",
+    "id": null,
+    "lastname": "Bar",
+  },
 }
 `;
 
 exports[`showUpdateMode sets isUpdateMode to true 1`] = `
 Object {
-  "cancelUpdateMode": [Function],
   "formErrors": Array [
     undefined,
     undefined,
   ],
+  "handleCancel": [Function],
   "handleChangePassword": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {

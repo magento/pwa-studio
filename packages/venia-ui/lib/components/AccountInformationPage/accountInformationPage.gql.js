@@ -1,28 +1,16 @@
 import { gql } from '@apollo/client';
+import { AccountInformationPageFragment } from './accountInformationPageFragment.gql';
 
 export const SET_CUSTOMER_INFORMATION = gql`
-    mutation SetCustomerInformation(
-        $firstname: String!
-        $lastname: String!
-        $email: String!
-        $password: String!
-    ) {
-        updateCustomer(
-            input: {
-                firstname: $firstname
-                lastname: $lastname
-                email: $email
-                password: $password
-            }
-        ) @connection(key: "updateCustomer") {
+    mutation SetCustomerInformation($customerInput: CustomerInput!) {
+        updateCustomer(input: $customerInput)
+            @connection(key: "updateCustomer") {
             customer {
-                id
-                firstname
-                lastname
-                email
+                ...AccountInformationPageFragment
             }
         }
     }
+    ${AccountInformationPageFragment}
 `;
 
 export const CHANGE_CUSTOMER_PASSWORD = gql`
@@ -43,12 +31,10 @@ export const CHANGE_CUSTOMER_PASSWORD = gql`
 export const GET_CUSTOMER_INFORMATION = gql`
     query GetCustomerInformation {
         customer {
-            id
-            firstname
-            lastname
-            email
+            ...AccountInformationPageFragment
         }
     }
+    ${AccountInformationPageFragment}
 `;
 
 export default {

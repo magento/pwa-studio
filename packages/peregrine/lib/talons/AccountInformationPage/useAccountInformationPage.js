@@ -28,7 +28,6 @@ export const useAccountInformationPage = props => {
     const [
         setCustomerInformation,
         {
-            data: customerInformationUpdateData,
             error: customerInformationUpdateError,
             loading: isUpdatingCustomerInformation
         }
@@ -43,21 +42,16 @@ export const useAccountInformationPage = props => {
     ] = useMutation(changeCustomerPasswordMutation);
 
     const initialValues = useMemo(() => {
-        if (customerInformationUpdateData) {
-            return {
-                customer: customerInformationUpdateData.updateCustomer.customer
-            };
-        }
         if (accountInformationData) {
             return { customer: accountInformationData.customer };
         }
-    }, [customerInformationUpdateData, accountInformationData]);
+    }, [accountInformationData]);
 
     const handleChangePassword = useCallback(() => {
         setShouldShowNewPassword(true);
     }, [setShouldShowNewPassword]);
 
-    const cancelUpdateMode = useCallback(() => {
+    const handleCancel = useCallback(() => {
         setIsUpdateMode(false);
         setShouldShowNewPassword(false);
     }, [setIsUpdateMode]);
@@ -70,7 +64,7 @@ export const useAccountInformationPage = props => {
         async formValues => {
             try {
                 await setCustomerInformation({
-                    variables: formValues
+                    variables: { customerInput: formValues }
                 });
 
                 if (formValues.password && formValues.newPassword) {
@@ -82,7 +76,7 @@ export const useAccountInformationPage = props => {
                     });
                 }
                 // After submission, close the form if there were no errors.
-                cancelUpdateMode(false);
+                handleCancel(false);
             } catch {
                 // we have an onError link that logs errors, and FormError
                 // already renders this error, so just return to avoid
@@ -90,11 +84,11 @@ export const useAccountInformationPage = props => {
                 return;
             }
         },
-        [setCustomerInformation, cancelUpdateMode, changeCustomerPassword]
+        [setCustomerInformation, handleCancel, changeCustomerPassword]
     );
 
     return {
-        cancelUpdateMode,
+        handleCancel,
         formErrors: [
             customerInformationUpdateError,
             customerPasswordChangeError
