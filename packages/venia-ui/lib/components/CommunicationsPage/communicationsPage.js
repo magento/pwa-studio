@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { Form } from 'informed';
 import { Redirect } from '@magento/venia-drivers';
 import { useToasts } from '@magento/peregrine';
-import { useCommunicationsPage } from '@magento/peregrine/lib/talons/MyAccount/useCommunicationsPage';
+import { useCommunicationsPage } from '@magento/peregrine/lib/talons/CommunicationsPage/useCommunicationsPage';
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
@@ -12,7 +12,6 @@ import FormError from '../FormError';
 import { Title } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './communicationsPage.css';
-import CommunicationsPageOperations from './communicationsPage.gql.js';
 
 const CommunicationsPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -27,10 +26,7 @@ const CommunicationsPage = props => {
         });
     }, [addToast]);
 
-    const talonProps = useCommunicationsPage({
-        afterSubmit,
-        ...CommunicationsPageOperations
-    });
+    const talonProps = useCommunicationsPage({ afterSubmit });
 
     const {
         formErrors,
