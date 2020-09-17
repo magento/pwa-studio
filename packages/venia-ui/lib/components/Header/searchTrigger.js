@@ -33,7 +33,10 @@ const SearchTrigger = React.forwardRef((props, ref) => {
         >
             <Icon src={SearchIcon} />
             <span className={classes.label}>
-                <FormattedMessage id={'Search'} />
+                <FormattedMessage
+                    id={'searchTrigger.label'}
+                    defaultMessage={'Search'}
+                />
             </span>
         </button>
     );
