@@ -94,7 +94,9 @@
         grid-row: 6 / span 1;
         grid-column: 1 / span 1;
 
-        min-width: 16rem;
+        min-width: 0rem;
+        max-width: none;
+        margin: unset;
     }
 
     .printButton {
