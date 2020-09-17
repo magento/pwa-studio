@@ -59,9 +59,8 @@ export const useSearchPage = props => {
             return null;
         }
 
-        console.log('the set', targetCategoriesSet);
-
         // The set looks like ["Bottoms,11", "Skirts,12"].
+        // We want to return "Bottoms, Skirts", etc.
         return [...targetCategoriesSet]
             .map(categoryPair => categoryPair.split(',')[0])
             .join(', ');
