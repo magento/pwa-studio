@@ -34,7 +34,7 @@
     "Product Suggestions": "Product Suggestions",
     "Register": "Register",
     "Returns": "Returns",
-    "searchPage.searchTerm": "Showing results for <highlight>{term}</highlight>{category, select, null {} other {<highlight> in {category}</highlight>}}:",
+    "searchPage.searchTerm": "Showing results for <highlight>{term}</highlight>{category, select, null {} other { in <highlight>{category}</highlight>}}:",
     "searchTrigger.ariaLabel": "Search",
     "Sign Out": "Sign Out",
     "Terms of Use": "Terms of Use",
