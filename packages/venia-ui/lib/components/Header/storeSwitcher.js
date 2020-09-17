@@ -7,7 +7,7 @@ import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreS
 import { mergeClasses } from '../../classify';
 import defaultClasses from './storeSwitcher.css';
 import SwitcherItem from './switcherItem';
-import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
+import GET_CONFIG_DATA from '../../queries/getAvailableStoresConfigData.graphql';
 import Icon from '../Icon';
 
 const StoreSwitcher = props => {
@@ -33,52 +33,46 @@ const StoreSwitcher = props => {
 
     let currentStoreName = null;
 
-    if (availableStores) {
-        if (Object.keys(availableStores).length === 1) return null;
+    const stores = Object.keys(availableStores).map(storeCode => {
+        const isActive = availableStores[storeCode].is_current;
+        const storeName = availableStores[storeCode].storeName;
 
-        const stores = Object.keys(availableStores).map(storeCode => {
-            const isActive = availableStores[storeCode].is_current;
-            const storeName = availableStores[storeCode].storeName;
+        const switcherItem = {
+            label: storeName,
+            code: storeCode
+        };
 
-            const switcherItem = {
-                label: storeName,
-                code: storeCode
-            };
-
-            if (isActive) {
-                currentStoreName = storeName;
-            }
-
-            return (
-                <li key={storeCode} className={classes.menuItem}>
-                    <SwitcherItem
-                        active={isActive}
-                        onClick={handleSwitchStore}
-                        switcherItem={switcherItem}
-                    />
-                </li>
-            );
-        });
+        if (isActive) {
+            currentStoreName = storeName;
+        }
 
         return (
-            <div className={className}>
-                <button
-                    className={classes.trigger}
-                    aria-label={currentStoreName}
-                    onClick={handleTriggerClick}
-                    ref={storeMenuTriggerRef}
-                >
-                    <Icon src={MapPin} />
-                    <span className={classes.label}>{currentStoreName}</span>
-                </button>
-                <div ref={storeMenuRef} className={menuClassName}>
-                    <ul>{stores}</ul>
-                </div>
-            </div>
+            <li key={storeCode} className={classes.menuItem}>
+                <SwitcherItem
+                    active={isActive}
+                    onClick={handleSwitchStore}
+                    switcherItem={switcherItem}
+                />
+            </li>
         );
-    } else {
-        return null;
-    }
+    });
+
+    return (
+        <div className={className}>
+            <button
+                className={classes.trigger}
+                aria-label={currentStoreName}
+                onClick={handleTriggerClick}
+                ref={storeMenuTriggerRef}
+            >
+                <Icon src={MapPin} />
+                <span className={classes.label}>{currentStoreName}</span>
+            </button>
+            <div ref={storeMenuRef} className={menuClassName}>
+                <ul>{stores}</ul>
+            </div>
+        </div>
+    );
 };
 
 export default StoreSwitcher;
