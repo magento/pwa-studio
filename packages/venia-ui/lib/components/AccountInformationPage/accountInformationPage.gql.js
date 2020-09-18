@@ -6,6 +6,7 @@ export const SET_CUSTOMER_INFORMATION = gql`
         updateCustomer(input: $customerInput)
             @connection(key: "updateCustomer") {
             customer {
+                id
                 ...AccountInformationPageFragment
             }
         }
@@ -31,6 +32,7 @@ export const CHANGE_CUSTOMER_PASSWORD = gql`
 export const GET_CUSTOMER_INFORMATION = gql`
     query GetCustomerInformation {
         customer {
+            id
             ...AccountInformationPageFragment
         }
     }
