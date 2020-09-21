@@ -26,7 +26,7 @@ const shouldFetch = (data, store) => {
     }
 
     // If we have data for the route, but the stores don't match fetch the correct route
-    return !!(data.id && data.store !== store);
+    return !!(store && data.id && data.store !== store);
 };
 
 export const useMagentoRoute = props => {
@@ -69,7 +69,7 @@ export const useMagentoRoute = props => {
             return;
         }
 
-        if (store && shouldFetch(routeData, store)) {
+        if (shouldFetch(routeData, store)) {
             getRouteComponent(apiBase, pathname, store).then(
                 ({
                     component,

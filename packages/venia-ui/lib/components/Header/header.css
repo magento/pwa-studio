@@ -9,7 +9,8 @@
     top: 0;
     width: 100%;
     z-index: 10;
-    --header-height: 5rem;
+    --switchers-height: 0;
+    --header-height: calc(var(--switchers-height) * 1px + 5rem);
 }
 
 .switchers {

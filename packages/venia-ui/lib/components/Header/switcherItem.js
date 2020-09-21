@@ -17,7 +17,11 @@ const SwitcherItem = props => {
     const activeIcon = active ? <Icon size={20} src={Check} /> : null;
 
     return (
-        <button className={classes.root} onClick={active ? null : handleClick}>
+        <button
+            className={classes.root}
+            disabled={active}
+            onClick={handleClick}
+        >
             <span className={classes.content}>
                 <span className={classes.text}>{switcherItem.label}</span>
                 {activeIcon}

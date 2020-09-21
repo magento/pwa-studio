@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useLayoutEffect, useRef } from 'react';
 import { shape, string } from 'prop-types';
 
 import Logo from '../Logo';
@@ -26,6 +26,7 @@ const Header = props => {
         searchOpen,
         isPageLoading
     } = useHeader();
+    const ref = useRef();
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = searchOpen ? classes.open : classes.closed;
@@ -47,19 +48,20 @@ const Header = props => {
         <PageLoadingIndicator />
     ) : null;
 
-    const switchers = StoreSwitcher ? (
-        <div className={classes.switchers}>
-            <StoreSwitcher mobileView={false} />
-        </div>
-    ) : null;
+    useLayoutEffect(() => {
+        const { current } = ref;
 
-    const style = {
-        ...(switchers && { '--header-height': '7.5rem' })
-    };
+        current.parentElement.style.setProperty(
+            '--switchers-height',
+            current.offsetHeight
+        );
+    });
 
     return (
-        <header className={rootClass} style={style}>
-            {switchers}
+        <header className={rootClass}>
+            <div ref={ref} className={classes.switchers}>
+                <StoreSwitcher mobileView={false} />
+            </div>
             <div className={classes.toolbar}>
                 <div className={classes.primaryActions}>
                     <NavTrigger />

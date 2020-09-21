@@ -2,9 +2,10 @@ import { useQuery } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Util } from '@magento/peregrine';
-const { BrowserPersistence } = Util;
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
 /**
  * The useStoreSwitcher talon complements the StoreSwitcher component.
  *
@@ -21,7 +22,6 @@ import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 export const useStoreSwitcher = props => {
     const { getStoreConfig } = props;
     const history = useHistory();
-    const storage = new BrowserPersistence();
     const {
         elementRef: storeMenuRef,
         expanded: storeMenuIsOpen,
@@ -70,7 +70,7 @@ export const useStoreSwitcher = props => {
             // Refresh the page to re-trigger the queries once code/currency are saved in local storage.
             history.go(0);
         },
-        [history, storage, availableStores]
+        [history, availableStores]
     );
 
     const handleTriggerClick = useCallback(() => {
