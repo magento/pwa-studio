@@ -183,6 +183,20 @@ const imagesData = [
 
 test('it renders collapsed order row', () => {
     useOrderRow.mockReturnValue({
+        loading: false,
+        imagesData,
+        isOpen: false,
+        handleContentToggle: jest.fn().mockName('handleContentToggle')
+    });
+
+    const tree = createTestInstance(<OrderRow order={mockOrder} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('it does not render order details if loading is true', () => {
+    useOrderRow.mockReturnValue({
+        loading: true,
         imagesData,
         isOpen: false,
         handleContentToggle: jest.fn().mockName('handleContentToggle')
@@ -195,6 +209,7 @@ test('it renders collapsed order row', () => {
 
 test('it renders open order row', () => {
     useOrderRow.mockReturnValue({
+        loading: false,
         imagesData,
         isOpen: true,
         handleContentToggle: jest.fn().mockName('handleContentToggle')
@@ -211,6 +226,7 @@ test('it renders open order row', () => {
 
 test('it renders shipped status', () => {
     useOrderRow.mockReturnValue({
+        loading: false,
         imagesData,
         isOpen: false,
         handleContentToggle: jest.fn()
@@ -231,6 +247,7 @@ test('it renders shipped status', () => {
 
 test('it renders delivered status', () => {
     useOrderRow.mockReturnValue({
+        loading: false,
         imagesData,
         isOpen: false,
         handleContentToggle: jest.fn()

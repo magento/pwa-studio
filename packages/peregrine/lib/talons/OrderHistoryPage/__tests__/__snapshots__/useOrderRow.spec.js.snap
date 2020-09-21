@@ -16,5 +16,6 @@ Object {
     },
   ],
   "isOpen": false,
+  "loading": false,
 }
 `;

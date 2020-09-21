@@ -25,7 +25,7 @@ test('returns correct shape', () => {
         { thumbnail: { url: 'sku1 thumbnail url' } },
         { thumbnail: { url: 'sku2 thumbnail url' } }
     ];
-    useQuery.mockReturnValue({ data: { products: { items } } });
+    useQuery.mockReturnValue({ data: { products: { items } }, loading: false });
     createTestInstance(
         <Component
             queries={{ getProductThumbnailsQuery: 'getProductThumbnailsQuery' }}
@@ -43,7 +43,7 @@ test('callback toggles open state', () => {
         { thumbnail: { url: 'sku1 thumbnail url' } },
         { thumbnail: { url: 'sku2 thumbnail url' } }
     ];
-    useQuery.mockReturnValue({ data: { products: { items } } });
+    useQuery.mockReturnValue({ data: { products: { items } }, loading: false });
     createTestInstance(
         <Component
             queries={{ getProductThumbnailsQuery: 'getProductThumbnailsQuery' }}

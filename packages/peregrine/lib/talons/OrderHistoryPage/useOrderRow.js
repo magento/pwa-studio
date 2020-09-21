@@ -18,7 +18,7 @@ export const useOrderRow = props => {
         return items.map(item => item.product_sku).sort();
     }, [items]);
 
-    const { data } = useQuery(getProductThumbnailsQuery, {
+    const { data, loading } = useQuery(getProductThumbnailsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         variables: {
@@ -40,6 +40,7 @@ export const useOrderRow = props => {
     }, []);
 
     return {
+        loading,
         imagesData,
         isOpen,
         handleContentToggle

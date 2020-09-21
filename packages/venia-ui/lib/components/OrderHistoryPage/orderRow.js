@@ -54,7 +54,7 @@ const OrderRow = props => {
         items,
         ...orderRowOperations
     });
-    const { isOpen, handleContentToggle, imagesData } = talonProps;
+    const { loading, isOpen, handleContentToggle, imagesData } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -66,6 +66,10 @@ const OrderRow = props => {
 
     const collapsedImageGalleryElement = isOpen ? null : (
         <CollapsedImageGallery items={imagesData} />
+    );
+
+    const orderDetails = loading ? null : (
+        <OrderDetails orderData={order} imagesData={imagesData} />
     );
 
     return (
@@ -100,9 +104,7 @@ const OrderRow = props => {
             >
                 {contentToggleIcon}
             </button>
-            <div className={contentClass}>
-                <OrderDetails orderData={order} imagesData={imagesData} />
-            </div>
+            <div className={contentClass}>{orderDetails}</div>
         </li>
     );
 };
