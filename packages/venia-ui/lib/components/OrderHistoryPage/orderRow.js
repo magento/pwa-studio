@@ -9,6 +9,7 @@ import Icon from '../Icon';
 import CollapsedImageGallery from './collapsedImageGallery';
 import OrderProgressBar from './orderProgressBar';
 import defaultClasses from './orderRow.css';
+import { FormattedMessage } from 'react-intl';
 
 const OrderRow = props => {
     const { order } = props;
@@ -22,9 +23,8 @@ const OrderRow = props => {
         total
     } = order;
     const { grand_total: grandTotal } = total;
-    const { currency, value: orderTotal } = grandTotal;
+    const { currency, value: orderTotal } = grandTotal; // Convert date to ISO-8601 format so Safari can also parse it
 
-    // Convert date to ISO-8601 format so Safari can also parse it
     const isoFormattedDate = orderDate.replace(' ', 'T');
     const formattedDate = new Date(isoFormattedDate).toLocaleDateString(
         undefined,
@@ -61,15 +61,30 @@ const OrderRow = props => {
     return (
         <li className={classes.root}>
             <div className={classes.orderNumberContainer}>
-                <span className={classes.orderNumberLabel}>{'Order #'}</span>
+                <span className={classes.orderNumberLabel}>
+                    <FormattedMessage
+                        id={'Order #'}
+                        defaultMessage={'Order #'}
+                    />
+                </span>
                 <span className={classes.orderNumber}>{orderNumber}</span>
             </div>
             <div className={classes.orderDateContainer}>
-                <span className={classes.orderDateLabel}>{'Order Date'}</span>
+                <span className={classes.orderDateLabel}>
+                    <FormattedMessage
+                        id={'Order Date'}
+                        defaultMessage={'Order Date'}
+                    />
+                </span>
                 <span className={classes.orderDate}>{formattedDate}</span>
             </div>
             <div className={classes.orderTotalContainer}>
-                <span className={classes.orderTotalLabel}>{'Order Total'}</span>
+                <span className={classes.orderTotalLabel}>
+                    <FormattedMessage
+                        id={'Order Total'}
+                        defaultMessage={'Order Total'}
+                    />
+                </span>
                 <div className={classes.orderTotal}>
                     <Price currencyCode={currency} value={orderTotal} />
                 </div>

@@ -8,14 +8,20 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './orderHistoryPage.css';
 import orderHistoryOperations from './orderHistoryPage.gql';
 import OrderRow from './orderRow';
-
-const PAGE_TITLE = `Order History`;
-const EMPTY_DATA_MESSAGE = `You don't have any orders yet.`;
+import { useIntl } from 'react-intl';
 
 const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage({ ...orderHistoryOperations });
     const { isLoadingWithoutData, orders } = talonProps;
-
+    const { formatMessage } = useIntl();
+    const PAGE_TITLE = formatMessage({
+        id: 'Order History',
+        defaultMessage: 'Order History'
+    });
+    const EMPTY_DATA_MESSAGE = formatMessage({
+        id: "You don't have any orders yet.",
+        defaultMessage: "You don't have any orders yet."
+    });
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const orderRows = useMemo(() => {
