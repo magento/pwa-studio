@@ -20,7 +20,6 @@ const Item = props => {
         url_key,
         url_suffix
     } = props;
-    const thumbnailUrl = thumbnail ? thumbnail.url : '';
     const itemLink = useMemo(() => resourceUrl(`/${url_key}${url_suffix}`), [
         url_key,
         url_suffix
@@ -42,7 +41,7 @@ const Item = props => {
                     alt={product_name}
                     classes={{ root: classes.thumbnail }}
                     width={50}
-                    resource={thumbnailUrl}
+                    resource={thumbnail.url}
                 />
             </Link>
             <Link className={classes.name} to={itemLink}>
@@ -82,18 +81,18 @@ Item.propTypes = {
         buyAgainButton: string,
         returnThisButton: string
     }),
-    product_name: string,
-    product_sale_price: string,
-    quantity_ordered: number,
+    product_name: string.isRequired,
+    product_sale_price: string.isRequired,
+    quantity_ordered: number.isRequired,
     selected_options: arrayOf(
         shape({
             label: string,
             value: string
         })
-    ),
+    ).isRequired,
     thumbnail: shape({
         url: string
-    }),
-    url_key: string,
-    url_suffix: string
+    }).isRequired,
+    url_key: string.isRequired,
+    url_suffix: string.isRequired
 };
