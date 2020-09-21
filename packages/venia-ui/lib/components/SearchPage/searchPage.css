@@ -3,11 +3,11 @@
 }
 
 .categoryTop {
+    align-items: center;
     color: rgb(var(--venia-global-color-text-alt));
-    display: grid;
-    grid-auto-flow: row;
-    justify-items: center;
-    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .noResult {
@@ -16,8 +16,9 @@
 
 .headerButtons {
     display: flex;
-    justify-content: center;
     flex-basis: 100%;
+    justify-content: center;
+    margin: 1rem 0;
 }
 
 .heading {

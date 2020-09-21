@@ -88,10 +88,10 @@ const SearchPage = props => {
     ) : null;
 
     const maybeSortContainer = totalCount ? (
-        <div className={classes.sortContainer}>
+        <span className={classes.sortContainer}>
             {'Items sorted by '}
             <span className={classes.sortText}>{currentSort.sortText}</span>
-        </div>
+        </span>
     ) : null;
 
     const searchResultsHeading = searchTerm ? (
@@ -115,9 +115,9 @@ const SearchPage = props => {
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
-                <div className={classes.totalPages}>
+                <span className={classes.totalPages}>
                     {`${totalCount} items`}
-                </div>
+                </span>
                 <div className={classes.headerButtons}>
                     {maybeFilterButtons}
                     {maybeSortButton}
