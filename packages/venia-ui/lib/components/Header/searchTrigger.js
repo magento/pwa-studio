@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { Search as SearchIcon } from 'react-feather';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import Icon from '../Icon';
 

@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useIntl } from 'react-intl';
 import { PlusSquare } from 'react-feather';
 
 import { useSavedPaymentsPage } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useSavedPaymentsPage';
@@ -18,7 +19,7 @@ const SavedPaymentsPage = props => {
         }
     });
 
-    const { handleAddPayment, savedPayments, strings } = talonProps;
+    const { handleAddPayment, savedPayments } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -34,11 +35,23 @@ const SavedPaymentsPage = props => {
         );
     }, [savedPayments]);
 
+    const { formatMessage } = useIntl();
+
+    // STORE_NAME is injected by Webpack at build time.
+    const title = formatMessage(
+        { id: 'savedPaymentsPage.title' },
+        { store_name: STORE_NAME }
+    );
+    const subHeading = formatMessage({ id: 'savedPaymentsPage.subHeading' });
+    const addButtonText = formatMessage({
+        id: 'savedPaymentsPage.addButtonText'
+    });
+
     return (
         <div className={classes.root}>
-            <Title>{strings.title}</Title>
-            <h1 className={classes.heading}>{strings.title}</h1>
-            <h3 className={classes.subHeading}>{strings.subHeading}</h3>
+            <Title>{title}</Title>
+            <h1 className={classes.heading}>{title}</h1>
+            <h3 className={classes.subHeading}>{subHeading}</h3>
             <div className={classes.content}>
                 <LinkButton
                     className={classes.addButton}
@@ -50,9 +63,7 @@ const SavedPaymentsPage = props => {
                         size={24}
                         src={PlusSquare}
                     />
-                    <span className={classes.addText}>
-                        {strings.addButtonText}
-                    </span>
+                    <span className={classes.addText}>{addButtonText}</span>
                 </LinkButton>
                 {savedPaymentElements}
             </div>

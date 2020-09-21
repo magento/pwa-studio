@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useIntl } from 'react-intl';
+
 import { useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
@@ -74,26 +74,10 @@ export const useSavedPaymentsPage = props => {
 
     const savedPayments = normalizeTokens(savedPaymentsData);
 
-    const { formatMessage } = useIntl();
-    // STORE_NAME is injected by Webpack at build time.
-    const title = formatMessage(
-        { id: 'savedPaymentsPage.title' },
-        { store_name: STORE_NAME }
-    );
-    const subHeading = formatMessage({ id: 'savedPaymentsPage.subHeading' });
-    const addButtonText = formatMessage({
-        id: 'savedPaymentsPage.addButtonText'
-    });
-
     return {
         handleAddPayment,
         isLoading: loading,
-        savedPayments,
-        strings: {
-            addButtonText,
-            subHeading,
-            title
-        }
+        savedPayments
     };
 };
 
