@@ -64,7 +64,7 @@ async function buildModuleWith(
     const resolver = new MagentoResolver({ paths, alias });
 
     const transforms = new ModuleTransformConfig(resolver);
-    bus.getTargetsOf('@magento/pwa-buildpack').transformModules.call(x =>
+    bus.getTargetsOf('@magento/pwa-buildpack').transformModules.promise(x =>
         transforms.add(x)
     );
     const transformRequests = await transforms.toLoaderOptions();
