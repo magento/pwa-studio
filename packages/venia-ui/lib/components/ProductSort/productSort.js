@@ -75,7 +75,7 @@ const ProductSort = props => {
             <Button
                 priority={'low'}
                 classes={{ root_lowPriority: classes.sortButton }}
-                onClick={handleSortClick}
+                onMouseDown={handleSortClick}
             >
                 {'Sort'}
             </Button>
