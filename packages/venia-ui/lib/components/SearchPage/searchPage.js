@@ -94,6 +94,24 @@ const SearchPage = props => {
         </div>
     ) : null;
 
+    const searchResultsHeading = searchTerm ? (
+        <FormattedMessage
+            id={'searchPage.searchTerm'}
+            values={{
+                highlight: chunks => (
+                    <span className={classes.headingHighlight}>{chunks}</span>
+                ),
+                category: searchCategory,
+                term: searchTerm
+            }}
+        />
+    ) : (
+        <FormattedMessage
+            id={'searchPage.searchTermEmpty'}
+            defaultMessage={'Showing all results:'}
+        />
+    );
+
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
@@ -106,20 +124,7 @@ const SearchPage = props => {
                 </div>
                 {maybeSortContainer}
             </div>
-            <div className={classes.heading}>
-                <FormattedMessage
-                    id={'searchPage.searchTerm'}
-                    values={{
-                        highlight: chunks => (
-                            <span className={classes.headingHighlight}>
-                                {chunks}
-                            </span>
-                        ),
-                        category: searchCategory,
-                        term: searchTerm
-                    }}
-                />
-            </div>
+            <div className={classes.heading}>{searchResultsHeading}</div>
             {content}
             <Suspense fallback={null}>{maybeFilterModal}</Suspense>
         </article>
