@@ -224,6 +224,12 @@ class LocalizationPlugin {
                                 }
                                 translations[locale].push(item.path);
                             }
+                        } else {
+                            debug(
+                                `Found invalid item within i18n directory: ${
+                                    item.path
+                                }. File names should match locales such as en_US and have a .json extension.`
+                            );
                         }
                     }
                 })
