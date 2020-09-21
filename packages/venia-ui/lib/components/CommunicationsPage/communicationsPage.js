@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { Redirect } from '@magento/venia-drivers';
 import { useToasts } from '@magento/peregrine';
@@ -15,6 +16,7 @@ import defaultClasses from './communicationsPage.css';
 import CommunicationsPageOperations from './communicationsPage.gql.js';
 
 const CommunicationsPage = props => {
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const [, { addToast }] = useToasts();
@@ -22,11 +24,13 @@ const CommunicationsPage = props => {
     const afterSubmit = useCallback(() => {
         addToast({
             type: 'info',
-            message: 'Your preferences have been updated.',
+            message: formatMessage({
+                id: 'Your preferences have been updated.',
+                defaultMessage: 'Your preferences have been updated.'
+            }),
             timeout: 5000
         });
-    }, [addToast]);
-
+    }, [addToast, formatMessage]);
     const talonProps = useCommunicationsPage({
         afterSubmit,
         ...CommunicationsPageOperations
@@ -47,28 +51,67 @@ const CommunicationsPage = props => {
     if (!initialValues) {
         return fullPageLoadingIndicator;
     }
+    const title = formatMessage(
+        {
+            id: 'Communications - {name}',
+            defaultMessage: 'Communications - {name}'
+        },
+        { name: STORE_NAME }
+    );
 
     return (
         <div className={classes.root}>
-            <Title>{`Communications - ${STORE_NAME}`}</Title>
-            <h1 className={classes.title}>{'Communications'}</h1>
-            <p>{`We'd like to stay in touch. Please check the boxes next to
-                    the communications you'd like to receive.`}</p>
+            <Title>{title}</Title>
+            <h1 className={classes.title}>
+                <FormattedMessage
+                    id={'Communications'}
+                    defaultMessage={'Communications'}
+                />
+            </h1>
+            <p>
+                <FormattedMessage
+                    id={
+                        "We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
+                    }
+                    defaultMessage={
+                        "We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
+                    }
+                />
+            </p>
             <FormError errors={formErrors} />
             <Form
                 className={classes.form}
                 onSubmit={handleSubmit}
                 initialValues={initialValues}
             >
-                <Field id="isSubscribed" label="Venia E-Newsletter">
+                <Field
+                    id="isSubscribed"
+                    label={formatMessage({
+                        id: 'Venia E-Newsletter',
+                        defaultMessage: 'Venia E-Newsletter'
+                    })}
+                >
                     <Checkbox
                         field="isSubscribed"
-                        label="Stay on the cutting edge of fashion; subscribe to the monthly Venia Newsletter."
+                        label={formatMessage({
+                            id:
+                                'Stay on the cutting edge of fashion; subscribe to the monthly Venia Newsletter.',
+                            defaultMessage:
+                                'Stay on the cutting edge of fashion; subscribe to the monthly Venia Newsletter.'
+                        })}
                     />
                 </Field>
                 <div className={classes.buttonsContainer}>
                     <Button disabled={isDisabled} type="submit" priority="high">
-                        {isDisabled ? 'Saving' : 'Save Changes'}
+                        {isDisabled
+                            ? formatMessage({
+                                  id: 'Saving',
+                                  defaultMessage: 'Saving'
+                              })
+                            : formatMessage({
+                                  id: 'Save Changes',
+                                  defaultMessage: 'Save Changes'
+                              })}
                     </Button>
                 </div>
             </Form>
