@@ -4,6 +4,8 @@
     "accountTrigger.ariaLabel": "Toggle My Account Menu",
     "accountTrigger.buttonFallback": "Sign In",
     "accountTrigger.signIn": "Sign In",
+    "Add an Address": "Add an Address",
+    "Address Book": "Address Book",
     "autocomplete.emptyResult": "No results were found.",
     "autocomplete.error": "An error occurred while fetching results.",
     "autocomplete.loading": "Fetching results...",
