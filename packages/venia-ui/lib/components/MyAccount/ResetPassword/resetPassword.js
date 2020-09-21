@@ -6,15 +6,15 @@ import { useToasts } from '@magento/peregrine';
 import { useResetPassword } from '@magento/peregrine/lib/talons/MyAccount/useResetPassword';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import { Title } from '../../Head';
-
 import Button from '../../Button';
 import FormErrors from '../../FormError';
-
-import resetPasswordOperations from './resetPassword.gql';
-
-import defaultClasses from './resetPassword.css';
+import { Title } from '../../Head';
 import Password from '../../Password';
+import defaultClasses from './resetPassword.css';
+import resetPasswordOperations from './resetPassword.gql';
+import TextInput from '../../TextInput/textInput';
+import Field from '../../Field';
+import { isRequired } from '../../../util/formValidators';
 
 const PAGE_TITLE = `Reset Password`;
 
@@ -27,7 +27,6 @@ const ResetPassword = props => {
     const {
         hasCompleted,
         loading,
-        email,
         token,
         formErrors,
         handleSubmit
@@ -66,6 +65,9 @@ const ResetPassword = props => {
             <div className={classes.description}>
                 Please enter your new password.
             </div>
+            <Field label={'Email'}>
+                <TextInput field={'email'} validate={isRequired} />
+            </Field>
             <Password
                 classes={{ root: classes.password }}
                 label={'New Password'}
@@ -91,7 +93,7 @@ const ResetPassword = props => {
         <div className={classes.root}>
             <Title>{`${PAGE_TITLE} - ${STORE_NAME}`}</Title>
             <h1 className={classes.heading}>{PAGE_TITLE}</h1>
-            {token && email ? recoverPassword : tokenMissing}
+            {token ? recoverPassword : tokenMissing}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { func, shape, string } from 'prop-types';
 
 import { useForgotPassword } from '@magento/peregrine/lib/talons/ForgotPassword/useForgotPassword';
@@ -33,6 +33,10 @@ const ForgotPassword = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    useEffect(() => {
+        document.cookie = 'email_in_session_cookie=fry@planetexpress.com';
+    }, []);
 
     const children = hasCompleted ? (
         <FormSubmissionSuccessful email={forgotPasswordEmail} />

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
@@ -25,11 +25,20 @@ export const useResetPassword = props => {
     const searchParams = useMemo(() => new URLSearchParams(location.search), [
         location
     ]);
-    const email = searchParams.get('email');
     const token = searchParams.get('token');
 
+    // We could fetch email from session cookie and pre-fill form, but likely
+    // still need the input there just in case.
+    useEffect(() => {
+        console.log('Retrieving email from session cookie: ', document.cookie);
+
+        // We would likely destroy the cookie after retrieval here making it one time use
+        // and limiting the XSS vector, though it is open between the time reset is initiated
+        // to reset link is clicked (or browser is closed).
+    }, []);
+
     const handleSubmit = useCallback(
-        async ({ newPassword }) => {
+        async ({ email, newPassword }) => {
             try {
                 if (email && token && newPassword) {
                     await resetPassword({
@@ -42,11 +51,10 @@ export const useResetPassword = props => {
                 setHasCompleted(false);
             }
         },
-        [resetPassword, email, token]
+        [resetPassword, token]
     );
 
     return {
-        email,
         formErrors: [resetPasswordErrors],
         handleSubmit,
         hasCompleted,
