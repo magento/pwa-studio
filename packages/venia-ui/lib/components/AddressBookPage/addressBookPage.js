@@ -24,7 +24,7 @@ const AddressBookPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const PAGE_TITLE = formatMessage({
-        id: 'Address Book',
+        id: 'addressBookPage.addressBookText',
         defaultMessage: 'Address Book'
     });
     const addressBookElements = useMemo(() => {
@@ -53,7 +53,7 @@ const AddressBookPage = props => {
                     />
                     <span className={classes.addText}>
                         <FormattedMessage
-                            id={'Add an Address'}
+                            id={'addressBookPage.addAddressText'}
                             defaultMessage={'Add an Address'}
                         />
                     </span>

@@ -66,7 +66,10 @@ const AddressCard = props => {
 
     const defaultBadge = default_shipping ? (
         <span className={classes.defaultBadge}>
-            <FormattedMessage id={'Default'} defaultMessage={'Default'} />
+            <FormattedMessage
+                id={'addressCard.defaultText'}
+                defaultMessage={'Default'}
+            />
         </span>
     ) : null;
 

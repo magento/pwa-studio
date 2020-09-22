@@ -25,7 +25,7 @@ const CommunicationsPage = props => {
         addToast({
             type: 'info',
             message: formatMessage({
-                id: 'Your preferences have been updated.',
+                id: 'communicationsPage.preferencesText',
                 defaultMessage: 'Your preferences have been updated.'
             }),
             timeout: 5000
@@ -53,7 +53,7 @@ const CommunicationsPage = props => {
     }
     const title = formatMessage(
         {
-            id: 'Communications - {name}',
+            id: 'communicationsPage.title',
             defaultMessage: 'Communications - {name}'
         },
         { name: STORE_NAME }
@@ -64,15 +64,13 @@ const CommunicationsPage = props => {
             <Title>{title}</Title>
             <h1 className={classes.title}>
                 <FormattedMessage
-                    id={'Communications'}
+                    id={'communicationsPage.communicationsText'}
                     defaultMessage={'Communications'}
                 />
             </h1>
             <p>
                 <FormattedMessage
-                    id={
-                        "We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
-                    }
+                    id={'communicationsPage.optInText'}
                     defaultMessage={
                         "We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
                     }
@@ -87,15 +85,14 @@ const CommunicationsPage = props => {
                 <Field
                     id="isSubscribed"
                     label={formatMessage({
-                        id: 'Venia E-Newsletter',
+                        id: 'communicationsPage.eNewsletterText',
                         defaultMessage: 'Venia E-Newsletter'
                     })}
                 >
                     <Checkbox
                         field="isSubscribed"
                         label={formatMessage({
-                            id:
-                                'Stay on the cutting edge of fashion; subscribe to the monthly Venia Newsletter.',
+                            id: 'communicationsPage.subscribeText',
                             defaultMessage:
                                 'Stay on the cutting edge of fashion; subscribe to the monthly Venia Newsletter.'
                         })}
@@ -105,11 +102,11 @@ const CommunicationsPage = props => {
                     <Button disabled={isDisabled} type="submit" priority="high">
                         {isDisabled
                             ? formatMessage({
-                                  id: 'Saving',
+                                  id: 'communicationsPage.savingText',
                                   defaultMessage: 'Saving'
                               })
                             : formatMessage({
-                                  id: 'Save Changes',
+                                  id: 'communicationsPage.changesText',
                                   defaultMessage: 'Save Changes'
                               })}
                     </Button>

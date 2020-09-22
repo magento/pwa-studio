@@ -67,7 +67,10 @@ const CreateAccount = props => {
             priority="normal"
             onClick={handleCancel}
         >
-            <FormattedMessage id={'Cancel'} defaultMessage={'Cancel'} />
+            <FormattedMessage
+                id={'createAccount.cancelText'}
+                defaultMessage={'Cancel'}
+            />
         </Button>
     );
 
@@ -79,7 +82,7 @@ const CreateAccount = props => {
             priority="high"
         >
             <FormattedMessage
-                id={'Create an Account'}
+                id={'createAccount.createAccountText'}
                 defaultMessage={'Create an Account'}
             />
         </Button>
@@ -94,7 +97,7 @@ const CreateAccount = props => {
             <FormError errors={Array.from(errors.values())} />
             <Field
                 label={formatMessage({
-                    id: 'First Name',
+                    id: 'createAccount.firstNameText',
                     defaultMessage: 'First Name'
                 })}
             >
@@ -107,7 +110,7 @@ const CreateAccount = props => {
             </Field>
             <Field
                 label={formatMessage({
-                    id: 'Last Name',
+                    id: 'createAccount.lastNameText',
                     defaultMessage: 'Last Name'
                 })}
             >
@@ -120,7 +123,7 @@ const CreateAccount = props => {
             </Field>
             <Field
                 label={formatMessage({
-                    id: 'Email',
+                    id: 'createAccount.emailText',
                     defaultMessage: 'Email'
                 })}
             >
@@ -136,7 +139,7 @@ const CreateAccount = props => {
                 fieldName="password"
                 isToggleButtonHidden={false}
                 label={formatMessage({
-                    id: 'Password',
+                    id: 'createAccount.passwordText',
                     defaultMessage: 'Password'
                 })}
                 validate={combine([
@@ -150,7 +153,7 @@ const CreateAccount = props => {
                 <Checkbox
                     field="subscribe"
                     label={formatMessage({
-                        id: 'Subscribe to news and updates',
+                        id: 'createAccount.subscribeText',
                         defaultMessage: 'Subscribe to news and updates'
                     })}
                 />

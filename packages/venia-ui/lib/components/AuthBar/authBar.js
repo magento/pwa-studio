@@ -22,7 +22,7 @@ const AuthBar = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const fallBackText = formatMessage({
-        id: 'Account',
+        id: 'authBar.fallbackText',
         defaultMessage: 'Account'
     });
 
@@ -51,7 +51,7 @@ const AuthBar = props => {
                 <AccountChip fallbackText={fallBackText} />
                 <span className={classes.signIn}>
                     <FormattedMessage
-                        id={'Sign In'}
+                        id={'authBar.signInText'}
                         defaultMessage={'Sign In'}
                     />
                 </span>

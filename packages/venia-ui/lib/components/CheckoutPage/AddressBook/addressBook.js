@@ -77,7 +77,7 @@ const AddressBook = props => {
             />
             <span className={classes.addText}>
                 <FormattedMessage
-                    id={'Add New Address'}
+                    id={'addressBook.addNewAddresstext'}
                     defaultMessage={'Add New Address'}
                 />
             </span>

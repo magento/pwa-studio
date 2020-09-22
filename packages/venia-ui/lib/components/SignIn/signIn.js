@@ -113,7 +113,7 @@ const SignIn = props => {
                 <div className={classes.buttonsContainer}>
                     <Button priority="high" type="submit">
                         <FormattedMessage
-                            id={'Sign In'}
+                            id={'signIn.signInText'}
                             defaultMessage={'Sign In'}
                         />
                     </Button>
