@@ -51,6 +51,7 @@ exports[`renders the correct tree 1`] = `
       >
         <button
           className="root"
+          disabled={false}
           onClick={[Function]}
         >
           <span
@@ -69,7 +70,8 @@ exports[`renders the correct tree 1`] = `
       >
         <button
           className="root"
-          onClick={null}
+          disabled={true}
+          onClick={[Function]}
         >
           <span
             className="content"

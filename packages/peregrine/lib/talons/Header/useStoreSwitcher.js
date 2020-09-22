@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Util } from '@magento/peregrine';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
+import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
-const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
+
 /**
  * The useStoreSwitcher talon complements the StoreSwitcher component.
  *

@@ -1,15 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
-import { Util } from '@magento/peregrine';
 import { useStoreSwitcher } from '../useStoreSwitcher';
+import { mockSetItem } from '../../../util/simplePersistence';
 
-const setItem = jest.fn();
-jest.spyOn(Util, 'BrowserPersistence').mockImplementation(
-    function BrowserPersistence() {
-        return { setItem };
-    }
-);
+jest.mock('../../../util/simplePersistence');
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({}))
@@ -94,7 +89,7 @@ describe('event handlers', () => {
         const { handleSwitchStore } = talonProps;
         handleSwitchStore('store1');
 
-        expect(setItem.mock.calls).toEqual([
+        expect(mockSetItem.mock.calls).toEqual([
             ['store_view_code', 'store1'],
             ['store_view_currency', 'USD']
         ]);
@@ -105,7 +100,7 @@ describe('event handlers', () => {
         const { handleSwitchStore } = talonProps;
         handleSwitchStore('store404');
 
-        expect(setItem).toHaveBeenCalledTimes(0);
+        expect(mockSetItem).toHaveBeenCalledTimes(0);
         expect(history.go).toHaveBeenCalledTimes(0);
     });
 });
