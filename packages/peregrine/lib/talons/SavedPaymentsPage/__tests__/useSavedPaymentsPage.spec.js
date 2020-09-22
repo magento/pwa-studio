@@ -81,7 +81,7 @@ test('it returns the proper shape', () => {
     // Assert.
     const talonProps = log.mock.calls[0][0];
     const actualKeys = Object.keys(talonProps);
-    const expectedKeys = ['savedPayments', 'handleAddPayment'];
+    const expectedKeys = ['savedPayments', 'handleAddPayment', 'isLoading'];
     expect(actualKeys.sort()).toEqual(expectedKeys.sort());
 });
 
