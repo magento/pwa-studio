@@ -1,19 +1,27 @@
 import React, { useMemo } from 'react';
+import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './orderProgressBar.css';
 
-const statusStepMap = new Map([
-    ['Processing', 1],
-    ['Ready to ship', 2],
-    ['Shipped', 3],
-    ['Delivered', 4]
-]);
 const TOTAL_STEPS = 4;
 
 const OrderProgressBar = props => {
     const { status } = props;
+    const { formatMessage } = useIntl();
+    const statusStepMap = new Map([
+        [formatMessage({ id: 'Processing', defaultMessage: 'Processing' }), 1],
+        [
+            formatMessage({
+                id: 'Ready to ship',
+                defaultMessage: 'Ready to ship'
+            }),
+            2
+        ],
+        [formatMessage({ id: 'Shipped', defaultMessage: 'Shipped' }), 3],
+        [formatMessage({ id: 'Delivered', defaultMessage: 'Delivered' }), 4]
+    ]);
     const currentStep = statusStepMap.get(status);
 
     const classes = mergeClasses(defaultClasses, props.classes);

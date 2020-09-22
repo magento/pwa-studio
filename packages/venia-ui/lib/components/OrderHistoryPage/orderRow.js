@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { object, shape, string } from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { Price } from '@magento/peregrine';
@@ -9,10 +10,10 @@ import Icon from '../Icon';
 import CollapsedImageGallery from './collapsedImageGallery';
 import OrderProgressBar from './orderProgressBar';
 import defaultClasses from './orderRow.css';
-import { FormattedMessage } from 'react-intl';
 
 const OrderRow = props => {
     const { order } = props;
+    const { formatMessage } = useIntl();
     const {
         invoices,
         items,
@@ -39,12 +40,15 @@ const OrderRow = props => {
     const hasShipment = !!shipments.length;
     const derivedStatus =
         status === 'Complete'
-            ? 'Delivered'
+            ? formatMessage({ id: 'Delivered', defaultMessage: 'Delivered' })
             : hasShipment
             ? 'Shipped'
             : hasInvoice
-            ? 'Ready to ship'
-            : 'Processing';
+            ? formatMessage({
+                  id: 'Ready to ship',
+                  defaultMessage: 'Ready to ship'
+              })
+            : formatMessage({ id: 'Processing', defaultMessage: 'Processing' });
 
     const talonProps = useOrderRow();
     const { isOpen, handleContentToggle } = talonProps;
