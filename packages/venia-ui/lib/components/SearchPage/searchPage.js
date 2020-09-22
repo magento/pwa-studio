@@ -106,10 +106,7 @@ const SearchPage = props => {
             }}
         />
     ) : (
-        <FormattedMessage
-            id={'searchPage.searchTermEmpty'}
-            defaultMessage={'Showing all results:'}
-        />
+        <FormattedMessage id={'searchPage.searchTermEmpty'} />
     );
 
     return (
