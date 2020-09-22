@@ -25,11 +25,11 @@ const Footer = props => {
             const itemKey = `text: ${text} path:${path}`;
             const child = path ? (
                 <Link className={classes.link} to={path}>
-                    <FormattedMessage id={text} />
+                    <FormattedMessage id={text} defaultMessage={text} />
                 </Link>
             ) : (
                 <span className={classes.label}>
-                    <FormattedMessage id={text} />
+                    <FormattedMessage id={text} defaultMessage={text} />
                 </span>
             );
 
@@ -53,10 +53,16 @@ const Footer = props => {
                 {linkGroups}
                 <div className={classes.callout}>
                     <h3 className={classes.calloutHeading}>
-                        <FormattedMessage id={'Follow Us!'} />
+                        <FormattedMessage
+                            id={'Follow Us!'}
+                            defaultMessage={'Follow Us!'}
+                        />
                     </h3>
                     <p className={classes.calloutBody}>
-                        <FormattedMessage id={LOREM_IPSUM} />
+                        <FormattedMessage
+                            id={LOREM_IPSUM}
+                            defaultMessage={LOREM_IPSUM}
+                        />
                     </p>
                     <ul className={classes.socialLinks}>
                         <li>
@@ -74,10 +80,16 @@ const Footer = props => {
             <div className={classes.branding}>
                 <ul className={classes.legal}>
                     <li className={classes.terms}>
-                        <FormattedMessage id={'Terms of Use'} />
+                        <FormattedMessage
+                            id={'Terms of Use'}
+                            defaultMessage={'Terms of Use'}
+                        />
                     </li>
                     <li className={classes.privacy}>
-                        <FormattedMessage id={'Privacy Policy'} />
+                        <FormattedMessage
+                            id={'Privacy Policy'}
+                            defaultMessage={'Privacy Policy'}
+                        />
                     </li>
                 </ul>
                 <p className={classes.copyright}>{copyrightText || null}</p>

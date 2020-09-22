@@ -19,7 +19,7 @@ const AccountMenuItems = props => {
     const menu = menuItems.map(item => {
         return (
             <Link className={classes.link} key={item.name} to={item.url}>
-                <FormattedMessage id={item.id} />
+                <FormattedMessage id={item.id} default={item.id} />
             </Link>
         );
     });
@@ -32,7 +32,7 @@ const AccountMenuItems = props => {
                 onClick={handleSignOut}
                 type="button"
             >
-                <FormattedMessage id={`Sign Out`} />
+                <FormattedMessage id={`Sign Out`} defaultMessage={`Sign Out`} />
             </button>
         </div>
     );
