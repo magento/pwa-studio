@@ -15,13 +15,43 @@ _For older release notes, see [PWA Studio releases][]._
 
 PWA Studio 8.0.0 contains new features, refactors, and various improvements.
 
-## Improved performance
+### Improved performance
 
-## Complete cart and checkout experience
+A lot of work has been done in this release to improve storefront performance.
+This means that any project using the latest PWA Studio components will benefit from these updates.
 
-### New mini cart
+One of the bigger changes is the migration to [Apollo Client 3.0][].
+This version of the Apollo Client provides better cache controls and better network fetching performance in general.
+
+This release also includes various refactors and improvements on the GraphQL queries themselves to reduce the API request times from Magento.
+
+[apollo client 3.0]: https://www.apollographql.com/docs/react/migrating/apollo-client-3-migration/
+
+### Complete cart and checkout experience
+
+This release finishes the full page cart and checkout features introduced in previous releases.
+The complete cart and checkout workflow is based on research made by members of the UX team.
+
+Storefront developers can use this streamlined process as implemented or they can use the different components to customize their own cart and checkout workflow.
+
+#### Shopping Bag feature
+
+In addition to the complete full page cart and checkout experience, this release introduces a new Mini-Cart/Shopping Bag feature.
+
+This feature appears as a floating modal that appears when you click on the shopping bag icon.
+It replaces the old `MiniCart` component, which appeared as a drawer from the right side of the app.
+
+Instead of competing with the full page cart, it only contains a subset of actions, such as removing an item and checking out.
+For additional modifications to cart products, it links to the cart page.
+
+Developers can still use the old `MiniCart` component in their projects, but it has been renamed to `LegacyMiniCart`.
 
 ### Branding updates
+
+The UX team continues in their research to improve the look and feel of the Venia brand.
+This release includes many style updates to give the Venia storefront a more modern and accessible experience.
+
+Developers get all these improvements right away when they start their projects using this version of Venia as the base storefront.
 
 ### Targets reference documentation
 
@@ -159,10 +189,6 @@ PWA Studio 8.0.0 contains new features, refactors, and various improvements.
 | Bumped bl from 3.0.0 to 3.0.1                                            | **Update**  | [#2675][]           |
 
 ## Known issues
-
-- A new Mini Cart is in development which removes the checkout flow in favor of the standalone Checkout page.
-  An issue exists in the checkout section of the old Mini Cart where the **Pay with Card** header does not appear on the Credit Card payment form.
-  This issue is low priority since the old Mini Cart will be replaced with the new one in future releases.
 
 ## Upgrading from a previous version
 
