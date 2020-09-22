@@ -54,13 +54,13 @@ const Footer = props => {
                 <div className={classes.callout}>
                     <h3 className={classes.calloutHeading}>
                         <FormattedMessage
-                            id={'Follow Us!'}
+                            id={'footer.followText'}
                             defaultMessage={'Follow Us!'}
                         />
                     </h3>
                     <p className={classes.calloutBody}>
                         <FormattedMessage
-                            id={LOREM_IPSUM}
+                            id={'footer.calloutText'}
                             defaultMessage={LOREM_IPSUM}
                         />
                     </p>
@@ -81,13 +81,13 @@ const Footer = props => {
                 <ul className={classes.legal}>
                     <li className={classes.terms}>
                         <FormattedMessage
-                            id={'Terms of Use'}
+                            id={'footer.termsText'}
                             defaultMessage={'Terms of Use'}
                         />
                     </li>
                     <li className={classes.privacy}>
                         <FormattedMessage
-                            id={'Privacy Policy'}
+                            id={'footer.privacyText'}
                             defaultMessage={'Privacy Policy'}
                         />
                     </li>

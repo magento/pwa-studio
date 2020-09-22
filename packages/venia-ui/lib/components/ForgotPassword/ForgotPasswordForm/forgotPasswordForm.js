@@ -24,7 +24,7 @@ const ForgotPasswordForm = props => {
         >
             <Field
                 label={formatMessage({
-                    id: 'Email address',
+                    id: 'forgotPasswordForm.emailAddressText',
                     defaultMessage: 'Email address'
                 })}
             >
@@ -42,7 +42,10 @@ const ForgotPasswordForm = props => {
                     priority="normal"
                     onClick={onCancel}
                 >
-                    <FormattedMessage id={'Cancel'} defaultMessage={'Cancel'} />
+                    <FormattedMessage
+                        id={'forgotPasswordForm.cancelButtonText'}
+                        defaultMessage={'Cancel'}
+                    />
                 </Button>
                 <Button
                     className={classes.submitButton}
@@ -50,7 +53,10 @@ const ForgotPasswordForm = props => {
                     type="submit"
                     priority="high"
                 >
-                    <FormattedMessage id={'Submit'} defaultMessage={'Submit'} />
+                    <FormattedMessage
+                        id={'forgotPasswordForm.submitButtonText'}
+                        defaultMessage={'Submit'}
+                    />
                 </Button>
             </div>
         </Form>
