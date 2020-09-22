@@ -14,6 +14,7 @@
 }
 
 .switchers {
+    display: none;
     background-color: rgb(var(--venia-global-color-gray-100));
     width: 100%;
 }
@@ -41,6 +42,9 @@
 }
 
 @media (min-width: 641px) {
+    .switchers {
+        display: block;
+    }
     .toolbar {
         grid-template-areas: 'primary title secondary';
         grid-template-columns: auto auto 1fr;

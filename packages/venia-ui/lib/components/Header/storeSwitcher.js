@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import { MapPin } from 'react-feather';
 
 import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
@@ -11,7 +11,6 @@ import GET_CONFIG_DATA from '../../queries/getAvailableStoresConfigData.graphql'
 import Icon from '../Icon';
 
 const StoreSwitcher = props => {
-    const { mobileView } = props;
     const talonProps = useStoreSwitcher({
         getStoreConfig: GET_CONFIG_DATA
     });
@@ -26,7 +25,6 @@ const StoreSwitcher = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const className = mobileView ? classes.root_mobile : classes.root;
     const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;
 
     if (!availableStores || Object.keys(availableStores).length === 1)
@@ -59,7 +57,7 @@ const StoreSwitcher = props => {
     });
 
     return (
-        <div className={className}>
+        <div className={classes.root}>
             <button
                 className={classes.trigger}
                 aria-label={currentStoreName}
@@ -81,12 +79,9 @@ export default StoreSwitcher;
 StoreSwitcher.propTypes = {
     classes: shape({
         root: string,
-        root_mobile: string,
-        storeSwitcherContainer: string,
         trigger: string,
         menu: string,
         menu_open: string,
         menuItem: string
-    }),
-    mobileView: bool
+    })
 };

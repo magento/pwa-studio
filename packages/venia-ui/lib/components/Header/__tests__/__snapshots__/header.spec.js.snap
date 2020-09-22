@@ -7,9 +7,7 @@ exports[`verify Header can render in default state 1`] = `
   <div
     className="switchers"
   >
-    <StoreSwitcher
-      mobileView={false}
-    />
+    <StoreSwitcher />
   </div>
   <div
     className="toolbar"

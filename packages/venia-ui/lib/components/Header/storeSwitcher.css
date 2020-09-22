@@ -56,41 +56,23 @@
 }
 
 /*
- * Desktop specific styles
- */
-@media (min-width: 641px) {
-    .root_mobile {
-        display: none;
-    }
-}
-
-/*
  * Mobile-specific styles.
  */
 
-.root_mobile {
-    composes: root;
-}
-
-.root_mobile .menu {
-    bottom: 2.5rem;
-    left: 1rem;
-    right: auto;
-    top: auto;
-    transform: translate3d(0, 8px, 0);
-}
-
-.root_mobile .menu_open {
-    transform: translate3d(0, -4px, 0);
-}
-
 @media (max-width: 640px) {
     .root {
-        display: none;
+        justify-items: start;
     }
 
-    .root_mobile {
-        justify-items: start;
-        display: block;
+    .menu {
+        bottom: 2.5rem;
+        left: 1rem;
+        right: auto;
+        top: auto;
+        transform: translate3d(0, 8px, 0);
+    }
+
+    .menu_open {
+        transform: translate3d(0, -4px, 0);
     }
 }

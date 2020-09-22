@@ -70,7 +70,7 @@ const Navigation = props => {
             </div>
             <div className={classes.footer}>
                 <div className={classes.switchers}>
-                    <StoreSwitcher mobileView={true} />
+                    <StoreSwitcher />
                 </div>
                 <AuthBar
                     disabled={hasModal}

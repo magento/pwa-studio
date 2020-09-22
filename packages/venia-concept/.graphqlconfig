@@ -13,7 +13,8 @@
                     ],
                     "filesGlob": "../{venia-ui,venia-concept}/{lib,src}/**/*.{js,graphql,gql}",
                     "ignore": [
-                        "../venia-ui/lib/**/giftOptions.js"
+                        "../venia-ui/lib/**/giftOptions.js",
+                        "../venia-ui/lib/queries/getAvailableStoresConfigData.graphql"
                     ]
                 }
             }

@@ -60,7 +60,7 @@ const Header = props => {
     return (
         <header className={rootClass}>
             <div ref={ref} className={classes.switchers}>
-                <StoreSwitcher mobileView={false} />
+                <StoreSwitcher />
             </div>
             <div className={classes.toolbar}>
                 <div className={classes.primaryActions}>
