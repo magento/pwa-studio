@@ -9,15 +9,15 @@ const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
 
     /**
-     * At build time, `fetchLocaleData` is injected as a global. Depending on the environment, this global will be
+     * At build time, `__fetchLocaleData__` is injected as a global. Depending on the environment, this global will be
      * either an ES module with a `default` property, or a plain CJS module.
      *
-     * Please see {LocalizationPlugin} from pwa-buildpack
+     * Please see {LocalizationPlugin} at @magento/pwa-buildpack/WebpackTools/plugins/LocalizationPlugin.js
      */
     const fetchLocale =
-        'default' in fetchLocaleData
-            ? fetchLocaleData.default
-            : fetchLocaleData;
+        'default' in __fetchLocaleData__
+            ? __fetchLocaleData__.default
+            : __fetchLocaleData__;
 
     useEffect(() => {
         fetchLocale(locale)

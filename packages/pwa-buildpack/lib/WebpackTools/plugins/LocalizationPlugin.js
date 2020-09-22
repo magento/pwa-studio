@@ -29,7 +29,9 @@ class LocalizationPlugin {
     }
 
     injectLocalizationLoader() {
-        debug('applying InjectPlugin to create global for localization import');
+        debug(
+            'applying InjectPlugin to create global __fetchLocaleData__ for localization import'
+        );
         new InjectPlugin(() => this.buildFetchModule()).apply(this.compiler);
     }
 
@@ -54,8 +56,9 @@ class LocalizationPlugin {
                     throw new Error('Path is not directory.');
                 }
             } catch (e) {
-                debug(e);
+                debug(`${dir} produced an error, this may not be an issue`, e);
 
+                // If the directory declares i18n support, but doesn't contain the directory error the build
                 if (dir !== context) {
                     throw new Error(
                         `${dir} module has i18n special flag, but i18n directory does not exist at ${localeDir}.`
@@ -81,8 +84,8 @@ class LocalizationPlugin {
         debug('Merged locales into path.', mergedLocalesPaths);
 
         /**
-         * Build up our importer factory, this provides a global function called fetchLocaleData which in turn completes
-         * a dynamic import of the combined file generated in the step above.
+         * Build up our importer factory, this provides a global function called __fetchLocaleData__ which in turn
+         * completes a dynamic import of the combined file generated in the step above.
          * @type {string}
          */
         const importerFactory = `function () {
@@ -132,7 +135,7 @@ class LocalizationPlugin {
             });
         });
 
-        return `;window.fetchLocaleData = (${importerFactory})()`;
+        return `;window.__fetchLocaleData__ = (${importerFactory})()`;
     }
 
     /**
@@ -152,17 +155,33 @@ class LocalizationPlugin {
     ) {
         const distDirectory = context;
 
-        debug('Located all translation files.', locales);
+        debug('Finished scanning for translation files.', locales);
 
         const combinedLocale = {};
 
         for (const locale of Object.keys(locales)) {
             debug(`Combining locale for ${locale}`);
             const files = locales[locale];
+            let translationCount = 0;
             let combined = {};
             for (const file of files) {
                 const data = inputFileSystem.readFileSync(file, 'utf8');
-                combined = merge.recursive(combined, JSON.parse(data));
+                if (data) {
+                    const jsonData = JSON.parse(data);
+                    translationCount += Object.keys(jsonData).length;
+                    combined = merge.recursive(combined, jsonData);
+
+                    // Check to see if we overwrote any keys during our merge
+                    if (translationCount > Object.keys(combined).length) {
+                        debug(
+                            `${file} has ${translationCount -
+                                Object.keys(combined).length} override(s).`
+                        );
+
+                        // Set the counter to only debug on the next iteration if new keys get overridden
+                        translationCount = Object.keys(combined).length;
+                    }
+                }
             }
 
             const localePath = path.join(distDirectory, `${locale}.json`);
@@ -205,6 +224,7 @@ class LocalizationPlugin {
         return new Promise(resolve => {
             const translations = {};
             const done = () => resolve(translations);
+            debug(`Scanning ${dir} for matching translation files.`);
             walk(dir, { fs: inputFileSystem })
                 .on('readable', function() {
                     let item;
@@ -224,7 +244,7 @@ class LocalizationPlugin {
                                 }
                                 translations[locale].push(item.path);
                             }
-                        } else {
+                        } else if (item.stats.isFile()) {
                             debug(
                                 `Found invalid item within i18n directory: ${
                                     item.path
