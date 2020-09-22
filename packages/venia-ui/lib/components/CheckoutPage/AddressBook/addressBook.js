@@ -102,8 +102,9 @@ const AddressBook = props => {
                     onEdit={handleEditAddress}
                 />
             );
-        }); // Position the default address first in the elements list
+        });
 
+        // Position the default address first in the elements list
         if (defaultIndex) {
             [addresses[0], addresses[defaultIndex]] = [
                 addresses[defaultIndex],

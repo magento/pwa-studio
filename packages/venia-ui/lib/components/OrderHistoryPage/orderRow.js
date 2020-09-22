@@ -24,8 +24,9 @@ const OrderRow = props => {
         total
     } = order;
     const { grand_total: grandTotal } = total;
-    const { currency, value: orderTotal } = grandTotal; // Convert date to ISO-8601 format so Safari can also parse it
+    const { currency, value: orderTotal } = grandTotal;
 
+    // Convert date to ISO-8601 format so Safari can also parse it
     const isoFormattedDate = orderDate.replace(' ', 'T');
     const formattedDate = new Date(isoFormattedDate).toLocaleDateString(
         undefined,

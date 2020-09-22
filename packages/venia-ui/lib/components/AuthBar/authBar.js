@@ -26,7 +26,8 @@ const AuthBar = props => {
         defaultMessage: 'Account'
     });
 
-    const buttonElement = isUserSignedIn ? ( // Show My Account button.
+    const buttonElement = isUserSignedIn ? (
+        // Show My Account button.
         <button
             className={classes.button}
             disabled={isDisabled}
@@ -38,8 +39,9 @@ const AuthBar = props => {
                     <Icon src={ArrowRightIcon} />
                 </span>
             </span>
-        </button> // Sign In button.
+        </button>
     ) : (
+        // Sign In button.
         <button
             className={classes.button}
             disabled={isDisabled}
