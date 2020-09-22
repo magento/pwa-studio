@@ -15,32 +15,148 @@ _For older release notes, see [PWA Studio releases][]._
 
 PWA Studio 8.0.0 contains new features, refactors, and various improvements.
 
+## Improved performance
+
+## Complete cart and checkout experience
+
+### New mini cart
+
+### Branding updates
+
+### Targets reference documentation
+
 ## Pull requests merged in this release
 
 ### Venia (storefront and visual component library)
 
-| Description                                                                             | Change type | PR        |
-| --------------------------------------------------------------------------------------- | ----------- | --------- |
+| Description                                                                          | Change type  | PR        |
+| ------------------------------------------------------------------------------------ | ------------ | --------- |
+| Implemented initial code for the new MiniCart component                              | **Feature**  | [#2494][] |
+| Created new components for an account menu                                           | **Feature**  | [#2550][] |
+| Created components for a Newsletter Subscription page                                | **Feature**  | [#2571][] |
+| Implemented initial code for an Order History page                                   | **Feature**  | [#2611][] |
+| Implemented a way to access top/intermediate level categories through the left nav   | **Feature**  | [#2616][] |
+| Implemented initial UX and workflow for a Forgot Password feature for My Account     | **Feature**  | [#2619][] |
+| Implemented initial code for Wishlist                                                | **Feature**  | [#2620][] |
+| Implemented the ability to translate Venia's header / footer                         | **Feature**  | [#2643][] |
+| Added ability to allow PWA Studio to use a different store to localize CMS Pages     | **Feature**  | [#2649][] |
+| Implemented initial code for Address Book                                            | **Feature**  | [#2653][] |
+| Implemented initial code for an Order History table                                  | **Feature**  | [#2660][] |
+| Updated Venia's button style to match new design                                     | **Update**   | [#2496][] |
+| Added product listing to the MiniCart                                                | **Update**   | [#2506][] |
+| Added a header section to the MiniCart                                               | **Update**   | [#2509][] |
+| Added a foort section to the MiniCart                                                | **Update**   | [#2511][] |
+| Adjusted styles for the header, main page, and footer components                     | **Update**   | [#2513][] |
+| Update Gallery component to use `item.id` for key prop on GalleryItem                | **Update**   | [#2520][] |
+| Added product link for each product in the MiniCart                                  | **Update**   | [#2549][] |
+| Disabled the visibility of the MiniCart on the checkout page                         | **Update**   | [#2554][] |
+| Added product links to the product listings on the cart page                         | **Update**   | [#2557][] |
+| Updated Venia's filter modal styles to match the new design                          | **Update**   | [#2559][] |
+| Added CSS to handle multiple configurable options                                    | **Update**   | [#2577][] |
+| Implemented consistent error state handling                                          | **Update**   | [#2588][] |
+| Added a sign-in section to the new My Account trigger in the header                  | **Update**   | [#2590][] |
+| Enabled GET for GraphQL queries (but not mutations)                                  | **Update**   | [#2602][] |
+| Added React Refresh to improve development server performance                        | **Update**   | [#2609][] |
+| Improve error handling when using the Sign-in dropdown                               | **Update**   | [#2664][] |
+| Updated static images to reflect new logo                                            | **Update**   | [#2693][] |
+| Refactored code to use tokens for color and weight                                   | **Refactor** | [#2500][] |
+| Refactored Venia's inputs to match new design                                        | **Refactor** | [#2510][] |
+| Refactored Venia's accordions to match the style guidelines                          | **Refactor** | [#2527][] |
+| Refactored Venia's cards to match the style guidelines                               | **Refactor** | [#2545][] |
+| Fixed a "Data Fetch Error" on the product page during offline mode                   | **Bugfix**   | [#2490][] |
+| Fixed a bug that made the product and category sorting component unavailable         | **Bugfix**   | [#2493][] |
+| Resolved remaining issues with Buttons component implementation                      | **Bugfix**   | [#2523][] |
+| Fixed scroll lock page shifting                                                      | **Bugfix**   | [#2543][] |
+| Fixed MiniCart blocking page interactions                                            | **Bugfix**   | [#2547][] |
+| Fixed a sticky sidebar on the checkout page overlapping the footer                   | **Bugfix**   | [#2582][] |
+| Fixed a bug that kept rendering the loading spinner on the page                      | **Bugfix**   | [#2583][] |
+| Fixed MiniCart bug that prevent guest users from adding a product to an expired cart | **Bugfix**   | [#2612][] |
+| Fixed button CSS to handle mobile view                                               | **Bugfix**   | [#2655][] |
+| Fixed improper use of `formatMessage()`                                              | **Bugfix**   | [#2698][] |
+| Fixed Storybook bug caused by i18n work                                              | **Bugfix**   | [#2705][] |
 
 ### Peregrine library
 
-| Description                                                                                    | Change type | PR        |
-| ---------------------------------------------------------------------------------------------- | ----------- | --------- |
+| Description                                                                                               | Change type  | PR        |
+| --------------------------------------------------------------------------------------------------------- | ------------ | --------- |
+| Added access to the root component type for child components                                              | **Feature**  | [#2443][] |
+| Enable URL redirects when set in the Magento backend                                                      | **Feature**  | [#2504][] |
+| Added Create Account functionality to the Sign-in trigger in the navigation menu                          | **Feature**  | [#2657][] |
+| Added support for an app-wide configurable URL suffix                                                     | **Feature**  | [#2665][] |
+| Added support for localized Catalog Products for different stores                                         | **Feature**  | [#2667][] |
+| Implemented scroll top when payment information processing completes                                      | **Update**   | [#2498][] |
+| Implemented logic for adding products to the MiniCart                                                     | **Update**   | [#2505][] |
+| Updated fetching logic to use cache-and-network for the Cart/Checkout processes                           | **Update**   | [#2634][] |
+| Moved cart creation logic out of cart trigger and into the cart context provider                          | **Refactor** | [#2572][] |
+| Fixed an infinite error loop when cart creation fails                                                     | **Bugfix**   | [#2574][] |
+| Fixed a bug that prevented adding to cart when another product in the cart is out of stock                | **Bugfix**   | [#2576][] |
+| Fixed a bug on the Category page where it did not refresh data when clicking back, previous, or next page | **Bugfix**   | [#2641][] |
+| Fixed a customer address bug related to addresses for countries without regions or states                 | **Bugfix**   | [#2659][] |
+| Fixed bug caused by Apollo when upgrading from a previous release                                         | **Bugfix**   | [#2673][] |
+| Fixed bug that showed product types that are not supported yet                                            | **Bugfix**   | [#2697][] |
 
 ### Build tools
 
-| Description                                                                               | Change type | PR        |
-| ----------------------------------------------------------------------------------------- | ----------- | --------- |
+| Description                                                                                  | Change type | PR        |
+| -------------------------------------------------------------------------------------------- | ----------- | --------- |
+| Created a staging server utility instead of a script                                         | **Feature** | [#2618][] |
+| Deprecated `getUnionAndInterfaceTypes()` function                                            | **Update**  | [#2663][] |
+| Fixed scaffolding bug that did not include a `pwa-studio` section in the `package.json` file | **Bugfix**  | [#2514][] |
+| Fixed Storybook files for scaffolded projects                                                | **Bugfix**  | [#2708][] |
+
+### UPWARD
+
+| Description                                                                      | Change type | PR        |
+| -------------------------------------------------------------------------------- | ----------- | --------- |
+| Implemented feature that allows HTTP for the Magento backend URL                 | **Feature** | [#2423][] |
+| Updated implementation code to improve Webpagetest score                         | **Update**  | [#2548][] |
+| Added support for additional image types                                         | **Update**  | [#2562][] |
+| Updated upward-security-headers peer dependencies                                | **Update**  | [#2605][] |
+| Fixed UPWARD bug that prevented the use of an allowable header character         | **Bugfix**  | [#2484][] |
+| Fixed image optimized middleware                                                 | **Bugfix**  | [#2535][] |
+| Removed `rimraf` as a peer dependency in the `upward-security-headers` extension | **Bugfix**  | [#2594][] |
+| Fixed YouTube and Vimeo urls being blocked                                       | **Bugfix**  | [#2656][] |
 
 ### Documentation
 
-| Description                                                      | Change type       | PR        |
-| ---------------------------------------------------------------- | ----------------- | --------- |
+| Description                                                                   | Change type       | PR        |
+| ----------------------------------------------------------------------------- | ----------------- | --------- |
+| Created Venia Targets reference documentation                                 | **Documentation** | [#2472][] |
+| Created Peregrine Targets reference documentation                             | **Documentation** | [#2492][] |
+| Created Buildpack Targets reference documentation                             | **Documentation** | [#2508][] |
+| Created reference docs for the UI components and talons used in the cart page | **Documentation** | [#2637][] |
+| Added a note about Node 12 deprecation warnings                               | **Update**        | [#2566][] |
+| Added upgrade steps in the changelog for scaffolded projects                  | **Update**        | [#2587][] |
+| Updated `magento-research` references to `magento`                            | **Update**        | [#2599][] |
+| Removed GraphQL limitation entry in the Page Builder docs                     | **Update**        | [#2630][] |
+| Added Page Builder integration videos                                         | **Update**        | [#2632][] |
+| Updated out of date content in the custom footer tutorial                     | **Update**        | [#2652][] |
+| Added more verbose upgrade installation instructions in the README            | **Update**        | [#2662][] |
+| Updated routing tutorial to use the extensibility framework                   | **Update**        | [#2670][] |
+| Updated README                                                                | **Update**        | [#2676][] |
+| Removed deprecated topics and files in the docs project                       | **Update**        | [#2684][] |
+| Fixed a typo in the Add a static route docs                                   | **Bugfix**        | [#2553][] |
+| Fixed a broken link                                                           | **Bugfix**        | [#2642][] |
 
 ### Misc
 
-| Description                                                               | Change type | PR                  |
-| ------------------------------------------------------------------------- | ----------- | ------------------- |
+| Description                                                              | Change type | PR                  |
+| ------------------------------------------------------------------------ | ----------- | ------------------- |
+| Created simple README content for the create-pwa package                 | **Update**  | [#2415][]           |
+| Updated contributors list                                                | **Update**  | [#2518][]           |
+| Upgraded to @apollo/client@3                                             | **Update**  | [#2560][]           |
+| Configure dependabot to only open 5 pull requests and restrict to semver | **Update**  | [#2526][] [#2528][] |
+| Bumped http-proxy-middleware from 0.19.1 to 0.19.2                       | **Update**  | [#2532][]           |
+| Bumped apollo-link-retry from 2.2.15 to 2.2.16                           | **Update**  | [#2530][]           |
+| Bumped @apollo/react-hooks from 3.1.3 to 3.1.5                           | **Update**  | [#2529][]           |
+| Bumped lodash from 4.17.14 to 4.17.19 in /docker                         | **Update**  | [#2556][]           |
+| Bumped lodash from 4.17.15 to 4.17.19 in /pwa-devdocs                    | **Update**  | [#2555][]           |
+| Bumped elliptic from 6.5.2 to 6.5.3                                      | **Update**  | [#2593][]           |
+| Bumped elliptic from 6.5.2 to 6.5.3 in /pwa-devdocs                      | **Update**  | [#2596][]           |
+| Bumbed dot-prop to version 5.1.1 or later                                | **Update**  | [#2601][]           |
+| Bumped kramdown from 2.2.1 to 2.3.0 in /pwa-devdocs                      | **Update**  | [#2614][]           |
+| Removed dependabot version bump settings                                 | **Update**  | [#2646][]           |
+| Bumped bl from 3.0.0 to 3.0.1                                            | **Update**  | [#2675][]           |
 
 ## Known issues
 
@@ -128,115 +244,6 @@ yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento
 [dialog component]: https://github.com/magento/pwa-studio/tree/release/8.0/packages/venia-ui/lib/components/Dialog
 [pwa studio fundamentals]: http://pwastudio.io/tutorials/pwa-studio-fundamentals/
 [page builder]: https://magento.com/products/magento-commerce/page-builder
-
-| Description                                                                                 |    Change type    |     PR    |
-| :------------------------------------------------------------------------------------------ | :---------------: | :-------: |
-| fix: scaffold storybook                                                                     |     **Bugfix**    | [#2708][] |
-| fix: storybook i18n                                                                         |     **Bugfix**    | [#2705][] |
-| \[bugfix] Use formatMessage ids and default messages per api                                |     **Bugfix**    | [#2698][] |
-| PDPs show intended Product only                                                             |       **-**       | [#2697][] |
-| Update static images to reflect new logo                                                    |       **-**       | [#2693][] |
-| Remove outdated things from docs                                                            |       **-**       | [#2684][] |
-| \[Doc] Update README                                                                        |       **-**       | [#2676][] |
-| Bump bl from 3.0.0 to 3.0.1                                                                 |       **-**       | [#2675][] |
-| fix: apollo upgrade path                                                                    |     **Bugfix**    | [#2673][] |
-| \[Docs] update routing tutorial                                                             | **Documentation** | [#2670][] |
-| \[PWA-809] Allow PWA Studio to use a different store to localize Catalog Products           |       **-**       | [#2667][] |
-| Support configured URL suffix across entire app                                             |     **Bugfix**    | [#2665][] |
-| fix: Do not render the account menu elements when accountMenuIsOpen is false.               |     **Bugfix**    | [#2664][] |
-| Deprecate getUnionAndInterfaceTypes function                                                |       **-**       | [#2663][] |
-| Add some slightly more verbose upgrade installation instructions                            |       **-**       | [#2662][] |
-| \[PWA-626] My Account: Order History: Table View (Collapsed)                                |       **-**       | [#2660][] |
-| \[fix]: Allow for region field path customization depending on form mutation requirements   |     **Bugfix**    | [#2659][] |
-| My Account - Create an Account component.                                                   |       **-**       | [#2657][] |
-| fix: Add youtube and vimeo urls to CSP for PageBuilder                                      |     **Bugfix**    | [#2656][] |
-| fix: center button on communications page on mobile                                         |     **Bugfix**    | [#2655][] |
-| Address Book Skeleton                                                                       |       **-**       | [#2653][] |
-| \[Doc] Update out of date content in the custom footer tutorial                             |       **-**       | [#2652][] |
-| \[PWA-808] Allow PWA Studio to use a different store to localize CMS Pages                  |       **-**       | [#2649][] |
-| Remove dependabot                                                                           |       **-**       | [#2646][] |
-| \[PWA-811] Provide ability to translate Venia's header / footer                             |       **-**       | [#2643][] |
-| \[Doc] fix broken link                                                                      |     **Bugfix**    | [#2642][] |
-| \[Fix bug] Category didn't refresh data when click back previous or next page of…           |     **Bugfix**    | [#2641][] |
-| \[Doc] cart page reference docs                                                             |       **-**       | [#2637][] |
-| fix: Cart/Checkout summary uses cache-and-network to fetch latest                           |     **Bugfix**    | [#2634][] |
-| PB-Videos: Added Page Builder integration videos                                            |       **-**       | [#2632][] |
-| Remove GraphGL limitation entry                                                             |       **-**       | [#2630][] |
-| \[PWA-281] My Account: Wishlist (Skeleton)                                                  |       **-**       | [#2620][] |
-| My Account - Forgot Password                                                                |       **-**       | [#2619][] |
-| #2407 Add yarn serve                                                                        |       **-**       | [#2618][] |
-| \[feature]: Provide a way to access top/intermediate level categories through left nav      |    **Feature**    | [#2616][] |
-| Bump kramdown from 2.2.1 to 2.3.0 in /pwa-devdocs                                           |       **-**       | [#2614][] |
-| \[PWA-767] \[Mini-cart] Guest user can't add product to cart if cart is expired.            |       **-**       | [#2612][] |
-| Order History Page Skeleton                                                                 |       **-**       | [#2611][] |
-| \[PWA-653] React Refresh                                                                    |       **-**       | [#2609][] |
-| Updates upward-security-headers peer dependencies                                           |       **-**       | [#2605][] |
-| PWA-644: Use GET for GraphQL queries (but not mutations)                                    |       **-**       | [#2602][] |
-| Fix security alert "Upgrade dot-prop to version 5.1.1 or later"                             |     **Bugfix**    | [#2601][] |
-| Update \`magento-research\` references to \`magento\` org                                   |       **-**       | [#2599][] |
-| Bump elliptic from 6.5.2 to 6.5.3 in /pwa-devdocs                                           |       **-**       | [#2596][] |
-| fix: remove rimraf from security package                                                    |     **Bugfix**    | [#2594][] |
-| Bump elliptic from 6.5.2 to 6.5.3                                                           |       **-**       | [#2593][] |
-| My Account Sign In.                                                                         |       **-**       | [#2590][] |
-| PWA-718: FormError                                                                          |       **-**       | [#2588][] |
-| \[Doc] Add upgrade steps for scaffolded project                                             |       **-**       | [#2587][] |
-| \[Release] Back merge release/7.0 into develop                                              |       **-**       | [#2584][] |
-| fix: unset page loading on cms unmount                                                      |     **Bugfix**    | [#2583][] |
-| fix: sticky sidebar on checkout page no longer overlaps footer                              |     **Bugfix**    | [#2582][] |
-| Added CSS to handle multiple configurable options.                                          |       **-**       | [#2577][] |
-| \[PWA-746] \[bug]: Can't add product to cart if another out of stock product is in the cart |     **Bugfix**    | [#2576][] |
-| fix: no more infinite error loop if cart creation fails                                     |     **Bugfix**    | [#2574][] |
-| fix: move cart creation out of trigger                                                      |     **Bugfix**    | [#2572][] |
-| Customer Account - Newsletter Subscription                                                  |       **-**       | [#2571][] |
-| DON'T MERGE - Test Release Branch Deploy                                                    |       **-**       | [#2569][] |
-| \[Doc] Add note about Node 12 deprecation warnings                                          |       **-**       | [#2566][] |
-| There are other image types                                                                 |       **-**       | [#2562][] |
-| Upgrade to @apollo/client@3                                                                 |       **-**       | [#2560][] |
-| \[PWA-713] Update Venia's filters                                                           |       **-**       | [#2559][] |
-| Cart page product links.                                                                    |       **-**       | [#2557][] |
-| Bump lodash from 4.17.14 to 4.17.19 in /docker                                              |       **-**       | [#2556][] |
-| Bump lodash from 4.17.15 to 4.17.19 in /pwa-devdocs                                         |       **-**       | [#2555][] |
-| Hide mini cart on the checkout page.                                                        |       **-**       | [#2554][] |
-| \[Docs] Add a static route docs - Snippet correction                                        | **Documentation** | [#2553][] |
-| Account Menu                                                                                |       **-**       | [#2550][] |
-| Mini Cart V2 - Product link for each product in the mini cart.                              |       **-**       | [#2549][] |
-| \[PWA-680] Webpagetest security score is too low                                            |       **-**       | [#2548][] |
-| Fix MiniCart Interaction Blocking                                                           |     **Bugfix**    | [#2547][] |
-| PWA-706: Update Venia's cards to match the style guides cards                               |       **-**       | [#2545][] |
-| Scroll lock effect avoid body shift when activated                                          |       **-**       | [#2543][] |
-| \[PWA-733] Backmerge release/7.0 into develop                                               |       **-**       | [#2538][] |
-| \[PWA-666]: Update Hastily image optimizer                                                  |       **-**       | [#2535][] |
-| Bump http-proxy-middleware from 0.19.1 to 0.19.2                                            |       **-**       | [#2532][] |
-| Bump apollo-link-retry from 2.2.15 to 2.2.16                                                |       **-**       | [#2530][] |
-| Bump @apollo/react-hooks from 3.1.3 to 3.1.5                                                |       **-**       | [#2529][] |
-| forgot an s                                                                                 |       **-**       | [#2528][] |
-| PWA-707: Update Venia's accordions to match the style guides accordions                     |       **-**       | [#2527][] |
-| Restrict open pulls to 5 and restrict to semver                                             |       **-**       | [#2526][] |
-| PWA-722: Venia button follow up changes                                                     |       **-**       | [#2523][] |
-| Update Gallery component to use item.id for key prop on GalleryItem                         |       **-**       | [#2520][] |
-| Add Shikha Mishra to contributers list                                                      |       **-**       | [#2518][] |
-| DONT MERGE - Release test PR                                                                |       **-**       | [#2516][] |
-| pwa-studio section is missing from final package                                            |       **-**       | [#2514][] |
-| Adjust page-level max-width                                                                 |       **-**       | [#2513][] |
-| Mini Cart V2 / Shopping Bag Footer section.                                                 |       **-**       | [#2511][] |
-| \[PWA-623]: Update Venia's inputs                                                           |       **-**       | [#2510][] |
-| Mini Cart V2 / Shopping Bag header component.                                               |       **-**       | [#2509][] |
-| \[Doc] buildpack ref docs                                                                   |       **-**       | [#2508][] |
-| Mini Cart V2 / Shopping bag product listing                                                 |       **-**       | [#2506][] |
-| PWA-602: Add to Shopping Bag from PDP                                                       |       **-**       | [#2505][] |
-| Respect URL Redirects                                                                       |       **-**       | [#2504][] |
-| Use tokens for color and weight                                                             |       **-**       | [#2500][] |
-| Scroll top when payment information is done                                                 |       **-**       | [#2498][] |
-| PWA-622: Update Venia's button                                                              |       **-**       | [#2496][] |
-| New MiniCart                                                                                |       **-**       | [#2494][] |
-| #2441: Fix for Category Sort                                                                |     **Bugfix**    | [#2493][] |
-| \[Doc] peregrine targets ref docs                                                           |       **-**       | [#2492][] |
-| Fix "Data Fetch Error" on product page in offline mode (#2489)                              |     **Bugfix**    | [#2490][] |
-| Add legal header character                                                                  |       **-**       | [#2484][] |
-| \[Docs] Venia Targets reference doc                                                         | **Documentation** | [#2472][] |
-| root component type need to know in some cases by component                                 |       **-**       | [#2443][] |
-| Allow Magento HTTP Backend when configured                                                  |       **-**       | [#2423][] |
-| Unable to find a readme for @magento/create-pwa@1.1.1 in npmjs.com                          |       **-**       | [#2415][] |
 
 [#2708]: https://github.com/magento/pwa-studio/pull/2708
 [#2705]: https://github.com/magento/pwa-studio/pull/2705
