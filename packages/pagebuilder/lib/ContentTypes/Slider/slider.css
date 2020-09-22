@@ -184,7 +184,7 @@
 }
 .root :global .slick-dots li button {
     outline: none;
-    background: rgb(var(--venia-grey-dark));
+    background: rgb(var(--venia-global-color-gray-dark));
     filter: brightness(100%);
     border-radius: 10px;
     box-shadow: none;
