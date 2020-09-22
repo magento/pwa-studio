@@ -74,6 +74,7 @@ const SearchPage = props => {
                 priority={'low'}
                 classes={{ root_lowPriority: classes.filterButton }}
                 onMouseDown={openDrawer}
+                onTouchStart={openDrawer}
                 type="button"
             >
                 {'Filter'}
@@ -104,6 +105,7 @@ const SearchPage = props => {
                 category: searchCategory,
                 term: searchTerm
             }}
+            defaultMessage={'Showing results:'}
         />
     ) : (
         <FormattedMessage id={'searchPage.searchTermEmpty'} />

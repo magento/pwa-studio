@@ -39,6 +39,7 @@ Array [
         <button
           disabled={false}
           onMouseDown={[Function]}
+          onTouchStart={[Function]}
           type="button"
         >
           <span>
