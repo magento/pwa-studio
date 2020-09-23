@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 import { ArrowLeft as ArrowLeftIcon, X as CloseIcon } from 'react-feather';
 
@@ -9,16 +10,9 @@ import Trigger from '../Trigger';
 import defaultClasses from './navHeader.css';
 import { useNavigationHeader } from '@magento/peregrine/lib/talons/Navigation/useNavigationHeader';
 
-const titles = {
-    CREATE_ACCOUNT: 'Create Account',
-    FORGOT_PASSWORD: 'Forgot Password',
-    MY_ACCOUNT: 'My Account',
-    SIGN_IN: 'Sign In',
-    MENU: 'Main Menu'
-};
-
 const NavHeader = props => {
     const { isTopLevel, onBack, view } = props;
+    const { formatMessage } = useIntl();
 
     const talonProps = useNavigationHeader({
         isTopLevel,
@@ -29,10 +23,39 @@ const NavHeader = props => {
     const { handleBack, isTopLevelMenu } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const titles = {
+        CREATE_ACCOUNT: formatMessage({
+            id: 'navHeader.createAccountText',
+            defaultMessage: 'Create Account'
+        }),
+        FORGOT_PASSWORD: formatMessage({
+            id: 'navHeader.forgotPasswordText',
+            defaultMessage: 'Forgot Password'
+        }),
+        MY_ACCOUNT: formatMessage({
+            id: 'navHeader.myAccountText',
+            defaultMessage: 'My Account'
+        }),
+        SIGN_IN: formatMessage({
+            id: 'navHeader.signInText',
+            defaultMessage: 'Sign In'
+        }),
+        MENU: formatMessage({
+            id: 'navHeader.mainMenuText',
+            defaultMessage: 'Main Menu'
+        })
+    };
 
     let titleElement;
     if (['MY_ACCOUNT', 'SIGN_IN'].includes(view)) {
-        titleElement = <AccountChip fallbackText={'Account'} />;
+        titleElement = (
+            <AccountChip
+                fallbackText={formatMessage({
+                    id: 'navHeader.accountText',
+                    defaultMessage: 'Account'
+                })}
+            />
+        );
     } else {
         const title = titles[view] || titles.MENU;
         titleElement = <span>{title}</span>;
