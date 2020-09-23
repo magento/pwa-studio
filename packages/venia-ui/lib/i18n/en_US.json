@@ -1,6 +1,7 @@
 {
     "About Us": "About Us",
     "Account": "Account",
+    "accountChip.chipText": "Hi, {name}",
     "accountMenu.accountInfoLink": "Account Information",
     "accountMenu.addressBookLink": "Address Book",
     "accountMenu.communicationsLink": "Communications",

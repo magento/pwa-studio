@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 import { ArrowLeft as ArrowLeftIcon, X as CloseIcon } from 'react-feather';
 
