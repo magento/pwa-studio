@@ -18,7 +18,7 @@ const WishlistPage = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const WISHLIST_DISABLED_MESSAGE = formatMessage({
-        id: 'The wishlist is not currently available.',
+        id: 'wishlistPage.wishlistDisabledMessage',
         defaultMessage: 'The wishlist is not currently available.'
     });
     const wishlistElements = useMemo(() => {

@@ -126,7 +126,7 @@ const AddressBook = props => {
             <div className={rootClass}>
                 <h1 className={classes.headerText}>
                     <FormattedMessage
-                        id={'Change Shipping Information'}
+                        id={'addressBook.headerText'}
                         defaultMessage={'Change Shipping Information'}
                     />
                 </h1>
@@ -137,7 +137,7 @@ const AddressBook = props => {
                         priority="low"
                     >
                         <FormattedMessage
-                            id={'Cancel'}
+                            id={'addressBook.cancelButtonText'}
                             defaultMessage={'Cancel'}
                         />
                     </Button>
@@ -147,7 +147,7 @@ const AddressBook = props => {
                         priority="high"
                     >
                         <FormattedMessage
-                            id={'Apply'}
+                            id={'addressBook.applyButtonText'}
                             defaultMessage={'Apply'}
                         />
                     </Button>
