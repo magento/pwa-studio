@@ -29,7 +29,7 @@ jest.doMock('react-router-dom', () => ({
     }
 }));
 
-test('declares targets richContentRenderers and routes', () => {
+test('declares targets richContentRenderers and routes', async () => {
     const bus = mockBuildBus({
         context: __dirname,
         dependencies: [thisDep]
@@ -49,7 +49,7 @@ test('declares targets richContentRenderers and routes', () => {
     const divByThree = jest.fn(x => x / 3);
     routes.tap('addTwo', x => x + 2);
     routes.tap({ name: 'divideByThree', fn: divByThree });
-    expect(routes.call(10)).toBe(4);
+    expect(await routes.promise(10)).toBe(4);
 });
 
 test('uses RichContentRenderers to inject a default strategy into RichContent', async () => {
