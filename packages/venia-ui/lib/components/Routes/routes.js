@@ -6,27 +6,52 @@ import HomePage from '../HomePage';
 import MagentoRoute from '../MagentoRoute';
 import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 
+import GET_CONFIG_DATA from '../../queries/getAvailableStoresConfigData.graphql';
+import {useStoreSwitcher} from "@magento/peregrine/lib/talons/Header/useStoreSwitcher";
+
+/**
+ * This component is replaced by the BabelRouteInjectionPlugin with the routes from the interceptor
+ *
+ * @returns {string}
+ * @constructor
+ */
+const InjectedRoutes = () => ('');
+
 const Routes = () => {
     const { pathname } = useLocation();
     useScrollTopOnChange(pathname);
 
+    const { availableStores } = useStoreSwitcher({
+        getStoreConfig: GET_CONFIG_DATA
+    });
+    const storeCodes = Object.keys(availableStores);
+
     return (
         <Suspense fallback={fullPageLoadingIndicator}>
             <Switch>
-                {/*
-                 * Client-side routes are injected by BabelRouteInjectionPlugin here.
-                 * Venia's are defined in packages/venia-ui/lib/targets/venia-ui-intercept.js
-                 */}
-                <Route>
-                    <MagentoRoute />
-                    {/*
-                     * The Route below is purposefully nested with the MagentoRoute above.
-                     * MagentoRoute renders the CMS page, and HomePage adds a stylesheet.
-                     * HomePage would be obsolete if the CMS could deliver a stylesheet.
-                     */}
-                    <Route exact path="/">
-                        <HomePage />
-                    </Route>
+                <Route path={`/:storeCode(${storeCodes.join('|')})?`}>
+                    {({ match, location }) => {
+                        console.log(match, location);
+
+                        /*
+                         * Client-side routes are injected by BabelRouteInjectionPlugin here.
+                         * Venia's are defined in packages/venia-ui/lib/targets/venia-ui-intercept.js
+                         */
+                        return <Switch>
+                            <Route>
+                                <MagentoRoute />
+                                {/*
+                                 * The Route below is purposefully nested with the MagentoRoute above.
+                                 * MagentoRoute renders the CMS page, and HomePage adds a stylesheet.
+                                 * HomePage would be obsolete if the CMS could deliver a stylesheet.
+                                 */}
+                                <Route exact path="/">
+                                    <HomePage />
+                                </Route>
+                            </Route>
+                            <InjectedRoutes />
+                        </Switch>;
+                    }}
                 </Route>
             </Switch>
         </Suspense>

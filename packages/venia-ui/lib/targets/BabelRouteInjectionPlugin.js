@@ -98,7 +98,7 @@ function BabelRouteInjectionPlugin(babel) {
                     if (state.routesInserted) return;
                     const { openingElement } = path.node;
                     const elmId = openingElement && openingElement.name;
-                    if (elmId && elmId.name === 'Route') {
+                    if (elmId && elmId.name === 'InjectedRoutes') {
                         path.insertBefore(state.routeElements);
                         state.routesInserted = true;
                     }
