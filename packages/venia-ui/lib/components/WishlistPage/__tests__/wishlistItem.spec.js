@@ -43,8 +43,7 @@ const baseTalonProps = {
     handleAddToCart: jest.fn().mockName('handleAddToCart'),
     handleMoreActions: jest.fn().mockName('handleMoreActions'),
     hasError: false,
-    isLoading: false,
-    labels: { get: label => label }
+    isLoading: false
 };
 
 test('it renders a simple wishlist item', () => {

@@ -8,6 +8,7 @@ import Icon from '../Icon';
 import Image from '../Image';
 import defaultClasses from './wishlistItem.css';
 import wishlistItemOperations from './wishlistItem.gql';
+import { useIntl } from 'react-intl';
 
 const WishlistItem = props => {
     const { item } = props;
@@ -34,21 +35,25 @@ const WishlistItem = props => {
         handleAddToCart,
         handleMoreActions,
         hasError,
-        isLoading,
-        labels
+        isLoading
     } = talonProps;
 
+    const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
 
     useEffect(() => {
         if (hasError) {
             addToast({
                 type: 'error',
-                message: labels.get('addToCartError'),
+                message: formatMessage({
+                    id: 'wishlistItem.addToCartError',
+                    defaultMessage:
+                        'Something went wrong. Please refresh and try again.'
+                }),
                 timeout: 5000
             });
         }
-    }, [addToast, hasError, labels]);
+    }, [addToast, formatMessage, hasError]);
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -86,7 +91,10 @@ const WishlistItem = props => {
                     disabled={isLoading}
                     onClick={handleAddToCart}
                 >
-                    {labels.get('addToCart')}
+                    {formatMessage({
+                        id: 'wishlistItem.addToCart',
+                        defaultMessage: 'Add to Cart'
+                    })}
                 </button>
                 <button
                     className={classes.moreActions}

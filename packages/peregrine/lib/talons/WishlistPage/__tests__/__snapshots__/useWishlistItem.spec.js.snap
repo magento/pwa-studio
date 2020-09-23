@@ -6,10 +6,6 @@ Object {
   "handleMoreActions": [Function],
   "hasError": false,
   "isLoading": false,
-  "labels": Map {
-    "addToCart" => "Add to Cart",
-    "addToCartError" => "Something went wrong. Please refresh and try again.",
-  },
 }
 `;
 

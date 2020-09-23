@@ -3,11 +3,6 @@ import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
 
-const labelsMap = new Map([
-    ['addToCart', 'Add to Cart'],
-    ['addToCartError', 'Something went wrong. Please refresh and try again.']
-]);
-
 export const useWishlistItem = props => {
     const { childSku, mutations, sku } = props;
     const { addWishlistItemToCartMutation } = mutations;
@@ -55,7 +50,6 @@ export const useWishlistItem = props => {
         handleAddToCart,
         handleMoreActions,
         hasError: !!error,
-        isLoading: loading,
-        labels: labelsMap
+        isLoading: loading
     };
 };
