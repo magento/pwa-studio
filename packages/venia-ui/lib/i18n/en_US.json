@@ -40,5 +40,7 @@
     "searchTrigger.label": "Search",
     "Sign Out": "Sign Out",
     "Terms of Use": "Terms of Use",
-    "Toggle navigation panel": "Toggle navigation panel"
+    "Toggle navigation panel": "Toggle navigation panel",
+    "wishlistItem.addToCart": "Add to Cart",
+    "wishlistItem.addToCartError": "Something went wrong. Please refresh and try again."
 }
