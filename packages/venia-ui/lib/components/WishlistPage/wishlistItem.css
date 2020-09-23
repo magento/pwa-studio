@@ -36,11 +36,12 @@
     margin: calc(var(--gap) / -2) calc(var(--gap) / -2);
 }
 
-.actionsContainer > * {
+.action {
     margin: calc(var(--gap) / 2) calc(var(--gap) / 2);
 }
 
 .addToCart {
+    composes: action;
     composes: root from '../Button/button.css';
     border: none;
     min-width: auto;
@@ -54,6 +55,7 @@
 }
 
 .moreActions {
+    composes: action;
     align-items: center;
     background-color: rgb(var(--venia-global-color-gray-100));
     border-radius: 50%;
