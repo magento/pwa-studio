@@ -11,7 +11,12 @@ const ActionMenuIcon = <Icon src={MoreHorizontal} size={24} />;
 
 const Wishlist = props => {
     const { data } = props;
-    const { items_count: itemsCount, name, sharing_code: sharingCode } = data;
+    const {
+        items_count: itemsCount,
+        items_v2: items,
+        name,
+        sharing_code: sharingCode
+    } = data;
 
     const talonProps = useWishlist();
     const { handleActionMenuClick, handleContentToggle, isOpen } = talonProps;
@@ -23,7 +28,7 @@ const Wishlist = props => {
     const visibilityLabel = sharingCode ? 'Public' : 'Private';
 
     const contentMessageElement = itemsCount ? (
-        <WishlistItems />
+        <WishlistItems items={items} />
     ) : (
         <p>{'There are currently no items in this list'}</p>
     );

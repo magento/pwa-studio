@@ -55,7 +55,7 @@ module.exports = targets => {
      * and the path to the routes component, you can just push route
      * requests into a neat little array.
      */
-    builtins.transformModules.tap(addTransform => {
+    builtins.transformModules.tapPromise(async addTransform => {
         addTransform({
             type: 'babel',
             fileToTransform:
@@ -63,7 +63,7 @@ module.exports = targets => {
             transformModule:
                 '@magento/venia-ui/lib/targets/BabelRouteInjectionPlugin',
             options: {
-                routes: targets.own.routes.call([])
+                routes: await targets.own.routes.promise([])
             }
         });
     });
