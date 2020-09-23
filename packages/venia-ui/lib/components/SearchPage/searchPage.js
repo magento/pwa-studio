@@ -73,8 +73,7 @@ const SearchPage = props => {
             <Button
                 priority={'low'}
                 classes={{ root_lowPriority: classes.filterButton }}
-                onMouseDown={openDrawer}
-                onTouchStart={openDrawer}
+                onClick={openDrawer}
                 type="button"
             >
                 {'Filter'}

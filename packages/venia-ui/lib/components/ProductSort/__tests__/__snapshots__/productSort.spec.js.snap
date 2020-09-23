@@ -4,8 +4,7 @@ exports[`renders correctly 1`] = `
 <div>
   <button
     disabled={false}
-    onMouseDown={[Function]}
-    onTouchStart={[Function]}
+    onClick={[Function]}
     type="button"
   >
     <span>
