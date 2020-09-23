@@ -24,11 +24,11 @@ const Wishlist = props => {
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
     const visibilityLabel = sharingCode
         ? formatMessage({
-              id: 'Public',
+              id: 'wishlist.publicText',
               defaultMessage: 'Public'
           })
         : formatMessage({
-              id: 'Private',
+              id: 'wishlist.privateText',
               defaultMessage: 'Private'
           });
     const contentMessageElement = itemsCount ? (
@@ -36,7 +36,7 @@ const Wishlist = props => {
     ) : (
         <p>
             <FormattedMessage
-                id={'There are currently no items in this list'}
+                id={'wishlist.emptyListText'}
                 defaultMessage={'There are currently no items in this list'}
             />
         </p>

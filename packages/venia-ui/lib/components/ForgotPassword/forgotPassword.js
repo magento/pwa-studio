@@ -33,7 +33,7 @@ const ForgotPassword = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const INSTRUCTIONS = formatMessage({
-        id: 'Please enter the email address associated with this account.',
+        id: 'forgotPassword.instructions',
         defaultMessage:
             'Please enter the email address associated with this account.'
     });
@@ -43,7 +43,7 @@ const ForgotPassword = props => {
         <Fragment>
             <h2 className={classes.title}>
                 <FormattedMessage
-                    id={'Recover Password'}
+                    id={'forgotPassword.recoverPasswordText'}
                     defaultMessage={'Recover Password'}
                 />
             </h2>

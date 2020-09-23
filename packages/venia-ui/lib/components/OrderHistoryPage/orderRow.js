@@ -39,17 +39,28 @@ const OrderRow = props => {
 
     const hasInvoice = !!invoices.length;
     const hasShipment = !!shipments.length;
-    const derivedStatus =
-        status === 'Complete'
-            ? formatMessage({ id: 'Delivered', defaultMessage: 'Delivered' })
-            : hasShipment
-            ? 'Shipped'
-            : hasInvoice
-            ? formatMessage({
-                  id: 'Ready to ship',
-                  defaultMessage: 'Ready to ship'
-              })
-            : formatMessage({ id: 'Processing', defaultMessage: 'Processing' });
+    let derivedStatus;
+    if (status === 'Complete') {
+        derivedStatus = formatMessage({
+            id: 'orderRow.deliveredText',
+            defaultMessage: 'Delivered'
+        });
+    } else if (hasShipment) {
+        derivedStatus = formatMessage({
+            id: 'orderRow.shippedText',
+            defaultMessage: 'Shipped'
+        });
+    } else if (hasInvoice) {
+        derivedStatus = formatMessage({
+            id: 'orderRow.readyToShipText',
+            defaultMessage: 'Ready to ship'
+        });
+    } else {
+        derivedStatus = formatMessage({
+            id: 'orderRow.processingText',
+            defaultMessage: 'Processing'
+        });
+    }
 
     const talonProps = useOrderRow();
     const { isOpen, handleContentToggle } = talonProps;
@@ -68,7 +79,7 @@ const OrderRow = props => {
             <div className={classes.orderNumberContainer}>
                 <span className={classes.orderNumberLabel}>
                     <FormattedMessage
-                        id={'Order #'}
+                        id={'orderRow.orderNumberText'}
                         defaultMessage={'Order #'}
                     />
                 </span>
@@ -77,7 +88,7 @@ const OrderRow = props => {
             <div className={classes.orderDateContainer}>
                 <span className={classes.orderDateLabel}>
                     <FormattedMessage
-                        id={'Order Date'}
+                        id={'orderRow.orderDateText'}
                         defaultMessage={'Order Date'}
                     />
                 </span>
@@ -86,7 +97,7 @@ const OrderRow = props => {
             <div className={classes.orderTotalContainer}>
                 <span className={classes.orderTotalLabel}>
                     <FormattedMessage
-                        id={'Order Total'}
+                        id={'orderRow.orderTotalText'}
                         defaultMessage={'Order Total'}
                     />
                 </span>

@@ -22,7 +22,7 @@ const CreateWishlist = props => {
                 {createIcon}
                 <span>
                     <FormattedMessage
-                        id={'Create a list'}
+                        id={'createWishlist.createListText'}
                         defaultMessage={'Create a list'}
                     />
                 </span>

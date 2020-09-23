@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
@@ -8,18 +9,17 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './orderHistoryPage.css';
 import orderHistoryOperations from './orderHistoryPage.gql';
 import OrderRow from './orderRow';
-import { useIntl } from 'react-intl';
 
 const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage({ ...orderHistoryOperations });
     const { isLoadingWithoutData, orders } = talonProps;
     const { formatMessage } = useIntl();
     const PAGE_TITLE = formatMessage({
-        id: 'Order History',
+        id: 'orderHistoryPage.pageTitleText',
         defaultMessage: 'Order History'
     });
     const EMPTY_DATA_MESSAGE = formatMessage({
-        id: "You don't have any orders yet.",
+        id: 'orderHistoryPage.emptyDataMessage',
         defaultMessage: "You don't have any orders yet."
     });
     const classes = mergeClasses(defaultClasses, props.classes);

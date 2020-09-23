@@ -38,7 +38,7 @@ const WishlistPage = props => {
             derivedErrorMessage === WISHLIST_DISABLED_MESSAGE ? (
                 <p>
                     <FormattedMessage
-                        id={'Sorry, this feature has been disabled.'}
+                        id={'wishlistPage.disabledMessage'}
                         defaultMessage={
                             'Sorry, this feature has been disabled.'
                         }
@@ -47,9 +47,7 @@ const WishlistPage = props => {
             ) : (
                 <p className={classes.fetchError}>
                     <FormattedMessage
-                        id={
-                            'Something went wrong. Please refresh and try again.'
-                        }
+                        id={'wishlistPage.fetchErrorMessage'}
                         defaultMessage={
                             'Something went wrong. Please refresh and try again.'
                         }
@@ -71,7 +69,7 @@ const WishlistPage = props => {
         <div className={classes.root}>
             <h1 className={classes.heading}>
                 <FormattedMessage
-                    id={'Favorites Lists'}
+                    id={'wishlistPage.headingText'}
                     defaultMessage={'Favorites Lists'}
                 />
             </h1>

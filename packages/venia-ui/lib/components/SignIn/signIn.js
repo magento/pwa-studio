@@ -50,7 +50,7 @@ const SignIn = props => {
             <div className={classes.modal_active}>
                 <LoadingIndicator>
                     <FormattedMessage
-                        id={'Signing In'}
+                        id={'signIn.loadingText'}
                         defaultMessage={'Signing In'}
                     />
                 </LoadingIndicator>
@@ -66,7 +66,7 @@ const SignIn = props => {
         <div className={classes.root}>
             <h2 className={classes.title}>
                 <FormattedMessage
-                    id={'Sign-in to Your Account'}
+                    id={'signIn.titleText'}
                     defaultMessage={'Sign-in to Your Account'}
                 />
             </h2>
@@ -78,7 +78,7 @@ const SignIn = props => {
             >
                 <Field
                     label={formatMessage({
-                        id: 'Email address',
+                        id: 'signIn.emailAddressText',
                         defaultMessage: 'Email address'
                     })}
                 >
@@ -91,7 +91,7 @@ const SignIn = props => {
                 <Password
                     fieldName="password"
                     label={formatMessage({
-                        id: 'Password',
+                        id: 'signIn.passwordText',
                         defaultMessage: 'Password'
                     })}
                     validate={isRequired}
@@ -105,7 +105,7 @@ const SignIn = props => {
                         onClick={handleForgotPassword}
                     >
                         <FormattedMessage
-                            id={'Forgot Password?'}
+                            id={'signIn.forgotPasswordText'}
                             defaultMessage={'Forgot Password?'}
                         />
                     </LinkButton>
@@ -123,7 +123,7 @@ const SignIn = props => {
                         onClick={handleCreateAccount}
                     >
                         <FormattedMessage
-                            id={'Create an Account'}
+                            id={'signIn.createAccountText'}
                             defaultMessage={'Create an Account'}
                         />
                     </Button>

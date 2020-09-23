@@ -11,16 +11,34 @@ const OrderProgressBar = props => {
     const { status } = props;
     const { formatMessage } = useIntl();
     const statusStepMap = new Map([
-        [formatMessage({ id: 'Processing', defaultMessage: 'Processing' }), 1],
         [
             formatMessage({
-                id: 'Ready to ship',
+                id: 'orderProgressBar.processingText',
+                defaultMessage: 'Processing'
+            }),
+            1
+        ],
+        [
+            formatMessage({
+                id: 'orderProgressBar.readyToShipText',
                 defaultMessage: 'Ready to ship'
             }),
             2
         ],
-        [formatMessage({ id: 'Shipped', defaultMessage: 'Shipped' }), 3],
-        [formatMessage({ id: 'Delivered', defaultMessage: 'Delivered' }), 4]
+        [
+            formatMessage({
+                id: 'orderProgressBar.shippedText',
+                defaultMessage: 'Shipped'
+            }),
+            3
+        ],
+        [
+            formatMessage({
+                id: 'orderProgressBar.deliveredText',
+                defaultMessage: 'Delivered'
+            }),
+            4
+        ]
     ]);
     const currentStep = statusStepMap.get(status);
 
