@@ -1,5 +1,6 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -20,7 +21,12 @@ const BillingInformation = props => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.heading}>{'Billing Information'}</div>
+            <div className={classes.heading}>
+                <FormattedMessage
+                    id="orderDetails.billingInformationLabel"
+                    defaultMessage="Billing Information"
+                />
+            </div>
             <div className={classes.name}>
                 <span>{firstname}</span>
                 <span>{lastname}</span>

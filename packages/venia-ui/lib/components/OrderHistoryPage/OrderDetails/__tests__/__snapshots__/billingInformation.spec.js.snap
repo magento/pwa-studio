@@ -3,7 +3,11 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    Billing Information
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Billing Information"
+      id="orderDetails.billingInformationLabel"
+    />
   </div>
   <div>
     <span>

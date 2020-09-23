@@ -1,5 +1,6 @@
 import React from 'react';
 import { arrayOf, string, shape, number } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { Price } from '@magento/peregrine';
@@ -45,9 +46,19 @@ const OrderTotal = props => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.heading}>{'Order Total'}</div>
+            <div className={classes.heading}>
+                <FormattedMessage
+                    id="orderRow.orderTotal"
+                    defaultMessage="Order Total"
+                />
+            </div>
             <div className={classes.subTotal}>
-                <span>{'Subtotal'}</span>
+                <span>
+                    <FormattedMessage
+                        id="orderRow.subtotal"
+                        defaultMessage="Subtotal"
+                    />
+                </span>
                 <span>
                     <Price
                         value={subtotal.value}
@@ -56,7 +67,12 @@ const OrderTotal = props => {
                 </span>
             </div>
             <div className={classes.discount}>
-                <span>{'Discount'}</span>
+                <span>
+                    <FormattedMessage
+                        id="orderRow.discount"
+                        defaultMessage="Discount"
+                    />
+                </span>
                 <span>
                     <Price
                         value={totalDiscount.value}
@@ -65,7 +81,9 @@ const OrderTotal = props => {
                 </span>
             </div>
             <div className={classes.tax}>
-                <span>{'Tax'}</span>
+                <span>
+                    <FormattedMessage id="orderRow.tax" defaultMessage="Tax" />
+                </span>
                 <span>
                     <Price
                         value={total_tax.value}
@@ -74,7 +92,12 @@ const OrderTotal = props => {
                 </span>
             </div>
             <div className={classes.shipping}>
-                <span>{'Shipping'}</span>
+                <span>
+                    <FormattedMessage
+                        id="orderRow.shipping"
+                        defaultMessage="Shipping"
+                    />
+                </span>
                 <span>
                     <Price
                         value={total_shipping.value}
@@ -83,14 +106,19 @@ const OrderTotal = props => {
                 </span>
             </div>
             <div className={classes.total}>
-                <span>{'Total'}</span>
+                <span>
+                    <FormattedMessage
+                        id="orderRow.total"
+                        defaultMessage="Total"
+                    />
+                </span>
                 <span>
                     <Price
                         value={grand_total.value}
                         currencyCode={grand_total.currency}
                     />
                 </span>
-            </div>{' '}
+            </div>
         </div>
     );
 };

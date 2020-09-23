@@ -1,5 +1,6 @@
 import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -19,10 +20,21 @@ const ShippingMethod = props => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.heading}>{'Shipping Method'}</div>
+            <div className={classes.heading}>
+                <FormattedMessage
+                    id="orderDetails.shippingMethodLabel"
+                    defaultMessage="Shipping Method"
+                />
+            </div>
             <div className={classes.method}>{shippingMethod}</div>
             <div className={classes.tracking}>
-                {`${carrier} Tracking: ${number}`}
+                <FormattedMessage
+                    id="{carrier} Tracking: {number}"
+                    values={{
+                        carrier,
+                        number
+                    }}
+                />
             </div>
         </div>
     );

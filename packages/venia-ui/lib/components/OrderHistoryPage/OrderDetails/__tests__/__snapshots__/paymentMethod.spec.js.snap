@@ -3,7 +3,11 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    Payment Method
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Payment Method"
+      id="orderDetails.paymentMethodLabel"
+    />
   </div>
   <div>
     Credit Card - Visa

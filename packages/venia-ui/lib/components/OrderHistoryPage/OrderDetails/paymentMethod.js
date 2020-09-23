@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { arrayOf, shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -26,7 +27,12 @@ const PaymentMethod = props => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.heading}>{'Payment Method'}</div>
+            <div className={classes.heading}>
+                <FormattedMessage
+                    id="orderDetails.paymentMethodLabel"
+                    defaultMessage="Payment Method"
+                />
+            </div>
             <div className={classes.payment_type}>
                 {`${type} - ${card_type}`}
             </div>

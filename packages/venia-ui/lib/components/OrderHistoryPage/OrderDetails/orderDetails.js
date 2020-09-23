@@ -1,5 +1,6 @@
 import React from 'react';
 import { shape, string, arrayOf, number } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { Printer } from 'react-feather';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -55,7 +56,12 @@ const OrderDetails = props => {
             </div>
             <Button className={classes.printButton} onClick={() => {}}>
                 <Icon src={Printer} />
-                <span className={classes.printLabel}>{'Print Receipt'}</span>
+                <span className={classes.printLabel}>
+                    <FormattedMessage
+                        id="orderDetails.printLabel"
+                        defaultMessage="Print Receipt"
+                    />
+                </span>
             </Button>
         </div>
     );

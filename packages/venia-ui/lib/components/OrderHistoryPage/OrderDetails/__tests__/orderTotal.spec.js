@@ -9,6 +9,12 @@ jest.mock('@magento/peregrine', () => ({
     Price: props => <div componentName="Price Component" {...props} />
 }));
 
+jest.mock('react-intl', () => ({
+    FormattedMessage: props => (
+        <div componentName="Formatted Message Component" {...props} />
+    )
+}));
+
 const defaultProps = {
     data: {
         discounts: [

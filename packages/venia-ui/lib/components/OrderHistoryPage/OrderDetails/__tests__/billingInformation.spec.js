@@ -3,6 +3,12 @@ import { createTestInstance } from '@magento/peregrine';
 
 import BillingInformation from '../billingInformation';
 
+jest.mock('react-intl', () => ({
+    FormattedMessage: props => (
+        <div componentName="Formatted Message Component" {...props} />
+    )
+}));
+
 const defaultData = {
     city: 'Austin',
     country_code: 'USA',

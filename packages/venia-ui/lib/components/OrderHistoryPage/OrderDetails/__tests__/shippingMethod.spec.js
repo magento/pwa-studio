@@ -3,6 +3,12 @@ import { createTestInstance } from '@magento/peregrine';
 
 import ShippingMethod from '../shippingMethod';
 
+jest.mock('react-intl', () => ({
+    FormattedMessage: props => (
+        <div componentName="Formatted Message Component" {...props} />
+    )
+}));
+
 const defaultProps = {
     data: {
         shipments: [

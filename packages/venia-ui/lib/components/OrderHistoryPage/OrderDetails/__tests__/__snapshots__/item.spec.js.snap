@@ -45,7 +45,15 @@ exports[`should render properly 1`] = `
     </div>
   </dl>
   <span>
-    Qty : 3
+    <div
+      componentName="Formatted Message Component"
+      id="Qty : {quantity}"
+      values={
+        Object {
+          "quantity": 3,
+        }
+      }
+    />
   </span>
   <span>
     $100.00
@@ -56,7 +64,11 @@ exports[`should render properly 1`] = `
     type="button"
   >
     <span>
-      Buy Again
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Buy Again"
+        id="orderDetails.buyAgain"
+      />
     </span>
   </button>
   <button
@@ -65,7 +77,11 @@ exports[`should render properly 1`] = `
     type="button"
   >
     <span>
-      Return This
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Return This"
+        id="orderDetails.returnThis"
+      />
     </span>
   </button>
 </div>

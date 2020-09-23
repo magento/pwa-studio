@@ -8,6 +8,12 @@ jest.mock('@magento/venia-drivers', () => ({
     resourceUrl: url => url
 }));
 
+jest.mock('react-intl', () => ({
+    FormattedMessage: props => (
+        <div componentName="Formatted Message Component" {...props} />
+    )
+}));
+
 const defaultProps = {
     product_name: 'Product 1',
     product_sale_price: '$100.00',

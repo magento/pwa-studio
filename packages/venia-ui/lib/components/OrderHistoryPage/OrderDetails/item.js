@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { shape, string, number, arrayOf } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -53,15 +54,26 @@ const Item = props => {
                     options: classes.options
                 }}
             />
-            <span
-                className={classes.quantity}
-            >{`Qty : ${quantity_ordered}`}</span>
+            <span className={classes.quantity}>
+                <FormattedMessage
+                    id="Qty : {quantity}"
+                    values={{
+                        quantity: quantity_ordered
+                    }}
+                />
+            </span>
             <span className={classes.price}>{product_sale_price}</span>
             <Button onClick={() => {}} className={classes.buyAgainButton}>
-                {'Buy Again'}
+                <FormattedMessage
+                    id="orderDetails.buyAgain"
+                    defaultMessage="Buy Again"
+                />
             </Button>
             <Button onClick={() => {}} className={classes.returnThisButton}>
-                {'Return This'}
+                <FormattedMessage
+                    id="orderDetails.returnThis"
+                    defaultMessage="Return This"
+                />
             </Button>
         </div>
     );
