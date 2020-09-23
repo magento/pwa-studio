@@ -40,7 +40,7 @@ class LocalizationPlugin {
         const { dirs, context, virtualModules } = this.opts;
 
         // Iterate through every module which declares the i18n specialFlag along with the context venia-concept dir
-        let locales = {};
+        const locales = {};
         for (const dir of dirs) {
             const localeDir = path.join(dir, i18nDir);
             try {
@@ -51,7 +51,7 @@ class LocalizationPlugin {
                         inputFileSystem,
                         localeDir
                     );
-                    locales = this.mergeLocales(locales, packageTranslations);
+                    this.mergeLocales(locales, packageTranslations);
                 } else {
                     throw new Error('Path is not directory.');
                 }
@@ -67,10 +67,12 @@ class LocalizationPlugin {
             }
         }
 
-        if (!locales) {
+        if (Object.keys(locales).length === 0) {
             debug(
                 'No locales found while traversing all modules with i18n flag.'
             );
+
+            return '';
         }
 
         // Merge all located translation files together and return their paths for a dynamic import
@@ -209,8 +211,6 @@ class LocalizationPlugin {
                 current[key].push(...update[key]);
             }
         });
-
-        return current;
     }
 
     /**
