@@ -83,7 +83,7 @@ This documentation contains API descriptions and sample code to help developers 
 | Updated Venia's button style to match new design                                     | **Update**   | [#2496][] |
 | Added product listing to the MiniCart                                                | **Update**   | [#2506][] |
 | Added a header section to the MiniCart                                               | **Update**   | [#2509][] |
-| Added a foort section to the MiniCart                                                | **Update**   | [#2511][] |
+| Added a footer section to the MiniCart                                                | **Update**   | [#2511][] |
 | Adjusted styles for the header, main page, and footer components                     | **Update**   | [#2513][] |
 | Update Gallery component to use `item.id` for key prop on GalleryItem                | **Update**   | [#2520][] |
 | Added product link for each product in the MiniCart                                  | **Update**   | [#2549][] |
@@ -95,7 +95,7 @@ This documentation contains API descriptions and sample code to help developers 
 | Added a sign-in section to the new My Account trigger in the header                  | **Update**   | [#2590][] |
 | Enabled GET for GraphQL queries (but not mutations)                                  | **Update**   | [#2602][] |
 | Added React Refresh to improve development server performance                        | **Update**   | [#2609][] |
-| Improve error handling when using the Sign-in dropdown                               | **Update**   | [#2664][] |
+| Improved error handling when using the Sign-in dropdown                               | **Update**   | [#2664][] |
 | Updated static images to reflect new logo                                            | **Update**   | [#2693][] |
 | Refactored code to use tokens for color and weight                                   | **Refactor** | [#2500][] |
 | Refactored Venia's inputs to match new design                                        | **Refactor** | [#2510][] |
