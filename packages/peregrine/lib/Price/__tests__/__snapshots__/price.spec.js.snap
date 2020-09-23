@@ -45,22 +45,25 @@ Array [
 exports[`Renders a EUR price with locale set to French 1`] = `
 Array [
   <span>
-    €
-  </span>,
-  <span>
     1
   </span>,
   <span>
-    ,
+     
   </span>,
   <span>
     000
   </span>,
   <span>
-    .
+    ,
   </span>,
   <span>
     99
+  </span>,
+  <span>
+     
+  </span>,
+  <span>
+    €
   </span>,
 ]
 `;
