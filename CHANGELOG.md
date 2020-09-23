@@ -39,9 +39,9 @@ Storefront developers can use this streamlined process as implemented or they ca
 In addition to the complete full page cart and checkout experience, this release introduces a new Mini-Cart/Shopping Bag feature.
 
 This feature appears as a floating modal that appears when you click on the shopping bag icon.
-It replaces the old `MiniCart` component, which appeared as a drawer from the right side of the app.
+It replaces the old `MiniCart` component, which previously appeared as a drawer from the right side of the app.
 
-Instead of competing with the full page cart, it only contains a subset of actions, such as removing an item and checking out.
+Instead of competing with the full page cart feature, it only contains a subset of actions, such as removing an item and checking out.
 For additional modifications to cart products, it links to the cart page.
 
 Developers can still use the old `MiniCart` component in their projects, but it has been renamed to `LegacyMiniCart`.
@@ -51,9 +51,17 @@ Developers can still use the old `MiniCart` component in their projects, but it 
 The UX team continues in their research to improve the look and feel of the Venia brand.
 This release includes many style updates to give the Venia storefront a more modern and accessible experience.
 
-Developers get all these improvements right away when they start their projects using this version of Venia as the base storefront.
+Developers get all these improvements right away when they start their projects using this version of Venia as the base storefront or by upgrading their dependencies.
+
+### My Account code preview
+
+This releases includes a sneak peak at features associated with My Account, such as Wishlist, Order History, and Address Book.
+Even though the Communications Page is the only navigable page, curious developers can peek at the 8.0.0 release codebase to see the initial code for these features.
 
 ### Targets reference documentation
+
+During 8.0.0 development, the PWA Studio doc site has published referenced documentation for extensibility targets in the different packages.
+This documentation contains API descriptions and sample code to help developers discover the different PWA Studio extension points.
 
 ## Pull requests merged in this release
 
@@ -189,6 +197,10 @@ Developers get all these improvements right away when they start their projects 
 | Bumped bl from 3.0.0 to 3.0.1                                            | **Update**  | [#2675][]           |
 
 ## Known issues
+
+PWA Studio 8.0.0 is not fully compatible with Magento 2.3.6, which can result in the following issues:
+
+- User is unable to Reset password
 
 ## Upgrading from a previous version
 
