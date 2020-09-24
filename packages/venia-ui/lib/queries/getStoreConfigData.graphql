@@ -2,8 +2,5 @@ query storeConfigData {
     storeConfig {
         id
         copyright
-        code
-        locale
-        grid_per_page
     }
 }

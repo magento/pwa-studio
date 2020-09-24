@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 import { fromReactIntl, toReactIntl } from '../../util/formatLocale';
-import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
-import { useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+
+const GET_LOCALE = gql`
+    query getLocale {
+        storeConfig {
+            id
+            locale
+        }
+    }
+`;
 
 const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
-    const { data, loading } = useQuery(GET_CONFIG_DATA, {
+    const { data, loading } = useQuery(GET_LOCALE, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });

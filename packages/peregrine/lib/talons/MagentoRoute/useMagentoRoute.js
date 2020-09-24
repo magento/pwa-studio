@@ -30,7 +30,7 @@ const shouldFetch = (data, store) => {
 };
 
 export const useMagentoRoute = props => {
-    const { getStoreConfig } = props;
+    const { getStoreCode } = props;
     const [componentMap, setComponentMap] = useState(new Map());
     const { apiBase } = useApolloClient();
     const history = useHistory();
@@ -38,7 +38,7 @@ export const useMagentoRoute = props => {
     const isMountedRef = useRef(false);
     const routeData = componentMap.get(pathname);
 
-    const { data } = useQuery(getStoreConfig, {
+    const { data } = useQuery(getStoreCode, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });

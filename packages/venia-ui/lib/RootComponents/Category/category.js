@@ -10,7 +10,7 @@ import { Meta } from '../../components/Head';
 
 import GET_CATEGORY from '../../queries/getCategory.graphql';
 import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
-import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
+import { GET_PAGE_SIZE } from './category.gql';
 
 const Category = props => {
     const { id } = props;
@@ -20,7 +20,7 @@ const Category = props => {
         queries: {
             getCategory: GET_CATEGORY,
             getFiltersIntrospection: FILTER_INTROSPECTION,
-            getStoreConfig: GET_CONFIG_DATA
+            getPageSize: GET_PAGE_SIZE
         }
     });
 

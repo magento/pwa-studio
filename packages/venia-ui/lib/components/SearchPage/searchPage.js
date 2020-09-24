@@ -12,7 +12,7 @@ import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
 import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
-import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
+import { GET_PAGE_SIZE } from './searchPage.gql';
 import ProductSort from '../ProductSort';
 import Button from '../Button';
 
@@ -24,7 +24,7 @@ const SearchPage = props => {
             filterIntrospection: FILTER_INTROSPECTION,
             getProductFiltersBySearch: GET_PRODUCT_FILTERS_BY_SEARCH,
             productSearch: PRODUCT_SEARCH,
-            getStoreConfig: GET_CONFIG_DATA
+            getPageSize: GET_PAGE_SIZE
         }
     });
 
