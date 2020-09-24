@@ -53,7 +53,10 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
 }));
 
 const defaultProps = {
-    getStoreConfig: 'getStoreConfig'
+    queries: {
+        getStoreConfigData: 'getStoreConfigData',
+        getAvailableStoresData: 'getAvailableStoresData'
+    }
 };
 
 const Component = props => {

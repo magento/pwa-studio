@@ -15,7 +15,7 @@
                     "ignore": [
                         "../venia-ui/lib/**/giftOptions.js",
                         "../venia-ui/lib/**/wishlistPage.gql.js",
-                        "../venia-ui/lib/queries/getAvailableStoresConfigData.graphql"
+                        "../venia-ui/lib/**/storeSwitcher.gql.js"
                     ]
                 }
             }

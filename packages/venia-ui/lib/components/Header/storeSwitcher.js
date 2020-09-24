@@ -7,12 +7,12 @@ import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreS
 import { mergeClasses } from '../../classify';
 import defaultClasses from './storeSwitcher.css';
 import SwitcherItem from './switcherItem';
-import GET_CONFIG_DATA from '../../queries/getAvailableStoresConfigData.graphql';
+import storeSwitcherOperations from './storeSwitcher.gql';
 import Icon from '../Icon';
 
 const StoreSwitcher = props => {
     const talonProps = useStoreSwitcher({
-        getStoreConfig: GET_CONFIG_DATA
+        ...storeSwitcherOperations
     });
 
     const {

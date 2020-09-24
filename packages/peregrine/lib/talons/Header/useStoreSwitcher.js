@@ -6,6 +6,22 @@ import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
 const storage = new BrowserPersistence();
 
+const mapAvailableOptions = (rawConfigData, rawAvailableStoresData) => {
+    const { code } = rawConfigData;
+    const availableOptions = {};
+
+    rawAvailableStoresData.forEach(store => {
+        availableOptions[store.code] = {
+            storeName: store.store_name,
+            locale: store.locale,
+            is_current: store.code === code,
+            currency: store.default_display_currency_code
+        };
+    });
+
+    return availableOptions;
+};
+
 /**
  * The useStoreSwitcher talon complements the StoreSwitcher component.
  *
@@ -20,7 +36,8 @@ const storage = new BrowserPersistence();
  */
 
 export const useStoreSwitcher = props => {
-    const { getStoreConfig } = props;
+    const { queries } = props;
+    const { getStoreConfigData, getAvailableStoresData } = queries;
     const history = useHistory();
     const {
         elementRef: storeMenuRef,
@@ -29,31 +46,26 @@ export const useStoreSwitcher = props => {
         triggerRef: storeMenuTriggerRef
     } = useDropdown();
 
-    const { data: availableStoresData } = useQuery(getStoreConfig, {
+    const { data: storeConfigData } = useQuery(getStoreConfigData, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const { data: availableStoresData } = useQuery(getAvailableStoresData, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
     const availableStores = useMemo(() => {
-        let filteredData;
-        if (availableStoresData) {
-            filteredData = [...availableStoresData.availableStores].reduce(
-                (storeViews, store) => {
-                    storeViews[store.code] = {
-                        storeName: store['store_name'],
-                        locale: store.locale,
-                        is_current:
-                            store.code === availableStoresData.storeConfig.code,
-                        currency: store['default_display_currency_code']
-                    };
-                    return storeViews;
-                },
-                {}
-            );
-        }
-
-        return filteredData;
-    }, [availableStoresData]);
+        return (
+            storeConfigData &&
+            availableStoresData &&
+            mapAvailableOptions(
+                storeConfigData.storeConfig,
+                availableStoresData.availableStores
+            )
+        );
+    }, [storeConfigData, availableStoresData]);
 
     const handleSwitchStore = useCallback(
         // Change store view code and currency to be used in Appollo link request headers
