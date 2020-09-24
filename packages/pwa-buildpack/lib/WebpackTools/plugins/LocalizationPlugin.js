@@ -72,7 +72,7 @@ class LocalizationPlugin {
                 'No locales found while traversing all modules with i18n flag.'
             );
 
-            return '';
+            return;
         }
 
         // Merge all located translation files together and return their paths for a dynamic import
