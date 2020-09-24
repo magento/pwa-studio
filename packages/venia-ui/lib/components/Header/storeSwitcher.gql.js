@@ -3,7 +3,6 @@ import { gql } from '@apollo/client';
 export const GET_STORE_CONFIG_DATA = gql`
     query getStoreConfigData {
         storeConfig {
-            base_currency_code
             code
             copyright
             default_display_currency_code
@@ -18,7 +17,6 @@ export const GET_STORE_CONFIG_DATA = gql`
 export const GET_AVAILABLE_STORES_DATA = gql`
     query getAvailableStoresData {
         availableStores {
-            base_currency_code
             code
             default_display_currency_code
             id
