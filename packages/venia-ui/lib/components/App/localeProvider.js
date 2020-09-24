@@ -36,10 +36,12 @@ const LocaleProvider = props => {
                     setMessages(data.default);
                 })
                 .catch(error => {
-                    console.error(`Unable to load translation file. \n${error}`);
+                    console.error(
+                        `Unable to load translation file. \n${error}`
+                    );
                 });
         }
-    }, [fetchLocale, setMessages,language]);
+    }, [fetchLocale, setMessages, language]);
 
     const onIntlError = error => {
         if (messages) {
