@@ -109,7 +109,12 @@ const SearchPage = props => {
                 id={'searchPage.sortContainer'}
                 defaultMessage={'Items sorted by '}
             />
-            <span className={classes.sortText}>{currentSort.sortText}</span>
+            <span className={classes.sortText}>
+                <FormattedMessage
+                    id={currentSort.sortId}
+                    defaultMessage={currentSort.sortText}
+                />
+            </span>
         </div>
     ) : null;
 

@@ -19,6 +19,7 @@ const ProductSort = props => {
         sortAttribute => {
             setSort({
                 sortText: sortAttribute.text,
+                sortId: sortAttribute.id,
                 sortAttribute: sortAttribute.attribute,
                 sortDirection: sortAttribute.sortDirection
             });
@@ -102,6 +103,7 @@ ProductSort.propTypes = {
     availableSortMethods: arrayOf(
         shape({
             text: string,
+            id: string,
             attribute: string,
             sortDirection: sortDirections
         })
@@ -112,16 +114,19 @@ ProductSort.propTypes = {
 ProductSort.defaultProps = {
     availableSortMethods: [
         {
+            id: 'sortItem.relevance',
             text: 'Best Match',
             attribute: 'relevance',
             sortDirection: 'DESC'
         },
         {
+            id: 'sortItem.priceAsc',
             text: 'Price: Low to High',
             attribute: 'price',
             sortDirection: 'ASC'
         },
         {
+            id: 'sortItem.priceDesc',
             text: 'Price: High to Low',
             attribute: 'price',
             sortDirection: 'DESC'
