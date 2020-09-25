@@ -4,17 +4,17 @@ import { Form } from 'informed';
 
 import { useToasts } from '@magento/peregrine';
 import { useResetPassword } from '@magento/peregrine/lib/talons/MyAccount/useResetPassword';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import { Title } from '../../Head';
-
+import { mergeClasses } from '../../../classify';
+import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
+import Field from '../../Field';
 import FormErrors from '../../FormError';
-
-import resetPasswordOperations from './resetPassword.gql';
-
-import defaultClasses from './resetPassword.css';
+import { Title } from '../../Head';
 import Password from '../../Password';
+import TextInput from '../../TextInput';
+import defaultClasses from './resetPassword.css';
+import resetPasswordOperations from './resetPassword.gql';
 
 const PAGE_TITLE = `Reset Password`;
 
@@ -27,7 +27,6 @@ const ResetPassword = props => {
     const {
         hasCompleted,
         loading,
-        email,
         token,
         formErrors,
         handleSubmit
@@ -64,8 +63,11 @@ const ResetPassword = props => {
     ) : (
         <Form className={classes.container} onSubmit={handleSubmit}>
             <div className={classes.description}>
-                Please enter your new password.
+                Please enter your email address and new password.
             </div>
+            <Field label={'Email address'}>
+                <TextInput field={'email'} validate={isRequired} />
+            </Field>
             <Password
                 classes={{ root: classes.password }}
                 label={'New Password'}
@@ -78,7 +80,7 @@ const ResetPassword = props => {
                 priority="high"
                 disabled={loading}
             >
-                {'SAVE'}
+                {'Save Password'}
             </Button>
             <FormErrors
                 classes={{ root: classes.errorMessage }}
@@ -91,7 +93,7 @@ const ResetPassword = props => {
         <div className={classes.root}>
             <Title>{`${PAGE_TITLE} - ${STORE_NAME}`}</Title>
             <h1 className={classes.heading}>{PAGE_TITLE}</h1>
-            {token && email ? recoverPassword : tokenMissing}
+            {token ? recoverPassword : tokenMissing}
         </div>
     );
 };
