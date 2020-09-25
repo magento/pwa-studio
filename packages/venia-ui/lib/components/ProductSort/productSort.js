@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, oneOf } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
@@ -74,10 +75,15 @@ const ProductSort = props => {
         <div ref={elementRef} className={classes.root}>
             <Button
                 priority={'low'}
-                classes={{ root_lowPriority: classes.sortButton }}
+                classes={{
+                    root_lowPriority: classes.sortButton
+                }}
                 onClick={handleSortClick}
             >
-                {'Sort'}
+                <FormattedMessage
+                    id={'productSort.sortButton'}
+                    defaultMessage={'Sort'}
+                />
             </Button>
             {sortElements}
         </div>

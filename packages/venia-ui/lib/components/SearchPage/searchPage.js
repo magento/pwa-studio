@@ -1,4 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
@@ -35,6 +36,7 @@ const SearchPage = props => {
         pageControl,
         sortProps
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     const [currentSort] = sortProps;
 
@@ -42,14 +44,26 @@ const SearchPage = props => {
     if (error) {
         return (
             <div className={classes.noResult}>
-                No results found. The search term may be missing or invalid.
+                <FormattedMessage
+                    id={'searchPage.noResult'}
+                    defaultMessage={
+                        'No results found. The search term may be missing or invalid.'
+                    }
+                />
             </div>
         );
     }
 
     let content;
     if (!data || data.products.items.length === 0) {
-        content = <div className={classes.noResult}>No results found!</div>;
+        content = (
+            <div className={classes.noResult}>
+                <FormattedMessage
+                    id={'searchPage.noResultImportant'}
+                    defaultMessage={'No results found!'}
+                />
+            </div>
+        );
     } else {
         content = (
             <Fragment>
@@ -69,11 +83,16 @@ const SearchPage = props => {
         filters && filters.length ? (
             <Button
                 priority={'low'}
-                classes={{ root_lowPriority: classes.filterButton }}
+                classes={{
+                    root_lowPriority: classes.filterButton
+                }}
                 onClick={openDrawer}
                 type="button"
             >
-                {'Filter'}
+                <FormattedMessage
+                    id={'searchPage.filterButton'}
+                    defaultMessage={'Filter'}
+                />
             </Button>
         ) : null;
 
@@ -86,7 +105,10 @@ const SearchPage = props => {
 
     const maybeSortContainer = totalCount ? (
         <div className={classes.sortContainer}>
-            {'Items sorted by '}
+            <FormattedMessage
+                id={'searchPage.sortContainer'}
+                defaultMessage={'Items sorted by '}
+            />
             <span className={classes.sortText}>{currentSort.sortText}</span>
         </div>
     ) : null;
@@ -95,7 +117,13 @@ const SearchPage = props => {
         <article className={classes.root}>
             <div className={classes.categoryTop}>
                 <div className={classes.totalPages}>
-                    {`${totalCount} items`}
+                    {formatMessage(
+                        {
+                            id: 'searchPage.totalPages',
+                            defaultMessage: `items`
+                        },
+                        { totalCount }
+                    )}
                 </div>
                 <div className={classes.headerButtons}>
                     {maybeFilterButtons}
