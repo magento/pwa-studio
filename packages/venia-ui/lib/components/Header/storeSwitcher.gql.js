@@ -14,6 +14,10 @@ export const GET_STORE_CONFIG_DATA = gql`
     }
 `;
 
+// availableStores is not supported in Magento 2.4.0, so the file was added
+// to validation ignore list packages/venia-concept/.graphqlconfig
+// @todo remove from ignore list when 2.4.1 is released
+
 export const GET_AVAILABLE_STORES_DATA = gql`
     query getAvailableStoresData {
         availableStores {
