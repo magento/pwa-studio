@@ -17,7 +17,7 @@ export const useCmsPage = props => {
         queries: { getCmsPage }
     } = props;
 
-    const { loading, error, data } = useQuery(getCmsPage, {
+    const { loading, data } = useQuery(getCmsPage, {
         variables: {
             id: Number(id)
         },
@@ -61,7 +61,6 @@ export const useCmsPage = props => {
     return {
         cmsPage,
         hasContent,
-        error,
         shouldShowLoadingIndicator
     };
 };
