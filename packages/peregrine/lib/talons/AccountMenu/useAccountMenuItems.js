@@ -15,41 +15,41 @@ export const useAccountMenuItems = props => {
     }, [onSignOut]);
 
     const MENU_ITEMS = [
-        {
-            name: 'Order History',
-            id: 'accountMenu.orderHistoryLink',
-            url: '/order-history'
-        },
-        {
-            name: 'Store Credit & Gift Cards',
-            id: 'accountMenu.storeCreditLink',
-            url: ''
-        },
-        {
-            name: 'Favorites Lists',
-            id: 'accountMenu.favoritesListsLink',
-            url: '/wishlist'
-        },
-        {
-            name: 'Address Book',
-            id: 'accountMenu.addressBookLink',
-            url: '/address-book'
-        },
-        {
-            name: 'Saved Payments',
-            id: 'accountMenu.savedPaymentsLink',
-            url: ''
-        },
+        // {
+        //     name: 'Order History',
+        //     id: 'accountMenu.orderHistoryLink',
+        //     url: '/order-history'
+        // },
+        // {
+        //     name: 'Store Credit & Gift Cards',
+        //     id: 'accountMenu.storeCreditLink',
+        //     url: ''
+        // },
+        // {
+        //     name: 'Favorites Lists',
+        //     id: 'accountMenu.favoritesListsLink',
+        //     url: '/wishlist'
+        // },
+        // {
+        //     name: 'Address Book',
+        //     id: 'accountMenu.addressBookLink',
+        //     url: '/address-book'
+        // },
+        // {
+        //     name: 'Saved Payments',
+        //     id: 'accountMenu.savedPaymentsLink',
+        //     url: ''
+        // },
         {
             name: 'Communications',
             id: 'accountMenu.communicationsLink',
             url: '/communications'
-        },
-        {
-            name: 'Account Information',
-            id: 'accountMenu.accountInfoLink',
-            url: ''
         }
+        // {
+        //     name: 'Account Information',
+        //     id: 'accountMenu.accountInfoLink',
+        //     url: ''
+        // }
     ];
 
     return {
