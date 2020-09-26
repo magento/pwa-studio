@@ -14,7 +14,8 @@ import { useCartContext } from '../../../context/cart';
 
 jest.mock('@apollo/client', () => ({
     useMutation: jest.fn().mockReturnValue([jest.fn()]),
-    useApolloClient: jest.fn()
+    useApolloClient: jest.fn(),
+    useCreateSignIn: jest.fn()
 }));
 jest.mock('../../../../lib/hooks/useAwaitQuery', () => ({
     useAwaitQuery: jest.fn().mockReturnValue(jest.fn())

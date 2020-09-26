@@ -4,6 +4,7 @@ import { useApolloClient, useMutation } from '@apollo/client';
 import { useUserContext } from '../../../lib/context/user';
 import { useCartContext } from '../../../lib/context/cart';
 import { useAwaitQuery } from '../../../lib/hooks/useAwaitQuery';
+import { useCreateSignIn } from './useCreateSignIn';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 import { retrieveCartId } from '../../store/actions/cart';
@@ -61,8 +62,8 @@ export const useCreateAccount = props => {
         }
     );
 
-    const [signIn, { error: signInError }] = useMutation(signInMutation, {
-        fetchPolicy: 'no-cache'
+    const [signIn, { error: signInError }] = useCreateSignIn({
+        signInMutation: signInMutation
     });
 
     const fetchUserDetails = useAwaitQuery(customerQuery);
