@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Form, Text } from 'informed';
 
-import { runQuery, useLazyQuery } from '@apollo/react-hooks';
+import { runQuery, useLazyQuery } from '@apollo/client';
 import { useAutocomplete } from '../../../talons/SearchBar';
 import createTestInstance from '../../../util/createTestInstance';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const queryResult = {
         data: null,

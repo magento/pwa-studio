@@ -7,6 +7,14 @@ exports[`Should return correct shape 1`] = `
   <div
     className="credit_card_root"
   >
+    <FormError
+      classes={
+        Object {
+          "root": "formErrorContainer",
+        }
+      }
+      errors={Array []}
+    />
     <div
       className="dropin_root"
     >
@@ -93,10 +101,10 @@ exports[`Should return correct shape 1`] = `
       <div
         classes={
           Object {
-            "root": "state",
+            "root": "region",
           }
         }
-        field="state"
+        initialValue="sample region"
         validate={[Function]}
       >
         Region Component

@@ -1,10 +1,34 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useAppContext } from '../../../../context/app';
 import { useCartContext } from '../../../../context/cart';
 import { findMatchingVariant } from '../../../../util/findMatchingProductVariant';
 
+/**
+ * This talon contains logic for a product edit form.
+ * It performs effects and returns data for rendering the component inside a modal container.
+ *
+ * This talon performs the following effects:
+ *
+ * - Manage the updating state of the cart while form data is being saved
+ * - Set the variant price on a product depending on the product's options
+ *
+ * @function
+ *
+ * @param {Object} props
+ * @param {Object} props.cartItem The cart item to configure on the form
+ * @param {GraphQLAST} props.getConfigurableOptionsQuery GraphQL query to get the configurable options for a product.
+ * @param {function} props.setIsCartUpdating Function for setting the updating state for the shopping cart.
+ * @param {function} props.setVariantPrice Function for setting the variant price on a product.
+ * @param {GraphQLAST} props.updateConfigurableOptionsMutation GraphQL mutation for updating the configurable options for a product.
+ * @param {GraphQLAST} props.updateQuantityMutation GraphQL mutation for updating the quantity of a product in a cart.
+ *
+ * @return {ProductFormTalonProps}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
+ */
 export const useProductForm = props => {
     const {
         cartItem,
@@ -28,6 +52,7 @@ export const useProductForm = props => {
             loading: updateQuantityLoading
         }
     ] = useMutation(updateQuantityMutation);
+
     const [
         updateConfigurableOptions,
         {
@@ -154,12 +179,37 @@ export const useProductForm = props => {
         ]
     );
 
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['updateQuantityMutation', updateQuantityError],
+                ['updateConfigurableOptionsMutation', updateConfigurableError]
+            ]),
+        [updateConfigurableError, updateQuantityError]
+    );
+
     return {
         configItem,
-        formErrors: [updateConfigurableError, updateQuantityError],
+        errors,
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,
         isSaving
     };
 };
+
+/** JSDocs type definitions */
+
+/**
+ * Object type returned by the {@link useProductForm} talon.
+ * It provides props data for a product form UI component inside a modal.
+ *
+ * @typedef {Object} ProductFormTalonProps
+ *
+ * @property {Object} configItem Cart item to configure
+ * @property {Array<Error>} formErrors An array of form errors resulting from a configuration or quantity value
+ * @property {function} handleOptionSelection A callback function handling an option selection event
+ * @property {function} handleSubmit A callback function for handling form submission
+ * @property {boolean} isLoading True if the form is loading data. False otherwise.
+ * @property {boolean} isSaving True if the form is saving data. False otherwise.
+ */

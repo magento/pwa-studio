@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { usePagination, useSort } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
@@ -45,15 +45,7 @@ const Category = props => {
     const previousSearch = useRef(search);
 
     // Get "allowed" filters by intersection of schema and aggregations
-    const { data: introspectionData, error: introspectionError } = useQuery(
-        FILTER_INTROSPECTION
-    );
-
-    useEffect(() => {
-        if (introspectionError) {
-            console.error(introspectionError);
-        }
-    }, [introspectionError]);
+    const { data: introspectionData } = useQuery(FILTER_INTROSPECTION);
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
@@ -92,7 +84,6 @@ const Category = props => {
                 currentPage: Number(currentPage),
                 id: Number(id),
                 filters: newFilters,
-                onServer: false,
                 pageSize: Number(pageSize),
                 sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
             }

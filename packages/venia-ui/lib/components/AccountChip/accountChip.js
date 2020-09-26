@@ -1,6 +1,7 @@
 import React from 'react';
 import { bool, shape, string } from 'prop-types';
 import { Loader, User as AccountIcon } from 'react-feather';
+import { useIntl } from 'react-intl';
 
 import { useAccountChip } from '@magento/peregrine/lib/talons/AccountChip/useAccountChip';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -27,13 +28,17 @@ const AccountChip = props => {
     const { currentUser, isLoadingUserName, isUserSignedIn } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const { formatMessage } = useIntl();
 
     let chipText;
     if (!isUserSignedIn) {
         chipText = fallbackText;
     } else {
         if (!isLoadingUserName) {
-            chipText = `Hi, ${currentUser.firstname}`;
+            chipText = formatMessage(
+                { id: 'Hi, {name}' },
+                { name: currentUser.firstname }
+            );
         } else if (shouldIndicateLoading) {
             chipText = <Icon classes={{ icon: classes.loader }} src={Loader} />;
         } else {

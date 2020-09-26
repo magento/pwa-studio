@@ -15,6 +15,7 @@ import { mergeClasses } from '../../../classify';
 import creditCardPaymentOperations from './creditCard.gql';
 
 import defaultClasses from './creditCard.css';
+import FormError from '../../FormError';
 
 const STEP_DESCRIPTIONS = [
     'Loading Payment',
@@ -46,13 +47,13 @@ const CreditCard = props => {
     });
 
     const {
+        errors,
         shouldRequestPaymentNonce,
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady,
         isBillingAddressSame,
         isLoading,
-        errors,
         /**
          * `stepNumber` depicts the state of the process flow in credit card
          * payment flow.
@@ -90,7 +91,7 @@ const CreditCard = props => {
             'street1',
             'street2',
             'city',
-            'state',
+            'region',
             'postal_code',
             'phone_number'
         ].reduce((acc, fieldName) => {
@@ -99,22 +100,6 @@ const CreditCard = props => {
             return acc;
         }, {});
     }, [classes]);
-
-    const errorMessage = useMemo(() => {
-        if (errors.length) {
-            return (
-                <div className={classes.errors_container}>
-                    {errors.map(error => (
-                        <span className={classes.error} key={error}>
-                            {error}
-                        </span>
-                    ))}
-                </div>
-            );
-        } else {
-            return null;
-        }
-    }, [errors, classes.error, classes.errors_container]);
 
     /**
      * These 2 functions are wrappers around the `isRequired` function
@@ -148,6 +133,10 @@ const CreditCard = props => {
     return (
         <div className={classes.root}>
             <div className={creditCardComponentClassName}>
+                <FormError
+                    classes={{ root: classes.formErrorContainer }}
+                    errors={Array.from(errors.values())}
+                />
                 <div className={classes.dropin_root}>
                     <BrainTreeDropin
                         onError={onPaymentError}
@@ -219,9 +208,8 @@ const CreditCard = props => {
                         />
                     </Field>
                     <Region
-                        field="state"
-                        classes={fieldClasses.state}
-                        initialValue={initialValues.state}
+                        classes={fieldClasses.region}
+                        initialValue={initialValues.region}
                         validate={isFieldRequired}
                     />
                     <Field
@@ -245,7 +233,6 @@ const CreditCard = props => {
                         />
                     </Field>
                 </div>
-                {errorMessage}
             </div>
             {loadingIndicator}
         </div>
@@ -262,7 +249,7 @@ CreditCard.propTypes = {
         first_name: string,
         last_name: string,
         city: string,
-        state: string,
+        region: string,
         postal_code: string,
         phone_number: string,
         country: string,

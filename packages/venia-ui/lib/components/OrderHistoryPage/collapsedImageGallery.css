@@ -1,0 +1,15 @@
+.root {
+    align-items: center;
+    column-gap: 0.25rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: 100%;
+    justify-items: center;
+    padding: 0 0.25rem;
+}
+
+.remainderCount {
+    color: rgb(var(--venia-global-color-text-hint));
+    font-size: var(--venia-typography-body-S-fontSize);
+    justify-self: center;
+}

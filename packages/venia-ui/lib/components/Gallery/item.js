@@ -19,9 +19,6 @@ const IMAGE_WIDTHS = new Map()
     .set(640, IMAGE_WIDTH)
     .set(UNCONSTRAINED_SIZE_KEY, 840);
 
-// TODO: get productUrlSuffix from graphql when it is ready
-const productUrlSuffix = '.html';
-
 const ItemPlaceholder = ({ classes }) => (
     <div className={classes.root_pending}>
         <div className={classes.images_pending}>
@@ -48,8 +45,8 @@ const GalleryItem = props => {
         return <ItemPlaceholder classes={classes} />;
     }
 
-    const { name, price, small_image, url_key } = item;
-    const productLink = resourceUrl(`/${url_key}${productUrlSuffix}`);
+    const { name, price, small_image, url_key, url_suffix } = item;
+    const productLink = resourceUrl(`/${url_key}${url_suffix}`);
 
     return (
         <div className={classes.root}>

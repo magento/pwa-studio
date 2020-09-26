@@ -1,6 +1,7 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { Search as SearchIcon } from 'react-feather';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import Icon from '../Icon';
 
@@ -16,15 +17,21 @@ const SearchTrigger = props => {
     const { handleClick } = talonProps;
     const classes = mergeClasses(defaultClasses, props.classes);
     const searchClass = active ? classes.open : classes.root;
+    const { formatMessage } = useIntl();
 
     return (
         <button
             className={searchClass}
-            aria-label={'Search'}
+            aria-label={formatMessage({
+                id: 'searchTrigger.ariaLabel',
+                defaultMessage: 'Search'
+            })}
             onClick={handleClick}
         >
             <Icon src={SearchIcon} />
-            <span className={classes.label}>{'Search'}</span>
+            <span className={classes.label}>
+                <FormattedMessage id={'Search'} />
+            </span>
         </button>
     );
 };

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 /**
  * WARNING: This fragment can cause slowdowns on the network request because it

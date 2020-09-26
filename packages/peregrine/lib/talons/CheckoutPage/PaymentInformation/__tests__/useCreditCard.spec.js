@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 import { useFormState } from 'informed';
 
 import createTestInstance from '../../../../util/createTestInstance';
@@ -120,7 +120,7 @@ const mutations = {
     setCreditCardDetailsOnCartMutation
 };
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useQuery: jest.fn(),
         useApolloClient: jest.fn(),
@@ -258,16 +258,16 @@ test('Shuold call onError when payment nonce generation errored out', () => {
 });
 
 test('Should return errors from billing address and payment method mutations', () => {
+    const billingResultError = new Error('some billing address mutation error');
+    const creditCardResultError = new Error(
+        'some payment method mutation error'
+    );
     const billingMutationResultMock = [
         () => {},
         {
             loading: false,
             called: true,
-            error: {
-                graphQLErrors: [
-                    { message: 'some billing address mutation error' }
-                ]
-            }
+            error: billingResultError
         }
     ];
     const ccMutationResultMock = [
@@ -275,11 +275,7 @@ test('Should return errors from billing address and payment method mutations', (
         {
             loading: false,
             called: true,
-            error: {
-                graphQLErrors: [
-                    { message: 'some payment method mutation error' }
-                ]
-            }
+            error: creditCardResultError
         }
     ];
     setBillingAddressMutationResult
@@ -299,9 +295,12 @@ test('Should return errors from billing address and payment method mutations', (
         resetShouldSubmit: () => {}
     });
 
-    expect(talonProps.errors.length).toBe(2);
-    expect(talonProps.errors).toContain('some billing address mutation error');
-    expect(talonProps.errors).toContain('some payment method mutation error');
+    expect(talonProps.errors.get('setCreditCardDetailsOnCartMutation')).toEqual(
+        creditCardResultError
+    );
+    expect(talonProps.errors.get('setBillingAddressMutation')).toEqual(
+        billingResultError
+    );
 });
 
 test('Should return isBillingAddress and billingAddress from cache as initialValues', () => {
@@ -412,7 +411,7 @@ describe('Testing payment nonce request workflow', () => {
             street1: 'test value',
             street2: 'test value',
             city: 'test value',
-            state: 'test value',
+            region: 'test value',
             postalCode: 'test value',
             phoneNumber: 'test value'
         };

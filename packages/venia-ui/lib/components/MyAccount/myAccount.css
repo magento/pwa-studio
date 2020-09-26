@@ -1,6 +1,5 @@
 .root {
     display: grid;
     grid-auto-flow: row;
-    padding: 1.5rem;
     row-gap: 1.5rem;
 }

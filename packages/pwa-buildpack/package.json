@@ -29,6 +29,7 @@
     "@babel/core": "~7.8.7",
     "@magento/directive-parser": "~0.1.7",
     "@magento/upward-js": "~4.0.2",
+    "@pmmmwh/react-refresh-webpack-plugin": "~0.4.1",
     "apicache": "~1.4.0",
     "boxen": "~3.0.0",
     "camelspace": "~1.0.0",
@@ -51,6 +52,7 @@
     "klaw": "~3.0.0",
     "lodash": "~4.17.11",
     "memfs": "~3.1.2",
+    "merge": "~1.2.1",
     "micromatch": "~4.0.2",
     "node-fetch": "~2.3.0",
     "pertain": "~0.2.0",
@@ -63,6 +65,7 @@
     "webpack-assets-manifest": "~3.1.1",
     "webpack-inject-plugin": "~1.5.3",
     "webpack-node-externals": "~1.7.2",
+    "webpack-virtual-modules": "~0.3.1",
     "word-wrap": "~1.2.3",
     "write-file-webpack-plugin": "~4.5.0",
     "yargs": "~13.2.2"

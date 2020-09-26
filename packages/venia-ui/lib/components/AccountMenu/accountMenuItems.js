@@ -1,43 +1,40 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { func, shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { Link } from '@magento/venia-drivers';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useAccountMenuItems } from '@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems';
 
 import defaultClasses from './accountMenuItems.css';
 
-const MENU_ITEMS = [
-    { name: 'Order History', url: '' },
-    { name: 'Store Credit & Gift Cards', url: '' },
-    { name: 'Favorites Lists', url: '' },
-    { name: 'Address Book', url: '' },
-    { name: 'Saved Payments', url: '' },
-    { name: 'Communications', url: '' },
-    { name: 'Account Information', url: '' }
-];
-
 const AccountMenuItems = props => {
-    const { handleSignOut } = props;
+    const { onSignOut } = props;
+
+    const talonProps = useAccountMenuItems({ onSignOut });
+    const { handleSignOut, menuItems } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const menuItems = MENU_ITEMS.map(item => {
+    const menu = menuItems.map(item => {
         return (
-            <Link className={classes.link} to={item.url} key={item.name}>
-                {item.name}
+            <Link className={classes.link} key={item.name} to={item.url}>
+                <FormattedMessage id={item.id} />
             </Link>
         );
     });
 
     return (
-        <Fragment>
-            {menuItems}
+        <div className={classes.root}>
+            {menu}
             <button
                 className={classes.signOut}
                 onClick={handleSignOut}
                 type="button"
-            >{`Sign Out`}</button>
-        </Fragment>
+            >
+                <FormattedMessage id={`Sign Out`} />
+            </button>
+        </div>
     );
 };
 
@@ -48,5 +45,5 @@ AccountMenuItems.propTypes = {
         link: string,
         signOut: string
     }),
-    handleSignOut: func
+    onSignOut: func
 };
