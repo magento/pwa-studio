@@ -10,8 +10,8 @@
     "@magento/venia-drivers": "./lib/drivers"
   },
   "files": [
-    "{lib,venia-static,targets,templates}/*",
-    "{lib,venia-static,targets,templates}/**/*",
+    "{lib,venia-static,targets,templates,i18n}/*",
+    "{lib,venia-static,targets,templates,i18n}/**/*",
     "upward.yml",
     "CHANGELOG.md",
     "LICENSE_AFL.txt",
