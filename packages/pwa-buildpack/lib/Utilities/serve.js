@@ -9,7 +9,7 @@ module.exports = async function serve(dirname) {
     }
 
     const prettyLogger = require('../util/pretty-logger');
-    const addImgOptMiddleware = require('./addImgOptMiddleware');
+
     const stagingServerSettings = config.section('stagingServer');
 
     process.chdir(path.join(dirname, 'dist'));
@@ -23,13 +23,7 @@ module.exports = async function serve(dirname) {
         config.section('upwardJs'),
         stagingServerSettings, // overrides upward options
         {
-            env: process.env,
-            before(app) {
-                addImgOptMiddleware(app, {
-                    ...config.section('imageOptimizing'),
-                    ...config.section('imageService')
-                });
-            }
+            env: process.env
         }
     );
 

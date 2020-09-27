@@ -15,7 +15,6 @@ const webpack = require('webpack');
 const errorhandler = require('errorhandler');
 const { version } = require('../../package.json');
 const UpwardDevServerPlugin = require('./plugins/UpwardDevServerPlugin');
-const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
 // We only need the HTTP server to detect if the host is SSL or not.
 const HttpsServer = require('https').Server;
@@ -27,8 +26,6 @@ const PWADevServer = {
         const {
             devServer = {},
             customOrigin = {},
-            imageService = {},
-            imageOptimizing = {},
             graphqlPlayground,
             upwardPath = 'upward.yml'
         } = devServerConfig;
@@ -101,12 +98,6 @@ const PWADevServer = {
                 });
                 errorhandler.title = `⚠️ Error in PWADevServer v${version}`;
                 app.use(errorhandler());
-            },
-            before(app) {
-                addImgOptMiddleware(app, {
-                    ...imageService,
-                    ...imageOptimizing
-                });
             }
         };
         if (customOrigin.enabled) {
@@ -164,10 +155,8 @@ const PWADevServer = {
 
         if (graphqlPlayground) {
             const endpoint = '/graphql';
-            const oldBefore = webpackDevServerOptions.before;
 
             webpackDevServerOptions.before = (app, server) => {
-                oldBefore(app, server);
                 let middleware;
 
                 const gatheringQueryTabs = new Promise((resolve, reject) => {
