@@ -45,7 +45,7 @@ const Suggestions = props => {
             <h2 className={classes.heading}>
                 <span>
                     <FormattedMessage
-                        id={'suggestions.productSuggestionsText'}
+                        id={'searchBar.heading'}
                         defaultMessage={'Product Suggestions'}
                     />
                 </span>

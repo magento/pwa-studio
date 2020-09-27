@@ -23,14 +23,17 @@ const SearchTrigger = props => {
         <button
             className={searchClass}
             aria-label={formatMessage({
-                id: 'searchTrigger.ariaLabel',
+                id: 'searchTrigger.search',
                 defaultMessage: 'Search'
             })}
             onClick={handleClick}
         >
             <Icon src={SearchIcon} />
             <span className={classes.label}>
-                <FormattedMessage id={'Search'} />
+                <FormattedMessage
+                    id={'searchTrigger.search'}
+                    defaultMessage={'Search'}
+                />
             </span>
         </button>
     );

@@ -23,8 +23,11 @@ const SuggestedCategory = props => {
             <strong className={classes.value}>{value}</strong>
             <span className={classes.label}>
                 <FormattedMessage
-                    id={' in {label}'}
-                    values={{ label: label }}
+                    id={'searchBar.label'}
+                    defaultMessage={' in category'}
+                    values={{
+                        label
+                    }}
                 />
             </span>
         </Link>
