@@ -93,12 +93,25 @@ function remotelyResolveRoute(opts) {
     }
 }
 
+const availableStoreViews = AVAILABLE_STORE_VIEWS;
+
 /**
  * @description Calls remote endpoints to see if anything can handle this route.
  * @param {{ route: string, apiBase: string, store: ?string }} opts
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
+    const storeCodes = availableStoreViews.map(store => store.code);
+    let route = opts.route;
+
+    storeCodes.forEach(function(storeCode) {
+        const path = '/' + storeCode.toLowerCase();
+        if (route.startsWith(path) || route === path) {
+            route = route.substring(path.length, route.length);
+        }
+    });
+    route = route === '' ? '/' : route;
+
     const query = `query ResolveURL($url: String!) {
         urlResolver(url: $url) {
             type
@@ -110,7 +123,7 @@ function fetchRoute(opts) {
 
     const url = new URL('/graphql', opts.apiBase);
     url.searchParams.set('query', query);
-    url.searchParams.set('variables', JSON.stringify({ url: opts.route }));
+    url.searchParams.set('variables', JSON.stringify({ url: route }));
     url.searchParams.set('operationName', 'ResolveURL');
 
     const headers = {
