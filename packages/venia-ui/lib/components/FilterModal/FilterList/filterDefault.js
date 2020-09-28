@@ -35,7 +35,8 @@ FilterDefault.propTypes = {
     group: string,
     isSelected: bool,
     item: shape({
-        label: string
-    }),
+        label: string.isRequired,
+        value_index: string.isRequired
+    }).isRequired,
     label: string
 };
