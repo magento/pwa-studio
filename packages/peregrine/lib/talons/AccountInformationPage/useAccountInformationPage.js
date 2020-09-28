@@ -63,6 +63,12 @@ export const useAccountInformationPage = props => {
     const handleSubmit = useCallback(
         async ({ email, firstname, lastname, password, newPassword }) => {
             try {
+                email = email.trim();
+                firstname = firstname.trim();
+                lastname = lastname.trim();
+                password = password.trim();
+                newPassword = newPassword ? newPassword.trim() : newPassword;
+
                 if (
                     initialValues.customer.email !== email ||
                     initialValues.customer.firstname !== firstname ||
