@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { func, number, string } from 'prop-types';
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
@@ -11,6 +12,7 @@ import defaultClasses from './quantity.css';
 
 export const QuantityFields = props => {
     const { initialValue, itemId, label, min, onChange } = props;
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
 
@@ -35,7 +37,10 @@ export const QuantityFields = props => {
                 {label}
             </label>
             <button
-                aria-label={'Decrease Quantity'}
+                aria-label={formatMessage({
+                    id: 'quantity.buttonDecrement',
+                    defaultMessage: 'Decrease Quantity'
+                })}
                 className={classes.button_decrement}
                 disabled={isDecrementDisabled}
                 onClick={handleDecrement}
@@ -44,7 +49,10 @@ export const QuantityFields = props => {
                 <Icon classes={iconClasses} src={MinusIcon} size={22} />
             </button>
             <TextInput
-                aria-label="Item Quantity"
+                aria-label={formatMessage({
+                    id: 'quantity.input',
+                    defaultMessage: 'Item Quantity'
+                })}
                 classes={{ input: classes.input }}
                 field="quantity"
                 id={itemId}
@@ -55,7 +63,10 @@ export const QuantityFields = props => {
                 pattern="[0-9]*"
             />
             <button
-                aria-label={'Increase Quantity'}
+                aria-label={formatMessage({
+                    id: 'quantity.buttonIncrement',
+                    defaultMessage: 'Increase Quantity'
+                })}
                 className={classes.button_increment}
                 disabled={isIncrementDisabled}
                 onClick={handleIncrement}

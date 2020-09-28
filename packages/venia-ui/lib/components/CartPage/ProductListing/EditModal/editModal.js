@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { X as CloseIcon } from 'react-feather';
 import { useEditModal } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useEditModal';
 
@@ -50,7 +51,12 @@ const EditModal = props => {
         <Portal>
             <aside className={rootClass}>
                 <div className={classes.header}>
-                    <span className={classes.headerText}>Edit Item</span>
+                    <span className={classes.headerText}>
+                        <FormattedMessage
+                            id={'editModal.headerText'}
+                            defaultMessage={'Edit Item'}
+                        />
+                    </span>
                     <button
                         className={classes.closeButton}
                         onClick={handleClose}
