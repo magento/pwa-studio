@@ -20,7 +20,8 @@ jest.mock('@apollo/client', () => {
     const useQuery = jest.fn().mockReturnValue({
         data: {
             storeConfig: {
-                code: 'store2'
+                code: 'store2',
+                store_name: 'Store 2'
             },
             availableStores: [
                 {

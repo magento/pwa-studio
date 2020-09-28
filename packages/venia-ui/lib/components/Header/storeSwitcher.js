@@ -17,6 +17,7 @@ const StoreSwitcher = props => {
 
     const {
         handleSwitchStore,
+        currentStoreName,
         availableStores,
         storeMenuRef,
         storeMenuTriggerRef,
@@ -24,33 +25,25 @@ const StoreSwitcher = props => {
         handleTriggerClick
     } = talonProps;
 
+    console.log(currentStoreName);
+
     const classes = mergeClasses(defaultClasses, props.classes);
     const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;
 
-    if (!availableStores || Object.keys(availableStores).length === 1)
-        return null;
+    if (!availableStores || availableStores.size <= 1) return null;
 
-    let currentStoreName = null;
+    const stores = [];
 
-    const stores = Object.keys(availableStores).map(storeCode => {
-        const isActive = availableStores[storeCode].is_current;
-        const storeName = availableStores[storeCode].storeName;
-
-        const switcherItem = {
-            label: storeName,
-            code: storeCode
-        };
-
-        if (isActive) {
-            currentStoreName = storeName;
-        }
-
-        return (
-            <li key={storeCode} className={classes.menuItem}>
+    availableStores.forEach((store, code) => {
+        stores.push(
+            <li key={code} className={classes.menuItem}>
                 <SwitcherItem
-                    active={isActive}
+                    active={store.isCurrent}
                     onClick={handleSwitchStore}
-                    switcherItem={switcherItem}
+                    switcherItem={{
+                        label: store.storeName,
+                        code: code
+                    }}
                 />
             </li>
         );

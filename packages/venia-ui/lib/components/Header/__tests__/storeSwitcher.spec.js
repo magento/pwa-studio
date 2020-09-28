@@ -12,16 +12,11 @@ jest.mock('@magento/venia-ui/lib/classify');
 
 const talonProps = {
     handleSwitchStore: jest.fn(),
-    availableStores: {
-        code1: {
-            storeName: 'Store 1',
-            is_current: false
-        },
-        code2: {
-            storeName: 'Store 2',
-            is_current: true
-        }
-    },
+    availableStores: new Map([
+        ['Store 1', { storeName: 'Store 1', isCurrent: false }],
+        ['Store 2', { storeName: 'Store 2', isCurrent: true }]
+    ]),
+    currentStoreName: 'Store 2',
     storeMenuRef: {},
     storeMenuTriggerRef: {},
     storeMenuIsOpen: false,
@@ -42,12 +37,10 @@ test('renders the correct tree', () => {
 test('does not render StoreSwitcher when there is only one available store', () => {
     useStoreSwitcher.mockReturnValueOnce({
         ...talonProps,
-        availableStores: {
-            code1: {
-                storeName: 'Store 1',
-                is_current: true
-            }
-        }
+        availableStores: new Map([
+            ['Store 1', { storeName: 'Store 1', isCurrent: false }]
+        ]),
+        currentStoreName: 'Store 1'
     });
     const tree = createTestInstance(<StoreSwitcher {...storeSwitcherProps} />);
 

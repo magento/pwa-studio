@@ -3,12 +3,8 @@ import { gql } from '@apollo/client';
 export const GET_STORE_CONFIG_DATA = gql`
     query getStoreConfigData {
         storeConfig {
-            code
-            copyright
-            default_display_currency_code
-            grid_per_page
             id
-            locale
+            code
             store_name
         }
     }
