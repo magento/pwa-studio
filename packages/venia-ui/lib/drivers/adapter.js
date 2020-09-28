@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { func, shape, string } from 'prop-types';
 import { CachePersistor } from 'apollo-cache-persist';
 import { ApolloProvider, createHttpLink } from '@apollo/client';
 import { ApolloClient } from '@apollo/client/core';
 import { InMemoryCache } from '@apollo/client/cache';
 import { Provider as ReduxProvider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
 import resolvers from '../resolvers';
@@ -89,16 +89,52 @@ const VeniaAdapter = props => {
         return null;
     }
 
+    let storeCodeRouteHandler = '';
     const browserRouterProps = {};
     if (process.env.USE_STORE_CODE_IN_URL) {
         const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
         browserRouterProps.basename = `/${storeCode}`;
+        const storeCodes = [];
+        const storeCurrencies = {};
+        if (
+            process.env.USE_STORE_CODE_IN_URL &&
+            Array.isArray(AVAILABLE_STORE_VIEWS)
+        ) {
+            AVAILABLE_STORE_VIEWS.forEach((store) => {
+                storeCodes.push(store.code);
+                storeCurrencies[store.code] = store.default_display_currency_code;
+            });
+        }
+
+        /**
+         * The current store code won't be matched as it's included as the basename, if we match another store
+         * we need to change the current store.
+         */
+        storeCodeRouteHandler = <Switch>
+            <Route path={`/:storeCode(${storeCodes.join('|')})?`}>
+                {({ match }) => {
+                    if (match.params.storeCode && storeCodes.includes(match.params.storeCode)) {
+                        storage.setItem('store_view_code', match.params.storeCode);
+                        storage.setItem('store_view_currency', storeCurrencies[match.params.storeCode]);
+
+                        /**
+                         * We cannot dynamically change the `basename` after initialization, so we have to reload the
+                         * page.
+                         */
+                        window.location.reload();
+                    }
+                }}
+            </Route>
+        </Switch>;
     }
 
     return (
         <ApolloProvider client={apolloClient}>
             <ReduxProvider store={store}>
-                <BrowserRouter {...browserRouterProps}>{children}</BrowserRouter>
+                <BrowserRouter {...browserRouterProps}>
+                    {storeCodeRouteHandler}
+                    {children}
+                </BrowserRouter>
             </ReduxProvider>
         </ApolloProvider>
     );

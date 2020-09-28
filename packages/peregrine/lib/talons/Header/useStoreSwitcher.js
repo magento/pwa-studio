@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
