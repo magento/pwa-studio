@@ -7,13 +7,13 @@ import defaultClasses from './filterDefault.css';
 
 const FilterDefault = props => {
     const { classes: propsClasses, isSelected, item, ...restProps } = props;
-    const { label } = item || {};
+    const { label, value_index } = item || {};
     const classes = mergeClasses(defaultClasses, propsClasses);
 
     return (
         <Checkbox
             classes={classes.root}
-            field={label}
+            field={`${label}-${value_index}`}
             fieldState={{
                 value: isSelected
             }}
