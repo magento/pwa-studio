@@ -45,7 +45,7 @@ module.exports = targets => {
          * NOTE: This target does not include routes controlled by the Magento
          * admin, such as CMS or catalog URLs.
          *
-         * @member {tapable.SyncHook}
+         * @member {tapable.AsyncSeriesWaterfall}
          *
          * @see [Intercept function signature]{@link routesInterceptFunction}
          * @see [Route definition object]{@link RouteDefinition}
@@ -63,7 +63,7 @@ module.exports = targets => {
          *      return routesArray;
          *   })
          */
-        routes: new targets.types.SyncWaterfall(['routes'])
+        routes: new targets.types.AsyncSeriesWaterfall(['routes'])
     });
 };
 
