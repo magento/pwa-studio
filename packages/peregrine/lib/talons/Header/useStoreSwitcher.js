@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
@@ -61,6 +61,8 @@ export const useStoreSwitcher = props => {
             // Do nothing when store view is not present in available stores
             if (!availableStores[storeCode]) return;
 
+            const previousStoreCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
+
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
                 'store_view_currency',
@@ -68,7 +70,11 @@ export const useStoreSwitcher = props => {
             );
 
             // Refresh the page to re-trigger the queries once code/currency are saved in local storage.
-            history.go(0);
+            if (process.env.USE_STORE_CODE_IN_URL) {
+                window.location = window.location.pathname.replace(previousStoreCode, storeCode);
+            } else {
+                history.go(0);
+            }
         },
         [history, availableStores]
     );

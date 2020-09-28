@@ -6,6 +6,7 @@ import { ApolloClient } from '@apollo/client/core';
 import { InMemoryCache } from '@apollo/client/cache';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
 import resolvers from '../resolvers';
 import typePolicies from '../policies';
@@ -21,6 +22,8 @@ const preInstantiatedCache = new InMemoryCache({
     // POSSIBLE_TYPES is injected into the bundle by webpack at build time.
     possibleTypes: POSSIBLE_TYPES
 });
+
+const storage = new BrowserPersistence();
 
 /**
  * The counterpart to `@magento/venia-drivers` is an adapter that provides
@@ -86,10 +89,16 @@ const VeniaAdapter = props => {
         return null;
     }
 
+    const browserRouterProps = {};
+    if (process.env.USE_STORE_CODE_IN_URL) {
+        const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
+        browserRouterProps.basename = `/${storeCode}`;
+    }
+
     return (
         <ApolloProvider client={apolloClient}>
             <ReduxProvider store={store}>
-                <BrowserRouter>{children}</BrowserRouter>
+                <BrowserRouter {...browserRouterProps}>{children}</BrowserRouter>
             </ReduxProvider>
         </ApolloProvider>
     );
