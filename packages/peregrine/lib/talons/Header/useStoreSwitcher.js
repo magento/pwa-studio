@@ -70,7 +70,7 @@ export const useStoreSwitcher = props => {
             );
 
             // Refresh the page to re-trigger the queries once code/currency are saved in local storage.
-            if (process.env.USE_STORE_CODE_IN_URL) {
+            if (process.env.USE_STORE_CODE_IN_URL === 'true') {
                 window.location = window.location.pathname.replace(
                     previousStoreCode,
                     storeCode

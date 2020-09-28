@@ -91,13 +91,13 @@ const VeniaAdapter = props => {
 
     let storeCodeRouteHandler = '';
     const browserRouterProps = {};
-    if (process.env.USE_STORE_CODE_IN_URL) {
+    if (process.env.USE_STORE_CODE_IN_URL === 'true') {
         const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
         browserRouterProps.basename = `/${storeCode}`;
         const storeCodes = [];
         const storeCurrencies = {};
         if (
-            process.env.USE_STORE_CODE_IN_URL &&
+            process.env.USE_STORE_CODE_IN_URL === 'true' &&
             Array.isArray(AVAILABLE_STORE_VIEWS)
         ) {
             AVAILABLE_STORE_VIEWS.forEach(store => {
