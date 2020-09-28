@@ -16,6 +16,11 @@ export const useAccountInformationPage = props => {
 
     const [isUpdateMode, setIsUpdateMode] = useState(false);
 
+    // Use local state to determine whether to display errors or not.
+    // Could be replaced by a "reset mutation" function from apollo client.
+    // https://github.com/apollographql/apollo-feature-requests/issues/170
+    const [displayError, setDisplayError] = useState(false);
+
     const { data: accountInformationData, error: loadDataError } = useQuery(
         getCustomerInformationQuery,
         {
@@ -58,6 +63,10 @@ export const useAccountInformationPage = props => {
 
     const showUpdateMode = useCallback(() => {
         setIsUpdateMode(true);
+
+        // If there were errors from removing/updating the product, hide them
+        // when we open the modal.
+        setDisplayError(false);
     }, [setIsUpdateMode]);
 
     const handleSubmit = useCallback(
@@ -98,6 +107,9 @@ export const useAccountInformationPage = props => {
                 // After submission, close the form if there were no errors.
                 handleCancel(false);
             } catch {
+                // Make sure any errors from the mutation are displayed.
+                setDisplayError(true);
+
                 // we have an onError link that logs errors, and FormError
                 // already renders this error, so just return to avoid
                 // triggering the success callback
@@ -112,12 +124,13 @@ export const useAccountInformationPage = props => {
         ]
     );
 
+    const errors = displayError
+        ? [customerInformationUpdateError, customerPasswordChangeError]
+        : [];
+
     return {
         handleCancel,
-        formErrors: [
-            customerInformationUpdateError,
-            customerPasswordChangeError
-        ],
+        formErrors: errors,
         handleSubmit,
         handleChangePassword,
         initialValues,
