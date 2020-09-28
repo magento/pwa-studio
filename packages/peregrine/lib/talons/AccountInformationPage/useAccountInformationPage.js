@@ -64,7 +64,7 @@ export const useAccountInformationPage = props => {
     const showUpdateMode = useCallback(() => {
         setIsUpdateMode(true);
 
-        // If there were errors from removing/updating the product, hide them
+        // If there were errors from removing/updating info, hide them
         // when we open the modal.
         setDisplayError(false);
     }, [setIsUpdateMode]);
