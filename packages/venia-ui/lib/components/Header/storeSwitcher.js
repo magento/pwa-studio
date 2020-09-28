@@ -25,8 +25,6 @@ const StoreSwitcher = props => {
         handleTriggerClick
     } = talonProps;
 
-    console.log(currentStoreName);
-
     const classes = mergeClasses(defaultClasses, props.classes);
     const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;
 
