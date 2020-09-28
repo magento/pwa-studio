@@ -93,15 +93,13 @@ function remotelyResolveRoute(opts) {
     }
 }
 
-const availableStoreViews = AVAILABLE_STORE_VIEWS;
-
 /**
  * @description Calls remote endpoints to see if anything can handle this route.
  * @param {{ route: string, apiBase: string, store: ?string }} opts
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
-    const storeCodes = availableStoreViews.map(store => store.code);
+    const storeCodes = AVAILABLE_STORE_VIEWS.map(store => store.code);
     let route = opts.route;
 
     storeCodes.forEach(function(storeCode) {

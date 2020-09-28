@@ -61,7 +61,7 @@ export const useStoreSwitcher = props => {
             // Do nothing when store view is not present in available stores
             if (!availableStores[storeCode]) return;
 
-            const previousStoreCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
+            const previousStoreCode = storage.getItem('store_view_code');
 
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
@@ -71,7 +71,10 @@ export const useStoreSwitcher = props => {
 
             // Refresh the page to re-trigger the queries once code/currency are saved in local storage.
             if (process.env.USE_STORE_CODE_IN_URL) {
-                window.location = window.location.pathname.replace(previousStoreCode, storeCode);
+                window.location = window.location.pathname.replace(
+                    previousStoreCode,
+                    storeCode
+                );
             } else {
                 history.go(0);
             }
