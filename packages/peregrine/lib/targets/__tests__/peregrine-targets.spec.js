@@ -37,7 +37,7 @@ test('enables third parties to wrap talons', async () => {
     // sorry, buildModuleWith is slow. TODO: make it take less than a minute?
     jest.setTimeout(60000);
     const talonIntegratingDep = {
-        name: 'goose-app',
+        name: '@magento/venia-ui',
         declare() {},
         intercept(targets) {
             targets.of('@magento/peregrine').talons.tap(talons => {

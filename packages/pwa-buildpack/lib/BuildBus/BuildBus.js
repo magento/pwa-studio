@@ -196,12 +196,14 @@ class BuildBus extends Trackable {
             targetProvider.phase = phase;
             this.track('requireDep', { phase, dep });
 
+            const isLocalProject = dep.modulePath === this.context;
+
             if (this.targetProviders.has('@magento/pwa-buildpack')) {
                 const buildpackTarget = targetProvider.of(
                     '@magento/pwa-buildpack'
                 );
 
-                if (buildpackTarget.specialFeatures) {
+                if (buildpackTarget.specialFeatures && !isLocalProject) {
                     buildpackTarget.specialFeatures.tap(featuresByModule => {
                         featuresByModule[dep.name] = {
                             esModules: true,
