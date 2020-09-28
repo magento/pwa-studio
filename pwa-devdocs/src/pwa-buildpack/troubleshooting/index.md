@@ -22,6 +22,7 @@ Paste the result console output into the issue. Thank you!
 * [Webpack hangs for a long time before beginning compilation](#webpack-hangs)
 * [Browser cannot resolve the `.local.pwadev` site](#cannot-resolve-site)
 * [Browser does not trust the generated SSL certificate](#untrusted-ssl-cert)
+* [Error "Can't resolve _\<module path\>_" during build](#cant-resolve)
 
 ## Resolutions
 
@@ -94,6 +95,27 @@ Some users have suggested deleting the `devcert` folder to trigger certificate r
   ```text
 ${User}\AppData\Local\devcert
   ```
+
+**Error "Can't resolve _\<module path\>_" during build**{:#cant-resolve}
+
+Buildpack uses a customized algorithm to find the files that modules import.
+This error can happen for many reasons, so the first step is to get better error logs.
+
+Enable verbose logging and better stack traces for Buildpack by setting the environment variable `DEBUG` to `pwa-buildpack:MagentoResolver`.
+
+```
+DEBUG=pwa-buildpack:MagentoResolver yarn run build
+```
+
+If any other debug strings are active, add this one with a comma:
+
+```
+DEBUG=upward-js:*,pwa-buildpack:MagentoResolver yarn run build
+```
+
+{: .bs-callout .bs-callout-warning}
+Resolver debugging slows the build down noticeably. It is not recommended to leave
+it permanently enabled.
 
 [create an issue]: https://github.com/magento/pwa-buildpack/issues
 [Slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2/team/UAFV915FB/

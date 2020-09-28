@@ -17,7 +17,7 @@ describe('legacy functionality', () => {
                 paths: { root: 'fakeRoot' },
                 isEE: true
             })
-        ).resolves.toEqual({
+        ).resolves.toMatchObject({
             alias: {},
             modules: ['fakeRoot', 'node_modules'],
             mainFiles: ['index'],
@@ -41,7 +41,7 @@ describe('legacy functionality', () => {
                 paths: { root: 'fakeRoot' },
                 isEE: false
             })
-        ).resolves.toEqual({
+        ).resolves.toMatchObject({
             alias: {},
             modules: ['fakeRoot', 'node_modules'],
             mainFiles: ['index'],
@@ -117,4 +117,24 @@ test('uses *.ee.js or *.ce.js depending on isEE boolean', async () => {
     await expect(eeResolver.resolve('depModule1/someFeature')).resolves.toBe(
         path.resolve(context, 'node_modules/depModule1/someFeature.ee.js')
     );
+});
+
+test('passing an active debug instance causes better stack traces', async () => {
+    const debugLogger = jest.fn();
+    debugLogger.enabled = true;
+
+    const resolver = new MagentoResolver(
+        {
+            paths: {
+                root: context
+            }
+        },
+        debugLogger
+    );
+
+    await expect(resolver.resolve('depModule1')).resolves.toBe(
+        path.resolve(context, 'node_modules/depModule1/index.js')
+    );
+    await expect(resolver.resolve('./missing')).rejects.toThrowError();
+    expect(debugLogger.mock.calls).toMatchSnapshot();
 });

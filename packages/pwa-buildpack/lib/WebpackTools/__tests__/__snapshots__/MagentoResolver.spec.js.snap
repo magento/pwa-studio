@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`passing an active debug instance causes better stack traces 1`] = `
+Array [
+  Array [
+    "resolve './missing' in '/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext'",
+  ],
+  Array [
+    "  using description file: /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/package.json (relative path: .)",
+  ],
+  Array [
+    "    using description file: /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/package.json (relative path: ./missing)",
+  ],
+  Array [
+    "      no extension",
+  ],
+  Array [
+    "        /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/missing doesn't exist",
+  ],
+  Array [
+    "      .wasm",
+  ],
+  Array [
+    "        /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/missing.wasm doesn't exist",
+  ],
+  Array [
+    "      .mjs",
+  ],
+  Array [
+    "        /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/missing.mjs doesn't exist",
+  ],
+  Array [
+    "      .ce.js",
+  ],
+  Array [
+    "        /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/missing.ce.js doesn't exist",
+  ],
+  Array [
+    "      .js",
+  ],
+  Array [
+    "        /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/missing.js doesn't exist",
+  ],
+  Array [
+    "      .jsx",
+  ],
+  Array [
+    "        /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/missing.jsx doesn't exist",
+  ],
+  Array [
+    "      .json",
+  ],
+  Array [
+    "        /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/missing.json doesn't exist",
+  ],
+  Array [
+    "      .graphql",
+  ],
+  Array [
+    "        /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/missing.graphql doesn't exist",
+  ],
+  Array [
+    "      as directory",
+  ],
+  Array [
+    "        /Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/__tests__/__fixtures__/resolverContext/missing doesn't exist",
+  ],
+]
+`;
