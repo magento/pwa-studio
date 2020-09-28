@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
 
@@ -30,9 +31,8 @@ const GiftOptions = props => {
         toggleIncludeGiftReceiptFlag,
         toggleIncludePrintedCardFlag,
         updateGiftMessage
-    } = useGiftOptions({
-        ...GiftOptionsOperations
-    });
+    } = useGiftOptions({ ...GiftOptionsOperations });
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -42,7 +42,10 @@ const GiftOptions = props => {
                 <Checkbox
                     id="includeGiftReceipt"
                     field="includeGiftReceipt"
-                    label="Include gift receipt"
+                    label={formatMessage({
+                        id: 'giftOptions.includeGiftReceipt',
+                        defaultMessage: 'Include gift receipt'
+                    })}
                     fieldState={{
                         value: includeGiftReceipt
                     }}
@@ -53,8 +56,13 @@ const GiftOptions = props => {
                 <Checkbox
                     id="includePrintedCard"
                     field="includePrintedCard"
-                    label="Include printed card"
-                    fieldState={{ value: includePrintedCard }}
+                    label={formatMessage({
+                        id: 'giftOptions.includePrintedCard',
+                        defaultMessage: 'Include printed card'
+                    })}
+                    fieldState={{
+                        value: includePrintedCard
+                    }}
                     onClick={toggleIncludePrintedCardFlag}
                 />
             </ul>
@@ -63,7 +71,10 @@ const GiftOptions = props => {
                     <TextArea
                         id="cardMessage"
                         field="cardMessage"
-                        placeholder="Enter your message here"
+                        placeholder={formatMessage({
+                            id: 'giftOptions.cardMessage',
+                            defaultMessage: 'Enter your message here'
+                        })}
                         initialValue={giftMessage}
                         onChange={updateGiftMessage}
                     />
