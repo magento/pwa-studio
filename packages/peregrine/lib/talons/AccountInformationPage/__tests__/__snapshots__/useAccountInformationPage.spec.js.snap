@@ -2,10 +2,7 @@
 
 exports[`handleChangePassword sets shouldShowNewPassword to true 1`] = `
 Object {
-  "formErrors": Array [
-    undefined,
-    undefined,
-  ],
+  "formErrors": Array [],
   "handleCancel": [Function],
   "handleChangePassword": [Function],
   "handleSubmit": [Function],
@@ -50,10 +47,7 @@ Object {
 
 exports[`return correct shape 1`] = `
 Object {
-  "formErrors": Array [
-    undefined,
-    undefined,
-  ],
+  "formErrors": Array [],
   "handleCancel": [Function],
   "handleChangePassword": [Function],
   "handleSubmit": [Function],
@@ -76,10 +70,7 @@ Object {
 
 exports[`return correct shape while data is loading 1`] = `
 Object {
-  "formErrors": Array [
-    undefined,
-    undefined,
-  ],
+  "formErrors": Array [],
   "handleCancel": [Function],
   "handleChangePassword": [Function],
   "handleSubmit": [Function],
@@ -106,10 +97,7 @@ Object {
 
 exports[`showUpdateMode sets isUpdateMode to true 1`] = `
 Object {
-  "formErrors": Array [
-    undefined,
-    undefined,
-  ],
+  "formErrors": Array [],
   "handleCancel": [Function],
   "handleChangePassword": [Function],
   "handleSubmit": [Function],
