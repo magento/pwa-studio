@@ -47,6 +47,8 @@
     min-width: auto;
     min-height: auto;
     padding: 0;
+    text-align: left;
+    white-space: normal;
 }
 
 .addToCart:focus {

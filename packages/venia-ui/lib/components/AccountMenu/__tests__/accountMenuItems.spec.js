@@ -3,7 +3,6 @@ import { createTestInstance } from '@magento/peregrine';
 import { useAccountMenuItems } from '@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems';
 
 import AccountMenuItems from '../accountMenuItems';
-import { IntlProvider } from 'react-intl';
 
 jest.mock('@magento/venia-drivers', () => {
     const drivers = jest.requireActual('@magento/venia-drivers');
@@ -75,11 +74,7 @@ test('it renders correctly', () => {
     useAccountMenuItems.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <IntlProvider locale="en-US">
-            <AccountMenuItems {...props} />
-        </IntlProvider>
-    );
+    const instance = createTestInstance(<AccountMenuItems {...props} />);
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
