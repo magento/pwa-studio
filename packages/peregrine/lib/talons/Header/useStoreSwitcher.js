@@ -30,6 +30,7 @@ const mapAvailableOptions = (config, stores) => {
  * @param {*} props.getStoreConfig the store switcher data getStoreConfig
  *
  * @returns {Map}    talonProps.availableStores - Details about the available store views.
+ * @returns {String}    talonProps.currentStoreName - Name of the current store view.
  * @returns {Boolean}   talonProps.storeMenuIsOpen - Whether the menu that this trigger toggles is open or not.
  * @returns {Ref}       talonProps.storeMenuRef - A React ref to the menu that this trigger toggles.
  * @returns {Ref}       talonProps.storeMenuTriggerRef - A React ref to the trigger element itself.
