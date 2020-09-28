@@ -27,6 +27,9 @@ exports[`renders product details with base price and in stock 1`] = `
       SKU # SP-01
     </span>
     <span>
+      SKU #
+    </span>
+    <span>
       In stock
     </span>
   </div>
@@ -67,6 +70,9 @@ exports[`renders product details with unknown stock value 1`] = `
       SKU # SP-01
     </span>
     <span>
+      SKU #
+    </span>
+    <span>
       Unknown
     </span>
   </div>
@@ -105,6 +111,9 @@ exports[`renders product details with variant price and out of stock 1`] = `
   >
     <span>
       SKU # SP-01
+    </span>
+    <span>
+      SKU #
     </span>
     <span>
       Out of stock
