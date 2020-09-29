@@ -1,5 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
 
@@ -33,6 +34,8 @@ const SearchPage = props => {
         loading,
         openDrawer,
         pageControl,
+        searchCategory,
+        searchTerm,
         sortProps
     } = talonProps;
 
@@ -85,24 +88,41 @@ const SearchPage = props => {
     ) : null;
 
     const maybeSortContainer = totalCount ? (
-        <div className={classes.sortContainer}>
+        <span className={classes.sortContainer}>
             {'Items sorted by '}
             <span className={classes.sortText}>{currentSort.sortText}</span>
-        </div>
+        </span>
     ) : null;
+
+    const searchResultsHeading = searchTerm ? (
+        <FormattedMessage
+            id={'searchPage.searchTerm'}
+            values={{
+                highlight: chunks => (
+                    <span className={classes.headingHighlight}>{chunks}</span>
+                ),
+                category: searchCategory,
+                term: searchTerm
+            }}
+            defaultMessage={'Showing results:'}
+        />
+    ) : (
+        <FormattedMessage id={'searchPage.searchTermEmpty'} />
+    );
 
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
-                <div className={classes.totalPages}>
+                <span className={classes.totalPages}>
                     {`${totalCount} items`}
-                </div>
+                </span>
                 <div className={classes.headerButtons}>
                     {maybeFilterButtons}
                     {maybeSortButton}
                 </div>
                 {maybeSortContainer}
             </div>
+            <div className={classes.heading}>{searchResultsHeading}</div>
             {content}
             <Suspense fallback={null}>{maybeFilterModal}</Suspense>
         </article>
