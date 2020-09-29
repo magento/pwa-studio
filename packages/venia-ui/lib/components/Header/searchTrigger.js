@@ -15,7 +15,6 @@ const SearchTrigger = React.forwardRef((props, ref) => {
         onClick
     });
     const { handleClick } = talonProps;
-    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
