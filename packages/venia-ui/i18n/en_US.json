@@ -95,6 +95,8 @@
     "resetPassword.successMessage": "Your new password has been saved. Please use this password to sign into your Account.",
     "Returns": "Returns",
     "Search": "Search",
+    "searchPage.searchTerm": "Showing results for <highlight>{term}</highlight>{category, select, null {} other { in <highlight>{category}</highlight>}}:",
+    "searchPage.searchTermEmpty": "Showing all results:",
     "searchTrigger.ariaLabel": "Search",
     "Sign In": "Sign In",
     "signIn.createAccountText": "Create an Account",
