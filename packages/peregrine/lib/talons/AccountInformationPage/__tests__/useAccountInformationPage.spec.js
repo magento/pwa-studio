@@ -135,7 +135,8 @@ test('handleSubmit calls setCustomerInformationQuery', async () => {
     await handleSubmit({
         firstname: 'Updated',
         lastname: 'Name',
-        email: 'foobar@express.net'
+        email: 'foobar@express.net',
+        password: 'abc123'
     });
 
     expect(mockSetCustomerInformation).toHaveBeenCalled();
@@ -148,7 +149,7 @@ test('handleSubmit calls changeCustomerPassword if new password is provided', as
     const { handleSubmit } = talonProps;
 
     await handleSubmit({
-        firstname: 'Foo',
+        firstname: 'Updated',
         lastname: 'Bar',
         email: 'foobar@express.net',
         password: 'bar',
@@ -170,9 +171,10 @@ test('handleSubmit does not throw', async () => {
 
     expect(async () => {
         await handleSubmit({
-            firtname: 'Foo',
+            firstname: 'Updated',
             lastname: 'Bar',
-            email: 'foobar@express.net'
+            email: 'foobar@express.net',
+            password: 'abc123'
         });
     }).not.toThrow();
 

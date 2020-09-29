@@ -39,7 +39,7 @@ Object {
       "email": "foobar@express.net",
       "firstname": "Updated",
       "lastname": "Name",
-      "password": undefined,
+      "password": "abc123",
     },
   },
 }
