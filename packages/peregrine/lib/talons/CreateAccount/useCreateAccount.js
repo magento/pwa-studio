@@ -1,12 +1,13 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useApolloClient, useMutation } from '@apollo/client';
 
-import { useUserContext } from '../../../lib/context/user';
-import { useCartContext } from '../../../lib/context/cart';
-import { useAwaitQuery } from '../../../lib/hooks/useAwaitQuery';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import { useUserContext } from '../../context/user';
+import { useCartContext } from '../../context/cart';
+import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
+import DEFAULT_OPERATIONS from './createAccount.gql';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -26,17 +27,14 @@ import { retrieveCartId } from '../../store/actions/cart';
  */
 export const useCreateAccount = props => {
     const {
+        operations = DEFAULT_OPERATIONS,
         queries: { customerQuery, getCartDetailsQuery },
-        mutations: {
-            createAccountMutation,
-            createCartMutation,
-            signInMutation,
-            mergeCartsMutation
-        },
+        mutations: { createCartMutation, signInMutation, mergeCartsMutation },
         initialValues = {},
         onSubmit,
         onCancel
     } = props;
+    const { createAccountMutation } = operations;
     const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [

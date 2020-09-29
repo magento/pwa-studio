@@ -1,9 +1,10 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { useUserContext } from '../../../../lib/context/user';
-import { useCartContext } from '../../../../lib/context/cart';
-import { useAwaitQuery } from '../../../../lib/hooks/useAwaitQuery';
+import { useUserContext } from '../../../context/user';
+import { useCartContext } from '../../../context/cart';
+import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
+import DEFAULT_OPERATIONS from './createAccount.gql';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -26,11 +27,13 @@ import { useAwaitQuery } from '../../../../lib/hooks/useAwaitQuery';
  */
 export const useCreateAccount = props => {
     const {
-        queries: { createAccountQuery, customerQuery, getCartDetailsQuery },
+        operations = DEFAULT_OPERATIONS,
+        queries: { customerQuery, getCartDetailsQuery },
         mutations: { createCartMutation, signInMutation },
         initialValues = {},
         onSubmit
     } = props;
+    const { createAccountMutation } = operations;
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
@@ -43,7 +46,7 @@ export const useCreateAccount = props => {
     // For create account and sign in mutations, we don't want to cache any
     // personally identifiable information (PII). So we set fetchPolicy to 'no-cache'.
     const [createAccount, { error: createAccountError }] = useMutation(
-        createAccountQuery,
+        createAccountMutation,
         {
             fetchPolicy: 'no-cache'
         }
