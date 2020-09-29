@@ -8,10 +8,10 @@ const initialState = {
     drawer: null,
     hasBeenOffline: !navigator.onLine,
     isOnline: navigator.onLine,
+    isPageLoading: false,
     overlay: false,
-    searchOpen: false,
     pending: {},
-    isPageLoading: false
+    searchOpen: false
 };
 
 const reducerMap = {

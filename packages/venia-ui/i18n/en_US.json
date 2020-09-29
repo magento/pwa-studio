@@ -98,6 +98,8 @@
     "savedPaymentsPage.title": "Saved Payments - {store_name}",
     "savedPaymentsPage.subHeading": "Credit Cards saved here will be available during checkout.",
     "Search": "Search",
+    "searchPage.searchTerm": "Showing results for <highlight>{term}</highlight>{category, select, null {} other { in <highlight>{category}</highlight>}}:",
+    "searchPage.searchTermEmpty": "Showing all results:",
     "searchTrigger.ariaLabel": "Search",
     "Sign In": "Sign In",
     "signIn.createAccountText": "Create an Account",
