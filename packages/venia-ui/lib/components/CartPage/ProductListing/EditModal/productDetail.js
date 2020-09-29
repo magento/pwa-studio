@@ -58,7 +58,6 @@ const ProductDetail = props => {
             />
             <span className={classes.productName}>{name}</span>
             <div className={classes.stockRow}>
-                <span>{`SKU # ${sku}`}</span>
                 <span>
                     <FormattedMessage
                         id={'productDetail.skuNumber'}

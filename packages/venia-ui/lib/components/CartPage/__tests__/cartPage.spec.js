@@ -77,7 +77,9 @@ test('renders empty cart text (no adjustments, list or summary) if cart is empty
     );
 
     // Assert.
-    expect(document.getElementsByTagName('title')[0].innerHTML).toBe('Cart');
+    expect(document.getElementsByTagName('title')[0].innerHTML).toBe(
+        'Cart - Venia'
+    );
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
@@ -97,6 +99,8 @@ test('renders components if cart has items', () => {
     );
 
     // Assert.
-    expect(document.getElementsByTagName('title')[0].innerHTML).toBe('Cart');
+    expect(document.getElementsByTagName('title')[0].innerHTML).toBe(
+        'Cart - Venia'
+    );
     expect(instance.toJSON()).toMatchSnapshot();
 });

@@ -24,9 +24,6 @@ exports[`renders product details with base price and in stock 1`] = `
     className="stockRow"
   >
     <span>
-      SKU # SP-01
-    </span>
-    <span>
       SKU #
     </span>
     <span>
@@ -67,9 +64,6 @@ exports[`renders product details with unknown stock value 1`] = `
     className="stockRow"
   >
     <span>
-      SKU # SP-01
-    </span>
-    <span>
       SKU #
     </span>
     <span>
@@ -109,9 +103,6 @@ exports[`renders product details with variant price and out of stock 1`] = `
   <div
     className="stockRow"
   >
-    <span>
-      SKU # SP-01
-    </span>
     <span>
       SKU #
     </span>
