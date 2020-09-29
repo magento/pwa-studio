@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { object, shape, string } from 'prop-types';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { Price } from '@magento/peregrine';
@@ -12,6 +13,7 @@ import defaultClasses from './orderRow.css';
 
 const OrderRow = props => {
     const { order } = props;
+    const { formatMessage } = useIntl();
     const {
         invoices,
         items,
@@ -37,14 +39,28 @@ const OrderRow = props => {
 
     const hasInvoice = !!invoices.length;
     const hasShipment = !!shipments.length;
-    const derivedStatus =
-        status === 'Complete'
-            ? 'Delivered'
-            : hasShipment
-            ? 'Shipped'
-            : hasInvoice
-            ? 'Ready to ship'
-            : 'Processing';
+    let derivedStatus;
+    if (status === 'Complete') {
+        derivedStatus = formatMessage({
+            id: 'orderRow.deliveredText',
+            defaultMessage: 'Delivered'
+        });
+    } else if (hasShipment) {
+        derivedStatus = formatMessage({
+            id: 'orderRow.shippedText',
+            defaultMessage: 'Shipped'
+        });
+    } else if (hasInvoice) {
+        derivedStatus = formatMessage({
+            id: 'orderRow.readyToShipText',
+            defaultMessage: 'Ready to ship'
+        });
+    } else {
+        derivedStatus = formatMessage({
+            id: 'orderRow.processingText',
+            defaultMessage: 'Processing'
+        });
+    }
 
     const talonProps = useOrderRow();
     const { isOpen, handleContentToggle } = talonProps;
@@ -61,15 +77,30 @@ const OrderRow = props => {
     return (
         <li className={classes.root}>
             <div className={classes.orderNumberContainer}>
-                <span className={classes.orderNumberLabel}>{'Order #'}</span>
+                <span className={classes.orderNumberLabel}>
+                    <FormattedMessage
+                        id={'orderRow.orderNumberText'}
+                        defaultMessage={'Order #'}
+                    />
+                </span>
                 <span className={classes.orderNumber}>{orderNumber}</span>
             </div>
             <div className={classes.orderDateContainer}>
-                <span className={classes.orderDateLabel}>{'Order Date'}</span>
+                <span className={classes.orderDateLabel}>
+                    <FormattedMessage
+                        id={'orderRow.orderDateText'}
+                        defaultMessage={'Order Date'}
+                    />
+                </span>
                 <span className={classes.orderDate}>{formattedDate}</span>
             </div>
             <div className={classes.orderTotalContainer}>
-                <span className={classes.orderTotalLabel}>{'Order Total'}</span>
+                <span className={classes.orderTotalLabel}>
+                    <FormattedMessage
+                        id={'orderRow.orderTotalText'}
+                        defaultMessage={'Order Total'}
+                    />
+                </span>
                 <div className={classes.orderTotal}>
                     <Price currencyCode={currency} value={orderTotal} />
                 </div>
