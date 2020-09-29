@@ -5,13 +5,13 @@ import { useApolloClient, useMutation } from '@apollo/client';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 import { useUserContext } from '../../context/user';
-import SIGN_OUT_MUTATION from '../../gql/operations/signOut.graphql';
+import DEFAULT_OPERATIONS from './accountMenu.gql';
 
 /**
  * The useAccountMenu talon complements the AccountMenu component.
  *
  * @param {Object} props
- * @param {DocumentNode} props.mutations.signOutMutation - Mutation to be called for signout.
+ * @param {DocumentNode} props.operations.signOutMutation - Mutation to be called for signout.
  * @param {Boolean} props.accountMenuIsOpen - Boolean to notify if the account menu dropdown is open.
  * @param {Function} props.setAccountMenuIsOpen - Function to set the value of accountMenuIsOpen
  *
@@ -27,11 +27,11 @@ import SIGN_OUT_MUTATION from '../../gql/operations/signOut.graphql';
 
 export const useAccountMenu = props => {
     const {
-        mutations = DEFAULT_MUTATIONS,
         accountMenuIsOpen,
+        operations = DEFAULT_OPERATIONS,
         setAccountMenuIsOpen
     } = props;
-    const { signOut: signOutMutation } = mutations;
+    const { signOutMutation } = operations;
 
     const [view, setView] = useState('SIGNIN');
     const [username, setUsername] = useState('');
@@ -100,5 +100,3 @@ export const useAccountMenu = props => {
         view
     };
 };
-
-export const DEFAULT_MUTATIONS = { signOut: SIGN_OUT_MUTATION };

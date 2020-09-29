@@ -5,7 +5,7 @@ import { useApolloClient, useMutation } from '@apollo/client';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 import { useUserContext } from '../../context/user';
-import SIGN_OUT_MUTATION from '../../gql/operations/signOut.graphql';
+import DEFAULT_OPERATIONS from './authModal.gql';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -19,7 +19,7 @@ const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
  * @param {function} props.showMainMenu - callback that shows main menu view
  * @param {function} props.showMyAccount - callback that shows my account view
  * @param {function} props.showSignIn - callback that shows signin view
- * @param {DocumentNode} props.signOutMutation - mutation to call when signing out
+ * @param {DocumentNode} props.operations.signOutMutation - mutation to call when signing out
  * @param {string} props.view - string that represents the current view
  *
  * @return {{
@@ -36,7 +36,7 @@ const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 export const useAuthModal = props => {
     const {
         closeDrawer,
-        mutations = DEFAULT_MUTATIONS,
+        operations = DEFAULT_OPERATIONS,
         showCreateAccount,
         showForgotPassword,
         showMainMenu,
@@ -44,7 +44,7 @@ export const useAuthModal = props => {
         showSignIn,
         view
     } = props;
-    const { signOutMutation } = mutations;
+    const { signOutMutation } = operations;
 
     const apolloClient = useApolloClient();
     const [isSigningOut, setIsSigningOut] = useState(false);
@@ -107,8 +107,4 @@ export const useAuthModal = props => {
         showMyAccount,
         username
     };
-};
-
-export const DEFAULT_MUTATIONS = {
-    signOutMutation: SIGN_OUT_MUTATION
 };
