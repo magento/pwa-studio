@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/client';
 
+import DEFAULT_OPERATIONS from './categoryList.gql';
+
 /**
  * Returns props necessary to render a CategoryList component.
  *
@@ -10,9 +12,10 @@ import { useLazyQuery } from '@apollo/client';
  * @return {{ childCategories: array, error: object }}
  */
 export const useCategoryList = props => {
-    const { query, id } = props;
+    const { id, operations = DEFAULT_OPERATIONS } = props;
+    const { getCategoryListQuery } = operations;
 
-    const [runQuery, queryResponse] = useLazyQuery(query);
+    const [runQuery, queryResponse] = useLazyQuery(getCategoryListQuery);
     const { loading, error, data } = queryResponse;
 
     // Run the query immediately and every time id changes.
