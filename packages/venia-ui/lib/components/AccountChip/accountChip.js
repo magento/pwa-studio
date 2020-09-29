@@ -1,7 +1,7 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { bool, shape, string } from 'prop-types';
 import { Loader, User as AccountIcon } from 'react-feather';
-import { useIntl } from 'react-intl';
 
 import { useAccountChip } from '@magento/peregrine/lib/talons/AccountChip/useAccountChip';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -41,10 +41,7 @@ const AccountChip = props => {
     } else {
         if (!isLoadingUserName) {
             chipText = formatMessage(
-                {
-                    id: 'accountChip.greeting',
-                    defaultMessage: 'Hi, {name}'
-                },
+                { id: 'accountChip.chipText', defaultMessage: 'Hi' },
                 { name: currentUser.firstname }
             );
         } else if (shouldIndicateLoading) {

@@ -91,7 +91,14 @@ exports[`render closed with items 1`] = `
   <div
     className="content_hidden"
   >
-    <WishlistItems />
+    <WishlistItems
+      items={
+        Array [
+          "item1",
+          "item2",
+        ]
+      }
+    />
   </div>
 </div>
 `;

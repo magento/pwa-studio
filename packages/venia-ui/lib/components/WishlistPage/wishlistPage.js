@@ -1,4 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useWishlistPage } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistPage';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 
@@ -9,17 +10,17 @@ import defaultClasses from './wishlistPage.css';
 import WishlistPageOperations from './wishlistPage.gql';
 import CreateWishlist from './createWishlist';
 
-const WISHLIST_DISABLED_MESSAGE = 'The wishlist is not currently available.';
-
 const WishlistPage = props => {
-    const talonProps = useWishlistPage({
-        ...WishlistPageOperations
-    });
+    const talonProps = useWishlistPage({ ...WishlistPageOperations });
     const { errors, wishlists } = talonProps;
+    const { formatMessage } = useIntl();
     const error = errors.get('getCustomerWishlistQuery');
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
+    const WISHLIST_DISABLED_MESSAGE = formatMessage({
+        id: 'wishlistPage.wishlistDisabledMessage',
+        defaultMessage: 'The wishlist is not currently available.'
+    });
     const wishlistElements = useMemo(() => {
         return wishlists.map(wishlist => (
             <Wishlist key={wishlist.id} data={wishlist} />
@@ -35,10 +36,22 @@ const WishlistPage = props => {
         const derivedErrorMessage = deriveErrorMessage([error]);
         const errorElement =
             derivedErrorMessage === WISHLIST_DISABLED_MESSAGE ? (
-                <p>{'Sorry, this feature has been disabled.'}</p>
+                <p>
+                    <FormattedMessage
+                        id={'wishlistPage.disabledMessage'}
+                        defaultMessage={
+                            'Sorry, this feature has been disabled.'
+                        }
+                    />
+                </p>
             ) : (
                 <p className={classes.fetchError}>
-                    {'Something went wrong. Please refresh and try again.'}
+                    <FormattedMessage
+                        id={'wishlistPage.fetchErrorMessage'}
+                        defaultMessage={
+                            'Something went wrong. Please refresh and try again.'
+                        }
+                    />
                 </p>
             );
 
@@ -54,7 +67,12 @@ const WishlistPage = props => {
 
     return (
         <div className={classes.root}>
-            <h1 className={classes.heading}>{'Favorites Lists'}</h1>
+            <h1 className={classes.heading}>
+                <FormattedMessage
+                    id={'wishlistPage.headingText'}
+                    defaultMessage={'Favorites Lists'}
+                />
+            </h1>
             {content}
         </div>
     );
