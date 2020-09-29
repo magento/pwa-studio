@@ -34,6 +34,8 @@ const SearchPage = props => {
         loading,
         openDrawer,
         pageControl,
+        searchCategory,
+        searchTerm,
         sortProps
     } = talonProps;
     const { formatMessage } = useIntl();
@@ -104,7 +106,7 @@ const SearchPage = props => {
     ) : null;
 
     const maybeSortContainer = totalCount ? (
-        <div className={classes.sortContainer}>
+        <span className={classes.sortContainer}>
             <FormattedMessage
                 id={'searchPage.sortContainer'}
                 defaultMessage={'Items sorted by '}
@@ -115,13 +117,32 @@ const SearchPage = props => {
                     defaultMessage={currentSort.sortText}
                 />
             </span>
-        </div>
+        </span>
     ) : null;
+
+    const searchResultsHeading = searchTerm ? (
+        <FormattedMessage
+            id={'searchPage.searchTerm'}
+            values={{
+                highlight: chunks => (
+                    <span className={classes.headingHighlight}>{chunks}</span>
+                ),
+                category: searchCategory,
+                term: searchTerm
+            }}
+            defaultMessage={'Showing results:'}
+        />
+    ) : (
+        <FormattedMessage
+            id={'searchPage.searchTermEmpty'}
+            defaultMessage={'Showing all results:'}
+        />
+    );
 
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
-                <div className={classes.totalPages}>
+                <span className={classes.totalPages}>
                     {formatMessage(
                         {
                             id: 'searchPage.totalPages',
@@ -129,13 +150,14 @@ const SearchPage = props => {
                         },
                         { totalCount }
                     )}
-                </div>
+                </span>
                 <div className={classes.headerButtons}>
                     {maybeFilterButtons}
                     {maybeSortButton}
                 </div>
                 {maybeSortContainer}
             </div>
+            <div className={classes.heading}>{searchResultsHeading}</div>
             {content}
             <Suspense fallback={null}>{maybeFilterModal}</Suspense>
         </article>
