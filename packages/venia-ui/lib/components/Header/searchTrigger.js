@@ -25,7 +25,7 @@ const SearchTrigger = React.forwardRef((props, ref) => {
         <button
             className={searchClass}
             aria-label={formatMessage({
-                id: 'searchTrigger.ariaLabel',
+                id: 'searchTrigger.search',
                 defaultMessage: 'Search'
             })}
             onClick={handleClick}
@@ -34,7 +34,7 @@ const SearchTrigger = React.forwardRef((props, ref) => {
             <Icon src={SearchIcon} />
             <span className={classes.label}>
                 <FormattedMessage
-                    id={'searchTrigger.label'}
+                    id={'searchTrigger.search'}
                     defaultMessage={'Search'}
                 />
             </span>

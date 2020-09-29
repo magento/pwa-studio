@@ -45,7 +45,7 @@ exports[`it renders correctly 1`] = `
       <span
         className="quantity"
       >
-        10 Items
+        Items
       </span>
       <span
         className="price"
