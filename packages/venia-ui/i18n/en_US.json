@@ -129,6 +129,7 @@
     "sortItem.priceAsc": "Price: Low to High",
     "sortItem.priceDesc": "Price: High to Low",
     "sortItem.relevance": "Best Match",
+    "stockStatusMessage.message": "An item in your cart is currently out-of-stock and must be removed in order to Checkout.",
     "wishlist.emptyListText": "There are currently no items in this list",
     "wishlist.privateText": "Private",
     "wishlist.publicText": "Public",
