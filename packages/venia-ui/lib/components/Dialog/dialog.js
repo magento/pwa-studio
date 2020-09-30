@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { bool, func, shape, string, object } from 'prop-types';
 import { Form } from 'informed';
 import { X as CloseIcon } from 'react-feather';
@@ -51,6 +51,19 @@ const Dialog = props => {
     // when the Dialog is open.
     useScrollLock(isOpen);
 
+    const formApiRef = useRef(null);
+    const setFormApi = useCallback(api => (formApiRef.current = api), []);
+
+    // Resets the form back to initial state on cancel.
+    const handleCancel = useCallback(() => {
+        const { current: formApi } = formApiRef;
+
+        if (formApi) {
+            formApi.reset();
+        }
+        onCancel();
+    }, [onCancel]);
+
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
     const isMaskDisabled = shouldDisableAllButtons || isModal;
@@ -65,7 +78,7 @@ const Dialog = props => {
         <button
             className={classes.headerButton}
             disabled={shouldDisableAllButtons}
-            onClick={onCancel}
+            onClick={handleCancel}
             type="reset"
         >
             <Icon src={CloseIcon} />
@@ -76,6 +89,7 @@ const Dialog = props => {
         <Portal>
             <aside className={rootClass}>
                 <Form
+                    getApi={setFormApi}
                     className={classes.form}
                     {...formProps}
                     onSubmit={onConfirm}
@@ -84,10 +98,9 @@ const Dialog = props => {
                     <button
                         className={classes.mask}
                         disabled={isMaskDisabled}
-                        onClick={onCancel}
+                        onClick={handleCancel}
                         type="reset"
                     />
-
                     {/* The Dialog. */}
                     <div className={classes.dialog}>
                         <div className={classes.header}>
@@ -99,7 +112,7 @@ const Dialog = props => {
                             <div className={classes.buttons}>
                                 <Button
                                     disabled={shouldDisableAllButtons}
-                                    onClick={onCancel}
+                                    onClick={handleCancel}
                                     priority="low"
                                     type="reset"
                                 >

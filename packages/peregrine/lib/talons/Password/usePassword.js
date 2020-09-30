@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 /**
  * Returns props necessary to render a Password component.
@@ -13,11 +13,21 @@ export const usePassword = () => {
 
     const togglePasswordVisibility = useCallback(() => {
         setVisbility(!visible);
+
+        // TODO: Clicking the "toggle visibility" button does not focus the
+        // input, which means `onBlur` will not be called. To work around this
+        // we would need to somehow focus the input after this toggle, but that
+        // probably requires passing a ref down to informed.
     }, [visible]);
 
+    const onBlur = useCallback(() => {
+        setVisbility(false);
+    }, []);
+
     return {
-        visible,
-        togglePasswordVisibility
+        onBlur,
+        togglePasswordVisibility,
+        visible
     };
 };
 
@@ -29,6 +39,7 @@ export const usePassword = () => {
  *
  * @typedef {Object} PasswordProps
  *
- * @property {Boolean} visible If true password should be visible. Hidden if false.
+ * @property {Function} onBlur Callback to invoke when field is blurred
  * @property {Function} togglePasswordVisibility Callback function to toggle password visibility
+ * @property {Boolean} visible If true password should be visible. Hidden if false.
  */
