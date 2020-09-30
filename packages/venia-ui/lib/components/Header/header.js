@@ -23,24 +23,26 @@ const Header = props => {
         handleSearchTriggerClick,
         hasBeenOffline,
         isOnline,
-        searchOpen,
-        isPageLoading
+        isPageLoading,
+        isSearchOpen,
+        searchRef,
+        searchTriggerRef
     } = useHeader();
     const ref = useRef();
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rootClass = searchOpen ? classes.open : classes.closed;
+    const rootClass = isSearchOpen ? classes.open : classes.closed;
     const searchBarFallback = (
-        <div className={classes.searchFallback}>
+        <div className={classes.searchFallback} ref={searchRef}>
             <div className={classes.input}>
                 <div className={classes.loader} />
             </div>
         </div>
     );
-    const searchBar = searchOpen ? (
+    const searchBar = isSearchOpen ? (
         <Suspense fallback={searchBarFallback}>
             <Route>
-                <SearchBar isOpen={searchOpen} />
+                <SearchBar isOpen={isSearchOpen} ref={searchRef} />
             </Route>
         </Suspense>
     ) : null;
@@ -76,8 +78,8 @@ const Header = props => {
                 </Link>
                 <div className={classes.secondaryActions}>
                     <SearchTrigger
-                        active={searchOpen}
                         onClick={handleSearchTriggerClick}
+                        ref={searchTriggerRef}
                     />
                     <AccountTrigger />
                     <CartTrigger />
