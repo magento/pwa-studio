@@ -41,6 +41,16 @@ const ShippingForm = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const shippingStatusMessage = isSetShippingLoading
+        ? formatMessage({
+              id: 'shippingForm.loading',
+              defaultMessage: 'Loading Methods...'
+          })
+        : formatMessage({
+              id: 'shippingForm.getShippingOptions',
+              defaultMessage: 'Get Shipping Options'
+          });
+
     return (
         <Fragment>
             <h3 className={classes.formTitle}>
@@ -82,15 +92,7 @@ const ShippingForm = props => {
                         priority="normal"
                         type="submit"
                     >
-                        {isSetShippingLoading
-                            ? formatMessage({
-                                  id: 'shippingForm.loading',
-                                  defaultMessage: 'Loading Methods...'
-                              })
-                            : formatMessage({
-                                  id: 'shippingForm.getShippingOptions',
-                                  defaultMessage: 'Get Shipping Options'
-                              })}
+                        {shippingStatusMessage}
                     </Button>
                 ) : null}
             </Form>

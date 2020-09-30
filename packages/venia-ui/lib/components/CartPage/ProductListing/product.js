@@ -54,6 +54,16 @@ const Product = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const favoriteActionSection = isFavorite
+        ? formatMessage({
+              id: 'product.removeFromFavorites',
+              defaultMessage: 'Remove from favorites'
+          })
+        : formatMessage({
+              id: 'product.moveToFavorites',
+              defaultMessage: 'Move to favorites'
+          });
+
     const editItemSection = isEditable ? (
         <Section
             text={formatMessage({
@@ -132,17 +142,7 @@ const Product = props => {
                     disabled={true}
                 >
                     <Section
-                        text={
-                            isFavorite
-                                ? formatMessage({
-                                      id: 'product.removeFromFavorites',
-                                      defaultMessage: 'Remove from favorites'
-                                  })
-                                : formatMessage({
-                                      id: 'product.moveToFavorites',
-                                      defaultMessage: 'Move to favorites'
-                                  })
-                        }
+                        text={favoriteActionSection}
                         onClick={handleToggleFavorites}
                         icon="Heart"
                         isFilled={isFavorite}

@@ -24,6 +24,16 @@ const ShippingSummary = props => {
 
     const shipping = data[0].selected_shipping_method.amount;
 
+    const shippingLabel = isCheckout
+        ? formatMessage({
+              id: 'shippingSummary.shipping',
+              defaultMessage: 'Shipping'
+          })
+        : formatMessage({
+              id: 'shippingSummary.estimatedShipping',
+              defaultMessage: 'Estimated Shipping'
+          });
+
     // For a value of "0", display "FREE".
     const price = shipping.value ? (
         <Price value={shipping.value} currencyCode={shipping.currency} />
@@ -38,17 +48,7 @@ const ShippingSummary = props => {
 
     return (
         <>
-            <span className={classes.lineItemLabel}>
-                {isCheckout
-                    ? formatMessage({
-                          id: 'shippingSummary.shipping',
-                          defaultMessage: 'Shipping'
-                      })
-                    : formatMessage({
-                          id: 'shippingSummary.estimatedShipping',
-                          defaultMessage: 'Estimated Shipping'
-                      })}
-            </span>
+            <span className={classes.lineItemLabel}>{shippingLabel}</span>
             <span className={classes.price}>{price}</span>
         </>
     );

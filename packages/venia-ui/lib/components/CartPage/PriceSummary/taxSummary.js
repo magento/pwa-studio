@@ -33,21 +33,21 @@ const TaxSummary = props => {
         return null;
     }
 
+    const taxLabel = isCheckout
+        ? formatMessage({
+              id: 'taxSummary.tax',
+              defaultMessage: 'Tax'
+          })
+        : formatMessage({
+              id: 'taxSummary.estimatedTax',
+              defaultMessage: 'Estimated Tax'
+          });
+
     const tax = getEstimatedTax(props.data);
 
     return (
         <>
-            <span className={classes.lineItemLabel}>
-                {isCheckout
-                    ? formatMessage({
-                          id: 'taxSummary.tax',
-                          defaultMessage: 'Tax'
-                      })
-                    : formatMessage({
-                          id: 'taxSummary.estimatedTax',
-                          defaultMessage: 'Estimated Tax'
-                      })}
-            </span>
+            <span className={classes.lineItemLabel}>{taxLabel}</span>
             <span className={classes.price}>
                 <Price value={tax.value} currencyCode={tax.currency} />
             </span>
