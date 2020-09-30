@@ -20,20 +20,20 @@ const SearchTrigger = React.forwardRef((props, ref) => {
 
     const searchClass = active ? classes.open : classes.root;
 
+    const searchText = formatMessage({
+        id: 'searchTrigger.search',
+        defaultMessage: 'Search'
+    });
+
     return (
         <button
             className={searchClass}
-            aria-label={label}
+            aria-label={searchText}
             onClick={handleClick}
             ref={ref}
         >
             <Icon src={SearchIcon} />
-            <span className={classes.label}>
-                <FormattedMessage
-                    id={'searchTrigger.label'}
-                    defaultMessage={'Search'}
-                />
-            </span>
+            <span className={classes.label}>{searchText}</span>
         </button>
     );
 });
