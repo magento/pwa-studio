@@ -50,7 +50,10 @@ export const useSearchPage = props => {
 
     // retrieve app state and action creators
     const [, appApi] = useAppContext();
-    const { toggleDrawer, actions: { setPageLoading } } = appApi;
+    const {
+        toggleDrawer,
+        actions: { setPageLoading }
+    } = appApi;
 
     const inputText = getSearchParam('query', location);
 
