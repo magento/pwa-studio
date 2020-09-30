@@ -31,10 +31,7 @@ const CommunicationsPage = props => {
         });
     }, [addToast, formatMessage]);
 
-    const talonProps = useCommunicationsPage({
-        afterSubmit,
-        ...CommunicationsPageOperations
-    });
+    const talonProps = useCommunicationsPage({ afterSubmit });
 
     const {
         formErrors,
