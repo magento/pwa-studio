@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it returns the correct shape 1`] = `
+Object {
+  "handleAddToCart": [Function],
+  "handleMoreActions": [Function],
+  "hasError": false,
+  "isLoading": false,
+}
+`;
+
+exports[`mutation passes options for configurable item 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "cartItem": Object {
+      "data": Object {
+        "quantity": 1,
+        "sku": "shoggoth-shirt-xl-black",
+      },
+      "parent_sku": "shoggoth-shirt",
+      "variant_sku": "shoggoth-shirt-xl-black",
+    },
+  },
+}
+`;
+
+exports[`mutation passes options for simple item 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "cartItem": Object {
+      "data": Object {
+        "quantity": 1,
+        "sku": "shoggoth-shirt",
+      },
+    },
+  },
+}
+`;

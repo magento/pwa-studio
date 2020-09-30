@@ -6,9 +6,7 @@ import Trigger from '../../Trigger';
 import SearchField from '../searchField';
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
-    const state = {
-        searchOpen: true
-    };
+    const state = {};
     const api = {};
     return {
         useAppContext: jest.fn(() => [state, api])
