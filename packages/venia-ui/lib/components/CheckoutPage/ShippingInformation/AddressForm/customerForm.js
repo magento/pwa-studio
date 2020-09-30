@@ -157,7 +157,10 @@ const CustomerForm = props => {
                     />
                 </div>
                 <div className={classes.postcode}>
-                    <Postcode validate={isRequired} />
+                    <Postcode
+                        validate={isRequired}
+                        classes={{ root: classes.postcode }}
+                    />
                 </div>
                 <div className={classes.telephone}>
                     <Field id="telephone" label="Phone Number">
