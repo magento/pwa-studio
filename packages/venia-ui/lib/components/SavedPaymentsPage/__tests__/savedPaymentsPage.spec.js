@@ -2,7 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useSavedPaymentsPage } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useSavedPaymentsPage';
 
-import SavedPaymentsPage from '../SavedPaymentsPage';
+import SavedPaymentsPage from '../savedPaymentsPage';
 
 jest.mock('@magento/venia-ui/lib/classify');
 
