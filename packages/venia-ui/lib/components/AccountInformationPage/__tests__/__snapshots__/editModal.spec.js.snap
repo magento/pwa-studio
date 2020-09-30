@@ -14,7 +14,7 @@ exports[`it disables the submit button while loading 1`] = `
       <button
         className="mask"
         disabled={true}
-        onClick={[Function]}
+        onClick={[MockFunction onCancel]}
         type="reset"
       />
       <div
@@ -31,7 +31,7 @@ exports[`it disables the submit button while loading 1`] = `
           <button
             className="headerButton"
             disabled={true}
-            onClick={[Function]}
+            onClick={[MockFunction onCancel]}
             type="reset"
           >
             <span
@@ -79,7 +79,7 @@ exports[`it disables the submit button while loading 1`] = `
             <button
               className="root_lowPriority"
               disabled={true}
-              onClick={[Function]}
+              onClick={[MockFunction onCancel]}
               type="reset"
             >
               <span
@@ -121,7 +121,7 @@ exports[`it renders correctly 1`] = `
       <button
         className="mask"
         disabled={false}
-        onClick={[Function]}
+        onClick={[MockFunction onCancel]}
         type="reset"
       />
       <div
@@ -138,7 +138,7 @@ exports[`it renders correctly 1`] = `
           <button
             className="headerButton"
             disabled={false}
-            onClick={[Function]}
+            onClick={[MockFunction onCancel]}
             type="reset"
           >
             <span
@@ -186,7 +186,7 @@ exports[`it renders correctly 1`] = `
             <button
               className="root_lowPriority"
               disabled={false}
-              onClick={[Function]}
+              onClick={[MockFunction onCancel]}
               type="reset"
             >
               <span
