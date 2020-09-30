@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { act } from 'react-test-renderer';
 
 import { useSearchPage } from '../useSearchPage';
+
 import createTestInstance from '../../../util/createTestInstance';
+import { getFiltersFromSearch } from '../../FilterModal/helpers';
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
     useLocation: jest.fn(() => ({ pathname: '', search: '' }))
 }));
+
+jest.mock('../../FilterModal/helpers', () => {
+    return {
+        ...jest.requireActual('../../FilterModal/helpers'),
+        getFiltersFromSearch: jest.fn(() => new Map())
+    };
+});
 
 jest.mock('@magento/peregrine/lib/hooks/useScrollTopOnChange');
 
@@ -150,3 +159,70 @@ test.each(testCases)(
         expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
     }
 );
+
+describe('searchCategory', () => {
+    const log = jest.fn();
+    const Component = props => {
+        const talonProps = useSearchPage({ ...props });
+
+        useEffect(() => {
+            log(talonProps);
+        }, [talonProps]);
+
+        return <i talonProps={talonProps} />;
+    };
+
+    test('is null when no filters exist', () => {
+        // Arrange.
+        getFiltersFromSearch.mockReturnValueOnce(new Map());
+
+        // Act.
+        createTestInstance(<Component {...mockProps} />);
+
+        // Assert.
+        const { searchCategory } = log.mock.calls[0][0];
+        expect(searchCategory).toBeNull();
+    });
+
+    test('is null when category_id doesnt exist', () => {
+        // Arrange.
+        const map = new Map().set('not_category_id', 'unit test');
+        getFiltersFromSearch.mockReturnValueOnce(map);
+
+        // Act.
+        createTestInstance(<Component {...mockProps} />);
+
+        // Assert.
+        const { searchCategory } = log.mock.calls[0][0];
+        expect(searchCategory).toBeNull();
+    });
+
+    test('is correct when a single category filter exists', () => {
+        // Arrange.
+        const map = new Map().set('category_id', new Set(['Bottoms,11']));
+        getFiltersFromSearch.mockReturnValueOnce(map);
+
+        // Act.
+        createTestInstance(<Component {...mockProps} />);
+
+        // Assert.
+        const { searchCategory } = log.mock.calls[0][0];
+        expect(searchCategory).toEqual('Bottoms');
+    });
+
+    test('is correct when multiple category filters exist', () => {
+        // Arrange.
+        const map = new Map().set(
+            'category_id',
+            new Set(['Bottoms,11', 'Skirts,12'])
+        );
+        getFiltersFromSearch.mockReturnValueOnce(map);
+
+        // Act.
+        createTestInstance(<Component {...mockProps} />);
+
+        // Assert.
+        const { searchCategory } = log.mock.calls[0][0];
+        expect(searchCategory).toEqual('Bottoms, Skirts');
+    });
+});

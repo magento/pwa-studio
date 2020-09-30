@@ -33,15 +33,14 @@ import { useScrollTopOnChange } from '../../../hooks/useScrollTopOnChange';
 export const useCategory = props => {
     const {
         id,
-        queries: { getCategory, getFiltersIntrospection, getStoreConfig }
+        queries: { getCategory, getFiltersIntrospection, getPageSize }
     } = props;
 
-    const { data: storeConfigData } = useQuery(getStoreConfig, {
+    const { data: pageSizeData } = useQuery(getPageSize, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
-    const pageSize =
-        storeConfigData && storeConfigData.storeConfig.grid_per_page;
+    const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
 
     const [paginationValues, paginationApi] = usePagination();
     const { currentPage, totalPages } = paginationValues;

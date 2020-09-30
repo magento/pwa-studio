@@ -2,20 +2,21 @@
 
 exports[`should return correct shape 1`] = `
 Object {
-  "availableStores": Object {
-    "store1": Object {
+  "availableStores": Map {
+    "store1" => Object {
       "currency": "USD",
-      "is_current": false,
+      "isCurrent": false,
       "locale": "locale1",
       "storeName": "Store 1",
     },
-    "store2": Object {
+    "store2" => Object {
       "currency": "EUR",
-      "is_current": true,
+      "isCurrent": true,
       "locale": "locale2",
       "storeName": "Store 2",
     },
   },
+  "currentStoreName": "Store 2",
   "handleSwitchStore": [Function],
   "handleTriggerClick": [Function],
   "storeMenuIsOpen": false,

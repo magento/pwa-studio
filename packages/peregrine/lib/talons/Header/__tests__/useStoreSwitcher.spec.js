@@ -20,7 +20,8 @@ jest.mock('@apollo/client', () => {
     const useQuery = jest.fn().mockReturnValue({
         data: {
             storeConfig: {
-                code: 'store2'
+                code: 'store2',
+                store_name: 'Store 2'
             },
             availableStores: [
                 {
@@ -53,7 +54,10 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
 }));
 
 const defaultProps = {
-    getStoreConfig: 'getStoreConfig'
+    queries: {
+        getStoreConfigData: 'getStoreConfigData',
+        getAvailableStoresData: 'getAvailableStoresData'
+    }
 };
 
 const Component = props => {

@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 import { fromReactIntl, toReactIntl } from '../../util/formatLocale';
-import GET_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
-import { useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+
+const GET_LOCALE = gql`
+    query getLocale {
+        storeConfig {
+            id
+            locale
+        }
+    }
+`;
 
 const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
-    const { data, loading } = useQuery(GET_CONFIG_DATA, {
+    const { data, loading } = useQuery(GET_LOCALE, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
@@ -17,10 +25,21 @@ const LocaleProvider = props => {
             ? toReactIntl(data.storeConfig.locale)
             : null;
 
+    /**
+     * At build time, `__fetchLocaleData__` is injected as a global. Depending on the environment, this global will be
+     * either an ES module with a `default` property, or a plain CJS module.
+     *
+     * Please see {LocalizationPlugin} at @magento/pwa-buildpack/WebpackTools/plugins/LocalizationPlugin.js
+     */
+    const fetchLocale =
+        'default' in __fetchLocaleData__
+            ? __fetchLocaleData__.default
+            : __fetchLocaleData__;
+
     useEffect(() => {
         if (language) {
             const locale = fromReactIntl(language);
-            import(`../../i18n/${locale}.json`)
+            fetchLocale(locale)
                 .then(data => {
                     setMessages(data.default);
                 })
@@ -30,7 +49,7 @@ const LocaleProvider = props => {
                     );
                 });
         }
-    }, [setMessages, language]);
+    }, [fetchLocale, setMessages, language]);
 
     const onIntlError = error => {
         if (messages) {

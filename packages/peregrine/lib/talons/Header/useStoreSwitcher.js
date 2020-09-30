@@ -6,12 +6,31 @@ import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
 const storage = new BrowserPersistence();
 
+const mapAvailableOptions = (config, stores) => {
+    const { code: configCode } = config;
+
+    return stores.reduce((map, store) => {
+        const {
+            code,
+            default_display_currency_code: currency,
+            locale,
+            store_name: storeName
+        } = store;
+
+        const isCurrent = code === configCode;
+        const option = { currency, isCurrent, locale, storeName };
+
+        return map.set(code, option);
+    }, new Map());
+};
+
 /**
  * The useStoreSwitcher talon complements the StoreSwitcher component.
  *
  * @param {*} props.getStoreConfig the store switcher data getStoreConfig
  *
- * @returns {Object}    talonProps.availableStores - Details about the available store views.
+ * @returns {Map}    talonProps.availableStores - Details about the available store views.
+ * @returns {String}    talonProps.currentStoreName - Name of the current store view.
  * @returns {Boolean}   talonProps.storeMenuIsOpen - Whether the menu that this trigger toggles is open or not.
  * @returns {Ref}       talonProps.storeMenuRef - A React ref to the menu that this trigger toggles.
  * @returns {Ref}       talonProps.storeMenuTriggerRef - A React ref to the trigger element itself.
@@ -20,7 +39,8 @@ const storage = new BrowserPersistence();
  */
 
 export const useStoreSwitcher = props => {
-    const { getStoreConfig } = props;
+    const { queries } = props;
+    const { getStoreConfigData, getAvailableStoresData } = queries;
     const history = useHistory();
     const {
         elementRef: storeMenuRef,
@@ -29,44 +49,45 @@ export const useStoreSwitcher = props => {
         triggerRef: storeMenuTriggerRef
     } = useDropdown();
 
-    const { data: availableStoresData } = useQuery(getStoreConfig, {
+    const { data: storeConfigData } = useQuery(getStoreConfigData, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const availableStores = useMemo(() => {
-        let filteredData;
-        if (availableStoresData) {
-            filteredData = [...availableStoresData.availableStores].reduce(
-                (storeViews, store) => {
-                    storeViews[store.code] = {
-                        storeName: store['store_name'],
-                        locale: store.locale,
-                        is_current:
-                            store.code === availableStoresData.storeConfig.code,
-                        currency: store['default_display_currency_code']
-                    };
-                    return storeViews;
-                },
-                {}
-            );
-        }
+    const { data: availableStoresData } = useQuery(getAvailableStoresData, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
 
-        return filteredData;
-    }, [availableStoresData]);
+    const currentStoreName = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.store_name;
+        }
+    }, [storeConfigData]);
+
+    const availableStores = useMemo(() => {
+        return (
+            storeConfigData &&
+            availableStoresData &&
+            mapAvailableOptions(
+                storeConfigData.storeConfig,
+                availableStoresData.availableStores
+            )
+        );
+    }, [storeConfigData, availableStoresData]);
 
     const handleSwitchStore = useCallback(
-        // Change store view code and currency to be used in Appollo link request headers
+        // Change store view code and currency to be used in Apollo link request headers
         storeCode => {
             // Do nothing when store view is not present in available stores
-            if (!availableStores[storeCode]) return;
+            if (!availableStores.get(storeCode)) return;
 
             const previousStoreCode = storage.getItem('store_view_code');
 
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
                 'store_view_currency',
-                availableStores[storeCode].currency
+                availableStores.get(storeCode).currency
             );
 
             // Refresh the page to re-trigger the queries once code/currency are saved in local storage.
@@ -88,6 +109,7 @@ export const useStoreSwitcher = props => {
     }, [setStoreMenuIsOpen]);
 
     return {
+        currentStoreName,
         availableStores,
         storeMenuRef,
         storeMenuTriggerRef,

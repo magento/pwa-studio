@@ -21,24 +21,27 @@ export const useSearchPage = props => {
             filterIntrospection,
             getProductFiltersBySearch,
             productSearch,
-            getStoreConfig
+            getPageSize
         }
     } = props;
 
-    const { data: storeConfigData } = useQuery(getStoreConfig, {
+    const { data: pageSizeData } = useQuery(getPageSize, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
-    const pageSize =
-        storeConfigData && storeConfigData.storeConfig.grid_per_page;
+    const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
 
     const sortProps = useSort();
-
     const [currentSort] = sortProps;
     const { sortAttribute, sortDirection } = currentSort;
-
     // Keep track of the sort criteria so we can tell when they change.
     const previousSort = useRef(currentSort);
+
+    // get the URL query parameters.
+    const location = useLocation();
+    const { search } = location;
+    // Keep track of the search terms so we can tell when they change.
+    const previousSearch = useRef(search);
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
@@ -46,36 +49,35 @@ export const useSearchPage = props => {
     const { setCurrentPage, setTotalPages } = paginationApi;
 
     // retrieve app state and action creators
-    const [appState, appApi] = useAppContext();
-    const { searchOpen } = appState;
+    const [, appApi] = useAppContext();
     const {
         toggleDrawer,
-        toggleSearch,
         actions: { setPageLoading }
     } = appApi;
 
-    // get the URL query parameters.
-    const location = useLocation();
-    const { search } = location;
     const inputText = getSearchParam('query', location);
 
-    // Keep track of the search terms so we can tell when they change.
-    const previousSearch = useRef(search);
+    const searchCategory = useMemo(() => {
+        const inputFilters = getFiltersFromSearch(search);
+        if (inputFilters.size === 0) {
+            return null;
+        }
+
+        const targetCategoriesSet = inputFilters.get('category_id');
+        if (!targetCategoriesSet) {
+            return null;
+        }
+
+        // The set looks like ["Bottoms,11", "Skirts,12"].
+        // We want to return "Bottoms, Skirts", etc.
+        return [...targetCategoriesSet]
+            .map(categoryPair => categoryPair.split(',')[0])
+            .join(', ');
+    }, [search]);
 
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
     }, [toggleDrawer]);
-
-    // derive initial state from query params
-    // never re-run this effect, even if deps change
-    /* eslint-disable react-hooks/exhaustive-deps */
-    useEffect(() => {
-        // ensure search is open to begin with
-        if (toggleSearch && !searchOpen && inputText) {
-            toggleSearch();
-        }
-    }, []);
-    /* eslint-enable react-hooks/exhaustive-deps */
 
     // Get "allowed" filters by intersection of schema and aggregations
     const {
@@ -226,6 +228,8 @@ export const useSearchPage = props => {
         loading,
         openDrawer,
         pageControl,
+        searchCategory,
+        searchTerm: inputText,
         sortProps
     };
 };

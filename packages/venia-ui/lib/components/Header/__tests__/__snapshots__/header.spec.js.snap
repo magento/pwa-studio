@@ -25,7 +25,6 @@ exports[`verify Header can render in default state 1`] = `
       className="secondaryActions"
     >
       <SearchTrigger
-        active={false}
         onClick={[MockFunction]}
       />
       <AccountTrigger />

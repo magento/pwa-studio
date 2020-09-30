@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 import { ArrowRight as ArrowRightIcon } from 'react-feather';
 
@@ -16,8 +17,14 @@ const AuthBar = props => {
         isDisabled,
         isUserSignedIn
     } = useAuthBar(props);
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    const fallBackText = formatMessage({
+        id: 'authBar.fallbackText',
+        defaultMessage: 'Account'
+    });
 
     const buttonElement = isUserSignedIn ? (
         // Show My Account button.
@@ -27,7 +34,7 @@ const AuthBar = props => {
             onClick={handleShowMyAccount}
         >
             <span className={classes.contents}>
-                <AccountChip fallbackText={'Account'} />
+                <AccountChip fallbackText={fallBackText} />
                 <span className={classes.icon}>
                     <Icon src={ArrowRightIcon} />
                 </span>
@@ -41,8 +48,13 @@ const AuthBar = props => {
             onClick={handleSignIn}
         >
             <span className={classes.contents}>
-                <AccountChip fallbackText={'Account'} />
-                <span className={classes.signIn}>{`Sign In`}</span>
+                <AccountChip fallbackText={fallBackText} />
+                <span className={classes.signIn}>
+                    <FormattedMessage
+                        id={'authBar.signInText'}
+                        defaultMessage={'Sign In'}
+                    />
+                </span>
             </span>
         </button>
     );
