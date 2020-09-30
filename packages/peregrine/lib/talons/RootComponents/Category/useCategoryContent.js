@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+
+import { useAppContext } from '../../../context/app';
+import DEFAULT_OPERATIONS from './categoryContent.gql';
 
 const DRAWER_NAME = 'filter';
 // TODO: This can be replaced by the value from `storeConfig when the PR,
@@ -24,11 +26,8 @@ const placeholderItems = Array.from({ length: pageSize }).fill(null);
  * @returns {string} result.pageTitle - The text to put in the browser tab for this page.
  */
 export const useCategoryContent = props => {
-    const {
-        categoryId,
-        data,
-        queries: { getProductFiltersByCategory }
-    } = props;
+    const { categoryId, data, operations = DEFAULT_OPERATIONS } = props;
+    const { getProductFiltersByCategoryQuery } = operations;
 
     const [loadFilters, setLoadFilters] = useState(false);
     const [, { toggleDrawer }] = useAppContext();
@@ -42,7 +41,7 @@ export const useCategoryContent = props => {
     }, [setLoadFilters, toggleDrawer]);
 
     const [getFilters, { data: filterData }] = useLazyQuery(
-        getProductFiltersByCategory
+        getProductFiltersByCategoryQuery
     );
 
     useEffect(() => {
