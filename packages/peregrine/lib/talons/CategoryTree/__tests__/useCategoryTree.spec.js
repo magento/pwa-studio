@@ -6,6 +6,7 @@ import createTestInstance from '../../../util/createTestInstance';
 import { useCategoryTree } from '../useCategoryTree';
 
 jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
     const runQuery = jest.fn();
     const queryResult = {
         data: null,
@@ -14,13 +15,12 @@ jest.mock('@apollo/client', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { useLazyQuery };
+    return { ...apolloClient, useLazyQuery };
 });
 
 const props = {
     categories: {},
     categoryId: 1,
-    query: {},
     updateCategories: jest.fn()
 };
 

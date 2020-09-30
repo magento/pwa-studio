@@ -1,6 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { useLazyQuery } from '@apollo/client';
 
+import DEFAULT_OPERATIONS from './categoryTree.gql';
+
 /**
  * @typedef {object} CategoryNode
  * @prop {object} category - category data
@@ -22,9 +24,15 @@ import { useLazyQuery } from '@apollo/client';
  * @return {{ childCategories: Map<number, CategoryNode> }}
  */
 export const useCategoryTree = props => {
-    const { categories, categoryId, query, updateCategories } = props;
+    const {
+        categories,
+        categoryId,
+        operations = DEFAULT_OPERATIONS,
+        updateCategories
+    } = props;
+    const { getCategoryTreeQuery } = operations;
 
-    const [runQuery, queryResult] = useLazyQuery(query);
+    const [runQuery, queryResult] = useLazyQuery(getCategoryTreeQuery);
     const { data } = queryResult;
 
     // fetch categories
