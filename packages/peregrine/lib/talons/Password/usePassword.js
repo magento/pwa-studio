@@ -20,12 +20,12 @@ export const usePassword = () => {
         // probably requires passing a ref down to informed.
     }, [visible]);
 
-    const onBlur = useCallback(() => {
+    const handleBlur = useCallback(() => {
         setVisbility(false);
     }, []);
 
     return {
-        onBlur,
+        handleBlur,
         togglePasswordVisibility,
         visible
     };
@@ -39,7 +39,7 @@ export const usePassword = () => {
  *
  * @typedef {Object} PasswordProps
  *
- * @property {Function} onBlur Callback to invoke when field is blurred
+ * @property {Function} handleBlur Callback to invoke when field is blurred
  * @property {Function} togglePasswordVisibility Callback function to toggle password visibility
  * @property {Boolean} visible If true password should be visible. Hidden if false.
  */

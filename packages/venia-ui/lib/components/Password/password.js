@@ -24,7 +24,7 @@ const Password = props => {
     } = props;
 
     const talonProps = usePassword();
-    const { onBlur, togglePasswordVisibility, visible } = talonProps;
+    const { handleBlur, togglePasswordVisibility, visible } = talonProps;
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const passwordButton = (
@@ -47,7 +47,7 @@ const Password = props => {
                 field={fieldName}
                 type={fieldType}
                 validate={validate}
-                onBlur={onBlur}
+                onBlur={handleBlur}
                 {...otherProps}
             />
         </Field>
