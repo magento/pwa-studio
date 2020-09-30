@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Check } from 'react-feather';
 import { bool, func, shape, string } from 'prop-types';
 
@@ -19,7 +20,12 @@ const SortItem = props => {
     return (
         <button className={classes.root} onClick={handleClick}>
             <span className={classes.content}>
-                <span className={classes.text}>{sortItem.text}</span>
+                <span className={classes.text}>
+                    <FormattedMessage
+                        id={sortItem.id}
+                        defaultMessage={sortItem.text}
+                    />
+                </span>
                 {activeIcon}
             </span>
         </button>
