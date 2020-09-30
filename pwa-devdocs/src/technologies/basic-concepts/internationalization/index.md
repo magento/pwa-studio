@@ -5,23 +5,23 @@ title: Internationalization Framework
 Internationalization (i18n) is a feature that lets you localize content for a culture, region, or language.
 This feature is often associated with localization (l10n), which is the process of transforming content for a specific locale.
 
-## I18n in core Magento versus PWA Studio
+## Internationalization in core Magento versus PWA Studio
 
-The core Magento application includes an I18n feature that provides translated text to the frontend theme.
+The core Magento application includes an i18n feature that provides translated text to the frontend theme.
 Language packages installed through Composer contain dictionary files, which provide the translation data Magento renders into the page.
 
 For more information, see the Magento core topic: [Translations overview][].
 
-The tight coupling between core Magento's I18n feature and its frontend theme makes it difficult to use the same translation mechanisms in PWA Studio storefronts.
-Instead, PWA Studio provides its own I18n framework that follows a similar design as the one in core Magento.
+The tight coupling between core Magento's i18n feature and its frontend theme makes it difficult to use the same translation mechanisms in PWA Studio storefronts.
+Instead, PWA Studio provides its own i18n framework that follows a similar design as the one in core Magento.
 
 ## How it works
 
 PWA Studio provides a context provider for translations called the [`LocaleProvider`][].
 This context provider contains translation data from dictionary files and supplies them to its child components.
 
-The [`react-intl`][] library powers the I18n framework in PWA Studio.
-It provides the `IntlProvider` component to PWA Studio's `LocaleProvider`, which configures the component to use the storefront's translation data.
+The [`react-intl`][] library powers the i18n framework in PWA Studio.
+It provides the [`IntlProvider`][] component to PWA Studio's `LocaleProvider`, which configures the component to use the storefront's translation data.
 This library also provides [`formatMessage()`][] and [`FormattedMessage`][] to localize text in child components.
 
 The following code samples produce the same results:
@@ -42,12 +42,12 @@ return (
 )
 ```
 
-The I18n framework uses the `id` parameter to look up the localized text from the dictionary files, which the framework supplies to the `LocaleProvider`.
+The i18n framework uses the `id` parameter to look up the localized text from the dictionary files, which the framework supplies to the `LocaleProvider`.
 
 ## Translation dictionaries
 
 Translation dictionary files contain key/value pairs for localized text.
-PWA Studio's I18n framework uses a similar dictionary approach for translation files as Magento, but
+PWA Studio's i18n framework uses a similar dictionary approach for translation files as Magento, but
 instead of a CSV format, it uses JSON.
 
 Dictionary files must be inside an `i18n` directory and use their target locale for their filename.
@@ -79,20 +79,26 @@ Both approach have their pros and cons, and developers are free to choose which 
 
 ### Message syntax
 
-The I18n framework accepts the same [message syntax][] as the underlying `react-intl` library.
+The i18n framework accepts the same [message syntax][] as the underlying `react-intl` library.
 Along with static text, this syntax supports variables, dates, and even conditional formatting.
 
 To translate text with variables, pass in a mapping object to the `values` prop in the `FormattedMessage` component.
 
+{% raw %}
+
 ```jsx
-<FormattedMessage
-  id="Hi, {name}"
-  defaultMessage="Hi, {name}"
-  values={{
-    name: 'Veronica',
-  }}
-/>
+return(
+    <FormattedMessage
+    id="Hi, {name}"
+    defaultMessage="Hi, {name}"
+    values={{
+        name: 'Veronica',
+    }}
+    />
+)
 ```
+
+{% endraw %}
 
 When using the `formatMessage()` function, pass in the mapping object as the second parameter.
 
@@ -123,20 +129,22 @@ An NPM dependency is a language package if it meets the following criteria:
 
 ## Build process
 
-To optimize runtime performance, the I18n framework compiles all the translation data during the build process.
+To optimize runtime performance, the i18n framework compiles all the translation data during the build process.
 
-The following steps is a high level summary of this process:
+The following is a high level summary of the actions the i18n framework takes to compile the translation data:
 
-1. Scans the `i18n` directory in the project and isntalled language packages for `.json` files that have a locale formatted file name
+1. Scans the `i18n` directory in the project and installed language packages for `.json` files that have a locale formatted file name
 2. Generates an object with locales as keys that map to an array of files matching that locale
 3. Merges the files in the arrays to create a single dictionary object for a locale
-4. Creates a virtual module that exposes a `__fetchLocaleData__` function
-5. Generates a dynamic import for the virtual module
-6. Provides locale data to the `LocaleProvider` through the `__fetchLocaleData__` function
+4. Creates a virtual module from this object that exposes a `__fetchLocaleData__` function
+5. Generates a dynamic import in the application for the virtual module
+
+During runtime, the `LocaleProvider` component uses the `__fetchLocaleData__` function to get the correct translation data for the current locale.
 
 [translations overview]: https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/translations/xlate.html
-[`locale provider`]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/localeProvider.js
-['react-intl']: https://formatjs.io/docs/react-intl/
+[`localeprovider`]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/localeProvider.js
+[`intlprovider`]: https://formatjs.io/docs/react-intl/components/#intlprovider
+[`react-intl`]: https://formatjs.io/docs/react-intl/
 [`formatMessage()`]: https://formatjs.io/docs/react-intl/api#formatmessage
 [`formattedmessage`]: https://formatjs.io/docs/react-intl/components#formattedmessage
 [message syntax]: https://formatjs.io/docs/core-concepts/icu-syntax
