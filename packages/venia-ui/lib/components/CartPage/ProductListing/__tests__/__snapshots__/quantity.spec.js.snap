@@ -119,5 +119,6 @@ exports[`renders quantity correctly 1`] = `
       </span>
     </button>
   </div>
+  
 </form>
 `;

@@ -149,6 +149,8 @@ const ProductFullDetail = props => {
                         classes={{ root: classes.quantityRoot }}
                         initialValue={quantity}
                         onChange={handleSetQuantity}
+                        min={1}
+                        message={errors.get('quantity')}
                     />
                 </section>
                 <section className={classes.cartActions}>
