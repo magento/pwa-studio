@@ -1,6 +1,7 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { Search as SearchIcon } from 'react-feather';
+import { useIntl } from 'react-intl';
 
 import Icon from '../Icon';
 
@@ -15,6 +16,7 @@ const SearchTrigger = React.forwardRef((props, ref) => {
         onClick
     });
     const { handleClick } = talonProps;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
