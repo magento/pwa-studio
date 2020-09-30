@@ -38,7 +38,7 @@ Storefront developers can use this streamlined process as implemented or they ca
 
 In addition to the complete full page cart and checkout experience, this release introduces a new Mini-Cart/Shopping Bag feature.
 
-This feature appears as a floating modal that appears when you click on the shopping bag icon.
+This feature is a floating modal that appears when you click on the shopping bag icon.
 It replaces the old `MiniCart` component, which previously appeared as a drawer from the right side of the app.
 
 Instead of competing with the full page cart feature, it only contains a subset of actions, such as removing an item and checking out.
@@ -147,7 +147,7 @@ This documentation contains API descriptions and sample code to help developers 
 | Description                                                                      | Change type | PR        |
 | -------------------------------------------------------------------------------- | ----------- | --------- |
 | Implemented feature that allows HTTP for the Magento backend URL                 | **Feature** | [#2423][] |
-| Updated implementation code to improve Webpagetest score                         | **Update**  | [#2548][] |
+| Updated implementation code to improve WebPageTest score                         | **Update**  | [#2548][] |
 | Added support for additional image types                                         | **Update**  | [#2562][] |
 | Updated upward-security-headers peer dependencies                                | **Update**  | [#2605][] |
 | Fixed UPWARD bug that prevented the use of an allowable header character         | **Bugfix**  | [#2484][] |
