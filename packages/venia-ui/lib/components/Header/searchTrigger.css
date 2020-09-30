@@ -7,11 +7,6 @@
     width: 3rem;
 }
 
-.open {
-    composes: root;
-    color: rgb(var(--venia-brand-color-1-400));
-}
-
 .label {
     display: none;
 }
