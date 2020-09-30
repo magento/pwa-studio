@@ -30,6 +30,8 @@ export const QuantityFields = props => {
         maskInput
     } = talonProps;
 
+    const errorMessage = message ? <Message>{message}</Message> : null;
+
     return (
         <Fragment>
             <div className={classes.root}>
@@ -66,7 +68,7 @@ export const QuantityFields = props => {
                     <Icon classes={iconClasses} src={PlusIcon} size={20} />
                 </button>
             </div>
-            {message && <Message>{message}</Message>}
+            {errorMessage}
         </Fragment>
     );
 };
