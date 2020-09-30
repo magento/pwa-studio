@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
@@ -23,7 +24,9 @@ const FilterModal = props => {
     const { filters } = props;
     const talonProps = useFilterModal({
         filters,
-        queries: { filterIntrospection: FILTER_INTROSPECTION }
+        queries: {
+            filterIntrospection: FILTER_INTROSPECTION
+        }
     });
     const {
         filterApi,
@@ -62,7 +65,10 @@ const FilterModal = props => {
     const clearAll = filterState.size ? (
         <div className={classes.action}>
             <LinkButton type="button" onClick={handleReset}>
-                {'Clear all'}
+                <FormattedMessage
+                    id={'filterModal.action'}
+                    defaultMessage={'Clear all'}
+                />
             </LinkButton>
         </div>
     ) : null;
@@ -72,7 +78,12 @@ const FilterModal = props => {
             <aside className={modalClass}>
                 <div className={classes.body}>
                     <div className={classes.header}>
-                        <h2 className={classes.headerTitle}>{'Filters'}</h2>
+                        <h2 className={classes.headerTitle}>
+                            <FormattedMessage
+                                id={'filterModal.headerTitle'}
+                                defaultMessage={'Filters'}
+                            />
+                        </h2>
                         <button onClick={handleClose}>
                             <Icon src={CloseIcon} />
                         </button>

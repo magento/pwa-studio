@@ -1,9 +1,10 @@
 import React from 'react';
-import Price from '../price';
-import { createTestInstance } from '@magento/peregrine';
 import IntlPolyfill from 'intl';
 import areIntlLocalesSupported from 'intl-locales-supported';
-import { IntlProvider } from 'react-intl';
+import { useIntl } from 'react-intl';
+
+import createTestInstance from '../../util/createTestInstance';
+import Price from '../price';
 
 if (global.Intl.NumberFormat.prototype.formatToParts) {
     // Determine if the built-in `Intl` has the locale data we need.
@@ -22,9 +23,7 @@ if (global.Intl.NumberFormat.prototype.formatToParts) {
 
 test('Renders a USD price', () => {
     const instance = createTestInstance(
-        <IntlProvider locale={'en-US'}>
-            <Price value={100.99} currencyCode="USD" />
-        </IntlProvider>
+        <Price value={100.99} currencyCode="USD" />
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
@@ -32,19 +31,17 @@ test('Renders a USD price', () => {
 
 test('Renders a EUR price', () => {
     const instance = createTestInstance(
-        <IntlProvider locale={'en-US'}>
-            <Price value={100.99} currencyCode="EUR" />
-        </IntlProvider>
+        <Price value={100.99} currencyCode="EUR" />
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('Renders a EUR price with locale set to French', () => {
+    useIntl.mockReturnValueOnce({ locale: 'fr-FR' });
+
     const instance = createTestInstance(
-        <IntlProvider locale={'fr-FR'}>
-            <Price value={1000.99} currencyCode="EUR" locale="fr-FR" />
-        </IntlProvider>
+        <Price value={1000.99} currencyCode="EUR" locale="fr-FR" />
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
@@ -59,9 +56,7 @@ test('Allows custom classnames for each part', () => {
     };
 
     const instance = createTestInstance(
-        <IntlProvider locale={'en-US'}>
-            <Price value={88.81} currencyCode="USD" classes={classes} />
-        </IntlProvider>
+        <Price value={88.81} currencyCode="USD" classes={classes} />
     );
 
     expect(instance.toJSON()).toMatchSnapshot();

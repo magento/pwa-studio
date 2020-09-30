@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -16,14 +17,11 @@ import resetPasswordOperations from './resetPassword.gql';
 import defaultClasses from './resetPassword.css';
 import Password from '../../Password';
 
-const PAGE_TITLE = `Reset Password`;
-
 const ResetPassword = props => {
     const { classes: propClasses } = props;
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, propClasses);
-    const talonProps = useResetPassword({
-        ...resetPasswordOperations
-    });
+    const talonProps = useResetPassword({ ...resetPasswordOperations });
     const {
         hasCompleted,
         loading,
@@ -32,11 +30,19 @@ const ResetPassword = props => {
         formErrors,
         handleSubmit
     } = talonProps;
-
+    const PAGE_TITLE = formatMessage({
+        id: 'resetPassword.pageTitleText',
+        defaultMessage: 'Reset Password'
+    });
     const tokenMissing = (
         <div className={classes.invalidTokenContainer}>
             <div className={classes.invalidToken}>
-                {'Uh oh, something went wrong. Check the link or try again.'}
+                <FormattedMessage
+                    id={'resetPassword.invalidTokenMessage'}
+                    defaultMessage={
+                        'Uh oh, something went wrong. Check the link or try again.'
+                    }
+                />
             </div>
         </div>
     );
@@ -47,28 +53,41 @@ const ResetPassword = props => {
         if (hasCompleted) {
             addToast({
                 type: 'info',
-                message: 'Your new password has been saved.',
+                message: formatMessage({
+                    id: 'resetPassword.savedPasswordText',
+                    defaultMessage: 'Your new password has been saved.'
+                }),
                 timeout: 5000
             });
         }
-    }, [addToast, hasCompleted]);
-
+    }, [addToast, formatMessage, hasCompleted]);
     const recoverPassword = hasCompleted ? (
         <div className={classes.successMessageContainer}>
             <div className={classes.successMessage}>
-                {
-                    'Your new password has been saved. Please use this password to sign into your Account.'
-                }
+                <FormattedMessage
+                    id={'resetPassword.successMessage'}
+                    defaultMessage={
+                        'Your new password has been saved. Please use this password to sign into your Account.'
+                    }
+                />
             </div>
         </div>
     ) : (
         <Form className={classes.container} onSubmit={handleSubmit}>
             <div className={classes.description}>
-                Please enter your new password.
+                <FormattedMessage
+                    id={'resetPassword.descriptionText'}
+                    defaultMessage={'Please enter your new password.'}
+                />
             </div>
             <Password
-                classes={{ root: classes.password }}
-                label={'New Password'}
+                classes={{
+                    root: classes.password
+                }}
+                label={formatMessage({
+                    id: 'resetPassword.newPasswordText',
+                    defaultMessage: 'New Password'
+                })}
                 fieldName={'newPassword'}
                 isToggleButtonHidden={false}
             />
@@ -81,7 +100,9 @@ const ResetPassword = props => {
                 {'SAVE'}
             </Button>
             <FormErrors
-                classes={{ root: classes.errorMessage }}
+                classes={{
+                    root: classes.errorMessage
+                }}
                 errors={formErrors}
             />
         </Form>

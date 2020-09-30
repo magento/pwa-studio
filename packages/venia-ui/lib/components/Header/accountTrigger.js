@@ -36,13 +36,17 @@ const AccountTrigger = props => {
             <div className={rootClassName} ref={accountMenuTriggerRef}>
                 <button
                     aria-label={formatMessage({
-                        id: 'Toggle My Account Menu'
+                        id: 'accountTrigger.ariaLabel',
+                        defaultMessage: 'Toggle My Account Menu'
                     })}
                     className={classes.trigger}
                     onClick={handleTriggerClick}
                 >
                     <AccountChip
-                        fallbackText={formatMessage({ id: 'Sign In' })}
+                        fallbackText={formatMessage({
+                            id: 'accountTrigger.buttonFallback',
+                            defaultMessage: 'Sign In'
+                        })}
                         shouldIndicateLoading={true}
                     />
                 </button>

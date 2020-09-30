@@ -55,16 +55,18 @@ const CategoryContent = props => {
         </Button>
     ) : null;
 
-    const maybeSortButton = totalPagesFromData ? (
-        <ProductSort sortProps={sortProps} />
-    ) : null;
+    const maybeSortButton =
+        totalPagesFromData && filters ? (
+            <ProductSort sortProps={sortProps} />
+        ) : null;
 
-    const maybeSortContainer = totalPagesFromData ? (
-        <div className={classes.sortContainer}>
-            {'Items sorted by '}
-            <span className={classes.sortText}>{currentSort.sortText}</span>
-        </div>
-    ) : null;
+    const maybeSortContainer =
+        totalPagesFromData && filters ? (
+            <div className={classes.sortContainer}>
+                {'Items sorted by '}
+                <span className={classes.sortText}>{currentSort.sortText}</span>
+            </div>
+        ) : null;
 
     // If you want to defer the loading of the FilterModal until user interaction
     // (hover, focus, click), simply add the talon's `loadFilters` prop as
