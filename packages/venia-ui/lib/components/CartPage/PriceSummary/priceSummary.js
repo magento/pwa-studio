@@ -81,6 +81,16 @@ const PriceSummary = props => {
         ? classes.priceUpdating
         : classes.totalPrice;
 
+    const totalPriceLabel = isCheckout
+        ? formatMessage({
+              id: 'priceSummary.total',
+              defaultMessage: 'Total'
+          })
+        : formatMessage({
+              id: 'priceSummary.estimatedTotal',
+              defaultMessage: 'Estimated Total'
+          });
+
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
             <Button
@@ -141,17 +151,7 @@ const PriceSummary = props => {
                     data={shipping}
                     isCheckout={isCheckout}
                 />
-                <span className={classes.totalLabel}>
-                    {isCheckout
-                        ? formatMessage({
-                              id: 'priceSummary.total',
-                              defaultMessage: 'Total'
-                          })
-                        : formatMessage({
-                              id: 'priceSummary.estimatedTotal',
-                              defaultMessage: 'Estimated Total'
-                          })}
-                </span>
+                <span className={classes.totalLabel}>{totalPriceLabel}</span>
                 <span className={totalPriceClass}>
                     <Price value={total.value} currencyCode={total.currency} />
                 </span>
