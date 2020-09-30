@@ -1,6 +1,5 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import AccountChip from '../../AccountChip/accountChip';
 import NavHeader from '../navHeader';
