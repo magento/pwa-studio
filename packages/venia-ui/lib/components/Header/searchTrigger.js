@@ -9,29 +9,38 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './searchTrigger.css';
 import { useSearchTrigger } from '@magento/peregrine/lib/talons/Header/useSearchTrigger';
 
-const SearchTrigger = props => {
+const SearchTrigger = React.forwardRef((props, ref) => {
     const { active, onClick } = props;
+
     const talonProps = useSearchTrigger({
         onClick
     });
     const { handleClick } = talonProps;
+    const { formatMessage } = useIntl();
+
     const classes = mergeClasses(defaultClasses, props.classes);
     const searchClass = active ? classes.open : classes.root;
-    const { formatMessage } = useIntl();
 
     return (
         <button
             className={searchClass}
-            aria-label={formatMessage({ id: 'Search' })}
+            aria-label={formatMessage({
+                id: 'searchTrigger.search',
+                defaultMessage: 'Search'
+            })}
             onClick={handleClick}
+            ref={ref}
         >
             <Icon src={SearchIcon} />
             <span className={classes.label}>
-                <FormattedMessage id={'Search'} />
+                <FormattedMessage
+                    id={'searchTrigger.search'}
+                    defaultMessage={'Search'}
+                />
             </span>
         </button>
     );
-};
+});
 
 SearchTrigger.propTypes = {
     classes: shape({

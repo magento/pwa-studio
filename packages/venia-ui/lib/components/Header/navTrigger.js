@@ -19,7 +19,10 @@ const NavigationTrigger = props => {
     return (
         <button
             className={classes.root}
-            aria-label={formatMessage({ id: 'Toggle navigation panel' })}
+            aria-label={formatMessage({
+                id: 'navigationTrigger.ariaLabel',
+                defaultMessage: 'Toggle navigation panel'
+            })}
             onClick={handleOpenNavigation}
         >
             <Icon src={MenuIcon} />

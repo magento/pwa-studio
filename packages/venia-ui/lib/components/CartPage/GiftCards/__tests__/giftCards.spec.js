@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
-
+import { IntlProvider } from 'react-intl';
 import GiftCards from '../giftCards';
 
 jest.mock('../../../../classify');
@@ -95,7 +95,11 @@ test('it renders correctly when it has cards', () => {
     useGiftCards.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const wrapper = createTestInstance(<GiftCards />);
+    const wrapper = createTestInstance(
+        <IntlProvider locale="en-US">
+            <GiftCards />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(wrapper.toJSON()).toMatchSnapshot();
