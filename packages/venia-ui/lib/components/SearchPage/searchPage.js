@@ -5,27 +5,18 @@ import { shape, string } from 'prop-types';
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
 
 import { mergeClasses } from '../../classify';
-import Gallery from '../Gallery';
-import FilterModal from '../FilterModal';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Pagination from '../../components/Pagination';
-import defaultClasses from './searchPage.css';
-import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
-import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
-import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
-import ProductSort from '../ProductSort';
 import Button from '../Button';
+import FilterModal from '../FilterModal';
+import Gallery from '../Gallery';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import ProductSort from '../ProductSort';
+import defaultClasses from './searchPage.css';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const talonProps = useSearchPage({
-        queries: {
-            filterIntrospection: FILTER_INTROSPECTION,
-            getProductFiltersBySearch: GET_PRODUCT_FILTERS_BY_SEARCH,
-            productSearch: PRODUCT_SEARCH
-        }
-    });
+    const talonProps = useSearchPage();
 
     const {
         data,

@@ -2,11 +2,12 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { usePagination, useSort } from '@magento/peregrine';
-
+import { useAppContext } from '../../context/app';
+import { usePagination } from '../../hooks/usePagination';
 import { getSearchParam } from '../../hooks/useSearchParam';
+import { useSort } from '../../hooks/useSort';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
+import DEFAULT_OPERATIONS from './searchPage.gql';
 
 const PAGE_SIZE = 6;
 
@@ -16,14 +17,14 @@ const PAGE_SIZE = 6;
  * @param {Object} props
  * @param {String} props.query - graphql query used for executing search
  */
-export const useSearchPage = props => {
+export const useSearchPage = (props = {}) => {
+    const { operations = DEFAULT_OPERATIONS } = props;
+
     const {
-        queries: {
-            filterIntrospection,
-            getProductFiltersBySearch,
-            productSearch
-        }
-    } = props;
+        getFilterInputsQuery,
+        getProductFiltersBySearchQuery,
+        productSearchQuery
+    } = operations;
 
     const sortProps = useSort();
     const [currentSort] = sortProps;
@@ -75,7 +76,7 @@ export const useSearchPage = props => {
         called: introspectionCalled,
         data: introspectionData,
         loading: introspectionLoading
-    } = useQuery(filterIntrospection);
+    } = useQuery(getFilterInputsQuery);
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
@@ -99,7 +100,7 @@ export const useSearchPage = props => {
     const [
         runQuery,
         { called: searchCalled, loading: searchLoading, error, data }
-    ] = useLazyQuery(productSearch);
+    ] = useLazyQuery(productSearchQuery);
 
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
@@ -178,7 +179,7 @@ export const useSearchPage = props => {
 
     // Fetch category filters for when a user is searching in a category.
     const [getFilters, { data: filterData }] = useLazyQuery(
-        getProductFiltersBySearch
+        getProductFiltersBySearchQuery
     );
 
     useEffect(() => {

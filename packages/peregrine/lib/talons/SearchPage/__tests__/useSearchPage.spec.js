@@ -42,8 +42,8 @@ const mockUseSort = jest
 
 const mockSetCurrentPage = jest.fn().mockName('mockSetCurrentPage');
 
-jest.mock('@magento/peregrine', () => {
-    const usePagination = jest.fn(() => [
+jest.mock('../../../hooks/usePagination', () => ({
+    usePagination: jest.fn(() => [
         {
             currentPage: 3,
             totalPages: 6
@@ -54,16 +54,15 @@ jest.mock('@magento/peregrine', () => {
                 .mockImplementation(() => mockSetCurrentPage()),
             setTotalPages: jest.fn()
         }
-    ]);
-    const useSort = jest.fn().mockImplementation(() => mockUseSort());
+    ])
+}));
 
-    return {
-        useSort,
-        usePagination
-    };
-});
+jest.mock('../../../hooks/useSort', () => ({
+    useSort: jest.fn().mockImplementation(() => mockUseSort())
+}));
 
 jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
     const useQuery = jest.fn().mockReturnValue({
         data: {
             __type: {
@@ -87,23 +86,15 @@ jest.mock('@apollo/client', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { useLazyQuery, useQuery };
+    return { ...apolloClient, useLazyQuery, useQuery };
 });
-
-const mockProps = {
-    queries: {
-        filterIntrospection: 'filterIntrospectionQuery',
-        getProductFiltersBySearch: 'getProductFiltersBySearchQuery',
-        productSearch: 'productSearchQuery'
-    }
-};
 
 const Component = props => {
     const talonProps = useSearchPage(props);
     return <i talonProps={talonProps} />;
 };
 
-const tree = createTestInstance(<Component {...mockProps} />);
+const tree = createTestInstance(<Component />);
 
 test('returns the correct shape', () => {
     const { root } = tree;
@@ -147,7 +138,7 @@ test.each(testCases)(
     (description, sortParams, expected) => {
         mockUseSort.mockReturnValueOnce([sortParams, jest.fn()]);
         act(() => {
-            tree.update(<Component {...mockProps} />);
+            tree.update(<Component />);
         });
 
         expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
@@ -171,7 +162,7 @@ describe('searchCategory', () => {
         getFiltersFromSearch.mockReturnValueOnce(new Map());
 
         // Act.
-        createTestInstance(<Component {...mockProps} />);
+        createTestInstance(<Component />);
 
         // Assert.
         const { searchCategory } = log.mock.calls[0][0];
@@ -184,7 +175,7 @@ describe('searchCategory', () => {
         getFiltersFromSearch.mockReturnValueOnce(map);
 
         // Act.
-        createTestInstance(<Component {...mockProps} />);
+        createTestInstance(<Component />);
 
         // Assert.
         const { searchCategory } = log.mock.calls[0][0];
@@ -197,7 +188,7 @@ describe('searchCategory', () => {
         getFiltersFromSearch.mockReturnValueOnce(map);
 
         // Act.
-        createTestInstance(<Component {...mockProps} />);
+        createTestInstance(<Component />);
 
         // Assert.
         const { searchCategory } = log.mock.calls[0][0];
@@ -213,7 +204,7 @@ describe('searchCategory', () => {
         getFiltersFromSearch.mockReturnValueOnce(map);
 
         // Act.
-        createTestInstance(<Component {...mockProps} />);
+        createTestInstance(<Component />);
 
         // Assert.
         const { searchCategory } = log.mock.calls[0][0];
