@@ -28,13 +28,13 @@ import DEFAULT_OPERATIONS from './createAccount.gql';
 export const useCreateAccount = props => {
     const {
         operations = DEFAULT_OPERATIONS,
-        queries: { customerQuery, getCartDetailsQuery },
+        queries: { getCartDetailsQuery },
         mutations: { createCartMutation, signInMutation, mergeCartsMutation },
         initialValues = {},
         onSubmit,
         onCancel
     } = props;
-    const { createAccountMutation } = operations;
+    const { createAccountMutation, getCustomerQuery } = operations;
     const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [
@@ -63,7 +63,7 @@ export const useCreateAccount = props => {
         fetchPolicy: 'no-cache'
     });
 
-    const fetchUserDetails = useAwaitQuery(customerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const handleCancel = useCallback(() => {

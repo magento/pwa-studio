@@ -23,7 +23,6 @@ import defaultClasses from './createAccount.css';
 
 import CREATE_CART_MUTATION from '../../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../../queries/getCartDetails.graphql';
-import GET_CUSTOMER_QUERY from '../../../queries/getCustomer.graphql';
 import SIGN_IN_MUTATION from '../../../queries/signIn.graphql';
 
 const CreateAccount = props => {
@@ -47,9 +46,6 @@ const CreateAccount = props => {
     }, [addToast]);
 
     const talonProps = useCreateAccount({
-        queries: {
-            customerQuery: GET_CUSTOMER_QUERY
-        },
         mutations: {
             createCartMutation: CREATE_CART_MUTATION,
             getCartDetailsQuery: GET_CART_DETAILS_QUERY,

@@ -26,6 +26,19 @@ export const CREATE_ACCOUNT = gql`
     }
 `;
 
+export const GET_CUSTOMER = gql`
+    query GetCustomerAfterCheckout {
+        customer {
+            id
+            email
+            firstname
+            lastname
+            is_subscribed
+        }
+    }
+`;
+
 export default {
-    createAccountMutation: CREATE_ACCOUNT
+    createAccountMutation: CREATE_ACCOUNT,
+    getCustomerQuery: GET_CUSTOMER
 };

@@ -8,7 +8,6 @@ import CategoryTree from '../CategoryTree';
 import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
-import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 
 const AuthModal = React.lazy(() => import('../AuthModal'));
 
@@ -29,7 +28,7 @@ const Navigation = props => {
         showMyAccount,
         showSignIn,
         view
-    } = useNavigation({ customerQuery: GET_CUSTOMER_QUERY });
+    } = useNavigation();
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;

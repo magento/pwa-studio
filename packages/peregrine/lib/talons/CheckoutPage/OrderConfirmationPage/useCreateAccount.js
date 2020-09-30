@@ -28,12 +28,12 @@ import DEFAULT_OPERATIONS from './createAccount.gql';
 export const useCreateAccount = props => {
     const {
         operations = DEFAULT_OPERATIONS,
-        queries: { customerQuery, getCartDetailsQuery },
+        queries: { getCartDetailsQuery },
         mutations: { createCartMutation, signInMutation },
         initialValues = {},
         onSubmit
     } = props;
-    const { createAccountMutation } = operations;
+    const { createAccountMutation, getCustomerQuery } = operations;
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
@@ -56,7 +56,7 @@ export const useCreateAccount = props => {
         fetchPolicy: 'no-cache'
     });
 
-    const fetchUserDetails = useAwaitQuery(customerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const handleSubmit = useCallback(
