@@ -51,11 +51,9 @@ const ProductFullDetail = props => {
         errorMessage,
         handleAddToCart,
         handleSelectionChange,
-        handleSetQuantity,
         isAddToCartDisabled,
         mediaGalleryEntries,
-        productDetails,
-        quantity
+        productDetails
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -121,7 +119,7 @@ const ProductFullDetail = props => {
     return (
         <Fragment>
             {breadcrumbs}
-            <Form className={classes.root}>
+            <Form className={classes.root} onSubmit={handleAddToCart}>
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
                         {productDetails.name}
@@ -147,17 +145,15 @@ const ProductFullDetail = props => {
                     <h2 className={classes.quantityTitle}>Quantity</h2>
                     <QuantityFields
                         classes={{ root: classes.quantityRoot }}
-                        initialValue={quantity}
-                        onChange={handleSetQuantity}
                         min={1}
                         message={errors.get('quantity')}
                     />
                 </section>
                 <section className={classes.cartActions}>
                     <Button
-                        priority="high"
-                        onClick={handleAddToCart}
                         disabled={isAddToCartDisabled}
+                        priority="high"
+                        type="submit"
                     >
                         Add to Cart
                     </Button>

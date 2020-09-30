@@ -141,14 +141,12 @@ const mockSimpleProduct = {
 };
 const mockHandleAddToCart = jest.fn();
 const mockHandleSelectionChange = jest.fn();
-const mockHandleSetQuantity = jest.fn();
 
 const talonProps = {
     breadcrumbCategoryId: undefined,
     errorMessage: null,
     handleAddToCart: mockHandleAddToCart,
     handleSelectionChange: mockHandleSelectionChange,
-    handleSetQuantity: mockHandleSetQuantity,
     isAddToCartDisabled: false,
     mediaGalleryEntries: [],
     productDetails: {
@@ -159,8 +157,7 @@ const talonProps = {
             currency: 'USD',
             value: '3.50'
         }
-    },
-    quantity: 1
+    }
 };
 
 test('it renders correctly', () => {
