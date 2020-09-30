@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 import { fromReactIntl, toReactIntl } from '../../util/formatLocale';
 import { gql, useQuery } from '@apollo/client';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import LoadingIndicator from '../LoadingIndicator';
 
 const GET_LOCALE = gql`
     query getLocale {
@@ -61,7 +61,7 @@ const LocaleProvider = props => {
         }
     };
 
-    if (loading) return fullPageLoadingIndicator;
+    if (loading) return <LoadingIndicator global={true} />;
 
     return (
         <IntlProvider
