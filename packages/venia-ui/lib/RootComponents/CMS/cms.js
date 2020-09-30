@@ -1,25 +1,18 @@
 import React, { Fragment } from 'react';
 import { number, shape, string } from 'prop-types';
-import GET_CMS_PAGE from '../../queries/getCmsPage.graphql';
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import { useCmsPage } from '@magento/peregrine/lib/talons/Cms/useCmsPage';
-import RichContent from '../../components/RichContent';
+
+import { mergeClasses } from '../../classify';
 import CategoryList from '../../components/CategoryList';
 import { Meta, Title } from '../../components/Head';
-import { mergeClasses } from '../../classify';
-
+import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import RichContent from '../../components/RichContent';
 import defaultClasses from './cms.css';
 
 const CMSPage = props => {
     const { id } = props;
 
-    const talonProps = useCmsPage({
-        id,
-        queries: {
-            getCmsPage: GET_CMS_PAGE
-        }
-    });
-
+    const talonProps = useCmsPage({ id });
     const {
         cmsPage,
         hasContent,
