@@ -49,10 +49,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
     >
       Quantity
     </h2>
-    <ProductQuantity
-      initialValue={1}
-      onValueChange={[MockFunction]}
-    />
+    QuantityFields
   </section>
   <section
     className="cartActions"
@@ -60,8 +57,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
     <button
       className="root_highPriority"
       disabled={true}
-      onClick={[MockFunction]}
-      type="button"
+      type="submit"
     >
       <span
         className="content"
@@ -144,10 +140,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
     >
       Quantity
     </h2>
-    <ProductQuantity
-      initialValue={1}
-      onValueChange={[MockFunction]}
-    />
+    QuantityFields
   </section>
   <section
     className="cartActions"
@@ -155,8 +148,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
     <button
       className="root_highPriority"
       disabled={false}
-      onClick={[MockFunction]}
-      type="button"
+      type="submit"
     >
       <span
         className="content"
@@ -245,10 +237,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
     >
       Quantity
     </h2>
-    <ProductQuantity
-      initialValue={1}
-      onValueChange={[MockFunction]}
-    />
+    QuantityFields
   </section>
   <section
     className="cartActions"
@@ -256,8 +245,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
     <button
       className="root_highPriority"
       disabled={false}
-      onClick={[MockFunction]}
-      type="button"
+      type="submit"
     >
       <span
         className="content"
@@ -347,10 +335,7 @@ Array [
       >
         Quantity
       </h2>
-      <ProductQuantity
-        initialValue={1}
-        onValueChange={[MockFunction]}
-      />
+      QuantityFields
     </section>
     <section
       className="cartActions"
@@ -358,8 +343,7 @@ Array [
       <button
         className="root_highPriority"
         disabled={false}
-        onClick={[MockFunction]}
-        type="button"
+        type="submit"
       >
         <span
           className="content"
@@ -518,10 +502,7 @@ exports[`it renders correctly 1`] = `
     >
       Quantity
     </h2>
-    <ProductQuantity
-      initialValue={1}
-      onValueChange={[MockFunction]}
-    />
+    QuantityFields
   </section>
   <section
     className="cartActions"
@@ -529,8 +510,7 @@ exports[`it renders correctly 1`] = `
     <button
       className="root_highPriority"
       disabled={false}
-      onClick={[MockFunction]}
-      type="button"
+      type="submit"
     >
       <span
         className="content"
@@ -615,11 +595,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
     >
       Quantity
     </h2>
-    <ProductQuantity
-      initialValue={1}
-      message="The requested quantity is not available."
-      onValueChange={[MockFunction]}
-    />
+    QuantityFields
   </section>
   <section
     className="cartActions"
@@ -627,8 +603,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
     <button
       className="root_highPriority"
       disabled={false}
-      onClick={[MockFunction]}
-      type="button"
+      type="submit"
     >
       <span
         className="content"
@@ -713,11 +688,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
     >
       Quantity
     </h2>
-    <ProductQuantity
-      initialValue={1}
-      message="The requested quantity is not available."
-      onValueChange={[MockFunction]}
-    />
+    QuantityFields
   </section>
   <section
     className="cartActions"
@@ -725,8 +696,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
     <button
       className="root_highPriority"
       disabled={false}
-      onClick={[MockFunction]}
-      type="button"
+      type="submit"
     >
       <span
         className="content"
@@ -811,11 +781,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
     >
       Quantity
     </h2>
-    <ProductQuantity
-      initialValue={1}
-      message="The requested quantity is not available."
-      onValueChange={[MockFunction]}
-    />
+    QuantityFields
   </section>
   <section
     className="cartActions"
@@ -823,8 +789,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
     <button
       className="root_highPriority"
       disabled={false}
-      onClick={[MockFunction]}
-      type="button"
+      type="submit"
     >
       <span
         className="content"
@@ -913,10 +878,7 @@ exports[`it renders form level errors 1`] = `
     >
       Quantity
     </h2>
-    <ProductQuantity
-      initialValue={1}
-      onValueChange={[MockFunction]}
-    />
+    QuantityFields
   </section>
   <section
     className="cartActions"
@@ -924,8 +886,7 @@ exports[`it renders form level errors 1`] = `
     <button
       className="root_highPriority"
       disabled={false}
-      onClick={[MockFunction]}
-      type="button"
+      type="submit"
     >
       <span
         className="content"

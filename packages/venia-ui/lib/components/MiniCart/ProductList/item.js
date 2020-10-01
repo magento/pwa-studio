@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { string, number, shape, func, arrayOf } from 'prop-types';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
@@ -25,13 +26,19 @@ const Item = props => {
         closeMiniCart
     } = props;
 
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, propClasses);
     const itemLink = useMemo(
         () => resourceUrl(`/${product.url_key}${product.url_suffix}`),
         [product.url_key, product.url_suffix]
     );
     const stockStatusText =
-        product.stock_status === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
+        product.stock_status === 'OUT_OF_STOCK'
+            ? formatMessage({
+                  id: 'productList.outOfStock',
+                  defaultMessage: 'Out-of-stock'
+              })
+            : '';
 
     const { isDeleting, removeItem } = useItem({
         id,
@@ -49,7 +56,9 @@ const Item = props => {
             >
                 <Image
                     alt={product.name}
-                    classes={{ root: classes.thumbnail }}
+                    classes={{
+                        root: classes.thumbnail
+                    }}
                     width={100}
                     resource={product.thumbnail.url}
                 />
@@ -67,13 +76,22 @@ const Item = props => {
                     options: classes.options
                 }}
             />
-            <span className={classes.quantity}>{`Qty : ${quantity}`}</span>
+            <span className={classes.quantity}>
+                <FormattedMessage
+                    id={'productList.quantity'}
+                    defaultMessage={'Qty :'}
+                    values={{ quantity }}
+                />
+            </span>
             <span className={classes.price}>
                 <Price
                     currencyCode={prices.price.currency}
                     value={prices.price.value}
                 />
-                {' ea.'}
+                <FormattedMessage
+                    id={'productList.each'}
+                    defaultMessage={' ea.'}
+                />
             </span>
             <span className={classes.stockStatus}>{stockStatusText}</span>
             <button
@@ -85,7 +103,9 @@ const Item = props => {
                 <Icon
                     size={16}
                     src={DeleteIcon}
-                    classes={{ icon: classes.editIcon }}
+                    classes={{
+                        icon: classes.editIcon
+                    }}
                 />
             </button>
         </div>
