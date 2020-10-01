@@ -74,7 +74,7 @@ const CompletedView = props => {
                         />
                         <span className={classes.editButtonText}>
                             <FormattedMessage
-                                id={'global.edit'}
+                                id={'global.editButton'}
                                 defaultMessage={'Edit'}
                             />
                         </span>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { shape, string, func } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
@@ -33,7 +34,10 @@ const Summary = props => {
     if (isLoading && !selectedPaymentMethod) {
         return (
             <LoadingIndicator classes={{ root: classes.loading }}>
-                Fetching Payment Information
+                <FormattedMessage
+                    id={'checkoutPage.loadingPaymentInformation'}
+                    defaultMessage={'Fetching Payment Information'}
+                />
             </LoadingIndicator>
         );
     }
@@ -42,7 +46,12 @@ const Summary = props => {
         return (
             <div className={classes.root}>
                 <div className={classes.heading_container}>
-                    <h5 className={classes.heading}>Payment Information</h5>
+                    <h5 className={classes.heading}>
+                        <FormattedMessage
+                            id={'checkoutPage.paymentInformation'}
+                            defaultMessage={'Payment Information'}
+                        />
+                    </h5>
                 </div>
                 <div className={classes.card_details_container}>
                     <span className={classes.payment_details}>
@@ -96,7 +105,12 @@ const Summary = props => {
         return (
             <div className={classes.root}>
                 <div className={classes.heading_container}>
-                    <h5 className={classes.heading}>Payment Information</h5>
+                    <h5 className={classes.heading}>
+                        <FormattedMessage
+                            id={'checkoutPage.paymentInformation'}
+                            defaultMessage={'Payment Information'}
+                        />
+                    </h5>
                     <LinkButton
                         className={classes.edit_button}
                         onClick={onEdit}
@@ -107,11 +121,21 @@ const Summary = props => {
                             src={EditIcon}
                             classes={{ icon: classes.edit_icon }}
                         />
-                        <span className={classes.edit_text}>{'Edit'}</span>
+                        <span className={classes.edit_text}>
+                            <FormattedMessage
+                                id={'global.editButton'}
+                                defaultMessage={'Edit'}
+                            />
+                        </span>
                     </LinkButton>
                 </div>
                 <div className={classes.card_details_container}>
-                    <span className={classes.payment_type}>Credit Card</span>
+                    <span className={classes.payment_type}>
+                        <FormattedMessage
+                            id={'checkoutPage.creditCard'}
+                            defaultMessage={'Credit Card'}
+                        />
+                    </span>
                     <span className={classes.payment_details}>
                         {paymentSummary}
                     </span>

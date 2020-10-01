@@ -76,7 +76,7 @@ const CheckoutPage = props => {
                 error && error.message
                     ? error.message
                     : formatMessage({
-                          id: 'checkoutPage.errorMessage',
+                          id: 'checkoutPage.errorSubmit',
                           defaultMessage:
                               'Oops! An error occurred while submitting. Please try again.'
                       });
@@ -174,7 +174,7 @@ const CheckoutPage = props => {
             ) : (
                 <h3 className={classes.payment_information_heading}>
                     <FormattedMessage
-                        id={'checkoutPage.paymentInformation'}
+                        id={'checkoutPage.paymentInformationStep'}
                         defaultMessage={'3. Payment Information'}
                     />
                 </h3>
