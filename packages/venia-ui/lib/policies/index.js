@@ -98,8 +98,7 @@ const typePolicies = {
                         }
                     });
 
-                    const result = Array.from(mergeResult);
-                    return result;
+                    return Array.from(mergeResult);
                 }
             }
         }
@@ -175,7 +174,6 @@ const typePolicies = {
                             existingShippingMethod
                         );
                         const carrierKey = `${carrierCode}|${carrierTitle}`;
-
                         carrierToIndex.set(carrierKey, index);
                     });
 
@@ -190,7 +188,6 @@ const typePolicies = {
                             incomingShippingMethod
                         );
                         const carrierKey = `${carrierCode}|${carrierTitle}`;
-
                         if (carrierToIndex.has(carrierKey)) {
                             const targetIndex = carrierToIndex.get(carrierKey);
                             const existingShippingMethod =
@@ -207,8 +204,7 @@ const typePolicies = {
                         }
                     });
 
-                    const result = Array.from(mergeResult);
-                    return result;
+                    return Array.from(mergeResult);
                 }
             },
             country: {
