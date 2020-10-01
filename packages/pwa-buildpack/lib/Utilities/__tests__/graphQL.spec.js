@@ -318,7 +318,6 @@ describe('getUnionAndInterfaceTypes', () => {
     });
 });
 
-
 describe('getAvailableStoresConfigData', () => {
     test('should return an array of stores', async () => {
         // Setup: mock fetch returning the successfully.
