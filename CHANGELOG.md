@@ -198,9 +198,8 @@ This documentation contains API descriptions and sample code to help developers 
 
 ## Known issues
 
-PWA Studio 8.0.0 is not fully compatible with Magento 2.3.6, which can result in the following issues:
-
-- User is unable to Reset password
+- PWA Studio 8.0.0 is not fully compatible with Magento 2.3.6, which can prevent Users from using the Reset Password feature.
+- When switching stores as a logged in customer, the shopping cart is not reassigned to the new store.
 
 ## Upgrading from a previous version
 
