@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { func, shape, string, arrayOf } from 'prop-types';
 import { useGuestForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
@@ -32,26 +33,38 @@ const GuestForm = props => {
         isUpdate
     } = talonProps;
 
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const guestEmailMessage = !isUpdate ? (
         <Message>
-            {
-                'Set a password at the end of guest checkout to create an account in one easy step.'
-            }
+            <FormattedMessage
+                id={'guestForm.emailMessage'}
+                defaultMessage={
+                    'Set a password at the end of guest checkout to create an account in one easy step.'
+                }
+            />
         </Message>
     ) : null;
 
     const cancelButton = isUpdate ? (
         <Button disabled={isSaving} onClick={handleCancel} priority="low">
-            {'Cancel'}
+            <FormattedMessage
+                id={'global.cancelButton'}
+                defaultMessage={'Cancel'}
+            />
         </Button>
     ) : null;
 
     const submitButtonText = isUpdate
-        ? 'Update'
-        : 'Continue to Shipping Method';
-
+        ? formatMessage({
+              id: 'global.updateButton',
+              defaultMessage: 'Update'
+          })
+        : formatMessage({
+              id: 'guestForm.continueToShippingMethodButton',
+              defaultMessage: 'Continue to Shipping Method'
+          });
     const submitButtonProps = {
         disabled: isSaving,
         priority: isUpdate ? 'high' : 'normal',
@@ -67,18 +80,36 @@ const GuestForm = props => {
                 onSubmit={handleSubmit}
             >
                 <div className={classes.email}>
-                    <Field id="email" label="Email">
+                    <Field
+                        id="email"
+                        label={formatMessage({
+                            id: 'global.email',
+                            defaultMessage: 'Email'
+                        })}
+                    >
                         <TextInput field="email" validate={isRequired} />
                         {guestEmailMessage}
                     </Field>
                 </div>
                 <div className={classes.firstname}>
-                    <Field id="firstname" label="First Name">
+                    <Field
+                        id="firstname"
+                        label={formatMessage({
+                            id: 'global.firstName',
+                            defaultMessage: 'First Name'
+                        })}
+                    >
                         <TextInput field="firstname" validate={isRequired} />
                     </Field>
                 </div>
                 <div className={classes.lastname}>
-                    <Field id="lastname" label="Last Name">
+                    <Field
+                        id="lastname"
+                        label={formatMessage({
+                            id: 'global.lastName',
+                            defaultMessage: 'Last Name'
+                        })}
+                    >
                         <TextInput field="lastname" validate={isRequired} />
                     </Field>
                 </div>
@@ -86,21 +117,36 @@ const GuestForm = props => {
                     <Country validate={isRequired} />
                 </div>
                 <div className={classes.street0}>
-                    <Field id="street0" label="Street Address">
+                    <Field
+                        id="street0"
+                        label={formatMessage({
+                            id: 'global.streetAddress',
+                            defaultMessage: 'Street Address'
+                        })}
+                    >
                         <TextInput field="street[0]" validate={isRequired} />
                     </Field>
                 </div>
                 <div className={classes.street1}>
                     <Field
                         id="street1"
-                        label="Street Address 2"
+                        label={formatMessage({
+                            id: 'global.streetAddress2',
+                            defaultMessage: 'Street Address 2'
+                        })}
                         optional={true}
                     >
                         <TextInput field="street[1]" />
                     </Field>
                 </div>
                 <div className={classes.city}>
-                    <Field id="city" label="City">
+                    <Field
+                        id="city"
+                        label={formatMessage({
+                            id: 'global.city',
+                            defaultMessage: 'City'
+                        })}
+                    >
                         <TextInput field="city" validate={isRequired} />
                     </Field>
                 </div>
@@ -108,12 +154,24 @@ const GuestForm = props => {
                     <Region validate={isRequired} />
                 </div>
                 <div className={classes.postcode}>
-                    <Field id="postcode" label="ZIP / Postal Code">
+                    <Field
+                        id="postcode"
+                        label={formatMessage({
+                            id: 'global.postcode',
+                            defaultMessage: 'ZIP / Postal Code'
+                        })}
+                    >
                         <TextInput field="postcode" validate={isRequired} />
                     </Field>
                 </div>
                 <div className={classes.telephone}>
-                    <Field id="telephone" label="Phone Number">
+                    <Field
+                        id="telephone"
+                        label={formatMessage({
+                            id: 'global.phoneNumber',
+                            defaultMessage: 'Phone Number'
+                        })}
+                    >
                         <TextInput field="telephone" validate={isRequired} />
                     </Field>
                 </div>

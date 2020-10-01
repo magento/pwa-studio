@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
@@ -32,7 +33,13 @@ const Item = props => {
                     options: classes.options
                 }}
             />
-            <span className={classes.quantity}>{`Qty : ${quantity}`}</span>
+            <span className={classes.quantity}>
+                <FormattedMessage
+                    id={'itemsReview.quantity'}
+                    defaultMessage={'Qty :'}
+                    values={{ quantity }}
+                />
+            </span>
         </div>
     );
 };

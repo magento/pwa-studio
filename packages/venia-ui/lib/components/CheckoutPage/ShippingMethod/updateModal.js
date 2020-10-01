@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
@@ -19,6 +20,7 @@ const UpdateModal = props => {
         pageIsUpdating,
         shippingMethods
     } = props;
+    const { formatMessage } = useIntl();
 
     const dialogButtonsDisabled = pageIsUpdating;
     const dialogSubmitButtonDisabled = isLoading;
@@ -37,7 +39,10 @@ const UpdateModal = props => {
             onConfirm={handleSubmit}
             shouldDisableAllButtons={dialogButtonsDisabled}
             shouldDisableConfirmButton={dialogSubmitButtonDisabled}
-            title={'Edit Shipping Method'}
+            title={formatMessage({
+                id: 'updateModal.editShippingMethod',
+                defaultMessage: 'Edit Shipping Method'
+            })}
         >
             <FormError
                 classes={{ root: classes.errorContainer }}
