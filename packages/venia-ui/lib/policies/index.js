@@ -27,6 +27,11 @@ const typePolicies = {
     AvailablePaymentMethod: {
         keyFields: ['code']
     },
+    AvailableShippingMethod: {
+        // The combination of these fields makes an instance of
+        // AvailableShippingMethod unique.
+        keyFields: ['carrier_code', 'carrier_title']
+    },
     Breadcrumb: {
         // Uses provided fields on the object as the `id`.
         keyFields: ['category_id']
@@ -57,9 +62,44 @@ const typePolicies = {
                 merge: true
             },
             shipping_addresses: {
-                // eslint-disable-next-line no-unused-vars
-                merge(existing, incoming) {
-                    return incoming;
+                merge(existing = [], incoming, { readField, mergeObjects }) {
+                    // street makes these things unique
+                    const mergeResult = new Set();
+                    const streetToIndex = new Map();
+
+                    existing.forEach((existingShippingAddress, index) => {
+                        // Use readField instead of existingShippingAddress.street directly because it will follow cache references.
+                        const street = readField(
+                            'street',
+                            existingShippingAddress
+                        );
+                        streetToIndex.set(street, index);
+                    });
+
+                    incoming.forEach(incomingShippingAddress => {
+                        const street = readField(
+                            'street',
+                            incomingShippingAddress
+                        );
+
+                        if (streetToIndex.has(street)) {
+                            const targetIndex = streetToIndex.get(street);
+                            const existingShippingAddress =
+                                existing[targetIndex];
+                            const merged = mergeObjects(
+                                existingShippingAddress,
+                                incomingShippingAddress
+                            );
+                            mergeResult.add(merged);
+                        } else {
+                            // We do not have an address with this street yet, add it on to the end.
+                            streetToIndex.set(street, streetToIndex.size);
+                            mergeResult.add(incomingShippingAddress);
+                        }
+                    });
+
+                    const result = Array.from(mergeResult);
+                    return result;
                 }
             }
         }
@@ -116,7 +156,61 @@ const typePolicies = {
         keyFields: ['code']
     },
     ShippingCartAddress: {
+        keyFields: ['street'],
         fields: {
+            available_shipping_methods: {
+                merge(existing = [], incoming, { readField, mergeObjects }) {
+                    // carrier_code + carrier_title makes these things unique
+                    const mergeResult = new Set();
+                    const carrierToIndex = new Map();
+
+                    existing.forEach((existingShippingMethod, index) => {
+                        // Use readField because it will follow cache references.
+                        const carrierCode = readField(
+                            'carrier_code',
+                            existingShippingMethod
+                        );
+                        const carrierTitle = readField(
+                            'carrier_title',
+                            existingShippingMethod
+                        );
+                        const carrierKey = `${carrierCode}|${carrierTitle}`;
+
+                        carrierToIndex.set(carrierKey, index);
+                    });
+
+                    incoming.forEach(incomingShippingMethod => {
+                        // Use readField because it will follow cache references.
+                        const carrierCode = readField(
+                            'carrier_code',
+                            incomingShippingMethod
+                        );
+                        const carrierTitle = readField(
+                            'carrier_title',
+                            incomingShippingMethod
+                        );
+                        const carrierKey = `${carrierCode}|${carrierTitle}`;
+
+                        if (carrierToIndex.has(carrierKey)) {
+                            const targetIndex = carrierToIndex.get(carrierKey);
+                            const existingShippingMethod =
+                                existing[targetIndex];
+                            const merged = mergeObjects(
+                                existingShippingMethod,
+                                incomingShippingMethod
+                            );
+                            mergeResult.add(merged);
+                        } else {
+                            // We do not have a method with this key yet, add it on to the end.
+                            carrierToIndex.set(carrierKey, carrierToIndex.size);
+                            mergeResult.add(incomingShippingMethod);
+                        }
+                    });
+
+                    const result = Array.from(mergeResult);
+                    return result;
+                }
+            },
             country: {
                 merge: true
             },
