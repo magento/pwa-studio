@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useStoreSwitcher } from '../useStoreSwitcher';
-import { mockSetItem } from '../../../util/simplePersistence';
+import { mockSetItem, mockGetItem } from '../../../util/simplePersistence';
 
 jest.mock('../../../util/simplePersistence');
 
@@ -15,6 +15,17 @@ const history = {
 };
 
 useHistory.mockImplementation(() => history);
+
+jest.mock('@magento/peregrine', () => ({
+    ...jest.requireActual('@magento/peregrine'),
+    Util: {
+        BrowserPersistence: function() {
+            return {
+                getItem: jest.fn().mockReturnValueOnce('store2')
+            };
+        }
+    }
+}));
 
 jest.mock('@apollo/client', () => {
     const useQuery = jest.fn().mockReturnValue({
@@ -107,4 +118,75 @@ describe('event handlers', () => {
         expect(mockSetItem).toHaveBeenCalledTimes(0);
         expect(history.go).toHaveBeenCalledTimes(0);
     });
+});
+
+test('includes store code when option is enabled and no store code is present in URL', () => {
+    process.env.USE_STORE_CODE_IN_URL = 'true';
+
+    mockGetItem.mockReturnValue('store2');
+
+    const originalLocation = window.location;
+    delete window.location;
+    window.location = {
+        pathname: '/',
+        assign: jest.fn()
+    };
+
+    const { talonProps } = getTalonProps(defaultProps);
+    const { handleSwitchStore } = talonProps;
+
+    handleSwitchStore('store1');
+
+    expect(window.location.assign).toBeCalledWith('/store1');
+
+    process.env.USE_STORE_CODE_IN_URL = 'false';
+    window.location = originalLocation;
+});
+
+test('replaces current store code in URL with new store code', () => {
+    process.env.USE_STORE_CODE_IN_URL = 'true';
+
+    mockGetItem.mockReturnValue('store2');
+
+    const { talonProps } = getTalonProps(defaultProps);
+    const { handleSwitchStore } = talonProps;
+
+    const originalLocation = window.location;
+    delete window.location;
+    window.location = {
+        pathname: '/store2/category-name.html',
+        assign: jest.fn()
+    };
+
+    handleSwitchStore('store1');
+
+    expect(window.location.assign).toBeCalledWith('/store1/category-name.html');
+
+    process.env.USE_STORE_CODE_IN_URL = 'false';
+    window.location = originalLocation;
+});
+
+test('adds store code to url when not present but store code in url enabled', () => {
+    process.env.USE_STORE_CODE_IN_URL = 'true';
+
+    mockGetItem.mockReturnValue('store2');
+
+    const { talonProps } = getTalonProps(defaultProps);
+    const { handleSwitchStore } = talonProps;
+
+    const originalLocation = window.location;
+    delete window.location;
+    window.location = {
+        pathname: '/category/category-name.html',
+        assign: jest.fn()
+    };
+
+    handleSwitchStore('store1');
+
+    expect(window.location.assign).toBeCalledWith(
+        '/store1/category/category-name.html'
+    );
+
+    process.env.USE_STORE_CODE_IN_URL = 'false';
+    window.location = originalLocation;
 });

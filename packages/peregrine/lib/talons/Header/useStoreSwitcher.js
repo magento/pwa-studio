@@ -90,13 +90,36 @@ export const useStoreSwitcher = props => {
                 availableStores.get(storeCode).currency
             );
 
-            // Refresh the page to re-trigger the queries once code/currency are saved in local storage.
+            // Handle updating the URL if the store code should be present
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
-                window.location = window.location.pathname.replace(
-                    previousStoreCode,
-                    storeCode
-                );
+                const pathName = window.location.pathname;
+
+                // Check to see if we're on a page outside of the homepage
+                if (pathName !== '' && pathName !== '/') {
+                    const pathNameSplit = pathName.split('/');
+                    const pathStoreCode = pathNameSplit[1];
+
+                    // Is the current store code in the URL? If so replace it with the new one
+                    if (previousStoreCode === pathStoreCode) {
+                        window.location.assign(
+                            window.location.pathname.replace(
+                                `/${previousStoreCode}`,
+                                `/${storeCode}`
+                            )
+                        );
+                    } else {
+                        // If there is no store code present, include it and reload
+                        window.location.assign(
+                            `/${storeCode}${
+                                pathName && pathName !== '/' ? pathName : ''
+                            }`
+                        );
+                    }
+                } else {
+                    window.location.assign(`/${storeCode}`);
+                }
             } else {
+                // Refresh the page to re-trigger the queries once code/currency are saved in local storage.
                 history.go(0);
             }
         },
