@@ -21,8 +21,6 @@ import Password from '../../Password';
 
 import defaultClasses from './createAccount.css';
 
-import GET_CART_DETAILS_QUERY from '../../../queries/getCartDetails.graphql';
-
 const CreateAccount = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -44,9 +42,6 @@ const CreateAccount = props => {
     }, [addToast]);
 
     const talonProps = useCreateAccount({
-        mutations: {
-            getCartDetailsQuery: GET_CART_DETAILS_QUERY
-        },
         initialValues: {
             email: props.email,
             firstName: props.firstname,

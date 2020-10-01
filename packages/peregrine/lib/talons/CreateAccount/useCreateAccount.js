@@ -28,7 +28,6 @@ import DEFAULT_OPERATIONS from './createAccount.gql';
 export const useCreateAccount = props => {
     const {
         operations = DEFAULT_OPERATIONS,
-        queries: { getCartDetailsQuery },
         mutations: { mergeCartsMutation },
         initialValues = {},
         onSubmit,
@@ -37,6 +36,7 @@ export const useCreateAccount = props => {
     const {
         createAccountMutation,
         createCartMutation,
+        getCartDetailsQuery,
         getCustomerQuery,
         signInMutation
     } = operations;

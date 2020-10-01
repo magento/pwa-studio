@@ -10,7 +10,6 @@ import { mergeClasses } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
 import Quantity from '../ProductQuantity';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import {
     ADD_CONFIGURABLE_MUTATION,
     ADD_SIMPLE_MUTATION
@@ -141,5 +140,52 @@ export default CartOptions;
 export const CREATE_CART_MUTATION = gql`
     mutation CreateCartWithCartOptions {
         cartId: createEmptyCart
+    }
+`;
+
+export const GET_CART_DETAILS_QUERY = gql`
+    query getCartDetails($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            items {
+                id
+                prices {
+                    price {
+                        value
+                    }
+                }
+                product {
+                    id
+                    name
+                    sku
+                    small_image {
+                        url
+                        label
+                    }
+                    price {
+                        regularPrice {
+                            amount {
+                                value
+                            }
+                        }
+                    }
+                }
+                quantity
+                ... on ConfigurableCartItem {
+                    configurable_options {
+                        id
+                        option_label
+                        value_id
+                        value_label
+                    }
+                }
+            }
+            prices {
+                grand_total {
+                    value
+                    currency
+                }
+            }
+        }
     }
 `;

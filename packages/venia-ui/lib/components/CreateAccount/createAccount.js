@@ -6,7 +6,6 @@ import { Redirect } from '@magento/venia-drivers';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
 
 import { mergeClasses } from '../../classify';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import { mergeCartsMutation } from '../../queries/mergeCarts.gql';
 import combine from '../../util/combineValidators';
 import {
@@ -24,9 +23,6 @@ import Password from '../Password';
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
-        queries: {
-            getCartDetailsQuery: GET_CART_DETAILS_QUERY
-        },
         mutations: {
             mergeCartsMutation
         },

@@ -6,7 +6,6 @@ import { useProduct } from '@magento/peregrine/lib/talons/LegacyMiniCart/useProd
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
 import { mergeClasses } from '../../classify';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import Image from '../Image';
 import { REMOVE_ITEM_MUTATION } from './cartOptions.gql';
 import Kebab from './kebab';
@@ -120,5 +119,52 @@ export default Product;
 export const CREATE_CART_MUTATION = gql`
     mutation CreateCartWithProduct {
         cartId: createEmptyCart
+    }
+`;
+
+export const GET_CART_DETAILS_QUERY = gql`
+    query getCartDetails($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            items {
+                id
+                prices {
+                    price {
+                        value
+                    }
+                }
+                product {
+                    id
+                    name
+                    sku
+                    small_image {
+                        url
+                        label
+                    }
+                    price {
+                        regularPrice {
+                            amount {
+                                value
+                            }
+                        }
+                    }
+                }
+                quantity
+                ... on ConfigurableCartItem {
+                    configurable_options {
+                        id
+                        option_label
+                        value_id
+                        value_label
+                    }
+                }
+            }
+            prices {
+                grand_total {
+                    value
+                    currency
+                }
+            }
+        }
     }
 `;

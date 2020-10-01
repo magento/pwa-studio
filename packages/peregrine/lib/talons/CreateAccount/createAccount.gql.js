@@ -52,9 +52,57 @@ export const CREATE_CART = gql`
     }
 `;
 
+export const GET_CART_DETAILS = gql`
+    query GetCartDetailsAfterAccountCreation($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            items {
+                id
+                prices {
+                    price {
+                        value
+                    }
+                }
+                product {
+                    id
+                    name
+                    sku
+                    small_image {
+                        url
+                        label
+                    }
+                    price {
+                        regularPrice {
+                            amount {
+                                value
+                            }
+                        }
+                    }
+                }
+                quantity
+                ... on ConfigurableCartItem {
+                    configurable_options {
+                        id
+                        option_label
+                        value_id
+                        value_label
+                    }
+                }
+            }
+            prices {
+                grand_total {
+                    value
+                    currency
+                }
+            }
+        }
+    }
+`;
+
 export default {
     createAccountMutation: CREATE_ACCOUNT,
     createCartMutation: CREATE_CART,
+    getCartDetailsQuery: GET_CART_DETAILS,
     getCustomerQuery: GET_CUSTOMER,
     signInMutation: SIGN_IN
 };
