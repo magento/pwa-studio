@@ -6,11 +6,16 @@ import Button from '../../Button';
 import { Form } from 'informed';
 
 jest.mock('../../../classify');
-jest.mock('@apollo/client', () => ({
-    useMutation: jest
-        .fn()
-        .mockImplementation(() => [jest.fn().mockResolvedValue()])
-}));
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
+    return {
+        ...apolloClient,
+        useMutation: jest
+            .fn()
+            .mockImplementation(() => [jest.fn().mockResolvedValue()])
+    };
+});
 jest.mock('@magento/peregrine/lib/context/checkout', () => {
     const state = {
         shippingAddress: {},
