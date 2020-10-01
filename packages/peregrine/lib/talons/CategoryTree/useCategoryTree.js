@@ -30,9 +30,9 @@ export const useCategoryTree = props => {
         operations = DEFAULT_OPERATIONS,
         updateCategories
     } = props;
-    const { getCategoryTreeQuery } = operations;
+    const { getNavigationMenuQuery } = operations;
 
-    const [runQuery, queryResult] = useLazyQuery(getCategoryTreeQuery);
+    const [runQuery, queryResult] = useLazyQuery(getNavigationMenuQuery);
     const { data } = queryResult;
 
     // fetch categories
