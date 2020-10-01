@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly when there are existing saved payments 1`] = `
+<div
+  className="root"
+>
+  Title
+  <h1
+    className="heading"
+  >
+    savedPaymentsPage.title
+  </h1>
+  <h3
+    className="subHeading"
+  >
+    savedPaymentsPage.subHeading
+  </h3>
+  <div
+    className="content"
+  >
+    <button
+      className="addButton"
+      disabled={false}
+      onClick={[MockFunction handleAddPayment]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <Icon
+          classes={
+            Object {
+              "icon": "addIcon",
+            }
+          }
+          size={24}
+          src={[Function]}
+        />
+        <span
+          className="addText"
+        >
+          savedPaymentsPage.addButtonText
+        </span>
+      </span>
+    </button>
+    <div>
+      <div />
+      <div />
+    </div>
+    <div>
+      <div />
+      <div />
+    </div>
+    <div>
+      <div />
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly when there are no existing saved payments 1`] = `
+<div
+  className="root"
+>
+  Title
+  <h1
+    className="heading"
+  >
+    savedPaymentsPage.title
+  </h1>
+  <h3
+    className="subHeading"
+  >
+    savedPaymentsPage.subHeading
+  </h3>
+  <div
+    className="content"
+  >
+    <button
+      className="addButton"
+      disabled={false}
+      onClick={[MockFunction handleAddPayment]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <Icon
+          classes={
+            Object {
+              "icon": "addIcon",
+            }
+          }
+          size={24}
+          src={[Function]}
+        />
+        <span
+          className="addText"
+        >
+          savedPaymentsPage.addButtonText
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;

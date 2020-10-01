@@ -49,7 +49,7 @@ Inside the GreetingPage component directory, create a `greetingPage.js` file wit
 /* src/components/GreetingPage/greetingPage.js */
 
 import React from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 const hi = {
   textAlign: "center",

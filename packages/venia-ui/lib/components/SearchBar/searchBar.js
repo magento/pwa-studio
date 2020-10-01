@@ -8,17 +8,17 @@ import Autocomplete from './autocomplete';
 import SearchField from './searchField';
 import defaultClasses from './searchBar.css';
 
-const SearchBar = props => {
+const SearchBar = React.forwardRef((props, ref) => {
     const { isOpen } = props;
     const talonProps = useSearchBar();
     const {
         containerRef,
-        expanded,
         handleChange,
         handleFocus,
         handleSubmit,
         initialValues,
-        setExpanded,
+        isAutoCompleteOpen,
+        setIsAutoCompleteOpen,
         valid
     } = talonProps;
 
@@ -26,7 +26,7 @@ const SearchBar = props => {
     const rootClassName = isOpen ? classes.root_open : classes.root;
 
     return (
-        <div className={rootClassName}>
+        <div className={rootClassName} ref={ref}>
             <div ref={containerRef} className={classes.container}>
                 <Form
                     autoComplete="off"
@@ -36,13 +36,14 @@ const SearchBar = props => {
                 >
                     <div className={classes.autocomplete}>
                         <Autocomplete
-                            setVisible={setExpanded}
+                            setVisible={setIsAutoCompleteOpen}
                             valid={valid}
-                            visible={expanded}
+                            visible={isAutoCompleteOpen}
                         />
                     </div>
                     <div className={classes.search}>
                         <SearchField
+                            isSearchOpen={isOpen}
                             onChange={handleChange}
                             onFocus={handleFocus}
                         />
@@ -51,7 +52,7 @@ const SearchBar = props => {
             </div>
         </div>
     );
-};
+});
 
 export default SearchBar;
 
