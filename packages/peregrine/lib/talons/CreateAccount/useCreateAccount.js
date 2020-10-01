@@ -29,12 +29,16 @@ export const useCreateAccount = props => {
     const {
         operations = DEFAULT_OPERATIONS,
         queries: { getCartDetailsQuery },
-        mutations: { createCartMutation, signInMutation, mergeCartsMutation },
+        mutations: { createCartMutation, mergeCartsMutation },
         initialValues = {},
         onSubmit,
         onCancel
     } = props;
-    const { createAccountMutation, getCustomerQuery } = operations;
+    const {
+        createAccountMutation,
+        getCustomerQuery,
+        signInMutation
+    } = operations;
     const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [

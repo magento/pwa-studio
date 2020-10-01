@@ -16,8 +16,7 @@ import DEFAULT_OPERATIONS from './createAccount.gql';
  *
  * @param {Object} props.initialValues initial values to sanitize and seed the form
  * @param {Function} props.onSubmit the post submit callback
- * @param {String} createAccountQuery the graphql query for creating the account
- * @param {String} signInQuery the graphql query for logging in the user (and obtaining the token)
+ * @param {Object} props.operations GraphQL operations use by talon
  * @returns {{
  *   errors: Map,
  *   handleSubmit: function,
@@ -29,11 +28,15 @@ export const useCreateAccount = props => {
     const {
         operations = DEFAULT_OPERATIONS,
         queries: { getCartDetailsQuery },
-        mutations: { createCartMutation, signInMutation },
+        mutations: { createCartMutation },
         initialValues = {},
         onSubmit
     } = props;
-    const { createAccountMutation, getCustomerQuery } = operations;
+    const {
+        createAccountMutation,
+        getCustomerQuery,
+        signInMutation
+    } = operations;
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [

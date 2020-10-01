@@ -23,7 +23,6 @@ import defaultClasses from './createAccount.css';
 
 import CREATE_CART_MUTATION from '../../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../../queries/getCartDetails.graphql';
-import SIGN_IN_MUTATION from '../../../queries/signIn.graphql';
 
 const CreateAccount = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -48,8 +47,7 @@ const CreateAccount = props => {
     const talonProps = useCreateAccount({
         mutations: {
             createCartMutation: CREATE_CART_MUTATION,
-            getCartDetailsQuery: GET_CART_DETAILS_QUERY,
-            signInMutation: SIGN_IN_MUTATION
+            getCartDetailsQuery: GET_CART_DETAILS_QUERY
         },
         initialValues: {
             email: props.email,

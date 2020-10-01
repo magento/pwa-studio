@@ -17,10 +17,9 @@ export const useSignIn = props => {
         mergeCartsMutation,
         setDefaultUsername,
         showCreateAccount,
-        showForgotPassword,
-        signInMutation
+        showForgotPassword
     } = props;
-    const { getCustomerQuery } = operations;
+    const { getCustomerQuery, signInMutation } = operations;
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);

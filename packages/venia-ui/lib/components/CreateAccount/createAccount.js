@@ -8,7 +8,6 @@ import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/us
 import { mergeClasses } from '../../classify';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
-import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
 import { mergeCartsMutation } from '../../queries/mergeCarts.gql';
 import combine from '../../util/combineValidators';
 import {
@@ -31,7 +30,6 @@ const CreateAccount = props => {
         },
         mutations: {
             createCartMutation: CREATE_CART_MUTATION,
-            signInMutation: SIGN_IN_MUTATION,
             mergeCartsMutation
         },
         initialValues: props.initialValues,

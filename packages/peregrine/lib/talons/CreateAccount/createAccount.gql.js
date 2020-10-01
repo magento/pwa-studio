@@ -38,7 +38,16 @@ export const GET_CUSTOMER = gql`
     }
 `;
 
+export const SIGN_IN = gql`
+    mutation signIn($email: String!, $password: String!) {
+        generateCustomerToken(email: $email, password: $password) {
+            token
+        }
+    }
+`;
+
 export default {
     createAccountMutation: CREATE_ACCOUNT,
-    getCustomerQuery: GET_CUSTOMER
+    getCustomerQuery: GET_CUSTOMER,
+    signInMutation: SIGN_IN
 };
