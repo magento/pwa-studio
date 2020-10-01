@@ -21,7 +21,6 @@ import Password from '../../Password';
 
 import defaultClasses from './createAccount.css';
 
-import CREATE_CART_MUTATION from '../../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../../queries/getCartDetails.graphql';
 
 const CreateAccount = props => {
@@ -46,7 +45,6 @@ const CreateAccount = props => {
 
     const talonProps = useCreateAccount({
         mutations: {
-            createCartMutation: CREATE_CART_MUTATION,
             getCartDetailsQuery: GET_CART_DETAILS_QUERY
         },
         initialValues: {

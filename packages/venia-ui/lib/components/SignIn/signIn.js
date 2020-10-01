@@ -5,7 +5,6 @@ import { Form } from 'informed';
 import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
 
 import { mergeClasses } from '../../classify';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import { mergeCartsMutation } from '../../queries/mergeCarts.gql';
 import { isRequired } from '../../util/formValidators';
 import Button from '../Button';
@@ -24,7 +23,6 @@ const SignIn = props => {
 
     const { formatMessage } = useIntl();
     const talonProps = useSignIn({
-        createCartMutation: CREATE_CART_MUTATION,
         getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         mergeCartsMutation,
         setDefaultUsername,

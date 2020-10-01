@@ -29,13 +29,14 @@ export const useCreateAccount = props => {
     const {
         operations = DEFAULT_OPERATIONS,
         queries: { getCartDetailsQuery },
-        mutations: { createCartMutation, mergeCartsMutation },
+        mutations: { mergeCartsMutation },
         initialValues = {},
         onSubmit,
         onCancel
     } = props;
     const {
         createAccountMutation,
+        createCartMutation,
         getCustomerQuery,
         signInMutation
     } = operations;

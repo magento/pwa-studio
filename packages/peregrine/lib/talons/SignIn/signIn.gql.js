@@ -20,7 +20,14 @@ export const SIGN_IN = gql`
     }
 `;
 
+export const CREATE_CART = gql`
+    mutation CreateCartAfterSignIn {
+        cartId: createEmptyCart
+    }
+`;
+
 export default {
+    createCartMutation: CREATE_CART,
     getCustomerQuery: GET_CUSTOMER,
     signInMutation: SIGN_IN
 };

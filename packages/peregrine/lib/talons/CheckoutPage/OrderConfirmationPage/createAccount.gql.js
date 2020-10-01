@@ -46,8 +46,15 @@ export const SIGN_IN = gql`
     }
 `;
 
+export const CREATE_CART = gql`
+    mutation CreateCartAfterCheckout {
+        cartId: createEmptyCart
+    }
+`;
+
 export default {
     createAccountMutation: CREATE_ACCOUNT,
+    createCartMutation: CREATE_CART,
     getCustomerQuery: GET_CUSTOMER,
     signInMutation: SIGN_IN
 };

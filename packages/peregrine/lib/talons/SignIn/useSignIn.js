@@ -11,7 +11,6 @@ import DEFAULT_OPERATIONS from './signIn.gql';
 
 export const useSignIn = props => {
     const {
-        createCartMutation,
         getCartDetailsQuery,
         operations = DEFAULT_OPERATIONS,
         mergeCartsMutation,
@@ -19,7 +18,7 @@ export const useSignIn = props => {
         showCreateAccount,
         showForgotPassword
     } = props;
-    const { getCustomerQuery, signInMutation } = operations;
+    const { createCartMutation, getCustomerQuery, signInMutation } = operations;
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
