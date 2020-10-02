@@ -30,7 +30,7 @@ const typePolicies = {
     AvailableShippingMethod: {
         // The combination of these fields makes an instance of
         // AvailableShippingMethod unique.
-        keyFields: ['carrier_code', 'carrier_title']
+        keyFields: ['carrier_code', 'method_code']
     },
     Breadcrumb: {
         // Uses provided fields on the object as the `id`.
@@ -159,7 +159,7 @@ const typePolicies = {
         fields: {
             available_shipping_methods: {
                 merge(existing = [], incoming, { readField, mergeObjects }) {
-                    // carrier_code + carrier_title makes these things unique
+                    // carrier_code + method_code makes these things unique
                     const mergeResult = new Set();
                     const carrierToIndex = new Map();
 
@@ -169,11 +169,11 @@ const typePolicies = {
                             'carrier_code',
                             existingShippingMethod
                         );
-                        const carrierTitle = readField(
-                            'carrier_title',
+                        const methodCode = readField(
+                            'method_code',
                             existingShippingMethod
                         );
-                        const carrierKey = `${carrierCode}|${carrierTitle}`;
+                        const carrierKey = `${carrierCode}|${methodCode}`;
                         carrierToIndex.set(carrierKey, index);
                     });
 
@@ -183,11 +183,11 @@ const typePolicies = {
                             'carrier_code',
                             incomingShippingMethod
                         );
-                        const carrierTitle = readField(
-                            'carrier_title',
+                        const methodCode = readField(
+                            'method_code',
                             incomingShippingMethod
                         );
-                        const carrierKey = `${carrierCode}|${carrierTitle}`;
+                        const carrierKey = `${carrierCode}|${methodCode}`;
                         if (carrierToIndex.has(carrierKey)) {
                             const targetIndex = carrierToIndex.get(carrierKey);
                             const existingShippingMethod =
