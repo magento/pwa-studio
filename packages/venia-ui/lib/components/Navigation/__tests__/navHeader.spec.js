@@ -80,7 +80,7 @@ describe('derives the title from the view', () => {
 
         // Assert.
         expect(
-            root.find(({ children }) => children.includes(`Hi`))
+            root.find(({ children }) => children.includes(`Hi, ${userName}`))
         ).toBeTruthy();
     });
 
