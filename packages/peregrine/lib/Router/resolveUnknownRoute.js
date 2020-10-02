@@ -108,7 +108,11 @@ function fetchRoute(opts) {
             route = route.substring(path.length, route.length);
         }
     });
-    route = route === '' ? '/' : route;
+
+    // If the route is empty, request the homepage
+    if (route === '') {
+        route = '/';
+    }
 
     const query = `query ResolveURL($url: String!) {
         urlResolver(url: $url) {

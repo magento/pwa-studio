@@ -82,8 +82,6 @@ export const useStoreSwitcher = props => {
             // Do nothing when store view is not present in available stores
             if (!availableStores.get(storeCode)) return;
 
-            const previousStoreCode = storage.getItem('store_view_code');
-
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
                 'store_view_currency',
@@ -100,10 +98,13 @@ export const useStoreSwitcher = props => {
                     const pathStoreCode = pathNameSplit[1];
 
                     // Is the current store code in the URL? If so replace it with the new one
-                    if (previousStoreCode === pathStoreCode) {
+                    if (
+                        availableStores.has(pathStoreCode) &&
+                        availableStores.get(pathStoreCode).isCurrent
+                    ) {
                         window.location.assign(
                             window.location.pathname.replace(
-                                `/${previousStoreCode}`,
+                                `/${pathStoreCode}`,
                                 `/${storeCode}`
                             )
                         );
