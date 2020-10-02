@@ -134,6 +134,12 @@ module.exports = targets => {
             pattern: '/wishlist',
             exact: true,
             path: '../WishlistPage'
+        },
+        {
+            name: 'AccountInformationPage',
+            pattern: '/account-information',
+            exact: true,
+            path: '../AccountInformationPage'
         }
     ]);
 };
