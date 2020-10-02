@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { useRegion } from '@magento/peregrine/lib/talons/Region/useRegion';
 
@@ -20,9 +21,11 @@ const Region = props => {
         fieldInput,
         fieldSelect,
         label,
+        translationId,
         optionValueKey,
         ...inputProps
     } = props;
+    const { formatMessage } = useIntl();
 
     const talonProps = useRegion({
         fieldInput,
@@ -49,7 +52,11 @@ const Region = props => {
     const fieldId = regions.length ? fieldSelect : fieldInput;
 
     return (
-        <Field id={fieldId} label={label} classes={{ root: classes.root }}>
+        <Field
+            id={fieldId}
+            label={formatMessage({ id: translationId, defaultMessage: label })}
+            classes={{ root: classes.root }}
+        >
             {regionField}
         </Field>
     );
@@ -61,6 +68,7 @@ Region.defaultProps = {
     fieldInput: 'region',
     fieldSelect: 'region',
     label: 'State',
+    translationId: 'region.label',
     optionValueKey: 'code'
 };
 
@@ -71,6 +79,7 @@ Region.propTypes = {
     fieldInput: string,
     fieldSelect: string,
     label: string,
+    translationId: string,
     optionValueKey: string,
     validate: func,
     initialValue: string

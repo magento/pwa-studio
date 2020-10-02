@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
@@ -41,7 +42,10 @@ export default props => {
     return cards.value ? (
         <Fragment>
             <span className={classes.lineItemLabel}>
-                {'Gift Card(s) applied'}
+                <FormattedMessage
+                    id={'giftCardSummary.lineItemLabel'}
+                    defaultMessage={'Gift Card(s) applied'}
+                />
             </span>
             <span className={classes.price}>
                 {'-'}
