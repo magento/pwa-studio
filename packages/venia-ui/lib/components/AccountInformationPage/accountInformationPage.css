@@ -1,0 +1,68 @@
+.root {
+    display: grid;
+    padding: 2.5rem 3rem;
+    row-gap: 2rem;
+}
+
+.title {
+    justify-self: center;
+    font-family: var(--venia-global-fontFamily-serif);
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.accountDetails {
+    display: grid;
+    row-gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.lineItemsContainer {
+    grid-column: 1 / span 1;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    line-height: 1.5rem;
+}
+
+.lineItemLabel {
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.nameLabel,
+.emailLabel,
+.passwordLabel {
+    composes: lineItemLabel;
+}
+
+.nameValue,
+.emailValue,
+.passwordValue {
+}
+
+.editButtonContainer {
+    grid-column: 1 / span 1;
+    text-align: center;
+}
+
+.editInformationButton {
+    composes: root_normalPriority from '../Button/button.css';
+}
+
+@media (min-width: 961px) {
+    .nameLabel,
+    .emailLabel,
+    .passwordLabel {
+        composes: lineItemLabel;
+    }
+}
+
+@media (max-width: 960px) {
+    .accountDetails {
+        grid-template-columns: 1fr;
+    }
+
+    .lineItemsContainer {
+        grid-template-columns: 1fr;
+        grid-gap: 0.75rem;
+    }
+}

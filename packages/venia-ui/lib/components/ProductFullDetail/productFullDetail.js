@@ -12,7 +12,7 @@ import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
 import FormError from '../FormError';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import Quantity from '../ProductQuantity';
+import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichText from '../RichText';
 
 import defaultClasses from './productFullDetail.css';
@@ -51,11 +51,9 @@ const ProductFullDetail = props => {
         errorMessage,
         handleAddToCart,
         handleSelectionChange,
-        handleSetQuantity,
         isAddToCartDisabled,
         mediaGalleryEntries,
-        productDetails,
-        quantity
+        productDetails
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -121,7 +119,7 @@ const ProductFullDetail = props => {
     return (
         <Fragment>
             {breadcrumbs}
-            <Form className={classes.root}>
+            <Form className={classes.root} onSubmit={handleAddToCart}>
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
                         {productDetails.name}
@@ -145,17 +143,17 @@ const ProductFullDetail = props => {
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>Quantity</h2>
-                    <Quantity
-                        initialValue={quantity}
-                        onValueChange={handleSetQuantity}
+                    <QuantityFields
+                        classes={{ root: classes.quantityRoot }}
+                        min={1}
                         message={errors.get('quantity')}
                     />
                 </section>
                 <section className={classes.cartActions}>
                     <Button
-                        priority="high"
-                        onClick={handleAddToCart}
                         disabled={isAddToCartDisabled}
+                        priority="high"
+                        type="submit"
                     >
                         Add to Cart
                     </Button>
