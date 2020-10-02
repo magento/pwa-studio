@@ -178,7 +178,7 @@ const PWADevServer = {
                         async ({ compilation }) => {
                             const queryFilePaths = [];
                             for (const filename of compilation.fileDependencies) {
-                                if (filename.endsWith('.graphql')) {
+                                if (filename.endsWith('.gql.js')) {
                                     queryFilePaths.push(filename);
                                 }
                             }
