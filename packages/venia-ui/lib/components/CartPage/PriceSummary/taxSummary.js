@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
 import { Price } from '@magento/peregrine';
 
@@ -24,6 +25,7 @@ const getEstimatedTax = (applied_taxes = []) => {
 const TaxSummary = props => {
     const classes = mergeClasses({}, props.classes);
     const { data, isCheckout } = props;
+    const { formatMessage } = useIntl();
 
     // Don't render estimated taxes until an address has been provided which
     // causes the server to apply a tax value to the cart.
@@ -31,13 +33,21 @@ const TaxSummary = props => {
         return null;
     }
 
+    const taxLabel = isCheckout
+        ? formatMessage({
+              id: 'taxSummary.tax',
+              defaultMessage: 'Tax'
+          })
+        : formatMessage({
+              id: 'taxSummary.estimatedTax',
+              defaultMessage: 'Estimated Tax'
+          });
+
     const tax = getEstimatedTax(props.data);
 
     return (
         <>
-            <span className={classes.lineItemLabel}>
-                {isCheckout ? 'Tax' : 'Estimated Tax'}
-            </span>
+            <span className={classes.lineItemLabel}>{taxLabel}</span>
             <span className={classes.price}>
                 <Price value={tax.value} currencyCode={tax.currency} />
             </span>

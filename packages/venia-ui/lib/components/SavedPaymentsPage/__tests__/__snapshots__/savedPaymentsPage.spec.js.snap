@@ -8,12 +8,12 @@ exports[`renders correctly when there are existing saved payments 1`] = `
   <h1
     className="heading"
   >
-    savedPaymentsPage.title
+    Saved Payments - Venia
   </h1>
   <h3
     className="subHeading"
   >
-    savedPaymentsPage.subHeading
+    Credit Cards saved here will be available during checkout.
   </h3>
   <div
     className="content"
@@ -39,7 +39,7 @@ exports[`renders correctly when there are existing saved payments 1`] = `
         <span
           className="addText"
         >
-          savedPaymentsPage.addButtonText
+          Add a credit card
         </span>
       </span>
     </button>
@@ -67,12 +67,12 @@ exports[`renders correctly when there are no existing saved payments 1`] = `
   <h1
     className="heading"
   >
-    savedPaymentsPage.title
+    Saved Payments - Venia
   </h1>
   <h3
     className="subHeading"
   >
-    savedPaymentsPage.subHeading
+    Credit Cards saved here will be available during checkout.
   </h3>
   <div
     className="content"
@@ -98,7 +98,7 @@ exports[`renders correctly when there are no existing saved payments 1`] = `
         <span
           className="addText"
         >
-          savedPaymentsPage.addButtonText
+          Add a credit card
         </span>
       </span>
     </button>
