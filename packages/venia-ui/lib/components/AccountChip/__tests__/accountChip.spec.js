@@ -4,7 +4,6 @@ import { createTestInstance } from '@magento/peregrine';
 import { useAccountChip } from '@magento/peregrine/lib/talons/AccountChip/useAccountChip';
 
 import AccountChip from '../accountChip';
-import { IntlProvider } from 'react-intl';
 
 jest.mock('../../../classify');
 
@@ -28,11 +27,7 @@ test('it renders the default fallback correctly', () => {
     useAccountChip.mockReturnValueOnce(talonProps);
 
     // Act.
-    const { root } = createTestInstance(
-        <IntlProvider locale="en-US">
-            <AccountChip />
-        </IntlProvider>
-    );
+    const { root } = createTestInstance(<AccountChip />);
 
     // Assert.
     expect(
@@ -50,11 +45,7 @@ test('it renders a prop fallback correctly', () => {
     };
 
     // Act.
-    const { root } = createTestInstance(
-        <IntlProvider locale="en-US">
-            <AccountChip {...props} />
-        </IntlProvider>
-    );
+    const { root } = createTestInstance(<AccountChip {...props} />);
 
     // Assert.
     expect(
@@ -73,16 +64,14 @@ test('it renders a user greeting correctly', () => {
     useAccountChip.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const { root } = createTestInstance(
-        <IntlProvider locale="en-US">
-            <AccountChip />
-        </IntlProvider>
-    );
+    const { root } = createTestInstance(<AccountChip />);
 
     // Assert.
     expect(
         root.find(({ children }) => {
-            return children.includes(`Hi, {name}`);
+            return children.includes(
+                `Hi, ${myTalonProps.currentUser.firstname}`
+            );
         })
     ).toBeTruthy();
 });
@@ -102,11 +91,7 @@ test('it renders a loading indicator when appropriate', () => {
     };
 
     // Act.
-    const instance = createTestInstance(
-        <IntlProvider locale="en-US">
-            <AccountChip {...props} />
-        </IntlProvider>
-    );
+    const instance = createTestInstance(<AccountChip {...props} />);
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -128,11 +113,7 @@ test('it renders fallback text when loading but instructed not to show loading i
     };
 
     // Act.
-    const { root } = createTestInstance(
-        <IntlProvider locale="en-US">
-            <AccountChip {...props} />
-        </IntlProvider>
-    );
+    const { root } = createTestInstance(<AccountChip {...props} />);
 
     // Assert.
     expect(

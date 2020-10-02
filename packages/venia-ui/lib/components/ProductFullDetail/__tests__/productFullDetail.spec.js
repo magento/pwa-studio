@@ -26,7 +26,9 @@ jest.mock('../../Breadcrumbs', () => 'Breadcrumbs');
 jest.mock('../../FormError', () => 'FormError');
 jest.mock('../../ProductImageCarousel', () => 'ProductImageCarousel');
 jest.mock('../../ProductOptions', () => () => 'ProductOptions');
-jest.mock('../../ProductQuantity', () => 'ProductQuantity');
+jest.mock('../../CartPage/ProductListing/quantity', () => ({
+    QuantityFields: () => 'QuantityFields'
+}));
 jest.mock('../../RichText', () => 'RichText');
 
 jest.mock('../../../classify');
@@ -139,14 +141,12 @@ const mockSimpleProduct = {
 };
 const mockHandleAddToCart = jest.fn();
 const mockHandleSelectionChange = jest.fn();
-const mockHandleSetQuantity = jest.fn();
 
 const talonProps = {
     breadcrumbCategoryId: undefined,
     errorMessage: null,
     handleAddToCart: mockHandleAddToCart,
     handleSelectionChange: mockHandleSelectionChange,
-    handleSetQuantity: mockHandleSetQuantity,
     isAddToCartDisabled: false,
     mediaGalleryEntries: [],
     productDetails: {
@@ -157,8 +157,7 @@ const talonProps = {
             currency: 'USD',
             value: '3.50'
         }
-    },
-    quantity: 1
+    }
 };
 
 test('it renders correctly', () => {
