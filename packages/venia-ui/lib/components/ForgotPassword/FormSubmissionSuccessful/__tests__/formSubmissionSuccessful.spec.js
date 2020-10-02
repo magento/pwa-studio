@@ -7,8 +7,7 @@ jest.mock('../../../../classify');
 jest.mock('../../../Button', () => () => <i />);
 
 const props = {
-    defaultMessage:
-        'If there is an account associated with your email address, you will receive an email with a link to change your password.',
+    email: 'test@example.com',
     onContinue: jest.fn()
 };
 
@@ -25,7 +24,5 @@ test('text message contains email', () => {
 
     const text = root.findByProps({ className: 'text' });
 
-    expect(text.children[0]).toEqual(
-        expect.stringContaining(props.defaultMessage)
-    );
+    expect(text.children[0]).toEqual(expect.stringContaining(props.email));
 });
