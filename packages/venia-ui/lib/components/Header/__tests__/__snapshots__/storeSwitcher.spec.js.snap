@@ -8,13 +8,10 @@ exports[`renders the correct tree 1`] = `
 >
   <button
     aria-label="Store 2"
-    className="root_normalPriority"
-    disabled={false}
     onClick={[MockFunction]}
-    type="button"
   >
     <span
-      className="content"
+      className="trigger"
     >
       <span
         className="root"
