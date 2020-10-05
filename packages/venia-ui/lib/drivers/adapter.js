@@ -7,6 +7,7 @@ import { InMemoryCache } from '@apollo/client/cache';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import { setContext } from '@apollo/client/link/context';
 
 import resolvers from '../resolvers';
 import typePolicies from '../policies';
@@ -119,20 +120,31 @@ const VeniaAdapter = props => {
                             match.params.storeCode &&
                             storeCodes.includes(match.params.storeCode)
                         ) {
-                            storage.setItem(
-                                'store_view_code',
-                                match.params.storeCode
-                            );
-                            storage.setItem(
-                                'store_view_currency',
-                                storeCurrencies[match.params.storeCode]
-                            );
-
                             /**
-                             * We cannot dynamically change the `basename` after initialization, so we have to reload the
-                             * page.
+                             * Only execute if one store code is present in the URL, multiple store codes will cause
+                             * the store state to break and cause weird side effects for the user
                              */
-                            window.location.reload();
+                            const regex = new RegExp(
+                                `(${storeCodes.join('|')})\/`,
+                                'g'
+                            );
+                            const storeCodesInUrl = window.location.pathname.match(
+                                regex
+                            ).length;
+                            if (storeCodesInUrl === 1) {
+                                storage.setItem(
+                                    'store_view_code',
+                                    match.params.storeCode
+                                );
+                                storage.setItem(
+                                    'store_view_currency',
+                                    storeCurrencies[match.params.storeCode]
+                                );
+                            } else {
+                                console.warn(
+                                    'Multiple store codes present in URL.'
+                                );
+                            }
                         }
                     }}
                 </Route>
@@ -151,6 +163,22 @@ const VeniaAdapter = props => {
         </ApolloProvider>
     );
 };
+
+// Create a new store link to include store codes and currency in the request
+VeniaAdapter.storeLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists.
+    const storeCurrency = storage.getItem('store_view_currency') || null;
+    const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
+
+    // return the headers to the context so httpLink can read them
+    return {
+        headers: {
+            ...headers,
+            store: storeCode,
+            ...(storeCurrency && { 'Content-Currency': storeCurrency })
+        }
+    };
+});
 
 /**
  * We attach this Link as a static method on VeniaAdapter because

@@ -134,15 +134,14 @@ test('verify <Route /> handler updates store on navigation when store code in UR
         }
     ];
 
-    mockGetItem.mockReturnValue('default');
-
-    // Mock the window.location.reload method
-    const originalWindow = window.location;
+    const originalLocation = window.location;
     delete window.location;
     window.location = {
-        ...originalWindow,
-        reload: jest.fn()
+        ...originalLocation,
+        pathname: '/default/test.html'
     };
+
+    mockGetItem.mockReturnValue('default');
 
     useState.mockReturnValueOnce([true, jest.fn()]);
 
@@ -153,12 +152,59 @@ test('verify <Route /> handler updates store on navigation when store code in UR
         </VeniaAdapter>
     );
 
-    expect(window.location.reload).toHaveBeenCalled();
     expect(mockSetItem.mock.calls).toEqual([
         ['store_view_code', 'french'],
         ['store_view_currency', 'EUR']
     ]);
 
-    // Restore window.location
-    window.location = originalWindow;
+    window.location = originalLocation;
+});
+
+test("verify <Route /> handler doesn't update store with multiple store codes in URL", () => {
+    process.env.USE_STORE_CODE_IN_URL = true;
+    global.AVAILABLE_STORE_VIEWS = [
+        {
+            base_currency_code: 'USD',
+            code: 'default',
+            default_display_currency_code: 'USD',
+            id: 1,
+            locale: 'en_US',
+            store_name: 'Default Store View'
+        },
+        {
+            base_currency_code: 'EUR',
+            code: 'french',
+            default_display_currency_code: 'EUR',
+            id: 2,
+            locale: 'fr_FR',
+            store_name: 'French'
+        }
+    ];
+
+    const originalLocation = window.location;
+    delete window.location;
+    window.location = {
+        ...originalLocation,
+        pathname: '/default/french/test.html'
+    };
+
+    const originalConsoleWarn = console.warn;
+    console.warn = jest.fn();
+
+    mockGetItem.mockReturnValue('default');
+
+    useState.mockReturnValueOnce([true, jest.fn()]);
+
+    // Render the adapter and instantly redirect to the other store
+    createTestInstance(
+        <VeniaAdapter {...adapterProps}>
+            <Redirect to="/default/french/test.html" />
+        </VeniaAdapter>
+    );
+
+    expect(mockSetItem).not.toHaveBeenCalled();
+    expect(console.warn).toHaveBeenCalled();
+
+    window.location = originalLocation;
+    console.warn = originalConsoleWarn;
 });
