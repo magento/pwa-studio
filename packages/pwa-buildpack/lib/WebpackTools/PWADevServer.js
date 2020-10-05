@@ -3,6 +3,7 @@ const debug = require('../util/debug').makeFileLogger(__filename);
 const {
     default: playgroundMiddleware
 } = require('graphql-playground-middleware-express');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const chalk = require('chalk');
 const configureHost = require('../Utilities/configureHost');
 const portscanner = require('portscanner');
@@ -234,7 +235,8 @@ const PWADevServer = {
                 webpackDevServerOptions,
                 process.env,
                 path.resolve(webpackConfig.context, upwardPath)
-            )
+            ),
+            new ReactRefreshWebpackPlugin()
         );
 
         return webpackDevServerOptions;
