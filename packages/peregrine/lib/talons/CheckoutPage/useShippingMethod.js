@@ -128,8 +128,6 @@ export const useShippingMethod = props => {
                 value.shipping_method
             );
 
-            setPageIsUpdating(true);
-
             try {
                 await setShippingMethodCall({
                     variables: {
@@ -142,13 +140,11 @@ export const useShippingMethod = props => {
                 });
             } catch {
                 return;
-            } finally {
-                setPageIsUpdating(false);
             }
 
             setIsUpdateMode(false);
         },
-        [cartId, setIsUpdateMode, setPageIsUpdating, setShippingMethodCall]
+        [cartId, setIsUpdateMode, setShippingMethodCall]
     );
 
     const handleCancelUpdate = useCallback(() => {
@@ -170,6 +166,10 @@ export const useShippingMethod = props => {
             onSave();
         }
     }, [hasData, onSave]);
+
+    useEffect(() => {
+        setPageIsUpdating(isSettingShippingMethod);
+    }, [isLoadingShippingMethods, isSettingShippingMethod, setPageIsUpdating]);
 
     // If an authenticated user does not have a preferred shipping method,
     // auto-select the least expensive one for them.
@@ -218,7 +218,7 @@ export const useShippingMethod = props => {
         errors,
         handleCancelUpdate,
         handleSubmit,
-        isLoading: isLoadingShippingMethods,
+        isLoading: isLoadingShippingMethods || isSettingShippingMethod,
         isUpdateMode,
         selectedShippingMethod: derivedSelectedShippingMethod,
         shippingMethods: derivedShippingMethods,

@@ -70,12 +70,12 @@ module.exports = targets => {
     // The paths below are relative to packages/venia-ui/lib/components/Routes/routes.js.
     targets.own.routes.tap(routes => [
         ...routes,
-        {
-            name: 'AddressBook',
-            pattern: '/address-book',
-            exact: true,
-            path: '../AddressBookPage'
-        },
+        // {
+        //     name: 'AddressBook',
+        //     pattern: '/address-book',
+        //     exact: true,
+        //     path: '../AddressBookPage'
+        // },
         {
             name: 'Cart',
             pattern: '/cart',
@@ -100,12 +100,12 @@ module.exports = targets => {
             exact: true,
             path: '../CreateAccountPage'
         },
-        {
-            name: 'OrderHistory',
-            pattern: '/order-history',
-            exact: true,
-            path: '../OrderHistoryPage'
-        },
+        // {
+        //     name: 'OrderHistory',
+        //     pattern: '/order-history',
+        //     exact: true,
+        //     path: '../OrderHistoryPage'
+        // },
         {
             /**
              * This path is configured in the forgot password
@@ -121,12 +121,12 @@ module.exports = targets => {
             pattern: '/search.html',
             exact: true,
             path: '../../RootComponents/Search'
-        },
-        {
-            name: 'WishlistPage',
-            pattern: '/wishlist',
-            exact: true,
-            path: '../WishlistPage'
         }
+        // {
+        //     name: 'WishlistPage',
+        //     pattern: '/wishlist',
+        //     exact: true,
+        //     path: '../WishlistPage'
+        // }
     ]);
 };
