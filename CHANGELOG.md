@@ -83,7 +83,7 @@ This documentation contains API descriptions and sample code to help developers 
 | Updated Venia's button style to match new design                                     | **Update**   | [#2496][] |
 | Added product listing to the MiniCart                                                | **Update**   | [#2506][] |
 | Added a header section to the MiniCart                                               | **Update**   | [#2509][] |
-| Added a footer section to the MiniCart                                                | **Update**   | [#2511][] |
+| Added a footer section to the MiniCart                                               | **Update**   | [#2511][] |
 | Adjusted styles for the header, main page, and footer components                     | **Update**   | [#2513][] |
 | Update Gallery component to use `item.id` for key prop on GalleryItem                | **Update**   | [#2520][] |
 | Added product link for each product in the MiniCart                                  | **Update**   | [#2549][] |
@@ -95,8 +95,10 @@ This documentation contains API descriptions and sample code to help developers 
 | Added a sign-in section to the new My Account trigger in the header                  | **Update**   | [#2590][] |
 | Enabled GET for GraphQL queries (but not mutations)                                  | **Update**   | [#2602][] |
 | Added React Refresh to improve development server performance                        | **Update**   | [#2609][] |
-| Improved error handling when using the Sign-in dropdown                               | **Update**   | [#2664][] |
+| Improved error handling when using the Sign-in dropdown                              | **Update**   | [#2664][] |
 | Updated static images to reflect new logo                                            | **Update**   | [#2693][] |
+| Disabled account page routes for v8.0.0                                              | **Update**   | [#2709][] |
+| Removed email from the reset password link                                           | **Update**   | [#2726][] |
 | Refactored code to use tokens for color and weight                                   | **Refactor** | [#2500][] |
 | Refactored Venia's inputs to match new design                                        | **Refactor** | [#2510][] |
 | Refactored Venia's accordions to match the style guidelines                          | **Refactor** | [#2527][] |
@@ -112,6 +114,8 @@ This documentation contains API descriptions and sample code to help developers 
 | Fixed button CSS to handle mobile view                                               | **Bugfix**   | [#2655][] |
 | Fixed improper use of `formatMessage()`                                              | **Bugfix**   | [#2698][] |
 | Fixed Storybook bug caused by i18n work                                              | **Bugfix**   | [#2705][] |
+| Fixed Payment Information button to disable it while the Payment section loads       | **Bugfix**   | [#2723][] |
+| Fixed an offline homepage error                                                      | **Bugfix**   | [#2727][] |
 
 ### Peregrine library
 
@@ -132,6 +136,9 @@ This documentation contains API descriptions and sample code to help developers 
 | Fixed a customer address bug related to addresses for countries without regions or states                 | **Bugfix**   | [#2659][] |
 | Fixed bug caused by Apollo when upgrading from a previous release                                         | **Bugfix**   | [#2673][] |
 | Fixed bug that showed product types that are not supported yet                                            | **Bugfix**   | [#2697][] |
+| Fixed a data sort error                                                                                   | **Bugfix**   | [#2736][] |
+| Fixed an error in the filters list associated with multiple filters having the same label                 | **Bugfix**   | [#2739][] |
+| Fixed an address merging error during sign in                                                             | **Bugfix**   | [#2744][] |
 
 ### Build tools
 
@@ -195,6 +202,7 @@ This documentation contains API descriptions and sample code to help developers 
 | Bumped kramdown from 2.2.1 to 2.3.0 in /pwa-devdocs                      | **Update**  | [#2614][]           |
 | Removed dependabot version bump settings                                 | **Update**  | [#2646][]           |
 | Bumped bl from 3.0.0 to 3.0.1                                            | **Update**  | [#2675][]           |
+| Fixed a PageBuilder visibility bug affecting slider buttons and links    | **Bugfix**  | [#2722][]           |
 
 ## Known issues
 
@@ -388,3 +396,11 @@ yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento
 [#2443]: https://github.com/magento/pwa-studio/pull/2443
 [#2423]: https://github.com/magento/pwa-studio/pull/2423
 [#2415]: https://github.com/magento/pwa-studio/pull/2415
+[#2709]: https://github.com/magento/pwa-studio/pull/2709
+[#2722]: https://github.com/magento/pwa-studio/pull/2722
+[#2723]: https://github.com/magento/pwa-studio/pull/2723
+[#2726]: https://github.com/magento/pwa-studio/pull/2726
+[#2736]: https://github.com/magento/pwa-studio/pull/2736
+[#2727]: https://github.com/magento/pwa-studio/pull/2727
+[#2739]: https://github.com/magento/pwa-studio/pull/2739
+[#2744]: https://github.com/magento/pwa-studio/pull/2744
