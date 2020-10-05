@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handleChangePassword sets shouldShowNewPassword to true 1`] = `
+Object {
+  "formErrors": Array [],
+  "handleCancel": [Function],
+  "handleChangePassword": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "foobar@express.net",
+      "firstname": "Foo",
+      "id": null,
+      "lastname": "Bar",
+    },
+  },
+  "isDisabled": false,
+  "isSignedIn": true,
+  "isUpdateMode": false,
+  "loadDataError": null,
+  "shouldShowNewPassword": false,
+  "showUpdateMode": [Function],
+}
+`;
+
+exports[`handleSubmit calls changeCustomerPassword if new password is provided 1`] = `
+Object {
+  "variables": Object {
+    "currentPassword": "bar",
+    "newPassword": "notBar",
+  },
+}
+`;
+
+exports[`handleSubmit calls setCustomerInformationQuery 1`] = `
+Object {
+  "variables": Object {
+    "customerInput": Object {
+      "email": "foobar@express.net",
+      "firstname": "Updated",
+      "lastname": "Name",
+      "password": "abc123",
+    },
+  },
+}
+`;
+
+exports[`return correct shape 1`] = `
+Object {
+  "formErrors": Array [],
+  "handleCancel": [Function],
+  "handleChangePassword": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "foobar@express.net",
+      "firstname": "Foo",
+      "id": null,
+      "lastname": "Bar",
+    },
+  },
+  "isDisabled": false,
+  "isSignedIn": true,
+  "isUpdateMode": false,
+  "loadDataError": null,
+  "shouldShowNewPassword": false,
+  "showUpdateMode": [Function],
+}
+`;
+
+exports[`return correct shape while data is loading 1`] = `
+Object {
+  "formErrors": Array [],
+  "handleCancel": [Function],
+  "handleChangePassword": [Function],
+  "handleSubmit": [Function],
+  "initialValues": undefined,
+  "isDisabled": false,
+  "isSignedIn": true,
+  "isUpdateMode": false,
+  "loadDataError": undefined,
+  "shouldShowNewPassword": false,
+  "showUpdateMode": [Function],
+}
+`;
+
+exports[`returns updated data as initial values 1`] = `
+Object {
+  "customer": Object {
+    "email": "foobar@express.net",
+    "firstname": "Foo",
+    "id": null,
+    "lastname": "Bar",
+  },
+}
+`;
+
+exports[`showUpdateMode sets isUpdateMode to true 1`] = `
+Object {
+  "formErrors": Array [],
+  "handleCancel": [Function],
+  "handleChangePassword": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "foobar@express.net",
+      "firstname": "Foo",
+      "id": null,
+      "lastname": "Bar",
+    },
+  },
+  "isDisabled": false,
+  "isSignedIn": true,
+  "isUpdateMode": false,
+  "loadDataError": null,
+  "shouldShowNewPassword": false,
+  "showUpdateMode": [Function],
+}
+`;
