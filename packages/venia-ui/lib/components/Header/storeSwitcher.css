@@ -9,11 +9,11 @@
 }
 
 .trigger {
-    align-items: center;
-    display: flex;
-    column-gap: 0.5rem;
-    grid-auto-flow: column;
-    grid-template-columns: auto 1fr;
+    composes: root from '../LinkButton/linkButton.css';
+
+    text-decoration: none;
+    color: rgb(var(--venia-global-color-text));
+    font-weight: var(--venia-global-fontWeight-normal);
 }
 
 .menu {

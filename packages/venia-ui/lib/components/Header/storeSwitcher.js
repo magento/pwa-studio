@@ -9,6 +9,7 @@ import defaultClasses from './storeSwitcher.css';
 import SwitcherItem from './switcherItem';
 import storeSwitcherOperations from './storeSwitcher.gql';
 import Icon from '../Icon';
+import LinkButton from '../LinkButton';
 
 const StoreSwitcher = props => {
     const talonProps = useStoreSwitcher({
@@ -49,15 +50,15 @@ const StoreSwitcher = props => {
 
     return (
         <div className={classes.root}>
-            <button
-                className={classes.trigger}
+            <LinkButton
+                classes={{ root: classes.trigger }}
                 aria-label={currentStoreName}
                 onClick={handleTriggerClick}
                 ref={storeMenuTriggerRef}
             >
                 <Icon src={MapPin} />
-                <span className={classes.label}>{currentStoreName}</span>
-            </button>
+                <span>{currentStoreName}</span>
+            </LinkButton>
             <div ref={storeMenuRef} className={menuClassName}>
                 <ul>{stores}</ul>
             </div>

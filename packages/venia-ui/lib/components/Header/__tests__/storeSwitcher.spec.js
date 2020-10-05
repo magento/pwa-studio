@@ -23,13 +23,9 @@ const talonProps = {
     handleTriggerClick: jest.fn()
 };
 
-const storeSwitcherProps = {
-    mobileView: false
-};
-
 test('renders the correct tree', () => {
     useStoreSwitcher.mockReturnValueOnce(talonProps);
-    const tree = createTestInstance(<StoreSwitcher {...storeSwitcherProps} />);
+    const tree = createTestInstance(<StoreSwitcher />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -42,7 +38,7 @@ test('does not render StoreSwitcher when there is only one available store', () 
         ]),
         currentStoreName: 'Store 1'
     });
-    const tree = createTestInstance(<StoreSwitcher {...storeSwitcherProps} />);
+    const tree = createTestInstance(<StoreSwitcher />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
