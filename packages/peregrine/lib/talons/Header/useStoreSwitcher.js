@@ -80,7 +80,7 @@ export const useStoreSwitcher = props => {
         // Change store view code and currency to be used in Apollo link request headers
         storeCode => {
             // Do nothing when store view is not present in available stores
-            if (!availableStores.get(storeCode)) return;
+            if (!availableStores.has(storeCode)) return;
 
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
