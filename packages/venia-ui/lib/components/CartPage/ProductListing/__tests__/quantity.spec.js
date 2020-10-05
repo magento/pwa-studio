@@ -12,7 +12,8 @@ const defaultProps = {
     itemId: 'item1',
     label: 'Test Quantity',
     min: 0,
-    onChange: mockOnChange
+    onChange: mockOnChange,
+    message: ''
 };
 
 test('renders quantity correctly', () => {

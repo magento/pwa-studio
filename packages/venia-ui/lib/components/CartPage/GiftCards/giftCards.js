@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
@@ -23,7 +24,14 @@ import {
 } from './giftCardQueries';
 import LinkButton from '../../LinkButton';
 
-const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
+const errorIcon = (
+    <Icon
+        src={AlertCircleIcon}
+        attrs={{
+            width: 18
+        }}
+    />
+);
 
 /**
  * GiftCards is a child component of the CartPage component.
@@ -70,35 +78,53 @@ const GiftCards = props => {
         shouldDisplayCardError
     } = talonProps;
 
+    const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
     useEffect(() => {
         if (errorRemovingCard) {
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message: 'Unable to remove gift card. Please try again.',
+                message: formatMessage({
+                    id: 'giftCards.errorRemoving',
+                    defaultMessage:
+                        'Unable to remove gift card. Please try again.'
+                }),
                 dismissable: true,
                 timeout: 7000
             });
         }
-    }, [addToast, errorRemovingCard]);
+    }, [addToast, errorRemovingCard, formatMessage]);
 
     if (isLoadingGiftCards) {
-        return <LoadingIndicator>{'Loading Gift Cards...'}</LoadingIndicator>;
+        return (
+            <LoadingIndicator>
+                <FormattedMessage
+                    id={'giftCards.loading'}
+                    defaultMessage={'Loading Gift Cards...'}
+                />
+            </LoadingIndicator>
+        );
     }
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const cardEntryErrorMessage = shouldDisplayCardError
-        ? 'Invalid card. Please try again.'
+        ? formatMessage({
+              id: 'giftCards.errorInvalid',
+              defaultMessage: 'Invalid card. Please try again.'
+          })
         : null;
 
     let appliedGiftCards = null;
     if (errorLoadingGiftCards) {
         appliedGiftCards = (
             <span className={classes.errorText}>
-                {
-                    'There was an error loading applied gift cards. Please refresh and try again.'
-                }
+                <FormattedMessage
+                    id={'giftCards.errorLoading'}
+                    defaultMessage={
+                        'There was an error loading applied gift cards. Please refresh and try again.'
+                    }
+                />
             </span>
         );
     }
@@ -125,7 +151,10 @@ const GiftCards = props => {
     const cardBalance = shouldDisplayCardBalance && (
         <div className={classes.balance}>
             <span className={classes.price}>
-                {'Balance: '}
+                <FormattedMessage
+                    id={'giftCards.balance'}
+                    defaultMessage={'Balance: '}
+                />
                 <Price
                     value={checkBalanceData.balance.value}
                     currencyCode={checkBalanceData.balance.currency}
@@ -141,9 +170,14 @@ const GiftCards = props => {
     const cardEntryContents = (
         <div className={classes.card}>
             <Field
-                classes={{ root: classes.entry }}
+                classes={{
+                    root: classes.entry
+                }}
                 id={classes.card}
-                label="Gift Card Number"
+                label={formatMessage({
+                    id: 'giftCards.cardNumber',
+                    defaultMessage: 'Gift Card Number'
+                })}
             >
                 <div className={containerClass}>
                     <TextInput
@@ -153,19 +187,29 @@ const GiftCards = props => {
                         mask={value => value && value.trim()}
                         maskOnBlur={true}
                         message={cardEntryErrorMessage}
-                        placeholder={'Enter card number'}
+                        placeholder={formatMessage({
+                            id: 'giftCards.cardEntry',
+                            defaultMessage: 'Enter card number'
+                        })}
                         validate={isRequired}
                     />
                 </div>
                 {cardBalance}
             </Field>
-            <Field classes={{ label: classes.applyLabel }}>
+            <Field
+                classes={{
+                    label: classes.applyLabel
+                }}
+            >
                 <Button
                     priority={'normal'}
                     disabled={isApplyingCard}
                     onClick={applyGiftCard}
                 >
-                    {'Apply'}
+                    <FormattedMessage
+                        id={'giftCards.apply'}
+                        defaultMessage={'Apply'}
+                    />
                 </Button>
             </Field>
             <LinkButton
@@ -173,7 +217,10 @@ const GiftCards = props => {
                 disabled={isCheckingBalance}
                 onClick={checkGiftCardBalance}
             >
-                {'Check balance'}
+                <FormattedMessage
+                    id={'giftCards.checkBalance'}
+                    defaultMessage={'Check balance'}
+                />
             </LinkButton>
         </div>
     );

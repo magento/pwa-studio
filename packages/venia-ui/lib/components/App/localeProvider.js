@@ -8,15 +8,26 @@ const locale = fromReactIntl(language);
 const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
 
+    /**
+     * At build time, `__fetchLocaleData__` is injected as a global. Depending on the environment, this global will be
+     * either an ES module with a `default` property, or a plain CJS module.
+     *
+     * Please see {LocalizationPlugin} at @magento/pwa-buildpack/WebpackTools/plugins/LocalizationPlugin.js
+     */
+    const fetchLocale =
+        'default' in __fetchLocaleData__
+            ? __fetchLocaleData__.default
+            : __fetchLocaleData__;
+
     useEffect(() => {
-        import(`../../i18n/${locale}.json`)
+        fetchLocale(locale)
             .then(data => {
                 setMessages(data.default);
             })
             .catch(error => {
                 console.error(`Unable to load translation file. \n${error}`);
             });
-    }, [setMessages]);
+    }, [fetchLocale, setMessages]);
 
     const onIntlError = error => {
         if (messages) {
