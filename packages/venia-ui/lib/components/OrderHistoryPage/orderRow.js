@@ -17,6 +17,7 @@ import defaultClasses from './orderRow.css';
 
 const OrderRow = props => {
     const { order } = props;
+    const { formatMessage } = useIntl();
     const {
         invoices,
         items,
@@ -28,8 +29,6 @@ const OrderRow = props => {
     } = order;
     const { grand_total: grandTotal } = total;
     const { currency, value: orderTotal } = grandTotal;
-
-    const { formatMessage } = useIntl();
 
     // Convert date to ISO-8601 format so Safari can also parse it
     const isoFormattedDate = orderDate.replace(' ', 'T');
@@ -44,26 +43,28 @@ const OrderRow = props => {
 
     const hasInvoice = !!invoices.length;
     const hasShipment = !!shipments.length;
-    const derivedStatus =
-        status === 'Complete'
-            ? formatMessage({
-                  id: 'orderStatus.delivered',
-                  defaultMessage: 'Delivered'
-              })
-            : hasShipment
-            ? formatMessage({
-                  id: 'orderStatus.shipped',
-                  defaultMessage: 'Shipped'
-              })
-            : hasInvoice
-            ? formatMessage({
-                  id: 'orderStatus.readyToShip',
-                  defaultMessage: 'Ready to ship'
-              })
-            : formatMessage({
-                  id: 'orderStatus.processing',
-                  defaultMessage: 'Processing'
-              });
+    let derivedStatus;
+    if (status === 'Complete') {
+        derivedStatus = formatMessage({
+            id: 'orderRow.deliveredText',
+            defaultMessage: 'Delivered'
+        });
+    } else if (hasShipment) {
+        derivedStatus = formatMessage({
+            id: 'orderRow.shippedText',
+            defaultMessage: 'Shipped'
+        });
+    } else if (hasInvoice) {
+        derivedStatus = formatMessage({
+            id: 'orderRow.readyToShipText',
+            defaultMessage: 'Ready to ship'
+        });
+    } else {
+        derivedStatus = formatMessage({
+            id: 'orderRow.processingText',
+            defaultMessage: 'Processing'
+        });
+    }
 
     const talonProps = useOrderRow({
         items,
@@ -92,8 +93,8 @@ const OrderRow = props => {
             <div className={classes.orderNumberContainer}>
                 <span className={classes.orderNumberLabel}>
                     <FormattedMessage
-                        id="orderRow.orderNumber"
-                        defaultMessage="Order #"
+                        id={'orderRow.orderNumberText'}
+                        defaultMessage={'Order #'}
                     />
                 </span>
                 <span className={classes.orderNumber}>{orderNumber}</span>
@@ -101,8 +102,8 @@ const OrderRow = props => {
             <div className={classes.orderDateContainer}>
                 <span className={classes.orderDateLabel}>
                     <FormattedMessage
-                        id="orderRow.orderDate"
-                        defaultMessage="Order Date"
+                        id={'orderRow.orderDateText'}
+                        defaultMessage={'Order Date'}
                     />
                 </span>
                 <span className={classes.orderDate}>{formattedDate}</span>
@@ -110,8 +111,8 @@ const OrderRow = props => {
             <div className={classes.orderTotalContainer}>
                 <span className={classes.orderTotalLabel}>
                     <FormattedMessage
-                        id="orderRow.orderTotal"
-                        defaultMessage="Order Total"
+                        id={'orderRow.orderTotalText'}
+                        defaultMessage={'Order Total'}
                     />
                 </span>
                 <div className={classes.orderTotal}>

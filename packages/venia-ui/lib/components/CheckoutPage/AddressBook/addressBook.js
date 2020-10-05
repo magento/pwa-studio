@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { shape, string, func } from 'prop-types';
 import { PlusSquare, AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useToasts } from '@magento/peregrine';
@@ -12,8 +13,14 @@ import EditModal from '../ShippingInformation/editModal';
 import AddressCard from './addressCard';
 import Icon from '../../Icon';
 import LinkButton from '../../LinkButton';
-
-const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
+const errorIcon = (
+    <Icon
+        src={AlertCircleIcon}
+        attrs={{
+            width: 18
+        }}
+    />
+);
 
 const AddressBook = props => {
     const { activeContent, classes: propClasses, toggleActiveContent } = props;
@@ -64,9 +71,16 @@ const AddressBook = props => {
             <Icon
                 size={24}
                 src={PlusSquare}
-                classes={{ icon: classes.addIcon }}
+                classes={{
+                    icon: classes.addIcon
+                }}
             />
-            <span className={classes.addText}>{'Add New Address'}</span>
+            <span className={classes.addText}>
+                <FormattedMessage
+                    id={'addressBook.addNewAddresstext'}
+                    defaultMessage={'Add New Address'}
+                />
+            </span>
         </LinkButton>
     );
 
@@ -111,7 +125,10 @@ const AddressBook = props => {
         <Fragment>
             <div className={rootClass}>
                 <h1 className={classes.headerText}>
-                    Change Shipping Information
+                    <FormattedMessage
+                        id={'addressBook.headerText'}
+                        defaultMessage={'Change Shipping Information'}
+                    />
                 </h1>
                 <div className={classes.buttonContainer}>
                     <Button
@@ -119,14 +136,20 @@ const AddressBook = props => {
                         onClick={handleCancel}
                         priority="low"
                     >
-                        {'Cancel'}
+                        <FormattedMessage
+                            id={'addressBook.cancelButtonText'}
+                            defaultMessage={'Cancel'}
+                        />
                     </Button>
                     <Button
                         disabled={isLoading}
                         onClick={handleApplyAddress}
                         priority="high"
                     >
-                        {'Apply'}
+                        <FormattedMessage
+                            id={'addressBook.applyButtonText'}
+                            defaultMessage={'Apply'}
+                        />
                     </Button>
                 </div>
 

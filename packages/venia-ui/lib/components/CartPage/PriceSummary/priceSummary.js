@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
 import { Price } from '@magento/peregrine';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
@@ -53,12 +54,18 @@ const PriceSummary = props => {
         isLoading,
         flatData
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     if (hasError) {
         return (
             <div className={classes.root}>
                 <span className={classes.errorText}>
-                    Something went wrong. Please refresh and try again.
+                    <FormattedMessage
+                        id={'priceSummary.errorText'}
+                        defaultMessage={
+                            'Something went wrong. Please refresh and try again.'
+                        }
+                    />
                 </span>
             </div>
         );
@@ -74,6 +81,16 @@ const PriceSummary = props => {
         ? classes.priceUpdating
         : classes.totalPrice;
 
+    const totalPriceLabel = isCheckout
+        ? formatMessage({
+              id: 'priceSummary.total',
+              defaultMessage: 'Total'
+          })
+        : formatMessage({
+              id: 'priceSummary.estimatedTotal',
+              defaultMessage: 'Estimated Total'
+          });
+
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
             <Button
@@ -81,7 +98,10 @@ const PriceSummary = props => {
                 priority={'high'}
                 onClick={handleProceedToCheckout}
             >
-                {'Proceed to Checkout'}
+                <FormattedMessage
+                    id={'priceSummary.checkoutButton'}
+                    defaultMessage={'Proceed to Checkout'}
+                />
             </Button>
         </div>
     ) : null;
@@ -89,7 +109,12 @@ const PriceSummary = props => {
     return (
         <div className={classes.root}>
             <div className={classes.lineItems}>
-                <span className={classes.lineItemLabel}>{'Subtotal'}</span>
+                <span className={classes.lineItemLabel}>
+                    <FormattedMessage
+                        id={'priceSummary.lineItemLabel'}
+                        defaultMessage={'Subtotal'}
+                    />
+                </span>
                 <span className={priceClass}>
                     <Price
                         value={subtotal.value}
@@ -126,9 +151,7 @@ const PriceSummary = props => {
                     data={shipping}
                     isCheckout={isCheckout}
                 />
-                <span className={classes.totalLabel}>
-                    {isCheckout ? 'Total' : 'Estimated Total'}
-                </span>
+                <span className={classes.totalLabel}>{totalPriceLabel}</span>
                 <span className={totalPriceClass}>
                     <Price value={total.value} currencyCode={total.currency} />
                 </span>

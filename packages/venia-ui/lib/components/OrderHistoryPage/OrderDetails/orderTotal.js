@@ -48,14 +48,14 @@ const OrderTotal = props => {
         <div className={classes.root}>
             <div className={classes.heading}>
                 <FormattedMessage
-                    id="orderRow.orderTotal"
+                    id="orderTotal.orderTotal"
                     defaultMessage="Order Total"
                 />
             </div>
             <div className={classes.subTotal}>
                 <span>
                     <FormattedMessage
-                        id="orderRow.subtotal"
+                        id="orderTotal.subtotal"
                         defaultMessage="Subtotal"
                     />
                 </span>
@@ -69,7 +69,7 @@ const OrderTotal = props => {
             <div className={classes.discount}>
                 <span>
                     <FormattedMessage
-                        id="orderRow.discount"
+                        id="orderTotal.discount"
                         defaultMessage="Discount"
                     />
                 </span>
@@ -82,7 +82,10 @@ const OrderTotal = props => {
             </div>
             <div className={classes.tax}>
                 <span>
-                    <FormattedMessage id="orderRow.tax" defaultMessage="Tax" />
+                    <FormattedMessage
+                        id="orderTotal.tax"
+                        defaultMessage="Tax"
+                    />
                 </span>
                 <span>
                     <Price
@@ -94,7 +97,7 @@ const OrderTotal = props => {
             <div className={classes.shipping}>
                 <span>
                     <FormattedMessage
-                        id="orderRow.shipping"
+                        id="orderTotal.shipping"
                         defaultMessage="Shipping"
                     />
                 </span>
@@ -108,7 +111,7 @@ const OrderTotal = props => {
             <div className={classes.total}>
                 <span>
                     <FormattedMessage
-                        id="orderRow.total"
+                        id="orderTotal.total"
                         defaultMessage="Total"
                     />
                 </span>

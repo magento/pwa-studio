@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
@@ -23,6 +24,7 @@ const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
+    const { formatMessage } = useIntl();
     const talonProps = useSignIn({
         createCartMutation: CREATE_CART_MUTATION,
         customerQuery: GET_CUSTOMER_QUERY,
@@ -46,7 +48,12 @@ const SignIn = props => {
     if (isBusy) {
         return (
             <div className={classes.modal_active}>
-                <LoadingIndicator>{'Signing In'}</LoadingIndicator>
+                <LoadingIndicator>
+                    <FormattedMessage
+                        id={'signIn.loadingText'}
+                        defaultMessage={'Signing In'}
+                    />
+                </LoadingIndicator>
             </div>
         );
     }
@@ -57,14 +64,24 @@ const SignIn = props => {
 
     return (
         <div className={classes.root}>
-            <h2 className={classes.title}>{`Sign-in to Your Account`}</h2>
+            <h2 className={classes.title}>
+                <FormattedMessage
+                    id={'signIn.titleText'}
+                    defaultMessage={'Sign-in to Your Account'}
+                />
+            </h2>
             <FormError errors={Array.from(errors.values())} />
             <Form
                 getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
             >
-                <Field label="Email address">
+                <Field
+                    label={formatMessage({
+                        id: 'signIn.emailAddressText',
+                        defaultMessage: 'Email address'
+                    })}
+                >
                     <TextInput
                         autoComplete="email"
                         field="email"
@@ -73,7 +90,10 @@ const SignIn = props => {
                 </Field>
                 <Password
                     fieldName="password"
-                    label="Password"
+                    label={formatMessage({
+                        id: 'signIn.passwordText',
+                        defaultMessage: 'Password'
+                    })}
                     validate={isRequired}
                     autoComplete="current-password"
                     isToggleButtonHidden={false}
@@ -84,19 +104,28 @@ const SignIn = props => {
                         type="button"
                         onClick={handleForgotPassword}
                     >
-                        {'Forgot Password?'}
+                        <FormattedMessage
+                            id={'signIn.forgotPasswordText'}
+                            defaultMessage={'Forgot Password?'}
+                        />
                     </LinkButton>
                 </div>
                 <div className={classes.buttonsContainer}>
                     <Button priority="high" type="submit">
-                        {'Sign In'}
+                        <FormattedMessage
+                            id={'signIn.signInText'}
+                            defaultMessage={'Sign In'}
+                        />
                     </Button>
                     <Button
                         priority="normal"
                         type="button"
                         onClick={handleCreateAccount}
                     >
-                        {'Create an Account'}
+                        <FormattedMessage
+                            id={'signIn.createAccountText'}
+                            defaultMessage={'Create an Account'}
+                        />
                     </Button>
                 </div>
             </Form>
@@ -105,7 +134,6 @@ const SignIn = props => {
 };
 
 export default SignIn;
-
 SignIn.propTypes = {
     classes: shape({
         buttonsContainer: string,
@@ -119,7 +147,6 @@ SignIn.propTypes = {
     showCreateAccount: func,
     showForgotPassword: func
 };
-
 SignIn.defaultProps = {
     setDefaultUsername: () => {},
     showCreateAccount: () => {},

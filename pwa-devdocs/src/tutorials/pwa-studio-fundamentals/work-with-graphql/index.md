@@ -121,7 +121,7 @@ In this part of the tutorial, you will create the React components that uses the
 Under `src/component/Countries`, create a `countries.js` file with the following content:
 
 ```jsx
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Link } from '@magento/venia-drivers';
 import path from 'path';
@@ -129,11 +129,6 @@ import path from 'path';
 import countriesOperations from './countries.gql';
 
 const Countries = () => {
-    // Scroll to the top on component load
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
     const { queries } = countriesOperations;
     const { getCountriesQuery } = queries;
 
@@ -192,7 +187,7 @@ export { default } from './countries'
 Under `src/components/Country`, create a `country.js` file with the following content:
 
 ```jsx
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from '@magento/venia-ui/lib/drivers';
 
@@ -201,11 +196,6 @@ import countryOperations from './country.gql';
 import Regions from './regions';
 
 const Country = () => {
-    // Scroll to the top on page load
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
     const { id } = useParams();
 
     const { queries } = countryOperations;

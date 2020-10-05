@@ -9,7 +9,6 @@ import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
-const INITIAL_QUANTITY = 1;
 
 const deriveOptionCodesFromProduct = product => {
     // If this is a simple product it has no option codes.
@@ -193,8 +192,6 @@ export const useProductFullDetail = props => {
         { error: errorAddingSimpleProduct, loading: isAddSimpleLoading }
     ] = useMutation(addSimpleProductToCartMutation);
 
-    const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
-
     const breadcrumbCategoryId = useMemo(
         () => getBreadcrumbCategoryId(product.categories),
         [product.categories]
@@ -224,57 +221,60 @@ export const useProductFullDetail = props => {
         [product, optionCodes, optionSelections]
     );
 
-    const handleAddToCart = useCallback(async () => {
-        const payload = {
-            item: product,
-            productType,
-            quantity
-        };
-
-        if (isProductConfigurable(product)) {
-            appendOptionsToPayload(payload, optionSelections, optionCodes);
-        }
-
-        if (isSupportedProductType) {
-            const variables = {
-                cartId,
-                parentSku: payload.parentSku,
-                product: payload.item,
-                quantity: payload.quantity,
-                sku: payload.item.sku
+    const handleAddToCart = useCallback(
+        async formValues => {
+            const { quantity } = formValues;
+            const payload = {
+                item: product,
+                productType,
+                quantity
             };
-            // Use the proper mutation for the type.
-            if (productType === 'SimpleProduct') {
-                try {
-                    await addSimpleProductToCart({
-                        variables
-                    });
-                } catch {
-                    return;
-                }
-            } else if (productType === 'ConfigurableProduct') {
-                try {
-                    await addConfigurableProductToCart({
-                        variables
-                    });
-                } catch {
-                    return;
-                }
+
+            if (isProductConfigurable(product)) {
+                appendOptionsToPayload(payload, optionSelections, optionCodes);
             }
-        } else {
-            console.error('Unsupported product type. Cannot add to cart.');
-        }
-    }, [
-        addConfigurableProductToCart,
-        addSimpleProductToCart,
-        cartId,
-        isSupportedProductType,
-        optionCodes,
-        optionSelections,
-        product,
-        productType,
-        quantity
-    ]);
+
+            if (isSupportedProductType) {
+                const variables = {
+                    cartId,
+                    parentSku: payload.parentSku,
+                    product: payload.item,
+                    quantity: payload.quantity,
+                    sku: payload.item.sku
+                };
+                // Use the proper mutation for the type.
+                if (productType === 'SimpleProduct') {
+                    try {
+                        await addSimpleProductToCart({
+                            variables
+                        });
+                    } catch {
+                        return;
+                    }
+                } else if (productType === 'ConfigurableProduct') {
+                    try {
+                        await addConfigurableProductToCart({
+                            variables
+                        });
+                    } catch {
+                        return;
+                    }
+                }
+            } else {
+                console.error('Unsupported product type. Cannot add to cart.');
+            }
+        },
+        [
+            addConfigurableProductToCart,
+            addSimpleProductToCart,
+            cartId,
+            isSupportedProductType,
+            optionCodes,
+            optionSelections,
+            product,
+            productType
+        ]
+    );
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
@@ -285,13 +285,6 @@ export const useProductFullDetail = props => {
             setOptionSelections(nextOptionSelections);
         },
         [optionSelections]
-    );
-
-    const handleSetQuantity = useCallback(
-        value => {
-            setQuantity(value);
-        },
-        [setQuantity]
     );
 
     const productPrice = useMemo(
@@ -321,14 +314,12 @@ export const useProductFullDetail = props => {
         errorMessage: derivedErrorMessage,
         handleAddToCart,
         handleSelectionChange,
-        handleSetQuantity,
         isAddToCartDisabled:
             !isSupportedProductType ||
             isMissingOptions ||
             isAddConfigurableLoading ||
             isAddSimpleLoading,
         mediaGalleryEntries,
-        productDetails,
-        quantity
+        productDetails
     };
 };
