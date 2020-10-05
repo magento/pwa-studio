@@ -66,7 +66,7 @@ www.venia.com/p1 2560w"
   <span
     className="quantity"
   >
-    Qty : 10
+    Qty :
   </span>
   <span
     className="price"
@@ -190,7 +190,7 @@ www.venia.com/p1 2560w"
   <span
     className="quantity"
   >
-    Qty : 10
+    Qty :
   </span>
   <span
     className="price"
@@ -314,7 +314,7 @@ www.venia.com/p1 2560w"
   <span
     className="quantity"
   >
-    Qty : 10
+    Qty :
   </span>
   <span
     className="price"

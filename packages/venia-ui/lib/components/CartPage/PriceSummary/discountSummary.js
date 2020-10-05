@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { gql } from '@apollo/client';
 import { Price } from '@magento/peregrine';
 
@@ -41,7 +42,12 @@ const DiscountSummary = props => {
 
     return discount.value ? (
         <Fragment>
-            <span className={classes.lineItemLabel}>{'Discounts applied'}</span>
+            <span className={classes.lineItemLabel}>
+                <FormattedMessage
+                    id={'discountSummary.lineItemLabel'}
+                    defaultMessage={'Discounts applied'}
+                />
+            </span>
             <span className={classes.price}>
                 {'-'}
                 <Price

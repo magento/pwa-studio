@@ -10,8 +10,8 @@ This tutorial provides steps for creating a custom, static route for these types
 By the end of this tutorial, you will know how to:
 
 -   Define a custom React component to render route content
--   Override Venia components
--   Add a new static route that renders the custom React component
+-   Use the extensibility framework to tap into Venia UI's routes target
+-   Add a new static route to the routes list which renders the custom React component
 
 For more information on routing, see [Routing][].
 
@@ -30,235 +30,118 @@ mkdir -p src/components
 ## Define a custom React component
 
 Every route needs a component to render the content.
-For this tutorial, you will define a component that renders a simple message on the page.
+For this tutorial, you will define a component that renders a simple greeting on the page.
 This component will be assigned a route in a later step.
 
 ### Create component directory
 
-Create the directory to hold the code for a custom Foo component.
+Create the directory to hold the code for a custom GreetingPage component.
 
 ```sh
-mkdir -p src/components/Foo
+mkdir -p src/components/GreetingPage
 ```
 
-### Create `foo.js` module
+### Create `greetingPage.js` module
 
-Inside the Foo component directory, create a `foo.js` file with the following content:
+Inside the GreetingPage component directory, create a `greetingPage.js` file with the following content:
 
 ```jsx
-/* src/components/Foo/foo.js */
+/* src/components/GreetingPage/greetingPage.js */
 
-import React, { useEffect } from 'react';
+import React from "react";
+import { useParams } from "react-router-dom";
 
-const Foo = () => {
+const hi = {
+  textAlign: "center",
+  margin: "1rem"
+};
+const wave = {
+  ...hi,
+  fontSize: "5rem"
+};
 
+const GreetingPage = () => {
+  const { who = "nobody" } = useParams();
   return (
-    <h1>Hello World JSX</h1>
+    <div>
+      <h1 style={hi}>Hello, {who}!</h1>
+      <h1 style={wave}>{"\uD83D\uDC4B"}</h1>
+    </div>
   );
 }
 
-export default Foo;
+export default GreetingPage;
 ```
+
+This component uses a URL parameter to render a personal greeting on a page.
 
 ### Create `index.js` file
 
-Inside the Foo component directory, create an `index.js` file that exports the Foo component.
+Inside the GreetingPage component directory, create an `index.js` file that exports the GreetingPage component.
 This pattern of exposing the module through the `index.js` file is the same pattern used in the Venia UI package.
 
 ```js
-/* src/components/Foo/index.js */
+/* src/components/GreetingPage/index.js */
 
-export {default} from './foo';
+export {default} from './greetingPage';
 ```
 
-## Overriding Venia components overview
+## Tap into the extensibility framework
 
-As described in the [Project Structure][] topic, a new project set up using the scaffolding command imports the entire Venia app as a single component.
-To replace the [Routes][] component, which is imported and used in Venia's [App][] component, you need to:
+In version 7.0.0, PWA Studio introduced its framework for extending storefront functionality.
+One such extension point, gives you the ability to edit the list of routes without copying over the Routes component and its parents in the render tree.
 
-1.  Define a new Routes component
-2.  Make a copy of the App component that imports your new Routes component
-3.  Import your project's App component in your `src/index.js` file
+### Create an intercept file
 
-Copies of the Routes and App components are found in your project's `node_modules` directory.
+An intercept file is where your storefront or plugin interacts with the extensibility framework.
+There is no strict rule on where to create this file or what to name it.
 
-## Override Routes component
-
-The Routes component is responsible for deciding which components to use for rendering non-Magento routes.
-To override this component, you need to copy the source code into your project and make the necessary modifications.
-
-### Create Routes directory
-
-Create a Routes directory under components. This will hold your project's version of the Routes component.
+For this tutorial, create the file under a `src/targets` directory.
 
 ```sh
-mkdir -p src/components/Routes
+mkdir -p src/targets
+touch -p src/targets/local-intercept.js
 ```
 
-### Copy over Routes component code
-
-Get a copy of the `routes.js` file from the `node_modules` directory:
-
-```sh
-cp node_modules/@magento/venia-ui/lib/components/Routes/routes.js src/components/Routes
-```
-
-### Update Routes's module imports
-
-Open the `routes.js` file and update the relative import statements to use components from the Venia UI package.
-
-```diff
-- import { fullPageLoadingIndicator } from '../LoadingIndicator';
-- import MagentoRoute from '../MagentoRoute';
-+ import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
-+ import MagentoRoute from '@magento/venia-ui/lib/components/MagentoRoute';
- 
-- const CartPage = lazy(() => import('../CartPage'));
-- const CheckoutPage = lazy(() => import('../CheckoutPage'));
-- const CreateAccountPage = lazy(() => import('../CreateAccountPage'));
-- const Search = lazy(() => import('../../RootComponents/Search'));
-+ const CartPage = lazy(() => import('@magento/venia-ui/lib/components/CartPage'));
-+ const CheckoutPage = lazy(() => import('@magento/venia-ui/lib/components/CheckoutPage'));
-+ const CreateAccountPage = lazy(() => import('@magento/venia-ui/lib/components/CreateAccountPage'));
-+ const Search = lazy(() => import('@magento/venia-ui/lib/RootComponents/Search'));
-```
-
-### Import your custom component
-
-Import your custom Foo component in the `routes.js` file.
-Use lazy loading to load your component only when it is needed.
-
-Since the module is exposed through it's `index.js` file, you only need to refer to the component directory in the import declaration.
-
-```diff
-  const Search = lazy(() => import('@magento/venia-ui/lib/RootComponents/Search'));
-+ const Foo = lazy(() => import('../Foo'));
-```
-
-### Add custom route
-
-Add a new route entry inside the Switch component and assign the Foo component for rendering that route:
-
-```diff
-  <Suspense fallback={fullPageLoadingIndicator}>
-      <Switch>
-+         <Route exact path="/foo">
-+           <Foo />
-+         </Route>
-          <Route exact path="/search.html">
-              <Search />
-          </Route>
-          <Route exact path="/create-account">
-              <CreateAccountPage />
-          </Route>
-          <Route exact path="/cart">
-              <CartPage />
-          </Route>
-          <Route exact path="/checkout">
-              <CheckoutPage />
-          </Route>
-          <Route>
-              <MagentoRoute />
-          </Route>
-      </Switch>
-  </Suspense>
-```
-
-### Create Routes component's `index.js` file
-
-Create an `index.js` file for your custom Routes component to expose your `routes.js` module using the directory name.
+Inside the `src/targets/local-intercept.js` file, write the following content:
 
 ```js
-/* src/components/Routes/index.js */
-
-export {default} from './routes';
+module.exports = targets => {
+  targets.of("@magento/venia-ui").routes.tap(routes => {
+    routes.push({
+      name: "MyGreetingRoute",
+      pattern: "/greeting/:who?",
+      path: require.resolve("../components/GreetingPage/greetingPage.js")
+    });
+    return routes;
+  });
+};
 ```
 
-## Override the App component
+The code in this file accesses the [routes target][] of `@magento/venia-ui` and adds a new entry to the list.
+It adds a new route definition object that specifies the pattern for a new route and which page component renders that route.
 
-The App component is the project's main application entry point.
-The steps for overriding this component is the same as the ones for overriding the Routes component.
+### Register the intercept file
 
-### Create App directory
-
-Create an **App** directory to hold your project's copy of Venia's App component code.
-
-```sh
-mkdir -p src/components/App
-```
-
-### Copy over App component's modules
-
-The `app.js` file in Venia's App component imports and uses the Routes component, so copy this file into your project.
-
-```sh
-cp node_modules/@magento/venia-ui/lib/components/App/app.js src/components/App
-```
-
-If you look at the [`index.js` file for Venia's App component][], its default export is not `app.js`.
-The default export for this component is `container.js`, which is a container for the `app.js` module, so copy the `container.js` file into your project.
-
-```sh
-cp node_modules/@magento/venia-ui/lib/components/App/container.js src/components/App
-```
-
-### Update App modules' imports
-
-Open the `app.js` file and update the relative import statements to use components from the Venia UI package.
-Skip updating the Routes import to use this project's version of the Routes component.
+Add the path to your intercept file in the `pwa-studio.targets.intercept` section of your project's `package.json` file.
+This registers `src/targets/local-intercept.js` as an intercept file during the build process.
 
 ```diff
-- import { HeadProvider, Title } from '../Head';
-- import Main from '../Main';
-- import Mask from '../Mask';
-- import Navigation from '../Navigation';
-+ import { HeadProvider, Title } from '@magento/venia-ui/lib/components/Head';
-+ import Main from '@magento/venia-ui/lib/components/Main';
-+ import Mask from '@magento/venia-ui/lib/components/Mask';
-+ import Navigation from '@magento/venia-ui/lib/components/Navigation';
-  import Routes from '../Routes';
-- import { registerMessageHandler } from '../../util/swUtils';
-- import { HTML_UPDATE_AVAILABLE } from '../../constants/swMessageTypes';
-- import ToastContainer from '../ToastContainer';
-- import Icon from '../Icon';
-+ import { registerMessageHandler } from '@magento/venia-ui/lib/util/swUtils';
-+ import { HTML_UPDATE_AVAILABLE } from '@magento/venia-ui/lib/constants/swMessageTypes';
-+ import ToastContainer from '@magento/venia-ui/lib/components/ToastContainer';
-+ import Icon from '@magento/venia-ui/lib/components/Icon';
-```
-
-Open the `container.js` file and update the relative import statements to use components from the Venia UI package.
-Skip updating the App module from `app.js` to use this project's version of the that module.
-
-```diff
-  import App from './app';
-- import { useErrorBoundary } from './useErrorBoundary'
-+ import { useErrorBoundary } from '@magento/venia-ui/lib/components/App/useErrorBoundary'
-```
-
-### Create App component's `index.js` file
-
-Create an `index.js` file for your custom App component and set your version of `container.js` as the default export.
-
-```js
-/* src/components/App/index.js */
-
-export {default} from './container';
-```
-
-## Import new App component
-
-Open your project's `src/index.js` file and update the import for the App component to use your custom App component.
-
-```diff
-- import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
-+ import { AppContextProvider } from '@magento/venia-ui/lib/components/App';
-+ import App from './components/App';
+  "engines": {
+    "node": ">=10.x",
+    "yarn": ">=1.12.0"
+  },
+  "keywords": [],
++ "pwa-studio": {
++   "targets": {
++     "intercept": "src/targets/local-intercept"
++   }
++ }
 ```
 
 ## View route content
 
-Start your dev server using `yarn start` or `yarn develop` and navigate to the `/foo` route.
+Start your dev server using `yarn start` or `yarn develop` and navigate to the `/greeting/world` route.
 
 You should see the following content on the page:
 
@@ -273,6 +156,7 @@ You just created a static route in your storefront project!
 [hello world jsx]: <{%link tutorials/pwa-studio-fundamentals/add-a-static-route/images/hellow-world-jsx.png %}>
 [pagebuilder]: <{%link pagebuilder/index.md %}>
 [project structure]: <{%link tutorials/pwa-studio-fundamentals/index.md %}>
+[routes target]: <{%link venia-ui/reference/targets/index.md %}#routes--tapablesynchook>
 [routes]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/Routes/routes.js
 [app]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/app.js
 [`index.js` file for venia's app component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/index.js

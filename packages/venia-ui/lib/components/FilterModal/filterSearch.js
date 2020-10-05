@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { useFormApi, useFieldState } from 'informed';
 import { Search as SearchIcon, X as ClearIcon } from 'react-feather';
 
@@ -13,6 +14,7 @@ const searchIcon = <Icon src={SearchIcon} size={18} />;
 
 const FilterSearch = props => {
     const { name } = props;
+    const { formatMessage } = useIntl();
     const { reset } = useFormApi();
     const { value } = useFieldState('filter_search');
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -27,7 +29,10 @@ const FilterSearch = props => {
                 after={resetButton}
                 before={searchIcon}
                 field="filter_search"
-                placeholder={`Enter a ${name}`}
+                placeholder={formatMessage(
+                    { id: 'filterSearch.name', defaultMessage: 'Enter a ' },
+                    { name }
+                )}
             />
         </div>
     );
