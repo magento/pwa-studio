@@ -8,7 +8,8 @@ This feature is often associated with localization (l10n), which is the process 
 ## Internationalization in core Magento versus PWA Studio
 
 The core Magento application includes an i18n feature that provides translated text to the frontend theme.
-Language packages installed through Composer contain dictionary files, which provide the translation data Magento renders into the page.
+This feature uses dictionary files inside language packages to provide translation data for Magento when it renders a page.
+The language packages themselves are Magento extensions the application installs using Composer.
 
 For more information, see the Magento core topic: [Translations overview][].
 
@@ -35,7 +36,7 @@ return (
 ```
 
 ```jsx
-const translatedText = formatMessage({id: LOREM_IPSUM})
+const translatedText = formatMessage({ id: LOREM_IPSUM })
 
 return (
     <p className={classes.text}>{translatedText}</p>
@@ -51,6 +52,7 @@ PWA Studio's i18n framework uses a similar dictionary approach for translation f
 instead of a CSV format, it uses JSON.
 
 Dictionary files must be inside an `i18n` directory and use their target locale for their filename.
+The proper format for the filename is: `<language id in lowercase>_<country id in uppercase>.json`.
 For example: `en_US.json`, `en_GB.json`, `fr_FR.json`.
 
 Example `en_US.json` content:
@@ -72,8 +74,8 @@ The example posted shows the different ways you can identify the localized text 
 The first and second entry uses the original `en_US` locale text as the ID for the translated text.
 This is the same approach used in Magento.
 
-The third and fourth entry uses an alternative, dot notation approach for the defining the ID for translated text.
-This helps to identify the component and element where the text appears.
+The third and fourth entry uses an alternative, dot notation approach for defining the ID for translated text.
+This is the main format used in PWA Studio components, and it helps identify the component and element where the text appears.
 
 Both approach have their pros and cons, and developers are free to choose which approach works for them when they develop their own components and storefronts.
 
@@ -89,11 +91,11 @@ To translate text with variables, pass in a mapping object to the `values` prop 
 ```jsx
 return(
     <FormattedMessage
-    id="Hi, {name}"
-    defaultMessage="Hi, {name}"
-    values={{
-        name: 'Veronica',
-    }}
+        id="component.greeting"
+        defaultMessage="Hi, {name}"
+        values={{
+            name: 'Veronica',
+        }}
     />
 )
 ```
@@ -104,7 +106,7 @@ When using the `formatMessage()` function, pass in the mapping object as the sec
 
 ```jsx
 const text = formatMessage(
-    { id:"Hi, {name}", defaultMessage="Hi, {name}"},
+    { id:"component.greeting", defaultMessage="Hi, {name}"},
     { name: currentUser.firstname }
 );
 ```
@@ -139,7 +141,12 @@ The following is a high level summary of the actions the i18n framework takes to
 4. Creates a virtual module from this object that exposes a `__fetchLocaleData__` function
 5. Generates a dynamic import in the application for the virtual module
 
+## Runtime process
+
 During runtime, the `LocaleProvider` component uses the `__fetchLocaleData__` function to get the correct translation data for the current locale.
+
+If a components changes the value of the current locale during runtime, the framework sends a GraphQL query to verify the new value.
+Even if you install a language package plugin for a locale, you must enable the locale on the backend to use the translations in the storefront UI.
 
 [translations overview]: https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/translations/xlate.html
 [`localeprovider`]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/localeProvider.js
