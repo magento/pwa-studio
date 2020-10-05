@@ -2,15 +2,14 @@ import React from 'react';
 import { useMutation, useApolloClient } from '@apollo/client';
 import { act } from 'react-test-renderer';
 
-import { createTestInstance } from '@magento/peregrine';
-
-import { useAwaitQuery } from '../../../../lib/hooks/useAwaitQuery';
-import { useUserContext } from '../../../../lib/context/user';
-import { useCreateAccount } from '../useCreateAccount';
 import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../../Apollo/clearCustomerDataFromCache';
-import { retrieveCartId } from '../../../store/actions/cart';
 import { useCartContext } from '../../../context/cart';
+import { useUserContext } from '../../../context/user';
+import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
+import { retrieveCartId } from '../../../store/actions/cart';
+import createTestInstance from '../../../util/createTestInstance';
+import { useCreateAccount } from '../useCreateAccount';
 
 jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
@@ -112,10 +111,8 @@ const defaultProps = {
         createCartMutation,
         getCartDetailsQuery,
         getCustomerQuery,
+        mergeCartsMutation,
         signInMutation
-    },
-    mutations: {
-        mergeCartsMutation
     },
     initialValues: {
         email: 'gooston@goosemail.com',

@@ -28,7 +28,6 @@ import DEFAULT_OPERATIONS from './createAccount.gql';
 export const useCreateAccount = props => {
     const {
         operations = DEFAULT_OPERATIONS,
-        mutations: { mergeCartsMutation },
         initialValues = {},
         onSubmit,
         onCancel
@@ -38,6 +37,7 @@ export const useCreateAccount = props => {
         createCartMutation,
         getCartDetailsQuery,
         getCustomerQuery,
+        mergeCartsMutation,
         signInMutation
     } = operations;
     const apolloClient = useApolloClient();

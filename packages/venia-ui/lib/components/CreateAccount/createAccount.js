@@ -6,7 +6,6 @@ import { Redirect } from '@magento/venia-drivers';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
 
 import { mergeClasses } from '../../classify';
-import { mergeCartsMutation } from '../../queries/mergeCarts.gql';
 import combine from '../../util/combineValidators';
 import {
     hasLengthAtLeast,
@@ -23,9 +22,6 @@ import Password from '../Password';
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
-        mutations: {
-            mergeCartsMutation
-        },
         initialValues: props.initialValues,
         onSubmit: props.onSubmit,
         onCancel: props.onCancel

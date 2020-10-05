@@ -99,10 +99,28 @@ export const GET_CART_DETAILS = gql`
     }
 `;
 
+export const MERGE_CARTS = gql`
+    mutation MergeCartsAfterAccountCreation(
+        $sourceCartId: String!
+        $destinationCartId: String!
+    ) {
+        mergeCarts(
+            source_cart_id: $sourceCartId
+            destination_cart_id: $destinationCartId
+        ) @connection(key: "mergeCarts") {
+            id
+            items {
+                id
+            }
+        }
+    }
+`;
+
 export default {
     createAccountMutation: CREATE_ACCOUNT,
     createCartMutation: CREATE_CART,
     getCartDetailsQuery: GET_CART_DETAILS,
     getCustomerQuery: GET_CUSTOMER,
+    mergeCartsMutation: MERGE_CARTS,
     signInMutation: SIGN_IN
 };

@@ -13,12 +13,16 @@ export const useSignIn = props => {
     const {
         getCartDetailsQuery,
         operations = DEFAULT_OPERATIONS,
-        mergeCartsMutation,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword
     } = props;
-    const { createCartMutation, getCustomerQuery, signInMutation } = operations;
+    const {
+        createCartMutation,
+        getCustomerQuery,
+        mergeCartsMutation,
+        signInMutation
+    } = operations;
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
