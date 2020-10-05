@@ -60,7 +60,7 @@ Even though the Communications Page is the only navigable page, curious develope
 
 ### Targets reference documentation
 
-During 8.0.0 development, the PWA Studio doc site has published referenced documentation for extensibility targets in the different packages.
+During 8.0.0 development, the PWA Studio doc site has published reference documentation for extensibility targets in the different packages.
 This documentation contains API descriptions and sample code to help developers discover the different PWA Studio extension points.
 
 ## Pull requests merged in this release
