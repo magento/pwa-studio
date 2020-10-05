@@ -54,7 +54,7 @@ MAGENTO_BACKEND_EDITION=CE
 #   - Default when not set: 
 STORE_VIEW_CODE=
 #
-#   Specify whether or not the store code URLs should be appended to the URLs of the store.
+#   Appends the store code to the store URLs if value is true.
 #   - Default when not set: false
 USE_STORE_CODE_IN_URL=false
 #

@@ -97,10 +97,7 @@ const VeniaAdapter = props => {
         browserRouterProps.basename = `/${storeCode}`;
         const storeCodes = [];
         const storeCurrencies = {};
-        if (
-            process.env.USE_STORE_CODE_IN_URL === 'true' &&
-            Array.isArray(AVAILABLE_STORE_VIEWS)
-        ) {
+        if (Array.isArray(AVAILABLE_STORE_VIEWS)) {
             AVAILABLE_STORE_VIEWS.forEach(store => {
                 storeCodes.push(store.code);
                 storeCurrencies[store.code] =
