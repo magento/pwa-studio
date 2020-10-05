@@ -87,7 +87,6 @@ const Dialog = props => {
                         onClick={onCancel}
                         type="reset"
                     />
-
                     {/* The Dialog. */}
                     <div className={classes.dialog}>
                         <div className={classes.header}>
