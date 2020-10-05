@@ -14,3 +14,31 @@
 .icon {
     stroke: rgb(var(--venia-brand-color-1-600));
 }
+
+.modal {
+    background-color: white;
+    display: grid;
+    left: calc(50% - 370px);
+    grid-template-rows: auto 1fr;
+    max-height: 90vh;
+    max-width: 740px;
+    opacity: 1;
+    overflow: hidden;
+    position: fixed;
+    top: 5vh;
+    width: 100%;
+    z-index: 3;
+}
+
+.header {
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    padding: 0.875rem 2rem;
+}
+
+.header_text {
+    align-self: center;
+    color: rgb(var(--venia-global-color-text-alt));
+}
