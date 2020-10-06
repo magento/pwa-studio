@@ -3,7 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 
 import Items from '../items';
 
-jest.mock('../Item', () => props => (
+jest.mock('../item', () => props => (
     <div componentName="Item Component" {...props} />
 ));
 
