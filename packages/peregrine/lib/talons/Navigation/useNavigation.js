@@ -75,7 +75,6 @@ export const useNavigation = props => {
 
     return {
         catalogActions,
-        categories,
         categoryId,
         handleBack,
         handleClose,
