@@ -48,7 +48,7 @@ const ItemsReview = props => {
         return (
             <LoadingIndicator>
                 <FormattedMessage
-                    id={'itemsReview.fetchingItemsInYourOrder'}
+                    id={'checkoutPage.fetchingItemsInYourOrder'}
                     defaultMessage={'Fetching Items in your Order'}
                 />
             </LoadingIndicator>
@@ -63,7 +63,7 @@ const ItemsReview = props => {
                         {totalQuantity}
                     </span>
                     <FormattedMessage
-                        id={'itemsReview.itemsInYourOrder'}
+                        id={'checkoutPage.itemsInYourOrder'}
                         defaultMessage={' items in your order'}
                     />
                 </div>

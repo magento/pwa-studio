@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string, func } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
@@ -15,6 +15,7 @@ import LinkButton from '../../LinkButton';
 
 const Summary = props => {
     const { classes: propClasses, onEdit } = props;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -62,9 +63,16 @@ const Summary = props => {
             </div>
         );
     } else {
-        const paymentSummary = `${paymentNonce.details.cardType} ending in ${
-            paymentNonce.details.lastFour
-        }`;
+        const paymentSummary = formatMessage(
+            {
+                id: 'checkoutPage.paymentSummary',
+                defaultMessage: 'Card ending in'
+            },
+            {
+                cardType: paymentNonce.details.cardType,
+                lastFour: paymentNonce.details.lastFour
+            }
+        );
 
         const billingAddressSummary =
             !isBillingAddressSame && billingAddress ? (

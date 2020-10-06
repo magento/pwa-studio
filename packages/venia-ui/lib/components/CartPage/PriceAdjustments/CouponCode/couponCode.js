@@ -164,7 +164,11 @@ const CouponCode = props => {
 
         return (
             <Form className={formClass} onSubmit={handleApplyCoupon}>
-                <Field id="couponCode" label="Coupon Code">
+                <Field
+                    id="couponCode"
+                    label="Coupon Code"
+                    translationId={'cartPage.couponCode'}
+                >
                     <TextInput
                         field="couponCode"
                         id={'couponCode'}

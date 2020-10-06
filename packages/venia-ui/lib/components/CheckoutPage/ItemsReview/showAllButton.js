@@ -20,7 +20,7 @@ const ShowAllButton = props => {
             <span className={classes.content}>
                 <span className={classes.text}>
                     <FormattedMessage
-                        id={'itemsReview.showAllItems'}
+                        id={'checkoutPage.showAllItems'}
                         defaultMessage={'SHOW ALL ITEMS'}
                     />
                 </span>

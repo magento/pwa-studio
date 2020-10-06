@@ -156,7 +156,7 @@ const CheckoutPage = props => {
             ) : (
                 <h3 className={classes.shipping_method_heading}>
                     <FormattedMessage
-                        id={'checkoutPage.shippingMethod'}
+                        id={'checkoutPage.shippingMethodStep'}
                         defaultMessage={'2. Shipping Method'}
                     />
                 </h3>
@@ -322,7 +322,7 @@ const CheckoutPage = props => {
             <Title>
                 {formatMessage(
                     {
-                        id: 'checkoutPage.title',
+                        id: 'checkoutPage.titleCheckout',
                         defaultMessage: 'Checkout'
                     },
                     { name: STORE_NAME }

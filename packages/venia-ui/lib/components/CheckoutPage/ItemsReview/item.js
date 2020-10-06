@@ -35,7 +35,7 @@ const Item = props => {
             />
             <span className={classes.quantity}>
                 <FormattedMessage
-                    id={'itemsReview.quantity'}
+                    id={'checkoutPage.quantity'}
                     defaultMessage={'Qty :'}
                     values={{ quantity }}
                 />
