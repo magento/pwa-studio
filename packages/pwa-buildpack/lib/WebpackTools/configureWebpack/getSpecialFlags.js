@@ -16,6 +16,7 @@ const pkgDir = require('pkg-dir');
  *   Magento page types
  * @property {boolean} [upward] Look for `upward.yml` files to be merged into
  *   the final UPWARD config
+ * @property {boolean} [i18n] Parse i18n/*.json language pack files
  */
 
 /**

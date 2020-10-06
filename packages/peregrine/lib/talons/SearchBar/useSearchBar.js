@@ -7,7 +7,11 @@ const initialValues = { search_query: '' };
 
 export const useSearchBar = () => {
     const [valid, setValid] = useState(false);
-    const { elementRef, expanded, setExpanded } = useDropdown();
+    const {
+        elementRef,
+        expanded: isAutoCompleteOpen,
+        setExpanded: setIsAutoCompleteOpen
+    } = useDropdown();
     const history = useHistory();
     const { push } = history;
 
@@ -18,35 +22,35 @@ export const useSearchBar = () => {
             const isValid = hasValue && value.length > 2;
 
             setValid(isValid);
-            setExpanded(hasValue);
+            setIsAutoCompleteOpen(hasValue);
         },
-        [setExpanded, setValid]
+        [setIsAutoCompleteOpen, setValid]
     );
 
     // expand on focus
     const handleFocus = useCallback(() => {
-        setExpanded(true);
-    }, [setExpanded]);
+        setIsAutoCompleteOpen(true);
+    }, [setIsAutoCompleteOpen]);
 
     // navigate on submit
     const handleSubmit = useCallback(
         ({ search_query }) => {
             if (search_query != null && search_query.trim().length > 0) {
                 push(`/search.html?query=${search_query}`);
-                setExpanded(false);
+                setIsAutoCompleteOpen(false);
             }
         },
-        [push, setExpanded]
+        [push, setIsAutoCompleteOpen]
     );
 
     return {
         containerRef: elementRef,
-        expanded,
         handleChange,
         handleFocus,
         handleSubmit,
         initialValues,
-        setExpanded,
+        isAutoCompleteOpen,
+        setIsAutoCompleteOpen,
         setValid,
         valid
     };

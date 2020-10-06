@@ -67,7 +67,7 @@ module.exports = targets => {
          *
          * @see [transformModules intercept function]{@link transformModulesIntercept}
          *
-         * @member {tapable.SyncHook}
+         * @member {tapable.AsyncSeriesHook}
          *
          * @example <caption>Strip unnecessary Lodash code from a specific JS module.</caption>
          * targets.of('@magento/pwa-buildpack').transformModules.tap(addTransform => addTransform({
@@ -77,7 +77,7 @@ module.exports = targets => {
          *   options: { id: ["async", "lodash-bound" ]}
          * }));
          */
-        transformModules: new targets.types.Sync(['requestTransform']),
+        transformModules: new targets.types.AsyncSeries(['requestTransform']),
 
         /**
          *
