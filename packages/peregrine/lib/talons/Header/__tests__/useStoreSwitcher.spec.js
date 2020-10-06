@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useStoreSwitcher } from '../useStoreSwitcher';
-import { mockSetItem, mockGetItem } from '../../../util/simplePersistence';
+import { mockSetItem } from '../../../util/simplePersistence';
 
 jest.mock('../../../util/simplePersistence');
 
@@ -123,8 +123,6 @@ describe('event handlers', () => {
 test('includes store code when option is enabled and no store code is present in URL', () => {
     process.env.USE_STORE_CODE_IN_URL = 'true';
 
-    mockGetItem.mockReturnValue('store2');
-
     const originalLocation = window.location;
     delete window.location;
     window.location = {
@@ -146,8 +144,6 @@ test('includes store code when option is enabled and no store code is present in
 test('replaces current store code in URL with new store code', () => {
     process.env.USE_STORE_CODE_IN_URL = 'true';
 
-    mockGetItem.mockReturnValue('store2');
-
     const { talonProps } = getTalonProps(defaultProps);
     const { handleSwitchStore } = talonProps;
 
@@ -168,8 +164,6 @@ test('replaces current store code in URL with new store code', () => {
 
 test('adds store code to url when not present but store code in url enabled', () => {
     process.env.USE_STORE_CODE_IN_URL = 'true';
-
-    mockGetItem.mockReturnValue('store2');
 
     const { talonProps } = getTalonProps(defaultProps);
     const { handleSwitchStore } = talonProps;
