@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { Price } from '@magento/peregrine';
 
-import defaultClasses from './orderDetails.css';
+import defaultClasses from './orderTotal.css';
 
 const DEFAULT_AMOUNT = {
     currency: 'USD',
@@ -128,7 +128,7 @@ const OrderTotal = props => {
 
 export default OrderTotal;
 
-orderDetails.propTypes = {
+OrderTotal.propTypes = {
     classes: shape({
         root: string,
         heading: string,
