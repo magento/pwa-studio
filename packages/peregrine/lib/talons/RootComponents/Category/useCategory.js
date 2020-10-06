@@ -197,6 +197,7 @@ export const useCategory = props => {
             ? data.category.meta_description
             : '';
 
+    // When only categoryLoading is involved, noProductsFound component flashes for a moment
     const loading =
         (introspectionCalled && !categoryCalled) ||
         (categoryLoading && !data) ||
