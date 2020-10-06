@@ -11,7 +11,14 @@ export const useCreateWishlist = () => {
         setIsModalOpen(false);
     }, []);
 
+    const createList = useCallback(data => {
+        // TODO create list mutation is not available yet
+        console.log('Creating wish list with data: ', data);
+        setIsModalOpen(false);
+    }, []);
+
     return {
+        createList,
         isModalOpen,
         hideModal,
         showModal
