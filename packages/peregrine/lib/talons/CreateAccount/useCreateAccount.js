@@ -82,17 +82,17 @@ export const useCreateAccount = props => {
                 // Create the account and then sign in.
                 await createAccount({
                     variables: {
-                        email: formValues.customer.email.trim(),
-                        firstname: formValues.customer.firstname.trim(),
-                        lastname: formValues.customer.lastname.trim(),
-                        password: formValues.password.trim(),
+                        email: formValues.customer.email,
+                        firstname: formValues.customer.firstname,
+                        lastname: formValues.customer.lastname,
+                        password: formValues.password,
                         is_subscribed: !!formValues.subscribe
                     }
                 });
                 const signInResponse = await signIn({
                     variables: {
-                        email: formValues.customer.email.trim(),
-                        password: formValues.password.trim()
+                        email: formValues.customer.email,
+                        password: formValues.password
                     }
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
