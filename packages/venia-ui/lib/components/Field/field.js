@@ -6,7 +6,7 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './field.css';
 
 const Field = props => {
-    const { children, id, label, optional, translationId } = props;
+    const { children, id, label, optional } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const optionalSymbol = optional ? (
         <span className={classes.optional}>
@@ -20,20 +20,12 @@ const Field = props => {
     return (
         <div className={classes.root}>
             <label className={classes.label} htmlFor={id}>
-                <FormattedMessage
-                    id={translationId}
-                    defaultValue={label}
-                    values={{ label }}
-                />
+                {label}
                 {optionalSymbol}
             </label>
             {children}
         </div>
     );
-};
-
-Field.defaultProps = {
-    translationId: 'field.label'
 };
 
 Field.propTypes = {
@@ -44,8 +36,7 @@ Field.propTypes = {
     }),
     id: string,
     label: node,
-    optional: bool,
-    translationId: string
+    optional: bool
 };
 
 export default Field;
