@@ -8,7 +8,7 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
       Thank you for your order!
     </h2>
     <div>
-      Order Number: 123
+      Order Number
     </div>
     <div>
       Shipping Information

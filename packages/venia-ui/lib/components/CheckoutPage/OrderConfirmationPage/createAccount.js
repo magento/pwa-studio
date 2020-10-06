@@ -158,7 +158,11 @@ const CreateAccount = props => {
                     />
                 </div>
                 <div className={classes.actions}>
-                    <Button disabled={isDisabled} type="submit">
+                    <Button
+                        disabled={isDisabled}
+                        type="submit"
+                        className={classes.create_account_button}
+                    >
                         <FormattedMessage
                             id={'checkoutPage.createAccount'}
                             defaultMessage={'Create Account'}
@@ -175,6 +179,7 @@ export default CreateAccount;
 CreateAccount.propTypes = {
     classes: shape({
         actions: string,
+        create_account_button: string,
         form: string,
         root: string,
         subscribe: string
