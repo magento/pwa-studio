@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { Price } from '@magento/peregrine';
 
-import defaultClasses from './orderTotal.css';
+import defaultClasses from './orderDetails.css';
 
 const DEFAULT_AMOUNT = {
     currency: 'USD',
@@ -48,14 +48,14 @@ const OrderTotal = props => {
         <div className={classes.root}>
             <div className={classes.heading}>
                 <FormattedMessage
-                    id="orderTotal.orderTotal"
+                    id="orderDetails.orderTotal"
                     defaultMessage="Order Total"
                 />
             </div>
             <div className={classes.subTotal}>
                 <span>
                     <FormattedMessage
-                        id="orderTotal.subtotal"
+                        id="orderDetails.subtotal"
                         defaultMessage="Subtotal"
                     />
                 </span>
@@ -69,7 +69,7 @@ const OrderTotal = props => {
             <div className={classes.discount}>
                 <span>
                     <FormattedMessage
-                        id="orderTotal.discount"
+                        id="orderDetails.discount"
                         defaultMessage="Discount"
                     />
                 </span>
@@ -83,7 +83,7 @@ const OrderTotal = props => {
             <div className={classes.tax}>
                 <span>
                     <FormattedMessage
-                        id="orderTotal.tax"
+                        id="orderDetails.tax"
                         defaultMessage="Tax"
                     />
                 </span>
@@ -97,7 +97,7 @@ const OrderTotal = props => {
             <div className={classes.shipping}>
                 <span>
                     <FormattedMessage
-                        id="orderTotal.shipping"
+                        id="orderDetails.shipping"
                         defaultMessage="Shipping"
                     />
                 </span>
@@ -111,7 +111,7 @@ const OrderTotal = props => {
             <div className={classes.total}>
                 <span>
                     <FormattedMessage
-                        id="orderTotal.total"
+                        id="orderDetails.total"
                         defaultMessage="Total"
                     />
                 </span>
@@ -128,7 +128,7 @@ const OrderTotal = props => {
 
 export default OrderTotal;
 
-OrderTotal.propTypes = {
+orderDetails.propTypes = {
     classes: shape({
         root: string,
         heading: string,

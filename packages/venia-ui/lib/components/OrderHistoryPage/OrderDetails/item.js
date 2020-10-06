@@ -56,20 +56,32 @@ const Item = props => {
             />
             <span className={classes.quantity}>
                 <FormattedMessage
-                    id="Qty : {quantity}"
+                    id="orderDetails.quantity"
                     values={{
                         quantity: quantity_ordered
                     }}
                 />
             </span>
             <span className={classes.price}>{product_sale_price}</span>
-            <Button onClick={() => {}} className={classes.buyAgainButton}>
+            <Button
+                onClick={() => {
+                    // TODO will be implemented in PWA-979
+                    console.log('Buying Again');
+                }}
+                className={classes.buyAgainButton}
+            >
                 <FormattedMessage
                     id="orderDetails.buyAgain"
                     defaultMessage="Buy Again"
                 />
             </Button>
-            <Button onClick={() => {}} className={classes.returnThisButton}>
+            <Button
+                onClick={() => {
+                    // TODO will be implemented in PWA-979
+                    console.log('Returning the Item');
+                }}
+                className={classes.returnThisButton}
+            >
                 <FormattedMessage
                     id="orderDetails.returnThis"
                     defaultMessage="Return This"

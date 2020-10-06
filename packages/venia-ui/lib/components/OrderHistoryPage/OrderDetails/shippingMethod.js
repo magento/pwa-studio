@@ -29,7 +29,7 @@ const ShippingMethod = props => {
             <div className={classes.method}>{shippingMethod}</div>
             <div className={classes.tracking}>
                 <FormattedMessage
-                    id="{carrier} Tracking: {number}"
+                    id="orderDetails.trackingInformation"
                     values={{
                         carrier,
                         number

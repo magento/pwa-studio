@@ -54,7 +54,13 @@ const OrderDetails = props => {
             <div className={classes.orderTotalContainer}>
                 <OrderTotal data={total} />
             </div>
-            <Button className={classes.printButton} onClick={() => {}}>
+            <Button
+                className={classes.printButton}
+                onClick={() => {
+                    // TODO will be implemented in PWA-978
+                    console.log('Printing Receipt');
+                }}
+            >
                 <Icon src={Printer} />
                 <span className={classes.printLabel}>
                     <FormattedMessage
