@@ -109,10 +109,7 @@ const GuestForm = props => {
                     <Region validate={isRequired} />
                 </div>
                 <div className={classes.postcode}>
-                    <Postcode
-                        validate={isRequired}
-                        classes={{ root: classes.postcode }}
-                    />
+                    <Postcode validate={isRequired} />
                 </div>
                 <div className={classes.telephone}>
                     <Field id="telephone" label="Phone Number">

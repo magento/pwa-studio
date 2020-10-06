@@ -25,11 +25,6 @@
     grid-column-end: span 1;
 }
 
-.postcode {
-    composes: root from '../../../Postcode/postcode.css';
-    grid-area: zip;
-}
-
 .buttons {
     composes: field;
     display: grid;
