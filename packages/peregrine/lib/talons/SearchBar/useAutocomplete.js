@@ -52,9 +52,12 @@ export const useAutocomplete = props => {
     const hasResult = products && products.items;
     const resultCount = products && products.total_count;
     const displayResult = valid && hasResult;
+    const invalidCharacterLength = !valid && value ? true : false;
     let messageType = '';
 
-    if (error) {
+    if (invalidCharacterLength) {
+        messageType = 'CHARACTER_NOT_ENOUGH';
+    } else if (error) {
         messageType = 'ERROR';
     } else if (loading) {
         messageType = 'LOADING';

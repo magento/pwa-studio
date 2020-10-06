@@ -105,6 +105,13 @@ const Autocomplete = props => {
                 },
                 { resultCount: resultCount }
             )
+        )
+        .set(
+            'CHARACTER_NOT_ENOUGH',
+            formatMessage({
+                id: 'autocomplete.characterNotEnough',
+                defaultMessage: 'Must search for at least 3 characters'
+            })
         );
 
     const messageTpl = MESSAGES.get(messageType);
