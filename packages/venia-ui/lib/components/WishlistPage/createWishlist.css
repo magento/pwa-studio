@@ -1,3 +1,10 @@
+.root {
+}
+
+.createButton {
+    width: 100%;
+}
+
 .labelContainer {
     align-items: center;
     border: 2px dashed rgb(var(--venia-global-color-gray-400));
@@ -22,12 +29,32 @@
     grid-template-rows: auto 1fr;
     max-height: 90vh;
     max-width: 740px;
-    opacity: 1;
+    opacity: 0;
     overflow: hidden;
     position: fixed;
     top: 5vh;
+    transform: scale(1.15);
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-global-anim-out);
+    transition-property: opacity, transform, visibility;
+    visibility: hidden;
     width: 100%;
     z-index: 3;
+}
+
+.modal_open {
+    composes: modal;
+
+    box-shadow: 1px 0 rgb(var(--venia-global-color-border));
+    opacity: 1;
+    transform: scale(1);
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-global-anim-in);
+    visibility: visible;
+}
+
+.body {
+    padding: 2rem;
 }
 
 .header {
@@ -41,4 +68,23 @@
 .header_text {
     align-self: center;
     color: rgb(var(--venia-global-color-text-alt));
+}
+
+@media (max-width: 960px) {
+    .modal {
+        bottom: 0;
+        height: 100%;
+        left: auto;
+        max-height: none;
+        max-width: 360px;
+        right: 0;
+        top: 0;
+        transform: translate3d(100%, 0, 0);
+    }
+
+    .modal_open {
+        composes: modal;
+
+        transform: translate3d(0, 0, 0);
+    }
 }
