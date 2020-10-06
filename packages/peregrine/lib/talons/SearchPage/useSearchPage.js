@@ -122,7 +122,7 @@ export const useSearchPage = props => {
 
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
-        if (!filterTypeMap.size) {
+        if (!filterTypeMap.size || !pageSize) {
             return;
         }
         const filters = getFiltersFromSearch(search);
