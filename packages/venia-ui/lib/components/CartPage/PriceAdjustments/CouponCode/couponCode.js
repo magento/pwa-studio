@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useToasts } from '@magento/peregrine';
@@ -19,7 +20,14 @@ import { AppliedCouponsFragment } from './couponCodeFragments';
 
 import defaultClasses from './couponCode.css';
 
-const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
+const errorIcon = (
+    <Icon
+        src={AlertCircleIcon}
+        attrs={{
+            width: 18
+        }}
+    />
+);
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
@@ -105,6 +113,7 @@ const CouponCode = props => {
         handleRemoveCoupon,
         removingCoupon
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     const removeCouponError = deriveErrorMessage([
         errors.get('removeCouponMutation')
@@ -129,7 +138,12 @@ const CouponCode = props => {
     if (errors.get('getAppliedCouponsQuery')) {
         return (
             <div className={classes.errorContainer}>
-                {'Something went wrong. Please refresh and try again.'}
+                <FormattedMessage
+                    id={'couponCode.errorContainer'}
+                    defaultMessage={
+                        'Something went wrong. Please refresh and try again.'
+                    }
+                />
             </div>
         );
     }
@@ -146,7 +160,10 @@ const CouponCode = props => {
                             handleRemoveCoupon(code);
                         }}
                     >
-                        Remove
+                        <FormattedMessage
+                            id={'couponCode.removeButton'}
+                            defaultMessage={'Remove'}
+                        />
                     </LinkButton>
                 </Fragment>
             );
@@ -166,13 +183,18 @@ const CouponCode = props => {
             <Form className={formClass} onSubmit={handleApplyCoupon}>
                 <Field
                     id="couponCode"
-                    label="Coupon Code"
-                    translationId={'cartPage.couponCode'}
+                    label={formatMessage({
+                        id: 'cartPage.couponCode',
+                        defaultMessage: 'Coupon Code'
+                    })}
                 >
                     <TextInput
                         field="couponCode"
                         id={'couponCode'}
-                        placeholder={'Enter code'}
+                        placeholder={formatMessage({
+                            id: 'couponCode.enterCode',
+                            defaultMessage: 'Enter code'
+                        })}
                         mask={value => value && value.trim()}
                         maskOnBlur={true}
                         message={errorMessage}
@@ -184,7 +206,10 @@ const CouponCode = props => {
                         priority={'normal'}
                         type={'submit'}
                     >
-                        {'Apply'}
+                        <FormattedMessage
+                            id={'couponCode.apply'}
+                            defaultMessage={'Apply'}
+                        />
                     </Button>
                 </Field>
             </Form>

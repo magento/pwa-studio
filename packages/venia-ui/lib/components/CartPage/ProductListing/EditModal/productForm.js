@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
 import { Form } from 'informed';
 import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
@@ -14,6 +15,7 @@ import { CartPageFragment } from '../../cartPageFragments.gql';
 
 const ProductForm = props => {
     const { item: cartItem, setIsCartUpdating, setVariantPrice } = props;
+    const { formatMessage } = useIntl();
     const talonProps = useProductForm({
         cartItem,
         getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
@@ -35,10 +37,20 @@ const ProductForm = props => {
 
     if (isLoading || isSaving) {
         const message = isLoading
-            ? 'Fetching Product Options...'
-            : 'Updating Cart...';
+            ? formatMessage({
+                  id: 'productForm.fetchingProductOptions',
+                  defaultMessage: 'Fetching Product Options...'
+              })
+            : formatMessage({
+                  id: 'productForm.updatingCart',
+                  defaultMessage: 'Updating Cart...'
+              });
         return (
-            <LoadingIndicator classes={{ root: classes.loading }}>
+            <LoadingIndicator
+                classes={{
+                    root: classes.loading
+                }}
+            >
                 {message}
             </LoadingIndicator>
         );
@@ -47,7 +59,12 @@ const ProductForm = props => {
     if (!configItem) {
         return (
             <span className={classes.dataError}>
-                Something went wrong. Please refresh and try again.
+                <FormattedMessage
+                    id={'productForm.dataError'}
+                    defaultMessage={
+                        'Something went wrong. Please refresh and try again.'
+                    }
+                />
             </span>
         );
     }
@@ -55,26 +72,40 @@ const ProductForm = props => {
     return (
         <Fragment>
             <FormError
-                classes={{ root: classes.errorContainer }}
+                classes={{
+                    root: classes.errorContainer
+                }}
                 errors={Array.from(errors.values())}
                 scrollOnError={false}
             />
             <Form onSubmit={handleSubmit}>
                 <Options
-                    classes={{ root: classes.optionRoot }}
+                    classes={{
+                        root: classes.optionRoot
+                    }}
                     onSelectionChange={handleOptionSelection}
                     options={configItem.configurable_options}
                     selectedValues={cartItem.configurable_options}
                 />
-                <h3 className={classes.quantityLabel}>Quantity</h3>
+                <h3 className={classes.quantityLabel}>
+                    <FormattedMessage
+                        id={'productForm.quantity'}
+                        defaultMessage={'Quantity'}
+                    />
+                </h3>
                 <QuantityFields
-                    classes={{ root: classes.quantityRoot }}
+                    classes={{
+                        root: classes.quantityRoot
+                    }}
                     initialValue={cartItem.quantity}
                     itemId={cartItem.id}
                 />
                 <div className={classes.submit}>
                     <Button priority="high" type="submit">
-                        Update
+                        <FormattedMessage
+                            id={'productForm.submit'}
+                            defaultMessage={'Update'}
+                        />
                     </Button>
                 </div>
             </Form>
