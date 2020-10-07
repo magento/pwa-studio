@@ -1,30 +1,55 @@
 .root {
-    background-color: rgb(var(--venia-global-color-background));
-    border-radius: 1px;
-    box-shadow: 1px 1px 5px rgb(var(--venia-global-color-gray-darker));
-    min-height: 10rem;
+    --content-width: 27.5rem;
+
+    height: 0;
+    overflow: visible;
+    left: 50%;
     opacity: 0;
-    position: fixed;
-    right: -100vw;
-    top: var(--header-height);
-    transform: translate3d(0, -8px, 0);
+    position: absolute;
+    top: 100%;
     transition-duration: 192ms;
+    transition-property: opacity, visibility;
     transition-timing-function: var(--venia-global-anim-out);
-    transition-property: opacity, transform, visibility;
     visibility: hidden;
-    width: 27.5rem;
+    width: 100vw;
+    /* max-width wider than header to let dropdown to move left on wider screens while still staying near the trigger */
+    max-width: calc(
+        var(--venia-global-maxWidth) + var(--content-width) * 2 - 25rem
+    );
+    z-index: 3;
+    transform: translate3d(-50%, 0, 0);
 }
 
 .root_open {
     composes: root;
-
     opacity: 1;
-    right: 2rem;
-    padding: 0.5rem;
-    transform: translate3d(0, 4px, 0);
     transition-duration: 224ms;
     transition-timing-function: var(--venia-global-anim-in);
     visibility: visible;
+}
+
+.contents {
+    background-color: rgb(var(--venia-global-color-background));
+    border-radius: 1px;
+    box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
+    display: grid;
+    min-height: 10rem;
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    transform: translate3d(0, -8px, 0);
+    transition-duration: 192ms;
+    transition-property: transform;
+    transition-timing-function: var(--venia-global-anim-out);
+    width: var(--content-width);
+}
+
+.contents_open {
+    composes: contents;
+
+    transform: translate3d(0, 4px, 0);
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-global-anim-in);
 }
 
 .createAccount {

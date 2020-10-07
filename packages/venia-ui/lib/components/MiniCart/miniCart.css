@@ -1,20 +1,27 @@
 .root {
-    height: 100%;
-    left: 100vw;
+    --content-width: 22.5rem;
+
+    height: 0;
+    overflow: visible;
+    left: 50%;
     opacity: 0;
-    position: fixed;
-    top: 0;
+    position: absolute;
+    top: 100%;
     transition-duration: 192ms;
     transition-property: opacity, visibility;
     transition-timing-function: var(--venia-global-anim-out);
     visibility: hidden;
-    width: 100%;
+    width: 100vw;
+    /* max-width wider than header to let dropdown to move left on wider screens while still staying near the trigger */
+    max-width: calc(
+        var(--venia-global-maxWidth) + var(--content-width) * 2 - 8rem
+    );
     z-index: 3;
+    transform: translate3d(-50%, 0, 0);
 }
 
 .root_open {
     composes: root;
-    left: 0;
     opacity: 1;
     transition-duration: 224ms;
     transition-timing-function: var(--venia-global-anim-in);
@@ -31,14 +38,13 @@
     max-height: 35rem;
     overflow: hidden;
     position: absolute;
-    right: 0.5rem;
-    /* This value is equal to the site header height. */
-    top: var(--header-height);
+    right: 1rem;
+    top: 0;
     transform: translate3d(0, -8px, 0);
     transition-duration: 192ms;
     transition-property: transform;
     transition-timing-function: var(--venia-global-anim-out);
-    width: 22.5rem;
+    width: var(--content-width);
 }
 
 .contents_open {

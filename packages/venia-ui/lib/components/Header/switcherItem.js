@@ -7,12 +7,12 @@ import Icon from '../Icon/icon';
 import defaultClasses from './switcherItem.css';
 
 const SwitcherItem = props => {
-    const { active, onClick, switcherItem } = props;
+    const { active, onClick, option, children } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {
-        onClick(switcherItem.code);
-    }, [switcherItem, onClick]);
+        onClick(option);
+    }, [option, onClick]);
 
     const activeIcon = active ? <Icon size={20} src={Check} /> : null;
 
@@ -23,7 +23,7 @@ const SwitcherItem = props => {
             onClick={handleClick}
         >
             <span className={classes.content}>
-                <span className={classes.text}>{switcherItem.label}</span>
+                <span className={classes.text}>{children}</span>
                 {activeIcon}
             </span>
         </button>
@@ -37,7 +37,8 @@ SwitcherItem.propTypes = {
         root: string,
         text: string
     }),
-    onClick: func
+    onClick: func,
+    option: string
 };
 
 export default SwitcherItem;

@@ -10,6 +10,7 @@ import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 import StoreSwitcher from '../Header/storeSwitcher';
+import CurrencySwitcher from '../Header/currencySwitcher';
 
 const AuthModal = React.lazy(() => import('../AuthModal'));
 
@@ -71,6 +72,7 @@ const Navigation = props => {
             <div className={classes.footer}>
                 <div className={classes.switchers}>
                     <StoreSwitcher />
+                    <CurrencySwitcher />
                 </div>
                 <AuthBar
                     disabled={hasModal}
