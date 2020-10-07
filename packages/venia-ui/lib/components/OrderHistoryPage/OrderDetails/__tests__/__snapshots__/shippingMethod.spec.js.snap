@@ -13,7 +13,7 @@ exports[`should render properly 1`] = `
   <div>
     <div
       componentName="Formatted Message Component"
-      id="{carrier} Tracking: {number}"
+      id="orderDetails.trackingInformation"
       values={
         Object {
           "carrier": "Fedex",
