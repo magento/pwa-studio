@@ -33,7 +33,10 @@ export const useProductListing = props => {
     const [
         fetchProductListing,
         { called, data, error, loading }
-    ] = useLazyQuery(getProductListing);
+    ] = useLazyQuery(getProductListing, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
 
     useEffect(() => {
         if (cartId) {

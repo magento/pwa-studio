@@ -5,6 +5,11 @@ exports[`verify Header can render in default state 1`] = `
   className="closed"
 >
   <div
+    className="switchers"
+  >
+    <StoreSwitcher />
+  </div>
+  <div
     className="toolbar"
   >
     <div

@@ -91,17 +91,17 @@ class LocalizationPlugin {
          * @type {string}
          */
         const importerFactory = `function () {
-            return function getLocale(locale) {
+            return async function getLocale(locale) {
                 ${Object.keys(locales)
                     .map(locale => {
-                        return `if (locale === "${locale}") { 
+                        return `if (locale === "${locale}") {
                         return import(/* webpackChunkName: "i18n-${locale}" */'${
                             mergedLocalesPaths[locale]
                         }');
                     }`;
                     })
                     .join('')}
-                
+
                 throw new Error('Unable to locate locale ' + locale + ' within generated dist directory.');
             }
         }`;
