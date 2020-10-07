@@ -118,6 +118,12 @@ module.exports = targets => {
             path: '../MyAccount/ResetPassword'
         },
         {
+            name: 'SavedPayments',
+            pattern: '/saved-payments',
+            exact: true,
+            path: '../SavedPaymentsPage'
+        },
+        {
             name: 'Search',
             pattern: '/search.html',
             exact: true,
@@ -128,6 +134,12 @@ module.exports = targets => {
             pattern: '/wishlist',
             exact: true,
             path: '../WishlistPage'
+        },
+        {
+            name: 'AccountInformationPage',
+            pattern: '/account-information',
+            exact: true,
+            path: '../AccountInformationPage'
         }
     ]);
 };

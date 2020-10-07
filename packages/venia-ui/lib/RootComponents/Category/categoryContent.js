@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
-import { array, shape, string } from 'prop-types';
+import { array, number, shape, string } from 'prop-types';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
 import { mergeClasses } from '../../classify';
@@ -16,12 +16,13 @@ import NoProductsFound from './NoProductsFound';
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
 const CategoryContent = props => {
-    const { categoryId, data, pageControl, sortProps } = props;
+    const { categoryId, data, pageControl, sortProps, pageSize } = props;
     const [currentSort] = sortProps;
 
     const talonProps = useCategoryContent({
         categoryId,
-        data
+        data,
+        pageSize
     });
 
     const {
@@ -122,5 +123,6 @@ CategoryContent.propTypes = {
     // sortProps contains the following structure:
     // [{sortDirection: string, sortAttribute: string, sortText: string},
     // React.Dispatch<React.SetStateAction<{sortDirection: string, sortAttribute: string, sortText: string}]
-    sortProps: array
+    sortProps: array,
+    pageSize: number
 };

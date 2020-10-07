@@ -15,7 +15,10 @@ export const useCategoryList = props => {
     const { id, operations = DEFAULT_OPERATIONS } = props;
     const { getCategoryListQuery } = operations;
 
-    const [runQuery, queryResponse] = useLazyQuery(getCategoryListQuery);
+    const [runQuery, queryResponse] = useLazyQuery(getCategoryListQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
     const { loading, error, data } = queryResponse;
 
     // Run the query immediately and every time id changes.

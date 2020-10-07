@@ -18,10 +18,13 @@ jest.mock('../../FilterModal/helpers', () => {
     };
 });
 
+jest.mock('@magento/peregrine/lib/hooks/useScrollTopOnChange');
+
 jest.mock('../../../context/app', () => {
     const state = {};
     const api = {
-        toggleDrawer: jest.fn()
+        toggleDrawer: jest.fn(),
+        actions: { setPageLoading: jest.fn() }
     };
     const useAppContext = jest.fn(() => [state, api]);
 
@@ -67,6 +70,9 @@ jest.mock('@apollo/client', () => {
         data: {
             __type: {
                 inputFields: []
+            },
+            storeConfig: {
+                grid_per_page: 12
             }
         },
         error: null,

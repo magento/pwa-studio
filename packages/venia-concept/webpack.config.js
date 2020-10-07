@@ -54,7 +54,6 @@ module.exports = async env => {
              */
             POSSIBLE_TYPES: JSON.stringify(possibleTypes),
             STORE_NAME: JSON.stringify('Venia'),
-            STORE_VIEW_LOCALE: JSON.stringify(global.LOCALE),
             STORE_VIEW_CODE: process.env.STORE_VIEW_CODE
                 ? JSON.stringify(process.env.STORE_VIEW_CODE)
                 : JSON.stringify(storeConfigData.code)

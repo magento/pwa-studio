@@ -1,18 +1,46 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLazyQuery, useQuery } from '@apollo/client';
-
-import { usePagination } from '../../../hooks/usePagination';
-import { useSort } from '../../../hooks/useSort';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { usePagination, useSort } from '@magento/peregrine';
 import {
-    getFilterInput,
-    getFiltersFromSearch
-} from '../../FilterModal/helpers';
-import DEFAULT_OPERATIONS from './category.gql';
+    getFiltersFromSearch,
+    getFilterInput
+} from '@magento/peregrine/lib/talons/FilterModal/helpers';
+import { useScrollTopOnChange } from '../../../hooks/useScrollTopOnChange';
 
+/**
+ * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
+ * controls the logic for the Category Root Component.
+ *
+ * @kind function
+ *
+ * @param {object}      props
+ * @param {number}      props.id - Category Id.
+ * @param {GraphQLAST}  props.queries.getCategory - Fetches category using a server query
+ * @param {GraphQLAST}  props.queries.getFiltersIntrospection - Fetches "allowed" filters using a server query
+ * @param {GraphQLAST}  props.queries.getStoreConfig - Fetches store configuration using a server query
+ *
+ * @returns {object}    result
+ * @returns {object}    result.error - Indicates a network error occurred.
+ * @returns {object}    result.categoryData - Category data.
+ * @returns {bool}      result.isLoading - Category data loading.
+ * @returns {string}    result.metaDescription - Category meta description.
+ * @returns {object}    result.pageControl - Category pagination state.
+ * @returns {array}     result.sortProps - Category sorting parameters.
+ * @returns {number}    result.pageSize - Category total pages.
+ */
 export const useCategory = props => {
-    const { id, operations = DEFAULT_OPERATIONS, pageSize } = props;
-    const { getCategoryQuery, getFilterInputsQuery } = operations;
+    const {
+        id,
+        queries: { getCategory, getFiltersIntrospection, getPageSize }
+    } = props;
+
+    const { data: pageSizeData } = useQuery(getPageSize, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+    const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
 
     const [paginationValues, paginationApi] = usePagination();
     const { currentPage, totalPages } = paginationValues;
@@ -30,15 +58,44 @@ export const useCategory = props => {
         totalPages
     };
 
-    const [runQuery, queryResponse] = useLazyQuery(getCategoryQuery);
-    const { loading, error, data } = queryResponse;
+    const [
+        ,
+        {
+            actions: { setPageLoading }
+        }
+    ] = useAppContext();
+
+    const [runQuery, queryResponse] = useLazyQuery(getCategory, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+    const {
+        called: categoryCalled,
+        loading: categoryLoading,
+        error,
+        data
+    } = queryResponse;
     const { search } = useLocation();
+
+    const isBackgroundLoading = !!data && categoryLoading;
+
+    // Update the page indicator if the GraphQL query is in flight.
+    useEffect(() => {
+        setPageLoading(isBackgroundLoading);
+    }, [isBackgroundLoading, setPageLoading]);
 
     // Keep track of the search terms so we can tell when they change.
     const previousSearch = useRef(search);
 
     // Get "allowed" filters by intersection of schema and aggregations
-    const { data: introspectionData } = useQuery(getFilterInputsQuery);
+    const {
+        called: introspectionCalled,
+        data: introspectionData,
+        loading: introspectionLoading
+    } = useQuery(getFiltersIntrospection, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
@@ -56,7 +113,7 @@ export const useCategory = props => {
     // Run the category query immediately and whenever its variable values change.
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
-        if (!filterTypeMap.size) {
+        if (!filterTypeMap.size || !pageSize) {
             return;
         }
 
@@ -80,11 +137,6 @@ export const useCategory = props => {
                 pageSize: Number(pageSize),
                 sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
             }
-        });
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
         });
     }, [
         currentPage,
@@ -110,10 +162,10 @@ export const useCategory = props => {
     // If we get an error after loading we should try to reset to page 1.
     // If we continue to have errors after that, render an error message.
     useEffect(() => {
-        if (error && !loading && currentPage !== 1) {
+        if (error && !categoryLoading && currentPage !== 1) {
             setCurrentPage(1);
         }
-    }, [currentPage, error, loading, setCurrentPage]);
+    }, [currentPage, error, categoryLoading, setCurrentPage]);
 
     // Reset the current page back to one (1) when the search string, filters
     // or sort criteria change.
@@ -139,5 +191,27 @@ export const useCategory = props => {
         }
     }, [currentSort, previousSearch, search, setCurrentPage]);
 
-    return { data, error, loading, pageControl, sortProps, totalPagesFromData };
+    const categoryData = categoryLoading && !data ? null : data;
+    const metaDescription =
+        data && data.category && data.category.meta_description
+            ? data.category.meta_description
+            : '';
+
+    // When only categoryLoading is involved, noProductsFound component flashes for a moment
+    const loading =
+        (introspectionCalled && !categoryCalled) ||
+        (categoryLoading && !data) ||
+        introspectionLoading;
+
+    useScrollTopOnChange(currentPage);
+
+    return {
+        error,
+        categoryData,
+        loading,
+        metaDescription,
+        pageControl,
+        sortProps,
+        pageSize
+    };
 };
