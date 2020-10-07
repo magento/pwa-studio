@@ -138,7 +138,8 @@ test('verify <Route /> handler updates store on navigation when store code in UR
     delete window.location;
     window.location = {
         ...originalLocation,
-        pathname: '/default/test.html'
+        pathname: '/default/test.html',
+        reload: jest.fn()
     };
 
     mockGetItem.mockReturnValue('default');
@@ -156,6 +157,7 @@ test('verify <Route /> handler updates store on navigation when store code in UR
         ['store_view_code', 'french'],
         ['store_view_currency', 'EUR']
     ]);
+    expect(window.location.reload).toHaveBeenCalled();
 
     window.location = originalLocation;
 });
