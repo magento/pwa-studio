@@ -94,7 +94,6 @@ test('renders the root and subscribes to global events', async () => {
         ).toMatchObject({
             headers: {
                 foo: 'bar',
-                store: 'default',
                 authorization: ''
             }
         });
