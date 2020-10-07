@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
@@ -19,6 +20,12 @@ import { useMemo } from 'react';
  */
 export const useProduct = props => {
     const { mapProduct, queries, urlKey } = props;
+    const [
+        ,
+        {
+            actions: { setPageLoading }
+        }
+    ] = useAppContext();
 
     const { error, loading, data } = useQuery(queries.getProductQuery, {
         fetchPolicy: 'cache-and-network',
@@ -27,6 +34,8 @@ export const useProduct = props => {
             urlKey
         }
     });
+
+    const isBackgroundLoading = !!data && loading;
 
     const product = useMemo(() => {
         if (!data) {
@@ -48,6 +57,11 @@ export const useProduct = props => {
 
         return mapProduct(product);
     }, [data, mapProduct, urlKey]);
+
+    // Update the page indicator if the GraphQL query is in flight.
+    useEffect(() => {
+        setPageLoading(isBackgroundLoading);
+    }, [isBackgroundLoading, setPageLoading]);
 
     return {
         error,

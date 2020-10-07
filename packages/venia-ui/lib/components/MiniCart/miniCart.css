@@ -33,7 +33,7 @@
     position: absolute;
     right: 0.5rem;
     /* This value is equal to the site header height. */
-    top: 5rem;
+    top: var(--header-height);
     transform: translate3d(0, -8px, 0);
     transition-duration: 192ms;
     transition-property: transform;
