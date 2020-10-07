@@ -83,7 +83,7 @@ ul.navigation::-webkit-scrollbar {
 
 .root ul li.header {
     list-style: none;
-    background: rgb(var(--venia-grey));
+    background: rgb(var(--venia-global-color-gray));
     border: var(--tabs-border-width) var(--tabs-border) var(--tabs-border-color);
     border-bottom: 0;
     border-top-left-radius: var(--tabs-border-radius);
@@ -95,7 +95,7 @@ ul.navigation::-webkit-scrollbar {
     position: relative;
     word-wrap: break-word;
     z-index: 1;
-    color: rgb(var(--venia-text));
+    color: rgb(var(--venia-global-color-text));
     cursor: pointer !important;
     font-size: 14px;
     font-weight: 600;

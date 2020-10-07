@@ -64,6 +64,7 @@ export const ShippingSummaryFragment = gql`
                     value
                 }
             }
+            street
         }
     }
 `;
