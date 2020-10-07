@@ -17,9 +17,10 @@ import DEFAULT_OPERATIONS from './searchPage.gql';
  * @param {String} props.query - graphql query used for executing search
  */
 export const useSearchPage = (props = {}) => {
-    const { operations = DEFAULT_OPERATIONS,queries: {
-        getPageSize
-    } } = props;
+    const {
+        operations = DEFAULT_OPERATIONS,
+        queries: { getPageSize }
+    } = props;
 
     const {
         getFilterInputsQuery,

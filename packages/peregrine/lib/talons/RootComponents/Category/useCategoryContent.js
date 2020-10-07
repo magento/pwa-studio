@@ -22,7 +22,12 @@ const DRAWER_NAME = 'filter';
  * @returns {string} result.pageTitle - The text to put in the browser tab for this page.
  */
 export const useCategoryContent = props => {
-    const { categoryId, data, operations = DEFAULT_OPERATIONS, pageSize = 6 } = props;
+    const {
+        categoryId,
+        data,
+        operations = DEFAULT_OPERATIONS,
+        pageSize = 6
+    } = props;
     const { getProductFiltersByCategoryQuery } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);

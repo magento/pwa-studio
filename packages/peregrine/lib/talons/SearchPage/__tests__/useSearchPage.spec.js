@@ -100,7 +100,8 @@ const Component = props => {
     return <i talonProps={talonProps} />;
 };
 
-const tree = createTestInstance(<Component />);
+const mockProps = { queries: {} };
+const tree = createTestInstance(<Component {...mockProps} />);
 
 test('returns the correct shape', () => {
     const { root } = tree;
@@ -144,7 +145,7 @@ test.each(testCases)(
     (description, sortParams, expected) => {
         mockUseSort.mockReturnValueOnce([sortParams, jest.fn()]);
         act(() => {
-            tree.update(<Component />);
+            tree.update(<Component {...mockProps} />);
         });
 
         expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
@@ -168,7 +169,7 @@ describe('searchCategory', () => {
         getFiltersFromSearch.mockReturnValueOnce(new Map());
 
         // Act.
-        createTestInstance(<Component />);
+        createTestInstance(<Component {...mockProps} />);
 
         // Assert.
         const { searchCategory } = log.mock.calls[0][0];
@@ -181,7 +182,7 @@ describe('searchCategory', () => {
         getFiltersFromSearch.mockReturnValueOnce(map);
 
         // Act.
-        createTestInstance(<Component />);
+        createTestInstance(<Component {...mockProps} />);
 
         // Assert.
         const { searchCategory } = log.mock.calls[0][0];
@@ -194,7 +195,7 @@ describe('searchCategory', () => {
         getFiltersFromSearch.mockReturnValueOnce(map);
 
         // Act.
-        createTestInstance(<Component />);
+        createTestInstance(<Component {...mockProps} />);
 
         // Assert.
         const { searchCategory } = log.mock.calls[0][0];
@@ -210,7 +211,7 @@ describe('searchCategory', () => {
         getFiltersFromSearch.mockReturnValueOnce(map);
 
         // Act.
-        createTestInstance(<Component />);
+        createTestInstance(<Component {...mockProps} />);
 
         // Assert.
         const { searchCategory } = log.mock.calls[0][0];
