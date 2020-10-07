@@ -70,7 +70,7 @@
 .content {
     border-top: 2px solid rgb(var(--venia-global-color-gray));
     grid-column: 1 / -1;
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 .content_collapsed {
