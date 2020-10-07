@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import ErrorView from '../ErrorView';
 import {
     INTERNAL_ERROR,
@@ -7,17 +8,17 @@ import {
 } from '@magento/peregrine/lib/talons/MagentoRoute';
 
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import { GET_STORE_CODE } from './magentoRoute.gql';
 
 const MESSAGES = new Map()
     .set(NOT_FOUND, 'That page could not be found. Please try again.')
     .set(INTERNAL_ERROR, 'Something went wrong. Please try again.');
 
 const MagentoRoute = () => {
-    const magentoRouteProps = {};
+    const { formatMessage } = useIntl();
+    const magentoRouteProps = { getStoreCode: GET_STORE_CODE };
     // If we have a specific store view code configured pass it into the url resolver
-    if (STORE_VIEW_CODE) {
-        magentoRouteProps.store = STORE_VIEW_CODE;
-    }
+
     const talonProps = useMagentoRoute(magentoRouteProps);
     const {
         component: RootComponent,
@@ -34,14 +35,24 @@ const MagentoRoute = () => {
     } else if (routeError === NOT_FOUND) {
         return (
             <ErrorView>
-                <h1>{MESSAGES.get(routeError)}</h1>
+                <h1>
+                    {formatMessage({
+                        id: 'magentoRoute.routeError',
+                        defaultMessage: MESSAGES.get(routeError)
+                    })}
+                </h1>
             </ErrorView>
         );
     }
 
     return (
         <ErrorView>
-            <h1>{MESSAGES.get(INTERNAL_ERROR)}</h1>
+            <h1>
+                {formatMessage({
+                    id: 'magentoRoute.internalError',
+                    defaultMessage: MESSAGES.get(INTERNAL_ERROR)
+                })}
+            </h1>
         </ErrorView>
     );
 };

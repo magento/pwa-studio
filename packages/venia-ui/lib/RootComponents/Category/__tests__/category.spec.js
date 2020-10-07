@@ -1,11 +1,10 @@
 import React from 'react';
-import { act } from 'react-test-renderer';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
+import { useCategory } from '@magento/peregrine/lib/talons/RootComponents/Category';
 import Category from '../category';
 
-jest.mock('react-router-dom', () => ({
-    useHistory: jest.fn(() => ({ push: jest.fn() })),
-    useLocation: jest.fn(() => ({ pathname: '', search: '' }))
+jest.mock('@magento/peregrine/lib/talons/RootComponents/Category', () => ({
+    useCategory: jest.fn()
 }));
 
 jest.mock('../../../components/Head', () => ({
@@ -16,116 +15,58 @@ jest.mock('../../../components/Head', () => ({
 
 jest.mock('../categoryContent', () => 'CategoryContent');
 
-const mockUseSort = jest
-    .fn()
-    .mockReturnValue([
+const talonProps = {
+    error: null,
+    metaDescription: 'Meta Description',
+    loading: false,
+    categoryData: {
+        products: {
+            page_info: {
+                total_pages: 6
+            }
+        }
+    },
+    pageControl: {
+        currentPage: 1,
+        setPage: jest.fn(),
+        totalPages: 6
+    },
+    sortProps: [
         {
             sortText: 'Best Match',
             sortAttribute: 'relevance',
             sortDirection: 'DESC'
         },
         jest.fn()
-    ])
-    .mockName('mockUseSort');
-
-const mockSetCurrentPage = jest.fn().mockName('mockSetCurrentPage');
-
-jest.mock('@magento/peregrine', () => {
-    const usePagination = jest.fn(() => [
-        {
-            currentPage: 3,
-            totalPages: 6
-        },
-        {
-            setCurrentPage: jest
-                .fn()
-                .mockImplementation(() => mockSetCurrentPage()),
-            setTotalPages: jest.fn()
-        }
-    ]);
-    const useSort = jest.fn().mockImplementation(() => mockUseSort());
-
-    return {
-        useSort,
-        usePagination
-    };
-});
-
-jest.mock('@apollo/client', () => {
-    const useQuery = jest.fn().mockReturnValue({
-        data: {
-            __type: {
-                inputFields: []
-            }
-        },
-        error: null,
-        loading: false
-    });
-    const runQuery = jest.fn();
-    const queryResult = {
-        data: {
-            products: {
-                page_info: {
-                    total_pages: 6
-                }
-            }
-        },
-        error: null,
-        loading: false
-    };
-    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
-
-    return { useLazyQuery, useQuery };
-});
+    ],
+    pageSize: 12
+};
 
 const categoryProps = {
-    id: 3,
-    pageSize: 6
+    id: 3
 };
-const tree = createTestInstance(<Category {...categoryProps} />);
 
 test('renders the correct tree', () => {
+    useCategory.mockReturnValueOnce(talonProps);
+    const tree = createTestInstance(<Category {...categoryProps} />);
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-const testCases = [
-    [
-        'sortText does not reset',
-        {
-            sortText: 'Changed',
-            sortAttribute: 'relevance',
-            sortDirection: 'DESC'
-        },
-        0
-    ],
-    [
-        'sortAttribute resets',
-        {
-            sortText: 'Best Match',
-            sortAttribute: 'Changed',
-            sortDirection: 'DESC'
-        },
-        1
-    ],
-    [
-        'sortDirection resets',
-        {
-            sortText: 'Best Match',
-            sortAttribute: 'relevance',
-            sortDirection: 'Changed'
-        },
-        1
-    ]
-];
+test('it renders a loading indicator when appropriate', () => {
+    useCategory.mockReturnValueOnce({
+        ...talonProps,
+        loading: true
+    });
+    const tree = createTestInstance(<Category {...categoryProps} />);
+    expect(tree.toJSON()).toMatchSnapshot();
+});
 
-test.each(testCases)(
-    'Changing %s current page to 1.',
-    (description, sortParams, expected) => {
-        mockUseSort.mockReturnValueOnce([sortParams, jest.fn()]);
-        act(() => {
-            tree.update(<Category {...categoryProps} />);
-        });
-
-        expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
-    }
-);
+test('it shows error when appropriate', () => {
+    useCategory.mockReturnValueOnce({
+        ...talonProps,
+        error: true,
+        loading: false
+    });
+    const tree = createTestInstance(<Category {...categoryProps} />);
+    expect(tree.toJSON()).toMatchSnapshot();
+});

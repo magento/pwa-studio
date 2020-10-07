@@ -31,7 +31,9 @@ export const useBreadcrumbs = props => {
     const { categoryId, query } = props;
 
     const { data, loading, error } = useQuery(query, {
-        variables: { category_id: categoryId }
+        variables: { category_id: categoryId },
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
     });
 
     // Default to .html for when the query has not yet returned.
