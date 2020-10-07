@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Header from '../header';
 import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
@@ -10,6 +10,7 @@ jest.mock('../cartTrigger', () => 'CartTrigger');
 jest.mock('../navTrigger', () => 'NavTrigger');
 jest.mock('../searchTrigger', () => 'SearchTrigger');
 jest.mock('../onlineIndicator', () => 'OnlineIndicator');
+jest.mock('../storeSwitcher', () => 'StoreSwitcher');
 jest.mock('../../PageLoadingIndicator', () => () => (
     <div id={'pageLoadingIndicator'} />
 ));
@@ -25,28 +26,37 @@ jest.mock('@magento/peregrine/lib/talons/Header/useHeader', () => {
         handleSearchTriggerClick: jest.fn(),
         hasBeenOffline: false,
         isOnline: true,
-        searchOpen: false,
-        isPageLoading: false
+        isPageLoading: false,
+        searchOpen: false
     };
     return {
         useHeader: jest.fn(() => state)
     };
 });
 
+jest.mock('react', () => {
+    const React = jest.requireActual('react');
+    const spy = jest.spyOn(React, 'useLayoutEffect');
+
+    return Object.assign(React, { useLayoutEffect: spy });
+});
+
 test('verify Header can render in default state', () => {
+    useLayoutEffect.mockImplementationOnce(() => {});
     const component = createTestInstance(<Header />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('verify PageLoadingIndicator is displayed when page is loading', () => {
+    useLayoutEffect.mockImplementationOnce(() => {});
     useHeader.mockImplementation(() => {
         return {
             handleSearchTriggerClick: jest.fn(),
             hasBeenOffline: false,
             isOnline: true,
-            searchOpen: false,
-            isPageLoading: true
+            isPageLoading: true,
+            searchOpen: false
         };
     });
 

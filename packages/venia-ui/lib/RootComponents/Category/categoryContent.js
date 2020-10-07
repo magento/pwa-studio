@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
-import { array, shape, string } from 'prop-types';
+import { array, number, shape, string } from 'prop-types';
 import RichContent from '../../components/RichContent';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
@@ -18,12 +18,13 @@ import Button from '../../components/Button';
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
 const CategoryContent = props => {
-    const { categoryId, data, pageControl, sortProps } = props;
+    const { categoryId, data, pageControl, sortProps, pageSize } = props;
     const [currentSort] = sortProps;
 
     const talonProps = useCategoryContent({
         categoryId,
         data,
+        pageSize,
         queries: {
             getProductFiltersByCategory: GET_PRODUCT_FILTERS_BY_CATEGORY
         }
@@ -55,16 +56,18 @@ const CategoryContent = props => {
         </Button>
     ) : null;
 
-    const maybeSortButton = totalPagesFromData ? (
-        <ProductSort sortProps={sortProps} />
-    ) : null;
+    const maybeSortButton =
+        totalPagesFromData && filters ? (
+            <ProductSort sortProps={sortProps} />
+        ) : null;
 
-    const maybeSortContainer = totalPagesFromData ? (
-        <div className={classes.sortContainer}>
-            {'Items sorted by '}
-            <span className={classes.sortText}>{currentSort.sortText}</span>
-        </div>
-    ) : null;
+    const maybeSortContainer =
+        totalPagesFromData && filters ? (
+            <div className={classes.sortContainer}>
+                {'Items sorted by '}
+                <span className={classes.sortText}>{currentSort.sortText}</span>
+            </div>
+        ) : null;
 
     // If you want to defer the loading of the FilterModal until user interaction
     // (hover, focus, click), simply add the talon's `loadFilters` prop as
@@ -125,5 +128,6 @@ CategoryContent.propTypes = {
     // sortProps contains the following structure:
     // [{sortDirection: string, sortAttribute: string, sortText: string},
     // React.Dispatch<React.SetStateAction<{sortDirection: string, sortAttribute: string, sortText: string}]
-    sortProps: array
+    sortProps: array,
+    pageSize: number
 };

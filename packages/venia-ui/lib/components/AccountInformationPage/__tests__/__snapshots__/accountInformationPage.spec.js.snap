@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`redirects when not authenticated 1`] = `
+<mock-Redirect
+  to="/"
+/>
+`;
+
+exports[`renders form error 1`] = `
+<div
+  className="root"
+>
+  Account Information
+  <h1
+    className="title"
+  >
+    Account Information
+  </h1>
+  <p
+    className="root"
+  >
+    Something went wrong. Please refresh and try again.
+  </p>
+</div>
+`;

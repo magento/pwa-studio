@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ChevronDown, ChevronUp, MoreHorizontal } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
 
@@ -11,6 +12,7 @@ const ActionMenuIcon = <Icon src={MoreHorizontal} size={24} />;
 
 const Wishlist = props => {
     const { data } = props;
+    const { formatMessage } = useIntl();
     const {
         items_count: itemsCount,
         items_v2: items,
@@ -25,12 +27,21 @@ const Wishlist = props => {
     const contentClass = isOpen ? classes.content : classes.content_hidden;
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
-    const visibilityLabel = sharingCode ? 'Public' : 'Private';
-
+    const visibilityLabel = sharingCode
+        ? formatMessage({ id: 'wishlist.publicText', defaultMessage: 'Public' })
+        : formatMessage({
+              id: 'wishlist.privateText',
+              defaultMessage: 'Private'
+          });
     const contentMessageElement = itemsCount ? (
         <WishlistItems items={items} />
     ) : (
-        <p>{'There are currently no items in this list'}</p>
+        <p>
+            <FormattedMessage
+                id={'wishlist.emptyListText'}
+                defaultMessage={'There are currently no items in this list'}
+            />
+        </p>
     );
 
     return (

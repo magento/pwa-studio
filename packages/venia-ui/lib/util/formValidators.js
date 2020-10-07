@@ -99,10 +99,12 @@ export const validatePassword = value => {
     return SUCCESS;
 };
 
-export const validateConfirmPassword = (
-    value,
-    values,
-    passwordKey = 'password'
-) => {
-    return value === values[passwordKey] ? SUCCESS : 'Passwords must match.';
+export const isEqualToField = (value, values, fieldKey) => {
+    return value === values[fieldKey] ? SUCCESS : `${fieldKey} must match.`;
+};
+
+export const isNotEqualToField = (value, values, fieldKey) => {
+    return value !== values[fieldKey]
+        ? SUCCESS
+        : `${fieldKey} must be different`;
 };

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useLayoutEffect, useRef } from 'react';
 import { shape, string } from 'prop-types';
 
 import Logo from '../Logo';
@@ -14,6 +14,7 @@ import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './header.css';
 import PageLoadingIndicator from '../PageLoadingIndicator';
+import StoreSwitcher from './storeSwitcher';
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
@@ -22,23 +23,26 @@ const Header = props => {
         handleSearchTriggerClick,
         hasBeenOffline,
         isOnline,
-        searchOpen,
-        isPageLoading
+        isPageLoading,
+        isSearchOpen,
+        searchRef,
+        searchTriggerRef
     } = useHeader();
+    const ref = useRef();
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rootClass = searchOpen ? classes.open : classes.closed;
+    const rootClass = isSearchOpen ? classes.open : classes.closed;
     const searchBarFallback = (
-        <div className={classes.searchFallback}>
+        <div className={classes.searchFallback} ref={searchRef}>
             <div className={classes.input}>
                 <div className={classes.loader} />
             </div>
         </div>
     );
-    const searchBar = searchOpen ? (
+    const searchBar = isSearchOpen ? (
         <Suspense fallback={searchBarFallback}>
             <Route>
-                <SearchBar isOpen={searchOpen} />
+                <SearchBar isOpen={isSearchOpen} ref={searchRef} />
             </Route>
         </Suspense>
     ) : null;
@@ -46,8 +50,20 @@ const Header = props => {
         <PageLoadingIndicator />
     ) : null;
 
+    useLayoutEffect(() => {
+        const { current } = ref;
+
+        current.parentElement.style.setProperty(
+            '--switchers-height',
+            current.offsetHeight
+        );
+    });
+
     return (
         <header className={rootClass}>
+            <div ref={ref} className={classes.switchers}>
+                <StoreSwitcher />
+            </div>
             <div className={classes.toolbar}>
                 <div className={classes.primaryActions}>
                     <NavTrigger />
@@ -62,8 +78,8 @@ const Header = props => {
                 </Link>
                 <div className={classes.secondaryActions}>
                     <SearchTrigger
-                        active={searchOpen}
                         onClick={handleSearchTriggerClick}
+                        ref={searchTriggerRef}
                     />
                     <AccountTrigger />
                     <CartTrigger />
@@ -81,7 +97,8 @@ Header.propTypes = {
         open: string,
         primaryActions: string,
         secondaryActions: string,
-        toolbar: string
+        toolbar: string,
+        switchers: string
     })
 };
 

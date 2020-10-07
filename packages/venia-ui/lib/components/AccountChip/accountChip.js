@@ -1,13 +1,14 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { bool, shape, string } from 'prop-types';
 import { Loader, User as AccountIcon } from 'react-feather';
-import { useIntl } from 'react-intl';
 
 import { useAccountChip } from '@magento/peregrine/lib/talons/AccountChip/useAccountChip';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import Icon from '../Icon';
 import defaultClasses from './accountChip.css';
+import { GET_CUSTOMER_DETAILS } from './accountChip.gql';
 
 /**
  * The AccountChip component shows an icon next to some text.
@@ -24,7 +25,11 @@ import defaultClasses from './accountChip.css';
 const AccountChip = props => {
     const { fallbackText, shouldIndicateLoading } = props;
 
-    const talonProps = useAccountChip();
+    const talonProps = useAccountChip({
+        queries: {
+            getCustomerDetailsQuery: GET_CUSTOMER_DETAILS
+        }
+    });
     const { currentUser, isLoadingUserName, isUserSignedIn } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -36,7 +41,7 @@ const AccountChip = props => {
     } else {
         if (!isLoadingUserName) {
             chipText = formatMessage(
-                { id: 'Hi, {name}' },
+                { id: 'accountChip.chipText', defaultMessage: 'Hi' },
                 { name: currentUser.firstname }
             );
         } else if (shouldIndicateLoading) {

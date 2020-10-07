@@ -2,17 +2,17 @@
     background-color: rgb(var(--venia-global-color-background));
     border-radius: 1px;
     box-shadow: 1px 1px 5px rgb(var(--venia-global-color-gray-darker));
+    min-height: 10rem;
     opacity: 0;
     position: fixed;
     right: -100vw;
-    top: 5rem;
+    top: var(--header-height);
     transform: translate3d(0, -8px, 0);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-global-anim-out);
     transition-property: opacity, transform, visibility;
     visibility: hidden;
     width: 27.5rem;
-    min-height: 10rem;
 }
 
 .root_open {
