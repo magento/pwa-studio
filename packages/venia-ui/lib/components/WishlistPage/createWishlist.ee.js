@@ -1,15 +1,13 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { PlusSquare, X as CloseIcon } from 'react-feather';
-import { Form } from 'informed';
+import { PlusSquare } from 'react-feather';
 
 import { useCreateWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useCreateWishlist';
 
-import Button from '../Button';
+import Dialog from '../Dialog';
 import Field from '../Field';
 import Icon from '../Icon';
 import { isRequired } from '../../util/formValidators';
-import { Portal } from '../Portal';
 import { mergeClasses } from '../../classify';
 import RadioGroup from '../RadioGroup';
 import TextInput from '../TextInput';
@@ -25,8 +23,6 @@ const CreateWishlist = props => {
         hideModal,
         showModal
     } = useCreateWishlist();
-
-    const modalClassName = isModalOpen ? classes.modal_open : classes.modal;
 
     const { formatMessage } = useIntl();
 
@@ -45,76 +41,6 @@ const CreateWishlist = props => {
         root: classes.radioRoot
     };
 
-    const creteModalContents = isModalOpen ? (
-        <Form onSubmit={createList} initialValues={{ listtype: 'private' }}>
-            <div className={classes.header}>
-                <span className={classes.header_text}>New Favorites List</span>
-                <button
-                    className={classes.close_button}
-                    onClick={hideModal}
-                    type="button"
-                >
-                    <Icon src={CloseIcon} />
-                </button>
-            </div>
-            <div className={classes.body}>
-                <Field
-                    classes={{ root: classes.listName }}
-                    label={formatMessage({
-                        id: 'createWishlist.listName',
-                        defaultMessage: 'List Name'
-                    })}
-                >
-                    <TextInput
-                        field="listname"
-                        validate={isRequired}
-                        validateOnBlur
-                    />
-                </Field>
-                <RadioGroup
-                    classes={radioGroupClasses}
-                    field="listtype"
-                    items={[
-                        {
-                            label: formatMessage({
-                                id: 'createWishlist.public',
-                                defaultMessage: 'Public'
-                            }),
-                            value: 'public'
-                        },
-                        {
-                            label: formatMessage({
-                                id: 'createWishlist.private',
-                                defaultMessage: 'Private'
-                            }),
-                            value: 'private'
-                        }
-                    ]}
-                />
-                <Button
-                    className={classes.cancelButton}
-                    onClick={hideModal}
-                    type="button"
-                >
-                    <FormattedMessage
-                        id={'createWishlist.cancel'}
-                        defaultMessage={'Cancel'}
-                    />
-                </Button>
-                <Button
-                    className={classes.submitButton}
-                    type="submit"
-                    priority="high"
-                >
-                    <FormattedMessage
-                        id={'createWishlist.save'}
-                        defaultMessage={'Save'}
-                    />
-                </Button>
-            </div>
-        </Form>
-    ) : null;
-
     return (
         <div className={classes.root}>
             <button
@@ -132,9 +58,62 @@ const CreateWishlist = props => {
                     </span>
                 </div>
             </button>
-            <Portal>
-                <aside className={modalClassName}>{creteModalContents}</aside>
-            </Portal>
+            <Dialog
+                classes={{ buttons: classes.buttons }}
+                cancelText={formatMessage({
+                    id: 'createWishlist.cancel',
+                    defaultMessage: 'Cancel'
+                })}
+                confirmText={formatMessage({
+                    id: 'createWishlist.save',
+                    defaultMessage: 'Save'
+                })}
+                formProps={{ initialValues: { listtype: 'private' } }}
+                isModal={true}
+                isOpen={isModalOpen}
+                onCancel={hideModal}
+                onConfirm={createList}
+                title={formatMessage({
+                    id: 'createWishlist.dialogTitle',
+                    defaultMessage: 'New Favorites List'
+                })}
+            >
+                <div className={classes.body}>
+                    <Field
+                        classes={{ root: classes.listName }}
+                        label={formatMessage({
+                            id: 'createWishlist.listName',
+                            defaultMessage: 'List Name'
+                        })}
+                    >
+                        <TextInput
+                            field="listname"
+                            validate={isRequired}
+                            validateOnBlur
+                        />
+                    </Field>
+                    <RadioGroup
+                        classes={radioGroupClasses}
+                        field="listtype"
+                        items={[
+                            {
+                                label: formatMessage({
+                                    id: 'createWishlist.public',
+                                    defaultMessage: 'Public'
+                                }),
+                                value: 'public'
+                            },
+                            {
+                                label: formatMessage({
+                                    id: 'createWishlist.private',
+                                    defaultMessage: 'Private'
+                                }),
+                                value: 'private'
+                            }
+                        ]}
+                    />
+                </div>
+            </Dialog>
         </div>
     );
 };
