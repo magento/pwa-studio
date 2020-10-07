@@ -19,12 +19,21 @@ import defaultClasses from './creditCard.css';
 import FormError from '../../FormError';
 
 const STEP_DESCRIPTIONS = [
-    { step: 'Loading Payment', id: 'checkoutPage.step0' },
-    { step: 'Checking Credit Card Information', id: 'checkoutPage.step1' },
-    { step: 'Checking Credit Card Information', id: 'checkoutPage.step2' },
-    { step: 'Checking Credit Card Information', id: 'checkoutPage.step3' },
+    { defaultMessage: 'Loading Payment', id: 'checkoutPage.step0' },
     {
-        step: 'Saved Credit Card Information Successfully',
+        defaultMessage: 'Checking Credit Card Information',
+        id: 'checkoutPage.step1'
+    },
+    {
+        defaultMessage: 'Checking Credit Card Information',
+        id: 'checkoutPage.step2'
+    },
+    {
+        defaultMessage: 'Checking Credit Card Information',
+        id: 'checkoutPage.step3'
+    },
+    {
+        defaultMessage: 'Saved Credit Card Information Successfully',
         id: 'checkoutPage.step4'
     }
 ];
@@ -129,10 +138,10 @@ const CreditCard = props => {
         [isBillingAddressSame]
     );
 
-    const stepTitle = STEP_DESCRIPTIONS[stepNumber].step
+    const stepTitle = STEP_DESCRIPTIONS[stepNumber].defaultMessage
         ? formatMessage({
               id: STEP_DESCRIPTIONS[stepNumber].id,
-              defaultMessage: STEP_DESCRIPTIONS[stepNumber].step
+              defaultMessage: STEP_DESCRIPTIONS[stepNumber].defaultMessage
           })
         : formatMessage({
               id: 'checkoutPage.loadingPayment',

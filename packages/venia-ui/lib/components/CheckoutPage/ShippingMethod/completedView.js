@@ -38,10 +38,7 @@ const CompletedView = props => {
             </div>
         ) : (
             <span className={classes.free}>
-                <FormattedMessage
-                    id={'completedView.free'}
-                    defaultMessage={'Free'}
-                />
+                <FormattedMessage id={'global.free'} defaultMessage={'Free'} />
             </span>
         );
 

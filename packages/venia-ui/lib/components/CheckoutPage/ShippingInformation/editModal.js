@@ -33,7 +33,7 @@ const EditModal = props => {
                 <div className={classes.header}>
                     <span className={classes.headerText}>
                         <FormattedMessage
-                            id={'editModal.editShippingInfo'}
+                            id={'checkoutPage.editShippingInfo'}
                             defaultMessage={'Edit Shipping Information'}
                         />
                     </span>

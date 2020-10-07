@@ -107,7 +107,7 @@ const ShippingMethod = props => {
                             disabled={pageIsUpdating}
                         >
                             <FormattedMessage
-                                id={'shippingMethod.continueToPayment'}
+                                id={'shippingMethod.continueToNextStep'}
                                 defaultMessage={
                                     'Continue to Payment Information'
                                 }
@@ -122,7 +122,7 @@ const ShippingMethod = props => {
             <div className={classes.root}>
                 <h3 className={classes.editingHeading}>
                     <FormattedMessage
-                        id={'shippingMethod.shippingMethod'}
+                        id={'shippingMethod.heading'}
                         defaultMessage={'Shipping Method'}
                     />
                 </h3>

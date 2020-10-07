@@ -83,7 +83,7 @@ const OrderConfirmationPage = props => {
                 </div>
                 <div className={classes.shippingInfoHeading}>
                     <FormattedMessage
-                        id={'checkoutPage.shippingInformation'}
+                        id={'global.shippingInformation'}
                         defaultMessage={'Shipping Information'}
                     />
                 </div>
@@ -99,7 +99,7 @@ const OrderConfirmationPage = props => {
                 </div>
                 <div className={classes.shippingMethodHeading}>
                     <FormattedMessage
-                        id={'checkoutPage.shippingMethod'}
+                        id={'global.shippingMethod'}
                         defaultMessage={'Shipping Method'}
                     />
                 </div>

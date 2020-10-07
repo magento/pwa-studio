@@ -39,10 +39,7 @@ const ShippingSummary = props => {
         <Price value={shipping.value} currencyCode={shipping.currency} />
     ) : (
         <span>
-            <FormattedMessage
-                id={'shippingSummary.free'}
-                defaultMessage={'FREE'}
-            />
+            <FormattedMessage id={'global.free'} defaultMessage={'FREE'} />
         </span>
     );
 

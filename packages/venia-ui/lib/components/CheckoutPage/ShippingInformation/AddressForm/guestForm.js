@@ -62,7 +62,7 @@ const GuestForm = props => {
               defaultMessage: 'Update'
           })
         : formatMessage({
-              id: 'guestForm.continueToShippingMethodButton',
+              id: 'guestForm.continueToNextStep',
               defaultMessage: 'Continue to Shipping Method'
           });
     const submitButtonProps = {

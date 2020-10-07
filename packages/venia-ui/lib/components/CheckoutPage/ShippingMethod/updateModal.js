@@ -40,7 +40,7 @@ const UpdateModal = props => {
             shouldDisableAllButtons={dialogButtonsDisabled}
             shouldDisableConfirmButton={dialogSubmitButtonDisabled}
             title={formatMessage({
-                id: 'updateModal.editShippingMethod',
+                id: 'checkoutPage.editShippingMethod',
                 defaultMessage: 'Edit Shipping Method'
             })}
         >

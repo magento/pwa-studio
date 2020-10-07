@@ -66,7 +66,7 @@ const Summary = props => {
         const paymentSummary = formatMessage(
             {
                 id: 'checkoutPage.paymentSummary',
-                defaultMessage: 'Card ending in'
+                defaultMessage: 'Card'
             },
             {
                 cardType: paymentNonce.details.cardType,
@@ -140,7 +140,7 @@ const Summary = props => {
                 <div className={classes.card_details_container}>
                     <span className={classes.payment_type}>
                         <FormattedMessage
-                            id={'checkoutPage.creditCard'}
+                            id={'global.creditCard'}
                             defaultMessage={'Credit Card'}
                         />
                     </span>

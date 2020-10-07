@@ -237,20 +237,20 @@ const CheckoutPage = props => {
             </div>
         ) : null;
 
-        let guestCheckoutHeaderText;
+        let headerText;
 
         if (isGuestCheckout) {
-            guestCheckoutHeaderText = formatMessage({
+            headerText = formatMessage({
                 id: 'checkoutPage.guestCheckout',
                 defaultMessage: 'Guest Checkout'
             });
         } else if (customer.default_shipping) {
-            guestCheckoutHeaderText = formatMessage({
+            headerText = formatMessage({
                 id: 'checkoutPage.reviewAndPlaceOrder',
                 defaultMessage: 'Review and Place Order'
             });
         } else {
-            guestCheckoutHeaderText = formatMessage(
+            headerText = formatMessage(
                 { id: 'checkoutPage.greeting', defaultMessage: 'Welcome' },
                 { firstname: customer.firstname }
             );
@@ -285,9 +285,7 @@ const CheckoutPage = props => {
                         cartItems={cartItems}
                         message={stockStatusMessageElement}
                     />
-                    <h1 className={classes.heading}>
-                        {guestCheckoutHeaderText}
-                    </h1>
+                    <h1 className={classes.heading}>{headerText}</h1>
                 </div>
                 <div className={classes.shipping_information_container}>
                     <ShippingInformation
