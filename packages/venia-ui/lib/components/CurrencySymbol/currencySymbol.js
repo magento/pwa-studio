@@ -1,54 +1,73 @@
-import React, { useEffect, useState } from 'react';
-import { FormattedNumberParts } from 'react-intl';
+import React from 'react';
 import { string, shape } from 'prop-types';
-import { shouldPolyfill } from '@formatjs/intl-numberformat/should-polyfill';
-
-const polyfill = async () => {
-    await import('@formatjs/intl-numberformat/polyfill');
-    if (Intl.NumberFormat.polyfilled) {
-        await import('@formatjs/intl-numberformat/locale-data/en');
-    }
-};
+import { useIntl } from 'react-intl';
+import patches from '@magento/peregrine/lib/util/intlPatches';
 
 /**
  * The CurrencySymbol component is used to extract currency symbol from Intl.NumberFormat.
- * https://formatjs.io/docs/react-intl/components/#formattednumberparts
+ *
+ * Formatting of prices and currency symbol selection is handled entirely by the ECMAScript Internationalization API available in modern browsers.
+ *
+ * A [polyfill][] is required for any JavaScript runtime that does not have [Intl.NumberFormat.prototype.formatToParts][].
+ *
+ * [polyfill]: https://www.npmjs.com/package/intl
+ * [Intl.NumberFormat.prototype.formatToParts]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat/formatToParts
  */
-const CurrencySymbol = props => {
-    const { currencyCode, currencyDisplay, classes } = props;
-    const [pollyfilled, setPollyfilled] = useState(false);
 
-    const partsMap = (part, i) => {
-        const key = `${i}-${part.value}`;
-        return (
-            part.type === 'currency' && (
-                <span key={key} className={classes.currency}>
-                    {part.value}
-                </span>
-            )
-        );
-    };
+const isNarrowSymbolSupported = (() => {
+    try {
+        new Intl.NumberFormat(undefined, {
+            style: 'currency',
+            currency: 'USD',
+            currencyDisplay: 'narrowSymbol'
+        });
 
-    useEffect(() => {
-        if (shouldPolyfill()) {
-            polyfill().then(() => {
-                setPollyfilled(true);
-            });
+        return true;
+    } catch (e) {
+        if (e.constructor !== RangeError) {
+            throw e;
         }
-    }, [setPollyfilled]);
 
-    if (shouldPolyfill() && !pollyfilled) return null;
+        return false;
+    }
+})();
 
-    return (
-        <FormattedNumberParts
-            value={0}
-            currencyDisplay={currencyDisplay}
-            style="currency"
-            currency={currencyCode}
-        >
-            {parts => parts.map(partsMap)}
-        </FormattedNumberParts>
+const symbolsFallback = {
+    UAH: '₴'
+};
+
+const CurrencySymbol = props => {
+    const { locale } = useIntl();
+    const { currencyCode, classes, currencyDisplay } = props;
+
+    // Safari does not support 'narrowSymbol' as 'currencyDisplay' option
+    // English locale and 'symbol' is used in this case
+    const localeFallback = isNarrowSymbolSupported ? locale : 'en';
+    const currencyDisplayFallback = isNarrowSymbolSupported
+        ? currencyDisplay
+        : 'symbol';
+
+    // symbolsFallback can be used to provide symbol in case currency code is returned
+    if (!isNarrowSymbolSupported && currencyCode in symbolsFallback) {
+        return (
+            <span className={classes.currency}>
+                {symbolsFallback[currencyCode]}
+            </span>
+        );
+    }
+
+    const parts = patches.toParts.call(
+        new Intl.NumberFormat(localeFallback, {
+            style: 'currency',
+            currencyDisplay: currencyDisplayFallback,
+            currency: currencyCode
+        }),
+        0
     );
+
+    const symbol = parts.find(part => part.type === 'currency');
+
+    return <span className={classes.currency}>{symbol.value}</span>;
 };
 
 CurrencySymbol.propTypes = {

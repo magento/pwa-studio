@@ -1,56 +1,36 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import waitForExpect from 'wait-for-expect';
 
 import { createTestInstance } from '@magento/peregrine';
 import CurrencySymbol from '../currencySymbol';
 
-test('Renders a USD symbol', async () => {
+test('Renders a USD symbol', () => {
     const instance = createTestInstance(
-        <IntlProvider locale={'en-US'}>
-            <CurrencySymbol
-                currencyCode="USD"
-                currencyDisplay={'narrowSymbol'}
-            />
-        </IntlProvider>
+        <CurrencySymbol currencyCode="USD" currencyDisplay={'narrowSymbol'} />
     );
 
-    await waitForExpect(() => {
-        expect(instance.toJSON()).toMatchSnapshot();
-    });
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('Renders a EUR symbol', async () => {
+test('Renders a EUR symbol', () => {
     const instance = createTestInstance(
-        <IntlProvider locale={'en-US'}>
-            <CurrencySymbol
-                currencyCode="EUR"
-                currencyDisplay={'narrowSymbol'}
-            />
-        </IntlProvider>
+        <CurrencySymbol currencyCode="EUR" currencyDisplay={'narrowSymbol'} />
     );
 
-    await waitForExpect(() => {
-        expect(instance.toJSON()).toMatchSnapshot();
-    });
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('Allows custom classname', async () => {
+test('Allows custom classname', () => {
     const classes = {
         currency: 'curr'
     };
 
     const instance = createTestInstance(
-        <IntlProvider locale={'en-US'}>
-            <CurrencySymbol
-                currencyCode="USD"
-                classes={classes}
-                currencyDisplay={'narrowSymbol'}
-            />
-        </IntlProvider>
+        <CurrencySymbol
+            currencyCode="USD"
+            classes={classes}
+            currencyDisplay={'narrowSymbol'}
+        />
     );
 
-    await waitForExpect(() => {
-        expect(instance.toJSON()).toMatchSnapshot();
-    });
+    expect(instance.toJSON()).toMatchSnapshot();
 });
