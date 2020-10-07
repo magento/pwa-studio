@@ -136,9 +136,6 @@ const typePolicies = {
                 }
             }
         }
-    },
-    StoreConfig: {
-        keyFields: ['id']
     }
 };
 

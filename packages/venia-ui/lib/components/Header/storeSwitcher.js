@@ -50,13 +50,14 @@ const StoreSwitcher = props => {
     return (
         <div className={classes.root}>
             <button
-                className={classes.trigger}
                 aria-label={currentStoreName}
                 onClick={handleTriggerClick}
                 ref={storeMenuTriggerRef}
             >
-                <Icon src={MapPin} />
-                <span className={classes.label}>{currentStoreName}</span>
+                <span className={classes.trigger}>
+                    <Icon src={MapPin} />
+                    <span>{currentStoreName}</span>
+                </span>
             </button>
             <div ref={storeMenuRef} className={menuClassName}>
                 <ul>{stores}</ul>

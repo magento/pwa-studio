@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { useCountry } from '@magento/peregrine/lib/talons/Country/useCountry';
 
@@ -15,7 +16,14 @@ const Country = props => {
         }
     });
     const { countries, loading } = talonProps;
-    const { classes: propClasses, field, label, ...inputProps } = props;
+    const {
+        classes: propClasses,
+        field,
+        label,
+        translationId,
+        ...inputProps
+    } = props;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const selectProps = {
@@ -27,7 +35,11 @@ const Country = props => {
     };
 
     return (
-        <Field id={field} label={label} classes={{ root: classes.root }}>
+        <Field
+            id={field}
+            label={formatMessage({ id: translationId, defaultMessage: label })}
+            classes={{ root: classes.root }}
+        >
             <Select {...selectProps} />
         </Field>
     );
@@ -37,7 +49,8 @@ export default Country;
 
 Country.defaultProps = {
     field: 'country',
-    label: 'Country'
+    label: 'Country',
+    translationId: 'country.label'
 };
 
 Country.propTypes = {
@@ -46,6 +59,7 @@ Country.propTypes = {
     }),
     field: string,
     label: string,
+    translationId: string,
     validate: func,
     initialValue: string
 };

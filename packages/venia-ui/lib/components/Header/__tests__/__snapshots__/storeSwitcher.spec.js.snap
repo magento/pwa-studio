@@ -8,38 +8,39 @@ exports[`renders the correct tree 1`] = `
 >
   <button
     aria-label="Store 2"
-    className="trigger"
     onClick={[MockFunction]}
   >
     <span
-      className="root"
+      className="trigger"
     >
-      <svg
-        className="icon"
-        fill="none"
-        height="24"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        className="root"
       >
-        <path
-          d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-        />
-        <circle
-          cx="12"
-          cy="10"
-          r="3"
-        />
-      </svg>
-    </span>
-    <span
-      className="label"
-    >
-      Store 2
+        <svg
+          className="icon"
+          fill="none"
+          height="24"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+          />
+          <circle
+            cx="12"
+            cy="10"
+            r="3"
+          />
+        </svg>
+      </span>
+      <span>
+        Store 2
+      </span>
     </span>
   </button>
   <div

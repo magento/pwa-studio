@@ -36,16 +36,16 @@ const Category = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    if (error && pageControl.currentPage === 1 && !loading) {
+    // Show the loading indicator until data has been fetched.
+    if (loading) {
+        return fullPageLoadingIndicator;
+    }
+
+    if (error && pageControl.currentPage === 1) {
         if (process.env.NODE_ENV !== 'production') {
             console.error(error);
         }
         return <div>Data Fetch Error</div>;
-    }
-
-    // Show the loading indicator until data has been fetched.
-    if (loading) {
-        return fullPageLoadingIndicator;
     }
 
     return (

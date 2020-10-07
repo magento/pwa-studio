@@ -10,7 +10,7 @@
 
 .trigger {
     align-items: center;
-    display: flex;
+    display: grid;
     column-gap: 0.5rem;
     grid-auto-flow: column;
     grid-template-columns: auto 1fr;

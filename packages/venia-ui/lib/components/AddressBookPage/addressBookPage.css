@@ -1,6 +1,6 @@
 .root {
     padding: 2.5rem 3rem;
-    max-width: 1080px;
+    max-width: var(--venia-global-maxWidth);
     margin: 0 auto;
 }
 
@@ -37,6 +37,11 @@
 }
 
 @media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
     .content {
         grid-template-columns: 1fr;
     }

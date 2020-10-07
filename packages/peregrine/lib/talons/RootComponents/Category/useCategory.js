@@ -113,7 +113,7 @@ export const useCategory = props => {
     // Run the category query immediately and whenever its variable values change.
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
-        if (!filterTypeMap.size) {
+        if (!filterTypeMap.size || !pageSize) {
             return;
         }
 
@@ -197,6 +197,7 @@ export const useCategory = props => {
             ? data.category.meta_description
             : '';
 
+    // When only categoryLoading is involved, noProductsFound component flashes for a moment
     const loading =
         (introspectionCalled && !categoryCalled) ||
         (categoryLoading && !data) ||
