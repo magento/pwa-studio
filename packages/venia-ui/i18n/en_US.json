@@ -285,6 +285,8 @@
     "wishlist.publicText": "Public",
     "wishlistItem.addToCart": "Add to Cart",
     "wishlistItem.addToCartError": "Something went wrong. Please refresh and try again.",
+    "magentoRoute.routeError": "That page could not be found. Please try again.",
+    "magentoRoute.internalError": "Something went wrong. Please try again.",
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "Favorites Lists",
