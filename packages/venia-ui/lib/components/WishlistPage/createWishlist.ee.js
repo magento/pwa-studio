@@ -1,4 +1,5 @@
 import React from 'react';
+import { shape, string } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { PlusSquare } from 'react-feather';
 
@@ -17,12 +18,8 @@ import defaultClasses from './createWishlist.css';
 const CreateWishlist = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const {
-        createList,
-        isModalOpen,
-        hideModal,
-        showModal
-    } = useCreateWishlist();
+    const talonProps = useCreateWishlist();
+    const { createList, isModalOpen, hideModal, showModal } = talonProps;
 
     const { formatMessage } = useIntl();
 
@@ -119,3 +116,18 @@ const CreateWishlist = props => {
 };
 
 export default CreateWishlist;
+
+CreateWishlist.propTypes = {
+    classes: shape({
+        body: string,
+        buttons: string,
+        createButton: string,
+        icon: string,
+        labelContainer: string,
+        listName: string,
+        radioLabel: string,
+        radioMessage: string,
+        radioRoot: string,
+        root: string
+    })
+};
