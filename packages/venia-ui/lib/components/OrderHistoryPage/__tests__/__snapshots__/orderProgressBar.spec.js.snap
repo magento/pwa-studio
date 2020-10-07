@@ -5,10 +5,10 @@ exports[`it renders steps 1`] = `
   className="root"
 >
   <span
-    className="step_completed"
+    className="step"
   />
   <span
-    className="step_completed"
+    className="step"
   />
   <span
     className="step"
