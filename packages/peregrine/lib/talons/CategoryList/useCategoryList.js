@@ -12,7 +12,10 @@ import { useLazyQuery } from '@apollo/client';
 export const useCategoryList = props => {
     const { query, id } = props;
 
-    const [runQuery, queryResponse] = useLazyQuery(query);
+    const [runQuery, queryResponse] = useLazyQuery(query, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
     const { loading, error, data } = queryResponse;
 
     // Run the query immediately and every time id changes.

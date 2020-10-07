@@ -7,8 +7,7 @@ import { usePagination, useSort } from '@magento/peregrine';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
-
-const PAGE_SIZE = 6;
+import { useScrollTopOnChange } from '../../hooks/useScrollTopOnChange';
 
 /**
  * Return props necessary to render a SearchPage component.
@@ -21,9 +20,16 @@ export const useSearchPage = props => {
         queries: {
             filterIntrospection,
             getProductFiltersBySearch,
-            productSearch
+            productSearch,
+            getPageSize
         }
     } = props;
+
+    const { data: pageSizeData } = useQuery(getPageSize, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+    const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
 
     const sortProps = useSort();
     const [currentSort] = sortProps;
@@ -44,7 +50,10 @@ export const useSearchPage = props => {
 
     // retrieve app state and action creators
     const [, appApi] = useAppContext();
-    const { toggleDrawer } = appApi;
+    const {
+        toggleDrawer,
+        actions: { setPageLoading }
+    } = appApi;
 
     const inputText = getSearchParam('query', location);
 
@@ -99,11 +108,21 @@ export const useSearchPage = props => {
     const [
         runQuery,
         { called: searchCalled, loading: searchLoading, error, data }
-    ] = useLazyQuery(productSearch);
+    ] = useLazyQuery(productSearch, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const isBackgroundLoading = !!data && searchLoading;
+
+    // Update the page indicator if the GraphQL query is in flight.
+    useEffect(() => {
+        setPageLoading(isBackgroundLoading);
+    }, [isBackgroundLoading, setPageLoading]);
 
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
-        if (!filterTypeMap.size) {
+        if (!filterTypeMap.size || !pageSize) {
             return;
         }
         const filters = getFiltersFromSearch(search);
@@ -119,21 +138,16 @@ export const useSearchPage = props => {
                 currentPage: Number(currentPage),
                 filters: newFilters,
                 inputText,
-                pageSize: Number(PAGE_SIZE),
+                pageSize: Number(pageSize),
                 sort: { [sortAttribute]: sortDirection }
             }
-        });
-
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
         });
     }, [
         currentPage,
         filterTypeMap,
         inputText,
         runQuery,
+        pageSize,
         search,
         sortDirection,
         sortAttribute
@@ -178,7 +192,11 @@ export const useSearchPage = props => {
 
     // Fetch category filters for when a user is searching in a category.
     const [getFilters, { data: filterData }] = useLazyQuery(
-        getProductFiltersBySearch
+        getProductFiltersBySearch,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
     );
 
     useEffect(() => {
@@ -200,6 +218,8 @@ export const useSearchPage = props => {
         (introspectionCalled && !searchCalled) ||
         searchLoading ||
         introspectionLoading;
+
+    useScrollTopOnChange(currentPage);
 
     return {
         data,
