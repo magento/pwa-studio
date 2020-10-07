@@ -57,7 +57,7 @@ test('it renders a user greeting correctly', () => {
     // Arrange.
     const myTalonProps = {
         ...talonProps,
-        currentUser: { firstname: 'Unit Teser' },
+        currentUser: { firstname: 'Unit Tester' },
         isLoadingUserName: false,
         isUserSignedIn: true
     };

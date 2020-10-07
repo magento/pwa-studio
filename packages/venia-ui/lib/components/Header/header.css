@@ -9,6 +9,14 @@
     top: 0;
     width: 100%;
     z-index: 10;
+    --switchers-height: 0;
+    --header-height: calc(var(--switchers-height) * 1px + 5rem);
+}
+
+.switchers {
+    display: none;
+    background-color: rgb(var(--venia-global-color-gray-100));
+    width: 100%;
 }
 
 .open {
@@ -34,6 +42,9 @@
 }
 
 @media (min-width: 641px) {
+    .switchers {
+        display: block;
+    }
     .toolbar {
         grid-template-areas: 'primary title secondary';
         grid-template-columns: auto auto 1fr;

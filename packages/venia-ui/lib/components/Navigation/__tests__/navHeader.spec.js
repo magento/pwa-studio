@@ -1,9 +1,10 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
+import AccountChip from '../../AccountChip/accountChip';
 import NavHeader from '../navHeader';
 
+jest.mock('../../AccountChip/accountChip', () => 'AccountChip');
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const state = {
         currentUser: null,
@@ -61,37 +62,24 @@ describe('derives the title from the view', () => {
             root.find(({ children }) => children.includes(title))
         ).toBeTruthy();
     });
+});
 
+describe('renders AccountChip as title in views', () => {
     test('MY_ACCOUNT', () => {
-        // Arrange.
-        const userName = 'Elsa';
-        useUserContext.mockReturnValueOnce([
-            {
-                currentUser: { firstname: userName },
-                isSignedIn: true
-            },
-            {}
-        ]);
-
         // Act.
         const { root } = createTestInstance(
             <NavHeader {...props} view="MY_ACCOUNT" />
         );
 
         // Assert.
-        expect(
-            root.find(({ children }) => children.includes(`Hi, ${userName}`))
-        ).toBeTruthy();
+        expect(root.findByType(AccountChip)).toBeTruthy();
     });
 
     test('SIGN_IN', () => {
-        const title = 'Account';
         const { root } = createTestInstance(
             <NavHeader {...props} view="SIGN_IN" />
         );
 
-        expect(
-            root.find(({ children }) => children.includes(title))
-        ).toBeTruthy();
+        expect(root.findByType(AccountChip)).toBeTruthy();
     });
 });

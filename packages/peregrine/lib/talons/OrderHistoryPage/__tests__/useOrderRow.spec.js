@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react';
 import { act } from 'react-test-renderer';
+import { useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useOrderRow } from '../useOrderRow';
+
+jest.mock('@apollo/client', () => ({
+    useQuery: jest.fn()
+}));
 
 const log = jest.fn();
 const Component = props => {
@@ -16,7 +21,17 @@ const Component = props => {
 };
 
 test('returns correct shape', () => {
-    createTestInstance(<Component />);
+    const items = [
+        { thumbnail: { url: 'sku1 thumbnail url' } },
+        { thumbnail: { url: 'sku2 thumbnail url' } }
+    ];
+    useQuery.mockReturnValue({ data: { products: { items } }, loading: false });
+    createTestInstance(
+        <Component
+            queries={{ getProductThumbnailsQuery: 'getProductThumbnailsQuery' }}
+            items={[{ product_sku: 'sku1' }, { product_sku: 'sku2' }]}
+        />
+    );
 
     const talonProps = log.mock.calls[0][0];
 
@@ -24,7 +39,17 @@ test('returns correct shape', () => {
 });
 
 test('callback toggles open state', () => {
-    createTestInstance(<Component />);
+    const items = [
+        { thumbnail: { url: 'sku1 thumbnail url' } },
+        { thumbnail: { url: 'sku2 thumbnail url' } }
+    ];
+    useQuery.mockReturnValue({ data: { products: { items } }, loading: false });
+    createTestInstance(
+        <Component
+            queries={{ getProductThumbnailsQuery: 'getProductThumbnailsQuery' }}
+            items={[{ product_sku: 'sku1' }, { product_sku: 'sku2' }]}
+        />
+    );
 
     const talonProps = log.mock.calls[0][0];
 

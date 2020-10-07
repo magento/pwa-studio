@@ -106,6 +106,8 @@ const CreateAccount = props => {
                     autoComplete="given-name"
                     validate={isRequired}
                     validateOnBlur
+                    mask={value => value && value.trim()}
+                    maskOnBlur={true}
                 />
             </Field>
             <Field
@@ -119,6 +121,8 @@ const CreateAccount = props => {
                     autoComplete="family-name"
                     validate={isRequired}
                     validateOnBlur
+                    mask={value => value && value.trim()}
+                    maskOnBlur={true}
                 />
             </Field>
             <Field
@@ -132,6 +136,8 @@ const CreateAccount = props => {
                     autoComplete="email"
                     validate={isRequired}
                     validateOnBlur
+                    mask={value => value && value.trim()}
+                    maskOnBlur={true}
                 />
             </Field>
             <Password
@@ -148,6 +154,8 @@ const CreateAccount = props => {
                     validatePassword
                 ])}
                 validateOnBlur
+                mask={value => value && value.trim()}
+                maskOnBlur={true}
             />
             <div className={classes.subscribe}>
                 <Checkbox
