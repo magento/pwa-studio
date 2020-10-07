@@ -122,13 +122,16 @@ const VeniaAdapter = props => {
                              * the store state to break and cause weird side effects for the user
                              */
                             const regex = new RegExp(
-                                `(${storeCodes.join('|')})\/`,
+                                `\/(${storeCodes.join('|')})`,
                                 'g'
                             );
                             const storeCodesInUrl = window.location.pathname.match(
                                 regex
-                            ).length;
-                            if (storeCodesInUrl === 1) {
+                            );
+                            if (
+                                storeCodesInUrl &&
+                                storeCodesInUrl.length === 1
+                            ) {
                                 storage.setItem(
                                     'store_view_code',
                                     match.params.storeCode
@@ -137,12 +140,20 @@ const VeniaAdapter = props => {
                                     'store_view_currency',
                                     storeCurrencies[match.params.storeCode]
                                 );
+
+                                /**
+                                 * We're required to reload the page as the basename doesn't change entirely without a
+                                 * full page reload.
+                                 */
+                                window.location.reload();
                             } else {
                                 console.warn(
                                     'Multiple store codes present in URL.'
                                 );
                             }
                         }
+
+                        return null;
                     }}
                 </Route>
             </Switch>
@@ -163,7 +174,6 @@ const VeniaAdapter = props => {
 
 // Create a new store link to include store codes and currency in the request
 VeniaAdapter.storeLink = setContext((_, { headers }) => {
-    // get the authentication token from local storage if it exists.
     const storeCurrency = storage.getItem('store_view_currency') || null;
     const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
 
