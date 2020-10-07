@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Shipping Method"
+      id="orderDetails.shippingMethodLabel"
+    />
+  </div>
+  <div />
+  <div>
+    <div
+      componentName="Formatted Message Component"
+      id="orderDetails.trackingInformation"
+      values={
+        Object {
+          "carrier": "Fedex",
+          "number": "FEDEX5885541235452125",
+        }
+      }
+    />
+  </div>
+</div>
+`;
