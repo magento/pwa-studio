@@ -89,6 +89,7 @@ export const useShippingForm = props => {
 
                 const { cart } = data;
                 const { shipping_addresses: shippingAddresses } = cart;
+
                 if (shippingAddresses.length) {
                     const primaryAddress = shippingAddresses[0];
                     const {
@@ -102,6 +103,7 @@ export const useShippingForm = props => {
                                     ...cart,
                                     shipping_addresses: [
                                         {
+                                            // TODO: we're losing addresses here, we only ever put the first one back in
                                             ...primaryAddress,
                                             available_shipping_methods: []
                                         }

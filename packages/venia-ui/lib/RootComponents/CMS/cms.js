@@ -21,21 +21,11 @@ const CMSPage = props => {
         }
     });
 
+    const { cmsPage, hasContent, shouldShowLoadingIndicator } = talonProps;
     const { formatMessage } = useIntl();
-
-    const {
-        cmsPage,
-        hasContent,
-        error,
-        shouldShowLoadingIndicator
-    } = talonProps;
 
     if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;
-    }
-
-    if (error) {
-        return <div>Page Fetch Error</div>;
     }
 
     const classes = mergeClasses(defaultClasses, props.classes);

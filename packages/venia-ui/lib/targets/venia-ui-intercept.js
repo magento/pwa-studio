@@ -72,6 +72,12 @@ module.exports = targets => {
     targets.own.routes.tap(routes => [
         ...routes,
         {
+            name: 'AccountInformationPage',
+            pattern: '/account-information',
+            exact: true,
+            path: '../AccountInformationPage'
+        },
+        {
             name: 'AddressBook',
             pattern: '/address-book',
             exact: true,
@@ -134,12 +140,6 @@ module.exports = targets => {
             pattern: '/wishlist',
             exact: true,
             path: '../WishlistPage'
-        },
-        {
-            name: 'AccountInformationPage',
-            pattern: '/account-information',
-            exact: true,
-            path: '../AccountInformationPage'
         }
     ]);
 };
