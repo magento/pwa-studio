@@ -56,7 +56,13 @@ const CreateWishlist = props => {
                 </div>
             </button>
             <Dialog
-                classes={{ buttons: classes.buttons }}
+                classes={{
+                    body: classes.body,
+                    buttons: classes.buttons,
+                    cancelButton: classes.cancelButton,
+                    confirmButton: classes.confirmButton,
+                    contents: classes.contents
+                }}
                 cancelText={formatMessage({
                     id: 'createWishlist.cancel',
                     defaultMessage: 'Cancel'
@@ -75,7 +81,7 @@ const CreateWishlist = props => {
                     defaultMessage: 'New Favorites List'
                 })}
             >
-                <div className={classes.body}>
+                <div className={classes.form}>
                     <Field
                         classes={{ root: classes.listName }}
                         label={formatMessage({
