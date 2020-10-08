@@ -18,7 +18,7 @@ export const useCreateWishlist = () => {
 
     const createList = useCallback(data => {
         // TODO create list mutation is not available yet
-        // Will be handled in PWA-629
+        // Will be handled in PWA-989
         console.log('Creating wish list with data: ', data);
         setIsModalOpen(false);
     }, []);
