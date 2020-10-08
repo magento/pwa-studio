@@ -97,14 +97,14 @@ const ShippingMethod = props => {
                     onSubmit={handleSubmit}
                 >
                     <ShippingRadios
-                        disabled={pageIsUpdating}
+                        disabled={pageIsUpdating || isLoading}
                         shippingMethods={shippingMethods}
                     />
                     <div className={classes.formButtons}>
                         <Button
                             priority="normal"
                             type="submit"
-                            disabled={pageIsUpdating}
+                            disabled={pageIsUpdating || isLoading}
                         >
                             <FormattedMessage
                                 id={'shippingMethod.continueToNextStep'}

@@ -246,7 +246,7 @@
     "quantity.input": "Item Quantity",
     "region.label": "State",
     "Register": "Register",
-    "resetPassword.descriptionText": "Please enter your new password.",
+    "resetPassword.descriptionText": "Please enter your email address and new password.",
     "resetPassword.invalidTokenMessage": "Uh oh, something went wrong. Check the link or try again.",
     "resetPassword.newPasswordText": "New Password",
     "resetPassword.pageTitleText": "Reset Password",
