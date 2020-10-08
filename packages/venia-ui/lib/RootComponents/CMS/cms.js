@@ -7,6 +7,7 @@ import RichContent from '../../components/RichContent';
 import CategoryList from '../../components/CategoryList';
 import { Meta, Title } from '../../components/Head';
 import { mergeClasses } from '../../classify';
+import { useIntl } from 'react-intl';
 
 import defaultClasses from './cms.css';
 
@@ -21,6 +22,7 @@ const CMSPage = props => {
     });
 
     const { cmsPage, hasContent, shouldShowLoadingIndicator } = talonProps;
+    const { formatMessage } = useIntl();
 
     if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;
@@ -55,7 +57,15 @@ const CMSPage = props => {
         );
     }
 
-    return <CategoryList title="Shop by category" id={2} />;
+    return (
+        <CategoryList
+            title={formatMessage({
+                id: 'cms.shopByCategory',
+                defaultMessage: 'Shop by category'
+            })}
+            id={2}
+        />
+    );
 };
 
 CMSPage.propTypes = {
