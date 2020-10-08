@@ -57,6 +57,9 @@ const Dialog = props => {
     const confirmButtonDisabled =
         shouldDisableAllButtons || shouldDisableConfirmButton;
 
+    const cancelButtonClasses = {
+        root_lowPriority: classes.cancelButton
+    };
     const confirmButtonClasses = {
         root_highPriority: classes.confirmButton
     };
@@ -97,6 +100,7 @@ const Dialog = props => {
                             <div className={classes.contents}>{children}</div>
                             <div className={classes.buttons}>
                                 <Button
+                                    classes={cancelButtonClasses}
                                     disabled={shouldDisableAllButtons}
                                     onClick={onCancel}
                                     priority="low"
