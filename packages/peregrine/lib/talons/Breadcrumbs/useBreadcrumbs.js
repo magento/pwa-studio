@@ -46,10 +46,16 @@ export const useBreadcrumbs = props => {
 
             return (
                 breadcrumbData &&
-                breadcrumbData.sort(sortCrumbs).map(category => ({
-                    text: category.category_name,
-                    path: getPath(category.category_url_path, categoryUrlSuffix)
-                }))
+                breadcrumbData
+                    .map(category => ({
+                        category_level: category.category_level,
+                        text: category.category_name,
+                        path: getPath(
+                            category.category_url_path,
+                            categoryUrlSuffix
+                        )
+                    }))
+                    .sort(sortCrumbs)
             );
         }
     }, [categoryUrlSuffix, data, loading]);

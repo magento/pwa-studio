@@ -20,19 +20,10 @@ const CMSPage = props => {
         }
     });
 
-    const {
-        cmsPage,
-        hasContent,
-        error,
-        shouldShowLoadingIndicator
-    } = talonProps;
+    const { cmsPage, hasContent, shouldShowLoadingIndicator } = talonProps;
 
     if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;
-    }
-
-    if (error) {
-        return <div>Page Fetch Error</div>;
     }
 
     const classes = mergeClasses(defaultClasses, props.classes);

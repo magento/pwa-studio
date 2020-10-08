@@ -38,6 +38,7 @@ mutation setShippingAddress(
                     method_code
                     method_title
                 }
+                street
             }
         }
     }

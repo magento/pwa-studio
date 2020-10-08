@@ -107,9 +107,9 @@ const Product = props => {
                     />
                 </Link>
                 <div className={classes.details}>
-                    <Link to={itemLink} className={classes.name}>
-                        {name}
-                    </Link>
+                    <div className={classes.name}>
+                        <Link to={itemLink}>{name}</Link>
+                    </div>
                     <ProductOptions
                         options={options}
                         classes={{
