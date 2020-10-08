@@ -48,7 +48,7 @@ class TargetableModule extends Trackable {
      * Insert text into the module contents, immediately following the location
      * of the search string if it is found.
      *
-     * @param {string} search - Text string in the module code to place the new content after.
+     * @param {string} after - Text string in the module code to place the new content after.
      * @param {string} insert - Text to insert after the search string.
      * @param {Object} [options] - Additional loader options.
      * @param {number} [options.remove] - Number of characters to delete forward, after the search string.
@@ -65,7 +65,7 @@ class TargetableModule extends Trackable {
      * Insert text into the module contents, immediately before the location
      * of the search string if it is found.
      *
-     * @param {string} search - Text string in the module code to place the new content before.
+     * @param {string} before - Text string in the module code to place the new content before.
      * @param {string} insert - Text to insert before the search string.
      * @param {Object} [options] - Additional loader options.
      * @param {number} [options.remove] - Number of characters to delete forward, after the search string.

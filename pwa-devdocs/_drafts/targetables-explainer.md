@@ -19,20 +19,24 @@ targetables.esModule('@my/library/Button.js', {
 })
 ```
 
-The above modifies the source of `Button.js` right before Webpack pulls it into the build. It's always on the fly, never saving those changes to `Button.js` on disk.
+The above code modifies the source of `Button.js` right before Webpack pulls it into the build. It's always on the fly, never saving those changes to `Button.js` on disk.
 
 If you're working on a PWA project, you can use Targetables in your local intercept file to make modifications like this to _any file_ in your dependencies. 
 
 If you're working on a PWA extension, Buildpack restricts your intercepts so they can only modify files in your own extension package. But Targetables are still really useful in your extension! You can add Targets to permit third-party intercepts of your own extension, and implement them concisely with Targetables.
 
 ```js
-targetables.esModule('@my/library/Button.js', {
+targetables.reactComponent('@my/library/Button.js', {
   async publish(myTargets) {
     const classnames = await myTargets.buttonClassnames.promise([]);
     classnames.forEach(name => this.addJSXClassName('<button>', name));
   }
 });
 ```
+
+The above code combines the `TargetableReactComponent` with a declared target `buttonClassnames`: it calls interceptors which contribute to an array of class names, and then it uses JSX manipulation methods to add each of those class names to a `<button>` element in the code.
+
+Those six lines of code are a _full implementation_ of a useful extension point for `@my/library`: third parties can now intercept the `buttonClassnames` target to add styling to buttons rendered by `@my/library/Button.js`.
 
 ## Usage
 
@@ -91,9 +95,9 @@ module.exports = function intercept(targets) {
   targetable.reactComponent('@example/pwa-nav/Nav.js', {
     publish(myTargets, self) {
       const navBarAPI = {
-        addItem(label, to, icon) {
-          const Icon = self.addImport('NewIcon from "${icon}"');
-          self.appendJSX('nav', `<Link to="${to}"><${Icon} src={${icon}}>${label}</Icon></Link>`)
+        addItem(label, to, iconPath) {
+          const icon = self.addImport('NewIcon from "${iconPath}"');
+          self.appendJSX('nav', `<Link to="${to}"><Icon src={${icon}}>${label}</Icon></Link>`)
         }
       }
 
@@ -108,7 +112,7 @@ Now, Freddy's module can add nav items using a higher-level concept:
 **@freddy/pwa-chat/intercept.js**
 ```js
 module.exports = targets => {
-  targets.own.navBar.tap(bar => {
+  targets.of('@example/pwa-nav').navBar.tap(bar => {
     bar.addItem('Chat', '/chat', "./path/to/icon.svg")
   });
 }

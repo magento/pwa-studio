@@ -18,7 +18,7 @@ class TargetableReactComponent extends TargetableESModule {
      * Add a CSS classname to a JSX element. Unlike setting the className prop,
      * this is non-destructive. It will append the classname to any existing
      * classnames, instead of replacing it.
-     * @param {string} jsxSearch - Match an existing JSX component in the file
+     * @param {string} element - Match an existing JSX component in the file
      * @param {string} className - New classname to insert. This will be
      * interpolated; to add a string literal classname, set this to
      * '"classname"'. Passing 'classname' will add the value of a local
@@ -63,7 +63,7 @@ class TargetableReactComponent extends TargetableESModule {
     /**
      * Append a JSX element to the children of `element`.
      *
-     * @param {string} jsxSearch - Match an existing JSX component in the file
+     * @param {string} element - Match an existing JSX component in the file
      * @param {string} newChild - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
      * @chainable
@@ -74,7 +74,7 @@ class TargetableReactComponent extends TargetableESModule {
     /**
      * Insert a JSX element _after_ `element`.
      *
-     * @param {string} jsxSearch - Match an existing JSX component in the file
+     * @param {string} element - Match an existing JSX component in the file
      * @param {string} newSibling - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
      * @chainable
@@ -85,7 +85,7 @@ class TargetableReactComponent extends TargetableESModule {
     /**
      * Insert a JSX element _before_ `element`.
      *
-     * @param {string} jsxSearch - Match an existing JSX component in the file
+     * @param {string} element - Match an existing JSX component in the file
      * @param {string} newSibling - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
      * @chainable
@@ -96,7 +96,7 @@ class TargetableReactComponent extends TargetableESModule {
     /**
      * Prepend a JSX element to the children of `element`.
      *
-     * @param {string} jsxSearch - Match an existing JSX component in the file
+     * @param {string} element - Match an existing JSX component in the file
      * @param {string} newChild - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
      * @chainable
@@ -108,7 +108,7 @@ class TargetableReactComponent extends TargetableESModule {
     /**
      * Remove the JSX node matched by 'element'.
      *
-     * @param {string} jsxSearch - Match an existing JSX component in the file and remove it
+     * @param {string} element - Match an existing JSX component in the file and remove it
      * @param {JSXModifierOptions} [options]
      * @chainable
      */
@@ -119,8 +119,8 @@ class TargetableReactComponent extends TargetableESModule {
     /**
      * Remove JSX props from the element if they match one of the list of names.
      *
-     * @param {string} jsxSearch - Match an existing JSX component in the file.
-     * @param  {object} props - A simple object representing the props. Keys should be prop names, and values should be raw strings representing the value in JSX text.
+     * @param {string} element - Match an existing JSX component in the file.
+     * @param {string[]} propNames - An array of names of props to remove.
      * @param {JSXModifierOptions} [options]
      * @chainable
      */
@@ -144,7 +144,7 @@ class TargetableReactComponent extends TargetableESModule {
     /**
      * Set JSX props on a JSX element.
      *
-     * @param {string} jsxSearch - Match an existing JSX component in the file.
+     * @param {string} element - Match an existing JSX component in the file.
      * @param  {object} props - A simple object representing the props. Keys should be prop names, and values should be raw strings representing the value in JSX text.
      * @param {JSXModifierOptions} [options]
      *
@@ -166,7 +166,7 @@ class TargetableReactComponent extends TargetableESModule {
     /**
      * Wrap a JSX element in an outer element.
      *
-     * @param {string} jsxSearch - Match an existing JSX component in the file.
+     * @param {string} element - Match an existing JSX component in the file.
      * @param {string} newParent - The wrapper element as a JSX string. It must be one and only one JSX element with no children; the matching element will be the only child of the new wrapper.
      * @param {JSXModifierOptions} [options]
      * @returns
