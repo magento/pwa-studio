@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string, object } from 'prop-types';
 import { Form } from 'informed';
 import { X as CloseIcon } from 'react-feather';
@@ -102,7 +103,10 @@ const Dialog = props => {
                                     priority="low"
                                     type="reset"
                                 >
-                                    {cancelText}
+                                    <FormattedMessage
+                                        id="global.cancelButton"
+                                        defaultMessage={cancelText}
+                                    />
                                 </Button>
                                 <Button
                                     classes={confirmButtonClasses}
@@ -110,7 +114,10 @@ const Dialog = props => {
                                     priority="high"
                                     type="submit"
                                 >
-                                    {confirmText}
+                                    <FormattedMessage
+                                        id="global.confirmButton"
+                                        defaultMessage={confirmText}
+                                    />
                                 </Button>
                             </div>
                         </div>
