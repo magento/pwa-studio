@@ -32,6 +32,7 @@
     "cartPage.signIn": "Sign In",
     "cartPage.title": "Cart - {name}",
     "cartTrigger.ariaLabel": "Toggle mini cart. You have {count} items in your cart.",
+    "cms.shopByCategory": "Shop by category",
     "communicationsPage.changesText": "Save Changes",
     "communicationsPage.communicationsText": "Communications",
     "communicationsPage.eNewsletterText": "Venia E-Newsletter",
