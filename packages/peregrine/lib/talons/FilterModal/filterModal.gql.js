@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_FILTER_INPUTS = gql`
-    query getFilterInputs {
+    query GetFilterInputsForModal {
         __type(name: "ProductAttributeFilterInput") {
             inputFields {
                 name

@@ -17,7 +17,7 @@ export const GET_PRODUCT_FILTERS_BY_SEARCH = gql`
 `;
 
 export const PRODUCT_SEARCH = gql`
-    query productSearch(
+    query ProductSearch(
         $currentPage: Int = 1
         $inputText: String!
         $pageSize: Int = 6
@@ -57,7 +57,7 @@ export const PRODUCT_SEARCH = gql`
 `;
 
 export const GET_FILTER_INPUTS = gql`
-    query getFilterInputs {
+    query GetFilterInputsForSearch {
         __type(name: "ProductAttributeFilterInput") {
             inputFields {
                 name

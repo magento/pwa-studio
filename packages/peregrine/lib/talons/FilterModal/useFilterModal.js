@@ -2,10 +2,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { useAppContext } from '../../context/app';
-import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useFilterState } from './useFilterState';
 import DEFAULT_OPERATIONS from './filterModal.gql';
+import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
 
 /**
  * Filter Modal talon.

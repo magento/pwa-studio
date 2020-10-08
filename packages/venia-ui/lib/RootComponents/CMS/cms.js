@@ -14,7 +14,7 @@ const CMSPage = props => {
     const { id } = props;
 
     const talonProps = useCmsPage({ id });
-    const {cmsPage, hasContent, shouldShowLoadingIndicator} = talonProps;
+    const { cmsPage, hasContent, shouldShowLoadingIndicator } = talonProps;
     const { formatMessage } = useIntl();
 
     if (shouldShowLoadingIndicator) {
