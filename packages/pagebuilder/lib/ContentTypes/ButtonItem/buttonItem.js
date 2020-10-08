@@ -1,8 +1,11 @@
 import React, { useCallback } from 'react';
-import Button from '@magento/venia-ui/lib/components/Button/button';
 import { arrayOf, oneOf, string, bool } from 'prop-types';
-import resolveLinkProps from '../../resolveLinkProps';
 import { useHistory } from '@magento/venia-drivers';
+import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import Button from '@magento/venia-ui/lib/components/Button/button';
+
+import resolveLinkProps from '../../resolveLinkProps';
+import defaultClasses from './buttonItem.css';
 
 /**
  * Page Builder ButtonItem component.
@@ -17,6 +20,8 @@ import { useHistory } from '@magento/venia-drivers';
  * @returns {React.Element} A React component that displays a button.
  */
 const ButtonItem = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+
     const {
         buttonType,
         link,
@@ -92,16 +97,21 @@ const ButtonItem = props => {
         dynamicInnerStyles.textAlign = textAlign;
     }
 
+    const buttonProps = {
+        onClick: handleClick,
+        priority: typeToPriorityMapping[buttonType],
+        style: dynamicInnerStyles,
+        type: 'button'
+    };
+
+    // Custom style link type until PWA-937 adds link styled buttons
+    if (buttonType === 'link') {
+        buttonProps.className = classes.linkButton;
+    }
+
     return (
         <div className={cssClasses.length ? cssClasses.join(' ') : undefined}>
-            <Button
-                priority={typeToPriorityMapping[buttonType]}
-                type="button"
-                onClick={handleClick}
-                style={dynamicInnerStyles}
-            >
-                {text}
-            </Button>
+            <Button {...buttonProps}>{text}</Button>
         </div>
     );
 };

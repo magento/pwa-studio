@@ -21,7 +21,8 @@ export const useCmsPage = props => {
         variables: {
             id: Number(id)
         },
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
     });
 
     const [

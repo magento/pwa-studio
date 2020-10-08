@@ -108,10 +108,12 @@ test('returns sorted data', () => {
         hasError: false,
         normalizedData: [
             {
+                category_level: 1,
                 path: '/tiki/shopee.html',
                 text: 'Shopee'
             },
             {
+                category_level: 2,
                 path: '/tiki/shopee/foo.html',
                 text: 'Foo'
             }

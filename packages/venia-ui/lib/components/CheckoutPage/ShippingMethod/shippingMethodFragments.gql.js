@@ -20,6 +20,7 @@ export const AvailableShippingMethodsCheckoutFragment = gql`
                 method_code
                 method_title
             }
+            street
         }
     }
 `;
@@ -37,6 +38,7 @@ export const SelectedShippingMethodCheckoutFragment = gql`
                 method_code
                 method_title
             }
+            street
         }
     }
 `;
@@ -54,6 +56,7 @@ export const ShippingMethodsCheckoutFragment = gql`
             region {
                 code
             }
+            street
         }
     }
     ${AvailableShippingMethodsCheckoutFragment}
