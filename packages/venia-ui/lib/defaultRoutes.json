@@ -1,5 +1,11 @@
 [
     {
+        "name": "AccountInformationPage",
+        "pattern": "/account-information",
+        "exact": true,
+        "path": "../AccountInformationPage"
+    },
+    {
         "name": "AddressBook",
         "pattern": "/address-book",
         "exact": true,
@@ -58,11 +64,5 @@
         "pattern": "/wishlist",
         "exact": true,
         "path": "../WishlistPage"
-    },
-    {
-        "name": "AccountInformationPage",
-        "pattern": "/account-information",
-        "exact": true,
-        "path": "../AccountInformationPage"
     }
 ]
