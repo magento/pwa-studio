@@ -32,10 +32,8 @@ const UpdateModal = props => {
 
     return (
         <Dialog
-            confirmText={formatMessage({
-                id: 'global.updateButton',
-                defaultMessage: 'Update'
-            })}
+            confirmText={'Update'}
+            confirmTranslationId={'global.updateButton'}
             formProps={dialogFormProps}
             isOpen={isOpen}
             onCancel={handleCancel}
