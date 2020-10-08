@@ -1,4 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { number, string } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
@@ -72,7 +73,7 @@ const Breadcrumbs = props => {
     return (
         <div className={classes.root}>
             <Link className={classes.link} to="/">
-                {'Home'}
+                <FormattedMessage id={'global.home'} defaultMessage={'Home'} />
             </Link>
             {links}
             <span className={classes.divider}>/</span>
