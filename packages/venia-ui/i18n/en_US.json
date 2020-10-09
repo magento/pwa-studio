@@ -27,7 +27,7 @@
     "autocomplete.loading": "Fetching results...",
     "autocomplete.prompt": "Search for a product",
     "autocomplete.resultSummary": "{resultCount} items",
-    "autocomplete.characterNotEnough": "Must search for at least 3 characters",
+    "autocomplete.invalidCharacterLength": "Enter at least three characters to load results",
     "cartPage.emptyCart": "There are no items in your cart.",
     "cartPage.heading": "Cart",
     "cartPage.signIn": "Sign In",

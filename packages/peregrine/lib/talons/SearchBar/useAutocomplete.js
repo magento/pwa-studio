@@ -56,7 +56,7 @@ export const useAutocomplete = props => {
     let messageType = '';
 
     if (invalidCharacterLength) {
-        messageType = 'CHARACTER_NOT_ENOUGH';
+        messageType = 'INVALID_CHARACTER_LENGTH';
     } else if (error) {
         messageType = 'ERROR';
     } else if (loading) {

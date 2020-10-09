@@ -107,10 +107,11 @@ const Autocomplete = props => {
             )
         )
         .set(
-            'CHARACTER_NOT_ENOUGH',
+            'INVALID_CHARACTER_LENGTH',
             formatMessage({
-                id: 'autocomplete.characterNotEnough',
-                defaultMessage: 'Must search for at least 3 characters'
+                id: 'autocomplete.invalidCharacterLength',
+                defaultMessage:
+                    'Enter at least three characters to load results'
             })
         );
 
