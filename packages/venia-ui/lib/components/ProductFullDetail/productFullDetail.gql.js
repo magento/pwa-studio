@@ -58,3 +58,28 @@ export const ADD_SIMPLE_MUTATION = gql`
     ${CartTriggerFragment}
     ${MiniCartFragment}
 `;
+
+export const ADD_VIRTUAL_MUTATION = gql`
+    mutation addVirtualProductsToCart(
+        $cartId: String!
+        $quantity: Float!
+        $sku: String!
+    ) {
+        addVirtualProductsToCart(
+            input: {
+                cart_id: $cartId
+                cart_items: [{ data: { quantity: $quantity, sku: $sku } }]
+            }
+        ) @connection(key: "addVirtualProductsToCart") {
+            cart {
+                id
+                # Update the cart trigger when adding an item.
+                ...CartTriggerFragment
+                # Update the mini cart when adding an item.
+                ...MiniCartFragment
+            }
+        }
+    }
+    ${CartTriggerFragment}
+    ${MiniCartFragment}
+`;

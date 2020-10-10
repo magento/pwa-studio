@@ -145,7 +145,11 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
     return value;
 };
 
-const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
+const SUPPORTED_PRODUCT_TYPES = [
+    'SimpleProduct',
+    'ConfigurableProduct',
+    'VirtualProduct'
+];
 
 /**
  * @param {GraphQLQuery} props.addConfigurableProductToCartMutation - configurable product mutation
@@ -168,6 +172,7 @@ export const useProductFullDetail = props => {
     const {
         addConfigurableProductToCartMutation,
         addSimpleProductToCartMutation,
+        addVirtualProductToCartMutation,
         product
     } = props;
 
@@ -191,6 +196,11 @@ export const useProductFullDetail = props => {
         addSimpleProductToCart,
         { error: errorAddingSimpleProduct, loading: isAddSimpleLoading }
     ] = useMutation(addSimpleProductToCartMutation);
+
+    const [
+        addVirtualProductToCart,
+        { error: errorAddingVirtualProduct, loading: isAddVirtualLoading }
+    ] = useMutation(addVirtualProductToCartMutation);
 
     const breadcrumbCategoryId = useMemo(
         () => getBreadcrumbCategoryId(product.categories),
@@ -259,6 +269,14 @@ export const useProductFullDetail = props => {
                     } catch {
                         return;
                     }
+                } else if (productType === 'VirtualProduct') {
+                    try {
+                        await addVirtualProductToCart({
+                            variables
+                        });
+                    } catch {
+                        return;
+                    }
                 }
             } else {
                 console.error('Unsupported product type. Cannot add to cart.');
@@ -267,6 +285,7 @@ export const useProductFullDetail = props => {
         [
             addConfigurableProductToCart,
             addSimpleProductToCart,
+            addVirtualProductToCart,
             cartId,
             isSupportedProductType,
             optionCodes,
@@ -304,9 +323,14 @@ export const useProductFullDetail = props => {
         () =>
             deriveErrorMessage([
                 errorAddingSimpleProduct,
+                errorAddingVirtualProduct,
                 errorAddingConfigurableProduct
             ]),
-        [errorAddingConfigurableProduct, errorAddingSimpleProduct]
+        [
+            errorAddingConfigurableProduct,
+            errorAddingSimpleProduct,
+            errorAddingVirtualProduct
+        ]
     );
 
     return {
@@ -318,7 +342,8 @@ export const useProductFullDetail = props => {
             !isSupportedProductType ||
             isMissingOptions ||
             isAddConfigurableLoading ||
-            isAddSimpleLoading,
+            isAddSimpleLoading ||
+            isAddVirtualLoading,
         mediaGalleryEntries,
         productDetails
     };

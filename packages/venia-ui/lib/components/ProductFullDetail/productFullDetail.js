@@ -18,7 +18,8 @@ import RichText from '../RichText';
 import defaultClasses from './productFullDetail.css';
 import {
     ADD_CONFIGURABLE_MUTATION,
-    ADD_SIMPLE_MUTATION
+    ADD_SIMPLE_MUTATION,
+    ADD_VIRTUAL_MUTATION
 } from './productFullDetail.gql';
 
 const Options = React.lazy(() => import('../ProductOptions'));
@@ -43,6 +44,7 @@ const ProductFullDetail = props => {
     const talonProps = useProductFullDetail({
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
         addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
+        addVirtualProductToCartMutation: ADD_VIRTUAL_MUTATION,
         product
     });
 
