@@ -97,9 +97,8 @@ const VeniaAdapter = props => {
         const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
         browserRouterProps.basename = `/${storeCode}`;
 
-        // The current store code won't be matched as it's included as the
-        // basename, if we match another store we need to change the current
-        // store.
+        // Include the store code route handler that manages and updates the
+        // stored code based on the url.
         storeCodeRouteHandler = <StoreCodeRoute />;
     }
 

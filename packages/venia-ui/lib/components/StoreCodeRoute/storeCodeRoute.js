@@ -24,6 +24,9 @@ const StoreCodeRoute = () => {
     const match = useRouteMatch(pattern);
 
     useEffect(() => {
+        // The current store code won't be matched as it's included as the
+        // basename, if we match another store we need to change the current
+        // store.
         if (match.params.storeCode) {
             // Only execute if one store code is present in the URL, multiple
             // store codes will cause the store state to break and cause weird
