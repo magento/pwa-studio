@@ -35,7 +35,7 @@
                 {
                     "name": "USE_STORE_CODE_IN_URL",
                     "type": "bool",
-                    "desc": "Appends the store code to the store URLs if value is true.",
+                    "desc": "Includes the store code in the store URLs if value is true.",
                     "default": false
                 }
             ]
