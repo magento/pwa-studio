@@ -44,6 +44,9 @@ entries:
           - label: Client-side caching
             url: /technologies/basic-concepts/client-side-caching/
 
+          - label: Internationalization
+            url: /technologies/basic-concepts/internationalization/
+
           - label: State management
             url: /technologies/basic-concepts/state-management/
 
