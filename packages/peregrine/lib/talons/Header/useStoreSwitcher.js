@@ -88,39 +88,43 @@ export const useStoreSwitcher = props => {
                 availableStores.get(storeCode).currency
             );
 
-            // Handle updating the URL if the store code should be present
+            // Handle updating the URL if the store code should be present.
+            // In this block we use `window.location.assign` to work around the
+            // static React Router basename, which is changed on initialization.
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
                 const pathName = window.location.pathname;
+                const params = window.location.search;
 
                 // Check to see if we're on a page outside of the homepage
                 if (pathName !== '' && pathName !== '/') {
-                    const pathNameSplit = pathName.split('/');
-                    const pathStoreCode = pathNameSplit[1];
+                    const [, pathStoreCode] = pathName.split('/');
 
-                    // Is the current store code in the URL? If so replace it with the new one
+                    // If the current store code is in the url, replace it with
+                    // the new one.
                     if (
                         availableStores.has(pathStoreCode) &&
                         availableStores.get(pathStoreCode).isCurrent
                     ) {
-                        window.location.assign(
-                            window.location.pathname.replace(
-                                `/${pathStoreCode}`,
-                                `/${storeCode}`
-                            )
-                        );
+                        const newPath = `${pathName.replace(
+                            `/${pathStoreCode}`,
+                            `/${storeCode}`
+                        )}${params}`;
+
+                        window.location.assign(newPath);
                     } else {
-                        // If there is no store code present, include it and reload
-                        window.location.assign(
-                            `/${storeCode}${
-                                pathName && pathName !== '/' ? pathName : ''
-                            }`
-                        );
+                        // Otherwise include it and reload.
+                        const newPath = `/${storeCode}${
+                            pathName && pathName !== '/' ? pathName : ''
+                        }${params}`;
+
+                        window.location.assign(newPath);
                     }
                 } else {
                     window.location.assign(`/${storeCode}`);
                 }
             } else {
-                // Refresh the page to re-trigger the queries once code/currency are saved in local storage.
+                // Refresh the page to re-trigger the queries once code/currency
+                // are saved in local storage.
                 history.go(0);
             }
         },

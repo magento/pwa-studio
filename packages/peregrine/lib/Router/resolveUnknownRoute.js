@@ -99,11 +99,12 @@ function remotelyResolveRoute(opts) {
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
-    const storeCodes = AVAILABLE_STORE_VIEWS.map(store => store.code);
     let route = opts.route;
 
-    storeCodes.forEach(function(storeCode) {
-        const path = '/' + storeCode.toLowerCase();
+    // Trim store code off the route before querying urlResolver.
+    // For example, /fr/cms.html => /cms.html
+    AVAILABLE_STORE_VIEWS.forEach(store => {
+        const path = `/${store.code.toLowerCase()}`;
         if (route.startsWith(path) || route === path) {
             route = route.substring(path.length, route.length);
         }
