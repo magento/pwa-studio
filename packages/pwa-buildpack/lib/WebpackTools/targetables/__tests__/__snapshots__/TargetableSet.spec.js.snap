@@ -14,7 +14,7 @@ Array [
       },
     },
     "requestor": "@magento/fakedep",
-    "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+    "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
     "type": "babel",
   },
   Object {

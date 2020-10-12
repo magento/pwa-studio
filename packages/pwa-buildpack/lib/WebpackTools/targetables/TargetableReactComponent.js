@@ -1,6 +1,8 @@
 const TargetableESModule = require('./TargetableESModule');
 
 const lazyImportString = `{ lazy as reactLazy } from 'react';\n`;
+const babelPluginPath =
+    '@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js';
 
 /**
  * An ECMAScript module containing a React component with JSX to render it.
@@ -195,11 +197,11 @@ class TargetableReactComponent extends TargetableESModule {
                 Object.assign(params, options);
             }
         }
-        return this.addTransform(
-            'babel',
-            require.resolve('./BabelModifyJSXPlugin'),
-            { element, operation, params }
-        );
+        return this.addTransform('babel', babelPluginPath, {
+            element,
+            operation,
+            params
+        });
     }
 }
 

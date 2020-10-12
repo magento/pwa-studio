@@ -10,7 +10,7 @@ Object {
       "className": "\\"status-class\\"",
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -25,7 +25,7 @@ Object {
       "className": "classes.icon",
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -40,7 +40,7 @@ Object {
       "className": "\\"oh-you\\"",
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -55,7 +55,7 @@ Object {
       "className": "\\"another-literal\\" + \\"-classname\\"",
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -133,7 +133,7 @@ Object {
       "jsx": "<AnotherEmoji />",
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -148,7 +148,7 @@ Object {
       "jsx": "<Rakim />",
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -163,7 +163,7 @@ Object {
       "jsx": "<EricB and={and} />",
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -178,7 +178,7 @@ Object {
       "jsx": "<AnEmoji/>",
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -191,7 +191,7 @@ Object {
     "operation": "remove",
     "params": undefined,
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -209,7 +209,7 @@ Object {
       ],
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -224,7 +224,7 @@ Object {
       "jsx": "<i>where is label oh no</i>",
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -242,7 +242,7 @@ Object {
       },
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
@@ -258,7 +258,7 @@ Object {
       "jsx": "<fieldset></fieldset>",
     },
   },
-  "transformModule": "/Volumes/CaseSensitive/pwa-studio/packages/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+  "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
   "type": "babel",
 }
 `;
