@@ -1,5 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
 import { array, number, shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import RichContent from '../../components/RichContent';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
@@ -14,7 +15,6 @@ import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
 import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
 import Button from '../../components/Button';
-
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
 const CategoryContent = props => {
@@ -52,7 +52,10 @@ const CategoryContent = props => {
             onMouseOver={handleLoadFilters}
             type="button"
         >
-            {'Filter'}
+            <FormattedMessage
+                id={'categoryContent.filter'}
+                defaultMessage={'Filter'}
+            />
         </Button>
     ) : null;
 
@@ -64,8 +67,16 @@ const CategoryContent = props => {
     const maybeSortContainer =
         totalPagesFromData && filters ? (
             <div className={classes.sortContainer}>
-                {'Items sorted by '}
-                <span className={classes.sortText}>{currentSort.sortText}</span>
+                <FormattedMessage
+                    id={'categoryContent.itemsSortedBy'}
+                    defaultMessage={'Items sorted by '}
+                />
+                <span className={classes.sortText}>
+                    <FormattedMessage
+                        id={currentSort.sortId}
+                        defaultMessage={currentSort.sortText}
+                    />
+                </span>
             </div>
         ) : null;
 
