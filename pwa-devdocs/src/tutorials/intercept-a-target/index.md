@@ -51,5 +51,3 @@ The process does not execute intercept files in dependencies beyond those module
 
 The interception process executes files in dependency order.
 This means that if your module declares another module with Targets as a peer dependency, the other module's intercept file executes first.
-
-[tapable hook]: https://github.com/webpack/tapable
