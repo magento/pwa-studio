@@ -3,14 +3,16 @@ const babel = require('@babel/core');
 const parser = new JSXSnippetParser(babel, 'fake-file.js');
 
 test('normalizes JSX without brackets or closing elements', () => {
-    [
+    const snippets = [
         ['   <div/>  ', '<div/>'],
         ['<>  a fragment </>'],
         ['<HasClose prop={val}></HasClose>'],
         ['<A b={c} d="e">', '<A b={c} d="e" />'],
         ['wat', '<wat />'],
         ['  oh  no="crap"', '<oh  no="crap" />']
-    ].forEach(([input, output]) =>
+    ];
+    
+    snippets.forEach(([input, output]) =>
         expect(parser.normalizeElement(input)).toBe(output || input)
     );
 });
