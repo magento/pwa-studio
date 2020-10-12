@@ -113,9 +113,7 @@ export const useStoreSwitcher = props => {
                         window.location.assign(newPath);
                     } else {
                         // Otherwise include it and reload.
-                        const newPath = `/${storeCode}${
-                            pathName && pathName !== '/' ? pathName : ''
-                        }${params}`;
+                        const newPath = `/${storeCode}${pathName}${params}`;
 
                         window.location.assign(newPath);
                     }
