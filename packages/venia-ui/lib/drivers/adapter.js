@@ -5,10 +5,11 @@ import { ApolloProvider, createHttpLink } from '@apollo/client';
 import { ApolloClient } from '@apollo/client/core';
 import { InMemoryCache } from '@apollo/client/cache';
 import { Provider as ReduxProvider } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import { setContext } from '@apollo/client/link/context';
 
+import StoreCodeRoute from '../components/StoreCodeRoute';
 import resolvers from '../resolvers';
 import typePolicies from '../policies';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
@@ -90,74 +91,16 @@ const VeniaAdapter = props => {
         return null;
     }
 
-    let storeCodeRouteHandler = '';
+    let storeCodeRouteHandler = null;
     const browserRouterProps = {};
     if (process.env.USE_STORE_CODE_IN_URL === 'true') {
         const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
         browserRouterProps.basename = `/${storeCode}`;
-        const storeCodes = [];
-        const storeCurrencies = {};
-        if (Array.isArray(AVAILABLE_STORE_VIEWS)) {
-            AVAILABLE_STORE_VIEWS.forEach(store => {
-                storeCodes.push(store.code);
-                storeCurrencies[store.code] =
-                    store.default_display_currency_code;
-            });
-        }
 
-        /**
-         * The current store code won't be matched as it's included as the basename, if we match another store
-         * we need to change the current store.
-         */
-        storeCodeRouteHandler = (
-            <Switch>
-                <Route path={`/:storeCode(${storeCodes.join('|')})?`}>
-                    {({ match }) => {
-                        if (
-                            match.params.storeCode &&
-                            storeCodes.includes(match.params.storeCode)
-                        ) {
-                            /**
-                             * Only execute if one store code is present in the URL, multiple store codes will cause
-                             * the store state to break and cause weird side effects for the user
-                             */
-                            const regex = new RegExp(
-                                `\/(${storeCodes.join('|')})`,
-                                'g'
-                            );
-                            const storeCodesInUrl = window.location.pathname.match(
-                                regex
-                            );
-                            if (
-                                storeCodesInUrl &&
-                                storeCodesInUrl.length === 1
-                            ) {
-                                storage.setItem(
-                                    'store_view_code',
-                                    match.params.storeCode
-                                );
-                                storage.setItem(
-                                    'store_view_currency',
-                                    storeCurrencies[match.params.storeCode]
-                                );
-
-                                /**
-                                 * We're required to reload the page as the basename doesn't change entirely without a
-                                 * full page reload.
-                                 */
-                                window.location.reload();
-                            } else {
-                                console.warn(
-                                    'Multiple store codes present in URL.'
-                                );
-                            }
-                        }
-
-                        return null;
-                    }}
-                </Route>
-            </Switch>
-        );
+        // The current store code won't be matched as it's included as the
+        // basename, if we match another store we need to change the current
+        // store.
+        storeCodeRouteHandler = <StoreCodeRoute />;
     }
 
     return (
