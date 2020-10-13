@@ -20,6 +20,10 @@ const StoreCodeRoute = () => {
         storeCurrencies[store.code] = store.default_display_currency_code;
     });
 
+    // Sort by length (longest first) to avoid false hits ie "en" matching just
+    // the "/en" in "/en-us/home.html" when "en-us" is also in storeCodes.
+    storeCodes.sort((a, b) => b.length - a.length);
+
     const pattern = `/:storeCode(${storeCodes.join('|')})?`;
     const match = useRouteMatch(pattern);
 
