@@ -1,19 +1,17 @@
 import React, { Fragment, Suspense } from 'react';
 import { array, number, shape, string } from 'prop-types';
-import RichContent from '../../components/RichContent';
-
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
-import NoProductsFound from './NoProductsFound';
 import { mergeClasses } from '../../classify';
-import { Title } from '../../components/Head';
 import Breadcrumbs from '../../components/Breadcrumbs';
-import Gallery from '../../components/Gallery';
-import ProductSort from '../../components/ProductSort';
-import Pagination from '../../components/Pagination';
-import defaultClasses from './category.css';
-import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
 import Button from '../../components/Button';
+import Gallery from '../../components/Gallery';
+import { Title } from '../../components/Head';
+import Pagination from '../../components/Pagination';
+import ProductSort from '../../components/ProductSort';
+import RichContent from '../../components/RichContent';
+import defaultClasses from './category.css';
+import NoProductsFound from './NoProductsFound';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
@@ -24,10 +22,7 @@ const CategoryContent = props => {
     const talonProps = useCategoryContent({
         categoryId,
         data,
-        pageSize,
-        queries: {
-            getProductFiltersByCategory: GET_PRODUCT_FILTERS_BY_CATEGORY
-        }
+        pageSize
     });
 
     const {
