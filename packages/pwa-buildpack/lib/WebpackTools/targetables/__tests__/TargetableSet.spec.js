@@ -60,7 +60,7 @@ describe('TargetableSet is a target helper library', () => {
                 targetable.reactComponent(file)
             ).toThrowErrorMatchingSnapshot();
         });
-        describe('automatically intercepts transformModules and send its requests, running a "publish" method first if it is supplied', () => {
+        describe('automatically intercepts transformModules and sends its requests, running a "publish" method first if it is supplied', () => {
             const collectRequests = async () => {
                 const transformRequests = [];
                 await builtins.transformModules.promise(x =>
