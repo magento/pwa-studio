@@ -22,12 +22,6 @@ import Password from '../../Password';
 
 import defaultClasses from './createAccount.css';
 
-import CREATE_ACCOUNT_MUTATION from '../../../queries/createAccount.graphql';
-import CREATE_CART_MUTATION from '../../../queries/createCart.graphql';
-import GET_CART_DETAILS_QUERY from '../../../queries/getCartDetails.graphql';
-import GET_CUSTOMER_QUERY from '../../../queries/getCustomer.graphql';
-import SIGN_IN_MUTATION from '../../../queries/signIn.graphql';
-
 const CreateAccount = props => {
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -53,15 +47,6 @@ const CreateAccount = props => {
     }, [addToast, formatMessage]);
 
     const talonProps = useCreateAccount({
-        queries: {
-            createAccountQuery: CREATE_ACCOUNT_MUTATION,
-            customerQuery: GET_CUSTOMER_QUERY
-        },
-        mutations: {
-            createCartMutation: CREATE_CART_MUTATION,
-            getCartDetailsQuery: GET_CART_DETAILS_QUERY,
-            signInMutation: SIGN_IN_MUTATION
-        },
         initialValues: {
             email: props.email,
             firstName: props.firstname,

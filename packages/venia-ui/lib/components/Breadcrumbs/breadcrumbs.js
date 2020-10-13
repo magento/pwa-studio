@@ -4,7 +4,6 @@ import { number, string } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
 import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBreadcrumbs';
-import GET_BREADCRUMB_DATA from '../../queries/getBreadcrumbData.graphql';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './breadcrumbs.css';
 
@@ -19,10 +18,7 @@ const Breadcrumbs = props => {
 
     const { categoryId, currentProduct } = props;
 
-    const talonProps = useBreadcrumbs({
-        categoryId,
-        query: GET_BREADCRUMB_DATA
-    });
+    const talonProps = useBreadcrumbs({ categoryId });
 
     const {
         currentCategory,
