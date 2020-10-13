@@ -45,8 +45,8 @@ const mockUseSort = jest
 
 const mockSetCurrentPage = jest.fn().mockName('mockSetCurrentPage');
 
-jest.mock('@magento/peregrine', () => {
-    const usePagination = jest.fn(() => [
+jest.mock('../../../hooks/usePagination', () => ({
+    usePagination: jest.fn(() => [
         {
             currentPage: 3,
             totalPages: 6
@@ -57,16 +57,15 @@ jest.mock('@magento/peregrine', () => {
                 .mockImplementation(() => mockSetCurrentPage()),
             setTotalPages: jest.fn()
         }
-    ]);
-    const useSort = jest.fn().mockImplementation(() => mockUseSort());
+    ])
+}));
 
-    return {
-        useSort,
-        usePagination
-    };
-});
+jest.mock('../../../hooks/useSort', () => ({
+    useSort: jest.fn().mockImplementation(() => mockUseSort())
+}));
 
 jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
     const useQuery = jest.fn().mockReturnValue({
         data: {
             __type: {
@@ -93,22 +92,15 @@ jest.mock('@apollo/client', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { useLazyQuery, useQuery };
+    return { ...apolloClient, useLazyQuery, useQuery };
 });
-
-const mockProps = {
-    queries: {
-        filterIntrospection: 'filterIntrospectionQuery',
-        getProductFiltersBySearch: 'getProductFiltersBySearchQuery',
-        productSearch: 'productSearchQuery'
-    }
-};
 
 const Component = props => {
     const talonProps = useSearchPage(props);
     return <i talonProps={talonProps} />;
 };
 
+const mockProps = { queries: {} };
 const tree = createTestInstance(<Component {...mockProps} />);
 
 test('returns the correct shape', () => {

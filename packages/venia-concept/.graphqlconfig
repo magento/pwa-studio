@@ -11,7 +11,7 @@
                         "apollo",
                         "literal"
                     ],
-                    "filesGlob": "../{venia-ui,venia-concept}/{lib,src}/**/*.{js,graphql,gql}",
+                    "filesGlob": "../{peregrine,venia-ui,venia-concept}/{lib,src}/**/*.{js,graphql,gql}",
                     "ignore": [
                         "../venia-ui/lib/**/giftOptions.js",
                         "../venia-ui/lib/**/wishlistPage.gql.js"
