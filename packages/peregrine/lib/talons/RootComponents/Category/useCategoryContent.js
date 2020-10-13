@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+
+import { useAppContext } from '../../../context/app';
+import DEFAULT_OPERATIONS from './categoryContent.gql';
 
 const DRAWER_NAME = 'filter';
 
@@ -23,9 +25,10 @@ export const useCategoryContent = props => {
     const {
         categoryId,
         data,
-        pageSize = 6,
-        queries: { getProductFiltersByCategory }
+        operations = DEFAULT_OPERATIONS,
+        pageSize = 6
     } = props;
+    const { getProductFiltersByCategoryQuery } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
     const [loadFilters, setLoadFilters] = useState(false);
@@ -40,7 +43,7 @@ export const useCategoryContent = props => {
     }, [setLoadFilters, toggleDrawer]);
 
     const [getFilters, { data: filterData }] = useLazyQuery(
-        getProductFiltersByCategory,
+        getProductFiltersByCategoryQuery,
         {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first'

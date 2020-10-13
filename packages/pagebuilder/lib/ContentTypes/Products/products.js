@@ -4,8 +4,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import SlickSlider from 'react-slick';
 import Gallery from '@magento/venia-ui/lib/components/Gallery';
-import GET_PRODUCTS_BY_SKU from '@magento/venia-ui/lib/queries/getProductsBySku.graphql';
-import { useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import GalleryItem from '@magento/venia-ui/lib/components/Gallery/item';
 
 /**
@@ -257,3 +256,38 @@ Products.propTypes = {
 };
 
 export default Products;
+
+export const GET_PRODUCTS_BY_SKU = gql`
+    query getProductsBySku($skus: [String], $pageSize: Int!) {
+        products(filter: { sku: { in: $skus } }, pageSize: $pageSize) {
+            items {
+                id
+                name
+                sku
+                small_image {
+                    url
+                }
+                url_key
+                url_suffix
+                price {
+                    regularPrice {
+                        amount {
+                            value
+                            currency
+                        }
+                    }
+                }
+            }
+            total_count
+            filters {
+                name
+                filter_items_count
+                request_var
+                filter_items {
+                    label
+                    value_string
+                }
+            }
+        }
+    }
+`;

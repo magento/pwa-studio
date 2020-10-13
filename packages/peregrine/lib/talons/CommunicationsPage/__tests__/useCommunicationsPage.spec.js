@@ -16,24 +16,29 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
     return { useUserContext };
 });
 
-jest.mock('@apollo/client', () => ({
-    useMutation: jest.fn().mockImplementation(mutation => {
-        if (mutation === 'setNewsletterSubscriptionMutation')
-            return [mockSetNewsletterSubscription, { loading: false }];
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
 
-        return;
-    }),
-    useQuery: jest.fn().mockReturnValue({
-        data: {
-            customer: {
-                id: null,
-                is_subscribed: false
-            }
-        },
-        error: null,
-        loading: false
-    })
-}));
+    return {
+        ...apolloClient,
+        useMutation: jest.fn().mockImplementation(mutation => {
+            if (mutation === 'setNewsletterSubscriptionMutation')
+                return [mockSetNewsletterSubscription, { loading: false }];
+
+            return;
+        }),
+        useQuery: jest.fn().mockReturnValue({
+            data: {
+                customer: {
+                    id: null,
+                    is_subscribed: false
+                }
+            },
+            error: null,
+            loading: false
+        })
+    };
+});
 
 const Component = props => {
     const talonProps = useCommunicationsPage(props);
@@ -44,11 +49,9 @@ const afterSubmit = jest.fn();
 
 const mockProps = {
     afterSubmit,
-    mutations: {
+    operations: {
+        getCustomerSubscriptionQuery: 'getCustomerSubscriptionQuery',
         setNewsletterSubscriptionMutation: 'setNewsletterSubscriptionMutation'
-    },
-    queries: {
-        getCustomerSubscriptionQuery: 'getCustomerSubscriptionQuery'
     }
 };
 
