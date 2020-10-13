@@ -1,22 +1,17 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountMenu';
 
+import { mergeClasses } from '../../classify';
 import CreateAccount from '../CreateAccount';
 import SignIn from '../SignIn/signIn';
 import AccountMenuItems from './accountMenuItems';
 import ForgotPassword from '../ForgotPassword';
-
-import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
-
 import defaultClasses from './accountMenu.css';
 
 const AccountMenu = React.forwardRef((props, ref) => {
     const { accountMenuIsOpen, setAccountMenuIsOpen } = props;
     const talonProps = useAccountMenu({
-        mutations: { signOut: SIGN_OUT_MUTATION },
         accountMenuIsOpen,
         setAccountMenuIsOpen
     });

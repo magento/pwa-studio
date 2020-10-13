@@ -2,13 +2,14 @@ import { useCallback, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
 import { useUserContext } from '../../context/user';
+import DEFAULT_OPERATIONS from './communicationsPage.gql';
 
 export const useCommunicationsPage = props => {
+    const { afterSubmit, operations = DEFAULT_OPERATIONS } = props;
     const {
-        afterSubmit,
-        mutations: { setNewsletterSubscriptionMutation },
-        queries: { getCustomerSubscriptionQuery }
-    } = props;
+        getCustomerSubscriptionQuery,
+        setNewsletterSubscriptionMutation
+    } = operations;
 
     const [{ isSignedIn }] = useUserContext();
 

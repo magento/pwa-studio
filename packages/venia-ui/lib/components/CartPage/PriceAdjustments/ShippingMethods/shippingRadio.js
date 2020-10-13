@@ -11,10 +11,7 @@ const ShippingRadio = props => {
         <Price value={props.price} currencyCode={props.currency} />
     ) : (
         <span>
-            <FormattedMessage
-                id={'shippingRadio.free'}
-                defaultMessage={'FREE'}
-            />
+            <FormattedMessage id={'global.free'} defaultMessage={'FREE'} />
         </span>
     );
 
