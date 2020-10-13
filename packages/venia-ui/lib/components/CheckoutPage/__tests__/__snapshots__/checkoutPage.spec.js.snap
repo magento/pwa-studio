@@ -15,13 +15,18 @@ exports[`CheckoutPage renders address book for customer 1`] = `
         cartItems={Array []}
         message={
           <React.Fragment>
-            An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.
-             
+            <mockConstructor
+              defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
+              id="checkoutPage.stockStatusMessage"
+            />
             <Link
               className="cartLink"
               to="/cart"
             >
-              Return to Cart
+              <mockConstructor
+                defaultMessage="Return to Cart"
+                id="checkoutPage.returnToCart"
+              />
             </Link>
           </React.Fragment>
         }
@@ -88,13 +93,18 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
         cartItems={Array []}
         message={
           <React.Fragment>
-            An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.
-             
+            <mockConstructor
+              defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
+              id="checkoutPage.stockStatusMessage"
+            />
             <Link
               className="cartLink"
               to="/cart"
             >
-              Return to Cart
+              <mockConstructor
+                defaultMessage="Return to Cart"
+                id="checkoutPage.returnToCart"
+              />
             </Link>
           </React.Fragment>
         }
@@ -161,13 +171,18 @@ exports[`CheckoutPage renders checkout content for customer - no default address
         cartItems={Array []}
         message={
           <React.Fragment>
-            An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.
-             
+            <mockConstructor
+              defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
+              id="checkoutPage.stockStatusMessage"
+            />
             <Link
               className="cartLink"
               to="/cart"
             >
-              Return to Cart
+              <mockConstructor
+                defaultMessage="Return to Cart"
+                id="checkoutPage.returnToCart"
+              />
             </Link>
           </React.Fragment>
         }
@@ -250,13 +265,18 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
         cartItems={Array []}
         message={
           <React.Fragment>
-            An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.
-             
+            <mockConstructor
+              defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
+              id="checkoutPage.stockStatusMessage"
+            />
             <Link
               className="cartLink"
               to="/cart"
             >
-              Return to Cart
+              <mockConstructor
+                defaultMessage="Return to Cart"
+                id="checkoutPage.returnToCart"
+              />
             </Link>
           </React.Fragment>
         }

@@ -11,6 +11,7 @@
  */
 
 import React, { useEffect, useState, useCallback } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 
 import defaultClasses from './braintreeDropin.css';
@@ -174,8 +175,12 @@ const BraintreeDropin = props => {
     if (isError) {
         return (
             <span className={classes.error}>
-                There was an error loading payment options. Please try again
-                later.
+                <FormattedMessage
+                    id={'checkoutPage.errorLoadingPayment'}
+                    defaultMessage={
+                        'There was an error loading payment options. Please try again later.'
+                    }
+                />
             </span>
         );
     }

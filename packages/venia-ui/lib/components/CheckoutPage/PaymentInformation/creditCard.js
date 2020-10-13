@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
+import { useIntl } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
@@ -18,11 +19,23 @@ import defaultClasses from './creditCard.css';
 import FormError from '../../FormError';
 
 const STEP_DESCRIPTIONS = [
-    'Loading Payment',
-    'Checking Credit Card Information',
-    'Checking Credit Card Information',
-    'Checking Credit Card Information',
-    'Saved Credit Card Information Successfully'
+    { defaultMessage: 'Loading Payment', id: 'checkoutPage.step0' },
+    {
+        defaultMessage: 'Checking Credit Card Information',
+        id: 'checkoutPage.step1'
+    },
+    {
+        defaultMessage: 'Checking Credit Card Information',
+        id: 'checkoutPage.step2'
+    },
+    {
+        defaultMessage: 'Checking Credit Card Information',
+        id: 'checkoutPage.step3'
+    },
+    {
+        defaultMessage: 'Saved Credit Card Information Successfully',
+        id: 'checkoutPage.step4'
+    }
 ];
 
 const CreditCard = props => {
@@ -34,6 +47,7 @@ const CreditCard = props => {
         resetShouldSubmit,
         shouldSubmit
     } = props;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -124,10 +138,18 @@ const CreditCard = props => {
         [isBillingAddressSame]
     );
 
+    const stepTitle = STEP_DESCRIPTIONS[stepNumber].defaultMessage
+        ? formatMessage({
+              id: STEP_DESCRIPTIONS[stepNumber].id,
+              defaultMessage: STEP_DESCRIPTIONS[stepNumber].defaultMessage
+          })
+        : formatMessage({
+              id: 'checkoutPage.loadingPayment',
+              defaultMessage: 'Loading Payment'
+          });
+
     const loadingIndicator = isLoading ? (
-        <LoadingIndicator>
-            {STEP_DESCRIPTIONS[stepNumber] || 'Loading Payment'}
-        </LoadingIndicator>
+        <LoadingIndicator>{stepTitle}</LoadingIndicator>
     ) : null;
 
     return (
@@ -150,19 +172,35 @@ const CreditCard = props => {
                 <div className={classes.address_check}>
                     <Checkbox
                         field="isBillingAddressSame"
-                        label="Billing address same as shipping address"
+                        label={formatMessage({
+                            id: 'checkoutPage.billingAddressSame',
+                            defaultMessage:
+                                'Billing address same as shipping address'
+                        })}
                         initialValue={initialValues.isBillingAddressSame}
                     />
                 </div>
                 <div className={billingAddressFieldsClassName}>
-                    <Field classes={fieldClasses.first_name} label="First Name">
+                    <Field
+                        classes={fieldClasses.first_name}
+                        label={formatMessage({
+                            id: 'global.firstName',
+                            defaultMessage: 'First Name'
+                        })}
+                    >
                         <TextInput
                             field="firstName"
                             validate={isFieldRequired}
                             initialValue={initialValues.firstName}
                         />
                     </Field>
-                    <Field classes={fieldClasses.last_name} label="Last Name">
+                    <Field
+                        classes={fieldClasses.last_name}
+                        label={formatMessage({
+                            id: 'global.lastName',
+                            defaultMessage: 'Last Name'
+                        })}
+                    >
                         <TextInput
                             field="lastName"
                             validate={isFieldRequired}
@@ -182,7 +220,10 @@ const CreditCard = props => {
                     />
                     <Field
                         classes={fieldClasses.street1}
-                        label="Street Address"
+                        label={formatMessage({
+                            id: 'global.streetAddress',
+                            defaultMessage: 'Street Address'
+                        })}
                     >
                         <TextInput
                             field="street1"
@@ -192,7 +233,10 @@ const CreditCard = props => {
                     </Field>
                     <Field
                         classes={fieldClasses.street2}
-                        label="Street Address 2"
+                        label={formatMessage({
+                            id: 'global.streetAddress2',
+                            defaultMessage: 'Street Address 2'
+                        })}
                         optional={true}
                     >
                         <TextInput
@@ -200,7 +244,13 @@ const CreditCard = props => {
                             initialValue={initialValues.street2}
                         />
                     </Field>
-                    <Field classes={fieldClasses.city} label="City">
+                    <Field
+                        classes={fieldClasses.city}
+                        label={formatMessage({
+                            id: 'global.city',
+                            defaultMessage: 'City'
+                        })}
+                    >
                         <TextInput
                             field="city"
                             validate={isFieldRequired}
@@ -214,7 +264,10 @@ const CreditCard = props => {
                     />
                     <Field
                         classes={fieldClasses.postal_code}
-                        label="ZIP / Postal Code"
+                        label={formatMessage({
+                            id: 'global.postcode',
+                            defaultMessage: 'ZIP / Postal Code'
+                        })}
                     >
                         <TextInput
                             field="postalCode"
@@ -224,7 +277,10 @@ const CreditCard = props => {
                     </Field>
                     <Field
                         classes={fieldClasses.phone_number}
-                        label="Phone Number"
+                        label={formatMessage({
+                            id: 'global.phoneNumber',
+                            defaultMessage: 'Phone Number'
+                        })}
                     >
                         <TextInput
                             field="phoneNumber"
