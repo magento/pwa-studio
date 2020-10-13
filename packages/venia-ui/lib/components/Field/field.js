@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { bool, node, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -8,7 +9,12 @@ const Field = props => {
     const { children, id, label, optional } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const optionalSymbol = optional ? (
-        <span className={classes.optional}>Optional</span>
+        <span className={classes.optional}>
+            <FormattedMessage
+                id={'field.optional'}
+                defaultMessage={'Optional'}
+            />
+        </span>
     ) : null;
 
     return (
