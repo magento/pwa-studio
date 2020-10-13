@@ -37,6 +37,7 @@ Array [
           <select
             className="input"
             disabled={true}
+            id="country"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -106,6 +107,7 @@ Array [
         >
           <input
             className="input"
+            id="region"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -215,6 +217,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="country"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -298,6 +301,7 @@ Array [
         >
           <input
             className="input"
+            id="region"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -407,6 +411,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="country"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -490,6 +495,7 @@ Array [
         >
           <select
             className="input"
+            id="region"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -642,6 +648,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="country"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -725,6 +732,7 @@ Array [
         >
           <select
             className="input"
+            id="region"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -866,6 +874,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="country"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -949,6 +958,7 @@ Array [
         >
           <select
             className="input"
+            id="region"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}

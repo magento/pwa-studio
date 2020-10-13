@@ -25,6 +25,7 @@ exports[`renders a disabled dropdown while loading 1`] = `
       <select
         className="input"
         disabled={true}
+        id="country"
         name="country"
         onBlur={[Function]}
         onChange={[Function]}
@@ -90,6 +91,7 @@ exports[`renders dropdown with country data 1`] = `
       <select
         className="input"
         disabled={false}
+        id="country"
         name="country"
         onBlur={[Function]}
         onChange={[Function]}

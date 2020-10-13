@@ -42,14 +42,19 @@ const Region = props => {
         ...inputProps
     };
 
+    const fieldId = regions.length ? fieldSelect : fieldInput;
+
     const regionField =
         regions.length || loading ? (
-            <Select {...regionProps} field={fieldSelect} items={regions} />
+            <Select
+                {...regionProps}
+                field={fieldSelect}
+                id={fieldId}
+                items={regions}
+            />
         ) : (
-            <TextInput {...regionProps} field={fieldInput} />
+            <TextInput {...regionProps} field={fieldInput} id={fieldId} />
         );
-
-    const fieldId = regions.length ? fieldSelect : fieldInput;
 
     return (
         <Field
