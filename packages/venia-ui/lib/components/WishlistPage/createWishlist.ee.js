@@ -93,7 +93,7 @@ const CreateWishlist = props => {
                     id: 'createWishlist.save',
                     defaultMessage: 'Save'
                 })}
-                formProps={{ initialValues: { listtype: 'private' } }}
+                formProps={{ initialValues: { sharing_code: 'private' } }}
                 isModal={true}
                 isOpen={isModalOpen}
                 onCancel={handleHideModal}
