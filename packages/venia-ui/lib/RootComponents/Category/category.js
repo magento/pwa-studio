@@ -7,9 +7,6 @@ import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 import { Meta } from '../../components/Head';
-
-import GET_CATEGORY from '../../queries/getCategory.graphql';
-import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
 import { GET_PAGE_SIZE } from './category.gql';
 
 const Category = props => {
@@ -18,8 +15,6 @@ const Category = props => {
     const talonProps = useCategory({
         id,
         queries: {
-            getCategory: GET_CATEGORY,
-            getFiltersIntrospection: FILTER_INTROSPECTION,
             getPageSize: GET_PAGE_SIZE
         }
     });

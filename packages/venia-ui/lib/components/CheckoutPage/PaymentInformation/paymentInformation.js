@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { shape, func, string, bool, instanceOf } from 'prop-types';
 
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
@@ -48,7 +49,10 @@ const PaymentInformation = props => {
     if (isLoading) {
         return (
             <LoadingIndicator classes={{ root: classes.loading }}>
-                Fetching Payment Information
+                <FormattedMessage
+                    id={'checkoutPage.loadingPaymentInformation'}
+                    defaultMessage={'Fetching Payment Information'}
+                />
             </LoadingIndicator>
         );
     }

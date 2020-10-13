@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -19,7 +20,12 @@ import defaultClasses from './shippingMethod.css';
 import shippingMethodOperations from './shippingMethod.gql';
 
 const initializingContents = (
-    <LoadingIndicator>{'Loading shipping methods...'}</LoadingIndicator>
+    <LoadingIndicator>
+        <FormattedMessage
+            id={'shippingMethod.loading'}
+            defaultMessage={'Loading shipping methods...'}
+        />
+    </LoadingIndicator>
 );
 
 const ShippingMethod = props => {
@@ -100,7 +106,12 @@ const ShippingMethod = props => {
                             type="submit"
                             disabled={pageIsUpdating || isLoading}
                         >
-                            {'Continue to Payment Information'}
+                            <FormattedMessage
+                                id={'shippingMethod.continueToNextStep'}
+                                defaultMessage={
+                                    'Continue to Payment Information'
+                                }
+                            />
                         </Button>
                     </div>
                 </Form>
@@ -109,7 +120,12 @@ const ShippingMethod = props => {
 
         contents = (
             <div className={classes.root}>
-                <h3 className={classes.editingHeading}>{'Shipping Method'}</h3>
+                <h3 className={classes.editingHeading}>
+                    <FormattedMessage
+                        id={'shippingMethod.heading'}
+                        defaultMessage={'Shipping Method'}
+                    />
+                </h3>
                 <FormError errors={Array.from(errors.values())} />
                 {bodyContents}
             </div>
