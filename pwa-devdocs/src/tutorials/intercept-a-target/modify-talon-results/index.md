@@ -259,7 +259,7 @@ This will add a `devDependencies` entry to your storefront project's `package.js
   "prettier": "~1.16.4",
 ```
 
-Now, when you navigate to a product page, you the following message appears in the console:
+Now, when you navigate to a product page, the following message appears in the console:
 
 ```text
 "Calling new useProductFullDetails() function!".
