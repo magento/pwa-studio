@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
+import { useIsRequiredFieldValidator } from '@magento/peregrine/lib/hooks/useIsRequiredFieldValidator';
 import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
 
 import { mergeClasses } from '../../classify';
@@ -9,7 +10,6 @@ import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
 import { mergeCartsMutation } from '../../queries/mergeCarts.gql';
-import { isRequired } from '../../util/formValidators';
 import Button from '../Button';
 import Field from '../Field';
 import LoadingIndicator from '../LoadingIndicator';
@@ -44,6 +44,8 @@ const SignIn = props => {
         isBusy,
         setFormApi
     } = talonProps;
+
+    const isRequired = useIsRequiredFieldValidator();
 
     if (isBusy) {
         return (

@@ -297,6 +297,7 @@
     "stockStatusMessage.message": "An item in your cart is currently out-of-stock and must be removed in order to Checkout.",
     "taxSummary.estimatedTax": "Estimated Tax",
     "taxSummary.tax": "Tax",
+    "validation.isRequired": "Is required.",
     "wishlist.emptyListText": "There are currently no items in this list",
     "wishlist.privateText": "Private",
     "wishlist.publicText": "Public",

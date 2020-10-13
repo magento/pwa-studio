@@ -36,8 +36,8 @@ export const hasLengthExactly = (value, values, length) => {
  * isRequired is provided here for convenience but it is inherently ambiguous and therefore we don't recommend using it.
  * Consider using more specific validators such as `hasLengthAtLeast` or `mustBeChecked`.
  */
-export const isRequired = value => {
-    const FAILURE = 'Is required.';
+export const isRequired = (value, message) => {
+    const FAILURE = message;
 
     // The field must have a value (no null or undefined) and
     // if it's a boolean, it must be `true`.
