@@ -23,22 +23,6 @@ const StoreCodeRoute = () => {
     const pattern = `/:storeCode(${storeCodes.join('|')})?`;
     const match = useRouteMatch(pattern);
 
-    // On mount, ensure the path has the appropriate store code.
-    useEffect(() => {
-        const pathName = window.location.pathname;
-
-        const currentCode =
-            storage.getItem('store_view_code') || STORE_VIEW_CODE;
-        const [, pathStoreCode] = pathName.split('/');
-
-        if (!storeCodes.includes(pathStoreCode)) {
-            // The current path either does not have a store code or is invalid.
-            // So inject the current store code.
-            const newPath = `/${currentCode}${pathName}`;
-            window.location.pathname = newPath;
-        }
-    }, [storeCodes]);
-
     useEffect(() => {
         // The current store code won't be matched as it's included as the
         // basename, if we match another store we need to change the current
