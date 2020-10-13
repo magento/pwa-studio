@@ -6,19 +6,6 @@ import Footer from '../footer';
 
 jest.mock('../../../classify');
 
-jest.mock('@apollo/client', () => {
-    const queryResult = {
-        loading: false,
-        error: null,
-        data: null
-    };
-    const useQuery = jest.fn(() => {
-        queryResult;
-    });
-
-    return { useQuery };
-});
-
 jest.mock('@magento/peregrine/lib/talons/Footer/useFooter', () => {
     const talonProps = { copyrightText: 'foo' };
     const useFooter = jest.fn(() => talonProps);
@@ -42,5 +29,4 @@ test('footer renders copyright', () => {
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
-    expect(true).toBe(true);
 });

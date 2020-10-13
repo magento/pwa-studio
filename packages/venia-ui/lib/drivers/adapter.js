@@ -4,14 +4,15 @@ import { CachePersistor } from 'apollo-cache-persist';
 import { ApolloProvider, createHttpLink } from '@apollo/client';
 import { ApolloClient } from '@apollo/client/core';
 import { InMemoryCache } from '@apollo/client/cache';
+import { setContext } from '@apollo/client/link/context';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
-import { setContext } from '@apollo/client/link/context';
+import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 
 import StoreCodeRoute from '../components/StoreCodeRoute';
 import resolvers from '../resolvers';
-import typePolicies from '../policies';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
 
 /**
@@ -62,8 +63,7 @@ const VeniaAdapter = props => {
     } else {
         apolloClient = new ApolloClient({
             cache,
-            link,
-            resolvers
+            link
         });
         apolloClient.apiBase = apiBase;
     }

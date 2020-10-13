@@ -1,11 +1,10 @@
 import React from 'react';
 import { bool, func, object, string } from 'prop-types';
+import { gql } from '@apollo/client';
+import { useEditItem } from '@magento/peregrine/lib/talons/LegacyMiniCart/useEditItem';
 
 import LoadingIndicator from '../LoadingIndicator';
-import PRODUCT_DETAILS from '../../queries/getProductDetailBySku.graphql';
-
 import CartOptions from './cartOptions';
-import { useEditItem } from '@magento/peregrine/lib/talons/LegacyMiniCart/useEditItem';
 
 const loadingIndicator = (
     <LoadingIndicator>{`Fetching Item Options...`}</LoadingIndicator>
@@ -50,3 +49,56 @@ EditItem.propTypes = {
 };
 
 export default EditItem;
+
+export const PRODUCT_DETAILS = gql`
+    query productDetailBySku($sku: String) {
+        products(filter: { sku: { eq: $sku } }) {
+            items {
+                __typename
+                id
+                name
+                sku
+                url_key
+                ... on ConfigurableProduct {
+                    configurable_options {
+                        attribute_code
+                        attribute_id
+                        id
+                        label
+                        values {
+                            default_label
+                            label
+                            store_label
+                            use_default_value
+                            value_index
+                            swatch_data {
+                                ... on ImageSwatchData {
+                                    thumbnail
+                                }
+                                value
+                            }
+                        }
+                    }
+                    variants {
+                        attributes {
+                            code
+                            value_index
+                        }
+                        product {
+                            id
+                            media_gallery_entries {
+                                id
+                                disabled
+                                file
+                                label
+                                position
+                            }
+                            sku
+                            stock_status
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
