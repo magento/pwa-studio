@@ -3,7 +3,6 @@ import { func, number, shape, string } from 'prop-types';
 import { useCategoryTree } from '@magento/peregrine/lib/talons/CategoryTree';
 
 import { mergeClasses } from '../../classify';
-import MENU_QUERY from '../../queries/getNavigationMenu.graphql';
 import Branch from './categoryBranch';
 import Leaf from './categoryLeaf';
 import defaultClasses from './categoryTree.css';
@@ -13,7 +12,6 @@ const Tree = props => {
 
     const talonProps = useCategoryTree({
         categoryId,
-        query: MENU_QUERY,
         updateCategories
     });
 

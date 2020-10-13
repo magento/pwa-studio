@@ -22,6 +22,7 @@ jest.mock(
         };
     }
 );
+jest.mock('../../../../classify');
 jest.mock('../../../FormError', () => 'FormError');
 
 const defaultTalonProps = {
@@ -64,7 +65,7 @@ describe('CreateAccount', () => {
 
         const instance = createTestInstance(<CreateAccount />);
         const button = instance.root.findByProps({
-            children: 'Create Account'
+            className: 'create_account_button'
         });
 
         expect(button).toBeTruthy();

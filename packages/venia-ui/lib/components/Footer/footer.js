@@ -9,14 +9,11 @@ import Logo from '@magento/venia-ui/lib/components/Logo';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './footer.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
-import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 
 const Footer = props => {
     const { links } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const talonProps = useFooter({
-        query: GET_STORE_CONFIG_DATA
-    });
+    const talonProps = useFooter();
 
     const { copyrightText } = talonProps;
 

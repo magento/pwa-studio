@@ -7,6 +7,8 @@ import { useLazyQuery } from '@apollo/client';
 import { useCategoryList } from '../useCategoryList';
 
 jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
     const runQuery = jest.fn();
     const queryResult = {
         data: null,
@@ -15,12 +17,14 @@ jest.mock('@apollo/client', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { useLazyQuery };
+    return {
+        ...apolloClient,
+        useLazyQuery
+    };
 });
 
 const props = {
-    id: 1,
-    query: {}
+    id: 1
 };
 
 const log = jest.fn();
