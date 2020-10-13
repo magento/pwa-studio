@@ -20,7 +20,8 @@ const history = {
 useHistory.mockImplementation(() => history);
 
 jest.mock('@apollo/client', () => {
-    const useQuery = jest.fn().mockReturnValue({
+    const apolloClient = jest.requireActual('@apollo/client');
+    const useQueryMock = jest.fn().mockReturnValue({
         data: {
             currency: {
                 current_currency_code: 'GBP',
@@ -28,9 +29,14 @@ jest.mock('@apollo/client', () => {
                 available_currency_codes: ['USD', 'EUR', 'GBP']
             }
         },
+        error: null,
         loading: false
     });
-    return { useQuery };
+
+    return {
+        ...apolloClient,
+        useQuery: useQueryMock
+    };
 });
 
 jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
@@ -42,12 +48,7 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
     })
 }));
 
-const defaultProps = {
-    queries: {
-        getStoreConfigData: 'getStoreConfigData',
-        getAvailableStoresData: 'getAvailableStoresData'
-    }
-};
+const defaultProps = {};
 
 const Component = props => {
     const talonProps = useCurrencySwitcher(props);

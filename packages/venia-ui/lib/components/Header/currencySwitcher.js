@@ -6,15 +6,9 @@ import { useCurrencySwitcher } from '@magento/peregrine/lib/talons/Header/useCur
 import { mergeClasses } from '../../classify';
 import defaultClasses from './currencySwitcher.css';
 import SwitcherItem from './switcherItem';
-import currencyOperations, { CUSTOM_TYPES } from './currencySwitcher.gql';
 import CurrencySymbol from '@magento/venia-ui/lib/components/CurrencySymbol';
 
 const CurrencySwitcher = props => {
-    const talonProps = useCurrencySwitcher({
-        ...currencyOperations,
-        typePolicies: CUSTOM_TYPES
-    });
-
     const {
         handleSwitchCurrency,
         currentCurrencyCode,
@@ -23,7 +17,7 @@ const CurrencySwitcher = props => {
         currencyMenuTriggerRef,
         currencyMenuIsOpen,
         handleTriggerClick
-    } = talonProps;
+    } = useCurrencySwitcher();
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const menuClassName = currencyMenuIsOpen ? classes.menu_open : classes.menu;

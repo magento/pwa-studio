@@ -4,13 +4,14 @@ import { useHistory } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { useTypePolicies } from '@magento/peregrine';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import DEFAULT_OPERATIONS, { CUSTOM_TYPES } from './currencySwitcher.gql';
 
 const storage = new BrowserPersistence();
 
 /**
  * The useCurrencySwitcher talon complements the CurrencySwitcher component.
  *
- * @param {*} props.queries the currency switcher data getCurrencyData
+ * @param {*} props.operations the currency switcher data getCurrencyQuery
  * @param {*} props.typePolicies customization of the apollo cache's behavior for 'current_currency_code' field
  *
  * @returns {Array}     talonProps.availableCurrencies - List of available currency codes.
@@ -22,13 +23,16 @@ const storage = new BrowserPersistence();
  * @returns {Function}  talonProps.handleSwitchCurrency - A function for handling when the menu item is clicked.
  */
 
-export const useCurrencySwitcher = props => {
-    const { queries, typePolicies } = props;
-    const { getCurrencyData } = queries;
+export const useCurrencySwitcher = (props = {}) => {
+    const {
+        operations = DEFAULT_OPERATIONS,
+        typePolicies = CUSTOM_TYPES
+    } = props;
+    const { getCurrencyQuery } = operations;
 
     useTypePolicies(typePolicies);
 
-    const { data: currencyData } = useQuery(getCurrencyData, {
+    const { data: currencyData } = useQuery(getCurrencyQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
