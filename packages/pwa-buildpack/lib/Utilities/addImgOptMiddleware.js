@@ -16,6 +16,14 @@ try {
     markDepInvalid('hastily', e);
 }
 
+function IsWebpSupported(req) {
+    return (
+        typeof req.headers !== 'undefined' &&
+        typeof req.headers['accept'] !== 'undefined' &&
+        req.headers['accept'].includes('image/webp')
+    );
+}
+
 function addImgOptMiddleware(app, config) {
     const { cacheExpires, cacheDebug, origin } = config;
     if (origin === 'backend') {
@@ -29,9 +37,20 @@ function addImgOptMiddleware(app, config) {
     let cacheMiddleware;
     let imageopto;
     try {
-        cacheMiddleware = cache(cacheExpires, hastily.hasSupportedExtension, {
-            debug: cacheDebug
-        });
+        cacheMiddleware = cache(
+            cacheExpires,
+            (req, res) =>
+                hastily.hasSupportedExtension(req) && res.statusCode === 200,
+            {
+                debug: cacheDebug,
+                appendKey: req =>
+                    IsWebpSupported(req) ? 'supported' : 'regular',
+                statusCodes: {
+                    exclude: [404],
+                    include: [200]
+                }
+            }
+        );
     } catch (e) {
         markDepInvalid('apicache', e);
     }
