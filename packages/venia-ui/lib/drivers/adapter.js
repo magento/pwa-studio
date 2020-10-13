@@ -12,7 +12,6 @@ import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 
 import StoreCodeRoute from '../components/StoreCodeRoute';
-import resolvers from '../resolvers';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
 
 /**
