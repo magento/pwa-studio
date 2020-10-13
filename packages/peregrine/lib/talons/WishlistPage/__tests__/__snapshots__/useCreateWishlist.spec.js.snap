@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return properly 1`] = `
+Object {
+  "createList": [Function],
+  "hideModal": [Function],
+  "isModalOpen": false,
+  "showModal": [Function],
+}
+`;
