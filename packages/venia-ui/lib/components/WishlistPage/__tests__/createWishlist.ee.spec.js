@@ -11,10 +11,10 @@ jest.mock(
     '@magento/peregrine/lib/talons/WishlistPage/useCreateWishlist',
     () => ({
         useCreateWishlist: jest.fn().mockReturnValue({
-            createList: jest.fn(),
-            isModalOpen: false,
-            hideModal: jest.fn(),
-            showModal: jest.fn()
+            handleCreateList: jest.fn().mockName('handleCreateList'),
+            handleHideModal: jest.fn().mockName('handleHideModal'),
+            handleShowModal: jest.fn().mockName('handleShowModal'),
+            isModalOpen: false
         })
     })
 );

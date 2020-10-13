@@ -6,7 +6,7 @@ exports[`renders correctly 1`] = `
 >
   <button
     className="createButton"
-    onClick={[MockFunction]}
+    onClick={[MockFunction handleShowModal]}
     type="button"
   >
     <div
@@ -76,8 +76,8 @@ exports[`renders correctly 1`] = `
     }
     isModal={true}
     isOpen={false}
-    onCancel={[MockFunction]}
-    onConfirm={[MockFunction]}
+    onCancel={[MockFunction handleHideModal]}
+    onConfirm={[MockFunction handleCreateList]}
     title="New Favorites List"
   >
     <div
@@ -105,7 +105,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
-              name="listname"
+              name="name"
               onBlur={[Function]}
               onChange={[Function]}
               value=""

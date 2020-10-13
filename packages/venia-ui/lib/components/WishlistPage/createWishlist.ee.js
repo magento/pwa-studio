@@ -19,7 +19,12 @@ const CreateWishlist = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useCreateWishlist();
-    const { createList, isModalOpen, hideModal, showModal } = talonProps;
+    const {
+        handleCreateList,
+        handleHideModal,
+        handleShowModal,
+        isModalOpen
+    } = talonProps;
 
     const { formatMessage } = useIntl();
 
@@ -38,18 +43,35 @@ const CreateWishlist = props => {
         root: classes.radioRoot
     };
 
+    const radioGroupItems = [
+        {
+            label: formatMessage({
+                id: 'createWishlist.public',
+                defaultMessage: 'Public'
+            }),
+            value: 'public'
+        },
+        {
+            label: formatMessage({
+                id: 'createWishlist.private',
+                defaultMessage: 'Private'
+            }),
+            value: 'private'
+        }
+    ];
+
     return (
         <div className={classes.root}>
             <button
                 className={classes.createButton}
-                onClick={showModal}
+                onClick={handleShowModal}
                 type="button"
             >
                 <div className={classes.labelContainer}>
                     {createIcon}
                     <span>
                         <FormattedMessage
-                            id={'createWishlist.createListText'}
+                            id={'createWishlist.handleCreateListText'}
                             defaultMessage={'Create a list'}
                         />
                     </span>
@@ -74,8 +96,8 @@ const CreateWishlist = props => {
                 formProps={{ initialValues: { listtype: 'private' } }}
                 isModal={true}
                 isOpen={isModalOpen}
-                onCancel={hideModal}
-                onConfirm={createList}
+                onCancel={handleHideModal}
+                onConfirm={handleCreateList}
                 title={formatMessage({
                     id: 'createWishlist.dialogTitle',
                     defaultMessage: 'New Favorites List'
@@ -90,30 +112,15 @@ const CreateWishlist = props => {
                         })}
                     >
                         <TextInput
-                            field="listname"
+                            field="name"
                             validate={isRequired}
                             validateOnBlur
                         />
                     </Field>
                     <RadioGroup
                         classes={radioGroupClasses}
-                        field="listtype"
-                        items={[
-                            {
-                                label: formatMessage({
-                                    id: 'createWishlist.public',
-                                    defaultMessage: 'Public'
-                                }),
-                                value: 'public'
-                            },
-                            {
-                                label: formatMessage({
-                                    id: 'createWishlist.private',
-                                    defaultMessage: 'Private'
-                                }),
-                                value: 'private'
-                            }
-                        ]}
+                        field="sharing_code"
+                        items={radioGroupItems}
                     />
                 </div>
             </Dialog>

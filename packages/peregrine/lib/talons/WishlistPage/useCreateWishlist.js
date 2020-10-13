@@ -8,15 +8,15 @@ import { useState, useCallback } from 'react';
 export const useCreateWishlist = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const showModal = useCallback(() => {
+    const handleShowModal = useCallback(() => {
         setIsModalOpen(true);
     }, []);
 
-    const hideModal = useCallback(() => {
+    const handleHideModal = useCallback(() => {
         setIsModalOpen(false);
     }, []);
 
-    const createList = useCallback(data => {
+    const handleCreateList = useCallback(data => {
         // TODO create list mutation is not available yet
         // Will be handled in PWA-989
         console.log('Creating wish list with data: ', data);
@@ -24,10 +24,10 @@ export const useCreateWishlist = () => {
     }, []);
 
     return {
-        createList,
-        isModalOpen,
-        hideModal,
-        showModal
+        handleCreateList,
+        handleHideModal,
+        handleShowModal,
+        isModalOpen
     };
 };
 
@@ -40,8 +40,8 @@ export const useCreateWishlist = () => {
  *
  * @typedef {Object} CreateWishListProps
  *
- * @property {Function} createList Callback to be called while creating new list
+ * @property {Function} handleCreateList Callback to be called while creating new list
+ * @property {Function} handleHideModal Callback to hide the create modal by modifying the value of isModalOpen
+ * @property {Function} handleShowModal Callback to show the create modal by modifying the value of isModalOpen
  * @property {Boolean} isModalOpen Boolean which represents if the create modal is open or not
- * @property {Function} hideModal Callback to hide the create modal by modifying the value of isModalOpen
- * @property {Function} showModal Callback to show the create modal by modifying the value of isModalOpen
  */

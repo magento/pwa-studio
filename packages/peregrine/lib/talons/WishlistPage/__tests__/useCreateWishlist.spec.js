@@ -29,28 +29,28 @@ test('should return properly', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-test('showModal should set isModalOpen to true', () => {
+test('handleShowModal should set isModalOpen to true', () => {
     const { talonProps, update } = getTalonProps();
 
-    talonProps.showModal();
+    talonProps.handleShowModal();
     const { isModalOpen } = update();
 
     expect(isModalOpen).toBeTruthy();
 });
 
-test('hideModal should set isModalOpen to false', () => {
+test('handleHideModal should set isModalOpen to false', () => {
     const { talonProps, update } = getTalonProps();
 
-    talonProps.hideModal();
+    talonProps.handleHideModal();
     const { isModalOpen } = update();
 
     expect(isModalOpen).toBeFalsy();
 });
 
-test('createList should set isModalOpen to false', () => {
+test('handleCreateList should set isModalOpen to false', () => {
     const { talonProps, update } = getTalonProps();
 
-    talonProps.createList();
+    talonProps.handleCreateList();
     const { isModalOpen } = update();
 
     expect(isModalOpen).toBeFalsy();

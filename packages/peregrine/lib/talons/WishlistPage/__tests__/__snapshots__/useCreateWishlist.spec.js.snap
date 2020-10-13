@@ -2,9 +2,9 @@
 
 exports[`should return properly 1`] = `
 Object {
-  "createList": [Function],
-  "hideModal": [Function],
+  "handleCreateList": [Function],
+  "handleHideModal": [Function],
+  "handleShowModal": [Function],
   "isModalOpen": false,
-  "showModal": [Function],
 }
 `;
