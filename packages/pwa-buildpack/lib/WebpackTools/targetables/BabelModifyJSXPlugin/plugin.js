@@ -16,7 +16,7 @@ function BabelModifyJsxPlugin(babel) {
                     const { opts, filename } = this;
                     const requests = opts.requestsByFile[filename];
                     /**
-                     * JSXModifier is gonna do most o the work.
+                     * JSXModifier is gonna do most of the work.
                      */
                     state.modifyingJSX = new JSXModifier(requests, babel, this);
                 },
