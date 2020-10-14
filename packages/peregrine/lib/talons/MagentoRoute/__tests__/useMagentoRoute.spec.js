@@ -4,6 +4,7 @@ import { createTestInstance } from '@magento/peregrine';
 import getRouteComponent from '../getRouteComponent';
 import { useMagentoRoute } from '../useMagentoRoute';
 import { act } from 'react-test-renderer';
+import { useQuery } from '@apollo/client';
 
 /*
  *  Mocks.
@@ -29,7 +30,10 @@ jest.mock('react-router-dom', () => {
     };
 });
 jest.mock('@apollo/client', () => ({
-    useApolloClient: jest.fn(() => ({ apiBase: 'Unit Test API Base' }))
+    useApolloClient: jest.fn(() => ({ apiBase: 'Unit Test API Base' })),
+    useQuery: jest
+        .fn()
+        .mockReturnValue({ data: { storeConfig: { code: 'default' } } })
 }));
 jest.mock('../getRouteComponent', () => jest.fn());
 
@@ -67,9 +71,7 @@ const routeComponentResults = {
     }
 };
 
-const props = {
-    store: 'default'
-};
+const props = {};
 
 /*
  *  Tests.
@@ -113,6 +115,7 @@ it('does not fetch when a match exists in local state', () => {
 
 it('refetches when the stores do not match', () => {
     // Arrange.
+    useQuery.mockReturnValueOnce({ data: { storeConfig: { code: 'other' } } });
     const componentMap = new Map().set(
         'Unit Test Pathname',
         routeComponentResults.COMPONENT_FOUND
@@ -121,8 +124,6 @@ it('refetches when the stores do not match', () => {
     getRouteComponent.mockImplementationOnce(() => {
         return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
     });
-
-    props.store = 'other';
 
     // Act.
     act(() => {

@@ -1,6 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { useLazyQuery } from '@apollo/client';
 
+import DEFAULT_OPERATIONS from './categoryTree.gql';
+
 /**
  * @typedef {object} CategoryNode
  * @prop {object} category - category data
@@ -15,16 +17,23 @@ import { useLazyQuery } from '@apollo/client';
  * Returns props necessary to render a CategoryTree component.
  *
  * @param {object} props
- * @param {object} props.categories - all fetched categories
  * @param {number} props.categoryId - category id for this node
  * @param {DocumentNode} props.query - GraphQL query
  * @param {function} props.updateCategories - bound action creator
  * @return {{ childCategories: Map<number, CategoryNode> }}
  */
 export const useCategoryTree = props => {
-    const { categories, categoryId, query, updateCategories } = props;
+    const {
+        categoryId,
+        operations = DEFAULT_OPERATIONS,
+        updateCategories
+    } = props;
+    const { getNavigationMenuQuery } = operations;
 
-    const [runQuery, queryResult] = useLazyQuery(query);
+    const [runQuery, queryResult] = useLazyQuery(getNavigationMenuQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
     const { data } = queryResult;
 
     // fetch categories
@@ -41,8 +50,8 @@ export const useCategoryTree = props => {
         }
     }, [data, updateCategories]);
 
-    const rootCategory = categories[categoryId];
-    const { children } = rootCategory || {};
+    const rootCategory = data && data.category;
+    const { children = [] } = rootCategory || {};
 
     const childCategories = useMemo(() => {
         const childCategories = new Map();
@@ -59,15 +68,14 @@ export const useCategoryTree = props => {
             });
         }
 
-        for (const id of children || '') {
-            const category = categories[id];
+        children.map(category => {
             const isLeaf = !parseInt(category.children_count);
 
-            childCategories.set(id, { category, isLeaf });
-        }
+            childCategories.set(category.id, { category, isLeaf });
+        });
 
         return childCategories;
-    }, [categories, children, rootCategory]);
+    }, [children, rootCategory]);
 
     return { childCategories, data };
 };

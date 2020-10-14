@@ -22,7 +22,10 @@ export const useAutocomplete = props => {
     } = props;
 
     // Prepare to run the queries.
-    const [runSearch, productResult] = useLazyQuery(getAutocompleteResults);
+    const [runSearch, productResult] = useLazyQuery(getAutocompleteResults, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
 
     // Get the search term from the field.
     const { value } = useFieldState('search_query');
