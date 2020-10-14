@@ -181,7 +181,11 @@ const CustomerForm = props => {
                             defaultMessage: 'Street Address'
                         })}
                     >
-                        <TextInput field="street[0]" validate={isRequired} id="street0" />
+                        <TextInput
+                            field="street[0]"
+                            validate={isRequired}
+                            id="street0"
+                        />
                     </Field>
                 </div>
                 <div className={classes.street1}>
@@ -204,7 +208,11 @@ const CustomerForm = props => {
                             defaultMessage: 'City'
                         })}
                     >
-                        <TextInput field="city" validate={isRequired} id="city" />
+                        <TextInput
+                            field="city"
+                            validate={isRequired}
+                            id="city"
+                        />
                     </Field>
                 </div>
                 <div className={classes.region}>
@@ -223,7 +231,11 @@ const CustomerForm = props => {
                             defaultMessage: 'ZIP / Postal Code'
                         })}
                     >
-                        <TextInput field="postcode" validate={isRequired} id="postcode" />
+                        <TextInput
+                            field="postcode"
+                            validate={isRequired}
+                            id="postcode"
+                        />
                     </Field>
                 </div>
                 <div className={classes.telephone}>
@@ -234,7 +246,11 @@ const CustomerForm = props => {
                             defaultMessage: 'Phone Number'
                         })}
                     >
-                        <TextInput field="telephone" validate={isRequired} id="telephone" />
+                        <TextInput
+                            field="telephone"
+                            validate={isRequired}
+                            id="telephone"
+                        />
                     </Field>
                 </div>
                 {defaultShippingElement}
