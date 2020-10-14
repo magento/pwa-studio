@@ -1,5 +1,6 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { useCategoryLeaf } from '@magento/peregrine/lib/talons/CategoryTree';
 
 import { mergeClasses } from '../../classify';
@@ -13,6 +14,19 @@ const Leaf = props => {
     const { handleClick } = useCategoryLeaf({ onNavigate });
     const destination = resourceUrl(`/${url_path}${url_suffix}`);
 
+    const leafLabel =
+        children && children.length ? (
+            <FormattedMessage
+                id={'categoryLeaf.allLabel'}
+                defaultMessage={'All {name}'}
+                values={{
+                    name: name
+                }}
+            />
+        ) : (
+            name
+        );
+
     return (
         <li className={classes.root}>
             <Link
@@ -20,9 +34,7 @@ const Leaf = props => {
                 to={destination}
                 onClick={handleClick}
             >
-                <span className={classes.text}>
-                    {children && children.length ? 'All ' + name : name}
-                </span>
+                <span className={classes.text}>{leafLabel}</span>
             </Link>
         </li>
     );

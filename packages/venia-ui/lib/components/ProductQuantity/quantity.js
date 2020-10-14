@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { arrayOf, number, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -8,6 +9,7 @@ import defaultClasses from './quantity.css';
 
 const Quantity = props => {
     const { classes: propClasses, selectLabel, ...restProps } = props;
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, propClasses);
 
     return (
@@ -15,7 +17,10 @@ const Quantity = props => {
             <Select
                 {...restProps}
                 field="quantity"
-                aria-label={selectLabel}
+                aria-label={formatMessage({
+                    id: 'productQuantity.label',
+                    defaultMessage: selectLabel
+                })}
                 items={mockData}
             />
         </div>
