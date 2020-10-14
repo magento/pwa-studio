@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { number, string, shape } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useNoProductsFound } from '@magento/peregrine/lib/talons/RootComponents/Category';
@@ -35,10 +36,18 @@ const NoProductsFound = props => {
                 src={noProductsFound}
             />
             <h2 className={classes.title}>
-                Sorry! We couldn't find any products.
+                <FormattedMessage
+                    id={'noProductsFound.noProductsFound'}
+                    defaultMessage={"Sorry! We couldn't find any products."}
+                />
             </h2>
             <div className={classes.categories}>
-                <p>Try one of these categories</p>
+                <p>
+                    <FormattedMessage
+                        id={'noProductsFound.tryOneOfTheseCategories'}
+                        defaultMessage={'Try one of these categories'}
+                    />
+                </p>
                 <ul className={classes.list}>{categoryItems}</ul>
             </div>
         </div>

@@ -5,8 +5,9 @@ import { useQuery } from '@apollo/client';
 
 import { useBreadcrumbs } from '../useBreadcrumbs';
 
-jest.mock('@apollo/client', () => ({
-    useQuery: jest.fn().mockReturnValue({
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+    const useQueryMock = jest.fn().mockReturnValue({
         data: {
             category: {
                 id: null,
@@ -31,12 +32,16 @@ jest.mock('@apollo/client', () => ({
         },
         error: null,
         loading: false
-    })
-}));
+    });
+
+    return {
+        ...apolloClient,
+        useQuery: useQueryMock
+    };
+});
 
 const props = {
-    categoryId: 1,
-    query: {}
+    categoryId: 1
 };
 
 const log = jest.fn();
