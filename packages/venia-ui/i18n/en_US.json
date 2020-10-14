@@ -187,7 +187,7 @@
     "navHeader.myAccountText": "My Account",
     "navHeader.signInText": "Sign In",
     "navigationTrigger.ariaLabel": "Toggle navigation panel",
-    "noProductsFound.noProductsFound.": "Sorry! We couldn't find any products.",
+    "noProductsFound.noProductsFound": "Sorry! We couldn't find any products.",
     "noProductsFound.tryOneOfTheseCategories": "Try one of these categories",
     "Order Status": "Order Status",
     "orderDetails.billingInformationLabel": "Billing Information",
