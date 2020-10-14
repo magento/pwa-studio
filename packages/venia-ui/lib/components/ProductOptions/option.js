@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import {
     arrayOf,
     func,
@@ -47,7 +48,6 @@ const Option = props => {
     const {
         handleSelectionChange,
         initialSelection,
-        selectedValueLabel,
         selectedValueDescription
     } = talonProps;
 
@@ -70,7 +70,13 @@ const Option = props => {
                 onSelectionChange={handleSelectionChange}
             />
             <dl className={classes.selection}>
-                <dt className={classes.selectionLabel}>{selectedValueLabel}</dt>
+                <dt className={classes.selectionLabel}>
+                    <FormattedMessage
+                        id="productOptions.selectedLabel"
+                        defaultMessage={`Selected ${label}:`}
+                        values={{ label }}
+                    />
+                </dt>
                 <dd>{selectedValueDescription}</dd>
             </dl>
         </div>
