@@ -1,10 +1,14 @@
 import { createTestInstance } from '@magento/peregrine';
 import React from 'react';
-import Products from '../products';
+import Products, { GET_PRODUCTS_BY_SKU } from '../products';
 
-jest.mock('@apollo/client', () => ({
-    useQuery: jest.fn()
-}));
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+    return {
+        ...apolloClient,
+        useQuery: jest.fn()
+    };
+});
 jest.mock('react-slick', () => {
     return jest.fn();
 });
@@ -17,7 +21,6 @@ jest.mock('@magento/venia-ui/lib/components/Gallery', () => jest.fn());
 jest.mock('@magento/venia-ui/lib/components/Gallery/item', () => jest.fn());
 import Gallery from '@magento/venia-ui/lib/components/Gallery';
 import GalleryItem from '@magento/venia-ui/lib/components/Gallery/item';
-import GET_PRODUCTS_BY_SKU from '@magento/venia-ui/lib/queries/getProductsBySku.graphql';
 const mockGallery = Gallery.mockImplementation(() => 'Gallery');
 const mockGalleryItem = GalleryItem.mockImplementation(() => 'GalleryItem');
 

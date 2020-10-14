@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { Redirect } from '@magento/venia-drivers';
 import { useToasts } from '@magento/peregrine';
-import { useCommunicationsPage } from '@magento/peregrine/lib/talons/MyAccount/useCommunicationsPage';
+import { useCommunicationsPage } from '@magento/peregrine/lib/talons/CommunicationsPage/useCommunicationsPage';
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
@@ -13,7 +13,6 @@ import FormError from '../FormError';
 import { Title } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './communicationsPage.css';
-import CommunicationsPageOperations from './communicationsPage.gql.js';
 
 const CommunicationsPage = props => {
     const { formatMessage } = useIntl();
@@ -31,10 +30,8 @@ const CommunicationsPage = props => {
             timeout: 5000
         });
     }, [addToast, formatMessage]);
-    const talonProps = useCommunicationsPage({
-        afterSubmit,
-        ...CommunicationsPageOperations
-    });
+
+    const talonProps = useCommunicationsPage({ afterSubmit });
 
     const {
         formErrors,

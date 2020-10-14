@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { useItemsReview } from '@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/useItemsReview';
 
@@ -45,7 +46,12 @@ const ItemsReview = props => {
 
     if (isLoading) {
         return (
-            <LoadingIndicator>{`Fetching Items in your Order`}</LoadingIndicator>
+            <LoadingIndicator>
+                <FormattedMessage
+                    id={'checkoutPage.fetchingItemsInYourOrder'}
+                    defaultMessage={'Fetching Items in your Order'}
+                />
+            </LoadingIndicator>
         );
     }
 
@@ -56,7 +62,10 @@ const ItemsReview = props => {
                     <span className={classes.total_quantity_amount}>
                         {totalQuantity}
                     </span>
-                    {` items in your order`}
+                    <FormattedMessage
+                        id={'checkoutPage.itemsInYourOrder'}
+                        defaultMessage={' items in your order'}
+                    />
                 </div>
                 {items}
             </div>

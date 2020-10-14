@@ -1,24 +1,28 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
 import { useApolloClient, useMutation } from '@apollo/client';
 
-import { retrieveCartId } from '../../store/actions/cart';
-import { useUserContext } from '../../context/user';
-import { useCartContext } from '../../context/cart';
-import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import { useCartContext } from '../../context/cart';
+import { useUserContext } from '../../context/user';
+import { useAwaitQuery } from '../../hooks/useAwaitQuery';
+import { retrieveCartId } from '../../store/actions/cart';
+import DEFAULT_OPERATIONS from './signIn.gql';
 
 export const useSignIn = props => {
     const {
-        createCartMutation,
-        customerQuery,
         getCartDetailsQuery,
-        mergeCartsMutation,
+        operations = DEFAULT_OPERATIONS,
         setDefaultUsername,
         showCreateAccount,
-        showForgotPassword,
-        signInMutation
+        showForgotPassword
     } = props;
+    const {
+        createCartMutation,
+        getCustomerQuery,
+        mergeCartsMutation,
+        signInMutation
+    } = operations;
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
@@ -39,7 +43,7 @@ export const useSignIn = props => {
 
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
-    const fetchUserDetails = useAwaitQuery(customerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const formApiRef = useRef(null);
