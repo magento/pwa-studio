@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { func, number, shape, string } from 'prop-types';
+import { useIntl } from 'react-intl';
 import { usePagination } from '@magento/peregrine/lib/talons/Pagination/usePagination';
 
 import { mergeClasses } from '../../classify';
@@ -10,6 +11,7 @@ import { navButtons } from './constants';
 
 const Pagination = props => {
     const { currentPage, setPage, totalPages } = props.pageControl;
+    const { formatMessage } = useIntl();
 
     const talonProps = usePagination({
         currentPage,
@@ -54,26 +56,38 @@ const Pagination = props => {
                 name={navButtons.firstPage.name}
                 active={isActiveLeft}
                 onClick={handleLeftSkip}
-                buttonLabel={navButtons.firstPage.buttonLabel}
+                buttonLabel={formatMessage({
+                    id: 'pagination.firstPage',
+                    defaultMessage: navButtons.firstPage.buttonLabel
+                })}
             />
             <NavButton
                 name={navButtons.prevPage.name}
                 active={isActiveLeft}
                 onClick={handleNavBack}
-                buttonLabel={navButtons.prevPage.buttonLabel}
+                buttonLabel={formatMessage({
+                    id: 'pagination.prevPage',
+                    defaultMessage: navButtons.prevPage.buttonLabel
+                })}
             />
             {navigationTiles}
             <NavButton
                 name={navButtons.nextPage.name}
                 active={isActiveRight}
                 onClick={handleNavForward}
-                buttonLabel={navButtons.nextPage.buttonLabel}
+                buttonLabel={formatMessage({
+                    id: 'pagination.nextPage',
+                    defaultMessage: navButtons.nextPage.buttonLabel
+                })}
             />
             <NavButton
                 name={navButtons.lastPage.name}
                 active={isActiveRight}
                 onClick={handleRightSkip}
-                buttonLabel={navButtons.lastPage.buttonLabel}
+                buttonLabel={formatMessage({
+                    id: 'pagination.lastPage',
+                    defaultMessage: navButtons.lastPage.buttonLabel
+                })}
             />
         </div>
     );
