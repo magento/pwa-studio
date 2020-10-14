@@ -2,15 +2,16 @@ import { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useApolloClient, useMutation } from '@apollo/client';
 
-import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { clearCartDataFromCache } from '@magento/peregrine/lib/Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearCustomerDataFromCache';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import { useUserContext } from '../../context/user';
+import DEFAULT_OPERATIONS from './accountMenu.gql';
 
 /**
  * The useAccountMenu talon complements the AccountMenu component.
  *
  * @param {Object} props
- * @param {DocumentNode} props.mutations.signOutMutation - Mutation to be called for signout.
+ * @param {DocumentNode} props.operations.signOutMutation - Mutation to be called for signout.
  * @param {Boolean} props.accountMenuIsOpen - Boolean to notify if the account menu dropdown is open.
  * @param {Function} props.setAccountMenuIsOpen - Function to set the value of accountMenuIsOpen
  *
@@ -25,8 +26,12 @@ import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearC
  */
 
 export const useAccountMenu = props => {
-    const { mutations, accountMenuIsOpen, setAccountMenuIsOpen } = props;
-    const { signOut: signOutMutation } = mutations;
+    const {
+        accountMenuIsOpen,
+        operations = DEFAULT_OPERATIONS,
+        setAccountMenuIsOpen
+    } = props;
+    const { signOutMutation } = operations;
 
     const [view, setView] = useState('SIGNIN');
     const [username, setUsername] = useState('');
