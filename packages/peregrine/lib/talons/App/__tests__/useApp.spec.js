@@ -1,5 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
+import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import { act } from 'react-test-renderer';
 
 import { useApp } from '../useApp';
@@ -12,8 +13,8 @@ const handleError = jest.fn((error, id, loc, dismisser) => {
 const handleIsOffline = jest.fn();
 const handleIsOnline = jest.fn();
 const handleHTMLUpdate = jest.fn();
-const markErrorHandled = jest.fn(error => {});
-const renderError = {};
+const markErrorHandled = jest.fn();
+const renderError = undefined;
 const unhandledErrors = [];
 
 const reload = jest.fn();
@@ -100,6 +101,40 @@ test('handle render error', () => {
     expect(reload).toHaveBeenCalledTimes(1);
 });
 
+test('handles unhandled errors', () => {
+    const error1 = new Error('Error 1');
+    const error2 = new Error('Error 2');
+    const error3 = new Error('Error 3');
+
+    const props = {
+        ...mockProps,
+        unhandledErrors: [
+            errorRecord(error1, window, useApp, error1.stack),
+            errorRecord(error2, window, useApp, error2.stack),
+            errorRecord(error3, window, useApp, error3.stack)
+        ]
+    };
+
+    const component = createTestInstance(<Component {...props} />);
+
+    expect(markErrorHandled).toHaveBeenCalledTimes(3);
+    expect(handleError).toHaveBeenCalledTimes(3);
+
+    // Re-handle same error
+    act(() => {
+        const newProps = {
+            ...mockProps,
+            unhandledErrors: [errorRecord(error1, window, useApp, error1.stack)]
+        };
+        markErrorHandled.mockClear();
+        handleError.mockClear();
+        component.update(<Component {...newProps} />);
+    });
+
+    expect(markErrorHandled).toHaveBeenCalledTimes(1);
+    expect(handleError).toHaveBeenCalledTimes(1);
+});
+
 test('handle render error in development environment', () => {
     const error = new Error('Render error');
 
@@ -150,7 +185,6 @@ test('handle being offline to online event', () => {
 });
 
 test('handle being offline', () => {
-
     const [, appApi] = useAppContext();
 
     const { setOnline, setHasBeenOffline } = appApi;
@@ -163,4 +197,4 @@ test('handle being offline', () => {
 
     expect(handleIsOnline).toHaveBeenCalledTimes(0);
     expect(handleIsOffline).toHaveBeenCalledTimes(1);
-})
+});
