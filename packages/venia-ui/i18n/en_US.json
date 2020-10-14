@@ -24,6 +24,7 @@
     "authBar.signInText": "Sign In",
     "autocomplete.emptyResult": "No results were found.",
     "autocomplete.error": "An error occurred while fetching results.",
+    "autocomplete.invalidCharacterLength": "Search term must be at least three characters",
     "autocomplete.loading": "Fetching results...",
     "autocomplete.prompt": "Search for a product",
     "autocomplete.resultSummary": "{resultCount} items",
