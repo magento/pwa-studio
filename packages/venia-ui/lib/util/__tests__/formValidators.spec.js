@@ -7,7 +7,7 @@ describe('hasLengthAtLeast', () => {
         expect(result).toBeUndefined();
     });
 
-    test('it returns a string on failure', () => {
+    test('it returns an object on failure', () => {
         const result = validators.hasLengthAtLeast('test', [], 10);
 
         expect(typeof result).toBe('object');
@@ -21,7 +21,7 @@ describe('hasLengthAtMost', () => {
         expect(result).toBeUndefined();
     });
 
-    test('it returns a string on failure', () => {
+    test('it returns an object on failure', () => {
         const result = validators.hasLengthAtMost('test', [], 1);
 
         expect(typeof result).toBe('object');
@@ -35,7 +35,7 @@ describe('hasLengthExactly', () => {
         expect(result).toBeUndefined();
     });
 
-    test('it returns a string on failure', () => {
+    test('it returns an object on failure', () => {
         const result = validators.hasLengthExactly('test', [], 1);
 
         expect(typeof result).toBe('object');
@@ -61,25 +61,25 @@ describe('isRequired', () => {
         expect(result).toBeUndefined();
     });
 
-    test('it returns a string for an invalid string', () => {
+    test('it returns an object for an invalid string', () => {
         const result = validators.isRequired('');
 
         expect(typeof result).toBe('object');
     });
 
-    test('it returns a string for an invalid string (whitespace only)', () => {
+    test('it returns an object for an invalid string (whitespace only)', () => {
         const result = validators.isRequired(' ');
 
         expect(typeof result).toBe('object');
     });
 
-    test('it returns a string for an invalid boolean', () => {
+    test('it returns an object for an invalid boolean', () => {
         const result = validators.isRequired(false);
 
         expect(typeof result).toBe('object');
     });
 
-    test('it returns a string for undefined input', () => {
+    test('it returns an object for undefined input', () => {
         const result = validators.isRequired();
 
         expect(typeof result).toBe('object');
@@ -93,13 +93,13 @@ describe('mustBeChecked', () => {
         expect(result).toBeUndefined();
     });
 
-    test('it returns a string on failure', () => {
+    test('it returns an object on failure', () => {
         const result = validators.mustBeChecked(false);
 
         expect(typeof result).toBe('object');
     });
 
-    test('it returns a string on undefined input', () => {
+    test('it returns an object on undefined input', () => {
         const result = validators.mustBeChecked();
 
         expect(typeof result).toBe('object');
@@ -128,7 +128,7 @@ describe('validateRegionCode', () => {
         expect(result).toBeUndefined();
     });
 
-    test('it returns a string on failure due to bad state value', () => {
+    test('it returns an object on failure due to bad state value', () => {
         const result = validators.validateRegionCode(
             'some_string',
             [],
@@ -138,13 +138,13 @@ describe('validateRegionCode', () => {
         expect(typeof result).toBe('object');
     });
 
-    test('it returns a string on failure due to missing country', () => {
+    test('it returns an object on failure due to missing country', () => {
         const result = validators.validateRegionCode('AL', [], []);
 
         expect(typeof result).toBe('object');
     });
 
-    test('it returns a string on failure due to no regions', () => {
+    test('it returns an object on failure due to no regions', () => {
         const missingRegions = [...countries];
         missingRegions[0].available_regions = [];
 
@@ -165,7 +165,7 @@ describe('validatePassword', () => {
         expect(result).toBeUndefined();
     });
 
-    test('it returns a string on  failure', () => {
+    test('it returns an object on  failure', () => {
         const result = validators.validatePassword('1111');
 
         expect(typeof result).toBe('object');
@@ -194,7 +194,7 @@ describe('isEqualToField', () => {
         expect(result).toBeUndefined();
     });
 
-    test('it returns a string on failure', () => {
+    test('it returns an object on failure', () => {
         const values = {
             password: 'qwertz12345'
         };
@@ -231,7 +231,7 @@ describe('isNotEqualToField', () => {
         expect(result).toBeUndefined();
     });
 
-    test('it returns a string on failure', () => {
+    test('it returns an object on failure', () => {
         const values = {
             password: 'qwerty12345'
         };
