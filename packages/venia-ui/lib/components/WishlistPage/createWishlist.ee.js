@@ -46,17 +46,17 @@ const CreateWishlist = props => {
     const radioGroupItems = [
         {
             label: formatMessage({
-                id: 'createWishlist.public',
-                defaultMessage: 'Public'
-            }),
-            value: 'public'
-        },
-        {
-            label: formatMessage({
                 id: 'createWishlist.private',
                 defaultMessage: 'Private'
             }),
             value: 'private'
+        },
+        {
+            label: formatMessage({
+                id: 'createWishlist.public',
+                defaultMessage: 'Public'
+            }),
+            value: 'public'
         }
     ];
 
