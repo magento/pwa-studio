@@ -10,7 +10,7 @@ describe('hasLengthAtLeast', () => {
     test('it returns a string on failure', () => {
         const result = validators.hasLengthAtLeast('test', [], 10);
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 });
 
@@ -24,7 +24,7 @@ describe('hasLengthAtMost', () => {
     test('it returns a string on failure', () => {
         const result = validators.hasLengthAtMost('test', [], 1);
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 });
 
@@ -38,7 +38,7 @@ describe('hasLengthExactly', () => {
     test('it returns a string on failure', () => {
         const result = validators.hasLengthExactly('test', [], 1);
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 });
 
@@ -64,25 +64,25 @@ describe('isRequired', () => {
     test('it returns a string for an invalid string', () => {
         const result = validators.isRequired('');
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 
     test('it returns a string for an invalid string (whitespace only)', () => {
         const result = validators.isRequired(' ');
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 
     test('it returns a string for an invalid boolean', () => {
         const result = validators.isRequired(false);
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 
     test('it returns a string for undefined input', () => {
         const result = validators.isRequired();
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 });
 
@@ -96,13 +96,13 @@ describe('mustBeChecked', () => {
     test('it returns a string on failure', () => {
         const result = validators.mustBeChecked(false);
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 
     test('it returns a string on undefined input', () => {
         const result = validators.mustBeChecked();
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 });
 
@@ -135,13 +135,13 @@ describe('validateRegionCode', () => {
             countries
         );
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 
     test('it returns a string on failure due to missing country', () => {
         const result = validators.validateRegionCode('AL', [], []);
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 
     test('it returns a string on failure due to no regions', () => {
@@ -154,7 +154,7 @@ describe('validateRegionCode', () => {
             missingRegions
         );
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 });
 
@@ -168,7 +168,7 @@ describe('validatePassword', () => {
     test('it returns a string on  failure', () => {
         const result = validators.validatePassword('1111');
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 });
 
@@ -201,7 +201,7 @@ describe('isEqualToField', () => {
         const password = 'qwerty12345';
         const result = validators.isEqualToField(password, values, 'password');
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 });
 
@@ -242,6 +242,6 @@ describe('isNotEqualToField', () => {
             'password'
         );
 
-        expect(typeof result).toBe('string');
+        expect(typeof result).toBe('object');
     });
 });
