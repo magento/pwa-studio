@@ -23,7 +23,7 @@ const props = {
     fieldInput: 'postcode'
 };
 
-test('returns formatted postcode', () => {
+test('returns an empty object', () => {
     const tree = createTestInstance(<Component {...props} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
