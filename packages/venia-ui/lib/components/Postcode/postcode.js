@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { func, shape, string } from 'prop-types';
-import { useFieldApi, useFieldState } from 'informed';
 import { useIntl } from 'react-intl';
+import { usePostcode } from '@magento/peregrine/lib/talons/Postcode/usePostcode';
 
 import { mergeClasses } from '../../classify';
 import Field from '../Field';
@@ -25,22 +25,7 @@ const Postcode = props => {
 
     const { formatMessage } = useIntl();
 
-    const hasInitialized = useRef(false);
-    const countryCodeField = 'country';
-    const countryFieldState = useFieldState(countryCodeField);
-    const { value: country } = countryFieldState;
-
-    const postcodeInputFieldApi = useFieldApi(fieldInput);
-
-    useEffect(() => {
-        if (country) {
-            if (hasInitialized.current) {
-                postcodeInputFieldApi.reset();
-            } else {
-                hasInitialized.current = true;
-            }
-        }
-    }, [country, postcodeInputFieldApi]);
+    usePostcode({ fieldInput });
 
     return (
         <Field
