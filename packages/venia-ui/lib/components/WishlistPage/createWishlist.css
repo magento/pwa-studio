@@ -1,3 +1,50 @@
+.root {
+}
+
+.body {
+    overflow: auto;
+}
+
+.buttons {
+    padding: 1rem 1rem 2.5rem;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.cancelButton {
+    composes: root_lowPriority from '../Button/button.css';
+
+    min-width: 9rem;
+}
+
+.confirmButton {
+    composes: root_highPriority from '../Button/button.css';
+
+    min-width: 9rem;
+}
+
+.contents {
+    padding: 1rem;
+    height: fit-content;
+}
+
+.createButton {
+    width: 100%;
+}
+
+.form {
+    display: grid;
+    gap: 2rem;
+    padding: 0.5rem 1rem;
+    margin: auto;
+}
+
+.icon {
+    stroke: rgb(var(--venia-brand-color-1-600));
+}
+
 .labelContainer {
     align-items: center;
     border: 2px dashed rgb(var(--venia-global-color-gray-400));
@@ -11,6 +58,7 @@
     justify-content: center;
 }
 
-.icon {
-    stroke: rgb(var(--venia-brand-color-1-600));
+.radioRoot {
+    display: grid;
+    gap: 1rem;
 }
