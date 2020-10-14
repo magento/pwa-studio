@@ -12,7 +12,7 @@
     --header-height: 5rem;
 }
 
-.switchers {
+.switchersContainer {
     display: none;
 }
 
@@ -53,15 +53,10 @@
         margin: 0 auto;
     }
 
-    .switchers:before {
-        width: 100vw;
-        content: '';
-        position: absolute;
-        height: 100%;
-        left: 50%;
-        transform: translate3d(-50vw, 0, 0);
+    .switchersContainer {
+        display: block;
+        width: 100%;
         background-color: rgb(var(--venia-global-color-gray-100));
-        margin: 0 auto;
     }
 
     .toolbar {

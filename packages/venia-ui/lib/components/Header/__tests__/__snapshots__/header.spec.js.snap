@@ -3,10 +3,14 @@
 exports[`verify Header can render in default state 1`] = `
 Array [
   <div
-    className="switchers"
+    className="switchersContainer"
   >
-    <StoreSwitcher />
-    <CurrencySwitcher />
+    <div
+      className="switchers"
+    >
+      <StoreSwitcher />
+      <CurrencySwitcher />
+    </div>
   </div>,
   <header
     className="closed"

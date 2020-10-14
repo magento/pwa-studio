@@ -52,9 +52,11 @@ const Header = props => {
 
     return (
         <React.Fragment>
-            <div className={classes.switchers}>
-                <StoreSwitcher />
-                <CurrencySwitcher />
+            <div className={classes.switchersContainer}>
+                <div className={classes.switchers}>
+                    <StoreSwitcher />
+                    <CurrencySwitcher />
+                </div>
             </div>
             <header className={rootClass}>
                 <div className={classes.toolbar}>
@@ -92,7 +94,8 @@ Header.propTypes = {
         primaryActions: string,
         secondaryActions: string,
         toolbar: string,
-        switchers: string
+        switchers: string,
+        switchersContainer: string
     })
 };
 

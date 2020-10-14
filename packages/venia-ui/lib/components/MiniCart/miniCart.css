@@ -8,9 +8,11 @@
     position: absolute;
     top: 100%;
     transition: opacity 192ms var(--venia-global-anim-out),
-        visibility 192ms var(--venia-global-anim-out), left 0s 192ms;
+        visibility 192ms var(--venia-global-anim-out),
+        /* Adding delay to move container off the screen after previous transitions happened */
+            left 0s 192ms;
     visibility: hidden;
-    width: 100vw;
+    width: calc(100vw - 2rem);
     /* max-width wider than header to let dropdown to move left on wider screens while still staying near the trigger */
     max-width: calc(
         var(--venia-global-maxWidth) + var(--content-width) * 2 - 8rem
@@ -38,7 +40,7 @@
     max-height: 35rem;
     overflow: hidden;
     position: absolute;
-    right: 1rem;
+    right: 0;
     top: 0;
     transform: translate3d(0, -8px, 0);
     transition-duration: 192ms;
