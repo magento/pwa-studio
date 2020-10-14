@@ -184,7 +184,7 @@ const CouponCode = props => {
                 <Field
                     id="couponCode"
                     label={formatMessage({
-                        id: 'couponCode.couponCode',
+                        id: 'cartPage.couponCode',
                         defaultMessage: 'Coupon Code'
                     })}
                 >

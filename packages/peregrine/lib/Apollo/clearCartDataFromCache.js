@@ -9,6 +9,11 @@ import { deleteCacheEntry } from './deleteCacheEntry';
 export const clearCartDataFromCache = async client => {
     await deleteCacheEntry(client, key => key.match(/^\$?Cart/));
 
-    // Gift Cards are cached by code so we must delete these too.
+    // Any cart subtypes that have key fields must be manually cleared.
+    // TODO: we may be able to use cache.evict here instead.
     await deleteCacheEntry(client, key => key.match(/^\$?AppliedGiftCard/));
+    await deleteCacheEntry(client, key => key.match(/^\$?ShippingCartAddress/));
+    await deleteCacheEntry(client, key =>
+        key.match(/^\$?AvailableShippingMethod/)
+    );
 };

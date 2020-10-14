@@ -2,20 +2,24 @@ import React from 'react';
 import { useMutation, useApolloClient } from '@apollo/client';
 import { act } from 'react-test-renderer';
 
-import { createTestInstance } from '@magento/peregrine';
-
-import { useAwaitQuery } from '../../../../lib/hooks/useAwaitQuery';
-import { useUserContext } from '../../../../lib/context/user';
-import { useCreateAccount } from '../useCreateAccount';
 import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../../Apollo/clearCustomerDataFromCache';
-import { retrieveCartId } from '../../../store/actions/cart';
 import { useCartContext } from '../../../context/cart';
+import { useUserContext } from '../../../context/user';
+import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
+import { retrieveCartId } from '../../../store/actions/cart';
+import createTestInstance from '../../../util/createTestInstance';
+import { useCreateAccount } from '../useCreateAccount';
 
-jest.mock('@apollo/client', () => ({
-    useMutation: jest.fn().mockReturnValue([jest.fn()]),
-    useApolloClient: jest.fn()
-}));
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
+    return {
+        ...apolloClient,
+        useMutation: jest.fn().mockReturnValue([jest.fn()]),
+        useApolloClient: jest.fn()
+    };
+});
 jest.mock('../../../../lib/hooks/useAwaitQuery', () => ({
     useAwaitQuery: jest.fn().mockReturnValue(jest.fn())
 }));
@@ -76,7 +80,7 @@ const getTalonProps = props => {
     return { talonProps, tree, update };
 };
 
-const customerQuery = 'customerQuery';
+const getCustomerQuery = 'getCustomerQuery';
 const getCartDetailsQuery = 'getCartDetailsQuery';
 const createAccountMutation = 'createAccountMutation';
 const createCartMutation = 'createCartMutation';
@@ -102,15 +106,13 @@ const signInMutationFn = jest.fn().mockReturnValue([
 const mergeCartsMutationFn = jest.fn().mockReturnValue([jest.fn()]);
 
 const defaultProps = {
-    queries: {
-        customerQuery,
-        getCartDetailsQuery
-    },
-    mutations: {
+    operations: {
         createAccountMutation,
         createCartMutation,
-        signInMutation,
-        mergeCartsMutation
+        getCartDetailsQuery,
+        getCustomerQuery,
+        mergeCartsMutation,
+        signInMutation
     },
     initialValues: {
         email: 'gooston@goosemail.com',
@@ -134,7 +136,7 @@ const defaultFormValues = {
 
 beforeAll(() => {
     useAwaitQuery.mockImplementation(query => {
-        if (query === customerQuery) {
+        if (query === getCustomerQuery) {
             return customerQueryFn();
         } else if (query === getCartDetailsQuery) {
             return getCartDetailsQueryFn();
