@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { func, string, shape } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useShippingInformation } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useShippingInformation';
@@ -40,7 +41,10 @@ const ShippingInformation = props => {
     if (isLoading) {
         return (
             <LoadingIndicator classes={{ root: classes.loading }}>
-                Fetching Shipping Information...
+                <FormattedMessage
+                    id={'shippingInformation.loading'}
+                    defaultMessage={'Fetching Shipping Information...'}
+                />
             </LoadingIndicator>
         );
     }
@@ -52,7 +56,12 @@ const ShippingInformation = props => {
     const shippingInformation = doneEditing ? (
         <Fragment>
             <div className={classes.cardHeader}>
-                <h5 className={classes.cardTitle}>{'Shipping Information'}</h5>
+                <h5 className={classes.cardTitle}>
+                    <FormattedMessage
+                        id={'shippingInformation.cardTitle'}
+                        defaultMessage={'Shipping Information'}
+                    />
+                </h5>
                 <LinkButton
                     onClick={handleEditShipping}
                     className={classes.editButton}
@@ -62,7 +71,12 @@ const ShippingInformation = props => {
                         src={EditIcon}
                         classes={{ icon: classes.editIcon }}
                     />
-                    <span className={classes.editText}>{'Edit'}</span>
+                    <span className={classes.editText}>
+                        <FormattedMessage
+                            id={'global.editButton'}
+                            defaultMessage={'Edit'}
+                        />
+                    </span>
                 </LinkButton>
             </div>
             <Card shippingData={shippingData} />
@@ -70,7 +84,12 @@ const ShippingInformation = props => {
         </Fragment>
     ) : (
         <Fragment>
-            <h3 className={classes.editTitle}>{'1. Shipping Information'}</h3>
+            <h3 className={classes.editTitle}>
+                <FormattedMessage
+                    id={'shippingInformation.editTitle'}
+                    defaultMessage={'1. Shipping Information'}
+                />
+            </h3>
             <div className={classes.editWrapper}>
                 <AddressForm shippingData={shippingData} />
             </div>

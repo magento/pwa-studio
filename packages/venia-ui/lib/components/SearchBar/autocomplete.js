@@ -105,6 +105,13 @@ const Autocomplete = props => {
                 },
                 { resultCount: resultCount }
             )
+        )
+        .set(
+            'INVALID_CHARACTER_LENGTH',
+            formatMessage({
+                id: 'autocomplete.invalidCharacterLength',
+                defaultMessage: 'Search term must be at least three characters'
+            })
         );
 
     const messageTpl = MESSAGES.get(messageType);

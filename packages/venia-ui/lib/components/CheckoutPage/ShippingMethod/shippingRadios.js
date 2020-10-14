@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
@@ -6,13 +7,17 @@ import RadioGroup from '../../RadioGroup';
 import ShippingRadio from '../../CartPage/PriceAdjustments/ShippingMethods/shippingRadio';
 import defaultClasses from './shippingRadios.css';
 
-const ERROR_MESSAGE =
-    'Error loading shipping methods. Please ensure a shipping address is set and try again.';
-
 const ShippingRadios = props => {
     const { disabled, shippingMethods } = props;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    const ERROR_MESSAGE = formatMessage({
+        id: 'shippingRadios.errorLoading',
+        defaultMessage:
+            'Error loading shipping methods. Please ensure a shipping address is set and try again.'
+    });
 
     if (!shippingMethods.length) {
         return <span className={classes.error}>{ERROR_MESSAGE}</span>;

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const SET_NEWSLETTER_SUBSCRIPTION = gql`
     mutation SetNewsletterSubscription($isSubscribed: Boolean!) {
@@ -21,10 +21,6 @@ export const GET_CUSTOMER_SUBSCRIPTION = gql`
 `;
 
 export default {
-    mutations: {
-        setNewsletterSubscriptionMutation: SET_NEWSLETTER_SUBSCRIPTION
-    },
-    queries: {
-        getCustomerSubscriptionQuery: GET_CUSTOMER_SUBSCRIPTION
-    }
+    getCustomerSubscriptionQuery: GET_CUSTOMER_SUBSCRIPTION,
+    setNewsletterSubscriptionMutation: SET_NEWSLETTER_SUBSCRIPTION
 };

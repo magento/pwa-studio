@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string, object } from 'prop-types';
 import { Form } from 'informed';
 import { X as CloseIcon } from 'react-feather';
@@ -21,7 +22,9 @@ import defaultClasses from './dialog.css';
  * @param {Object}  props
  * @param {Object}  props.classes - A set of class overrides to apply to elements.
  * @param {String}  props.cancelText - The text to display on the Dialog cancel button.
+ * @param {String}  props.cancelTranslationId - The id to assign for the cancel button translation.
  * @param {String}  props.confirmText - The text to display on the Dialog confirm button.
+ * @param {String}  props.confirmTranslationId - The id to assign for the confirm button translation.
  * @param {Object}  props.formProps - Props to apply to the internal form. @see https://joepuzzo.github.io/informed/?path=/story/form--props.
  * @param {Boolean} props.isModal - Determines behavior of clicking on the mask. False cancels Dialog.
  * @param {Boolean} props.isOpen - Whether the Dialog is currently showing.
@@ -35,8 +38,10 @@ import defaultClasses from './dialog.css';
 const Dialog = props => {
     const {
         cancelText,
+        cancelTranslationId,
         children,
         confirmText,
+        confirmTranslationId,
         formProps,
         isModal,
         isOpen,
@@ -57,6 +62,9 @@ const Dialog = props => {
     const confirmButtonDisabled =
         shouldDisableAllButtons || shouldDisableConfirmButton;
 
+    const cancelButtonClasses = {
+        root_lowPriority: classes.cancelButton
+    };
     const confirmButtonClasses = {
         root_highPriority: classes.confirmButton
     };
@@ -97,12 +105,16 @@ const Dialog = props => {
                             <div className={classes.contents}>{children}</div>
                             <div className={classes.buttons}>
                                 <Button
+                                    classes={cancelButtonClasses}
                                     disabled={shouldDisableAllButtons}
                                     onClick={onCancel}
                                     priority="low"
                                     type="reset"
                                 >
-                                    {cancelText}
+                                    <FormattedMessage
+                                        id={cancelTranslationId}
+                                        defaultMessage={cancelText}
+                                    />
                                 </Button>
                                 <Button
                                     classes={confirmButtonClasses}
@@ -110,7 +122,10 @@ const Dialog = props => {
                                     priority="high"
                                     type="submit"
                                 >
-                                    {confirmText}
+                                    <FormattedMessage
+                                        id={confirmTranslationId}
+                                        defaultMessage={confirmText}
+                                    />
                                 </Button>
                             </div>
                         </div>
@@ -125,6 +140,7 @@ export default Dialog;
 
 Dialog.propTypes = {
     cancelText: string,
+    cancelTranslationId: string,
     classes: shape({
         body: string,
         cancelButton: string,
@@ -139,6 +155,7 @@ Dialog.propTypes = {
         root_open: string
     }),
     confirmText: string,
+    confirmTranslationId: string,
     formProps: object,
     isModal: bool,
     isOpen: bool,
@@ -151,6 +168,8 @@ Dialog.propTypes = {
 
 Dialog.defaultProps = {
     cancelText: 'Cancel',
+    cancelTranslationId: 'global.cancelButton',
     confirmText: 'Confirm',
+    confirmTranslationId: 'global.confirmButton',
     isModal: false
 };
