@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
+import { gql } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
 import { useToasts } from '@magento/peregrine';
 import { useForm } from '@magento/peregrine/lib/talons/Checkout/useForm';
 
 import { mergeClasses } from '../../classify';
-import GET_ALL_COUNTRIES from '../../queries/getAllCountries.graphql';
 import Icon from '../Icon';
 import LoadingIndicator from '../LoadingIndicator';
 import EditableForm from './editableForm';
@@ -70,3 +70,16 @@ Form.propTypes = {
 };
 
 export default Form;
+
+const GET_ALL_COUNTRIES = gql`
+    query getAllCountries {
+        countries {
+            available_regions {
+                code
+                id
+                name
+            }
+            id
+        }
+    }
+`;

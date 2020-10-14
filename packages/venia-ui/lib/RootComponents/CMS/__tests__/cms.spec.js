@@ -37,6 +37,7 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 });
 
 jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
     const queryResult = {
         data: null,
         error: null,
@@ -44,7 +45,7 @@ jest.mock('@apollo/client', () => {
     };
     const useQuery = jest.fn(() => queryResult);
 
-    return { queryResult, useQuery };
+    return { ...apolloClient, useQuery };
 });
 
 const props = {

@@ -109,7 +109,9 @@ describe('CheckoutPage', () => {
         });
 
         const instance = createTestInstance(<CheckoutPage />);
-        const button = instance.root.findByProps({ children: 'Place Order' });
+        const button = instance.root.findByProps({
+            className: 'place_order_button'
+        });
 
         expect(button).toBeTruthy();
         expect(button.props.disabled).toBe(true);

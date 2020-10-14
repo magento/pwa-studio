@@ -4,6 +4,14 @@ import { createTestInstance } from '@magento/peregrine';
 
 import { useProduct } from '../useProduct';
 
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {};
+    const api = { actions: { setPageLoading: jest.fn() } };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 jest.mock('@apollo/client', () => {
     const queryResult = {
         loading: false,

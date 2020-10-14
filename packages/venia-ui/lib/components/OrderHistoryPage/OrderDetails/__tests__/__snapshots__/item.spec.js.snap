@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div
+    componentName="Link Component"
+    to="/carina-cardigan.html"
+  >
+    <div
+      className="undefined undefined"
+    >
+      <img
+        alt="Product 1"
+        className="undefined undefined"
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width={50}
+      />
+      <img
+        alt="Product 1"
+        className="undefined undefined"
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        sizes="50px"
+        srcSet=""
+        width={50}
+      />
+    </div>
+  </div>
+  <div
+    componentName="Link Component"
+    to="/carina-cardigan.html"
+  >
+    Product 1
+  </div>
+  <dl>
+    <div>
+      <dt>
+        Color :
+      </dt>
+      <dd>
+        Black
+      </dd>
+    </div>
+  </dl>
+  <span>
+    <div
+      componentName="Formatted Message Component"
+      id="orderDetails.quantity"
+      values={
+        Object {
+          "quantity": 3,
+        }
+      }
+    />
+  </span>
+  <span>
+    $100.00
+  </span>
+  <button
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <span>
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Buy Again"
+        id="orderDetails.buyAgain"
+      />
+    </span>
+  </button>
+  <button
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <span>
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Return This"
+        id="orderDetails.returnThis"
+      />
+    </span>
+  </button>
+</div>
+`;

@@ -1,12 +1,11 @@
 import React from 'react';
 import { array, func, oneOfType, shape, string } from 'prop-types';
-import { useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 
 import { mergeClasses } from '../../classify';
+import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import Block from './block';
 import defaultClasses from './cmsBlock.css';
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import GET_CMS_BLOCKS from '../../queries/getCmsBlocks.graphql';
 
 const CmsBlockGroup = props => {
     const { identifiers } = props;
@@ -58,3 +57,14 @@ CmsBlockGroup.propTypes = {
 };
 
 export default CmsBlockGroup;
+
+export const GET_CMS_BLOCKS = gql`
+    query cmsBlocks($identifiers: [String]!) {
+        cmsBlocks(identifiers: $identifiers) {
+            items {
+                content
+                identifier
+            }
+        }
+    }
+`;
