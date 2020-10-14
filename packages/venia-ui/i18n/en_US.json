@@ -259,6 +259,7 @@
     "productList.outOfStock": "Out-of-stock",
     "productList.quantity": "Qty : {quantity}",
     "productListing.loading": "Fetching Cart...",
+    "productOptions.selectedLabel": "Selected {label}:",
     "productQuantity.label": "product's quantity",
     "productSort.sortButton": "Sort",
     "quantity.buttonDecrement": "Decrease Quantity",
