@@ -20,12 +20,21 @@ const reload = jest.fn();
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {
-        drawerClosed: false
+        drawerClosed: false,
+        isOnline: true,
+        hasBeenOffline: false,
+        overlay: false
     };
 
     const api = {
         closeDrawer: jest.fn(() => {
-            state.drawerClosed = true
+            state.drawerClosed = true;
+        }),
+        setOnline: jest.fn(isOnline => {
+            state.isOnline = isOnline;
+        }),
+        setHasBeenOffline: jest.fn(hasBeenOffline => {
+            state.hasBeenOffline = hasBeenOffline;
         })
     };
 
@@ -124,3 +133,34 @@ test('handle drawer closing', () => {
 
     expect(appState.drawerClosed).toBeTruthy();
 });
+
+test('handle being offline to online event', () => {
+    const [, appApi] = useAppContext();
+
+    const { setOnline, setHasBeenOffline } = appApi;
+
+    act(() => {
+        setHasBeenOffline(true);
+        setOnline(true);
+        createTestInstance(<Component {...mockProps} />);
+    });
+
+    expect(handleIsOnline).toHaveBeenCalledTimes(1);
+    expect(handleIsOffline).toHaveBeenCalledTimes(0);
+});
+
+test('handle being offline', () => {
+
+    const [, appApi] = useAppContext();
+
+    const { setOnline, setHasBeenOffline } = appApi;
+
+    act(() => {
+        setHasBeenOffline(true);
+        setOnline(false);
+        createTestInstance(<Component {...mockProps} />);
+    });
+
+    expect(handleIsOnline).toHaveBeenCalledTimes(0);
+    expect(handleIsOffline).toHaveBeenCalledTimes(1);
+})
