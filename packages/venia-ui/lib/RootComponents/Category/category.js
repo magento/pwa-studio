@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { number, shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { useCategory } from '@magento/peregrine/lib/talons/RootComponents/Category';
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -40,7 +41,15 @@ const Category = props => {
         if (process.env.NODE_ENV !== 'production') {
             console.error(error);
         }
-        return <div>Data Fetch Error</div>;
+
+        return (
+            <div>
+                <FormattedMessage
+                    id={'category.dataFetchError'}
+                    defaultMessage={'Data Fetch Error'}
+                />
+            </div>
+        );
     }
 
     return (
