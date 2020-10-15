@@ -1,11 +1,13 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useCommunicationsPage } from '@magento/peregrine/lib/talons/MyAccount/useCommunicationsPage';
+import { useCommunicationsPage } from '@magento/peregrine/lib/talons/CommunicationsPage/useCommunicationsPage';
 
 import CommunicationsPage from '../communicationsPage';
 import LoadingIndicator from '../../LoadingIndicator';
 
-jest.mock('@magento/peregrine/lib/talons/MyAccount/useCommunicationsPage');
+jest.mock(
+    '@magento/peregrine/lib/talons/CommunicationsPage/useCommunicationsPage'
+);
 jest.mock('../../../classify');
 
 const handleSubmit = jest.fn().mockName('handleSubmit');

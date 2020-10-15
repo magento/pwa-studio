@@ -1,7 +1,7 @@
 import React from 'react';
 import { number, shape, string } from 'prop-types';
 
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../classify';
 
@@ -23,10 +23,7 @@ const TotalsSummary = props => {
                     <dt className={classes.subtotalLabel}>
                         <span>
                             {'Cart Total : '}
-                            <Price
-                                currencyCode={currencyCode}
-                                value={subtotal}
-                            />
+                            <Price currency={currencyCode} value={subtotal} />
                         </span>
                     </dt>
                     <dd className={classes.subtotalValue}>

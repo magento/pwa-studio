@@ -141,6 +141,10 @@
     composes: root_highPriority from '../Button/button.css';
 }
 
+.cancelButton {
+    composes: root_lowPriority from '../Button/button.css';
+}
+
 /*
  * Mobile-specific styles.
  *

@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { array, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 import { useCartOptions } from '@magento/peregrine/lib/talons/LegacyMiniCart/useCartOptions';
 
@@ -10,14 +10,13 @@ import { mergeClasses } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
 import Quantity from '../ProductQuantity';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import {
     ADD_CONFIGURABLE_MUTATION,
     ADD_SIMPLE_MUTATION
 } from '../ProductFullDetail/productFullDetail.gql';
 import defaultClasses from './cartOptions.css';
 import { REMOVE_ITEM_MUTATION, UPDATE_ITEM_MUTATION } from './cartOptions.gql';
+import { gql } from '@apollo/client';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -137,3 +136,56 @@ CartOptions.propTypes = {
 };
 
 export default CartOptions;
+
+export const CREATE_CART_MUTATION = gql`
+    mutation CreateCartWithCartOptions {
+        cartId: createEmptyCart
+    }
+`;
+
+export const GET_CART_DETAILS_QUERY = gql`
+    query getCartDetails($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            items {
+                id
+                prices {
+                    price {
+                        value
+                    }
+                }
+                product {
+                    id
+                    name
+                    sku
+                    small_image {
+                        url
+                        label
+                    }
+                    price {
+                        regularPrice {
+                            amount {
+                                value
+                            }
+                        }
+                    }
+                }
+                quantity
+                ... on ConfigurableCartItem {
+                    configurable_options {
+                        id
+                        option_label
+                        value_id
+                        value_label
+                    }
+                }
+            }
+            prices {
+                grand_total {
+                    value
+                    currency
+                }
+            }
+        }
+    }
+`;

@@ -1,8 +1,9 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { func, number, shape, string } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
@@ -19,7 +20,12 @@ const CompletedView = props => {
         // Error state.
         contents = (
             <span className={classes.error}>
-                {`Error loading selected shipping method. Please select again.`}
+                <FormattedMessage
+                    id={'completedView.errorLoading'}
+                    defaultMessage={
+                        'Error loading selected shipping method. Please select again.'
+                    }
+                />
             </span>
         );
     } else {
@@ -31,7 +37,9 @@ const CompletedView = props => {
                 <Price value={value} currencyCode={currency} />
             </div>
         ) : (
-            <span className={classes.free}>Free</span>
+            <span className={classes.free}>
+                <FormattedMessage id={'global.free'} defaultMessage={'Free'} />
+            </span>
         );
 
         contents = (
@@ -46,7 +54,12 @@ const CompletedView = props => {
         <div className={classes.root}>
             <div className={classes.container}>
                 <span className={classes.titleContainer}>
-                    <h5 className={classes.heading}>Shipping Method</h5>
+                    <h5 className={classes.heading}>
+                        <FormattedMessage
+                            id={'completedView.shippingMethod'}
+                            defaultMessage={'Shipping Method'}
+                        />
+                    </h5>
                     <LinkButton
                         className={classes.editButton}
                         onClick={showUpdateMode}
@@ -56,7 +69,12 @@ const CompletedView = props => {
                             src={EditIcon}
                             classes={{ icon: classes.editIcon }}
                         />
-                        <span className={classes.editButtonText}>{'Edit'}</span>
+                        <span className={classes.editButtonText}>
+                            <FormattedMessage
+                                id={'global.editButton'}
+                                defaultMessage={'Edit'}
+                            />
+                        </span>
                     </LinkButton>
                 </span>
                 {contents}
