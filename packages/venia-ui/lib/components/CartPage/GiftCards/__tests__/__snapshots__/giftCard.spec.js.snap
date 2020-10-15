@@ -8,7 +8,18 @@ Array [
     </span>
     <span>
       Balance: 
-      <div />
+      <span>
+        $
+      </span>
+      <span>
+        99
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
     </span>
   </div>,
   <button
@@ -31,7 +42,18 @@ Array [
     </span>
     <span>
       Balance: 
-      <div />
+      <span>
+        $
+      </span>
+      <span>
+        99
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
     </span>
   </div>,
   <button

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string, object } from 'prop-types';
 import { Form } from 'informed';
@@ -33,6 +33,7 @@ import defaultClasses from './dialog.css';
  * @param {Boolean} props.shouldDisableAllButtons - A toggle for whether the buttons should be disabled.
  * @param {Boolean} props.shouldDisableConfirmButton - A toggle for whether the confirm button should be disabled.
  *                                                     The final value is OR'ed with shouldDisableAllButtons.
+ * @param {Boolean} props.shouldUnmountOnHide - A boolean to unmount child components on hide
  * @param {String}  props.title - The title of the Dialog.
  */
 const Dialog = props => {
@@ -49,6 +50,7 @@ const Dialog = props => {
         onConfirm,
         shouldDisableAllButtons,
         shouldDisableConfirmButton,
+        shouldUnmountOnHide,
         title
     } = props;
 
@@ -80,6 +82,18 @@ const Dialog = props => {
         </button>
     ) : null;
 
+    const contents = useMemo(() => {
+        if (isOpen) {
+            return children;
+        } else {
+            if (shouldUnmountOnHide) {
+                return null;
+            } else {
+                return children;
+            }
+        }
+    }, [children, isOpen, shouldUnmountOnHide]);
+
     return (
         <Portal>
             <aside className={rootClass}>
@@ -102,7 +116,7 @@ const Dialog = props => {
                             {maybeCloseXButton}
                         </div>
                         <div className={classes.body}>
-                            <div className={classes.contents}>{children}</div>
+                            <div className={classes.contents}>{contents}</div>
                             <div className={classes.buttons}>
                                 <Button
                                     classes={cancelButtonClasses}
@@ -163,6 +177,7 @@ Dialog.propTypes = {
     onConfirm: func,
     shouldDisableAllButtons: bool,
     shouldDisableSubmitButton: bool,
+    shouldUnmountOnHide: bool,
     title: string
 };
 
@@ -171,5 +186,6 @@ Dialog.defaultProps = {
     cancelTranslationId: 'global.cancelButton',
     confirmText: 'Confirm',
     confirmTranslationId: 'global.confirmButton',
-    isModal: false
+    isModal: false,
+    shouldUnmountOnHide: false
 };

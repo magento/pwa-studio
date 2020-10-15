@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
 
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { useProduct } from '@magento/peregrine/lib/talons/LegacyMiniCart/useProduct';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 

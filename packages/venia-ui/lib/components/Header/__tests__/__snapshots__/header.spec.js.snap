@@ -1,35 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`verify Header can render in default state 1`] = `
-<header
-  className="closed"
->
+Array [
   <div
-    className="switchers"
-  >
-    <StoreSwitcher />
-  </div>
-  <div
-    className="toolbar"
+    className="switchersContainer"
   >
     <div
-      className="primaryActions"
+      className="switchers"
     >
-      <NavTrigger />
+      <StoreSwitcher />
+      <CurrencySwitcher />
     </div>
-    <OnlineIndicator
-      hasBeenOffline={false}
-      isOnline={true}
-    />
+  </div>,
+  <header
+    className="closed"
+  >
     <div
-      className="secondaryActions"
+      className="toolbar"
     >
-      <SearchTrigger
-        onClick={[MockFunction]}
+      <div
+        className="primaryActions"
+      >
+        <NavTrigger />
+      </div>
+      <OnlineIndicator
+        hasBeenOffline={false}
+        isOnline={true}
       />
-      <AccountTrigger />
-      <CartTrigger />
+      <div
+        className="secondaryActions"
+      >
+        <SearchTrigger
+          onClick={[MockFunction]}
+        />
+        <AccountTrigger />
+        <CartTrigger />
+      </div>
     </div>
-  </div>
-</header>
+  </header>,
+]
 `;
