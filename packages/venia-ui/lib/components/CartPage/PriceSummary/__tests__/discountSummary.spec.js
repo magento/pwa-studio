@@ -5,15 +5,6 @@ import DiscountSummary from '../discountSummary';
 
 jest.mock('../../../../classify');
 
-jest.mock('@magento/peregrine', () => {
-    const Price = props => <span>{`$${props.value}`}</span>;
-
-    return {
-        ...jest.requireActual('@magento/peregrine'),
-        Price
-    };
-});
-
 const defaultProps = {
     classes: {
         lineItemLabel: 'lineItemLabel',

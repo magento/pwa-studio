@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return correct shape 1`] = `
+Object {
+  "availableCurrencies": Array [
+    "USD",
+    "EUR",
+    "GBP",
+  ],
+  "currencyMenuIsOpen": false,
+  "currencyMenuRef": "elementRef",
+  "currencyMenuTriggerRef": [MockFunction],
+  "currentCurrencyCode": "GBP",
+  "handleSwitchCurrency": [Function],
+  "handleTriggerClick": [Function],
+}
+`;

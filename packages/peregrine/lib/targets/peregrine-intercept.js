@@ -10,7 +10,7 @@ module.exports = targets => {
         featuresByModule['@magento/peregrine'] = {
             cssModules: true,
             esModules: true,
-            graphQlQueries: true
+            graphqlQueries: true
         };
     });
 

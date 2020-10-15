@@ -12,7 +12,16 @@ Array [
   >
     -
     <span>
-      $2
+      $
+    </span>
+    <span>
+      2
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
     </span>
   </span>,
 ]
@@ -30,7 +39,16 @@ Array [
   >
     -
     <span>
-      $10
+      $
+    </span>
+    <span>
+      10
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
     </span>
   </span>,
 ]

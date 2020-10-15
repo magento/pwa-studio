@@ -29,7 +29,7 @@ export const MINI_CART_QUERY = gql`
 `;
 
 export const REMOVE_ITEM_MUTATION = gql`
-    mutation removeItem($cartId: String!, $itemId: Int!) {
+    mutation RemoveItemForMiniCart($cartId: String!, $itemId: Int!) {
         removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId })
             @connection(key: "removeItemFromCart") {
             cart {

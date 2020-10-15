@@ -74,7 +74,16 @@ exports[`renders configurable product with options 1`] = `
         className="price"
       >
         <span>
-          $1
+          $
+        </span>
+        <span>
+          1
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
         </span>
          ea.
       </span>
@@ -400,7 +409,16 @@ exports[`renders out of stock product 1`] = `
         className="price"
       >
         <span>
-          $55
+          $
+        </span>
+        <span>
+          55
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
         </span>
          ea.
       </span>
@@ -693,7 +711,16 @@ exports[`renders simple product correctly 1`] = `
         className="price"
       >
         <span>
-          $1
+          $
+        </span>
+        <span>
+          1
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
         </span>
          ea.
       </span>
