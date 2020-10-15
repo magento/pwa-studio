@@ -71,7 +71,18 @@ www.venia.com/p1 2560w"
   <span
     className="price"
   >
-    <div />
+    <span>
+      $
+    </span>
+    <span>
+      420
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
      ea.
   </span>
   <span
@@ -195,7 +206,18 @@ www.venia.com/p1 2560w"
   <span
     className="price"
   >
-    <div />
+    <span>
+      $
+    </span>
+    <span>
+      420
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
      ea.
   </span>
   <span
@@ -319,7 +341,18 @@ www.venia.com/p1 2560w"
   <span
     className="price"
   >
-    <div />
+    <span>
+      $
+    </span>
+    <span>
+      420
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
      ea.
   </span>
   <span

@@ -28,6 +28,9 @@ const AccountMenu = React.forwardRef((props, ref) => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = accountMenuIsOpen ? classes.root_open : classes.root;
+    const contentsClass = accountMenuIsOpen
+        ? classes.contents_open
+        : classes.contents;
 
     let dropdownContents = null;
 
@@ -78,8 +81,10 @@ const AccountMenu = React.forwardRef((props, ref) => {
     }
 
     return (
-        <aside className={rootClass} ref={ref}>
-            {accountMenuIsOpen ? dropdownContents : null}
+        <aside className={rootClass}>
+            <div ref={ref} className={contentsClass}>
+                {accountMenuIsOpen ? dropdownContents : null}
+            </div>
         </aside>
     );
 });
@@ -90,6 +95,8 @@ AccountMenu.propTypes = {
     classes: shape({
         root: string,
         root_open: string,
-        link: string
+        link: string,
+        contents_open: string,
+        contents: string
     })
 };
