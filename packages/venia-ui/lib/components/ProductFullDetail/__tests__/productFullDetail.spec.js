@@ -139,6 +139,37 @@ const mockSimpleProduct = {
         }
     ]
 };
+
+const mockVirtualProduct = {
+    __typename: 'VirtualProduct',
+    sku: 'SKU123',
+    name: 'Mock Virtual Product',
+    price: {
+        regularPrice: {
+            amount: {
+                currency: 'USD',
+                value: 123
+            }
+        }
+    },
+    categories: [{ id: 1, breadcrumbs: [{ category_id: 2 }] }],
+    description: 'Mock virtual product has a description!',
+    media_gallery_entries: [
+        {
+            label: 'Base Product - Image 1',
+            position: 1,
+            disabled: false,
+            file: '/base/image-1.jpg'
+        },
+        {
+            label: 'Base Product Image 2',
+            position: 2,
+            disabled: false,
+            file: '/base/image-2.jpg'
+        }
+    ]
+};
+
 const mockHandleAddToCart = jest.fn();
 const mockHandleSelectionChange = jest.fn();
 
@@ -235,11 +266,21 @@ test('it renders field level errors for quantity - message 3', () => {
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
-test('it does not render options if the product is not a ConfigurableProduct', () => {
+test('it does not render options if the product is not a ConfigurableProduct and have weight', () => {
     useProductFullDetail.mockReturnValueOnce(talonProps);
 
     const wrapper = createTestInstance(
         <ProductFullDetail product={mockSimpleProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('it render VirtualProduct if product type is virtual', () => {
+    useProductFullDetail.mockReturnValueOnce(talonProps);
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockVirtualProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();

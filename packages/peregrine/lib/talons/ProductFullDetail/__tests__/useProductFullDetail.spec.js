@@ -30,6 +30,7 @@ const defaultProps = {
     addConfigurableProductToCartMutation:
         'addConfigurableProductToCartMutation',
     addSimpleProductToCartMutation: 'addSimpleProductToCartMutation',
+    addVirtualProductToCartMutation: 'addVirtualProductToCartMutation',
     product: {
         __typename: 'SimpleProduct',
         price: {
@@ -76,6 +77,27 @@ test('returns an error message if add simple product mutation returns an error',
     expect(talonProps.errorMessage).toEqual('OMG A SIMPLE ERROR!');
 });
 
+test('returns an error message if add virtual product mutation returns an error', () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: false, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: new Error('OMG A VIRTUAL ERROR!'), loading: false }
+    ]);
+
+    const props = {
+        ...defaultProps
+    };
+    const tree = createTestInstance(<Component {...props} />);
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.errorMessage).toEqual('OMG A VIRTUAL ERROR!');
+});
+
 test('returns an error message if add configurable product mutation returns an error', () => {
     useMutation.mockReturnValueOnce([
         jest.fn(),
@@ -119,6 +141,27 @@ test('sets isAddToCartDisabled true if add configurable mutation is loading', ()
 });
 
 test('sets isAddToCartDisabled true if add simple mutation is loading', () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: null, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: null, loading: true }
+    ]);
+
+    const props = {
+        ...defaultProps
+    };
+    const tree = createTestInstance(<Component {...props} />);
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.isAddToCartDisabled).toBe(true);
+});
+
+test('sets isAddToCartDisabled true if add virtual mutation is loading', () => {
     useMutation.mockReturnValueOnce([
         jest.fn(),
         { error: null, loading: false }
