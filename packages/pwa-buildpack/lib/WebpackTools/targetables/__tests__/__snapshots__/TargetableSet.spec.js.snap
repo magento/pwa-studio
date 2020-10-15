@@ -2,7 +2,7 @@
 
 exports[`TargetableSet is a target helper library requires a TargetProvider 1`] = `"Must supply a TargetProvider to a new TargetableSet."`;
 
-exports[`TargetableSet is a target helper library with factory methods for creating Targetables: automatically intercepts transformModules and send its requests, running a "publish" method first if it is supplied runs the publisher and then adds the transforms of the connected module 1`] = `
+exports[`TargetableSet is a target helper library with factory methods for creating Targetables: automatically intercepts transformModules and sends its requests, running a "publish" method first if it is supplied runs the publisher and then adds the transforms of the connected module 1`] = `
 Array [
   Object {
     "fileToTransform": "@magento/fake-dep/component",
