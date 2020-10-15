@@ -40,11 +40,3 @@ export const usePostcode = props => {
 /**
  * @typedef {Object} PostcodeTalonProps
  */
-
-/**
- * @typedef {Object} Postcode
- *
- * @property {number} key the id of the region
- * @property {String} label the label of the region
- * @property {String} value the value of the region
- */
