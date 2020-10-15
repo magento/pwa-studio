@@ -28,7 +28,7 @@ const StoreCodeRoute = () => {
     // ie `https://example.com/fr/foo/baz.html` => `fr`.
     const regex = new RegExp(`^\/(${storeCodes.join('|')})`, 'g');
     const match = window.location.pathname.match(regex);
-    const storeCodeInUrl = match.length && match[0].replace(/\//g, '');
+    const storeCodeInUrl = match && match[0].replace(/\//g, '');
 
     // Determine what the current store code is using the configured basename.
     const basename = history.createHref({ pathname: '/' });
