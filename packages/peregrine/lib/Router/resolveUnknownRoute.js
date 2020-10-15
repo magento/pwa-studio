@@ -99,21 +99,8 @@ function remotelyResolveRoute(opts) {
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
-    let route = opts.route;
-
-    // Trim store code off the route before querying urlResolver.
-    // For example, /fr/cms.html => /cms.html
-    AVAILABLE_STORE_VIEWS.forEach(store => {
-        const path = `/${store.code.toLowerCase()}`;
-        if (route.startsWith(path) || route === path) {
-            route = route.substring(path.length, route.length);
-        }
-    });
-
     // If the route is empty, request the homepage
-    if (route === '') {
-        route = '/';
-    }
+    const route = opts.route || '/';
 
     const query = `query ResolveURL($url: String!) {
         urlResolver(url: $url) {

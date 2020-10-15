@@ -24,34 +24,31 @@ const StoreCodeRoute = () => {
     // the "/en" in "/en-us/home.html" when "en-us" is also in storeCodes.
     storeCodes.sort((a, b) => b.length - a.length);
 
-    const pattern = `/:storeCode(${storeCodes.join('|')})?`;
-    const match = useRouteMatch(pattern);
+    // Find the current store code in the url. This will always be the first
+    // path ie `https://example.com/fr/foo/baz.html` => `fr`.
+    const regex = new RegExp(`^\/(${storeCodes.join('|')})`, 'g');
+    const match = window.location.pathname.match(regex);
+    const storeCodeInUrl = match.length && match[0].replace(/\//g, '');
 
+    // Determine what the current store code is using the configured basename.
+    const basename = history.createHref({ pathname: '/' });
+    const currentStoreCode = basename.replace(/\//g, '');
+
+    // If we find a store code in the url that is not the current one, update
+    // the storage value and refresh so that we start using the new code.
     useEffect(() => {
-        // The current store code won't be matched as it's included as the
-        // basename, if we match another store we need to change the current
-        // store.
-        if (match.params.storeCode) {
-            // Only execute if one store code is present in the URL, multiple
-            // store codes will cause the store state to break and cause weird
-            // side effects for the user.
-            const regex = new RegExp(`\/(${storeCodes.join('|')})`, 'g');
-            const storeCodesInUrl = window.location.pathname.match(regex);
-            if (storeCodesInUrl && storeCodesInUrl.length === 1) {
-                storage.setItem('store_view_code', match.params.storeCode);
-                storage.setItem(
-                    'store_view_currency',
-                    storeCurrencies[match.params.storeCode]
-                );
+        if (storeCodeInUrl && storeCodeInUrl !== currentStoreCode) {
+            storage.setItem('store_view_code', storeCodeInUrl);
+            storage.setItem(
+                'store_view_currency',
+                storeCurrencies[storeCodeInUrl]
+            );
 
-                // We're required to reload the page as the basename doesn't
-                // change entirely without a full page reload.
-                history.go(0);
-            } else {
-                console.warn('Multiple store codes present in URL.');
-            }
+            // We're required to reload the page as the basename doesn't
+            // change entirely without a full page reload.
+            history.go(0);
         }
-    }, [history, match.params.storeCode, storeCodes, storeCurrencies]);
+    }, [currentStoreCode, history, storeCodeInUrl, storeCurrencies]);
 
     return null;
 };
