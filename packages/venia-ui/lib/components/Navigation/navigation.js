@@ -5,6 +5,7 @@ import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavig
 import { mergeClasses } from '../../classify';
 import AuthBar from '../AuthBar';
 import CategoryTree from '../CategoryTree';
+import CurrencySwitcher from '../Header/currencySwitcher';
 import StoreSwitcher from '../Header/storeSwitcher';
 import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
@@ -70,6 +71,7 @@ const Navigation = props => {
             <div className={classes.footer}>
                 <div className={classes.switchers}>
                     <StoreSwitcher />
+                    <CurrencySwitcher />
                 </div>
                 <AuthBar
                     disabled={hasModal}

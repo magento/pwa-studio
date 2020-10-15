@@ -110,15 +110,6 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
-jest.mock('@magento/peregrine', () => {
-    const Price = props => <span>{`$${props.value}`}</span>;
-
-    return {
-        ...jest.requireActual('@magento/peregrine'),
-        Price
-    };
-});
-
 test('renders PriceSummary correctly on cart page', () => {
     const tree = createTestInstance(<PriceSummary />);
 
