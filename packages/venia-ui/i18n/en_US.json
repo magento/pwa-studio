@@ -320,7 +320,7 @@
     "validation.hasLengthAtLeast": "Must contain at least {value} character(s).",
     "validation.hasLengthAtMost": "Must not exceed {value} character(s).",
     "validation.hasLengthExactly": "Must contain exactly {value} character(s).",
-    "validation.invalidAbbrev": "State \"{value}\" is not an valid state abbreviation.",
+    "validation.invalidAbbreviation": "State \"{value}\" is not a valid state abbreviation.",
     "validation.invalidCountry": "Country \"US\" is not an available country.",
     "validation.invalidRegions": "Country \"US\" does not contain any available regions.",
     "validation.isEqualToField": "{value} must match.",

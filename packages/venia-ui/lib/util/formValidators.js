@@ -103,7 +103,7 @@ export const validateRegionCode = (value, values, countries) => {
     const region = regions.find(({ code }) => code === value);
     if (!region) {
         const invalidAbbrev = {
-            id: 'validation.invalidAbbrev',
+            id: 'validation.invalidAbbreviation',
             defaultMessage: 'That is not a valid state abbreviation.',
             value: value
         };
