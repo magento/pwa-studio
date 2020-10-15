@@ -22,7 +22,8 @@ const Postcode = props => {
     const fieldLabel =
         label ||
         formatMessage({
-            id: 'postcode.label'
+            id: 'postcode.label',
+            defaultMessage: 'ZIP / Postal Code'
         });
 
     usePostcode({ fieldInput });
