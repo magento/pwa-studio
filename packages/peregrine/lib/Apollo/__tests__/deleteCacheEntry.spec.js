@@ -105,7 +105,7 @@ test('handle function call', async () => {
     expect(log).toHaveBeenCalledTimes(2);
 
     const initialKeys = log.mock.calls[0][0];
-    expect(initialKeys).toContain('Cart');
+    expect(initialKeys).toEqual(['Cart', 'Test']);
 
     const finalKeys = log.mock.calls[1][0];
     expect(finalKeys).toEqual(['Test']);
