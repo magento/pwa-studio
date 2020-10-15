@@ -24,8 +24,8 @@ const StoreCodeRoute = () => {
     // the "/en" in "/en-us/home.html" when "en-us" is also in storeCodes.
     storeCodes.sort((a, b) => b.length - a.length);
 
-    // Find the current store code in the url. This will always be the first
-    // path ie `https://example.com/fr/foo/baz.html` => `fr`.
+    // Find the store code in the url. This will always be the first path.
+    // ie `https://example.com/fr/foo/baz.html` => `fr`.
     const regex = new RegExp(`^\/(${storeCodes.join('|')})`, 'g');
     const match = window.location.pathname.match(regex);
     const storeCodeInUrl = match.length && match[0].replace(/\//g, '');
