@@ -130,7 +130,18 @@ exports[`it disables the submit button while loading 1`] = `
                   <div
                     className="price"
                   >
-                    <div />
+                    <span>
+                      $
+                    </span>
+                    <span>
+                      99
+                    </span>
+                    <span>
+                      .
+                    </span>
+                    <span>
+                      00
+                    </span>
                   </div>
                 </span>
               </label>
@@ -297,7 +308,18 @@ exports[`it renders correctly 1`] = `
                   <div
                     className="price"
                   >
-                    <div />
+                    <span>
+                      $
+                    </span>
+                    <span>
+                      99
+                    </span>
+                    <span>
+                      .
+                    </span>
+                    <span>
+                      00
+                    </span>
                   </div>
                 </span>
               </label>

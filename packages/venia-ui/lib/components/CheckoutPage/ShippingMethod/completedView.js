@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { func, number, shape, string } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';

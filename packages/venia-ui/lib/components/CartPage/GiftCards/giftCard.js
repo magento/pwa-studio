@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { useGiftCard } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCard';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './giftCard.css';
