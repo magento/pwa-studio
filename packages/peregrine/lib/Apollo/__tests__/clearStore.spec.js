@@ -20,7 +20,7 @@ let clearStoreSpy;
 const Component = props => {
     const client = useApolloClient();
 
-    clearStoreSpy = jest.spyOn(client, 'clearStore')
+    clearStoreSpy = jest.spyOn(client, 'clearStore');
 
     useEffect(() => {
         const clear = async () => {
@@ -34,9 +34,13 @@ const Component = props => {
 
 test('clear store', async () => {
     expect.assertions(4);
-    await act(async ()=>{
-        TestRenderer.create(<MockedProvider><Component/></MockedProvider>)
-    })
+    await act(async () => {
+        TestRenderer.create(
+            <MockedProvider>
+                <Component />
+            </MockedProvider>
+        );
+    });
 
     expect(pause).toHaveBeenCalledTimes(1);
     expect(purge).toHaveBeenCalledTimes(1);

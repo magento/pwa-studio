@@ -54,10 +54,7 @@ test('clears customer data from cache', async () => {
     expect(log).toHaveBeenCalledTimes(2);
 
     const initialCacheDataKeys = Object.keys(log.mock.calls[0][0]);
-    expect(initialCacheDataKeys).toEqual([
-        'Customer',
-        'AnotherCacheEntry'
-    ]);
+    expect(initialCacheDataKeys).toEqual(['Customer', 'AnotherCacheEntry']);
 
     const finalCacheDataKeys = Object.keys(log.mock.calls[1][0]);
     expect(finalCacheDataKeys).toEqual(['AnotherCacheEntry']);
