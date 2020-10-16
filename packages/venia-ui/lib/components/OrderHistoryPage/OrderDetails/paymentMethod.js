@@ -14,7 +14,7 @@ const PaymentMethod = props => {
      * since Venia does not support multiple payment methods yet
      * we are picking the first method in the array.
      */
-    const [{ type, additional_data }] = data;
+    const [{ name, type, additional_data }] = data;
     const { card_type, last_four } = useMemo(() => {
         const mappedAdditionalData = {};
 
@@ -33,9 +33,7 @@ const PaymentMethod = props => {
                     defaultMessage="Payment Method"
                 />
             </div>
-            <div className={classes.payment_type}>
-                {`${type} - ${card_type}`}
-            </div>
+            <div className={classes.payment_type}>{name}</div>
             <div className={classes.payment_last_four_digits}>{last_four}</div>
         </div>
     );
