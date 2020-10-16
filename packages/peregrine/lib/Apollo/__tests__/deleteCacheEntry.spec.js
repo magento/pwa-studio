@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import TestRenderer, { act } from 'react-test-renderer';
 import { MockedProvider } from '@apollo/client/testing';
-import { useApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { useApolloClient, InMemoryCache } from '@apollo/client';
 
 import typePolicies from '../policies';
 
@@ -26,13 +26,17 @@ const Component = props => {
         log(initialCacheKeys);
     }
 
-    useEffect(() => {
-        deleteCacheEntry(client, key => key.match(/^\$?Cart/));
+    const deleteEntry = async () => {
+        await deleteCacheEntry(client, key => key.match(/^\$?Cart/));
 
         if (client) {
             const finalCacheKeys = Object.keys(client.cache.data.data);
             log(finalCacheKeys);
         }
+    };
+
+    useEffect(() => {
+        deleteEntry();
     }, []);
     return <i />;
 };
