@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-studio",
-  "version": "8.0.0-rc.1",
+  "version": "8.0.0",
   "private": true,
   "workspaces": [
     "packages/babel-preset-peregrine",
@@ -13,7 +13,6 @@
     "packages/upward-js",
     "packages/upward-spec",
     "packages/venia-concept",
-    "packages/venia-styleguide",
     "packages/venia-ui"
   ],
   "author": "Magento Commerce",
