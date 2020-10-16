@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string } from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -28,8 +28,7 @@ const BillingInformation = props => {
                 />
             </div>
             <div className={classes.name}>
-                <span>{firstname}</span>
-                <span>{lastname}</span>
+                <span>{`${firstname} ${lastname}`}</span>
             </div>
             <div className={classes.addressLine1}>{street}</div>
             <div className={classes.addressLine2}>
@@ -58,6 +57,6 @@ BillingInformation.propTypes = {
         lastname: string,
         postcode: string,
         region_id: string,
-        street: string
+        street: arrayOf(string)
     })
 };

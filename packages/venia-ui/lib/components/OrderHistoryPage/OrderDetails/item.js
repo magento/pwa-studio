@@ -1,30 +1,28 @@
 import React, { useMemo } from 'react';
 import { shape, string, number, arrayOf } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 
-import { Link, resourceUrl } from '@magento/venia-drivers';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-
 import Button from '../../Button';
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
-
+import Price from '../../Price';
 import defaultClasses from './item.css';
 
 const Item = props => {
     const {
         product_name,
         product_sale_price,
+        product_url_key,
         quantity_ordered,
         selected_options,
-        thumbnail,
-        url_key,
-        url_suffix
+        thumbnail
     } = props;
-    const itemLink = useMemo(() => resourceUrl(`/${url_key}${url_suffix}`), [
-        url_key,
-        url_suffix
-    ]);
+    const { currency, value: unitPrice } = product_sale_price;
+
+    // TODO: do not hard code url key suffix; doesn't appear available from GraphQL
+    const itemLink = `${product_url_key}.html`;
     const mappedOptions = useMemo(
         () =>
             selected_options.map(option => ({
@@ -62,7 +60,9 @@ const Item = props => {
                     }}
                 />
             </span>
-            <span className={classes.price}>{product_sale_price}</span>
+            <div className={classes.price}>
+                <Price currencyCode={currency} value={unitPrice} />
+            </div>
             <Button
                 onClick={() => {
                     // TODO will be implemented in PWA-979
@@ -106,7 +106,11 @@ Item.propTypes = {
         returnThisButton: string
     }),
     product_name: string.isRequired,
-    product_sale_price: string.isRequired,
+    product_sale_price: shape({
+        currency: string,
+        value: number
+    }).isRequired,
+    product_url_key: string.isRequired,
     quantity_ordered: number.isRequired,
     selected_options: arrayOf(
         shape({
@@ -116,7 +120,5 @@ Item.propTypes = {
     ).isRequired,
     thumbnail: shape({
         url: string
-    }).isRequired,
-    url_key: string.isRequired,
-    url_suffix: string.isRequired
+    })
 };

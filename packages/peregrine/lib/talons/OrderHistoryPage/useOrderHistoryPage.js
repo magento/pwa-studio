@@ -4,13 +4,11 @@ import { useQuery } from '@apollo/client';
 
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
-import { useTypePolicies } from '../../hooks/useTypePolicies';
+import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
 
-export const useOrderHistoryPage = props => {
-    const { queries, types } = props;
-    const { getCustomerOrdersQuery } = queries;
-
-    useTypePolicies(types);
+export const useOrderHistoryPage = (props = {}) => {
+    const { operations = DEFAULT_OPERATIONS } = props;
+    const { getCustomerOrdersQuery } = operations;
 
     const [
         ,

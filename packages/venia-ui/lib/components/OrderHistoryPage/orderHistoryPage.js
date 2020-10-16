@@ -7,11 +7,10 @@ import { mergeClasses } from '../../classify';
 import { Title } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './orderHistoryPage.css';
-import orderHistoryOperations from './orderHistoryPage.gql';
 import OrderRow from './orderRow';
 
 const OrderHistoryPage = props => {
-    const talonProps = useOrderHistoryPage({ ...orderHistoryOperations });
+    const talonProps = useOrderHistoryPage();
     const { isLoadingWithoutData, orders } = talonProps;
     const { formatMessage } = useIntl();
     const PAGE_TITLE = formatMessage({

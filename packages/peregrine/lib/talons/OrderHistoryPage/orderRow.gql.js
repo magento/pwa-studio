@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const GET_PRODUCT_THUMBNAILS_BY_SKU = gql`
-    query GetProductThumbnailsBySku($skus: [String!]!) {
-        products(filter: { sku: { in: $skus } }) {
+export const GET_PRODUCT_THUMBNAILS_BY_URL_KEY = gql`
+    query GetProductThumbnailsByURLKey($urlKeys: [String!]!) {
+        products(filter: { url_key: { in: $urlKeys } }) {
             items {
                 id
                 sku
@@ -18,7 +18,5 @@ export const GET_PRODUCT_THUMBNAILS_BY_SKU = gql`
 `;
 
 export default {
-    queries: {
-        getProductThumbnailsQuery: GET_PRODUCT_THUMBNAILS_BY_SKU
-    }
+    getProductThumbnailsQuery: GET_PRODUCT_THUMBNAILS_BY_URL_KEY
 };

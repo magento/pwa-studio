@@ -1,6 +1,8 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
+import DEFAULT_OPERATIONS from './orderRow.gql';
+
 /**
  * @function
  *
@@ -11,18 +13,18 @@ import { useQuery } from '@apollo/client';
  * @returns {OrderRowTalonProps}
  */
 export const useOrderRow = props => {
-    const { items, queries } = props;
-    const { getProductThumbnailsQuery } = queries;
+    const { items, operations = DEFAULT_OPERATIONS } = props;
+    const { getProductThumbnailsQuery } = operations;
 
-    const skus = useMemo(() => {
-        return items.map(item => item.product_sku).sort();
+    const urlKeys = useMemo(() => {
+        return items.map(item => item.product_url_key).sort();
     }, [items]);
 
     const { data, loading } = useQuery(getProductThumbnailsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         variables: {
-            skus
+            urlKeys
         }
     });
     const imagesData = useMemo(() => {

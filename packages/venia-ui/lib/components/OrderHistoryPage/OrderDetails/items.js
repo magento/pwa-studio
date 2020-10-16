@@ -15,14 +15,18 @@ const Items = props => {
         const mappedImagesData = {};
 
         imagesData.forEach(imageData => {
-            mappedImagesData[imageData.sku] = imageData;
+            mappedImagesData[imageData.url_key] = imageData;
         });
 
         return mappedImagesData;
     }, [imagesData]);
 
     const itemsComponent = items.map(item => (
-        <Item key={item.id} {...item} {...mappedImagesData[item.product_sku]} />
+        <Item
+            key={item.id}
+            {...item}
+            {...mappedImagesData[item.product_url_key]}
+        />
     ));
 
     return <div className={classes.root}>{itemsComponent}</div>;
@@ -39,7 +43,10 @@ Items.propTypes = {
             shape({
                 id: string,
                 product_name: string,
-                product_sale_price: string,
+                product_sale_price: shape({
+                    currency: string,
+                    value: number
+                }),
                 product_sku: string,
                 selected_options: arrayOf(
                     shape({
