@@ -19,7 +19,8 @@ const CartTrigger = props => {
         miniCartRef,
         miniCartIsOpen,
         hideCartTrigger,
-        setMiniCartIsOpen
+        setMiniCartIsOpen,
+        miniCartTriggerRef
     } = useCartTrigger({
         queries: {
             getItemCountQuery: GET_ITEM_COUNT_QUERY
@@ -50,7 +51,7 @@ const CartTrigger = props => {
         // we render two buttons that differ only in their click handler
         // and control which one displays via CSS.
         <Fragment>
-            <div className={triggerClassName}>
+            <div className={triggerClassName} ref={miniCartTriggerRef}>
                 <button
                     aria-label={buttonAriaLabel}
                     className={classes.trigger}
