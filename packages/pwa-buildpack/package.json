@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "7.0.0-rc.1",
+  "version": "7.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -28,7 +28,7 @@
   "dependencies": {
     "@babel/core": "~7.8.7",
     "@magento/directive-parser": "~0.1.7",
-    "@magento/upward-js": "5.0.0-rc.1",
+    "@magento/upward-js": "~5.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "~0.4.1",
     "apicache": "~1.4.0",
     "boxen": "~3.0.0",
