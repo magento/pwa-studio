@@ -17,7 +17,7 @@ const cachePersistor = {
 
 let clearStoreSpy;
 
-const Component = props => {
+const Component = () => {
     const client = useApolloClient();
 
     clearStoreSpy = jest.spyOn(client, 'clearStore');
@@ -28,7 +28,7 @@ const Component = props => {
         };
 
         clear();
-    }, []);
+    }, [client]);
     return <i />;
 };
 

@@ -13,31 +13,42 @@ const persistor = {
     persist: jest.fn()
 };
 
-const Component = props => {
-    const { withClient = true, withPersistor = true } = props;
-    const client = withClient ? useApolloClient() : undefined;
-
-    if (client) {
-        if (withPersistor) {
-            client.persistor = persistor;
-        }
-
-        const initialCacheKeys = Object.keys(client.cache.data.data);
-        log(initialCacheKeys);
-    }
-
-    const deleteEntry = async () => {
-        await deleteCacheEntry(client, key => key.match(/^\$?Cart/));
-
-        if (client) {
-            const finalCacheKeys = Object.keys(client.cache.data.data);
-            log(finalCacheKeys);
-        }
-    };
+const ClientLessComponent = () => {
+    const client = undefined;
 
     useEffect(() => {
+        const deleteEntry = async () => {
+            await deleteCacheEntry(client, key => key.match(/^\$?Cart/));
+        };
+
         deleteEntry();
-    }, []);
+    }, [client]);
+    return <i />;
+};
+
+const Component = props => {
+    const { withPersistor = true } = props;
+    const client = useApolloClient();
+
+    if (withPersistor) {
+        client.persistor = persistor;
+    }
+
+    const initialCacheKeys = Object.keys(client.cache.data.data);
+    log(initialCacheKeys);
+
+    useEffect(() => {
+        const deleteEntry = async () => {
+            await deleteCacheEntry(client, key => key.match(/^\$?Cart/));
+
+            if (client) {
+                const finalCacheKeys = Object.keys(client.cache.data.data);
+                log(finalCacheKeys);
+            }
+        };
+
+        deleteEntry();
+    }, [client]);
     return <i />;
 };
 
@@ -45,13 +56,10 @@ test('handle no client cache', async () => {
     expect.assertions(1);
     const spy = jest.spyOn(console, 'warn');
 
-    const props = {
-        withClient: false
-    };
     await act(async () => {
         TestRenderer.create(
             <MockedProvider>
-                <Component {...props} />
+                <ClientLessComponent />
             </MockedProvider>
         );
     });
@@ -65,13 +73,10 @@ test('handle no client cache in development', async () => {
 
     process.env.NODE_ENV = 'development';
 
-    const props = {
-        withClient: false
-    };
     await act(async () => {
         TestRenderer.create(
             <MockedProvider>
-                <Component {...props} />
+                <ClientLessComponent />
             </MockedProvider>
         );
     });

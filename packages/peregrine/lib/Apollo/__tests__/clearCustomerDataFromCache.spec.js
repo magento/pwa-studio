@@ -9,7 +9,7 @@ import { clearCustomerDataFromCache } from '../clearCustomerDataFromCache';
 
 const log = jest.fn();
 
-const Component = props => {
+const Component = () => {
     const client = useApolloClient();
 
     const initialCacheData = Object.assign({}, client.cache.data.data);
