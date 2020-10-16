@@ -14,7 +14,7 @@ const BillingInformation = props => {
         firstname,
         lastname,
         postcode,
-        region_id,
+        region,
         street
     } = data;
     const classes = mergeClasses(defaultClasses, propsClasses);
@@ -32,7 +32,7 @@ const BillingInformation = props => {
             </div>
             <div className={classes.addressLine1}>{street}</div>
             <div className={classes.addressLine2}>
-                {`${city}, ${region_id}, ${postcode}`}
+                {`${city}, ${region}, ${postcode}`}
             </div>
             <div className={classes.country}>{country_code}</div>
         </div>

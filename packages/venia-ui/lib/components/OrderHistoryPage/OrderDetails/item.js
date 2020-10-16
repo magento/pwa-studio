@@ -10,6 +10,9 @@ import Image from '../../Image';
 import Price from '../../Price';
 import defaultClasses from './item.css';
 
+// TODO: do not hard code url key suffix; doesn't appear available from GraphQL
+const URL_SUFFIX = '.html';
+
 const Item = props => {
     const {
         product_name,
@@ -21,8 +24,7 @@ const Item = props => {
     } = props;
     const { currency, value: unitPrice } = product_sale_price;
 
-    // TODO: do not hard code url key suffix; doesn't appear available from GraphQL
-    const itemLink = `${product_url_key}.html`;
+    const itemLink = `${product_url_key}${URL_SUFFIX}`;
     const mappedOptions = useMemo(
         () =>
             selected_options.map(option => ({

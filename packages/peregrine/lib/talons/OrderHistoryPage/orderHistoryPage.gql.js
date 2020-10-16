@@ -12,7 +12,7 @@ export const GET_CUSTOMER_ORDERS = gql`
                         firstname
                         lastname
                         postcode
-                        region_id
+                        region
                         street
                         telephone
                     }
@@ -58,7 +58,7 @@ export const GET_CUSTOMER_ORDERS = gql`
                         firstname
                         lastname
                         postcode
-                        region_id
+                        region
                         street
                         telephone
                     }
