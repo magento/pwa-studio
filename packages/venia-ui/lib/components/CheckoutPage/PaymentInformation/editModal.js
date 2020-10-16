@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 
@@ -40,14 +41,20 @@ const EditModal = props => {
                 priority="low"
                 disabled={updateButtonClicked}
             >
-                {'Cancel'}
+                <FormattedMessage
+                    id={'global.cancelButton'}
+                    defaultMessage={'Cancel'}
+                />
             </Button>
             <Button
                 onClick={handleUpdate}
                 priority="high"
                 disabled={updateButtonClicked}
             >
-                {'Update'}
+                <FormattedMessage
+                    id={'global.updateButton'}
+                    defaultMessage={'Update'}
+                />
             </Button>
         </div>
     ) : null;
@@ -65,7 +72,15 @@ const EditModal = props => {
                 {actionButtons}
             </div>
         ) : (
-            <div>{`${selectedPaymentMethod} is not supported for editing.`}</div>
+            <div>
+                <FormattedMessage
+                    id={'checkoutPage.paymentMethodStatus'}
+                    defaultMessage={
+                        'The selected method is not supported for editing.'
+                    }
+                    values={{ selectedPaymentMethod }}
+                />
+            </div>
         );
 
     return (
@@ -73,7 +88,10 @@ const EditModal = props => {
             <aside className={classes.root_open}>
                 <div className={classes.header}>
                     <span className={classes.header_text}>
-                        Edit Payment Information
+                        <FormattedMessage
+                            id={'checkoutPage.editPaymentInformation'}
+                            defaultMessage={'Edit Payment Information'}
+                        />
                     </span>
                     <button
                         className={classes.close_button}

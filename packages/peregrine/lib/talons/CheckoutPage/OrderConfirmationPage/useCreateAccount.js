@@ -1,9 +1,10 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { useUserContext } from '../../../../lib/context/user';
-import { useCartContext } from '../../../../lib/context/cart';
-import { useAwaitQuery } from '../../../../lib/hooks/useAwaitQuery';
+import { useUserContext } from '../../../context/user';
+import { useCartContext } from '../../../context/cart';
+import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
+import DEFAULT_OPERATIONS from './createAccount.gql';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -15,8 +16,7 @@ import { useAwaitQuery } from '../../../../lib/hooks/useAwaitQuery';
  *
  * @param {Object} props.initialValues initial values to sanitize and seed the form
  * @param {Function} props.onSubmit the post submit callback
- * @param {String} createAccountQuery the graphql query for creating the account
- * @param {String} signInQuery the graphql query for logging in the user (and obtaining the token)
+ * @param {Object} props.operations GraphQL operations use by talon
  * @returns {{
  *   errors: Map,
  *   handleSubmit: function,
@@ -26,11 +26,17 @@ import { useAwaitQuery } from '../../../../lib/hooks/useAwaitQuery';
  */
 export const useCreateAccount = props => {
     const {
-        queries: { createAccountQuery, customerQuery, getCartDetailsQuery },
-        mutations: { createCartMutation, signInMutation },
+        operations = DEFAULT_OPERATIONS,
         initialValues = {},
         onSubmit
     } = props;
+    const {
+        createAccountMutation,
+        createCartMutation,
+        getCartDetailsQuery,
+        getCustomerQuery,
+        signInMutation
+    } = operations;
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
@@ -43,7 +49,7 @@ export const useCreateAccount = props => {
     // For create account and sign in mutations, we don't want to cache any
     // personally identifiable information (PII). So we set fetchPolicy to 'no-cache'.
     const [createAccount, { error: createAccountError }] = useMutation(
-        createAccountQuery,
+        createAccountMutation,
         {
             fetchPolicy: 'no-cache'
         }
@@ -53,7 +59,7 @@ export const useCreateAccount = props => {
         fetchPolicy: 'no-cache'
     });
 
-    const fetchUserDetails = useAwaitQuery(customerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const handleSubmit = useCallback(

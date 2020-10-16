@@ -115,7 +115,18 @@ Array [
         <span
           className="summary"
         >
-          <div />
+          <span>
+            $
+          </span>
+          <span>
+            0
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
           <br />
           <span>
             0
@@ -274,7 +285,18 @@ Array [
         <span
           className="summary"
         >
-          <div />
+          <span>
+            $
+          </span>
+          <span>
+            0
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
           <br />
           <span>
             0
@@ -433,7 +455,18 @@ Array [
         <span
           className="summary"
         >
-          <div />
+          <span>
+            $
+          </span>
+          <span>
+            0
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
           <br />
           <span>
             0

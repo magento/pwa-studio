@@ -79,3 +79,41 @@ test('does not render a close X button in modal mode', () => {
     // Assert.
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
+
+test('should render children even if dialog is hidden and if shouldUnmountOnHide is false', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        isOpen: false,
+        shouldUnmountOnHide: false
+    };
+
+    // Act.
+    const wrapper = createTestInstance(
+        <Dialog {...myProps}>
+            <div>{'Dialog Contents'}</div>
+        </Dialog>
+    );
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('should unmount children if dialog is hidden and if shouldUnmountOnHide is true', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        isOpen: false,
+        shouldUnmountOnHide: true
+    };
+
+    // Act.
+    const wrapper = createTestInstance(
+        <Dialog {...myProps}>
+            <div>{'Dialog Contents'}</div>
+        </Dialog>
+    );
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
