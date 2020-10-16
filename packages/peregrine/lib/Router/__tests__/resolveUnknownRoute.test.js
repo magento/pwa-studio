@@ -210,22 +210,3 @@ test('Preload path: casts numbers to number', async () => {
         id: 1
     });
 });
-
-test('Removes store code from request prior to calling GraphQL', async () => {
-    fetch.mockResponseOnce(
-        JSON.stringify(urlResolverJson(ProductPageResponse))
-    );
-
-    await expect(
-        resolveUnknownRoute({
-            route: '/default/foo-bar.html',
-            apiBase: 'https://store.com'
-        })
-    ).resolves.toMatchObject(ProductPageResponse);
-
-    const fetchVariables = JSON.parse(
-        fetch.mock.calls[0][0].searchParams.get('variables')
-    );
-
-    expect(fetchVariables.url).toEqual('/foo-bar.html');
-});

@@ -93,7 +93,7 @@ export const useStoreSwitcher = props => {
             // static React Router basename, which is changed on initialization.
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
                 const pathName = window.location.pathname;
-                const params = window.location.search;
+                const params = window.location.search || '';
 
                 // Check to see if we're on a page outside of the homepage
                 if (pathName !== '' && pathName !== '/') {

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
 const storage = new BrowserPersistence();
