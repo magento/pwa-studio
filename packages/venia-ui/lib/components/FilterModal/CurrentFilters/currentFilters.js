@@ -33,7 +33,11 @@ const CurrentFilters = props => {
         return elements;
     }, [classes.item, filterState, removeItem]);
 
-    return <ul className={classes.root}>{filterElements}</ul>;
+    return (
+        <ul className={classes.root} aria-label="Current Filters">
+            {filterElements}
+        </ul>
+    );
 };
 
 CurrentFilters.propTypes = {

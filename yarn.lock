@@ -15586,6 +15586,11 @@ symbol.prototype.description@^1.0.0:
     es-abstract "^1.17.0-next.1"
     has-symbols "^1.0.1"
 
+tabbable@~5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-5.1.2.tgz#3c4eac2901d0000913d13ce147229eb1405b59ca"
+  integrity sha512-DNmnX4XgkjK7kxDnQ5IbyYoNke2izMk5b62All0qxzoCF3wE7H9CuZ2IPdfAN8v79E0rpjv2k78uWuIXupGa9g==
+
 table@^5.2.3:
   version "5.4.6"
   resolved "https://registry.yarnpkg.com/table/-/table-5.4.6.tgz#1292d19500ce3f86053b05f0e8e7e4a3bb21079e"
