@@ -1,7 +1,7 @@
 import typePolicies from '../index';
 
 const readField = jest.fn((name, object) => {
-    if (typeof object[name] === 'array') {
+    if (typeof object[name] === Array) {
         return object[name].join();
     }
     return object[name];
@@ -353,5 +353,7 @@ describe('CategoryTree type provides the correct values', () => {
         ];
 
         const result = merge(existing, incoming);
+
+        expect(result).toStrictEqual(incoming);
     });
 });
