@@ -130,7 +130,7 @@ describe('Cart type provides the correct values', () => {
         const { merge } = fields.shipping_addresses;
 
         test('handles no existing address', () => {
-            const existing = [];
+            const existing = undefined;
             const incoming = [address];
 
             const final = merge(existing, incoming, {
@@ -282,7 +282,7 @@ describe('ShippingCartAddress type merges available_shipping_methods correctly',
     };
 
     test('handles no existing available shipping methods', () => {
-        const existing = [];
+        const existing = undefined;
         const incoming = [shippingMethod];
 
         const result = merge(existing, incoming, { readField, mergeObjects });
