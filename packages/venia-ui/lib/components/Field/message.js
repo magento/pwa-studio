@@ -1,18 +1,30 @@
 import React from 'react';
-import { node, shape, string } from 'prop-types';
+import { useIntl } from 'react-intl';
+import { node, number, oneOfType, shape, string } from 'prop-types';
 
 import defaultClasses from './message.css';
 import { mergeClasses } from '../../classify';
 
 const Message = props => {
     const { children, classes: propClasses, fieldState } = props;
-    const { asyncError, error } = fieldState;
-    const errorMessage = error || asyncError;
+    const { formatMessage } = useIntl();
+    const { error } = fieldState;
 
     const classes = mergeClasses(defaultClasses, propClasses);
-    const className = errorMessage ? classes.root_error : classes.root;
+    const className = error ? classes.root_error : classes.root;
+    let translatedErrorMessage;
 
-    return <p className={className}>{errorMessage || children}</p>;
+    if (error) {
+        translatedErrorMessage = formatMessage(
+            {
+                id: error.id,
+                defaultMessage: error.defaultMessage
+            },
+            { value: error.value }
+        );
+    }
+
+    return <p className={className}>{translatedErrorMessage || children}</p>;
 };
 
 export default Message;
@@ -28,7 +40,10 @@ Message.propTypes = {
         root_error: string
     }),
     fieldState: shape({
-        asyncError: string,
-        error: string
+        error: shape({
+            id: string,
+            defaultMessage: string,
+            value: oneOfType([number, string])
+        })
     })
 };

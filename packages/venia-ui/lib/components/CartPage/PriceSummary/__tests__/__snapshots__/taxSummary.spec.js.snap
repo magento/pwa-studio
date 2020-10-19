@@ -11,7 +11,16 @@ Array [
     className="price"
   >
     <span>
-      $2
+      $
+    </span>
+    <span>
+      2
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
     </span>
   </span>,
 ]
@@ -30,7 +39,16 @@ Array [
     className="price"
   >
     <span>
-      $10
+      $
+    </span>
+    <span>
+      10
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
     </span>
   </span>,
 ]
@@ -47,7 +65,16 @@ Array [
     className="price"
   >
     <span>
-      $0
+      $
+    </span>
+    <span>
+      0
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
     </span>
   </span>,
 ]

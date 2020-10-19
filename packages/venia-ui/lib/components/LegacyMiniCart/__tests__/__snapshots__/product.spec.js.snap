@@ -30,7 +30,8 @@ exports[`it renders correctly 1`] = `
         ×
       </span>
       <span>
-        <mockConstructor
+        <Price
+          classes={Object {}}
           currencyCode="US"
           value={99}
         />

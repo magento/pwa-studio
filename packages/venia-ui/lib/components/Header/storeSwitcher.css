@@ -72,6 +72,15 @@
         transform: translate3d(0, 8px, 0);
     }
 
+    .root:only-child {
+        grid-column: 2;
+    }
+
+    .root:last-child .menu {
+        right: 1rem;
+        left: auto;
+    }
+
     .menu_open {
         transform: translate3d(0, -4px, 0);
     }

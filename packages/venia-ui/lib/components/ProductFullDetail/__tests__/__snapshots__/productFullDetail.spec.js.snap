@@ -18,7 +18,18 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
     <p
       className="productPrice"
     >
-      <div />
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
     </p>
   </section>
   <section
@@ -111,7 +122,18 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
     <p
       className="productPrice"
     >
-      <div />
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
     </p>
   </section>
   <section
@@ -202,7 +224,18 @@ exports[`it render VirtualProduct if product type is virtual 1`] = `
     <p
       className="productPrice"
     >
-      <div />
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
     </p>
   </section>
   <section
@@ -293,7 +326,18 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
     <p
       className="productPrice"
     >
-      <div />
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
     </p>
   </section>
   <section
@@ -395,7 +439,18 @@ Array [
       <p
         className="productPrice"
       >
-        <div />
+        <span>
+          $
+        </span>
+        <span>
+          3
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          50
+        </span>
       </p>
     </section>
     <section
@@ -471,6 +526,183 @@ Array [
 ]
 `;
 
+exports[`it renders correctly 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <div
+      className="global"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={64}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={64}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="12"
+            x2="12"
+            y1="2"
+            y2="6"
+          />
+          <line
+            x1="12"
+            x2="12"
+            y1="18"
+            y2="22"
+          />
+          <line
+            x1="4.93"
+            x2="7.76"
+            y1="4.93"
+            y2="7.76"
+          />
+          <line
+            x1="16.24"
+            x2="19.07"
+            y1="16.24"
+            y2="19.07"
+          />
+          <line
+            x1="2"
+            x2="6"
+            y1="12"
+            y2="12"
+          />
+          <line
+            x1="18"
+            x2="22"
+            y1="12"
+            y2="12"
+          />
+          <line
+            x1="4.93"
+            x2="7.76"
+            y1="19.07"
+            y2="16.24"
+          />
+          <line
+            x1="16.24"
+            x2="19.07"
+            y1="7.76"
+            y2="4.93"
+          />
+        </svg>
+      </span>
+      <span
+        className="message"
+      >
+        Fetching Data...
+      </span>
+    </div>
+  </section>
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      Quantity
+    </h2>
+    QuantityFields
+  </section>
+  <section
+    className="cartActions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      type="submit"
+    >
+      <span
+        className="content"
+      >
+        Add to Cart
+      </span>
+    </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      Product Description
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      SKU
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
 exports[`it renders field level errors for quantity - message 1 1`] = `
 <form
   className="root"
@@ -489,7 +721,18 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
     <p
       className="productPrice"
     >
-      <div />
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
     </p>
   </section>
   <section
@@ -582,7 +825,18 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
     <p
       className="productPrice"
     >
-      <div />
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
     </p>
   </section>
   <section
@@ -675,7 +929,18 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
     <p
       className="productPrice"
     >
-      <div />
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
     </p>
   </section>
   <section
@@ -768,7 +1033,18 @@ exports[`it renders form level errors 1`] = `
     <p
       className="productPrice"
     >
-      <div />
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
     </p>
   </section>
   <section
