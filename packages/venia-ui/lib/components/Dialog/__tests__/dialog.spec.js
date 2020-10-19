@@ -50,6 +50,20 @@ test('renders a dialog with only the confirm button disabled', () => {
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
+test('renders a Dialog with no buttons', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        shouldShowButtons: false
+    };
+
+    // Act.
+    const wrapper = createTestInstance(<Dialog {...myProps} />);
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
 test('supports modifying title and button texts', () => {
     // Arrange.
     const myProps = {
