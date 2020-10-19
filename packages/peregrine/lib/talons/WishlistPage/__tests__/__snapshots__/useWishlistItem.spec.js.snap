@@ -2,7 +2,9 @@
 
 exports[`it returns the correct shape 1`] = `
 Object {
+  "actionsDialogIsOpen": false,
   "handleAddToCart": [Function],
+  "handleCloseActionsDialog": [Function],
   "handleMoreActions": [Function],
   "hasError": false,
   "isLoading": false,

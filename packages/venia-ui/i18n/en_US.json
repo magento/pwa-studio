@@ -333,6 +333,7 @@
     "wishlist.publicText": "Public",
     "wishlistItem.addToCart": "Add to Cart",
     "wishlistItem.addToCartError": "Something went wrong. Please refresh and try again.",
+    "wishlistItemActions.title": "Actions",
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "Favorites Lists",

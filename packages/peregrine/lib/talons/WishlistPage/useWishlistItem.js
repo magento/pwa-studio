@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
@@ -17,6 +17,7 @@ export const useWishlistItem = props => {
     const { addWishlistItemToCartMutation } = mutations;
 
     const [{ cartId }] = useCartContext();
+    const [actionsDialogIsOpen, setActionsDialogIsOpen] = useState(false);
 
     const cartItem = {
         data: {
@@ -52,11 +53,17 @@ export const useWishlistItem = props => {
     }, [addWishlistItemToCart]);
 
     const handleMoreActions = useCallback(() => {
-        console.log('To be handled by PWA-632');
-    }, []);
+        setActionsDialogIsOpen(true);
+    }, [setActionsDialogIsOpen]);
+
+    const handleCloseActionsDialog = useCallback(() => {
+        setActionsDialogIsOpen(false);
+    }, [setActionsDialogIsOpen]);
 
     return {
+        actionsDialogIsOpen,
         handleAddToCart,
+        handleCloseActionsDialog,
         handleMoreActions,
         hasError: !!error,
         isLoading: loading
@@ -83,7 +90,9 @@ export const useWishlistItem = props => {
  *
  * @typedef {Object} WishlistItemProps
  *
+ * @property {Boolean} actionsDialogIsOpen Whether the actions dialog is open or not
  * @property {Function} handleAddToCart Callback to handle item addition to cart
+ * @property {Function} handleCloseActionsDialog Callback to handle closing the actions dialog
  * @property {Function} handleMoreActions Callback to handle more actions
  * @property {Boolean} hasError Boolean which represents if there were errors during the mutation
  * @property {Boolean} isLoading Boolean which represents if data is loading

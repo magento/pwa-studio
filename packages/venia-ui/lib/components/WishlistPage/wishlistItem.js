@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { MoreHorizontal } from 'react-feather';
+import { useIntl } from 'react-intl';
 import { Price, useToasts } from '@magento/peregrine';
 import { useWishlistItem } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItem';
 
 import { mergeClasses } from '../../classify';
+import Dialog from '../Dialog';
 import Icon from '../Icon';
 import Image from '../Image';
+import WishlistItemActions from './wishlistItemActions';
 import defaultClasses from './wishlistItem.css';
 import wishlistItemOperations from './wishlistItem.gql';
-import { useIntl } from 'react-intl';
 
 const WishlistItem = props => {
     const { item } = props;
@@ -32,7 +34,9 @@ const WishlistItem = props => {
         ...wishlistItemOperations
     });
     const {
+        actionsDialogIsOpen,
         handleAddToCart,
+        handleCloseActionsDialog,
         handleMoreActions,
         hasError,
         isLoading
@@ -102,6 +106,18 @@ const WishlistItem = props => {
                 >
                     <Icon size={16} src={MoreHorizontal} />
                 </button>
+                {/* The more actions Dialog. */}
+                <Dialog
+                    isOpen={actionsDialogIsOpen}
+                    onCancel={handleCloseActionsDialog}
+                    shouldShowButtons={false}
+                    title={formatMessage({
+                        id: 'wishlistItemActions.title',
+                        defaultMessage: 'Actions'
+                    })}
+                >
+                    <WishlistItemActions />
+                </Dialog>
             </div>
         </div>
     );
