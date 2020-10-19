@@ -1,12 +1,12 @@
 .root {
     display: grid;
-    row-gap: 0.35rem;
+    row-gap: 0.375rem;
 }
 
 .heading {
     grid-row: 1 / span 1;
     font-weight: var(--venia-global-fontWeight-bold);
-    padding-bottom: 0.35rem;
+    padding-bottom: 0.375rem;
 }
 
 .method {

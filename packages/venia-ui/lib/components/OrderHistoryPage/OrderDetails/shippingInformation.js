@@ -32,9 +32,8 @@ const ShippingInformation = props => {
             </div>
             <div className={classes.addressLine1}>{street}</div>
             <div className={classes.addressLine2}>
-                {`${city}, ${region} ${postcode}`}
+                {`${city}, ${region} ${postcode} ${country_code}`}
             </div>
-            <div className={classes.country}>{country_code}</div>
         </div>
     );
 };
@@ -47,8 +46,7 @@ ShippingInformation.propTypes = {
         heading: string,
         name: string,
         addressLine1: string,
-        addressLine2: string,
-        country: string
+        addressLine2: string
     }),
     data: shape({
         city: string,

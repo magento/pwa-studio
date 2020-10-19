@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -14,16 +14,7 @@ const PaymentMethod = props => {
      * since Venia does not support multiple payment methods yet
      * we are picking the first method in the array.
      */
-    const [{ name, type, additional_data }] = data;
-    const { card_type, last_four } = useMemo(() => {
-        const mappedAdditionalData = {};
-
-        additional_data.forEach(additionalData => {
-            mappedAdditionalData[additionalData.name] = additionalData.value;
-        });
-
-        return mappedAdditionalData;
-    }, [additional_data]);
+    const [{ name }] = data;
 
     return (
         <div className={classes.root}>
@@ -34,7 +25,6 @@ const PaymentMethod = props => {
                 />
             </div>
             <div className={classes.payment_type}>{name}</div>
-            <div className={classes.payment_last_four_digits}>{last_four}</div>
         </div>
     );
 };
@@ -45,18 +35,11 @@ PaymentMethod.propTypes = {
     classes: shape({
         root: string,
         heading: string,
-        payment_type: string,
-        payment_last_four_digits: string
+        payment_type: string
     }),
     data: arrayOf(
         shape({
-            type: string,
-            additional_data: arrayOf(
-                shape({
-                    name: string,
-                    value: string
-                })
-            )
+            name: string
         })
     )
 };
