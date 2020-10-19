@@ -1,6 +1,10 @@
 const path = require('path');
 const {
-    graphQL: { getPossibleTypes, getStoreConfigData },
+    graphQL: {
+        getPossibleTypes,
+        getStoreConfigData,
+        getAvailableStoresConfigData
+    },
     Utilities: { loadEnvironment }
 } = require('@magento/pwa-buildpack');
 const baseWebpackConfig = require('@magento/venia-concept/webpack.config');
@@ -23,6 +27,7 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
 
     const possibleTypes = await getPossibleTypes();
     const storeConfigData = await getStoreConfigData();
+    const { availableStores } = await getAvailableStoresConfigData();
     global.LOCALE = storeConfigData.locale.replace('_', '-');
 
     const webpackConfig = await baseWebpackConfig(mode);
@@ -39,7 +44,8 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
             STORE_VIEW_LOCALE: JSON.stringify(global.LOCALE),
             STORE_VIEW_CODE: process.env.STORE_VIEW_CODE
                 ? JSON.stringify(process.env.STORE_VIEW_CODE)
-                : JSON.stringify(storeConfigData.code)
+                : JSON.stringify(storeConfigData.code),
+            AVAILABLE_STORE_VIEWS: JSON.stringify(availableStores)
         }),
         new EnvironmentPlugin(projectConfig.env),
         new ReactRefreshWebpackPlugin()
