@@ -8,7 +8,8 @@ const config = {
         'react/jsx-no-literals': [
             'error',
             {
-                allowedStrings: [],
+                allowedStrings: ['defaultMessage'],
+                // TODO: Come back, set to "false" temporarily to catch labels/title/alt etc.
                 ignoreProps: true,
                 noStrings: true
             }
