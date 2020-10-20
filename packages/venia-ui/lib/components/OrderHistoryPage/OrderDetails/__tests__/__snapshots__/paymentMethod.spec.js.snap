@@ -3,7 +3,10 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    Payment Method
+    <mock-FormattedMessage
+      defaultMessage="Payment Method"
+      id="orderDetails.paymentMethodLabel"
+    />
   </div>
   <div>
     Credit Card

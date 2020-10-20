@@ -128,7 +128,10 @@ exports[`renders full page loading indicator 1`] = `
   <span
     className="message"
   >
-    Fetching Data...
+    <mock-FormattedMessage
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
   </span>
 </div>
 `;

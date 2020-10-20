@@ -225,7 +225,10 @@ exports[`should render properly 1`] = `
         </svg>
       </span>
       <span>
-        Print Receipt
+        <mock-FormattedMessage
+          defaultMessage="Print Receipt"
+          id="orderDetails.printLabel"
+        />
       </span>
     </span>
   </button>

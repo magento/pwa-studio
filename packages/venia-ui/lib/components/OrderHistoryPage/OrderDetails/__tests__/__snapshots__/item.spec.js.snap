@@ -54,7 +54,14 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
     </div>
   </dl>
   <span>
-    orderDetails.quantity
+    <mock-FormattedMessage
+      id="orderDetails.quantity"
+      values={
+        Object {
+          "quantity": 3,
+        }
+      }
+    />
   </span>
   <div>
     <span>
@@ -76,7 +83,10 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
     type="button"
   >
     <span>
-      Buy Again
+      <mock-FormattedMessage
+        defaultMessage="Buy Again"
+        id="orderDetails.buyAgain"
+      />
     </span>
   </button>
   <button
@@ -85,7 +95,10 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
     type="button"
   >
     <span>
-      Return This
+      <mock-FormattedMessage
+        defaultMessage="Return This"
+        id="orderDetails.returnThis"
+      />
     </span>
   </button>
 </div>

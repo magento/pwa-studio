@@ -3,7 +3,10 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    Shipping Information
+    <mock-FormattedMessage
+      defaultMessage="Shipping Information"
+      id="orderDetails.shippingInformationLabel"
+    />
   </div>
   <div>
     <span>

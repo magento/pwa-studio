@@ -3,11 +3,22 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    Shipping Method
+    <mock-FormattedMessage
+      defaultMessage="Shipping Method"
+      id="orderDetails.shippingMethodLabel"
+    />
   </div>
   <div />
   <div>
-    orderDetails.trackingInformation
+    <mock-FormattedMessage
+      id="orderDetails.trackingInformation"
+      values={
+        Object {
+          "carrier": "Fedex",
+          "number": "FEDEX5885541235452125",
+        }
+      }
+    />
   </div>
 </div>
 `;
