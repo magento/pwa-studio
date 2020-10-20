@@ -12,7 +12,7 @@ exports[`renders a shipping form 1`] = `
     </h2>
     <div>
       <label>
-        Shipping Method
+        ShippingMethod
       </label>
     </div>
   </div>
@@ -50,7 +50,7 @@ exports[`renders no initial value and no shipping methods if no availableShippin
     </h2>
     <div>
       <label>
-        Shipping Method
+        ShippingMethod
       </label>
     </div>
   </div>

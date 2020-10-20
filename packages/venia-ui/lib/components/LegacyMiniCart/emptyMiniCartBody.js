@@ -7,6 +7,8 @@ import defaultClasses from './emptyMiniCartBody.css';
 import { useEmptyMiniCart } from '@magento/peregrine/lib/talons/LegacyMiniCart/useEmptyMiniCart';
 import Button from '../Button';
 
+const EMPTY_TITLE = 'There are no items in your shopping cart';
+const CONTINUE_SHOPPING = 'Continue Shopping';
 const EmptyMiniCart = props => {
     const { closeDrawer } = props;
 
@@ -20,11 +22,9 @@ const EmptyMiniCart = props => {
 
     return (
         <div className={classes.root}>
-            <h3 className={classes.emptyTitle}>
-                There are no items in your shopping cart
-            </h3>
+            <h3 className={classes.emptyTitle}>{EMPTY_TITLE}</h3>
             <Button priority={'normal'} type={'button'} onClick={handleClick}>
-                Continue Shopping
+                {CONTINUE_SHOPPING}
             </Button>
         </div>
     );

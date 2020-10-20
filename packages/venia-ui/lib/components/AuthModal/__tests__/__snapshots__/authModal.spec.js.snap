@@ -2,7 +2,7 @@
 
 exports[`should render create account component if view is CREATE_ACCOUNT 1`] = `
 <div>
-  <div
+  <mock-CreateAccount
     initialValues={
       Object {
         "email": "",
@@ -11,46 +11,38 @@ exports[`should render create account component if view is CREATE_ACCOUNT 1`] = 
     isCancelButtonHidden={false}
     onCancel={[MockFunction]}
     onSubmit={[MockFunction]}
-  >
-    CreateAccount
-  </div>
+  />
 </div>
 `;
 
 exports[`should render forgot password component if view is FORGOT_PASSWORD 1`] = `
 <div>
-  <div
+  <mock-ForgotPassword
     initialValues={
       Object {
         "email": "",
       }
     }
     onCancel={[MockFunction]}
-  >
-    ForgotPassword
-  </div>
+  />
 </div>
 `;
 
 exports[`should render my account component if view is MY_ACCOUNT 1`] = `
 <div>
-  <div
+  <mock-MyAccount
     onSignOut={[MockFunction]}
-  >
-    MyAccount
-  </div>
+  />
 </div>
 `;
 
 exports[`should render properly 1`] = `
 <div>
-  <div
+  <mock-SignIn
     setDefaultUsername={[MockFunction]}
     showCreateAccount={[MockFunction]}
     showForgotPassword={[MockFunction]}
     showMyAccount={[MockFunction]}
-  >
-    SignIn
-  </div>
+  />
 </div>
 `;

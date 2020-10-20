@@ -7,6 +7,8 @@ import { mergeClasses } from '../../classify';
 
 import defaultClasses from './totalsSummary.css';
 
+const cartTotalString = 'Cart Total : ';
+
 const TotalsSummary = props => {
     // Props.
     const { currencyCode, numItems, subtotal } = props;
@@ -15,6 +17,7 @@ const TotalsSummary = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const hasSubtotal = Boolean(subtotal);
     const numItemsText = numItems === 1 ? 'item' : 'items';
+    const subtotalValueString = `(${numItems} ${numItemsText})`;
 
     return (
         <div className={classes.root}>
@@ -22,12 +25,12 @@ const TotalsSummary = props => {
                 <dl className={classes.totals}>
                     <dt className={classes.subtotalLabel}>
                         <span>
-                            {'Cart Total : '}
+                            {cartTotalString}
                             <Price currency={currencyCode} value={subtotal} />
                         </span>
                     </dt>
                     <dd className={classes.subtotalValue}>
-                        ({numItems} {numItemsText})
+                        {subtotalValueString}
                     </dd>
                 </dl>
             )}

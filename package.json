@@ -28,7 +28,7 @@
     "clean:dist": "yarn workspaces run clean",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "danger": "danger-ci",
-    "lint": "eslint '@(packages|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
+    "lint": "eslint '@(packages|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist --ignore-pattern __stories__ --ignore-pattern Checkout",
     "postbuild": "rimraf \"./packages/*/dist/{,**/}__*__\"",
     "preinstall": "node -e 'process.env.CI||process.exit(1)' || npx npm-is yarn",
     "prepare": "node scripts/monorepo-introduction.js",

@@ -35,16 +35,21 @@ const ShippingForm = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const formHeading = 'Shipping Information';
+    const shippingMethodLabel = 'ShippingMethod';
+    const submitButtonText = 'Use Method';
+    const cancelButtonText = 'Cancel';
+
     return (
         <Form className={classes.root} onSubmit={handleSubmit}>
             <div className={classes.body}>
-                <h2 className={classes.heading}>Shipping Information</h2>
+                <h2 className={classes.heading}>{formHeading}</h2>
                 <div
                     className={classes.shippingMethod}
                     id={classes.shippingMethod}
                 >
                     <Label htmlFor={classes.shippingMethod}>
-                        Shipping Method
+                        {shippingMethodLabel}
                     </Label>
                     <Select
                         field="shippingMethod"
@@ -55,10 +60,10 @@ const ShippingForm = props => {
             </div>
             <div className={classes.footer}>
                 <Button priority="high" type="submit" disabled={isSubmitting}>
-                    Use Method
+                    {submitButtonText}
                 </Button>
                 <Button onClick={handleCancel} priority="low">
-                    Cancel
+                    {cancelButtonText}
                 </Button>
             </div>
         </Form>

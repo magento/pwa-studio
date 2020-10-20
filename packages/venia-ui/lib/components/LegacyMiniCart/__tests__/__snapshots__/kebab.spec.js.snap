@@ -10,15 +10,9 @@ exports[`it renders children passed to it 1`] = `
     />
   </button>
   <ul>
-    <div>
-      Child 1
-    </div>
-    <div>
-      Child 2
-    </div>
-    <div>
-      Child 3
-    </div>
+    <span />
+    <p />
+    <div />
   </ul>
 </div>
 `;
