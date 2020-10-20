@@ -72,7 +72,7 @@ exports[`renders loading indicator 1`] = `
   <span
     className="message"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Fetching Customer Details..."
       id="customerForm.loading"
     />
@@ -246,7 +246,7 @@ Array [
           <span
             className="optional"
           >
-            <mock-formatted-message
+            <mock-FormattedMessage
               defaultMessage="Optional"
               id="field.optional"
             />
@@ -489,7 +489,7 @@ Array [
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Cancel"
             id="global.cancelButton"
           />
@@ -677,7 +677,7 @@ Array [
           <span
             className="optional"
           >
-            <mock-formatted-message
+            <mock-FormattedMessage
               defaultMessage="Optional"
               id="field.optional"
             />
@@ -918,7 +918,7 @@ Array [
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Cancel"
             id="global.cancelButton"
           />
@@ -961,7 +961,7 @@ Array [
       <p
         className="root"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="The shipping address you enter will be saved to your address book and set as your default for future purchases."
           id="customerForm.formMessage"
         />
@@ -1167,7 +1167,7 @@ Array [
           <span
             className="optional"
           >
-            <mock-formatted-message
+            <mock-FormattedMessage
               defaultMessage="Optional"
               id="field.optional"
             />

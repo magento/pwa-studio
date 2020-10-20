@@ -85,7 +85,7 @@ exports[`it disables the submit button while loading 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Cancel"
                   id="global.cancelButton"
                 />
@@ -99,7 +99,7 @@ exports[`it disables the submit button while loading 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Save"
                   id="global.confirmButton"
                 />
@@ -198,7 +198,7 @@ exports[`it renders correctly 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Cancel"
                   id="global.cancelButton"
                 />
@@ -212,7 +212,7 @@ exports[`it renders correctly 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Save"
                   id="global.confirmButton"
                 />

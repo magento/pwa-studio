@@ -10,7 +10,7 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
     <span
       className="lineItemLabel"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Subtotal"
         id="priceSummary.lineItemLabel"
       />
@@ -64,7 +64,7 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Proceed to Checkout"
           id="priceSummary.checkoutButton"
         />
@@ -84,7 +84,7 @@ exports[`renders PriceSummary correctly on checkout page 1`] = `
     <span
       className="lineItemLabel"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Subtotal"
         id="priceSummary.lineItemLabel"
       />
@@ -137,7 +137,7 @@ exports[`renders an error state if query fails 1`] = `
   <span
     className="errorText"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Something went wrong. Please refresh and try again."
       id="priceSummary.errorText"
     />
@@ -157,7 +157,7 @@ exports[`renders summary with loading state if query is loading 1`] = `
     <span
       className="lineItemLabel"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Subtotal"
         id="priceSummary.lineItemLabel"
       />
@@ -211,7 +211,7 @@ exports[`renders summary with loading state if query is loading 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Proceed to Checkout"
           id="priceSummary.checkoutButton"
         />

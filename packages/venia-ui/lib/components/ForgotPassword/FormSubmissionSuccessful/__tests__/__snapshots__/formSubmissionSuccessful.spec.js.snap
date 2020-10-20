@@ -7,7 +7,7 @@ exports[`renders correctly 1`] = `
   <h2
     className="title"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Recover Password"
       id="formSubmissionSuccessful.recoverPasswordText"
     />

@@ -18,7 +18,7 @@ exports[`footer renders copyright 1`] = `
           href="/a"
           onClick={[Function]}
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="a"
             id="a"
           />
@@ -32,7 +32,7 @@ exports[`footer renders copyright 1`] = `
           href="/b"
           onClick={[Function]}
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="b"
             id="b"
           />
@@ -50,7 +50,7 @@ exports[`footer renders copyright 1`] = `
           href="/1"
           onClick={[Function]}
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="1"
             id="1"
           />
@@ -64,7 +64,7 @@ exports[`footer renders copyright 1`] = `
           href="/2"
           onClick={[Function]}
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="2"
             id="2"
           />
@@ -77,7 +77,7 @@ exports[`footer renders copyright 1`] = `
       <h3
         className="calloutHeading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Follow Us!"
           id="footer.followText"
         />
@@ -85,7 +85,7 @@ exports[`footer renders copyright 1`] = `
       <p
         className="calloutBody"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Lorem ipsum dolor sit amet, consectetur adipsicing elit, sed do eiusmod tempor incididunt ut labore et dolore."
           id="footer.calloutText"
         />
@@ -170,7 +170,7 @@ exports[`footer renders copyright 1`] = `
       <li
         className="terms"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Terms of Use"
           id="footer.termsText"
         />
@@ -178,7 +178,7 @@ exports[`footer renders copyright 1`] = `
       <li
         className="privacy"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Privacy Policy"
           id="footer.privacyText"
         />

@@ -5,13 +5,13 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
   className="root"
 >
   <h2>
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Quick Checkout When You Return"
       id="checkoutPage.quickCheckout"
     />
   </h2>
   <p>
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Set a password and save your information for next time in one easy step!"
       id="checkoutPage.setAPasswordAndSave"
     />
@@ -278,7 +278,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Create Account"
             id="checkoutPage.createAccount"
           />
@@ -294,13 +294,13 @@ exports[`CreateAccount renders errors 1`] = `
   className="root"
 >
   <h2>
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Quick Checkout When You Return"
       id="checkoutPage.quickCheckout"
     />
   </h2>
   <p>
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Set a password and save your information for next time in one easy step!"
       id="checkoutPage.setAPasswordAndSave"
     />
@@ -571,7 +571,7 @@ exports[`CreateAccount renders errors 1`] = `
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Create Account"
             id="checkoutPage.createAccount"
           />

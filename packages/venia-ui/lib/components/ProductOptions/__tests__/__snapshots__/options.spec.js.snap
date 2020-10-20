@@ -21,7 +21,7 @@ Array [
       <dt
         className="selectionLabel"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Selected option-1:"
           id="productOptions.selectedLabel"
           values={
@@ -55,7 +55,7 @@ Array [
       <dt
         className="selectionLabel"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Selected option-1:"
           id="productOptions.selectedLabel"
           values={

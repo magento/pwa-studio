@@ -7,7 +7,7 @@ exports[`renders address form and methods with address set 1`] = `
   <p
     className="message"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="For shipping estimates before proceeding to checkout, please provide the Country, State, and ZIP for the destination of your order."
       id="shippingMethods.message"
     />
@@ -25,7 +25,7 @@ exports[`renders address form and methods with address set 1`] = `
   <h3
     className="prompt"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Shipping Methods"
       id="shippingMethods.prompt"
     />
@@ -65,7 +65,7 @@ exports[`renders address form when confirm link clicked 1`] = `
   <p
     className="message"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="For shipping estimates before proceeding to checkout, please provide the Country, State, and ZIP for the destination of your order."
       id="shippingMethods.message"
     />
@@ -90,7 +90,7 @@ exports[`renders description and confirm link w/o shipping address set 1`] = `
   <p
     className="message"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="For shipping estimates before proceeding to checkout, please provide the Country, State, and ZIP for the destination of your order."
       id="shippingMethods.message"
     />
@@ -104,7 +104,7 @@ exports[`renders description and confirm link w/o shipping address set 1`] = `
     <span
       className="content"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="I want to estimate my shipping"
         id="shippingMethods.estimateButton"
       />

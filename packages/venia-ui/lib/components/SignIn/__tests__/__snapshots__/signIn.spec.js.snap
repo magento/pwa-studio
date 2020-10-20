@@ -7,7 +7,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
   <h2
     className="title"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Sign-in to Your Account"
       id="signIn.titleText"
     />
@@ -137,7 +137,7 @@ exports[`renders correctly 1`] = `
   <h2
     className="title"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Sign-in to Your Account"
       id="signIn.titleText"
     />

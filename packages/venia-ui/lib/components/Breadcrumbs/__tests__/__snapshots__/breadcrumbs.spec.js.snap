@@ -16,7 +16,7 @@ exports[`renders breadcrumbs for a category view 1`] = `
 <div
   className="root"
 >
-  <mock-formatted-message
+  <mock-FormattedMessage
     defaultMessage="Home"
     id="global.home"
   />
@@ -37,7 +37,7 @@ exports[`renders breadcrumbs for a product view 1`] = `
 <div
   className="root"
 >
-  <mock-formatted-message
+  <mock-FormattedMessage
     defaultMessage="Home"
     id="global.home"
   />
@@ -64,7 +64,7 @@ exports[`renders breadcrumbs for intermediate links 1`] = `
 <div
   className="root"
 >
-  <mock-formatted-message
+  <mock-FormattedMessage
     defaultMessage="Home"
     id="global.home"
   />

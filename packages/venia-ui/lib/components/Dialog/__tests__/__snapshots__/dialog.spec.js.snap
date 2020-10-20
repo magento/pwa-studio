@@ -45,7 +45,7 @@ exports[`does not render a close X button in modal mode 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Cancel"
                   id="global.cancelButton"
                 />
@@ -59,7 +59,7 @@ exports[`does not render a close X button in modal mode 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Confirm"
                   id="global.confirmButton"
                 />
@@ -153,7 +153,7 @@ exports[`renders a Dialog with disabled buttons 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Cancel"
                   id="global.cancelButton"
                 />
@@ -167,7 +167,7 @@ exports[`renders a Dialog with disabled buttons 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Confirm"
                   id="global.confirmButton"
                 />
@@ -261,7 +261,7 @@ exports[`renders a basic Dialog 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Cancel"
                   id="global.cancelButton"
                 />
@@ -275,7 +275,7 @@ exports[`renders a basic Dialog 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Confirm"
                   id="global.confirmButton"
                 />
@@ -369,7 +369,7 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Cancel"
                   id="global.cancelButton"
                 />
@@ -383,7 +383,7 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Confirm"
                   id="global.confirmButton"
                 />
@@ -481,7 +481,7 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Cancel"
                   id="global.cancelButton"
                 />
@@ -495,7 +495,7 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Confirm"
                   id="global.confirmButton"
                 />
@@ -589,7 +589,7 @@ exports[`should unmount children if dialog is hidden and if shouldUnmountOnHide 
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Cancel"
                   id="global.cancelButton"
                 />
@@ -603,7 +603,7 @@ exports[`should unmount children if dialog is hidden and if shouldUnmountOnHide 
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Confirm"
                   id="global.confirmButton"
                 />
@@ -697,7 +697,7 @@ exports[`supports modifying title and button texts 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Unit Test Cancel"
                   id="global.cancelButton"
                 />
@@ -711,7 +711,7 @@ exports[`supports modifying title and button texts 1`] = `
               <span
                 className="content"
               >
-                <mock-formatted-message
+                <mock-FormattedMessage
                   defaultMessage="Unit Test Confirm"
                   id="global.confirmButton"
                 />

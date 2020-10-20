@@ -225,7 +225,7 @@ exports[`should render properly 1`] = `
         </svg>
       </span>
       <span>
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Print Receipt"
           id="orderDetails.printLabel"
         />

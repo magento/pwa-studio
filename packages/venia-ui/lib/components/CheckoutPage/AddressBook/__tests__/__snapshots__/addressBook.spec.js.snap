@@ -25,7 +25,7 @@ Array [
     <h1
       className="headerText"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Change Shipping Information"
         id="addressBook.headerText"
       />
@@ -42,7 +42,7 @@ Array [
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Cancel"
             id="addressBook.cancelButtonText"
           />
@@ -57,7 +57,7 @@ Array [
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Apply"
             id="addressBook.applyButtonText"
           />
@@ -152,7 +152,7 @@ Array [
           <span
             className="addText"
           >
-            <mock-formatted-message
+            <mock-FormattedMessage
               defaultMessage="Add New Address"
               id="addressBook.addNewAddresstext"
             />
@@ -175,7 +175,7 @@ Array [
     <h1
       className="headerText"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Change Shipping Information"
         id="addressBook.headerText"
       />
@@ -192,7 +192,7 @@ Array [
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Cancel"
             id="addressBook.cancelButtonText"
           />
@@ -207,7 +207,7 @@ Array [
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Apply"
             id="addressBook.applyButtonText"
           />
@@ -266,7 +266,7 @@ Array [
           <span
             className="addText"
           >
-            <mock-formatted-message
+            <mock-FormattedMessage
               defaultMessage="Add New Address"
               id="addressBook.addNewAddresstext"
             />

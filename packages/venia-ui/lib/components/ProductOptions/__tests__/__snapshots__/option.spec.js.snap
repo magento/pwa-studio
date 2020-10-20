@@ -18,7 +18,7 @@ exports[`renders Option component correctly 1`] = `
     <dt
       className="selectionLabel"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Selected Foo:"
         id="productOptions.selectedLabel"
         values={

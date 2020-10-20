@@ -50,7 +50,7 @@ exports[`renders correctly 1`] = `
         </svg>
       </span>
       <span>
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Create a list"
           id="createWishlist.handleCreateListText"
         />

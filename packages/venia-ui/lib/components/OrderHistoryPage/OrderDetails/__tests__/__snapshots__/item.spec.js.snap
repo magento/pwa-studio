@@ -54,7 +54,7 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
     </div>
   </dl>
   <span>
-    <mock-formatted-message
+    <mock-FormattedMessage
       id="orderDetails.quantity"
       values={
         Object {
@@ -83,7 +83,7 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
     type="button"
   >
     <span>
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Buy Again"
         id="orderDetails.buyAgain"
       />
@@ -95,7 +95,7 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
     type="button"
   >
     <span>
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Return This"
         id="orderDetails.returnThis"
       />

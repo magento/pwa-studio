@@ -3,7 +3,7 @@
 exports[`renders correctly 1`] = `
 <h2>
   <span>
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Product Suggestions"
       id="searchBar.heading"
     />

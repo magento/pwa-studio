@@ -4,7 +4,7 @@ exports[`renders cart message 1`] = `
 <p
   className="root"
 >
-  <mock-formatted-message
+  <mock-FormattedMessage
     defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout."
     id="stockStatusMessage.message"
   />

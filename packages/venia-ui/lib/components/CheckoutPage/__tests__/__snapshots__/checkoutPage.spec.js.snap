@@ -51,7 +51,7 @@ exports[`CheckoutPage renders address book for customer 1`] = `
       <h3
         className="shipping_method_heading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="2. Shipping Method"
           id="checkoutPage.shippingMethodStep"
         />
@@ -63,7 +63,7 @@ exports[`CheckoutPage renders address book for customer 1`] = `
       <h3
         className="payment_information_heading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="3. Payment Information"
           id="checkoutPage.paymentInformationStep"
         />
@@ -135,7 +135,7 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
       <h3
         className="shipping_method_heading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="2. Shipping Method"
           id="checkoutPage.shippingMethodStep"
         />
@@ -147,7 +147,7 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
       <h3
         className="payment_information_heading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="3. Payment Information"
           id="checkoutPage.paymentInformationStep"
         />
@@ -219,7 +219,7 @@ exports[`CheckoutPage renders checkout content for customer - no default address
       <h3
         className="shipping_method_heading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="2. Shipping Method"
           id="checkoutPage.shippingMethodStep"
         />
@@ -231,7 +231,7 @@ exports[`CheckoutPage renders checkout content for customer - no default address
       <h3
         className="payment_information_heading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="3. Payment Information"
           id="checkoutPage.paymentInformationStep"
         />
@@ -272,7 +272,7 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Login and Checkout Faster"
             id="checkoutPage.loginAndCheckoutFaster"
           />
@@ -322,7 +322,7 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
       <h3
         className="shipping_method_heading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="2. Shipping Method"
           id="checkoutPage.shippingMethodStep"
         />
@@ -334,7 +334,7 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
       <h3
         className="payment_information_heading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="3. Payment Information"
           id="checkoutPage.paymentInformationStep"
         />
@@ -423,7 +423,7 @@ exports[`CheckoutPage renders loading indicator 1`] = `
   <span
     className="message"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Fetching Data..."
       id="loadingIndicator.message"
     />

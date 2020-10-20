@@ -7,7 +7,7 @@ exports[`it disables inputs when the page is updating 1`] = `
   <h3
     className="editingHeading"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Shipping Method"
       id="shippingMethod.heading"
     />
@@ -96,7 +96,7 @@ exports[`it disables inputs when the page is updating 1`] = `
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Continue to Payment Information"
             id="shippingMethod.continueToNextStep"
           />
@@ -114,7 +114,7 @@ exports[`it renders correctly 1`] = `
   <h3
     className="editingHeading"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Shipping Method"
       id="shippingMethod.heading"
     />
@@ -203,7 +203,7 @@ exports[`it renders correctly 1`] = `
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Continue to Payment Information"
             id="shippingMethod.continueToNextStep"
           />
@@ -279,7 +279,7 @@ exports[`it renders correctly in initializing mode 1`] = `
   <h3
     className="editingHeading"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Shipping Method"
       id="shippingMethod.heading"
     />
@@ -362,7 +362,7 @@ exports[`it renders correctly in initializing mode 1`] = `
     <span
       className="message"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Loading shipping methods..."
         id="shippingMethod.loading"
       />

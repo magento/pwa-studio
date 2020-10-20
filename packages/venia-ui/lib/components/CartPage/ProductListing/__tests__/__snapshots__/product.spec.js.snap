@@ -85,7 +85,7 @@ exports[`renders configurable product with options 1`] = `
         <span>
           00
         </span>
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage=" ea."
           id="product.price"
         />
@@ -423,7 +423,7 @@ exports[`renders out of stock product 1`] = `
         <span>
           00
         </span>
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage=" ea."
           id="product.price"
         />
@@ -728,7 +728,7 @@ exports[`renders simple product correctly 1`] = `
         <span>
           00
         </span>
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage=" ea."
           id="product.price"
         />

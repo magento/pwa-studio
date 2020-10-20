@@ -3,14 +3,14 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Order Total"
       id="orderDetails.orderTotal"
     />
   </div>
   <div>
     <span>
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Subtotal"
         id="orderDetails.subtotal"
       />
@@ -38,7 +38,7 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Discount"
         id="orderDetails.discount"
       />
@@ -60,7 +60,7 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Tax"
         id="orderDetails.tax"
       />
@@ -82,7 +82,7 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Shipping"
         id="orderDetails.shipping"
       />
@@ -104,7 +104,7 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Total"
         id="orderDetails.total"
       />

@@ -5,7 +5,7 @@ Array [
   <span
     className="lineItemLabel"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Gift Card(s) applied"
       id="giftCardSummary.lineItemLabel"
     />
@@ -35,7 +35,7 @@ Array [
   <span
     className="lineItemLabel"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Gift Card(s) applied"
       id="giftCardSummary.lineItemLabel"
     />

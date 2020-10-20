@@ -3,14 +3,14 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Shipping Method"
       id="orderDetails.shippingMethodLabel"
     />
   </div>
   <div />
   <div>
-    <mock-formatted-message
+    <mock-FormattedMessage
       id="orderDetails.trackingInformation"
       values={
         Object {

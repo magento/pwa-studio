@@ -34,7 +34,7 @@ exports[`renders correctly when there are existing addresses 1`] = `
         <span
           className="addText"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Add an Address"
             id="addressBookPage.addAddressText"
           />
@@ -88,7 +88,7 @@ exports[`renders correctly when there are no existing addresses 1`] = `
         <span
           className="addText"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Add an Address"
             id="addressBookPage.addAddressText"
           />

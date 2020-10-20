@@ -72,7 +72,7 @@ exports[`renders a loading indicator when talon indicates 1`] = `
   <span
     className="message"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Fetching Data..."
       id="loadingIndicator.message"
     />
@@ -90,7 +90,7 @@ exports[`renders components if cart has items 1`] = `
     <h1
       className="heading"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Cart"
         id="cartPage.heading"
       />
@@ -104,7 +104,7 @@ exports[`renders components if cart has items 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Sign In"
           id="cartPage.signIn"
         />
@@ -158,7 +158,7 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
     <h1
       className="heading"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Cart"
         id="cartPage.heading"
       />
@@ -172,7 +172,7 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Sign In"
           id="cartPage.signIn"
         />
@@ -191,7 +191,7 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
       className="items_container"
     >
       <h3>
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="There are no items in your cart."
           id="cartPage.emptyCart"
         />

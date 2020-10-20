@@ -65,7 +65,7 @@ exports[`it renders a loading indicator when appropriate 1`] = `
     </svg>
   </span>
   <span>
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Fetching Data..."
       id="loadingIndicator.message"
     />
@@ -75,7 +75,7 @@ exports[`it renders a loading indicator when appropriate 1`] = `
 
 exports[`it shows error when appropriate 1`] = `
 <div>
-  <mock-formatted-message
+  <mock-FormattedMessage
     defaultMessage="Data Fetch Error"
     id="category.dataFetchError"
   />

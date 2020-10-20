@@ -8,7 +8,7 @@ exports[`renders correctly 1`] = `
     type="button"
   >
     <span>
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Sort"
         id="productSort.sortButton"
       />

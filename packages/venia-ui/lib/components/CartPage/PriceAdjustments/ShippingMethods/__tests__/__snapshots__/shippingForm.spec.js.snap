@@ -5,7 +5,7 @@ Array [
   <h3
     className="formTitle"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Destination"
       id="shippingForm.formTitle"
     />
@@ -186,7 +186,7 @@ Array [
   <h3
     className="formTitle"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Destination"
       id="shippingForm.formTitle"
     />
@@ -381,7 +381,7 @@ Array [
   <h3
     className="formTitle"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Destination"
       id="shippingForm.formTitle"
     />
@@ -619,7 +619,7 @@ Array [
   <h3
     className="formTitle"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Destination"
       id="shippingForm.formTitle"
     />
@@ -846,7 +846,7 @@ Array [
   <h3
     className="formTitle"
   >
-    <mock-formatted-message
+    <mock-FormattedMessage
       defaultMessage="Destination"
       id="shippingForm.formTitle"
     />

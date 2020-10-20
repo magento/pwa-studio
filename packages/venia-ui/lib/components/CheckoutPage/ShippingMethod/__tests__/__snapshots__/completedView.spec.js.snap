@@ -13,7 +13,7 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
       <h5
         className="heading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Shipping Method"
           id="completedView.shippingMethod"
         />
@@ -50,7 +50,7 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
           <span
             className="editButtonText"
           >
-            <mock-formatted-message
+            <mock-FormattedMessage
               defaultMessage="Edit"
               id="global.editButton"
             />
@@ -61,7 +61,7 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
     <span
       className="error"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Error loading selected shipping method. Please select again."
         id="completedView.errorLoading"
       />
@@ -83,7 +83,7 @@ exports[`it renders correctly 1`] = `
       <h5
         className="heading"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Shipping Method"
           id="completedView.shippingMethod"
         />
@@ -120,7 +120,7 @@ exports[`it renders correctly 1`] = `
           <span
             className="editButtonText"
           >
-            <mock-formatted-message
+            <mock-FormattedMessage
               defaultMessage="Edit"
               id="global.editButton"
             />

@@ -10,7 +10,7 @@ exports[`Should return correct shape 1`] = `
     <span
       className="header_text"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Edit Payment Information"
         id="checkoutPage.editPaymentInformation"
       />

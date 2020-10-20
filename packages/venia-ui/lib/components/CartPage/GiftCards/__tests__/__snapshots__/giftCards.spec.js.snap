@@ -77,7 +77,7 @@ exports[`it renders correctly when it has cards 1`] = `
             <span
               className="content"
             >
-              <mock-formatted-message
+              <mock-FormattedMessage
                 defaultMessage="Apply"
                 id="giftCards.apply"
               />
@@ -93,7 +93,7 @@ exports[`it renders correctly when it has cards 1`] = `
           <span
             className="content"
           >
-            <mock-formatted-message
+            <mock-FormattedMessage
               defaultMessage="Check balance"
               id="giftCards.checkBalance"
             />
@@ -116,7 +116,7 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="balance"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Balance: "
           id="giftCard.balance"
         />
@@ -143,7 +143,7 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Remove"
           id="giftCard.remove"
         />
@@ -160,7 +160,7 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="balance"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Balance: "
           id="giftCard.balance"
         />
@@ -187,7 +187,7 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Remove"
           id="giftCard.remove"
         />
@@ -274,7 +274,7 @@ exports[`it renders correctly with no cards 1`] = `
             <span
               className="content"
             >
-              <mock-formatted-message
+              <mock-FormattedMessage
                 defaultMessage="Apply"
                 id="giftCards.apply"
               />
@@ -290,7 +290,7 @@ exports[`it renders correctly with no cards 1`] = `
           <span
             className="content"
           >
-            <mock-formatted-message
+            <mock-FormattedMessage
               defaultMessage="Check balance"
               id="giftCards.checkBalance"
             />

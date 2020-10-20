@@ -58,7 +58,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
     <h2
       className="quantityTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
@@ -76,7 +76,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Add to Cart"
           id="productFullDetail.cartAction"
         />
@@ -89,7 +89,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
     <h2
       className="descriptionTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
@@ -104,7 +104,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
     <h2
       className="detailsTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
@@ -172,7 +172,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
     <h2
       className="quantityTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
@@ -190,7 +190,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Add to Cart"
           id="productFullDetail.cartAction"
         />
@@ -203,7 +203,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
     <h2
       className="descriptionTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
@@ -218,7 +218,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
     <h2
       className="detailsTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
@@ -292,7 +292,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
     <h2
       className="quantityTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
@@ -310,7 +310,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Add to Cart"
           id="productFullDetail.cartAction"
         />
@@ -323,7 +323,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
     <h2
       className="descriptionTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
@@ -338,7 +338,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
     <h2
       className="detailsTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
@@ -413,7 +413,7 @@ Array [
       <h2
         className="quantityTitle"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Quantity"
           id="global.quantity"
         />
@@ -431,7 +431,7 @@ Array [
         <span
           className="content"
         >
-          <mock-formatted-message
+          <mock-FormattedMessage
             defaultMessage="Add to Cart"
             id="productFullDetail.cartAction"
           />
@@ -444,7 +444,7 @@ Array [
       <h2
         className="descriptionTitle"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Product Description"
           id="productFullDetail.productDescription"
         />
@@ -459,7 +459,7 @@ Array [
       <h2
         className="detailsTitle"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="SKU"
           id="global.sku"
         />
@@ -593,7 +593,7 @@ exports[`it renders correctly 1`] = `
       <span
         className="message"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Fetching Data..."
           id="loadingIndicator.message"
         />
@@ -606,7 +606,7 @@ exports[`it renders correctly 1`] = `
     <h2
       className="quantityTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
@@ -624,7 +624,7 @@ exports[`it renders correctly 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Add to Cart"
           id="productFullDetail.cartAction"
         />
@@ -637,7 +637,7 @@ exports[`it renders correctly 1`] = `
     <h2
       className="descriptionTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
@@ -652,7 +652,7 @@ exports[`it renders correctly 1`] = `
     <h2
       className="detailsTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
@@ -722,7 +722,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
     <h2
       className="quantityTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
@@ -740,7 +740,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Add to Cart"
           id="productFullDetail.cartAction"
         />
@@ -753,7 +753,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
     <h2
       className="descriptionTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
@@ -768,7 +768,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
     <h2
       className="detailsTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
@@ -838,7 +838,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
     <h2
       className="quantityTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
@@ -856,7 +856,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Add to Cart"
           id="productFullDetail.cartAction"
         />
@@ -869,7 +869,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
     <h2
       className="descriptionTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
@@ -884,7 +884,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
     <h2
       className="detailsTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
@@ -954,7 +954,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
     <h2
       className="quantityTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
@@ -972,7 +972,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Add to Cart"
           id="productFullDetail.cartAction"
         />
@@ -985,7 +985,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
     <h2
       className="descriptionTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
@@ -1000,7 +1000,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
     <h2
       className="detailsTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
@@ -1074,7 +1074,7 @@ exports[`it renders form level errors 1`] = `
     <h2
       className="quantityTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
@@ -1092,7 +1092,7 @@ exports[`it renders form level errors 1`] = `
       <span
         className="content"
       >
-        <mock-formatted-message
+        <mock-FormattedMessage
           defaultMessage="Add to Cart"
           id="productFullDetail.cartAction"
         />
@@ -1105,7 +1105,7 @@ exports[`it renders form level errors 1`] = `
     <h2
       className="descriptionTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
@@ -1120,7 +1120,7 @@ exports[`it renders form level errors 1`] = `
     <h2
       className="detailsTitle"
     >
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />

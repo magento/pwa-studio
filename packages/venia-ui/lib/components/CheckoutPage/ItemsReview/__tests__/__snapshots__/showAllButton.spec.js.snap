@@ -6,7 +6,7 @@ exports[`Snapshot test 1`] = `
 >
   <span>
     <span>
-      <mock-formatted-message
+      <mock-FormattedMessage
         defaultMessage="SHOW ALL ITEMS"
         id="checkoutPage.showAllItems"
       />
