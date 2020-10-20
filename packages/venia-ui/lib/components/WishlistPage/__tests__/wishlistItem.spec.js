@@ -19,6 +19,7 @@ jest.mock('@magento/peregrine/lib/talons/WishlistPage/useWishlistItem', () => ({
 jest.mock('../../Dialog', () => props => (
     <div componentName={'Dialog'} {...props} />
 ));
+jest.mock('../wishlistItemActions', () => 'WishlistItemActions');
 
 jest.mock('../../../classify');
 

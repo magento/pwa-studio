@@ -6,6 +6,7 @@ Object {
   "handleAddToCart": [Function],
   "handleCloseActionsDialog": [Function],
   "handleMoreActions": [Function],
+  "handleRemove": [Function],
   "hasError": false,
   "isLoading": false,
 }

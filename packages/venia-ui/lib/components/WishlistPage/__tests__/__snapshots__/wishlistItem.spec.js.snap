@@ -111,6 +111,13 @@ exports[`it renders a configurable wishlist item 1`] = `
         </svg>
       </span>
     </button>
+    <div
+      componentName="Dialog"
+      shouldShowButtons={false}
+      title="Actions"
+    >
+      <WishlistItemActions />
+    </div>
   </div>
 </div>
 `;
@@ -208,6 +215,13 @@ exports[`it renders a simple wishlist item 1`] = `
         </svg>
       </span>
     </button>
+    <div
+      componentName="Dialog"
+      shouldShowButtons={false}
+      title="Actions"
+    >
+      <WishlistItemActions />
+    </div>
   </div>
 </div>
 `;
