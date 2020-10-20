@@ -4,6 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { useTypePolicies } from '@magento/peregrine';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
+
+import mergeOperations from '../../util/shallowMerge';
+
 import DEFAULT_OPERATIONS, { CUSTOM_TYPES } from './currencySwitcher.gql';
 
 const storage = new BrowserPersistence();
@@ -24,10 +27,9 @@ const storage = new BrowserPersistence();
  */
 
 export const useCurrencySwitcher = (props = {}) => {
-    const {
-        operations = DEFAULT_OPERATIONS,
-        typePolicies = CUSTOM_TYPES
-    } = props;
+    const { typePolicies = CUSTOM_TYPES } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCurrencyQuery } = operations;
 
     useTypePolicies(typePolicies);
