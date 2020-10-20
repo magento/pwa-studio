@@ -67,10 +67,9 @@ const WishlistItem = props => {
         const optionString = `${optionLabel} : ${valueLabel}`;
 
         return (
-            <span
-                className={classes.option}
-                key={id}
-            >{optionString}</span>
+            <span className={classes.option} key={id}>
+                {optionString}
+            </span>
         );
     });
 
