@@ -6,6 +6,7 @@ import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/Paymen
 import { isRequired } from '../../../util/formValidators';
 import Country from '../../Country';
 import Region from '../../Region';
+import Postcode from '../../Postcode';
 import Checkbox from '../../Checkbox';
 import Field from '../../Field';
 import TextInput from '../../TextInput';
@@ -262,19 +263,11 @@ const CreditCard = props => {
                         initialValue={initialValues.region}
                         validate={isFieldRequired}
                     />
-                    <Field
+                    <Postcode
                         classes={fieldClasses.postal_code}
-                        label={formatMessage({
-                            id: 'global.postcode',
-                            defaultMessage: 'ZIP / Postal Code'
-                        })}
-                    >
-                        <TextInput
-                            field="postalCode"
-                            validate={isFieldRequired}
-                            initialValue={initialValues.postalCode}
-                        />
-                    </Field>
+                        validate={isFieldRequired}
+                        initialValue={initialValues.postalCode}
+                    />
                     <Field
                         classes={fieldClasses.phone_number}
                         label={formatMessage({

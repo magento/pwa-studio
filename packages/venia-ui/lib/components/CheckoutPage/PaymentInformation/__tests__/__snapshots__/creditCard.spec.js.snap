@@ -115,9 +115,10 @@ exports[`Should return correct shape 1`] = `
             "root": "postal_code",
           }
         }
-        label="ZIP / Postal Code"
+        initialValue="sample postal code"
+        validate={[Function]}
       >
-        Field Component
+        Postcode Component
       </div>
       <div
         classes={

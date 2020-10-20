@@ -58,6 +58,10 @@ jest.mock('../../../Region', () => {
     return props => <div {...props}>Region Component</div>;
 });
 
+jest.mock('../../../Postcode', () => {
+    return props => <div {...props}>Postcode Component</div>;
+});
+
 const useCreditCardReturnValue = {
     onPaymentError: jest.fn(),
     onPaymentSuccess: jest.fn(),
