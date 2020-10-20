@@ -14,7 +14,10 @@ exports[`disables remove button on click 1`] = `
     type="button"
   >
     <span>
-      Remove
+      <mock-FormattedMessage
+        defaultMessage="Remove"
+        id="couponCode.removeButton"
+      />
     </span>
   </button>
 </div>
@@ -65,7 +68,10 @@ exports[`disables submit button on coupon entry 1`] = `
       type="submit"
     >
       <span>
-        Apply
+        <mock-FormattedMessage
+          defaultMessage="Apply"
+          id="couponCode.apply"
+        />
       </span>
     </button>
   </div>
@@ -117,7 +123,10 @@ exports[`renders CouponCode input and submit button 1`] = `
       type="submit"
     >
       <span>
-        Apply
+        <mock-FormattedMessage
+          defaultMessage="Apply"
+          id="couponCode.apply"
+        />
       </span>
     </button>
   </div>
@@ -168,7 +177,10 @@ exports[`renders an error message if an error occurs on code entry 1`] = `
       type="submit"
     >
       <span>
-        Apply
+        <mock-FormattedMessage
+          defaultMessage="Apply"
+          id="couponCode.apply"
+        />
       </span>
     </button>
   </div>
@@ -177,7 +189,10 @@ exports[`renders an error message if an error occurs on code entry 1`] = `
 
 exports[`renders an error state if unable to fetch applied coupons 1`] = `
 <div>
-  Something went wrong. Please refresh and try again.
+  <mock-FormattedMessage
+    defaultMessage="Something went wrong. Please refresh and try again."
+    id="couponCode.errorContainer"
+  />
 </div>
 `;
 
@@ -197,7 +212,10 @@ exports[`renders the coupon code view if applied coupons has data 1`] = `
     type="button"
   >
     <span>
-      Remove
+      <mock-FormattedMessage
+        defaultMessage="Remove"
+        id="couponCode.removeButton"
+      />
     </span>
   </button>
 </div>
