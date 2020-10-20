@@ -4,10 +4,14 @@ import { CachePersistor } from 'apollo-cache-persist';
 import { ApolloProvider, createHttpLink } from '@apollo/client';
 import { ApolloClient } from '@apollo/client/core';
 import { InMemoryCache } from '@apollo/client/cache';
+import { setContext } from '@apollo/client/link/context';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+
+import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 
+import StoreCodeRoute from '../components/StoreCodeRoute';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
 
 /**
@@ -20,6 +24,8 @@ const preInstantiatedCache = new InMemoryCache({
     // POSSIBLE_TYPES is injected into the bundle by webpack at build time.
     possibleTypes: POSSIBLE_TYPES
 });
+
+const storage = new BrowserPersistence();
 
 /**
  * The counterpart to `@magento/venia-drivers` is an adapter that provides
@@ -84,14 +90,43 @@ const VeniaAdapter = props => {
         return null;
     }
 
+    let storeCodeRouteHandler = null;
+    const browserRouterProps = {};
+    if (process.env.USE_STORE_CODE_IN_URL === 'true') {
+        const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
+        browserRouterProps.basename = `/${storeCode}`;
+
+        // Include the store code route handler that manages and updates the
+        // stored code based on the url.
+        storeCodeRouteHandler = <StoreCodeRoute />;
+    }
+
     return (
         <ApolloProvider client={apolloClient}>
             <ReduxProvider store={store}>
-                <BrowserRouter>{children}</BrowserRouter>
+                <BrowserRouter {...browserRouterProps}>
+                    {storeCodeRouteHandler}
+                    {children}
+                </BrowserRouter>
             </ReduxProvider>
         </ApolloProvider>
     );
 };
+
+// Create a new store link to include store codes and currency in the request
+VeniaAdapter.storeLink = setContext((_, { headers }) => {
+    const storeCurrency = storage.getItem('store_view_currency') || null;
+    const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
+
+    // return the headers to the context so httpLink can read them
+    return {
+        headers: {
+            ...headers,
+            store: storeCode,
+            ...(storeCurrency && { 'Content-Currency': storeCurrency })
+        }
+    };
+});
 
 /**
  * We attach this Link as a static method on VeniaAdapter because

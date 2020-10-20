@@ -1,3 +1,0 @@
-#### Before
-
-Lorem ipsum
