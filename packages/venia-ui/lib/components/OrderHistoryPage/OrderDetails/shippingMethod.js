@@ -18,17 +18,20 @@ const ShippingMethod = props => {
     let trackingElement;
     if (shipments.length) {
         const [{ tracking }] = shipments;
-        const [{ carrier, number }] = tracking;
 
-        trackingElement = (
-            <FormattedMessage
-                id="orderDetails.trackingInformation"
-                values={{
-                    carrier,
-                    number
-                }}
-            />
-        );
+        if (tracking.length) {
+            const [{ carrier, number }] = tracking;
+
+            trackingElement = (
+                <FormattedMessage
+                    id="orderDetails.trackingInformation"
+                    values={{
+                        carrier,
+                        number
+                    }}
+                />
+            );
+        }
     } else {
         trackingElement = (
             <FormattedMessage
