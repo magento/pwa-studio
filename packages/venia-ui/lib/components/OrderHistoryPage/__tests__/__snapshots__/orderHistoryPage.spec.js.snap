@@ -128,8 +128,7 @@ exports[`renders full page loading indicator 1`] = `
   <span
     className="message"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Fetching Data..."
       id="loadingIndicator.message"
     />

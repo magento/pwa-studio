@@ -85,8 +85,7 @@ exports[`it disables the submit button while loading 1`] = `
               <span
                 className="content"
               >
-                <div
-                  componentName="Formatted Message Component"
+                <mock-formatted-message
                   defaultMessage="Cancel"
                   id="global.cancelButton"
                 />
@@ -100,8 +99,7 @@ exports[`it disables the submit button while loading 1`] = `
               <span
                 className="content"
               >
-                <div
-                  componentName="Formatted Message Component"
+                <mock-formatted-message
                   defaultMessage="Save"
                   id="global.confirmButton"
                 />
@@ -200,8 +198,7 @@ exports[`it renders correctly 1`] = `
               <span
                 className="content"
               >
-                <div
-                  componentName="Formatted Message Component"
+                <mock-formatted-message
                   defaultMessage="Cancel"
                   id="global.cancelButton"
                 />
@@ -215,8 +212,7 @@ exports[`it renders correctly 1`] = `
               <span
                 className="content"
               >
-                <div
-                  componentName="Formatted Message Component"
+                <mock-formatted-message
                   defaultMessage="Save"
                   id="global.confirmButton"
                 />

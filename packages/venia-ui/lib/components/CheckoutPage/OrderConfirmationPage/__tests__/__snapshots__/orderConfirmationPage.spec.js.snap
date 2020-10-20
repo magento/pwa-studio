@@ -5,15 +5,13 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
   Title
   <div>
     <h2>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Thank you for your order!"
         id="checkoutPage.thankYou"
       />
     </h2>
     <div>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Order Number"
         id="checkoutPage.orderNumber"
         values={
@@ -24,8 +22,7 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
       />
     </div>
     <div>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Shipping Information"
         id="global.shippingInformation"
       />
@@ -45,8 +42,7 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
       </span>
     </div>
     <div>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Shipping Method"
         id="global.shippingMethod"
       />
@@ -58,8 +54,7 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
       <ItemsReview />
     </div>
     <div>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="You will also receive an email with the details and we will let you know when your order has shipped."
         id="checkoutPage.additionalText"
       />

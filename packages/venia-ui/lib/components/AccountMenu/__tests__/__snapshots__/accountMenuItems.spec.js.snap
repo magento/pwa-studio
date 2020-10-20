@@ -13,8 +13,7 @@ exports[`it renders correctly 1`] = `
     onClick={[MockFunction handleSignOut]}
     type="button"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Sign Out"
       id="accountMenu.signOutButtonText"
     />

@@ -7,8 +7,7 @@ exports[`renders correctly 1`] = `
   <h2
     className="title"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Recover Password"
       id="formSubmissionSuccessful.recoverPasswordText"
     />

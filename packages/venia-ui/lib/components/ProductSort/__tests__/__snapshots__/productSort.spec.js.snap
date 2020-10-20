@@ -8,8 +8,7 @@ exports[`renders correctly 1`] = `
     type="button"
   >
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Sort"
         id="productSort.sortButton"
       />

@@ -50,8 +50,7 @@ exports[`renders correctly 1`] = `
         </svg>
       </span>
       <span>
-        <div
-          componentName="Formatted Message Component"
+        <mock-formatted-message
           defaultMessage="Create a list"
           id="createWishlist.handleCreateListText"
         />

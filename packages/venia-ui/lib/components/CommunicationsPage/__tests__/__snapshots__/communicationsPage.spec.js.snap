@@ -14,15 +14,13 @@ exports[`renders empty form without data 1`] = `
   <h1
     className="title"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Communications"
       id="communicationsPage.communicationsText"
     />
   </h1>
   <p>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
       id="communicationsPage.optInText"
     />
@@ -112,15 +110,13 @@ exports[`renders form error 1`] = `
   <h1
     className="title"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Communications"
       id="communicationsPage.communicationsText"
     />
   </h1>
   <p>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
       id="communicationsPage.optInText"
     />
@@ -210,15 +206,13 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
   <h1
     className="title"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Communications"
       id="communicationsPage.communicationsText"
     />
   </h1>
   <p>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
       id="communicationsPage.optInText"
     />
@@ -310,15 +304,13 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
   <h1
     className="title"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Communications"
       id="communicationsPage.communicationsText"
     />
   </h1>
   <p>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive."
       id="communicationsPage.optInText"
     />

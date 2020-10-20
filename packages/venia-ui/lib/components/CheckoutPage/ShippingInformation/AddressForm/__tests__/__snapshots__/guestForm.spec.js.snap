@@ -56,8 +56,7 @@ Array [
         <p
           className="root"
         >
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Set a password at the end of guest checkout to create an account in one easy step."
             id="guestForm.emailMessage"
           />
@@ -217,8 +216,7 @@ Array [
           <span
             className="optional"
           >
-            <div
-              componentName="Formatted Message Component"
+            <mock-formatted-message
               defaultMessage="Optional"
               id="field.optional"
             />
@@ -474,8 +472,7 @@ Array [
         <p
           className="root"
         >
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Set a password at the end of guest checkout to create an account in one easy step."
             id="guestForm.emailMessage"
           />
@@ -635,8 +632,7 @@ Array [
           <span
             className="optional"
           >
-            <div
-              componentName="Formatted Message Component"
+            <mock-formatted-message
               defaultMessage="Optional"
               id="field.optional"
             />
@@ -1040,8 +1036,7 @@ Array [
           <span
             className="optional"
           >
-            <div
-              componentName="Formatted Message Component"
+            <mock-formatted-message
               defaultMessage="Optional"
               id="field.optional"
             />
@@ -1230,8 +1225,7 @@ Array [
         <span
           className="content"
         >
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Cancel"
             id="global.cancelButton"
           />
@@ -1461,8 +1455,7 @@ Array [
           <span
             className="optional"
           >
-            <div
-              componentName="Formatted Message Component"
+            <mock-formatted-message
               defaultMessage="Optional"
               id="field.optional"
             />
@@ -1651,8 +1644,7 @@ Array [
         <span
           className="content"
         >
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Cancel"
             id="global.cancelButton"
           />

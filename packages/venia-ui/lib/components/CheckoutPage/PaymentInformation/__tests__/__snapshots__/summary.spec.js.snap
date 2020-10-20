@@ -10,8 +10,7 @@ exports[`should render a braintree summary 1`] = `
     <h5
       className="heading"
     >
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Payment Information"
         id="checkoutPage.paymentInformation"
       />
@@ -48,8 +47,7 @@ exports[`should render a braintree summary 1`] = `
         <span
           className="edit_text"
         >
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Edit"
             id="global.editButton"
           />
@@ -63,8 +61,7 @@ exports[`should render a braintree summary 1`] = `
     <span
       className="payment_type"
     >
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Credit Card"
         id="global.creditCard"
       />
@@ -200,8 +197,7 @@ exports[`should render a loading indicator 1`] = `
   <span
     className="message"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Fetching Payment Information"
       id="checkoutPage.loadingPaymentInformation"
     />
@@ -219,8 +215,7 @@ exports[`should render a non-braintree summary 1`] = `
     <h5
       className="heading"
     >
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Payment Information"
         id="checkoutPage.paymentInformation"
       />

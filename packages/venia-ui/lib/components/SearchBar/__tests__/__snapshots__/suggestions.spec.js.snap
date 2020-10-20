@@ -3,8 +3,7 @@
 exports[`renders correctly 1`] = `
 <h2>
   <span>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Product Suggestions"
       id="searchBar.heading"
     />

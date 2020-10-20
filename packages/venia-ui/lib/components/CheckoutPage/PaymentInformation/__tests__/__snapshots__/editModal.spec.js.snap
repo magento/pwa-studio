@@ -10,8 +10,7 @@ exports[`Should return correct shape 1`] = `
     <span
       className="header_text"
     >
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Edit Payment Information"
         id="checkoutPage.editPaymentInformation"
       />

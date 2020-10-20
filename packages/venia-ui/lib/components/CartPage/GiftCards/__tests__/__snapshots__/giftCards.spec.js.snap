@@ -77,8 +77,7 @@ exports[`it renders correctly when it has cards 1`] = `
             <span
               className="content"
             >
-              <div
-                componentName="Formatted Message Component"
+              <mock-formatted-message
                 defaultMessage="Apply"
                 id="giftCards.apply"
               />
@@ -94,8 +93,7 @@ exports[`it renders correctly when it has cards 1`] = `
           <span
             className="content"
           >
-            <div
-              componentName="Formatted Message Component"
+            <mock-formatted-message
               defaultMessage="Check balance"
               id="giftCards.checkBalance"
             />
@@ -118,8 +116,7 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="balance"
       >
-        <div
-          componentName="Formatted Message Component"
+        <mock-formatted-message
           defaultMessage="Balance: "
           id="giftCard.balance"
         />
@@ -146,8 +143,7 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="content"
       >
-        <div
-          componentName="Formatted Message Component"
+        <mock-formatted-message
           defaultMessage="Remove"
           id="giftCard.remove"
         />
@@ -164,8 +160,7 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="balance"
       >
-        <div
-          componentName="Formatted Message Component"
+        <mock-formatted-message
           defaultMessage="Balance: "
           id="giftCard.balance"
         />
@@ -192,8 +187,7 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="content"
       >
-        <div
-          componentName="Formatted Message Component"
+        <mock-formatted-message
           defaultMessage="Remove"
           id="giftCard.remove"
         />
@@ -280,8 +274,7 @@ exports[`it renders correctly with no cards 1`] = `
             <span
               className="content"
             >
-              <div
-                componentName="Formatted Message Component"
+              <mock-formatted-message
                 defaultMessage="Apply"
                 id="giftCards.apply"
               />
@@ -297,8 +290,7 @@ exports[`it renders correctly with no cards 1`] = `
           <span
             className="content"
           >
-            <div
-              componentName="Formatted Message Component"
+            <mock-formatted-message
               defaultMessage="Check balance"
               id="giftCards.checkBalance"
             />

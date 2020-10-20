@@ -45,8 +45,7 @@ exports[`it renders correctly 1`] = `
       <span
         className="quantity"
       >
-        <div
-          componentName="Formatted Message Component"
+        <mock-formatted-message
           defaultMessage="Items"
           id="miniCart.totalQuantity"
           values={
@@ -60,8 +59,7 @@ exports[`it renders correctly 1`] = `
         className="price"
       >
         <span>
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Subtotal: "
             id="miniCart.subtotal"
           />
@@ -117,8 +115,7 @@ exports[`it renders correctly 1`] = `
               />
             </svg>
           </span>
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="CHECKOUT"
             id="miniCart.checkout"
           />
@@ -132,8 +129,7 @@ exports[`it renders correctly 1`] = `
         <span
           className="content"
         >
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Edit Shopping Bag"
             id="miniCart.editCartButton"
           />

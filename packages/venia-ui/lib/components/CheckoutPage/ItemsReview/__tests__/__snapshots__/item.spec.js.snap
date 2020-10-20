@@ -12,8 +12,7 @@ exports[`Snapshot test 1`] = `
     Sample Product Options Component
   </div>
   <span>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Qty :"
       id="checkoutPage.quantity"
       values={

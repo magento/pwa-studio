@@ -5,8 +5,7 @@ Array [
   <span
     className="lineItemLabel"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Discounts applied"
       id="discountSummary.lineItemLabel"
     />
@@ -36,8 +35,7 @@ Array [
   <span
     className="lineItemLabel"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Discounts applied"
       id="discountSummary.lineItemLabel"
     />

@@ -66,8 +66,7 @@ www.venia.com/p1 2560w"
   <span
     className="quantity"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Qty :"
       id="productList.quantity"
       values={
@@ -92,8 +91,7 @@ www.venia.com/p1 2560w"
     <span>
       00
     </span>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage=" ea."
       id="productList.each"
     />
@@ -214,8 +212,7 @@ www.venia.com/p1 2560w"
   <span
     className="quantity"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Qty :"
       id="productList.quantity"
       values={
@@ -240,8 +237,7 @@ www.venia.com/p1 2560w"
     <span>
       00
     </span>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage=" ea."
       id="productList.each"
     />
@@ -362,8 +358,7 @@ www.venia.com/p1 2560w"
   <span
     className="quantity"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Qty :"
       id="productList.quantity"
       values={
@@ -388,8 +383,7 @@ www.venia.com/p1 2560w"
     <span>
       00
     </span>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage=" ea."
       id="productList.each"
     />

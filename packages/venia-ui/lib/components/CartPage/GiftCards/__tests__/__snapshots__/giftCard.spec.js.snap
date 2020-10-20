@@ -7,8 +7,7 @@ Array [
       unit test card code
     </span>
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Balance: "
         id="giftCard.balance"
       />
@@ -32,8 +31,7 @@ Array [
     type="button"
   >
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Remove"
         id="giftCard.remove"
       />
@@ -49,8 +47,7 @@ Array [
       unit test card code
     </span>
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Balance: "
         id="giftCard.balance"
       />
@@ -74,8 +71,7 @@ Array [
     type="button"
   >
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Remove"
         id="giftCard.remove"
       />

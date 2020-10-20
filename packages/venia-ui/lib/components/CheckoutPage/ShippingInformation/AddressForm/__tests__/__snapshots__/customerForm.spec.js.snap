@@ -72,8 +72,7 @@ exports[`renders loading indicator 1`] = `
   <span
     className="message"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Fetching Customer Details..."
       id="customerForm.loading"
     />
@@ -247,8 +246,7 @@ Array [
           <span
             className="optional"
           >
-            <div
-              componentName="Formatted Message Component"
+            <mock-formatted-message
               defaultMessage="Optional"
               id="field.optional"
             />
@@ -491,8 +489,7 @@ Array [
         <span
           className="content"
         >
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Cancel"
             id="global.cancelButton"
           />
@@ -680,8 +677,7 @@ Array [
           <span
             className="optional"
           >
-            <div
-              componentName="Formatted Message Component"
+            <mock-formatted-message
               defaultMessage="Optional"
               id="field.optional"
             />
@@ -922,8 +918,7 @@ Array [
         <span
           className="content"
         >
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Cancel"
             id="global.cancelButton"
           />
@@ -966,8 +961,7 @@ Array [
       <p
         className="root"
       >
-        <div
-          componentName="Formatted Message Component"
+        <mock-formatted-message
           defaultMessage="The shipping address you enter will be saved to your address book and set as your default for future purchases."
           id="customerForm.formMessage"
         />
@@ -1173,8 +1167,7 @@ Array [
           <span
             className="optional"
           >
-            <div
-              componentName="Formatted Message Component"
+            <mock-formatted-message
               defaultMessage="Optional"
               id="field.optional"
             />

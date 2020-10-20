@@ -3,16 +3,14 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Shipping Method"
       id="orderDetails.shippingMethodLabel"
     />
   </div>
   <div />
   <div>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       id="orderDetails.trackingInformation"
       values={
         Object {

@@ -11,8 +11,7 @@ Array [
     className="price"
   >
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="FREE"
         id="global.free"
       />

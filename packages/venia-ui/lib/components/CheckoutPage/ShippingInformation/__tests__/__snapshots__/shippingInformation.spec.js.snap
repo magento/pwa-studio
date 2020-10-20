@@ -10,8 +10,7 @@ exports[`renders card state with customer data 1`] = `
     <h5
       className="cardTitle"
     >
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Shipping Information"
         id="shippingInformation.cardTitle"
       />
@@ -48,8 +47,7 @@ exports[`renders card state with customer data 1`] = `
         <span
           className="editText"
         >
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Edit"
             id="global.editButton"
           />
@@ -73,8 +71,7 @@ exports[`renders card state with guest data 1`] = `
     <h5
       className="cardTitle"
     >
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Shipping Information"
         id="shippingInformation.cardTitle"
       />
@@ -111,8 +108,7 @@ exports[`renders card state with guest data 1`] = `
         <span
           className="editText"
         >
-          <div
-            componentName="Formatted Message Component"
+          <mock-formatted-message
             defaultMessage="Edit"
             id="global.editButton"
           />
@@ -136,8 +132,7 @@ exports[`renders form state without data 1`] = `
   <h3
     className="editTitle"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="1. Shipping Information"
       id="shippingInformation.editTitle"
     />
@@ -160,8 +155,7 @@ exports[`renders loading element 1`] = `
     }
   }
 >
-  <div
-    componentName="Formatted Message Component"
+  <mock-formatted-message
     defaultMessage="Fetching Shipping Information..."
     id="shippingInformation.loading"
   />

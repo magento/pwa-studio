@@ -7,8 +7,7 @@ exports[`renders disabled feature error 1`] = `
   <h1
     className="heading"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Favorites Lists"
       id="wishlistPage.headingText"
     />
@@ -17,8 +16,7 @@ exports[`renders disabled feature error 1`] = `
     className="errorContainer"
   >
     <p>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Sorry, this feature has been disabled."
         id="wishlistPage.disabledMessage"
       />
@@ -34,8 +32,7 @@ exports[`renders general fetch error 1`] = `
   <h1
     className="heading"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Favorites Lists"
       id="wishlistPage.headingText"
     />
@@ -46,8 +43,7 @@ exports[`renders general fetch error 1`] = `
     <p
       className="fetchError"
     >
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Something went wrong. Please refresh and try again."
         id="wishlistPage.fetchErrorMessage"
       />
@@ -128,8 +124,7 @@ exports[`renders loading indicator 1`] = `
   <span
     className="message"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Fetching Data..."
       id="loadingIndicator.message"
     />
@@ -144,8 +139,7 @@ exports[`renders wishlist data 1`] = `
   <h1
     className="heading"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Favorites Lists"
       id="wishlistPage.headingText"
     />

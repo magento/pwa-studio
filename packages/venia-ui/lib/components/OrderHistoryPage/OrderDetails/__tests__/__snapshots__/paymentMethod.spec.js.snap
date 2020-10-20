@@ -3,8 +3,7 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Payment Method"
       id="orderDetails.paymentMethodLabel"
     />

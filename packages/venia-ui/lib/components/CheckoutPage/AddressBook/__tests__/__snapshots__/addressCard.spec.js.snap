@@ -11,8 +11,7 @@ exports[`renders base card state 1`] = `
   <span
     className="defaultBadge"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Default"
       id="addressCard.defaultText"
     />
@@ -120,8 +119,7 @@ exports[`renders updated card state 1`] = `
   <span
     className="defaultBadge"
   >
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Default"
       id="addressCard.defaultText"
     />

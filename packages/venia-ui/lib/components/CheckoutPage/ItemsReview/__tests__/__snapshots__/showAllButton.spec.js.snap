@@ -6,8 +6,7 @@ exports[`Snapshot test 1`] = `
 >
   <span>
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="SHOW ALL ITEMS"
         id="checkoutPage.showAllItems"
       />

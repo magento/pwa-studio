@@ -184,8 +184,7 @@ exports[`renders the correct tree 1`] = `
       type="submit"
     >
       <span>
-        <div
-          componentName="Formatted Message Component"
+        <mock-formatted-message
           defaultMessage="Create an Account"
           id="createAccount.createAccountText"
         />
@@ -379,8 +378,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
       type="submit"
     >
       <span>
-        <div
-          componentName="Formatted Message Component"
+        <mock-formatted-message
           defaultMessage="Create an Account"
           id="createAccount.createAccountText"
         />

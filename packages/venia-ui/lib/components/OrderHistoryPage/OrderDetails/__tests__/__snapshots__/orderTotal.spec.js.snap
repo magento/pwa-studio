@@ -3,16 +3,14 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    <div
-      componentName="Formatted Message Component"
+    <mock-formatted-message
       defaultMessage="Order Total"
       id="orderDetails.orderTotal"
     />
   </div>
   <div>
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Subtotal"
         id="orderDetails.subtotal"
       />
@@ -40,8 +38,7 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Discount"
         id="orderDetails.discount"
       />
@@ -63,8 +60,7 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Tax"
         id="orderDetails.tax"
       />
@@ -86,8 +82,7 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Shipping"
         id="orderDetails.shipping"
       />
@@ -109,8 +104,7 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-formatted-message
         defaultMessage="Total"
         id="orderDetails.total"
       />
