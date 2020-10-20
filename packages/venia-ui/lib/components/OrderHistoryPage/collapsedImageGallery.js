@@ -27,11 +27,14 @@ const CollapsedImageGallery = props => {
 
             // If the order contains more than four products, render a remainder count in the last column.
             if (remainderCount > 0) {
+                const remainderCountString = `+${remainderCount}`;
                 baseImageElements.push(
                     <span
                         key={'remainder-column'}
                         className={classes.remainderCount}
-                    >{`+${remainderCount}`}</span>
+                    >
+                        {remainderCountString}
+                    </span>
                 );
             }
 

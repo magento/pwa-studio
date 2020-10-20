@@ -112,9 +112,12 @@ const ResetPassword = props => {
         </Form>
     );
 
+    // STORE_NAME is injected by Webpack at build time.
+    const title = `${PAGE_TITLE} - ${STORE_NAME}`;
+
     return (
         <div className={classes.root}>
-            <Title>{`${PAGE_TITLE} - ${STORE_NAME}`}</Title>
+            <Title>{title}</Title>
             <h1 className={classes.heading}>{PAGE_TITLE}</h1>
             {token ? recoverPassword : tokenMissing}
         </div>

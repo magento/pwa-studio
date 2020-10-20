@@ -24,14 +24,17 @@ const Card = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
+    const nameString = `${firstname} ${lastname}`;
+    const additionalAddressString = `${city}, ${region} ${postcode} ${country}`;
+
     return (
         <div className={classes.root}>
             <span>{email}</span>
-            <span>{`${firstname} ${lastname}`}</span>
+            <span>{nameString}</span>
             <span>{telephone}</span>
             <div className={classes.address}>
                 {streetRows}
-                <span>{`${city}, ${region} ${postcode} ${country}`}</span>
+                <span>{additionalAddressString}</span>
             </div>
         </div>
     );
