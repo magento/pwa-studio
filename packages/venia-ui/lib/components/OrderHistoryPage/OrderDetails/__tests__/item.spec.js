@@ -3,20 +3,17 @@ import { createTestInstance } from '@magento/peregrine';
 
 import Item from '../item';
 
-jest.mock('@magento/venia-drivers', () => ({
-    Link: props => <div componentName="Link Component" {...props} />,
-    resourceUrl: url => url
-}));
-
-jest.mock('react-intl', () => ({
-    FormattedMessage: props => (
-        <div componentName="Formatted Message Component" {...props} />
-    )
+jest.mock('react-router-dom', () => ({
+    Link: props => <div componentName="Link Component" {...props} />
 }));
 
 const defaultProps = {
     product_name: 'Product 1',
-    product_sale_price: '$100.00',
+    product_sale_price: {
+        currency: 'USD',
+        value: 100
+    },
+    product_url_key: 'carina-cardigan',
     quantity_ordered: 3,
     selected_options: [
         {
@@ -24,9 +21,7 @@ const defaultProps = {
             value: 'Black'
         }
     ],
-    thumbnail: 'www.venia.com/product1-thumbnail.jpg',
-    url_key: 'carina-cardigan',
-    url_suffix: '.html'
+    thumbnail: { url: 'https://www.venia.com/product1-thumbnail.jpg' }
 };
 
 test('should render properly', () => {

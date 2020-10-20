@@ -3,90 +3,113 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    <div
-      componentName="Formatted Message Component"
-      defaultMessage="Order Total"
-      id="orderDetails.orderTotal"
-    />
+    Order Total
   </div>
   <div>
     <span>
-      <div
-        componentName="Formatted Message Component"
-        defaultMessage="Subtotal"
-        id="orderDetails.subtotal"
-      />
+      Subtotal
     </span>
     <span>
-      <div
-        componentName="Price Component"
-        currencyCode="USD"
-        value={1234}
-      />
-    </span>
-  </div>
-  <div>
-    <span>
-      <div
-        componentName="Formatted Message Component"
-        defaultMessage="Discount"
-        id="orderDetails.discount"
-      />
-    </span>
-    <span>
-      <div
-        componentName="Price Component"
-        currencyCode="USD"
-        value={123}
-      />
+      <span>
+        $
+      </span>
+      <span>
+        1
+      </span>
+      <span>
+        ,
+      </span>
+      <span>
+        234
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
     </span>
   </div>
   <div>
     <span>
-      <div
-        componentName="Formatted Message Component"
-        defaultMessage="Tax"
-        id="orderDetails.tax"
-      />
+      Discount
     </span>
     <span>
-      <div
-        componentName="Price Component"
-        currencyCode="USD"
-        value={34}
-      />
-    </span>
-  </div>
-  <div>
-    <span>
-      <div
-        componentName="Formatted Message Component"
-        defaultMessage="Shipping"
-        id="orderDetails.shipping"
-      />
-    </span>
-    <span>
-      <div
-        componentName="Price Component"
-        currencyCode="USD"
-        value={12}
-      />
+      <span>
+        $
+      </span>
+      <span>
+        123
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
     </span>
   </div>
   <div>
     <span>
-      <div
-        componentName="Formatted Message Component"
-        defaultMessage="Total"
-        id="orderDetails.total"
-      />
+      Tax
     </span>
     <span>
-      <div
-        componentName="Price Component"
-        currencyCode="USD"
-        value={1434}
-      />
+      <span>
+        $
+      </span>
+      <span>
+        34
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
+    </span>
+  </div>
+  <div>
+    <span>
+      Shipping
+    </span>
+    <span>
+      <span>
+        $
+      </span>
+      <span>
+        12
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
+    </span>
+  </div>
+  <div>
+    <span>
+      Total
+    </span>
+    <span>
+      <span>
+        $
+      </span>
+      <span>
+        1
+      </span>
+      <span>
+        ,
+      </span>
+      <span>
+        434
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
     </span>
   </div>
 </div>

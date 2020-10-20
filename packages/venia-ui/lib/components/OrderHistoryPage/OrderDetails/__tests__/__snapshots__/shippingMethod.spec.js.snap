@@ -3,24 +3,11 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    <div
-      componentName="Formatted Message Component"
-      defaultMessage="Shipping Method"
-      id="orderDetails.shippingMethodLabel"
-    />
+    Shipping Method
   </div>
   <div />
   <div>
-    <div
-      componentName="Formatted Message Component"
-      id="orderDetails.trackingInformation"
-      values={
-        Object {
-          "carrier": "Fedex",
-          "number": "FEDEX5885541235452125",
-        }
-      }
-    />
+    orderDetails.trackingInformation
   </div>
 </div>
 `;

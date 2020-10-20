@@ -8,6 +8,7 @@ exports[`should render properly 1`] = `
     product_name="Product 3"
     product_sale_price="$100.00"
     product_sku="VA03"
+    product_url_key="valeria-two-layer-tank"
     quantity_ordered={1}
     selected_options={
       Array [
@@ -32,6 +33,7 @@ exports[`should render properly 1`] = `
     product_name="Product 4"
     product_sale_price="$100.00"
     product_sku="VP08"
+    product_url_key="chloe-silk-shell"
     quantity_ordered={1}
     selected_options={
       Array [
@@ -56,6 +58,7 @@ exports[`should render properly 1`] = `
     product_name="Product 5"
     product_sale_price="$100.00"
     product_sku="VSW09"
+    product_url_key="helena-cardigan"
     quantity_ordered={1}
     selected_options={
       Array [

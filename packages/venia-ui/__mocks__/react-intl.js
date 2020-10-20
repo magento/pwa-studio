@@ -7,6 +7,6 @@ const intl = reactIntl.createIntl({
 
 module.exports = {
     ...reactIntl,
-    FormattedMessage: jest.fn(({ defaultMessage }) => defaultMessage),
+    FormattedMessage: jest.fn(({ defaultMessage, id }) => defaultMessage || id),
     useIntl: jest.fn(() => intl)
 };

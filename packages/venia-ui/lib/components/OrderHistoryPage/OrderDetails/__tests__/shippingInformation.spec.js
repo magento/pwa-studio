@@ -3,12 +3,6 @@ import { createTestInstance } from '@magento/peregrine';
 
 import ShippingInformation from '../shippingInformation';
 
-jest.mock('react-intl', () => ({
-    FormattedMessage: props => (
-        <div componentName="Formatted Message Component" {...props} />
-    )
-}));
-
 const defaultProps = {
     data: {
         city: 'Austin',
@@ -16,7 +10,7 @@ const defaultProps = {
         firstname: 'Gooseton',
         lastname: 'Jr',
         postcode: '78759',
-        region_id: 'TX',
+        region: 'TX',
         street: 'Goose Dr',
         telephone: '9123456789'
     }

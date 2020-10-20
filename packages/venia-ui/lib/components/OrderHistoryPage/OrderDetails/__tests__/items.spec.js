@@ -7,12 +7,6 @@ jest.mock('../item', () => props => (
     <div componentName="Item Component" {...props} />
 ));
 
-jest.mock('react-intl', () => ({
-    FormattedMessage: props => (
-        <div componentName="Formatted Message Component" {...props} />
-    )
-}));
-
 const defaultProps = {
     data: {
         imagesData: [
@@ -53,6 +47,7 @@ const defaultProps = {
                 product_name: 'Product 3',
                 product_sale_price: '$100.00',
                 product_sku: 'VA03',
+                product_url_key: 'valeria-two-layer-tank',
                 selected_options: [
                     {
                         label: 'Color',
@@ -66,6 +61,7 @@ const defaultProps = {
                 product_name: 'Product 4',
                 product_sale_price: '$100.00',
                 product_sku: 'VP08',
+                product_url_key: 'chloe-silk-shell',
                 selected_options: [
                     {
                         label: 'Color',
@@ -79,6 +75,7 @@ const defaultProps = {
                 product_name: 'Product 5',
                 product_sale_price: '$100.00',
                 product_sku: 'VSW09',
+                product_url_key: 'helena-cardigan',
                 selected_options: [
                     {
                         label: 'Color',

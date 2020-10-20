@@ -3,18 +3,6 @@ import { createTestInstance } from '@magento/peregrine';
 
 import OrderTotal from '../orderTotal';
 
-jest.mock('@magento/peregrine', () => ({
-    createTestInstance: jest.requireActual('@magento/peregrine')
-        .createTestInstance,
-    Price: props => <div componentName="Price Component" {...props} />
-}));
-
-jest.mock('react-intl', () => ({
-    FormattedMessage: props => (
-        <div componentName="Formatted Message Component" {...props} />
-    )
-}));
-
 const defaultProps = {
     data: {
         discounts: [

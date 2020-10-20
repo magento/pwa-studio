@@ -2,8 +2,8 @@ import React from 'react';
 import { arrayOf, string, shape, number } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
+import Price from '@magento/venia-ui/lib/components/Price';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import { Price } from '@magento/peregrine';
 
 import defaultClasses from './orderTotal.css';
 

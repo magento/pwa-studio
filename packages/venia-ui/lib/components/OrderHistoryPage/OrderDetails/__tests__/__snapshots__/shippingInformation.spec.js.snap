@@ -3,28 +3,18 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    <div
-      componentName="Formatted Message Component"
-      defaultMessage="Shipping Information"
-      id="orderDetails.shippingInformationLabel"
-    />
+    Shipping Information
   </div>
   <div>
     <span>
-      Gooseton
-    </span>
-    <span>
-      Jr
+      Gooseton Jr
     </span>
   </div>
   <div>
     Goose Dr
   </div>
   <div>
-    Austin, TX, 78759
-  </div>
-  <div>
-    US
+    Austin, TX 78759 US
   </div>
 </div>
 `;

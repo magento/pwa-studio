@@ -48,6 +48,7 @@ Items.propTypes = {
                     value: number
                 }),
                 product_sku: string,
+                product_url_key: string,
                 selected_options: arrayOf(
                     shape({
                         label: string,
