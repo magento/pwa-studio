@@ -5,6 +5,7 @@ import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountM
 
 import AccountMenu from '../accountMenu';
 
+jest.mock('../../../classify');
 jest.mock('../accountMenuItems', () => props => (
     <div {...props}>{'AccountMenuItems'}</div>
 ));

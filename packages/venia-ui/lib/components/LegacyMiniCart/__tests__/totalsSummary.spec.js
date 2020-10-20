@@ -7,7 +7,8 @@ const renderer = new ShallowRenderer();
 
 test('renders correctly when it has a subtotal', () => {
     const props = {
-        subtotal: 99
+        subtotal: 99,
+        currencyCode: 'USD'
     };
 
     const tree = renderer.render(<TotalsSummary {...props} />);

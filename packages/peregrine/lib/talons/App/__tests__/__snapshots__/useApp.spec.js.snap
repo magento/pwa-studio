@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the correct shape 1`] = `
+Object {
+  "handleCloseDrawer": [Function],
+  "hasOverlay": false,
+}
+`;

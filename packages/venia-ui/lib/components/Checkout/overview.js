@@ -6,7 +6,7 @@ import ShippingAddressSummary from './shippingAddressSummary';
 import ShippingMethodSummary from './shippingMethodSummary';
 import Section from './section';
 import Button from '../Button';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { useOverview } from '@magento/peregrine/lib/talons/Checkout/useOverview';
 
 /**
