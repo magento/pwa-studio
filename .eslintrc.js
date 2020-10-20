@@ -9,7 +9,8 @@ const config = {
             'error',
             {
                 allowedStrings: ['defaultMessage'],
-                // TODO: Come back, set to "false" temporarily to catch labels/title/alt etc.
+                // Use ignoreProps: false to catch label/title/alt text, etc.
+                // Has the downside of erroring on "id" and other string props.
                 ignoreProps: true,
                 noStrings: true
             }
