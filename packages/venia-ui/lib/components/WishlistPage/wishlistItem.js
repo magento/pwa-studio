@@ -13,11 +13,12 @@ import defaultClasses from './wishlistItem.css';
 import wishlistItemOperations from './wishlistItem.gql';
 
 const WishlistItem = props => {
-    const { item } = props;
+    const { item, wishlistId } = props;
 
     const {
         child_sku: childSku,
         configurable_options: configurableOptions = [],
+        id: itemId,
         product
     } = item;
     const { image, name, price_range: priceRange, sku } = product;
@@ -30,7 +31,9 @@ const WishlistItem = props => {
 
     const talonProps = useWishlistItem({
         childSku,
+        itemId,
         sku,
+        wishlistId,
         ...wishlistItemOperations
     });
     const {
@@ -38,6 +41,7 @@ const WishlistItem = props => {
         handleAddToCart,
         handleCloseActionsDialog,
         handleMoreActions,
+        handleRemove,
         hasError,
         isLoading
     } = talonProps;
@@ -116,7 +120,7 @@ const WishlistItem = props => {
                         defaultMessage: 'Actions'
                     })}
                 >
-                    <WishlistItemActions />
+                    <WishlistItemActions onRemove={handleRemove} />
                 </Dialog>
             </div>
         </div>

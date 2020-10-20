@@ -1,20 +1,26 @@
 import { useCallback, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { useCartContext } from '../../context/cart';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
  * @function
  *
  * @param {String} props.childSku SKU of the child item
+ * @param {String} props.itemId The ID of the item
  * @param {WishlistItemMutations} props.mutations GraphQL mutations for the Wishlist Item component
  * @param {String} props.sku SKU of the item
+ * @param {String} props.wishlistId The ID of the wishlist this item belongs to
  *
  * @returns {WishlistItemProps}
  */
 export const useWishlistItem = props => {
-    const { childSku, mutations, sku } = props;
-    const { addWishlistItemToCartMutation } = mutations;
+    const { childSku, itemId, mutations, sku, wishlistId } = props;
+
+    const {
+        addWishlistItemToCartMutation,
+        removeProductsFromWishlistMutation
+    } = mutations;
 
     const [{ cartId }] = useCartContext();
     const [actionsDialogIsOpen, setActionsDialogIsOpen] = useState(false);
@@ -44,6 +50,16 @@ export const useWishlistItem = props => {
         }
     );
 
+    const [removeProductsFromWishlist] = useMutation(
+        removeProductsFromWishlistMutation,
+        {
+            variables: {
+                wishlistId: wishlistId,
+                wishlistItemsId: [itemId]
+            }
+        }
+    );
+
     const handleAddToCart = useCallback(async () => {
         try {
             await addWishlistItemToCart();
@@ -51,6 +67,16 @@ export const useWishlistItem = props => {
             return;
         }
     }, [addWishlistItemToCart]);
+
+    const handleRemove = useCallback(async () => {
+        try {
+            await removeProductsFromWishlist();
+        } catch {
+            return;
+        } finally {
+            setActionsDialogIsOpen(false);
+        }
+    }, [removeProductsFromWishlist, setActionsDialogIsOpen]);
 
     const handleMoreActions = useCallback(() => {
         setActionsDialogIsOpen(true);
@@ -65,6 +91,7 @@ export const useWishlistItem = props => {
         handleAddToCart,
         handleCloseActionsDialog,
         handleMoreActions,
+        handleRemove,
         hasError: !!error,
         isLoading: loading
     };
@@ -94,6 +121,7 @@ export const useWishlistItem = props => {
  * @property {Function} handleAddToCart Callback to handle item addition to cart
  * @property {Function} handleCloseActionsDialog Callback to handle closing the actions dialog
  * @property {Function} handleMoreActions Callback to handle more actions
+ * @property {Function} handleRemove Callback to remove item from list
  * @property {Boolean} hasError Boolean which represents if there were errors during the mutation
  * @property {Boolean} isLoading Boolean which represents if data is loading
  */
