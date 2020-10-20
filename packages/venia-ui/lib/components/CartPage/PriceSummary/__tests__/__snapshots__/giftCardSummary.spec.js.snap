@@ -5,7 +5,11 @@ Array [
   <span
     className="lineItemLabel"
   >
-    Gift Card(s) applied
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Gift Card(s) applied"
+      id="giftCardSummary.lineItemLabel"
+    />
   </span>,
   <span
     className="price"
@@ -32,7 +36,11 @@ Array [
   <span
     className="lineItemLabel"
   >
-    Gift Card(s) applied
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Gift Card(s) applied"
+      id="giftCardSummary.lineItemLabel"
+    />
   </span>,
   <span
     className="price"

@@ -15,7 +15,7 @@ exports[`CheckoutPage renders address book for customer 1`] = `
         cartItems={Array []}
         message={
           <React.Fragment>
-            <mockConstructor
+            <FormattedMessage
               defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
               id="checkoutPage.stockStatusMessage"
             />
@@ -23,7 +23,7 @@ exports[`CheckoutPage renders address book for customer 1`] = `
               className="cartLink"
               to="/cart"
             >
-              <mockConstructor
+              <FormattedMessage
                 defaultMessage="Return to Cart"
                 id="checkoutPage.returnToCart"
               />
@@ -51,7 +51,11 @@ exports[`CheckoutPage renders address book for customer 1`] = `
       <h3
         className="shipping_method_heading"
       >
-        2. Shipping Method
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="2. Shipping Method"
+          id="checkoutPage.shippingMethodStep"
+        />
       </h3>
     </div>
     <div
@@ -60,7 +64,11 @@ exports[`CheckoutPage renders address book for customer 1`] = `
       <h3
         className="payment_information_heading"
       >
-        3. Payment Information
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="3. Payment Information"
+          id="checkoutPage.paymentInformationStep"
+        />
       </h3>
     </div>
     <div
@@ -93,7 +101,7 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
         cartItems={Array []}
         message={
           <React.Fragment>
-            <mockConstructor
+            <FormattedMessage
               defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
               id="checkoutPage.stockStatusMessage"
             />
@@ -101,7 +109,7 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
               className="cartLink"
               to="/cart"
             >
-              <mockConstructor
+              <FormattedMessage
                 defaultMessage="Return to Cart"
                 id="checkoutPage.returnToCart"
               />
@@ -129,7 +137,11 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
       <h3
         className="shipping_method_heading"
       >
-        2. Shipping Method
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="2. Shipping Method"
+          id="checkoutPage.shippingMethodStep"
+        />
       </h3>
     </div>
     <div
@@ -138,7 +150,11 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
       <h3
         className="payment_information_heading"
       >
-        3. Payment Information
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="3. Payment Information"
+          id="checkoutPage.paymentInformationStep"
+        />
       </h3>
     </div>
     <div
@@ -171,7 +187,7 @@ exports[`CheckoutPage renders checkout content for customer - no default address
         cartItems={Array []}
         message={
           <React.Fragment>
-            <mockConstructor
+            <FormattedMessage
               defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
               id="checkoutPage.stockStatusMessage"
             />
@@ -179,7 +195,7 @@ exports[`CheckoutPage renders checkout content for customer - no default address
               className="cartLink"
               to="/cart"
             >
-              <mockConstructor
+              <FormattedMessage
                 defaultMessage="Return to Cart"
                 id="checkoutPage.returnToCart"
               />
@@ -207,7 +223,11 @@ exports[`CheckoutPage renders checkout content for customer - no default address
       <h3
         className="shipping_method_heading"
       >
-        2. Shipping Method
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="2. Shipping Method"
+          id="checkoutPage.shippingMethodStep"
+        />
       </h3>
     </div>
     <div
@@ -216,7 +236,11 @@ exports[`CheckoutPage renders checkout content for customer - no default address
       <h3
         className="payment_information_heading"
       >
-        3. Payment Information
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="3. Payment Information"
+          id="checkoutPage.paymentInformationStep"
+        />
       </h3>
     </div>
     <div
@@ -254,7 +278,11 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
         <span
           className="content"
         >
-          Login and Checkout Faster
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Login and Checkout Faster"
+            id="checkoutPage.loginAndCheckoutFaster"
+          />
         </span>
       </button>
     </div>
@@ -265,7 +293,7 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
         cartItems={Array []}
         message={
           <React.Fragment>
-            <mockConstructor
+            <FormattedMessage
               defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item."
               id="checkoutPage.stockStatusMessage"
             />
@@ -273,7 +301,7 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
               className="cartLink"
               to="/cart"
             >
-              <mockConstructor
+              <FormattedMessage
                 defaultMessage="Return to Cart"
                 id="checkoutPage.returnToCart"
               />
@@ -301,7 +329,11 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
       <h3
         className="shipping_method_heading"
       >
-        2. Shipping Method
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="2. Shipping Method"
+          id="checkoutPage.shippingMethodStep"
+        />
       </h3>
     </div>
     <div
@@ -310,7 +342,11 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
       <h3
         className="payment_information_heading"
       >
-        3. Payment Information
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="3. Payment Information"
+          id="checkoutPage.paymentInformationStep"
+        />
       </h3>
     </div>
     <div
@@ -396,7 +432,11 @@ exports[`CheckoutPage renders loading indicator 1`] = `
   <span
     className="message"
   >
-    Fetching Data...
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
   </span>
 </div>
 `;

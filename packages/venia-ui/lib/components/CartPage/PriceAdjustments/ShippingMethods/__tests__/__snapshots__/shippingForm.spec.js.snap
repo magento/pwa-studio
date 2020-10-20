@@ -5,7 +5,11 @@ Array [
   <h3
     className="formTitle"
   >
-    Destination
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Destination"
+      id="shippingForm.formTitle"
+    />
   </h3>,
   <form
     className="root"
@@ -183,7 +187,11 @@ Array [
   <h3
     className="formTitle"
   >
-    Destination
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Destination"
+      id="shippingForm.formTitle"
+    />
   </h3>,
   <form
     className="root"
@@ -375,7 +383,11 @@ Array [
   <h3
     className="formTitle"
   >
-    Destination
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Destination"
+      id="shippingForm.formTitle"
+    />
   </h3>,
   <form
     className="root"
@@ -610,7 +622,11 @@ Array [
   <h3
     className="formTitle"
   >
-    Destination
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Destination"
+      id="shippingForm.formTitle"
+    />
   </h3>,
   <form
     className="root"
@@ -834,7 +850,11 @@ Array [
   <h3
     className="formTitle"
   >
-    Destination
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Destination"
+      id="shippingForm.formTitle"
+    />
   </h3>,
   <form
     className="root"

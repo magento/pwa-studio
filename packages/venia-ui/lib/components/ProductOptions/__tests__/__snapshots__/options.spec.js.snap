@@ -21,7 +21,16 @@ Array [
       <dt
         className="selectionLabel"
       >
-        Selected option-1:
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Selected option-1:"
+          id="productOptions.selectedLabel"
+          values={
+            Object {
+              "label": "option-1",
+            }
+          }
+        />
       </dt>
       <dd>
         None
@@ -47,7 +56,16 @@ Array [
       <dt
         className="selectionLabel"
       >
-        Selected option-1:
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Selected option-1:"
+          id="productOptions.selectedLabel"
+          values={
+            Object {
+              "label": "option-1",
+            }
+          }
+        />
       </dt>
       <dd>
         None

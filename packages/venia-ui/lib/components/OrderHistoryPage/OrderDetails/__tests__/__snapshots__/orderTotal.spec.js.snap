@@ -3,11 +3,19 @@
 exports[`should render properly 1`] = `
 <div>
   <div>
-    Order Total
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Order Total"
+      id="orderDetails.orderTotal"
+    />
   </div>
   <div>
     <span>
-      Subtotal
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Subtotal"
+        id="orderDetails.subtotal"
+      />
     </span>
     <span>
       <span>
@@ -32,7 +40,11 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      Discount
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Discount"
+        id="orderDetails.discount"
+      />
     </span>
     <span>
       <span>
@@ -51,7 +63,11 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      Tax
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Tax"
+        id="orderDetails.tax"
+      />
     </span>
     <span>
       <span>
@@ -70,7 +86,11 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      Shipping
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Shipping"
+        id="orderDetails.shipping"
+      />
     </span>
     <span>
       <span>
@@ -89,7 +109,11 @@ exports[`should render properly 1`] = `
   </div>
   <div>
     <span>
-      Total
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Total"
+        id="orderDetails.total"
+      />
     </span>
     <span>
       <span>

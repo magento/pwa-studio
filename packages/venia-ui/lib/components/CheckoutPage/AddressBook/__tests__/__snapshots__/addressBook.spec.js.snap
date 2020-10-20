@@ -25,7 +25,11 @@ Array [
     <h1
       className="headerText"
     >
-      Change Shipping Information
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Change Shipping Information"
+        id="addressBook.headerText"
+      />
     </h1>
     <div
       className="buttonContainer"
@@ -39,7 +43,11 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Cancel"
+            id="addressBook.cancelButtonText"
+          />
         </span>
       </button>
       <button
@@ -51,7 +59,11 @@ Array [
         <span
           className="content"
         >
-          Apply
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Apply"
+            id="addressBook.applyButtonText"
+          />
         </span>
       </button>
     </div>
@@ -143,7 +155,11 @@ Array [
           <span
             className="addText"
           >
-            Add New Address
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Add New Address"
+              id="addressBook.addNewAddresstext"
+            />
           </span>
         </span>
       </button>
@@ -163,7 +179,11 @@ Array [
     <h1
       className="headerText"
     >
-      Change Shipping Information
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Change Shipping Information"
+        id="addressBook.headerText"
+      />
     </h1>
     <div
       className="buttonContainer"
@@ -177,7 +197,11 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Cancel"
+            id="addressBook.cancelButtonText"
+          />
         </span>
       </button>
       <button
@@ -189,7 +213,11 @@ Array [
         <span
           className="content"
         >
-          Apply
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Apply"
+            id="addressBook.applyButtonText"
+          />
         </span>
       </button>
     </div>
@@ -245,7 +273,11 @@ Array [
           <span
             className="addText"
           >
-            Add New Address
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Add New Address"
+              id="addressBook.addNewAddresstext"
+            />
           </span>
         </span>
       </button>

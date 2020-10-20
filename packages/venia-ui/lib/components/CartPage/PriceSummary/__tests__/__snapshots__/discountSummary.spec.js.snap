@@ -5,7 +5,11 @@ Array [
   <span
     className="lineItemLabel"
   >
-    Discounts applied
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Discounts applied"
+      id="discountSummary.lineItemLabel"
+    />
   </span>,
   <span
     className="price"
@@ -32,7 +36,11 @@ Array [
   <span
     className="lineItemLabel"
   >
-    Discounts applied
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Discounts applied"
+      id="discountSummary.lineItemLabel"
+    />
   </span>,
   <span
     className="price"

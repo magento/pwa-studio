@@ -184,7 +184,11 @@ exports[`renders the correct tree 1`] = `
       type="submit"
     >
       <span>
-        Create an Account
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Create an Account"
+          id="createAccount.createAccountText"
+        />
       </span>
     </button>
   </div>
@@ -375,7 +379,11 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
       type="submit"
     >
       <span>
-        Create an Account
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Create an Account"
+          id="createAccount.createAccountText"
+        />
       </span>
     </button>
   </div>

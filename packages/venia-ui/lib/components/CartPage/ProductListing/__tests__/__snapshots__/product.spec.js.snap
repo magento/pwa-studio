@@ -85,7 +85,11 @@ exports[`renders configurable product with options 1`] = `
         <span>
           00
         </span>
-         ea.
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage=" ea."
+          id="product.price"
+        />
       </span>
       <span
         className="stockStatusMessage"
@@ -420,7 +424,11 @@ exports[`renders out of stock product 1`] = `
         <span>
           00
         </span>
-         ea.
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage=" ea."
+          id="product.price"
+        />
       </span>
       <span
         className="stockStatusMessage"
@@ -722,7 +730,11 @@ exports[`renders simple product correctly 1`] = `
         <span>
           00
         </span>
-         ea.
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage=" ea."
+          id="product.price"
+        />
       </span>
       <span
         className="stockStatusMessage"

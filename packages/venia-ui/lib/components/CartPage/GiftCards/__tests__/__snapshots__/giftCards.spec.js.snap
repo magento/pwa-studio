@@ -77,7 +77,11 @@ exports[`it renders correctly when it has cards 1`] = `
             <span
               className="content"
             >
-              Apply
+              <div
+                componentName="Formatted Message Component"
+                defaultMessage="Apply"
+                id="giftCards.apply"
+              />
             </span>
           </button>
         </div>
@@ -90,7 +94,11 @@ exports[`it renders correctly when it has cards 1`] = `
           <span
             className="content"
           >
-            Check balance
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Check balance"
+              id="giftCards.checkBalance"
+            />
           </span>
         </button>
       </div>
@@ -110,7 +118,11 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="balance"
       >
-        Balance: 
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Balance: "
+          id="giftCard.balance"
+        />
         <span>
           $
         </span>
@@ -134,7 +146,11 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="content"
       >
-        Remove
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Remove"
+          id="giftCard.remove"
+        />
       </span>
     </button>
     <div
@@ -148,7 +164,11 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="balance"
       >
-        Balance: 
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Balance: "
+          id="giftCard.balance"
+        />
         <span>
           $
         </span>
@@ -172,7 +192,11 @@ exports[`it renders correctly when it has cards 1`] = `
       <span
         className="content"
       >
-        Remove
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Remove"
+          id="giftCard.remove"
+        />
       </span>
     </button>
   </div>
@@ -256,7 +280,11 @@ exports[`it renders correctly with no cards 1`] = `
             <span
               className="content"
             >
-              Apply
+              <div
+                componentName="Formatted Message Component"
+                defaultMessage="Apply"
+                id="giftCards.apply"
+              />
             </span>
           </button>
         </div>
@@ -269,7 +297,11 @@ exports[`it renders correctly with no cards 1`] = `
           <span
             className="content"
           >
-            Check balance
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Check balance"
+              id="giftCards.checkBalance"
+            />
           </span>
         </button>
       </div>

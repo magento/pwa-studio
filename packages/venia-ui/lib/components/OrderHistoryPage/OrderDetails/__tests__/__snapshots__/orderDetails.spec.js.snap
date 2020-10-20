@@ -225,7 +225,11 @@ exports[`should render properly 1`] = `
         </svg>
       </span>
       <span>
-        Print Receipt
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Print Receipt"
+          id="orderDetails.printLabel"
+        />
       </span>
     </span>
   </button>

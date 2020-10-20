@@ -11,7 +11,11 @@ Array [
     className="price"
   >
     <span>
-      FREE
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="FREE"
+        id="global.free"
+      />
     </span>
   </span>,
 ]

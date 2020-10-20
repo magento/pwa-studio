@@ -18,7 +18,11 @@ exports[`footer renders copyright 1`] = `
           href="/a"
           onClick={[Function]}
         >
-          a
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="a"
+            id="a"
+          />
         </a>
       </li>
       <li
@@ -29,7 +33,11 @@ exports[`footer renders copyright 1`] = `
           href="/b"
           onClick={[Function]}
         >
-          b
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="b"
+            id="b"
+          />
         </a>
       </li>
     </ul>
@@ -44,7 +52,11 @@ exports[`footer renders copyright 1`] = `
           href="/1"
           onClick={[Function]}
         >
-          1
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="1"
+            id="1"
+          />
         </a>
       </li>
       <li
@@ -55,7 +67,11 @@ exports[`footer renders copyright 1`] = `
           href="/2"
           onClick={[Function]}
         >
-          2
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="2"
+            id="2"
+          />
         </a>
       </li>
     </ul>
@@ -65,12 +81,20 @@ exports[`footer renders copyright 1`] = `
       <h3
         className="calloutHeading"
       >
-        Follow Us!
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Follow Us!"
+          id="footer.followText"
+        />
       </h3>
       <p
         className="calloutBody"
       >
-        Lorem ipsum dolor sit amet, consectetur adipsicing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Lorem ipsum dolor sit amet, consectetur adipsicing elit, sed do eiusmod tempor incididunt ut labore et dolore."
+          id="footer.calloutText"
+        />
       </p>
       <ul
         className="socialLinks"
@@ -152,12 +176,20 @@ exports[`footer renders copyright 1`] = `
       <li
         className="terms"
       >
-        Terms of Use
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Terms of Use"
+          id="footer.termsText"
+        />
       </li>
       <li
         className="privacy"
       >
-        Privacy Policy
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Privacy Policy"
+          id="footer.privacyText"
+        />
       </li>
     </ul>
     <p

@@ -72,7 +72,11 @@ exports[`renders loading indicator 1`] = `
   <span
     className="message"
   >
-    Fetching Customer Details...
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Fetching Customer Details..."
+      id="customerForm.loading"
+    />
   </span>
 </div>
 `;
@@ -243,7 +247,11 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -483,7 +491,11 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button
@@ -668,7 +680,11 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -906,7 +922,11 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button
@@ -946,7 +966,11 @@ Array [
       <p
         className="root"
       >
-        The shipping address you enter will be saved to your address book and set as your default for future purchases.
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="The shipping address you enter will be saved to your address book and set as your default for future purchases."
+          id="customerForm.formMessage"
+        />
       </p>
     </div>
     <div
@@ -1149,7 +1173,11 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span

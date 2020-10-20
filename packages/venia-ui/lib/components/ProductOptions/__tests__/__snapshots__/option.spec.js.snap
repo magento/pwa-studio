@@ -18,7 +18,16 @@ exports[`renders Option component correctly 1`] = `
     <dt
       className="selectionLabel"
     >
-      Selected Foo:
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Selected Foo:"
+        id="productOptions.selectedLabel"
+        values={
+          Object {
+            "label": "Foo",
+          }
+        }
+      />
     </dt>
     <dd>
       None

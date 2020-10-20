@@ -56,7 +56,11 @@ Array [
         <p
           className="root"
         >
-          Set a password at the end of guest checkout to create an account in one easy step.
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Set a password at the end of guest checkout to create an account in one easy step."
+            id="guestForm.emailMessage"
+          />
         </p>
       </div>
     </div>
@@ -213,7 +217,11 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -466,7 +474,11 @@ Array [
         <p
           className="root"
         >
-          Set a password at the end of guest checkout to create an account in one easy step.
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Set a password at the end of guest checkout to create an account in one easy step."
+            id="guestForm.emailMessage"
+          />
         </p>
       </div>
     </div>
@@ -623,7 +635,11 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -1024,7 +1040,11 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -1210,7 +1230,11 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button
@@ -1437,7 +1461,11 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <div
+              componentName="Formatted Message Component"
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -1623,7 +1651,11 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button

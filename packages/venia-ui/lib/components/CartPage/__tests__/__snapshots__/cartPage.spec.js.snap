@@ -72,7 +72,11 @@ exports[`renders a loading indicator when talon indicates 1`] = `
   <span
     className="message"
   >
-    Fetching Data...
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
   </span>
 </div>
 `;
@@ -87,7 +91,11 @@ exports[`renders components if cart has items 1`] = `
     <h1
       className="heading"
     >
-      Cart
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Cart"
+        id="cartPage.heading"
+      />
     </h1>
     <button
       className="root_normalPriority"
@@ -98,7 +106,11 @@ exports[`renders components if cart has items 1`] = `
       <span
         className="content"
       >
-        Sign In
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Sign In"
+          id="cartPage.signIn"
+        />
       </span>
     </button>
     <div
@@ -149,7 +161,11 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
     <h1
       className="heading"
     >
-      Cart
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Cart"
+        id="cartPage.heading"
+      />
     </h1>
     <button
       className="root_normalPriority"
@@ -160,7 +176,11 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
       <span
         className="content"
       >
-        Sign In
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Sign In"
+          id="cartPage.signIn"
+        />
       </span>
     </button>
     <div
@@ -176,7 +196,11 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
       className="items_container"
     >
       <h3>
-        There are no items in your cart.
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="There are no items in your cart."
+          id="cartPage.emptyCart"
+        />
       </h3>
     </div>
     <div

@@ -7,7 +7,11 @@ Array [
       unit test card code
     </span>
     <span>
-      Balance: 
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Balance: "
+        id="giftCard.balance"
+      />
       <span>
         $
       </span>
@@ -28,7 +32,11 @@ Array [
     type="button"
   >
     <span>
-      Remove
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Remove"
+        id="giftCard.remove"
+      />
     </span>
   </button>,
 ]
@@ -41,7 +49,11 @@ Array [
       unit test card code
     </span>
     <span>
-      Balance: 
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Balance: "
+        id="giftCard.balance"
+      />
       <span>
         $
       </span>
@@ -62,7 +74,11 @@ Array [
     type="button"
   >
     <span>
-      Remove
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Remove"
+        id="giftCard.remove"
+      />
     </span>
   </button>,
 ]

@@ -7,7 +7,11 @@ exports[`it disables inputs when the page is updating 1`] = `
   <h3
     className="editingHeading"
   >
-    Shipping Method
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Shipping Method"
+      id="shippingMethod.heading"
+    />
   </h3>
   <FormError
     errors={Array []}
@@ -93,7 +97,11 @@ exports[`it disables inputs when the page is updating 1`] = `
         <span
           className="content"
         >
-          Continue to Payment Information
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Continue to Payment Information"
+            id="shippingMethod.continueToNextStep"
+          />
         </span>
       </button>
     </div>
@@ -108,7 +116,11 @@ exports[`it renders correctly 1`] = `
   <h3
     className="editingHeading"
   >
-    Shipping Method
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Shipping Method"
+      id="shippingMethod.heading"
+    />
   </h3>
   <FormError
     errors={Array []}
@@ -194,7 +206,11 @@ exports[`it renders correctly 1`] = `
         <span
           className="content"
         >
-          Continue to Payment Information
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Continue to Payment Information"
+            id="shippingMethod.continueToNextStep"
+          />
         </span>
       </button>
     </div>
@@ -267,7 +283,11 @@ exports[`it renders correctly in initializing mode 1`] = `
   <h3
     className="editingHeading"
   >
-    Shipping Method
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Shipping Method"
+      id="shippingMethod.heading"
+    />
   </h3>
   <FormError
     errors={
@@ -347,7 +367,11 @@ exports[`it renders correctly in initializing mode 1`] = `
     <span
       className="message"
     >
-      Loading shipping methods...
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Loading shipping methods..."
+        id="shippingMethod.loading"
+      />
     </span>
   </div>
 </div>

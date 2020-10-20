@@ -4,7 +4,11 @@ exports[`renders cart message 1`] = `
 <p
   className="root"
 >
-  An item in your cart is currently out-of-stock and must be removed in order to Checkout.
+  <div
+    componentName="Formatted Message Component"
+    defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout."
+    id="stockStatusMessage.message"
+  />
 </p>
 `;
 

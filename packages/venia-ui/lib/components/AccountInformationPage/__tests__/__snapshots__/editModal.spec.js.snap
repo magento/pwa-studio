@@ -85,7 +85,11 @@ exports[`it disables the submit button while loading 1`] = `
               <span
                 className="content"
               >
-                Cancel
+                <div
+                  componentName="Formatted Message Component"
+                  defaultMessage="Cancel"
+                  id="global.cancelButton"
+                />
               </span>
             </button>
             <button
@@ -96,7 +100,11 @@ exports[`it disables the submit button while loading 1`] = `
               <span
                 className="content"
               >
-                Save
+                <div
+                  componentName="Formatted Message Component"
+                  defaultMessage="Save"
+                  id="global.confirmButton"
+                />
               </span>
             </button>
           </div>
@@ -192,7 +200,11 @@ exports[`it renders correctly 1`] = `
               <span
                 className="content"
               >
-                Cancel
+                <div
+                  componentName="Formatted Message Component"
+                  defaultMessage="Cancel"
+                  id="global.cancelButton"
+                />
               </span>
             </button>
             <button
@@ -203,7 +215,11 @@ exports[`it renders correctly 1`] = `
               <span
                 className="content"
               >
-                Save
+                <div
+                  componentName="Formatted Message Component"
+                  defaultMessage="Save"
+                  id="global.confirmButton"
+                />
               </span>
             </button>
           </div>

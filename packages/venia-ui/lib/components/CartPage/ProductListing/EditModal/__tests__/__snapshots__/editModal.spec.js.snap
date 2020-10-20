@@ -11,7 +11,11 @@ exports[`renders closed shell with no active item 1`] = `
       <span
         className="headerText"
       >
-        Edit Item
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Edit Item"
+          id="editModal.headerText"
+        />
       </span>
       <button
         className="closeButton"
@@ -63,7 +67,11 @@ exports[`renders open drawer with active item 1`] = `
       <span
         className="headerText"
       >
-        Edit Item
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Edit Item"
+          id="editModal.headerText"
+        />
       </span>
       <button
         className="closeButton"

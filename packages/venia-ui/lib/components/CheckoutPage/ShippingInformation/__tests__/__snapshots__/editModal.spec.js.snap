@@ -11,7 +11,11 @@ exports[`renders closed modal 1`] = `
       <span
         className="headerText"
       >
-        Edit Shipping Information
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Edit Shipping Information"
+          id="checkoutPage.editShippingInfo"
+        />
       </span>
       <button
         className="closeButton"
@@ -66,7 +70,11 @@ exports[`renders open modal 1`] = `
       <span
         className="headerText"
       >
-        Edit Shipping Information
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Edit Shipping Information"
+          id="checkoutPage.editShippingInfo"
+        />
       </span>
       <button
         className="closeButton"

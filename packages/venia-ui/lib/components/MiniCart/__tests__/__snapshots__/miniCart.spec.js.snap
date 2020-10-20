@@ -45,13 +45,26 @@ exports[`it renders correctly 1`] = `
       <span
         className="quantity"
       >
-        Items
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Items"
+          id="miniCart.totalQuantity"
+          values={
+            Object {
+              "totalQuantity": 10,
+            }
+          }
+        />
       </span>
       <span
         className="price"
       >
         <span>
-          Subtotal: 
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Subtotal: "
+            id="miniCart.subtotal"
+          />
         </span>
         <span>
           $420
@@ -104,7 +117,11 @@ exports[`it renders correctly 1`] = `
               />
             </svg>
           </span>
-          CHECKOUT
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="CHECKOUT"
+            id="miniCart.checkout"
+          />
         </span>
       </button>
       <button
@@ -115,7 +132,11 @@ exports[`it renders correctly 1`] = `
         <span
           className="content"
         >
-          Edit Shopping Bag
+          <div
+            componentName="Formatted Message Component"
+            defaultMessage="Edit Shopping Bag"
+            id="miniCart.editCartButton"
+          />
         </span>
       </button>
     </div>

@@ -50,7 +50,11 @@ exports[`renders correctly 1`] = `
         </svg>
       </span>
       <span>
-        Create a list
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Create a list"
+          id="createWishlist.handleCreateListText"
+        />
       </span>
     </div>
   </button>

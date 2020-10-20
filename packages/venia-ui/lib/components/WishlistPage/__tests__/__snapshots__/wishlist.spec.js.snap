@@ -195,7 +195,11 @@ exports[`render open with no items 1`] = `
     className="content"
   >
     <p>
-      There are currently no items in this list
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="There are currently no items in this list"
+        id="wishlist.emptyListText"
+      />
     </p>
   </div>
 </div>

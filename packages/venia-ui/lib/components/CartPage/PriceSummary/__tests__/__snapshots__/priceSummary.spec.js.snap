@@ -10,7 +10,11 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
     <span
       className="lineItemLabel"
     >
-      Subtotal
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Subtotal"
+        id="priceSummary.lineItemLabel"
+      />
     </span>
     <span
       className="price"
@@ -61,7 +65,11 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
       <span
         className="content"
       >
-        Proceed to Checkout
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Proceed to Checkout"
+          id="priceSummary.checkoutButton"
+        />
       </span>
     </button>
   </div>
@@ -78,7 +86,11 @@ exports[`renders PriceSummary correctly on checkout page 1`] = `
     <span
       className="lineItemLabel"
     >
-      Subtotal
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Subtotal"
+        id="priceSummary.lineItemLabel"
+      />
     </span>
     <span
       className="price"
@@ -128,7 +140,11 @@ exports[`renders an error state if query fails 1`] = `
   <span
     className="errorText"
   >
-    Something went wrong. Please refresh and try again.
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Something went wrong. Please refresh and try again."
+      id="priceSummary.errorText"
+    />
   </span>
 </div>
 `;
@@ -145,7 +161,11 @@ exports[`renders summary with loading state if query is loading 1`] = `
     <span
       className="lineItemLabel"
     >
-      Subtotal
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Subtotal"
+        id="priceSummary.lineItemLabel"
+      />
     </span>
     <span
       className="priceUpdating"
@@ -196,7 +216,11 @@ exports[`renders summary with loading state if query is loading 1`] = `
       <span
         className="content"
       >
-        Proceed to Checkout
+        <div
+          componentName="Formatted Message Component"
+          defaultMessage="Proceed to Checkout"
+          id="priceSummary.checkoutButton"
+        />
       </span>
     </button>
   </div>

@@ -3,7 +3,11 @@
 exports[`renders correctly 1`] = `
 <h2>
   <span>
-    Product Suggestions
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Product Suggestions"
+      id="searchBar.heading"
+    />
   </span>
 </h2>
 `;
