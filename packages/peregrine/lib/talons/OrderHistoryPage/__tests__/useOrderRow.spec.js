@@ -5,9 +5,14 @@ import { useQuery } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 import { useOrderRow } from '../useOrderRow';
 
-jest.mock('@apollo/client', () => ({
-    useQuery: jest.fn()
-}));
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
+    return {
+        ...apolloClient,
+        useQuery: jest.fn()
+    };
+});
 
 const log = jest.fn();
 const Component = props => {
