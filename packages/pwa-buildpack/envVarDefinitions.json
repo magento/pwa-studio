@@ -31,6 +31,12 @@
                     "type": "str",
                     "desc": "Specify the Magento store view code set in Stores > Settings > All Stores > Store View name",
                     "default": ""
+                },
+                {
+                    "name": "USE_STORE_CODE_IN_URL",
+                    "type": "bool",
+                    "desc": "Includes the store code in the store URLs if value is true.",
+                    "default": false
                 }
             ]
         },
