@@ -22,7 +22,7 @@ TODO: Describe your changes in detail here.
 <!--- Using the above wording causes Github to automatically close the issue on merge. -->
 Closes #ISSUE_NUMBER.
 
-## Acceptance 
+## Acceptance
 <!-- The people and processes this pull request needs before it is merged. -->
 <!-- These fields are not required when opening the pull request, but they -->
 <!-- should be populated after code review. -->
@@ -44,4 +44,5 @@ Closes #ISSUE_NUMBER.
 ## Checklist
 <!--- Go over all the following points, and make sure you've done anything necessary -->
 - [ ] I have added tests to cover my changes, if necessary.
+- [ ] I have added translations for new strings, if necessary.
 * I have updated the documentation accordingly, if necessary.
