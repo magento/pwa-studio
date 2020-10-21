@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useIntl } from 'react-intl';
 import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
@@ -23,30 +24,41 @@ const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
-const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
-
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
+    const { formatMessage } = useIntl();
 
     const [, { addToast }] = useToasts();
+
+    const ERROR_MESSAGE = formatMessage({
+        id: 'app.errorUnexpected',
+        defaultMessage: 'Sorry! An unexpected error occurred.'
+    });
 
     const handleIsOffline = useCallback(() => {
         addToast({
             type: 'error',
             icon: OfflineIcon,
-            message: 'You are offline. Some features may be unavailable.',
+            message: formatMessage({
+                id: 'app.errorOffline',
+                defaultMessage:
+                    'You are offline. Some features may be unavailable.'
+            }),
             timeout: 3000
         });
-    }, [addToast]);
+    }, [addToast, formatMessage]);
 
     const handleIsOnline = useCallback(() => {
         addToast({
             type: 'info',
             icon: OnlineIcon,
-            message: 'You are online.',
+            message: formatMessage({
+                id: 'app.infoOnline',
+                defaultMessage: 'You are online.'
+            }),
             timeout: 3000
         });
-    }, [addToast]);
+    }, [addToast, formatMessage]);
 
     const handleError = useCallback(
         (error, id, loc, handleDismissError) => {
@@ -63,7 +75,7 @@ const App = props => {
 
             addToast(errorToastProps);
         },
-        [addToast]
+        [ERROR_MESSAGE, addToast]
     );
 
     const talonProps = useApp({
@@ -80,7 +92,12 @@ const App = props => {
     if (renderError) {
         return (
             <HeadProvider>
-                <Title>{`Home Page - ${STORE_NAME}`}</Title>
+                <Title>
+                    {formatMessage(
+                        { id: 'app.titleHome', defaultMessage: 'Home Page' },
+                        { name: STORE_NAME }
+                    )}
+                </Title>
                 <Main isMasked={true} />
                 <Mask isActive={true} />
                 <ToastContainer />
@@ -90,7 +107,12 @@ const App = props => {
 
     return (
         <HeadProvider>
-            <Title>{`Home Page - ${STORE_NAME}`}</Title>
+            <Title>
+                {formatMessage(
+                    { id: 'app.titleHome', defaultMessage: 'Home Page' },
+                    { name: STORE_NAME }
+                )}
+            </Title>
             <Main isMasked={hasOverlay}>
                 <Routes />
             </Main>

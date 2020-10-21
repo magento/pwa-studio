@@ -101,7 +101,10 @@ const ResetPassword = props => {
                 priority="high"
                 disabled={loading}
             >
-                {'Save Password'}
+                <FormattedMessage
+                    id="resetPassword.savePassword"
+                    defaultMessage="Save Password"
+                />
             </Button>
             <FormErrors
                 classes={{
