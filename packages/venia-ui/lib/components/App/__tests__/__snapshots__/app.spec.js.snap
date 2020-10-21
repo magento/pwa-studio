@@ -740,8 +740,7 @@ ReactTestInstance {
                     }
                     src={[Function]}
                   />,
-                  "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
+                  "message": "Sorry! An unexpected error occurred.\\\\nDebug: 1 1",
                   "onDismiss": [Function],
                   "timeout": 15000,
                   "type": "error",
@@ -774,6 +773,7 @@ Debug: 1 1",
               },
             ],
           },
+          [Function],
         ],
       ],
       "next": Object {
@@ -794,8 +794,7 @@ Debug: 1 1",
                       }
                       src={[Function]}
                     />,
-                    "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
+                    "message": "Sorry! An unexpected error occurred.\\\\nDebug: 1 1",
                     "onDismiss": [Function],
                     "timeout": 15000,
                     "type": "error",
@@ -828,6 +827,7 @@ Debug: 1 1",
                 },
               ],
             },
+            [Function],
           ],
         ],
         "next": Object {
@@ -836,6 +836,7 @@ Debug: 1 1",
           "memoizedState": Array [
             [Function],
             Array [
+              "Sorry! An unexpected error occurred.",
               [MockFunction] {
                 "calls": Array [
                   Array [
@@ -848,8 +849,7 @@ Debug: 1 1",
                         }
                         src={[Function]}
                       />,
-                      "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
+                      "message": "Sorry! An unexpected error occurred.\\\\nDebug: 1 1",
                       "onDismiss": [Function],
                       "timeout": 15000,
                       "type": "error",
@@ -882,6 +882,7 @@ Debug: 1 1",
                   },
                 ],
               },
+              [Function],
             ],
           ],
           "next": Object {
@@ -2558,8 +2559,7 @@ ReactTestInstance {
                     }
                     src={[Function]}
                   />,
-                  "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
+                  "message": "Sorry! An unexpected error occurred.\\\\nDebug:  ",
                   "onDismiss": [Function],
                   "timeout": 15000,
                   "type": "error",
@@ -2573,6 +2573,7 @@ Debug: undefined undefined",
               },
             ],
           },
+          [Function],
         ],
       ],
       "next": Object {
@@ -2593,8 +2594,7 @@ Debug: undefined undefined",
                       }
                       src={[Function]}
                     />,
-                    "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
+                    "message": "Sorry! An unexpected error occurred.\\\\nDebug:  ",
                     "onDismiss": [Function],
                     "timeout": 15000,
                     "type": "error",
@@ -2608,6 +2608,7 @@ Debug: undefined undefined",
                 },
               ],
             },
+            [Function],
           ],
         ],
         "next": Object {
@@ -2616,6 +2617,7 @@ Debug: undefined undefined",
           "memoizedState": Array [
             [Function],
             Array [
+              "Sorry! An unexpected error occurred.",
               [MockFunction] {
                 "calls": Array [
                   Array [
@@ -2628,8 +2630,7 @@ Debug: undefined undefined",
                         }
                         src={[Function]}
                       />,
-                      "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
+                      "message": "Sorry! An unexpected error occurred.\\\\nDebug:  ",
                       "onDismiss": [Function],
                       "timeout": 15000,
                       "type": "error",
@@ -2643,6 +2644,7 @@ Debug: undefined undefined",
                   },
                 ],
               },
+              [Function],
             ],
           ],
           "next": Object {
