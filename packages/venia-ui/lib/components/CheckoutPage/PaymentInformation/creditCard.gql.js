@@ -64,7 +64,7 @@ export const GET_SHIPPING_ADDRESS = gql`
                 region {
                     code
                 }
-                postalCode: postcode
+                postcode
                 phoneNumber: telephone
             }
         }
