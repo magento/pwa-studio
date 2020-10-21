@@ -9,9 +9,7 @@ import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import Price from '../../Price';
 import defaultClasses from './item.css';
-
-// TODO: do not hard code url key suffix; doesn't appear available from GraphQL
-const URL_SUFFIX = '.html';
+import { useOrderHistoryContext } from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 
 const Item = props => {
     const {
@@ -24,7 +22,9 @@ const Item = props => {
     } = props;
     const { currency, value: unitPrice } = product_sale_price;
 
-    const itemLink = `${product_url_key}${URL_SUFFIX}`;
+    const orderHistoryState = useOrderHistoryContext();
+    const { productURLSuffix } = orderHistoryState;
+    const itemLink = `${product_url_key}${productURLSuffix}`;
     const mappedOptions = useMemo(
         () =>
             selected_options.map(option => ({
@@ -45,9 +45,10 @@ const Item = props => {
                     resource={thumbnail.url}
                 />
             </Link>
-            <Link className={classes.name} to={itemLink}>
-                {product_name}
-            </Link>
+            <div className={classes.nameContainer}>
+                <Link to={itemLink}>{product_name}</Link>
+            </div>
+
             <ProductOptions
                 options={mappedOptions}
                 classes={{
@@ -77,18 +78,6 @@ const Item = props => {
                     defaultMessage="Buy Again"
                 />
             </Button>
-            <Button
-                onClick={() => {
-                    // TODO will be implemented in PWA-979
-                    console.log('Returning the Item');
-                }}
-                className={classes.returnThisButton}
-            >
-                <FormattedMessage
-                    id="orderDetails.returnThis"
-                    defaultMessage="Return This"
-                />
-            </Button>
         </div>
     );
 };
@@ -104,8 +93,7 @@ Item.propTypes = {
         options: string,
         quantity: string,
         price: string,
-        buyAgainButton: string,
-        returnThisButton: string
+        buyAgainButton: string
     }),
     product_name: string.isRequired,
     product_sale_price: shape({

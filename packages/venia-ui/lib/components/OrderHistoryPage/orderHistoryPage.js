@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
+import { OrderHistoryContextProvider } from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
 import { mergeClasses } from '../../classify';
@@ -47,12 +48,14 @@ const OrderHistoryPage = props => {
     }
 
     return (
-        <div className={classes.root}>
-            {/* STORE_NAME is injected by Webpack at build time. */}
-            <Title>{`${PAGE_TITLE} - ${STORE_NAME}`}</Title>
-            <h1 className={classes.heading}>{PAGE_TITLE}</h1>
-            {pageContents}
-        </div>
+        <OrderHistoryContextProvider>
+            <div className={classes.root}>
+                {/* STORE_NAME is injected by Webpack at build time. */}
+                <Title>{`${PAGE_TITLE} - ${STORE_NAME}`}</Title>
+                <h1 className={classes.heading}>{PAGE_TITLE}</h1>
+                {pageContents}
+            </div>
+        </OrderHistoryContextProvider>
     );
 };
 

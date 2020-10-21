@@ -6,6 +6,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Item from './item';
 
 import defaultClasses from './items.css';
+import { FormattedMessage } from 'react-intl';
 
 const Items = props => {
     const { items, imagesData } = props.data;
@@ -29,7 +30,17 @@ const Items = props => {
         />
     ));
 
-    return <div className={classes.root}>{itemsComponent}</div>;
+    return (
+        <div className={classes.root}>
+            <h3 className={classes.heading}>
+                <FormattedMessage
+                    id="orderItems.itemsHeading"
+                    defaultMessage="Items"
+                />
+            </h3>
+            <div className={classes.itemsContainer}>{itemsComponent}</div>
+        </div>
+    );
 };
 
 export default Items;
