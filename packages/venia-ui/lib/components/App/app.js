@@ -64,10 +64,7 @@ const App = props => {
         (error, id, loc, handleDismissError) => {
             const errorToastProps = {
                 icon: ErrorIcon,
-                message: formatMessage(
-                    { id: 'app.errorDebug', defaultMessage: '' },
-                    { error: ERROR_MESSAGE, id, loc }
-                ),
+                message: `${ERROR_MESSAGE}\nDebug: ${id} ${loc}`,
                 onDismiss: remove => {
                     handleDismissError();
                     remove();
@@ -78,7 +75,7 @@ const App = props => {
 
             addToast(errorToastProps);
         },
-        [ERROR_MESSAGE, addToast, formatMessage]
+        [ERROR_MESSAGE, addToast]
     );
 
     const talonProps = useApp({

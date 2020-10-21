@@ -51,7 +51,7 @@ const CategoryList = props => {
             <div className={classes.fetchError}>
                 <FormattedMessage
                     id={'categoryList.errorFetch'}
-                    defaultMessage={'Data Fetch Error:'}
+                    defaultMessage={'Data Fetch Error: '}
                 />
                 <pre>{error.message}</pre>
             </div>

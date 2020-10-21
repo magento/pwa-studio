@@ -740,7 +740,8 @@ ReactTestInstance {
                     }
                     src={[Function]}
                   />,
-                  "message": "Sorry! An unexpected error occurred.\\\\nDebug: 1 1",
+                  "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
                   "onDismiss": [Function],
                   "timeout": 15000,
                   "type": "error",
@@ -794,7 +795,8 @@ ReactTestInstance {
                       }
                       src={[Function]}
                     />,
-                    "message": "Sorry! An unexpected error occurred.\\\\nDebug: 1 1",
+                    "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
                     "onDismiss": [Function],
                     "timeout": 15000,
                     "type": "error",
@@ -849,7 +851,8 @@ ReactTestInstance {
                         }
                         src={[Function]}
                       />,
-                      "message": "Sorry! An unexpected error occurred.\\\\nDebug: 1 1",
+                      "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
                       "onDismiss": [Function],
                       "timeout": 15000,
                       "type": "error",
@@ -882,7 +885,6 @@ ReactTestInstance {
                   },
                 ],
               },
-              [Function],
             ],
           ],
           "next": Object {
@@ -2559,7 +2561,8 @@ ReactTestInstance {
                     }
                     src={[Function]}
                   />,
-                  "message": "Sorry! An unexpected error occurred.\\\\nDebug:  ",
+                  "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
                   "onDismiss": [Function],
                   "timeout": 15000,
                   "type": "error",
@@ -2594,7 +2597,8 @@ ReactTestInstance {
                       }
                       src={[Function]}
                     />,
-                    "message": "Sorry! An unexpected error occurred.\\\\nDebug:  ",
+                    "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
                     "onDismiss": [Function],
                     "timeout": 15000,
                     "type": "error",
@@ -2630,7 +2634,8 @@ ReactTestInstance {
                         }
                         src={[Function]}
                       />,
-                      "message": "Sorry! An unexpected error occurred.\\\\nDebug:  ",
+                      "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
                       "onDismiss": [Function],
                       "timeout": 15000,
                       "type": "error",
@@ -2644,7 +2649,6 @@ ReactTestInstance {
                   },
                 ],
               },
-              [Function],
             ],
           ],
           "next": Object {
