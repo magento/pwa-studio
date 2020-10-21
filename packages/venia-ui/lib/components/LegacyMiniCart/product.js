@@ -14,7 +14,7 @@ import ProductOptions from './productOptions';
 import Section from './section';
 import { gql } from '@apollo/client';
 
-const QUANTITY_OPERATOR = 'x';
+const QUANTITY_OPERATOR = '×';
 
 const PRODUCT_IMAGE_WIDTH = 80;
 
