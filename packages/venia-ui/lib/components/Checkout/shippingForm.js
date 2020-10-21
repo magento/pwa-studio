@@ -36,7 +36,7 @@ const ShippingForm = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const formHeading = 'Shipping Information';
-    const shippingMethodLabel = 'ShippingMethod';
+    const shippingMethodLabel = 'Shipping Method';
     const submitButtonText = 'Use Method';
     const cancelButtonText = 'Cancel';
 
