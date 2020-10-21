@@ -27,7 +27,7 @@ exports[`it renders correctly 1`] = `
         1
       </span>
       <span>
-        x
+        ×
       </span>
       <span>
         <Price
