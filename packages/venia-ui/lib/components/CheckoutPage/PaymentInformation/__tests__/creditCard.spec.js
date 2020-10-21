@@ -79,7 +79,7 @@ const useCreditCardReturnValue = {
         country: 'sample country',
         street1: 'sample street 1',
         street2: 'sample street 2',
-        postalCode: 'sample postal code',
+        postcode: 'sample postal code',
         phoneNumber: 'sample phone number',
         isBillingAddressSame: false
     },

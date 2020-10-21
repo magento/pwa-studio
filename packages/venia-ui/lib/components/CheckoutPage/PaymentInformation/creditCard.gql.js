@@ -42,7 +42,7 @@ export const GET_BILLING_ADDRESS = gql`
                 region {
                     code
                 }
-                postalCode: postcode
+                postcode
                 phoneNumber: telephone
             }
         }
@@ -80,7 +80,7 @@ export const SET_BILLING_ADDRESS = gql`
         $street2: String
         $city: String!
         $region: String!
-        $postalCode: String!
+        $postcode: String!
         $country: String!
         $phoneNumber: String!
     ) {
@@ -94,7 +94,7 @@ export const SET_BILLING_ADDRESS = gql`
                         street: [$street1, $street2]
                         city: $city
                         region: $region
-                        postcode: $postalCode
+                        postcode: $postcode
                         country_code: $country
                         telephone: $phoneNumber
                         save_in_address_book: false

@@ -13,11 +13,12 @@ import { useCartContext } from '../../../context/cart';
  */
 export const mapAddressData = rawAddressData => {
     if (rawAddressData) {
+        console.log(rawAddressData);
         const {
             firstName,
             lastName,
             city,
-            postalCode,
+            postcode,
             phoneNumber,
             street,
             country,
@@ -28,7 +29,7 @@ export const mapAddressData = rawAddressData => {
             firstName,
             lastName,
             city,
-            postalCode,
+            postcode,
             phoneNumber,
             street1: street[0],
             street2: street[1],
@@ -67,7 +68,7 @@ export const mapAddressData = rawAddressData => {
  *      firstName: String,
  *      lastName: String,
  *      city: String,
- *      postalCode: String,
+ *      postcode: String,
  *      phoneNumber: String,
  *      street1: String,
  *      street2: String,
@@ -243,7 +244,7 @@ export const useCreditCard = props => {
             street2,
             city,
             region,
-            postalCode,
+            postcode,
             phoneNumber
         } = formState.values;
 
@@ -257,7 +258,7 @@ export const useCreditCard = props => {
                 street2,
                 city,
                 region,
-                postalCode,
+                postcode,
                 phoneNumber,
                 sameAsShipping: false
             }

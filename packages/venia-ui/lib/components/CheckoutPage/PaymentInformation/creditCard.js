@@ -266,7 +266,7 @@ const CreditCard = props => {
                     <Postcode
                         classes={fieldClasses.postal_code}
                         validate={isFieldRequired}
-                        initialValue={initialValues.postalCode}
+                        initialValue={initialValues.postcode}
                     />
                     <Field
                         classes={fieldClasses.phone_number}
