@@ -5,10 +5,10 @@ import { Price, useToasts } from '@magento/peregrine';
 import { useWishlistItem } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItem';
 
 import { mergeClasses } from '../../classify';
-import Dialog from '../Dialog';
 import Icon from '../Icon';
 import Image from '../Image';
-import WishlistItemActions from './wishlistItemActions';
+import WishlistConfirmRemoveProductDialog from './wishlistConfirmRemoveProductDialog';
+import WishlistMoreActionsDialog from './wishlistMoreActionsDialog';
 import defaultClasses from './wishlistItem.css';
 import wishlistItemOperations from './wishlistItem.gql';
 
@@ -37,13 +37,17 @@ const WishlistItem = props => {
         ...wishlistItemOperations
     });
     const {
-        actionsDialogIsOpen,
+        confirmRemovalIsOpen,
         handleAddToCart,
-        handleCloseActionsDialog,
-        handleMoreActions,
-        handleRemove,
+        handleHideDialogs,
+        handleRemoveProductFromWishlist,
+        handleShowConfirmRemoval,
+        handleShowMoreActions,
         hasError,
-        isLoading
+        hasRemoveProductFromWishlistError,
+        isLoading,
+        isRemovalInProgress,
+        moreActionsIsOpen
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -106,22 +110,22 @@ const WishlistItem = props => {
                 </button>
                 <button
                     className={classes.moreActions}
-                    onClick={handleMoreActions}
+                    onClick={handleShowMoreActions}
                 >
                     <Icon size={16} src={MoreHorizontal} />
                 </button>
-                {/* The more actions Dialog. */}
-                <Dialog
-                    isOpen={actionsDialogIsOpen}
-                    onCancel={handleCloseActionsDialog}
-                    shouldShowButtons={false}
-                    title={formatMessage({
-                        id: 'wishlistItemActions.title',
-                        defaultMessage: 'Actions'
-                    })}
-                >
-                    <WishlistItemActions onRemove={handleRemove} />
-                </Dialog>
+                <WishlistMoreActionsDialog
+                    isOpen={moreActionsIsOpen}
+                    onCancel={handleHideDialogs}
+                    onRemove={handleShowConfirmRemoval}
+                />
+                <WishlistConfirmRemoveProductDialog
+                    hasError={hasRemoveProductFromWishlistError}
+                    isOpen={confirmRemovalIsOpen}
+                    isRemovalInProgress={isRemovalInProgress}
+                    onCancel={handleHideDialogs}
+                    onConfirm={handleRemoveProductFromWishlist}
+                />
             </div>
         </div>
     );

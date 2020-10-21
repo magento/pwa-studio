@@ -3,6 +3,13 @@ import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
+// Note: There is only ever zero (0) or one (1) dialogs open for a wishlist item.
+const dialogs = {
+    NONE: 1,
+    CONFIRM_REMOVE_PRODUCT: 2,
+    MORE_ACTIONS: 3
+};
+
 /**
  * @function
  *
@@ -23,7 +30,11 @@ export const useWishlistItem = props => {
     } = mutations;
 
     const [{ cartId }] = useCartContext();
-    const [actionsDialogIsOpen, setActionsDialogIsOpen] = useState(false);
+    const [currentDialog, setCurrentDialog] = useState(dialogs.NONE);
+    const [
+        removeProductFromWishlistError,
+        setRemoveProductFromWishlistError
+    ] = useState(null);
 
     const cartItem = {
         data: {
@@ -40,25 +51,28 @@ export const useWishlistItem = props => {
         });
     }
 
-    const [addWishlistItemToCart, { error, loading }] = useMutation(
-        addWishlistItemToCartMutation,
+    const [
+        addWishlistItemToCart,
         {
-            variables: {
-                cartId,
-                cartItem
-            }
+            error: addWishlistItemToCartError,
+            loading: addWishlistItemToCartLoading
         }
-    );
+    ] = useMutation(addWishlistItemToCartMutation, {
+        variables: {
+            cartId,
+            cartItem
+        }
+    });
 
-    const [removeProductsFromWishlist] = useMutation(
-        removeProductsFromWishlistMutation,
-        {
-            variables: {
-                wishlistId: wishlistId,
-                wishlistItemsId: [itemId]
-            }
+    const [
+        removeProductsFromWishlist,
+        { loading: isRemovalInProgress }
+    ] = useMutation(removeProductsFromWishlistMutation, {
+        variables: {
+            wishlistId: wishlistId,
+            wishlistItemsId: [itemId]
         }
-    );
+    });
 
     const handleAddToCart = useCallback(async () => {
         try {
@@ -68,32 +82,52 @@ export const useWishlistItem = props => {
         }
     }, [addWishlistItemToCart]);
 
-    const handleRemove = useCallback(async () => {
+    const handleRemoveProductFromWishlist = useCallback(async () => {
         try {
             await removeProductsFromWishlist();
-        } catch {
-            return;
-        } finally {
-            setActionsDialogIsOpen(false);
+
+            // Close the dialogs on success.
+            setCurrentDialog(dialogs.NONE);
+        } catch (e) {
+            setRemoveProductFromWishlistError(e);
         }
-    }, [removeProductsFromWishlist, setActionsDialogIsOpen]);
+    }, [
+        removeProductsFromWishlist,
+        setCurrentDialog,
+        setRemoveProductFromWishlistError
+    ]);
 
-    const handleMoreActions = useCallback(() => {
-        setActionsDialogIsOpen(true);
-    }, [setActionsDialogIsOpen]);
+    const handleShowConfirmRemoval = useCallback(() => {
+        // Before we show the removal confirmation dialog, clear out any previous errors.
+        setRemoveProductFromWishlistError(null);
+        setCurrentDialog(dialogs.CONFIRM_REMOVE_PRODUCT);
+    }, [setCurrentDialog, setRemoveProductFromWishlistError]);
 
-    const handleCloseActionsDialog = useCallback(() => {
-        setActionsDialogIsOpen(false);
-    }, [setActionsDialogIsOpen]);
+    const handleShowMoreActions = useCallback(() => {
+        setCurrentDialog(dialogs.MORE_ACTIONS);
+    }, [setCurrentDialog]);
+
+    const handleHideDialogs = useCallback(() => {
+        setCurrentDialog(dialogs.NONE);
+    }, [setCurrentDialog]);
+
+    // Derived state.
+    const confirmRemovalIsOpen =
+        currentDialog === dialogs.CONFIRM_REMOVE_PRODUCT;
+    const moreActionsIsOpen = currentDialog === dialogs.MORE_ACTIONS;
 
     return {
-        actionsDialogIsOpen,
+        confirmRemovalIsOpen,
         handleAddToCart,
-        handleCloseActionsDialog,
-        handleMoreActions,
-        handleRemove,
-        hasError: !!error,
-        isLoading: loading
+        handleHideDialogs,
+        handleRemoveProductFromWishlist,
+        handleShowConfirmRemoval,
+        handleShowMoreActions,
+        hasError: !!addWishlistItemToCartError,
+        hasRemoveProductFromWishlistError: !!removeProductFromWishlistError,
+        isLoading: addWishlistItemToCartLoading,
+        isRemovalInProgress,
+        moreActionsIsOpen
     };
 };
 
@@ -107,6 +141,7 @@ export const useWishlistItem = props => {
  * @typedef {Object} WishlistItemMutations
  *
  * @property {GraphQLAST} addWishlistItemToCartMutation Mutation to add item to the cart
+ * @property {GraphQLAST} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
  *
  * @see [`wishlistItem.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistItem.gql.js}
  * for queries used in Venia
@@ -117,11 +152,15 @@ export const useWishlistItem = props => {
  *
  * @typedef {Object} WishlistItemProps
  *
- * @property {Boolean} actionsDialogIsOpen Whether the actions dialog is open or not
+ * @property {Boolean} confirmRemovalIsOpen Whether the confirm removal dialog is open
  * @property {Function} handleAddToCart Callback to handle item addition to cart
- * @property {Function} handleCloseActionsDialog Callback to handle closing the actions dialog
- * @property {Function} handleMoreActions Callback to handle more actions
- * @property {Function} handleRemove Callback to remove item from list
- * @property {Boolean} hasError Boolean which represents if there were errors during the mutation
+ * @property {Function} handleHideDialogs Callback to handle hiding all dialogs
+ * @property {Function} handleRemoveProductFromWishlist Callback to actually remove product from wishlist
+ * @property {Function} handleShowConfirmRemoval Callback to handle showing the removal confirmation prompt
+ * @property {Function} handleShowMoreActions Callback to handle showing more actions
+ * @property {Boolean} hasError Boolean which represents if there was an error adding the wishlist item to cart
+ * @property {Boolean} hasRemoveProductFromWishlistError If there was an error removing a product from the wishlist
  * @property {Boolean} isLoading Boolean which represents if data is loading
+ * @property {Boolean} isRemovalInProgress Whether the remove product from wishlist operation is in progress
+ * @property {Boolean} moreActionsIsOpen Whether more actions are showing or not
  */

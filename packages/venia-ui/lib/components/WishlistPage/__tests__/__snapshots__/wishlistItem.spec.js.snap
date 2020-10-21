@@ -76,7 +76,7 @@ exports[`it renders a configurable wishlist item 1`] = `
     </button>
     <button
       className="moreActions"
-      onClick={[MockFunction handleMoreActions]}
+      onClick={[MockFunction handleShowMoreActions]}
     >
       <span
         className="root"
@@ -111,13 +111,14 @@ exports[`it renders a configurable wishlist item 1`] = `
         </svg>
       </span>
     </button>
-    <div
-      componentName="Dialog"
-      shouldShowButtons={false}
-      title="Actions"
-    >
-      <WishlistItemActions />
-    </div>
+    <WishlistMoreActionsDialog
+      onCancel={[MockFunction handleHideDialogs]}
+      onRemove={[MockFunction handleShowConfirmRemoval]}
+    />
+    <WishlistConfirmRemoveProductDialog
+      onCancel={[MockFunction handleHideDialogs]}
+      onConfirm={[MockFunction handleRemoveProductFromWishlist]}
+    />
   </div>
 </div>
 `;
@@ -180,7 +181,7 @@ exports[`it renders a simple wishlist item 1`] = `
     </button>
     <button
       className="moreActions"
-      onClick={[MockFunction handleMoreActions]}
+      onClick={[MockFunction handleShowMoreActions]}
     >
       <span
         className="root"
@@ -215,13 +216,14 @@ exports[`it renders a simple wishlist item 1`] = `
         </svg>
       </span>
     </button>
-    <div
-      componentName="Dialog"
-      shouldShowButtons={false}
-      title="Actions"
-    >
-      <WishlistItemActions />
-    </div>
+    <WishlistMoreActionsDialog
+      onCancel={[MockFunction handleHideDialogs]}
+      onRemove={[MockFunction handleShowConfirmRemoval]}
+    />
+    <WishlistConfirmRemoveProductDialog
+      onCancel={[MockFunction handleHideDialogs]}
+      onConfirm={[MockFunction handleRemoveProductFromWishlist]}
+    />
   </div>
 </div>
 `;
