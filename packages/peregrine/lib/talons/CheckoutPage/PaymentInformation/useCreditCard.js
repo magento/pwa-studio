@@ -13,7 +13,6 @@ import { useCartContext } from '../../../context/cart';
  */
 export const mapAddressData = rawAddressData => {
     if (rawAddressData) {
-        console.log(rawAddressData);
         const {
             firstName,
             lastName,
