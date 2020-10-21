@@ -43,6 +43,6 @@ Closes #ISSUE_NUMBER.
 
 ## Checklist
 <!--- Go over all the following points, and make sure you've done anything necessary -->
-- [ ] I have added tests to cover my changes, if necessary.
-- [ ] I have added translations for new strings, if necessary.
+* I have added tests to cover my changes, if necessary.
+* I have added translations for new strings, if necessary.
 * I have updated the documentation accordingly, if necessary.
