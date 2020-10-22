@@ -774,6 +774,7 @@ Debug: 1 1",
               },
             ],
           },
+          [Function],
         ],
       ],
       "next": Object {
@@ -828,6 +829,7 @@ Debug: 1 1",
                 },
               ],
             },
+            [Function],
           ],
         ],
         "next": Object {
@@ -836,6 +838,7 @@ Debug: 1 1",
           "memoizedState": Array [
             [Function],
             Array [
+              "Sorry! An unexpected error occurred.",
               [MockFunction] {
                 "calls": Array [
                   Array [
@@ -2573,6 +2576,7 @@ Debug: undefined undefined",
               },
             ],
           },
+          [Function],
         ],
       ],
       "next": Object {
@@ -2608,6 +2612,7 @@ Debug: undefined undefined",
                 },
               ],
             },
+            [Function],
           ],
         ],
         "next": Object {
@@ -2616,6 +2621,7 @@ Debug: undefined undefined",
           "memoizedState": Array [
             [Function],
             Array [
+              "Sorry! An unexpected error occurred.",
               [MockFunction] {
                 "calls": Array [
                   Array [

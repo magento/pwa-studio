@@ -13,7 +13,7 @@ exports[`it renders correctly 1`] = `
       <div
         className="stockStatusMessageContainer"
       >
-        <StockStatusMessage
+        <mock-StockStatusMessage
           cartItems={
             Array [
               Object {
@@ -72,9 +72,7 @@ exports[`it renders correctly 1`] = `
     <div
       className="body"
     >
-      <div>
-        Product List
-      </div>
+      <mock-ProductList />
     </div>
     <div
       className="footer"

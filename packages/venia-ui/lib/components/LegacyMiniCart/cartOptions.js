@@ -20,11 +20,17 @@ import { gql } from '@apollo/client';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
+const LOADING_TEXT = 'Fetching Options...';
+
 const loadingIndicator = (
     <LoadingIndicator>
-        <span>{'Fetching Options...'}</span>
+        <span>{LOADING_TEXT}</span>
     </LoadingIndicator>
 );
+
+const CANCEL_BUTTON_TEXT = 'Cancel';
+const UPDATE_BUTTON_TEXT = 'Update Cart';
+const QUANTITY_TITLE = 'Quantity';
 
 const CartOptions = props => {
     const { cartItem, configItem, currencyCode, endEditItem } = props;
@@ -78,7 +84,7 @@ const CartOptions = props => {
                 {options}
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>
-                        <span>Quantity</span>
+                        <span>{QUANTITY_TITLE}</span>
                     </h2>
                     <Quantity
                         initialValue={initialQuantity}
@@ -92,10 +98,10 @@ const CartOptions = props => {
                     onClick={handleUpdate}
                     disabled={isUpdateDisabled}
                 >
-                    <span>Update Cart</span>
+                    <span>{UPDATE_BUTTON_TEXT}</span>
                 </Button>
                 <Button onClick={handleCancel} priority="low">
-                    <span>Cancel</span>
+                    <span>{CANCEL_BUTTON_TEXT}</span>
                 </Button>
             </div>
         </Form>

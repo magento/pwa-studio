@@ -47,11 +47,13 @@ const OrderHistoryPage = props => {
         );
     }
 
+    // STORE_NAME is injected by Webpack at build time.
+    const title = `${PAGE_TITLE} - ${STORE_NAME}`;
+
     return (
         <OrderHistoryContextProvider>
             <div className={classes.root}>
-                {/* STORE_NAME is injected by Webpack at build time. */}
-                <Title>{`${PAGE_TITLE} - ${STORE_NAME}`}</Title>
+                <Title>{title}</Title>
                 <h1 className={classes.heading}>{PAGE_TITLE}</h1>
                 {pageContents}
             </div>

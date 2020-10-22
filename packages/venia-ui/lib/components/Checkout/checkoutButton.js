@@ -11,11 +11,12 @@ const CheckoutButton = props => {
     const { disabled, onClick, classes: propsClasses } = props;
     const classes = mergeClasses(defaultClasses, propsClasses);
     const iconClasses = { root: classes.icon };
+    const buttonText = 'Checkout';
 
     return (
         <Button priority="high" disabled={disabled} onClick={onClick}>
             <Icon classes={iconClasses} src={LockIcon} size={20} />
-            <span>Checkout</span>
+            <span>{buttonText}</span>
         </Button>
     );
 };

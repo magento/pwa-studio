@@ -18,7 +18,8 @@ import { mergeClasses } from '../../classify';
 
 const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
 const CONTAINER_ID = 'braintree-dropin-container';
-
+const errorText =
+    'There was an error loading payment options. Please try again later.';
 /**
  * This BraintreeDropin component has two purposes which lend to its
  * implementation:
@@ -110,12 +111,7 @@ const BraintreeDropin = props => {
     }, [dropinInstance, onError, onSuccess, shouldRequestPaymentNonce]);
 
     if (isError) {
-        return (
-            <span className={classes.error}>
-                There was an error loading payment options. Please try again
-                later.
-            </span>
-        );
+        return <span className={classes.error}>{errorText}</span>;
     }
 
     return (

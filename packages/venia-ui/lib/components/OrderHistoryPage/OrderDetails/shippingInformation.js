@@ -1,10 +1,10 @@
 import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './shippingInformation.css';
-import { FormattedMessage } from 'react-intl';
 
 const ShippingInformation = props => {
     const { data, classes: propsClasses } = props;
@@ -19,6 +19,8 @@ const ShippingInformation = props => {
     } = data;
     const classes = mergeClasses(defaultClasses, propsClasses);
 
+    const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
+
     return (
         <div className={classes.root}>
             <div className={classes.heading}>
@@ -32,7 +34,7 @@ const ShippingInformation = props => {
             </div>
             <div className={classes.addressLine1}>{street}</div>
             <div className={classes.addressLine2}>
-                {`${city}, ${region} ${postcode} ${country_code}`}
+                {additionalAddressString}
             </div>
         </div>
     );

@@ -20,12 +20,8 @@ exports[`authModal is rendered when hasModal is true 1`] = `
     <div
       className="switchers"
     >
-      <i>
-        StoreSwitcher
-      </i>
-      <i>
-        CurrencySwitcher
-      </i>
+      StoreSwitcher
+      CurrencySwitcher
     </div>
     <i />
   </div>
@@ -57,12 +53,8 @@ exports[`renders correctly when closed 1`] = `
     <div
       className="switchers"
     >
-      <i>
-        StoreSwitcher
-      </i>
-      <i>
-        CurrencySwitcher
-      </i>
+      StoreSwitcher
+      CurrencySwitcher
     </div>
     <i />
   </div>
@@ -92,12 +84,8 @@ exports[`renders correctly when open 1`] = `
     <div
       className="switchers"
     >
-      <i>
-        StoreSwitcher
-      </i>
-      <i>
-        CurrencySwitcher
-      </i>
+      StoreSwitcher
+      CurrencySwitcher
     </div>
     <i />
   </div>

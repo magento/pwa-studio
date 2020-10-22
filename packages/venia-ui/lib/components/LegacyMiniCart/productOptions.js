@@ -13,12 +13,12 @@ const ProductOptions = props => {
         () =>
             options.map(({ option_label, value_label }) => {
                 const key = `${option_label}${value_label}`;
-
+                const optionLabelString = `${option_label} :`;
                 return (
                     <div key={key} className={classes.optionLabel}>
-                        <dt
-                            className={classes.optionName}
-                        >{`${option_label} :`}</dt>
+                        <dt className={classes.optionName}>
+                            {optionLabelString}
+                        </dt>
                         <dd className={classes.optionValue}>{value_label}</dd>
                     </div>
                 );
