@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { shape, string, number, arrayOf } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
+import { useOrderHistoryContext } from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Button from '../../Button';
@@ -9,7 +10,6 @@ import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import Price from '../../Price';
 import defaultClasses from './item.css';
-import { useOrderHistoryContext } from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 
 const Item = props => {
     const {

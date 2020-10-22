@@ -20,6 +20,7 @@ const BillingInformation = props => {
     const classes = mergeClasses(defaultClasses, propsClasses);
 
     const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
+    const fullName = `${firstname} ${lastname}`;
 
     return (
         <div className={classes.root}>
@@ -30,7 +31,7 @@ const BillingInformation = props => {
                 />
             </div>
             <div className={classes.name}>
-                <span>{`${firstname} ${lastname}`}</span>
+                <span>{fullName}</span>
             </div>
             <div className={classes.addressLine1}>{street}</div>
             <div className={classes.addressLine2}>

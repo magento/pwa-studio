@@ -40,14 +40,20 @@ exports[`Should return correct shape 1`] = `
         onClick={[Function]}
         priority="low"
       >
-        Cancel
+        <mock-FormattedMessage
+          defaultMessage="Cancel"
+          id="global.cancelButton"
+        />
       </mock-Button>
       <mock-Button
         disabled={false}
         onClick={[Function]}
         priority="high"
       >
-        Update
+        <mock-FormattedMessage
+          defaultMessage="Update"
+          id="global.updateButton"
+        />
       </mock-Button>
     </div>
   </div>

@@ -7,6 +7,15 @@ jest.mock('react-router-dom', () => ({
     Link: props => <div componentName="Link Component" {...props} />
 }));
 
+jest.mock(
+    '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext',
+    () => ({
+        useOrderHistoryContext: jest
+            .fn()
+            .mockReturnValue({ productURLSuffix: '.html' })
+    })
+);
+
 const defaultProps = {
     product_name: 'Product 1',
     product_sale_price: {

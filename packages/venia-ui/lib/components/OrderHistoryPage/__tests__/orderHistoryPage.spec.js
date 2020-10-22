@@ -11,6 +11,17 @@ jest.mock(
     })
 );
 
+jest.mock(
+    '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext',
+    () => ({
+        OrderHistoryContextProvider: props => (
+            <mock-OrderHistoryContextProvider>
+                {props.children}
+            </mock-OrderHistoryContextProvider>
+        )
+    })
+);
+
 jest.mock('../../../classify');
 jest.mock('../../Head', () => ({ Title: () => 'Title' }));
 jest.mock('../orderRow', () => 'OrderRow');
