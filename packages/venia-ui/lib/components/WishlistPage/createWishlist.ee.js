@@ -46,14 +46,14 @@ const CreateWishlist = props => {
     const radioGroupItems = [
         {
             label: formatMessage({
-                id: 'createWishlist.private',
+                id: 'global.private',
                 defaultMessage: 'Private'
             }),
             value: 'private'
         },
         {
             label: formatMessage({
-                id: 'createWishlist.public',
+                id: 'global.public',
                 defaultMessage: 'Public'
             }),
             value: 'public'
@@ -86,11 +86,11 @@ const CreateWishlist = props => {
                     contents: classes.contents
                 }}
                 cancelText={formatMessage({
-                    id: 'createWishlist.cancel',
+                    id: 'global.cancelButton',
                     defaultMessage: 'Cancel'
                 })}
                 confirmText={formatMessage({
-                    id: 'createWishlist.save',
+                    id: 'global.save',
                     defaultMessage: 'Save'
                 })}
                 formProps={{ initialValues: { sharing_code: 'private' } }}
