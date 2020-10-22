@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the correct shape 1`] = `
+Object {
+  "childCategories": Map {
+    1 => Object {
+      "category": Object {
+        "children": Array [
+          Object {
+            "children_count": 1,
+            "id": 2,
+            "include_in_menu": 1,
+            "name": "Two",
+            "parentId": 1,
+            "position": 0,
+            "url_path": "1/2",
+            "url_suffix": ".html",
+          },
+          Object {
+            "children_count": 0,
+            "id": 3,
+            "include_in_menu": 1,
+            "name": "Three",
+            "parentId": 2,
+            "position": 0,
+            "url_path": "1/2/3",
+            "url_suffix": ".html",
+          },
+          Object {
+            "children_count": 0,
+            "id": 4,
+            "include_in_menu": 1,
+            "name": "Four",
+            "parentId": 1,
+            "position": 0,
+            "url_path": "1/4",
+            "url_suffix": ".html",
+          },
+        ],
+        "children_count": 3,
+        "id": 1,
+        "include_in_menu": 1,
+        "name": "One",
+        "url_path": "1",
+        "url_suffix": ".html",
+      },
+      "isLeaf": true,
+    },
+    2 => Object {
+      "category": Object {
+        "children_count": 1,
+        "id": 2,
+        "include_in_menu": 1,
+        "name": "Two",
+        "parentId": 1,
+        "position": 0,
+        "url_path": "1/2",
+        "url_suffix": ".html",
+      },
+      "isLeaf": false,
+    },
+    3 => Object {
+      "category": Object {
+        "children_count": 0,
+        "id": 3,
+        "include_in_menu": 1,
+        "name": "Three",
+        "parentId": 2,
+        "position": 0,
+        "url_path": "1/2/3",
+        "url_suffix": ".html",
+      },
+      "isLeaf": true,
+    },
+    4 => Object {
+      "category": Object {
+        "children_count": 0,
+        "id": 4,
+        "include_in_menu": 1,
+        "name": "Four",
+        "parentId": 1,
+        "position": 0,
+        "url_path": "1/4",
+        "url_suffix": ".html",
+      },
+      "isLeaf": true,
+    },
+  },
+  "data": Object {
+    "category": Object {
+      "children": Array [
+        Object {
+          "children_count": 1,
+          "id": 2,
+          "include_in_menu": 1,
+          "name": "Two",
+          "parentId": 1,
+          "position": 0,
+          "url_path": "1/2",
+          "url_suffix": ".html",
+        },
+        Object {
+          "children_count": 0,
+          "id": 3,
+          "include_in_menu": 1,
+          "name": "Three",
+          "parentId": 2,
+          "position": 0,
+          "url_path": "1/2/3",
+          "url_suffix": ".html",
+        },
+        Object {
+          "children_count": 0,
+          "id": 4,
+          "include_in_menu": 1,
+          "name": "Four",
+          "parentId": 1,
+          "position": 0,
+          "url_path": "1/4",
+          "url_suffix": ".html",
+        },
+      ],
+      "children_count": 3,
+      "id": 1,
+      "include_in_menu": 1,
+      "name": "One",
+      "url_path": "1",
+      "url_suffix": ".html",
+    },
+  },
+}
+`;

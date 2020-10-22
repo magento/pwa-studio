@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { useGiftCard } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCard';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './giftCard.css';
@@ -22,7 +23,10 @@ const GiftCard = props => {
             <div className={classes.card_info}>
                 <span className={classes.code}>{code}</span>
                 <span className={classes.balance}>
-                    {'Balance: '}
+                    <FormattedMessage
+                        id={'giftCard.balance'}
+                        defaultMessage={'Balance: '}
+                    />
                     <Price
                         value={currentBalance.value}
                         currencyCode={currentBalance.currency}
@@ -33,7 +37,10 @@ const GiftCard = props => {
                 disabled={isRemovingCard}
                 onClick={removeGiftCardWithCode}
             >
-                Remove
+                <FormattedMessage
+                    id={'giftCard.remove'}
+                    defaultMessage={'Remove'}
+                />
             </LinkButton>
         </Fragment>
     );

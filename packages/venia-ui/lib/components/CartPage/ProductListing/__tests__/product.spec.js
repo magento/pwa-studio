@@ -31,7 +31,6 @@ jest.mock('@magento/venia-drivers', () => ({
 }));
 
 jest.mock('@magento/peregrine', () => {
-    const Price = props => <span>{`$${props.value}`}</span>;
     const useToasts = jest.fn(() => [
         { toasts: new Map() },
         { addToast: jest.fn() }
@@ -39,7 +38,6 @@ jest.mock('@magento/peregrine', () => {
 
     return {
         ...jest.requireActual('@magento/peregrine'),
-        Price,
         useToasts
     };
 });

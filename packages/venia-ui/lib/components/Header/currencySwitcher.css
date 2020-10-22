@@ -1,0 +1,41 @@
+.root {
+    composes: root from './storeSwitcher.css';
+}
+
+.trigger {
+    composes: trigger from './storeSwitcher.css';
+}
+
+.menu {
+    composes: menu from './storeSwitcher.css';
+}
+
+.menu_open {
+    composes: menu_open from './storeSwitcher.css';
+}
+
+.menuItem {
+    composes: menuItem from './storeSwitcher.css';
+}
+
+.symbol {
+    margin-right: 0.5rem;
+}
+
+/*
+ * Desktop-specific styles.
+ */
+@media (min-width: 641px) {
+    .root:last-child:not(:only-child) {
+        padding-left: 0;
+        grid-auto-flow: column;
+    }
+
+    .root:last-child:not(:only-child):before {
+        content: '';
+        border-left: 1px solid rgb(var(--venia-global-color-gray-darker));
+        border-left: 1px solid rgb(var(--venia-global-color-border));
+        width: 1rem;
+        height: 1em;
+    }
+}

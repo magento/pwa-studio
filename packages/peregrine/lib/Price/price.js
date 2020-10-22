@@ -4,6 +4,8 @@ import patches from '../util/intlPatches';
 import { useIntl } from 'react-intl';
 
 /**
+ * @deprecated - replaced by to @magento/venia-ui/lib/components/Price
+ *
  * The **Price** component is used anywhere a price needs to be displayed.
  *
  * Formatting of prices and currency symbol selection is handled entirely by the ECMAScript Internationalization API available in modern browsers.

@@ -3,6 +3,15 @@ import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
 
+/**
+ * @function
+ *
+ * @param {String} props.childSku SKU of the child item
+ * @param {WishlistItemMutations} props.mutations GraphQL mutations for the Wishlist Item component
+ * @param {String} props.sku SKU of the item
+ *
+ * @returns {WishlistItemProps}
+ */
 export const useWishlistItem = props => {
     const { childSku, mutations, sku } = props;
     const { addWishlistItemToCartMutation } = mutations;
@@ -53,3 +62,29 @@ export const useWishlistItem = props => {
         isLoading: loading
     };
 };
+
+/**
+ * JSDoc type definitions
+ */
+
+/**
+ * GraphQL mutations for the Wishlist Item component
+ *
+ * @typedef {Object} WishlistItemMutations
+ *
+ * @property {GraphQLAST} addWishlistItemToCartMutation Mutation to add item to the cart
+ *
+ * @see [`wishlistItem.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistItem.gql.js}
+ * for queries used in Venia
+ */
+
+/**
+ * Props data to use when rendering the Wishlist Item component
+ *
+ * @typedef {Object} WishlistItemProps
+ *
+ * @property {Function} handleAddToCart Callback to handle item addition to cart
+ * @property {Function} handleMoreActions Callback to handle more actions
+ * @property {Boolean} hasError Boolean which represents if there were errors during the mutation
+ * @property {Boolean} isLoading Boolean which represents if data is loading
+ */

@@ -99,6 +99,9 @@ function remotelyResolveRoute(opts) {
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
+    // If the route is empty, request the homepage
+    const route = opts.route || '/';
+
     const query = `query ResolveURL($url: String!) {
         urlResolver(url: $url) {
             type
@@ -110,7 +113,7 @@ function fetchRoute(opts) {
 
     const url = new URL('/graphql', opts.apiBase);
     url.searchParams.set('query', query);
-    url.searchParams.set('variables', JSON.stringify({ url: opts.route }));
+    url.searchParams.set('variables', JSON.stringify({ url: route }));
     url.searchParams.set('operationName', 'ResolveURL');
 
     const headers = {

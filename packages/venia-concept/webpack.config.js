@@ -1,6 +1,11 @@
 const {
     configureWebpack,
-    graphQL: { getMediaURL, getStoreConfigData, getPossibleTypes }
+    graphQL: {
+        getMediaURL,
+        getStoreConfigData,
+        getAvailableStoresConfigData,
+        getPossibleTypes
+    }
 } = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
@@ -8,9 +13,11 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 module.exports = async env => {
     const mediaUrl = await getMediaURL();
     const storeConfigData = await getStoreConfigData();
+    const { availableStores } = await getAvailableStoresConfigData();
 
     global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
     global.LOCALE = storeConfigData.locale.replace('_', '-');
+    global.AVAILABLE_STORE_VIEWS = availableStores;
 
     const possibleTypes = await getPossibleTypes();
 
@@ -54,10 +61,10 @@ module.exports = async env => {
              */
             POSSIBLE_TYPES: JSON.stringify(possibleTypes),
             STORE_NAME: JSON.stringify('Venia'),
-            STORE_VIEW_LOCALE: JSON.stringify(global.LOCALE),
             STORE_VIEW_CODE: process.env.STORE_VIEW_CODE
                 ? JSON.stringify(process.env.STORE_VIEW_CODE)
-                : JSON.stringify(storeConfigData.code)
+                : JSON.stringify(storeConfigData.code),
+            AVAILABLE_STORE_VIEWS: JSON.stringify(availableStores)
         }),
         new HTMLWebpackPlugin({
             filename: 'index.html',

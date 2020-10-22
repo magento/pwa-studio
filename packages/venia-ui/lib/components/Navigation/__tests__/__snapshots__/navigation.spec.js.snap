@@ -17,6 +17,12 @@ exports[`authModal is rendered when hasModal is true 1`] = `
   <div
     className="footer"
   >
+    <div
+      className="switchers"
+    >
+      StoreSwitcher
+      CurrencySwitcher
+    </div>
     <i />
   </div>
   <div
@@ -44,6 +50,12 @@ exports[`renders correctly when closed 1`] = `
   <div
     className="footer"
   >
+    <div
+      className="switchers"
+    >
+      StoreSwitcher
+      CurrencySwitcher
+    </div>
     <i />
   </div>
   <div
@@ -69,6 +81,12 @@ exports[`renders correctly when open 1`] = `
   <div
     className="footer"
   >
+    <div
+      className="switchers"
+    >
+      StoreSwitcher
+      CurrencySwitcher
+    </div>
     <i />
   </div>
   <div

@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Order Total"
+      id="orderDetails.orderTotal"
+    />
+  </div>
+  <div>
+    <span>
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Subtotal"
+        id="orderDetails.subtotal"
+      />
+    </span>
+    <span>
+      <div
+        componentName="Price Component"
+        currencyCode="USD"
+        value={1234}
+      />
+    </span>
+  </div>
+  <div>
+    <span>
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Discount"
+        id="orderDetails.discount"
+      />
+    </span>
+    <span>
+      <div
+        componentName="Price Component"
+        currencyCode="USD"
+        value={123}
+      />
+    </span>
+  </div>
+  <div>
+    <span>
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Tax"
+        id="orderDetails.tax"
+      />
+    </span>
+    <span>
+      <div
+        componentName="Price Component"
+        currencyCode="USD"
+        value={34}
+      />
+    </span>
+  </div>
+  <div>
+    <span>
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Shipping"
+        id="orderDetails.shipping"
+      />
+    </span>
+    <span>
+      <div
+        componentName="Price Component"
+        currencyCode="USD"
+        value={12}
+      />
+    </span>
+  </div>
+  <div>
+    <span>
+      <div
+        componentName="Formatted Message Component"
+        defaultMessage="Total"
+        id="orderDetails.total"
+      />
+    </span>
+    <span>
+      <div
+        componentName="Price Component"
+        currencyCode="USD"
+        value={1434}
+      />
+    </span>
+  </div>
+</div>
+`;

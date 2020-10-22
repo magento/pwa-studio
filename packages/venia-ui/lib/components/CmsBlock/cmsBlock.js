@@ -1,12 +1,12 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { array, func, oneOfType, shape, string } from 'prop-types';
-import { useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 
 import { mergeClasses } from '../../classify';
+import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import Block from './block';
 import defaultClasses from './cmsBlock.css';
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import GET_CMS_BLOCKS from '../../queries/getCmsBlocks.graphql';
 
 const CmsBlockGroup = props => {
     const { identifiers } = props;
@@ -21,13 +21,27 @@ const CmsBlockGroup = props => {
     }
 
     if (error) {
-        return <div>Data Fetch Error</div>;
+        return (
+            <div>
+                <FormattedMessage
+                    id={'cmsBlock.errorFetch'}
+                    defaultMessage={'Data Fetch Error'}
+                />
+            </div>
+        );
     }
 
     const { items } = data.cmsBlocks;
 
     if (!Array.isArray(items) || !items.length) {
-        return <div>There are no blocks to display</div>;
+        return (
+            <div>
+                <FormattedMessage
+                    id={'cmsBlock.noBlocks'}
+                    defaultMessage={'There are no blocks to display'}
+                />
+            </div>
+        );
     }
 
     const BlockChild = typeof children === 'function' ? children : Block;
@@ -58,3 +72,14 @@ CmsBlockGroup.propTypes = {
 };
 
 export default CmsBlockGroup;
+
+export const GET_CMS_BLOCKS = gql`
+    query cmsBlocks($identifiers: [String]!) {
+        cmsBlocks(identifiers: $identifiers) {
+            items {
+                content
+                identifier
+            }
+        }
+    }
+`;

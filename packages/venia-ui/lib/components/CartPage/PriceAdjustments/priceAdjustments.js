@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { func } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
@@ -30,21 +31,37 @@ const PriceAdjustments = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const { setIsCartUpdating } = props;
+    const { formatMessage } = useIntl();
 
     return (
         <div className={classes.root}>
             <Accordion canOpenMultiple={true}>
                 <Section
                     id={'shipping_method'}
-                    title={'Estimate your Shipping'}
+                    title={formatMessage({
+                        id: 'priceAdjustments.shippingMethod',
+                        defaultMessage: 'Estimate your Shipping'
+                    })}
                 >
                     <ShippingMethods setIsCartUpdating={setIsCartUpdating} />
                 </Section>
-                <Section id={'coupon_code'} title={'Enter Coupon Code'}>
+                <Section
+                    id={'coupon_code'}
+                    title={formatMessage({
+                        id: 'priceAdjustments.couponCode',
+                        defaultMessage: 'Enter Coupon Code'
+                    })}
+                >
                     <CouponCode setIsCartUpdating={setIsCartUpdating} />
                 </Section>
                 <GiftCardSection setIsCartUpdating={setIsCartUpdating} />
-                <Section id={'gift_options'} title={'See Gift Options'}>
+                <Section
+                    id={'gift_options'}
+                    title={formatMessage({
+                        id: 'priceAdjustments.giftOptions',
+                        defaultMessage: 'See Gift Options'
+                    })}
+                >
                     <GiftOptions />
                 </Section>
             </Accordion>

@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`does not render StoreSwitcher when there is only one available store 1`] = `null`;
+
+exports[`renders the correct tree 1`] = `
+<div
+  className="root"
+>
+  <button
+    aria-label="Store 2"
+    onClick={[MockFunction]}
+  >
+    <span
+      className="trigger"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height="24"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+          />
+          <circle
+            cx="12"
+            cy="10"
+            r="3"
+          />
+        </svg>
+      </span>
+      <span>
+        Store 2
+      </span>
+    </span>
+  </button>
+  <div
+    className="menu"
+  >
+    <ul>
+      <li
+        className="menuItem"
+      >
+        <button
+          className="root"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="text"
+            >
+              Store 1
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="menuItem"
+      >
+        <button
+          className="root"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="text"
+            >
+              Store 2
+            </span>
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={20}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={20}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polyline
+                  points="20 6 9 17 4 12"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

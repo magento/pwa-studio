@@ -1,38 +1,24 @@
 import React, { Fragment } from 'react';
 import { number, shape, string } from 'prop-types';
-import GET_CMS_PAGE from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import { useCmsPage } from '@magento/peregrine/lib/talons/Cms/useCmsPage';
 import RichContent from '../../components/RichContent';
 import CategoryList from '../../components/CategoryList';
 import { Meta, Title } from '../../components/Head';
 import { mergeClasses } from '../../classify';
+import { useIntl } from 'react-intl';
 
 import defaultClasses from './cms.css';
 
 const CMSPage = props => {
     const { id } = props;
 
-    const talonProps = useCmsPage({
-        id,
-        queries: {
-            getCmsPage: GET_CMS_PAGE
-        }
-    });
-
-    const {
-        cmsPage,
-        hasContent,
-        error,
-        shouldShowLoadingIndicator
-    } = talonProps;
+    const talonProps = useCmsPage({ id });
+    const { cmsPage, hasContent, shouldShowLoadingIndicator } = talonProps;
+    const { formatMessage } = useIntl();
 
     if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;
-    }
-
-    if (error) {
-        return <div>Page Fetch Error</div>;
     }
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -64,7 +50,15 @@ const CMSPage = props => {
         );
     }
 
-    return <CategoryList title="Shop by category" id={2} />;
+    return (
+        <CategoryList
+            title={formatMessage({
+                id: 'cms.shopByCategory',
+                defaultMessage: 'Shop by category'
+            })}
+            id={2}
+        />
+    );
 };
 
 CMSPage.propTypes = {

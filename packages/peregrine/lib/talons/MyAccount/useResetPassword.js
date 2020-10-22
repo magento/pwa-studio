@@ -25,11 +25,10 @@ export const useResetPassword = props => {
     const searchParams = useMemo(() => new URLSearchParams(location.search), [
         location
     ]);
-    const email = searchParams.get('email');
     const token = searchParams.get('token');
 
     const handleSubmit = useCallback(
-        async ({ newPassword }) => {
+        async ({ email, newPassword }) => {
             try {
                 if (email && token && newPassword) {
                     await resetPassword({
@@ -42,11 +41,10 @@ export const useResetPassword = props => {
                 setHasCompleted(false);
             }
         },
-        [resetPassword, email, token]
+        [resetPassword, token]
     );
 
     return {
-        email,
         formErrors: [resetPasswordErrors],
         handleSubmit,
         hasCompleted,
@@ -75,7 +73,6 @@ export const useResetPassword = props => {
  *
  * @typedef {Object} ResetPasswordProps
  *
- * @property {String} email email address of the user whose password is beeing reset
  * @property {Array} formErrors A list of form errors
  * @property {Function} handleSubmit Callback function to handle form submission
  * @property {Boolean} hasCompleted True if password reset mutation has completed. False otherwise

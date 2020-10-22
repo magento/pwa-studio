@@ -36,7 +36,6 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            store: STORE_VIEW_CODE,
             authorization: token ? `Bearer ${token}` : ''
         }
     };
@@ -107,6 +106,7 @@ const apolloLink = ApolloLink.from([
         }
     }),
     authLink,
+    Adapter.storeLink,
     errorLink,
     // An apollo-link-http Link
     Adapter.apolloLink(apiBase)

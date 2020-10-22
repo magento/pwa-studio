@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { gql } from '@apollo/client';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
+
+const MINUS_SYMBOL = '-';
 
 const DEFAULT_AMOUNT = {
     currency: 'USD',
@@ -41,9 +44,14 @@ const DiscountSummary = props => {
 
     return discount.value ? (
         <Fragment>
-            <span className={classes.lineItemLabel}>{'Discounts applied'}</span>
+            <span className={classes.lineItemLabel}>
+                <FormattedMessage
+                    id={'discountSummary.lineItemLabel'}
+                    defaultMessage={'Discounts applied'}
+                />
+            </span>
             <span className={classes.price}>
-                {'-'}
+                {MINUS_SYMBOL}
                 <Price
                     value={discount.value}
                     currencyCode={discount.currency}
