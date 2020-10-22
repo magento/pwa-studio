@@ -1,7 +1,6 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 
-import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 import CheckoutError from '../CheckoutError';
 import { CHECKOUT_STEP } from '../useCheckoutPage';
@@ -19,13 +18,12 @@ import { CHECKOUT_STEP } from '../useCheckoutPage';
  *
  * @returns {
  *   doneEditing: Boolean,
- *   isEditModalActive: Boolean,
  *   showEditModal: Function,
  *   hideEditModal: Function,
  *   handlePaymentError: Function,
  *   handlePaymentSuccess: Function,
  *   checkoutStep: Number,
- *
+ *   isUpdateMode: Boolean
  * }
  */
 export const usePaymentInformation = props => {
@@ -49,8 +47,7 @@ export const usePaymentInformation = props => {
      */
 
     const [doneEditing, setDoneEditing] = useState(false);
-    const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
-    const isEditModalActive = drawer === 'edit.payment';
+    const [isUpdateMode, setIsUpdateMode] = useState(false);
     const [{ cartId }] = useCartContext();
     const client = useApolloClient();
 
@@ -59,12 +56,12 @@ export const usePaymentInformation = props => {
      */
 
     const showEditModal = useCallback(() => {
-        toggleDrawer('edit.payment');
-    }, [toggleDrawer]);
+        setIsUpdateMode(true);
+    }, [setIsUpdateMode]);
 
     const hideEditModal = useCallback(() => {
-        closeDrawer('edit.payment');
-    }, [closeDrawer]);
+        setIsUpdateMode(false);
+    }, [setIsUpdateMode]);
 
     const handlePaymentSuccess = useCallback(() => {
         setDoneEditing(true);
@@ -251,11 +248,11 @@ export const usePaymentInformation = props => {
 
     return {
         doneEditing,
-        isEditModalActive,
         isLoading,
         handlePaymentError,
         handlePaymentSuccess,
         hideEditModal,
-        showEditModal
+        showEditModal,
+        isUpdateMode
     };
 };
