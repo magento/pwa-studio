@@ -14,9 +14,8 @@ import Overview from './overview';
 import defaultClasses from './form.css';
 
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
-const loadingIndicator = (
-    <LoadingIndicator>{`Loading Checkout...`}</LoadingIndicator>
-);
+const loadingText = 'Loading Checkout...';
+const loadingIndicator = <LoadingIndicator>{loadingText}</LoadingIndicator>;
 
 /**
  * The Form component is similar to Flow in that it renders either the overview
