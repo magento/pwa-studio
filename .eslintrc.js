@@ -8,7 +8,7 @@ const config = {
         'react/jsx-no-literals': [
             'error',
             {
-                allowedStrings: ['defaultMessage'],
+                allowedStrings: [],
                 // Use ignoreProps: false to catch label/title/alt text, etc.
                 // Has the downside of erroring on "id" and other string props.
                 ignoreProps: true,
