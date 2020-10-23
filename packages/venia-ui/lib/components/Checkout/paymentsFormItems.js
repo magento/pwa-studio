@@ -130,10 +130,14 @@ const PaymentsFormItems = props => {
         </Fragment>
     ) : null;
 
+    const headingText = 'Billing Information';
+    const submitButtonText = 'Use Card';
+    const cancelButtonText = 'Cancel';
+
     return (
         <Fragment>
             <div className={classes.body}>
-                <h2 className={classes.heading}>Billing Information</h2>
+                <h2 className={classes.heading}>{headingText}</h2>
                 <div className={classes.braintree}>
                     <BraintreeDropin
                         shouldRequestPaymentNonce={isSubmitting}
@@ -152,10 +156,10 @@ const PaymentsFormItems = props => {
             </div>
             <div className={classes.footer}>
                 <Button priority="high" type="submit" disabled={isDisabled}>
-                    Use Card
+                    {submitButtonText}
                 </Button>
                 <Button onClick={handleCancel} priority="low">
-                    Cancel
+                    {cancelButtonText}
                 </Button>
             </div>
         </Fragment>

@@ -54,6 +54,10 @@ MAGENTO_BACKEND_EDITION=CE
 #   - Default when not set: 
 STORE_VIEW_CODE=
 #
+#   Includes the store code in the store URLs if value is true.
+#   - Default when not set: false
+USE_STORE_CODE_IN_URL=false
+#
 ################################################################################
 
 #### Image Optimizing Origin ###################################################

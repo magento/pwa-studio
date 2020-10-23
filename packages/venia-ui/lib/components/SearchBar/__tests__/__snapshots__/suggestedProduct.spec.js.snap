@@ -40,7 +40,18 @@ Array [
   <span
     className="price"
   >
-    <div />
+    <span>
+      $
+    </span>
+    <span>
+      3
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      50
+    </span>
   </span>,
 ]
 `;

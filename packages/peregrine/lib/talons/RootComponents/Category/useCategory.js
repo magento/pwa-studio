@@ -1,13 +1,18 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLazyQuery, useQuery } from '@apollo/client';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { usePagination, useSort } from '@magento/peregrine';
+
+import mergeOperations from '../../../util/shallowMerge';
+import { useAppContext } from '../../../context/app';
+import { usePagination } from '../../../hooks/usePagination';
+import { useScrollTopOnChange } from '../../../hooks/useScrollTopOnChange';
+import { useSort } from '../../../hooks/useSort';
 import {
     getFiltersFromSearch,
     getFilterInput
-} from '@magento/peregrine/lib/talons/FilterModal/helpers';
-import { useScrollTopOnChange } from '../../../hooks/useScrollTopOnChange';
+} from '../../../talons/FilterModal/helpers';
+
+import DEFAULT_OPERATIONS from './category.gql';
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
@@ -17,8 +22,8 @@ import { useScrollTopOnChange } from '../../../hooks/useScrollTopOnChange';
  *
  * @param {object}      props
  * @param {number}      props.id - Category Id.
- * @param {GraphQLAST}  props.queries.getCategory - Fetches category using a server query
- * @param {GraphQLAST}  props.queries.getFiltersIntrospection - Fetches "allowed" filters using a server query
+ * @param {GraphQLAST}  props.operations.getCategoryQuery - Fetches category using a server query
+ * @param {GraphQLAST}  props.operations.getFilterInputsQuery - Fetches "allowed" filters using a server query
  * @param {GraphQLAST}  props.queries.getStoreConfig - Fetches store configuration using a server query
  *
  * @returns {object}    result
@@ -33,8 +38,11 @@ import { useScrollTopOnChange } from '../../../hooks/useScrollTopOnChange';
 export const useCategory = props => {
     const {
         id,
-        queries: { getCategory, getFiltersIntrospection, getPageSize }
+        queries: { getPageSize }
     } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCategoryQuery, getFilterInputsQuery } = operations;
 
     const { data: pageSizeData } = useQuery(getPageSize, {
         fetchPolicy: 'cache-and-network',
@@ -65,7 +73,7 @@ export const useCategory = props => {
         }
     ] = useAppContext();
 
-    const [runQuery, queryResponse] = useLazyQuery(getCategory, {
+    const [runQuery, queryResponse] = useLazyQuery(getCategoryQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
@@ -92,7 +100,7 @@ export const useCategory = props => {
         called: introspectionCalled,
         data: introspectionData,
         loading: introspectionLoading
-    } = useQuery(getFiltersIntrospection, {
+    } = useQuery(getFilterInputsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });

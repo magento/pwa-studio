@@ -63,7 +63,18 @@ exports[`it disables inputs when the page is updating 1`] = `
           <div
             className="price"
           >
-            <div />
+            <span>
+              $
+            </span>
+            <span>
+              99
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
           </div>
         </span>
       </label>
@@ -153,7 +164,18 @@ exports[`it renders correctly 1`] = `
           <div
             className="price"
           >
-            <div />
+            <span>
+              $
+            </span>
+            <span>
+              99
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
           </div>
         </span>
       </label>

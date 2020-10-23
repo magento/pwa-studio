@@ -78,6 +78,7 @@ class TalonWrapperConfig {
             )
         };
         /**
+
          * Provides access to the talon used in Venia's CartPage UI component.
          * @instance
          */

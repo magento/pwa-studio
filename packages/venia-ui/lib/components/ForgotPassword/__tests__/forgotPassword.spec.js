@@ -6,11 +6,12 @@ import { useForgotPassword } from '@magento/peregrine/lib/talons/ForgotPassword/
 import ForgotPassword from '../forgotPassword';
 
 jest.mock('../FormSubmissionSuccessful', () => props => (
-    <div {...props}>Form Submission Successful Component</div>
+    <mock-FormSubmissionSuccessful {...props} />
 ));
 jest.mock('../ForgotPasswordForm', () => props => (
-    <div {...props}>Forgot Password Form</div>
+    <mock-ForgotPasswordForm {...props} />
 ));
+
 jest.mock(
     '@magento/peregrine/lib/talons/ForgotPassword/useForgotPassword',
     () => ({

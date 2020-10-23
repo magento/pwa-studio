@@ -1,67 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders AccountMenuItems when the user is signed in 1`] = `
-<aside>
+<aside
+  className="root_open"
+>
   <div
-    onSignOut={[MockFunction]}
+    className="contents_open"
   >
-    AccountMenuItems
+    <mock-AccountMenuItems
+      onSignOut={[MockFunction]}
+    />
   </div>
 </aside>
 `;
 
 exports[`it renders SignIn component when the view is SIGNIN 1`] = `
-<aside>
+<aside
+  className="root_open"
+>
   <div
-    classes={
-      Object {
-        "modal_active": undefined,
-      }
-    }
-    setDefaultUsername={[MockFunction]}
-    showCreateAccount={[MockFunction]}
-    showForgotPassword={[MockFunction]}
+    className="contents_open"
   >
-     
-    SignInComponent
+    <mock-SignIn
+      classes={
+        Object {
+          "modal_active": "loading",
+        }
+      }
+      setDefaultUsername={[MockFunction]}
+      showCreateAccount={[MockFunction]}
+      showForgotPassword={[MockFunction]}
+    />
   </div>
 </aside>
 `;
 
 exports[`it renders create account component when the view is CREATE_ACCOUNT 1`] = `
-<aside>
+<aside
+  className="root_open"
+>
   <div
-    classes={
-      Object {
-        "root": undefined,
-      }
-    }
-    initialValues={
-      Object {
-        "email": "gooseton",
-      }
-    }
-    isCancelButtonHidden={false}
+    className="contents_open"
   >
-     
-    CreateAccountComponent
+    <mock-CreateAccount
+      classes={
+        Object {
+          "root": "createAccount",
+        }
+      }
+      initialValues={
+        Object {
+          "email": "gooseton",
+        }
+      }
+      isCancelButtonHidden={false}
+    />
   </div>
 </aside>
 `;
 
-exports[`it renders empty aside element when accountMenuIsOpen is false 1`] = `<aside />`;
+exports[`it renders empty aside element when accountMenuIsOpen is false 1`] = `
+<aside
+  className="root"
+>
+  <div
+    className="contents"
+  />
+</aside>
+`;
 
 exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1`] = `
-<aside>
+<aside
+  className="root_open"
+>
   <div
-    initialValues={
-      Object {
-        "email": "gooseton",
-      }
-    }
+    className="contents_open"
   >
-     
-    ForgotPasswordComponent
+    <mock-ForgotPassword
+      initialValues={
+        Object {
+          "email": "gooseton",
+        }
+      }
+    />
   </div>
 </aside>
 `;

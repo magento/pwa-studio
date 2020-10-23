@@ -1,15 +1,15 @@
 import React from 'react';
 import { bool, func, object, string } from 'prop-types';
-
-import LoadingIndicator from '../LoadingIndicator';
-import PRODUCT_DETAILS from '../../queries/getProductDetailBySku.graphql';
-
-import CartOptions from './cartOptions';
+import { gql } from '@apollo/client';
 import { useEditItem } from '@magento/peregrine/lib/talons/LegacyMiniCart/useEditItem';
 
-const loadingIndicator = (
-    <LoadingIndicator>{`Fetching Item Options...`}</LoadingIndicator>
-);
+import LoadingIndicator from '../LoadingIndicator';
+import CartOptions from './cartOptions';
+
+const ERROR_TEXT = 'Unable to fetch item options.';
+const LOADING_TEXT = 'Fetching Item Options...';
+
+const loadingIndicator = <LoadingIndicator>{LOADING_TEXT}</LoadingIndicator>;
 
 const EditItem = props => {
     const { currencyCode, endEditItem, isUpdatingItem, item } = props;
@@ -22,7 +22,7 @@ const EditItem = props => {
     const { configItem, hasError, isLoading, itemHasOptions } = talonProps;
 
     if (hasError) {
-        return <span>Unable to fetch item options.</span>;
+        return <span>{ERROR_TEXT}</span>;
     }
 
     // If we are loading, or if we know we have options but haven't received
@@ -50,3 +50,56 @@ EditItem.propTypes = {
 };
 
 export default EditItem;
+
+export const PRODUCT_DETAILS = gql`
+    query productDetailBySku($sku: String) {
+        products(filter: { sku: { eq: $sku } }) {
+            items {
+                __typename
+                id
+                name
+                sku
+                url_key
+                ... on ConfigurableProduct {
+                    configurable_options {
+                        attribute_code
+                        attribute_id
+                        id
+                        label
+                        values {
+                            default_label
+                            label
+                            store_label
+                            use_default_value
+                            value_index
+                            swatch_data {
+                                ... on ImageSwatchData {
+                                    thumbnail
+                                }
+                                value
+                            }
+                        }
+                    }
+                    variants {
+                        attributes {
+                            code
+                            value_index
+                        }
+                        product {
+                            id
+                            media_gallery_entries {
+                                id
+                                disabled
+                                file
+                                label
+                                position
+                            }
+                            sku
+                            stock_status
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;

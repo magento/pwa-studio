@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`provides an object with the correct shape 1`] = `
+Object {
+  "AppliedGiftCard": Object {
+    "keyFields": Array [
+      "code",
+    ],
+  },
+  "AvailablePaymentMethod": Object {
+    "keyFields": Array [
+      "code",
+    ],
+  },
+  "AvailableShippingMethod": Object {
+    "keyFields": Array [
+      "carrier_code",
+      "method_code",
+    ],
+  },
+  "Breadcrumb": Object {
+    "keyFields": Array [
+      "category_id",
+    ],
+  },
+  "Cart": Object {
+    "fields": Object {
+      "applied_gift_cards": Object {
+        "merge": [Function],
+      },
+      "available_payment_methods": Object {
+        "merge": [Function],
+      },
+      "items": Object {
+        "merge": [Function],
+      },
+      "prices": Object {
+        "merge": true,
+      },
+      "shipping_addresses": Object {
+        "merge": [Function],
+      },
+    },
+    "keyFields": [Function],
+  },
+  "CategoryTree": Object {
+    "fields": Object {
+      "children": Object {
+        "merge": [Function],
+      },
+    },
+  },
+  "Customer": Object {
+    "fields": Object {
+      "addresses": Object {
+        "merge": [Function],
+        "read": [Function],
+      },
+    },
+    "keyFields": [Function],
+  },
+  "CustomerAddress": Object {
+    "fields": Object {
+      "street": Object {
+        "merge": [Function],
+      },
+    },
+  },
+  "ProductImage": Object {
+    "keyFields": Array [
+      "url",
+    ],
+  },
+  "Query": Object {
+    "fields": Object {
+      "cart": Object {
+        "keyArgs": [Function],
+      },
+      "customer": Object {
+        "keyArgs": [Function],
+      },
+      "customerCart": Object {
+        "keyArgs": [Function],
+      },
+    },
+  },
+  "SelectedConfigurableOption": Object {
+    "keyFields": Array [
+      "id",
+      "value_id",
+    ],
+  },
+  "SelectedPaymentMethod": Object {
+    "keyFields": Array [
+      "code",
+    ],
+  },
+  "ShippingCartAddress": Object {
+    "fields": Object {
+      "available_shipping_methods": Object {
+        "merge": [Function],
+      },
+      "country": Object {
+        "merge": true,
+      },
+      "region": Object {
+        "merge": true,
+      },
+      "selected_shipping_method": Object {
+        "merge": true,
+      },
+    },
+    "keyFields": Array [
+      "street",
+    ],
+  },
+}
+`;

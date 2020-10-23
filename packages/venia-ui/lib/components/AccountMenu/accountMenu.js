@@ -1,22 +1,17 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountMenu';
 
+import { mergeClasses } from '../../classify';
 import CreateAccount from '../CreateAccount';
 import SignIn from '../SignIn/signIn';
 import AccountMenuItems from './accountMenuItems';
 import ForgotPassword from '../ForgotPassword';
-
-import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
-
 import defaultClasses from './accountMenu.css';
 
 const AccountMenu = React.forwardRef((props, ref) => {
     const { accountMenuIsOpen, setAccountMenuIsOpen } = props;
     const talonProps = useAccountMenu({
-        mutations: { signOut: SIGN_OUT_MUTATION },
         accountMenuIsOpen,
         setAccountMenuIsOpen
     });
@@ -33,6 +28,9 @@ const AccountMenu = React.forwardRef((props, ref) => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = accountMenuIsOpen ? classes.root_open : classes.root;
+    const contentsClass = accountMenuIsOpen
+        ? classes.contents_open
+        : classes.contents;
 
     let dropdownContents = null;
 
@@ -83,8 +81,10 @@ const AccountMenu = React.forwardRef((props, ref) => {
     }
 
     return (
-        <aside className={rootClass} ref={ref}>
-            {accountMenuIsOpen ? dropdownContents : null}
+        <aside className={rootClass}>
+            <div ref={ref} className={contentsClass}>
+                {accountMenuIsOpen ? dropdownContents : null}
+            </div>
         </aside>
     );
 });
@@ -95,6 +95,8 @@ AccountMenu.propTypes = {
     classes: shape({
         root: string,
         root_open: string,
-        link: string
+        link: string,
+        contents_open: string,
+        contents: string
     })
 };

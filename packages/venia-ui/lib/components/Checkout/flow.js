@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { func, shape, string } from 'prop-types';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { gql } from '@apollo/client';
 
 import { useToasts } from '@magento/peregrine';
 import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
@@ -11,7 +12,6 @@ import Icon from '../Icon';
 import CheckoutButton from './checkoutButton';
 import Form from './form';
 import Receipt from './Receipt';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 
 import defaultClasses from './flow.css';
 
@@ -125,3 +125,9 @@ Flow.propTypes = {
 };
 
 export default Flow;
+
+export const CREATE_CART_MUTATION = gql`
+    mutation createCart {
+        cartId: createEmptyCart
+    }
+`;
