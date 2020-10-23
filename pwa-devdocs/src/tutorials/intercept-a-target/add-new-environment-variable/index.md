@@ -9,7 +9,7 @@ The value of this variable can vary between development, staging, and production
 In PWA Studio storefront projects, the `.env` file in the project's root directory lists the environment variables and their values.
 These variables are available to your Node scripts, but for security reasons, PWA Studio limits which variables your frontend code can access.
 
-This tutorial teaches you how to create a package that provides React component that can access an environment variable.
+This tutorial teaches you how to create a package that provides a React component that uses an environment variable.
 
 ## Tasks overview
 
@@ -73,9 +73,16 @@ const PlaceholderImage = (props) => {
 export default PlaceholderImage;
 ```
 
+The PlaceholderImage component uses the value of the `IMAGE_PLACEHOLDER_SERVICE_URL` environment variable as a template for the final image source url.
+It replaces instances of `${w}` and `${h}` in the template with the `width` and `height` prop values.
+
+Most image placeholder services let you specify the image dimensions in the url but in different ways.
+For example, a 300x400 image request can look like `<url>/300/400` or `<url>/300x400`.
+This template approach adds support for these different services by letting you specify what the final URL looks like.
+
 ### Make the component importable
 
-To use this component in other projects, you must export it from this package, so 
+To use this component in other projects, you must export it from this package, so
 make the following modifications to the `package.json` file:
 
 ```diff
@@ -162,14 +169,14 @@ The intercept function appends a new definition to the [core environment variabl
 Install this package in a local storefront project to use the PlaceholderImage component.
 
 ```sh
-yarn add --dev file:/path/to/your/project
+yarn add --dev link:/path/to/your/project
 ```
 
 This adds a `devDependencies` entry to your storefront project's `package.json` that looks like the following:
 
 ```diff
     "@storybook/react": "~5.2.6",
-+   "PlaceholderImage": "file:/path/to/your/project",
++   "PlaceholderImage": "link:/path/to/your/project",
     "apollo-cache-persist": "~0.1.1",
 ```
 
