@@ -56,6 +56,9 @@ const OrderConfirmationPage = props => {
         />
     ) : null;
 
+    const nameString = `${firstname} ${lastname}`;
+    const additionalAddressString = `${city}, ${region} ${postcode} ${country}`;
+
     return (
         <div className={classes.root}>
             <Title>
@@ -89,13 +92,11 @@ const OrderConfirmationPage = props => {
                 </div>
                 <div className={classes.shippingInfo}>
                     <span className={classes.email}>{email}</span>
-                    <span
-                        className={classes.name}
-                    >{`${firstname} ${lastname}`}</span>
+                    <span className={classes.name}>{nameString}</span>
                     {streetRows}
-                    <span
-                        className={classes.addressAdditional}
-                    >{`${city}, ${region} ${postcode} ${country}`}</span>
+                    <span className={classes.addressAdditional}>
+                        {additionalAddressString}
+                    </span>
                 </div>
                 <div className={classes.shippingMethodHeading}>
                     <FormattedMessage

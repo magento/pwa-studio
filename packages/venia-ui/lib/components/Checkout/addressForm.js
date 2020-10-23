@@ -62,6 +62,10 @@ const AddressForm = props => {
         </div>
     ) : null;
 
+    const headingText = 'Shipping Address';
+    const submitText = 'Use Address';
+    const cancelText = 'Cancel';
+
     return (
         <Form
             className={classes.root}
@@ -69,7 +73,7 @@ const AddressForm = props => {
             onSubmit={handleSubmit}
         >
             <div className={classes.body}>
-                <h2 className={classes.heading}>Shipping Address</h2>
+                <h2 className={classes.heading}>{headingText}</h2>
                 <div className={classes.validationMessage}>
                     {error && error.toString()}
                 </div>
@@ -144,10 +148,10 @@ const AddressForm = props => {
             </div>
             <div className={classes.footer}>
                 <Button type="submit" priority="high" disabled={isSubmitting}>
-                    Use Address
+                    {submitText}
                 </Button>
                 <Button onClick={handleCancel} priority="low">
-                    Cancel
+                    {cancelText}
                 </Button>
             </div>
         </Form>

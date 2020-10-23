@@ -73,6 +73,9 @@ const AddressCard = props => {
         </span>
     ) : null;
 
+    const nameString = `${firstname} ${lastname}`;
+    const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
+
     return (
         <div
             className={rootClass}
@@ -83,9 +86,9 @@ const AddressCard = props => {
         >
             {editButton}
             {defaultBadge}
-            <span className={classes.name}>{`${firstname} ${lastname}`}</span>
+            <span className={classes.name}>{nameString}</span>
             {streetRows}
-            <span>{`${city}, ${region} ${postcode} ${country_code}`}</span>
+            <span>{additionalAddressString}</span>
         </div>
     );
 };

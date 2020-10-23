@@ -47,6 +47,7 @@ exports[`should render properly 1`] = `
   <span>
     <div
       componentName="Formatted Message Component"
+      defaultMessage="Qty"
       id="orderDetails.quantity"
       values={
         Object {

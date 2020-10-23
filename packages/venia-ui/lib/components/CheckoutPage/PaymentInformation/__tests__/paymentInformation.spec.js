@@ -9,17 +9,17 @@ import PaymentInformation from '../paymentInformation';
 
 jest.mock('../../../../classify');
 
-jest.mock('../paymentMethods', () => () => (
-    <div>Payment Methods Component</div>
+jest.mock('../paymentMethods', () => props => (
+    <mock-PaymentMethodsd {...props} />
 ));
 
-jest.mock('../../PriceAdjustments', () => () => (
-    <div>Price Adjustments Component</div>
+jest.mock('../../PriceAdjustments', () => props => (
+    <mock-PriceAdjustments {...props} />
 ));
 
-jest.mock('../summary', () => () => <div>Summary Component</div>);
+jest.mock('../summary', () => props => <mock-Summary {...props} />);
 
-jest.mock('../editModal', () => () => <div>Edit Modal Component</div>);
+jest.mock('../editModal', () => props => <mock-EditModal {...props} />);
 
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation',

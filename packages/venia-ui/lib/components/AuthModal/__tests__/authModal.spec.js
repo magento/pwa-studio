@@ -4,15 +4,13 @@ import { createTestInstance } from '@magento/peregrine';
 import AuthModal from '../authModal';
 
 jest.mock('../../CreateAccount', () => props => (
-    <div {...props}>{'CreateAccount'}</div>
+    <mock-CreateAccount {...props} />
 ));
 jest.mock('../../ForgotPassword', () => props => (
-    <div {...props}>{'ForgotPassword'}</div>
+    <mock-ForgotPassword {...props} />
 ));
-jest.mock('../../MyAccount', () => props => (
-    <div {...props}>{'MyAccount'}</div>
-));
-jest.mock('../../SignIn', () => props => <div {...props}>{'SignIn'}</div>);
+jest.mock('../../MyAccount', () => props => <mock-MyAccount {...props} />);
+jest.mock('../../SignIn', () => props => <mock-SignIn {...props} />);
 
 jest.mock('@magento/peregrine/lib/talons/AuthModal/useAuthModal', () => ({
     useAuthModal: jest.fn().mockReturnValue({

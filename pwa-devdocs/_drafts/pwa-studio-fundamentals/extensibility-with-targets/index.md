@@ -163,7 +163,7 @@ In this structure, a developer can manage dependency upgrades and compatibility 
 
 Directly interact with Target objects by creating and registering an intercept file.
 The file's default export must be a function which receives one argument.
-That argument will be a [TargetProvider][].
+That argument will be a [TargetProvider](#targetproviders).
 
 `./targets/intercept.js`:
 ```js
@@ -203,7 +203,7 @@ PWA Studio's build process, using the `@magento/pwa-buildpack` module, calls int
 It looks for intercept files _only in the **named** direct dependencies of the project._
 It does not traverse the whole dependency tree, running intercept files from second-level transitive dependencies and beyond.
 Only the modules listed in the project's `package.json` under `dependencies` and `devDependencies` can use Targets in the project.
-See [Target dependency management][] below.
+See [Target dependency management](#target-dependency-management) below.
 
 The `BuildBus` will load the `targets/intercept.js` module when running targets and call the exported function.
 
@@ -263,21 +263,21 @@ module.exports = targets => {
       targets.own.perfReport.call({ totalSize });
     })
   });
-  builtins.transformModules.tap('MyExtension', addTransform => {
+  builtins.transformModules.tap('MyExtension', addTransform => ({
     type: 'source',
     fileToTransform: require.resolve('../components/SocialShare'),
     transformModule: '@my-extension/targets/codegen-social-icons.js',
     options: {
       icons: targets.own.socialIcons.call([])
     }
-  });
+  }));
 }
 ```
 
 In the example, `MyExtension` implements its own `perfReport` hook by tapping Webpack hooks, building an info object, and invoking the `perfReport` hook inside the Webpack interceptor callback.
 It also implements its own `socialIcons` hook by configuring the build process to pass the `SocialShare` component's source code through a transform function implemented in `./codegen-social-icons.js`.
 
-_Where did `perfReport` and `socialIcons` come from?? See [Declaring targets][] below._
+_Where did `perfReport` and `socialIcons` come from?? See [Declaring targets](#declaring-targets) below._
 
 ## Targets
 
@@ -432,14 +432,14 @@ The TargetProvider accessed by declare files and intercept files provides a set 
 ```js
 module.exports = targets => {
   const SyncBail = targets.types.SyncBail;
-  assert(SyncBailHook === require('tapable').SyncBailHook);
+  assert(SyncBail === require('tapable').SyncBailHook);
 }
 ```
 
 (To avoid confusion with React Hooks, the `target.types` dictionary omits the "Hook" suffix from the supported tapable names.)
 
 All of the `target.types` constructors require an array of strings as their only argument.
-These strings represent represent the arguments sent to interceptors. 
+These strings represent the arguments sent to interceptors. 
 If you plan to call the target with 2 arguments, you must supply two strings as argument names to the tapable constructor.
 
 In this documentation, the words "hook" and "tapable" are used interchangeably.
@@ -458,6 +458,8 @@ Then in your intercept file, you will have access to:
 
 ```js
 targets.own.cancelLogin.tapPromise(promiseReturningHandler);
+
+// or
 
 const canceller = await targets.own.cancelLogin.promise(someId);
 ```
@@ -534,7 +536,7 @@ When your prototype is working, try separating that work into a separate module 
 
 ### Initial phase: in-project interceptors
 
-As in the [Quick Start][], new functionality may begin by intercepting from the storefront project itself.
+As in the [Quick Start](#quick-start), new functionality may begin by intercepting from the storefront project itself.
 The tutorial creates a Greeting Page by implementing the page in the storefront project's source folder.
 
 The next step is to turn that functionality into a new module.
