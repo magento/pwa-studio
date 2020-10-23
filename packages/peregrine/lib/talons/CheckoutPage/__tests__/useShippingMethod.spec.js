@@ -133,6 +133,31 @@ test('returns Apollo error', () => {
     expect(talonProps.formErrors).toMatchSnapshot();
 });
 
+test('should setPageIsUpdating to mutation loading state', () => {
+    const setShippingMethod = jest.fn();
+    useMutation.mockReturnValueOnce([
+        setShippingMethod,
+        {
+            loading: false
+        }
+    ]);
+
+    createTestInstance(<Component {...props} />);
+
+    expect(setPageIsUpdating.mock.calls[0][0]).toEqual(false);
+
+    useMutation.mockReturnValueOnce([
+        setShippingMethod,
+        {
+            loading: true
+        }
+    ]);
+
+    createTestInstance(<Component {...props} />);
+
+    expect(setPageIsUpdating.mock.calls[1][0]).toEqual(true);
+});
+
 test('handleSubmit fires necessary mutations and callbacks', async () => {
     const setShippingMethod = jest.fn();
     useMutation.mockReturnValueOnce([setShippingMethod, {}]);
@@ -159,8 +184,6 @@ test('handleSubmit fires necessary mutations and callbacks', async () => {
     talonProps = log.mock.calls[2][0];
 
     expect(mutationProps).toMatchSnapshot();
-    expect(setPageIsUpdating.mock.calls[0][0]).toEqual(true);
-    expect(setPageIsUpdating.mock.calls[1][0]).toEqual(false);
     expect(talonProps.isUpdateMode).toEqual(false);
 });
 
@@ -184,8 +207,6 @@ test('handleSubmit bails on thrown exception', async () => {
         await handleSubmit({ shipping_method: 'usps|flatrate' });
     });
 
-    expect(setPageIsUpdating.mock.calls[0][0]).toEqual(true);
-    expect(setPageIsUpdating.mock.calls[1][0]).toEqual(false);
     // a bit fragile, but the only check we can do is that our component state
     // didn't change because of the caught exception and has not rendered again
     expect(log).toHaveBeenCalledTimes(2);

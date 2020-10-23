@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
 import Kebab from '../../LegacyMiniCart/kebab';
@@ -17,6 +18,7 @@ const IMAGE_SIZE = 100;
 
 const Product = props => {
     const { item, setActiveEditItem, setIsCartUpdating } = props;
+    const { formatMessage } = useIntl();
     const talonProps = useProduct({
         item,
         mutations: {
@@ -52,12 +54,27 @@ const Product = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const favoriteActionSection = isFavorite
+        ? formatMessage({
+              id: 'product.removeFromFavorites',
+              defaultMessage: 'Remove from favorites'
+          })
+        : formatMessage({
+              id: 'product.moveToFavorites',
+              defaultMessage: 'Move to favorites'
+          });
+
     const editItemSection = isEditable ? (
         <Section
-            text="Edit item"
+            text={formatMessage({
+                id: 'product.editItem',
+                defaultMessage: 'Edit item'
+            })}
             onClick={handleEditItem}
             icon="Edit2"
-            classes={{ text: classes.sectionText }}
+            classes={{
+                text: classes.sectionText
+            }}
         />
     ) : null;
 
@@ -67,7 +84,12 @@ const Product = props => {
     ]);
 
     const stockStatusMessage =
-        stockStatus === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
+        stockStatus === 'OUT_OF_STOCK'
+            ? formatMessage({
+                  id: 'product.outOfStock',
+                  defaultMessage: 'Out-of-stock'
+              })
+            : '';
 
     return (
         <li className={classes.root}>
@@ -85,9 +107,9 @@ const Product = props => {
                     />
                 </Link>
                 <div className={classes.details}>
-                    <Link to={itemLink} className={classes.name}>
-                        {name}
-                    </Link>
+                    <div className={classes.name}>
+                        <Link to={itemLink}>{name}</Link>
+                    </div>
                     <ProductOptions
                         options={options}
                         classes={{
@@ -97,7 +119,10 @@ const Product = props => {
                     />
                     <span className={classes.price}>
                         <Price currencyCode={currency} value={unitPrice} />
-                        {' ea.'}
+                        <FormattedMessage
+                            id={'product.price'}
+                            defaultMessage={' ea.'}
+                        />
                     </span>
                     <span className={classes.stockStatusMessage}>
                         {stockStatusMessage}
@@ -110,24 +135,32 @@ const Product = props => {
                         />
                     </div>
                 </div>
-                <Kebab classes={{ root: classes.kebab }} disabled={true}>
+                <Kebab
+                    classes={{
+                        root: classes.kebab
+                    }}
+                    disabled={true}
+                >
                     <Section
-                        text={
-                            isFavorite
-                                ? 'Remove from favorites'
-                                : 'Move to favorites'
-                        }
+                        text={favoriteActionSection}
                         onClick={handleToggleFavorites}
                         icon="Heart"
                         isFilled={isFavorite}
-                        classes={{ text: classes.sectionText }}
+                        classes={{
+                            text: classes.sectionText
+                        }}
                     />
                     {editItemSection}
                     <Section
-                        text="Remove from cart"
+                        text={formatMessage({
+                            id: 'product.removeFromCart',
+                            defaultMessage: 'Remove from cart'
+                        })}
                         onClick={handleRemoveFromCart}
                         icon="Trash"
-                        classes={{ text: classes.sectionText }}
+                        classes={{
+                            text: classes.sectionText
+                        }}
                     />
                 </Kebab>
             </div>

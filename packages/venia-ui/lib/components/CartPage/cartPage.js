@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import { mergeClasses } from '../../classify';
@@ -45,6 +46,7 @@ const CartPage = props => {
         setIsCartUpdating,
         shouldShowLoadingIndicator
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -54,17 +56,27 @@ const CartPage = props => {
 
     const signInDisplay = !isSignedIn ? (
         <LinkButton
-            classes={{ root: classes.signInLink }}
+            classes={{
+                root: classes.signInLink
+            }}
             onClick={handleSignIn}
         >
-            {'Sign In'}
+            <FormattedMessage
+                id={'cartPage.signIn'}
+                defaultMessage={'Sign In'}
+            />
         </LinkButton>
     ) : null;
 
     const productListing = hasItems ? (
         <ProductListing setIsCartUpdating={setIsCartUpdating} />
     ) : (
-        <h3>There are no items in your cart.</h3>
+        <h3>
+            <FormattedMessage
+                id={'cartPage.emptyCart'}
+                defaultMessage={'There are no items in your cart.'}
+            />
+        </h3>
     );
 
     const priceAdjustments = hasItems ? (
@@ -76,9 +88,22 @@ const CartPage = props => {
 
     return (
         <div className={classes.root}>
-            <Title>{`Cart - ${STORE_NAME}`}</Title>
+            <Title>
+                {formatMessage(
+                    {
+                        id: 'cartPage.title',
+                        defaultMessage: 'Cart'
+                    },
+                    { name: STORE_NAME }
+                )}
+            </Title>
             <div className={classes.heading_container}>
-                <h1 className={classes.heading}>Cart</h1>
+                <h1 className={classes.heading}>
+                    <FormattedMessage
+                        id={'cartPage.heading'}
+                        defaultMessage={'Cart'}
+                    />
+                </h1>
                 {signInDisplay}
                 <div className={classes.stockStatusMessageContainer}>
                     <StockStatusMessage cartItems={cartItems} />

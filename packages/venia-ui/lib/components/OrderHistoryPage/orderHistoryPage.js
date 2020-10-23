@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
@@ -9,13 +10,18 @@ import defaultClasses from './orderHistoryPage.css';
 import orderHistoryOperations from './orderHistoryPage.gql';
 import OrderRow from './orderRow';
 
-const PAGE_TITLE = `Order History`;
-const EMPTY_DATA_MESSAGE = `You don't have any orders yet.`;
-
 const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage({ ...orderHistoryOperations });
     const { isLoadingWithoutData, orders } = talonProps;
-
+    const { formatMessage } = useIntl();
+    const PAGE_TITLE = formatMessage({
+        id: 'orderHistoryPage.pageTitleText',
+        defaultMessage: 'Order History'
+    });
+    const EMPTY_DATA_MESSAGE = formatMessage({
+        id: 'orderHistoryPage.emptyDataMessage',
+        defaultMessage: "You don't have any orders yet."
+    });
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const orderRows = useMemo(() => {
@@ -41,10 +47,12 @@ const OrderHistoryPage = props => {
         );
     }
 
+    // STORE_NAME is injected by Webpack at build time.
+    const title = `${PAGE_TITLE} - ${STORE_NAME}`;
+
     return (
         <div className={classes.root}>
-            {/* STORE_NAME is injected by Webpack at build time. */}
-            <Title>{`${PAGE_TITLE} - ${STORE_NAME}`}</Title>
+            <Title>{title}</Title>
             <h1 className={classes.heading}>{PAGE_TITLE}</h1>
             {pageContents}
         </div>

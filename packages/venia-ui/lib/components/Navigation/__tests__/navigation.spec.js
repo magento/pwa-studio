@@ -18,6 +18,8 @@ jest.mock('../../AuthModal', () => () => <i />);
 jest.mock('../../CategoryTree', () => () => <i />);
 jest.mock('../../LoadingIndicator', () => 'LoadingIndicator');
 jest.mock('../navHeader', () => () => <i />);
+jest.mock('../../Header/storeSwitcher', () => () => 'StoreSwitcher');
+jest.mock('../../Header/currencySwitcher', () => () => 'CurrencySwitcher');
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const closeDrawer = jest.fn();

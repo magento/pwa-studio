@@ -16,26 +16,36 @@ exports[`Should return correct shape 1`] = `
       className="close_button"
       onClick={[Function]}
     >
-      <div>
-        Icon Component
-      </div>
+      <mock-ChecIconkbox
+        src={[Function]}
+      />
     </button>
   </div>
   <div
     className="body"
   >
-    <div>
-      Credit Card Payment Method
-    </div>
+    <mock-CreditCard
+      onDropinReady={[Function]}
+      onPaymentSuccess={[Function]}
+      shouldSubmit={false}
+    />
     <div
       className="actions_container"
     >
-      <div>
-        Button Component
-      </div>
-      <div>
-        Button Component
-      </div>
+      <mock-Button
+        disabled={false}
+        onClick={[Function]}
+        priority="low"
+      >
+        Cancel
+      </mock-Button>
+      <mock-Button
+        disabled={false}
+        onClick={[Function]}
+        priority="high"
+      >
+        Update
+      </mock-Button>
     </div>
   </div>
 </aside>

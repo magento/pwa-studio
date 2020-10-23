@@ -132,7 +132,7 @@ getModuleRules.css = async ({ paths, hasFlag }) => ({
  *   and inlines binary files below a certain size
  */
 getModuleRules.files = async () => ({
-    test: /\.(jpg|svg|png)$/,
+    test: /\.(gif|jpg|png|svg)$/,
     use: [
         {
             loader: 'file-loader',

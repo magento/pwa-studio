@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { number, string, shape } from 'prop-types';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../../classify';
 import defaultClasses from './shippingRadio.css';
@@ -9,7 +10,9 @@ const ShippingRadio = props => {
     const priceElement = props.price ? (
         <Price value={props.price} currencyCode={props.currency} />
     ) : (
-        <span>FREE</span>
+        <span>
+            <FormattedMessage id={'global.free'} defaultMessage={'FREE'} />
+        </span>
     );
 
     const classes = mergeClasses(defaultClasses, props.classes);

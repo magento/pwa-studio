@@ -9,8 +9,13 @@
 const SUCCESS = undefined;
 
 export const hasLengthAtLeast = (value, values, minimumLength) => {
+    const message = {
+        id: 'validation.hasLengthAtLeast',
+        defaultMessage: 'Must contain more characters',
+        value: minimumLength
+    };
     if (!value || value.length < minimumLength) {
-        return `Must contain at least ${minimumLength} character(s).`;
+        return message;
     }
 
     return SUCCESS;
@@ -18,7 +23,12 @@ export const hasLengthAtLeast = (value, values, minimumLength) => {
 
 export const hasLengthAtMost = (value, values, maximumLength) => {
     if (value && value.length > maximumLength) {
-        return `Must not exceed ${maximumLength} character(s).`;
+        const message = {
+            id: 'validation.hasLengthAtMost',
+            defaultMessage: 'Must have less characters',
+            value: maximumLength
+        };
+        return message;
     }
 
     return SUCCESS;
@@ -26,7 +36,12 @@ export const hasLengthAtMost = (value, values, maximumLength) => {
 
 export const hasLengthExactly = (value, values, length) => {
     if (value && value.length !== length) {
-        return `Must contain exactly ${length} character(s).`;
+        const message = {
+            id: 'validation.hasLengthExactly',
+            defaultMessage: 'Does not have exact number of characters',
+            value: length
+        };
+        return message;
     }
 
     return SUCCESS;
@@ -37,7 +52,10 @@ export const hasLengthExactly = (value, values, length) => {
  * Consider using more specific validators such as `hasLengthAtLeast` or `mustBeChecked`.
  */
 export const isRequired = value => {
-    const FAILURE = 'Is required.';
+    const FAILURE = {
+        id: 'validation.isRequired',
+        defaultMessage: 'Is required.'
+    };
 
     // The field must have a value (no null or undefined) and
     // if it's a boolean, it must be `true`.
@@ -52,7 +70,11 @@ export const isRequired = value => {
 };
 
 export const mustBeChecked = value => {
-    if (!value) return 'Must be checked.';
+    const message = {
+        id: 'validation.mustBeChecked',
+        defaultMessage: 'Must be checked.'
+    };
+    if (!value) return message;
 
     return SUCCESS;
 };
@@ -61,17 +83,31 @@ export const validateRegionCode = (value, values, countries) => {
     const country = countries.find(({ id }) => id === 'US');
 
     if (!country) {
-        return 'Country "US" is not an available country.';
+        const invalidCountry = {
+            id: 'validation.invalidCountry',
+            defaultMessage: 'Country "US" is not an available country.'
+        };
+        return invalidCountry;
     }
     const { available_regions: regions } = country;
 
     if (!(Array.isArray(regions) && regions.length)) {
-        return 'Country "US" does not contain any available regions.';
+        const invalidRegions = {
+            id: 'validation.invalidRegions',
+            defaultMessage:
+                'Country "US" does not contain any available regions.'
+        };
+        return invalidRegions;
     }
 
     const region = regions.find(({ code }) => code === value);
     if (!region) {
-        return `State "${value}" is not an valid state abbreviation.`;
+        const invalidAbbrev = {
+            id: 'validation.invalidAbbreviation',
+            defaultMessage: 'That is not a valid state abbreviation.',
+            value: value
+        };
+        return invalidAbbrev;
     }
 
     return SUCCESS;
@@ -93,16 +129,31 @@ export const validatePassword = value => {
     }
 
     if (Object.values(count).filter(Boolean).length < 3) {
-        return 'A password must contain at least 3 of the following: lowercase, uppercase, digits, special characters.';
+        const message = {
+            id: 'validation.validatePassword',
+            defaultMessage:
+                'A password must contain at least 3 of the following: lowercase, uppercase, digits, special characters.'
+        };
+        return message;
     }
 
     return SUCCESS;
 };
 
-export const validateConfirmPassword = (
-    value,
-    values,
-    passwordKey = 'password'
-) => {
-    return value === values[passwordKey] ? SUCCESS : 'Passwords must match.';
+export const isEqualToField = (value, values, fieldKey) => {
+    const message = {
+        id: 'validation.isEqualToField',
+        defaultMessage: 'Fields must match',
+        value: fieldKey
+    };
+    return value === values[fieldKey] ? SUCCESS : message;
+};
+
+export const isNotEqualToField = (value, values, fieldKey) => {
+    const message = {
+        id: 'validation.isNotEqualToField',
+        defaultMessage: 'Fields must be different',
+        value: fieldKey
+    };
+    return value !== values[fieldKey] ? SUCCESS : message;
 };

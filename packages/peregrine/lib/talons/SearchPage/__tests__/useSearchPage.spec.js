@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { act } from 'react-test-renderer';
 
 import { useSearchPage } from '../useSearchPage';
+
 import createTestInstance from '../../../util/createTestInstance';
+import { getFiltersFromSearch } from '../../FilterModal/helpers';
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
     useLocation: jest.fn(() => ({ pathname: '', search: '' }))
 }));
 
+jest.mock('../../FilterModal/helpers', () => {
+    return {
+        ...jest.requireActual('../../FilterModal/helpers'),
+        getFiltersFromSearch: jest.fn(() => new Map())
+    };
+});
+
+jest.mock('@magento/peregrine/lib/hooks/useScrollTopOnChange');
+
 jest.mock('../../../context/app', () => {
     const state = {};
     const api = {
-        toggleDrawer: jest.fn()
+        toggleDrawer: jest.fn(),
+        actions: { setPageLoading: jest.fn() }
     };
     const useAppContext = jest.fn(() => [state, api]);
 
@@ -33,8 +45,8 @@ const mockUseSort = jest
 
 const mockSetCurrentPage = jest.fn().mockName('mockSetCurrentPage');
 
-jest.mock('@magento/peregrine', () => {
-    const usePagination = jest.fn(() => [
+jest.mock('../../../hooks/usePagination', () => ({
+    usePagination: jest.fn(() => [
         {
             currentPage: 3,
             totalPages: 6
@@ -45,20 +57,22 @@ jest.mock('@magento/peregrine', () => {
                 .mockImplementation(() => mockSetCurrentPage()),
             setTotalPages: jest.fn()
         }
-    ]);
-    const useSort = jest.fn().mockImplementation(() => mockUseSort());
+    ])
+}));
 
-    return {
-        useSort,
-        usePagination
-    };
-});
+jest.mock('../../../hooks/useSort', () => ({
+    useSort: jest.fn().mockImplementation(() => mockUseSort())
+}));
 
 jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
     const useQuery = jest.fn().mockReturnValue({
         data: {
             __type: {
                 inputFields: []
+            },
+            storeConfig: {
+                grid_per_page: 12
             }
         },
         error: null,
@@ -78,22 +92,15 @@ jest.mock('@apollo/client', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { useLazyQuery, useQuery };
+    return { ...apolloClient, useLazyQuery, useQuery };
 });
-
-const mockProps = {
-    queries: {
-        filterIntrospection: 'filterIntrospectionQuery',
-        getProductFiltersBySearch: 'getProductFiltersBySearchQuery',
-        productSearch: 'productSearchQuery'
-    }
-};
 
 const Component = props => {
     const talonProps = useSearchPage(props);
     return <i talonProps={talonProps} />;
 };
 
+const mockProps = { queries: {} };
 const tree = createTestInstance(<Component {...mockProps} />);
 
 test('returns the correct shape', () => {
@@ -144,3 +151,70 @@ test.each(testCases)(
         expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
     }
 );
+
+describe('searchCategory', () => {
+    const log = jest.fn();
+    const Component = props => {
+        const talonProps = useSearchPage({ ...props });
+
+        useEffect(() => {
+            log(talonProps);
+        }, [talonProps]);
+
+        return <i talonProps={talonProps} />;
+    };
+
+    test('is null when no filters exist', () => {
+        // Arrange.
+        getFiltersFromSearch.mockReturnValueOnce(new Map());
+
+        // Act.
+        createTestInstance(<Component {...mockProps} />);
+
+        // Assert.
+        const { searchCategory } = log.mock.calls[0][0];
+        expect(searchCategory).toBeNull();
+    });
+
+    test('is null when category_id doesnt exist', () => {
+        // Arrange.
+        const map = new Map().set('not_category_id', 'unit test');
+        getFiltersFromSearch.mockReturnValueOnce(map);
+
+        // Act.
+        createTestInstance(<Component {...mockProps} />);
+
+        // Assert.
+        const { searchCategory } = log.mock.calls[0][0];
+        expect(searchCategory).toBeNull();
+    });
+
+    test('is correct when a single category filter exists', () => {
+        // Arrange.
+        const map = new Map().set('category_id', new Set(['Bottoms,11']));
+        getFiltersFromSearch.mockReturnValueOnce(map);
+
+        // Act.
+        createTestInstance(<Component {...mockProps} />);
+
+        // Assert.
+        const { searchCategory } = log.mock.calls[0][0];
+        expect(searchCategory).toEqual('Bottoms');
+    });
+
+    test('is correct when multiple category filters exist', () => {
+        // Arrange.
+        const map = new Map().set(
+            'category_id',
+            new Set(['Bottoms,11', 'Skirts,12'])
+        );
+        getFiltersFromSearch.mockReturnValueOnce(map);
+
+        // Act.
+        createTestInstance(<Component {...mockProps} />);
+
+        // Assert.
+        const { searchCategory } = log.mock.calls[0][0];
+        expect(searchCategory).toEqual('Bottoms, Skirts');
+    });
+});

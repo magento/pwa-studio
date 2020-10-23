@@ -9,14 +9,11 @@ import Logo from '@magento/venia-ui/lib/components/Logo';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './footer.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
-import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 
 const Footer = props => {
     const { links } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const talonProps = useFooter({
-        query: GET_STORE_CONFIG_DATA
-    });
+    const talonProps = useFooter();
 
     const { copyrightText } = talonProps;
 
@@ -25,11 +22,11 @@ const Footer = props => {
             const itemKey = `text: ${text} path:${path}`;
             const child = path ? (
                 <Link className={classes.link} to={path}>
-                    <FormattedMessage id={text} />
+                    <FormattedMessage id={text} defaultMessage={text} />
                 </Link>
             ) : (
                 <span className={classes.label}>
-                    <FormattedMessage id={text} />
+                    <FormattedMessage id={text} defaultMessage={text} />
                 </span>
             );
 
@@ -53,10 +50,16 @@ const Footer = props => {
                 {linkGroups}
                 <div className={classes.callout}>
                     <h3 className={classes.calloutHeading}>
-                        <FormattedMessage id={'Follow Us!'} />
+                        <FormattedMessage
+                            id={'footer.followText'}
+                            defaultMessage={'Follow Us!'}
+                        />
                     </h3>
                     <p className={classes.calloutBody}>
-                        <FormattedMessage id={LOREM_IPSUM} />
+                        <FormattedMessage
+                            id={'footer.calloutText'}
+                            defaultMessage={LOREM_IPSUM}
+                        />
                     </p>
                     <ul className={classes.socialLinks}>
                         <li>
@@ -74,10 +77,16 @@ const Footer = props => {
             <div className={classes.branding}>
                 <ul className={classes.legal}>
                     <li className={classes.terms}>
-                        <FormattedMessage id={'Terms of Use'} />
+                        <FormattedMessage
+                            id={'footer.termsText'}
+                            defaultMessage={'Terms of Use'}
+                        />
                     </li>
                     <li className={classes.privacy}>
-                        <FormattedMessage id={'Privacy Policy'} />
+                        <FormattedMessage
+                            id={'footer.privacyText'}
+                            defaultMessage={'Privacy Policy'}
+                        />
                     </li>
                 </ul>
                 <p className={classes.copyright}>{copyrightText || null}</p>

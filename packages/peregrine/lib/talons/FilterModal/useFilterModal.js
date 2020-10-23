@@ -3,9 +3,9 @@ import { useQuery } from '@apollo/client';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-
-import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
 import { useFilterState } from './useFilterState';
+import DEFAULT_OPERATIONS from './filterModal.gql';
+import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
 
 /**
  * Filter Modal talon.
@@ -18,10 +18,8 @@ import { useFilterState } from './useFilterState';
  * }}
  */
 export const useFilterModal = props => {
-    const {
-        filters,
-        queries: { filterIntrospection }
-    } = props;
+    const { filters, operations = DEFAULT_OPERATIONS } = props;
+    const { getFilterInputsQuery } = operations;
     const [isApplying, setIsApplying] = useState(false);
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const [filterState, filterApi] = useFilterState();
@@ -31,7 +29,7 @@ export const useFilterModal = props => {
     const history = useHistory();
     const { pathname, search } = useLocation();
 
-    const { data: introspectionData } = useQuery(filterIntrospection);
+    const { data: introspectionData } = useQuery(getFilterInputsQuery);
 
     const inputFields = introspectionData
         ? introspectionData.__type.inputFields

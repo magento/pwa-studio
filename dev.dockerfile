@@ -16,25 +16,11 @@ RUN apk --no-cache --virtual add \
 # set env variable for CI
 ENV CI=true
 
-# copy just the dependency files and configs needed for install
-COPY packages/babel-preset-peregrine/package.json ./packages/babel-preset-peregrine/package.json
-COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
-COPY packages/extensions/upward-security-headers/package.json ./packages/extensions/upward-security-headers/package.json
-COPY packages/graphql-cli-validate-magento-pwa-queries/package.json ./packages/graphql-cli-validate-magento-pwa-queries/package.json
-COPY packages/pagebuilder/package.json ./packages/pagebuilder/package.json
-COPY packages/peregrine/package.json ./packages/peregrine/package.json
-COPY packages/pwa-buildpack/package.json ./packages/pwa-buildpack/package.json
-COPY packages/upward-js/package.json ./packages/upward-js/package.json
-COPY packages/upward-spec/package.json ./packages/upward-spec/package.json
-COPY packages/venia-ui/package.json ./packages/venia-ui/package.json
-COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
+# copy root dependency files and configs needed for install
 COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 COPY scripts/monorepo-introduction.js ./scripts/monorepo-introduction.js
 
-# install dependencies with yarn
-RUN yarn install --frozen-lockfile
-
-# copy over the rest of the package files
+# copy over the packages
 COPY packages ./packages
 
 # run yarn again to reestablish workspace symlinks

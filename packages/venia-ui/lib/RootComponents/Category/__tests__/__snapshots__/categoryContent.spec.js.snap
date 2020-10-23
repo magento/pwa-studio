@@ -34,25 +34,7 @@ Array [
         Name
       </div>
     </h1>
-    <div>
-      <div>
-        <button
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          <span>
-            Sort
-          </span>
-        </button>
-      </div>
-    </div>
-    <div>
-      Items sorted by 
-      <span>
-        
-      </span>
-    </div>
+    <div />
     <section
       className="c"
     >

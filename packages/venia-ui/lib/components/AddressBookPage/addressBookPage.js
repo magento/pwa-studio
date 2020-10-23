@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { PlusSquare } from 'react-feather';
 
 import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
@@ -11,8 +12,6 @@ import LinkButton from '../LinkButton';
 import { Title } from '../Head';
 import defaultClasses from './addressBookPage.css';
 
-const PAGE_TITLE = `Address Book`;
-
 const AddressBookPage = props => {
     const talonProps = useAddressBookPage({
         queries: {
@@ -21,18 +20,24 @@ const AddressBookPage = props => {
     });
     const { customerAddresses, handleAddAddress } = talonProps;
 
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const PAGE_TITLE = formatMessage({
+        id: 'addressBookPage.addressBookText',
+        defaultMessage: 'Address Book'
+    });
     const addressBookElements = useMemo(() => {
         return customerAddresses.map(addressEntry => (
             <AddressCard key={addressEntry.id} address={addressEntry} />
         ));
     }, [customerAddresses]);
 
+    // STORE_NAME is injected by Webpack at build time.
+    const title = `${PAGE_TITLE} - ${STORE_NAME}`;
     return (
         <div className={classes.root}>
-            {/* STORE_NAME is injected by Webpack at build time. */}
-            <Title>{`${PAGE_TITLE} - ${STORE_NAME}`}</Title>
+            <Title>{title}</Title>
             <h1 className={classes.heading}>{PAGE_TITLE}</h1>
             <div className={classes.content}>
                 <LinkButton
@@ -41,11 +46,18 @@ const AddressBookPage = props => {
                     onClick={handleAddAddress}
                 >
                     <Icon
-                        classes={{ icon: classes.addIcon }}
+                        classes={{
+                            icon: classes.addIcon
+                        }}
                         size={24}
                         src={PlusSquare}
                     />
-                    <span className={classes.addText}>{'Add an Address'}</span>
+                    <span className={classes.addText}>
+                        <FormattedMessage
+                            id={'addressBookPage.addAddressText'}
+                            defaultMessage={'Add an Address'}
+                        />
+                    </span>
                 </LinkButton>
                 {addressBookElements}
             </div>

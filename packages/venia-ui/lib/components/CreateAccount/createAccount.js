@@ -1,16 +1,11 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { func, shape, string, bool } from 'prop-types';
 import { Redirect } from '@magento/venia-drivers';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
 
 import { mergeClasses } from '../../classify';
-import CREATE_ACCOUNT_MUTATION from '../../queries/createAccount.graphql';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
-import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
-import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
-import { mergeCartsMutation } from '../../queries/mergeCarts.gql';
 import combine from '../../util/combineValidators';
 import {
     hasLengthAtLeast,
@@ -27,16 +22,6 @@ import Password from '../Password';
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
-        queries: {
-            customerQuery: GET_CUSTOMER_QUERY,
-            getCartDetailsQuery: GET_CART_DETAILS_QUERY
-        },
-        mutations: {
-            createAccountMutation: CREATE_ACCOUNT_MUTATION,
-            createCartMutation: CREATE_CART_MUTATION,
-            signInMutation: SIGN_IN_MUTATION,
-            mergeCartsMutation
-        },
         initialValues: props.initialValues,
         onSubmit: props.onSubmit,
         onCancel: props.onCancel
@@ -50,6 +35,7 @@ const CreateAccount = props => {
         isSignedIn,
         initialValues
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     if (isSignedIn) {
         return <Redirect to="/" />;
@@ -65,7 +51,10 @@ const CreateAccount = props => {
             priority="normal"
             onClick={handleCancel}
         >
-            {'Cancel'}
+            <FormattedMessage
+                id={'createAccount.cancelText'}
+                defaultMessage={'Cancel'}
+            />
         </Button>
     );
 
@@ -76,7 +65,10 @@ const CreateAccount = props => {
             type="submit"
             priority="high"
         >
-            {'Create an Account'}
+            <FormattedMessage
+                id={'createAccount.createAccountText'}
+                defaultMessage={'Create an Account'}
+            />
         </Button>
     );
 
@@ -87,46 +79,75 @@ const CreateAccount = props => {
             onSubmit={handleSubmit}
         >
             <FormError errors={Array.from(errors.values())} />
-            <Field label="First Name">
+            <Field
+                label={formatMessage({
+                    id: 'createAccount.firstNameText',
+                    defaultMessage: 'First Name'
+                })}
+            >
                 <TextInput
                     field="customer.firstname"
                     autoComplete="given-name"
                     validate={isRequired}
                     validateOnBlur
+                    mask={value => value && value.trim()}
+                    maskOnBlur={true}
                 />
             </Field>
-            <Field label="Last Name">
+            <Field
+                label={formatMessage({
+                    id: 'createAccount.lastNameText',
+                    defaultMessage: 'Last Name'
+                })}
+            >
                 <TextInput
                     field="customer.lastname"
                     autoComplete="family-name"
                     validate={isRequired}
                     validateOnBlur
+                    mask={value => value && value.trim()}
+                    maskOnBlur={true}
                 />
             </Field>
-            <Field label="Email">
+            <Field
+                label={formatMessage({
+                    id: 'createAccount.emailText',
+                    defaultMessage: 'Email'
+                })}
+            >
                 <TextInput
                     field="customer.email"
                     autoComplete="email"
                     validate={isRequired}
                     validateOnBlur
+                    mask={value => value && value.trim()}
+                    maskOnBlur={true}
                 />
             </Field>
             <Password
                 autoComplete="new-password"
                 fieldName="password"
                 isToggleButtonHidden={false}
-                label="Password"
+                label={formatMessage({
+                    id: 'createAccount.passwordText',
+                    defaultMessage: 'Password'
+                })}
                 validate={combine([
                     isRequired,
                     [hasLengthAtLeast, 8],
                     validatePassword
                 ])}
                 validateOnBlur
+                mask={value => value && value.trim()}
+                maskOnBlur={true}
             />
             <div className={classes.subscribe}>
                 <Checkbox
                     field="subscribe"
-                    label="Subscribe to news and updates"
+                    label={formatMessage({
+                        id: 'createAccount.subscribeText',
+                        defaultMessage: 'Subscribe to news and updates'
+                    })}
                 />
             </div>
             <div className={classes.actions}>

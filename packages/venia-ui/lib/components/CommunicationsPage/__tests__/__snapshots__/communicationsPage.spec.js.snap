@@ -17,8 +17,7 @@ exports[`renders empty form without data 1`] = `
     Communications
   </h1>
   <p>
-    We'd like to stay in touch. Please check the boxes next to
-                    the communications you'd like to receive.
+    We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive.
   </p>
   <form
     className="form"
@@ -108,8 +107,7 @@ exports[`renders form error 1`] = `
     Communications
   </h1>
   <p>
-    We'd like to stay in touch. Please check the boxes next to
-                    the communications you'd like to receive.
+    We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive.
   </p>
   <form
     className="form"
@@ -199,8 +197,7 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
     Communications
   </h1>
   <p>
-    We'd like to stay in touch. Please check the boxes next to
-                    the communications you'd like to receive.
+    We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive.
   </p>
   <form
     className="form"
@@ -292,8 +289,7 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
     Communications
   </h1>
   <p>
-    We'd like to stay in touch. Please check the boxes next to
-                    the communications you'd like to receive.
+    We'd like to stay in touch. Please check the boxes next to the communications you'd like to receive.
   </p>
   <form
     className="form"

@@ -1,8 +1,9 @@
 import React, { Fragment, Suspense } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
@@ -12,7 +13,7 @@ import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
 import FormError from '../FormError';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import Quantity from '../ProductQuantity';
+import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichText from '../RichText';
 
 import defaultClasses from './productFullDetail.css';
@@ -51,12 +52,11 @@ const ProductFullDetail = props => {
         errorMessage,
         handleAddToCart,
         handleSelectionChange,
-        handleSetQuantity,
         isAddToCartDisabled,
         mediaGalleryEntries,
-        productDetails,
-        quantity
+        productDetails
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -92,7 +92,11 @@ const ProductFullDetail = props => {
         if (errorMessage.includes('The current user cannot')) {
             errors.set('form', [
                 new Error(
-                    'There was a problem with your cart. Please sign in again and try adding the item once more.'
+                    formatMessage({
+                        id: 'productFullDetail.errorToken',
+                        defaultMessage:
+                            'There was a problem with your cart. Please sign in again and try adding the item once more.'
+                    })
                 )
             ]);
         }
@@ -103,7 +107,11 @@ const ProductFullDetail = props => {
         ) {
             errors.set('form', [
                 new Error(
-                    'There was a problem with your cart. Please refresh the page and try adding the item once more.'
+                    formatMessage({
+                        id: 'productFullDetail.errorCart',
+                        defaultMessage:
+                            'There was a problem with your cart. Please refresh the page and try adding the item once more.'
+                    })
                 )
             ]);
         }
@@ -112,7 +120,11 @@ const ProductFullDetail = props => {
         if (!errors.size) {
             errors.set('form', [
                 new Error(
-                    'Could not add item to cart. Please check required options and try again.'
+                    formatMessage({
+                        id: 'productFullDetail.errorUnknown',
+                        defaultMessage:
+                            'Could not add item to cart. Please check required options and try again.'
+                    })
                 )
             ]);
         }
@@ -121,7 +133,7 @@ const ProductFullDetail = props => {
     return (
         <Fragment>
             {breadcrumbs}
-            <Form className={classes.root}>
+            <Form className={classes.root} onSubmit={handleAddToCart}>
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
                         {productDetails.name}
@@ -144,30 +156,46 @@ const ProductFullDetail = props => {
                 />
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
-                    <h2 className={classes.quantityTitle}>Quantity</h2>
-                    <Quantity
-                        initialValue={quantity}
-                        onValueChange={handleSetQuantity}
+                    <h2 className={classes.quantityTitle}>
+                        <FormattedMessage
+                            id={'global.quantity'}
+                            defaultMessage={'Quantity'}
+                        />
+                    </h2>
+                    <QuantityFields
+                        classes={{ root: classes.quantityRoot }}
+                        min={1}
                         message={errors.get('quantity')}
                     />
                 </section>
                 <section className={classes.cartActions}>
                     <Button
-                        priority="high"
-                        onClick={handleAddToCart}
                         disabled={isAddToCartDisabled}
+                        priority="high"
+                        type="submit"
                     >
-                        Add to Cart
+                        <FormattedMessage
+                            id={'productFullDetail.cartAction'}
+                            defaultMessage={'Add to Cart'}
+                        />
                     </Button>
                 </section>
                 <section className={classes.description}>
                     <h2 className={classes.descriptionTitle}>
-                        Product Description
+                        <FormattedMessage
+                            id={'productFullDetail.productDescription'}
+                            defaultMessage={'Product Description'}
+                        />
                     </h2>
                     <RichText content={productDetails.description} />
                 </section>
                 <section className={classes.details}>
-                    <h2 className={classes.detailsTitle}>SKU</h2>
+                    <h2 className={classes.detailsTitle}>
+                        <FormattedMessage
+                            id={'global.sku'}
+                            defaultMessage={'SKU'}
+                        />
+                    </h2>
                     <strong>{productDetails.sku}</strong>
                 </section>
             </Form>

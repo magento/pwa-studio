@@ -10,6 +10,8 @@ jest.mock('../cartTrigger', () => 'CartTrigger');
 jest.mock('../navTrigger', () => 'NavTrigger');
 jest.mock('../searchTrigger', () => 'SearchTrigger');
 jest.mock('../onlineIndicator', () => 'OnlineIndicator');
+jest.mock('../storeSwitcher', () => 'StoreSwitcher');
+jest.mock('../currencySwitcher', () => 'CurrencySwitcher');
 jest.mock('../../PageLoadingIndicator', () => () => (
     <div id={'pageLoadingIndicator'} />
 ));
@@ -25,8 +27,8 @@ jest.mock('@magento/peregrine/lib/talons/Header/useHeader', () => {
         handleSearchTriggerClick: jest.fn(),
         hasBeenOffline: false,
         isOnline: true,
-        searchOpen: false,
-        isPageLoading: false
+        isPageLoading: false,
+        searchOpen: false
     };
     return {
         useHeader: jest.fn(() => state)
@@ -45,8 +47,8 @@ test('verify PageLoadingIndicator is displayed when page is loading', () => {
             handleSearchTriggerClick: jest.fn(),
             hasBeenOffline: false,
             isOnline: true,
-            searchOpen: false,
-            isPageLoading: true
+            isPageLoading: true,
+            searchOpen: false
         };
     });
 

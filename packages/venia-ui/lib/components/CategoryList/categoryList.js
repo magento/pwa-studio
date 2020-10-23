@@ -1,11 +1,12 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { string, number, shape } from 'prop-types';
+import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
+
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './categoryList.css';
 import CategoryTile from './categoryTile';
-import categoryListQuery from '../../queries/getCategoryList.graphql';
-import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
 
 // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
 const mapCategory = categoryItem => {
@@ -29,11 +30,7 @@ const mapCategory = categoryItem => {
 
 const CategoryList = props => {
     const { id, title } = props;
-    const talonProps = useCategoryList({
-        query: categoryListQuery,
-        id
-    });
-
+    const talonProps = useCategoryList({ id });
     const { childCategories, error, loading } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -47,18 +44,30 @@ const CategoryList = props => {
     ) : null;
 
     let child;
+
+    // TODO: Actually handle errors; the logic below will never allow this to render
     if (error) {
         child = (
             <div className={classes.fetchError}>
-                Data Fetch Error: <pre>{error.message}</pre>
+                <FormattedMessage
+                    id={'categoryList.errorFetch'}
+                    defaultMessage={'Data Fetch Error: '}
+                />
+                <pre>{error.message}</pre>
             </div>
         );
     }
+
     if (loading || !childCategories) {
         child = fullPageLoadingIndicator;
     } else if (childCategories.length === 0) {
         child = (
-            <div className={classes.noResults}>No child categories found.</div>
+            <div className={classes.noResults}>
+                <FormattedMessage
+                    id={'categoryList.noResults'}
+                    defaultMessage={'No child categories found.'}
+                />
+            </div>
         );
     } else {
         child = (
@@ -69,6 +78,7 @@ const CategoryList = props => {
             </div>
         );
     }
+
     return (
         <div className={classes.root}>
             {header}
