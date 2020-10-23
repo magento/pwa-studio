@@ -39,6 +39,9 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
     storybookBaseConfig.plugins = [
         ...storybookBaseConfig.plugins,
         new DefinePlugin({
+            __fetchLocaleData__: async () => {
+                // no-op in storybook
+            },
             POSSIBLE_TYPES: JSON.stringify(possibleTypes),
             STORE_NAME: JSON.stringify('Storybook'),
             STORE_VIEW_LOCALE: JSON.stringify(global.LOCALE),

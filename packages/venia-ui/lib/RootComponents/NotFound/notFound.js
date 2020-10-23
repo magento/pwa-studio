@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './notFound.css';
 
@@ -12,8 +13,18 @@ const NotFound = props => {
 
     return (
         <div className={classes.root}>
-            <h1> Offline! </h1>
-            <button onClick={handleGoBack}> Go Back </button>
+            <h1>
+                <FormattedMessage
+                    id={'notFound.offline'}
+                    defaultMessage={'Offline'}
+                />
+            </h1>
+            <button onClick={handleGoBack}>
+                <FormattedMessage
+                    id={'notFound.goBack'}
+                    defaultMessage={'Go Back'}
+                />
+            </button>
         </div>
     );
 };
