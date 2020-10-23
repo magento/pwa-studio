@@ -230,6 +230,23 @@ function localIntercept(targets) {
 module.exports = localIntercept
 ```
 
+### Check out the page
+
+Now, when you start your project, you can navigate to `/placeholder-image-demo` and see the PlaceholderImage component in action.
+
+Click to see the full solution for this tutorial:
+
+[![Edit environment-variable-tutorial](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/environment-variable-tutorial-9z0rb?fontsize=14&hidenavigation=1&module=%2Fextensions%2FPlaceholderImage%2Fsrc%2Fcomponents%2FPlaceholderImage%2FplaceholderImage.js&theme=dark)
+
+### A note about CodeSandbox
+
+CodeSandbox uses an iframe to display a preview of the site.
+However, Venia sends security headers on certain pages that prevent you from viewing those pages inside an iframe.
+
+To get around this, open the preview in a new window by clicking on the **Open In New Window** icon on the top right of the in-editor browser.
+
 [core environment variable definitions]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}>
 
 [create and register the intercept file]: #create-and-register-the-intercept-file
+[`npm init`]: https://docs.npmjs.com/cli/init
+[`yarn init`]: https://classic.yarnpkg.com/en/docs/cli/init/
