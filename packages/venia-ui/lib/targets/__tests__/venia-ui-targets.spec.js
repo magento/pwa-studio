@@ -52,6 +52,20 @@ test('declares targets richContentRenderers and routes', async () => {
     expect(await routes.promise(10)).toBe(4);
 });
 
+test('declares payments target',  async () => {
+    const bus = mockBuildBus({
+        context: __dirname,
+        dependencies: [thisDep]
+    });
+    bus.runPhase('declare');
+    const { payments } = bus.getTargetsOf(
+        '@magento/venia-ui'
+    );
+
+    expect(payments.tap).toBeDefined();
+})
+
+
 test('uses RichContentRenderers to inject a default strategy into RichContent', async () => {
     jest.setTimeout(15000);
     const built = await buildModuleWith('../../components/RichContent', {

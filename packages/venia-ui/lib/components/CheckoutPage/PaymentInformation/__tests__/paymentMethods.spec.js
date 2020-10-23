@@ -15,6 +15,10 @@ jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods'
 );
 
+jest.mock('../paymentMethodCollection',  () => () => (
+    {braintree: <div>Credit Card Payment Method Component</div>}
+))
+
 const defaultTalonProps = {
     availablePaymentMethods: [{ code: 'braintree' }],
     currentSelectedPaymentMethod: 'braintree',

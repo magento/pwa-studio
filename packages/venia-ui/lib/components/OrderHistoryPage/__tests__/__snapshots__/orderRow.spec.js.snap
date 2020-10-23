@@ -37,7 +37,7 @@ exports[`it does not render order details if loading is true 1`] = `
     <span
       className="orderDate"
     >
-      May 26, 2020
+      2020 M05 26
     </span>
   </div>
   <div
@@ -56,7 +56,10 @@ exports[`it does not render order details if loading is true 1`] = `
       className="orderTotal"
     >
       <span>
-        $
+        US$
+      </span>
+      <span>
+         
       </span>
       <span>
         1
@@ -195,7 +198,7 @@ exports[`it renders collapsed order row 1`] = `
     <span
       className="orderDate"
     >
-      May 26, 2020
+      2020 M05 26
     </span>
   </div>
   <div
@@ -214,7 +217,10 @@ exports[`it renders collapsed order row 1`] = `
       className="orderTotal"
     >
       <span>
-        $
+        US$
+      </span>
+      <span>
+         
       </span>
       <span>
         1
@@ -516,7 +522,7 @@ exports[`it renders open order row 1`] = `
     <span
       className="orderDate"
     >
-      May 26, 2020
+      2020 M05 26
     </span>
   </div>
   <div
@@ -535,7 +541,10 @@ exports[`it renders open order row 1`] = `
       className="orderTotal"
     >
       <span>
-        $
+        US$
+      </span>
+      <span>
+         
       </span>
       <span>
         1

@@ -8,8 +8,7 @@ import { mergeClasses } from '../../../classify';
 import Radio from '../../RadioGroup/radio';
 import paymentMethodOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.css';
-
-import payments from './paymentMethodByCode.js';
+import payments from './paymentMethodCollection';
 
 const PaymentMethods = props => {
     const {
