@@ -124,7 +124,7 @@ exports[`Should return correct shape 1`] = `
         initialValue="sample region"
         validate={[Function]}
       />
-      <mock-Field
+      <div
         classes={
           Object {
             "root": "postal_code",
@@ -133,12 +133,8 @@ exports[`Should return correct shape 1`] = `
         initialValue="sample postal code"
         validate={[Function]}
       >
-        <mock-TextInput
-          field="postalCode"
-          initialValue="sample postal code"
-          validate={[Function]}
-        />
-      </mock-Field>
+        Postcode Component
+      </div>
       <mock-Field
         classes={
           Object {
