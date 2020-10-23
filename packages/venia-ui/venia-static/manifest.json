@@ -21,6 +21,12 @@
             "src": "/venia-static/icons/venia_circle_512.png",
             "sizes": "512x512",
             "type": "image/png"
+        },
+        {
+            "src": "/venia-static/icons/venia_circle_278.png",
+            "sizes": "278x278",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ]
 }
