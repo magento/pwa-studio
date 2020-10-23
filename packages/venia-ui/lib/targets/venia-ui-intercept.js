@@ -27,15 +27,4 @@ module.exports = veniaTargets => {
         componentName: 'PlainHtmlRenderer',
         importPath: './plainHtmlRenderer'
     });
-
-    const  payments = veniaTargets.own.payments;
-
-    payments.tap(
-        paymentArray => {
-            paymentArray.push({
-                code: 'braintree',
-                path: './creditCard'
-            });
-            return paymentArray;
-        })
 };

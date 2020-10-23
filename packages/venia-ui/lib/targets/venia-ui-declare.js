@@ -78,14 +78,11 @@ module.exports = targets => {
          *  payments.tap(
          *   paymentsArray => {
          *      paymentsArray.push({
-         *          code: 'code',
-         *          path: '@partner/pwa-studio-blog'
+         *          code: 'paymentCode',
+         *          path: '@partner/pwa-studio-payment'
          *      });
          *      return paymentsArray;
          *   })
-         *
-         *
-         * payments.add('paymentCode from "./creditCard"');
          */
         payments: new targets.types.AsyncSeriesWaterfall(['payments'])
     });

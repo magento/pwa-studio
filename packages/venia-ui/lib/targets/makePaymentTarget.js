@@ -9,14 +9,16 @@ function makePaymentTarget(venia) {
     const payments = venia.esModuleObject(
         '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
         async ({paymentsList}, self) => {
-            if(paymentsList !== undefined)
-            {
+            if(paymentsList !== undefined) {
                 addPayments(self, await paymentsList.promise([]))
             }
         }
     );
 
-    addPayments(payments, []);
+    addPayments(payments, [{
+        code: 'braintree',
+        path: './creditCard'
+    }]);
 }
 
 module.exports = makePaymentTarget;
