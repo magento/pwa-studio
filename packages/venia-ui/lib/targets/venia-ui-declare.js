@@ -70,14 +70,24 @@ module.exports = targets => {
          *
          * This target lets you add new payment to your storefronts.
          *
-         * @member {tapable.SyncHook}
+         * @member {tapable.AsyncSeriesWaterfall}
          *
          * @example <caption>Add a custom payment method</caption>
          * const veniaTargets = targets.of('@magento/venia-ui')
          * const payments = veniaTargets.payments
+         *  payments.tap(
+         *   paymentsArray => {
+         *      paymentsArray.push({
+         *          code: 'code',
+         *          path: '@partner/pwa-studio-blog'
+         *      });
+         *      return paymentsArray;
+         *   })
+         *
+         *
          * payments.add('paymentCode from "./creditCard"');
          */
-        payments: new targets.types.Sync(['payments'])
+        payments: new targets.types.AsyncSeriesWaterfall(['payments'])
     });
 };
 

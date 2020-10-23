@@ -1,7 +1,7 @@
 /**
  * @module VeniaUI/Targets
  */
-const { Targetables } = require('@magento/pwa-buildpack');
+const {Targetables} = require('@magento/pwa-buildpack');
 const RichContentRendererList = require('./RichContentRendererList');
 const makeRoutesTarget = require('./makeRoutesTarget');
 const makePaymentTarget = require('./makePaymentTarget');
@@ -27,4 +27,15 @@ module.exports = veniaTargets => {
         componentName: 'PlainHtmlRenderer',
         importPath: './plainHtmlRenderer'
     });
+
+    const  payments = veniaTargets.own.payments;
+
+    payments.tap(
+        paymentArray => {
+            paymentArray.push({
+                code: 'braintree',
+                path: './creditCard'
+            });
+            return paymentArray;
+        })
 };

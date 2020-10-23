@@ -65,7 +65,6 @@ test('declares payments target',  async () => {
     expect(payments.tap).toBeDefined();
 })
 
-
 test('uses RichContentRenderers to inject a default strategy into RichContent', async () => {
     jest.setTimeout(15000);
     const built = await buildModuleWith('../../components/RichContent', {
