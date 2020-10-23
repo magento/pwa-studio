@@ -11,6 +11,7 @@ import Country from '../../../Country';
 import Field, { Message } from '../../../Field';
 import FormError from '../../../FormError';
 import Region from '../../../Region';
+import Postcode from '../../../Postcode';
 import TextInput from '../../../TextInput';
 import defaultClasses from './guestForm.css';
 import GuestFormOperations from './guestForm.gql';
@@ -154,15 +155,7 @@ const GuestForm = props => {
                     <Region validate={isRequired} />
                 </div>
                 <div className={classes.postcode}>
-                    <Field
-                        id="postcode"
-                        label={formatMessage({
-                            id: 'global.postcode',
-                            defaultMessage: 'ZIP / Postal Code'
-                        })}
-                    >
-                        <TextInput field="postcode" validate={isRequired} />
-                    </Field>
+                    <Postcode validate={isRequired} />
                 </div>
                 <div className={classes.telephone}>
                     <Field

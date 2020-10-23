@@ -58,6 +58,10 @@ jest.mock('../../../Region', () => {
     return props => <mock-Region {...props} />;
 });
 
+jest.mock('../../../Postcode', () => {
+    return props => <mock-Postcode {...props} />;
+});
+
 const useCreditCardReturnValue = {
     onPaymentError: jest.fn(),
     onPaymentSuccess: jest.fn(),
@@ -75,7 +79,7 @@ const useCreditCardReturnValue = {
         country: 'sample country',
         street1: 'sample street 1',
         street2: 'sample street 2',
-        postalCode: 'sample postal code',
+        postcode: 'sample postal code',
         phoneNumber: 'sample phone number',
         isBillingAddressSame: false
     },
