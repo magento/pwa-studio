@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { string, number, shape } from 'prop-types';
 import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
 
@@ -48,7 +49,11 @@ const CategoryList = props => {
     if (error) {
         child = (
             <div className={classes.fetchError}>
-                Data Fetch Error: <pre>{error.message}</pre>
+                <FormattedMessage
+                    id={'categoryList.errorFetch'}
+                    defaultMessage={'Data Fetch Error: '}
+                />
+                <pre>{error.message}</pre>
             </div>
         );
     }
@@ -57,7 +62,12 @@ const CategoryList = props => {
         child = fullPageLoadingIndicator;
     } else if (childCategories.length === 0) {
         child = (
-            <div className={classes.noResults}>No child categories found.</div>
+            <div className={classes.noResults}>
+                <FormattedMessage
+                    id={'categoryList.noResults'}
+                    defaultMessage={'No child categories found.'}
+                />
+            </div>
         );
     } else {
         child = (

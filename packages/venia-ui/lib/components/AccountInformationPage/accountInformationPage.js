@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Redirect } from '@magento/venia-drivers';
 import { useAccountInformationPage } from '@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage';
 
@@ -31,6 +32,7 @@ const AccountInformationPage = props => {
         shouldShowNewPassword,
         showUpdateMode
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     if (!isSignedIn) {
         return <Redirect to="/" />;
@@ -38,7 +40,12 @@ const AccountInformationPage = props => {
 
     const errorMessage = loadDataError ? (
         <Message>
-            {'Something went wrong. Please refresh and try again.'}
+            <FormattedMessage
+                id={'accountInformationPage.errorTryAgain'}
+                defaultMessage={
+                    'Something went wrong. Please refresh and try again.'
+                }
+            />
         </Message>
     ) : null;
 
@@ -47,24 +54,39 @@ const AccountInformationPage = props => {
         return fullPageLoadingIndicator;
     } else {
         const { customer } = initialValues;
+        const customerName = `${customer.firstname} ${customer.lastname}`;
+        const passwordValue = '***********';
 
         pageContent = (
             <Fragment>
                 <div className={classes.accountDetails}>
                     <div className={classes.lineItemsContainer}>
-                        <span className={classes.nameLabel}>{'Name'}</span>
-                        <span className={classes.nameValue}>{`${
-                            customer.firstname
-                        } ${customer.lastname}`}</span>
-                        <span className={classes.emailLabel}>{'Email'}</span>
+                        <span className={classes.nameLabel}>
+                            <FormattedMessage
+                                id={'global.name'}
+                                defaultMessage={'Name'}
+                            />
+                        </span>
+                        <span className={classes.nameValue}>
+                            {customerName}
+                        </span>
+                        <span className={classes.emailLabel}>
+                            <FormattedMessage
+                                id={'global.email'}
+                                defaultMessage={'Email'}
+                            />
+                        </span>
                         <span className={classes.emailValue}>
                             {customer.email}
                         </span>
                         <span className={classes.passwordLabel}>
-                            {'Password'}
+                            <FormattedMessage
+                                id={'global.password'}
+                                defaultMessage={'Password'}
+                            />
                         </span>
                         <span className={classes.passwordValue}>
-                            {'***********'}
+                            {passwordValue}
                         </span>
                     </div>
                     <div className={classes.editButtonContainer}>
@@ -74,7 +96,10 @@ const AccountInformationPage = props => {
                             onClick={showUpdateMode}
                             priority="normal"
                         >
-                            {'Edit'}
+                            <FormattedMessage
+                                id={'global.editButton'}
+                                defaultMessage={'Edit'}
+                            />
                         </Button>
                     </div>
                 </div>
@@ -94,8 +119,21 @@ const AccountInformationPage = props => {
 
     return (
         <div className={classes.root}>
-            <Title>{`Account Information - ${STORE_NAME}`}</Title>
-            <h1 className={classes.title}>{'Account Information'}</h1>
+            <Title>
+                {formatMessage(
+                    {
+                        id: 'accountInformationPage.titleAccount',
+                        defaultMessage: 'Account Information'
+                    },
+                    { name: STORE_NAME }
+                )}
+            </Title>
+            <h1 className={classes.title}>
+                <FormattedMessage
+                    id={'accountInformationPage.accountInformation'}
+                    defaultMessage={'Account Information'}
+                />
+            </h1>
             {errorMessage ? errorMessage : pageContent}
         </div>
     );

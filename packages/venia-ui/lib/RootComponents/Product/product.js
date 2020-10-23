@@ -53,9 +53,11 @@ const Product = () => {
     }
 
     // Note: STORE_NAME is injected by Webpack at build time.
+    const title = `${product.name} - ${STORE_NAME}`;
+
     return (
         <Fragment>
-            <Title>{`${product.name} - ${STORE_NAME}`}</Title>
+            <Title>{title}</Title>
             <Meta name="description" content={product.meta_description} />
             <ProductFullDetail product={product} />
         </Fragment>
