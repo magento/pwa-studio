@@ -31,31 +31,31 @@ jest.mock(
 jest.mock('../../../FormError', () => 'FormError');
 
 jest.mock('../brainTreeDropIn', () => {
-    return () => <div>Braintree Dropin Component</div>;
+    return props => <mock-BraintreeDropin {...props} />;
 });
 
 jest.mock('../../../LoadingIndicator', () => {
-    return () => <div>Loading Indicator Component</div>;
+    return props => <mock-LoadingIndicator {...props} />;
 });
 
 jest.mock('../../../Checkbox', () => {
-    return props => <div {...props}>Checkout Component</div>;
+    return props => <mock-Checkbox {...props} />;
 });
 
 jest.mock('../../../Field', () => {
-    return props => <div {...props}>Field Component</div>;
+    return props => <mock-Field {...props} />;
 });
 
 jest.mock('../../../TextInput', () => {
-    return props => <div {...props}>Text Input Component</div>;
+    return props => <mock-TextInput {...props} />;
 });
 
 jest.mock('../../../Country', () => {
-    return props => <div {...props}>Country Component</div>;
+    return props => <mock-Country {...props} />;
 });
 
 jest.mock('../../../Region', () => {
-    return props => <div {...props}>Region Component</div>;
+    return props => <mock-Region {...props} />;
 });
 
 jest.mock('../../../Postcode', () => {

@@ -15,7 +15,7 @@ test('factory should render instance of content type', () => {
             children: []
         }
     };
-    const TestComponent = () => <div>Test Component</div>;
+    const TestComponent = () => <mock-TestComponent />;
     config.getContentTypeConfig = jest.fn().mockImplementation(contentType => {
         if (contentType === 'test') {
             return {
@@ -49,11 +49,9 @@ test('factory should render all children content types', () => {
         }
     };
     const ParentComponent = ({ children }) => (
-        <div>
-            Parent Component<div>{children}</div>
-        </div>
+        <mock-ParentComponent>{children}</mock-ParentComponent>
     );
-    const ChildComponent = () => <div>Child Component</div>;
+    const ChildComponent = () => <mock-ChildComponent />;
     config.getContentTypeConfig = jest.fn().mockImplementation(contentType => {
         if (contentType === 'parent') {
             return {
@@ -96,7 +94,7 @@ test('factory should not render hidden instance of a content type', () => {
             children: []
         }
     };
-    const TestComponent = () => <div>Test Component</div>;
+    const TestComponent = () => <mock-TestComponent />;
     config['contentTypesConfig'] = {
         test: {
             configAggregator: () => {

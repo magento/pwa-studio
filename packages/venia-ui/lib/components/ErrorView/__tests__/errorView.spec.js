@@ -6,9 +6,10 @@ import ErrorView from '../errorView';
 const renderer = new ShallowRenderer();
 
 test('it renders correct with a element', () => {
+    const ERROR_TEXT = 'Something went wrong. Please try again.';
     const tree = renderer.render(
         <ErrorView>
-            <h1>Something went wrong. Please try again.</h1>
+            <h1>{ERROR_TEXT}</h1>
         </ErrorView>
     );
 
