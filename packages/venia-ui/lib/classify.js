@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import getDisplayName from './util/getDisplayName';
 
-export const mergeClasses = (...args) => Object.assign({}, ...args);
+import mergeClasses from '@magento/peregrine/lib/util/shallowMerge';
 
 const classify = defaultClasses => WrappedComponent =>
     class extends Component {
@@ -20,5 +20,7 @@ const classify = defaultClasses => WrappedComponent =>
             return <WrappedComponent {...restProps} classes={finalClasses} />;
         }
     };
+
+export { mergeClasses };
 
 export default classify;
