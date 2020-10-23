@@ -1,7 +1,11 @@
 import { cacheNames } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { registerRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import {
+    CacheFirst,
+    NetworkOnly,
+    StaleWhileRevalidate
+} from 'workbox-strategies';
 import {
     isResizedCatalogImage,
     findSameOrLargerImage,
@@ -18,6 +22,25 @@ import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from './defaults';
  */
 export default function() {
     const catalogCacheHandler = createCatalogCacheHandler();
+
+    /**
+     * Never cache admin URL assets. Always go to the network.
+     *
+     * Will match URLs like:
+     * 1. venia.com/admin
+     * 2. venia.com/admin/admin
+     * 3. venia.com/backend/admin
+     * 4. venia.com/admin/store/settings
+     *
+     * Will not match URLs like:
+     * 1. venia.com/store_admin
+     * 2. venia.com/store/store_admin/settings
+     */
+    registerRoute(
+        ({ url }) =>
+            url.pathname.endsWith('/admin') || url.pathname.includes('/admin/'),
+        new NetworkOnly()
+    );
 
     registerRoute(
         new RegExp('(robots.txt|favicon.ico|manifest.json)'),

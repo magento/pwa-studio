@@ -1,7 +1,11 @@
 import { cacheNames } from 'workbox-core';
 import { registerRoute } from 'workbox-routing';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import {
+    CacheFirst,
+    NetworkOnly,
+    StaleWhileRevalidate
+} from 'workbox-strategies';
 
 import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from '../defaults';
 import registerRoutes from '../registerRoutes';
@@ -27,6 +31,7 @@ jest.mock('workbox-routing', () => {
 jest.mock('workbox-strategies', () => {
     return {
         CacheFirst: jest.fn(),
+        NetworkOnly: jest.fn(),
         StaleWhileRevalidate: jest.fn()
     };
 });
@@ -42,7 +47,29 @@ jest.mock('../Utilities/imageCacheHandler', () => {
 test("A total of 5 routes need to be registered using workbox's registerRoute API", () => {
     registerRoutes();
 
-    expect(registerRoute).toHaveBeenCalledTimes(5);
+    expect(registerRoute).toHaveBeenCalledTimes(6);
+
+    registerRoute.mockClear();
+});
+
+test('There should be a route for admin page with NetworkOnly strategy', () => {
+    registerRoutes();
+
+    /**
+     * This is a crude way to find the route by searching for
+     * content inside the function in the .toString() output, but I am
+     * out of options at this point.
+     *
+     * Obviously there might be a better way to do it just that I
+     * am not aware of it at this point. Feel free to change it.
+     */
+    const [registrationCall] = registerRoute.mock.calls.filter(
+        call =>
+            call[0].toString().includes(".endsWith('/admin')") &&
+            call[0].toString().includes(".includes('/admin/')")
+    );
+
+    expect(registrationCall[1]).toBeInstanceOf(NetworkOnly);
 
     registerRoute.mockClear();
 });
