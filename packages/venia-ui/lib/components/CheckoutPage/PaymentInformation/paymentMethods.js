@@ -6,15 +6,10 @@ import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/Pa
 
 import { mergeClasses } from '../../../classify';
 import Radio from '../../RadioGroup/radio';
-import CreditCard from './creditCard';
 import paymentMethodOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.css';
 
-const PAYMENT_METHOD_COMPONENTS_BY_CODE = {
-    braintree: CreditCard
-    // checkmo: CheckMo,
-    // etc
-};
+import payments from './paymentMethodByCode.js';
 
 const PaymentMethods = props => {
     const {
@@ -44,12 +39,12 @@ const PaymentMethods = props => {
 
     const radios = availablePaymentMethods.map(({ code, title }) => {
         // If we don't have an implementation for a method type, ignore it.
-        if (!Object.keys(PAYMENT_METHOD_COMPONENTS_BY_CODE).includes(code)) {
+        if (!Object.keys(payments).includes(code)) {
             return;
         }
 
         const isSelected = currentSelectedPaymentMethod === code;
-        const PaymentMethodComponent = PAYMENT_METHOD_COMPONENTS_BY_CODE[code];
+        const PaymentMethodComponent = payments[code];
         const renderedComponent = isSelected ? (
             <PaymentMethodComponent
                 onPaymentSuccess={onPaymentSuccess}

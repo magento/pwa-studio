@@ -4,6 +4,7 @@
 const { Targetables } = require('@magento/pwa-buildpack');
 const RichContentRendererList = require('./RichContentRendererList');
 const makeRoutesTarget = require('./makeRoutesTarget');
+const makePaymentTarget = require('./makePaymentTarget');
 
 module.exports = veniaTargets => {
     const venia = Targetables.using(veniaTargets);
@@ -18,6 +19,7 @@ module.exports = veniaTargets => {
     );
 
     makeRoutesTarget(venia);
+    makePaymentTarget(venia);
 
     const renderers = new RichContentRendererList(venia);
 

@@ -63,7 +63,21 @@ module.exports = targets => {
          *      return routesArray;
          *   })
          */
-        routes: new targets.types.AsyncSeriesWaterfall(['routes'])
+        routes: new targets.types.AsyncSeriesWaterfall(['routes']),
+
+        /**
+         * Provides access to Venia's payment methods
+         *
+         * This target lets you add new payment to your storefronts.
+         *
+         * @member {tapable.SyncHook}
+         *
+         * @example <caption>Add a custom payment method</caption>
+         * const veniaTargets = targets.of('@magento/venia-ui')
+         * const payments = veniaTargets.payments
+         * payments.add('paymentCode from "./creditCard"');
+         */
+        payments: new targets.types.Sync(['payments'])
     });
 };
 

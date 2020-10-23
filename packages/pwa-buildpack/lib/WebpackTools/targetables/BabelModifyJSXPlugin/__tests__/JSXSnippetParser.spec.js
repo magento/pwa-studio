@@ -11,7 +11,7 @@ test('normalizes JSX without brackets or closing elements', () => {
         ['wat', '<wat />'],
         ['  oh  no="crap"', '<oh  no="crap" />']
     ];
-    
+
     snippets.forEach(([input, output]) =>
         expect(parser.normalizeElement(input)).toBe(output || input)
     );
