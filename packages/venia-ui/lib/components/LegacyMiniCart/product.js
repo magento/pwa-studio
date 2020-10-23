@@ -14,6 +14,8 @@ import ProductOptions from './productOptions';
 import Section from './section';
 import { gql } from '@apollo/client';
 
+const QUANTITY_OPERATOR = '×';
+
 const PRODUCT_IMAGE_WIDTH = 80;
 
 const Product = props => {
@@ -68,7 +70,9 @@ const Product = props => {
             <div className={classes.quantity}>
                 <div className={classes.quantityRow}>
                     <span>{productQuantity}</span>
-                    <span className={classes.quantityOperator}>{'×'}</span>
+                    <span className={classes.quantityOperator}>
+                        {QUANTITY_OPERATOR}
+                    </span>
                     <span className={classes.price}>
                         <Price
                             currencyCode={currencyCode}

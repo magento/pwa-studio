@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -22,6 +23,7 @@ const EditForm = props => {
         handleChangePassword,
         shouldShowNewPassword
     } = props;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -29,7 +31,10 @@ const EditForm = props => {
         <div className={classes.newPassword}>
             <Password
                 fieldName="newPassword"
-                label="New Password"
+                label={formatMessage({
+                    id: 'global.newPassword',
+                    defaultMessage: 'New Password'
+                })}
                 validate={combine([
                     isRequired,
                     [hasLengthAtLeast, 8],
@@ -48,30 +53,56 @@ const EditForm = props => {
                 type="button"
                 onClick={handleChangePassword}
             >
-                {'Change Password'}
+                <FormattedMessage
+                    id={'global.changePassword'}
+                    defaultMessage={'Change Password'}
+                />
             </LinkButton>
         </div>
     ) : null;
 
     const passwordLabel = shouldShowNewPassword
-        ? 'Current Password'
-        : 'Password';
-
+        ? formatMessage({
+              id: 'global.currentPassword',
+              defaultMessage: 'Current Password'
+          })
+        : formatMessage({
+              id: 'global.password',
+              defaultMessage: 'Password'
+          });
     return (
         <Fragment>
             <div className={classes.root}>
                 <div className={classes.firstname}>
-                    <Field id="firstname" label="First Name">
+                    <Field
+                        id="firstname"
+                        label={formatMessage({
+                            id: 'global.firstName',
+                            defaultMessage: 'First Name'
+                        })}
+                    >
                         <TextInput field="firstname" validate={isRequired} />
                     </Field>
                 </div>
                 <div className={classes.lastname}>
-                    <Field id="lastname" label="Last Name">
+                    <Field
+                        id="lastname"
+                        label={formatMessage({
+                            id: 'global.lastName',
+                            defaultMessage: 'Last Name'
+                        })}
+                    >
                         <TextInput field="lastname" validate={isRequired} />
                     </Field>
                 </div>
                 <div className={classes.email}>
-                    <Field id="email" label="Email">
+                    <Field
+                        id="email"
+                        label={formatMessage({
+                            id: 'global.email',
+                            defaultMessage: 'Email'
+                        })}
+                    >
                         <TextInput field="email" validate={isRequired} />
                     </Field>
                 </div>

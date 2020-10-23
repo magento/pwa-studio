@@ -50,7 +50,7 @@ test('render slider overrides banner classes prop', () => {
     const mockSlideProps = {
         data: {}
     };
-    const MockSlide = () => <div>Mock Slide</div>;
+    const MockSlide = () => <mock-Slide />;
     const component = createTestInstance(
         <Slider>
             <MockSlide {...mockSlideProps} />
