@@ -84,7 +84,7 @@ module.exports = targets => {
          *      return paymentsArray;
          *   })
          */
-        payments: new targets.types.AsyncSeriesWaterfall(['payments'])
+        payments: new targets.types.Sync(['payments'])
     });
 };
 
