@@ -1,4 +1,4 @@
-# Release 8.0.0
+# Release  8.0.0
 
 **NOTE:**
 _This changelog only contains release notes for PWA Studio 8.0.0._
