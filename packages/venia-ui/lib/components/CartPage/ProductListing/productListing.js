@@ -63,6 +63,7 @@ const ProductListing = props => {
                 <EditModal
                     item={activeEditItem}
                     setIsCartUpdating={setIsCartUpdating}
+                    setActiveEditItem={setActiveEditItem}
                 />
             </Fragment>
         );

@@ -1,7 +1,6 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
-import { useAppContext } from '../../../../context/app';
 import { useCartContext } from '../../../../context/cart';
 import { findMatchingVariant } from '../../../../util/findMatchingProductVariant';
 
@@ -23,6 +22,7 @@ import { findMatchingVariant } from '../../../../util/findMatchingProductVariant
  * @param {function} props.setVariantPrice Function for setting the variant price on a product.
  * @param {GraphQLAST} props.updateConfigurableOptionsMutation GraphQL mutation for updating the configurable options for a product.
  * @param {GraphQLAST} props.updateQuantityMutation GraphQL mutation for updating the quantity of a product in a cart.
+ * @param {function} props.setActiveEditItem Function for setting the actively editing item.
  *
  * @return {ProductFormTalonProps}
  *
@@ -36,13 +36,30 @@ export const useProductForm = props => {
         setIsCartUpdating,
         setVariantPrice,
         updateConfigurableOptionsMutation,
-        updateQuantityMutation
+        updateQuantityMutation,
+        setActiveEditItem
     } = props;
 
-    const [, { closeDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
 
     const [optionSelections, setOptionSelections] = useState(new Map());
+
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const TRANSITION_DURATION = 300;
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsDialogOpen(true);
+        }, TRANSITION_DURATION);
+    }, []);
+
+    const handleClose = useCallback(() => {
+        setIsDialogOpen(false);
+
+        setTimeout(() => {
+            setActiveEditItem(null);
+        }, TRANSITION_DURATION);
+    }, [setActiveEditItem]);
 
     const [
         updateItemQuantity,
@@ -165,17 +182,17 @@ export const useProductForm = props => {
                 return;
             }
 
-            closeDrawer();
+            handleClose();
         },
         [
             cartId,
             cartItem.id,
             cartItem.product.sku,
             cartItem.quantity,
-            closeDrawer,
             selectedVariant,
             updateConfigurableOptions,
-            updateItemQuantity
+            updateItemQuantity,
+            handleClose
         ]
     );
 
@@ -194,7 +211,9 @@ export const useProductForm = props => {
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,
-        isSaving
+        isSaving,
+        isDialogOpen,
+        handleClose
     };
 };
 
@@ -212,4 +231,6 @@ export const useProductForm = props => {
  * @property {function} handleSubmit A callback function for handling form submission
  * @property {boolean} isLoading True if the form is loading data. False otherwise.
  * @property {boolean} isSaving True if the form is saving data. False otherwise.
+ * @property {boolean} isDialogOpen True if the form is visible. False otherwise.
+ * @property {function} handleClose A callback function for handling form closing
  */
