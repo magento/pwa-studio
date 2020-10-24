@@ -13,14 +13,15 @@ class PaymentMethodList {
     constructor(venia) {
         const registry = this;
         this._methods = venia.esModuleObject({
-            module: '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
+            module:
+                '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
             publish(targets) {
                 targets.payments.call(registry);
             }
         });
     }
 
-    add({paymentCode, importPath}) {
+    add({ paymentCode, importPath }) {
         this._methods.add(`import ${paymentCode} from '${importPath}'`);
     }
 }

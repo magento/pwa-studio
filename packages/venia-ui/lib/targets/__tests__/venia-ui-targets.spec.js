@@ -4,7 +4,7 @@ const {
     mockBuildBus,
     buildModuleWith
 } = require('@magento/pwa-buildpack/lib/TestHelpers');
-const {createTestInstance} = require('@magento/peregrine');
+const { createTestInstance } = require('@magento/peregrine');
 const declare = require('../venia-ui-declare');
 const intercept = require('../venia-ui-intercept');
 
@@ -35,7 +35,7 @@ test('declares targets richContentRenderers and routes', async () => {
         dependencies: [thisDep]
     });
     bus.runPhase('declare');
-    const {richContentRenderers, routes} = bus.getTargetsOf(
+    const { richContentRenderers, routes } = bus.getTargetsOf(
         '@magento/venia-ui'
     );
     expect(richContentRenderers.tap).toBeDefined();
@@ -48,10 +48,9 @@ test('declares targets richContentRenderers and routes', async () => {
 
     const divByThree = jest.fn(x => x / 3);
     routes.tap('addTwo', x => x + 2);
-    routes.tap({name: 'divideByThree', fn: divByThree});
+    routes.tap({ name: 'divideByThree', fn: divByThree });
     expect(await routes.promise(10)).toBe(4);
 });
-
 
 test('uses RichContentRenderers to inject a default strategy into RichContent', async () => {
     jest.setTimeout(15000);
@@ -62,7 +61,7 @@ test('uses RichContentRenderers to inject a default strategy into RichContent', 
 
     const RichContent = built.run();
 
-    const wrapper = createTestInstance(<RichContent html="<h1>word up</h1>"/>);
+    const wrapper = createTestInstance(<RichContent html="<h1>word up</h1>" />);
     expect(
         wrapper.root.find(c => c.type.name === 'PlainHtmlRenderer')
     ).toBeTruthy();
@@ -101,26 +100,26 @@ test('declares payments target', async () => {
         dependencies: [thisDep]
     });
     bus.runPhase('declare');
-    const {payments} = bus.getTargetsOf(
-        '@magento/venia-ui'
-    );
+    const { payments } = bus.getTargetsOf('@magento/venia-ui');
 
     const interceptor = jest.fn();
     // no implementation testing in declare phase
     payments.tap('test', interceptor);
     payments.call('woah');
     expect(interceptor).toHaveBeenCalledWith('woah');
-})
+});
 
 test('uses RichContentRenderers to default strategy Payment Methode', async () => {
-        jest.setTimeout(15000);
+    jest.setTimeout(15000);
 
-        const built = await buildModuleWith('../../components/CheckoutPage/PaymentInformation/paymentMethodCollection.js', {
+    const built = await buildModuleWith(
+        '../../components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
+        {
             context: __dirname,
             dependencies: ['@magento/peregrine', thisDep]
-        });
+        }
+    );
 
-        const payments = built.run();
-        expect(payments).toHaveProperty('braintree');
-    }
-);
+    const payments = built.run();
+    expect(payments).toHaveProperty('braintree');
+});

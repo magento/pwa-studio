@@ -1,7 +1,7 @@
 /**
  * @module VeniaUI/Targets
  */
-const {Targetables} = require('@magento/pwa-buildpack');
+const { Targetables } = require('@magento/pwa-buildpack');
 const RichContentRendererList = require('./RichContentRendererList');
 const makeRoutesTarget = require('./makeRoutesTarget');
 const PaymentMethodList = require('./PaymentMethodList');
@@ -31,6 +31,5 @@ module.exports = veniaTargets => {
     paymentMethodList.add({
         paymentCode: 'braintree',
         importPath: './creditCard'
-    })
-
+    });
 };
