@@ -3,6 +3,9 @@
 exports[`authModal is rendered when hasModal is true 1`] = `
 <aside
   className="root"
+  onKeyDown={[Function]}
+  onTransitionEnd={[Function]}
+  tabIndex={-1}
 >
   <header
     className="header"
@@ -11,6 +14,11 @@ exports[`authModal is rendered when hasModal is true 1`] = `
   </header>
   <div
     className="body_masked"
+    style={
+      Object {
+        "display": "block",
+      }
+    }
   >
     <i />
   </div>
@@ -36,6 +44,9 @@ exports[`authModal is rendered when hasModal is true 1`] = `
 exports[`renders correctly when closed 1`] = `
 <aside
   className="root"
+  onKeyDown={[Function]}
+  onTransitionEnd={[Function]}
+  tabIndex={-1}
 >
   <header
     className="header"
@@ -44,6 +55,11 @@ exports[`renders correctly when closed 1`] = `
   </header>
   <div
     className="body"
+    style={
+      Object {
+        "display": "block",
+      }
+    }
   >
     <i />
   </div>
@@ -67,6 +83,9 @@ exports[`renders correctly when closed 1`] = `
 exports[`renders correctly when open 1`] = `
 <aside
   className="root_open"
+  onKeyDown={[Function]}
+  onTransitionEnd={[Function]}
+  tabIndex={-1}
 >
   <header
     className="header"
@@ -75,6 +94,11 @@ exports[`renders correctly when open 1`] = `
   </header>
   <div
     className="body"
+    style={
+      Object {
+        "display": "block",
+      }
+    }
   >
     <i />
   </div>
