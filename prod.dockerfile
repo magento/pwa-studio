@@ -1,4 +1,5 @@
 FROM node:12.16.3-alpine as build
+COPY .ebextensions ./.ebextensions
 # working directory
 WORKDIR /usr/src/app
 
@@ -32,13 +33,14 @@ RUN yarn run build
 
 # MULTI-STAGE BUILD
 FROM node:12.16.3-alpine
+COPY .ebextensions ./.ebextensions
 # working directory
 WORKDIR /usr/src/app
 # node:alpine comes with a configured user and group
 RUN chown -R node:node /usr/src/app
 # copy build from previous stage
 COPY --from=build /usr/src/app .
-USER node
+USER root
 EXPOSE 8080
 ENV NODE_ENV=production
 # command to run application
