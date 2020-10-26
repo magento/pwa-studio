@@ -362,6 +362,8 @@ function localIntercept(targets) {
             '<span>Cumulative select worrrrrked</span>'
         );
 }
+
+module.exports = localIntercept;
 ```
 
 This should mess up the Venia homepage real bad, demonstrating some of the power of Targetables.
