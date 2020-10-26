@@ -16,7 +16,16 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
       className="price"
     >
       <span>
-        $3.5
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
       </span>
     </span>
     <span
@@ -28,7 +37,16 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
       className="totalPrice"
     >
       <span>
-        $8.5
+        $
+      </span>
+      <span>
+        8
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
       </span>
     </span>
   </div>
@@ -66,7 +84,16 @@ exports[`renders PriceSummary correctly on checkout page 1`] = `
       className="price"
     >
       <span>
-        $3.5
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
       </span>
     </span>
     <span
@@ -78,7 +105,16 @@ exports[`renders PriceSummary correctly on checkout page 1`] = `
       className="totalPrice"
     >
       <span>
-        $8.5
+        $
+      </span>
+      <span>
+        8
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
       </span>
     </span>
   </div>
@@ -115,7 +151,16 @@ exports[`renders summary with loading state if query is loading 1`] = `
       className="priceUpdating"
     >
       <span>
-        $3.5
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
       </span>
     </span>
     <span
@@ -127,7 +172,16 @@ exports[`renders summary with loading state if query is loading 1`] = `
       className="priceUpdating"
     >
       <span>
-        $8.5
+        $
+      </span>
+      <span>
+        8
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
       </span>
     </span>
   </div>

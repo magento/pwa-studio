@@ -19,11 +19,15 @@ const getMediaUrl = requireGraphQL('../queries/getStoreMediaUrl.graphql');
 const getStoreConfigData = requireGraphQL(
     '../queries/getStoreConfigData.graphql'
 );
+const getAvailableStoresConfigData = requireGraphQL(
+    '../queries/getAvailableStoresConfigData.graphql'
+);
 const getSchemaTypes = requireGraphQL('../queries/getSchemaTypes.graphql');
 
 // Export the queries for use by the rest of buildpack.
 module.exports = {
     getMediaUrl,
     getStoreConfigData,
+    getAvailableStoresConfigData,
     getSchemaTypes
 };

@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { func, number, shape, string } from 'prop-types';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { mergeClasses } from '../../classify';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 

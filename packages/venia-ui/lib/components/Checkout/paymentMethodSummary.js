@@ -5,11 +5,8 @@ const PaymentMethodSummary = props => {
     const { classes, hasPaymentMethod, paymentData } = props;
 
     if (!hasPaymentMethod) {
-        return (
-            <span className={classes.informationPrompt}>
-                Add Billing Information
-            </span>
-        );
+        const promptText = 'Add Billing Information';
+        return <span className={classes.informationPrompt}>{promptText}</span>;
     }
 
     let primaryDisplay = '';

@@ -144,7 +144,17 @@ const testReactComponents = inPackage => ({
             SwatchLayerFilterItemInterface: ['SwatchLayerFilterItem']
         },
         STORE_NAME: 'Venia',
-        STORE_VIEW_CODE: 'default'
+        STORE_VIEW_CODE: 'default',
+        AVAILABLE_STORE_VIEWS: [
+            {
+                base_currency_code: 'USD',
+                code: 'default',
+                default_display_currency_code: 'USD',
+                id: 1,
+                locale: 'en_US',
+                store_name: 'Default Store View'
+            }
+        ]
     }
 });
 

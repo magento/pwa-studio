@@ -4,14 +4,6 @@ import { useOrderRow } from '@magento/peregrine/lib/talons/OrderHistoryPage/useO
 
 import OrderRow from '../orderRow';
 
-jest.mock('@magento/peregrine', () => {
-    const Price = props => <span>{`$${props.value}`}</span>;
-
-    return {
-        ...jest.requireActual('@magento/peregrine'),
-        Price
-    };
-});
 jest.mock('@magento/peregrine/lib/talons/OrderHistoryPage/useOrderRow');
 
 jest.mock('../../../classify');

@@ -10,10 +10,9 @@ import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
 import { ShippingInformationFragment } from '../../../CheckoutPage/ShippingInformation/shippingInformationFragments.gql';
 import Country from '../../../Country';
-import Field from '../../../Field';
 import FormError from '../../../FormError';
 import Region from '../../../Region';
-import TextInput from '../../../TextInput';
+import Postcode from '../../../Postcode';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import defaultClasses from './shippingForm.css';
 import { GET_SHIPPING_METHODS } from './shippingMethods.gql';
@@ -67,22 +66,11 @@ const ShippingForm = props => {
             >
                 <Country validate={isRequired} />
                 <Region validate={isRequired} />
-                <Field
-                    id="zip"
-                    label={formatMessage({
-                        id: 'shippingForm.zip',
-                        defaultMessage: 'ZIP'
-                    })}
-                    classes={{
-                        root: classes.zip
-                    }}
-                >
-                    <TextInput
-                        field="zip"
-                        validate={isRequired}
-                        onValueChange={handleZipChange}
-                    />
-                </Field>
+                <Postcode
+                    fieldInput="zip"
+                    validate={isRequired}
+                    onValueChange={handleZipChange}
+                />
                 {!hasMethods ? (
                     <Button
                         classes={{

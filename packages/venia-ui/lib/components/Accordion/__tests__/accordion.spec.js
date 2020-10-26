@@ -7,11 +7,12 @@ import Section from '../section';
 jest.mock('../../../classify');
 
 test('it renders a closed Section correctly', () => {
+    const child = 'This section is closed. Its className should match.';
     // Act.
     const instance = createTestInstance(
         <Accordion>
             <Section title="The Section Title is always visible">
-                This section is closed. Its className should match.
+                {child}
             </Section>
         </Accordion>
     );
@@ -21,11 +22,12 @@ test('it renders a closed Section correctly', () => {
 });
 
 test('it renders an open Section correctly', () => {
+    const child = 'This section is open. Its className should match.';
     // Act.
     const instance = createTestInstance(
         <Accordion>
             <Section title="The Section Title is always visible" isOpen={true}>
-                This section is open. Its className should match.
+                {child}
             </Section>
         </Accordion>
     );
