@@ -3,6 +3,7 @@
 }
 
 .confirmButton {
+    composes: confirmButton from '../Dialog/dialog.css';
     composes: root_highPriorityNegative from '../Button/button.css';
 }
 
