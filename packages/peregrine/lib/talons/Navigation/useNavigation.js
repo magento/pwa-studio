@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import mergeOperations from '../../util/shallowMerge';
 import { useAppContext } from '../../context/app';
 import { useCatalogContext } from '../../context/catalog';
 import { useUserContext } from '../../context/user';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
+
 import DEFAULT_OPERATIONS from './navigation.gql';
 
 const ancestors = {
@@ -15,7 +17,7 @@ const ancestors = {
 };
 
 export const useNavigation = (props = {}) => {
-    const { operations = DEFAULT_OPERATIONS } = props;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerQuery } = operations;
     // retrieve app state from context
     const [appState, { closeDrawer }] = useAppContext();

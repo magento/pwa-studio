@@ -1,7 +1,9 @@
 import { useEffect, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
+import mergeOperations from '../../util/shallowMerge';
 import { useAppContext } from '../../context/app';
+
 import DEFAULT_OPERATIONS from './cmsPage.gql';
 
 /**
@@ -14,7 +16,9 @@ import DEFAULT_OPERATIONS from './cmsPage.gql';
  * @returns {{shouldShowLoadingIndicator: *, hasContent: *, cmsPage: *, error: *}}
  */
 export const useCmsPage = props => {
-    const { id, operations = DEFAULT_OPERATIONS } = props;
+    const { id } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCMSPageQuery } = operations;
 
     const { loading, error, data } = useQuery(getCMSPageQuery, {

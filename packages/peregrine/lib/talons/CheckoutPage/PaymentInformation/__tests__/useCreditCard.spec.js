@@ -27,7 +27,7 @@ const billingAddress = {
     street: ['45678 blvd', 'suite 300'],
     city: 'Austin',
     region: { code: 'TX' },
-    postalCode: '78945',
+    postcode: '78945',
     phoneNumber: '1234567891'
 };
 const shippingAddress = {
@@ -39,7 +39,7 @@ const shippingAddress = {
     street: ['12345 ln', 'apt 123'],
     city: 'London',
     region: { code: 'TX' },
-    postalCode: '13245',
+    postcode: '13245',
     phoneNumber: '7894561231'
 };
 const shippingAddressQueryResult = {
@@ -143,7 +143,7 @@ jest.mock('informed', () => ({
             street2: '',
             city: '',
             state: '',
-            postalCode: '',
+            postcode: '',
             phoneNumber: ''
         },
         errors: {}
@@ -313,7 +313,7 @@ test('Should return isBillingAddress and billingAddress from cache as initialVal
         street: ['test', 'test'],
         city: 'test',
         region: { code: 'test' },
-        postalCode: 'test',
+        postcode: 'test',
         phoneNumber: 'test'
     };
     getBillingAddress.mockReturnValueOnce({
@@ -356,7 +356,7 @@ test('Should set billingAddress to {} if isBillingAddress is true in initialValu
         street: ['test', 'test'],
         city: 'test',
         region: { code: 'test' },
-        postalCode: 'test',
+        postcode: 'test',
         phoneNumber: 'test'
     };
     getBillingAddress.mockReturnValueOnce({
@@ -412,7 +412,7 @@ describe('Testing payment nonce request workflow', () => {
             street2: 'test value',
             city: 'test value',
             region: 'test value',
-            postalCode: 'test value',
+            postcode: 'test value',
             phoneNumber: 'test value'
         };
         useFormState
@@ -460,7 +460,7 @@ describe('Testing payment nonce request workflow', () => {
             street: ['test value', 'test value'],
             city: 'test value',
             region: { code: 'test value' },
-            postalCode: 'test value',
+            postcode: 'test value',
             phoneNumber: 'test value'
         };
         getShippingAddress.mockReturnValueOnce({
