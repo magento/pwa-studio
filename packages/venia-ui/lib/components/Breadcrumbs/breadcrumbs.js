@@ -1,4 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { number, string } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
@@ -6,6 +7,7 @@ import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBre
 import { mergeClasses } from '../../classify';
 import defaultClasses from './breadcrumbs.css';
 
+const DELIMITER = '/';
 /**
  * Breadcrumbs! Generates a sorted display of category links.
  *
@@ -32,7 +34,7 @@ const Breadcrumbs = props => {
         return normalizedData.map(({ text, path }) => {
             return (
                 <Fragment key={text}>
-                    <span className={classes.divider}>/</span>
+                    <span className={classes.divider}>{DELIMITER}</span>
                     <Link className={classes.link} to={resourceUrl(path)}>
                         {text}
                     </Link>
@@ -60,7 +62,7 @@ const Breadcrumbs = props => {
 
     const currentProductNode = currentProduct ? (
         <Fragment>
-            <span className={classes.divider}>/</span>
+            <span className={classes.divider}>{DELIMITER}</span>
             <span className={classes.text}>{currentProduct}</span>
         </Fragment>
     ) : null;
@@ -68,10 +70,10 @@ const Breadcrumbs = props => {
     return (
         <div className={classes.root}>
             <Link className={classes.link} to="/">
-                {'Home'}
+                <FormattedMessage id={'global.home'} defaultMessage={'Home'} />
             </Link>
             {links}
-            <span className={classes.divider}>/</span>
+            <span className={classes.divider}>{DELIMITER}</span>
             {currentCategoryLink}
             {currentProductNode}
         </div>

@@ -89,7 +89,18 @@ exports[`renders correctly with valid item data 1`] = `
   <div
     className="price"
   >
-    <div />
+    <span>
+      $
+    </span>
+    <span>
+      21
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
   </div>
 </div>
 `;

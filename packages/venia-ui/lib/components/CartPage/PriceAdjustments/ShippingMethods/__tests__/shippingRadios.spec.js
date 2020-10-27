@@ -9,7 +9,7 @@ const shippingMethods = [
         carrier_code: 'usps',
         method_code: 'priority',
         amount: {
-            current: 'USD',
+            currency: 'USD',
             value: 0.0
         },
         method_title: 'USPS Priority Mail'
@@ -18,7 +18,7 @@ const shippingMethods = [
         carrier_code: 'fedex',
         method_code: 'nextday',
         amount: {
-            current: 'USD',
+            currency: 'USD',
             value: 345.67
         },
         method_title: 'FedEx Next Day Delivery'
@@ -40,15 +40,6 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     const useCartContext = jest.fn(() => [state, api]);
 
     return { useCartContext };
-});
-
-jest.mock('@magento/peregrine', () => {
-    const Price = props => <span>{`$${props.value}`}</span>;
-
-    return {
-        ...jest.requireActual('@magento/peregrine'),
-        Price
-    };
 });
 
 test('renders list of shipping methods', () => {

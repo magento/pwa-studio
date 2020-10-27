@@ -5,7 +5,8 @@ const {
     getMediaURL,
     getStoreConfigData,
     getSchemaTypes,
-    getUnionAndInterfaceTypes
+    getUnionAndInterfaceTypes,
+    getAvailableStoresConfigData
 } = require('../graphQL');
 
 beforeEach(() => {
@@ -314,5 +315,48 @@ describe('getUnionAndInterfaceTypes', () => {
 
         // Test & Assert.
         await expect(getUnionAndInterfaceTypes()).rejects.toThrowError();
+    });
+});
+
+describe('getAvailableStoresConfigData', () => {
+    test('should return an array of stores', async () => {
+        // Setup: mock fetch returning the successfully.
+        fetch.mockReturnValueOnce(
+            Promise.resolve({
+                json: () => ({
+                    data: [
+                        {
+                            base_currency_code: 'USD',
+                            code: 'default',
+                            default_display_currency_code: 'USD',
+                            id: 1,
+                            locale: 'en_US',
+                            store_name: 'Default Store View'
+                        }
+                    ]
+                })
+            })
+        );
+
+        // Test.
+        const result = await getAvailableStoresConfigData();
+
+        expect(result.length).toEqual(1);
+        expect(result[0]).toEqual({
+            base_currency_code: 'USD',
+            code: 'default',
+            default_display_currency_code: 'USD',
+            id: 1,
+            locale: 'en_US',
+            store_name: 'Default Store View'
+        });
+    });
+
+    test('it should reject when an error occurs', async () => {
+        // Setup: mock fetch returning the successfully.
+        fetch.mockResolvedValueOnce('Error!');
+
+        // Test & Assert.
+        await expect(getAvailableStoresConfigData()).rejects.toThrowError();
     });
 });

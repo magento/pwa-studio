@@ -132,7 +132,7 @@ Array [
         className="label"
         htmlFor="zip"
       >
-        ZIP
+        ZIP / Postal Code
       </label>
       <span
         className="root"
@@ -326,7 +326,7 @@ Array [
         className="label"
         htmlFor="zip"
       >
-        ZIP
+        ZIP / Postal Code
       </label>
       <span
         className="root"
@@ -563,7 +563,7 @@ Array [
         className="label"
         htmlFor="zip"
       >
-        ZIP
+        ZIP / Postal Code
       </label>
       <span
         className="root"
@@ -800,7 +800,7 @@ Array [
         className="label"
         htmlFor="zip"
       >
-        ZIP
+        ZIP / Postal Code
       </label>
       <span
         className="root"
@@ -1026,7 +1026,7 @@ Array [
         className="label"
         htmlFor="zip"
       >
-        ZIP
+        ZIP / Postal Code
       </label>
       <span
         className="root"

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
 
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { useProduct } from '@magento/peregrine/lib/talons/LegacyMiniCart/useProduct';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
@@ -13,6 +13,8 @@ import defaultClasses from './product.css';
 import ProductOptions from './productOptions';
 import Section from './section';
 import { gql } from '@apollo/client';
+
+const QUANTITY_OPERATOR = '×';
 
 const PRODUCT_IMAGE_WIDTH = 80;
 
@@ -68,7 +70,9 @@ const Product = props => {
             <div className={classes.quantity}>
                 <div className={classes.quantityRow}>
                     <span>{productQuantity}</span>
-                    <span className={classes.quantityOperator}>{'×'}</span>
+                    <span className={classes.quantityOperator}>
+                        {QUANTITY_OPERATOR}
+                    </span>
                     <span className={classes.price}>
                         <Price
                             currencyCode={currencyCode}

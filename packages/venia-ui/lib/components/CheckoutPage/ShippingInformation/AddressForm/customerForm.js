@@ -12,6 +12,7 @@ import Country from '../../../Country';
 import Field, { Message } from '../../../Field';
 import FormError from '../../../FormError';
 import Region from '../../../Region';
+import Postcode from '../../../Postcode';
 import TextInput from '../../../TextInput';
 import defaultClasses from './customerForm.css';
 import CustomerFormOperations from './customerForm.gql';
@@ -224,19 +225,7 @@ const CustomerForm = props => {
                     />
                 </div>
                 <div className={classes.postcode}>
-                    <Field
-                        id="postcode"
-                        label={formatMessage({
-                            id: 'global.postcode',
-                            defaultMessage: 'ZIP / Postal Code'
-                        })}
-                    >
-                        <TextInput
-                            field="postcode"
-                            validate={isRequired}
-                            id="postcode"
-                        />
-                    </Field>
+                    <Postcode validate={isRequired} />
                 </div>
                 <div className={classes.telephone}>
                     <Field

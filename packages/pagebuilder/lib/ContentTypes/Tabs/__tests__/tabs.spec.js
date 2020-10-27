@@ -46,9 +46,11 @@ test('render configured tab', () => {
         paddingLeft: '10px',
         cssClasses: ['test-class']
     };
+
+    const CONTENT = 'Tab 1 content';
     const component = createTestInstance(
         <Tabs {...tabProps}>
-            <div>Tab 1 content</div>
+            <div>{CONTENT}</div>
         </Tabs>
     );
 
@@ -84,9 +86,10 @@ test('render tab and check mouse down modifies state', () => {
     ul.style.width = '500px';
     wrapper.append(ul);
 
+    const CONTENT = 'Tab 1 content';
     const component = createTestInstance(
         <Tabs {...tabProps}>
-            <div>Tab 1 content</div>
+            <div>{CONTENT}</div>
         </Tabs>,
         {
             createNodeMock: () => {

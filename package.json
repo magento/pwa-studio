@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-studio",
-  "version": "8.0.0-rc.1",
+  "version": "8.0.0",
   "private": true,
   "workspaces": [
     "packages/babel-preset-peregrine",
@@ -13,7 +13,6 @@
     "packages/upward-js",
     "packages/upward-spec",
     "packages/venia-concept",
-    "packages/venia-styleguide",
     "packages/venia-ui"
   ],
   "author": "Magento Commerce",
@@ -62,7 +61,7 @@
     "eslint-plugin-jsx-a11y": "~6.2.1",
     "eslint-plugin-node": "~8.0.1",
     "eslint-plugin-package-json": "~0.1.4",
-    "eslint-plugin-react": "~7.12.4",
+    "eslint-plugin-react": "~7.21.5",
     "eslint-plugin-react-hooks": "~2.0.1",
     "execa": "~1.0.0",
     "figures": "~2.0.0",
