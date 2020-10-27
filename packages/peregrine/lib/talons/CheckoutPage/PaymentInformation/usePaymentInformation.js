@@ -16,15 +16,7 @@ import { CHECKOUT_STEP } from '../useCheckoutPage';
  * @param {DocumentNode} props.mutation.setBillingAddressMutation
  * @param {DocumentNode} props.mutation.setFreePaymentMethodMutation
  *
- * @returns {
- *   doneEditing: Boolean,
- *   showEditModal: Function,
- *   hideEditModal: Function,
- *   handlePaymentError: Function,
- *   handlePaymentSuccess: Function,
- *   checkoutStep: Number,
- *   isUpdateMode: Boolean
- * }
+ * @returns {PaymentInformationTalonProps}
  */
 export const usePaymentInformation = props => {
     const {
@@ -47,7 +39,7 @@ export const usePaymentInformation = props => {
      */
 
     const [doneEditing, setDoneEditing] = useState(false);
-    const [isUpdateMode, setIsUpdateMode] = useState(false);
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [{ cartId }] = useCartContext();
     const client = useApolloClient();
 
@@ -56,12 +48,12 @@ export const usePaymentInformation = props => {
      */
 
     const showEditModal = useCallback(() => {
-        setIsUpdateMode(true);
-    }, [setIsUpdateMode]);
+        setIsEditDialogOpen(true);
+    }, []);
 
     const hideEditModal = useCallback(() => {
-        setIsUpdateMode(false);
-    }, [setIsUpdateMode]);
+        setIsEditDialogOpen(false);
+    }, [setIsEditDialogOpen]);
 
     const handlePaymentSuccess = useCallback(() => {
         setDoneEditing(true);
@@ -248,11 +240,25 @@ export const usePaymentInformation = props => {
 
     return {
         doneEditing,
-        isLoading,
         handlePaymentError,
         handlePaymentSuccess,
         hideEditModal,
-        showEditModal,
-        isUpdateMode
+        isEditDialogOpen,
+        isLoading,
+        showEditModal
     };
 };
+
+/**
+ * Props data to use when rendering a cart page component.
+ *
+ * @typedef {Object} PaymentInformationTalonProps
+ *
+ * @property {boolean} doneEditing
+ * @property {function} handlePaymentError
+ * @property {function} handlePaymentSuccess
+ * @property {function} hideEditModal
+ * @property {boolean} isEditDialogOpen
+ * @property {boolean} isLoading
+ * @property {function} showEditModal
+ */

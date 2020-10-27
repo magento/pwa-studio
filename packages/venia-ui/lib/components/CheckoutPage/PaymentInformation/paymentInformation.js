@@ -43,8 +43,8 @@ const PaymentInformation = props => {
         handlePaymentSuccess,
         hideEditModal,
         isLoading,
-        showEditModal,
-        isUpdateMode
+        isEditDialogOpen,
+        showEditModal
     } = talonProps;
 
     if (isLoading) {
@@ -71,10 +71,9 @@ const PaymentInformation = props => {
         </Form>
     );
 
-    const editModal =
-        doneEditing && isUpdateMode ? (
-            <EditModal onClose={hideEditModal} isOpen={isUpdateMode} />
-        ) : null;
+    const editModal = doneEditing ? (
+        <EditModal onClose={hideEditModal} isOpen={isEditDialogOpen} />
+    ) : null;
 
     return (
         <div className={classes.root}>

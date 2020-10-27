@@ -2,41 +2,68 @@
 
 exports[`Should return correct shape 1`] = `
 <aside
-  className="root_open"
+  className="root"
 >
-  <div
-    className="header"
+  <form
+    className="form"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
   >
-    <span
-      className="header_text"
-    >
-      Edit Payment Information
-    </span>
     <button
-      className="close_button"
+      className="mask"
+      disabled={false}
       onClick={[Function]}
-    >
-      <div>
-        Icon Component
-      </div>
-    </button>
-  </div>
-  <div
-    className="body"
-  >
-    <div>
-      Credit Card Payment Method
-    </div>
+      type="reset"
+    />
     <div
-      className="actions_container"
+      className="dialog"
     >
-      <div>
-        Button Component
+      <div
+        className="header"
+      >
+        <span
+          className="headerText"
+        >
+          Edit Payment Information
+        </span>
+        <button
+          className="headerButton"
+          disabled={false}
+          onClick={[Function]}
+          type="reset"
+        >
+          <div>
+            Icon Component
+          </div>
+        </button>
       </div>
-      <div>
-        Button Component
+      <div
+        className="body"
+      >
+        <div
+          className="contents"
+        >
+          <div
+            className="body"
+          >
+            <div>
+              Credit Card Payment Method
+            </div>
+          </div>
+        </div>
+        <div
+          className="buttons"
+        >
+          <div>
+            Button Component
+          </div>
+          <div>
+            Button Component
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </aside>
 `;

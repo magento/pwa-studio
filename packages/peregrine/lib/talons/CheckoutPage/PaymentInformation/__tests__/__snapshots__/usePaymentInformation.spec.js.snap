@@ -6,8 +6,8 @@ Object {
   "handlePaymentError": [Function],
   "handlePaymentSuccess": [Function],
   "hideEditModal": [Function],
+  "isEditDialogOpen": false,
   "isLoading": false,
-  "isUpdateMode": false,
   "showEditModal": [Function],
 }
 `;

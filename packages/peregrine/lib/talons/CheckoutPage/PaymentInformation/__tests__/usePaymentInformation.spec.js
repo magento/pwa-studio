@@ -110,22 +110,23 @@ test('Should return correct shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-/* test('hideEditModal should call to close dialog', () => {
+test('hideEditModal should call to close dialog', () => {
     const { talonProps } = getTalonProps({ ...defaultTalonProps });
 
     talonProps.hideEditModal();
 
-    expect(talonProps.isUpdateMode).toBeFalsy();
+    expect(talonProps.isEditDialogOpen).toBeFalsy();
 });
 
 test('showEditModal should call to open dialog', () => {
-
-    const { talonProps } = getTalonProps({ ...defaultTalonProps });
+    const { talonProps, update } = getTalonProps({ ...defaultTalonProps });
 
     talonProps.showEditModal();
 
-    expect(talonProps.isUpdateMode).toBeTruthy();
-}); */
+    const { talonProps: newTalonProps } = update({});
+
+    expect(newTalonProps.isEditDialogOpen).toBeTruthy();
+});
 
 test('resets to payment step when selected method is not available', () => {
     useQuery.mockReturnValueOnce({
