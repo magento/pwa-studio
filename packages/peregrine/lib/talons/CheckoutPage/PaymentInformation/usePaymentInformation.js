@@ -39,7 +39,7 @@ export const usePaymentInformation = props => {
      */
 
     const [doneEditing, setDoneEditing] = useState(false);
-    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+    const [isEditModalActive, setIsEditModalActive] = useState(false);
     const [{ cartId }] = useCartContext();
     const client = useApolloClient();
 
@@ -48,11 +48,11 @@ export const usePaymentInformation = props => {
      */
 
     const showEditModal = useCallback(() => {
-        setIsEditDialogOpen(true);
+        setIsEditModalActive(true);
     }, []);
 
     const hideEditModal = useCallback(() => {
-        setIsEditDialogOpen(false);
+        setIsEditModalActive(false);
     }, []);
 
     const handlePaymentSuccess = useCallback(() => {
@@ -243,7 +243,7 @@ export const usePaymentInformation = props => {
         handlePaymentError,
         handlePaymentSuccess,
         hideEditModal,
-        isEditDialogOpen,
+        isEditModalActive,
         isLoading,
         showEditModal
     };
@@ -258,7 +258,7 @@ export const usePaymentInformation = props => {
  * @property {function} handlePaymentError Error handler passed to payment methods
  * @property {function} handlePaymentSuccess Success handler passed to payment methods
  * @property {function} hideEditModal Callback to close the edit dialog
- * @property {boolean} isEditDialogOpen State for keeping track of edit dialog visibility
+ * @property {boolean} isEditModalActive State for keeping track of edit dialog visibility
  * @property {boolean} isLoading Derived state that keeps track if any mutation is in flight
  * @property {function} showEditModal Callback to display the edit dialog
  */

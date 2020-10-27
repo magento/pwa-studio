@@ -29,7 +29,7 @@ jest.mock(
             handlePaymentError: jest.fn(),
             handlePaymentSuccess: jest.fn(),
             hideEditModal: jest.fn(),
-            isEditDialogOpen: false,
+            isEditModalActive: false,
             isLoading: false,
             showEditModal: jest.fn()
         })
@@ -41,7 +41,7 @@ const defaultTalonResponse = {
     handlePaymentError: jest.fn(),
     handlePaymentSuccess: jest.fn(),
     hideEditModal: jest.fn(),
-    isEditDialogOpen: false,
+    isEditModalActive: false,
     isLoading: false,
     showEditModal: jest.fn()
 };

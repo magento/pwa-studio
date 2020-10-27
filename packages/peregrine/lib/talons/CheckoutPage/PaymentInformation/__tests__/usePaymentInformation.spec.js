@@ -115,7 +115,7 @@ test('hideEditModal should call to close dialog', () => {
 
     talonProps.hideEditModal();
 
-    expect(talonProps.isEditDialogOpen).toBeFalsy();
+    expect(talonProps.isEditModalActive).toBeFalsy();
 });
 
 test('showEditModal should call to open dialog', () => {
@@ -125,7 +125,7 @@ test('showEditModal should call to open dialog', () => {
 
     const { talonProps: newTalonProps } = update({});
 
-    expect(newTalonProps.isEditDialogOpen).toBeTruthy();
+    expect(newTalonProps.isEditModalActive).toBeTruthy();
 });
 
 test('resets to payment step when selected method is not available', () => {

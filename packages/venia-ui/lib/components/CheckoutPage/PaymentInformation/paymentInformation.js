@@ -43,7 +43,7 @@ const PaymentInformation = props => {
         handlePaymentSuccess,
         hideEditModal,
         isLoading,
-        isEditDialogOpen,
+        isEditModalActive,
         showEditModal
     } = talonProps;
 
@@ -72,7 +72,7 @@ const PaymentInformation = props => {
     );
 
     const editModal = doneEditing ? (
-        <EditModal onClose={hideEditModal} isOpen={isEditDialogOpen} />
+        <EditModal onClose={hideEditModal} isOpen={isEditModalActive} />
     ) : null;
 
     return (
