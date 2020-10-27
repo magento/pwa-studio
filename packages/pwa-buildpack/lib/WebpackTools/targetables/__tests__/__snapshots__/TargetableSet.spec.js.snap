@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TargetableSet is a target helper library requires a TargetProvider 1`] = `"Must supply a TargetProvider to a new TargetableSet."`;
+
+exports[`TargetableSet is a target helper library with factory methods for creating Targetables: automatically intercepts transformModules and sends its requests, running a "publish" method first if it is supplied runs the publisher and then adds the transforms of the connected module 1`] = `
+Array [
+  Object {
+    "fileToTransform": "@magento/fake-dep/component",
+    "options": Object {
+      "element": "form",
+      "operation": "append",
+      "params": Object {
+        "jsx": "<input />",
+      },
+    },
+    "requestor": "@magento/fakedep",
+    "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/targetables/BabelModifyJSXPlugin/index.js",
+    "type": "babel",
+  },
+  Object {
+    "fileToTransform": "@magento/fake-dep/component",
+    "options": Object {
+      "at": 0,
+      "insert": "import { lazy as reactLazy } from 'react';
+",
+    },
+    "requestor": "@magento/fakedep",
+    "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/loaders/splice-source-loader",
+    "type": "source",
+  },
+  Object {
+    "fileToTransform": "@magento/fake-dep/component",
+    "options": Object {
+      "after": "{ lazy as reactLazy } from 'react';
+",
+      "insert": "const DynamicComponent$1 = reactLazy(() => import('path/to/module'));
+",
+    },
+    "requestor": "@magento/fakedep",
+    "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/loaders/splice-source-loader",
+    "type": "source",
+  },
+  Object {
+    "fileToTransform": "@magento/fake-dep/someArray",
+    "options": Object {
+      "bindings": Array [
+        "something",
+      ],
+      "type": "array",
+    },
+    "requestor": "@magento/fakedep",
+    "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/loaders/export-esm-collection-loader",
+    "type": "source",
+  },
+  Object {
+    "fileToTransform": "@magento/fake-dep/someArray",
+    "options": Object {
+      "at": 0,
+      "insert": "import something from \\"somewhere\\";
+",
+    },
+    "requestor": "@magento/fakedep",
+    "transformModule": "@magento/pwa-buildpack/lib/WebpackTools/loaders/splice-source-loader",
+    "type": "source",
+  },
+]
+`;
+
+exports[`TargetableSet is a target helper library with factory methods for creating Targetables: caches and polymorphically reuses only one module of one type per file 1`] = `"Cannot target the file \\"@magento/fakedep/esModule1\\" using \\"TargetableReactComponent\\", because it has already been targeted by the TargetableESModule created by \\"@magento/fakedep\\"."`;
