@@ -53,7 +53,7 @@ export const usePaymentInformation = props => {
 
     const hideEditModal = useCallback(() => {
         setIsEditDialogOpen(false);
-    }, [setIsEditDialogOpen]);
+    }, []);
 
     const handlePaymentSuccess = useCallback(() => {
         setDoneEditing(true);
@@ -254,11 +254,11 @@ export const usePaymentInformation = props => {
  *
  * @typedef {Object} PaymentInformationTalonProps
  *
- * @property {boolean} doneEditing
- * @property {function} handlePaymentError
- * @property {function} handlePaymentSuccess
- * @property {function} hideEditModal
- * @property {boolean} isEditDialogOpen
- * @property {boolean} isLoading
- * @property {function} showEditModal
+ * @property {boolean} doneEditing Indicates payment information has been provided
+ * @property {function} handlePaymentError Error handler passed to payment methods
+ * @property {function} handlePaymentSuccess Success handler passed to payment methods
+ * @property {function} hideEditModal Callback to close the edit dialog
+ * @property {boolean} isEditDialogOpen State for keeping track of edit dialog visibility
+ * @property {boolean} isLoading Derived state that keeps track if any mutation is in flight
+ * @property {function} showEditModal Callback to display the edit dialog
  */
