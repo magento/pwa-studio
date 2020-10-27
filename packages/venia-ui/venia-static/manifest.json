@@ -23,7 +23,7 @@
             "type": "image/png"
         },
         {
-            "src": "/venia-static/icons/venia_circle_512.png",
+            "src": "/venia-static/icons/venia_maskable_512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
