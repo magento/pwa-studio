@@ -1,7 +1,7 @@
 .root {
     /* The root aside element takes up the whole screen. */
     position: fixed;
-    left: 0;
+    left: -100vw;
     top: 0;
     height: 100%;
     width: 100%;
@@ -10,10 +10,10 @@
     opacity: 0;
     visibility: hidden;
 
-    /* It animates to being closed. */
-    transition-duration: 192ms;
-    transition-timing-function: var(--venia-global-anim-out);
-    transition-property: opacity, visibility;
+    transform: translate3d(-50%, 0, 0);
+    /* It animates to being closed, and then moves off screen. */
+    transition: opacity 192ms var(--venia-global-anim-out),
+        visibility 192ms var(--venia-global-anim-out), left 0s 192ms;
 
     /* It sits over all background content. */
     z-index: 3;
@@ -21,13 +21,13 @@
 
 .root_open {
     composes: root;
-
+    left: 50%;
     opacity: 1;
     visibility: visible;
 
     /* It animates to being open. */
-    transition-duration: 224ms;
-    transition-timing-function: var(--venia-global-anim-in);
+    transition: opacity 224ms var(--venia-global-anim-in),
+        visibility 224ms var(--venia-global-anim-in), left 0s;
 }
 
 .form {
