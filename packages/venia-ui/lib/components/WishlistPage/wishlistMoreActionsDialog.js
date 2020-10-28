@@ -1,4 +1,5 @@
 import React from 'react';
+import { bool, func, shape, string } from 'prop-types';
 import { ChevronRight, Copy, Move, Trash2 } from 'react-feather';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -27,7 +28,7 @@ const WishlistMoreActionsDialog = props => {
             title={dialogTitle}
         >
             <div className={classes.root}>
-                <button>
+                <button className={classes.rowButton}>
                     <span className={classes.row}>
                         <Icon size={16} src={Move} />
                         <span className={classes.text}>
@@ -39,8 +40,8 @@ const WishlistMoreActionsDialog = props => {
                         <Icon size={16} src={ChevronRight} />
                     </span>
                 </button>
-                <button>
-                    <span className={classes.rowAlternate}>
+                <button className={classes.rowButton}>
+                    <span className={classes.row}>
                         <Icon size={16} src={Copy} />
                         <span className={classes.text}>
                             <FormattedMessage
@@ -51,7 +52,7 @@ const WishlistMoreActionsDialog = props => {
                         <Icon size={16} src={ChevronRight} />
                     </span>
                 </button>
-                <button onClick={onRemove}>
+                <button className={classes.rowButton} onClick={onRemove}>
                     <span className={classes.row}>
                         <Icon size={16} src={Trash2} />
                         <span className={classes.text}>
@@ -68,3 +69,15 @@ const WishlistMoreActionsDialog = props => {
 };
 
 export default WishlistMoreActionsDialog;
+
+WishlistMoreActionsDialog.propTypes = {
+    classes: shape({
+        root: string,
+        rowButton: string,
+        row: string,
+        text: string
+    }),
+    isOpen: bool,
+    onCancel: func,
+    onRemove: func
+};

@@ -10,7 +10,9 @@ exports[`renders correctly when closed 1`] = `
   <div
     className="root"
   >
-    <button>
+    <button
+      className="rowButton"
+    >
       <span
         className="row"
       >
@@ -82,9 +84,11 @@ exports[`renders correctly when closed 1`] = `
         </span>
       </span>
     </button>
-    <button>
+    <button
+      className="rowButton"
+    >
       <span
-        className="rowAlternate"
+        className="row"
       >
         <span
           className="root"
@@ -142,6 +146,7 @@ exports[`renders correctly when closed 1`] = `
       </span>
     </button>
     <button
+      className="rowButton"
       onClick={[MockFunction]}
     >
       <span
@@ -203,7 +208,9 @@ exports[`renders correctly when open 1`] = `
   <div
     className="root"
   >
-    <button>
+    <button
+      className="rowButton"
+    >
       <span
         className="row"
       >
@@ -275,9 +282,11 @@ exports[`renders correctly when open 1`] = `
         </span>
       </span>
     </button>
-    <button>
+    <button
+      className="rowButton"
+    >
       <span
-        className="rowAlternate"
+        className="row"
       >
         <span
           className="root"
@@ -335,6 +344,7 @@ exports[`renders correctly when open 1`] = `
       </span>
     </button>
     <button
+      className="rowButton"
       onClick={[MockFunction]}
     >
       <span

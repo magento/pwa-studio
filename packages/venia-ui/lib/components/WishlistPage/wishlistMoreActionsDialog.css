@@ -11,9 +11,7 @@
     text-align: left;
 }
 
-.rowAlternate {
-    composes: row;
-
+.rowButton:nth-child(even) {
     border-top: 2px solid rgb(var(--venia-global-color-gray));
     border-bottom: 2px solid rgb(var(--venia-global-color-gray));
 }

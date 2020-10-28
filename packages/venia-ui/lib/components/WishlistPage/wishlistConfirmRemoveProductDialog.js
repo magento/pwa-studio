@@ -1,4 +1,5 @@
 import React from 'react';
+import { bool, func, shape, string } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { mergeClasses } from '../../classify';
@@ -68,3 +69,17 @@ const WishlistConfirmRemoveProductDialog = props => {
 };
 
 export default WishlistConfirmRemoveProductDialog;
+
+WishlistConfirmRemoveProductDialog.propTypes = {
+    classes: shape({
+        confirmButton: string,
+        errorMessage: string,
+        prompt: string,
+        root: string
+    }),
+    hasError: bool,
+    isOpen: bool,
+    isRemovalInProgress: bool,
+    onCancel: func,
+    onConfirm: func
+};
