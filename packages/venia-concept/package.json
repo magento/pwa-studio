@@ -52,7 +52,6 @@
     "@babel/runtime": "~7.4.2",
     "@magento/babel-preset-peregrine": "~1.1.0",
     "@magento/eslint-config": "~1.5.0",
-    "@magento/i18n-defaults": "~0.0.1",
     "@magento/pagebuilder": "~3.0.0",
     "@magento/peregrine": "~8.0.0",
     "@magento/upward-security-headers": "~1.0.0",
