@@ -3,6 +3,10 @@ import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
+import mergeOperations from '../../util/shallowMerge';
+// TODO: Import the actual default operations once we have them co-located.
+const DEFAULT_OPERATIONS = {};
+
 // Note: There is only ever zero (0) or one (1) dialogs open for a wishlist item.
 const dialogs = {
     NONE: 1,
@@ -15,19 +19,20 @@ const dialogs = {
  *
  * @param {String} props.childSku SKU of the child item
  * @param {String} props.itemId The ID of the item
- * @param {WishlistItemMutations} props.mutations GraphQL mutations for the Wishlist Item component
+ * @param {WishlistItemOperations} props.operations GraphQL operations for the Wishlist Item component
  * @param {String} props.sku SKU of the item
  * @param {String} props.wishlistId The ID of the wishlist this item belongs to
  *
  * @returns {WishlistItemProps}
  */
 export const useWishlistItem = props => {
-    const { childSku, itemId, mutations, sku, wishlistId } = props;
+    const { childSku, itemId, sku, wishlistId } = props;
 
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         addWishlistItemToCartMutation,
         removeProductsFromWishlistMutation
-    } = mutations;
+    } = operations;
 
     const [{ cartId }] = useCartContext();
     const [currentDialog, setCurrentDialog] = useState(dialogs.NONE);
@@ -136,9 +141,9 @@ export const useWishlistItem = props => {
  */
 
 /**
- * GraphQL mutations for the Wishlist Item component
+ * GraphQL operations for the Wishlist Item component
  *
- * @typedef {Object} WishlistItemMutations
+ * @typedef {Object} WishlistItemOperations
  *
  * @property {GraphQLAST} addWishlistItemToCartMutation Mutation to add item to the cart
  * @property {GraphQLAST} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist

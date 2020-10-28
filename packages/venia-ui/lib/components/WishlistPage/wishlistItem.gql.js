@@ -70,8 +70,6 @@ export const REMOVE_PRODUCTS_FROM_WISHLIST = gql`
 `;
 
 export default {
-    mutations: {
-        addWishlistItemToCartMutation: ADD_WISHLIST_ITEM_TO_CART,
-        removeProductsFromWishlistMutation: REMOVE_PRODUCTS_FROM_WISHLIST
-    }
+    addWishlistItemToCartMutation: ADD_WISHLIST_ITEM_TO_CART,
+    removeProductsFromWishlistMutation: REMOVE_PRODUCTS_FROM_WISHLIST
 };

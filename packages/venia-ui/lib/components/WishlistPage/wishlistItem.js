@@ -32,9 +32,9 @@ const WishlistItem = props => {
     const talonProps = useWishlistItem({
         childSku,
         itemId,
+        operations: { ...wishlistItemOperations },
         sku,
-        wishlistId,
-        ...wishlistItemOperations
+        wishlistId
     });
     const {
         confirmRemovalIsOpen,
