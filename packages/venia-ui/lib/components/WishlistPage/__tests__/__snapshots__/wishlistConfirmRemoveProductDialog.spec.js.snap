@@ -99,11 +99,11 @@ exports[`renders correctly with error 1`] = `
   <div
     className="root"
   >
-    <span
+    <p
       className="errorMessage"
     >
       There was an error deleting this product. Please try again later.
-    </span>
+    </p>
     <span
       className="prompt"
     >

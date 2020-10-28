@@ -26,14 +26,14 @@ const WishlistConfirmRemoveProductDialog = props => {
         confirmButton: classes.confirmButton
     };
     const maybeError = hasError ? (
-        <span className={classes.errorMessage}>
+        <p className={classes.errorMessage}>
             <FormattedMessage
                 id={'wishlistConfirmRemoveProductDialog.errorMessage'}
                 defaultMessage={
                     'There was an error deleting this product. Please try again later.'
                 }
             />
-        </span>
+        </p>
     ) : null;
 
     return (
