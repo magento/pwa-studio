@@ -21,7 +21,9 @@ const FormError = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     return errorMessage ? (
-        <ErrorMessage classes={classes} ref={errorRef}>{errorMessage}</ErrorMessage>
+        <ErrorMessage classes={classes} ref={errorRef}>
+            {errorMessage}
+        </ErrorMessage>
     ) : null;
 };
 
