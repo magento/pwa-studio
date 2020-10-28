@@ -14,9 +14,9 @@ test('it renders correctly without children', () => {
 test('it renders children passed to it', () => {
     const tree = renderer.render(
         <Kebab>
-            <div>Child 1</div>
-            <div>Child 2</div>
-            <div>Child 3</div>
+            <span />
+            <p />
+            <div />
         </Kebab>
     );
 

@@ -25,6 +25,8 @@ const PaymentMethod = props => {
         return mappedAdditionalData;
     }, [additional_data]);
 
+    const typeString = `${type} - ${card_type}`;
+
     return (
         <div className={classes.root}>
             <div className={classes.heading}>
@@ -33,9 +35,7 @@ const PaymentMethod = props => {
                     defaultMessage="Payment Method"
                 />
             </div>
-            <div className={classes.payment_type}>
-                {`${type} - ${card_type}`}
-            </div>
+            <div className={classes.payment_type}>{typeString}</div>
             <div className={classes.payment_last_four_digits}>{last_four}</div>
         </div>
     );

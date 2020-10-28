@@ -54,6 +54,7 @@ const AccountInformationPage = props => {
         return fullPageLoadingIndicator;
     } else {
         const { customer } = initialValues;
+        const customerName = `${customer.firstname} ${customer.lastname}`;
         const passwordValue = '***********';
 
         pageContent = (
@@ -66,9 +67,9 @@ const AccountInformationPage = props => {
                                 defaultMessage={'Name'}
                             />
                         </span>
-                        <span className={classes.nameValue}>{`${
-                            customer.firstname
-                        } ${customer.lastname}`}</span>
+                        <span className={classes.nameValue}>
+                            {customerName}
+                        </span>
                         <span className={classes.emailLabel}>
                             <FormattedMessage
                                 id={'global.email'}

@@ -24,14 +24,14 @@ jest.mock(
     })
 );
 
-jest.mock('../creditCard', () => () => <div>Credit Card Payment Method</div>);
+jest.mock('../creditCard', () => props => <mock-CreditCard {...props} />);
 
 jest.mock('../../../Button', () => {
-    return () => <div>Button Component</div>;
+    return props => <mock-Button {...props} />;
 });
 
 jest.mock('../../../Icon', () => {
-    return () => <div>Icon Component</div>;
+    return props => <mock-ChecIconkbox {...props} />;
 });
 
 beforeAll(() => {

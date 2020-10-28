@@ -18,8 +18,9 @@ jest.mock('@magento/peregrine/lib/talons/MyAccount/useResetPassword', () => ({
         handleSubmit: jest.fn().mockName('handleSubmit')
     })
 }));
+
 jest.mock('../../../Head', () => ({
-    Title: props => <div {...props}>Head Component</div>
+    Title: props => <mock-Title {...props} />
 }));
 
 test('should render properly', () => {

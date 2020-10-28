@@ -7,7 +7,7 @@ jest.mock('../../../../classify');
 jest.mock(
     '../../../CartPage/PriceAdjustments/ShippingMethods/shippingRadio',
     () => ({
-        ShippingRadio: () => <mock>Shipping Radio</mock>
+        ShippingRadio: props => <mock-ShippingRadio {...props} />
     })
 );
 jest.mock('../../../LoadingIndicator', () => 'Loading Indicator');
