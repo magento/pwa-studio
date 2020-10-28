@@ -30,6 +30,7 @@ module.exports = veniaTargets => {
     const paymentMethodList = new PaymentMethodList(venia);
     paymentMethodList.add({
         paymentCode: 'braintree',
-        importPath: '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/creditCard'
+        importPath:
+            '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/creditCard'
     });
 };
