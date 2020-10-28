@@ -1,4 +1,4 @@
-# i18n-demo
+# i18n-sample-language-packs
 
 This package provides demo language packs beyond the `en_US.json` provided in
 venia-ui.
@@ -10,4 +10,4 @@ project:
 
 Example:
 
-`yarn workspace @magento/venia-concept add @magento/i18n-demo -D`
+`yarn workspace @magento/venia-concept add @magento/i18n-sample-language-packs -D`

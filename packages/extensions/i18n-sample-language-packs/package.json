@@ -1,5 +1,5 @@
 {
-    "name": "@magento/i18n-demo",
+    "name": "@magento/i18n-sample-language-packs",
     "version": "0.0.1",
     "description": "Provides demo translations for PWA Studio.",
     "publishConfig": {
