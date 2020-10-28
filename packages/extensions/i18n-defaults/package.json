@@ -8,6 +8,9 @@
     "license": "(OSL-3.0 OR AFL-3.0)",
     "main": "./i18n-intercept.js",
     "repository": "github:magento/pwa-studio",
+    "scripts": {
+      "clean": " "
+    },
     "peerDependencies": {
         "@magento/pwa-buildpack": "~7.0.0",
         "@magento/venia-ui": "~5.0.0"
