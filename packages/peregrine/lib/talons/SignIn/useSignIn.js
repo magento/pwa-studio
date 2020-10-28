@@ -3,20 +3,23 @@ import { useApolloClient, useMutation } from '@apollo/client';
 
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import mergeOperations from '../../util/shallowMerge';
 import { useCartContext } from '../../context/cart';
 import { useUserContext } from '../../context/user';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
+
 import DEFAULT_OPERATIONS from './signIn.gql';
 
 export const useSignIn = props => {
     const {
         getCartDetailsQuery,
-        operations = DEFAULT_OPERATIONS,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword
     } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         createCartMutation,
         getCustomerQuery,

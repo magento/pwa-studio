@@ -4,7 +4,7 @@ description: Everything you need to build a Magento PWA.
 source: src
 
 theme: devdocs
-logo: PWA Docs
+logo: Magento PWA Docs
 
 plugins:
   - jekyll-redirect-from

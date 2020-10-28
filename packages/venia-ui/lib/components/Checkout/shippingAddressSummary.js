@@ -12,11 +12,8 @@ const ShippingAddressSummary = props => {
         !!shippingAddress && !isObjectEmpty(shippingAddress);
 
     if (!hasShippingAddress) {
-        return (
-            <span className={classes.informationPrompt}>
-                Add Shipping Information
-            </span>
-        );
+        const promptText = 'Add Shipping Information';
+        return <span className={classes.informationPrompt}>{promptText}</span>;
     }
 
     const name = `${shippingAddress.firstname} ${shippingAddress.lastname}`;

@@ -1,9 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
+import mergeOperations from '../../../util/shallowMerge';
 import { useUserContext } from '../../../context/user';
 import { useCartContext } from '../../../context/cart';
 import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
+
 import DEFAULT_OPERATIONS from './createAccount.gql';
 
 /**
@@ -25,11 +27,9 @@ import DEFAULT_OPERATIONS from './createAccount.gql';
  * }}
  */
 export const useCreateAccount = props => {
-    const {
-        operations = DEFAULT_OPERATIONS,
-        initialValues = {},
-        onSubmit
-    } = props;
+    const { initialValues = {}, onSubmit } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         createAccountMutation,
         createCartMutation,

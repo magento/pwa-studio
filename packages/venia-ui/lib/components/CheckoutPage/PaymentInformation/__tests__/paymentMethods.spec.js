@@ -7,9 +7,7 @@ import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/Pa
 
 jest.mock('../../../../classify');
 
-jest.mock('../creditCard', () => () => (
-    <div>Credit Card Payment Method Component</div>
-));
+jest.mock('../creditCard', () => props => <mock-CreditCard {...props} />);
 
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods'

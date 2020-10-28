@@ -5,6 +5,8 @@ import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
 
+const MINUS_SYMBOL = '-';
+
 const DEFAULT_AMOUNT = {
     currency: 'USD',
     value: 0
@@ -49,7 +51,7 @@ const DiscountSummary = props => {
                 />
             </span>
             <span className={classes.price}>
-                {'-'}
+                {MINUS_SYMBOL}
                 <Price
                     value={discount.value}
                     currencyCode={discount.currency}

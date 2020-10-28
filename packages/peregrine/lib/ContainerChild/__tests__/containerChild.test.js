@@ -6,9 +6,9 @@ test('Renders content from render prop', () => {
     const wrapper = shallow(
         <ContainerChild
             id="foo.bar"
-            render={() => <div>Hello World</div>}
+            render={() => <mock-Child />}
             processed={true}
         />
     );
-    expect(wrapper.equals(<div>Hello World</div>)).toBe(true);
+    expect(wrapper.equals(<mock-Child />)).toBe(true);
 });

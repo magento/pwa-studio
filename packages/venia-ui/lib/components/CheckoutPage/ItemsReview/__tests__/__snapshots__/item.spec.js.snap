@@ -2,15 +2,26 @@
 
 exports[`Snapshot test 1`] = `
 <div>
-  <div>
-    Sample Image Component
-  </div>
+  <mock-Image
+    alt=""
+    classes={
+      Object {
+        "root": undefined,
+      }
+    }
+    resource=""
+    width={100}
+  />
   <span>
     
   </span>
-  <div>
-    Sample Product Options Component
-  </div>
+  <mock-ProductOptions
+    classes={
+      Object {
+        "options": undefined,
+      }
+    }
+  />
   <span>
     Qty :
   </span>

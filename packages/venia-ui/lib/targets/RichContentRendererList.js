@@ -1,21 +1,24 @@
-const path = require('path');
-const loader = require.resolve('./rendererCollectionLoader');
-
-const renderersListPath = path.resolve(
-    __dirname,
-    '../components/RichContent/richContentRenderers.js'
-);
-
 /**
- * A registry of rich content renderering strategies used by the Venia
- * RichContent component. An instance of this class is made available when you
- * use VeniaUI's `richContentRenderers` target.
+ * Implementation of our 'richContentRenderers' target. This will gather
+ * RichContentRenderer declarations { importPath, componentName } from all
+ * interceptors, and then tap `builtins.transformModules` to inject a module
+ * transform into the build which is configured to generate an array of modules
+ * to be imported and then exported.
+ *
+ * An instance of this class is made available when you use VeniaUI's
+ * `richContentRenderers` target.
  */
 class RichContentRendererList {
     /** @hideconstructor */
-    constructor() {
-        this._list = [];
-        this.ident = this.constructor.name;
+    constructor(venia) {
+        const registry = this;
+        this._renderers = venia.esModuleArray({
+            module:
+                '@magento/venia-ui/lib/components/RichContent/richContentRenderers.js',
+            publish(targets) {
+                targets.richContentRenderers.call(registry);
+            }
+        });
     }
     /**
      * Add a rendering strategy to the RichContent component.
@@ -35,38 +38,11 @@ class RichContentRendererList {
                 `richContentRenderers target: Argument is not a valid rich content renderer strategy. A valid strategy must have a JSX element name as "componentName" and a resolvable path to the renderer module as "importPath".`
             );
         }
-        this._list.push(renderer);
-    }
-    /**
-     * Inject the loader which generates the list of renderers as an array.
-     * @ignore
-     * @param {Object} module - Webpack Module of the renderers list.
-     */
-    inject(mod) {
-        mod.loaders.push({
-            ident: this.ident,
-            loader,
-            options: {
-                renderers: this._list.reverse()
-            }
-        });
-    }
-    /**
-     * Returns true if the provided module should have renderers injected.
-     * Should be true for only one module per compilation!
-     * @ignore
-     * @param {Object} module - Webpack Module
-     */
-    shouldInject(mod) {
-        return this._isRendererModule(mod) && !this._loaderIsInstalled(mod);
-    }
-    /** @ignore */
-    _isRendererModule(mod) {
-        return mod.resource === renderersListPath;
-    }
-    /** @ignore */
-    _loaderIsInstalled(mod) {
-        return mod.loaders.some(l => l.ident === this.ident);
+        this._renderers.unshift(
+            `import * as ${renderer.componentName} from '${
+                renderer.importPath
+            }';`
+        );
     }
 }
 

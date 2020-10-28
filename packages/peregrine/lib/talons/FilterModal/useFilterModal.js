@@ -3,9 +3,12 @@ import { useQuery } from '@apollo/client';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+
+import mergeOperations from '../../util/shallowMerge';
 import { useFilterState } from './useFilterState';
-import DEFAULT_OPERATIONS from './filterModal.gql';
 import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
+
+import DEFAULT_OPERATIONS from './filterModal.gql';
 
 /**
  * Filter Modal talon.
@@ -18,8 +21,11 @@ import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
  * }}
  */
 export const useFilterModal = props => {
-    const { filters, operations = DEFAULT_OPERATIONS } = props;
+    const { filters } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getFilterInputsQuery } = operations;
+
     const [isApplying, setIsApplying] = useState(false);
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const [filterState, filterApi] = useFilterState();

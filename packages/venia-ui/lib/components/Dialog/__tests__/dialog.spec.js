@@ -88,10 +88,12 @@ test('should render children even if dialog is hidden and if shouldUnmountOnHide
         shouldUnmountOnHide: false
     };
 
+    const CONTENT = 'Dialog Contents';
+
     // Act.
     const wrapper = createTestInstance(
         <Dialog {...myProps}>
-            <div>{'Dialog Contents'}</div>
+            <div>{CONTENT}</div>
         </Dialog>
     );
 
@@ -107,10 +109,12 @@ test('should unmount children if dialog is hidden and if shouldUnmountOnHide is 
         shouldUnmountOnHide: true
     };
 
+    const CONTENT = 'Dialog Contents';
+
     // Act.
     const wrapper = createTestInstance(
         <Dialog {...myProps}>
-            <div>{'Dialog Contents'}</div>
+            <div>{CONTENT}</div>
         </Dialog>
     );
 

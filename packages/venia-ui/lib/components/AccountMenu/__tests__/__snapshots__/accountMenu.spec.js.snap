@@ -7,11 +7,9 @@ exports[`it renders AccountMenuItems when the user is signed in 1`] = `
   <div
     className="contents_open"
   >
-    <div
+    <mock-AccountMenuItems
       onSignOut={[MockFunction]}
-    >
-      AccountMenuItems
-    </div>
+    />
   </div>
 </aside>
 `;
@@ -23,7 +21,7 @@ exports[`it renders SignIn component when the view is SIGNIN 1`] = `
   <div
     className="contents_open"
   >
-    <div
+    <mock-SignIn
       classes={
         Object {
           "modal_active": "loading",
@@ -32,10 +30,7 @@ exports[`it renders SignIn component when the view is SIGNIN 1`] = `
       setDefaultUsername={[MockFunction]}
       showCreateAccount={[MockFunction]}
       showForgotPassword={[MockFunction]}
-    >
-       
-      SignInComponent
-    </div>
+    />
   </div>
 </aside>
 `;
@@ -47,7 +42,7 @@ exports[`it renders create account component when the view is CREATE_ACCOUNT 1`]
   <div
     className="contents_open"
   >
-    <div
+    <mock-CreateAccount
       classes={
         Object {
           "root": "createAccount",
@@ -59,10 +54,7 @@ exports[`it renders create account component when the view is CREATE_ACCOUNT 1`]
         }
       }
       isCancelButtonHidden={false}
-    >
-       
-      CreateAccountComponent
-    </div>
+    />
   </div>
 </aside>
 `;
@@ -84,16 +76,13 @@ exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1
   <div
     className="contents_open"
   >
-    <div
+    <mock-ForgotPassword
       initialValues={
         Object {
           "email": "gooseton",
         }
       }
-    >
-       
-      ForgotPasswordComponent
-    </div>
+    />
   </div>
 </aside>
 `;

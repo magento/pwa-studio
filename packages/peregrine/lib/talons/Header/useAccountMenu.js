@@ -4,7 +4,9 @@ import { useApolloClient, useMutation } from '@apollo/client';
 
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import mergeOperations from '../../util/shallowMerge';
 import { useUserContext } from '../../context/user';
+
 import DEFAULT_OPERATIONS from './accountMenu.gql';
 
 /**
@@ -26,11 +28,9 @@ import DEFAULT_OPERATIONS from './accountMenu.gql';
  */
 
 export const useAccountMenu = props => {
-    const {
-        accountMenuIsOpen,
-        operations = DEFAULT_OPERATIONS,
-        setAccountMenuIsOpen
-    } = props;
+    const { accountMenuIsOpen, setAccountMenuIsOpen } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { signOutMutation } = operations;
 
     const [view, setView] = useState('SIGNIN');

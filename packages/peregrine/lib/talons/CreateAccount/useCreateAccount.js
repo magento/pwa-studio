@@ -3,10 +3,12 @@ import { useApolloClient, useMutation } from '@apollo/client';
 
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import mergeOperations from '../../util/shallowMerge';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { retrieveCartId } from '../../store/actions/cart';
+
 import DEFAULT_OPERATIONS from './createAccount.gql';
 
 /**
@@ -26,12 +28,9 @@ import DEFAULT_OPERATIONS from './createAccount.gql';
  * import { useForgotPassword } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount.js';
  */
 export const useCreateAccount = props => {
-    const {
-        operations = DEFAULT_OPERATIONS,
-        initialValues = {},
-        onSubmit,
-        onCancel
-    } = props;
+    const { initialValues = {}, onSubmit, onCancel } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         createAccountMutation,
         createCartMutation,

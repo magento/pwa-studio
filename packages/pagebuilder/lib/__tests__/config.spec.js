@@ -9,7 +9,7 @@ jest.mock('@magento/venia-drivers', () => ({
 const dynamicContentType = 'dynamicContentType';
 const dynamicContentTypeConfig = {
     configAggregator: jest.fn(),
-    component: () => <div>Test Component</div>
+    component: () => <mock-TestComponent />
 };
 
 test('can retrieve config for row content type which has component and aggregator', () => {

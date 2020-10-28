@@ -4,6 +4,8 @@ import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
 
+const MINUS_SYMBOL = '-';
+
 const DEFAULT_AMOUNT = {
     currency: 'USD',
     value: 0
@@ -34,7 +36,6 @@ const getGiftCards = (cards = []) => {
  * @param {Object} props.classes
  * @param {Object} props.data fragment response data
  */
-
 export default props => {
     const classes = mergeClasses({}, props.classes);
     const cards = getGiftCards(props.data);
@@ -48,7 +49,7 @@ export default props => {
                 />
             </span>
             <span className={classes.price}>
-                {'-'}
+                {MINUS_SYMBOL}
                 <Price value={cards.value} currencyCode={cards.currency} />
             </span>
         </Fragment>
