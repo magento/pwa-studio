@@ -15,6 +15,7 @@ exports[`it disables the submit button while loading 1`] = `
         className="mask"
         disabled={false}
         onClick={[MockFunction]}
+        tabIndex={-1}
         type="reset"
       />
       <div
@@ -199,6 +200,7 @@ exports[`it renders correctly 1`] = `
         className="mask"
         disabled={false}
         onClick={[MockFunction]}
+        tabIndex={-1}
         type="reset"
       />
       <div
