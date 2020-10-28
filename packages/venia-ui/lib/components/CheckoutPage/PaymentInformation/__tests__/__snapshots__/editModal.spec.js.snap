@@ -33,7 +33,7 @@ exports[`Should return correct shape 1`] = `
           onClick={[Function]}
           type="reset"
         >
-          <mock-ChecIconkbox
+          <mock-Icon
             src={[Function]}
           />
         </button>

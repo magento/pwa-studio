@@ -31,7 +31,7 @@ jest.mock('../../../Button', () => {
 });
 
 jest.mock('../../../Icon', () => {
-    return props => <mock-ChecIconkbox {...props} />;
+    return props => <mock-Icon {...props} />;
 });
 
 beforeAll(() => {
