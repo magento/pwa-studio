@@ -13,14 +13,14 @@ jest.mock('@magento/peregrine/lib/talons/MyAccount/useResetPassword', () => ({
     useResetPassword: jest.fn().mockReturnValue({
         hasCompleted: false,
         loading: false,
-        email: 'gooseton@goosemail.com',
         token: '********',
         formErrors: [],
-        handleSubmit: jest.fn()
+        handleSubmit: jest.fn().mockName('handleSubmit')
     })
 }));
+
 jest.mock('../../../Head', () => ({
-    Title: props => <div {...props}>Head Component</div>
+    Title: props => <mock-Title {...props} />
 }));
 
 test('should render properly', () => {
@@ -33,23 +33,7 @@ test('should render error message if token is falsy', () => {
     useResetPassword.mockReturnValueOnce({
         hasCompleted: false,
         loading: false,
-        email: 'gooseton@goosemail.com',
         token: null,
-        formErrors: [],
-        handleSubmit: jest.fn()
-    });
-
-    const tree = createTestInstance(<ResetPassword />);
-
-    expect(tree.toJSON()).toMatchSnapshot();
-});
-
-test('should render error message if email is falsy', () => {
-    useResetPassword.mockReturnValueOnce({
-        hasCompleted: false,
-        loading: false,
-        email: null,
-        token: '**********',
         formErrors: [],
         handleSubmit: jest.fn()
     });
@@ -63,7 +47,6 @@ test('should render formErrors', () => {
     useResetPassword.mockReturnValueOnce({
         hasCompleted: false,
         loading: false,
-        email: 'gooseton@goosemail.com',
         token: '**********',
         formErrors: [
             {
@@ -84,7 +67,6 @@ test('should render success message if hasCompleted is true', () => {
     useResetPassword.mockReturnValueOnce({
         hasCompleted: true,
         loading: false,
-        email: 'gooseton@goosemail.com',
         token: '**********',
         formErrors: [],
         handleSubmit: jest.fn()
@@ -101,7 +83,6 @@ test('should render toast if hasCompleted is true', () => {
     useResetPassword.mockReturnValueOnce({
         hasCompleted: true,
         loading: false,
-        email: 'gooseton@goosemail.com',
         token: '**********',
         formErrors: [],
         handleSubmit: jest.fn()

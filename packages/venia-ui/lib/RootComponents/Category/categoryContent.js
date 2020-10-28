@@ -1,32 +1,29 @@
 import React, { Fragment, Suspense } from 'react';
-import { array, shape, string } from 'prop-types';
-import RichContent from '../../components/RichContent';
-
+import { array, number, shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
-import NoProductsFound from './NoProductsFound';
 import { mergeClasses } from '../../classify';
-import { Title } from '../../components/Head';
 import Breadcrumbs from '../../components/Breadcrumbs';
-import Gallery from '../../components/Gallery';
-import ProductSort from '../../components/ProductSort';
-import Pagination from '../../components/Pagination';
-import defaultClasses from './category.css';
-import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
 import Button from '../../components/Button';
+import Gallery from '../../components/Gallery';
+import { Title } from '../../components/Head';
+import Pagination from '../../components/Pagination';
+import ProductSort from '../../components/ProductSort';
+import RichContent from '../../components/RichContent';
+import defaultClasses from './category.css';
+import NoProductsFound from './NoProductsFound';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
 const CategoryContent = props => {
-    const { categoryId, data, pageControl, sortProps } = props;
+    const { categoryId, data, pageControl, sortProps, pageSize } = props;
     const [currentSort] = sortProps;
 
     const talonProps = useCategoryContent({
         categoryId,
         data,
-        queries: {
-            getProductFiltersByCategory: GET_PRODUCT_FILTERS_BY_CATEGORY
-        }
+        pageSize
     });
 
     const {
@@ -51,7 +48,10 @@ const CategoryContent = props => {
             onMouseOver={handleLoadFilters}
             type="button"
         >
-            {'Filter'}
+            <FormattedMessage
+                id={'categoryContent.filter'}
+                defaultMessage={'Filter'}
+            />
         </Button>
     ) : null;
 
@@ -63,8 +63,16 @@ const CategoryContent = props => {
     const maybeSortContainer =
         totalPagesFromData && filters ? (
             <div className={classes.sortContainer}>
-                {'Items sorted by '}
-                <span className={classes.sortText}>{currentSort.sortText}</span>
+                <FormattedMessage
+                    id={'categoryContent.itemsSortedBy'}
+                    defaultMessage={'Items sorted by '}
+                />
+                <span className={classes.sortText}>
+                    <FormattedMessage
+                        id={currentSort.sortId}
+                        defaultMessage={currentSort.sortText}
+                    />
+                </span>
             </div>
         ) : null;
 
@@ -127,5 +135,6 @@ CategoryContent.propTypes = {
     // sortProps contains the following structure:
     // [{sortDirection: string, sortAttribute: string, sortText: string},
     // React.Dispatch<React.SetStateAction<{sortDirection: string, sortAttribute: string, sortText: string}]
-    sortProps: array
+    sortProps: array,
+    pageSize: number
 };

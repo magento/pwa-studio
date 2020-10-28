@@ -55,7 +55,8 @@ getModuleRules.js = async ({
 
     const astLoaders = [
         {
-            loader: 'babel-loader',
+            // Use custom loader to enable warning reporting from Babel plugins
+            loader: 'buildbus-babel-loader',
             options: {
                 sourceMaps: mode === 'development' && 'inline',
                 envName: mode,
@@ -132,7 +133,7 @@ getModuleRules.css = async ({ paths, hasFlag }) => ({
  *   and inlines binary files below a certain size
  */
 getModuleRules.files = async () => ({
-    test: /\.(jpg|svg|png)$/,
+    test: /\.(gif|jpg|png|svg)$/,
     use: [
         {
             loader: 'file-loader',

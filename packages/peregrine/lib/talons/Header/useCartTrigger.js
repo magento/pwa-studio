@@ -33,7 +33,8 @@ export const useCartTrigger = props => {
     const {
         elementRef: miniCartRef,
         expanded: miniCartIsOpen,
-        setExpanded: setMiniCartIsOpen
+        setExpanded: setMiniCartIsOpen,
+        triggerRef: miniCartTriggerRef
     } = useDropdown();
     const history = useHistory();
 
@@ -52,7 +53,7 @@ export const useCartTrigger = props => {
 
     const handleTriggerClick = useCallback(() => {
         // Open the mini cart.
-        setMiniCartIsOpen(true);
+        setMiniCartIsOpen(isOpen => !isOpen);
     }, [setMiniCartIsOpen]);
 
     const handleLinkClick = useCallback(() => {
@@ -67,6 +68,7 @@ export const useCartTrigger = props => {
         miniCartIsOpen,
         miniCartRef,
         hideCartTrigger,
-        setMiniCartIsOpen
+        setMiniCartIsOpen,
+        miniCartTriggerRef
     };
 };

@@ -17,8 +17,6 @@ const LocalizationPlugin = require('../plugins/LocalizationPlugin');
 
 const VirtualModulesPlugin = require('webpack-virtual-modules');
 
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-
 function isDevServer() {
     return process.argv.find(v => v.includes('webpack-dev-server'));
 }
@@ -138,7 +136,6 @@ async function getClientConfig(opts) {
                     swDest: './sw.js'
                 }
             }),
-            new ReactRefreshWebpackPlugin(),
             new LocalizationPlugin({
                 virtualModules,
                 context,

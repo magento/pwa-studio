@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
 import Kebab from '../../LegacyMiniCart/kebab';
@@ -107,9 +107,9 @@ const Product = props => {
                     />
                 </Link>
                 <div className={classes.details}>
-                    <Link to={itemLink} className={classes.name}>
-                        {name}
-                    </Link>
+                    <div className={classes.name}>
+                        <Link to={itemLink}>{name}</Link>
+                    </div>
                     <ProductOptions
                         options={options}
                         classes={{

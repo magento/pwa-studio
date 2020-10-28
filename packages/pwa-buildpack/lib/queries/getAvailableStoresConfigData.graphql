@@ -1,0 +1,8 @@
+query availableStoresConfigData {
+    availableStores {
+        code
+        id
+        store_name
+        default_display_currency_code
+    }
+}

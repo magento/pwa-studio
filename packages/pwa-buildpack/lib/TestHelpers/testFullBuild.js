@@ -101,7 +101,7 @@ async function buildModuleWith(
         // Exclude any require() of a node_module.
         nodeExternals({
             // Except...
-            whitelist: bus
+            allowlist: bus
                 // the dependencies under test, which Webpack must compile for
                 // the targets to work!
                 .getMockDependencyNames()

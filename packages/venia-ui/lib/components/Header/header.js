@@ -14,6 +14,8 @@ import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './header.css';
 import PageLoadingIndicator from '../PageLoadingIndicator';
+import StoreSwitcher from './storeSwitcher';
+import CurrencySwitcher from './currencySwitcher';
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
@@ -49,30 +51,38 @@ const Header = props => {
     ) : null;
 
     return (
-        <header className={rootClass}>
-            <div className={classes.toolbar}>
-                <div className={classes.primaryActions}>
-                    <NavTrigger />
-                </div>
-                {pageLoadingIndicator}
-                <OnlineIndicator
-                    hasBeenOffline={hasBeenOffline}
-                    isOnline={isOnline}
-                />
-                <Link to={resourceUrl('/')}>
-                    <Logo classes={{ logo: classes.logo }} />
-                </Link>
-                <div className={classes.secondaryActions}>
-                    <SearchTrigger
-                        onClick={handleSearchTriggerClick}
-                        ref={searchTriggerRef}
-                    />
-                    <AccountTrigger />
-                    <CartTrigger />
+        <React.Fragment>
+            <div className={classes.switchersContainer}>
+                <div className={classes.switchers}>
+                    <StoreSwitcher />
+                    <CurrencySwitcher />
                 </div>
             </div>
-            {searchBar}
-        </header>
+            <header className={rootClass}>
+                <div className={classes.toolbar}>
+                    <div className={classes.primaryActions}>
+                        <NavTrigger />
+                    </div>
+                    {pageLoadingIndicator}
+                    <OnlineIndicator
+                        hasBeenOffline={hasBeenOffline}
+                        isOnline={isOnline}
+                    />
+                    <Link to={resourceUrl('/')}>
+                        <Logo classes={{ logo: classes.logo }} />
+                    </Link>
+                    <div className={classes.secondaryActions}>
+                        <SearchTrigger
+                            onClick={handleSearchTriggerClick}
+                            ref={searchTriggerRef}
+                        />
+                        <AccountTrigger />
+                        <CartTrigger />
+                    </div>
+                </div>
+                {searchBar}
+            </header>
+        </React.Fragment>
     );
 };
 
@@ -83,7 +93,9 @@ Header.propTypes = {
         open: string,
         primaryActions: string,
         secondaryActions: string,
-        toolbar: string
+        toolbar: string,
+        switchers: string,
+        switchersContainer: string
     })
 };
 

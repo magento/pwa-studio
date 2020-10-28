@@ -1,8 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+
+import mergeOperations from '../../util/shallowMerge';
+import { useAppContext } from '../../context/app';
+import { useCatalogContext } from '../../context/catalog';
+import { useUserContext } from '../../context/user';
+import { useAwaitQuery } from '../../hooks/useAwaitQuery';
+
+import DEFAULT_OPERATIONS from './navigation.gql';
 
 const ancestors = {
     CREATE_ACCOUNT: 'SIGN_IN',
@@ -12,13 +16,14 @@ const ancestors = {
     MENU: null
 };
 
-export const useNavigation = props => {
-    const { customerQuery } = props;
+export const useNavigation = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCustomerQuery } = operations;
     // retrieve app state from context
     const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
     const [, { getUserDetails }] = useUserContext();
-    const fetchUserDetails = useAwaitQuery(customerQuery);
+    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
 
     // request data from server
     useEffect(() => {
@@ -75,7 +80,6 @@ export const useNavigation = props => {
 
     return {
         catalogActions,
-        categories,
         categoryId,
         handleBack,
         handleClose,

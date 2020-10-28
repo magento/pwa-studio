@@ -74,20 +74,19 @@ test('HeadProvider should be able to render multiple link tags', () => {
 test('HeadProvider should be able to render multiple style tags', () => {
     expect(document.getElementsByTagName('style').length).toBe(0);
 
+    const firstStyleContent = `.icon {
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
+    }`;
+
+    const secondStyleContent = `.button {
+        color: green;
+    }`;
     TestRenderer.create(
         <HeadProvider>
-            <Style type="text/css">
-                {`.icon {
-                    align-items: center;
-                    display: inline-flex;
-                    justify-content: center;
-                }`}
-            </Style>
-            <Style type="text/css">
-                {`.button {
-                    color: green;
-                }`}
-            </Style>
+            <Style type="text/css">{firstStyleContent}</Style>
+            <Style type="text/css">{secondStyleContent}</Style>
         </HeadProvider>
     );
 

@@ -160,7 +160,6 @@ function setDebugDependencies(pkg) {
     const packagesToSkip = new Set([
         '@magento/create-pwa',
         '@magento/upward-spec',
-        '@magento/venia-styleguide',
         // Venia especially does not depend on itself.
         '@magento/venia-concept'
     ]);

@@ -201,11 +201,13 @@ Skip updating the Main import statement to use your project's copy of the Main c
 + import { HeadProvider, Title } from '@magento/venia-ui/lib/components/Head';
   import Main from '../Main';
 - import Mask from '../Mask';
+- import MiniCart from '../MiniCart';
 - import Navigation from '../Navigation';
 - import Routes from '../Routes';
 - import ToastContainer from '../ToastContainer';
 - import Icon from '../Icon';
 + import Mask from '@magento/venia-ui/lib/components/Mask';
++ import MiniCart from '@magento/venia-ui/lib/components/MiniCart';
 + import Navigation from '@magento/venia-ui/lib/components/Navigation';
 + import Routes from '@magento/venia-ui/lib/components/Routes';
 + import ToastContainer from '@magento/venia-ui/lib/components/ToastContainer';
@@ -237,7 +239,7 @@ Open your project's `src/index.js` file and update the import for the App compon
 ```diff
 - import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 + import { AppContextProvider } from '@magento/venia-ui/lib/components/App';
-+ import App from './components/App`;
++ import App from './components/App';
 ```
 
 ## Congratulations

@@ -1,4 +1,5 @@
 module.exports = {
+    ...require('./testBabelPlugin'),
     ...require('./testWebpackCompiler'),
     ...require('./evaluateScripts'),
     ...require('./testWebpackLoader'),

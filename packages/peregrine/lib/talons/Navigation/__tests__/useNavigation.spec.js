@@ -83,7 +83,6 @@ test('it returns the proper shape', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith({
         catalogActions: expect.any(Object),
-        categories: expect.any(Object),
         categoryId: expect.any(Number),
         handleBack: expect.any(Function),
         handleClose: expect.any(Function),

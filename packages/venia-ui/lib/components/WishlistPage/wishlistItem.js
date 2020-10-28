@@ -64,11 +64,12 @@ const WishlistItem = props => {
             value_label: valueLabel
         } = option;
 
+        const optionString = `${optionLabel} : ${valueLabel}`;
+
         return (
-            <span
-                className={classes.option}
-                key={id}
-            >{`${optionLabel} : ${valueLabel}`}</span>
+            <span className={classes.option} key={id}>
+                {optionString}
+            </span>
         );
     });
 

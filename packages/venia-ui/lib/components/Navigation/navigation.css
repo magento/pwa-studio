@@ -71,7 +71,20 @@
 }
 
 .footer {
-    box-shadow: 0 -1px rgb(var(--venia-global-color-border));
+}
+
+.switchers {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    background-color: rgb(var(--venia-global-color-gray-100));
+    width: 100%;
+}
+
+@media (min-width: 641px) {
+    .switchers {
+        display: none;
+    }
 }
 
 .modal {

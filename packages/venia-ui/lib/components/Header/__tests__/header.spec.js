@@ -10,6 +10,8 @@ jest.mock('../cartTrigger', () => 'CartTrigger');
 jest.mock('../navTrigger', () => 'NavTrigger');
 jest.mock('../searchTrigger', () => 'SearchTrigger');
 jest.mock('../onlineIndicator', () => 'OnlineIndicator');
+jest.mock('../storeSwitcher', () => 'StoreSwitcher');
+jest.mock('../currencySwitcher', () => 'CurrencySwitcher');
 jest.mock('../../PageLoadingIndicator', () => () => (
     <div id={'pageLoadingIndicator'} />
 ));

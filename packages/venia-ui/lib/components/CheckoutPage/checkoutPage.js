@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { Link } from 'react-router-dom';
 
@@ -30,6 +31,7 @@ const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
+    const { formatMessage } = useIntl();
     const talonProps = useCheckoutPage({
         ...CheckoutPageOperations
     });
@@ -73,8 +75,11 @@ const CheckoutPage = props => {
             const message =
                 error && error.message
                     ? error.message
-                    : 'Oops! An error occurred while submitting. Please try again.';
-
+                    : formatMessage({
+                          id: 'checkoutPage.errorSubmit',
+                          defaultMessage:
+                              'Oops! An error occurred while submitting. Please try again.'
+                      });
             addToast({
                 type: 'error',
                 icon: errorIcon,
@@ -87,7 +92,7 @@ const CheckoutPage = props => {
                 console.error(error);
             }
         }
-    }, [addToast, error, hasError]);
+    }, [addToast, error, formatMessage, hasError]);
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -95,6 +100,16 @@ const CheckoutPage = props => {
     const isMobile = windowSize.innerWidth <= 960;
 
     let checkoutContent;
+
+    const heading = isGuestCheckout
+        ? formatMessage({
+              id: 'checkoutPage.guestCheckout',
+              defaultMessage: 'Guest Checkout'
+          })
+        : formatMessage({
+              id: 'checkoutPage.checkout',
+              defaultMessage: 'Checkout'
+          });
 
     if (orderNumber) {
         return (
@@ -109,18 +124,24 @@ const CheckoutPage = props => {
         checkoutContent = (
             <div className={classes.empty_cart_container}>
                 <div className={classes.heading_container}>
-                    <h1 className={classes.heading}>
-                        {isGuestCheckout ? 'Guest Checkout' : 'Checkout'}
-                    </h1>
+                    <h1 className={classes.heading}>{heading}</h1>
                 </div>
-                <h3>{'There are no items in your cart.'}</h3>
+                <h3>
+                    <FormattedMessage
+                        id={'checkoutPage.emptyMessage'}
+                        defaultMessage={'There are no items in your cart.'}
+                    />
+                </h3>
             </div>
         );
     } else {
         const loginButton = isGuestCheckout ? (
             <div className={classes.signin_container}>
                 <LinkButton className={classes.sign_in} onClick={handleSignIn}>
-                    {'Login and Checkout Faster'}
+                    <FormattedMessage
+                        id={'checkoutPage.loginAndCheckoutFaster'}
+                        defaultMessage={'Login and Checkout Faster'}
+                    />
                 </LinkButton>
             </div>
         ) : null;
@@ -134,7 +155,10 @@ const CheckoutPage = props => {
                 />
             ) : (
                 <h3 className={classes.shipping_method_heading}>
-                    {'2. Shipping Method'}
+                    <FormattedMessage
+                        id={'checkoutPage.shippingMethodStep'}
+                        defaultMessage={'2. Shipping Method'}
+                    />
                 </h3>
             );
 
@@ -149,7 +173,10 @@ const CheckoutPage = props => {
                 />
             ) : (
                 <h3 className={classes.payment_information_heading}>
-                    {'3. Payment Information'}
+                    <FormattedMessage
+                        id={'checkoutPage.paymentInformationStep'}
+                        defaultMessage={'3. Payment Information'}
+                    />
                 </h3>
             );
 
@@ -168,7 +195,10 @@ const CheckoutPage = props => {
                     className={classes.review_order_button}
                     disabled={reviewOrderButtonClicked || isUpdating}
                 >
-                    {'Review Order'}
+                    <FormattedMessage
+                        id={'checkoutPage.reviewOrder'}
+                        defaultMessage={'Review Order'}
+                    />
                 </Button>
             ) : null;
 
@@ -189,7 +219,10 @@ const CheckoutPage = props => {
                         isUpdating || placeOrderLoading || orderDetailsLoading
                     }
                 >
-                    {'Place Order'}
+                    <FormattedMessage
+                        id={'checkoutPage.placeOrder'}
+                        defaultMessage={'Place Order'}
+                    />
                 </Button>
             ) : null;
 
@@ -204,11 +237,24 @@ const CheckoutPage = props => {
             </div>
         ) : null;
 
-        const guestCheckoutHeaderText = isGuestCheckout
-            ? 'Guest Checkout'
-            : customer.default_shipping
-            ? 'Review and Place Order'
-            : `Welcome ${customer.firstname}!`;
+        let headerText;
+
+        if (isGuestCheckout) {
+            headerText = formatMessage({
+                id: 'checkoutPage.guestCheckout',
+                defaultMessage: 'Guest Checkout'
+            });
+        } else if (customer.default_shipping) {
+            headerText = formatMessage({
+                id: 'checkoutPage.reviewAndPlaceOrder',
+                defaultMessage: 'Review and Place Order'
+            });
+        } else {
+            headerText = formatMessage(
+                { id: 'checkoutPage.greeting', defaultMessage: 'Welcome' },
+                { firstname: customer.firstname }
+            );
+        }
 
         const checkoutContentClass =
             activeContent === 'checkout'
@@ -217,11 +263,17 @@ const CheckoutPage = props => {
 
         const stockStatusMessageElement = (
             <Fragment>
-                {
-                    'An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.'
-                }{' '}
+                <FormattedMessage
+                    id={'checkoutPage.stockStatusMessage'}
+                    defaultMessage={
+                        'An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.'
+                    }
+                />
                 <Link className={classes.cartLink} to={'/cart'}>
-                    Return to Cart
+                    <FormattedMessage
+                        id={'checkoutPage.returnToCart'}
+                        defaultMessage={'Return to Cart'}
+                    />
                 </Link>
             </Fragment>
         );
@@ -233,9 +285,7 @@ const CheckoutPage = props => {
                         cartItems={cartItems}
                         message={stockStatusMessageElement}
                     />
-                    <h1 className={classes.heading}>
-                        {guestCheckoutHeaderText}
-                    </h1>
+                    <h1 className={classes.heading}>{headerText}</h1>
                 </div>
                 <div className={classes.shipping_information_container}>
                     <ShippingInformation
@@ -267,7 +317,15 @@ const CheckoutPage = props => {
 
     return (
         <div className={classes.root}>
-            <Title>{`Checkout - ${STORE_NAME}`}</Title>
+            <Title>
+                {formatMessage(
+                    {
+                        id: 'checkoutPage.titleCheckout',
+                        defaultMessage: 'Checkout'
+                    },
+                    { name: STORE_NAME }
+                )}
+            </Title>
             {checkoutContent}
             {addressBookElement}
         </div>

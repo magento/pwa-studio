@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -16,6 +16,9 @@
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/peregrine#readme",
+  "dependencies": {
+    "fast-glob": "~3.2.4"
+  },
   "devDependencies": {
     "@magento/eslint-config": "~1.5.0",
     "intl": "~1.2.5",

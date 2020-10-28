@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
+import mergeOperations from '../../util/shallowMerge';
+
+import DEFAULT_OPERATIONS from './breadcrumbs.gql';
+
 // Just incase the data is unsorted, lets sort it.
 const sortCrumbs = (a, b) => a.category_level > b.category_level;
 
@@ -28,10 +32,15 @@ const getPath = (path, suffix) => {
  * }}
  */
 export const useBreadcrumbs = props => {
-    const { categoryId, query } = props;
+    const { categoryId } = props;
 
-    const { data, loading, error } = useQuery(query, {
-        variables: { category_id: categoryId }
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getBreadcrumbsQuery } = operations;
+
+    const { data, loading, error } = useQuery(getBreadcrumbsQuery, {
+        variables: { category_id: categoryId },
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
     });
 
     // Default to .html for when the query has not yet returned.
@@ -44,10 +53,16 @@ export const useBreadcrumbs = props => {
 
             return (
                 breadcrumbData &&
-                breadcrumbData.sort(sortCrumbs).map(category => ({
-                    text: category.category_name,
-                    path: getPath(category.category_url_path, categoryUrlSuffix)
-                }))
+                breadcrumbData
+                    .map(category => ({
+                        category_level: category.category_level,
+                        text: category.category_name,
+                        path: getPath(
+                            category.category_url_path,
+                            categoryUrlSuffix
+                        )
+                    }))
+                    .sort(sortCrumbs)
             );
         }
     }, [categoryUrlSuffix, data, loading]);

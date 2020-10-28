@@ -9,6 +9,11 @@
     top: 0;
     width: 100%;
     z-index: 10;
+    --header-height: 5rem;
+}
+
+.switchersContainer {
+    display: none;
 }
 
 .open {
@@ -20,6 +25,8 @@
 }
 
 .toolbar {
+    position: relative;
+    z-index: 3;
     align-content: center;
     align-items: center;
     display: grid;
@@ -34,6 +41,24 @@
 }
 
 @media (min-width: 641px) {
+    .switchers {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        justify-content: flex-end;
+        max-width: var(--venia-global-maxWidth);
+        width: 100%;
+        position: relative;
+        z-index: 11;
+        margin: 0 auto;
+    }
+
+    .switchersContainer {
+        display: block;
+        width: 100%;
+        background-color: rgb(var(--venia-global-color-gray-100));
+    }
+
     .toolbar {
         grid-template-areas: 'primary title secondary';
         grid-template-columns: auto auto 1fr;

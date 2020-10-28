@@ -4,17 +4,11 @@ import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 
 import Item from '../item';
 
-jest.mock('../../../LegacyMiniCart/productOptions', () => {
-    const ProductOptions = () => <div>Sample Product Options Component</div>;
+jest.mock('../../../LegacyMiniCart/productOptions', () => props => (
+    <mock-ProductOptions {...props} />
+));
 
-    return ProductOptions;
-});
-
-jest.mock('../../../Image', () => {
-    const Image = () => <div>Sample Image Component</div>;
-
-    return Image;
-});
+jest.mock('../../../Image', () => props => <mock-Image {...props} />);
 
 test('Snapshot test', () => {
     const tree = createTestInstance(
