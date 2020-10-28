@@ -1,7 +1,7 @@
 {
-    "name": "@magento/i18n-defaults",
+    "name": "@magento/i18n-demo",
     "version": "0.0.1",
-    "description": "Provides default translations for PWA Studio",
+    "description": "Provides demo translations for PWA Studio.",
     "publishConfig": {
         "access": "public"
     },
