@@ -56,7 +56,7 @@ getModuleRules.js = async ({
     const astLoaders = [
         {
             // Use custom loader to enable warning reporting from Babel plugins
-            loader: 'buildbus-babel-loader',
+            loader: 'babel-loader',
             options: {
                 sourceMaps: mode === 'development' && 'inline',
                 envName: mode,
