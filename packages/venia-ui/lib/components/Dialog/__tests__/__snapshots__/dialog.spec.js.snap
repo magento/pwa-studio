@@ -14,6 +14,7 @@ exports[`does not render a close X button in modal mode 1`] = `
       <button
         className="mask"
         disabled={true}
+        tabIndex={-1}
         type="reset"
       />
       <div
@@ -81,6 +82,7 @@ exports[`renders a Dialog with disabled buttons 1`] = `
       <button
         className="mask"
         disabled={true}
+        tabIndex={-1}
         type="reset"
       />
       <div
@@ -183,6 +185,7 @@ exports[`renders a basic Dialog 1`] = `
       <button
         className="mask"
         disabled={false}
+        tabIndex={-1}
         type="reset"
       />
       <div
@@ -285,6 +288,7 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
       <button
         className="mask"
         disabled={false}
+        tabIndex={-1}
         type="reset"
       />
       <div
@@ -387,6 +391,7 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
       <button
         className="mask"
         disabled={false}
+        tabIndex={-1}
         type="reset"
       />
       <div
@@ -493,6 +498,7 @@ exports[`should unmount children if dialog is hidden and if shouldUnmountOnHide 
       <button
         className="mask"
         disabled={false}
+        tabIndex={-1}
         type="reset"
       />
       <div
@@ -595,6 +601,7 @@ exports[`supports modifying title and button texts 1`] = `
       <button
         className="mask"
         disabled={false}
+        tabIndex={-1}
         type="reset"
       />
       <div

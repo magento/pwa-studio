@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { FocusScope } from 'react-aria';
 import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string, object } from 'prop-types';
 import { Form } from 'informed';
@@ -96,56 +97,63 @@ const Dialog = props => {
 
     return (
         <Portal>
-            <aside className={rootClass}>
-                <Form
-                    className={classes.form}
-                    {...formProps}
-                    onSubmit={onConfirm}
-                >
-                    {/* The Mask. */}
-                    <button
-                        className={classes.mask}
-                        disabled={isMaskDisabled}
-                        onClick={onCancel}
-                        type="reset"
-                    />
-                    {/* The Dialog. */}
-                    <div className={classes.dialog}>
-                        <div className={classes.header}>
-                            <span className={classes.headerText}>{title}</span>
-                            {maybeCloseXButton}
-                        </div>
-                        <div className={classes.body}>
-                            <div className={classes.contents}>{contents}</div>
-                            <div className={classes.buttons}>
-                                <Button
-                                    classes={cancelButtonClasses}
-                                    disabled={shouldDisableAllButtons}
-                                    onClick={onCancel}
-                                    priority="low"
-                                    type="reset"
-                                >
-                                    <FormattedMessage
-                                        id={cancelTranslationId}
-                                        defaultMessage={cancelText}
-                                    />
-                                </Button>
-                                <Button
-                                    classes={confirmButtonClasses}
-                                    disabled={confirmButtonDisabled}
-                                    priority="high"
-                                    type="submit"
-                                >
-                                    <FormattedMessage
-                                        id={confirmTranslationId}
-                                        defaultMessage={confirmText}
-                                    />
-                                </Button>
+            <FocusScope contain>
+                <aside className={rootClass}>
+                    <Form
+                        className={classes.form}
+                        {...formProps}
+                        onSubmit={onConfirm}
+                    >
+                        {/* The Mask. */}
+                        <button
+                            className={classes.mask}
+                            disabled={isMaskDisabled}
+                            onClick={onCancel}
+                            tabIndex={-1}
+                            type="reset"
+                        />
+                        {/* The Dialog. */}
+                        <div className={classes.dialog}>
+                            <div className={classes.header}>
+                                <span className={classes.headerText}>
+                                    {title}
+                                </span>
+                                {maybeCloseXButton}
+                            </div>
+                            <div className={classes.body}>
+                                <div className={classes.contents}>
+                                    {contents}
+                                </div>
+                                <div className={classes.buttons}>
+                                    <Button
+                                        classes={cancelButtonClasses}
+                                        disabled={shouldDisableAllButtons}
+                                        onClick={onCancel}
+                                        priority="low"
+                                        type="reset"
+                                    >
+                                        <FormattedMessage
+                                            id={cancelTranslationId}
+                                            defaultMessage={cancelText}
+                                        />
+                                    </Button>
+                                    <Button
+                                        classes={confirmButtonClasses}
+                                        disabled={confirmButtonDisabled}
+                                        priority="high"
+                                        type="submit"
+                                    >
+                                        <FormattedMessage
+                                            id={confirmTranslationId}
+                                            defaultMessage={confirmText}
+                                        />
+                                    </Button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Form>
-            </aside>
+                    </Form>
+                </aside>
+            </FocusScope>
         </Portal>
     );
 };

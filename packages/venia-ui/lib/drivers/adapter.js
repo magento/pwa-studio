@@ -7,6 +7,7 @@ import { InMemoryCache } from '@apollo/client/cache';
 import { setContext } from '@apollo/client/link/context';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { SSRProvider } from '@react-aria/ssr';
 
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
@@ -102,14 +103,16 @@ const VeniaAdapter = props => {
     }
 
     return (
-        <ApolloProvider client={apolloClient}>
-            <ReduxProvider store={store}>
-                <BrowserRouter {...browserRouterProps}>
-                    {storeCodeRouteHandler}
-                    {children}
-                </BrowserRouter>
-            </ReduxProvider>
-        </ApolloProvider>
+        <SSRProvider>
+            <ApolloProvider client={apolloClient}>
+                <ReduxProvider store={store}>
+                    <BrowserRouter {...browserRouterProps}>
+                        {storeCodeRouteHandler}
+                        {children}
+                    </BrowserRouter>
+                </ReduxProvider>
+            </ApolloProvider>
+        </SSRProvider>
     );
 };
 
