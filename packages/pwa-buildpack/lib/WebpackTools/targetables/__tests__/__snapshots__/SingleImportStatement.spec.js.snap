@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`contains parsed node, statement, and binding, adding import keyword and semicolon if necessary 1`] = `
+Object {
+  "binding": "LongMatches",
+  "imported": "default",
+  "node": ObjectContaining {
+    "type": "ImportDeclaration",
+  },
+  "originalStatement": "LongMatches from \\"@vandelay/industries\\";",
+  "source": "@vandelay/industries",
+  "statement": "import LongMatches from \\"@vandelay/industries\\";
+",
+}
+`;
+
+exports[`contains parsed node, statement, and binding, adding import keyword and semicolon if necessary 2`] = `
+Object {
+  "binding": "Chips",
+  "imported": "default",
+  "node": ObjectContaining {
+    "type": "ImportDeclaration",
+  },
+  "originalStatement": "import Chips from \\"@vandelay/industries.chips\\";",
+  "source": "@vandelay/industries.chips",
+  "statement": "import Chips from \\"@vandelay/industries.chips\\";
+",
+}
+`;
+
+exports[`contains parsed node, statement, and binding, adding import keyword and semicolon if necessary 3`] = `
+Object {
+  "binding": "Chips",
+  "imported": "Potato",
+  "node": ObjectContaining {
+    "type": "ImportDeclaration",
+  },
+  "originalStatement": "import { Potato as Chips } from \\"@vandelay/industries.chips\\"",
+  "source": "@vandelay/industries.chips",
+  "statement": "import { Potato as Chips } from \\"@vandelay/industries.chips\\";
+",
+}
+`;
+
+exports[`contains parsed node, statement, and binding, adding import keyword and semicolon if necessary 4`] = `
+Object {
+  "binding": "Corn",
+  "imported": "Corn",
+  "node": ObjectContaining {
+    "type": "ImportDeclaration",
+  },
+  "originalStatement": "import { Corn } from \\"@vandelay/industries.chips\\"",
+  "source": "@vandelay/industries.chips",
+  "statement": "import { Corn } from \\"@vandelay/industries.chips\\";
+",
+}
+`;
+
+exports[`contains parsed node, statement, and binding, adding import keyword and semicolon if necessary 5`] = `
+Object {
+  "binding": "Latex",
+  "imported": "*",
+  "node": ObjectContaining {
+    "type": "ImportDeclaration",
+  },
+  "originalStatement": "* as Latex from \\"./vandelay/exports\\"",
+  "source": "./vandelay/exports",
+  "statement": "import * as Latex from \\"./vandelay/exports\\";
+",
+}
+`;
