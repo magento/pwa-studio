@@ -63,7 +63,28 @@ module.exports = targets => {
          *      return routesArray;
          *   })
          */
-        routes: new targets.types.AsyncSeriesWaterfall(['routes'])
+        routes: new targets.types.AsyncSeriesWaterfall(['routes']),
+
+        /**
+         * Provides access to Venia's payment methods
+         *
+         * This target lets you add new payment to your storefronts.
+         *
+         * @member {tapable.SyncHook}
+         *
+         * @see [Intercept function signature]{@link paymentInterceptFunction}
+         * @see [PaymentMethodList]{@link #PaymentMethodList}
+         * @see [Payment definition object]{@link PaymentDefinition}
+         *
+         * @example <caption>Add a payment</caption>
+         * targets.of('@magento/venia-ui').payments.tap(
+         *   payments => payments.add({
+         *     paymentCode: 'braintree',
+         *     importPath: '@magento/braintree_payment'
+         *   })
+         * );
+         */
+        payments: new targets.types.Sync(['payments'])
     });
 };
 
@@ -157,5 +178,63 @@ module.exports = targets => {
  *      name: 'MyRoute',
  *      pattern: '/my-route/:myRouteParam',
  *      path: '@my-components/my-route-component'
+ * }
+ */
+
+/** Type definition related to: payments */
+
+/**
+ * Intercept function signature for the `payments` target.
+ *
+ * Interceptors of `payments` should call `.add` on the provided [payment list]{@link #PaymentMethodList}.
+ *
+ * @callback paymentInterceptFunction
+ *
+ * @param {PaymentMethodList} renderers The list of payments registered
+ * so far in the build.
+ *
+ */
+
+/**
+ * A payment definition object that describes a payment in your storefront.
+ *
+ * @typedef {Object} PaymentDefinition
+ * @property {string} paymentCode is use to map your payment
+ * @property {string} importPath Resolvable path to the component the
+ *   Route component will render
+ *
+ * @example <caption>A custom payment method</caption>
+ * const myCustomPayment = {
+ *      paymentCode: 'cc',
+ *     importPath: '@partner/module/path_to_your_component'
+ * }
+ */
+
+/** Type definition related to: payments */
+
+/**
+ * Intercept function signature for the `payments` target.
+ *
+ * Interceptors of `payments` should call `.add` on the provided [payment list]{@link #PaymentMethodList}.
+ *
+ * @callback paymentInterceptFunction
+ *
+ * @param {PaymentMethodList} renderers The list of payments registered
+ * so far in the build.
+ *
+ */
+
+/**
+ * A payment definition object that describes a payment in your storefront.
+ *
+ * @typedef {Object} PaymentDefinition
+ * @property {string} paymentCode is use to map your payment
+ * @property {string} importPath Resolvable path to the component the
+ *   Route component will render
+ *
+ * @example <caption>A custom payment method</caption>
+ * const myCustomPayment = {
+ *      paymentCode: 'cc',
+ *     importPath: '@partner/module/path_to_your_component'
  * }
  */
