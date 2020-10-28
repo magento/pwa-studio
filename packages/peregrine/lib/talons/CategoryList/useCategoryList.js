@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/client';
 
+import mergeOperations from '../../util/shallowMerge';
+
 import DEFAULT_OPERATIONS from './categoryList.gql';
 
 /**
@@ -12,7 +14,9 @@ import DEFAULT_OPERATIONS from './categoryList.gql';
  * @return {{ childCategories: array, error: object }}
  */
 export const useCategoryList = props => {
-    const { id, operations = DEFAULT_OPERATIONS } = props;
+    const { id } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCategoryListQuery } = operations;
 
     const [runQuery, queryResponse] = useLazyQuery(getCategoryListQuery, {

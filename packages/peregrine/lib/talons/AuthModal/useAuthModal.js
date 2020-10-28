@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useApolloClient, useMutation } from '@apollo/client';
 
+import mergeOperations from '../../util/shallowMerge';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 import { useUserContext } from '../../context/user';
@@ -36,7 +37,6 @@ const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 export const useAuthModal = props => {
     const {
         closeDrawer,
-        operations = DEFAULT_OPERATIONS,
         showCreateAccount,
         showForgotPassword,
         showMainMenu,
@@ -44,6 +44,8 @@ export const useAuthModal = props => {
         showSignIn,
         view
     } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { signOutMutation } = operations;
 
     const apolloClient = useApolloClient();

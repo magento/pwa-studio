@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-literals */
 import React, { useCallback, useState, useEffect } from 'react';
 import { storiesOf } from '@storybook/react';
 

@@ -10,6 +10,9 @@ import EmptyMiniCartBody from './emptyMiniCartBody';
 import ProductList from './productList';
 import { useBody } from '@magento/peregrine/lib/talons/LegacyMiniCart/useBody';
 
+const UPDATING_TEXT = 'Updating Cart...';
+const LOADING_TEXT = 'Fetching Cart...';
+
 const Body = props => {
     const {
         beginEditItem,
@@ -31,11 +34,11 @@ const Body = props => {
     const { editItem, handleBeginEditItem, handleEndEditItem } = talonProps;
 
     if (isUpdatingItem) {
-        return <LoadingIndicator>{'Updating Cart...'}</LoadingIndicator>;
+        return <LoadingIndicator>{UPDATING_TEXT}</LoadingIndicator>;
     }
 
     if (isLoading) {
-        return <LoadingIndicator>{`Fetching Cart...`}</LoadingIndicator>;
+        return <LoadingIndicator>{LOADING_TEXT}</LoadingIndicator>;
     }
 
     if (isCartEmpty) {

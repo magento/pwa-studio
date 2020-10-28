@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { array, func, oneOfType, shape, string } from 'prop-types';
 import { gql, useQuery } from '@apollo/client';
 
@@ -20,13 +21,27 @@ const CmsBlockGroup = props => {
     }
 
     if (error) {
-        return <div>Data Fetch Error</div>;
+        return (
+            <div>
+                <FormattedMessage
+                    id={'cmsBlock.errorFetch'}
+                    defaultMessage={'Data Fetch Error'}
+                />
+            </div>
+        );
     }
 
     const { items } = data.cmsBlocks;
 
     if (!Array.isArray(items) || !items.length) {
-        return <div>There are no blocks to display</div>;
+        return (
+            <div>
+                <FormattedMessage
+                    id={'cmsBlock.noBlocks'}
+                    defaultMessage={'There are no blocks to display'}
+                />
+            </div>
+        );
     }
 
     const BlockChild = typeof children === 'function' ? children : Block;

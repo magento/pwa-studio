@@ -84,9 +84,5 @@ module.exports = [
     {
         target: 'peregrine/lib/targets/peregrine-declare.js',
         type: 'function'
-    },
-    {
-        target: 'peregrine/lib/targets/TalonWrapperConfig.js',
-        type: 'function'
     }
 ];
