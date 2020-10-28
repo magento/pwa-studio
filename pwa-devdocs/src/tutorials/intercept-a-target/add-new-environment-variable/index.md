@@ -55,14 +55,14 @@ Inside the `placeholderImage.js`, add the following content:
 ```jsx
 import React from "react";
 
-const PlaceholderImage = (props) => {
+const PlaceholderImage = props => {
   const { width = 300, height = 300 } = props;
 
   const urlTemplate = process.env.IMAGE_PLACEHOLDER_SERVICE_URL;
 
   if (!urlTemplate) {
     console.error("Image placeholder service not defined!");
-    return undefined;
+    return null;
   }
 
   const finalUrl = urlTemplate.replace("${w}", width).replace("${h}", height);
@@ -204,7 +204,7 @@ Inside `placeholderImageDemo.js`, add the following content:
 import React from 'react'
 import PlaceholderImage from 'PlaceholderImage'
 
-const PlaceholderImageDemo = props => {
+const PlaceholderImageDemo = () => {
 
     return <PlaceholderImage width={200} height={300} />
 }
@@ -241,16 +241,12 @@ module.exports = localIntercept
 
 Now, when you start your project, you can navigate to `/placeholder-image-demo` and see the PlaceholderImage component in action.
 
-Click to see the full solution for this tutorial:
-
-[![Edit environment-variable-tutorial](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/environment-variable-tutorial-9z0rb?fontsize=14&hidenavigation=1&module=%2Fextensions%2FPlaceholderImage%2Fsrc%2Fcomponents%2FPlaceholderImage%2FplaceholderImage.js&theme=dark)
-
-### A note about CodeSandbox
-
-CodeSandbox uses an iframe to display a preview of the site.
-However, Venia sends security headers on certain pages that prevent you from viewing those pages inside an iframe.
-
-To get around this, open the preview in a new window by clicking on the **Open In New Window** icon on the top right of the in-editor browser.
+<iframe src="https://codesandbox.io/embed/environment-variable-tutorial-9z0rb?fontsize=11&hidenavigation=1&initialpath=%2Fplaceholder-image-demo&module=%2Fsrc%2Fcomponents%2FPlaceholderImageDemo%2FplaceholderImageDemo.js&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="environment-variable-tutorial"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 [core environment variable definitions]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}>
 
