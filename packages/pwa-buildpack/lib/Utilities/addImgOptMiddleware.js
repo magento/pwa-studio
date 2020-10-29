@@ -29,9 +29,15 @@ function addImgOptMiddleware(app, config) {
     let cacheMiddleware;
     let imageopto;
     try {
-        cacheMiddleware = cache(cacheExpires, hastily.hasSupportedExtension, {
-            debug: cacheDebug
-        });
+        cacheMiddleware = cache(
+            cacheExpires,
+            (req, res) =>
+                hastily.hasSupportedExtension(req) && res.statusCode === 200,
+            {
+                debug: cacheDebug,
+                appendKey: req => req.get('accept')
+            }
+        );
     } catch (e) {
         markDepInvalid('apicache', e);
     }
