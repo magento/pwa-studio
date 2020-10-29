@@ -1,4 +1,5 @@
 const path = require('path');
+const buildpackName = require('../../package.json').name;
 
 /**
  * @typedef {function(TransformRequest)} addTransform
@@ -28,14 +29,19 @@ const TransformType = {
      */
     source: 'source',
     /**
-     * Process the _abstract syntax tree_ of the ES module specified by `fileToTransform` through the `transformModule` as a [Babel AST](https://github.com/babel/babel/blob/master/packages/babel-parser/ast/spec.md).
+     * Process the _abstract syntax tree_ of the ES module specified by
+     * `fileToTransform` through the `transformModule` as a [Babel
+     * AST](https://github.com/babel/babel/blob/master/packages/babel-parser/ast/spec.md).
      * When applying a `babel` TransformRequest, Buildpack will use the
-     * `transformModule` as a [Babel plugin](https://github.com/jamiebuilds/babel-handbook), so it must implement that interface. Any Babel plugin can be used as a `transformModule` for `babel` TransformRequests.
+     * `transformModule` as a [Babel
+     * plugin](https://github.com/jamiebuilds/babel-handbook), so it must
+     * implement that interface. Any Babel plugin can be used as a
+     * `transformModule` for `babel` TransformRequests.
      *
      * `babel` transforms are powerful and versatile, giving the transformer
      * much more insight into the structure of the source code to modify.
-     * However, they are slower than `source` transforms, and they can only work
-     * on ES Modules.
+     * However, they are slower than `source` transforms, and they can only
+     * work on ES Modules.
      */
     babel: 'babel'
 };
@@ -49,7 +55,6 @@ const TransformType = {
  * rules](https://v4.webpack.js.org/configuration/module/#modulerules).
  *
  * @prop {TransformType} type - The type of transformation to apply.
- * @prop {string} requestor - Name of the module making this request. Used for debugging purposes.
  * @prop {string} fileToTransform - Resolvable path to the file to be transformed itself, the same path that you'd use in `import` or `require()`.
  * @prop {string} transformModule - Absolute path to the Node module that will actually be doing the transforming. This path may be resolved using different
  * rules at different times, so it's best for this path to always be absolute.
@@ -61,23 +66,103 @@ const TransformType = {
 /**
  * Configuration builder for module transforms. Accepts TransformRequests
  * and emits loader config objects for Buildpack's custom transform loaders.
+ *
+ * Understands all transform types and normalizes them correctly. Mostly this
+ * involves resolving the file paths using Webpack or Node resolution rules.
+ *
+ * For some special types of transform, ModuleTransformConfig has helpers to
+ * apply the requested transforms itself. But `configureWebpack` consumes most
+ * of the transforms by calling `transformConfig.collect()` on this object,
+ * which yields a structured object that configureWebpack can use to set up
+ * loader and plugin configuration.
  */
 class ModuleTransformConfig {
-    /** @borrows TransformType as types */
-    static get types() {
-        return TransformType;
-    }
     /**
-     * @private
+     *
+     * @static
      * @constructs
      * @param {MagentoResolver} resolver - Resolver to use when finding real paths of
      * modules requested.
      * @param {string} localProjectName - The name of the PWA project being built, taken from the package.json `name` field.
      */
+
     constructor(resolver, localProjectName) {
         this._resolver = resolver;
         this._localProjectName = localProjectName;
-        this._reqs = [];
+        // TODO: Currently nothing changes the resolver, but it will definitely
+        // be necessary to deal with this in the future. Trust me, you want to
+        // make sure successive transforms obey the rules that their predecessor
+        // transforms have set up.
+        this._resolverChanges = [];
+        this._needsResolved = [];
+    }
+    /**
+     * @borrows addTransform as add
+     */
+    add(request) {
+        if (!TransformType.hasOwnProperty(request.type)) {
+            throw this._traceableError(
+                `Unknown request type '${
+                    request.type
+                }' in TransformRequest: ${JSON.stringify(request)}`
+            );
+        }
+        this._needsResolved.push(this._resolveOrdinary(request));
+    }
+    /**
+     * Resolve paths and emit as JSON.
+     *
+     * @returns {object} Configuration object
+     */
+    async toLoaderOptions() {
+        const byType = Object.values(TransformType).reduce(
+            (grouped, type) => ({
+                ...grouped,
+                [type]: {}
+            }),
+            {}
+        );
+        // Resolver still may need updating! Updates should be in order.
+        for (const resolverUpdate of this._resolverChanges) {
+            await resolverUpdate();
+        }
+        // Now the requests can be made using the finished resolver!
+        await Promise.all(
+            this._needsResolved.map(async doResolve => {
+                const req = await doResolve();
+                // Split them up by the transform module to use.
+                // Several requests will share one transform instance.
+                const { type, transformModule, fileToTransform } = req;
+                const xformsForType = byType[type];
+                const filesForXform =
+                    xformsForType[transformModule] ||
+                    (xformsForType[transformModule] = {});
+                const requestsForFile =
+                    filesForXform[fileToTransform] ||
+                    (filesForXform[fileToTransform] = []);
+                requestsForFile.push(req);
+            })
+        );
+        return JSON.parse(JSON.stringify(byType));
+    }
+    /**
+     * Prevent modules from transforming files from other modules.
+     * Preserves encapsulation and maintainability.
+     * @private
+     */
+    _assertAllowedToTransform({ requestor, fileToTransform }) {
+        if (
+            !this._isLocal(requestor) && // Local project can modify anything
+            !this._isBuiltin(requestor) && // Buildpack itself can modify anything
+            !fileToTransform.startsWith(requestor)
+        ) {
+            throw this._traceableError(
+                `Invalid fileToTransform path "${fileToTransform}": Extensions are not allowed to provide fileToTransform paths outside their own codebase! This transform request from "${requestor}" must provide a path to one of its own modules, starting with "${requestor}".`
+            );
+        }
+    }
+    _isBuiltin(requestor) {
+        return requestor === buildpackName;
     }
     _isLocal(requestor) {
         return requestor === this._localProjectName;
@@ -87,96 +172,61 @@ class ModuleTransformConfig {
         Error.captureStackTrace(capturedError, ModuleTransformConfig);
         return new Error(capturedError.stack);
     }
-    /**
-     * @private
-     * Prevent modules from transforming files from other modules.
-     * Preserves encapsulation and maintainability.
-     */
-    _normalizeFileToTransform(requestor, fileToTransform) {
-        // Let the local project change whatever it wants.
-        if (this._isLocal(requestor)) {
-            return fileToTransform;
-        }
-        if (typeof requestor !== 'string') {
-            throw this._traceableError(
-                `Invalid transform request for "${fileToTransform}": requestor module is a required property of a transform request.`
+    // Must throw a synchronous error so that .add() can throw early on a
+    // disallowed module. So this is not an async function--instead it deals in
+    // promise-returning function directly.
+    _resolveOrdinary(request) {
+        this._assertAllowedToTransform(request);
+        const transformModule = this._resolveNode(request, 'transformModule');
+        return () =>
+            this._resolveWebpack(request, 'fileToTransform').then(
+                fileToTransform => ({
+                    ...request,
+                    fileToTransform,
+                    transformModule
+                })
             );
-        }
-        if (path.isAbsolute(fileToTransform)) {
-            throw this._traceableError(
-                `Invalid fileToTransform path "${fileToTransform}": Extensions are not allowed to provide absolute fileToTransform paths! This transform request from "${requestor}" must provide a relative path to one of its own files.`
-            );
-        }
-        // make module-absolute if relative
-        return fileToTransform.startsWith(requestor)
-            ? fileToTransform
-            : path.join(requestor, fileToTransform);
     }
-    /**
-     * @borrows addTransform as add
-     */
-    add({ requestor, fileToTransform, transformModule, type, options }) {
-        let absTransformModule;
-        try {
-            absTransformModule = require.resolve(transformModule);
-        } catch (e) {
-            absTransformModule = require.resolve(
-                path.join(requestor, transformModule)
-            );
-        }
-
-        const toResolve = this._normalizeFileToTransform(
-            requestor,
-            fileToTransform
-        );
+    async _resolveWebpack(request, prop) {
+        const requestPath = request[prop];
+        // make module-absolute if relative
+        const toResolve = requestPath.startsWith('.')
+            ? path.join(request.requestor, requestPath)
+            : requestPath;
         // Capturing in the sync phase so that a resolve failure is traceable.
         const resolveError = this._traceableError(
-            `ModuleTransformConfig could not resolve ${toResolve} in order to transform it with ${transformModule}.`
+            `could not resolve ${prop} "${toResolve}" from requestor ${
+                request.requestor
+            } using Webpack rules.`
         );
-        // push the promise, so we don't run a bunch of resolves all at once
-        this._reqs.push(
-            this._resolver
-                .resolve(toResolve)
-                .then(absToTransform => ({
-                    requestor,
-                    type,
-                    fileToTransform: absToTransform,
-                    transformModule: absTransformModule,
-                    options
-                }))
-                .catch(() => {
-                    throw resolveError;
-                })
-        );
+        try {
+            const resolved = await this._resolver.resolve(toResolve);
+            return resolved;
+        } catch (e) {
+            resolveError.originalErrors = [e];
+            throw resolveError;
+        }
     }
-    /**
-     * Resolve paths and emit as JSON.
-     *
-     * @returns {object} Configuration object
-     */
-    async toLoaderOptions() {
-        const byType = {
-            babel: {},
-            source: {}
-        };
-        // Some reqs may still be outstanding!
-        (await Promise.all(this._reqs)).map(req => {
-            // Split them up by the transform module to use.
-            // Several requests will share one transform instance.
-            const { type, transformModule, fileToTransform } = req;
-            const xformsForType = byType[type];
-            if (!xformsForType) {
-                throw new Error(`Unknown transform type "${type}"`);
+    _resolveNode(request, prop) {
+        let nodeModule;
+        try {
+            nodeModule = require.resolve(request[prop]);
+        } catch (e) {
+            try {
+                nodeModule = require.resolve(
+                    path.join(request.requestor, request[prop])
+                );
+            } catch (innerE) {
+                const resolveError = this._traceableError(
+                    `could not resolve ${prop} ${
+                        request[prop]
+                    } from requestor ${request.requestor} using Node rules.`
+                );
+                resolveError.originalErrors = [e, innerE];
+                throw resolveError;
             }
-            const filesForXform =
-                xformsForType[transformModule] ||
-                (xformsForType[transformModule] = {});
-            const requestsForFile =
-                filesForXform[fileToTransform] ||
-                (filesForXform[fileToTransform] = []);
-            requestsForFile.push(req);
-        });
-        return JSON.parse(JSON.stringify(byType));
+        }
+        return nodeModule;
     }
 }
 
