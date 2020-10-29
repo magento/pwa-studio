@@ -93,3 +93,63 @@ test('uses routes to inject client-routed pages', async () => {
     expect(built.bundle).toContain('DynamicCreateAccount');
     expect(built.bundle).toContain('DynamicCheckout');
 });
+
+test('declares payments target', async () => {
+    const bus = mockBuildBus({
+        context: __dirname,
+        dependencies: [thisDep]
+    });
+    bus.runPhase('declare');
+    const { payments } = bus.getTargetsOf('@magento/venia-ui');
+
+    const interceptor = jest.fn();
+    // no implementation testing in declare phase
+    payments.tap('test', interceptor);
+    payments.call('woah');
+    expect(interceptor).toHaveBeenCalledWith('woah');
+});
+
+test('uses RichContentRenderers to default strategy Payment Methode', async () => {
+    jest.setTimeout(15000);
+
+    const built = await buildModuleWith(
+        '../../components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
+        {
+            context: __dirname,
+            dependencies: ['@magento/peregrine', thisDep]
+        }
+    );
+
+    const payments = built.run();
+    expect(payments).toHaveProperty('braintree');
+});
+
+test('declares payments target', async () => {
+    const bus = mockBuildBus({
+        context: __dirname,
+        dependencies: [thisDep]
+    });
+    bus.runPhase('declare');
+    const { payments } = bus.getTargetsOf('@magento/venia-ui');
+
+    const interceptor = jest.fn();
+    // no implementation testing in declare phase
+    payments.tap('test', interceptor);
+    payments.call('woah');
+    expect(interceptor).toHaveBeenCalledWith('woah');
+});
+
+test('uses RichContentRenderers to default strategy Payment Methode', async () => {
+    jest.setTimeout(15000);
+
+    const built = await buildModuleWith(
+        '../../components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
+        {
+            context: __dirname,
+            dependencies: ['@magento/peregrine', thisDep]
+        }
+    );
+
+    const payments = built.run();
+    expect(payments).toHaveProperty('braintree');
+});
