@@ -4,6 +4,7 @@ import { useFieldApi } from 'informed';
 
 import { createTestInstance } from '@magento/peregrine';
 import { useShippingRadios } from '../useShippingRadios';
+import { act } from 'react-test-renderer';
 
 jest.mock('../../../../../context/cart', () => {
     const state = {
@@ -112,7 +113,9 @@ it('calls the set shipping method mutation', () => {
 
     const { handleShippingSelection } = talonProps;
 
-    handleShippingSelection('tablerate|bestway');
+    act(() => {
+        handleShippingSelection('tablerate|bestway');
+    });
 
     expect(setShippingMethod).toHaveBeenCalled();
 
