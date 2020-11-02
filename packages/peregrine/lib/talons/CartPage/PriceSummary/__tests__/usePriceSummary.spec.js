@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { usePriceSummary } from '../usePriceSummary';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 import { priceSummaryResponse } from '../__fixtures__/priceSummary';
 import { act } from 'react-test-renderer';
