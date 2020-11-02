@@ -1,90 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Should return correct shape 1`] = `
-<aside
-  className="root"
+<mock-Dialog
+  confirmText="Update"
+  confirmTranslationId="global.updateButton"
+  onCancel={[Function]}
+  onConfirm={[Function]}
+  shouldDisableAllButtons={false}
+  shouldDisableConfirmButton={false}
+  shouldUnmountOnHide={true}
+  title="Edit Payment Information"
 >
-  <form
-    className="form"
-    onKeyDown={[Function]}
-    onReset={[Function]}
-    onSubmit={[Function]}
+  <div
+    className="body"
   >
-    <button
-      className="mask"
-      disabled={false}
-      onClick={[Function]}
-      type="reset"
+    <mock-CreditCard
+      onDropinReady={[Function]}
+      onPaymentSuccess={[Function]}
+      shouldSubmit={false}
     />
-    <div
-      className="dialog"
-    >
-      <div
-        className="header"
-      >
-        <span
-          className="headerText"
-        >
-          Edit Payment Information
-        </span>
-        <button
-          className="headerButton"
-          disabled={false}
-          onClick={[Function]}
-          type="reset"
-        >
-          <mock-Icon
-            src={[Function]}
-          />
-        </button>
-      </div>
-      <div
-        className="body"
-      >
-        <div
-          className="contents"
-        >
-          <div
-            className="body"
-          >
-            <mock-CreditCard
-              onDropinReady={[Function]}
-              onPaymentSuccess={[Function]}
-              shouldSubmit={false}
-            />
-          </div>
-        </div>
-        <div
-          className="buttons"
-        >
-          <mock-Button
-            classes={
-              Object {
-                "root_lowPriority": "cancelButton",
-              }
-            }
-            disabled={false}
-            onClick={[Function]}
-            priority="low"
-            type="reset"
-          >
-            Cancel
-          </mock-Button>
-          <mock-Button
-            classes={
-              Object {
-                "root_highPriority": "confirmButton",
-              }
-            }
-            disabled={false}
-            priority="high"
-            type="submit"
-          >
-            Update
-          </mock-Button>
-        </div>
-      </div>
-    </div>
-  </form>
-</aside>
+  </div>
+</mock-Dialog>
 `;
