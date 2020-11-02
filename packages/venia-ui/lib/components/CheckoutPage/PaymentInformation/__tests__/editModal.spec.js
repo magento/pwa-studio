@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal';
 
-import Button from '../../../Button';
 import CreditCard from '../creditCard';
 import EditModal from '../editModal';
 
