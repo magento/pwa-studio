@@ -2,8 +2,6 @@
 title: Wrappable Peregrine Talons
 ---
 
-This page lists the wrappable talons available through the [Talon wrapper configuration object][].
-
 ## Usage
 
 An extension may need to modify or decorate the behavior of a Peregrine talon.
@@ -61,8 +59,6 @@ See the [PWA Studio Target Experiments][] project repository for other documente
 The reference doc content is generated automatically from the source code.
 To update this section, update the doc blocks in the source code
 -->
-
-{% include auto-generated/peregrine/lib/targets/TalonWrapperConfig.md %}
 
 [talon wrapper configuration object]: #talonwrapperconfig
 [pwa studio target experiments]: https://github.com/magento-research/pwa-studio-target-experiments
