@@ -2,7 +2,7 @@
     "name": "Venia",
     "short_name": "Venia",
     "start_url": "/",
-    "theme_color": "#ff6334",
+    "theme_color": "#1F39FF",
     "display": "standalone",
     "background_color": "#fff",
     "description": "Shop the look",
@@ -21,6 +21,12 @@
             "src": "/venia-static/icons/venia_circle_512.png",
             "sizes": "512x512",
             "type": "image/png"
+        },
+        {
+            "src": "/venia-static/icons/venia_maskable_512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ]
 }
