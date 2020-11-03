@@ -6,7 +6,7 @@ import DEFAULT_OPERATIONS from './orderHistoryContext.gql';
 
 const OrderHistoryContext = createContext();
 
-export const OrderHistoryContextProvider = props => {
+const OrderHistoryContextProvider = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getProductURLSuffixQuery } = operations;
 
@@ -28,5 +28,7 @@ export const OrderHistoryContextProvider = props => {
         </OrderHistoryContext.Provider>
     );
 };
+
+export default OrderHistoryContextProvider;
 
 export const useOrderHistoryContext = () => useContext(OrderHistoryContext);

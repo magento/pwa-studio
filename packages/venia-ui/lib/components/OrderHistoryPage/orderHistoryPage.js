@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
-import { OrderHistoryContextProvider } from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
+import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
 import { mergeClasses } from '../../classify';

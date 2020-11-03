@@ -14,7 +14,8 @@ jest.mock(
 jest.mock(
     '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext',
     () => ({
-        OrderHistoryContextProvider: props => (
+        __esModule: true,
+        default: props => (
             <mock-OrderHistoryContextProvider>
                 {props.children}
             </mock-OrderHistoryContextProvider>
