@@ -102,7 +102,7 @@ it('can toggle showing the form', () => {
 
     let talonProps = component.root.findByType('i').props;
 
-    expect(talonProps.isShowingForm).toBeFalsy()
+    expect(talonProps.isShowingForm).toBeFalsy();
 
     const { showForm } = talonProps;
 
