@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Form } from 'informed';
 import { shape, func, string, bool, instanceOf } from 'prop-types';
 
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
@@ -41,8 +42,8 @@ const PaymentInformation = props => {
         handlePaymentError,
         handlePaymentSuccess,
         hideEditModal,
-        isEditModalActive,
         isLoading,
+        isEditModalActive,
         showEditModal
     } = talonProps;
 
@@ -60,16 +61,18 @@ const PaymentInformation = props => {
     const paymentInformation = doneEditing ? (
         <Summary onEdit={showEditModal} />
     ) : (
-        <PaymentMethods
-            onPaymentError={handlePaymentError}
-            onPaymentSuccess={handlePaymentSuccess}
-            resetShouldSubmit={resetShouldSubmit}
-            shouldSubmit={shouldSubmit}
-        />
+        <Form>
+            <PaymentMethods
+                onPaymentError={handlePaymentError}
+                onPaymentSuccess={handlePaymentSuccess}
+                resetShouldSubmit={resetShouldSubmit}
+                shouldSubmit={shouldSubmit}
+            />
+        </Form>
     );
 
-    const editModal = isEditModalActive ? (
-        <EditModal onClose={hideEditModal} />
+    const editModal = doneEditing ? (
+        <EditModal onClose={hideEditModal} isOpen={isEditModalActive} />
     ) : null;
 
     return (
