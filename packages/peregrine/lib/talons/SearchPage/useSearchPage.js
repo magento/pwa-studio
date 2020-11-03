@@ -2,12 +2,14 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
 
+import mergeOperations from '../../util/shallowMerge';
 import { useAppContext } from '../../context/app';
 import { usePagination } from '../../hooks/usePagination';
 import { useScrollTopOnChange } from '../../hooks/useScrollTopOnChange';
 import { getSearchParam } from '../../hooks/useSearchParam';
 import { useSort } from '../../hooks/useSort';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
+
 import DEFAULT_OPERATIONS from './searchPage.gql';
 
 /**
@@ -18,10 +20,10 @@ import DEFAULT_OPERATIONS from './searchPage.gql';
  */
 export const useSearchPage = (props = {}) => {
     const {
-        operations = DEFAULT_OPERATIONS,
         queries: { getPageSize }
     } = props;
 
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         getFilterInputsQuery,
         getProductFiltersBySearchQuery,

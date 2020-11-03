@@ -363,6 +363,7 @@
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "Favorites Lists",
     "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
+    "postcode.label": "ZIP / Postal Code",
     "orderDetails.waitingOnTracking": "Waiting for tracking information",
     "orderItems.itemsHeading": "Items"
 }

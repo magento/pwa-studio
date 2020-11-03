@@ -14,7 +14,7 @@ const NoProductsFound = props => {
     const { categoryId } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const formatMessage = useIntl();
+    const { formatMessage } = useIntl();
     const talonProps = useNoProductsFound({
         categoryId
     });

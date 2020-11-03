@@ -1,29 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Should return correct shape 1`] = `
-<aside
-  className="root_open"
+<mock-Dialog
+  confirmText="Update"
+  confirmTranslationId="global.updateButton"
+  onCancel={[Function]}
+  onConfirm={[Function]}
+  shouldDisableAllButtons={false}
+  shouldDisableConfirmButton={false}
+  shouldUnmountOnHide={true}
+  title="Edit Payment Information"
 >
-  <div
-    className="header"
-  >
-    <span
-      className="header_text"
-    >
-      <mock-FormattedMessage
-        defaultMessage="Edit Payment Information"
-        id="checkoutPage.editPaymentInformation"
-      />
-    </span>
-    <button
-      className="close_button"
-      onClick={[Function]}
-    >
-      <mock-ChecIconkbox
-        src={[Function]}
-      />
-    </button>
-  </div>
   <div
     className="body"
   >
@@ -32,30 +19,6 @@ exports[`Should return correct shape 1`] = `
       onPaymentSuccess={[Function]}
       shouldSubmit={false}
     />
-    <div
-      className="actions_container"
-    >
-      <mock-Button
-        disabled={false}
-        onClick={[Function]}
-        priority="low"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Cancel"
-          id="global.cancelButton"
-        />
-      </mock-Button>
-      <mock-Button
-        disabled={false}
-        onClick={[Function]}
-        priority="high"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Update"
-          id="global.updateButton"
-        />
-      </mock-Button>
-    </div>
   </div>
-</aside>
+</mock-Dialog>
 `;
