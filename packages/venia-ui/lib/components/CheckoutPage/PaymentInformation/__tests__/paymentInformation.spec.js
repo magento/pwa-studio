@@ -97,10 +97,10 @@ test('Should render PaymentMethods component only if doneEditing is false', () =
     }).toThrow();
 });
 
-test('Should render EditModal component only if isEditModalActive is true', () => {
+test('Should render EditModal component only if doneEditing is true', () => {
     usePaymentInformation.mockReturnValueOnce({
         ...defaultTalonResponse,
-        isEditModalActive: true
+        doneEditing: true
     });
 
     const tree = createTestInstance(<PaymentInformation />);
@@ -109,7 +109,7 @@ test('Should render EditModal component only if isEditModalActive is true', () =
 
     usePaymentInformation.mockReturnValueOnce({
         ...defaultTalonResponse,
-        isEditModalActive: false
+        doneEditing: false
     });
 
     tree.update(<PaymentInformation />);
