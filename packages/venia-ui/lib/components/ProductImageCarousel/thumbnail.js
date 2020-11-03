@@ -67,8 +67,9 @@ const Thumbnail = props => {
 
     return (
         <button
-            onClick={handleClick}
             className={isActive ? classes.rootSelected : classes.root}
+            onClick={handleClick}
+            type="button"
         >
             {thumbnailImage}
         </button>

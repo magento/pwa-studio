@@ -97,6 +97,7 @@ const ProductImageCarousel = props => {
                 <button
                     className={classes.previousButton}
                     onClick={handlePrevious}
+                    type="button"
                 >
                     <Icon
                         classes={chevronClasses}
@@ -105,7 +106,11 @@ const ProductImageCarousel = props => {
                     />
                 </button>
                 {image}
-                <button className={classes.nextButton} onClick={handleNext}>
+                <button
+                    className={classes.nextButton}
+                    onClick={handleNext}
+                    type="button"
+                >
                     <Icon
                         classes={chevronClasses}
                         src={ChevronRightIcon}
