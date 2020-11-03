@@ -48,7 +48,6 @@ const Item = props => {
             <div className={classes.nameContainer}>
                 <Link to={itemLink}>{product_name}</Link>
             </div>
-
             <ProductOptions
                 options={mappedOptions}
                 classes={{

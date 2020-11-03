@@ -20,7 +20,3 @@
 .addressLine2 {
     grid-row: 4 / span 1;
 }
-
-.country {
-    grid-row: 5 / span 1;
-}

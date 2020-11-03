@@ -9,11 +9,9 @@ exports[`should render properly 1`] = `
       id="orderDetails.billingInformationLabel"
     />
   </div>
-  <div>
-    <span>
-      Gooseton Jr
-    </span>
-  </div>
+  <span>
+    Gooseton Jr
+  </span>
   <div>
     2134, Apt 123, Goose Drive
   </div>

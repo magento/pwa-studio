@@ -30,9 +30,7 @@ const BillingInformation = props => {
                     defaultMessage="Billing Information"
                 />
             </div>
-            <div className={classes.name}>
-                <span>{fullName}</span>
-            </div>
+            <span className={classes.name}>{fullName}</span>
             <div className={classes.addressLine1}>{street}</div>
             <div className={classes.addressLine2}>
                 {additionalAddressString}

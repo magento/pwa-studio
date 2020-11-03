@@ -2,12 +2,13 @@ import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
 
 export const useOrderHistoryPage = (props = {}) => {
-    const { operations = DEFAULT_OPERATIONS } = props;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerOrdersQuery } = operations;
 
     const [

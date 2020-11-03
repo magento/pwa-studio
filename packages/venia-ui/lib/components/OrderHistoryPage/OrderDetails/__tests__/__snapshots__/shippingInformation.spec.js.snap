@@ -8,11 +8,9 @@ exports[`should render properly 1`] = `
       id="orderDetails.shippingInformationLabel"
     />
   </div>
-  <div>
-    <span>
-      Gooseton Jr
-    </span>
-  </div>
+  <span>
+    Gooseton Jr
+  </span>
   <div>
     Goose Dr
   </div>

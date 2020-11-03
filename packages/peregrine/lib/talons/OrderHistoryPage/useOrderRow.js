@@ -1,6 +1,7 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './orderRow.gql';
 
 /**
@@ -8,12 +9,13 @@ import DEFAULT_OPERATIONS from './orderRow.gql';
  *
  * @param {Object} props
  * @param {Array<Object>} props.items Collection of items in Order
- * @param {OrderRowQueries} props.queries GraphQL queries for the Order Row Component
+ * @param {OrderRowOperations} props.operations GraphQL queries for the Order Row Component
  *
  * @returns {OrderRowTalonProps}
  */
 export const useOrderRow = props => {
-    const { items, operations = DEFAULT_OPERATIONS } = props;
+    const { items } = props;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getProductThumbnailsQuery } = operations;
 
     const urlKeys = useMemo(() => {
@@ -54,9 +56,9 @@ export const useOrderRow = props => {
  */
 
 /**
- * GraphQL queries for the Order Row Component
+ * GraphQL operations for the Order Row Component
  *
- * @typedef {Object} OrderRowQueries
+ * @typedef {Object} OrderRowOperations
  *
  * @property {GraphQLAST} getProductThumbnailsQuery The query used to get product thumbnails of items in the Order.
  *

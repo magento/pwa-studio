@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useMemo } from 'react';
-
-import DEFAULT_OPERATIONS from './orderHistoryContext.gql';
 import { useQuery } from '@apollo/client';
+
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './orderHistoryContext.gql';
 
 const OrderHistoryContext = createContext();
 
 export const OrderHistoryContextProvider = props => {
-    const operations = Object.assign({}, DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getProductURLSuffixQuery } = operations;
 
     const { data } = useQuery(getProductURLSuffixQuery, {
