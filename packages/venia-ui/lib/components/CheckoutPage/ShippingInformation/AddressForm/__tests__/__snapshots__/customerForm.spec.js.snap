@@ -363,6 +363,7 @@ Array [
           >
             <input
               className="input"
+              id="postcode"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -794,6 +795,7 @@ Array [
           >
             <input
               className="input"
+              id="postcode"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1282,6 +1284,7 @@ Array [
           >
             <input
               className="input"
+              id="postcode"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}

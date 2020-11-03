@@ -148,6 +148,7 @@ Array [
         >
           <input
             className="input"
+            id="zip"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -342,6 +343,7 @@ Array [
         >
           <input
             className="input"
+            id="zip"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -579,6 +581,7 @@ Array [
         >
           <input
             className="input"
+            id="zip"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -816,6 +819,7 @@ Array [
         >
           <input
             className="input"
+            id="zip"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -1042,6 +1046,7 @@ Array [
         >
           <input
             className="input"
+            id="zip"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
