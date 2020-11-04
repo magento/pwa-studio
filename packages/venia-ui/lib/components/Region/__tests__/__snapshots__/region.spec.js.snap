@@ -6,7 +6,7 @@ exports[`renders disabled dropdown while loading 1`] = `
 >
   <label
     className="label"
-    htmlFor="region"
+    htmlFor="root"
   >
     State
   </label>
@@ -25,7 +25,7 @@ exports[`renders disabled dropdown while loading 1`] = `
       <select
         className="input"
         disabled={true}
-        id="region"
+        id="root"
         name="region"
         onBlur={[Function]}
         onChange={[Function]}
@@ -80,7 +80,7 @@ exports[`renders dropdown with regions 1`] = `
 >
   <label
     className="label"
-    htmlFor="region"
+    htmlFor="root"
   >
     State
   </label>
@@ -99,7 +99,7 @@ exports[`renders dropdown with regions 1`] = `
       <select
         className="input"
         disabled={false}
-        id="region"
+        id="root"
         name="region"
         onBlur={[Function]}
         onChange={[Function]}
@@ -161,7 +161,7 @@ exports[`renders input with no regions 1`] = `
 >
   <label
     className="label"
-    htmlFor="region"
+    htmlFor="root"
   >
     State
   </label>
@@ -180,7 +180,7 @@ exports[`renders input with no regions 1`] = `
       <input
         className="input"
         disabled={false}
-        id="region"
+        id="root"
         name="region"
         onBlur={[Function]}
         onChange={[Function]}

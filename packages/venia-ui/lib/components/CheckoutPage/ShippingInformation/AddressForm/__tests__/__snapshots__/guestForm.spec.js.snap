@@ -313,7 +313,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -331,7 +331,7 @@ Array [
           >
             <input
               className="input"
-              id="postcode"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -731,7 +731,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -749,7 +749,7 @@ Array [
           >
             <input
               className="input"
-              id="postcode"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1140,7 +1140,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -1158,7 +1158,7 @@ Array [
           >
             <input
               className="input"
-              id="postcode"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1561,7 +1561,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -1579,7 +1579,7 @@ Array [
           >
             <input
               className="input"
-              id="postcode"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}

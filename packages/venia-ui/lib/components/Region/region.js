@@ -42,23 +42,21 @@ const Region = props => {
         ...inputProps
     };
 
-    const fieldId = regions.length ? fieldSelect : fieldInput;
-
     const regionField =
         regions.length || loading ? (
             <Select
                 {...regionProps}
                 field={fieldSelect}
-                id={fieldId}
+                id={classes.root}
                 items={regions}
             />
         ) : (
-            <TextInput {...regionProps} field={fieldInput} id={fieldId} />
+            <TextInput {...regionProps} field={fieldInput} id={classes.root} />
         );
 
     return (
         <Field
-            id={fieldId}
+            id={classes.root}
             label={formatMessage({ id: translationId, defaultMessage: label })}
             classes={{ root: classes.root }}
         >
