@@ -14,7 +14,8 @@
                     "filesGlob": "../{peregrine,venia-ui,venia-concept}/{lib,src}/**/*.{js,graphql,gql}",
                     "ignore": [
                         "../venia-ui/lib/**/giftOptions.js",
-                        "../venia-ui/lib/**/wishlistPage.gql.js"
+                        "../venia-ui/lib/**/wishlistPage.gql.js",
+                        "../venia-ui/lib/**/wishlistItem.gql.js"
                     ]
                 }
             }
