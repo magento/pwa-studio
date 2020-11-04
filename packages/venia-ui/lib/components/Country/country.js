@@ -36,11 +36,11 @@ const Country = props => {
 
     return (
         <Field
-            id={field}
+            id={classes.root}
             label={formatMessage({ id: translationId, defaultMessage: label })}
             classes={{ root: classes.root }}
         >
-            <Select {...selectProps} />
+            <Select {...selectProps} id={classes.root} />
         </Field>
     );
 };
