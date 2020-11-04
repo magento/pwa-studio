@@ -18,7 +18,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="country"
+        htmlFor="root"
       >
         Country
       </label>
@@ -37,6 +37,7 @@ Array [
           <select
             className="input"
             disabled={true}
+            id="root"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -88,7 +89,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="region"
+        htmlFor="root"
       >
         State
       </label>
@@ -106,6 +107,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -128,7 +130,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="zip"
+        htmlFor="root"
       >
         ZIP / Postal Code
       </label>
@@ -146,6 +148,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -196,7 +199,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="country"
+        htmlFor="root"
       >
         Country
       </label>
@@ -215,6 +218,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="root"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -280,7 +284,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="region"
+        htmlFor="root"
       >
         State
       </label>
@@ -298,6 +302,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -320,7 +325,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="zip"
+        htmlFor="root"
       >
         ZIP / Postal Code
       </label>
@@ -338,6 +343,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -388,7 +394,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="country"
+        htmlFor="root"
       >
         Country
       </label>
@@ -407,6 +413,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="root"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -472,7 +479,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="region"
+        htmlFor="root"
       >
         State
       </label>
@@ -490,6 +497,7 @@ Array [
         >
           <select
             className="input"
+            id="root"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -555,7 +563,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="zip"
+        htmlFor="root"
       >
         ZIP / Postal Code
       </label>
@@ -573,6 +581,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -623,7 +632,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="country"
+        htmlFor="root"
       >
         Country
       </label>
@@ -642,6 +651,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="root"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -707,7 +717,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="region"
+        htmlFor="root"
       >
         State
       </label>
@@ -725,6 +735,7 @@ Array [
         >
           <select
             className="input"
+            id="root"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -790,7 +801,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="zip"
+        htmlFor="root"
       >
         ZIP / Postal Code
       </label>
@@ -808,6 +819,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -847,7 +859,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="country"
+        htmlFor="root"
       >
         Country
       </label>
@@ -866,6 +878,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="root"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -931,7 +944,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="region"
+        htmlFor="root"
       >
         State
       </label>
@@ -949,6 +962,7 @@ Array [
         >
           <select
             className="input"
+            id="root"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -1014,7 +1028,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="zip"
+        htmlFor="root"
       >
         ZIP / Postal Code
       </label>
@@ -1032,6 +1046,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
