@@ -6,7 +6,7 @@ exports[`renders a disabled dropdown while loading 1`] = `
 >
   <label
     className="label"
-    htmlFor="country"
+    htmlFor="root"
   >
     Country
   </label>
@@ -25,6 +25,7 @@ exports[`renders a disabled dropdown while loading 1`] = `
       <select
         className="input"
         disabled={true}
+        id="root"
         name="country"
         onBlur={[Function]}
         onChange={[Function]}
@@ -71,7 +72,7 @@ exports[`renders dropdown with country data 1`] = `
 >
   <label
     className="label"
-    htmlFor="country"
+    htmlFor="root"
   >
     Country
   </label>
@@ -90,6 +91,7 @@ exports[`renders dropdown with country data 1`] = `
       <select
         className="input"
         disabled={false}
+        id="root"
         name="country"
         onBlur={[Function]}
         onChange={[Function]}
