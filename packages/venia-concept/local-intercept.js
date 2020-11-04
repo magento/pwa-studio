@@ -21,13 +21,19 @@ const { Targetables } = require('@magento/pwa-buildpack');
 function localIntercept(targets) {
     const myTheme = Targetables.using(targets);
 
-    const button = myTheme.reactComponent('@magento/venia-ui/lib/components/Button/button.js');
+    const button = myTheme.reactComponent(
+        '@magento/venia-ui/lib/components/Button/button.js'
+    );
 
-    const CustomButton = button.addImport("CustomButton from '@magento/venia-concept/src/CustomButton/CustomButton.js'");
-    button.replaceJSX('button', `<${CustomButton} className={rootClassName} type={type} disabled={disabled} {...restProps}>{children}</${CustomButton}>`);
+    const CustomButton = button.addImport(
+        "CustomButton from '@magento/venia-concept/src/CustomButton/CustomButton.js'"
+    );
+    button.replaceJSX(
+        'button',
+        `<${CustomButton} className={rootClassName} type={type} disabled={disabled} {...restProps}>{children}</${CustomButton}>`
+    );
 
     // etc for all other things you might want to customize with your theme...
 }
-
 
 module.exports = localIntercept;

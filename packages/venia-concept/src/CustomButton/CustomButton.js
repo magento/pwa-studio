@@ -29,9 +29,9 @@ const CustomButton = props => {
             loadCss();
         }
 
-        async function loadCss () {
+        async function loadCss() {
             const dynamicCss = await import('./frenchButton.css');
-            setCss(dynamicCss.default)
+            setCss(dynamicCss.default);
         }
     }, [storeCode]);
 
