@@ -180,7 +180,6 @@
     "global.newPassword": "New Password",
     "global.password": "Password",
     "global.phoneNumber": "Phone Number",
-    "global.postcode": "ZIP / Postal Code",
     "global.private": "Private",
     "global.public": "Public",
     "global.quantity": "Quantity",
@@ -287,6 +286,7 @@
     "productOptions.selectedLabel": "Selected {label}:",
     "productQuantity.label": "product's quantity",
     "productSort.sortButton": "Sort",
+    "postcode.label": "ZIP / Postal Code",
     "quantity.buttonDecrement": "Decrease Quantity",
     "quantity.buttonIncrement": "Increase Quantity",
     "quantity.input": "Item Quantity",
@@ -362,6 +362,5 @@
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "Favorites Lists",
-    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
-    "postcode.label": "ZIP / Postal Code"
+    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available."
 }
