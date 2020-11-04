@@ -34,7 +34,11 @@ const Postcode = props => {
             label={fieldLabel}
             classes={{ root: classes.root }}
         >
-            <TextInput {...postcodeProps} field={fieldInput} id={classes.root} />
+            <TextInput
+                {...postcodeProps}
+                field={fieldInput}
+                id={classes.root}
+            />
         </Field>
     );
 };
