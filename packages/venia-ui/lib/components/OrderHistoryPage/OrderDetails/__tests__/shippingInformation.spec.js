@@ -11,7 +11,7 @@ const defaultProps = {
         lastname: 'Jr',
         postcode: '78759',
         region: 'TX',
-        street: 'Goose Dr',
+        street: ['Goose Dr'],
         telephone: '9123456789'
     }
 };

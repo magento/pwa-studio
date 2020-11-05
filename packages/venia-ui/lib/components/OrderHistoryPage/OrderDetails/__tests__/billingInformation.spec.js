@@ -16,7 +16,7 @@ const defaultData = {
     lastname: 'Jr',
     postcode: '78451',
     region: 'TX',
-    street: '2134, Apt 123, Goose Drive'
+    street: ['2134, Apt 123, Goose Drive']
 };
 
 test('should render properly', () => {

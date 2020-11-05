@@ -12,9 +12,9 @@ exports[`should render properly 1`] = `
   <span>
     Gooseton Jr
   </span>
-  <div>
+  <span>
     2134, Apt 123, Goose Drive
-  </div>
+  </span>
   <div>
     Austin, TX 78451 USA
   </div>

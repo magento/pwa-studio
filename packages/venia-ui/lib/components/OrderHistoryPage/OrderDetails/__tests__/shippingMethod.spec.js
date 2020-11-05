@@ -10,7 +10,6 @@ const defaultProps = {
                 id: '1',
                 tracking: [
                     {
-                        carrier: 'Fedex',
                         number: 'FEDEX5885541235452125'
                     }
                 ]

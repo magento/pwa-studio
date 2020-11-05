@@ -19,6 +19,8 @@
     align-self: start;
     grid-column-end: -1;
     text-decoration: underline;
+    /** Hide until PWA-979 is completed */
+    visibility: hidden;
 }
 
 @media (max-width: 960px) {

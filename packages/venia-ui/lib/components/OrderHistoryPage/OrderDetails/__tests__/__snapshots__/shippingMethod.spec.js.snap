@@ -10,15 +10,17 @@ exports[`should render properly 1`] = `
   </div>
   <div />
   <div>
-    <mock-FormattedMessage
-      id="orderDetails.trackingInformation"
-      values={
-        Object {
-          "carrier": "Fedex",
-          "number": "FEDEX5885541235452125",
+    <span>
+      <mock-FormattedMessage
+        id="orderDetails.trackingInformation"
+        values={
+          Object {
+            "number": "FEDEX5885541235452125",
+            "strong": [Function],
+          }
         }
-      }
-    />
+      />
+    </span>
   </div>
 </div>
 `;
