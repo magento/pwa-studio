@@ -10,6 +10,26 @@ const storage = new BrowserPersistence();
 const getRootClassName = (priority, negative) =>
     `root_${priority}Priority${negative ? 'Negative' : ''}`;
 
+// The hook that loads/returns custom css for a theme.
+const useThemedCss = defaultClasses => {
+    const storeCode = storage.getItem('store_view_code');
+    const [css, setCss] = useState(defaultClasses);
+    useEffect(() => {
+        loadCss(storeCode);
+
+        async function loadCss(storeCode) {
+            let dynamicCss;
+            if (storeCode === 'fr') {
+                dynamicCss = await import('./frenchButton.css');
+            }
+            // etc, for store codes, or whatever store_code:theme mapping you
+            setCss(dynamicCss.default);
+        }
+    }, [storeCode]);
+
+    return css;
+};
+
 const CustomButton = props => {
     const {
         children,
@@ -22,24 +42,14 @@ const CustomButton = props => {
         ...restProps
     } = props;
 
-    const storeCode = storage.getItem('store_view_code');
-    const [css, setCss] = useState(defaultClasses);
-    useEffect(() => {
-        if (storeCode === 'fr') {
-            loadCss();
-        }
-
-        async function loadCss() {
-            const dynamicCss = await import('./frenchButton.css');
-            setCss(dynamicCss.default);
-        }
-    }, [storeCode]);
-
-    const classes = mergeClasses(css, propClasses);
+    // One of two changes to "Button". Wrap "defaultClasses" in `useThemedCss`.
+    const classes = mergeClasses(useThemedCss(defaultClasses), propClasses);
     const rootClassName = classes[getRootClassName(priority, negative)];
 
     return (
         <button
+            // The only other custom thing here...But there might be a better
+            // way to ensure that incoming classes are used.
             className={`${className} ${rootClassName}`}
             type={type}
             disabled={disabled}
