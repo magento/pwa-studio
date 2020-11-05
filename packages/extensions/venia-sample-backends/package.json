@@ -1,0 +1,22 @@
+{
+    "name": "@magento/venia-sample-backends",
+    "version": "0.0.1",
+    "description": "Provides demo translations for PWA Studio.",
+    "publishConfig": {
+        "access": "public"
+    },
+    "license": "(OSL-3.0 OR AFL-3.0)",
+    "main": "./intercept.js",
+    "repository": "github:magento/pwa-studio",
+    "scripts": {
+        "clean": " "
+    },
+    "peerDependencies": {
+        "@magento/pwa-buildpack": "~7.0.0"
+    },
+    "pwa-studio": {
+        "targets": {
+            "intercept": "./intercept"
+        }
+    }
+}

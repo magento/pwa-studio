@@ -9,8 +9,18 @@ const isInvalidPath = require('is-invalid-path');
 const isValidNpmName = require('is-valid-npm-name');
 const pkg = require('../package.json');
 const {
-    sampleBackends
+    sampleBackends: defaultSampleBackends
 } = require('@magento/pwa-buildpack/lib/cli/create-project');
+
+const fetchSampleBackends = async () => {
+    return Promise.resolve([
+        {
+            name: 'test',
+            description: 'Test instance',
+            url: 'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/'
+        }
+    ]);
+};
 
 module.exports = async () => {
     console.log(chalk.greenBright(`${pkg.name} v${pkg.version}`));
@@ -19,6 +29,15 @@ module.exports = async () => {
     );
     const userAgent = process.env.npm_config_user_agent || '';
     const isYarn = userAgent.includes('yarn');
+
+    const sampleBackendEnvironments = await fetchSampleBackends();
+    const sampleBackends = {
+        ...defaultSampleBackends,
+        environments: [
+            ...defaultSampleBackends.environments,
+            ...sampleBackendEnvironments
+        ]
+    };
 
     const questions = [
         {

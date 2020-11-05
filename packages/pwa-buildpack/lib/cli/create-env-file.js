@@ -1,5 +1,7 @@
 const { writeFileSync } = require('fs');
 const { resolve } = require('path');
+
+const createDotEnvFile = require('../Utilities/createDotEnvFile');
 const prettyLogger = require('../util/pretty-logger');
 module.exports.command = 'create-env-file <directory>';
 
@@ -13,15 +15,15 @@ module.exports.builder = {
     }
 };
 
-module.exports.handler = function buildpackCli({ directory, useExamples }) {
+module.exports.handler = async function buildpackCli({
+    directory,
+    useExamples
+}) {
     const envFilePath = resolve(directory, '.env');
-    writeFileSync(
-        envFilePath,
-        require('../Utilities/createDotEnvFile')(directory, {
-            useExamples
-        }),
-        'utf8'
-    );
+    const dotEnvFile = await createDotEnvFile(directory, {
+        useExamples
+    });
+    writeFileSync(envFilePath, dotEnvFile, 'utf8');
     prettyLogger.info(
         `Successfully wrote a fresh configuration file to ${envFilePath}`
     );

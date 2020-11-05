@@ -153,7 +153,8 @@ module.exports = targets => {
          * @member {tapable.AsyncSeriesHook}
          * @param {transformUpwardIntercept} interceptor
          */
-        transformUpward: new targets.types.AsyncSeries(['definitions'])
+        transformUpward: new targets.types.AsyncSeries(['definitions']),
+        validateEnv: new targets.types.AsyncParallel(['validator'])
     };
 
     /**
