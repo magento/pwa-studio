@@ -21,6 +21,13 @@ const ShippingInformation = props => {
 
     const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
     const fullName = `${firstname} ${lastname}`;
+    const streetRows = street.map((row, index) => {
+        return (
+            <span className={classes.streetRow} key={index}>
+                {row}
+            </span>
+        );
+    });
 
     return (
         <div className={classes.root}>
@@ -31,8 +38,8 @@ const ShippingInformation = props => {
                 />
             </div>
             <span className={classes.name}>{fullName}</span>
-            <div className={classes.addressLine1}>{street}</div>
-            <div className={classes.addressLine2}>
+            {streetRows}
+            <div className={classes.additionalAddress}>
                 {additionalAddressString}
             </div>
         </div>
@@ -46,8 +53,8 @@ ShippingInformation.propTypes = {
         root: string,
         heading: string,
         name: string,
-        addressLine1: string,
-        addressLine2: string
+        streetRow: string,
+        additionalAddress: string
     }),
     data: shape({
         city: string,
@@ -55,7 +62,7 @@ ShippingInformation.propTypes = {
         firstname: string,
         lastname: string,
         postcode: string,
-        region_id: string,
+        region: string,
         street: arrayOf(string),
         telephone: string
     })

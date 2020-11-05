@@ -17,21 +17,24 @@ const ShippingMethod = props => {
      */
     let trackingElement;
     if (shipments.length) {
-        const [{ tracking }] = shipments;
+        trackingElement = shipments.map(shipment => {
+            const { tracking } = shipment;
+            if (tracking.length) {
+                const [{ number }] = tracking;
 
-        if (tracking.length) {
-            const [{ carrier, number }] = tracking;
-
-            trackingElement = (
-                <FormattedMessage
-                    id="orderDetails.trackingInformation"
-                    values={{
-                        carrier,
-                        number
-                    }}
-                />
-            );
-        }
+                return (
+                    <span className={classes.trackingRow}>
+                        <FormattedMessage
+                            id="orderDetails.trackingInformation"
+                            values={{
+                                number,
+                                strong: chunks => <strong>{chunks}</strong>
+                            }}
+                        />
+                    </span>
+                );
+            }
+        });
     } else {
         trackingElement = (
             <FormattedMessage
@@ -62,7 +65,8 @@ ShippingMethod.propTypes = {
         root: string,
         heading: string,
         method: string,
-        tracking: string
+        tracking: string,
+        trackingRow: string
     }),
     data: shape({
         shippingMethod: string,
@@ -71,7 +75,6 @@ ShippingMethod.propTypes = {
                 id: string,
                 tracking: arrayOf(
                     shape({
-                        carrier: string,
                         number: string
                     })
                 )

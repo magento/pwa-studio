@@ -31,11 +31,15 @@ export const useOrderRow = props => {
     });
     const imagesData = useMemo(() => {
         if (data) {
-            return data.products.items;
+            // filter out items returned that we didn't query for
+            const filteredItems = data.products.items.filter(item =>
+                urlKeys.includes(item.url_key)
+            );
+            return filteredItems;
         } else {
             return [];
         }
-    }, [data]);
+    }, [data, urlKeys]);
 
     const [isOpen, setIsOpen] = useState(false);
 

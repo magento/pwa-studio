@@ -48,7 +48,6 @@ export const GET_CUSTOMER_ORDERS = gql`
                     shipments {
                         id
                         tracking {
-                            carrier
                             number
                         }
                     }

@@ -189,7 +189,7 @@ OrderRow.propTypes = {
         ),
         invoices: arrayOf(
             shape({
-                id: number
+                id: string
             })
         ),
         number: string,
@@ -221,7 +221,6 @@ OrderRow.propTypes = {
                 id: string,
                 tracking: arrayOf(
                     shape({
-                        carrier: string,
                         number: string
                     })
                 )

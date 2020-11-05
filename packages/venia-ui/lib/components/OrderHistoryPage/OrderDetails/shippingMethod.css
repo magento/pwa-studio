@@ -14,5 +14,7 @@
 }
 
 .tracking {
+    display: grid;
     grid-row: 3 / span 1;
+    row-gap: 0.375rem;
 }

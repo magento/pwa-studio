@@ -230,7 +230,7 @@
     "orderDetails.subtotal": "Subtotal",
     "orderDetails.tax": "Tax",
     "orderDetails.total": "Total",
-    "orderDetails.trackingInformation": "{carrier} Tracking: {number}",
+    "orderDetails.trackingInformation": "<strong>Tracking number:</strong> {number}",
     "orderHistoryPage.emptyDataMessage": "You don't have any orders yet.",
     "orderHistoryPage.pageTitleText": "Order History",
     "orderProgressBar.deliveredText": "Delivered",
