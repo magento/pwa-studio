@@ -1,34 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { oneOf, shape, string, bool } from 'prop-types';
-import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import defaultClasses from '@magento/venia-ui/lib/components/Button/button.css';
 
-const storage = new BrowserPersistence();
+import useThemedCss from '@magento/venia-concept/src/ThemedCss/useThemedCss';
 
 const getRootClassName = (priority, negative) =>
     `root_${priority}Priority${negative ? 'Negative' : ''}`;
-
-// The hook that loads/returns custom css for a theme.
-const useThemedCss = defaultClasses => {
-    const storeCode = storage.getItem('store_view_code');
-    const [css, setCss] = useState(defaultClasses);
-    useEffect(() => {
-        loadCss(storeCode);
-
-        async function loadCss(storeCode) {
-            let dynamicCss;
-            if (storeCode === 'fr') {
-                dynamicCss = await import('./frenchButton.css');
-            }
-            // etc, for store codes, or whatever store_code:theme mapping you
-            setCss(dynamicCss.default);
-        }
-    }, [storeCode]);
-
-    return css;
-};
 
 const CustomButton = props => {
     const {
@@ -43,7 +22,10 @@ const CustomButton = props => {
     } = props;
 
     // One of two changes to "Button". Wrap "defaultClasses" in `useThemedCss`.
-    const classes = mergeClasses(useThemedCss(defaultClasses), propClasses);
+    const classes = mergeClasses(
+        useThemedCss('Button', defaultClasses),
+        propClasses
+    );
     const rootClassName = classes[getRootClassName(priority, negative)];
 
     return (
