@@ -23,7 +23,10 @@ The more plugins you install with this architecture, the slower the application 
 
 ### Interceptor pattern
 
+The extensibility framework implements an [interceptor pattern][] to allow changes to the build process.
+The interceptor pattern lets a module **C** intercept the flow of logic between module **A** and module **B** and add it's own logic.
 
+![interceptor-pattern-image][]
 
 ## Targets
 
@@ -44,3 +47,6 @@ The more plugins you install with this architecture, the slower the application 
 ## Testing extensions locally
 
 ## Examples
+
+[interceptor pattern]: https://en.wikipedia.org/wiki/Interceptor_pattern
+[interceptor-pattern-image]: ./images/interceptor-pattern.svg
