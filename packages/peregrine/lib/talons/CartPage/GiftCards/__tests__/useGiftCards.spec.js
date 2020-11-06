@@ -236,7 +236,7 @@ test('it runs the remove card mutation when removeGiftCard() is called', () => {
     // Act.
     const component = createTestInstance(<Component {...props} />);
 
-    let talonProps = component.root.findByProps({ id: 'giftCard' }).props;
+    const talonProps = component.root.findByProps({ id: 'giftCard' }).props;
 
     const mockGiftCardCode = 'mock gift card code';
 
