@@ -5,27 +5,29 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
 
 import { isFastNetwork } from './networkUtils';
-import { THIRTY_DAYS, CATALOG_CACHE_NAME } from '../defaults';
+import { THIRTY_DAYS, IMAGES_CACHE_NAME } from '../defaults';
 import { registerMessageHandler } from './messageHandler';
+
+const imageRegex = new RegExp(/\.(?:png|jpg|jpeg)$/);
 
 const getWidth = url => Number(new URLSearchParams(url.search).get('width'));
 
-const isCatalogImage = ({ url }) => url.pathname.startsWith('/media/catalog');
+const isImage = url => imageRegex.test(url.pathname);
 
 /**
- * isResizedCatalogImage is route checker for workbox
- * that returns true for a valid catalog image URL.
+ * isResizedImage is route checker for workbox
+ * that returns true for a valid resized image URL.
  *
  * @param {url: URL, event: FetchEvent} workboxRouteObject
  *
  * @returns {boolean}
  */
-export const isResizedCatalogImage = ({ url }) =>
-    isCatalogImage({ url }) && !isNaN(getWidth(url));
+export const isResizedImage = ({ url }) =>
+    isImage(url) && !isNaN(getWidth(url));
 
 /**
  * This function tries to find same or a larger image
- * from the catalog cache storage.
+ * from the images cache storage.
  *
  * @param {URL} url
  *
@@ -36,7 +38,7 @@ export const findSameOrLargerImage = async url => {
     const requestedWidth = getWidth(url);
     const requestedFilename = url.pathname.split('/').reverse()[0];
 
-    const cache = await caches.open(CATALOG_CACHE_NAME);
+    const cache = await caches.open(IMAGES_CACHE_NAME);
     const cachedURLs = await cache.keys();
     const cachedSources = await cachedURLs.filter(({ url }) => {
         const cachedFileName = new URL(url).pathname.split('/').reverse()[0];
@@ -101,7 +103,7 @@ export const findSameOrLargerImage = async url => {
 const fetchAndCacheImage = imageURL =>
     fetch(imageURL, { mode: 'no-cors' }).then(response =>
         caches
-            .open(CATALOG_CACHE_NAME)
+            .open(IMAGES_CACHE_NAME)
             .then(cache => cache.put(imageURL, response.clone()))
             .then(() => response)
     );
@@ -152,11 +154,11 @@ export const registerImagePreFetchHandler = () => {
 
 /**
  * This function creates a handler that workbox can use
- * to handle all catalog images.
+ * to handle all images.
  */
-export const createCatalogCacheHandler = () =>
+export const createImageCacheHandler = () =>
     new CacheFirst({
-        cacheName: CATALOG_CACHE_NAME,
+        cacheName: IMAGES_CACHE_NAME,
         plugins: [
             new ExpirationPlugin({
                 maxEntries: 60,
