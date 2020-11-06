@@ -264,7 +264,7 @@ test('it handles no applied gift cards', () => {
         ...cartResult,
         data: {
             cart: {
-                applied_gift_cards: undefined
+                applied_gift_cards: null // or []
             }
         }
     });
