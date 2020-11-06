@@ -10,9 +10,10 @@ import typePolicies from '../../../../Apollo/policies';
 
 import useGiftOptions from '../useGiftOptions';
 
+/* eslint-disable graphql/template-strings */
 const GET_GIFT_OPTIONS = gql`
     query getGiftOptions($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @client {
             id
             include_gift_receipt
             include_printed_card
@@ -20,26 +21,8 @@ const GET_GIFT_OPTIONS = gql`
         }
     }
 `;
+/* eslint-enable graphql/template-strings */
 
-const mockRequest = {
-    request: {
-        query: GET_GIFT_OPTIONS,
-        skip: false,
-        variables: {
-            cartId: 'cart123'
-        }
-    },
-    result: {
-        data: {
-            cart: {
-                id: 'cart123',
-                include_gift_receipt: true,
-                include_printed_card: false,
-                gift_message: 'GiftMessage'
-            }
-        }
-    }
-};
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {
         cartId: 'cart123'
@@ -70,9 +53,31 @@ const props = {
     }
 };
 
+const cache = new InMemoryCache({ typePolicies });
+
+beforeEach(() => {
+    cache.restore({
+        ROOT_QUERY: {
+            __typename: 'Query',
+            'cart:Cart': {
+                __ref: 'Cart'
+            }
+        },
+        Cart: {
+            __typename: 'Cart',
+            id: 'cart123',
+            include_gift_receipt: true,
+            include_printed_card: false,
+            gift_message: 'GiftMessage'
+        }
+    });
+});
+
 test('it returns the proper shape after data loads', async () => {
+    const cacheWriteSpy = jest.spyOn(cache, 'writeQuery');
+
     const component = createTestInstance(
-        <MockedProvider mocks={[mockRequest]} addTypename={true}>
+        <MockedProvider cache={cache} addTypename={true} resolvers={{}}>
             <Component {...props} />
         </MockedProvider>
     );
@@ -88,15 +93,15 @@ test('it returns the proper shape after data loads', async () => {
             updateGiftMessage: expect.any(Function)
         });
     });
+
+    expect(cacheWriteSpy).not.toHaveBeenCalled();
 });
 
 test('it updates cache after updating gift message', async () => {
-    const cache = new InMemoryCache({ typePolicies });
-
     const cacheWriteSpy = jest.spyOn(cache, 'writeQuery');
 
     const component = createTestInstance(
-        <MockedProvider mocks={[mockRequest]} cache={cache} addTypename={true}>
+        <MockedProvider cache={cache} addTypename={true} resolvers={{}}>
             <Component {...props} />
         </MockedProvider>
     );
@@ -124,10 +129,8 @@ test('it updates cache after updating gift message', async () => {
         'Hello World'
     );
 
-    // First write is when the data is loaded initially.
-    // Second write is after the value is toggled.
-    expect(cacheWriteSpy).toHaveBeenCalledTimes(2);
-    expect(cacheWriteSpy.mock.calls[1][0]).toMatchObject({
+    expect(cacheWriteSpy).toHaveBeenCalledTimes(1);
+    expect(cacheWriteSpy.mock.calls[0][0]).toMatchObject({
         data: {
             cart: {
                 gift_message: 'Hello World'
@@ -137,12 +140,10 @@ test('it updates cache after updating gift message', async () => {
 });
 
 test('it updates cache after toggling including gift receipt flag', async () => {
-    const cache = new InMemoryCache({ typePolicies });
-
     const cacheWriteSpy = jest.spyOn(cache, 'writeQuery');
 
     const component = createTestInstance(
-        <MockedProvider mocks={[mockRequest]} cache={cache} addTypename={true}>
+        <MockedProvider cache={cache} addTypename={true} resolvers={{}}>
             <Component {...props} />
         </MockedProvider>
     );
@@ -166,10 +167,8 @@ test('it updates cache after toggling including gift receipt flag', async () => 
 
     expect(instance.props.includeGiftReceipt).toBeFalsy();
 
-    // First write is when the data is loaded initially.
-    // Second write is after the value is toggled.
-    expect(cacheWriteSpy).toHaveBeenCalledTimes(2);
-    expect(cacheWriteSpy.mock.calls[1][0]).toMatchObject({
+    expect(cacheWriteSpy).toHaveBeenCalledTimes(1);
+    expect(cacheWriteSpy.mock.calls[0][0]).toMatchObject({
         data: {
             cart: {
                 include_gift_receipt: false
@@ -179,12 +178,10 @@ test('it updates cache after toggling including gift receipt flag', async () => 
 });
 
 test('it toggles the include printed card flag state and in the cache', async () => {
-    const cache = new InMemoryCache({ typePolicies });
-
     const cacheWriteSpy = jest.spyOn(cache, 'writeQuery');
 
     const component = createTestInstance(
-        <MockedProvider mocks={[mockRequest]} cache={cache} addTypename={true}>
+        <MockedProvider cache={cache} addTypename={true} resolvers={{}}>
             <Component {...props} />
         </MockedProvider>
     );
@@ -208,10 +205,8 @@ test('it toggles the include printed card flag state and in the cache', async ()
 
     expect(instance.props.includePrintedCard).toBeTruthy();
 
-    // First write is when the data is loaded initially.
-    // Second write is after the value is toggled.
-    expect(cacheWriteSpy).toHaveBeenCalledTimes(2);
-    expect(cacheWriteSpy.mock.calls[1][0]).toMatchObject({
+    expect(cacheWriteSpy).toHaveBeenCalledTimes(1);
+    expect(cacheWriteSpy.mock.calls[0][0]).toMatchObject({
         data: {
             cart: {
                 include_printed_card: true
