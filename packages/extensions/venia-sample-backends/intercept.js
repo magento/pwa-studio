@@ -1,5 +1,10 @@
-const isNotWorking = async env => {
-    return false;
+const fetch = require('node-fetch');
+
+const isAValidBackend = async env => {
+    const magentoBackend = env.MAGENTO_BACKEND_URL;
+    const res = await fetch(magentoBackend);
+
+    return res.ok;
 };
 
 const seriousSecurityProblemInEnv = () => false;
@@ -16,7 +21,8 @@ const validateSampleBackend = async ({ env, fail }) => {
         );
     }
 
-    if (await isNotWorking(env)) {
+    const backendIsActive = await isAValidBackend(env);
+    if (!backendIsActive) {
         // fetch the backends
         const otherbackends = await fetchBackends();
         // register a validation problem, or mltiple ones, by calling fail() one or more times
