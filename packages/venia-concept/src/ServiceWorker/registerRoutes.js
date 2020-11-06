@@ -3,12 +3,16 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { registerRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import {
-    isResizedCatalogImage,
+    isResizedImage,
     findSameOrLargerImage,
-    createCatalogCacheHandler
+    createImageCacheHandler
 } from './Utilities/imageCacheHandler';
 import { isHTMLRoute } from './Utilities/routeHandler';
-import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from './defaults';
+import {
+    THIRTY_DAYS,
+    MAX_NUM_OF_IMAGES_TO_CACHE,
+    IMAGES_CACHE_NAME
+} from './defaults';
 
 /**
  * registerRoutes function contains all the routes that need to
@@ -17,7 +21,7 @@ import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from './defaults';
  * @returns {void}
  */
 export default function() {
-    const catalogCacheHandler = createCatalogCacheHandler();
+    const imageCacheHandler = createImageCacheHandler();
 
     registerRoute(
         new RegExp('(robots.txt|favicon.ico|manifest.json)'),
@@ -25,14 +29,13 @@ export default function() {
     );
 
     /**
-     * Route that checks for resized catalog images in cache.
+     * Route that checks for resized images in cache.
      */
-    registerRoute(isResizedCatalogImage, ({ url, request, event }) => {
+    registerRoute(isResizedImage, ({ url, request, event }) => {
         const sameOrLargerImagePromise = findSameOrLargerImage(url, request);
         event.waitUntil(sameOrLargerImagePromise);
         return sameOrLargerImagePromise.then(
-            response =>
-                response || catalogCacheHandler.handle({ request, event })
+            response => response || imageCacheHandler.handle({ request, event })
         );
     });
 
@@ -40,11 +43,14 @@ export default function() {
      * Route to handle all types of images. Stores them in cache with a
      * cache name "images". They auto expire after 30 days and only 60
      * can be stored at a time.
+     *
+     * There is another route that handles images without width and options on them.
+     * This route handles images that wont have width options on them.
      */
     registerRoute(
         /\.(?:png|gif|jpg|jpeg|svg)$/,
         new CacheFirst({
-            cacheName: 'images',
+            cacheName: IMAGES_CACHE_NAME,
             plugins: [
                 new ExpirationPlugin({
                     maxEntries: MAX_NUM_OF_IMAGES_TO_CACHE, // 60 Images
