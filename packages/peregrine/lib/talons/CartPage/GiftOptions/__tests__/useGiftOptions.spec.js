@@ -53,8 +53,7 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 });
 
 jest.mock('lodash.throttle', () => {
-    // eslint-disable-next-line
-    return (callback, delay, config) => {
+    return callback => {
         return callback;
     };
 });
