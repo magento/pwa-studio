@@ -140,6 +140,19 @@ stories.add('Customizing the Button Texts', () => {
     );
 });
 
+stories.add('Hiding the Action Buttons', () => {
+    return (
+        <Dialog
+            onCancel={onCancel}
+            isOpen={true}
+            shouldShowButtons={false}
+            title={'Customizing the Button Texts'}
+        >
+            <span>Consumers can hide the buttom action buttons</span>
+        </Dialog>
+    );
+});
+
 stories.add('Modal mode', () => {
     return (
         <Dialog

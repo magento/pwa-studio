@@ -1,0 +1,17 @@
+.root {
+    display: grid;
+}
+
+.row {
+    align-items: center;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: auto 1fr auto;
+    padding: 1rem;
+    text-align: left;
+}
+
+.rowButton:nth-child(even) {
+    border-top: 2px solid rgb(var(--venia-global-color-gray));
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray));
+}
