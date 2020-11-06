@@ -3,6 +3,8 @@ import { createTestInstance } from '@magento/peregrine';
 import { MockedProvider } from '@apollo/client/testing';
 import { gql, InMemoryCache } from '@apollo/client';
 
+import waitForExpect from 'wait-for-expect';
+
 import { act } from 'react-test-renderer';
 import typePolicies from '../../../../Apollo/policies';
 
@@ -33,7 +35,7 @@ const mockRequest = {
                 id: 'cart123',
                 include_gift_receipt: true,
                 include_printed_card: false,
-                gift_message: ''
+                gift_message: 'GiftMessage'
             }
         }
     }
@@ -50,6 +52,12 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('lodash.throttle', () => {
+    return (callback, delay, config) => {
+        return callback;
+    };
+});
+
 const Component = props => {
     const talonProps = useGiftOptions(props);
 
@@ -62,63 +70,43 @@ const props = {
     }
 };
 
-test('it returns the proper shape', () => {
+test('it returns the proper shape after data loads', async () => {
     const component = createTestInstance(
         <MockedProvider mocks={[mockRequest]} addTypename={true}>
             <Component {...props} />
         </MockedProvider>
     );
-    const talonProps = component.root.findByType('i').props;
 
-    expect(talonProps).toMatchObject({
-        includeGiftReceipt: expect.any(Boolean),
-        includePrintedCard: expect.any(Boolean),
-        giftMessage: expect.any(String),
-        toggleIncludeGiftReceiptFlag: expect.any(Function),
-        toggleIncludePrintedCardFlag: expect.any(Function),
-        updateGiftMessage: expect.any(Function)
-    });
-});
-
-test('it writes to cache after query returns data', async () => {
-    expect.assertions(2);
-
-    const cache = new InMemoryCache({ typePolicies });
-
-    expect(cache.data.data).toEqual({});
-
-    createTestInstance(
-        <MockedProvider mocks={[mockRequest]} cache={cache} addTypename={true}>
-            <Component {...props} />
-        </MockedProvider>
-    );
-
-    // Wait for the query to finish loading
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    expect(cache.data.data).toMatchObject({
-        ROOT_QUERY: {
-            'cart:Cart': {
-                id: 'cart123',
-                include_gift_receipt: true,
-                include_printed_card: false,
-                gift_message: ''
-            }
-        }
+    // Wait until the data has loaded
+    await waitForExpect(() => {
+        expect(component.root.findByType('i').props).toMatchObject({
+            includeGiftReceipt: true,
+            includePrintedCard: false,
+            giftMessage: 'GiftMessage',
+            toggleIncludeGiftReceiptFlag: expect.any(Function),
+            toggleIncludePrintedCardFlag: expect.any(Function),
+            updateGiftMessage: expect.any(Function)
+        });
     });
 });
 
 test('it updates cache after updating gift message', async () => {
-    expect.assertions(1);
     const cache = new InMemoryCache({ typePolicies });
+
+    const cacheWriteSpy = jest.spyOn(cache, 'writeQuery');
 
     const component = createTestInstance(
         <MockedProvider mocks={[mockRequest]} cache={cache} addTypename={true}>
             <Component {...props} />
         </MockedProvider>
     );
-    // Wait a little longer for everything to fully render
-    await new Promise(resolve => setTimeout(resolve, 10));
+
+    // Wait until the data has loaded
+    await waitForExpect(() => {
+        expect(component.root.findByType('i').props.giftMessage).toEqual(
+            'GiftMessage'
+        );
+    });
 
     const instance = component.root.findByType('i');
 
@@ -131,90 +119,103 @@ test('it updates cache after updating gift message', async () => {
             }
         });
     });
-    // Wait for throttled message update
-    await new Promise(resolve => setTimeout(resolve, 1000));
 
-    expect(cache.data.data).toMatchObject({
-        ROOT_QUERY: {
-            'cart:Cart': {
-                __ref: 'Cart'
+    expect(component.root.findByType('i').props.giftMessage).toEqual(
+        'Hello World'
+    );
+
+    // First write is when the data is loaded initially.
+    // Second write is after the value is toggled.
+    expect(cacheWriteSpy).toHaveBeenCalledTimes(2);
+    expect(cacheWriteSpy.mock.calls[1][0]).toMatchObject({
+        data: {
+            cart: {
+                gift_message: 'Hello World'
             }
-        },
-        Cart: {
-            id: 'cart123',
-            include_gift_receipt: true,
-            include_printed_card: false,
-            gift_message: 'Hello World'
         }
     });
 });
 
 test('it updates cache after toggling including gift receipt flag', async () => {
-    expect.assertions(1);
     const cache = new InMemoryCache({ typePolicies });
+
+    const cacheWriteSpy = jest.spyOn(cache, 'writeQuery');
 
     const component = createTestInstance(
         <MockedProvider mocks={[mockRequest]} cache={cache} addTypename={true}>
             <Component {...props} />
         </MockedProvider>
     );
-    // Wait a little longer for everything to fully render
-    await new Promise(resolve => setTimeout(resolve, 10));
+
+    // Wait until the data has loaded
+    await waitForExpect(() => {
+        expect(component.root.findByType('i').props.giftMessage).toEqual(
+            'GiftMessage'
+        );
+    });
 
     const instance = component.root.findByType('i');
 
     const { toggleIncludeGiftReceiptFlag } = instance.props;
 
+    expect(instance.props.includeGiftReceipt).toBeTruthy();
+
     act(() => {
         toggleIncludeGiftReceiptFlag();
     });
 
-    expect(cache.data.data).toMatchObject({
-        ROOT_QUERY: {
-            'cart:Cart': {
-                __ref: 'Cart'
+    expect(instance.props.includeGiftReceipt).toBeFalsy();
+
+    // First write is when the data is loaded initially.
+    // Second write is after the value is toggled.
+    expect(cacheWriteSpy).toHaveBeenCalledTimes(2);
+    expect(cacheWriteSpy.mock.calls[1][0]).toMatchObject({
+        data: {
+            cart: {
+                include_gift_receipt: false
             }
-        },
-        Cart: {
-            id: 'cart123',
-            include_gift_receipt: false,
-            include_printed_card: false,
-            gift_message: ''
         }
     });
 });
 
-test('it updates cache after toggling including gift printed card flag', async () => {
-    expect.assertions(1);
+test('it toggles the include printed card flag state and in the cache', async () => {
     const cache = new InMemoryCache({ typePolicies });
+
+    const cacheWriteSpy = jest.spyOn(cache, 'writeQuery');
 
     const component = createTestInstance(
         <MockedProvider mocks={[mockRequest]} cache={cache} addTypename={true}>
             <Component {...props} />
         </MockedProvider>
     );
-    // Wait a little longer for everything to fully render
-    await new Promise(resolve => setTimeout(resolve, 10));
+
+    // Wait until the data has loaded
+    await waitForExpect(() => {
+        expect(component.root.findByType('i').props.giftMessage).toEqual(
+            'GiftMessage'
+        );
+    });
 
     const instance = component.root.findByType('i');
 
     const { toggleIncludePrintedCardFlag } = instance.props;
 
+    expect(instance.props.includePrintedCard).toBeFalsy();
+
     act(() => {
         toggleIncludePrintedCardFlag();
     });
 
-    expect(cache.data.data).toMatchObject({
-        ROOT_QUERY: {
-            'cart:Cart': {
-                __ref: 'Cart'
+    expect(instance.props.includePrintedCard).toBeTruthy();
+
+    // First write is when the data is loaded initially.
+    // Second write is after the value is toggled.
+    expect(cacheWriteSpy).toHaveBeenCalledTimes(2);
+    expect(cacheWriteSpy.mock.calls[1][0]).toMatchObject({
+        data: {
+            cart: {
+                include_printed_card: true
             }
-        },
-        Cart: {
-            id: 'cart123',
-            include_gift_receipt: true,
-            include_printed_card: true,
-            gift_message: ''
         }
     });
 });
