@@ -1,16 +1,16 @@
 {
     "name": "@magento/venia-sample-language-packs",
     "version": "0.0.1",
-    "description": "Provides demo translations for PWA Studio.",
     "publishConfig": {
         "access": "public"
     },
-    "license": "(OSL-3.0 OR AFL-3.0)",
+    "description": "Provides demo translations for PWA Studio.",
     "main": "./i18n-intercept.js",
-    "repository": "github:magento/pwa-studio",
     "scripts": {
-      "clean": " "
+        "clean": " "
     },
+    "repository": "github:magento/pwa-studio",
+    "license": "(OSL-3.0 OR AFL-3.0)",
     "peerDependencies": {
         "@magento/pwa-buildpack": "~7.0.0",
         "@magento/venia-ui": "~5.0.0"

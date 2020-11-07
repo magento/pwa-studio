@@ -14,6 +14,8 @@ const thisDep = {
     intercept
 };
 
+const WEBPACK_BUILD_TIMEOUT = 20000;
+
 const mockComponent = name => `function ${name}(props) { return <div className={name}>{props.children}</div>;
 `;
 const mockDefault = name => `import React from 'react';
@@ -53,7 +55,8 @@ test('declares targets richContentRenderers and routes', async () => {
 });
 
 test('uses RichContentRenderers to inject a default strategy into RichContent', async () => {
-    jest.setTimeout(15000);
+    jest.setTimeout(WEBPACK_BUILD_TIMEOUT);
+
     const built = await buildModuleWith('../../components/RichContent', {
         context: __dirname,
         dependencies: ['@magento/peregrine', thisDep]
@@ -69,6 +72,8 @@ test('uses RichContentRenderers to inject a default strategy into RichContent', 
 });
 
 test('uses routes to inject client-routed pages', async () => {
+    jest.setTimeout(WEBPACK_BUILD_TIMEOUT);
+
     const routesModule = '../../components/Routes/routes';
     const built = await buildModuleWith(routesModule, {
         context: path.dirname(require.resolve(routesModule)),
@@ -109,8 +114,8 @@ test('declares payments target', async () => {
     expect(interceptor).toHaveBeenCalledWith('woah');
 });
 
-test('uses RichContentRenderers to default strategy Payment Methode', async () => {
-    jest.setTimeout(15000);
+test('uses RichContentRenderers to default strategy Payment Method', async () => {
+    jest.setTimeout(WEBPACK_BUILD_TIMEOUT);
 
     const built = await buildModuleWith(
         '../../components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
@@ -139,8 +144,8 @@ test('declares payments target', async () => {
     expect(interceptor).toHaveBeenCalledWith('woah');
 });
 
-test('uses RichContentRenderers to default strategy Payment Methode', async () => {
-    jest.setTimeout(15000);
+test('uses RichContentRenderers to default strategy Payment Method', async () => {
+    jest.setTimeout(WEBPACK_BUILD_TIMEOUT);
 
     const built = await buildModuleWith(
         '../../components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',

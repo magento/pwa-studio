@@ -2,10 +2,17 @@
 
 exports[`it returns the correct shape 1`] = `
 Object {
+  "confirmRemovalIsOpen": false,
   "handleAddToCart": [Function],
-  "handleMoreActions": [Function],
+  "handleHideDialogs": [Function],
+  "handleRemoveProductFromWishlist": [Function],
+  "handleShowConfirmRemoval": [Function],
+  "handleShowMoreActions": [Function],
   "hasError": false,
+  "hasRemoveProductFromWishlistError": false,
   "isLoading": false,
+  "isRemovalInProgress": false,
+  "moreActionsIsOpen": false,
 }
 `;
 
