@@ -1,0 +1,22 @@
+{
+  "name": "@magento/venia-adobe-data-layer",
+  "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Provides demo translations for PWA Studio.",
+  "main": "./index.js",
+  "scripts": {
+    "clean": " "
+  },
+  "repository": "github:magento/pwa-studio",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "peerDependencies": {
+    "@magento/peregrine": "~8.0.0"
+  },
+  "pwa-studio": {
+    "targets": {
+      "intercept": "./intercept"
+    }
+  }
+}
