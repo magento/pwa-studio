@@ -57,18 +57,16 @@ const validateSampleBackend = async config => {
 
         debug(
             'PWA Studio supports the following backends',
-            sampleBackends.join(', ')
+            sampleBackends.join('\n')
         );
 
         debug('Reporting backend URL validation failure');
         onFail(
-            new Error(
-                `${
-                    env.MAGENTO_BACKEND_URL
-                } is inactive. Please consider using one of these other backends: ${JSON.stringify(
-                    otherBackends
-                )}`
-            )
+            `${
+                env.MAGENTO_BACKEND_URL
+            } is inactive. Please consider using one of these other backends: \n\n ${JSON.stringify(
+                otherBackends
+            )} \n`
         );
     } else {
         debug(`${env.MAGENTO_BACKEND_URL} is active`);
