@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const isAValidBackend = async env => {
+const isBackendActive = async env => {
     const magentoBackend = env.MAGENTO_BACKEND_URL;
     const res = await fetch(magentoBackend);
 
@@ -28,7 +28,7 @@ const fetchBackends = async () => {
 const validateSampleBackend = async config => {
     const { env, onFail } = config;
 
-    const backendIsActive = await isAValidBackend(env);
+    const backendIsActive = await isBackendActive(env);
 
     if (!backendIsActive) {
         const sampleBackends = await fetchBackends();
