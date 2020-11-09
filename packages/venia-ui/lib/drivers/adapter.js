@@ -85,15 +85,6 @@ const VeniaAdapter = props => {
         }
     }, [initialized, persistor]);
 
-    useEffect(() => {
-        if (initialized) {
-            import(/* webpackChunkName: "acdl" */
-            /* webpackMode: "lazy" */
-            /* webpackPrefetch: true */
-            '@adobe/adobe-client-data-layer');
-        }
-    }, [initialized]);
-
     if (!initialized) {
         // TODO: Replace with app skeleton. See PWA-547.
         return null;
