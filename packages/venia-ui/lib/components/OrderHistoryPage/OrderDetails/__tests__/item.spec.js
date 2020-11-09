@@ -2,6 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import Item from '../item';
+import PlaceholderImage from '../../../Image/placeholderImage';
 
 jest.mock('react-router-dom', () => ({
     Link: props => <div componentName="Link Component" {...props} />
@@ -37,4 +38,16 @@ test('should render properly', () => {
     const tree = createTestInstance(<Item {...defaultProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('should render placeholder without thumbnail', () => {
+    const props = {
+        ...defaultProps,
+        thumbnail: undefined
+    };
+    const tree = createTestInstance(<Item {...props} />);
+    const { root } = tree;
+    const imagePlaceholderNode = root.findByType(PlaceholderImage);
+
+    expect(imagePlaceholderNode).toBeTruthy();
 });

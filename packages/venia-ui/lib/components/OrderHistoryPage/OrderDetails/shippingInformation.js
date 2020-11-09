@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -8,26 +8,48 @@ import defaultClasses from './shippingInformation.css';
 
 const ShippingInformation = props => {
     const { data, classes: propsClasses } = props;
-    const {
-        city,
-        country_code,
-        firstname,
-        lastname,
-        postcode,
-        region,
-        street
-    } = data;
     const classes = mergeClasses(defaultClasses, propsClasses);
 
-    const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
-    const fullName = `${firstname} ${lastname}`;
-    const streetRows = street.map((row, index) => {
-        return (
-            <span className={classes.streetRow} key={index}>
-                {row}
-            </span>
+    let shippingContentElement;
+
+    if (data) {
+        const {
+            city,
+            country_code,
+            firstname,
+            lastname,
+            postcode,
+            region,
+            street
+        } = data;
+
+        const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
+        const fullName = `${firstname} ${lastname}`;
+        const streetRows = street.map((row, index) => {
+            return (
+                <span className={classes.streetRow} key={index}>
+                    {row}
+                </span>
+            );
+        });
+
+        shippingContentElement = (
+            <Fragment>
+                <span className={classes.name}>{fullName}</span>
+                {streetRows}
+                <div className={classes.additionalAddress}>
+                    {additionalAddressString}
+                </div>
+            </Fragment>
         );
-    });
+    } else {
+        shippingContentElement = (
+            <FormattedMessage
+                id="orderDetails.noShippingInformation"
+                defaultMessage="No shipping information"
+            />
+        );
+    }
 
     return (
         <div className={classes.root}>
@@ -37,11 +59,7 @@ const ShippingInformation = props => {
                     defaultMessage="Shipping Information"
                 />
             </div>
-            <span className={classes.name}>{fullName}</span>
-            {streetRows}
-            <div className={classes.additionalAddress}>
-                {additionalAddressString}
-            </div>
+            {shippingContentElement}
         </div>
     );
 };

@@ -10,29 +10,27 @@ const ShippingMethod = props => {
     const { data, classes: propsClasses } = props;
     const { shipments, shippingMethod } = data;
     const classes = mergeClasses(defaultClasses, propsClasses);
-    /**
-     * Shipments and Tracking are arrays. Since Venia does not
-     * support multiple shipping addresses in checkout we will
-     * be picking the first value in those arrays for now.
-     */
     let trackingElement;
+
     if (shipments.length) {
         trackingElement = shipments.map(shipment => {
-            const { tracking } = shipment;
-            if (tracking.length) {
-                const [{ number }] = tracking;
+            const { tracking: trackingCollection } = shipment;
+            if (trackingCollection.length) {
+                return trackingCollection.map(tracking => {
+                    const { number } = tracking;
 
-                return (
-                    <span className={classes.trackingRow}>
-                        <FormattedMessage
-                            id="orderDetails.trackingInformation"
-                            values={{
-                                number,
-                                strong: chunks => <strong>{chunks}</strong>
-                            }}
-                        />
-                    </span>
-                );
+                    return (
+                        <span className={classes.trackingRow} key={number}>
+                            <FormattedMessage
+                                id="orderDetails.trackingInformation"
+                                values={{
+                                    number,
+                                    strong: chunks => <strong>{chunks}</strong>
+                                }}
+                            />
+                        </span>
+                    );
+                });
             }
         });
     } else {

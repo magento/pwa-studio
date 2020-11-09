@@ -10,6 +10,7 @@ import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import Price from '../../Price';
 import defaultClasses from './item.css';
+import PlaceholderImage from '../../Image/placeholderImage';
 
 const Item = props => {
     const {
@@ -35,15 +36,21 @@ const Item = props => {
     );
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const thumbnailProps = {
+        alt: product_name,
+        classes: { root: classes.thumbnail },
+        width: 50
+    };
+    const thumbnailElement = thumbnail ? (
+        <Image {...thumbnailProps} resource={thumbnail.url} />
+    ) : (
+        <PlaceholderImage {...thumbnailProps} />
+    );
+
     return (
         <div className={classes.root}>
             <Link className={classes.thumbnailContainer} to={itemLink}>
-                <Image
-                    alt={product_name}
-                    classes={{ root: classes.thumbnail }}
-                    width={50}
-                    resource={thumbnail.url}
-                />
+                {thumbnailElement}
             </Link>
             <div className={classes.nameContainer}>
                 <Link to={itemLink}>{product_name}</Link>

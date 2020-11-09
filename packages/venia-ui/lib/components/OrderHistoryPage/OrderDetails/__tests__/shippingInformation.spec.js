@@ -21,3 +21,9 @@ test('should render properly', () => {
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
+
+test('should render placeholder label without data', () => {
+    const tree = createTestInstance(<ShippingInformation data={null} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});

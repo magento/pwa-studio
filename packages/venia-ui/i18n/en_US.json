@@ -364,5 +364,6 @@
     "wishlistPage.headingText": "Favorites Lists",
     "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
     "orderDetails.waitingOnTracking": "Waiting for tracking information",
-    "orderItems.itemsHeading": "Items"
+    "orderItems.itemsHeading": "Items",
+    "orderDetails.noShippingInformation": "No shipping information"
 }
