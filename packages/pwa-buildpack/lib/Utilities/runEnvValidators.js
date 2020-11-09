@@ -26,7 +26,7 @@ async function validateEnv(context, env) {
     const bus = BuildBus.for(context);
     bus.init();
     const validationMessages = [];
-    const validationContext = { env, fail: x => validationMessages.push(x) };
+    const validationContext = { env, onFail: x => validationMessages.push(x) };
     await bus
         .getTargetsOf('@magento/pwa-buildpack')
         .validateEnv.promise(validationContext);

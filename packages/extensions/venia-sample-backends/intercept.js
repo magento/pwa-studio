@@ -7,27 +7,44 @@ const isAValidBackend = async env => {
     return res.ok;
 };
 
-const seriousSecurityProblemInEnv = () => false;
-
 const fetchBackends = async () => {
-    return Promise.resolve(['backend 1', 'backend 2']);
+    const res = await fetch(
+        'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
+    );
+    const { sampleBackends } = await res.json();
+
+    return sampleBackends.environments;
 };
 
-const validateSampleBackend = async ({ env, fail }) => {
-    // to stop all other validation, throw an exception
-    if (seriousSecurityProblemInEnv(env)) {
-        throw new Error(
-            'Not even gonna let this continue because there is evidence of some untrustworthy other extension installed'
-        );
-    }
+/**
+ * Validation function to check if the backend being used is one of the sample backends provided
+ * by PWA Studio. If yes, the function validates if the backend is active. If not, it reports an
+ * error by calling the onFail function. In the error being reported, it sends the other sample
+ * backends that the developers can use.
+ *
+ * @param {Object} config.env - The ENV provided to the app, usually avaialable through process.ENV
+ * @param {Function} config.onFail - callback function to call on validation fail
+ */
+const validateSampleBackend = async config => {
+    const { env, onFail } = config;
 
     const backendIsActive = await isAValidBackend(env);
+
     if (!backendIsActive) {
-        // fetch the backends
-        const otherbackends = await fetchBackends();
-        // register a validation problem, or mltiple ones, by calling fail() one or more times
-        // call with a string, or optionally with an Error object to get a stack trace
-        fail(new Error(`Error: ${JSON.stringify(otherbackends)}`));
+        const sampleBackends = await fetchBackends();
+        const otherBackends = sampleBackends.filter(
+            backend => backend !== env.MAGENTO_BACKEND_URL
+        );
+
+        onFail(
+            new Error(
+                `${
+                    env.MAGENTO_BACKEND_URL
+                } is inactive. Please consider using one of these other backends: ${JSON.stringify(
+                    otherBackends
+                )}`
+            )
+        );
     }
 };
 
