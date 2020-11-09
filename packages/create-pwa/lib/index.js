@@ -19,12 +19,18 @@ const removeDuplicateBackends = backendEnvironments =>
     uniqBy(backendEnvironments, 'url');
 
 const fetchSampleBackends = async () => {
-    const res = await fetch(
-        'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
-    );
-    const { sampleBackends } = await res.json();
+    try {
+        const res = await fetch(
+            'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
+        );
+        const { sampleBackends } = await res.json();
 
-    return sampleBackends.environments;
+        return sampleBackends.environments;
+    } catch (err) {
+        console.error(err);
+
+        return [];
+    }
 };
 
 module.exports = async () => {
