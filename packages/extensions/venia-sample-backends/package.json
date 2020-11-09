@@ -12,7 +12,8 @@
         "clean": " "
     },
     "peerDependencies": {
-        "@magento/pwa-buildpack": "~7.0.0"
+        "@magento/pwa-buildpack": "~7.0.0",
+        "node-fetch": "~2.3.0"
     },
     "pwa-studio": {
         "targets": {
