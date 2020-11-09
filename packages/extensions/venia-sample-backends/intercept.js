@@ -1,19 +1,31 @@
 const fetch = require('node-fetch');
 
 const isBackendActive = async env => {
-    const magentoBackend = env.MAGENTO_BACKEND_URL;
-    const res = await fetch(magentoBackend);
+    try {
+        const magentoBackend = env.MAGENTO_BACKEND_URL;
+        const res = await fetch(magentoBackend);
 
-    return res.ok;
+        return res.ok;
+    } catch (err) {
+        console.error(err);
+
+        return false;
+    }
 };
 
 const fetchBackends = async () => {
-    const res = await fetch(
-        'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
-    );
-    const { sampleBackends } = await res.json();
+    try {
+        const res = await fetch(
+            'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
+        );
+        const { sampleBackends } = await res.json();
 
-    return sampleBackends.environments;
+        return sampleBackends.environments;
+    } catch (err) {
+        console.error(err);
+
+        return [];
+    }
 };
 
 /**
@@ -24,18 +36,31 @@ const fetchBackends = async () => {
  *
  * @param {Object} config.env - The ENV provided to the app, usually avaialable through process.ENV
  * @param {Function} config.onFail - callback function to call on validation fail
+ * @param {Function} config.debug - function to log debug messages in console in debug mode
+ *
+ * To watch the debug messages, run the command with DEBUG=*runEnvValidators*
  */
 const validateSampleBackend = async config => {
-    const { env, onFail } = config;
+    const { env, onFail, debug } = config;
 
     const backendIsActive = await isBackendActive(env);
 
     if (!backendIsActive) {
+        debug(`${env.MAGENTO_BACKEND_URL} is inactive`);
+
+        debug('Fetching other backends');
+
         const sampleBackends = await fetchBackends();
         const otherBackends = sampleBackends.filter(
             backend => backend !== env.MAGENTO_BACKEND_URL
         );
 
+        debug(
+            'PWA Studio supports the following backends',
+            sampleBackends.join(', ')
+        );
+
+        debug('Reporting backend URL validation failure');
         onFail(
             new Error(
                 `${
@@ -45,6 +70,8 @@ const validateSampleBackend = async config => {
                 )}`
             )
         );
+    } else {
+        debug(`${env.MAGENTO_BACKEND_URL} is active`);
     }
 };
 
