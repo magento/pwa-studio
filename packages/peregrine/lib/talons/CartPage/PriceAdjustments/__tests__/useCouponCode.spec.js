@@ -20,10 +20,11 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+const setIsCartUpdating = jest.fn();
 const log = jest.fn();
 const Component = () => {
     const hookProps = useCouponCode({
-        setIsCartUpdating: jest.fn(),
+        setIsCartUpdating: setIsCartUpdating,
         queries: {},
         mutations: {}
     });
@@ -75,6 +76,45 @@ describe('#useCouponCode', () => {
                 couponCode: couponCode
             }
         });
+    });
+
+    it('removes provided coupon', () => {
+        const removeCouponMock = jest.fn();
+        useMutation
+            .mockReturnValueOnce([jest.fn(), { error: null, loading: null }])
+            .mockReturnValueOnce([
+                removeCouponMock,
+                { error: null, loading: null }
+            ])
+            .mockReturnValueOnce([jest.fn(), { error: null, loading: null }])
+            .mockReturnValueOnce([
+                removeCouponMock,
+                { error: null, loading: true, called: true }
+            ]);
+
+        const couponCode = 'coupon_code';
+
+        const component = createTestInstance(<Component />);
+
+        const { handleRemoveCoupon } = log.mock.calls[0][0];
+
+        act(() => {
+            handleRemoveCoupon(couponCode);
+        });
+
+        expect(removeCouponMock).toHaveBeenCalledWith({
+            variables: {
+                cartId: expect.any(String),
+                couponCode: couponCode
+            }
+        });
+
+        // Re-render component to get loading state
+        act(() => {
+            component.update(<Component />);
+        });
+
+        expect(setIsCartUpdating).toHaveBeenCalledWith(true);
     });
 });
 
