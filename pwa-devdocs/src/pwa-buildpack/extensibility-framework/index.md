@@ -28,13 +28,54 @@ The interceptor pattern lets a module **C** intercept the flow of logic between 
 
 ![interceptor-pattern-image][]
 
+In PWA Studio, the points where a module may intercept the normal flow of logic and add their own are [Targets][].
+The framework uses the [BuildBus][] to gather instructions from each extension's [Intercept File][].
+These files determine which Targets the extension intercepts and extends during the build process.
+
 ## Targets
 
-### Targetables
+_Targets_ are objects that represent areas in code you can access and intercept.
+These extension points are variants of a simple, common JavaScript pattern called the [Tapable Hook][] and share some functionality with NodeJS's [`EventEmitter` class][].
+
+Targets let you choose a code process's extension point _by name_ and let you run interceptor code when that process executes.
+Unlike `EventEmmitter` objects, Targets have defined behavior for how and in what order they run their interceptors.
+How those interceptors change the logic is also a defined behavior for Targets.
+
+Targets are part of a package's public API along with the modules it exports.
+They provide another layer of customization on top of using plain code composition techniques with modules.
+
+### TargetProviders
+
+A _TargetProvider_ is an object that manages the connections between modules and their Targets.
+This object is available to your module's [intercept file][] and is the API you use to access Targets and intercept them.
+A common practice is to assign the TargetProvider object to the `targets` variable in your intercept file and access targets in other packages using `targets.of(<package name>)`.
+To access targets declared within the same module, use `targets.own`.
+
+### Example
+
+An example of a Target is the [`richContentRenderers` target][] declared by the Venia UI package.
+This target lets you change the behavior of the `RichContent` component across your project by adding a rendering strategy.
+Tapping into this Target gives access to a `richContentRenders` list object in your intercept function.
+Call the `add()` function on this list to add a custom rendering strategy for your storefront.
+
+The [Page Builder extension][] provides an example by tapping into this Target and adding a custom renderer for any detected Page Builder content.
+
+```js
+targets
+    .of('@magento/venia-ui')
+    .richContentRenderers.tap(richContentRenderers => {
+        richContentRenderers.add({
+            componentName: 'PageBuilder',
+            importPath: '@magento/pagebuilder'
+        });
+    });
+```
 
 ## Intercept files
 
 ### Interceptors
+
+## Declare files
 
 ## Extendible packages in PWA Studio
 
@@ -48,5 +89,13 @@ The interceptor pattern lets a module **C** intercept the flow of logic between 
 
 ## Examples
 
+[`richcontentrenderers` target]: <{% link venia-ui/reference/targets/index.md %}#richContentRenderers>
+
 [interceptor pattern]: https://en.wikipedia.org/wiki/Interceptor_pattern
 [interceptor-pattern-image]: ./images/interceptor-pattern.svg
+[buildbus]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/lib/BuildBus/BuildBus.js
+[targets]: #targets
+[intercept file]: #intercept-files
+[tapable hook]: https://github.com/webpack/tapable
+[`eventemitter` class]: https://nodejs.org/api/events.html#events_class_eventemitter
+[page builder extension]: https://github.com/magento/pwa-studio/blob/develop/packages/pagebuilder/lib/intercept.js
