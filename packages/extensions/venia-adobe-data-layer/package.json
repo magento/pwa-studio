@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Provides demo translations for PWA Studio.",
+  "description": "Provides Adobe Client Data Layer support in PWA Studio",
   "main": "./index.js",
   "scripts": {
     "clean": " "
