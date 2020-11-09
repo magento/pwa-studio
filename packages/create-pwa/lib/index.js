@@ -1,5 +1,6 @@
 const { basename, resolve } = require('path');
 const os = require('os');
+const fetch = require('node-fetch');
 const changeCase = require('change-case');
 const inquirer = require('inquirer');
 const execa = require('execa');
@@ -7,19 +8,23 @@ const chalk = require('chalk');
 const gitUserInfo = require('git-user-info');
 const isInvalidPath = require('is-invalid-path');
 const isValidNpmName = require('is-valid-npm-name');
+const { uniqBy } = require('lodash');
+
 const pkg = require('../package.json');
 const {
     sampleBackends: defaultSampleBackends
 } = require('@magento/pwa-buildpack/lib/cli/create-project');
 
+const removeDuplicateBackends = backendEnvironments =>
+    uniqBy(backendEnvironments, 'url');
+
 const fetchSampleBackends = async () => {
-    return Promise.resolve([
-        {
-            name: 'test',
-            description: 'Test instance',
-            url: 'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/'
-        }
-    ]);
+    const res = await fetch(
+        'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
+    );
+    const { sampleBackends } = await res.json();
+
+    return sampleBackends.environments;
 };
 
 module.exports = async () => {
@@ -31,12 +36,13 @@ module.exports = async () => {
     const isYarn = userAgent.includes('yarn');
 
     const sampleBackendEnvironments = await fetchSampleBackends();
+    const filteredBackendEnvironments = removeDuplicateBackends([
+        ...sampleBackendEnvironments,
+        ...defaultSampleBackends.environments
+    ]);
     const sampleBackends = {
         ...defaultSampleBackends,
-        environments: [
-            ...defaultSampleBackends.environments,
-            ...sampleBackendEnvironments
-        ]
+        environments: filteredBackendEnvironments
     };
 
     const questions = [
