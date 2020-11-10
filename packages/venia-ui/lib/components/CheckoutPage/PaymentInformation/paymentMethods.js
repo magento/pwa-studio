@@ -66,7 +66,7 @@ const PaymentMethods = props => {
                 {renderedComponent}
             </div>
         );
-    });
+    }).filter(method => !!method);
 
     return (
         <div className={classes.root}>
