@@ -10,7 +10,8 @@ export const isHomeRoute = url => {
         return true;
     }
 
-    // If store code is in the url, the home route will be example.com/view_code/
+    // If store code is in the url, the home route will be url.com/view_code.
+    // A trailing / may or may not follow.
     if (process.env.USE_STORE_CODE_IN_URL === 'true') {
         return AVAILABLE_STORE_VIEWS.some(
             ({ code }) =>
