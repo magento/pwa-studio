@@ -1,11 +1,23 @@
 /**
- * Checks if the given URL object belongs to the home route `/`.
+ * Checks if the given URL object belongs to the home route.
  *
  * @param {URL} url
  *
  * @returns {boolean}
  */
-export const isHomeRoute = url => url.pathname === '/';
+export const isHomeRoute = url => {
+    if (url.pathname === '/') {
+        return true;
+    }
+
+    // If store code is in the url, the home route will be example.com/view_code/
+    if (process.env.USE_STORE_CODE_IN_URL === 'true') {
+        return AVAILABLE_STORE_VIEWS.some(
+            ({ code }) =>
+                url.pathname === `/${code}/` || url.pathname === `/${code}`
+        );
+    }
+};
 
 /**
  * Checks if the given URL object belongs to the home route `/`
