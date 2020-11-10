@@ -15,3 +15,7 @@
     font-weight: 600;
     justify-self: start;
 }
+
+.no_payment_method {
+    padding: 1.5rem;
+}
