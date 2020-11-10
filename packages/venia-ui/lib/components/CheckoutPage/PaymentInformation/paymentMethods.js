@@ -36,38 +36,42 @@ const PaymentMethods = props => {
         return null;
     }
 
-    const radios = availablePaymentMethods.map(({ code, title }) => {
-        // If we don't have an implementation for a method type, ignore it.
-        if (!Object.keys(payments).includes(code)) {
-            return;
-        }
+    const radios = availablePaymentMethods
+        .map(({ code, title }) => {
+            // If we don't have an implementation for a method type, ignore it.
+            if (
+                !Object.keys(PAYMENT_METHOD_COMPONENTS_BY_CODE).includes(code)
+            ) {
+                return;
+            }
 
-        const isSelected = currentSelectedPaymentMethod === code;
-        const PaymentMethodComponent = payments[code];
-        const renderedComponent = isSelected ? (
-            <PaymentMethodComponent
-                onPaymentSuccess={onPaymentSuccess}
-                onPaymentError={onPaymentError}
-                resetShouldSubmit={resetShouldSubmit}
-                shouldSubmit={shouldSubmit}
-            />
-        ) : null;
-
-        return (
-            <div key={code} className={classes.payment_method}>
-                <Radio
-                    label={title}
-                    value={code}
-                    classes={{
-                        label: classes.radio_label
-                    }}
-                    checked={isSelected}
+            const isSelected = currentSelectedPaymentMethod === code;
+            const PaymentMethodComponent =
+                PAYMENT_METHOD_COMPONENTS_BY_CODE[code];
+            const renderedComponent = isSelected ? (
+                <PaymentMethodComponent
+                    onPaymentSuccess={onPaymentSuccess}
+                    onPaymentError={onPaymentError}
+                    resetShouldSubmit={resetShouldSubmit}
+                    shouldSubmit={shouldSubmit}
                 />
-                {renderedComponent}
-            </div>
-        );
-    })
-    .filter(method => !!method);
+            ) : null;
+
+            return (
+                <div key={code} className={classes.payment_method}>
+                    <Radio
+                        label={title}
+                        value={code}
+                        classes={{
+                            label: classes.radio_label
+                        }}
+                        checked={isSelected}
+                    />
+                    {renderedComponent}
+                </div>
+            );
+        })
+        .filter(method => !!method);
     
     const noPaymentMethodMessage = !radios.length ? (
         <span className={classes.no_payment_method}>
