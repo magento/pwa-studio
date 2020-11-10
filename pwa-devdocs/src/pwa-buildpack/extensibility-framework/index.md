@@ -73,7 +73,27 @@ targets
 
 ## Intercept files
 
-### Interceptors
+The _intercept file_ is the main entry point for the extensibility framework into your project.
+It describes which targets you want to intercept and extend.
+During build time, the framework looks for this file using the value for `pwa-studio.targets.intercept` in your project's `package.json` file.
+
+Your intercept files must export a function that accepts a TargetProvider object as a parameter.
+This object gives you access to all available Targets in your project that let you make customizations, gather data, change the build itself, or develop and call your own declared targets.
+
+For more information on how intercept files work, see the tutorial on how to [Intercept a Target][].
+
+### Intercept functions
+
+When you call the `tap()` function on a Target, you supply it with an _intercept function_.
+An intercept function is a callback function that provides the interception logic for a specific Target.
+Calling the `tap()` function registers your intercept function with that Target.
+When the framework builds your project, it generates code that calls your intercept function when the project runs the Target code.
+
+The function signature for an intercept function depends on the tapped Target.
+In the previous Page Builder example, the intercept function signature when you tap the `richContentRenderers` target is a function that receives a list object that let you add custom rendering strategies.
+Other Targets may require your intercept function to return a modified value, use an object with a specific API, or provide a configuration.
+
+Read the reference API on this site or in doc blocks in the source code to learn about the intercept function signatures for each Target.
 
 ## Declare files
 
@@ -90,6 +110,7 @@ targets
 ## Examples
 
 [`richcontentrenderers` target]: <{% link venia-ui/reference/targets/index.md %}#richContentRenderers>
+[intercept a target]: <{% link tutorials/intercept-a-target/index.md %}>
 
 [interceptor pattern]: https://en.wikipedia.org/wiki/Interceptor_pattern
 [interceptor-pattern-image]: ./images/interceptor-pattern.svg
