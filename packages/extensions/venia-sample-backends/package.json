@@ -1,7 +1,7 @@
 {
     "name": "@magento/venia-sample-backends",
     "version": "0.0.1",
-    "description": "Provides demo translations for PWA Studio.",
+    "description": "Provides demo backends and backend validation utils for PWA Studio.",
     "publishConfig": {
         "access": "public"
     },
