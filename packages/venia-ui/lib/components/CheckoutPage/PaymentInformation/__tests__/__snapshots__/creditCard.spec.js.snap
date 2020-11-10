@@ -42,10 +42,12 @@ exports[`Should return correct shape 1`] = `
             "root": "first_name",
           }
         }
+        id="firstName"
         label="First Name"
       >
         <mock-TextInput
           field="firstName"
+          id="firstName"
           initialValue="sample first name"
           validate={[Function]}
         />
@@ -56,10 +58,12 @@ exports[`Should return correct shape 1`] = `
             "root": "last_name",
           }
         }
+        id="lastName"
         label="Last Name"
       >
         <mock-TextInput
           field="lastName"
+          id="lastName"
           initialValue="sample last name"
           validate={[Function]}
         />
@@ -79,10 +83,12 @@ exports[`Should return correct shape 1`] = `
             "root": "street1",
           }
         }
+        id="street1"
         label="Street Address"
       >
         <mock-TextInput
           field="street1"
+          id="street1"
           initialValue="sample street 1"
           validate={[Function]}
         />
@@ -93,11 +99,13 @@ exports[`Should return correct shape 1`] = `
             "root": "street2",
           }
         }
+        id="street2"
         label="Street Address 2"
         optional={true}
       >
         <mock-TextInput
           field="street2"
+          id="street2"
           initialValue="sample street 2"
         />
       </mock-Field>
@@ -107,10 +115,12 @@ exports[`Should return correct shape 1`] = `
             "root": "city",
           }
         }
+        id="city"
         label="City"
       >
         <mock-TextInput
           field="city"
+          id="city"
           initialValue="sample city"
           validate={[Function]}
         />
@@ -139,10 +149,12 @@ exports[`Should return correct shape 1`] = `
             "root": "phone_number",
           }
         }
+        id="phoneNumber"
         label="Phone Number"
       >
         <mock-TextInput
           field="phoneNumber"
+          id="phoneNumber"
           initialValue="sample phone number"
           validate={[Function]}
         />

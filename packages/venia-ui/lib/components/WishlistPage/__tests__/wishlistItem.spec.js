@@ -16,6 +16,12 @@ jest.mock('@magento/peregrine/lib/talons/WishlistPage/useWishlistItem', () => ({
     useWishlistItem: jest.fn()
 }));
 
+jest.mock('../wishlistMoreActionsDialog', () => 'WishlistMoreActionsDialog');
+jest.mock(
+    '../wishlistConfirmRemoveProductDialog',
+    () => 'WishlistConfirmRemoveProductDialog'
+);
+
 jest.mock('../../../classify');
 
 const baseProps = {
@@ -41,7 +47,12 @@ const baseProps = {
 
 const baseTalonProps = {
     handleAddToCart: jest.fn().mockName('handleAddToCart'),
-    handleMoreActions: jest.fn().mockName('handleMoreActions'),
+    handleHideDialogs: jest.fn().mockName('handleHideDialogs'),
+    handleRemoveProductFromWishlist: jest
+        .fn()
+        .mockName('handleRemoveProductFromWishlist'),
+    handleShowConfirmRemoval: jest.fn().mockName('handleShowConfirmRemoval'),
+    handleShowMoreActions: jest.fn().mockName('handleShowMoreActions'),
     hasError: false,
     isLoading: false
 };
