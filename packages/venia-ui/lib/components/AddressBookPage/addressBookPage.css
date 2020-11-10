@@ -36,12 +36,17 @@
     border-color: rgb(var(--venia-brand-color-1-600));
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
     .root {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
 
+    .content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 640px) {
     .content {
         grid-template-columns: 1fr;
     }

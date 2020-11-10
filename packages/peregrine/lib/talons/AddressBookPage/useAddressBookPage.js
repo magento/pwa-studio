@@ -4,6 +4,9 @@ import { useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
+import defaultOperations from './addressBookPage.gql';
 
 /**
  *  A talon to support the functionality of the Address Book page.
@@ -17,10 +20,9 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  *  @returns {Boolean}  talonProps.isLoading - Indicates whether the user's
  *      address book data is loading.
  */
-export const useAddressBookPage = props => {
-    const {
-        queries: { getCustomerAddressesQuery }
-    } = props;
+export const useAddressBookPage = (props = {}) => {
+    const operations = mergeOperations(defaultOperations, props.operations);
+    const { getCustomerAddressesQuery } = operations;
 
     const [
         ,

@@ -5,19 +5,14 @@ import { PlusSquare } from 'react-feather';
 import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import { GET_CUSTOMER_ADDRESSES } from '../CheckoutPage/AddressBook/addressBook.gql';
-import AddressCard from '../CheckoutPage/AddressBook/addressCard';
+import AddressCard from './addressCard';
 import Icon from '../Icon';
 import LinkButton from '../LinkButton';
 import { Title } from '../Head';
 import defaultClasses from './addressBookPage.css';
 
 const AddressBookPage = props => {
-    const talonProps = useAddressBookPage({
-        queries: {
-            getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES
-        }
-    });
+    const talonProps = useAddressBookPage();
     const { customerAddresses, handleAddAddress } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -40,6 +35,7 @@ const AddressBookPage = props => {
             <Title>{title}</Title>
             <h1 className={classes.heading}>{PAGE_TITLE}</h1>
             <div className={classes.content}>
+                {addressBookElements}
                 <LinkButton
                     className={classes.addButton}
                     key="addAddressButton"
@@ -59,7 +55,6 @@ const AddressBookPage = props => {
                         />
                     </span>
                 </LinkButton>
-                {addressBookElements}
             </div>
         </div>
     );
