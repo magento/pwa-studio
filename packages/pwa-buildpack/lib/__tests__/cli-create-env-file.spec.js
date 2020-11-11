@@ -22,9 +22,9 @@ test('is a yargs builder', () => {
     });
 });
 
-test('creates and writes file', () => {
+test('creates and writes file', async () => {
     process.env.MAGENTO_BACKEND_URL = 'https://example.com/';
-    createEnvCliBuilder.handler({
+    await createEnvCliBuilder.handler({
         directory: process.cwd()
     });
     expect(writeFileSync).toHaveBeenCalledWith(
@@ -35,9 +35,9 @@ test('creates and writes file', () => {
     expect(console.warn).toHaveBeenCalledWith(expect.stringContaining('wrote'));
 });
 
-test('creates and writes file with examples', () => {
+test('creates and writes file with examples', async () => {
     process.env.MAGENTO_BACKEND_URL = 'https://example.com/';
-    createEnvCliBuilder.handler({
+    await createEnvCliBuilder.handler({
         directory: process.cwd(),
         useExamples: true
     });
