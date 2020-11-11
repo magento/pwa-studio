@@ -94,7 +94,7 @@ export const useMagentoRoute = (props = {}) => {
         if (routeData && routeData.isRedirect) {
             replace(routeData.relativeUrl);
         }
-    }, [replace, pathname, routeData]);
+    }, [pathname, replace, routeData]);
 
     return routeData || talonResponses.LOADING;
 };
