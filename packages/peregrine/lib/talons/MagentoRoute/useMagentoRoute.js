@@ -1,16 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import getRouteComponent from './getRouteComponent';
 import DEFAULT_OPERATIONS from './magentoRoute.gql';
 
 export const useMagentoRoute = (props = {}) => {
     const { operations = DEFAULT_OPERATIONS } = props;
-    const history = useHistory();
+    const { replace } = useHistory();
     const { pathname } = useLocation();
     const isMountedRef = useRef(false);
-    const [responses, setResponses] = useState(new Map());
+    const [componentMap, setComponentMap] = useState(new Map());
     const { getStoreCodeQuery, resolveUrlQuery } = operations;
 
     useEffect(() => {
@@ -21,15 +20,23 @@ export const useMagentoRoute = (props = {}) => {
         };
     }, []);
 
+    const setComponent = useCallback(
+        (key, value) => {
+            if (isMountedRef.current) {
+                setComponentMap(prevMap => new Map(prevMap).set(key, value));
+            }
+        },
+        [setComponentMap]
+    );
+
+    const getRootComponent = useMemo(() => {
+        return window.fetchRootComponent.default || window.fetchRootComponent;
+    }, []);
+
     const storeCodeResult = useQuery(getStoreCodeQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
-
-    const { data: storeCodeData } = storeCodeResult;
-    const store = storeCodeData && storeCodeData.storeConfig.code;
-    const routeKey = getRouteKey(pathname, store);
-    const routeData = responses.get(routeKey);
 
     const urlResult = useQuery(resolveUrlQuery, {
         fetchPolicy: 'cache-and-network',
@@ -37,53 +44,57 @@ export const useMagentoRoute = (props = {}) => {
         variables: { url: pathname }
     });
 
+    // destructure store code result
+    const { data: storeCodeData, error: storeCodeError } = storeCodeResult;
+    const store = storeCodeData && storeCodeData.storeConfig.code;
+    const routeKey = getRouteKey(pathname, store);
+
+    // destructure url result
+    const { data: urlData, error: urlError } = urlResult;
+    const { urlResolver } = urlData || {};
+    const { id, redirectCode, relative_url, type } = urlResolver || {};
+
+    // calculate response
+    const isNotFound = !store || !urlResolver || !id || !type || id === -1;
+    const isRedirect = REDIRECT_CODES.has(redirectCode);
+    const component = componentMap.get(routeKey);
+    const fetchError = component instanceof Error && component;
+    const queryError = fetchError || storeCodeError || urlError;
+
+    const routeData = queryError
+        ? talonResponses.ERROR(queryError)
+        : isNotFound
+        ? talonResponses.NOT_FOUND
+        : isRedirect
+        ? talonResponses.REDIRECT(relative_url)
+        : component
+        ? talonResponses.FOUND(component, id, type)
+        : null;
+
     // fetch a component if necessary
     useEffect(() => {
-        const { data, error, loading } = urlResult;
+        (async () => {
+            // don't fetch if we don't have data yet
+            if (!id || !type) return;
 
-        // exit if we've unmounted, or if we don't have data
-        if (!isMountedRef.current || loading || !data || !store) return;
+            // don't fetch if we already have a component
+            if (component && !(component instanceof Error)) return;
 
-        // the result may be null or incomplete, amounting to a 404
-        const { urlResolver } = data;
-        const { id, redirectCode, relative_url, type } = urlResolver || {};
-        const isNotFound = !urlResolver || !id || !type || id === -1;
-        const isRedirect = REDIRECT_CODES.has(redirectCode);
-
-        getRouteComponent(type, id)
-            .then(component => {
-                // throw Apollo errors to the catch block
-                if (error) throw error;
-
-                return isNotFound
-                    ? talonResponses.NOT_FOUND
-                    : isRedirect
-                    ? talonResponses.REDIRECT(relative_url)
-                    : talonResponses.FOUND(component, id, type);
-            })
-            .catch(error => {
-                // catch errors from url resolution and component fetching
-                return talonResponses.ERROR(error);
-            })
-            .then(nextValue => {
-                if (!isMountedRef.current || !nextValue) return;
-
-                // set the response in state, even if it's an error
-                setResponses(prevMap =>
-                    new Map(prevMap).set(
-                        getRouteKey(pathname, store),
-                        nextValue
-                    )
-                );
-            });
-    }, [pathname, setResponses, store, urlResult]);
+            try {
+                const rootComponent = await getRootComponent(type);
+                setComponent(routeKey, rootComponent);
+            } catch (error) {
+                setComponent(routeKey, error);
+            }
+        })();
+    }, [component, getRootComponent, id, routeKey, setComponent, type]);
 
     // perform a redirect if necesssary
     useEffect(() => {
         if (routeData && routeData.isRedirect) {
-            history.replace(routeData.relativeUrl);
+            replace(routeData.relativeUrl);
         }
-    }, [history, pathname, routeData]);
+    }, [replace, pathname, routeData]);
 
     return routeData || talonResponses.LOADING;
 };
