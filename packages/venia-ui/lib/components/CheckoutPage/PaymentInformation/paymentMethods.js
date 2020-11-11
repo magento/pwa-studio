@@ -73,7 +73,7 @@ const PaymentMethods = props => {
     const noPaymentMethodMessage = !radios.length ? (
         <span className={classes.no_payment_method}>
             {formatMessage({
-                id: 'checkoutPage.noPaymentMethodsAvailable',
+                id: 'checkoutPage.noPaymentMethodAvailable',
                 defaultMessage: 'No Payment method available.'
             })}
         </span>
