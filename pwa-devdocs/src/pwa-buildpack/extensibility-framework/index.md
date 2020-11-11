@@ -29,13 +29,13 @@ The interceptor pattern lets a module **C** intercept the flow of logic between 
 ![interceptor-pattern-image][]
 
 In PWA Studio, the points where a module may intercept the normal flow of logic and add their own are [Targets][].
-The framework uses the [BuildBus][] to gather instructions from each extension's [Intercept File][].
+The framework uses the [BuildBus][] to gather instructions from each extension's [Intercept File][intercept files].
 These files determine which Targets the extension intercepts and extends during the build process.
 
 ## Targets
 
 _Targets_ are objects that represent areas in code you can access and intercept.
-These extension points are variants of a simple, common JavaScript pattern called the [Tapable Hook][] and share some functionality with NodeJS's [`EventEmitter` class][].
+These extension points are variants of a simple, common JavaScript pattern called the [Tapable hook][tapable] and share some functionality with NodeJS's [`EventEmitter` class][].
 
 Targets let you choose a code process's extension point _by name_ and let you run interceptor code when that process executes.
 Unlike `EventEmmitter` objects, Targets have defined behavior for how and in what order they run their interceptors.
@@ -47,9 +47,10 @@ They provide another layer of customization on top of using plain code compositi
 ### TargetProviders
 
 A _TargetProvider_ is an object that manages the connections between modules and their Targets.
-This object is available to your module's [intercept file][] and is the API you use to access Targets and intercept them.
-A common practice is to assign the TargetProvider object to the `targets` variable in your intercept file and access targets in other packages using `targets.of(<package name>)`.
-To access targets declared within the same module, use `targets.own`.
+This object is available to your module's [intercept file][] and is the API you use to access Targets or declare them.
+
+Each extension receives its own TargetProvider in its intercept and declare files.
+Use this object to declare a module's own targets, intercept its own targets, or intercept the targets of other extensions.
 
 ### Example
 
@@ -71,14 +72,60 @@ targets
     });
 ```
 
+## Declare files
+
+A _declare file_ lists the Targets available for interception in an extension or package.
+During build time, the framework looks for this file using the value set for `pwa-studio.targets.intercept` in your project's `package.json` file.
+The framework registers the Targets in all the declare files it finds in the project and dependencies before it runs any [intercept files][].
+This guarantees Target availability to any dependent interceptor.
+
+Declare files must export a function that accepts a TargetProvider object as a parameter.
+It provides a `declare()` function to register your project's Targets by providing it a dictionary object.
+The dictionary object provides a mapping of a unique name to its Target.
+
+When you register your Target, the dictionary key is the named property a developer uses to access that Target.
+In the Page Builder example, the dictionary key for the rich content renderers Target that Venia UI declares is `richContentRenderers`.
+
+The value associated with the key is a variant of a Tapable hook created using one of the class constructors available under the TargetProvider object's `types` property.
+Each class constructor accepts an optional array of strings that represent the list of arguments passed to the [intercept function][].
+
+The TargetProvider object exposes the same classes as the [Tapable][] package except their names do not end with 'Hook'.
+This is intentional to avoid confusion with the concept of React Hooks.
+For example, the `SyncWaterfallHook` class from Tapable is `SyncWaterfall` under the TargetProvider object's `types` property.
+
+See the [Hook types][] section of the Tapable documentation to learn about the available hook types.
+
+### Example declare file content
+
+```js
+module.exports = targets => {
+  targets.declare({
+    perfReport: new targets.types.AsyncParallel(['report'])
+    socialIcons: new targets.types.SyncWaterfall(['iconlist'])
+  });
+}
+```
+
+The example provided declares two Targets that this project or other modules can intercept, a `perfReport` Target and a `socialIcons` Target.
+Intercept files can access these Targets using `targets.of(<package name>).perReport` and `targets.of(<package name>).socialIcons` respectively.
+
+The `perfReport` key maps to a Target type that runs its interceptors asynchronously and in parallel.
+This is appropriate for logging and monitoring interceptors that do not affect functionality.
+
+The `socialIcons` key maps to a Target type that runs its interceptors synchronously and in subscription order, which passes its return values as arguments to the next interceptor.
+This is appropriate for customizations that must happen in a predictable order.
+
+Both targets passes in a single parameter to their intercept functions, a `report` argument and an `iconlist` argument.
+
 ## Intercept files
 
-The _intercept file_ is the main entry point for the extensibility framework into your project.
-It describes which targets you want to intercept and extend.
+The _intercept file_ describes the targets you want to intercept and define or extend.
 During build time, the framework looks for this file using the value for `pwa-studio.targets.intercept` in your project's `package.json` file.
+These files execute after all the declare files register their Targets.
 
 Your intercept files must export a function that accepts a TargetProvider object as a parameter.
 This object gives you access to all available Targets in your project that let you make customizations, gather data, change the build itself, or develop and call your own declared targets.
+The TargetProvider object provides an `of()` function and an `own` property to access Targets in other packages or Targets within its own module respectively.
 
 For more information on how intercept files work, see the tutorial on how to [Intercept a Target][].
 
@@ -90,12 +137,20 @@ Calling the `tap()` function registers your intercept function with that Target.
 When the framework builds your project, it generates code that calls your intercept function when the project runs the Target code.
 
 The function signature for an intercept function depends on the tapped Target.
-In the previous Page Builder example, the intercept function signature when you tap the `richContentRenderers` target is a function that receives a list object that let you add custom rendering strategies.
-Other Targets may require your intercept function to return a modified value, use an object with a specific API, or provide a configuration.
+In the Page Builder example, the intercept function signature when you tap the `richContentRenderers` target is a function that receives a list object, which lets you add custom rendering strategies.
+Other Targets may require you to return a modified value, use an object with a specific API, or provide a configuration.
 
 Read the reference API on this site or in doc blocks in the source code to learn about the intercept function signatures for each Target.
 
-## Declare files
+## Writing intercept and declare files
+
+When writing intercept and declare files, keep in mind the following requirements:
+
+- Both files must export a function that accepts a TargetProvider object as a parameter.
+- Both files are CommonJS modules that run in Node.
+- You can create these files anywhere in your project, but you must specify their paths in your `package.json` file.
+
+As shown in the previous examples, a common practice when authoring these files involve assigning the TargetProvider object to a `targets` variable.
 
 ## Extendible packages in PWA Studio
 
@@ -116,7 +171,9 @@ Read the reference API on this site or in doc blocks in the source code to learn
 [interceptor-pattern-image]: ./images/interceptor-pattern.svg
 [buildbus]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/lib/BuildBus/BuildBus.js
 [targets]: #targets
-[intercept file]: #intercept-files
-[tapable hook]: https://github.com/webpack/tapable
+[intercept files]: #intercept-files
+[intercept function]: #intercept-functions
+[tapable]: https://github.com/webpack/tapable
+[hook types]: https://github.com/webpack/tapable#hook-types
 [`eventemitter` class]: https://nodejs.org/api/events.html#events_class_eventemitter
 [page builder extension]: https://github.com/magento/pwa-studio/blob/develop/packages/pagebuilder/lib/intercept.js
