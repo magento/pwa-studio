@@ -3,30 +3,15 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import getRouteComponent from './getRouteComponent';
-import { RESOLVE_URL } from './magentoRoute.gql';
+import DEFAULT_OPERATIONS from './magentoRoute.gql';
 
-const CODE_PERMANENT_REDIRECT = 301;
-const CODE_TEMPORARY_REDIRECT = 302;
-const REDIRECT_CODES = new Set()
-    .add(CODE_PERMANENT_REDIRECT)
-    .add(CODE_TEMPORARY_REDIRECT);
-
-const talonResponses = {
-    ERROR: routeError => ({ hasError: true, routeError }),
-    LOADING: { isLoading: true },
-    NOT_FOUND: { isNotFound: true },
-    FOUND: (component, id, type) => ({ component, id, type }),
-    REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
-};
-
-const getRouteKey = (pathname, store) => `[${store}]--${pathname}`;
-
-export const useMagentoRoute = props => {
-    const { getStoreCode } = props;
+export const useMagentoRoute = (props = {}) => {
+    const { operations = DEFAULT_OPERATIONS } = props;
     const history = useHistory();
     const { pathname } = useLocation();
     const isMountedRef = useRef(false);
     const [responses, setResponses] = useState(new Map());
+    const { getStoreCodeQuery, resolveUrlQuery } = operations;
 
     useEffect(() => {
         isMountedRef.current = true;
@@ -36,7 +21,7 @@ export const useMagentoRoute = props => {
         };
     }, []);
 
-    const storeCodeResult = useQuery(getStoreCode, {
+    const storeCodeResult = useQuery(getStoreCodeQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
@@ -46,7 +31,7 @@ export const useMagentoRoute = props => {
     const routeKey = getRouteKey(pathname, store);
     const routeData = responses.get(routeKey);
 
-    const urlResult = useQuery(RESOLVE_URL, {
+    const urlResult = useQuery(resolveUrlQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         variables: { url: pathname }
@@ -102,3 +87,19 @@ export const useMagentoRoute = props => {
 
     return routeData || talonResponses.LOADING;
 };
+
+const CODE_PERMANENT_REDIRECT = 301;
+const CODE_TEMPORARY_REDIRECT = 302;
+const REDIRECT_CODES = new Set()
+    .add(CODE_PERMANENT_REDIRECT)
+    .add(CODE_TEMPORARY_REDIRECT);
+
+const talonResponses = {
+    ERROR: routeError => ({ hasError: true, routeError }),
+    LOADING: { isLoading: true },
+    NOT_FOUND: { isNotFound: true },
+    FOUND: (component, id, type) => ({ component, id, type }),
+    REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
+};
+
+const getRouteKey = (pathname, store) => `[${store}]--${pathname}`;
