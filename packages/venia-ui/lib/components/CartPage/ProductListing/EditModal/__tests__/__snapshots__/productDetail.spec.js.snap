@@ -24,7 +24,15 @@ exports[`renders product details with base price and in stock 1`] = `
     className="stockRow"
   >
     <span>
-      SKU #
+      <mock-FormattedMessage
+        defaultMessage="SKU #"
+        id="productDetail.skuNumber"
+        values={
+          Object {
+            "sku": "SP-01",
+          }
+        }
+      />
     </span>
     <span>
       In stock
@@ -73,7 +81,15 @@ exports[`renders product details with unknown stock value 1`] = `
     className="stockRow"
   >
     <span>
-      SKU #
+      <mock-FormattedMessage
+        defaultMessage="SKU #"
+        id="productDetail.skuNumber"
+        values={
+          Object {
+            "sku": "SP-01",
+          }
+        }
+      />
     </span>
     <span>
       Unknown
@@ -122,7 +138,15 @@ exports[`renders product details with variant price and out of stock 1`] = `
     className="stockRow"
   >
     <span>
-      SKU #
+      <mock-FormattedMessage
+        defaultMessage="SKU #"
+        id="productDetail.skuNumber"
+        values={
+          Object {
+            "sku": "SP-01",
+          }
+        }
+      />
     </span>
     <span>
       Out of stock

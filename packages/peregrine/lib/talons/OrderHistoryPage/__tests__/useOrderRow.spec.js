@@ -5,9 +5,14 @@ import { useQuery } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 import { useOrderRow } from '../useOrderRow';
 
-jest.mock('@apollo/client', () => ({
-    useQuery: jest.fn()
-}));
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
+    return {
+        ...apolloClient,
+        useQuery: jest.fn()
+    };
+});
 
 const log = jest.fn();
 const Component = props => {
@@ -20,36 +25,58 @@ const Component = props => {
     return null;
 };
 
+const defaultProps = {
+    queries: { getProductThumbnailsQuery: 'getProductThumbnailsQuery' },
+    items: [{ product_url_key: 'sku1' }, { product_url_key: 'sku2' }]
+};
+const items = [
+    { thumbnail: { url: 'sku1 thumbnail url' }, url_key: 'sku1' },
+    { thumbnail: { url: 'sku2 thumbnail url' }, url_key: 'sku2' }
+];
+const dataResponse = {
+    data: {
+        products: {
+            items
+        }
+    },
+    loading: false
+};
+
 test('returns correct shape', () => {
-    const items = [
-        { thumbnail: { url: 'sku1 thumbnail url' } },
-        { thumbnail: { url: 'sku2 thumbnail url' } }
-    ];
-    useQuery.mockReturnValue({ data: { products: { items } }, loading: false });
-    createTestInstance(
-        <Component
-            queries={{ getProductThumbnailsQuery: 'getProductThumbnailsQuery' }}
-            items={[{ product_sku: 'sku1' }, { product_sku: 'sku2' }]}
-        />
-    );
+    useQuery.mockReturnValue(dataResponse);
+    createTestInstance(<Component {...defaultProps} />);
 
     const talonProps = log.mock.calls[0][0];
 
     expect(talonProps).toMatchSnapshot();
 });
 
+test('filters out items not in the request', () => {
+    useQuery.mockReturnValue({
+        data: {
+            products: {
+                items: [
+                    ...items,
+                    {
+                        thumbnail: { url: 'bundle-sku thumbnail url' },
+                        url_key: 'bundle-sku'
+                    }
+                ]
+            }
+        },
+        loading: false
+    });
+
+    createTestInstance(<Component {...defaultProps} />);
+
+    const talonProps = log.mock.calls[0][0];
+
+    expect(talonProps.imagesData).toHaveLength(2);
+});
+
 test('callback toggles open state', () => {
-    const items = [
-        { thumbnail: { url: 'sku1 thumbnail url' } },
-        { thumbnail: { url: 'sku2 thumbnail url' } }
-    ];
-    useQuery.mockReturnValue({ data: { products: { items } }, loading: false });
-    createTestInstance(
-        <Component
-            queries={{ getProductThumbnailsQuery: 'getProductThumbnailsQuery' }}
-            items={[{ product_sku: 'sku1' }, { product_sku: 'sku2' }]}
-        />
-    );
+    useQuery.mockReturnValue(dataResponse);
+    createTestInstance(<Component {...defaultProps} />);
 
     const talonProps = log.mock.calls[0][0];
 

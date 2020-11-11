@@ -50,7 +50,10 @@ exports[`renders correctly 1`] = `
         </svg>
       </span>
       <span>
-        Create a list
+        <mock-FormattedMessage
+          defaultMessage="Create a list"
+          id="createWishlist.handleCreateListText"
+        />
       </span>
     </div>
   </button>

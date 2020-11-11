@@ -8,11 +8,13 @@ Object {
       "thumbnail": Object {
         "url": "sku1 thumbnail url",
       },
+      "url_key": "sku1",
     },
     Object {
       "thumbnail": Object {
         "url": "sku2 thumbnail url",
       },
+      "url_key": "sku2",
     },
   ],
   "isOpen": false,

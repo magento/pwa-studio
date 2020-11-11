@@ -1,26 +1,9 @@
 .root {
     display: grid;
-    row-gap: 0.35rem;
+    row-gap: 0.375rem;
 }
 
 .heading {
-    grid-row: 1 / span 1;
     font-weight: var(--venia-global-fontWeight-bold);
-    padding-bottom: 0.35rem;
-}
-
-.name {
-    grid-row: 2 / span 1;
-}
-
-.addressLine1 {
-    grid-row: 3 / span 1;
-}
-
-.addressLine2 {
-    grid-row: 4 / span 1;
-}
-
-.country {
-    grid-row: 5 / span 1;
+    padding-bottom: 0.375rem;
 }

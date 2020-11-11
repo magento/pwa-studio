@@ -10,9 +10,6 @@ import Icon from '../Icon';
 import CollapsedImageGallery from './collapsedImageGallery';
 import OrderProgressBar from './orderProgressBar';
 import OrderDetails from './OrderDetails';
-
-import orderRowOperations from './orderRow.gql';
-
 import defaultClasses from './orderRow.css';
 
 const OrderRow = props => {
@@ -66,10 +63,7 @@ const OrderRow = props => {
         });
     }
 
-    const talonProps = useOrderRow({
-        items,
-        ...orderRowOperations
-    });
+    const talonProps = useOrderRow({ items });
     const { loading, isOpen, handleContentToggle, imagesData } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -173,13 +167,16 @@ OrderRow.propTypes = {
             lastname: string,
             postcode: string,
             region_id: string,
-            street: string
+            street: arrayOf(string)
         }),
         items: arrayOf(
             shape({
                 id: string,
                 product_name: string,
-                product_sale_price: string,
+                product_sale_price: shape({
+                    currency: string,
+                    value: number
+                }),
                 product_sku: string,
                 selected_options: arrayOf(
                     shape({
@@ -192,7 +189,7 @@ OrderRow.propTypes = {
         ),
         invoices: arrayOf(
             shape({
-                id: number
+                id: string
             })
         ),
         number: string,
@@ -215,7 +212,7 @@ OrderRow.propTypes = {
             lastname: string,
             postcode: string,
             region_id: string,
-            street: string,
+            street: arrayOf(string),
             telephone: string
         }),
         shipping_method: string,
@@ -224,7 +221,6 @@ OrderRow.propTypes = {
                 id: string,
                 tracking: arrayOf(
                     shape({
-                        carrier: string,
                         number: string
                     })
                 )
