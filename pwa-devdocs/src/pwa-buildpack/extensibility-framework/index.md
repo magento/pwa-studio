@@ -152,13 +152,23 @@ When writing intercept and declare files, keep in mind the following requirement
 
 As shown in the previous examples, a common practice when authoring these files involve assigning the TargetProvider object to a `targets` variable.
 
-## Extendible packages in PWA Studio
+## Targets in PWA Studio packages
 
-### Buildpack
+When you create a new storefront project using the scaffolding tool, you have access to all the same PWA Studio Targets as the Venia storefront.
+The following is a list of PWA Studio packages that contain Targets.
 
-### Peregrine
+[Buildpack][]
+: Targets in the Buildpack are low level and generic.
+They are often used as building blocks for more complicated feature Targets.
+You can also find Targets that let you add environment variables or change UPWARD behavior in this package.
 
-### Venia UI
+[Peregrine][]
+: Targets in the Peregrine package focus mainly on the set of talons it provides.
+The `talons` Target lets you [wrap a Talon][] with your own module.
+
+[Venia UI][]
+: Targets in the Venia UI provide access to the list of items used in the UI components.
+These Targets let you add new routes, rendering strategies, and payment methods.
 
 ## Testing extensions locally
 
@@ -166,6 +176,10 @@ As shown in the previous examples, a common practice when authoring these files 
 
 [`richcontentrenderers` target]: <{% link venia-ui/reference/targets/index.md %}#richContentRenderers>
 [intercept a target]: <{% link tutorials/intercept-a-target/index.md %}>
+[buildpack]: <{% link /pwa-buildpack/reference/targets/index.md %}>
+[peregrine]: <{% link /peregrine/reference/targets/index.md %}>
+[wrap a talon]: <{% link /tutorials/intercept-a-target/modify-talon-results/index.md %}>
+[venia ui]: <{% link /venia-ui/reference/targets/index.md %}>
 
 [interceptor pattern]: https://en.wikipedia.org/wiki/Interceptor_pattern
 [interceptor-pattern-image]: ./images/interceptor-pattern.svg
