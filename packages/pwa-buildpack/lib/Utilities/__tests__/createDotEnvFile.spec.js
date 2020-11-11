@@ -3,6 +3,7 @@ jest.mock('../../util/pretty-logger', () => ({
     error: jest.fn()
 }));
 jest.mock('../getEnvVarDefinitions');
+jest.mock('../runEnvValidators', () => jest.fn().mockResolvedValue(true));
 const dotenv = require('dotenv');
 const getEnvVarDefinitions = require('../getEnvVarDefinitions');
 const createDotEnvFile = require('../createDotEnvFile');
