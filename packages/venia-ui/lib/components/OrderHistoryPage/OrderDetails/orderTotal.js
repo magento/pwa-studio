@@ -1,36 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, string, shape, number } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
+import Price from '@magento/venia-ui/lib/components/Price';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import { Price } from '@magento/peregrine';
 
 import defaultClasses from './orderTotal.css';
-
-const DEFAULT_AMOUNT = {
-    currency: 'USD',
-    value: 0
-};
-
-/**
- * Reduces discounts array into a single amount.
- *
- * @param {Array} discounts
- */
-const getDiscount = (discounts = []) => {
-    // discounts from data can be null
-    if (!discounts || !discounts.length) {
-        return DEFAULT_AMOUNT;
-    } else {
-        return {
-            currency: discounts[0].amount.currency,
-            value: discounts.reduce(
-                (acc, discount) => acc + discount.amount.value,
-                0
-            )
-        };
-    }
-};
 
 const OrderTotal = props => {
     const { classes: propClasses, data } = props;
@@ -42,7 +17,37 @@ const OrderTotal = props => {
         total_shipping
     } = data;
     const classes = mergeClasses(defaultClasses, propClasses);
-    const totalDiscount = getDiscount(discounts);
+
+    const discountRowElement = useMemo(() => {
+        if (!discounts || !discounts.length) {
+            return null;
+        }
+
+        const discountTotal = {
+            currency: discounts[0].amount.currency,
+            value: discounts.reduce(
+                (acc, discount) => acc + discount.amount.value,
+                0
+            )
+        };
+
+        return (
+            <div className={classes.discount}>
+                <span>
+                    <FormattedMessage
+                        id="orderDetails.discount"
+                        defaultMessage="Discount"
+                    />
+                </span>
+                <span>
+                    <Price
+                        value={discountTotal.value}
+                        currencyCode={discountTotal.currency}
+                    />
+                </span>
+            </div>
+        );
+    }, [classes.discount, discounts]);
 
     return (
         <div className={classes.root}>
@@ -66,20 +71,7 @@ const OrderTotal = props => {
                     />
                 </span>
             </div>
-            <div className={classes.discount}>
-                <span>
-                    <FormattedMessage
-                        id="orderDetails.discount"
-                        defaultMessage="Discount"
-                    />
-                </span>
-                <span>
-                    <Price
-                        value={totalDiscount.value}
-                        currencyCode={totalDiscount.currency}
-                    />
-                </span>
-            </div>
+            {discountRowElement}
             <div className={classes.tax}>
                 <span>
                     <FormattedMessage

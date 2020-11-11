@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string } from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -14,12 +14,20 @@ const BillingInformation = props => {
         firstname,
         lastname,
         postcode,
-        region_id,
+        region,
         street
     } = data;
     const classes = mergeClasses(defaultClasses, propsClasses);
 
-    const additionalAddressString = `${city}, ${region_id}, ${postcode}`;
+    const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
+    const fullName = `${firstname} ${lastname}`;
+    const streetRows = street.map((row, index) => {
+        return (
+            <span className={classes.streetRow} key={index}>
+                {row}
+            </span>
+        );
+    });
 
     return (
         <div className={classes.root}>
@@ -29,15 +37,11 @@ const BillingInformation = props => {
                     defaultMessage="Billing Information"
                 />
             </div>
-            <div className={classes.name}>
-                <span>{firstname}</span>
-                <span>{lastname}</span>
-            </div>
-            <div className={classes.addressLine1}>{street}</div>
-            <div className={classes.addressLine2}>
+            <span className={classes.name}>{fullName}</span>
+            {streetRows}
+            <div className={classes.additionalAddress}>
                 {additionalAddressString}
             </div>
-            <div className={classes.country}>{country_code}</div>
         </div>
     );
 };
@@ -49,9 +53,8 @@ BillingInformation.propTypes = {
         root: string,
         heading: string,
         name: string,
-        addressLine1: string,
-        addressLine2: string,
-        country: string
+        streetRow: string,
+        additionalAddress: string
     }),
     data: shape({
         city: string,
@@ -59,7 +62,7 @@ BillingInformation.propTypes = {
         firstname: string,
         lastname: string,
         postcode: string,
-        region_id: string,
-        street: string
+        region: string,
+        street: arrayOf(string)
     })
 };
