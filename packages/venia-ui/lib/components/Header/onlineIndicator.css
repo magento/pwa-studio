@@ -15,3 +15,9 @@
         grid-area: secondary;
     }
 }
+
+@media (min-width: 641px) {
+    .root {
+        grid-area: primary;
+    }
+}

@@ -25,7 +25,6 @@
 }
 
 .toolbar {
-    position: relative;
     z-index: 3;
     align-content: center;
     align-items: center;
@@ -64,6 +63,13 @@
         grid-template-columns: auto auto 1fr;
         min-height: 5rem;
         padding: 0 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .toolbar {
+        grid-template-areas: 'title primary megaMenu secondary';
+        grid-template-columns: auto auto 10fr 1fr;
     }
 }
 

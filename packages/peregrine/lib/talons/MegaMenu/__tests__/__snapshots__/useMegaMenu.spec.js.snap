@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render proper shape 1`] = `
+Object {
+  "activeCategoryId": 7,
+  "megaMenuData": Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "id": 8,
+            "include_in_menu": 1,
+            "isActive": false,
+            "name": "Blouses & Shirts",
+            "path": Array [
+              7,
+              8,
+            ],
+            "position": 1,
+            "url_path": "venia-tops/venia-blouses",
+            "url_suffix": ".html",
+          },
+          Object {
+            "children": Array [],
+            "id": 9,
+            "include_in_menu": 1,
+            "isActive": false,
+            "name": "Sweaters",
+            "path": Array [
+              7,
+              9,
+            ],
+            "position": 2,
+            "url_path": "venia-tops/venia-sweaters",
+            "url_suffix": ".html",
+          },
+        ],
+        "id": 7,
+        "include_in_menu": 1,
+        "isActive": true,
+        "name": "Tops",
+        "path": Array [
+          7,
+        ],
+        "position": 3,
+        "url_path": "venia-tops",
+        "url_suffix": ".html",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "children": Array [],
+            "id": 5,
+            "include_in_menu": 1,
+            "isActive": false,
+            "name": "Jewelry",
+            "path": Array [
+              3,
+              5,
+            ],
+            "position": 2,
+            "url_path": "venia-accessories/venia-jewelry",
+            "url_suffix": ".html",
+          },
+          Object {
+            "children": Array [],
+            "id": 4,
+            "include_in_menu": 1,
+            "isActive": false,
+            "name": "Belts",
+            "path": Array [
+              3,
+              4,
+            ],
+            "position": 10,
+            "url_path": "venia-accessories/venia-belts",
+            "url_suffix": ".html",
+          },
+        ],
+        "id": 3,
+        "include_in_menu": 1,
+        "isActive": false,
+        "name": "Accessories",
+        "path": Array [
+          3,
+        ],
+        "position": 4,
+        "url_path": "venia-accessories",
+        "url_suffix": ".html",
+      },
+    ],
+    "id": 2,
+    "isActive": false,
+    "name": "Default Category",
+  },
+}
+`;

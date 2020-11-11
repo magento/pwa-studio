@@ -17,6 +17,13 @@
     }
 }
 
+@media (min-width: 1024px) {
+    .root {
+        grid-area: primary;
+        justify-self: end;
+    }
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);

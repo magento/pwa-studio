@@ -27,6 +27,35 @@ Array [
         hasBeenOffline={false}
         isOnline={true}
       />
+      <nav
+        className="megaMenu"
+        role="navigation"
+      >
+        <div
+          className="megaMenuItem"
+        >
+          <div
+            className="submenu"
+          >
+            <div
+              className="submenuContainer"
+            >
+              <div
+                className="breadcrumb"
+              >
+                Default Category / Accessories
+              </div>
+              <div
+                className="submenus"
+              >
+                <div
+                  className="submenuColumn"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
       <div
         className="secondaryActions"
       >
