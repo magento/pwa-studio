@@ -170,9 +170,17 @@ The `talons` Target lets you [wrap a Talon][] with your own module.
 : Targets in the Venia UI provide access to the list of items used in the UI components.
 These Targets let you add new routes, rendering strategies, and payment methods.
 
-## Testing extensions locally
+## Extension examples
 
-## Examples
+The PWA Studio scaffolding tool also installs extensions on all new storefront projects.
+These extensions use the framework to add useful features on top of the base application.
+They are also examples of what a PWA Studio storefront extension looks like.
+
+[@magento/upward-security-headers][]
+: This extension adds security headers to UPWARD by tapping into the `transformUpward` Target in Buildpack.
+
+[@magento/venia-sample-language-packs]
+: This extension provides sample translations for PWA Studio's internationalization feature.
 
 [`richcontentrenderers` target]: <{% link venia-ui/reference/targets/index.md %}#richContentRenderers>
 [intercept a target]: <{% link tutorials/intercept-a-target/index.md %}>
@@ -191,3 +199,5 @@ These Targets let you add new routes, rendering strategies, and payment methods.
 [hook types]: https://github.com/webpack/tapable#hook-types
 [`eventemitter` class]: https://nodejs.org/api/events.html#events_class_eventemitter
 [page builder extension]: https://github.com/magento/pwa-studio/blob/develop/packages/pagebuilder/lib/intercept.js
+[@magento/upward-security-headers]: https://github.com/magento/pwa-studio/tree/develop/packages/extensions/upward-security-headers
+[@magento/venia-sample-language-packs]: https://github.com/magento/pwa-studio/tree/develop/packages/extensions/venia-sample-language-packs
