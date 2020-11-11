@@ -39,15 +39,12 @@ const PaymentMethods = props => {
     const radios = availablePaymentMethods
         .map(({ code, title }) => {
             // If we don't have an implementation for a method type, ignore it.
-            if (
-                !Object.keys(PAYMENT_METHOD_COMPONENTS_BY_CODE).includes(code)
-            ) {
+            if (!Object.keys(payments).includes(code)) {
                 return;
             }
 
             const isSelected = currentSelectedPaymentMethod === code;
-            const PaymentMethodComponent =
-                PAYMENT_METHOD_COMPONENTS_BY_CODE[code];
+            const PaymentMethodComponent = payments[code];
             const renderedComponent = isSelected ? (
                 <PaymentMethodComponent
                     onPaymentSuccess={onPaymentSuccess}
@@ -71,8 +68,8 @@ const PaymentMethods = props => {
                 </div>
             );
         })
-        .filter(method => !!method);
-    
+        .filter(paymentMethod => !!paymentMethod);
+
     const noPaymentMethodMessage = !radios.length ? (
         <span className={classes.no_payment_method}>
             No Payment method available.
