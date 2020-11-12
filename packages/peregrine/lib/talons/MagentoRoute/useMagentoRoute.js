@@ -58,7 +58,7 @@ export const useMagentoRoute = props => {
     // If the entry for this pathname is a redirect, perform the redirect.
     useEffect(() => {
         if (routeData && routeData.isRedirect) {
-            history.replace(routeData.relativeUrl);
+            history.replace('/' + routeData.relativeUrl);
         }
     }, [componentMap, history, pathname, routeData]);
 
