@@ -18,6 +18,10 @@ _Extensions_ for PWA Studio storefronts are normal NPM packages you install as a
 These packages contain instructions that affect the build process and static code output for the generated application bundles.
 By modifying the output code during build time, there is no runtime performance cost associated with changing the storefront behavior.
 
+The following diagram illustrates the general build process for a basic storefront with no extensions and a storefront that installs an extension.
+
+![extensibility-overview][]
+
 This is different from a _plugin architecture_ where the application detects and dispatches plugins as the front end loads in the browser.
 The more plugins you install with this architecture, the slower the application gets as it becomes bloated with overhead processes.
 
@@ -47,7 +51,7 @@ They provide another layer of customization on top of using plain code compositi
 ### TargetProviders
 
 A _TargetProvider_ is an object that manages the connections between modules and their Targets.
-This object is available to your module's [intercept file][] and is the API you use to access Targets or declare them.
+This object is available to your module's [intercept file][intercept files] and is the API you use to access Targets or declare them.
 
 Each extension receives its own TargetProvider in its intercept and declare files.
 Use this object to declare a module's own targets, intercept its own targets, or intercept the targets of other extensions.
@@ -55,11 +59,12 @@ Use this object to declare a module's own targets, intercept its own targets, or
 ### Example
 
 An example of a Target is the [`richContentRenderers` target][] declared by the Venia UI package.
-This target lets you change the behavior of the `RichContent` component across your project by adding a rendering strategy.
+This Target lets you change the behavior of the `RichContent` component across your project by adding a rendering strategy.
 Tapping into this Target gives access to a `richContentRenders` list object in your intercept function.
-Call the `add()` function on this list to add a custom rendering strategy for your storefront.
+Calling the `add()` function on this object lets you add a custom rendering strategy for your storefront.
 
-The [Page Builder extension][] provides an example by tapping into this Target and adding a custom renderer for any detected Page Builder content.
+The [Page Builder extension][] provides an example of how to intercept this Target.
+It taps the Target and provides an intercept function that adds a custom renderer for any detected Page Builder content.
 
 ```js
 targets
@@ -80,8 +85,8 @@ The framework registers the Targets in all the declare files it finds in the pro
 This guarantees Target availability to any dependent interceptor.
 
 Declare files must export a function that accepts a TargetProvider object as a parameter.
-It provides a `declare()` function to register your project's Targets by providing it a dictionary object.
-The dictionary object provides a mapping of a unique name to its Target.
+It provides a `declare()` function to register your project's Targets by providing it a dictionary object,
+which maps a unique name to its Target.
 
 When you register your Target, the dictionary key is the named property a developer uses to access that Target.
 In the Page Builder example, the dictionary key for the rich content renderers Target that Venia UI declares is `richContentRenderers`.
@@ -191,6 +196,7 @@ They are also examples of what a PWA Studio storefront extension looks like.
 
 [interceptor pattern]: https://en.wikipedia.org/wiki/Interceptor_pattern
 [interceptor-pattern-image]: ./images/interceptor-pattern.svg
+[extensibility-overview]: ./images/extensibility-overview.svg
 [buildbus]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/lib/BuildBus/BuildBus.js
 [targets]: #targets
 [intercept files]: #intercept-files
