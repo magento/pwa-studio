@@ -9,22 +9,14 @@ exports[`should render properly 1`] = `
       id="orderDetails.billingInformationLabel"
     />
   </div>
-  <div>
-    <span>
-      Gooseton
-    </span>
-    <span>
-      Jr
-    </span>
-  </div>
-  <div>
+  <span>
+    Gooseton Jr
+  </span>
+  <span>
     2134, Apt 123, Goose Drive
-  </div>
+  </span>
   <div>
-    Austin, TX, 78451
-  </div>
-  <div>
-    USA
+    Austin, TX 78451 USA
   </div>
 </div>
 `;

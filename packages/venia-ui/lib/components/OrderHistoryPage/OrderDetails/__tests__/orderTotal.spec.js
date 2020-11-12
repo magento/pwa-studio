@@ -3,25 +3,19 @@ import { createTestInstance } from '@magento/peregrine';
 
 import OrderTotal from '../orderTotal';
 
-jest.mock('@magento/peregrine', () => ({
-    createTestInstance: jest.requireActual('@magento/peregrine')
-        .createTestInstance,
-    Price: props => <div componentName="Price Component" {...props} />
-}));
-
-jest.mock('react-intl', () => ({
-    FormattedMessage: props => (
-        <div componentName="Formatted Message Component" {...props} />
-    )
-}));
-
 const defaultProps = {
     data: {
         discounts: [
             {
                 amount: {
                     currency: 'USD',
-                    value: 123
+                    value: 62
+                }
+            },
+            {
+                amount: {
+                    currency: 'USD',
+                    value: 61
                 }
             }
         ],
@@ -46,6 +40,18 @@ const defaultProps = {
 
 test('should render properly', () => {
     const tree = createTestInstance(<OrderTotal {...defaultProps} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('should conditionally render discount row', () => {
+    const props = {
+        data: {
+            ...defaultProps.data,
+            discounts: null
+        }
+    };
+    const tree = createTestInstance(<OrderTotal {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

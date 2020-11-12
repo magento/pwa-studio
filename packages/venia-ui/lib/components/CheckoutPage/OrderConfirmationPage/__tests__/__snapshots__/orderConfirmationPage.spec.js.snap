@@ -5,13 +5,27 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
   Title
   <div>
     <h2>
-      Thank you for your order!
+      <mock-FormattedMessage
+        defaultMessage="Thank you for your order!"
+        id="checkoutPage.thankYou"
+      />
     </h2>
     <div>
-      Order Number
+      <mock-FormattedMessage
+        defaultMessage="Order Number"
+        id="checkoutPage.orderNumber"
+        values={
+          Object {
+            "orderNumber": 123,
+          }
+        }
+      />
     </div>
     <div>
-      Shipping Information
+      <mock-FormattedMessage
+        defaultMessage="Shipping Information"
+        id="global.shippingInformation"
+      />
     </div>
     <div>
       <span>
@@ -28,7 +42,10 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
       </span>
     </div>
     <div>
-      Shipping Method
+      <mock-FormattedMessage
+        defaultMessage="Shipping Method"
+        id="global.shippingMethod"
+      />
     </div>
     <div>
       Flat Rate - Fixed
@@ -37,7 +54,10 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
       <ItemsReview />
     </div>
     <div>
-      You will also receive an email with the details and we will let you know when your order has shipped.
+      <mock-FormattedMessage
+        defaultMessage="You will also receive an email with the details and we will let you know when your order has shipped."
+        id="checkoutPage.additionalText"
+      />
     </div>
   </div>
   <div>

@@ -210,6 +210,30 @@ describe('form submission', () => {
         expect(updateConfigurableOptions.mock.calls[0][0]).toMatchSnapshot();
         expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
+
+    test('does not call configurable item mutation when final options selection matches backend value', async () => {
+        // since this test renders twice, we need to double up the mocked returns
+        setupMockedReturns();
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+        const { handleOptionSelection } = talonProps;
+
+        act(() => {
+            handleOptionSelection('123', 1);
+        });
+
+        const { talonProps: newTalonProps } = root.findByType('i').props;
+        const { handleSubmit } = newTalonProps;
+
+        await act(async () => {
+            await handleSubmit({ quantity: 5 });
+        });
+
+        expect(updateItemQuantity).not.toHaveBeenCalled();
+        expect(updateConfigurableOptions).not.toHaveBeenCalled();
+        expect(closeDrawer).toHaveBeenCalledTimes(1);
+    });
 });
 
 test('does not close drawer on error', async () => {

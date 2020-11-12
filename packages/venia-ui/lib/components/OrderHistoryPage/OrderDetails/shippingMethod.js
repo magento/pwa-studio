@@ -10,13 +10,37 @@ const ShippingMethod = props => {
     const { data, classes: propsClasses } = props;
     const { shipments, shippingMethod } = data;
     const classes = mergeClasses(defaultClasses, propsClasses);
-    /**
-     * Shipments and Tracking are arrays. Since Venia does not
-     * support multiple shipping arrdresses in checkout we will
-     * be picking the first value in those arrays for now.
-     */
-    const [{ tracking }] = shipments;
-    const [{ carrier, number }] = tracking;
+    let trackingElement;
+
+    if (shipments.length) {
+        trackingElement = shipments.map(shipment => {
+            const { tracking: trackingCollection } = shipment;
+            if (trackingCollection.length) {
+                return trackingCollection.map(tracking => {
+                    const { number } = tracking;
+
+                    return (
+                        <span className={classes.trackingRow} key={number}>
+                            <FormattedMessage
+                                id="orderDetails.trackingInformation"
+                                values={{
+                                    number,
+                                    strong: chunks => <strong>{chunks}</strong>
+                                }}
+                            />
+                        </span>
+                    );
+                });
+            }
+        });
+    } else {
+        trackingElement = (
+            <FormattedMessage
+                id="orderDetails.waitingOnTracking"
+                defaultMessage="Waiting for tracking information"
+            />
+        );
+    }
 
     return (
         <div className={classes.root}>
@@ -27,15 +51,7 @@ const ShippingMethod = props => {
                 />
             </div>
             <div className={classes.method}>{shippingMethod}</div>
-            <div className={classes.tracking}>
-                <FormattedMessage
-                    id="orderDetails.trackingInformation"
-                    values={{
-                        carrier,
-                        number
-                    }}
-                />
-            </div>
+            <div className={classes.tracking}>{trackingElement}</div>
         </div>
     );
 };
@@ -47,7 +63,8 @@ ShippingMethod.propTypes = {
         root: string,
         heading: string,
         method: string,
-        tracking: string
+        tracking: string,
+        trackingRow: string
     }),
     data: shape({
         shippingMethod: string,
@@ -56,7 +73,6 @@ ShippingMethod.propTypes = {
                 id: string,
                 tracking: arrayOf(
                     shape({
-                        carrier: string,
                         number: string
                     })
                 )

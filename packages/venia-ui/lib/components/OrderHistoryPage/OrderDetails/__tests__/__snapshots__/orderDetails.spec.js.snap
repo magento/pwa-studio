@@ -225,8 +225,7 @@ exports[`should render properly 1`] = `
         </svg>
       </span>
       <span>
-        <div
-          componentName="Formatted Message Component"
+        <mock-FormattedMessage
           defaultMessage="Print Receipt"
           id="orderDetails.printLabel"
         />
