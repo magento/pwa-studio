@@ -5,7 +5,10 @@ Array [
   <span
     className="lineItemLabel"
   >
-    Discounts applied
+    <mock-FormattedMessage
+      defaultMessage="Discounts applied"
+      id="discountSummary.lineItemLabel"
+    />
   </span>,
   <span
     className="price"
@@ -32,7 +35,10 @@ Array [
   <span
     className="lineItemLabel"
   >
-    Discounts applied
+    <mock-FormattedMessage
+      defaultMessage="Discounts applied"
+      id="discountSummary.lineItemLabel"
+    />
   </span>,
   <span
     className="price"

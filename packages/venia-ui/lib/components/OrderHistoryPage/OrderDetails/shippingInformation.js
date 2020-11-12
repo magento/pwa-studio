@@ -1,5 +1,5 @@
-import React from 'react';
-import { shape, string } from 'prop-types';
+import React, { Fragment } from 'react';
+import { arrayOf, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -8,18 +8,48 @@ import defaultClasses from './shippingInformation.css';
 
 const ShippingInformation = props => {
     const { data, classes: propsClasses } = props;
-    const {
-        city,
-        country_code,
-        firstname,
-        lastname,
-        postcode,
-        region_id,
-        street
-    } = data;
     const classes = mergeClasses(defaultClasses, propsClasses);
 
-    const additionalAddressString = `${city}, ${region_id}, ${postcode}`;
+    let shippingContentElement;
+
+    if (data) {
+        const {
+            city,
+            country_code,
+            firstname,
+            lastname,
+            postcode,
+            region,
+            street
+        } = data;
+
+        const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
+        const fullName = `${firstname} ${lastname}`;
+        const streetRows = street.map((row, index) => {
+            return (
+                <span className={classes.streetRow} key={index}>
+                    {row}
+                </span>
+            );
+        });
+
+        shippingContentElement = (
+            <Fragment>
+                <span className={classes.name}>{fullName}</span>
+                {streetRows}
+                <div className={classes.additionalAddress}>
+                    {additionalAddressString}
+                </div>
+            </Fragment>
+        );
+    } else {
+        shippingContentElement = (
+            <FormattedMessage
+                id="orderDetails.noShippingInformation"
+                defaultMessage="No shipping information"
+            />
+        );
+    }
 
     return (
         <div className={classes.root}>
@@ -29,15 +59,7 @@ const ShippingInformation = props => {
                     defaultMessage="Shipping Information"
                 />
             </div>
-            <div className={classes.name}>
-                <span>{firstname}</span>
-                <span>{lastname}</span>
-            </div>
-            <div className={classes.addressLine1}>{street}</div>
-            <div className={classes.addressLine2}>
-                {additionalAddressString}
-            </div>
-            <div className={classes.country}>{country_code}</div>
+            {shippingContentElement}
         </div>
     );
 };
@@ -49,9 +71,8 @@ ShippingInformation.propTypes = {
         root: string,
         heading: string,
         name: string,
-        addressLine1: string,
-        addressLine2: string,
-        country: string
+        streetRow: string,
+        additionalAddress: string
     }),
     data: shape({
         city: string,
@@ -59,8 +80,8 @@ ShippingInformation.propTypes = {
         firstname: string,
         lastname: string,
         postcode: string,
-        region_id: string,
-        street: string,
+        region: string,
+        street: arrayOf(string),
         telephone: string
     })
 };

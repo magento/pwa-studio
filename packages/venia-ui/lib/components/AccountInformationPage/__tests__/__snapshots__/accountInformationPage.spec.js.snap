@@ -14,12 +14,18 @@ exports[`renders form error 1`] = `
   <h1
     className="title"
   >
-    Account Information
+    <mock-FormattedMessage
+      defaultMessage="Account Information"
+      id="accountInformationPage.accountInformation"
+    />
   </h1>
   <p
     className="root"
   >
-    Something went wrong. Please refresh and try again.
+    <mock-FormattedMessage
+      defaultMessage="Something went wrong. Please refresh and try again."
+      id="accountInformationPage.errorTryAgain"
+    />
   </p>
 </div>
 `;

@@ -21,7 +21,10 @@ exports[`renders correctly 1`] = `
     <span
       className="prompt"
     >
-      Are you sure you want to delete this product from the list?
+      <mock-FormattedMessage
+        defaultMessage="Are you sure you want to delete this product from the list?"
+        id="wishlistConfirmRemoveProductDialog.confirmationPrompt"
+      />
     </span>
   </div>
 </Dialog>
@@ -48,7 +51,10 @@ exports[`renders correctly when closed 1`] = `
     <span
       className="prompt"
     >
-      Are you sure you want to delete this product from the list?
+      <mock-FormattedMessage
+        defaultMessage="Are you sure you want to delete this product from the list?"
+        id="wishlistConfirmRemoveProductDialog.confirmationPrompt"
+      />
     </span>
   </div>
 </Dialog>
@@ -75,7 +81,10 @@ exports[`renders correctly when removal is in progress 1`] = `
     <span
       className="prompt"
     >
-      Are you sure you want to delete this product from the list?
+      <mock-FormattedMessage
+        defaultMessage="Are you sure you want to delete this product from the list?"
+        id="wishlistConfirmRemoveProductDialog.confirmationPrompt"
+      />
     </span>
   </div>
 </Dialog>
@@ -102,12 +111,18 @@ exports[`renders correctly with error 1`] = `
     <p
       className="errorMessage"
     >
-      There was an error deleting this product. Please try again later.
+      <mock-FormattedMessage
+        defaultMessage="There was an error deleting this product. Please try again later."
+        id="wishlistConfirmRemoveProductDialog.errorMessage"
+      />
     </p>
     <span
       className="prompt"
     >
-      Are you sure you want to delete this product from the list?
+      <mock-FormattedMessage
+        defaultMessage="Are you sure you want to delete this product from the list?"
+        id="wishlistConfirmRemoveProductDialog.confirmationPrompt"
+      />
     </span>
   </div>
 </Dialog>
