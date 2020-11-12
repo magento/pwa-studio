@@ -5,9 +5,9 @@ title: Extensibility framework
 PWA Studio's extensibility framework provides the tools you need to customize and extend your storefront without copying over code from the core PWA Studio project.
 The extensibility framework gives developers the ability to:
 
-- Extend the base Venia storefront with minimal core code duplication
-- Create and install extensions for PWA Studio storefronts
-- Create their own extendible modules and storefronts
+-   Extend the base Venia storefront with minimal core code duplication
+-   Create and install extensions for PWA Studio storefronts
+-   Create their own extendible modules and storefronts
 
 ## How it works
 
@@ -151,9 +151,9 @@ Read the reference API on this site or in doc blocks in the source code to learn
 
 When writing intercept and declare files, keep in mind the following requirements:
 
-- Both files must export a function that accepts a TargetProvider object as a parameter.
-- Both files are CommonJS modules that run in Node.
-- You can create these files anywhere in your project, but you must specify their paths in your `package.json` file.
+-   Both files must export a function that accepts a TargetProvider object as a parameter.
+-   Both files are CommonJS modules that run in Node.
+-   You can create these files anywhere in your project, but you must specify their paths in your `package.json` file.
 
 As shown in the previous examples, a common practice when authoring these files involve assigning the TargetProvider object to a `targets` variable.
 
@@ -184,7 +184,7 @@ They are also examples of what a PWA Studio storefront extension looks like.
 [@magento/upward-security-headers][]
 : This extension adds security headers to UPWARD by tapping into the `transformUpward` Target in Buildpack.
 
-[@magento/venia-sample-language-packs]
+[@magento/venia-sample-language-packs][]
 : This extension provides sample translations for PWA Studio's internationalization feature.
 
 [`richcontentrenderers` target]: <{% link venia-ui/reference/targets/index.md %}#richContentRenderers>
