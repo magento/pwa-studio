@@ -52,7 +52,7 @@ const validateSampleBackend = async config => {
 
         const sampleBackends = await fetchBackends();
         const otherBackends = sampleBackends.filter(
-            backend => backend !== env.MAGENTO_BACKEND_URL
+            ({ url }) => url !== env.MAGENTO_BACKEND_URL
         );
 
         debug(
@@ -78,3 +78,5 @@ module.exports = targets => {
         .of('@magento/pwa-buildpack')
         .validateEnv.tapPromise(validateSampleBackend);
 };
+
+module.exports.validateSampleBackend = validateSampleBackend;
