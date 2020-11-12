@@ -189,10 +189,10 @@ They are also examples of what a PWA Studio storefront extension looks like.
 
 [`richcontentrenderers` target]: <{% link venia-ui/reference/targets/index.md %}#richContentRenderers>
 [intercept a target]: <{% link tutorials/intercept-a-target/index.md %}>
-[buildpack]: <{% link /pwa-buildpack/reference/targets/index.md %}>
-[peregrine]: <{% link /peregrine/reference/targets/index.md %}>
-[wrap a talon]: <{% link /tutorials/intercept-a-target/modify-talon-results/index.md %}>
-[venia ui]: <{% link /venia-ui/reference/targets/index.md %}>
+[buildpack]: <{% link pwa-buildpack/reference/targets/index.md %}>
+[peregrine]: <{% link peregrine/reference/targets/index.md %}>
+[wrap a talon]: <{% link tutorials/intercept-a-target/modify-talon-results/index.md %}>
+[venia ui]: <{% link venia-ui/reference/targets/index.md %}>
 
 [interceptor pattern]: https://en.wikipedia.org/wiki/Interceptor_pattern
 [interceptor-pattern-image]: ./images/interceptor-pattern.svg
