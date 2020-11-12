@@ -67,7 +67,7 @@ const routeComponentResults = {
     },
     REDIRECT: {
         isRedirect: true,
-        relativeUrl: '/some/redirect'
+        relativeUrl: 'some/redirect'
     }
 };
 
@@ -149,7 +149,7 @@ it('redirects when instructed', () => {
 
     // Assert.
     expect(mockHistoryReplace).toHaveBeenCalledWith(
-        routeComponentResults.REDIRECT.relativeUrl
+        '/' + routeComponentResults.REDIRECT.relativeUrl
     );
 });
 
