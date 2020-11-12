@@ -1,19 +1,19 @@
 const fetch = require('node-fetch');
 
-const isBackendActive = async env => {
+const isBackendActive = async (env, debug) => {
     try {
         const magentoBackend = env.MAGENTO_BACKEND_URL;
         const res = await fetch(magentoBackend);
 
         return res.ok;
     } catch (err) {
-        console.error(err);
+        debug(err);
 
         return false;
     }
 };
 
-const fetchBackends = async () => {
+const fetchBackends = async debug => {
     try {
         const res = await fetch(
             'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
@@ -22,7 +22,7 @@ const fetchBackends = async () => {
 
         return sampleBackends.environments;
     } catch (err) {
-        console.error(err);
+        debug(err);
 
         return [];
     }
@@ -43,14 +43,14 @@ const fetchBackends = async () => {
 const validateSampleBackend = async config => {
     const { env, onFail, debug } = config;
 
-    const backendIsActive = await isBackendActive(env);
+    const backendIsActive = await isBackendActive(env, debug);
 
     if (!backendIsActive) {
         debug(`${env.MAGENTO_BACKEND_URL} is inactive`);
 
         debug('Fetching other backends');
 
-        const sampleBackends = await fetchBackends();
+        const sampleBackends = await fetchBackends(debug);
         const otherBackends = sampleBackends.filter(
             ({ url }) => url !== env.MAGENTO_BACKEND_URL
         );
