@@ -1,7 +1,13 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
+import {
+    REDIRECT_CODES,
+    RESPONSES,
+    getRootComponent,
+    getRouteKey
+} from './helpers';
 import DEFAULT_OPERATIONS from './magentoRoute.gql';
 
 export const useMagentoRoute = (props = {}) => {
@@ -28,10 +34,6 @@ export const useMagentoRoute = (props = {}) => {
         },
         [setComponentMap]
     );
-
-    const getRootComponent = useMemo(() => {
-        return window.fetchRootComponent.default || window.fetchRootComponent;
-    }, []);
 
     const storeCodeResult = useQuery(getStoreCodeQuery, {
         fetchPolicy: 'cache-and-network',
@@ -62,14 +64,14 @@ export const useMagentoRoute = (props = {}) => {
     const queryError = fetchError || storeCodeError || urlError;
 
     const routeData = queryError
-        ? talonResponses.ERROR(queryError)
+        ? RESPONSES.ERROR(queryError)
         : isNotFound
-        ? talonResponses.NOT_FOUND
+        ? RESPONSES.NOT_FOUND
         : isRedirect
-        ? talonResponses.REDIRECT(relative_url)
+        ? RESPONSES.REDIRECT(relative_url)
         : component
-        ? talonResponses.FOUND(component, id, type)
-        : null;
+        ? RESPONSES.FOUND(component, id, type)
+        : RESPONSES.LOADING;
 
     // fetch a component if necessary
     useEffect(() => {
@@ -87,7 +89,7 @@ export const useMagentoRoute = (props = {}) => {
                 setComponent(routeKey, error);
             }
         })();
-    }, [component, getRootComponent, id, routeKey, setComponent, type]);
+    }, [component, id, routeKey, setComponent, type]);
 
     // perform a redirect if necesssary
     useEffect(() => {
@@ -96,21 +98,5 @@ export const useMagentoRoute = (props = {}) => {
         }
     }, [pathname, replace, routeData]);
 
-    return routeData || talonResponses.LOADING;
+    return routeData;
 };
-
-const CODE_PERMANENT_REDIRECT = 301;
-const CODE_TEMPORARY_REDIRECT = 302;
-const REDIRECT_CODES = new Set()
-    .add(CODE_PERMANENT_REDIRECT)
-    .add(CODE_TEMPORARY_REDIRECT);
-
-const talonResponses = {
-    ERROR: routeError => ({ hasError: true, routeError }),
-    LOADING: { isLoading: true },
-    NOT_FOUND: { isNotFound: true },
-    FOUND: (component, id, type) => ({ component, id, type }),
-    REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
-};
-
-const getRouteKey = (pathname, store) => `[${store}]--${pathname}`;
