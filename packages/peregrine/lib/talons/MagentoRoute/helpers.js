@@ -6,7 +6,7 @@ export const REDIRECT_CODES = new Set()
 
 export const RESPONSES = {
     ERROR: routeError => ({ hasError: true, routeError }),
-    FOUND: (component, id, type) => ({ component, id, type }),
+    FOUND: component => component,
     LOADING: { isLoading: true },
     NOT_FOUND: { isNotFound: true },
     REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
@@ -14,7 +14,7 @@ export const RESPONSES = {
 
 export const getRouteKey = (pathname, store) => `[${store}]--${pathname}`;
 
-const noop = () => {};
-const { fetchRootComponent = noop } = window || {};
+const warning = () => new Error('fetchRootComponent is not defined');
+const { fetchRootComponent = warning } = window || {};
 export const getRootComponent =
     fetchRootComponent.default || fetchRootComponent;

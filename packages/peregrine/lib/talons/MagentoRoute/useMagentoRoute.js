@@ -48,7 +48,8 @@ export const useMagentoRoute = (props = {}) => {
 
     // destructure store code result
     const { data: storeCodeData, error: storeCodeError } = storeCodeResult;
-    const store = storeCodeData && storeCodeData.storeConfig.code;
+    const { storeConfig } = storeCodeData || {};
+    const { code: store } = storeConfig || {};
     const routeKey = getRouteKey(pathname, store);
 
     // destructure url result
@@ -57,39 +58,41 @@ export const useMagentoRoute = (props = {}) => {
     const { id, redirectCode, relative_url, type } = urlResolver || {};
 
     // calculate response
-    const isNotFound = !store || !urlResolver || !id || !type || id === -1;
-    const isRedirect = REDIRECT_CODES.has(redirectCode);
     const component = componentMap.get(routeKey);
+    const isEmpty = !store || !urlResolver || !type || id < 1;
+    const isPending = storeCodeResult.loading || urlResult.loading;
+    const isRedirect = REDIRECT_CODES.has(redirectCode);
     const fetchError = component instanceof Error && component;
     const queryError = fetchError || storeCodeError || urlError;
 
-    const routeData = queryError
-        ? RESPONSES.ERROR(queryError)
-        : isNotFound
-        ? RESPONSES.NOT_FOUND
-        : isRedirect
-        ? RESPONSES.REDIRECT(relative_url)
-        : component
-        ? RESPONSES.FOUND(component, id, type)
-        : RESPONSES.LOADING;
+    const routeData =
+        component && !fetchError
+            ? RESPONSES.FOUND(component)
+            : queryError
+            ? RESPONSES.ERROR(queryError)
+            : isEmpty && !isPending
+            ? RESPONSES.NOT_FOUND
+            : isRedirect
+            ? RESPONSES.REDIRECT(relative_url)
+            : RESPONSES.LOADING;
 
     // fetch a component if necessary
     useEffect(() => {
         (async () => {
             // don't fetch if we don't have data yet
-            if (!id || !type) return;
+            if (isPending || isEmpty) return;
 
             // don't fetch if we already have a component
             if (component && !(component instanceof Error)) return;
 
             try {
-                const rootComponent = await getRootComponent(type);
-                setComponent(routeKey, rootComponent);
+                const component = await getRootComponent(type);
+                setComponent(routeKey, { component, id, type });
             } catch (error) {
                 setComponent(routeKey, error);
             }
         })();
-    }, [component, id, routeKey, setComponent, type]);
+    }, [component, id, isEmpty, isPending, routeKey, setComponent, type]);
 
     // perform a redirect if necesssary
     useEffect(() => {
