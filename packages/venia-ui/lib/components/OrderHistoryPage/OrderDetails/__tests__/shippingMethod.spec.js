@@ -3,12 +3,6 @@ import { createTestInstance } from '@magento/peregrine';
 
 import ShippingMethod from '../shippingMethod';
 
-jest.mock('react-intl', () => ({
-    FormattedMessage: props => (
-        <div componentName="Formatted Message Component" {...props} />
-    )
-}));
-
 const defaultProps = {
     data: {
         shipments: [
@@ -16,8 +10,18 @@ const defaultProps = {
                 id: '1',
                 tracking: [
                     {
-                        carrier: 'Fedex',
                         number: 'FEDEX5885541235452125'
+                    }
+                ]
+            },
+            {
+                id: '2',
+                tracking: [
+                    {
+                        number: 'USPS8645'
+                    },
+                    {
+                        number: 'UPS0001'
                     }
                 ]
             }
@@ -28,6 +32,14 @@ const defaultProps = {
 
 test('should render properly', () => {
     const tree = createTestInstance(<ShippingMethod {...defaultProps} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('should render placeholder text without shipments', () => {
+    const tree = createTestInstance(
+        <ShippingMethod data={{ shipments: [] }} />
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

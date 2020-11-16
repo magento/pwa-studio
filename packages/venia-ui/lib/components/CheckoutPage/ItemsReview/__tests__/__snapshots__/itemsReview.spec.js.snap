@@ -7,7 +7,10 @@ exports[`Snapshot test 1`] = `
       <span>
         7
       </span>
-       items in your order
+      <mock-FormattedMessage
+        defaultMessage=" items in your order"
+        id="checkoutPage.itemsInYourOrder"
+      />
     </div>
     <div>
       <div
@@ -62,7 +65,15 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         </div>
       </dl>
       <span>
-        Qty :
+        <mock-FormattedMessage
+          defaultMessage="Qty :"
+          id="checkoutPage.quantity"
+          values={
+            Object {
+              "quantity": 3,
+            }
+          }
+        />
       </span>
     </div>
     <div>
@@ -118,7 +129,15 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         </div>
       </dl>
       <span>
-        Qty :
+        <mock-FormattedMessage
+          defaultMessage="Qty :"
+          id="checkoutPage.quantity"
+          values={
+            Object {
+              "quantity": 1,
+            }
+          }
+        />
       </span>
     </div>
     <div>
@@ -174,7 +193,15 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         </div>
       </dl>
       <span>
-        Qty :
+        <mock-FormattedMessage
+          defaultMessage="Qty :"
+          id="checkoutPage.quantity"
+          values={
+            Object {
+              "quantity": 3,
+            }
+          }
+        />
       </span>
     </div>
   </div>
