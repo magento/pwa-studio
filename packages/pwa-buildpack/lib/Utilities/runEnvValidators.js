@@ -42,8 +42,7 @@ async function validateEnv(context, env) {
         const removeErrorPrefix = msg => msg.replace(/^Error:\s*/, '');
         const printValidationMsg = (error, index) =>
             `\n (${index + 1}) ${removeErrorPrefix(error.message || error)}`;
-        const prettyErrorList = errorMessages
-            .map(printValidationMsg)
+        const prettyErrorList = errorMessages.map(printValidationMsg);
         const validationError = new Error(
             `Environment has ${
                 errorMessages.length
