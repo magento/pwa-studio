@@ -134,6 +134,24 @@ The TargetProvider object provides an `of()` function and an `own` property to a
 
 For more information on how intercept files work, see the tutorial on how to [Intercept a Target][].
 
+### Example intercept file content
+
+```js
+module.exports = targets => {
+
+  const builtins = targets.of("@magento/pwa-buildpack");
+  builtins.specialFeatures.tap((featuresByModule) => {
+    featuresByModule["my-extension"] = {
+      esModules: true,
+    };
+  });
+};
+}
+```
+
+The example provided defines an intercept file that intercepts the `specialFeatures` target in the `@magento/pwa-buildpack` package.
+It adds a webpack configuration for the `my-extension` package that lets the build process know that the package uses ES modules.
+
 ### Intercept functions
 
 When you call the `tap()` function on a Target, you supply it with an _intercept function_.
