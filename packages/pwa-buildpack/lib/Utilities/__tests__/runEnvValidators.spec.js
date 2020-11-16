@@ -38,6 +38,7 @@ test('should throw error if there are validation errors reported by interceptors
     const initFn = jest.fn();
     const runValidationTargets = jest.fn().mockImplementation(({ onFail }) => {
         onFail('Danger');
+        onFail(new Error('Another error'));
     });
     const getTargetsOfFn = jest.fn().mockReturnValueOnce({
         validateEnv: { promise: runValidationTargets }
@@ -56,6 +57,6 @@ test('should throw error if there are validation errors reported by interceptors
 
         expect(returnValue).toBeUndefined();
     } catch (e) {
-        expect(e.message).toBe('Danger');
+        expect(e.message).toMatchSnapshot();
     }
 });

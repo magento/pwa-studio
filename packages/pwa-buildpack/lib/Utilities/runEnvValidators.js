@@ -38,7 +38,20 @@ async function validateEnv(context, env) {
 
     if (errorMessages.length) {
         debug('Found validation errors in ENV, stopping the build process');
-        throw new Error(errorMessages.join('\n'));
+
+        const removeErrorPrefix = msg => msg.replace(/^Error:\s*/, '');
+        const printValidationMsg = (error, index) =>
+            `\n (${index + 1}) ${removeErrorPrefix(error.message || error)}`;
+        const prettyErrorList = errorMessages
+            .map(printValidationMsg)
+        const validationError = new Error(
+            `Environment has ${
+                errorMessages.length
+            } validation errors: ${prettyErrorList}`
+        );
+        validationError.errorMessages = errorMessages;
+
+        throw validationError;
     }
 
     debug('No issues found in the ENV');
