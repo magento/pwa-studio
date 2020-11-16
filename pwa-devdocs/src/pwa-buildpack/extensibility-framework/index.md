@@ -28,7 +28,7 @@ The more plugins you install with this architecture, the slower the application 
 ### Interceptor pattern
 
 The extensibility framework implements an [interceptor pattern][] to allow changes to the build process.
-The interceptor pattern lets a module **C** intercept the flow of logic between module **A** and module **B** and add it's own logic.
+The interceptor pattern lets a module **C** intercept the flow of logic between module **A** and module **B** and add its own logic.
 
 ![interceptor-pattern-image][]
 
@@ -80,7 +80,7 @@ targets
 ## Declare files
 
 A _declare file_ lists the Targets available for interception in an extension or package.
-During build time, the framework looks for this file using the value set for `pwa-studio.targets.intercept` in your project's `package.json` file.
+During build time, the framework looks for this file using the value set for `pwa-studio.targets.declare` in your project's `package.json` file.
 The framework registers the Targets in all the declare files it finds in the project and dependencies before it runs any [intercept files][].
 This guarantees Target availability to any dependent interceptor.
 
@@ -112,7 +112,7 @@ module.exports = targets => {
 ```
 
 The example provided declares two Targets that this project or other modules can intercept, a `perfReport` Target and a `socialIcons` Target.
-Intercept files can access these Targets using `targets.of(<package name>).perReport` and `targets.of(<package name>).socialIcons` respectively.
+Intercept files can access these Targets using `targets.of(<package name>).perfReport` and `targets.of(<package name>).socialIcons` respectively.
 
 The `perfReport` key maps to a Target type that runs its interceptors asynchronously and in parallel.
 This is appropriate for logging and monitoring interceptors that do not affect functionality.
