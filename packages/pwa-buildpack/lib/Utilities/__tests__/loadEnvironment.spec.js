@@ -73,7 +73,7 @@ afterAll(() => {
 
 const loadEnvironment = require('../loadEnvironment');
 
-test.skip('throws on load if variable defs are invalid', () => {
+test('throws on load if variable defs are invalid', async () => {
     getEnvVarDefinitions.mockReturnValueOnce({
         sections: [
             {
@@ -87,9 +87,14 @@ test.skip('throws on load if variable defs are invalid', () => {
         ],
         changes: []
     });
-    const fn = () => loadEnvironment('./');
 
-    expect(fn).toThrow('Bad environment variable definition');
+    try {
+        await loadEnvironment('./');
+    } catch (e) {
+        expect(e.message.replace(/\n/g, '')).toBe(
+            'Bad environment variable definition. Section inscrutable variable { "type": "ineffable"} declares an unknown type ineffable'
+        );
+    }
 });
 
 test('parses dotenv file if argument is path string', async () => {
