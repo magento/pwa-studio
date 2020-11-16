@@ -162,7 +162,10 @@ exports[`it disables the submit button while loading 1`] = `
               <span
                 className="content"
               >
-                Cancel
+                <mock-FormattedMessage
+                  defaultMessage="Cancel"
+                  id="global.cancelButton"
+                />
               </span>
             </button>
             <button
@@ -173,7 +176,10 @@ exports[`it disables the submit button while loading 1`] = `
               <span
                 className="content"
               >
-                Update
+                <mock-FormattedMessage
+                  defaultMessage="Update"
+                  id="global.updateButton"
+                />
               </span>
             </button>
           </div>
@@ -340,7 +346,10 @@ exports[`it renders correctly 1`] = `
               <span
                 className="content"
               >
-                Cancel
+                <mock-FormattedMessage
+                  defaultMessage="Cancel"
+                  id="global.cancelButton"
+                />
               </span>
             </button>
             <button
@@ -351,7 +360,10 @@ exports[`it renders correctly 1`] = `
               <span
                 className="content"
               >
-                Update
+                <mock-FormattedMessage
+                  defaultMessage="Update"
+                  id="global.updateButton"
+                />
               </span>
             </button>
           </div>

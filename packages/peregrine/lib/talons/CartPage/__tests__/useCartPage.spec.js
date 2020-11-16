@@ -3,6 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 import { useQuery } from '@apollo/client';
 
 import { useCartPage } from '../useCartPage';
+import { act } from 'react-test-renderer';
 
 jest.mock('react', () => {
     const React = jest.requireActual('react');
@@ -28,7 +29,9 @@ jest.mock('@apollo/client', () => {
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
     const api = {
-        toggleDrawer: jest.fn()
+        toggleDrawer: jest.fn(nav => {
+            console.log(nav);
+        })
     };
     const useAppContext = jest.fn(() => [state, api]);
 
@@ -125,4 +128,20 @@ test('it calls setIsCartUpdating false when loading is false', () => {
     // Assert.
     const { setIsCartUpdating } = log.mock.calls[0][0];
     expect(setIsCartUpdating).toBeCalledWith(false);
+});
+
+test('it toggles the drawer on sign in', () => {
+    const consoleLogSpy = jest.spyOn(console, 'log');
+
+    // Act.
+    createTestInstance(<Component />);
+
+    const { handleSignIn } = log.mock.calls[0][0];
+
+    act(() => {
+        handleSignIn();
+    });
+
+    expect(consoleLogSpy).toHaveBeenCalledTimes(1);
+    expect(consoleLogSpy.mock.calls[0][0]).toEqual('nav');
 });

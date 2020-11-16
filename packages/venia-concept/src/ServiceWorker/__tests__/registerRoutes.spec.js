@@ -3,7 +3,11 @@ import { registerRoute } from 'workbox-routing';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 
-import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from '../defaults';
+import {
+    THIRTY_DAYS,
+    MAX_NUM_OF_IMAGES_TO_CACHE,
+    IMAGES_CACHE_NAME
+} from '../defaults';
 import registerRoutes from '../registerRoutes';
 
 jest.mock('workbox-core', () => {
@@ -33,9 +37,9 @@ jest.mock('workbox-strategies', () => {
 
 jest.mock('../Utilities/imageCacheHandler', () => {
     return {
-        isResizedCatalogImage: jest.fn(),
+        isResizedImage: jest.fn(),
         findSameOrLargerImage: jest.fn(),
-        createCatalogCacheHandler: jest.fn()
+        createImageCacheHandler: jest.fn()
     };
 });
 
@@ -75,7 +79,7 @@ test('There should be a route for all image types with CacheFirst strategy', () 
     const cacheFirstCallArgs = CacheFirst.mock.calls[0][0];
     const expirationPluginCallArgs = ExpirationPlugin.mock.calls[0][0];
 
-    expect(cacheFirstCallArgs.cacheName).toEqual('images');
+    expect(cacheFirstCallArgs.cacheName).toEqual(IMAGES_CACHE_NAME);
     expect(cacheFirstCallArgs.plugins[0]).toBeInstanceOf(ExpirationPlugin);
 
     expect(expirationPluginCallArgs).toEqual({

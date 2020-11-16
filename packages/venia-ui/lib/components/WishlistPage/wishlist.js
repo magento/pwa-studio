@@ -14,6 +14,7 @@ const Wishlist = props => {
     const { data } = props;
     const { formatMessage } = useIntl();
     const {
+        id,
         items_count: itemsCount,
         items_v2: items,
         name,
@@ -34,7 +35,7 @@ const Wishlist = props => {
               defaultMessage: 'Private'
           });
     const contentMessageElement = itemsCount ? (
-        <WishlistItems items={items} />
+        <WishlistItems items={items} wishlistId={id} />
     ) : (
         <p>
             <FormattedMessage

@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handles no selected shipping method 1`] = `
+Object {
+  "hasMethods": 2,
+  "isShowingForm": true,
+  "selectedShippingFields": Object {
+    "country": "USA",
+    "region": "TX",
+    "zip": "78725",
+  },
+  "selectedShippingMethod": null,
+  "shippingMethods": Array [
+    Object {
+      "amount": Object {
+        "value": 10,
+      },
+      "carrier_code": "tablerate",
+      "carrier_title": "Best Way",
+      "method_code": "bestway",
+      "method_title": "Table Rate",
+    },
+    Object {
+      "amount": Object {
+        "value": 15,
+      },
+      "carrier_code": "flatrate",
+      "carrier_title": "Flat Rate",
+      "method_code": "flatrate",
+      "method_title": "Fixed",
+    },
+  ],
+  "showForm": [Function],
+}
+`;
+
+exports[`handles no shipping addresses defined 1`] = `
+Object {
+  "hasMethods": 0,
+  "isShowingForm": false,
+  "selectedShippingFields": Object {
+    "country": "US",
+    "region": "",
+    "zip": "",
+  },
+  "selectedShippingMethod": null,
+  "shippingMethods": Array [],
+  "showForm": [Function],
+}
+`;
+
+exports[`returns the correct shape 1`] = `
+Object {
+  "hasMethods": 2,
+  "isShowingForm": true,
+  "selectedShippingFields": Object {
+    "country": "USA",
+    "region": "TX",
+    "zip": "78725",
+  },
+  "selectedShippingMethod": "tablerate|bestway",
+  "shippingMethods": Array [
+    Object {
+      "amount": Object {
+        "value": 10,
+      },
+      "carrier_code": "tablerate",
+      "carrier_title": "Best Way",
+      "method_code": "bestway",
+      "method_title": "Table Rate",
+    },
+    Object {
+      "amount": Object {
+        "value": 15,
+      },
+      "carrier_code": "flatrate",
+      "carrier_title": "Flat Rate",
+      "method_code": "flatrate",
+      "method_title": "Fixed",
+    },
+  ],
+  "showForm": [Function],
+}
+`;

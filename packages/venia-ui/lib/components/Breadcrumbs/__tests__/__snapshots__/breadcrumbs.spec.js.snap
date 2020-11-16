@@ -16,7 +16,10 @@ exports[`renders breadcrumbs for a category view 1`] = `
 <div
   className="root"
 >
-  Home
+  <mock-FormattedMessage
+    defaultMessage="Home"
+    id="global.home"
+  />
   <span
     className="divider"
   >
@@ -34,7 +37,10 @@ exports[`renders breadcrumbs for a product view 1`] = `
 <div
   className="root"
 >
-  Home
+  <mock-FormattedMessage
+    defaultMessage="Home"
+    id="global.home"
+  />
   <span
     className="divider"
   >
@@ -58,7 +64,10 @@ exports[`renders breadcrumbs for intermediate links 1`] = `
 <div
   className="root"
 >
-  Home
+  <mock-FormattedMessage
+    defaultMessage="Home"
+    id="global.home"
+  />
   <span
     className="divider"
   >

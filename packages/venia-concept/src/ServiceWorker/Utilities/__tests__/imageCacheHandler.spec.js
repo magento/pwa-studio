@@ -3,11 +3,11 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { CacheFirst } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
-import { THIRTY_DAYS, CATALOG_CACHE_NAME } from '../../defaults';
+import { THIRTY_DAYS, IMAGES_CACHE_NAME } from '../../defaults';
 import {
-    isResizedCatalogImage,
+    isResizedImage,
     findSameOrLargerImage,
-    createCatalogCacheHandler,
+    createImageCacheHandler,
     registerImagePreFetchHandler
 } from '../imageCacheHandler';
 import { __handlers__ } from '../messageHandler';
@@ -31,46 +31,77 @@ jest.mock('workbox-strategies', () => {
     };
 });
 
-describe('Testing isResizedCatalogImage', () => {
-    const validCatalogImageURL =
+describe('Testing isResizedImage', () => {
+    const validImage =
         'https://develop.pwa-venia.com/media/catalog/product/cache/6ff2031bbe5bd4726a5a91896c8bef9e/v/d/vd07-pe_main_2.jpg?auto=webp&format=pjpg&width=640&height=800';
 
-    const catalogImageURLWithInvalidWidth =
+    const invalidImage =
+        'https://develop.pwa-venia.com/media/catalog/product/cache/6ff2031bbe5bd4726a5a91896c8bef9e/v/d/vd07-pe_main_2.svg?auto=webp&format=pjpg&width=640&height=800';
+
+    const imageURLWithInvalidWidth =
         'https://develop.pwa-venia.com/media/catalog/product/cache/6ff2031bbe5bd4726a5a91896c8bef9e/v/d/vd07-pe_main_2.jpg?auto=webp&format=pjpg&width=640px&height=800px';
 
-    const invalidCatalogImageURL =
-        'https://develop.pwa-venia.com/product/cache/6ff2031bbe5bd4726a5a91896c8bef9e/v/d/vd07-pe_main_2.jpg?auto=webp&format=pjpg&width=640&height=800';
+    const validJpegImage =
+        'https://develop.pwa-venia.com/media/catalog/product/cache/6ff2031bbe5bd4726a5a91896c8bef9e/v/d/vd07-pe_main_2.jpeg?auto=webp&format=pjpg&width=640&height=800';
 
-    test('isResizedCatalogImage should return boolean', () => {
-        expect(
-            typeof isResizedCatalogImage({ url: new URL(validCatalogImageURL) })
-        ).toBe('boolean');
+    const validJpgImage =
+        'https://develop.pwa-venia.com/media/catalog/product/cache/6ff2031bbe5bd4726a5a91896c8bef9e/v/d/vd07-pe_main_2.jpg?auto=webp&format=pjpg&width=640&height=800';
+
+    const validPngImage =
+        'https://develop.pwa-venia.com/media/catalog/product/cache/6ff2031bbe5bd4726a5a91896c8bef9e/v/d/vd07-pe_main_2.png?auto=webp&format=pjpg&width=640&height=800';
+
+    test('isResizedImage should return boolean', () => {
+        expect(typeof isResizedImage({ url: new URL(validImage) })).toBe(
+            'boolean'
+        );
     });
 
-    test('isResizedCatalogImage should return true if the url provided is a valid catalog image url', () => {
+    test('isResizedImage should return true if the url provided is a valid catalog image url', () => {
+        expect(isResizedImage({ url: new URL(validImage) })).toBeTruthy();
+    });
+
+    test('isResizedImage should return true if the resource is a jpeg image', () => {
         expect(
-            isResizedCatalogImage({ url: new URL(validCatalogImageURL) })
+            isResizedImage({
+                url: new URL(validJpegImage)
+            })
         ).toBeTruthy();
     });
 
-    test('isResizedCatalogImage should return false if /media/catalog is missing in the URL', () => {
+    test('isResizedImage should return true if the resource is a jpg image', () => {
         expect(
-            isResizedCatalogImage({
-                url: new URL(invalidCatalogImageURL)
+            isResizedImage({
+                url: new URL(validJpgImage)
+            })
+        ).toBeTruthy();
+    });
+
+    test('isResizedImage should return true if the resource is a png image', () => {
+        expect(
+            isResizedImage({
+                url: new URL(validPngImage)
+            })
+        ).toBeTruthy();
+    });
+
+    test('isResizedImage should return false if the resource is of an invalid type', () => {
+        expect(
+            isResizedImage({
+                url: new URL(invalidImage)
             })
         ).toBeFalsy();
     });
 
-    test('isResizedCatalogImage should return false if width search param is not valid in the URL', () => {
+    test('isResizedImage should return false if width search param is not valid in the URL', () => {
         expect(
-            isResizedCatalogImage({
-                url: new URL(catalogImageURLWithInvalidWidth)
+            isResizedImage({
+                url: new URL(imageURLWithInvalidWidth)
             })
         ).toBeFalsy();
     });
 
-    test('isResizedCatalogImage should throw error if url is missing in the function params', () => {
-        expect(() => isResizedCatalogImage()).toThrowError();
+    test('isResizedImage should throw error if url is missing in the function params', () => {
+        expect(() => isResizedImage()).toThrowError();
     });
 });
 
@@ -163,25 +194,25 @@ describe('Testing findSameOrLargerImage', () => {
     });
 });
 
-describe('Testing createCatalogCacheHandler', () => {
-    test('createCatalogCacheHandler should return an instance of workbox.strategies.CacheFirst', () => {
-        expect(createCatalogCacheHandler()).toBeInstanceOf(CacheFirst);
+describe('Testing createImageCacheHandler', () => {
+    test('createImageCacheHandler should return an instance of workbox.strategies.CacheFirst', () => {
+        expect(createImageCacheHandler()).toBeInstanceOf(CacheFirst);
     });
 
-    test('createCatalogCacheHandler should generate handler with cacheName set to the value of CATALOG_CACHE_NAME', () => {
-        createCatalogCacheHandler();
-        expect(CacheFirst.mock.calls[0][0].cacheName).toBe(CATALOG_CACHE_NAME);
+    test('createImageCacheHandler should generate handler with cacheName set to the value of IMAGES_CACHE_NAME', () => {
+        createImageCacheHandler();
+        expect(CacheFirst.mock.calls[0][0].cacheName).toBe(IMAGES_CACHE_NAME);
     });
 
-    test('createCatalogCacheHandler should generate handler with the exipiration plugin', () => {
-        createCatalogCacheHandler();
+    test('createImageCacheHandler should generate handler with the exipiration plugin', () => {
+        createImageCacheHandler();
         const expirationPluginCallArgs = ExpirationPlugin.mock.calls[0][0];
         expect(expirationPluginCallArgs.maxEntries).toBe(60);
         expect(expirationPluginCallArgs.maxAgeSeconds).toBe(THIRTY_DAYS);
     });
 
-    test('createCatalogCacheHandler should use the cacheable response plugin for statuses 0 and 200', () => {
-        createCatalogCacheHandler();
+    test('createImageCacheHandler should use the cacheable response plugin for statuses 0 and 200', () => {
+        createImageCacheHandler();
         expect(CacheableResponsePlugin.mock.calls[0][0].statuses).toEqual([
             0,
             200

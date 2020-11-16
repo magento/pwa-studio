@@ -79,8 +79,10 @@ const removeCardResult = {
     loading: false
 };
 
+const setIsCartUpdating = jest.fn();
+
 const props = {
-    setIsCartUpdating: jest.fn(),
+    setIsCartUpdating: setIsCartUpdating,
     mutations: {
         applyCardMutation: 'mock apply',
         removeCardMutation: 'mock remove'
@@ -171,4 +173,113 @@ test('returns error message with invalid request', () => {
             shouldDisplayCardError: true
         })
     );
+});
+
+test('it runs the card balance query when checkGiftCardBalance() is called', () => {
+    const checkCardBalance = jest.fn();
+
+    useLazyQuery.mockImplementation(input => {
+        if (input === 'mock balance') return [checkCardBalance, balanceResult];
+    });
+
+    // Act.
+    const component = createTestInstance(<Component {...props} />);
+
+    let talonProps = component.root.findByProps({ id: 'giftCard' }).props;
+
+    const { setFormApi } = talonProps;
+
+    const mockCardCode = 'mock card code';
+    const getValue = jest.fn(() => mockCardCode);
+    const formApi = {
+        getValue
+    };
+
+    act(() => {
+        setFormApi(formApi);
+        component.update(<Component {...props} />);
+    });
+
+    talonProps = component.root.findByProps({ id: 'giftCard' }).props;
+
+    expect(talonProps.shouldDisplayCardBalance).toBeFalsy();
+
+    act(() => {
+        talonProps.checkGiftCardBalance();
+    });
+
+    talonProps = component.root.findByProps({ id: 'giftCard' }).props;
+
+    expect(talonProps.shouldDisplayCardBalance).toBeTruthy();
+
+    expect(getValue).toHaveBeenCalledWith('card');
+
+    expect(checkCardBalance).toHaveBeenCalledWith(
+        expect.objectContaining({
+            variables: {
+                giftCardCode: mockCardCode
+            }
+        })
+    );
+});
+
+test('it runs the remove card mutation when removeGiftCard() is called', () => {
+    const removeCard = jest.fn();
+    removeCardResult.called = true;
+    removeCardResult.loading = true;
+
+    useMutation.mockImplementation(input => {
+        if (input === 'mock remove') return [removeCard, removeCardResult];
+        if (input === 'mock apply') return [deferredFn, applyCardResult];
+    });
+
+    // Act.
+    const component = createTestInstance(<Component {...props} />);
+
+    const talonProps = component.root.findByProps({ id: 'giftCard' }).props;
+
+    const mockGiftCardCode = 'mock gift card code';
+
+    act(() => {
+        talonProps.removeGiftCard(mockGiftCardCode);
+    });
+
+    expect(removeCard).toHaveBeenCalledWith(
+        expect.objectContaining({
+            variables: {
+                cartId: 'cart123',
+                giftCardCode: mockGiftCardCode
+            }
+        })
+    );
+
+    expect(talonProps.isRemovingCard).toBeTruthy();
+
+    expect(setIsCartUpdating).toHaveBeenCalledTimes(1);
+    expect(setIsCartUpdating).toHaveBeenCalledWith(true);
+});
+
+test('it handles no applied gift cards', () => {
+    useQuery.mockReturnValue({
+        ...cartResult,
+        data: {
+            cart: {
+                applied_gift_cards: null // or []
+            }
+        }
+    });
+
+    useLazyQuery.mockReturnValue([deferredFn, balanceResult]);
+
+    useMutation.mockImplementation(input => {
+        if (input === 'mock apply') return [deferredFn, applyCardResult];
+        return [deferredFn, removeCardResult];
+    });
+
+    // Act.
+    const component = createTestInstance(<Component {...props} />);
+
+    const talonProps = component.root.findByProps({ id: 'giftCard' }).props;
+
+    expect(talonProps.giftCardsData).toStrictEqual([]);
 });

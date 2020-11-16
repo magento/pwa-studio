@@ -39,7 +39,10 @@ Array [
     <h3
       className="quantityLabel"
     >
-      Quantity
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="productForm.quantity"
+      />
     </h3>
     <div
       className="root"
@@ -163,7 +166,10 @@ Array [
         <span
           className="content"
         >
-          Update
+          <mock-FormattedMessage
+            defaultMessage="Update"
+            id="productForm.submit"
+          />
         </span>
       </button>
     </div>
@@ -200,7 +206,10 @@ exports[`renders form with data 1`] = `
   <h3
     className="quantityLabel"
   >
-    Quantity
+    <mock-FormattedMessage
+      defaultMessage="Quantity"
+      id="productForm.quantity"
+    />
   </h3>
   <div
     className="root"
@@ -324,7 +333,10 @@ exports[`renders form with data 1`] = `
       <span
         className="content"
       >
-        Update
+        <mock-FormattedMessage
+          defaultMessage="Update"
+          id="productForm.submit"
+        />
       </span>
     </button>
   </div>
