@@ -27,8 +27,6 @@ const fetchSampleBackends = async () => {
 
         return sampleBackends.environments;
     } catch (err) {
-        console.error(err);
-
         return [];
     }
 };
