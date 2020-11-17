@@ -26,7 +26,7 @@ const fetchSampleBackends = async () => {
         const { sampleBackends } = await res.json();
 
         return sampleBackends.environments;
-    } catch (err) {
+    } catch {
         return [];
     }
 };
