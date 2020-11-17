@@ -1,78 +1,52 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
-import {
-    REDIRECT_CODES,
-    RESPONSES,
-    getRootComponent,
-    getRouteKey
-} from './helpers';
+import { RESPONSES, getRootComponent, isRedirect } from './helpers';
 import DEFAULT_OPERATIONS from './magentoRoute.gql';
 
 export const useMagentoRoute = (props = {}) => {
-    const { operations = DEFAULT_OPERATIONS } = props;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { resolveUrlQuery } = operations;
     const { replace } = useHistory();
     const { pathname } = useLocation();
-    const isMountedRef = useRef(false);
-    const [componentMap, setComponentMap] = useState(new Map());
-    const { getStoreCodeQuery, resolveUrlQuery } = operations;
-
-    useEffect(() => {
-        isMountedRef.current = true;
-
-        return () => {
-            isMountedRef.current = false;
-        };
-    }, []);
+    const [componentMap, setComponentMap] = useRootComponents();
 
     const setComponent = useCallback(
         (key, value) => {
-            if (isMountedRef.current) {
-                setComponentMap(prevMap => new Map(prevMap).set(key, value));
-            }
+            setComponentMap(prevMap => new Map(prevMap).set(key, value));
         },
         [setComponentMap]
     );
 
-    const storeCodeResult = useQuery(getStoreCodeQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
-    });
-
-    const urlResult = useQuery(resolveUrlQuery, {
+    const queryResult = useQuery(resolveUrlQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         variables: { url: pathname }
     });
 
-    // destructure store code result
-    const { data: storeCodeData, error: storeCodeError } = storeCodeResult;
-    const { storeConfig } = storeCodeData || {};
-    const { code: store } = storeConfig || {};
-    const routeKey = getRouteKey(pathname, store);
-
     // destructure url result
-    const { data: urlData, error: urlError } = urlResult;
-    const { urlResolver } = urlData || {};
+    const { data, error, loading } = queryResult;
+    const { urlResolver } = data || {};
     const { id, redirectCode, relative_url, type } = urlResolver || {};
 
     // calculate response
-    const component = componentMap.get(routeKey);
-    const isEmpty = !store || !urlResolver || !type || id < 1;
-    const isPending = storeCodeResult.loading || urlResult.loading;
-    const isRedirect = REDIRECT_CODES.has(redirectCode);
+    const component = componentMap.get(pathname);
+    const empty = !urlResolver || !type || id < 1;
+    const redirect = isRedirect(redirectCode);
     const fetchError = component instanceof Error && component;
-    const queryError = fetchError || storeCodeError || urlError;
+    const routeError = fetchError || error;
 
     const routeData =
         component && !fetchError
             ? RESPONSES.FOUND(component)
-            : queryError
-            ? RESPONSES.ERROR(queryError)
-            : isEmpty && !isPending
+            : routeError
+            ? RESPONSES.ERROR(routeError)
+            : empty && !loading
             ? RESPONSES.NOT_FOUND
-            : isRedirect
+            : redirect
             ? RESPONSES.REDIRECT(relative_url)
             : RESPONSES.LOADING;
 
@@ -80,19 +54,19 @@ export const useMagentoRoute = (props = {}) => {
     useEffect(() => {
         (async () => {
             // don't fetch if we don't have data yet
-            if (isPending || isEmpty) return;
+            if (loading || empty) return;
 
-            // don't fetch if we already have a component
-            if (component && !(component instanceof Error)) return;
+            // don't fetch more than once
+            if (component) return;
 
             try {
                 const component = await getRootComponent(type);
-                setComponent(routeKey, { component, id, type });
+                setComponent(pathname, { component, id, type });
             } catch (error) {
-                setComponent(routeKey, error);
+                setComponent(pathname, error);
             }
         })();
-    }, [component, id, isEmpty, isPending, routeKey, setComponent, type]);
+    }, [component, empty, id, loading, pathname, setComponent, type]);
 
     // perform a redirect if necesssary
     useEffect(() => {

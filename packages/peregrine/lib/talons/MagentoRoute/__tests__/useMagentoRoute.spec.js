@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { replace } from 'react-router-dom';
 import { act, create } from 'react-test-renderer';
 import { useQuery } from '@apollo/client';
+import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
 
 import { getRootComponent } from '../helpers';
-import { GET_STORE_CODE, RESOLVE_URL } from '../magentoRoute.gql';
 import { useMagentoRoute } from '../useMagentoRoute';
 
 jest.mock('@apollo/client', () => {
@@ -30,6 +30,11 @@ jest.mock('react-router-dom', () => {
         replace
     };
 });
+
+jest.mock('@magento/peregrine/lib/context/rootComponents', () => ({
+    useRootComponents: jest.fn()
+}));
+useRootComponents.mockImplementation(() => useState(new Map()));
 
 jest.mock('../helpers', () => {
     const helpers = jest.requireActual('../helpers');
@@ -59,77 +64,25 @@ const Component = () => {
 
 beforeEach(() => {
     useQuery.mockReset();
-    useQuery.mockImplementation(query => {
-        if (query === GET_STORE_CODE) {
-            return {
-                data: {
-                    storeConfig: {
-                        code: 'en'
-                    }
-                },
-                loading: false
-            };
-        } else if (query === RESOLVE_URL) {
-            return {
-                data: {
-                    urlResolver: {
-                        id: 1,
-                        redirectCode: 0,
-                        relative_url: '/foo.html',
-                        type: 'CATEGORY'
-                    }
-                },
-                loading: false
-            };
-        }
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                urlResolver: {
+                    id: 1,
+                    redirectCode: 0,
+                    relative_url: '/foo.html',
+                    type: 'CATEGORY'
+                }
+            },
+            loading: false
+        };
     });
 });
 
 describe('returns LOADING while queries are pending', () => {
-    test('storeCode is loading', () => {
-        useQuery.mockImplementation(query => {
-            if (query === GET_STORE_CODE) {
-                return { loading: true };
-            } else if (query === RESOLVE_URL) {
-                return {
-                    data: {
-                        urlResolver: {
-                            id: 1,
-                            redirectCode: 0,
-                            relative_url: '/foo.html',
-                            type: 'CATEGORY'
-                        }
-                    },
-                    loading: false
-                };
-            }
-        });
-
-        act(() => {
-            create(<Component />);
-        });
-
-        expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
-            isLoading: true
-        });
-    });
-
     test('urlResolver is loading', () => {
-        useQuery.mockImplementation(query => {
-            if (query === GET_STORE_CODE) {
-                return {
-                    data: {
-                        storeConfig: {
-                            code: 'en'
-                        }
-                    },
-                    loading: false
-                };
-            } else if (query === RESOLVE_URL) {
-                return { loading: true };
-            }
+        useQuery.mockImplementation(() => {
+            return { loading: true };
         });
 
         act(() => {
@@ -157,51 +110,9 @@ describe('returns LOADING while queries are pending', () => {
 });
 
 describe('returns ERROR when queries fail', () => {
-    test('storeCode fails', () => {
-        useQuery.mockImplementation(query => {
-            if (query === GET_STORE_CODE) {
-                return { error: new Error() };
-            } else if (query === RESOLVE_URL) {
-                return {
-                    data: {
-                        urlResolver: {
-                            id: 1,
-                            redirectCode: 0,
-                            relative_url: '/foo.html',
-                            type: 'CATEGORY'
-                        }
-                    },
-                    loading: false
-                };
-            }
-        });
-
-        act(() => {
-            create(<Component />);
-        });
-
-        expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
-            hasError: true,
-            routeError: expect.any(Error)
-        });
-    });
-
     test('urlResolver fails', () => {
-        useQuery.mockImplementation(query => {
-            if (query === GET_STORE_CODE) {
-                return {
-                    data: {
-                        storeConfig: {
-                            code: 'en'
-                        }
-                    },
-                    loading: false
-                };
-            } else if (query === RESOLVE_URL) {
-                return { error: new Error() };
-            }
+        useQuery.mockImplementation(() => {
+            return { error: new Error() };
         });
 
         act(() => {
@@ -240,60 +151,14 @@ describe('returns ERROR when queries fail', () => {
 });
 
 describe('returns NOT_FOUND when queries come back empty', () => {
-    test('storeConfig is null', () => {
-        useQuery.mockImplementation(query => {
-            if (query === GET_STORE_CODE) {
-                return {
-                    data: {
-                        storeConfig: null
-                    },
-                    loading: false
-                };
-            } else if (query === RESOLVE_URL) {
-                return {
-                    data: {
-                        urlResolver: {
-                            id: 1,
-                            redirectCode: 0,
-                            relative_url: '/foo.html',
-                            type: 'CATEGORY'
-                        }
-                    },
-                    loading: false
-                };
-            }
-        });
-
-        act(() => {
-            create(<Component />);
-        });
-
-        expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
-            isNotFound: true
-        });
-    });
-
     test('urlResolver is null', () => {
-        useQuery.mockImplementation(query => {
-            if (query === GET_STORE_CODE) {
-                return {
-                    data: {
-                        storeConfig: {
-                            code: 'en'
-                        }
-                    },
-                    loading: false
-                };
-            } else if (query === RESOLVE_URL) {
-                return {
-                    data: {
-                        urlResolver: null
-                    },
-                    loading: false
-                };
-            }
+        useQuery.mockImplementation(() => {
+            return {
+                data: {
+                    urlResolver: null
+                },
+                loading: false
+            };
         });
 
         act(() => {
@@ -310,29 +175,18 @@ describe('returns NOT_FOUND when queries come back empty', () => {
 
 describe('returns REDIRECT after receiving a redirect code', () => {
     test('redirect code 301', () => {
-        useQuery.mockImplementation(query => {
-            if (query === GET_STORE_CODE) {
-                return {
-                    data: {
-                        storeConfig: {
-                            code: 'en'
-                        }
-                    },
-                    loading: false
-                };
-            } else if (query === RESOLVE_URL) {
-                return {
-                    data: {
-                        urlResolver: {
-                            id: 1,
-                            redirectCode: 301,
-                            relative_url: '/foo.html',
-                            type: 'CATEGORY'
-                        }
-                    },
-                    loading: false
-                };
-            }
+        useQuery.mockImplementation(() => {
+            return {
+                data: {
+                    urlResolver: {
+                        id: 1,
+                        redirectCode: 301,
+                        relative_url: '/foo.html',
+                        type: 'CATEGORY'
+                    }
+                },
+                loading: false
+            };
         });
 
         act(() => {
@@ -348,29 +202,18 @@ describe('returns REDIRECT after receiving a redirect code', () => {
     });
 
     test('redirect code 302', () => {
-        useQuery.mockImplementation(query => {
-            if (query === GET_STORE_CODE) {
-                return {
-                    data: {
-                        storeConfig: {
-                            code: 'en'
-                        }
-                    },
-                    loading: false
-                };
-            } else if (query === RESOLVE_URL) {
-                return {
-                    data: {
-                        urlResolver: {
-                            id: 1,
-                            redirectCode: 302,
-                            relative_url: '/foo.html',
-                            type: 'CATEGORY'
-                        }
-                    },
-                    loading: false
-                };
-            }
+        useQuery.mockImplementation(() => {
+            return {
+                data: {
+                    urlResolver: {
+                        id: 1,
+                        redirectCode: 302,
+                        relative_url: '/foo.html',
+                        type: 'CATEGORY'
+                    }
+                },
+                loading: false
+            };
         });
 
         act(() => {
