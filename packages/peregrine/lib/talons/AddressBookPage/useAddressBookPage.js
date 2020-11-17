@@ -12,7 +12,7 @@ import defaultOperations from './addressBookPage.gql';
  *  A talon to support the functionality of the Address Book page.
  *
  *  @param {Object} props
- *  @param {Object} props.queries - GraphQL queries to be run by the talon.
+ *  @param {Object} props.operations - GraphQL operations to be run by the talon.
  *
  *
  *  @returns {Object}   talonProps
@@ -35,6 +35,7 @@ export const useAddressBookPage = (props = {}) => {
     const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
         {
+            fetchPolicy: 'cache-and-network',
             skip: !isSignedIn
         }
     );

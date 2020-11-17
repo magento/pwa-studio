@@ -40,6 +40,21 @@ const AddressCard = props => {
     const nameString = `${firstname} ${lastname}`;
     const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
 
+    const deleteButtonElement = !default_shipping ? (
+        <LinkButton
+            classes={{ root: classes.deleteButton }}
+            onClick={() => console.log('To be completed by PWA-635')}
+        >
+            <Icon classes={{ icon: null }} size={16} src={TrashIcon} />
+            <span className={classes.actionLabel}>
+                <FormattedMessage
+                    id="addressBookPage.deleteAddress"
+                    defaultMessage="Delete"
+                />
+            </span>
+        </LinkButton>
+    ) : null;
+
     return (
         <div className={classes.root}>
             <div className={classes.contentContainer}>
@@ -50,7 +65,7 @@ const AddressCard = props => {
             </div>
             <div className={classes.actionContainer}>
                 <LinkButton
-                    classes={{ root: classes.linkButton }}
+                    classes={{ root: classes.editButton }}
                     onClick={() => console.log('To be completed by PWA-634')}
                 >
                     <Icon classes={{ icon: null }} size={16} src={EditIcon} />
@@ -61,18 +76,7 @@ const AddressCard = props => {
                         />
                     </span>
                 </LinkButton>
-                <LinkButton
-                    classes={{ root: classes.linkButton }}
-                    onClick={() => console.log('To be completed by PWA-635')}
-                >
-                    <Icon classes={{ icon: null }} size={16} src={TrashIcon} />
-                    <span className={classes.actionLabel}>
-                        <FormattedMessage
-                            id="addressBookPage.deleteAddress"
-                            defaultMessage="Delete"
-                        />
-                    </span>
-                </LinkButton>
+                {deleteButtonElement}
             </div>
         </div>
     );
@@ -101,7 +105,10 @@ AddressCard.propTypes = {
         contentContainer: string,
         defaultBadge: string,
         defaultCard: string,
+        deleteButton: string,
+        editButton: string,
         flash: string,
+        linkButton: string,
         name: string,
         root: string,
         root_updated: string

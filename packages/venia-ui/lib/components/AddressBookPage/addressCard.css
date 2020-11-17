@@ -55,6 +55,18 @@
     text-decoration: none;
 }
 
+.editButton {
+    composes: linkButton;
+    /** hidden until PWA-634 is completed */
+    visibility: hidden;
+}
+
+.deleteButton {
+    composes: linkButton;
+    /** hidden until PWA-635 is completed */
+    visibility: hidden;
+}
+
 @media (max-width: 640px) {
     .root {
         padding: 1rem;

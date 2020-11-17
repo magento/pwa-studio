@@ -17,6 +17,7 @@ jest.mock(
         };
     }
 );
+jest.mock('../addressCard', () => 'AddressCard');
 
 const props = {};
 const talonProps = {

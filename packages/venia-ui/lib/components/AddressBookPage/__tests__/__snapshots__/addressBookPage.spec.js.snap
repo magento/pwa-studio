@@ -13,6 +13,15 @@ exports[`renders correctly when there are existing addresses 1`] = `
   <div
     className="content"
   >
+    <AddressCard
+      address="a"
+    />
+    <AddressCard
+      address="b"
+    />
+    <AddressCard
+      address="c"
+    />
     <button
       className="addButton"
       disabled={false}
@@ -38,15 +47,6 @@ exports[`renders correctly when there are existing addresses 1`] = `
         </span>
       </span>
     </button>
-    <AddressCard
-      address="a"
-    />
-    <AddressCard
-      address="b"
-    />
-    <AddressCard
-      address="c"
-    />
   </div>
 </div>
 `;
