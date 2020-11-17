@@ -1,6 +1,7 @@
 import React from 'react';
 import { shape, string, bool, func } from 'prop-types';
 import { RadioGroup } from 'informed';
+import { useIntl } from 'react-intl';
 
 import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods';
 
@@ -18,6 +19,8 @@ const PaymentMethods = props => {
         resetShouldSubmit,
         shouldSubmit
     } = props;
+
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
