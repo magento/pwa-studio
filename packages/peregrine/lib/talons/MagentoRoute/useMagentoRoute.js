@@ -38,17 +38,19 @@ export const useMagentoRoute = (props = {}) => {
     const redirect = isRedirect(redirectCode);
     const fetchError = component instanceof Error && component;
     const routeError = fetchError || error;
+    let routeData;
 
-    const routeData =
-        component && !fetchError
-            ? RESPONSES.FOUND(component)
-            : routeError
-            ? RESPONSES.ERROR(routeError)
-            : empty && !loading
-            ? RESPONSES.NOT_FOUND
-            : redirect
-            ? RESPONSES.REDIRECT(relative_url)
-            : RESPONSES.LOADING;
+    if (component && !fetchError) {
+        routeData = RESPONSES.FOUND(component);
+    } else if (routeError) {
+        routeData = RESPONSES.ERROR(routeError);
+    } else if (empty && !loading) {
+        routeData = RESPONSES.NOT_FOUND;
+    } else if (redirect) {
+        routeData = RESPONSES.REDIRECT(relative_url);
+    } else {
+        routeData = RESPONSES.LOADING;
+    }
 
     // fetch a component if necessary
     useEffect(() => {
