@@ -74,7 +74,7 @@
     "checkoutPage.paymentInformationStep": "3. Payment Information",
     "checkoutPage.paymentMethodStatus": "{selectedPaymentMethod} is not supported for editing.",
     "checkoutPage.paymentSummary": "{cardType} ending in {lastFour}",
-    "checkoutPage.noPaymentMethodAvailable": "No Payment method available.",
+    "checkoutPage.noPaymentMethodAvailable": "No payment method available.",
     "checkoutPage.placeOrder": "Place Order",
     "checkoutPage.quantity": "Qty : {quantity}",
     "checkoutPage.quickCheckout": "Quick Checkout When You Return",
