@@ -13,8 +13,7 @@ jest.mock('@apollo/client', () => ({
 }));
 jest.mock('react-router-dom', () => ({
     useLocation: jest.fn().mockReturnValue({
-        search:
-            '?email=gooseton%40adobe.com&token=eUokxamL1kiElLDjo6AQHYFO4XlK3'
+        search: '?token=eUokxamL1kiElLDjo6AQHYFO4XlK3'
     })
 }));
 
@@ -65,7 +64,10 @@ test('should set hasCompleted to true if submission is successful', async () => 
         }
     });
 
-    await talonProps.handleSubmit({ newPassword: 'NEW_PASSWORD' });
+    await talonProps.handleSubmit({
+        email: 'gooseton@adobe.com',
+        newPassword: 'NEW_PASSWORD'
+    });
     const newTalonProps = update();
 
     expect(newTalonProps.hasCompleted).toBeTruthy();
@@ -93,7 +95,10 @@ test('should set hasCompleted to false if submission is not successful', async (
         }
     });
 
-    await talonProps.handleSubmit({ newPassword: 'NEW_PASSWORD' });
+    await talonProps.handleSubmit({
+        email: 'gooseton@adobe.com',
+        newPassword: 'NEW_PASSWORD'
+    });
     const newTalonProps = update();
 
     expect(newTalonProps.hasCompleted).toBeFalsy();

@@ -4,8 +4,11 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
-import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
+import mergeOperations from '../../util/shallowMerge';
 import { useFilterState } from './useFilterState';
+import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
+
+import DEFAULT_OPERATIONS from './filterModal.gql';
 
 /**
  * Filter Modal talon.
@@ -18,10 +21,11 @@ import { useFilterState } from './useFilterState';
  * }}
  */
 export const useFilterModal = props => {
-    const {
-        filters,
-        queries: { filterIntrospection }
-    } = props;
+    const { filters } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getFilterInputsQuery } = operations;
+
     const [isApplying, setIsApplying] = useState(false);
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const [filterState, filterApi] = useFilterState();
@@ -31,7 +35,7 @@ export const useFilterModal = props => {
     const history = useHistory();
     const { pathname, search } = useLocation();
 
-    const { data: introspectionData } = useQuery(filterIntrospection);
+    const { data: introspectionData } = useQuery(getFilterInputsQuery);
 
     const inputFields = introspectionData
         ? introspectionData.__type.inputFields

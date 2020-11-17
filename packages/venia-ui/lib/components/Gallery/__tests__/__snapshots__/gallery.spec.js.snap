@@ -47,7 +47,18 @@ a.url 2560w"
       <div
         className="price"
       >
-        <div />
+        <span>
+          $
+        </span>
+        <span>
+          100
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
       </div>
     </div>
     <div
@@ -90,7 +101,18 @@ a.url 2560w"
       <div
         className="price"
       >
-        <div />
+        <span>
+          $
+        </span>
+        <span>
+          100
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
       </div>
     </div>
   </div>

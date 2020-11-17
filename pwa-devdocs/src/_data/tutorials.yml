@@ -23,6 +23,15 @@ entries:
     - label: Enable SASS or LESS support
       url: /tutorials/enable-sass-less-support/
 
+    - label: Intercept a Target
+      url: /tutorials/intercept-a-target/
+      entries:
+          - label: Modify talon results
+            url: /tutorials/intercept-a-target/modify-talon-results/
+
+          - label: Add a new environment variable
+            url: /tutorials/intercept-a-target/add-new-environment-variable/
+
     - label: PWA Studio fundamentals
       url: /tutorials/pwa-studio-fundamentals/
       entries:

@@ -14,6 +14,8 @@ const thisDep = {
     intercept
 };
 
+const WEBPACK_BUILD_TIMEOUT = 20000;
+
 const mockComponent = name => `function ${name}(props) { return <div className={name}>{props.children}</div>;
 `;
 const mockDefault = name => `import React from 'react';
@@ -53,7 +55,8 @@ test('declares targets richContentRenderers and routes', async () => {
 });
 
 test('uses RichContentRenderers to inject a default strategy into RichContent', async () => {
-    jest.setTimeout(15000);
+    jest.setTimeout(WEBPACK_BUILD_TIMEOUT);
+
     const built = await buildModuleWith('../../components/RichContent', {
         context: __dirname,
         dependencies: ['@magento/peregrine', thisDep]
@@ -69,17 +72,19 @@ test('uses RichContentRenderers to inject a default strategy into RichContent', 
 });
 
 test('uses routes to inject client-routed pages', async () => {
+    jest.setTimeout(WEBPACK_BUILD_TIMEOUT);
+
     const routesModule = '../../components/Routes/routes';
     const built = await buildModuleWith(routesModule, {
         context: path.dirname(require.resolve(routesModule)),
         dependencies: ['@magento/peregrine', thisDep],
         mockFiles: {
-            '../../RootComponents/Search/index.js': mockDefault('SearchPage'),
+            '../../RootComponents/Search/index.js': mockDefault('Search'),
             '../LoadingIndicator/index.js':
                 'export const fullPageLoadingIndicator = "Loading";',
-            '../CartPage/index.js': mockDefault('CartPage'),
-            '../CreateAccountPage/index.js': mockDefault('CreateAccountPage'),
-            '../CheckoutPage/index.js': mockDefault('CheckoutPage'),
+            '../CartPage/index.js': mockDefault('Cart'),
+            '../CreateAccountPage/index.js': mockDefault('CreateAccount'),
+            '../CheckoutPage/index.js': mockDefault('Checkout'),
             '../MagentoRoute/index.js': mockDefault('MagentoRoute')
         },
         optimization: {
@@ -88,8 +93,68 @@ test('uses routes to inject client-routed pages', async () => {
     });
     // Testing this with a shallow renderer is obtusely hard because of
     // Suspense, but these strings lurking in the build tell the story.
-    expect(built.bundle).toContain('SearchPage');
-    expect(built.bundle).toContain('CartPage');
-    expect(built.bundle).toContain('CreateAccountPage');
-    expect(built.bundle).toContain('CheckoutPage');
+    expect(built.bundle).toContain('DynamicSearch');
+    expect(built.bundle).toContain('DynamicCart');
+    expect(built.bundle).toContain('DynamicCreateAccount');
+    expect(built.bundle).toContain('DynamicCheckout');
+});
+
+test('declares payments target', async () => {
+    const bus = mockBuildBus({
+        context: __dirname,
+        dependencies: [thisDep]
+    });
+    bus.runPhase('declare');
+    const { payments } = bus.getTargetsOf('@magento/venia-ui');
+
+    const interceptor = jest.fn();
+    // no implementation testing in declare phase
+    payments.tap('test', interceptor);
+    payments.call('woah');
+    expect(interceptor).toHaveBeenCalledWith('woah');
+});
+
+test('uses RichContentRenderers to default strategy Payment Method', async () => {
+    jest.setTimeout(WEBPACK_BUILD_TIMEOUT);
+
+    const built = await buildModuleWith(
+        '../../components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
+        {
+            context: __dirname,
+            dependencies: ['@magento/peregrine', thisDep]
+        }
+    );
+
+    const payments = built.run();
+    expect(payments).toHaveProperty('braintree');
+});
+
+test('declares payments target', async () => {
+    const bus = mockBuildBus({
+        context: __dirname,
+        dependencies: [thisDep]
+    });
+    bus.runPhase('declare');
+    const { payments } = bus.getTargetsOf('@magento/venia-ui');
+
+    const interceptor = jest.fn();
+    // no implementation testing in declare phase
+    payments.tap('test', interceptor);
+    payments.call('woah');
+    expect(interceptor).toHaveBeenCalledWith('woah');
+});
+
+test('uses RichContentRenderers to default strategy Payment Method', async () => {
+    jest.setTimeout(WEBPACK_BUILD_TIMEOUT);
+
+    const built = await buildModuleWith(
+        '../../components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
+        {
+            context: __dirname,
+            dependencies: ['@magento/peregrine', thisDep]
+        }
+    );
+
+    const payments = built.run();
+    expect(payments).toHaveProperty('braintree');
 });

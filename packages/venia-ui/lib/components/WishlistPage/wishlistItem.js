@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
 import { MoreHorizontal } from 'react-feather';
+import { useIntl } from 'react-intl';
 import { Price, useToasts } from '@magento/peregrine';
 import { useWishlistItem } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItem';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import Image from '../Image';
+import WishlistConfirmRemoveProductDialog from './wishlistConfirmRemoveProductDialog';
+import WishlistMoreActionsDialog from './wishlistMoreActionsDialog';
 import defaultClasses from './wishlistItem.css';
 import wishlistItemOperations from './wishlistItem.gql';
-import { useIntl } from 'react-intl';
 
 const WishlistItem = props => {
-    const { item } = props;
+    const { item, wishlistId } = props;
 
     const {
         child_sku: childSku,
         configurable_options: configurableOptions = [],
+        id: itemId,
         product
     } = item;
     const { image, name, price_range: priceRange, sku } = product;
@@ -28,14 +31,23 @@ const WishlistItem = props => {
 
     const talonProps = useWishlistItem({
         childSku,
+        itemId,
+        operations: { ...wishlistItemOperations },
         sku,
-        ...wishlistItemOperations
+        wishlistId
     });
     const {
+        confirmRemovalIsOpen,
         handleAddToCart,
-        handleMoreActions,
+        handleHideDialogs,
+        handleRemoveProductFromWishlist,
+        handleShowConfirmRemoval,
+        handleShowMoreActions,
         hasError,
-        isLoading
+        hasRemoveProductFromWishlistError,
+        isLoading,
+        isRemovalInProgress,
+        moreActionsIsOpen
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -64,11 +76,12 @@ const WishlistItem = props => {
             value_label: valueLabel
         } = option;
 
+        const optionString = `${optionLabel} : ${valueLabel}`;
+
         return (
-            <span
-                className={classes.option}
-                key={id}
-            >{`${optionLabel} : ${valueLabel}`}</span>
+            <span className={classes.option} key={id}>
+                {optionString}
+            </span>
         );
     });
 
@@ -98,10 +111,22 @@ const WishlistItem = props => {
                 </button>
                 <button
                     className={classes.moreActions}
-                    onClick={handleMoreActions}
+                    onClick={handleShowMoreActions}
                 >
                     <Icon size={16} src={MoreHorizontal} />
                 </button>
+                <WishlistMoreActionsDialog
+                    isOpen={moreActionsIsOpen}
+                    onCancel={handleHideDialogs}
+                    onRemove={handleShowConfirmRemoval}
+                />
+                <WishlistConfirmRemoveProductDialog
+                    hasError={hasRemoveProductFromWishlistError}
+                    isOpen={confirmRemovalIsOpen}
+                    isRemovalInProgress={isRemovalInProgress}
+                    onCancel={handleHideDialogs}
+                    onConfirm={handleRemoveProductFromWishlist}
+                />
             </div>
         </div>
     );

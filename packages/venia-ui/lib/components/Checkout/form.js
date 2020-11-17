@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
+import { gql } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
 import { useToasts } from '@magento/peregrine';
 import { useForm } from '@magento/peregrine/lib/talons/Checkout/useForm';
 
 import { mergeClasses } from '../../classify';
-import GET_ALL_COUNTRIES from '../../queries/getAllCountries.graphql';
 import Icon from '../Icon';
 import LoadingIndicator from '../LoadingIndicator';
 import EditableForm from './editableForm';
@@ -14,9 +14,8 @@ import Overview from './overview';
 import defaultClasses from './form.css';
 
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
-const loadingIndicator = (
-    <LoadingIndicator>{`Loading Checkout...`}</LoadingIndicator>
-);
+const loadingText = 'Loading Checkout...';
+const loadingIndicator = <LoadingIndicator>{loadingText}</LoadingIndicator>;
 
 /**
  * The Form component is similar to Flow in that it renders either the overview
@@ -70,3 +69,16 @@ Form.propTypes = {
 };
 
 export default Form;
+
+const GET_ALL_COUNTRIES = gql`
+    query getAllCountries {
+        countries {
+            available_regions {
+                code
+                id
+                name
+            }
+            id
+        }
+    }
+`;

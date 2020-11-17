@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-literals */
 import React, { useCallback, useState, useEffect } from 'react';
 import { storiesOf } from '@storybook/react';
 
@@ -135,6 +136,19 @@ stories.add('Customizing the Button Texts', () => {
             title={'Customizing the Button Texts'}
         >
             <span>Consumers can set the text of the buttons.</span>
+        </Dialog>
+    );
+});
+
+stories.add('Hiding the Action Buttons', () => {
+    return (
+        <Dialog
+            onCancel={onCancel}
+            isOpen={true}
+            shouldShowButtons={false}
+            title={'Customizing the Button Texts'}
+        >
+            <span>Consumers can hide the buttom action buttons</span>
         </Dialog>
     );
 });

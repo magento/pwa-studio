@@ -3,12 +3,10 @@ const debug = require('../util/debug').makeFileLogger(__filename);
 const {
     default: playgroundMiddleware
 } = require('graphql-playground-middleware-express');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const chalk = require('chalk');
 const configureHost = require('../Utilities/configureHost');
 const portscanner = require('portscanner');
-const { readFile: readFileAsync } = require('fs');
-const { promisify } = require('util');
-const readFile = promisify(readFileAsync);
 const path = require('path');
 const boxen = require('boxen');
 const webpack = require('webpack');
@@ -170,51 +168,12 @@ const PWADevServer = {
                 oldBefore(app, server);
                 let middleware;
 
-                const gatheringQueryTabs = new Promise((resolve, reject) => {
-                    const { compiler } = server.middleware.context;
-
-                    compiler.hooks.done.tap(
-                        'PWADevServer',
-                        async ({ compilation }) => {
-                            const queryFilePaths = [];
-                            for (const filename of compilation.fileDependencies) {
-                                if (filename.endsWith('.graphql')) {
-                                    queryFilePaths.push(filename);
-                                }
-                            }
-                            try {
-                                resolve(
-                                    await Promise.all(
-                                        queryFilePaths.map(async queryFile => {
-                                            const query = await readFile(
-                                                queryFile,
-                                                'utf8'
-                                            );
-                                            const name = path.relative(
-                                                context,
-                                                queryFile
-                                            );
-                                            return {
-                                                endpoint,
-                                                name,
-                                                query
-                                            };
-                                        })
-                                    )
-                                );
-                            } catch (e) {
-                                reject(e);
-                            }
-                        }
-                    );
-                });
                 /* istanbul ignore next: dummy next() function not testable */
                 const noop = () => {};
                 app.get('/graphiql', async (req, res) => {
                     if (!middleware) {
                         middleware = playgroundMiddleware({
-                            endpoint,
-                            tabs: await gatheringQueryTabs
+                            endpoint
                         });
                     }
                     // this middleware has a bad habit of calling next() when it
@@ -234,7 +193,8 @@ const PWADevServer = {
                 webpackDevServerOptions,
                 process.env,
                 path.resolve(webpackConfig.context, upwardPath)
-            )
+            ),
+            new ReactRefreshWebpackPlugin()
         );
 
         return webpackDevServerOptions;

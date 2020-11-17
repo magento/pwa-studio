@@ -1,4 +1,4 @@
-import React, { Suspense, useLayoutEffect, useRef } from 'react';
+import React, { Suspense } from 'react';
 import { shape, string } from 'prop-types';
 
 import Logo from '../Logo';
@@ -15,6 +15,7 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './header.css';
 import PageLoadingIndicator from '../PageLoadingIndicator';
 import StoreSwitcher from './storeSwitcher';
+import CurrencySwitcher from './currencySwitcher';
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
@@ -28,7 +29,6 @@ const Header = props => {
         searchRef,
         searchTriggerRef
     } = useHeader();
-    const ref = useRef();
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isSearchOpen ? classes.open : classes.closed;
@@ -50,43 +50,39 @@ const Header = props => {
         <PageLoadingIndicator />
     ) : null;
 
-    useLayoutEffect(() => {
-        const { current } = ref;
-
-        current.parentElement.style.setProperty(
-            '--switchers-height',
-            current.offsetHeight
-        );
-    });
-
     return (
-        <header className={rootClass}>
-            <div ref={ref} className={classes.switchers}>
-                <StoreSwitcher />
-            </div>
-            <div className={classes.toolbar}>
-                <div className={classes.primaryActions}>
-                    <NavTrigger />
+        <React.Fragment>
+            <div className={classes.switchersContainer}>
+                <div className={classes.switchers}>
+                    <StoreSwitcher />
+                    <CurrencySwitcher />
                 </div>
-                {pageLoadingIndicator}
-                <OnlineIndicator
-                    hasBeenOffline={hasBeenOffline}
-                    isOnline={isOnline}
-                />
-                <Link to={resourceUrl('/')}>
-                    <Logo classes={{ logo: classes.logo }} />
-                </Link>
-                <div className={classes.secondaryActions}>
-                    <SearchTrigger
-                        onClick={handleSearchTriggerClick}
-                        ref={searchTriggerRef}
+            </div>
+            <header className={rootClass}>
+                <div className={classes.toolbar}>
+                    <div className={classes.primaryActions}>
+                        <NavTrigger />
+                    </div>
+                    {pageLoadingIndicator}
+                    <OnlineIndicator
+                        hasBeenOffline={hasBeenOffline}
+                        isOnline={isOnline}
                     />
-                    <AccountTrigger />
-                    <CartTrigger />
+                    <Link to={resourceUrl('/')}>
+                        <Logo classes={{ logo: classes.logo }} />
+                    </Link>
+                    <div className={classes.secondaryActions}>
+                        <SearchTrigger
+                            onClick={handleSearchTriggerClick}
+                            ref={searchTriggerRef}
+                        />
+                        <AccountTrigger />
+                        <CartTrigger />
+                    </div>
                 </div>
-            </div>
-            {searchBar}
-        </header>
+                {searchBar}
+            </header>
+        </React.Fragment>
     );
 };
 
@@ -98,7 +94,8 @@ Header.propTypes = {
         primaryActions: string,
         secondaryActions: string,
         toolbar: string,
-        switchers: string
+        switchers: string,
+        switchersContainer: string
     })
 };
 

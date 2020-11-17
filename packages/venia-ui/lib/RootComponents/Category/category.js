@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { number, shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { useCategory } from '@magento/peregrine/lib/talons/RootComponents/Category';
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -7,9 +8,6 @@ import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 import { Meta } from '../../components/Head';
-
-import GET_CATEGORY from '../../queries/getCategory.graphql';
-import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
 import { GET_PAGE_SIZE } from './category.gql';
 
 const Category = props => {
@@ -18,8 +16,6 @@ const Category = props => {
     const talonProps = useCategory({
         id,
         queries: {
-            getCategory: GET_CATEGORY,
-            getFiltersIntrospection: FILTER_INTROSPECTION,
             getPageSize: GET_PAGE_SIZE
         }
     });
@@ -45,7 +41,15 @@ const Category = props => {
         if (process.env.NODE_ENV !== 'production') {
             console.error(error);
         }
-        return <div>Data Fetch Error</div>;
+
+        return (
+            <div>
+                <FormattedMessage
+                    id={'category.dataFetchError'}
+                    defaultMessage={'Data Fetch Error'}
+                />
+            </div>
+        );
     }
 
     return (

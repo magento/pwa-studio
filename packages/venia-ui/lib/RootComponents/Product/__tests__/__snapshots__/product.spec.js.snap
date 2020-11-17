@@ -196,6 +196,9 @@ exports[`renders product page correctly when error and product data exist 1`] = 
 
 exports[`renders product page failed when error data 1`] = `
 <div>
-  Data Fetch Error
+  <FormattedMessage
+    defaultMessage="Data Fetch Error"
+    id="product.errorFetch"
+  />
 </div>
 `;

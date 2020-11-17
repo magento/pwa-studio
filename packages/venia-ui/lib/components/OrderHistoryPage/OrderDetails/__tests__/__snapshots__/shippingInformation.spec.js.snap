@@ -1,30 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render properly 1`] = `
+exports[`should render placeholder label without data 1`] = `
 <div>
   <div>
-    <div
-      componentName="Formatted Message Component"
+    <mock-FormattedMessage
       defaultMessage="Shipping Information"
       id="orderDetails.shippingInformationLabel"
     />
   </div>
+  <mock-FormattedMessage
+    defaultMessage="No shipping information"
+    id="orderDetails.noShippingInformation"
+  />
+</div>
+`;
+
+exports[`should render properly 1`] = `
+<div>
   <div>
-    <span>
-      Gooseton
-    </span>
-    <span>
-      Jr
-    </span>
+    <mock-FormattedMessage
+      defaultMessage="Shipping Information"
+      id="orderDetails.shippingInformationLabel"
+    />
   </div>
-  <div>
+  <span>
+    Gooseton Jr
+  </span>
+  <span>
     Goose Dr
-  </div>
+  </span>
   <div>
-    Austin, TX, 78759
-  </div>
-  <div>
-    US
+    Austin, TX 78759 US
   </div>
 </div>
 `;

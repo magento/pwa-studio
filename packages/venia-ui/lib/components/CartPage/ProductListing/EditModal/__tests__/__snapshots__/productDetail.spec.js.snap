@@ -24,7 +24,15 @@ exports[`renders product details with base price and in stock 1`] = `
     className="stockRow"
   >
     <span>
-      SKU #
+      <mock-FormattedMessage
+        defaultMessage="SKU #"
+        id="productDetail.skuNumber"
+        values={
+          Object {
+            "sku": "SP-01",
+          }
+        }
+      />
     </span>
     <span>
       In stock
@@ -34,7 +42,16 @@ exports[`renders product details with base price and in stock 1`] = `
     className="price"
   >
     <span>
-      $123.45 USD
+      $
+    </span>
+    <span>
+      123
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      45
     </span>
   </div>
 </div>
@@ -64,7 +81,15 @@ exports[`renders product details with unknown stock value 1`] = `
     className="stockRow"
   >
     <span>
-      SKU #
+      <mock-FormattedMessage
+        defaultMessage="SKU #"
+        id="productDetail.skuNumber"
+        values={
+          Object {
+            "sku": "SP-01",
+          }
+        }
+      />
     </span>
     <span>
       Unknown
@@ -74,7 +99,16 @@ exports[`renders product details with unknown stock value 1`] = `
     className="price"
   >
     <span>
-      $123.45 USD
+      $
+    </span>
+    <span>
+      123
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      45
     </span>
   </div>
 </div>
@@ -104,7 +138,15 @@ exports[`renders product details with variant price and out of stock 1`] = `
     className="stockRow"
   >
     <span>
-      SKU #
+      <mock-FormattedMessage
+        defaultMessage="SKU #"
+        id="productDetail.skuNumber"
+        values={
+          Object {
+            "sku": "SP-01",
+          }
+        }
+      />
     </span>
     <span>
       Out of stock
@@ -114,7 +156,16 @@ exports[`renders product details with variant price and out of stock 1`] = `
     className="price"
   >
     <span>
-      $456.78 EUR
+      €
+    </span>
+    <span>
+      456
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      78
     </span>
   </div>
 </div>

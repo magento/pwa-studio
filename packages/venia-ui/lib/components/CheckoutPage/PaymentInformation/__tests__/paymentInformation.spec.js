@@ -9,17 +9,17 @@ import PaymentInformation from '../paymentInformation';
 
 jest.mock('../../../../classify');
 
-jest.mock('../paymentMethods', () => () => (
-    <div>Payment Methods Component</div>
+jest.mock('../paymentMethods', () => props => (
+    <mock-PaymentMethodsd {...props} />
 ));
 
-jest.mock('../../PriceAdjustments', () => () => (
-    <div>Price Adjustments Component</div>
+jest.mock('../../PriceAdjustments', () => props => (
+    <mock-PriceAdjustments {...props} />
 ));
 
-jest.mock('../summary', () => () => <div>Summary Component</div>);
+jest.mock('../summary', () => props => <mock-Summary {...props} />);
 
-jest.mock('../editModal', () => () => <div>Edit Modal Component</div>);
+jest.mock('../editModal', () => props => <mock-EditModal {...props} />);
 
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation',
@@ -97,10 +97,10 @@ test('Should render PaymentMethods component only if doneEditing is false', () =
     }).toThrow();
 });
 
-test('Should render EditModal component only if isEditModalActive is true', () => {
+test('Should render EditModal component only if doneEditing is true', () => {
     usePaymentInformation.mockReturnValueOnce({
         ...defaultTalonResponse,
-        isEditModalActive: true
+        doneEditing: true
     });
 
     const tree = createTestInstance(<PaymentInformation />);
@@ -109,7 +109,7 @@ test('Should render EditModal component only if isEditModalActive is true', () =
 
     usePaymentInformation.mockReturnValueOnce({
         ...defaultTalonResponse,
-        isEditModalActive: false
+        doneEditing: false
     });
 
     tree.update(<PaymentInformation />);

@@ -79,21 +79,37 @@ test('renders the root and subscribes to global events', async () => {
 
         // Assert.
         expect(setContext).toHaveBeenCalled();
-        const contextCallback = setContext.mock.calls[0][0];
+        const storeContextCallback = setContext.mock.calls[0][0];
+        const authContextCallback = setContext.mock.calls[1][0];
         expect(
-            contextCallback(null, { headers: { foo: 'bar' } })
+            storeContextCallback(null, { headers: { foo: 'bar' } })
         ).toMatchObject({
             headers: {
                 foo: 'bar',
-                store: 'default',
+                store: 'default'
+            }
+        });
+        expect(
+            authContextCallback(null, { headers: { foo: 'bar' } })
+        ).toMatchObject({
+            headers: {
+                foo: 'bar',
                 authorization: ''
             }
         });
 
         // It includes the authorization header if the signin_token is present.
-        getItem.mockReturnValueOnce('blarg');
-        expect(contextCallback(null, { headers: {} })).toMatchObject({
+        getItem.mockReturnValue('blarg');
+        expect(storeContextCallback(null, { headers: {} })).toMatchObject({
             headers: {
+                store: 'default'
+            }
+        });
+        expect(
+            authContextCallback(null, { headers: { foo: 'bar' } })
+        ).toMatchObject({
+            headers: {
+                foo: 'bar',
                 authorization: 'Bearer blarg'
             }
         });

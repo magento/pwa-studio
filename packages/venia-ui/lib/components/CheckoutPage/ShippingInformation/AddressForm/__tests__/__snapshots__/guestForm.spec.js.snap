@@ -37,6 +37,7 @@ Array [
           >
             <input
               className="input"
+              id="email"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
@@ -56,7 +57,10 @@ Array [
         <p
           className="root"
         >
-          Set a password at the end of guest checkout to create an account in one easy step.
+          <mock-FormattedMessage
+            defaultMessage="Set a password at the end of guest checkout to create an account in one easy step."
+            id="guestForm.emailMessage"
+          />
         </p>
       </div>
     </div>
@@ -86,6 +90,7 @@ Array [
           >
             <input
               className="input"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -130,6 +135,7 @@ Array [
           >
             <input
               className="input"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -181,6 +187,7 @@ Array [
           >
             <input
               className="input"
+              id="street0"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -213,7 +220,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -230,6 +240,7 @@ Array [
           >
             <input
               className="input"
+              id="street1"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -274,6 +285,7 @@ Array [
           >
             <input
               className="input"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -307,7 +319,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -325,6 +337,7 @@ Array [
           >
             <input
               className="input"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -369,6 +382,7 @@ Array [
           >
             <input
               className="input"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -447,6 +461,7 @@ Array [
           >
             <input
               className="input"
+              id="email"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
@@ -466,7 +481,10 @@ Array [
         <p
           className="root"
         >
-          Set a password at the end of guest checkout to create an account in one easy step.
+          <mock-FormattedMessage
+            defaultMessage="Set a password at the end of guest checkout to create an account in one easy step."
+            id="guestForm.emailMessage"
+          />
         </p>
       </div>
     </div>
@@ -496,6 +514,7 @@ Array [
           >
             <input
               className="input"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -540,6 +559,7 @@ Array [
           >
             <input
               className="input"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -591,6 +611,7 @@ Array [
           >
             <input
               className="input"
+              id="street0"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -623,7 +644,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -640,6 +664,7 @@ Array [
           >
             <input
               className="input"
+              id="street1"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -684,6 +709,7 @@ Array [
           >
             <input
               className="input"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -717,7 +743,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -735,6 +761,7 @@ Array [
           >
             <input
               className="input"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -779,6 +806,7 @@ Array [
           >
             <input
               className="input"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -853,6 +881,7 @@ Array [
           >
             <input
               className="input"
+              id="email"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
@@ -897,6 +926,7 @@ Array [
           >
             <input
               className="input"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -941,6 +971,7 @@ Array [
           >
             <input
               className="input"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -992,6 +1023,7 @@ Array [
           >
             <input
               className="input"
+              id="street0"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1024,7 +1056,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -1041,6 +1076,7 @@ Array [
           >
             <input
               className="input"
+              id="street1"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1085,6 +1121,7 @@ Array [
           >
             <input
               className="input"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1118,7 +1155,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -1136,6 +1173,7 @@ Array [
           >
             <input
               className="input"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1180,6 +1218,7 @@ Array [
           >
             <input
               className="input"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1210,7 +1249,10 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button
@@ -1266,6 +1308,7 @@ Array [
           >
             <input
               className="input"
+              id="email"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1310,6 +1353,7 @@ Array [
           >
             <input
               className="input"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1354,6 +1398,7 @@ Array [
           >
             <input
               className="input"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1405,6 +1450,7 @@ Array [
           >
             <input
               className="input"
+              id="street0"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1437,7 +1483,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -1454,6 +1503,7 @@ Array [
           >
             <input
               className="input"
+              id="street1"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1498,6 +1548,7 @@ Array [
           >
             <input
               className="input"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1531,7 +1582,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -1549,6 +1600,7 @@ Array [
           >
             <input
               className="input"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1593,6 +1645,7 @@ Array [
           >
             <input
               className="input"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1623,7 +1676,10 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button

@@ -11,7 +11,10 @@ Array [
     className="price"
   >
     <span>
-      FREE
+      <mock-FormattedMessage
+        defaultMessage="FREE"
+        id="global.free"
+      />
     </span>
   </span>,
 ]
@@ -32,7 +35,16 @@ Array [
     className="price"
   >
     <span>
-      $10
+      $
+    </span>
+    <span>
+      10
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
     </span>
   </span>,
 ]

@@ -38,11 +38,10 @@ const StoreSwitcher = props => {
                 <SwitcherItem
                     active={store.isCurrent}
                     onClick={handleSwitchStore}
-                    switcherItem={{
-                        label: store.storeName,
-                        code: code
-                    }}
-                />
+                    option={code}
+                >
+                    {store.storeName}
+                </SwitcherItem>
             </li>
         );
     });

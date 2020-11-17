@@ -66,13 +66,35 @@ www.venia.com/p1 2560w"
   <span
     className="quantity"
   >
-    Qty :
+    <mock-FormattedMessage
+      defaultMessage="Qty :"
+      id="productList.quantity"
+      values={
+        Object {
+          "quantity": 10,
+        }
+      }
+    />
   </span>
   <span
     className="price"
   >
-    <div />
-     ea.
+    <span>
+      $
+    </span>
+    <span>
+      420
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+    <mock-FormattedMessage
+      defaultMessage=" ea."
+      id="productList.each"
+    />
   </span>
   <span
     className="stockStatus"
@@ -190,13 +212,35 @@ www.venia.com/p1 2560w"
   <span
     className="quantity"
   >
-    Qty :
+    <mock-FormattedMessage
+      defaultMessage="Qty :"
+      id="productList.quantity"
+      values={
+        Object {
+          "quantity": 10,
+        }
+      }
+    />
   </span>
   <span
     className="price"
   >
-    <div />
-     ea.
+    <span>
+      $
+    </span>
+    <span>
+      420
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+    <mock-FormattedMessage
+      defaultMessage=" ea."
+      id="productList.each"
+    />
   </span>
   <span
     className="stockStatus"
@@ -314,13 +358,35 @@ www.venia.com/p1 2560w"
   <span
     className="quantity"
   >
-    Qty :
+    <mock-FormattedMessage
+      defaultMessage="Qty :"
+      id="productList.quantity"
+      values={
+        Object {
+          "quantity": 10,
+        }
+      }
+    />
   </span>
   <span
     className="price"
   >
-    <div />
-     ea.
+    <span>
+      $
+    </span>
+    <span>
+      420
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+    <mock-FormattedMessage
+      defaultMessage=" ea."
+      id="productList.each"
+    />
   </span>
   <span
     className="stockStatus"

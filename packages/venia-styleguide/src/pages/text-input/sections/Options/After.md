@@ -1,3 +1,0 @@
-#### After
-
-Lorem ipsum

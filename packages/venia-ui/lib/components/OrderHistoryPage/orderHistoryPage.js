@@ -1,17 +1,17 @@
 import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
+import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
 import { mergeClasses } from '../../classify';
 import { Title } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './orderHistoryPage.css';
-import orderHistoryOperations from './orderHistoryPage.gql';
 import OrderRow from './orderRow';
 
 const OrderHistoryPage = props => {
-    const talonProps = useOrderHistoryPage({ ...orderHistoryOperations });
+    const talonProps = useOrderHistoryPage();
     const { isLoadingWithoutData, orders } = talonProps;
     const { formatMessage } = useIntl();
     const PAGE_TITLE = formatMessage({
@@ -47,13 +47,17 @@ const OrderHistoryPage = props => {
         );
     }
 
+    // STORE_NAME is injected by Webpack at build time.
+    const title = `${PAGE_TITLE} - ${STORE_NAME}`;
+
     return (
-        <div className={classes.root}>
-            {/* STORE_NAME is injected by Webpack at build time. */}
-            <Title>{`${PAGE_TITLE} - ${STORE_NAME}`}</Title>
-            <h1 className={classes.heading}>{PAGE_TITLE}</h1>
-            {pageContents}
-        </div>
+        <OrderHistoryContextProvider>
+            <div className={classes.root}>
+                <Title>{title}</Title>
+                <h1 className={classes.heading}>{PAGE_TITLE}</h1>
+                {pageContents}
+            </div>
+        </OrderHistoryContextProvider>
     );
 };
 

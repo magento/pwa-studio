@@ -64,6 +64,15 @@ const getStoreConfigData = () => {
 };
 
 /**
+ * An async function that will fetch the availableStores
+ *
+ * @returns Promise
+ */
+const getAvailableStoresConfigData = () => {
+    return fetchQuery(graphQLQueries.getAvailableStoresConfigData);
+};
+
+/**
  * Get the schema's types.
  */
 const getSchemaTypes = () => {
@@ -113,6 +122,7 @@ const getPossibleTypes = async () => {
 module.exports = {
     getMediaURL,
     getStoreConfigData,
+    getAvailableStoresConfigData,
     getPossibleTypes,
     getSchemaTypes,
     getUnionAndInterfaceTypes

@@ -1,6 +1,10 @@
 import { useEffect, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
+
+import mergeOperations from '../../util/shallowMerge';
 import { useAppContext } from '../../context/app';
+
+import DEFAULT_OPERATIONS from './cmsPage.gql';
 
 /**
  * Retrieves data necessary to render a CMS Page
@@ -12,16 +16,17 @@ import { useAppContext } from '../../context/app';
  * @returns {{shouldShowLoadingIndicator: *, hasContent: *, cmsPage: *, error: *}}
  */
 export const useCmsPage = props => {
-    const {
-        id,
-        queries: { getCmsPage }
-    } = props;
+    const { id } = props;
 
-    const { loading, error, data } = useQuery(getCmsPage, {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCMSPageQuery } = operations;
+
+    const { loading, error, data } = useQuery(getCMSPageQuery, {
         variables: {
             id: Number(id)
         },
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
     });
 
     const [
