@@ -56,6 +56,9 @@ entries:
           - label: Configuration management
             url: /pwa-buildpack/configuration-management/
 
+          - label: Extensibility framework
+            url: /pwa-buildpack/extensibility-framework/
+
           - label: Scaffolding
             url: /pwa-buildpack/scaffolding/
 
