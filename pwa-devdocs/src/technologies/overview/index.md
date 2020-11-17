@@ -18,7 +18,7 @@ The following features define a basic PWA website:
 -   **Mobile "Install"** - Mobile users can add PWA sites to their home screens and even receive Push notifications from the site.
 -   **Shareable content** - Each page in a PWA site has a unique URL that can be shared with other apps or social media.
 
-This strategy is known as the RAIL model:
+This strategy is known as the [RAIL](https://web.dev/rail/) model:
 
 -   **Response** – An application is receptive to the user's request.
 -   **Animation** – It shows a movement to keep the user pausing.
