@@ -230,7 +230,7 @@
     "orderDetails.subtotal": "Subtotal",
     "orderDetails.tax": "Tax",
     "orderDetails.total": "Total",
-    "orderDetails.trackingInformation": "{carrier} Tracking: {number}",
+    "orderDetails.trackingInformation": "<strong>Tracking number:</strong> {number}",
     "orderHistoryPage.emptyDataMessage": "You don't have any orders yet.",
     "orderHistoryPage.pageTitleText": "Order History",
     "orderProgressBar.deliveredText": "Delivered",
@@ -370,5 +370,8 @@
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "Favorites Lists",
-    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available."
+    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
+    "orderDetails.waitingOnTracking": "Waiting for tracking information",
+    "orderItems.itemsHeading": "Items",
+    "orderDetails.noShippingInformation": "No shipping information"
 }

@@ -72,7 +72,10 @@ exports[`renders loading indicator 1`] = `
   <span
     className="message"
   >
-    Fetching Customer Details...
+    <mock-FormattedMessage
+      defaultMessage="Fetching Customer Details..."
+      id="customerForm.loading"
+    />
   </span>
 </div>
 `;
@@ -246,7 +249,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -490,7 +496,10 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button
@@ -678,7 +687,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -920,7 +932,10 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button
@@ -960,7 +975,10 @@ Array [
       <p
         className="root"
       >
-        The shipping address you enter will be saved to your address book and set as your default for future purchases.
+        <mock-FormattedMessage
+          defaultMessage="The shipping address you enter will be saved to your address book and set as your default for future purchases."
+          id="customerForm.formMessage"
+        />
       </p>
     </div>
     <div
@@ -1167,7 +1185,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
