@@ -10,7 +10,10 @@ exports[`renders a default address 1`] = `
     <span
       className="defaultBadge"
     >
-      Default
+      <mock-FormattedMessage
+        defaultMessage="Default"
+        id="addressCard.defaultText"
+      />
     </span>
     <span
       className="name"
@@ -62,7 +65,10 @@ exports[`renders a default address 1`] = `
         <span
           className="actionLabel"
         >
-          Edit
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="addressBookPage.editAddress"
+          />
         </span>
       </span>
     </button>
@@ -127,7 +133,10 @@ exports[`renders a non-default address 1`] = `
         <span
           className="actionLabel"
         >
-          Edit
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="addressBookPage.editAddress"
+          />
         </span>
       </span>
     </button>
@@ -178,7 +187,10 @@ exports[`renders a non-default address 1`] = `
         <span
           className="actionLabel"
         >
-          Delete
+          <mock-FormattedMessage
+            defaultMessage="Delete"
+            id="addressBookPage.deleteAddress"
+          />
         </span>
       </span>
     </button>
