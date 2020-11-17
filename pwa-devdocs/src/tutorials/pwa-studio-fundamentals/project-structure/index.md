@@ -99,7 +99,7 @@ It uses [`configureWebpack`][] from PWA Studio's buildpack to create a configura
 #### `upward.yml`
 
 The `upward.yml` file is an [UPWARD][] configuration file.
-It provides provides instructions for how an UPWARD server implementation should respond to a request.
+It provides instructions for how an UPWARD server implementation should respond to a request.
 
 The `status`, `headers`, and `body` values defined in the default `upward.yml` file uses values from the `veniaResponse` object.
 This object is defined in the [venia-ui package's `upward.yml` file][].
