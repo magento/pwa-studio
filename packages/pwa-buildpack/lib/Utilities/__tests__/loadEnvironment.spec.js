@@ -88,13 +88,7 @@ test('throws on load if variable defs are invalid', async () => {
         changes: []
     });
 
-    try {
-        await loadEnvironment('./');
-    } catch (e) {
-        expect(e.message.replace(/\n/g, '')).toBe(
-            'Bad environment variable definition. Section inscrutable variable { "type": "ineffable"} declares an unknown type ineffable'
-        );
-    }
+    await expect(loadEnvironment('./')).rejects.toThrowErrorMatchingSnapshot();
 });
 
 test('parses dotenv file if argument is path string', async () => {
