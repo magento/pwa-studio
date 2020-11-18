@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
@@ -68,14 +68,9 @@ export const useSavedPaymentsPage = props => {
         setPageLoading(loading);
     }, [loading, setPageLoading]);
 
-    const handleAddPayment = useCallback(() => {
-        // TODO in PWA-637
-    }, []);
-
     const savedPayments = normalizeTokens(savedPaymentsData);
 
     return {
-        handleAddPayment,
         isLoading: loading,
         savedPayments
     };
