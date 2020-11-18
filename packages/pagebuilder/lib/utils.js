@@ -177,6 +177,13 @@ export function getIsHidden(node) {
     };
 }
 
+/**
+ * Modifies the node and children to include the current store view code in the
+ * link.
+ *
+ * @param node
+ * @returns node
+ */
 export function injectStoreCodeHref(node) {
     if (process.env.USE_STORE_CODE_IN_URL === 'true') {
         const storeViewCode =
