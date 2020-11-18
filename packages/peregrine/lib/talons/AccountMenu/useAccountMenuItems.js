@@ -23,7 +23,7 @@ export const useAccountMenuItems = props => {
         {
             name: 'Store Credit & Gift Cards',
             id: 'accountMenu.storeCreditLink',
-            url: ''
+            url: '/saved-payments'
         },
         {
             name: 'Favorites Lists',
