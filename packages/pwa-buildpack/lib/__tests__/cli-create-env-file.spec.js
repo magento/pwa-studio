@@ -2,11 +2,10 @@ jest.mock('fs');
 const { resolve } = require('path');
 const { writeFileSync } = require('fs');
 const dotenv = require('dotenv');
-const createEnvCliBuilder = require('../cli/create-env-file');
-
 jest.mock('../Utilities/getEnvVarDefinitions', () => () =>
     require('../../envVarDefinitions.json')
 );
+const createEnvCliBuilder = require('../cli/create-env-file');
 
 beforeEach(() => {
     jest.spyOn(console, 'warn').mockImplementation(() => {});
