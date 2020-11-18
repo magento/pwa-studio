@@ -1,3 +1,6 @@
+import { BrowserPersistence } from '@magento/peregrine/lib/util';
+const storage = new BrowserPersistence();
+
 /**
  * Retrieve background images from a master format node
  *
@@ -172,4 +175,19 @@ export function getIsHidden(node) {
     return {
         isHidden: node.style.display === 'none'
     };
+}
+
+export function injectStoreCodeHref(node) {
+    if (process.env.USE_STORE_CODE_IN_URL === 'true') {
+        const storeViewCode =
+            storage.getItem('store_view_code') || STORE_VIEW_CODE;
+
+        // For each link update the href to include the active store code.
+        node.querySelectorAll('a').forEach(oldNode => {
+            const newNode = oldNode.cloneNode(true);
+            newNode.href = `/${storeViewCode}${oldNode.getAttribute('href')}`;
+            oldNode.parentNode.replaceChild(newNode, oldNode);
+        });
+    }
+    return node;
 }
