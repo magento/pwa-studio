@@ -322,3 +322,24 @@ test('banner config aggregator retrieve background video collage-right banner co
         })
     );
 });
+
+test('banner config aggregator updates links with active store code', () => {
+    const old = process.env.USE_STORE_CODE_IN_URL;
+    const oldCode = window.STORE_VIEW_CODE;
+
+    process.env.USE_STORE_CODE_IN_URL = true;
+    window.STORE_VIEW_CODE = 'fr';
+
+    const node = document.createElement('div');
+    node.innerHTML =
+        '<div data-content-type="banner" data-appearance="collage-right" data-show-button="never" data-show-overlay="never" data-element="main" style="margin: 0px;"><div data-element="empty_link"><div class="pagebuilder-banner-wrapper" data-background-images="{}" data-background-type="video" data-video-src="mp4:https://example.com/example.mp4" data-video-loop="true" data-video-play-only-visible="true" data-video-lazy-load="true" data-video-fallback-src="https://example.com/image.jpg" data-element="wrapper" style="background-position: left top; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; padding: 40px; min-height: 500px;"><div class="video-overlay" data-video-overlay-color="rgba(216, 56, 56, 0.75)" data-element="video_overlay" style="background-color: rgba(216, 56, 56, 0.75);"></div><div class="pagebuilder-overlay" data-overlay-color="" data-element="overlay" style="background-color: transparent;"><div class="pagebuilder-collage-content"><div data-element="content"><a href="/shop-the-look.html"></a></div></div></div></div></div></div>';
+
+    expect(
+        configAggregator(node.childNodes[0], {
+            appearance: 'collage-right'
+        }).content
+    ).toEqual('<a href="/fr/shop-the-look.html"></a>');
+
+    process.env.USE_STORE_CODE_IN_URL = old;
+    window.STORE_VIEW_CODE = oldCode;
+});
