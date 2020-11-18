@@ -26,6 +26,29 @@ const Item = props => {
         closeMiniCart
     } = props;
 
+    const optionUids = configurable_options
+        .map(option => {
+            const string = `configurable/${option.id}/${option.value_id}`;
+            return new Buffer(string).toString('base64');
+        })
+        .sort()
+        .toString();
+
+    const variant = product.variants
+        .map(variant => {
+            const variantUids = variant.attributes
+                .map(attribute => attribute.uid)
+                .sort()
+                .toString();
+
+            return variantUids === optionUids && variant.product;
+        })
+        .filter(Boolean)[0];
+
+    const variantImage = useMemo(() => variant.thumbnail.url, [
+        variant.thumbnail.url
+    ]);
+
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, propClasses);
     const itemLink = useMemo(
@@ -60,7 +83,7 @@ const Item = props => {
                         root: classes.thumbnail
                     }}
                     width={100}
-                    resource={product.thumbnail.url}
+                    resource={variantImage || product.thumbnail.url}
                 />
             </Link>
             <Link

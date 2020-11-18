@@ -167,7 +167,8 @@ const flattenProduct = item => {
         small_image,
         stock_status: stockStatus,
         url_key: urlKey,
-        url_suffix: urlSuffix
+        url_suffix: urlSuffix,
+        variants
     } = product;
     const { url: image } = small_image;
 
@@ -180,7 +181,8 @@ const flattenProduct = item => {
         stockStatus,
         unitPrice,
         urlKey,
-        urlSuffix
+        urlSuffix,
+        variants
     };
 };
 

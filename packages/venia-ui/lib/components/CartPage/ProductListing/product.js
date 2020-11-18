@@ -49,8 +49,30 @@ const Product = props => {
         stockStatus,
         unitPrice,
         urlKey,
-        urlSuffix
+        urlSuffix,
+        variants
     } = product;
+
+    const optionUids = options
+        .map(option => {
+            const string = `configurable/${option.id}/${option.value_id}`;
+            return new Buffer(string).toString('base64');
+        })
+        .sort()
+        .toString();
+
+    const variant = variants
+        .map(variant => {
+            const variantUids = variant.attributes
+                .map(attribute => attribute.uid)
+                .sort()
+                .toString();
+
+            return variantUids === optionUids && variant.product;
+        })
+        .filter(Boolean)[0];
+
+    const variantImage = variant.thumbnail.url;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -103,7 +125,7 @@ const Product = props => {
                             image: classes.image
                         }}
                         width={IMAGE_SIZE}
-                        resource={image}
+                        resource={variantImage || image}
                     />
                 </Link>
                 <div className={classes.details}>

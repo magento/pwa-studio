@@ -14,6 +14,22 @@ export const ProductListFragment = gql`
                     url
                 }
                 stock_status
+                ... on ConfigurableProduct {
+                    variants {
+                        attributes {
+                            uid
+                        }
+                        product {
+                            id
+                            small_image {
+                                url
+                            }
+                            thumbnail {
+                                url
+                            }
+                        }
+                    }
+                }
             }
             prices {
                 price {
