@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
-import { RESPONSES, getRootComponent, isRedirect } from './helpers';
+import { getRootComponent, isRedirect } from './helpers';
 import DEFAULT_OPERATIONS from './magentoRoute.gql';
 
 export const useMagentoRoute = (props = {}) => {
@@ -27,12 +27,12 @@ export const useMagentoRoute = (props = {}) => {
         variables: { url: pathname }
     });
 
-    // destructure url result
+    // destructure the query result
     const { data, error, loading } = queryResult;
     const { urlResolver } = data || {};
     const { id, redirectCode, relative_url, type } = urlResolver || {};
 
-    // calculate response
+    // evaluate both results and determine the response type
     const component = componentMap.get(pathname);
     const empty = !urlResolver || !type || id < 1;
     const redirect = isRedirect(redirectCode);
@@ -41,15 +41,20 @@ export const useMagentoRoute = (props = {}) => {
     let routeData;
 
     if (component && !fetchError) {
-        routeData = RESPONSES.FOUND(component);
+        // FOUND
+        routeData = component;
     } else if (routeError) {
-        routeData = RESPONSES.ERROR(routeError);
-    } else if (empty && !loading) {
-        routeData = RESPONSES.NOT_FOUND;
+        // ERROR
+        routeData = { hasError: true, routeError };
     } else if (redirect) {
-        routeData = RESPONSES.REDIRECT(relative_url);
+        // REDIRECT
+        routeData = { isRedirect: true, relativeUrl: relative_url };
+    } else if (empty && !loading) {
+        // NOT FOUND
+        routeData = { isNotFound: true };
     } else {
-        routeData = RESPONSES.LOADING;
+        // LOADING
+        routeData = { isLoading: true };
     }
 
     // fetch a component if necessary
