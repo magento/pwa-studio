@@ -192,7 +192,13 @@ export function injectStoreCodeHref(node) {
         // For each link update the href to include the active store code.
         node.querySelectorAll('a').forEach(oldNode => {
             const newNode = oldNode.cloneNode(true);
-            newNode.href = `/${storeViewCode}${oldNode.getAttribute('href')}`;
+
+            // Since the href could be relative or absolute, use the property
+            // accessor to ensure we _always_ use the absolute.
+            const updatedUrl = new URL(oldNode.href);
+            updatedUrl.pathname = `${storeViewCode}${updatedUrl.pathname}`;
+            newNode.href = updatedUrl.href;
+
             oldNode.parentNode.replaceChild(newNode, oldNode);
         });
     }
