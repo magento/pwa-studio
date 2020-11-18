@@ -195,7 +195,10 @@ exports[`render open with no items 1`] = `
     className="content"
   >
     <p>
-      There are currently no items in this list
+      <mock-FormattedMessage
+        defaultMessage="There are currently no items in this list"
+        id="wishlist.emptyListText"
+      />
     </p>
   </div>
 </div>
