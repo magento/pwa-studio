@@ -12,7 +12,7 @@ export const beginCheckout = () =>
         // Before we begin, reset the state of checkout to clear out stale data.
         dispatch(actions.reset());
 
-        const storedAvailableShippingMethods = await retreiveAvailableShippingMethods();
+        const storedAvailableShippingMethods = await retrieveAvailableShippingMethods();
         const storedBillingAddress = await retrieveBillingAddress();
         const storedPaymentMethod = await retrievePaymentMethod();
         const storedShippingAddress = await retrieveShippingAddress();
@@ -353,7 +353,7 @@ async function clearAvailableShippingMethods() {
     return storage.removeItem('availableShippingMethods');
 }
 
-async function retreiveAvailableShippingMethods() {
+async function retrieveAvailableShippingMethods() {
     return storage.getItem('availableShippingMethods');
 }
 
