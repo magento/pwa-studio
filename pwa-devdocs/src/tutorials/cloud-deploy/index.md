@@ -4,35 +4,34 @@ title: Magento Cloud deployment
 
 [Magento Commerce Cloud][] is a managed, automated hosting platform for the Magento Commerce software.
 You can use this platform to host your storefront code by installing packages developed specifically to connect your storefront with Magento on the same server.
-Hosting your storefront code in the Magento Commerce Cloud lets you use the same [features and workflows][] as developers for the core Magento application.
 
-This tutorial provides the general steps for adding your storefront project code onto your Magento Commerce Cloud project and setting it as the front end application for your Cloud project.
+This tutorial provides the general steps for adding your storefront project code onto your Magento Commerce Cloud project and setting it as the front end application.
+By the end of this tutorial, you will have a Cloud project setup that includes your storefront project code bundles.
+You can use this setup to update and deploy your storefront project in Magento Commerce Cloud.
 
 ## Prerequisites
 
 Before you follow this tutorial, you should be familiar with Cloud's [Starter workflow][] or [Pro workflow][] depending on your plan.
 Make sure you complete the [Cloud onboarding tasks][] to avoid account or access issues.
 
+Verify that your Magento instance is [compatible][] with the PWA Studio version you use in your storefront project.
+
 This tutorial requires the following tools:
 
 -   [Magento Cloud CLI][]
 -   Git
--   Yarn or NPM (depends on your storefront project)
+-   Yarn or NPM (depends on your storefront project configuration)
 
 If you need to do more advanced Cloud tasks, see the [Cloud technologies and requirements][] for the full list of tools you need to fully manage your Cloud project.
-
-{: .bs-callout .bs-callout-warning}
-Magento Cloud does not support node processes, so you cannot use UPWARD-JS to serve your storefront project.
-You must use the [magento2-upward-connector][] module with [UPWARD-PHP][] to deploy your storefront in Magento Cloud.
 
 ## Tasks overview
 
 1. Clone your Cloud project
-2. Add your storefront project code
-3. Add required Magento extensions
-4. Set your environment variables
-5. Build your storefront application
-6. Commit and push your changes
+1. Add required Magento extensions
+1. Set your environment variables
+1. Build your storefront application
+1. Add your storefront project code
+1. Commit and push your changes
 
 ## Clone your Cloud project
 
@@ -93,9 +92,12 @@ Use the Magento Cloud CLI to checkout the environment where you want to add your
 magento-cloud checkout staging
 ```
 
-## Add Composer dependencies
+## Add required Magento extensions
 
-Use the `composer` CLI command to include the UPWARD module in the Magento installation:
+Magento Cloud does not support node processes, so you cannot use UPWARD-JS to serve your storefront project.
+You must use the [magento2-upward-connector][] module with [UPWARD-PHP][] to deploy your storefront in Magento Cloud.
+
+Use the `composer` CLI command to add the magento2-upward-connector module to the Magento installation:
 
 ```sh
 composer require magento/module-upward-connector
@@ -106,6 +108,10 @@ This command modifies the `composer.json` file and adds the package entry to the
 ```json
 "magento/module-upward-connector": "^1.0.1"
 ```
+
+{: .bs-callout .bs-callout-info}
+UPWARD-PHP is a dependency of the magento2-upward-connector, so
+you do not need to add it manually to your project.
 
 ## Add Venia sample data (optional)
 
@@ -307,6 +313,8 @@ Push your local changes for your deployment and wait for it to complete.
 You have installed a PWA storefront on the Cloud!
 
 You should be able to navigate to the frontend URL of your Cloud instance and see your PWA storefront.
+
+[compatible]: <{%link technologies/magento-compatibility/index.md %}>
 
 [magento pwa studio]: http://pwastudio.io
 [`@magento/venia-concept`]: https://www.npmjs.com/package/@magento/venia-concept
