@@ -29,7 +29,7 @@ test('creates and writes file', async () => {
         directory: process.cwd() || '/'
     });
     expect(writeFileSync).toHaveBeenCalledWith(
-        resolve(process.cwd(), '.env'),
+        resolve(process.cwd() || '/', '.env'),
         expect.stringContaining('https://example.com/'),
         'utf8'
     );
@@ -43,7 +43,7 @@ test('creates and writes file with examples', async () => {
         useExamples: true
     });
     expect(writeFileSync).toHaveBeenCalledWith(
-        resolve(process.cwd(), '.env'),
+        resolve(process.cwd() || '/', '.env'),
         expect.stringContaining('https://example.com/'),
         'utf8'
     );
