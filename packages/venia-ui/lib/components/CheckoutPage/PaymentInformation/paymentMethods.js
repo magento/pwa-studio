@@ -74,12 +74,20 @@ const PaymentMethods = props => {
         .filter(paymentMethod => !!paymentMethod);
 
     const noPaymentMethodMessage = !radios.length ? (
-        <span className={classes.no_payment_method}>
-            {formatMessage({
-                id: 'checkoutPage.noPaymentMethodAvailable',
-                defaultMessage: 'No payment method available.'
-            })}
-        </span>
+        <div className={classes.payment_errors}>
+            <span>
+                {formatMessage({
+                    id: 'checkoutPage.paymentLoadingError',
+                    defaultMessage: 'There was an error loading payments.'
+                })}
+            </span>
+            <span>
+                {formatMessage({
+                    id: 'checkoutPage.refreshOrTryAgainLater',
+                    defaultMessage: 'Please refresh or try again later.'
+                })}
+            </span>
+        </div>
     ) : null;
 
     return (

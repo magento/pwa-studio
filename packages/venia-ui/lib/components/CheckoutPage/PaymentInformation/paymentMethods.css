@@ -15,3 +15,9 @@
     font-weight: 600;
     justify-self: start;
 }
+
+.payment_errors {
+    display: grid;
+    gap: 0.5em;
+    color: rgb(var(--venia-global-color-error));
+}
