@@ -9,6 +9,7 @@ const createEnvCliBuilder = require('../cli/create-env-file');
 jest.mock('../Utilities/createDotEnvFile', () =>
     jest.fn().mockResolvedValue('DOT ENV FILE CONTENTS')
 );
+const createDotEnvFile = require('../Utilities/createDotEnvFile');
 
 jest.mock('path', () => {
     const path = jest.requireActual('path');
@@ -37,21 +38,26 @@ test('is a yargs builder', () => {
 
 test('creates and writes file', async () => {
     process.env.MAGENTO_BACKEND_URL = 'https://example.com/';
+    const directory = process.cwd();
     await createEnvCliBuilder.handler({
-        directory: process.cwd()
+        directory
     });
     expect(writeFileSync).toHaveBeenCalledWith(
         './pwa-studio/.env',
         'DOT ENV FILE CONTENTS',
         'utf8'
     );
+    expect(createDotEnvFile).toHaveBeenCalledWith(directory, {
+        useExamples: undefined
+    });
     expect(console.warn).toHaveBeenCalledWith(expect.stringContaining('wrote'));
 });
 
 test('creates and writes file with examples', async () => {
     process.env.MAGENTO_BACKEND_URL = 'https://example.com/';
+    const directory = process.cwd();
     await createEnvCliBuilder.handler({
-        directory: process.cwd(),
+        directory,
         useExamples: true
     });
     expect(writeFileSync).toHaveBeenCalledWith(
@@ -59,5 +65,8 @@ test('creates and writes file with examples', async () => {
         'DOT ENV FILE CONTENTS',
         'utf8'
     );
+    expect(createDotEnvFile).toHaveBeenCalledWith(directory, {
+        useExamples: true
+    });
     expect(console.warn).toHaveBeenCalledWith(expect.stringContaining('wrote'));
 });
