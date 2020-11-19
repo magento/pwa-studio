@@ -6,8 +6,6 @@ jest.mock('../Utilities/getEnvVarDefinitions', () => () =>
 );
 const createEnvCliBuilder = require('../cli/create-env-file');
 
-const RealToISOString = Date.prototype.toISOString;
-
 jest.mock('../Utilities/createDotEnvFile', () =>
     jest.fn().mockResolvedValue('DOT ENV FILE CONTENTS')
 );
@@ -19,16 +17,6 @@ jest.mock('path', () => {
         ...path,
         resolve: jest.fn().mockReturnValue('./pwa-studio/.env')
     };
-});
-
-beforeAll(() => {
-    global.Date.prototype.toISOString = jest
-        .fn()
-        .mockReturnValue('2019-04-22T10:20:30Z');
-});
-
-afterAll(() => {
-    global.Date.prototype.toISOString = RealToISOString;
 });
 
 beforeEach(() => {
