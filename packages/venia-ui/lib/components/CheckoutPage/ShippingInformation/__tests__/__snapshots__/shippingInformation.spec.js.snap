@@ -10,7 +10,10 @@ exports[`renders card state with customer data 1`] = `
     <h5
       className="cardTitle"
     >
-      Shipping Information
+      <mock-FormattedMessage
+        defaultMessage="Shipping Information"
+        id="shippingInformation.cardTitle"
+      />
     </h5>
     <button
       className="editButton"
@@ -44,7 +47,10 @@ exports[`renders card state with customer data 1`] = `
         <span
           className="editText"
         >
-          Edit
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="global.editButton"
+          />
         </span>
       </span>
     </button>
@@ -65,7 +71,10 @@ exports[`renders card state with guest data 1`] = `
     <h5
       className="cardTitle"
     >
-      Shipping Information
+      <mock-FormattedMessage
+        defaultMessage="Shipping Information"
+        id="shippingInformation.cardTitle"
+      />
     </h5>
     <button
       className="editButton"
@@ -99,7 +108,10 @@ exports[`renders card state with guest data 1`] = `
         <span
           className="editText"
         >
-          Edit
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="global.editButton"
+          />
         </span>
       </span>
     </button>
@@ -120,7 +132,10 @@ exports[`renders form state without data 1`] = `
   <h3
     className="editTitle"
   >
-    1. Shipping Information
+    <mock-FormattedMessage
+      defaultMessage="1. Shipping Information"
+      id="shippingInformation.editTitle"
+    />
   </h3>
   <div
     className="editWrapper"
@@ -140,6 +155,9 @@ exports[`renders loading element 1`] = `
     }
   }
 >
-  Fetching Shipping Information...
+  <mock-FormattedMessage
+    defaultMessage="Fetching Shipping Information..."
+    id="shippingInformation.loading"
+  />
 </LoadingIndicator>
 `;

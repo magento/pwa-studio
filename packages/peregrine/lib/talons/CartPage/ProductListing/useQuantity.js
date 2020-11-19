@@ -75,7 +75,7 @@ export const useQuantity = props => {
             try {
                 // For some storefronts decimal values are allowed.
                 const nextVal = parseFloat(value);
-                if (isNaN(nextVal))
+                if (value && isNaN(nextVal))
                     throw new Error(`${value} is not a number.`);
                 if (nextVal < min) return min;
                 else return nextVal;

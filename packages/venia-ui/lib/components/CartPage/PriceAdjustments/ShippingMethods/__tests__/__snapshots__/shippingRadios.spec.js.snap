@@ -51,7 +51,10 @@ exports[`automatically selects first option when none selected 1`] = `
           className="price"
         >
           <span>
-            FREE
+            <mock-FormattedMessage
+              defaultMessage="FREE"
+              id="global.free"
+            />
           </span>
         </div>
       </span>
@@ -170,7 +173,10 @@ exports[`renders list of shipping methods 1`] = `
           className="price"
         >
           <span>
-            FREE
+            <mock-FormattedMessage
+              defaultMessage="FREE"
+              id="global.free"
+            />
           </span>
         </div>
       </span>

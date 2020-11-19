@@ -11,7 +11,10 @@ exports[`renders closed modal 1`] = `
       <span
         className="headerText"
       >
-        Edit Shipping Information
+        <mock-FormattedMessage
+          defaultMessage="Edit Shipping Information"
+          id="checkoutPage.editShippingInfo"
+        />
       </span>
       <button
         className="closeButton"
@@ -66,7 +69,10 @@ exports[`renders open modal 1`] = `
       <span
         className="headerText"
       >
-        Edit Shipping Information
+        <mock-FormattedMessage
+          defaultMessage="Edit Shipping Information"
+          id="checkoutPage.editShippingInfo"
+        />
       </span>
       <button
         className="closeButton"

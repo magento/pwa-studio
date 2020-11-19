@@ -1,7 +1,15 @@
 .root {
+    padding-right: 1.5rem;
+}
+
+.heading {
+    font-weight: var(--venia-global-fontWeight-bold);
+    padding-bottom: 0.75rem;
+}
+
+.itemsContainer {
     display: grid;
     row-gap: 2.5rem;
-    padding-right: 1.5rem;
 }
 
 @media (max-width: 960px) {
