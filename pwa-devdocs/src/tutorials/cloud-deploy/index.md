@@ -28,7 +28,7 @@ If you need to do more advanced Cloud tasks, see the [Cloud technologies and req
 
 1. Clone your Cloud project
 1. Add required Magento extensions
-1. Set your environment variables
+1. Set environment variables
 1. Build your storefront application
 1. Add your storefront project code
 1. Commit and push your changes
@@ -112,6 +112,32 @@ This command modifies the `composer.json` file and adds the package entry to the
 {: .bs-callout .bs-callout-info}
 UPWARD-PHP is a dependency of the magento2-upward-connector, so
 you do not need to add it manually to your project.
+
+### Set environment variables
+
+PWA Studio storefronts require you to set the following [environment variables][] in your Cloud project:
+
+| Name                                 | Description                                          |
+| ------------------------------------ | ---------------------------------------------------- |
+| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | Absolute path to UPWARD YAML configuration           |
+| `NODE_ENV`                           | Specifies the node environment type                  |
+| `MAGENTO_BACKEND_URL`                | URL of your Magento backend                          |
+| `CHECKOUT_BRAINTREE_TOKEN`           | Braintree token associated with your Magento backend |
+| `MAGENTO_BACKEND_EDITION`            | Either `CE` or `EE`                                  |
+| `IMAGE_OPTIMIZING_ORIGIN`            | Origin to use for images in the UI                   |
+
+Magento Cloud offers a variety of ways to set environment variables, but the most direct way is to edit the [`.magento.app.yaml`][] file and add entries to the `variables.env` section.
+
+```text
+variables:
+    env:
+        CONFIG__DEFAULT__WEB__UPWARD__PATH: "/app/pwa/dist/upward.yml"
+        NODE_ENV: "production"
+        MAGENTO_BACKEND_URL: "https://[your-cloud-url-here]/"
+        CHECKOUT_BRAINTREE_TOKEN: "<generated token from Braintree>"
+        MAGENTO_BACKEND_EDITION: "EE"
+        IMAGE_OPTIMIZING_ORIGIN: "backend"
+```
 
 ## Add Venia sample data (optional)
 
@@ -281,21 +307,6 @@ hooks:
         php ./vendor/bin/ece-tools build:transfer
 ```
 
-### Add required environment variables
-
-Use the Magento Cloud GUI or modify the `variables.env` entry in `.magento.app.yaml` to add any required environment variables.
-
-The following table lists the required environment variables for the Venia storefront:
-
-| Name                                 | Value                                                                                                   |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
-| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | `/app/pwa/upward.yml` (absolute path to UPWARD YAML configuration)                                      |
-| `NODE_ENV`                           | `production`                                                                                            |
-| `MAGENTO_BACKEND_URL`                | `https://[your-cloud-url-here]`                                                                         |
-| `CHECKOUT_BRAINTREE_TOKEN`           | `<generated token from Braintree>`                                                                      |
-| `MAGENTO_BACKEND_EDITION`            | `EE` (enable Magento Commerce features)                                                                 |
-| `IMAGE_OPTIMIZING_ORIGIN`            | `backend` (use Fastly for image optimization)                                                           |
-
 ## Commit modified files
 
 Commit all changes to the following files:
@@ -315,6 +326,7 @@ You have installed a PWA storefront on the Cloud!
 You should be able to navigate to the frontend URL of your Cloud instance and see your PWA storefront.
 
 [compatible]: <{%link technologies/magento-compatibility/index.md %}>
+[environment variables]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}>
 
 [magento pwa studio]: http://pwastudio.io
 [`@magento/venia-concept`]: https://www.npmjs.com/package/@magento/venia-concept
@@ -330,3 +342,4 @@ You should be able to navigate to the frontend URL of your Cloud instance and se
 [pro workflow]: https://devdocs.magento.com/cloud/architecture/pro-develop-deploy-workflow.html
 [cloud onboarding tasks]: https://devdocs.magento.com/cloud/onboarding/onboarding-tasks.html
 [magento cloud cli]: https://devdocs.magento.com/cloud/reference/cli-ref-topic.html
+[`.magento.app.yaml`]: https://devdocs.magento.com/cloud/project/magento-env-yaml.html
