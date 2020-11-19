@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
@@ -37,6 +37,10 @@ export const useAddressBookPage = props => {
         }
     );
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [activeEditAddress, setActiveEditAddress] = useState();
+    const isDialogEditMode = !!activeEditAddress;
+
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
         if (!isSignedIn) {
@@ -50,8 +54,28 @@ export const useAddressBookPage = props => {
     }, [loading, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
-        alert('TODO!');
+        setActiveEditAddress(null);
+        setIsDialogOpen(true);
     }, []);
+
+    const handleEditAddress = useCallback(address => {
+        setActiveEditAddress(address);
+        setIsDialogOpen(true);
+    }, []);
+
+    const handleCancelDialog = useCallback(() => {
+        setIsDialogOpen(false);
+    }, []);
+
+    const handleConfirmDialog = useCallback(() => {
+        if (isDialogEditMode) {
+            // TODO
+        } else {
+            // Adding a new address.
+        }
+
+        setIsDialogOpen(false);
+    }, [isDialogEditMode]);
 
     const customerAddresses =
         (customerAddressesData &&
@@ -59,8 +83,17 @@ export const useAddressBookPage = props => {
             customerAddressesData.customer.addresses) ||
         [];
 
+    const formErrors = [];
+
     return {
+        activeEditAddress,
         customerAddresses,
-        handleAddAddress
+        formErrors,
+        handleAddAddress,
+        handleCancelDialog,
+        handleConfirmDialog,
+        handleEditAddress,
+        isDialogEditMode,
+        isDialogOpen
     };
 };

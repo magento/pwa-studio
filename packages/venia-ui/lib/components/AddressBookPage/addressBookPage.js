@@ -10,6 +10,7 @@ import AddressCard from '../CheckoutPage/AddressBook/addressCard';
 import Icon from '../Icon';
 import LinkButton from '../LinkButton';
 import { Title } from '../Head';
+import AddEditDialog from './addEditDialog';
 import defaultClasses from './addressBookPage.css';
 
 const AddressBookPage = props => {
@@ -18,7 +19,17 @@ const AddressBookPage = props => {
             getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES
         }
     });
-    const { customerAddresses, handleAddAddress } = talonProps;
+    const {
+        activeEditAddress,
+        customerAddresses,
+        formErrors,
+        handleAddAddress,
+        handleCancelDialog,
+        handleConfirmDialog,
+        handleEditAddress,
+        isDialogEditMode,
+        isDialogOpen
+    } = talonProps;
 
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -60,7 +71,18 @@ const AddressBookPage = props => {
                     </span>
                 </LinkButton>
                 {addressBookElements}
+                <button onClick={handleEditAddress} type="button">
+                    Edit TEST
+                </button>
             </div>
+            <AddEditDialog
+                activeEditAddress={activeEditAddress}
+                formErrors={formErrors}
+                isDialogEditMode={isDialogEditMode}
+                isDialogOpen={isDialogOpen}
+                handleCancelDialog={handleCancelDialog}
+                handleConfirmDialog={handleConfirmDialog}
+            />
         </div>
     );
 };
