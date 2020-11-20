@@ -13,3 +13,7 @@ export const GET_PRODUCT_DETAIL_QUERY = gql`
     }
     ${ProductDetailsFragment}
 `;
+
+export default {
+    getProductDetailQuery: GET_PRODUCT_DETAIL_QUERY
+};

@@ -1,39 +1,12 @@
 import { gql } from '@apollo/client';
 
-export const ProductDetailsFragment = gql`
-    fragment ProductDetailsFragment on ProductInterface {
-        categories {
-            id
-            breadcrumbs {
-                category_id
-            }
-        }
-        description {
-            html
-        }
+export const EditFormFragment = gql`
+    fragment EditFormFragment on ProductInterface {
         id
-        media_gallery_entries {
-            id
-            label
-            position
-            disabled
-            file
-        }
-        meta_description
         name
-        price {
-            regularPrice {
-                amount {
-                    currency
-                    value
-                }
-            }
-        }
         sku
-        small_image {
-            url
-        }
         url_key
+        __typename
         ... on ConfigurableProduct {
             configurable_options {
                 attribute_code
@@ -70,14 +43,6 @@ export const ProductDetailsFragment = gql`
                     }
                     sku
                     stock_status
-                    price {
-                        regularPrice {
-                            amount {
-                                currency
-                                value
-                            }
-                        }
-                    }
                 }
             }
         }

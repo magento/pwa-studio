@@ -38,9 +38,6 @@ const Component = props => {
 
 const props = {
     mapProduct: jest.fn(product => product),
-    queries: {
-        getProductQuery: 'getProductQuery'
-    },
     urlKey: 'unit_test'
 };
 

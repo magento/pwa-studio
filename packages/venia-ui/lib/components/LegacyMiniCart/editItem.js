@@ -5,7 +5,7 @@ import { useEditItem } from '@magento/peregrine/lib/talons/LegacyMiniCart/useEdi
 
 import LoadingIndicator from '../LoadingIndicator';
 import CartOptions from './cartOptions';
-import { ProductDetailsFragment } from '@magento/venia-ui/lib/RootComponents/Product/productDetailFragment.gql';
+import { EditFormFragment } from './editFormFragment.gql';
 
 const ERROR_TEXT = 'Unable to fetch item options.';
 const LOADING_TEXT = 'Fetching Item Options...';
@@ -57,9 +57,9 @@ export const PRODUCT_DETAILS = gql`
         products(filter: { sku: { eq: $sku } }) {
             items {
                 id
-                ...ProductDetailsFragment
+                ...EditFormFragment
             }
         }
     }
-    ${ProductDetailsFragment}
+    ${EditFormFragment}
 `;

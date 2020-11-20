@@ -12,7 +12,7 @@ import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
 import defaultClasses from './productForm.css';
 import { CartPageFragment } from '../../cartPageFragments.gql';
-import { ProductDetailsFragment } from '@magento/venia-ui/lib/RootComponents/Product/productDetailFragment.gql';
+import { ProductFormFragment } from './productFormFragment.gql';
 
 const ProductForm = props => {
     const { item: cartItem, setIsCartUpdating, setVariantPrice } = props;
@@ -121,11 +121,11 @@ export const GET_CONFIGURABLE_OPTIONS = gql`
         products(filter: { sku: { eq: $sku } }) {
             items {
                 id
-                ...ProductDetailsFragment
+                ...ProductFormFragment
             }
         }
     }
-    ${ProductDetailsFragment}
+    ${ProductFormFragment}
 `;
 
 export const UPDATE_QUANTITY_MUTATION = gql`
