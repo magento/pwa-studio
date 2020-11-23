@@ -76,32 +76,6 @@ exports[`renders correctly when there are no existing saved payments 1`] = `
   </h3>
   <div
     className="content"
-  >
-    <button
-      className="addButton"
-      disabled={false}
-      onClick={[MockFunction handleAddPayment]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        <Icon
-          classes={
-            Object {
-              "icon": "addIcon",
-            }
-          }
-          size={24}
-          src={[Function]}
-        />
-        <span
-          className="addText"
-        >
-          Add a credit card
-        </span>
-      </span>
-    </button>
-  </div>
+  />
 </div>
 `;
