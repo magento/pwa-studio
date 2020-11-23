@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedDisplayName, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { shape, string, bool, arrayOf } from 'prop-types';
 import { Trash2 as TrashIcon, Edit2 as EditIcon } from 'react-feather';
 
@@ -9,7 +9,7 @@ import defaultClasses from './addressCard.css';
 import LinkButton from '../LinkButton';
 
 const AddressCard = props => {
-    const { address, classes: propClasses } = props;
+    const { address, classes: propClasses, countryName } = props;
 
     const {
         city,
@@ -70,7 +70,7 @@ const AddressCard = props => {
                     {additionalAddressString}
                 </span>
                 <span className={classes.country}>
-                    <FormattedDisplayName type="region" value={country_code} />
+                    {countryName || country_code}
                 </span>
                 <span className={classes.telephone}>
                     <FormattedMessage
@@ -112,7 +112,8 @@ AddressCard.propTypes = {
             region_code: string,
             region: string
         }),
-        street: arrayOf(string)
+        street: arrayOf(string),
+        telephone: string
     }).isRequired,
     classes: shape({
         actionContainer: string,
@@ -129,6 +130,8 @@ AddressCard.propTypes = {
         name: string,
         root: string,
         root_updated: string,
-        streetRow: string
-    })
+        streetRow: string,
+        telephone: string
+    }),
+    countryName: string
 };

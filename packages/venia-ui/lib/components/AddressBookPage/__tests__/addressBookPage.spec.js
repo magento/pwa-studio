@@ -20,6 +20,7 @@ jest.mock('../addressCard', () => 'AddressCard');
 
 const props = {};
 const talonProps = {
+    countryDisplayNameMap: new Map([['US', 'United States']]),
     customerAddresses: [],
     handleAddAddress: jest.fn().mockName('handleAddAddress'),
     isLoading: false
@@ -49,9 +50,9 @@ it('renders correctly when there are existing addresses', () => {
     const myTalonProps = {
         ...talonProps,
         customerAddresses: [
-            { id: 'a' },
-            { id: 'b', default_shipping: true },
-            { id: 'c' }
+            { id: 'a', country_code: 'US' },
+            { id: 'b', country_code: 'US', default_shipping: true },
+            { id: 'c', country_code: 'FR' }
         ]
     };
     useAddressBookPage.mockReturnValueOnce(myTalonProps);

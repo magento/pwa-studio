@@ -17,7 +17,9 @@ const mockAddress = {
 };
 
 test('renders a default address', () => {
-    const tree = createTestInstance(<AddressCard address={mockAddress} />);
+    const tree = createTestInstance(
+        <AddressCard address={mockAddress} countryName="United States" />
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

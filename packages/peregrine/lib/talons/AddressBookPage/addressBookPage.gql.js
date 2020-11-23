@@ -22,6 +22,11 @@ export const GET_CUSTOMER_ADDRESSES = gql`
                 telephone
             }
         }
+
+        countries {
+            id
+            full_name_locale
+        }
     }
 `;
 

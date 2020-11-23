@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
@@ -65,7 +65,22 @@ export const useAddressBookPage = (props = {}) => {
             customerAddressesData.customer.addresses) ||
         [];
 
+    // use data from backend until Intl.DisplayNames is widely supported
+    const countryDisplayNameMap = useMemo(() => {
+        const countryMap = new Map();
+
+        if (customerAddressesData) {
+            const { countries } = customerAddressesData;
+            countries.forEach(country => {
+                countryMap.set(country.id, country.full_name_locale);
+            });
+        }
+
+        return countryMap;
+    }, [customerAddressesData]);
+
     return {
+        countryDisplayNameMap,
         customerAddresses,
         handleAddAddress,
         isLoading: isLoadingWithoutData

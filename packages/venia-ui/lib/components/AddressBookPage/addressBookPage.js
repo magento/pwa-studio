@@ -13,7 +13,12 @@ import AddressCard from './addressCard';
 
 const AddressBookPage = props => {
     const talonProps = useAddressBookPage();
-    const { customerAddresses, handleAddAddress, isLoading } = talonProps;
+    const {
+        countryDisplayNameMap,
+        customerAddresses,
+        handleAddAddress,
+        isLoading
+    } = talonProps;
 
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -23,15 +28,25 @@ const AddressBookPage = props => {
         defaultMessage: 'Address Book'
     });
     const addressBookElements = useMemo(() => {
-        const addresses = customerAddresses.map(addressEntry => (
-            <AddressCard key={addressEntry.id} address={addressEntry} />
-        ));
+        const addresses = customerAddresses.map(addressEntry => {
+            const countryName = countryDisplayNameMap.get(
+                addressEntry.country_code
+            );
+
+            return (
+                <AddressCard
+                    key={addressEntry.id}
+                    address={addressEntry}
+                    countryName={countryName}
+                />
+            );
+        });
 
         // sort the collection so the default is first
         return addresses.sort(address =>
             address.props.address.default_shipping ? -1 : 1
         );
-    }, [customerAddresses]);
+    }, [countryDisplayNameMap, customerAddresses]);
 
     if (isLoading) {
         return fullPageLoadingIndicator;

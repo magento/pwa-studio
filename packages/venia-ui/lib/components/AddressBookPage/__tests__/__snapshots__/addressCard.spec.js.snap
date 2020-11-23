@@ -38,10 +38,7 @@ exports[`renders a default address 1`] = `
     <span
       className="country"
     >
-      <mock-FormattedDisplayName
-        type="region"
-        value="US"
-      />
+      United States
     </span>
     <span
       className="telephone"
@@ -132,10 +129,7 @@ exports[`renders a non-default address 1`] = `
     <span
       className="country"
     >
-      <mock-FormattedDisplayName
-        type="region"
-        value="US"
-      />
+      US
     </span>
     <span
       className="telephone"
