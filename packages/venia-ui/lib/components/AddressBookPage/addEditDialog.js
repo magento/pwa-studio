@@ -1,4 +1,5 @@
 import React from 'react';
+import { array, bool, func, shape } from 'prop-types';
 import { useIntl } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -18,10 +19,10 @@ const AddEditDialog = props => {
     const {
         activeEditAddress,
         formErrors,
-        isDialogEditMode,
-        isDialogOpen,
-        handleCancelDialog,
-        handleConfirmDialog
+        isEditMode,
+        isOpen,
+        handleCancel,
+        handleConfirm
     } = props;
 
     const { formatMessage } = useIntl();
@@ -29,7 +30,7 @@ const AddEditDialog = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let formatTitleArgs;
-    if (isDialogEditMode) {
+    if (isEditMode) {
         formatTitleArgs = {
             id: 'addressBookPage.editDialogTitle',
             defaultMessage: 'Edit Address'
@@ -84,9 +85,9 @@ const AddEditDialog = props => {
         <Dialog
             confirmTranslationId={'global.save'}
             confirmText="Save"
-            isOpen={isDialogOpen}
-            onCancel={handleCancelDialog}
-            onConfirm={handleConfirmDialog}
+            isOpen={isOpen}
+            onCancel={handleCancel}
+            onConfirm={handleConfirm}
             title={title}
         >
             <FormError
@@ -158,3 +159,13 @@ const AddEditDialog = props => {
 };
 
 export default AddEditDialog;
+
+AddEditDialog.propTypes = {
+    activeEditAddress: shape({}),
+    classes: shape({}),
+    formErrors: array,
+    isEditMode: bool,
+    isOpen: bool,
+    handleCancel: func,
+    handleConfirm: func
+};

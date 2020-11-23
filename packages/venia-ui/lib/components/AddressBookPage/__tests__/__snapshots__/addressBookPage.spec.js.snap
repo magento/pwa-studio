@@ -50,7 +50,13 @@ exports[`renders correctly when there are existing addresses 1`] = `
     <AddressCard
       address="c"
     />
+    <button
+      type="button"
+    >
+      Edit TEST
+    </button>
   </div>
+  <AddEditDialog />
 </div>
 `;
 
@@ -95,6 +101,12 @@ exports[`renders correctly when there are no existing addresses 1`] = `
         </span>
       </span>
     </button>
+    <button
+      type="button"
+    >
+      Edit TEST
+    </button>
   </div>
+  <AddEditDialog />
 </div>
 `;

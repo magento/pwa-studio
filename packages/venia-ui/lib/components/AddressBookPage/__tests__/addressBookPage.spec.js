@@ -6,6 +6,7 @@ import AddressBookPage from '../addressBookPage';
 
 jest.mock('@magento/venia-ui/lib/classify');
 
+jest.mock('../addEditDialog', () => 'AddEditDialog');
 jest.mock('../../Head', () => ({ Title: () => 'Title' }));
 jest.mock('../../CheckoutPage/AddressBook/addressCard', () => 'AddressCard');
 jest.mock('../../Icon', () => 'Icon');

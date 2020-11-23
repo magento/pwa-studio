@@ -67,15 +67,19 @@ export const useAddressBookPage = props => {
         setIsDialogOpen(false);
     }, []);
 
-    const handleConfirmDialog = useCallback(() => {
-        if (isDialogEditMode) {
-            // TODO
-        } else {
-            // Adding a new address.
-        }
+    const handleConfirmDialog = useCallback(
+        formValues => {
+            if (isDialogEditMode) {
+                console.log('submit edit address', formValues);
+            } else {
+                // Adding a new address.
+                console.log('submit add new address', formValues);
+            }
 
-        setIsDialogOpen(false);
-    }, [isDialogEditMode]);
+            setIsDialogOpen(false);
+        },
+        [isDialogEditMode]
+    );
 
     const customerAddresses =
         (customerAddressesData &&

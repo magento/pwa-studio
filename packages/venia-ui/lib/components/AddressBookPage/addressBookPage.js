@@ -78,10 +78,10 @@ const AddressBookPage = props => {
             <AddEditDialog
                 activeEditAddress={activeEditAddress}
                 formErrors={formErrors}
-                isDialogEditMode={isDialogEditMode}
-                isDialogOpen={isDialogOpen}
-                handleCancelDialog={handleCancelDialog}
-                handleConfirmDialog={handleConfirmDialog}
+                isEditMode={isDialogEditMode}
+                isOpen={isDialogOpen}
+                handleCancel={handleCancelDialog}
+                handleConfirm={handleConfirmDialog}
             />
         </div>
     );
