@@ -4,6 +4,8 @@
     box-shadow: none;
     cursor: pointer;
     display: grid;
+    column-gap: 1rem;
+    row-gap: 2rem;
     grid-template-columns: 1fr auto;
     font-size: 1rem;
     padding: 1rem 1.25rem;
@@ -34,6 +36,7 @@
 }
 
 .title {
+    font-weight: 600;
     grid-column: 1 / span 1;
     grid-row: 1 / span 1;
 }
@@ -68,4 +71,9 @@
     stroke: rgb(var(--venia-brand-color-1-700));
     fill: var(--fill, white);
     transition: fill 384ms var(--venia-global-anim-standard);
+}
+
+.deleteText {
+    padding-left: 5px;
+    stroke: rgb(var(--venia-brand-color-1-700));
 }

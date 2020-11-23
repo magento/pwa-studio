@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -7,8 +7,24 @@ import Icon from '../Icon';
 
 import defaultClasses from './creditCard.css';
 
+/**
+ * Enumerated list of supported credit card types from
+ *
+ * https://github.com/magento/magento2/blob/2.4-develop/app/code/Magento/Payment/view/base/web/js/model/credit-card-validation/credit-card-number-validator/credit-card-type.js
+ */
 const cardTypeMapper = {
-    VI: 'Visa'
+    VI: 'Visa',
+    MC: 'MasterCard',
+    AE: 'American Express',
+    DN: 'Diners',
+    DI: 'Discover',
+    JCB: 'JCB',
+    UN: 'UnionPay',
+    MI: 'Maestro International',
+    MD: 'Maestro Domestic',
+    HC: 'Hipercard',
+    ELO: 'Elo',
+    AU: 'Aura'
 };
 
 const CreditCard = props => {
@@ -16,7 +32,7 @@ const CreditCard = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const title = 'Credit Card';
-    const cardNumberAndType = `**** ${details.maskedCC} \u00A0\u00A0 ${
+    const number = `**** ${details.maskedCC} \u00A0\u00A0 ${
         cardTypeMapper[details.type]
     }`;
     const cardExpiryDate = useMemo(() => {
@@ -28,8 +44,11 @@ const CreditCard = props => {
 
         return `${longMonth} ${year}`;
     }, [details.expirationDate]);
+
+    // Should be moved to a talon in the future
+    const handleDelete = useCallback(() => {}, []);
     const deleteButton = (
-        <button className={classes.deleteButton} onClick={() => {}}>
+        <button className={classes.deleteButton} onClick={handleDelete}>
             <Icon
                 classes={{
                     icon: classes.deleteIcon
@@ -37,13 +56,14 @@ const CreditCard = props => {
                 size={16}
                 src={DeleteIcon}
             />
+            <span className={classes.deleteText}>{'Delete'}</span>
         </button>
     );
 
     return (
         <div className={classes.root} key={public_hash}>
             <div className={classes.title}>{title}</div>
-            <div className={classes.number}>{cardNumberAndType}</div>
+            <div className={classes.number}>{number}</div>
             <div className={classes.expiry_date}>{cardExpiryDate}</div>
             <div className={classes.delete}>{deleteButton}</div>
         </div>
