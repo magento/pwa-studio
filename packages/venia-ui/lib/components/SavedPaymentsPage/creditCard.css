@@ -1,0 +1,71 @@
+.root {
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    box-shadow: none;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    font-size: 1rem;
+    padding: 1rem 1.25rem;
+    position: relative;
+    row-gap: 0.5rem;
+    transition: border-color 384ms var(--venia-global-anim-in);
+    outline: none;
+}
+
+@media (min-width: 961px) {
+    .root {
+        padding: 1.25rem 2rem;
+    }
+}
+
+.root_selected {
+    composes: root;
+    border-color: rgb(var(--venia-brand-color-1-600));
+    cursor: default;
+}
+
+.root:focus {
+    box-shadow: -6px 6px rgb(var(--venia-global-color-blue-700) / 0.3);
+}
+
+.root:hover {
+    border-color: rgb(var(--venia-brand-color-1-600));
+}
+
+.title {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.number {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+}
+
+.expiry_date {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+}
+
+.delete {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 3;
+}
+
+@media (min-width: 961px) {
+    .deleteButton {
+        right: 0.375rem;
+        top: 0.375rem;
+    }
+}
+
+.deleteButton:hover {
+    --fill: rgb(var(--venia-brand-color-1-700));
+}
+
+.deleteIcon {
+    stroke: rgb(var(--venia-brand-color-1-700));
+    fill: var(--fill, white);
+    transition: fill 384ms var(--venia-global-anim-standard);
+}

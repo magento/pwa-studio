@@ -1,14 +1,19 @@
 import React, { useMemo } from 'react';
-import { Edit2 as EditIcon } from 'react-feather';
+import { Trash2 as DeleteIcon } from 'react-feather';
+
+import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import Icon from '../Icon';
+
+import defaultClasses from './creditCard.css';
 
 const cardTypeMapper = {
     VI: 'Visa'
 };
 
 const CreditCard = props => {
-    const { classes, details, public_hash } = props;
+    const { classes: propClasses, details, public_hash } = props;
+    const classes = mergeClasses(defaultClasses, propClasses);
 
     const title = 'Credit Card';
     const cardNumberAndType = `**** ${details.maskedCC} \u00A0\u00A0 ${
@@ -23,14 +28,14 @@ const CreditCard = props => {
 
         return `${longMonth} ${year}`;
     }, [details.expirationDate]);
-    const editButton = (
-        <button className={classes.editButton} onClick={() => {}}>
+    const deleteButton = (
+        <button className={classes.deleteButton} onClick={() => {}}>
             <Icon
                 classes={{
-                    icon: classes.editIcon
+                    icon: classes.deleteIcon
                 }}
                 size={16}
-                src={EditIcon}
+                src={DeleteIcon}
             />
         </button>
     );
@@ -40,7 +45,7 @@ const CreditCard = props => {
             <div className={classes.title}>{title}</div>
             <div className={classes.number}>{cardNumberAndType}</div>
             <div className={classes.expiry_date}>{cardExpiryDate}</div>
-            <div className={classes.edit}>{editButton}</div>
+            <div className={classes.delete}>{deleteButton}</div>
         </div>
     );
 };
