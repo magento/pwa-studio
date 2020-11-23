@@ -12,7 +12,8 @@ const mockAddress = {
     lastname: 'Fry',
     postcode: '10019',
     region: { region: 'New York' },
-    street: ['111 57th Street', 'Suite 1000']
+    street: ['111 57th Street', 'Suite 1000'],
+    telephone: '+12345678909'
 };
 
 test('renders a default address', () => {

@@ -40,6 +40,9 @@ export const useAddressBookPage = (props = {}) => {
         }
     );
 
+    const isRefetching = !!customerAddressesData && loading;
+    const isLoadingWithoutData = !customerAddressesData && loading;
+
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
         if (!isSignedIn) {
@@ -49,8 +52,8 @@ export const useAddressBookPage = (props = {}) => {
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
-        setPageLoading(loading);
-    }, [loading, setPageLoading]);
+        setPageLoading(isRefetching);
+    }, [isRefetching, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
         alert('TODO!');
@@ -64,6 +67,7 @@ export const useAddressBookPage = (props = {}) => {
 
     return {
         customerAddresses,
-        handleAddAddress
+        handleAddAddress,
+        isLoading: isLoadingWithoutData
     };
 };

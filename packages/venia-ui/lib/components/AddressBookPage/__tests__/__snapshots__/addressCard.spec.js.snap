@@ -20,14 +20,40 @@ exports[`renders a default address 1`] = `
     >
       Philip Fry
     </span>
-    <span>
+    <span
+      className="streetRow"
+    >
       111 57th Street
     </span>
-    <span>
+    <span
+      className="streetRow"
+    >
       Suite 1000
     </span>
-    <span>
-      New New York, New York 10019 US
+    <span
+      className="additionalAddress"
+    >
+      New New York, New York 10019
+    </span>
+    <span
+      className="country"
+    >
+      <mock-FormattedDisplayName
+        type="region"
+        value="US"
+      />
+    </span>
+    <span
+      className="telephone"
+    >
+      <mock-FormattedMessage
+        id="addressBookPage.telephone"
+        values={
+          Object {
+            "telephone": "+12345678909",
+          }
+        }
+      />
     </span>
   </div>
   <div
@@ -88,14 +114,40 @@ exports[`renders a non-default address 1`] = `
     >
       Philip Fry
     </span>
-    <span>
+    <span
+      className="streetRow"
+    >
       111 57th Street
     </span>
-    <span>
+    <span
+      className="streetRow"
+    >
       Suite 1000
     </span>
-    <span>
-      New New York, New York 10019 US
+    <span
+      className="additionalAddress"
+    >
+      New New York, New York 10019
+    </span>
+    <span
+      className="country"
+    >
+      <mock-FormattedDisplayName
+        type="region"
+        value="US"
+      />
+    </span>
+    <span
+      className="telephone"
+    >
+      <mock-FormattedMessage
+        id="addressBookPage.telephone"
+        values={
+          Object {
+            "telephone": "+12345678909",
+          }
+        }
+      />
     </span>
   </div>
   <div

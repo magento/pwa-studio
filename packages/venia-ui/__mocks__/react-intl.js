@@ -8,6 +8,7 @@ const intl = reactIntl.createIntl({
 
 module.exports = {
     ...reactIntl,
+    FormattedDisplayName: props => <mock-FormattedDisplayName {...props} />,
     FormattedMessage: props => <mock-FormattedMessage {...props} />,
     useIntl: jest.fn(() => intl)
 };

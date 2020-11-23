@@ -14,13 +14,26 @@ exports[`renders correctly when there are existing addresses 1`] = `
     className="content"
   >
     <AddressCard
-      address="a"
+      address={
+        Object {
+          "default_shipping": true,
+          "id": "b",
+        }
+      }
     />
     <AddressCard
-      address="b"
+      address={
+        Object {
+          "id": "a",
+        }
+      }
     />
     <AddressCard
-      address="c"
+      address={
+        Object {
+          "id": "c",
+        }
+      }
     />
     <button
       className="addButton"
@@ -96,5 +109,29 @@ exports[`renders correctly when there are no existing addresses 1`] = `
       </span>
     </button>
   </div>
+</div>
+`;
+
+exports[`renders loading indicator 1`] = `
+<div
+  className="global"
+>
+  <Icon
+    classes={
+      Object {
+        "icon": "indicator",
+      }
+    }
+    size={64}
+    src={[Function]}
+  />
+  <span
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
+  </span>
 </div>
 `;

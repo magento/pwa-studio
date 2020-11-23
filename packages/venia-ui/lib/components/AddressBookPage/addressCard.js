@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedDisplayName, FormattedMessage } from 'react-intl';
 import { shape, string, bool, arrayOf } from 'prop-types';
 import { Trash2 as TrashIcon, Edit2 as EditIcon } from 'react-feather';
 
@@ -19,14 +19,19 @@ const AddressCard = props => {
         lastname,
         postcode,
         region: { region },
-        street
+        street,
+        telephone
     } = address;
 
-    const streetRows = street.map((row, index) => {
-        return <span key={index}>{row}</span>;
-    });
-
     const classes = mergeClasses(defaultClasses, propClasses);
+
+    const streetRows = street.map((row, index) => {
+        return (
+            <span className={classes.streetRow} key={index}>
+                {row}
+            </span>
+        );
+    });
 
     const defaultBadge = default_shipping ? (
         <span className={classes.defaultBadge}>
@@ -38,7 +43,7 @@ const AddressCard = props => {
     ) : null;
 
     const nameString = `${firstname} ${lastname}`;
-    const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
+    const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement = !default_shipping ? (
         <LinkButton
@@ -61,7 +66,18 @@ const AddressCard = props => {
                 {defaultBadge}
                 <span className={classes.name}>{nameString}</span>
                 {streetRows}
-                <span>{additionalAddressString}</span>
+                <span className={classes.additionalAddress}>
+                    {additionalAddressString}
+                </span>
+                <span className={classes.country}>
+                    <FormattedDisplayName type="region" value={country_code} />
+                </span>
+                <span className={classes.telephone}>
+                    <FormattedMessage
+                        id="addressBookPage.telephone"
+                        values={{ telephone }}
+                    />
+                </span>
             </div>
             <div className={classes.actionContainer}>
                 <LinkButton
@@ -101,8 +117,9 @@ AddressCard.propTypes = {
     classes: shape({
         actionContainer: string,
         actionLabel: string,
-        address: string,
+        additionalAddress: string,
         contentContainer: string,
+        country: string,
         defaultBadge: string,
         defaultCard: string,
         deleteButton: string,
@@ -111,6 +128,7 @@ AddressCard.propTypes = {
         linkButton: string,
         name: string,
         root: string,
-        root_updated: string
+        root_updated: string,
+        streetRow: string
     })
 };

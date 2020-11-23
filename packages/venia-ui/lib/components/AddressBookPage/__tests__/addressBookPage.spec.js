@@ -21,7 +21,8 @@ jest.mock('../addressCard', () => 'AddressCard');
 const props = {};
 const talonProps = {
     customerAddresses: [],
-    handleAddAddress: jest.fn().mockName('handleAddAddress')
+    handleAddAddress: jest.fn().mockName('handleAddAddress'),
+    isLoading: false
 };
 
 it('renders correctly when there are no existing addresses', () => {
@@ -35,11 +36,23 @@ it('renders correctly when there are no existing addresses', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
+it('renders loading indicator', () => {
+    useAddressBookPage.mockReturnValueOnce({ ...talonProps, isLoading: true });
+
+    const instance = createTestInstance(<AddressBookPage {...props} />);
+
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
 it('renders correctly when there are existing addresses', () => {
     // Arrange.
     const myTalonProps = {
         ...talonProps,
-        customerAddresses: ['a', 'b', 'c']
+        customerAddresses: [
+            { id: 'a' },
+            { id: 'b', default_shipping: true },
+            { id: 'c' }
+        ]
     };
     useAddressBookPage.mockReturnValueOnce(myTalonProps);
 

@@ -1,19 +1,19 @@
 import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { PlusSquare } from 'react-feather';
-
 import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import AddressCard from './addressCard';
-import Icon from '../Icon';
-import LinkButton from '../LinkButton';
-import { Title } from '../Head';
+import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { Title } from '@magento/venia-ui/lib/components/Head';
+import Icon from '@magento/venia-ui/lib/components/Icon';
+import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
+import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import defaultClasses from './addressBookPage.css';
+import AddressCard from './addressCard';
 
 const AddressBookPage = props => {
     const talonProps = useAddressBookPage();
-    const { customerAddresses, handleAddAddress } = talonProps;
+    const { customerAddresses, handleAddAddress, isLoading } = talonProps;
 
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -23,10 +23,19 @@ const AddressBookPage = props => {
         defaultMessage: 'Address Book'
     });
     const addressBookElements = useMemo(() => {
-        return customerAddresses.map(addressEntry => (
+        const addresses = customerAddresses.map(addressEntry => (
             <AddressCard key={addressEntry.id} address={addressEntry} />
         ));
+
+        // sort the collection so the default is first
+        return addresses.sort(address =>
+            address.props.address.default_shipping ? -1 : 1
+        );
     }, [customerAddresses]);
+
+    if (isLoading) {
+        return fullPageLoadingIndicator;
+    }
 
     // STORE_NAME is injected by Webpack at build time.
     const title = `${PAGE_TITLE} - ${STORE_NAME}`;

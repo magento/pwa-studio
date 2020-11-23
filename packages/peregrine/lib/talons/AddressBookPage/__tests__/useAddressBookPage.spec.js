@@ -62,7 +62,7 @@ test('it returns the proper shape', () => {
     // Assert.
     const talonProps = log.mock.calls[0][0];
     const actualKeys = Object.keys(talonProps);
-    const expectedKeys = ['customerAddresses', 'handleAddAddress'];
+    const expectedKeys = ['customerAddresses', 'handleAddAddress', 'isLoading'];
     expect(actualKeys.sort()).toEqual(expectedKeys.sort());
 });
 
@@ -115,4 +115,28 @@ test('it returns an empty customerAddresses array when address data is missing',
     const { customerAddresses } = log.mock.calls[0][0];
     expect(customerAddresses).toBeInstanceOf(Array);
     expect(customerAddresses).toHaveLength(0);
+});
+
+test('isLoading is true without addresses in cache', () => {
+    useQuery.mockReturnValueOnce({
+        data: null,
+        loading: true
+    });
+
+    createTestInstance(<Component {...props} />);
+
+    const { isLoading } = log.mock.calls[0][0];
+    expect(isLoading).toBe(true);
+});
+
+test('isLoading is false when refetching in the background', () => {
+    useQuery.mockReturnValueOnce({
+        data: [],
+        loading: true
+    });
+
+    createTestInstance(<Component {...props} />);
+
+    const { isLoading } = log.mock.calls[0][0];
+    expect(isLoading).toBe(false);
 });
