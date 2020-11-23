@@ -71,9 +71,6 @@ const AddressBookPage = props => {
                     </span>
                 </LinkButton>
                 {addressBookElements}
-                <button onClick={handleEditAddress} type="button">
-                    Edit TEST
-                </button>
             </div>
             <AddEditDialog
                 activeEditAddress={activeEditAddress}

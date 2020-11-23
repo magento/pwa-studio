@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
+import defaultOperations from './addressBookPage.gql';
 
 /**
  *  A talon to support the functionality of the Address Book page.
@@ -17,10 +20,13 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  *  @returns {Boolean}  talonProps.isLoading - Indicates whether the user's
  *      address book data is loading.
  */
-export const useAddressBookPage = props => {
+export const useAddressBookPage = (props = {}) => {
+    const operations = mergeOperations(defaultOperations, props.operations);
     const {
-        queries: { getCustomerAddressesQuery }
-    } = props;
+        createCustomerAddressMutation,
+        getCustomerAddressesQuery,
+        updateCustomerAddressMutation
+    } = operations;
 
     const [
         ,
@@ -36,6 +42,20 @@ export const useAddressBookPage = props => {
             skip: !isSignedIn
         }
     );
+    const [
+        createCustomerAddress,
+        {
+            error: createCustomerAddressError,
+            loading: isCreatingCustomerAddress
+        }
+    ] = useMutation(createCustomerAddressMutation);
+    const [
+        updateCustomerAddress,
+        {
+            error: updateCustomerAddressError,
+            loading: isUpdatingCustomerAddress
+        }
+    ] = useMutation(updateCustomerAddressMutation);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [activeEditAddress, setActiveEditAddress] = useState();
@@ -68,17 +88,46 @@ export const useAddressBookPage = props => {
     }, []);
 
     const handleConfirmDialog = useCallback(
-        formValues => {
+        async formValues => {
             if (isDialogEditMode) {
-                console.log('submit edit address', formValues);
-            } else {
-                // Adding a new address.
-                console.log('submit add new address', formValues);
-            }
+                try {
+                    await updateCustomerAddress({
+                        variables: {},
+                        refetchQueries: [{ query: getCustomerAddressesQuery }]
+                    });
 
-            setIsDialogOpen(false);
+                    setIsDialogOpen(false);
+                } catch {
+                    return;
+                }
+            } else {
+                try {
+                    await createCustomerAddress({
+                        variables: formValues,
+                        refetchQueries: [{ query: getCustomerAddressesQuery }]
+                    });
+
+                    setIsDialogOpen(false);
+                } catch {
+                    return;
+                }
+            }
         },
-        [isDialogEditMode]
+        [
+            createCustomerAddress,
+            getCustomerAddressesQuery,
+            isDialogEditMode,
+            updateCustomerAddress
+        ]
+    );
+
+    const formErrors = useMemo(
+        () =>
+            new Map([
+                ['createCustomerAddressMutation', createCustomerAddressError],
+                ['updateCustomerAddressMutation', updateCustomerAddressError]
+            ]),
+        [createCustomerAddressError, updateCustomerAddressError]
     );
 
     const customerAddresses =
@@ -86,8 +135,6 @@ export const useAddressBookPage = props => {
             customerAddressesData.customer &&
             customerAddressesData.customer.addresses) ||
         [];
-
-    const formErrors = [];
 
     return {
         activeEditAddress,

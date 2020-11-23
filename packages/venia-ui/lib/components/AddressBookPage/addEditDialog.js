@@ -55,11 +55,11 @@ const AddEditDialog = props => {
         id: 'global.lastName',
         defaultMessage: 'Last Name'
     });
-    const street0Label = formatMessage({
+    const street1Label = formatMessage({
         id: 'global.streetAddress',
         defaultMessage: 'Street Address'
     });
-    const street1Label = formatMessage({
+    const street2Label = formatMessage({
         id: 'global.streetAddress2',
         defaultMessage: 'Street Address 2'
     });
@@ -117,13 +117,13 @@ const AddEditDialog = props => {
                 <div className={classes.country}>
                     <Country validate={isRequired} />
                 </div>
-                <div className={classes.street0}>
-                    <Field id="street0" label={street0Label}>
+                <div className={classes.street1}>
+                    <Field id="street1" label={street1Label}>
                         <TextInput field="street[0]" validate={isRequired} />
                     </Field>
                 </div>
-                <div className={classes.street1}>
-                    <Field id="street1" label={street1Label} optional={true}>
+                <div className={classes.street2}>
+                    <Field id="street2" label={street2Label} optional={true}>
                         <TextInput field="street[1]" />
                     </Field>
                 </div>
@@ -134,6 +134,7 @@ const AddEditDialog = props => {
                 </div>
                 <div className={classes.region}>
                     <Region
+                        fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey="id"
                         validate={isRequired}
