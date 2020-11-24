@@ -32,9 +32,21 @@ async function validateEnv(context, env) {
 
     const validationContext = { env, onFail, debug };
 
-    await bus
-        .getTargetsOf('@magento/pwa-buildpack')
-        .validateEnv.promise(validationContext);
+    try {
+        await bus
+            .getTargetsOf('@magento/pwa-buildpack')
+            .validateEnv.promise(validationContext);
+    } catch {
+        /**
+         * While creating a new project using the create-pwa cli
+         * runEnvValidators will be invoked but the buildpack targets
+         * will be missing, and it is expected. Hence we are wrapping
+         * it in a try catch to avoid build failures. Anyways we wont be
+         * using env validations while creating project. It will be useful
+         * while building a project.
+         */
+        debug('Buildpack targets not found.');
+    }
 
     if (errorMessages.length) {
         debug('Found validation errors in ENV, stopping the build process');
