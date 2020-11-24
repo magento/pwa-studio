@@ -230,6 +230,9 @@ export const useCheckoutPage = props => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
-        toggleActiveContent
+        toggleActiveContent,
+        availablePaymentMethods:
+            (checkoutData && checkoutData.cart.available_payment_methods) ||
+            null
     };
 };
