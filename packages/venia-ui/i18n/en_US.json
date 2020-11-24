@@ -74,6 +74,7 @@
     "checkoutPage.paymentInformationStep": "3. Payment Information",
     "checkoutPage.paymentMethodStatus": "{selectedPaymentMethod} is not supported for editing.",
     "checkoutPage.paymentSummary": "{cardType} ending in {lastFour}",
+    "checkoutPage.noPaymentAvailable": "Payment is currently unavailable.",
     "checkoutPage.paymentLoadingError": "There was an error loading payments.",
     "checkoutPage.refreshOrTryAgainLater": "Please refresh or try again later.",
     "checkoutPage.placeOrder": "Place Order",

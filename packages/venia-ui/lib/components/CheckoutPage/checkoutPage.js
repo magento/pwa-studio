@@ -16,6 +16,7 @@ import Icon from '../Icon';
 import LinkButton from '../LinkButton';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
+import FormError from '../FormError';
 import AddressBook from './AddressBook';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
@@ -24,6 +25,7 @@ import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
+import payments from './PaymentInformation/paymentMethodCollection';
 import defaultClasses from './checkoutPage.css';
 import CheckoutPageOperations from './checkoutPage.gql.js';
 
@@ -65,7 +67,8 @@ const CheckoutPage = props => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
-        toggleActiveContent
+        toggleActiveContent,
+        availablePaymentMethods
     } = talonProps;
 
     const [, { addToast }] = useToasts();
@@ -162,6 +165,29 @@ const CheckoutPage = props => {
                 </h3>
             );
 
+        const isPaymentAvailable = !!availablePaymentMethods
+            .map(({ code }) => {
+                // If we don't have an implementation for a method type, ignore it.
+                if (!Object.keys(payments).includes(code)) {
+                    return;
+                }
+                return true;
+            })
+            .filter(paymentMethod => !!paymentMethod).length;
+
+        const errors = new Map();
+
+        if (!isPaymentAvailable) {
+            errors.set('paymentMethods', [
+                new Error(
+                    formatMessage({
+                        id: 'checkoutPage.noPaymentAvailable',
+                        defaultMessage: 'Payment is currently unavailable.'
+                    })
+                )
+            ]);
+        }
+
         const paymentInformationSection =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <PaymentInformation
@@ -193,7 +219,11 @@ const CheckoutPage = props => {
                     onClick={handleReviewOrder}
                     priority="high"
                     className={classes.review_order_button}
-                    disabled={reviewOrderButtonClicked || isUpdating}
+                    disabled={
+                        reviewOrderButtonClicked ||
+                        isUpdating ||
+                        !isPaymentAvailable
+                    }
                 >
                     <FormattedMessage
                         id={'checkoutPage.reviewOrder'}
@@ -280,6 +310,12 @@ const CheckoutPage = props => {
         checkoutContent = (
             <div className={checkoutContentClass}>
                 {loginButton}
+                <FormError
+                    classes={{
+                        root: classes.formErrors
+                    }}
+                    errors={errors.get('paymentMethods') || []}
+                />
                 <div className={classes.heading_container}>
                     <StockStatusMessage
                         cartItems={cartItems}
