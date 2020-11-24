@@ -4,7 +4,7 @@ exports[`should render properly 1`] = `
 <div>
   <div
     componentName="Link Component"
-    to="/carina-cardigan.html"
+    to="carina-cardigan.html"
   >
     <div
       className="undefined undefined"
@@ -23,16 +23,27 @@ exports[`should render properly 1`] = `
         onError={[Function]}
         onLoad={[Function]}
         sizes="50px"
-        srcSet=""
+        src="https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=50&height=62.5&fit=cover"
+        srcSet="https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
+https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
         width={50}
       />
     </div>
   </div>
-  <div
-    componentName="Link Component"
-    to="/carina-cardigan.html"
-  >
-    Product 1
+  <div>
+    <div
+      componentName="Link Component"
+      to="carina-cardigan.html"
+    >
+      Product 1
+    </div>
   </div>
   <dl>
     <div>
@@ -45,8 +56,7 @@ exports[`should render properly 1`] = `
     </div>
   </dl>
   <span>
-    <div
-      componentName="Formatted Message Component"
+    <mock-FormattedMessage
       defaultMessage="Qty"
       id="orderDetails.quantity"
       values={
@@ -56,32 +66,29 @@ exports[`should render properly 1`] = `
       }
     />
   </span>
-  <span>
-    $100.00
-  </span>
+  <div>
+    <span>
+      $
+    </span>
+    <span>
+      100
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      00
+    </span>
+  </div>
   <button
     disabled={false}
     onClick={[Function]}
     type="button"
   >
     <span>
-      <div
-        componentName="Formatted Message Component"
+      <mock-FormattedMessage
         defaultMessage="Buy Again"
         id="orderDetails.buyAgain"
-      />
-    </span>
-  </button>
-  <button
-    disabled={false}
-    onClick={[Function]}
-    type="button"
-  >
-    <span>
-      <div
-        componentName="Formatted Message Component"
-        defaultMessage="Return This"
-        id="orderDetails.returnThis"
       />
     </span>
   </button>

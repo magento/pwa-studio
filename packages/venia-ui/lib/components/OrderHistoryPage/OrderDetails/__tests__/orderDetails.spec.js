@@ -19,11 +19,6 @@ jest.mock('../orderTotal', () => props => (
     <div componentName="Order Total" {...props} />
 ));
 jest.mock('../items', () => props => <div componentName="Items" {...props} />);
-jest.mock('react-intl', () => ({
-    FormattedMessage: props => (
-        <div componentName="Formatted Message Component" {...props} />
-    )
-}));
 
 const defaultProps = {
     imagesData: [

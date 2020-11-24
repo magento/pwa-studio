@@ -1,59 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly with data 1`] = `
-<div
-  className="root"
->
-  Title
-  <h1
-    className="heading"
+<mock-OrderHistoryContextProvider>
+  <div
+    className="root"
   >
-    Order History
-  </h1>
-  <ul
-    className="orderHistoryTable"
-  >
-    <OrderRow
-      order={
-        Object {
-          "id": 1,
+    Title
+    <h1
+      className="heading"
+    >
+      Order History
+    </h1>
+    <ul
+      className="orderHistoryTable"
+    >
+      <OrderRow
+        order={
+          Object {
+            "id": 1,
+          }
         }
-      }
-    />
-    <OrderRow
-      order={
-        Object {
-          "id": 2,
+      />
+      <OrderRow
+        order={
+          Object {
+            "id": 2,
+          }
         }
-      }
-    />
-    <OrderRow
-      order={
-        Object {
-          "id": 3,
+      />
+      <OrderRow
+        order={
+          Object {
+            "id": 3,
+          }
         }
-      }
-    />
-  </ul>
-</div>
+      />
+    </ul>
+  </div>
+</mock-OrderHistoryContextProvider>
 `;
 
 exports[`renders correctly without data 1`] = `
-<div
-  className="root"
->
-  Title
-  <h1
-    className="heading"
+<mock-OrderHistoryContextProvider>
+  <div
+    className="root"
   >
-    Order History
-  </h1>
-  <h3
-    className="emptyHistoryMessage"
-  >
-    You don't have any orders yet.
-  </h3>
-</div>
+    Title
+    <h1
+      className="heading"
+    >
+      Order History
+    </h1>
+    <h3
+      className="emptyHistoryMessage"
+    >
+      You don't have any orders yet.
+    </h3>
+  </div>
+</mock-OrderHistoryContextProvider>
 `;
 
 exports[`renders full page loading indicator 1`] = `
@@ -128,7 +132,10 @@ exports[`renders full page loading indicator 1`] = `
   <span
     className="message"
   >
-    Fetching Data...
+    <mock-FormattedMessage
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
   </span>
 </div>
 `;

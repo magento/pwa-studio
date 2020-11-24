@@ -228,7 +228,10 @@ Array [
       <span
         className="content"
       >
-        Change Password
+        <mock-FormattedMessage
+          defaultMessage="Change Password"
+          id="global.changePassword"
+        />
       </span>
     </button>
   </div>,

@@ -1,37 +1,45 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './orderRow.gql';
+
 /**
  * @function
  *
  * @param {Object} props
  * @param {Array<Object>} props.items Collection of items in Order
- * @param {OrderRowQueries} props.queries GraphQL queries for the Order Row Component
+ * @param {OrderRowOperations} props.operations GraphQL queries for the Order Row Component
  *
  * @returns {OrderRowTalonProps}
  */
 export const useOrderRow = props => {
-    const { items, queries } = props;
-    const { getProductThumbnailsQuery } = queries;
+    const { items } = props;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getProductThumbnailsQuery } = operations;
 
-    const skus = useMemo(() => {
-        return items.map(item => item.product_sku).sort();
+    const urlKeys = useMemo(() => {
+        return items.map(item => item.product_url_key).sort();
     }, [items]);
 
     const { data, loading } = useQuery(getProductThumbnailsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         variables: {
-            skus
+            urlKeys
         }
     });
     const imagesData = useMemo(() => {
         if (data) {
-            return data.products.items;
+            // filter out items returned that we didn't query for
+            const filteredItems = data.products.items.filter(item =>
+                urlKeys.includes(item.url_key)
+            );
+            return filteredItems;
         } else {
             return [];
         }
-    }, [data]);
+    }, [data, urlKeys]);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -52,9 +60,9 @@ export const useOrderRow = props => {
  */
 
 /**
- * GraphQL queries for the Order Row Component
+ * GraphQL operations for the Order Row Component
  *
- * @typedef {Object} OrderRowQueries
+ * @typedef {Object} OrderRowOperations
  *
  * @property {GraphQLAST} getProductThumbnailsQuery The query used to get product thumbnails of items in the Order.
  *

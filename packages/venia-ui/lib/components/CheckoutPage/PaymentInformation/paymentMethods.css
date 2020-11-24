@@ -1,9 +1,9 @@
 .root {
     display: grid;
+    padding: 2rem;
 }
 
 .payment_method {
-    padding: 1.5rem;
     border-bottom: 1px solid rgb(var(--venia-global-color-border));
 }
 
@@ -14,4 +14,10 @@
 .radio_label {
     font-weight: 600;
     justify-self: start;
+}
+
+.payment_errors {
+    display: grid;
+    gap: 0.5em;
+    color: rgb(var(--venia-global-color-error));
 }

@@ -5,10 +5,16 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
   className="root"
 >
   <h2>
-    Quick Checkout When You Return
+    <mock-FormattedMessage
+      defaultMessage="Quick Checkout When You Return"
+      id="checkoutPage.quickCheckout"
+    />
   </h2>
   <p>
-    Set a password and save your information for next time in one easy step!
+    <mock-FormattedMessage
+      defaultMessage="Set a password and save your information for next time in one easy step!"
+      id="checkoutPage.setAPasswordAndSave"
+    />
   </p>
   <FormError
     errors={Array []}
@@ -272,7 +278,10 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
         <span
           className="content"
         >
-          Create Account
+          <mock-FormattedMessage
+            defaultMessage="Create Account"
+            id="checkoutPage.createAccount"
+          />
         </span>
       </button>
     </div>
@@ -285,10 +294,16 @@ exports[`CreateAccount renders errors 1`] = `
   className="root"
 >
   <h2>
-    Quick Checkout When You Return
+    <mock-FormattedMessage
+      defaultMessage="Quick Checkout When You Return"
+      id="checkoutPage.quickCheckout"
+    />
   </h2>
   <p>
-    Set a password and save your information for next time in one easy step!
+    <mock-FormattedMessage
+      defaultMessage="Set a password and save your information for next time in one easy step!"
+      id="checkoutPage.setAPasswordAndSave"
+    />
   </p>
   <FormError
     errors={
@@ -556,7 +571,10 @@ exports[`CreateAccount renders errors 1`] = `
         <span
           className="content"
         >
-          Create Account
+          <mock-FormattedMessage
+            defaultMessage="Create Account"
+            id="checkoutPage.createAccount"
+          />
         </span>
       </button>
     </div>
