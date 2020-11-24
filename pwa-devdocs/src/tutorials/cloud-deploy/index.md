@@ -31,7 +31,7 @@ If you need to do more advanced Cloud tasks, see the [Cloud technologies and req
 1. Set environment variables
 1. Build your storefront application
 1. Add your storefront project code
-1. Commit and push your changes
+1. Deploy changes
 
 ## Clone your Cloud project
 
@@ -113,7 +113,7 @@ This command modifies the `composer.json` file and adds the package entry to the
 UPWARD-PHP is a dependency of the magento2-upward-connector, so
 you do not need to add it manually to your project.
 
-### Set environment variables
+## Set environment variables
 
 PWA Studio storefronts require you to set the following [environment variables][] in your Cloud project:
 
@@ -139,23 +139,46 @@ variables:
         IMAGE_OPTIMIZING_ORIGIN: "backend"
 ```
 
-## Commit modified files
+## Build your storefront application
 
-Commit all changes to the following files:
+Navigate or open a new terminal to your storefront project and run the project's build command.
+
+```sh
+yarn build
+```
+
+This command runs the build process, which creates a `dist` folder that contains code bundles for your storefront application.
+It also copies over the static assets your application needs from your project into this folder.
+
+## Add your storefront project code
+
+*In your Cloud project*, create a `pwa` folder and copy into it the content inside your storefront project's `dist` folder.
+
+```sh
+mkdir pwa && cp -r <path to your storefront project>/dist/* pwa
+```
+
+If you are updating your existing storefront code, you must delete the content inside the `pwa` directory before you copy the new `dist` content to avoid keeping the old bundles the application no longer uses.
+
+## Deploy changes
+
+At this point in the tutorial, your Cloud project should have changes in the following files and directories:
 
 -   `.magento.app.yaml`
 -   `composer.json`
 -   `composer.lock`
+-   `pwa`
 
-## Push changes
+Use the Git CLI tool to stage, commit, and push these changes to your Cloud project.
 
-Push your local changes for your deployment and wait for it to complete.
+```sh
+git add . &&
+git commit -m "Added storefront file bundles" &&
+git push origin
+```
 
-## Congratulations
-
-You have installed a PWA storefront on the Cloud!
-
-You should be able to navigate to the frontend URL of your Cloud instance and see your PWA storefront.
+After you push changes to your Cloud project, the remote build process runs and deploys a live instance of your site to the Magento Commerce Cloud service. 
+See the Cloud topic on how to [Deploy your store][] for more details on the deployment process.
 
 [compatible]: <{%link technologies/magento-compatibility/index.md %}>
 [environment variables]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}>
@@ -175,3 +198,4 @@ You should be able to navigate to the frontend URL of your Cloud instance and se
 [cloud onboarding tasks]: https://devdocs.magento.com/cloud/onboarding/onboarding-tasks.html
 [magento cloud cli]: https://devdocs.magento.com/cloud/reference/cli-ref-topic.html
 [`.magento.app.yaml`]: https://devdocs.magento.com/cloud/project/magento-env-yaml.html
+[deploy your store]: https://devdocs.magento.com/cloud/live/stage-prod-live.html
