@@ -5,8 +5,8 @@ title: Magento Cloud deployment
 [Magento Commerce Cloud][] is a managed, automated hosting platform for the Magento Commerce software.
 You can use this platform to host your storefront code by installing packages developed specifically to connect your storefront with Magento on the same server.
 
-This tutorial provides the general steps for adding your storefront project code onto your Magento Commerce Cloud project and setting it as the front end application.
-By the end of this tutorial, you will have a Cloud project setup that includes your storefront project code bundles.
+This tutorial provides the general steps for adding your storefront onto your Magento Commerce Cloud project and setting it as the front end application.
+By the end of this tutorial, you will have a Cloud project setup that includes your storefront project's code bundles.
 You can use this setup to update and deploy your storefront project in Magento Commerce Cloud.
 
 ## Prerequisites
@@ -22,7 +22,7 @@ This tutorial requires the following tools:
 -   Git
 -   Yarn or NPM (depends on your storefront project configuration)
 
-If you need to do more advanced Cloud tasks, see the [Cloud technologies and requirements][] for the full list of tools you need to fully manage your Cloud project.
+If you need to do more advanced Cloud tasks, see the [Cloud technologies and requirements][] for the full list of tools you need to fully manage the rest of your Cloud project.
 
 ## Tasks overview
 
@@ -35,7 +35,7 @@ If you need to do more advanced Cloud tasks, see the [Cloud technologies and req
 
 ## Clone your Cloud project
 
-Use the Magento Cloud CLI and Git commands to login and clone your Cloud project.
+Use the Magento Cloud CLI tool to login and clone your Cloud project.
 
 Run the following command:
 
@@ -105,7 +105,7 @@ composer require magento/module-upward-connector
 
 This command modifies the `composer.json` file and adds the package entry to the `require` section of the `composer.json` file.
 
-```json
+```text
 "magento/module-upward-connector": "^1.0.1"
 ```
 
@@ -131,7 +131,7 @@ Magento Cloud offers a variety of ways to set environment variables, but the mos
 ```text
 variables:
     env:
-        CONFIG__DEFAULT__WEB__UPWARD__PATH: "/app/pwa/dist/upward.yml"
+        CONFIG__DEFAULT__WEB__UPWARD__PATH: "/app/pmu35riuj7btw_stg/pwa/upward.yml"
         NODE_ENV: "production"
         MAGENTO_BACKEND_URL: "https://[your-cloud-url-here]/"
         CHECKOUT_BRAINTREE_TOKEN: "<generated token from Braintree>"
@@ -139,9 +139,21 @@ variables:
         IMAGE_OPTIMIZING_ORIGIN: "backend"
 ```
 
+### Finding the correct UPWARD path value
+
+The `CONFIG_DEFAULT_WEB_UPWARD_PATH` variable specifies the _absolute_ path to the UPWARD configuration file in the deployed instance.
+If this value is incorrect or not set, the Magento 2 UPWARD connector extension cannot serve your storefront application and your frontend appears broken.
+
+In the previous example, `/app/pmu35riuj7btw_stg/` is the Magento application root directory on the deployed instance.
+This value is different for each environment in your Cloud project, so you must configure each of your project environments with the path specific to each instance.
+To find the correct root directory path for an environment, [SSH][] into the remote server and use the `pwd` command to find the Magento application root directory.
+
 ## Build your storefront application
 
-Navigate or open a new terminal to your storefront project and run the project's build command.
+Navigate or open a new terminal to _your storefront project_ and edit the `.env` file.
+Set the values for each variable to the same value as the ones you set in the previous step.
+
+Use `yarn` or `npm` to run the project's build command.
 
 ```sh
 yarn build
@@ -177,7 +189,7 @@ git commit -m "Added storefront file bundles" &&
 git push origin
 ```
 
-After you push changes to your Cloud project, the remote build process runs and deploys a live instance of your site to the Magento Commerce Cloud service. 
+After you push changes to your Cloud project, the remote build process runs and deploys a live instance of your site to the Magento Commerce Cloud service.
 See the Cloud topic on how to [Deploy your store][] for more details on the deployment process.
 
 [compatible]: <{%link technologies/magento-compatibility/index.md %}>
@@ -199,3 +211,4 @@ See the Cloud topic on how to [Deploy your store][] for more details on the depl
 [magento cloud cli]: https://devdocs.magento.com/cloud/reference/cli-ref-topic.html
 [`.magento.app.yaml`]: https://devdocs.magento.com/cloud/project/magento-env-yaml.html
 [deploy your store]: https://devdocs.magento.com/cloud/live/stage-prod-live.html
+[ssh]: https://devdocs.magento.com/cloud/env/environments-ssh.html
