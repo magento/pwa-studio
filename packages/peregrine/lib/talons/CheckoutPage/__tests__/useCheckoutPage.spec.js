@@ -592,7 +592,6 @@ test('resetReviewOrderButtonClicked should set reviewOrderButtonClicked to false
 });
 
 test('check availablePaymentMethods, if not implemented then show page level message', () => {
-
     placeOrderMutationResult.mockReturnValueOnce([
         () => {},
         {
