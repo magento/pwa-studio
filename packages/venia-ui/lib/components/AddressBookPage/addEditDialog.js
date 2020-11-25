@@ -92,7 +92,7 @@ const AddEditDialog = props => {
         >
             <FormError
                 classes={{ root: classes.errorContainer }}
-                errors={formErrors}
+                errors={Array.from(formErrors.values)}
             />
             <div className={classes.root}>
                 <div className={classes.firstname}>
