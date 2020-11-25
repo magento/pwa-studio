@@ -1,18 +1,18 @@
 import React from 'react';
-import { array, bool, func, shape } from 'prop-types';
+import { bool, func, object, shape } from 'prop-types';
 import { useIntl } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
-import { isRequired } from '../../util/formValidators';
-import Checkbox from '../Checkbox';
-import Country from '../Country';
-import Dialog from '../Dialog';
-import Field from '../Field';
-import FormError from '../FormError';
-import Postcode from '../Postcode';
-import Region from '../Region';
-import TextInput from '../TextInput';
+import Checkbox from '@magento/venia-ui/lib/components/Checkbox';
+import Country from '@magento/venia-ui/lib/components/Country';
+import Dialog from '@magento/venia-ui/lib/components/Dialog';
+import Field from '@magento/venia-ui/lib/components/Field';
+import FormError from '@magento/venia-ui/lib/components/FormError';
+import Postcode from '@magento/venia-ui/lib/components/Postcode';
+import Region from '@magento/venia-ui/lib/components/Region';
+import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import defaultClasses from './addEditDialog.css';
 
 const AddEditDialog = props => {
@@ -165,7 +165,7 @@ export default AddEditDialog;
 AddEditDialog.propTypes = {
     activeEditAddress: shape({}),
     classes: shape({}),
-    formErrors: array,
+    formErrors: object,
     isEditMode: bool,
     isOpen: bool,
     handleCancel: func,
