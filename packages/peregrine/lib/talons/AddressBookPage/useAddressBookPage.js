@@ -92,7 +92,7 @@ export const useAddressBookPage = (props = {}) => {
             if (isDialogEditMode) {
                 try {
                     await updateCustomerAddress({
-                        variables: {},
+                        variables: { address: formValues },
                         refetchQueries: [{ query: getCustomerAddressesQuery }]
                     });
 
@@ -103,7 +103,7 @@ export const useAddressBookPage = (props = {}) => {
             } else {
                 try {
                     await createCustomerAddress({
-                        variables: formValues,
+                        variables: { address: formValues },
                         refetchQueries: [{ query: getCustomerAddressesQuery }]
                     });
 

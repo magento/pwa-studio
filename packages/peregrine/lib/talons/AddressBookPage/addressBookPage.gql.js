@@ -31,29 +31,10 @@ export const GET_CUSTOMER_ADDRESSES = gql`
  */
 export const ADD_NEW_CUSTOMER_ADDRESS = gql`
     mutation AddNewCustomerAddressToAddressBook(
-        $city: String!
-        $country: CountryCodeEnum!
-        $firstname: String!
-        $lastname: String!
-        $middlename: String
-        $postcode: String!
-        $region: CustomerAddressRegionInput
-        $street: [String]
-        $telephone: String!
+        $address: CustomerAddressInput!
     ) {
-        createCustomerAddress(
-            input: {
-                city: $city
-                country_code: $country
-                firstname: $firstname
-                middlename: $middlename
-                lastname: $lastname
-                postcode: $postcode
-                region: $region
-                street: $street
-                telephone: $telephone
-            }
-        ) @connection(key: "createCustomerAddress") {
+        createCustomerAddress(input: $address)
+            @connection(key: "createCustomerAddress") {
             id
             city
             country_code

@@ -115,7 +115,7 @@ const AddEditDialog = props => {
                     </Field>
                 </div>
                 <div className={classes.country}>
-                    <Country validate={isRequired} />
+                    <Country field={'country_code'} validate={isRequired} />
                 </div>
                 <div className={classes.street1}>
                     <Field id="street1" label={street1Label}>
@@ -134,6 +134,7 @@ const AddEditDialog = props => {
                 </div>
                 <div className={classes.region}>
                     <Region
+                        countryCodeField={'country_code'}
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey="id"
