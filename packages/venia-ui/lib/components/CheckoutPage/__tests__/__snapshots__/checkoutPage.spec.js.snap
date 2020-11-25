@@ -9,6 +9,15 @@ exports[`CheckoutPage renders address book for customer 1`] = `
     className="checkoutContent_hidden"
   >
     <div
+      className="root"
+    >
+      <span
+        className="errorMessage"
+      >
+        Payment is currently unavailable.
+      </span>
+    </div>
+    <div
       className="heading_container"
     >
       <StockStatusMessage
@@ -93,6 +102,15 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
     className="checkoutContent"
   >
     <div
+      className="root"
+    >
+      <span
+        className="errorMessage"
+      >
+        Payment is currently unavailable.
+      </span>
+    </div>
+    <div
       className="heading_container"
     >
       <StockStatusMessage
@@ -176,6 +194,15 @@ exports[`CheckoutPage renders checkout content for customer - no default address
   <div
     className="checkoutContent"
   >
+    <div
+      className="root"
+    >
+      <span
+        className="errorMessage"
+      >
+        Payment is currently unavailable.
+      </span>
+    </div>
     <div
       className="heading_container"
     >
@@ -278,6 +305,15 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
           />
         </span>
       </button>
+    </div>
+    <div
+      className="root"
+    >
+      <span
+        className="errorMessage"
+      >
+        Payment is currently unavailable.
+      </span>
     </div>
     <div
       className="heading_container"

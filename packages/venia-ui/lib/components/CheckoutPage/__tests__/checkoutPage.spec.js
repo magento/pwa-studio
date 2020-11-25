@@ -69,7 +69,8 @@ const defaultTalonProps = {
         .mockName('setShippingInformationDone'),
     setShippingMethodDone: jest.fn().mockName('setShippingMethodDone'),
     setPaymentInformationDone: jest.fn().mockName('setPaymentInformationDone'),
-    toggleActiveContent: jest.fn().mockName('toggleActiveContent')
+    toggleActiveContent: jest.fn().mockName('toggleActiveContent'),
+    availablePaymentMethods: [],
 };
 describe('CheckoutPage', () => {
     test('throws a toast if there is an error', () => {
