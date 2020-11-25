@@ -1,24 +1,24 @@
 import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { PlusSquare } from 'react-feather';
-
 import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import { GET_CUSTOMER_ADDRESSES } from '../CheckoutPage/AddressBook/addressBook.gql';
-import AddressCard from '../CheckoutPage/AddressBook/addressCard';
-import Icon from '../Icon';
-import LinkButton from '../LinkButton';
-import { Title } from '../Head';
+import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { Title } from '@magento/venia-ui/lib/components/Head';
+import Icon from '@magento/venia-ui/lib/components/Icon';
+import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
+import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import defaultClasses from './addressBookPage.css';
+import AddressCard from './addressCard';
 
 const AddressBookPage = props => {
-    const talonProps = useAddressBookPage({
-        queries: {
-            getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES
-        }
-    });
-    const { customerAddresses, handleAddAddress } = talonProps;
+    const talonProps = useAddressBookPage();
+    const {
+        countryDisplayNameMap,
+        customerAddresses,
+        handleAddAddress,
+        isLoading
+    } = talonProps;
 
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -28,10 +28,29 @@ const AddressBookPage = props => {
         defaultMessage: 'Address Book'
     });
     const addressBookElements = useMemo(() => {
-        return customerAddresses.map(addressEntry => (
-            <AddressCard key={addressEntry.id} address={addressEntry} />
-        ));
-    }, [customerAddresses]);
+        const addresses = customerAddresses.map(addressEntry => {
+            const countryName = countryDisplayNameMap.get(
+                addressEntry.country_code
+            );
+
+            return (
+                <AddressCard
+                    key={addressEntry.id}
+                    address={addressEntry}
+                    countryName={countryName}
+                />
+            );
+        });
+
+        // sort the collection so the default is first
+        return addresses.sort(address =>
+            address.props.address.default_shipping ? -1 : 1
+        );
+    }, [countryDisplayNameMap, customerAddresses]);
+
+    if (isLoading) {
+        return fullPageLoadingIndicator;
+    }
 
     // STORE_NAME is injected by Webpack at build time.
     const title = `${PAGE_TITLE} - ${STORE_NAME}`;
@@ -40,6 +59,7 @@ const AddressBookPage = props => {
             <Title>{title}</Title>
             <h1 className={classes.heading}>{PAGE_TITLE}</h1>
             <div className={classes.content}>
+                {addressBookElements}
                 <LinkButton
                     className={classes.addButton}
                     key="addAddressButton"
@@ -59,7 +79,6 @@ const AddressBookPage = props => {
                         />
                     </span>
                 </LinkButton>
-                {addressBookElements}
             </div>
         </div>
     );
