@@ -30,5 +30,6 @@ Object {
   "setShippingInformationDone": [Function],
   "setShippingMethodDone": [Function],
   "toggleActiveContent": [Function],
+  "availablePaymentMethods": null
 }
 `;

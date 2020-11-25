@@ -590,3 +590,19 @@ test('resetReviewOrderButtonClicked should set reviewOrderButtonClicked to false
 
     expect(step2Props.reviewOrderButtonClicked).toBeFalsy();
 });
+
+test('check availablePaymentMethods, if not implemented then show page level message', () => {
+
+    placeOrderMutationResult.mockReturnValueOnce([
+        () => {},
+        {
+            data: null,
+            loading: false,
+            error: null
+        }
+    ]);
+
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.availablePaymentMethods).toBeNull();
+});
