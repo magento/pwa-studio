@@ -12,7 +12,7 @@ import defaultOperations from './addressBookPage.gql';
  *  A talon to support the functionality of the Address Book page.
  *
  *  @param {Object} props
- *  @param {Object} props.queries - GraphQL queries to be run by the talon.
+ *  @param {Object} props.operations - GraphQL operations to be run by the talon.
  *
  *
  *  @returns {Object}   talonProps
@@ -39,6 +39,7 @@ export const useAddressBookPage = (props = {}) => {
     const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
         {
+            fetchPolicy: 'cache-and-network',
             skip: !isSignedIn
         }
     );
@@ -61,6 +62,9 @@ export const useAddressBookPage = (props = {}) => {
     const [activeEditAddress, setActiveEditAddress] = useState();
     const isDialogEditMode = !!activeEditAddress;
 
+    const isRefetching = !!customerAddressesData && loading;
+    const isLoadingWithoutData = !customerAddressesData && loading;
+
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
         if (!isSignedIn) {
@@ -70,8 +74,8 @@ export const useAddressBookPage = (props = {}) => {
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
-        setPageLoading(loading);
-    }, [loading, setPageLoading]);
+        setPageLoading(isRefetching);
+    }, [isRefetching, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
         setActiveEditAddress(null);
@@ -136,8 +140,23 @@ export const useAddressBookPage = (props = {}) => {
             customerAddressesData.customer.addresses) ||
         [];
 
+    // use data from backend until Intl.DisplayNames is widely supported
+    const countryDisplayNameMap = useMemo(() => {
+        const countryMap = new Map();
+
+        if (customerAddressesData) {
+            const { countries } = customerAddressesData;
+            countries.forEach(country => {
+                countryMap.set(country.id, country.full_name_locale);
+            });
+        }
+
+        return countryMap;
+    }, [customerAddressesData]);
+
     return {
         activeEditAddress,
+        countryDisplayNameMap,
         customerAddresses,
         formErrors,
         handleAddAddress,
@@ -145,6 +164,7 @@ export const useAddressBookPage = (props = {}) => {
         handleConfirmDialog,
         handleEditAddress,
         isDialogEditMode,
-        isDialogOpen
+        isDialogOpen,
+        isLoading: isLoadingWithoutData
     };
 };

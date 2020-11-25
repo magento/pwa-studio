@@ -13,6 +13,33 @@ exports[`renders correctly when there are existing addresses 1`] = `
   <div
     className="content"
   >
+    <AddressCard
+      address={
+        Object {
+          "country_code": "US",
+          "default_shipping": true,
+          "id": "b",
+        }
+      }
+      countryName="United States"
+    />
+    <AddressCard
+      address={
+        Object {
+          "country_code": "US",
+          "id": "a",
+        }
+      }
+      countryName="United States"
+    />
+    <AddressCard
+      address={
+        Object {
+          "country_code": "FR",
+          "id": "c",
+        }
+      }
+    />
     <button
       className="addButton"
       disabled={false}
@@ -41,15 +68,6 @@ exports[`renders correctly when there are existing addresses 1`] = `
         </span>
       </span>
     </button>
-    <AddressCard
-      address="a"
-    />
-    <AddressCard
-      address="b"
-    />
-    <AddressCard
-      address="c"
-    />
   </div>
   <AddEditDialog />
 </div>
@@ -98,5 +116,29 @@ exports[`renders correctly when there are no existing addresses 1`] = `
     </button>
   </div>
   <AddEditDialog />
+</div>
+`;
+
+exports[`renders loading indicator 1`] = `
+<div
+  className="global"
+>
+  <Icon
+    classes={
+      Object {
+        "icon": "indicator",
+      }
+    }
+    size={64}
+    src={[Function]}
+  />
+  <span
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
+  </span>
 </div>
 `;
