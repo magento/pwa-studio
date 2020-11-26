@@ -1,15 +1,18 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
+import defaultOperations from './addressBookPage.gql';
 
 /**
  *  A talon to support the functionality of the Address Book page.
  *
  *  @param {Object} props
- *  @param {Object} props.queries - GraphQL queries to be run by the talon.
+ *  @param {Object} props.operations - GraphQL operations to be run by the talon.
  *
  *
  *  @returns {Object}   talonProps
@@ -17,10 +20,9 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  *  @returns {Boolean}  talonProps.isLoading - Indicates whether the user's
  *      address book data is loading.
  */
-export const useAddressBookPage = props => {
-    const {
-        queries: { getCustomerAddressesQuery }
-    } = props;
+export const useAddressBookPage = (props = {}) => {
+    const operations = mergeOperations(defaultOperations, props.operations);
+    const { getCustomerAddressesQuery } = operations;
 
     const [
         ,
@@ -33,9 +35,13 @@ export const useAddressBookPage = props => {
     const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
         {
+            fetchPolicy: 'cache-and-network',
             skip: !isSignedIn
         }
     );
+
+    const isRefetching = !!customerAddressesData && loading;
+    const isLoadingWithoutData = !customerAddressesData && loading;
 
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
@@ -46,8 +52,8 @@ export const useAddressBookPage = props => {
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
-        setPageLoading(loading);
-    }, [loading, setPageLoading]);
+        setPageLoading(isRefetching);
+    }, [isRefetching, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
         alert('TODO!');
@@ -59,8 +65,24 @@ export const useAddressBookPage = props => {
             customerAddressesData.customer.addresses) ||
         [];
 
+    // use data from backend until Intl.DisplayNames is widely supported
+    const countryDisplayNameMap = useMemo(() => {
+        const countryMap = new Map();
+
+        if (customerAddressesData) {
+            const { countries } = customerAddressesData;
+            countries.forEach(country => {
+                countryMap.set(country.id, country.full_name_locale);
+            });
+        }
+
+        return countryMap;
+    }, [customerAddressesData]);
+
     return {
+        countryDisplayNameMap,
         customerAddresses,
-        handleAddAddress
+        handleAddAddress,
+        isLoading: isLoadingWithoutData
     };
 };

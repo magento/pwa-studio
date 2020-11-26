@@ -23,6 +23,7 @@
     "addressBook.headerText": "Change Shipping Information",
     "addressBookPage.addAddressText": "Add an Address",
     "addressBookPage.addressBookText": "Address Book",
+    "addressBookPage.telephone": "Phone {telephone}",
     "addressCard.defaultText": "Default",
     "app.errorOffline": "You are offline. Some features may be unavailable.",
     "app.errorUnexpected": "Sorry! An unexpected error occurred.",
