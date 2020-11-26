@@ -8,7 +8,7 @@ import ShowAllButton from './showAllButton';
 import LoadingIndicator from '../../LoadingIndicator';
 import { mergeClasses } from '../../../classify';
 
-import LIST_OF_PRODUCTS_IN_CART_QUERY from './itemsReview.gql';
+import LIST_OF_PRODUCTS_IN_CART_QUERY from '@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/itemsReview.gql';
 
 import defaultClasses from './itemsReview.css';
 

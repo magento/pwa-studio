@@ -27,16 +27,13 @@ import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
 import payments from './PaymentInformation/paymentMethodCollection';
 import defaultClasses from './checkoutPage.css';
-import CheckoutPageOperations from './checkoutPage.gql.js';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
-    const talonProps = useCheckoutPage({
-        ...CheckoutPageOperations
-    });
+    const talonProps = useCheckoutPage({});
 
     const {
         /**
