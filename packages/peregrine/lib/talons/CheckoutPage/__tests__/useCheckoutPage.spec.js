@@ -20,6 +20,7 @@ import CheckoutError from '../CheckoutError';
 
 jest.mock('@apollo/client', () => {
     return {
+        ...jest.requireActual('@apollo/client'),
         useLazyQuery: jest.fn(),
         useApolloClient: jest.fn(),
         useMutation: jest.fn(),
