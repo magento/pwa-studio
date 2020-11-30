@@ -63,7 +63,7 @@ magento-cloud get yswqmrbknvqjz
 ```
 
 This command creates a project directory and initializes the Git repository associated with your Cloud project.
-Depending on your access permissions for the `master` environment, this directory may appear empty.
+Depending on your access permissions for the default environment, this directory may appear empty.
 
 Navigate to the project directory and use the Magento Cloud CLI to list the environments for this project.
 
@@ -78,7 +78,7 @@ Your environments are:
 +----------------------+----------------------+-------------+
 | ID                   | Title                | Status      |
 +----------------------+----------------------+-------------+
-| master*              | Master               | Active      |
+| production*          | Production           | Active      |
 | staging              | Staging              | Active      |
 | myStorefront-develop | myStorefront-develop | In progress |
 |    myStorefront-cicd | myStorefront-cicd    | Active      |
