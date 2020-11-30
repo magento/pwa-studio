@@ -55,10 +55,7 @@ const validateSampleBackend = async config => {
             ({ url }) => url !== env.MAGENTO_BACKEND_URL
         );
 
-        debug(
-            'PWA Studio supports the following backends',
-            sampleBackends
-        );
+        debug('PWA Studio supports the following backends', sampleBackends);
 
         debug('Reporting backend URL validation failure');
         if (otherBackends.length) {
