@@ -49,14 +49,16 @@ const CreditCard = props => {
     const handleDelete = useCallback(() => {}, []);
     const deleteButton = (
         <button className={classes.deleteButton} onClick={handleDelete}>
-            <Icon
-                classes={{
-                    icon: classes.deleteIcon
-                }}
-                size={16}
-                src={DeleteIcon}
-            />
-            <span className={classes.deleteText}>{'Delete'}</span>
+            <span className={classes.buttonContent}>
+                <Icon
+                    classes={{
+                        icon: classes.deleteIcon
+                    }}
+                    size={16}
+                    src={DeleteIcon}
+                />
+                <span className={classes.deleteText}>{'Delete'}</span>
+            </span>
         </button>
     );
 
