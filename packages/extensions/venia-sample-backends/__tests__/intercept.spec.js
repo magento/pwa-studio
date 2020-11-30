@@ -47,3 +47,18 @@ test('should call onFail if backend is inactive', async () => {
     expect(onFail).toHaveBeenCalled();
     expect(onFail.mock.calls[0][0]).toMatchSnapshot();
 });
+
+test('should call onFail with a different error message if environments is empty', async () => {
+    fetch.mockResolvedValueOnce({ ok: false }).mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValue({
+            sampleBackends: {
+                environments: []
+            }
+        })
+    });
+
+    await validateSampleBackend(args);
+
+    expect(onFail).toHaveBeenCalled();
+    expect(onFail.mock.calls[0][0]).toMatchSnapshot();
+});
