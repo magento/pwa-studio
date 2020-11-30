@@ -20,6 +20,7 @@ This tutorial requires the following tools:
 
 -   [Magento Cloud CLI][]
 -   Git
+-   [Composer][]
 -   Yarn or NPM (depends on your storefront project configuration)
 
 If you need to do more advanced Cloud tasks, see the [Cloud technologies and requirements][] for the full list of tools you need to fully manage the rest of your Cloud project.
@@ -80,7 +81,6 @@ Your environments are:
 | master*              | Master               | Active      |
 | staging              | Staging              | Active      |
 | myStorefront-develop | myStorefront-develop | In progress |
-|    tommy-test        | tommy-test           | Inactive    |
 |    myStorefront-cicd | myStorefront-cicd    | Active      |
 +----------------------+----------------------+-------------+
 * - Indicates the current environment
@@ -212,3 +212,4 @@ See the Cloud topic on how to [Deploy your store][] for more details on the depl
 [`.magento.app.yaml`]: https://devdocs.magento.com/cloud/project/magento-env-yaml.html
 [deploy your store]: https://devdocs.magento.com/cloud/live/stage-prod-live.html
 [ssh]: https://devdocs.magento.com/cloud/env/environments-ssh.html
+[composer]: https://getcomposer.org/
