@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -31,7 +32,6 @@ const CreditCard = props => {
     const { classes: propClasses, details, public_hash } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const title = 'Credit Card';
     const number = `**** ${details.maskedCC} \u00A0\u00A0 ${
         cardTypeMapper[details.type]
     }`;
@@ -57,14 +57,24 @@ const CreditCard = props => {
                     size={16}
                     src={DeleteIcon}
                 />
-                <span className={classes.deleteText}>{'Delete'}</span>
+                <span className={classes.deleteText}>
+                    <FormattedMessage
+                        id={'storedPayments.delete'}
+                        defaultMessage={'Delete'}
+                    />
+                </span>
             </span>
         </button>
     );
 
     return (
         <div className={classes.root} key={public_hash}>
-            <div className={classes.title}>{title}</div>
+            <div className={classes.title}>
+                <FormattedMessage
+                    id={'storedPayments.creditCard'}
+                    defaultMessage={'Credit Card'}
+                />
+            </div>
             <div className={classes.number}>{number}</div>
             <div className={classes.expiry_date}>{cardExpiryDate}</div>
             <div className={classes.delete}>{deleteButton}</div>
