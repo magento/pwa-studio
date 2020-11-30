@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { shape, string, bool, arrayOf } from 'prop-types';
 import { Trash2 as TrashIcon, Edit2 as EditIcon } from 'react-feather';
@@ -9,7 +9,7 @@ import defaultClasses from './addressCard.css';
 import LinkButton from '../LinkButton';
 
 const AddressCard = props => {
-    const { address, classes: propClasses, countryName } = props;
+    const { address, classes: propClasses, countryName, onEdit } = props;
 
     const {
         city,
@@ -24,6 +24,10 @@ const AddressCard = props => {
     } = address;
 
     const classes = mergeClasses(defaultClasses, propClasses);
+
+    const handleEdit = useCallback(() => {
+        onEdit(address);
+    }, [address, onEdit]);
 
     const streetRows = street.map((row, index) => {
         return (
@@ -82,7 +86,7 @@ const AddressCard = props => {
             <div className={classes.actionContainer}>
                 <LinkButton
                     classes={{ root: classes.editButton }}
-                    onClick={() => console.log('To be completed by PWA-634')}
+                    onClick={handleEdit}
                 >
                     <Icon classes={{ icon: null }} size={16} src={EditIcon} />
                     <span className={classes.actionLabel}>

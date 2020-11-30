@@ -16,10 +16,10 @@ import defaultClasses from './addressBookPage.css';
 const AddressBookPage = props => {
     const talonProps = useAddressBookPage();
     const {
-        activeEditAddress,
         countryDisplayNameMap,
         customerAddresses,
         formErrors,
+        formProps,
         handleAddAddress,
         handleCancelDialog,
         handleConfirmDialog,
@@ -47,6 +47,7 @@ const AddressBookPage = props => {
                     key={addressEntry.id}
                     address={addressEntry}
                     countryName={countryName}
+                    onEdit={handleEditAddress}
                 />
             );
         });
@@ -55,7 +56,7 @@ const AddressBookPage = props => {
         return addresses.sort(address =>
             address.props.address.default_shipping ? -1 : 1
         );
-    }, [countryDisplayNameMap, customerAddresses]);
+    }, [countryDisplayNameMap, customerAddresses, handleEditAddress]);
 
     if (isLoading) {
         return fullPageLoadingIndicator;
@@ -90,8 +91,8 @@ const AddressBookPage = props => {
                 </LinkButton>
             </div>
             <AddEditDialog
-                activeEditAddress={activeEditAddress}
                 formErrors={formErrors}
+                formProps={formProps}
                 isEditMode={isDialogEditMode}
                 isOpen={isDialogOpen}
                 handleCancel={handleCancelDialog}

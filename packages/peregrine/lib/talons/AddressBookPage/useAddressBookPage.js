@@ -34,8 +34,8 @@ export const useAddressBookPage = (props = {}) => {
             actions: { setPageLoading }
         }
     ] = useAppContext();
-    const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
+    const history = useHistory();
     const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
         {
@@ -59,8 +59,9 @@ export const useAddressBookPage = (props = {}) => {
     ] = useMutation(updateCustomerAddressMutation);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [activeEditAddress, setActiveEditAddress] = useState();
-    const isDialogEditMode = !!activeEditAddress;
+    const [isDialogEditMode, setIsDialogEditMode] = useState(false);
+
+    const [formApi, setFormApi] = useState();
 
     const isRefetching = !!customerAddressesData && loading;
     const isLoadingWithoutData = !customerAddressesData && loading;
@@ -78,14 +79,18 @@ export const useAddressBookPage = (props = {}) => {
     }, [isRefetching, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
-        setActiveEditAddress(null);
+        setIsDialogEditMode(false);
         setIsDialogOpen(true);
     }, []);
 
-    const handleEditAddress = useCallback(address => {
-        setActiveEditAddress(address);
-        setIsDialogOpen(true);
-    }, []);
+    const handleEditAddress = useCallback(
+        address => {
+            formApi.setValues(address);
+            setIsDialogEditMode(true);
+            setIsDialogOpen(true);
+        },
+        [formApi]
+    );
 
     const handleCancelDialog = useCallback(() => {
         setIsDialogOpen(false);
@@ -134,12 +139,6 @@ export const useAddressBookPage = (props = {}) => {
         [createCustomerAddressError, updateCustomerAddressError]
     );
 
-    const customerAddresses =
-        (customerAddressesData &&
-            customerAddressesData.customer &&
-            customerAddressesData.customer.addresses) ||
-        [];
-
     // use data from backend until Intl.DisplayNames is widely supported
     const countryDisplayNameMap = useMemo(() => {
         const countryMap = new Map();
@@ -154,11 +153,27 @@ export const useAddressBookPage = (props = {}) => {
         return countryMap;
     }, [customerAddressesData]);
 
+    const customerAddresses =
+        (customerAddressesData &&
+            customerAddressesData.customer &&
+            customerAddressesData.customer.addresses) ||
+        [];
+
+    // Used to seed the form when adding a new address.
+    // Needed for the Region component to work properly.
+    const initialValues = {
+        country_code: 'US'
+    };
+    const formProps = {
+        getApi: setFormApi,
+        initialValues
+    };
+
     return {
-        activeEditAddress,
         countryDisplayNameMap,
         customerAddresses,
         formErrors,
+        formProps,
         handleAddAddress,
         handleCancelDialog,
         handleConfirmDialog,

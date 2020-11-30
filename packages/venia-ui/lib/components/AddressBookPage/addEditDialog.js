@@ -17,8 +17,8 @@ import defaultClasses from './addEditDialog.css';
 
 const AddEditDialog = props => {
     const {
-        activeEditAddress,
         formErrors,
+        formProps,
         isEditMode,
         isOpen,
         handleCancel,
@@ -76,15 +76,11 @@ const AddEditDialog = props => {
         defaultMessage: 'Make this my default address'
     });
 
-    // TODO
-    // const formProps = {
-    //     initialValues: activeEditAddress
-    // };
-
     return (
         <Dialog
             confirmTranslationId={'global.save'}
             confirmText="Save"
+            formProps={formProps}
             isOpen={isOpen}
             onCancel={handleCancel}
             onConfirm={handleConfirm}
@@ -163,7 +159,6 @@ const AddEditDialog = props => {
 export default AddEditDialog;
 
 AddEditDialog.propTypes = {
-    activeEditAddress: shape({}),
     classes: shape({}),
     formErrors: object,
     isEditMode: bool,
