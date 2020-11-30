@@ -8,17 +8,11 @@
     font-size: 1rem;
     grid-template-columns: 1fr auto;
     min-height: 10rem;
-    min-width: 25rem;
+    min-width: 20rem;
     outline: none;
     padding: 1.5rem 2rem;
     position: relative;
     transition: border-color 384ms var(--venia-global-anim-in);
-}
-
-@media (max-width: 960px) {
-    .root {
-        min-width: 20rem;
-    }
 }
 
 .root_selected {
