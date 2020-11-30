@@ -14,18 +14,18 @@ import defaultClasses from './creditCard.css';
  * https://github.com/magento/magento2/blob/2.4-develop/app/code/Magento/Payment/view/base/web/js/model/credit-card-validation/credit-card-number-validator/credit-card-type.js
  */
 const cardTypeMapper = {
-    VI: 'Visa',
-    MC: 'MasterCard',
     AE: 'American Express',
-    DN: 'Diners',
+    AU: 'Aura',
     DI: 'Discover',
-    JCB: 'JCB',
-    UN: 'UnionPay',
-    MI: 'Maestro International',
-    MD: 'Maestro Domestic',
-    HC: 'Hipercard',
+    DN: 'Diners',
     ELO: 'Elo',
-    AU: 'Aura'
+    HC: 'Hipercard',
+    JCB: 'JCB',
+    MC: 'MasterCard',
+    MD: 'Maestro Domestic',
+    MI: 'Maestro International',
+    UN: 'UnionPay',
+    VI: 'Visa'
 };
 
 const CreditCard = props => {

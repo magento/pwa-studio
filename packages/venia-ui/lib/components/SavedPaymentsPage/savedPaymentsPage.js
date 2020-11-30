@@ -35,18 +35,11 @@ const SavedPaymentsPage = props => {
 
     const { formatMessage } = useIntl();
 
-    // STORE_NAME is injected by Webpack at build time.
-    const title = formatMessage(
-        { id: 'savedPaymentsPage.title' },
-        { store_name: STORE_NAME }
-    );
-    const subHeading = formatMessage({ id: 'savedPaymentsPage.subHeading' });
-
+    const title = formatMessage({ id: 'savedPaymentsPage.title' });
     return (
         <div className={classes.root}>
             <Title>{title}</Title>
             <h1 className={classes.heading}>{title}</h1>
-            <h3 className={classes.subHeading}>{subHeading}</h3>
             <div className={classes.content}>{savedPaymentElements}</div>
         </div>
     );
