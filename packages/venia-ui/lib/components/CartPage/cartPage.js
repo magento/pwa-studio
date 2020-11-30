@@ -4,7 +4,6 @@ import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage'
 
 import { mergeClasses } from '../../classify';
 import { Title } from '../Head';
-import LinkButton from '../LinkButton';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
 import PriceAdjustments from './PriceAdjustments';
@@ -39,9 +38,7 @@ const CartPage = props => {
 
     const {
         cartItems,
-        handleSignIn,
         hasItems,
-        isSignedIn,
         isCartUpdating,
         setIsCartUpdating,
         shouldShowLoadingIndicator
@@ -53,20 +50,6 @@ const CartPage = props => {
     if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;
     }
-
-    const signInDisplay = !isSignedIn ? (
-        <LinkButton
-            classes={{
-                root: classes.signInLink
-            }}
-            onClick={handleSignIn}
-        >
-            <FormattedMessage
-                id={'cartPage.signIn'}
-                defaultMessage={'Sign In'}
-            />
-        </LinkButton>
-    ) : null;
 
     const productListing = hasItems ? (
         <ProductListing setIsCartUpdating={setIsCartUpdating} />
@@ -104,7 +87,6 @@ const CartPage = props => {
                         defaultMessage={'Cart'}
                     />
                 </h1>
-                {signInDisplay}
                 <div className={classes.stockStatusMessageContainer}>
                     <StockStatusMessage cartItems={cartItems} />
                 </div>
