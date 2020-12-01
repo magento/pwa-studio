@@ -38,7 +38,13 @@ const AddressBookPage = props => {
         defaultMessage: 'Address Book'
     });
     const addressBookElements = useMemo(() => {
-        const addresses = customerAddresses.map(addressEntry => {
+        const defaultToBeginning = (address1, address2) => {
+            if (address1.default_shipping) return -1;
+            if (address2.default_shipping) return 1;
+            return 0;
+        };
+
+        return customerAddresses.sort(defaultToBeginning).map(addressEntry => {
             const countryName = countryDisplayNameMap.get(
                 addressEntry.country_code
             );
@@ -52,11 +58,6 @@ const AddressBookPage = props => {
                 />
             );
         });
-
-        // sort the collection so the default is first
-        return addresses.sort(address =>
-            address.props.address.default_shipping ? -1 : 1
-        );
     }, [countryDisplayNameMap, customerAddresses, handleEditAddress]);
 
     if (isLoading) {

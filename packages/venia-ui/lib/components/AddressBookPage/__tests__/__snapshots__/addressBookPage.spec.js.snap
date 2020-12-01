@@ -26,19 +26,19 @@ exports[`renders correctly when there are existing addresses 1`] = `
     <AddressCard
       address={
         Object {
-          "country_code": "FR",
-          "id": "c",
-        }
-      }
-    />
-    <AddressCard
-      address={
-        Object {
           "country_code": "US",
           "id": "a",
         }
       }
       countryName="United States"
+    />
+    <AddressCard
+      address={
+        Object {
+          "country_code": "FR",
+          "id": "c",
+        }
+      }
     />
     <button
       className="addButton"
