@@ -11,9 +11,9 @@ jest.mock('../../Postcode', () => 'Postcode');
 jest.mock('../../Region', () => 'Region');
 
 const props = {
-    activeEditAddress: {},
     classes: {},
-    formErrors: [],
+    formErrors: new Map([]),
+    isBusy: false,
     isEditMode: false,
     isOpen: true,
     handleCancel: jest.fn().mockName('handleCancel'),
@@ -32,7 +32,10 @@ it('renders correctly with errors', () => {
     // Arrange.
     const testProps = {
         ...props,
-        formErrors: ['Unit Test Error 1', 'Unit Test Error 2']
+        formErrors: new Map([
+            ['createCustomerAddressMutation', 'Unit Test Error 1'],
+            ['updateCustomerAddressMutation', 'Unit Test Error 2']
+        ])
     };
 
     // Act.
@@ -75,7 +78,10 @@ describe('Edit Mode', () => {
         // Arrange.
         const testProps = {
             ...editModeProps,
-            formErrors: ['Unit Test Error 1', 'Unit Test Error 2']
+            formErrors: new Map([
+                ['createCustomerAddressMutation', 'Unit Test Error 1'],
+                ['updateCustomerAddressMutation', 'Unit Test Error 2']
+            ])
         };
 
         // Act.

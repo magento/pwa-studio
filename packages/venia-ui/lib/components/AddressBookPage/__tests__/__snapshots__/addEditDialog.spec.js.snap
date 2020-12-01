@@ -7,6 +7,7 @@ exports[`Edit Mode renders correctly 1`] = `
   isOpen={true}
   onCancel={[MockFunction handleCancel]}
   onConfirm={[MockFunction handleConfirm]}
+  shouldDisableAllButtons={false}
   title="Edit Address"
 >
   <FormError
@@ -164,6 +165,7 @@ exports[`Edit Mode renders correctly 1`] = `
       className="country"
     >
       <Country
+        field="country_code"
         validate={[Function]}
       />
     </div>
@@ -311,6 +313,7 @@ exports[`Edit Mode renders correctly 1`] = `
       className="region"
     >
       <Region
+        countryCodeField="country_code"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
@@ -427,6 +430,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
   isOpen={true}
   onCancel={[MockFunction handleCancel]}
   onConfirm={[MockFunction handleConfirm]}
+  shouldDisableAllButtons={false}
   title="Edit Address"
 >
   <FormError
@@ -589,6 +593,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
       className="country"
     >
       <Country
+        field="country_code"
         validate={[Function]}
       />
     </div>
@@ -736,6 +741,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
       className="region"
     >
       <Region
+        countryCodeField="country_code"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
@@ -852,6 +858,7 @@ exports[`renders correctly 1`] = `
   isOpen={true}
   onCancel={[MockFunction handleCancel]}
   onConfirm={[MockFunction handleConfirm]}
+  shouldDisableAllButtons={false}
   title="New Address"
 >
   <FormError
@@ -1009,6 +1016,7 @@ exports[`renders correctly 1`] = `
       className="country"
     >
       <Country
+        field="country_code"
         validate={[Function]}
       />
     </div>
@@ -1156,6 +1164,7 @@ exports[`renders correctly 1`] = `
       className="region"
     >
       <Region
+        countryCodeField="country_code"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
@@ -1272,6 +1281,7 @@ exports[`renders correctly with errors 1`] = `
   isOpen={true}
   onCancel={[MockFunction handleCancel]}
   onConfirm={[MockFunction handleConfirm]}
+  shouldDisableAllButtons={false}
   title="New Address"
 >
   <FormError
@@ -1434,6 +1444,7 @@ exports[`renders correctly with errors 1`] = `
       className="country"
     >
       <Country
+        field="country_code"
         validate={[Function]}
       />
     </div>
@@ -1581,6 +1592,7 @@ exports[`renders correctly with errors 1`] = `
       className="region"
     >
       <Region
+        countryCodeField="country_code"
         fieldInput="region[region]"
         fieldSelect="region[region_id]"
         optionValueKey="id"
