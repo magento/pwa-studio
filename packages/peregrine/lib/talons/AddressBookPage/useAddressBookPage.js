@@ -45,6 +45,8 @@ export const useAddressBookPage = (props = {}) => {
             skip: !isSignedIn
         }
     );
+    const isRefetching = !!customerAddressesData && loading;
+
     const [
         createCustomerAddress,
         {
@@ -63,11 +65,12 @@ export const useAddressBookPage = (props = {}) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [activeEditAddress, setActiveEditAddress] = useState();
     const isDialogEditMode = !!activeEditAddress;
-
     const [formApi, setFormApi] = useState();
 
-    const isRefetching = !!customerAddressesData && loading;
-    const isLoadingWithoutData = !customerAddressesData && loading;
+    // Use local state to determine whether to display errors or not.
+    // Could be replaced by a "reset mutation" function from apollo client.
+    // https://github.com/apollographql/apollo-feature-requests/issues/170
+    const [displayError, setDisplayError] = useState(false);
 
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
@@ -83,6 +86,8 @@ export const useAddressBookPage = (props = {}) => {
 
     const handleAddAddress = useCallback(() => {
         setActiveEditAddress(null);
+        // Hide all previous errors when we open the dialog.
+        setDisplayError(false);
         setIsDialogOpen(true);
     }, []);
 
@@ -90,6 +95,8 @@ export const useAddressBookPage = (props = {}) => {
         address => {
             formApi.setValues(address);
             setActiveEditAddress(address);
+            // Hide all previous errors when we open the dialog.
+            setDisplayError(false);
             setIsDialogOpen(true);
         },
         [formApi]
@@ -113,6 +120,12 @@ export const useAddressBookPage = (props = {}) => {
 
                     setIsDialogOpen(false);
                 } catch {
+                    // Make sure any errors from the mutations are displayed.
+                    setDisplayError(true);
+
+                    // we have an onError link that logs errors, and FormError
+                    // already renders this error, so just return to avoid
+                    // triggering the success callback
                     return;
                 }
             } else {
@@ -124,6 +137,12 @@ export const useAddressBookPage = (props = {}) => {
 
                     setIsDialogOpen(false);
                 } catch {
+                    // Make sure any errors from the mutations are displayed.
+                    setDisplayError(true);
+
+                    // we have an onError link that logs errors, and FormError
+                    // already renders this error, so just return to avoid
+                    // triggering the success callback
                     return;
                 }
             }
@@ -137,14 +156,14 @@ export const useAddressBookPage = (props = {}) => {
         ]
     );
 
-    const formErrors = useMemo(
-        () =>
-            new Map([
+    const formErrors = useMemo(() => {
+        if (displayError) {
+            return new Map([
                 ['createCustomerAddressMutation', createCustomerAddressError],
                 ['updateCustomerAddressMutation', updateCustomerAddressError]
-            ]),
-        [createCustomerAddressError, updateCustomerAddressError]
-    );
+            ]);
+        } else return new Map();
+    }, [createCustomerAddressError, displayError, updateCustomerAddressError]);
 
     // use data from backend until Intl.DisplayNames is widely supported
     const countryDisplayNameMap = useMemo(() => {
@@ -160,12 +179,6 @@ export const useAddressBookPage = (props = {}) => {
         return countryMap;
     }, [customerAddressesData]);
 
-    const customerAddresses =
-        (customerAddressesData &&
-            customerAddressesData.customer &&
-            customerAddressesData.customer.addresses) ||
-        [];
-
     // Used to seed the form when adding a new address.
     // Needed for the Region component to work properly.
     const initialValues = {
@@ -177,6 +190,12 @@ export const useAddressBookPage = (props = {}) => {
     };
 
     const isDialogBusy = isCreatingCustomerAddress || isUpdatingCustomerAddress;
+    const isLoadingWithoutData = !customerAddressesData && loading;
+    const customerAddresses =
+        (customerAddressesData &&
+            customerAddressesData.customer &&
+            customerAddressesData.customer.addresses) ||
+        [];
 
     return {
         countryDisplayNameMap,

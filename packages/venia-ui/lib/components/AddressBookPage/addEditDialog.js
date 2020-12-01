@@ -149,7 +149,7 @@ const AddEditDialog = props => {
                 </div>
                 <div className={classes.default_address_check}>
                     <Checkbox
-                        field="make_default_check"
+                        field="default_shipping"
                         label={defaultAddressCheckLabel}
                     />
                 </div>
