@@ -11,6 +11,10 @@ const debug = jest.fn().mockName('debug');
 
 const args = { env, onFail, debug };
 
+beforeAll(() => {
+    console.warn = jest.fn();
+});
+
 test('should not call onFail if backend is active', async () => {
     fetch.mockResolvedValueOnce({ ok: true });
 
@@ -61,4 +65,11 @@ test('should call onFail with a different error message if environments is empty
 
     expect(onFail).toHaveBeenCalled();
     expect(onFail.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test('should log warning message in the console', async () => {
+    await validateSampleBackend(args);
+
+    expect(console.warn).toHaveBeenCalled();
+    expect(console.warn.mock.calls[0][0]).toMatchSnapshot();
 });
