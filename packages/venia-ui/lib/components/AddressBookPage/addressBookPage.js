@@ -24,6 +24,7 @@ const AddressBookPage = props => {
         handleCancelDialog,
         handleConfirmDialog,
         handleEditAddress,
+        isDialogBusy,
         isDialogEditMode,
         isDialogOpen,
         isLoading
@@ -93,6 +94,7 @@ const AddressBookPage = props => {
             <AddEditDialog
                 formErrors={formErrors}
                 formProps={formProps}
+                isBusy={isDialogBusy}
                 isEditMode={isDialogEditMode}
                 isOpen={isDialogOpen}
                 handleCancel={handleCancelDialog}

@@ -19,6 +19,7 @@ const AddEditDialog = props => {
     const {
         formErrors,
         formProps,
+        isBusy,
         isEditMode,
         isOpen,
         handleCancel,
@@ -84,6 +85,7 @@ const AddEditDialog = props => {
             isOpen={isOpen}
             onCancel={handleCancel}
             onConfirm={handleConfirm}
+            shouldDisableAllButtons={isBusy}
             title={title}
         >
             <FormError

@@ -35,7 +35,9 @@ export const useAddressBookPage = (props = {}) => {
         }
     ] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
+
     const history = useHistory();
+
     const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
         {
@@ -174,6 +176,8 @@ export const useAddressBookPage = (props = {}) => {
         initialValues
     };
 
+    const isDialogBusy = isCreatingCustomerAddress || isUpdatingCustomerAddress;
+
     return {
         countryDisplayNameMap,
         customerAddresses,
@@ -183,6 +187,7 @@ export const useAddressBookPage = (props = {}) => {
         handleCancelDialog,
         handleConfirmDialog,
         handleEditAddress,
+        isDialogBusy,
         isDialogEditMode,
         isDialogOpen,
         isLoading: isLoadingWithoutData
