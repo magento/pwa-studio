@@ -80,12 +80,12 @@ beforeEach(() => {
 });
 
 describe('returns LOADING while queries are pending', () => {
-    test('urlResolver is loading', () => {
+    test('urlResolver is loading', async () => {
         useQuery.mockImplementation(() => {
             return { loading: true };
         });
 
-        act(() => {
+        await act(() => {
             create(<Component />);
         });
 
@@ -96,8 +96,8 @@ describe('returns LOADING while queries are pending', () => {
         });
     });
 
-    test('getRootComponent is pending', () => {
-        act(() => {
+    test('getRootComponent is pending', async () => {
+        await act(() => {
             create(<Component />);
         });
 
@@ -110,12 +110,12 @@ describe('returns LOADING while queries are pending', () => {
 });
 
 describe('returns ERROR when queries fail', () => {
-    test('urlResolver fails', () => {
+    test('urlResolver fails', async () => {
         useQuery.mockImplementation(() => {
             return { error: new Error() };
         });
 
-        act(() => {
+        await act(() => {
             create(<Component />);
         });
 
@@ -130,7 +130,7 @@ describe('returns ERROR when queries fail', () => {
     test('getRootComponent fails', async () => {
         const routeError = new Error();
 
-        act(() => {
+        await act(() => {
             create(<Component />);
         });
 
@@ -151,7 +151,7 @@ describe('returns ERROR when queries fail', () => {
 });
 
 describe('returns NOT_FOUND when queries come back empty', () => {
-    test('urlResolver is null', () => {
+    test('urlResolver is null', async () => {
         useQuery.mockImplementation(() => {
             return {
                 data: {
@@ -161,7 +161,7 @@ describe('returns NOT_FOUND when queries come back empty', () => {
             };
         });
 
-        act(() => {
+        await act(() => {
             create(<Component />);
         });
 
@@ -174,7 +174,7 @@ describe('returns NOT_FOUND when queries come back empty', () => {
 });
 
 describe('returns REDIRECT after receiving a redirect code', () => {
-    test('redirect code 301', () => {
+    test('redirect code 301', async () => {
         useQuery.mockImplementation(() => {
             return {
                 data: {
@@ -189,7 +189,7 @@ describe('returns REDIRECT after receiving a redirect code', () => {
             };
         });
 
-        act(() => {
+        await act(() => {
             create(<Component />);
         });
 
@@ -201,7 +201,7 @@ describe('returns REDIRECT after receiving a redirect code', () => {
         });
     });
 
-    test('redirect code 302', () => {
+    test('redirect code 302', async () => {
         useQuery.mockImplementation(() => {
             return {
                 data: {
@@ -216,7 +216,7 @@ describe('returns REDIRECT after receiving a redirect code', () => {
             };
         });
 
-        act(() => {
+        await act(() => {
             create(<Component />);
         });
 
@@ -231,7 +231,7 @@ describe('returns REDIRECT after receiving a redirect code', () => {
 
 describe('returns FOUND after fetching a component', () => {
     test('getRootComponent succeeds', async () => {
-        act(() => {
+        await act(() => {
             create(<Component />);
         });
 
@@ -256,7 +256,7 @@ describe('avoids fetching the same component twice', () => {
     test('getRootComponent succeeds', async () => {
         let tree;
 
-        act(() => {
+        await act(() => {
             tree = create(<Component key="a" />);
         });
 
@@ -264,7 +264,7 @@ describe('avoids fetching the same component twice', () => {
             resolve('MockComponent');
         });
 
-        act(() => {
+        await act(() => {
             tree.update(<Component key="a" />);
         });
 
@@ -277,11 +277,11 @@ describe('avoids setting state when unmounted', () => {
     test('getRootComponent resolves after unmount', async () => {
         let tree;
 
-        act(() => {
+        await act(() => {
             tree = create(<Component />);
         });
 
-        act(() => {
+        await act(() => {
             tree.unmount();
         });
 
