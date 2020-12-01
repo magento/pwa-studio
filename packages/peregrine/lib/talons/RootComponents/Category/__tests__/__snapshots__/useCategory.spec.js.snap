@@ -37,6 +37,10 @@ Object {
       "category_id": Object {
         "eq": "7",
       },
+      "price": Object {
+        "from": "0",
+        "to": "100",
+      },
     },
     "id": 7,
     "pageSize": 12,

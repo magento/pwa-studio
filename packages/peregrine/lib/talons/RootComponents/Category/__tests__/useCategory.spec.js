@@ -3,6 +3,7 @@ import { act } from 'react-test-renderer';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useCategory } from '../useCategory';
 import { useQuery, useLazyQuery } from '@apollo/client';
+import { useLocation } from 'react-router-dom';
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
@@ -142,6 +143,11 @@ test('runs the category query', () => {
     useQuery
         .mockReturnValueOnce(mockPageSizeData)
         .mockReturnValueOnce(mockFilterInputsData);
+
+    useLocation.mockReturnValue({
+        pathname: '',
+        search: 'page=1&price%5Bfilter%5D=0-100%2C0_100'
+    });
 
     createTestInstance(<Component {...mockProps} />);
 
