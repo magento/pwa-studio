@@ -2,7 +2,7 @@ import React from 'react';
 import { act } from 'react-test-renderer';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useCategory } from '../useCategory';
-import { useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
@@ -61,19 +61,7 @@ jest.mock('@apollo/client', () => {
         data: null,
         loading: false
     }));
-    const runQuery = jest.fn();
-    const queryResult = {
-        data: {
-            products: {
-                page_info: {
-                    total_pages: 6
-                }
-            }
-        },
-        error: null,
-        loading: false
-    };
-    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
+    const useLazyQuery = jest.fn();
 
     return { ...apolloClient, useLazyQuery, useQuery };
 });
@@ -95,6 +83,43 @@ const mockPageSizeData = {
     loading: false
 };
 
+const mockFilterInputsData = {
+    error: null,
+    loading: false,
+    data: {
+        __type: {
+            inputFields: [
+                {
+                    name: 'category_id',
+                    type: {
+                        name: 'FilterEqualTypeInput'
+                    }
+                },
+                {
+                    name: 'price',
+                    type: {
+                        name: 'FilterRangeTypeInput'
+                    }
+                }
+            ]
+        }
+    }
+};
+
+const mockCategoryData = {
+    error: null,
+    loading: false,
+    data: {
+        products: {
+            page_info: {
+                total_pages: 6
+            }
+        }
+    }
+};
+
+const mockRunQuery = jest.fn();
+
 const Component = props => {
     const talonProps = useCategory(props);
     return <i talonProps={talonProps} />;
@@ -102,6 +127,7 @@ const Component = props => {
 
 test('returns the correct shape', () => {
     useQuery.mockReturnValue(mockPageSizeData);
+    useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
 
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
@@ -144,6 +170,8 @@ test.each(testCases)(
     'Changing %s current page to 1.',
     (description, sortParams, expected) => {
         useQuery.mockReturnValue(mockPageSizeData);
+        useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
+
         const tree = createTestInstance(<Component {...mockProps} />);
 
         mockUseSort.mockReturnValueOnce([sortParams, jest.fn()]);
