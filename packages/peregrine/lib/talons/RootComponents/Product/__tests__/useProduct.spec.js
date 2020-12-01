@@ -13,16 +13,27 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 });
 
 jest.mock('@apollo/client', () => {
-    const queryResult = {
-        loading: false,
+    const apolloClient = jest.requireActual('@apollo/client');
+    const useQueryMock = jest.fn().mockReturnValue({
+        data: {
+            products: {
+                items: [
+                    {
+                        id: 1,
+                        name: 'Karena Halter Dress',
+                        url_key: 'karena-halter-dress'
+                    }
+                ]
+            }
+        },
         error: null,
-        data: null
-    };
-    const useQuery = jest.fn(() => {
-        queryResult;
+        loading: false
     });
 
-    return { useQuery };
+    return {
+        ...apolloClient,
+        useQuery: useQueryMock
+    };
 });
 
 const log = jest.fn();
@@ -38,9 +49,6 @@ const Component = props => {
 
 const props = {
     mapProduct: jest.fn(product => product),
-    queries: {
-        getProductQuery: 'getProductQuery'
-    },
     urlKey: 'unit_test'
 };
 
