@@ -155,6 +155,26 @@ test('runs the category query', () => {
     expect(mockRunQuery.mock.calls[0][0]).toMatchSnapshot();
 });
 
+test('resets the current page on error', () => {
+    useLazyQuery.mockReturnValue([
+        mockRunQuery,
+        {
+            loading: false,
+            error: {
+                message: 'An error ocurred!'
+            },
+            data: null
+        }
+    ]);
+    useQuery
+        .mockReturnValueOnce(mockPageSizeData)
+        .mockReturnValueOnce(mockFilterInputsData);
+
+    createTestInstance(<Component {...mockProps} />);
+
+    expect(mockSetCurrentPage).toHaveBeenCalledTimes(1);
+});
+
 const testCases = [
     [
         'sortText does not reset',
