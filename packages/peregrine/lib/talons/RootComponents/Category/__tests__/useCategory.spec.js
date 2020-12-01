@@ -67,6 +67,7 @@ jest.mock('@apollo/client', () => {
 });
 
 const mockProps = {
+    id: 7,
     queries: {}
 };
 
@@ -134,6 +135,18 @@ test('returns the correct shape', () => {
     const { talonProps } = root.findByType('i').props;
 
     expect(talonProps).toMatchSnapshot();
+});
+
+test('runs the category query', () => {
+    useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
+    useQuery
+        .mockReturnValueOnce(mockPageSizeData)
+        .mockReturnValueOnce(mockFilterInputsData);
+
+    createTestInstance(<Component {...mockProps} />);
+
+    expect(mockRunQuery).toHaveBeenCalledTimes(1);
+    expect(mockRunQuery.mock.calls[0][0]).toMatchSnapshot();
 });
 
 const testCases = [

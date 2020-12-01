@@ -28,3 +28,21 @@ Object {
   ],
 }
 `;
+
+exports[`runs the category query 1`] = `
+Object {
+  "variables": Object {
+    "currentPage": 3,
+    "filters": Object {
+      "category_id": Object {
+        "eq": "7",
+      },
+    },
+    "id": 7,
+    "pageSize": 12,
+    "sort": Object {
+      "relevance": "DESC",
+    },
+  },
+}
+`;
