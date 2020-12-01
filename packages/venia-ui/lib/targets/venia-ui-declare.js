@@ -77,14 +77,16 @@ module.exports = targets => {
          * @see [Payment definition object]{@link PaymentDefinition}
          *
          * @example <caption>Add a payment</caption>
-         * targets.of('@magento/venia-ui').payments.tap(
-         *   payments => payments.add({
+         * targets.of('@magento/venia-ui').checkoutPagePaymentTypes.tap(
+         *   checkoutPagePaymentTypes => checkoutPagePaymentTypes.add({
          *     paymentCode: 'braintree',
          *     importPath: '@magento/braintree_payment'
          *   })
          * );
          */
-        payments: new targets.types.Sync(['payments'])
+        checkoutPagePaymentTypes: new targets.types.Sync([
+            'checkoutPagePaymentTypes'
+        ])
     });
 };
 

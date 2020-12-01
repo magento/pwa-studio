@@ -4,7 +4,7 @@
 const { Targetables } = require('@magento/pwa-buildpack');
 const RichContentRendererList = require('./RichContentRendererList');
 const makeRoutesTarget = require('./makeRoutesTarget');
-const PaymentMethodList = require('./PaymentMethodList');
+const CheckoutPagePaymentsList = require('./CheckoutPagePaymentsList');
 
 module.exports = veniaTargets => {
     const venia = Targetables.using(veniaTargets);
@@ -27,8 +27,8 @@ module.exports = veniaTargets => {
         importPath: './plainHtmlRenderer'
     });
 
-    const paymentMethodList = new PaymentMethodList(venia);
-    paymentMethodList.add({
+    const checkoutPagePaymentsList = new CheckoutPagePaymentsList(venia);
+    checkoutPagePaymentsList.add({
         paymentCode: 'braintree',
         importPath:
             '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/creditCard'
