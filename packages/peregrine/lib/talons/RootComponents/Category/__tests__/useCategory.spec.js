@@ -2,6 +2,7 @@ import React from 'react';
 import { act } from 'react-test-renderer';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useCategory } from '../useCategory';
+import { useQuery } from '@apollo/client';
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
@@ -55,18 +56,11 @@ jest.mock('../../../../hooks/useSort', () => ({
 
 jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
-    const useQuery = jest.fn().mockReturnValue({
-        data: {
-            __type: {
-                inputFields: []
-            },
-            storeConfig: {
-                grid_per_page: 12
-            }
-        },
-        error: null,
+    const useQuery = jest.fn(() => ({
+        called: false,
+        data: null,
         loading: false
-    });
+    }));
     const runQuery = jest.fn();
     const queryResult = {
         data: {
@@ -88,14 +82,28 @@ const mockProps = {
     queries: {}
 };
 
+const mockPageSizeData = {
+    data: {
+        __type: {
+            inputFields: []
+        },
+        storeConfig: {
+            grid_per_page: 12
+        }
+    },
+    error: null,
+    loading: false
+};
+
 const Component = props => {
     const talonProps = useCategory(props);
     return <i talonProps={talonProps} />;
 };
 
-const tree = createTestInstance(<Component {...mockProps} />);
-
 test('returns the correct shape', () => {
+    useQuery.mockReturnValue(mockPageSizeData);
+
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
@@ -135,6 +143,9 @@ const testCases = [
 test.each(testCases)(
     'Changing %s current page to 1.',
     (description, sortParams, expected) => {
+        useQuery.mockReturnValue(mockPageSizeData);
+        const tree = createTestInstance(<Component {...mockProps} />);
+
         mockUseSort.mockReturnValueOnce([sortParams, jest.fn()]);
         act(() => {
             tree.update(<Component {...mockProps} />);
