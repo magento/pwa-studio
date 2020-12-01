@@ -1,10 +1,6 @@
 import React from 'react';
 
-import CreditCard from './creditCard';
-
-const paymentCardMapper = {
-    braintree: CreditCard
-};
+import paymentCardMapper from './savedPaymentTypes';
 
 const PaymentCard = props => {
     const PaymentComponent = paymentCardMapper[props.payment_method_code];

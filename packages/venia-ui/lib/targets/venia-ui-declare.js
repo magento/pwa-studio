@@ -86,7 +86,9 @@ module.exports = targets => {
          */
         checkoutPagePaymentTypes: new targets.types.Sync([
             'checkoutPagePaymentTypes'
-        ])
+        ]),
+
+        savedPaymentTypes: new targets.types.Sync(['savedPaymentTypes'])
     });
 };
 
