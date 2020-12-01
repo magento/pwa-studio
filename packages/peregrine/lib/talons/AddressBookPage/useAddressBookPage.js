@@ -59,7 +59,8 @@ export const useAddressBookPage = (props = {}) => {
     ] = useMutation(updateCustomerAddressMutation);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [isDialogEditMode, setIsDialogEditMode] = useState(false);
+    const [activeEditAddress, setActiveEditAddress] = useState();
+    const isDialogEditMode = !!activeEditAddress;
 
     const [formApi, setFormApi] = useState();
 
@@ -79,14 +80,14 @@ export const useAddressBookPage = (props = {}) => {
     }, [isRefetching, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
-        setIsDialogEditMode(false);
+        setActiveEditAddress(null);
         setIsDialogOpen(true);
     }, []);
 
     const handleEditAddress = useCallback(
         address => {
             formApi.setValues(address);
-            setIsDialogEditMode(true);
+            setActiveEditAddress(address);
             setIsDialogOpen(true);
         },
         [formApi]
@@ -101,7 +102,10 @@ export const useAddressBookPage = (props = {}) => {
             if (isDialogEditMode) {
                 try {
                     await updateCustomerAddress({
-                        variables: { address: formValues },
+                        variables: {
+                            addressId: activeEditAddress.id,
+                            updated_address: formValues
+                        },
                         refetchQueries: [{ query: getCustomerAddressesQuery }]
                     });
 
@@ -123,6 +127,7 @@ export const useAddressBookPage = (props = {}) => {
             }
         },
         [
+            activeEditAddress,
             createCustomerAddress,
             getCustomerAddressesQuery,
             isDialogEditMode,
