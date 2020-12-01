@@ -1,6 +1,7 @@
 /**
  * This file is augmented at build time using the @magento/venia-ui build
- * target "payments", which allows third-party modules to add new payment component mappings.
+ * target "checkoutPagePaymentTypes", which allows third-party modules to
+ * add new payment component mappings for the checkout page.
  *
  * @see [Payment definition object]{@link PaymentDefinition}
  */
@@ -17,6 +18,6 @@ export default {};
  * @example <caption>A custom payment method</caption>
  * const myCustomPayment = {
  *      paymentCode: 'cc',
- *     importPath: '@partner/module/path_to_your_component'
+ *      importPath: '@partner/module/path_to_your_component'
  * }
  */
