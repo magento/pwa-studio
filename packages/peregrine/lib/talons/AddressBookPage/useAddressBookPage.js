@@ -46,6 +46,11 @@ export const useAddressBookPage = (props = {}) => {
         }
     );
     const isRefetching = !!customerAddressesData && loading;
+    const customerAddresses =
+        (customerAddressesData &&
+            customerAddressesData.customer &&
+            customerAddressesData.customer.addresses) ||
+        [];
 
     const [
         createCustomerAddress,
@@ -85,21 +90,37 @@ export const useAddressBookPage = (props = {}) => {
     }, [isRefetching, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
+        // Used to seed the form when adding a new address.
+        // country_code is needed for the Region component to work properly.
+        // default_shipping set to true when this is the first address being added.
+        const formAddress = {
+            country_code: 'US',
+            default_shipping: customerAddresses.length === 0
+        };
+        formApi.reset();
+        formApi.setValues(formAddress);
+
         setActiveEditAddress(null);
         // Hide all previous errors when we open the dialog.
         setDisplayError(false);
         setIsDialogOpen(true);
-    }, []);
+    }, [customerAddresses, formApi]);
 
     const handleEditAddress = useCallback(
         address => {
-            formApi.setValues(address);
-            setActiveEditAddress(address);
+            const formAddress = {
+                ...address,
+                default_shipping:
+                    address.default_shipping || customerAddresses.length === 1
+            };
+            formApi.reset();
+            formApi.setValues(formAddress);
+            setActiveEditAddress(formAddress);
             // Hide all previous errors when we open the dialog.
             setDisplayError(false);
             setIsDialogOpen(true);
         },
-        [formApi]
+        [customerAddresses, formApi]
     );
 
     const handleCancelDialog = useCallback(() => {
@@ -179,23 +200,21 @@ export const useAddressBookPage = (props = {}) => {
         return countryMap;
     }, [customerAddressesData]);
 
-    // Used to seed the form when adding a new address.
-    // Needed for the Region component to work properly.
+    const isDialogBusy = isCreatingCustomerAddress || isUpdatingCustomerAddress;
+    const isLoadingWithoutData = !customerAddressesData && loading;
+
+    // Used to seed the form when adding a new address for the first time.
+    // country_code is needed for the Region component to work properly.
+    // default_shipping set to true when this is the first address being added.
     const initialValues = {
-        country_code: 'US'
+        country_code: 'US',
+        default_shipping: customerAddresses.length === 0
     };
+
     const formProps = {
         getApi: setFormApi,
         initialValues
     };
-
-    const isDialogBusy = isCreatingCustomerAddress || isUpdatingCustomerAddress;
-    const isLoadingWithoutData = !customerAddressesData && loading;
-    const customerAddresses =
-        (customerAddressesData &&
-            customerAddressesData.customer &&
-            customerAddressesData.customer.addresses) ||
-        [];
 
     return {
         countryDisplayNameMap,

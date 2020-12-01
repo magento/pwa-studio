@@ -12,6 +12,7 @@ export const GET_CUSTOMER_ADDRESSES = gql`
                 default_shipping
                 firstname
                 lastname
+                middlename
                 postcode
                 region {
                     region

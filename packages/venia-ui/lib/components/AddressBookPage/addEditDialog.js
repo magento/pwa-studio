@@ -19,16 +19,23 @@ const AddEditDialog = props => {
     const {
         formErrors,
         formProps,
+        handleCancel,
+        handleConfirm,
         isBusy,
         isEditMode,
         isOpen,
-        handleCancel,
-        handleConfirm
+        numAddresses
     } = props;
 
     const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    // Disable the checkbox if this is the first address being added
+    // or the only address being edited.
+    // The box is auto-checked in these cases by useAddressBookPage.js.
+    const isCheckboxDisabled =
+        (!isEditMode && numAddresses === 0) ||
+        (isEditMode && numAddresses === 1);
 
     let formatTitleArgs;
     if (isEditMode) {
@@ -149,6 +156,7 @@ const AddEditDialog = props => {
                 </div>
                 <div className={classes.default_address_check}>
                     <Checkbox
+                        disabled={isCheckboxDisabled}
                         field="default_shipping"
                         label={defaultAddressCheckLabel}
                     />

@@ -69,7 +69,9 @@ exports[`renders correctly when there are existing addresses 1`] = `
       </span>
     </button>
   </div>
-  <AddEditDialog />
+  <AddEditDialog
+    numAddresses={3}
+  />
 </div>
 `;
 
@@ -115,7 +117,9 @@ exports[`renders correctly when there are no existing addresses 1`] = `
       </span>
     </button>
   </div>
-  <AddEditDialog />
+  <AddEditDialog
+    numAddresses={0}
+  />
 </div>
 `;
 
