@@ -111,7 +111,7 @@ function fetchRoute(opts) {
         }
     }`;
 
-    const url = new URL('/graphql', opts.apiBase);
+    const url = new URL(opts.apiBase);
     url.searchParams.set('query', query);
     url.searchParams.set('variables', JSON.stringify({ url: route }));
     url.searchParams.set('operationName', 'ResolveURL');
