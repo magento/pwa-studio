@@ -34,7 +34,17 @@ exports[`renders correctly when there are existing saved payments 1`] = `
             }
           }
           size={24}
-          src={[Function]}
+          src={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "displayName": "PlusSquare",
+              "propTypes": Object {
+                "color": [Function],
+                "size": [Function],
+              },
+              "render": [Function],
+            }
+          }
         />
         <span
           className="addText"
@@ -93,7 +103,17 @@ exports[`renders correctly when there are no existing saved payments 1`] = `
             }
           }
           size={24}
-          src={[Function]}
+          src={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "displayName": "PlusSquare",
+              "propTypes": Object {
+                "color": [Function],
+                "size": [Function],
+              },
+              "render": [Function],
+            }
+          }
         />
         <span
           className="addText"

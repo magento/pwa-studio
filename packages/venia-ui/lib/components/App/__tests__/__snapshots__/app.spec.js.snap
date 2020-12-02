@@ -738,7 +738,17 @@ ReactTestInstance {
                         "width": 18,
                       }
                     }
-                    src={[Function]}
+                    src={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "displayName": "AlertCircle",
+                        "propTypes": Object {
+                          "color": [Function],
+                          "size": [Function],
+                        },
+                        "render": [Function],
+                      }
+                    }
                   />,
                   "message": "Sorry! An unexpected error occurred.
 Debug: 1 1",
@@ -755,7 +765,17 @@ Debug: 1 1",
                         "width": 18,
                       }
                     }
-                    src={[Function]}
+                    src={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "displayName": "Wifi",
+                        "propTypes": Object {
+                          "color": [Function],
+                          "size": [Function],
+                        },
+                        "render": [Function],
+                      }
+                    }
                   />,
                   "message": "You are online.",
                   "timeout": 3000,
@@ -793,7 +813,17 @@ Debug: 1 1",
                           "width": 18,
                         }
                       }
-                      src={[Function]}
+                      src={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "displayName": "AlertCircle",
+                          "propTypes": Object {
+                            "color": [Function],
+                            "size": [Function],
+                          },
+                          "render": [Function],
+                        }
+                      }
                     />,
                     "message": "Sorry! An unexpected error occurred.
 Debug: 1 1",
@@ -810,7 +840,17 @@ Debug: 1 1",
                           "width": 18,
                         }
                       }
-                      src={[Function]}
+                      src={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "displayName": "Wifi",
+                          "propTypes": Object {
+                            "color": [Function],
+                            "size": [Function],
+                          },
+                          "render": [Function],
+                        }
+                      }
                     />,
                     "message": "You are online.",
                     "timeout": 3000,
@@ -849,7 +889,17 @@ Debug: 1 1",
                             "width": 18,
                           }
                         }
-                        src={[Function]}
+                        src={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "displayName": "AlertCircle",
+                            "propTypes": Object {
+                              "color": [Function],
+                              "size": [Function],
+                            },
+                            "render": [Function],
+                          }
+                        }
                       />,
                       "message": "Sorry! An unexpected error occurred.
 Debug: 1 1",
@@ -866,7 +916,17 @@ Debug: 1 1",
                             "width": 18,
                           }
                         }
-                        src={[Function]}
+                        src={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "displayName": "Wifi",
+                            "propTypes": Object {
+                              "color": [Function],
+                              "size": [Function],
+                            },
+                            "render": [Function],
+                          }
+                        }
                       />,
                       "message": "You are online.",
                       "timeout": 3000,
@@ -2559,7 +2619,17 @@ ReactTestInstance {
                         "width": 18,
                       }
                     }
-                    src={[Function]}
+                    src={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "displayName": "AlertCircle",
+                        "propTypes": Object {
+                          "color": [Function],
+                          "size": [Function],
+                        },
+                        "render": [Function],
+                      }
+                    }
                   />,
                   "message": "Sorry! An unexpected error occurred.
 Debug: undefined undefined",
@@ -2595,7 +2665,17 @@ Debug: undefined undefined",
                           "width": 18,
                         }
                       }
-                      src={[Function]}
+                      src={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "displayName": "AlertCircle",
+                          "propTypes": Object {
+                            "color": [Function],
+                            "size": [Function],
+                          },
+                          "render": [Function],
+                        }
+                      }
                     />,
                     "message": "Sorry! An unexpected error occurred.
 Debug: undefined undefined",
@@ -2632,7 +2712,17 @@ Debug: undefined undefined",
                             "width": 18,
                           }
                         }
-                        src={[Function]}
+                        src={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "displayName": "AlertCircle",
+                            "propTypes": Object {
+                              "color": [Function],
+                              "size": [Function],
+                            },
+                            "render": [Function],
+                          }
+                        }
                       />,
                       "message": "Sorry! An unexpected error occurred.
 Debug: undefined undefined",

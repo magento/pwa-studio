@@ -9,7 +9,17 @@ exports[`it renders the correct tree 1`] = `
     action={[Function]}
   >
     <Icon
-      src={[Function]}
+      src={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "X",
+          "propTypes": Object {
+            "color": [Function],
+            "size": [Function],
+          },
+          "render": [Function],
+        }
+      }
     />
   </Trigger>
 </div>

@@ -46,7 +46,17 @@ exports[`it fills the icon when isFilled is true 1`] = `
         }
       }
       size={16}
-      src={[Function]}
+      src={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Heart",
+          "propTypes": Object {
+            "color": [Function],
+            "size": [Function],
+          },
+          "render": [Function],
+        }
+      }
     />
     <span>
       Unit Test Text
@@ -65,7 +75,17 @@ exports[`it renders an icon when passed a valid one 1`] = `
         }
       }
       size={16}
-      src={[Function]}
+      src={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Heart",
+          "propTypes": Object {
+            "color": [Function],
+            "size": [Function],
+          },
+          "render": [Function],
+        }
+      }
     />
     <span>
       Unit Test Text
