@@ -35,7 +35,10 @@ const SavedPaymentsPage = props => {
 
     const { formatMessage } = useIntl();
 
-    const title = formatMessage({ id: 'savedPaymentsPage.title' });
+    const title = formatMessage({
+        id: 'savedPaymentsPage.title',
+        defaultMessage: 'Saved Payments'
+    });
     return (
         <div className={classes.root}>
             <Title>{title}</Title>
