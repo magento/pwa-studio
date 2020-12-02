@@ -17,7 +17,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 module.exports = async ({ config: storybookBaseConfig, mode }) => {
     // The .env for running most of this project comes from venia-concept.
     // This is not resilient and will need to change if venia-concept is renamed.
-    const projectConfig = loadEnvironment(
+    const projectConfig = await loadEnvironment(
         path.resolve(__dirname, '../../venia-concept')
     );
 
