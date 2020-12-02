@@ -44,7 +44,7 @@ const AddressBookPage = props => {
             return 0;
         };
 
-        return customerAddresses.sort(defaultToBeginning).map(addressEntry => {
+        return Array.from(customerAddresses).sort(defaultToBeginning).map(addressEntry => {
             const countryName = countryDisplayNameMap.get(
                 addressEntry.country_code
             );
