@@ -106,7 +106,7 @@ composer require magento/module-upward-connector
 This command modifies the `composer.json` file and adds the package entry to the `require` section of the `composer.json` file.
 
 ```text
-"magento/module-upward-connector": "^1.0.1"
+"magento/module-upward-connector": "^1.1.2"
 ```
 
 {: .bs-callout .bs-callout-info}
@@ -115,7 +115,8 @@ you do not need to add it manually to your project.
 
 ## Set environment variables
 
-PWA Studio storefronts require you to set the following [environment variables][] in your Cloud project:
+Navigate or open a new terminal to _your storefront project_ and edit the `.env` file.
+PWA Studio storefronts require you to set the following [environment variables][] in your project before the build process:
 
 | Name                                 | Description                                          |
 | ------------------------------------ | ---------------------------------------------------- |
@@ -126,22 +127,20 @@ PWA Studio storefronts require you to set the following [environment variables][
 | `MAGENTO_BACKEND_EDITION`            | Either `CE` or `EE`                                  |
 | `IMAGE_OPTIMIZING_ORIGIN`            | Origin to use for images in the UI                   |
 
-Magento Cloud offers a variety of ways to set environment variables, but the most direct way is to edit the [`.magento.app.yaml`][] file and add entries to the `variables.env` section.
+Your `.env` file should have entries that look like the following:
 
 ```text
-variables:
-    env:
-        CONFIG__DEFAULT__WEB__UPWARD__PATH: "/app/pmu35riuj7btw_stg/pwa/upward.yml"
-        NODE_ENV: "production"
-        MAGENTO_BACKEND_URL: "https://[your-cloud-url-here]/"
-        CHECKOUT_BRAINTREE_TOKEN: "<generated token from Braintree>"
-        MAGENTO_BACKEND_EDITION: "EE"
-        IMAGE_OPTIMIZING_ORIGIN: "backend"
+CONFIG__DEFAULT__WEB__UPWARD__PATH=/app/pmu35riuj7btw_stg/pwa/upward.yml
+NODE_ENV=production
+MAGENTO_BACKEND_URL=https://[your-cloud-url-here]/
+CHECKOUT_BRAINTREE_TOKEN=<generated token from Braintree>
+MAGENTO_BACKEND_EDITION=EE
+IMAGE_OPTIMIZING_ORIGIN=backend
 ```
 
 ### Finding the correct UPWARD path value
 
-The `CONFIG_DEFAULT_WEB_UPWARD_PATH` variable specifies the _absolute_ path to the UPWARD configuration file in the deployed instance.
+The `CONFIG_DEFAULT_WEB_UPWARD_PATH` variable specifies the _absolute_ path to the UPWARD configuration file in the deployed Cloud instance.
 If this value is incorrect or not set, the Magento 2 UPWARD connector extension cannot serve your storefront application and your frontend appears broken.
 
 In the previous example, `/app/pmu35riuj7btw_stg/` is the Magento application root directory on the deployed instance.
@@ -150,10 +149,7 @@ To find the correct root directory path for an environment, [SSH][] into the rem
 
 ## Build your storefront application
 
-Navigate or open a new terminal to _your storefront project_ and edit the `.env` file.
-Set the values for each variable to the same value as the ones you set in the previous step.
-
-Use `yarn` or `npm` to run the project's build command.
+In _your storefront project_ directory, use `yarn` or `npm` to run the project's build command.
 
 ```sh
 yarn build
@@ -181,6 +177,13 @@ At this point in the tutorial, your Cloud project should have changes in the fol
 -   `composer.lock`
 -   `pwa`
 
+Edit your Cloud project's `.gitignore` file and add the following entries to track the `pwa` directory in git:
+
+```text
+!/pwa
+!/pwa/**
+```
+
 Use the Git CLI tool to stage, commit, and push these changes to your Cloud project.
 
 ```sh
@@ -190,7 +193,15 @@ git push origin
 ```
 
 After you push changes to your Cloud project, the remote build process runs and deploys a live instance of your site to the Magento Commerce Cloud service.
-See the Cloud topic on how to [Deploy your store][] for more details on the deployment process.
+
+### Merging environments
+
+The Cloud topic on how to [Deploy your store][] provides more details on the deployment process.
+It also includes instructions for merging environment branches, such as integration to staging or staging to production.
+
+If your workflow involves merging environment branches,
+you must rebuild your application bundle with the correct environment variables before you push your changes to the Magento Cloud service because
+variables, such as `CONFIG__DEFAULT__WEB__UPWARD__PATH` and `MAGENTO_BACKEND_URL`, can vary between these environments.
 
 [compatible]: <{%link technologies/magento-compatibility/index.md %}>
 [environment variables]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}>
