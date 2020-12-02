@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders a loading indicator when appropriate 1`] = `
+exports[`it renders a loading indicator when appropriate renders an indicator when data is not present 1`] = `
 <div>
   <span>
     <svg
@@ -71,6 +71,43 @@ exports[`it renders a loading indicator when appropriate 1`] = `
     />
   </span>
 </div>
+`;
+
+exports[`it renders a loading indicator when appropriate renders no indicator when data is present 1`] = `
+Array [
+  "Meta",
+  <CategoryContent
+    categoryId={3}
+    classes={Object {}}
+    data={
+      Object {
+        "products": Object {
+          "page_info": Object {
+            "total_pages": 6,
+          },
+        },
+      }
+    }
+    pageControl={
+      Object {
+        "currentPage": 1,
+        "setPage": [MockFunction],
+        "totalPages": 6,
+      }
+    }
+    pageSize={12}
+    sortProps={
+      Array [
+        Object {
+          "sortAttribute": "relevance",
+          "sortDirection": "DESC",
+          "sortText": "Best Match",
+        },
+        [MockFunction],
+      ]
+    }
+  />,
+]
 `;
 
 exports[`it shows error when appropriate 1`] = `

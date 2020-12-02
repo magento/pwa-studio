@@ -2,6 +2,9 @@ import { useQuery } from '@apollo/client';
 import { useEffect, useMemo } from 'react';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
+import mergeOperations from '../../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './product.gql';
+
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
  * controls the logic for the Product Root Component.
@@ -19,7 +22,11 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
  * @returns {Bool}      result.product - The product's details.
  */
 export const useProduct = props => {
-    const { mapProduct, queries, urlKey } = props;
+    const { mapProduct, urlKey } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getProductDetailQuery } = operations;
+
     const [
         ,
         {
@@ -27,7 +34,7 @@ export const useProduct = props => {
         }
     ] = useAppContext();
 
-    const { error, loading, data } = useQuery(queries.getProductQuery, {
+    const { error, loading, data } = useQuery(getProductDetailQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         variables: {

@@ -156,6 +156,9 @@ test('calls fetchRoute when response is not cached', async () => {
     ).resolves.toMatchObject(ProductPageResponse);
 
     expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch.mock.calls[0][0].toString()).toEqual(
+        'https://store.com/?query=query+ResolveURL%28%24url%3A+String%21%29+%7B%0A++++++++urlResolver%28url%3A+%24url%29+%7B%0A++++++++++++type%0A++++++++++++id%0A++++++++++++relative_url%0A++++++++++++redirectCode%0A++++++++%7D%0A++++%7D&variables=%7B%22url%22%3A%22foo-bar.html%22%7D&operationName=ResolveURL'
+    );
 });
 
 test('urlResolver path: throws errors from GraphQL and does not cache', async () => {
