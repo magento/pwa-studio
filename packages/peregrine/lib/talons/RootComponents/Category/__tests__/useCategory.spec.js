@@ -45,7 +45,7 @@ jest.mock('../../../../hooks/usePagination', () => ({
         {
             setCurrentPage: jest
                 .fn()
-                .mockImplementation(() => mockSetCurrentPage()),
+                .mockImplementation(page => mockSetCurrentPage(page)),
             setTotalPages: jest.fn()
         }
     ])
@@ -73,6 +73,7 @@ const mockProps = {
 };
 
 const mockPageSizeData = {
+    called: true,
     data: {
         __type: {
             inputFields: []
@@ -86,6 +87,7 @@ const mockPageSizeData = {
 };
 
 const mockFilterInputsData = {
+    called: true,
     error: null,
     loading: false,
     data: {
@@ -109,9 +111,13 @@ const mockFilterInputsData = {
 };
 
 const mockCategoryData = {
+    called: true,
     error: null,
     loading: false,
     data: {
+        category: {
+            meta_description: 'Category meta-description'
+        },
         products: {
             page_info: {
                 total_pages: 6
@@ -173,6 +179,68 @@ test('resets the current page on error', () => {
     createTestInstance(<Component {...mockProps} />);
 
     expect(mockSetCurrentPage).toHaveBeenCalledTimes(1);
+    expect(mockSetCurrentPage).toHaveBeenCalledWith(1);
+});
+
+test('handles no filter type data available', () => {
+    useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
+    useQuery.mockReturnValueOnce(mockPageSizeData).mockReturnValueOnce({
+        error: null,
+        loading: true,
+        data: null
+    });
+    createTestInstance(<Component {...mockProps} />);
+
+    expect(mockRunQuery).toHaveBeenCalledTimes(0);
+});
+
+test('category query loading state', () => {
+    useLazyQuery.mockReturnValue([
+        mockRunQuery,
+        {
+            loading: true,
+            error: null,
+            data: null
+        }
+    ]);
+    useQuery
+        .mockReturnValueOnce(mockPageSizeData)
+        .mockReturnValueOnce(mockFilterInputsData);
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    const { loading, categoryData } = talonProps;
+
+    expect(loading).toBeTruthy();
+    expect(categoryData).toBeNull();
+});
+
+test('loading state when only categoryLoading is involved', () => {
+    useLazyQuery.mockReturnValue([
+        mockRunQuery,
+        {
+            called: true,
+            loading: true,
+            error: null,
+            data: null
+        }
+    ]);
+    useQuery.mockReturnValueOnce(mockPageSizeData).mockReturnValueOnce({
+        called: false,
+        loading: false,
+        error: null,
+        data: null
+    });
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    const { loading } = talonProps;
+
+    expect(loading).toBeTruthy();
 });
 
 const testCases = [
