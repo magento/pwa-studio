@@ -223,7 +223,6 @@ describe('form submission', () => {
 
         expect(updateItemQuantity).not.toHaveBeenCalled();
         expect(updateConfigurableOptions).not.toHaveBeenCalled();
-        expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
 });
 

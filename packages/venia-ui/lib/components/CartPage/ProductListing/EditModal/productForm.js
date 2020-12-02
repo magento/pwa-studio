@@ -73,7 +73,7 @@ const ProductForm = props => {
             </LoadingIndicator>
         ) : null;
 
-    if (!configItem) {
+    if (cartItem && !isLoading && !configItem) {
         return (
             <span className={classes.dataError}>
                 <FormattedMessage
@@ -86,27 +86,9 @@ const ProductForm = props => {
         );
     }
 
-    return (
-        <Fragment>
-            <Dialog
-                classes={{
-                    body: classes.body,
-                    contents: classes.contents
-                }}
-                confirmText={'Update'}
-                confirmTranslationId={'productForm.submit'}
-                formProps={dialogFormProps}
-                isOpen={isDialogOpen}
-                onCancel={handleClose}
-                onConfirm={handleSubmit}
-                shouldDisableAllButtons={dialogButtonsDisabled}
-                shouldDisableConfirmButton={dialogSubmitButtonDisabled}
-                title={formatMessage({
-                    id: 'editModal.headerText',
-                    defaultMessage: 'Edit Item'
-                })}
-            >
-                {maybeLoadingIndicator}
+    const dialogContent =
+        cartItem && configItem ? (
+            <div>
                 <FormError
                     classes={{
                         root: classes.errorContainer
@@ -136,6 +118,30 @@ const ProductForm = props => {
                     initialValue={cartItem.quantity}
                     itemId={cartItem.id}
                 />
+            </div>
+        ) : null;
+
+    return (
+        <Fragment>
+            <Dialog
+                classes={{
+                    contents: classes.contents
+                }}
+                confirmText={'Update'}
+                confirmTranslationId={'productForm.submit'}
+                formProps={dialogFormProps}
+                isOpen={isDialogOpen}
+                onCancel={handleClose}
+                onConfirm={handleSubmit}
+                shouldDisableAllButtons={dialogButtonsDisabled}
+                shouldDisableConfirmButton={dialogSubmitButtonDisabled}
+                title={formatMessage({
+                    id: 'editModal.headerText',
+                    defaultMessage: 'Edit Item'
+                })}
+            >
+                {maybeLoadingIndicator}
+                {dialogContent}
             </Dialog>
         </Fragment>
     );

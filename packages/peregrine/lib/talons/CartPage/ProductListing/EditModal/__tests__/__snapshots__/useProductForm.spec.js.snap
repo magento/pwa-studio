@@ -125,7 +125,7 @@ Object {
   "handleClose": [Function],
   "handleOptionSelection": [Function],
   "handleSubmit": [Function],
-  "isDialogOpen": false,
+  "isDialogOpen": true,
   "isLoading": false,
   "isSaving": false,
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import { useEditModal } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useEditModal';
 
 import ProductForm from './productForm';
-import { Portal } from '../../../Portal';
 
 /**
  * A child component of the ProductListing component.
@@ -28,17 +27,15 @@ const EditModal = props => {
     const talonProps = useEditModal();
     const { setVariantPrice, variantPrice } = talonProps;
 
-    return item ? (
-        <Portal>
-            <ProductForm
-                item={item}
-                setIsCartUpdating={setIsCartUpdating}
-                setVariantPrice={setVariantPrice}
-                variantPrice={variantPrice}
-                setActiveEditItem={setActiveEditItem}
-            />
-        </Portal>
-    ) : null;
+    return (
+        <ProductForm
+            item={item}
+            setIsCartUpdating={setIsCartUpdating}
+            setVariantPrice={setVariantPrice}
+            variantPrice={variantPrice}
+            setActiveEditItem={setActiveEditItem}
+        />
+    );
 };
 
 export default EditModal;

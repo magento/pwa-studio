@@ -41,24 +41,10 @@ export const useProductForm = props => {
     } = props;
 
     const [{ cartId }] = useCartContext();
-
     const [optionSelections, setOptionSelections] = useState(new Map());
 
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const TRANSITION_DURATION = 300;
-
-    useEffect(() => {
-        setTimeout(() => {
-            setIsDialogOpen(true);
-        }, TRANSITION_DURATION);
-    }, []);
-
     const handleClose = useCallback(() => {
-        setIsDialogOpen(false);
-
-        setTimeout(() => {
-            setActiveEditItem(null);
-        }, TRANSITION_DURATION);
+        setActiveEditItem(null);
     }, [setActiveEditItem]);
 
     const [
@@ -88,8 +74,9 @@ export const useProductForm = props => {
     }, [isSaving, setIsCartUpdating]);
 
     const { data, error, loading } = useQuery(getConfigurableOptionsQuery, {
+        skip: !cartItem,
         variables: {
-            sku: cartItem.product.sku
+            sku: cartItem ? cartItem.product.sku : null
         }
     });
 
@@ -108,12 +95,14 @@ export const useProductForm = props => {
 
             setOptionSelections(nextOptionSelections);
         },
-        [cartItem.configurable_options, optionSelections]
+        [cartItem, optionSelections]
     );
 
-    const configItem = !loading && !error ? data.products.items[0] : null;
+    const configItem =
+        !loading && !error && data ? data.products.items[0] : null;
     const configurableOptionCodes = useMemo(() => {
         const optionCodeMap = new Map();
+
         if (configItem) {
             configItem.configurable_options.forEach(option => {
                 optionCodeMap.set(option.attribute_id, option.attribute_code);
@@ -136,12 +125,7 @@ export const useProductForm = props => {
                 optionSelections
             });
         }
-    }, [
-        cartItem.configurable_options,
-        configItem,
-        configurableOptionCodes,
-        optionSelections
-    ]);
+    }, [cartItem, configItem, configurableOptionCodes, optionSelections]);
 
     useEffect(() => {
         let variantPrice = null;
@@ -186,13 +170,11 @@ export const useProductForm = props => {
         },
         [
             cartId,
-            cartItem.id,
-            cartItem.product.sku,
-            cartItem.quantity,
+            cartItem,
+            handleClose,
             selectedVariant,
             updateConfigurableOptions,
-            updateItemQuantity,
-            handleClose
+            updateItemQuantity
         ]
     );
 
@@ -212,7 +194,7 @@ export const useProductForm = props => {
         handleSubmit,
         isLoading: !!loading,
         isSaving,
-        isDialogOpen,
+        isDialogOpen: cartItem !== null,
         handleClose
     };
 };
@@ -226,7 +208,7 @@ export const useProductForm = props => {
  * @typedef {Object} ProductFormTalonProps
  *
  * @property {Object} configItem Cart item to configure
- * @property {Array<Error>} formErrors An array of form errors resulting from a configuration or quantity value
+ * @property {Array<Error>} errors An array of form errors resulting from a configuration or quantity value
  * @property {function} handleOptionSelection A callback function handling an option selection event
  * @property {function} handleSubmit A callback function for handling form submission
  * @property {boolean} isLoading True if the form is loading data. False otherwise.
