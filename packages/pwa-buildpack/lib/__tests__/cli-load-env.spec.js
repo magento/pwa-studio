@@ -7,6 +7,10 @@ const dotenv = require('dotenv');
 const loadEnvCliBuilder = require('../cli/load-env');
 const createEnv = require('../cli/create-env-file').handler;
 
+jest.mock('../Utilities/runEnvValidators', () =>
+    jest.fn().mockResolvedValue(true)
+);
+
 const proc = {
     exit: jest.fn()
 };
@@ -39,18 +43,18 @@ test('is a yargs builder', () => {
     });
 });
 
-test('handler exits nonzero on missing required variables on errors', () => {
+test('handler exits nonzero on missing required variables on errors', async () => {
     // missing required variables
     dotenv.config.mockReturnValueOnce({
         parsed: {}
     });
-    loadEnvCliBuilder.handler({ directory: '.' }, proc);
+    await loadEnvCliBuilder.handler({ directory: '.' }, proc);
     expect(console.error).toHaveBeenCalled();
     expect(proc.exit).toHaveBeenCalledTimes(1);
     expect(proc.exit.mock.calls[0][0]).toBeGreaterThan(0);
 });
 
-test('handler loads from dotenv file', () => {
+test('handler loads from dotenv file', async () => {
     // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
     process.env.CHECKOUT_BRAINTREE_TOKEN = 'my_custom_value';
@@ -59,7 +63,7 @@ test('handler loads from dotenv file', () => {
     });
 
     // Act.
-    const result = loadEnvCliBuilder.handler(
+    const result = await loadEnvCliBuilder.handler(
         {
             directory: '.'
         },
@@ -70,7 +74,7 @@ test('handler loads from dotenv file', () => {
     expect(result).toBeUndefined();
 });
 
-test('warns if dotenv file does not exist', () => {
+test('warns if dotenv file does not exist', async () => {
     // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
     process.env.CHECKOUT_BRAINTREE_TOKEN = 'my_custom_value';
@@ -84,7 +88,7 @@ test('warns if dotenv file does not exist', () => {
     });
 
     // Act.
-    loadEnvCliBuilder.handler(
+    await loadEnvCliBuilder.handler(
         {
             directory: '.'
         },
@@ -97,7 +101,7 @@ test('warns if dotenv file does not exist', () => {
     );
 });
 
-test('creates a .env file from example values if --core-dev-mode', () => {
+test('creates a .env file from example values if --core-dev-mode', async () => {
     // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
     process.env.CHECKOUT_BRAINTREE_TOKEN = 'my_custom_value';
@@ -111,7 +115,7 @@ test('creates a .env file from example values if --core-dev-mode', () => {
     });
 
     // Act.
-    loadEnvCliBuilder.handler(
+    await loadEnvCliBuilder.handler(
         {
             directory: '.',
             coreDevMode: true

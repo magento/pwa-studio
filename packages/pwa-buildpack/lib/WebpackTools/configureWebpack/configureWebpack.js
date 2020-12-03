@@ -131,7 +131,7 @@ async function configureWebpack(options) {
 
     const babelRootMode = await getBabelRootMode(context);
 
-    const projectConfig = loadEnvironment(context);
+    const projectConfig = await loadEnvironment(context);
     if (projectConfig.error) {
         throw projectConfig.error;
     }
