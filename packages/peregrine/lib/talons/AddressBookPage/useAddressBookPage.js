@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -22,7 +22,10 @@ import defaultOperations from './addressBookPage.gql';
  */
 export const useAddressBookPage = (props = {}) => {
     const operations = mergeOperations(defaultOperations, props.operations);
-    const { getCustomerAddressesQuery } = operations;
+    const {
+        deleteCustomerAddressMutation,
+        getCustomerAddressesQuery
+    } = operations;
 
     const [
         ,
@@ -39,6 +42,12 @@ export const useAddressBookPage = (props = {}) => {
             skip: !isSignedIn
         }
     );
+    const [
+        deleteCustomerAddress,
+        { loading: isDeletingCustomerAddress }
+    ] = useMutation(deleteCustomerAddressMutation);
+
+    const [confirmDeleteAddressId, setConfirmDeleteAddressId] = useState();
 
     const isRefetching = !!customerAddressesData && loading;
     const isLoadingWithoutData = !customerAddressesData && loading;
@@ -58,6 +67,31 @@ export const useAddressBookPage = (props = {}) => {
     const handleAddAddress = useCallback(() => {
         alert('TODO!');
     }, []);
+
+    const handleDeleteAddress = useCallback(addressId => {
+        setConfirmDeleteAddressId(addressId);
+    }, []);
+
+    const handleCancelDeleteAddress = useCallback(() => {
+        setConfirmDeleteAddressId(null);
+    }, []);
+
+    const handleConfirmDeleteAddress = useCallback(async () => {
+        try {
+            await deleteCustomerAddress({
+                variables: { addressId: confirmDeleteAddressId },
+                refetchQueries: [{ query: getCustomerAddressesQuery }]
+            });
+
+            setConfirmDeleteAddressId(null);
+        } catch {
+            return;
+        }
+    }, [
+        confirmDeleteAddressId,
+        deleteCustomerAddress,
+        getCustomerAddressesQuery
+    ]);
 
     const customerAddresses =
         (customerAddressesData &&
@@ -79,10 +113,17 @@ export const useAddressBookPage = (props = {}) => {
         return countryMap;
     }, [customerAddressesData]);
 
+    console.log('confirmDeleteAddressId is', confirmDeleteAddressId);
+
     return {
+        confirmDeleteAddressId,
         countryDisplayNameMap,
         customerAddresses,
         handleAddAddress,
+        handleCancelDeleteAddress,
+        handleConfirmDeleteAddress,
+        handleDeleteAddress,
+        isDeletingCustomerAddress,
         isLoading: isLoadingWithoutData
     };
 };

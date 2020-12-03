@@ -14,9 +14,14 @@ import AddressCard from './addressCard';
 const AddressBookPage = props => {
     const talonProps = useAddressBookPage();
     const {
+        confirmDeleteAddressId,
         countryDisplayNameMap,
         customerAddresses,
         handleAddAddress,
+        handleCancelDeleteAddress,
+        handleConfirmDeleteAddress,
+        handleDeleteAddress,
+        isDeletingCustomerAddress,
         isLoading
     } = talonProps;
 
@@ -33,11 +38,19 @@ const AddressBookPage = props => {
                 addressEntry.country_code
             );
 
+            const isConfirmingDelete =
+                confirmDeleteAddressId === addressEntry.id;
+
             return (
                 <AddressCard
-                    key={addressEntry.id}
                     address={addressEntry}
                     countryName={countryName}
+                    isConfirmingDelete={isConfirmingDelete}
+                    isDeletingCustomerAddress={isDeletingCustomerAddress}
+                    key={addressEntry.id}
+                    onCancelDelete={handleCancelDeleteAddress}
+                    onConfirmDelete={handleConfirmDeleteAddress}
+                    onDelete={handleDeleteAddress}
                 />
             );
         });
@@ -46,7 +59,15 @@ const AddressBookPage = props => {
         return addresses.sort(address =>
             address.props.address.default_shipping ? -1 : 1
         );
-    }, [countryDisplayNameMap, customerAddresses]);
+    }, [
+        confirmDeleteAddressId,
+        countryDisplayNameMap,
+        customerAddresses,
+        handleCancelDeleteAddress,
+        handleConfirmDeleteAddress,
+        handleDeleteAddress,
+        isDeletingCustomerAddress
+    ]);
 
     if (isLoading) {
         return fullPageLoadingIndicator;
