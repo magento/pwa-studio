@@ -44,20 +44,22 @@ const AddressBookPage = props => {
             return 0;
         };
 
-        return Array.from(customerAddresses).sort(defaultToBeginning).map(addressEntry => {
-            const countryName = countryDisplayNameMap.get(
-                addressEntry.country_code
-            );
+        return Array.from(customerAddresses)
+            .sort(defaultToBeginning)
+            .map(addressEntry => {
+                const countryName = countryDisplayNameMap.get(
+                    addressEntry.country_code
+                );
 
-            return (
-                <AddressCard
-                    key={addressEntry.id}
-                    address={addressEntry}
-                    countryName={countryName}
-                    onEdit={handleEditAddress}
-                />
-            );
-        });
+                return (
+                    <AddressCard
+                        key={addressEntry.id}
+                        address={addressEntry}
+                        countryName={countryName}
+                        onEdit={handleEditAddress}
+                    />
+                );
+            });
     }, [countryDisplayNameMap, customerAddresses, handleEditAddress]);
 
     if (isLoading) {
@@ -100,7 +102,6 @@ const AddressBookPage = props => {
                 isBusy={isDialogBusy}
                 isEditMode={isDialogEditMode}
                 isOpen={isDialogOpen}
-                numAddresses={customerAddresses.length}
             />
         </div>
     );

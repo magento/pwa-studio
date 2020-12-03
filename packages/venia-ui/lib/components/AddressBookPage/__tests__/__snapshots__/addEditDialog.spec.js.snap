@@ -380,7 +380,6 @@ exports[`Edit Mode renders correctly 1`] = `
         <input
           checked={false}
           className="input"
-          disabled={false}
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}
@@ -809,7 +808,6 @@ exports[`Edit Mode renders correctly with errors 1`] = `
         <input
           checked={false}
           className="input"
-          disabled={false}
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}
@@ -1233,7 +1231,6 @@ exports[`renders correctly 1`] = `
         <input
           checked={false}
           className="input"
-          disabled={false}
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}
@@ -1662,7 +1659,6 @@ exports[`renders correctly with errors 1`] = `
         <input
           checked={false}
           className="input"
-          disabled={false}
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}

@@ -90,21 +90,13 @@ export const useAddressBookPage = (props = {}) => {
     }, [isRefetching, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
-        // Used to seed the form when adding a new address.
-        // country_code is needed for the Region component to work properly.
-        // default_shipping set to true when this is the first address being added.
-        const formAddress = {
-            country_code: 'US',
-            default_shipping: customerAddresses.length === 0
-        };
         formApi.reset();
-        formApi.setValues(formAddress);
 
         setActiveEditAddress(null);
         // Hide all previous errors when we open the dialog.
         setDisplayError(false);
         setIsDialogOpen(true);
-    }, [customerAddresses, formApi]);
+    }, [formApi]);
 
     const handleEditAddress = useCallback(
         address => {
@@ -205,10 +197,8 @@ export const useAddressBookPage = (props = {}) => {
 
     // Used to seed the form when adding a new address for the first time.
     // country_code is needed for the Region component to work properly.
-    // default_shipping set to true when this is the first address being added.
     const initialValues = {
-        country_code: 'US',
-        default_shipping: customerAddresses.length === 0
+        country_code: 'US'
     };
 
     const formProps = {
