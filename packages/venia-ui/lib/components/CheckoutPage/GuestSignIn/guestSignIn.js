@@ -1,18 +1,18 @@
 import React from 'react';
-
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import ForgotPassword from '@magento/venia-ui/lib/components/ForgotPassword';
-import SignIn from '@magento/venia-ui/lib/components/SignIn';
-import defaultClasses from './guestSignIn.css';
-import LinkButton from '../../LinkButton';
 import { FormattedMessage } from 'react-intl';
 import { useGuestSignIn } from '@magento/peregrine/lib/talons/CheckoutPage/GuestSignIn/useGuestSignIn';
-import CreateAccount from '../../CreateAccount';
+
+import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import CreateAccount from '@magento/venia-ui/lib/components/CreateAccount';
+import ForgotPassword from '@magento/venia-ui/lib/components/ForgotPassword';
+import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
+import SignIn from '@magento/venia-ui/lib/components/SignIn';
+import defaultClasses from './guestSignIn.css';
 
 const GuestSignIn = props => {
     const { isActive, toggleActiveContent } = props;
 
-    const talonProps = useGuestSignIn({ toggleActiveContent });
+    const talonProps = useGuestSignIn();
     const {
         toggleCreateAccountView,
         toggleForgotPasswordView,
