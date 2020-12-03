@@ -1,9 +1,17 @@
+const https = require('https');
 const fetch = require('node-fetch');
+const agent = new https.Agent({
+    rejectUnauthorized: false
+});
+
+const fetchWithAgent = async url => {
+    return await fetch(url, { agent });
+};
 
 const isBackendActive = async (env, debug) => {
     try {
         const magentoBackend = env.MAGENTO_BACKEND_URL;
-        const res = await fetch(magentoBackend);
+        const res = await fetchWithAgent(magentoBackend);
 
         return res.ok;
     } catch (err) {
@@ -15,7 +23,7 @@ const isBackendActive = async (env, debug) => {
 
 const fetchBackends = async debug => {
     try {
-        const res = await fetch(
+        const res = await fetchWithAgent(
             'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
         );
         const { sampleBackends } = await res.json();
