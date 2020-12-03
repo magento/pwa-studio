@@ -10,6 +10,7 @@ const envalid = require('envalid');
 const camelspace = require('camelspace');
 const prettyLogger = require('../util/pretty-logger');
 const getEnvVarDefinitions = require('./getEnvVarDefinitions');
+const validateEnv = require('./runEnvValidators');
 const CompatEnvAdapter = require('./CompatEnvAdapter');
 
 /**
@@ -116,7 +117,7 @@ class ProjectConfiguration {
  * retrieving definitions from the BuildBus. _Internal only._
  * @returns {ProjectConfiguration}
  */
-function loadEnvironment(dirOrEnv, customLogger, providedDefs) {
+async function loadEnvironment(dirOrEnv, customLogger, providedDefs) {
     const logger = customLogger || prettyLogger;
     let incomingEnv = process.env;
     let definitions;
@@ -207,6 +208,9 @@ This call to loadEnvironment() will assume that the working directory ${context}
                 strict: true
             }
         );
+        if (typeof dirOrEnv === 'string') {
+            await validateEnv(dirOrEnv, loadedEnv);
+        }
         if (debug.enabled) {
             // Only do this prettiness if we gotta
             debug(
