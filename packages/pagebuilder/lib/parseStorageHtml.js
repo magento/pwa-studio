@@ -90,15 +90,17 @@ const convertToInlineStyles = document => {
             const cssRules = styleBlock.sheet.cssRules;
 
             Array.from(cssRules).forEach(rule => {
-                const selectors = rule.selectorText
-                    .split(',')
-                    .map(selector => selector.trim());
-                selectors.forEach(selector => {
-                    if (!styles[selector]) {
-                        styles[selector] = [];
-                    }
-                    styles[selector].push(rule.style);
-                });
+                if (rule instanceof CSSStyleRule) {
+                    const selectors = rule.selectorText
+                        .split(',')
+                        .map(selector => selector.trim());
+                    selectors.forEach(selector => {
+                        if (!styles[selector]) {
+                            styles[selector] = [];
+                        }
+                        styles[selector].push(rule.style);
+                    });
+                }
             });
         });
     }
