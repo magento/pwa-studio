@@ -16,6 +16,7 @@ import Icon from '../Icon';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
 import AddressBook from './AddressBook';
+import GuestSignIn from './GuestSignIn';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
 import PriceAdjustments from './PriceAdjustments';
@@ -45,7 +46,6 @@ const CheckoutPage = props => {
         checkoutStep,
         customer,
         error,
-        handleSignIn,
         handlePlaceOrder,
         hasError,
         isCartEmpty,
@@ -64,7 +64,8 @@ const CheckoutPage = props => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
-        toggleActiveContent
+        toggleAddressBookContent,
+        toggleSignInContent
     } = talonProps;
 
     const [, { addToast }] = useToasts();
@@ -144,7 +145,7 @@ const CheckoutPage = props => {
                 </span>
                 <Button
                     className={classes.signInButton}
-                    onClick={handleSignIn}
+                    onClick={toggleSignInContent}
                     priority="normal"
                 >
                     <FormattedMessage
@@ -299,7 +300,7 @@ const CheckoutPage = props => {
                 <div className={classes.shipping_information_container}>
                     <ShippingInformation
                         onSave={setShippingInformationDone}
-                        toggleActiveContent={toggleActiveContent}
+                        toggleActiveContent={toggleAddressBookContent}
                     />
                 </div>
                 <div className={classes.shipping_method_container}>
@@ -320,7 +321,14 @@ const CheckoutPage = props => {
     const addressBookElement = !isGuestCheckout ? (
         <AddressBook
             activeContent={activeContent}
-            toggleActiveContent={toggleActiveContent}
+            toggleActiveContent={toggleAddressBookContent}
+        />
+    ) : null;
+
+    const signInElement = isGuestCheckout ? (
+        <GuestSignIn
+            isActive={activeContent === 'signIn'}
+            toggleActiveContent={toggleSignInContent}
         />
     ) : null;
 
@@ -337,6 +345,7 @@ const CheckoutPage = props => {
             </Title>
             {checkoutContent}
             {addressBookElement}
+            {signInElement}
         </div>
     );
 };
