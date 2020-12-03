@@ -72,3 +72,9 @@
     justify-content: center;
     touch-action: manipulation;
 }
+
+@media (max-width: 960px) {
+    .deleteText {
+        display: none;
+    }
+}
