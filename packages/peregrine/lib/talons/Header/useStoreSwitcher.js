@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
@@ -11,14 +11,23 @@ const mapAvailableOptions = (config, stores) => {
 
     return stores.reduce((map, store) => {
         const {
+            category_url_suffix: categorySuffix,
             code,
             default_display_currency_code: currency,
             locale,
+            product_url_suffix: productSuffix,
             store_name: storeName
         } = store;
 
         const isCurrent = code === configCode;
-        const option = { currency, isCurrent, locale, storeName };
+        const option = {
+            categorySuffix,
+            currency,
+            isCurrent,
+            locale,
+            productSuffix,
+            storeName
+        };
 
         return map.set(code, option);
     }, new Map());
@@ -40,8 +49,12 @@ const mapAvailableOptions = (config, stores) => {
 
 export const useStoreSwitcher = props => {
     const { queries } = props;
-    const { getStoreConfigData, getAvailableStoresData } = queries;
-    const history = useHistory();
+    const {
+        getStoreConfigData,
+        getUrlResolverData,
+        getAvailableStoresData
+    } = queries;
+    const { pathname } = useLocation();
     const {
         elementRef: storeMenuRef,
         expanded: storeMenuIsOpen,
@@ -52,6 +65,11 @@ export const useStoreSwitcher = props => {
     const { data: storeConfigData } = useQuery(getStoreConfigData, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
+    });
+
+    const { data: urlResolverData } = useQuery(getUrlResolverData, {
+        fetchPolicy: 'cache-first',
+        variables: { url: pathname }
     });
 
     const { data: availableStoresData } = useQuery(getAvailableStoresData, {
@@ -65,6 +83,12 @@ export const useStoreSwitcher = props => {
         }
     }, [storeConfigData]);
 
+    const pageType = useMemo(() => {
+        if (urlResolverData && urlResolverData.urlResolver) {
+            return urlResolverData.urlResolver.type;
+        }
+    }, [urlResolverData]);
+
     const availableStores = useMemo(() => {
         return (
             storeConfigData &&
@@ -76,11 +100,40 @@ export const useStoreSwitcher = props => {
         );
     }, [storeConfigData, availableStoresData]);
 
+    // Get suffix based on page type
+    const getSuffix = useCallback(
+        storeCode => {
+            let suffix = '';
+            if (pageType === 'CATEGORY') {
+                suffix = availableStores.get(storeCode).categorySuffix || '';
+            }
+            if (pageType === 'PRODUCT') {
+                suffix = availableStores.get(storeCode).productSuffix || '';
+            }
+
+            return suffix;
+        },
+        [availableStores, pageType]
+    );
+
+    // Handle updating the URL with configured product or catalog url suffix
+    const setNewUrl = useCallback(
+        suffix => {
+            const path = pathname.split('.')[0]; // remove file name
+            const params = window.location.search || ''; // '?page=1'
+
+            return `${path}${suffix}${params}`;
+        },
+        [pathname]
+    );
+
     const handleSwitchStore = useCallback(
         // Change store view code and currency to be used in Apollo link request headers
         storeCode => {
             // Do nothing when store view is not present in available stores
             if (!availableStores.has(storeCode)) return;
+
+            const suffix = getSuffix(storeCode);
 
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
@@ -123,10 +176,10 @@ export const useStoreSwitcher = props => {
             } else {
                 // Refresh the page to re-trigger the queries once code/currency
                 // are saved in local storage.
-                history.go(0);
+                window.location.assign(setNewUrl(suffix));
             }
         },
-        [history, availableStores]
+        [availableStores, getSuffix, setNewUrl]
     );
 
     const handleTriggerClick = useCallback(() => {
