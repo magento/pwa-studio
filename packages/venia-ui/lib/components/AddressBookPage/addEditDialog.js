@@ -161,7 +161,21 @@ const AddEditDialog = props => {
 export default AddEditDialog;
 
 AddEditDialog.propTypes = {
-    classes: shape({}),
+    classes: shape({
+        root: string,
+        city: string,
+        country: string,
+        default_address_check: string,
+        errorContainer: string,
+        firstname: string,
+        lastname: string,
+        middlename: string,
+        postcode: string,
+        region: string,
+        street1: string,
+        street2: string,
+        telephone: string
+    }),
     formErrors: object,
     isEditMode: bool,
     isOpen: bool,
