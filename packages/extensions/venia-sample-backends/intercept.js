@@ -8,9 +8,8 @@ const fetchWithAgent = async url => {
     return await fetch(url, { agent });
 };
 
-const isBackendActive = async (env, debug) => {
+const isBackendActive = async (magentoBackend, debug) => {
     try {
-        const magentoBackend = env.MAGENTO_BACKEND_URL;
         const res = await fetchWithAgent(magentoBackend);
 
         return res.ok;
@@ -23,7 +22,7 @@ const isBackendActive = async (env, debug) => {
 
 const fetchBackends = async debug => {
     try {
-        const res = await fetchWithAgent(
+        const res = await fetch(
             'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
         );
         const { sampleBackends } = await res.json();
@@ -49,13 +48,12 @@ const fetchBackends = async debug => {
  * To watch the debug messages, run the command with DEBUG=*runEnvValidators*
  */
 const validateSampleBackend = async config => {
-    console.warn(
-        "\n venia-sample-backends is a Dev only extension, please remove it from the project's package.json before going to production. \n"
-    );
-
     const { env, onFail, debug } = config;
 
-    const backendIsActive = await isBackendActive(env, debug);
+    const backendIsActive = await isBackendActive(
+        env.MAGENTO_BACKEND_URL,
+        debug
+    );
 
     if (!backendIsActive) {
         debug(`${env.MAGENTO_BACKEND_URL} is inactive`);

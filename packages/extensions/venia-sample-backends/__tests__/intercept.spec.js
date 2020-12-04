@@ -66,10 +66,3 @@ test('should call onFail with a different error message if environments is empty
     expect(onFail).toHaveBeenCalled();
     expect(onFail.mock.calls[0][0]).toMatchSnapshot();
 });
-
-test('should log warning message in the console', async () => {
-    await validateSampleBackend(args);
-
-    expect(console.warn).toHaveBeenCalled();
-    expect(console.warn.mock.calls[0][0]).toMatchSnapshot();
-});

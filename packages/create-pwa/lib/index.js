@@ -1,6 +1,5 @@
 const { basename, resolve } = require('path');
 const os = require('os');
-const https = require('https');
 const fetch = require('node-fetch');
 const changeCase = require('change-case');
 const inquirer = require('inquirer');
@@ -16,20 +15,12 @@ const {
     sampleBackends: defaultSampleBackends
 } = require('@magento/pwa-buildpack/lib/cli/create-project');
 
-const agent = new https.Agent({
-    rejectUnauthorized: false
-});
-
-const fetchWithAgent = async url => {
-    return await fetch(url, { agent });
-};
-
 const removeDuplicateBackends = backendEnvironments =>
     uniqBy(backendEnvironments, 'url');
 
 const fetchSampleBackends = async () => {
     try {
-        const res = await fetchWithAgent(
+        const res = await fetch(
             'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
         );
         const { sampleBackends } = await res.json();
