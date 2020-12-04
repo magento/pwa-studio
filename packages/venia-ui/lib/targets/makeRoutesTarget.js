@@ -11,10 +11,14 @@ function makeRoutesTarget(venia) {
 function addRoutes(routeList, routes) {
     for (const route of routes) {
         const AddedRoute = routeList.addReactLazyImport(route.path, route.name);
+
+        const routePath = Array.isArray(route.pattern) ? 
+        `{[${route.pattern.map(path => `"${path}"`).join(", ")}]}` : `"${route.pattern}"`;
+
         routeList.prependJSX(
             'Switch',
             `<Route ${route.exact ? 'exact ' : ''}path="${
-                route.pattern
+                routePath
             }"><${AddedRoute}/></Route>`
         );
     }
