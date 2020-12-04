@@ -59,7 +59,6 @@ exports[`renders a default address 1`] = `
     <button
       className="root_normalPriority"
       disabled={false}
-      onClick={[Function]}
       type="button"
     >
       <span
@@ -150,7 +149,6 @@ exports[`renders a non-default address 1`] = `
     <button
       className="root_normalPriority"
       disabled={false}
-      onClick={[Function]}
       type="button"
     >
       <span
