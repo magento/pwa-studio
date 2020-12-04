@@ -69,3 +69,14 @@ test('should render CreditCard component if "braintree" is selected', () => {
         tree.root.findByProps({ id: 'BraintreeMockId' });
     }).not.toThrow();
 });
+
+test('should render error message if availablePaymentMethods is empty', () => {
+    usePaymentMethods.mockReturnValueOnce({
+        ...defaultTalonProps,
+        availablePaymentMethods: []
+    });
+
+    const tree = createTestInstance(<PaymentMethods {...defaultProps} />);
+
+    expect(tree).toMatchSnapshot();
+});

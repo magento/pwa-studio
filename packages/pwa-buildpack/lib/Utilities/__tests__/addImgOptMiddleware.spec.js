@@ -43,7 +43,7 @@ test('attaches middleware to app', () => {
         expect.objectContaining({ force: false })
     );
 
-    expect(app.use).toHaveBeenCalledWith(mockCacheMiddleware, filterMiddleware);
+    expect(app.use).toHaveBeenCalled();
 
     expect(filterMiddleware).toBeTruthy();
 });

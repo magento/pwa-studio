@@ -82,9 +82,10 @@ async function prepare() {
                 return () => {};
             }
         });
-        const customOrigin = loadEnvironment(veniaPath, nullLogger).section(
-            'customOrigin'
-        );
+        const customOrigin = await loadEnvironment(
+            veniaPath,
+            nullLogger
+        ).section('customOrigin');
         if (customOrigin.enabled) {
             const customOriginConfig = await configureHost(
                 Object.assign(customOrigin, {

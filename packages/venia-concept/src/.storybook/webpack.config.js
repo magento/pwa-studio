@@ -15,7 +15,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 // defines in the docs.
 // See https://storybook.js.org/docs/configurations/custom-webpack-config/#full-control-mode
 module.exports = async ({ config: storybookBaseConfig, mode }) => {
-    const projectConfig = loadEnvironment(
+    const projectConfig = await loadEnvironment(
         // Load .env from root
         path.resolve(__dirname, '../..')
     );

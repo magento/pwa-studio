@@ -28,20 +28,28 @@
     transition: border-color 384ms var(--venia-global-anim-standard);
     color: rgb(var(--venia-brand-color-1-700));
 }
+
 .addButton:focus {
     outline: none;
     box-shadow: -6px 6px rgb(var(--venia-global-color-blue-700) / 0.3);
 }
+
 .addButton:hover {
     border-color: rgb(var(--venia-brand-color-1-600));
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
     .root {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
 
+    .content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
     .content {
         grid-template-columns: 1fr;
     }
