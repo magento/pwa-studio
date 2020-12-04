@@ -40,19 +40,10 @@ export const ADD_NEW_CUSTOMER_ADDRESS = gql`
     ) {
         createCustomerAddress(input: $address)
             @connection(key: "createCustomerAddress") {
+            # We don't manually write to the cache to update the collection
+            # after adding a new address so there's no need to query for a bunch
+            # of address fields here. We use refetchQueries to refresh the list.
             id
-            city
-            country_code
-            firstname
-            lastname
-            postcode
-            region {
-                region
-                region_code
-                region_id
-            }
-            street
-            telephone
         }
     }
 `;
