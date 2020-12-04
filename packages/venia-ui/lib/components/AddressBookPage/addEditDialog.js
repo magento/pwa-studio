@@ -19,11 +19,11 @@ const AddEditDialog = props => {
     const {
         formErrors,
         formProps,
-        handleCancel,
-        handleConfirm,
         isBusy,
         isEditMode,
-        isOpen
+        isOpen,
+        onCancel,
+        onConfirm
     } = props;
 
     const { formatMessage } = useIntl();
@@ -83,8 +83,8 @@ const AddEditDialog = props => {
             confirmText="Save"
             formProps={formProps}
             isOpen={isOpen}
-            onCancel={handleCancel}
-            onConfirm={handleConfirm}
+            onCancel={onCancel}
+            onConfirm={onConfirm}
             shouldDisableAllButtons={isBusy}
             title={title}
         >
@@ -179,6 +179,6 @@ AddEditDialog.propTypes = {
     formErrors: object,
     isEditMode: bool,
     isOpen: bool,
-    handleCancel: func,
-    handleConfirm: func
+    onCancel: func,
+    onConfirm: func
 };
