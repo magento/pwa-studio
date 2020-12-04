@@ -51,12 +51,14 @@ const AddressBookPage = props => {
                     addressEntry.country_code
                 );
 
+                const boundEdit = () => handleEditAddress(addressEntry);
+
                 return (
                     <AddressCard
                         key={addressEntry.id}
                         address={addressEntry}
                         countryName={countryName}
-                        onEdit={handleEditAddress}
+                        onEdit={boundEdit}
                     />
                 );
             });
