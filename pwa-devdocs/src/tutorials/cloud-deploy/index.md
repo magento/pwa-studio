@@ -115,22 +115,35 @@ you do not need to add it manually to your project.
 
 ## Set environment variables
 
-Navigate or open a new terminal to _your storefront project_ and edit the `.env` file.
-PWA Studio storefronts require you to set the following [environment variables][] in your project before the build process:
+PWA Studio storefronts require you to set the following [environment variables][] in your project for the build and runtime processes:
 
-| Name                                 | Description                                          |
-| ------------------------------------ | ---------------------------------------------------- |
-| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | Absolute path to UPWARD YAML configuration           |
-| `NODE_ENV`                           | Specifies the node environment type                  |
-| `MAGENTO_BACKEND_URL`                | URL of your Magento backend                          |
-| `CHECKOUT_BRAINTREE_TOKEN`           | Braintree token associated with your Magento backend |
-| `MAGENTO_BACKEND_EDITION`            | Either `CE` or `EE`                                  |
-| `IMAGE_OPTIMIZING_ORIGIN`            | Origin to use for images in the UI                   |
+| Name                                 | Buildtime                                     | Runtime                                       | Description                                          |
+| ------------------------------------ | --------------------------------------------- | --------------------------------------------- | ---------------------------------------------------- |
+| `CONFIG__DEFAULT__WEB__UPWARD__PATH` |                                               | <i class="material-icons green">check_box</i> | Absolute path to UPWARD YAML configuration           |
+| `NODE_ENV`                           | <i class="material-icons green">check_box</i> | <i class="material-icons green">check_box</i> | Specifies the node environment type                  |
+| `MAGENTO_BACKEND_URL`                | <i class="material-icons green">check_box</i> | <i class="material-icons green">check_box</i> | URL of your Magento backend                          |
+| `CHECKOUT_BRAINTREE_TOKEN`           | <i class="material-icons green">check_box</i> |                                               | Braintree token associated with your Magento backend |
+| `MAGENTO_BACKEND_EDITION`            | <i class="material-icons green">check_box</i> |                                               | Either `CE` or `EE`                                  |
+| `IMAGE_OPTIMIZING_ORIGIN`            | <i class="material-icons green">check_box</i> |                                               | Origin to use for images in the UI                   |
 
+### Set runtime variables
+
+To set your Cloud project's runtime variables, edit the [`.magento.app.yaml`][] file and add entries to the `variables.env` section.
+
+```text
+variables:
+    env:
+        CONFIG__DEFAULT__WEB__UPWARD__PATH: "/app/pmu35riuj7btw_stg/pwa/upward.yml"
+        NODE_ENV: "production"
+        MAGENTO_BACKEND_URL: "https://[your-cloud-url-here]/"
+```
+
+### Set buildtime variables
+
+To set your environment variables for buildtime, navigate or open a new terminal to _your storefront project_ and edit the `.env` file.
 Your `.env` file should have entries that look like the following:
 
 ```text
-CONFIG__DEFAULT__WEB__UPWARD__PATH=/app/pmu35riuj7btw_stg/pwa/upward.yml
 NODE_ENV=production
 MAGENTO_BACKEND_URL=https://[your-cloud-url-here]/
 CHECKOUT_BRAINTREE_TOKEN=<generated token from Braintree>
