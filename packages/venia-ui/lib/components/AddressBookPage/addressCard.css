@@ -33,12 +33,14 @@
 
     background-color: white;
     max-width: 6rem;
+    justify-self: start;
     order: 1;
 }
 .cancelDeleteButton {
     composes: root_lowPriority from '../Button/button.css';
 
     background-color: white;
+    justify-self: end;
     max-width: 6rem;
 }
 

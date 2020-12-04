@@ -22,6 +22,8 @@ exports[`renders correctly when there are existing addresses 1`] = `
         }
       }
       countryName="United States"
+      isConfirmingDelete={false}
+      onDelete={[Function]}
     />
     <AddressCard
       address={
@@ -31,6 +33,8 @@ exports[`renders correctly when there are existing addresses 1`] = `
         }
       }
       countryName="United States"
+      isConfirmingDelete={false}
+      onDelete={[Function]}
     />
     <AddressCard
       address={
@@ -39,6 +43,8 @@ exports[`renders correctly when there are existing addresses 1`] = `
           "id": "c",
         }
       }
+      isConfirmingDelete={false}
+      onDelete={[Function]}
     />
     <button
       className="addButton"

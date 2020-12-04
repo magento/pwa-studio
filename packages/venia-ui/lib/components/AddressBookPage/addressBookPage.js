@@ -33,34 +33,36 @@ const AddressBookPage = props => {
         defaultMessage: 'Address Book'
     });
     const addressBookElements = useMemo(() => {
-        const addresses = customerAddresses.map(addressEntry => {
-            const countryName = countryDisplayNameMap.get(
-                addressEntry.country_code
-            );
+        const defaultToBeginning = (address1, address2) => {
+            if (address1.default_shipping) return -1;
+            if (address2.default_shipping) return 1;
+            return 0;
+        };
 
-            const isConfirmingDelete =
-                confirmDeleteAddressId === addressEntry.id;
+        return Array.from(customerAddresses)
+            .sort(defaultToBeginning)
+            .map(addressEntry => {
+                const countryName = countryDisplayNameMap.get(
+                    addressEntry.country_code
+                );
 
-            const boundDelete = () => handleDeleteAddress(addressEntry.id);
+                const boundDelete = () => handleDeleteAddress(addressEntry.id);
+                const isConfirmingDelete =
+                    confirmDeleteAddressId === addressEntry.id;
 
-            return (
-                <AddressCard
-                    address={addressEntry}
-                    countryName={countryName}
-                    isConfirmingDelete={isConfirmingDelete}
-                    isDeletingCustomerAddress={isDeletingCustomerAddress}
-                    key={addressEntry.id}
-                    onCancelDelete={handleCancelDeleteAddress}
-                    onConfirmDelete={handleConfirmDeleteAddress}
-                    onDelete={boundDelete}
-                />
-            );
-        });
-
-        // sort the collection so the default is first
-        return addresses.sort(address =>
-            address.props.address.default_shipping ? -1 : 1
-        );
+                return (
+                    <AddressCard
+                        address={addressEntry}
+                        countryName={countryName}
+                        isConfirmingDelete={isConfirmingDelete}
+                        isDeletingCustomerAddress={isDeletingCustomerAddress}
+                        key={addressEntry.id}
+                        onCancelDelete={handleCancelDeleteAddress}
+                        onConfirmDelete={handleConfirmDeleteAddress}
+                        onDelete={boundDelete}
+                    />
+                );
+            });
     }, [
         confirmDeleteAddressId,
         countryDisplayNameMap,
