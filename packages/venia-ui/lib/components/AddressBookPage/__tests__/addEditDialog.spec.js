@@ -16,8 +16,8 @@ const props = {
     isBusy: false,
     isEditMode: false,
     isOpen: true,
-    handleCancel: jest.fn().mockName('handleCancel'),
-    handleConfirm: jest.fn().mockName('handleConfirm')
+    onCancel: jest.fn().mockName('onCancel'),
+    onConfirm: jest.fn().mockName('onConfirm')
 };
 
 it('renders correctly', () => {

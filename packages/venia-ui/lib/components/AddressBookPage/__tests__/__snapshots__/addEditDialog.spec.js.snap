@@ -5,8 +5,8 @@ exports[`Edit Mode renders correctly 1`] = `
   confirmText="Save"
   confirmTranslationId="global.save"
   isOpen={true}
-  onCancel={[MockFunction handleCancel]}
-  onConfirm={[MockFunction handleConfirm]}
+  onCancel={[MockFunction onCancel]}
+  onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
   title="Edit Address"
 >
@@ -428,8 +428,8 @@ exports[`Edit Mode renders correctly with errors 1`] = `
   confirmText="Save"
   confirmTranslationId="global.save"
   isOpen={true}
-  onCancel={[MockFunction handleCancel]}
-  onConfirm={[MockFunction handleConfirm]}
+  onCancel={[MockFunction onCancel]}
+  onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
   title="Edit Address"
 >
@@ -856,8 +856,8 @@ exports[`renders correctly 1`] = `
   confirmText="Save"
   confirmTranslationId="global.save"
   isOpen={true}
-  onCancel={[MockFunction handleCancel]}
-  onConfirm={[MockFunction handleConfirm]}
+  onCancel={[MockFunction onCancel]}
+  onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
   title="New Address"
 >
@@ -1279,8 +1279,8 @@ exports[`renders correctly with errors 1`] = `
   confirmText="Save"
   confirmTranslationId="global.save"
   isOpen={true}
-  onCancel={[MockFunction handleCancel]}
-  onConfirm={[MockFunction handleConfirm]}
+  onCancel={[MockFunction onCancel]}
+  onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
   title="New Address"
 >
