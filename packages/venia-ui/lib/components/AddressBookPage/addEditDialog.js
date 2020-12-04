@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func, object, shape } from 'prop-types';
+import { bool, func, object, shape, string } from 'prop-types';
 import { useIntl } from 'react-intl';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';

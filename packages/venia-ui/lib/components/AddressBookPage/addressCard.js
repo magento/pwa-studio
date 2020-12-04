@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { shape, string, bool, arrayOf } from 'prop-types';
 import { Trash2 as TrashIcon, Edit2 as EditIcon } from 'react-feather';
@@ -24,10 +24,6 @@ const AddressCard = props => {
     } = address;
 
     const classes = mergeClasses(defaultClasses, propClasses);
-
-    const handleEdit = useCallback(() => {
-        onEdit(address);
-    }, [address, onEdit]);
 
     const streetRows = street.map((row, index) => {
         return (
@@ -86,7 +82,7 @@ const AddressCard = props => {
             <div className={classes.actionContainer}>
                 <LinkButton
                     classes={{ root: classes.editButton }}
-                    onClick={handleEdit}
+                    onClick={() => onEdit(address)}
                 >
                     <Icon classes={{ icon: null }} size={16} src={EditIcon} />
                     <span className={classes.actionLabel}>
