@@ -48,6 +48,10 @@ const fetchBackends = async debug => {
  * To watch the debug messages, run the command with DEBUG=*runEnvValidators*
  */
 const validateSampleBackend = async config => {
+    console.warn(
+        '\n venia-sample-backends is a "development-only" extension, please remove it from your project\'s package.json before going to production.\n'
+    );
+
     const { env, onFail, debug } = config;
 
     const backendIsActive = await isBackendActive(

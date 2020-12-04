@@ -34,6 +34,11 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'storybook:build': 'build-storybook -c src/.storybook -o storybook-dist'
     };
 
+    // Dependencies we want to ensure are added to the scaffolded app.
+    const devDependenciesToInsert = {
+        '@magento/venia-sample-backends': '~0.0.1'
+    };
+
     const filesToIgnore = [
         'CHANGELOG*',
         'LICENSE*',
@@ -79,6 +84,11 @@ function createProjectFromVenia({ fs, tasks, options }) {
                 toCopyFromPackageJson.forEach(prop => {
                     pkg[prop] = pkgTpt[prop];
                 });
+
+                pkg.devDependencies = {
+                    ...pkg.devDependencies,
+                    ...devDependenciesToInsert
+                };
 
                 // The venia-concept template is part of the monorepo, which
                 // uses yarn for workspaces. But if the user wants to use
