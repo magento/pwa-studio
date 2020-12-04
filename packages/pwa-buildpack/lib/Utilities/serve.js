@@ -2,7 +2,7 @@ const loadEnvironment = require('../Utilities/loadEnvironment');
 const path = require('path');
 
 module.exports = async function serve(dirname) {
-    const config = loadEnvironment(dirname);
+    const config = await loadEnvironment(dirname);
     if (config.error) {
         // loadEnvironment takes care of logging it
         throw new Error('Can not load environment config!');
