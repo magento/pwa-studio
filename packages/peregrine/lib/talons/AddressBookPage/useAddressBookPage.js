@@ -128,7 +128,8 @@ export const useAddressBookPage = (props = {}) => {
                             addressId: activeEditAddress.id,
                             updated_address: formValues
                         },
-                        refetchQueries: [{ query: getCustomerAddressesQuery }]
+                        refetchQueries: [{ query: getCustomerAddressesQuery }],
+                        awaitRefetchQueries: true
                     });
 
                     setIsDialogOpen(false);
@@ -145,7 +146,8 @@ export const useAddressBookPage = (props = {}) => {
                 try {
                     await createCustomerAddress({
                         variables: { address: formValues },
-                        refetchQueries: [{ query: getCustomerAddressesQuery }]
+                        refetchQueries: [{ query: getCustomerAddressesQuery }],
+                        awaitRefetchQueries: true
                     });
 
                     setIsDialogOpen(false);
