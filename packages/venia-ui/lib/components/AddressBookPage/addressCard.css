@@ -98,7 +98,12 @@
         grid-template-columns: 1fr;
     }
 
+    .cancelDeleteButton {
+        justify-self: center;
+    }
+
     .confirmDeleteButton {
+        justify-self: center;
         order: 0;
     }
 }
