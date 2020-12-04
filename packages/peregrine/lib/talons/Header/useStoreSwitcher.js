@@ -11,21 +11,21 @@ const mapAvailableOptions = (config, stores) => {
 
     return stores.reduce((map, store) => {
         const {
-            category_url_suffix: categorySuffix,
+            category_url_suffix,
             code,
             default_display_currency_code: currency,
             locale,
-            product_url_suffix: productSuffix,
+            product_url_suffix,
             store_name: storeName
         } = store;
 
         const isCurrent = code === configCode;
         const option = {
-            categorySuffix,
+            category_url_suffix,
             currency,
             isCurrent,
             locale,
-            productSuffix,
+            product_url_suffix,
             storeName
         };
 
@@ -102,29 +102,21 @@ export const useStoreSwitcher = props => {
 
     // Get suffix based on page type
     const getSuffix = useCallback(
-        storeCode => {
-            let suffix = '';
+        (storeCode, currentSuffix) => {
+            let suffix = currentSuffix;
+
             if (pageType === 'CATEGORY') {
-                suffix = availableStores.get(storeCode).categorySuffix || '';
+                suffix =
+                    availableStores.get(storeCode).category_url_suffix || '';
             }
             if (pageType === 'PRODUCT') {
-                suffix = availableStores.get(storeCode).productSuffix || '';
+                suffix =
+                    availableStores.get(storeCode).product_url_suffix || '';
             }
 
             return suffix;
         },
         [availableStores, pageType]
-    );
-
-    // Handle updating the URL with configured product or catalog url suffix
-    const setNewUrl = useCallback(
-        suffix => {
-            const path = pathname.split('.')[0]; // remove file name
-            const params = window.location.search || ''; // '?page=1'
-
-            return `${path}${suffix}${params}`;
-        },
-        [pathname]
     );
 
     const handleSwitchStore = useCallback(
@@ -133,7 +125,13 @@ export const useStoreSwitcher = props => {
             // Do nothing when store view is not present in available stores
             if (!availableStores.has(storeCode)) return;
 
-            const suffix = getSuffix(storeCode);
+            // Use window.location.pathname to get the path with the store view code
+            // pathname from useLocation() does not include the store view code
+            const pathName = window.location.pathname.split('.')[0];
+            const index = window.location.pathname.split('.')[1];
+            const currentSuffix = index ? '.' + index : '';
+            const suffix = getSuffix(storeCode, currentSuffix);
+            const params = window.location.search || '';
 
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
@@ -142,12 +140,10 @@ export const useStoreSwitcher = props => {
             );
 
             // Handle updating the URL if the store code should be present.
+            // Handle updating the URL with configured catalog or product URL suffix
             // In this block we use `window.location.assign` to work around the
             // static React Router basename, which is changed on initialization.
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
-                const pathName = window.location.pathname;
-                const params = window.location.search || '';
-
                 // Check to see if we're on a page outside of the homepage
                 if (pathName !== '' && pathName !== '/') {
                     const [, pathStoreCode] = pathName.split('/');
@@ -161,12 +157,12 @@ export const useStoreSwitcher = props => {
                         const newPath = `${pathName.replace(
                             `/${pathStoreCode}`,
                             `/${storeCode}`
-                        )}${params}`;
+                        )}${suffix}${params}`;
 
                         window.location.assign(newPath);
                     } else {
                         // Otherwise include it and reload.
-                        const newPath = `/${storeCode}${pathName}${params}`;
+                        const newPath = `/${storeCode}${pathName}${suffix}${params}`;
 
                         window.location.assign(newPath);
                     }
@@ -176,10 +172,10 @@ export const useStoreSwitcher = props => {
             } else {
                 // Refresh the page to re-trigger the queries once code/currency
                 // are saved in local storage.
-                window.location.assign(setNewUrl(suffix));
+                window.location.assign(`${pathName}${suffix}${params}`);
             }
         },
-        [availableStores, getSuffix, setNewUrl]
+        [availableStores, getSuffix]
     );
 
     const handleTriggerClick = useCallback(() => {
