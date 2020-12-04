@@ -80,7 +80,8 @@ export const useAddressBookPage = (props = {}) => {
         try {
             await deleteCustomerAddress({
                 variables: { addressId: confirmDeleteAddressId },
-                refetchQueries: [{ query: getCustomerAddressesQuery }]
+                refetchQueries: [{ query: getCustomerAddressesQuery }],
+                awaitRefetchQueries: true
             });
 
             setConfirmDeleteAddressId(null);

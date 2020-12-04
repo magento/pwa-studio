@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { Trash2 as TrashIcon, Edit2 as EditIcon } from 'react-feather';
@@ -26,7 +26,6 @@ const AddressCard = props => {
         country_code,
         default_shipping,
         firstname,
-        id,
         lastname,
         postcode,
         region: { region },
@@ -39,12 +38,8 @@ const AddressCard = props => {
         root_normalPriorityNegative: classes.confirmDeleteButton
     };
     const cancelDeleteButtonClasses = {
-        root_normalPriority: classes.cancelDeleteButton
+        root_lowPriority: classes.cancelDeleteButton
     };
-
-    const handleDeleteAddress = useCallback(() => {
-        onDelete(id);
-    }, [id, onDelete]);
 
     const streetRows = street.map((row, index) => {
         return (
@@ -67,10 +62,7 @@ const AddressCard = props => {
     const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement = !default_shipping ? (
-        <LinkButton
-            classes={{ root: classes.deleteButton }}
-            onClick={handleDeleteAddress}
-        >
+        <LinkButton classes={{ root: classes.deleteButton }} onClick={onDelete}>
             <Icon classes={{ icon: null }} size={16} src={TrashIcon} />
             <span className={classes.actionLabel}>
                 <FormattedMessage
@@ -99,7 +91,7 @@ const AddressCard = props => {
             <Button
                 classes={cancelDeleteButtonClasses}
                 disabled={isDeletingCustomerAddress}
-                priority="normal"
+                priority="low"
                 type="button"
                 onClick={onCancelDelete}
             >

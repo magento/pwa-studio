@@ -41,6 +41,8 @@ const AddressBookPage = props => {
             const isConfirmingDelete =
                 confirmDeleteAddressId === addressEntry.id;
 
+            const boundDelete = () => handleDeleteAddress(addressEntry.id);
+
             return (
                 <AddressCard
                     address={addressEntry}
@@ -50,7 +52,7 @@ const AddressBookPage = props => {
                     key={addressEntry.id}
                     onCancelDelete={handleCancelDeleteAddress}
                     onConfirmDelete={handleConfirmDeleteAddress}
-                    onDelete={handleDeleteAddress}
+                    onDelete={boundDelete}
                 />
             );
         });

@@ -36,7 +36,7 @@
     order: 1;
 }
 .cancelDeleteButton {
-    composes: root_normalPriority from '../Button/button.css';
+    composes: root_lowPriority from '../Button/button.css';
 
     background-color: white;
     max-width: 6rem;
