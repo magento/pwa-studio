@@ -56,6 +56,21 @@ export const UPDATE_CUSTOMER_ADDRESS = gql`
         updateCustomerAddress(id: $addressId, input: $updated_address)
             @connection(key: "updateCustomerAddress") {
             id
+            city
+            country_code
+            default_billing
+            default_shipping
+            firstname
+            lastname
+            middlename
+            postcode
+            region {
+                region
+                region_code
+                region_id
+            }
+            street
+            telephone
         }
     }
 `;
