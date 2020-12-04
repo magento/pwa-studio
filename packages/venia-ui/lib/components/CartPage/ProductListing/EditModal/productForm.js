@@ -12,6 +12,7 @@ import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
 import defaultClasses from './productForm.css';
 import { CartPageFragment } from '../../cartPageFragments.gql';
+import { ProductFormFragment } from './productFormFragment.gql';
 
 const ProductForm = props => {
     const { item: cartItem, setIsCartUpdating, setVariantPrice } = props;
@@ -120,49 +121,11 @@ export const GET_CONFIGURABLE_OPTIONS = gql`
         products(filter: { sku: { eq: $sku } }) {
             items {
                 id
-                sku
-                ... on ConfigurableProduct {
-                    configurable_options {
-                        attribute_code
-                        attribute_id
-                        id
-                        label
-                        values {
-                            default_label
-                            label
-                            store_label
-                            use_default_value
-                            value_index
-                            swatch_data {
-                                ... on ImageSwatchData {
-                                    thumbnail
-                                }
-                                value
-                            }
-                        }
-                    }
-                    variants {
-                        attributes {
-                            code
-                            value_index
-                        }
-                        product {
-                            id
-                            price {
-                                regularPrice {
-                                    amount {
-                                        currency
-                                        value
-                                    }
-                                }
-                            }
-                            sku
-                        }
-                    }
-                }
+                ...ProductFormFragment
             }
         }
     }
+    ${ProductFormFragment}
 `;
 
 export const UPDATE_QUANTITY_MUTATION = gql`
