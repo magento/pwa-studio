@@ -12,8 +12,9 @@ import defaultClasses from './guestSignIn.css';
 const GuestSignIn = props => {
     const { isActive, toggleActiveContent } = props;
 
-    const talonProps = useGuestSignIn();
+    const talonProps = useGuestSignIn({ toggleActiveContent });
     const {
+        handleBackToCheckout,
         toggleCreateAccountView,
         toggleForgotPasswordView,
         view
@@ -60,7 +61,7 @@ const GuestSignIn = props => {
             </h1>
             <div className={classes.contentContainer}>
                 {content}
-                <LinkButton onClick={toggleActiveContent}>
+                <LinkButton onClick={handleBackToCheckout}>
                     <FormattedMessage
                         id="checkoutPage.guestSignIn.backToCheckout"
                         defaultMessage="Back to Checkout"

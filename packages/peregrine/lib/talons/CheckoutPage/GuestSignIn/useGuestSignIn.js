@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 
-export const useGuestSignIn = () => {
+export const useGuestSignIn = props => {
+    const { toggleActiveContent } = props;
     const [view, setView] = useState('SIGNIN');
 
     const toggleForgotPasswordView = useCallback(() => {
@@ -15,7 +16,13 @@ export const useGuestSignIn = () => {
         );
     }, []);
 
+    const handleBackToCheckout = useCallback(() => {
+        toggleActiveContent();
+        setView('SIGNIN');
+    }, [toggleActiveContent]);
+
     return {
+        handleBackToCheckout,
         toggleCreateAccountView,
         toggleForgotPasswordView,
         view

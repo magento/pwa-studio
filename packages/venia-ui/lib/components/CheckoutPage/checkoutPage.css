@@ -133,8 +133,10 @@
     }
 
     .signInContainer {
+        grid-row-start: 1;
         grid-auto-flow: row;
         justify-items: center;
+        margin-bottom: 1rem;
     }
 
     .stepper_heading {
