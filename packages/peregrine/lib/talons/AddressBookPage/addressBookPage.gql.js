@@ -1,26 +1,14 @@
 import { gql } from '@apollo/client';
 
+import { CustomerAddressBookAddressFragment } from './addressBookFragments.gql';
+
 export const GET_CUSTOMER_ADDRESSES = gql`
     query GetCustomerAddressesForAddressBook {
         customer {
             id
             addresses {
                 id
-                city
-                country_code
-                default_billing
-                default_shipping
-                firstname
-                lastname
-                middlename
-                postcode
-                region {
-                    region
-                    region_code
-                    region_id
-                }
-                street
-                telephone
+                ...CustomerAddressBookAddressFragment
             }
         }
         countries {
@@ -28,6 +16,7 @@ export const GET_CUSTOMER_ADDRESSES = gql`
             full_name_locale
         }
     }
+    ${CustomerAddressBookAddressFragment}
 `;
 
 /**
@@ -56,23 +45,10 @@ export const UPDATE_CUSTOMER_ADDRESS = gql`
         updateCustomerAddress(id: $addressId, input: $updated_address)
             @connection(key: "updateCustomerAddress") {
             id
-            city
-            country_code
-            default_billing
-            default_shipping
-            firstname
-            lastname
-            middlename
-            postcode
-            region {
-                region
-                region_code
-                region_id
-            }
-            street
-            telephone
+            ...CustomerAddressBookAddressFragment
         }
     }
+    ${CustomerAddressBookAddressFragment}
 `;
 
 export default {
