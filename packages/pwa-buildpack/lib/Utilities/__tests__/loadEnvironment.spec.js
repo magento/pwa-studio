@@ -43,6 +43,10 @@ getEnvVarDefinitions.mockReturnValue({
     ]
 });
 
+jest.doMock('../runEnvValidators');
+const validateEnv = require('../runEnvValidators');
+validateEnv.mockResolvedValue(true);
+
 jest.mock('../../../package.json', () => {
     const packageJson = jest.requireActual('../../../package.json');
 
@@ -69,7 +73,7 @@ afterAll(() => {
 
 const loadEnvironment = require('../loadEnvironment');
 
-test('throws on load if variable defs are invalid', () => {
+test('throws on load if variable defs are invalid', async () => {
     getEnvVarDefinitions.mockReturnValueOnce({
         sections: [
             {
@@ -83,22 +87,21 @@ test('throws on load if variable defs are invalid', () => {
         ],
         changes: []
     });
-    expect(() => loadEnvironment('./')).toThrow(
-        'Bad environment variable definition'
-    );
+
+    await expect(loadEnvironment('./')).rejects.toThrowErrorMatchingSnapshot();
 });
 
-test('parses dotenv file if argument is path string', () => {
+test('parses dotenv file if argument is path string', async () => {
     dotenv.config.mockReturnValueOnce({
         parsed: 'DOTENV PARSED'
     });
-    const { envFilePresent } = loadEnvironment('/path/to/dir');
+    const { envFilePresent } = await loadEnvironment('/path/to/dir');
     expect(envFilePresent).toBe(true);
     expect(dotenv.config).toHaveBeenCalledWith({ path: '/path/to/dir/.env' });
 });
 
-test('warns on deprecated api use', () => {
-    loadEnvironment({
+test('warns on deprecated api use', async () => {
+    await loadEnvironment({
         MUST_BE_BOOLEAN_DUDE: false
     });
     expect(console.warn).toHaveBeenCalledWith(
@@ -106,8 +109,8 @@ test('warns on deprecated api use', () => {
     );
 });
 
-test('does not warn if deprecated API is okay', () => {
-    loadEnvironment(
+test('does not warn if deprecated API is okay', async () => {
+    await loadEnvironment(
         {
             MUST_BE_BOOLEAN_DUDE: false
         },
@@ -133,9 +136,9 @@ test('does not warn if deprecated API is okay', () => {
     );
 });
 
-test('debug logs environment in human readable way', () => {
+test('debug logs environment in human readable way', async () => {
     debug.enabled = true;
-    loadEnvironment({
+    await loadEnvironment({
         MUST_BE_BOOLEAN_DUDE: false
     });
     expect(debug).toHaveBeenCalledWith(
@@ -145,29 +148,29 @@ test('debug logs environment in human readable way', () => {
     debug.enabled = true;
 });
 
-test('sets envFilePresent to false if .env is missing', () => {
+test('sets envFilePresent to false if .env is missing', async () => {
     const enoent = new Error('ENOENT');
     enoent.code = 'ENOENT';
     dotenv.config.mockReturnValueOnce({
         error: enoent
     });
-    const { envFilePresent } = loadEnvironment('/path/to/dir');
+    const { envFilePresent } = await loadEnvironment('/path/to/dir');
     expect(envFilePresent).toBe(false);
 });
 
-test('warns but continues if .env has errors', () => {
+test('warns but continues if .env has errors', async () => {
     dotenv.config.mockReturnValueOnce({
         error: new Error('blagh')
     });
-    loadEnvironment('/path/to/dir');
+    await loadEnvironment('/path/to/dir');
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringMatching(/could not.*parse/i),
         expect.any(Error)
     );
 });
 
-test('emits errors on type mismatch', () => {
-    const { error } = loadEnvironment({
+test('emits errors on type mismatch', async () => {
+    const { error } = await loadEnvironment({
         MUST_BE_BOOLEAN_DUDE: 'but it aint'
     });
     expect(error.message).toMatch(/MUST_BE_BOOLEAN/);
@@ -176,14 +179,19 @@ test('emits errors on type mismatch', () => {
     );
 });
 
-test('throws anything unexpected from validation', () => {
+test('throws anything unexpected from validation', async () => {
     envalid.cleanEnv.mockImplementationOnce(() => {
         throw new Error('invalid in a way i cannot even describe');
     });
-    expect(() => loadEnvironment({})).toThrow('cannot even');
+
+    try {
+        await loadEnvironment({});
+    } catch (e) {
+        expect(e.message).toBe('invalid in a way i cannot even describe');
+    }
 });
 
-test('emits log messages on a custom logger', () => {
+test('emits log messages on a custom logger', async () => {
     const mockLog = {
         warn: jest.fn().mockName('mockLog.warn'),
         error: jest.fn().mockName('mockLog.error')
@@ -202,7 +210,7 @@ test('emits log messages on a custom logger', () => {
         ],
         changes: []
     });
-    loadEnvironment(
+    await loadEnvironment(
         {
             MUST_BE_BOOLEAN_DUDE: 'twelve'
         },
@@ -213,7 +221,7 @@ test('emits log messages on a custom logger', () => {
     );
 });
 
-test('logs all types of change', () => {
+test('logs all types of change', async () => {
     const defs = {
         sections: [
             {
@@ -329,7 +337,7 @@ test('logs all types of change', () => {
             }
         ]
     };
-    loadEnvironment(
+    await loadEnvironment(
         {
             HAS_BEEN_REMOVED: 'motivation',
             RON_ARTEST: 'hi',
@@ -350,7 +358,7 @@ test('logs all types of change', () => {
     expect(consoleMessages).toMatchSnapshot();
 });
 
-test('ignores invalid change defs', () => {
+test('ignores invalid change defs', async () => {
     getEnvVarDefinitions.mockReturnValueOnce({
         sections: [],
         changes: [
@@ -363,7 +371,7 @@ test('ignores invalid change defs', () => {
     expect(() => loadEnvironment({ OH_NOES: 'foo' })).not.toThrow();
 });
 
-test('returns configuration object', () => {
+test('returns configuration object', async () => {
     getEnvVarDefinitions.mockReturnValueOnce({
         sections: [
             {
@@ -401,7 +409,7 @@ test('returns configuration object', () => {
         GEWGAW_PALADIN: 'level 3',
         GEWGAW_ROGUE: 'level 4'
     };
-    const config = loadEnvironment({ ...party, NODE_ENV: 'test' });
+    const config = await loadEnvironment({ ...party, NODE_ENV: 'test' });
     expect(config).toMatchObject({
         isProd: false,
         isProduction: false,
@@ -434,7 +442,7 @@ test('returns configuration object', () => {
     expect(all).not.toHaveProperty('mustang');
 });
 
-test('augments with interceptors of envVarDefinitions target', () => {
+test('augments with interceptors of envVarDefinitions target', async () => {
     getEnvVarDefinitions.mockReset();
     getEnvVarDefinitions.mockImplementationOnce(context =>
         jest.requireActual('../getEnvVarDefinitions')(context)
@@ -471,7 +479,7 @@ test('augments with interceptors of envVarDefinitions target', () => {
             ),
         { virtual: true }
     );
-    loadEnvironment('./other/context');
+    await loadEnvironment('./other/context');
     expect(console.error).toHaveBeenCalledWith(
         expect.stringContaining('SIGNAL_INTENSITY')
     );
