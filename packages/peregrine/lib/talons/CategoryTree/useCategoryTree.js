@@ -51,7 +51,7 @@ export const useCategoryTree = props => {
     }, [data, updateCategories]);
 
     const rootCategory = data && data.category;
-    console.log(`Root Category, ${rootCategory && rootCategory.id}`);
+
     const { children = [] } = rootCategory || {};
 
     const childCategories = useMemo(() => {
