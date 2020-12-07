@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
 import { useAppContext } from '../../context/app';
@@ -18,7 +19,7 @@ const ancestors = {
 
 export const useNavigation = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCustomerQuery } = operations;
+    const { getCustomerQuery, getRootCategoryId } = operations;
     // retrieve app state from context
     const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
@@ -30,10 +31,20 @@ export const useNavigation = (props = {}) => {
         getUserDetails({ fetchUserDetails });
     }, [fetchUserDetails, getUserDetails]);
 
+    const { data: getRootCategoryData } = useQuery(getRootCategoryId, {
+        fetchPolicy: 'cache-and-network'
+    });
+
+    const rootCategoryId = useMemo(() => {
+        if (getRootCategoryData) {
+            return getRootCategoryData.storeConfig.root_category_id;
+        }
+    }, [getRootCategoryData]);
+
     // extract relevant data from app state
     const { drawer } = appState;
     const isOpen = drawer === 'nav';
-    const { categories, rootCategoryId } = catalogState;
+    const { categories } = catalogState;
 
     // get local state
     const [view, setView] = useState('MENU');
