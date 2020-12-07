@@ -16,6 +16,7 @@ const AddressCard = props => {
         country_code,
         default_shipping,
         firstname,
+        middlename = '',
         lastname,
         postcode,
         region: { region },
@@ -42,7 +43,9 @@ const AddressCard = props => {
         </span>
     ) : null;
 
-    const nameString = `${firstname} ${lastname}`;
+    const nameString = [firstname, middlename, lastname]
+        .filter(name => !!name)
+        .join(' ');
     const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement = !default_shipping ? (

@@ -241,3 +241,101 @@ exports[`renders a non-default address 1`] = `
   </div>
 </div>
 `;
+
+exports[`renders an address with a middle name 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="contentContainer"
+  >
+    <span
+      className="defaultBadge"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Default"
+        id="addressCard.defaultText"
+      />
+    </span>
+    <span
+      className="name"
+    >
+      Philip MIDDLE Fry
+    </span>
+    <span
+      className="streetRow"
+    >
+      111 57th Street
+    </span>
+    <span
+      className="streetRow"
+    >
+      Suite 1000
+    </span>
+    <span
+      className="additionalAddress"
+    >
+      New New York, New York 10019
+    </span>
+    <span
+      className="country"
+    >
+      United States
+    </span>
+    <span
+      className="telephone"
+    >
+      <mock-FormattedMessage
+        id="addressBookPage.telephone"
+        values={
+          Object {
+            "telephone": "+12345678909",
+          }
+        }
+      />
+    </span>
+  </div>
+  <div
+    className="actionContainer"
+  >
+    <button
+      className="root_normalPriority"
+      disabled={false}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            />
+          </svg>
+        </span>
+        <span
+          className="actionLabel"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="addressBookPage.editAddress"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;
