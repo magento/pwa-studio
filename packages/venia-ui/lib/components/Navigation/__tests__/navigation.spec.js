@@ -1,7 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
 
 import NavHeader from '../navHeader';
