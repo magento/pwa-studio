@@ -1,4 +1,5 @@
 import React from 'react';
+import { bool, func, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { useGuestSignIn } from '@magento/peregrine/lib/talons/CheckoutPage/GuestSignIn/useGuestSignIn';
 
@@ -73,3 +74,17 @@ const GuestSignIn = props => {
 };
 
 export default GuestSignIn;
+
+GuestSignIn.propTypes = {
+    classes: shape({
+        root: string,
+        root_hidden: string,
+        header: string,
+        contentContainer: string,
+        signInRoot: string,
+        forgotPasswordRoot: string,
+        createAccountRoot: string
+    }),
+    isActive: bool.isRequired,
+    toggleActiveContent: func.isRequired
+};
