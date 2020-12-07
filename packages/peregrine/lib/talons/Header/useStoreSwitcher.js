@@ -127,9 +127,8 @@ export const useStoreSwitcher = props => {
 
             // Use window.location.pathname to get the path with the store view code
             // pathname from useLocation() does not include the store view code
-            const pathName = window.location.pathname.split('.')[0];
-            const index = window.location.pathname.split('.')[1];
-            const currentSuffix = index ? '.' + index : '';
+            const [pathName, index] = window.location.pathname.split('.');
+            const currentSuffix = index ? `.${index}` : '';
             const suffix = getSuffix(storeCode, currentSuffix);
             const params = window.location.search || '';
 
