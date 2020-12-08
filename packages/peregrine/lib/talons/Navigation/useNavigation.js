@@ -54,9 +54,9 @@ export const useNavigation = (props = {}) => {
         // On a fresh render with cold cache set the current category as root
         // once the root category query completes.
         if (rootCategoryId && !categoryId) {
-            setCategoryId(rootCategoryId)
+            setCategoryId(rootCategoryId);
         }
-    }, [categoryId, rootCategoryId])
+    }, [categoryId, rootCategoryId]);
 
     // define local variables
     const category = categories[categoryId];
