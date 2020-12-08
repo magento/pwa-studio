@@ -50,6 +50,14 @@ export const useNavigation = (props = {}) => {
     const [view, setView] = useState('MENU');
     const [categoryId, setCategoryId] = useState(rootCategoryId);
 
+    useEffect(() => {
+        // On a fresh render with cold cache set the current category as root
+        // once the root category query completes.
+        if (rootCategoryId && !categoryId) {
+            setCategoryId(rootCategoryId)
+        }
+    }, [categoryId, rootCategoryId])
+
     // define local variables
     const category = categories[categoryId];
     const isTopLevel = categoryId === rootCategoryId;
