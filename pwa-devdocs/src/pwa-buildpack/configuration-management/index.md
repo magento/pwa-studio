@@ -122,7 +122,7 @@ class MyWebpackPlugin {
 **Good**: passing plain objects created by the Configuration object
 
 ```js
-const projectConfig = loadEnvironment(__dirname);
+const projectConfig = await loadEnvironment(__dirname);
 await PWADevServer.configure({
     publicPath: config.output.publicPath,
     graphqlPlayground: true,

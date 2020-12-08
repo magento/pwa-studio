@@ -1,202 +1,294 @@
-import React, { useEffect, useState } from 'react';
-import { createTestInstance } from '@magento/peregrine';
-
-import getRouteComponent from '../getRouteComponent';
-import { useMagentoRoute } from '../useMagentoRoute';
-import { act } from 'react-test-renderer';
+import React, { useState } from 'react';
+import { replace } from 'react-router-dom';
+import { act, create } from 'react-test-renderer';
 import { useQuery } from '@apollo/client';
+import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
 
-/*
- *  Mocks.
- */
-jest.mock('react', () => {
-    const React = jest.requireActual('react');
-    const spy = jest.spyOn(React, 'useState');
+import { getRootComponent } from '../helpers';
+import { useMagentoRoute } from '../useMagentoRoute';
+
+jest.mock('@apollo/client', () => {
+    const ApolloClient = jest.requireActual('@apollo/client');
+    const useQuery = jest.fn();
 
     return {
-        ...React,
-        useState: spy
+        ...ApolloClient,
+        useQuery
     };
 });
 
-const mockHistoryReplace = jest.fn();
 jest.mock('react-router-dom', () => {
-    const ReactRouterDOM = jest.requireActual('react-router-dom');
+    const ReactRouter = jest.requireActual('react-router-dom');
+    const replace = jest.fn();
+    const useHistory = jest.fn(() => ({ replace }));
+    const useLocation = jest.fn(() => ({ pathname: '/foo.html' }));
 
     return {
-        ...ReactRouterDOM,
-        useHistory: () => ({ replace: mockHistoryReplace }),
-        useLocation: jest.fn(() => ({ pathname: 'Unit Test Pathname' }))
+        ...ReactRouter,
+        useHistory,
+        useLocation,
+        replace
     };
 });
-jest.mock('@apollo/client', () => ({
-    useApolloClient: jest.fn(() => ({ apiBase: 'Unit Test API Base' })),
-    useQuery: jest
-        .fn()
-        .mockReturnValue({ data: { storeConfig: { code: 'default' } } })
+
+jest.mock('@magento/peregrine/lib/context/rootComponents', () => ({
+    useRootComponents: jest.fn()
 }));
-jest.mock('../getRouteComponent', () => jest.fn());
+useRootComponents.mockImplementation(() => useState(new Map()));
 
-/*
- *  Members.
- */
-const log = jest.fn();
-const Component = props => {
-    const hookProps = useMagentoRoute({ ...props });
+jest.mock('../helpers', () => {
+    const helpers = jest.requireActual('../helpers');
+    const getRootComponent = jest.fn();
 
-    useEffect(() => {
-        log(hookProps);
-    }, [hookProps]);
+    return {
+        ...helpers,
+        getRootComponent
+    };
+});
 
+const resolve = jest.fn().mockName('resolve');
+const reject = jest.fn().mockName('reject');
+getRootComponent.mockImplementation(
+    () =>
+        new Promise((res, rej) => {
+            resolve.mockImplementation(res);
+            reject.mockImplementation(rej);
+        })
+);
+
+const log = jest.fn().mockName('log');
+const Component = () => {
+    log(useMagentoRoute());
     return null;
 };
 
-const routeComponentResults = {
-    COMPONENT_FOUND: {
-        component: {},
-        id: 1,
-        type: 'PRODUCT',
-        store: 'default'
-    },
-    COMPONENT_NOT_FOUND: {
-        isNotFound: true
-    },
-    ERROR: {
-        hasError: true,
-        routeError: 'INTERNAL_ERROR'
-    },
-    REDIRECT: {
-        isRedirect: true,
-        relativeUrl: '/some/redirect'
-    }
-};
-
-const props = {};
-
-/*
- *  Tests.
- */
 beforeEach(() => {
-    getRouteComponent.mockReset();
+    useQuery.mockReset();
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                urlResolver: {
+                    id: 1,
+                    redirectCode: 0,
+                    relative_url: '/foo.html',
+                    type: 'CATEGORY'
+                }
+            },
+            loading: false
+        };
+    });
 });
 
-it('fetches a component when it doesnt exist in local state', () => {
-    // Arrange.
-    useState.mockReturnValueOnce([new Map(), jest.fn()]);
-    getRouteComponent.mockImplementationOnce(() => {
-        return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
+describe('returns LOADING while queries are pending', () => {
+    test('urlResolver is loading', async () => {
+        useQuery.mockImplementation(() => {
+            return { loading: true };
+        });
+
+        await act(() => {
+            create(<Component />);
+        });
+
+        expect(replace).toHaveBeenCalledTimes(0);
+        expect(log).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isLoading: true
+        });
     });
 
-    // Act.
-    act(() => {
-        createTestInstance(<Component {...props} />);
-    });
+    test('getRootComponent is pending', async () => {
+        await act(() => {
+            create(<Component />);
+        });
 
-    // Assert.
-    expect(getRouteComponent).toHaveBeenCalled();
+        expect(replace).toHaveBeenCalledTimes(0);
+        expect(log).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isLoading: true
+        });
+    });
 });
 
-it('does not fetch when a match exists in local state', () => {
-    // Arrange.
-    const componentMap = new Map().set(
-        'Unit Test Pathname',
-        routeComponentResults.COMPONENT_FOUND
-    );
-    useState.mockReturnValueOnce([componentMap, jest.fn()]);
+describe('returns ERROR when queries fail', () => {
+    test('urlResolver fails', async () => {
+        useQuery.mockImplementation(() => {
+            return { error: new Error() };
+        });
 
-    // Act.
-    act(() => {
-        createTestInstance(<Component {...props} />);
+        await act(() => {
+            create(<Component />);
+        });
+
+        expect(replace).toHaveBeenCalledTimes(0);
+        expect(log).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            hasError: true,
+            routeError: expect.any(Error)
+        });
     });
 
-    // Assert.
-    expect(getRouteComponent).not.toHaveBeenCalled();
+    test('getRootComponent fails', async () => {
+        const routeError = new Error();
+
+        await act(() => {
+            create(<Component />);
+        });
+
+        await act(() => {
+            reject(routeError);
+        });
+
+        expect(replace).toHaveBeenCalledTimes(0);
+        expect(log).toHaveBeenCalledTimes(2);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isLoading: true
+        });
+        expect(log).toHaveBeenNthCalledWith(2, {
+            hasError: true,
+            routeError
+        });
+    });
 });
 
-it('refetches when the stores do not match', () => {
-    // Arrange.
-    useQuery.mockReturnValueOnce({ data: { storeConfig: { code: 'other' } } });
-    const componentMap = new Map().set(
-        'Unit Test Pathname',
-        routeComponentResults.COMPONENT_FOUND
-    );
-    useState.mockReturnValueOnce([componentMap, jest.fn()]);
-    getRouteComponent.mockImplementationOnce(() => {
-        return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
-    });
+describe('returns NOT_FOUND when queries come back empty', () => {
+    test('urlResolver is null', async () => {
+        useQuery.mockImplementation(() => {
+            return {
+                data: {
+                    urlResolver: null
+                },
+                loading: false
+            };
+        });
 
-    // Act.
-    act(() => {
-        createTestInstance(<Component {...props} />);
-    });
+        await act(() => {
+            create(<Component />);
+        });
 
-    // Assert.
-    expect(getRouteComponent).toHaveBeenCalled();
+        expect(replace).toHaveBeenCalledTimes(0);
+        expect(log).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isNotFound: true
+        });
+    });
 });
 
-it('redirects when instructed', () => {
-    // Arrange.
-    const componentMap = new Map().set(
-        'Unit Test Pathname',
-        routeComponentResults.REDIRECT
-    );
-    useState.mockReturnValueOnce([componentMap, jest.fn()]);
+describe('returns REDIRECT after receiving a redirect code', () => {
+    test('redirect code 301', async () => {
+        useQuery.mockImplementation(() => {
+            return {
+                data: {
+                    urlResolver: {
+                        id: 1,
+                        redirectCode: 301,
+                        relative_url: '/foo.html',
+                        type: 'CATEGORY'
+                    }
+                },
+                loading: false
+            };
+        });
 
-    // Act.
-    act(() => {
-        createTestInstance(<Component {...props} />);
+        await act(() => {
+            create(<Component />);
+        });
+
+        expect(replace).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isRedirect: true,
+            relativeUrl: '/foo.html'
+        });
     });
 
-    // Assert.
-    expect(mockHistoryReplace).toHaveBeenCalledWith(
-        routeComponentResults.REDIRECT.relativeUrl
-    );
+    test('redirect code 302', async () => {
+        useQuery.mockImplementation(() => {
+            return {
+                data: {
+                    urlResolver: {
+                        id: 1,
+                        redirectCode: 302,
+                        relative_url: '/foo.html',
+                        type: 'CATEGORY'
+                    }
+                },
+                loading: false
+            };
+        });
+
+        await act(() => {
+            create(<Component />);
+        });
+
+        expect(replace).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isRedirect: true,
+            relativeUrl: '/foo.html'
+        });
+    });
 });
 
-it('refetches data when component is not found and user is online', () => {
-    // Arrange.
-    const componentMap = new Map().set(
-        'Unit Test Pathname',
-        routeComponentResults.COMPONENT_NOT_FOUND
-    );
-    useState.mockReturnValueOnce([componentMap, jest.fn()]);
-    getRouteComponent.mockImplementationOnce(() => {
-        return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
+describe('returns FOUND after fetching a component', () => {
+    test('getRootComponent succeeds', async () => {
+        await act(() => {
+            create(<Component />);
+        });
+
+        await act(() => {
+            resolve('MockComponent');
+        });
+
+        expect(replace).toHaveBeenCalledTimes(0);
+        expect(log).toHaveBeenCalledTimes(2);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isLoading: true
+        });
+        expect(log).toHaveBeenNthCalledWith(2, {
+            component: 'MockComponent',
+            id: 1,
+            type: 'CATEGORY'
+        });
     });
-
-    // Mock being online.
-    const onLineGetter = jest.spyOn(global.navigator, 'onLine', 'get');
-    onLineGetter.mockReturnValue(true);
-
-    // Act.
-    act(() => {
-        createTestInstance(<Component {...props} />);
-    });
-
-    // Assert.
-    expect(getRouteComponent).toHaveBeenCalled();
 });
 
-it('does not refetch data when component is not found but user is offline', () => {
-    // Arrange.
-    const componentMap = new Map().set(
-        'Unit Test Pathname',
-        routeComponentResults.COMPONENT_NOT_FOUND
-    );
-    useState.mockReturnValueOnce([componentMap, jest.fn()]);
-    getRouteComponent.mockImplementationOnce(() => {
-        return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
+describe('avoids fetching the same component twice', () => {
+    test('getRootComponent succeeds', async () => {
+        let tree;
+
+        await act(() => {
+            tree = create(<Component key="a" />);
+        });
+
+        await act(() => {
+            resolve('MockComponent');
+        });
+
+        await act(() => {
+            tree.update(<Component key="a" />);
+        });
+
+        expect(getRootComponent).toHaveBeenCalledTimes(1);
+        expect(getRootComponent).toHaveBeenNthCalledWith(1, 'CATEGORY');
     });
+});
 
-    // Mock being offline.
-    const onLineGetter = jest.spyOn(global.navigator, 'onLine', 'get');
-    onLineGetter.mockReturnValue(false);
+describe('avoids setting state when unmounted', () => {
+    test('getRootComponent resolves after unmount', async () => {
+        let tree;
 
-    // Act.
-    act(() => {
-        createTestInstance(<Component {...props} />);
+        await act(() => {
+            tree = create(<Component />);
+        });
+
+        await act(() => {
+            tree.unmount();
+        });
+
+        await act(() => {
+            resolve('MockComponent');
+        });
+
+        expect(tree).toBeTruthy();
     });
-
-    // Assert.
-    expect(getRouteComponent).not.toHaveBeenCalled();
 });
