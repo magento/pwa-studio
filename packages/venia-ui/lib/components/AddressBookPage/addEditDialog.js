@@ -86,6 +86,7 @@ const AddEditDialog = props => {
             onCancel={onCancel}
             onConfirm={onConfirm}
             shouldDisableAllButtons={isBusy}
+            shouldUnmountOnHide={true}
             title={title}
         >
             <FormError

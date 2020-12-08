@@ -70,7 +70,9 @@ export const useAddressBookPage = (props = {}) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [activeEditAddress, setActiveEditAddress] = useState();
     const isDialogEditMode = !!activeEditAddress;
-    const [formApi, setFormApi] = useState();
+    const [formInitialValues, setFormInitialValues] = useState({
+        country_code: 'US'
+    });
 
     // Use local state to determine whether to display errors or not.
     // Could be replaced by a "reset mutation" function from apollo client.
@@ -90,30 +92,19 @@ export const useAddressBookPage = (props = {}) => {
     }, [isRefetching, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
-        formApi.reset();
-
         setActiveEditAddress(null);
         // Hide all previous errors when we open the dialog.
         setDisplayError(false);
         setIsDialogOpen(true);
-    }, [formApi]);
+    }, []);
 
-    const handleEditAddress = useCallback(
-        address => {
-            const formAddress = {
-                ...address,
-                default_shipping:
-                    address.default_shipping || customerAddresses.length === 1
-            };
-            formApi.reset();
-            formApi.setValues(formAddress);
-            setActiveEditAddress(formAddress);
-            // Hide all previous errors when we open the dialog.
-            setDisplayError(false);
-            setIsDialogOpen(true);
-        },
-        [customerAddresses, formApi]
-    );
+    const handleEditAddress = useCallback(address => {
+        setFormInitialValues(address);
+        setActiveEditAddress(address);
+        // Hide all previous errors when we open the dialog.
+        setDisplayError(false);
+        setIsDialogOpen(true);
+    }, []);
 
     const handleCancelDialog = useCallback(() => {
         setIsDialogOpen(false);
@@ -197,15 +188,8 @@ export const useAddressBookPage = (props = {}) => {
     const isDialogBusy = isCreatingCustomerAddress || isUpdatingCustomerAddress;
     const isLoadingWithoutData = !customerAddressesData && loading;
 
-    // Used to seed the form when adding a new address for the first time.
-    // country_code is needed for the Region component to work properly.
-    const initialValues = {
-        country_code: 'US'
-    };
-
     const formProps = {
-        getApi: setFormApi,
-        initialValues
+        initialValues: formInitialValues
     };
 
     return {
