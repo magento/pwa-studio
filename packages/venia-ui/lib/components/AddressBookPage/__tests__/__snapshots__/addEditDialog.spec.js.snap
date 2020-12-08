@@ -8,6 +8,7 @@ exports[`Edit Mode renders correctly 1`] = `
   onCancel={[MockFunction onCancel]}
   onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
+  shouldUnmountOnHide={true}
   title="Edit Address"
 >
   <FormError
@@ -431,6 +432,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
   onCancel={[MockFunction onCancel]}
   onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
+  shouldUnmountOnHide={true}
   title="Edit Address"
 >
   <FormError
@@ -859,6 +861,7 @@ exports[`renders correctly 1`] = `
   onCancel={[MockFunction onCancel]}
   onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
+  shouldUnmountOnHide={true}
   title="New Address"
 >
   <FormError
@@ -1282,6 +1285,7 @@ exports[`renders correctly with errors 1`] = `
   onCancel={[MockFunction onCancel]}
   onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
+  shouldUnmountOnHide={true}
   title="New Address"
 >
   <FormError
