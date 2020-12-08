@@ -7,7 +7,7 @@ import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreS
 import { mergeClasses } from '../../classify';
 import defaultClasses from './storeSwitcher.css';
 import SwitcherItem from './switcherItem';
-import storeSwitcherOperations from './storeSwitcher.gql';
+import storeSwitcherOperations from '@magento/peregrine/lib/talons/Header/storeSwitcher.gql';
 import Icon from '../Icon';
 
 const StoreSwitcher = props => {

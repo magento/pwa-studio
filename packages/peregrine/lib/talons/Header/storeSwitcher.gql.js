@@ -34,9 +34,7 @@ export const GET_AVAILABLE_STORES_DATA = gql`
 `;
 
 export default {
-    queries: {
-        getStoreConfigData: GET_STORE_CONFIG_DATA,
-        getUrlResolverData: GET_URL_RESOLVER_DATA,
-        getAvailableStoresData: GET_AVAILABLE_STORES_DATA
-    }
+    getStoreConfigData: GET_STORE_CONFIG_DATA,
+    getUrlResolverData: GET_URL_RESOLVER_DATA,
+    getAvailableStoresData: GET_AVAILABLE_STORES_DATA
 };

@@ -3,6 +3,8 @@ import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import mergeOperations from '../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './storeSwitcher.gql';
 
 const storage = new BrowserPersistence();
 
@@ -48,12 +50,12 @@ const mapAvailableOptions = (config, stores) => {
  */
 
 export const useStoreSwitcher = props => {
-    const { queries } = props;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         getStoreConfigData,
         getUrlResolverData,
         getAvailableStoresData
-    } = queries;
+    } = operations;
     const { pathname } = useLocation();
     const {
         elementRef: storeMenuRef,
