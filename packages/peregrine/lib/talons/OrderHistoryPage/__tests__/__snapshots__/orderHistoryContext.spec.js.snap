@@ -4,7 +4,7 @@ exports[`renders children 1`] = `"Context Provider Children"`;
 
 exports[`returns default value for suffix 1`] = `
 Object {
-  "productURLSuffix": ".html",
+  "productURLSuffix": "",
 }
 `;
 
