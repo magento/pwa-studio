@@ -11,14 +11,15 @@ import defaultOperations from './addressBookPage.gql';
 /**
  *  A talon to support the functionality of the Address Book page.
  *
+ *  @function
+ *
  *  @param {Object} props
  *  @param {Object} props.operations - GraphQL operations to be run by the talon.
  *
+ *  @returns {AddressBookPageTalonProps}
  *
- *  @returns {Object}   talonProps
- *  @returns {Object}   talonProps.data - The user's address book data.
- *  @returns {Boolean}  talonProps.isLoading - Indicates whether the user's
- *      address book data is loading.
+ * @example <caption>Importing into your project</caption>
+ * import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
  */
 export const useAddressBookPage = (props = {}) => {
     const operations = mergeOperations(defaultOperations, props.operations);
@@ -207,3 +208,23 @@ export const useAddressBookPage = (props = {}) => {
         isLoading: isLoadingWithoutData
     };
 };
+
+/**
+ * Object type returned by the {@link useAddressBookPage} talon.
+ * It provides props data to use when rendering the address book page component.
+ *
+ * @typedef {Object} AddressBookPageTalonProps
+ *
+ * @property {Map} countryDisplayNameMap - A Map of country id to its localized display name.
+ * @property {Array<Object>} customerAddresses - A list of customer addresses.
+ * @property {Map} formErrors - A Map of form errors.
+ * @property {Object} formProps - Properties to pass to the add/edit form.
+ * @property {Function} handleAddAdddress - Function to invoke when adding a new address.
+ * @property {Function} handleCancelDialog - Function to invoke when cancelling the add/edit dialog.
+ * @property {Function} handleConfirmDialog - Function to invoke when submitting the add/edit dialog.
+ * @property {Function} handleEditAddress - Function to invoke when editing an existing address.
+ * @property {Boolean} isDialogBusy - Whether actions inside the dialog should be disabled.
+ * @property {Boolean} isDialogEditMode - Whether the dialog is in edit mode (true) or add new mode (false).
+ * @property {Boolean} isDialogOpen - Whether the dialog should be open.
+ * @property {Boolean} isLoading - Whether the page is loading.
+ */
