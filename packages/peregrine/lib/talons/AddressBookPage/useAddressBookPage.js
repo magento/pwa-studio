@@ -92,6 +92,7 @@ export const useAddressBookPage = (props = {}) => {
     }, [isRefetching, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
+        setFormInitialValues({ country_code: 'US' });
         setActiveEditAddress(null);
         // Hide all previous errors when we open the dialog.
         setDisplayError(false);
