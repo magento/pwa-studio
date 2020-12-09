@@ -68,11 +68,8 @@ export const useAddressBookPage = (props = {}) => {
     ] = useMutation(updateCustomerAddressMutation);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [activeEditAddress, setActiveEditAddress] = useState();
-    const isDialogEditMode = !!activeEditAddress;
-    const [formInitialValues, setFormInitialValues] = useState({
-        country_code: 'US'
-    });
+    const [isDialogEditMode, setIsDialogEditMode] = useState(false);
+    const [formAddress, setFormAddress] = useState({});
 
     // Use local state to determine whether to display errors or not.
     // Could be replaced by a "reset mutation" function from apollo client.
@@ -92,18 +89,20 @@ export const useAddressBookPage = (props = {}) => {
     }, [isRefetching, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
-        setFormInitialValues({ country_code: 'US' });
-        setActiveEditAddress(null);
         // Hide all previous errors when we open the dialog.
         setDisplayError(false);
+
+        setIsDialogEditMode(false);
+        setFormAddress({ country_code: 'US' });
         setIsDialogOpen(true);
     }, []);
 
     const handleEditAddress = useCallback(address => {
-        setFormInitialValues(address);
-        setActiveEditAddress(address);
         // Hide all previous errors when we open the dialog.
         setDisplayError(false);
+
+        setIsDialogEditMode(true);
+        setFormAddress(address);
         setIsDialogOpen(true);
     }, []);
 
@@ -117,7 +116,7 @@ export const useAddressBookPage = (props = {}) => {
                 try {
                     await updateCustomerAddress({
                         variables: {
-                            addressId: activeEditAddress.id,
+                            addressId: formAddress.id,
                             updated_address: formValues
                         },
                         refetchQueries: [{ query: getCustomerAddressesQuery }],
@@ -155,8 +154,8 @@ export const useAddressBookPage = (props = {}) => {
             }
         },
         [
-            activeEditAddress,
             createCustomerAddress,
+            formAddress,
             getCustomerAddressesQuery,
             isDialogEditMode,
             updateCustomerAddress
@@ -190,7 +189,7 @@ export const useAddressBookPage = (props = {}) => {
     const isLoadingWithoutData = !customerAddressesData && loading;
 
     const formProps = {
-        initialValues: formInitialValues
+        initialValues: formAddress
     };
 
     return {
