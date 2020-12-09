@@ -34,7 +34,6 @@ This is caused by a project dependency used by PWA Studio and not by PWA Studio 
 -   [Add a static route][] - Add a static route to your PWA Studio app
 -   [Modify the site footer][] - Learn how to modify existing components by modifying the site footer
 -   [Using component props][] - Learn how to use props in your custom components
--   [CSS modules][] - Learn how to use CSS modules in you custom components
 -   [Manage state][] - Learn how to manage internal and global state in your components
 -   [Work with GraphQL][] - Learn how to work with GraphQL from Magento
 -   [Production launch checklist][] - Make sure your storefront is production ready with this checklist
