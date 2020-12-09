@@ -47,9 +47,6 @@ entries:
           - label: Modify the site footer
             url: /tutorials/pwa-studio-fundamentals/modify-site-footer/
 
-          - label: Manage state
-            url: /tutorials/pwa-studio-fundamentals/manage-state/
-
           - label: Work with GraphQL
             url: /tutorials/pwa-studio-fundamentals/work-with-graphql/
 
