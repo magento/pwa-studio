@@ -6,17 +6,10 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import { Title } from '../Head';
 import PaymentCard from './paymentCard';
-
-import { GET_SAVED_PAYMENTS_QUERY } from './savedPaymentsPage.gql';
-
 import defaultClasses from './savedPaymentsPage.css';
 
 const SavedPaymentsPage = props => {
-    const talonProps = useSavedPaymentsPage({
-        queries: {
-            getSavedPaymentsQuery: GET_SAVED_PAYMENTS_QUERY
-        }
-    });
+    const talonProps = useSavedPaymentsPage();
 
     const { savedPayments } = talonProps;
 

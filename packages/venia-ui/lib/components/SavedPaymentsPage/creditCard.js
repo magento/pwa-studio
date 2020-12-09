@@ -7,6 +7,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Icon from '../Icon';
 
 import defaultClasses from './creditCard.css';
+import LinkButton from '../LinkButton';
 
 /**
  * Enumerated list of supported credit card types from
@@ -29,46 +30,41 @@ const cardTypeMapper = {
 };
 
 const CreditCard = props => {
-    const { classes: propClasses, details, public_hash } = props;
+    const { classes: propClasses, details } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const number = `**** ${details.maskedCC} \u00A0\u00A0 ${
-        cardTypeMapper[details.type]
-    }`;
+    const number = `**** ${details.maskedCC} \u00A0\u00A0 ${cardTypeMapper[
+        details.type
+    ] || ''}`;
     const cardExpiryDate = useMemo(() => {
         const [month, year] = details.expirationDate.split('/');
-        const longMonth = new Date(+year, +month - 1).toLocaleString(
+        const shortMonth = new Date(+year, +month - 1).toLocaleString(
             'default',
             { month: 'short' }
         );
 
-        return `${longMonth} ${year}`;
+        return `${shortMonth}. ${year}`;
     }, [details.expirationDate]);
 
     // Should be moved to a talon in the future
     const handleDelete = useCallback(() => {}, []);
     const deleteButton = (
-        <button className={classes.deleteButton} onClick={handleDelete}>
-            <span className={classes.buttonContent}>
-                <Icon
-                    classes={{
-                        icon: classes.deleteIcon
-                    }}
-                    size={16}
-                    src={DeleteIcon}
+        <LinkButton
+            classes={{ root: classes.deleteButton }}
+            onClick={handleDelete}
+        >
+            <Icon classes={{ icon: undefined }} size={16} src={DeleteIcon} />
+            <span className={classes.deleteText}>
+                <FormattedMessage
+                    id={'storedPayments.delete'}
+                    defaultMessage={'Delete'}
                 />
-                <span className={classes.deleteText}>
-                    <FormattedMessage
-                        id={'storedPayments.delete'}
-                        defaultMessage={'Delete'}
-                    />
-                </span>
             </span>
-        </button>
+        </LinkButton>
     );
 
     return (
-        <div className={classes.root} key={public_hash}>
+        <div className={classes.root}>
             <div className={classes.title}>
                 <FormattedMessage
                     id={'storedPayments.creditCard'}
