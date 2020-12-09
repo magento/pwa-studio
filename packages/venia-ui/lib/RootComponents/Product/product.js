@@ -15,14 +15,10 @@ import mapProduct from '../../util/mapProduct';
  * https://github.com/magento/graphql-ce/issues/86
  * TODO: Replace with a single product query when possible.
  */
-import { GET_PRODUCT_DETAIL_QUERY } from './product.gql';
 
 const Product = () => {
     const talonProps = useProduct({
         mapProduct,
-        queries: {
-            getProductQuery: GET_PRODUCT_DETAIL_QUERY
-        },
         urlKey: getUrlKey()
     });
 

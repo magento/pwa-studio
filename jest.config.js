@@ -153,6 +153,14 @@ const testReactComponents = inPackage => ({
                 id: 1,
                 locale: 'en_US',
                 store_name: 'Default Store View'
+            },
+            {
+                base_currency_code: 'EUR',
+                code: 'fr',
+                default_display_currency_code: 'EUR',
+                id: 2,
+                locale: 'fr_FR',
+                store_name: 'French Store View'
             }
         ]
     }

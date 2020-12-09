@@ -57,7 +57,10 @@ Array [
         <p
           className="root"
         >
-          Set a password at the end of guest checkout to create an account in one easy step.
+          <mock-FormattedMessage
+            defaultMessage="Set a password at the end of guest checkout to create an account in one easy step."
+            id="guestForm.emailMessage"
+          />
         </p>
       </div>
     </div>
@@ -217,7 +220,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -475,7 +481,10 @@ Array [
         <p
           className="root"
         >
-          Set a password at the end of guest checkout to create an account in one easy step.
+          <mock-FormattedMessage
+            defaultMessage="Set a password at the end of guest checkout to create an account in one easy step."
+            id="guestForm.emailMessage"
+          />
         </p>
       </div>
     </div>
@@ -635,7 +644,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -1044,7 +1056,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -1234,7 +1249,10 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button
@@ -1465,7 +1483,10 @@ Array [
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -1655,7 +1676,10 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button

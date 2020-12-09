@@ -18,7 +18,10 @@ exports[`footer renders copyright 1`] = `
           href="/a"
           onClick={[Function]}
         >
-          a
+          <mock-FormattedMessage
+            defaultMessage="a"
+            id="a"
+          />
         </a>
       </li>
       <li
@@ -29,7 +32,10 @@ exports[`footer renders copyright 1`] = `
           href="/b"
           onClick={[Function]}
         >
-          b
+          <mock-FormattedMessage
+            defaultMessage="b"
+            id="b"
+          />
         </a>
       </li>
     </ul>
@@ -44,7 +50,10 @@ exports[`footer renders copyright 1`] = `
           href="/1"
           onClick={[Function]}
         >
-          1
+          <mock-FormattedMessage
+            defaultMessage="1"
+            id="1"
+          />
         </a>
       </li>
       <li
@@ -55,7 +64,10 @@ exports[`footer renders copyright 1`] = `
           href="/2"
           onClick={[Function]}
         >
-          2
+          <mock-FormattedMessage
+            defaultMessage="2"
+            id="2"
+          />
         </a>
       </li>
     </ul>
@@ -65,12 +77,18 @@ exports[`footer renders copyright 1`] = `
       <h3
         className="calloutHeading"
       >
-        Follow Us!
+        <mock-FormattedMessage
+          defaultMessage="Follow Us!"
+          id="footer.followText"
+        />
       </h3>
       <p
         className="calloutBody"
       >
-        Lorem ipsum dolor sit amet, consectetur adipsicing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+        <mock-FormattedMessage
+          defaultMessage="Lorem ipsum dolor sit amet, consectetur adipsicing elit, sed do eiusmod tempor incididunt ut labore et dolore."
+          id="footer.calloutText"
+        />
       </p>
       <ul
         className="socialLinks"
@@ -152,12 +170,18 @@ exports[`footer renders copyright 1`] = `
       <li
         className="terms"
       >
-        Terms of Use
+        <mock-FormattedMessage
+          defaultMessage="Terms of Use"
+          id="footer.termsText"
+        />
       </li>
       <li
         className="privacy"
       >
-        Privacy Policy
+        <mock-FormattedMessage
+          defaultMessage="Privacy Policy"
+          id="footer.privacyText"
+        />
       </li>
     </ul>
     <p

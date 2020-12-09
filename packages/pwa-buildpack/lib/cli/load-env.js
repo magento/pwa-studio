@@ -12,13 +12,14 @@ module.exports.builder = {
     }
 };
 
-module.exports.handler = function buildpackCli(
+module.exports.handler = async function buildpackCli(
     { directory, coreDevMode },
     proc = process
 ) {
-    const { error, envFilePresent } = require('../Utilities/loadEnvironment')(
-        directory
-    );
+    const {
+        error,
+        envFilePresent
+    } = await require('../Utilities/loadEnvironment')(directory);
     if (!envFilePresent) {
         if (coreDevMode) {
             prettyLogger.warn(`Creating new .env file using example values`);
