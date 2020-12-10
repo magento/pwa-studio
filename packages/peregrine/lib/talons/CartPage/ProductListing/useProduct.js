@@ -156,7 +156,8 @@ const flattenProduct = item => {
         configurable_options: options = [],
         prices,
         product,
-        quantity
+        quantity,
+        configured_variant
     } = item;
 
     const { price } = prices;
@@ -164,13 +165,11 @@ const flattenProduct = item => {
 
     const {
         name,
-        small_image,
         stock_status: stockStatus,
         url_key: urlKey,
-        url_suffix: urlSuffix,
-        variants
+        url_suffix: urlSuffix
     } = product;
-    const { url: image } = small_image;
+    const { url: image } = configured_variant.small_image;
 
     return {
         currency,
@@ -181,8 +180,7 @@ const flattenProduct = item => {
         stockStatus,
         unitPrice,
         urlKey,
-        urlSuffix,
-        variants
+        urlSuffix
     };
 };
 

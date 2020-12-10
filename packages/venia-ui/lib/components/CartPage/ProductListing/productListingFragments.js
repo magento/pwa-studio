@@ -28,9 +28,6 @@ export const ProductListingFragment = gql`
                             small_image {
                                 url
                             }
-                            thumbnail {
-                                url
-                            }
                         }
                     }
                 }
@@ -43,6 +40,11 @@ export const ProductListingFragment = gql`
             }
             quantity
             ... on ConfigurableCartItem {
+                configured_variant @client {
+                    small_image {
+                        url
+                    }
+                }
                 configurable_options {
                     id
                     option_label
