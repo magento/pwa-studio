@@ -44,12 +44,17 @@
     cursor: default;
 }
 
-.input:checked + .icon {
+/* When the input is disabled, update the cursor on the sibling label element. */
+.input:disabled ~ .label {
+    cursor: default;
+}
+
+.input:checked:enabled + .icon {
     --stroke: var(--venia-brand-color-1-700);
 }
 
-.input:active,
-.input:focus {
+.input:active:enabled,
+.input:focus:enabled {
     box-shadow: -3px 3px rgb(var(--venia-brand-color-1-100));
     outline: none;
 }
