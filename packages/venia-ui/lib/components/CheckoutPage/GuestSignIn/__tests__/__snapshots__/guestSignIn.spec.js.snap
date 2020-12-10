@@ -23,7 +23,6 @@ exports[`renders CreateAccount component 1`] = `
       }
       isCancelButtonHidden={false}
       onCancel={[MockFunction toggleCreateAccountView]}
-      onSubmit={[Function]}
     />
     <button
       className="root_normalPriority"

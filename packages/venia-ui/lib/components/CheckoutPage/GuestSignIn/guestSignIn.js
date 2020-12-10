@@ -47,7 +47,6 @@ const GuestSignIn = props => {
                 classes={{ root: classes.createAccountRoot }}
                 isCancelButtonHidden={false}
                 onCancel={toggleCreateAccountView}
-                onSubmit={() => {}}
             />
         );
     }

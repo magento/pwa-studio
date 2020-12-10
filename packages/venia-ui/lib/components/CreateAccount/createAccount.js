@@ -177,7 +177,7 @@ CreateAccount.propTypes = {
         lastName: string
     }),
     isCancelButtonHidden: bool,
-    onSubmit: func.isRequired,
+    onSubmit: func,
     onCancel: func
 };
 
