@@ -22,6 +22,7 @@ exports[`renders correctly when there are existing addresses 1`] = `
         }
       }
       countryName="United States"
+      onEdit={[Function]}
     />
     <AddressCard
       address={
@@ -31,6 +32,7 @@ exports[`renders correctly when there are existing addresses 1`] = `
         }
       }
       countryName="United States"
+      onEdit={[Function]}
     />
     <AddressCard
       address={
@@ -39,6 +41,7 @@ exports[`renders correctly when there are existing addresses 1`] = `
           "id": "c",
         }
       }
+      onEdit={[Function]}
     />
     <button
       className="addButton"
@@ -69,6 +72,15 @@ exports[`renders correctly when there are existing addresses 1`] = `
       </span>
     </button>
   </div>
+  <AddEditDialog
+    formErrors={Map {}}
+    formProps={null}
+    isBusy={false}
+    isEditMode={false}
+    isOpen={false}
+    onCancel={[MockFunction handleCancelDialog]}
+    onConfirm={[MockFunction handleConfirmDialog]}
+  />
 </div>
 `;
 
@@ -114,6 +126,15 @@ exports[`renders correctly when there are no existing addresses 1`] = `
       </span>
     </button>
   </div>
+  <AddEditDialog
+    formErrors={Map {}}
+    formProps={null}
+    isBusy={false}
+    isEditMode={false}
+    isOpen={false}
+    onCancel={[MockFunction handleCancelDialog]}
+    onConfirm={[MockFunction handleConfirmDialog]}
+  />
 </div>
 `;
 
