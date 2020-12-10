@@ -1,5 +1,4 @@
 const { resolve } = require('path');
-// TODO: Look into importing uniqBy or all of lodash.
 const { uniqBy } = require('lodash');
 const {
     sampleBackends: defaultSampleBackends
