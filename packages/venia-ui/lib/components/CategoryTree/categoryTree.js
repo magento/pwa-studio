@@ -45,7 +45,7 @@ const Tree = props => {
 export default Tree;
 
 Tree.propTypes = {
-    categoryId: number.isRequired,
+    categoryId: number,
     classes: shape({
         root: string,
         tree: string

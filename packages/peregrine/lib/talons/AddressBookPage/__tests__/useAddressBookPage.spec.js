@@ -10,7 +10,14 @@ jest.mock('@apollo/client', () => {
         useQuery: jest.fn(() => ({
             data: null,
             loading: false
-        }))
+        })),
+        useMutation: jest.fn(() => [
+            jest.fn(),
+            {
+                error: false,
+                loading: false
+            }
+        ])
     };
 });
 
@@ -65,7 +72,15 @@ test('it returns the proper shape', () => {
     const expectedKeys = [
         'countryDisplayNameMap',
         'customerAddresses',
+        'formErrors',
+        'formProps',
         'handleAddAddress',
+        'handleCancelDialog',
+        'handleConfirmDialog',
+        'handleEditAddress',
+        'isDialogBusy',
+        'isDialogEditMode',
+        'isDialogOpen',
         'isLoading'
     ];
     expect(actualKeys.sort()).toEqual(expectedKeys.sort());
