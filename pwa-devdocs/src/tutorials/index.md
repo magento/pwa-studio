@@ -1,14 +1,32 @@
 ---
-title: Tutorials
+title: Getting started
 ---
 
-This section contains links to tutorials that will help you become familiar with the different tools provided by PWA Studio.
+PWA Studio is a library of tools and packages designed to help you create a Magento PWA storefront.
+In this section you will learn how to set up your storefront project using the scaffolding tool and learn about the different files and folders in your project.
 
-## Recommended tutorials
+## Prerequisites
 
-### Magento Cloud deployment
+-   A basic understanding of working with [React][]
+-   Node >= 10.14.1
+-   Yarn (recommended) or NPM
 
-[Magento Cloud deployment][] - Provides steps for deploying a PWA Studio storefront into the Magento Cloud.
-This tutorial uses the Venia example storefront to illustrate the general process.
+### Node 12 deprecation warning
 
-[magento cloud deployment]: <{%link tutorials/cloud-deploy/index.md %}>
+If you are using Node 12, you may see the following deprecation warning in the log when you run `yarn watch:venia`.
+
+```sh
+(node:89176) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+```
+
+This is caused by a project dependency used by PWA Studio and not by PWA Studio itself.
+
+## First steps
+
+-   [Setup your project][]
+-   [Explore the project structure][]
+
+[setup your project]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
+[explore the project structure]: <{%link tutorials/pwa-studio-fundamentals/project-structure/index.md %}>
+
+[react]: https://reactjs.org/

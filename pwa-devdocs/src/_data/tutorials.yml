@@ -40,6 +40,6 @@ entries:
       url: /tutorials/pwa-studio-fundamentals/production-launch-checklist/
       entries:
 
-          - label: Magento Cloud deployment
+          - label: Deploy to Magento Cloud
             url: /tutorials/cloud-deploy/
 
