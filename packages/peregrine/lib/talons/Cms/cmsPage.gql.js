@@ -12,6 +12,10 @@ export const GET_CMS_PAGE = gql`
             meta_keywords
             meta_description
         }
+        storeConfig {
+            id
+            root_category_id
+        }
     }
 `;
 

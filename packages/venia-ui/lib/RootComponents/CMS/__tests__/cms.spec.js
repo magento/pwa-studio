@@ -73,6 +73,9 @@ test('page is set to loading when checking the network for updates', () => {
                 cmsPage: {
                     url_key: 'cached_page',
                     content: 'Cached Page.'
+                },
+                storeConfig: {
+                    root_category_id: 2
                 }
             },
             error: false,
@@ -103,6 +106,9 @@ test('render CategoryList when default content is present', () => {
                 cmsPage: {
                     url_key: 'homepage',
                     content: 'CMS homepage content goes here.'
+                },
+                storeConfig: {
+                    root_category_id: 2
                 }
             },
             error: false,
@@ -126,6 +132,9 @@ test('render RichContent when default content is not present', () => {
                     content_heading: 'This is a rich content heading',
                     content:
                         '<div class="richContent">This is rich content</div>'
+                },
+                storeConfig: {
+                    root_category_id: 2
                 }
             },
             error: false,
@@ -153,6 +162,9 @@ test('render meta information based on meta data from GraphQL', () => {
                     title: 'Test Title',
                     meta_title: 'Test Meta Title',
                     meta_description: 'Test Meta Description'
+                },
+                storeConfig: {
+                    root_category_id: 2
                 }
             },
             error: false,
