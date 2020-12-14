@@ -16,13 +16,22 @@ jest.mock(
         };
     }
 );
+jest.mock('../addEditDialog', () => 'AddEditDialog');
 jest.mock('../addressCard', () => 'AddressCard');
 
 const props = {};
 const talonProps = {
     countryDisplayNameMap: new Map([['US', 'United States']]),
     customerAddresses: [],
+    formErrors: new Map([]),
+    formProps: null,
     handleAddAddress: jest.fn().mockName('handleAddAddress'),
+    handleCancelDialog: jest.fn().mockName('handleCancelDialog'),
+    handleConfirmDialog: jest.fn().mockName('handleConfirmDialog'),
+    handleEditAddress: jest.fn().mockName('handleEditAddress'),
+    isDialogBusy: false,
+    isDialogEditMode: false,
+    isDialogOpen: false,
     isLoading: false
 };
 
