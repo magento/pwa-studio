@@ -153,7 +153,6 @@ export const useStoreSwitcher = props => {
             );
 
             // Handle updating the URL if the store code should be present.
-            // Handle updating the URL with configured catalog or product URL suffix
             // In this block we use `window.location.assign` to work around the
             // static React Router basename, which is changed on initialization.
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
