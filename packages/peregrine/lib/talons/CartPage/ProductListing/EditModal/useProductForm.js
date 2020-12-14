@@ -153,6 +153,8 @@ export const useProductForm = props => {
                             quantity: formValues.quantity
                         }
                     });
+
+                    setOptionSelections(new Map());
                 } else if (formValues.quantity !== cartItem.quantity) {
                     await updateItemQuantity({
                         variables: {
