@@ -1,6 +1,6 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useAppContext } from '../../context/app';
@@ -9,8 +9,9 @@ import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
 
 export const useOrderHistoryPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCustomerOrdersQuery } = operations;
+    const { getCustomerOrdersQuery, getCustomerOrderQuery } = operations;
 
+    const [orders, setOrders] = useState([]);
     const [
         ,
         {
@@ -20,20 +21,38 @@ export const useOrderHistoryPage = (props = {}) => {
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
 
-    const { data, loading } = useQuery(getCustomerOrdersQuery, {
+    const { data: ordersData, loading: ordersLoading } = useQuery(
+        getCustomerOrdersQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            skip: !isSignedIn
+        }
+    );
+
+    const [
+        getOrderData,
+        { data: orderData, error: orderError, loading: orderLoading }
+    ] = useLazyQuery(getCustomerOrderQuery, {
         fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
         skip: !isSignedIn
     });
 
-    const isLoadingWithoutData = !data && loading;
-    const isBackgroundLoading = !!data && loading;
-    const orders = useMemo(() => {
-        if (data) {
-            return data.customer.orders.items;
-        }
+    const isLoadingWithoutData =
+        (!ordersData && ordersLoading) || (!orderData && orderLoading);
+    const isBackgroundLoading =
+        (!!ordersData && ordersLoading) || (!!orderData && orderLoading);
 
-        return [];
-    }, [data]);
+    useEffect(() => {
+        if (ordersData) {
+            setOrders(ordersData.customer.orders.items);
+        }
+    }, [ordersData]);
+    useEffect(() => {
+        if (orderData) {
+            setOrders(orderData.customer.orders.items);
+        }
+    }, [orderData]);
 
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
@@ -47,8 +66,26 @@ export const useOrderHistoryPage = (props = {}) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
+    const getOrderDetails = useCallback(
+        orderNumber => {
+            if (orderNumber) {
+                getOrderData({
+                    variables: {
+                        orderNumber: {
+                            number: {
+                                eq: orderNumber
+                            }
+                        }
+                    }
+                });
+            }
+        },
+        [getOrderData]
+    );
+
     return {
         isLoadingWithoutData,
-        orders
+        orders,
+        getOrderDetails
     };
 };
