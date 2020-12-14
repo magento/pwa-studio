@@ -102,23 +102,39 @@ export const useStoreSwitcher = props => {
         );
     }, [storeConfigData, availableStoresData]);
 
-    // Get suffix based on page type
-    const getSuffix = useCallback(
-        (storeCode, currentSuffix) => {
-            let suffix = currentSuffix;
+    // Get pathname with suffix based on page type
+    const getPathname = useCallback(
+        storeCode => {
+            const currentCode = storeConfigData.storeConfig.code;
+            // Use window.location.pathname to get the path with the store view code
+            // pathname from useLocation() does not include the store view code
+            const pathname = window.location.pathname;
 
             if (pageType === 'CATEGORY') {
-                suffix =
+                const currentSuffix =
+                    availableStores.get(currentCode).category_url_suffix || '';
+                const newSuffix =
                     availableStores.get(storeCode).category_url_suffix || '';
+
+                return currentSuffix
+                    ? pathname.replace(currentSuffix, newSuffix)
+                    : `${pathname}${newSuffix}`;
             }
             if (pageType === 'PRODUCT') {
-                suffix =
+                const currentSuffix =
+                    availableStores.get(currentCode).product_url_suffix || '';
+                const newSuffix =
                     availableStores.get(storeCode).product_url_suffix || '';
+
+                return currentSuffix
+                    ? pathname.replace(currentSuffix, newSuffix)
+                    : `${pathname}${newSuffix}`;
             }
 
-            return suffix;
+            // search.html ...etc
+            return pathname;
         },
-        [availableStores, pageType]
+        [availableStores, pageType, storeConfigData.storeConfig.code]
     );
 
     const handleSwitchStore = useCallback(
@@ -127,11 +143,7 @@ export const useStoreSwitcher = props => {
             // Do nothing when store view is not present in available stores
             if (!availableStores.has(storeCode)) return;
 
-            // Use window.location.pathname to get the path with the store view code
-            // pathname from useLocation() does not include the store view code
-            const [pathName, index] = window.location.pathname.split('.');
-            const currentSuffix = index ? `.${index}` : '';
-            const suffix = getSuffix(storeCode, currentSuffix);
+            const pathName = getPathname(storeCode);
             const params = window.location.search || '';
 
             storage.setItem('store_view_code', storeCode);
@@ -158,12 +170,12 @@ export const useStoreSwitcher = props => {
                         const newPath = `${pathName.replace(
                             `/${pathStoreCode}`,
                             `/${storeCode}`
-                        )}${suffix}${params}`;
+                        )}${params}`;
 
                         window.location.assign(newPath);
                     } else {
                         // Otherwise include it and reload.
-                        const newPath = `/${storeCode}${pathName}${suffix}${params}`;
+                        const newPath = `/${storeCode}${pathName}${params}`;
 
                         window.location.assign(newPath);
                     }
@@ -173,10 +185,10 @@ export const useStoreSwitcher = props => {
             } else {
                 // Refresh the page to re-trigger the queries once code/currency
                 // are saved in local storage.
-                window.location.assign(`${pathName}${suffix}${params}`);
+                window.location.assign(`${pathName}${params}`);
             }
         },
-        [availableStores, getSuffix]
+        [availableStores, getPathname]
     );
 
     const handleTriggerClick = useCallback(() => {
