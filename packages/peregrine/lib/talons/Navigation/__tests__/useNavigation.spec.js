@@ -29,8 +29,7 @@ jest.mock('@magento/peregrine/lib/context/catalog', () => {
             categories: {
                 1: { parentId: 0 },
                 2: { parentId: 1 }
-            },
-            rootCategoryId: 1
+            }
         },
         {
             actions: { updateCategories }
@@ -53,6 +52,16 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
         .mockResolvedValue({ data: { customer: {} } });
 
     return { useAwaitQuery };
+});
+
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+    return {
+        ...apolloClient,
+        useQuery: jest
+            .fn()
+            .mockReturnValue({ data: { storeConfig: { root_category_id: 1 } } })
+    };
 });
 
 /*
