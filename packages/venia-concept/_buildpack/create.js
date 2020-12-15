@@ -1,7 +1,31 @@
 const { resolve } = require('path');
+const { uniqBy } = require('lodash');
+const {
+    sampleBackends: defaultSampleBackends
+} = require('@magento/pwa-buildpack/lib/cli/create-project');
 
-function createProjectFromVenia({ fs, tasks, options }) {
+const removeDuplicateBackends = backendEnvironments =>
+    uniqBy(backendEnvironments, 'url');
+
+const fetchSampleBackends = async () => {
+    try {
+        const res = await fetch(
+            'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
+        );
+        const { sampleBackends } = await res.json();
+
+        return removeDuplicateBackends([
+            ...sampleBackends.environments,
+            ...defaultSampleBackends.environments
+        ]).map(({ url }) => url);
+    } catch {
+        return defaultSampleBackends.environments.map(({ url }) => url);
+    }
+};
+
+async function createProjectFromVenia({ fs, tasks, options }) {
     const npmCli = options.npmClient;
+    const sampleBackendEnvironments = await fetchSampleBackends();
 
     const toCopyFromPackageJson = [
         'main',
@@ -63,7 +87,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
             'package.json': ({
                 path,
                 targetPath,
-                options: { name, author }
+                options: { name, author, backendUrl }
             }) => {
                 const pkgTpt = fs.readJsonSync(path);
                 const pkg = {
@@ -79,6 +103,14 @@ function createProjectFromVenia({ fs, tasks, options }) {
                 toCopyFromPackageJson.forEach(prop => {
                     pkg[prop] = pkgTpt[prop];
                 });
+
+                // If the backend url is a sample backend, add the validator.
+                if (sampleBackendEnvironments.includes(backendUrl)) {
+                    pkg.devDependencies = {
+                        ...pkg.devDependencies,
+                        '@magento/venia-sample-backends': '~0.0.1'
+                    };
+                }
 
                 // The venia-concept template is part of the monorepo, which
                 // uses yarn for workspaces. But if the user wants to use
