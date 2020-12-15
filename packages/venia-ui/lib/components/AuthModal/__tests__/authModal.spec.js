@@ -3,6 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 
 import AuthModal from '../authModal';
 
+jest.mock('../../../classify');
 jest.mock('../../CreateAccount', () => props => (
     <mock-CreateAccount {...props} />
 ));
