@@ -38,6 +38,7 @@
 .deleteButton {
     composes: root from '../LinkButton/linkButton.css';
     text-decoration: none;
+    visibility: hidden;
 }
 
 @media (max-width: 960px) {
