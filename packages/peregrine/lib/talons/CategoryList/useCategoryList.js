@@ -27,7 +27,9 @@ export const useCategoryList = props => {
 
     // Run the query immediately and every time id changes.
     useEffect(() => {
-        runQuery({ variables: { id } });
+        if (id) {
+            runQuery({ variables: { id } });
+        }
     }, [id, runQuery]);
 
     return {

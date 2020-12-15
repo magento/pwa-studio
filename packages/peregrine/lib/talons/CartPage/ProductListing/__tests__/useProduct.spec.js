@@ -210,12 +210,6 @@ test('it provides a way to toggle favorites', () => {
 });
 
 test('it handles editing the product', () => {
-    const mockToggleDrawer = jest.fn();
-    useAppContext.mockReturnValue([
-        { drawer: null },
-        { toggleDrawer: mockToggleDrawer }
-    ]);
-
     const setActiveEditItem = jest.fn();
     const tree = createTestInstance(
         <Component {...props} setActiveEditItem={setActiveEditItem} />
@@ -230,9 +224,8 @@ test('it handles editing the product', () => {
         handleEditItem();
     });
 
-    expect(mockToggleDrawer).toHaveBeenCalledWith('product.edit');
     expect(setActiveEditItem).toHaveBeenCalled();
-    expect(setActiveEditItem.mock.calls[1][0]).toMatchInlineSnapshot(`
+    expect(setActiveEditItem.mock.calls[0][0]).toMatchInlineSnapshot(`
         Object {
           "id": "ItemID",
           "prices": Object {
