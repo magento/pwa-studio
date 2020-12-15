@@ -7,7 +7,6 @@ import SavedPaymentsPage from '../savedPaymentsPage';
 jest.mock('@magento/venia-ui/lib/classify');
 
 jest.mock('../../Head', () => ({ Title: () => 'Title' }));
-jest.mock('../../Icon', () => 'Icon');
 jest.mock(
     '@magento/peregrine/lib/talons/SavedPaymentsPage/useSavedPaymentsPage',
     () => {
@@ -16,11 +15,21 @@ jest.mock(
         };
     }
 );
+jest.mock('../PaymentCard', () => props => <mock-PaymentCard {...props} />);
 
 const props = {};
 const talonProps = {
-    savedPayments: [],
-    handleAddPayment: jest.fn().mockName('handleAddPayment')
+    savedPayments: [
+        {
+            public_hash: '78asfg87ibafv',
+            payment_method_code: 'braintree',
+            details: {
+                maskedCC: '1234',
+                type: 'VI',
+                expirationDate: '12/12/2022'
+            }
+        }
+    ]
 };
 
 it('renders correctly when there are no existing saved payments', () => {

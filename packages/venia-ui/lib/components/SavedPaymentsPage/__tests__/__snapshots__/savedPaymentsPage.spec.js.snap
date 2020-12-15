@@ -8,53 +8,20 @@ exports[`renders correctly when there are existing saved payments 1`] = `
   <h1
     className="heading"
   >
-    Saved Payments - Venia
+    Saved Payments
   </h1>
-  <h3
-    className="subHeading"
-  >
-    Credit Cards saved here will be available during checkout.
-  </h3>
   <div
     className="content"
   >
-    <button
-      className="addButton"
-      disabled={false}
-      onClick={[MockFunction handleAddPayment]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        <Icon
-          classes={
-            Object {
-              "icon": "addIcon",
-            }
-          }
-          size={24}
-          src={[Function]}
-        />
-        <span
-          className="addText"
-        >
-          Add a credit card
-        </span>
-      </span>
-    </button>
-    <div>
-      <div />
-      <div />
-    </div>
-    <div>
-      <div />
-      <div />
-    </div>
-    <div>
-      <div />
-      <div />
-    </div>
+    <mock-PaymentCard
+      0="a"
+    />
+    <mock-PaymentCard
+      0="b"
+    />
+    <mock-PaymentCard
+      0="c"
+    />
   </div>
 </div>
 `;
