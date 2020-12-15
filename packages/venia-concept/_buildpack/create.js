@@ -23,8 +23,9 @@ const fetchSampleBackends = async () => {
     }
 };
 
-function createProjectFromVenia({ fs, tasks, options }) {
+async function createProjectFromVenia({ fs, tasks, options }) {
     const npmCli = options.npmClient;
+    const sampleBackendEnvironments = await fetchSampleBackends();
 
     const toCopyFromPackageJson = [
         'main',
@@ -83,13 +84,11 @@ function createProjectFromVenia({ fs, tasks, options }) {
         },
         visitor: {
             // Modify package.json with user details before copying it.
-            'package.json': async ({
+            'package.json': ({
                 path,
                 targetPath,
                 options: { name, author, backendUrl }
             }) => {
-                const sampleBackendEnvironments = await fetchSampleBackends();
-
                 const pkgTpt = fs.readJsonSync(path);
                 const pkg = {
                     name,
