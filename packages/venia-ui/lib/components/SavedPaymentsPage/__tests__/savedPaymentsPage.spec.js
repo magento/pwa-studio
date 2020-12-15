@@ -34,7 +34,7 @@ const talonProps = {
 
 it('renders correctly when there are no existing saved payments', () => {
     // Arrange.
-    useSavedPaymentsPage.mockReturnValueOnce(talonProps);
+    useSavedPaymentsPage.mockReturnValueOnce({ savedPayments: [] });
 
     // Act.
     const instance = createTestInstance(<SavedPaymentsPage {...props} />);
@@ -45,11 +45,7 @@ it('renders correctly when there are no existing saved payments', () => {
 
 it('renders correctly when there are existing saved payments', () => {
     // Arrange.
-    const myTalonProps = {
-        ...talonProps,
-        savedPayments: ['a', 'b', 'c']
-    };
-    useSavedPaymentsPage.mockReturnValueOnce(myTalonProps);
+    useSavedPaymentsPage.mockReturnValueOnce(talonProps);
 
     // Act.
     const instance = createTestInstance(<SavedPaymentsPage {...props} />);

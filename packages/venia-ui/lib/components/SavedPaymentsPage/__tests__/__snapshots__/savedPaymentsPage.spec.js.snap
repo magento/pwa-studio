@@ -14,13 +14,15 @@ exports[`renders correctly when there are existing saved payments 1`] = `
     className="content"
   >
     <mock-PaymentCard
-      0="a"
-    />
-    <mock-PaymentCard
-      0="b"
-    />
-    <mock-PaymentCard
-      0="c"
+      details={
+        Object {
+          "expirationDate": "12/12/2022",
+          "maskedCC": "1234",
+          "type": "VI",
+        }
+      }
+      payment_method_code="braintree"
+      public_hash="78asfg87ibafv"
     />
   </div>
 </div>
