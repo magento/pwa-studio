@@ -1,5 +1,5 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { shape, string } from 'prop-types';
 
 import paymentCardMapper from './savedPaymentTypes';
 
@@ -12,6 +12,10 @@ const PaymentCard = props => {
 export default PaymentCard;
 
 PaymentCard.propTypes = {
-    details: string,
+    details: shape({
+        expirationDate: string,
+        maskedCC: string,
+        type: string
+    }),
     payment_method_code: string.isRequired
 };

@@ -1,13 +1,13 @@
 import React, { useCallback, useMemo } from 'react';
+import { shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
+import LinkButton from '../LinkButton';
+import Icon from '../Icon';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import Icon from '../Icon';
-
 import defaultClasses from './creditCard.css';
-import LinkButton from '../LinkButton';
 
 /**
  * Enumerated list of supported credit card types from
@@ -79,3 +79,20 @@ const CreditCard = props => {
 };
 
 export default CreditCard;
+
+CreditCard.propTypes = {
+    classes: shape({
+        delete: 'string',
+        deleteButton: 'string',
+        expiry_date: 'string',
+        number: 'string',
+        root_selected: 'string',
+        root: 'string',
+        title: 'string'
+    }),
+    details: shape({
+        expirationDate: string,
+        maskedCC: string,
+        type: string
+    })
+};
