@@ -1,3 +1,8 @@
+.contents {
+    composes: contents from '../../../Dialog/dialog.css';
+    position: relative;
+}
+
 .optionRoot {
     border-bottom: 1px solid rgb(var(--venia-global-color-border));
     padding: 1rem 0;
@@ -13,20 +18,20 @@
 
 .quantityRoot {
     composes: root from '../quantity.css';
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 4rem auto;
+    justify-content: start;
     padding: 0 1rem;
-}
-
-.submit {
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
 }
 
 .loading {
     composes: root from '../../../LoadingIndicator/indicator.css';
     height: unset;
+    left: 0;
+    position: absolute;
     text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
 }
 
 .dataError {
