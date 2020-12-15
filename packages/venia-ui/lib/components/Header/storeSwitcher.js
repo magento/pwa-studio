@@ -7,14 +7,9 @@ import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreS
 import { mergeClasses } from '../../classify';
 import defaultClasses from './storeSwitcher.css';
 import SwitcherItem from './switcherItem';
-import storeSwitcherOperations from '@magento/peregrine/lib/talons/Header/storeSwitcher.gql';
 import Icon from '../Icon';
 
 const StoreSwitcher = props => {
-    const talonProps = useStoreSwitcher({
-        ...storeSwitcherOperations
-    });
-
     const {
         handleSwitchStore,
         currentStoreName,
@@ -23,7 +18,7 @@ const StoreSwitcher = props => {
         storeMenuTriggerRef,
         storeMenuIsOpen,
         handleTriggerClick
-    } = talonProps;
+    } = useStoreSwitcher();
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;

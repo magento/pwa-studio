@@ -49,7 +49,7 @@ const mapAvailableOptions = (config, stores) => {
  * @returns {Function}  talonProps.handleSwitchStore - A function for handling when the menu item is clicked.
  */
 
-export const useStoreSwitcher = props => {
+export const useStoreSwitcher = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         getStoreConfigData,

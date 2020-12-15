@@ -257,7 +257,6 @@ describe('handleSwitchStore updates url with configured store code', () => {
 
         handleSwitchStore('store2');
 
-        // .html => null
         expect(window.location.assign).toBeCalledWith(
             '/store2/category/category-name.html'
         );
