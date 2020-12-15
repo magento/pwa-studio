@@ -15,7 +15,7 @@ jest.mock(
         };
     }
 );
-jest.mock('../PaymentCard', () => props => <mock-PaymentCard {...props} />);
+jest.mock('../paymentCard', () => props => <mock-PaymentCard {...props} />);
 
 const props = {};
 const talonProps = {
