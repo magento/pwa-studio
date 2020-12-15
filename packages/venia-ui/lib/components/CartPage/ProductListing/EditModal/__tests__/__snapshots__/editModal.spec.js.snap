@@ -1,131 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders closed shell with no active item 1`] = `
-<portal-mock>
-  <aside
-    className="root"
-  >
-    <div
-      className="header"
-    >
-      <span
-        className="headerText"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Edit Item"
-          id="editModal.headerText"
-        />
-      </span>
-      <button
-        className="closeButton"
-        onClick={[MockFunction]}
-      >
-        <span
-          className="root"
-        >
-          <svg
-            className="icon"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="18"
-              x2="6"
-              y1="6"
-              y2="18"
-            />
-            <line
-              x1="6"
-              x2="18"
-              y1="6"
-              y2="18"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
-  </aside>
-</portal-mock>
+exports[`if active edit item is not exist, dialog form is not visible 1`] = `
+<ProductForm
+  item={null}
+  setVariantPrice={[MockFunction]}
+  variantPrice=""
+/>
 `;
 
-exports[`renders open drawer with active item 1`] = `
-<portal-mock>
-  <aside
-    className="root_open"
-  >
-    <div
-      className="header"
-    >
-      <span
-        className="headerText"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Edit Item"
-          id="editModal.headerText"
-        />
-      </span>
-      <button
-        className="closeButton"
-        onClick={[MockFunction]}
-      >
-        <span
-          className="root"
-        >
-          <svg
-            className="icon"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="18"
-              x2="6"
-              y1="6"
-              y2="18"
-            />
-            <line
-              x1="6"
-              x2="18"
-              y1="6"
-              y2="18"
-            />
-          </svg>
-        </span>
-      </button>
-    </div>
-    <div
-      className="body"
-    >
-      <ProductDetail
-        item={
-          Object {
-            "id": "123",
-            "name": "Simple Product",
-          }
-        }
-      />
-      <ProductForm
-        item={
-          Object {
-            "id": "123",
-            "name": "Simple Product",
-          }
-        }
-      />
-    </div>
-  </aside>
-</portal-mock>
+exports[`renders closed shell with no active item 1`] = `
+<ProductForm
+  item={null}
+/>
+`;
+
+exports[`renders dialog form when active item is set up 1`] = `
+<ProductForm
+  item={
+    Object {
+      "configurable_options": Array [
+        "option1",
+        "option2",
+      ],
+      "id": "123",
+      "prices": Object {
+        "price": Object {
+          "currency": "EUR",
+          "value": "456.78",
+        },
+      },
+      "product": Object {
+        "id": 123,
+        "name": "Juno Sweater",
+        "sku": "ABC",
+        "small_image": Object {
+          "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg",
+        },
+        "stock_status": "IN STOCK",
+      },
+      "quantity": 5,
+    }
+  }
+  setVariantPrice={[MockFunction]}
+  variantPrice=""
+/>
 `;
