@@ -61,7 +61,7 @@ const Item = props => {
                         root: classes.thumbnail
                     }}
                     width={100}
-                    resource={configured_variant.thumbnail.url}
+                    resource={configured_variant && configured_variant.thumbnail.url || product.thumbnail.url}
                 />
             </Link>
             <Link

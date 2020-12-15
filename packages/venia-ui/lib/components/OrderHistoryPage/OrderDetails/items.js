@@ -12,21 +12,11 @@ const Items = props => {
     const { items, imagesData } = props.data;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const mappedImagesData = useMemo(() => {
-        const mappedImagesData = {};
-
-        imagesData.forEach(imageData => {
-            mappedImagesData[imageData.url_key] = imageData;
-        });
-
-        return mappedImagesData;
-    }, [imagesData]);
-
     const itemsComponent = items.map(item => (
         <Item
             key={item.id}
             {...item}
-            {...mappedImagesData[item.product_url_key]}
+            {...imagesData[item.product_sku]}
         />
     ));
 

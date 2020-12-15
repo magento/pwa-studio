@@ -8,6 +8,7 @@
 const temporaryTypePolicies = {
     StoreConfig: {
         fields: {
+            // This field is available in Magento 2.4.2 we need to support older versions, so env var is used here
             configurable_thumbnail_source: {
                 read() {
                     return (
@@ -19,11 +20,19 @@ const temporaryTypePolicies = {
     },
     ConfigurableCartItem: {
         fields: {
+            // This field is proposed in the https://github.com/magento/magento2/pull/30817
             configured_variant: {
                 read(_, { readField, toReference }) {
                     const product = readField('product');
+                    const configurableThumbnailSource = readField({
+                        fieldName: "configurable_thumbnail_source",
+                        from: toReference({
+                            __typename: "StoreConfig",
+                            id: 1
+                        }),
+                    });
 
-                    if (process.env.CONFIGURABLE_THUMBNAIL_SOURCE === 'parent') {
+                    if (configurableThumbnailSource === 'parent') {
                         return product
                     }
 
