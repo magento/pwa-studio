@@ -1,9 +1,16 @@
+const https = require('https');
 const fetch = require('node-fetch');
+const agent = new https.Agent({
+    rejectUnauthorized: false
+});
 
-const isBackendActive = async (env, debug) => {
+const fetchWithAgent = async url => {
+    return await fetch(url, { agent });
+};
+
+const isBackendActive = async (magentoBackend, debug) => {
     try {
-        const magentoBackend = env.MAGENTO_BACKEND_URL;
-        const res = await fetch(magentoBackend);
+        const res = await fetchWithAgent(magentoBackend);
 
         return res.ok;
     } catch (err) {
@@ -42,12 +49,15 @@ const fetchBackends = async debug => {
  */
 const validateSampleBackend = async config => {
     console.warn(
-        "\n venia-sample-backends is a Dev only extension, please remove it from the project's package.json before going to production. \n"
+        '\n venia-sample-backends is a "development-only" extension, please remove it from your project\'s package.json before going to production.\n'
     );
 
     const { env, onFail, debug } = config;
 
-    const backendIsActive = await isBackendActive(env, debug);
+    const backendIsActive = await isBackendActive(
+        env.MAGENTO_BACKEND_URL,
+        debug
+    );
 
     if (!backendIsActive) {
         debug(`${env.MAGENTO_BACKEND_URL} is inactive`);

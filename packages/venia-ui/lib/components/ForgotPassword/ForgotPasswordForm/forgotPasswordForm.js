@@ -39,7 +39,7 @@ const ForgotPasswordForm = props => {
                     className={classes.cancelButton}
                     disabled={isResettingPassword}
                     type="button"
-                    priority="normal"
+                    priority="low"
                     onClick={onCancel}
                 >
                     <FormattedMessage

@@ -17,7 +17,6 @@
 
 .heading_container {
     display: grid;
-    grid-column-end: span 2;
     row-gap: 1rem;
 }
 
@@ -46,9 +45,25 @@
     composes: stepper_heading;
 }
 
-.signin_container {
-    grid-column: 1 / span 1;
-    border-bottom: 1px solid rgb(var(--venia-global-color-border));
+.signInContainer {
+    align-items: center;
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    padding: 1rem;
+}
+
+.signInLabel {
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.signInButton {
+    composes: root_normalPriority from '../Button/button.css';
+    min-height: auto;
+    min-width: auto;
+    padding: 0.25rem 2rem;
 }
 
 .empty_cart_container {
@@ -75,11 +90,6 @@
     grid-column: 1 / span 1;
 }
 
-.sign_in {
-    composes: root from '../LinkButton/linkButton.css';
-    margin-bottom: 1.5rem;
-}
-
 .summaryContainer {
     grid-column: 1 / span 1;
 }
@@ -91,10 +101,6 @@
         position: sticky;
         top: 5.5rem;
         height: min-content;
-    }
-
-    .signin_container ~ .summaryContainer {
-        grid-row: 3 / span 3;
     }
 }
 
@@ -124,6 +130,13 @@
         /* Only one column in mobile view. */
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+
+    .signInContainer {
+        grid-row-start: 1;
+        grid-auto-flow: row;
+        justify-items: center;
+        margin-bottom: 1rem;
     }
 
     .stepper_heading {
