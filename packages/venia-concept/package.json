@@ -15,6 +15,7 @@
     "build:debug": "node --inspect-brk ./node_modules/.bin/webpack --no-progress --env.mode",
     "build:dev": "yarn run clean && yarn run validate-queries && webpack --no-progress --env.mode development",
     "build:prod": "yarn run clean && webpack --no-progress --env.mode production",
+    "build:report": "buildpack generate-build-report",
     "buildpack": "buildpack",
     "clean": "rimraf dist",
     "download-schema": "graphql get-schema --project venia --insecure",
