@@ -108,7 +108,7 @@ async function createProject(options) {
         before = () => {},
         ignores = getIgnores(packageRoot),
         visitor
-    } = instructions.create({
+    } = await instructions.create({
         fs: fse,
         tasks: makeCommonTasks(fse),
         options

@@ -16,7 +16,6 @@
 
 .heading_container {
     display: grid;
-    grid-template-columns: auto auto;
     margin-bottom: 1rem;
     row-gap: 1rem;
 }
@@ -25,13 +24,8 @@
     line-height: 1.25em;
 }
 
-.signInLink {
-    composes: root from '../LinkButton/linkButton.css';
-    justify-self: flex-end;
-}
-
-.stockStatusMessageContainer {
-    grid-column-end: span 2;
+.stockStatusMessageContainer:empty {
+    display: none;
 }
 
 .items_container {
