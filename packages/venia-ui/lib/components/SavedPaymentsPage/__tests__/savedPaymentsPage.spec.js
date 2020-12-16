@@ -32,7 +32,7 @@ const talonProps = {
     ]
 };
 
-it('renders correctly when there are no existing saved payments', () => {
+test('renders correctly when there are no existing saved payments', () => {
     // Arrange.
     useSavedPaymentsPage.mockReturnValueOnce({ savedPayments: [] });
 
@@ -43,9 +43,23 @@ it('renders correctly when there are no existing saved payments', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-it('renders correctly when there are existing saved payments', () => {
+test('renders correctly when there are existing saved payments', () => {
     // Arrange.
     useSavedPaymentsPage.mockReturnValueOnce(talonProps);
+
+    // Act.
+    const instance = createTestInstance(<SavedPaymentsPage {...props} />);
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('renders loading indicator when isLoading is true', () => {
+    // Arrange.
+    useSavedPaymentsPage.mockReturnValueOnce({
+        ...talonProps,
+        isLoading: true
+    });
 
     // Act.
     const instance = createTestInstance(<SavedPaymentsPage {...props} />);

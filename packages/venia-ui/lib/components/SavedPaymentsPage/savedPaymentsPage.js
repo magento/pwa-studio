@@ -6,12 +6,14 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import { Title } from '../Head';
 import PaymentCard from './paymentCard';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
+
 import defaultClasses from './savedPaymentsPage.css';
 
 const SavedPaymentsPage = props => {
     const talonProps = useSavedPaymentsPage();
 
-    const { savedPayments } = talonProps;
+    const { isLoading, savedPayments } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -45,6 +47,10 @@ const SavedPaymentsPage = props => {
         id: 'savedPaymentsPage.title',
         defaultMessage: 'Saved Payments'
     });
+
+    if (isLoading) {
+        return fullPageLoadingIndicator;
+    }
 
     return (
         <div className={classes.root}>
