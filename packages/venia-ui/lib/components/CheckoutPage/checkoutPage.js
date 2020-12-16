@@ -111,7 +111,7 @@ const CheckoutPage = props => {
               defaultMessage: 'Checkout'
           });
 
-    if (orderNumber) {
+    if (orderNumber && orderDetailsData) {
         return (
             <OrderConfirmationPage
                 data={orderDetailsData}
