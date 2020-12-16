@@ -15,28 +15,43 @@ const SavedPaymentsPage = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const savedPaymentElements = useMemo(
-        () =>
-            savedPayments.map(paymentDetails => (
+    const { formatMessage } = useIntl();
+
+    const savedPaymentElements = useMemo(() => {
+        if (savedPayments.length) {
+            return savedPayments.map(paymentDetails => (
                 <PaymentCard
                     key={paymentDetails.public_hash}
                     {...paymentDetails}
                 />
-            )),
-        [savedPayments]
-    );
+            ));
+        } else {
+            return null;
+        }
+    }, [savedPayments]);
 
-    const { formatMessage } = useIntl();
+    const noSavedPayments = useMemo(() => {
+        if (!savedPayments.length) {
+            return formatMessage({
+                id: 'savedPaymentsPage.noSavedPayments',
+                defaultMessage: 'You have no saved payments.'
+            });
+        } else {
+            return null;
+        }
+    }, [savedPayments, formatMessage]);
 
     const title = formatMessage({
         id: 'savedPaymentsPage.title',
         defaultMessage: 'Saved Payments'
     });
+
     return (
         <div className={classes.root}>
             <Title>{title}</Title>
             <h1 className={classes.heading}>{title}</h1>
             <div className={classes.content}>{savedPaymentElements}</div>
+            <div className={classes.noPayments}>{noSavedPayments}</div>
         </div>
     );
 };
