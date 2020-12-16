@@ -170,7 +170,8 @@ const flattenProduct = item => {
         url_key: urlKey,
         url_suffix: urlSuffix
     } = product;
-    const { url: image } = configured_variant && configured_variant.small_image || small_image;
+    const { url: image } =
+        (configured_variant && configured_variant.small_image) || small_image;
 
     return {
         currency,

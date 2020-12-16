@@ -13,11 +13,7 @@ const Items = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const itemsComponent = items.map(item => (
-        <Item
-            key={item.id}
-            {...item}
-            {...imagesData[item.product_sku]}
-        />
+        <Item key={item.id} {...item} {...imagesData[item.product_sku]} />
     ));
 
     return (

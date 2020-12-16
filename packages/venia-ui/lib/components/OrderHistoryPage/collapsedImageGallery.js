@@ -17,11 +17,19 @@ const CollapsedImageGallery = props => {
     const imageElements = useMemo(() => {
         if (items) {
             const baseImageElements = Object.values(items)
-                .slice(0, DISPLAY_COUNT).map((item, index) => {
+                .slice(0, DISPLAY_COUNT)
+                .map((item, index) => {
                     const { id, thumbnail } = item;
                     const { label, url } = thumbnail;
 
-                    return <Image key={Object.keys(items)[index]} alt={label} src={url} width={48} />;
+                    return (
+                        <Image
+                            key={Object.keys(items)[index]}
+                            alt={label}
+                            src={url}
+                            width={48}
+                        />
+                    );
                 });
 
             // If the order contains more than four products, render a remainder count in the last column.

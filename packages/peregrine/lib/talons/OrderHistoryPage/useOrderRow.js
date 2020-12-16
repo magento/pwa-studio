@@ -16,7 +16,10 @@ import DEFAULT_OPERATIONS from './orderRow.gql';
 export const useOrderRow = props => {
     const { items } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getProductThumbnailsQuery, getConfigurableThumbnailSource } = operations;
+    const {
+        getProductThumbnailsQuery,
+        getConfigurableThumbnailSource
+    } = operations;
 
     const urlKeys = useMemo(() => {
         return items.map(item => item.product_url_key).sort();
@@ -30,13 +33,17 @@ export const useOrderRow = props => {
         }
     });
 
-    const { data: getConfigurableThumbnailSourceData } = useQuery(getConfigurableThumbnailSource, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const { data: getConfigurableThumbnailSourceData } = useQuery(
+        getConfigurableThumbnailSource,
+        {
+            fetchPolicy: 'cache-and-network'
+        }
+    );
 
     const configurableThumbnailSource = useMemo(() => {
         if (getConfigurableThumbnailSourceData) {
-            return getConfigurableThumbnailSourceData.storeConfig.configurable_thumbnail_source;
+            return getConfigurableThumbnailSourceData.storeConfig
+                .configurable_thumbnail_source;
         }
     }, [getConfigurableThumbnailSourceData]);
 
@@ -45,18 +52,23 @@ export const useOrderRow = props => {
             // Images data is taken from simple product or from configured variant and assigned to item sku
             const mappedImagesData = [];
             items.forEach(item => {
-                const product = data.products.items.find(element =>
-                    item.product_url_key === element.url_key
-                )
-                if (configurableThumbnailSource === 'itself' && product.variants && product.variants.length > 0) {
+                const product = data.products.items.find(
+                    element => item.product_url_key === element.url_key
+                );
+                if (
+                    configurableThumbnailSource === 'itself' &&
+                    product.variants &&
+                    product.variants.length > 0
+                ) {
                     const foundVariant = product.variants.find(variant => {
-                        return variant.product.sku === item.product_sku
-                    })
-                    mappedImagesData[item.product_sku] = foundVariant && foundVariant.product
+                        return variant.product.sku === item.product_sku;
+                    });
+                    mappedImagesData[item.product_sku] =
+                        foundVariant && foundVariant.product;
                 } else {
                     mappedImagesData[item.product_sku] = product;
                 }
-            })
+            });
 
             return mappedImagesData;
         } else {
