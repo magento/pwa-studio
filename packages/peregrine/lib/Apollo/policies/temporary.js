@@ -36,21 +36,14 @@ const temporaryTypePolicies = {
 
                     const optionUids = readField('configurable_options')
                         .map(option => {
-                            const optionObject = JSON.parse(
-                                option.__ref.substring(
-                                    option.__ref.indexOf('{'),
-                                    option.__ref.lastIndexOf('}') + 1
-                                )
-                            );
-                            const string = `configurable/${optionObject.id}/${
-                                optionObject.value_id
-                            }`;
-                            return new Buffer(string).toString('base64');
+                            const id = readField('id', toReference(option.__ref));
+                            const value_id = readField('value_id', toReference(option.__ref));
+                            return new Buffer(`configurable/${id}/${value_id}`).toString('base64');
                         })
                         .sort()
                         .toString();
 
-                    const variant = readField('variants', product)
+                    return readField('variants', product)
                         .map(variant => {
                             const variantUids = variant.attributes
                                 .map(attribute => attribute.uid)
@@ -61,8 +54,6 @@ const temporaryTypePolicies = {
                             );
                         })
                         .filter(Boolean)[0];
-
-                    return variant;
                 }
             }
         }
