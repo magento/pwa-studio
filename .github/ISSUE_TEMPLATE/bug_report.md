@@ -39,24 +39,20 @@ A clear and concise description of what you expected to happen.
 
 If applicable, add screenshots to help explain your problem.
 
-**Additional context**
-
-Paste the output of `yarn build:report`, and any other context about the problem, here.
-
 **Possible solutions**
 
 Add any ideas about possible solutions to the problem here.
 
+**Debug Report**
+
+Paste the output of `yarn build:report`, and any other context about the problem, here.
+
 **Please complete the following device information:**
 
 -   Device [e.g. iPhone6, PC, Mac, Pixel3]:
--   OS [e.g. iOS8.1, Windows 10]:
 -   Browser [e.g. Chrome, Safari]:
 -   Browser Version [e.g. 22]:
--   Magento Version:
--   PWA Studio Version:
--   NPM version `npm -v`:
--   Node Version `node -v`:
+-   Magento Version [e.g Magento Commerce 2.4]:
 
 <!-- Complete the following sections to help us apply appropriate labels! -->
 
