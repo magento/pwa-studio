@@ -66,6 +66,9 @@ Object {
       },
     },
   },
+  "CustomerPaymentTokens": Object {
+    "keyFields": [Function],
+  },
   "ProductImage": Object {
     "keyFields": Array [
       "url",
