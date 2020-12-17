@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormState } from 'informed';
+import debounce from 'lodash.debounce';
 import { useQuery, useLazyQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
@@ -67,21 +68,39 @@ export const useOrderHistoryPage = (props = {}) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
-    const getOrderDetails = useCallback(
-        orderNumber => {
-            if (orderNumber) {
-                getOrderData({
-                    variables: {
-                        orderNumber: {
-                            number: {
-                                eq: orderNumber
+    const debouncedOrderDetailsFetcher = useCallback(
+        debounce(
+            orderNumber => {
+                if (orderNumber) {
+                    console.log(orderNumber);
+
+                    getOrderData({
+                        variables: {
+                            orderNumber: {
+                                number: {
+                                    eq: orderNumber
+                                }
                             }
                         }
-                    }
-                });
-            }
-        },
+                    });
+                }
+            },
+            1000,
+            { leading: false }
+        ),
         [getOrderData]
+    );
+
+    /**
+     * Using wrapper function instead of debounced function
+     * because event object will be unavailable after the
+     * timer expires.
+     */
+    const getOrderDetails = useCallback(
+        event => {
+            debouncedOrderDetailsFetcher(event.target.value);
+        },
+        [debouncedOrderDetailsFetcher]
     );
 
     return {

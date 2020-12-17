@@ -65,18 +65,15 @@ const OrderHistoryPage = props => {
                 <div className={classes.search}>
                     <TextInput
                         id={classes.search}
-                        disabled={false}
+                        disabled={isBackgroundLoading}
                         field="search"
-                        mask={value => value && value.trim()}
                         maskOnBlur={true}
-                        message={''}
                         placeholder={formatMessage({
                             id: 'orderHistoryPage.search',
                             defaultMessage: 'Search'
                         })}
-                        onBlur={args => {
-                            getOrderDetails(args.target.value);
-                        }}
+                        onChange={getOrderDetails}
+                        onChange={getOrderDetails}
                     />
                 </div>
                 {pageContents}
