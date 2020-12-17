@@ -16,7 +16,4 @@ export const clearCartDataFromCache = async client => {
     await deleteCacheEntry(client, key =>
         key.match(/^\$?AvailableShippingMethod/)
     );
-    await deleteCacheEntry(client, key =>
-        key.match(/^\$?customerPaymentTokens/)
-    );
 };
