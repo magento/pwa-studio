@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useFormState } from 'informed';
 import { useQuery, useLazyQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
@@ -20,6 +21,7 @@ export const useOrderHistoryPage = (props = {}) => {
     ] = useAppContext();
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
+    const formState = useFormState();
 
     const { data: ordersData, loading: ordersLoading } = useQuery(
         getCustomerOrdersQuery,
@@ -31,28 +33,27 @@ export const useOrderHistoryPage = (props = {}) => {
 
     const [
         getOrderData,
-        { data: orderData, error: orderError, loading: orderLoading }
+        { data: orderData, loading: orderLoading }
     ] = useLazyQuery(getCustomerOrderQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !isSignedIn
     });
 
-    const isLoadingWithoutData =
-        (!ordersData && ordersLoading) || (!orderData && orderLoading);
-    const isBackgroundLoading =
-        (!!ordersData && ordersLoading) || (!!orderData && orderLoading);
+    const isLoadingWithoutData = !orders && (orderLoading || ordersLoading);
+    const isBackgroundLoading = !!orders && (orderLoading || ordersLoading);
 
     useEffect(() => {
-        if (ordersData) {
+        if (!formState.values.search && ordersData) {
             setOrders(ordersData.customer.orders.items);
         }
-    }, [ordersData]);
+    }, [ordersData, formState.values.search]);
+
     useEffect(() => {
-        if (orderData) {
+        if (formState.values.search && orderData) {
             setOrders(orderData.customer.orders.items);
         }
-    }, [orderData]);
+    }, [orderData, formState.values.search]);
 
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
@@ -84,6 +85,7 @@ export const useOrderHistoryPage = (props = {}) => {
     );
 
     return {
+        isBackgroundLoading,
         isLoadingWithoutData,
         orders,
         getOrderDetails

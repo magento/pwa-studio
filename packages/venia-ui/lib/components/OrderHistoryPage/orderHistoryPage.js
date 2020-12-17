@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
@@ -14,7 +14,12 @@ import defaultClasses from './orderHistoryPage.css';
 
 const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage();
-    const { isLoadingWithoutData, orders, getOrderDetails } = talonProps;
+    const {
+        isBackgroundLoading,
+        isLoadingWithoutData,
+        orders,
+        getOrderDetails
+    } = talonProps;
     const { formatMessage } = useIntl();
     const PAGE_TITLE = formatMessage({
         id: 'orderHistoryPage.pageTitleText',
@@ -37,7 +42,7 @@ const OrderHistoryPage = props => {
     }
 
     let pageContents;
-    if (!orders.length) {
+    if (!isBackgroundLoading && !orders.length) {
         pageContents = (
             <h3 className={classes.emptyHistoryMessage}>
                 {EMPTY_DATA_MESSAGE}
