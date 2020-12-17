@@ -166,16 +166,18 @@ async function inspectBackend() {
         );
         prettyLogger.error('Reason:', e);
     }
-    // https://venia-cicd-lrov2hi-mfwmkrjfqvbjk.us-4.magentosite.cloud/magento_version
 }
 
 function inspectBuildEnv() {
-    prettyLogger.info('Inspecting System');
-    prettyLogger.log('OS:', os.version());
-
-    prettyLogger.log('Node Version:', process.version);
+    const osVersion = os.version();
+    const nodeVersion = process.version();
     const versionBuffer = spawnSync('npm', ['-v']);
-    prettyLogger.log('NPM Version:', versionBuffer.stdout.toString());
+    const npmVersion = versionBuffer.stdout.toString();
+
+    prettyLogger.info('Inspecting System');
+    prettyLogger.log('OS:', osVersion);
+    prettyLogger.log('Node Version:', nodeVersion);
+    prettyLogger.log('NPM Version:', npmVersion);
 }
 /**
  * main
