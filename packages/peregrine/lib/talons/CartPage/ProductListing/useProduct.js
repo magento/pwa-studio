@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 
@@ -11,7 +10,6 @@ import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
  * This talon performs the following effects:
  *
  * - Manage the updating state of the cart while a product is being updated or removed
- * - Reset the current item being edited item when the app drawer is closed
  *
  * @function
  *
@@ -71,7 +69,6 @@ export const useProduct = props => {
     ]);
 
     const [{ cartId }] = useCartContext();
-    const [{ drawer }, { toggleDrawer }] = useAppContext();
 
     const [isFavorite, setIsFavorite] = useState(false);
 
@@ -94,18 +91,11 @@ export const useProduct = props => {
 
     const handleEditItem = useCallback(() => {
         setActiveEditItem(item);
-        toggleDrawer('product.edit');
 
         // If there were errors from removing/updating the product, hide them
         // when we open the modal.
         setDisplayError(false);
-    }, [item, setActiveEditItem, toggleDrawer]);
-
-    useEffect(() => {
-        if (drawer === null) {
-            setActiveEditItem(null);
-        }
-    }, [drawer, setActiveEditItem]);
+    }, [item, setActiveEditItem]);
 
     const handleRemoveFromCart = useCallback(() => {
         try {

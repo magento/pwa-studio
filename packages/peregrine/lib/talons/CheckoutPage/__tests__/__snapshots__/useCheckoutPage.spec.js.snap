@@ -12,7 +12,6 @@ Object {
   "error": undefined,
   "handlePlaceOrder": [Function],
   "handleReviewOrder": [Function],
-  "handleSignIn": [Function],
   "hasError": false,
   "isCartEmpty": true,
   "isGuestCheckout": true,
@@ -29,6 +28,7 @@ Object {
   "setPaymentInformationDone": [Function],
   "setShippingInformationDone": [Function],
   "setShippingMethodDone": [Function],
-  "toggleActiveContent": [Function],
+  "toggleAddressBookContent": [Function],
+  "toggleSignInContent": [Function],
 }
 `;

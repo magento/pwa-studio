@@ -3,7 +3,6 @@ import { createTestInstance } from '@magento/peregrine';
 import { useQuery } from '@apollo/client';
 
 import { useCartPage } from '../useCartPage';
-import { act } from 'react-test-renderer';
 
 jest.mock('react', () => {
     const React = jest.requireActual('react');
@@ -26,17 +25,6 @@ jest.mock('@apollo/client', () => {
     return { useQuery };
 });
 
-jest.mock('@magento/peregrine/lib/context/app', () => {
-    const state = {};
-    const api = {
-        toggleDrawer: jest.fn(nav => {
-            console.log(nav);
-        })
-    };
-    const useAppContext = jest.fn(() => [state, api]);
-
-    return { useAppContext };
-});
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {
         cartId: 'cart123'
@@ -45,15 +33,6 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     const useCartContext = jest.fn(() => [state, api]);
 
     return { useCartContext };
-});
-jest.mock('@magento/peregrine/lib/context/user', () => {
-    const state = {
-        isSignedIn: false
-    };
-    const api = {};
-    const useUserContext = jest.fn(() => [state, api]);
-
-    return { useUserContext };
 });
 
 const log = jest.fn();
@@ -77,10 +56,8 @@ test('it returns the proper shape', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith({
         cartItems: expect.any(Array),
-        handleSignIn: expect.any(Function),
         hasItems: expect.any(Boolean),
         isCartUpdating: expect.any(Boolean),
-        isSignedIn: expect.any(Boolean),
         setIsCartUpdating: expect.any(Function),
         shouldShowLoadingIndicator: expect.any(Boolean)
     });
@@ -128,20 +105,4 @@ test('it calls setIsCartUpdating false when loading is false', () => {
     // Assert.
     const { setIsCartUpdating } = log.mock.calls[0][0];
     expect(setIsCartUpdating).toBeCalledWith(false);
-});
-
-test('it toggles the drawer on sign in', () => {
-    const consoleLogSpy = jest.spyOn(console, 'log');
-
-    // Act.
-    createTestInstance(<Component />);
-
-    const { handleSignIn } = log.mock.calls[0][0];
-
-    act(() => {
-        handleSignIn();
-    });
-
-    expect(consoleLogSpy).toHaveBeenCalledTimes(1);
-    expect(consoleLogSpy.mock.calls[0][0]).toEqual('nav');
 });
