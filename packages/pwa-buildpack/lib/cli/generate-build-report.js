@@ -147,7 +147,7 @@ async function inspectBackend() {
 
     // Upcheck
     try {
-        const res = await fetchWithAgent(MAGENTO_BACKEND_URL);
+        await fetchWithAgent(MAGENTO_BACKEND_URL);
         prettyLogger.log('Backend is UP!');
     } catch (e) {
         prettyLogger.log('Backend is DOWN!');
