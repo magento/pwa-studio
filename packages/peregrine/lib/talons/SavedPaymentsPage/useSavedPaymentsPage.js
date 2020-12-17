@@ -1,10 +1,13 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import defaultOperations from './savedPaymentsPage.gql';
 
 export const normalizeTokens = responseData => {
     const paymentTokens =
@@ -26,17 +29,16 @@ export const normalizeTokens = responseData => {
  * @function
  *
  * @param {Object} props
- * @param {SavedPaymentsPageQueries} props.queries GraphQL queries
+ * @param {SavedPaymentsPageQueries} props.operations GraphQL queries
  *
  * @returns {SavedPaymentsPageTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useSavedPayments } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useSavedPaymentsPage';
  */
-export const useSavedPaymentsPage = props => {
-    const {
-        queries: { getSavedPaymentsQuery }
-    } = props;
+export const useSavedPaymentsPage = (props = {}) => {
+    const operations = mergeOperations(defaultOperations, props.operations);
+    const { getSavedPaymentsQuery } = operations;
 
     const [
         ,
@@ -68,14 +70,9 @@ export const useSavedPaymentsPage = props => {
         setPageLoading(loading);
     }, [loading, setPageLoading]);
 
-    const handleAddPayment = useCallback(() => {
-        // TODO in PWA-637
-    }, []);
-
     const savedPayments = normalizeTokens(savedPaymentsData);
 
     return {
-        handleAddPayment,
         isLoading: loading,
         savedPayments
     };
@@ -90,7 +87,7 @@ export const useSavedPaymentsPage = props => {
  *
  * @property {GraphQLAST} getSavedPaymentsQuery Query for getting saved payments. See https://devdocs.magento.com/guides/v2.4/graphql/queries/customer-payment-tokens.html
  *
- * @see [savedPaymentsPage.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/SavedPaymentsPage/savedPaymentsPage.gql.js}
+ * @see [savedPaymentsPage.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/talons/SavedPaymentsPage/savedPaymentsPage.gql.js}
  * for queries used in Venia
  */
 

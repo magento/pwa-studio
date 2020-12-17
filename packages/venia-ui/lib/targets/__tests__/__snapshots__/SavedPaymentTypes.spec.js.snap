@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+SavedPaymentTypes {
+  "_methods": Object {
+    "add": [MockFunction esModuleObject.add],
+  },
+}
+`;

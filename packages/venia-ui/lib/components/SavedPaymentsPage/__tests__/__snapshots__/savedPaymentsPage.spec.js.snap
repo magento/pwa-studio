@@ -8,54 +8,26 @@ exports[`renders correctly when there are existing saved payments 1`] = `
   <h1
     className="heading"
   >
-    Saved Payments - Venia
+    Saved Payments
   </h1>
-  <h3
-    className="subHeading"
-  >
-    Credit Cards saved here will be available during checkout.
-  </h3>
   <div
     className="content"
   >
-    <button
-      className="addButton"
-      disabled={false}
-      onClick={[MockFunction handleAddPayment]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        <Icon
-          classes={
-            Object {
-              "icon": "addIcon",
-            }
-          }
-          size={24}
-          src={[Function]}
-        />
-        <span
-          className="addText"
-        >
-          Add a credit card
-        </span>
-      </span>
-    </button>
-    <div>
-      <div />
-      <div />
-    </div>
-    <div>
-      <div />
-      <div />
-    </div>
-    <div>
-      <div />
-      <div />
-    </div>
+    <mock-PaymentCard
+      details={
+        Object {
+          "expirationDate": "12/12/2022",
+          "maskedCC": "1234",
+          "type": "VI",
+        }
+      }
+      payment_method_code="braintree"
+      public_hash="78asfg87ibafv"
+    />
   </div>
+  <div
+    className="noPayments"
+  />
 </div>
 `;
 
@@ -67,41 +39,95 @@ exports[`renders correctly when there are no existing saved payments 1`] = `
   <h1
     className="heading"
   >
-    Saved Payments - Venia
+    Saved Payments
   </h1>
-  <h3
-    className="subHeading"
-  >
-    Credit Cards saved here will be available during checkout.
-  </h3>
   <div
     className="content"
+  />
+  <div
+    className="noPayments"
   >
-    <button
-      className="addButton"
-      disabled={false}
-      onClick={[MockFunction handleAddPayment]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        <Icon
-          classes={
-            Object {
-              "icon": "addIcon",
-            }
-          }
-          size={24}
-          src={[Function]}
-        />
-        <span
-          className="addText"
-        >
-          Add a credit card
-        </span>
-      </span>
-    </button>
+    You have no saved payments.
   </div>
+</div>
+`;
+
+exports[`renders loading indicator when isLoading is true 1`] = `
+<div
+  className="global"
+>
+  <span
+    className="root"
+  >
+    <svg
+      className="icon"
+      fill="none"
+      height={64}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width={64}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line
+        x1="12"
+        x2="12"
+        y1="2"
+        y2="6"
+      />
+      <line
+        x1="12"
+        x2="12"
+        y1="18"
+        y2="22"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="4.93"
+        y2="7.76"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="16.24"
+        y2="19.07"
+      />
+      <line
+        x1="2"
+        x2="6"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="18"
+        x2="22"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="19.07"
+        y2="16.24"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="7.76"
+        y2="4.93"
+      />
+    </svg>
+  </span>
+  <span
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
+  </span>
 </div>
 `;
