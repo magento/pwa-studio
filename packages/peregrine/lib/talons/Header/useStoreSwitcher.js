@@ -85,6 +85,12 @@ export const useStoreSwitcher = (props = {}) => {
         }
     }, [storeConfigData]);
 
+    const currentStoreCode = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.code;
+        }
+    }, [storeConfigData]);
+
     const pageType = useMemo(() => {
         if (urlResolverData && urlResolverData.urlResolver) {
             return urlResolverData.urlResolver.type;
@@ -105,14 +111,14 @@ export const useStoreSwitcher = (props = {}) => {
     // Get pathname with suffix based on page type
     const getPathname = useCallback(
         storeCode => {
-            const currentCode = storeConfigData.storeConfig.code;
             // Use window.location.pathname to get the path with the store view code
             // pathname from useLocation() does not include the store view code
             const pathname = window.location.pathname;
 
             if (pageType === 'CATEGORY') {
                 const currentSuffix =
-                    availableStores.get(currentCode).category_url_suffix || '';
+                    availableStores.get(currentStoreCode).category_url_suffix ||
+                    '';
                 const newSuffix =
                     availableStores.get(storeCode).category_url_suffix || '';
 
@@ -122,7 +128,8 @@ export const useStoreSwitcher = (props = {}) => {
             }
             if (pageType === 'PRODUCT') {
                 const currentSuffix =
-                    availableStores.get(currentCode).product_url_suffix || '';
+                    availableStores.get(currentStoreCode).product_url_suffix ||
+                    '';
                 const newSuffix =
                     availableStores.get(storeCode).product_url_suffix || '';
 
@@ -134,7 +141,7 @@ export const useStoreSwitcher = (props = {}) => {
             // search.html ...etc
             return pathname;
         },
-        [availableStores, pageType, storeConfigData.storeConfig.code]
+        [availableStores, currentStoreCode, pageType]
     );
 
     const handleSwitchStore = useCallback(
