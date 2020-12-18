@@ -143,6 +143,9 @@ const typePolicies = {
             }
         }
     },
+    CustomerPaymentTokens: {
+        keyFields: () => 'CustomerPaymentTokens'
+    },
     ProductImage: {
         keyFields: ['url']
     },
