@@ -20,16 +20,19 @@
     row-gap: 1rem;
 }
 
-@media (max-width: 960px) {
-    .root {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
+.search {
+    width: 15rem;
+    justify-self: end;
 }
 
 @media (max-width: 960px) {
     .root {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
+    }
+
+    .search {
+        width: 100%;
+        justify-self: center;
     }
 }

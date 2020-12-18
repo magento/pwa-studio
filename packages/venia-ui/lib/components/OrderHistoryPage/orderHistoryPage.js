@@ -1,16 +1,22 @@
 import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
+import { Search as SearchIcon, X as ClearIcon } from 'react-feather';
 import { shape, string } from 'prop-types';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
+import Icon from '../Icon';
 import TextInput from '../TextInput';
-import { mergeClasses } from '../../classify';
+import Trigger from '../Trigger';
 import { Title } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import OrderRow from './orderRow';
+import { mergeClasses } from '../../classify';
 
 import defaultClasses from './orderHistoryPage.css';
+
+const clearIcon = <Icon src={ClearIcon} size={24} />;
+const searchIcon = <Icon src={SearchIcon} size={24} />;
 
 const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage();
@@ -18,7 +24,9 @@ const OrderHistoryPage = props => {
         isBackgroundLoading,
         isLoadingWithoutData,
         orders,
-        getOrderDetails
+        getOrderDetails,
+        resetForm,
+        searchText
     } = talonProps;
     const { formatMessage } = useIntl();
     const PAGE_TITLE = formatMessage({
@@ -57,6 +65,10 @@ const OrderHistoryPage = props => {
     // STORE_NAME is injected by Webpack at build time.
     const title = `${PAGE_TITLE} - ${STORE_NAME}`;
 
+    const resetButton = searchText ? (
+        <Trigger action={resetForm}>{clearIcon}</Trigger>
+    ) : null;
+
     return (
         <OrderHistoryContextProvider>
             <div className={classes.root}>
@@ -65,6 +77,8 @@ const OrderHistoryPage = props => {
                 <div className={classes.search}>
                     <TextInput
                         id={classes.search}
+                        after={resetButton}
+                        before={searchIcon}
                         disabled={isBackgroundLoading}
                         field="search"
                         maskOnBlur={true}
@@ -72,7 +86,7 @@ const OrderHistoryPage = props => {
                             id: 'orderHistoryPage.search',
                             defaultMessage: 'Search'
                         })}
-                        onChange={getOrderDetails}
+                        onBlur={getOrderDetails}
                         onChange={getOrderDetails}
                     />
                 </div>

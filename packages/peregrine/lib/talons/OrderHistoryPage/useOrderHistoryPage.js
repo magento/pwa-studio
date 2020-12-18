@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useFormState } from 'informed';
+import { useFormState, useFormApi } from 'informed';
 import debounce from 'lodash.debounce';
 import { useQuery, useLazyQuery } from '@apollo/client';
 
@@ -23,6 +23,11 @@ export const useOrderHistoryPage = (props = {}) => {
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
     const formState = useFormState();
+    const formApi = useFormApi();
+
+    const searchText = useMemo(() => {
+        return formState.values.search;
+    }, [formState]);
 
     const { data: ordersData, loading: ordersLoading } = useQuery(
         getCustomerOrdersQuery,
@@ -79,6 +84,10 @@ export const useOrderHistoryPage = (props = {}) => {
         [debouncedOrderDetailsFetcher]
     );
 
+    const resetForm = useCallback(() => {
+        formApi.reset();
+    }, [formApi]);
+
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
         if (!isSignedIn) {
@@ -92,21 +101,23 @@ export const useOrderHistoryPage = (props = {}) => {
     }, [isBackgroundLoading, setPageLoading]);
 
     useEffect(() => {
-        if (!formState.values.search && ordersData) {
+        if (!searchText && ordersData) {
             setOrders(ordersData.customer.orders.items);
         }
-    }, [ordersData, formState.values.search]);
+    }, [ordersData, searchText]);
 
     useEffect(() => {
-        if (formState.values.search && orderData) {
+        if (searchText && orderData) {
             setOrders(orderData.customer.orders.items);
         }
-    }, [orderData, formState.values.search]);
+    }, [orderData, searchText]);
 
     return {
         isBackgroundLoading,
         isLoadingWithoutData,
         orders,
-        getOrderDetails
+        getOrderDetails,
+        resetForm,
+        searchText
     };
 };
