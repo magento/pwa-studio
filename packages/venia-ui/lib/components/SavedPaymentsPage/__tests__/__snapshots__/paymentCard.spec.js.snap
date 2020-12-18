@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render properly 1`] = `
+<mock-CreditCard
+  details={
+    Object {
+      "expirationDate": "12/12/2022",
+      "maskedCC": "1234",
+      "type": "VI",
+    }
+  }
+  payment_method_code="braintree"
+/>
+`;

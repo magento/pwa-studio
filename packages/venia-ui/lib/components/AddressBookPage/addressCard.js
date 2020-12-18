@@ -18,6 +18,7 @@ const AddressCard = props => {
         isDeletingCustomerAddress,
         onCancelDelete,
         onConfirmDelete,
+        onEdit,
         onDelete
     } = props;
 
@@ -26,6 +27,7 @@ const AddressCard = props => {
         country_code,
         default_shipping,
         firstname,
+        middlename = '',
         lastname,
         postcode,
         region: { region },
@@ -58,7 +60,9 @@ const AddressCard = props => {
         </span>
     ) : null;
 
-    const nameString = `${firstname} ${lastname}`;
+    const nameString = [firstname, middlename, lastname]
+        .filter(name => !!name)
+        .join(' ');
     const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement = !default_shipping ? (
@@ -125,7 +129,7 @@ const AddressCard = props => {
             <div className={classes.actionContainer}>
                 <LinkButton
                     classes={{ root: classes.editButton }}
-                    onClick={() => console.log('To be completed by PWA-634')}
+                    onClick={onEdit}
                 >
                     <Icon classes={{ icon: null }} size={16} src={EditIcon} />
                     <span className={classes.actionLabel}>
@@ -182,5 +186,6 @@ AddressCard.propTypes = {
     isDeletingCustomerAddress: bool,
     onCancelDelete: func,
     onConfirmDelete: func,
-    onDelete: func
+    onDelete: func,
+    onEdit: func
 };

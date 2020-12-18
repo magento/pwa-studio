@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it returns the proper shape 1`] = `
+Object {
+  "isLoading": false,
+  "savedPayments": Array [],
+}
+`;

@@ -79,8 +79,6 @@
 
 .editButton {
     composes: linkButton;
-    /** hidden until PWA-634 is completed */
-    visibility: hidden;
 }
 
 .deleteButton {

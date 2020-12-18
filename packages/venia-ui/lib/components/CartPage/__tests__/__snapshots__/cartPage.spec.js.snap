@@ -95,21 +95,6 @@ exports[`renders components if cart has items 1`] = `
         id="cartPage.heading"
       />
     </h1>
-    <button
-      className="root_normalPriority"
-      disabled={false}
-      onClick={[MockFunction]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Sign In"
-          id="cartPage.signIn"
-        />
-      </span>
-    </button>
     <div
       className="stockStatusMessageContainer"
     >
@@ -163,21 +148,6 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
         id="cartPage.heading"
       />
     </h1>
-    <button
-      className="root_normalPriority"
-      disabled={false}
-      onClick={[MockFunction]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Sign In"
-          id="cartPage.signIn"
-        />
-      </span>
-    </button>
     <div
       className="stockStatusMessageContainer"
     >

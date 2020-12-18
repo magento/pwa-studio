@@ -31,3 +31,19 @@ test('renders a non-default address', () => {
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
+
+test('renders an address with a middle name', () => {
+    // Arrange.
+    const myAddress = {
+        ...mockAddress,
+        middlename: 'MIDDLE'
+    };
+
+    // Act.
+    const tree = createTestInstance(
+        <AddressCard address={myAddress} countryName="United States" />
+    );
+
+    // Assert.
+    expect(tree.toJSON()).toMatchSnapshot();
+});

@@ -88,7 +88,7 @@ const CategoryList = props => {
 };
 
 CategoryList.propTypes = {
-    id: number,
+    id: number.isRequired,
     title: string,
     classes: shape({
         root: string,

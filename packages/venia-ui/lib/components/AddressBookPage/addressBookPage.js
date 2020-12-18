@@ -1,15 +1,17 @@
 import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { PlusSquare } from 'react-feather';
-import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
 
+import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { Title } from '@magento/venia-ui/lib/components/Head';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
-import defaultClasses from './addressBookPage.css';
+
 import AddressCard from './addressCard';
+import AddEditDialog from './addEditDialog';
+import defaultClasses from './addressBookPage.css';
 
 const AddressBookPage = props => {
     const talonProps = useAddressBookPage();
@@ -17,11 +19,19 @@ const AddressBookPage = props => {
         confirmDeleteAddressId,
         countryDisplayNameMap,
         customerAddresses,
+        formErrors,
+        formProps,
         handleAddAddress,
         handleCancelDeleteAddress,
+        handleCancelDialog,
         handleConfirmDeleteAddress,
+        handleConfirmDialog,
         handleDeleteAddress,
+        handleEditAddress,
         isDeletingCustomerAddress,
+        isDialogBusy,
+        isDialogEditMode,
+        isDialogOpen,
         isLoading
     } = talonProps;
 
@@ -46,6 +56,7 @@ const AddressBookPage = props => {
                     addressEntry.country_code
                 );
 
+                const boundEdit = () => handleEditAddress(addressEntry);
                 const boundDelete = () => handleDeleteAddress(addressEntry.id);
                 const isConfirmingDelete =
                     confirmDeleteAddressId === addressEntry.id;
@@ -60,6 +71,7 @@ const AddressBookPage = props => {
                         onCancelDelete={handleCancelDeleteAddress}
                         onConfirmDelete={handleConfirmDeleteAddress}
                         onDelete={boundDelete}
+                        onEdit={boundEdit}
                     />
                 );
             });
@@ -70,6 +82,7 @@ const AddressBookPage = props => {
         handleCancelDeleteAddress,
         handleConfirmDeleteAddress,
         handleDeleteAddress,
+        handleEditAddress,
         isDeletingCustomerAddress
     ]);
 
@@ -105,6 +118,15 @@ const AddressBookPage = props => {
                     </span>
                 </LinkButton>
             </div>
+            <AddEditDialog
+                formErrors={formErrors}
+                formProps={formProps}
+                isBusy={isDialogBusy}
+                isEditMode={isDialogEditMode}
+                isOpen={isDialogOpen}
+                onCancel={handleCancelDialog}
+                onConfirm={handleConfirmDialog}
+            />
         </div>
     );
 };

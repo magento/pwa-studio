@@ -18,6 +18,7 @@ import { GET_REGIONS_QUERY } from './region.gql';
 const Region = props => {
     const {
         classes: propClasses,
+        countryCodeField,
         fieldInput,
         fieldSelect,
         label,
@@ -28,6 +29,7 @@ const Region = props => {
     const { formatMessage } = useIntl();
 
     const talonProps = useRegion({
+        countryCodeField,
         fieldInput,
         fieldSelect,
         optionValueKey,
@@ -68,6 +70,7 @@ const Region = props => {
 export default Region;
 
 Region.defaultProps = {
+    countryCodeField: 'country',
     fieldInput: 'region',
     fieldSelect: 'region',
     label: 'State',
@@ -79,6 +82,7 @@ Region.propTypes = {
     classes: shape({
         root: string
     }),
+    countryCodeField: string,
     fieldInput: string,
     fieldSelect: string,
     label: string,
