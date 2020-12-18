@@ -14,32 +14,30 @@
 }
 
 .confirmDeleteContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    align-items: center;
     background-color: rgba(255, 255, 255, 0.9);
     display: grid;
-    justify-items: center;
-    align-items: center;
-    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
-    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    height: 100%;
+    justify-items: center;
+    left: 0;
+    padding: 1.25rem 2rem;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 .confirmDeleteButton {
     composes: root_normalPriorityNegative from '../Button/button.css';
 
     background-color: white;
-    justify-self: start;
     order: 1;
 }
 .cancelDeleteButton {
     composes: root_lowPriority from '../Button/button.css';
 
     background-color: white;
-    justify-self: end;
 }
 
 .contentContainer {
@@ -91,16 +89,7 @@
     }
 
     .confirmDeleteContainer {
-        grid-template-columns: 1fr;
-    }
-
-    .cancelDeleteButton {
-        justify-self: center;
-    }
-
-    .confirmDeleteButton {
-        justify-self: center;
-        order: 0;
+        padding: 1rem;
     }
 }
 
