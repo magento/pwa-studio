@@ -79,9 +79,7 @@ const OrderHistoryPage = props => {
                         id={classes.search}
                         after={resetButton}
                         before={searchIcon}
-                        disabled={isBackgroundLoading}
                         field="search"
-                        maskOnBlur={true}
                         placeholder={formatMessage({
                             id: 'orderHistoryPage.search',
                             defaultMessage: 'Search'

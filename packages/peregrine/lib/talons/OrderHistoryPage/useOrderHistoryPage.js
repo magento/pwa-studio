@@ -100,14 +100,26 @@ export const useOrderHistoryPage = (props = {}) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
+    /**
+     * If there is no search string show all orders
+     */
     useEffect(() => {
         if (!searchText && ordersData) {
             setOrders(ordersData.customer.orders.items);
         }
     }, [ordersData, searchText]);
 
+    /**
+     * If there is a search string, show only the orders related
+     * to that search.
+     */
     useEffect(() => {
-        if (searchText && orderData) {
+        const orderNumber =
+            orderData && orderData.customer.orders.items.length
+                ? orderData.customer.orders.items[0].number
+                : null;
+
+        if (searchText && orderNumber && orderNumber === searchText) {
             setOrders(orderData.customer.orders.items);
         }
     }, [orderData, searchText]);
