@@ -17,7 +17,7 @@
     align-items: center;
     background-color: rgba(255, 255, 255, 0.9);
     display: grid;
-    gap: 0.5rem;
+    gap: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     height: 100%;
     justify-items: center;
@@ -90,6 +90,11 @@
 
     .confirmDeleteContainer {
         padding: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    .confirmDeleteButton {
+        order: 0;
     }
 }
 
