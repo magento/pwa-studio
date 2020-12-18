@@ -70,14 +70,19 @@ test('it returns the proper shape', () => {
     const talonProps = log.mock.calls[0][0];
     const actualKeys = Object.keys(talonProps);
     const expectedKeys = [
+        'confirmDeleteAddressId',
         'countryDisplayNameMap',
         'customerAddresses',
         'formErrors',
         'formProps',
         'handleAddAddress',
+        'handleCancelDeleteAddress',
         'handleCancelDialog',
+        'handleConfirmDeleteAddress',
         'handleConfirmDialog',
+        'handleDeleteAddress',
         'handleEditAddress',
+        'isDeletingCustomerAddress',
         'isDialogBusy',
         'isDialogEditMode',
         'isDialogOpen',
