@@ -22,23 +22,19 @@ const temporaryTypePolicies = {
             configured_variant: {
                 read(_, { readField, toReference }) {
                     const product = readField('product');
-                    const configurableThumbnailSource = readField({
-                        fieldName: 'configurable_thumbnail_source',
-                        from: toReference({
-                            __typename: 'StoreConfig',
-                            id: 1
-                        })
-                    });
-
-                    if (configurableThumbnailSource === 'parent') {
-                        return product;
-                    }
-
                     const optionUids = readField('configurable_options')
                         .map(option => {
-                            const id = readField('id', toReference(option.__ref));
-                            const value_id = readField('value_id', toReference(option.__ref));
-                            return new Buffer(`configurable/${id}/${value_id}`).toString('base64');
+                            const id = readField(
+                                'id',
+                                toReference(option.__ref)
+                            );
+                            const value_id = readField(
+                                'value_id',
+                                toReference(option.__ref)
+                            );
+                            return new Buffer(
+                                `configurable/${id}/${value_id}`
+                            ).toString('base64');
                         })
                         .sort()
                         .toString();

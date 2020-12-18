@@ -32,9 +32,13 @@ const MiniCart = React.forwardRef((props, ref) => {
     // when the MiniCart is open.
     useScrollLock(isOpen);
 
+    const { queries, mutations } = { ...MiniCartOperations };
     const talonProps = useMiniCart({
         setIsOpen,
-        ...MiniCartOperations
+        operations: {
+            ...queries,
+            ...mutations
+        }
     });
 
     const {
@@ -46,7 +50,8 @@ const MiniCart = React.forwardRef((props, ref) => {
         loading,
         productList,
         subTotal,
-        totalQuantity
+        totalQuantity,
+        configurableThumbnailSource
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -118,6 +123,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     loading={loading}
                     handleRemoveItem={handleRemoveItem}
                     closeMiniCart={closeMiniCart}
+                    configurableThumbnailSource={configurableThumbnailSource}
                 />
             </div>
             <div className={classes.footer}>

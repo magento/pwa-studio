@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { string, number, shape, func, arrayOf } from 'prop-types';
+import { string, number, shape, func, arrayOf, oneOf } from 'prop-types';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
 import Price from '@magento/venia-ui/lib/components/Price';
@@ -24,7 +24,8 @@ const Item = props => {
         handleRemoveItem,
         prices,
         closeMiniCart,
-        configured_variant
+        configured_variant,
+        configurableThumbnailSource
     } = props;
 
     const { formatMessage } = useIntl();
@@ -62,7 +63,8 @@ const Item = props => {
                     }}
                     width={100}
                     resource={
-                        (configured_variant &&
+                        (configurableThumbnailSource === 'itself' &&
+                            configured_variant &&
                             configured_variant.thumbnail.url) ||
                         product.thumbnail.url
                     }
@@ -152,5 +154,11 @@ Item.propTypes = {
             value: number,
             currency: string
         })
-    })
+    }),
+    configured_variant: shape({
+        thumbnail: shape({
+            url: string
+        })
+    }),
+    configurableThumbnailSource: oneOf(['parent', 'itself'])
 };

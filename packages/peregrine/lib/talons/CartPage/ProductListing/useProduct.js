@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
+import mergeOperations from '../../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './product.gql';
 
 /**
  * This talon contains logic for a product component used in a product listing component.
@@ -15,7 +17,7 @@ import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
  *
  * @param {Object} props
  * @param {ProductItem} props.item Product item data
- * @param {ProductMutations} props.mutations GraphQL mutations for a product in a cart
+ * @param {ProductMutations} props.operations GraphQL mutations for a product in a cart
  * @param {function} props.setActiveEditItem Function for setting the actively editing item
  * @param {function} props.setIsCartUpdating Function for setting the updating state of the cart
  *
@@ -24,15 +26,32 @@ import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
  * @example <caption>Importing into your project</caption>
  * import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
  */
-export const useProduct = props => {
-    const {
-        item,
-        mutations: { removeItemMutation, updateItemQuantityMutation },
-        setActiveEditItem,
-        setIsCartUpdating
-    } = props;
 
-    const flatProduct = flattenProduct(item);
+export const useProduct = props => {
+    const { item, setActiveEditItem, setIsCartUpdating } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const {
+        removeItemMutation,
+        updateItemQuantityMutation,
+        getConfigurableThumbnailSource
+    } = operations;
+
+    const { data: getConfigurableThumbnailSourceData } = useQuery(
+        getConfigurableThumbnailSource,
+        {
+            fetchPolicy: 'cache-and-network'
+        }
+    );
+
+    const configurableThumbnailSource = useMemo(() => {
+        if (getConfigurableThumbnailSourceData) {
+            return getConfigurableThumbnailSourceData.storeConfig
+                .configurable_thumbnail_source;
+        }
+    }, [getConfigurableThumbnailSourceData]);
+
+    const flatProduct = flattenProduct(item, configurableThumbnailSource);
 
     const [
         removeItem,
@@ -141,7 +160,7 @@ export const useProduct = props => {
     };
 };
 
-const flattenProduct = item => {
+const flattenProduct = (item, configurableThumbnailSource) => {
     const {
         configurable_options: options = [],
         prices,
@@ -161,7 +180,10 @@ const flattenProduct = item => {
         url_suffix: urlSuffix
     } = product;
     const { url: image } =
-        (configured_variant && configured_variant.small_image) || small_image;
+        (configurableThumbnailSource === 'itself' &&
+            configured_variant &&
+            configured_variant.small_image) ||
+        small_image;
 
     return {
         currency,

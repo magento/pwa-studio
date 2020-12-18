@@ -21,7 +21,7 @@ const Product = props => {
     const { formatMessage } = useIntl();
     const talonProps = useProduct({
         item,
-        mutations: {
+        operations: {
             removeItemMutation: REMOVE_ITEM_MUTATION,
             updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
         },
