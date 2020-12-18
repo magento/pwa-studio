@@ -44,30 +44,6 @@ export const useOrderHistoryPage = (props = {}) => {
     const isLoadingWithoutData = !orders && (orderLoading || ordersLoading);
     const isBackgroundLoading = !!orders && (orderLoading || ordersLoading);
 
-    useEffect(() => {
-        if (!formState.values.search && ordersData) {
-            setOrders(ordersData.customer.orders.items);
-        }
-    }, [ordersData, formState.values.search]);
-
-    useEffect(() => {
-        if (formState.values.search && orderData) {
-            setOrders(orderData.customer.orders.items);
-        }
-    }, [orderData, formState.values.search]);
-
-    // If the user is no longer signed in, redirect to the home page.
-    useEffect(() => {
-        if (!isSignedIn) {
-            history.push('/');
-        }
-    }, [history, isSignedIn]);
-
-    // Update the page indicator if the GraphQL query is in flight.
-    useEffect(() => {
-        setPageLoading(isBackgroundLoading);
-    }, [isBackgroundLoading, setPageLoading]);
-
     const debouncedOrderDetailsFetcher = useCallback(
         debounce(
             orderNumber => {
@@ -102,6 +78,30 @@ export const useOrderHistoryPage = (props = {}) => {
         },
         [debouncedOrderDetailsFetcher]
     );
+
+    // If the user is no longer signed in, redirect to the home page.
+    useEffect(() => {
+        if (!isSignedIn) {
+            history.push('/');
+        }
+    }, [history, isSignedIn]);
+
+    // Update the page indicator if the GraphQL query is in flight.
+    useEffect(() => {
+        setPageLoading(isBackgroundLoading);
+    }, [isBackgroundLoading, setPageLoading]);
+
+    useEffect(() => {
+        if (!formState.values.search && ordersData) {
+            setOrders(ordersData.customer.orders.items);
+        }
+    }, [ordersData, formState.values.search]);
+
+    useEffect(() => {
+        if (formState.values.search && orderData) {
+            setOrders(orderData.customer.orders.items);
+        }
+    }, [orderData, formState.values.search]);
 
     return {
         isBackgroundLoading,
