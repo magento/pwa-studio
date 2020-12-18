@@ -6,16 +6,6 @@
  * https://www.apollographql.com/docs/react/caching/cache-field-behavior/
  */
 const temporaryTypePolicies = {
-    StoreConfig: {
-        fields: {
-            // This field is available in Magento 2.4.2 we need to support older versions, so env var is used here
-            configurable_thumbnail_source: {
-                read() {
-                    return process.env.CONFIGURABLE_THUMBNAIL_SOURCE;
-                }
-            }
-        }
-    },
     ConfigurableCartItem: {
         fields: {
             // This field is proposed in the https://github.com/magento/magento2/pull/30817
