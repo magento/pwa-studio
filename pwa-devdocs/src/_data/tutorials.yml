@@ -1,45 +1,21 @@
 title: Tutorials
+
 entries:
-    - label: Overview
+    - label: Getting Started
       url: /tutorials/
-
-    - label: Magento Cloud deployment
-      url: /tutorials/cloud-deploy/
-
-    - label: Hello UPWARD
       entries:
-          - label: Creating a simple server
-            url: /tutorials/hello-upward/simple-server/
 
-          - label: Using the TemplateResolver
-            url: /tutorials/hello-upward/using-template-resolver/
-
-          - label: Adding React
-            url: /tutorials/hello-upward/adding-react/
-
-    - label: Create a TagList component
-      url: /tutorials/create-taglist-component/
-
-    - label: Enable SASS or LESS support
-      url: /tutorials/enable-sass-less-support/
-
-    - label: Intercept a Target
-      url: /tutorials/intercept-a-target/
-      entries:
-          - label: Modify talon results
-            url: /tutorials/intercept-a-target/modify-talon-results/
-
-          - label: Add a new environment variable
-            url: /tutorials/intercept-a-target/add-new-environment-variable/
-
-    - label: PWA Studio fundamentals
-      url: /tutorials/pwa-studio-fundamentals/
-      entries:
-          - label: Project setup
+          - label: Setup your project
             url: /tutorials/pwa-studio-fundamentals/project-setup/
 
-          - label: Project structure
+          - label: Explore the project structure
             url: /tutorials/pwa-studio-fundamentals/project-structure/
+
+    - label: Basic modifications
+      entries:
+
+          - label: Enable SASS or LESS support
+            url: /tutorials/enable-sass-less-support/
 
           - label: Add a static route
             url: /tutorials/pwa-studio-fundamentals/add-a-static-route/
@@ -47,17 +23,23 @@ entries:
           - label: Modify the site footer
             url: /tutorials/pwa-studio-fundamentals/modify-site-footer/
 
-          - label: Using component props
-            url: /tutorials/pwa-studio-fundamentals/using-component-props/
+          - label: Create a TagList component
+            url: /tutorials/create-taglist-component/
 
-          - label: CSS modules
-            url: /tutorials/pwa-studio-fundamentals/css-modules/
+    - label: Target interception
+      url: /tutorials/intercept-a-target/
+      entries:
 
-          - label: Manage state
-            url: /tutorials/pwa-studio-fundamentals/manage-state/
+          - label: Modify talon results
+            url: /tutorials/intercept-a-target/modify-talon-results/
 
-          - label: Work with GraphQL
-            url: /tutorials/pwa-studio-fundamentals/work-with-graphql/
+          - label: Add a new environment variable
+            url: /tutorials/intercept-a-target/add-new-environment-variable/
 
-          - label: Production launch checklist
-            url: /tutorials/pwa-studio-fundamentals/production-launch-checklist/
+    - label: Production deployments
+      url: /tutorials/pwa-studio-fundamentals/production-launch-checklist/
+      entries:
+
+          - label: Deploy to Magento Cloud
+            url: /tutorials/cloud-deploy/
+

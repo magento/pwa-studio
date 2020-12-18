@@ -1,5 +1,5 @@
 ---
-title: Intercept a Target
+title: Target interception
 ---
 
 Target interception is a feature provided by PWA Studio's extensibility framework.
