@@ -66,25 +66,48 @@ module.exports = targets => {
         routes: new targets.types.AsyncSeriesWaterfall(['routes']),
 
         /**
-         * Provides access to Venia's payment methods
+         * Provides access to Venia's checkout page payment methods
          *
-         * This target lets you add new payment to your storefronts.
+         * This target lets you add new checkout page payment to your storefronts.
          *
          * @member {tapable.SyncHook}
          *
          * @see [Intercept function signature]{@link paymentInterceptFunction}
-         * @see [PaymentMethodList]{@link #PaymentMethodList}
-         * @see [Payment definition object]{@link PaymentDefinition}
+         * @see [CheckoutPaymentTypes]{@link #CheckoutPaymentTypesDefinition}
+         * @see [CheckoutPayment definition object]{@link CheckoutPaymentDefinition}
          *
          * @example <caption>Add a payment</caption>
-         * targets.of('@magento/venia-ui').payments.tap(
-         *   payments => payments.add({
+         * targets.of('@magento/venia-ui').checkoutPagePaymentTypes.tap(
+         *   checkoutPagePaymentTypes => checkoutPagePaymentTypes.add({
          *     paymentCode: 'braintree',
          *     importPath: '@magento/braintree_payment'
          *   })
          * );
          */
-        payments: new targets.types.Sync(['payments'])
+        checkoutPagePaymentTypes: new targets.types.Sync([
+            'checkoutPagePaymentTypes'
+        ]),
+
+        /**
+         * Provides access to Venia's saved payment methods
+         *
+         * This target lets you add new saved payment method to your storefronts.
+         *
+         * @member {tapable.SyncHook}
+         *
+         * @see [Intercept function signature]{@link savedPaymentInterceptFunction}
+         * @see [SavedPaymentTypes]{@link #SavedPaymentTypesDefinition}
+         * @see [SavedPayment definition object]{@link SavedPaymentDefinition}
+         *
+         * @example <caption>Add a payment</caption>
+         * targets.of('@magento/venia-ui').savedPaymentTypes.tap(
+         *   savedPaymentTypes => savedPaymentTypes.add({
+         *     paymentCode: 'braintree',
+         *     importPath: '@magento/braintree_payment'
+         *   })
+         * );
+         */
+        savedPaymentTypes: new targets.types.Sync(['savedPaymentTypes'])
     });
 };
 
@@ -181,24 +204,24 @@ module.exports = targets => {
  * }
  */
 
-/** Type definition related to: payments */
+/** Type definition related to: checkoutPagePaymentTypes */
 
 /**
- * Intercept function signature for the `payments` target.
+ * Intercept function signature for the `checkoutPagePaymentTypes` target.
  *
- * Interceptors of `payments` should call `.add` on the provided [payment list]{@link #PaymentMethodList}.
+ * Interceptors of `checkoutPagePaymentTypes` should call `.add` on the provided [payment list]{@link #CheckoutPaymentTypesDefinition}.
  *
  * @callback paymentInterceptFunction
  *
- * @param {PaymentMethodList} renderers The list of payments registered
+ * @param {CheckoutPaymentTypesDefinition} renderers The list of payments registered
  * so far in the build.
  *
  */
 
 /**
- * A payment definition object that describes a payment in your storefront.
+ * A payment definition object that describes a checkout page payment in your storefront.
  *
- * @typedef {Object} PaymentDefinition
+ * @typedef {Object} CheckoutPaymentDefinition
  * @property {string} paymentCode is use to map your payment
  * @property {string} importPath Resolvable path to the component the
  *   Route component will render
@@ -210,24 +233,24 @@ module.exports = targets => {
  * }
  */
 
-/** Type definition related to: payments */
+/** Type definition related to: savedPaymentTypes */
 
 /**
- * Intercept function signature for the `payments` target.
+ * Intercept function signature for the `savedPaymentTypes` target.
  *
- * Interceptors of `payments` should call `.add` on the provided [payment list]{@link #PaymentMethodList}.
+ * Interceptors of `savedPaymentTypes` should call `.add` on the provided [payment list]{@link #SavedPaymentTypesDefinition}.
  *
- * @callback paymentInterceptFunction
+ * @callback savedPaymentInterceptFunction
  *
- * @param {PaymentMethodList} renderers The list of payments registered
+ * @param {SavedPaymentTypesDefinition} renderers The list of saved payments registered
  * so far in the build.
  *
  */
 
 /**
- * A payment definition object that describes a payment in your storefront.
+ * A payment definition object that describes a saved payment in your storefront.
  *
- * @typedef {Object} PaymentDefinition
+ * @typedef {Object} SavedPaymentDefinition
  * @property {string} paymentCode is use to map your payment
  * @property {string} importPath Resolvable path to the component the
  *   Route component will render
@@ -235,6 +258,6 @@ module.exports = targets => {
  * @example <caption>A custom payment method</caption>
  * const myCustomPayment = {
  *      paymentCode: 'cc',
- *     importPath: '@partner/module/path_to_your_component'
+ *      importPath: '@partner/module/path_to_your_component'
  * }
  */

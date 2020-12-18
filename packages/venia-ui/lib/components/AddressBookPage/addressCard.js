@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { shape, string, bool, arrayOf } from 'prop-types';
+import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { Trash2 as TrashIcon, Edit2 as EditIcon } from 'react-feather';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -9,13 +9,14 @@ import defaultClasses from './addressCard.css';
 import LinkButton from '../LinkButton';
 
 const AddressCard = props => {
-    const { address, classes: propClasses, countryName } = props;
+    const { address, classes: propClasses, countryName, onEdit } = props;
 
     const {
         city,
         country_code,
         default_shipping,
         firstname,
+        middlename = '',
         lastname,
         postcode,
         region: { region },
@@ -42,7 +43,9 @@ const AddressCard = props => {
         </span>
     ) : null;
 
-    const nameString = `${firstname} ${lastname}`;
+    const nameString = [firstname, middlename, lastname]
+        .filter(name => !!name)
+        .join(' ');
     const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement = !default_shipping ? (
@@ -82,7 +85,7 @@ const AddressCard = props => {
             <div className={classes.actionContainer}>
                 <LinkButton
                     classes={{ root: classes.editButton }}
-                    onClick={() => console.log('To be completed by PWA-634')}
+                    onClick={onEdit}
                 >
                     <Icon classes={{ icon: null }} size={16} src={EditIcon} />
                     <span className={classes.actionLabel}>
@@ -133,5 +136,6 @@ AddressCard.propTypes = {
         streetRow: string,
         telephone: string
     }),
-    countryName: string
+    countryName: string,
+    onEdit: func
 };

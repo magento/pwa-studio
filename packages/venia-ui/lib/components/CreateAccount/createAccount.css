@@ -18,26 +18,33 @@
 }
 
 .actions {
-    align-items: center;
     display: grid;
     gap: 1rem;
     grid-auto-flow: column;
+    justify-content: center;
     margin-top: 1rem;
     text-align: center;
 }
 
 .cancelButton {
-    composes: root_normalPriority from '../Button/button.css';
-
-    min-width: 6rem;
+    composes: root_lowPriority from '../Button/button.css';
 }
 
 .submitButton {
     composes: root_highPriority from '../Button/button.css';
-
-    min-width: 11rem;
+    grid-column-start: 2;
 }
 
 .subscribe {
     margin-left: -0.375rem;
+}
+
+@media (max-width: 960px) {
+    .actions {
+        grid-auto-flow: row;
+    }
+
+    .submitButton {
+        grid-column-start: auto;
+    }
 }

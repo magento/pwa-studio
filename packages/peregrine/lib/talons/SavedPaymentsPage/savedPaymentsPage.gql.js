@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_SAVED_PAYMENTS_QUERY = gql`
-    query getSavedPayments {
+    query GetSavedPayments {
         customerPaymentTokens {
             items {
                 details
@@ -13,7 +13,5 @@ export const GET_SAVED_PAYMENTS_QUERY = gql`
 `;
 
 export default {
-    queries: {
-        GET_SAVED_PAYMENTS_QUERY
-    }
+    getSavedPaymentsQuery: GET_SAVED_PAYMENTS_QUERY
 };

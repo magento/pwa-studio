@@ -1,8 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 import { useMutation, useQuery } from '@apollo/client';
-
-import { useAppContext } from '../../../../../context/app';
 import createTestInstance from '../../../../../util/createTestInstance';
 import {
     cartItem,
@@ -26,10 +24,7 @@ jest.mock('@apollo/client', () => ({
 
 jest.mock('../../../../../context/app', () => {
     const state = {};
-    const api = {
-        closeDrawer: jest.fn()
-    };
-    const useAppContext = jest.fn(() => [state, api]);
+    const useAppContext = jest.fn(() => [state]);
 
     return { useAppContext };
 });
@@ -52,7 +47,8 @@ const Component = props => {
 const mockProps = {
     cartItem,
     setIsCartUpdating: jest.fn(),
-    setVariantPrice: jest.fn()
+    setVariantPrice: jest.fn(),
+    setActiveEditItem: jest.fn()
 };
 
 test('returns correct shape with fetched options', () => {
@@ -132,9 +128,7 @@ describe('effect calls setIsCartUpdating', () => {
 describe('form submission', () => {
     const updateItemQuantity = jest.fn().mockResolvedValue();
     const updateConfigurableOptions = jest.fn().mockResolvedValue();
-    const closeDrawer = jest.fn();
     const setupMockedReturns = () => {
-        useAppContext.mockReturnValueOnce([{}, { closeDrawer }]);
         useQuery.mockReturnValueOnce(configurableItemResponse);
         useMutation
             .mockReturnValueOnce([
@@ -154,7 +148,6 @@ describe('form submission', () => {
     afterEach(() => {
         updateItemQuantity.mockClear();
         updateConfigurableOptions.mockClear();
-        closeDrawer.mockClear();
     });
 
     test('does nothing if values do not change', () => {
@@ -169,7 +162,6 @@ describe('form submission', () => {
 
         expect(updateItemQuantity).not.toHaveBeenCalled();
         expect(updateConfigurableOptions).not.toHaveBeenCalled();
-        expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
 
     test('calls update quantity mutation when only quantity changes', async () => {
@@ -184,11 +176,11 @@ describe('form submission', () => {
 
         expect(updateItemQuantity.mock.calls[0][0]).toMatchSnapshot();
         expect(updateConfigurableOptions).not.toHaveBeenCalled();
-        expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
 
     test('calls configurable item mutation when options change', async () => {
         // since this test renders twice, we need to double up the mocked returns
+
         setupMockedReturns();
         const tree = createTestInstance(<Component {...mockProps} />);
         const { root } = tree;
@@ -208,7 +200,6 @@ describe('form submission', () => {
 
         expect(updateItemQuantity).not.toHaveBeenCalled();
         expect(updateConfigurableOptions.mock.calls[0][0]).toMatchSnapshot();
-        expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
 
     test('does not call configurable item mutation when final options selection matches backend value', async () => {
@@ -232,15 +223,13 @@ describe('form submission', () => {
 
         expect(updateItemQuantity).not.toHaveBeenCalled();
         expect(updateConfigurableOptions).not.toHaveBeenCalled();
-        expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
 });
 
-test('does not close drawer on error', async () => {
+test('does not clear activeEditItem on error', async () => {
     const updateItemQuantity = jest.fn().mockRejectedValue('Apollo Error');
-    const closeDrawer = jest.fn();
+    const setActiveEditItem = jest.fn();
 
-    useAppContext.mockReturnValueOnce([{}, { closeDrawer }]);
     useMutation.mockReturnValueOnce([updateItemQuantity, {}]);
 
     const tree = createTestInstance(<Component {...mockProps} />);
@@ -253,5 +242,5 @@ test('does not close drawer on error', async () => {
     });
 
     expect(updateItemQuantity).toHaveBeenCalled();
-    expect(closeDrawer).not.toHaveBeenCalled();
+    expect(setActiveEditItem).not.toHaveBeenCalledWith(null);
 });
