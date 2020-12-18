@@ -29,22 +29,28 @@ export const useOrderHistoryPage = (props = {}) => {
         return formState.values.search;
     }, [formState]);
 
-    const { data: ordersData, loading: ordersLoading } = useQuery(
+    const { loading: ordersLoading, refetch: refetchOrders } = useQuery(
         getCustomerOrdersQuery,
         {
             fetchPolicy: 'cache-and-network',
-            skip: !isSignedIn
+            skip: !isSignedIn,
+            onCompleted: ordersData => {
+                setOrders(ordersData.customer.orders.items);
+            }
         }
     );
 
-    const [
-        getOrderData,
-        { data: orderData, loading: orderLoading }
-    ] = useLazyQuery(getCustomerOrderQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        skip: !isSignedIn
-    });
+    const [getOrderData, { loading: orderLoading }] = useLazyQuery(
+        getCustomerOrderQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first',
+            skip: !isSignedIn,
+            onCompleted: orderData => {
+                setOrders(orderData.customer.orders.items);
+            }
+        }
+    );
 
     const isLoadingWithoutData = !orders && (orderLoading || ordersLoading);
     const isBackgroundLoading = !!orders && (orderLoading || ordersLoading);
@@ -53,8 +59,6 @@ export const useOrderHistoryPage = (props = {}) => {
         debounce(
             orderNumber => {
                 if (orderNumber) {
-                    console.log(orderNumber);
-
                     getOrderData({
                         variables: {
                             orderNumber: {
@@ -84,9 +88,14 @@ export const useOrderHistoryPage = (props = {}) => {
         [debouncedOrderDetailsFetcher]
     );
 
-    const resetForm = useCallback(() => {
-        formApi.reset();
-    }, [formApi]);
+    const resetForm = useCallback(
+        event => {
+            event.stopPropagation();
+
+            formApi.reset();
+        },
+        [formApi]
+    );
 
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
@@ -100,29 +109,12 @@ export const useOrderHistoryPage = (props = {}) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
-    /**
-     * If there is no search string show all orders
-     */
+    // Fetch all orders if search text is empty
     useEffect(() => {
-        if (!searchText && ordersData) {
-            setOrders(ordersData.customer.orders.items);
+        if (!searchText) {
+            refetchOrders();
         }
-    }, [ordersData, searchText]);
-
-    /**
-     * If there is a search string, show only the orders related
-     * to that search.
-     */
-    useEffect(() => {
-        const orderNumber =
-            orderData && orderData.customer.orders.items.length
-                ? orderData.customer.orders.items[0].number
-                : null;
-
-        if (searchText && orderNumber && orderNumber === searchText) {
-            setOrders(orderData.customer.orders.items);
-        }
-    }, [orderData, searchText]);
+    }, [searchText, refetchOrders]);
 
     return {
         isBackgroundLoading,
