@@ -10,7 +10,7 @@
             {% if entry.url %}
             <a href="{{ site.baseurl }}{{ entry.url }}" class="spectrum-SideNav-itemLink {% if entry.css-classes %}{{entry.css-classes}}{% endif %} {% if entry.entries.size > 0 %}parent{% endif %}">{{ entry.label }}</a>
             {% else %}
-            <span class="spectrum-SideNav-heading">{{ entry.label }}</span>
+            <span class="spectrum-SideNav-itemLink">{{ entry.label }}</span>
             {% endif %}
 
             {% if entry.entries.size > 0 %}
