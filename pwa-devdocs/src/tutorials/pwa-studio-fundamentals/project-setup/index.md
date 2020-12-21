@@ -137,6 +137,10 @@ Apply these fixes to address common issues you may encounter during project setu
 
 If you encounter any other issues, ask the Magento community in the [#PWA][] Slack channel.
 
+## Next
+
+[Explore the project structure][]
+
 [scaffolding]: {%link pwa-buildpack/scaffolding/index.md %}
 [peregrine]: {%link peregrine/index.md %}
 [venia concept storefront]: {%link venia-pwa-concept/index.md %}
@@ -149,6 +153,7 @@ If you encounter any other issues, ask the Magento community in the [#PWA][] Sla
 [compiled successfully screen-shot]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/compiled-successfully.png %}
 [clear storage]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/clear-storage.png %}
 [privacy error]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/privacy-error.png %}
+[explore the project structure]: <{%link tutorials/pwa-studio-fundamentals/project-structure/index.md %}>
 
 [venia.magento.com]: http://venia.magento.com/
 [n]: https://github.com/tj/n
