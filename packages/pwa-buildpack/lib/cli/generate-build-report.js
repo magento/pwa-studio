@@ -101,19 +101,10 @@ function getYarnDependencies(dependencies) {
 
 function getNpmDependencies(dependencies) {
     const dependencyMap = new Map();
+    const lockFile = require(path.resolve(cwd, 'package-lock.json'));
 
     dependencies.map(packageName => {
-        const listbuffer = spawnSync('npm', ['list', packageName]);
-        const grepBuffer = spawnSync('grep', ['└──'], {
-            input: listbuffer.stdout
-        });
-
-        // TODO: handle multiple versions installed when not dupe. ie "npm ls core-js"
-        const [, , version] = grepBuffer.stdout
-            .toString()
-            .split('\n') // ["│ └── @magento/upward-js@5.0.0  deduped", "└── @magento/upward-js@5.0.0"]
-            .filter(text => !text.includes('deduped'))[0] // ["└── @magento/upward-js@5.0.0"]
-            .split('@'); // [ '└── ', 'magento/upward-js', '5.0.0' ]
+        const version = lockFile.dependencies[packageName].version;
 
         dependencyMap.set(packageName, version);
     });
