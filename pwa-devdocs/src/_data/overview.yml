@@ -1,0 +1,37 @@
+title: Overview
+entries:
+
+    - label: PWA Studio Overview
+      url: /technologies/overview/
+      entries:
+
+        - label: External tools and libraries
+          url: /technologies/tools-libraries/
+
+        - label: Versioning strategy
+          url: /technologies/versioning/
+
+        - label: Contributing to PWA Studio
+          url: /technologies/contribute/
+
+        - label: Frequently Asked Questions (FAQ)
+          url: /frequently-asked-questions/
+
+    - label: Magento integration
+      entries:
+
+          - label: Version compatibility
+            url: /technologies/magento-compatibility/
+
+          - label: Magento theme vs PWA storefront
+            url: /technologies/theme-vs-storefront/
+
+    - label: PWA Storefront architecture
+      url: /technologies/storefront-architecture/
+      entries:
+
+          - label: Runtime architecture
+            url: /technologies/storefront-architecture/runtime/
+
+          - label: Build-time architecture
+            url: /technologies/storefront-architecture/buildtime/
