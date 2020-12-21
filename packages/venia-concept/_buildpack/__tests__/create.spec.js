@@ -47,7 +47,7 @@ const runCreate = async (fs, opts) => {
         ...opts,
         directory: '/target'
     };
-    const { after, before, visitor } = createVenia({
+    const { after, before, visitor } = await createVenia({
         fs,
         tasks: makeCommonTasks(fs),
         options

@@ -16,6 +16,6 @@ exports[`should call onFail with a different error message if environments is em
 
 exports[`should log warning message in the console 1`] = `
 "
- venia-sample-backends is a Dev only extension, please remove it from the project's package.json before going to production. 
+ venia-sample-backends is a \\"development-only\\" extension, please remove it from your project's package.json before going to production.
 "
 `;

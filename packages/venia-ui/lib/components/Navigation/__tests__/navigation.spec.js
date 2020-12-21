@@ -1,8 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
 
 import NavHeader from '../navHeader';
@@ -21,61 +19,7 @@ jest.mock('../navHeader', () => () => <i />);
 jest.mock('../../Header/storeSwitcher', () => () => 'StoreSwitcher');
 jest.mock('../../Header/currencySwitcher', () => () => 'CurrencySwitcher');
 
-jest.mock('@magento/peregrine/lib/context/app', () => {
-    const closeDrawer = jest.fn();
-    const useAppContext = jest.fn(() => [
-        { drawer: 'nav' },
-        {
-            actions: {},
-            closeDrawer
-        }
-    ]);
-
-    return { useAppContext };
-});
-
-jest.mock('@magento/peregrine/lib/context/catalog', () => {
-    const updateCategories = jest.fn();
-    const useCatalogContext = jest.fn(() => [
-        {
-            categories: {
-                1: { parentId: 0 },
-                2: { parentId: 1 }
-            },
-            rootCategoryId: 1
-        },
-        {
-            actions: { updateCategories }
-        }
-    ]);
-
-    return { useCatalogContext };
-});
-
-jest.mock('@magento/peregrine/lib/context/user', () => {
-    const getUserDetails = jest.fn();
-    const useUserContext = jest.fn(() => [{}, { getUserDetails }]);
-
-    return { useUserContext };
-});
-
-jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
-    const useAwaitQuery = jest
-        .fn()
-        .mockResolvedValue({ data: { customer: {} } });
-
-    return { useAwaitQuery };
-});
-
-jest.mock('@magento/peregrine/lib/talons/Navigation/useNavigation', () => {
-    const useNavigationTalon = jest.requireActual(
-        '@magento/peregrine/lib/talons/Navigation/useNavigation'
-    );
-
-    const spy = jest.spyOn(useNavigationTalon, 'useNavigation');
-
-    return Object.assign(useNavigationTalon, { useNavigation: spy });
-});
+jest.mock('@magento/peregrine/lib/talons/Navigation/useNavigation');
 
 /*
  * Tests.
@@ -87,6 +31,10 @@ const talonProps = {
 };
 
 test('renders correctly when open', () => {
+    useNavigation.mockReturnValueOnce({
+        ...talonProps,
+        isOpen: true
+    });
     const instance = createTestInstance(<Navigation />);
 
     expect(instance.toJSON()).toMatchSnapshot();
@@ -94,10 +42,10 @@ test('renders correctly when open', () => {
 });
 
 test('renders correctly when closed', () => {
-    useAppContext.mockImplementationOnce(() => [
-        { drawer: null },
-        { closeDrawer: jest.fn() }
-    ]);
+    useNavigation.mockReturnValueOnce({
+        ...talonProps,
+        isOpen: false
+    });
 
     const instance = createTestInstance(<Navigation />);
 
@@ -118,14 +66,6 @@ test('authModal is rendered when hasModal is true', () => {
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
-});
-
-test('getUserDetails() is called on mount', () => {
-    const { getUserDetails } = useUserContext()[1];
-
-    createTestInstance(<Navigation />);
-
-    expect(getUserDetails).toHaveBeenCalledTimes(1);
 });
 
 test('view is passed to NavHeader', () => {
