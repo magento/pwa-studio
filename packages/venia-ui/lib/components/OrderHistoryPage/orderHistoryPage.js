@@ -65,18 +65,24 @@ const OrderHistoryPage = props => {
         });
     }, [orders]);
 
-    let pageContents;
-    if (!isBackgroundLoading && !orders.length) {
-        pageContents = (
-            <h3 className={classes.emptyHistoryMessage}>
-                {EMPTY_DATA_MESSAGE}
-            </h3>
-        );
-    } else {
-        pageContents = (
-            <ul className={classes.orderHistoryTable}>{orderRows}</ul>
-        );
-    }
+    const pageContents = useMemo(() => {
+        if (!isBackgroundLoading && !orders.length) {
+            return (
+                <h3 className={classes.emptyHistoryMessage}>
+                    {EMPTY_DATA_MESSAGE}
+                </h3>
+            );
+        } else {
+            return <ul className={classes.orderHistoryTable}>{orderRows}</ul>;
+        }
+    }, [
+        EMPTY_DATA_MESSAGE,
+        classes.emptyHistoryMessage,
+        classes.orderHistoryTable,
+        orderRows,
+        isBackgroundLoading,
+        orders
+    ]);
 
     // STORE_NAME is injected by Webpack at build time.
     const title = `${PAGE_TITLE} - ${STORE_NAME}`;
