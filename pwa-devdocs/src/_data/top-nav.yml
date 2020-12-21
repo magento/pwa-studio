@@ -1,4 +1,4 @@
-- label: Getting Started
+- label: Overview
   children:
       - label: Overview
         url: /technologies/overview/
@@ -27,7 +27,7 @@
 - label: Tutorials
   url: /tutorials/
 
-- label: Reference API
+- label: API Reference
   children:
       - label: PWA Buildpack
         url: /pwa-buildpack/reference/buildpack-cli/
