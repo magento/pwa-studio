@@ -1,6 +1,6 @@
 - label: Overview
   children:
-      - label: Overview
+      - label: PWA Studio overview
         url: /technologies/overview/
 
       - label: Frequently Asked Questions

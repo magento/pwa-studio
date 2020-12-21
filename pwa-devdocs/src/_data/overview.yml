@@ -26,6 +26,30 @@ entries:
           - label: Magento theme vs PWA storefront
             url: /technologies/theme-vs-storefront/
 
+    - label: Basic concepts
+      url: /technologies/basic-concepts/
+      entries:
+          - label: Application shell
+            url: /technologies/basic-concepts/app-shell/
+
+          - label: Content rendering
+            url: /technologies/basic-concepts/content-rendering/
+
+          - label: CSS modules
+            url: /technologies/basic-concepts/css-modules/
+
+          - label: GraphQL
+            url: /technologies/basic-concepts/graphql/
+
+          - label: Client-side caching
+            url: /technologies/basic-concepts/client-side-caching/
+
+          - label: Internationalization
+            url: /technologies/basic-concepts/internationalization/
+
+          - label: State management
+            url: /technologies/basic-concepts/state-management/
+
     - label: PWA Storefront architecture
       url: /technologies/storefront-architecture/
       entries:
@@ -35,3 +59,55 @@ entries:
 
           - label: Build-time architecture
             url: /technologies/storefront-architecture/buildtime/
+
+    - label: Venia
+      url: /venia-pwa-concept/
+      entries:
+
+          - label: Storefront setup
+            url: /venia-pwa-concept/setup/
+
+          - label: Install Venia sample data
+            url: /venia-pwa-concept/install-sample-data/
+
+          - label: Project structure
+            url: /venia-pwa-concept/project-structure/
+
+          - label: Modular components
+            url: /venia-pwa-concept/features/modular-components/
+
+    - label: Peregrine
+      url: /peregrine/
+      entries:
+
+          - label: Talons
+            url: /peregrine/talons/
+
+          - label: Routing in PWA Studio
+            url: /peregrine/routing/
+
+    - label: PWA Buildpack tools
+      url: /pwa-buildpack/
+      entries:
+
+          - label: Configuration management
+            url: /pwa-buildpack/configuration-management/
+
+          - label: Extensibility framework
+            url: /pwa-buildpack/extensibility-framework/
+
+          - label: Scaffolding
+            url: /pwa-buildpack/scaffolding/
+
+          - label: Custom project templates
+            url: /pwa-buildpack/scaffolding/custom-project-templates/
+
+          - label: Troubleshooting
+            url: /pwa-buildpack/troubleshooting/
+
+    - label: UPWARD
+      url: /technologies/upward/
+      entries:
+
+          - label: Reference implementation
+            url: /technologies/upward/reference-implementation/
