@@ -171,7 +171,7 @@ async function inspectBackend() {
 
 function inspectBuildEnv() {
     const osVersion = os.version();
-    const nodeVersion = process.version();
+    const nodeVersion = process.version;
     const versionBuffer = spawnSync('npm', ['-v']);
     const npmVersion = versionBuffer.stdout.toString();
 
