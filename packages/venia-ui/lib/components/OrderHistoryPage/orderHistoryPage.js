@@ -1,7 +1,13 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { useIntl } from 'react-intl';
-import { Search as SearchIcon, X as ClearIcon } from 'react-feather';
+import {
+    Search as SearchIcon,
+    X as ClearIcon,
+    AlertCircle as AlertCircleIcon
+} from 'react-feather';
 import { shape, string } from 'prop-types';
+
+import { useToasts } from '@magento/peregrine';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
@@ -15,6 +21,14 @@ import { mergeClasses } from '../../classify';
 
 import defaultClasses from './orderHistoryPage.css';
 
+const errorIcon = (
+    <Icon
+        src={AlertCircleIcon}
+        attrs={{
+            width: 18
+        }}
+    />
+);
 const clearIcon = <Icon src={ClearIcon} size={24} />;
 const searchIcon = <Icon src={SearchIcon} size={24} />;
 
@@ -26,8 +40,10 @@ const OrderHistoryPage = props => {
         orders,
         getOrderDetails,
         resetForm,
-        searchText
+        searchText,
+        errorMessage
     } = talonProps;
+    const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
     const PAGE_TITLE = formatMessage({
         id: 'orderHistoryPage.pageTitleText',
@@ -37,6 +53,10 @@ const OrderHistoryPage = props => {
         id: 'orderHistoryPage.emptyDataMessage',
         defaultMessage: "You don't have any orders yet."
     });
+    const SEARCH_PLACE_HOLDER = formatMessage({
+        id: 'orderHistoryPage.search',
+        defaultMessage: 'Search'
+    });
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const orderRows = useMemo(() => {
@@ -44,10 +64,6 @@ const OrderHistoryPage = props => {
             return <OrderRow key={order.id} order={order} />;
         });
     }, [orders]);
-
-    if (isLoadingWithoutData) {
-        return fullPageLoadingIndicator;
-    }
 
     let pageContents;
     if (!isBackgroundLoading && !orders.length) {
@@ -69,6 +85,22 @@ const OrderHistoryPage = props => {
         <Trigger action={resetForm}>{clearIcon}</Trigger>
     ) : null;
 
+    useEffect(() => {
+        if (errorMessage) {
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message: errorMessage,
+                dismissable: true,
+                timeout: 10000
+            });
+        }
+    }, [addToast, errorMessage]);
+
+    if (isLoadingWithoutData) {
+        return fullPageLoadingIndicator;
+    }
+
     return (
         <OrderHistoryContextProvider>
             <div className={classes.root}>
@@ -80,11 +112,7 @@ const OrderHistoryPage = props => {
                         after={resetButton}
                         before={searchIcon}
                         field="search"
-                        placeholder={formatMessage({
-                            id: 'orderHistoryPage.search',
-                            defaultMessage: 'Search'
-                        })}
-                        onBlur={getOrderDetails}
+                        placeholder={SEARCH_PLACE_HOLDER}
                         onChange={getOrderDetails}
                     />
                 </div>

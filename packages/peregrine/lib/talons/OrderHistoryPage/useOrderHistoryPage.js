@@ -2,11 +2,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormState, useFormApi } from 'informed';
 import debounce from 'lodash.debounce';
-import { useQuery, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
+import { deriveErrorMessage } from '../../util/deriveErrorMessage';
+
 import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
 
 export const useOrderHistoryPage = (props = {}) => {
@@ -29,31 +32,35 @@ export const useOrderHistoryPage = (props = {}) => {
         return formState.values.search;
     }, [formState]);
 
-    const { loading: ordersLoading, refetch: refetchOrders } = useQuery(
-        getCustomerOrdersQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            skip: !isSignedIn,
-            onCompleted: ordersData => {
-                setOrders(ordersData.customer.orders.items);
-            }
+    const [
+        getOrdersData,
+        { loading: ordersLoading, error: getOrdersError }
+    ] = useLazyQuery(getCustomerOrdersQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        onCompleted: ordersData => {
+            setOrders(ordersData.customer.orders.items);
         }
-    );
+    });
 
-    const [getOrderData, { loading: orderLoading }] = useLazyQuery(
-        getCustomerOrderQuery,
-        {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first',
-            skip: !isSignedIn,
-            onCompleted: orderData => {
-                setOrders(orderData.customer.orders.items);
-            }
+    const [
+        getOrderData,
+        { loading: orderLoading, error: getOrderError }
+    ] = useLazyQuery(getCustomerOrderQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        onCompleted: orderData => {
+            setOrders(orderData.customer.orders.items);
         }
-    );
+    });
 
     const isLoadingWithoutData = !orders && (orderLoading || ordersLoading);
     const isBackgroundLoading = !!orders && (orderLoading || ordersLoading);
+
+    const derivedErrorMessage = useMemo(
+        () => deriveErrorMessage([getOrderError, getOrdersError]),
+        [getOrderError, getOrdersError]
+    );
 
     const debouncedOrderDetailsFetcher = useCallback(
         debounce(
@@ -93,8 +100,9 @@ export const useOrderHistoryPage = (props = {}) => {
             event.stopPropagation();
 
             formApi.reset();
+            getOrdersData();
         },
-        [formApi]
+        [formApi, getOrdersData]
     );
 
     // If the user is no longer signed in, redirect to the home page.
@@ -109,12 +117,10 @@ export const useOrderHistoryPage = (props = {}) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
-    // Fetch all orders if search text is empty
+    // Fetch orders data on load
     useEffect(() => {
-        if (!searchText) {
-            refetchOrders();
-        }
-    }, [searchText, refetchOrders]);
+        getOrdersData();
+    }, [getOrdersData, isSignedIn]);
 
     return {
         isBackgroundLoading,
@@ -122,6 +128,7 @@ export const useOrderHistoryPage = (props = {}) => {
         orders,
         getOrderDetails,
         resetForm,
-        searchText
+        searchText,
+        errorMessage: derivedErrorMessage
     };
 };
