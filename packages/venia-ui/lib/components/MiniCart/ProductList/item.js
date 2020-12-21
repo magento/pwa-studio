@@ -11,6 +11,7 @@ import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
+import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
 import defaultClasses from './item.css';
 
@@ -24,7 +25,6 @@ const Item = props => {
         handleRemoveItem,
         prices,
         closeMiniCart,
-        configured_variant,
         configurableThumbnailSource
     } = props;
 
@@ -48,6 +48,7 @@ const Item = props => {
     });
 
     const rootClass = isDeleting ? classes.root_disabled : classes.root;
+    const configured_variant = configuredVariant(configurable_options, product);
 
     return (
         <div className={rootClass}>

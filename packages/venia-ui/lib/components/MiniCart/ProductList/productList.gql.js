@@ -1,9 +1,5 @@
 import { gql } from '@apollo/client';
 
-// We disable linting for local fields because there is no way to add them to
-// the fetched schema.
-// https://github.com/apollographql/eslint-plugin-graphql/issues/99
-/* eslint-disable graphql/template-strings */
 export const ProductListFragment = gql`
     fragment ProductListFragment on Cart {
         id
@@ -40,11 +36,6 @@ export const ProductListFragment = gql`
             }
             quantity
             ... on ConfigurableCartItem {
-                configured_variant @client {
-                    thumbnail {
-                        url
-                    }
-                }
                 configurable_options {
                     id
                     option_label

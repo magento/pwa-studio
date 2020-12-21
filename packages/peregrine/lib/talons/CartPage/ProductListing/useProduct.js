@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
+import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './product.gql';
 
@@ -165,9 +166,10 @@ const flattenProduct = (item, configurableThumbnailSource) => {
         configurable_options: options = [],
         prices,
         product,
-        quantity,
-        configured_variant
+        quantity
     } = item;
+
+    const configured_variant = configuredVariant(options, product);
 
     const { price } = prices;
     const { value: unitPrice, currency } = price;

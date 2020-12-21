@@ -10,7 +10,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
-import temporaryTypePolicies from '@magento/peregrine/lib/Apollo/policies/temporary';
 
 import StoreCodeRoute from '../components/StoreCodeRoute';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
@@ -21,7 +20,7 @@ import { shrinkGETQuery } from '../util/shrinkGETQuery';
  * The tradeoff is that we may be creating an instance we don't end up needing.
  */
 const preInstantiatedCache = new InMemoryCache({
-    typePolicies: { ...typePolicies, ...temporaryTypePolicies },
+    typePolicies,
     // POSSIBLE_TYPES is injected into the bundle by webpack at build time.
     possibleTypes: POSSIBLE_TYPES
 });
