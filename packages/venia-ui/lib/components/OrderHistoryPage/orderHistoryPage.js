@@ -35,13 +35,13 @@ const searchIcon = <Icon src={SearchIcon} size={24} />;
 const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage();
     const {
+        errorMessage,
+        getOrderDetails,
         isBackgroundLoading,
         isLoadingWithoutData,
         orders,
-        getOrderDetails,
         resetForm,
-        searchText,
-        errorMessage
+        searchText
     } = talonProps;
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
@@ -55,7 +55,14 @@ const OrderHistoryPage = props => {
     });
     const SEARCH_PLACE_HOLDER = formatMessage({
         id: 'orderHistoryPage.search',
-        defaultMessage: 'Search'
+        defaultMessage: 'Search by Order Number'
+    });
+    const INVALID_ORDER_NUMBER_MESSAGE = formatMessage({
+        id: 'orderHistoryPage.invalidOrderNumber',
+        defaultMessage: `Order "${searchText}" was not found.`,
+        values: {
+            number: searchText
+        }
     });
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -66,7 +73,13 @@ const OrderHistoryPage = props => {
     }, [orders]);
 
     const pageContents = useMemo(() => {
-        if (!isBackgroundLoading && !orders.length) {
+        if (!isBackgroundLoading && searchText && !orders.length) {
+            return (
+                <h3 className={classes.emptyHistoryMessage}>
+                    {INVALID_ORDER_NUMBER_MESSAGE}
+                </h3>
+            );
+        } else if (!isBackgroundLoading && !orders.length) {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     {EMPTY_DATA_MESSAGE}
@@ -76,12 +89,14 @@ const OrderHistoryPage = props => {
             return <ul className={classes.orderHistoryTable}>{orderRows}</ul>;
         }
     }, [
-        EMPTY_DATA_MESSAGE,
         classes.emptyHistoryMessage,
         classes.orderHistoryTable,
-        orderRows,
+        EMPTY_DATA_MESSAGE,
+        INVALID_ORDER_NUMBER_MESSAGE,
         isBackgroundLoading,
-        orders
+        orderRows,
+        orders,
+        searchText
     ]);
 
     // STORE_NAME is injected by Webpack at build time.
@@ -114,12 +129,12 @@ const OrderHistoryPage = props => {
                 <h1 className={classes.heading}>{PAGE_TITLE}</h1>
                 <div className={classes.search}>
                     <TextInput
-                        id={classes.search}
                         after={resetButton}
                         before={searchIcon}
                         field="search"
-                        placeholder={SEARCH_PLACE_HOLDER}
+                        id={classes.search}
                         onChange={getOrderDetails}
+                        placeholder={SEARCH_PLACE_HOLDER}
                     />
                 </div>
                 {pageContents}
