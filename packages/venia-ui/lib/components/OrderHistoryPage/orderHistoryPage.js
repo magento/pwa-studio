@@ -3,7 +3,8 @@ import { useIntl } from 'react-intl';
 import {
     Search as SearchIcon,
     X as ClearIcon,
-    AlertCircle as AlertCircleIcon
+    AlertCircle as AlertCircleIcon,
+    ArrowRight as SubmitIcon
 } from 'react-feather';
 import { shape, string } from 'prop-types';
 
@@ -12,6 +13,7 @@ import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHist
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
 import Icon from '../Icon';
+import Button from '../Button';
 import TextInput from '../TextInput';
 import Trigger from '../Trigger';
 import { Title } from '../Head';
@@ -37,6 +39,7 @@ const OrderHistoryPage = props => {
     const {
         errorMessage,
         getOrderDetails,
+        handleKeyPress,
         isBackgroundLoading,
         isLoadingWithoutData,
         orders,
@@ -106,6 +109,16 @@ const OrderHistoryPage = props => {
         <Trigger action={resetForm}>{clearIcon}</Trigger>
     ) : null;
 
+    const submitIcon = (
+        <Icon
+            src={SubmitIcon}
+            size={24}
+            classes={{
+                icon: classes.submitIcon
+            }}
+        />
+    );
+
     useEffect(() => {
         if (errorMessage) {
             addToast({
@@ -133,9 +146,17 @@ const OrderHistoryPage = props => {
                         before={searchIcon}
                         field="search"
                         id={classes.search}
-                        onChange={getOrderDetails}
                         placeholder={SEARCH_PLACE_HOLDER}
+                        onKeyPress={handleKeyPress}
                     />
+                    <Button
+                        disabled={isBackgroundLoading || isLoadingWithoutData}
+                        priority={'high'}
+                        onClick={getOrderDetails}
+                        className={classes.searchButton}
+                    >
+                        {submitIcon}
+                    </Button>
                 </div>
                 {pageContents}
             </div>

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormState, useFormApi } from 'informed';
-import debounce from 'lodash.debounce';
 import { useLazyQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
@@ -62,38 +61,19 @@ export const useOrderHistoryPage = (props = {}) => {
         [getOrderError, getOrdersError]
     );
 
-    const debouncedOrderDetailsFetcher = useCallback(
-        debounce(
-            orderNumber => {
-                if (orderNumber) {
-                    getOrderData({
-                        variables: {
-                            orderNumber: {
-                                number: {
-                                    eq: orderNumber
-                                }
-                            }
+    const getOrderDetails = useCallback(() => {
+        if (!isBackgroundLoading && searchText) {
+            getOrderData({
+                variables: {
+                    orderNumber: {
+                        number: {
+                            eq: searchText
                         }
-                    });
+                    }
                 }
-            },
-            1000,
-            { leading: false }
-        ),
-        [getOrderData]
-    );
-
-    /**
-     * Using wrapper function instead of debounced function
-     * because event object will be unavailable after the
-     * timer expires.
-     */
-    const getOrderDetails = useCallback(
-        event => {
-            debouncedOrderDetailsFetcher(event.target.value);
-        },
-        [debouncedOrderDetailsFetcher]
-    );
+            });
+        }
+    }, [isBackgroundLoading, getOrderData, searchText]);
 
     const resetForm = useCallback(
         event => {
@@ -103,6 +83,15 @@ export const useOrderHistoryPage = (props = {}) => {
             getOrdersData();
         },
         [formApi, getOrdersData]
+    );
+
+    const handleKeyPress = useCallback(
+        event => {
+            if (event.key === 'Enter') {
+                getOrderDetails();
+            }
+        },
+        [getOrderDetails]
     );
 
     // If the user is no longer signed in, redirect to the home page.
@@ -123,12 +112,13 @@ export const useOrderHistoryPage = (props = {}) => {
     }, [getOrdersData, isSignedIn]);
 
     return {
+        errorMessage: derivedErrorMessage,
+        getOrderDetails,
+        handleKeyPress,
         isBackgroundLoading,
         isLoadingWithoutData,
         orders,
-        getOrderDetails,
         resetForm,
-        searchText,
-        errorMessage: derivedErrorMessage
+        searchText
     };
 };
