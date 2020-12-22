@@ -16,17 +16,29 @@ const mockAddress = {
     telephone: '+12345678909'
 };
 
+const props = {
+    address: mockAddress,
+    countryName: 'United States',
+    isConfirmingDelete: false,
+    isDeletingCustomerAddress: false,
+    onCancelDelete: jest.fn().mockName('onCancelDelete'),
+    onConfirmDelete: jest.fn().mockName('onConfirmDelete'),
+    onEdit: jest.fn().mockName('onEdit'),
+    onDelete: jest.fn().mockName('onDelete')
+};
+
 test('renders a default address', () => {
-    const tree = createTestInstance(
-        <AddressCard address={mockAddress} countryName="United States" />
-    );
+    const tree = createTestInstance(<AddressCard {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
 test('renders a non-default address', () => {
     const tree = createTestInstance(
-        <AddressCard address={{ ...mockAddress, default_shipping: false }} />
+        <AddressCard
+            {...props}
+            address={{ ...mockAddress, default_shipping: false }}
+        />
     );
 
     expect(tree.toJSON()).toMatchSnapshot();
@@ -41,9 +53,29 @@ test('renders an address with a middle name', () => {
 
     // Act.
     const tree = createTestInstance(
-        <AddressCard address={myAddress} countryName="United States" />
+        <AddressCard {...props} address={myAddress} />
     );
 
     // Assert.
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders delete confirmation if isConfirmingDelete is true', () => {
+    const tree = createTestInstance(
+        <AddressCard {...props} isConfirmingDelete={true} />
+    );
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders disabled delete confirmation if isConfirmingDelete and isDeletingCustomerAddress are true', () => {
+    const tree = createTestInstance(
+        <AddressCard
+            {...props}
+            isConfirmingDelete={true}
+            isDeletingCustomerAddress={true}
+        />
+    );
+
     expect(tree.toJSON()).toMatchSnapshot();
 });

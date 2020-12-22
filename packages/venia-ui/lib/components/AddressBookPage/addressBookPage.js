@@ -16,14 +16,19 @@ import defaultClasses from './addressBookPage.css';
 const AddressBookPage = props => {
     const talonProps = useAddressBookPage();
     const {
+        confirmDeleteAddressId,
         countryDisplayNameMap,
         customerAddresses,
         formErrors,
         formProps,
         handleAddAddress,
+        handleCancelDeleteAddress,
         handleCancelDialog,
+        handleConfirmDeleteAddress,
         handleConfirmDialog,
+        handleDeleteAddress,
         handleEditAddress,
+        isDeletingCustomerAddress,
         isDialogBusy,
         isDialogEditMode,
         isDialogOpen,
@@ -52,17 +57,34 @@ const AddressBookPage = props => {
                 );
 
                 const boundEdit = () => handleEditAddress(addressEntry);
+                const boundDelete = () => handleDeleteAddress(addressEntry.id);
+                const isConfirmingDelete =
+                    confirmDeleteAddressId === addressEntry.id;
 
                 return (
                     <AddressCard
-                        key={addressEntry.id}
                         address={addressEntry}
                         countryName={countryName}
+                        isConfirmingDelete={isConfirmingDelete}
+                        isDeletingCustomerAddress={isDeletingCustomerAddress}
+                        key={addressEntry.id}
+                        onCancelDelete={handleCancelDeleteAddress}
+                        onConfirmDelete={handleConfirmDeleteAddress}
+                        onDelete={boundDelete}
                         onEdit={boundEdit}
                     />
                 );
             });
-    }, [countryDisplayNameMap, customerAddresses, handleEditAddress]);
+    }, [
+        confirmDeleteAddressId,
+        countryDisplayNameMap,
+        customerAddresses,
+        handleCancelDeleteAddress,
+        handleConfirmDeleteAddress,
+        handleDeleteAddress,
+        handleEditAddress,
+        isDeletingCustomerAddress
+    ]);
 
     if (isLoading) {
         return fullPageLoadingIndicator;
