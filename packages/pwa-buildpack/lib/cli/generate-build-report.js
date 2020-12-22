@@ -1,4 +1,5 @@
-const { existsSync } = require('fs');
+const { existsSync, readFileSync } = require('fs');
+const { parse } = require('@yarnpkg/lockfile');
 const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
@@ -78,22 +79,17 @@ function inspectDependencies(package) {
 
 function getYarnDependencies(dependencies) {
     const dependencyMap = new Map();
+    const lockFile = readFileSync(path.resolve(cwd, 'yarn.lock'), 'utf8');
+    const parsedLockFile = parse(lockFile);
 
     dependencies.map(packageName => {
-        const whyBuffer = spawnSync('yarn', ['why', packageName]);
-        const grepBuffer = spawnSync('grep', ['Found'], {
-            input: whyBuffer.stdout
-        });
+        Object.keys(parsedLockFile.object)
+            .filter(pkgName => pkgName.includes(packageName))
+            .forEach(yarnPkgName => {
+                const version = parsedLockFile.object[yarnPkgName].version;
 
-        // [ 'info \r=> Found "@magento/pwa-buildpack@7.0.0"', '' ]
-        const outputArray = grepBuffer.stdout.toString().split('\n');
-
-        // [ '7.0.0' ]
-        const parsedOutputArray = outputArray
-            .filter(output => output.length > 0)
-            .map(output => output.split('@')[2].replace('"', ''));
-
-        dependencyMap.set(packageName, parsedOutputArray.toString());
+                dependencyMap.set(yarnPkgName, version);
+            });
     });
 
     return dependencyMap;
