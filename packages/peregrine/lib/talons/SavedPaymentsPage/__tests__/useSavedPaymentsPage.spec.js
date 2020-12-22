@@ -69,7 +69,7 @@ const Component = props => {
 };
 
 const props = {
-    queries: {
+    operations: {
         getSavedPaymentsQuery: 'getSavedPaymentsQuery'
     }
 };
@@ -80,9 +80,8 @@ test('it returns the proper shape', () => {
 
     // Assert.
     const talonProps = log.mock.calls[0][0];
-    const actualKeys = Object.keys(talonProps);
-    const expectedKeys = ['savedPayments', 'handleAddPayment', 'isLoading'];
-    expect(actualKeys.sort()).toEqual(expectedKeys.sort());
+
+    expect(talonProps).toMatchSnapshot();
 });
 
 test('it returns the savedPayments correctly when present', () => {

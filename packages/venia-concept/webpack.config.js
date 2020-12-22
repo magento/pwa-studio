@@ -51,7 +51,10 @@ module.exports = async env => {
 
     const possibleTypes = await getPossibleTypes();
 
-    config.module.noParse = [/braintree\-web\-drop\-in/];
+    config.module.noParse = [
+        /@adobe\/adobe\-client\-data\-layer/,
+        /braintree\-web\-drop\-in/
+    ];
     config.plugins = [
         ...config.plugins,
         new DefinePlugin({
