@@ -59,6 +59,7 @@ exports[`renders a default address 1`] = `
     <button
       className="root_normalPriority"
       disabled={false}
+      onClick={[MockFunction onEdit]}
       type="button"
     >
       <span
@@ -128,7 +129,7 @@ exports[`renders a non-default address 1`] = `
     <span
       className="country"
     >
-      US
+      United States
     </span>
     <span
       className="telephone"
@@ -149,6 +150,7 @@ exports[`renders a non-default address 1`] = `
     <button
       className="root_normalPriority"
       disabled={false}
+      onClick={[MockFunction onEdit]}
       type="button"
     >
       <span
@@ -187,6 +189,7 @@ exports[`renders a non-default address 1`] = `
     <button
       className="root_normalPriority"
       disabled={false}
+      onClick={[MockFunction onDelete]}
       type="button"
     >
       <span
@@ -300,6 +303,7 @@ exports[`renders an address with a middle name 1`] = `
     <button
       className="root_normalPriority"
       disabled={false}
+      onClick={[MockFunction onEdit]}
       type="button"
     >
       <span
@@ -335,6 +339,272 @@ exports[`renders an address with a middle name 1`] = `
         </span>
       </span>
     </button>
+  </div>
+</div>
+`;
+
+exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="contentContainer"
+  >
+    <span
+      className="defaultBadge"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Default"
+        id="addressCard.defaultText"
+      />
+    </span>
+    <span
+      className="name"
+    >
+      Philip Fry
+    </span>
+    <span
+      className="streetRow"
+    >
+      111 57th Street
+    </span>
+    <span
+      className="streetRow"
+    >
+      Suite 1000
+    </span>
+    <span
+      className="additionalAddress"
+    >
+      New New York, New York 10019
+    </span>
+    <span
+      className="country"
+    >
+      United States
+    </span>
+    <span
+      className="telephone"
+    >
+      <mock-FormattedMessage
+        id="addressBookPage.telephone"
+        values={
+          Object {
+            "telephone": "+12345678909",
+          }
+        }
+      />
+    </span>
+  </div>
+  <div
+    className="actionContainer"
+  >
+    <button
+      className="root_normalPriority"
+      disabled={false}
+      onClick={[MockFunction onEdit]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            />
+          </svg>
+        </span>
+        <span
+          className="actionLabel"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="addressBookPage.editAddress"
+          />
+        </span>
+      </span>
+    </button>
+    <div
+      className="confirmDeleteContainer"
+    >
+      <button
+        className="root_normalPriorityNegative"
+        disabled={false}
+        onClick={[MockFunction onConfirmDelete]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Delete"
+            id="global.deleteButton"
+          />
+        </span>
+      </button>
+      <button
+        className="root_lowPriority"
+        disabled={false}
+        onClick={[MockFunction onCancelDelete]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders disabled delete confirmation if isConfirmingDelete and isDeletingCustomerAddress are true 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="contentContainer"
+  >
+    <span
+      className="defaultBadge"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Default"
+        id="addressCard.defaultText"
+      />
+    </span>
+    <span
+      className="name"
+    >
+      Philip Fry
+    </span>
+    <span
+      className="streetRow"
+    >
+      111 57th Street
+    </span>
+    <span
+      className="streetRow"
+    >
+      Suite 1000
+    </span>
+    <span
+      className="additionalAddress"
+    >
+      New New York, New York 10019
+    </span>
+    <span
+      className="country"
+    >
+      United States
+    </span>
+    <span
+      className="telephone"
+    >
+      <mock-FormattedMessage
+        id="addressBookPage.telephone"
+        values={
+          Object {
+            "telephone": "+12345678909",
+          }
+        }
+      />
+    </span>
+  </div>
+  <div
+    className="actionContainer"
+  >
+    <button
+      className="root_normalPriority"
+      disabled={false}
+      onClick={[MockFunction onEdit]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            />
+          </svg>
+        </span>
+        <span
+          className="actionLabel"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="addressBookPage.editAddress"
+          />
+        </span>
+      </span>
+    </button>
+    <div
+      className="confirmDeleteContainer"
+    >
+      <button
+        className="root_normalPriorityNegative"
+        disabled={true}
+        onClick={[MockFunction onConfirmDelete]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Delete"
+            id="global.deleteButton"
+          />
+        </span>
+      </button>
+      <button
+        className="root_lowPriority"
+        disabled={true}
+        onClick={[MockFunction onCancelDelete]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
