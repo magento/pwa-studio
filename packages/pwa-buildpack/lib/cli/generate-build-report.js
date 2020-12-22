@@ -140,20 +140,6 @@ async function inspectBackend() {
         prettyLogger.log('Backend is DOWN!');
         prettyLogger.error('Reason:', e);
     }
-
-    // Backend Version
-    // TODO: Implement if/when some endpoint other than magento_version exposes the version.
-    // try {
-    //     const res = await fetchWithAgent(
-    //         `${MAGENTO_BACKEND_URL}/magento_version`
-    //     );
-    //     prettyLogger.log('Magento Version:', await res.text());
-    // } catch (e) {
-    //     prettyLogger.warn(
-    //         'Unable to determine Magento version - ensure that the Magento_Version route is enabled when generating this report.'
-    //     );
-    //     prettyLogger.error('Reason:', e);
-    // }
 }
 
 function inspectBuildEnv() {
