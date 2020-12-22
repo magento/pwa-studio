@@ -157,7 +157,13 @@ async function inspectBackend() {
 }
 
 function inspectBuildEnv() {
-    const osVersion = os.version();
+    let osVersion;
+    try {
+        osVersion = os.version();
+    } catch {
+        // os.version() is only available from node 13.
+        osVersion = 'Unable to fetch OS Version.';
+    }
     const nodeVersion = process.version;
     const versionBuffer = spawnSync('npm', ['-v']);
     const npmVersion = versionBuffer.stdout.toString();
