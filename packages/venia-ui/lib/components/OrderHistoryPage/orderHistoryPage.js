@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react';
-import { useIntl } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
 import {
     Search as SearchIcon,
     X as ClearIcon,
@@ -52,20 +52,9 @@ const OrderHistoryPage = props => {
         id: 'orderHistoryPage.pageTitleText',
         defaultMessage: 'Order History'
     });
-    const EMPTY_DATA_MESSAGE = formatMessage({
-        id: 'orderHistoryPage.emptyDataMessage',
-        defaultMessage: "You don't have any orders yet."
-    });
     const SEARCH_PLACE_HOLDER = formatMessage({
         id: 'orderHistoryPage.search',
         defaultMessage: 'Search by Order Number'
-    });
-    const INVALID_ORDER_NUMBER_MESSAGE = formatMessage({
-        id: 'orderHistoryPage.invalidOrderNumber',
-        defaultMessage: `Order "${searchText}" was not found.`,
-        values: {
-            number: searchText
-        }
     });
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -79,13 +68,22 @@ const OrderHistoryPage = props => {
         if (!isBackgroundLoading && searchText && !orders.length) {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
-                    {INVALID_ORDER_NUMBER_MESSAGE}
+                    <FormattedMessage
+                        id={'orderHistoryPage.invalidOrderNumber'}
+                        defaultMessage={`Order "${searchText}" was not found.`}
+                        values={{
+                            number: searchText
+                        }}
+                    />
                 </h3>
             );
         } else if (!isBackgroundLoading && !orders.length) {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
-                    {EMPTY_DATA_MESSAGE}
+                    <FormattedMessage
+                        id={'orderHistoryPage.emptyDataMessage'}
+                        defaultMessage={"You don't have any orders yet."}
+                    />
                 </h3>
             );
         } else {
@@ -94,8 +92,6 @@ const OrderHistoryPage = props => {
     }, [
         classes.emptyHistoryMessage,
         classes.orderHistoryTable,
-        EMPTY_DATA_MESSAGE,
-        INVALID_ORDER_NUMBER_MESSAGE,
         isBackgroundLoading,
         orderRows,
         orders,
