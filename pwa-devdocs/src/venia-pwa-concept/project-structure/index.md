@@ -40,19 +40,19 @@ The `venia-static` directory contains the `favicon.ico` icon file, `icons` folde
 
 The `src` directory contains the PWA source code for the Venia theme, which are split into functional subdirectories.
 
-### `src/index.js`
+### [`src/index.js`][]
 
 The `src/index.js` file is the entry point of Venia.
 It sets the ApolloProvider, the ReduxStore, and the Router configuration and App Component.
 
-### `src/store.js`
+### [`src/store.js`][]
 
 The `src/store.js` file is responsible for creating a Redux store.
 It also combines Redux reducers and middlewares.
 
-### `src/sw.js`
+### [`src/registerSW.js`][]
 
-The `src/sw.js` file contains the service worker configuration.
+The `src/registerSW.js` file contains the service worker configuration.
 
 [Magento theme structure]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-structure.html
 [UPWARD]: https://github.com/magento/pwa-studio/tree/master/packages/upward-spec
@@ -73,10 +73,14 @@ The `src/sw.js` file contains the service worker configuration.
 [UPWARD server specification]: {%link technologies/upward/index.md %}
 [mustache]: https://mustache.github.io/
 [`deployVeniaSampleData.sh`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/deployVeniaSampleData.sh
-[`server.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/server.js
+[`server.js`]: https://github.com/magento/pwa-studio/blob/6.0.0/packages/venia-concept/server.js
+[`venia-upward.yml`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/upward.yml
 [`venia-concept`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
 [`upward.yml`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/upward.yml
-[`templates`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/templates
+[`templates`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-ui/templates
 [`venia-static`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-ui/venia-static
 [`src`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src
+[`src/index.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/index.js
+[`src/store.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/store.js
+[`src/registerSW.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/registerSW.js
 [`webpack.config.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/webpack.config.js
