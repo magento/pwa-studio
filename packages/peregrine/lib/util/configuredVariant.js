@@ -4,7 +4,7 @@ export default function configuredVariant(configured_options, product) {
     if (!configured_options || !product.variants) return;
     const optionUids = configured_options
         .map(option => {
-            return new Buffer(
+            return Buffer.from(
                 `configurable/${option.id}/${option.value_id}`
             ).toString('base64');
         })

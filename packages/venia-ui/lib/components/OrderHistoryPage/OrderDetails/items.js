@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { shape, arrayOf, string, number } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';

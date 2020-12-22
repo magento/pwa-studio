@@ -50,7 +50,7 @@ export const useOrderRow = props => {
     const imagesData = useMemo(() => {
         if (data) {
             // Images data is taken from simple product or from configured variant and assigned to item sku
-            const mappedImagesData = [];
+            const mappedImagesData = {};
             items.forEach(item => {
                 const product = data.products.items.find(
                     element => item.product_url_key === element.url_key
@@ -72,7 +72,7 @@ export const useOrderRow = props => {
 
             return mappedImagesData;
         } else {
-            return [];
+            return {};
         }
     }, [data, items, configurableThumbnailSource]);
 

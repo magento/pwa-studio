@@ -28,7 +28,7 @@ const ProductList = props => {
                 />
             ));
         }
-    }, [items, handleRemoveItem, closeMiniCart]);
+    }, [items, handleRemoveItem, closeMiniCart, configurableThumbnailSource]);
 
     return <div className={classes.root}>{cartItems}</div>;
 };

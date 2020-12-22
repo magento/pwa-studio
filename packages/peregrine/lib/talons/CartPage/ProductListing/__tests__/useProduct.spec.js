@@ -31,7 +31,18 @@ jest.mock('@apollo/client', () => {
     ]);
 
     return {
-        ApolloClient,
+        ...ApolloClient,
+        useQuery: jest.fn().mockReturnValue({
+            called: false,
+            error: null,
+            loading: false,
+            data: {
+                storeConfig: {
+                    id: 1,
+                    configurable_thumbnail_source: 'parent'
+                }
+            }
+        }),
         useMutation: spy
     };
 });
