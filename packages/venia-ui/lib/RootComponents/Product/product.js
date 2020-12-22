@@ -5,7 +5,6 @@ import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product
 import { Title, Meta } from '../../components/Head';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
-import getUrlKey from '../../util/getUrlKey';
 import mapProduct from '../../util/mapProduct';
 
 /*
@@ -18,8 +17,7 @@ import mapProduct from '../../util/mapProduct';
 
 const Product = () => {
     const talonProps = useProduct({
-        mapProduct,
-        urlKey: getUrlKey()
+        mapProduct
     });
 
     const { error, loading, product } = talonProps;
