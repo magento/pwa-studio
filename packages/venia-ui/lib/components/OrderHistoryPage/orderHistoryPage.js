@@ -8,7 +8,7 @@ import {
 } from 'react-feather';
 import { shape, string } from 'prop-types';
 
-import { useToasts } from '@magento/peregrine';
+import { useToasts } from '@magento/peregrine/lib/Toasts';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
