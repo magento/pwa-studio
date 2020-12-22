@@ -25,6 +25,9 @@ This tutorial requires the following tools:
 
 If you need to do more advanced Cloud tasks, see the [Cloud technologies and requirements][] for the full list of tools you need to fully manage the rest of your Cloud project.
 
+You also need an existing storefront project to do this tutorial.
+Follow the instructions on the [Project setup][] page to set up your storefront project using the scaffolding tool.
+
 ## Tasks overview
 
 1. Clone your Cloud project
@@ -162,13 +165,14 @@ To find the correct root directory path for an environment, [SSH][] into the rem
 
 ## Build your storefront application
 
-In _your storefront project_ directory, use `yarn` or `npm` to run the project's build command.
+In _your storefront project_ directory, use `yarn` or `npm` to install project dependencies and run the project's build command.
 
 ```sh
+yarn install &&
 yarn build
 ```
 
-This command runs the build process, which creates a `dist` folder that contains code bundles for your storefront application.
+These commands install project dependencies and runs the build process, which creates a `dist` folder that contains code bundles for your storefront application.
 It also copies over the static assets your application needs from your project into this folder.
 
 ## Add your storefront project code
@@ -218,6 +222,7 @@ variables, such as `CONFIG__DEFAULT__WEB__UPWARD__PATH` and `MAGENTO_BACKEND_URL
 
 [compatible]: <{%link technologies/magento-compatibility/index.md %}>
 [environment variables]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}>
+[project setup]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
 
 [magento pwa studio]: http://pwastudio.io
 [`@magento/venia-concept`]: https://www.npmjs.com/package/@magento/venia-concept
