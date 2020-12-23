@@ -67,7 +67,7 @@ export const useOrderHistoryPage = (props = {}) => {
                 variables: {
                     orderNumber: {
                         number: {
-                            eq: searchText
+                            match: searchText
                         }
                     }
                 }
