@@ -51,8 +51,15 @@ export const UPDATE_CUSTOMER_ADDRESS = gql`
     ${CustomerAddressBookAddressFragment}
 `;
 
+export const DELETE_CUSTOMER_ADDRESS = gql`
+    mutation DeleteCustomerAddressFromAddressBook($addressId: Int!) {
+        deleteCustomerAddress(id: $addressId)
+    }
+`;
+
 export default {
     createCustomerAddressMutation: ADD_NEW_CUSTOMER_ADDRESS,
+    deleteCustomerAddressMutation: DELETE_CUSTOMER_ADDRESS,
     getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES,
     updateCustomerAddressMutation: UPDATE_CUSTOMER_ADDRESS
 };
