@@ -66,6 +66,59 @@ test('returns correct shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
+test('returns correct shape when variant', () => {
+    const props = {
+        ...defaultProps,
+        items: [
+            ...defaultProps.items,
+            { product_sku: 'sku3_variant1', product_url_key: 'url_key_sku3' }
+        ]
+    };
+    const data = {
+        data: {
+            products: {
+                items: [
+                    ...items,
+                    {
+                        thumbnail: { url: 'sku3 thumbnail url' },
+                        url_key: 'url_key_sku3',
+                        sku: 'sku3',
+                        variants: [
+                            {
+                                product: {
+                                    thumbnail: {
+                                        url: 'sku3_variant1 thumbnail url'
+                                    },
+                                    sku: 'sku3_variant1'
+                                }
+                            },
+                            {
+                                product: {
+                                    thumbnail: {
+                                        url: 'sku3_variant2 thumbnail url'
+                                    },
+                                    sku: 'sku3_variant2'
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            storeConfig: {
+                id: 1,
+                configurable_thumbnail_source: 'itself'
+            }
+        },
+        loading: false
+    };
+    useQuery.mockReturnValue(data);
+    createTestInstance(<Component {...props} />);
+
+    const talonProps = log.mock.calls[0][0];
+
+    expect(talonProps).toMatchSnapshot();
+});
+
 test('filters out items not in the request', () => {
     useQuery.mockReturnValue({
         data: {

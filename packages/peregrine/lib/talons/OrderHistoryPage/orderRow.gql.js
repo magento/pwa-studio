@@ -23,9 +23,6 @@ export const GET_PRODUCT_THUMBNAILS_BY_URL_KEY = gql`
                 url_suffix
                 ... on ConfigurableProduct {
                     variants {
-                        attributes {
-                            uid
-                        }
                         product {
                             sku
                             id
