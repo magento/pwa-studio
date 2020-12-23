@@ -1,18 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`getOrderDetails fetches order details for the given search text 1`] = `
+Array [
+  Object {
+    "variables": Object {
+      "orderNumber": Object {
+        "number": Object {
+          "match": "*****",
+        },
+      },
+    },
+  },
+]
+`;
+
+exports[`handleKeyPress should fetch orders if Enter key is pressed 1`] = `
+Array [
+  Object {
+    "variables": Object {
+      "orderNumber": Object {
+        "number": Object {
+          "match": "*****",
+        },
+      },
+    },
+  },
+]
+`;
+
 exports[`it returns the proper shape while loading without data 1`] = `
 Object {
-  "isLoadingWithoutData": true,
+  "errorMessage": null,
+  "getOrderDetails": [Function],
+  "handleKeyPress": [Function],
+  "isBackgroundLoading": true,
+  "isLoadingWithoutData": false,
   "orders": Array [],
+  "resetForm": [Function],
+  "searchText": null,
 }
 `;
 
 exports[`it returns the proper shape with data 1`] = `
 Object {
+  "errorMessage": null,
+  "getOrderDetails": [Function],
+  "handleKeyPress": [Function],
+  "isBackgroundLoading": false,
   "isLoadingWithoutData": false,
-  "orders": Array [
-    "order1",
-    "order2",
-  ],
+  "orders": Array [],
+  "resetForm": [Function],
+  "searchText": null,
 }
 `;
