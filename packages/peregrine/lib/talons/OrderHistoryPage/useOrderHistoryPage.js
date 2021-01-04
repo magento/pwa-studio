@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useFormState, useFormApi } from 'informed';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -15,7 +14,6 @@ export const useOrderHistoryPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerOrderQuery } = operations;
 
-    const [orders, setOrders] = useState([]);
     const [
         ,
         {
@@ -24,35 +22,25 @@ export const useOrderHistoryPage = (props = {}) => {
     ] = useAppContext();
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
-    const formState = useFormState();
-    const formApi = useFormApi();
 
-    const searchText = useMemo(() => {
-        return formState.values.search;
-    }, [formState]);
+    const [searchText, setSearchText] = useState('');
 
-    const [
-        getOrderData,
-        { loading: orderLoading, error: getOrderError }
-    ] = useLazyQuery(getCustomerOrderQuery, {
+    const {
+        data: orderData,
+        loading: orderLoading,
+        error: getOrderError
+    } = useQuery(getCustomerOrderQuery, {
         fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        onCompleted: orderData => {
-            setOrders(orderData.customer.orders.items);
+        variables: {
+            orderNumber: {
+                number: {
+                    match: searchText
+                }
+            }
         }
     });
 
-    const getOrdersData = useCallback(() => {
-        getOrderData({
-            variables: {
-                orderNumber: {
-                    number: {
-                        match: ''
-                    }
-                }
-            }
-        });
-    }, [getOrderData]);
+    const orders = orderData ? orderData.customer.orders.items : [];
 
     const isLoadingWithoutData = !orders && orderLoading;
     const isBackgroundLoading = !!orders && orderLoading;
@@ -62,38 +50,14 @@ export const useOrderHistoryPage = (props = {}) => {
         [getOrderError]
     );
 
-    const getOrderDetails = useCallback(() => {
-        if (!isBackgroundLoading) {
-            getOrderData({
-                variables: {
-                    orderNumber: {
-                        number: {
-                            match: searchText
-                        }
-                    }
-                }
-            });
-        }
-    }, [isBackgroundLoading, getOrderData, searchText]);
+    const handleReset = useCallback(() => {
+        setSearchText('');
+        console.log('woof');
+    }, []);
 
-    const resetForm = useCallback(
-        event => {
-            event.stopPropagation();
-
-            formApi.reset();
-            getOrdersData();
-        },
-        [formApi, getOrdersData]
-    );
-
-    const handleKeyPress = useCallback(
-        event => {
-            if (event.key === 'Enter') {
-                getOrderDetails();
-            }
-        },
-        [getOrderDetails]
-    );
+    const handleSubmit = useCallback(({ search }) => {
+        setSearchText(search);
+    }, []);
 
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
@@ -107,21 +71,13 @@ export const useOrderHistoryPage = (props = {}) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
-    // Fetch orders data on load
-    useEffect(() => {
-        if (!searchText) {
-            getOrdersData();
-        }
-    }, [getOrdersData, searchText]);
-
     return {
         errorMessage: derivedErrorMessage,
-        getOrderDetails,
-        handleKeyPress,
+        handleReset,
+        handleSubmit,
         isBackgroundLoading,
         isLoadingWithoutData,
         orders,
-        resetForm,
         searchText
     };
 };

@@ -2,11 +2,11 @@ import React, { useMemo, useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'react-intl';
 import {
     Search as SearchIcon,
-    X as ClearIcon,
     AlertCircle as AlertCircleIcon,
     ArrowRight as SubmitIcon
 } from 'react-feather';
 import { shape, string } from 'prop-types';
+import { Form } from 'informed';
 
 import { useToasts } from '@magento/peregrine/lib/Toasts';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
@@ -15,13 +15,13 @@ import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryP
 import Icon from '../Icon';
 import Button from '../Button';
 import TextInput from '../TextInput';
-import Trigger from '../Trigger';
 import { Title } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import OrderRow from './orderRow';
 import { mergeClasses } from '../../classify';
 
 import defaultClasses from './orderHistoryPage.css';
+import ResetButton from './resetButton';
 
 const errorIcon = (
     <Icon
@@ -31,19 +31,17 @@ const errorIcon = (
         }}
     />
 );
-const clearIcon = <Icon src={ClearIcon} size={24} />;
 const searchIcon = <Icon src={SearchIcon} size={24} />;
 
 const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage();
     const {
         errorMessage,
-        getOrderDetails,
-        handleKeyPress,
+        handleReset,
+        handleSubmit,
         isBackgroundLoading,
         isLoadingWithoutData,
         orders,
-        resetForm,
         searchText
     } = talonProps;
     const [, { addToast }] = useToasts();
@@ -101,9 +99,7 @@ const OrderHistoryPage = props => {
     // STORE_NAME is injected by Webpack at build time.
     const title = `${PAGE_TITLE} - ${STORE_NAME}`;
 
-    const resetButton = searchText ? (
-        <Trigger action={resetForm}>{clearIcon}</Trigger>
-    ) : null;
+    const resetElement = <ResetButton onReset={handleReset} />;
 
     const submitIcon = (
         <Icon
@@ -136,24 +132,27 @@ const OrderHistoryPage = props => {
             <div className={classes.root}>
                 <Title>{title}</Title>
                 <h1 className={classes.heading}>{PAGE_TITLE}</h1>
-                <div className={classes.search}>
+                <Form
+                    className={classes.search}
+                    onSubmit={handleSubmit}
+                    allowEmptyStrings={true}
+                >
                     <TextInput
-                        after={resetButton}
+                        after={resetElement}
                         before={searchIcon}
                         field="search"
                         id={classes.search}
                         placeholder={SEARCH_PLACE_HOLDER}
-                        onKeyPress={handleKeyPress}
                     />
                     <Button
                         disabled={isBackgroundLoading || isLoadingWithoutData}
                         priority={'high'}
-                        onClick={getOrderDetails}
                         className={classes.searchButton}
+                        type="submit"
                     >
                         {submitIcon}
                     </Button>
-                </div>
+                </Form>
                 {pageContents}
             </div>
         </OrderHistoryContextProvider>
