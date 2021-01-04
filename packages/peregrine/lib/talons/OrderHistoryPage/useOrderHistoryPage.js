@@ -63,7 +63,7 @@ export const useOrderHistoryPage = (props = {}) => {
     );
 
     const getOrderDetails = useCallback(() => {
-        if (!isBackgroundLoading && searchText) {
+        if (!isBackgroundLoading) {
             getOrderData({
                 variables: {
                     orderNumber: {
