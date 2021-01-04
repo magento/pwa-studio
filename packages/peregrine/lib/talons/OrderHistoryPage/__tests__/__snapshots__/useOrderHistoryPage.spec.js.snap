@@ -53,3 +53,17 @@ Object {
   "searchText": null,
 }
 `;
+
+exports[`resetForm should clear search and refetch orders data 1`] = `
+Array [
+  Object {
+    "variables": Object {
+      "orderNumber": Object {
+        "number": Object {
+          "match": "",
+        },
+      },
+    },
+  },
+]
+`;

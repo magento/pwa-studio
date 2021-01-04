@@ -88,18 +88,6 @@ const CustomerOrdersFragment = gql`
     }
 `;
 
-export const GET_CUSTOMER_ORDERS = gql`
-    query GetCustomerOrders {
-        customer {
-            id
-            orders {
-                ...CustomerOrdersFragment
-            }
-        }
-    }
-    ${CustomerOrdersFragment}
-`;
-
 export const GET_CUSTOMER_ORDER = gql`
     query GetCustomerOrders($orderNumber: CustomerOrdersFilterInput) {
         customer {
@@ -113,6 +101,5 @@ export const GET_CUSTOMER_ORDER = gql`
 `;
 
 export default {
-    getCustomerOrdersQuery: GET_CUSTOMER_ORDERS,
     getCustomerOrderQuery: GET_CUSTOMER_ORDER
 };

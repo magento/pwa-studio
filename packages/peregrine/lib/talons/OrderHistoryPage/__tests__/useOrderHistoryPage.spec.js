@@ -59,15 +59,7 @@ jest.mock('../../../util/deriveErrorMessage', () => ({
     deriveErrorMessage: jest.fn().mockReturnValue(null)
 }));
 
-const getOrders = jest.fn().mockName('getOrders');
 const getOrder = jest.fn().mockName('getOrder');
-const getOrdersQueryReturnValue = jest.fn().mockReturnValue([
-    getOrders,
-    {
-        error: null,
-        loading: false
-    }
-]);
 const getOrderQueryReturnValue = jest.fn().mockReturnValue([
     getOrder,
     {
@@ -78,9 +70,7 @@ const getOrderQueryReturnValue = jest.fn().mockReturnValue([
 
 beforeEach(() => {
     useLazyQuery.mockImplementation(query => {
-        if (query === 'getCustomerOrdersQuery') {
-            return getOrdersQueryReturnValue();
-        } else if (query === 'getCustomerOrderQuery') {
+        if (query === 'getCustomerOrderQuery') {
             return getOrderQueryReturnValue();
         } else {
             return [jest.fn(), {}];
@@ -132,13 +122,6 @@ describe('it returns the proper shape', () => {
                 loading: true
             }
         ]);
-        getOrdersQueryReturnValue.mockReturnValueOnce([
-            getOrder,
-            {
-                error: null,
-                loading: true
-            }
-        ]);
 
         const { talonProps } = getTalonProps(props);
 
@@ -149,13 +132,6 @@ describe('it returns the proper shape', () => {
 test('syncs background loading state', () => {
     getOrderQueryReturnValue.mockReturnValueOnce([
         getOrder,
-        {
-            error: null,
-            loading: true
-        }
-    ]);
-    getOrdersQueryReturnValue.mockReturnValueOnce([
-        getOrders,
         {
             error: null,
             loading: true
@@ -180,7 +156,7 @@ test('getOrderDetails fetches order details for the given search text', () => {
     update();
 
     expect(getOrder).toHaveBeenCalled();
-    expect(getOrder.mock.calls[0]).toMatchSnapshot();
+    expect(getOrder.mock.calls[1]).toMatchSnapshot();
 });
 
 test('handleKeyPress should fetch orders if Enter key is pressed', () => {
@@ -191,7 +167,7 @@ test('handleKeyPress should fetch orders if Enter key is pressed', () => {
     update();
 
     expect(getOrder).toHaveBeenCalled();
-    expect(getOrder.mock.calls[0]).toMatchSnapshot();
+    expect(getOrder.mock.calls[1]).toMatchSnapshot();
 });
 
 test('resetForm should clear search and refetch orders data', () => {
@@ -208,5 +184,7 @@ test('resetForm should clear search and refetch orders data', () => {
 
     expect(stopPropagation).toHaveBeenCalled();
     expect(reset).toHaveBeenCalled();
-    expect(getOrders).toHaveBeenCalled();
+    // should fetch all orders
+    expect(getOrder).toHaveBeenCalled();
+    expect(getOrder.mock.calls[1]).toMatchSnapshot();
 });

@@ -13,7 +13,7 @@ import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
 
 export const useOrderHistoryPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCustomerOrdersQuery, getCustomerOrderQuery } = operations;
+    const { getCustomerOrderQuery } = operations;
 
     const [orders, setOrders] = useState([]);
     const [
@@ -32,17 +32,6 @@ export const useOrderHistoryPage = (props = {}) => {
     }, [formState]);
 
     const [
-        getOrdersData,
-        { loading: ordersLoading, error: getOrdersError }
-    ] = useLazyQuery(getCustomerOrdersQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        onCompleted: ordersData => {
-            setOrders(ordersData.customer.orders.items);
-        }
-    });
-
-    const [
         getOrderData,
         { loading: orderLoading, error: getOrderError }
     ] = useLazyQuery(getCustomerOrderQuery, {
@@ -53,12 +42,24 @@ export const useOrderHistoryPage = (props = {}) => {
         }
     });
 
-    const isLoadingWithoutData = !orders && (orderLoading || ordersLoading);
-    const isBackgroundLoading = !!orders && (orderLoading || ordersLoading);
+    const getOrdersData = useCallback(() => {
+        getOrderData({
+            variables: {
+                orderNumber: {
+                    number: {
+                        match: ''
+                    }
+                }
+            }
+        });
+    }, [getOrderData]);
+
+    const isLoadingWithoutData = !orders && orderLoading;
+    const isBackgroundLoading = !!orders && orderLoading;
 
     const derivedErrorMessage = useMemo(
-        () => deriveErrorMessage([getOrderError, getOrdersError]),
-        [getOrderError, getOrdersError]
+        () => deriveErrorMessage([getOrderError]),
+        [getOrderError]
     );
 
     const getOrderDetails = useCallback(() => {
