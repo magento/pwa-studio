@@ -4,12 +4,23 @@ import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { Trash2 as TrashIcon, Edit2 as EditIcon } from 'react-feather';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import Button from '@magento/venia-ui/lib/components/Button';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import defaultClasses from './addressCard.css';
 import LinkButton from '../LinkButton';
 
 const AddressCard = props => {
-    const { address, classes: propClasses, countryName, onEdit } = props;
+    const {
+        address,
+        classes: propClasses,
+        countryName,
+        isConfirmingDelete,
+        isDeletingCustomerAddress,
+        onCancelDelete,
+        onConfirmDelete,
+        onEdit,
+        onDelete
+    } = props;
 
     const {
         city,
@@ -25,6 +36,12 @@ const AddressCard = props => {
     } = address;
 
     const classes = mergeClasses(defaultClasses, propClasses);
+    const confirmDeleteButtonClasses = {
+        root_normalPriorityNegative: classes.confirmDeleteButton
+    };
+    const cancelDeleteButtonClasses = {
+        root_lowPriority: classes.cancelDeleteButton
+    };
 
     const streetRows = street.map((row, index) => {
         return (
@@ -49,10 +66,7 @@ const AddressCard = props => {
     const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement = !default_shipping ? (
-        <LinkButton
-            classes={{ root: classes.deleteButton }}
-            onClick={() => console.log('To be completed by PWA-635')}
-        >
+        <LinkButton classes={{ root: classes.deleteButton }} onClick={onDelete}>
             <Icon classes={{ icon: null }} size={16} src={TrashIcon} />
             <span className={classes.actionLabel}>
                 <FormattedMessage
@@ -61,6 +75,36 @@ const AddressCard = props => {
                 />
             </span>
         </LinkButton>
+    ) : null;
+
+    const maybeConfirmingDeleteOverlay = isConfirmingDelete ? (
+        <div className={classes.confirmDeleteContainer}>
+            <Button
+                classes={confirmDeleteButtonClasses}
+                disabled={isDeletingCustomerAddress}
+                priority="normal"
+                type="button"
+                negative={true}
+                onClick={onConfirmDelete}
+            >
+                <FormattedMessage
+                    id={'global.deleteButton'}
+                    defaultMessage={'Delete'}
+                />
+            </Button>
+            <Button
+                classes={cancelDeleteButtonClasses}
+                disabled={isDeletingCustomerAddress}
+                priority="low"
+                type="button"
+                onClick={onCancelDelete}
+            >
+                <FormattedMessage
+                    id={'global.cancelButton'}
+                    defaultMessage={'Cancel'}
+                />
+            </Button>
+        </div>
     ) : null;
 
     return (
@@ -96,6 +140,7 @@ const AddressCard = props => {
                     </span>
                 </LinkButton>
                 {deleteButtonElement}
+                {maybeConfirmingDeleteOverlay}
             </div>
         </div>
     );
@@ -137,5 +182,10 @@ AddressCard.propTypes = {
         telephone: string
     }),
     countryName: string,
+    isConfirmingDelete: bool,
+    isDeletingCustomerAddress: bool,
+    onCancelDelete: func,
+    onConfirmDelete: func,
+    onDelete: func,
     onEdit: func
 };
