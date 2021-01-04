@@ -109,8 +109,10 @@ export const useOrderHistoryPage = (props = {}) => {
 
     // Fetch orders data on load
     useEffect(() => {
-        getOrdersData();
-    }, [getOrdersData, isSignedIn]);
+        if (!searchText) {
+            getOrdersData();
+        }
+    }, [getOrdersData, searchText]);
 
     return {
         errorMessage: derivedErrorMessage,
