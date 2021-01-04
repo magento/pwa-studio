@@ -20,7 +20,7 @@ Service workers can intercept network requests and fetch cached data or store re
 
 ### Venia service worker
 
-Venia's service worker behavior is defined in the [`src/sw.js`][] file using Google's [Workbox][] library.
+Venia's service worker behavior is defined in the [`src/SerciveWorker/sw.js`][] file using Google's [Workbox][] library.
 
 You do not need to use Workbox to define service worker behavior, but
 Workbox makes this task easier by removing boilerplate code that is always used when working with service workers.
@@ -78,7 +78,7 @@ This strategy is set using the `fetchPolicy` prop on the `Query` component.
 Caching for Apollo is set up in the [`src/drivers/adapter.js`][] file.
 
 [service worker]: https://developers.google.com/web/ilt/pwa/introduction-to-service-worker
-[`src/sw.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/sw.js
+[`src/ServiceWorker/sw.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/ServiceWorker/sw.js
 [workbox]: https://developers.google.com/web/tools/workbox/
 [caching strategies]: https://developers.google.com/web/tools/workbox/modules/workbox-strategies
 [stale-while-revalidate]: https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#stale-while-revalidate
