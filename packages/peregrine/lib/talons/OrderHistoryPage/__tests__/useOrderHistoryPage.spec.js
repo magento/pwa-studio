@@ -156,7 +156,7 @@ test('getOrderDetails fetches order details for the given search text', () => {
     update();
 
     expect(getOrder).toHaveBeenCalled();
-    expect(getOrder.mock.calls[1]).toMatchSnapshot();
+    expect(getOrder.mock.calls[0]).toMatchSnapshot();
 });
 
 test('handleKeyPress should fetch orders if Enter key is pressed', () => {
@@ -167,7 +167,7 @@ test('handleKeyPress should fetch orders if Enter key is pressed', () => {
     update();
 
     expect(getOrder).toHaveBeenCalled();
-    expect(getOrder.mock.calls[1]).toMatchSnapshot();
+    expect(getOrder.mock.calls[0]).toMatchSnapshot();
 });
 
 test('resetForm should clear search and refetch orders data', () => {
@@ -186,5 +186,5 @@ test('resetForm should clear search and refetch orders data', () => {
     expect(reset).toHaveBeenCalled();
     // should fetch all orders
     expect(getOrder).toHaveBeenCalled();
-    expect(getOrder.mock.calls[1]).toMatchSnapshot();
+    expect(getOrder.mock.calls[0]).toMatchSnapshot();
 });
