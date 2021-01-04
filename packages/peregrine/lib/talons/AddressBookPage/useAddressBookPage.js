@@ -25,6 +25,7 @@ export const useAddressBookPage = (props = {}) => {
     const operations = mergeOperations(defaultOperations, props.operations);
     const {
         createCustomerAddressMutation,
+        deleteCustomerAddressMutation,
         getCustomerAddressesQuery,
         updateCustomerAddressMutation
     } = operations;
@@ -46,6 +47,13 @@ export const useAddressBookPage = (props = {}) => {
             skip: !isSignedIn
         }
     );
+    const [
+        deleteCustomerAddress,
+        { loading: isDeletingCustomerAddress }
+    ] = useMutation(deleteCustomerAddressMutation);
+
+    const [confirmDeleteAddressId, setConfirmDeleteAddressId] = useState();
+
     const isRefetching = !!customerAddressesData && loading;
     const customerAddresses =
         (customerAddressesData &&
@@ -97,6 +105,32 @@ export const useAddressBookPage = (props = {}) => {
         setFormAddress({ country_code: 'US' });
         setIsDialogOpen(true);
     }, []);
+
+    const handleDeleteAddress = useCallback(addressId => {
+        setConfirmDeleteAddressId(addressId);
+    }, []);
+
+    const handleCancelDeleteAddress = useCallback(() => {
+        setConfirmDeleteAddressId(null);
+    }, []);
+
+    const handleConfirmDeleteAddress = useCallback(async () => {
+        try {
+            await deleteCustomerAddress({
+                variables: { addressId: confirmDeleteAddressId },
+                refetchQueries: [{ query: getCustomerAddressesQuery }],
+                awaitRefetchQueries: true
+            });
+
+            setConfirmDeleteAddressId(null);
+        } catch {
+            return;
+        }
+    }, [
+        confirmDeleteAddressId,
+        deleteCustomerAddress,
+        getCustomerAddressesQuery
+    ]);
 
     const handleEditAddress = useCallback(address => {
         // Hide all previous errors when we open the dialog.
@@ -194,14 +228,19 @@ export const useAddressBookPage = (props = {}) => {
     };
 
     return {
+        confirmDeleteAddressId,
         countryDisplayNameMap,
         customerAddresses,
         formErrors,
         formProps,
         handleAddAddress,
+        handleCancelDeleteAddress,
         handleCancelDialog,
+        handleConfirmDeleteAddress,
         handleConfirmDialog,
+        handleDeleteAddress,
         handleEditAddress,
+        isDeletingCustomerAddress,
         isDialogBusy,
         isDialogEditMode,
         isDialogOpen,
@@ -215,14 +254,19 @@ export const useAddressBookPage = (props = {}) => {
  *
  * @typedef {Object} AddressBookPageTalonProps
  *
+ * @property {String} confirmDeleteAddressId - The id of the address that is waiting to be confirmed for deletion.
  * @property {Map} countryDisplayNameMap - A Map of country id to its localized display name.
  * @property {Array<Object>} customerAddresses - A list of customer addresses.
  * @property {Map} formErrors - A Map of form errors.
  * @property {Object} formProps - Properties to pass to the add/edit form.
  * @property {Function} handleAddAdddress - Function to invoke when adding a new address.
+ * @property {Function} handleCancelDeleteAddress - Function to deny the confirmation of deleting an address.
  * @property {Function} handleCancelDialog - Function to invoke when cancelling the add/edit dialog.
+ * @property {Function} handleConfirmDeleteAddress - Function to invoke to accept the confirmation of deleting an address.
  * @property {Function} handleConfirmDialog - Function to invoke when submitting the add/edit dialog.
+ * @property {Function} handleDeleteAddress - Function to invoke to begin the address deletion process.
  * @property {Function} handleEditAddress - Function to invoke when editing an existing address.
+ * @property {Boolean} isDeletingCustomerAddress - Whether an address deletion is currently in progress.
  * @property {Boolean} isDialogBusy - Whether actions inside the dialog should be disabled.
  * @property {Boolean} isDialogEditMode - Whether the dialog is in edit mode (true) or add new mode (false).
  * @property {Boolean} isDialogOpen - Whether the dialog should be open.
