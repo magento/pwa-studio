@@ -10,6 +10,8 @@ import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 
 import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
 
+const PAGE_SIZE = 2;
+
 export const useOrderHistoryPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerOrderQuery } = operations;
@@ -23,27 +25,30 @@ export const useOrderHistoryPage = (props = {}) => {
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
 
+    const [pageSize, setPageSize] = useState(PAGE_SIZE);
     const [searchText, setSearchText] = useState('');
 
     const {
         data: orderData,
-        loading: orderLoading,
-        error: getOrderError
+        error: getOrderError,
+        loading: orderLoading
     } = useQuery(getCustomerOrderQuery, {
         fetchPolicy: 'cache-and-network',
         variables: {
-            orderNumber: {
+            filter: {
                 number: {
                     match: searchText
                 }
-            }
+            },
+            currentPage: 1,
+            pageSize
         }
     });
 
     const orders = orderData ? orderData.customer.orders.items : [];
 
-    const isLoadingWithoutData = !orders && orderLoading;
-    const isBackgroundLoading = !!orders && orderLoading;
+    const isLoadingWithoutData = !orderData && orderLoading;
+    const isBackgroundLoading = !!orderData && orderLoading;
 
     const derivedErrorMessage = useMemo(
         () => deriveErrorMessage([getOrderError]),
@@ -52,12 +57,22 @@ export const useOrderHistoryPage = (props = {}) => {
 
     const handleReset = useCallback(() => {
         setSearchText('');
-        console.log('woof');
     }, []);
 
     const handleSubmit = useCallback(({ search }) => {
         setSearchText(search);
     }, []);
+
+    const fetchMoreOrders = useCallback(() => {
+        if (orderData) {
+            const { page_info } = orderData.customer.orders;
+            const { current_page, total_pages } = page_info;
+
+            if (current_page < total_pages) {
+                setPageSize(current => current + PAGE_SIZE);
+            }
+        }
+    }, [orderData]);
 
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
@@ -73,6 +88,7 @@ export const useOrderHistoryPage = (props = {}) => {
 
     return {
         errorMessage: derivedErrorMessage,
+        fetchMoreOrders,
         handleReset,
         handleSubmit,
         isBackgroundLoading,

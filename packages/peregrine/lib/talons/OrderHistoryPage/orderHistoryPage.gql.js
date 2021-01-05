@@ -85,14 +85,26 @@ const CustomerOrdersFragment = gql`
                 }
             }
         }
+        page_info {
+            current_page
+            total_pages
+        }
     }
 `;
 
 export const GET_CUSTOMER_ORDER = gql`
-    query GetCustomerOrders($orderNumber: CustomerOrdersFilterInput) {
+    query GetCustomerOrders(
+        $filter: CustomerOrdersFilterInput
+        $currentPage: Int!
+        $pageSize: Int!
+    ) {
         customer {
             id
-            orders(filter: $orderNumber) {
+            orders(
+                filter: $filter
+                currentPage: $currentPage
+                pageSize: $pageSize
+            ) {
                 ...CustomerOrdersFragment
             }
         }

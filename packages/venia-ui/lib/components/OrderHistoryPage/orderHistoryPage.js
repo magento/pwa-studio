@@ -37,6 +37,7 @@ const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage();
     const {
         errorMessage,
+        fetchMoreOrders,
         handleReset,
         handleSubmit,
         isBackgroundLoading,
@@ -154,6 +155,9 @@ const OrderHistoryPage = props => {
                     </Button>
                 </Form>
                 {pageContents}
+                <button type="button" onClick={fetchMoreOrders}>
+                    Fetch More
+                </button>
             </div>
         </OrderHistoryContextProvider>
     );
