@@ -92,19 +92,14 @@ const CustomerOrdersFragment = gql`
     }
 `;
 
-export const GET_CUSTOMER_ORDER = gql`
+export const GET_CUSTOMER_ORDERS = gql`
     query GetCustomerOrders(
         $filter: CustomerOrdersFilterInput
-        $currentPage: Int!
         $pageSize: Int!
     ) {
         customer {
             id
-            orders(
-                filter: $filter
-                currentPage: $currentPage
-                pageSize: $pageSize
-            ) {
+            orders(filter: $filter, pageSize: $pageSize) {
                 ...CustomerOrdersFragment
             }
         }
@@ -113,5 +108,5 @@ export const GET_CUSTOMER_ORDER = gql`
 `;
 
 export default {
-    getCustomerOrderQuery: GET_CUSTOMER_ORDER
+    getCustomerOrdersQuery: GET_CUSTOMER_ORDERS
 };

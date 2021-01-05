@@ -10,11 +10,11 @@ import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 
 import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 10;
 
 export const useOrderHistoryPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCustomerOrderQuery } = operations;
+    const { getCustomerOrdersQuery } = operations;
 
     const [
         ,
@@ -32,7 +32,7 @@ export const useOrderHistoryPage = (props = {}) => {
         data: orderData,
         error: getOrderError,
         loading: orderLoading
-    } = useQuery(getCustomerOrderQuery, {
+    } = useQuery(getCustomerOrdersQuery, {
         fetchPolicy: 'cache-and-network',
         variables: {
             filter: {
@@ -40,7 +40,6 @@ export const useOrderHistoryPage = (props = {}) => {
                     match: searchText
                 }
             },
-            currentPage: 1,
             pageSize
         }
     });
