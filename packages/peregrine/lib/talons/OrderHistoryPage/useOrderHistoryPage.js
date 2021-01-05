@@ -63,15 +63,17 @@ export const useOrderHistoryPage = (props = {}) => {
         setSearchText(search);
     }, []);
 
-    const fetchMoreOrders = useCallback(() => {
+    const loadMoreOrders = useMemo(() => {
         if (orderData) {
             const { page_info } = orderData.customer.orders;
             const { current_page, total_pages } = page_info;
 
             if (current_page < total_pages) {
-                setPageSize(current => current + PAGE_SIZE);
+                return () => setPageSize(current => current + PAGE_SIZE);
             }
         }
+
+        return null;
     }, [orderData]);
 
     // If the user is no longer signed in, redirect to the home page.
@@ -88,11 +90,11 @@ export const useOrderHistoryPage = (props = {}) => {
 
     return {
         errorMessage: derivedErrorMessage,
-        fetchMoreOrders,
         handleReset,
         handleSubmit,
         isBackgroundLoading,
         isLoadingWithoutData,
+        loadMoreOrders,
         orders,
         searchText
     };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFieldState, useFormApi } from 'informed';
+import { useFormApi } from 'informed';
 import { X as ClearIcon } from 'react-feather';
 
 import Icon from '../Icon';
@@ -9,7 +9,6 @@ const clearIcon = <Icon src={ClearIcon} size={24} />;
 
 const ResetButton = props => {
     const { onReset } = props;
-    const searchText = useFieldState('search');
     const formApi = useFormApi();
 
     const handleReset = () => {
@@ -17,9 +16,7 @@ const ResetButton = props => {
         onReset();
     };
 
-    return searchText ? (
-        <Trigger action={handleReset}>{clearIcon}</Trigger>
-    ) : null;
+    return <Trigger action={handleReset}>{clearIcon}</Trigger>;
 };
 
 export default ResetButton;
