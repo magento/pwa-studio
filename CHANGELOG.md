@@ -19,33 +19,33 @@ PWA Studio 9.0.0 contains new features, refactors, and various improvements.
 
 ### Venia (storefront and visual component library)
 
-| Description                                                                          | Change type  | PR        |
-| ------------------------------------------------------------------------------------ | ------------ | --------- |
+| Description | Change type | PR  |
+| ----------- | ----------- | --- |
 
 ### Peregrine library
 
-| Description                                                                                               | Change type  | PR        |
-| --------------------------------------------------------------------------------------------------------- | ------------ | --------- |
+| Description | Change type | PR  |
+| ----------- | ----------- | --- |
 
 ### Build tools
 
-| Description                                                                                  | Change type | PR        |
-| -------------------------------------------------------------------------------------------- | ----------- | --------- |
+| Description | Change type | PR  |
+| ----------- | ----------- | --- |
 
 ### UPWARD
 
-| Description                                                                      | Change type | PR        |
-| -------------------------------------------------------------------------------- | ----------- | --------- |
+| Description | Change type | PR  |
+| ----------- | ----------- | --- |
 
 ### Documentation
 
-| Description                                                                   | Change type       | PR        |
-| ----------------------------------------------------------------------------- | ----------------- | --------- |
+| Description | Change type | PR  |
+| ----------- | ----------- | --- |
 
 ### Misc
 
-| Description                                                              | Change type | PR                  |
-| ------------------------------------------------------------------------ | ----------- | ------------------- |
+| Description | Change type | PR  |
+| ----------- | ----------- | --- |
 
 ## Known issues
 
@@ -122,3 +122,99 @@ yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento
 ```
 
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
+
+[#2912]: https://github.com/magento/pwa-studio/pull/2912
+[#2911]: https://github.com/magento/pwa-studio/pull/2911
+[#2907]: https://github.com/magento/pwa-studio/pull/2907
+[#2902]: https://github.com/magento/pwa-studio/pull/2902
+[#2897]: https://github.com/magento/pwa-studio/pull/2897
+[#2896]: https://github.com/magento/pwa-studio/pull/2896
+[#2893]: https://github.com/magento/pwa-studio/pull/2893
+[#2891]: https://github.com/magento/pwa-studio/pull/2891
+[#2889]: https://github.com/magento/pwa-studio/pull/2889
+[#2888]: https://github.com/magento/pwa-studio/pull/2888
+[#2882]: https://github.com/magento/pwa-studio/pull/2882
+[#2881]: https://github.com/magento/pwa-studio/pull/2881
+[#2880]: https://github.com/magento/pwa-studio/pull/2880
+[#2879]: https://github.com/magento/pwa-studio/pull/2879
+[#2877]: https://github.com/magento/pwa-studio/pull/2877
+[#2871]: https://github.com/magento/pwa-studio/pull/2871
+[#2870]: https://github.com/magento/pwa-studio/pull/2870
+[#2868]: https://github.com/magento/pwa-studio/pull/2868
+[#2865]: https://github.com/magento/pwa-studio/pull/2865
+[#2863]: https://github.com/magento/pwa-studio/pull/2863
+[#2859]: https://github.com/magento/pwa-studio/pull/2859
+[#2857]: https://github.com/magento/pwa-studio/pull/2857
+[#2856]: https://github.com/magento/pwa-studio/pull/2856
+[#2855]: https://github.com/magento/pwa-studio/pull/2855
+[#2853]: https://github.com/magento/pwa-studio/pull/2853
+[#2852]: https://github.com/magento/pwa-studio/pull/2852
+[#2850]: https://github.com/magento/pwa-studio/pull/2850
+[#2847]: https://github.com/magento/pwa-studio/pull/2847
+[#2846]: https://github.com/magento/pwa-studio/pull/2846
+[#2844]: https://github.com/magento/pwa-studio/pull/2844
+[#2840]: https://github.com/magento/pwa-studio/pull/2840
+[#2838]: https://github.com/magento/pwa-studio/pull/2838
+[#2824]: https://github.com/magento/pwa-studio/pull/2824
+[#2823]: https://github.com/magento/pwa-studio/pull/2823
+[#2819]: https://github.com/magento/pwa-studio/pull/2819
+[#2818]: https://github.com/magento/pwa-studio/pull/2818
+[#2812]: https://github.com/magento/pwa-studio/pull/2812
+[#2811]: https://github.com/magento/pwa-studio/pull/2811
+[#2807]: https://github.com/magento/pwa-studio/pull/2807
+[#2806]: https://github.com/magento/pwa-studio/pull/2806
+[#2801]: https://github.com/magento/pwa-studio/pull/2801
+[#2800]: https://github.com/magento/pwa-studio/pull/2800
+[#2799]: https://github.com/magento/pwa-studio/pull/2799
+[#2794]: https://github.com/magento/pwa-studio/pull/2794
+[#2793]: https://github.com/magento/pwa-studio/pull/2793
+[#2789]: https://github.com/magento/pwa-studio/pull/2789
+[#2786]: https://github.com/magento/pwa-studio/pull/2786
+[#2785]: https://github.com/magento/pwa-studio/pull/2785
+[#2783]: https://github.com/magento/pwa-studio/pull/2783
+[#2782]: https://github.com/magento/pwa-studio/pull/2782
+[#2781]: https://github.com/magento/pwa-studio/pull/2781
+[#2779]: https://github.com/magento/pwa-studio/pull/2779
+[#2778]: https://github.com/magento/pwa-studio/pull/2778
+[#2777]: https://github.com/magento/pwa-studio/pull/2777
+[#2774]: https://github.com/magento/pwa-studio/pull/2774
+[#2772]: https://github.com/magento/pwa-studio/pull/2772
+[#2771]: https://github.com/magento/pwa-studio/pull/2771
+[#2767]: https://github.com/magento/pwa-studio/pull/2767
+[#2766]: https://github.com/magento/pwa-studio/pull/2766
+[#2765]: https://github.com/magento/pwa-studio/pull/2765
+[#2764]: https://github.com/magento/pwa-studio/pull/2764
+[#2763]: https://github.com/magento/pwa-studio/pull/2763
+[#2761]: https://github.com/magento/pwa-studio/pull/2761
+[#2759]: https://github.com/magento/pwa-studio/pull/2759
+[#2756]: https://github.com/magento/pwa-studio/pull/2756
+[#2755]: https://github.com/magento/pwa-studio/pull/2755
+[#2749]: https://github.com/magento/pwa-studio/pull/2749
+[#2746]: https://github.com/magento/pwa-studio/pull/2746
+[#2742]: https://github.com/magento/pwa-studio/pull/2742
+[#2741]: https://github.com/magento/pwa-studio/pull/2741
+[#2740]: https://github.com/magento/pwa-studio/pull/2740
+[#2735]: https://github.com/magento/pwa-studio/pull/2735
+[#2734]: https://github.com/magento/pwa-studio/pull/2734
+[#2728]: https://github.com/magento/pwa-studio/pull/2728
+[#2725]: https://github.com/magento/pwa-studio/pull/2725
+[#2721]: https://github.com/magento/pwa-studio/pull/2721
+[#2718]: https://github.com/magento/pwa-studio/pull/2718
+[#2715]: https://github.com/magento/pwa-studio/pull/2715
+[#2714]: https://github.com/magento/pwa-studio/pull/2714
+[#2712]: https://github.com/magento/pwa-studio/pull/2712
+[#2708]: https://github.com/magento/pwa-studio/pull/2708
+[#2706]: https://github.com/magento/pwa-studio/pull/2706
+[#2703]: https://github.com/magento/pwa-studio/pull/2703
+[#2696]: https://github.com/magento/pwa-studio/pull/2696
+[#2694]: https://github.com/magento/pwa-studio/pull/2694
+[#2693]: https://github.com/magento/pwa-studio/pull/2693
+[#2692]: https://github.com/magento/pwa-studio/pull/2692
+[#2690]: https://github.com/magento/pwa-studio/pull/2690
+[#2686]: https://github.com/magento/pwa-studio/pull/2686
+[#2685]: https://github.com/magento/pwa-studio/pull/2685
+[#2681]: https://github.com/magento/pwa-studio/pull/2681
+[#2680]: https://github.com/magento/pwa-studio/pull/2680
+[#2672]: https://github.com/magento/pwa-studio/pull/2672
+[#2671]: https://github.com/magento/pwa-studio/pull/2671
+[#2636]: https://github.com/magento/pwa-studio/pull/2636
