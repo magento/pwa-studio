@@ -19,18 +19,36 @@ PWA Studio 9.0.0 contains new features, refactors, and various improvements.
 
 ### Venia (storefront and visual component library)
 
-| Description | Change type | PR  |
-| ----------- | ----------- | --- |
+| Description                                                                     | Change type | PR        |
+| ------------------------------------------------------------------------------- | ----------- | --------- |
+| Created the main view for Address Book in My Account                            | **Feature** | [#2857][] |
+| Added ability to Add and Edit addresses in the Address Book                     | **Feature** | [#2879][] |
+| Created the main view for Saved payment methods                                 | **Feature** | [#2882][] |
+| Added ability to delete Address from Address Book                               | **Feature** | [#2888][] |
+| Created new Sign In view for Checkout flow                                      | **Feature** | [#2889][] |
+| Updated logic for routes handling to accept an array of paths                   | **Feature** | [#2893][] |
+| Replaced hardcoded root category id with an actual value retrieved from a query | **Feature** | [#2902][] |
+| Added search by order number feature to the order history page                  | **Feature** | [#2916][] |
+| Fixed Service Worker caching for home page routes with store code               | **Bugfix**  | [#2856][] |
 
 ### Peregrine library
 
-| Description | Change type | PR  |
-| ----------- | ----------- | --- |
+| Description                                     | Change type  | PR        |
+| ----------------------------------------------- | ------------ | --------- |
+| Improved RootComponents talons test coverage    | **Update**   | [#2896][] |
+| Removed routes to features still in progress    | **Update**   | [#2918][] |
+| Refactored MagentoRoute to use ApolloClient     | **Refactor** | [#2859][] |
+| Moved product detail GraphQl fields to fragment | **Refactor** | [#2868][] |
+| Fixed `apiBase` URL in `resolveUnknownRoute.js` | **Bugfix**   | [#2877][] |
+| Fixed broken top level category navigation      | **Bugfix**   | [#2911][] |
 
 ### Build tools
 
-| Description | Change type | PR  |
-| ----------- | ----------- | --- |
+| Description                                                     | Change type | PR        |
+| --------------------------------------------------------------- | ----------- | --------- |
+| Enabled self-signed certificates for backend validation         | **Feature** | [#2891][] |
+| Fixed bug related to `apicache` overriding good cache headers   | **Bugfix**  | [#2870][] |
+| Fixed missing `projectConfig` in `create-custom-origin` command | **Bugfix**  | [#2897][] |
 
 ### UPWARD
 
@@ -39,13 +57,20 @@ PWA Studio 9.0.0 contains new features, refactors, and various improvements.
 
 ### Documentation
 
-| Description | Change type | PR  |
-| ----------- | ----------- | --- |
+| Description                                    | Change type       | PR        |
+| ---------------------------------------------- | ----------------- | --------- |
+| Created extensibility framework overview topic | **Documentation** | [#2863][] |
+| Updated cloud deployment topic                 | **Update**        | [#2871][] |
+| Refactored tutorials section                   | **Refactor**      | [#2907][] |
+| Removed duplicate word from doc                | **Bugfix**        | [#2865][] |
 
 ### Misc
 
-| Description | Change type | PR  |
-| ----------- | ----------- | --- |
+| Description                                                                   | Change type | PR        |
+| ----------------------------------------------------------------------------- | ----------- | --------- |
+| Updated PageBuilder form field/field group viewport to read non-media styles  | **Update**  | [#2881][] |
+| Fix failing unit tests related to race conditions                             | **Bugfix**  | [#2880][] |
+| Fixed a Storybook bug related to the relative import of a local custom loader | **Bugfix**  | [#2912][] |
 
 ## Known issues
 
@@ -218,3 +243,5 @@ yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento
 [#2672]: https://github.com/magento/pwa-studio/pull/2672
 [#2671]: https://github.com/magento/pwa-studio/pull/2671
 [#2636]: https://github.com/magento/pwa-studio/pull/2636
+[#2918]: https://github.com/magento/pwa-studio/pull/2918
+[#2916]: https://github.com/magento/pwa-studio/pull/2916
