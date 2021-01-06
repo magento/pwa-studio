@@ -317,9 +317,9 @@ export const removeItemFromCart = payload => {
 };
 
 export const getCartDetails = payload => {
-    const { apolloClient, fetchCartId, fetchCartDetails } = payload;
+    const { fetchCartId, fetchCartDetails } = payload;
 
-    return async function thunk(dispatch, getState) {
+    return async function thunk(dispatch, getState, { apolloClient }) {
         const { cart, user } = getState();
         const { cartId } = cart;
         const { isSignedIn } = user;
