@@ -43,6 +43,7 @@ const OrderHistoryPage = props => {
         isBackgroundLoading,
         isLoadingWithoutData,
         orders,
+        pageInfo,
         searchText
     } = talonProps;
     const [, { addToast }] = useToasts();
@@ -117,6 +118,14 @@ const OrderHistoryPage = props => {
         />
     );
 
+    const pageInfoLabel = pageInfo ? (
+        <FormattedMessage
+            defaultMessage={'Showing {current} of {total}'}
+            id={'orderHistoryPage.pageInfo'}
+            values={pageInfo}
+        />
+    ) : null;
+
     const loadMoreButton = loadMoreOrders ? (
         <Button
             classes={{ root_lowPriority: classes.loadMoreButton }}
@@ -148,23 +157,28 @@ const OrderHistoryPage = props => {
             <div className={classes.root}>
                 <Title>{title}</Title>
                 <h1 className={classes.heading}>{PAGE_TITLE}</h1>
-                <Form className={classes.search} onSubmit={handleSubmit}>
-                    <TextInput
-                        after={resetButtonElement}
-                        before={searchIcon}
-                        field="search"
-                        id={classes.search}
-                        placeholder={SEARCH_PLACE_HOLDER}
-                    />
-                    <Button
-                        className={classes.searchButton}
-                        disabled={isBackgroundLoading || isLoadingWithoutData}
-                        priority={'high'}
-                        type="submit"
-                    >
-                        {submitIcon}
-                    </Button>
-                </Form>
+                <div className={classes.filterRow}>
+                    <span className={classes.pageInfo}>{pageInfoLabel}</span>
+                    <Form className={classes.search} onSubmit={handleSubmit}>
+                        <TextInput
+                            after={resetButtonElement}
+                            before={searchIcon}
+                            field="search"
+                            id={classes.search}
+                            placeholder={SEARCH_PLACE_HOLDER}
+                        />
+                        <Button
+                            className={classes.searchButton}
+                            disabled={
+                                isBackgroundLoading || isLoadingWithoutData
+                            }
+                            priority={'high'}
+                            type="submit"
+                        >
+                            {submitIcon}
+                        </Button>
+                    </Form>
+                </div>
                 {pageContents}
                 {loadMoreButton}
             </div>

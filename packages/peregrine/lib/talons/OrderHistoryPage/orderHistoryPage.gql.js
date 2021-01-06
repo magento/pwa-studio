@@ -89,6 +89,7 @@ const CustomerOrdersFragment = gql`
             current_page
             total_pages
         }
+        total_count
     }
 `;
 

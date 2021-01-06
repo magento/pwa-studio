@@ -49,6 +49,19 @@ export const useOrderHistoryPage = (props = {}) => {
     const isLoadingWithoutData = !orderData && orderLoading;
     const isBackgroundLoading = !!orderData && orderLoading;
 
+    const pageInfo = useMemo(() => {
+        if (orderData) {
+            const { total_count } = orderData.customer.orders;
+
+            return {
+                current: pageSize < total_count ? pageSize : total_count,
+                total: total_count
+            };
+        }
+
+        return null;
+    }, [orderData, pageSize]);
+
     const derivedErrorMessage = useMemo(
         () => deriveErrorMessage([getOrderError]),
         [getOrderError]
@@ -95,6 +108,7 @@ export const useOrderHistoryPage = (props = {}) => {
         isLoadingWithoutData,
         loadMoreOrders,
         orders,
+        pageInfo,
         searchText
     };
 };
