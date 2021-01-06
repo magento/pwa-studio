@@ -10,7 +10,14 @@ jest.mock('@apollo/client', () => {
         useQuery: jest.fn(() => ({
             data: null,
             loading: false
-        }))
+        })),
+        useMutation: jest.fn(() => [
+            jest.fn(),
+            {
+                error: false,
+                loading: false
+            }
+        ])
     };
 });
 
@@ -63,9 +70,22 @@ test('it returns the proper shape', () => {
     const talonProps = log.mock.calls[0][0];
     const actualKeys = Object.keys(talonProps);
     const expectedKeys = [
+        'confirmDeleteAddressId',
         'countryDisplayNameMap',
         'customerAddresses',
+        'formErrors',
+        'formProps',
         'handleAddAddress',
+        'handleCancelDeleteAddress',
+        'handleCancelDialog',
+        'handleConfirmDeleteAddress',
+        'handleConfirmDialog',
+        'handleDeleteAddress',
+        'handleEditAddress',
+        'isDeletingCustomerAddress',
+        'isDialogBusy',
+        'isDialogEditMode',
+        'isDialogOpen',
         'isLoading'
     ];
     expect(actualKeys.sort()).toEqual(expectedKeys.sort());

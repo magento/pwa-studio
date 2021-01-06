@@ -1,13 +1,6 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { X as CloseIcon } from 'react-feather';
 import { useEditModal } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useEditModal';
 
-import { mergeClasses } from '../../../../classify';
-import Icon from '../../../Icon';
-import { Portal } from '../../../Portal';
-import defaultClasses from './editModal.css';
-import ProductDetail from './productDetail';
 import ProductForm from './productForm';
 
 /**
@@ -16,6 +9,7 @@ import ProductForm from './productForm';
  *
  * @param {Object} props
  * @param {Object} props.item Product to edit.
+ * @param {function} props.setActiveEditItem Function for setting the actively editing item
  * See [productListingFragments.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListingFragments.js}
  * for a list of properties for this object.
  * @param {Function} props.setIsCartUpdating Function for setting the updating state of the cart.
@@ -29,44 +23,18 @@ import ProductForm from './productForm';
  * import EditModal from "@magento/venia-ui/lib/components/CartPage/ProductListing/EditModal";
  */
 const EditModal = props => {
-    const { item, setIsCartUpdating } = props;
+    const { item, setActiveEditItem, setIsCartUpdating } = props;
     const talonProps = useEditModal();
-    const { handleClose, isOpen, setVariantPrice, variantPrice } = talonProps;
-
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const rootClass = isOpen ? classes.root_open : classes.root;
-
-    const bodyComponent = item ? (
-        <div className={classes.body} key={item.id}>
-            <ProductDetail item={item} variantPrice={variantPrice} />
-            <ProductForm
-                item={item}
-                setIsCartUpdating={setIsCartUpdating}
-                setVariantPrice={setVariantPrice}
-            />
-        </div>
-    ) : null;
+    const { setVariantPrice, variantPrice } = talonProps;
 
     return (
-        <Portal>
-            <aside className={rootClass}>
-                <div className={classes.header}>
-                    <span className={classes.headerText}>
-                        <FormattedMessage
-                            id={'editModal.headerText'}
-                            defaultMessage={'Edit Item'}
-                        />
-                    </span>
-                    <button
-                        className={classes.closeButton}
-                        onClick={handleClose}
-                    >
-                        <Icon src={CloseIcon} />
-                    </button>
-                </div>
-                {bodyComponent}
-            </aside>
-        </Portal>
+        <ProductForm
+            item={item}
+            setIsCartUpdating={setIsCartUpdating}
+            setVariantPrice={setVariantPrice}
+            variantPrice={variantPrice}
+            setActiveEditItem={setActiveEditItem}
+        />
     );
 };
 

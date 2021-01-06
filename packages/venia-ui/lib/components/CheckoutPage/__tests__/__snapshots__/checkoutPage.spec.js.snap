@@ -42,7 +42,7 @@ exports[`CheckoutPage renders address book for customer 1`] = `
     >
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
-        toggleActiveContent={[MockFunction toggleActiveContent]}
+        toggleActiveContent={[MockFunction toggleAddressBookContent]}
       />
     </div>
     <div
@@ -79,7 +79,7 @@ exports[`CheckoutPage renders address book for customer 1`] = `
   </div>
   <AddressBook
     activeContent="addressBook"
-    toggleActiveContent={[MockFunction toggleActiveContent]}
+    toggleActiveContent={[MockFunction toggleAddressBookContent]}
   />
 </div>
 `;
@@ -126,7 +126,7 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
     >
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
-        toggleActiveContent={[MockFunction toggleActiveContent]}
+        toggleActiveContent={[MockFunction toggleAddressBookContent]}
       />
     </div>
     <div
@@ -163,7 +163,7 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
   </div>
   <AddressBook
     activeContent="checkout"
-    toggleActiveContent={[MockFunction toggleActiveContent]}
+    toggleActiveContent={[MockFunction toggleAddressBookContent]}
   />
 </div>
 `;
@@ -210,7 +210,7 @@ exports[`CheckoutPage renders checkout content for customer - no default address
     >
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
-        toggleActiveContent={[MockFunction toggleActiveContent]}
+        toggleActiveContent={[MockFunction toggleAddressBookContent]}
       />
     </div>
     <div
@@ -247,7 +247,7 @@ exports[`CheckoutPage renders checkout content for customer - no default address
   </div>
   <AddressBook
     activeContent="checkout"
-    toggleActiveContent={[MockFunction toggleActiveContent]}
+    toggleActiveContent={[MockFunction toggleAddressBookContent]}
   />
 </div>
 `;
@@ -260,25 +260,6 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
   <div
     className="checkoutContent"
   >
-    <div
-      className="signin_container"
-    >
-      <button
-        className="sign_in"
-        disabled={false}
-        onClick={[MockFunction handleSignIn]}
-        type="button"
-      >
-        <span
-          className="content"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Login and Checkout Faster"
-            id="checkoutPage.loginAndCheckoutFaster"
-          />
-        </span>
-      </button>
-    </div>
     <div
       className="heading_container"
     >
@@ -309,11 +290,38 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
       </h1>
     </div>
     <div
+      className="signInContainer"
+    >
+      <span
+        className="signInLabel"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Sign in for Express Checkout"
+          id="checkoutPage.signInLabel"
+        />
+      </span>
+      <button
+        className="signInButton"
+        disabled={false}
+        onClick={[MockFunction toggleSignInContent]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Sign In"
+            id="checkoutPage.signInButton"
+          />
+        </span>
+      </button>
+    </div>
+    <div
       className="shipping_information_container"
     >
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
-        toggleActiveContent={[MockFunction toggleActiveContent]}
+        toggleActiveContent={[MockFunction toggleAddressBookContent]}
       />
     </div>
     <div
@@ -348,6 +356,10 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
       />
     </div>
   </div>
+  <GuestSignIn
+    isActive={false}
+    toggleActiveContent={[MockFunction toggleSignInContent]}
+  />
 </div>
 `;
 

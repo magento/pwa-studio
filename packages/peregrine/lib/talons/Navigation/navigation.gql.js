@@ -12,6 +12,16 @@ export const GET_CUSTOMER = gql`
     }
 `;
 
+const GET_ROOT_CATEGORY_ID = gql`
+    query getRootCategoryId {
+        storeConfig {
+            id
+            root_category_id
+        }
+    }
+`;
+
 export default {
-    getCustomerQuery: GET_CUSTOMER
+    getCustomerQuery: GET_CUSTOMER,
+    getRootCategoryId: GET_ROOT_CATEGORY_ID
 };

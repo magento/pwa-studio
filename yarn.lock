@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@adobe/adobe-client-data-layer@~1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@adobe/adobe-client-data-layer/-/adobe-client-data-layer-1.1.3.tgz#1b3746407d789a24858348c96ca32493933928fc"
+  integrity sha512-pEYEHprHaaIJROe6QRuTme7sUN46bn2/jpGUBeqfd8cTL+sNsOUTcg3TN7bCAnwunS4Y7NAMs6cXHEeksAgNPA==
+  dependencies:
+    lodash "^4.17.15"
+
 "@adobe/apollo-link-mutation-queue@~1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@adobe/apollo-link-mutation-queue/-/apollo-link-mutation-queue-1.0.2.tgz#0c589ffb970b9917ba52c38812740c613c0a40da"
@@ -11025,6 +11032,11 @@ lodash@^4.0.0, lodash@^4.11.1, lodash@^4.15.0, lodash@^4.16.4, lodash@^4.17.10, 
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+
+lodash@~4.17.20:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
 
 log-driver@^1.2.7:
   version "1.2.7"

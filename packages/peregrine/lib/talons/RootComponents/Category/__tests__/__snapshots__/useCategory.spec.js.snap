@@ -3,6 +3,9 @@
 exports[`returns the correct shape 1`] = `
 Object {
   "categoryData": Object {
+    "category": Object {
+      "meta_description": "Category meta-description",
+    },
     "products": Object {
       "page_info": Object {
         "total_pages": 6,
@@ -11,7 +14,7 @@ Object {
   },
   "error": null,
   "loading": false,
-  "metaDescription": "",
+  "metaDescription": "Category meta-description",
   "pageControl": Object {
     "currentPage": 3,
     "setPage": [MockFunction],
@@ -26,5 +29,27 @@ Object {
     },
     [MockFunction],
   ],
+}
+`;
+
+exports[`runs the category query 1`] = `
+Object {
+  "variables": Object {
+    "currentPage": 3,
+    "filters": Object {
+      "category_id": Object {
+        "eq": "7",
+      },
+      "price": Object {
+        "from": "0",
+        "to": "100",
+      },
+    },
+    "id": 7,
+    "pageSize": 12,
+    "sort": Object {
+      "relevance": "DESC",
+    },
+  },
 }
 `;

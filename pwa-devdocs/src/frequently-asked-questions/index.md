@@ -26,8 +26,6 @@ The Tutorials section of this site contains a number of tutorials which cover cu
 
 -   [How to add a static route][]
 -   [How to modify the site footer][]
--   [How to use component props][]
--   [How to use CSS modules][]
 
 ## Are there any live stores built using PWA Studio
 
@@ -100,10 +98,6 @@ _**Note:** For testing, resize the viewport manually instead of using the native
 [how to add a static route]: <{%link tutorials/pwa-studio-fundamentals/add-a-static-route/index.md %}>
 
 [how to modify the site footer]: <{%link tutorials/pwa-studio-fundamentals/modify-site-footer/index.md %}>
-
-[how to use component props]: <{%link tutorials/pwa-studio-fundamentals/using-component-props/index.md %}>
-
-[how to use css modules]: <{%link tutorials/pwa-studio-fundamentals/css-modules/index.md %}>
 
 [magento cloud deployment]: <{% link tutorials/cloud-deploy/index.md %}>
 
