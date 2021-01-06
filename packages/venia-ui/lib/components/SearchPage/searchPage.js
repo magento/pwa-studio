@@ -10,18 +10,13 @@ import FilterModal from '../FilterModal';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './searchPage.css';
-import { GET_PAGE_SIZE } from './searchPage.gql';
 import ProductSort from '../ProductSort';
 import Button from '../Button';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const talonProps = useSearchPage({
-        queries: {
-            getPageSize: GET_PAGE_SIZE
-        }
-    });
+    const talonProps = useSearchPage();
 
     const {
         data,
