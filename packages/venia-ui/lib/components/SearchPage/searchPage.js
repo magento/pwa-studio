@@ -5,13 +5,14 @@ import { shape, string } from 'prop-types';
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
 
 import { mergeClasses } from '../../classify';
-import Gallery from '../Gallery';
-import FilterModal from '../FilterModal';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Pagination from '../../components/Pagination';
-import defaultClasses from './searchPage.css';
+import FilterModal from '../FilterModal';
+import Gallery from '../Gallery';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import ProductSort from '../ProductSort';
 import Button from '../Button';
+
+import defaultClasses from './searchPage.css';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
