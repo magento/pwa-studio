@@ -33,22 +33,24 @@ const SearchPage = props => {
 
     const [currentSort] = sortProps;
 
-    if (loading && !data) return fullPageLoadingIndicator;
-    if (error && !data) {
-        return (
-            <div className={classes.noResult}>
-                <FormattedMessage
-                    id={'searchPage.noResult'}
-                    defaultMessage={
-                        'No results found. The search term may be missing or invalid.'
-                    }
-                />
-            </div>
-        );
+    if (!data) {
+        if (loading) return fullPageLoadingIndicator;
+        else if (error) {
+            return (
+                <div className={classes.noResult}>
+                    <FormattedMessage
+                        id={'searchPage.noResult'}
+                        defaultMessage={
+                            'No results found. The search term may be missing or invalid.'
+                        }
+                    />
+                </div>
+            );
+        }
     }
 
     let content;
-    if (!data || data.products.items.length === 0) {
+    if (data.products.items.length === 0) {
         content = (
             <div className={classes.noResult}>
                 <FormattedMessage
@@ -70,7 +72,7 @@ const SearchPage = props => {
         );
     }
 
-    const totalCount = data ? data.products.total_count : 0;
+    const totalCount = data.products.total_count || 0;
 
     const maybeFilterButtons =
         filters && filters.length ? (
