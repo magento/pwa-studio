@@ -34,7 +34,7 @@ const SearchPage = props => {
     const [currentSort] = sortProps;
 
     if (loading && !data) return fullPageLoadingIndicator;
-    if (error) {
+    if (error && !data) {
         return (
             <div className={classes.noResult}>
                 <FormattedMessage
