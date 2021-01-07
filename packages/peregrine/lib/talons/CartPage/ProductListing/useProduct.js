@@ -38,7 +38,7 @@ export const useProduct = props => {
         getConfigurableThumbnailSource
     } = operations;
 
-    const { data: getConfigurableThumbnailSourceData } = useQuery(
+    const { data: configurableThumbnailSourceData } = useQuery(
         getConfigurableThumbnailSource,
         {
             fetchPolicy: 'cache-and-network'
@@ -46,11 +46,11 @@ export const useProduct = props => {
     );
 
     const configurableThumbnailSource = useMemo(() => {
-        if (getConfigurableThumbnailSourceData) {
-            return getConfigurableThumbnailSourceData.storeConfig
+        if (configurableThumbnailSourceData) {
+            return configurableThumbnailSourceData.storeConfig
                 .configurable_thumbnail_source;
         }
-    }, [getConfigurableThumbnailSourceData]);
+    }, [configurableThumbnailSourceData]);
 
     const flatProduct = flattenProduct(item, configurableThumbnailSource);
 
@@ -182,10 +182,9 @@ const flattenProduct = (item, configurableThumbnailSource) => {
         url_suffix: urlSuffix
     } = product;
     const { url: image } =
-        (configurableThumbnailSource === 'itself' &&
-            configured_variant &&
-            configured_variant.small_image) ||
-        small_image;
+        configurableThumbnailSource === 'itself' && configured_variant
+            ? configured_variant.small_image
+            : small_image;
 
     return {
         currency,

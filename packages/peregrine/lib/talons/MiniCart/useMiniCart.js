@@ -49,7 +49,7 @@ export const useMiniCart = props => {
         }
     );
 
-    const { data: getConfigurableThumbnailSourceData } = useQuery(
+    const { data: configurableThumbnailSourceData } = useQuery(
         getConfigurableThumbnailSource,
         {
             fetchPolicy: 'cache-and-network'
@@ -57,11 +57,11 @@ export const useMiniCart = props => {
     );
 
     const configurableThumbnailSource = useMemo(() => {
-        if (getConfigurableThumbnailSourceData) {
-            return getConfigurableThumbnailSourceData.storeConfig
+        if (configurableThumbnailSourceData) {
+            return configurableThumbnailSourceData.storeConfig
                 .configurable_thumbnail_source;
         }
-    }, [getConfigurableThumbnailSourceData]);
+    }, [configurableThumbnailSourceData]);
 
     const [
         removeItem,

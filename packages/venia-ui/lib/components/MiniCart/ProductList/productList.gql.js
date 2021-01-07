@@ -46,4 +46,3 @@ export const ProductListFragment = gql`
         }
     }
 `;
-/* eslint-enable graphql/template-strings */

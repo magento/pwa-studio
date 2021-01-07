@@ -13,7 +13,7 @@ export const useItemsReview = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const { data: getConfigurableThumbnailSourceData } = useQuery(
+    const { data: configurableThumbnailSourceData } = useQuery(
         getConfigurableThumbnailSource,
         {
             fetchPolicy: 'cache-and-network'
@@ -21,11 +21,11 @@ export const useItemsReview = props => {
     );
 
     const configurableThumbnailSource = useMemo(() => {
-        if (getConfigurableThumbnailSourceData) {
-            return getConfigurableThumbnailSourceData.storeConfig
+        if (configurableThumbnailSourceData) {
+            return configurableThumbnailSourceData.storeConfig
                 .configurable_thumbnail_source;
         }
-    }, [getConfigurableThumbnailSourceData]);
+    }, [configurableThumbnailSourceData]);
 
     const [
         fetchItemsInCart,

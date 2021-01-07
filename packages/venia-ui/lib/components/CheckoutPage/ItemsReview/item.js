@@ -27,10 +27,10 @@ const Item = props => {
                 classes={{ root: classes.thumbnail }}
                 width={100}
                 resource={
-                    (configurableThumbnailSource === 'itself' &&
-                        configured_variant &&
-                        configured_variant.thumbnail.url) ||
-                    product.thumbnail.url
+                    configurableThumbnailSource === 'itself' &&
+                    configured_variant
+                        ? configured_variant.thumbnail.url
+                        : product.thumbnail.url
                 }
             />
             <span className={classes.name}>{product.name}</span>
