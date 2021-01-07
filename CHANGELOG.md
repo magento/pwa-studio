@@ -29,34 +29,48 @@ PWA Studio 9.0.0 contains new features, refactors, and various improvements.
 
 ### Venia (storefront and visual component library)
 
-| Description                                                                          | Change type  | PR        |
-| ------------------------------------------------------------------------------------ | ------------ | --------- |
-| Added ability to remove products from Wishlist                                       | **Feature**  | [#2793][] |
-| Added a "maskable icon" to Venia for Google Lighthouse                               | **Feature**  | [#2818][] |
-| Created message to display when no allowed or configured payment methods are present | **Feature**  | [#2855][] |
-| Created the main view for Address Book in My Account                                 | **Feature**  | [#2857][] |
-| Added ability to Add and Edit addresses in the Address Book                          | **Feature**  | [#2879][] |
-| Created the main view for Saved payment methods                                      | **Feature**  | [#2882][] |
-| Added ability to delete Address from Address Book                                    | **Feature**  | [#2888][] |
-| Created new Sign In view for Checkout flow                                           | **Feature**  | [#2889][] |
-| Updated logic for routes handling to accept an array of paths                        | **Feature**  | [#2893][] |
-| Replaced hardcoded root category id with an actual value retrieved from a query      | **Feature**  | [#2902][] |
-| Added search by order number feature to the order history page                       | **Feature**  | [#2916][] |
-| Refactored Edit Payment to use Dialog component                                      | **Refactor** | [#2806][] |
-| Refactored Edit Product to use Dialog component                                      | **Refactor** | [#2824][] |
-| Refactored Payment feature to make it extendable                                     | **Refactor** | [#2838][] |
-| Localized additional client-side strings                                             | **Update**   | [#2799][] |
-| Removed temp code                                                                    | **Update**   | [#2811][] |
-| Update service worker logic to handle all Venia images                               | **Update**   | [#2846][] |
-| Fixed `theme_color` value in the `manifest.json`                                     | **Bugfix**   | [#2823][] |
-| Fixed button type on product image carousel thumbnails                               | **Bugfix**   | [#2844][] |
-| Fixed Service Worker caching for home page routes with store code                    | **Bugfix**   | [#2856][] |
+| Description                                                                                         | Change type  | PR        |
+| --------------------------------------------------------------------------------------------------- | ------------ | --------- |
+| Created wishlist UI                                                                                 | **Feature**  | [#2766][] |
+| Added ability to determine whether to unmount or just hide child components in the Dialog component | **Feature**  | [#2767][] |
+| Added ability to remove products from Wishlist                                                      | **Feature**  | [#2793][] |
+| Added a "maskable icon" to Venia for Google Lighthouse                                              | **Feature**  | [#2818][] |
+| Created message to display when no allowed or configured payment methods are present                | **Feature**  | [#2855][] |
+| Created the main view for Address Book in My Account                                                | **Feature**  | [#2857][] |
+| Added ability to Add and Edit addresses in the Address Book                                         | **Feature**  | [#2879][] |
+| Created the main view for Saved payment methods                                                     | **Feature**  | [#2882][] |
+| Added ability to delete Address from Address Book                                                   | **Feature**  | [#2888][] |
+| Created new Sign In view for Checkout flow                                                          | **Feature**  | [#2889][] |
+| Updated logic for routes handling to accept an array of paths                                       | **Feature**  | [#2893][] |
+| Replaced hardcoded root category id with an actual value retrieved from a query                     | **Feature**  | [#2902][] |
+| Added search by order number feature to the order history page                                      | **Feature**  | [#2916][] |
+| Refactored Edit Payment to use Dialog component                                                     | **Refactor** | [#2806][] |
+| Refactored Edit Product to use Dialog component                                                     | **Refactor** | [#2824][] |
+| Refactored Payment feature to make it extendable                                                    | **Refactor** | [#2838][] |
+| Localized Cart                                                                                      | **Update**   | [#2740][] |
+| Localized Checkout page                                                                             | **Update**   | [#2759][] |
+| Localized CMS                                                                                       | **Update**   | [#2764][] |
+| Localized Category page                                                                             | **Update**   | [#2771][] |
+| Localized Product page                                                                              | **Update**   | [#2772][] |
+| Localized Form Validators                                                                           | **Update**   | [#2781][] |
+| Localized additional client-side strings                                                            | **Update**   | [#2799][] |
+| Removed temp code                                                                                   | **Update**   | [#2811][] |
+| Update service worker logic to handle all Venia images                                              | **Update**   | [#2846][] |
+| Removed ability to submit form data prefixed/suffixed with spaces for all fields                    | **Bugfix**   | [#2749][] |
+| Limited clickable link area for the product name on the product page                                | **Bugfix**   | [#2755][] |
+| Fixed message on the Search Page when searching for less than 3 characters                          | **Bugfix**   | [#2756][] |
+| Fixed a bug where clicking on a Label would not focus Input                                         | **Bugfix**   | [#2774][] |
+| Fixed `theme_color` value in the `manifest.json`                                                    | **Bugfix**   | [#2823][] |
+| Fixed button type on product image carousel thumbnails                                              | **Bugfix**   | [#2844][] |
+| Fixed Service Worker caching for home page routes with store code                                   | **Bugfix**   | [#2856][] |
 
 ### Peregrine library
 
 | Description                                                                                 | Change type  | PR        |
 | ------------------------------------------------------------------------------------------- | ------------ | --------- |
 | Created a shallow merge utility for classes in UI components and merge operations in talons | **Feature**  | [#2794][] |
+| Increased `useApp()` talon test coverage                                                    | **Update**   | [#2782][] |
+| Increased `peregrine/lib/apollo` test coverage                                              | **Update**   | [#2785][] |
 | Increased CartPage test coverage                                                            | **Update**   | [#2847][] |
 | Improved RootComponents talons test coverage                                                | **Update**   | [#2896][] |
 | Removed routes to features still in progress                                                | **Update**   | [#2918][] |
@@ -70,17 +84,19 @@ PWA Studio 9.0.0 contains new features, refactors, and various improvements.
 
 ### Build tools
 
-| Description                                                     | Change type | PR        |
-| --------------------------------------------------------------- | ----------- | --------- |
-| Enabled self-signed certificates for backend validation         | **Feature** | [#2891][] |
-| Fixed bug related to `apicache` overriding good cache headers   | **Bugfix**  | [#2870][] |
-| Fixed missing `projectConfig` in `create-custom-origin` command | **Bugfix**  | [#2897][] |
+| Description                                                               | Change type | PR        |
+| ------------------------------------------------------------------------- | ----------- | --------- |
+| Created Targetables feature and expanded Peregrine talons Target coverage | **Feature** | [#2765][] |
+| Enabled self-signed certificates for backend validation                   | **Feature** | [#2891][] |
+| Fixed unsupported webp image format for Safari                            | **Bugfix**  | [#2778][] |
+| Fixed bug related to `apicache` overriding good cache headers             | **Bugfix**  | [#2870][] |
+| Fixed missing `projectConfig` in `create-custom-origin` command           | **Bugfix**  | [#2897][] |
 
 ### Extensions
 
 | Description                                                                  | Change type | PR        |
 | ---------------------------------------------------------------------------- | ----------- | --------- |
-| Added new i18n extension with French language pack included                  | **Feature** | [#2840][] |
+| Added i18n feature as an extension with French language pack included        | **Feature** | [#2840][] |
 | Added the Adobe Client Data Layer as an extension                            | **Feature** | [#2852][] |
 | Added new extension to pick from multiple sample backends                    | **Feature** | [#2853][] |
 | Updated PageBuilder form field/field group viewport to read non-media styles | **Update**  | [#2881][] |
@@ -89,8 +105,13 @@ PWA Studio 9.0.0 contains new features, refactors, and various improvements.
 
 | Description                                                                  | Change type       | PR        |
 | ---------------------------------------------------------------------------- | ----------------- | --------- |
+| Created docs for the Internationalization feature                            | **Documentation** | [#2741][] |
+| Created a new tutorial for intercepting talons                               | **Documentation** | [#2777][] |
 | Created a new tutorial on how to use environment variables in front end code | **Documentation** | [#2819][] |
 | Created extensibility framework overview topic                               | **Documentation** | [#2863][] |
+| Updated extensibility doc with minor fixes                                   | **Update**        | [#2742][] |
+| Updated code samples in tutorial                                             | **Update**        | [#2746][] |
+| Added info about RAIL model                                                  | **Update**        | [#2761][] |
 | Added the Adobe logo to the doc site header                                  | **Update**        | [#2812][] |
 | Updated cloud deployment topic                                               | **Update**        | [#2871][] |
 | Refactored tutorials section                                                 | **Refactor**      | [#2907][] |
@@ -100,6 +121,7 @@ PWA Studio 9.0.0 contains new features, refactors, and various improvements.
 
 | Description                                                                   | Change type | PR        |
 | ----------------------------------------------------------------------------- | ----------- | --------- |
+| Update use of `Whitelist` to `Allowlist`                                      | **Update**  | [#2779][] |
 | Added `jsx-no-literals` linting rule                                          | **Update**  | [#2789][] |
 | Update PR template to add translation entry to checklist                      | **Update**  | [#2800][] |
 | Fixed a Storybook bug related to `fetchLocaleData` in storybook config        | **Bugfix**  | [#2801][] |
