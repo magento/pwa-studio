@@ -21,19 +21,19 @@
 }
 
 .filterRow {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: space-between;
 }
 
 .pageInfo {
-    font-size: 0.875rem;
+    font-size: var(--venia-typography-body-S-fontSize);
 }
 
 .search {
     display: grid;
-    grid-auto-flow: column;
     gap: 1rem;
+    grid-auto-flow: column;
     width: 22rem;
 }
 

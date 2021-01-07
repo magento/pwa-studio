@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormApi } from 'informed';
+import { func } from 'prop-types';
 import { X as ClearIcon } from 'react-feather';
 
 import Icon from '../Icon';
@@ -13,10 +14,17 @@ const ResetButton = props => {
 
     const handleReset = () => {
         formApi.reset();
-        onReset();
+
+        if (onReset) {
+            onReset();
+        }
     };
 
     return <Trigger action={handleReset}>{clearIcon}</Trigger>;
 };
 
 export default ResetButton;
+
+ResetButton.propTypes = {
+    onReset: func
+};
