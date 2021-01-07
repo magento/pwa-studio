@@ -12,107 +12,126 @@ exports[`renders correctly with data 1`] = `
       Order History
     </h1>
     <div
-      className="search"
+      className="filterRow"
     >
       <span
-        className="root"
-        style={
-          Object {
-            "--iconsAfter": 0,
-            "--iconsBefore": 1,
-          }
-        }
+        className="pageInfo"
       >
-        <span
-          className="input"
-        >
-          <input
-            className="input"
-            id="search"
-            name="search"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyPress={[MockFunction handleKeyPress]}
-            placeholder="Search by Order Number"
-            value=""
-          />
-        </span>
-        <span
-          className="before"
-        >
-          <span
-            className="root"
-          >
-            <svg
-              className="icon"
-              fill="none"
-              height={24}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="11"
-                cy="11"
-                r="8"
-              />
-              <line
-                x1="21"
-                x2="16.65"
-                y1="21"
-                y2="16.65"
-              />
-            </svg>
-          </span>
-        </span>
-        <span
-          className="after"
+        <mock-FormattedMessage
+          defaultMessage="Showing {current} of {total}"
+          id="orderHistoryPage.pageInfo"
+          values={
+            Object {
+              "current": 3,
+              "total": 6,
+            }
+          }
         />
       </span>
-      <p
-        className="root"
-      />
-      <button
-        className="searchButton"
-        disabled={false}
-        onClick={[MockFunction getOrderDetails]}
-        type="button"
+      <form
+        className="search"
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
       >
         <span
-          className="content"
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 1,
+            }
+          }
         >
           <span
-            className="root"
+            className="input"
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={24}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="5"
-                x2="19"
-                y1="12"
-                y2="12"
-              />
-              <polyline
-                points="12 5 19 12 12 19"
-              />
-            </svg>
+            <input
+              className="input"
+              id="search"
+              name="search"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Search by Order Number"
+              value=""
+            />
           </span>
+          <span
+            className="before"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            className="after"
+          />
         </span>
-      </button>
+        <p
+          className="root"
+        />
+        <button
+          className="searchButton"
+          disabled={false}
+          type="submit"
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 5 19 12 12 19"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </form>
     </div>
     <ul
       className="orderHistoryTable"
@@ -139,6 +158,21 @@ exports[`renders correctly with data 1`] = `
         }
       />
     </ul>
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[MockFunction loadMoreOrders]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Load More"
+          id="orderHistoryPage.loadMore"
+        />
+      </span>
+    </button>
   </div>
 </mock-OrderHistoryContextProvider>
 `;
@@ -155,107 +189,115 @@ exports[`renders correctly without data 1`] = `
       Order History
     </h1>
     <div
-      className="search"
+      className="filterRow"
     >
       <span
-        className="root"
-        style={
-          Object {
-            "--iconsAfter": 0,
-            "--iconsBefore": 1,
-          }
-        }
+        className="pageInfo"
+      />
+      <form
+        className="search"
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
       >
         <span
-          className="input"
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 1,
+            }
+          }
         >
-          <input
+          <span
             className="input"
-            id="search"
-            name="search"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyPress={[MockFunction handleKeyPress]}
-            placeholder="Search by Order Number"
-            value=""
+          >
+            <input
+              className="input"
+              id="search"
+              name="search"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Search by Order Number"
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            className="after"
           />
         </span>
-        <span
-          className="before"
-        >
-          <span
-            className="root"
-          >
-            <svg
-              className="icon"
-              fill="none"
-              height={24}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="11"
-                cy="11"
-                r="8"
-              />
-              <line
-                x1="21"
-                x2="16.65"
-                y1="21"
-                y2="16.65"
-              />
-            </svg>
-          </span>
-        </span>
-        <span
-          className="after"
+        <p
+          className="root"
         />
-      </span>
-      <p
-        className="root"
-      />
-      <button
-        className="searchButton"
-        disabled={false}
-        onClick={[MockFunction getOrderDetails]}
-        type="button"
-      >
-        <span
-          className="content"
+        <button
+          className="searchButton"
+          disabled={false}
+          type="submit"
         >
           <span
-            className="root"
+            className="content"
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={24}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
+            <span
+              className="root"
             >
-              <line
-                x1="5"
-                x2="19"
-                y1="12"
-                y2="12"
-              />
-              <polyline
-                points="12 5 19 12 12 19"
-              />
-            </svg>
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 5 19 12 12 19"
+                />
+              </svg>
+            </span>
           </span>
-        </span>
-      </button>
+        </button>
+      </form>
     </div>
     <h3
       className="emptyHistoryMessage"
@@ -290,86 +332,6 @@ Array [
 ]
 `;
 
-exports[`renders full page loading indicator 1`] = `
-<div
-  className="global"
->
-  <span
-    className="root"
-  >
-    <svg
-      className="icon"
-      fill="none"
-      height={64}
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width={64}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <line
-        x1="12"
-        x2="12"
-        y1="2"
-        y2="6"
-      />
-      <line
-        x1="12"
-        x2="12"
-        y1="18"
-        y2="22"
-      />
-      <line
-        x1="4.93"
-        x2="7.76"
-        y1="4.93"
-        y2="7.76"
-      />
-      <line
-        x1="16.24"
-        x2="19.07"
-        y1="16.24"
-        y2="19.07"
-      />
-      <line
-        x1="2"
-        x2="6"
-        y1="12"
-        y2="12"
-      />
-      <line
-        x1="18"
-        x2="22"
-        y1="12"
-        y2="12"
-      />
-      <line
-        x1="4.93"
-        x2="7.76"
-        y1="19.07"
-        y2="16.24"
-      />
-      <line
-        x1="16.24"
-        x2="19.07"
-        y1="7.76"
-        y2="4.93"
-      />
-    </svg>
-  </span>
-  <span
-    className="message"
-  >
-    <mock-FormattedMessage
-      defaultMessage="Fetching Data..."
-      id="loadingIndicator.message"
-    />
-  </span>
-</div>
-`;
-
 exports[`renders invalid order id message if order id is wrong 1`] = `
 <mock-OrderHistoryContextProvider>
   <div
@@ -382,70 +344,121 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
       Order History
     </h1>
     <div
-      className="search"
+      className="filterRow"
     >
       <span
-        className="root"
-        style={
-          Object {
-            "--iconsAfter": 1,
-            "--iconsBefore": 1,
-          }
-        }
+        className="pageInfo"
+      />
+      <form
+        className="search"
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
       >
         <span
-          className="input"
-        >
-          <input
-            className="input"
-            id="search"
-            name="search"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyPress={[MockFunction handleKeyPress]}
-            placeholder="Search by Order Number"
-            value=""
-          />
-        </span>
-        <span
-          className="before"
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 1,
+              "--iconsBefore": 1,
+            }
+          }
         >
           <span
-            className="root"
+            className="input"
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={24}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
+            <input
+              className="input"
+              id="search"
+              name="search"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Search by Order Number"
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          >
+            <span
+              className="root"
             >
-              <circle
-                cx="11"
-                cy="11"
-                r="8"
-              />
-              <line
-                x1="21"
-                x2="16.65"
-                y1="21"
-                y2="16.65"
-              />
-            </svg>
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            className="after"
+          >
+            <button
+              className="root"
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={24}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={24}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="18"
+                    x2="6"
+                    y1="6"
+                    y2="18"
+                  />
+                  <line
+                    x1="6"
+                    x2="18"
+                    y1="6"
+                    y2="18"
+                  />
+                </svg>
+              </span>
+            </button>
           </span>
         </span>
-        <span
-          className="after"
+        <p
+          className="root"
+        />
+        <button
+          className="searchButton"
+          disabled={false}
+          type="submit"
         >
-          <button
-            className="root"
-            onClick={[MockFunction resetForm]}
-            type="button"
+          <span
+            className="content"
           >
             <span
               className="root"
@@ -463,62 +476,19 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <line
-                  x1="18"
-                  x2="6"
-                  y1="6"
-                  y2="18"
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
                 />
-                <line
-                  x1="6"
-                  x2="18"
-                  y1="6"
-                  y2="18"
+                <polyline
+                  points="12 5 19 12 12 19"
                 />
               </svg>
             </span>
-          </button>
-        </span>
-      </span>
-      <p
-        className="root"
-      />
-      <button
-        className="searchButton"
-        disabled={false}
-        onClick={[MockFunction getOrderDetails]}
-        type="button"
-      >
-        <span
-          className="content"
-        >
-          <span
-            className="root"
-          >
-            <svg
-              className="icon"
-              fill="none"
-              height={24}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="5"
-                x2="19"
-                y1="12"
-                y2="12"
-              />
-              <polyline
-                points="12 5 19 12 12 19"
-              />
-            </svg>
           </span>
-        </span>
-      </button>
+        </button>
+      </form>
     </div>
     <h3
       className="emptyHistoryMessage"
@@ -537,6 +507,204 @@ exports[`renders invalid order id message if order id is wrong 1`] = `
 </mock-OrderHistoryContextProvider>
 `;
 
+exports[`renders loading indicator 1`] = `
+<mock-OrderHistoryContextProvider>
+  <div
+    className="root"
+  >
+    Title
+    <h1
+      className="heading"
+    >
+      Order History
+    </h1>
+    <div
+      className="filterRow"
+    >
+      <span
+        className="pageInfo"
+      />
+      <form
+        className="search"
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <span
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 1,
+            }
+          }
+        >
+          <span
+            className="input"
+          >
+            <input
+              className="input"
+              id="search"
+              name="search"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Search by Order Number"
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            className="after"
+          />
+        </span>
+        <p
+          className="root"
+        />
+        <button
+          className="searchButton"
+          disabled={true}
+          type="submit"
+        >
+          <span
+            className="content"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 5 19 12 12 19"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </form>
+    </div>
+    <div
+      className="root"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={64}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={64}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="12"
+            x2="12"
+            y1="2"
+            y2="6"
+          />
+          <line
+            x1="12"
+            x2="12"
+            y1="18"
+            y2="22"
+          />
+          <line
+            x1="4.93"
+            x2="7.76"
+            y1="4.93"
+            y2="7.76"
+          />
+          <line
+            x1="16.24"
+            x2="19.07"
+            y1="16.24"
+            y2="19.07"
+          />
+          <line
+            x1="2"
+            x2="6"
+            y1="12"
+            y2="12"
+          />
+          <line
+            x1="18"
+            x2="22"
+            y1="12"
+            y2="12"
+          />
+          <line
+            x1="4.93"
+            x2="7.76"
+            y1="19.07"
+            y2="16.24"
+          />
+          <line
+            x1="16.24"
+            x2="19.07"
+            y1="7.76"
+            y2="4.93"
+          />
+        </svg>
+      </span>
+      <span
+        className="message"
+      />
+    </div>
+  </div>
+</mock-OrderHistoryContextProvider>
+`;
+
 exports[`renders no orders message is orders is empty 1`] = `
 <mock-OrderHistoryContextProvider>
   <div
@@ -549,107 +717,115 @@ exports[`renders no orders message is orders is empty 1`] = `
       Order History
     </h1>
     <div
-      className="search"
+      className="filterRow"
     >
       <span
-        className="root"
-        style={
-          Object {
-            "--iconsAfter": 0,
-            "--iconsBefore": 1,
-          }
-        }
+        className="pageInfo"
+      />
+      <form
+        className="search"
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
       >
         <span
-          className="input"
+          className="root"
+          style={
+            Object {
+              "--iconsAfter": 0,
+              "--iconsBefore": 1,
+            }
+          }
         >
-          <input
+          <span
             className="input"
-            id="search"
-            name="search"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyPress={[MockFunction handleKeyPress]}
-            placeholder="Search by Order Number"
-            value=""
+          >
+            <input
+              className="input"
+              id="search"
+              name="search"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Search by Order Number"
+              value=""
+            />
+          </span>
+          <span
+            className="before"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                />
+                <line
+                  x1="21"
+                  x2="16.65"
+                  y1="21"
+                  y2="16.65"
+                />
+              </svg>
+            </span>
+          </span>
+          <span
+            className="after"
           />
         </span>
-        <span
-          className="before"
-        >
-          <span
-            className="root"
-          >
-            <svg
-              className="icon"
-              fill="none"
-              height={24}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="11"
-                cy="11"
-                r="8"
-              />
-              <line
-                x1="21"
-                x2="16.65"
-                y1="21"
-                y2="16.65"
-              />
-            </svg>
-          </span>
-        </span>
-        <span
-          className="after"
+        <p
+          className="root"
         />
-      </span>
-      <p
-        className="root"
-      />
-      <button
-        className="searchButton"
-        disabled={false}
-        onClick={[MockFunction getOrderDetails]}
-        type="button"
-      >
-        <span
-          className="content"
+        <button
+          className="searchButton"
+          disabled={false}
+          type="submit"
         >
           <span
-            className="root"
+            className="content"
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={24}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
+            <span
+              className="root"
             >
-              <line
-                x1="5"
-                x2="19"
-                y1="12"
-                y2="12"
-              />
-              <polyline
-                points="12 5 19 12 12 19"
-              />
-            </svg>
+              <svg
+                className="icon"
+                fill="none"
+                height={24}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={24}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+                <polyline
+                  points="12 5 19 12 12 19"
+                />
+              </svg>
+            </span>
           </span>
-        </span>
-      </button>
+        </button>
+      </form>
     </div>
     <h3
       className="emptyHistoryMessage"
