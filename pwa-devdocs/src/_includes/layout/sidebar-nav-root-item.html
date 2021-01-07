@@ -1,6 +1,6 @@
 
-{% if page.toc-group == "getting-started" %}
-    {% assign toc = site.data.getting-started %}
+{% if page.toc-group == "overview" %}
+    {% assign toc = site.data.overview %}
 
 {% elsif page.toc-group == "buildpack-api" %}
     {% assign toc = site.data.buildpack-api %}
@@ -11,20 +11,8 @@
 {% elsif page.toc-group == "venia-api" %}
     {% assign toc = site.data.venia-api %}
 
-{% elsif page.toc-group == "technologies" %}
-    {% assign toc = site.data.technologies %}
-
-{% elsif page.toc-group == "pwa-buildpack" %}
-    {% assign toc = site.data.pwa-buildpack %}
-
 {% elsif page.toc-group == "pagebuilder" %}
     {% assign toc = site.data.pagebuilder %}
-
-{% elsif page.toc-group == "peregrine" %}
-    {% assign toc = site.data.peregrine %}
-
-{% elsif page.toc-group == "venia-pwa-concept" %}
-    {% assign toc = site.data.venia-pwa-concept %}
 
 {% elsif page.toc-group == "tutorials" %}
     {% assign toc = site.data.tutorials %}
