@@ -70,8 +70,10 @@ function inspectDependencies(package) {
         );
     }
 
-    function logMapElements(value, key) {
-        prettyLogger.log(`${key} @ ${value}`);
+    function logMapElements(values, key) {
+        values.forEach(value => {
+            prettyLogger.log(`${key} @ ${value}`);
+        });
     }
 
     dependencies.forEach(logMapElements);
