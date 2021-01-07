@@ -88,7 +88,16 @@ function getYarnDependencies(dependencies) {
             .forEach(yarnPkgName => {
                 const version = parsedLockFile.object[yarnPkgName].version;
 
-                dependencyMap.set(yarnPkgName, version);
+                if (dependencyMap.has(packageName)) {
+                    if (!dependencyMap.get(packageName).includes(version)) {
+                        dependencyMap.set(yarnPkgName, [
+                            ...dependencyMap.get(packageName),
+                            version
+                        ]);
+                    }
+                } else {
+                    dependencyMap.set(packageName, [version]);
+                }
             });
     });
 
@@ -99,10 +108,47 @@ function getNpmDependencies(dependencies) {
     const dependencyMap = new Map();
     const lockFile = require(path.resolve(cwd, 'package-lock.json'));
 
+    // Inspecting direct dependencies
     dependencies.map(packageName => {
         const version = lockFile.dependencies[packageName].version;
 
-        dependencyMap.set(packageName, version);
+        if (dependencyMap.has(packageName)) {
+            if (!dependencyMap.get(packageName).includes(version)) {
+                dependencyMap.set(packageName, [
+                    ...dependencyMap.get(packageName),
+                    version
+                ]);
+            }
+        } else {
+            dependencyMap.set(packageName, [version]);
+        }
+    });
+
+    // Inspecting dependencies of dependencies
+    Object.values(lockFile.dependencies).map(depConfig => {
+        if (depConfig.dependencies) {
+            Object.keys(depConfig.dependencies).map(depConfigDepName => {
+                if (dependencies.includes(depConfigDepName)) {
+                    const version =
+                        depConfig.dependencies[depConfigDepName].version;
+
+                    if (dependencyMap.has(depConfigDepName)) {
+                        if (
+                            !dependencyMap
+                                .get(depConfigDepName)
+                                .includes(version)
+                        ) {
+                            dependencyMap.set(depConfigDepName, [
+                                ...dependencyMap.get(depConfigDepName),
+                                version
+                            ]);
+                        }
+                    } else {
+                        dependencyMap.set(depConfigDepName, [version]);
+                    }
+                }
+            });
+        }
     });
 
     return dependencyMap;
