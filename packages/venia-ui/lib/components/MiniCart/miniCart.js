@@ -15,7 +15,7 @@ import Icon from '../Icon';
 import StockStatusMessage from '../StockStatusMessage';
 import ProductList from './ProductList';
 import defaultClasses from './miniCart.css';
-import MiniCartOperations from './miniCart.gql';
+import operations from './miniCart.gql';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -32,13 +32,9 @@ const MiniCart = React.forwardRef((props, ref) => {
     // when the MiniCart is open.
     useScrollLock(isOpen);
 
-    const { queries, mutations } = { ...MiniCartOperations };
     const talonProps = useMiniCart({
         setIsOpen,
-        operations: {
-            ...queries,
-            ...mutations
-        }
+        operations
     });
 
     const {
