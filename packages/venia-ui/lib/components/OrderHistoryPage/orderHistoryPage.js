@@ -2,26 +2,26 @@ import React, { useMemo, useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'react-intl';
 import {
     Search as SearchIcon,
-    X as ClearIcon,
     AlertCircle as AlertCircleIcon,
     ArrowRight as SubmitIcon
 } from 'react-feather';
 import { shape, string } from 'prop-types';
+import { Form } from 'informed';
 
 import { useToasts } from '@magento/peregrine/lib/Toasts';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
-import Icon from '../Icon';
-import Button from '../Button';
-import TextInput from '../TextInput';
-import Trigger from '../Trigger';
-import { Title } from '../Head';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import OrderRow from './orderRow';
 import { mergeClasses } from '../../classify';
+import Button from '../Button';
+import { Title } from '../Head';
+import Icon from '../Icon';
+import LoadingIndicator from '../LoadingIndicator';
+import TextInput from '../TextInput';
 
 import defaultClasses from './orderHistoryPage.css';
+import OrderRow from './orderRow';
+import ResetButton from './resetButton';
 
 const errorIcon = (
     <Icon
@@ -31,19 +31,19 @@ const errorIcon = (
         }}
     />
 );
-const clearIcon = <Icon src={ClearIcon} size={24} />;
 const searchIcon = <Icon src={SearchIcon} size={24} />;
 
 const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage();
     const {
         errorMessage,
-        getOrderDetails,
-        handleKeyPress,
+        loadMoreOrders,
+        handleReset,
+        handleSubmit,
         isBackgroundLoading,
         isLoadingWithoutData,
         orders,
-        resetForm,
+        pageInfo,
         searchText
     } = talonProps;
     const [, { addToast }] = useToasts();
@@ -65,7 +65,9 @@ const OrderHistoryPage = props => {
     }, [orders]);
 
     const pageContents = useMemo(() => {
-        if (!isBackgroundLoading && searchText && !orders.length) {
+        if (isLoadingWithoutData) {
+            return <LoadingIndicator />;
+        } else if (!isBackgroundLoading && searchText && !orders.length) {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
@@ -93,16 +95,17 @@ const OrderHistoryPage = props => {
         classes.emptyHistoryMessage,
         classes.orderHistoryTable,
         isBackgroundLoading,
+        isLoadingWithoutData,
         orderRows,
-        orders,
+        orders.length,
         searchText
     ]);
 
     // STORE_NAME is injected by Webpack at build time.
     const title = `${PAGE_TITLE} - ${STORE_NAME}`;
 
-    const resetButton = searchText ? (
-        <Trigger action={resetForm}>{clearIcon}</Trigger>
+    const resetButtonElement = searchText ? (
+        <ResetButton onReset={handleReset} />
     ) : null;
 
     const submitIcon = (
@@ -114,6 +117,28 @@ const OrderHistoryPage = props => {
             }}
         />
     );
+
+    const pageInfoLabel = pageInfo ? (
+        <FormattedMessage
+            defaultMessage={'Showing {current} of {total}'}
+            id={'orderHistoryPage.pageInfo'}
+            values={pageInfo}
+        />
+    ) : null;
+
+    const loadMoreButton = loadMoreOrders ? (
+        <Button
+            classes={{ root_lowPriority: classes.loadMoreButton }}
+            disabled={isBackgroundLoading || isLoadingWithoutData}
+            onClick={loadMoreOrders}
+            priority="low"
+        >
+            <FormattedMessage
+                id={'orderHistoryPage.loadMore'}
+                defaultMessage={'Load More'}
+            />
+        </Button>
+    ) : null;
 
     useEffect(() => {
         if (errorMessage) {
@@ -127,34 +152,35 @@ const OrderHistoryPage = props => {
         }
     }, [addToast, errorMessage]);
 
-    if (isLoadingWithoutData) {
-        return fullPageLoadingIndicator;
-    }
-
     return (
         <OrderHistoryContextProvider>
             <div className={classes.root}>
                 <Title>{title}</Title>
                 <h1 className={classes.heading}>{PAGE_TITLE}</h1>
-                <div className={classes.search}>
-                    <TextInput
-                        after={resetButton}
-                        before={searchIcon}
-                        field="search"
-                        id={classes.search}
-                        placeholder={SEARCH_PLACE_HOLDER}
-                        onKeyPress={handleKeyPress}
-                    />
-                    <Button
-                        disabled={isBackgroundLoading || isLoadingWithoutData}
-                        priority={'high'}
-                        onClick={getOrderDetails}
-                        className={classes.searchButton}
-                    >
-                        {submitIcon}
-                    </Button>
+                <div className={classes.filterRow}>
+                    <span className={classes.pageInfo}>{pageInfoLabel}</span>
+                    <Form className={classes.search} onSubmit={handleSubmit}>
+                        <TextInput
+                            after={resetButtonElement}
+                            before={searchIcon}
+                            field="search"
+                            id={classes.search}
+                            placeholder={SEARCH_PLACE_HOLDER}
+                        />
+                        <Button
+                            className={classes.searchButton}
+                            disabled={
+                                isBackgroundLoading || isLoadingWithoutData
+                            }
+                            priority={'high'}
+                            type="submit"
+                        >
+                            {submitIcon}
+                        </Button>
+                    </Form>
                 </div>
                 {pageContents}
+                {loadMoreButton}
             </div>
         </OrderHistoryContextProvider>
     );
@@ -167,6 +193,10 @@ OrderHistoryPage.propTypes = {
         root: string,
         heading: string,
         emptyHistoryMessage: string,
-        orderHistoryTable: string
+        orderHistoryTable: string,
+        search: string,
+        searchButton: string,
+        submitIcon: string,
+        loadMoreButton: string
     })
 };
