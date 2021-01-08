@@ -1,4 +1,3 @@
-export { default as MagentoRouteHandler } from './magentoRouteHandler';
 export {
     default,
     Consumer as RouteConsumer,
