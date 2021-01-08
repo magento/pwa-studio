@@ -6,7 +6,7 @@ _For older release notes, see [PWA Studio releases][]._
 
 ## Table of contents
 
--   [What's new in 9.0.0](#whats-new-in-800)
+-   [What's new in 9.0.0](#whats-new-in-900)
 -   [Pull requests merged in this release](#pull-requests-merged-in-this-release)
 -   [Known issues](#known-issues)
 -   [Upgrading from a previous version](#upgrading-from-a-previous-version)
@@ -15,15 +15,89 @@ _For older release notes, see [PWA Studio releases][]._
 
 PWA Studio 9.0.0 contains new features, refactors, and various improvements.
 
-## Extensibility framework
+### Extensibility framework improvements
 
-## New extensions
+This releases adds a few improvements to the extensibility framework in PWA Studio to make it easier for developers to customize their storefronts.
+For an overview of this framework, check out the new [Extensibility framework][] topic on the docs site.
 
-## My Account
+In previous releases, Peregrine talons had limited Target coverage.
+This release adds an automatic API generator to Peregrine that exposes all hooks and talons as Targets.
+This means that existing and future hooks and talons in Peregrine automatically get their own Targets that developers may use for modifying or extending functionality.
 
-## Increased test coverage
+This release also adds the _Targetables_ feature to the extensibility framework.
+These represent source files used in your PWA Studio project, and
+they give developers the ability to change the source code during the build process.
+This means that developers no longer have to copy PWA Studio source code into their storefront projects to make minor modifications.
 
-## Magento Cloud integration improvements
+[extensibility framework]: <https://pwastudio.io/pwa-buildpack/extensibility-framework/>
+
+### PWA Studio extensions
+
+PWA Studio's extensibility framework lets developers create extensions and install them as project dependencies in their storefronts.
+This release converts some existing Venia features into PWA Studio extensions.
+It also introduces new extensions that provide useful Venia features that developers can add to their projects.
+
+Developers can find the source code for these extensions under the [`packages/extensions`][] directory in the PWA Studio repository.
+
+`upward-security-headers`
+: intercepts build targets to add security headers to UPWARD
+
+`venia-adobe-data-layer`
+: provides Adobe Client Data Layer support for your project
+
+`venia-sample-backends`
+: provides demo backends and backend validation utils for your project
+
+`venia-sample-language-packs`
+: provides demo translations
+
+[`packages/extensions`]: <https://github.com/magento/pwa-studio/tree/release/9.0/packages/extensions>
+
+### Internationalization and localization
+
+This releases introduces the Internationalization(I18n) feature in PWA Studio.
+This lets developers localize their storefront content according to different regions and languages.
+
+This release refactors Venia UI components to use this feature and adds components that support multi-language storefronts.
+
+This release also gives developers the ability to develop and install PWA Studio language packages as NPM dependencies.
+An example of a language pack extension can be found in the [`packages/extensions`][] directory in the PWA Studio repository.
+
+For more information about this feature, read the new [Localization topic][] on the doc site.
+
+[localization topic]: <https://pwastudio.io/technologies/basic-concepts/internationalization/>
+
+### My Account
+
+This release adds components that support _My Account_ features for customers that create an account with a store.
+
+My Account features included in this release:
+
+- Wishlist
+- Saved Payments
+- Address Book
+- Order History
+
+Work on the following My Account features are in progress and currently unavailable:
+
+- Store Credit and Gift Cards
+- Favorites Lists
+
+### Increased test coverage
+
+As part of our initiative to increase stability and confidence in the PWA Studio project, this release adds new unit tests to existing code to improve code coverage.
+
+Coverage as reported by [coveralls.io][]:
+
+Current coverage (9.0.0)
+: **84.19%**
+
+Previous coverage (8.0.0)
+: **79.21%**
+
+[coveralls.io]: <https://coveralls.io/github/magento/pwa-studio>
+
+### Magento release support change
 
 ## Pull requests merged in this release
 
