@@ -5,24 +5,24 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 const https = require('https');
 const fetch = require('node-fetch');
+const { uniqBy } = require('lodash');
+
+const prettyLogger = require('../util/pretty-logger');
+const { loadEnvironment } = require('../Utilities');
+const { sampleBackends: defaultSampleBackends } = require('./create-project');
+
 const agent = new https.Agent({
     rejectUnauthorized: false
 });
 
-const fetchWithAgent = async url => {
+async function fetchWithAgent(url) {
     return await fetch(url, { agent });
-};
-
-const prettyLogger = require('../util/pretty-logger');
-const { loadEnvironment } = require('../Utilities');
-
-const { uniqBy } = require('lodash');
-const { sampleBackends: defaultSampleBackends } = require('./create-project');
+}
 
 const removeDuplicateBackends = backendEnvironments =>
     uniqBy(backendEnvironments, 'url');
 
-const fetchSampleBackendUrls = async () => {
+async function fetchSampleBackendUrls() {
     try {
         const res = await fetch(
             'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
@@ -36,17 +36,17 @@ const fetchSampleBackendUrls = async () => {
     } catch {
         return defaultSampleBackends.environments.map(({ url }) => url);
     }
-};
+}
 
 const cwd = process.cwd();
 
-function inspectDependencies(package) {
+function inspectDependencies(pkg) {
     prettyLogger.info('Inspecting Dependencies');
 
     // Inspect all '@magento/...' dependencies.
     const magentoDependencies = [
-        ...Object.keys(package.dependencies),
-        ...Object.keys(package.devDependencies)
+        ...Object.keys(pkg.dependencies),
+        ...Object.keys(pkg.devDependencies)
     ].filter(dependency => dependency.startsWith('@magento/'));
 
     let dependencies;
@@ -211,15 +211,15 @@ function inspectBuildEnv() {
  * main
  */
 async function buildpackCli() {
-    const package = require(path.resolve(cwd, 'package.json'));
+    const pkg = require(path.resolve(cwd, 'package.json'));
     prettyLogger.info(
-        `Generating build report for ${package.name}@${
-            package.version
+        `Generating build report for ${pkg.name}@${
+            pkg.version
         }. This may take a moment.`
     );
     prettyLogger.log('\n');
 
-    inspectDependencies(package);
+    inspectDependencies(pkg);
 
     prettyLogger.log('\n');
 

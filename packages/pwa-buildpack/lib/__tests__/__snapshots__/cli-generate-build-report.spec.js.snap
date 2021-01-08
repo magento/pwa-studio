@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should log package info 1`] = `Array []`;
+
+exports[`should log package info 2`] = `Array []`;
+
+exports[`should return proper shape 1`] = `
+Object {
+  "command": "generate-build-report",
+  "describe": "Generates a report of general build information that can be used when debugging an issue.",
+  "handler": [Function],
+}
+`;
