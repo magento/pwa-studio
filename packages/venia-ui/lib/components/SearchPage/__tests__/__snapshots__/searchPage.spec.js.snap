@@ -1,0 +1,798 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search Page Component error view does not render when data is present 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      0 items
+    </span>
+    <div
+      className="headerButtons"
+    />
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <section
+    className="gallery"
+  >
+    <Gallery
+      items={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </section>
+  <section
+    className="pagination"
+  >
+    <Pagination
+      pageControl={
+        Object {
+          "currentPage": 1,
+          "setPage": [MockFunction],
+          "totalPages": 6,
+        }
+      }
+    />
+  </section>
+</article>
+`;
+
+exports[`Search Page Component error view renders when data is not present and not loading 1`] = `
+<div
+  className="noResult"
+>
+  <mock-FormattedMessage
+    defaultMessage="No results found. The search term may be missing or invalid."
+    id="searchPage.noResult"
+  />
+</div>
+`;
+
+exports[`Search Page Component filter button/modal does not render if there are no filters 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      0 items
+    </span>
+    <div
+      className="headerButtons"
+    />
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <section
+    className="gallery"
+  >
+    <Gallery
+      items={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </section>
+  <section
+    className="pagination"
+  >
+    <Pagination
+      pageControl={
+        Object {
+          "currentPage": 1,
+          "setPage": [MockFunction],
+          "totalPages": 6,
+        }
+      }
+    />
+  </section>
+</article>
+`;
+
+exports[`Search Page Component filter button/modal renders when there are filters 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      0 items
+    </span>
+    <div
+      className="headerButtons"
+    >
+      <button
+        className="root_lowPriority"
+        disabled={false}
+        onClick={[MockFunction]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Filter"
+            id="searchPage.filterButton"
+          />
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <section
+    className="gallery"
+  >
+    <Gallery
+      items={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </section>
+  <section
+    className="pagination"
+  >
+    <Pagination
+      pageControl={
+        Object {
+          "currentPage": 1,
+          "setPage": [MockFunction],
+          "totalPages": 6,
+        }
+      }
+    />
+  </section>
+  <FilterModal
+    filters={
+      Array [
+        Object {},
+      ]
+    }
+  />
+</article>
+`;
+
+exports[`Search Page Component loading indicator does not render when data is present 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      0 items
+    </span>
+    <div
+      className="headerButtons"
+    />
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <section
+    className="gallery"
+  >
+    <Gallery
+      items={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </section>
+  <section
+    className="pagination"
+  >
+    <Pagination
+      pageControl={
+        Object {
+          "currentPage": 1,
+          "setPage": [MockFunction],
+          "totalPages": 6,
+        }
+      }
+    />
+  </section>
+</article>
+`;
+
+exports[`Search Page Component loading indicator renders when data is not present 1`] = `
+<div
+  className="global"
+>
+  <span
+    className="root"
+  >
+    <svg
+      className="icon"
+      fill="none"
+      height={64}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width={64}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line
+        x1="12"
+        x2="12"
+        y1="2"
+        y2="6"
+      />
+      <line
+        x1="12"
+        x2="12"
+        y1="18"
+        y2="22"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="4.93"
+        y2="7.76"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="16.24"
+        y2="19.07"
+      />
+      <line
+        x1="2"
+        x2="6"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="18"
+        x2="22"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="19.07"
+        y2="16.24"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="7.76"
+        y2="4.93"
+      />
+    </svg>
+  </span>
+  <span
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
+  </span>
+</div>
+`;
+
+exports[`Search Page Component search results does not render if data returned has empty array 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      0 items
+    </span>
+    <div
+      className="headerButtons"
+    />
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <div
+    className="noResult"
+  >
+    <mock-FormattedMessage
+      defaultMessage="No results found!"
+      id="searchPage.noResultImportant"
+    />
+  </div>
+</article>
+`;
+
+exports[`Search Page Component search results heading renders a generic message if no search term 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      1 items
+    </span>
+    <div
+      className="headerButtons"
+    >
+      <ProductSort
+        sortProps={
+          Array [
+            Object {
+              "sortAttribute": "relevance",
+              "sortDirection": "DESC",
+              "sortText": "Best Match",
+            },
+            [MockFunction],
+          ]
+        }
+      />
+    </div>
+    <span
+      className="sortContainer"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Items sorted by "
+        id="searchPage.sortContainer"
+      />
+      <span
+        className="sortText"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Best Match"
+        />
+      </span>
+    </span>
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <section
+    className="gallery"
+  >
+    <Gallery
+      items={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </section>
+  <section
+    className="pagination"
+  >
+    <Pagination
+      pageControl={
+        Object {
+          "currentPage": 1,
+          "setPage": [MockFunction],
+          "totalPages": 6,
+        }
+      }
+    />
+  </section>
+</article>
+`;
+
+exports[`Search Page Component search results heading renders a specific message if search term 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      1 items
+    </span>
+    <div
+      className="headerButtons"
+    >
+      <ProductSort
+        sortProps={
+          Array [
+            Object {
+              "sortAttribute": "relevance",
+              "sortDirection": "DESC",
+              "sortText": "Best Match",
+            },
+            [MockFunction],
+          ]
+        }
+      />
+    </div>
+    <span
+      className="sortContainer"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Items sorted by "
+        id="searchPage.sortContainer"
+      />
+      <span
+        className="sortText"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Best Match"
+        />
+      </span>
+    </span>
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing results:"
+      id="searchPage.searchTerm"
+      values={
+        Object {
+          "category": "Search Category",
+          "highlight": [Function],
+          "term": "Search Term",
+        }
+      }
+    />
+  </div>
+  <section
+    className="gallery"
+  >
+    <Gallery
+      items={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </section>
+  <section
+    className="pagination"
+  >
+    <Pagination
+      pageControl={
+        Object {
+          "currentPage": 1,
+          "setPage": [MockFunction],
+          "totalPages": 6,
+        }
+      }
+    />
+  </section>
+</article>
+`;
+
+exports[`Search Page Component search results renders if data has items 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      0 items
+    </span>
+    <div
+      className="headerButtons"
+    />
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <section
+    className="gallery"
+  >
+    <Gallery
+      items={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </section>
+  <section
+    className="pagination"
+  >
+    <Pagination
+      pageControl={
+        Object {
+          "currentPage": 1,
+          "setPage": [MockFunction],
+          "totalPages": 6,
+        }
+      }
+    />
+  </section>
+</article>
+`;
+
+exports[`Search Page Component sort button/container does not render if total count is 0 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      0 items
+    </span>
+    <div
+      className="headerButtons"
+    />
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <div
+    className="noResult"
+  >
+    <mock-FormattedMessage
+      defaultMessage="No results found!"
+      id="searchPage.noResultImportant"
+    />
+  </div>
+</article>
+`;
+
+exports[`Search Page Component sort button/container renders when total count > 0 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      1 items
+    </span>
+    <div
+      className="headerButtons"
+    >
+      <ProductSort
+        sortProps={
+          Array [
+            Object {
+              "sortAttribute": "relevance",
+              "sortDirection": "DESC",
+              "sortText": "Best Match",
+            },
+            [MockFunction],
+          ]
+        }
+      />
+    </div>
+    <span
+      className="sortContainer"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Items sorted by "
+        id="searchPage.sortContainer"
+      />
+      <span
+        className="sortText"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Best Match"
+        />
+      </span>
+    </span>
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <section
+    className="gallery"
+  >
+    <Gallery
+      items={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </section>
+  <section
+    className="pagination"
+  >
+    <Pagination
+      pageControl={
+        Object {
+          "currentPage": 1,
+          "setPage": [MockFunction],
+          "totalPages": 6,
+        }
+      }
+    />
+  </section>
+</article>
+`;
+
+exports[`Search Page Component total count renders 0 items if data.products.total_count is falsy 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      0 items
+    </span>
+    <div
+      className="headerButtons"
+    />
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <div
+    className="noResult"
+  >
+    <mock-FormattedMessage
+      defaultMessage="No results found!"
+      id="searchPage.noResultImportant"
+    />
+  </div>
+</article>
+`;
+
+exports[`Search Page Component total count renders results from data 1`] = `
+<article
+  className="root"
+>
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      1 items
+    </span>
+    <div
+      className="headerButtons"
+    >
+      <ProductSort
+        sortProps={
+          Array [
+            Object {
+              "sortAttribute": "relevance",
+              "sortDirection": "DESC",
+              "sortText": "Best Match",
+            },
+            [MockFunction],
+          ]
+        }
+      />
+    </div>
+    <span
+      className="sortContainer"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Items sorted by "
+        id="searchPage.sortContainer"
+      />
+      <span
+        className="sortText"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Best Match"
+        />
+      </span>
+    </span>
+  </div>
+  <div
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Showing all results:"
+      id="searchPage.searchTermEmpty"
+    />
+  </div>
+  <section
+    className="gallery"
+  >
+    <Gallery
+      items={
+        Array [
+          Object {},
+        ]
+      }
+    />
+  </section>
+  <section
+    className="pagination"
+  >
+    <Pagination
+      pageControl={
+        Object {
+          "currentPage": 1,
+          "setPage": [MockFunction],
+          "totalPages": 6,
+        }
+      }
+    />
+  </section>
+</article>
+`;

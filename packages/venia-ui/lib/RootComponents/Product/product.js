@@ -24,28 +24,29 @@ const Product = () => {
 
     const { error, loading, product } = talonProps;
 
-    if (loading && !product) return fullPageLoadingIndicator;
-    if (error && !product)
-        return (
-            <div>
-                <FormattedMessage
-                    id={'product.errorFetch'}
-                    defaultMessage={'Data Fetch Error'}
-                />
-            </div>
-        );
-
     if (!product) {
-        return (
-            <h1>
-                <FormattedMessage
-                    id={'product.outOfStockTryAgain'}
-                    defaultMessage={
-                        'This Product is currently out of stock. Please try again later.'
-                    }
-                />
-            </h1>
-        );
+        if (loading) return fullPageLoadingIndicator;
+        else if (error) {
+            return (
+                <div>
+                    <FormattedMessage
+                        id={'product.errorFetch'}
+                        defaultMessage={'Data Fetch Error'}
+                    />
+                </div>
+            );
+        } else {
+            return (
+                <h1>
+                    <FormattedMessage
+                        id={'product.outOfStockTryAgain'}
+                        defaultMessage={
+                            'This Product is currently out of stock. Please try again later.'
+                        }
+                    />
+                </h1>
+            );
+        }
     }
 
     // Note: STORE_NAME is injected by Webpack at build time.
