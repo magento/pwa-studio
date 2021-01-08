@@ -2,9 +2,23 @@
     padding: 1rem;
 }
 
+.content {
+    max-width: 50%;
+    margin: auto;
+    display: grid;
+    grid-gap: 1rem;
+    text-align: center;
+}
+
 .title {
     font-size: 1.5rem;
     font-weight: 400;
     margin: 0 0 1rem;
     padding: 0.5rem;
+}
+
+@media (max-width: 640px) {
+    .content {
+        max-width: 100%;
+    }
 }

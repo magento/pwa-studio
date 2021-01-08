@@ -4,6 +4,7 @@ import ErrorView from '../ErrorView';
 import { useMagentoRoute } from '@magento/peregrine/lib/talons/MagentoRoute';
 
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import NotFound from '@magento/venia-ui/lib/RootComponents/NotFound/notFound';
 
 const MESSAGES = new Map()
     .set('NOT_FOUND', 'That page could not be found. Please try again.')
@@ -26,14 +27,12 @@ const MagentoRoute = () => {
         return <RootComponent id={id} />;
     } else if (isNotFound) {
         return (
-            <ErrorView>
-                <h1>
-                    {formatMessage({
-                        id: 'magentoRoute.routeError',
-                        defaultMessage: MESSAGES.get('NOT_FOUND')
-                    })}
-                </h1>
-            </ErrorView>
+            <NotFound
+            // message={formatMessage({
+            //     id: 'magentoRoute.routeError',
+            //     defaultMessage: MESSAGES.get('NOT_FOUND')
+            // })}
+            />
         );
     }
 
