@@ -1,7 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useLazyQuery } from '@apollo/client';
-import { useFormState, useFormApi } from 'informed';
+import { useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useOrderHistoryPage } from '../useOrderHistoryPage';
@@ -13,23 +12,12 @@ jest.mock('react-router-dom', () => {
     };
 });
 
-jest.mock('informed', () => ({
-    useFormState: jest.fn().mockReturnValue({
-        values: {
-            search: null
-        }
-    }),
-    useFormApi: jest.fn().mockReturnValue({
-        reset: jest.fn()
-    })
-}));
-
 jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
 
     return {
         ...apolloClient,
-        useLazyQuery: jest.fn().mockReturnValue([jest.fn(), {}])
+        useQuery: jest.fn().mockReturnValue({})
     };
 });
 
@@ -59,29 +47,22 @@ jest.mock('../../../util/deriveErrorMessage', () => ({
     deriveErrorMessage: jest.fn().mockReturnValue(null)
 }));
 
-const getOrder = jest.fn().mockName('getOrder');
-const getOrderQueryReturnValue = jest.fn().mockReturnValue([
-    getOrder,
-    {
-        error: null,
-        loading: false
-    }
-]);
-
-beforeEach(() => {
-    useLazyQuery.mockImplementation(query => {
-        if (query === 'getCustomerOrderQuery') {
-            return getOrderQueryReturnValue();
-        } else {
-            return [jest.fn(), {}];
-        }
-    });
-});
-
 const props = {
     operations: {
-        getCustomerOrdersQuery: 'getCustomerOrdersQuery',
-        getCustomerOrderQuery: 'getCustomerOrderQuery'
+        getCustomerOrdersQuery: 'getCustomerOrdersQuery'
+    }
+};
+
+const orderResponse = {
+    customer: {
+        orders: {
+            items: ['order1', 'order2'],
+            page_info: {
+                current_page: 1,
+                total_pages: 2
+            },
+            total_count: 4
+        }
     }
 };
 
@@ -109,19 +90,17 @@ const getTalonProps = props => {
 
 describe('it returns the proper shape', () => {
     test('with data', () => {
+        useQuery.mockReturnValue({ data: orderResponse, loading: false });
         const { talonProps } = getTalonProps(props);
 
         expect(talonProps).toMatchSnapshot();
     });
 
     test('while loading without data', () => {
-        getOrderQueryReturnValue.mockReturnValueOnce([
-            getOrder,
-            {
-                error: null,
-                loading: true
-            }
-        ]);
+        useQuery.mockReturnValueOnce({
+            error: null,
+            loading: true
+        });
 
         const { talonProps } = getTalonProps(props);
 
@@ -130,13 +109,11 @@ describe('it returns the proper shape', () => {
 });
 
 test('syncs background loading state', () => {
-    getOrderQueryReturnValue.mockReturnValueOnce([
-        getOrder,
-        {
-            error: null,
-            loading: true
-        }
-    ]);
+    useQuery.mockReturnValueOnce({
+        data: orderResponse,
+        error: null,
+        loading: true
+    });
 
     const [, { actions }] = useAppContext();
     const { setPageLoading } = actions;
@@ -148,43 +125,45 @@ test('syncs background loading state', () => {
     expect(setPageLoading).toHaveBeenNthCalledWith(2, false);
 });
 
-test('getOrderDetails fetches order details for the given search text', () => {
-    useFormState.mockReturnValueOnce({ values: { search: '*****' } });
-
-    const { talonProps, update } = getTalonProps(props);
-    talonProps.getOrderDetails();
-    update();
-
-    expect(getOrder).toHaveBeenCalled();
-    expect(getOrder.mock.calls[0]).toMatchSnapshot();
-});
-
-test('handleKeyPress should fetch orders if Enter key is pressed', () => {
-    useFormState.mockReturnValueOnce({ values: { search: '*****' } });
-
-    const { talonProps, update } = getTalonProps(props);
-    talonProps.handleKeyPress({ key: 'Enter' });
-    update();
-
-    expect(getOrder).toHaveBeenCalled();
-    expect(getOrder.mock.calls[0]).toMatchSnapshot();
-});
-
-test('resetForm should clear search and refetch orders data', () => {
-    const stopPropagation = jest.fn();
-    const reset = jest.fn();
-
-    useFormApi.mockReturnValueOnce({ reset });
-
-    const { talonProps, update } = getTalonProps(props);
-    talonProps.resetForm({
-        stopPropagation
+test('submit and reset handlers modify search text', () => {
+    const { talonProps: initialTalonProps, update } = getTalonProps(props);
+    initialTalonProps.handleSubmit({
+        search: '000123'
     });
+
+    const step1TalonProps = update();
+    step1TalonProps.handleReset();
+
+    const step2TalonProps = update();
+
+    expect(initialTalonProps.searchText).toBe('');
+    expect(step1TalonProps.searchText).toBe('000123');
+    expect(useQuery.mock.calls[1][1].variables.filter.number.match).toBe(
+        '000123'
+    );
+    expect(step2TalonProps.searchText).toBe('');
+});
+
+test('load more orders increases page size argument of query', () => {
+    useQuery.mockReturnValue({
+        data: {
+            customer: {
+                orders: {
+                    items: [],
+                    page_info: {
+                        current_page: 1,
+                        total_pages: 2
+                    },
+                    total_count: 15
+                }
+            }
+        }
+    });
+
+    const { talonProps, update } = getTalonProps();
+    talonProps.loadMoreOrders();
     update();
 
-    expect(stopPropagation).toHaveBeenCalled();
-    expect(reset).toHaveBeenCalled();
-    // should fetch all orders
-    expect(getOrder).toHaveBeenCalled();
-    expect(getOrder.mock.calls[0]).toMatchSnapshot();
+    expect(useQuery.mock.calls[0][1].variables.pageSize).toBe(10);
+    expect(useQuery.mock.calls[1][1].variables.pageSize).toBe(20);
 });

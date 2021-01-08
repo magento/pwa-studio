@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useFormState, useFormApi } from 'informed';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -11,11 +10,12 @@ import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 
 import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
 
+const PAGE_SIZE = 10;
+
 export const useOrderHistoryPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCustomerOrderQuery } = operations;
+    const { getCustomerOrdersQuery } = operations;
 
-    const [orders, setOrders] = useState([]);
     const [
         ,
         {
@@ -24,76 +24,69 @@ export const useOrderHistoryPage = (props = {}) => {
     ] = useAppContext();
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
-    const formState = useFormState();
-    const formApi = useFormApi();
 
-    const searchText = useMemo(() => {
-        return formState.values.search;
-    }, [formState]);
+    const [pageSize, setPageSize] = useState(PAGE_SIZE);
+    const [searchText, setSearchText] = useState('');
 
-    const [
-        getOrderData,
-        { loading: orderLoading, error: getOrderError }
-    ] = useLazyQuery(getCustomerOrderQuery, {
+    const {
+        data: orderData,
+        error: getOrderError,
+        loading: orderLoading
+    } = useQuery(getCustomerOrdersQuery, {
         fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        onCompleted: orderData => {
-            setOrders(orderData.customer.orders.items);
+        variables: {
+            filter: {
+                number: {
+                    match: searchText
+                }
+            },
+            pageSize
         }
     });
 
-    const getOrdersData = useCallback(() => {
-        getOrderData({
-            variables: {
-                orderNumber: {
-                    number: {
-                        match: ''
-                    }
-                }
-            }
-        });
-    }, [getOrderData]);
+    const orders = orderData ? orderData.customer.orders.items : [];
 
-    const isLoadingWithoutData = !orders && orderLoading;
-    const isBackgroundLoading = !!orders && orderLoading;
+    const isLoadingWithoutData = !orderData && orderLoading;
+    const isBackgroundLoading = !!orderData && orderLoading;
+
+    const pageInfo = useMemo(() => {
+        if (orderData) {
+            const { total_count } = orderData.customer.orders;
+
+            return {
+                current: pageSize < total_count ? pageSize : total_count,
+                total: total_count
+            };
+        }
+
+        return null;
+    }, [orderData, pageSize]);
 
     const derivedErrorMessage = useMemo(
         () => deriveErrorMessage([getOrderError]),
         [getOrderError]
     );
 
-    const getOrderDetails = useCallback(() => {
-        if (!isBackgroundLoading) {
-            getOrderData({
-                variables: {
-                    orderNumber: {
-                        number: {
-                            match: searchText
-                        }
-                    }
-                }
-            });
-        }
-    }, [isBackgroundLoading, getOrderData, searchText]);
+    const handleReset = useCallback(() => {
+        setSearchText('');
+    }, []);
 
-    const resetForm = useCallback(
-        event => {
-            event.stopPropagation();
+    const handleSubmit = useCallback(({ search }) => {
+        setSearchText(search);
+    }, []);
 
-            formApi.reset();
-            getOrdersData();
-        },
-        [formApi, getOrdersData]
-    );
+    const loadMoreOrders = useMemo(() => {
+        if (orderData) {
+            const { page_info } = orderData.customer.orders;
+            const { current_page, total_pages } = page_info;
 
-    const handleKeyPress = useCallback(
-        event => {
-            if (event.key === 'Enter') {
-                getOrderDetails();
+            if (current_page < total_pages) {
+                return () => setPageSize(current => current + PAGE_SIZE);
             }
-        },
-        [getOrderDetails]
-    );
+        }
+
+        return null;
+    }, [orderData]);
 
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
@@ -107,21 +100,15 @@ export const useOrderHistoryPage = (props = {}) => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
 
-    // Fetch orders data on load
-    useEffect(() => {
-        if (!searchText) {
-            getOrdersData();
-        }
-    }, [getOrdersData, searchText]);
-
     return {
         errorMessage: derivedErrorMessage,
-        getOrderDetails,
-        handleKeyPress,
+        handleReset,
+        handleSubmit,
         isBackgroundLoading,
         isLoadingWithoutData,
+        loadMoreOrders,
         orders,
-        resetForm,
+        pageInfo,
         searchText
     };
 };
