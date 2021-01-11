@@ -1,8 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should log package info 1`] = `Array []`;
+exports[`should log package and system info 1`] = `
+Array [
+  "Generating build report for test_package@0.0.1. This may take a moment.",
+  "Inspecting Dependencies",
+  "Inspecting Magento Backend",
+  "Inspecting System",
+]
+`;
 
-exports[`should log package info 2`] = `Array []`;
+exports[`should log package and system info 2`] = `
+Array [
+  "
+",
+  "Found 3 @magento dependencies in yarn.lock",
+  "@magento/pwa-buildpack @ 7.0.0",
+  "@magento/peregrine @ 8.0.0",
+  "@magento/venia-ui @ 5.0.0",
+  "
+",
+  "Not using sample backend.",
+  "Backend is UP!",
+  "
+",
+  "OS:",
+  "Mock OS Version",
+  "Node Version:",
+  "Mock Node Version",
+  "NPM Version:",
+  "Mock NPM Version",
+  "
+",
+]
+`;
+
+exports[`should log package and system info 3`] = `Array []`;
 
 exports[`should return proper shape 1`] = `
 Object {

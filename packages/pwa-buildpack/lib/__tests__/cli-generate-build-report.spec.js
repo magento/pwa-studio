@@ -1,9 +1,12 @@
+const os = require('os');
+
 const generateBuildReport = require('../cli/generate-build-report');
 const prettyLogger = require('../util/pretty-logger');
 
 jest.mock('../util/pretty-logger', () => ({
     info: jest.fn().mockName('info'),
-    log: jest.fn().mockName('log')
+    log: jest.fn().mockName('log'),
+    error: jest.fn().mockName('error')
 }));
 
 jest.mock('../cli/create-project', () => ({
@@ -19,20 +22,43 @@ jest.mock('../cli/create-project', () => ({
     }
 }));
 
+jest.mock('child_process', () => {
+    const childProcess = jest.requireActual('child_process');
+
+    return {
+        ...childProcess,
+        spawnSync: jest.fn().mockReturnValue({
+            stdout: {
+                toString: jest.fn().mockReturnValueOnce('Mock NPM Version')
+            }
+        })
+    };
+});
+
 jest.mock('path', () => {
+    const cwd = process.cwd();
     const path = jest.requireActual('path');
 
     return {
         ...path,
-        resolve: jest.fn().mockImplementation(pathToResolve => {
+        resolve: jest.fn().mockImplementation((...pathToResolve) => {
             if (pathToResolve.includes('package.json')) {
-                return '../__fixtures__/mock-package.json';
+                return path.resolve(
+                    cwd,
+                    'packages/pwa-buildpack/lib/__fixtures__/mock-package.json'
+                );
             } else if (pathToResolve.includes('yarn.lock')) {
-                return '../__fixtures__/mock-yarn.lock';
+                return path.resolve(
+                    cwd,
+                    'packages/pwa-buildpack/lib/__fixtures__/mock-yarn.lock'
+                );
             } else if (pathToResolve.includes('package-lock.json')) {
-                return '../__fixtures__/mock-package-lock.json';
+                return path.resolve(
+                    cwd,
+                    'packages/pwa-buildpack/lib/__fixtures__/mock-package-lock.json'
+                );
             } else {
-                return pathToResolve;
+                return path.resolve(...pathToResolve);
             }
         })
     };
@@ -79,17 +105,49 @@ jest.mock('../Utilities', () => ({
     })
 }));
 
+const _processVersion = process.version;
+
+beforeAll(() => {
+    jest.spyOn(os, 'version').mockReturnValue('Mock OS Version');
+    Object.defineProperty(process, 'version', {
+        value: 'Mock Node Version'
+    });
+});
+
+afterAll(() => {
+    Object.defineProperty(process, 'version', {
+        value: _processVersion
+    });
+});
+
+let logs = [];
+let infos = [];
+let errors = [];
+
+beforeEach(() => {
+    logs = [];
+    infos = [];
+    errors = [];
+
+    prettyLogger.info = jest.fn().mockImplementation((...args) => {
+        infos.push(...args);
+    });
+    prettyLogger.log = jest.fn().mockImplementation((...args) => {
+        logs.push(...args);
+    });
+    prettyLogger.error = jest.fn().mockImplementation((...args) => {
+        errors.push(...args);
+    });
+});
+
 test('should return proper shape', () => {
     expect(generateBuildReport).toMatchSnapshot();
 });
 
-test.skip('should log package info', () => {
-    try {
-        generateBuildReport.handler();
-    } catch (err) {
-        console.log(err);
-    }
+test('should log package and system info', async () => {
+    await generateBuildReport.handler();
 
-    expect(prettyLogger.info.mock.calls).toMatchSnapshot();
-    expect(prettyLogger.log.mock.calls).toMatchSnapshot();
+    expect(infos).toMatchSnapshot();
+    expect(logs).toMatchSnapshot();
+    expect(errors).toMatchSnapshot();
 });
