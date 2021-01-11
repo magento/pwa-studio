@@ -99,6 +99,9 @@ Previous coverage (8.0.0)
 
 ### Magento release support change
 
+Past releases of PWA Studio supported the upcoming Magento release version and the previous Magento version.
+To help the team move quicker and deliver more value in each release, this and future versions of PWA Studio will only support the upcoming or current Magento version.
+
 ## Pull requests merged in this release
 
 ### Venia (storefront and visual component library)
@@ -227,6 +230,8 @@ Previous coverage (8.0.0)
 | Fixed a Storybook bug related to the relative import of a local custom loader | **Bugfix**  | [#2912][] |
 
 ## Known issues
+
+- A GraphQL issue prevents users from adding a configurable product on non-default store views.
 
 ## Upgrading from a previous version
 
