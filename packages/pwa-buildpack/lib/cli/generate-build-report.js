@@ -43,22 +43,26 @@ const cwd = process.cwd();
 function inspectDependencies(pkg) {
     prettyLogger.info('Inspecting Dependencies');
 
-    // Inspect all '@magento/...' dependencies.
-    const magentoDependencies = [
+    // Inspect all '@magento/...' '@adobe/...' dependencies.
+    const dependenciesToScan = [
         ...Object.keys(pkg.dependencies),
         ...Object.keys(pkg.devDependencies)
-    ].filter(dependency => dependency.startsWith('@magento/'));
+    ].filter(
+        dependency =>
+            dependency.startsWith('@magento/') ||
+            dependency.startsWith('@adobe/')
+    );
 
     let dependencies;
     if (existsSync(path.resolve(cwd, 'yarn.lock'))) {
         // using yarn
-        dependencies = getYarnDependencies(magentoDependencies);
+        dependencies = getYarnDependencies(dependenciesToScan);
         prettyLogger.log(
             `Found ${dependencies.size} @magento dependencies in yarn.lock`
         );
     } else if (existsSync(path.resolve(cwd, 'package-lock.json'))) {
         // using npm
-        dependencies = getNpmDependencies(magentoDependencies);
+        dependencies = getNpmDependencies(dependenciesToScan);
         prettyLogger.log(
             `Found ${
                 dependencies.size
