@@ -48,7 +48,6 @@
     "categoryContent.filter": "Filter",
     "categoryContent.itemsSortedBy": "Items sorted by ",
     "categoryLeaf.allLabel": "All {name}",
-    "categoryList.errorFetch": "Data Fetch Error: ",
     "categoryList.noResults": "No child categories found.",
     "checkoutPage.accountSuccessfullyCreated": "Account successfully created.",
     "checkoutPage.additionalText": "You will also receive an email with the details and we will let you know when your order has shipped.",

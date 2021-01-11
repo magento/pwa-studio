@@ -45,7 +45,6 @@
     "categoryContent.filter": "Filtre",
     "categoryContent.itemsSortedBy": "Articles triés par ",
     "categoryLeaf.allLabel": "Tout(e) {name}",
-    "categoryList.errorFetch": "Erreur de récupération des données: ",
     "categoryList.noResults": "Aucune catégorie enfant trouvée.",
     "checkoutPage.additionalText": "Vous recevrez également un courriel avec les détails et nous vous informerons lorsque votre commande aura été expédiée",
     "checkoutPage.accountSuccessfullyCreated": "Compte créé avec succès.",
