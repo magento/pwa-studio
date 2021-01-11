@@ -1,4 +1,5 @@
 const os = require('os');
+const path = require('path');
 
 const generateBuildReport = require('../cli/generate-build-report');
 const prettyLogger = require('../util/pretty-logger');
@@ -144,10 +145,71 @@ test('should return proper shape', () => {
     expect(generateBuildReport).toMatchSnapshot();
 });
 
-test('should log package and system info', async () => {
+test('should log package info from yarn.lock file if available', async () => {
     await generateBuildReport.handler();
 
     expect(infos).toMatchSnapshot();
     expect(logs).toMatchSnapshot();
     expect(errors).toMatchSnapshot();
+});
+
+test('should log package info from package-lock.json file if yarn.lock is not available', async () => {
+    const cwd = process.cwd();
+    const _path = jest.requireActual('path');
+    path.resolve.mockImplementation((...pathToResolve) => {
+        if (pathToResolve.includes('package.json')) {
+            return _path.resolve(
+                cwd,
+                'packages/pwa-buildpack/lib/__fixtures__/mock-package.json'
+            );
+        } else if (pathToResolve.includes('yarn.lock')) {
+            return _path.resolve(
+                cwd,
+                'packages/pwa-buildpack/lib/__fixtures__/wrong-mock-yarn.lock'
+            );
+        } else if (pathToResolve.includes('package-lock.json')) {
+            return _path.resolve(
+                cwd,
+                'packages/pwa-buildpack/lib/__fixtures__/mock-package-lock.json'
+            );
+        } else {
+            return _path.resolve(...pathToResolve);
+        }
+    });
+    await generateBuildReport.handler();
+
+    expect(infos).toMatchSnapshot();
+    expect(logs).toMatchSnapshot();
+    expect(errors).toMatchSnapshot();
+});
+
+test('should throw error if package-lock.json and yarn.lock files are not available', async () => {
+    const cwd = process.cwd();
+    const _path = jest.requireActual('path');
+    path.resolve.mockImplementation((...pathToResolve) => {
+        if (pathToResolve.includes('package.json')) {
+            return _path.resolve(
+                cwd,
+                'packages/pwa-buildpack/lib/__fixtures__/mock-package.json'
+            );
+        } else if (pathToResolve.includes('yarn.lock')) {
+            return _path.resolve(
+                cwd,
+                'packages/pwa-buildpack/lib/__fixtures__/wrong-mock-yarn.lock'
+            );
+        } else if (pathToResolve.includes('package-lock.json')) {
+            return _path.resolve(
+                cwd,
+                'packages/pwa-buildpack/lib/__fixtures__/wrong-mock-package-lock.json'
+            );
+        } else {
+            return _path.resolve(...pathToResolve);
+        }
+    });
+
+    try {
+        await generateBuildReport.handler();
+    } catch (err) {
+        expect(err).toMatchSnapshot();
+    }
 });
