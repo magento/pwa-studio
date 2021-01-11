@@ -92,7 +92,6 @@
     "checkoutPage.titleCheckout": "Paiement - {name}",
     "checkoutPage.titleReceipt": "Le reçu - {name}",
     "cms.shopByCategory": "Acheter par catégorie",
-    "cmsBlock.errorFetch": "Erreur de récupération des données",
     "cmsBlock.noBlocks": "Il n'y a aucun bloc à afficher",
     "communicationsPage.changesText": "Sauvegarder les modifications",
     "communicationsPage.communicationsText": "Les Communications",
