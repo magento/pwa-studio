@@ -42,7 +42,6 @@
     "cartPage.signIn": "Se connecter",
     "cartPage.title": "Panier - {name}",
     "cartTrigger.ariaLabel": "Basculer le mini-panier. Vous avez {count} articles dans votre panier.",
-    "category.dataFetchError": "Erreur de récupération des données",
     "categoryContent.filter": "Filtre",
     "categoryContent.itemsSortedBy": "Articles triés par ",
     "categoryLeaf.allLabel": "Tout(e) {name}",
