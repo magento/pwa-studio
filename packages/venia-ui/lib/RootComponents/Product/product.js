@@ -7,6 +7,7 @@ import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
 import getUrlKey from '../../util/getUrlKey';
 import mapProduct from '../../util/mapProduct';
+import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 
 /*
  * As of this writing, there is no single Product query type in the M2.3 schema.
@@ -25,16 +26,7 @@ const Product = () => {
     const { error, loading, product } = talonProps;
 
     if (loading && !product) return fullPageLoadingIndicator;
-    if (error && !product)
-        return (
-            <div>
-                <FormattedMessage
-                    id={'product.errorFetch'}
-                    defaultMessage={'Data Fetch Error'}
-                />
-            </div>
-        );
-
+    if (error && !product) return <ErrorView />;
     if (!product) {
         return (
             <h1>
