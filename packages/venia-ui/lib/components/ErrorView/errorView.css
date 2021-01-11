@@ -1,0 +1,33 @@
+.root {
+    padding: 1rem;
+}
+
+.content {
+    max-width: 50%;
+    margin: auto;
+    display: grid;
+    grid-gap: 1rem;
+    text-align: center;
+}
+
+.errorCode {
+    font-size: var(--venia-global-typography-heading-XL-fontSize);
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.header {
+    font-size: var(--venia-global-typography-heading-L-fontSize);
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.message {
+}
+
+.actionsContainer {
+}
+
+@media (max-width: 640px) {
+    .content {
+        max-width: 100%;
+    }
+}
