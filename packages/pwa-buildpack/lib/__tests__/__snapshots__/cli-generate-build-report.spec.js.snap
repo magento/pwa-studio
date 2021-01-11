@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should log os version error if wrong version of node is used 1`] = `
+Array [
+  "Generating build report for test_package@0.0.1. This may take a moment.",
+  "Inspecting Dependencies",
+  "Inspecting Magento Backend",
+  "Inspecting System",
+]
+`;
+
+exports[`should log os version error if wrong version of node is used 2`] = `
+Array [
+  "
+",
+  "Found 3 @magento dependencies in yarn.lock",
+  "@magento/pwa-buildpack @ 7.0.0",
+  "@magento/peregrine @ 8.0.0",
+  "@magento/venia-ui @ 5.0.0",
+  "
+",
+  "Not using sample backend.",
+  "Backend is UP!",
+  "
+",
+  "OS:",
+  "Unable to fetch OS Version.",
+  "Node Version:",
+  "Mock Node Version",
+  "NPM Version:",
+  "Mock NPM Version",
+  "
+",
+]
+`;
+
+exports[`should log os version error if wrong version of node is used 3`] = `Array []`;
+
 exports[`should log package info from package-lock.json file if yarn.lock is not available 1`] = `
 Array [
   "Generating build report for test_package@0.0.1. This may take a moment.",
@@ -28,7 +64,7 @@ Array [
   "Node Version:",
   "Mock Node Version",
   "NPM Version:",
-  undefined,
+  "Mock NPM Version",
   "
 ",
 ]

@@ -1,3 +1,5 @@
+jest.mock('path');
+
 const os = require('os');
 const path = require('path');
 
@@ -30,36 +32,7 @@ jest.mock('child_process', () => {
         ...childProcess,
         spawnSync: jest.fn().mockReturnValue({
             stdout: {
-                toString: jest.fn().mockReturnValueOnce('Mock NPM Version')
-            }
-        })
-    };
-});
-
-jest.mock('path', () => {
-    const cwd = process.cwd();
-    const path = jest.requireActual('path');
-
-    return {
-        ...path,
-        resolve: jest.fn().mockImplementation((...pathToResolve) => {
-            if (pathToResolve.includes('package.json')) {
-                return path.resolve(
-                    cwd,
-                    'packages/pwa-buildpack/lib/__fixtures__/mock-package.json'
-                );
-            } else if (pathToResolve.includes('yarn.lock')) {
-                return path.resolve(
-                    cwd,
-                    'packages/pwa-buildpack/lib/__fixtures__/mock-yarn.lock'
-                );
-            } else if (pathToResolve.includes('package-lock.json')) {
-                return path.resolve(
-                    cwd,
-                    'packages/pwa-buildpack/lib/__fixtures__/mock-package-lock.json'
-                );
-            } else {
-                return path.resolve(...pathToResolve);
+                toString: jest.fn().mockReturnValue('Mock NPM Version')
             }
         })
     };
@@ -129,7 +102,6 @@ beforeEach(() => {
     logs = [];
     infos = [];
     errors = [];
-
     prettyLogger.info = jest.fn().mockImplementation((...args) => {
         infos.push(...args);
     });
@@ -138,6 +110,29 @@ beforeEach(() => {
     });
     prettyLogger.error = jest.fn().mockImplementation((...args) => {
         errors.push(...args);
+    });
+
+    const cwd = process.cwd();
+    const _path = jest.requireActual('path');
+    path.resolve.mockImplementation((...pathToResolve) => {
+        if (pathToResolve.includes('package.json')) {
+            return _path.resolve(
+                cwd,
+                'packages/pwa-buildpack/lib/__fixtures__/mock-package.json'
+            );
+        } else if (pathToResolve.includes('yarn.lock')) {
+            return _path.resolve(
+                cwd,
+                'packages/pwa-buildpack/lib/__fixtures__/mock-yarn.lock'
+            );
+        } else if (pathToResolve.includes('package-lock.json')) {
+            return _path.resolve(
+                cwd,
+                'packages/pwa-buildpack/lib/__fixtures__/mock-package-lock.json'
+            );
+        } else {
+            return _path.resolve(...pathToResolve);
+        }
     });
 });
 
@@ -212,4 +207,15 @@ test('should throw error if package-lock.json and yarn.lock files are not availa
     } catch (err) {
         expect(err).toMatchSnapshot();
     }
+});
+
+test('should log os version error if wrong version of node is used', async () => {
+    os.version.mockImplementationOnce(() => {
+        throw new Error();
+    });
+    await generateBuildReport.handler();
+
+    expect(infos).toMatchSnapshot();
+    expect(logs).toMatchSnapshot();
+    expect(errors).toMatchSnapshot();
 });
