@@ -22,7 +22,7 @@
     "build:ci": " ",
     "build:dev": " ",
     "clean": " ",
-    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook": "start-storybook -s ./ -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist"
   },
   "repository": "github:magento/pwa-studio",
