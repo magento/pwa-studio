@@ -42,7 +42,7 @@ const Category = props => {
             console.error(error);
         }
 
-        return <ErrorView message={error.message} />;
+        return <ErrorView />;
     }
 
     return (

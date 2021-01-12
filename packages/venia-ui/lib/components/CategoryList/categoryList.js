@@ -48,7 +48,11 @@ const CategoryList = props => {
 
     if (!childCategories) {
         if (error) {
-            child = <ErrorView message={error.message} />;
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(error);
+            }
+
+            child = <ErrorView />;
         } else if (loading) {
             child = fullPageLoadingIndicator;
         }
