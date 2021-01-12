@@ -1,6 +1,7 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
@@ -168,7 +169,9 @@ export const useProductFullDetail = props => {
     const {
         addConfigurableProductToCartMutation,
         addSimpleProductToCartMutation,
-        product
+        addProductToWishlistMutation,
+        product,
+        afterSubmit
     } = props;
 
     const productType = product.__typename;
@@ -178,6 +181,12 @@ export const useProductFullDetail = props => {
     );
 
     const [{ cartId }] = useCartContext();
+    const [{ isSignedIn, currentUser }] = useUserContext();
+
+    const [formApi, setFormApi] = useState();
+
+    const wishlistId =
+        isSignedIn && currentUser.wishlist && currentUser.wishlist.id;
 
     const [
         addConfigurableProductToCart,
@@ -191,6 +200,11 @@ export const useProductFullDetail = props => {
         addSimpleProductToCart,
         { error: errorAddingSimpleProduct, loading: isAddSimpleLoading }
     ] = useMutation(addSimpleProductToCartMutation);
+
+    const [
+        addProductToWishlist,
+        { error: errorAddingWishlist, loading: isAddWishlistLoading }
+    ] = useMutation(addProductToWishlistMutation);
 
     const breadcrumbCategoryId = useMemo(
         () => getBreadcrumbCategoryId(product.categories),
@@ -287,6 +301,52 @@ export const useProductFullDetail = props => {
         [optionSelections]
     );
 
+    const handleAddToWishlist = useCallback(async () => {
+        const quantity = formApi.getValue('quantity');
+        const payload = {
+            item: product,
+            quantity
+        };
+
+        if (productType === 'ConfigurableProduct') {
+            appendOptionsToPayload(payload, optionSelections, optionCodes);
+        }
+
+        if (isSupportedProductType && wishlistId) {
+            const variables = {
+                wishlistId,
+                wishlistItems: [
+                    {
+                        parent_sku: payload.parentSku,
+                        quantity: payload.quantity,
+                        sku: payload.item.sku
+                    }
+                ]
+            };
+            try {
+                await addProductToWishlist({
+                    variables
+                });
+
+                if (afterSubmit) {
+                    afterSubmit();
+                }
+            } catch {
+                return;
+            }
+        }
+    }, [
+        formApi,
+        addProductToWishlist,
+        isSupportedProductType,
+        optionCodes,
+        optionSelections,
+        productType,
+        wishlistId,
+        afterSubmit,
+        product
+    ]);
+
     const productPrice = useMemo(
         () => getConfigPrice(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
@@ -304,9 +364,14 @@ export const useProductFullDetail = props => {
         () =>
             deriveErrorMessage([
                 errorAddingSimpleProduct,
-                errorAddingConfigurableProduct
+                errorAddingConfigurableProduct,
+                errorAddingWishlist
             ]),
-        [errorAddingConfigurableProduct, errorAddingSimpleProduct]
+        [
+            errorAddingConfigurableProduct,
+            errorAddingSimpleProduct,
+            errorAddingWishlist
+        ]
     );
 
     return {
@@ -320,6 +385,15 @@ export const useProductFullDetail = props => {
             isAddConfigurableLoading ||
             isAddSimpleLoading,
         mediaGalleryEntries,
-        productDetails
+        productDetails,
+        isAddToWishlistDisabled:
+            !isSupportedProductType ||
+            isMissingOptions ||
+            isAddConfigurableLoading ||
+            isAddSimpleLoading ||
+            !isSignedIn ||
+            isAddWishlistLoading,
+        setFormApi,
+        handleAddToWishlist
     };
 };

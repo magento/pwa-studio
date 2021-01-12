@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment, Suspense, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -6,6 +6,7 @@ import { Form } from 'informed';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
+import { useToasts } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
 import Breadcrumbs from '../Breadcrumbs';
@@ -19,7 +20,8 @@ import RichText from '../RichText';
 import defaultClasses from './productFullDetail.css';
 import {
     ADD_CONFIGURABLE_MUTATION,
-    ADD_SIMPLE_MUTATION
+    ADD_SIMPLE_MUTATION,
+    ADD_WISHLIST_MUTATION
 } from './productFullDetail.gql';
 
 const Options = React.lazy(() => import('../ProductOptions'));
@@ -41,10 +43,26 @@ const ERROR_FIELD_TO_MESSAGE_MAPPING = {
 const ProductFullDetail = props => {
     const { product } = props;
 
+    const [, { addToast }] = useToasts();
+    const { formatMessage } = useIntl();
+
+    const afterSubmit = useCallback(() => {
+        addToast({
+            type: 'info',
+            message: formatMessage({
+                id: 'productFullDetail.addWishlistSuccessText',
+                defaultMessage: 'Item has been added to your Wish List.'
+            }),
+            timeout: 5000
+        });
+    }, [addToast, formatMessage]);
+
     const talonProps = useProductFullDetail({
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
         addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
-        product
+        addProductToWishlistMutation: ADD_WISHLIST_MUTATION,
+        product,
+        afterSubmit
     });
 
     const {
@@ -54,9 +72,11 @@ const ProductFullDetail = props => {
         handleSelectionChange,
         isAddToCartDisabled,
         mediaGalleryEntries,
-        productDetails
+        productDetails,
+        setFormApi,
+        handleAddToWishlist,
+        isAddToWishlistDisabled
     } = talonProps;
-    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -133,7 +153,11 @@ const ProductFullDetail = props => {
     return (
         <Fragment>
             {breadcrumbs}
-            <Form className={classes.root} onSubmit={handleAddToCart}>
+            <Form
+                className={classes.root}
+                onSubmit={handleAddToCart}
+                getApi={setFormApi}
+            >
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
                         {productDetails.name}
@@ -177,6 +201,18 @@ const ProductFullDetail = props => {
                         <FormattedMessage
                             id={'productFullDetail.cartAction'}
                             defaultMessage={'Add to Cart'}
+                        />
+                    </Button>
+                    <Button
+                        disabled={isAddToWishlistDisabled}
+                        priority="low"
+                        type="button"
+                        className={classes.wishlistButton}
+                        onClick={handleAddToWishlist}
+                    >
+                        <FormattedMessage
+                            id={'productFullDetail.wishlistActions'}
+                            defaultMessage={'Add to Wishlist'}
                         />
                     </Button>
                 </section>

@@ -58,3 +58,43 @@ export const ADD_SIMPLE_MUTATION = gql`
     ${CartTriggerFragment}
     ${MiniCartFragment}
 `;
+
+export const ADD_WISHLIST_MUTATION = gql`
+    mutation addProductsToWishlist(
+        $wishlistId: ID!
+        $wishlistItems: [WishlistItemInput!]!
+    ) {
+        addProductsToWishlist(
+            wishlistId: $wishlistId
+            wishlistItems: $wishlistItems
+        ) @connection(key: "addProductsToWishlist") {
+            wishlist {
+                id
+                items_count
+                items {
+                    id
+                    qty
+                    product {
+                        name
+                        sku
+                        id
+                        price_range {
+                            minimum_price {
+                                regular_price {
+                                    currency
+                                    value
+                                }
+                            }
+                            maximum_price {
+                                regular_price {
+                                    currency
+                                    value
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;

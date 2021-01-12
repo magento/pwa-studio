@@ -111,6 +111,11 @@
     justify-content: center;
 }
 
+.wishlistButton {
+    composes: root from '../Button/button.css';
+    margin-left: 1rem;
+}
+
 @media (min-width: 1024px) {
     .cartActions {
         border-bottom-width: 0;
@@ -171,4 +176,14 @@
     composes: root from '../CartPage/ProductListing/quantity.css';
     grid-template-columns: auto 4rem auto;
     justify-content: start;
+}
+
+@media (max-width: 480px) {
+    .cartActions {
+        flex-direction: column;
+    }
+    .wishlistButton {
+        margin-left: 0;
+        margin-top: 1rem;
+    }
 }
