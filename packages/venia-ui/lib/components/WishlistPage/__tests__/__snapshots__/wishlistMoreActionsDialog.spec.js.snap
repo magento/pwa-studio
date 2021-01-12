@@ -60,7 +60,10 @@ exports[`renders correctly when closed 1`] = `
         <span
           className="text"
         >
-          Move to
+          <mock-FormattedMessage
+            defaultMessage="Move to"
+            id="wishlistMoreActionsDialog.move"
+          />
         </span>
         <span
           className="root"
@@ -121,7 +124,10 @@ exports[`renders correctly when closed 1`] = `
         <span
           className="text"
         >
-          Copy to
+          <mock-FormattedMessage
+            defaultMessage="Copy to"
+            id="wishlistMoreActionsDialog.copy"
+          />
         </span>
         <span
           className="root"
@@ -190,7 +196,10 @@ exports[`renders correctly when closed 1`] = `
         <span
           className="text"
         >
-          Remove
+          <mock-FormattedMessage
+            defaultMessage="Remove"
+            id="wishlistMoreActionsDialog.delete"
+          />
         </span>
       </span>
     </button>
@@ -258,7 +267,10 @@ exports[`renders correctly when open 1`] = `
         <span
           className="text"
         >
-          Move to
+          <mock-FormattedMessage
+            defaultMessage="Move to"
+            id="wishlistMoreActionsDialog.move"
+          />
         </span>
         <span
           className="root"
@@ -319,7 +331,10 @@ exports[`renders correctly when open 1`] = `
         <span
           className="text"
         >
-          Copy to
+          <mock-FormattedMessage
+            defaultMessage="Copy to"
+            id="wishlistMoreActionsDialog.copy"
+          />
         </span>
         <span
           className="root"
@@ -388,7 +403,10 @@ exports[`renders correctly when open 1`] = `
         <span
           className="text"
         >
-          Remove
+          <mock-FormattedMessage
+            defaultMessage="Remove"
+            id="wishlistMoreActionsDialog.delete"
+          />
         </span>
       </span>
     </button>

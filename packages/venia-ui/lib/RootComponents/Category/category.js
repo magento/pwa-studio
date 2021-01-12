@@ -33,7 +33,7 @@ const Category = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     // Show the loading indicator until data has been fetched.
-    if (loading) {
+    if (!categoryData && loading) {
         return fullPageLoadingIndicator;
     }
 

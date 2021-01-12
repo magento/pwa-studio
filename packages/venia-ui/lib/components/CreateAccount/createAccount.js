@@ -48,7 +48,7 @@ const CreateAccount = props => {
             className={classes.cancelButton}
             disabled={isDisabled}
             type="button"
-            priority="normal"
+            priority="low"
             onClick={handleCancel}
         >
             <FormattedMessage
@@ -78,6 +78,12 @@ const CreateAccount = props => {
             initialValues={initialValues}
             onSubmit={handleSubmit}
         >
+            <h2 className={classes.title}>
+                <FormattedMessage
+                    id={'createAccount.createAccountText'}
+                    defaultMessage={'Create an Account'}
+                />
+            </h2>
             <FormError errors={Array.from(errors.values())} />
             <Field
                 label={formatMessage({
@@ -151,8 +157,8 @@ const CreateAccount = props => {
                 />
             </div>
             <div className={classes.actions}>
-                {cancelButton}
                 {submitButton}
+                {cancelButton}
             </div>
         </Form>
     );
@@ -171,7 +177,7 @@ CreateAccount.propTypes = {
         lastName: string
     }),
     isCancelButtonHidden: bool,
-    onSubmit: func.isRequired,
+    onSubmit: func,
     onCancel: func
 };
 

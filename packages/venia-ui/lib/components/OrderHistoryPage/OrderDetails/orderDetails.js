@@ -106,13 +106,16 @@ OrderDetails.propTypes = {
             lastname: string,
             postcode: string,
             region_id: string,
-            street: string
+            street: arrayOf(string)
         }),
         items: arrayOf(
             shape({
                 id: string,
                 product_name: string,
-                product_sale_price: string,
+                product_sale_price: shape({
+                    currency: string,
+                    value: number
+                }),
                 product_sku: string,
                 selected_options: arrayOf(
                     shape({
@@ -141,7 +144,7 @@ OrderDetails.propTypes = {
             lastname: string,
             postcode: string,
             region_id: string,
-            street: string,
+            street: arrayOf(string),
             telephone: string
         }),
         shipping_method: string,

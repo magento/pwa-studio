@@ -72,7 +72,10 @@ exports[`renders a loading indicator when talon indicates 1`] = `
   <span
     className="message"
   >
-    Fetching Data...
+    <mock-FormattedMessage
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
   </span>
 </div>
 `;
@@ -87,20 +90,11 @@ exports[`renders components if cart has items 1`] = `
     <h1
       className="heading"
     >
-      Cart
+      <mock-FormattedMessage
+        defaultMessage="Cart"
+        id="cartPage.heading"
+      />
     </h1>
-    <button
-      className="root_normalPriority"
-      disabled={false}
-      onClick={[MockFunction]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Sign In
-      </span>
-    </button>
     <div
       className="stockStatusMessageContainer"
     >
@@ -149,20 +143,11 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
     <h1
       className="heading"
     >
-      Cart
+      <mock-FormattedMessage
+        defaultMessage="Cart"
+        id="cartPage.heading"
+      />
     </h1>
-    <button
-      className="root_normalPriority"
-      disabled={false}
-      onClick={[MockFunction]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Sign In
-      </span>
-    </button>
     <div
       className="stockStatusMessageContainer"
     >
@@ -176,7 +161,10 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
       className="items_container"
     >
       <h3>
-        There are no items in your cart.
+        <mock-FormattedMessage
+          defaultMessage="There are no items in your cart."
+          id="cartPage.emptyCart"
+        />
       </h3>
     </div>
     <div

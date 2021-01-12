@@ -10,7 +10,14 @@ jest.mock('@apollo/client', () => {
         useQuery: jest.fn(() => ({
             data: null,
             loading: false
-        }))
+        })),
+        useMutation: jest.fn(() => [
+            jest.fn(),
+            {
+                error: false,
+                loading: false
+            }
+        ])
     };
 });
 
@@ -62,7 +69,25 @@ test('it returns the proper shape', () => {
     // Assert.
     const talonProps = log.mock.calls[0][0];
     const actualKeys = Object.keys(talonProps);
-    const expectedKeys = ['customerAddresses', 'handleAddAddress'];
+    const expectedKeys = [
+        'confirmDeleteAddressId',
+        'countryDisplayNameMap',
+        'customerAddresses',
+        'formErrors',
+        'formProps',
+        'handleAddAddress',
+        'handleCancelDeleteAddress',
+        'handleCancelDialog',
+        'handleConfirmDeleteAddress',
+        'handleConfirmDialog',
+        'handleDeleteAddress',
+        'handleEditAddress',
+        'isDeletingCustomerAddress',
+        'isDialogBusy',
+        'isDialogEditMode',
+        'isDialogOpen',
+        'isLoading'
+    ];
     expect(actualKeys.sort()).toEqual(expectedKeys.sort());
 });
 
@@ -71,6 +96,7 @@ test('it returns the customerAddresses correctly when present', () => {
     const mockCustomerAddresses = ['a', 'b', 'c'];
     useQuery.mockReturnValueOnce({
         data: {
+            countries: [],
             customer: {
                 addresses: mockCustomerAddresses
             }
@@ -88,7 +114,7 @@ test('it returns the customerAddresses correctly when present', () => {
 test('it returns an empty customerAddresses array when customer data is missing', () => {
     // Arrange.
     useQuery.mockReturnValueOnce({
-        data: {}
+        data: null
     });
 
     // Act.
@@ -104,6 +130,7 @@ test('it returns an empty customerAddresses array when address data is missing',
     // Arrange.
     useQuery.mockReturnValueOnce({
         data: {
+            countries: [],
             customer: {}
         }
     });
@@ -115,4 +142,52 @@ test('it returns an empty customerAddresses array when address data is missing',
     const { customerAddresses } = log.mock.calls[0][0];
     expect(customerAddresses).toBeInstanceOf(Array);
     expect(customerAddresses).toHaveLength(0);
+});
+
+test('isLoading is true without addresses in cache', () => {
+    useQuery.mockReturnValueOnce({
+        data: null,
+        loading: true
+    });
+
+    createTestInstance(<Component {...props} />);
+
+    const { isLoading } = log.mock.calls[0][0];
+    expect(isLoading).toBe(true);
+});
+
+test('isLoading is false when refetching in the background', () => {
+    useQuery.mockReturnValueOnce({
+        data: {
+            countries: [],
+            customer: {}
+        },
+        loading: true
+    });
+
+    createTestInstance(<Component {...props} />);
+
+    const { isLoading } = log.mock.calls[0][0];
+    expect(isLoading).toBe(false);
+});
+
+test('returns map of country display names', () => {
+    useQuery.mockReturnValueOnce({
+        data: {
+            countries: [
+                { id: 'US', full_name_locale: 'United States' },
+                { id: 'FR', full_name_locale: 'France' }
+            ]
+        }
+    });
+
+    createTestInstance(<Component {...props} />);
+
+    const { countryDisplayNameMap } = log.mock.calls[0][0];
+    expect(countryDisplayNameMap).toMatchInlineSnapshot(`
+        Map {
+          "US" => "United States",
+          "FR" => "France",
+        }
+    `);
 });

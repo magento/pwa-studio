@@ -13,7 +13,10 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
       <h5
         className="heading"
       >
-        Shipping Method
+        <mock-FormattedMessage
+          defaultMessage="Shipping Method"
+          id="completedView.shippingMethod"
+        />
       </h5>
       <button
         className="editButton"
@@ -47,7 +50,10 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
           <span
             className="editButtonText"
           >
-            Edit
+            <mock-FormattedMessage
+              defaultMessage="Edit"
+              id="global.editButton"
+            />
           </span>
         </span>
       </button>
@@ -55,7 +61,10 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
     <span
       className="error"
     >
-      Error loading selected shipping method. Please select again.
+      <mock-FormattedMessage
+        defaultMessage="Error loading selected shipping method. Please select again."
+        id="completedView.errorLoading"
+      />
     </span>
   </div>
 </div>
@@ -74,7 +83,10 @@ exports[`it renders correctly 1`] = `
       <h5
         className="heading"
       >
-        Shipping Method
+        <mock-FormattedMessage
+          defaultMessage="Shipping Method"
+          id="completedView.shippingMethod"
+        />
       </h5>
       <button
         className="editButton"
@@ -108,7 +120,10 @@ exports[`it renders correctly 1`] = `
           <span
             className="editButtonText"
           >
-            Edit
+            <mock-FormattedMessage
+              defaultMessage="Edit"
+              id="global.editButton"
+            />
           </span>
         </span>
       </button>
