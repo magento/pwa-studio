@@ -1,15 +1,14 @@
 import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
-import { func, number, oneOf, shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';
 import defaultClasses from './errorView.css';
 
-const DEFAULT_HEADER = 'Well, dang.';
-const DEFAULT_MESSAGE =
-    'Looks like something went wrong. What would you like to do?';
+const DEFAULT_HEADER = 'Oops!';
+const DEFAULT_MESSAGE = 'Looks like something went wrong. Sorry about that.';
 const DEFAULT_PROMPT = 'Take me home';
 
 const ErrorView = props => {
@@ -21,7 +20,6 @@ const ErrorView = props => {
     }, [history]);
 
     const {
-        code = '',
         header = DEFAULT_HEADER,
         message = DEFAULT_MESSAGE,
         buttonPrompt = (
@@ -40,7 +38,6 @@ const ErrorView = props => {
     return (
         <div className={classes.root}>
             <div className={classes.content}>
-                <p className={classes.errorCode}>{code}</p>
                 <p className={classes.header}>{header}</p>
                 <p className={classes.message}>{message}</p>
                 <div className={classes.actionsContainer}>
@@ -54,7 +51,6 @@ const ErrorView = props => {
 };
 
 ErrorView.propTypes = {
-    code: oneOf(string, number),
     header: string,
     message: string,
     buttonPrompt: string,

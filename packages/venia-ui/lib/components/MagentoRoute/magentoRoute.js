@@ -6,8 +6,11 @@ import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 
 const MESSAGES = new Map()
-    .set('NOT_FOUND', 'That page could not be found. Please try again.')
-    .set('INTERNAL_ERROR', 'Something went wrong. Please try again.');
+    .set(
+        'NOT_FOUND',
+        "Looks like the page you were hoping to find doesn't exist. Sorry about that."
+    )
+    .set('INTERNAL_ERROR', 'Something went wrong. Sorry about that.');
 
 const MagentoRoute = () => {
     const { formatMessage } = useIntl();
@@ -27,7 +30,6 @@ const MagentoRoute = () => {
     } else if (isNotFound) {
         return (
             <ErrorView
-                code={404}
                 message={formatMessage({
                     id: 'magentoRoute.routeError',
                     defaultMessage: MESSAGES.get('NOT_FOUND')
@@ -38,7 +40,6 @@ const MagentoRoute = () => {
 
     return (
         <ErrorView
-            code={500}
             message={formatMessage({
                 id: 'magentoRoute.internalError',
                 defaultMessage: MESSAGES.get('INTERNAL_ERROR')

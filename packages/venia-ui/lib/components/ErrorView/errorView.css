@@ -10,11 +10,6 @@
     text-align: center;
 }
 
-.errorCode {
-    font-size: var(--venia-global-typography-heading-XL-fontSize);
-    font-weight: var(--venia-global-fontWeight-semibold);
-}
-
 .header {
     font-size: var(--venia-global-typography-heading-L-fontSize);
     font-weight: var(--venia-global-fontWeight-semibold);
