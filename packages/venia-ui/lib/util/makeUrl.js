@@ -1,8 +1,14 @@
+import { BrowserPersistence } from '@magento/peregrine/lib/util';
+
+const storage = new BrowserPersistence();
+
 // If the root template supplies the backend URL at runtime, use it directly
 const htmlDataset = document.querySelector('html').dataset;
 const { imageOptimizingOrigin } = htmlDataset;
 // Protect against potential falsy values for `mediaBackend`.
-let mediaBackend = htmlDataset.mediaBackend;
+let mediaBackend =
+    storage.getItem('store_view_secure_base_media_url') ||
+    htmlDataset.mediaBackend;
 if (!mediaBackend) {
     console.warn('A media backend URL should be defined in your config.');
     mediaBackend = 'https://backend.test/media/';

@@ -17,6 +17,7 @@ export const GET_AVAILABLE_STORES_DATA = gql`
             default_display_currency_code
             id
             locale
+            secure_base_media_url
             store_name
         }
     }

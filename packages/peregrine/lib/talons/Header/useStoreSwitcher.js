@@ -14,11 +14,18 @@ const mapAvailableOptions = (config, stores) => {
             code,
             default_display_currency_code: currency,
             locale,
-            store_name: storeName
+            store_name: storeName,
+            secure_base_media_url
         } = store;
 
         const isCurrent = code === configCode;
-        const option = { currency, isCurrent, locale, storeName };
+        const option = {
+            currency,
+            isCurrent,
+            locale,
+            storeName,
+            secure_base_media_url
+        };
 
         return map.set(code, option);
     }, new Map());
@@ -87,6 +94,10 @@ export const useStoreSwitcher = props => {
                 'store_view_currency',
                 availableStores.get(storeCode).currency
             );
+            storage.setItem(
+                'store_view_secure_base_media_url',
+                availableStores.get(storeCode).secure_base_media_url
+            );
 
             // Handle updating the URL if the store code should be present.
             // In this block we use `window.location.assign` to work around the
@@ -126,7 +137,7 @@ export const useStoreSwitcher = props => {
                 history.go(0);
             }
         },
-        [history, availableStores]
+        [availableStores, history]
     );
 
     const handleTriggerClick = useCallback(() => {

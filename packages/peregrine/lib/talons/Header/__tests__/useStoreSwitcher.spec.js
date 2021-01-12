@@ -38,12 +38,15 @@ jest.mock('@apollo/client', () => {
                 {
                     code: 'store1',
                     locale: 'locale1',
+                    secure_base_media_url: 'https://magento24x.test/media/',
                     store_name: 'Store 1',
                     default_display_currency_code: 'USD'
                 },
                 {
                     code: 'store2',
                     locale: 'locale2',
+                    secure_base_media_url:
+                        'https://magento24x.test/media/abcdef/',
                     store_name: 'Store 2',
                     default_display_currency_code: 'EUR'
                 }
@@ -106,7 +109,11 @@ describe('event handlers', () => {
 
         expect(mockSetItem.mock.calls).toEqual([
             ['store_view_code', 'store1'],
-            ['store_view_currency', 'USD']
+            ['store_view_currency', 'USD'],
+            [
+                'store_view_secure_base_media_url',
+                'https://magento24x.test/media/'
+            ]
         ]);
         expect(history.go).toHaveBeenCalledTimes(1);
     });
