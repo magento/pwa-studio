@@ -186,7 +186,9 @@ export const useProductFullDetail = props => {
     const [formApi, setFormApi] = useState();
 
     const wishlistId =
-        isSignedIn && currentUser.wishlist && currentUser.wishlist.id;
+        isSignedIn &&
+        currentUser.wishlists.length &&
+        currentUser.wishlists[0].id;
 
     const [
         addConfigurableProductToCart,

@@ -8,7 +8,7 @@ export const GET_CUSTOMER = gql`
             firstname
             lastname
             is_subscribed
-            wishlist {
+            wishlists {
                 id
             }
         }
