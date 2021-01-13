@@ -1,5 +1,6 @@
 .root {
     margin-left: 1rem;
+    margin-top: 1rem;
     font-size: 0.875rem;
 
     /* Permanent height to prevent pop-in. */
