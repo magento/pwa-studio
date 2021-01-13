@@ -171,7 +171,6 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file.
      * @param {string} newParent - The wrapper element as a JSX string. It must be one and only one JSX element with no children; the matching element will be the only child of the new wrapper.
      * @param {JSXModifierOptions} [options]
-     * @returns
      * @memberof TargetableReactComponent
      */
     surroundJSX(element, newParent, options) {
