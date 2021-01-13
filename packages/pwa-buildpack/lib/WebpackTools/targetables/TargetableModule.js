@@ -13,7 +13,6 @@ class TargetableModule extends Trackable {
      * Create a TargetableModule representing a file.
      * @param {string} file - Path to the underlying source file.
      * @param {Trackable} trackingOwner - Parent object for debugging purposes.
-     * @memberof TargetableModule
      */
     constructor(file, trackingOwner) {
         super();
