@@ -314,6 +314,7 @@
     "resetPassword.successMessage": "Your new password has been saved. Please use this password to sign into your Account.",
     "Returns": "Returns",
     "savedPaymentsPage.addButtonText": "Add a credit card",
+    "savedPaymentsPage.creditCard.errorRemoving": "Something went wrong deleting this payment method. Please refresh and try again.",
     "savedPaymentsPage.noSavedPayments": "You have no saved payments.",
     "savedPaymentsPage.title": "Saved Payments",
     "searchBar.heading": "Product Suggestions",
