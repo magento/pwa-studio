@@ -90,6 +90,10 @@
 }
 
 @media (max-width: 425px) {
+    .confirmDeleteButton {
+        order: 0;
+    }
+
     .deleteConfirmationContainer {
         transform: scaleY(1);
     }
