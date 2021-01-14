@@ -111,7 +111,14 @@ Array [
 `;
 
 exports[`it shows error when appropriate 1`] = `
-<div>
+<div
+  style={
+    Object {
+      "--backroundImageUrl": "url(\\"test-file-stub\\")",
+      "--mobileBackgroundImageUrl": "url(\\"test-file-stub\\")",
+    }
+  }
+>
   <div>
     <p>
       Oops!
