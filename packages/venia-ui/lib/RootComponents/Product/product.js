@@ -2,12 +2,12 @@ import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product/useProduct';
 
-import { Title, Meta } from '../../components/Head';
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import ProductFullDetail from '../../components/ProductFullDetail';
-import getUrlKey from '../../util/getUrlKey';
-import mapProduct from '../../util/mapProduct';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
+import { Title, Meta } from '@magento/venia-ui/lib/components/Head';
+import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
+import ProductFullDetail from '@magento/venia-ui/lib/components/ProductFullDetail';
+import getUrlKey from '@magento/venia-ui/lib/util/getUrlKey';
+import mapProduct from '@magento/venia-ui/lib/util/mapProduct';
 
 /*
  * As of this writing, there is no single Product query type in the M2.3 schema.
