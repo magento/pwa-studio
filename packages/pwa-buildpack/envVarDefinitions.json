@@ -201,18 +201,18 @@
             ]
         },
         {
-            "name": "Custom https",
+            "name": "Custom HTTPS certificates",
             "variables": [
                 {
                     "name": "CUSTOM_HTTPS_KEY",
                     "type": "str",
-                    "desc": "Absolute path to the key file the http connection",
+                    "desc": "Absolute path to the custom HTTPS certificate key file.",
                     "default": ""
                 },
                 {
                     "name": "CUSTOM_HTTPS_CERT",
                     "type": "str",
-                    "desc": "Absolute path to the cert file for the https connection",
+                    "desc": "Absolute path to the custom HTTPS certificate cert file.",
                     "default": ""
                 }
             ]
