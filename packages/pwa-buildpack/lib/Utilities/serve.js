@@ -37,10 +37,7 @@ module.exports = async function serve(dirname) {
 
     if (customHttpsSettings.key && customHttpsSettings.cert) {
         const { key, cert } = customHttpsSettings;
-        if (
-            fs.existsSync(STAGING_SERVER_KEY) &&
-            fs.existsSync(STAGING_SERVER_CERT)
-        ) {
+        if (fs.existsSync(key) && fs.existsSync(cert)) {
             prettyLogger.info(
                 'Custom Key and Cert is provided, creating HTTPS server'
             );
