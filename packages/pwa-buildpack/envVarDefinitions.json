@@ -206,12 +206,14 @@
                 {
                     "name": "CUSTOM_HTTPS_KEY",
                     "type": "str",
-                    "desc": "Absolute path to the key file the http connection"
+                    "desc": "Absolute path to the key file the http connection",
+                    "default": ""
                 },
                 {
                     "name": "CUSTOM_HTTPS_CERT",
                     "type": "str",
-                    "desc": "Absolute path to the cert file for the https connection"
+                    "desc": "Absolute path to the cert file for the https connection",
+                    "default": ""
                 }
             ]
         }
