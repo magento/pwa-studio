@@ -39,7 +39,7 @@ module.exports = async function serve(dirname) {
         const { key, cert } = customHttpsSettings;
         if (fs.existsSync(key) && fs.existsSync(cert)) {
             prettyLogger.info(
-                'Custom Key and Cert is provided, creating HTTPS server'
+                'Custom key and cert paths provided, creating HTTPS server.'
             );
             const ssl = {
                 key: fs.readFileSync(key, 'utf8'),
@@ -48,7 +48,7 @@ module.exports = async function serve(dirname) {
             upwardServerOptions.https = ssl;
         } else {
             prettyLogger.warn(
-                'Key and Cert not provided, creating HTTP server'
+                'Custom key and cert paths provided but files not found, creating HTTP server.'
             );
         }
     }
