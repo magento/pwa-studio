@@ -52,7 +52,7 @@ const CategoryList = props => {
                 console.error(error);
             }
 
-            child = <ErrorView />;
+            return <ErrorView />;
         } else if (loading) {
             child = fullPageLoadingIndicator;
         }
@@ -69,7 +69,7 @@ const CategoryList = props => {
                 </div>
             );
         } else {
-            child = (
+            return (
                 <ErrorView
                     message={formatMessage({
                         id: 'categoryList.noResults',
