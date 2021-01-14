@@ -6,6 +6,8 @@ import { func, shape, string } from 'prop-types';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';
 import defaultClasses from './errorView.css';
+import backgroundUrl from './errorViewBackground-1400x600.png';
+import mobileBackgroundUrl from './errorViewBackground-380x600.png';
 
 const DEFAULT_HEADER = 'Oops!';
 const DEFAULT_MESSAGE = 'Looks like something went wrong. Sorry about that.';
@@ -35,8 +37,13 @@ const ErrorView = props => {
         onClick && onClick();
     }, [onClick]);
 
+    const style = {
+        '--backroundImageUrl': `url("${backgroundUrl}")`,
+        '--mobileBackgroundImageUrl': `url("${mobileBackgroundUrl}")`
+    };
+
     return (
-        <div className={classes.root}>
+        <div className={classes.root} style={style}>
             <div className={classes.content}>
                 <p className={classes.header}>{header}</p>
                 <p className={classes.message}>{message}</p>

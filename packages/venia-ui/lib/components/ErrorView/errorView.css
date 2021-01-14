@@ -1,5 +1,5 @@
 .root {
-    background-image: url('/venia-static/404_img_1400x600.png');
+    background: var(--backroundImageUrl);
     background-size: cover;
     height: 600px;
     padding: 1rem;
@@ -32,7 +32,7 @@
 
 @media (max-width: 640px) {
     .root {
-        background-image: url('/venia-static/404_img_mobile_380x600.png');
+        background-image: var(--mobileBackgroundImageUrl);
         /* two row grid because the "hangers" are on the top of the page */
         grid-template-rows: 1fr 1fr;
         grid-template-areas:
