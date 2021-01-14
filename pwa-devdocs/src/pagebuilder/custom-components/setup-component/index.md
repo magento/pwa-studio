@@ -50,10 +50,9 @@ import { mergeClasses } from '../../../../../classify';
 import defaultClasses from './exampleQuote.css';
 import { shape, string } from 'prop-types';
 
-const classes = mergeClasses(defaultClasses, props.classes);
-
 // Component for testing setup
 const ExampleQuote = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
     return (
         <div className={classes.testClass}>
             <div>Content Type: {props.contentType}</div>
