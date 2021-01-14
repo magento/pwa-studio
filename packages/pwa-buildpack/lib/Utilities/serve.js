@@ -1,5 +1,6 @@
 const loadEnvironment = require('../Utilities/loadEnvironment');
 const path = require('path');
+const fs = require('fs');
 
 module.exports = async function serve(dirname) {
     const config = await loadEnvironment(dirname);
@@ -11,6 +12,7 @@ module.exports = async function serve(dirname) {
     const prettyLogger = require('../util/pretty-logger');
     const addImgOptMiddleware = require('./addImgOptMiddleware');
     const stagingServerSettings = config.section('stagingServer');
+    const customHttpsSettings = config.section('customHttps');
 
     process.chdir(path.join(dirname, 'dist'));
 
@@ -32,6 +34,27 @@ module.exports = async function serve(dirname) {
             }
         }
     );
+
+    if (customHttpsSettings.key && customHttpsSettings.cert) {
+        const { key, cert } = customHttpsSettings;
+        if (
+            fs.existsSync(STAGING_SERVER_KEY) &&
+            fs.existsSync(STAGING_SERVER_CERT)
+        ) {
+            prettyLogger.info(
+                'Custom Key and Cert is provided, creating HTTPS server'
+            );
+            const ssl = {
+                key: fs.readFileSync(key, 'utf8'),
+                cert: fs.readFileSync(cert, 'utf8')
+            };
+            upwardServerOptions.https = ssl;
+        } else {
+            prettyLogger.warn(
+                'Key and Cert not provided, creating HTTP server'
+            );
+        }
+    }
 
     let envPort;
     if (process.env.PORT) {
