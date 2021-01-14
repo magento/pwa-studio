@@ -121,10 +121,16 @@ exports[`it shows error when appropriate 1`] = `
 >
   <div>
     <p>
-      Oops!
+      <mock-FormattedMessage
+        defaultMessage="Oops!"
+        id="errorView.header"
+      />
     </p>
     <p>
-      Looks like something went wrong. Sorry about that.
+      <mock-FormattedMessage
+        defaultMessage="Looks like something went wrong. Sorry about that."
+        id="errorView.message"
+      />
     </p>
     <div>
       <button

@@ -11,10 +11,16 @@ exports[`it renders correct with a element 1`] = `
 >
   <div>
     <p>
-      Oops!
+      <FormattedMessage
+        defaultMessage="Oops!"
+        id="errorView.header"
+      />
     </p>
     <p>
-      Looks like something went wrong. Sorry about that.
+      <FormattedMessage
+        defaultMessage="Looks like something went wrong. Sorry about that."
+        id="errorView.message"
+      />
     </p>
     <div>
       <Button
