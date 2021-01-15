@@ -1,10 +1,11 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { string, number, shape } from 'prop-types';
 import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
 
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 import defaultClasses from './categoryList.css';
 import CategoryTile from './categoryTile';
 
@@ -32,7 +33,7 @@ const CategoryList = props => {
     const { id, title } = props;
     const talonProps = useCategoryList({ id });
     const { childCategories, error, loading } = talonProps;
-
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const header = title ? (
@@ -45,38 +46,38 @@ const CategoryList = props => {
 
     let child;
 
-    // TODO: Actually handle errors; the logic below will never allow this to render
-    if (error) {
-        child = (
-            <div className={classes.fetchError}>
-                <FormattedMessage
-                    id={'categoryList.errorFetch'}
-                    defaultMessage={'Data Fetch Error: '}
-                />
-                <pre>{error.message}</pre>
-            </div>
-        );
-    }
+    if (!childCategories) {
+        if (error) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(error);
+            }
 
-    if (loading || !childCategories) {
-        child = fullPageLoadingIndicator;
-    } else if (childCategories.length === 0) {
-        child = (
-            <div className={classes.noResults}>
-                <FormattedMessage
-                    id={'categoryList.noResults'}
-                    defaultMessage={'No child categories found.'}
-                />
-            </div>
-        );
+            return <ErrorView />;
+        } else if (loading) {
+            child = fullPageLoadingIndicator;
+        }
     } else {
-        child = (
-            <div className={classes.content}>
-                {childCategories.map(item => (
-                    <CategoryTile item={mapCategory(item)} key={item.url_key} />
-                ))}
-            </div>
-        );
+        if (childCategories.length) {
+            child = (
+                <div className={classes.content}>
+                    {childCategories.map(item => (
+                        <CategoryTile
+                            item={mapCategory(item)}
+                            key={item.url_key}
+                        />
+                    ))}
+                </div>
+            );
+        } else {
+            return (
+                <ErrorView
+                    message={formatMessage({
+                        id: 'categoryList.noResults',
+                        defaultMessage: 'No child categories found.'
+                    })}
+                />
+            );
+        }
     }
 
     return (
@@ -93,6 +94,7 @@ CategoryList.propTypes = {
     classes: shape({
         root: string,
         header: string,
+        title: string,
         content: string
     })
 };
