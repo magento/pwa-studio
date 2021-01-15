@@ -1,12 +1,18 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { shape, string } from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { Trash2 as DeleteIcon } from 'react-feather';
+import { FormattedMessage, useIntl } from 'react-intl';
+import {
+    AlertCircle as AlertCircleIcon,
+    Trash2 as DeleteIcon
+} from 'react-feather';
 
-import LinkButton from '../LinkButton';
-import Icon from '../Icon';
+import { useToasts } from '@magento/peregrine';
+import { useCreditCard } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useCreditCard';
+
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-
+import Button from '../Button';
+import Icon from '../Icon';
+import LinkButton from '../LinkButton';
 import defaultClasses from './creditCard.css';
 
 /**
@@ -29,8 +35,39 @@ const cardTypeMapper = {
     VI: 'Visa'
 };
 
+const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
+
 const CreditCard = props => {
-    const { classes: propClasses, details } = props;
+    const { classes: propClasses, details, public_hash } = props;
+
+    const talonProps = useCreditCard({ paymentHash: public_hash });
+    const {
+        handleDeletePayment,
+        hasError,
+        isConfirmingDelete,
+        isDeletingPayment,
+        toggleDeleteConfirmation
+    } = talonProps;
+
+    const { formatMessage } = useIntl();
+    const [, { addToast }] = useToasts();
+
+    useEffect(() => {
+        if (hasError) {
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message: formatMessage({
+                    id: 'savedPaymentsPage.creditCard.errorRemoving',
+                    defaultMessage:
+                        'Something went wrong deleting this payment method. Please refresh and try again.'
+                }),
+                dismissable: true,
+                timeout: 7000
+            });
+        }
+    }, [addToast, formatMessage, hasError]);
+
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const number = `**** ${details.maskedCC} \u00A0\u00A0 ${cardTypeMapper[
@@ -46,12 +83,13 @@ const CreditCard = props => {
         return `${shortMonth}. ${year}`;
     }, [details.expirationDate]);
 
-    // Should be moved to a talon in the future
-    const handleDelete = useCallback(() => {}, []);
+    const rootClass = isConfirmingDelete ? classes.root_active : classes.root;
+
     const deleteButton = (
         <LinkButton
             classes={{ root: classes.deleteButton }}
-            onClick={handleDelete}
+            disabled={isConfirmingDelete}
+            onClick={toggleDeleteConfirmation}
         >
             <Icon classes={{ icon: undefined }} size={16} src={DeleteIcon} />
             <span className={classes.deleteText}>
@@ -63,8 +101,44 @@ const CreditCard = props => {
         </LinkButton>
     );
 
+    const deleteConfirmationOverlayClass = isConfirmingDelete
+        ? classes.deleteConfirmationContainer
+        : classes.deleteConfirmationContainer_hidden;
+
+    const deleteConfirmationOverlay = (
+        <div className={deleteConfirmationOverlayClass}>
+            <Button
+                classes={{
+                    root_normalPriorityNegative: classes.confirmDeleteButton
+                }}
+                disabled={isDeletingPayment}
+                onClick={handleDeletePayment}
+                negative={true}
+                priority="normal"
+                type="button"
+            >
+                <FormattedMessage
+                    id={'global.deleteButton'}
+                    defaultMessage={'Delete'}
+                />
+            </Button>
+            <Button
+                classes={{ root_lowPriority: classes.cancelDeleteButton }}
+                disabled={isDeletingPayment}
+                onClick={toggleDeleteConfirmation}
+                priority="low"
+                type="button"
+            >
+                <FormattedMessage
+                    id={'global.cancelButton'}
+                    defaultMessage={'Cancel'}
+                />
+            </Button>
+        </div>
+    );
+
     return (
-        <div className={classes.root}>
+        <div className={rootClass}>
             <div className={classes.title}>
                 <FormattedMessage
                     id={'storedPayments.creditCard'}
@@ -74,6 +148,7 @@ const CreditCard = props => {
             <div className={classes.number}>{number}</div>
             <div className={classes.expiry_date}>{cardExpiryDate}</div>
             <div className={classes.delete}>{deleteButton}</div>
+            {deleteConfirmationOverlay}
         </div>
     );
 };
@@ -84,6 +159,8 @@ CreditCard.propTypes = {
     classes: shape({
         delete: 'string',
         deleteButton: 'string',
+        deleteConfirmationContainer: 'string',
+        deleteConfirmationContainer_hidden: 'string',
         expiry_date: 'string',
         number: 'string',
         root_selected: 'string',
