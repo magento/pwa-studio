@@ -13,7 +13,6 @@ entries:
           #   url: /pwa-buildpack/reference/webpack-tools/loaders/wrap-esm-loader/
 
     - label: Targetables
-      url: /pwa-buildpack/reference/targetables/
       entries:
 
         - label: TargetableModule
