@@ -1,7 +1,8 @@
 import BrowserPersistence from '../../util/simplePersistence';
 import userActions, { signOut } from '../actions/user';
 
-const timers = new Map();
+const timeouts = new Map();
+const intervals = new Map();
 const storage = new BrowserPersistence();
 const SET_TOKEN = userActions.setToken.toString();
 const CLEAR_TOKEN = userActions.clearToken.toString();
@@ -29,29 +30,50 @@ const scheduleSignOut = store => next => action => {
 
         const { timeStored, ttl, value } = JSON.parse(item);
         const parsedValue = JSON.parse(value);
+        const preciseTTL = ttl * 1000;
         const elapsed = Date.now() - timeStored;
-        const delay = Math.max(ttl * 1000 - elapsed, 0);
+        const expiry = Math.max(preciseTTL - elapsed, 0);
 
-        // only set one timer per token
-        if (!timers.has(parsedValue)) {
-            const timeoutId = setTimeout(() => {
-                timers.delete(parsedValue);
-                // clear token and customer state
-                dispatch(signOut()).then(() => {
-                    // refresh the page, important for checkout
-                    history.go(0);
-                });
-            }, delay);
+        // establish a sign-out routine
+        const callback = () => {
+            dispatch(signOut()).then(() => {
+                timeouts.delete(parsedValue);
+                intervals.delete(parsedValue);
 
-            timers.set(parsedValue, timeoutId);
+                // refresh the page, important for checkout
+                history.go(0);
+            });
+        };
+
+        // set a timeout that runs once when the token expires
+        if (!timeouts.has(parsedValue)) {
+            const timeoutId = setTimeout(callback, expiry);
+
+            timeouts.set(parsedValue, timeoutId);
+        }
+
+        // then set an interval that runs once per second
+        // on mobile, the timeout won't fire if the tab is inactive
+        if (!intervals.has(parsedValue)) {
+            const intervalId = setInterval(() => {
+                const hasExpired = Date.now() - timeStored > preciseTTL;
+
+                if (hasExpired) callback();
+            }, 1000);
+
+            intervals.set(parsedValue, intervalId);
         }
     } else if (isSigningOut(action.type)) {
-        // clear any lingering timers when a user signs out
-        for (const timeoutId of timers) {
+        for (const timeoutId of timeouts) {
             clearTimeout(timeoutId);
         }
 
-        timers.clear();
+        for (const intervalId of intervals) {
+            clearInterval(intervalId);
+        }
+
+        timeouts.clear();
+        intervals.clear();
     }
 
     return next(action);
