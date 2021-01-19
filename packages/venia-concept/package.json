@@ -58,7 +58,7 @@
     "@magento/venia-adobe-data-layer": "~0.0.1",
     "@magento/venia-ui": "~5.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
-    "@storybook/react": "~5.2.6",
+    "@storybook/react": "~6.1.14",
     "apollo-cache-persist": "~0.1.1",
     "babel-core": "~7.0.0-bridge.0",
     "babel-eslint": "~10.0.1",
