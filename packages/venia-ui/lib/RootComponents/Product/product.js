@@ -6,7 +6,6 @@ import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 import { Title, Meta } from '@magento/venia-ui/lib/components/Head';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import ProductFullDetail from '@magento/venia-ui/lib/components/ProductFullDetail';
-import getUrlKey from '@magento/venia-ui/lib/util/getUrlKey';
 import mapProduct from '@magento/venia-ui/lib/util/mapProduct';
 
 /*
@@ -19,8 +18,7 @@ import mapProduct from '@magento/venia-ui/lib/util/mapProduct';
 
 const Product = () => {
     const talonProps = useProduct({
-        mapProduct,
-        urlKey: getUrlKey()
+        mapProduct
     });
 
     const { error, loading, product } = talonProps;
