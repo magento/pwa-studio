@@ -57,10 +57,10 @@ The source code for these extensions are available under the [`packages/extensio
 
 ### Internationalization and localization
 
-The Internationalization(I18n) feature in PWA Studio lets developers localize their storefront content according to different regions and languages.
+The internationalization(i18n) feature in PWA Studio lets developers localize their storefront content according to different regions and languages.
 The Magento backend provides your storefront with this list of regions and languages and the I18n feature provides translated content using PWA Studio language pack extensions.
 
-As part of the I18n feature work, we refactored Venia UI components and gave them the ability to display the correct translations for multi-language storefronts.
+As part of the i18n feature work, we refactored Venia UI components and gave them the ability to display the correct translations for multi-language storefronts.
 
 This release also gives developers the ability to develop and install PWA Studio language packages as NPM dependencies.
 An example of a language pack extension is in the [`packages/extensions`][] directory in the PWA Studio repository.
