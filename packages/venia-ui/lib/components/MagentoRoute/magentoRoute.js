@@ -1,13 +1,16 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import ErrorView from '../ErrorView';
 import { useMagentoRoute } from '@magento/peregrine/lib/talons/MagentoRoute';
 
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
+import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 
 const MESSAGES = new Map()
-    .set('NOT_FOUND', 'That page could not be found. Please try again.')
-    .set('INTERNAL_ERROR', 'Something went wrong. Please try again.');
+    .set(
+        'NOT_FOUND',
+        "Looks like the page you were hoping to find doesn't exist. Sorry about that."
+    )
+    .set('INTERNAL_ERROR', 'Something went wrong. Sorry about that.');
 
 const MagentoRoute = () => {
     const { formatMessage } = useIntl();
@@ -26,26 +29,22 @@ const MagentoRoute = () => {
         return <RootComponent id={id} />;
     } else if (isNotFound) {
         return (
-            <ErrorView>
-                <h1>
-                    {formatMessage({
-                        id: 'magentoRoute.routeError',
-                        defaultMessage: MESSAGES.get('NOT_FOUND')
-                    })}
-                </h1>
-            </ErrorView>
+            <ErrorView
+                message={formatMessage({
+                    id: 'magentoRoute.routeError',
+                    defaultMessage: MESSAGES.get('NOT_FOUND')
+                })}
+            />
         );
     }
 
     return (
-        <ErrorView>
-            <h1>
-                {formatMessage({
-                    id: 'magentoRoute.internalError',
-                    defaultMessage: MESSAGES.get('INTERNAL_ERROR')
-                })}
-            </h1>
-        </ErrorView>
+        <ErrorView
+            message={formatMessage({
+                id: 'magentoRoute.internalError',
+                defaultMessage: MESSAGES.get('INTERNAL_ERROR')
+            })}
+        />
     );
 };
 

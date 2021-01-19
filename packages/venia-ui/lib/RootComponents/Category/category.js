@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { number, shape, string } from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import { useCategory } from '@magento/peregrine/lib/talons/RootComponents/Category';
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -9,6 +8,7 @@ import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 import { Meta } from '../../components/Head';
 import { GET_PAGE_SIZE } from './category.gql';
+import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 
 const Category = props => {
     const { id } = props;
@@ -42,14 +42,7 @@ const Category = props => {
             console.error(error);
         }
 
-        return (
-            <div>
-                <FormattedMessage
-                    id={'category.dataFetchError'}
-                    defaultMessage={'Data Fetch Error'}
-                />
-            </div>
-        );
+        return <ErrorView />;
     }
 
     return (

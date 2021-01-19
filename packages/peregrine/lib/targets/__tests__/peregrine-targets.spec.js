@@ -189,6 +189,7 @@ test('exposes all hooks and targets', async () => {
           talons.RootComponents.Category.useCategoryContent.wrapWith() wraps export "useCategoryContent" from "RootComponents/Category/useCategoryContent.js"
           talons.RootComponents.Category.useNoProductsFound.wrapWith() wraps export "useNoProductsFound" from "RootComponents/Category/useNoProductsFound.js"
           talons.RootComponents.Product.useProduct.wrapWith() wraps export "useProduct" from "RootComponents/Product/useProduct.js"
+          talons.SavedPaymentsPage.useCreditCard.wrapWith() wraps export "useCreditCard" from "SavedPaymentsPage/useCreditCard.js"
           talons.SavedPaymentsPage.useSavedPaymentsPage.wrapWith() wraps export "useSavedPaymentsPage" from "SavedPaymentsPage/useSavedPaymentsPage.js"
           talons.SearchBar.useAutocomplete.wrapWith() wraps export "useAutocomplete" from "SearchBar/useAutocomplete.js"
           talons.SearchBar.useSearchBar.wrapWith() wraps export "useSearchBar" from "SearchBar/useSearchBar.js"

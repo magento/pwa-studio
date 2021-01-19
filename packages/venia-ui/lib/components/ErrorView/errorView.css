@@ -1,0 +1,52 @@
+.root {
+    background: var(--backroundImageUrl);
+    background-size: cover;
+    height: 600px;
+    padding: 1rem;
+
+    display: grid;
+    /* two column grid because the "hangers" are on the right side of the page */
+    grid-template: 'content .';
+    align-content: center;
+}
+
+.content {
+    grid-area: content;
+    display: grid;
+    grid-gap: 2rem;
+    text-align: center;
+    color: white;
+}
+
+.header {
+    font-size: var(--venia-global-fontSize-1000);
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.message {
+    line-height: var(--venia-global-lineHeight-200);
+}
+
+.actionsContainer {
+}
+
+@media (max-width: 640px) {
+    .root {
+        background-image: var(--mobileBackgroundImageUrl);
+        /* two row grid because the "hangers" are on the top of the page */
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas:
+            '.'
+            'content';
+    }
+
+    .content {
+        align-content: start;
+        grid-gap: 1rem;
+    }
+
+    .message {
+        /* add a little space so the button is centered below the message */
+        padding-bottom: 1.5rem;
+    }
+}

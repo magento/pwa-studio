@@ -194,11 +194,4 @@ exports[`renders product page correctly when error and product data exist 1`] = 
 </React.Fragment>
 `;
 
-exports[`renders product page failed when error data 1`] = `
-<div>
-  <FormattedMessage
-    defaultMessage="Data Fetch Error"
-    id="product.errorFetch"
-  />
-</div>
-`;
+exports[`renders product page failed when error data 1`] = `<ErrorView />`;
