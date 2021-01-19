@@ -1,7 +1,7 @@
 # Release 9.0.0
 
 **NOTE:**
-_This changelog only contains release notes for PWA Studio 9.0.0._
+_This changelog only contains release notes for PWA Studio and Venia 9.0.0._
 _For older release notes, see [PWA Studio releases][]._
 
 ## Table of contents
@@ -17,55 +17,57 @@ PWA Studio 9.0.0 contains new features, refactors, and various improvements.
 
 ### Extensibility framework improvements
 
-This releases adds a few improvements to the extensibility framework in PWA Studio to make it easier for developers to customize their storefronts.
+This release adds several improvements to the extensibility framework in PWA Studio to make it easier for developers to customize their storefronts.
 For an overview of this framework, check out the new [Extensibility framework][] topic on the docs site.
 
 In previous releases, Peregrine talons had limited Target coverage.
 This release adds an automatic API generator to Peregrine that exposes all hooks and talons as Targets.
-This means that existing and future hooks and talons in Peregrine automatically get their own Targets that developers may use for modifying or extending functionality.
+Now, existing and future hooks and talons in Peregrine automatically get their own Targets API that developers may use to modify or extend functionality.
 
 This release also adds the _Targetables_ feature to the extensibility framework.
 These represent source files used in your PWA Studio project, and
 they give developers the ability to change the source code during the build process.
-This means that developers no longer have to copy PWA Studio source code into their storefront projects to make minor modifications.
+With Targetables, developers no longer have to copy PWA Studio source code into their storefront projects to make minor modifications.
 
 [extensibility framework]: <https://pwastudio.io/pwa-buildpack/extensibility-framework/>
 
 ### PWA Studio extensions
 
 PWA Studio's extensibility framework lets developers create extensions and install them as project dependencies in their storefronts.
-This release converts some existing Venia features into PWA Studio extensions.
-It also introduces new extensions that provide useful Venia features that developers can add to their projects.
+As part of the work on the new extensibility framework, we refactored and relocated existing Venia features into PWA Studio extensions.
+We also developed new extensions that provide useful Venia features that developers can add to their projects.
 
-Developers can find the source code for these extensions under the [`packages/extensions`][] directory in the PWA Studio repository.
+The source code for these extensions are available under the [`packages/extensions`][] directory in the PWA Studio repository.
 
 `upward-security-headers`
 : intercepts build targets to add security headers to UPWARD
 
 `venia-adobe-data-layer`
-: provides Adobe Client Data Layer support for your project
+: provides [Adobe Client Data Layer][] support for your project
 
 `venia-sample-backends`
-: provides demo backends and backend validation utils for your project
+: provides demo Magento backends and backend validation utilities for your project
+  (this extension should be removed prior to going live)
 
 `venia-sample-language-packs`
-: provides demo translations
+: provides example translations to illustrate how new languages can be installed into your storefronts
 
 [`packages/extensions`]: <https://github.com/magento/pwa-studio/tree/release/9.0/packages/extensions>
+[adobe client data layer]: <https://github.com/adobe/adobe-client-data-layer/wiki>
 
 ### Internationalization and localization
 
-This releases introduces the Internationalization(I18n) feature in PWA Studio.
-This lets developers localize their storefront content according to different regions and languages.
+The Internationalization(I18n) feature in PWA Studio lets developers localize their storefront content according to different regions and languages.
+The Magento backend provides your storefront with this list of regions and languages and the I18n feature provides translated content using PWA Studio language pack extensions.
 
-This release refactors Venia UI components to use this feature and adds components that support multi-language storefronts.
+As part of the I18n feature work, we refactored Venia UI components and gave them the ability to display the correct translations for multi-language storefronts.
 
 This release also gives developers the ability to develop and install PWA Studio language packages as NPM dependencies.
-An example of a language pack extension can be found in the [`packages/extensions`][] directory in the PWA Studio repository.
+An example of a language pack extension is in the [`packages/extensions`][] directory in the PWA Studio repository.
 
-For more information about this feature, read the new [Localization topic][] on the doc site.
+For more information, read the new topic on the [Localization feature][].
 
-[localization topic]: <https://pwastudio.io/technologies/basic-concepts/internationalization/>
+[localization feature]: <https://pwastudio.io/technologies/basic-concepts/internationalization/>
 
 ### My Account
 
@@ -78,14 +80,9 @@ My Account features included in this release:
 - Address Book
 - Order History
 
-Work on the following My Account features are in progress and currently unavailable:
-
-- Store Credit and Gift Cards
-- Favorites Lists
-
 ### Increased test coverage
 
-As part of our initiative to increase stability and confidence in the PWA Studio project, this release adds new unit tests to existing code to improve code coverage.
+Our continued commitment to stability and quality has seen an increase in overall unit test code coverage.
 
 Coverage as reported by [coveralls.io][]:
 
@@ -99,8 +96,12 @@ Previous coverage (8.0.0)
 
 ### Magento release support change
 
-Past releases of PWA Studio supported the upcoming Magento release version and the previous Magento version.
-To help the team move quicker and deliver more value in each release, this and future versions of PWA Studio will only support the upcoming or current Magento version.
+Previous releases of PWA Studio supported multiple versions of the Magento back-end.
+To help us deliver value faster, we modified our support matrix.
+
+Starting with PWA Studio & Venia 9.0.0, we will only support the most recent version of Magento.
+For example, version 9.0.0 only supports Magento 2.4.2.
+Minor versions of PWA Studio & Venia released between typical Magento releases will support the last publicly available release.
 
 ## Pull requests merged in this release
 
@@ -231,7 +232,7 @@ To help the team move quicker and deliver more value in each release, this and f
 
 ## Known issues
 
-- A GraphQL issue prevents users from adding a configurable product on non-default store views.
+- If you are using Multi-Source Inventory(MSI), a GraphQL issue prevents users from adding a configurable product to the shopping cart on non-default store views.
 
 ## Upgrading from a previous version
 
