@@ -90,7 +90,8 @@ const availableStoresResponse = [
         store_name: 'Store 1',
         default_display_currency_code: 'USD',
         category_url_suffix: null,
-        product_url_suffix: null
+        product_url_suffix: null,
+        secure_base_media_url: 'https://example.com/media/'
     },
     {
         code: 'store2',
@@ -98,7 +99,8 @@ const availableStoresResponse = [
         store_name: 'Store 2',
         default_display_currency_code: 'EUR',
         category_url_suffix: '.html',
-        product_url_suffix: '.html'
+        product_url_suffix: '.html',
+        secure_base_media_url: 'https://cdn.origin:9000/media/custom/'
     },
     {
         code: 'store3',
@@ -106,7 +108,8 @@ const availableStoresResponse = [
         store_name: 'Store 3',
         default_display_currency_code: 'EUR',
         category_url_suffix: null,
-        product_url_suffix: '.htm'
+        product_url_suffix: '.htm',
+        secure_base_media_url: 'https://example.com/media/'
     },
     {
         code: 'store4',
@@ -114,7 +117,8 @@ const availableStoresResponse = [
         store_name: 'Store 4',
         default_display_currency_code: 'EUR',
         category_url_suffix: '.htm',
-        product_url_suffix: null
+        product_url_suffix: null,
+        secure_base_media_url: 'https://example.com/media/'
     },
     {
         code: 'store5',
@@ -122,7 +126,8 @@ const availableStoresResponse = [
         store_name: 'Store 5',
         default_display_currency_code: 'EUR',
         category_url_suffix: '-abc1',
-        product_url_suffix: '.htm.htm'
+        product_url_suffix: '.htm.htm',
+        secure_base_media_url: 'https://example.com/media/'
     },
     {
         code: 'store6',
@@ -130,7 +135,8 @@ const availableStoresResponse = [
         store_name: 'Store 6',
         default_display_currency_code: 'EUR',
         category_url_suffix: '.some.some',
-        product_url_suffix: '-123abc'
+        product_url_suffix: '-123abc',
+        secure_base_media_url: 'https://example.com/media/'
     }
 ];
 
