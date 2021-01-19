@@ -2,9 +2,9 @@
 
 exports[`renders children 1`] = `"Context Provider Children"`;
 
-exports[`returns default value for suffix 1`] = `
+exports[`returns empty string if no suffix found in gql 1`] = `
 Object {
-  "productURLSuffix": ".html",
+  "productURLSuffix": "",
 }
 `;
 

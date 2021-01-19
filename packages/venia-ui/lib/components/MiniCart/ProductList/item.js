@@ -31,7 +31,7 @@ const Item = props => {
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, propClasses);
     const itemLink = useMemo(
-        () => resourceUrl(`/${product.url_key}${product.url_suffix}`),
+        () => resourceUrl(`/${product.url_key}${product.url_suffix || ''}`),
         [product.url_key, product.url_suffix]
     );
     const stockStatusText =
