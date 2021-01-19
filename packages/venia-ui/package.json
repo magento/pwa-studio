@@ -68,9 +68,9 @@
     "enzyme": "~3.9.0",
     "enzyme-adapter-react-16": "~1.9.1",
     "identity-obj-proxy": "~3.0.0",
-    "react": "~16.9.0",
+    "react": "~17.0.1",
     "react-intl": "~5.7.0",
-    "react-test-renderer": "~16.9.0",
+    "react-test-renderer": "~17.0.1",
     "redux": "~4.0.1"
   },
   "peerDependencies": {
@@ -81,7 +81,7 @@
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.16.0",
     "graphql": "~15.3.0",
-    "react": "~16.9.0",
+    "react": "~17.0.1",
     "react-intl": "~5.7.0",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",

@@ -16,7 +16,7 @@
   },
   "peerDependencies": {
     "@magento/peregrine": "~8.0.0",
-    "react": "~16.9.0"
+    "react": "~17.0.1"
   },
   "pwa-studio": {
     "targets": {
