@@ -39,7 +39,7 @@ export const useCategoryTile = props => {
     const itemObject = useMemo(
         () => ({
             name: item.name,
-            url: `/${item.url_key}${item.url_suffix}`
+            url: `/${item.url_key}${item.url_suffix || ''}`
         }),
         [item]
     );
