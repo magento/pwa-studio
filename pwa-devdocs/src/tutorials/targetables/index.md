@@ -55,6 +55,34 @@ module.exports = targets => {
 Other Targetable classes, such as `TargetableESModule`, are subclasses of `TargetableModule`.
 They contain specialized functions that let it work with different modules or file types.
 
+## Chain transformations
+
+Some Targetable classes, such as `TargetableModule` and `TargetableReactComponent`, support method chaining.
+Certain methods in these classes are chainable, which let you call these methods one after another in your code.
+
+```js
+const { Targetables } = require('@magento/pwa-buildpack')
+
+module.exports = targets => {
+    const targetableFactory = Targetables.using(targets);
+
+    const MainComponent = targetables.reactComponent(
+        '@magento/venia-ui/lib/components/Main/main.js'
+    );
+
+    MainComponent
+        .appendJSX(
+            'div className={pageClass}',
+            '<span>appendJSX succeeded!</span>'
+        )
+        .addJSXClassName('Header', '"myClass"')
+        .insertBeforeJSX(
+            '<Header />',
+            '<span>insertBeforeJSX succeeded!</span>'
+        )
+}
+```
+
 ## Unbound Targetable objects
 
 A less common pattern for using Targetables is to access the Targetables classes directly and creating an object that is not connected to a project's TargetProvider.
