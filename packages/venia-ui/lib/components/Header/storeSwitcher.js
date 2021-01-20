@@ -9,9 +9,11 @@ import SwitcherItem from './switcherItem';
 
 const StoreSwitcher = props => {
     const {
-        handleSwitchStore,
-        currentStoreName,
         availableStores,
+        currentGroupName,
+        currentStoreName,
+        handleSwitchStore,
+        storeGroups,
         storeMenuRef,
         storeMenuTriggerRef,
         storeMenuIsOpen,
@@ -23,21 +25,44 @@ const StoreSwitcher = props => {
 
     if (!availableStores || availableStores.size <= 1) return null;
 
-    const stores = [];
+    const groups = [];
+    const hasOnlyOneGroup = storeGroups.size === 1;
 
-    availableStores.forEach((store, code) => {
-        stores.push(
-            <li key={code} className={classes.menuItem}>
-                <SwitcherItem
-                    active={store.isCurrent}
-                    onClick={handleSwitchStore}
-                    option={code}
-                >
-                    {store.storeName}
-                </SwitcherItem>
-            </li>
+    storeGroups.forEach((group, key) => {
+        const stores = [];
+        group.forEach(({ storeGroupName, storeName, isCurrent, code }) => {
+            let label;
+            if (hasOnlyOneGroup) {
+                label = `${storeName}`;
+            } else {
+                label = `${storeGroupName} - ${storeName}`;
+            }
+            stores.push(
+                <li key={code} className={classes.menuItem}>
+                    <SwitcherItem
+                        active={isCurrent}
+                        onClick={handleSwitchStore}
+                        option={code}
+                    >
+                        {label}
+                    </SwitcherItem>
+                </li>
+            );
+        });
+
+        groups.push(
+            <ul className={classes.groupList} key={key}>
+                {stores}
+            </ul>
         );
     });
+
+    let triggerLabel;
+    if (hasOnlyOneGroup) {
+        triggerLabel = `${currentStoreName}`;
+    } else {
+        triggerLabel = `${currentGroupName} - ${currentStoreName}`;
+    }
 
     return (
         <div className={classes.root}>
@@ -46,10 +71,10 @@ const StoreSwitcher = props => {
                 onClick={handleTriggerClick}
                 ref={storeMenuTriggerRef}
             >
-                {currentStoreName}
+                {triggerLabel}
             </button>
             <div ref={storeMenuRef} className={menuClassName}>
-                <ul>{stores}</ul>
+                {groups}
             </div>
         </div>
     );
