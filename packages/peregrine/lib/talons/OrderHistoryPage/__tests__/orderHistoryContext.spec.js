@@ -34,7 +34,7 @@ test('renders children', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('returns default value for suffix', () => {
+test('returns empty string if no suffix found in gql', () => {
     createTestInstance(
         <OrderHistoryContextProvider>
             <Consumer />
