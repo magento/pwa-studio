@@ -245,6 +245,8 @@
     "orderDetails.waitingOnTracking": "Waiting for tracking information",
     "orderHistoryPage.emptyDataMessage": "You don't have any orders yet.",
     "orderHistoryPage.invalidOrderNumber": "Order \"{number}\" was not found.",
+    "orderHistoryPage.loadMore": "Load More",
+    "orderHistoryPage.pageInfo": "Showing {current} of {total}",
     "orderHistoryPage.pageTitleText": "Order History",
     "orderHistoryPage.search": "Search by Order Number",
     "orderItems.itemsHeading": "Items",

@@ -13,12 +13,13 @@ jest.mock(
             .mockName('useOrderHistoryPage')
             .mockReturnValue({
                 errorMessage: null,
-                getOrderDetails: jest.fn().mockName('getOrderDetails'),
-                handleKeyPress: jest.fn().mockName('handleKeyPress'),
+                handleReset: jest.fn().mockName('handleReset'),
+                handleSubmit: jest.fn().mockName('handleSubmit'),
                 isBackgroundLoading: false,
                 isLoadingWithoutData: false,
+                loadMoreOrders: null,
                 orders: [],
-                resetForm: jest.fn().mockName('resetForm'),
+                pageInfo: null,
                 searchText: ''
             })
     })
@@ -54,16 +55,17 @@ jest.mock('../orderRow', () => 'OrderRow');
 
 const talonProps = {
     errorMessage: null,
-    getOrderDetails: jest.fn().mockName('getOrderDetails'),
-    handleKeyPress: jest.fn().mockName('handleKeyPress'),
+    handleReset: jest.fn().mockName('handleReset'),
+    handleSubmit: jest.fn().mockName('handleSubmit'),
     isBackgroundLoading: false,
     isLoadingWithoutData: false,
+    loadMoreOrders: null,
     orders: [],
-    resetForm: jest.fn().mockName('resetForm'),
+    pageInfo: null,
     searchText: ''
 };
 
-test('renders full page loading indicator', () => {
+test('renders loading indicator', () => {
     useOrderHistoryPage.mockReturnValueOnce({
         ...talonProps,
         isLoadingWithoutData: true,
@@ -91,7 +93,9 @@ test('renders correctly with data', () => {
     useOrderHistoryPage.mockReturnValueOnce({
         ...talonProps,
         isLoadingWithoutData: false,
-        orders: [{ id: 1 }, { id: 2 }, { id: 3 }]
+        loadMoreOrders: jest.fn().mockName('loadMoreOrders'),
+        orders: [{ id: 1 }, { id: 2 }, { id: 3 }],
+        pageInfo: { current: 3, total: 6 }
     });
 
     const tree = createTestInstance(<OrderHistoryPage />);

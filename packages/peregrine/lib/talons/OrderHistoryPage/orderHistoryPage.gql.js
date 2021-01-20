@@ -85,14 +85,22 @@ const CustomerOrdersFragment = gql`
                 }
             }
         }
+        page_info {
+            current_page
+            total_pages
+        }
+        total_count
     }
 `;
 
-export const GET_CUSTOMER_ORDER = gql`
-    query GetCustomerOrders($orderNumber: CustomerOrdersFilterInput) {
+export const GET_CUSTOMER_ORDERS = gql`
+    query GetCustomerOrders(
+        $filter: CustomerOrdersFilterInput
+        $pageSize: Int!
+    ) {
         customer {
             id
-            orders(filter: $orderNumber) {
+            orders(filter: $filter, pageSize: $pageSize) {
                 ...CustomerOrdersFragment
             }
         }
@@ -101,5 +109,5 @@ export const GET_CUSTOMER_ORDER = gql`
 `;
 
 export default {
-    getCustomerOrderQuery: GET_CUSTOMER_ORDER
+    getCustomerOrdersQuery: GET_CUSTOMER_ORDERS
 };
