@@ -40,12 +40,6 @@ entries:
       url: /tutorials/targetables/
       entries:
 
-          - label: Wrap an ES module
-            url: /tutorials/targetables/wrap-module/
-
-          - label: Modify JSX in a React component
-            url: /tutorials/targetables/modify-react-jsx/
-
     - label: Production deployments
       url: /tutorials/pwa-studio-fundamentals/production-launch-checklist/
       entries:
