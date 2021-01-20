@@ -129,13 +129,13 @@ Minor versions of PWA Studio & Venia released between typical Magento releases w
 | Updated logic for routes handling to accept an array of paths                                           | **Feature**  | [#2893][] |
 | Replaced hardcoded root category id with an actual value retrieved from a query                         | **Feature**  | [#2902][] |
 | Added search by order number feature to the order history page                                          | **Feature**  | [#2916][] |
+| Added pagination for Order History                                                                      | **Feature**  | [#2928][] |
 | Refactored Edit Payment to use Dialog component                                                         | **Refactor** | [#2806][] |
 | Refactored Edit Product to use Dialog component                                                         | **Refactor** | [#2824][] |
 | Refactored Payment feature to make it extendable                                                        | **Refactor** | [#2838][] |
 | Added access to checkout's `useOverview()` talon                                                        | **Update**   | [#2636][] |
 | Updated the Search trigger button in the site header to behave like My Account and Cart trigger buttons | **Update**   | [#2685][] |
 | Replaced the ProductQuantity component on the Product page with a QuantityFields stepper component      | **Update**   | [#2690][] |
-| Updated Venia static images to reflect new logo                                                         | **Update**   | [#2693][] |
 | Localized My Account and Signed In sidebar                                                              | **Update**   | [#2721][] |
 | Localized Mini Cart and Search                                                                          | **Update**   | [#2734][] |
 | Localized Cart                                                                                          | **Update**   | [#2740][] |
@@ -175,6 +175,7 @@ Minor versions of PWA Studio & Venia released between typical Magento releases w
 | Fixed JavaScript errors thrown by the `useOrderConfirmationPage` talon                      | **Bugfix**   | [#2850][] |
 | Fixed `apiBase` URL in `resolveUnknownRoute.js`                                             | **Bugfix**   | [#2877][] |
 | Fixed broken top level category navigation                                                  | **Bugfix**   | [#2911][] |
+| Fixed offline cached search and category pages                                              | **Bugfix**   | [#2929][] |
 
 ### Build tools
 
@@ -225,7 +226,6 @@ Minor versions of PWA Studio & Venia released between typical Magento releases w
 | Update use of `Whitelist` to `Allowlist`                                      | **Update**  | [#2779][] |
 | Added `jsx-no-literals` linting rule                                          | **Update**  | [#2789][] |
 | Update PR template to add translation entry to checklist                      | **Update**  | [#2800][] |
-| Fixed Storybook in scaffolded projects                                        | **Bugfix**  | [#2708][] |
 | Fixed a Storybook bug related to `fetchLocaleData` in storybook config        | **Bugfix**  | [#2801][] |
 | Fix failing unit tests related to race conditions                             | **Bugfix**  | [#2880][] |
 | Fixed a Storybook bug related to the relative import of a local custom loader | **Bugfix**  | [#2912][] |
@@ -233,6 +233,7 @@ Minor versions of PWA Studio & Venia released between typical Magento releases w
 ## Known issues
 
 - If you are using Multi-Source Inventory(MSI), a GraphQL issue prevents users from adding a configurable product to the shopping cart on non-default store views.
+- Prerender feature is unable to cache HTML on Fastly enabled environments.
 
 ## Upgrading from a previous version
 
@@ -405,3 +406,5 @@ yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento
 [#2636]: https://github.com/magento/pwa-studio/pull/2636
 [#2918]: https://github.com/magento/pwa-studio/pull/2918
 [#2916]: https://github.com/magento/pwa-studio/pull/2916
+[#2929]: https://github.com/magento/pwa-studio/pull/2929
+[#2928]: https://github.com/magento/pwa-studio/pull/2928
