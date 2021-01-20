@@ -36,6 +36,8 @@
 }
 
 .menuItem {
+}
+.groupList:not(:last-child) {
     border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
 }
 

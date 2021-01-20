@@ -18,17 +18,24 @@ const mapAvailableOptions = (config, stores) => {
             default_display_currency_code: currency,
             locale,
             product_url_suffix,
-            store_name: storeName
+            store_group_code: storeGroupCode,
+            store_group_name: storeGroupName,
+            store_name: storeName,
+            store_sort_order: sortOrder
         } = store;
 
         const isCurrent = code === configCode;
         const option = {
+            code,
             category_url_suffix,
             currency,
             isCurrent,
             locale,
             product_url_suffix,
-            storeName
+            sortOrder,
+            storeName,
+            storeGroupName,
+            storeGroupCode
         };
 
         return map.set(code, option);
@@ -85,6 +92,12 @@ export const useStoreSwitcher = (props = {}) => {
         }
     }, [storeConfigData]);
 
+    const currentGroupName = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.store_group_name;
+        }
+    }, [storeConfigData]);
+
     const currentStoreCode = useMemo(() => {
         if (storeConfigData) {
             return storeConfigData.storeConfig.code;
@@ -97,16 +110,37 @@ export const useStoreSwitcher = (props = {}) => {
         }
     }, [urlResolverData]);
 
+    // availableStores => mapped options or empty map if undefined.
     const availableStores = useMemo(() => {
         return (
-            storeConfigData &&
-            availableStoresData &&
-            mapAvailableOptions(
-                storeConfigData.storeConfig,
-                availableStoresData.availableStores
-            )
+            (storeConfigData &&
+                availableStoresData &&
+                mapAvailableOptions(
+                    storeConfigData.storeConfig,
+                    availableStoresData.availableStores
+                )) ||
+            new Map()
         );
     }, [storeConfigData, availableStoresData]);
+
+    // Create a map of sorted store views for each group.
+    const storeGroups = useMemo(() => {
+        const groups = new Map();
+
+        availableStores.forEach(store => {
+            const groupCode = store.storeGroupCode;
+            if (!groups.has(groupCode)) {
+                const groupViews = [store];
+                groups.set(groupCode, groupViews);
+            } else {
+                const groupViews = groups.get(groupCode);
+                // Insert store at configured position
+                groupViews.splice(store.sortOrder, 0, store);
+            }
+        });
+
+        return groups;
+    }, [availableStores]);
 
     // Get pathname with suffix based on page type
     const getPathname = useCallback(
@@ -203,8 +237,10 @@ export const useStoreSwitcher = (props = {}) => {
     }, [setStoreMenuIsOpen]);
 
     return {
-        currentStoreName,
         availableStores,
+        currentGroupName,
+        currentStoreName,
+        storeGroups,
         storeMenuRef,
         storeMenuTriggerRef,
         storeMenuIsOpen,
