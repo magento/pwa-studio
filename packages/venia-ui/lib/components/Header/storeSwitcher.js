@@ -1,13 +1,11 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { MapPin } from 'react-feather';
 
 import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './storeSwitcher.css';
 import SwitcherItem from './switcherItem';
-import Icon from '../Icon';
 
 const StoreSwitcher = props => {
     const {
@@ -48,10 +46,7 @@ const StoreSwitcher = props => {
                 onClick={handleTriggerClick}
                 ref={storeMenuTriggerRef}
             >
-                <span className={classes.trigger}>
-                    <Icon src={MapPin} />
-                    <span>{currentStoreName}</span>
-                </span>
+                {currentStoreName}
             </button>
             <div ref={storeMenuRef} className={menuClassName}>
                 <ul>{stores}</ul>
