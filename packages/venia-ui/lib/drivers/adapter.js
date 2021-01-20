@@ -53,7 +53,10 @@ const VeniaAdapter = props => {
         const cache = apollo.cache || preInstantiatedCache;
         const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
         const client = apollo.client || new ApolloClient({ cache, link });
+        const storeCode = storage.getItem('store_view_code') || 'default';
+
         const persistor = new CachePersistor({
+            key: `apollo-cache-persist-${storeCode}`,
             cache,
             storage: window.localStorage,
             debug: process.env.NODE_ENV === 'development'

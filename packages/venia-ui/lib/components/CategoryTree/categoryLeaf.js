@@ -12,7 +12,7 @@ const Leaf = props => {
     const { name, url_path, url_suffix, children } = category;
     const classes = mergeClasses(defaultClasses, props.classes);
     const { handleClick } = useCategoryLeaf({ onNavigate });
-    const destination = resourceUrl(`/${url_path}${url_suffix}`);
+    const destination = resourceUrl(`/${url_path}${url_suffix || ''}`);
 
     const leafLabel =
         children && children.length ? (
