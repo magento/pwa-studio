@@ -70,6 +70,7 @@ const getTalonProps = props => {
 
 const storeConfigResponse = {
     code: 'store2',
+    store_group_name: 'Group 1',
     store_name: 'Store 2'
 };
 
@@ -87,6 +88,9 @@ const availableStoresResponse = [
     {
         code: 'store1',
         locale: 'locale1',
+        store_group_code: 'group1',
+        store_group_name: 'Group 1',
+        store_sort_order: 0,
         store_name: 'Store 1',
         default_display_currency_code: 'USD',
         category_url_suffix: null,
@@ -96,6 +100,9 @@ const availableStoresResponse = [
     {
         code: 'store2',
         locale: 'locale2',
+        store_group_code: 'group1',
+        store_group_name: 'Group 1',
+        store_sort_order: 1,
         store_name: 'Store 2',
         default_display_currency_code: 'EUR',
         category_url_suffix: '.html',
@@ -105,6 +112,9 @@ const availableStoresResponse = [
     {
         code: 'store3',
         locale: 'locale3',
+        store_group_code: 'group1',
+        store_group_name: 'Group 1',
+        store_sort_order: 2,
         store_name: 'Store 3',
         default_display_currency_code: 'EUR',
         category_url_suffix: null,
@@ -114,6 +124,9 @@ const availableStoresResponse = [
     {
         code: 'store4',
         locale: 'locale4',
+        store_group_code: 'group2',
+        store_group_name: 'Group 2',
+        store_sort_order: 0,
         store_name: 'Store 4',
         default_display_currency_code: 'EUR',
         category_url_suffix: '.htm',
@@ -123,6 +136,9 @@ const availableStoresResponse = [
     {
         code: 'store5',
         locale: 'locale5',
+        store_group_code: 'group2',
+        store_group_name: 'Group 2',
+        store_sort_order: 1,
         store_name: 'Store 5',
         default_display_currency_code: 'EUR',
         category_url_suffix: '-abc1',
@@ -132,6 +148,9 @@ const availableStoresResponse = [
     {
         code: 'store6',
         locale: 'locale6',
+        store_group_code: 'group2',
+        store_group_name: 'Group 2',
+        store_sort_order: 2,
         store_name: 'Store 6',
         default_display_currency_code: 'EUR',
         category_url_suffix: '.some.some',
@@ -158,7 +177,16 @@ beforeEach(() => {
 test('should return correct shape', () => {
     const { talonProps } = getTalonProps(defaultProps);
 
+    // storeGroups should be a map of the "groups", sorted in sort order.
     expect(talonProps).toMatchSnapshot();
+
+    expect(talonProps.currentGroupName).toEqual(
+        storeConfigResponse.store_group_name
+    );
+
+    expect(talonProps.storeGroups.size).toEqual(2);
+    expect(talonProps.storeGroups.get('group1').length).toEqual(3);
+    expect(talonProps.storeGroups.get('group2').length).toEqual(3);
 });
 
 describe('event handlers', () => {
