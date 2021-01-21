@@ -22,7 +22,7 @@ class TargetableESModule extends TargetableModule {
      * If a collision is detected, it renames the binding before inserting it.
      *
      * @param {(string|SingleImportStatement)} statement - A string representing the import statement, or a SingleImportStatement representing it.
-     * @returns SingleImportStatement
+     * @returns {SingleImportStatement} An instance of the [`SingleImportStatement`] class.
      * @memberof TargetableESModule
      */
     addImport(statement) {
@@ -55,7 +55,7 @@ class TargetableESModule extends TargetableModule {
      * but good enough in a pinch.
      *
      * @param {string} binding - The binding to change.
-     * @returns string
+     * @returns {string}
      * @memberof TargetableESModule
      */
     uniqueIdentifier(str) {
@@ -63,10 +63,11 @@ class TargetableESModule extends TargetableModule {
         return `${str}$${TargetableESModule.increment}`;
     }
     /**
-     * Pass exports of this module through a [wrapper module](#wrapper_modules).
+     * Pass exports of this module through a wrapper module.
      *
      * @param {string} [exportName] Name of export to wrap. If not provided, will wrap the default export.
      * @param {string} wrapperModule Package-absolute import path to the wrapper module.
+     * @chainable
      */
     wrapWithFile(exportNameOrWrapperModule, wrapperModule) {
         const opts = wrapperModule

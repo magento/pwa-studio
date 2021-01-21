@@ -15,7 +15,7 @@ Code examples for using the `SingleImportStatement` class.
 
 ### Create a `SingleImportStatement` object
 
-Pass in an import code entry to the constructor to create a new `SingleImportStatement` object.
+Pass in an import statement to the constructor to create a new `SingleImportStatement` object.
 
 ```js
 const useQueryImport = new SingleImportStatement("import { useQuery } from '@apollo/react-hooks'");
