@@ -177,13 +177,13 @@ beforeEach(() => {
 test('should return correct shape', () => {
     const { talonProps } = getTalonProps(defaultProps);
 
-    // storeGroups should be a map of the "groups", sorted in sort order.
     expect(talonProps).toMatchSnapshot();
 
     expect(talonProps.currentGroupName).toEqual(
         storeConfigResponse.store_group_name
     );
 
+    // storeGroups should be a map of the "groups", sorted in sort order.
     expect(talonProps.storeGroups.size).toEqual(2);
     expect(talonProps.storeGroups.get('group1').length).toEqual(3);
     expect(talonProps.storeGroups.get('group2').length).toEqual(3);
