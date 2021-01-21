@@ -33,7 +33,7 @@ const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
-    const talonProps = useCheckoutPage({});
+    const talonProps = useCheckoutPage();
 
     const {
         /**
@@ -172,27 +172,24 @@ const CheckoutPage = props => {
                 </h3>
             );
 
-        const isPaymentAvailable = !!availablePaymentMethods
-            .map(({ code }) => {
-                // If we don't have an implementation for a method type, ignore it.
-                if (!Object.keys(payments).includes(code)) {
-                    return;
-                }
-                return true;
-            })
-            .filter(paymentMethod => !!paymentMethod).length;
+        let formErrors = [];
 
-        const errors = new Map();
+        const paymentMethods = Object.keys(payments);
+
+        // If we don't have an implementation for a method type, ignore it.
+        const isPaymentAvailable = !!availablePaymentMethods.find(({ code }) =>
+            paymentMethods.includes(code)
+        );
 
         if (!isPaymentAvailable) {
-            errors.set('paymentMethods', [
+            formErrors.push(
                 new Error(
                     formatMessage({
                         id: 'checkoutPage.noPaymentAvailable',
                         defaultMessage: 'Payment is currently unavailable.'
                     })
                 )
-            ]);
+            );
         }
 
         const paymentInformationSection =
@@ -316,12 +313,11 @@ const CheckoutPage = props => {
         );
         checkoutContent = (
             <div className={checkoutContentClass}>
-                {loginButton}
                 <FormError
                     classes={{
                         root: classes.formErrors
                     }}
-                    errors={errors.get('paymentMethods') || []}
+                    errors={formErrors}
                 />
                 <div className={classes.heading_container}>
                     <StockStatusMessage
