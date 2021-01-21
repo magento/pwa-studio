@@ -23,6 +23,13 @@
     transition-property: opacity, transform, visibility;
     visibility: hidden;
     z-index: 2;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.groups {
+    max-height: 24rem;
+    overflow: auto;
 }
 
 .menu_open {
@@ -37,12 +44,9 @@
 
 .menuItem {
 }
+
 .groupList:not(:last-child) {
     border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
-}
-
-.menuItem:last-child {
-    border-bottom: none;
 }
 
 .menuItem:hover {
