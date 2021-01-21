@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string, object } from 'prop-types';
 import { Form } from 'informed';
@@ -44,7 +44,7 @@ const Dialog = props => {
         children,
         confirmText,
         confirmTranslationId,
-        formProps = {},
+        formProps,
         isModal,
         isOpen,
         onCancel,
@@ -59,27 +59,6 @@ const Dialog = props => {
     // Prevent the page from scrolling in the background
     // when the Dialog is open.
     useScrollLock(isOpen);
-
-    const formApiRef = useRef();
-    const dialogFormProps = {
-        ...formProps,
-        getApi: formApi => {
-            formApiRef.current = formApi;
-            if (formProps.getApi) formProps.getApi(formApi);
-        }
-    };
-
-    // If the form remains mounted even when the dialog is not being shown,
-    // passing in new initialValues won't actually do anything.
-    // This causes confusion, so when we detect that the initialValues
-    // have changed, go ahead and set the form values to them.
-    // If shouldUnmountOnHide is true, setValues is skipped: the new
-    // initialValues will be used as one would expect.
-    useEffect(() => {
-        if (!shouldUnmountOnHide && isOpen && formProps.initialValues) {
-            formApiRef.current.setValues(formProps.initialValues);
-        }
-    }, [formProps.initialValues, isOpen, shouldUnmountOnHide]);
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
@@ -135,11 +114,7 @@ const Dialog = props => {
 
     const maybeForm =
         isOpen || !shouldUnmountOnHide ? (
-            <Form
-                className={classes.form}
-                {...dialogFormProps}
-                onSubmit={onConfirm}
-            >
+            <Form className={classes.form} {...formProps} onSubmit={onConfirm}>
                 {/* The Mask. */}
                 <button
                     className={classes.mask}
