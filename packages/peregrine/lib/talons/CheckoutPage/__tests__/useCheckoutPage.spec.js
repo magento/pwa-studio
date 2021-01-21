@@ -595,7 +595,7 @@ test('resetReviewOrderButtonClicked should set reviewOrderButtonClicked to false
 });
 
 test('toggles addressBook content', () => {
-    const { talonProps: initialProps, update } = getTalonProps(props);
+    const { talonProps: initialProps, update } = getTalonProps(defaultProps);
 
     initialProps.toggleAddressBookContent();
     const step1Props = update();
@@ -609,7 +609,7 @@ test('toggles addressBook content', () => {
 });
 
 test('toggles signIn content', () => {
-    const { talonProps: initialProps, update } = getTalonProps(props);
+    const { talonProps: initialProps, update } = getTalonProps(defaultProps);
 
     initialProps.toggleSignInContent();
     const step1Props = update();
@@ -623,7 +623,7 @@ test('toggles signIn content', () => {
 });
 
 test('resets active content to checkout on sign in', () => {
-    const { talonProps: initialProps, update } = getTalonProps(props);
+    const { talonProps: initialProps, update } = getTalonProps(defaultProps);
 
     initialProps.toggleSignInContent();
     const step1Props = update();
