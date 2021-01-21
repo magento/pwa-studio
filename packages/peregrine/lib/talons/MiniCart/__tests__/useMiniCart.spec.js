@@ -69,6 +69,10 @@ beforeAll(() => {
                 ],
                 prices: { subtotal_excluding_tax: 4200 },
                 total_quantity: 10
+            },
+            storeConfig: {
+                id: 1,
+                configurable_thumbnail_source: 'parent'
             }
         },
         loading: false
