@@ -15,6 +15,12 @@ jest.mock('../../../components/Head', () => ({
 
 jest.mock('../categoryContent', () => 'CategoryContent');
 
+jest.mock('react-router-dom', () => {
+    return {
+        useHistory: jest.fn(() => ({ push: jest.fn() }))
+    };
+});
+
 const talonProps = {
     error: null,
     metaDescription: 'Meta Description',
@@ -52,13 +58,25 @@ test('renders the correct tree', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('it renders a loading indicator when appropriate', () => {
-    useCategory.mockReturnValueOnce({
-        ...talonProps,
-        loading: true
+describe('it renders a loading indicator when appropriate', () => {
+    test('renders no indicator when data is present', () => {
+        useCategory.mockReturnValueOnce({
+            ...talonProps,
+            loading: true
+        });
+        const tree = createTestInstance(<Category {...categoryProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
     });
-    const tree = createTestInstance(<Category {...categoryProps} />);
-    expect(tree.toJSON()).toMatchSnapshot();
+
+    test('renders an indicator when data is not present', () => {
+        useCategory.mockReturnValueOnce({
+            ...talonProps,
+            loading: true,
+            categoryData: undefined
+        });
+        const tree = createTestInstance(<Category {...categoryProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
 });
 
 test('it shows error when appropriate', () => {

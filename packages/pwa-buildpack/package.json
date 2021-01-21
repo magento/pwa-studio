@@ -45,7 +45,7 @@
     "fs-extra": "~7.0.1",
     "gitignore-to-glob": "~0.3.0",
     "graphql-playground-middleware-express": "~1.7.18",
-    "hastily": "~0.4.7",
+    "hastily": "~0.4.9",
     "js-yaml": "~3.13.1",
     "jsdom": "~16.2.2",
     "klaw": "~3.0.0",

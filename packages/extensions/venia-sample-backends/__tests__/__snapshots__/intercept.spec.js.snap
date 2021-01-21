@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should call onFail if backend is inactive 1`] = `
+"https://www.magento-backend-2.3.4.com/ is inactive. Please consider using one of these other backends: 
+
+ [{\\"name\\":\\"2.3.3-venia-cloud\\",\\"description\\":\\"Magento 2.3.3 with Venia sample data installed\\",\\"url\\":\\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\"}] 
+"
+`;
+
+exports[`should call onFail with a different error message if environments is empty 1`] = `
+"https://www.magento-backend-2.3.4.com/ is inactive. Please consider using one of these other backends: 
+
+ [{\\"name\\":\\"2.3.3-venia-cloud\\",\\"description\\":\\"Magento 2.3.3 with Venia sample data installed\\",\\"url\\":\\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\"}] 
+"
+`;
+
+exports[`should log warning message in the console 1`] = `
+"
+ venia-sample-backends is a \\"development-only\\" extension, please remove it from your project's package.json before going to production.
+"
+`;

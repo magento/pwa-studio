@@ -13,11 +13,11 @@ import { mergeClasses } from '../../classify';
 import Button from '../Button';
 import { Title } from '../Head';
 import Icon from '../Icon';
-import LinkButton from '../LinkButton';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
 import FormError from '../FormError';
 import AddressBook from './AddressBook';
+import GuestSignIn from './GuestSignIn';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
 import PriceAdjustments from './PriceAdjustments';
@@ -45,7 +45,6 @@ const CheckoutPage = props => {
         checkoutStep,
         customer,
         error,
-        handleSignIn,
         handlePlaceOrder,
         hasError,
         isCartEmpty,
@@ -64,7 +63,8 @@ const CheckoutPage = props => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
-        toggleActiveContent,
+        toggleAddressBookContent,
+        toggleSignInContent,
         availablePaymentMethods
     } = talonProps;
 
@@ -111,7 +111,7 @@ const CheckoutPage = props => {
               defaultMessage: 'Checkout'
           });
 
-    if (orderNumber) {
+    if (orderNumber && orderDetailsData) {
         return (
             <OrderConfirmationPage
                 data={orderDetailsData}
@@ -135,14 +135,24 @@ const CheckoutPage = props => {
             </div>
         );
     } else {
-        const loginButton = isGuestCheckout ? (
-            <div className={classes.signin_container}>
-                <LinkButton className={classes.sign_in} onClick={handleSignIn}>
+        const signInContainerElement = isGuestCheckout ? (
+            <div className={classes.signInContainer}>
+                <span className={classes.signInLabel}>
                     <FormattedMessage
-                        id={'checkoutPage.loginAndCheckoutFaster'}
-                        defaultMessage={'Login and Checkout Faster'}
+                        id={'checkoutPage.signInLabel'}
+                        defaultMessage={'Sign in for Express Checkout'}
                     />
-                </LinkButton>
+                </span>
+                <Button
+                    className={classes.signInButton}
+                    onClick={toggleSignInContent}
+                    priority="normal"
+                >
+                    <FormattedMessage
+                        id={'checkoutPage.signInButton'}
+                        defaultMessage={'Sign In'}
+                    />
+                </Button>
             </div>
         ) : null;
 
@@ -320,10 +330,11 @@ const CheckoutPage = props => {
                     />
                     <h1 className={classes.heading}>{headerText}</h1>
                 </div>
+                {signInContainerElement}
                 <div className={classes.shipping_information_container}>
                     <ShippingInformation
                         onSave={setShippingInformationDone}
-                        toggleActiveContent={toggleActiveContent}
+                        toggleActiveContent={toggleAddressBookContent}
                     />
                 </div>
                 <div className={classes.shipping_method_container}>
@@ -344,7 +355,14 @@ const CheckoutPage = props => {
     const addressBookElement = !isGuestCheckout ? (
         <AddressBook
             activeContent={activeContent}
-            toggleActiveContent={toggleActiveContent}
+            toggleActiveContent={toggleAddressBookContent}
+        />
+    ) : null;
+
+    const signInElement = isGuestCheckout ? (
+        <GuestSignIn
+            isActive={activeContent === 'signIn'}
+            toggleActiveContent={toggleSignInContent}
         />
     ) : null;
 
@@ -361,6 +379,7 @@ const CheckoutPage = props => {
             </Title>
             {checkoutContent}
             {addressBookElement}
+            {signInElement}
         </div>
     );
 };

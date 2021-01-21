@@ -2,24 +2,23 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import { act } from 'react-test-renderer';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import { useCategoryList } from '../useCategoryList';
 
 jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
 
-    const runQuery = jest.fn();
     const queryResult = {
         data: null,
         error: null,
         loading: false
     };
-    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
+    const useQuery = jest.fn(() => queryResult);
 
     return {
         ...apolloClient,
-        useLazyQuery
+        useQuery
     };
 });
 
@@ -36,48 +35,30 @@ const Component = props => {
     return <i />;
 };
 
-test('runs the lazy query on mount', () => {
-    const runQuery = jest.fn();
+test('runs the query when id changes', () => {
     const queryResult = {
         data: null,
         error: null,
         loading: false
     };
 
-    useLazyQuery.mockReturnValueOnce([runQuery, queryResult]);
-    createTestInstance(<Component {...props} />);
-
-    act(() => {});
-
-    expect(runQuery).toHaveBeenCalledTimes(1);
-    expect(runQuery).toHaveBeenNthCalledWith(1, {
-        variables: {
-            id: props.id
-        }
-    });
-});
-
-test('runs the lazy query when id changes', () => {
-    const runQuery = jest.fn();
-    const queryResult = {
-        data: null,
-        error: null,
-        loading: false
-    };
-
-    useLazyQuery.mockReturnValue([runQuery, queryResult]);
+    useQuery.mockReturnValue(queryResult);
     const instance = createTestInstance(<Component {...props} />);
 
     act(() => {
         instance.update(<Component {...props} id={2} />);
     });
 
-    expect(runQuery).toHaveBeenCalledTimes(2);
-    expect(runQuery).toHaveBeenNthCalledWith(2, {
-        variables: {
-            id: 2
-        }
-    });
+    expect(useQuery).toHaveBeenCalledTimes(2);
+    expect(useQuery).toHaveBeenNthCalledWith(
+        2,
+        expect.any(Object),
+        expect.objectContaining({
+            variables: {
+                id: 2
+            }
+        })
+    );
 });
 
 test('returns the correct shape', () => {

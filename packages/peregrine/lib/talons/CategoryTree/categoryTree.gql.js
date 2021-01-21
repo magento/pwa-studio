@@ -14,6 +14,9 @@ export const GET_NAVIGATION_MENU = gql`
                 url_path
                 url_suffix
             }
+            include_in_menu
+            url_path
+            url_suffix
         }
     }
 `;

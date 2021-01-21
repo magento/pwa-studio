@@ -13,16 +13,27 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 });
 
 jest.mock('@apollo/client', () => {
-    const queryResult = {
-        loading: false,
+    const apolloClient = jest.requireActual('@apollo/client');
+    const useQueryMock = jest.fn().mockReturnValue({
+        data: {
+            products: {
+                items: [
+                    {
+                        id: 1,
+                        name: 'Karena Halter Dress',
+                        url_key: 'karena-halter-dress'
+                    }
+                ]
+            }
+        },
         error: null,
-        data: null
-    };
-    const useQuery = jest.fn(() => {
-        queryResult;
+        loading: false
     });
 
-    return { useQuery };
+    return {
+        ...apolloClient,
+        useQuery: useQueryMock
+    };
 });
 
 const log = jest.fn();
@@ -37,24 +48,33 @@ const Component = props => {
 };
 
 const props = {
-    mapProduct: jest.fn(product => product),
-    queries: {
-        getProductQuery: 'getProductQuery'
-    },
-    urlKey: 'unit_test'
+    mapProduct: jest.fn(product => product)
+};
+
+const storeConfigResponse = {
+    id: 1,
+    product_url_suffix: null
 };
 
 test('it returns the proper shape', () => {
     // Arrange.
-    useQuery.mockReturnValueOnce({
-        data: {
-            products: {
-                items: []
-            }
-        },
-        error: null,
-        loading: false
-    });
+    useQuery
+        .mockReturnValueOnce({
+            data: {
+                storeConfig: storeConfigResponse
+            },
+            error: null,
+            loading: false
+        })
+        .mockReturnValueOnce({
+            data: {
+                products: {
+                    items: []
+                }
+            },
+            error: null,
+            loading: false
+        });
 
     // Act.
     createTestInstance(<Component {...props} />);
@@ -85,15 +105,23 @@ test('product is null when data is falsy', () => {
 
 test('product is null when items array is empty', () => {
     // Arrange.
-    useQuery.mockReturnValueOnce({
-        data: {
-            products: {
-                items: []
-            }
-        },
-        error: null,
-        loading: false
-    });
+    useQuery
+        .mockReturnValueOnce({
+            data: {
+                storeConfig: storeConfigResponse
+            },
+            error: null,
+            loading: false
+        })
+        .mockReturnValueOnce({
+            data: {
+                products: {
+                    items: []
+                }
+            },
+            error: null,
+            loading: false
+        });
 
     // Act.
     createTestInstance(<Component {...props} />);
@@ -106,15 +134,23 @@ test('product is null when items array is empty', () => {
 
 test('product is null when items array doesnt contain requested urlKey', () => {
     // Arrange.
-    useQuery.mockReturnValueOnce({
-        data: {
-            products: {
-                items: [{ name: 'INVALID', url_key: 'INVALID' }]
-            }
-        },
-        error: null,
-        loading: false
-    });
+    useQuery
+        .mockReturnValueOnce({
+            data: {
+                storeConfig: storeConfigResponse
+            },
+            error: null,
+            loading: false
+        })
+        .mockReturnValueOnce({
+            data: {
+                products: {
+                    items: [{ name: 'INVALID', url_key: 'INVALID' }]
+                }
+            },
+            error: null,
+            loading: false
+        });
 
     // Act.
     createTestInstance(<Component {...props} />);
@@ -127,18 +163,32 @@ test('product is null when items array doesnt contain requested urlKey', () => {
 
 test('product is correct when included in items array', () => {
     // Arrange.
-    useQuery.mockReturnValueOnce({
-        data: {
-            products: {
-                items: [
-                    { name: 'INVALID', url_key: 'INVALID' },
-                    { name: 'VALID', url_key: props.urlKey }
-                ]
-            }
-        },
-        error: null,
-        loading: false
-    });
+    useQuery
+        .mockReturnValueOnce({
+            data: {
+                storeConfig: storeConfigResponse
+            },
+            error: null,
+            loading: false
+        })
+        .mockReturnValueOnce({
+            data: {
+                products: {
+                    items: [
+                        { name: 'INVALID', url_key: 'INVALID' },
+                        { name: 'VALID', url_key: 'unit_test' }
+                    ]
+                }
+            },
+            error: null,
+            loading: false
+        });
+
+    const originalLocation = window.location;
+    delete window.location;
+    window.location = {
+        pathname: '/unit_test'
+    };
 
     // Act.
     createTestInstance(<Component {...props} />);
@@ -146,5 +196,78 @@ test('product is correct when included in items array', () => {
     // Assert.
     const talonProps = log.mock.calls[0][0];
     const { product } = talonProps;
-    expect(product).toEqual({ name: 'VALID', url_key: props.urlKey });
+    expect(product).toEqual({ name: 'VALID', url_key: 'unit_test' });
+    window.location = originalLocation;
+});
+
+test('product is correct when product url suffix is configured', () => {
+    // Arrange.
+    useQuery
+        .mockReturnValueOnce({
+            data: {
+                storeConfig: { id: 1, product_url_suffix: '.html' }
+            },
+            error: null,
+            loading: false
+        })
+        .mockReturnValueOnce({
+            data: {
+                products: {
+                    items: [{ name: 'VALID', url_key: 'unit_test' }]
+                }
+            },
+            error: null,
+            loading: false
+        });
+
+    const originalLocation = window.location;
+    delete window.location;
+    window.location = {
+        pathname: '/unit_test.html'
+    };
+
+    // Act.
+    createTestInstance(<Component {...props} />);
+
+    // Assert.
+    const talonProps = log.mock.calls[0][0];
+    const { product } = talonProps;
+    expect(product).toEqual({ name: 'VALID', url_key: 'unit_test' });
+    window.location = originalLocation;
+});
+
+test('product is correct when product url suffix is configured with no period', () => {
+    // Arrange.
+    useQuery
+        .mockReturnValueOnce({
+            data: {
+                storeConfig: { id: 1, product_url_suffix: 'noperiod' }
+            },
+            error: null,
+            loading: false
+        })
+        .mockReturnValueOnce({
+            data: {
+                products: {
+                    items: [{ name: 'VALID', url_key: 'unit_test' }]
+                }
+            },
+            error: null,
+            loading: false
+        });
+
+    const originalLocation = window.location;
+    delete window.location;
+    window.location = {
+        pathname: '/unit_testnoperiod'
+    };
+
+    // Act.
+    createTestInstance(<Component {...props} />);
+
+    // Assert.
+    const talonProps = log.mock.calls[0][0];
+    const { product } = talonProps;
+    expect(product).toEqual({ name: 'VALID', url_key: 'unit_test' });
+    window.location = originalLocation;
 });

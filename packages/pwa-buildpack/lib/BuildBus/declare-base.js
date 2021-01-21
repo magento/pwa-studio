@@ -153,7 +153,26 @@ module.exports = targets => {
          * @member {tapable.AsyncSeriesHook}
          * @param {transformUpwardIntercept} interceptor
          */
-        transformUpward: new targets.types.AsyncSeries(['definitions'])
+        transformUpward: new targets.types.AsyncSeries(['definitions']),
+
+        /**
+         * Collect all ENV validation functions that will run against the
+         * project's ENV. The functions can be async and they will run in
+         * parallel. If a validation function wants to stop the whole process
+         * for instance in case of a serious security issue, it can do so
+         * by throwing an error. If it wants to report an error, it can do so
+         * by using the onFail callback provided as an argument. A validation
+         * function can submit multiple errors by calling the onFail function
+         * multiple times. All the errors will be queued into an array and
+         * displayed on the console at the end of the process.
+         *
+         * @example
+         * targets.of('@magento/pwa-buildpack').validateEnv.tapPromise(validateBackendUrl);
+         *
+         * @member {tapable.AsyncParallelHook}
+         * @param {envValidationInterceptor} validator
+         */
+        validateEnv: new targets.types.AsyncParallel(['validator'])
     };
 
     /**
@@ -281,4 +300,30 @@ module.exports = targets => {
  * @callback transformUpwardIntercept
  * @param {object} definition - Parsed UPWARD definition object.
  * @returns {Promise}
+ */
+
+/** Type definitions related to: validateEnv */
+
+/**
+ * Intercept function signature for the validateEnv target.
+ *
+ * Interceptors of the `validateEnv` target receive a config object.
+ * The config object contains the project env, an onFail callback and
+ * the debug function to be used in case of the debug mode to log more
+ * inforamtion to the console.
+ *
+ * This Target can be used asynchronously in the parallel mode. If a
+ * validator needs to stop the process immediately, it can throw an error.
+ * If it needs to report an error but not stop the whole process, it can do
+ * so by calling the onFail function with the error message it wants to report.
+ * It can call the onFail multiple times if it wants to report multiple errors.
+ *
+ * All the errors will be queued and printed into the console at the end of the
+ * validation process and the build process will be stopeed.
+ *
+ * @callback envValidationInterceptor
+ * @param {Object} config.env - Project ENV
+ * @param {Function} config.onFail - On fail callback
+ * @param {Function} config.debug - Debug function to be used for additional reporting in debug mode
+ * @returns {Boolean}
  */

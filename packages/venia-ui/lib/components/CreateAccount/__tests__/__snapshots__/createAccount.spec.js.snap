@@ -6,6 +6,12 @@ exports[`renders the correct tree 1`] = `
   onReset={[Function]}
   onSubmit={[Function]}
 >
+  <h2>
+    <mock-FormattedMessage
+      defaultMessage="Create an Account"
+      id="createAccount.createAccountText"
+    />
+  </h2>
   <div>
     <label>
       First Name
@@ -200,6 +206,12 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
   onReset={[Function]}
   onSubmit={[Function]}
 >
+  <h2>
+    <mock-FormattedMessage
+      defaultMessage="Create an Account"
+      id="createAccount.createAccountText"
+    />
+  </h2>
   <div>
     <label>
       First Name

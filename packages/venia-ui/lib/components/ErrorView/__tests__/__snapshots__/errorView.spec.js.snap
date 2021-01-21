@@ -1,9 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders correct with a element 1`] = `
-<div>
-  <h1>
-    Something went wrong. Please try again.
-  </h1>
+<div
+  style={
+    Object {
+      "--backroundImageUrl": "url(\\"test-file-stub\\")",
+      "--mobileBackgroundImageUrl": "url(\\"test-file-stub\\")",
+    }
+  }
+>
+  <div>
+    <p>
+      <FormattedMessage
+        defaultMessage="Oops!"
+        id="errorView.header"
+      />
+    </p>
+    <p>
+      <FormattedMessage
+        defaultMessage="Looks like something went wrong. Sorry about that."
+        id="errorView.message"
+      />
+    </p>
+    <div>
+      <Button
+        disabled={false}
+        negative={false}
+        onClick={[Function]}
+        priority="high"
+        type="button"
+      >
+        <FormattedMessage
+          defaultMessage="Take me home"
+          id="errorView.goHome"
+        />
+      </Button>
+    </div>
+  </div>
 </div>
 `;
