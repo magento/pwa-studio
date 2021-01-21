@@ -68,6 +68,9 @@ class SingleImportError extends Error {
  *
  */
 class SingleImportStatement {
+    /**
+     * @param {string} statement A static import statement
+     */
     constructor(statement) {
         this.originalStatement = statement;
         this.statement = this._normalizeStatement(statement);
@@ -77,31 +80,13 @@ class SingleImportStatement {
         this.imported = this._getImported(); // must come after this._getBinding
     }
     /**
-     * Return a new SingleImportStatement that is a copy of this one, but with
-     * the binding renamed. The `originalStatement` and `statement` properties
-     * are rewritten to use the new binding.
-     *
-     * @example
-     *
-     * ```js
-     * const useQueryImport = new SingleImportStatement("import { useQuery } from '@apollo/react-hooks'");
-     * // SingleImportStatement {
-     * //   statement: "import { useQuery } from '@apollo/react-hooks'",
-     * //   binding: 'useQuery',
-     * //   imported: 'useQuery'
-     * // }
-     *
-     *
-     * const useQueryImport2 = useQueryImport.changeBinding('useQuery2');
-     * // SingleImportStatement {
-     * //   statement: "import { useQuery as useQuery2 } from '@apollo/react-hooks'",
-     * //   binding: 'useQuery2',
-     * //   imported: 'useQuery'
-     * // }
-     * ```
+     * Creates a new SingleImportStatement object with a different binding.
      *
      * @param {string} newBinding - Binding to rename.
-     * @returns SingleImportStatement
+     * 
+     * @returns {SingleImportStatement} A new SingleImportStatement that is a copy
+     * of this one, but with the binding renamed. The `originalStatement` and
+     * `statement` properties are rewritten to use the new binding.
      */
     changeBinding(newBinding) {
         const { imported, local } = this.node.specifiers[0];
@@ -128,18 +113,6 @@ class SingleImportStatement {
     /**
      * When interpolated as a string, a SingleImportStatement becomes the value
      * of its `binding` property.
-     *
-     * @example <caption>Write JSX without knowing components' local names.</caption>
-     *
-     * ```js
-     * let Button = new SingleImportStatement("Button from './button'");
-     *
-     * // later, we learn there is a conflict with the `Button` identifier
-     * Button = Button.changeBinding(generateUniqueIdentifier());
-     *
-     * const jsx = `<${Button}>hello world</${Button}>`
-     * jsx === '<Button$$1>hello world</Button$$1>';
-     * ```
      *
      * @returns string
      */
