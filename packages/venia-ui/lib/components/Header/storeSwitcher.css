@@ -8,6 +8,12 @@
     position: relative;
 }
 
+.trigger {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .menu {
     background-color: rgb(var(--venia-global-color-gray-50));
     border: 1px solid rgb(var(--venia-global-color-gray-dark));
@@ -68,6 +74,10 @@
 @media (max-width: 640px) {
     .root {
         justify-items: start;
+    }
+
+    .trigger {
+        max-width: 15rem;
     }
 
     .menu {

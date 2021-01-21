@@ -67,6 +67,7 @@ const StoreSwitcher = props => {
     return (
         <div className={classes.root}>
             <button
+                className={classes.trigger}
                 aria-label={currentStoreName}
                 onClick={handleTriggerClick}
                 ref={storeMenuTriggerRef}
