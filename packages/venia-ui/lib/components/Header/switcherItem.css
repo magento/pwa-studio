@@ -11,7 +11,7 @@
     grid-auto-flow: column;
     grid-template-columns: 1fr;
     height: 2.5rem;
-    padding: 0 0.75rem;
+    padding: 0 1rem;
     width: 100%;
 }
 

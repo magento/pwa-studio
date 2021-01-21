@@ -74,7 +74,7 @@ const StoreSwitcher = props => {
                 {triggerLabel}
             </button>
             <div ref={storeMenuRef} className={menuClassName}>
-                {groups}
+                <div className={classes.groups}>{groups}</div>
             </div>
         </div>
     );
@@ -84,10 +84,12 @@ export default StoreSwitcher;
 
 StoreSwitcher.propTypes = {
     classes: shape({
-        root: string,
-        trigger: string,
+        groupList: string,
+        groups: string,
         menu: string,
         menu_open: string,
-        menuItem: string
+        menuItem: string,
+        root: string,
+        trigger: string
     })
 };
