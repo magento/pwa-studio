@@ -243,8 +243,8 @@ export const useCheckoutPage = props => {
         reviewOrderButtonClicked,
         toggleAddressBookContent,
         toggleSignInContent,
-        availablePaymentMethods:
-            (checkoutData && checkoutData.cart.available_payment_methods) ||
-            null
+        availablePaymentMethods: checkoutData
+            ? checkoutData.cart.available_payment_methods
+            : null
     };
 };
