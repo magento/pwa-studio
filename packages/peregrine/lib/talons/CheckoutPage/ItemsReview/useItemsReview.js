@@ -1,16 +1,31 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useLazyQuery, useQuery } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
+import mergeOperations from '../../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './itemsReview.gql';
 
 export const useItemsReview = props => {
     const [showAllItems, setShowAllItems] = useState(false);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
-    const {
-        queries: { getItemsInCart }
-    } = props;
+    const { getItemsInCart, getConfigurableThumbnailSource } = operations;
 
     const [{ cartId }] = useCartContext();
+
+    const { data: configurableThumbnailSourceData } = useQuery(
+        getConfigurableThumbnailSource,
+        {
+            fetchPolicy: 'cache-and-network'
+        }
+    );
+
+    const configurableThumbnailSource = useMemo(() => {
+        if (configurableThumbnailSourceData) {
+            return configurableThumbnailSourceData.storeConfig
+                .configurable_thumbnail_source;
+        }
+    }, [configurableThumbnailSourceData]);
 
     const [
         fetchItemsInCart,
@@ -56,6 +71,7 @@ export const useItemsReview = props => {
         hasErrors: !!error,
         totalQuantity,
         showAllItems,
-        setShowAllItems: setShowAllItemsFlag
+        setShowAllItems: setShowAllItemsFlag,
+        configurableThumbnailSource
     };
 };

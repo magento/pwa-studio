@@ -23,14 +23,42 @@ const props = {
         url_suffix: '.html',
         thumbnail: {
             url: 'www.venia.com/p1'
-        }
+        },
+        variants: [
+            {
+                attributes: [
+                    {
+                        uid: 'Y29uZmlndXJhYmxlLzIyLzI='
+                    }
+                ],
+                product: {
+                    thumbnail: {
+                        url: 'www.venia.com/p1-variant1'
+                    }
+                }
+            },
+            {
+                attributes: [
+                    {
+                        uid: 'Y29uZmlndXJhYmxlLzIyLzM='
+                    }
+                ],
+                product: {
+                    thumbnail: {
+                        url: 'www.venia.com/p1-variant2'
+                    }
+                }
+            }
+        ]
     },
     id: 'p1',
     quantity: 10,
     configurable_options: [
         {
             option_label: 'Color',
-            value_label: 'red'
+            value_label: 'red',
+            id: 22,
+            value_id: 2
         }
     ],
     handleRemoveItem: () => {},
@@ -57,6 +85,16 @@ test('Should render correctly with out of stock product', () => {
         }
     };
     const tree = createTestInstance(<Item {...outOfStockProps} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('Should render correctly when configured to use variant thumbnail', () => {
+    const variantThumbnailProps = {
+        ...props,
+        configurableThumbnailSource: 'itself'
+    };
+    const tree = createTestInstance(<Item {...variantThumbnailProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

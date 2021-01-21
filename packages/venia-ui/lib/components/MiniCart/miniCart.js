@@ -15,7 +15,7 @@ import Icon from '../Icon';
 import StockStatusMessage from '../StockStatusMessage';
 import ProductList from './ProductList';
 import defaultClasses from './miniCart.css';
-import MiniCartOperations from './miniCart.gql';
+import operations from './miniCart.gql';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -34,7 +34,7 @@ const MiniCart = React.forwardRef((props, ref) => {
 
     const talonProps = useMiniCart({
         setIsOpen,
-        ...MiniCartOperations
+        operations
     });
 
     const {
@@ -46,7 +46,8 @@ const MiniCart = React.forwardRef((props, ref) => {
         loading,
         productList,
         subTotal,
-        totalQuantity
+        totalQuantity,
+        configurableThumbnailSource
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -118,6 +119,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     loading={loading}
                     handleRemoveItem={handleRemoveItem}
                     closeMiniCart={closeMiniCart}
+                    configurableThumbnailSource={configurableThumbnailSource}
                 />
             </div>
             <div className={classes.footer}>

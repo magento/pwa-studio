@@ -44,10 +44,6 @@ export const REMOVE_ITEM_MUTATION = gql`
 `;
 
 export default {
-    queries: {
-        miniCartQuery: MINI_CART_QUERY
-    },
-    mutations: {
-        removeItemMutation: REMOVE_ITEM_MUTATION
-    }
+    miniCartQuery: MINI_CART_QUERY,
+    removeItemMutation: REMOVE_ITEM_MUTATION
 };

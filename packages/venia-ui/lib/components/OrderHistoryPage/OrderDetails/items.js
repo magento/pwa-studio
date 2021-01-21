@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { shape, arrayOf, string, number } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -12,22 +12,8 @@ const Items = props => {
     const { items, imagesData } = props.data;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const mappedImagesData = useMemo(() => {
-        const mappedImagesData = {};
-
-        imagesData.forEach(imageData => {
-            mappedImagesData[imageData.url_key] = imageData;
-        });
-
-        return mappedImagesData;
-    }, [imagesData]);
-
     const itemsComponent = items.map(item => (
-        <Item
-            key={item.id}
-            {...item}
-            {...mappedImagesData[item.product_url_key]}
-        />
+        <Item key={item.id} {...item} {...imagesData[item.product_sku]} />
     ));
 
     return (
