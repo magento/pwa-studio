@@ -23,7 +23,7 @@ const graf = txt =>
     }) + '\n';
 const paragraphs = (...grafs) => grafs.map(graf).join(blankline);
 
-module.exports = function printEnvFile(dirOrEnv, options = {}) {
+module.exports = async function printEnvFile(dirOrEnv, options = {}) {
     const { logger = prettyLogger, useExamples } = options;
     // All environment variables Buildpack and PWA Studio use should be defined
     // in envVarDefinitions.json, along with recent changes to those vars for
@@ -37,7 +37,7 @@ module.exports = function printEnvFile(dirOrEnv, options = {}) {
     }
 
     const definitions = getEnvVarDefinitions(context);
-    const { env, error } = loadEnvironment(dirOrEnv, logger, definitions);
+    const { env, error } = await loadEnvironment(dirOrEnv, logger, definitions);
     if (error && !useExamples) {
         logger.warn(
             `The current environment is not yet valid; please set any missing variables to build the project before generating a .env file.`

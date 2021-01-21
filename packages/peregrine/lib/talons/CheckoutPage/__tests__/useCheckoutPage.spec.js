@@ -31,10 +31,6 @@ jest.mock('../../../context/user', () => ({
     useUserContext: jest.fn().mockReturnValue([{ isSignedIn: false }])
 }));
 
-jest.mock('../../../context/app', () => ({
-    useAppContext: jest.fn().mockReturnValue([{}, { toggleDrawer: jest.fn() }])
-}));
-
 jest.mock('../../../context/cart', () => ({
     useCartContext: jest
         .fn()
@@ -589,4 +585,46 @@ test('resetReviewOrderButtonClicked should set reviewOrderButtonClicked to false
     const step2Props = update();
 
     expect(step2Props.reviewOrderButtonClicked).toBeFalsy();
+});
+
+test('toggles addressBook content', () => {
+    const { talonProps: initialProps, update } = getTalonProps(props);
+
+    initialProps.toggleAddressBookContent();
+    const step1Props = update();
+
+    expect(step1Props.activeContent).toBe('addressBook');
+
+    step1Props.toggleAddressBookContent();
+    const step2Props = update();
+
+    expect(step2Props.activeContent).toBe('checkout');
+});
+
+test('toggles signIn content', () => {
+    const { talonProps: initialProps, update } = getTalonProps(props);
+
+    initialProps.toggleSignInContent();
+    const step1Props = update();
+
+    expect(step1Props.activeContent).toBe('signIn');
+
+    step1Props.toggleSignInContent();
+    const step2Props = update();
+
+    expect(step2Props.activeContent).toBe('checkout');
+});
+
+test('resets active content to checkout on sign in', () => {
+    const { talonProps: initialProps, update } = getTalonProps(props);
+
+    initialProps.toggleSignInContent();
+    const step1Props = update();
+
+    expect(step1Props.activeContent).toBe('signIn');
+
+    useUserContext.mockReturnValueOnce([{ isSignedIn: true }]);
+    const step2Props = update();
+
+    expect(step2Props.activeContent).toBe('checkout');
 });

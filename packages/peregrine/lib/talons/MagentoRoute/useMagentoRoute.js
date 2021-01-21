@@ -1,103 +1,86 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useApolloClient, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
-import getRouteComponent from './getRouteComponent';
+import { getRootComponent, isRedirect } from './helpers';
+import DEFAULT_OPERATIONS from './magentoRoute.gql';
 
-const CODE_PERMANENT_REDIRECT = 301;
-const CODE_TEMPORARY_REDIRECT = 302;
-const REDIRECT_CODES = [CODE_PERMANENT_REDIRECT, CODE_TEMPORARY_REDIRECT];
-
-const talonResponses = {
-    ERROR: routeError => ({ hasError: true, routeError }),
-    LOADING: { isLoading: true },
-    NOT_FOUND: { isNotFound: true },
-    FOUND: (component, id, type, store) => ({ component, id, type, store }),
-    REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
-};
-
-const shouldFetch = (data, store) => {
-    // Should fetch if we don't have any data.
-    if (!data) return true;
-
-    // Should fetch again following a prior failure.
-    if (data.isNotFound && navigator.onLine) {
-        return true;
-    }
-
-    // If we have data for the route, but the stores don't match fetch the correct route
-    return !!(store && data.id && data.store !== store);
-};
-
-export const useMagentoRoute = props => {
-    const { getStoreCode } = props;
-    const [componentMap, setComponentMap] = useState(new Map());
-    const { apiBase } = useApolloClient();
-    const history = useHistory();
+export const useMagentoRoute = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { resolveUrlQuery } = operations;
+    const { replace } = useHistory();
     const { pathname } = useLocation();
-    const isMountedRef = useRef(false);
-    const routeData = componentMap.get(pathname);
+    const [componentMap, setComponentMap] = useRootComponents();
 
-    const { data } = useQuery(getStoreCode, {
+    const setComponent = useCallback(
+        (key, value) => {
+            setComponentMap(prevMap => new Map(prevMap).set(key, value));
+        },
+        [setComponentMap]
+    );
+
+    const queryResult = useQuery(resolveUrlQuery, {
         fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first'
+        nextFetchPolicy: 'cache-first',
+        variables: { url: pathname }
     });
 
-    const store = data && data.storeConfig.code;
+    // destructure the query result
+    const { data, error, loading } = queryResult;
+    const { urlResolver } = data || {};
+    const { id, redirectCode, relative_url, type } = urlResolver || {};
 
-    // Keep track of whether we have been mounted yet.
-    // Note that we are not unmounted on page transitions.
+    // evaluate both results and determine the response type
+    const component = componentMap.get(pathname);
+    const empty = !urlResolver || !type || id < 1;
+    const redirect = isRedirect(redirectCode);
+    const fetchError = component instanceof Error && component;
+    const routeError = fetchError || error;
+    let routeData;
+
+    if (component && !fetchError) {
+        // FOUND
+        routeData = component;
+    } else if (routeError) {
+        // ERROR
+        routeData = { hasError: true, routeError };
+    } else if (redirect) {
+        // REDIRECT
+        routeData = { isRedirect: true, relativeUrl: relative_url };
+    } else if (empty && !loading) {
+        // NOT FOUND
+        routeData = { isNotFound: true };
+    } else {
+        // LOADING
+        routeData = { isLoading: true };
+    }
+
+    // fetch a component if necessary
     useEffect(() => {
-        isMountedRef.current = true;
+        (async () => {
+            // don't fetch if we don't have data yet
+            if (loading || empty) return;
 
-        return () => {
-            isMountedRef.current = false;
-        };
-    }, []);
+            // don't fetch more than once
+            if (component) return;
 
-    // If the entry for this pathname is a redirect, perform the redirect.
+            try {
+                const component = await getRootComponent(type);
+                setComponent(pathname, { component, id, type });
+            } catch (error) {
+                setComponent(pathname, error);
+            }
+        })();
+    }, [component, empty, id, loading, pathname, setComponent, type]);
+
+    // perform a redirect if necesssary
     useEffect(() => {
         if (routeData && routeData.isRedirect) {
-            history.replace(routeData.relativeUrl);
+            replace(routeData.relativeUrl);
         }
-    }, [componentMap, history, pathname, routeData]);
+    }, [pathname, replace, routeData]);
 
-    // ask Magento for a RootComponent that matches the current pathname
-    useEffect(() => {
-        // Avoid setting state if unmounted.
-        if (!isMountedRef.current) {
-            return;
-        }
-
-        if (shouldFetch(routeData, store)) {
-            getRouteComponent(apiBase, pathname, store).then(
-                ({
-                    component,
-                    id,
-                    pathname,
-                    redirectCode,
-                    relativeUrl,
-                    routeError,
-                    type
-                }) => {
-                    // Update our Map in local state for this path.
-                    setComponentMap(prevMap => {
-                        const nextMap = new Map(prevMap);
-
-                        const nextValue = routeError
-                            ? talonResponses.ERROR(routeError)
-                            : id === -1
-                            ? talonResponses.NOT_FOUND
-                            : REDIRECT_CODES.includes(redirectCode)
-                            ? talonResponses.REDIRECT(relativeUrl)
-                            : talonResponses.FOUND(component, id, type, store);
-
-                        return nextMap.set(pathname, nextValue);
-                    });
-                }
-            );
-        }
-    }, [apiBase, componentMap, history, pathname, routeData, store]);
-
-    return routeData || talonResponses.LOADING;
+    return routeData;
 };

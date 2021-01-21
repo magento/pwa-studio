@@ -78,10 +78,10 @@ const Product = props => {
         />
     ) : null;
 
-    const itemLink = useMemo(() => resourceUrl(`/${urlKey}${urlSuffix}`), [
-        urlKey,
-        urlSuffix
-    ]);
+    const itemLink = useMemo(
+        () => resourceUrl(`/${urlKey}${urlSuffix || ''}`),
+        [urlKey, urlSuffix]
+    );
 
     const stockStatusMessage =
         stockStatus === 'OUT_OF_STOCK'

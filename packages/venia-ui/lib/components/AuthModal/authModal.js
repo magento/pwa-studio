@@ -21,11 +21,17 @@ const AuthModal = props => {
         username
     } = useAuthModal(props);
 
+    const classes = mergeClasses(defaultClasses, props.classes);
+
     let child = null;
     switch (props.view) {
         case 'CREATE_ACCOUNT': {
             child = (
                 <CreateAccount
+                    classes={{
+                        actions: classes.createAccountActions,
+                        submitButton: classes.createAccountSubmitButton
+                    }}
                     initialValues={{ email: username }}
                     isCancelButtonHidden={false}
                     onSubmit={handleCreateAccount}
@@ -61,7 +67,6 @@ const AuthModal = props => {
         }
     }
 
-    const classes = mergeClasses(defaultClasses, props.classes);
     return <div className={classes.root}>{child}</div>;
 };
 

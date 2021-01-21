@@ -1,20 +1,27 @@
 import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
-import { Form } from 'informed';
 import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
 
 import { mergeClasses } from '../../../../classify';
-import Button from '../../../Button';
 import FormError from '../../../FormError';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
 import defaultClasses from './productForm.css';
 import { CartPageFragment } from '../../cartPageFragments.gql';
+import { ProductFormFragment } from './productFormFragment.gql';
+import Dialog from '../../../Dialog';
+import ProductDetail from './productDetail';
 
 const ProductForm = props => {
-    const { item: cartItem, setIsCartUpdating, setVariantPrice } = props;
+    const {
+        item: cartItem,
+        setIsCartUpdating,
+        variantPrice,
+        setVariantPrice,
+        setActiveEditItem
+    } = props;
     const { formatMessage } = useIntl();
     const talonProps = useProductForm({
         cartItem,
@@ -22,7 +29,8 @@ const ProductForm = props => {
         setIsCartUpdating,
         setVariantPrice,
         updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS_MUTATION,
-        updateQuantityMutation: UPDATE_QUANTITY_MUTATION
+        updateQuantityMutation: UPDATE_QUANTITY_MUTATION,
+        setActiveEditItem
     });
     const {
         configItem,
@@ -30,22 +38,32 @@ const ProductForm = props => {
         handleOptionSelection,
         handleSubmit,
         isLoading,
-        isSaving
+        isSaving,
+        isDialogOpen,
+        handleClose
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const dialogButtonsDisabled = isLoading;
+    const dialogSubmitButtonDisabled = isSaving;
+    const dialogFormProps = {
+        initialValues: cartItem
+    };
 
-    if (isLoading || isSaving) {
-        const message = isLoading
-            ? formatMessage({
-                  id: 'productForm.fetchingProductOptions',
-                  defaultMessage: 'Fetching Product Options...'
-              })
+    const message = isLoading
+        ? formatMessage({
+              id: 'productForm.fetchingProductOptions',
+              defaultMessage: 'Fetching Product Options...'
+          })
+            ? isSaving
             : formatMessage({
                   id: 'productForm.updatingCart',
                   defaultMessage: 'Updating Cart...'
-              });
-        return (
+              })
+        : null;
+
+    const maybeLoadingIndicator =
+        isLoading || isSaving ? (
             <LoadingIndicator
                 classes={{
                     root: classes.loading
@@ -53,10 +71,9 @@ const ProductForm = props => {
             >
                 {message}
             </LoadingIndicator>
-        );
-    }
+        ) : null;
 
-    if (!configItem) {
+    if (cartItem && !isLoading && !configItem) {
         return (
             <span className={classes.dataError}>
                 <FormattedMessage
@@ -69,16 +86,17 @@ const ProductForm = props => {
         );
     }
 
-    return (
-        <Fragment>
-            <FormError
-                classes={{
-                    root: classes.errorContainer
-                }}
-                errors={Array.from(errors.values())}
-                scrollOnError={false}
-            />
-            <Form onSubmit={handleSubmit}>
+    const dialogContent =
+        cartItem && configItem ? (
+            <div>
+                <FormError
+                    classes={{
+                        root: classes.errorContainer
+                    }}
+                    errors={Array.from(errors.values())}
+                    scrollOnError={false}
+                />
+                <ProductDetail item={cartItem} variantPrice={variantPrice} />
                 <Options
                     classes={{
                         root: classes.optionRoot
@@ -100,15 +118,31 @@ const ProductForm = props => {
                     initialValue={cartItem.quantity}
                     itemId={cartItem.id}
                 />
-                <div className={classes.submit}>
-                    <Button priority="high" type="submit">
-                        <FormattedMessage
-                            id={'productForm.submit'}
-                            defaultMessage={'Update'}
-                        />
-                    </Button>
-                </div>
-            </Form>
+            </div>
+        ) : null;
+
+    return (
+        <Fragment>
+            <Dialog
+                classes={{
+                    contents: classes.contents
+                }}
+                confirmText={'Update'}
+                confirmTranslationId={'productForm.submit'}
+                formProps={dialogFormProps}
+                isOpen={isDialogOpen}
+                onCancel={handleClose}
+                onConfirm={handleSubmit}
+                shouldDisableAllButtons={dialogButtonsDisabled}
+                shouldDisableConfirmButton={dialogSubmitButtonDisabled}
+                title={formatMessage({
+                    id: 'editModal.headerText',
+                    defaultMessage: 'Edit Item'
+                })}
+            >
+                {maybeLoadingIndicator}
+                {dialogContent}
+            </Dialog>
         </Fragment>
     );
 };
@@ -120,49 +154,11 @@ export const GET_CONFIGURABLE_OPTIONS = gql`
         products(filter: { sku: { eq: $sku } }) {
             items {
                 id
-                sku
-                ... on ConfigurableProduct {
-                    configurable_options {
-                        attribute_code
-                        attribute_id
-                        id
-                        label
-                        values {
-                            default_label
-                            label
-                            store_label
-                            use_default_value
-                            value_index
-                            swatch_data {
-                                ... on ImageSwatchData {
-                                    thumbnail
-                                }
-                                value
-                            }
-                        }
-                    }
-                    variants {
-                        attributes {
-                            code
-                            value_index
-                        }
-                        product {
-                            id
-                            price {
-                                regularPrice {
-                                    amount {
-                                        currency
-                                        value
-                                    }
-                                }
-                            }
-                            sku
-                        }
-                    }
-                }
+                ...ProductFormFragment
             }
         }
     }
+    ${ProductFormFragment}
 `;
 
 export const UPDATE_QUANTITY_MUTATION = gql`

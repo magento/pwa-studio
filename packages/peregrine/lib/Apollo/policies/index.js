@@ -143,6 +143,17 @@ const typePolicies = {
             }
         }
     },
+    CustomerPaymentTokens: {
+        keyFields: () => 'CustomerPaymentTokens',
+        fields: {
+            items: {
+                // eslint-disable-next-line no-unused-vars
+                merge(existing, incoming) {
+                    return incoming;
+                }
+            }
+        }
+    },
     ProductImage: {
         keyFields: ['url']
     },

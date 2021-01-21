@@ -18,8 +18,7 @@ const initialState = {
     categories: {},
     currentPage: 1,
     pageSize: 6,
-    prevPageTotal: null,
-    rootCategoryId: 2
+    prevPageTotal: null
 };
 
 const reducerMap = {
@@ -69,12 +68,6 @@ const reducerMap = {
                     children_count: childMap.size
                 }
             }
-        };
-    },
-    [actions.setRootCategory]: (state, { payload }) => {
-        return {
-            ...state,
-            rootCategoryId: payload
         };
     },
     [actions.setCurrentPage.receive]: (state, { payload, error }) => {

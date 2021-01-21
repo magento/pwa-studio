@@ -2,6 +2,9 @@ import { useQuery } from '@apollo/client';
 import { useEffect, useMemo } from 'react';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
+import mergeOperations from '../../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './product.gql';
+
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
  * controls the logic for the Product Root Component.
@@ -10,8 +13,8 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
  *
  * @param {object}      props
  * @param {Function}    props.mapProduct - A function for updating products to the proper shape.
+ * @param {GraphQLAST}  props.queries.getStoreConfigData - Fetches storeConfig product url suffix using a server query
  * @param {GraphQLAST}  props.queries.getProductQuery - Fetches product using a server query
- * @param {String}      props.urlKey - The url_key of this product.
  *
  * @returns {object}    result
  * @returns {Bool}      result.error - Indicates a network error occurred.
@@ -19,7 +22,11 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
  * @returns {Bool}      result.product - The product's details.
  */
 export const useProduct = props => {
-    const { mapProduct, queries, urlKey } = props;
+    const { mapProduct } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getStoreConfigData, getProductDetailQuery } = operations;
+
     const [
         ,
         {
@@ -27,9 +34,26 @@ export const useProduct = props => {
         }
     ] = useAppContext();
 
-    const { error, loading, data } = useQuery(queries.getProductQuery, {
+    const { data: storeConfigData } = useQuery(getStoreConfigData, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const productUrlSuffix = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.product_url_suffix;
+        }
+    }, [storeConfigData]);
+
+    const pathname = window.location.pathname.split('/').pop();
+    const urlKey = productUrlSuffix
+        ? pathname.replace(productUrlSuffix, '')
+        : pathname;
+
+    const { error, loading, data } = useQuery(getProductDetailQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
+        skip: !storeConfigData,
         variables: {
             urlKey
         }

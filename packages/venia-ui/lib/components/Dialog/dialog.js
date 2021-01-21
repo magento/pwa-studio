@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string, object } from 'prop-types';
 import { Form } from 'informed';
@@ -112,46 +112,33 @@ const Dialog = props => {
         </div>
     ) : null;
 
-    const contents = useMemo(() => {
-        if (isOpen) {
-            return children;
-        } else {
-            if (shouldUnmountOnHide) {
-                return null;
-            } else {
-                return children;
-            }
-        }
-    }, [children, isOpen, shouldUnmountOnHide]);
+    const maybeForm =
+        isOpen || !shouldUnmountOnHide ? (
+            <Form className={classes.form} {...formProps} onSubmit={onConfirm}>
+                {/* The Mask. */}
+                <button
+                    className={classes.mask}
+                    disabled={isMaskDisabled}
+                    onClick={onCancel}
+                    type="reset"
+                />
+                {/* The Dialog. */}
+                <div className={classes.dialog}>
+                    <div className={classes.header}>
+                        <span className={classes.headerText}>{title}</span>
+                        {maybeCloseXButton}
+                    </div>
+                    <div className={classes.body}>
+                        <div className={classes.contents}>{children}</div>
+                        {maybeButtons}
+                    </div>
+                </div>
+            </Form>
+        ) : null;
 
     return (
         <Portal>
-            <aside className={rootClass}>
-                <Form
-                    className={classes.form}
-                    {...formProps}
-                    onSubmit={onConfirm}
-                >
-                    {/* The Mask. */}
-                    <button
-                        className={classes.mask}
-                        disabled={isMaskDisabled}
-                        onClick={onCancel}
-                        type="reset"
-                    />
-                    {/* The Dialog. */}
-                    <div className={classes.dialog}>
-                        <div className={classes.header}>
-                            <span className={classes.headerText}>{title}</span>
-                            {maybeCloseXButton}
-                        </div>
-                        <div className={classes.body}>
-                            <div className={classes.contents}>{contents}</div>
-                            {maybeButtons}
-                        </div>
-                    </div>
-                </Form>
-            </aside>
+            <aside className={rootClass}>{maybeForm}</aside>
         </Portal>
     );
 };

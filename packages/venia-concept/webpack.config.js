@@ -11,16 +11,13 @@ const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
-    const mediaUrl = await getMediaURL();
-    const storeConfigData = await getStoreConfigData();
-    const { availableStores } = await getAvailableStoresConfigData();
-
-    global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
-    global.LOCALE = storeConfigData.locale.replace('_', '-');
-    global.AVAILABLE_STORE_VIEWS = availableStores;
-
-    const possibleTypes = await getPossibleTypes();
-
+    /**
+     * configureWebpack() returns a regular Webpack configuration object.
+     * You can customize the build by mutating the object here, as in
+     * this example. Since it's a regular Webpack configuration, the object
+     * supports the `module.noParse` option in Webpack, documented here:
+     * https://webpack.js.org/configuration/module/#modulenoparse
+     */
     const config = await configureWebpack({
         context: __dirname,
         vendor: [
@@ -44,14 +41,20 @@ module.exports = async env => {
         env
     });
 
-    /**
-     * configureWebpack() returns a regular Webpack configuration object.
-     * You can customize the build by mutating the object here, as in
-     * this example. Since it's a regular Webpack configuration, the object
-     * supports the `module.noParse` option in Webpack, documented here:
-     * https://webpack.js.org/configuration/module/#modulenoparse
-     */
-    config.module.noParse = [/braintree\-web\-drop\-in/];
+    const mediaUrl = await getMediaURL();
+    const storeConfigData = await getStoreConfigData();
+    const { availableStores } = await getAvailableStoresConfigData();
+
+    global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
+    global.LOCALE = storeConfigData.locale.replace('_', '-');
+    global.AVAILABLE_STORE_VIEWS = availableStores;
+
+    const possibleTypes = await getPossibleTypes();
+
+    config.module.noParse = [
+        /@adobe\/adobe\-client\-data\-layer/,
+        /braintree\-web\-drop\-in/
+    ];
     config.plugins = [
         ...config.plugins,
         new DefinePlugin({

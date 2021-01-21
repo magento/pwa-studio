@@ -7,7 +7,9 @@ exports[`render wraps children with all peregrine context providers 1`] = `
       <Memo(Connect(CatalogContextProvider))>
         <Memo(Connect(CartContextProvider))>
           <Memo(Connect(CheckoutContextProvider))>
-            <i />
+            <RootComponentsProvider>
+              <i />
+            </RootComponentsProvider>
           </Memo(Connect(CheckoutContextProvider))>
         </Memo(Connect(CartContextProvider))>
       </Memo(Connect(CatalogContextProvider))>
