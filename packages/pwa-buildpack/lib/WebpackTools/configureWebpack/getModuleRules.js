@@ -14,11 +14,27 @@ const path = require('path');
 async function getModuleRules(helper) {
     return Promise.all([
         getModuleRules.graphql(helper),
+        getModuleRules.ts(helper),
         getModuleRules.js(helper),
         getModuleRules.css(helper),
         getModuleRules.files(helper)
     ]);
 }
+
+/**
+ * @param {Buildpack/WebpackTools~WebpackConfigHelper} helper
+ * @returns Rule object for Webpack `module` configuration which parses
+ *   TypeScript files
+ */
+getModuleRules.ts = async ({ paths, hasFlag }) => ({
+    test: /\.ts$/,
+    include: [paths.src, ...hasFlag('esModules')],
+    rules: [
+        {
+            loader: 'ts-loader'
+        }
+    ]
+});
 
 /**
  * @param {Buildpack/WebpackTools~WebpackConfigHelper} helper

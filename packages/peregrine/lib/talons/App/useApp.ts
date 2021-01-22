@@ -11,24 +11,38 @@ const getErrorDismisser = (error, onDismissError) => {
         : dismissers.set(error, () => onDismissError(error)).get(error);
 };
 
+type useAppProps = {
+    handleError: Function;
+    handleIsOffline: Function;
+    handleIsOnline: Function;
+    markErrorHandled: Function;
+    renderError: Error;
+    unhandledErrors: Array<Error>;
+};
+
 /**
- * Talon that handles effects for App and returns props necessary for rendering
+ * Handles effects for App and returns props necessary for rendering
  * the app.
  *
- * @param {Function} props.handleError callback to invoke for each error
- * @param {Function} props.handleIsOffline callback to invoke when the app goes offline
- * @param {Function} props.handleIsOnline callback to invoke wen the app goes online
- * @param {Function} props.handleHTMLUpdate callback to invoke when a HTML update is available
- * @param {Function} props.markErrorHandled callback to invoke when handling an error
- * @param {Function} props.renderError an error that occurs during rendering of the app
- * @param {Function} props.unhandledErrors errors coming from the error reducer
+ * @remarks
+ * This method is part of the {@link Peregrine | Peregrine Talon Library}.
  *
- * @returns {{
- *  hasOverlay: boolean
- *  handleCloseDrawer: function
- * }}
+ * @param handleError       - The callback to invoke for each error
+ * @param handleIsOffline   - The callback to invoke when the app goes offline
+ * @param handleIsOnline    - callback to invoke wen the app goes online
+ * @param handleHTMLUpdate  - callback to invoke when a HTML update is available
+ * @param markErrorHandled  - callback to invoke when handling an error
+ * @param renderError       - an error that occurs during rendering of the app
+ * @param unhandledErrors   - errors coming from the error reducer
+ *
+ * @returns an object containing the hasOverlay boolean and handleCloseDrawer callback function
  */
-export const useApp = props => {
+export const useApp = (
+    props: useAppProps
+): {
+    hasOverlay: boolean;
+    handleCloseDrawer: Function;
+} => {
     const {
         handleError,
         handleIsOffline,

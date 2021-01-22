@@ -72,7 +72,8 @@ class MagentoResolver {
             '.js',
             '.jsx',
             '.json',
-            '.graphql'
+            '.graphql',
+            '.ts'
         ];
         /** @ignore */
         this._root = paths.root;
