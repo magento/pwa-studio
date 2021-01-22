@@ -2,9 +2,17 @@ import React from 'react';
 import RadioGroup from '../radioGroup';
 import { createTestInstance } from '@magento/peregrine';
 
+jest.mock('informed', () => ({
+    ...jest.requireActual('informed'),
+    Radio: props => <mock-Radio {...props} />
+}));
+
 const items = [
     { label: 'one', value: '1' },
-    { label: 'holy moly two has a lot of content', value: '2' },
+    {
+        label: 'holy moly two has a lot of content',
+        value: '2'
+    },
     { label: 'three', value: '3' },
     { label: 'four', value: '4' },
     { label: 'five', value: '5' },

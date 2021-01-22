@@ -31,6 +31,7 @@ Array [
           >
             <input
               className="input"
+              id="ffa82815-20de-4890-9f48-ccb921b2841a"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -75,6 +76,7 @@ Array [
           >
             <input
               className="input"
+              id="f3df51ad-acd0-49ec-b346-0081571613f7"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -119,6 +121,7 @@ Array [
           >
             <input
               className="input"
+              id="b3185f00-14fb-4e34-95d5-dfebe2eb888d"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
@@ -163,6 +166,7 @@ Array [
             <input
               autoComplete="current-password"
               className="input"
+              id="53446573-07f0-41cd-a887-f73b54dbf2d7"
               name="password"
               onBlur={[Function]}
               onChange={[Function]}
@@ -268,6 +272,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
         >
           <input
             className="input"
+            id="92229792-497a-4885-bdbd-43f6880a1bd2"
             name="firstname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -312,6 +317,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
         >
           <input
             className="input"
+            id="e729d436-601a-4d2e-baf0-c5d2a54afd7a"
             name="lastname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -356,6 +362,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
         >
           <input
             className="input"
+            id="ee264aaa-91ef-4119-a8d9-cf9842590c94"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -400,6 +407,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
           <input
             autoComplete="current-password"
             className="input"
+            id="a4bc978b-894e-431e-b362-1cb4832ead71"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -477,6 +485,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
         >
           <input
             className="input"
+            id="292b5535-079d-46bd-839b-1d27d9ebf6da"
             name="newPassword"
             onBlur={[Function]}
             onChange={[Function]}

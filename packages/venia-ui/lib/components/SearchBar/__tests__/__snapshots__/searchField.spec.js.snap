@@ -20,6 +20,7 @@ exports[`renders correctly 1`] = `
     >
       <input
         className="input"
+        id="8ac75bda-38a4-462b-80ae-a3ae19da33da"
         name="search_query"
         onBlur={[Function]}
         onChange={[Function]}

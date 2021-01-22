@@ -42,10 +42,12 @@ exports[`renders empty form without data 1`] = `
       </label>
       <label
         className="root"
+        htmlFor="7d35f223-d842-4a86-abfe-53e09045c19b"
       >
         <input
           checked={true}
           className="input"
+          id="7d35f223-d842-4a86-abfe-53e09045c19b"
           name="isSubscribed"
           onBlur={[Function]}
           onChange={[Function]}
@@ -138,10 +140,12 @@ exports[`renders form error 1`] = `
       </label>
       <label
         className="root"
+        htmlFor="6b9a1450-46ae-4db7-ac9b-102f034745c7"
       >
         <input
           checked={true}
           className="input"
+          id="6b9a1450-46ae-4db7-ac9b-102f034745c7"
           name="isSubscribed"
           onBlur={[Function]}
           onChange={[Function]}
@@ -234,10 +238,12 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
       </label>
       <label
         className="root"
+        htmlFor="4c64f8be-c7b6-4cae-82a8-59cbc3a385b3"
       >
         <input
           checked={false}
           className="input"
+          id="4c64f8be-c7b6-4cae-82a8-59cbc3a385b3"
           name="isSubscribed"
           onBlur={[Function]}
           onChange={[Function]}
@@ -332,10 +338,12 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
       </label>
       <label
         className="root"
+        htmlFor="84d212ec-ac7e-49f5-ab88-b1139692a07b"
       >
         <input
           checked={false}
           className="input"
+          id="84d212ec-ac7e-49f5-ab88-b1139692a07b"
           name="isSubscribed"
           onBlur={[Function]}
           onChange={[Function]}

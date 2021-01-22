@@ -48,6 +48,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           <input
             autoComplete="given-name"
             className="input"
+            id="ca5488c3-9cfb-4347-844f-d37d9cf0fd57"
             name="customer.firstname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -88,6 +89,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           <input
             autoComplete="family-name"
             className="input"
+            id="4d6d2c99-426f-498e-82fa-f57f7fce3610"
             name="customer.lastname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -128,6 +130,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           <input
             autoComplete="email"
             className="input"
+            id="67d4e773-6dde-4fb5-89e4-2c76f3f0daca"
             name="customer.email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -168,6 +171,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           <input
             autoComplete="new-password"
             className="input"
+            id="fab408f6-c2ad-4701-a942-5b4904479948"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -224,10 +228,12 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
     >
       <label
         className="root"
+        htmlFor="75adc01e-c5e8-4d68-b2f7-32a1a3e2e094"
       >
         <input
           checked={false}
           className="input"
+          id="75adc01e-c5e8-4d68-b2f7-32a1a3e2e094"
           name="subscribe"
           onBlur={[Function]}
           onChange={[Function]}
@@ -341,6 +347,7 @@ exports[`CreateAccount renders errors 1`] = `
           <input
             autoComplete="given-name"
             className="input"
+            id="cf3e8675-eb9d-4b52-8dad-3b2aeef57330"
             name="customer.firstname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -381,6 +388,7 @@ exports[`CreateAccount renders errors 1`] = `
           <input
             autoComplete="family-name"
             className="input"
+            id="c212a17d-0c86-4fab-86da-3cafd3838c50"
             name="customer.lastname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -421,6 +429,7 @@ exports[`CreateAccount renders errors 1`] = `
           <input
             autoComplete="email"
             className="input"
+            id="61682d4e-e266-4776-a7d8-eeeb452023f7"
             name="customer.email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -461,6 +470,7 @@ exports[`CreateAccount renders errors 1`] = `
           <input
             autoComplete="new-password"
             className="input"
+            id="7cab23c2-4a4e-44cd-9280-f89d63cae84f"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -517,10 +527,12 @@ exports[`CreateAccount renders errors 1`] = `
     >
       <label
         className="root"
+        htmlFor="d915c722-a6e1-4edd-a5e3-3a2fa59040fa"
       >
         <input
           checked={false}
           className="input"
+          id="d915c722-a6e1-4edd-a5e3-3a2fa59040fa"
           name="subscribe"
           onBlur={[Function]}
           onChange={[Function]}

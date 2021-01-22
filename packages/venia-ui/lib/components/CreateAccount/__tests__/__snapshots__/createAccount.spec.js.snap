@@ -27,6 +27,7 @@ exports[`renders the correct tree 1`] = `
       <span>
         <input
           autoComplete="given-name"
+          id="5c253e16-c4a1-4c04-bfe9-0d061fd1ced3"
           name="customer.firstname"
           onBlur={[Function]}
           onChange={[Function]}
@@ -53,6 +54,7 @@ exports[`renders the correct tree 1`] = `
       <span>
         <input
           autoComplete="family-name"
+          id="b3727614-d155-4962-a7cc-d12d1e47c92c"
           name="customer.lastname"
           onBlur={[Function]}
           onChange={[Function]}
@@ -79,6 +81,7 @@ exports[`renders the correct tree 1`] = `
       <span>
         <input
           autoComplete="email"
+          id="320aa373-d60a-4122-95b7-2057eb3f7bbc"
           name="customer.email"
           onBlur={[Function]}
           onChange={[Function]}
@@ -105,6 +108,7 @@ exports[`renders the correct tree 1`] = `
       <span>
         <input
           autoComplete="new-password"
+          id="e461c63e-1c30-48bc-81b2-a6871c928478"
           name="password"
           onBlur={[Function]}
           onChange={[Function]}
@@ -148,9 +152,12 @@ exports[`renders the correct tree 1`] = `
     <p />
   </div>
   <div>
-    <label>
+    <label
+      htmlFor="0e4057aa-4e7c-4f57-b084-55662496c13e"
+    >
       <input
         checked={false}
+        id="0e4057aa-4e7c-4f57-b084-55662496c13e"
         name="subscribe"
         onBlur={[Function]}
         onChange={[Function]}
@@ -227,6 +234,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
       <span>
         <input
           autoComplete="given-name"
+          id="53961775-921f-40d3-8bd8-34c1f2d9b906"
           name="customer.firstname"
           onBlur={[Function]}
           onChange={[Function]}
@@ -253,6 +261,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
       <span>
         <input
           autoComplete="family-name"
+          id="39b2508c-6d5b-4bf3-ad2c-87f71da94f21"
           name="customer.lastname"
           onBlur={[Function]}
           onChange={[Function]}
@@ -279,6 +288,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
       <span>
         <input
           autoComplete="email"
+          id="d22c3708-b06b-47e5-a9d1-bc5cc172362f"
           name="customer.email"
           onBlur={[Function]}
           onChange={[Function]}
@@ -305,6 +315,7 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
       <span>
         <input
           autoComplete="new-password"
+          id="ba4cc1a6-80ff-4e9b-a0e0-ed238f2800ed"
           name="password"
           onBlur={[Function]}
           onChange={[Function]}
@@ -348,9 +359,12 @@ exports[`should not render cancel button if isCancelButtonHidden is true 1`] = `
     <p />
   </div>
   <div>
-    <label>
+    <label
+      htmlFor="3979bb98-e4a8-4fb9-bcff-9b03aa4db192"
+    >
       <input
         checked={false}
+        id="3979bb98-e4a8-4fb9-bcff-9b03aa4db192"
         name="subscribe"
         onBlur={[Function]}
         onChange={[Function]}

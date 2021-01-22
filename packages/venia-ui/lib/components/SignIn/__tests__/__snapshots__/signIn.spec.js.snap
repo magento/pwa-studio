@@ -55,6 +55,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
           <input
             autoComplete="email"
             className="input"
+            id="ea5c0a96-f717-4622-b939-b61cbd7a7924"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -95,6 +96,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
           <input
             autoComplete="current-password"
             className="input"
+            id="5931c508-77eb-41e9-8ffe-47ae65aa8489"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -179,6 +181,7 @@ exports[`renders correctly 1`] = `
           <input
             autoComplete="email"
             className="input"
+            id="b2e9c937-51b1-48fa-bfe2-68c81c416e3d"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -219,6 +222,7 @@ exports[`renders correctly 1`] = `
           <input
             autoComplete="current-password"
             className="input"
+            id="71301dad-0181-41da-b068-fdc255d29320"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}

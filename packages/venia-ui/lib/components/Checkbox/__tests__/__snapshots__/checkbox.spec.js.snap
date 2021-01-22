@@ -8,10 +8,12 @@ exports[`renders the correct tree 1`] = `
 >
   <label
     className="root"
+    htmlFor="3d4119ea-2379-42a6-b2e7-0d29c0745b7a"
   >
     <input
       checked={false}
       className="input"
+      id="3d4119ea-2379-42a6-b2e7-0d29c0745b7a"
       name="a"
       onBlur={[Function]}
       onChange={[Function]}

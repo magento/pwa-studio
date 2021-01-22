@@ -9,6 +9,7 @@ exports[`renders the correct tree 1`] = `
   <textarea
     className="input"
     cols={40}
+    id="913dda3d-0585-4540-a407-c8cb884b7445"
     name="text-area"
     onBlur={[Function]}
     onChange={[Function]}
@@ -31,6 +32,7 @@ exports[`renders with non-default columns/rows/wrap 1`] = `
   <textarea
     className="input"
     cols={30}
+    id="4a9c81ad-989c-4ec8-8dff-69dd53748cba"
     name="text-area"
     onBlur={[Function]}
     onChange={[Function]}
