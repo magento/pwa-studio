@@ -1,10 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
-import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 import { useUserContext } from '../../context/user';
 import DEFAULT_OPERATIONS from './authModal.gql';
 
@@ -48,7 +46,6 @@ export const useAuthModal = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { signOutMutation } = operations;
 
-    const apolloClient = useApolloClient();
     const [isSigningOut, setIsSigningOut] = useState(false);
     const [username, setUsername] = useState('');
     const [{ currentUser, isSignedIn }, { signOut }] = useUserContext();
@@ -89,14 +86,12 @@ export const useAuthModal = props => {
 
         // Delete cart/user data from the redux store.
         await signOut({ revokeToken });
-        await clearCartDataFromCache(apolloClient);
-        await clearCustomerDataFromCache(apolloClient);
 
         // Refresh the page as a way to say "re-initialize". An alternative
         // would be to call apolloClient.resetStore() but that would require
         // a large refactor.
         history.go(0);
-    }, [apolloClient, history, revokeToken, signOut]);
+    }, [history, revokeToken, signOut]);
 
     return {
         handleCancel,
