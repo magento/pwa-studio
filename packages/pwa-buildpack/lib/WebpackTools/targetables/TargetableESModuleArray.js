@@ -14,11 +14,11 @@ class TargetableESModuleArray extends TargetableESModule {
     }
     /**
      * Adds a module to the end of the array.
-     * 
+     *
      * This also acts as an alias for the `push()` function.
-     * 
+     *
      * @param {string} importString A static import declaration for a module
-     * 
+     *
      * @returns {undefined}
      */
     addImport(importString) {
@@ -27,11 +27,11 @@ class TargetableESModuleArray extends TargetableESModule {
 
     /**
      * Add a module or modules to the end of the array.
-     * 
+     *
      * This also acts as an alias for the `push()` function.
-     * 
+     *
      * @param  {...any} items Static import declaration(s)
-     * 
+     *
      * @returns {undefined}
      */
     add(...items) {
@@ -39,9 +39,9 @@ class TargetableESModuleArray extends TargetableESModule {
     }
     /**
      * Add a module or modules to the end of the array.
-     * 
+     *
      * @param {...string} importString - Static import declaration(s)
-     * 
+     *
      * @returns {undefined}
      */
     push(...items) {
@@ -51,9 +51,9 @@ class TargetableESModuleArray extends TargetableESModule {
     }
     /**
      * Add a module or modules to the _beginning_ of the array.
-     * 
+     *
      * @param {...string} importString - Static import declaration(s)
-     * 
+     *
      * @returns {undefined}
      */
     unshift(...items) {

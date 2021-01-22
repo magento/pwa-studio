@@ -6,8 +6,6 @@ const types = {
     ReactComponent: require('./TargetableReactComponent')
 };
 const TargetProvider = require('../../BuildBus/TargetProvider');
-const TargetableESModule = require('./TargetableESModule');
-const TargetableReactComponent = require('./TargetableReactComponent');
 
 /**
  * A factory and manager for Targetable instances.

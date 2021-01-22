@@ -33,9 +33,9 @@ class TargetableESModuleObject extends TargetableESModule {
     /**
      * Adds a module to the object using the `addImport()` method from TargetableESModule.
      * Since, all imports must be exported, this method performs additional validation.
-     * 
+     *
      * @param {string} importString A static import declaration
-     * 
+     *
      * @chainable
      */
     addImport(importString) {
@@ -59,9 +59,9 @@ class TargetableESModuleObject extends TargetableESModule {
 
     /**
      * Adds a module or modules to the object using the `addImport()` function.
-     * 
+     *
      * @param  {...string} args Static import declaration(s)
-     * 
+     *
      * @chainable
      */
     add(...args) {

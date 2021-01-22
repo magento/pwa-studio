@@ -43,7 +43,7 @@ class SingleImportStatement {
      * Creates a new SingleImportStatement object with a different binding.
      *
      * @param {string} newBinding - Binding to rename.
-     * 
+     *
      * @returns {SingleImportStatement} A new SingleImportStatement that is a copy
      * of this one, but with the binding renamed. The `originalStatement` and
      * `statement` properties are rewritten to use the new binding.
