@@ -29,7 +29,7 @@ Use the `TargetProvider` instance passed to your intercept function to create a 
 const { Targetables } = require('@magento/pwa-buildpack')
 
 module.exports = targets => {
-    const targetableFactory = Targetables.using(targets);
+    const targetables = Targetables.using(targets);
 }
 ```
 
@@ -45,7 +45,7 @@ If the value is module-root-relative, the current module name is added automatic
 const { Targetables } = require('@magento/pwa-buildpack')
 
 module.exports = targets => {
-    const targetableFactory = Targetables.using(targets);
+    const targetables = Targetables.using(targets);
 
     const MainComponent = targetables.module(
         '@magento/venia-ui/lib/components/Main/main.js'
