@@ -10,25 +10,26 @@ Targetables are useful in two scenarios:
 - As a **storefront developer**, you can use Targetables to transform the source file in any of your project's dependencies.
 - As an **extension developer**, you can use Targetables to add Targets to your own extension.
 
-## Access the Targetables factory
+## Access the TargetableSet class
 
-The most common pattern for working with _Targetable objects_ is to use the _Targetables manager_ to create a _Targetables factory_ from the TargetProvider sent to the intercept file.
+The most common pattern for working with Targetable objects is to connect an instance of the [`TargetableSet`][] to the TargetProvider sent to the intercept file.
+Then, you can use that instance to create Targetable objects.
 
 ```js
-// Access the Targetables manager
+// Access the TargetableSet class 
 const { Targetables } = require('@magento/pwa-buildpack')
 
 module.exports = targets => {
-    // Create a Targetables factory connected to this project's TargetProvider
-    const targetableFactory = Targetables.using(targets);
+    // Create a TargetableSet instance connected to this project's TargetProvider
+    const targetables = Targetables.using(targets);
 
-    // Use the Targetables factory to create Targetable objects
+    // Use the TargetableSet to create Targetable objects
 }
 ```
 
 ## Create Targetable objects
 
-Use a Targetables factory to create an instance of the `TargetableModule` class or one of its subclasses.
+Use the `TargetableSet` instance to create a [`TargetableModule`][] class object or one of its subclasses.
 The `TargetableModule` class itself represents a plain module.
 It contains functions that let it manipulate the source code directly.
 
@@ -36,7 +37,7 @@ It contains functions that let it manipulate the source code directly.
 const { Targetables } = require('@magento/pwa-buildpack')
 
 module.exports = targets => {
-    const targetableFactory = Targetables.using(targets);
+    const targetables = Targetables.using(targets);
 
     // Create a TargetableModule instance that points to the main.js source
     const MainComponent = targetables.module(
@@ -52,19 +53,19 @@ module.exports = targets => {
 }
 ```
 
-Other Targetable classes, such as `TargetableESModule`, are subclasses of `TargetableModule`.
+Other Targetable classes, such as [`TargetableESModule`][], are subclasses of `TargetableModule`.
 They contain specialized functions that let it work with different modules or file types.
 
 ## Chain transformations
 
-Some Targetable classes, such as `TargetableModule` and `TargetableReactComponent`, support method chaining.
+Some Targetable classes, such as `TargetableModule` and [`TargetableReactComponent`][], support method chaining.
 Certain methods in these classes are chainable, which let you call these methods one after another in your code.
 
 ```js
 const { Targetables } = require('@magento/pwa-buildpack')
 
 module.exports = targets => {
-    const targetableFactory = Targetables.using(targets);
+    const targetables = Targetables.using(targets);
 
     const MainComponent = targetables.reactComponent(
         '@magento/venia-ui/lib/components/Main/main.js'
@@ -103,3 +104,8 @@ module.exports = targets => {
     });
 }
 ```
+
+[`TargetableSet`]: <{%link pwa-buildpack/reference/targetables/TargetableSet/index.md %}>
+[`TargetableModule`]: <{%link pwa-buildpack/reference/targetables/TargetableModule/index.md %}>
+[`TargetableESModule`]: <{%link pwa-buildpack/reference/targetables/TargetableESModule/index.md %}>
+[`TargetableReactComponent`]: <{%link pwa-buildpack/reference/targetables/TargetableReactComponent/index.md %}>
