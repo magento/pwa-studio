@@ -2,7 +2,7 @@ jest.mock('../networkUtils');
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { CacheFirst } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
+import { MESSAGE_TYPES } from '@magento/peregrine/lib/util/swUtils';
 import { THIRTY_DAYS, IMAGES_CACHE_NAME } from '../../defaults';
 import {
     isResizedImage,
@@ -30,6 +30,8 @@ jest.mock('workbox-strategies', () => {
         CacheFirst: jest.fn()
     };
 });
+
+const { PREFETCH_IMAGES } = MESSAGE_TYPES;
 
 describe('Testing isResizedImage', () => {
     const validImage =
