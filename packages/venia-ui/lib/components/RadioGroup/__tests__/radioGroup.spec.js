@@ -4,7 +4,9 @@ import { createTestInstance } from '@magento/peregrine';
 
 jest.mock('informed', () => ({
     ...jest.requireActual('informed'),
-    Radio: props => <mock-Radio {...props} />
+    asField: comp => comp,
+    Radio: props => <mock-Radio {...props} />,
+    BasicRadioGroup: props => <mock-BasicRadioGroup {...props} />
 }));
 
 const items = [
