@@ -5,19 +5,23 @@
     "access": "public"
   },
   "description": "Provides demo translations for PWA Studio.",
-  "main": "./i18n-intercept.js",
+  "main": "./dist/i18n-intercept.js",
   "scripts": {
+    "postinstall": "tsc",
     "clean": " "
   },
   "repository": "github:magento/pwa-studio",
   "license": "(OSL-3.0 OR AFL-3.0)",
+  "dependencies": {
+    "typescript": "~4.1.3"
+  },
   "peerDependencies": {
     "@magento/pwa-buildpack": "~7.0.0",
     "@magento/venia-ui": "~5.0.0"
   },
   "pwa-studio": {
     "targets": {
-      "intercept": "./i18n-intercept"
+      "intercept": "./dist/i18n-intercept"
     }
   }
 }
