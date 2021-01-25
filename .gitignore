@@ -21,3 +21,6 @@ docker/certs
 
 ## May temporarily create tarballs during scaffolding debug
 packages/**/*.tgz
+
+# Don't commit types
+types/

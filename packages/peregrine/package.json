@@ -7,6 +7,7 @@
   "description": "The core runtime of Magento PWA",
   "main": "lib/index.js",
   "scripts": {
+    "generate-types": "npx tsc --project tsconfig.types.json",
     "clean": " "
   },
   "repository": "github:magento/pwa-studio",
