@@ -10,7 +10,6 @@
 }
 
 .page {
-    display: grid;
     margin: 0 auto;
     max-width: var(--venia-global-maxWidth);
     min-height: 40rem;
