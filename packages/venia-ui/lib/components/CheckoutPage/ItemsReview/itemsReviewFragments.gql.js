@@ -12,6 +12,19 @@ export const ItemsReviewFragment = gql`
                 thumbnail {
                     url
                 }
+                ... on ConfigurableProduct {
+                    variants {
+                        attributes {
+                            uid
+                        }
+                        product {
+                            id
+                            thumbnail {
+                                url
+                            }
+                        }
+                    }
+                }
             }
             quantity
             ... on ConfigurableCartItem {

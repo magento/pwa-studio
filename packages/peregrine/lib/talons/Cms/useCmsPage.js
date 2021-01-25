@@ -48,7 +48,7 @@ export const useCmsPage = props => {
         setPageLoading(loading);
     }, [loading, setPageLoading]);
 
-    const shouldShowLoadingIndicator = !data;
+    const shouldShowLoadingIndicator = loading && !data;
 
     const cmsPage = data ? data.cmsPage : null;
     const rootCategoryId = data ? data.storeConfig.root_category_id : null;

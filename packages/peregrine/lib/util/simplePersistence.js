@@ -30,6 +30,9 @@ export default class BrowserPersistence {
             this.constructor.KEY || BrowserPersistence.KEY
         );
     }
+    getRawItem(name) {
+        return this.storage.getItem(name);
+    }
     getItem(name) {
         const now = Date.now();
         const item = this.storage.getItem(name);

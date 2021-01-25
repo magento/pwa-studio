@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { string, func, arrayOf, shape, number } from 'prop-types';
+import { string, func, arrayOf, shape, number, oneOf } from 'prop-types';
 
 import Item from './item';
 import { mergeClasses } from '../../../classify';
@@ -11,7 +11,8 @@ const ProductList = props => {
         items,
         handleRemoveItem,
         classes: propClasses,
-        closeMiniCart
+        closeMiniCart,
+        configurableThumbnailSource
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -23,10 +24,11 @@ const ProductList = props => {
                     {...item}
                     closeMiniCart={closeMiniCart}
                     handleRemoveItem={handleRemoveItem}
+                    configurableThumbnailSource={configurableThumbnailSource}
                 />
             ));
         }
-    }, [items, handleRemoveItem, closeMiniCart]);
+    }, [items, handleRemoveItem, closeMiniCart, configurableThumbnailSource]);
 
     return <div className={classes.root}>{cartItems}</div>;
 };
@@ -56,8 +58,14 @@ ProductList.propTypes = {
                     value: number,
                     currency: string
                 })
+            }),
+            configured_variant: shape({
+                thumbnail: shape({
+                    url: string
+                })
             })
         })
     ),
+    configurableThumbnailSource: oneOf(['parent', 'itself']),
     handleRemoveItem: func
 };

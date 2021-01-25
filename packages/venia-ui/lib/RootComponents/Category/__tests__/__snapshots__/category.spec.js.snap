@@ -111,11 +111,42 @@ Array [
 `;
 
 exports[`it shows error when appropriate 1`] = `
-<div>
-  <mock-FormattedMessage
-    defaultMessage="Data Fetch Error"
-    id="category.dataFetchError"
-  />
+<div
+  style={
+    Object {
+      "--backroundImageUrl": "url(\\"test-file-stub\\")",
+      "--mobileBackgroundImageUrl": "url(\\"test-file-stub\\")",
+    }
+  }
+>
+  <div>
+    <p>
+      <mock-FormattedMessage
+        defaultMessage="Oops!"
+        id="errorView.header"
+      />
+    </p>
+    <p>
+      <mock-FormattedMessage
+        defaultMessage="Looks like something went wrong. Sorry about that."
+        id="errorView.message"
+      />
+    </p>
+    <div>
+      <button
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          <mock-FormattedMessage
+            defaultMessage="Take me home"
+            id="errorView.goHome"
+          />
+        </span>
+      </button>
+    </div>
+  </div>
 </div>
 `;
 
