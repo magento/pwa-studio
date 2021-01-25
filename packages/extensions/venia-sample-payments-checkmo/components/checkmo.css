@@ -1,0 +1,17 @@
+
+.root{
+    padding-top: 1.125rem;
+}
+
+.title{
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.mailingAddressTitle{
+    font-weight: var(--venia-global-fontWeight-semibold);
+    padding-top: 1rem;
+}
+
+.formatAddress {
+    padding-top: 1rem;
+}
