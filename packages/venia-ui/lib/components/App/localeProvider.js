@@ -2,9 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 import { fromReactIntl, toReactIntl } from '../../util/formatLocale';
 import { gql, useQuery } from '@apollo/client';
-import LoadingIndicator from '../LoadingIndicator';
-
-const DEFAULT_LOCALE = 'en-US';
 
 const GET_LOCALE = gql`
     query getLocale {
@@ -54,7 +51,7 @@ const LocaleProvider = props => {
         }
     }, [fetchLocale, language]);
 
-    const onIntlError = error => {
+    const handleIntlError = error => {
         if (messages) {
             if (error.code === 'MISSING_TRANSLATION') {
                 console.warn('Missing translation', error.message);
@@ -64,8 +61,6 @@ const LocaleProvider = props => {
         }
     };
 
-    if (!messages) return <LoadingIndicator global={true} />;
-
     return (
         <IntlProvider
             key={language}
@@ -73,7 +68,7 @@ const LocaleProvider = props => {
             defaultLocale={DEFAULT_LOCALE}
             locale={language}
             messages={messages}
-            onError={onIntlError}
+            onError={handleIntlError}
         />
     );
 };
