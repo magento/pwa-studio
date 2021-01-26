@@ -2,6 +2,7 @@
 
 exports[`returns correct shape 1`] = `
 Object {
+  "configurableThumbnailSource": "parent",
   "hasErrors": false,
   "isLoading": true,
   "items": Array [],
@@ -13,6 +14,7 @@ Object {
 
 exports[`uses static data if provided 1`] = `
 Object {
+  "configurableThumbnailSource": "parent",
   "hasErrors": false,
   "isLoading": true,
   "items": Array [
