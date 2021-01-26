@@ -101,9 +101,7 @@ beforeAll(() => {
      *
      * https://github.com/facebook/react/blob/895ae67fd3cb16b23d66a8be2ad1c747188a811f/packages/scheduler/src/forks/SchedulerDOM.js#L46
      */
-    perfNowSpy = jest
-        .spyOn(performance, 'now')
-        .mockImplementation(() => 123);
+    perfNowSpy = jest.spyOn(performance, 'now').mockImplementation(() => 123);
 });
 
 afterAll(() => {
