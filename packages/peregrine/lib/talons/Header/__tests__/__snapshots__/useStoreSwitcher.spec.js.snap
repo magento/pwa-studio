@@ -9,6 +9,7 @@ Object {
       "isCurrent": false,
       "locale": "locale1",
       "product_url_suffix": null,
+      "secure_base_media_url": "https://example.com/media/",
       "storeName": "Store 1",
     },
     "store2" => Object {
@@ -17,6 +18,7 @@ Object {
       "isCurrent": true,
       "locale": "locale2",
       "product_url_suffix": ".html",
+      "secure_base_media_url": "https://cdn.origin:9000/media/custom/",
       "storeName": "Store 2",
     },
     "store3" => Object {
@@ -25,6 +27,7 @@ Object {
       "isCurrent": false,
       "locale": "locale3",
       "product_url_suffix": ".htm",
+      "secure_base_media_url": "https://example.com/media/",
       "storeName": "Store 3",
     },
     "store4" => Object {
@@ -33,6 +36,7 @@ Object {
       "isCurrent": false,
       "locale": "locale4",
       "product_url_suffix": null,
+      "secure_base_media_url": "https://example.com/media/",
       "storeName": "Store 4",
     },
     "store5" => Object {
@@ -41,6 +45,7 @@ Object {
       "isCurrent": false,
       "locale": "locale5",
       "product_url_suffix": ".htm.htm",
+      "secure_base_media_url": "https://example.com/media/",
       "storeName": "Store 5",
     },
     "store6" => Object {
@@ -49,6 +54,7 @@ Object {
       "isCurrent": false,
       "locale": "locale6",
       "product_url_suffix": "-123abc",
+      "secure_base_media_url": "https://example.com/media/",
       "storeName": "Store 6",
     },
   },
