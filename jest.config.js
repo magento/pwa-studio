@@ -234,7 +234,8 @@ const jestConfig = {
                 // Shim DOM properties not supported by jsdom
                 inPackage('scripts/shim.js'),
                 // Always mock `fetch` instead of doing real network calls
-                inPackage('scripts/fetch-mock.js')
+                inPackage('scripts/fetch-mock.js'),
+                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
             ],
             // Set up Enzyme React 16 adapter for testing React components
             setupFilesAfterEnv: [
