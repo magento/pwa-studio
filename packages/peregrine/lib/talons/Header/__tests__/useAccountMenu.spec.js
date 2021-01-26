@@ -46,14 +46,6 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
     })
 }));
 
-jest.mock('@magento/peregrine/lib/Apollo/clearCartDataFromCache', () => ({
-    clearCartDataFromCache: jest.fn().mockResolvedValue()
-}));
-
-jest.mock('@magento/peregrine/lib/Apollo/clearCustomerDataFromCache', () => ({
-    clearCustomerDataFromCache: jest.fn().mockResolvedValue()
-}));
-
 const defaultProps = {
     accountMenuIsOpen: false,
     setAccountMenuIsOpen: jest.fn()
