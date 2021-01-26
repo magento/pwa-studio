@@ -48,7 +48,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
-              id="5a420105-1854-414a-b92b-e4c5da48325e"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -101,7 +101,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
-              id="8aadb5e4-55dc-4480-810f-7d44c9453208"
+              id="middlename"
               name="middlename"
               onBlur={[Function]}
               onChange={[Function]}
@@ -146,7 +146,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
-              id="edbdbf61-fdd5-4265-bce9-e75c1b1b47e5"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -199,7 +199,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
-              id="971dfb54-e8a7-48e0-8187-4c60a143f047"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -252,7 +252,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
-              id="fe3a7be0-d8d6-4d3e-969a-0322f715a958"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -297,7 +297,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
-              id="65919823-34e8-4162-8be1-7569119057db"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -360,7 +360,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
-              id="6898f87b-d37f-46ca-851b-4d05fdcb23ed"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -384,12 +384,12 @@ exports[`Edit Mode renders correctly 1`] = `
     >
       <label
         className="root"
-        htmlFor="6ebef52e-f978-43e7-b470-77599f4e4dd7"
+        htmlFor="default_shipping"
       >
         <input
           checked={false}
           className="input"
-          id="6ebef52e-f978-43e7-b470-77599f4e4dd7"
+          id="default_shipping"
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}
@@ -486,7 +486,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="b9f8f14a-6a8f-4e42-bf0f-4714a67c125e"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -539,7 +539,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="c112adf3-6353-4871-b844-1e727cc2a017"
+              id="middlename"
               name="middlename"
               onBlur={[Function]}
               onChange={[Function]}
@@ -584,7 +584,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="1136250e-00e7-4f61-a281-2c14b4ff6132"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -637,7 +637,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="98b8de7e-5d04-41d5-9916-5deb77861c72"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -690,7 +690,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="29ab85ae-7c1f-4875-a7c8-82326d359b04"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -735,7 +735,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="14abfeaf-a1f9-4193-a819-e74b7ad4496b"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -798,7 +798,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="80e90e43-3429-430a-895d-e25095a0e535"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -822,12 +822,12 @@ exports[`Edit Mode renders correctly with errors 1`] = `
     >
       <label
         className="root"
-        htmlFor="cd40df54-c2b9-49f3-93ae-142a937b5efe"
+        htmlFor="default_shipping"
       >
         <input
           checked={false}
           className="input"
-          id="cd40df54-c2b9-49f3-93ae-142a937b5efe"
+          id="default_shipping"
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}
@@ -919,7 +919,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
-              id="afc45910-d3f1-4d56-96c8-53245d0f04cc"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -972,7 +972,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
-              id="9c782406-9518-4417-861b-f158ebbfd394"
+              id="middlename"
               name="middlename"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1017,7 +1017,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
-              id="415fbb3a-fe6c-465a-bcda-948478e0c101"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1070,7 +1070,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
-              id="2e862dab-3547-4edf-b912-3b9f364b754e"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1123,7 +1123,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
-              id="71bd084b-1524-4d34-81d7-055a44973276"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1168,7 +1168,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
-              id="01432f63-53a4-4a26-b721-910dfff3e752"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1231,7 +1231,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
-              id="4ad4b04d-08e9-4e43-b892-5ab9b8661d52"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1255,12 +1255,12 @@ exports[`renders correctly 1`] = `
     >
       <label
         className="root"
-        htmlFor="81a4d3fb-8d59-42ef-a90c-e80ef0a7eef6"
+        htmlFor="default_shipping"
       >
         <input
           checked={false}
           className="input"
-          id="81a4d3fb-8d59-42ef-a90c-e80ef0a7eef6"
+          id="default_shipping"
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}
@@ -1357,7 +1357,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="1c3d201d-7c1a-4240-8f1f-a5f207d7f422"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1410,7 +1410,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="6869056b-53a8-4e2f-bd5f-c64bd91c9359"
+              id="middlename"
               name="middlename"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1455,7 +1455,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="d1035dad-0048-4c68-b846-08edc29995fc"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1508,7 +1508,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="94b0b49f-c400-4d38-9bc0-c34fabcf06b2"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1561,7 +1561,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="38195ceb-e2df-476b-83ab-b8731fcc6141"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1606,7 +1606,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="b5cc98a8-3554-4ef0-9de9-3245d872cb85"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1669,7 +1669,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
-              id="d9de4027-5057-4269-ad26-313198deb34f"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1693,12 +1693,12 @@ exports[`renders correctly with errors 1`] = `
     >
       <label
         className="root"
-        htmlFor="150a21d1-2841-46e7-a6c9-2f85d40dd647"
+        htmlFor="default_shipping"
       >
         <input
           checked={false}
           className="input"
-          id="150a21d1-2841-46e7-a6c9-2f85d40dd647"
+          id="default_shipping"
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}
