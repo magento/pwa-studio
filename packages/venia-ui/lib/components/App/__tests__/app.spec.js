@@ -92,6 +92,24 @@ jest.mock('@apollo/client', () => ({
     ])
 }));
 
+let perfNowSpy;
+
+beforeAll(() => {
+    /**
+     * Mocking perf to return same value every time to avoid
+     * snapshot failures. This is due to the react internals
+     *
+     * https://github.com/facebook/react/blob/895ae67fd3cb16b23d66a8be2ad1c747188a811f/packages/scheduler/src/forks/SchedulerDOM.js#L46
+     */
+    perfNowSpy = jest
+        .spyOn(performance, 'now')
+        .mockImplementation(() => 123);
+});
+
+afterAll(() => {
+    perfNowSpy.mockRestore();
+});
+
 // require app after mock is complete
 const App = require('../app').default;
 

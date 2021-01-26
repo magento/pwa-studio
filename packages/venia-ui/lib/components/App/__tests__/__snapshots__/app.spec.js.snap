@@ -7938,7 +7938,7 @@ Debug: 1 1",
           "effects": null,
           "firstBaseUpdate": Object {
             "callback": null,
-            "eventTime": 872.276963,
+            "eventTime": 123,
             "lane": 1,
             "next": null,
             "payload": Object {
@@ -7961,7 +7961,7 @@ Debug: 1 1",
           },
           "lastBaseUpdate": Object {
             "callback": null,
-            "eventTime": 872.276963,
+            "eventTime": 123,
             "lane": 1,
             "next": null,
             "payload": Object {
@@ -30861,7 +30861,7 @@ Debug: undefined undefined",
           "effects": null,
           "firstBaseUpdate": Object {
             "callback": null,
-            "eventTime": 872.276963,
+            "eventTime": 123,
             "lane": 1,
             "next": null,
             "payload": Object {
@@ -30890,7 +30890,7 @@ Debug: undefined undefined",
           },
           "lastBaseUpdate": Object {
             "callback": null,
-            "eventTime": 872.276963,
+            "eventTime": 123,
             "lane": 1,
             "next": null,
             "payload": Object {
