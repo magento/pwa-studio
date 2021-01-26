@@ -18,6 +18,7 @@ Code examples for using the `TargetableSet` class.
 This class is available as a named import from `@magento/pwa-buildpack`.
 
 ```js
+// The `TargetableSet` class is exported from `@magento/pwa-buildpack` as `Targetables`
 const { Targetables } = require('@magento/pwa-buildpack')
 ```
 
@@ -26,6 +27,7 @@ const { Targetables } = require('@magento/pwa-buildpack')
 Use the `TargetProvider` instance passed to your intercept function to create a `TargetableSet` instance bound to that `TargetProvider`.
 
 ```js
+// The `TargetableSet` class is exported from `@magento/pwa-buildpack` as `Targetables`
 const { Targetables } = require('@magento/pwa-buildpack')
 
 module.exports = targets => {

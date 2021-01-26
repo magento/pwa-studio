@@ -18,7 +18,7 @@ Code examples for using the `SingleImportStatement` class.
 Pass in an import statement to the constructor to create a new `SingleImportStatement` object.
 
 ```js
-const useQueryImport = new SingleImportStatement("import { useQuery } from '@apollo/react-hooks'");
+const queryHookImport = new SingleImportStatement("import { useQuery } from '@apollo/react-hooks'");
 ```
 
 This creates an object with the following properties:
@@ -36,9 +36,9 @@ This creates an object with the following properties:
 Use the `changeBinding()` function to rename the variable bound to the imported object.
 
 ```js
-const useQueryImport = new SingleImportStatement("import { useQuery } from '@apollo/react-hooks'");
+const queryHookImport = new SingleImportStatement("import { useQuery } from '@apollo/react-hooks'");
 
-const useQueryImport2 = useQueryImport.changeBinding('useQuery2');
+const queryHookImport2 = useQueryImport.changeBinding('useQuery2');
 ```
 
 This creates an object with the following properties:
@@ -57,6 +57,7 @@ The `toString()` value of a `SingleImportStatement` object is the value of the `
 Use this to reference the component's local name when adding custom code with Targetables.
 
 ```jsx
+// You can skip 'import' and the class is able to understand what you mean
 let Button = new SingleImportStatement("Button from './button'");
 
 // later, you learn there is a conflict with the `Button` identifier,

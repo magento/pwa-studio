@@ -135,7 +135,8 @@ During the build process, it uses the `addJSXClassName()` method to add class na
 
 #### Extensions security
 
-For security reasons, PWA Studio restrict the scope of Targetable modifications within an extension's intercept file to source files in the extension package.
+For security reasons, PWA Studio restrict the scope of Targetable modifications in extensions.
+These restrictions limit Targetable modifications to source files within the extension package.
 This prevents third party extensions from making source code changes to a storefront project without the developer's knowledge.
 
 ## Declare files
