@@ -36,6 +36,7 @@ class TargetableESModuleObject extends TargetableESModule {
      *
      * @param {string} importString A static import declaration
      *
+     * @return { this }
      * @chainable
      */
     addImport(importString) {
@@ -62,6 +63,7 @@ class TargetableESModuleObject extends TargetableESModule {
      *
      * @param  {...string} args Static import declaration(s)
      *
+     * @return { this }
      * @chainable
      */
     add(...args) {

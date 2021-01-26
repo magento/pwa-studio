@@ -67,6 +67,8 @@ class TargetableESModule extends TargetableModule {
      *
      * @param {string} [exportName] Name of export to wrap. If not provided, will wrap the default export.
      * @param {string} wrapperModule Package-absolute import path to the wrapper module.
+     * 
+     * @return { this }
      * @chainable
      */
     wrapWithFile(exportNameOrWrapperModule, wrapperModule) {
