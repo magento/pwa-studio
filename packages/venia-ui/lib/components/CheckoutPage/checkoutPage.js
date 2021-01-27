@@ -172,8 +172,7 @@ const CheckoutPage = props => {
                 </h3>
             );
 
-        let formErrors = [];
-
+        const formErrors = [];
         const paymentMethods = Object.keys(payments);
 
         // If we don't have an implementation for a method type, ignore it.
