@@ -27,8 +27,8 @@ const mapAvailableOptions = (config, stores) => {
 
         const isCurrent = code === configCode;
         const option = {
-            code,
             category_url_suffix,
+            code,
             currency,
             isCurrent,
             locale,
