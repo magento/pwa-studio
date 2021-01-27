@@ -20,12 +20,13 @@ import AddressBook from './AddressBook';
 import GuestSignIn from './GuestSignIn';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
+import payments from './PaymentInformation/paymentMethodCollection';
 import PriceAdjustments from './PriceAdjustments';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
-import payments from './PaymentInformation/paymentMethodCollection';
+
 import defaultClasses from './checkoutPage.css';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
