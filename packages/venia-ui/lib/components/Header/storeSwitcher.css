@@ -19,7 +19,10 @@
     border: 1px solid rgb(var(--venia-global-color-gray-dark));
     border-radius: 0.25rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    max-width: 90vw;
     opacity: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     position: absolute;
     right: 1rem;
     top: 2.5rem;
@@ -28,12 +31,8 @@
     transition-timing-function: var(--venia-global-anim-out);
     transition-property: opacity, transform, visibility;
     visibility: hidden;
-    z-index: 2;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-
-    max-width: 90vw;
     width: max-content;
+    z-index: 2;
 }
 
 .menu_open {
@@ -59,8 +58,8 @@
 }
 
 .groupList {
-    padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
 }
 
 .groupList:not(:last-child) {

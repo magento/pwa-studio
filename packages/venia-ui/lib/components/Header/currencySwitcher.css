@@ -10,8 +10,8 @@
 
 .trigger {
     align-items: center;
-    display: grid;
     column-gap: 0.5rem;
+    display: grid;
     grid-auto-flow: column;
     grid-template-columns: auto 1fr;
 }
@@ -21,7 +21,9 @@
     border: 1px solid rgb(var(--venia-global-color-gray-dark));
     border-radius: 0.25rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    max-height: 24rem;
     opacity: 0;
+    overflow: auto;
     position: absolute;
     right: 1rem;
     top: 2.5rem;
@@ -31,19 +33,16 @@
     transition-property: opacity, transform, visibility;
     visibility: hidden;
     z-index: 2;
-    max-height: 24rem;
-    overflow: auto;
 }
 
 .menu_open {
     composes: menu;
-
     opacity: 1;
+    padding: 0;
     transform: translate3d(0, 4px, 0);
     transition-duration: 224ms;
     transition-timing-function: var(--venia-global-anim-in);
     visibility: visible;
-    padding: 0;
 }
 
 .menuItem:hover {
@@ -64,11 +63,11 @@
 }
 
 .root:last-child:not(:only-child):before {
-    content: '';
     border-left: 1px solid rgb(var(--venia-global-color-gray-darker));
     border-left: 1px solid rgb(var(--venia-global-color-border));
-    width: 1rem;
+    content: '';
     height: 1em;
+    width: 1rem;
 }
 
 /*
@@ -92,8 +91,8 @@
     }
 
     .root:last-child .menu {
-        right: 1rem;
         left: auto;
+        right: 1rem;
     }
 
     .menu_open {
