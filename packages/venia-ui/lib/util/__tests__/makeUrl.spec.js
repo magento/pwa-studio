@@ -12,6 +12,20 @@ const absoluteUrls = [
     'https://example.com/baz.png'
 ];
 
+beforeEach(() => {
+    global.AVAILABLE_STORE_VIEWS = [
+        {
+            base_currency_code: 'USD',
+            code: 'default',
+            default_display_currency_code: 'USD',
+            id: 1,
+            locale: 'en_US',
+            secure_base_media_url: 'https://cdn.origin:9000/media/',
+            store_name: 'Default Store View'
+        }
+    ];
+});
+
 test('returns absolute url unmodified when called with no options', () => {
     absoluteUrls.forEach(url => {
         expect(makeUrl(url)).toBe(url);
@@ -108,10 +122,6 @@ test('removes absolute origin if configured to', () => {
     const width = 100;
     process.env.MAGENTO_BACKEND_URL = 'https://cdn.origin:8000/';
     const htmlTag = document.querySelector('html');
-    htmlTag.setAttribute(
-        'data-media-backend',
-        `https://cdn.origin:8000${mediaPath}`
-    );
     htmlTag.setAttribute('data-image-optimizing-origin', 'onboard');
     const makeUrlAbs = require('../makeUrl').default;
     expect(
@@ -129,10 +139,6 @@ test('removes absolute origin if configured to - with path', () => {
     const width = 100;
     process.env.MAGENTO_BACKEND_URL = 'https://cdn.origin:8000/venia/';
     const htmlTag = document.querySelector('html');
-    htmlTag.setAttribute(
-        'data-media-backend',
-        `https://cdn.origin:8000/venia${mediaPath}`
-    );
     htmlTag.setAttribute('data-image-optimizing-origin', 'onboard');
     const makeUrlAbs = require('../makeUrl').default;
     expect(
@@ -149,10 +155,6 @@ test('prepends absolute origin if configured to', () => {
     jest.resetModules();
     const width = 100;
     const htmlTag = document.querySelector('html');
-    htmlTag.setAttribute(
-        'data-media-backend',
-        `https://cdn.origin:9000${mediaPath}`
-    );
     htmlTag.setAttribute('data-image-optimizing-origin', 'backend');
     const makeUrlAbs = require('../makeUrl').default;
     expect(

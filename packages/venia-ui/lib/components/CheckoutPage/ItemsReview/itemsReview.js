@@ -22,7 +22,7 @@ const ItemsReview = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = useItemsReview({
-        queries: {
+        operations: {
             getItemsInCart: LIST_OF_PRODUCTS_IN_CART_QUERY
         },
         data: props.data
@@ -33,11 +33,17 @@ const ItemsReview = props => {
         totalQuantity,
         showAllItems,
         setShowAllItems,
-        isLoading
+        isLoading,
+        configurableThumbnailSource
     } = talonProps;
 
     const items = itemsInCart.map((item, index) => (
-        <Item key={item.id} {...item} isHidden={!showAllItems && index >= 2} />
+        <Item
+            key={item.id}
+            {...item}
+            isHidden={!showAllItems && index >= 2}
+            configurableThumbnailSource={configurableThumbnailSource}
+        />
     ));
 
     const showAllItemsFooter = !showAllItems ? (

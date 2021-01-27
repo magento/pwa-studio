@@ -16,7 +16,10 @@ import DEFAULT_OPERATIONS from './orderRow.gql';
 export const useOrderRow = props => {
     const { items } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getProductThumbnailsQuery } = operations;
+    const {
+        getProductThumbnailsQuery,
+        getConfigurableThumbnailSource
+    } = operations;
 
     const urlKeys = useMemo(() => {
         return items.map(item => item.product_url_key).sort();
@@ -29,17 +32,48 @@ export const useOrderRow = props => {
             urlKeys
         }
     });
+
+    const { data: configurableThumbnailSourceData } = useQuery(
+        getConfigurableThumbnailSource,
+        {
+            fetchPolicy: 'cache-and-network'
+        }
+    );
+
+    const configurableThumbnailSource = useMemo(() => {
+        if (configurableThumbnailSourceData) {
+            return configurableThumbnailSourceData.storeConfig
+                .configurable_thumbnail_source;
+        }
+    }, [configurableThumbnailSourceData]);
+
     const imagesData = useMemo(() => {
         if (data) {
-            // filter out items returned that we didn't query for
-            const filteredItems = data.products.items.filter(item =>
-                urlKeys.includes(item.url_key)
-            );
-            return filteredItems;
+            // Images data is taken from simple product or from configured variant and assigned to item sku
+            const mappedImagesData = {};
+            items.forEach(item => {
+                const product = data.products.items.find(
+                    element => item.product_url_key === element.url_key
+                );
+                if (
+                    configurableThumbnailSource === 'itself' &&
+                    product.variants &&
+                    product.variants.length > 0
+                ) {
+                    const foundVariant = product.variants.find(variant => {
+                        return variant.product.sku === item.product_sku;
+                    });
+                    mappedImagesData[item.product_sku] = foundVariant.product;
+                } else {
+                    mappedImagesData[item.product_sku] = product;
+                }
+            });
+
+            return mappedImagesData;
         } else {
-            return [];
+            return {};
         }
-    }, [data, urlKeys]);
+    }, [data, items, configurableThumbnailSource]);
 
     const [isOpen, setIsOpen] = useState(false);
 
