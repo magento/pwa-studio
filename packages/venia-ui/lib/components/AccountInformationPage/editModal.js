@@ -36,7 +36,7 @@ const EditModal = props => {
             onConfirm={onSubmit}
             shouldDisableAllButtons={isDisabled}
             shouldDisableConfirmButton={isDisabled}
-            shouldUnmountOnHide={false}
+            shouldUnmountOnHide={true}
             title={formatMessage({
                 id: 'accountInformationPage.editAccount',
                 defaultMessage: 'Edit Account Information'
