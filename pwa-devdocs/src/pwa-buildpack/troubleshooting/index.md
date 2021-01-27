@@ -98,8 +98,8 @@ ${User}\AppData\Local\devcert
 
 **Watcher runs out of memory**{:#watcher-out-of-memory}
 
-If you leave the `yarn watch` process running for more than 6 hours, it runs out of memory and shows an error.
-The solution for this is to restart the watch process and make sure it does not run for longer than 6 hours.
+If you leave the `yarn watch` process running for an extended amount of time, it runs out of memory and shows an error.
+The solution is to restart the watch process and make sure it does not run for an extended amount of time.
 
 [create an issue]: https://github.com/magento/pwa-buildpack/issues
 [Slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2/team/UAFV915FB/
