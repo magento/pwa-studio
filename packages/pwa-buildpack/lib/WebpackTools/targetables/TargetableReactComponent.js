@@ -27,7 +27,7 @@ class TargetableReactComponent extends TargetableESModule {
      * variable `classname` in the file. If that identifier doesn't exist,
      * it'll cause a ReferenceError.
      * @param {JSXModifierOptions} [options]
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -70,7 +70,7 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file
      * @param {string} newChild - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -83,7 +83,7 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file
      * @param {string} newSibling - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -96,7 +96,7 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file
      * @param {string} newSibling - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -109,7 +109,7 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file
      * @param {string} newChild - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -122,7 +122,7 @@ class TargetableReactComponent extends TargetableESModule {
      *
      * @param {string} element - Match an existing JSX component in the file and remove it
      * @param {JSXModifierOptions} [options]
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -136,7 +136,7 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file.
      * @param {string[]} propNames - An array of names of props to remove.
      * @param {JSXModifierOptions} [options]
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -152,7 +152,7 @@ class TargetableReactComponent extends TargetableESModule {
      * '<Route path="/">'.
      * @param {string} replacement - Replacement code as a string.
      * @param {JSXModifierOptions} [options]
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -175,7 +175,7 @@ class TargetableReactComponent extends TargetableESModule {
      *   className: '{classes.tabs}'
      * })
      * ```
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -191,7 +191,7 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} newParent - The wrapper element as a JSX string. It must be one and only one JSX element with no children; the matching element will be the only child of the new wrapper.
      * @param {JSXModifierOptions} [options]
      * @memberof TargetableReactComponent
-     * 
+     *
      * @return { this }
      * @chainable
      */

@@ -27,7 +27,7 @@ class TargetableModule extends Trackable {
      * @param {TransformType} type - [Transform type][]
      * @param {string} transformModule - The Node module that runs the transform, such as a Webpack loader for type `source` or a Babel plugin for type `babel`.
      * @param {Object} options - Configuration object to send to the transformModule.
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -53,7 +53,7 @@ class TargetableModule extends Trackable {
      * @param {string} insert - Text to insert after the search string.
      * @param {Object} [options] - Additional loader options.
      * @param {number} [options.remove] - Number of characters to delete forward, after the search string.
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -72,7 +72,7 @@ class TargetableModule extends Trackable {
      * @param {string} insert - Text to insert before the search string.
      * @param {Object} [options] - Additional loader options.
      * @param {number} [options.remove] - Number of characters to delete forward, after the search string.
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -87,7 +87,7 @@ class TargetableModule extends Trackable {
      * Add text to the beginning of a file.
      *
      * @param {string} insert - Text to insert up top
-     * 
+     *
      * @return { this }
      * @chainable
      */
@@ -98,7 +98,7 @@ class TargetableModule extends Trackable {
      * Do any splice operation supported by [`splice-source-loader`][].
      *
      * @param {object} instruction - Splice instruction.
-     * 
+     *
      * @return { this }
      * @chainable
      * @memberof TargetableModule
