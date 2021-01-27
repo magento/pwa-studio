@@ -35,9 +35,9 @@ const mapAvailableOptions = (config, stores) => {
             product_url_suffix,
             secure_base_media_url,
             sortOrder,
-            storeName,
+            storeGroupCode,
             storeGroupName,
-            storeGroupCode
+            storeName
         };
 
         return map.set(code, option);
