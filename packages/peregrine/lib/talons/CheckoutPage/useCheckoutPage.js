@@ -23,7 +23,7 @@ export const CHECKOUT_STEP = {
     REVIEW: 4
 };
 
-export const useCheckoutPage = props => {
+export const useCheckoutPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const {
