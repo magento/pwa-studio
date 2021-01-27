@@ -18,6 +18,7 @@ const mapAvailableOptions = (config, stores) => {
             default_display_currency_code: currency,
             locale,
             product_url_suffix,
+            secure_base_media_url,
             store_name: storeName
         } = store;
 
@@ -28,6 +29,7 @@ const mapAvailableOptions = (config, stores) => {
             isCurrent,
             locale,
             product_url_suffix,
+            secure_base_media_url,
             storeName
         };
 
@@ -157,6 +159,10 @@ export const useStoreSwitcher = (props = {}) => {
             storage.setItem(
                 'store_view_currency',
                 availableStores.get(storeCode).currency
+            );
+            storage.setItem(
+                'store_view_secure_base_media_url',
+                availableStores.get(storeCode).secure_base_media_url
             );
 
             // Handle updating the URL if the store code should be present.

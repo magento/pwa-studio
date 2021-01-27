@@ -2,6 +2,7 @@ query availableStoresConfigData {
     availableStores {
         code
         id
+        secure_base_media_url
         store_name
         default_display_currency_code
     }
