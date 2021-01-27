@@ -234,6 +234,8 @@ Minor versions of PWA Studio & Venia released between typical Magento releases w
 
 - If you are using Multi-Source Inventory(MSI), a GraphQL issue prevents users from adding a configurable product to the shopping cart on non-default store views.
 - Prerender feature is unable to cache HTML on Fastly enabled environments.
+- The `yarn watch` process may run out of memory if left running for more than 6 hours.
+  If an error occurs because of this, restart the watcher.
 
 ## Upgrading from a previous version
 
