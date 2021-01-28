@@ -98,6 +98,7 @@ const CreateWishlist = props => {
                 isOpen={isModalOpen}
                 onCancel={handleHideModal}
                 onConfirm={handleCreateList}
+                shouldUnmountOnHide={false}
                 title={formatMessage({
                     id: 'createWishlist.dialogTitle',
                     defaultMessage: 'New Favorites List'

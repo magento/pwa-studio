@@ -27,6 +27,8 @@ class TargetableReactComponent extends TargetableESModule {
      * variable `classname` in the file. If that identifier doesn't exist,
      * it'll cause a ReferenceError.
      * @param {JSXModifierOptions} [options]
+     *
+     * @return { this }
      * @chainable
      */
     addJSXClassName(element, className, options) {
@@ -68,6 +70,8 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file
      * @param {string} newChild - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
+     *
+     * @return { this }
      * @chainable
      */
     appendJSX(element, newChild, options) {
@@ -79,6 +83,8 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file
      * @param {string} newSibling - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
+     *
+     * @return { this }
      * @chainable
      */
     insertAfterJSX(element, sibling, options) {
@@ -90,6 +96,8 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file
      * @param {string} newSibling - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
+     *
+     * @return { this }
      * @chainable
      */
     insertBeforeJSX(element, sibling, options) {
@@ -101,6 +109,8 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file
      * @param {string} newChild - New element to insert, as a string.
      * @param {JSXModifierOptions} [options]
+     *
+     * @return { this }
      * @chainable
      */
     prependJSX(element, child, options) {
@@ -112,6 +122,8 @@ class TargetableReactComponent extends TargetableESModule {
      *
      * @param {string} element - Match an existing JSX component in the file and remove it
      * @param {JSXModifierOptions} [options]
+     *
+     * @return { this }
      * @chainable
      */
     removeJSX(element, options) {
@@ -124,6 +136,8 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file.
      * @param {string[]} propNames - An array of names of props to remove.
      * @param {JSXModifierOptions} [options]
+     *
+     * @return { this }
      * @chainable
      */
     removeJSXProps(element, props, options) {
@@ -138,6 +152,9 @@ class TargetableReactComponent extends TargetableESModule {
      * '<Route path="/">'.
      * @param {string} replacement - Replacement code as a string.
      * @param {JSXModifierOptions} [options]
+     *
+     * @return { this }
+     * @chainable
      */
     replaceJSX(element, replacement, options) {
         return this._addJsxTransform('replace', element, replacement, options);
@@ -158,6 +175,8 @@ class TargetableReactComponent extends TargetableESModule {
      *   className: '{classes.tabs}'
      * })
      * ```
+     *
+     * @return { this }
      * @chainable
      */
     setJSXProps(element, props, options) {
@@ -171,8 +190,10 @@ class TargetableReactComponent extends TargetableESModule {
      * @param {string} element - Match an existing JSX component in the file.
      * @param {string} newParent - The wrapper element as a JSX string. It must be one and only one JSX element with no children; the matching element will be the only child of the new wrapper.
      * @param {JSXModifierOptions} [options]
-     * @returns
      * @memberof TargetableReactComponent
+     *
+     * @return { this }
+     * @chainable
      */
     surroundJSX(element, newParent, options) {
         return this._addJsxTransform('surround', element, newParent, options);

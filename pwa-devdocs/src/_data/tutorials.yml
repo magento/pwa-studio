@@ -36,6 +36,10 @@ entries:
           - label: Add a new environment variable
             url: /tutorials/intercept-a-target/add-new-environment-variable/
 
+    - label: Modify code with Targetables 
+      url: /tutorials/targetables/
+      entries:
+
     - label: Production deployments
       url: /tutorials/pwa-studio-fundamentals/production-launch-checklist/
       entries:

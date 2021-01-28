@@ -4,12 +4,14 @@ import { useQuery, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
+import mergeOperations from '../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './miniCart.gql';
 
 /**
  *
  * @param {Function} props.setIsOpen - Function to toggle the mini cart
- * @param {DocumentNode} props.queries.miniCartQuery - Query to fetch mini cart data
- * @param {DocumentNode} props.mutations.removeItemMutation - Mutation to remove an item from cart
+ * @param {DocumentNode} props.operations.miniCartQuery - Query to fetch mini cart data
+ * @param {DocumentNode} props.operations.removeItemMutation - Mutation to remove an item from cart
  *
  * @returns {
  *      closeMiniCart: Function,
@@ -21,12 +23,18 @@ import { deriveErrorMessage } from '../../util/deriveErrorMessage';
  *      productList: Array<>,
  *      subTotal: Number,
  *      totalQuantity: Number
+ *      configurableThumbnailSource: String
  *  }
  */
 export const useMiniCart = props => {
-    const { setIsOpen, queries, mutations } = props;
-    const { miniCartQuery } = queries;
-    const { removeItemMutation } = mutations;
+    const { setIsOpen } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const {
+        removeItemMutation,
+        miniCartQuery,
+        getConfigurableThumbnailSource
+    } = operations;
 
     const [{ cartId }] = useCartContext();
     const history = useHistory();
@@ -40,6 +48,20 @@ export const useMiniCart = props => {
             skip: !cartId
         }
     );
+
+    const { data: configurableThumbnailSourceData } = useQuery(
+        getConfigurableThumbnailSource,
+        {
+            fetchPolicy: 'cache-and-network'
+        }
+    );
+
+    const configurableThumbnailSource = useMemo(() => {
+        if (configurableThumbnailSourceData) {
+            return configurableThumbnailSourceData.storeConfig
+                .configurable_thumbnail_source;
+        }
+    }, [configurableThumbnailSourceData]);
 
     const [
         removeItem,
@@ -112,6 +134,7 @@ export const useMiniCart = props => {
         loading: miniCartLoading || (removeItemCalled && removeItemLoading),
         productList,
         subTotal,
-        totalQuantity
+        totalQuantity,
+        configurableThumbnailSource
     };
 };

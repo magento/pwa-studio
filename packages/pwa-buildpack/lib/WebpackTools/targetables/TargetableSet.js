@@ -8,16 +8,16 @@ const types = {
 const TargetProvider = require('../../BuildBus/TargetProvider');
 
 /**
- * A factory and manager for Targetable instances. The usual way to use
- * Targetables. Wraps around a TargetProvider, which identifies it as "your"
+ * A factory and manager for Targetable instances.
+ * This class wraps around a TargetProvider, which identifies it as "your"
  * Targetable and enables automatic interception of targets.
  */
 class TargetableSet {
     /**
-     * Create a new TargetableSet bound to a TargetProvider.
+     * Creates a new TargetableSet bound to a TargetProvider
      *
      * @param {TargetProvider} targets - TargetProvider for the curent dependency. This is the object passed by BuildBus to an intercept function.
-     * @returns TargetableSet
+     * @returns {TargetableSet}
      */
     static using(targets) {
         return new TargetableSet(targets);
@@ -36,38 +36,64 @@ class TargetableSet {
 
         this._bind();
     }
+
     /**
-     * @param {string} modulePath - Path to the module file this Targetable represents. Can be either module-resolvable (e.g. `"@magento/venia-ui/lib/components/Button"`), or module-root-relative (e.g. `"lib/components/Button"`), in which case the module name `@magento/venia-ui` will be added automatically.
-     * @param {TargetablePublisher} [publisher] - Callback function to execute when this module is about to commit its requested transforms to a build. If this function is passed, the module will automatically bind to `builtins.transformModules`.
-     * @returns {TargetableModule}
-     */
-    /**
-     * @param {object} config - Setup config for new TargetableModule.
-     * @param {string} config.module - Path to the module file this Targetable represents. Can be either module-resolvable (e.g. `"@magento/venia-ui/lib/components/Button"`), or module-root-relative (e.g. `"lib/components/Button"`), in which case the module name `@magento/venia-ui` will be added automatically.
-     * @param {TargetablePublisher} config.publish - Callback function to execute when this module is about to commit its requested transforms to a build. If this function is passed, the module will automatically bind to `builtins.transformModules`.
-     * @returns {TargetableModule}
+     * @param {string} modulePath - Path to the module file this Targetable represents.
+     * @param {TargetablePublisher} [publisher] - Callback function to execute when this module
+     * is about to commit its requested transforms to a build. If this function is passed,
+     * the module will automatically bind to `builtins.transformModules`.
+     * @returns {TargetableModule} Returns an instance of [TargetableModule][]
      */
     module(modulePath, publisher) {
         return this._provide(types.Module, modulePath, publisher);
     }
-    /** Like Targetable#module, but creates a TargetableESModule. */
+
+    /**
+     * @param {string} modulePath - Path to the module file this Targetable represents.
+     * @param {TargetablePublisher} [publisher] - Callback function to execute when this module
+     * is about to commit its requested transforms to a build. If this function is passed,
+     * the module will automatically bind to `builtins.transformModules`.
+     * @returns {TargetableESModule} Returns an instance of [TargetableESModule][]
+     */
     esModule(modulePath, publisher) {
         return this._provide(types.ESModule, modulePath, publisher);
     }
-    /** Like Targetable#module, but creates a TargetableESModuleArray. */
+
+    /**
+     * @param {string} modulePath - Path to the module file this Targetable represents.
+     * @param {TargetablePublisher} [publisher] - Callback function to execute when this module
+     * is about to commit its requested transforms to a build. If this function is passed,
+     * the module will automatically bind to `builtins.transformModules`.
+     * @returns {TargetableESModuleArray} Returns an instance of [TargetableESModuleArray][]
+     */
     esModuleArray(modulePath, publisher) {
         return this._provide(types.ESModuleArray, modulePath, publisher);
     }
-    /** Like Targetable#module, but creates a TargetableESModuleObject. */
+
+    /**
+     * @param {string} modulePath - Path to the module file this Targetable represents.
+     * @param {TargetablePublisher} [publisher] - Callback function to execute when this module
+     * is about to commit its requested transforms to a build. If this function is passed,
+     * the module will automatically bind to `builtins.transformModules`.
+     * @returns {TargetableESModuleObject} Returns an instance of [TargetableESModuleObject][]
+     */
     esModuleObject(modulePath, publisher) {
         return this._provide(types.ESModuleObject, modulePath, publisher);
     }
-    /** Like Targetable#module, but creates a TargetableReactComponent. */
+
+    /**
+     * @param {string} modulePath - Path to the module file this Targetable represents.
+     * @param {TargetablePublisher} [publisher] - Callback function to execute when this module
+     * is about to commit its requested transforms to a build. If this function is passed,
+     * the module will automatically bind to `builtins.transformModules`.
+     * @returns {TargetableReactComponent} Returns an instance of [TargetableReactComponent][]
+     */
     reactComponent(modulePath, publisher) {
         return this._provide(types.ReactComponent, modulePath, publisher);
     }
+
     /**
-     * Tap the builtin `specialFeatures` target and set the supplied feature flags.
+     * Taps the builtin `specialFeatures` target and sets the supplied feature flags.
      *
      * @param {...(string|string[]|object<string,boolean>)} Feature flags to set, as either string arguments, an array of string arguments, or an object of flags.
      */

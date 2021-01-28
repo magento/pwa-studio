@@ -18,6 +18,19 @@ export const ProductListingFragment = gql`
                     url
                 }
                 stock_status
+                ... on ConfigurableProduct {
+                    variants {
+                        attributes {
+                            uid
+                        }
+                        product {
+                            id
+                            small_image {
+                                url
+                            }
+                        }
+                    }
+                }
             }
             prices {
                 price {
@@ -37,3 +50,4 @@ export const ProductListingFragment = gql`
         }
     }
 `;
+/* eslint-enable graphql/template-strings */

@@ -25,6 +25,7 @@ const WishlistMoreActionsDialog = props => {
             isOpen={isOpen}
             onCancel={onCancel}
             shouldShowButtons={false}
+            shouldUnmountOnHide={false}
             title={dialogTitle}
         >
             <div className={classes.root}>

@@ -21,7 +21,7 @@ const Product = props => {
     const { formatMessage } = useIntl();
     const talonProps = useProduct({
         item,
-        mutations: {
+        operations: {
             removeItemMutation: REMOVE_ITEM_MUTATION,
             updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
         },
@@ -78,10 +78,10 @@ const Product = props => {
         />
     ) : null;
 
-    const itemLink = useMemo(() => resourceUrl(`/${urlKey}${urlSuffix}`), [
-        urlKey,
-        urlSuffix
-    ]);
+    const itemLink = useMemo(
+        () => resourceUrl(`/${urlKey}${urlSuffix || ''}`),
+        [urlKey, urlSuffix]
+    );
 
     const stockStatusMessage =
         stockStatus === 'OUT_OF_STOCK'

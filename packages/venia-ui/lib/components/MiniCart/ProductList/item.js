@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { string, number, shape, func, arrayOf } from 'prop-types';
+import { string, number, shape, func, arrayOf, oneOf } from 'prop-types';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
 import Price from '@magento/venia-ui/lib/components/Price';
@@ -11,6 +11,7 @@ import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
+import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
 import defaultClasses from './item.css';
 
@@ -23,13 +24,14 @@ const Item = props => {
         configurable_options,
         handleRemoveItem,
         prices,
-        closeMiniCart
+        closeMiniCart,
+        configurableThumbnailSource
     } = props;
 
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, propClasses);
     const itemLink = useMemo(
-        () => resourceUrl(`/${product.url_key}${product.url_suffix}`),
+        () => resourceUrl(`/${product.url_key}${product.url_suffix || ''}`),
         [product.url_key, product.url_suffix]
     );
     const stockStatusText =
@@ -46,6 +48,7 @@ const Item = props => {
     });
 
     const rootClass = isDeleting ? classes.root_disabled : classes.root;
+    const configured_variant = configuredVariant(configurable_options, product);
 
     return (
         <div className={rootClass}>
@@ -60,7 +63,12 @@ const Item = props => {
                         root: classes.thumbnail
                     }}
                     width={100}
-                    resource={product.thumbnail.url}
+                    resource={
+                        configurableThumbnailSource === 'itself' &&
+                        configured_variant
+                            ? configured_variant.thumbnail.url
+                            : product.thumbnail.url
+                    }
                 />
             </Link>
             <Link
@@ -147,5 +155,11 @@ Item.propTypes = {
             value: number,
             currency: string
         })
-    })
+    }),
+    configured_variant: shape({
+        thumbnail: shape({
+            url: string
+        })
+    }),
+    configurableThumbnailSource: oneOf(['parent', 'itself'])
 };
