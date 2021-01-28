@@ -27,16 +27,16 @@ const {
  * the ID prop of the given component and replaces it with the
  * value of the field prop if available. If not it replaces it with
  * a sample value `SAMPLE_ID`.
- * 
+ *
  * We are doing this because the new version of informed added a feature
  * to use UUID as the value of the ID prop if one is not provided.
- * This is breaking all our snapshot tests because a new ID is created 
+ * This is breaking all our snapshot tests because a new ID is created
  * every time the component renders.
- * 
+ *
  * https://github.com/joepuzzo/informed/blob/master/src/utils.js#L123
- * 
+ *
  * @param {ReactComponent} Component component to wrap
- * 
+ *
  * @returns {ReactComponent}
  */
 const wrapWithUuidPropCheck = Component => props => {
