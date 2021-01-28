@@ -3,39 +3,9 @@ const TargetableESModule = require('./TargetableESModule');
 /**
  * Builds a simple ES module that imports a list of other modules you provide,
  * and then re-exports those modules in order as an array.
- *
  * Useful for building extensible navigation lists, routes, strategies, etc.
  *
- * Uses [export-esm-collection-loader][] to build source code.
- *
- * @example <caption>Export PlainHtmlRenderer and PageBuilder in a list.</caption>
- *
- * ```js
- * const renderers = targetable.esModuleArray('@magento/venia-ui/lib/components/RichContent/richContentRenderers.js');
- *
- * renderers.push('import * as PageBuilder from "@magento/pagebuilder"');
- * renderers.push('import * as PlainHtmlRenderer from "@magento/venia-ui/lib/components/RichContent/plainHtmlRenderer"');
- * ```
- *
- * The actual `richContentRenderers.js` file is a placeholder; it just exports an
- * empty array `export default []`.
- *
- * After the transforms above, `richContentRenderers.js` will enter the bundle as:
- *
- * ```js
- * import * as PageBuilder from '@magento/pagebuilder';
- * import * as PlainHtmlRenderer from '@magento/venia-ui/lib/components/RichContent/plainHtmlRenderer';
- *
- * export default [
- *   PageBuilder,
- *   PlainHtmlRenderer
- * ];
- * ```
- * **Requires an "empty" module that exports either an empty array or an empty
- * object. Without that module, the loader has nothing to "load" and will not
- * execute. Also, without that module, code editors and linters may complain
- * that it's missing.**
- *
+ * This class uses [export-esm-collection-loader][] to build the source code.
  */
 class TargetableESModuleArray extends TargetableESModule {
     constructor(...args) {
@@ -43,22 +13,36 @@ class TargetableESModuleArray extends TargetableESModule {
         this._orderedBindings = [];
     }
     /**
-     * In this type of module, all imports must be exported, so this method
-     * becomes an alias to TargetableESModuleArray#push.
+     * Adds a module to the end of the array.
      *
-     * @alias TargetableESModuleArray#push
+     * This also acts as an alias for the `push()` function.
+     *
+     * @param {string} importString A static import declaration for a module
+     *
+     * @returns {undefined}
      */
     addImport(importString) {
         return this.push(importString);
     }
-    /** @alias TargetableESModuleArray#push */
+
+    /**
+     * Add a module or modules to the end of the array.
+     *
+     * This also acts as an alias for the `push()` function.
+     *
+     * @param  {...any} items Static import declaration(s)
+     *
+     * @returns {undefined}
+     */
     add(...items) {
         return this.push(...items);
     }
     /**
      * Add a module or modules to the end of the array.
+     *
      * @param {...string} importString - Static import declaration(s)
-     * @returns undefined
+     *
+     * @returns {undefined}
      */
     push(...items) {
         return this._forEachBinding(items, item =>
@@ -67,8 +51,10 @@ class TargetableESModuleArray extends TargetableESModule {
     }
     /**
      * Add a module or modules to the _beginning_ of the array.
+     *
      * @param {...string} importString - Static import declaration(s)
-     * @returns undefined
+     *
+     * @returns {undefined}
      */
     unshift(...items) {
         return this._forEachBinding(items, item =>
