@@ -127,7 +127,7 @@ const CreditCard = props => {
     const isFieldRequired = useCallback((value, { isBillingAddressSame }) => {
         if (isBillingAddressSame) {
             /**
-             * Informed validator functions return `undefined` is
+             * Informed validator functions return `undefined` if
              * validation is `true`
              */
             return undefined;
