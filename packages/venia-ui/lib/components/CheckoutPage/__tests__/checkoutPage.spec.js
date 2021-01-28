@@ -44,7 +44,9 @@ jest.mock('../OrderConfirmationPage', () => 'OrderConfirmationPage');
 jest.mock('../ShippingInformation', () => 'ShippingInformation');
 jest.mock('../ShippingMethod', () => 'ShippingMethod');
 jest.mock('../PaymentInformation', () => 'PaymentInformation');
-jest.mock('../PaymentInformation/paymentMethodCollection', () => ({ braintree: {} }));
+jest.mock('../PaymentInformation/paymentMethodCollection', () => ({
+    braintree: {}
+}));
 jest.mock('../PriceAdjustments', () => 'PriceAdjustments');
 jest.mock('../AddressBook', () => 'AddressBook');
 
@@ -73,7 +75,7 @@ const defaultTalonProps = {
     setPaymentInformationDone: jest.fn().mockName('setPaymentInformationDone'),
     toggleAddressBookContent: jest.fn().mockName('toggleAddressBookContent'),
     toggleSignInContent: jest.fn().mockName('toggleSignInContent'),
-    availablePaymentMethods: [{ code: "braintree" }]
+    availablePaymentMethods: [{ code: 'braintree' }]
 };
 describe('CheckoutPage', () => {
     test('throws a toast if there is an error', () => {
