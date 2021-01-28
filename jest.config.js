@@ -162,7 +162,8 @@ const testReactComponents = inPackage => ({
                 locale: 'fr_FR',
                 store_name: 'French Store View'
             }
-        ]
+        ],
+        DEFAULT_LOCALE: 'en-US'
     }
 });
 
