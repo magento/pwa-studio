@@ -1,4 +1,5 @@
 import React from 'react';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import { createTestInstance } from '@magento/peregrine';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
@@ -6,6 +7,8 @@ import Main from '../../Main';
 import Mask from '../../Mask';
 import Navigation from '../../Navigation';
 import Routes from '../../Routes';
+
+const renderer = new ShallowRenderer();
 
 jest.mock('../../Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
@@ -260,9 +263,9 @@ test('renders with renderErrors', () => {
         renderError: new Error('A render error!')
     };
 
-    const { root } = createTestInstance(<App {...appProps} />);
+    renderer.render(<App {...appProps} />);
 
-    expect(root).toMatchSnapshot();
+    expect(renderer.getRenderOutput()).toMatchSnapshot();
 });
 
 test('renders with unhandledErrors', () => {
@@ -279,9 +282,9 @@ test('renders with unhandledErrors', () => {
         renderError: null
     };
 
-    const { root } = createTestInstance(<App {...appProps} />);
+    renderer.render(<App {...appProps} />);
 
-    expect(root).toMatchSnapshot();
+    expect(renderer.getRenderOutput()).toMatchSnapshot();
 });
 
 test('adds no toasts when no errors are present', () => {
