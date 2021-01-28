@@ -171,7 +171,7 @@ BUILDBUS_DEPS_ADDITIONAL=
 #
 #   Specify if express server compression needs to be enabled. Defaults to false if not provided.
 #   - Default when not set: false
-ENABLE_UPWARD_TEXT_COMPRESSION=false
+ENABLE_EXPRESS_SERVER_COMPRESSION=false
 #
 ################################################################################
 "

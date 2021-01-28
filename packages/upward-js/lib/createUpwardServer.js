@@ -51,7 +51,7 @@ async function createUpwardServer({
     before(app);
     const upward = await middleware(resolve(upwardPath), env);
 
-    if (env.ENABLE_UPWARD_TEXT_COMPRESSION === 'true') {
+    if (env.ENABLE_EXPRESS_SERVER_COMPRESSION === 'true') {
         app.use(
             compression({
                 threshold: 0

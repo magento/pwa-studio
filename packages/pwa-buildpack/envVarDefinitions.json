@@ -200,7 +200,7 @@
             "name": "Express compression settings",
             "variables": [
                 {
-                    "name": "ENABLE_UPWARD_TEXT_COMPRESSION",
+                    "name": "ENABLE_EXPRESS_SERVER_COMPRESSION",
                     "type": "bool",
                     "desc": "Specify if express server compression needs to be enabled. Defaults to false if not provided.",
                     "default": "false"
