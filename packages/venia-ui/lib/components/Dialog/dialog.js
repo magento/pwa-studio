@@ -180,5 +180,5 @@ Dialog.defaultProps = {
     confirmText: 'Confirm',
     confirmTranslationId: 'global.confirmButton',
     isModal: false,
-    shouldUnmountOnHide: false
+    shouldUnmountOnHide: true
 };

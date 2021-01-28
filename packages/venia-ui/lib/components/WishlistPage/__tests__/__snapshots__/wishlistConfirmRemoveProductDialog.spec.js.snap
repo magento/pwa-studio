@@ -12,7 +12,6 @@ exports[`renders correctly 1`] = `
   isOpen={true}
   onCancel={[MockFunction]}
   shouldDisableAllButtons={false}
-  shouldUnmountOnHide={true}
   title="Remove Product from Wishlist"
 >
   <div
@@ -42,7 +41,6 @@ exports[`renders correctly when closed 1`] = `
   isOpen={false}
   onCancel={[MockFunction]}
   shouldDisableAllButtons={false}
-  shouldUnmountOnHide={true}
   title="Remove Product from Wishlist"
 >
   <div
@@ -72,7 +70,6 @@ exports[`renders correctly when removal is in progress 1`] = `
   isOpen={true}
   onCancel={[MockFunction]}
   shouldDisableAllButtons={true}
-  shouldUnmountOnHide={true}
   title="Remove Product from Wishlist"
 >
   <div
@@ -102,7 +99,6 @@ exports[`renders correctly with error 1`] = `
   isOpen={true}
   onCancel={[MockFunction]}
   shouldDisableAllButtons={false}
-  shouldUnmountOnHide={true}
   title="Remove Product from Wishlist"
 >
   <div

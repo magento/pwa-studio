@@ -48,7 +48,6 @@ const WishlistConfirmRemoveProductDialog = props => {
             onCancel={onCancel}
             onConfirm={onConfirm}
             shouldDisableAllButtons={isRemovalInProgress}
-            shouldUnmountOnHide={true}
             title={dialogTitle}
         >
             <div className={classes.root}>
