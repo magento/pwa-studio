@@ -43,6 +43,7 @@ const mockTalonProps = {
     errors: new Map(),
     handleOptionSelection: jest.fn(),
     handleSubmit: jest.fn(),
+    isDialogOpen: true,
     isLoading: false,
     setFormApi: jest.fn()
 };
@@ -54,11 +55,12 @@ const variantPrice = {
 
 test('renders loading indicator while options are being fetched', () => {
     useProductForm.mockReturnValueOnce({
+        ...mockTalonProps,
         isLoading: true
     });
 
     const tree = createTestInstance(
-        <ProductForm item={{}} setIsUpdating={jest.fn()} />
+        <ProductForm item={null} setIsUpdating={jest.fn()} />
     );
     expect(tree.toJSON()).toMatchSnapshot();
 });

@@ -40,6 +40,7 @@ const UpdateModal = props => {
             onConfirm={handleSubmit}
             shouldDisableAllButtons={dialogButtonsDisabled}
             shouldDisableConfirmButton={dialogSubmitButtonDisabled}
+            shouldUnmountOnHide={false}
             title={formatMessage({
                 id: 'checkoutPage.editShippingMethod',
                 defaultMessage: 'Edit Shipping Method'

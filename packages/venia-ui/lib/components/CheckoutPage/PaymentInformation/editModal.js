@@ -61,7 +61,6 @@ const EditModal = props => {
             onConfirm={handleUpdate}
             shouldDisableAllButtons={updateButtonClicked}
             shouldDisableConfirmButton={updateButtonClicked}
-            shouldUnmountOnHide={true}
             title={formatMessage({
                 id: 'checkoutPage.editPaymentInformation',
                 defaultMessage: 'Edit Payment Information'
