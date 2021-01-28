@@ -81,6 +81,7 @@ exports[`renders correctly 1`] = `
     isOpen={false}
     onCancel={[MockFunction handleHideModal]}
     onConfirm={[MockFunction handleCreateList]}
+    shouldUnmountOnHide={false}
     title="New Favorites List"
   >
     <div

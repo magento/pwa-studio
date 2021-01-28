@@ -6,6 +6,7 @@ export const GET_STORE_CONFIG_DATA = gql`
             id
             code
             store_name
+            store_group_name
         }
     }
 `;
@@ -28,7 +29,11 @@ export const GET_AVAILABLE_STORES_DATA = gql`
             id
             locale
             product_url_suffix
+            secure_base_media_url
+            store_group_code
+            store_group_name
             store_name
+            store_sort_order
         }
     }
 `;
