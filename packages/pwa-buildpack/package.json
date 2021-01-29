@@ -29,6 +29,7 @@
     "@magento/directive-parser": "~0.1.7",
     "@magento/upward-js": "~5.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "~0.4.1",
+    "@yarnpkg/lockfile": "~1.1.0",
     "apicache": "~1.4.0",
     "boxen": "~3.0.0",
     "camelspace": "~1.0.0",

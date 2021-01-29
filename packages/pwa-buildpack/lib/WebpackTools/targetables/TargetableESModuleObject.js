@@ -5,39 +5,9 @@ const TargetableESModule = require('./TargetableESModule');
  * Builds a simple ES module that imports a list of other modules you provide,
  * and then re-exports those modules as an object with properties matching the
  * imported bindings.
- *
  * Useful for building named lists and associative arrays when making extension points.
  *
  * Uses [export-esm-collection-loader][] to build source code.
- *
- * @example <caption>Export three styles of button in a mapping.</caption>
- *
- * ```js
- * const buttons = targetable.esModuleArray('path/to/buttons.js');
- *
- * buttons.add("import Primary from './path/to/Primary'");
- * buttons.add("import { Button as Simple } from './path/to/simple'");
- * buttons.add("import Secondary from './path/to/Standard'");
- * ```
- *
- * The actual `path/to/buttons.js` file is a placeholder; it just exports an
- * empty object `export default {}`.
- *
- * After the transforms above, `./path/to/button.js` will enter the bundle as:
- *
- * ```js
- * import Primary from './path/to/Primary'");
- * import { Button as Simple } from './path/to/simple'");
- * import { Secondary } from './path/to/Standard'");
- *
- * export default { Primary, Simple, Secondary };
- * ```
- *
- * **Requires an "empty" module that exports either an empty array or an empty
- * object. Without that module, the loader has nothing to "load" and will not
- * execute. Also, without that module, code editors and linters may complain
- * that it's missing.**
- *
  */
 class TargetableESModuleObject extends TargetableESModule {
     constructor(...args) {
@@ -61,10 +31,13 @@ class TargetableESModuleObject extends TargetableESModule {
         return super.flush().reverse();
     }
     /**
-     * In this type of module, all imports must be exported, so this method
-     * gains some additional validation and behavior.
+     * Adds a module to the object using the `addImport()` method from TargetableESModule.
+     * Since, all imports must be exported, this method performs additional validation.
      *
-     * @alias TargetableESModuleObject#add
+     * @param {string} importString A static import declaration
+     *
+     * @return { this }
+     * @chainable
      */
     addImport(importString) {
         const importStatement = new SingleImportStatement(importString);
@@ -84,6 +57,15 @@ class TargetableESModuleObject extends TargetableESModule {
         }
         return this;
     }
+
+    /**
+     * Adds a module or modules to the object using the `addImport()` function.
+     *
+     * @param  {...string} args Static import declaration(s)
+     *
+     * @return { this }
+     * @chainable
+     */
     add(...args) {
         args.forEach(arg => this.addImport(arg));
         return this;

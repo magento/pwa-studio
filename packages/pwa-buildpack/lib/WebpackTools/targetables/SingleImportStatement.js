@@ -26,48 +26,11 @@ class SingleImportError extends Error {
  *
  * That's _almost_ all we need to do the import management we need, including
  * deduping and scope conflict resolution.
- *
- * @example <caption>Add two new imports that would set the same local binding.</caption>
- *
- * ```js
- * esModule.addImport('import Button from "vendor/button"')
- *   .addImport('import Button from "different-vendor"');
- * ```
- *
- * The two statements refer to different modules, but they are both trying to
- * use the local variable name "Button".
- *
- * SingleImportStatement helps with that by detecting the conflict and then
- * _renaming the second binding_, using SingleImportStatement#changeBinding.
- *
- * Often the developer will want to know what the new binding is, so they can
- * refer to the component in code and from other targets. SingleImportStatement
- * makes this nice, too. The `TargetableModule#addImport(importString)` method
- * **returns the SingleImportStatement it created.** That object has a
- * `binding` property, which will equal the new name created by the conflict
- * resolution. You can then use it in templates.
- *
- * @example <caption>Add an import and then some code which uses the imported module.</caption>
- *
- * ```js
- * const logger = esModule.addImport('logger from './logger');
- * esModule.insertAfterSource("./logger';\n", `${logger.binding}('startup')`)
- * ```
- * If `logger` is changed due to conflict to a unique name like 'logger$$2',
- * then `logger.binding` will be equal to `logger$$2`. _Note:
- * SingleImportStatement overrides its `toString` method and returns its
- * `.binding` property, so you can just use the statement itself in your
- * templates
- *
- * The one extra guarantee we need is that each import should import only
- * **one** new binding. For example, `import { Button as VeniaButton } from
- * '@magento/venia/lib/components/Button'` would be legal, because it adds
- * exactly one binding in the document: "VeniaButton". Whereas `import { Button
- * as VeniaButton, Carousel } from '@magento/venia'` would not be allowed,
- * since it adds two bindings: "VeniaButton" and "Carousel".
- *
  */
 class SingleImportStatement {
+    /**
+     * @param {string} statement A static import statement
+     */
     constructor(statement) {
         this.originalStatement = statement;
         this.statement = this._normalizeStatement(statement);
@@ -77,31 +40,13 @@ class SingleImportStatement {
         this.imported = this._getImported(); // must come after this._getBinding
     }
     /**
-     * Return a new SingleImportStatement that is a copy of this one, but with
-     * the binding renamed. The `originalStatement` and `statement` properties
-     * are rewritten to use the new binding.
-     *
-     * @example
-     *
-     * ```js
-     * const useQueryImport = new SingleImportStatement("import { useQuery } from '@apollo/react-hooks'");
-     * // SingleImportStatement {
-     * //   statement: "import { useQuery } from '@apollo/react-hooks'",
-     * //   binding: 'useQuery',
-     * //   imported: 'useQuery'
-     * // }
-     *
-     *
-     * const useQueryImport2 = useQueryImport.changeBinding('useQuery2');
-     * // SingleImportStatement {
-     * //   statement: "import { useQuery as useQuery2 } from '@apollo/react-hooks'",
-     * //   binding: 'useQuery2',
-     * //   imported: 'useQuery'
-     * // }
-     * ```
+     * Creates a new SingleImportStatement object with a different binding.
      *
      * @param {string} newBinding - Binding to rename.
-     * @returns SingleImportStatement
+     *
+     * @returns {SingleImportStatement} A new SingleImportStatement that is a copy
+     * of this one, but with the binding renamed. The `originalStatement` and
+     * `statement` properties are rewritten to use the new binding.
      */
     changeBinding(newBinding) {
         const { imported, local } = this.node.specifiers[0];
@@ -128,18 +73,6 @@ class SingleImportStatement {
     /**
      * When interpolated as a string, a SingleImportStatement becomes the value
      * of its `binding` property.
-     *
-     * @example <caption>Write JSX without knowing components' local names.</caption>
-     *
-     * ```js
-     * let Button = new SingleImportStatement("Button from './button'");
-     *
-     * // later, we learn there is a conflict with the `Button` identifier
-     * Button = Button.changeBinding(generateUniqueIdentifier());
-     *
-     * const jsx = `<${Button}>hello world</${Button}>`
-     * jsx === '<Button$$1>hello world</Button$$1>';
-     * ```
      *
      * @returns string
      */
