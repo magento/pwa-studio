@@ -1,0 +1,12 @@
+{
+    "name": "test_package",
+    "version": "0.0.1",
+    "dependencies": {
+        "@magento/pwa-buildpack": "7.0.0"
+    },
+    "devDependencies": {
+        "@adobe/apollo-link-mutation-queue": "1.0.2",
+        "@magento/peregrine": "8.0.0",
+        "@magento/venia-ui": "5.0.0"
+    }
+}
