@@ -33,11 +33,11 @@ export const useCheckmo = (props = {}) => {
         variables: { cartId }
     });
 
-    const onBillingAdressChangedError = useCallback(() => {
+    const onBillingAddressChangedError = useCallback(() => {
         resetShouldSubmit();
     }, [resetShouldSubmit]);
 
-    const onBillingAdressChangedSuccess = useCallback(() => {
+    const onBillingAddressChangedSuccess = useCallback(() => {
         updatePaymentMethod();
     }, [updatePaymentMethod]);
 
@@ -72,7 +72,7 @@ export const useCheckmo = (props = {}) => {
             data &&
             data.storeConfig &&
             data.storeConfig.payment_checkmo_mailing_address,
-        onBillingAdressChangedError,
-        onBillingAdressChangedSuccess
+        onBillingAddressChangedError,
+        onBillingAddressChangedSuccess
     };
 };

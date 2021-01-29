@@ -13,7 +13,7 @@ const CheckMo = props => {
     const mailingAddresDefault =
         'Venia Inc\r\nc/o Payment\r\nPO 122334\r\nAustin Texas"';
     const { resetShouldSubmit, onPaymentSuccess } = props;
-    const adressTemplate = str => (
+    const addressTemplate = str => (
         <span key={str}>
             {str} <br />
         </span>
@@ -24,16 +24,16 @@ const CheckMo = props => {
     const {
         payableTo,
         mailingAddress,
-        onBillingAdressChangedError,
-        onBillingAdressChangedSuccess
+        onBillingAddressChangedError,
+        onBillingAddressChangedSuccess
     } = useCheckmo({
         setPaymentMethodOnCartMutation,
         resetShouldSubmit,
         onPaymentSuccess
     });
     const formatAddress = mailingAddress
-        ? mailingAddress.split('\n').map(str => adressTemplate(str))
-        : mailingAddresDefault.split('\n').map(str => adressTemplate(str));
+        ? mailingAddress.split('\n').map(str => addressTemplate(str))
+        : mailingAddresDefault.split('\n').map(str => addressTemplate(str));
 
     return (
         <div className={classes.root}>
@@ -55,8 +55,8 @@ const CheckMo = props => {
             <p className={classes.formatAddress}>{formatAddress}</p>
             <BillingAddress
                 shouldSubmit={props.shouldSubmit}
-                onBillingAdressChangedError={onBillingAdressChangedError}
-                onBillingAdressChangedSuccess={onBillingAdressChangedSuccess}
+                onBillingAddressChangedError={onBillingAddressChangedError}
+                onBillingAddressChangedSuccess={onBillingAddressChangedSuccess}
             />
         </div>
     );

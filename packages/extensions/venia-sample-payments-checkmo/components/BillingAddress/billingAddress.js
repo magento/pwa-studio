@@ -12,8 +12,8 @@ import FormError from '@magento/venia-ui/lib/components/FormError';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
 import defaultClasses from './billingAddress.css';
-import billingAdresOperations from './billingAddress.gql.js';
-import { useBillingAdress } from '../../talons/useBillingAdress';
+import billingAddressOperations from './billingAddress.gql.js';
+import { useBillingAddress } from '../../talons/useBillingAddress';
 
 const BillingAddress = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -21,21 +21,21 @@ const BillingAddress = props => {
 
     const {
         shouldSubmit,
-        onBillingAdressChangedError,
-        onBillingAdressChangedSuccess
+        onBillingAddressChangedError,
+        onBillingAddressChangedSuccess
     } = props;
 
-    const { mutations, queries } = billingAdresOperations;
+    const { mutations, queries } = billingAddressOperations;
 
     const {
         isBillingAddressSame,
         initialValues,
         shippingAddressCountry,
         errors
-    } = useBillingAdress({
+    } = useBillingAddress({
         shouldSubmit,
-        onBillingAdressChangedError,
-        onBillingAdressChangedSuccess,
+        onBillingAddressChangedError,
+        onBillingAddressChangedSuccess,
         mutations,
         queries
     });
@@ -213,8 +213,8 @@ const BillingAddress = props => {
 BillingAddress.propTypes = {
     classes: shape({ root: string }),
     shouldSubmit: bool.isRequired,
-    onBillingAdressChangedError: func,
-    onBillingAdressChangedSuccess: func
+    onBillingAddressChangedError: func,
+    onBillingAddressChangedSuccess: func
 };
 
 export default BillingAddress;

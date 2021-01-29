@@ -43,8 +43,8 @@ export const mapAddressData = rawAddressData => {
  * Talon to handle Credit Card payment method.
  *
  * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
- * @param {Function} props.onBillingAdressChangedError callback to invoke when error was throw for set the billing adress
- * @param {Function} props.onBillingAdressChangedSuccess callback to invoke when adress was sucessfully set
+ * @param {Function} props.onBillingAddressChangedError callback to invoke when error was throw for set the billing address
+ * @param {Function} props.onBillingAddressChangedSuccess callback to invoke when address was sucessfully set
  * @param {DocumentNode} props.queries.getBillingAddressQuery query to fetch billing address from cache
  * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
  * @param {DocumentNode} props.mutations.setBillingAddressMutation mutation to update billing address on the cart
@@ -67,13 +67,13 @@ export const mapAddressData = rawAddressData => {
  *   shippingAddressCountry: String,
  * }
  */
-export const useBillingAdress = (props = {}) => {
+export const useBillingAddress = (props = {}) => {
     const {
         queries,
         mutations,
         shouldSubmit,
-        onBillingAdressChangedError,
-        onBillingAdressChangedSuccess
+        onBillingAddressChangedError,
+        onBillingAddressChangedSuccess
     } = props;
 
     const {
@@ -256,7 +256,7 @@ export const useBillingAdress = (props = {}) => {
         } catch (err) {
             console.error(err);
 
-            onBillingAdressChangedError();
+            onBillingAddressChangedError();
         }
     }, [
         shouldSubmit,
@@ -264,8 +264,8 @@ export const useBillingAdress = (props = {}) => {
         setShippingAddressAsBillingAddress,
         setBillingAddress,
         setIsBillingAddressSameInCache,
-        onBillingAdressChangedError,
-        onBillingAdressChangedSuccess,
+        onBillingAddressChangedError,
+        onBillingAddressChangedSuccess,
         validateBillingAddressForm,
         formState.errors
     ]);
@@ -282,7 +282,7 @@ export const useBillingAdress = (props = {}) => {
                 billingAddressMutationCompleted &&
                 !billingAddressMutationError
             ) {
-                onBillingAdressChangedSuccess();
+                onBillingAddressChangedSuccess();
             }
 
             if (
@@ -297,14 +297,14 @@ export const useBillingAdress = (props = {}) => {
             }
         } catch (err) {
             console.error(err);
-            onBillingAdressChangedError();
+            onBillingAddressChangedError();
         }
     }, [
         billingAddressMutationError,
         billingAddressMutationCalled,
         billingAddressMutationLoading,
-        onBillingAdressChangedError,
-        onBillingAdressChangedSuccess
+        onBillingAddressChangedError,
+        onBillingAddressChangedSuccess
     ]);
 
     return {
