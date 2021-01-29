@@ -15,11 +15,11 @@ export const useCheckmo = (props = {}) => {
     const [{ cartId }] = useCartContext();
     const { data } = useQuery(getCheckmoConfigQuery);
 
-    const { resetShouldSubmit, onPaymentSuccess } = props;
-
     const {
+        resetShouldSubmit,
+        onPaymentSuccess,
         setPaymentMethodOnCartMutation
-    } = props.setPaymentMethodOnCartMutation;
+    } = props;
 
     const [
         updatePaymentMethod,
@@ -28,7 +28,10 @@ export const useCheckmo = (props = {}) => {
             called: paymentMethodMutationCalled,
             loading: paymentMethodMutationLoading
         }
-    ] = useMutation(setPaymentMethodOnCartMutation,  { skip: !cartId, variables: { cartId } });
+    ] = useMutation(setPaymentMethodOnCartMutation, {
+        skip: !cartId,
+        variables: { cartId }
+    });
 
     const onBillingAdressChangedError = useCallback(() => {
         resetShouldSubmit();

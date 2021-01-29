@@ -5,7 +5,7 @@ import { useCheckmo } from '@magento/venia-sample-payments-checkmo/talons/useChe
 import defaultClasses from './checkmo.css';
 import { FormattedMessage } from 'react-intl';
 import BillingAddress from './BillingAddress';
-import setPaymentMethodOnCartMutation from './checkmo.gql';
+import checkmoOperations from './checkmo.gql';
 
 const CheckMo = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -18,6 +18,8 @@ const CheckMo = props => {
             {str} <br />
         </span>
     );
+
+    const { setPaymentMethodOnCartMutation } = checkmoOperations;
 
     const {
         payableTo,
