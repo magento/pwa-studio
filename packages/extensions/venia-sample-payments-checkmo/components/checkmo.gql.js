@@ -17,5 +17,5 @@ export const SET_PAYMENT_METHOD_ON_CART = gql`
 `;
 
 export default {
-  setPaymentMethodOnCartMutation: SET_PAYMENT_METHOD_ON_CART
+    setPaymentMethodOnCartMutation: SET_PAYMENT_METHOD_ON_CART
 };

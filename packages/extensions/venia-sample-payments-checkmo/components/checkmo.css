@@ -1,13 +1,12 @@
-
-.root{
+.root {
     padding-top: 1.125rem;
 }
 
-.title{
+.title {
     font-weight: var(--venia-global-fontWeight-semibold);
 }
 
-.mailingAddressTitle{
+.mailingAddressTitle {
     font-weight: var(--venia-global-fontWeight-semibold);
     padding-top: 1rem;
 }
