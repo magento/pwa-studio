@@ -608,7 +608,7 @@ Declare these dependencies in `package.json`:
   },
   "peerDependencies": {
     "@magento/venia-ui": "~6.0.0",
-    "react": "~16.9.0",
+    "react": "~17.0.1",
     "react-router-dom": "~5.1.0"
   }
 }

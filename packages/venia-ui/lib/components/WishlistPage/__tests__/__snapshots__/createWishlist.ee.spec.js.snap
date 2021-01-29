@@ -109,6 +109,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
+              id="name"
               name="name"
               onBlur={[Function]}
               onChange={[Function]}
