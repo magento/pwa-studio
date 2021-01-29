@@ -52,12 +52,12 @@ const props = {
     id: 1
 };
 
-test('fullPageLoadingIndicator is present when no data is returned from GraphQL', () => {
+test('fullPageLoadingIndicator is present when loading but no data', () => {
     useQuery.mockImplementation(() => {
         return {
             data: false,
             error: false,
-            loading: false
+            loading: true
         };
     });
 

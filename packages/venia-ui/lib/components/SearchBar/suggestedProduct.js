@@ -19,7 +19,7 @@ const SuggestedProduct = props => {
         }
     }, [onNavigate]);
 
-    const uri = useMemo(() => resourceUrl(`/${url_key}${url_suffix}`), [
+    const uri = useMemo(() => resourceUrl(`/${url_key}${url_suffix || ''}`), [
         url_key,
         url_suffix
     ]);

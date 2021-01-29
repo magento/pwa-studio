@@ -17,16 +17,3 @@
     grid-template-columns: repeat(auto-fit, 6rem);
     justify-content: center;
 }
-
-.fetchError {
-    background-color: rgb(var(--venia-global-color-warning-light));
-    color: rgb(var(--venia-global-color-warning-dark));
-}
-
-.fetchingData {
-    color: rgb(--venia-global-color-gray);
-}
-
-.noResults {
-    composes: fetchingData;
-}
