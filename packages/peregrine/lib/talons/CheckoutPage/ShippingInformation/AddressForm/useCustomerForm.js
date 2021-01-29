@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useCallback, useMemo } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 
 export const useCustomerForm = props => {
     const {
@@ -19,25 +19,23 @@ export const useCustomerForm = props => {
 
     const [
         createCustomerAddress,
-        { loading: createCustomerAddressLoading }
+        {
+            error: createCustomerAddressError,
+            loading: createCustomerAddressLoading
+        }
     ] = useMutation(createCustomerAddressMutation);
 
     const [
         updateCustomerAddress,
-        { loading: updateCustomerAddressLoading }
+        {
+            error: updateCustomerAddressError,
+            loading: updateCustomerAddressLoading
+        }
     ] = useMutation(updateCustomerAddressMutation);
 
-    const {
-        error: getCustomerError,
-        data: customerData,
-        loading: getCustomerLoading
-    } = useQuery(getCustomerQuery);
-
-    useEffect(() => {
-        if (getCustomerError) {
-            console.error(getCustomerError);
-        }
-    }, [getCustomerError]);
+    const { data: customerData, loading: getCustomerLoading } = useQuery(
+        getCustomerQuery
+    );
 
     const isSaving =
         createCustomerAddressLoading || updateCustomerAddressLoading;
@@ -45,14 +43,12 @@ export const useCustomerForm = props => {
     // Simple heuristic to indicate form was submitted prior to this render
     const isUpdate = !!shippingData.city;
 
-    const { country, region } = shippingData;
+    const { country } = shippingData;
     const { code: countryCode } = country;
-    const { id: regionId } = region;
 
     let initialValues = {
         ...shippingData,
-        country: countryCode,
-        region: regionId && regionId.toString()
+        country: countryCode
     };
 
     const hasDefaultShipping =
@@ -72,14 +68,11 @@ export const useCustomerForm = props => {
     const handleSubmit = useCallback(
         async formValues => {
             // eslint-disable-next-line no-unused-vars
-            const { country, email, region, ...address } = formValues;
+            const { country, email, ...address } = formValues;
             try {
                 const customerAddress = {
                     ...address,
-                    country_code: country,
-                    region: {
-                        region_id: region
-                    }
+                    country_code: country
                 };
 
                 if (isUpdate) {
@@ -102,8 +95,8 @@ export const useCustomerForm = props => {
                         ]
                     });
                 }
-            } catch (error) {
-                console.error(error);
+            } catch {
+                return;
             }
 
             if (afterSubmit) {
@@ -125,7 +118,17 @@ export const useCustomerForm = props => {
         onCancel();
     }, [onCancel]);
 
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['createCustomerAddressMutation', createCustomerAddressError],
+                ['updateCustomerAddressMutation', updateCustomerAddressError]
+            ]),
+        [createCustomerAddressError, updateCustomerAddressError]
+    );
+
     return {
+        errors,
         handleCancel,
         handleSubmit,
         hasDefaultShipping,

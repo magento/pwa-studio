@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders empty page 1`] = `
+Array [
+  <Breadcrumbs />,
+  "Title",
+  <article
+    className="a"
+  >
+    <h1
+      className="b"
+    >
+      <div>
+        Empty Name
+      </div>
+    </h1>
+    <div />
+    <NoProductsFound />
+  </article>,
+]
+`;
+
 exports[`renders the correct tree 1`] = `
 Array [
   <Breadcrumbs />,
@@ -14,6 +34,7 @@ Array [
         Name
       </div>
     </h1>
+    <div />
     <section
       className="c"
     >

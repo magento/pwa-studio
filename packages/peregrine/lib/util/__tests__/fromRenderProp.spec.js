@@ -10,18 +10,20 @@ test('returns a component', () => {
 });
 
 test('returns a basic component that renders', () => {
+    const child = 'foo';
     const Div = fromRenderProp('div');
-    const wrapper = shallow(<Div>foo</Div>);
+    const wrapper = shallow(<Div>{child}</Div>);
 
-    expect(wrapper.prop('children')).toBe('foo');
+    expect(wrapper.prop('children')).toBe(child);
 });
 
 test('returns a composite component that renders', () => {
+    const child = 'foo';
     const Foo = props => <div {...props} />;
     const WrappedFoo = fromRenderProp(Foo);
-    const wrapper = shallow(<WrappedFoo>foo</WrappedFoo>);
+    const wrapper = shallow(<WrappedFoo>{child}</WrappedFoo>);
 
-    expect(wrapper.prop('children')).toBe('foo');
+    expect(wrapper.prop('children')).toBe(child);
 });
 
 test('excludes custom props for a basic component', () => {

@@ -1,20 +1,15 @@
 import React from 'react';
 import { shape, string, bool, func } from 'prop-types';
 import { RadioGroup } from 'informed';
+import { useIntl } from 'react-intl';
 
 import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods';
 
 import { mergeClasses } from '../../../classify';
 import Radio from '../../RadioGroup/radio';
-import CreditCard from './creditCard';
 import paymentMethodOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.css';
-
-const PAYMENT_METHOD_COMPONENTS_BY_CODE = {
-    braintree: CreditCard
-    // checkmo: CheckMo,
-    // etc
-};
+import payments from './paymentMethodCollection';
 
 const PaymentMethods = props => {
     const {
@@ -24,6 +19,8 @@ const PaymentMethods = props => {
         resetShouldSubmit,
         shouldSubmit
     } = props;
+
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -42,37 +39,56 @@ const PaymentMethods = props => {
         return null;
     }
 
-    const radios = availablePaymentMethods.map(({ code, title }) => {
-        // If we don't have an implementation for a method type, ignore it.
-        if (!Object.keys(PAYMENT_METHOD_COMPONENTS_BY_CODE).includes(code)) {
-            return;
-        }
+    const radios = availablePaymentMethods
+        .map(({ code, title }) => {
+            // If we don't have an implementation for a method type, ignore it.
+            if (!Object.keys(payments).includes(code)) {
+                return;
+            }
 
-        const isSelected = currentSelectedPaymentMethod === code;
-        const PaymentMethodComponent = PAYMENT_METHOD_COMPONENTS_BY_CODE[code];
-        const renderedComponent = isSelected ? (
-            <PaymentMethodComponent
-                onPaymentSuccess={onPaymentSuccess}
-                onPaymentError={onPaymentError}
-                resetShouldSubmit={resetShouldSubmit}
-                shouldSubmit={shouldSubmit}
-            />
-        ) : null;
-
-        return (
-            <div key={code} className={classes.payment_method}>
-                <Radio
-                    label={title}
-                    value={code}
-                    classes={{
-                        label: classes.radio_label
-                    }}
-                    checked={isSelected}
+            const isSelected = currentSelectedPaymentMethod === code;
+            const PaymentMethodComponent = payments[code];
+            const renderedComponent = isSelected ? (
+                <PaymentMethodComponent
+                    onPaymentSuccess={onPaymentSuccess}
+                    onPaymentError={onPaymentError}
+                    resetShouldSubmit={resetShouldSubmit}
+                    shouldSubmit={shouldSubmit}
                 />
-                {renderedComponent}
-            </div>
-        );
-    });
+            ) : null;
+
+            return (
+                <div key={code} className={classes.payment_method}>
+                    <Radio
+                        label={title}
+                        value={code}
+                        classes={{
+                            label: classes.radio_label
+                        }}
+                        checked={isSelected}
+                    />
+                    {renderedComponent}
+                </div>
+            );
+        })
+        .filter(paymentMethod => !!paymentMethod);
+
+    const noPaymentMethodMessage = !radios.length ? (
+        <div className={classes.payment_errors}>
+            <span>
+                {formatMessage({
+                    id: 'checkoutPage.paymentLoadingError',
+                    defaultMessage: 'There was an error loading payments.'
+                })}
+            </span>
+            <span>
+                {formatMessage({
+                    id: 'checkoutPage.refreshOrTryAgainLater',
+                    defaultMessage: 'Please refresh or try again later.'
+                })}
+            </span>
+        </div>
+    ) : null;
 
     return (
         <div className={classes.root}>
@@ -82,6 +98,7 @@ const PaymentMethods = props => {
             >
                 {radios}
             </RadioGroup>
+            {noPaymentMethodMessage}
         </div>
     );
 };

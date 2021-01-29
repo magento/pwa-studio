@@ -1,61 +1,86 @@
-import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useCallback, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
-import addToCache from './addToCache';
-import getRouteComponent from './getRouteComponent';
+import { getRootComponent, isRedirect } from './helpers';
+import DEFAULT_OPERATIONS from './magentoRoute.gql';
 
-const IS_LOADING = { isLoading: true };
-
-export const useMagentoRoute = () => {
-    const [componentMap, setComponentMap] = useState(new Map());
-    const { apiBase } = useApolloClient();
+export const useMagentoRoute = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { resolveUrlQuery } = operations;
+    const { replace } = useHistory();
     const { pathname } = useLocation();
-    const isMountedRef = useRef(false);
+    const [componentMap, setComponentMap] = useRootComponents();
 
-    const routeData = componentMap.get(pathname);
+    const setComponent = useCallback(
+        (key, value) => {
+            setComponentMap(prevMap => new Map(prevMap).set(key, value));
+        },
+        [setComponentMap]
+    );
 
-    // ask Magento for a RootComponent that matches the current pathname
+    const queryResult = useQuery(resolveUrlQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        variables: { url: pathname }
+    });
+
+    // destructure the query result
+    const { data, error, loading } = queryResult;
+    const { urlResolver } = data || {};
+    const { id, redirectCode, relative_url, type } = urlResolver || {};
+
+    // evaluate both results and determine the response type
+    const component = componentMap.get(pathname);
+    const empty = !urlResolver || !type || id < 1;
+    const redirect = isRedirect(redirectCode);
+    const fetchError = component instanceof Error && component;
+    const routeError = fetchError || error;
+    let routeData;
+
+    if (component && !fetchError) {
+        // FOUND
+        routeData = component;
+    } else if (routeError) {
+        // ERROR
+        routeData = { hasError: true, routeError };
+    } else if (redirect) {
+        // REDIRECT
+        routeData = { isRedirect: true, relativeUrl: relative_url };
+    } else if (empty && !loading) {
+        // NOT FOUND
+        routeData = { isNotFound: true };
+    } else {
+        // LOADING
+        routeData = { isLoading: true };
+    }
+
+    // fetch a component if necessary
     useEffect(() => {
-        // avoid asking if we already know the answer
-        const isKnown = componentMap.has(pathname);
+        (async () => {
+            // don't fetch if we don't have data yet
+            if (loading || empty) return;
 
-        // ask again following a prior failure
-        const isNotFound = isKnown && componentMap.get(pathname).id === -1;
-        const shouldReload = isNotFound && navigator.onLine;
+            // don't fetch more than once
+            if (component) return;
 
-        if (!isKnown || shouldReload) {
-            getRouteComponent(apiBase, pathname).then(
-                ({ component, id, pathname, routeError }) => {
-                    // avoid setting state if unmounted
-                    if (!isMountedRef.current) {
-                        return;
-                    }
+            try {
+                const component = await getRootComponent(type);
+                setComponent(pathname, { component, id, type });
+            } catch (error) {
+                setComponent(pathname, error);
+            }
+        })();
+    }, [component, empty, id, loading, pathname, setComponent, type]);
 
-                    // add the pathname to the browser cache
-                    addToCache(pathname);
-
-                    // then add the pathname and result to local state
-                    setComponentMap(prevMap => {
-                        const nextMap = new Map(prevMap);
-                        const nextValue = routeError
-                            ? { hasError: true, routeError }
-                            : { component, id };
-
-                        return nextMap.set(pathname, nextValue);
-                    });
-                }
-            );
+    // perform a redirect if necesssary
+    useEffect(() => {
+        if (routeData && routeData.isRedirect) {
+            replace(routeData.relativeUrl);
         }
-    }, [apiBase, componentMap, pathname]);
+    }, [pathname, replace, routeData]);
 
-    useEffect(() => {
-        isMountedRef.current = true;
-
-        return () => {
-            isMountedRef.current = false;
-        };
-    }, []);
-
-    return routeData || IS_LOADING;
+    return routeData;
 };

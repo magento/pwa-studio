@@ -1,11 +1,11 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 import { CartPageFragment } from '../cartPageFragments.gql';
 import { GiftCardFragment } from './giftCardFragments';
 
-export const GET_CART_GIFT_CARDS_QUERY = gql`
-    query getCartDetails($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+export const GET_APPLIED_GIFT_CARDS_QUERY = gql`
+    query getAppliedGiftCards($cartId: String!) {
+        cart(cart_id: $cartId) {
             id
             ...GiftCardFragment
         }

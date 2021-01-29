@@ -7,7 +7,17 @@
     width: 3rem;
 }
 
-.open {
-    composes: root;
-    color: rgb(var(--venia-teal));
+.label {
+    display: none;
+}
+
+@media (min-width: 641px) {
+    .root {
+        width: auto;
+    }
+
+    .label {
+        display: initial;
+        margin-inline-start: 0.25rem;
+    }
 }

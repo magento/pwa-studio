@@ -50,6 +50,20 @@ test('renders a dialog with only the confirm button disabled', () => {
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
+test('renders a Dialog with no buttons', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        shouldShowButtons: false
+    };
+
+    // Act.
+    const wrapper = createTestInstance(<Dialog {...myProps} />);
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
 test('supports modifying title and button texts', () => {
     // Arrange.
     const myProps = {
@@ -75,6 +89,48 @@ test('does not render a close X button in modal mode', () => {
 
     // Act.
     const wrapper = createTestInstance(<Dialog {...myProps} />);
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('should render children even if dialog is hidden and if shouldUnmountOnHide is false', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        isOpen: false,
+        shouldUnmountOnHide: false
+    };
+
+    const CONTENT = 'Dialog Contents';
+
+    // Act.
+    const wrapper = createTestInstance(
+        <Dialog {...myProps}>
+            <div>{CONTENT}</div>
+        </Dialog>
+    );
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('should unmount children if dialog is hidden and if shouldUnmountOnHide is true', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        isOpen: false,
+        shouldUnmountOnHide: true
+    };
+
+    const CONTENT = 'Dialog Contents';
+
+    // Act.
+    const wrapper = createTestInstance(
+        <Dialog {...myProps}>
+            <div>{CONTENT}</div>
+        </Dialog>
+    );
 
     // Assert.
     expect(wrapper.toJSON()).toMatchSnapshot();

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string, func } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
@@ -6,17 +7,22 @@ import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentIn
 import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
 
-import summaryOperations from './summary.gql';
+import summaryOperations, { CUSTOM_TYPES } from './summary.gql';
 
 import defaultClasses from './summary.css';
 import LoadingIndicator from '../../LoadingIndicator';
+import LinkButton from '../../LinkButton';
 
 const Summary = props => {
     const { classes: propClasses, onEdit } = props;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const talonProps = useSummary({ ...summaryOperations });
+    const talonProps = useSummary({
+        ...summaryOperations,
+        typePolicies: CUSTOM_TYPES
+    });
 
     const {
         billingAddress,
@@ -26,10 +32,13 @@ const Summary = props => {
         selectedPaymentMethod
     } = talonProps;
 
-    if (isLoading) {
+    if (isLoading && !selectedPaymentMethod) {
         return (
             <LoadingIndicator classes={{ root: classes.loading }}>
-                Fetching Payment Information
+                <FormattedMessage
+                    id={'checkoutPage.loadingPaymentInformation'}
+                    defaultMessage={'Fetching Payment Information'}
+                />
             </LoadingIndicator>
         );
     }
@@ -38,7 +47,12 @@ const Summary = props => {
         return (
             <div className={classes.root}>
                 <div className={classes.heading_container}>
-                    <h5 className={classes.heading}>Payment Information</h5>
+                    <h5 className={classes.heading}>
+                        <FormattedMessage
+                            id={'checkoutPage.paymentInformation'}
+                            defaultMessage={'Payment Information'}
+                        />
+                    </h5>
                 </div>
                 <div className={classes.card_details_container}>
                     <span className={classes.payment_details}>
@@ -49,9 +63,16 @@ const Summary = props => {
             </div>
         );
     } else {
-        const paymentSummary = `${paymentNonce.details.cardType} ending in ${
-            paymentNonce.details.lastFour
-        }`;
+        const paymentSummary = formatMessage(
+            {
+                id: 'checkoutPage.paymentSummary',
+                defaultMessage: 'Card'
+            },
+            {
+                cardType: paymentNonce.details.cardType,
+                lastFour: paymentNonce.details.lastFour
+            }
+        );
 
         const billingAddressSummary =
             !isBillingAddressSame && billingAddress ? (
@@ -92,8 +113,13 @@ const Summary = props => {
         return (
             <div className={classes.root}>
                 <div className={classes.heading_container}>
-                    <h5 className={classes.heading}>Payment Information</h5>
-                    <button
+                    <h5 className={classes.heading}>
+                        <FormattedMessage
+                            id={'checkoutPage.paymentInformation'}
+                            defaultMessage={'Payment Information'}
+                        />
+                    </h5>
+                    <LinkButton
                         className={classes.edit_button}
                         onClick={onEdit}
                         type="button"
@@ -103,11 +129,21 @@ const Summary = props => {
                             src={EditIcon}
                             classes={{ icon: classes.edit_icon }}
                         />
-                        <span className={classes.edit_text}>{'Edit'}</span>
-                    </button>
+                        <span className={classes.edit_text}>
+                            <FormattedMessage
+                                id={'global.editButton'}
+                                defaultMessage={'Edit'}
+                            />
+                        </span>
+                    </LinkButton>
                 </div>
                 <div className={classes.card_details_container}>
-                    <span className={classes.payment_type}>Credit Card</span>
+                    <span className={classes.payment_type}>
+                        <FormattedMessage
+                            id={'global.creditCard'}
+                            defaultMessage={'Credit Card'}
+                        />
+                    </span>
                     <span className={classes.payment_details}>
                         {paymentSummary}
                     </span>

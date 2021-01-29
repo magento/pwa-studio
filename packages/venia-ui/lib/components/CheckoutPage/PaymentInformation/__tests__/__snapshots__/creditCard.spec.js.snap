@@ -7,48 +7,68 @@ exports[`Should return correct shape 1`] = `
   <div
     className="credit_card_root"
   >
+    <FormError
+      classes={
+        Object {
+          "root": "formErrorContainer",
+        }
+      }
+      errors={Array []}
+    />
     <div
       className="dropin_root"
     >
-      <div>
-        Braintree Dropin Component
-      </div>
+      <mock-BraintreeDropin
+        onError={[MockFunction]}
+        onReady={[MockFunction]}
+        onSuccess={[MockFunction]}
+      />
     </div>
     <div
       className="address_check"
     >
-      <div
+      <mock-Checkbox
         field="isBillingAddressSame"
         initialValue={false}
         label="Billing address same as shipping address"
-      >
-        Checkout Component
-      </div>
+      />
     </div>
     <div
       className="billing_address_fields_root"
     >
-      <div
+      <mock-Field
         classes={
           Object {
             "root": "first_name",
           }
         }
+        id="firstName"
         label="First Name"
       >
-        Field Component
-      </div>
-      <div
+        <mock-TextInput
+          field="firstName"
+          id="firstName"
+          initialValue="sample first name"
+          validate={[Function]}
+        />
+      </mock-Field>
+      <mock-Field
         classes={
           Object {
             "root": "last_name",
           }
         }
+        id="lastName"
         label="Last Name"
       >
-        Field Component
-      </div>
-      <div
+        <mock-TextInput
+          field="lastName"
+          id="lastName"
+          initialValue="sample last name"
+          validate={[Function]}
+        />
+      </mock-Field>
+      <mock-Country
         classes={
           Object {
             "root": "country",
@@ -56,70 +76,89 @@ exports[`Should return correct shape 1`] = `
         }
         initialValue="sample country"
         validate={[Function]}
-      >
-        Country Component
-      </div>
-      <div
+      />
+      <mock-Field
         classes={
           Object {
             "root": "street1",
           }
         }
+        id="street1"
         label="Street Address"
       >
-        Field Component
-      </div>
-      <div
+        <mock-TextInput
+          field="street1"
+          id="street1"
+          initialValue="sample street 1"
+          validate={[Function]}
+        />
+      </mock-Field>
+      <mock-Field
         classes={
           Object {
             "root": "street2",
           }
         }
+        id="street2"
         label="Street Address 2"
+        optional={true}
       >
-        Field Component
-      </div>
-      <div
+        <mock-TextInput
+          field="street2"
+          id="street2"
+          initialValue="sample street 2"
+        />
+      </mock-Field>
+      <mock-Field
         classes={
           Object {
             "root": "city",
           }
         }
+        id="city"
         label="City"
       >
-        Field Component
-      </div>
-      <div
+        <mock-TextInput
+          field="city"
+          id="city"
+          initialValue="sample city"
+          validate={[Function]}
+        />
+      </mock-Field>
+      <mock-Region
         classes={
           Object {
-            "root": "state",
+            "root": "region",
           }
         }
-        field="state"
+        initialValue="sample region"
         validate={[Function]}
-      >
-        Region Component
-      </div>
-      <div
+      />
+      <mock-Postcode
         classes={
           Object {
             "root": "postal_code",
           }
         }
-        label="ZIP / Postal Code"
-      >
-        Field Component
-      </div>
-      <div
+        initialValue="sample postal code"
+        validate={[Function]}
+      />
+      <mock-Field
         classes={
           Object {
             "root": "phone_number",
           }
         }
+        id="phoneNumber"
         label="Phone Number"
       >
-        Field Component
-      </div>
+        <mock-TextInput
+          field="phoneNumber"
+          id="phoneNumber"
+          initialValue="sample phone number"
+          validate={[Function]}
+        />
+      </mock-Field>
     </div>
   </div>
 </div>

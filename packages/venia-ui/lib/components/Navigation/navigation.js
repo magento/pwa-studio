@@ -5,17 +5,17 @@ import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavig
 import { mergeClasses } from '../../classify';
 import AuthBar from '../AuthBar';
 import CategoryTree from '../CategoryTree';
+import CurrencySwitcher from '../Header/currencySwitcher';
+import StoreSwitcher from '../Header/storeSwitcher';
 import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
-import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 
 const AuthModal = React.lazy(() => import('../AuthModal'));
 
 const Navigation = props => {
     const {
         catalogActions,
-        categories,
         categoryId,
         handleBack,
         handleClose,
@@ -29,14 +29,12 @@ const Navigation = props => {
         showMyAccount,
         showSignIn,
         view
-    } = useNavigation({ customerQuery: GET_CUSTOMER_QUERY });
+    } = useNavigation();
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
     const bodyClassName = hasModal ? classes.body_masked : classes.body;
-    const rootHeaderClassName =
-        isTopLevel && view === 'MENU' ? classes.isRoot : classes.header;
 
     // Lazy load the auth modal because it may not be needed.
     const authModal = hasModal ? (
@@ -55,24 +53,26 @@ const Navigation = props => {
 
     return (
         <aside className={rootClassName}>
-            <header className={rootHeaderClassName}>
+            <header className={classes.header}>
                 <NavHeader
                     isTopLevel={isTopLevel}
                     onBack={handleBack}
-                    onClose={handleClose}
                     view={view}
                 />
             </header>
             <div className={bodyClassName}>
                 <CategoryTree
                     categoryId={categoryId}
-                    categories={categories}
                     onNavigate={handleClose}
                     setCategoryId={setCategoryId}
                     updateCategories={catalogActions.updateCategories}
                 />
             </div>
             <div className={classes.footer}>
+                <div className={classes.switchers}>
+                    <StoreSwitcher />
+                    <CurrencySwitcher />
+                </div>
                 <AuthBar
                     disabled={hasModal}
                     showMyAccount={showMyAccount}
@@ -96,7 +96,6 @@ Navigation.propTypes = {
         root: string,
         root_open: string,
         signIn_closed: string,
-        signIn_open: string,
-        isRoot: string
+        signIn_open: string
     })
 };

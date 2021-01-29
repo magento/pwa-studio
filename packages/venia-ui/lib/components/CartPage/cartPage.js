@@ -1,17 +1,34 @@
-import React, { useMemo } from 'react';
-
+import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
-import { Title } from '../../components/Head';
-import Button from '../Button';
-
-import PriceAdjustments from './PriceAdjustments';
-import PriceSummary from './PriceSummary';
-import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
+import { Title } from '../Head';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import StockStatusMessage from '../StockStatusMessage';
+import PriceAdjustments from './PriceAdjustments';
+import ProductListing from './ProductListing';
+import PriceSummary from './PriceSummary';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
 
+/**
+ * Structural page component for the shopping cart.
+ * This is the main component used in the `/cart` route in Venia.
+ * It uses child components to render the different pieces of the cart page.
+ *
+ * @see {@link https://venia.magento.com/cart}
+ *
+ * @param {Object} props
+ * @param {Object} props.classes CSS className overrides for the component.
+ * See [cartPage.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.css}
+ * for a list of classes you can override.
+ *
+ * @returns {React.Element}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import CartPage from "@magento/venia-ui/lib/components/CartPage";
+ */
 const CartPage = props => {
     const talonProps = useCartPage({
         queries: {
@@ -20,31 +37,29 @@ const CartPage = props => {
     });
 
     const {
-        handleSignIn,
+        cartItems,
         hasItems,
-        isSignedIn,
         isCartUpdating,
-        setIsCartUpdating
+        setIsCartUpdating,
+        shouldShowLoadingIndicator
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const signInDisplay = useMemo(() => {
-        return !isSignedIn ? (
-            <Button
-                className={classes.sign_in}
-                onClick={handleSignIn}
-                priority="high"
-            >
-                {'Sign In'}
-            </Button>
-        ) : null;
-    }, [classes.sign_in, handleSignIn, isSignedIn]);
+    if (shouldShowLoadingIndicator) {
+        return fullPageLoadingIndicator;
+    }
 
     const productListing = hasItems ? (
         <ProductListing setIsCartUpdating={setIsCartUpdating} />
     ) : (
-        <h3>There are no items in your cart.</h3>
+        <h3>
+            <FormattedMessage
+                id={'cartPage.emptyCart'}
+                defaultMessage={'There are no items in your cart.'}
+            />
+        </h3>
     );
 
     const priceAdjustments = hasItems ? (
@@ -56,10 +71,25 @@ const CartPage = props => {
 
     return (
         <div className={classes.root}>
-            <Title>{`Cart - ${STORE_NAME}`}</Title>
+            <Title>
+                {formatMessage(
+                    {
+                        id: 'cartPage.title',
+                        defaultMessage: 'Cart'
+                    },
+                    { name: STORE_NAME }
+                )}
+            </Title>
             <div className={classes.heading_container}>
-                <h1 className={classes.heading}>Cart</h1>
-                {signInDisplay}
+                <h1 className={classes.heading}>
+                    <FormattedMessage
+                        id={'cartPage.heading'}
+                        defaultMessage={'Cart'}
+                    />
+                </h1>
+                <div className={classes.stockStatusMessageContainer}>
+                    <StockStatusMessage cartItems={cartItems} />
+                </div>
             </div>
             <div className={classes.body}>
                 <div className={classes.items_container}>{productListing}</div>

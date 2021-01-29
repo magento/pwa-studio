@@ -36,7 +36,9 @@ jest.mock('@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage', () => {
 jest.mock('../../../classify');
 
 jest.mock('../../../components/Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
 jest.mock('../ItemsReview', () => 'ItemsReview');
+jest.mock('../GuestSignIn', () => 'GuestSignIn');
 jest.mock('../OrderSummary', () => 'OrderSummary');
 jest.mock('../OrderConfirmationPage', () => 'OrderConfirmationPage');
 jest.mock('../ShippingInformation', () => 'ShippingInformation');
@@ -47,6 +49,7 @@ jest.mock('../AddressBook', () => 'AddressBook');
 
 const defaultTalonProps = {
     activeContent: 'checkout',
+    cartItems: [],
     checkoutStep: 1,
     customer: null,
     error: false,
@@ -59,7 +62,7 @@ const defaultTalonProps = {
     isUpdating: false,
     orderDetailsData: null,
     orderDetailsLoading: false,
-    orderNumber: 1,
+    orderNumber: null,
     placeOrderLoading: false,
     setIsUpdating: jest.fn().mockName('setIsUpdating'),
     setShippingInformationDone: jest
@@ -67,7 +70,8 @@ const defaultTalonProps = {
         .mockName('setShippingInformationDone'),
     setShippingMethodDone: jest.fn().mockName('setShippingMethodDone'),
     setPaymentInformationDone: jest.fn().mockName('setPaymentInformationDone'),
-    toggleActiveContent: jest.fn().mockName('toggleActiveContent')
+    toggleAddressBookContent: jest.fn().mockName('toggleAddressBookContent'),
+    toggleSignInContent: jest.fn().mockName('toggleSignInContent')
 };
 describe('CheckoutPage', () => {
     test('throws a toast if there is an error', () => {
@@ -87,7 +91,8 @@ describe('CheckoutPage', () => {
             ...defaultTalonProps,
             placeOrderLoading: false,
             hasError: false,
-            orderDetailsData: {}
+            orderDetailsData: {},
+            orderNumber: 1
         });
 
         const instance = createTestInstance(<CheckoutPage />);
@@ -101,11 +106,14 @@ describe('CheckoutPage', () => {
             checkoutStep: CHECKOUT_STEP.REVIEW,
             isUpdating: true,
             placeOrderLoading: true,
-            orderDetailsLoading: true
+            orderDetailsLoading: true,
+            orderNumber: null
         });
 
         const instance = createTestInstance(<CheckoutPage />);
-        const button = instance.root.findByProps({ children: 'Place Order' });
+        const button = instance.root.findByProps({
+            className: 'place_order_button'
+        });
 
         expect(button).toBeTruthy();
         expect(button.props.disabled).toBe(true);
@@ -159,5 +167,18 @@ describe('CheckoutPage', () => {
 
         const tree = createTestInstance(<CheckoutPage />);
         expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders sign in for guest', () => {
+        useCheckoutPage.mockReturnValueOnce({
+            ...defaultTalonProps,
+            activeContent: 'signIn'
+        });
+
+        const tree = createTestInstance(<CheckoutPage />);
+        const { root } = tree;
+        const signInComponent = root.findByType('GuestSignIn');
+
+        expect(signInComponent.props.isActive).toBe(true);
     });
 });

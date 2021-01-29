@@ -31,6 +31,14 @@ yarn -v
 
 If entering these commands does not show you a version number, install Node.js, Yarn, or both.
 
+### Node 12 deprecation warning
+
+If you are using Node 12, you may see the following deprecation warning in the log when you run `yarn watch:venia`.
+
+```sh
+(node:89176) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+```
+
 ## Run the scaffolding tool
 
 In your terminal, navigate to the directory where you want to install your storefront project and run the scaffolding tool:
@@ -129,18 +137,23 @@ Apply these fixes to address common issues you may encounter during project setu
 
 If you encounter any other issues, ask the Magento community in the [#PWA][] Slack channel.
 
+## Next
+
+[Explore the project structure][]
+
 [scaffolding]: {%link pwa-buildpack/scaffolding/index.md %}
 [peregrine]: {%link peregrine/index.md %}
 [venia concept storefront]: {%link venia-pwa-concept/index.md %}
 [`create-custom-origin`]: {%link pwa-buildpack/reference/buildpack-cli/create-custom-origin/index.md %}
 [buildpack cli]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
-[environment variables]: {%link pwa-buildpack/reference/environment-variables/index.md %}
+[environment variables]: {%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}
 [pwa buildpack troubleshooting]: {%link pwa-buildpack/troubleshooting/index.md %}#untrusted-ssl-cert
 [interactive questionnaire screen-shot]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/interactive-questionnaire.png %}
 [prerequisites screen-shot]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/prerequisites.png %}
 [compiled successfully screen-shot]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/compiled-successfully.png %}
 [clear storage]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/clear-storage.png %}
 [privacy error]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/privacy-error.png %}
+[explore the project structure]: <{%link tutorials/pwa-studio-fundamentals/project-structure/index.md %}>
 
 [venia.magento.com]: http://venia.magento.com/
 [n]: https://github.com/tj/n

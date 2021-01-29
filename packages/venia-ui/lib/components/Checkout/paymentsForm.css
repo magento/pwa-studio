@@ -16,9 +16,9 @@
 
 .textInput {
     background: white;
-    border: 1px solid rgb(var(--venia-text-alt));
+    border: 1px solid rgb(var(--venia-global-color-text-alt));
     border-radius: 2px;
-    color: rgb(var(--venia-text));
+    color: rgb(var(--venia-global-color-text));
     display: inline-flex;
     flex: 0 0 100%;
     font-size: 0.9375rem;
@@ -28,7 +28,7 @@
 }
 
 .textInput:focus {
-    border-color: rgb(var(--venia-text));
+    border-color: rgb(var(--venia-global-color-text));
     outline: 0 none;
 }
 
@@ -47,12 +47,16 @@
     grid-column-end: span 2;
 }
 
+.postcode {
+    margin-bottom: 6px;
+}
+
 .braintree {
     min-height: 356px;
 }
 
 .validation {
-    color: rgb(var(--venia-error));
+    color: rgb(var(--venia-global-color-error));
     font-size: 0.8125rem;
     grid-column-end: span 2;
 }
@@ -64,10 +68,10 @@
  * in order to show an error message.
  *
  * Unfortunately because of a z-index on an internal element (the one
- * selected below), it overlaps and displays above the minicart heading.
+ * selected below), it overlaps and displays above the legacy minicart heading.
  *
  * Here we unset the z-index on the braintree internal element to cause it
- * to scroll behind the minicart heading, as intended.
+ * to scroll behind the legacy minicart heading, as intended.
  */
 [data-braintree-id='upper-container'] {
     z-index: unset;

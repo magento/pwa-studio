@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`disables remove button on click 1`] = `
-<div>
+<div
+  className="appliedCoupon"
+>
   <span>
     COUPON
   </span>
@@ -9,8 +11,14 @@ exports[`disables remove button on click 1`] = `
     className="removeButton"
     disabled={true}
     onClick={[Function]}
+    type="button"
   >
-    Remove
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Remove"
+        id="couponCode.removeButton"
+      />
+    </span>
   </button>
 </div>
 `;
@@ -49,17 +57,21 @@ exports[`disables submit button on coupon entry 1`] = `
       <span />
       <span />
     </span>
-    <p />
+    <p>
+      
+    </p>
   </div>
   <div>
     <label />
     <button
-      className="applybutton"
       disabled={true}
       type="submit"
     >
       <span>
-        Apply
+        <mock-FormattedMessage
+          defaultMessage="Apply"
+          id="couponCode.apply"
+        />
       </span>
     </button>
   </div>
@@ -100,17 +112,21 @@ exports[`renders CouponCode input and submit button 1`] = `
       <span />
       <span />
     </span>
-    <p />
+    <p>
+      
+    </p>
   </div>
   <div>
     <label />
     <button
-      className="applybutton"
       disabled={false}
       type="submit"
     >
       <span>
-        Apply
+        <mock-FormattedMessage
+          defaultMessage="Apply"
+          id="couponCode.apply"
+        />
       </span>
     </button>
   </div>
@@ -119,7 +135,6 @@ exports[`renders CouponCode input and submit button 1`] = `
 
 exports[`renders an error message if an error occurs on code entry 1`] = `
 <form
-  className="entryForm"
   onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
@@ -158,23 +173,35 @@ exports[`renders an error message if an error occurs on code entry 1`] = `
   <div>
     <label />
     <button
-      className="applybutton"
+      disabled={false}
       type="submit"
     >
       <span>
-        Apply
+        <mock-FormattedMessage
+          defaultMessage="Apply"
+          id="couponCode.apply"
+        />
       </span>
     </button>
   </div>
 </form>
 `;
 
-exports[`renders an error state if unable to fetch applied coupons 1`] = `"Something went wrong. Refresh and try again."`;
+exports[`renders an error state if unable to fetch applied coupons 1`] = `
+<div>
+  <mock-FormattedMessage
+    defaultMessage="Something went wrong. Please refresh and try again."
+    id="couponCode.errorContainer"
+  />
+</div>
+`;
 
 exports[`renders nothing if no data is returned 1`] = `null`;
 
 exports[`renders the coupon code view if applied coupons has data 1`] = `
-<div>
+<div
+  className="appliedCoupon"
+>
   <span>
     COUPON
   </span>
@@ -182,8 +209,14 @@ exports[`renders the coupon code view if applied coupons has data 1`] = `
     className="removeButton"
     disabled={false}
     onClick={[Function]}
+    type="button"
   >
-    Remove
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Remove"
+        id="couponCode.removeButton"
+      />
+    </span>
   </button>
 </div>
 `;

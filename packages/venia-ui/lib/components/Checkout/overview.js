@@ -6,7 +6,7 @@ import ShippingAddressSummary from './shippingAddressSummary';
 import ShippingMethodSummary from './shippingMethodSummary';
 import Section from './section';
 import Button from '../Button';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { useOverview } from '@magento/peregrine/lib/talons/Checkout/useOverview';
 
 /**
@@ -47,6 +47,9 @@ const Overview = props => {
         submitOrder
     });
 
+    const itemCountText = `${numItems} Items`;
+    const submitButtonText = 'Confirm Order';
+    const cancelButtonText = 'Back to Cart';
     return (
         <Fragment>
             <div className={classes.body}>
@@ -79,17 +82,19 @@ const Overview = props => {
                 <Section label="TOTAL">
                     <Price currencyCode={currencyCode} value={subtotal} />
                     <br />
-                    <span>{numItems} Items</span>
+                    <span>{itemCountText}</span>
                 </Section>
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleCancel}>Back to Cart</Button>
                 <Button
                     priority="high"
                     disabled={isSubmitDisabled}
                     onClick={handleSubmit}
                 >
-                    Confirm Order
+                    {submitButtonText}
+                </Button>
+                <Button onClick={handleCancel} priority="low">
+                    {cancelButtonText}
                 </Button>
             </div>
         </Fragment>

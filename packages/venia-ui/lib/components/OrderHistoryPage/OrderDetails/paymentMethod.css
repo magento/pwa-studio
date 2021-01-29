@@ -1,0 +1,14 @@
+.root {
+    display: grid;
+    row-gap: 0.375rem;
+}
+
+.heading {
+    grid-row: 1 / span 1;
+    font-weight: var(--venia-global-fontWeight-bold);
+    padding-bottom: 0.375rem;
+}
+
+.payment_type {
+    grid-row: 2 / span 1;
+}

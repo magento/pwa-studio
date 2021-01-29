@@ -1,6 +1,7 @@
-import { defaultDataIdFromObject } from 'apollo-cache-inmemory';
+import { defaultDataIdFromObject } from '@apollo/client/cache';
 
 /**
+ * @deprecated
  * A non-exhaustive list of Types defined by the Magento GraphQL schema.
  */
 export const MagentoGraphQLTypes = {
@@ -18,6 +19,8 @@ export const MagentoGraphQLTypes = {
 };
 
 /**
+ * @deprecated - replaced by type_policies
+ *
  * The default way the Apollo InMemoryCache stores objects is by using a key
  * that is a concatenation of the `__typename` and `id` (or `_id`) fields.
  * For example, "ConfigurableProduct:1098".

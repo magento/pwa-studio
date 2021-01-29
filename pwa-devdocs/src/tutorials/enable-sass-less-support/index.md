@@ -29,7 +29,7 @@ Edit `webpack.config.js` and add a new `config` rule entry:
              * Make sure to add the same constants to
              * the globals object in jest.config.js.
              */
-            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
+            POSSIBLE_TYPES: JSON.stringify(possibleTypes),
             STORE_NAME: JSON.stringify('Venia')
         }),
         new HTMLWebpackPlugin({
@@ -118,7 +118,7 @@ Edit `webpack.config.js` and add a new `config` rule entry:
              * Make sure to add the same constants to
              * the globals object in jest.config.js.
              */
-            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
+            POSSIBLE_TYPES: JSON.stringify(possibleTypes),
             STORE_NAME: JSON.stringify('Venia')
         }),
         new HTMLWebpackPlugin({

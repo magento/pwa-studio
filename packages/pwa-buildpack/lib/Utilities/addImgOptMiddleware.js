@@ -1,5 +1,6 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
 let cache;
+/** @type {import("hastily")} */
 let hastily;
 let missingDeps = '';
 const markDepInvalid = (dep, e) => {
@@ -29,9 +30,15 @@ function addImgOptMiddleware(app, config) {
     let cacheMiddleware;
     let imageopto;
     try {
-        cacheMiddleware = cache(cacheExpires, hastily.hasSupportedExtension, {
-            debug: cacheDebug
-        });
+        cacheMiddleware = cache(
+            cacheExpires,
+            (req, res) =>
+                hastily.hasSupportedExtension(req) && res.statusCode === 200,
+            {
+                debug: cacheDebug,
+                appendKey: req => req.get('accept')
+            }
+        );
     } catch (e) {
         markDepInvalid('apicache', e);
     }
@@ -50,7 +57,11 @@ If possible, install additional tools to build NodeJS native dependencies:
 https://github.com/nodejs/node-gyp#installation`
         );
     } else {
-        app.use(cacheMiddleware, imageopto);
+        app.use(
+            hastily.HASTILY_STREAMABLE_PATH_REGEXP,
+            cacheMiddleware,
+            imageopto
+        );
     }
 }
 

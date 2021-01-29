@@ -115,11 +115,21 @@ Array [
         <span
           className="summary"
         >
-          <div />
-          <br />
+          <span>
+            $
+          </span>
           <span>
             0
-             Items
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
+          <br />
+          <span>
+            0 Items
           </span>
         </span>
         <span
@@ -132,17 +142,6 @@ Array [
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Back to Cart
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       onClick={[Function]}
@@ -152,6 +151,18 @@ Array [
         className="content"
       >
         Confirm Order
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
       </span>
     </button>
   </div>,
@@ -273,11 +284,21 @@ Array [
         <span
           className="summary"
         >
-          <div />
-          <br />
+          <span>
+            $
+          </span>
           <span>
             0
-             Items
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
+          <br />
+          <span>
+            0 Items
           </span>
         </span>
         <span
@@ -290,17 +311,6 @@ Array [
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Back to Cart
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       onClick={[Function]}
@@ -310,6 +320,18 @@ Array [
         className="content"
       >
         Confirm Order
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
       </span>
     </button>
   </div>,
@@ -431,11 +453,21 @@ Array [
         <span
           className="summary"
         >
-          <div />
-          <br />
+          <span>
+            $
+          </span>
           <span>
             0
-             Items
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
+          <br />
+          <span>
+            0 Items
           </span>
         </span>
         <span
@@ -448,17 +480,6 @@ Array [
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Back to Cart
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       onClick={[Function]}
@@ -468,6 +489,18 @@ Array [
         className="content"
       >
         Confirm Order
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
       </span>
     </button>
   </div>,

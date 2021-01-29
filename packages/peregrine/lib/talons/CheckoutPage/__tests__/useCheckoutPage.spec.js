@@ -4,7 +4,7 @@ import {
     useApolloClient,
     useMutation,
     useQuery
-} from '@apollo/react-hooks';
+} from '@apollo/client';
 import { act } from 'react-test-renderer';
 
 import { useCheckoutPage, CHECKOUT_STEP } from '../useCheckoutPage';
@@ -18,7 +18,7 @@ import CheckoutError from '../CheckoutError';
  * Mocks
  */
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useLazyQuery: jest.fn(),
         useApolloClient: jest.fn(),
@@ -29,10 +29,6 @@ jest.mock('@apollo/react-hooks', () => {
 
 jest.mock('../../../context/user', () => ({
     useUserContext: jest.fn().mockReturnValue([{ isSignedIn: false }])
-}));
-
-jest.mock('../../../context/app', () => ({
-    useAppContext: jest.fn().mockReturnValue([{}, { toggleDrawer: jest.fn() }])
 }));
 
 jest.mock('../../../context/cart', () => ({
@@ -112,7 +108,8 @@ const placeOrderMutationResult = jest.fn().mockReturnValue([
     {
         error: null,
         loading: false,
-        data: null
+        data: null,
+        called: false
     }
 ]);
 
@@ -146,7 +143,7 @@ const getTalonProps = props => {
  * beforeAll
  */
 
-beforeAll(() => {
+beforeEach(() => {
     useQuery.mockImplementation(query => {
         if (query === getCheckoutDetailsQuery) {
             return getCheckoutDetailsQueryResult();
@@ -176,6 +173,8 @@ beforeAll(() => {
     });
 
     useApolloClient.mockReturnValue(client);
+
+    window.scrollTo = jest.fn();
 });
 
 /**
@@ -227,6 +226,16 @@ test('isLoading should be set to true if the customer details query is loading',
     expect(talonProps.isLoading).toBeTruthy();
 });
 
+test('returns cartItems from getOrderDetails query', () => {
+    const cartItems = ['item1', 'item2'];
+    getCheckoutDetailsQueryResult.mockReturnValueOnce({
+        data: { cart: { items: cartItems } }
+    });
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.cartItems).toEqual(cartItems);
+});
+
 test('returned error prop should be error from place order mutation', () => {
     const error = { gqlError: { message: 'some error' } };
     placeOrderMutationResult.mockReturnValueOnce([
@@ -243,50 +252,50 @@ test('returned error prop should be error from place order mutation', () => {
     expect(talonProps.error).toBeInstanceOf(CheckoutError);
 });
 
-describe('handlePlaceOrder', () => {
-    test('should get order details and place order', async () => {
-        useCartContext.mockReturnValueOnce([
-            { cartId: '123' },
-            { createCart: () => {}, removeCart: () => {} }
-        ]);
+test('should get order details when handlePlaceOrder called', () => {
+    useCartContext.mockReturnValueOnce([
+        { cartId: '123' },
+        { createCart: () => {}, removeCart: () => {} }
+    ]);
 
-        const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(props);
 
-        await talonProps.handlePlaceOrder();
-
-        expect(getOrderDetails).toHaveBeenCalledWith({
-            variables: { cartId: '123' }
-        });
-        expect(placeOrder).toHaveBeenCalledWith({
-            variables: { cartId: '123' }
-        });
+    act(() => {
+        talonProps.handlePlaceOrder();
     });
 
-    test('should remove and create new cart', async () => {
-        const createCart = jest.fn();
-        const removeCart = jest.fn();
-        const fetchCartId = jest.fn();
-        useCartContext.mockReturnValueOnce([
-            { cartId: '123' },
-            { createCart, removeCart }
-        ]);
-        createCartMutationResult.mockReturnValue([fetchCartId]);
+    expect(getOrderDetails).toHaveBeenCalledWith({
+        variables: { cartId: '123' }
+    });
+});
 
-        const { talonProps } = getTalonProps(props);
+test("should place order and cleanup when we have order details and place order hasn't been called yet", async () => {
+    const createCart = jest.fn();
+    const removeCart = jest.fn();
+    const fetchCartId = jest.fn();
 
-        await talonProps.handlePlaceOrder();
+    useCartContext.mockReturnValueOnce([
+        { cartId: '123' },
+        { createCart, removeCart }
+    ]);
+    createCartMutationResult.mockReturnValue([fetchCartId]);
 
-        expect(removeCart).toHaveBeenCalled();
-        expect(createCart).toHaveBeenCalledWith({ fetchCartId });
+    useLazyQuery.mockImplementation(() => {
+        return [jest.fn(), { data: {}, loading: false }];
     });
 
-    test('should clear cart data from cache', async () => {
-        const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(props);
 
+    await act(async () => {
         await talonProps.handlePlaceOrder();
-
-        expect(clearCartDataFromCache).toHaveBeenCalledWith(client);
     });
+
+    expect(placeOrder).toHaveBeenCalledWith({
+        variables: { cartId: '123' }
+    });
+    expect(removeCart).toHaveBeenCalled();
+    expect(clearCartDataFromCache).toHaveBeenCalled();
+    expect(createCart).toHaveBeenCalledWith({ fetchCartId });
 });
 
 test('hasError should be true if place order mutation failed with errors', () => {
@@ -576,4 +585,46 @@ test('resetReviewOrderButtonClicked should set reviewOrderButtonClicked to false
     const step2Props = update();
 
     expect(step2Props.reviewOrderButtonClicked).toBeFalsy();
+});
+
+test('toggles addressBook content', () => {
+    const { talonProps: initialProps, update } = getTalonProps(props);
+
+    initialProps.toggleAddressBookContent();
+    const step1Props = update();
+
+    expect(step1Props.activeContent).toBe('addressBook');
+
+    step1Props.toggleAddressBookContent();
+    const step2Props = update();
+
+    expect(step2Props.activeContent).toBe('checkout');
+});
+
+test('toggles signIn content', () => {
+    const { talonProps: initialProps, update } = getTalonProps(props);
+
+    initialProps.toggleSignInContent();
+    const step1Props = update();
+
+    expect(step1Props.activeContent).toBe('signIn');
+
+    step1Props.toggleSignInContent();
+    const step2Props = update();
+
+    expect(step2Props.activeContent).toBe('checkout');
+});
+
+test('resets active content to checkout on sign in', () => {
+    const { talonProps: initialProps, update } = getTalonProps(props);
+
+    initialProps.toggleSignInContent();
+    const step1Props = update();
+
+    expect(step1Props.activeContent).toBe('signIn');
+
+    useUserContext.mockReturnValueOnce([{ isSignedIn: true }]);
+    const step2Props = update();
+
+    expect(step2Props.activeContent).toBe('checkout');
 });

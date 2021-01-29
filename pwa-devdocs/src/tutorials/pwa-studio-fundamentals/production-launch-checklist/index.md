@@ -46,6 +46,10 @@ yarn start
 
 This command starts a production UPWARD-JS server that runs your production build.
 
+## Remove development packages
+
+Edit your project's `package.json` file and remove any packages you only use in your development environment. For example, the `venia-sample-backends` is an extension included in projects built using the scaffolding tool.
+
 ## Audit with Lighthouse
 
 [Lighthouse][] is a web developer tool that audits your website.
@@ -58,8 +62,8 @@ Lighthouse is available through Chrome's DevTools, as a command line script, as 
 See the [Lighthouse][] page for detailed instructions on how to use each form of the tool.
 
 [magento cloud deployment]: <{%link tutorials/cloud-deploy/index.md %}>
-[environment variables]: <{%link pwa-buildpack/reference/environment-variables/index.md %}>
-[`magento_backend_url`]: <{%link pwa-buildpack/reference/environment-variables/index.md %}#magento_backend_url>
-[`checkout_braintree_token`]: <{%link pwa-buildpack/reference/environment-variables/index.md %}#checkout_braintree_token>
+[environment variables]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}>
+[`magento_backend_url`]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}#magento_backend_url>
+[`checkout_braintree_token`]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}#checkout_braintree_token>
 
 [lighthouse]: https://developers.google.com/web/tools/lighthouse/

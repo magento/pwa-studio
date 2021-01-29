@@ -1,0 +1,70 @@
+.root {
+    --content-width: 27.5rem;
+
+    height: 0;
+    overflow: visible;
+    left: -100vw;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    transition: opacity 192ms var(--venia-global-anim-out),
+        visibility 192ms var(--venia-global-anim-out),
+        /* Adding delay to move container off the screen after previous transitions happened */
+            left 0s 192ms;
+    visibility: hidden;
+    width: calc(100vw - 2rem);
+    /* max-width wider than header to let dropdown to move left on wider screens while still staying near the trigger */
+    max-width: calc(
+        var(--venia-global-maxWidth) + var(--content-width) * 2 - 25rem
+    );
+    z-index: 3;
+    transform: translate3d(-50%, 0, 0);
+}
+
+.root_open {
+    composes: root;
+    left: 50%;
+    opacity: 1;
+    transition: opacity 224ms var(--venia-global-anim-in),
+        visibility 224ms var(--venia-global-anim-in), left 0s;
+    visibility: visible;
+}
+
+.contents {
+    background-color: rgb(var(--venia-global-color-background));
+    border-radius: 1px;
+    box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
+    display: grid;
+    min-height: 10rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate3d(0, -8px, 0);
+    transition-duration: 192ms;
+    transition-property: transform;
+    transition-timing-function: var(--venia-global-anim-out);
+    width: var(--content-width);
+}
+
+.contents_open {
+    composes: contents;
+
+    transform: translate3d(0, 4px, 0);
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-global-anim-in);
+}
+
+.createAccount {
+    display: grid;
+    gap: 0.9375rem;
+    justify-items: stretch;
+    padding: 1rem 1.5rem;
+}
+
+.forgotPassword {
+    padding: 2rem;
+}
+
+.loading {
+    padding: 2rem;
+}

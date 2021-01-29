@@ -32,7 +32,13 @@ const getState = jest.fn(() => ({
     cart: { cartId: 'CART_ID' },
     user: { isSignedIn: false }
 }));
-const thunkArgs = [dispatch, getState];
+const thunkArgs = [
+    dispatch,
+    getState,
+    {
+        apolloClient: {}
+    }
+];
 
 describe('createCart', () => {
     test('it returns a thunk', () => {
@@ -146,6 +152,8 @@ describe('createCart', () => {
     });
 
     test('its thunk dispatches actions with error on error', async () => {
+        expect.assertions(4);
+
         mockGetItem.mockImplementationOnce(() => {});
         getState.mockImplementationOnce(() => ({
             cart: {},
@@ -155,9 +163,13 @@ describe('createCart', () => {
         const error = new Error('Woof');
         fetchCartId.mockRejectedValueOnce(error);
 
-        await createCart({
-            fetchCartId
-        })(...thunkArgs);
+        try {
+            await createCart({
+                fetchCartId
+            })(...thunkArgs);
+        } catch (error) {
+            expect(error).toEqual(error);
+        }
 
         expect(dispatch).toHaveBeenNthCalledWith(1, actions.getCart.request());
         expect(dispatch).toHaveBeenNthCalledWith(

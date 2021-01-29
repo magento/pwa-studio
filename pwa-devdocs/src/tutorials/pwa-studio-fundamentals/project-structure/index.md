@@ -99,7 +99,7 @@ It uses [`configureWebpack`][] from PWA Studio's buildpack to create a configura
 #### `upward.yml`
 
 The `upward.yml` file is an [UPWARD][] configuration file.
-It provides provides instructions for how an UPWARD server implementation should respond to a request.
+It provides instructions for how an UPWARD server implementation should respond to a request.
 
 The `status`, `headers`, and `body` values defined in the default `upward.yml` file uses values from the `veniaResponse` object.
 This object is defined in the [venia-ui package's `upward.yml` file][].
@@ -129,6 +129,20 @@ Use the following values for `NODE_ENV`:
 
 For more information on loading environment variables, see: [Load environment file][]
 
+## Next steps
+
+Now that you have a storefront project setup and understand its structure, lets learn about some basic customizations you can make to your project:
+
+-   [Enable SASS or LESS support][]
+-   [Add a static route][]
+-   [Modify the site footer][]
+-   [Create a TagList component][]
+
+
+[enable sass or less support]: <{%link tutorials/enable-sass-less-support/index.md %}>
+[add a static route]: <{%link tutorials/pwa-studio-fundamentals/add-a-static-route/index.md %}>
+[modify the site footer]: <{%link tutorials/pwa-studio-fundamentals/modify-site-footer/index.md %}>
+[create a taglist component]: <{%link tutorials/create-taglist-component/index.md %}>
 [modular components]: <{%link venia-pwa-concept/features/modular-components/index.md %}>
 [project setup]: <{%link tutorials/pwa-studio-fundamentals/index.md %}>
 [`configurewebpack`]: <{%link pwa-buildpack/reference/configure-webpack/index.md %}>

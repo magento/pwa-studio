@@ -43,7 +43,10 @@ export const createCart = payload =>
 
             dispatch(actions.getCart.receive(receivePayload));
         } catch (error) {
+            // If we are unable to create a cart, the cart can't function, so
+            // we forcibly throw so the upstream actions won't retry.
             dispatch(actions.getCart.receive(error));
+            throw new Error('Unable to create cart');
         }
     };
 
@@ -112,11 +115,17 @@ export const addItemToCart = (payload = {}) => {
                 }
 
                 // then create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
 
                 // and fetch details
                 await dispatch(
@@ -216,11 +225,17 @@ export const updateItemInCart = (payload = {}) => {
                 await dispatch(removeCart());
 
                 // then create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
 
                 // and fetch details
                 await dispatch(
@@ -278,11 +293,17 @@ export const removeItemFromCart = payload => {
                 // upstream action to try and reuse the known-bad ID.
                 await dispatch(removeCart());
                 // then create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
             }
         }
 
@@ -296,20 +317,26 @@ export const removeItemFromCart = payload => {
 };
 
 export const getCartDetails = payload => {
-    const { apolloClient, fetchCartId, fetchCartDetails } = payload;
+    const { fetchCartId, fetchCartDetails } = payload;
 
-    return async function thunk(dispatch, getState) {
+    return async function thunk(dispatch, getState, { apolloClient }) {
         const { cart, user } = getState();
         const { cartId } = cart;
         const { isSignedIn } = user;
 
         // if there isn't a cart, create one then retry this operation
         if (!cartId) {
-            await dispatch(
-                createCart({
-                    fetchCartId
-                })
-            );
+            try {
+                await dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
+            } catch (error) {
+                // If creating a cart fails, all is not lost. Return so that the
+                // user can continue to at least browse the site.
+                return;
+            }
             return thunk(...arguments);
         }
 
@@ -340,18 +367,21 @@ export const getCartDetails = payload => {
                     await dispatch(removeCart());
                 }
 
-                // Clear the cart data from apollo client if we get here and
-                // have an apolloClient.
-                if (apolloClient) {
-                    await clearCartDataFromCache(apolloClient);
-                }
+                // Clear cart data from Apollo cache
+                await clearCartDataFromCache(apolloClient);
 
-                // Create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                // Create a new cart
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
 
                 // Retry this operation
                 return thunk(...arguments);
@@ -418,6 +448,7 @@ function isInvalidCart(error) {
         error.graphQLErrors.find(
             err =>
                 err.message.includes('Could not find a cart') ||
+                err.message.includes("The cart isn't active") ||
                 err.message.includes(
                     'The current user cannot perform operations on cart'
                 )

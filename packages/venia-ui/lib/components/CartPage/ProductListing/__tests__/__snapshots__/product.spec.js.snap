@@ -4,74 +4,269 @@ exports[`renders configurable product with options 1`] = `
 <li
   className="root"
 >
-  <Image
-    alt=""
-    classes={
-      Object {
-        "image": "image",
-        "root": "imageContainer",
-      }
-    }
-    resource={Object {}}
-    width={100}
+  <span
+    className="errorText"
   />
   <div
-    className="details"
+    className="item"
   >
-    <span
-      className="name"
-    >
-      
-    </span>
-    <dl
-      className="options"
-    >
-      <dt
-        className="optionLabel"
-      >
-        Option 1
-         : 
-        Value 1
-      </dt>
-      <dt
-        className="optionLabel"
-      >
-        Option 2
-         : 
-        Value 2
-      </dt>
-    </dl>
-    <span
-      className="price"
-    >
-      <span>
-        $1
-      </span>
-       ea.
-    </span>
     <div
-      className="quantity"
+      className="imageContainer"
+      to="/unittest.html"
     >
-      <form
-        onKeyDown={[Function]}
-        onReset={[Function]}
-        onSubmit={[Function]}
+      <Image
+        alt=""
+        classes={
+          Object {
+            "image": "image",
+            "root": "imageRoot",
+          }
+        }
+        resource={Object {}}
+        width={100}
+      />
+    </div>
+    <div
+      className="details"
+    >
+      <div
+        className="name"
       >
         <div
+          to="/unittest.html"
+        >
+          
+        </div>
+      </div>
+      <dl
+        className="options"
+      >
+        <div
+          className="optionLabel"
+        >
+          <dt
+            className="optionName"
+          >
+            Option 1 :
+          </dt>
+          <dd
+            className="optionValue"
+          >
+            Value 1
+          </dd>
+        </div>
+        <div
+          className="optionLabel"
+        >
+          <dt
+            className="optionName"
+          >
+            Option 2 :
+          </dt>
+          <dd
+            className="optionValue"
+          >
+            Value 2
+          </dd>
+        </div>
+      </dl>
+      <span
+        className="price"
+      >
+        <span>
+          $
+        </span>
+        <span>
+          1
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
+        <mock-FormattedMessage
+          defaultMessage=" ea."
+          id="product.price"
+        />
+      </span>
+      <span
+        className="stockStatusMessage"
+      >
+        
+      </span>
+      <div
+        className="quantity"
+      >
+        <form
+          onKeyDown={[Function]}
+          onReset={[Function]}
+          onSubmit={[Function]}
+        >
+          <div
+            className="root"
+          >
+            <label
+              className="label"
+              htmlFor="123"
+            >
+              Quantity
+            </label>
+            <button
+              aria-label="Decrease Quantity"
+              className="button_decrement"
+              disabled={true}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={22}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={22}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+            <span
+              className="root"
+              style={
+                Object {
+                  "--iconsAfter": 0,
+                  "--iconsBefore": 0,
+                }
+              }
+            >
+              <span
+                className="input"
+              >
+                <input
+                  aria-label="Item Quantity"
+                  className="input"
+                  id="123"
+                  inputMode="numeric"
+                  min={0}
+                  name="quantity"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  pattern="[0-9]*"
+                  value={1}
+                />
+              </span>
+              <span
+                className="before"
+              />
+              <span
+                className="after"
+              />
+            </span>
+            <p
+              className="root"
+            />
+            <button
+              aria-label="Increase Quantity"
+              className="button_increment"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={20}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={20}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="12"
+                    x2="12"
+                    y1="5"
+                    y2="19"
+                  />
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      className="root"
+    >
+      <button
+        className="kebab"
+        onClick={[Function]}
+      >
+        <span
           className="root"
         >
-          <label
-            className="label"
-            htmlFor="123"
+          <svg
+            className="icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            Quantity
-          </label>
+            <circle
+              cx="12"
+              cy="12"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="5"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="19"
+              r="1"
+            />
+          </svg>
+        </span>
+      </button>
+      <ul
+        className="dropdown"
+      >
+        <li
+          className="menuItem"
+        >
           <button
-            aria-label="Decrease Quantity"
-            className="button_decrement"
-            disabled={true}
-            onClick={[Function]}
-            type="button"
+            onMouseDown={[MockFunction]}
           >
             <span
               className="root"
@@ -79,65 +274,32 @@ exports[`renders configurable product with options 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height={22}
+                height={16}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width={22}
+                width={16}
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line
-                  x1="5"
-                  x2="19"
-                  y1="12"
-                  y2="12"
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
                 />
               </svg>
             </span>
-          </button>
-          <span
-            className="root"
-            style={
-              Object {
-                "--iconsAfter": 0,
-                "--iconsBefore": 0,
-              }
-            }
-          >
             <span
-              className="input"
+              className="text"
             >
-              <input
-                aria-label="Item Quantity"
-                className="input"
-                id="123"
-                inputMode="numeric"
-                min={0}
-                name="quantity"
-                onBlur={[Function]}
-                onChange={[Function]}
-                pattern="[0-9]*"
-                value={1}
-              />
+              Move to favorites
             </span>
-            <span
-              className="before"
-            />
-            <span
-              className="after"
-            />
-          </span>
-          <p
-            className="root"
-          />
+          </button>
+        </li>
+        <li
+          className="menuItem"
+        >
           <button
-            aria-label="Increase Quantity"
-            className="button_increment"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
+            onMouseDown={[MockFunction]}
           >
             <span
               className="root"
@@ -145,180 +307,370 @@ exports[`renders configurable product with options 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height={20}
+                height={16}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width={20}
+                width={16}
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line
-                  x1="12"
-                  x2="12"
-                  y1="5"
-                  y2="19"
-                />
-                <line
-                  x1="5"
-                  x2="19"
-                  y1="12"
-                  y2="12"
+                <path
+                  d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
                 />
               </svg>
             </span>
+            <span
+              className="text"
+            >
+              Edit item
+            </span>
           </button>
-        </div>
-      </form>
+        </li>
+        <li
+          className="menuItem"
+        >
+          <button
+            onMouseDown={[MockFunction]}
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height={16}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polyline
+                  points="3 6 5 6 21 6"
+                />
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                />
+              </svg>
+            </span>
+            <span
+              className="text"
+            >
+              Remove from cart
+            </span>
+          </button>
+        </li>
+      </ul>
     </div>
   </div>
+</li>
+`;
+
+exports[`renders out of stock product 1`] = `
+<li
+  className="root"
+>
+  <span
+    className="errorText"
+  />
   <div
-    className="root"
+    className="item"
   >
-    <button
-      className="kebab"
-      onClick={[Function]}
+    <div
+      className="imageContainer"
+      to="/popular-product"
     >
+      <Image
+        alt=""
+        classes={
+          Object {
+            "image": "image",
+            "root": "imageRoot",
+          }
+        }
+        resource={Object {}}
+        width={100}
+      />
+    </div>
+    <div
+      className="details"
+    >
+      <div
+        className="name"
+      >
+        <div
+          to="/popular-product"
+        >
+          
+        </div>
+      </div>
       <span
-        className="root"
+        className="price"
       >
-        <svg
-          className="icon"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="1"
-          />
-          <circle
-            cx="12"
-            cy="5"
-            r="1"
-          />
-          <circle
-            cx="12"
-            cy="19"
-            r="1"
-          />
-        </svg>
+        <span>
+          $
+        </span>
+        <span>
+          55
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
+        <mock-FormattedMessage
+          defaultMessage=" ea."
+          id="product.price"
+        />
       </span>
-    </button>
-    <ul
-      className="dropdown"
+      <span
+        className="stockStatusMessage"
+      >
+        Out-of-stock
+      </span>
+      <div
+        className="quantity"
+      >
+        <form
+          onKeyDown={[Function]}
+          onReset={[Function]}
+          onSubmit={[Function]}
+        >
+          <div
+            className="root"
+          >
+            <label
+              className="label"
+              htmlFor="123"
+            >
+              Quantity
+            </label>
+            <button
+              aria-label="Decrease Quantity"
+              className="button_decrement"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={22}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={22}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+            <span
+              className="root"
+              style={
+                Object {
+                  "--iconsAfter": 0,
+                  "--iconsBefore": 0,
+                }
+              }
+            >
+              <span
+                className="input"
+              >
+                <input
+                  aria-label="Item Quantity"
+                  className="input"
+                  id="123"
+                  inputMode="numeric"
+                  min={0}
+                  name="quantity"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  pattern="[0-9]*"
+                  value={2}
+                />
+              </span>
+              <span
+                className="before"
+              />
+              <span
+                className="after"
+              />
+            </span>
+            <p
+              className="root"
+            />
+            <button
+              aria-label="Increase Quantity"
+              className="button_increment"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={20}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={20}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="12"
+                    x2="12"
+                    y1="5"
+                    y2="19"
+                  />
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      className="root"
     >
-      <li
-        className="menuItem"
+      <button
+        className="kebab"
+        onClick={[Function]}
       >
-        <button
-          onMouseDown={[MockFunction]}
+        <span
+          className="root"
         >
-          <span
-            className="root"
+          <svg
+            className="icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={16}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-              />
-            </svg>
-          </span>
-          <span
-            className="text"
-          >
-            Move to favorites
-          </span>
-        </button>
-      </li>
-      <li
-        className="menuItem"
+            <circle
+              cx="12"
+              cy="12"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="5"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="19"
+              r="1"
+            />
+          </svg>
+        </span>
+      </button>
+      <ul
+        className="dropdown"
       >
-        <button
-          onMouseDown={[MockFunction]}
+        <li
+          className="menuItem"
         >
-          <span
-            className="root"
+          <button
+            onMouseDown={[MockFunction]}
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={16}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
+            <span
+              className="root"
             >
-              <path
-                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-              />
-            </svg>
-          </span>
-          <span
-            className="text"
-          >
-            Edit item
-          </span>
-        </button>
-      </li>
-      <li
-        className="menuItem"
-      >
-        <button
-          onMouseDown={[MockFunction]}
+              <svg
+                className="icon"
+                fill="none"
+                height={16}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                />
+              </svg>
+            </span>
+            <span
+              className="text"
+            >
+              Move to favorites
+            </span>
+          </button>
+        </li>
+        <li
+          className="menuItem"
         >
-          <span
-            className="root"
+          <button
+            onMouseDown={[MockFunction]}
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={16}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
+            <span
+              className="root"
             >
-              <polyline
-                points="3 6 5 6 21 6"
-              />
-              <path
-                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-              />
-            </svg>
-          </span>
-          <span
-            className="text"
-          >
-            Remove from cart
-          </span>
-        </button>
-      </li>
-    </ul>
+              <svg
+                className="icon"
+                fill="none"
+                height={16}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polyline
+                  points="3 6 5 6 21 6"
+                />
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                />
+              </svg>
+            </span>
+            <span
+              className="text"
+            >
+              Remove from cart
+            </span>
+          </button>
+        </li>
+      </ul>
+    </div>
   </div>
 </li>
 `;
@@ -327,56 +679,237 @@ exports[`renders simple product correctly 1`] = `
 <li
   className="root"
 >
-  <Image
-    alt=""
-    classes={
-      Object {
-        "image": "image",
-        "root": "imageContainer",
-      }
-    }
-    resource={Object {}}
-    width={100}
+  <span
+    className="errorText"
   />
   <div
-    className="details"
+    className="item"
   >
-    <span
-      className="name"
-    >
-      
-    </span>
-    <span
-      className="price"
-    >
-      <span>
-        $1
-      </span>
-       ea.
-    </span>
     <div
-      className="quantity"
+      className="imageContainer"
+      to="/unittest.html"
     >
-      <form
-        onKeyDown={[Function]}
-        onReset={[Function]}
-        onSubmit={[Function]}
+      <Image
+        alt=""
+        classes={
+          Object {
+            "image": "image",
+            "root": "imageRoot",
+          }
+        }
+        resource={Object {}}
+        width={100}
+      />
+    </div>
+    <div
+      className="details"
+    >
+      <div
+        className="name"
       >
         <div
+          to="/unittest.html"
+        >
+          
+        </div>
+      </div>
+      <span
+        className="price"
+      >
+        <span>
+          $
+        </span>
+        <span>
+          1
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
+        <mock-FormattedMessage
+          defaultMessage=" ea."
+          id="product.price"
+        />
+      </span>
+      <span
+        className="stockStatusMessage"
+      >
+        
+      </span>
+      <div
+        className="quantity"
+      >
+        <form
+          onKeyDown={[Function]}
+          onReset={[Function]}
+          onSubmit={[Function]}
+        >
+          <div
+            className="root"
+          >
+            <label
+              className="label"
+              htmlFor="123"
+            >
+              Quantity
+            </label>
+            <button
+              aria-label="Decrease Quantity"
+              className="button_decrement"
+              disabled={true}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={22}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={22}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+            <span
+              className="root"
+              style={
+                Object {
+                  "--iconsAfter": 0,
+                  "--iconsBefore": 0,
+                }
+              }
+            >
+              <span
+                className="input"
+              >
+                <input
+                  aria-label="Item Quantity"
+                  className="input"
+                  id="123"
+                  inputMode="numeric"
+                  min={0}
+                  name="quantity"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  pattern="[0-9]*"
+                  value={1}
+                />
+              </span>
+              <span
+                className="before"
+              />
+              <span
+                className="after"
+              />
+            </span>
+            <p
+              className="root"
+            />
+            <button
+              aria-label="Increase Quantity"
+              className="button_increment"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  className="icon"
+                  fill="none"
+                  height={20}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={20}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="12"
+                    x2="12"
+                    y1="5"
+                    y2="19"
+                  />
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      className="root"
+    >
+      <button
+        className="kebab"
+        onClick={[Function]}
+      >
+        <span
           className="root"
         >
-          <label
-            className="label"
-            htmlFor="123"
+          <svg
+            className="icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            Quantity
-          </label>
+            <circle
+              cx="12"
+              cy="12"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="5"
+              r="1"
+            />
+            <circle
+              cx="12"
+              cy="19"
+              r="1"
+            />
+          </svg>
+        </span>
+      </button>
+      <ul
+        className="dropdown"
+      >
+        <li
+          className="menuItem"
+        >
           <button
-            aria-label="Decrease Quantity"
-            className="button_decrement"
-            disabled={true}
-            onClick={[Function]}
-            type="button"
+            onMouseDown={[MockFunction]}
           >
             <span
               className="root"
@@ -384,65 +917,32 @@ exports[`renders simple product correctly 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height={22}
+                height={16}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width={22}
+                width={16}
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line
-                  x1="5"
-                  x2="19"
-                  y1="12"
-                  y2="12"
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
                 />
               </svg>
             </span>
-          </button>
-          <span
-            className="root"
-            style={
-              Object {
-                "--iconsAfter": 0,
-                "--iconsBefore": 0,
-              }
-            }
-          >
             <span
-              className="input"
+              className="text"
             >
-              <input
-                aria-label="Item Quantity"
-                className="input"
-                id="123"
-                inputMode="numeric"
-                min={0}
-                name="quantity"
-                onBlur={[Function]}
-                onChange={[Function]}
-                pattern="[0-9]*"
-                value={1}
-              />
+              Move to favorites
             </span>
-            <span
-              className="before"
-            />
-            <span
-              className="after"
-            />
-          </span>
-          <p
-            className="root"
-          />
+          </button>
+        </li>
+        <li
+          className="menuItem"
+        >
           <button
-            aria-label="Increase Quantity"
-            className="button_increment"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
+            onMouseDown={[MockFunction]}
           >
             <span
               className="root"
@@ -450,147 +950,32 @@ exports[`renders simple product correctly 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height={20}
+                height={16}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width={20}
+                width={16}
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line
-                  x1="12"
-                  x2="12"
-                  y1="5"
-                  y2="19"
+                <polyline
+                  points="3 6 5 6 21 6"
                 />
-                <line
-                  x1="5"
-                  x2="19"
-                  y1="12"
-                  y2="12"
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
                 />
               </svg>
             </span>
+            <span
+              className="text"
+            >
+              Remove from cart
+            </span>
           </button>
-        </div>
-      </form>
+        </li>
+      </ul>
     </div>
-  </div>
-  <div
-    className="root"
-  >
-    <button
-      className="kebab"
-      onClick={[Function]}
-    >
-      <span
-        className="root"
-      >
-        <svg
-          className="icon"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="1"
-          />
-          <circle
-            cx="12"
-            cy="5"
-            r="1"
-          />
-          <circle
-            cx="12"
-            cy="19"
-            r="1"
-          />
-        </svg>
-      </span>
-    </button>
-    <ul
-      className="dropdown"
-    >
-      <li
-        className="menuItem"
-      >
-        <button
-          onMouseDown={[MockFunction]}
-        >
-          <span
-            className="root"
-          >
-            <svg
-              className="icon"
-              fill="none"
-              height={16}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-              />
-            </svg>
-          </span>
-          <span
-            className="text"
-          >
-            Move to favorites
-          </span>
-        </button>
-      </li>
-      <li
-        className="menuItem"
-      >
-        <button
-          onMouseDown={[MockFunction]}
-        >
-          <span
-            className="root"
-          >
-            <svg
-              className="icon"
-              fill="none"
-              height={16}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <polyline
-                points="3 6 5 6 21 6"
-              />
-              <path
-                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-              />
-            </svg>
-          </span>
-          <span
-            className="text"
-          >
-            Remove from cart
-          </span>
-        </button>
-      </li>
-    </ul>
   </div>
 </li>
 `;

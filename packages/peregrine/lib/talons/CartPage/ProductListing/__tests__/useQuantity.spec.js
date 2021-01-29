@@ -195,6 +195,37 @@ test('maskInput callback masks input to minimum value', () => {
     expect(tree.root.findByProps({ id: 'target' }).props.maskInput(-1)).toBe(0);
 });
 
+test('maskInput callback converts string to floating-point number', () => {
+    const tree = createTestInstance(
+        <Form>
+            <Text field="quantity" />
+            <Component min={0} />
+        </Form>
+    );
+
+    expect(tree.root.findByProps({ id: 'target' }).props.maskInput('4')).toBe(
+        4
+    );
+});
+
+test('maskInput callback handles string value that cannot be parsed into a float', () => {
+    expect.assertions(2);
+    const tree = createTestInstance(
+        <Form>
+            <Text field="quantity" />
+            <Component initialValue={1} min={0} />
+        </Form>
+    );
+
+    const consoleErrorSpy = jest.spyOn(console, 'error');
+
+    expect(tree.root.findByProps({ id: 'target' }).props.maskInput('two')).toBe(
+        1
+    );
+
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+});
+
 test('quantity should update if initialValue prop changes', () => {
     let formApi;
 

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<div>
+  <div>
+    <div
+      componentName="Formatted Message Component"
+      defaultMessage="Billing Information"
+      id="orderDetails.billingInformationLabel"
+    />
+  </div>
+  <span>
+    Gooseton Jr
+  </span>
+  <span>
+    2134, Apt 123, Goose Drive
+  </span>
+  <div>
+    Austin, TX 78451 USA
+  </div>
+</div>
+`;

@@ -1,7 +1,6 @@
 import { useCallback, useState, useEffect } from 'react';
-import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 
-import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 import CheckoutError from '../CheckoutError';
 import { CHECKOUT_STEP } from '../useCheckoutPage';
@@ -17,16 +16,7 @@ import { CHECKOUT_STEP } from '../useCheckoutPage';
  * @param {DocumentNode} props.mutation.setBillingAddressMutation
  * @param {DocumentNode} props.mutation.setFreePaymentMethodMutation
  *
- * @returns {
- *   doneEditing: Boolean,
- *   isEditModalActive: Boolean,
- *   showEditModal: Function,
- *   hideEditModal: Function,
- *   handlePaymentError: Function,
- *   handlePaymentSuccess: Function,
- *   checkoutStep: Number,
- *
- * }
+ * @returns {PaymentInformationTalonProps}
  */
 export const usePaymentInformation = props => {
     const {
@@ -49,8 +39,7 @@ export const usePaymentInformation = props => {
      */
 
     const [doneEditing, setDoneEditing] = useState(false);
-    const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
-    const isEditModalActive = drawer === 'edit.payment';
+    const [isEditModalActive, setIsEditModalActive] = useState(false);
     const [{ cartId }] = useCartContext();
     const client = useApolloClient();
 
@@ -59,12 +48,12 @@ export const usePaymentInformation = props => {
      */
 
     const showEditModal = useCallback(() => {
-        toggleDrawer('edit.payment');
-    }, [toggleDrawer]);
+        setIsEditModalActive(true);
+    }, []);
 
     const hideEditModal = useCallback(() => {
-        closeDrawer('edit.payment');
-    }, [closeDrawer]);
+        setIsEditModalActive(false);
+    }, []);
 
     const handlePaymentSuccess = useCallback(() => {
         setDoneEditing(true);
@@ -85,8 +74,10 @@ export const usePaymentInformation = props => {
         data: paymentInformationData,
         loading: paymentInformationLoading
     } = useQuery(getPaymentInformation, {
-        variables: { cartId },
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !cartId,
+        variables: { cartId }
     });
 
     const [
@@ -249,11 +240,25 @@ export const usePaymentInformation = props => {
 
     return {
         doneEditing,
-        isEditModalActive,
-        isLoading,
         handlePaymentError,
         handlePaymentSuccess,
         hideEditModal,
+        isEditModalActive,
+        isLoading,
         showEditModal
     };
 };
+
+/**
+ * Props data to use when rendering a cart page component.
+ *
+ * @typedef {Object} PaymentInformationTalonProps
+ *
+ * @property {boolean} doneEditing Indicates payment information has been provided
+ * @property {function} handlePaymentError Error handler passed to payment methods
+ * @property {function} handlePaymentSuccess Success handler passed to payment methods
+ * @property {function} hideEditModal Callback to close the edit dialog
+ * @property {boolean} isEditModalActive State for keeping track of edit dialog visibility
+ * @property {boolean} isLoading Derived state that keeps track if any mutation is in flight
+ * @property {function} showEditModal Callback to display the edit dialog
+ */

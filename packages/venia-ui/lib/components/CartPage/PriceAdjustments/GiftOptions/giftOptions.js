@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 
 import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
 
@@ -8,6 +9,20 @@ import { mergeClasses } from '../../../../classify';
 import GiftOptionsOperations from './giftOptions.gql';
 import defaultClasses from './giftOptions.css';
 
+/**
+ * A child component of the PriceAdjustments component.
+ * This component displays the form for adding gift options.
+ *
+ * @param {Object} props
+ * @param {Object} props.classes CSS className overrides.
+ * See [giftOptions.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.css}
+ * for a list of classes you can override.
+ *
+ * @returns {React.Element}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import GiftOptions from "@magento/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions";
+ */
 const GiftOptions = props => {
     const {
         includeGiftReceipt,
@@ -16,9 +31,8 @@ const GiftOptions = props => {
         toggleIncludeGiftReceiptFlag,
         toggleIncludePrintedCardFlag,
         updateGiftMessage
-    } = useGiftOptions({
-        ...GiftOptionsOperations
-    });
+    } = useGiftOptions({ ...GiftOptionsOperations });
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -28,7 +42,10 @@ const GiftOptions = props => {
                 <Checkbox
                     id="includeGiftReceipt"
                     field="includeGiftReceipt"
-                    label="Include gift receipt"
+                    label={formatMessage({
+                        id: 'giftOptions.includeGiftReceipt',
+                        defaultMessage: 'Include gift receipt'
+                    })}
                     fieldState={{
                         value: includeGiftReceipt
                     }}
@@ -39,8 +56,13 @@ const GiftOptions = props => {
                 <Checkbox
                     id="includePrintedCard"
                     field="includePrintedCard"
-                    label="Include printed card"
-                    fieldState={{ value: includePrintedCard }}
+                    label={formatMessage({
+                        id: 'giftOptions.includePrintedCard',
+                        defaultMessage: 'Include printed card'
+                    })}
+                    fieldState={{
+                        value: includePrintedCard
+                    }}
                     onClick={toggleIncludePrintedCardFlag}
                 />
             </ul>
@@ -49,7 +71,10 @@ const GiftOptions = props => {
                     <TextArea
                         id="cardMessage"
                         field="cardMessage"
-                        placeholder="Enter your message here"
+                        placeholder={formatMessage({
+                            id: 'giftOptions.cardMessage',
+                            defaultMessage: 'Enter your message here'
+                        })}
                         initialValue={giftMessage}
                         onChange={updateGiftMessage}
                     />

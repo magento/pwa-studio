@@ -131,7 +131,7 @@ async function configureWebpack(options) {
 
     const babelRootMode = await getBabelRootMode(context);
 
-    const projectConfig = loadEnvironment(context);
+    const projectConfig = await loadEnvironment(context);
     if (projectConfig.error) {
         throw projectConfig.error;
     }
@@ -166,9 +166,10 @@ async function configureWebpack(options) {
 
     /** @typedef {import('../../BuildBus/declare-base)} BuiltinTargets */
 
-    bus.getTargetsOf('@magento/pwa-buildpack').transformModules.call(x =>
-        transforms.add(x)
-    );
+    await bus
+        .getTargetsOf('@magento/pwa-buildpack')
+        .transformModules.promise(x => transforms.add(x));
+
     const transformRequests = await transforms.toLoaderOptions();
 
     const configHelper = {

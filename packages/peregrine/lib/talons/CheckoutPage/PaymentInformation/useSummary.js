@@ -1,5 +1,6 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
+import { useTypePolicies } from '@magento/peregrine';
 import { useCartContext } from '../../../context/cart';
 
 const mapBillingAddressData = rawBillingAddressData => {
@@ -23,7 +24,6 @@ const mapBillingAddressData = rawBillingAddressData => {
  * the checkout page.
  *
  * @param {DocumentNode} props.queries.getSummaryData gets data from the server for rendering this component
- * @param {DocumentNode} props.queries.getSummaryLocalData gets client-side data for rendering this component
  *
  * @returns {
  *   billingAddress: {
@@ -46,6 +46,7 @@ const mapBillingAddressData = rawBillingAddressData => {
  *      },
  *   },
  *   isBillingAddressSame: Boolean,
+ *   isLoading: Boolean,
  *   selectedPaymentMethod: {
  *      code: String,
  *      title: String
@@ -53,8 +54,10 @@ const mapBillingAddressData = rawBillingAddressData => {
  * }
  */
 export const useSummary = props => {
-    const { queries } = props;
+    const { queries, typePolicies } = props;
     const { getSummaryData } = queries;
+
+    useTypePolicies(typePolicies);
 
     /**
      * Definitions
@@ -69,6 +72,7 @@ export const useSummary = props => {
     const { data: summaryData, loading: summaryDataLoading } = useQuery(
         getSummaryData,
         {
+            skip: !cartId,
             variables: { cartId }
         }
     );

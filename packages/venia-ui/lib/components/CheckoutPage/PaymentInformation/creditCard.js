@@ -1,10 +1,12 @@
 import React, { useMemo, useCallback } from 'react';
+import { useIntl } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
 import { isRequired } from '../../../util/formValidators';
 import Country from '../../Country';
 import Region from '../../Region';
+import Postcode from '../../Postcode';
 import Checkbox from '../../Checkbox';
 import Field from '../../Field';
 import TextInput from '../../TextInput';
@@ -15,13 +17,26 @@ import { mergeClasses } from '../../../classify';
 import creditCardPaymentOperations from './creditCard.gql';
 
 import defaultClasses from './creditCard.css';
+import FormError from '../../FormError';
 
 const STEP_DESCRIPTIONS = [
-    'Loading Payment',
-    'Checking Credit Card Information',
-    'Checking Credit Card Information',
-    'Checking Credit Card Information',
-    'Saved Credit Card Information Successfully'
+    { defaultMessage: 'Loading Payment', id: 'checkoutPage.step0' },
+    {
+        defaultMessage: 'Checking Credit Card Information',
+        id: 'checkoutPage.step1'
+    },
+    {
+        defaultMessage: 'Checking Credit Card Information',
+        id: 'checkoutPage.step2'
+    },
+    {
+        defaultMessage: 'Checking Credit Card Information',
+        id: 'checkoutPage.step3'
+    },
+    {
+        defaultMessage: 'Saved Credit Card Information Successfully',
+        id: 'checkoutPage.step4'
+    }
 ];
 
 const CreditCard = props => {
@@ -33,6 +48,7 @@ const CreditCard = props => {
         resetShouldSubmit,
         shouldSubmit
     } = props;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -46,13 +62,13 @@ const CreditCard = props => {
     });
 
     const {
+        errors,
         shouldRequestPaymentNonce,
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady,
         isBillingAddressSame,
         isLoading,
-        errors,
         /**
          * `stepNumber` depicts the state of the process flow in credit card
          * payment flow.
@@ -90,7 +106,7 @@ const CreditCard = props => {
             'street1',
             'street2',
             'city',
-            'state',
+            'region',
             'postal_code',
             'phone_number'
         ].reduce((acc, fieldName) => {
@@ -99,22 +115,6 @@ const CreditCard = props => {
             return acc;
         }, {});
     }, [classes]);
-
-    const errorMessage = useMemo(() => {
-        if (errors.length) {
-            return (
-                <div className={classes.errors_container}>
-                    {errors.map(error => (
-                        <span className={classes.error} key={error}>
-                            {error}
-                        </span>
-                    ))}
-                </div>
-            );
-        } else {
-            return null;
-        }
-    }, [errors, classes.error, classes.errors_container]);
 
     /**
      * These 2 functions are wrappers around the `isRequired` function
@@ -139,15 +139,27 @@ const CreditCard = props => {
         [isBillingAddressSame]
     );
 
+    const stepTitle = STEP_DESCRIPTIONS[stepNumber].defaultMessage
+        ? formatMessage({
+              id: STEP_DESCRIPTIONS[stepNumber].id,
+              defaultMessage: STEP_DESCRIPTIONS[stepNumber].defaultMessage
+          })
+        : formatMessage({
+              id: 'checkoutPage.loadingPayment',
+              defaultMessage: 'Loading Payment'
+          });
+
     const loadingIndicator = isLoading ? (
-        <LoadingIndicator>
-            {STEP_DESCRIPTIONS[stepNumber] || 'Loading Payment'}
-        </LoadingIndicator>
+        <LoadingIndicator>{stepTitle}</LoadingIndicator>
     ) : null;
 
     return (
         <div className={classes.root}>
             <div className={creditCardComponentClassName}>
+                <FormError
+                    classes={{ root: classes.formErrorContainer }}
+                    errors={Array.from(errors.values())}
+                />
                 <div className={classes.dropin_root}>
                     <BrainTreeDropin
                         onError={onPaymentError}
@@ -161,20 +173,40 @@ const CreditCard = props => {
                 <div className={classes.address_check}>
                     <Checkbox
                         field="isBillingAddressSame"
-                        label="Billing address same as shipping address"
+                        label={formatMessage({
+                            id: 'checkoutPage.billingAddressSame',
+                            defaultMessage:
+                                'Billing address same as shipping address'
+                        })}
                         initialValue={initialValues.isBillingAddressSame}
                     />
                 </div>
                 <div className={billingAddressFieldsClassName}>
-                    <Field classes={fieldClasses.first_name} label="First Name">
+                    <Field
+                        id="firstName"
+                        classes={fieldClasses.first_name}
+                        label={formatMessage({
+                            id: 'global.firstName',
+                            defaultMessage: 'First Name'
+                        })}
+                    >
                         <TextInput
+                            id="firstName"
                             field="firstName"
                             validate={isFieldRequired}
                             initialValue={initialValues.firstName}
                         />
                     </Field>
-                    <Field classes={fieldClasses.last_name} label="Last Name">
+                    <Field
+                        id="lastName"
+                        classes={fieldClasses.last_name}
+                        label={formatMessage({
+                            id: 'global.lastName',
+                            defaultMessage: 'Last Name'
+                        })}
+                    >
                         <TextInput
+                            id="lastName"
                             field="lastName"
                             validate={isFieldRequired}
                             initialValue={initialValues.lastName}
@@ -192,59 +224,76 @@ const CreditCard = props => {
                         }
                     />
                     <Field
+                        id="street1"
                         classes={fieldClasses.street1}
-                        label="Street Address"
+                        label={formatMessage({
+                            id: 'global.streetAddress',
+                            defaultMessage: 'Street Address'
+                        })}
                     >
                         <TextInput
+                            id="street1"
                             field="street1"
                             validate={isFieldRequired}
                             initialValue={initialValues.street1}
                         />
                     </Field>
                     <Field
+                        id="street2"
                         classes={fieldClasses.street2}
-                        label="Street Address 2"
+                        label={formatMessage({
+                            id: 'global.streetAddress2',
+                            defaultMessage: 'Street Address 2'
+                        })}
+                        optional={true}
                     >
                         <TextInput
+                            id="street2"
                             field="street2"
                             initialValue={initialValues.street2}
                         />
                     </Field>
-                    <Field classes={fieldClasses.city} label="City">
+                    <Field
+                        id="city"
+                        classes={fieldClasses.city}
+                        label={formatMessage({
+                            id: 'global.city',
+                            defaultMessage: 'City'
+                        })}
+                    >
                         <TextInput
+                            id="city"
                             field="city"
                             validate={isFieldRequired}
                             initialValue={initialValues.city}
                         />
                     </Field>
                     <Region
-                        field="state"
-                        classes={fieldClasses.state}
-                        initialValue={initialValues.state}
+                        classes={fieldClasses.region}
+                        initialValue={initialValues.region}
                         validate={isFieldRequired}
                     />
-                    <Field
+                    <Postcode
                         classes={fieldClasses.postal_code}
-                        label="ZIP / Postal Code"
-                    >
-                        <TextInput
-                            field="postalCode"
-                            validate={isFieldRequired}
-                            initialValue={initialValues.postalCode}
-                        />
-                    </Field>
+                        validate={isFieldRequired}
+                        initialValue={initialValues.postcode}
+                    />
                     <Field
+                        id="phoneNumber"
                         classes={fieldClasses.phone_number}
-                        label="Phone Number"
+                        label={formatMessage({
+                            id: 'global.phoneNumber',
+                            defaultMessage: 'Phone Number'
+                        })}
                     >
                         <TextInput
+                            id="phoneNumber"
                             field="phoneNumber"
                             validate={isFieldRequired}
                             initialValue={initialValues.phoneNumber}
                         />
                     </Field>
                 </div>
-                {errorMessage}
             </div>
             {loadingIndicator}
         </div>
@@ -261,7 +310,7 @@ CreditCard.propTypes = {
         first_name: string,
         last_name: string,
         city: string,
-        state: string,
+        region: string,
         postal_code: string,
         phone_number: string,
         country: string,

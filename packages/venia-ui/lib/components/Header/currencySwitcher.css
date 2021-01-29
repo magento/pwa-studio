@@ -1,0 +1,101 @@
+.root {
+    align-items: center;
+    display: grid;
+    justify-items: end;
+    margin: 0 auto;
+    max-width: var(--venia-global-maxWidth);
+    padding: 0.5rem 1rem;
+    position: relative;
+}
+
+.trigger {
+    align-items: center;
+    column-gap: 0.5rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+}
+
+.menu {
+    background-color: rgb(var(--venia-global-color-gray-50));
+    border: 1px solid rgb(var(--venia-global-color-gray-dark));
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    max-height: 24rem;
+    opacity: 0;
+    overflow: auto;
+    position: absolute;
+    right: 1rem;
+    top: 2.5rem;
+    transform: translate3d(0, -8px, 0);
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-global-anim-out);
+    transition-property: opacity, transform, visibility;
+    visibility: hidden;
+    z-index: 2;
+}
+
+.menu_open {
+    composes: menu;
+    opacity: 1;
+    padding: 0;
+    transform: translate3d(0, 4px, 0);
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-global-anim-in);
+    visibility: visible;
+}
+
+.menuItem:hover {
+    background-color: rgb(var(--venia-global-color-gray));
+}
+
+.menuItem:not(:last-child) {
+    border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
+}
+
+.symbol {
+    margin-right: 0.5rem;
+}
+
+.root:last-child:not(:only-child) {
+    padding-left: 0;
+    grid-auto-flow: column;
+}
+
+.root:last-child:not(:only-child):before {
+    border-left: 1px solid rgb(var(--venia-global-color-gray-darker));
+    border-left: 1px solid rgb(var(--venia-global-color-border));
+    content: '';
+    height: 1em;
+    width: 1rem;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+@media (max-width: 640px) {
+    .root {
+        justify-items: start;
+    }
+
+    .menu {
+        bottom: 2.5rem;
+        left: 1rem;
+        right: auto;
+        top: auto;
+        transform: translate3d(0, 8px, 0);
+    }
+
+    .root:only-child {
+        grid-column: 2;
+    }
+
+    .root:last-child .menu {
+        left: auto;
+        right: 1rem;
+    }
+
+    .menu_open {
+        transform: translate3d(0, -4px, 0);
+    }
+}

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns correct shape 1`] = `
+Object {
+  "handleContentToggle": [Function],
+  "imagesData": Object {
+    "sku1": Object {
+      "sku": "sku1",
+      "thumbnail": Object {
+        "url": "sku1 thumbnail url",
+      },
+      "url_key": "url_key_sku1",
+    },
+    "sku2": Object {
+      "sku": "sku2",
+      "thumbnail": Object {
+        "url": "sku2 thumbnail url",
+      },
+      "url_key": "url_key_sku2",
+    },
+  },
+  "isOpen": false,
+  "loading": false,
+}
+`;
+
+exports[`returns correct shape when variant 1`] = `
+Object {
+  "handleContentToggle": [Function],
+  "imagesData": Object {
+    "sku1": Object {
+      "sku": "sku1",
+      "thumbnail": Object {
+        "url": "sku1 thumbnail url",
+      },
+      "url_key": "url_key_sku1",
+    },
+    "sku2": Object {
+      "sku": "sku2",
+      "thumbnail": Object {
+        "url": "sku2 thumbnail url",
+      },
+      "url_key": "url_key_sku2",
+    },
+    "sku3_variant1": Object {
+      "sku": "sku3_variant1",
+      "thumbnail": Object {
+        "url": "sku3_variant1 thumbnail url",
+      },
+    },
+  },
+  "isOpen": false,
+  "loading": false,
+}
+`;

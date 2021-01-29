@@ -48,7 +48,7 @@ If the storefront application is deployed in the same server as Magento, which c
 [magento cloud]: {%link tutorials/cloud-deploy/index.md %}
 
 [service isolation]: https://github.com/magento/architecture/blob/master/design-documents/service-isolation.md
-[php implementation of upward]: https://github.com/magento-research/upward-php
+[php implementation of upward]: https://github.com/magento/upward-php
 [reverse proxy]: https://en.wikipedia.org/wiki/Reverse_proxy
 [graphql api]: https://devdocs.magento.com/guides/v2.3/graphql/
 [**rest api**]: https://devdocs.magento.com/guides/v2.3/rest/bk-rest.html

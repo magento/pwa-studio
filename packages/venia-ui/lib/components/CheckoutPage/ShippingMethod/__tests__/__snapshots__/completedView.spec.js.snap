@@ -13,43 +13,58 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
       <h5
         className="heading"
       >
-        Shipping Method
+        <mock-FormattedMessage
+          defaultMessage="Shipping Method"
+          id="completedView.shippingMethod"
+        />
       </h5>
       <button
         className="editButton"
+        disabled={false}
         onClick={false}
+        type="button"
       >
         <span
-          className="root"
+          className="content"
         >
-          <svg
-            className="icon"
-            fill="none"
-            height={16}
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width={16}
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            className="root"
           >
-            <path
-              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            <svg
+              className="icon"
+              fill="none"
+              height={16}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+              />
+            </svg>
+          </span>
+          <span
+            className="editButtonText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Edit"
+              id="global.editButton"
             />
-          </svg>
-        </span>
-        <span
-          className="editButtonText"
-        >
-          Edit
+          </span>
         </span>
       </button>
     </span>
     <span
       className="error"
     >
-      Error loading selected shipping method. Please select again.
+      <mock-FormattedMessage
+        defaultMessage="Error loading selected shipping method. Please select again."
+        id="completedView.errorLoading"
+      />
     </span>
   </div>
 </div>
@@ -68,36 +83,48 @@ exports[`it renders correctly 1`] = `
       <h5
         className="heading"
       >
-        Shipping Method
+        <mock-FormattedMessage
+          defaultMessage="Shipping Method"
+          id="completedView.shippingMethod"
+        />
       </h5>
       <button
         className="editButton"
+        disabled={false}
         onClick={false}
+        type="button"
       >
         <span
-          className="root"
+          className="content"
         >
-          <svg
-            className="icon"
-            fill="none"
-            height={16}
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width={16}
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            className="root"
           >
-            <path
-              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            <svg
+              className="icon"
+              fill="none"
+              height={16}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+              />
+            </svg>
+          </span>
+          <span
+            className="editButtonText"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Edit"
+              id="global.editButton"
             />
-          </svg>
-        </span>
-        <span
-          className="editButtonText"
-        >
-          Edit
+          </span>
         </span>
       </button>
     </span>
@@ -108,7 +135,18 @@ exports[`it renders correctly 1`] = `
         Flat Rate
       </span>
       <div>
-        <div />
+        <span>
+          $
+        </span>
+        <span>
+          99
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
       </div>
     </div>
   </div>

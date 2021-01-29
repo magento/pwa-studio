@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+<div>
+  &lt;Link&gt;[object Object]&lt;/Link&gt;
+  &lt;Link&gt;[object Object]&lt;/Link&gt;
+  &lt;Link&gt;[object Object]&lt;/Link&gt;
+  &lt;Link&gt;[object Object]&lt;/Link&gt;
+  &lt;Link&gt;[object Object]&lt;/Link&gt;
+  &lt;Link&gt;[object Object]&lt;/Link&gt;
+  &lt;Link&gt;[object Object]&lt;/Link&gt;
+  <button
+    onClick={[MockFunction handleSignOut]}
+    type="button"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Sign Out"
+      id="accountMenu.signOutButtonText"
+    />
+  </button>
+</div>
+`;

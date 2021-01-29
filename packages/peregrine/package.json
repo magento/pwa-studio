@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "6.0.0",
+  "version": "8.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -16,11 +16,16 @@
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/peregrine#readme",
+  "dependencies": {
+    "fast-glob": "~3.2.4"
+  },
   "devDependencies": {
     "@magento/eslint-config": "~1.5.0",
     "intl": "~1.2.5",
+    "intl-locales-supported": "~1.8.12",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
+    "react-intl": "~5.7.0",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",
     "react-test-renderer": "~16.9.0",
@@ -29,12 +34,12 @@
     "wait-for-expect": "~1.2.0"
   },
   "peerDependencies": {
-    "@apollo/react-hooks": "~3.1.2",
+    "@apollo/client": "~3.1.2",
     "@babel/runtime": "~7.4.2",
-    "apollo-client": "~2.6.4",
     "informed": "~2.11.17",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
+    "react-intl": "~5.7.0",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",
     "redux": "~4.0.4",

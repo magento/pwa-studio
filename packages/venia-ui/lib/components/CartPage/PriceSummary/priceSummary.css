@@ -1,10 +1,15 @@
 .root {
 }
 
+.errorText {
+    color: rgb(var(--venia-global-color-error));
+    line-height: var(--venia-global-lineHeight-300);
+}
+
 .lineItems {
     display: grid;
-    grid-row-gap: 0.75rem;
-    grid-template-columns: 50% 50%;
+    grid-gap: 0.75rem;
+    grid-template-columns: 1fr auto;
     line-height: 1.5rem;
 }
 
@@ -18,12 +23,12 @@
 
 .totalLabel {
     composes: lineItemLabel;
-    font-weight: bold;
+    font-weight: var(--venia-global-fontWeight-semibold);
 }
 
 .totalPrice {
     composes: price;
-    font-weight: bold;
+    font-weight: var(--venia-global-fontWeight-semibold);
 }
 
 .priceUpdating {

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 /**
  * WARNING: This fragment can cause slowdowns on the network request because it
@@ -21,6 +21,7 @@ export const AvailableShippingMethodsCartFragment = gql`
                 method_code
                 method_title
             }
+            street
         }
     }
 `;
@@ -33,6 +34,7 @@ export const SelectedShippingMethodCartFragment = gql`
                 carrier_code
                 method_code
             }
+            street
         }
     }
 `;
@@ -50,6 +52,7 @@ export const ShippingMethodsCartFragment = gql`
             region {
                 code
             }
+            street
         }
     }
     ${AvailableShippingMethodsCartFragment}

@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/magento-devdocs/devdocs-theme.git
-  revision: ab43ba7fd03f5ff5021e0542a86ed6e5c13793fe
+  revision: 0bd45b1e1816f5c94233c2c36403bc3242a6551a
   specs:
-    devdocs (9)
+    devdocs (14)
       jekyll (>= 4.0)
 
 GEM
@@ -42,7 +42,7 @@ GEM
       sassc (> 2.0.1, < 3.0)
     jekyll-watch (2.2.1)
       listen (~> 3.0)
-    kramdown (2.2.1)
+    kramdown (2.3.0)
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)

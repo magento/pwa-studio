@@ -7,8 +7,14 @@ exports[`it disables inputs when the page is updating 1`] = `
   <h3
     className="editingHeading"
   >
-    Shipping Method
+    <mock-FormattedMessage
+      defaultMessage="Shipping Method"
+      id="shippingMethod.heading"
+    />
   </h3>
+  <FormError
+    errors={Array []}
+  />
   <form
     className="form"
     onKeyDown={[Function]}
@@ -31,6 +37,27 @@ exports[`it disables inputs when the page is updating 1`] = `
           value="flatrate|flatrate"
         />
         <span
+          className="icon"
+        >
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+          </svg>
+        </span>
+        <span
           className="label"
         >
           <span>
@@ -39,7 +66,18 @@ exports[`it disables inputs when the page is updating 1`] = `
           <div
             className="price"
           >
-            <div />
+            <span>
+              $
+            </span>
+            <span>
+              99
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
           </div>
         </span>
       </label>
@@ -58,7 +96,10 @@ exports[`it disables inputs when the page is updating 1`] = `
         <span
           className="content"
         >
-          Continue to Payment Information
+          <mock-FormattedMessage
+            defaultMessage="Continue to Payment Information"
+            id="shippingMethod.continueToNextStep"
+          />
         </span>
       </button>
     </div>
@@ -73,8 +114,14 @@ exports[`it renders correctly 1`] = `
   <h3
     className="editingHeading"
   >
-    Shipping Method
+    <mock-FormattedMessage
+      defaultMessage="Shipping Method"
+      id="shippingMethod.heading"
+    />
   </h3>
+  <FormError
+    errors={Array []}
+  />
   <form
     className="form"
     onKeyDown={[Function]}
@@ -97,6 +144,27 @@ exports[`it renders correctly 1`] = `
           value="flatrate|flatrate"
         />
         <span
+          className="icon"
+        >
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+          </svg>
+        </span>
+        <span
           className="label"
         >
           <span>
@@ -105,7 +173,18 @@ exports[`it renders correctly 1`] = `
           <div
             className="price"
           >
-            <div />
+            <span>
+              $
+            </span>
+            <span>
+              99
+            </span>
+            <span>
+              .
+            </span>
+            <span>
+              00
+            </span>
           </div>
         </span>
       </label>
@@ -124,7 +203,10 @@ exports[`it renders correctly 1`] = `
         <span
           className="content"
         >
-          Continue to Payment Information
+          <mock-FormattedMessage
+            defaultMessage="Continue to Payment Information"
+            id="shippingMethod.continueToNextStep"
+          />
         </span>
       </button>
     </div>
@@ -155,6 +237,11 @@ Array [
     />
   </div>,
   <Update Modal Component
+    formErrors={
+      Array [
+        [Error: Form Error],
+      ]
+    }
     formInitialValues={
       Object {
         "shipping_method": "flatrate|flatrate",
@@ -192,8 +279,18 @@ exports[`it renders correctly in initializing mode 1`] = `
   <h3
     className="editingHeading"
   >
-    Shipping Method
+    <mock-FormattedMessage
+      defaultMessage="Shipping Method"
+      id="shippingMethod.heading"
+    />
   </h3>
+  <FormError
+    errors={
+      Array [
+        [Error: Form Error],
+      ]
+    }
+  />
   <div
     className="root"
   >
@@ -265,7 +362,10 @@ exports[`it renders correctly in initializing mode 1`] = `
     <span
       className="message"
     >
-      Loading shipping methods...
+      <mock-FormattedMessage
+        defaultMessage="Loading shipping methods..."
+        id="shippingMethod.loading"
+      />
     </span>
   </div>
 </div>

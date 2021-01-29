@@ -10,37 +10,48 @@ exports[`should render a braintree summary 1`] = `
     <h5
       className="heading"
     >
-      Payment Information
+      <mock-FormattedMessage
+        defaultMessage="Payment Information"
+        id="checkoutPage.paymentInformation"
+      />
     </h5>
     <button
       className="edit_button"
+      disabled={false}
       onClick={[MockFunction]}
       type="button"
     >
       <span
-        className="root"
+        className="content"
       >
-        <svg
-          className="icon"
-          fill="none"
-          height={16}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={16}
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          className="root"
         >
-          <path
-            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            />
+          </svg>
+        </span>
+        <span
+          className="edit_text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="global.editButton"
           />
-        </svg>
-      </span>
-      <span
-        className="edit_text"
-      >
-        Edit
+        </span>
       </span>
     </button>
   </div>
@@ -50,7 +61,10 @@ exports[`should render a braintree summary 1`] = `
     <span
       className="payment_type"
     >
-      Credit Card
+      <mock-FormattedMessage
+        defaultMessage="Credit Card"
+        id="global.creditCard"
+      />
     </span>
     <span
       className="payment_details"
@@ -183,7 +197,10 @@ exports[`should render a loading indicator 1`] = `
   <span
     className="message"
   >
-    Fetching Payment Information
+    <mock-FormattedMessage
+      defaultMessage="Fetching Payment Information"
+      id="checkoutPage.loadingPaymentInformation"
+    />
   </span>
 </div>
 `;
@@ -198,7 +215,10 @@ exports[`should render a non-braintree summary 1`] = `
     <h5
       className="heading"
     >
-      Payment Information
+      <mock-FormattedMessage
+        defaultMessage="Payment Information"
+        id="checkoutPage.paymentInformation"
+      />
     </h5>
   </div>
   <div

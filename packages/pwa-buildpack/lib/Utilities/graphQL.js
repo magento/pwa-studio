@@ -1,29 +1,42 @@
 const fetch = require('node-fetch');
 const graphQLQueries = require('../queries');
-const { Agent: HTTPSAgent } = require('https');
+const https = require('https');
 
 // To be used with `node-fetch` in order to allow self-signed certificates.
-const fetchAgent = new HTTPSAgent({ rejectUnauthorized: false });
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const fetchQuery = query => {
-    return fetch(
-        new URL('graphql', process.env.MAGENTO_BACKEND_URL).toString(),
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept-Encoding': 'gzip'
-            },
-            body: JSON.stringify({ query }),
-            agent: fetchAgent
-        }
-    )
+    const targetURL = new URL('graphql', process.env.MAGENTO_BACKEND_URL);
+    const headers = {
+        'Content-Type': 'application/json',
+        'Accept-Encoding': 'gzip'
+    };
+
+    if (process.env.STORE_VIEW_CODE) {
+        headers['store'] = process.env.STORE_VIEW_CODE;
+    }
+
+    return fetch(targetURL.toString(), {
+        agent: targetURL.protocol === 'https:' ? httpsAgent : null,
+        body: JSON.stringify({ query }),
+        headers: headers,
+        method: 'POST'
+    })
         .then(result => result.json())
-        .then(json => json.data)
         .catch(err => {
             console.error(err);
             throw err;
-        });
+        })
+        .then(json =>
+            json && json.errors && json.errors.length > 0
+                ? Promise.reject(
+                      new Error(
+                          json.errors[0].message +
+                              ` (... ${json.errors.length} errors total)`
+                      )
+                  )
+                : json.data
+        );
 };
 
 /**
@@ -39,6 +52,27 @@ const getMediaURL = () => {
 };
 
 /**
+ * An Async function that will asynchronously fetch the
+ * store config data from magento graphql server.
+ *
+ * @returns Promise that will resolve to the store config data.
+ */
+const getStoreConfigData = () => {
+    return fetchQuery(graphQLQueries.getStoreConfigData).then(
+        data => data.storeConfig
+    );
+};
+
+/**
+ * An async function that will fetch the availableStores
+ *
+ * @returns Promise
+ */
+const getAvailableStoresConfigData = () => {
+    return fetchQuery(graphQLQueries.getAvailableStoresConfigData);
+};
+
+/**
  * Get the schema's types.
  */
 const getSchemaTypes = () => {
@@ -46,6 +80,8 @@ const getSchemaTypes = () => {
 };
 
 /**
+ * @deprecated use {@link getPossibleTypes} with ApolloClient v3.
+ *
  * Get only the Union and Interface types in the schema.
  */
 const getUnionAndInterfaceTypes = () => {
@@ -61,8 +97,33 @@ const getUnionAndInterfaceTypes = () => {
     });
 };
 
+/**
+ * Generate, from schema, the possible types.
+ *
+ * https://www.apollographql.com/docs/react/data/fragments/#generating-possibletypes-automatically
+ * @returns {Object}  This object maps the name of an interface or union type (the supertype) to the types that implement or belong to it (the subtypes).
+ */
+const getPossibleTypes = async () => {
+    const data = await getSchemaTypes();
+
+    const possibleTypes = {};
+
+    data.__schema.types.forEach(supertype => {
+        if (supertype.possibleTypes) {
+            possibleTypes[supertype.name] = supertype.possibleTypes.map(
+                subtype => subtype.name
+            );
+        }
+    });
+
+    return possibleTypes;
+};
+
 module.exports = {
     getMediaURL,
+    getStoreConfigData,
+    getAvailableStoresConfigData,
+    getPossibleTypes,
     getSchemaTypes,
     getUnionAndInterfaceTypes
 };

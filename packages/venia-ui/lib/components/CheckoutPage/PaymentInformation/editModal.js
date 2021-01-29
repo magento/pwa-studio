@@ -1,29 +1,25 @@
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
-import { X as CloseIcon } from 'react-feather';
 
 import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal';
 
-import Button from '../../Button';
-import Icon from '../../Icon';
-import { Portal } from '../../Portal';
 import { mergeClasses } from '../../../classify';
 import CreditCard from './creditCard';
-
+import Dialog from '../../Dialog';
 import editModalOperations from './editModal.gql';
 
 import defaultClasses from './editModal.css';
 
 const EditModal = props => {
-    const { classes: propClasses, onClose } = props;
-
+    const { classes: propClasses, onClose, isOpen } = props;
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = useEditModal({ onClose, ...editModalOperations });
 
     const {
         selectedPaymentMethod,
-        isLoading,
         handleUpdate,
         handleClose,
         handlePaymentSuccess,
@@ -32,27 +28,6 @@ const EditModal = props => {
         resetUpdateButtonClicked,
         handlePaymentError
     } = talonProps;
-
-    const actionButtons = !isLoading ? (
-        <div className={classes.actions_container}>
-            <Button
-                className={classes.cancel_button}
-                onClick={handleClose}
-                priority="normal"
-                disabled={updateButtonClicked}
-            >
-                {'Cancel'}
-            </Button>
-            <Button
-                className={classes.update_button}
-                onClick={handleUpdate}
-                priority="high"
-                disabled={updateButtonClicked}
-            >
-                {'Update'}
-            </Button>
-        </div>
-    ) : null;
 
     const paymentMethod =
         selectedPaymentMethod === 'braintree' ? (
@@ -64,29 +39,35 @@ const EditModal = props => {
                     resetShouldSubmit={resetUpdateButtonClicked}
                     shouldSubmit={updateButtonClicked}
                 />
-                {actionButtons}
             </div>
         ) : (
-            <div>{`${selectedPaymentMethod} is not supported for editing.`}</div>
+            <div>
+                <FormattedMessage
+                    id={'checkoutPage.paymentMethodStatus'}
+                    defaultMessage={
+                        'The selected method is not supported for editing.'
+                    }
+                    values={{ selectedPaymentMethod }}
+                />
+            </div>
         );
 
     return (
-        <Portal>
-            <aside className={classes.root_open}>
-                <div className={classes.header}>
-                    <span className={classes.header_text}>
-                        Edit Payment Information
-                    </span>
-                    <button
-                        className={classes.close_button}
-                        onClick={handleClose}
-                    >
-                        <Icon src={CloseIcon} />
-                    </button>
-                </div>
-                {paymentMethod}
-            </aside>
-        </Portal>
+        <Dialog
+            confirmText={'Update'}
+            confirmTranslationId={'global.updateButton'}
+            isOpen={isOpen}
+            onCancel={handleClose}
+            onConfirm={handleUpdate}
+            shouldDisableAllButtons={updateButtonClicked}
+            shouldDisableConfirmButton={updateButtonClicked}
+            title={formatMessage({
+                id: 'checkoutPage.editPaymentInformation',
+                defaultMessage: 'Edit Payment Information'
+            })}
+        >
+            {paymentMethod}
+        </Dialog>
     );
 };
 
@@ -99,9 +80,6 @@ EditModal.propTypes = {
         body: string,
         header: string,
         header_text: string,
-        actions_container: string,
-        cancel_button: string,
-        update_button: string,
         close_button: string
     }),
     onClose: func.isRequired

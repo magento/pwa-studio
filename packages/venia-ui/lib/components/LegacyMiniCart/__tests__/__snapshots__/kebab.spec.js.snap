@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders children passed to it 1`] = `
+<div>
+  <button
+    onClick={[Function]}
+  >
+    <Icon
+      src={[Function]}
+    />
+  </button>
+  <ul>
+    <span />
+    <p />
+    <div />
+  </ul>
+</div>
+`;
+
+exports[`it renders correctly without children 1`] = `
+<div>
+  <button
+    onClick={[Function]}
+  >
+    <Icon
+      src={[Function]}
+    />
+  </button>
+  <ul />
+</div>
+`;

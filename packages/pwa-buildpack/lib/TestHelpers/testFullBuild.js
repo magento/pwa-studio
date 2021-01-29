@@ -64,9 +64,10 @@ async function buildModuleWith(
     const resolver = new MagentoResolver({ paths, alias });
 
     const transforms = new ModuleTransformConfig(resolver);
-    bus.getTargetsOf('@magento/pwa-buildpack').transformModules.call(x =>
-        transforms.add(x)
-    );
+    await bus
+        .getTargetsOf('@magento/pwa-buildpack')
+        .transformModules.promise(x => transforms.add(x));
+
     const transformRequests = await transforms.toLoaderOptions();
 
     let entry;
@@ -100,7 +101,7 @@ async function buildModuleWith(
         // Exclude any require() of a node_module.
         nodeExternals({
             // Except...
-            whitelist: bus
+            allowlist: bus
                 // the dependencies under test, which Webpack must compile for
                 // the targets to work!
                 .getMockDependencyNames()

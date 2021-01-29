@@ -1,8 +1,8 @@
 .root {
     composes: root from '../clickable.css';
     background: none white;
-    border: 1px solid rgb(var(--venia-grey-dark));
-    color: rgb(var(--venia-text));
+    border: 1px solid rgb(var(--venia-global-color-gray-dark));
+    color: rgb(var(--venia-global-color-text));
     font-size: 0.75rem;
     font-weight: 600;
     height: 2rem;
@@ -10,28 +10,28 @@
     min-width: 6rem;
     transition-duration: 384ms;
     transition-property: border-color, color;
-    transition-timing-function: var(--venia-anim-standard);
+    transition-timing-function: var(--venia-global-anim-standard);
     z-index: 1;
 }
 
 .root:hover {
-    border-color: rgb(var(--venia-text));
+    border-color: rgb(var(--venia-global-color-text));
     z-index: 2;
 }
 
 .root:focus {
-    border-color: rgb(var(--venia-teal));
-    box-shadow: 0 0 0 2px rgb(var(--venia-teal-light)),
-        0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
-    color: rgb(var(--venia-teal));
+    border-color: rgb(var(--venia-global-color-teal));
+    box-shadow: 0 0 0 2px rgb(var(--venia-global-color-teal-light)),
+        0 0 0.5rem 2px rgb(var(--venia-global-color-teal) / 0.2);
+    color: rgb(var(--venia-global-color-teal));
     outline: none;
     transition-duration: 128ms;
     z-index: 3;
 }
 
 .root:disabled {
-    border-color: rgb(var(--venia-grey-dark));
-    color: rgb(var(--venia-grey-dark));
+    border-color: rgb(var(--venia-global-color-gray-dark));
+    color: rgb(var(--venia-global-color-gray-dark));
 }
 
 .root:nth-of-type(1) {

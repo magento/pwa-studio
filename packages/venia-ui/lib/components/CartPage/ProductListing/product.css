@@ -1,17 +1,36 @@
 .root {
     display: grid;
+    row-gap: 0.5rem;
+}
+
+.item {
+    align-items: start;
+    display: grid;
     grid-gap: 0.5rem 1rem;
     grid-template-areas: 'image details kebab';
     grid-template-columns: 100px 1fr min-content;
+}
+
+.errorText {
+    color: rgb(var(--venia-global-color-error));
+    line-height: var(--venia-global-lineHeight-300);
+}
+
+.errorText:empty {
+    display: none;
 }
 
 .imageContainer {
     grid-area: image;
 }
 
+.imageRoot {
+    height: 100%;
+}
+
 .image {
-    background-color: rgb(var(--venia-grey));
-    border: solid 1px rgb(var(--venia-border));
+    background-color: rgb(var(--venia-global-color-gray));
+    border: solid 1px rgb(var(--venia-global-color-border));
     border-radius: 2px;
     height: 100%;
     object-fit: contain;
@@ -20,13 +39,13 @@
 
 .details {
     display: grid;
+    gap: 0.5rem;
     grid-area: details;
-    grid-gap: 0.5rem;
     grid-template-areas:
-        'name .'
+        'name name'
         'options quantity'
-        'price quantity';
-    grid-template-rows: repeat(3, min-content);
+        'price quantity'
+        'stock quantity';
     grid-template-columns: 2fr 1fr;
     line-height: 1.5;
 }
@@ -42,10 +61,10 @@
 }
 
 .quantity {
+    align-items: start;
+    display: grid;
     grid-area: quantity;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-items: center;
 }
 
 .kebab {
@@ -67,17 +86,36 @@
 }
 
 .optionLabel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+}
+
+.stockStatusMessage {
+    color: rgb(var(--venia-global-color-error));
+    font-size: var(--venia-global-fontSize-100);
+    font-weight: var(--venia-global-fontWeight-semibold);
+    grid-area: stock;
+}
+
+.stockStatusMessage:empty {
+    display: none;
 }
 
 @media (max-width: 640px) {
     .details {
-        grid-template-columns: auto min-content;
-        align-items: start;
+        grid-template: none;
+    }
+
+    .name,
+    .options,
+    .price,
+    .stockStatusMessage,
+    .quantity {
+        grid-area: auto;
     }
 
     .quantity {
-        grid-column: 1;
-        grid-row: 4;
-        justify-self: left;
+        justify-items: start;
     }
 }

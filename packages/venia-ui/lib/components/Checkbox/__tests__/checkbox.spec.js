@@ -56,7 +56,7 @@ test('applies `checked` based on `initialValue`', () => {
 });
 
 test('renders an error message if it exists', () => {
-    const error = 'error';
+    const error = { id: 'checkbox.id', defaultMessage: 'error' };
     let formApi;
     const setFormApi = api => (formApi = api);
 
@@ -70,7 +70,9 @@ test('renders an error message if it exists', () => {
         formApi.setError(field, error);
     });
 
-    const messageInstance = root.findByProps({ children: error });
+    const messageInstance = root.findByProps({
+        children: error.defaultMessage
+    });
 
-    expect(messageInstance.props.children).toBe(error);
+    expect(messageInstance.props.children).toBe(error.defaultMessage);
 });

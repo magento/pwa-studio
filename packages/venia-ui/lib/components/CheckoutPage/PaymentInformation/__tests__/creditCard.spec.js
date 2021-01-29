@@ -28,33 +28,38 @@ jest.mock(
         };
     }
 );
+jest.mock('../../../FormError', () => 'FormError');
 
 jest.mock('../brainTreeDropIn', () => {
-    return () => <div>Braintree Dropin Component</div>;
+    return props => <mock-BraintreeDropin {...props} />;
 });
 
 jest.mock('../../../LoadingIndicator', () => {
-    return () => <div>Loading Indicator Component</div>;
+    return props => <mock-LoadingIndicator {...props} />;
 });
 
 jest.mock('../../../Checkbox', () => {
-    return props => <div {...props}>Checkout Component</div>;
+    return props => <mock-Checkbox {...props} />;
 });
 
 jest.mock('../../../Field', () => {
-    return props => <div {...props}>Field Component</div>;
+    return props => <mock-Field {...props} />;
 });
 
 jest.mock('../../../TextInput', () => {
-    return props => <div {...props}>Text Input Component</div>;
+    return props => <mock-TextInput {...props} />;
 });
 
 jest.mock('../../../Country', () => {
-    return props => <div {...props}>Country Component</div>;
+    return props => <mock-Country {...props} />;
 });
 
 jest.mock('../../../Region', () => {
-    return props => <div {...props}>Region Component</div>;
+    return props => <mock-Region {...props} />;
+});
+
+jest.mock('../../../Postcode', () => {
+    return props => <mock-Postcode {...props} />;
 });
 
 const useCreditCardReturnValue = {
@@ -64,7 +69,7 @@ const useCreditCardReturnValue = {
     isBillingAddressSame: false,
     countries: {},
     isLoading: false,
-    errors: [],
+    errors: new Map(),
     stepNumber: 0,
     initialValues: {
         firstName: 'sample first name',
@@ -74,7 +79,7 @@ const useCreditCardReturnValue = {
         country: 'sample country',
         street1: 'sample street 1',
         street2: 'sample street 2',
-        postalCode: 'sample postal code',
+        postcode: 'sample postal code',
         phoneNumber: 'sample phone number',
         isBillingAddressSame: false
     },
@@ -135,14 +140,12 @@ test('Billing address fields should not be visibile if isBillingAddressSame is t
 test('Should render error messages if errors array is not empty', () => {
     useCreditCard.mockReturnValueOnce({
         ...useCreditCardReturnValue,
-        errors: ['something is missing']
+        formErrors: [new Error('something is missing')]
     });
 
     const tree = createTestInstance(<CreditCard />);
 
-    expect(
-        tree.root.findByProps({ className: classes.errors_container })
-    ).not.toBeNull();
+    expect(tree.root.findByType('FormError')).not.toBeNull();
 });
 
 test('Should use country from shipping address if initialValues is empty', () => {

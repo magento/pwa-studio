@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { func, string, shape } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useShippingInformation } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useShippingInformation';
@@ -11,6 +12,7 @@ import Card from './card';
 import EditModal from './editModal';
 import defaultClasses from './shippingInformation.css';
 import ShippingInformationOperations from './shippingInformation.gql';
+import LinkButton from '../../LinkButton';
 
 const ShippingInformation = props => {
     const { classes: propClasses, onSave, toggleActiveContent } = props;
@@ -39,7 +41,10 @@ const ShippingInformation = props => {
     if (isLoading) {
         return (
             <LoadingIndicator classes={{ root: classes.loading }}>
-                Fetching Shipping Information...
+                <FormattedMessage
+                    id={'shippingInformation.loading'}
+                    defaultMessage={'Fetching Shipping Information...'}
+                />
             </LoadingIndicator>
         );
     }
@@ -51,22 +56,40 @@ const ShippingInformation = props => {
     const shippingInformation = doneEditing ? (
         <Fragment>
             <div className={classes.cardHeader}>
-                <h5 className={classes.cardTitle}>{'Shipping Information'}</h5>
-                <button onClick={handleEditShipping}>
+                <h5 className={classes.cardTitle}>
+                    <FormattedMessage
+                        id={'shippingInformation.cardTitle'}
+                        defaultMessage={'Shipping Information'}
+                    />
+                </h5>
+                <LinkButton
+                    onClick={handleEditShipping}
+                    className={classes.editButton}
+                >
                     <Icon
                         size={16}
                         src={EditIcon}
                         classes={{ icon: classes.editIcon }}
                     />
-                    <span className={classes.editText}>{'Edit'}</span>
-                </button>
+                    <span className={classes.editText}>
+                        <FormattedMessage
+                            id={'global.editButton'}
+                            defaultMessage={'Edit'}
+                        />
+                    </span>
+                </LinkButton>
             </div>
             <Card shippingData={shippingData} />
             {editModal}
         </Fragment>
     ) : (
         <Fragment>
-            <h3 className={classes.editTitle}>{'1. Shipping Information'}</h3>
+            <h3 className={classes.editTitle}>
+                <FormattedMessage
+                    id={'shippingInformation.editTitle'}
+                    defaultMessage={'1. Shipping Information'}
+                />
+            </h3>
             <div className={classes.editWrapper}>
                 <AddressForm shippingData={shippingData} />
             </div>
@@ -85,7 +108,10 @@ ShippingInformation.propTypes = {
         cardHeader: string,
         cartTitle: string,
         editWrapper: string,
-        editTitle: string
+        editTitle: string,
+        editButton: string,
+        editIcon: string,
+        editText: string
     }),
     onSave: func.isRequired,
     toggleActiveContent: func.isRequired

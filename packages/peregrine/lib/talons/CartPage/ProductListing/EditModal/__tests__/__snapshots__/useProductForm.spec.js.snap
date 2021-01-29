@@ -48,6 +48,11 @@ Object {
           },
         ],
         "product": Object {
+          "price": Object {
+            "regularPrice": Object {
+              "amount": Object {},
+            },
+          },
           "sku": "SP11",
         },
       },
@@ -63,6 +68,11 @@ Object {
           },
         ],
         "product": Object {
+          "price": Object {
+            "regularPrice": Object {
+              "amount": Object {},
+            },
+          },
           "sku": "SP12",
         },
       },
@@ -78,6 +88,11 @@ Object {
           },
         ],
         "product": Object {
+          "price": Object {
+            "regularPrice": Object {
+              "amount": Object {},
+            },
+          },
           "sku": "SP21",
         },
       },
@@ -93,15 +108,25 @@ Object {
           },
         ],
         "product": Object {
+          "price": Object {
+            "regularPrice": Object {
+              "amount": Object {},
+            },
+          },
           "sku": "SP22",
         },
       },
     ],
   },
+  "errors": Map {
+    "updateQuantityMutation" => null,
+    "updateConfigurableOptionsMutation" => null,
+  },
+  "handleClose": [Function],
   "handleOptionSelection": [Function],
   "handleSubmit": [Function],
+  "isDialogOpen": true,
   "isLoading": false,
   "isSaving": false,
-  "setFormApi": [Function],
 }
 `;

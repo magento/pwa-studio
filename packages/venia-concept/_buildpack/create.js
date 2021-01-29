@@ -1,7 +1,31 @@
 const { resolve } = require('path');
+const { uniqBy } = require('lodash');
+const {
+    sampleBackends: defaultSampleBackends
+} = require('@magento/pwa-buildpack/lib/cli/create-project');
 
-function createProjectFromVenia({ fs, tasks, options }) {
+const removeDuplicateBackends = backendEnvironments =>
+    uniqBy(backendEnvironments, 'url');
+
+const fetchSampleBackends = async () => {
+    try {
+        const res = await fetch(
+            'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
+        );
+        const { sampleBackends } = await res.json();
+
+        return removeDuplicateBackends([
+            ...sampleBackends.environments,
+            ...defaultSampleBackends.environments
+        ]).map(({ url }) => url);
+    } catch {
+        return defaultSampleBackends.environments.map(({ url }) => url);
+    }
+};
+
+async function createProjectFromVenia({ fs, tasks, options }) {
     const npmCli = options.npmClient;
+    const sampleBackendEnvironments = await fetchSampleBackends();
 
     const toCopyFromPackageJson = [
         'main',
@@ -9,7 +33,8 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'dependencies',
         'devDependencies',
         'optionalDependencies',
-        'engines'
+        'engines',
+        'pwa-studio'
     ];
     const scriptsToCopy = [
         'buildpack',
@@ -17,6 +42,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'build:analyze',
         'build:dev',
         'build:prod',
+        'build:report',
         'clean',
         'download-schema',
         'lint',
@@ -62,7 +88,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
             'package.json': ({
                 path,
                 targetPath,
-                options: { name, author }
+                options: { name, author, backendUrl }
             }) => {
                 const pkgTpt = fs.readJsonSync(path);
                 const pkg = {
@@ -78,6 +104,14 @@ function createProjectFromVenia({ fs, tasks, options }) {
                 toCopyFromPackageJson.forEach(prop => {
                     pkg[prop] = pkgTpt[prop];
                 });
+
+                // If the backend url is a sample backend, add the validator.
+                if (sampleBackendEnvironments.includes(backendUrl)) {
+                    pkg.devDependencies = {
+                        ...pkg.devDependencies,
+                        '@magento/venia-sample-backends': '~0.0.1'
+                    };
+                }
 
                 // The venia-concept template is part of the monorepo, which
                 // uses yarn for workspaces. But if the user wants to use
@@ -107,7 +141,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
                 });
 
                 if (process.env.DEBUG_PROJECT_CREATION) {
-                    setDebugDependencies(fs, pkg);
+                    setDebugDependencies(pkg);
                 }
 
                 fs.outputJsonSync(targetPath, pkg, {
@@ -127,39 +161,72 @@ function createProjectFromVenia({ fs, tasks, options }) {
     };
 }
 
-function setDebugDependencies(fs, pkg) {
+function setDebugDependencies(pkg) {
     console.warn(
         'DEBUG_PROJECT_CREATION: Debugging Venia _buildpack/create.js, so we will assume we are inside the pwa-studio repo and replace those package dependency declarations with local file paths.'
     );
+
+    const { execSync } = require('child_process');
     const overridden = {};
-    const workspaceDir = resolve(__dirname, '../../');
-    fs.readdirSync(workspaceDir).forEach(packageDir => {
-        const packagePath = resolve(workspaceDir, packageDir);
-        if (!fs.statSync(packagePath).isDirectory()) {
-            return;
+    const monorepoDir = resolve(__dirname, '../../../');
+
+    // The Yarn "workspaces info" command outputs JSON as of v1.22.4.
+    // The -s flag suppresses all other non-JSON logging output.
+    const yarnWorkspaceInfoCmd = 'yarn -s workspaces info';
+    const workspaceInfo = execSync(yarnWorkspaceInfoCmd, { cwd: monorepoDir });
+
+    let packageDirs;
+    try {
+        // Build a list of package name => absolute package path tuples.
+        packageDirs = Object.entries(JSON.parse(workspaceInfo)).map(
+            ([name, info]) => [name, resolve(monorepoDir, info.location)]
+        );
+    } catch (e) {
+        throw new Error(
+            `DEBUG_PROJECT_CREATION: Could not parse output of '${yarnWorkspaceInfoCmd}:\n${workspaceInfo}. Please check your version of yarn is v1.22.4+.\n${
+                e.stack
+            }`
+        );
+    }
+
+    // Venia does not depend on these packages.
+    const packagesToSkip = new Set([
+        '@magento/create-pwa',
+        '@magento/upward-spec',
+        // Venia especially does not depend on itself.
+        '@magento/venia-concept'
+    ]);
+
+    // We'll look for existing dependencies in all of the dep collections that
+    // the package has.
+    const depTypes = [
+        'dependencies',
+        'devDependencies',
+        'optionalDependencies'
+    ].filter(type => pkg.hasOwnProperty(type));
+
+    // Modify the new project's package.json file to use our generated local
+    // dependencies instead of going to the NPM registry and getting the old
+    // versions of packages that haven't yet been released.
+    for (const [name, packageDir] of packageDirs) {
+        if (packagesToSkip.has(name)) {
+            continue;
         }
-        let name;
-        try {
-            name = fs.readJsonSync(resolve(packagePath, 'package.json')).name;
-        } catch (e) {} // eslint-disable-line no-empty
-        if (
-            // these should not be deps
-            !name ||
-            name === '@magento/create-pwa' ||
-            name === '@magento/venia-concept'
-        ) {
-            return;
-        }
+
         console.warn(`DEBUG_PROJECT_CREATION: Packing ${name} for local usage`);
+
+        // We want to use local versions of these packages, which normally would
+        // just be a `yarn link`. But symlinks and direct file URL pointers
+        // aren't reliable in this case, because of the monorepo structure.
+        // So instead, we use `npm pack` to make a tarball of each dependency,
+        // which the scaffolded project will unzip and install.
         let filename;
         let packOutput;
         try {
-            packOutput = require('child_process').execSync(
-                'npm pack -s --ignore-scripts --json',
-                {
-                    cwd: packagePath
-                }
-            );
+            packOutput = execSync('npm pack -s --ignore-scripts --json', {
+                cwd: packageDir
+            });
+            // NPM tells you where it saved the tarball it made
             filename = JSON.parse(packOutput)[0].filename;
         } catch (e) {
             throw new Error(
@@ -168,21 +235,38 @@ function setDebugDependencies(fs, pkg) {
                 }`
             );
         }
-        const localDep = `file://${resolve(packagePath, filename)}`;
-        ['dependencies', 'devDependencies', 'optionalDependencies'].forEach(
-            depType => {
-                if (pkg[depType] && pkg[depType][name]) {
-                    overridden[name] = localDep;
-                    pkg[depType][name] = localDep;
-                }
-            }
-        );
-    });
+
+        // The `file://` URL scheme is legal in package.json.
+        // https://docs.npmjs.com/files/package.json#urls-as-dependencies
+        const localDep = `file://${resolve(packageDir, filename)}`;
+
+        // All the local packages go in `overrides`, which we assign to
+        // package.json `resolutions` a little bit under here.
+        overridden[name] = localDep;
+
+        // If the project has an explicit dependency on this package already...
+        const depType =
+            depTypes.find(type => pkg[type].hasOwnProperty(name)) ||
+            // then depType will be the dependency collection where it was found.
+            // This way we replace an existing dependency and avoid duplicates.
+            // OR...
+            // If not, then put it in the dependencies collection anyway.
+            // That way, it can override any transitive dependencies that would
+            // pull in the old version.
+            'dependencies';
+
+        pkg[depType][name] = localDep;
+    }
+
     if (Object.keys(overridden).length > 0) {
         console.warn(
             'DEBUG_PROJECT_CREATION: Resolved the following packages via local tarball',
             JSON.stringify(overridden, null, 2)
         );
+
+        // Force yarn to resolve all dependencies on these modules to the local
+        // versions we just created:
+        // https://classic.yarnpkg.com/en/docs/selective-version-resolutions/
         pkg.resolutions = Object.assign({}, pkg.resolutions, overridden);
     }
 }

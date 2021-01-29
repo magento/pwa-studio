@@ -1,70 +1,69 @@
 import React, { Fragment } from 'react';
 import { number, shape, string } from 'prop-types';
-import { useQuery } from '@apollo/react-hooks';
-import cmsPageQuery from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import { useCmsPage } from '@magento/peregrine/lib/talons/Cms/useCmsPage';
 import RichContent from '../../components/RichContent';
 import CategoryList from '../../components/CategoryList';
 import { Meta, Title } from '../../components/Head';
 import { mergeClasses } from '../../classify';
+import { useIntl } from 'react-intl';
 
 import defaultClasses from './cms.css';
 
 const CMSPage = props => {
     const { id } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const { loading, error, data } = useQuery(cmsPageQuery, {
-        variables: {
-            id: Number(id),
-            onServer: false
-        }
-    });
 
-    if (error) {
-        if (process.env.NODE_ENV !== 'production') {
-            console.error(error);
-        }
-        return <div>Page Fetch Error</div>;
-    }
+    const talonProps = useCmsPage({ id });
+    const {
+        cmsPage,
+        hasContent,
+        rootCategoryId,
+        shouldShowLoadingIndicator
+    } = talonProps;
+    const { formatMessage } = useIntl();
 
-    if (loading) {
+    if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;
     }
 
-    if (!data) {
-        return null;
-    }
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-    const { content_heading, title } = data.cmsPage;
+    if (hasContent) {
+        const {
+            content_heading,
+            title,
+            meta_title,
+            meta_description,
+            content
+        } = cmsPage;
 
-    const headingElement =
-        content_heading !== '' ? (
-            <h1 className={classes.heading}>{content_heading}</h1>
-        ) : null;
+        const headingElement =
+            content_heading !== '' ? (
+                <h1 className={classes.heading}>{content_heading}</h1>
+            ) : null;
 
-    let content;
-    // Only render <RichContent /> if the page isn't empty and doesn't contain the default CMS Page text.
-    if (
-        data.cmsPage.content &&
-        data.cmsPage.content.length > 0 &&
-        !data.cmsPage.content.includes('CMS homepage content goes here.')
-    ) {
-        content = (
+        const pageTitle = meta_title || title;
+
+        return (
             <Fragment>
-                <Title>{title}</Title>
+                <Title>{pageTitle}</Title>
+                <Meta name="title" content={pageTitle} />
+                <Meta name="description" content={meta_description} />
                 {headingElement}
-                <RichContent html={data.cmsPage.content} />
+                <RichContent html={content} />
             </Fragment>
         );
-    } else {
-        content = <CategoryList title="Shop by category" id={2} />;
     }
 
+    // Fallback to a category list if there is no cms content.
     return (
-        <Fragment>
-            <Meta name="description" content={data.cmsPage.meta_description} />
-            {content}
-        </Fragment>
+        <CategoryList
+            title={formatMessage({
+                id: 'cms.shopByCategory',
+                defaultMessage: 'Shop by category'
+            })}
+            id={rootCategoryId}
+        />
     );
 };
 

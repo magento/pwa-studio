@@ -1,5 +1,6 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
+import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
 
 import { mergeClasses } from '../../classify';
 import CreateAccount from '../CreateAccount';
@@ -7,12 +8,10 @@ import ForgotPassword from '../ForgotPassword';
 import MyAccount from '../MyAccount';
 import SignIn from '../SignIn';
 import defaultClasses from './authModal.css';
-import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
-import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 
 const AuthModal = props => {
     const {
-        handleClose,
+        handleCancel,
         handleCreateAccount,
         handleSignOut,
         setUsername,
@@ -20,18 +19,23 @@ const AuthModal = props => {
         showForgotPassword,
         showMyAccount,
         username
-    } = useAuthModal({
-        ...props,
-        signOutMutation: SIGN_OUT_MUTATION
-    });
+    } = useAuthModal(props);
+
+    const classes = mergeClasses(defaultClasses, props.classes);
 
     let child = null;
     switch (props.view) {
         case 'CREATE_ACCOUNT': {
             child = (
                 <CreateAccount
+                    classes={{
+                        actions: classes.createAccountActions,
+                        submitButton: classes.createAccountSubmitButton
+                    }}
                     initialValues={{ email: username }}
+                    isCancelButtonHidden={false}
                     onSubmit={handleCreateAccount}
+                    onCancel={handleCancel}
                 />
             );
             break;
@@ -40,7 +44,7 @@ const AuthModal = props => {
             child = (
                 <ForgotPassword
                     initialValues={{ email: username }}
-                    onClose={handleClose}
+                    onCancel={handleCancel}
                 />
             );
             break;
@@ -49,7 +53,8 @@ const AuthModal = props => {
             child = <MyAccount onSignOut={handleSignOut} />;
             break;
         }
-        case 'SIGN_IN': {
+        case 'SIGN_IN':
+        default: {
             child = (
                 <SignIn
                     setDefaultUsername={setUsername}
@@ -62,7 +67,6 @@ const AuthModal = props => {
         }
     }
 
-    const classes = mergeClasses(defaultClasses, props.classes);
     return <div className={classes.root}>{child}</div>;
 };
 
@@ -72,9 +76,11 @@ AuthModal.propTypes = {
     classes: shape({
         root: string
     }),
+    closeDrawer: func.isRequired,
     showCreateAccount: func.isRequired,
     showForgotPassword: func.isRequired,
-    showMainMenu: func.isRequired,
     showMyAccount: func.isRequired,
-    view: string.isRequired
+    showMainMenu: func.isRequired,
+    showSignIn: func.isRequired,
+    view: string
 };

@@ -85,111 +85,85 @@ const testReactComponents = inPackage => ({
         'node_modules/(?!@magento|jarallax|video-worker/)'
     ],
     globals: {
-        UNION_AND_INTERFACE_TYPES: {
-            __schema: {
-                types: [
-                    {
-                        kind: 'INTERFACE',
-                        name: 'ProductInterface',
-                        possibleTypes: [
-                            { name: 'VirtualProduct' },
-                            { name: 'SimpleProduct' },
-                            { name: 'DownloadableProduct' },
-                            { name: 'BundleProduct' },
-                            { name: 'GiftCardProduct' },
-                            { name: 'GroupedProduct' },
-                            { name: 'ConfigurableProduct' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'MediaGalleryInterface',
-                        possibleTypes: [
-                            { name: 'ProductImage' },
-                            { name: 'ProductVideo' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'ProductLinksInterface',
-                        possibleTypes: [{ name: 'ProductLinks' }]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'CategoryInterface',
-                        possibleTypes: [{ name: 'CategoryTree' }]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'LayerFilterItemInterface',
-                        possibleTypes: [
-                            { name: 'LayerFilterItem' },
-                            { name: 'SwatchLayerFilterItem' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'PhysicalProductInterface',
-                        possibleTypes: [
-                            { name: 'SimpleProduct' },
-                            { name: 'BundleProduct' },
-                            { name: 'GiftCardProduct' },
-                            { name: 'GroupedProduct' },
-                            { name: 'ConfigurableProduct' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'CustomizableOptionInterface',
-                        possibleTypes: [
-                            { name: 'CustomizableAreaOption' },
-                            { name: 'CustomizableDateOption' },
-                            { name: 'CustomizableDropDownOption' },
-                            { name: 'CustomizableMultipleOption' },
-                            { name: 'CustomizableFieldOption' },
-                            { name: 'CustomizableFileOption' },
-                            { name: 'CustomizableRadioOption' },
-                            { name: 'CustomizableCheckboxOption' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'CustomizableProductInterface',
-                        possibleTypes: [
-                            { name: 'VirtualProduct' },
-                            { name: 'SimpleProduct' },
-                            { name: 'DownloadableProduct' },
-                            { name: 'BundleProduct' },
-                            { name: 'GiftCardProduct' },
-                            { name: 'ConfigurableProduct' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'CartItemInterface',
-                        possibleTypes: [
-                            { name: 'SimpleCartItem' },
-                            { name: 'VirtualCartItem' },
-                            { name: 'ConfigurableCartItem' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'CartAddressInterface',
-                        possibleTypes: [
-                            { name: 'ShippingCartAddress' },
-                            { name: 'BillingCartAddress' }
-                        ]
-                    },
-                    {
-                        kind: 'INTERFACE',
-                        name: 'SwatchLayerFilterItemInterface',
-                        possibleTypes: [{ name: 'SwatchLayerFilterItem' }]
-                    }
-                ]
-            }
+        POSSIBLE_TYPES: {
+            CartAddressInterface: ['BillingCartAddress', 'ShippingCartAddress'],
+            CartItemInterface: [
+                'SimpleCartItem',
+                'VirtualCartItem',
+                'DownloadableCartItem',
+                'BundleCartItem',
+                'ConfigurableCartItem'
+            ],
+            ProductInterface: [
+                'VirtualProduct',
+                'SimpleProduct',
+                'DownloadableProduct',
+                'GiftCardProduct',
+                'BundleProduct',
+                'GroupedProduct',
+                'ConfigurableProduct'
+            ],
+            CategoryInterface: ['CategoryTree'],
+            MediaGalleryInterface: ['ProductImage', 'ProductVideo'],
+            ProductLinksInterface: ['ProductLinks'],
+            AggregationOptionInterface: ['AggregationOption'],
+            LayerFilterItemInterface: [
+                'LayerFilterItem',
+                'SwatchLayerFilterItem'
+            ],
+            PhysicalProductInterface: [
+                'SimpleProduct',
+                'GiftCardProduct',
+                'BundleProduct',
+                'GroupedProduct',
+                'ConfigurableProduct'
+            ],
+            CustomizableOptionInterface: [
+                'CustomizableAreaOption',
+                'CustomizableDateOption',
+                'CustomizableDropDownOption',
+                'CustomizableMultipleOption',
+                'CustomizableFieldOption',
+                'CustomizableFileOption',
+                'CustomizableRadioOption',
+                'CustomizableCheckboxOption'
+            ],
+            CustomizableProductInterface: [
+                'VirtualProduct',
+                'SimpleProduct',
+                'DownloadableProduct',
+                'GiftCardProduct',
+                'BundleProduct',
+                'ConfigurableProduct'
+            ],
+            SwatchDataInterface: [
+                'ImageSwatchData',
+                'TextSwatchData',
+                'ColorSwatchData'
+            ],
+            SwatchLayerFilterItemInterface: ['SwatchLayerFilterItem']
         },
-        STORE_NAME: 'Venia'
+        STORE_NAME: 'Venia',
+        STORE_VIEW_CODE: 'default',
+        AVAILABLE_STORE_VIEWS: [
+            {
+                base_currency_code: 'USD',
+                code: 'default',
+                default_display_currency_code: 'USD',
+                id: 1,
+                locale: 'en_US',
+                store_name: 'Default Store View'
+            },
+            {
+                base_currency_code: 'EUR',
+                code: 'fr',
+                default_display_currency_code: 'EUR',
+                id: 2,
+                locale: 'fr_FR',
+                store_name: 'French Store View'
+            }
+        ],
+        DEFAULT_LOCALE: 'en-US'
     }
 });
 

@@ -1,10 +1,14 @@
 import { createTestInstance } from '@magento/peregrine';
 import React from 'react';
-import Products from '../products';
+import Products, { GET_PRODUCTS_BY_SKU } from '../products';
 
-jest.mock('@apollo/react-hooks', () => ({
-    useQuery: jest.fn()
-}));
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+    return {
+        ...apolloClient,
+        useQuery: jest.fn()
+    };
+});
 jest.mock('react-slick', () => {
     return jest.fn();
 });
@@ -12,12 +16,11 @@ import SlickSlider from 'react-slick';
 const mockSlick = SlickSlider.mockImplementation(({ children }) => (
     <div>{children}</div>
 ));
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 jest.mock('@magento/venia-ui/lib/components/Gallery', () => jest.fn());
 jest.mock('@magento/venia-ui/lib/components/Gallery/item', () => jest.fn());
 import Gallery from '@magento/venia-ui/lib/components/Gallery';
 import GalleryItem from '@magento/venia-ui/lib/components/Gallery/item';
-import GET_PRODUCTS_BY_SKU from '@magento/venia-ui/lib/queries/getProductsBySku.graphql';
 const mockGallery = Gallery.mockImplementation(() => 'Gallery');
 const mockGalleryItem = GalleryItem.mockImplementation(() => 'GalleryItem');
 
@@ -94,10 +97,6 @@ test('render products with loading state', () => {
 });
 
 test('render products with error state in production mode', () => {
-    const oldEnv = process.env.NODE_ENV;
-    process.env.NODE_ENV = 'production';
-    jest.spyOn(console, 'error').mockImplementation();
-
     useQuery.mockImplementation(() => {
         return {
             data: {
@@ -113,17 +112,9 @@ test('render products with error state in production mode', () => {
     const component = createTestInstance(<Products />);
 
     expect(component.toJSON()).toMatchSnapshot();
-    expect(console.error).not.toHaveBeenCalled();
-
-    process.env.NODE_ENV = oldEnv;
-    console.error.mockRestore();
 });
 
 test('render products with error state in development mode', () => {
-    const oldEnv = process.env.NODE_ENV;
-    process.env.NODE_ENV = 'development';
-    jest.spyOn(console, 'error').mockImplementation();
-
     useQuery.mockImplementation(() => {
         return {
             data: {
@@ -139,10 +130,6 @@ test('render products with error state in development mode', () => {
     const component = createTestInstance(<Products />);
 
     expect(component.toJSON()).toMatchSnapshot();
-    expect(console.error).toHaveBeenCalled();
-
-    process.env.NODE_ENV = oldEnv;
-    console.error.mockRestore();
 });
 
 test('render products and ensure order is correct passed to Gallery', () => {

@@ -15,14 +15,17 @@
 }
 
 .heading_container {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+    display: grid;
+    margin-bottom: 1rem;
+    row-gap: 1rem;
 }
 
 .heading {
     line-height: 1.25em;
+}
+
+.stockStatusMessageContainer:empty {
+    display: none;
 }
 
 .items_container {
@@ -31,11 +34,6 @@
 
 .price_adjustments_container {
     grid-area: adjustments;
-}
-
-.sign_in {
-    font-weight: bold;
-    text-decoration: underline;
 }
 
 .summary_container {

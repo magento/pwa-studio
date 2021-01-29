@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
@@ -16,14 +17,38 @@ import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
 
 import {
-    GET_CART_GIFT_CARDS_QUERY,
+    GET_APPLIED_GIFT_CARDS_QUERY,
     GET_GIFT_CARD_BALANCE_QUERY,
     APPLY_GIFT_CARD_MUTATION,
     REMOVE_GIFT_CARD_MUTATION
 } from './giftCardQueries';
+import LinkButton from '../../LinkButton';
 
-const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
+const errorIcon = (
+    <Icon
+        src={AlertCircleIcon}
+        attrs={{
+            width: 18
+        }}
+    />
+);
 
+/**
+ * GiftCards is a child component of the CartPage component.
+ * This component shows a form for applying gift cards along with a list of applied
+ * Gift Cards in the shopping cart.
+ *
+ * @param {Object} props Component props
+ * @param {Function} props.setIsCartUpdating Callback function to call when adding or removing a gift card
+ * @param {Object} props.classes CSS className overrides.
+ * See [giftCards.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCards.css}
+ * for a list of classes you can override.
+ *
+ * @returns {React.Element}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import GiftCards from '@magento/venia-ui/lib/components/CartPage/GiftCards';
+ */
 const GiftCards = props => {
     const talonProps = useGiftCards({
         setIsCartUpdating: props.setIsCartUpdating,
@@ -32,7 +57,7 @@ const GiftCards = props => {
             removeCardMutation: REMOVE_GIFT_CARD_MUTATION
         },
         queries: {
-            appliedCardsQuery: GET_CART_GIFT_CARDS_QUERY,
+            appliedCardsQuery: GET_APPLIED_GIFT_CARDS_QUERY,
             cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY
         }
     });
@@ -50,40 +75,59 @@ const GiftCards = props => {
         removeGiftCard,
         setFormApi,
         shouldDisplayCardBalance,
-        shouldDisplayCardError,
-        submitForm
+        shouldDisplayCardError
     } = talonProps;
 
+    const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
     useEffect(() => {
         if (errorRemovingCard) {
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message: 'Unable to remove gift card. Please try again.',
+                message: formatMessage({
+                    id: 'giftCards.errorRemoving',
+                    defaultMessage:
+                        'Unable to remove gift card. Please try again.'
+                }),
                 dismissable: true,
                 timeout: 7000
             });
         }
-    }, [addToast, errorRemovingCard]);
+    }, [addToast, errorRemovingCard, formatMessage]);
 
     if (isLoadingGiftCards) {
-        return <LoadingIndicator>{'Loading Gift Cards...'}</LoadingIndicator>;
-    }
-    if (errorLoadingGiftCards) {
         return (
-            <span>
-                {'There was an error loading gift cards. Please try again.'}
-            </span>
+            <LoadingIndicator>
+                <FormattedMessage
+                    id={'giftCards.loading'}
+                    defaultMessage={'Loading Gift Cards...'}
+                />
+            </LoadingIndicator>
         );
     }
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const cardEntryErrorMessage = shouldDisplayCardError
-        ? 'Invalid card. Please try again.'
+        ? formatMessage({
+              id: 'giftCards.errorInvalid',
+              defaultMessage: 'Invalid card. Please try again.'
+          })
         : null;
 
     let appliedGiftCards = null;
+    if (errorLoadingGiftCards) {
+        appliedGiftCards = (
+            <span className={classes.errorText}>
+                <FormattedMessage
+                    id={'giftCards.errorLoading'}
+                    defaultMessage={
+                        'There was an error loading applied gift cards. Please refresh and try again.'
+                    }
+                />
+            </span>
+        );
+    }
     if (giftCardsData.length > 0) {
         const cardList = giftCardsData.map(giftCardData => {
             const { code, current_balance } = giftCardData;
@@ -107,7 +151,10 @@ const GiftCards = props => {
     const cardBalance = shouldDisplayCardBalance && (
         <div className={classes.balance}>
             <span className={classes.price}>
-                {'Balance: '}
+                <FormattedMessage
+                    id={'giftCards.balance'}
+                    defaultMessage={'Balance: '}
+                />
                 <Price
                     value={checkBalanceData.balance.value}
                     currencyCode={checkBalanceData.balance.currency}
@@ -116,14 +163,23 @@ const GiftCards = props => {
         </div>
     );
 
+    const containerClass = shouldDisplayCardError
+        ? classes.card_input_container_error
+        : classes.card_input_container;
+
     const cardEntryContents = (
         <div className={classes.card}>
             <Field
-                classes={{ root: classes.entry }}
+                classes={{
+                    root: classes.entry
+                }}
                 id={classes.card}
-                label="Gift Card Number"
+                label={formatMessage({
+                    id: 'giftCards.cardNumber',
+                    defaultMessage: 'Gift Card Number'
+                })}
             >
-                <div className={classes.card_input_container}>
+                <div className={containerClass}>
                     <TextInput
                         id={classes.card}
                         disabled={isApplyingCard || isCheckingBalance}
@@ -131,35 +187,48 @@ const GiftCards = props => {
                         mask={value => value && value.trim()}
                         maskOnBlur={true}
                         message={cardEntryErrorMessage}
-                        placeholder={'Enter card number'}
+                        placeholder={formatMessage({
+                            id: 'giftCards.cardEntry',
+                            defaultMessage: 'Enter card number'
+                        })}
                         validate={isRequired}
                     />
                 </div>
                 {cardBalance}
             </Field>
-            <Button
-                classes={{ root_normalPriority: classes.apply_button }}
-                disabled={isApplyingCard}
-                onClick={applyGiftCard}
+            <Field
+                classes={{
+                    label: classes.applyLabel
+                }}
             >
-                {'Apply'}
-            </Button>
-            <button
+                <Button
+                    priority={'normal'}
+                    disabled={isApplyingCard}
+                    onClick={applyGiftCard}
+                >
+                    <FormattedMessage
+                        id={'giftCards.apply'}
+                        defaultMessage={'Apply'}
+                    />
+                </Button>
+            </Field>
+            <LinkButton
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}
                 onClick={checkGiftCardBalance}
             >
-                {'Check balance'}
-            </button>
+                <FormattedMessage
+                    id={'giftCards.checkBalance'}
+                    defaultMessage={'Check balance'}
+                />
+            </LinkButton>
         </div>
     );
 
     return (
         <div className={classes.root}>
             <div className={classes.entryForm}>
-                <Form onSubmit={submitForm} getApi={setFormApi}>
-                    {cardEntryContents}
-                </Form>
+                <Form getApi={setFormApi}>{cardEntryContents}</Form>
             </div>
             {appliedGiftCards}
         </div>

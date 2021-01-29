@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the correct shape 1`] = `
+Object {
+  "data": Object {
+    "products": Object {
+      "page_info": Object {
+        "total_pages": 6,
+      },
+    },
+  },
+  "error": null,
+  "filters": undefined,
+  "loading": false,
+  "openDrawer": [Function],
+  "pageControl": Object {
+    "currentPage": 3,
+    "setPage": [MockFunction],
+    "totalPages": 6,
+  },
+  "searchCategory": null,
+  "searchTerm": "",
+  "sortProps": Array [
+    Object {
+      "sortAttribute": "relevance",
+      "sortDirection": "DESC",
+      "sortText": "Best Match",
+    },
+    [MockFunction],
+  ],
+}
+`;

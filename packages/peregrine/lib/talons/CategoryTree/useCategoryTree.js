@@ -1,5 +1,9 @@
 import { useEffect, useMemo } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
+
+import mergeOperations from '../../util/shallowMerge';
+
+import DEFAULT_OPERATIONS from './categoryTree.gql';
 
 /**
  * @typedef {object} CategoryNode
@@ -15,16 +19,21 @@ import { useLazyQuery } from '@apollo/react-hooks';
  * Returns props necessary to render a CategoryTree component.
  *
  * @param {object} props
- * @param {object} props.categories - all fetched categories
  * @param {number} props.categoryId - category id for this node
  * @param {DocumentNode} props.query - GraphQL query
  * @param {function} props.updateCategories - bound action creator
  * @return {{ childCategories: Map<number, CategoryNode> }}
  */
 export const useCategoryTree = props => {
-    const { categories, categoryId, query, updateCategories } = props;
+    const { categoryId, updateCategories } = props;
 
-    const [runQuery, queryResult] = useLazyQuery(query);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getNavigationMenuQuery } = operations;
+
+    const [runQuery, queryResult] = useLazyQuery(getNavigationMenuQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
     const { data } = queryResult;
 
     // fetch categories
@@ -41,21 +50,33 @@ export const useCategoryTree = props => {
         }
     }, [data, updateCategories]);
 
-    const rootCategory = categories[categoryId];
-    const { children } = rootCategory || {};
+    const rootCategory = data && data.category;
+
+    const { children = [] } = rootCategory || {};
 
     const childCategories = useMemo(() => {
         const childCategories = new Map();
 
-        for (const id of children || '') {
-            const category = categories[id];
-            const isLeaf = !parseInt(category.children_count);
-
-            childCategories.set(id, { category, isLeaf });
+        // Add the root category when appropriate.
+        if (
+            rootCategory &&
+            rootCategory.include_in_menu &&
+            rootCategory.url_path
+        ) {
+            childCategories.set(rootCategory.id, {
+                category: rootCategory,
+                isLeaf: true
+            });
         }
 
-        return childCategories;
-    }, [categories, children]);
+        children.map(category => {
+            const isLeaf = !parseInt(category.children_count);
 
-    return { childCategories };
+            childCategories.set(category.id, { category, isLeaf });
+        });
+
+        return childCategories;
+    }, [children, rootCategory]);
+
+    return { childCategories, data };
 };

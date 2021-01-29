@@ -1,10 +1,10 @@
 .root {
     display: grid;
+    padding: 2rem;
 }
 
 .payment_method {
-    padding: 1rem;
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
 }
 
 .payment_method:last-of-type {
@@ -13,5 +13,11 @@
 
 .radio_label {
     font-weight: 600;
-    min-width: 16rem;
+    justify-self: start;
+}
+
+.payment_errors {
+    display: grid;
+    gap: 0.5em;
+    color: rgb(var(--venia-global-color-error));
 }

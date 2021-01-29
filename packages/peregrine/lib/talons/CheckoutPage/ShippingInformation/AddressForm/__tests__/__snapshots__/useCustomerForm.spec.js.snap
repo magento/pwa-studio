@@ -2,6 +2,10 @@
 
 exports[`return correct shape for initial address entry 1`] = `
 Object {
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "hasDefaultShipping": false,
@@ -10,7 +14,9 @@ Object {
     "email": "fry@planet.express",
     "firstname": "Philip",
     "lastname": "Fry",
-    "region": null,
+    "region": Object {
+      "id": null,
+    },
   },
   "isLoading": false,
   "isSaving": false,
@@ -20,12 +26,18 @@ Object {
 
 exports[`return correct shape for new address and fire create mutation 1`] = `
 Object {
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "hasDefaultShipping": true,
   "initialValues": Object {
     "country": "US",
-    "region": null,
+    "region": Object {
+      "id": null,
+    },
   },
   "isLoading": true,
   "isSaving": false,
@@ -47,9 +59,7 @@ Object {
     "address": Object {
       "country_code": "US",
       "firstname": "Philip",
-      "region": Object {
-        "region_id": 2,
-      },
+      "region": 2,
     },
   },
 }
@@ -57,6 +67,10 @@ Object {
 
 exports[`return correct shape for update address and fire update mutation 1`] = `
 Object {
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "hasDefaultShipping": true,
@@ -64,7 +78,9 @@ Object {
     "city": "New York",
     "country": "US",
     "id": 66,
-    "region": null,
+    "region": Object {
+      "id": null,
+    },
   },
   "isLoading": false,
   "isSaving": false,
@@ -83,11 +99,13 @@ Object {
     "address": Object {
       "country_code": "UK",
       "firstname": "Bender",
-      "region": Object {
-        "region_id": 5,
-      },
+      "region": 5,
     },
     "addressId": 66,
   },
 }
 `;
+
+exports[`returns Apollo errors for create customer address 1`] = `undefined`;
+
+exports[`returns Apollo errors for update customer address 1`] = `undefined`;

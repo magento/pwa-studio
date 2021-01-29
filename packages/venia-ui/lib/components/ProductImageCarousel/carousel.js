@@ -90,18 +90,32 @@ const ProductImageCarousel = props => {
         );
     }
 
+    const chevronClasses = { root: classes.chevron };
     return (
         <div className={classes.root}>
             <div className={classes.carouselContainer}>
                 <button
                     className={classes.previousButton}
                     onClick={handlePrevious}
+                    type="button"
                 >
-                    <Icon src={ChevronLeftIcon} size={40} />
+                    <Icon
+                        classes={chevronClasses}
+                        src={ChevronLeftIcon}
+                        size={40}
+                    />
                 </button>
                 {image}
-                <button className={classes.nextButton} onClick={handleNext}>
-                    <Icon src={ChevronRightIcon} size={40} />
+                <button
+                    className={classes.nextButton}
+                    onClick={handleNext}
+                    type="button"
+                >
+                    <Icon
+                        classes={chevronClasses}
+                        src={ChevronRightIcon}
+                        size={40}
+                    />
                 </button>
             </div>
             <div className={classes.thumbnailList}>{thumbnails}</div>

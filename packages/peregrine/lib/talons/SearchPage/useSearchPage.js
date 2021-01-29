@@ -1,13 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { usePagination, useSort } from '@magento/peregrine';
-
+import mergeOperations from '../../util/shallowMerge';
+import { useAppContext } from '../../context/app';
+import { usePagination } from '../../hooks/usePagination';
+import { useScrollTopOnChange } from '../../hooks/useScrollTopOnChange';
 import { getSearchParam } from '../../hooks/useSearchParam';
+import { useSort } from '../../hooks/useSort';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
-const PAGE_SIZE = 6;
+
+import DEFAULT_OPERATIONS from './searchPage.gql';
 
 /**
  * Return props necessary to render a SearchPage component.
@@ -15,19 +18,35 @@ const PAGE_SIZE = 6;
  * @param {Object} props
  * @param {String} props.query - graphql query used for executing search
  */
-export const useSearchPage = props => {
+export const useSearchPage = (props = {}) => {
     const {
-        queries: {
-            filterIntrospection,
-            getProductFiltersBySearch,
-            productSearch
-        }
+        queries: { getPageSize }
     } = props;
 
-    const sortProps = useSort();
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const {
+        getFilterInputsQuery,
+        getProductFiltersBySearchQuery,
+        productSearchQuery
+    } = operations;
 
+    const { data: pageSizeData } = useQuery(getPageSize, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+    const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
+
+    const sortProps = useSort();
     const [currentSort] = sortProps;
     const { sortAttribute, sortDirection } = currentSort;
+    // Keep track of the sort criteria so we can tell when they change.
+    const previousSort = useRef(currentSort);
+
+    // get the URL query parameters.
+    const location = useLocation();
+    const { search } = location;
+    // Keep track of the search terms so we can tell when they change.
+    const previousSearch = useRef(search);
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
@@ -35,46 +54,42 @@ export const useSearchPage = props => {
     const { setCurrentPage, setTotalPages } = paginationApi;
 
     // retrieve app state and action creators
-    const [appState, appApi] = useAppContext();
-    const { searchOpen } = appState;
-    const { toggleDrawer, toggleSearch } = appApi;
+    const [, appApi] = useAppContext();
+    const {
+        toggleDrawer,
+        actions: { setPageLoading }
+    } = appApi;
 
-    // get the URL query parameters.
-    const location = useLocation();
-    const { search } = location;
     const inputText = getSearchParam('query', location);
 
-    // Keep track of the search terms so we can tell when they change.
-    const previousSearch = useRef(search);
+    const searchCategory = useMemo(() => {
+        const inputFilters = getFiltersFromSearch(search);
+        if (inputFilters.size === 0) {
+            return null;
+        }
+
+        const targetCategoriesSet = inputFilters.get('category_id');
+        if (!targetCategoriesSet) {
+            return null;
+        }
+
+        // The set looks like ["Bottoms,11", "Skirts,12"].
+        // We want to return "Bottoms, Skirts", etc.
+        return [...targetCategoriesSet]
+            .map(categoryPair => categoryPair.split(',')[0])
+            .join(', ');
+    }, [search]);
 
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
     }, [toggleDrawer]);
 
-    // derive initial state from query params
-    // never re-run this effect, even if deps change
-    /* eslint-disable react-hooks/exhaustive-deps */
-    useEffect(() => {
-        // ensure search is open to begin with
-        if (toggleSearch && !searchOpen && inputText) {
-            toggleSearch();
-        }
-    }, []);
-    /* eslint-enable react-hooks/exhaustive-deps */
-
     // Get "allowed" filters by intersection of schema and aggregations
     const {
         called: introspectionCalled,
         data: introspectionData,
-        error: introspectionError,
         loading: introspectionLoading
-    } = useQuery(filterIntrospection);
-
-    useEffect(() => {
-        if (introspectionError) {
-            console.error(introspectionError);
-        }
-    }, [introspectionError]);
+    } = useQuery(getFilterInputsQuery);
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
@@ -98,11 +113,21 @@ export const useSearchPage = props => {
     const [
         runQuery,
         { called: searchCalled, loading: searchLoading, error, data }
-    ] = useLazyQuery(productSearch);
+    ] = useLazyQuery(productSearchQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const isBackgroundLoading = !!data && searchLoading;
+
+    // Update the page indicator if the GraphQL query is in flight.
+    useEffect(() => {
+        setPageLoading(isBackgroundLoading);
+    }, [isBackgroundLoading, setPageLoading]);
 
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
-        if (!filterTypeMap.size) {
+        if (!filterTypeMap.size || !pageSize) {
             return;
         }
         const filters = getFiltersFromSearch(search);
@@ -118,21 +143,16 @@ export const useSearchPage = props => {
                 currentPage: Number(currentPage),
                 filters: newFilters,
                 inputText,
-                pageSize: Number(PAGE_SIZE),
+                pageSize: Number(pageSize),
                 sort: { [sortAttribute]: sortDirection }
             }
-        });
-
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
         });
     }, [
         currentPage,
         filterTypeMap,
         inputText,
         runQuery,
+        pageSize,
         search,
         sortDirection,
         sortAttribute
@@ -151,8 +171,8 @@ export const useSearchPage = props => {
         };
     }, [data, setTotalPages]);
 
-    // Reset the current page back to one (1) when the search string or filters
-    // change.
+    // Reset the current page back to one (1) when the search string, filters
+    // or sort criteria change.
     useEffect(() => {
         // We don't want to compare page value.
         const prevSearch = new URLSearchParams(previousSearch.current);
@@ -160,24 +180,29 @@ export const useSearchPage = props => {
         prevSearch.delete('page');
         nextSearch.delete('page');
 
-        if (prevSearch.toString() != nextSearch.toString()) {
+        if (
+            prevSearch.toString() !== nextSearch.toString() ||
+            previousSort.current.sortAttribute.toString() !==
+                currentSort.sortAttribute.toString() ||
+            previousSort.current.sortDirection.toString() !==
+                currentSort.sortDirection.toString()
+        ) {
             // The search term changed.
             setCurrentPage(1);
             // And update the ref.
             previousSearch.current = search;
+            previousSort.current = currentSort;
         }
-    }, [search, setCurrentPage]);
+    }, [currentSort, search, setCurrentPage]);
 
     // Fetch category filters for when a user is searching in a category.
-    const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(
-        getProductFiltersBySearch
-    );
-
-    useEffect(() => {
-        if (filterError) {
-            console.error(filterError);
+    const [getFilters, { data: filterData }] = useLazyQuery(
+        getProductFiltersBySearchQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
         }
-    }, [filterError]);
+    );
 
     useEffect(() => {
         if (inputText) {
@@ -199,6 +224,8 @@ export const useSearchPage = props => {
         searchLoading ||
         introspectionLoading;
 
+    useScrollTopOnChange(currentPage);
+
     return {
         data,
         error,
@@ -206,6 +233,8 @@ export const useSearchPage = props => {
         loading,
         openDrawer,
         pageControl,
+        searchCategory,
+        searchTerm: inputText,
         sortProps
     };
 };

@@ -37,7 +37,7 @@ Loads a given directory's `.env` file and provides a [configuration object][].
 ```js
 const { loadEnvironment } = require('@magento/pwa-buildpack');
 
-const configuration = loadEnvironment(process.cwd());
+const configuration = await loadEnvironment(process.cwd());
 ```
 
 #### Parameters
@@ -91,7 +91,7 @@ import { loadEnvironment } from '@magento/pwa-buildpack';
 
 // Give `loadEnvironment` the path to the project root.
 // If the current file is in project root, use the Node builtin `__dirname`.
-const configuration = loadEnvironment('/Users/me/path/to/project');
+const configuration = await loadEnvironment('/Users/me/path/to/project');
 
 // `loadEnvironment` has now read the contents of
 // `/Users/me/path/to/project/.env` and merged it with any environment

@@ -1,0 +1,68 @@
+[
+    {
+        "name": "AccountInformationPage",
+        "pattern": "/account-information",
+        "exact": true,
+        "path": "../AccountInformationPage"
+    },
+    {
+        "name": "AddressBook",
+        "pattern": "/address-book",
+        "exact": true,
+        "path": "../AddressBookPage"
+    },
+    {
+        "name": "Cart",
+        "pattern": "/cart",
+        "exact": true,
+        "path": "../CartPage"
+    },
+    {
+        "name": "CheckoutPage",
+        "pattern": "/checkout",
+        "exact": true,
+        "path": "../CheckoutPage"
+    },
+    {
+        "name": "CommunicationsPage",
+        "pattern": "/communications",
+        "exact": true,
+        "path": "../CommunicationsPage"
+    },
+    {
+        "name": "CreateAccountPage",
+        "pattern": "/create-account",
+        "exact": true,
+        "path": "../CreateAccountPage"
+    },
+    {
+        "name": "OrderHistory",
+        "pattern": "/order-history",
+        "exact": true,
+        "path": "../OrderHistoryPage"
+    },
+    {
+        "name": "Reset Password",
+        "pattern": "/customer/account/createPassword",
+        "exact": true,
+        "path": "../MyAccount/ResetPassword"
+    },
+    {
+        "name": "SavedPayments",
+        "pattern": "/saved-payments",
+        "exact": true,
+        "path": "../SavedPaymentsPage"
+    },
+    {
+        "name": "Search",
+        "pattern": "/search.html",
+        "exact": true,
+        "path": "../../RootComponents/Search"
+    },
+    {
+        "name": "WishlistPage",
+        "pattern": "/wishlist",
+        "exact": true,
+        "path": "../WishlistPage"
+    }
+]

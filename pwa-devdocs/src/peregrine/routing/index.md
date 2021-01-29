@@ -26,8 +26,6 @@ Early versions of the Venia storefront used this approach, but
 in the current version, every page request now returns the same HTML with the application shell.
 The application decides how the page should render based on the request.
 
-If you want a better idea of how UPWARD works, follow the [Hello UPWARD tutorial][].
-
 ### Client-side routing
 
 Client-side routing happens inside the storefront application.
@@ -73,7 +71,6 @@ The [`resolveUnknownRoute()`][] function is a utility function for fetching page
 The `getRouteComponent()` function uses the information from this query to get the correct root component from an object that maps page types to root components.
 
 [upward]: {%link venia-pwa-concept/features/modular-components/index.md %}
-[hello upward tutorial]: {%link tutorials/hello-upward/simple-server/index.md %}
 [peregrine talon]: {%link peregrine/talons/index.md %}
 
 [app component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/app.js

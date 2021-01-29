@@ -122,7 +122,7 @@ class MyWebpackPlugin {
 **Good**: passing plain objects created by the Configuration object
 
 ```js
-const projectConfig = loadEnvironment(__dirname);
+const projectConfig = await loadEnvironment(__dirname);
 await PWADevServer.configure({
     publicPath: config.output.publicPath,
     graphqlPlayground: true,
@@ -179,20 +179,20 @@ If you are contributing to the PWA Studio project and want to add new functional
     and `packages/pwa-buildpack/envVarDefinitions.json` might include a new section in its `sections` list.
 -   After making any changes to `packages/pwa-buildpack/envVarDefinitions.json`, record them in the `changes` list in that file.
 
-    -   Change entries can be of type `defaultChanged`, `exampleChanged`, `removed`, or `renamed`.
-    -   All change entries should include the affected environment variable as `name`.
-    -   `defaultChanged` and `exampleChanged` entries must include the old value as `original` and the new value as `updated`.
+    -   Change entries are objects which include:
+      -   `type`: **Required.** The type of the change, either `removed` or `renamed`. No other types of change need change entries.
+      -   `name`: **Required.** The affected environment variable name.
+      -   `dateChanged`: **Required.** The date the change entry was added, in a format parseable by the JavaScript `Date` constructor.
+      -   `warnForDays`: **Optional**, default `180`. A number of days that the warning should keep logging on every run, counting from the `dateChanged`. The default _and_ maximum is 180 days, so use this property only if you want the change to log for a _shorter_ time than default. This prevents an old, out-of-date warning message from cluttering logs long after the user no longer needs to see it.
     -   `removed` entries should include a human-readable `reason`.
         **After removing a variable definition, leave the `removed` entry permanently** to log an error if the old variable is found, encouraging out-of-date installations to upgrade.
     -   `renamed` entries should include the old name as `name`, and the new name as `updated`.
         They must also include a `supportLegacy` boolean.
-        If this is `true`, then `loadEnvironment()` will continue to support the old value while logging a warning.
-
-        **After renaming a variable definition, leave the `renamed` entry permanently**, but after two minor version updates to buildpack, you may change `supportLegacy` to `false`.
+        If this is `true`, then `loadEnvironment()` will continue to support the old value while logging a warning, until either the new variable name has a value, or the change entry expires.
 
 [`buildpack` cli]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
 [`loadenvironment()`]: {%link pwa-buildpack/reference/buildpack-cli/load-env/index.md %}
-[project environment definitions]: {%link pwa-buildpack/reference/environment-variables/index.md %}
+[project environment definitions]: {%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}
 
 [`.env` file]: https://www.npmjs.com/package/dotenv
 [dotenv]: https://www.npmjs.com/package/dotenv

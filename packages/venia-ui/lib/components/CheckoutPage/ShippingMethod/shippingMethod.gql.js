@@ -1,6 +1,7 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 import { PriceSummaryFragment } from '@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummaryFragments';
+import { ShippingInformationFragment } from '../ShippingInformation/shippingInformationFragments.gql';
 
 import {
     AvailableShippingMethodsCheckoutFragment,
@@ -9,14 +10,20 @@ import {
 
 export const GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS = gql`
     query getSelectedAndAvailableShippingMethods($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...AvailableShippingMethodsCheckoutFragment
             ...SelectedShippingMethodCheckoutFragment
+            # We include the following fragments to avoid extra requeries
+            # after this mutation completes. This all comes down to not
+            # having ids for shipping address objects. With ids we could
+            # merge results.
+            ...ShippingInformationFragment
         }
     }
     ${AvailableShippingMethodsCheckoutFragment}
     ${SelectedShippingMethodCheckoutFragment}
+    ${ShippingInformationFragment}
 `;
 
 export const SET_SHIPPING_METHOD = gql`
@@ -36,14 +43,19 @@ export const SET_SHIPPING_METHOD = gql`
                 }
                 ...SelectedShippingMethodCheckoutFragment
                 ...PriceSummaryFragment
-                # Intentionally do not re-fetch available shipping methods because
-                #  a) they are wrong in the mutation response
-                #  b) it is expensive to recalculate.
+                # We include the following fragments to avoid extra requeries
+                # after this mutation completes. This all comes down to not
+                # having ids for shipping address objects. With ids we could
+                # merge results.
+                ...ShippingInformationFragment
+                ...AvailableShippingMethodsCheckoutFragment
             }
         }
     }
+    ${AvailableShippingMethodsCheckoutFragment}
     ${SelectedShippingMethodCheckoutFragment}
     ${PriceSummaryFragment}
+    ${ShippingInformationFragment}
 `;
 
 export default {

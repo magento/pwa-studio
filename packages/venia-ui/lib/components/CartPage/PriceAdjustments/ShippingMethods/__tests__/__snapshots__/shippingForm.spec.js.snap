@@ -5,7 +5,10 @@ Array [
   <h3
     className="formTitle"
   >
-    Destination
+    <mock-FormattedMessage
+      defaultMessage="Destination"
+      id="shippingForm.formTitle"
+    />
   </h3>,
   <form
     className="root"
@@ -18,7 +21,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="country"
+        htmlFor="root"
       >
         Country
       </label>
@@ -37,6 +40,7 @@ Array [
           <select
             className="input"
             disabled={true}
+            id="root"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -63,13 +67,13 @@ Array [
             <svg
               className="icon"
               fill="none"
-              height={18}
+              height={24}
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width={18}
+              width={24}
               xmlns="http://www.w3.org/2000/svg"
             >
               <polyline
@@ -88,7 +92,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="region"
+        htmlFor="root"
       >
         State
       </label>
@@ -106,6 +110,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -128,9 +133,9 @@ Array [
     >
       <label
         className="label"
-        htmlFor="zip"
+        htmlFor="root"
       >
-        ZIP
+        ZIP / Postal Code
       </label>
       <span
         className="root"
@@ -146,6 +151,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -165,6 +171,7 @@ Array [
     </div>
     <button
       className="root_normalPriority"
+      disabled={false}
       type="submit"
     >
       <span
@@ -182,7 +189,10 @@ Array [
   <h3
     className="formTitle"
   >
-    Destination
+    <mock-FormattedMessage
+      defaultMessage="Destination"
+      id="shippingForm.formTitle"
+    />
   </h3>,
   <form
     className="root"
@@ -195,7 +205,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="country"
+        htmlFor="root"
       >
         Country
       </label>
@@ -214,6 +224,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="root"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -254,13 +265,13 @@ Array [
             <svg
               className="icon"
               fill="none"
-              height={18}
+              height={24}
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width={18}
+              width={24}
               xmlns="http://www.w3.org/2000/svg"
             >
               <polyline
@@ -279,7 +290,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="region"
+        htmlFor="root"
       >
         State
       </label>
@@ -297,6 +308,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -319,9 +331,9 @@ Array [
     >
       <label
         className="label"
-        htmlFor="zip"
+        htmlFor="root"
       >
-        ZIP
+        ZIP / Postal Code
       </label>
       <span
         className="root"
@@ -337,6 +349,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -356,6 +369,7 @@ Array [
     </div>
     <button
       className="root_normalPriority"
+      disabled={false}
       type="submit"
     >
       <span
@@ -373,7 +387,10 @@ Array [
   <h3
     className="formTitle"
   >
-    Destination
+    <mock-FormattedMessage
+      defaultMessage="Destination"
+      id="shippingForm.formTitle"
+    />
   </h3>,
   <form
     className="root"
@@ -386,7 +403,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="country"
+        htmlFor="root"
       >
         Country
       </label>
@@ -405,6 +422,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="root"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -445,13 +463,13 @@ Array [
             <svg
               className="icon"
               fill="none"
-              height={18}
+              height={24}
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width={18}
+              width={24}
               xmlns="http://www.w3.org/2000/svg"
             >
               <polyline
@@ -470,7 +488,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="region"
+        htmlFor="root"
       >
         State
       </label>
@@ -488,6 +506,7 @@ Array [
         >
           <select
             className="input"
+            id="root"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -528,13 +547,13 @@ Array [
             <svg
               className="icon"
               fill="none"
-              height={18}
+              height={24}
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width={18}
+              width={24}
               xmlns="http://www.w3.org/2000/svg"
             >
               <polyline
@@ -553,9 +572,9 @@ Array [
     >
       <label
         className="label"
-        htmlFor="zip"
+        htmlFor="root"
       >
-        ZIP
+        ZIP / Postal Code
       </label>
       <span
         className="root"
@@ -571,6 +590,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -590,6 +610,7 @@ Array [
     </div>
     <button
       className="root_normalPriority"
+      disabled={false}
       type="submit"
     >
       <span
@@ -607,7 +628,10 @@ Array [
   <h3
     className="formTitle"
   >
-    Destination
+    <mock-FormattedMessage
+      defaultMessage="Destination"
+      id="shippingForm.formTitle"
+    />
   </h3>,
   <form
     className="root"
@@ -620,7 +644,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="country"
+        htmlFor="root"
       >
         Country
       </label>
@@ -639,6 +663,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="root"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -679,13 +704,13 @@ Array [
             <svg
               className="icon"
               fill="none"
-              height={18}
+              height={24}
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width={18}
+              width={24}
               xmlns="http://www.w3.org/2000/svg"
             >
               <polyline
@@ -704,7 +729,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="region"
+        htmlFor="root"
       >
         State
       </label>
@@ -722,6 +747,7 @@ Array [
         >
           <select
             className="input"
+            id="root"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -762,13 +788,13 @@ Array [
             <svg
               className="icon"
               fill="none"
-              height={18}
+              height={24}
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width={18}
+              width={24}
               xmlns="http://www.w3.org/2000/svg"
             >
               <polyline
@@ -787,9 +813,9 @@ Array [
     >
       <label
         className="label"
-        htmlFor="zip"
+        htmlFor="root"
       >
-        ZIP
+        ZIP / Postal Code
       </label>
       <span
         className="root"
@@ -805,6 +831,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -831,7 +858,10 @@ Array [
   <h3
     className="formTitle"
   >
-    Destination
+    <mock-FormattedMessage
+      defaultMessage="Destination"
+      id="shippingForm.formTitle"
+    />
   </h3>,
   <form
     className="root"
@@ -844,7 +874,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="country"
+        htmlFor="root"
       >
         Country
       </label>
@@ -863,6 +893,7 @@ Array [
           <select
             className="input"
             disabled={false}
+            id="root"
             name="country"
             onBlur={[Function]}
             onChange={[Function]}
@@ -903,13 +934,13 @@ Array [
             <svg
               className="icon"
               fill="none"
-              height={18}
+              height={24}
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width={18}
+              width={24}
               xmlns="http://www.w3.org/2000/svg"
             >
               <polyline
@@ -928,7 +959,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="region"
+        htmlFor="root"
       >
         State
       </label>
@@ -946,6 +977,7 @@ Array [
         >
           <select
             className="input"
+            id="root"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -986,13 +1018,13 @@ Array [
             <svg
               className="icon"
               fill="none"
-              height={18}
+              height={24}
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width={18}
+              width={24}
               xmlns="http://www.w3.org/2000/svg"
             >
               <polyline
@@ -1011,9 +1043,9 @@ Array [
     >
       <label
         className="label"
-        htmlFor="zip"
+        htmlFor="root"
       >
-        ZIP
+        ZIP / Postal Code
       </label>
       <span
         className="root"
@@ -1029,6 +1061,7 @@ Array [
         >
           <input
             className="input"
+            id="root"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}

@@ -1,4 +1,6 @@
 import BrowserPersistence from '../../../util/simplePersistence';
+import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
+import { clearCustomerDataFromCache } from '../../../Apollo/clearCustomerDataFromCache';
 import { removeCart } from '../cart';
 import { clearCheckoutDataFromStorage } from '../checkout';
 
@@ -7,7 +9,7 @@ import actions from './actions';
 const storage = new BrowserPersistence();
 
 export const signOut = (payload = {}) =>
-    async function thunk(dispatch) {
+    async function thunk(dispatch, getState, { apolloClient }) {
         const { revokeToken } = payload;
 
         if (revokeToken) {
@@ -23,6 +25,8 @@ export const signOut = (payload = {}) =>
         await dispatch(clearToken());
         await dispatch(actions.reset());
         await clearCheckoutDataFromStorage();
+        await clearCartDataFromCache(apolloClient);
+        await clearCustomerDataFromCache(apolloClient);
 
         // Now that we're signed out, forget the old (customer) cart.
         // We don't need to create a new cart here because we're going to refresh
@@ -39,9 +43,7 @@ export const getUserDetails = ({ fetchUserDetails }) =>
             dispatch(actions.getDetails.request());
 
             try {
-                const { data } = await fetchUserDetails({
-                    fetchPolicy: 'no-cache'
-                });
+                const { data } = await fetchUserDetails();
 
                 dispatch(actions.getDetails.receive(data.customer));
             } catch (error) {

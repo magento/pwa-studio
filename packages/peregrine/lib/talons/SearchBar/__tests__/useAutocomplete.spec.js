@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Form, Text } from 'informed';
 
-import { runQuery, useLazyQuery } from '@apollo/react-hooks';
+import { runQuery, useLazyQuery } from '@apollo/client';
 import { useAutocomplete } from '../../../talons/SearchBar';
 import createTestInstance from '../../../util/createTestInstance';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const queryResult = {
         data: null,
@@ -149,6 +149,22 @@ test('renders a summary message', () => {
         1,
         expect.objectContaining({
             messageType: 'RESULT_SUMMARY'
+        })
+    );
+});
+
+test('renders a message invalid character length', () => {
+    createTestInstance(
+        <Form>
+            <Text field="search_query" initialValue="a" />
+            <Component valid={false} visible={true} />
+        </Form>
+    );
+
+    expect(log).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+            messageType: 'INVALID_CHARACTER_LENGTH'
         })
     );
 });

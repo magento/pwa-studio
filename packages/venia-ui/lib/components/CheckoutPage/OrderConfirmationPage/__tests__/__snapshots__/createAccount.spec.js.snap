@@ -1,23 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CreateAccount renders CreateAccount component 1`] = `
-<div>
+<div
+  className="root"
+>
   <h2>
-    Quick Checkout When You Return
+    <mock-FormattedMessage
+      defaultMessage="Quick Checkout When You Return"
+      id="checkoutPage.quickCheckout"
+    />
   </h2>
   <p>
-    Set a password and save your information for next time in one easy step!
+    <mock-FormattedMessage
+      defaultMessage="Set a password and save your information for next time in one easy step!"
+      id="checkoutPage.setAPasswordAndSave"
+    />
   </p>
+  <FormError
+    errors={Array []}
+  />
   <form
+    className="form"
     onKeyDown={[Function]}
     onReset={[Function]}
     onSubmit={[Function]}
   >
-    <div>
-      <label>
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
         First Name
       </label>
       <span
+        className="root"
         style={
           Object {
             "--iconsAfter": 0,
@@ -25,25 +42,39 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="given-name"
+            className="input"
             name="customer.firstname"
             onBlur={[Function]}
             onChange={[Function]}
             value="Avatar"
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <label>
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
         Last Name
       </label>
       <span
+        className="root"
         style={
           Object {
             "--iconsAfter": 0,
@@ -51,25 +82,39 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="family-name"
+            className="input"
             name="customer.lastname"
             onBlur={[Function]}
             onChange={[Function]}
             value="Aang"
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <label>
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
         Email
       </label>
       <span
+        className="root"
         style={
           Object {
             "--iconsAfter": 0,
@@ -77,35 +122,52 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="email"
+            className="input"
             name="customer.email"
             onBlur={[Function]}
             onChange={[Function]}
             value="thelastairbender@example.com"
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <label>
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
         Password
       </label>
       <span
+        className="root"
         style={
           Object {
-            "--iconsAfter": 0,
+            "--iconsAfter": 1,
             "--iconsBefore": 0,
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="new-password"
+            className="input"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -113,35 +175,113 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
             value=""
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        >
+          <button
+            className="passwordButton"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            >
+              <svg
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+                />
+                <line
+                  x1="1"
+                  x2="23"
+                  y1="1"
+                  y2="23"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <label>
+    <div
+      className="subscribe"
+    >
+      <label
+        className="root"
+      >
         <input
           checked={false}
+          className="input"
           name="subscribe"
           onBlur={[Function]}
           onChange={[Function]}
           type="checkbox"
         />
-        <span />
-        <span>
+        <span
+          className="icon"
+        >
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              ry="2"
+              width="18"
+              x="3"
+              y="3"
+            />
+          </svg>
+        </span>
+        <span
+          className="label"
+        >
           Subscribe to news and updates
         </span>
       </label>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div />
-    <div>
+    <div
+      className="actions"
+    >
       <button
+        className="create_account_button"
         disabled={false}
         type="submit"
       >
-        <span>
-          Create Account
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Create Account"
+            id="checkoutPage.createAccount"
+          />
         </span>
       </button>
     </div>
@@ -150,23 +290,44 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
 `;
 
 exports[`CreateAccount renders errors 1`] = `
-<div>
+<div
+  className="root"
+>
   <h2>
-    Quick Checkout When You Return
+    <mock-FormattedMessage
+      defaultMessage="Quick Checkout When You Return"
+      id="checkoutPage.quickCheckout"
+    />
   </h2>
   <p>
-    Set a password and save your information for next time in one easy step!
+    <mock-FormattedMessage
+      defaultMessage="Set a password and save your information for next time in one easy step!"
+      id="checkoutPage.setAPasswordAndSave"
+    />
   </p>
+  <FormError
+    errors={
+      Array [
+        [Error: Oops.],
+      ]
+    }
+  />
   <form
+    className="form"
     onKeyDown={[Function]}
     onReset={[Function]}
     onSubmit={[Function]}
   >
-    <div>
-      <label>
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
         First Name
       </label>
       <span
+        className="root"
         style={
           Object {
             "--iconsAfter": 0,
@@ -174,25 +335,39 @@ exports[`CreateAccount renders errors 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="given-name"
+            className="input"
             name="customer.firstname"
             onBlur={[Function]}
             onChange={[Function]}
             value="Avatar"
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <label>
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
         Last Name
       </label>
       <span
+        className="root"
         style={
           Object {
             "--iconsAfter": 0,
@@ -200,25 +375,39 @@ exports[`CreateAccount renders errors 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="family-name"
+            className="input"
             name="customer.lastname"
             onBlur={[Function]}
             onChange={[Function]}
             value="Aang"
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <label>
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
         Email
       </label>
       <span
+        className="root"
         style={
           Object {
             "--iconsAfter": 0,
@@ -226,35 +415,52 @@ exports[`CreateAccount renders errors 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="email"
+            className="input"
             name="customer.email"
             onBlur={[Function]}
             onChange={[Function]}
             value="thelastairbender@example.com"
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <label>
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+      >
         Password
       </label>
       <span
+        className="root"
         style={
           Object {
-            "--iconsAfter": 0,
+            "--iconsAfter": 1,
             "--iconsBefore": 0,
           }
         }
       >
-        <span>
+        <span
+          className="input"
+        >
           <input
             autoComplete="new-password"
+            className="input"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -262,37 +468,113 @@ exports[`CreateAccount renders errors 1`] = `
             value=""
           />
         </span>
-        <span />
-        <span />
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        >
+          <button
+            className="passwordButton"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            >
+              <svg
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+                />
+                <line
+                  x1="1"
+                  x2="23"
+                  y1="1"
+                  y2="23"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      <label>
+    <div
+      className="subscribe"
+    >
+      <label
+        className="root"
+      >
         <input
           checked={false}
+          className="input"
           name="subscribe"
           onBlur={[Function]}
           onChange={[Function]}
           type="checkbox"
         />
-        <span />
-        <span>
+        <span
+          className="icon"
+        >
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              ry="2"
+              width="18"
+              x="3"
+              y="3"
+            />
+          </svg>
+        </span>
+        <span
+          className="label"
+        >
           Subscribe to news and updates
         </span>
       </label>
-      <p />
+      <p
+        className="root"
+      />
     </div>
-    <div>
-      Oops.
-    </div>
-    <div>
+    <div
+      className="actions"
+    >
       <button
+        className="create_account_button"
         disabled={false}
         type="submit"
       >
-        <span>
-          Create Account
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Create Account"
+            id="checkoutPage.createAccount"
+          />
         </span>
       </button>
     </div>

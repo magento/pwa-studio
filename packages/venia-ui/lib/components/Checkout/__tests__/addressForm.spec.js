@@ -2,13 +2,20 @@ import React from 'react';
 import AddressForm from '../addressForm';
 import { createTestInstance } from '@magento/peregrine';
 import { useAddressForm } from '@magento/peregrine/lib/talons/Checkout/useAddressForm';
+import Button from '../../Button';
+import { Form } from 'informed';
 
 jest.mock('../../../classify');
-jest.mock('@apollo/react-hooks', () => ({
-    useMutation: jest
-        .fn()
-        .mockImplementation(() => [jest.fn().mockResolvedValue()])
-}));
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
+    return {
+        ...apolloClient,
+        useMutation: jest
+            .fn()
+            .mockImplementation(() => [jest.fn().mockResolvedValue()])
+    };
+});
 jest.mock('@magento/peregrine/lib/context/checkout', () => {
     const state = {
         shippingAddress: {},
@@ -78,7 +85,7 @@ test('renders validation block with message if address is incorrect', () => {
 test('cancelling the form calls onCancel prop', () => {
     const { root } = createTestInstance(<AddressForm {...defaultProps} />);
 
-    const button = root.findAllByProps({ className: 'root_normalPriority' })[0];
+    const button = root.findAllByType(Button)[1];
     button.props.onClick();
     expect(mockCancel).toHaveBeenCalled();
 });
@@ -86,7 +93,7 @@ test('cancelling the form calls onCancel prop', () => {
 test('submitting the form calls onSubmit prop', () => {
     const { root } = createTestInstance(<AddressForm {...defaultProps} />);
 
-    const form = root.findAllByProps({ className: 'root' })[0];
+    const form = root.findAllByType(Form)[0];
     form.props.onSubmit();
     expect(mockSubmit).toHaveBeenCalled();
 });

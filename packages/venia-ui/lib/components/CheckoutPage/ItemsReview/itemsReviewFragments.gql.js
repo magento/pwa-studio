@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const ItemsReviewFragment = gql`
     fragment ItemsReviewFragment on Cart {
@@ -11,6 +11,19 @@ export const ItemsReviewFragment = gql`
                 name
                 thumbnail {
                     url
+                }
+                ... on ConfigurableProduct {
+                    variants {
+                        attributes {
+                            uid
+                        }
+                        product {
+                            id
+                            thumbnail {
+                                url
+                            }
+                        }
+                    }
                 }
             }
             quantity

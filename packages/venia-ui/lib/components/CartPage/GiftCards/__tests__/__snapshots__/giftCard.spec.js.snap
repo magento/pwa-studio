@@ -7,15 +7,35 @@ Array [
       unit test card code
     </span>
     <span>
-      Balance: 
-      <div />
+      <mock-FormattedMessage
+        defaultMessage="Balance: "
+        id="giftCard.balance"
+      />
+      <span>
+        $
+      </span>
+      <span>
+        99
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
     </span>
   </div>,
   <button
     disabled={true}
     onClick={[MockFunction]}
+    type="button"
   >
-    Remove
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Remove"
+        id="giftCard.remove"
+      />
+    </span>
   </button>,
 ]
 `;
@@ -27,15 +47,35 @@ Array [
       unit test card code
     </span>
     <span>
-      Balance: 
-      <div />
+      <mock-FormattedMessage
+        defaultMessage="Balance: "
+        id="giftCard.balance"
+      />
+      <span>
+        $
+      </span>
+      <span>
+        99
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
     </span>
   </div>,
   <button
     disabled={false}
     onClick={[MockFunction]}
+    type="button"
   >
-    Remove
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Remove"
+        id="giftCard.remove"
+      />
+    </span>
   </button>,
 ]
 `;

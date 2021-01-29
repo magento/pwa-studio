@@ -22,9 +22,11 @@ jest.mock(
         };
     }
 );
+jest.mock('../../../../classify');
+jest.mock('../../../FormError', () => 'FormError');
 
 const defaultTalonProps = {
-    errors: [],
+    errors: new Map(),
     handleSubmit: jest.fn(cb => cb()),
     isDisabled: false,
     initialValues: {
@@ -49,11 +51,7 @@ describe('CreateAccount', () => {
     test('renders errors', () => {
         useCreateAccount.mockReturnValue({
             ...defaultTalonProps,
-            errors: [
-                {
-                    message: 'Oops.'
-                }
-            ]
+            errors: new Map([['error', new Error('Oops.')]])
         });
         const instance = createTestInstance(<CreateAccount />);
         expect(instance.toJSON()).toMatchSnapshot();
@@ -67,7 +65,7 @@ describe('CreateAccount', () => {
 
         const instance = createTestInstance(<CreateAccount />);
         const button = instance.root.findByProps({
-            children: 'Create Account'
+            className: 'create_account_button'
         });
 
         expect(button).toBeTruthy();

@@ -8,5 +8,5 @@
 
 .icon_disabled {
     composes: icon;
-    --stroke: rgb(var(--venia-text-hint));
+    --stroke: rgb(var(--venia-global-color-text-hint));
 }

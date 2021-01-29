@@ -1,5 +1,8 @@
-import { useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
+
+import mergeOperations from '../../util/shallowMerge';
+
+import DEFAULT_OPERATIONS from './categoryList.gql';
 
 /**
  * Returns props necessary to render a CategoryList component.
@@ -10,15 +13,19 @@ import { useLazyQuery } from '@apollo/react-hooks';
  * @return {{ childCategories: array, error: object }}
  */
 export const useCategoryList = props => {
-    const { query, id } = props;
+    const { id } = props;
 
-    const [runQuery, queryResponse] = useLazyQuery(query);
-    const { loading, error, data } = queryResponse;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCategoryListQuery } = operations;
 
-    // Run the query immediately and every time id changes.
-    useEffect(() => {
-        runQuery({ variables: { id } });
-    }, [id, runQuery]);
+    const { loading, error, data } = useQuery(getCategoryListQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !id,
+        variables: {
+            id
+        }
+    });
 
     return {
         childCategories:

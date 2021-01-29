@@ -1,10 +1,12 @@
 import React, { useMemo, useCallback } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, oneOf } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
 import { mergeClasses } from '../../classify';
 import SortItem from './sortItem';
 import defaultClasses from './productSort.css';
+import Button from '../Button';
 
 const ProductSort = props => {
     const classes = mergeClasses(defaultClasses);
@@ -17,6 +19,7 @@ const ProductSort = props => {
         sortAttribute => {
             setSort({
                 sortText: sortAttribute.text,
+                sortId: sortAttribute.id,
                 sortAttribute: sortAttribute.attribute,
                 sortDirection: sortAttribute.sortDirection
             });
@@ -71,9 +74,18 @@ const ProductSort = props => {
 
     return (
         <div ref={elementRef} className={classes.root}>
-            <button onClick={handleSortClick} className={classes.sortButton}>
-                {'Sort'}
-            </button>
+            <Button
+                priority={'low'}
+                classes={{
+                    root_lowPriority: classes.sortButton
+                }}
+                onClick={handleSortClick}
+            >
+                <FormattedMessage
+                    id={'productSort.sortButton'}
+                    defaultMessage={'Sort'}
+                />
+            </Button>
             {sortElements}
         </div>
     );
@@ -82,9 +94,16 @@ const ProductSort = props => {
 const sortDirections = oneOf(['ASC', 'DESC']);
 
 ProductSort.propTypes = {
+    classes: shape({
+        menuItem: string,
+        menu: string,
+        root: string,
+        sortButton: string
+    }),
     availableSortMethods: arrayOf(
         shape({
             text: string,
+            id: string,
             attribute: string,
             sortDirection: sortDirections
         })
@@ -95,16 +114,19 @@ ProductSort.propTypes = {
 ProductSort.defaultProps = {
     availableSortMethods: [
         {
+            id: 'sortItem.relevance',
             text: 'Best Match',
             attribute: 'relevance',
             sortDirection: 'DESC'
         },
         {
+            id: 'sortItem.priceAsc',
             text: 'Price: Low to High',
             attribute: 'price',
             sortDirection: 'ASC'
         },
         {
+            id: 'sortItem.priceDesc',
             text: 'Price: High to Low',
             attribute: 'price',
             sortDirection: 'DESC'

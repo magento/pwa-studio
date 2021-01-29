@@ -1,9 +1,22 @@
 .root {
-    align-items: center;
+    align-items: stretch;
     background-color: white;
+    box-shadow: 0 -1px rgb(var(--venia-global-color-border));
     display: grid;
     gap: 0.75rem;
     grid-auto-flow: column;
-    height: 5.5rem;
-    justify-items: center;
+    height: 4rem;
+}
+
+.contents {
+    align-items: center;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    padding: 0 1rem;
+}
+
+.signIn {
+    composes: root from '../LinkButton/linkButton.css';
 }

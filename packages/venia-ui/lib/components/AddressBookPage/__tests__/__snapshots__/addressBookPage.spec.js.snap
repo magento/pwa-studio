@@ -1,0 +1,277 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly when there are existing addresses 1`] = `
+<div
+  className="root"
+>
+  Title
+  <h1
+    className="heading"
+  >
+    Address Book
+  </h1>
+  <div
+    className="content"
+  >
+    <AddressCard
+      address={
+        Object {
+          "country_code": "US",
+          "default_shipping": true,
+          "id": "b",
+        }
+      }
+      countryName="United States"
+      isConfirmingDelete={false}
+      isDeletingCustomerAddress={false}
+      onCancelDelete={[MockFunction handleCancelDeleteAddress]}
+      onConfirmDelete={[MockFunction handleConfirmDeleteAddress]}
+      onDelete={[Function]}
+      onEdit={[Function]}
+    />
+    <AddressCard
+      address={
+        Object {
+          "country_code": "US",
+          "id": "a",
+        }
+      }
+      countryName="United States"
+      isConfirmingDelete={false}
+      isDeletingCustomerAddress={false}
+      onCancelDelete={[MockFunction handleCancelDeleteAddress]}
+      onConfirmDelete={[MockFunction handleConfirmDeleteAddress]}
+      onDelete={[Function]}
+      onEdit={[Function]}
+    />
+    <AddressCard
+      address={
+        Object {
+          "country_code": "FR",
+          "id": "c",
+        }
+      }
+      isConfirmingDelete={false}
+      isDeletingCustomerAddress={false}
+      onCancelDelete={[MockFunction handleCancelDeleteAddress]}
+      onConfirmDelete={[MockFunction handleConfirmDeleteAddress]}
+      onDelete={[Function]}
+      onEdit={[Function]}
+    />
+    <button
+      className="addButton"
+      disabled={false}
+      onClick={[MockFunction handleAddAddress]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <Icon
+          classes={
+            Object {
+              "icon": "addIcon",
+            }
+          }
+          size={24}
+          src={[Function]}
+        />
+        <span
+          className="addText"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add an Address"
+            id="addressBookPage.addAddressText"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+  <AddEditDialog
+    formErrors={Map {}}
+    formProps={null}
+    isBusy={false}
+    isEditMode={false}
+    isOpen={false}
+    onCancel={[MockFunction handleCancelDialog]}
+    onConfirm={[MockFunction handleConfirmDialog]}
+  />
+</div>
+`;
+
+exports[`renders correctly when there are no existing addresses 1`] = `
+<div
+  className="root"
+>
+  Title
+  <h1
+    className="heading"
+  >
+    Address Book
+  </h1>
+  <div
+    className="content"
+  >
+    <button
+      className="addButton"
+      disabled={false}
+      onClick={[MockFunction handleAddAddress]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <Icon
+          classes={
+            Object {
+              "icon": "addIcon",
+            }
+          }
+          size={24}
+          src={[Function]}
+        />
+        <span
+          className="addText"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add an Address"
+            id="addressBookPage.addAddressText"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+  <AddEditDialog
+    formErrors={Map {}}
+    formProps={null}
+    isBusy={false}
+    isEditMode={false}
+    isOpen={false}
+    onCancel={[MockFunction handleCancelDialog]}
+    onConfirm={[MockFunction handleConfirmDialog]}
+  />
+</div>
+`;
+
+exports[`renders delete confirmation on address that is being deleted 1`] = `
+<div
+  className="root"
+>
+  Title
+  <h1
+    className="heading"
+  >
+    Address Book
+  </h1>
+  <div
+    className="content"
+  >
+    <AddressCard
+      address={
+        Object {
+          "country_code": "US",
+          "default_shipping": true,
+          "id": "b",
+        }
+      }
+      countryName="United States"
+      isConfirmingDelete={false}
+      isDeletingCustomerAddress={true}
+      onCancelDelete={[MockFunction handleCancelDeleteAddress]}
+      onConfirmDelete={[MockFunction handleConfirmDeleteAddress]}
+      onDelete={[Function]}
+      onEdit={[Function]}
+    />
+    <AddressCard
+      address={
+        Object {
+          "country_code": "US",
+          "id": "a",
+        }
+      }
+      countryName="United States"
+      isConfirmingDelete={true}
+      isDeletingCustomerAddress={true}
+      onCancelDelete={[MockFunction handleCancelDeleteAddress]}
+      onConfirmDelete={[MockFunction handleConfirmDeleteAddress]}
+      onDelete={[Function]}
+      onEdit={[Function]}
+    />
+    <AddressCard
+      address={
+        Object {
+          "country_code": "FR",
+          "id": "c",
+        }
+      }
+      isConfirmingDelete={false}
+      isDeletingCustomerAddress={true}
+      onCancelDelete={[MockFunction handleCancelDeleteAddress]}
+      onConfirmDelete={[MockFunction handleConfirmDeleteAddress]}
+      onDelete={[Function]}
+      onEdit={[Function]}
+    />
+    <button
+      className="addButton"
+      disabled={false}
+      onClick={[MockFunction handleAddAddress]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <Icon
+          classes={
+            Object {
+              "icon": "addIcon",
+            }
+          }
+          size={24}
+          src={[Function]}
+        />
+        <span
+          className="addText"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Add an Address"
+            id="addressBookPage.addAddressText"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+  <AddEditDialog
+    formErrors={Map {}}
+    formProps={null}
+    isBusy={false}
+    isEditMode={false}
+    isOpen={false}
+    onCancel={[MockFunction handleCancelDialog]}
+    onConfirm={[MockFunction handleConfirmDialog]}
+  />
+</div>
+`;
+
+exports[`renders loading indicator 1`] = `
+<div
+  className="global"
+>
+  <Icon
+    classes={
+      Object {
+        "icon": "indicator",
+      }
+    }
+    size={64}
+    src={[Function]}
+  />
+  <span
+    className="message"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Fetching Data..."
+      id="loadingIndicator.message"
+    />
+  </span>
+</div>
+`;

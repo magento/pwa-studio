@@ -2,12 +2,12 @@
 
 .enter {
     transition-duration: 384ms;
-    transition-timing-function: var(--venia-anim-in);
+    transition-timing-function: var(--venia-global-anim-in);
 }
 
 .exit {
     transition-duration: 192ms;
-    transition-timing-function: var(--venia-anim-out);
+    transition-timing-function: var(--venia-global-anim-out);
 }
 
 .hidden {
@@ -41,14 +41,14 @@
 
 .root_open {
     composes: root enter visible;
-    box-shadow: 1px 0 rgb(var(--venia-border));
+    box-shadow: 1px 0 rgb(var(--venia-global-color-border));
     transform: translate3d(0, 0, 0);
 }
 
 .header {
     align-content: center;
-    background-color: rgb(var(--venia-grey));
-    box-shadow: 0 1px rgb(var(--venia-border));
+    background-color: rgb(var(--venia-global-color-gray));
+    box-shadow: 0 1px rgb(var(--venia-global-color-border));
     display: grid;
     grid-auto-columns: 3.5rem;
     grid-auto-flow: column;
@@ -71,7 +71,20 @@
 }
 
 .footer {
-    box-shadow: 0 -1px rgb(var(--venia-border));
+}
+
+.switchers {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    background-color: rgb(var(--venia-global-color-gray-100));
+    width: 100%;
+}
+
+@media (min-width: 641px) {
+    .switchers {
+        display: none;
+    }
 }
 
 .modal {
@@ -90,10 +103,4 @@
 .modal_open {
     composes: modal enter visible;
     transform: translate3d(0, 0, 0);
-}
-
-.isRoot {
-    composes: header;
-    grid-template-columns: 1fr 3.5rem;
-    padding-left: 1rem;
 }

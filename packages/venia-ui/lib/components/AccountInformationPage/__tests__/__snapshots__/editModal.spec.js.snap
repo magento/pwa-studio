@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it disables the submit button while loading 1`] = `
+<portal-mock>
+  <aside
+    className="root_open"
+  >
+    <form
+      className="form"
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <button
+        className="mask"
+        disabled={true}
+        onClick={[MockFunction onCancel]}
+        type="reset"
+      />
+      <div
+        className="dialog"
+      >
+        <div
+          className="header"
+        >
+          <span
+            className="headerText"
+          >
+            Edit Account Information
+          </span>
+          <button
+            className="headerButton"
+            disabled={true}
+            onClick={[MockFunction onCancel]}
+            type="reset"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="18"
+                  x2="6"
+                  y1="6"
+                  y2="18"
+                />
+                <line
+                  x1="6"
+                  x2="18"
+                  y1="6"
+                  y2="18"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div
+          className="body"
+        >
+          <div
+            className="contents"
+          >
+            <EditForm />
+          </div>
+          <div
+            className="buttons"
+          >
+            <button
+              className="root_lowPriority"
+              disabled={true}
+              onClick={[MockFunction onCancel]}
+              type="reset"
+            >
+              <span
+                className="content"
+              >
+                <mock-FormattedMessage
+                  defaultMessage="Cancel"
+                  id="global.cancelButton"
+                />
+              </span>
+            </button>
+            <button
+              className="root_highPriority"
+              disabled={true}
+              type="submit"
+            >
+              <span
+                className="content"
+              >
+                <mock-FormattedMessage
+                  defaultMessage="Save"
+                  id="global.confirmButton"
+                />
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </aside>
+</portal-mock>
+`;
+
+exports[`it renders correctly 1`] = `
+<portal-mock>
+  <aside
+    className="root_open"
+  >
+    <form
+      className="form"
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <button
+        className="mask"
+        disabled={false}
+        onClick={[MockFunction onCancel]}
+        type="reset"
+      />
+      <div
+        className="dialog"
+      >
+        <div
+          className="header"
+        >
+          <span
+            className="headerText"
+          >
+            Edit Account Information
+          </span>
+          <button
+            className="headerButton"
+            disabled={false}
+            onClick={[MockFunction onCancel]}
+            type="reset"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="18"
+                  x2="6"
+                  y1="6"
+                  y2="18"
+                />
+                <line
+                  x1="6"
+                  x2="18"
+                  y1="6"
+                  y2="18"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div
+          className="body"
+        >
+          <div
+            className="contents"
+          >
+            <EditForm />
+          </div>
+          <div
+            className="buttons"
+          >
+            <button
+              className="root_lowPriority"
+              disabled={false}
+              onClick={[MockFunction onCancel]}
+              type="reset"
+            >
+              <span
+                className="content"
+              >
+                <mock-FormattedMessage
+                  defaultMessage="Cancel"
+                  id="global.cancelButton"
+                />
+              </span>
+            </button>
+            <button
+              className="root_highPriority"
+              disabled={false}
+              type="submit"
+            >
+              <span
+                className="content"
+              >
+                <mock-FormattedMessage
+                  defaultMessage="Save"
+                  id="global.confirmButton"
+                />
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </aside>
+</portal-mock>
+`;

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useGiftCard } from '../useGiftCard';
+import { act } from 'react-test-renderer';
 
 /*
  *  Member variables.
@@ -18,9 +19,10 @@ const Component = props => {
     return null;
 };
 
+const removeGiftCard = jest.fn();
 const props = {
     code: 'unit test',
-    removeGiftCard: jest.fn()
+    removeGiftCard
 };
 
 /*
@@ -35,4 +37,17 @@ test('it returns the proper shape', () => {
     expect(log).toHaveBeenCalledWith({
         removeGiftCardWithCode: expect.any(Function)
     });
+});
+
+test('it calls removeGiftCard() with the correct value', () => {
+    // Act.
+    createTestInstance(<Component {...props} />);
+
+    const { removeGiftCardWithCode } = log.mock.calls[0][0];
+
+    act(() => {
+        removeGiftCardWithCode();
+    });
+
+    expect(removeGiftCard).toHaveBeenCalledWith(props.code);
 });

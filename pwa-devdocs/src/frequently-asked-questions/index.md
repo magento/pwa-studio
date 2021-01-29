@@ -26,8 +26,6 @@ The Tutorials section of this site contains a number of tutorials which cover cu
 
 -   [How to add a static route][]
 -   [How to modify the site footer][]
--   [How to use component props][]
--   [How to use CSS modules][]
 
 ## Are there any live stores built using PWA Studio
 
@@ -101,10 +99,6 @@ _**Note:** For testing, resize the viewport manually instead of using the native
 
 [how to modify the site footer]: <{%link tutorials/pwa-studio-fundamentals/modify-site-footer/index.md %}>
 
-[how to use component props]: <{%link tutorials/pwa-studio-fundamentals/using-component-props/index.md %}>
-
-[how to use css modules]: <{%link tutorials/pwa-studio-fundamentals/css-modules/index.md %}>
-
 [magento cloud deployment]: <{% link tutorials/cloud-deploy/index.md %}>
 
 [project repository]: https://github.com/magento/pwa-studio
@@ -115,7 +109,7 @@ _**Note:** For testing, resize the viewport manually instead of using the native
 
 [pwa studio stats]: https://pwastudio-stats.com/
 
-[magento 2 upward connector module]: https://github.com/magento-research/magento2-upward-connector
+[magento 2 upward connector module]: https://github.com/magento/magento2-upward-connector
 
 [windows subsystem for linux]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
 

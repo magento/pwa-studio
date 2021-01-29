@@ -21,7 +21,8 @@ const ShippingMethodSummary = props => {
         : classes.disabledPrompt;
 
     if (!hasShippingMethod) {
-        return <span className={className}>Specify Shipping Method</span>;
+        const specifyText = 'Specify Shipping Method';
+        return <span className={className}>{specifyText}</span>;
     }
 
     return (

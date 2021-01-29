@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it returns the proper shape while loading without data 1`] = `
+Object {
+  "isLoadingWithoutData": true,
+  "orders": Array [],
+}
+`;
+
+exports[`it returns the proper shape with data 1`] = `
+Object {
+  "isLoadingWithoutData": false,
+  "orders": Array [
+    "order1",
+    "order2",
+  ],
+}
+`;

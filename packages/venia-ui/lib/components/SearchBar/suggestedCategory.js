@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { Link } from '@magento/venia-drivers';
 import { useSuggestedCategory } from '@magento/peregrine/lib/talons/SearchBar';
@@ -20,7 +21,15 @@ const SuggestedCategory = props => {
     return (
         <Link className={classes.root} to={destination} onClick={handleClick}>
             <strong className={classes.value}>{value}</strong>
-            <span className={classes.label}>{` in ${label}`}</span>
+            <span className={classes.label}>
+                <FormattedMessage
+                    id={'searchBar.label'}
+                    defaultMessage={' in category'}
+                    values={{
+                        label
+                    }}
+                />
+            </span>
         </Link>
     );
 };

@@ -1,0 +1,19 @@
+.root {
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+.content {
+    align-items: center;
+    display: grid;
+    gap: 0.75rem;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+    padding: 0.5rem 1rem;
+    width: 100%;
+}
+
+.text {
+    text-align: left;
+}

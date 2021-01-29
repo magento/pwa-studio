@@ -10,12 +10,22 @@
     gap: 0.5rem;
 }
 
-.error {
-    color: rgb(var(--venia-error));
-}
-
 .actions {
     text-align: center;
+}
+
+.create_account_button {
+    composes: root_normalPriority from '../../Button/button.css';
+}
+
+/*
+ * Desktop specific styles
+ */
+@media (min-width: 961px) {
+    .root {
+        position: sticky;
+        top: 5.5rem;
+    }
 }
 
 /*

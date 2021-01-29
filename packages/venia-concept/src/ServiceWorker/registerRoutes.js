@@ -1,10 +1,18 @@
+import { cacheNames } from 'workbox-core';
+import { ExpirationPlugin } from 'workbox-expiration';
+import { registerRoute } from 'workbox-routing';
+import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import {
-    isResizedCatalogImage,
+    isResizedImage,
     findSameOrLargerImage,
-    createCatalogCacheHandler
+    createImageCacheHandler
 } from './Utilities/imageCacheHandler';
 import { isHTMLRoute } from './Utilities/routeHandler';
-import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from './defaults';
+import {
+    THIRTY_DAYS,
+    MAX_NUM_OF_IMAGES_TO_CACHE,
+    IMAGES_CACHE_NAME
+} from './defaults';
 
 /**
  * registerRoutes function contains all the routes that need to
@@ -13,42 +21,38 @@ import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from './defaults';
  * @returns {void}
  */
 export default function() {
-    const catalogCacheHandler = createCatalogCacheHandler();
+    const imageCacheHandler = createImageCacheHandler();
 
-    workbox.routing.registerRoute(
+    registerRoute(
         new RegExp('(robots.txt|favicon.ico|manifest.json)'),
-        new workbox.strategies.StaleWhileRevalidate()
+        new StaleWhileRevalidate()
     );
 
     /**
-     * Route that checks for resized catalog images in cache.
+     * Route that checks for resized images in cache.
      */
-    workbox.routing.registerRoute(
-        isResizedCatalogImage,
-        ({ url, request, event }) => {
-            const sameOrLargerImagePromise = findSameOrLargerImage(
-                url,
-                request
-            );
-            event.waitUntil(sameOrLargerImagePromise);
-            return sameOrLargerImagePromise.then(
-                response =>
-                    response || catalogCacheHandler.handle({ request, event })
-            );
-        }
-    );
+    registerRoute(isResizedImage, ({ url, request, event }) => {
+        const sameOrLargerImagePromise = findSameOrLargerImage(url, request);
+        event.waitUntil(sameOrLargerImagePromise);
+        return sameOrLargerImagePromise.then(
+            response => response || imageCacheHandler.handle({ request, event })
+        );
+    });
 
     /**
      * Route to handle all types of images. Stores them in cache with a
      * cache name "images". They auto expire after 30 days and only 60
      * can be stored at a time.
+     *
+     * There is another route that handles images without width and options on them.
+     * This route handles images that wont have width options on them.
      */
-    workbox.routing.registerRoute(
+    registerRoute(
         /\.(?:png|gif|jpg|jpeg|svg)$/,
-        new workbox.strategies.CacheFirst({
-            cacheName: 'images',
+        new CacheFirst({
+            cacheName: IMAGES_CACHE_NAME,
             plugins: [
-                new workbox.expiration.Plugin({
+                new ExpirationPlugin({
                     maxEntries: MAX_NUM_OF_IMAGES_TO_CACHE, // 60 Images
                     maxAgeSeconds: THIRTY_DAYS // 30 Days
                 })
@@ -61,10 +65,7 @@ export default function() {
      * strategy because if the file contents change, the file name will
      * change. There is no point in using StaleWhileRevalidate for JS files.
      */
-    workbox.routing.registerRoute(
-        new RegExp(/\.js$/),
-        new workbox.strategies.CacheFirst()
-    );
+    registerRoute(new RegExp(/\.js$/), new CacheFirst());
 
     /**
      * Route for HTML files. This route uses a custom plugin
@@ -81,15 +82,15 @@ export default function() {
      * file from cache will be served till a new version of the app deployed
      * and the cycle repeats.
      */
-    workbox.routing.registerRoute(
+    registerRoute(
         ({ url }) => isHTMLRoute(url),
-        new workbox.strategies.StaleWhileRevalidate({
+        new StaleWhileRevalidate({
             plugins: [
                 {
                     cacheKeyWillBeUsed: () => 'index.html'
                 }
             ],
-            cacheName: workbox.core.cacheNames.precache
+            cacheName: cacheNames.precache
         })
     );
 }

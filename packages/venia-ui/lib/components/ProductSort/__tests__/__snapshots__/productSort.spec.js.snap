@@ -3,9 +3,16 @@
 exports[`renders correctly 1`] = `
 <div>
   <button
+    disabled={false}
     onClick={[Function]}
+    type="button"
   >
-    Sort
+    <span>
+      <mock-FormattedMessage
+        defaultMessage="Sort"
+        id="productSort.sortButton"
+      />
+    </span>
   </button>
 </div>
 `;

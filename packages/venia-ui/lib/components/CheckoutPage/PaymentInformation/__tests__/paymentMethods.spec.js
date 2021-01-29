@@ -2,18 +2,18 @@ import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 
 import PaymentMethods from '../paymentMethods';
-import CreditCard from '../creditCard';
+
 import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods';
 
 jest.mock('../../../../classify');
 
-jest.mock('../creditCard', () => () => (
-    <div>Credit Card Payment Method Component</div>
-));
-
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods'
 );
+
+jest.mock('../paymentMethodCollection', () => ({
+    braintree: props => <mock-Braintree id={'BraintreeMockId'} {...props} />
+}));
 
 const defaultTalonProps = {
     availablePaymentMethods: [{ code: 'braintree' }],
@@ -43,6 +43,7 @@ test('renders null when loading', () => {
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
+
 test('should render no method if not selected', () => {
     usePaymentMethods.mockReturnValueOnce({
         ...defaultTalonProps,
@@ -52,8 +53,8 @@ test('should render no method if not selected', () => {
     const tree = createTestInstance(<PaymentMethods {...defaultProps} />);
 
     expect(() => {
-        tree.root.findByType(CreditCard);
-    }).toThrow();
+        tree.root.findByProps({ id: 'BraintreeMockId' });
+    }).toThrow('No instances found with props: {"id":"BraintreeMockId"}');
 });
 
 test('should render CreditCard component if "braintree" is selected', () => {
@@ -65,6 +66,17 @@ test('should render CreditCard component if "braintree" is selected', () => {
     const tree = createTestInstance(<PaymentMethods {...defaultProps} />);
 
     expect(() => {
-        tree.root.findByType(CreditCard);
+        tree.root.findByProps({ id: 'BraintreeMockId' });
     }).not.toThrow();
+});
+
+test('should render error message if availablePaymentMethods is empty', () => {
+    usePaymentMethods.mockReturnValueOnce({
+        ...defaultTalonProps,
+        availablePaymentMethods: []
+    });
+
+    const tree = createTestInstance(<PaymentMethods {...defaultProps} />);
+
+    expect(tree).toMatchSnapshot();
 });

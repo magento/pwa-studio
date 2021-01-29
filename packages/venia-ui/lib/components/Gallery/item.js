@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, number, shape } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
 
@@ -18,9 +18,6 @@ const IMAGE_HEIGHT = 375;
 const IMAGE_WIDTHS = new Map()
     .set(640, IMAGE_WIDTH)
     .set(UNCONSTRAINED_SIZE_KEY, 840);
-
-// TODO: get productUrlSuffix from graphql when it is ready
-const productUrlSuffix = '.html';
 
 const ItemPlaceholder = ({ classes }) => (
     <div className={classes.root_pending}>
@@ -48,8 +45,8 @@ const GalleryItem = props => {
         return <ItemPlaceholder classes={classes} />;
     }
 
-    const { name, price, small_image, url_key } = item;
-    const productLink = resourceUrl(`/${url_key}${productUrlSuffix}`);
+    const { name, price, small_image, url_key, url_suffix } = item;
+    const productLink = resourceUrl(`/${url_key}${url_suffix || ''}`);
 
     return (
         <div className={classes.root}>

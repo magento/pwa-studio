@@ -5,7 +5,16 @@ import BrowserPersistence from '../util/simplePersistence';
  * @param {{ route: string, apiBase: string, __tmp_webpack_public_path__: string}} opts
  */
 const persistence = new BrowserPersistence();
-const routeCacheKey = 'urlResolver';
+
+/**
+ * Retrieve the route cache key for a store
+ *
+ * @param store
+ * @returns {*}
+ */
+function getRouteCacheKey(store) {
+    return 'urlResolver' + (store ? `_${store}` : '');
+}
 
 // Some M2.3.0 GraphQL node IDs are numbers and some are strings, so explicitly
 // cast numbers if they appear to be numbers
@@ -13,7 +22,7 @@ const numRE = /^\d+$/;
 const castDigitsToNum = str =>
     typeof str === 'string' && numRE.test(str) ? Number(str) : str;
 export default async function resolveUnknownRoute(opts) {
-    const { route, apiBase } = opts;
+    const { route, apiBase, store } = opts;
 
     if (!resolveUnknownRoute.preloadDone) {
         resolveUnknownRoute.preloadDone = true;
@@ -54,17 +63,18 @@ export default async function resolveUnknownRoute(opts) {
 
     return remotelyResolveRoute({
         route,
-        apiBase
+        apiBase,
+        store
     });
 }
 
 /**
  * @description Checks if route is stored in localStorage, if not call `fetchRoute`
- * @param {{ route: string, apiBase: string}} opts
+ * @param {{ route: string, apiBase: string, store: string }} opts
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function remotelyResolveRoute(opts) {
-    const urlResolve = persistence.getItem(routeCacheKey);
+    const urlResolve = persistence.getItem(getRouteCacheKey(opts.store));
 
     // If it exists in localStorage, use that value
     // TODO: This can be handled by workbox once this issue is resolved in the
@@ -85,27 +95,40 @@ function remotelyResolveRoute(opts) {
 
 /**
  * @description Calls remote endpoints to see if anything can handle this route.
- * @param {{ route: string, apiBase: string}} opts
+ * @param {{ route: string, apiBase: string, store: ?string }} opts
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
-    const url = new URL('/graphql', opts.apiBase);
+    // If the route is empty, request the homepage
+    const route = opts.route || '/';
+
+    const query = `query ResolveURL($url: String!) {
+        urlResolver(url: $url) {
+            type
+            id
+            relative_url
+            redirectCode
+        }
+    }`;
+
+    const url = new URL(opts.apiBase);
+    url.searchParams.set('query', query);
+    url.searchParams.set('variables', JSON.stringify({ url: route }));
+    url.searchParams.set('operationName', 'ResolveURL');
+
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+
+    // If the store is provided include it as part of the request
+    if (opts.store) {
+        headers['Store'] = opts.store;
+    }
+
     return fetch(url, {
-        method: 'POST',
+        method: 'GET',
         credentials: 'include',
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify({
-            query: `
-                {
-                    urlResolver(url: "${opts.route}") {
-                        type
-                        id
-                    }
-                }
-            `.trim()
-        })
+        headers: new Headers(headers)
     })
         .then(res => res.json())
         .then(res => {
@@ -119,9 +142,10 @@ function fetchRoute(opts) {
                 );
             }
 
-            const routes = persistence.getItem(routeCacheKey) || {};
+            const routes =
+                persistence.getItem(getRouteCacheKey(opts.store)) || {};
             routes[opts.route] = res;
-            persistence.setItem(routeCacheKey, routes, 86400);
+            persistence.setItem(getRouteCacheKey(opts.store), routes, 86400);
             // entire route cache has a TTL of one day
 
             return res.data.urlResolver;

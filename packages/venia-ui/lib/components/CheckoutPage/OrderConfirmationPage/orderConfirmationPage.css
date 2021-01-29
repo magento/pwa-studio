@@ -17,10 +17,6 @@
 
 .sidebarContainer {
     grid-column: 2;
-
-    height: 0;
-    position: sticky;
-    top: 5.5rem;
 }
 
 .header {
@@ -77,6 +73,6 @@
         grid-column: 1;
         grid-row: auto;
         height: auto;
-        border-top: 1px solid rgb(var(--venia-border));
+        border-top: 1px solid rgb(var(--venia-global-color-border));
     }
 }

@@ -1,9 +1,8 @@
 import React from 'react';
-import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useQuery, useMutation, useApolloClient } from '@apollo/client';
 
 import { usePaymentInformation } from '../usePaymentInformation';
 import createTestInstance from '../../../../util/createTestInstance';
-import { useAppContext } from '../../../../context/app';
 import { CHECKOUT_STEP } from '../../useCheckoutPage';
 import CheckoutError from '../../CheckoutError';
 
@@ -11,16 +10,7 @@ jest.mock('../../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
 }));
 
-jest.mock('../../../../context/app', () => ({
-    useAppContext: jest
-        .fn()
-        .mockReturnValue([
-            {},
-            { toggleDrawer: () => {}, closeDrawer: () => {} }
-        ])
-}));
-
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useApolloClient: jest.fn(),
         useQuery: jest.fn().mockReturnValue({
@@ -120,32 +110,22 @@ test('Should return correct shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-test('hideEditModal should call closeDrawer from app context', () => {
-    const closeDrawer = jest.fn();
-    useAppContext.mockReturnValueOnce([
-        {},
-        { toggleDrawer: () => {}, closeDrawer }
-    ]);
-
+test('hideEditModal should call to close dialog', () => {
     const { talonProps } = getTalonProps({ ...defaultTalonProps });
 
     talonProps.hideEditModal();
 
-    expect(closeDrawer).toHaveBeenCalledWith('edit.payment');
+    expect(talonProps.isEditModalActive).toBeFalsy();
 });
 
-test('showEditModal should call toggleDrawer from app context', () => {
-    const toggleDrawer = jest.fn();
-    useAppContext.mockReturnValueOnce([
-        {},
-        { closeDrawer: () => {}, toggleDrawer }
-    ]);
-
-    const { talonProps } = getTalonProps({ ...defaultTalonProps });
+test('showEditModal should call to open dialog', () => {
+    const { talonProps, update } = getTalonProps({ ...defaultTalonProps });
 
     talonProps.showEditModal();
 
-    expect(toggleDrawer).toHaveBeenCalledWith('edit.payment');
+    const { talonProps: newTalonProps } = update({});
+
+    expect(newTalonProps.isEditModalActive).toBeTruthy();
 });
 
 test('resets to payment step when selected method is not available', () => {

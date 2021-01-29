@@ -1,8 +1,10 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
-import ProductOptions from '../../MiniCart/productOptions';
+import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import { mergeClasses } from '../../../classify';
+import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
 import defaultClasses from './item.css';
 
@@ -12,18 +14,24 @@ const Item = props => {
         product,
         quantity,
         configurable_options,
-        isHidden
+        isHidden,
+        configurableThumbnailSource
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
     const className = isHidden ? classes.root_hidden : classes.root;
-
+    const configured_variant = configuredVariant(configurable_options, product);
     return (
         <div className={className}>
             <Image
                 alt={product.name}
                 classes={{ root: classes.thumbnail }}
                 width={100}
-                resource={product.thumbnail.url}
+                resource={
+                    configurableThumbnailSource === 'itself' &&
+                    configured_variant
+                        ? configured_variant.thumbnail.url
+                        : product.thumbnail.url
+                }
             />
             <span className={classes.name}>{product.name}</span>
             <ProductOptions
@@ -32,7 +40,13 @@ const Item = props => {
                     options: classes.options
                 }}
             />
-            <span className={classes.quantity}>{`Qty : ${quantity}`}</span>
+            <span className={classes.quantity}>
+                <FormattedMessage
+                    id={'checkoutPage.quantity'}
+                    defaultMessage={'Qty :'}
+                    values={{ quantity }}
+                />
+            </span>
         </div>
     );
 };

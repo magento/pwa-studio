@@ -1,6 +1,6 @@
-- label: Getting Started
+- label: Overview
   children:
-      - label: Overview
+      - label: PWA Studio overview
         url: /technologies/overview/
 
       - label: Frequently Asked Questions
@@ -27,16 +27,16 @@
 - label: Tutorials
   url: /tutorials/
 
-- label: Reference API
+- label: API Reference
   children:
       - label: PWA Buildpack
         url: /pwa-buildpack/reference/buildpack-cli/
       
       - label: Peregrine API
-        url: /peregrine/reference/item/
+        url: /peregrine/reference/targets/
 
       - label: Venia UI API
-        url: /venia-ui/reference/components/Button/
+        url: /venia-ui/reference/targets/
 
 - label: Integrations
   children:

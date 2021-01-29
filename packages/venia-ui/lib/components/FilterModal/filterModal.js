@@ -1,17 +1,17 @@
 import React, { useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
+import LinkButton from '../LinkButton';
 import { Portal } from '../Portal';
 import CurrentFilters from './CurrentFilters';
 import FilterBlock from './filterBlock';
 import FilterFooter from './filterFooter';
 import defaultClasses from './filterModal.css';
-
-import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
 
 /**
  * A view that displays applicable and applied filters.
@@ -20,10 +20,7 @@ import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectio
  */
 const FilterModal = props => {
     const { filters } = props;
-    const talonProps = useFilterModal({
-        filters,
-        queries: { filterIntrospection: FILTER_INTROSPECTION }
-    });
+    const talonProps = useFilterModal({ filters });
     const {
         filterApi,
         filterItems,
@@ -58,12 +55,28 @@ const FilterModal = props => {
         [filterApi, filterItems, filterNames, filterState]
     );
 
+    const clearAll = filterState.size ? (
+        <div className={classes.action}>
+            <LinkButton type="button" onClick={handleReset}>
+                <FormattedMessage
+                    id={'filterModal.action'}
+                    defaultMessage={'Clear all'}
+                />
+            </LinkButton>
+        </div>
+    ) : null;
+
     return (
         <Portal>
             <aside className={modalClass}>
                 <div className={classes.body}>
                     <div className={classes.header}>
-                        <h2 className={classes.headerTitle}>{'Filter By'}</h2>
+                        <h2 className={classes.headerTitle}>
+                            <FormattedMessage
+                                id={'filterModal.headerTitle'}
+                                defaultMessage={'Filters'}
+                            />
+                        </h2>
                         <button onClick={handleClose}>
                             <Icon src={CloseIcon} />
                         </button>
@@ -73,13 +86,13 @@ const FilterModal = props => {
                         filterNames={filterNames}
                         filterState={filterState}
                     />
+                    {clearAll}
                     <ul className={classes.blocks}>{filtersList}</ul>
                 </div>
                 <FilterFooter
                     applyFilters={handleApply}
                     hasFilters={!!filterState.size}
                     isOpen={isOpen}
-                    resetFilters={handleReset}
                 />
             </aside>
         </Portal>
@@ -88,6 +101,7 @@ const FilterModal = props => {
 
 FilterModal.propTypes = {
     classes: shape({
+        action: string,
         blocks: string,
         body: string,
         header: string,

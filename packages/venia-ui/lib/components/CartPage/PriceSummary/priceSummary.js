@@ -1,6 +1,7 @@
 import React from 'react';
-import gql from 'graphql-tag';
-import { Price } from '@magento/peregrine';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { gql } from '@apollo/client';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
 import { mergeClasses } from '../../../classify';
@@ -13,7 +14,7 @@ import { PriceSummaryFragment } from './priceSummaryFragments';
 
 const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...PriceSummaryFragment
         }
@@ -22,13 +23,19 @@ const GET_PRICE_SUMMARY = gql`
 `;
 
 /**
- * A component that fetches and renders cart data including:
- *  - subtotal
- *  - discounts applied
- *  - gift cards applied
- *  - tax
- *  - shipping
- *  - total
+ * A child component of the CartPage component.
+ * This component fetches and renders cart data, such as subtotal, discounts applied,
+ * gift cards applied, tax, shipping, and cart total.
+ *
+ * @param {Object} props
+ * @param {Object} props.classes CSS className overrides.
+ * See [priceSummary.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.css}
+ * for a list of classes you can override.
+ *
+ * @returns {React.Element}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import PriceSummary from "@magento/venia-ui/lib/components/CartPage/PriceSummary";
  */
 const PriceSummary = props => {
     const { isUpdating } = props;
@@ -47,32 +54,54 @@ const PriceSummary = props => {
         isLoading,
         flatData
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     if (hasError) {
         return (
             <div className={classes.root}>
-                An error occurred. Please refresh the page.
+                <span className={classes.errorText}>
+                    <FormattedMessage
+                        id={'priceSummary.errorText'}
+                        defaultMessage={
+                            'Something went wrong. Please refresh and try again.'
+                        }
+                    />
+                </span>
             </div>
         );
-    } else if (!hasItems || isLoading) {
+    } else if (!hasItems) {
         return null;
     }
 
     const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
 
-    const priceClass = isUpdating ? classes.priceUpdating : classes.price;
-    const totalPriceClass = isUpdating
+    const isPriceUpdating = isUpdating || isLoading;
+    const priceClass = isPriceUpdating ? classes.priceUpdating : classes.price;
+    const totalPriceClass = isPriceUpdating
         ? classes.priceUpdating
         : classes.totalPrice;
+
+    const totalPriceLabel = isCheckout
+        ? formatMessage({
+              id: 'priceSummary.total',
+              defaultMessage: 'Total'
+          })
+        : formatMessage({
+              id: 'priceSummary.estimatedTotal',
+              defaultMessage: 'Estimated Total'
+          });
 
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
             <Button
-                disabled={isUpdating}
+                disabled={isPriceUpdating}
                 priority={'high'}
                 onClick={handleProceedToCheckout}
             >
-                {'Proceed to Checkout'}
+                <FormattedMessage
+                    id={'priceSummary.checkoutButton'}
+                    defaultMessage={'Proceed to Checkout'}
+                />
             </Button>
         </div>
     ) : null;
@@ -80,7 +109,12 @@ const PriceSummary = props => {
     return (
         <div className={classes.root}>
             <div className={classes.lineItems}>
-                <span className={classes.lineItemLabel}>{'Subtotal'}</span>
+                <span className={classes.lineItemLabel}>
+                    <FormattedMessage
+                        id={'priceSummary.lineItemLabel'}
+                        defaultMessage={'Subtotal'}
+                    />
+                </span>
                 <span className={priceClass}>
                     <Price
                         value={subtotal.value}
@@ -117,9 +151,7 @@ const PriceSummary = props => {
                     data={shipping}
                     isCheckout={isCheckout}
                 />
-                <span className={classes.totalLabel}>
-                    {isCheckout ? 'Total' : 'Estimated Total'}
-                </span>
+                <span className={classes.totalLabel}>{totalPriceLabel}</span>
                 <span className={totalPriceClass}>
                     <Price value={total.value} currencyCode={total.currency} />
                 </span>

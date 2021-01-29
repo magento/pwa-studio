@@ -1,4 +1,8 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment, useEffect, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { shape, string, func } from 'prop-types';
+import { PlusSquare, AlertCircle as AlertCircleIcon } from 'react-feather';
+import { useToasts } from '@magento/peregrine';
 import { useAddressBook } from '@magento/peregrine/lib/talons/CheckoutPage/AddressBook/useAddressBook';
 
 import { mergeClasses } from '../../../classify';
@@ -7,7 +11,16 @@ import defaultClasses from './addressBook.css';
 import AddressBookOperations from './addressBook.gql';
 import EditModal from '../ShippingInformation/editModal';
 import AddressCard from './addressCard';
-import { shape, string, func } from 'prop-types';
+import Icon from '../../Icon';
+import LinkButton from '../../LinkButton';
+const errorIcon = (
+    <Icon
+        src={AlertCircleIcon}
+        attrs={{
+            width: 18
+        }}
+    />
+);
 
 const AddressBook = props => {
     const { activeContent, classes: propClasses, toggleActiveContent } = props;
@@ -20,6 +33,7 @@ const AddressBook = props => {
     const {
         activeAddress,
         customerAddresses,
+        errorMessage,
         handleAddAddress,
         handleApplyAddress,
         handleCancel,
@@ -31,17 +45,43 @@ const AddressBook = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
+    const [, { addToast }] = useToasts();
+
+    useEffect(() => {
+        if (errorMessage) {
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message: errorMessage,
+                dismissable: true,
+                timeout: 10000
+            });
+        }
+    }, [addToast, errorMessage]);
+
     const rootClass =
         activeContent === 'addressBook' ? classes.root_active : classes.root;
 
     const addAddressButton = (
-        <button
+        <LinkButton
             className={classes.addButton}
             key="addAddressButton"
             onClick={handleAddAddress}
         >
-            Add New Address
-        </button>
+            <Icon
+                size={24}
+                src={PlusSquare}
+                classes={{
+                    icon: classes.addIcon
+                }}
+            />
+            <span className={classes.addText}>
+                <FormattedMessage
+                    id={'addressBook.addNewAddresstext'}
+                    defaultMessage={'Add New Address'}
+                />
+            </span>
+        </LinkButton>
     );
 
     const addressElements = useMemo(() => {
@@ -85,22 +125,31 @@ const AddressBook = props => {
         <Fragment>
             <div className={rootClass}>
                 <h1 className={classes.headerText}>
-                    Change Shipping Information
+                    <FormattedMessage
+                        id={'addressBook.headerText'}
+                        defaultMessage={'Change Shipping Information'}
+                    />
                 </h1>
                 <div className={classes.buttonContainer}>
                     <Button
                         disabled={isLoading}
                         onClick={handleCancel}
-                        priority="normal"
+                        priority="low"
                     >
-                        {'Cancel'}
+                        <FormattedMessage
+                            id={'addressBook.cancelButtonText'}
+                            defaultMessage={'Cancel'}
+                        />
                     </Button>
                     <Button
                         disabled={isLoading}
                         onClick={handleApplyAddress}
                         priority="high"
                     >
-                        {'Apply'}
+                        <FormattedMessage
+                            id={'addressBook.applyButtonText'}
+                            defaultMessage={'Apply'}
+                        />
                     </Button>
                 </div>
 
@@ -121,7 +170,9 @@ AddressBook.propTypes = {
         headerText: string,
         buttonContainer: string,
         content: string,
-        addButton: string
+        addButton: string,
+        addIcon: string,
+        addText: string
     }),
     toggleActiveContent: func.isRequired
 };

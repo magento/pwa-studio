@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<Dialog
+  classes={
+    Object {
+      "confirmButton": "confirmButton",
+    }
+  }
+  confirmTranslationId="wishlistConfirmRemoveProductDialog.confirmButton"
+  isModal={true}
+  isOpen={true}
+  onCancel={[MockFunction]}
+  shouldDisableAllButtons={false}
+  title="Remove Product from Wishlist"
+>
+  <div
+    className="root"
+  >
+    <span
+      className="prompt"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Are you sure you want to delete this product from the list?"
+        id="wishlistConfirmRemoveProductDialog.confirmationPrompt"
+      />
+    </span>
+  </div>
+</Dialog>
+`;
+
+exports[`renders correctly when closed 1`] = `
+<Dialog
+  classes={
+    Object {
+      "confirmButton": "confirmButton",
+    }
+  }
+  confirmTranslationId="wishlistConfirmRemoveProductDialog.confirmButton"
+  isModal={true}
+  isOpen={false}
+  onCancel={[MockFunction]}
+  shouldDisableAllButtons={false}
+  title="Remove Product from Wishlist"
+>
+  <div
+    className="root"
+  >
+    <span
+      className="prompt"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Are you sure you want to delete this product from the list?"
+        id="wishlistConfirmRemoveProductDialog.confirmationPrompt"
+      />
+    </span>
+  </div>
+</Dialog>
+`;
+
+exports[`renders correctly when removal is in progress 1`] = `
+<Dialog
+  classes={
+    Object {
+      "confirmButton": "confirmButton",
+    }
+  }
+  confirmTranslationId="wishlistConfirmRemoveProductDialog.confirmButton"
+  isModal={true}
+  isOpen={true}
+  onCancel={[MockFunction]}
+  shouldDisableAllButtons={true}
+  title="Remove Product from Wishlist"
+>
+  <div
+    className="root"
+  >
+    <span
+      className="prompt"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Are you sure you want to delete this product from the list?"
+        id="wishlistConfirmRemoveProductDialog.confirmationPrompt"
+      />
+    </span>
+  </div>
+</Dialog>
+`;
+
+exports[`renders correctly with error 1`] = `
+<Dialog
+  classes={
+    Object {
+      "confirmButton": "confirmButton",
+    }
+  }
+  confirmTranslationId="wishlistConfirmRemoveProductDialog.confirmButton"
+  isModal={true}
+  isOpen={true}
+  onCancel={[MockFunction]}
+  shouldDisableAllButtons={false}
+  title="Remove Product from Wishlist"
+>
+  <div
+    className="root"
+  >
+    <p
+      className="errorMessage"
+    >
+      <mock-FormattedMessage
+        defaultMessage="There was an error deleting this product. Please try again later."
+        id="wishlistConfirmRemoveProductDialog.errorMessage"
+      />
+    </p>
+    <span
+      className="prompt"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Are you sure you want to delete this product from the list?"
+        id="wishlistConfirmRemoveProductDialog.confirmationPrompt"
+      />
+    </span>
+  </div>
+</Dialog>
+`;

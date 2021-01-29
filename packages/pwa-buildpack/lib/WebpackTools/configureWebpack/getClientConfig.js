@@ -13,6 +13,9 @@ const getResolveLoader = require('./getResolveLoader');
 const RootComponentsPlugin = require('../plugins/RootComponentsPlugin');
 const ServiceWorkerPlugin = require('../plugins/ServiceWorkerPlugin');
 const UpwardIncludePlugin = require('../plugins/UpwardIncludePlugin');
+const LocalizationPlugin = require('../plugins/LocalizationPlugin');
+
+const VirtualModulesPlugin = require('webpack-virtual-modules');
 
 function isDevServer() {
     return process.argv.find(v => v.includes('webpack-dev-server'));
@@ -33,7 +36,8 @@ async function getClientConfig(opts) {
         vendor,
         projectConfig,
         stats,
-        resolver
+        resolver,
+        bus
     } = opts;
 
     let vendorTest = '[\\/]node_modules[\\/]';
@@ -43,6 +47,9 @@ async function getClientConfig(opts) {
     }
 
     debug('Creating client config');
+
+    // Create an instance of virtual modules enabling any plugin to create new virtual modules
+    const virtualModules = new VirtualModulesPlugin();
 
     const config = {
         mode,
@@ -82,6 +89,7 @@ async function getClientConfig(opts) {
             }),
             new webpack.EnvironmentPlugin(projectConfig.env),
             new UpwardIncludePlugin({
+                bus,
                 upwardDirs: [...hasFlag('upward'), context]
             }),
             new WebpackAssetsManifest({
@@ -127,7 +135,13 @@ async function getClientConfig(opts) {
                     swSrc: './src/ServiceWorker/sw.js',
                     swDest: './sw.js'
                 }
-            })
+            }),
+            new LocalizationPlugin({
+                virtualModules,
+                context,
+                dirs: [...hasFlag('i18n'), context] // Directories to search for i18n/*.json files
+            }),
+            virtualModules
         ],
         devtool: 'source-map',
         optimization: {

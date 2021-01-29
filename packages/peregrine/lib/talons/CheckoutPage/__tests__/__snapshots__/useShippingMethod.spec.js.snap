@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handleSubmit fires necessary mutations and callbacks 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "shippingMethod": Object {
+      "carrier_code": "usps",
+      "method_code": "flatrate",
+    },
+  },
+}
+`;
+
+exports[`returns Apollo error 1`] = `undefined`;

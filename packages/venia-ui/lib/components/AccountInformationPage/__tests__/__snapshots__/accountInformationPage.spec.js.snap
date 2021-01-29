@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`redirects when not authenticated 1`] = `
+<mock-Redirect
+  to="/"
+/>
+`;
+
+exports[`renders form error 1`] = `
+<div
+  className="root"
+>
+  Account Information
+  <h1
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Account Information"
+      id="accountInformationPage.accountInformation"
+    />
+  </h1>
+  <p
+    className="root"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Something went wrong. Please refresh and try again."
+      id="accountInformationPage.errorTryAgain"
+    />
+  </p>
+</div>
+`;

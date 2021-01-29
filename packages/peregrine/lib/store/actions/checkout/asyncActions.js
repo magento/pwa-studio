@@ -12,7 +12,7 @@ export const beginCheckout = () =>
         // Before we begin, reset the state of checkout to clear out stale data.
         dispatch(actions.reset());
 
-        const storedAvailableShippingMethods = await retreiveAvailableShippingMethods();
+        const storedAvailableShippingMethods = await retrieveAvailableShippingMethods();
         const storedBillingAddress = await retrieveBillingAddress();
         const storedPaymentMethod = await retrievePaymentMethod();
         const storedShippingAddress = await retrieveShippingAddress();
@@ -281,11 +281,17 @@ export const submitOrder = ({ fetchCartId }) =>
             // storage. Then remove and create a new cart.
             await clearCheckoutDataFromStorage();
             await dispatch(removeCart());
-            dispatch(
-                createCart({
-                    fetchCartId
-                })
-            );
+            try {
+                dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
+            } catch (error) {
+                // If creating a cart fails, all is not lost. Return so that the
+                // user can continue to at least browse the site.
+                return;
+            }
 
             dispatch(actions.order.accept());
         } catch (error) {
@@ -347,7 +353,7 @@ async function clearAvailableShippingMethods() {
     return storage.removeItem('availableShippingMethods');
 }
 
-async function retreiveAvailableShippingMethods() {
+async function retrieveAvailableShippingMethods() {
     return storage.getItem('availableShippingMethods');
 }
 
