@@ -114,7 +114,9 @@ test('render tab and check mouse down modifies state', () => {
     expect(tabList.parent.props.className).toEqual('navigationGradientBoth');
 
     ul.removeEventListener = jest.fn().mockImplementation(() => {});
-    component.unmount();
+    act(() => {
+        component.unmount();
+    });
     expect(ul.removeEventListener).toHaveBeenCalledWith(
         'scroll',
         expect.anything()

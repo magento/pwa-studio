@@ -228,7 +228,9 @@ test('it resets cart updating flag on unmount', () => {
 
     expect(setIsCartUpdating).not.toBeCalled();
 
-    tree.unmount();
+    act(() => {
+        tree.unmount();
+    });
 
     expect(setIsCartUpdating).toHaveBeenCalledWith(false);
 });

@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react';
-import { Form, Text } from 'informed';
+import { Form, Text, useFieldState } from 'informed';
 
 import { runQuery, useLazyQuery } from '@apollo/client';
 import { useAutocomplete } from '../../../talons/SearchBar';
 import createTestInstance from '../../../util/createTestInstance';
+
+jest.mock('informed', () => ({
+    ...jest.requireActual('informed'),
+    useFieldState: jest.fn().mockReturnValue({ value: '' })
+}));
 
 jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
@@ -154,6 +159,10 @@ test('renders a summary message', () => {
 });
 
 test('renders a message invalid character length', () => {
+    useFieldState.mockReturnValueOnce({
+        value: 'MOCK_VALUE'
+    });
+
     createTestInstance(
         <Form>
             <Text field="search_query" initialValue="a" />
