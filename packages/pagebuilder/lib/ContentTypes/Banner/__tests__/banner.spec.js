@@ -277,7 +277,9 @@ test('banner unmount causes Jarallax to be destroyed', () => {
             return parallaxElementMock;
         }
     });
-    component.unmount();
+    act(() => {
+        component.unmount();
+    });
 
     expect(mockJarallax.mock.calls[1]).toEqual([
         parallaxElementMock,

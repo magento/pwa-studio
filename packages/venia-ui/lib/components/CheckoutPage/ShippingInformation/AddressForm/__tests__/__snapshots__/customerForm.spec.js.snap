@@ -1370,6 +1370,7 @@ Array [
       </div>
     </div>
     <input
+      id="default_shipping"
       name="default_shipping"
       onBlur={[Function]}
       onChange={[Function]}
