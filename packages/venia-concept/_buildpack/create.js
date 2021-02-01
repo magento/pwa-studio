@@ -42,6 +42,7 @@ async function createProjectFromVenia({ fs, tasks, options }) {
         'build:analyze',
         'build:dev',
         'build:prod',
+        'build:report',
         'clean',
         'download-schema',
         'lint',

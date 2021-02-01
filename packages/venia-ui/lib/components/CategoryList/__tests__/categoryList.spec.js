@@ -7,7 +7,9 @@ import CategoryList from '../categoryList';
 import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
 
-jest.mock('@magento/venia-drivers');
+jest.mock('@magento/venia-drivers', () => ({
+    Link: props => <mock-Link {...props} />
+}));
 jest.mock('../../../classify');
 jest.mock('@magento/peregrine/lib/talons/CategoryList/useCategoryTile', () => {
     return {
