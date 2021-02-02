@@ -1,5 +1,6 @@
 const loadEnvironment = require('../Utilities/loadEnvironment');
 const path = require('path');
+const compression = require('compression');
 
 module.exports = async function serve(dirname) {
     const config = await loadEnvironment(dirname);
@@ -29,6 +30,13 @@ module.exports = async function serve(dirname) {
                     ...config.section('imageOptimizing'),
                     ...config.section('imageService')
                 });
+                if (process.env.ENABLE_EXPRESS_SERVER_COMPRESSION === 'true') {
+                    app.use(
+                        compression({
+                            threshold: 0
+                        })
+                    );
+                }
             }
         }
     );

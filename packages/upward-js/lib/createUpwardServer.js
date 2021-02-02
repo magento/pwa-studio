@@ -9,7 +9,6 @@ const middleware = require('./middleware');
 const errorhandler = require('errorhandler');
 const { version } = require('../package.json');
 const morgan = require('morgan');
-const compression = require('compression');
 
 /**
  * Create an upward-js standalone server and optionally bind it to a local
@@ -50,14 +49,6 @@ async function createUpwardServer({
     const app = express();
     before(app);
     const upward = await middleware(resolve(upwardPath), env);
-
-    if (env.ENABLE_EXPRESS_SERVER_COMPRESSION === 'true') {
-        app.use(
-            compression({
-                threshold: 0
-            })
-        );
-    }
 
     if (env.NODE_ENV === 'production') {
         app.use(morgan('combined'));

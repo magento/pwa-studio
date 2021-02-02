@@ -49,12 +49,10 @@
   },
   "devDependencies": {
     "@magento/upward-spec": "~5.0.0",
-    "compression": "~1.7.4",
     "express": "~4.16.4",
     "supertest": "~3.4.2"
   },
   "peerDependencies": {
-    "compression": "~1.7.4",
     "express": "^4.16.4"
   },
   "engines": {
