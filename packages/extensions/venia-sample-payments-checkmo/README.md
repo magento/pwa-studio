@@ -1,6 +1,6 @@
 # venia-sample-payments-checkmo
 
-This package provides as sample static payment method for Magento `Check, Money Order`.
+This package provides a sample static `Check MO (Money Order)` payment method for Venia.
 Why is this only sample currently GraphQL dont expose
 configuration for `payment/checkmo/payable_to and payment/checkmo/mailing_address` so we mock them.
 
