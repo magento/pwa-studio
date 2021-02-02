@@ -10,7 +10,6 @@ const errorhandler = require('errorhandler');
 const { version } = require('../package.json');
 const morgan = require('morgan');
 const compression = require('compression');
-const gzipValidationMiddleware = require('./gzipValidationMiddleware');
 
 /**
  * Create an upward-js standalone server and optionally bind it to a local
@@ -58,7 +57,6 @@ async function createUpwardServer({
                 threshold: 0
             })
         );
-        app.use(gzipValidationMiddleware(env));
     }
 
     if (env.NODE_ENV === 'production') {
