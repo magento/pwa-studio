@@ -81,6 +81,7 @@ exports[`renders correctly 1`] = `
     isOpen={false}
     onCancel={[MockFunction handleHideModal]}
     onConfirm={[MockFunction handleCreateList]}
+    shouldUnmountOnHide={false}
     title="New Favorites List"
   >
     <div
@@ -108,6 +109,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
+              id="name"
               name="name"
               onBlur={[Function]}
               onChange={[Function]}

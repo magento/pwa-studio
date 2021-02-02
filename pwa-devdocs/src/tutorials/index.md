@@ -1,26 +1,32 @@
 ---
-title: Tutorials
+title: Getting started
 ---
 
-This section contains links to tutorials that will help you become familiar with the different tools provided by PWA Studio.
+PWA Studio is a library of tools and packages designed to help you create a Magento PWA storefront.
+In this section you will learn how to set up your storefront project using the scaffolding tool and learn about the different files and folders in your project.
 
-## Recommended tutorials
+## Prerequisites
 
-### UPWARD
+-   A basic understanding of working with [React][]
+-   Node >= 10.14.1
+-   Yarn (recommended) or NPM
 
-This three part tutorial provides an introduction to the concepts introduced in the UPWARD spec.
-By the end of this tutorial, you should have a simple React application running on top of an UPWARD server.
+### Node 12 deprecation warning
 
-1.  [Creating a simple UPWARD server][] - Teaches the very basics of reading and writing an UPWARD specification file for your projects
-2.  [Using the TemplateResolver][] - Introduces the concept of using templates and the TemplateResolver to keep your UPWARD specification file lean
-3.  [Adding React][] - Add React and Webpack into your UPWARD project
+If you are using Node 12, you may see the following deprecation warning in the log when you run `yarn watch:venia`.
 
-### Magento Cloud deployment
+```sh
+(node:89176) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+```
 
-[Magento Cloud deployment][] - Provides steps for deploying a PWA Studio storefront into the Magento Cloud.
-This tutorial uses the Venia example storefront to illustrate the general process.
+This is caused by a project dependency used by PWA Studio and not by PWA Studio itself.
 
-[creating a simple upward server]: <{%link tutorials/hello-upward/simple-server/index.md%}>
-[using the templateresolver]: <{%link tutorials/hello-upward/using-template-resolver/index.md%}>
-[adding react]: <{%link tutorials/hello-upward/adding-react/index.md%}>
-[magento cloud deployment]: <{%link tutorials/cloud-deploy/index.md %}>
+## First steps
+
+-   [Setup your project][]
+-   [Explore the project structure][]
+
+[setup your project]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
+[explore the project structure]: <{%link tutorials/pwa-studio-fundamentals/project-structure/index.md %}>
+
+[react]: https://reactjs.org/

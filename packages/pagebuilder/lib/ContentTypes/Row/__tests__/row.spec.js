@@ -13,6 +13,7 @@ jest.mock('jarallax', () => {
     };
 });
 import { jarallax, jarallaxVideo } from 'jarallax';
+import { act } from 'react-test-renderer';
 const mockJarallax = jarallax.mockImplementation(() => {});
 const mockJarallaxVideo = jarallaxVideo.mockImplementation(() => {});
 
@@ -94,7 +95,9 @@ test('row unmount causes Jarallax to be destroyed', () => {
             return true;
         }
     });
-    component.unmount();
+    act(() => {
+        component.unmount();
+    });
 
     expect(mockJarallax.mock.calls).toEqual([
         [

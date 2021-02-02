@@ -1,0 +1,104 @@
+.root {
+    border-radius: 0.375rem;
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    column-gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    min-height: 10rem;
+    min-width: 20rem;
+    padding: 1.5rem 2rem;
+    position: relative;
+}
+
+.root_active {
+    composes: root;
+    border-color: rgb(var(--venia-brand-color-1-600));
+}
+
+.title {
+    font-weight: var(--venia-global-fontWeight-semibold);
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.number {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+}
+
+.expiry_date {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+}
+
+.delete {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 3;
+}
+
+.deleteButton {
+    composes: root from '../LinkButton/linkButton.css';
+    text-decoration: none;
+}
+
+.deleteConfirmationContainer {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.375rem;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    height: 100%;
+    justify-items: center;
+    opacity: 1;
+    left: 0;
+    padding: 1.25rem 2rem;
+    position: absolute;
+    top: 0;
+    transform: scaleX(1);
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-global-anim-in);
+    transition-property: opacity, transform, visibility;
+    visibility: visible;
+    width: 100%;
+}
+
+.deleteConfirmationContainer_hidden {
+    composes: deleteConfirmationContainer;
+    opacity: 0;
+    transform: scaleX(0);
+    transition-delay: 0s, 192ms, 0s;
+    transition-timing-function: var(--venia-global-anim-out);
+    visibility: hidden;
+}
+
+.confirmDeleteButton {
+    composes: root_normalPriorityNegative from '../Button/button.css';
+    background-color: white;
+    order: 1;
+}
+
+.cancelDeleteButton {
+    composes: root_lowPriority from '../Button/button.css';
+    background-color: white;
+}
+
+@media (max-width: 960px) {
+    .deleteText {
+        display: none;
+    }
+}
+
+@media (max-width: 425px) {
+    .confirmDeleteButton {
+        order: 0;
+    }
+
+    .deleteConfirmationContainer {
+        transform: scaleY(1);
+    }
+
+    .deleteConfirmationContainer_hidden {
+        transform: scaleY(0);
+    }
+}

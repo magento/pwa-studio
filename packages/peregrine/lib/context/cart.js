@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
@@ -55,20 +55,16 @@ const CartContextProvider = props => {
         derivedCartState
     ]);
 
-    const apolloClient = useApolloClient();
     const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
 
     useEffect(() => {
-        // cartApi.getCartDetails initializes the cart if there isn't one. Also, we pass
-        // apolloClient to wipe the store in event of auth token expiry which
-        // will only happen if the user refreshes.
+        // cartApi.getCartDetails initializes the cart if there isn't one.
         cartApi.getCartDetails({
-            apolloClient,
             fetchCartId,
             fetchCartDetails
         });
-    }, [apolloClient, cartApi, fetchCartDetails, fetchCartId]);
+    }, [cartApi, fetchCartDetails, fetchCartId]);
 
     return (
         <CartContext.Provider value={contextValue}>

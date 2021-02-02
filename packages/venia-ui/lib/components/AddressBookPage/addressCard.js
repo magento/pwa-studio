@@ -1,21 +1,33 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { shape, string, bool, arrayOf } from 'prop-types';
+import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { Trash2 as TrashIcon, Edit2 as EditIcon } from 'react-feather';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import Button from '@magento/venia-ui/lib/components/Button';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import defaultClasses from './addressCard.css';
 import LinkButton from '../LinkButton';
 
 const AddressCard = props => {
-    const { address, classes: propClasses, countryName } = props;
+    const {
+        address,
+        classes: propClasses,
+        countryName,
+        isConfirmingDelete,
+        isDeletingCustomerAddress,
+        onCancelDelete,
+        onConfirmDelete,
+        onEdit,
+        onDelete
+    } = props;
 
     const {
         city,
         country_code,
         default_shipping,
         firstname,
+        middlename = '',
         lastname,
         postcode,
         region: { region },
@@ -24,6 +36,12 @@ const AddressCard = props => {
     } = address;
 
     const classes = mergeClasses(defaultClasses, propClasses);
+    const confirmDeleteButtonClasses = {
+        root_normalPriorityNegative: classes.confirmDeleteButton
+    };
+    const cancelDeleteButtonClasses = {
+        root_lowPriority: classes.cancelDeleteButton
+    };
 
     const streetRows = street.map((row, index) => {
         return (
@@ -42,14 +60,13 @@ const AddressCard = props => {
         </span>
     ) : null;
 
-    const nameString = `${firstname} ${lastname}`;
+    const nameString = [firstname, middlename, lastname]
+        .filter(name => !!name)
+        .join(' ');
     const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement = !default_shipping ? (
-        <LinkButton
-            classes={{ root: classes.deleteButton }}
-            onClick={() => console.log('To be completed by PWA-635')}
-        >
+        <LinkButton classes={{ root: classes.deleteButton }} onClick={onDelete}>
             <Icon classes={{ icon: null }} size={16} src={TrashIcon} />
             <span className={classes.actionLabel}>
                 <FormattedMessage
@@ -58,6 +75,36 @@ const AddressCard = props => {
                 />
             </span>
         </LinkButton>
+    ) : null;
+
+    const maybeConfirmingDeleteOverlay = isConfirmingDelete ? (
+        <div className={classes.confirmDeleteContainer}>
+            <Button
+                classes={confirmDeleteButtonClasses}
+                disabled={isDeletingCustomerAddress}
+                priority="normal"
+                type="button"
+                negative={true}
+                onClick={onConfirmDelete}
+            >
+                <FormattedMessage
+                    id={'global.deleteButton'}
+                    defaultMessage={'Delete'}
+                />
+            </Button>
+            <Button
+                classes={cancelDeleteButtonClasses}
+                disabled={isDeletingCustomerAddress}
+                priority="low"
+                type="button"
+                onClick={onCancelDelete}
+            >
+                <FormattedMessage
+                    id={'global.cancelButton'}
+                    defaultMessage={'Cancel'}
+                />
+            </Button>
+        </div>
     ) : null;
 
     return (
@@ -82,7 +129,7 @@ const AddressCard = props => {
             <div className={classes.actionContainer}>
                 <LinkButton
                     classes={{ root: classes.editButton }}
-                    onClick={() => console.log('To be completed by PWA-634')}
+                    onClick={onEdit}
                 >
                     <Icon classes={{ icon: null }} size={16} src={EditIcon} />
                     <span className={classes.actionLabel}>
@@ -93,6 +140,7 @@ const AddressCard = props => {
                     </span>
                 </LinkButton>
                 {deleteButtonElement}
+                {maybeConfirmingDeleteOverlay}
             </div>
         </div>
     );
@@ -133,5 +181,11 @@ AddressCard.propTypes = {
         streetRow: string,
         telephone: string
     }),
-    countryName: string
+    countryName: string,
+    isConfirmingDelete: bool,
+    isDeletingCustomerAddress: bool,
+    onCancelDelete: func,
+    onConfirmDelete: func,
+    onDelete: func,
+    onEdit: func
 };

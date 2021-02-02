@@ -24,17 +24,17 @@ defaults:
     scope:
       path: "technologies"
     values:
-      toc-group: "getting-started"
+      toc-group: "overview"
   -
     scope:
       path: "pwa-buildpack"
     values:
-      toc-group: "getting-started"
+      toc-group: "overview"
   -
     scope:
       path: "frequently-asked-questions"
     values:
-      toc-group: "getting-started"
+      toc-group: "overview"
 
   -
     scope:
@@ -52,7 +52,7 @@ defaults:
     scope:
       path: "peregrine"
     values:
-      toc-group: "getting-started"
+      toc-group: "overview"
 
   -
     scope:
@@ -64,7 +64,7 @@ defaults:
     scope:
       path: "venia-pwa-concept"
     values:
-      toc-group: "getting-started"
+      toc-group: "overview"
   -
     scope:
       path: "venia-ui/reference"

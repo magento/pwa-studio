@@ -14,10 +14,12 @@ const StoreCodeRoute = () => {
 
     const storeCodes = [];
     const storeCurrencies = {};
+    const storeSecureBaseMediaUrl = {};
 
     AVAILABLE_STORE_VIEWS.forEach(store => {
         storeCodes.push(store.code);
         storeCurrencies[store.code] = store.default_display_currency_code;
+        storeSecureBaseMediaUrl[store.code] = store.secure_base_media_url;
     });
 
     // Sort by length (longest first) to avoid false hits ie "en" matching just
@@ -43,12 +45,22 @@ const StoreCodeRoute = () => {
                 'store_view_currency',
                 storeCurrencies[storeCodeInUrl]
             );
+            storage.setItem(
+                'store_view_secure_base_media_url',
+                storeSecureBaseMediaUrl[storeCodeInUrl]
+            );
 
             // We're required to reload the page as the basename doesn't
             // change entirely without a full page reload.
             history.go(0);
         }
-    }, [currentStoreCode, history, storeCodeInUrl, storeCurrencies]);
+    }, [
+        currentStoreCode,
+        history,
+        storeCodeInUrl,
+        storeCurrencies,
+        storeSecureBaseMediaUrl
+    ]);
 
     return null;
 };

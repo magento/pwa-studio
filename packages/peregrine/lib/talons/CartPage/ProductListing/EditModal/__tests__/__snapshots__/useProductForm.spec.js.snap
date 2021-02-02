@@ -122,8 +122,10 @@ Object {
     "updateQuantityMutation" => null,
     "updateConfigurableOptionsMutation" => null,
   },
+  "handleClose": [Function],
   "handleOptionSelection": [Function],
   "handleSubmit": [Function],
+  "isDialogOpen": true,
   "isLoading": false,
   "isSaving": false,
 }

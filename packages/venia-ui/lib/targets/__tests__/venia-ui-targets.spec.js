@@ -99,18 +99,18 @@ test('uses routes to inject client-routed pages', async () => {
     expect(built.bundle).toContain('DynamicCheckout');
 });
 
-test('declares payments target', async () => {
+test('declares checkoutPagePaymentTypes target', async () => {
     const bus = mockBuildBus({
         context: __dirname,
         dependencies: [thisDep]
     });
     bus.runPhase('declare');
-    const { payments } = bus.getTargetsOf('@magento/venia-ui');
+    const { checkoutPagePaymentTypes } = bus.getTargetsOf('@magento/venia-ui');
 
     const interceptor = jest.fn();
     // no implementation testing in declare phase
-    payments.tap('test', interceptor);
-    payments.call('woah');
+    checkoutPagePaymentTypes.tap('test', interceptor);
+    checkoutPagePaymentTypes.call('woah');
     expect(interceptor).toHaveBeenCalledWith('woah');
 });
 
@@ -125,36 +125,21 @@ test('uses RichContentRenderers to default strategy Payment Method', async () =>
         }
     );
 
-    const payments = built.run();
-    expect(payments).toHaveProperty('braintree');
+    const checkoutPagePaymentTypes = built.run();
+    expect(checkoutPagePaymentTypes).toHaveProperty('braintree');
 });
 
-test('declares payments target', async () => {
+test('declares savedPaymentTypes target', async () => {
     const bus = mockBuildBus({
         context: __dirname,
         dependencies: [thisDep]
     });
     bus.runPhase('declare');
-    const { payments } = bus.getTargetsOf('@magento/venia-ui');
+    const { savedPaymentTypes } = bus.getTargetsOf('@magento/venia-ui');
 
     const interceptor = jest.fn();
     // no implementation testing in declare phase
-    payments.tap('test', interceptor);
-    payments.call('woah');
+    savedPaymentTypes.tap('test', interceptor);
+    savedPaymentTypes.call('woah');
     expect(interceptor).toHaveBeenCalledWith('woah');
-});
-
-test('uses RichContentRenderers to default strategy Payment Method', async () => {
-    jest.setTimeout(WEBPACK_BUILD_TIMEOUT);
-
-    const built = await buildModuleWith(
-        '../../components/CheckoutPage/PaymentInformation/paymentMethodCollection.js',
-        {
-            context: __dirname,
-            dependencies: ['@magento/peregrine', thisDep]
-        }
-    );
-
-    const payments = built.run();
-    expect(payments).toHaveProperty('braintree');
 });
