@@ -2,7 +2,7 @@ module.exports = targets => {
     const { specialFeatures } = targets.of('@magento/pwa-buildpack');
     specialFeatures.tap(flags => {
         /**
-         *  Wee need to actived esModules and cssModules to allow build pack to load our extension
+         *  Wee need to activate esModules, cssModules and GQL Queries to allow build pack to load our extension
          * {@link https://magento.github.io/pwa-studio/pwa-buildpack/reference/configure-webpack/#special-flags}.
          */
         flags[targets.name] = {
