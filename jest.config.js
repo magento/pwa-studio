@@ -39,8 +39,89 @@ const path = require('path');
 // transpile, or 'lib' for code that doesn't have to.
 const testGlob = '/**/{src,lib,_buildpack}/**/__tests__/*.(test|spec).js';
 
+const globals = {
+    POSSIBLE_TYPES: {
+        CartAddressInterface: ['BillingCartAddress', 'ShippingCartAddress'],
+        CartItemInterface: [
+            'SimpleCartItem',
+            'VirtualCartItem',
+            'DownloadableCartItem',
+            'BundleCartItem',
+            'ConfigurableCartItem'
+        ],
+        ProductInterface: [
+            'VirtualProduct',
+            'SimpleProduct',
+            'DownloadableProduct',
+            'GiftCardProduct',
+            'BundleProduct',
+            'GroupedProduct',
+            'ConfigurableProduct'
+        ],
+        CategoryInterface: ['CategoryTree'],
+        MediaGalleryInterface: ['ProductImage', 'ProductVideo'],
+        ProductLinksInterface: ['ProductLinks'],
+        AggregationOptionInterface: ['AggregationOption'],
+        LayerFilterItemInterface: ['LayerFilterItem', 'SwatchLayerFilterItem'],
+        PhysicalProductInterface: [
+            'SimpleProduct',
+            'GiftCardProduct',
+            'BundleProduct',
+            'GroupedProduct',
+            'ConfigurableProduct'
+        ],
+        CustomizableOptionInterface: [
+            'CustomizableAreaOption',
+            'CustomizableDateOption',
+            'CustomizableDropDownOption',
+            'CustomizableMultipleOption',
+            'CustomizableFieldOption',
+            'CustomizableFileOption',
+            'CustomizableRadioOption',
+            'CustomizableCheckboxOption'
+        ],
+        CustomizableProductInterface: [
+            'VirtualProduct',
+            'SimpleProduct',
+            'DownloadableProduct',
+            'GiftCardProduct',
+            'BundleProduct',
+            'ConfigurableProduct'
+        ],
+        SwatchDataInterface: [
+            'ImageSwatchData',
+            'TextSwatchData',
+            'ColorSwatchData'
+        ],
+        SwatchLayerFilterItemInterface: ['SwatchLayerFilterItem']
+    },
+    STORE_NAME: 'Venia',
+    STORE_VIEW_CODE: 'default',
+    AVAILABLE_STORE_VIEWS: [
+        {
+            base_currency_code: 'USD',
+            code: 'default',
+            default_display_currency_code: 'USD',
+            id: 1,
+            locale: 'en_US',
+            store_name: 'Default Store View'
+        },
+        {
+            base_currency_code: 'EUR',
+            code: 'fr',
+            default_display_currency_code: 'EUR',
+            id: 2,
+            locale: 'fr_FR',
+            store_name: 'French Store View'
+        }
+    ],
+    DEFAULT_LOCALE: 'en-US'
+};
+
 // Reusable test configuration for Venia UI and storefront packages.
 const testReactComponents = inPackage => ({
+    // Define global variables.
+    globals,
     // Expose jsdom to tests.
     moduleNameMapper: {
         // Mock binary files to avoid excess RAM usage.
@@ -83,88 +164,7 @@ const testReactComponents = inPackage => ({
     // full compile.
     transformIgnorePatterns: [
         'node_modules/(?!@magento|jarallax|video-worker/)'
-    ],
-    globals: {
-        POSSIBLE_TYPES: {
-            CartAddressInterface: ['BillingCartAddress', 'ShippingCartAddress'],
-            CartItemInterface: [
-                'SimpleCartItem',
-                'VirtualCartItem',
-                'DownloadableCartItem',
-                'BundleCartItem',
-                'ConfigurableCartItem'
-            ],
-            ProductInterface: [
-                'VirtualProduct',
-                'SimpleProduct',
-                'DownloadableProduct',
-                'GiftCardProduct',
-                'BundleProduct',
-                'GroupedProduct',
-                'ConfigurableProduct'
-            ],
-            CategoryInterface: ['CategoryTree'],
-            MediaGalleryInterface: ['ProductImage', 'ProductVideo'],
-            ProductLinksInterface: ['ProductLinks'],
-            AggregationOptionInterface: ['AggregationOption'],
-            LayerFilterItemInterface: [
-                'LayerFilterItem',
-                'SwatchLayerFilterItem'
-            ],
-            PhysicalProductInterface: [
-                'SimpleProduct',
-                'GiftCardProduct',
-                'BundleProduct',
-                'GroupedProduct',
-                'ConfigurableProduct'
-            ],
-            CustomizableOptionInterface: [
-                'CustomizableAreaOption',
-                'CustomizableDateOption',
-                'CustomizableDropDownOption',
-                'CustomizableMultipleOption',
-                'CustomizableFieldOption',
-                'CustomizableFileOption',
-                'CustomizableRadioOption',
-                'CustomizableCheckboxOption'
-            ],
-            CustomizableProductInterface: [
-                'VirtualProduct',
-                'SimpleProduct',
-                'DownloadableProduct',
-                'GiftCardProduct',
-                'BundleProduct',
-                'ConfigurableProduct'
-            ],
-            SwatchDataInterface: [
-                'ImageSwatchData',
-                'TextSwatchData',
-                'ColorSwatchData'
-            ],
-            SwatchLayerFilterItemInterface: ['SwatchLayerFilterItem']
-        },
-        STORE_NAME: 'Venia',
-        STORE_VIEW_CODE: 'default',
-        AVAILABLE_STORE_VIEWS: [
-            {
-                base_currency_code: 'USD',
-                code: 'default',
-                default_display_currency_code: 'USD',
-                id: 1,
-                locale: 'en_US',
-                store_name: 'Default Store View'
-            },
-            {
-                base_currency_code: 'EUR',
-                code: 'fr',
-                default_display_currency_code: 'EUR',
-                id: 2,
-                locale: 'fr_FR',
-                store_name: 'French Store View'
-            }
-        ],
-        DEFAULT_LOCALE: 'en-US'
-    }
+    ]
 });
 
 const configureProject = (dir, displayName, cb) => {
@@ -230,12 +230,15 @@ const jestConfig = {
         })),
         configureProject('pagebuilder', 'Pagebuilder', testReactComponents),
         configureProject('peregrine', 'Peregrine', inPackage => ({
+            // Define global variables.
+            globals,
             // Expose jsdom to tests.
             setupFiles: [
                 // Shim DOM properties not supported by jsdom
                 inPackage('scripts/shim.js'),
                 // Always mock `fetch` instead of doing real network calls
-                inPackage('scripts/fetch-mock.js')
+                inPackage('scripts/fetch-mock.js'),
+                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
             ],
             // Set up Enzyme React 16 adapter for testing React components
             setupFilesAfterEnv: [
