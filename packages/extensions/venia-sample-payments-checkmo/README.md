@@ -5,7 +5,7 @@ _Note: Currently GraphQL configuration for `payment/checkmo/payable_to and payme
 
 ## Installation
 
-To install this pack, just add it as devDependency to `venia-concept` or your
+To install this extension, add it as a `devDependency` to your app.
 project:
 
 `yarn workspace @magento/venia-concept add @magento/venia-sample-payments-checkmo -D`
