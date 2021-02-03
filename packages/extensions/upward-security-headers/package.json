@@ -15,7 +15,7 @@
   "peerDependencies": {
     "@magento/pwa-buildpack": "~7.0.0",
     "@magento/venia-ui": "~5.0.0",
-    "webpack": "~4.38.0"
+    "webpack": "~4.46.0"
   },
   "pwa-studio": {
     "targets": {
