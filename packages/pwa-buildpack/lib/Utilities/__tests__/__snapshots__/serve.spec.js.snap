@@ -1,0 +1,342 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add compression middleware if ENABLE_EXPRESS_SERVER_COMPRESSION is true 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should add the Image Opt middleware 1`] = `
+Array [
+  Array [
+    Object {},
+    Object {},
+  ],
+]
+`;
+
+exports[`should add the Image Opt middleware 2`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should create upward server 1`] = `
+Array [
+  Array [
+    Object {
+      "before": [Function],
+      "bindLocal": true,
+      "env": Object {
+        "Apple_PubSub_Socket_Render": "/private/tmp/com.apple.launchd.20K8lIfFAM/Render",
+        "COLORFGBG": "7;0",
+        "COLORTERM": "truecolor",
+        "COMMAND_MODE": "unix2003",
+        "DISPLAY": "/private/tmp/com.apple.launchd.Oy4oakq6H2/org.macosforge.xquartz:0",
+        "ENABLE_EXPRESS_SERVER_COMPRESSION": "false",
+        "HOME": "/Users/annavara",
+        "INIT_CWD": "/Users/annavara/Documents/node_projects/pwa-studio",
+        "ITERM_PROFILE": "Default",
+        "ITERM_SESSION_ID": "w0t0p0:53C2BF61-4D60-493D-8DE5-80EECFBA9F71",
+        "JEST_WORKER_ID": "1",
+        "LANG": "en_US.UTF-8",
+        "LOGNAME": "annavara",
+        "NODE": "/usr/local/bin/node",
+        "NODE_ENV": "test",
+        "ONLY_SUBSCRIBE_UNHANDLED_REJECTIONS_ONCE": "1",
+        "PATH": "/var/folders/r5/3gw4fmrd51l_vztt4khkw0gh0000gn/T/yarn--1612380327605-0.8606273544197223:/Users/annavara/Documents/node_projects/pwa-studio/node_modules/.bin:/Users/annavara/.config/yarn/link/node_modules/.bin:/Users/annavara/Documents/node_projects/pwa-studio/node_modules/.bin:/usr/local/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/bin/node_modules/npm/bin/node-gyp-bin:/usr/local/opt/php@7.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/annavara/.composer/vendor/bin",
+        "PORT": "1234",
+        "PWD": "/Users/annavara/Documents/node_projects/pwa-studio",
+        "SECURITYSESSIONID": "186aa",
+        "SHELL": "/bin/bash",
+        "SHLVL": "2",
+        "SSH_AUTH_SOCK": "/private/tmp/com.apple.launchd.g4gZYLGM7H/Listeners",
+        "TERM": "xterm-256color",
+        "TERM_PROGRAM": "iTerm.app",
+        "TERM_PROGRAM_VERSION": "3.2.9",
+        "TERM_SESSION_ID": "w0t0p0:53C2BF61-4D60-493D-8DE5-80EECFBA9F71",
+        "TMPDIR": "/var/folders/r5/3gw4fmrd51l_vztt4khkw0gh0000gn/T/",
+        "USER": "annavara",
+        "XPC_FLAGS": "0x0",
+        "XPC_SERVICE_NAME": "0",
+        "YARN_WRAP_OUTPUT": "false",
+        "_": "/Users/annavara/Documents/node_projects/pwa-studio/node_modules/.bin/jest",
+        "__CF_USER_TEXT_ENCODING": "0x1F5:0x0:0x0",
+        "npm_config_argv": "{\\"remain\\":[],\\"cooked\\":[\\"run\\",\\"test\\"],\\"original\\":[\\"test\\",\\"-u\\",\\"--watch\\",\\"--no-coverage\\",\\"packages/pwa-buildpack/lib/Utilities/__tests__/serve.spec.js\\"]}",
+        "npm_config_bin_links": "true",
+        "npm_config_ignore_optional": "",
+        "npm_config_ignore_scripts": "",
+        "npm_config_init_license": "MIT",
+        "npm_config_init_version": "1.0.0",
+        "npm_config_registry": "https://registry.yarnpkg.com",
+        "npm_config_save_prefix": "~",
+        "npm_config_strict_ssl": "true",
+        "npm_config_user_agent": "yarn/1.16.0 npm/? node/v14.15.3 darwin x64",
+        "npm_config_version_commit_hooks": "true",
+        "npm_config_version_git_message": "v%s",
+        "npm_config_version_git_sign": "",
+        "npm_config_version_git_tag": "true",
+        "npm_config_version_tag_prefix": "v",
+        "npm_execpath": "/usr/local/lib/node_modules/yarn/bin/yarn.js",
+        "npm_lifecycle_event": "test",
+        "npm_lifecycle_script": "jest",
+        "npm_node_execpath": "/usr/local/bin/node",
+        "npm_package_author_name": "Magento Commerce",
+        "npm_package_bugs_url": "https://github.com/magento/pwa-studio/issues",
+        "npm_package_bundlesize_0_maxSize": "250 kB",
+        "npm_package_bundlesize_0_path": "./packages/venia-concept/dist/{client,vendors,sw}?(.)*.js",
+        "npm_package_bundlesize_1_maxSize": "250 kB",
+        "npm_package_bundlesize_1_path": "./packages/venia-concept/dist/RootCmp_*.js",
+        "npm_package_bundlesize_2_maxSize": "100 kB",
+        "npm_package_bundlesize_2_path": "./packages/venia-concept/dist/+([0-9]).*.js",
+        "npm_package_description": "Magento PWA Studio is a collection of tools that lets developers build complex Progressive Web Applications on top of Magento 2 stores.",
+        "npm_package_devDependencies__magento_eslint_config": "~1.5.0",
+        "npm_package_devDependencies__types_jest": "~25.2.1",
+        "npm_package_devDependencies_caller_id": "~0.1.0",
+        "npm_package_devDependencies_chalk": "~2.4.2",
+        "npm_package_devDependencies_chokidar": "~2.1.2",
+        "npm_package_devDependencies_coveralls": "~3.0.3",
+        "npm_package_devDependencies_danger": "^7.1.4",
+        "npm_package_devDependencies_eslint": "~5.14.1",
+        "npm_package_devDependencies_eslint_config_prettier": "~6.0.0",
+        "npm_package_devDependencies_eslint_plugin_babel": "~5.3.0",
+        "npm_package_devDependencies_eslint_plugin_graphql": "~3.0.3",
+        "npm_package_devDependencies_eslint_plugin_jsx_a11y": "~6.2.1",
+        "npm_package_devDependencies_eslint_plugin_node": "~8.0.1",
+        "npm_package_devDependencies_eslint_plugin_package_json": "~0.1.4",
+        "npm_package_devDependencies_eslint_plugin_react": "~7.21.5",
+        "npm_package_devDependencies_eslint_plugin_react_hooks": "~2.0.1",
+        "npm_package_devDependencies_execa": "~1.0.0",
+        "npm_package_devDependencies_figures": "~2.0.0",
+        "npm_package_devDependencies_first_run": "~2.0.0",
+        "npm_package_devDependencies_identity_obj_proxy": "~3.0.0",
+        "npm_package_devDependencies_jest": "~26.0.1",
+        "npm_package_devDependencies_jest_fetch_mock": "~2.1.1",
+        "npm_package_devDependencies_jest_junit": "~10.0.0",
+        "npm_package_devDependencies_jest_transform_graphql": "~2.1.0",
+        "npm_package_devDependencies_lodash_debounce": "~4.0.8",
+        "npm_package_devDependencies_prettier": "~1.16.4",
+        "npm_package_devDependencies_rimraf": "~2.6.3",
+        "npm_package_engines_node": ">=10.x",
+        "npm_package_engines_yarn": ">=1.12.0",
+        "npm_package_homepage": "https://github.com/magento/pwa-studio",
+        "npm_package_license": "SEE LICENSE IN LICENSE.txt",
+        "npm_package_name": "@magento/pwa-studio",
+        "npm_package_optionalDependencies_bundlesize": "~0.17.1",
+        "npm_package_optionalDependencies_sharp": "~0.23.3",
+        "npm_package_private": "true",
+        "npm_package_readmeFilename": "README.md",
+        "npm_package_resolutions____graphql_cli_graphql_playground_middleware_express": "~1.7.18",
+        "npm_package_resolutions____graphql_cli_npm_run": "~5.0.0",
+        "npm_package_resolutions_graphql": "~14.3.1",
+        "npm_package_resolutions_https_proxy_agent": "~2.2.3",
+        "npm_package_scripts_build": "yarn venia run build",
+        "npm_package_scripts_build_dev": "yarn venia run build:dev",
+        "npm_package_scripts_clean_all": "yarn workspaces run -s clean && rimraf ./node_modules",
+        "npm_package_scripts_clean_dist": "yarn workspaces run clean",
+        "npm_package_scripts_coveralls": "cat ./coverage/lcov.info | coveralls",
+        "npm_package_scripts_danger": "danger-ci",
+        "npm_package_scripts_lint": "eslint '@(packages|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
+        "npm_package_scripts_postbuild": "rimraf \\"./packages/*/dist/{,**/}__*__\\"",
+        "npm_package_scripts_preinstall": "node -e 'process.env.CI||process.exit(1)' || npx npm-is yarn",
+        "npm_package_scripts_prepare": "node scripts/monorepo-introduction.js",
+        "npm_package_scripts_prettier": "prettier --loglevel warn --write '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
+        "npm_package_scripts_prettier_check": "prettier --list-different '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
+        "npm_package_scripts_stage_venia": "yarn venia start",
+        "npm_package_scripts_stats_venia": "yarn venia run build:analyze && yarn venia run stats",
+        "npm_package_scripts_storybook_venia": "yarn workspace @magento/venia-ui run storybook",
+        "npm_package_scripts_test": "jest",
+        "npm_package_scripts_test_ci": "jest --no-cache --max-workers=3 --json --outputFile=test-results.json",
+        "npm_package_scripts_test_debug": "node --inspect-brk node_modules/.bin/jest --no-cache --no-coverage --runInBand --testTimeout 86400",
+        "npm_package_scripts_test_dev": "jest --watch",
+        "npm_package_scripts_validate_queries": "yarn venia run validate-queries",
+        "npm_package_scripts_venia": "yarn workspace @magento/venia-concept",
+        "npm_package_scripts_watch_all": "node scripts/watch-all.js",
+        "npm_package_scripts_watch_venia": "yarn venia run watch",
+        "npm_package_version": "8.0.0",
+        "npm_package_workspaces_0": "packages/babel-preset-peregrine",
+        "npm_package_workspaces_1": "packages/create-pwa",
+        "npm_package_workspaces_10": "packages/venia-ui",
+        "npm_package_workspaces_2": "packages/extensions/*",
+        "npm_package_workspaces_3": "packages/graphql-cli-validate-magento-pwa-queries",
+        "npm_package_workspaces_4": "packages/pagebuilder",
+        "npm_package_workspaces_5": "packages/peregrine",
+        "npm_package_workspaces_6": "packages/pwa-buildpack",
+        "npm_package_workspaces_7": "packages/upward-js",
+        "npm_package_workspaces_8": "packages/upward-spec",
+        "npm_package_workspaces_9": "packages/venia-concept",
+      },
+      "logUrl": true,
+      "port": "1234",
+    },
+  ],
+]
+`;
+
+exports[`should create upward server 2`] = `"Server Object"`;
+
+exports[`should create upward server 3`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should log error if configureHost throws error 1`] = `
+Object {
+  "error": Array [
+    "Could not configure or access custom host. Using loopback...",
+    "unable to configure host",
+  ],
+  "info": Array [
+    "PORT is set in environment: 7899",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should not add compression middleware if ENABLE_EXPRESS_SERVER_COMPRESSION is false 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should throw error if unable to load env 1`] = `[Error: Can not load environment config!]`;
+
+exports[`should throw error if unable to load env 2`] = `
+Object {
+  "error": Array [],
+  "info": Array [],
+  "success": Array [],
+  "warn": Array [],
+}
+`;
+
+exports[`should use configureHost config if custom origin is enabled 1`] = `
+Array [
+  Array [
+    Object {
+      "dir": "pwa-buildpack",
+      "enabled": true,
+      "interactive": false,
+    },
+  ],
+]
+`;
+
+exports[`should use configureHost config if custom origin is enabled 2`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 7899",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should use env.PORT if provided 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 7899",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should use port 0 if both env.PORT and staging config port are falsy 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [
+    "No port set. Binding to OS-assigned port",
+  ],
+}
+`;
+
+exports[`should use staging server port if env.PORT is not defined 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "STAGING_SERVER_PORT is configured: 5678",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
