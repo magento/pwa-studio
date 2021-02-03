@@ -9,7 +9,7 @@ export {
     useParams,
     useRouteMatch
 } from 'react-router-dom';
-export { default as resourceUrl } from '../util/makeUrl';
+export { default as resourceUrl } from '@magento/peregrine/lib/util/makeUrl';
 export { default as Adapter } from './adapter';
 export { connect } from 'react-redux';
 
