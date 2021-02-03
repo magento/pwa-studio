@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useIntl } from 'react-intl';
 
 import { Section } from '../../Accordion';
-import GiftCards from '../GiftCards';
+
+const GiftCards = React.lazy(() => import('../GiftCards'));
 
 const GiftCardSection = props => {
     const { setIsCartUpdating } = props;
@@ -15,7 +16,9 @@ const GiftCardSection = props => {
                 defaultMessage: 'Apply Gift Card'
             })}
         >
-            <GiftCards setIsCartUpdating={setIsCartUpdating} />
+            <Suspense fallback={null}>
+                <GiftCards setIsCartUpdating={setIsCartUpdating} />
+            </Suspense>
         </Section>
     );
 };

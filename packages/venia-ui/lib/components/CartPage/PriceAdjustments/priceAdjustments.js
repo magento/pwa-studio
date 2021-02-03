@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useIntl } from 'react-intl';
 import { func } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
 import { Accordion, Section } from '../../Accordion';
-import CouponCode from './CouponCode';
 import GiftCardSection from './giftCardSection';
-import GiftOptions from './GiftOptions';
-import ShippingMethods from './ShippingMethods';
 
 import defaultClasses from './priceAdjustments.css';
+
+const CouponCode = React.lazy(() => import('./CouponCode'));
+const GiftOptions = React.lazy(() => import('./GiftOptions'));
+const ShippingMethods = React.lazy(() => import('./ShippingMethods'));
 
 /**
  * PriceAdjustments is a child component of the CartPage component.
@@ -43,7 +44,11 @@ const PriceAdjustments = props => {
                         defaultMessage: 'Estimate your Shipping'
                     })}
                 >
-                    <ShippingMethods setIsCartUpdating={setIsCartUpdating} />
+                    <Suspense fallback={null}>
+                        <ShippingMethods
+                            setIsCartUpdating={setIsCartUpdating}
+                        />
+                    </Suspense>
                 </Section>
                 <Section
                     id={'coupon_code'}
@@ -52,7 +57,9 @@ const PriceAdjustments = props => {
                         defaultMessage: 'Enter Coupon Code'
                     })}
                 >
-                    <CouponCode setIsCartUpdating={setIsCartUpdating} />
+                    <Suspense fallback={null}>
+                        <CouponCode setIsCartUpdating={setIsCartUpdating} />
+                    </Suspense>
                 </Section>
                 <GiftCardSection setIsCartUpdating={setIsCartUpdating} />
                 <Section
@@ -62,7 +69,9 @@ const PriceAdjustments = props => {
                         defaultMessage: 'See Gift Options'
                     })}
                 >
-                    <GiftOptions />
+                    <Suspense fallback={null}>
+                        <GiftOptions />
+                    </Suspense>
                 </Section>
             </Accordion>
         </div>
