@@ -3,7 +3,7 @@
 exports[`renders form errors 1`] = `
 <portal-mock>
   <aside
-    className="root"
+    className="root_open"
   >
     <form
       className="form"
@@ -335,7 +335,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
 exports[`renders form with data 1`] = `
 <portal-mock>
   <aside
-    className="root"
+    className="root_open"
   >
     <form
       className="form"
@@ -658,7 +658,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
 exports[`renders loading indicator while options are being fetched 1`] = `
 <portal-mock>
   <aside
-    className="root"
+    className="root_open"
   >
     <form
       className="form"

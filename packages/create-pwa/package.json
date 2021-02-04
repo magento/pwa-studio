@@ -39,6 +39,6 @@
     "is-valid-npm-name": "^0.0.4",
     "lodash": "~4.17.11",
     "node-fetch": "~2.3.0",
-    "webpack": "^4.29.5"
+    "webpack": "~4.46.0"
   }
 }

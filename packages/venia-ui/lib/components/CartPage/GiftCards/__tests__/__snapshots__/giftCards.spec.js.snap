@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders correctly when it has cards 1`] = `
-<div
-  className="root"
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
   <div
-    className="entryForm"
+    className="root"
   >
-    <form
-      onKeyDown={[Function]}
-      onReset={[Function]}
-      onSubmit={[Function]}
+    <div
+      className="entryForm"
     >
       <div
         className="card"
@@ -100,114 +100,114 @@ exports[`it renders correctly when it has cards 1`] = `
           </span>
         </button>
       </div>
-    </form>
-  </div>
-  <div
-    className="cards_container"
-  >
-    <div
-      className="card_info"
-    >
-      <span
-        className="code"
-      >
-        unit test code 1
-      </span>
-      <span
-        className="balance"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Balance: "
-          id="giftCard.balance"
-        />
-        <span>
-          $
-        </span>
-        <span>
-          99
-        </span>
-        <span>
-          .
-        </span>
-        <span>
-          00
-        </span>
-      </span>
     </div>
-    <button
-      className="root_normalPriority"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Remove"
-          id="giftCard.remove"
-        />
-      </span>
-    </button>
     <div
-      className="card_info"
+      className="cards_container"
     >
-      <span
-        className="code"
+      <div
+        className="card_info"
       >
-        unit test code 2
-      </span>
-      <span
-        className="balance"
+        <span
+          className="code"
+        >
+          unit test code 1
+        </span>
+        <span
+          className="balance"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Balance: "
+            id="giftCard.balance"
+          />
+          <span>
+            $
+          </span>
+          <span>
+            99
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
+        </span>
+      </div>
+      <button
+        className="root_normalPriority"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
       >
-        <mock-FormattedMessage
-          defaultMessage="Balance: "
-          id="giftCard.balance"
-        />
-        <span>
-          $
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Remove"
+            id="giftCard.remove"
+          />
         </span>
-        <span>
-          99
+      </button>
+      <div
+        className="card_info"
+      >
+        <span
+          className="code"
+        >
+          unit test code 2
         </span>
-        <span>
-          .
+        <span
+          className="balance"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Balance: "
+            id="giftCard.balance"
+          />
+          <span>
+            $
+          </span>
+          <span>
+            99
+          </span>
+          <span>
+            .
+          </span>
+          <span>
+            00
+          </span>
         </span>
-        <span>
-          00
+      </div>
+      <button
+        className="root_normalPriority"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Remove"
+            id="giftCard.remove"
+          />
         </span>
-      </span>
+      </button>
     </div>
-    <button
-      className="root_normalPriority"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Remove"
-          id="giftCard.remove"
-        />
-      </span>
-    </button>
   </div>
-</div>
+</form>
 `;
 
 exports[`it renders correctly with no cards 1`] = `
-<div
-  className="root"
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
   <div
-    className="entryForm"
+    className="root"
   >
-    <form
-      onKeyDown={[Function]}
-      onReset={[Function]}
-      onSubmit={[Function]}
+    <div
+      className="entryForm"
     >
       <div
         className="card"
@@ -297,7 +297,7 @@ exports[`it renders correctly with no cards 1`] = `
           </span>
         </button>
       </div>
-    </form>
+    </div>
   </div>
-</div>
+</form>
 `;

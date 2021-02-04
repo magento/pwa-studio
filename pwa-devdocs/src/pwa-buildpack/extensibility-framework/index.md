@@ -77,6 +77,68 @@ targets
     });
 ```
 
+## Targetables
+
+_Targetables_ are objects that represent source files in your project or library.
+Unlike Target objects, which provide API endpoints a module uses in a specific way, Targetable objects give access to the actual source code of the module.
+
+Targetable objects provide functions that let you alter the source code in different ways.
+They are an abstraction on top of `TransformModuleRequest` objects, which use built in Babel plugins and Webpack loaders to change the source code.
+These changes get applied during the build process and do not affect the source file on disk.
+
+### Targetables in Storefront projects
+
+If you are working on a storefront project, you can use Targetables in your local intercept file to make code changes in _any file_ in your project dependencies.
+
+```js
+const { Targetables } = require('@magento/pwa-buildpack')
+
+module.exports = targets => {
+
+  const targetables = Targetables.using(targets);
+
+  const MainComponent = targetables.reactComponent(
+      '@magento/venia-ui/lib/components/Main/main.js'
+  );
+
+  MainComponent.insertAfterJSX('<Header />', '<span>Hello World!</span>')
+}
+```
+
+This code creates a `MainComponent` targetables object from the `main.js` source file in one of the project's dependency.
+It modifies the final code in the bundle using the `insertAfterJSX()` function.
+When the application builds and runs in the browser, it shows the `Hello World!` message in a `span` element inserted after the `Header` component.
+
+### Targetables in extensions
+
+If you are working on a PWA Studio extension, you can use Targetables in your intercept file to add specific Targets that are available to other extensions.
+
+```js
+const { Targetables } = require('@magento/pwa-buildpack')
+
+module.exports = targets => {
+
+  const targetables = Targetables.using(targets);
+
+  targetables.reactComponent('@my/library/Button.js', {
+    async publish(myTargets) {
+      const classnames = await myTargets.buttonClassnames.promise([]);
+      classnames.forEach(name => this.addJSXClassName('<button>', name));
+    }
+  });
+}
+```
+
+This code is a full implementation of an extension point that accesses the source for the extension's `Button.js` module as a Targetable React component.
+It declares `buttonClassnames` as an array Target that other extensions can intercept.
+During the build process, it uses the `addJSXClassName()` method to add class names from that array to a `<button>` element in the code.
+
+#### Extensions security
+
+For security reasons, PWA Studio restrict the scope of Targetable modifications in extensions.
+These restrictions limit Targetable modifications to source files within the extension package.
+This prevents third party extensions from making source code changes to a storefront project without the developer's knowledge.
+
 ## Declare files
 
 A _declare file_ lists the Targets available for interception in an extension or package.

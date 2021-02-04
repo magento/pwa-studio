@@ -9,11 +9,9 @@
 }
 
 .trigger {
-    align-items: center;
-    display: grid;
-    column-gap: 0.5rem;
-    grid-auto-flow: column;
-    grid-template-columns: auto 1fr;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .menu {
@@ -21,7 +19,10 @@
     border: 1px solid rgb(var(--venia-global-color-gray-dark));
     border-radius: 0.25rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    max-width: 90vw;
     opacity: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     position: absolute;
     right: 1rem;
     top: 2.5rem;
@@ -30,6 +31,7 @@
     transition-timing-function: var(--venia-global-anim-out);
     transition-property: opacity, transform, visibility;
     visibility: hidden;
+    width: max-content;
     z-index: 2;
 }
 
@@ -44,15 +46,24 @@
 }
 
 .menuItem {
-    border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
-}
-
-.menuItem:last-child {
-    border-bottom: none;
 }
 
 .menuItem:hover {
     background-color: rgb(var(--venia-global-color-gray));
+}
+
+.groups {
+    max-height: 24rem;
+    overflow: auto;
+}
+
+.groupList {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.groupList:not(:last-child) {
+    border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
 }
 
 /*
@@ -62,6 +73,10 @@
 @media (max-width: 640px) {
     .root {
         justify-items: start;
+    }
+
+    .trigger {
+        max-width: 15rem;
     }
 
     .menu {

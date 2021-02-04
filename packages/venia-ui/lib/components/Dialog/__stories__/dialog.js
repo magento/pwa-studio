@@ -150,7 +150,7 @@ stories.add('Hiding the Action Buttons', () => {
             shouldShowButtons={false}
             title={'Customizing the Button Texts'}
         >
-            <span>Consumers can hide the buttom action buttons</span>
+            <span>Consumers can hide the bottom action buttons</span>
         </Dialog>
     );
 });

@@ -4,6 +4,7 @@ import GoogleMap from '../map';
 import loadGoogleMapsApi from 'load-google-maps-api';
 import stub, { mocks } from '../__mocks__/loadGoogleMapsApi';
 import { mapDefaultProps } from '../configAggregator';
+import { act } from 'react-test-renderer';
 
 jest.mock('load-google-maps-api', () =>
     require('../__mocks__/loadGoogleMapsApi')
@@ -194,7 +195,9 @@ test('map unmount causes event listeners to be unbound', async () => {
         }
     });
 
-    component.unmount();
+    act(() => {
+        component.unmount();
+    });
 
     expect(mocks.googleMaps.event.clearInstanceListeners).toHaveBeenCalledTimes(
         2

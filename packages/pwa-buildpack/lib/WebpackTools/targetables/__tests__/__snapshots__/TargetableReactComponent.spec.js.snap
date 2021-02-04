@@ -301,25 +301,58 @@ function Checkbox(props) {
     value: checked
   } = fieldState;
   const icon = checked ? checkedIcon : uncheckedIcon;
-  return React.createElement(Fragment, null, React.createElement(\\"fieldset\\", null, React.createElement(\\"label\\", {
-    className: classes.root
-  }, React.createElement(BasicCheckbox, _extends({}, rest, {
-    className: classes.input,
-    key: NUMBER
-  })), React.createElement(\\"span\\", {
-    className: \\"literal-classname\\" + \\" \\" + classes.icon
-  }, icon, React.createElement(React.Fragment, null, React.createElement(DynamicBlerg$1, null), React.createElement(DynamicBlerg$1, null), React.createElement(DynamicBlerg$2, null), React.createElement(DynamicComponent$3, null))), React.createElement(\\"span\\", {
-    className: classes.label + \\" \\" + (\\"another-literal\\" + \\"-classname\\")
-  }, label))), React.createElement(Status, {
-    className: \\"status-class\\"
-  }), React.createElement(EricB, {
-    and: and
-  }), React.createElement(Message, {
-    fieldState: fieldState,
-    className: \\"wildin\\"
-  }, message), React.createElement(Rakim, null), React.createElement(Message, {
-    fieldState: fieldState,
-    className: \\"wildin\\"
-  }, \\"hey cool\\"));
+  return (
+    /*#__PURE__*/
+    React.createElement(Fragment, null,
+    /*#__PURE__*/
+    React.createElement(\\"fieldset\\", null,
+    /*#__PURE__*/
+    React.createElement(\\"label\\", {
+      className: classes.root
+    },
+    /*#__PURE__*/
+    React.createElement(BasicCheckbox, _extends({}, rest, {
+      className: classes.input,
+      key: NUMBER
+    })),
+    /*#__PURE__*/
+    React.createElement(\\"span\\", {
+      className: \\"literal-classname\\" + \\" \\" + classes.icon
+    }, icon,
+    /*#__PURE__*/
+    React.createElement(React.Fragment, null,
+    /*#__PURE__*/
+    React.createElement(DynamicBlerg$1, null),
+    /*#__PURE__*/
+    React.createElement(DynamicBlerg$1, null),
+    /*#__PURE__*/
+    React.createElement(DynamicBlerg$2, null),
+    /*#__PURE__*/
+    React.createElement(DynamicComponent$3, null))),
+    /*#__PURE__*/
+    React.createElement(\\"span\\", {
+      className: classes.label + \\" \\" + (\\"another-literal\\" + \\"-classname\\")
+    }, label))),
+    /*#__PURE__*/
+    React.createElement(Status, {
+      className: \\"status-class\\"
+    }),
+    /*#__PURE__*/
+    React.createElement(EricB, {
+      and: and
+    }),
+    /*#__PURE__*/
+    React.createElement(Message, {
+      fieldState: fieldState,
+      className: \\"wildin\\"
+    }, message),
+    /*#__PURE__*/
+    React.createElement(Rakim, null),
+    /*#__PURE__*/
+    React.createElement(Message, {
+      fieldState: fieldState,
+      className: \\"wildin\\"
+    }, \\"hey cool\\"))
+  );
 }"
 `;

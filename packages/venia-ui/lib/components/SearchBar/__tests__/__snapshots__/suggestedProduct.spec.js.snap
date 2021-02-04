@@ -19,16 +19,16 @@ Array [
       onError={[Function]}
       onLoad={[Function]}
       sizes="60px"
-      src="/media/catalog/category/minimalist.jpg"
-      srcSet="/media/catalog/category/minimalist.jpg 40w,
-/media/catalog/category/minimalist.jpg 80w,
-/media/catalog/category/minimalist.jpg 160w,
-/media/catalog/category/minimalist.jpg 320w,
-/media/catalog/category/minimalist.jpg 640w,
-/media/catalog/category/minimalist.jpg 960w,
-/media/catalog/category/minimalist.jpg 1280w,
-/media/catalog/category/minimalist.jpg 1600w,
-/media/catalog/category/minimalist.jpg 2560w"
+      src="/media/catalog/product/media/catalog/category/minimalist.jpg?auto=webp&format=pjpg&width=60&height=75&fit=cover"
+      srcSet="/media/catalog/product/media/catalog/category/minimalist.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
+/media/catalog/product/media/catalog/category/minimalist.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
+/media/catalog/product/media/catalog/category/minimalist.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
+/media/catalog/product/media/catalog/category/minimalist.jpg?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
+/media/catalog/product/media/catalog/category/minimalist.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
+/media/catalog/product/media/catalog/category/minimalist.jpg?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
+/media/catalog/product/media/catalog/category/minimalist.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
+/media/catalog/product/media/catalog/category/minimalist.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
+/media/catalog/product/media/catalog/category/minimalist.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
       width={60}
     />
   </div>,
