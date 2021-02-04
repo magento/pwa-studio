@@ -7,7 +7,7 @@
  */
 export const deleteCacheEntry = async (client, predicate) => {
     await deleteActiveCacheEntry(client, predicate);
-    await deleteInactiveCacheEntry(client, predicate);
+    await deleteInactiveCacheEntries(client, predicate);
 };
 
 const deleteActiveCacheEntry = async (client, predicate) => {
@@ -39,7 +39,7 @@ const deleteActiveCacheEntry = async (client, predicate) => {
     }
 };
 
-const deleteInactiveCacheEntry = async (client, predicate) => {
+const deleteInactiveCacheEntries = async (client, predicate) => {
     const activeApolloCacheLocalStorageKey =
         client.persistor.persistor.storage.key;
 
