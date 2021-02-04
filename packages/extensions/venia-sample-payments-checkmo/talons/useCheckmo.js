@@ -6,8 +6,19 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import DEFAULT_OPERATIONS from './checkmo.gql';
 
 /**
+ * Talon to handle checkmo payment.
  *
- * @param {*} props.operations GraphQL operations used by talons
+ * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
+ * @param {Function} props.onPaymentSuccess callback to invoke when the a payment nonce has been generated
+ * @param {Function} props.onPaymentError callback to invoke when component throws an error
+ * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
+ *
+ * @returns {
+ *  payableTo: String,
+ *  mailingAddress: String,
+ *  onBillingAddressChangedError: Function,
+ *  onBillingAddressChangedSuccess: Function,
+ * }
  */
 export const useCheckmo = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
@@ -20,7 +31,7 @@ export const useCheckmo = (props = {}) => {
     const [{ cartId }] = useCartContext();
     const { data } = useQuery(getCheckmoConfigQuery);
 
-    const { resetShouldSubmit, onPaymentSuccess } = props;
+    const { resetShouldSubmit, onPaymentSuccess, onPaymentError } = props;
 
     const [
         updatePaymentMethod,
@@ -51,17 +62,14 @@ export const useCheckmo = (props = {}) => {
         }
 
         if (paymentMethodMutationCompleted && paymentMethodMutationError) {
-            /**
-             * Billing address save mutation is not successful.
-             * Reset update button clicked flag.
-             */
-            throw new Error('Billing address mutation failed');
+            onPaymentError();
         }
     }, [
         paymentMethodMutationError,
         paymentMethodMutationLoading,
         paymentMethodMutationCalled,
-        onPaymentSuccess
+        onPaymentSuccess,
+        onPaymentError
     ]);
 
     return {

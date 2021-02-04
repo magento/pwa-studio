@@ -43,7 +43,7 @@ export const mapAddressData = rawAddressData => {
 };
 
 /**
- * Talon to handle Credit Card payment method.
+ * Talon to handle Billing address for payment forms.
  *
  * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
  * @param {Function} props.onBillingAddressChangedError callback to invoke when error was throw for set the billing address
@@ -79,7 +79,7 @@ export const useBillingAddress = (props = {}) => {
     } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    
+
     const {
         getBillingAddressQuery,
         getShippingAddressQuery,
@@ -98,6 +98,7 @@ export const useBillingAddress = (props = {}) => {
         skip: !cartId,
         variables: { cartId }
     });
+
     const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
         skip: !cartId,
         variables: { cartId }

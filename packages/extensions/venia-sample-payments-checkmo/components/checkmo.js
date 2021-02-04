@@ -7,10 +7,21 @@ import defaultClasses from './checkmo.css';
 import { FormattedMessage } from 'react-intl';
 import BillingAddress from './BillingAddress';
 
+/**
+ * The CheckMo component renders all information to handle checkmo payment.
+ *
+ * @param {String} props.payableTo shop owner name where you need to send.
+ * @param {String} props.mailingAddres shop owner post adress where you need to send.
+ * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
+ * @param {Function} props.onPaymentSuccess callback to invoke when the a payment nonce has been generated
+ * @param {Function} props.onDropinReady callback to invoke when the braintree dropin component is ready
+ * @param {Function} props.onPaymentError callback to invoke when component throws an error
+ * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
+ */
 const CheckMo = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const { resetShouldSubmit, onPaymentSuccess } = props;
+    const { resetShouldSubmit, onPaymentSuccess, onPaymentError } = props;
     const addressTemplate = str => (
         <span key={str}>
             {str} <br />
@@ -24,8 +35,10 @@ const CheckMo = props => {
         onBillingAddressChangedSuccess
     } = useCheckmo({
         resetShouldSubmit,
-        onPaymentSuccess
+        onPaymentSuccess,
+        onPaymentError
     });
+
     const formatAddress = mailingAddress
         ? mailingAddress.split('\n').map(str => addressTemplate(str))
         : props.mailingAddres.split('\n').map(str => addressTemplate(str));
