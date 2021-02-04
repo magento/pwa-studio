@@ -7,7 +7,7 @@
  */
 export const deleteCacheEntry = async (client, predicate) => {
     await deleteActiveCacheEntry(client, predicate);
-    await deleteInactiveCacheEntry(predicate);
+    await deleteInactiveCacheEntry(client, predicate);
 };
 
 const deleteActiveCacheEntry = async (client, predicate) => {
