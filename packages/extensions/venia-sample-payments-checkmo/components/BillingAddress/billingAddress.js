@@ -12,7 +12,7 @@ import FormError from '@magento/venia-ui/lib/components/FormError';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
 import defaultClasses from './billingAddress.css';
-import billingAddressOperations from './billingAddress.gql.js';
+
 import { useBillingAddress } from '../../talons/useBillingAddress';
 
 const BillingAddress = props => {
@@ -25,8 +25,6 @@ const BillingAddress = props => {
         onBillingAddressChangedSuccess
     } = props;
 
-    const { mutations, queries } = billingAddressOperations;
-
     const {
         isBillingAddressSame,
         initialValues,
@@ -35,9 +33,7 @@ const BillingAddress = props => {
     } = useBillingAddress({
         shouldSubmit,
         onBillingAddressChangedError,
-        onBillingAddressChangedSuccess,
-        mutations,
-        queries
+        onBillingAddressChangedSuccess
     });
 
     /**
@@ -61,16 +57,22 @@ const BillingAddress = props => {
         }, {});
     }, [classes]);
 
-    const isFieldRequired = useCallback(
-        value => {
-            if (isBillingAddressSame) {
-                return undefined;
-            } else {
-                return isRequired(value);
-            }
-        },
-        [isBillingAddressSame]
-    );
+    /**
+     * These 2 functions are wrappers around the `isRequired` function
+     * of `formValidators`. They perform validations only if the
+     * billing address is different from shipping address.
+     */
+    const isFieldRequired = useCallback((value, { isBillingAddressSame }) => {
+        if (isBillingAddressSame) {
+            /**
+             * Informed validator functions return `undefined` if
+             * validation is `true`
+             */
+            return undefined;
+        } else {
+            return isRequired(value);
+        }
+    }, []);
 
     const billingAddressFieldsClassName = isBillingAddressSame
         ? classes.billing_address_fields_root_hidden

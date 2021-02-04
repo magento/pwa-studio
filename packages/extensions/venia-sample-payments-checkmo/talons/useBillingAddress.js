@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useFormState, useFormApi } from 'informed';
 import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
+import DEFAULT_OPERATIONS from './billingAddress.gql';
 
 /**
  * Maps address response data from GET_BILLING_ADDRESS and GET_SHIPPING_ADDRESS
@@ -45,9 +48,10 @@ export const mapAddressData = rawAddressData => {
  * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
  * @param {Function} props.onBillingAddressChangedError callback to invoke when error was throw for set the billing address
  * @param {Function} props.onBillingAddressChangedSuccess callback to invoke when address was sucessfully set
- * @param {DocumentNode} props.queries.getBillingAddressQuery query to fetch billing address from cache
- * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
- * @param {DocumentNode} props.mutations.setBillingAddressMutation mutation to update billing address on the cart
+ * @param {DocumentNode} props.operations.getShippingAddressQuery query to fetch shipping address from cache
+ * @param {DocumentNode} props.operations.getBillingAddressQuery query to fetch billing address from cache
+ * @param {DocumentNode} props.operations.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
+ * @param {DocumentNode} props.operations.setBillingAddressMutation mutation to update billing address on the cart
  *
  * @returns {
  *   errors: Map<String, Error>,
@@ -69,20 +73,19 @@ export const mapAddressData = rawAddressData => {
  */
 export const useBillingAddress = (props = {}) => {
     const {
-        queries,
-        mutations,
         shouldSubmit,
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess
     } = props;
 
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    
     const {
         getBillingAddressQuery,
+        getShippingAddressQuery,
         getIsBillingAddressSameQuery,
-        getShippingAddressQuery
-    } = queries;
-
-    const { setBillingAddressMutation } = mutations;
+        setBillingAddressMutation
+    } = operations;
 
     const [errors, setErrors] = useState([]);
 

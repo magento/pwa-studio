@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-import DEFAULT_OPERATIONS from './loadCheckmoConfig.gql';
+import DEFAULT_OPERATIONS from './checkmo.gql';
 
 /**
  *
@@ -11,15 +11,16 @@ import DEFAULT_OPERATIONS from './loadCheckmoConfig.gql';
  */
 export const useCheckmo = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCheckmoConfigQuery } = operations;
+
+    const {
+        getCheckmoConfigQuery,
+        setPaymentMethodOnCartMutation
+    } = operations;
+
     const [{ cartId }] = useCartContext();
     const { data } = useQuery(getCheckmoConfigQuery);
 
-    const {
-        resetShouldSubmit,
-        onPaymentSuccess,
-        setPaymentMethodOnCartMutation
-    } = props;
+    const { resetShouldSubmit, onPaymentSuccess } = props;
 
     const [
         updatePaymentMethod,

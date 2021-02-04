@@ -25,7 +25,7 @@ export const SET_PAYMENT_METHOD_ON_CART = gql`
     }
 `;
 
-
 export default {
-    getCheckmoConfigQuery: GET_CHECKMO_CONFIGDATA
+    getCheckmoConfigQuery: GET_CHECKMO_CONFIGDATA,
+    setPaymentMethodOnCartMutation: SET_PAYMENT_METHOD_ON_CART
 };

@@ -1,17 +1,15 @@
 import React from 'react';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { shape, string, bool, func } from 'prop-types';
-import { useCheckmo } from '@magento/venia-sample-payments-checkmo/talons/useCheckmo';
+
+import { useCheckmo } from '../talons/useCheckmo';
 import defaultClasses from './checkmo.css';
 import { FormattedMessage } from 'react-intl';
 import BillingAddress from './BillingAddress';
-import checkmoOperations from './checkmo.gql';
 
 const CheckMo = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const payableToDefault = 'Venia Inc';
-    const mailingAddresDefault =
-        'Venia Inc\r\nc/o Payment\r\nPO 122334\r\nAustin Texas"';
+
     const { resetShouldSubmit, onPaymentSuccess } = props;
     const addressTemplate = str => (
         <span key={str}>
@@ -19,21 +17,18 @@ const CheckMo = props => {
         </span>
     );
 
-    const { setPaymentMethodOnCartMutation } = checkmoOperations;
-
     const {
         payableTo,
         mailingAddress,
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess
     } = useCheckmo({
-        setPaymentMethodOnCartMutation,
         resetShouldSubmit,
         onPaymentSuccess
     });
     const formatAddress = mailingAddress
         ? mailingAddress.split('\n').map(str => addressTemplate(str))
-        : mailingAddresDefault.split('\n').map(str => addressTemplate(str));
+        : props.mailingAddres.split('\n').map(str => addressTemplate(str));
 
     return (
         <div className={classes.root}>
@@ -44,7 +39,7 @@ const CheckMo = props => {
                 />
             </p>
             <p className={classes.formatAddress}>
-                {payableTo ? payableTo : payableToDefault}
+                {payableTo ? payableTo : props.payableTo}
             </p>
             <p className={classes.mailingAddressTitle}>
                 <FormattedMessage
@@ -64,11 +59,18 @@ const CheckMo = props => {
 
 CheckMo.propTypes = {
     classes: shape({ root: string }),
+    payableTo: string,
+    mailingAddres: string,
     shouldSubmit: bool.isRequired,
     onPaymentSuccess: func,
     onDropinReady: func,
     onPaymentError: func,
     resetShouldSubmit: func.isRequired
 };
-CheckMo.defaultProps = {};
+
+CheckMo.defaultProps = {
+    payableTo: 'Venia Inc',
+    mailingAddres: 'Venia Inc\r\nc/o Payment\r\nPO 122334\r\nAustin Texas'
+};
+
 export default CheckMo;
