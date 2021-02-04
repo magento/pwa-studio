@@ -3,7 +3,7 @@ title: Extension development
 ---
 
 PWA Studio follows the Magento way of merging third-party code to build web functionality on a simple platform.
-The [extensibility framework][] provided by the `pwa-buildpack` package lets you create third-party extensions for PWA Studio storefronts, such as Venia.
+The [extensibility framework][] provided by the `pwa-buildpack` package lets you create these third-party extensions for PWA Studio storefronts, such as Venia.
 
 Extensions provide new storefront functionality, extend existing components, or replace different storefront parts.
 Language packs are a specific extension type which provide translation data for the [internationalization feature][].
@@ -184,7 +184,50 @@ Now, when the MyList component renders, it contains the two list entries added t
 
 ## Project dependencies
 
+If your extension needs third-party libraries, you can [add them as dependencies][].
+PWA Studio extensions are Node packages, so most of their dependencies should be [peer dependencies][].
+Storefront developers should make sure their project has the dependencies an extension requires.
+This safeguards against duplicate copies of the same library in the final application bundle.
+
 ## Install and test locally
+
+To install and test your extension on a local storefront project, add the extension as a local dependency or list it as a build dependency.
+
+### Adding as a local dependency
+
+The `package.json` file lets you [specify a local path][] instead of a version for a dependency.
+This tells the package manager to install that package from that local path instead of searching online.
+A local dependency in your storefront project's `package.json` file looks like the following:
+
+```json
+{
+    "dependencies": {
+        "my-extension": "file:../relative/path/to/my-extension"
+    }
+}
+```
+
+Use the `yarn` or `npm` command to add this entry to the `package.json` file:
+
+```sh
+yarn add file:../relative/path/to/my-extension
+```
+
+```sh
+npm install -S ../relative/path/to/my-extension 
+```
+
+### Adding as a build dependency
+
+Buildpack provides an alternate way of installing a local extensions by linking it to Yarn's or NPM's global package set and listing it in the `BUILDBUS_DEPS_ADDITIONAL` environment variable.
+
+Use the [`yarn link`][] or [`npm link`][] command in your extension project to symlink it to the global package set.
+
+In your storefront project, run `yarn link <package-name>` or `npm link <package-name>` to link the two packages together.
+This lets Node and Webpack resolve your extension from the storefront project without adding it as an entry in the dependency array.
+
+Edit your storefront project's `.env` file and add your extension's name to the comma-separated value for `BUILDBUS_DEPS_ADDITIONAL`.
+This tells the build process that it should check these packages for intercept and declare files.
 
 [extensibility framework]: <{% link pwa-buildpack/extensibility-framework/index.md %}>
 [internationalization feature]: <{% link technologies/basic-concepts/internationalization/index.md %}>
@@ -197,3 +240,7 @@ Now, when the MyList component renders, it contains the two list entries added t
 [`yarn init`]: https://yarnpkg.com/lang/en/docs/cli/init/
 [`npm init`]: https://docs.npmjs.com/cli-commands/init/
 [hook types]: https://github.com/webpack/tapable#hook-types
+[add them as dependencies]: https://classic.yarnpkg.com/en/docs/cli/add/
+[peer dependencies]: https://classic.yarnpkg.com/en/docs/dependency-types#toc-peerdependencies
+[`yarn link`]: https://classic.yarnpkg.com/en/docs/cli/link/
+[`npm link`]: https://docs.npmjs.com/cli/v6/commands/npm-link
