@@ -30,11 +30,15 @@ const CreateAccount = props => {
 
     const onSubmit = useCallback(() => {
         // TODO: Redirect to account/order page when implemented.
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
-        });
+        const { scrollTo } = globalThis;
+
+        if (typeof scrollTo === 'function') {
+            scrollTo({
+                left: 0,
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
 
         addToast({
             type: 'info',

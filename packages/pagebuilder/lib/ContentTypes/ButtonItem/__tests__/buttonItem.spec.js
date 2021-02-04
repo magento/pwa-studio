@@ -20,13 +20,13 @@ const mockWindowLocation = {
 
 let oldWindowLocation;
 beforeEach(() => {
-    oldWindowLocation = window.location;
-    delete window.location;
-    window.location = mockWindowLocation;
+    oldWindowLocation = globalThis.location;
+    delete globalThis.location;
+    globalThis.location = mockWindowLocation;
     mockWindowLocation.assign.mockClear();
 });
 afterEach(() => {
-    window.location = oldWindowLocation;
+    globalThis.location = oldWindowLocation;
 });
 
 test('renders a ButtonItem component', () => {
@@ -73,9 +73,12 @@ test('clicking button with external link goes to correct destination in the new 
     };
     const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
     const button = component.root.findByType(Button);
-    window.open = jest.fn().mockImplementation(() => {});
+    globalThis.open = jest.fn().mockImplementation(() => {});
     button.props.onClick();
-    expect(window.open).toHaveBeenCalledWith('https://www.adobe.com', '_blank');
+    expect(globalThis.open).toHaveBeenCalledWith(
+        'https://www.adobe.com',
+        '_blank'
+    );
 });
 
 test('clicking button with external link goes to correct destination', () => {
@@ -89,7 +92,7 @@ test('clicking button with external link goes to correct destination', () => {
     const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
     const button = component.root.findByType(Button);
     button.props.onClick();
-    expect(window.location.assign).toBeCalledWith('https://www.adobe.com');
+    expect(globalThis.location.assign).toBeCalledWith('https://www.adobe.com');
 });
 
 test('clicking button with internal link goes to correct destination', () => {
@@ -118,7 +121,7 @@ test('clicking button without link', () => {
     const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
     const button = component.root.findByType(Button);
     button.props.onClick();
-    expect(window.open).toHaveBeenCalledTimes(0);
+    expect(globalThis.open).toHaveBeenCalledTimes(0);
     expect(history.push).toHaveBeenCalledTimes(0);
-    expect(window.location.assign).toHaveBeenCalledTimes(0);
+    expect(globalThis.location.assign).toHaveBeenCalledTimes(0);
 });

@@ -6,8 +6,8 @@ import Button from '@magento/venia-ui/lib/components/Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
+const { matchMedia } = globalThis;
 const toHTML = str => ({ __html: str });
-
 const handleDragStart = event => event.preventDefault();
 
 /**
@@ -71,7 +71,7 @@ const Banner = props => {
     } = props;
 
     let image = desktopImage;
-    if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
+    if (mobileImage && matchMedia && matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
     }
 

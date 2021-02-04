@@ -5,6 +5,8 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
 import { resourceUrl } from '@magento/venia-drivers';
 
+const { matchMedia } = globalThis;
+
 /**
  * Page Builder Row component.
  *
@@ -59,13 +61,10 @@ const Row = props => {
     } = props;
 
     let image = desktopImage;
-    if (
-        mobileImage &&
-        typeof window.matchMedia === 'function' &&
-        window.matchMedia('(max-width: 768px)').matches
-    ) {
+    if (mobileImage && matchMedia && matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
     }
+
     const dynamicStyles = {
         minHeight,
         backgroundColor,

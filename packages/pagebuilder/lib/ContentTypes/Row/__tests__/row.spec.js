@@ -177,7 +177,7 @@ test('render row with mobile image displayed and parallax enabled', () => {
         enableParallax: true
     };
 
-    window.matchMedia = jest.fn().mockImplementation(query => {
+    matchMedia.mockImplementation(query => {
         return {
             matches: true,
             media: query,

@@ -48,7 +48,7 @@ test('render tab item with mobile image displayed', () => {
         mobileImage: 'mobile.jpg'
     };
 
-    window.matchMedia = jest.fn().mockImplementation(query => {
+    matchMedia.mockImplementation(query => {
         return {
             matches: true,
             media: query

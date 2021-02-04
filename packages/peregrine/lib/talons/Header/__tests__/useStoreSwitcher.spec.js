@@ -241,9 +241,9 @@ describe('handleSwitchStore updates url with configured store code', () => {
     test('includes store code when option is enabled and no store code is present in URL', () => {
         process.env.USE_STORE_CODE_IN_URL = 'true';
 
-        const originalLocation = window.location;
-        delete window.location;
-        window.location = {
+        const originalLocation = globalThis.location;
+        delete globalThis.location;
+        globalThis.location = {
             pathname: '/',
             assign: jest.fn()
         };
@@ -253,10 +253,10 @@ describe('handleSwitchStore updates url with configured store code', () => {
 
         handleSwitchStore('store1');
 
-        expect(window.location.assign).toBeCalledWith('/store1');
+        expect(globalThis.location.assign).toBeCalledWith('/store1');
 
         process.env.USE_STORE_CODE_IN_URL = 'false';
-        window.location = originalLocation;
+        globalThis.location = originalLocation;
     });
 
     test('replaces current store code in URL with a suffix, with new store code and empty suffix', () => {
@@ -265,19 +265,21 @@ describe('handleSwitchStore updates url with configured store code', () => {
         const { talonProps } = getTalonProps(defaultProps);
         const { handleSwitchStore } = talonProps;
 
-        const originalLocation = window.location;
-        delete window.location;
-        window.location = {
+        const originalLocation = globalThis.location;
+        delete globalThis.location;
+        globalThis.location = {
             pathname: '/store2/category-name.html',
             assign: jest.fn()
         };
 
         handleSwitchStore('store1');
 
-        expect(window.location.assign).toBeCalledWith('/store1/category-name');
+        expect(globalThis.location.assign).toBeCalledWith(
+            '/store1/category-name'
+        );
 
         process.env.USE_STORE_CODE_IN_URL = 'false';
-        window.location = originalLocation;
+        globalThis.location = originalLocation;
     });
 
     test('adds store code to url when not present but store code in url enabled', () => {
@@ -286,21 +288,21 @@ describe('handleSwitchStore updates url with configured store code', () => {
         const { talonProps } = getTalonProps(defaultProps);
         const { handleSwitchStore } = talonProps;
 
-        const originalLocation = window.location;
-        delete window.location;
-        window.location = {
+        const originalLocation = globalThis.location;
+        delete globalThis.location;
+        globalThis.location = {
             pathname: '/category/category-name.html',
             assign: jest.fn()
         };
 
         handleSwitchStore('store2');
 
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/store2/category/category-name.html'
         );
 
         process.env.USE_STORE_CODE_IN_URL = 'false';
-        window.location = originalLocation;
+        globalThis.location = originalLocation;
     });
 
     test('displays correct category url suffix in url, with store code in url enabled', () => {
@@ -309,9 +311,9 @@ describe('handleSwitchStore updates url with configured store code', () => {
         const { talonProps } = getTalonProps(defaultProps);
         const { handleSwitchStore } = talonProps;
 
-        const originalLocation = window.location;
-        delete window.location;
-        window.location = {
+        const originalLocation = globalThis.location;
+        delete globalThis.location;
+        globalThis.location = {
             pathname: '/category/category-name.html',
             assign: jest.fn()
         };
@@ -319,40 +321,40 @@ describe('handleSwitchStore updates url with configured store code', () => {
         handleSwitchStore('store1');
 
         // .html => null
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/store1/category/category-name'
         );
 
         handleSwitchStore('store4');
 
         // null => .htm
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/store4/category/category-name.htm'
         );
 
         handleSwitchStore('store5');
 
         // .htm => -abc1
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/store5/category/category-name-abc1'
         );
 
         handleSwitchStore('store6');
 
         // -abc1 => .some.some
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/store6/category/category-name.some.some'
         );
 
         handleSwitchStore('store1');
 
         // .some.some => null
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/store1/category/category-name'
         );
 
         process.env.USE_STORE_CODE_IN_URL = 'false';
-        window.location = originalLocation;
+        globalThis.location = originalLocation;
     });
 
     test('displays correct product url suffix in url, with store code in url enabled', () => {
@@ -370,9 +372,9 @@ describe('handleSwitchStore updates url with configured store code', () => {
         const { talonProps } = getTalonProps(defaultProps);
         const { handleSwitchStore } = talonProps;
 
-        const originalLocation = window.location;
-        delete window.location;
-        window.location = {
+        const originalLocation = globalThis.location;
+        delete globalThis.location;
+        globalThis.location = {
             pathname: '/product.html',
             assign: jest.fn()
         };
@@ -380,32 +382,36 @@ describe('handleSwitchStore updates url with configured store code', () => {
         handleSwitchStore('store1');
 
         // .html => null
-        expect(window.location.assign).toBeCalledWith('/store1/product');
+        expect(globalThis.location.assign).toBeCalledWith('/store1/product');
 
         handleSwitchStore('store3');
 
         // null => .htm
-        expect(window.location.assign).toBeCalledWith('/store3/product.htm');
+        expect(globalThis.location.assign).toBeCalledWith(
+            '/store3/product.htm'
+        );
 
         handleSwitchStore('store6');
 
         // .htm => -123abc
-        expect(window.location.assign).toBeCalledWith('/store6/product-123abc');
+        expect(globalThis.location.assign).toBeCalledWith(
+            '/store6/product-123abc'
+        );
 
         handleSwitchStore('store5');
 
         // -123abc => .htm.htm
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/store5/product.htm.htm'
         );
 
         handleSwitchStore('store1');
 
         // .some.some => null
-        expect(window.location.assign).toBeCalledWith('/store1/product');
+        expect(globalThis.location.assign).toBeCalledWith('/store1/product');
 
         process.env.USE_STORE_CODE_IN_URL = 'false';
-        window.location = originalLocation;
+        globalThis.location = originalLocation;
     });
 });
 
@@ -416,9 +422,9 @@ describe('handleSwitchStore updates url with store code not configured', () => {
         const { talonProps } = getTalonProps(defaultProps);
         const { handleSwitchStore } = talonProps;
 
-        const originalLocation = window.location;
-        delete window.location;
-        window.location = {
+        const originalLocation = globalThis.location;
+        delete globalThis.location;
+        globalThis.location = {
             pathname: '/category/category-name.html',
             assign: jest.fn()
         };
@@ -426,39 +432,39 @@ describe('handleSwitchStore updates url with store code not configured', () => {
         handleSwitchStore('store1');
 
         // .html => null
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/category/category-name'
         );
 
         handleSwitchStore('store4');
 
         // null => .htm
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/category/category-name.htm'
         );
 
         handleSwitchStore('store5');
 
         // .htm => -abc1
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/category/category-name-abc1'
         );
 
         handleSwitchStore('store6');
 
         // -abc1 => .some.some
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/category/category-name.some.some'
         );
 
         handleSwitchStore('store1');
 
         // .some.some => null
-        expect(window.location.assign).toBeCalledWith(
+        expect(globalThis.location.assign).toBeCalledWith(
             '/category/category-name'
         );
 
-        window.location = originalLocation;
+        globalThis.location = originalLocation;
     });
 
     test('displays correct product url suffix in url, with store code in url disabled', () => {
@@ -476,9 +482,9 @@ describe('handleSwitchStore updates url with store code not configured', () => {
         const { talonProps } = getTalonProps(defaultProps);
         const { handleSwitchStore } = talonProps;
 
-        const originalLocation = window.location;
-        delete window.location;
-        window.location = {
+        const originalLocation = globalThis.location;
+        delete globalThis.location;
+        globalThis.location = {
             pathname: '/product.html',
             assign: jest.fn()
         };
@@ -486,28 +492,28 @@ describe('handleSwitchStore updates url with store code not configured', () => {
         handleSwitchStore('store1');
 
         // .html => null
-        expect(window.location.assign).toBeCalledWith('/product');
+        expect(globalThis.location.assign).toBeCalledWith('/product');
 
         handleSwitchStore('store3');
 
         // null => .htm
-        expect(window.location.assign).toBeCalledWith('/product.htm');
+        expect(globalThis.location.assign).toBeCalledWith('/product.htm');
 
         handleSwitchStore('store6');
 
         // .htm => -123abc
-        expect(window.location.assign).toBeCalledWith('/product-123abc');
+        expect(globalThis.location.assign).toBeCalledWith('/product-123abc');
 
         handleSwitchStore('store5');
 
         // -123abc => .htm.htm
-        expect(window.location.assign).toBeCalledWith('/product.htm.htm');
+        expect(globalThis.location.assign).toBeCalledWith('/product.htm.htm');
 
         handleSwitchStore('store1');
 
         // .htm.htm => null
-        expect(window.location.assign).toBeCalledWith('/product');
+        expect(globalThis.location.assign).toBeCalledWith('/product');
 
-        window.location = originalLocation;
+        globalThis.location = originalLocation;
     });
 });

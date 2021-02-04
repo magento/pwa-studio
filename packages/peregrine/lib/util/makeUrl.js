@@ -76,7 +76,7 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
         return path;
     }
 
-    const { origin } = window.location;
+    const { origin } = globalThis.location || {};
     const isAbsolute = absoluteUrl.test(path);
     const magentoBackendURL = process.env.MAGENTO_BACKEND_URL;
     let baseURL = new URL(path, mediaBackend);

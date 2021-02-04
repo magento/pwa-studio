@@ -21,12 +21,6 @@ import { jarallax, jarallaxVideo } from 'jarallax';
 const mockJarallax = jarallax.mockImplementation(() => {});
 const mockJarallaxVideo = jarallaxVideo.mockImplementation(() => {});
 
-window.matchMedia = jest.fn().mockImplementation(() => {
-    return {
-        matches: false
-    };
-});
-
 test('renders an empty Banner component', () => {
     const component = createTestInstance(<Banner />);
 
@@ -116,7 +110,7 @@ test('renders a configured collage-left Banner component', () => {
 });
 
 test('renders a configured collage-left Banner component on mobile', () => {
-    window.matchMedia = jest.fn().mockImplementation(() => {
+    matchMedia.mockImplementation(() => {
         return {
             matches: true
         };

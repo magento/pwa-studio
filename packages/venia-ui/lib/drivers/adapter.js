@@ -59,7 +59,7 @@ const VeniaAdapter = props => {
         const persistor = new CachePersistor({
             key: `${CACHE_PERSIST_PREFIX}-${storeCode}`,
             cache,
-            storage: window.localStorage,
+            storage: globalThis.localStorage,
             debug: process.env.NODE_ENV === 'development'
         });
 

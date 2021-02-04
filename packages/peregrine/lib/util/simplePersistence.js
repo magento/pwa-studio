@@ -21,10 +21,11 @@ class NamespacedLocalStorage {
     }
 }
 
+// TODO: confirm this works in Node
 export default class BrowserPersistence {
     static KEY = 'M2_VENIA_BROWSER_PERSISTENCE';
     /* istanbul ignore next: test injects localstorage mock */
-    constructor(localStorage = window.localStorage) {
+    constructor(localStorage = globalThis.localStorage) {
         this.storage = new NamespacedLocalStorage(
             localStorage,
             this.constructor.KEY || BrowserPersistence.KEY

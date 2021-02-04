@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import { act } from 'react-test-renderer';
@@ -7,17 +8,13 @@ import { useApp } from '../useApp';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
-const handleError = jest.fn((error, id, loc, dismisser) => {
-    dismisser();
-});
-const handleIsOffline = jest.fn();
-const handleIsOnline = jest.fn();
-const handleHTMLUpdate = jest.fn();
-const markErrorHandled = jest.fn();
-const renderError = undefined;
-const unhandledErrors = [];
-
+jest.mock('react-router-dom', () => ({
+    useHistory: jest.fn()
+}));
 const reload = jest.fn();
+useHistory.mockImplementation(() => ({
+    go: reload
+}));
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {
@@ -45,7 +42,6 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 });
 
 const log = jest.fn();
-
 const Component = props => {
     const talonProps = useApp(props);
     log(talonProps);
@@ -53,6 +49,15 @@ const Component = props => {
     return <i />;
 };
 
+const handleError = jest.fn((error, id, loc, dismisser) => {
+    dismisser();
+});
+const handleIsOffline = jest.fn();
+const handleIsOnline = jest.fn();
+const handleHTMLUpdate = jest.fn();
+const markErrorHandled = jest.fn();
+const renderError = undefined;
+const unhandledErrors = [];
 const mockProps = {
     handleError,
     handleIsOffline,
@@ -62,22 +67,6 @@ const mockProps = {
     renderError,
     unhandledErrors
 };
-
-// JSDom does not support navigation, so it needs to be mocked
-const mockWindowLocation = {
-    reload: reload
-};
-
-let oldWindowLocation;
-beforeEach(() => {
-    oldWindowLocation = window.location;
-    delete window.location;
-    window.location = mockWindowLocation;
-    mockWindowLocation.reload.mockClear();
-});
-afterEach(() => {
-    window.location = oldWindowLocation;
-});
 
 test('returns the correct shape', () => {
     createTestInstance(<Component {...mockProps} />);

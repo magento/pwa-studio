@@ -121,11 +121,14 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-registerSW();
+// avoid running browser-specific code in a Node environment
+if (globalThis.document) {
+    registerSW();
 
-window.addEventListener('online', () => {
-    store.dispatch(app.setOnline());
-});
-window.addEventListener('offline', () => {
-    store.dispatch(app.setOffline());
-});
+    globalThis.addEventListener('online', () => {
+        store.dispatch(app.setOnline());
+    });
+    globalThis.addEventListener('offline', () => {
+        store.dispatch(app.setOffline());
+    });
+}

@@ -4,6 +4,8 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, string, bool } from 'prop-types';
 import { resourceUrl } from '@magento/venia-drivers';
 
+const { matchMedia } = globalThis;
+
 /**
  * Page Builder Column component.
  *
@@ -50,7 +52,7 @@ const Column = props => {
     } = props;
 
     let image = desktopImage;
-    if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
+    if (mobileImage && matchMedia && matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
     }
 

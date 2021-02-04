@@ -41,11 +41,15 @@ const OrderConfirmationPage = props => {
     });
 
     useEffect(() => {
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
-        });
+        const { scrollTo } = globalThis;
+
+        if (typeof scrollTo === 'function') {
+            scrollTo({
+                left: 0,
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     }, []);
 
     const createAccountForm = !isSignedIn ? (
