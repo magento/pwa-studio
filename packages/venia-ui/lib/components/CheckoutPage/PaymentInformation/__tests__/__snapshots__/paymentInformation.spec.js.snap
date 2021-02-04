@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render EditModal component only if doneEditing is true 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="payment_info_container"
+  >
+    <mock-Summary
+      onEdit={[MockFunction]}
+    />
+  </div>
+  <() => {
+  /* istanbul ignore next */
+  cov_gtutnbayc().f[0]++;
+  cov_gtutnbayc().s[1]++;
+  return (
+    /* istanbul ignore next */
+    Promise.resolve().then(() => _interopRequireWildcard(require('./editModal')))
+  );
+}
+    isOpen={false}
+    onClose={[MockFunction]}
+  />
+</div>
+`;

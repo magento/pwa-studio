@@ -28,7 +28,9 @@ exports[`authModal is rendered when hasModal is true 1`] = `
   <div
     className="modal_open"
   >
-    <LoadingIndicator />
+    <() => Promise.resolve().then(() => _interopRequireWildcard(require('../AuthModal')))
+      view="MENU"
+    />
   </div>
 </aside>
 `;

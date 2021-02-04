@@ -161,7 +161,15 @@ Array [
       </button>
     </div>
   </div>,
-  <EditModal
+  <() => {
+  /* istanbul ignore next */
+  cov_16g2cgyd1o().f[0]++;
+  cov_16g2cgyd1o().s[1]++;
+  return (
+    /* istanbul ignore next */
+    Promise.resolve().then(() => _interopRequireWildcard(require('../ShippingInformation/editModal')))
+  );
+}
     shippingData="activeAddress"
   />,
 ]
@@ -275,6 +283,14 @@ Array [
       </button>
     </div>
   </div>,
-  <EditModal />,
+  <() => {
+  /* istanbul ignore next */
+  cov_16g2cgyd1o().f[0]++;
+  cov_16g2cgyd1o().s[1]++;
+  return (
+    /* istanbul ignore next */
+    Promise.resolve().then(() => _interopRequireWildcard(require('../ShippingInformation/editModal')))
+  );
+} />,
 ]
 `;

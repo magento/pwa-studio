@@ -105,7 +105,8 @@ test('Should render EditModal component only if doneEditing is true', () => {
 
     const tree = createTestInstance(<PaymentInformation />);
 
-    expect(tree.root.findByType(EditModal)).not.toBeNull();
+    expect(tree.toJSON()).toMatchSnapshot();
+    // expect(tree.root.findByType(EditModal)).not.toBeNull();
 
     usePaymentInformation.mockReturnValueOnce({
         ...defaultTalonResponse,

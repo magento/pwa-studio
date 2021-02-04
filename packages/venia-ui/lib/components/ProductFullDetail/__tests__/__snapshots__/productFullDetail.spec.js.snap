@@ -50,7 +50,35 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
   <section
     className="options"
   >
-    ProductOptions
+    <() => Promise.resolve().then(() => _interopRequireWildcard(require('../ProductOptions')))
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+    />
   </section>
   <section
     className="quantity"
@@ -284,7 +312,35 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
   <section
     className="options"
   >
-    ProductOptions
+    <() => Promise.resolve().then(() => _interopRequireWildcard(require('../ProductOptions')))
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+    />
   </section>
   <section
     className="quantity"
@@ -405,7 +461,35 @@ Array [
     <section
       className="options"
     >
-      ProductOptions
+      <() => Promise.resolve().then(() => _interopRequireWildcard(require('../ProductOptions')))
+        onSelectionChange={[MockFunction]}
+        options={
+          Array [
+            Object {
+              "attribute_code": "configurable_option",
+              "attribute_id": "1",
+              "id": 1,
+              "label": "Configurable Option",
+              "values": Array [
+                Object {
+                  "default_label": "Option 1",
+                  "label": "Option 1",
+                  "store_label": "Option 1",
+                  "use_default_value": true,
+                  "value_index": 1,
+                },
+                Object {
+                  "default_label": "Option 2",
+                  "label": "Option 2",
+                  "store_label": "Option 2",
+                  "use_default_value": true,
+                  "value_index": 2,
+                },
+              ],
+            },
+          ]
+        }
+      />
     </section>
     <section
       className="quantity"
@@ -522,83 +606,35 @@ exports[`it renders correctly 1`] = `
   <section
     className="options"
   >
-    <div
-      className="global"
-    >
-      <span
-        className="root"
-      >
-        <svg
-          className="icon"
-          fill="none"
-          height={64}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={64}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <line
-            x1="12"
-            x2="12"
-            y1="2"
-            y2="6"
-          />
-          <line
-            x1="12"
-            x2="12"
-            y1="18"
-            y2="22"
-          />
-          <line
-            x1="4.93"
-            x2="7.76"
-            y1="4.93"
-            y2="7.76"
-          />
-          <line
-            x1="16.24"
-            x2="19.07"
-            y1="16.24"
-            y2="19.07"
-          />
-          <line
-            x1="2"
-            x2="6"
-            y1="12"
-            y2="12"
-          />
-          <line
-            x1="18"
-            x2="22"
-            y1="12"
-            y2="12"
-          />
-          <line
-            x1="4.93"
-            x2="7.76"
-            y1="19.07"
-            y2="16.24"
-          />
-          <line
-            x1="16.24"
-            x2="19.07"
-            y1="7.76"
-            y2="4.93"
-          />
-        </svg>
-      </span>
-      <span
-        className="message"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Fetching Data..."
-          id="loadingIndicator.message"
-        />
-      </span>
-    </div>
+    <() => Promise.resolve().then(() => _interopRequireWildcard(require('../ProductOptions')))
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+    />
   </section>
   <section
     className="quantity"
@@ -714,7 +750,35 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
   <section
     className="options"
   >
-    ProductOptions
+    <() => Promise.resolve().then(() => _interopRequireWildcard(require('../ProductOptions')))
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+    />
   </section>
   <section
     className="quantity"
@@ -830,7 +894,35 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
   <section
     className="options"
   >
-    ProductOptions
+    <() => Promise.resolve().then(() => _interopRequireWildcard(require('../ProductOptions')))
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+    />
   </section>
   <section
     className="quantity"
@@ -946,7 +1038,35 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
   <section
     className="options"
   >
-    ProductOptions
+    <() => Promise.resolve().then(() => _interopRequireWildcard(require('../ProductOptions')))
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+    />
   </section>
   <section
     className="quantity"
@@ -1066,7 +1186,35 @@ exports[`it renders form level errors 1`] = `
   <section
     className="options"
   >
-    ProductOptions
+    <() => Promise.resolve().then(() => _interopRequireWildcard(require('../ProductOptions')))
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+    />
   </section>
   <section
     className="quantity"

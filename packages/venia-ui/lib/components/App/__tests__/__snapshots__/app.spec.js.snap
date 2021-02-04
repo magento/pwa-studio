@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`displays open nav or drawer 1`] = `
+<div>
+  Title
+  <Main
+    isMasked={false}
+  >
+    <Routes />
+  </Main>
+  <button
+    onClick={[Function]}
+  />
+  <() => {
+  /* istanbul ignore next */
+  cov_101e9trynu().f[0]++;
+  cov_101e9trynu().s[1]++;
+  return (
+    /* istanbul ignore next */
+    Promise.resolve().then(() => _interopRequireWildcard(require('../Navigation')))
+  );
+} />
+  <ToastContainer />
+</div>
+`;
+
 exports[`renders with renderErrors 1`] = `
 <HeadProvider>
   <Title>
@@ -29,7 +53,19 @@ exports[`renders with unhandledErrors 1`] = `
     dismiss={[Function]}
     isActive={false}
   />
-  <Navigation />
+  <React.Suspense
+    fallback={null}
+  >
+    <() => {
+  /* istanbul ignore next */
+  cov_101e9trynu().f[0]++;
+  cov_101e9trynu().s[1]++;
+  return (
+    /* istanbul ignore next */
+    Promise.resolve().then(() => _interopRequireWildcard(require('../Navigation')))
+  );
+} />
+  </React.Suspense>
   <ToastContainer />
 </HeadProvider>
 `;
