@@ -46,7 +46,7 @@ export const mapAddressData = rawAddressData => {
  * Talon to handle Billing address for payment forms.
  *
  * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
- * @param {Function} props.onBillingAddressChangedError callback to invoke when error was throw for set the billing address
+ * @param {Function} props.onBillingAddressChangedError callback to invoke when an error was thrown while setting the billing address
  * @param {Function} props.onBillingAddressChangedSuccess callback to invoke when address was sucessfully set
  * @param {DocumentNode} props.operations.getShippingAddressQuery query to fetch shipping address from cache
  * @param {DocumentNode} props.operations.getBillingAddressQuery query to fetch billing address from cache
