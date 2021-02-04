@@ -93,8 +93,10 @@ beforeAll(() => {
 });
 
 beforeEach(() => {
-    process.env.ENABLE_EXPRESS_SERVER_COMPRESSION = 'false';
-    process.env.PORT = 1234;
+    process.env = {
+        ENABLE_EXPRESS_SERVER_COMPRESSION: 'false',
+        PORT: '1234'
+    };
 
     logs = {
         info: [],
@@ -188,7 +190,7 @@ test('should throw error if unable to load env', async () => {
 });
 
 test('should use env.PORT if provided', async () => {
-    process.env.PORT = 7899;
+    process.env.PORT = '7899';
 
     await serve('pwa-buildpack');
 
@@ -197,7 +199,7 @@ test('should use env.PORT if provided', async () => {
 });
 
 test('should use staging server port if env.PORT is not defined', async () => {
-    process.env.PORT = null;
+    process.env.PORT = 'null';
     getStagingServerConfig.mockReturnValueOnce({
         port: '5678'
     });
@@ -209,7 +211,7 @@ test('should use staging server port if env.PORT is not defined', async () => {
 });
 
 test('should use port 0 if both env.PORT and staging config port are falsy', async () => {
-    process.env.PORT = null;
+    process.env.PORT = 'null';
     getStagingServerConfig.mockReturnValueOnce({
         port: null
     });
@@ -221,7 +223,7 @@ test('should use port 0 if both env.PORT and staging config port are falsy', asy
 });
 
 test('should use configureHost config if custom origin is enabled', async () => {
-    process.env.PORT = 7899;
+    process.env.PORT = '7899';
     getCustomOriginConfig.mockReturnValueOnce({
         enabled: true
     });
@@ -241,7 +243,7 @@ test('should use configureHost config if custom origin is enabled', async () => 
 });
 
 test('should log error if configureHost throws error', async () => {
-    process.env.PORT = 7899;
+    process.env.PORT = '7899';
     getCustomOriginConfig.mockReturnValueOnce({
         enabled: true
     });
