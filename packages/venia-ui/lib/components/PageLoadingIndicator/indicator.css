@@ -20,7 +20,6 @@
 @media (min-width: 1024px) {
     .root {
         grid-area: primary;
-        justify-self: end;
     }
 }
 

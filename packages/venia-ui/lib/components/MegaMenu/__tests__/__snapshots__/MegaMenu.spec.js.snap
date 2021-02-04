@@ -19,31 +19,27 @@ exports[`it renders correctly 1`] = `
       className="submenu"
     >
       <div
-        className="submenuContainer"
+        className="submenuItems"
+        style={
+          Object {
+            "minWidth": null,
+          }
+        }
       >
         <div
-          className="breadcrumb"
+          className="submenuColumn"
         >
-          Clothing / Women
-        </div>
-        <div
-          className="submenus"
-        >
-          <div
-            className="submenuColumn"
+          <a
+            className="link"
+            href="/bottoms.html"
+            onClick={[Function]}
           >
-            <a
-              className="link"
-              href="/bottoms.html"
-              onClick={[Function]}
+            <h3
+              className="heading"
             >
-              <h3
-                className="heading"
-              >
-                Bottoms
-              </h3>
-            </a>
-          </div>
+              Bottoms
+            </h3>
+          </a>
         </div>
       </div>
     </div>

@@ -29,46 +29,42 @@ exports[`Mega menu item renders correctly it renders correctly 1`] = `
     className="submenu"
   >
     <div
-      className="submenuContainer"
+      className="submenuItems"
+      style={
+        Object {
+          "minWidth": undefined,
+        }
+      }
     >
       <div
-        className="breadcrumb"
+        className="submenuColumn"
       >
-        Clothing / Women
+        <a
+          className="link"
+          href="/bottoms.html"
+          onClick={[Function]}
+        >
+          <h3
+            className="heading"
+          >
+            Bottoms
+          </h3>
+        </a>
       </div>
       <div
-        className="submenus"
+        className="submenuColumn"
       >
-        <div
-          className="submenuColumn"
+        <a
+          className="link"
+          href="/tops.html"
+          onClick={[Function]}
         >
-          <a
-            className="link"
-            href="/bottoms.html"
-            onClick={[Function]}
+          <h3
+            className="heading"
           >
-            <h3
-              className="heading"
-            >
-              Bottoms
-            </h3>
-          </a>
-        </div>
-        <div
-          className="submenuColumn"
-        >
-          <a
-            className="link"
-            href="/tops.html"
-            onClick={[Function]}
-          >
-            <h3
-              className="heading"
-            >
-              Tops
-            </h3>
-          </a>
-        </div>
+            Tops
+          </h3>
+        </a>
       </div>
     </div>
   </div>

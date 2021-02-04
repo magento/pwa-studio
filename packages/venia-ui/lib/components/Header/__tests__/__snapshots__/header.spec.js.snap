@@ -38,20 +38,16 @@ Array [
             className="submenu"
           >
             <div
-              className="submenuContainer"
+              className="submenuItems"
+              style={
+                Object {
+                  "minWidth": null,
+                }
+              }
             >
               <div
-                className="breadcrumb"
-              >
-                Default Category / Accessories
-              </div>
-              <div
-                className="submenus"
-              >
-                <div
-                  className="submenuColumn"
-                />
-              </div>
+                className="submenuColumn"
+              />
             </div>
           </div>
         </div>

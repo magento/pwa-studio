@@ -10,21 +10,17 @@ import PropTypes from 'prop-types';
  *
  * @param {MegaMenuCategory} props.category
  * @param {bool} props.activeCategoryId - id of active category
- * @param {String} props.rootCategoryName - name of the root category
+ * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
  */
 const MegaMenuItem = props => {
-    const { category, activeCategoryId, rootCategoryName } = props;
+    const { category, activeCategoryId, mainNavWidth } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const categoryUrl = resourceUrl(
         `/${category.url_path}${category.url_suffix}`
     );
 
     const children = category.children.length ? (
-        <Submenu
-            items={category.children}
-            rootCategoryName={rootCategoryName}
-            firstLevelCategoryName={category.name}
-        />
+        <Submenu items={category.children} mainNavWidth={mainNavWidth} />
     ) : null;
     const isActive = category.id === activeCategoryId;
 
@@ -48,5 +44,5 @@ export default MegaMenuItem;
 MegaMenuItem.propTypes = {
     category: PropTypes.object.isRequired,
     activeCategoryId: PropTypes.number,
-    rootCategoryName: PropTypes.string.isRequired
+    mainNavWidth: PropTypes.number.isRequired
 };

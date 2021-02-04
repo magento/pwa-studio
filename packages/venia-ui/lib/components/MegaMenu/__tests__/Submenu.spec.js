@@ -46,19 +46,4 @@ describe('Submenu renders correctly', () => {
 
         expect(instance.toJSON()).toMatchSnapshot();
     });
-
-    test('it render mega menu breadcrumbs correctly', () => {
-        const instance = createTestInstance(
-            <MemoryRouter>
-                <Submenu {...props} />
-            </MemoryRouter>
-        );
-
-        const breadcrumb = instance.root.findByProps({
-            className: 'breadcrumb'
-        });
-
-        expect(breadcrumb).toBeDefined();
-        expect(breadcrumb.children).toEqual(['Clothing / Women']);
-    });
 });

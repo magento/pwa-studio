@@ -69,7 +69,7 @@
 @media (min-width: 1024px) {
     .toolbar {
         grid-template-areas: 'title primary megaMenu secondary';
-        grid-template-columns: auto auto 10fr 1fr;
+        grid-template-columns: 0.5fr 1.5fr auto 2fr;
     }
 }
 

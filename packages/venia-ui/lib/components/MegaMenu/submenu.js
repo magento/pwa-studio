@@ -8,24 +8,23 @@ import PropTypes from 'prop-types';
  * The Submenu component displays submenu in mega menu
  *
  * @param {array} props.items - categories to display
- * @param {String} props.rootCategoryName - name of the root category
- * @param {String} props.firstLevelCategoryName - name of the first level category
+ * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
  */
 const Submenu = props => {
-    const { items, rootCategoryName, firstLevelCategoryName } = props;
+    const { items, mainNavWidth } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const subMenus = items.map(category => {
         return <SubmenuColumn category={category} key={category.id} />;
     });
 
-    const breadcrumbs = `${rootCategoryName} / ${firstLevelCategoryName}`;
-
     return (
         <div className={classes.submenu}>
-            <div className={classes.submenuContainer}>
-                <div className={classes.breadcrumb}>{breadcrumbs}</div>
-                <div className={classes.submenus}>{subMenus}</div>
+            <div
+                className={classes.submenuItems}
+                style={{ minWidth: mainNavWidth }}
+            >
+                {subMenus}
             </div>
         </div>
     );
@@ -35,6 +34,5 @@ export default Submenu;
 
 Submenu.propTypes = {
     items: PropTypes.array.isRequired,
-    rootCategoryName: PropTypes.string.isRequired,
-    firstLevelCategoryName: PropTypes.string.isRequired
+    mainNavWidth: PropTypes.number.isRequired
 };

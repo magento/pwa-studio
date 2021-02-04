@@ -3,7 +3,7 @@
     box-shadow: 0 3px rgb(var(--venia-global-color-gray-100));
     display: none;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     left: 0;
     position: absolute;
     padding: 40px 10px;
@@ -22,16 +22,10 @@
     top: 0;
 }
 
-.submenuContainer {
+.submenuItems {
     margin-left: auto;
     margin-right: auto;
-}
-
-.submenus {
     display: flex;
     flex-wrap: wrap;
-}
-.breadcrumb {
-    margin-bottom: 32px;
-    padding: 0 8px;
+    justify-content: space-between;
 }
