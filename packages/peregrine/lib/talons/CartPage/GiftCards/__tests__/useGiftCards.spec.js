@@ -27,6 +27,13 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('informed', () => ({
+    useFormApi: jest.fn().mockReturnValue({
+        getValue: jest.fn().mockReturnValue('mock card code'),
+        reset: jest.fn()
+    })
+}));
+
 /*
  *  Member variables.
  */
@@ -121,7 +128,6 @@ test('it returns the proper shape', () => {
         isCheckingBalance: expect.any(Boolean),
         isRemovingCard: expect.any(Boolean),
         removeGiftCard: expect.any(Function),
-        setFormApi: expect.any(Function),
         shouldDisplayCardBalance: expect.any(Boolean),
         shouldDisplayCardError: expect.any(Boolean)
     });
@@ -144,17 +150,8 @@ test('returns error message with invalid request', () => {
     const component = createTestInstance(<Component {...props} />);
     let talonProps = component.root.findByProps({ id: 'giftCard' }).props;
 
-    // Mock formApi so the talon can retrieve data
-    const { setFormApi } = talonProps;
-    const formApi = {
-        setValue: jest.fn(),
-        getValue: jest.fn(),
-        reset: jest.fn()
-    };
-
     // Set the formApi and update the component so it has access to the form API
     act(() => {
-        setFormApi(formApi);
         component.update(<Component {...props} />);
     });
 
@@ -187,16 +184,9 @@ test('it runs the card balance query when checkGiftCardBalance() is called', () 
 
     let talonProps = component.root.findByProps({ id: 'giftCard' }).props;
 
-    const { setFormApi } = talonProps;
-
     const mockCardCode = 'mock card code';
-    const getValue = jest.fn(() => mockCardCode);
-    const formApi = {
-        getValue
-    };
 
     act(() => {
-        setFormApi(formApi);
         component.update(<Component {...props} />);
     });
 
@@ -211,8 +201,6 @@ test('it runs the card balance query when checkGiftCardBalance() is called', () 
     talonProps = component.root.findByProps({ id: 'giftCard' }).props;
 
     expect(talonProps.shouldDisplayCardBalance).toBeTruthy();
-
-    expect(getValue).toHaveBeenCalledWith('card');
 
     expect(checkCardBalance).toHaveBeenCalledWith(
         expect.objectContaining({
