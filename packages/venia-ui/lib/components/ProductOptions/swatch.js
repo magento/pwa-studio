@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { generateUrl } from '../../util/images';
+import { generateUrl } from '@magento/peregrine/lib/util/imageUtils';
 import {
     bool,
     func,

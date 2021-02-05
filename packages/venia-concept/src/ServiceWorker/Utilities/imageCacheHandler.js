@@ -1,8 +1,7 @@
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { CacheFirst } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
-
-import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
+import { MESSAGE_TYPES } from '@magento/peregrine/lib/util/swUtils';
 
 import { isFastNetwork } from './networkUtils';
 import { THIRTY_DAYS, IMAGES_CACHE_NAME } from '../defaults';
@@ -149,7 +148,10 @@ const handleImagePreFetchRequest = (payload, event) => {
  * 1. PREFETCH_IMAGES
  */
 export const registerImagePreFetchHandler = () => {
-    registerMessageHandler(PREFETCH_IMAGES, handleImagePreFetchRequest);
+    registerMessageHandler(
+        MESSAGE_TYPES.PREFETCH_IMAGES,
+        handleImagePreFetchRequest
+    );
 };
 
 /**
