@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useFormState, useFormApi } from 'informed';
-import { useQuery, useApolloClient, useMutation } from '@apollo/client';
+import {
+    useQuery,
+    useApolloClient,
+    useMutation,
+    useLazyQuery
+} from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -94,11 +99,6 @@ export const useBillingAddress = (props = {}) => {
     const { validate: validateBillingAddressForm } = useFormApi();
     const [{ cartId }] = useCartContext();
 
-    const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
-        skip: !cartId,
-        variables: { cartId }
-    });
-
     const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
         skip: !cartId,
         variables: { cartId }
@@ -107,6 +107,15 @@ export const useBillingAddress = (props = {}) => {
         getIsBillingAddressSameQuery,
         { skip: !cartId, variables: { cartId } }
     );
+
+    const [
+        loadBillingAddressQuery,
+        { data: billingAddressData }
+    ] = useLazyQuery(getBillingAddressQuery, {
+        skip: !cartId,
+        variables: { cartId }
+    });
+
     const [
         updateBillingAddress,
         {
@@ -222,6 +231,15 @@ export const useBillingAddress = (props = {}) => {
     /**
      * Effects
      */
+
+    /**
+     * Loads billing address if is differt to shipment address.
+     */
+    useEffect(() => {
+        if (!isBillingAddressSame) {
+            loadBillingAddressQuery();
+        }
+    }, [isBillingAddressSame, loadBillingAddressQuery]);
 
     /**
      *
