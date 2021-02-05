@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { useIntl } from 'react-intl';
 import { func } from 'prop-types';
 
+import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { mergeClasses } from '../../../classify';
 import { Accordion, Section } from '../../Accordion';
 import GiftCardSection from './giftCardSection';
@@ -44,7 +45,7 @@ const PriceAdjustments = props => {
                         defaultMessage: 'Estimate your Shipping'
                     })}
                 >
-                    <Suspense fallback={null}>
+                    <Suspense fallback={<LoadingIndicator />}>
                         <ShippingMethods
                             setIsCartUpdating={setIsCartUpdating}
                         />
@@ -57,7 +58,7 @@ const PriceAdjustments = props => {
                         defaultMessage: 'Enter Coupon Code'
                     })}
                 >
-                    <Suspense fallback={null}>
+                    <Suspense fallback={<LoadingIndicator />}>
                         <CouponCode setIsCartUpdating={setIsCartUpdating} />
                     </Suspense>
                 </Section>
@@ -69,7 +70,7 @@ const PriceAdjustments = props => {
                         defaultMessage: 'See Gift Options'
                     })}
                 >
-                    <Suspense fallback={null}>
+                    <Suspense fallback={<LoadingIndicator />}>
                         <GiftOptions />
                     </Suspense>
                 </Section>
