@@ -11,15 +11,7 @@ exports[`displays open nav or drawer 1`] = `
   <button
     onClick={[Function]}
   />
-  <() => {
-  /* istanbul ignore next */
-  cov_101e9trynu().f[0]++;
-  cov_101e9trynu().s[1]++;
-  return (
-    /* istanbul ignore next */
-    Promise.resolve().then(() => _interopRequireWildcard(require('../Navigation')))
-  );
-} />
+  <() => Promise.resolve().then(() => _interopRequireWildcard(require('../Navigation'))) />
   <ToastContainer />
 </div>
 `;
@@ -56,15 +48,7 @@ exports[`renders with unhandledErrors 1`] = `
   <React.Suspense
     fallback={null}
   >
-    <() => {
-  /* istanbul ignore next */
-  cov_101e9trynu().f[0]++;
-  cov_101e9trynu().s[1]++;
-  return (
-    /* istanbul ignore next */
-    Promise.resolve().then(() => _interopRequireWildcard(require('../Navigation')))
-  );
-} />
+    <() => Promise.resolve().then(() => _interopRequireWildcard(require('../Navigation'))) />
   </React.Suspense>
   <ToastContainer />
 </HeadProvider>
