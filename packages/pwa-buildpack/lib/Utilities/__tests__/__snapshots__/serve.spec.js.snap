@@ -205,3 +205,37 @@ UPWARD server running.",
   "warn": Array [],
 }
 `;
+
+exports[`should use staging server port if env.PORT is null 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "STAGING_SERVER_PORT is configured: 5678",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should use staging server port if env.PORT is undefined 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "STAGING_SERVER_PORT is configured: 5678",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;

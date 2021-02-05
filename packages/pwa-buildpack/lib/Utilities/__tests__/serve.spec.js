@@ -198,8 +198,32 @@ test('should use env.PORT if provided', async () => {
     expect(logs).toMatchSnapshot();
 });
 
-test('should use staging server port if env.PORT is not defined', async () => {
+test('should use staging server port if env.PORT is null', async () => {
     process.env.PORT = 'null';
+    getStagingServerConfig.mockReturnValueOnce({
+        port: '5678'
+    });
+
+    await serve('pwa-buildpack');
+
+    expect(createUpwardServer.mock.calls[0][0].port).toBe('5678');
+    expect(logs).toMatchSnapshot();
+});
+
+test('should use staging server port if env.PORT is not defined', async () => {
+    process.env.PORT = 'undefined';
+    getStagingServerConfig.mockReturnValueOnce({
+        port: '5678'
+    });
+
+    await serve('pwa-buildpack');
+
+    expect(createUpwardServer.mock.calls[0][0].port).toBe('5678');
+    expect(logs).toMatchSnapshot();
+});
+
+test('should use staging server port if env.PORT is undefined', async () => {
+    process.env.PORT = undefined;
     getStagingServerConfig.mockReturnValueOnce({
         port: '5678'
     });
