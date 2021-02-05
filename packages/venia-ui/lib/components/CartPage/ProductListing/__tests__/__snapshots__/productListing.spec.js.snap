@@ -15,7 +15,7 @@ Array [
       item="3"
     />
   </ul>,
-  <() => Promise.resolve().then(() => _interopRequireWildcard(require('./EditModal'))) />,
+  <require('./EditModal') />,
 ]
 `;
 

@@ -11,7 +11,7 @@ exports[`displays open nav or drawer 1`] = `
   <button
     onClick={[Function]}
   />
-  <() => Promise.resolve().then(() => _interopRequireWildcard(require('../Navigation'))) />
+  <require('../Navigation') />
   <ToastContainer />
 </div>
 `;
@@ -48,7 +48,7 @@ exports[`renders with unhandledErrors 1`] = `
   <React.Suspense
     fallback={null}
   >
-    <() => Promise.resolve().then(() => _interopRequireWildcard(require('../Navigation'))) />
+    <require('../Navigation') />
   </React.Suspense>
   <ToastContainer />
 </HeadProvider>

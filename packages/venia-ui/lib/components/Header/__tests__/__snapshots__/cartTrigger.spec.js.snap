@@ -72,7 +72,7 @@ Array [
       99+
     </span>
   </button>,
-  <() => Promise.resolve().then(() => _interopRequireWildcard(require('../MiniCart')))
+  <require('../MiniCart')
     isOpen={false}
     setIsOpen={[Function]}
   />,
@@ -151,7 +151,7 @@ Array [
       10
     </span>
   </button>,
-  <() => Promise.resolve().then(() => _interopRequireWildcard(require('../MiniCart')))
+  <require('../MiniCart')
     isOpen={false}
     setIsOpen={[Function]}
   />,
@@ -226,7 +226,7 @@ Array [
       </svg>
     </span>
   </button>,
-  <() => Promise.resolve().then(() => _interopRequireWildcard(require('../MiniCart')))
+  <require('../MiniCart')
     isOpen={false}
     setIsOpen={[Function]}
   />,

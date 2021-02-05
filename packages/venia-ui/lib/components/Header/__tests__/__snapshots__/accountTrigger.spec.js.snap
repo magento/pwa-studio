@@ -16,7 +16,7 @@ Array [
       />
     </button>
   </div>,
-  <() => Promise.resolve().then(() => _interopRequireWildcard(require('../AccountMenu')))
+  <require('../AccountMenu')
     accountMenuIsOpen={false}
   />,
 ]

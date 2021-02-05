@@ -11,7 +11,7 @@ exports[`Should render EditModal component only if doneEditing is true 1`] = `
       onEdit={[MockFunction]}
     />
   </div>
-  <() => Promise.resolve().then(() => _interopRequireWildcard(require('./editModal')))
+  <require('./editModal')
     isOpen={false}
     onClose={[MockFunction]}
   />
