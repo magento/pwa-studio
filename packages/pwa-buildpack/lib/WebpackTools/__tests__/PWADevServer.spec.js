@@ -1,17 +1,7 @@
 jest.mock('errorhandler');
-jest.mock('fs');
 jest.mock('portscanner');
 jest.mock('graphql-playground-middleware-express');
 jest.mock('../../Utilities/configureHost');
-
-jest.mock('compression', () => () =>
-    jest.fn().mockName('compression middleware')
-);
-jest.mock('hastily', () => ({
-    HASTILY_STREAMABLE_PATH_REGEXP: 'HASTILY_STREAMABLE_PATH_REGEXP'
-}));
-const fs = require('fs');
-jest.spyOn(fs, 'readFile');
 
 const errorhandler = require('errorhandler');
 const waitForExpect = require('wait-for-expect');
@@ -22,6 +12,14 @@ const {
 } = require('graphql-playground-middleware-express');
 const configureHost = require('../../Utilities/configureHost');
 const { PWADevServer } = require('../');
+
+jest.mock('compression', () => () =>
+    jest.fn().mockName('compression middleware')
+);
+
+jest.mock('hastily', () => ({
+    HASTILY_STREAMABLE_PATH_REGEXP: 'HASTILY_STREAMABLE_PATH_REGEXP'
+}));
 
 portscanner.findAPortNotInUse.mockResolvedValue(10001);
 
