@@ -58,7 +58,7 @@ They are also the only way other third-party extensions can intercept and use yo
 ### Declare a Target
 
 Extensions declare their own Targets for interception through the declare file.
-Declare files exports a function that recieve a [TargetProvider][] object.
+Declare files export a function that receives a [TargetProvider][] object.
 The TargetProvider object has a `declare()` function that accepts a dictionary object of named Targets.
 The TargetProvider also provides a utility collection called `types`, which holds all the legal constructors for Targets.
 
