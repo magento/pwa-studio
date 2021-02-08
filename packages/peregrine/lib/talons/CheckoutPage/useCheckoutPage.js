@@ -27,12 +27,11 @@ export const useCheckoutPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const {
-        mutations: { createCartMutation, placeOrderMutation },
-        queries: {
-            getCheckoutDetailsQuery,
-            getCustomerQuery,
-            getOrderDetailsQuery
-        }
+        createCartMutation,
+        getCheckoutDetailsQuery,
+        getCustomerQuery,
+        getOrderDetailsQuery,
+        placeOrderMutation
     } = operations;
 
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
