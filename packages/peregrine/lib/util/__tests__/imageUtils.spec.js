@@ -1,4 +1,4 @@
-import { generateSrcset, imageWidths } from '../images';
+import { generateSrcset, imageWidths } from '../imageUtils';
 
 test('generateSrcset should return a string', () => {
     expect(typeof generateSrcset('google.com', 'image-product')).toBe('string');

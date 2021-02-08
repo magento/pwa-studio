@@ -1,11 +1,7 @@
 jest.mock('errorhandler');
-jest.mock('fs');
 jest.mock('portscanner');
 jest.mock('graphql-playground-middleware-express');
 jest.mock('../../Utilities/configureHost');
-
-const fs = require('fs');
-jest.spyOn(fs, 'readFile');
 
 const errorhandler = require('errorhandler');
 const waitForExpect = require('wait-for-expect');

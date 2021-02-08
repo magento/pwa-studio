@@ -12,9 +12,27 @@
 .page {
     margin: 0 auto;
     max-width: var(--venia-global-maxWidth);
-    min-height: 100vh;
+    min-height: 40rem;
 }
 
 .page_masked {
     composes: page;
+}
+
+@media (min-height: 640px) {
+    .page {
+        min-height: 48rem;
+    }
+}
+
+@media (min-height: 768px) {
+    .page {
+        min-height: 60rem;
+    }
+}
+
+@media (min-height: 960px) {
+    .page {
+        min-height: 72rem;
+    }
 }
