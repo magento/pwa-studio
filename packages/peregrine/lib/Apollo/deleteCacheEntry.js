@@ -44,7 +44,7 @@ const deleteInactiveCachesEntry = async (client, predicate) => {
         client.persistor.persistor.storage.key;
 
     const isAnInactiveApolloCache = ([key]) => {
-        // TODO: how do we keep this in sync with the storefront?
+        // Keep this in sync with the cache names used by your storefront.
         return (
             key.startsWith('apollo-cache-persist') &&
             key !== activeApolloCacheLocalStorageKey
