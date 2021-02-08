@@ -266,6 +266,12 @@ const jestConfig = {
                 path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
             ]
         })),
+        configureProject('extensions/venia-sample-payments-checkmo', 'Check Money Order Payment', inPackage => ({
+          ...testReactComponents(inPackage),
+          setupFiles: [
+              path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
+          ]
+      })),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({
             testEnvironment: 'node',
@@ -286,7 +292,7 @@ const jestConfig = {
     ],
     // Include files with zero tests in overall coverage analysis by specifying
     // coverage paths manually.
-    collectCoverage: true,
+    collectCoverage: false,
     collectCoverageFrom: [
         // Code directories
         'packages/*/{src,lib,_buildpack}/**/*.js',

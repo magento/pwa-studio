@@ -76,7 +76,7 @@ export const mapAddressData = rawAddressData => {
  *   shippingAddressCountry: String,
  * }
  */
-export const useBillingAddress = (props = {}) => {
+export const useBillingAddress = props => {
     const {
         shouldSubmit,
         onBillingAddressChangedError,
@@ -103,6 +103,7 @@ export const useBillingAddress = (props = {}) => {
         skip: !cartId,
         variables: { cartId }
     });
+
     const { data: isBillingAddressSameData } = useQuery(
         getIsBillingAddressSameQuery,
         { skip: !cartId, variables: { cartId } }
@@ -277,7 +278,6 @@ export const useBillingAddress = (props = {}) => {
             }
         } catch (err) {
             console.error(err);
-
             onBillingAddressChangedError();
         }
     }, [

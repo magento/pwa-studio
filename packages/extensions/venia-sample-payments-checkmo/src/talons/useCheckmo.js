@@ -12,15 +12,17 @@ import DEFAULT_OPERATIONS from './checkmo.gql';
  * @param {Function} props.onPaymentSuccess callback to invoke when the a payment nonce has been generated
  * @param {Function} props.onPaymentError callback to invoke when component throws an error
  * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
+ * @param {DocumentNode} props.operations.getCheckmoConfigQuery query to fetch config from backend
+ * @param {DocumentNode} props.operations.setPaymentMethodOnCartMutation mutation to set checmo as payment
  *
  * @returns {
  *  payableTo: String,
  *  mailingAddress: String,
  *  onBillingAddressChangedError: Function,
- *  onBillingAddressChangedSuccess: Function,
+ *  onBillingAddressChangedSuccess: Function
  * }
  */
-export const useCheckmo = (props = {}) => {
+export const useCheckmo = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const {
@@ -45,10 +47,16 @@ export const useCheckmo = (props = {}) => {
         variables: { cartId }
     });
 
+    /**
+     * This function will be called if cant not set adress.
+     */
     const onBillingAddressChangedError = useCallback(() => {
         resetShouldSubmit();
     }, [resetShouldSubmit]);
 
+    /**
+     * This function will be called if adress was successfully set.
+     */
     const onBillingAddressChangedSuccess = useCallback(() => {
         updatePaymentMethod();
     }, [updatePaymentMethod]);
@@ -69,7 +77,8 @@ export const useCheckmo = (props = {}) => {
         paymentMethodMutationLoading,
         paymentMethodMutationCalled,
         onPaymentSuccess,
-        onPaymentError
+        onPaymentError,
+        resetShouldSubmit
     ]);
 
     return {
