@@ -24,6 +24,7 @@ COPY ./docker/.env.docker.prod ./packages/venia-concept/.env
 
 # install dependencies with yarn
 RUN yarn install --frozen-lockfile
+RUN yarn venia add -D @magento/venia-sample-language-packs@0.0.1
 
 ENV NODE_ENV=production
 # build the app
