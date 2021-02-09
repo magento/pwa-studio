@@ -6,7 +6,7 @@ _For older release notes, see [PWA Studio releases][]._
 
 ## Table of contents
 
--   [What's new in 9.0.1](#whats-new-in-900)
+-   [What's new in 9.0.1](#whats-new-in-901)
 -   [Pull requests merged in this release](#pull-requests-merged-in-this-release)
 -   [Known issues](#known-issues)
 -   [Upgrading from a previous version](#upgrading-from-a-previous-version)
