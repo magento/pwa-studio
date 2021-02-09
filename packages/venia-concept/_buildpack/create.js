@@ -4,6 +4,18 @@ const {
     sampleBackends: defaultSampleBackends
 } = require('@magento/pwa-buildpack/lib/cli/create-project');
 
+const uniqBy = (array, property) => {
+    const set = new Set();
+
+    for (const element of array) {
+        if (element && element.hasOwnProperty(property)) {
+            set.add(element[property]);
+        }
+    }
+
+    return Array.from(set);
+};
+
 const removeDuplicateBackends = backendEnvironments =>
     uniqBy(backendEnvironments, 'url');
 
