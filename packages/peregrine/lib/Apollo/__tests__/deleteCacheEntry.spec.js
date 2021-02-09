@@ -10,6 +10,11 @@ import { deleteCacheEntry } from '../deleteCacheEntry';
 const log = jest.fn();
 
 const persistor = {
+    persistor: {
+        storage: {
+            key: 'unit test key'
+        }
+    },
     persist: jest.fn()
 };
 

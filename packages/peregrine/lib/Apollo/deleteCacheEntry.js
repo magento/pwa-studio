@@ -1,3 +1,5 @@
+import { CACHE_PERSIST_PREFIX } from '@magento/peregrine/lib/Apollo/constants';
+
 /**
  * Deletes specific entry/entries from the apollo cache and then tries to
  * persist the deletions.
@@ -40,13 +42,14 @@ const deleteActiveCacheEntry = async (client, predicate) => {
 };
 
 const deleteInactiveCachesEntry = async (client, predicate) => {
+    if (!client || !client.persistor) return;
+
     const activeApolloCacheLocalStorageKey =
         client.persistor.persistor.storage.key;
 
     const isAnInactiveApolloCache = ([key]) => {
-        // Keep this in sync with the cache names used by your storefront.
         return (
-            key.startsWith('apollo-cache-persist') &&
+            key.startsWith(CACHE_PERSIST_PREFIX) &&
             key !== activeApolloCacheLocalStorageKey
         );
     };
