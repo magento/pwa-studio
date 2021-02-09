@@ -8,12 +8,22 @@ const chalk = require('chalk');
 const gitUserInfo = require('git-user-info');
 const isInvalidPath = require('is-invalid-path');
 const isValidNpmName = require('is-valid-npm-name');
-const { uniqBy } = require('lodash');
-
 const pkg = require('../package.json');
 const {
     sampleBackends: defaultSampleBackends
 } = require('@magento/pwa-buildpack/lib/cli/create-project');
+
+const uniqBy = (array, property) => {
+    const set = new Set();
+
+    for (const element of array) {
+        if (element && element.hasOwnProperty(property)) {
+            set.add(element.property);
+        }
+    }
+
+    return Array.from(set);
+};
 
 const removeDuplicateBackends = backendEnvironments =>
     uniqBy(backendEnvironments, 'url');
