@@ -18,7 +18,7 @@ const uniqBy = (array, property) => {
 
     for (const element of array) {
         if (element && element.hasOwnProperty(property)) {
-            set.add(element.property);
+            set.add(element[property]);
         }
     }
 

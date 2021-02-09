@@ -1,5 +1,4 @@
 const { resolve } = require('path');
-const { uniqBy } = require('lodash');
 const {
     sampleBackends: defaultSampleBackends
 } = require('@magento/pwa-buildpack/lib/cli/create-project');
