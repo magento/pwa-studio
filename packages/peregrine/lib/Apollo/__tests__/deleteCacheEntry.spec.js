@@ -142,3 +142,123 @@ test('handle function call with no persistor', async () => {
 
     expect(spy).toHaveBeenCalledTimes(0);
 });
+
+describe('deleteInactiveCachesEntry', () => {
+    let previousLocalStorage;
+    const getItemMock = jest.fn();
+    const setItemMock = jest.fn();
+    const localStorageMock = (function() {
+        const store = {
+            'active apollo cache': JSON.stringify({ active: 'cache' }),
+            'apollo-cache-persist-inactive': JSON.stringify({
+                inactive: 'cache'
+            }),
+            'some-other-storage-key': JSON.stringify({ other: 'value' })
+        };
+
+        return {
+            ...store,
+            getItem: getItemMock,
+            setItem: setItemMock
+        };
+    })();
+    const client = {
+        // Purposefully supply a falsy cache to early out of deleteActiveCacheEntry.
+        cache: null,
+        persistor: {
+            persistor: {
+                storage: {
+                    key: 'active apollo cache'
+                }
+            }
+        }
+    };
+    const predicate = jest.fn();
+
+    beforeAll(() => {
+        previousLocalStorage = window.localStorage;
+
+        Object.defineProperty(window, 'localStorage', {
+            value: localStorageMock,
+            writable: true
+        });
+    });
+    afterEach(() => {
+        getItemMock.mockRestore();
+        setItemMock.mockRestore();
+        predicate.mockReset();
+    });
+    afterAll(() => {
+        Object.defineProperty(window, 'localStorage', {
+            value: previousLocalStorage,
+            writable: true
+        });
+    });
+
+    test('it bails when no client', async () => {
+        // Arrange.
+        const testClient = null;
+
+        // Act.
+        await deleteCacheEntry(testClient, predicate);
+
+        // Assert.
+        expect(predicate).not.toHaveBeenCalled();
+    });
+
+    test('it bails when no client persistor', async () => {
+        // Arrange.
+        const testClient = {};
+
+        // Act.
+        await deleteCacheEntry(testClient, predicate);
+
+        // Assert.
+        expect(predicate).not.toHaveBeenCalled();
+    });
+
+    test('only attempts to delete from inactive apollo caches', async () => {
+        // Arrange.
+
+        // Act.
+        await deleteCacheEntry(client, predicate);
+
+        // Assert.
+        expect(setItemMock).toHaveBeenCalledTimes(1);
+        // The key 'inactive' only appears in the inactive cache mock.
+        expect(predicate).toHaveBeenCalledWith('inactive');
+        expect(predicate).not.toHaveBeenCalledWith('active');
+        expect(predicate).not.toHaveBeenCalledWith('other');
+    });
+
+    test('deletes keys that satisfy the predicate', async () => {
+        // Arrange.
+        predicate.mockReturnValue(true);
+
+        // Act.
+        await deleteCacheEntry(client, predicate);
+
+        // Assert.
+        expect(setItemMock).toHaveBeenCalledTimes(1);
+        expect(setItemMock).toHaveBeenCalledWith(
+            'apollo-cache-persist-inactive',
+            '{}' // the only entry was deleted
+        );
+    });
+
+    test('does not delete keys that dont satisfy the predicate', async () => {
+        // Arrange.
+        predicate.mockReturnValue(false);
+
+        // Act.
+        await deleteCacheEntry(client, predicate);
+
+        // Assert.
+        const previousValue = localStorageMock['apollo-cache-persist-inactive'];
+        expect(setItemMock).toHaveBeenCalledTimes(1);
+        expect(setItemMock).toHaveBeenCalledWith(
+            'apollo-cache-persist-inactive',
+            previousValue
+        );
+    });
+});
