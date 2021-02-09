@@ -4,15 +4,15 @@ const {
 } = require('@magento/pwa-buildpack/lib/cli/create-project');
 
 const uniqBy = (array, property) => {
-    const set = new Set();
+    const map = new Map();
 
     for (const element of array) {
         if (element && element.hasOwnProperty(property)) {
-            set.add(element[property]);
+            map.set(element[property], element);
         }
     }
 
-    return Array.from(set);
+    return Array.from(map.values());
 };
 
 const removeDuplicateBackends = backendEnvironments =>
