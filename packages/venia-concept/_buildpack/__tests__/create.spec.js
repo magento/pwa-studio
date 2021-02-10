@@ -12,6 +12,7 @@ const {
     makeCommonTasks,
     makeCopyStream
 } = require('@magento/pwa-buildpack/lib/Utilities/createProject');
+const sampleBackends = require('@magento/pwa-buildpack/sampleBackends.json');
 const createVenia = require('../create');
 
 const mockFs = data => {
@@ -50,7 +51,8 @@ const runCreate = async (fs, opts) => {
     const { after, before, visitor } = await createVenia({
         fs,
         tasks: makeCommonTasks(fs),
-        options
+        options,
+        sampleBackends
     });
     if (before) {
         await before({ options });
