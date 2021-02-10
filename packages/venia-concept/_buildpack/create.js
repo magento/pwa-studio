@@ -1,7 +1,4 @@
 const { resolve } = require('path');
-const {
-    sampleBackends: defaultSampleBackends
-} = require('@magento/pwa-buildpack/lib/cli/create-project');
 
 const uniqBy = (array, property) => {
     const map = new Map();
@@ -18,7 +15,7 @@ const uniqBy = (array, property) => {
 const removeDuplicateBackends = backendEnvironments =>
     uniqBy(backendEnvironments, 'url');
 
-const fetchSampleBackends = async () => {
+const fetchSampleBackends = async defaultSampleBackends => {
     try {
         const res = await fetch(
             'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
@@ -34,9 +31,9 @@ const fetchSampleBackends = async () => {
     }
 };
 
-async function createProjectFromVenia({ fs, tasks, options }) {
+async function createProjectFromVenia({ fs, tasks, options, sampleBackends }) {
     const npmCli = options.npmClient;
-    const sampleBackendEnvironments = await fetchSampleBackends();
+    const sampleBackendEnvironments = await fetchSampleBackends(sampleBackends);
 
     const toCopyFromPackageJson = [
         'main',

@@ -87,8 +87,6 @@ async function findTemplateDir(templateName) {
     }
 }
 
-module.exports.sampleBackends = require('../../sampleBackends.json');
-
 module.exports.command = 'create-project <directory>';
 
 module.exports.describe =
