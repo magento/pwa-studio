@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
-import { AvailablePaymentMethodsFragment } from 'paymentInformation.gql';
+import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
 
 // We disable linting for local fields because there is no way to add them to
 // the fetched schema. Additionally, since we don't want to make a network call

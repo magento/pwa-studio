@@ -118,13 +118,7 @@ const operations = {
     setCreditCardDetailsOnCartMutation
 };
 
-jest.mock('@apollo/client', () => {
-    return {
-        useQuery: jest.fn(),
-        useApolloClient: jest.fn(),
-        useMutation: jest.fn()
-    };
-});
+jest.mock('@apollo/client');
 
 jest.mock('../../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
