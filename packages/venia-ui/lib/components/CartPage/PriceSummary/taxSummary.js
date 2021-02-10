@@ -1,6 +1,5 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { gql } from '@apollo/client';
 import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
