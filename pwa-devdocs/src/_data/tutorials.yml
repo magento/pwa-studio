@@ -40,6 +40,10 @@ entries:
       url: /tutorials/targetables/
       entries:
 
+    - label: Extension development
+      url: /tutorials/extension-development/
+      entries:
+
     - label: Production deployments
       url: /tutorials/pwa-studio-fundamentals/production-launch-checklist/
       entries:
