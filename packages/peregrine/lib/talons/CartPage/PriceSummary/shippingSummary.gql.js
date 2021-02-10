@@ -14,5 +14,3 @@ export const ShippingSummaryFragment = gql`
         }
     }
 `;
-
-export default ShippingSummary;

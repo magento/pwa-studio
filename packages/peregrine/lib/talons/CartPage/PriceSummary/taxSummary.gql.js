@@ -10,5 +10,3 @@ export const TaxSummaryFragment = gql`
         }
     }
 `;
-
-export default TaxSummary;

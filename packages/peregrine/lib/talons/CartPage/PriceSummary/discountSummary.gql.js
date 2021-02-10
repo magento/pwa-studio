@@ -12,4 +12,3 @@ export const DiscountSummaryFragment = gql`
     }
 `;
 
-export default DiscountSummary;
