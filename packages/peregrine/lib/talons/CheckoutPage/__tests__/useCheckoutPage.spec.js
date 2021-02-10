@@ -67,12 +67,11 @@ const getCustomerQuery = 'getCustomerQuery';
 
 const defaultProps = {
     operations: {
-        mutations: { createCartMutation, placeOrderMutation },
-        queries: {
-            getCheckoutDetailsQuery,
-            getOrderDetailsQuery,
-            getCustomerQuery
-        }
+        createCartMutation,
+        getCheckoutDetailsQuery,
+        getOrderDetailsQuery,
+        getCustomerQuery,
+        placeOrderMutation
     }
 };
 
