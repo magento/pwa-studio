@@ -119,6 +119,7 @@ test('exposes all hooks and targets', async () => {
           talons.Checkout.useShippingForm.wrapWith() wraps export "useShippingForm" from "Checkout/useShippingForm.js"
           talons.CheckoutPage.AddressBook.useAddressBook.wrapWith() wraps export "useAddressBook" from "CheckoutPage/AddressBook/useAddressBook.js"
           talons.CheckoutPage.AddressBook.useAddressCard.wrapWith() wraps export "useAddressCard" from "CheckoutPage/AddressBook/useAddressCard.js"
+          talons.CheckoutPage.BillingAddress.useBillingAddress.wrapWith() wraps export "useBillingAddress" from "CheckoutPage/BillingAddress/useBillingAddress.js"
           talons.CheckoutPage.GuestSignIn.useGuestSignIn.wrapWith() wraps export "useGuestSignIn" from "CheckoutPage/GuestSignIn/useGuestSignIn.js"
           talons.CheckoutPage.ItemsReview.useItemsReview.wrapWith() wraps export "useItemsReview" from "CheckoutPage/ItemsReview/useItemsReview.js"
           talons.CheckoutPage.OrderConfirmationPage.useCreateAccount.wrapWith() wraps export "useCreateAccount" from "CheckoutPage/OrderConfirmationPage/useCreateAccount.js"

@@ -20,7 +20,7 @@ exports[`renders delete confirmation 1`] = `
   <div
     className="expiry_date"
   >
-    Dec. 12
+    Dez. 12
   </div>
   <div
     className="delete"
@@ -150,7 +150,7 @@ exports[`should render properly 1`] = `
   <div
     className="expiry_date"
   >
-    Dec. 12
+    Dez. 12
   </div>
   <div
     className="delete"

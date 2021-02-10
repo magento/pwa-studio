@@ -1,11 +1,11 @@
 import React from 'react';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { shape, string, bool, func } from 'prop-types';
+import BillingAddress from '@magento/venia-ui/lib/components/CheckoutPage/BillingAddress';
 
 import { useCheckmo } from '../talons/useCheckmo';
 import defaultClasses from './checkmo.css';
 import { FormattedMessage } from 'react-intl';
-import BillingAddress from './BillingAddress';
 
 /**
  * The CheckMo component renders all information to handle checkmo payment.

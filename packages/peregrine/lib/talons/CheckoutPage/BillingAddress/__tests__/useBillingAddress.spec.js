@@ -5,8 +5,8 @@ import {
     useLazyQuery,
     useApolloClient
 } from '@apollo/client';
-import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 
+import createTestInstance from '../../../../util/createTestInstance';
 import { useBillingAddress } from '../useBillingAddress';
 
 /**
@@ -80,7 +80,6 @@ const getBillingAddress = jest.fn().mockReturnValue([
       called: false
   }
 ]);
-
 
 const getShippingAddress = jest
     .fn()

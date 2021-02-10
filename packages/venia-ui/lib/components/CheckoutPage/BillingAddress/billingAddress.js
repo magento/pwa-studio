@@ -13,7 +13,7 @@ import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
 import defaultClasses from './billingAddress.css';
 
-import { useBillingAddress } from '../../talons/useBillingAddress';
+import { useBillingAddress } from '@magento/peregrine/lib/talons/CheckoutPage/BillingAddress/useBillingAddress';
 
 const BillingAddress = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
