@@ -14,8 +14,6 @@ import BrainTreeDropin from './brainTreeDropIn';
 import LoadingIndicator from '../../LoadingIndicator';
 import { mergeClasses } from '../../../classify';
 
-import creditCardPaymentOperations from './creditCard.gql';
-
 import defaultClasses from './creditCard.css';
 import FormError from '../../FormError';
 
@@ -57,8 +55,7 @@ const CreditCard = props => {
         onReady,
         onError,
         shouldSubmit,
-        resetShouldSubmit,
-        ...creditCardPaymentOperations
+        resetShouldSubmit
     });
 
     const {

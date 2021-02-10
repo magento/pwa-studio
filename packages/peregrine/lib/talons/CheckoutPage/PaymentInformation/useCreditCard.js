@@ -4,6 +4,8 @@ import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
 
+import DEFAULT_OPERATIONS from './creditCard.gql';
+
 /**
  * Maps address response data from GET_BILLING_ADDRESS and GET_SHIPPING_ADDRESS
  * queries to input names in the billing address form.
@@ -48,11 +50,11 @@ export const mapAddressData = rawAddressData => {
  * @param {Function} props.onReady callback to invoke when the braintree dropin component is ready
  * @param {Function} props.onError callback to invoke when the braintree dropin component throws an error
  * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
- * @param {DocumentNode} props.queries.getBillingAddressQuery query to fetch billing address from cache
- * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
- * @param {DocumentNode} props.queries.getPaymentNonceQuery query to fetch payment nonce saved in cache
- * @param {DocumentNode} props.mutations.setBillingAddressMutation mutation to update billing address on the cart
- * @param {DocumentNode} props.mutations.setCreditCardDetailsOnCartMutation mutation to update payment method and payment nonce on the cart
+ * @param {DocumentNode} props.operations.getBillingAddressQuery query to fetch billing address from cache
+ * @param {DocumentNode} props.operations.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
+ * @param {DocumentNode} props.operations.getPaymentNonceQuery query to fetch payment nonce saved in cache
+ * @param {DocumentNode} props.operations.setBillingAddressMutation mutation to update billing address on the cart
+ * @param {DocumentNode} props.operations.setCreditCardDetailsOnCartMutation mutation to update payment method and payment nonce on the cart
  *
  * @returns {
  *   errors: Map<String, Error>,
@@ -83,25 +85,22 @@ export const mapAddressData = rawAddressData => {
 export const useCreditCard = props => {
     const {
         onSuccess,
-        queries,
-        mutations,
         onReady,
         onError,
         shouldSubmit,
         resetShouldSubmit
     } = props;
 
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+
     const {
         getBillingAddressQuery,
         getIsBillingAddressSameQuery,
         getPaymentNonceQuery,
-        getShippingAddressQuery
-    } = queries;
-
-    const {
+        getShippingAddressQuery,
         setBillingAddressMutation,
         setCreditCardDetailsOnCartMutation
-    } = mutations;
+    } = operations;
 
     /**
      * Definitions
