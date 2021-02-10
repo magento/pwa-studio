@@ -7,15 +7,27 @@ jest.mock('../../Footer/footer', () => 'Footer');
 jest.mock('../../../classify');
 
 test('it renders correctly when masked', () => {
-    const { root } = createTestInstance(<Main isMasked={true} />);
+    const props = {
+        children: [],
+        isMasked: true
+    };
+    const { root } = createTestInstance(<Main {...props} />);
+    const page = root.findByProps({ className: 'page_masked' });
 
     expect(root.findByProps({ className: 'root_masked' })).toBeTruthy();
-    expect(root.findByProps({ className: 'page_masked' })).toBeTruthy();
+    expect(page).toBeTruthy();
+    expect(page.props.children).toEqual(props.children);
 });
 
 test('sets different classnames when not masked', () => {
-    const { root } = createTestInstance(<Main isMasked={false} />);
+    const props = {
+        children: [],
+        isMasked: false
+    };
+    const { root } = createTestInstance(<Main {...props} />);
+    const page = root.findByProps({ className: 'page' });
 
     expect(root.findByProps({ className: 'root' })).toBeTruthy();
-    expect(root.findByProps({ className: 'page' })).toBeTruthy();
+    expect(page).toBeTruthy();
+    expect(page.props.children).toEqual(props.children);
 });
