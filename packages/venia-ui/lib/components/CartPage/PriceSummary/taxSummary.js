@@ -55,15 +55,4 @@ const TaxSummary = props => {
     );
 };
 
-export const TaxSummaryFragment = gql`
-    fragment TaxSummaryFragment on CartPrices {
-        applied_taxes {
-            amount {
-                currency
-                value
-            }
-        }
-    }
-`;
-
 export default TaxSummary;
