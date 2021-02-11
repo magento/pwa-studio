@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-studio",
-  "version": "9.0.1-alpha.2",
+  "version": "9.0.1-alpha.3",
   "private": true,
   "workspaces": [
     "packages/babel-preset-peregrine",

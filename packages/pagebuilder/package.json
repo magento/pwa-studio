@@ -1,6 +1,6 @@
 {
   "name": "@magento/pagebuilder",
-  "version": "4.0.1-alpha.2",
+  "version": "4.0.1-alpha.3",
   "publishConfig": {
     "access": "public"
   },
@@ -35,8 +35,8 @@
   "dependencies": {},
   "devDependencies": {
     "@magento/peregrine": "~9.0.0",
-    "@magento/pwa-buildpack": "8.0.1-alpha.2",
-    "@magento/venia-ui": "6.0.1-alpha.2",
+    "@magento/pwa-buildpack": "8.0.1-alpha.3",
+    "@magento/venia-ui": "6.0.1-alpha.3",
     "@storybook/react": "~5.2.6",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
@@ -51,8 +51,8 @@
     "@apollo/client": "~3.1.2",
     "@magento/babel-preset-peregrine": "~1.1.0",
     "@magento/peregrine": "~9.0.0",
-    "@magento/pwa-buildpack": "8.0.1-alpha.2",
-    "@magento/venia-ui": "6.0.1-alpha.2",
+    "@magento/pwa-buildpack": "8.0.1-alpha.3",
+    "@magento/venia-ui": "6.0.1-alpha.3",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
     "lodash.escape": "~4.0.1",
