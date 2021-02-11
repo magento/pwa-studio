@@ -56,6 +56,38 @@ test('returns correct value for update animation', () => {
     expect(newTalonProps.hasUpdate).toBe(true);
 });
 
+test('returns correct value after an animation update completes', () => {
+    jest.useFakeTimers();
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.hasUpdate).toBe(false);
+
+    act(() => {
+        tree.update(
+            <Component
+                {...mockProps}
+                address={{ ...address, firstname: 'Bender' }}
+            />
+        );
+    });
+
+    jest.runAllTimers();
+
+    const { talonProps: newTalonProps } = root.findByType('i').props;
+
+    expect(newTalonProps.hasUpdate).toBe(false);
+    expect(clearTimeout).not.toHaveBeenCalled();
+
+    act(() => {
+        tree.update(<Component {...mockProps} />);
+    });
+
+    expect(clearTimeout).toHaveBeenCalled();
+});
+
 describe('event handlers fire callbacks', () => {
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
