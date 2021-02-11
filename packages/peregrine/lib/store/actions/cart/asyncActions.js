@@ -317,9 +317,9 @@ export const removeItemFromCart = payload => {
 };
 
 export const getCartDetails = payload => {
-    const { apolloClient, fetchCartId, fetchCartDetails } = payload;
+    const { fetchCartId, fetchCartDetails } = payload;
 
-    return async function thunk(dispatch, getState) {
+    return async function thunk(dispatch, getState, { apolloClient }) {
         const { cart, user } = getState();
         const { cartId } = cart;
         const { isSignedIn } = user;
@@ -347,7 +347,7 @@ export const getCartDetails = payload => {
         try {
             const { data } = await fetchCartDetails({
                 variables: { cartId },
-                fetchPolicy: 'no-cache'
+                fetchPolicy: 'network-only'
             });
             const { cart: details } = data;
 
@@ -367,13 +367,10 @@ export const getCartDetails = payload => {
                     await dispatch(removeCart());
                 }
 
-                // Clear the cart data from apollo client if we get here and
-                // have an apolloClient.
-                if (apolloClient) {
-                    await clearCartDataFromCache(apolloClient);
-                }
+                // Clear cart data from Apollo cache
+                await clearCartDataFromCache(apolloClient);
 
-                // Create a new one
+                // Create a new cart
                 try {
                     await dispatch(
                         createCart({

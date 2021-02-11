@@ -12,7 +12,65 @@ jest.mock('../../../Image', () => props => <mock-Image {...props} />);
 
 test('Snapshot test', () => {
     const tree = createTestInstance(
-        <Item product={{ name: '', thumbnail: { url: '' } }} quantity={5} />
+        <Item
+            product={{ name: '', thumbnail: { url: 'www.venia.com/p1' } }}
+            quantity={5}
+        />
+    );
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('Snapshot test when configured to use variant image', () => {
+    const product = {
+        name: 'P1',
+        url_key: 'product',
+        url_suffix: '.html',
+        thumbnail: {
+            url: 'www.venia.com/p1'
+        },
+        variants: [
+            {
+                attributes: [
+                    {
+                        uid: 'Y29uZmlndXJhYmxlLzIyLzI='
+                    }
+                ],
+                product: {
+                    thumbnail: {
+                        url: 'www.venia.com/p1-variant1'
+                    }
+                }
+            },
+            {
+                attributes: [
+                    {
+                        uid: 'Y29uZmlndXJhYmxlLzIyLzM='
+                    }
+                ],
+                product: {
+                    thumbnail: {
+                        url: 'www.venia.com/p1-variant2'
+                    }
+                }
+            }
+        ]
+    };
+    const configurable_options = [
+        {
+            option_label: 'Color',
+            value_label: 'red',
+            id: 22,
+            value_id: 2
+        }
+    ];
+    const tree = createTestInstance(
+        <Item
+            product={product}
+            configurable_options={configurable_options}
+            quantity={5}
+            configurableThumbnailSource={'itself'}
+        />
     );
 
     expect(tree.toJSON()).toMatchSnapshot();

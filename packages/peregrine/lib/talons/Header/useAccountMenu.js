@@ -1,9 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
-import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 import mergeOperations from '../../util/shallowMerge';
 import { useUserContext } from '../../context/user';
 
@@ -36,7 +34,6 @@ export const useAccountMenu = props => {
     const [view, setView] = useState('SIGNIN');
     const [username, setUsername] = useState('');
 
-    const apolloClient = useApolloClient();
     const history = useHistory();
     const location = useLocation();
     const [revokeToken] = useMutation(signOutMutation);
@@ -48,14 +45,12 @@ export const useAccountMenu = props => {
 
         // Delete cart/user data from the redux store.
         await signOut({ revokeToken });
-        await clearCartDataFromCache(apolloClient);
-        await clearCustomerDataFromCache(apolloClient);
 
         // Refresh the page as a way to say "re-initialize". An alternative
         // would be to call apolloClient.resetStore() but that would require
         // a large refactor.
         history.go(0);
-    }, [apolloClient, history, revokeToken, setAccountMenuIsOpen, signOut]);
+    }, [history, revokeToken, setAccountMenuIsOpen, signOut]);
 
     const handleForgotPassword = useCallback(() => {
         setView('FORGOT_PASSWORD');

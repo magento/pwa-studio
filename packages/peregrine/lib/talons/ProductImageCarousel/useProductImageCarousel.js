@@ -1,13 +1,11 @@
 import { useCallback, useEffect } from 'react';
-
 import { useCarousel } from '@magento/peregrine';
-
+import { generateUrlFromContainerWidth } from '@magento/peregrine/lib/util/imageUtils';
 import {
-    sendMessageToSW,
-    VALID_SERVICE_WORKER_ENVIRONMENT
-} from '@magento/venia-ui/lib/util/swUtils';
-import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
-import { generateUrlFromContainerWidth } from '@magento/venia-ui/lib/util/images';
+    MESSAGE_TYPES,
+    VALID_SERVICE_WORKER_ENVIRONMENT,
+    sendMessageToSW
+} from '@magento/peregrine/lib/util/swUtils';
 
 export const useProductImageCarousel = props => {
     const { images, type, imageWidth } = props;
@@ -36,7 +34,7 @@ export const useProductImageCarousel = props => {
                         location.origin
                     ).href
             );
-            sendMessageToSW(PREFETCH_IMAGES, {
+            sendMessageToSW(MESSAGE_TYPES.PREFETCH_IMAGES, {
                 urls
             }).catch(err => {
                 console.error(

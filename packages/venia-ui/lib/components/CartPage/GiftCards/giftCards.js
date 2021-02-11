@@ -73,7 +73,6 @@ const GiftCards = props => {
         isCheckingBalance,
         isRemovingCard,
         removeGiftCard,
-        setFormApi,
         shouldDisplayCardBalance,
         shouldDisplayCardError
     } = talonProps;
@@ -227,12 +226,16 @@ const GiftCards = props => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.entryForm}>
-                <Form getApi={setFormApi}>{cardEntryContents}</Form>
-            </div>
+            <div className={classes.entryForm}>{cardEntryContents}</div>
             {appliedGiftCards}
         </div>
     );
 };
 
-export default GiftCards;
+export default props => {
+    return (
+        <Form>
+            <GiftCards {...props} />
+        </Form>
+    );
+};

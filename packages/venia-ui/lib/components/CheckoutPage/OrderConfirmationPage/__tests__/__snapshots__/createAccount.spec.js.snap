@@ -48,6 +48,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           <input
             autoComplete="given-name"
             className="input"
+            id="customer.firstname"
             name="customer.firstname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -88,6 +89,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           <input
             autoComplete="family-name"
             className="input"
+            id="customer.lastname"
             name="customer.lastname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -128,6 +130,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           <input
             autoComplete="email"
             className="input"
+            id="customer.email"
             name="customer.email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -168,6 +171,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           <input
             autoComplete="new-password"
             className="input"
+            id="password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -224,10 +228,12 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
     >
       <label
         className="root"
+        htmlFor="subscribe"
       >
         <input
           checked={false}
           className="input"
+          id="subscribe"
           name="subscribe"
           onBlur={[Function]}
           onChange={[Function]}
@@ -341,6 +347,7 @@ exports[`CreateAccount renders errors 1`] = `
           <input
             autoComplete="given-name"
             className="input"
+            id="customer.firstname"
             name="customer.firstname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -381,6 +388,7 @@ exports[`CreateAccount renders errors 1`] = `
           <input
             autoComplete="family-name"
             className="input"
+            id="customer.lastname"
             name="customer.lastname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -421,6 +429,7 @@ exports[`CreateAccount renders errors 1`] = `
           <input
             autoComplete="email"
             className="input"
+            id="customer.email"
             name="customer.email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -461,6 +470,7 @@ exports[`CreateAccount renders errors 1`] = `
           <input
             autoComplete="new-password"
             className="input"
+            id="password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -517,10 +527,12 @@ exports[`CreateAccount renders errors 1`] = `
     >
       <label
         className="root"
+        htmlFor="subscribe"
       >
         <input
           checked={false}
           className="input"
+          id="subscribe"
           name="subscribe"
           onBlur={[Function]}
           onChange={[Function]}

@@ -1,0 +1,241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add compression middleware if ENABLE_EXPRESS_SERVER_COMPRESSION is true 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should add the Image Opt middleware 1`] = `
+Array [
+  Array [
+    Object {},
+    Object {},
+  ],
+]
+`;
+
+exports[`should add the Image Opt middleware 2`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should create upward server 1`] = `
+Array [
+  Array [
+    Object {
+      "before": [Function],
+      "bindLocal": true,
+      "env": Object {
+        "ENABLE_EXPRESS_SERVER_COMPRESSION": "false",
+        "PORT": "1234",
+      },
+      "logUrl": true,
+      "port": "1234",
+    },
+  ],
+]
+`;
+
+exports[`should create upward server 2`] = `"Server Object"`;
+
+exports[`should create upward server 3`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should log error if configureHost throws error 1`] = `
+Object {
+  "error": Array [
+    "Could not configure or access custom host. Using loopback...",
+    "unable to configure host",
+  ],
+  "info": Array [
+    "PORT is set in environment: 7899",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should not add compression middleware if ENABLE_EXPRESS_SERVER_COMPRESSION is false 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should throw error if unable to load env 1`] = `[Error: Can not load environment config!]`;
+
+exports[`should throw error if unable to load env 2`] = `
+Object {
+  "error": Array [],
+  "info": Array [],
+  "success": Array [],
+  "warn": Array [],
+}
+`;
+
+exports[`should use configureHost config if custom origin is enabled 1`] = `
+Array [
+  Array [
+    Object {
+      "dir": "pwa-buildpack",
+      "enabled": true,
+      "interactive": false,
+    },
+  ],
+]
+`;
+
+exports[`should use configureHost config if custom origin is enabled 2`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 7899",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should use env.PORT if provided 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 7899",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should use port 0 if both env.PORT and staging config port are falsy 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [
+    "No port set. Binding to OS-assigned port",
+  ],
+}
+`;
+
+exports[`should use staging server port if env.PORT is not defined 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "STAGING_SERVER_PORT is configured: 5678",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should use staging server port if env.PORT is null 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "STAGING_SERVER_PORT is configured: 5678",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should use staging server port if env.PORT is undefined 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "STAGING_SERVER_PORT is configured: 5678",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;

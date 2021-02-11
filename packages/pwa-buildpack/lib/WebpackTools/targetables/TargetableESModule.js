@@ -4,7 +4,7 @@ const TargetableModule = require('./TargetableModule');
 /**
  * An ECMAScript module that can be changed by a third party.
  *
- * Presents a convenient API for consumers to add common transforms to ES
+ * This class presents a convenient API for consumers to add common transforms to ES
  * Modules in a semantic way.
  */
 class TargetableESModule extends TargetableModule {
@@ -14,13 +14,15 @@ class TargetableESModule extends TargetableModule {
         this._bindings = new Map();
     }
     /**
-     * Add a static import statement to the module source code, thus importing
+     * Adds a static import statement to the module source code, thus importing
      * a new dependency.
      *
-     * Automatically deduplicates attempts to add imports that would override earler imports' bindings. If a collision is detected, it renames the binding before inserting it.
+     * This method automatically deduplicates attempts to add imports that would override
+     * earlier import bindings.
+     * If a collision is detected, it renames the binding before inserting it.
      *
      * @param {(string|SingleImportStatement)} statement - A string representing the import statement, or a SingleImportStatement representing it.
-     * @returns SingleImportStatement
+     * @returns {SingleImportStatement} An instance of the [`SingleImportStatement`] class.
      * @memberof TargetableESModule
      */
     addImport(statement) {
@@ -49,10 +51,11 @@ class TargetableESModule extends TargetableModule {
         return importStatement;
     }
     /**
-     * Generate a unique identifier for a given binding. Not guaranteed safe, but good enough in a pinch.
+     * Generates a unique identifier for a given binding. Not guaranteed safe,
+     * but good enough in a pinch.
      *
      * @param {string} binding - The binding to change.
-     * @returns string
+     * @returns {string}
      * @memberof TargetableESModule
      */
     uniqueIdentifier(str) {
@@ -60,10 +63,13 @@ class TargetableESModule extends TargetableModule {
         return `${str}$${TargetableESModule.increment}`;
     }
     /**
-     * Pass exports of this module through a [wrapper module](#wrapper_modules).
+     * Pass exports of this module through a wrapper module.
      *
      * @param {string} [exportName] Name of export to wrap. If not provided, will wrap the default export.
-     * @param {string} wrapperModule Import path to the wrapper module. Should be package-absolute.
+     * @param {string} wrapperModule Package-absolute import path to the wrapper module.
+     *
+     * @return { this }
+     * @chainable
      */
     wrapWithFile(exportNameOrWrapperModule, wrapperModule) {
         const opts = wrapperModule

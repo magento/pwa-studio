@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { func, shape, string } from 'prop-types';
 import { CachePersistor } from 'apollo-cache-persist';
 import { ApolloProvider, createHttpLink } from '@apollo/client';
@@ -9,6 +9,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import attachClient from '@magento/peregrine/lib/Apollo/attachClientToStore';
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 
 import StoreCodeRoute from '../components/StoreCodeRoute';
@@ -46,44 +47,40 @@ const storage = new BrowserPersistence();
  */
 const VeniaAdapter = props => {
     const { apiBase, apollo = {}, children, store } = props;
-
-    const cache = apollo.cache || preInstantiatedCache;
-    const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
-
-    const persistor = new CachePersistor({
-        cache,
-        storage: window.localStorage,
-        debug: process.env.NODE_ENV === 'development'
-    });
-
-    let apolloClient;
-    if (apollo.client) {
-        apolloClient = apollo.client;
-    } else {
-        apolloClient = new ApolloClient({
-            cache,
-            link
-        });
-        apolloClient.apiBase = apiBase;
-    }
-
-    apolloClient.persistor = persistor;
-
     const [initialized, setInitialized] = useState(false);
 
+    const apolloClient = useMemo(() => {
+        const cache = apollo.cache || preInstantiatedCache;
+        const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
+        const client = apollo.client || new ApolloClient({ cache, link });
+        const storeCode = storage.getItem('store_view_code') || 'default';
+
+        const persistor = new CachePersistor({
+            key: `apollo-cache-persist-${storeCode}`,
+            cache,
+            storage: window.localStorage,
+            debug: process.env.NODE_ENV === 'development'
+        });
+
+        return Object.assign(client, { apiBase, persistor });
+    }, [apiBase, apollo]);
+
+    // perform blocking async work here
     useEffect(() => {
-        async function initialize() {
-            // On load, restore the persisted data to the apollo cache and then
-            // allow rendering. You can do other async blocking stuff here.
-            if (persistor) {
-                await persistor.restore();
-            }
+        if (initialized) return;
+
+        // immediately invoke this async function
+        (async () => {
+            // restore persisted data to the Apollo cache
+            await apolloClient.persistor.restore();
+
+            // attach the Apollo client to the Redux store
+            attachClient(apolloClient);
+
+            // mark this routine as complete
             setInitialized(true);
-        }
-        if (!initialized) {
-            initialize();
-        }
-    }, [initialized, persistor]);
+        })();
+    }, [apolloClient, initialized]);
 
     if (!initialized) {
         // TODO: Replace with app skeleton. See PWA-547.
