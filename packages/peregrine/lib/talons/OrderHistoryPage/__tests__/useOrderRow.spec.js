@@ -27,16 +27,31 @@ const Component = props => {
 
 const defaultProps = {
     queries: { getProductThumbnailsQuery: 'getProductThumbnailsQuery' },
-    items: [{ product_url_key: 'sku1' }, { product_url_key: 'sku2' }]
+    items: [
+        { product_sku: 'sku1', product_url_key: 'url_key_sku1' },
+        { product_sku: 'sku2', product_url_key: 'url_key_sku2' }
+    ]
 };
 const items = [
-    { thumbnail: { url: 'sku1 thumbnail url' }, url_key: 'sku1' },
-    { thumbnail: { url: 'sku2 thumbnail url' }, url_key: 'sku2' }
+    {
+        thumbnail: { url: 'sku1 thumbnail url' },
+        url_key: 'url_key_sku1',
+        sku: 'sku1'
+    },
+    {
+        thumbnail: { url: 'sku2 thumbnail url' },
+        url_key: 'url_key_sku2',
+        sku: 'sku2'
+    }
 ];
 const dataResponse = {
     data: {
         products: {
             items
+        },
+        storeConfig: {
+            id: 1,
+            configurable_thumbnail_source: 'parent'
         }
     },
     loading: false
@@ -45,6 +60,59 @@ const dataResponse = {
 test('returns correct shape', () => {
     useQuery.mockReturnValue(dataResponse);
     createTestInstance(<Component {...defaultProps} />);
+
+    const talonProps = log.mock.calls[0][0];
+
+    expect(talonProps).toMatchSnapshot();
+});
+
+test('returns correct shape when variant', () => {
+    const props = {
+        ...defaultProps,
+        items: [
+            ...defaultProps.items,
+            { product_sku: 'sku3_variant1', product_url_key: 'url_key_sku3' }
+        ]
+    };
+    const data = {
+        data: {
+            products: {
+                items: [
+                    ...items,
+                    {
+                        thumbnail: { url: 'sku3 thumbnail url' },
+                        url_key: 'url_key_sku3',
+                        sku: 'sku3',
+                        variants: [
+                            {
+                                product: {
+                                    thumbnail: {
+                                        url: 'sku3_variant1 thumbnail url'
+                                    },
+                                    sku: 'sku3_variant1'
+                                }
+                            },
+                            {
+                                product: {
+                                    thumbnail: {
+                                        url: 'sku3_variant2 thumbnail url'
+                                    },
+                                    sku: 'sku3_variant2'
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            storeConfig: {
+                id: 1,
+                configurable_thumbnail_source: 'itself'
+            }
+        },
+        loading: false
+    };
+    useQuery.mockReturnValue(data);
+    createTestInstance(<Component {...props} />);
 
     const talonProps = log.mock.calls[0][0];
 
@@ -62,6 +130,10 @@ test('filters out items not in the request', () => {
                         url_key: 'bundle-sku'
                     }
                 ]
+            },
+            storeConfig: {
+                id: 1,
+                configurable_thumbnail_source: 'parent'
             }
         },
         loading: false
@@ -71,7 +143,7 @@ test('filters out items not in the request', () => {
 
     const talonProps = log.mock.calls[0][0];
 
-    expect(talonProps.imagesData).toHaveLength(2);
+    expect(Object.keys(talonProps.imagesData)).toHaveLength(2);
 });
 
 test('callback toggles open state', () => {

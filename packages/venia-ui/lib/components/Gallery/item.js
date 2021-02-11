@@ -46,7 +46,7 @@ const GalleryItem = props => {
     }
 
     const { name, price, small_image, url_key, url_suffix } = item;
-    const productLink = resourceUrl(`/${url_key}${url_suffix}`);
+    const productLink = resourceUrl(`/${url_key}${url_suffix || ''}`);
 
     return (
         <div className={classes.root}>

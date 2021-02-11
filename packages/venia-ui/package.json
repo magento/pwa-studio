@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-ui#readme",
   "dependencies": {
-    "informed": "~2.11.17",
+    "informed": "~3.27.0",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
     "lodash.escape": "~4.0.1",
@@ -59,18 +59,18 @@
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@babel/preset-env": "~7.3.4",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
-    "@storybook/react": "~5.2.6",
+    "@storybook/react": "~6.1.14",
+    "@wojtekmaj/enzyme-adapter-react-17": "~0.4.1",
     "babel-core": "~7.0.0-bridge.0",
     "babel-jest": "~24.1.0",
     "babel-loader": "~8.0.5",
     "babel-plugin-dynamic-import-node": "~2.2.0",
     "babel-plugin-graphql-tag": "~2.0.0",
-    "enzyme": "~3.9.0",
-    "enzyme-adapter-react-16": "~1.9.1",
+    "enzyme": "~3.11.0",
     "identity-obj-proxy": "~3.0.0",
-    "react": "~16.9.0",
+    "react": "~17.0.1",
     "react-intl": "~5.7.0",
-    "react-test-renderer": "~16.9.0",
+    "react-test-renderer": "~17.0.1",
     "redux": "~4.0.1"
   },
   "peerDependencies": {
@@ -81,12 +81,12 @@
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.16.0",
     "graphql": "~15.3.0",
-    "react": "~16.9.0",
+    "react": "~17.0.1",
     "react-intl": "~5.7.0",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",
     "redux": "~4.0.1",
-    "webpack": "~4.41.2"
+    "webpack": "~4.46.0"
   },
   "pwa-studio": {
     "targets": {

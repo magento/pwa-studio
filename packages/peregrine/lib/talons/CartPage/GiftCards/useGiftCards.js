@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useFormApi } from 'informed';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -42,6 +43,8 @@ export const useGiftCards = props => {
     // We need the cartId for all of our queries and mutations.
     const [{ cartId }] = useCartContext();
 
+    const formApi = useFormApi();
+
     /*
      * Apollo hooks.
      *
@@ -66,7 +69,6 @@ export const useGiftCards = props => {
     /*
      *  useState hooks.
      */
-    const [formApi, setFormApi] = useState();
     const [mostRecentAction, setMostRecentAction] = useState(null);
 
     /*
@@ -163,7 +165,6 @@ export const useGiftCards = props => {
         isCheckingBalance: balanceResult.loading,
         isRemovingCard: removeCardLoading,
         removeGiftCard,
-        setFormApi,
         shouldDisplayCardBalance,
         shouldDisplayCardError
     };

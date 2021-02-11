@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { useProduct } from '../useProduct';
@@ -31,7 +31,18 @@ jest.mock('@apollo/client', () => {
     ]);
 
     return {
-        ApolloClient,
+        ...ApolloClient,
+        useQuery: jest.fn().mockReturnValue({
+            called: false,
+            error: null,
+            loading: false,
+            data: {
+                storeConfig: {
+                    id: 1,
+                    configurable_thumbnail_source: 'parent'
+                }
+            }
+        }),
         useMutation: spy
     };
 });
@@ -97,20 +108,70 @@ test('it returns the proper shape', () => {
     useMutation.mockReturnValueOnce([jest.fn(), {}]);
     useMutation.mockReturnValueOnce([jest.fn(), {}]);
 
-    // Act.
-    createTestInstance(<Component {...props} />);
+    const tree = createTestInstance(<Component {...props} />);
+    expect(tree.toJSON()).toMatchSnapshot();
+});
 
-    // Assert.
-    expect(log).toHaveBeenCalledWith({
-        errorMessage: '',
-        handleEditItem: expect.any(Function),
-        handleRemoveFromCart: expect.any(Function),
-        handleToggleFavorites: expect.any(Function),
-        handleUpdateItemQuantity: expect.any(Function),
-        isEditable: expect.any(Boolean),
-        isFavorite: expect.any(Boolean),
-        product: expect.any(Object)
+test('it returns the proper shape when use variant image is configured', () => {
+    // Arrange.
+    useMutation.mockReturnValueOnce([jest.fn(), {}]);
+    useMutation.mockReturnValueOnce([jest.fn(), {}]);
+    useQuery.mockReturnValueOnce({
+        called: false,
+        error: null,
+        loading: false,
+        data: {
+            storeConfig: {
+                id: 1,
+                configurable_thumbnail_source: 'itself'
+            }
+        }
     });
+    const configurableProps = {
+        item: {
+            ...props.item,
+            product: {
+                ...props.item.product,
+                variants: [
+                    {
+                        attributes: [
+                            {
+                                uid: 'Y29uZmlndXJhYmxlLzIyLzI='
+                            }
+                        ],
+                        product: {
+                            small_image: {
+                                url: 'variant1.webp'
+                            }
+                        }
+                    },
+                    {
+                        attributes: [
+                            {
+                                uid: 'Y29uZmlndXJhYmxlLzIyLzM='
+                            }
+                        ],
+                        product: {
+                            small_image: {
+                                url: 'variant2.webp'
+                            }
+                        }
+                    }
+                ]
+            },
+            configurable_options: [
+                {
+                    id: 22,
+                    option_label: 'Color',
+                    value_label: 'red',
+                    value_id: 2
+                }
+            ]
+        }
+    };
+
+    const tree = createTestInstance(<Component {...configurableProps} />);
+    expect(tree.toJSON()).toMatchSnapshot();
 });
 
 test('it returns the correct error message when the error is not graphql', async () => {
@@ -167,7 +228,9 @@ test('it resets cart updating flag on unmount', () => {
 
     expect(setIsCartUpdating).not.toBeCalled();
 
-    tree.unmount();
+    act(() => {
+        tree.unmount();
+    });
 
     expect(setIsCartUpdating).toHaveBeenCalledWith(false);
 });

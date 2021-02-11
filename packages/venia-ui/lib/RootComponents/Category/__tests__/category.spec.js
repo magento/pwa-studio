@@ -15,6 +15,12 @@ jest.mock('../../../components/Head', () => ({
 
 jest.mock('../categoryContent', () => 'CategoryContent');
 
+jest.mock('react-router-dom', () => {
+    return {
+        useHistory: jest.fn(() => ({ push: jest.fn() }))
+    };
+});
+
 const talonProps = {
     error: null,
     metaDescription: 'Meta Description',
