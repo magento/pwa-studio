@@ -6,6 +6,9 @@
  */
 const path = require('path');
 
+// Default config at https://jestjs.io/docs/en/configuration
+const { defaults } = require('jest-config');
+
 /**
  * `configureProject()` makes a config object for use in the `projects` array.
  *
@@ -55,7 +58,7 @@ const testReactComponents = inPackage => ({
         '@magento/venia-drivers':
             '<rootDir>/packages/venia-ui/lib/drivers/index.js'
     },
-    moduleFileExtensions: ['ee.js', 'ce.js', 'js', 'json', 'jsx', 'node'],
+    moduleFileExtensions: [...defaults.moduleFileExtensions, 'ee.js', 'ce.js'],
     // Reproduce the Webpack resolution config that lets Venia import
     // from `src` instead of with relative paths:
     modulePaths: [
@@ -229,6 +232,12 @@ const jestConfig = {
         })),
         configureProject('pagebuilder', 'Pagebuilder', testReactComponents),
         configureProject('peregrine', 'Peregrine', inPackage => ({
+            // Make sure we can test extension files.
+            moduleFileExtensions: [
+                ...defaults.moduleFileExtensions,
+                'ee.js',
+                'ce.js'
+            ],
             // Expose jsdom to tests.
             setupFiles: [
                 // Shim DOM properties not supported by jsdom
