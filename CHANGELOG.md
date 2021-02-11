@@ -25,9 +25,10 @@ This release fixes a bug that crashes the scaffolding tool whenever you run `yar
 
 ### Build tools
 
-| Description                   | Change type | PR        |
-| ----------------------------- | ----------- | --------- |
-| Remove lodash from create-pwa | **Bugfix**  | [#3003][] |
+| Description                                       | Change type | PR        |
+| ------------------------------------------------- | ----------- | --------- |
+| Removed lodash from create-pwa                    | **Bugfix**  | [#3003][] |
+| Added venia-concept as a dependency of create-pwa | **Bugfix**  | [#3008][] |
 
 ## Known issues
 
@@ -111,3 +112,4 @@ yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
 
 [#3003]: https://github.com/magento/pwa-studio/pull/3003
+[#3008]: https://github.com/magento/pwa-studio/pull/3008
