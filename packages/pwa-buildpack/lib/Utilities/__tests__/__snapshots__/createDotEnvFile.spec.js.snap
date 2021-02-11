@@ -166,5 +166,13 @@ CHECKOUT_BRAINTREE_TOKEN=sandbox_8yrzsvtm_s2bg8fs563crhqzk
 BUILDBUS_DEPS_ADDITIONAL=
 #
 ################################################################################
+
+#### Express compression settings ##############################################
+#
+#   Specify if express server compression needs to be enabled. Defaults to false if not provided.
+#   - Default when not set: false
+ENABLE_EXPRESS_SERVER_COMPRESSION=false
+#
+################################################################################
 "
 `;

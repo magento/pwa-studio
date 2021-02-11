@@ -113,7 +113,7 @@ export const useToasts = () => {
             const {
                 dismissable,
                 message,
-                timeout,
+                timeout = DEFAULT_TIMEOUT,
                 type,
                 onDismiss,
                 onAction
