@@ -9,6 +9,7 @@ const chalk = require('chalk');
 const createProject = require('../Utilities/createProject');
 const { handler: createEnvFile } = require('./create-env-file');
 const execa = require('execa');
+const sampleBackends = require('../../sampleBackends.json');
 
 const tmpDir = os.tmpdir();
 
@@ -87,7 +88,7 @@ async function findTemplateDir(templateName) {
     }
 }
 
-module.exports.sampleBackends = require('../../sampleBackends.json');
+module.exports.sampleBackends = sampleBackends;
 
 module.exports.command = 'create-project <directory>';
 
