@@ -31,7 +31,6 @@
     "app.errorOffline": "You are offline. Some features may be unavailable.",
     "app.errorUnexpected": "Sorry! An unexpected error occurred.",
     "app.infoOnline": "You are online.",
-    "app.titleHome": "Home Page - {name}",
     "authBar.fallbackText": "Account",
     "authBar.signInText": "Sign In",
     "autocomplete.emptyResult": "No results were found.",
