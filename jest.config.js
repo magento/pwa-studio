@@ -6,7 +6,6 @@
  */
 const path = require('path');
 
-
 /**
  * `configureProject()` makes a config object for use in the `projects` array.
  *
