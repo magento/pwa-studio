@@ -6,7 +6,7 @@ export default function() {
      * Import and Instantiate workbox object.
      */
     importScripts(
-        'https://storage.googleapis.com/workbox-cdn/releases/5.1.3/workbox-sw.js'
+        'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js'
     );
 
     /**
@@ -29,7 +29,7 @@ export default function() {
     clientsClaim();
 
     /**
-     * `self.__WB_MANIFEST` will be replaced with an array of assets
+     * This will be replaced with an array of assets
      * that webpack will be emitting during the compilation process
      * before writing the files in the file system.
      *

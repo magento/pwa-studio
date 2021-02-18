@@ -1,21 +1,20 @@
 import React from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../../../lib/util/createTestInstance';
 import { useItemsReview } from '../useItemsReview';
 
 import cartItems from '../__fixtures__/cartItems';
 
-jest.mock('@apollo/client', () => ({
-    useLazyQuery: jest.fn().mockReturnValue([
-        () => {},
-        {
-            data: null,
-            error: null,
-            loading: true
-        }
-    ])
-}));
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
+    return {
+        ...apolloClient,
+        useQuery: jest.fn(),
+        useLazyQuery: jest.fn()
+    };
+});
 
 jest.mock('../../../../context/cart', () => {
     const state = {
@@ -25,6 +24,25 @@ jest.mock('../../../../context/cart', () => {
     const useCartContext = jest.fn(() => [state, api]);
 
     return { useCartContext };
+});
+
+beforeAll(() => {
+    useLazyQuery.mockReturnValue([
+        () => {},
+        {
+            data: null,
+            error: null,
+            loading: true
+        }
+    ]);
+    useQuery.mockReturnValue({
+        data: {
+            storeConfig: {
+                id: 1,
+                configurable_thumbnail_source: 'parent'
+            }
+        }
+    });
 });
 
 const Component = props => {

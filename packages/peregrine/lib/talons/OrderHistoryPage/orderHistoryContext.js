@@ -16,9 +16,7 @@ const OrderHistoryContextProvider = props => {
 
     const storeConfig = useMemo(() => {
         return {
-            productURLSuffix: data
-                ? data.storeConfig.product_url_suffix
-                : '.html'
+            productURLSuffix: data ? data.storeConfig.product_url_suffix : ''
         };
     }, [data]);
 

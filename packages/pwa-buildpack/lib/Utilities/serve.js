@@ -1,6 +1,7 @@
 const loadEnvironment = require('../Utilities/loadEnvironment');
 const path = require('path');
 const fs = require('fs');
+const compression = require('compression');
 
 module.exports = async function serve(dirname) {
     const config = await loadEnvironment(dirname);
@@ -31,6 +32,13 @@ module.exports = async function serve(dirname) {
                     ...config.section('imageOptimizing'),
                     ...config.section('imageService')
                 });
+                if (process.env.ENABLE_EXPRESS_SERVER_COMPRESSION === 'true') {
+                    app.use(
+                        compression({
+                            threshold: 0
+                        })
+                    );
+                }
             }
         }
     );
@@ -54,7 +62,15 @@ module.exports = async function serve(dirname) {
     }
 
     let envPort;
-    if (process.env.PORT) {
+    /**
+     * null and undefined are represented as strings in the env
+     * so we have to match using strings instead.
+     */
+    if (
+        process.env.PORT &&
+        process.env.PORT !== 'null' &&
+        process.env.PORT !== 'undefined'
+    ) {
         prettyLogger.info(`PORT is set in environment: ${process.env.PORT}`);
         envPort = process.env.PORT;
     } else if (stagingServerSettings.port) {

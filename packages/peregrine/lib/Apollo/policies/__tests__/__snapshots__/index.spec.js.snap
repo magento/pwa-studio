@@ -67,6 +67,11 @@ Object {
     },
   },
   "CustomerPaymentTokens": Object {
+    "fields": Object {
+      "items": Object {
+        "merge": [Function],
+      },
+    },
     "keyFields": [Function],
   },
   "ProductImage": Object {

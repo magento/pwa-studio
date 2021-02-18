@@ -176,6 +176,13 @@ CUSTOM_HTTPS_KEY=
 #   Absolute path to the custom HTTPS certificate cert file.
 #   - Default when not set: 
 CUSTOM_HTTPS_CERT=
+################################################################################
+
+#### Express compression settings ##############################################
+#
+#   Specify if express server compression needs to be enabled. Defaults to false if not provided.
+#   - Default when not set: false
+ENABLE_EXPRESS_SERVER_COMPRESSION=false
 #
 ################################################################################
 "

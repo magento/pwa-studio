@@ -1,8 +1,10 @@
 import { useQuery } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
+import mergeOperations from '../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './storeSwitcher.gql';
 
 const storage = new BrowserPersistence();
 
@@ -11,14 +13,32 @@ const mapAvailableOptions = (config, stores) => {
 
     return stores.reduce((map, store) => {
         const {
+            category_url_suffix,
             code,
             default_display_currency_code: currency,
             locale,
-            store_name: storeName
+            product_url_suffix,
+            secure_base_media_url,
+            store_group_code: storeGroupCode,
+            store_group_name: storeGroupName,
+            store_name: storeName,
+            store_sort_order: sortOrder
         } = store;
 
         const isCurrent = code === configCode;
-        const option = { currency, isCurrent, locale, storeName };
+        const option = {
+            category_url_suffix,
+            code,
+            currency,
+            isCurrent,
+            locale,
+            product_url_suffix,
+            secure_base_media_url,
+            sortOrder,
+            storeGroupCode,
+            storeGroupName,
+            storeName
+        };
 
         return map.set(code, option);
     }, new Map());
@@ -38,10 +58,14 @@ const mapAvailableOptions = (config, stores) => {
  * @returns {Function}  talonProps.handleSwitchStore - A function for handling when the menu item is clicked.
  */
 
-export const useStoreSwitcher = props => {
-    const { queries } = props;
-    const { getStoreConfigData, getAvailableStoresData } = queries;
-    const history = useHistory();
+export const useStoreSwitcher = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const {
+        getStoreConfigData,
+        getUrlResolverData,
+        getAvailableStoresData
+    } = operations;
+    const { pathname } = useLocation();
     const {
         elementRef: storeMenuRef,
         expanded: storeMenuIsOpen,
@@ -52,6 +76,11 @@ export const useStoreSwitcher = props => {
     const { data: storeConfigData } = useQuery(getStoreConfigData, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
+    });
+
+    const { data: urlResolverData } = useQuery(getUrlResolverData, {
+        fetchPolicy: 'cache-first',
+        variables: { url: pathname }
     });
 
     const { data: availableStoresData } = useQuery(getAvailableStoresData, {
@@ -65,16 +94,91 @@ export const useStoreSwitcher = props => {
         }
     }, [storeConfigData]);
 
+    const currentGroupName = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.store_group_name;
+        }
+    }, [storeConfigData]);
+
+    const currentStoreCode = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.code;
+        }
+    }, [storeConfigData]);
+
+    const pageType = useMemo(() => {
+        if (urlResolverData && urlResolverData.urlResolver) {
+            return urlResolverData.urlResolver.type;
+        }
+    }, [urlResolverData]);
+
+    // availableStores => mapped options or empty map if undefined.
     const availableStores = useMemo(() => {
         return (
-            storeConfigData &&
-            availableStoresData &&
-            mapAvailableOptions(
-                storeConfigData.storeConfig,
-                availableStoresData.availableStores
-            )
+            (storeConfigData &&
+                availableStoresData &&
+                mapAvailableOptions(
+                    storeConfigData.storeConfig,
+                    availableStoresData.availableStores
+                )) ||
+            new Map()
         );
     }, [storeConfigData, availableStoresData]);
+
+    // Create a map of sorted store views for each group.
+    const storeGroups = useMemo(() => {
+        const groups = new Map();
+
+        availableStores.forEach(store => {
+            const groupCode = store.storeGroupCode;
+            if (!groups.has(groupCode)) {
+                const groupViews = [store];
+                groups.set(groupCode, groupViews);
+            } else {
+                const groupViews = groups.get(groupCode);
+                // Insert store at configured position
+                groupViews.splice(store.sortOrder, 0, store);
+            }
+        });
+
+        return groups;
+    }, [availableStores]);
+
+    // Get pathname with suffix based on page type
+    const getPathname = useCallback(
+        storeCode => {
+            // Use window.location.pathname to get the path with the store view code
+            // pathname from useLocation() does not include the store view code
+            const pathname = window.location.pathname;
+
+            if (pageType === 'CATEGORY') {
+                const currentSuffix =
+                    availableStores.get(currentStoreCode).category_url_suffix ||
+                    '';
+                const newSuffix =
+                    availableStores.get(storeCode).category_url_suffix || '';
+
+                return currentSuffix
+                    ? pathname.replace(currentSuffix, newSuffix)
+                    : `${pathname}${newSuffix}`;
+            }
+            if (pageType === 'PRODUCT') {
+                const currentSuffix =
+                    availableStores.get(currentStoreCode).product_url_suffix ||
+                    '';
+                const newSuffix =
+                    availableStores.get(storeCode).product_url_suffix || '';
+
+                return currentSuffix
+                    ? pathname.replace(currentSuffix, newSuffix)
+                    : `${pathname}${newSuffix}`;
+            }
+
+            // search.html ...etc
+            return pathname;
+        },
+        [availableStores, currentStoreCode, pageType]
+    );
 
     const handleSwitchStore = useCallback(
         // Change store view code and currency to be used in Apollo link request headers
@@ -82,19 +186,23 @@ export const useStoreSwitcher = props => {
             // Do nothing when store view is not present in available stores
             if (!availableStores.has(storeCode)) return;
 
+            const pathName = getPathname(storeCode);
+            const params = window.location.search || '';
+
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
                 'store_view_currency',
                 availableStores.get(storeCode).currency
+            );
+            storage.setItem(
+                'store_view_secure_base_media_url',
+                availableStores.get(storeCode).secure_base_media_url
             );
 
             // Handle updating the URL if the store code should be present.
             // In this block we use `window.location.assign` to work around the
             // static React Router basename, which is changed on initialization.
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
-                const pathName = window.location.pathname;
-                const params = window.location.search || '';
-
                 // Check to see if we're on a page outside of the homepage
                 if (pathName !== '' && pathName !== '/') {
                     const [, pathStoreCode] = pathName.split('/');
@@ -123,10 +231,10 @@ export const useStoreSwitcher = props => {
             } else {
                 // Refresh the page to re-trigger the queries once code/currency
                 // are saved in local storage.
-                history.go(0);
+                window.location.assign(`${pathName}${params}`);
             }
         },
-        [history, availableStores]
+        [availableStores, getPathname]
     );
 
     const handleTriggerClick = useCallback(() => {
@@ -135,8 +243,10 @@ export const useStoreSwitcher = props => {
     }, [setStoreMenuIsOpen]);
 
     return {
-        currentStoreName,
         availableStores,
+        currentGroupName,
+        currentStoreName,
+        storeGroups,
         storeMenuRef,
         storeMenuTriggerRef,
         storeMenuIsOpen,

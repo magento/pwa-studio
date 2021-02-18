@@ -8,7 +8,6 @@ exports[`Edit Mode renders correctly 1`] = `
   onCancel={[MockFunction onCancel]}
   onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
-  shouldUnmountOnHide={true}
   title="Edit Address"
 >
   <FormError
@@ -48,6 +47,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -100,6 +100,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
+              id="middlename"
               name="middlename"
               onBlur={[Function]}
               onChange={[Function]}
@@ -144,6 +145,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -196,6 +198,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -248,6 +251,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -292,6 +296,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -354,6 +359,7 @@ exports[`Edit Mode renders correctly 1`] = `
           >
             <input
               className="input"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -377,10 +383,12 @@ exports[`Edit Mode renders correctly 1`] = `
     >
       <label
         className="root"
+        htmlFor="default_shipping"
       >
         <input
           checked={false}
           className="input"
+          id="default_shipping"
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}
@@ -432,7 +440,6 @@ exports[`Edit Mode renders correctly with errors 1`] = `
   onCancel={[MockFunction onCancel]}
   onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
-  shouldUnmountOnHide={true}
   title="Edit Address"
 >
   <FormError
@@ -477,6 +484,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -529,6 +537,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="middlename"
               name="middlename"
               onBlur={[Function]}
               onChange={[Function]}
@@ -573,6 +582,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -625,6 +635,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -677,6 +688,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -721,6 +733,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -783,6 +796,7 @@ exports[`Edit Mode renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -806,10 +820,12 @@ exports[`Edit Mode renders correctly with errors 1`] = `
     >
       <label
         className="root"
+        htmlFor="default_shipping"
       >
         <input
           checked={false}
           className="input"
+          id="default_shipping"
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}
@@ -861,7 +877,6 @@ exports[`renders correctly 1`] = `
   onCancel={[MockFunction onCancel]}
   onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
-  shouldUnmountOnHide={true}
   title="New Address"
 >
   <FormError
@@ -901,6 +916,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -953,6 +969,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
+              id="middlename"
               name="middlename"
               onBlur={[Function]}
               onChange={[Function]}
@@ -997,6 +1014,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1049,6 +1067,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1101,6 +1120,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1145,6 +1165,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1207,6 +1228,7 @@ exports[`renders correctly 1`] = `
           >
             <input
               className="input"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1230,10 +1252,12 @@ exports[`renders correctly 1`] = `
     >
       <label
         className="root"
+        htmlFor="default_shipping"
       >
         <input
           checked={false}
           className="input"
+          id="default_shipping"
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}
@@ -1285,7 +1309,6 @@ exports[`renders correctly with errors 1`] = `
   onCancel={[MockFunction onCancel]}
   onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
-  shouldUnmountOnHide={true}
   title="New Address"
 >
   <FormError
@@ -1330,6 +1353,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1382,6 +1406,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="middlename"
               name="middlename"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1426,6 +1451,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1478,6 +1504,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="street[0]"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1530,6 +1557,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="street[1]"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1574,6 +1602,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1636,6 +1665,7 @@ exports[`renders correctly with errors 1`] = `
           >
             <input
               className="input"
+              id="telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1659,10 +1689,12 @@ exports[`renders correctly with errors 1`] = `
     >
       <label
         className="root"
+        htmlFor="default_shipping"
       >
         <input
           checked={false}
           className="input"
+          id="default_shipping"
           name="default_shipping"
           onBlur={[Function]}
           onChange={[Function]}

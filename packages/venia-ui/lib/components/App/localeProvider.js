@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 import { fromReactIntl, toReactIntl } from '../../util/formatLocale';
 import { gql, useQuery } from '@apollo/client';
-import LoadingIndicator from '../LoadingIndicator';
 
 const GET_LOCALE = gql`
     query getLocale {
@@ -15,15 +14,16 @@ const GET_LOCALE = gql`
 
 const LocaleProvider = props => {
     const [messages, setMessages] = useState(null);
-    const { data, loading } = useQuery(GET_LOCALE, {
+    const { data } = useQuery(GET_LOCALE, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const language =
-        data && data.storeConfig.locale
+    const language = useMemo(() => {
+        return data && data.storeConfig.locale
             ? toReactIntl(data.storeConfig.locale)
-            : null;
+            : DEFAULT_LOCALE;
+    }, [data]);
 
     /**
      * At build time, `__fetchLocaleData__` is injected as a global. Depending on the environment, this global will be
@@ -49,9 +49,9 @@ const LocaleProvider = props => {
                     );
                 });
         }
-    }, [fetchLocale, setMessages, language]);
+    }, [fetchLocale, language]);
 
-    const onIntlError = error => {
+    const handleIntlError = error => {
         if (messages) {
             if (error.code === 'MISSING_TRANSLATION') {
                 console.warn('Missing translation', error.message);
@@ -61,16 +61,14 @@ const LocaleProvider = props => {
         }
     };
 
-    if (loading) return <LoadingIndicator global={true} />;
-
     return (
         <IntlProvider
             key={language}
             {...props}
-            defaultLocale="en-US"
+            defaultLocale={DEFAULT_LOCALE}
             locale={language}
             messages={messages}
-            onError={onIntlError}
+            onError={handleIntlError}
         />
     );
 };

@@ -31,6 +31,7 @@ Array [
           >
             <input
               className="input"
+              id="firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -75,6 +76,7 @@ Array [
           >
             <input
               className="input"
+              id="lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -119,6 +121,7 @@ Array [
           >
             <input
               className="input"
+              id="email"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
@@ -163,6 +166,7 @@ Array [
             <input
               autoComplete="current-password"
               className="input"
+              id="password"
               name="password"
               onBlur={[Function]}
               onChange={[Function]}
@@ -268,6 +272,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
         >
           <input
             className="input"
+            id="firstname"
             name="firstname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -312,6 +317,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
         >
           <input
             className="input"
+            id="lastname"
             name="lastname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -356,6 +362,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
         >
           <input
             className="input"
+            id="email"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -400,6 +407,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
           <input
             autoComplete="current-password"
             className="input"
+            id="password"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -477,6 +485,7 @@ exports[`renders form when shouldShowNewPassword is true  1`] = `
         >
           <input
             className="input"
+            id="newPassword"
             name="newPassword"
             onBlur={[Function]}
             onChange={[Function]}

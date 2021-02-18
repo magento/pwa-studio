@@ -22,6 +22,7 @@ beforeEach(() => {
             default_display_currency_code: 'USD',
             id: 1,
             locale: 'en_US',
+            secure_base_media_url: 'https://example.com/media/',
             store_name: 'Default Store View'
         },
         {
@@ -30,6 +31,7 @@ beforeEach(() => {
             default_display_currency_code: 'EUR',
             id: 2,
             locale: 'fr_FR',
+            secure_base_media_url: 'https://example.com/media/abcdef/',
             store_name: 'French'
         }
     ];
@@ -57,7 +59,11 @@ test('StoreCodeRoute handler updates storage when store code in url is not curre
 
     expect(mockSetItem.mock.calls).toEqual([
         ['store_view_code', 'french'],
-        ['store_view_currency', 'EUR']
+        ['store_view_currency', 'EUR'],
+        [
+            'store_view_secure_base_media_url',
+            'https://example.com/media/abcdef/'
+        ]
     ]);
     expect(goMock).toHaveBeenCalled();
 
