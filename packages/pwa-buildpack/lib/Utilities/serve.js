@@ -1,6 +1,6 @@
 const loadEnvironment = require('../Utilities/loadEnvironment');
 const path = require('path');
-const fs = require('fs');
+const { existsSync, readFileSync } = require('fs');
 const compression = require('compression');
 
 module.exports = async function serve(dirname) {
@@ -45,13 +45,13 @@ module.exports = async function serve(dirname) {
 
     if (customHttpsSettings.key && customHttpsSettings.cert) {
         const { key, cert } = customHttpsSettings;
-        if (fs.existsSync(key) && fs.existsSync(cert)) {
+        if (existsSync(key) && existsSync(cert)) {
             prettyLogger.info(
                 'Custom key and cert paths provided, creating HTTPS server.'
             );
             const ssl = {
-                key: fs.readFileSync(key, 'utf8'),
-                cert: fs.readFileSync(cert, 'utf8')
+                key: readFileSync(key, 'utf8'),
+                cert: readFileSync(cert, 'utf8')
             };
             upwardServerOptions.https = ssl;
         } else {
@@ -106,8 +106,10 @@ module.exports = async function serve(dirname) {
                     })
                 );
                 upwardServerOptions.host = hostname;
-                upwardServerOptions.https = ssl;
                 upwardServerOptions.port = envPort || ports.staging || 0;
+                if (!upwardServerOptions.https) {
+                    upwardServerOptions.https = ssl;
+                }
             } catch (e) {
                 prettyLogger.error(
                     'Could not configure or access custom host. Using loopback...',
