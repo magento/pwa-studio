@@ -107,9 +107,7 @@ const convertToInlineStyles = document => {
 
     Object.keys(styles).map(selector => {
         const element = document.querySelector(selector);
-        if (!element) {
-            return;
-        }
+        if (!element) { return; }
         
         styles[selector].map(style => {
             element.setAttribute(
