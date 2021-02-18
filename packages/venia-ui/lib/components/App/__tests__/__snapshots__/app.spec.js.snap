@@ -19,7 +19,7 @@ exports[`displays open nav or drawer 1`] = `
 exports[`renders with renderErrors 1`] = `
 <HeadProvider>
   <Title>
-    Home Page - Venia
+    Venia
   </Title>
   <Main
     isMasked={true}
@@ -34,7 +34,7 @@ exports[`renders with renderErrors 1`] = `
 exports[`renders with unhandledErrors 1`] = `
 <HeadProvider>
   <Title>
-    Home Page - Venia
+    Venia
   </Title>
   <Main
     isMasked={false}

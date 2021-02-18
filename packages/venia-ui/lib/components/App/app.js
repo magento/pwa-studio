@@ -93,12 +93,7 @@ const App = props => {
     if (renderError) {
         return (
             <HeadProvider>
-                <Title>
-                    {formatMessage(
-                        { id: 'app.titleHome', defaultMessage: 'Home Page' },
-                        { name: STORE_NAME }
-                    )}
-                </Title>
+                <Title>{STORE_NAME}</Title>
                 <Main isMasked={true} />
                 <Mask isActive={true} />
                 <ToastContainer />
@@ -108,12 +103,7 @@ const App = props => {
 
     return (
         <HeadProvider>
-            <Title>
-                {formatMessage(
-                    { id: 'app.titleHome', defaultMessage: 'Home Page' },
-                    { name: STORE_NAME }
-                )}
-            </Title>
+            <Title>{STORE_NAME}</Title>
             <Main isMasked={hasOverlay}>
                 <Routes />
             </Main>
