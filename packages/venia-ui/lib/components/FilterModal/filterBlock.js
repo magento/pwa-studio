@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { arrayOf, shape, string } from 'prop-types';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import { Form } from 'informed';
@@ -12,6 +13,7 @@ import defaultClasses from './filterBlock.css';
 
 const FilterBlock = props => {
     const { filterApi, filterState, group, items, name } = props;
+    const { formatMessage } = useIntl();
     const talonProps = useFilterBlock();
     const { handleClick, isExpanded } = talonProps;
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
@@ -19,6 +21,19 @@ const FilterBlock = props => {
     const listClass = isExpanded
         ? classes.list_expanded
         : classes.list_collapsed;
+    const toggleItemOptionsAriaLabel = isExpanded
+        ? formatMessage({
+            id: 'filterModal.item.hideOptions',
+            defaultMessage: 'Hide "{itemName}" options.',
+        }, {
+            itemName: name
+        })
+        : formatMessage({
+            id: 'filterModal.item.showOptions',
+            defaultMessage: 'Show "{itemName}" options.'
+        }, {
+            itemName: name
+        });
 
     return (
         <li className={classes.root}>
@@ -26,6 +41,7 @@ const FilterBlock = props => {
                 className={classes.trigger}
                 onClick={handleClick}
                 type="button"
+                aria-label={toggleItemOptionsAriaLabel}
             >
                 <span className={classes.header}>
                     <span className={classes.name}>{name}</span>
