@@ -45,8 +45,18 @@ module.exports = async env => {
     const storeConfigData = await getStoreConfigData();
     const { availableStores } = await getAvailableStoresConfigData();
 
+    /**
+     * Loop the available stores when there is provided STORE_VIEW_CODE
+     * in the .env file, because should set the store name from the
+     * given store code instead of the default one.
+     */
+    const availableStore = process.env.STORE_VIEW_CODE
+        ? availableStores.find(store => store.code === process.env.STORE_VIEW_CODE)
+        : undefined;
+
     global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
     global.LOCALE = storeConfigData.locale.replace('_', '-');
+    global.STORE_NAME = storeConfigData.store_name;
     global.AVAILABLE_STORE_VIEWS = availableStores;
 
     const possibleTypes = await getPossibleTypes();
@@ -63,7 +73,9 @@ module.exports = async env => {
              * the globals object in jest.config.js.
              */
             POSSIBLE_TYPES: JSON.stringify(possibleTypes),
-            STORE_NAME: JSON.stringify('Venia'),
+            STORE_NAME: process.env.STORE_VIEW_CODE && availableStore
+                ? JSON.stringify(availableStore.store_name)
+                : JSON.stringify(global.STORE_NAME),
             STORE_VIEW_CODE: process.env.STORE_VIEW_CODE
                 ? JSON.stringify(process.env.STORE_VIEW_CODE)
                 : JSON.stringify(storeConfigData.code),
