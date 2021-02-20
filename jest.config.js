@@ -230,6 +230,15 @@ const jestConfig = {
         })),
         configureProject('pagebuilder', 'Pagebuilder', testReactComponents),
         configureProject('peregrine', 'Peregrine', inPackage => ({
+            // Make sure we can test extension files.
+            moduleFileExtensions: [
+                'ee.js',
+                'ce.js',
+                'js',
+                'json',
+                'jsx',
+                'node'
+            ],
             // Define global variables.
             globals,
             // Expose jsdom to tests.
