@@ -10,8 +10,7 @@ import DiscountSummary from './discountSummary';
 import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
-import { PriceSummaryFragment } from './priceSummaryFragments';
-
+import { PriceSummaryFragment } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/priceSummaryFragments.gql';
 const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
         cart(cart_id: $cartId) {

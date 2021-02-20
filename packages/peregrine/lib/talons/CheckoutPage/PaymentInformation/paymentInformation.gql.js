@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { PriceSummaryFragment } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/priceSummaryFragments.gql';
+import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 
 export const AvailablePaymentMethodsFragment = gql`
     fragment AvailablePaymentMethodsFragment on Cart {
