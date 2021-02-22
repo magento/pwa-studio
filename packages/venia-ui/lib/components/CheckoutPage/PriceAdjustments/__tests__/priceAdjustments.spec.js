@@ -19,10 +19,9 @@ jest.mock(
 );
 
 test('renders price adjustments', () => {
+    const mockSetPageIsUpdating = jest.fn().mockName('setPageIsUpdating');
     const tree = createTestInstance(
-        <PriceAdjustments
-            setPageIsUpdating={jest.fn().mockName('setIsPageUpdating')}
-        />
+        <PriceAdjustments setPageIsUpdating={mockSetPageIsUpdating} />
     );
 
     expect(tree.toJSON()).toMatchSnapshot();

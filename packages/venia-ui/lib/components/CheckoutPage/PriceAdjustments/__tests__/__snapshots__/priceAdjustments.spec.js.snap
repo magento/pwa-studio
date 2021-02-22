@@ -12,11 +12,11 @@ exports[`renders price adjustments 1`] = `
       title="Enter Coupon Code"
     >
       <CouponCode
-        setIsCartUpdating={[MockFunction setIsPageUpdating]}
+        setIsCartUpdating={[MockFunction setPageIsUpdating]}
       />
     </mock-Section>
     <GiftCardSection
-      setIsCartUpdating={[MockFunction setIsPageUpdating]}
+      setIsCartUpdating={[MockFunction setPageIsUpdating]}
     />
     <mock-Section
       id="gift_options"
