@@ -12,7 +12,7 @@
   "scripts": {
     "build": "yarn run build:prod",
     "build:analyze": "yarn run clean && mkdir dist && webpack -p --profile --no-progress --env.mode production --json > dist/build-stats.json && webpack-bundle-analyzer dist/build-stats.json",
-    "build:debug": "node --inspect-brk ./node_modules/.bin/webpack --no-progress --env.mode",
+    "build:debug": "node --inspect-brk ./node_modules/.bin/webpack --no-progress --env.mode development",
     "build:dev": "yarn run clean && yarn run validate-queries && webpack --no-progress --env.mode development",
     "build:prod": "yarn run clean && webpack --no-progress --env.mode production",
     "build:report": "buildpack generate-build-report",
@@ -70,6 +70,7 @@
     "babel-plugin-graphql-tag": "~2.0.0",
     "babel-plugin-module-resolver": "~3.2.0",
     "braintree-web-drop-in": "~1.16.0",
+    "compression": "~1.7.4",
     "css-loader": "~2.1.1",
     "dotenv": "~6.2.0",
     "enzyme": "~3.11.0",
