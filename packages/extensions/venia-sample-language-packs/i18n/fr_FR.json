@@ -27,7 +27,6 @@
     "app.errorOffline": "Vous êtes hors ligne. Certaines fonctionnalités peuvent ne pas être disponibles.",
     "app.errorUnexpected": "Pardon! Une erreur inattendue est apparue.",
     "app.infoOnline": "Vous êtes en ligne.",
-    "app.titleHome": "Page d'accueil - {name}",
     "authBar.fallbackText": "Compte",
     "authBar.signInText": "Se connecter",
     "autocomplete.emptyResult": "Aucun resultat n'a été trouvé.",
