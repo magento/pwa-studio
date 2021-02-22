@@ -8,7 +8,7 @@ exports[`Submenu renders correctly it renders correctly 1`] = `
     className="submenuItems"
     style={
       Object {
-        "minWidth": undefined,
+        "minWidth": NaN,
       }
     }
   >

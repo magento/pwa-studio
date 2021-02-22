@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
  */
 const Submenu = props => {
     const { items, mainNavWidth } = props;
+    const PADDING_OFFSET = 20;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const subMenus = items.map(category => {
@@ -22,7 +23,7 @@ const Submenu = props => {
         <div className={classes.submenu}>
             <div
                 className={classes.submenuItems}
-                style={{ minWidth: mainNavWidth }}
+                style={{ minWidth: mainNavWidth + PADDING_OFFSET }}
             >
                 {subMenus}
             </div>

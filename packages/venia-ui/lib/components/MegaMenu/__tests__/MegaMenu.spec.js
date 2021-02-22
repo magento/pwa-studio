@@ -5,7 +5,6 @@ import MegaMenu from '../megaMenu';
 
 jest.mock('../../../classify');
 
-
 jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenu', () => ({
     useMegaMenu: jest.fn().mockReturnValue({
         megaMenuData: {

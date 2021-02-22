@@ -20,8 +20,10 @@ const MegaMenu = props => {
 
     useEffect(() => {
         const handleResize = () => {
-            const navWidth = mainNavRef.current ? mainNavRef.current.offsetWidth : null;
-            
+            const navWidth = mainNavRef.current
+                ? mainNavRef.current.offsetWidth
+                : null;
+
             setMainNavWidth(navWidth);
         };
 
@@ -32,7 +34,7 @@ const MegaMenu = props => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [mainNavRef]);
+    });
 
     const items = megaMenuData.children
         ? megaMenuData.children.map(category => {

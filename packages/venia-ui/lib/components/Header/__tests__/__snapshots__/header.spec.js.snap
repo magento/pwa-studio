@@ -41,7 +41,7 @@ Array [
               className="submenuItems"
               style={
                 Object {
-                  "minWidth": null,
+                  "minWidth": 20,
                 }
               }
             >

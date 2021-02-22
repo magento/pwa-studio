@@ -22,7 +22,7 @@ exports[`it renders correctly 1`] = `
         className="submenuItems"
         style={
           Object {
-            "minWidth": null,
+            "minWidth": 20,
           }
         }
       >
