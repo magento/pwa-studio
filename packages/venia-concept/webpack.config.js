@@ -50,7 +50,7 @@ module.exports = async env => {
      * in the .env file, because should set the store name from the
      * given store code instead of the default one.
      */
-    const availableStore = availableStore.find({ code } => code === process.env.STORE_VIEW_CODE);
+    const availableStore = availableStore.find(({ code }) => code === process.env.STORE_VIEW_CODE);
 
     global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
     global.LOCALE = storeConfigData.locale.replace('_', '-');
