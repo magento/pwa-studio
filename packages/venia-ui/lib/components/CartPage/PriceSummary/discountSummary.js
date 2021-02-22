@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { gql } from '@apollo/client';
 import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
@@ -60,17 +59,5 @@ const DiscountSummary = props => {
         </Fragment>
     ) : null;
 };
-
-export const DiscountSummaryFragment = gql`
-    fragment DiscountSummaryFragment on CartPrices {
-        discounts {
-            amount {
-                currency
-                value
-            }
-            label
-        }
-    }
-`;
 
 export default DiscountSummary;
