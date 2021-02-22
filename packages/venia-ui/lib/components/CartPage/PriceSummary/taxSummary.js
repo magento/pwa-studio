@@ -1,6 +1,5 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { gql } from '@apollo/client';
 import Price from '@magento/venia-ui/lib/components/Price';
 
 import { mergeClasses } from '../../../classify';
@@ -54,16 +53,5 @@ const TaxSummary = props => {
         </>
     );
 };
-
-export const TaxSummaryFragment = gql`
-    fragment TaxSummaryFragment on CartPrices {
-        applied_taxes {
-            amount {
-                currency
-                value
-            }
-        }
-    }
-`;
 
 export default TaxSummary;
