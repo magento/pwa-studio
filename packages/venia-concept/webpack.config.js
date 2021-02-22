@@ -70,8 +70,7 @@ module.exports = async env => {
              * the globals object in jest.config.js.
              */
             POSSIBLE_TYPES: JSON.stringify(possibleTypes),
-            STORE_NAME:
-                process.env.STORE_VIEW_CODE && availableStore
+            STORE_NAME: availableStore
                     ? JSON.stringify(availableStore.store_name)
                     : JSON.stringify(storeConfigData.store_name),
             STORE_VIEW_CODE: process.env.STORE_VIEW_CODE
