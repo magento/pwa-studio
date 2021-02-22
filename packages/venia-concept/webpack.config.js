@@ -50,7 +50,7 @@ module.exports = async env => {
      * in the .env file, because should set the store name from the
      * given store code instead of the default one.
      */
-    const availableStore = availableStore.find(
+    const availableStore = availableStores.find(
         ({ code }) => code === process.env.STORE_VIEW_CODE
     );
 
