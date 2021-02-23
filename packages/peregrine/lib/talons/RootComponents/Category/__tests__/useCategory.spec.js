@@ -243,6 +243,22 @@ test('loading state when only categoryLoading is involved', () => {
     expect(loading).toBeTruthy();
 });
 
+test('sets current page to 1 if error, !loading, !data, and currentPage != 1', () => {
+    useLazyQuery.mockReturnValue([
+        mockRunQuery,
+        {
+            ...mockCategoryData,
+            loading: false,
+            data: null,
+            error: true
+        }
+    ]);
+
+    createTestInstance(<Component {...mockProps} />);
+
+    expect(mockSetCurrentPage).toHaveBeenCalledWith(1);
+});
+
 const testCases = [
     [
         'sortText does not reset',

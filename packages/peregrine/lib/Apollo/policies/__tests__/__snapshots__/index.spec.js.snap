@@ -56,6 +56,14 @@ Object {
         "merge": [Function],
         "read": [Function],
       },
+      "orders": Object {
+        "items": Object {
+          "merge": true,
+        },
+        "keyArgs": Array [
+          "filter",
+        ],
+      },
     },
     "keyFields": [Function],
   },
