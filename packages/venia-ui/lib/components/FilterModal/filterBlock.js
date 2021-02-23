@@ -21,26 +21,45 @@ const FilterBlock = props => {
     const listClass = isExpanded
         ? classes.list_expanded
         : classes.list_collapsed;
+
+    const itemAriaLabel = formatMessage({
+        id: 'filterModal.item.ariaLabel',
+        defaultMessage: 'Filter products by "{itemName}".',
+    }, {
+        itemName: name
+    });
+
     const toggleItemOptionsAriaLabel = isExpanded
         ? formatMessage({
             id: 'filterModal.item.hideOptions',
-            defaultMessage: 'Hide "{itemName}" options.',
+            defaultMessage: 'Hide "{itemName}" filter item options.',
         }, {
             itemName: name
         })
         : formatMessage({
             id: 'filterModal.item.showOptions',
-            defaultMessage: 'Show "{itemName}" options.'
+            defaultMessage: 'Show "{itemName}" filter item options.'
         }, {
             itemName: name
         });
 
+    const filterItemOptions = isExpanded &&
+        <Form className={listClass}>
+            <FilterList
+                filterApi={filterApi}
+                filterState={filterState}
+                group={group}
+                items={items}
+            />
+        </Form>;
+
     return (
-        <li className={classes.root}>
+        <li className={classes.root} aria-label={itemAriaLabel}>
             <button
                 className={classes.trigger}
                 onClick={handleClick}
                 type="button"
+                aria-expanded={isExpanded}
                 aria-label={toggleItemOptionsAriaLabel}
             >
                 <span className={classes.header}>
@@ -48,14 +67,7 @@ const FilterBlock = props => {
                     <Icon src={iconSrc} />
                 </span>
             </button>
-            <Form className={listClass}>
-                <FilterList
-                    filterApi={filterApi}
-                    filterState={filterState}
-                    group={group}
-                    items={items}
-                />
-            </Form>
+            {filterItemOptions}
         </li>
     );
 };

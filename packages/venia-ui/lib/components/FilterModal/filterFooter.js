@@ -22,7 +22,7 @@ const FilterFooter = props => {
 
     return (
         <div className={classes.root}>
-            <Button disabled={!touched} onClick={applyFilters} aria-label={buttonLabel} priority="high">
+            <Button disabled={!touched} onClick={applyFilters} aria-label={buttonLabel} aria-disabled={!touched} priority="high">
                 {buttonLabel}
             </Button>
         </div>
