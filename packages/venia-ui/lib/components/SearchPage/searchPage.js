@@ -5,23 +5,19 @@ import { shape, string } from 'prop-types';
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
 
 import { mergeClasses } from '../../classify';
-import Gallery from '../Gallery';
-import FilterModal from '../FilterModal';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Pagination from '../../components/Pagination';
-import defaultClasses from './searchPage.css';
-import { GET_PAGE_SIZE } from './searchPage.gql';
+import FilterModal from '../FilterModal';
+import Gallery from '../Gallery';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import ProductSort from '../ProductSort';
 import Button from '../Button';
+
+import defaultClasses from './searchPage.css';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const talonProps = useSearchPage({
-        queries: {
-            getPageSize: GET_PAGE_SIZE
-        }
-    });
+    const talonProps = useSearchPage();
 
     const {
         data,
@@ -38,22 +34,24 @@ const SearchPage = props => {
 
     const [currentSort] = sortProps;
 
-    if (loading && !data) return fullPageLoadingIndicator;
-    if (error) {
-        return (
-            <div className={classes.noResult}>
-                <FormattedMessage
-                    id={'searchPage.noResult'}
-                    defaultMessage={
-                        'No results found. The search term may be missing or invalid.'
-                    }
-                />
-            </div>
-        );
+    if (!data) {
+        if (loading) return fullPageLoadingIndicator;
+        else if (error) {
+            return (
+                <div className={classes.noResult}>
+                    <FormattedMessage
+                        id={'searchPage.noResult'}
+                        defaultMessage={
+                            'No results found. The search term may be missing or invalid.'
+                        }
+                    />
+                </div>
+            );
+        }
     }
 
     let content;
-    if (!data || data.products.items.length === 0) {
+    if (data.products.items.length === 0) {
         content = (
             <div className={classes.noResult}>
                 <FormattedMessage
@@ -75,7 +73,7 @@ const SearchPage = props => {
         );
     }
 
-    const totalCount = data ? data.products.total_count : 0;
+    const totalCount = data.products.total_count || 0;
 
     const maybeFilterButtons =
         filters && filters.length ? (

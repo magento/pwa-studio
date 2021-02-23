@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
 
-import { DiscountSummaryFragment } from './discountSummary';
+import { DiscountSummaryFragment } from './discountSummary.gql';
 import { GiftCardSummaryFragment } from './queries/giftCardSummary';
-import { ShippingSummaryFragment } from './shippingSummary';
-import { TaxSummaryFragment } from './taxSummary';
+import { ShippingSummaryFragment } from './shippingSummary.gql';
+import { TaxSummaryFragment } from './taxSummary.gql';
 
 export const GrandTotalFragment = gql`
     fragment GrandTotalFragment on CartPrices {

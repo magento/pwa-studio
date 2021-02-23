@@ -130,6 +130,12 @@ const typePolicies = {
                     // If there are no cached addresses that's fine - the schema
                     // shows that it is a nullable field.
                 }
+            },
+            orders: {
+                keyArgs: ['filter'],
+                items: {
+                    merge: true
+                }
             }
         }
     },
