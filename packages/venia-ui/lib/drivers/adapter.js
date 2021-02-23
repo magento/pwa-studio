@@ -10,8 +10,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import attachClient from '@magento/peregrine/lib/Apollo/attachClientToStore';
-import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 
+import typePolicies from '@magento/peregrine/lib/Apollo/policies';
+import { CACHE_PERSIST_PREFIX } from '@magento/peregrine/lib/Apollo/constants';
 import StoreCodeRoute from '../components/StoreCodeRoute';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
 
@@ -56,7 +57,7 @@ const VeniaAdapter = props => {
         const storeCode = storage.getItem('store_view_code') || 'default';
 
         const persistor = new CachePersistor({
-            key: `apollo-cache-persist-${storeCode}`,
+            key: `${CACHE_PERSIST_PREFIX}-${storeCode}`,
             cache,
             storage: window.localStorage,
             debug: process.env.NODE_ENV === 'development'

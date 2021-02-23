@@ -7,10 +7,20 @@ import typePolicies from '../policies';
 
 import { clearCartDataFromCache } from '../clearCartDataFromCache';
 
+const persistor = {
+    persistor: {
+        storage: {
+            key: 'unit test key'
+        }
+    },
+    persist: jest.fn()
+};
+
 const log = jest.fn();
 
 const Component = () => {
     const client = useApolloClient();
+    client.persistor = persistor;
 
     const initialCacheData = Object.assign({}, client.cache.data.data);
     log(initialCacheData);
