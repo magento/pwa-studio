@@ -185,4 +185,34 @@ describe('CheckoutPage', () => {
 
         expect(signInComponent.props.isActive).toBe(true);
     });
+
+    test('renders empty cart', () => {
+        useCheckoutPage.mockReturnValueOnce({
+            ...defaultTalonProps,
+            isCartEmpty: true
+        });
+
+        const tree = createTestInstance(<CheckoutPage />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders price adjustments and review order button', () => {
+        useCheckoutPage.mockReturnValueOnce({
+            ...defaultTalonProps,
+            checkoutStep: CHECKOUT_STEP.PAYMENT,
+            handleReviewOrder: jest.fn().mockName('handleReviewOrder'),
+            isUpdating: true
+        });
+
+        const tree = createTestInstance(<CheckoutPage />);
+        const priceAdjustmentsComponent = tree.root.findByProps({
+            className: 'price_adjustments_container'
+        });
+        const reviewOrderButtonComponent = tree.root.findByProps({
+            className: 'review_order_button'
+        });
+
+        expect(priceAdjustmentsComponent.props).toMatchSnapshot();
+        expect(reviewOrderButtonComponent.props).toMatchSnapshot();
+    });
 });

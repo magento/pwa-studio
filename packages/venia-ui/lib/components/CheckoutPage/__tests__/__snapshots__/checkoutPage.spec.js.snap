@@ -363,6 +363,37 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
 </div>
 `;
 
+exports[`CheckoutPage renders empty cart 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="empty_cart_container"
+  >
+    <div
+      className="heading_container"
+    >
+      <h1
+        className="heading"
+      >
+        Guest Checkout
+      </h1>
+    </div>
+    <h3>
+      <mock-FormattedMessage
+        defaultMessage="There are no items in your cart."
+        id="checkoutPage.emptyMessage"
+      />
+    </h3>
+  </div>
+  <GuestSignIn
+    isActive={false}
+    toggleActiveContent={[MockFunction toggleSignInContent]}
+  />
+</div>
+`;
+
 exports[`CheckoutPage renders loading indicator 1`] = `
 <div
   className="global"
@@ -441,4 +472,28 @@ exports[`CheckoutPage renders loading indicator 1`] = `
     />
   </span>
 </div>
+`;
+
+exports[`CheckoutPage renders price adjustments and review order button 1`] = `
+Object {
+  "children": <PriceAdjustments
+    setPageIsUpdating={[MockFunction setIsUpdating]}
+  />,
+  "className": "price_adjustments_container",
+}
+`;
+
+exports[`CheckoutPage renders price adjustments and review order button 2`] = `
+Object {
+  "children": <FormattedMessage
+    defaultMessage="Review Order"
+    id="checkoutPage.reviewOrder"
+  />,
+  "className": "review_order_button",
+  "disabled": true,
+  "negative": false,
+  "onClick": [MockFunction handleReviewOrder],
+  "priority": "high",
+  "type": "button",
+}
 `;
