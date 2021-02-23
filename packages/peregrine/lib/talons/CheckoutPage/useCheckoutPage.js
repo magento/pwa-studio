@@ -216,6 +216,9 @@ export const useCheckoutPage = (props = {}) => {
 
     return {
         activeContent,
+        availablePaymentMethods: checkoutData
+            ? checkoutData.cart.available_payment_methods
+            : null,
         cartItems,
         checkoutStep,
         customer,
@@ -241,9 +244,6 @@ export const useCheckoutPage = (props = {}) => {
         handleReviewOrder,
         reviewOrderButtonClicked,
         toggleAddressBookContent,
-        toggleSignInContent,
-        availablePaymentMethods: checkoutData
-            ? checkoutData.cart.available_payment_methods
-            : null
+        toggleSignInContent
     };
 };

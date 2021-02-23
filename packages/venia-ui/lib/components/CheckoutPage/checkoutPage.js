@@ -42,6 +42,7 @@ const CheckoutPage = props => {
          * SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
          */
         activeContent,
+        availablePaymentMethods,
         cartItems,
         checkoutStep,
         customer,
@@ -65,8 +66,7 @@ const CheckoutPage = props => {
         handleReviewOrder,
         reviewOrderButtonClicked,
         toggleAddressBookContent,
-        toggleSignInContent,
-        availablePaymentMethods
+        toggleSignInContent
     } = talonProps;
 
     const [, { addToast }] = useToasts();
@@ -176,9 +176,10 @@ const CheckoutPage = props => {
         const formErrors = [];
         const paymentMethods = Object.keys(payments);
 
-        // If we don't have an implementation for a method type, ignore it.
-        const isPaymentAvailable = !!availablePaymentMethods.find(({ code }) =>
-            paymentMethods.includes(code)
+        // If we have an implementation, or if this is a "zero" checkout,
+        // we can allow checkout to proceed.
+        const isPaymentAvailable = !!availablePaymentMethods.find(
+            ({ code }) => code === 'free' || paymentMethods.includes(code)
         );
 
         if (!isPaymentAvailable) {
