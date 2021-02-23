@@ -128,6 +128,42 @@ test('showEditModal should call to open dialog', () => {
     expect(newTalonProps.isEditModalActive).toBeTruthy();
 });
 
+test('handlePaymentSuccess() should call the onSave() callback', () => {
+    const { talonProps, update } = getTalonProps({ ...defaultTalonProps });
+
+    talonProps.handlePaymentSuccess();
+
+    const { talonProps: newTalonProps } = update({});
+
+    expect(onSave).toHaveBeenCalled();
+    expect(newTalonProps.doneEditing).toBeTruthy();
+});
+
+test('handlePaymentSuccess() should not call onSave() if it is not defined', () => {
+    const { talonProps, update } = getTalonProps({
+        ...defaultTalonProps,
+        onSave: undefined
+    });
+
+    talonProps.handlePaymentSuccess();
+
+    const { talonProps: newTalonProps } = update({});
+
+    expect(onSave).not.toHaveBeenCalled();
+    expect(newTalonProps.doneEditing).toBeTruthy();
+});
+
+test('handlePaymentError() should call the resetShouldSubmit() callback', () => {
+    const { talonProps, update } = getTalonProps({ ...defaultTalonProps });
+
+    talonProps.handlePaymentError();
+
+    const { talonProps: newTalonProps } = update({});
+
+    expect(resetShouldSubmit).toHaveBeenCalled();
+    expect(newTalonProps.doneEditing).toBeFalsy();
+});
+
 test('resets to payment step when selected method is not available', () => {
     useQuery.mockReturnValueOnce({
         data: {
@@ -279,4 +315,16 @@ describe('testing payment error workflow', () => {
     test('should call setCheckoutStep', () => {
         expect(setCheckoutStep).toHaveBeenCalledWith(CHECKOUT_STEP.PAYMENT);
     });
+});
+
+test('should handle no payment information data returned', () => {
+    useQuery.mockReturnValueOnce({
+        loading: false
+    });
+
+    const { talonProps } = getTalonProps({ ...defaultTalonProps });
+
+    expect(resetShouldSubmit).toHaveBeenCalled();
+    expect(setCheckoutStep).toHaveBeenCalledWith(CHECKOUT_STEP.PAYMENT);
+    expect(talonProps.doneEditing).toBeFalsy();
 });
