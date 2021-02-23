@@ -32,17 +32,19 @@ const Category = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    // Show the loading indicator until data has been fetched.
-    if (!categoryData && loading) {
-        return fullPageLoadingIndicator;
-    }
-
-    if (error && pageControl.currentPage === 1) {
-        if (process.env.NODE_ENV !== 'production') {
-            console.error(error);
+    if (!categoryData) {
+        // Show the loading indicator until data has been fetched.
+        if (loading) {
+            return fullPageLoadingIndicator;
         }
 
-        return <ErrorView />;
+        if (error && pageControl.currentPage === 1) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(error);
+            }
+
+            return <ErrorView />;
+        }
     }
 
     return (
