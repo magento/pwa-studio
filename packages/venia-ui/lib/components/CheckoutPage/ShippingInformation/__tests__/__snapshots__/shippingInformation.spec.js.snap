@@ -119,7 +119,7 @@ exports[`renders card state with guest data 1`] = `
   <Card
     shippingData="Shipping Data"
   />
-  <EditModal
+  <require('./editModal')
     shippingData="Shipping Data"
   />
 </div>
