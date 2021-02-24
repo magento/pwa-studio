@@ -45,7 +45,7 @@
     "js-yaml": "~3.13.1",
     "lodash": "~4.17.11",
     "morgan": "~1.9.1",
-    "node-fetch": "~2.3.0"
+    "node-fetch": "~2.6.1"
   },
   "devDependencies": {
     "@magento/upward-spec": "~5.0.0",

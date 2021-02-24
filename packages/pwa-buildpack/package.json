@@ -54,7 +54,7 @@
     "memfs": "~3.1.2",
     "merge": "~1.2.1",
     "micromatch": "~4.0.2",
-    "node-fetch": "~2.3.0",
+    "node-fetch": "~2.6.1",
     "pertain": "~0.2.0",
     "pkg-dir": "~4.1.0",
     "portscanner": "~2.2.0",
