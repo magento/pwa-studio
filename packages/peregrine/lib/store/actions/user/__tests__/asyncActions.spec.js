@@ -12,7 +12,15 @@ const thunkArgs = [
     dispatch,
     getState,
     {
-        apolloClient: {}
+        apolloClient: {
+            persistor: {
+                persistor: {
+                    storage: {
+                        key: 'unit test key'
+                    }
+                }
+            }
+        }
     }
 ];
 
