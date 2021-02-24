@@ -111,8 +111,7 @@ module.exports.builder = yargs =>
         .options({
             template: {
                 describe:
-                    'Name of a "template" to clone and customize. Currently only the "venia-concept" template is supported: `buildpack create-project --template venia-concept`',
-                choices: ['venia-concept']
+                    'Name of a "template" to clone and customize. Currently only the "venia-concept" template is supported: `buildpack create-project --template venia-concept`'
             },
             backendUrl: {
                 alias: 'b',

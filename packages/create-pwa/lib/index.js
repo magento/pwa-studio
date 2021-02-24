@@ -97,6 +97,11 @@ module.exports = async () => {
             }
         },
         {
+            name: 'template',
+            message: 'Do you wish to use the default venia-concept template?',
+            default: 'venia-concept'
+        },
+        {
             name: 'backendUrl',
             type: 'list',
             message:
@@ -166,7 +171,7 @@ module.exports = async () => {
             }
             return [...args, `--${option}`, `"${answer}"`];
         },
-        ['create-project', answers.directory, '--template', '"venia-concept"']
+        ['create-project', answers.directory]
     );
 
     const argsString = args.join(' ');
