@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../../../util/createTestInstance';
 import { useCustomerForm } from '../useCustomerForm';
+import { act } from 'react-test-renderer';
 
 const mockCreateCustomerAddress = jest.fn();
 const mockUpdateCustomerAddress = jest.fn();
@@ -179,9 +180,29 @@ test('handleCancel fires provided callback', () => {
 });
 
 test('does not call afterSubmit if mutation fails', async () => {
-    mockCreateCustomerAddress.mockRejectedValue('Apollo Error');
+    mockCreateCustomerAddress.mockRejectedValueOnce('Apollo Error');
 
     const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleSubmit } = talonProps;
+
+    await handleSubmit({
+        country: 'US',
+        email: 'fry@planet.express',
+        firstname: 'Philip',
+        region: 2
+    });
+
+    expect(mockCreateCustomerAddress).toHaveBeenCalled();
+    expect(afterSubmit).not.toHaveBeenCalled();
+});
+
+test('does not call afterSubmit() if it is undefined', async () => {
+    const spy = jest.spyOn(console, 'log');
+    const tree = createTestInstance(
+        <Component {...mockProps} afterSubmit={undefined} />
+    );
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
     const { handleSubmit } = talonProps;
