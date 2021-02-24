@@ -199,7 +199,6 @@ test('does not call afterSubmit if mutation fails', async () => {
 });
 
 test('does not call afterSubmit() if it is undefined', async () => {
-    const spy = jest.spyOn(console, 'log');
     const tree = createTestInstance(
         <Component {...mockProps} afterSubmit={undefined} />
     );
