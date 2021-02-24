@@ -177,7 +177,7 @@ exports[`Search Page Component filter button/modal renders when there are filter
       }
     />
   </section>
-  <FilterModal
+  <require('../FilterModal')
     filters={
       Array [
         Object {},
