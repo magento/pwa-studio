@@ -98,7 +98,8 @@ module.exports = async () => {
         },
         {
             name: 'template',
-            message: 'Do you wish to use the default venia-concept template?',
+            message: ({ name }) =>
+                `Which template would you like to use to bootstrap ${name}? Defaults to venia-concept.`,
             default: 'venia-concept'
         },
         {
