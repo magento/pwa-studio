@@ -37,7 +37,7 @@ exports[`it does not render order details if loading is true 1`] = `
     <span
       className="orderDate"
     >
-      26. Mai 2020
+      May 26, 2020
     </span>
   </div>
   <div
@@ -56,25 +56,22 @@ exports[`it does not render order details if loading is true 1`] = `
       className="orderTotal"
     >
       <span>
+        $
+      </span>
+      <span>
         1
-      </span>
-      <span>
-        .
-      </span>
-      <span>
-        434
       </span>
       <span>
         ,
       </span>
       <span>
+        434
+      </span>
+      <span>
+        .
+      </span>
+      <span>
         00
-      </span>
-      <span>
-         
-      </span>
-      <span>
-        $
       </span>
     </div>
   </div>
@@ -198,7 +195,7 @@ exports[`it renders collapsed order row 1`] = `
     <span
       className="orderDate"
     >
-      26. Mai 2020
+      May 26, 2020
     </span>
   </div>
   <div
@@ -217,25 +214,22 @@ exports[`it renders collapsed order row 1`] = `
       className="orderTotal"
     >
       <span>
+        $
+      </span>
+      <span>
         1
-      </span>
-      <span>
-        .
-      </span>
-      <span>
-        434
       </span>
       <span>
         ,
       </span>
       <span>
+        434
+      </span>
+      <span>
+        .
+      </span>
+      <span>
         00
-      </span>
-      <span>
-         
-      </span>
-      <span>
-        $
       </span>
     </div>
   </div>
@@ -522,7 +516,7 @@ exports[`it renders open order row 1`] = `
     <span
       className="orderDate"
     >
-      26. Mai 2020
+      May 26, 2020
     </span>
   </div>
   <div
@@ -541,25 +535,22 @@ exports[`it renders open order row 1`] = `
       className="orderTotal"
     >
       <span>
+        $
+      </span>
+      <span>
         1
-      </span>
-      <span>
-        .
-      </span>
-      <span>
-        434
       </span>
       <span>
         ,
       </span>
       <span>
+        434
+      </span>
+      <span>
+        .
+      </span>
+      <span>
         00
-      </span>
-      <span>
-         
-      </span>
-      <span>
-        $
       </span>
     </div>
   </div>
