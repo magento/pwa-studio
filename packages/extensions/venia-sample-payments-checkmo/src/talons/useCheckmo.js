@@ -13,7 +13,7 @@ import DEFAULT_OPERATIONS from './checkmo.gql';
  * @param {Function} props.onPaymentError callback to invoke when component throws an error
  * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
  * @param {DocumentNode} props.operations.getCheckmoConfigQuery query to fetch config from backend
- * @param {DocumentNode} props.operations.setPaymentMethodOnCartMutation mutation to set checmo as payment
+ * @param {DocumentNode} props.operations.setPaymentMethodOnCartMutation mutation to set checkmo as payment
  *
  * @returns {
  *  payableTo: String,
@@ -48,14 +48,14 @@ export const useCheckmo = props => {
     });
 
     /**
-     * This function will be called if cant not set adress.
+     * This function will be called if cant not set address.
      */
     const onBillingAddressChangedError = useCallback(() => {
         resetShouldSubmit();
     }, [resetShouldSubmit]);
 
     /**
-     * This function will be called if adress was successfully set.
+     * This function will be called if address was successfully set.
      */
     const onBillingAddressChangedSuccess = useCallback(() => {
         updatePaymentMethod();

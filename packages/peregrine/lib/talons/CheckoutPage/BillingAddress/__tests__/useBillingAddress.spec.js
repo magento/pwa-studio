@@ -71,14 +71,12 @@ const isBillingAddressSameQueryResult = {
 };
 
 const getBillingAddress = jest.fn().mockReturnValue([
-  jest
-    .fn()
-    .mockReturnValue(billingAddressQueryResult),
-  {
-      data: null,
-      loading: false,
-      called: false
-  }
+    jest.fn().mockReturnValue(billingAddressQueryResult),
+    {
+        data: null,
+        loading: false,
+        called: false
+    }
 ]);
 
 const getShippingAddress = jest
@@ -147,13 +145,13 @@ beforeAll(() => {
     });
 
     useLazyQuery.mockReturnValue([
-      () => {},
-      {
-          data: null,
-          error: null,
-          loading: true
-      }
-  ]);
+        () => {},
+        {
+            data: null,
+            error: null,
+            loading: true
+        }
+    ]);
 
     useLazyQuery.mockImplementation(query => {
         if (query === getBillingAddressQuery) {
@@ -196,7 +194,6 @@ const getTalonProps = props => {
     return { talonProps, tree, update };
 };
 
-
 /**
  * Tests
  */
@@ -205,7 +202,7 @@ test('Should return correct shape', () => {
         shouldSubmit: false,
         operations,
         onBillingAddressChangedError: () => {},
-        onBillingAddressChangedSuccess: () => {},
+        onBillingAddressChangedSuccess: () => {}
     });
 
     expect(talonProps).toMatchSnapshot();

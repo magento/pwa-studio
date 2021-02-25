@@ -125,7 +125,6 @@ test('Should call onPaymentSuccess if payment was set', () => {
 });
 
 test('Should call onPaymentError if payment was  not set', () => {
-
     const onPaymentError = jest.fn();
 
     setPaymentMethodOnCartMutationResult.mockReturnValueOnce([

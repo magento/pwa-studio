@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_CHECKMO_CONFIGDATA = gql`
+export const GET_CHECKMO_CONFIG_DATA = gql`
     query storeConfigData {
         storeConfig {
             payment_checkmo_payable_to @client
@@ -26,6 +26,6 @@ export const SET_PAYMENT_METHOD_ON_CART = gql`
 `;
 
 export default {
-    getCheckmoConfigQuery: GET_CHECKMO_CONFIGDATA,
+    getCheckmoConfigQuery: GET_CHECKMO_CONFIG_DATA,
     setPaymentMethodOnCartMutation: SET_PAYMENT_METHOD_ON_CART
 };

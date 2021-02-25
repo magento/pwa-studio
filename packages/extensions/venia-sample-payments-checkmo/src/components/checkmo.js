@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
  * The CheckMo component renders all information to handle checkmo payment.
  *
  * @param {String} props.payableTo shop owner name where you need to send.
- * @param {String} props.mailingAddres shop owner post adress where you need to send.
+ * @param {String} props.mailingAddress shop owner post address where you need to send.
  * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
  * @param {Function} props.onPaymentSuccess callback to invoke when the a payment nonce has been generated
  * @param {Function} props.onDropinReady callback to invoke when the braintree dropin component is ready
@@ -41,7 +41,7 @@ const CheckMo = props => {
 
     const formatAddress = mailingAddress
         ? mailingAddress.split('\n').map(str => addressTemplate(str))
-        : props.mailingAddres.split('\n').map(str => addressTemplate(str));
+        : props.mailingAddress.split('\n').map(str => addressTemplate(str));
 
     return (
         <div className={classes.root}>
@@ -73,7 +73,7 @@ const CheckMo = props => {
 CheckMo.propTypes = {
     classes: shape({ root: string }),
     payableTo: string,
-    mailingAddres: string,
+    mailingAddress: string,
     shouldSubmit: bool.isRequired,
     onPaymentSuccess: func,
     onDropinReady: func,
@@ -83,7 +83,7 @@ CheckMo.propTypes = {
 
 CheckMo.defaultProps = {
     payableTo: 'Venia Inc',
-    mailingAddres: 'Venia Inc\r\nc/o Payment\r\nPO 122334\r\nAustin Texas'
+    mailingAddress: 'Venia Inc\r\nc/o Payment\r\nPO 122334\r\nAustin Texas'
 };
 
 export default CheckMo;

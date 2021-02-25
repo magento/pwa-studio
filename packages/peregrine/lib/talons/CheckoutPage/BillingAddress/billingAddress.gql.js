@@ -1,16 +1,7 @@
 import { gql } from '@apollo/client';
 
-import { PriceSummaryFragment } from '@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummaryFragments';
-
-export const AvailablePaymentMethodsFragment = gql`
-    fragment AvailablePaymentMethodsFragment on Cart {
-        id
-        available_payment_methods {
-            code
-            title
-        }
-    }
-`;
+import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
+import { AvailablePaymentMethodsFragment } from '../PaymentInformation/paymentInformation.gql';
 
 // We disable linting for local fields because there is no way to add them to
 // the fetched schema. Additionally, since we don't want to make a network call

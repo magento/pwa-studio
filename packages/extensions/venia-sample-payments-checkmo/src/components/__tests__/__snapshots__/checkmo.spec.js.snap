@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render with mailingAddress payable 1`] = `
+<div
+  className="root"
+>
+  <p
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Make Check payable to:"
+      id="checkMo.payableToTitle"
+    />
+  </p>
+  <p
+    className="formatAddress"
+  >
+    Test Inc
+  </p>
+  <p
+    className="mailingAddressTitle"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Send Check to:"
+      id="checkMo.mailingAddressTitle"
+    />
+  </p>
+  <p
+    className="formatAddress"
+  >
+    <span>
+      Test Inc
+       
+      <br />
+    </span>
+    <span>
+      c/o Payment
+       
+      <br />
+    </span>
+    <span>
+      PO 12
+       
+      <br />
+    </span>
+    <span>
+      Austin Texas
+       
+      <br />
+    </span>
+  </p>
+  <mock-BillingAddress
+    onBillingAddressChangedError={[MockFunction]}
+    onBillingAddressChangedSuccess={[MockFunction]}
+  />
+</div>
+`;
+
+exports[`Should return correct shape 1`] = `
+<div
+  className="root"
+>
+  <p
+    className="title"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Make Check payable to:"
+      id="checkMo.payableToTitle"
+    />
+  </p>
+  <p
+    className="formatAddress"
+  >
+    Venia Inc
+  </p>
+  <p
+    className="mailingAddressTitle"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Send Check to:"
+      id="checkMo.mailingAddressTitle"
+    />
+  </p>
+  <p
+    className="formatAddress"
+  >
+    <span>
+      Venia Inc
+       
+      <br />
+    </span>
+    <span>
+      c/o Payment
+       
+      <br />
+    </span>
+    <span>
+      PO 122334
+       
+      <br />
+    </span>
+    <span>
+      Austin Texas
+       
+      <br />
+    </span>
+  </p>
+  <mock-BillingAddress
+    onBillingAddressChangedError={[MockFunction]}
+    onBillingAddressChangedSuccess={[MockFunction]}
+  />
+</div>
+`;
