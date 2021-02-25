@@ -318,7 +318,9 @@ const jestConfig = {
         '!**/__[[:alpha:]]*__/**',
         '!**/.*/__[[:alpha:]]*__/**',
         // Not this file itself
-        '!jest.config.js'
+        '!jest.config.js',
+        // Exclude deprecated components from coverage report
+        '!**/venia-ui/lib/components/Checkout/**'
     ],
     // Don't look for test files in these directories.
     testPathIgnorePatterns: [
