@@ -5,9 +5,9 @@ import {
     useLazyQuery,
     useApolloClient
 } from '@apollo/client';
-
+import { useFormState } from 'informed';
 import createTestInstance from '../../../../util/createTestInstance';
-import { useBillingAddress } from '../useBillingAddress';
+import { useBillingAddress, mapAddressData } from '../useBillingAddress';
 
 /**
  * Mocks
@@ -56,24 +56,22 @@ const shippingAddressQueryResult = {
         }
     }
 };
-const billingAddressQueryResult = {
-    data: {
-        cart: {
-            billingAddress: {
-                __typename: 'Billing Address',
-                ...billingAddress
-            }
-        }
-    }
-};
+
 const isBillingAddressSameQueryResult = {
     data: { cart: { isBillingAddressSame: false } }
 };
 
 const getBillingAddress = jest.fn().mockReturnValue([
-    jest.fn().mockReturnValue(billingAddressQueryResult),
+    () => {},
     {
-        data: null,
+        data: {
+            cart: {
+                billingAddress: {
+                    __typename: 'Billing Address',
+                    ...billingAddress
+                }
+            }
+        },
         loading: false,
         called: false
     }
@@ -206,4 +204,257 @@ test('Should return correct shape', () => {
     });
 
     expect(talonProps).toMatchSnapshot();
+});
+
+test('Should return errors from billing address mutation', () => {
+    const billingResultError = new Error('some billing address mutation error');
+
+    const billingMutationResultMock = [
+        () => {},
+        {
+            loading: false,
+            called: true,
+            error: billingResultError
+        }
+    ];
+
+    setBillingAddressMutationResult
+        .mockReturnValueOnce(billingMutationResultMock)
+        .mockReturnValueOnce(billingMutationResultMock);
+
+    const { talonProps } = getTalonProps({
+        shouldSubmit: false,
+        operations,
+        onBillingAddressChangedError: () => {},
+        onBillingAddressChangedSuccess: () => {}
+    });
+
+    expect(talonProps.errors.get('setBillingAddressMutation')).toEqual(
+        billingResultError
+    );
+});
+
+test('Should return isBillingAddress and billingAddress from cache as initialValues', () => {
+    const billingAddress = {
+        firstName: 'test',
+        lastName: 'test',
+        country: {
+            code: 'test'
+        },
+        street: ['test', 'test'],
+        city: 'test',
+        region: { code: 'test' },
+        postcode: 'test',
+        phoneNumber: 'test'
+    };
+
+    getBillingAddress.mockReturnValueOnce([
+        () => {},
+        {
+            data: {
+                cart: {
+                    billingAddress: {
+                        __typename: 'Billing Address',
+                        ...billingAddress
+                    }
+                }
+            },
+            loading: false,
+            called: true
+        }
+    ]);
+
+    getIsBillingAddressSame.mockReturnValueOnce({
+        data: { cart: { isBillingAddressSame: false } }
+    });
+
+    const { talonProps } = getTalonProps({
+        shouldSubmit: false,
+        operations,
+        onBillingAddressChangedError: () => {},
+        onBillingAddressChangedSuccess: () => {}
+    });
+
+    expect(talonProps.initialValues).toMatchObject({
+        ...mapAddressData(billingAddress),
+        isBillingAddressSame: false
+    });
+});
+
+test('Should set billingAddress to {} if isBillingAddress is true in initialValues', () => {
+    const billingAddress = {
+        firstName: 'test',
+        lastName: 'test',
+        country: {
+            code: 'test'
+        },
+        street: ['test', 'test'],
+        city: 'test',
+        region: { code: 'test' },
+        postcode: 'test',
+        phoneNumber: 'test'
+    };
+    getBillingAddress.mockReturnValueOnce([
+        () => {},
+        {
+            data: {
+                cart: {
+                    billingAddress: {
+                        __typename: 'Billing Address',
+                        ...billingAddress
+                    }
+                }
+            }
+        }
+    ]);
+    getIsBillingAddressSame.mockReturnValueOnce({
+        data: { cart: { isBillingAddressSame: true } }
+    });
+
+    const { talonProps } = getTalonProps({
+        shouldSubmit: false,
+        operations,
+        onBillingAddressChangedError: () => {},
+        onBillingAddressChangedSuccess: () => {}
+    });
+
+    expect(talonProps.initialValues).toMatchObject({
+        isBillingAddressSame: true
+    });
+});
+
+test('Should call setBillingAddressMutation mutation with shipping address from UI if isBillingAddressSame is true', () => {
+    const shippingAddress = {
+        firstName: 'test value',
+        lastName: 'test value',
+        country: {
+            code: 'test value'
+        },
+        street: ['test value', 'test value'],
+        city: 'test value',
+        region: { code: 'test value' },
+        postcode: 'test value',
+        phoneNumber: 'test value'
+    };
+    getShippingAddress.mockReturnValueOnce({
+        data: {
+            cart: {
+                shippingAddresses: [
+                    {
+                        __typename: 'Shipping Address',
+                        ...shippingAddress
+                    }
+                ]
+            }
+        }
+    });
+    useFormState.mockReturnValueOnce({
+        values: {
+            isBillingAddressSame: true
+        },
+        errors: {}
+    });
+
+    getTalonProps({
+        shouldSubmit: true,
+        operations,
+        onBillingAddressChangedError: () => {},
+        onBillingAddressChangedSuccess: () => {}
+    });
+
+    expect(setBillingAddress).toBeCalledWith({
+        variables: {
+            ...mapAddressData(shippingAddress),
+            sameAsShipping: true,
+            cartId: '123'
+        }
+    });
+});
+
+test('Should call onBillingAddressChangedSuccess if billing address mutation is successful', () => {
+    setBillingAddressMutationResult.mockReturnValueOnce([
+        () => {},
+        {
+            error: null,
+            loading: false,
+            called: true
+        }
+    ]);
+
+    const onBillingAddressChangedSuccess = jest.fn();
+
+    getTalonProps({
+        shouldSubmit: true,
+        operations,
+        onBillingAddressChangedError: () => {},
+        onBillingAddressChangedSuccess
+    });
+
+    expect(onBillingAddressChangedSuccess).toBeCalled();
+});
+
+test('Should call onBillingAddressChangedError if billing address mutation is failed', () => {
+    setBillingAddressMutationResult.mockReturnValueOnce([
+        () => {},
+        {
+            error: new Error('some billing address mutation error'),
+            loading: false,
+            called: true
+        }
+    ]);
+
+    const onBillingAddressChangedError = jest.fn();
+
+    getTalonProps({
+        shouldSubmit: true,
+        operations,
+        onBillingAddressChangedError,
+        onBillingAddressChangedSuccess: () => {}
+    });
+
+    expect(onBillingAddressChangedError).toBeCalled();
+});
+
+test('Should save isBillingAddressSame in apollo cache', () => {
+    useFormState.mockReturnValueOnce({
+        values: {
+            isBillingAddressSame: true
+        },
+        errors: {}
+    });
+
+    getTalonProps({
+        shouldSubmit: true,
+        operations,
+        onBillingAddressChangedError: () => {},
+        onBillingAddressChangedSuccess: () => {}
+    });
+
+    const isBillingAddressSameSaveCall = writeQuery.mock.calls.filter(
+        call => call[0].query === getIsBillingAddressSameQuery
+    )[0];
+
+    expect(
+        isBillingAddressSameSaveCall[0].data.cart.isBillingAddressSame
+    ).toBeTruthy();
+});
+
+test('Should not proceed with saving billing address if form state has errors', () => {
+    useFormState.mockReturnValueOnce({
+        values: {
+            isBillingAddressSame: true
+        },
+        errors: {
+            firstName: 'The Field is Required'
+        }
+    });
+
+    getTalonProps({
+        shouldSubmit: false,
+        operations,
+        onBillingAddressChangedError: () => {},
+        onBillingAddressChangedSuccess: () => {}
+    });
+
+    expect(setBillingAddress).not.toHaveBeenCalled();
 });

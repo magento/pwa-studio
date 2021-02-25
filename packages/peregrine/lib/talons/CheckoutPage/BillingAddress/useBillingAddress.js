@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
 import {
     useQuery,
@@ -91,8 +91,6 @@ export const useBillingAddress = props => {
         getIsBillingAddressSameQuery,
         setBillingAddressMutation
     } = operations;
-
-    const [errors, setErrors] = useState([]);
 
     const client = useApolloClient();
     const formState = useFormState();
@@ -234,7 +232,7 @@ export const useBillingAddress = props => {
      */
 
     /**
-     * Loads billing address if is differt to shipment address.
+     * Loads billing address if is different to shipment address.
      */
     useEffect(() => {
         if (!isBillingAddressSame) {
@@ -254,7 +252,7 @@ export const useBillingAddress = props => {
                  * submit if there are no errors.
                  *
                  * We do this because the user can click Review Order button
-                 * without fillig in all fields and the form submission
+                 * without filling in all fields and the form submission
                  * happens manually. The informed Form component validates
                  * on submission but that only happens when we use the onSubmit
                  * prop. In this case we are using manually submission because
@@ -328,6 +326,14 @@ export const useBillingAddress = props => {
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess
     ]);
+
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['setBillingAddressMutation', billingAddressMutationError]
+            ]),
+        [billingAddressMutationError]
+    );
 
     return {
         errors,
