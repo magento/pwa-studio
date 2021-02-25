@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
 
 import Logo from '../Logo';
@@ -51,7 +51,7 @@ const Header = props => {
     ) : null;
 
     return (
-        <React.Fragment>
+        <Fragment>
             <div className={classes.switchersContainer}>
                 <div className={classes.switchers}>
                     <StoreSwitcher />
@@ -82,7 +82,7 @@ const Header = props => {
                 </div>
                 {searchBar}
             </header>
-        </React.Fragment>
+        </Fragment>
     );
 };
 

@@ -22,6 +22,7 @@ Paste the result console output into the issue. Thank you!
 * [Webpack hangs for a long time before beginning compilation](#webpack-hangs)
 * [Browser cannot resolve the `.local.pwadev` site](#cannot-resolve-site)
 * [Browser does not trust the generated SSL certificate](#untrusted-ssl-cert)
+* [Watcher runs out of memory](#watcher-out-of-memory)
 
 ## Resolutions
 
@@ -94,6 +95,11 @@ Some users have suggested deleting the `devcert` folder to trigger certificate r
   ```text
 ${User}\AppData\Local\devcert
   ```
+
+**Watcher runs out of memory**{:#watcher-out-of-memory}
+
+If you leave the `yarn watch` process running for an extended amount of time, it runs out of memory and shows an error.
+The solution is to restart the watch process and make sure it does not run for an extended amount of time.
 
 [create an issue]: https://github.com/magento/pwa-buildpack/issues
 [Slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2/team/UAFV915FB/
