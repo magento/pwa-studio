@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { func, string, shape } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
@@ -9,10 +9,11 @@ import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
 import AddressForm from './AddressForm';
 import Card from './card';
-import EditModal from './editModal';
 import defaultClasses from './shippingInformation.css';
 import ShippingInformationOperations from './shippingInformation.gql';
 import LinkButton from '../../LinkButton';
+
+const EditModal = React.lazy(() => import('./editModal'));
 
 const ShippingInformation = props => {
     const { classes: propClasses, onSave, toggleActiveContent } = props;
@@ -50,7 +51,9 @@ const ShippingInformation = props => {
     }
 
     const editModal = !isSignedIn ? (
-        <EditModal shippingData={shippingData} />
+        <Suspense fallback={null}>
+            <EditModal shippingData={shippingData} />
+        </Suspense>
     ) : null;
 
     const shippingInformation = doneEditing ? (

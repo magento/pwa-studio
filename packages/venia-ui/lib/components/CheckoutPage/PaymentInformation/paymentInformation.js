@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'informed';
 import { shape, func, string, bool, instanceOf } from 'prop-types';
@@ -9,12 +9,13 @@ import CheckoutError from '@magento/peregrine/lib/talons/CheckoutPage/CheckoutEr
 import PaymentMethods from './paymentMethods';
 import Summary from './summary';
 import { mergeClasses } from '../../../classify';
-import EditModal from './editModal';
 
 import paymentInformationOperations from './paymentInformation.gql';
 
 import defaultClasses from './paymentInformation.css';
 import LoadingIndicator from '../../LoadingIndicator';
+
+const EditModal = React.lazy(() => import('./editModal'));
 
 const PaymentInformation = props => {
     const {
@@ -72,7 +73,9 @@ const PaymentInformation = props => {
     );
 
     const editModal = doneEditing ? (
-        <EditModal onClose={hideEditModal} isOpen={isEditModalActive} />
+        <Suspense fallback={null}>
+            <EditModal onClose={hideEditModal} isOpen={isEditModalActive} />
+        </Suspense>
     ) : null;
 
     return (

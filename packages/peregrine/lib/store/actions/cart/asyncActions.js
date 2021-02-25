@@ -347,7 +347,7 @@ export const getCartDetails = payload => {
         try {
             const { data } = await fetchCartDetails({
                 variables: { cartId },
-                fetchPolicy: 'no-cache'
+                fetchPolicy: 'network-only'
             });
             const { cart: details } = data;
 

@@ -109,25 +109,17 @@ const setCreditCardDetailsOnCartMutationResult = jest.fn().mockReturnValue([
 
 const writeQuery = jest.fn();
 
-const queries = {
+const operations = {
     getAllCountriesQuery,
     getBillingAddressQuery,
     getIsBillingAddressSameQuery,
     getPaymentNonceQuery,
-    getShippingAddressQuery
-};
-const mutations = {
+    getShippingAddressQuery,
     setBillingAddressMutation,
     setCreditCardDetailsOnCartMutation
 };
 
-jest.mock('@apollo/client', () => {
-    return {
-        useQuery: jest.fn(),
-        useApolloClient: jest.fn(),
-        useMutation: jest.fn()
-    };
-});
+jest.mock('@apollo/client');
 
 jest.mock('../../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
@@ -211,8 +203,7 @@ const getTalonProps = props => {
 test('Should return correct shape', () => {
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
-        queries,
-        mutations,
+        operations,
         onSuccess: () => {},
         onReady: () => {},
         onError: () => {}
@@ -225,8 +216,7 @@ test('Should call onReady when payment is ready', () => {
     const onReady = jest.fn();
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
-        queries,
-        mutations,
+        operations,
         onSuccess: () => {},
         onReady,
         onError: () => {}
@@ -260,8 +250,7 @@ test('Should call onError when payment nonce generation errored out', () => {
 
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
-        queries,
-        mutations,
+        operations,
         onSuccess: () => {},
         onError,
         onReady: () => {},
@@ -324,8 +313,7 @@ test('Should return errors from billing address and payment method mutations', (
 
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
-        queries,
-        mutations,
+        operations,
         onSuccess: () => {},
         onError: () => {},
         onReady: () => {},
@@ -369,8 +357,7 @@ test('Should return isBillingAddress and billingAddress from cache as initialVal
 
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
-        queries,
-        mutations,
+        operations,
         onSuccess: () => {},
         onError: () => {},
         onReady: () => {},
@@ -412,8 +399,7 @@ test('Should set billingAddress to {} if isBillingAddress is true in initialValu
 
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
-        queries,
-        mutations,
+        operations,
         onSuccess: () => {},
         onError: () => {},
         onReady: () => {},
@@ -444,8 +430,7 @@ test('Should set shippingAddressCountry to US if there is no shipping address da
 test('Should return isLoading true if isDropinLoading is true', () => {
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
-        queries,
-        mutations,
+        operations,
         onSuccess: () => {},
         onError: () => {},
         onReady: () => {},
@@ -486,8 +471,7 @@ describe('Testing payment nonce request workflow', () => {
 
         getTalonProps({
             shouldSubmit: true,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
@@ -537,8 +521,7 @@ describe('Testing payment nonce request workflow', () => {
 
         getTalonProps({
             shouldSubmit: true,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
@@ -564,8 +547,7 @@ describe('Testing payment nonce request workflow', () => {
 
         getTalonProps({
             shouldSubmit: true,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
@@ -593,8 +575,7 @@ describe('Testing payment nonce request workflow', () => {
 
         getTalonProps({
             shouldSubmit: true,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
@@ -617,8 +598,7 @@ describe('Testing payment success workflow', () => {
         };
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -640,8 +620,7 @@ describe('Testing payment success workflow', () => {
     test('Should call setCreditCardDetailsOnCartMutation on payment success', () => {
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -671,8 +650,7 @@ describe('Testing payment success workflow', () => {
         const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess,
             onReady: () => {},
             onError: () => {},
@@ -723,8 +701,7 @@ describe('Testing payment success workflow', () => {
         const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess,
             onReady: () => {},
             onError: () => {},
@@ -741,8 +718,7 @@ describe('Testing stepNumber', () => {
     test('Should set stepNumber to 0 when onPaymentError is called', () => {
         const { talonProps, update } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
@@ -759,8 +735,7 @@ describe('Testing stepNumber', () => {
     test('Should set stepNumber to 3 when onPaymentSuccess is called', () => {
         const { talonProps, update } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -777,8 +752,7 @@ describe('Testing stepNumber', () => {
     test('Should set stepNumber to 0 when onPaymentReady is called', () => {
         const { talonProps, update } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -795,8 +769,7 @@ describe('Testing stepNumber', () => {
     test('Should set stepNumber to 1 if shouldSubmit is set to true', () => {
         const { talonProps } = getTalonProps({
             shouldSubmit: true,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -818,8 +791,7 @@ describe('Testing stepNumber', () => {
 
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -843,8 +815,7 @@ describe('Testing stepNumber', () => {
         const resetShouldSubmit = jest.fn();
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
@@ -868,8 +839,7 @@ describe('Testing stepNumber', () => {
 
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
@@ -893,8 +863,7 @@ describe('Testing stepNumber', () => {
         const resetShouldSubmit = jest.fn();
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
