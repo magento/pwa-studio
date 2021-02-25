@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import { mergeClasses } from '../../classify';
-import { Title } from '../Head';
+import { TitleWithStore } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
 import PriceAdjustments from './PriceAdjustments';
@@ -71,15 +71,12 @@ const CartPage = props => {
 
     return (
         <div className={classes.root}>
-            <Title>
-                {formatMessage(
-                    {
-                        id: 'cartPage.title',
-                        defaultMessage: 'Cart'
-                    },
-                    { name: STORE_NAME }
-                )}
-            </Title>
+            <TitleWithStore>
+                {formatMessage({
+                    id: 'cartPage.title',
+                    defaultMessage: 'Cart'
+                })}
+            </TitleWithStore>
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>
                     <FormattedMessage

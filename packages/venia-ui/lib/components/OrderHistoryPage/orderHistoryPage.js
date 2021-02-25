@@ -5,7 +5,7 @@ import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHist
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
 import { mergeClasses } from '../../classify';
-import { Title } from '../Head';
+import { TitleWithStore } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './orderHistoryPage.css';
 import OrderRow from './orderRow';
@@ -47,13 +47,10 @@ const OrderHistoryPage = props => {
         );
     }
 
-    // STORE_NAME is injected by Webpack at build time.
-    const title = `${PAGE_TITLE} - ${STORE_NAME}`;
-
     return (
         <OrderHistoryContextProvider>
             <div className={classes.root}>
-                <Title>{title}</Title>
+                <TitleWithStore>{PAGE_TITLE}</TitleWithStore>
                 <h1 className={classes.heading}>{PAGE_TITLE}</h1>
                 {pageContents}
             </div>

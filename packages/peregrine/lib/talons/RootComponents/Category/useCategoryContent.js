@@ -68,10 +68,6 @@ export const useCategoryContent = props => {
         : null;
     const categoryName = data ? data.category.name : null;
     const categoryDescription = data ? data.category.description : null;
-    // Note: STORE_NAME is injected by Webpack at build time.
-    const pageTitle = categoryName
-        ? `${categoryName} - ${STORE_NAME}`
-        : STORE_NAME;
 
     return {
         categoryName,
@@ -81,7 +77,6 @@ export const useCategoryContent = props => {
         handleOpenFilters,
         items,
         loadFilters,
-        pageTitle,
         totalPagesFromData
     };
 };

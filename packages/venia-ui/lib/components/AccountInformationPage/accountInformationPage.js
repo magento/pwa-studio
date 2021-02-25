@@ -6,7 +6,7 @@ import { useAccountInformationPage } from '@magento/peregrine/lib/talons/Account
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
 import { Message } from '../Field';
-import { Title } from '../Head';
+import { TitleWithStore } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import EditModal from './editModal';
 import defaultClasses from './accountInformationPage.css';
@@ -119,15 +119,12 @@ const AccountInformationPage = props => {
 
     return (
         <div className={classes.root}>
-            <Title>
-                {formatMessage(
-                    {
-                        id: 'accountInformationPage.titleAccount',
-                        defaultMessage: 'Account Information'
-                    },
-                    { name: STORE_NAME }
-                )}
-            </Title>
+            <TitleWithStore>
+                {formatMessage({
+                    id: 'accountInformationPage.titleAccount',
+                    defaultMessage: 'Account Information'
+                })}
+            </TitleWithStore>
             <h1 className={classes.title}>
                 <FormattedMessage
                     id={'accountInformationPage.accountInformation'}

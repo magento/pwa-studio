@@ -10,7 +10,7 @@ import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import FormError from '../FormError';
-import { Title } from '../Head';
+import { TitleWithStore } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './communicationsPage.css';
 
@@ -48,17 +48,14 @@ const CommunicationsPage = props => {
     if (!initialValues) {
         return fullPageLoadingIndicator;
     }
-    const title = formatMessage(
-        {
-            id: 'communicationsPage.title',
-            defaultMessage: 'Communications - {name}'
-        },
-        { name: STORE_NAME }
-    );
+    const title = formatMessage({
+        id: 'communicationsPage.title',
+        defaultMessage: 'Communications'
+    });
 
     return (
         <div className={classes.root}>
-            <Title>{title}</Title>
+            <TitleWithStore>{title}</TitleWithStore>
             <h1 className={classes.title}>
                 <FormattedMessage
                     id={'communicationsPage.communicationsText'}

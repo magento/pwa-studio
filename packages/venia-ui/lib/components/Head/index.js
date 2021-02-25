@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useQuery, gql } from '@apollo/client';
 export { default as HeadProvider } from './headProvider';
 import { Helmet } from 'react-helmet-async';
 Helmet.defaultProps.defer = false;
@@ -35,6 +36,41 @@ export const Title = props => {
     return (
         <Helmet>
             <title {...tagProps}>{children}</title>
+        </Helmet>
+    );
+};
+
+const STORE_NAME_QUERY = gql`
+    query getStoreName {
+        storeConfig {
+            id
+            store_name
+        }
+    }
+`;
+
+export const TitleWithStore = props => {
+    const { children, ...tagProps } = props;
+
+    const { data: storeNameData } = useQuery(STORE_NAME_QUERY);
+
+    // TODO: Should we fall back to the global default STORE_NAME? or maybe just empty string?
+    const storeName = useMemo(() => {
+        return storeNameData
+            ? storeNameData.storeConfig.store_name
+            : STORE_NAME;
+    }, [storeNameData]);
+
+    let titleText;
+    if (children) {
+        titleText = `${children} - ${storeName}`;
+    } else {
+        titleText = storeName;
+    }
+
+    return (
+        <Helmet>
+            <title {...tagProps}>{titleText}</title>
         </Helmet>
     );
 };

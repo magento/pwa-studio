@@ -7,7 +7,7 @@ import { mergeClasses } from '../../classify';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import Button from '../../components/Button';
 import Gallery from '../../components/Gallery';
-import { Title } from '../../components/Head';
+import { TitleWithStore } from '../../components/Head';
 import Pagination from '../../components/Pagination';
 import ProductSort from '../../components/ProductSort';
 import RichContent from '../../components/RichContent';
@@ -33,7 +33,6 @@ const CategoryContent = props => {
         handleLoadFilters,
         handleOpenFilters,
         items,
-        pageTitle,
         totalPagesFromData
     } = talonProps;
 
@@ -101,7 +100,7 @@ const CategoryContent = props => {
     return (
         <Fragment>
             <Breadcrumbs categoryId={categoryId} />
-            <Title>{pageTitle}</Title>
+            <TitleWithStore>{categoryName}</TitleWithStore>
             <article className={classes.root}>
                 <h1 className={classes.title}>
                     <div className={classes.categoryTitle}>{categoryName}</div>

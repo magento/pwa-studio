@@ -11,7 +11,7 @@ import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import FormErrors from '../../FormError';
-import { Title } from '../../Head';
+import { TitleWithStore } from '../../Head';
 import Password from '../../Password';
 import TextInput from '../../TextInput';
 import defaultClasses from './resetPassword.css';
@@ -115,12 +115,9 @@ const ResetPassword = props => {
         </Form>
     );
 
-    // STORE_NAME is injected by Webpack at build time.
-    const title = `${PAGE_TITLE} - ${STORE_NAME}`;
-
     return (
         <div className={classes.root}>
-            <Title>{title}</Title>
+            <TitleWithStore>{PAGE_TITLE}</TitleWithStore>
             <h1 className={classes.heading}>{PAGE_TITLE}</h1>
             {token ? recoverPassword : tokenMissing}
         </div>
