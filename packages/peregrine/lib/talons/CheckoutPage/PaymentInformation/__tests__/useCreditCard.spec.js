@@ -231,8 +231,7 @@ test('Should not call onReady if it is not defined', () => {
     const onReady = jest.fn();
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
-        queries,
-        mutations,
+        operations,
         onSuccess: () => {},
         onReady: undefined,
         onError: () => {}
@@ -270,8 +269,7 @@ test('Should not call onError if it is not defined', () => {
 
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
-        queries,
-        mutations,
+        operations,
         onSuccess: () => {},
         onError: undefined,
         onReady: () => {},
@@ -416,8 +414,7 @@ test('Should set shippingAddressCountry to US if there is no shipping address da
 
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
-        queries,
-        mutations,
+        operations,
         onSuccess: () => {},
         onError: () => {},
         onReady: () => {},
@@ -675,8 +672,7 @@ describe('Testing payment success workflow', () => {
         const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: undefined,
             onReady: () => {},
             onError: () => {},
@@ -888,8 +884,7 @@ describe('Testing stepNumber', () => {
         const resetShouldSubmit = jest.fn();
         const { talonProps, tree } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
@@ -918,8 +913,7 @@ describe('missing data', () => {
 
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onError: () => {},
             onReady: () => {},
@@ -934,8 +928,7 @@ describe('missing data', () => {
 
         const { talonProps } = getTalonProps({
             shouldSubmit: false,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onError: () => {},
             onReady: () => {},
@@ -958,8 +951,7 @@ describe('missing data', () => {
 
         getTalonProps({
             shouldSubmit: true,
-            queries,
-            mutations,
+            operations,
             onSuccess: () => {},
             onError: () => {},
             onReady: () => {},
