@@ -11,7 +11,7 @@ import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import FormErrors from '../../FormError';
-import { TitleWithStore } from '../../Head';
+import { StoreTitle } from '../../Head';
 import Password from '../../Password';
 import TextInput from '../../TextInput';
 import defaultClasses from './resetPassword.css';
@@ -117,7 +117,7 @@ const ResetPassword = props => {
 
     return (
         <div className={classes.root}>
-            <TitleWithStore>{PAGE_TITLE}</TitleWithStore>
+            <StoreTitle>{PAGE_TITLE}</StoreTitle>
             <h1 className={classes.heading}>{PAGE_TITLE}</h1>
             {token ? recoverPassword : tokenMissing}
         </div>

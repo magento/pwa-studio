@@ -5,7 +5,7 @@ import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHist
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
 import { mergeClasses } from '../../classify';
-import { TitleWithStore } from '../Head';
+import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './orderHistoryPage.css';
 import OrderRow from './orderRow';
@@ -50,7 +50,7 @@ const OrderHistoryPage = props => {
     return (
         <OrderHistoryContextProvider>
             <div className={classes.root}>
-                <TitleWithStore>{PAGE_TITLE}</TitleWithStore>
+                <StoreTitle>{PAGE_TITLE}</StoreTitle>
                 <h1 className={classes.heading}>{PAGE_TITLE}</h1>
                 {pageContents}
             </div>

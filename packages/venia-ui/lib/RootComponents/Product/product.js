@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product/useProduct';
 
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
-import { TitleWithStore, Meta } from '@magento/venia-ui/lib/components/Head';
+import { StoreTitle, Meta } from '@magento/venia-ui/lib/components/Head';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import ProductFullDetail from '@magento/venia-ui/lib/components/ProductFullDetail';
 import mapProduct from '@magento/venia-ui/lib/util/mapProduct';
@@ -40,7 +40,7 @@ const Product = () => {
 
     return (
         <Fragment>
-            <TitleWithStore>{product.name}</TitleWithStore>
+            <StoreTitle>{product.name}</StoreTitle>
             <Meta name="description" content={product.meta_description} />
             <ProductFullDetail product={product} />
         </Fragment>

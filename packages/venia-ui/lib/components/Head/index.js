@@ -49,7 +49,7 @@ const STORE_NAME_QUERY = gql`
     }
 `;
 
-export const TitleWithStore = props => {
+export const StoreTitle = props => {
     const { children, ...tagProps } = props;
 
     const { data: storeNameData } = useQuery(STORE_NAME_QUERY);

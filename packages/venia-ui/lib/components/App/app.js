@@ -6,7 +6,7 @@ import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import globalCSS from '../../index.css';
-import { HeadProvider, TitleWithStore } from '../Head';
+import { HeadProvider, StoreTitle } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
 import Navigation from '../Navigation';
@@ -92,7 +92,7 @@ const App = props => {
     if (renderError) {
         return (
             <HeadProvider>
-                <TitleWithStore />
+                <StoreTitle />
                 <Main isMasked={true} />
                 <Mask isActive={true} />
                 <ToastContainer />
@@ -102,7 +102,7 @@ const App = props => {
 
     return (
         <HeadProvider>
-            <TitleWithStore />
+            <StoreTitle />
             <Main isMasked={hasOverlay}>
                 <Routes />
             </Main>

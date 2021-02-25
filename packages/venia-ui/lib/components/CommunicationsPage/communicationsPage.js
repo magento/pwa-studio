@@ -10,7 +10,7 @@ import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import FormError from '../FormError';
-import { TitleWithStore } from '../Head';
+import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './communicationsPage.css';
 
@@ -55,7 +55,7 @@ const CommunicationsPage = props => {
 
     return (
         <div className={classes.root}>
-            <TitleWithStore>{title}</TitleWithStore>
+            <StoreTitle>{title}</StoreTitle>
             <h1 className={classes.title}>
                 <FormattedMessage
                     id={'communicationsPage.communicationsText'}

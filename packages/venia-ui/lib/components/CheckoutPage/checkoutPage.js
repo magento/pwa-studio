@@ -11,7 +11,7 @@ import {
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
-import { TitleWithStore } from '../Head';
+import { StoreTitle } from '../Head';
 import Icon from '../Icon';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
@@ -334,12 +334,12 @@ const CheckoutPage = props => {
 
     return (
         <div className={classes.root}>
-            <TitleWithStore>
+            <StoreTitle>
                 {formatMessage({
                     id: 'checkoutPage.titleCheckout',
                     defaultMessage: 'Checkout'
                 })}
-            </TitleWithStore>
+            </StoreTitle>
             {checkoutContent}
             {addressBookElement}
             {signInElement}

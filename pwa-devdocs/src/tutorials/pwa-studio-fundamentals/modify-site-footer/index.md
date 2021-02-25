@@ -197,8 +197,8 @@ Update the relative imports in `src/components/App/app.js`.
 Skip updating the Main import statement to use your project's copy of the Main component.
 
 ```diff
-- import { HeadProvider, TitleWithStore } from '../Head';
-+ import { HeadProvider, TitleWithStore } from '@magento/venia-ui/lib/components/Head';
+- import { HeadProvider, StoreTitle } from '../Head';
++ import { HeadProvider, StoreTitle } from '@magento/venia-ui/lib/components/Head';
   import Main from '../Main';
 - import Mask from '../Mask';
 - import MiniCart from '../MiniCart';
