@@ -60,13 +60,14 @@ const mockCreateCart = jest.fn();
 const mockGetCartDetails = jest.fn();
 const mockRemoveCart = jest.fn();
 useCartContext.mockImplementation(() => {
+    const data = {};
     const api = {
         createCart: mockCreateCart,
         getCartDetails: mockGetCartDetails,
         removeCart: mockRemoveCart
     };
 
-    return [, api];
+    return [data, api];
 });
 
 useAwaitQuery.mockImplementation(jest.fn());
@@ -175,8 +176,6 @@ describe('handle submit event', () => {
         await act(async () => {
             await talonProps.handleSubmit(formValues);
         });
-
-        const { talonProps: finalProps } = tree.root.findByType('i').props;
 
         expect(handleSubmit).not.toHaveBeenCalled();
     });

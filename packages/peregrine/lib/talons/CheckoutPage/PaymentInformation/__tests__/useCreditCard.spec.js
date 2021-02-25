@@ -738,8 +738,6 @@ describe('Testing payment success workflow', () => {
 });
 
 describe('Testing stepNumber', () => {
-    const spy = jest.spyOn(console, 'log');
-
     test('Should set stepNumber to 0 when onPaymentError is called', () => {
         const { talonProps, update } = getTalonProps({
             shouldSubmit: false,

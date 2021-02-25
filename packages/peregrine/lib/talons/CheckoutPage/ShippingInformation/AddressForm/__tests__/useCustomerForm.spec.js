@@ -3,7 +3,6 @@ import { useMutation, useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../../../util/createTestInstance';
 import { useCustomerForm } from '../useCustomerForm';
-import { act } from 'react-test-renderer';
 
 const mockCreateCustomerAddress = jest.fn();
 const mockUpdateCustomerAddress = jest.fn();

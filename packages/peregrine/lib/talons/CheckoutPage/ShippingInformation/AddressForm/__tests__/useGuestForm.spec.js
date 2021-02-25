@@ -151,7 +151,7 @@ test('handle submit does not call afterSubmit() if it is not defined', async () 
     );
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
-    const { handleSubmit, isSaving } = talonProps;
+    const { handleSubmit } = talonProps;
 
     await handleSubmit({ ...shippingData, country: 'US', region: 'NY' });
     expect(afterSubmit).not.toHaveBeenCalled();
