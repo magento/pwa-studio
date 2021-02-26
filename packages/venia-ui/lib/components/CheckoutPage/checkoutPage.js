@@ -314,13 +314,13 @@ const CheckoutPage = props => {
         );
         checkoutContent = (
             <div className={checkoutContentClass}>
-                <FormError
-                    classes={{
-                        root: classes.formErrors
-                    }}
-                    errors={formErrors}
-                />
                 <div className={classes.heading_container}>
+                    <FormError
+                        classes={{
+                            root: classes.formErrors
+                        }}
+                        errors={formErrors}
+                    />
                     <StockStatusMessage
                         cartItems={cartItems}
                         message={stockStatusMessageElement}
