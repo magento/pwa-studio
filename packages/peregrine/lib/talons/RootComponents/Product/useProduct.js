@@ -13,7 +13,7 @@ import DEFAULT_OPERATIONS from './product.gql';
  *
  * @param {object}      props
  * @param {Function}    props.mapProduct - A function for updating products to the proper shape.
- * @param {GraphQLAST}  props.queries.getProductQuery - Fetches product using a server query
+ * @param {DocumentNode}  props.operations.getProductDetailQuery  - Fetches product using a server query
  * @param {String}      props.urlKey - The url_key of this product.
  *
  * @returns {object}    result

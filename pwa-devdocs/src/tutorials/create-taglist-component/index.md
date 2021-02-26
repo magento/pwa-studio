@@ -15,7 +15,7 @@ the specific details assumes that you followed the steps in the [Venia storefron
 ## Step 1. Create component directory and files
 
 Inside your project's directory for components, create a new directory called **TagList**.
-In the `pwa-studio` project, this directory is `packages/venia-ui/lib/components`.
+In the `pwa-studio` project, this directory is `src/components`.
 
 Inside the **TagList** directory, create empty files with the following names:
 
@@ -30,7 +30,7 @@ These names follow the [naming conventions][] used in the `pwa-studio` project.
 
 ## Step 2. Define the `Tag` module
 
-The `Tag` module is responible for rendering a single tag in the tag list.
+The `Tag` module is responsible for rendering a single tag in the tag list.
 
 Open the `tag.js` file and add the following content:
 
@@ -43,7 +43,7 @@ import { string } from 'prop-types';
 // This is a component responsible for rendering a single tag
 const Tag = props => {
 
-    // Destructure the props object into variables
+    // Destructuring the props object into variables
     const { value } = props;
 
     // Return the tag string inside a list item element
@@ -77,7 +77,7 @@ import Tag from './tag';
 // This is the main tag list component
 const TagList = props => {
 
-    // Destructure the props object into variables
+    // Destructuring the props object into variables
     const { tagArray } = props;
 
     // Convert the array of tag strings into a list of Tag components
@@ -105,7 +105,7 @@ Open the component's `index.js` file and add the following content:
 export { default } from './tagList';
 ```
 
-Exporting modules from your component's `index.js` file is a commond standard in a React project.
+Exporting modules from your component's `index.js` file is a common standard in a React project.
 It allows a component to import this component using its directory name.
 
 ## Step 5. Add component to the product details page
@@ -115,25 +115,34 @@ Find the component that renders the product details page in your storefront proj
 In the `pwa-studio` project, this component is defined in the following file:
 
 ```text
-packages/venia-ui/lib/components/ProductFullDetail/productFullDetail.js
+@magento/venia-ui/lib/components/ProductFullDetail/productFullDetail.js
 ```
 
-At the top of this file, import the TagList component:
+If you're working on a PWA project, you can use Targetables in your local intercept file to make modifications like this to any file in your dependencies.
+So we need can inject our `TagList` via `local-intercept.js` file:
+```js
+function localIntercept(targets) {
+  const { Targetables } = require('@magento/pwa-buildpack');
+  const targetables = Targetables.using(targets);
 
-```jsx
-import TagList from '../TagList';
-```
+  // create a target for productFullDetail react functional component
+  const ProductDetailComponent = targetables.reactComponent(
+    '@magento/venia-ui/lib/components/ProductFullDetail/productFullDetail.js'
+  );
 
-If you are using the default Venia ProductFullDetail component you can insert TagList into the **Product Description** section:
+  // add a import statement to productFullDetail file
+  const TagList = ProductDetailComponent.addImport(
+    `TagList from '${__dirname}/src/components/TagList'`
+  );
 
-```diff
- <section className={classes.description}>
-     <h2 className={classes.descriptionTitle}>
-         Product Description
-     </h2>
-     <RichText content={productDetails.description} />
-+    <TagList tagArray={['Tag1', 'Tag2', 'Tag3']} />
- </section>
+  // we want to inject our component after the rich text
+  ProductDetailComponent.insertAfterJSX(
+    '<RichText/>',
+    `<${TagList} tagArray={['Tag1', 'Tag2', 'Tag3']} />`
+  );
+}
+
+module.exports = localIntercept;
 ```
 
 Now, when you visit a product detail page, it will show a list with the hard coded strings.
@@ -147,43 +156,111 @@ Clicking each tag should display other similarly tagged items.
 
 For this tutorial, the TagList component will list the product's categories.
 
-### Edit the GraphQL query
+### Change the GraphQL query
 
-Venia's ProductFullDetail component gets the product data from the GraphQL query defined in:
+With the React Developer tool we found out `productFullDetail` get the Product
+injected by `RootComponents\product`. So basically we need to change the loading
+of the Product to get adhesional category information.
 
-```text
-packages/venia-ui/lib/queries/getProductDetail.graphql
-```
-
-Edit the `categories` entry for this query and add the following:
+The Product is loaded by `useProduct` talon.
+All Talons can we extend via `targets.of('@magento/peregrine')` to do this we
+need to add following lines to `local-intercept.js`.
 
 ```diff
- categories {
-     id
-     breadcrumbs {
-         category_id
-     }
-+    name
-+    url_path
- }
+  // we want to inject our component after the rich text
+  ProductDetailComponent.insertAfterJSX(
+    '<RichText/>',
+    `<${TagList} tagArray={['Tag1', 'Tag2', 'Tag3']} />`
+  );
+
++  const peregrineTargets = targets.of('@magento/peregrine');
++  const talonsTarget = peregrineTargets.talons;
+
++  talonsTarget.tap((talonWrapperConfig) => {
++      talonWrapperConfig.RootComponents.Product.useProduct.wrapWith(`${__dirname}/src/talons/wrapUseProduct.js`);
++  });
+}
 ```
 
-Appending this to the query adds a `categories` object to the returned data.
-This object contains information on the name and URL paths for each category.
+Extend Product Fragment with new Category Information for that lets create new at `src/talons/RootComponents/Product/product.gql.js`
+
+```js
+import { gql } from '@apollo/client';
+
+// import the original fragment
+import { ProductDetailsFragment } from '@magento/peregrine/lib/talons/RootComponents/Product/productDetailFragment.gql';
+
+// extend original fragment with category information
+export const CustomProductDetailsFragment = gql`
+  fragment CustomProductDetailsFragment on ProductInterface {
+    __typename
+    ...ProductDetailsFragment
+    categories {
+      id
+      name
+      url_path
+    }
+  }
+  ${ProductDetailsFragment}
+`;
+
+// define query to fetch product information with an extend schema.
+export const GET_PRODUCT_DETAIL_QUERY = gql`
+  query getProductDetailForProductPage($urlKey: String!) {
+    products(filter: { url_key: { eq: $urlKey } }) {
+      items {
+        id
+        ...CustomProductDetailsFragment
+      }
+    }
+  }
+  ${CustomProductDetailsFragment}
+`;
+
+export default {
+  getProductDetailQuery: GET_PRODUCT_DETAIL_QUERY
+};
+```
+
+Next we should created `/src/talons/wrapUseProduct.js`
+
+```js
+// import query fetch  the product information
+import operations from './RootComponents/Product/product.gql';
+
+const wrapUseProduct = (original) => {
+    // will replaced the original useProduct
+    return function useProduct(props, ...restArgs) {
+
+     // create operations or use given can be null.
+     props.operations = props.operations || {};
+     // overwrite getProductDetailQuery by my extend query
+     props.operations.getProductDetailQuery = operations.getProductDetailQuery;
+
+      // call original useProduct and return old api behavior
+      return original(
+        props,
+        ...restArgs
+      );
+    };
+  };
+
+// export our wrap function as default very important !!
+export default wrapUseProduct;
+```
 
 ### Pass the categories data into the TagList component
 
-Open the file for the product detail component and update the code:
+Open the `local-intercept.js`.` update the code to:
 
 ```diff
- <section className={classes.description}>
-     <h2 className={classes.descriptionTitle}>
-         Product Description
-     </h2>
-     <RichText content={productDetails.description} />
--    <TagList tagArray={['Tag1', 'Tag2', 'Tag3']} />
-+    <TagList categories={product.categories} />
- </section>
+
+   // we want to inject our component after the rich text
+  ProductDetailComponent.insertAfterJSX(
+    '<RichText/>',
+-   `<${TagList} tagArray={['Tag1', 'Tag2', 'Tag3']} />`
++   `<${TagList} categories={product.categories} />`
+  );
 ```
 
 This replaces the hard coded data with actual product-specific data, but
@@ -195,32 +272,36 @@ Open `tagList.js` and update the component to accept the new `categories` prop:
 
 ```diff
  import React from 'react';
- 
+
 -import { arrayOf, string } from 'prop-types';
 +import { arrayOf, shape, string } from 'prop-types';
- 
+
  // Import the previously defined Tag component
  import Tag from './tag';
- 
+
  // This is the main tag list module
  const TagList = props => {
- 
-     // Destructure the props object into variables
+
+     // Destructuring the props object into variables
 -    const { tagArray } = props;
 +    const { categories } = props;
- 
+
 -    // Convert the array of tag strings into a list of Tag components
 -    const tagList = tagArray.map(value => {
 -        return <Tag key={value} value={value} />;
 +    // Convert the array of category objects into a list of Tag components
 +    const tagList = categories.map(keyword => {
-+        return <Tag key={keyword.name} value={keyword.name} />;
-     })
- 
-     // Returns the list of Tag components inside a div container
-     return <ul>{tagList}</ul>;
- }
- 
++    if (keyword.name === null) {
++      return '';
++    }
++
++   return <Tag key={keyword.name} value={keyword.name} />;
++  });
++
++    // Returns the list of Tag components inside a div container
++   return <ul>{tagList}</ul>;
+}
+
  TagList.propTypes = {
 -    // tagArray is expected to be an array of strings
 -    tagArray: arrayOf(string)
@@ -230,9 +311,9 @@ Open `tagList.js` and update the component to accept the new `categories` prop:
 +           name: string.isRequired,
 +           url_path: string.isRequired
 +       })
-+    )   
++    )
  }
- 
+
  export default TagList;
 ```
 
@@ -257,18 +338,18 @@ Open `tag.js` and update the component to use existing Venia components:
  // Use the prop-types module for type checking
 -import { string } from 'prop-types';
 +import { string, shape } from 'prop-types';
- 
+
 +const categoryUrlSuffix = '.html';
 
  // This is a module responsible for rendering a single tag
  const Tag = props => {
- 
+
      // Destructure the props object into variables
      const { value } = props;
- 
+
 +    const { name, url_path } = value;
 +    const url = `/${url_path}${categoryUrlSuffix}`;
- 
+
 -    // Return the tag string inside a list item element
 -    return <li>{value}</li>;
 +    // Return the tag as a Link component wrapped around a Button
@@ -280,7 +361,7 @@ Open `tag.js` and update the component to use existing Venia components:
 +        </Link>
 +    );
  }
- 
+
  // Define the props this component accepts
  Tag.propTypes = {
 -    value: string
@@ -289,7 +370,7 @@ Open `tag.js` and update the component to use existing Venia components:
 +       url_path: string.isRequired
 +    })
  }
- 
+
  // Make this function the default exported module for this file
  export default Tag;
 ```
@@ -345,10 +426,10 @@ Open the `tagList.js` file and make the following changes to the component.
 
 ```diff
  import { arrayOf, shape, string } from 'prop-types';
- 
-+import { mergeClasses } from '../../classify';
+
++import {mergeClasses} from '@magento/venia-ui/lib/classify';
 +import defaultClasses from './tagList.css';
- 
+
  import Tag from './tag';
 ```
 
@@ -356,7 +437,7 @@ Open the `tagList.js` file and make the following changes to the component.
 
 ```diff
  const { categories } = props;
- 
+
 +const classes = mergeClasses(defaultClasses, props.classes);
 ```
 
@@ -412,7 +493,7 @@ Open the `tag.js` file and make the following changes to the component.
 
 ```diff
  import Button from '../Button';
-+import { mergeClasses } from '../../classify';
++import {mergeClasses} from '@magento/venia-ui/lib/classify';
 +import defaultClasses from './tag.css';
  import { Link } from '@magento/venia-drivers';
 ```
@@ -421,7 +502,7 @@ Open the `tag.js` file and make the following changes to the component.
 
 ```diff
  const { value } = props;
- 
+
 +const classes = mergeClasses(defaultClasses, props.classes);
 +
 +const buttonClasses = {
@@ -456,7 +537,7 @@ You just created a new storefront components using PWA Studio libraries and conv
 
 ![Final styled tag list component](images/styled-list.png)
 
-[venia storefront setup]: <{%link venia-pwa-concept/setup/index.md %}>
+[venia storefront setup]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
 
 [naming conventions]: https://github.com/magento/pwa-studio/wiki/Project-coding-standards-and-conventions#file-naming-and-directory-structure
 
