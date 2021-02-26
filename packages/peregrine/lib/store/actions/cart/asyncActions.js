@@ -347,10 +347,11 @@ export const getCartDetails = payload => {
         try {
             const { data } = await fetchCartDetails({
                 variables: { cartId },
-                fetchPolicy: 'network-only'
+                fetchPolicy: 'no-cache',
+                errorPolicy: 'all'
             });
             const { cart: details } = data;
-
+            details.items = details.items.filter(function (e) {return e != null;});
             dispatch(actions.getDetails.receive({ details }));
         } catch (error) {
             dispatch(actions.getDetails.receive(error));
