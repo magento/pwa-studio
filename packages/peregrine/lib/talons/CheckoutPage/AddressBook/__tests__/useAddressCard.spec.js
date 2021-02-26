@@ -116,3 +116,23 @@ describe('event handlers fire callbacks', () => {
         expect(onEdit.mock.calls[0][0]).toMatchSnapshot();
     });
 });
+
+describe('handles null address', () => {
+    const tree = createTestInstance(
+        <Component {...mockProps} address={undefined} />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    test('calls onSelection() with null value', () => {
+        talonProps.handleClick();
+
+        expect(onSelection).toHaveBeenCalledWith(null);
+    });
+
+    test('calls onEdit() with null value', () => {
+        talonProps.handleEditAddress();
+
+        expect(onEdit).toHaveBeenCalledWith(null);
+    });
+});

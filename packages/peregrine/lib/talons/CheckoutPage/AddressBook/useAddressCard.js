@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 
 export const useAddressCard = props => {
     const { address, onEdit, onSelection } = props;
-    const { id: addressId } = address;
+    const addressId = address ? address.id : null;
 
     const [hasUpdate, setHasUpdate] = useState(false);
     const hasRendered = useRef(false);
@@ -28,6 +28,10 @@ export const useAddressCard = props => {
     }, [hasRendered, address]);
 
     const addressForEdit = useMemo(() => {
+        if (!address){
+            return null;
+        }
+
         const { country_code: countryCode, ...addressRest } = address;
 
         return {
