@@ -100,21 +100,21 @@ exports[`CheckoutPage renders an error and disables review order button if there
   <div
     className="checkoutContent"
   >
-    <FormError
-      classes={
-        Object {
-          "root": "formErrors",
-        }
-      }
-      errors={
-        Array [
-          [Error: Payment is currently unavailable.],
-        ]
-      }
-    />
     <div
       className="heading_container"
     >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={
+          Array [
+            [Error: Payment is currently unavailable.],
+          ]
+        }
+      />
       <StockStatusMessage
         cartItems={Array []}
         message={
@@ -237,17 +237,17 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
   <div
     className="checkoutContent"
   >
-    <FormError
-      classes={
-        Object {
-          "root": "formErrors",
-        }
-      }
-      errors={Array []}
-    />
     <div
       className="heading_container"
     >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={Array []}
+      />
       <StockStatusMessage
         cartItems={Array []}
         message={
@@ -329,17 +329,17 @@ exports[`CheckoutPage renders checkout content for customer - no default address
   <div
     className="checkoutContent"
   >
-    <FormError
-      classes={
-        Object {
-          "root": "formErrors",
-        }
-      }
-      errors={Array []}
-    />
     <div
       className="heading_container"
     >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={Array []}
+      />
       <StockStatusMessage
         cartItems={Array []}
         message={
@@ -421,17 +421,17 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
   <div
     className="checkoutContent"
   >
-    <FormError
-      classes={
-        Object {
-          "root": "formErrors",
-        }
-      }
-      errors={Array []}
-    />
     <div
       className="heading_container"
     >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={Array []}
+      />
       <StockStatusMessage
         cartItems={Array []}
         message={
