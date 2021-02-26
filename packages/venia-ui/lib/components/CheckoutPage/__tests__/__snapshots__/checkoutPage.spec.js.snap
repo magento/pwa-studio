@@ -8,17 +8,17 @@ exports[`CheckoutPage renders address book for customer 1`] = `
   <div
     className="checkoutContent_hidden"
   >
-    <FormError
-      classes={
-        Object {
-          "root": "formErrors",
-        }
-      }
-      errors={Array []}
-    />
     <div
       className="heading_container"
     >
+      <FormError
+        classes={
+          Object {
+            "root": "formErrors",
+          }
+        }
+        errors={Array []}
+      />
       <StockStatusMessage
         cartItems={Array []}
         message={
