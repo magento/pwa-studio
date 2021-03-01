@@ -322,13 +322,13 @@ test('should set checkout step and review order button click state when an error
         return [jest.fn(), { data: {}, loading: false }];
     });
 
-    const { talonProps, update } = getTalonProps(props);
+    const { talonProps, update } = getTalonProps(defaultProps);
 
     await act(async () => {
         await talonProps.handlePlaceOrder();
     });
 
-    const updatedProps = update(props);
+    const updatedProps = update(defaultProps);
 
     expect(consoleErrorSpy).toHaveBeenCalled();
     expect(updatedProps.reviewOrderButtonClicked).toBeFalsy();
