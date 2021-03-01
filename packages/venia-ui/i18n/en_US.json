@@ -69,6 +69,7 @@
     "checkoutPage.itemsInYourOrder": " items in your order",
     "checkoutPage.loadingPayment": "Loading Payment",
     "checkoutPage.loadingPaymentInformation": "Fetching Payment Information",
+    "checkoutPage.noPaymentAvailable": "Payment is currently unavailable.",
     "checkoutPage.orderNumber": "Order Number: {orderNumber}",
     "checkoutPage.orderSummary": "Order Summary",
     "checkoutPage.paymentInformation": "Payment Information",
