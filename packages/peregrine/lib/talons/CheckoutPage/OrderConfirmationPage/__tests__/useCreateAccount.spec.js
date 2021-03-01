@@ -1,46 +1,93 @@
 import React from 'react';
 
-import { useMutation } from '@apollo/client';
-import createTestInstance from '../../../../../lib/util/createTestInstance';
+import { MockedProvider } from '@apollo/client/testing';
+import { renderHook, act } from '@testing-library/react-hooks';
 
 import { useUserContext } from '../../../../context/user';
 import { useCartContext } from '../../../../context/cart';
 import { useAwaitQuery } from '../../../../hooks/useAwaitQuery';
 
 import { useCreateAccount } from '../useCreateAccount';
-import { act } from 'react-test-renderer';
+import defaultOperations from '../createAccount.gql';
 
-jest.mock('@apollo/client');
-jest.mock('../../../../context/user');
-jest.mock('../../../../context/cart');
-jest.mock('../../../../hooks/useAwaitQuery');
+const createAccountVariables = {
+    email: 'bender@planet.express',
+    firstname: 'Bender',
+    lastname: 'Rodriguez',
+    password: '123456',
+    is_subscribed: false
+};
+const createAccount = jest.fn();
+const createAccountMock = {
+    request: {
+        query: defaultOperations.createAccountMutation,
+        variables: createAccountVariables
+    },
+    result: () => {
+        createAccount();
 
-const mockCreateAccount = jest.fn();
+        return {
+            data: {
+                id: 'user_id'
+            }
+        };
+    }
+};
 
-const mockSignIn = jest.fn(() => {
-    return {
+const createCartMock = {
+    request: {
+        query: defaultOperations.createCartMutation
+    },
+    result: {
         data: {
-            generateCustomerToken: {
-                token: 'signInToken'
+            cartId: '1234'
+        }
+    }
+};
+
+const getCartDetailsMock = {
+    request: {
+        query: defaultOperations.getCartDetailsQuery,
+        variables: {
+            cartId: '1234'
+        }
+    },
+    result: {
+        data: {
+            id: '1234'
+        }
+    }
+};
+
+const getCustomerMock = {
+    request: {
+        query: defaultOperations.getCustomerQuery
+    },
+    result: {
+        data: {
+            customer: {
+                id: '123'
             }
         }
-    };
-});
-useMutation.mockImplementation(query => {
-    let result = [jest.fn(), { error: null }];
-
-    switch (query) {
-        case 'createAccountMutation':
-            result = [mockCreateAccount, { error: null }];
-            break;
-        case 'signInMutation':
-            result = [mockSignIn, { error: null }];
-            break;
     }
+};
 
-    return result;
-});
+const signInVariables = {
+    email: 'bender@planet.express',
+    password: '123456'
+};
+const authToken = 'auth-token-123';
+const signInMock = {
+    request: {
+        query: defaultOperations.signInMutation,
+        variables: signInVariables
+    },
+    result: {
+        data: { generateCustomerToken: { token: authToken } }
+    }
+};
 
+jest.mock('../../../../context/user');
 const mockGetUserDetails = jest.fn();
 const mockSetToken = jest.fn();
 useUserContext.mockImplementation(() => {
@@ -56,6 +103,7 @@ useUserContext.mockImplementation(() => {
     return [data, api];
 });
 
+jest.mock('../../../../context/cart');
 const mockCreateCart = jest.fn();
 const mockGetCartDetails = jest.fn();
 const mockRemoveCart = jest.fn();
@@ -70,56 +118,61 @@ useCartContext.mockImplementation(() => {
     return [data, api];
 });
 
+jest.mock('../../../../hooks/useAwaitQuery');
 useAwaitQuery.mockImplementation(jest.fn());
 
 const handleSubmit = jest.fn();
 
-const DEFAULT_PROPS = {
+const initialProps = {
     initialValues: {
         email: 'philipfry@fake.email',
         firstName: 'Philip',
         lastName: 'Fry'
     },
-    onSubmit: handleSubmit,
-    operations: {
-        createAccountMutation: 'createAccountMutation',
-        createCartMutation: 'createCartMutation',
-        getCartDetailsQuery: 'getCartDetailsQuery',
-        getCustomerQuery: 'getCustomerQuery',
-        signInMutation: 'signInMutation'
-    }
+    onSubmit: handleSubmit
 };
 
-const Component = props => {
-    const talonProps = useCreateAccount(props);
+const renderHookWithProviders = ({
+    renderHookOptions = { initialProps },
+    mocks = [
+        createAccountMock,
+        signInMock,
+        createCartMock,
+        getCartDetailsMock,
+        getCustomerMock
+    ]
+} = {}) => {
+    const wrapper = ({ children }) => (
+        <MockedProvider mocks={mocks} addTypename={false}>
+            {children}
+        </MockedProvider>
+    );
 
-    return <i talonProps={talonProps} />;
+    return renderHook(useCreateAccount, { wrapper, ...renderHookOptions });
 };
 
 test('returns the correct shape', () => {
-    const tree = createTestInstance(<Component {...DEFAULT_PROPS} />);
+    const { result } = renderHookWithProviders();
 
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-
-    expect(talonProps).toMatchSnapshot();
+    expect(result.current).toMatchSnapshot();
 });
 
 test('returns the correct shape with no initial values', () => {
-    const tree = createTestInstance(
-        <Component {...DEFAULT_PROPS} initialValues={undefined} />
-    );
+    const { result } = renderHookWithProviders({
+        renderHookOptions: {
+            initialProps: {
+                onSubmit: handleSubmit
+            }
+        }
+    });
 
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-
-    expect(talonProps).toMatchSnapshot();
+    expect(result.current).toMatchSnapshot();
 });
 
 describe('handle submit event', () => {
     const formValues = {
         customer: {
-            email: 'bender@fake.email',
+            email: 'bender@planet.express',
             firstname: 'Bender',
             lastname: 'Rodriguez'
         },
@@ -128,53 +181,36 @@ describe('handle submit event', () => {
     };
 
     it('creates an account, signs in, and generates a new cart', async () => {
-        const tree = createTestInstance(<Component {...DEFAULT_PROPS} />);
-
-        const { root } = tree;
-        const { talonProps } = root.findByType('i').props;
+        const { result } = renderHookWithProviders();
 
         await act(async () => {
-            await talonProps.handleSubmit(formValues);
+            await result.current.handleSubmit(formValues);
         });
 
-        const { talonProps: finalProps } = tree.root.findByType('i').props;
-
-        expect(mockCreateAccount).toHaveBeenCalledWith({
-            variables: {
-                email: 'bender@fake.email',
-                firstname: 'Bender',
-                lastname: 'Rodriguez',
-                password: '123456',
-                is_subscribed: false
-            }
-        });
-        expect(mockSignIn).toHaveBeenCalledWith({
-            variables: {
-                email: 'bender@fake.email',
-                password: '123456'
-            }
-        });
-        expect(mockSetToken).toHaveBeenCalledWith('signInToken');
+        expect(mockSetToken).toHaveBeenCalledWith('auth-token-123');
+        expect(createAccount).toHaveBeenCalled();
         expect(mockRemoveCart).toHaveBeenCalled();
         expect(mockCreateCart).toHaveBeenCalledWith({
             fetchCartId: expect.anything()
         });
         expect(mockGetUserDetails).toHaveBeenCalled();
         expect(mockGetCartDetails).toHaveBeenCalled();
+
         expect(handleSubmit).toHaveBeenCalledTimes(1);
-        expect(finalProps.isDisabled).toBeTruthy();
+        expect(result.current.isDisabled).toBeTruthy();
     });
 
     it('does not call the submit callback if it is not defined', async () => {
-        const tree = createTestInstance(
-            <Component {...DEFAULT_PROPS} onSubmit={undefined} />
-        );
-
-        const { root } = tree;
-        const { talonProps } = root.findByType('i').props;
+        const { result } = renderHookWithProviders({
+            renderHookOptions: {
+                initialProps: {
+                    onSubmit: undefined
+                }
+            }
+        });
 
         await act(async () => {
-            await talonProps.handleSubmit(formValues);
+            await result.current.handleSubmit(formValues);
         });
 
         expect(handleSubmit).not.toHaveBeenCalled();
@@ -196,19 +232,14 @@ describe('handle submit event', () => {
                 }
             ];
         });
-        const tree = createTestInstance(<Component {...DEFAULT_PROPS} />);
-
-        const { root } = tree;
-        const { talonProps } = root.findByType('i').props;
+        const { result } = renderHookWithProviders();
 
         await act(async () => {
-            await talonProps.handleSubmit(formValues);
+            await result.current.handleSubmit(formValues);
         });
 
-        const { talonProps: finalProps } = tree.root.findByType('i').props;
-
         expect(consoleErrorSpy).toHaveBeenCalled();
-        expect(finalProps.isDisabled).toBeFalsy();
+        expect(result.current.isDisabled).toBeFalsy();
     });
 
     it('does not log errors to console in production when an error happens', async () => {
@@ -228,13 +259,10 @@ describe('handle submit event', () => {
                 }
             ];
         });
-        const tree = createTestInstance(<Component {...DEFAULT_PROPS} />);
-
-        const { root } = tree;
-        const { talonProps } = root.findByType('i').props;
+        const { result } = renderHookWithProviders();
 
         await act(async () => {
-            await talonProps.handleSubmit(formValues);
+            await result.current.handleSubmit(formValues);
         });
 
         expect(consoleErrorSpy).not.toHaveBeenCalled();

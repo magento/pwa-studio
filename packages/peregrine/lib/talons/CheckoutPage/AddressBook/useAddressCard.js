@@ -28,7 +28,7 @@ export const useAddressCard = props => {
     }, [hasRendered, address]);
 
     const addressForEdit = useMemo(() => {
-        if (!address){
+        if (!address) {
             return null;
         }
 

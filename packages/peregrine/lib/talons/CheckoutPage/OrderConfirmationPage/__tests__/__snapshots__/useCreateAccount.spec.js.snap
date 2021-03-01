@@ -3,8 +3,8 @@
 exports[`returns the correct shape 1`] = `
 Object {
   "errors": Map {
-    "createAccountQuery" => null,
-    "signInMutation" => null,
+    "createAccountQuery" => undefined,
+    "signInMutation" => undefined,
   },
   "handleSubmit": [Function],
   "initialValues": Object {
@@ -21,8 +21,8 @@ Object {
 exports[`returns the correct shape with no initial values 1`] = `
 Object {
   "errors": Map {
-    "createAccountQuery" => null,
-    "signInMutation" => null,
+    "createAccountQuery" => undefined,
+    "signInMutation" => undefined,
   },
   "handleSubmit": [Function],
   "initialValues": Object {
