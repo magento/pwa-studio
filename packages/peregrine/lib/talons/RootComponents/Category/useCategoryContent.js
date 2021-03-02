@@ -21,7 +21,6 @@ const DRAWER_NAME = 'filter';
  * @returns {func}   result.handleOpenFilters - A callback function that actually opens the filter drawer.
  * @returns {object} result.items - The items in this category.
  * @returns {bool}   result.loadFilters - Whether or not the user has signalled their intent to interact with the filters.
- * @returns {string} result.pageTitle - The text to put in the browser tab for this page.
  */
 export const useCategoryContent = props => {
     const { categoryId, data, pageSize = 6 } = props;

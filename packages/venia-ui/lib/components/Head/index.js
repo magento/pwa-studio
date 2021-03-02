@@ -54,7 +54,6 @@ export const StoreTitle = props => {
 
     const { data: storeNameData } = useQuery(STORE_NAME_QUERY);
 
-    // TODO: Should we fall back to the global default STORE_NAME? or maybe just empty string?
     const storeName = useMemo(() => {
         return storeNameData
             ? storeNameData.storeConfig.store_name

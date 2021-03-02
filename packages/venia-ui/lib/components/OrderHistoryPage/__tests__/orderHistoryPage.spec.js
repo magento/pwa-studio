@@ -24,7 +24,7 @@ jest.mock(
 );
 
 jest.mock('../../../classify');
-jest.mock('../../Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../Head', () => ({ StoreTitle: () => 'Title' }));
 jest.mock('../orderRow', () => 'OrderRow');
 
 test('renders full page loading indicator', () => {

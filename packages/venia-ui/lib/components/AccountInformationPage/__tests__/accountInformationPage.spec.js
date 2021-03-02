@@ -32,7 +32,7 @@ const emptyFormProps = {
     showUpdateMode
 };
 
-jest.mock('../../Head', () => ({ Title: () => 'Account Information' }));
+jest.mock('../../Head', () => ({ StoreTitle: () => 'Account Information' }));
 
 jest.mock('@magento/venia-drivers', () => ({
     Redirect: props => <mock-Redirect {...props} />

@@ -35,7 +35,7 @@ jest.mock('@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage', () => {
 
 jest.mock('../../../classify');
 
-jest.mock('../../../components/Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../../components/Head', () => ({ StoreTitle: () => 'Title' }));
 jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
 jest.mock('../ItemsReview', () => 'ItemsReview');
 jest.mock('../GuestSignIn', () => 'GuestSignIn');
