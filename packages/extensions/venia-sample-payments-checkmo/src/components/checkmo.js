@@ -23,7 +23,7 @@ const CheckMo = props => {
 
     const { resetShouldSubmit, onPaymentSuccess, onPaymentError } = props;
     const addressTemplate = str => (
-        <span key={str} className={classes.addressLine} >
+        <span key={str} className={classes.addressLine}>
             {str} <br />
         </span>
     );
@@ -61,10 +61,14 @@ const CheckMo = props => {
                 />
             </p>
             <p className={classes.formatAddress}>{formatAddress}</p>
-            <p className={classes.note}><FormattedMessage
+            <p className={classes.note}>
+                <FormattedMessage
                     id={'checkMo.note'}
-                    defaultMessage={'Note: Your order will bbe shipped once the Check/Money Order has been received and processed.'}
-                /></p>
+                    defaultMessage={
+                        'Note: Your order will bbe shipped once the Check/Money Order has been received and processed.'
+                    }
+                />
+            </p>
             <BillingAddress
                 shouldSubmit={props.shouldSubmit}
                 onBillingAddressChangedError={onBillingAddressChangedError}

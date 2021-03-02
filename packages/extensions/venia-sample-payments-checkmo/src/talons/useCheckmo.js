@@ -55,10 +55,10 @@ export const useCheckmo = props => {
      * This function will be called if address was successfully set.
      */
     const onBillingAddressChangedSuccess = useCallback(() => {
-      updatePaymentMethod({
-        variables: { cartId }
-      });
-    }, [updatePaymentMethod]);
+        updatePaymentMethod({
+            variables: { cartId }
+        });
+    }, [updatePaymentMethod, cartId]);
 
     useEffect(() => {
         const paymentMethodMutationCompleted =

@@ -9,7 +9,7 @@
 }
 
 .payment_method:not(:first-child) {
-  padding-top: 1rem;
+    padding-top: 1rem;
 }
 
 .payment_method:last-of-type {
