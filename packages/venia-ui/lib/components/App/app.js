@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, Suspense } from 'react';
 import { useIntl } from 'react-intl';
 import { array, func, shape, string } from 'prop-types';
 
@@ -9,7 +9,6 @@ import globalCSS from '../../index.css';
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
-import Navigation from '../Navigation';
 import Routes from '../Routes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
@@ -19,6 +18,8 @@ import {
     CloudOff as CloudOffIcon,
     Wifi as WifiIcon
 } from 'react-feather';
+
+const Navigation = React.lazy(() => import('../Navigation'));
 
 const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
@@ -107,7 +108,9 @@ const App = props => {
                 <Routes />
             </Main>
             <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
-            <Navigation />
+            <Suspense fallback={null}>
+                <Navigation />
+            </Suspense>
             <ToastContainer />
         </HeadProvider>
     );

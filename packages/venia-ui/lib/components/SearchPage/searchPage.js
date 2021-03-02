@@ -6,13 +6,13 @@ import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearc
 
 import { mergeClasses } from '../../classify';
 import Pagination from '../../components/Pagination';
-import FilterModal from '../FilterModal';
 import Gallery from '../Gallery';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import ProductSort from '../ProductSort';
 import Button from '../Button';
-
 import defaultClasses from './searchPage.css';
+
+const FilterModal = React.lazy(() => import('../FilterModal'));
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);

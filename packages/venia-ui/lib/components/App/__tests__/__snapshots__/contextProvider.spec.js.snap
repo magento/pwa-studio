@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render properly 1`] = `
+<mock-LocaleProvider>
+  <mock-PeregrineContextProvider>
+    <mock-WindowSizeContextProvider>
+      <mock-ToastContextProvider>
+        <mock-App />
+      </mock-ToastContextProvider>
+    </mock-WindowSizeContextProvider>
+  </mock-PeregrineContextProvider>
+</mock-LocaleProvider>
+`;
