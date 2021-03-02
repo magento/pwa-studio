@@ -4,9 +4,10 @@ import { array, func, oneOfType, shape, string } from 'prop-types';
 import { gql, useQuery } from '@apollo/client';
 
 import { mergeClasses } from '../../classify';
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import Block from './block';
 import defaultClasses from './cmsBlock.css';
+import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 
 const CmsBlockGroup = props => {
     const { identifiers } = props;
@@ -16,19 +17,14 @@ const CmsBlockGroup = props => {
         variables: { identifiers }
     });
 
-    if (loading) {
-        return fullPageLoadingIndicator;
-    }
+    if (!data) {
+        if (loading) {
+            return fullPageLoadingIndicator;
+        }
 
-    if (error) {
-        return (
-            <div>
-                <FormattedMessage
-                    id={'cmsBlock.errorFetch'}
-                    defaultMessage={'Data Fetch Error'}
-                />
-            </div>
-        );
+        if (error) {
+            return <ErrorView message={error.message} />;
+        }
     }
 
     const { items } = data.cmsBlocks;

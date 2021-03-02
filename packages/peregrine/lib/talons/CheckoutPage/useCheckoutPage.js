@@ -7,9 +7,13 @@ import {
 } from '@apollo/client';
 
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
-import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
+
+import mergeOperations from '../../util/shallowMerge';
+
+import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
+
 import CheckoutError from './CheckoutError';
 
 export const CHECKOUT_STEP = {
@@ -19,15 +23,16 @@ export const CHECKOUT_STEP = {
     REVIEW: 4
 };
 
-export const useCheckoutPage = props => {
+export const useCheckoutPage = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+
     const {
-        mutations: { createCartMutation, placeOrderMutation },
-        queries: {
-            getCheckoutDetailsQuery,
-            getCustomerQuery,
-            getOrderDetailsQuery
-        }
-    } = props;
+        createCartMutation,
+        getCheckoutDetailsQuery,
+        getCustomerQuery,
+        getOrderDetailsQuery,
+        placeOrderMutation
+    } = operations;
 
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
@@ -39,7 +44,6 @@ export const useCheckoutPage = props => {
     const [checkoutStep, setCheckoutStep] = useState(
         CHECKOUT_STEP.SHIPPING_ADDRESS
     );
-    const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
@@ -103,22 +107,22 @@ export const useCheckoutPage = props => {
 
     const customer = customerData && customerData.customer;
 
-    const toggleActiveContent = useCallback(() => {
-        const nextContentState =
-            activeContent === 'checkout' ? 'addressBook' : 'checkout';
-        setActiveContent(nextContentState);
-    }, [activeContent]);
+    const toggleAddressBookContent = useCallback(() => {
+        setActiveContent(currentlyActive =>
+            currentlyActive === 'checkout' ? 'addressBook' : 'checkout'
+        );
+    }, []);
+    const toggleSignInContent = useCallback(() => {
+        setActiveContent(currentlyActive =>
+            currentlyActive === 'checkout' ? 'signIn' : 'checkout'
+        );
+    }, []);
 
     const checkoutError = useMemo(() => {
         if (placeOrderError) {
             return new CheckoutError(placeOrderError);
         }
     }, [placeOrderError]);
-
-    const handleSignIn = useCallback(() => {
-        // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
-        toggleDrawer('nav');
-    }, [toggleDrawer]);
 
     const handleReviewOrder = useCallback(() => {
         setReviewOrderButtonClicked(true);
@@ -163,6 +167,13 @@ export const useCheckoutPage = props => {
         });
     }, [cartId, getOrderDetails]);
 
+    // Go back to checkout if shopper logs in
+    useEffect(() => {
+        if (isSignedIn) {
+            setActiveContent('checkout');
+        }
+    }, [isSignedIn]);
+
     useEffect(() => {
         async function placeOrderAndCleanup() {
             try {
@@ -205,11 +216,13 @@ export const useCheckoutPage = props => {
 
     return {
         activeContent,
+        availablePaymentMethods: checkoutData
+            ? checkoutData.cart.available_payment_methods
+            : null,
         cartItems,
         checkoutStep,
         customer,
         error: checkoutError,
-        handleSignIn,
         handlePlaceOrder,
         hasError: !!checkoutError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
@@ -230,6 +243,7 @@ export const useCheckoutPage = props => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
-        toggleActiveContent
+        toggleAddressBookContent,
+        toggleSignInContent
     };
 };

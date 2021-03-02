@@ -8,7 +8,22 @@ const dispatch = jest.fn();
 const getState = jest.fn(() => ({
     user: { isSignedIn: false }
 }));
-const thunkArgs = [dispatch, getState];
+const thunkArgs = [
+    dispatch,
+    getState,
+    {
+        apolloClient: {
+            persistor: {
+                persistor: {
+                    storage: {
+                        key: 'unit test key'
+                    }
+                }
+            }
+        }
+    }
+];
+
 const fetchUserDetails = jest
     .fn()
     .mockResolvedValue({ data: { customer: {} } });
@@ -102,7 +117,7 @@ describe('signOut', () => {
     });
 
     test('signOut thunk invokes revokeToken and dispatchs actions', async () => {
-        await signOut({ revokeToken })(dispatch);
+        await signOut({ revokeToken })(...thunkArgs);
 
         expect(revokeToken).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenCalledTimes(3);
@@ -112,7 +127,7 @@ describe('signOut', () => {
         const consoleSpy = jest.spyOn(console, 'error');
         revokeToken.mockRejectedValueOnce(new Error('Revoke Token Error'));
 
-        await signOut({ revokeToken })(dispatch);
+        await signOut({ revokeToken })(...thunkArgs);
 
         expect(revokeToken).toHaveBeenCalledTimes(1);
         expect(consoleSpy).toHaveBeenCalledTimes(1);

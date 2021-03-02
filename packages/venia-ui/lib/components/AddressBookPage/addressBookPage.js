@@ -1,22 +1,37 @@
 import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { PlusSquare } from 'react-feather';
-import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
 
+import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { Title } from '@magento/venia-ui/lib/components/Head';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
-import defaultClasses from './addressBookPage.css';
+
 import AddressCard from './addressCard';
+import AddEditDialog from './addEditDialog';
+import defaultClasses from './addressBookPage.css';
 
 const AddressBookPage = props => {
     const talonProps = useAddressBookPage();
     const {
+        confirmDeleteAddressId,
         countryDisplayNameMap,
         customerAddresses,
+        formErrors,
+        formProps,
         handleAddAddress,
+        handleCancelDeleteAddress,
+        handleCancelDialog,
+        handleConfirmDeleteAddress,
+        handleConfirmDialog,
+        handleDeleteAddress,
+        handleEditAddress,
+        isDeletingCustomerAddress,
+        isDialogBusy,
+        isDialogEditMode,
+        isDialogOpen,
         isLoading
     } = talonProps;
 
@@ -28,25 +43,48 @@ const AddressBookPage = props => {
         defaultMessage: 'Address Book'
     });
     const addressBookElements = useMemo(() => {
-        const addresses = customerAddresses.map(addressEntry => {
-            const countryName = countryDisplayNameMap.get(
-                addressEntry.country_code
-            );
+        const defaultToBeginning = (address1, address2) => {
+            if (address1.default_shipping) return -1;
+            if (address2.default_shipping) return 1;
+            return 0;
+        };
 
-            return (
-                <AddressCard
-                    key={addressEntry.id}
-                    address={addressEntry}
-                    countryName={countryName}
-                />
-            );
-        });
+        return Array.from(customerAddresses)
+            .sort(defaultToBeginning)
+            .map(addressEntry => {
+                const countryName = countryDisplayNameMap.get(
+                    addressEntry.country_code
+                );
 
-        // sort the collection so the default is first
-        return addresses.sort(address =>
-            address.props.address.default_shipping ? -1 : 1
-        );
-    }, [countryDisplayNameMap, customerAddresses]);
+                const boundEdit = () => handleEditAddress(addressEntry);
+                const boundDelete = () => handleDeleteAddress(addressEntry.id);
+                const isConfirmingDelete =
+                    confirmDeleteAddressId === addressEntry.id;
+
+                return (
+                    <AddressCard
+                        address={addressEntry}
+                        countryName={countryName}
+                        isConfirmingDelete={isConfirmingDelete}
+                        isDeletingCustomerAddress={isDeletingCustomerAddress}
+                        key={addressEntry.id}
+                        onCancelDelete={handleCancelDeleteAddress}
+                        onConfirmDelete={handleConfirmDeleteAddress}
+                        onDelete={boundDelete}
+                        onEdit={boundEdit}
+                    />
+                );
+            });
+    }, [
+        confirmDeleteAddressId,
+        countryDisplayNameMap,
+        customerAddresses,
+        handleCancelDeleteAddress,
+        handleConfirmDeleteAddress,
+        handleDeleteAddress,
+        handleEditAddress,
+        isDeletingCustomerAddress
+    ]);
 
     if (isLoading) {
         return fullPageLoadingIndicator;
@@ -80,6 +118,15 @@ const AddressBookPage = props => {
                     </span>
                 </LinkButton>
             </div>
+            <AddEditDialog
+                formErrors={formErrors}
+                formProps={formProps}
+                isBusy={isDialogBusy}
+                isEditMode={isDialogEditMode}
+                isOpen={isDialogOpen}
+                onCancel={handleCancelDialog}
+                onConfirm={handleConfirmDialog}
+            />
         </div>
     );
 };

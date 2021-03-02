@@ -49,6 +49,7 @@ async function createUpwardServer({
     const app = express();
     before(app);
     const upward = await middleware(resolve(upwardPath), env);
+
     if (env.NODE_ENV === 'production') {
         app.use(morgan('combined'));
         app.use(upward);
@@ -58,6 +59,7 @@ async function createUpwardServer({
         errorhandler.title = `⚠️ Error in upward-js v${version}`;
         app.use(errorhandler());
     }
+
     if (bindLocal) {
         return new Promise((resolve, reject) => {
             try {

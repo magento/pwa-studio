@@ -56,6 +56,14 @@ Object {
         "merge": [Function],
         "read": [Function],
       },
+      "orders": Object {
+        "items": Object {
+          "merge": true,
+        },
+        "keyArgs": Array [
+          "filter",
+        ],
+      },
     },
     "keyFields": [Function],
   },
@@ -65,6 +73,14 @@ Object {
         "merge": [Function],
       },
     },
+  },
+  "CustomerPaymentTokens": Object {
+    "fields": Object {
+      "items": Object {
+        "merge": [Function],
+      },
+    },
+    "keyFields": [Function],
   },
   "ProductImage": Object {
     "keyFields": Array [

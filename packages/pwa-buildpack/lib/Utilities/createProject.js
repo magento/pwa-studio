@@ -5,6 +5,7 @@ const micromatch = require('micromatch');
 const getBuildpackInstructions = require('./getBuildpackInstructions');
 const fse = require('fs-extra');
 const gitIgnoreToGlob = require('gitignore-to-glob');
+const sampleBackends = require('../../sampleBackends.json');
 
 const isMatch = (path, globs) => micromatch.isMatch(path, globs, { dot: true });
 
@@ -108,10 +109,11 @@ async function createProject(options) {
         before = () => {},
         ignores = getIgnores(packageRoot),
         visitor
-    } = instructions.create({
+    } = await instructions.create({
         fs: fse,
         tasks: makeCommonTasks(fse),
-        options
+        options,
+        sampleBackends
     });
     await before({ options });
     await makeCopyStream({

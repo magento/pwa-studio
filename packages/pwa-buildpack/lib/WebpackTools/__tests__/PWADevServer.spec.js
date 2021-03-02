@@ -1,11 +1,7 @@
 jest.mock('errorhandler');
-jest.mock('fs');
 jest.mock('portscanner');
 jest.mock('graphql-playground-middleware-express');
 jest.mock('../../Utilities/configureHost');
-
-const fs = require('fs');
-jest.spyOn(fs, 'readFile');
 
 const errorhandler = require('errorhandler');
 const waitForExpect = require('wait-for-expect');
@@ -16,6 +12,14 @@ const {
 } = require('graphql-playground-middleware-express');
 const configureHost = require('../../Utilities/configureHost');
 const { PWADevServer } = require('../');
+
+jest.mock('compression', () => () =>
+    jest.fn().mockName('compression middleware')
+);
+
+jest.mock('hastily', () => ({
+    HASTILY_STREAMABLE_PATH_REGEXP: 'HASTILY_STREAMABLE_PATH_REGEXP'
+}));
 
 portscanner.findAPortNotInUse.mockResolvedValue(10001);
 
@@ -304,4 +308,110 @@ test('graphql-playground middleware attached', async () => {
     expect(consoleOutput).toMatch(/GraphQL Playground ready at .+?\/graphiql/);
     middlewareProxy(req, res);
     expect(playgroundMiddleware).toHaveBeenCalledTimes(1);
+});
+
+test('compression middleware to be attached if env.ENABLE_EXPRESS_SERVER_COMPRESSION is true', async () => {
+    process.env.ENABLE_EXPRESS_SERVER_COMPRESSION = 'true';
+    const config = mockConfig();
+
+    const middleware = jest.fn();
+    playgroundMiddleware.mockReturnValueOnce(middleware);
+
+    await PWADevServer.configure(
+        {
+            graphqlPlayground: true
+        },
+        config
+    );
+    const use = jest.fn();
+    const app = {
+        get: jest.fn(),
+        use
+    };
+    const compilerStatsData = {
+        compilation: {
+            fileDependencies: new Set([
+                'path/to/module.js',
+                'path/to/otherModule.js',
+                'path/to/thirdModule.js'
+            ])
+        }
+    };
+    const compiler = {
+        hooks: {
+            done: {
+                tap(name, callback) {
+                    setImmediate(() => {
+                        callback(compilerStatsData);
+                    });
+                }
+            }
+        }
+    };
+    const waitUntilValid = jest.fn();
+    const server = {
+        listeningApp,
+        middleware: {
+            waitUntilValid,
+            context: {
+                compiler
+            }
+        }
+    };
+    config.devServer.before(app, server);
+
+    expect(use.mock.calls).toMatchSnapshot();
+});
+
+test('compression middleware should not be attached if env.ENABLE_EXPRESS_SERVER_COMPRESSION is false', async () => {
+    process.env.ENABLE_EXPRESS_SERVER_COMPRESSION = 'false';
+    const config = mockConfig();
+
+    const middleware = jest.fn();
+    playgroundMiddleware.mockReturnValueOnce(middleware);
+
+    await PWADevServer.configure(
+        {
+            graphqlPlayground: true
+        },
+        config
+    );
+    const use = jest.fn();
+    const app = {
+        get: jest.fn(),
+        use
+    };
+    const compilerStatsData = {
+        compilation: {
+            fileDependencies: new Set([
+                'path/to/module.js',
+                'path/to/otherModule.js',
+                'path/to/thirdModule.js'
+            ])
+        }
+    };
+    const compiler = {
+        hooks: {
+            done: {
+                tap(name, callback) {
+                    setImmediate(() => {
+                        callback(compilerStatsData);
+                    });
+                }
+            }
+        }
+    };
+    const waitUntilValid = jest.fn();
+    const server = {
+        listeningApp,
+        middleware: {
+            waitUntilValid,
+            context: {
+                compiler
+            }
+        }
+    };
+    config.devServer.before(app, server);
+
+    expect(use.mock.calls).toMatchSnapshot();
 });

@@ -5,11 +5,39 @@
     display: grid;
     grid-template-columns: 1fr max-content;
     padding: 1.25rem 2rem;
+    position: relative;
 }
 
 .root_updated {
     composes: root;
     animation: flash var(--venia-global-anim-bounce) 640ms 2;
+}
+
+.confirmDeleteContainer {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    height: 100%;
+    justify-items: center;
+    left: 0;
+    padding: 1.25rem 2rem;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.confirmDeleteButton {
+    composes: root_normalPriorityNegative from '../Button/button.css';
+
+    background-color: white;
+    order: 1;
+}
+.cancelDeleteButton {
+    composes: root_lowPriority from '../Button/button.css';
+
+    background-color: white;
 }
 
 .contentContainer {
@@ -49,19 +77,24 @@
 
 .editButton {
     composes: linkButton;
-    /** hidden until PWA-634 is completed */
-    visibility: hidden;
 }
 
 .deleteButton {
     composes: linkButton;
-    /** hidden until PWA-635 is completed */
-    visibility: hidden;
 }
 
 @media (max-width: 640px) {
     .root {
         padding: 1rem;
+    }
+
+    .confirmDeleteContainer {
+        padding: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    .confirmDeleteButton {
+        order: 0;
     }
 }
 

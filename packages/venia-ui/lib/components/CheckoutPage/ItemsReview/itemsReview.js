@@ -8,8 +8,6 @@ import ShowAllButton from './showAllButton';
 import LoadingIndicator from '../../LoadingIndicator';
 import { mergeClasses } from '../../../classify';
 
-import LIST_OF_PRODUCTS_IN_CART_QUERY from './itemsReview.gql';
-
 import defaultClasses from './itemsReview.css';
 
 /**
@@ -22,9 +20,6 @@ const ItemsReview = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = useItemsReview({
-        queries: {
-            getItemsInCart: LIST_OF_PRODUCTS_IN_CART_QUERY
-        },
         data: props.data
     });
 
@@ -33,11 +28,17 @@ const ItemsReview = props => {
         totalQuantity,
         showAllItems,
         setShowAllItems,
-        isLoading
+        isLoading,
+        configurableThumbnailSource
     } = talonProps;
 
     const items = itemsInCart.map((item, index) => (
-        <Item key={item.id} {...item} isHidden={!showAllItems && index >= 2} />
+        <Item
+            key={item.id}
+            {...item}
+            isHidden={!showAllItems && index >= 2}
+            configurableThumbnailSource={configurableThumbnailSource}
+        />
     ));
 
     const showAllItemsFooter = !showAllItems ? (

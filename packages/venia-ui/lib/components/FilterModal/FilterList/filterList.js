@@ -1,6 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
 import { array, shape, string } from 'prop-types';
-import { useFieldState } from 'informed';
 import setValidator from '@magento/peregrine/lib/validators/set';
 
 import { mergeClasses } from '../../../classify';
@@ -12,9 +11,6 @@ const labels = new WeakMap();
 const FilterList = props => {
     const { filterApi, filterState, group, items } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const { value: searchValue } = useFieldState('filter_search');
-    const normalizedSearch = (searchValue || '').toUpperCase();
 
     // memoize item creation
     // search value is not referenced, so this array is stable
@@ -45,17 +41,9 @@ const FilterList = props => {
         [classes, filterApi, filterState, group, items]
     );
 
-    // filter item elements after creating them
-    // this runs after each keystroke, but it's quick
-    const filteredItemElements = normalizedSearch
-        ? itemElements.filter(element =>
-              labels.get(element).includes(normalizedSearch)
-          )
-        : itemElements;
-
     return (
         <Fragment>
-            <ul className={classes.items}>{filteredItemElements}</ul>
+            <ul className={classes.items}>{itemElements}</ul>
         </Fragment>
     );
 };

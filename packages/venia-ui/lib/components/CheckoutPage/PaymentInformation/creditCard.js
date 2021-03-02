@@ -14,8 +14,6 @@ import BrainTreeDropin from './brainTreeDropIn';
 import LoadingIndicator from '../../LoadingIndicator';
 import { mergeClasses } from '../../../classify';
 
-import creditCardPaymentOperations from './creditCard.gql';
-
 import defaultClasses from './creditCard.css';
 import FormError from '../../FormError';
 
@@ -57,8 +55,7 @@ const CreditCard = props => {
         onReady,
         onError,
         shouldSubmit,
-        resetShouldSubmit,
-        ...creditCardPaymentOperations
+        resetShouldSubmit
     });
 
     const {
@@ -124,20 +121,17 @@ const CreditCard = props => {
      * We write this function in `venia-ui` and not in the `peregrine` talon
      * because it references `isRequired` which is a `venia-ui` function.
      */
-    const isFieldRequired = useCallback(
-        value => {
-            if (isBillingAddressSame) {
-                /**
-                 * Informed validator functions return `undefined` is
-                 * validation is `true`
-                 */
-                return undefined;
-            } else {
-                return isRequired(value);
-            }
-        },
-        [isBillingAddressSame]
-    );
+    const isFieldRequired = useCallback((value, { isBillingAddressSame }) => {
+        if (isBillingAddressSame) {
+            /**
+             * Informed validator functions return `undefined` if
+             * validation is `true`
+             */
+            return undefined;
+        } else {
+            return isRequired(value);
+        }
+    }, []);
 
     const stepTitle = STEP_DESCRIPTIONS[stepNumber].defaultMessage
         ? formatMessage({

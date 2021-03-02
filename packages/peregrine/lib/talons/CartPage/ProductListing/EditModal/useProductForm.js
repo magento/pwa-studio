@@ -1,7 +1,6 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
-import { useAppContext } from '../../../../context/app';
 import { useCartContext } from '../../../../context/cart';
 import { findMatchingVariant } from '../../../../util/findMatchingProductVariant';
 
@@ -23,6 +22,7 @@ import { findMatchingVariant } from '../../../../util/findMatchingProductVariant
  * @param {function} props.setVariantPrice Function for setting the variant price on a product.
  * @param {GraphQLAST} props.updateConfigurableOptionsMutation GraphQL mutation for updating the configurable options for a product.
  * @param {GraphQLAST} props.updateQuantityMutation GraphQL mutation for updating the quantity of a product in a cart.
+ * @param {function} props.setActiveEditItem Function for setting the actively editing item.
  *
  * @return {ProductFormTalonProps}
  *
@@ -36,13 +36,16 @@ export const useProductForm = props => {
         setIsCartUpdating,
         setVariantPrice,
         updateConfigurableOptionsMutation,
-        updateQuantityMutation
+        updateQuantityMutation,
+        setActiveEditItem
     } = props;
 
-    const [, { closeDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
-
     const [optionSelections, setOptionSelections] = useState(new Map());
+
+    const handleClose = useCallback(() => {
+        setActiveEditItem(null);
+    }, [setActiveEditItem]);
 
     const [
         updateItemQuantity,
@@ -71,8 +74,9 @@ export const useProductForm = props => {
     }, [isSaving, setIsCartUpdating]);
 
     const { data, error, loading } = useQuery(getConfigurableOptionsQuery, {
+        skip: !cartItem,
         variables: {
-            sku: cartItem.product.sku
+            sku: cartItem ? cartItem.product.sku : null
         }
     });
 
@@ -91,12 +95,14 @@ export const useProductForm = props => {
 
             setOptionSelections(nextOptionSelections);
         },
-        [cartItem.configurable_options, optionSelections]
+        [cartItem, optionSelections]
     );
 
-    const configItem = !loading && !error ? data.products.items[0] : null;
+    const configItem =
+        !loading && !error && data ? data.products.items[0] : null;
     const configurableOptionCodes = useMemo(() => {
         const optionCodeMap = new Map();
+
         if (configItem) {
             configItem.configurable_options.forEach(option => {
                 optionCodeMap.set(option.attribute_id, option.attribute_code);
@@ -119,12 +125,7 @@ export const useProductForm = props => {
                 optionSelections
             });
         }
-    }, [
-        cartItem.configurable_options,
-        configItem,
-        configurableOptionCodes,
-        optionSelections
-    ]);
+    }, [cartItem, configItem, configurableOptionCodes, optionSelections]);
 
     useEffect(() => {
         let variantPrice = null;
@@ -152,6 +153,8 @@ export const useProductForm = props => {
                             quantity: formValues.quantity
                         }
                     });
+
+                    setOptionSelections(new Map());
                 } else if (formValues.quantity !== cartItem.quantity) {
                     await updateItemQuantity({
                         variables: {
@@ -165,14 +168,12 @@ export const useProductForm = props => {
                 return;
             }
 
-            closeDrawer();
+            handleClose();
         },
         [
             cartId,
-            cartItem.id,
-            cartItem.product.sku,
-            cartItem.quantity,
-            closeDrawer,
+            cartItem,
+            handleClose,
             selectedVariant,
             updateConfigurableOptions,
             updateItemQuantity
@@ -194,7 +195,9 @@ export const useProductForm = props => {
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,
-        isSaving
+        isSaving,
+        isDialogOpen: cartItem !== null,
+        handleClose
     };
 };
 
@@ -207,9 +210,11 @@ export const useProductForm = props => {
  * @typedef {Object} ProductFormTalonProps
  *
  * @property {Object} configItem Cart item to configure
- * @property {Array<Error>} formErrors An array of form errors resulting from a configuration or quantity value
+ * @property {Array<Error>} errors An array of form errors resulting from a configuration or quantity value
  * @property {function} handleOptionSelection A callback function handling an option selection event
  * @property {function} handleSubmit A callback function for handling form submission
  * @property {boolean} isLoading True if the form is loading data. False otherwise.
  * @property {boolean} isSaving True if the form is saving data. False otherwise.
+ * @property {boolean} isDialogOpen True if the form is visible. False otherwise.
+ * @property {function} handleClose A callback function for handling form closing
  */

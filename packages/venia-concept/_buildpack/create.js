@@ -1,7 +1,39 @@
 const { resolve } = require('path');
 
-function createProjectFromVenia({ fs, tasks, options }) {
+const uniqBy = (array, property) => {
+    const map = new Map();
+
+    for (const element of array) {
+        if (element && element.hasOwnProperty(property)) {
+            map.set(element[property], element);
+        }
+    }
+
+    return Array.from(map.values());
+};
+
+const removeDuplicateBackends = backendEnvironments =>
+    uniqBy(backendEnvironments, 'url');
+
+const fetchSampleBackends = async defaultSampleBackends => {
+    try {
+        const res = await fetch(
+            'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
+        );
+        const { sampleBackends } = await res.json();
+
+        return removeDuplicateBackends([
+            ...sampleBackends.environments,
+            ...defaultSampleBackends.environments
+        ]).map(({ url }) => url);
+    } catch {
+        return defaultSampleBackends.environments.map(({ url }) => url);
+    }
+};
+
+async function createProjectFromVenia({ fs, tasks, options, sampleBackends }) {
     const npmCli = options.npmClient;
+    const sampleBackendEnvironments = await fetchSampleBackends(sampleBackends);
 
     const toCopyFromPackageJson = [
         'main',
@@ -18,6 +50,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'build:analyze',
         'build:dev',
         'build:prod',
+        'build:report',
         'clean',
         'download-schema',
         'lint',
@@ -63,7 +96,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
             'package.json': ({
                 path,
                 targetPath,
-                options: { name, author }
+                options: { name, author, backendUrl }
             }) => {
                 const pkgTpt = fs.readJsonSync(path);
                 const pkg = {
@@ -79,6 +112,14 @@ function createProjectFromVenia({ fs, tasks, options }) {
                 toCopyFromPackageJson.forEach(prop => {
                     pkg[prop] = pkgTpt[prop];
                 });
+
+                // If the backend url is a sample backend, add the validator.
+                if (sampleBackendEnvironments.includes(backendUrl)) {
+                    pkg.devDependencies = {
+                        ...pkg.devDependencies,
+                        '@magento/venia-sample-backends': '~0.0.1'
+                    };
+                }
 
                 // The venia-concept template is part of the monorepo, which
                 // uses yarn for workspaces. But if the user wants to use

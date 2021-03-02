@@ -32,7 +32,21 @@ const getState = jest.fn(() => ({
     cart: { cartId: 'CART_ID' },
     user: { isSignedIn: false }
 }));
-const thunkArgs = [dispatch, getState];
+const thunkArgs = [
+    dispatch,
+    getState,
+    {
+        apolloClient: {
+            persistor: {
+                persistor: {
+                    storage: {
+                        key: 'unit test key'
+                    }
+                }
+            }
+        }
+    }
+];
 
 describe('createCart', () => {
     test('it returns a thunk', () => {

@@ -1,6 +1,7 @@
 /**
  * @module Buildpack/WebpackTools
  */
+const path = require('path');
 
 /**
  * Create a Webpack
@@ -56,7 +57,10 @@ getModuleRules.js = async ({
     const astLoaders = [
         {
             // Use custom loader to enable warning reporting from Babel plugins
-            loader: 'buildbus-babel-loader',
+            loader: path.resolve(
+                __dirname,
+                '../loaders/buildbus-babel-loader.js'
+            ),
             options: {
                 sourceMaps: mode === 'development' && 'inline',
                 envName: mode,

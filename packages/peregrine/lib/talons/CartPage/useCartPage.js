@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
@@ -28,8 +26,6 @@ export const useCartPage = props => {
         queries: { getCartDetails }
     } = props;
 
-    const [, { toggleDrawer }] = useAppContext();
-    const [{ isSignedIn }] = useUserContext();
     const [{ cartId }] = useCartContext();
 
     const [isCartUpdating, setIsCartUpdating] = useState(false);
@@ -40,11 +36,6 @@ export const useCartPage = props => {
         skip: !cartId,
         variables: { cartId }
     });
-
-    const handleSignIn = useCallback(() => {
-        // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
-        toggleDrawer('nav');
-    }, [toggleDrawer]);
 
     useEffect(() => {
         // Let the cart page know it is updating while we're waiting on network data.
@@ -61,8 +52,6 @@ export const useCartPage = props => {
     return {
         cartItems,
         hasItems,
-        handleSignIn,
-        isSignedIn,
         isCartUpdating,
         setIsCartUpdating,
         shouldShowLoadingIndicator
@@ -89,8 +78,6 @@ export const useCartPage = props => {
  *
  * @property {Array<Object>} cartItems An array of item objects in the cart.
  * @property {boolean} hasItems True if the cart has items. False otherwise.
- * @property {function} handleSignIn Callback function to call for handling a sign in event.
- * @property {boolean} isSignedIn True if the current user is signed in. False otherwise.
  * @property {boolean} isCartUpdating True if the cart is updating. False otherwise.
  * @property {function} setIsCartUpdating Callback function for setting the updating state of the cart page.
  * @property {boolean} shouldShowLoadingIndicator True if the loading indicator should be rendered. False otherwise.

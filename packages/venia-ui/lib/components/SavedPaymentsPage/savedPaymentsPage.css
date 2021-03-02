@@ -25,6 +25,10 @@
     grid-template-columns: 1fr 1fr 1fr;
 }
 
+.noPayments {
+    text-align: center;
+}
+
 .addButton {
     border: 2px dashed rgb(var(--venia-global-color-gray-400));
     border-radius: 0.375rem;

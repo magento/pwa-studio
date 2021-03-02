@@ -130,12 +130,29 @@ const typePolicies = {
                     // If there are no cached addresses that's fine - the schema
                     // shows that it is a nullable field.
                 }
+            },
+            orders: {
+                keyArgs: ['filter'],
+                items: {
+                    merge: true
+                }
             }
         }
     },
     CustomerAddress: {
         fields: {
             street: {
+                // eslint-disable-next-line no-unused-vars
+                merge(existing, incoming) {
+                    return incoming;
+                }
+            }
+        }
+    },
+    CustomerPaymentTokens: {
+        keyFields: () => 'CustomerPaymentTokens',
+        fields: {
+            items: {
                 // eslint-disable-next-line no-unused-vars
                 merge(existing, incoming) {
                     return incoming;

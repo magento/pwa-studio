@@ -1,15 +1,15 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { gql } from '@apollo/client';
 import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
 
 import { mergeClasses } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
-import EditModal from './EditModal';
 import defaultClasses from './productListing.css';
 import Product from './product';
 import { ProductListingFragment } from './productListingFragments';
 
+const EditModal = React.lazy(() => import('./EditModal'));
 /**
  * A child component of the CartPage component.
  * This component renders the product listing on the cart page.
@@ -60,10 +60,13 @@ const ProductListing = props => {
         return (
             <Fragment>
                 <ul className={classes.root}>{productComponents}</ul>
-                <EditModal
-                    item={activeEditItem}
-                    setIsCartUpdating={setIsCartUpdating}
-                />
+                <Suspense fallback={null}>
+                    <EditModal
+                        item={activeEditItem}
+                        setIsCartUpdating={setIsCartUpdating}
+                        setActiveEditItem={setActiveEditItem}
+                    />
+                </Suspense>
             </Fragment>
         );
     }

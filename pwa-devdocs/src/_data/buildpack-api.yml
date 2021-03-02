@@ -12,6 +12,31 @@ entries:
           # - label: WrapEsmLoader
           #   url: /pwa-buildpack/reference/webpack-tools/loaders/wrap-esm-loader/
 
+    - label: Targetables
+      entries:
+
+        - label: TargetableModule
+          url: /pwa-buildpack/reference/targetables/TargetableModule/
+
+        - label: TargetableESModule
+          url: /pwa-buildpack/reference/targetables/TargetableESModule/
+
+        - label: TargetableESModuleArray
+          url: /pwa-buildpack/reference/targetables/TargetableESModuleArray/
+
+        - label: TargetableESModuleObject
+          url: /pwa-buildpack/reference/targetables/TargetableESModuleObject/
+
+        - label: TargetableReactComponent
+          url: /pwa-buildpack/reference/targetables/TargetableReactComponent/
+
+        - label: TargetableSet
+          url: /pwa-buildpack/reference/targetables/TargetableSet/
+
+        - label: SingleImportStatement
+          url: /pwa-buildpack/reference/targetables/SingleImportStatement/
+
+
     - label: Extension framework
       entries:
           - label: BuildBus

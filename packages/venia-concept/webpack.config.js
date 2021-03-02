@@ -51,7 +51,10 @@ module.exports = async env => {
 
     const possibleTypes = await getPossibleTypes();
 
-    config.module.noParse = [/braintree\-web\-drop\-in/];
+    config.module.noParse = [
+        /@adobe\/adobe\-client\-data\-layer/,
+        /braintree\-web\-drop\-in/
+    ];
     config.plugins = [
         ...config.plugins,
         new DefinePlugin({
@@ -64,7 +67,8 @@ module.exports = async env => {
             STORE_VIEW_CODE: process.env.STORE_VIEW_CODE
                 ? JSON.stringify(process.env.STORE_VIEW_CODE)
                 : JSON.stringify(storeConfigData.code),
-            AVAILABLE_STORE_VIEWS: JSON.stringify(availableStores)
+            AVAILABLE_STORE_VIEWS: JSON.stringify(availableStores),
+            DEFAULT_LOCALE: JSON.stringify(global.LOCALE)
         }),
         new HTMLWebpackPlugin({
             filename: 'index.html',

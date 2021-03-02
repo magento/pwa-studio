@@ -14,7 +14,12 @@ const CMSPage = props => {
     const { id } = props;
 
     const talonProps = useCmsPage({ id });
-    const { cmsPage, hasContent, shouldShowLoadingIndicator } = talonProps;
+    const {
+        cmsPage,
+        hasContent,
+        rootCategoryId,
+        shouldShowLoadingIndicator
+    } = talonProps;
     const { formatMessage } = useIntl();
 
     if (shouldShowLoadingIndicator) {
@@ -50,13 +55,14 @@ const CMSPage = props => {
         );
     }
 
+    // Fallback to a category list if there is no cms content.
     return (
         <CategoryList
             title={formatMessage({
                 id: 'cms.shopByCategory',
                 defaultMessage: 'Shop by category'
             })}
-            id={2}
+            id={rootCategoryId}
         />
     );
 };
