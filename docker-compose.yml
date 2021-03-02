@@ -33,7 +33,6 @@ services:
       - ./packages/venia-concept/static:/usr/src/app/packages/venia-concept/static:rw
       - ./packages/venia-ui/.storybook:/usr/src/app/packages/venia-ui/.storybook:rw
       - ./packages/venia-ui/lib:/usr/src/app/packages/venia-ui/lib:rw
-      - ./packages/venia-ui/templates:/usr/src/app/packages/venia-ui/templates:rw
     environment:
       # environment variables consumed by the nginx-proxy service
       VIRTUAL_HOST: ${DEV_SERVER_HOST}

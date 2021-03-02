@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
@@ -6,9 +6,10 @@ import { useAccountTrigger } from '@magento/peregrine/lib/talons/Header/useAccou
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import AccountChip from '../AccountChip';
-import AccountMenu from '../AccountMenu';
 
 import defaultClasses from './accountTrigger.css';
+
+const AccountMenu = React.lazy(() => import('../AccountMenu'));
 
 /**
  * The AccountTrigger component is the call to action in the site header
@@ -51,11 +52,13 @@ const AccountTrigger = props => {
                     />
                 </button>
             </div>
-            <AccountMenu
-                ref={accountMenuRef}
-                accountMenuIsOpen={accountMenuIsOpen}
-                setAccountMenuIsOpen={setAccountMenuIsOpen}
-            />
+            <Suspense fallback={null}>
+                <AccountMenu
+                    ref={accountMenuRef}
+                    accountMenuIsOpen={accountMenuIsOpen}
+                    setAccountMenuIsOpen={setAccountMenuIsOpen}
+                />
+            </Suspense>
         </Fragment>
     );
 };
