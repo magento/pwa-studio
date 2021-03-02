@@ -1,7 +1,9 @@
 {
-  "baseUrl": "https://develop.pwa-venia.com",
-  "integrationFolder": "cypress/integration",
+  "baseUrl": "https://develop.pwa-venia.com/",
   "viewportWidth": 1440,
-  "viewportHeight": 900
+  "viewportHeight": 900,
+  "pageLoadTimeout" : 40000,
+  "defaultCommandTimeout" : 10000,
+  "browser" : "Firefox"
 }
 
