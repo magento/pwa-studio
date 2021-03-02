@@ -267,4 +267,16 @@ describe('when DEBUG_PROJECT_CREATION is set', () => {
             'resolutions'
         );
     });
+
+    test.only('works with modern versions of NPM that spit out the tarball name', async () => {
+        // Arrange.
+        execSync
+            .mockReturnValueOnce(mockWorkspaceResponse)
+            .mockReturnValueOnce('unit_test.tgz');
+
+        // Act & Assert.
+        await expect(
+            runCreate(fs, { name: 'foo', author: 'bar', npmClient: 'yarn' })
+        ).resolves.not.toThrow();
+    });
 });
