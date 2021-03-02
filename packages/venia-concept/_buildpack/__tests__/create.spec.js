@@ -268,7 +268,7 @@ describe('when DEBUG_PROJECT_CREATION is set', () => {
         );
     });
 
-    test.only('works with modern versions of NPM that spit out the tarball name', async () => {
+    test('works with modern versions of NPM that spit out the tarball name', async () => {
         // Arrange.
         execSync
             .mockReturnValueOnce(mockWorkspaceResponse)
