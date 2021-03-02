@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://develop.pwa-venia.com",
+  "integrationFolder": "cypress/integration",
+  "viewportWidth": 1440,
+  "viewportHeight": 900
+}
+

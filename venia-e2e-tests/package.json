@@ -1,0 +1,11 @@
+{
+  "name": "venia-e2e-tests",
+  "version": "1.0.0",
+  "description": "Venia Function Tests",
+  "main": "index.js",
+  "author": "Magento Commerce",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "~6.6.0"
+  }
+}
