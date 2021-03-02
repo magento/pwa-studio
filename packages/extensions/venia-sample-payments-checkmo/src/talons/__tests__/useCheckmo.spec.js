@@ -16,7 +16,7 @@ const setPaymentMethodOnCart = jest.fn();
 const getCheckmoConfig = jest.fn().mockReturnValue({
     data: {
         storeConfig: {
-            payment_checkmo_payable_to: 'Venina Inc. Test',
+            payment_checkmo_payable_to: 'Venia Inc. Test',
             payment_checkmo_mailing_address: 'A test address'
         }
     }
