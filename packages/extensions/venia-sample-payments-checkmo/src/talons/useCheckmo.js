@@ -42,10 +42,7 @@ export const useCheckmo = props => {
             called: paymentMethodMutationCalled,
             loading: paymentMethodMutationLoading
         }
-    ] = useMutation(setPaymentMethodOnCartMutation, {
-        skip: !cartId,
-        variables: { cartId }
-    });
+    ] = useMutation(setPaymentMethodOnCartMutation);
 
     /**
      * This function will be called if cant not set address.
@@ -58,7 +55,9 @@ export const useCheckmo = props => {
      * This function will be called if address was successfully set.
      */
     const onBillingAddressChangedSuccess = useCallback(() => {
-        updatePaymentMethod();
+      updatePaymentMethod({
+        variables: { cartId }
+      });
     }, [updatePaymentMethod]);
 
     useEffect(() => {

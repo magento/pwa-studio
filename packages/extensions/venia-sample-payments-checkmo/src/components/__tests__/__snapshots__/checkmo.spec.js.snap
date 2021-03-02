@@ -28,26 +28,42 @@ exports[`Should render with mailingAddress payable 1`] = `
   <p
     className="formatAddress"
   >
-    <span>
+    <span
+      className="addressLine"
+    >
       Test Inc
        
       <br />
     </span>
-    <span>
+    <span
+      className="addressLine"
+    >
       c/o Payment
        
       <br />
     </span>
-    <span>
+    <span
+      className="addressLine"
+    >
       PO 12
        
       <br />
     </span>
-    <span>
+    <span
+      className="addressLine"
+    >
       Austin Texas
        
       <br />
     </span>
+  </p>
+  <p
+    className="note"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Note: Your order will bbe shipped once the Check/Money Order has been received and processed."
+      id="checkMo.note"
+    />
   </p>
   <mock-BillingAddress
     onBillingAddressChangedError={[MockFunction]}
@@ -84,26 +100,42 @@ exports[`Should return correct shape 1`] = `
   <p
     className="formatAddress"
   >
-    <span>
+    <span
+      className="addressLine"
+    >
       Venia Inc
        
       <br />
     </span>
-    <span>
+    <span
+      className="addressLine"
+    >
       c/o Payment
        
       <br />
     </span>
-    <span>
+    <span
+      className="addressLine"
+    >
       PO 122334
        
       <br />
     </span>
-    <span>
+    <span
+      className="addressLine"
+    >
       Austin Texas
        
       <br />
     </span>
+  </p>
+  <p
+    className="note"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Note: Your order will bbe shipped once the Check/Money Order has been received and processed."
+      id="checkMo.note"
+    />
   </p>
   <mock-BillingAddress
     onBillingAddressChangedError={[MockFunction]}

@@ -11,6 +11,15 @@
     padding-top: 1rem;
 }
 
+.note {
+  padding: 1rem 0;
+}
+
 .formatAddress {
-    padding-top: 1rem;
+  padding: 0.5rem 0;
+}
+
+.addressLine{
+  display: block;
+  padding-bottom: 0.5rem;
 }
