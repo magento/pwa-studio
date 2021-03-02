@@ -42,7 +42,7 @@ const deleteActiveCacheEntry = async (client, predicate) => {
 };
 
 const deleteInactiveCachesEntry = async (client, predicate) => {
-    if (!client || !client.persistor) return;
+    if (!client || !client.persistor || !globalThis.localStorage) return;
 
     const activeApolloCacheLocalStorageKey =
         client.persistor.persistor.storage.key;
@@ -53,6 +53,8 @@ const deleteInactiveCachesEntry = async (client, predicate) => {
             key !== activeApolloCacheLocalStorageKey
         );
     };
+
+    const { localStorage } = globalThis;
 
     Object.entries(localStorage)
         .filter(isAnInactiveApolloCache)
