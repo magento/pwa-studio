@@ -9,7 +9,7 @@ context('Assert Venia Home Page pagebuilder content', () => {
             cy.intercept('GET', '**/venia-hero1.jpg*', { fixture: 'mock-image-data/venia-hero1.jpg' }).as('getCMSMockImage')
             cy.intercept('GET', '**/venia-hero2.jpg*', { fixture: 'mock-image-data/venia-hero2.jpg' }).as('getCMSMockImage2')
             cy.intercept('GET', '**/graphql?query=query+GetCmsPage*', { fixture: 'mock-json-data/venia-home-page.json' }).as('getCMSMockData')
-            cy.visit('/')
+            cy.visit('/test-page-default')
             cy.wait(['@getCMSMockImage']).its('response.body')
             cy.wait(['@getCMSMockImage2']).its('response.body')
             cy.wait(['@getCMSMockData']).its('response.body')
