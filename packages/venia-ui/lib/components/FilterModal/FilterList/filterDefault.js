@@ -11,7 +11,6 @@ const FilterDefault = props => {
         classes: propsClasses,
         isSelected,
         item,
-        title,
         ...restProps
     } = props;
     const { label, value_index } = item || {};

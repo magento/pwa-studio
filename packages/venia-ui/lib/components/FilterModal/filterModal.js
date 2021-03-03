@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FocusScope } from 'react-aria';
 import { array, arrayOf, shape, string } from 'prop-types';
