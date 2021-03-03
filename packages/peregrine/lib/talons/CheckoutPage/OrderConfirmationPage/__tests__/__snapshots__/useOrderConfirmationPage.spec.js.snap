@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the correct shape 1`] = `
+Object {
+  "flatData": Object {
+    "city": "city",
+    "country": "country",
+    "email": "email",
+    "firstname": "firstname",
+    "lastname": "lastname",
+    "postcode": "postcode",
+    "region": "region",
+    "shippingMethod": "carrier - method",
+    "street": Array [
+      "street",
+    ],
+    "totalItemQuantity": 1,
+  },
+  "isSignedIn": true,
+}
+`;

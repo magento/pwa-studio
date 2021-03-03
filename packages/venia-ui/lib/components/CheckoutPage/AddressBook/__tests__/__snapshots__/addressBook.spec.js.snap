@@ -161,7 +161,7 @@ Array [
       </button>
     </div>
   </div>,
-  <EditModal
+  <require('../ShippingInformation/editModal')
     shippingData="activeAddress"
   />,
 ]
@@ -275,6 +275,6 @@ Array [
       </button>
     </div>
   </div>,
-  <EditModal />,
+  <require('../ShippingInformation/editModal') />,
 ]
 `;

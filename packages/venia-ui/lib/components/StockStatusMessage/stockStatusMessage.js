@@ -14,9 +14,9 @@ const StockStatusMessage = props => {
     const { hasOutOfStockItem } = talonProps;
 
     const stockStatusMessageElement = hasOutOfStockItem ? (
-        <p className={classes.root}>
+        <div className={classes.root}>
             <FormattedMessage id={messageId} defaultMessage={message} />
-        </p>
+        </div>
     ) : null;
 
     return stockStatusMessageElement;

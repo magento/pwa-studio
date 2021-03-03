@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "5.0.0",
+  "version": "6.0.1",
   "publishConfig": {
     "access": "public"
   },
@@ -10,8 +10,8 @@
     "@magento/venia-drivers": "./lib/drivers"
   },
   "files": [
-    "{lib,venia-static,targets,templates,i18n}/*",
-    "{lib,venia-static,targets,templates,i18n}/**/*",
+    "{lib,venia-static,targets,i18n}/*",
+    "{lib,venia-static,targets,i18n}/**/*",
     "upward.yml",
     "CHANGELOG.md",
     "LICENSE_AFL.txt",
@@ -76,8 +76,8 @@
   "peerDependencies": {
     "@apollo/client": "~3.1.2",
     "@magento/babel-preset-peregrine": "~1.1.0",
-    "@magento/peregrine": "~8.0.0",
-    "@magento/pwa-buildpack": "~7.0.0",
+    "@magento/peregrine": "~9.0.0",
+    "@magento/pwa-buildpack": "~8.0.1",
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.16.0",
     "graphql": "~15.3.0",
