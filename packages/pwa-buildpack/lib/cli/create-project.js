@@ -13,13 +13,6 @@ const sampleBackends = require('../../sampleBackends.json');
 
 const tmpDir = os.tmpdir();
 
-const templateAliases = {
-    'venia-concept': {
-        npm: '@magento/venia-concept',
-        dir: resolve(__dirname, '../../../venia-concept')
-    }
-};
-
 async function makeDirFromNpmPackage(packageName) {
     const packageDir = resolve(tmpDir, packageName);
     // NPM extracts a tarball to './package'
@@ -74,7 +67,7 @@ async function makeDirFromNpmPackage(packageName) {
 }
 
 async function findTemplateDir(templateName) {
-    const template = templateAliases[templateName] || {
+    const template = {
         npm: templateName,
         dir: templateName
     };
