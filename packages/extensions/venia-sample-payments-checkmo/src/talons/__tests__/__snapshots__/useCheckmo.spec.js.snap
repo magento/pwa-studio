@@ -5,6 +5,6 @@ Object {
   "mailingAddress": "A test address",
   "onBillingAddressChangedError": [Function],
   "onBillingAddressChangedSuccess": [Function],
-  "payableTo": "Venina Inc. Test",
+  "payableTo": "Venia Inc. Test",
 }
 `;
