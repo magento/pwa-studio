@@ -1,4 +1,20 @@
 import { useState, useCallback } from 'react';
+import { gql, useMutation } from '@apollo/client';
+
+export const CREATE_WISHLIST_MUTATION = gql`
+    mutation createWishlist(
+        $name: String!
+        $visibility: WishlistVisibilityEnum!
+    ) {
+        createWishlist(input: { name: $name, visibility: $visibility }) {
+            wishlist {
+                id
+                name
+                visibility
+            }
+        }
+    }
+`;
 
 /**
  * @function
@@ -7,6 +23,10 @@ import { useState, useCallback } from 'react';
  */
 export const useCreateWishlist = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [
+        createWishlist,
+        { called: setCreateWishlistCalled, loading: setCreateWishlistLoading }
+    ] = useMutation(CREATE_WISHLIST_MUTATION);
 
     const handleShowModal = useCallback(() => {
         setIsModalOpen(true);
@@ -16,12 +36,24 @@ export const useCreateWishlist = () => {
         setIsModalOpen(false);
     }, []);
 
-    const handleCreateList = useCallback(data => {
-        // TODO create list mutation is not available yet
-        // Will be handled in PWA-989
-        console.log('Creating wish list with data: ', data);
-        setIsModalOpen(false);
-    }, []);
+    const handleCreateList = useCallback(
+        async data => {
+            try {
+                await createWishlist({
+                    variables: {
+                        name: data.name,
+                        visibility: data.visibility
+                    }
+                });
+                setIsModalOpen(false);
+            } catch (error) {
+                if (process.env.NODE_ENV !== 'production') {
+                    console.error(error);
+                }
+            }
+        },
+        [createWishlist, setIsModalOpen]
+    );
 
     return {
         handleCreateList,

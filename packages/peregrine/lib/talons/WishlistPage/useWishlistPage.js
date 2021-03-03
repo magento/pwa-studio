@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import { useUserContext } from '../../context/user';
-import { useTypePolicies } from '../../hooks/useTypePolicies';
 
 /**
  * @function
@@ -14,10 +13,8 @@ import { useTypePolicies } from '../../hooks/useTypePolicies';
  * @returns {WishlistPageProps}
  */
 export const useWishlistPage = props => {
-    const { queries, types } = props;
+    const { queries } = props;
     const { getCustomerWishlistQuery } = queries;
-
-    useTypePolicies(types);
 
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();

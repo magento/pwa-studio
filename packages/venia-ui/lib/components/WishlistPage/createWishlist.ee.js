@@ -49,14 +49,14 @@ const CreateWishlist = props => {
                 id: 'global.private',
                 defaultMessage: 'Private'
             }),
-            value: 'private'
+            value: 'PRIVATE'
         },
         {
             label: formatMessage({
                 id: 'global.public',
                 defaultMessage: 'Public'
             }),
-            value: 'public'
+            value: 'PUBLIC'
         }
     ];
 
@@ -93,7 +93,7 @@ const CreateWishlist = props => {
                     id: 'global.save',
                     defaultMessage: 'Save'
                 })}
-                formProps={{ initialValues: { sharing_code: 'private' } }}
+                formProps={{ initialValues: { visibility: 'PRIVATE' } }}
                 isModal={true}
                 isOpen={isModalOpen}
                 onCancel={handleHideModal}
@@ -120,7 +120,7 @@ const CreateWishlist = props => {
                     </Field>
                     <RadioGroup
                         classes={radioGroupClasses}
-                        field="sharing_code"
+                        field="visibility"
                         items={radioGroupItems}
                     />
                 </div>

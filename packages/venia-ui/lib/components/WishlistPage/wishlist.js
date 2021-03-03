@@ -18,7 +18,8 @@ const Wishlist = props => {
         items_count: itemsCount,
         items_v2: items,
         name,
-        sharing_code: sharingCode
+        sharing_code: sharingCode,
+        visibility
     } = data;
 
     const talonProps = useWishlist();
@@ -28,14 +29,18 @@ const Wishlist = props => {
     const contentClass = isOpen ? classes.content : classes.content_hidden;
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
-    const visibilityLabel = sharingCode
-        ? formatMessage({ id: 'wishlist.publicText', defaultMessage: 'Public' })
-        : formatMessage({
-              id: 'wishlist.privateText',
-              defaultMessage: 'Private'
-          });
+    const visibilityLabel =
+        visibility === 'PUBLIC'
+            ? formatMessage({
+                  id: 'wishlist.publicText',
+                  defaultMessage: 'Public'
+              })
+            : formatMessage({
+                  id: 'wishlist.privateText',
+                  defaultMessage: 'Private'
+              });
     const contentMessageElement = itemsCount ? (
-        <WishlistItems items={items} wishlistId={id} />
+        <WishlistItems items={items.items} wishlistId={id} />
     ) : (
         <p>
             <FormattedMessage
