@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo } from 'react';
+import React, { Fragment, useEffect, useMemo, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { shape, string, func } from 'prop-types';
 import { PlusSquare, AlertCircle as AlertCircleIcon } from 'react-feather';
@@ -9,10 +9,12 @@ import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './addressBook.css';
 import AddressBookOperations from './addressBook.gql';
-import EditModal from '../ShippingInformation/editModal';
 import AddressCard from './addressCard';
 import Icon from '../../Icon';
 import LinkButton from '../../LinkButton';
+
+const EditModal = React.lazy(() => import('../ShippingInformation/editModal'));
+
 const errorIcon = (
     <Icon
         src={AlertCircleIcon}
@@ -155,7 +157,9 @@ const AddressBook = props => {
 
                 <div className={classes.content}>{addressElements}</div>
             </div>
-            <EditModal shippingData={activeAddress} />
+            <Suspense fallback={null}>
+                <EditModal shippingData={activeAddress} />
+            </Suspense>
         </Fragment>
     );
 };

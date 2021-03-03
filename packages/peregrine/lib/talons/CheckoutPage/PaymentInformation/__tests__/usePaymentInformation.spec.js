@@ -12,6 +12,7 @@ jest.mock('../../../../context/cart', () => ({
 
 jest.mock('@apollo/client', () => {
     return {
+        ...jest.requireActual('@apollo/client'),
         useApolloClient: jest.fn(),
         useQuery: jest.fn().mockReturnValue({
             data: {

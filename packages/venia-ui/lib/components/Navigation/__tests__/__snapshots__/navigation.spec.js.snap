@@ -28,7 +28,9 @@ exports[`authModal is rendered when hasModal is true 1`] = `
   <div
     className="modal_open"
   >
-    <LoadingIndicator />
+    <require('../AuthModal')
+      view="MENU"
+    />
   </div>
 </aside>
 `;
