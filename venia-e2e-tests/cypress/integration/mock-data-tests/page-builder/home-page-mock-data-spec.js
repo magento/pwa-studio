@@ -22,13 +22,4 @@ context('Assert Venia Home Page pagebuilder content', () => {
             cy.get('ul[class="slick-dots"] > li').eq(1).should('have.class', 'slick-active')
         })
     })
-
-    describe('Assert Shop the look button on Home page is Functioning', () => {
-        it('.should() - make an assertion about button functionality', () => {
-            // force click to avoid my account element interuption
-            // cy.get('a[href*="/shop-the-look.html"]').eq(1).click({ force: true })
-            // cy.url().should('include', '/shop-the-look.html?page=1')
-            // cy.get('div[class^="category-categoryTitle-"]').invoke("text").should('contain', 'Shop The Look')
-        })
-    })
 })

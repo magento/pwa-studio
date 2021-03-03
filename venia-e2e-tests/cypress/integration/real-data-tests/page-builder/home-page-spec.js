@@ -19,7 +19,7 @@ context('Assert Venia Home Page pagebuilder content', () => {
 
   describe('Assert Shop the look button on Home page is Functioning', () => {
     it('.should() - make an assertion about button functionality', () => {
-      //force click to avoid my account element interuption
+      //force click to avoid my account element interruption
       cy.get('a[href*="/shop-the-look.html"]').eq(1).click({ force: true })
       cy.url().should('include', '/shop-the-look.html?page=1')
       cy.get('div[class^="category-categoryTitle-"]').invoke("text").should('contain', 'Shop The Look')

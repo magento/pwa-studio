@@ -33,7 +33,6 @@ context('Assert User account Create, Sign-In, Sign-out', () => {
             cy.get('input[name="password"]').type('123123^q');
             cy.get('[class^="button-root_highPriority-"]').contains('Sign In').click()
             cy.get('button[class^="accountTrigger-trigger-"]').contains('Hi, John')
-            // cy.get('button[class^="accountTrigger-trigger-"]').click()
             cy.get('button[class^="accountMenuItems-signOut-"]').click()
             cy.get('button[class^="accountTrigger-trigger-"]').contains('Sign In')
         })
