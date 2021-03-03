@@ -13,7 +13,7 @@ context('Assert Venia Home Page pagebuilder content', () => {
       cy.get('ul[class="slick-dots"] > li').eq(1).click()
       cy.get('*[class^="slider-bannerWrapper-"]').eq(1).invoke('attr', 'style').should('contain', 'background-image: url("/media/venia-hero2.jpg?auto=webp&format=pjpg&quality=85")')
       cy.get('[class^="slider-bannerWrapper-"]').parents('.slick-active').should('have.attr', 'data-index', '1').and('have.attr', 'aria-hidden', 'false')
-      cy.get('ul[class="slick-dots"] > li[class="slick-active"]').eq(1).should('have.class', 'slick-active')
+      cy.get('ul[class="slick-dots"] > li').eq(1).should('have.class', 'slick-active')
     })
   })
 
