@@ -3,6 +3,8 @@ import React from 'react';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useEditModal } from '../useEditModal';
 
+import { useQuery } from '@apollo/client';
+
 jest.mock('@apollo/client', () => {
     return {
         useQuery: jest.fn().mockReturnValue({
@@ -98,4 +100,52 @@ test('Should set isLoading to false when handleDropinReady is called', () => {
     talonProps.handleDropinReady();
 
     expect(tree.root.findByType('i').props.talonProps.isLoading).toBeFalsy();
+});
+
+test('Should reset updateButtonClicked state when handlePaymentError() is called', () => {
+    const { talonProps, tree } = getTalonProps({
+        onClose: () => {},
+        queries: { getSelectedPaymentMethodQuery: '' }
+    });
+
+    talonProps.handleUpdate();
+
+    expect(
+        tree.root.findByType('i').props.talonProps.updateButtonClicked
+    ).toBeTruthy();
+
+    talonProps.handlePaymentError();
+
+    expect(
+        tree.root.findByType('i').props.talonProps.updateButtonClicked
+    ).toBeFalsy();
+});
+
+test('Should reset updateButtonClicked state when resetUpdatedButtonClicked() is called', () => {
+    const { talonProps, tree } = getTalonProps({
+        onClose: () => {},
+        queries: { getSelectedPaymentMethodQuery: '' }
+    });
+
+    talonProps.handleUpdate();
+
+    expect(
+        tree.root.findByType('i').props.talonProps.updateButtonClicked
+    ).toBeTruthy();
+
+    talonProps.resetUpdateButtonClicked();
+
+    expect(
+        tree.root.findByType('i').props.talonProps.updateButtonClicked
+    ).toBeFalsy();
+});
+
+test('Should return null selectedPaymentMethod when fetched data does not return any', () => {
+    useQuery.mockReturnValueOnce({});
+    const { talonProps } = getTalonProps({
+        onClose: () => {},
+        queries: { getSelectedPaymentMethodQuery: '' }
+    });
+
+    expect(talonProps.selectedPaymentMethod).toBeFalsy();
 });
