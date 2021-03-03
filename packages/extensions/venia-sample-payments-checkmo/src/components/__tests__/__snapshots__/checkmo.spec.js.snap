@@ -61,7 +61,7 @@ exports[`Should render with mailingAddress payable 1`] = `
     className="note"
   >
     <mock-FormattedMessage
-      defaultMessage="Note: Your order will bbe shipped once the Check/Money Order has been received and processed."
+      defaultMessage="Note: Your order will be shipped once the Check/Money Order has been received and processed."
       id="checkMo.note"
     />
   </p>
@@ -133,7 +133,7 @@ exports[`Should return correct shape 1`] = `
     className="note"
   >
     <mock-FormattedMessage
-      defaultMessage="Note: Your order will bbe shipped once the Check/Money Order has been received and processed."
+      defaultMessage="Note: Your order will be shipped once the Check/Money Order has been received and processed."
       id="checkMo.note"
     />
   </p>

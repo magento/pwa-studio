@@ -65,7 +65,7 @@ const CheckMo = props => {
                 <FormattedMessage
                     id={'checkMo.note'}
                     defaultMessage={
-                        'Note: Your order will bbe shipped once the Check/Money Order has been received and processed.'
+                        'Note: Your order will be shipped once the Check/Money Order has been received and processed.'
                     }
                 />
             </p>
