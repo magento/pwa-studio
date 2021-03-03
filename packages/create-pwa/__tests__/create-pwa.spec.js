@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const inquirer = require('inquirer');
 const isInvalidPath = require('is-invalid-path');
+const execa = require('execa');
 
 const createPWA = require('../lib/index');
 
@@ -24,7 +25,7 @@ jest.mock('inquirer', () => ({
     prompt: jest.fn().mockResolvedValue({
         directory: 'test',
         name: 'test',
-        author: 'Revanth Kumar <revanth0212@gmail.com>',
+        author: 'Gooston <gooston@goosemail.com>',
         template: '@magento/venia-concept@8.0.0',
         backendUrl:
             'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/',
@@ -39,6 +40,17 @@ jest.mock('execa', () => ({
 }));
 
 jest.mock('is-invalid-path', () => jest.fn().mockReturnValue(false));
+
+jest.mock('path', () => ({
+    ...jest.requireActual('path'),
+    resolve: jest.fn().mockImplementation(pathStr => {
+        if (pathStr.includes('buildpack')) {
+            return 'BUILDPACK_LOCATION';
+        } else {
+            return jest.requireActual('path').resolve(pathStr);
+        }
+    })
+}));
 
 beforeAll(() => {
     process.env.npm_config_user_agent = 'yarn';
@@ -198,4 +210,50 @@ describe('Testing questions', () => {
             `"Install package dependencies with npm after creating project"`
         );
     });
+});
+
+test('should execute buildpack with answers provided', async () => {
+    await createPWA();
+
+    expect(execa.shell.mock.calls[0][0]).toMatchInlineSnapshot(
+        `"BUILDPACK_LOCATION create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install"`
+    );
+});
+
+test('should not include customBackendUrl in shell script', async () => {
+    inquirer.prompt.mockResolvedValueOnce({
+        customBackendUrl:
+            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/',
+        directory: 'test',
+        name: 'test',
+        author: 'Gooston <gooston@goosemail.com>',
+        template: '@magento/venia-concept@8.0.0',
+        backendUrl: '',
+        braintreeToken: 'sandbox_8yrzsvtm_s2bg8fs563crhqzk',
+        npmClient: 'yarn',
+        install: false
+    });
+
+    await createPWA();
+
+    expect(execa.shell.mock.calls[0][0]).toMatchInlineSnapshot(
+        `"BUILDPACK_LOCATION create-project test --name \\"test\\" --author \\"Gooston <gooston@goosemail.com>\\" --template \\"@magento/venia-concept@8.0.0\\" --backend-url \\"https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/\\" --braintree-token \\"sandbox_8yrzsvtm_s2bg8fs563crhqzk\\" --npm-client \\"yarn\\" --no-install"`
+    );
+});
+
+test('should log details', async () => {
+    const log = jest.spyOn(console, 'log');
+
+    await createPWA();
+
+    expect(log.mock.calls).toMatchSnapshot();
+});
+
+test('should log error if project creation failed', async () => {
+    const error = jest.spyOn(console, 'error');
+    inquirer.prompt.mockRejectedValueOnce(false);
+
+    await createPWA();
+
+    expect(error.mock.calls).toMatchSnapshot();
 });
