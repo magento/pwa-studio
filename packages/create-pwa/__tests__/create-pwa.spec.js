@@ -82,12 +82,6 @@ beforeEach(() => {
     inquirer.prompt.mockClear();
 });
 
-// const buildpackBinLoc =
-//     '/Users/annavara/Documents/node_projects/pwa-studio/packages/pwa-buildpack/bin/buildpack';
-
-// const argsString =
-//     'create-project test --name "test" --author "Revanth Kumar <revanth0212@gmail.com>" --template "@magento/venia-concept@8.0.0" --backend-url "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/" --braintree-token "sandbox_8yrzsvtm_s2bg8fs563crhqzk" --npm-client "yarn" --no-install';
-
 describe('Testing questions', () => {
     test('should have right shape', async () => {
         await createPWA();
