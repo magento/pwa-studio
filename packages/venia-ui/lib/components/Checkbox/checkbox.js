@@ -33,13 +33,25 @@ export class Checkbox extends Component {
     };
 
     render() {
-        const { classes, fieldState, id, label, message, ariaLabel, ...rest } = this.props;
+        const {
+            classes,
+            fieldState,
+            id,
+            label,
+            message,
+            ariaLabel,
+            ...rest
+        } = this.props;
         const { value: checked } = fieldState;
         const icon = checked ? checkedIcon : uncheckedIcon;
 
         return (
             <Fragment>
-                <label className={classes.root} htmlFor={id} aria-label={ariaLabel}>
+                <label
+                    className={classes.root}
+                    htmlFor={id}
+                    aria-label={ariaLabel}
+                >
                     <BasicCheckbox
                         {...rest}
                         className={classes.input}

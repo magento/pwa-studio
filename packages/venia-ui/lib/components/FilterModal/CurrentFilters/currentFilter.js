@@ -17,12 +17,15 @@ const CurrentFilter = props => {
         removeItem({ group, item });
     }, [group, item, removeItem]);
 
-    const ariaLabel = formatMessage({
-        id: 'filterModal.action.clearFilterItem.ariaLabel',
-        defaultMessage: 'Clear filter "{name}"'
-    }, {
-        name: item.title
-    });
+    const ariaLabel = formatMessage(
+        {
+            id: 'filterModal.action.clearFilterItem.ariaLabel',
+            defaultMessage: 'Clear filter "{name}"'
+        },
+        {
+            name: item.title
+        }
+    );
 
     return (
         <span className={classes.root}>

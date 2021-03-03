@@ -154,19 +154,22 @@ export const useFilterModal = props => {
         setIsApplying(true);
     }, [filterApi, setIsApplying]);
 
-    const handleKeyDownActions = useCallback((event) => {
-        // do not handle keyboard actions when the modal is closed
-        if (!isOpen) {
-            return;
-        }
+    const handleKeyDownActions = useCallback(
+        event => {
+            // do not handle keyboard actions when the modal is closed
+            if (!isOpen) {
+                return;
+            }
 
-        switch (event.keyCode) {
-            // when "Esc" key fired -> close the modal
-            case 27:
-                handleClose();
-                break;
-        }
-    }, [isOpen, handleClose]);
+            switch (event.keyCode) {
+                // when "Esc" key fired -> close the modal
+                case 27:
+                    handleClose();
+                    break;
+            }
+        },
+        [isOpen, handleClose]
+    );
 
     const handleTransitionEnd = useCallback(() => {
         // focus the close button once the modal has been drawn on the screen

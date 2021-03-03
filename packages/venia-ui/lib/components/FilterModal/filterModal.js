@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback, useMemo, useRef} from 'react';
+import React, { useEffect, useCallback, useMemo, useRef } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FocusScope } from 'react-aria';
 import { array, arrayOf, shape, string } from 'prop-types';
@@ -73,11 +73,15 @@ const FilterModal = props => {
     const clearAllAriaLabel = formatMessage({
         id: 'filterModal.action.clearAll.ariaLabel',
         defaultMessage: 'Clear all applied filters'
-    })
+    });
 
     const clearAll = filterState.size ? (
         <div className={classes.action}>
-            <LinkButton type="button" onClick={handleReset} ariaLabel={clearAllAriaLabel}>
+            <LinkButton
+                type="button"
+                onClick={handleReset}
+                ariaLabel={clearAllAriaLabel}
+            >
                 <FormattedMessage
                     id={'filterModal.action'}
                     defaultMessage={'Clear all'}
@@ -90,9 +94,11 @@ const FilterModal = props => {
         <Portal>
             <FocusScope contain>
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-                <aside className={modalClass}
-                       onKeyDown={handleKeyDownActions}
-                       onTransitionEnd={handleTransitionEnd}>
+                <aside
+                    className={modalClass}
+                    onKeyDown={handleKeyDownActions}
+                    onTransitionEnd={handleTransitionEnd}
+                >
                     <div className={classes.body}>
                         <div className={classes.header}>
                             <h2 className={classes.headerTitle}>
@@ -101,10 +107,12 @@ const FilterModal = props => {
                                     defaultMessage={'Filters'}
                                 />
                             </h2>
-                            <button onClick={handleClose}
-                                    ref={closeFiltersModalButtonRef}
-                                    aria-disabled={false}
-                                    aria-label={closeAriaLabel}>
+                            <button
+                                onClick={handleClose}
+                                ref={closeFiltersModalButtonRef}
+                                aria-disabled={false}
+                                aria-label={closeAriaLabel}
+                            >
                                 <Icon src={CloseIcon} />
                             </button>
                         </div>
@@ -114,7 +122,12 @@ const FilterModal = props => {
                             filterState={filterState}
                         />
                         {clearAll}
-                        <ul className={classes.blocks} aria-label={filtersAriaLabel}>{filtersList}</ul>
+                        <ul
+                            className={classes.blocks}
+                            aria-label={filtersAriaLabel}
+                        >
+                            {filtersList}
+                        </ul>
                     </div>
                     <FilterFooter
                         applyFilters={handleApply}

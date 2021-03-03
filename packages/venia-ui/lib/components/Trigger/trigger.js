@@ -20,7 +20,12 @@ const Trigger = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
-        <button className={classes.root} type="button" onClick={action} aria-label={ariaLabel}>
+        <button
+            className={classes.root}
+            type="button"
+            onClick={action}
+            aria-label={ariaLabel}
+        >
             {children}
         </button>
     );

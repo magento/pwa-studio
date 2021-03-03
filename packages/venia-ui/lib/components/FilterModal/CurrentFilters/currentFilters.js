@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types';
 import { mergeClasses } from '../../../classify';
 import CurrentFilter from './currentFilter';
 import defaultClasses from './currentFilters.css';
-import { useIntl } from "react-intl";
+import { useIntl } from 'react-intl';
 
 const CurrentFilters = props => {
     const { filterApi, filterState } = props;
@@ -40,7 +40,11 @@ const CurrentFilters = props => {
         defaultMessage: 'Current Filters'
     });
 
-    return <ul className={classes.root} aria-label={currentFiltersAriaLabel}>{filterElements}</ul>;
+    return (
+        <ul className={classes.root} aria-label={currentFiltersAriaLabel}>
+            {filterElements}
+        </ul>
+    );
 };
 
 CurrentFilters.propTypes = {

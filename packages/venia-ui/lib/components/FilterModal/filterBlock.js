@@ -22,28 +22,37 @@ const FilterBlock = props => {
         ? classes.list_expanded
         : classes.list_collapsed;
 
-    const itemAriaLabel = formatMessage({
-        id: 'filterModal.item.ariaLabel',
-        defaultMessage: 'Filter products by "{itemName}".',
-    }, {
-        itemName: name
-    });
+    const itemAriaLabel = formatMessage(
+        {
+            id: 'filterModal.item.ariaLabel',
+            defaultMessage: 'Filter products by "{itemName}".'
+        },
+        {
+            itemName: name
+        }
+    );
 
     const toggleItemOptionsAriaLabel = isExpanded
-        ? formatMessage({
-            id: 'filterModal.item.hideOptions',
-            defaultMessage: 'Hide "{itemName}" filter item options.',
-        }, {
-            itemName: name
-        })
-        : formatMessage({
-            id: 'filterModal.item.showOptions',
-            defaultMessage: 'Show "{itemName}" filter item options.'
-        }, {
-            itemName: name
-        });
+        ? formatMessage(
+              {
+                  id: 'filterModal.item.hideOptions',
+                  defaultMessage: 'Hide "{itemName}" filter item options.'
+              },
+              {
+                  itemName: name
+              }
+          )
+        : formatMessage(
+              {
+                  id: 'filterModal.item.showOptions',
+                  defaultMessage: 'Show "{itemName}" filter item options.'
+              },
+              {
+                  itemName: name
+              }
+          );
 
-    const filterItemOptions = isExpanded &&
+    const filterItemOptions = isExpanded && (
         <Form className={listClass}>
             <FilterList
                 filterApi={filterApi}
@@ -51,7 +60,8 @@ const FilterBlock = props => {
                 group={group}
                 items={items}
             />
-        </Form>;
+        </Form>
+    );
 
     return (
         <li className={classes.root} aria-label={itemAriaLabel}>
