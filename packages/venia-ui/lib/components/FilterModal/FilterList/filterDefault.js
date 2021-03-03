@@ -7,12 +7,7 @@ import { mergeClasses } from '../../../classify';
 import defaultClasses from './filterDefault.css';
 
 const FilterDefault = props => {
-    const {
-        classes: propsClasses,
-        isSelected,
-        item,
-        ...restProps
-    } = props;
+    const { classes: propsClasses, isSelected, item, ...restProps } = props;
     const { label, value_index } = item || {};
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, propsClasses);
