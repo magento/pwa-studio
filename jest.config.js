@@ -230,6 +230,15 @@ const jestConfig = {
         })),
         configureProject('pagebuilder', 'Pagebuilder', testReactComponents),
         configureProject('peregrine', 'Peregrine', inPackage => ({
+            // Make sure we can test extension files.
+            moduleFileExtensions: [
+                'ee.js',
+                'ce.js',
+                'js',
+                'json',
+                'jsx',
+                'node'
+            ],
             // Define global variables.
             globals,
             // Expose jsdom to tests.
@@ -299,7 +308,9 @@ const jestConfig = {
         '!**/__[[:alpha:]]*__/**',
         '!**/.*/__[[:alpha:]]*__/**',
         // Not this file itself
-        '!jest.config.js'
+        '!jest.config.js',
+        // Exclude deprecated components from coverage report
+        '!**/venia-ui/lib/components/Checkout/**'
     ],
     // Don't look for test files in these directories.
     testPathIgnorePatterns: [

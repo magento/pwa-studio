@@ -3,7 +3,7 @@ name: Documentation Request
 about: Help us improve the documentation
 title: "[doc]: A short, simple sentence describing the doc request"
 labels: documentation
-assignees: 'jcalcaben'
+assignees: ''
 ---
 
 <!--

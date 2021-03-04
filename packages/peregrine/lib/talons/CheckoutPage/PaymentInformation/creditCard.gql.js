@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments';
+import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
 
 // We disable linting for local fields because there is no way to add them to
@@ -156,14 +156,10 @@ export const SET_CC_DETAILS_ON_CART = gql`
 `;
 
 export default {
-    queries: {
-        getBillingAddressQuery: GET_BILLING_ADDRESS,
-        getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
-        getPaymentNonceQuery: GET_PAYMENT_NONCE,
-        getShippingAddressQuery: GET_SHIPPING_ADDRESS
-    },
-    mutations: {
-        setBillingAddressMutation: SET_BILLING_ADDRESS,
-        setCreditCardDetailsOnCartMutation: SET_CC_DETAILS_ON_CART
-    }
+    getBillingAddressQuery: GET_BILLING_ADDRESS,
+    getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
+    getPaymentNonceQuery: GET_PAYMENT_NONCE,
+    getShippingAddressQuery: GET_SHIPPING_ADDRESS,
+    setBillingAddressMutation: SET_BILLING_ADDRESS,
+    setCreditCardDetailsOnCartMutation: SET_CC_DETAILS_ON_CART
 };

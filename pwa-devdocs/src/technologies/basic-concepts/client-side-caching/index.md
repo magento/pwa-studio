@@ -20,7 +20,7 @@ Service workers can intercept network requests and fetch cached data or store re
 
 ### Venia service worker
 
-Venia's service worker behavior is defined in the [`src/SerciveWorker/sw.js`][] file using Google's [Workbox][] library.
+Venia's service worker behavior is defined in the [`src/ServiceWorker/sw.js`][] file using Google's [Workbox][] library.
 
 You do not need to use Workbox to define service worker behavior, but
 Workbox makes this task easier by removing boilerplate code that is always used when working with service workers.
