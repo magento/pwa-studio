@@ -67,17 +67,13 @@ async function makeDirFromNpmPackage(packageName) {
 }
 
 async function findTemplateDir(templateName) {
-    const template = {
-        npm: templateName,
-        dir: templateName
-    };
     try {
-        await fse.readdir(template.dir);
+        await fse.readdir(templateName);
         prettyLogger.info(`Found ${templateName} directory`);
         // if that succeeded, then...
-        return template.dir;
+        return templateName;
     } catch (e) {
-        return makeDirFromNpmPackage(template.npm);
+        return makeDirFromNpmPackage(templateName);
     }
 }
 
