@@ -144,7 +144,14 @@ export const useFilterModal = props => {
         }
 
         prevDrawer.current = drawer;
-    }, [drawer, filterApi, filterItems, filterKeys, search, handleCloseFilters]);
+    }, [
+        drawer,
+        filterApi,
+        filterItems,
+        filterKeys,
+        search,
+        handleCloseFilters
+    ]);
 
     const handleApply = useCallback(() => {
         setIsApplying(true);
@@ -154,7 +161,7 @@ export const useFilterModal = props => {
     const handleClose = useCallback(() => {
         closeDrawer();
         // handleCloseFilters();
-    }, [closeDrawer, handleCloseFilters]);
+    }, [closeDrawer]);
 
     const handleReset = useCallback(() => {
         filterApi.clear();

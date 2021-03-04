@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FocusScope } from 'react-aria';
 import { array, arrayOf, shape, string } from 'prop-types';
@@ -90,12 +90,10 @@ const FilterModal = props => {
 
     return (
         <Portal>
+            {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
             <FocusScope contain restoreFocus autoFocus>
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-                <aside
-                    className={modalClass}
-                    onKeyDown={handleKeyDownActions}
-                >
+                <aside className={modalClass} onKeyDown={handleKeyDownActions}>
                     <div className={classes.body}>
                         <div className={classes.header}>
                             <h2 className={classes.headerTitle}>

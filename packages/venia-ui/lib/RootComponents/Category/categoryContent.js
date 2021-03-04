@@ -81,7 +81,12 @@ const CategoryContent = props => {
     // If you want to defer the loading of the FilterModal until user interaction
     // (hover, focus, click), simply add the talon's `loadFilters` prop as
     // part of the conditional here.
-    const modal = showFiltersModal ? <FilterModal filters={filters} handleCloseFilters={handleCloseFilters} /> : null;
+    const modal = showFiltersModal ? (
+        <FilterModal
+            filters={filters}
+            handleCloseFilters={handleCloseFilters}
+        />
+    ) : null;
 
     const categoryDescriptionElement = categoryDescription ? (
         <RichContent html={categoryDescription} />
