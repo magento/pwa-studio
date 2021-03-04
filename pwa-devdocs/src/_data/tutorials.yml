@@ -23,9 +23,6 @@ entries:
           - label: Modify the site footer
             url: /tutorials/pwa-studio-fundamentals/modify-site-footer/
 
-          - label: Create a tag list component
-            url: /tutorials/create-taglist-component/
-
     - label: Target interception
       url: /tutorials/intercept-a-target/
       entries:
