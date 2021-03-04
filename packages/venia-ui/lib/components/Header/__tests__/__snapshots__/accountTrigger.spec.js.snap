@@ -16,7 +16,7 @@ Array [
       />
     </button>
   </div>,
-  <Account Menu
+  <require('../AccountMenu')
     accountMenuIsOpen={false}
   />,
 ]

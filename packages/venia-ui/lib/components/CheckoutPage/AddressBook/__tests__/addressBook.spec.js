@@ -8,7 +8,7 @@ jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/AddressBook/useAddressBook'
 );
 jest.mock('../../../../classify');
-jest.mock('../../ShippingInformation/editModal', () => 'EditModal');
+jest.mock('../../ShippingInformation/editModal', () => () => 'EditModal');
 jest.mock('../addressCard', () => 'AddressCard');
 
 const mockAddToast = jest.fn();

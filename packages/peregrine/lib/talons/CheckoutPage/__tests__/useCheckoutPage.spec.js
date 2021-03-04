@@ -20,6 +20,7 @@ import CheckoutError from '../CheckoutError';
 
 jest.mock('@apollo/client', () => {
     return {
+        ...jest.requireActual('@apollo/client'),
         useLazyQuery: jest.fn(),
         useApolloClient: jest.fn(),
         useMutation: jest.fn(),
@@ -64,9 +65,14 @@ const getCheckoutDetailsQuery = 'getCheckoutDetailsQuery';
 const getOrderDetailsQuery = 'getOrderDetailsQuery';
 const getCustomerQuery = 'getCustomerQuery';
 
-const props = {
-    mutations: { createCartMutation, placeOrderMutation },
-    queries: { getCheckoutDetailsQuery, getOrderDetailsQuery, getCustomerQuery }
+const defaultProps = {
+    operations: {
+        createCartMutation,
+        getCheckoutDetailsQuery,
+        getOrderDetailsQuery,
+        getCustomerQuery,
+        placeOrderMutation
+    }
 };
 
 const readQuery = jest.fn().mockReturnValue({ cart: {} });
@@ -182,7 +188,7 @@ beforeEach(() => {
  */
 
 test('Should return correct shape', () => {
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps).toMatchSnapshot();
 });
@@ -193,7 +199,7 @@ test('isLoading should be set to true if the checkout details query networkStatu
         networkStatus: 4
     });
 
-    const { talonProps, update } = getTalonProps(props);
+    const { talonProps, update } = getTalonProps(defaultProps);
 
     expect(talonProps.isLoading).toBeTruthy();
 
@@ -221,7 +227,7 @@ test('isLoading should be set to true if the customer details query is loading',
         loading: true
     });
 
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps.isLoading).toBeTruthy();
 });
@@ -231,7 +237,7 @@ test('returns cartItems from getOrderDetails query', () => {
     getCheckoutDetailsQueryResult.mockReturnValueOnce({
         data: { cart: { items: cartItems } }
     });
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps.cartItems).toEqual(cartItems);
 });
@@ -247,7 +253,7 @@ test('returned error prop should be error from place order mutation', () => {
         }
     ]);
 
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps.error).toBeInstanceOf(CheckoutError);
 });
@@ -258,7 +264,7 @@ test('should get order details when handlePlaceOrder called', () => {
         { createCart: () => {}, removeCart: () => {} }
     ]);
 
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     act(() => {
         talonProps.handlePlaceOrder();
@@ -284,7 +290,7 @@ test("should place order and cleanup when we have order details and place order 
         return [jest.fn(), { data: {}, loading: false }];
     });
 
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     await act(async () => {
         await talonProps.handlePlaceOrder();
@@ -298,6 +304,37 @@ test("should place order and cleanup when we have order details and place order 
     expect(createCart).toHaveBeenCalledWith({ fetchCartId });
 });
 
+test('should set checkout step and review order button click state when an error ocurrs during placeOrderAndCleanup()', async () => {
+    const consoleErrorSpy = jest.spyOn(console, 'error');
+    const createCart = jest.fn();
+    const removeCart = jest.fn(() => {
+        throw new Error('some error');
+    });
+    const fetchCartId = jest.fn();
+
+    useCartContext.mockReturnValueOnce([
+        { cartId: '123' },
+        { createCart, removeCart }
+    ]);
+    createCartMutationResult.mockReturnValue([fetchCartId]);
+
+    useLazyQuery.mockImplementation(() => {
+        return [jest.fn(), { data: {}, loading: false }];
+    });
+
+    const { talonProps, update } = getTalonProps(defaultProps);
+
+    await act(async () => {
+        await talonProps.handlePlaceOrder();
+    });
+
+    const updatedProps = update(defaultProps);
+
+    expect(consoleErrorSpy).toHaveBeenCalled();
+    expect(updatedProps.reviewOrderButtonClicked).toBeFalsy();
+    expect(updatedProps.checkoutStep).toEqual(CHECKOUT_STEP.PAYMENT);
+});
+
 test('hasError should be true if place order mutation failed with errors', () => {
     placeOrderMutationResult.mockReturnValueOnce([
         () => {},
@@ -308,7 +345,7 @@ test('hasError should be true if place order mutation failed with errors', () =>
         }
     ]);
 
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps.hasError).toBeTruthy();
 });
@@ -321,7 +358,7 @@ describe('isCartEmpty', () => {
             loading: false
         });
 
-        const { talonProps } = getTalonProps(props);
+        const { talonProps } = getTalonProps(defaultProps);
 
         expect(talonProps.isCartEmpty).toBeTruthy();
     });
@@ -337,7 +374,7 @@ describe('isCartEmpty', () => {
             loading: false
         });
 
-        const { talonProps } = getTalonProps(props);
+        const { talonProps } = getTalonProps(defaultProps);
 
         expect(talonProps.isCartEmpty).toBeTruthy();
     });
@@ -353,7 +390,7 @@ describe('isCartEmpty', () => {
             loading: false
         });
 
-        const { talonProps } = getTalonProps(props);
+        const { talonProps } = getTalonProps(defaultProps);
 
         expect(talonProps.isCartEmpty).toBeFalsy();
     });
@@ -362,7 +399,7 @@ describe('isCartEmpty', () => {
 test('isGuestCheckout should be negation of isSignedIn from useUserContext', () => {
     useUserContext.mockReturnValueOnce([{ isSignedIn: false }]);
 
-    const { talonProps, update } = getTalonProps(props);
+    const { talonProps, update } = getTalonProps(defaultProps);
 
     expect(talonProps.isGuestCheckout).toBeTruthy();
 
@@ -384,7 +421,7 @@ test('orderDetailsData should be data from getOrderDetailsQuery', () => {
         }
     ]);
 
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps.orderDetailsData).toBe(data);
 });
@@ -399,7 +436,7 @@ test('orderDetailsLoading should be loading status of the getOrderDetailsQuery',
         }
     ]);
 
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps.orderDetailsLoading).toBeTruthy();
 });
@@ -420,7 +457,7 @@ test('orderNumber should be the order_number from the place order mutation resul
         }
     ]);
 
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps.orderNumber).toBe('123');
 });
@@ -435,7 +472,7 @@ test('orderNumber should be the null if place order mutation result is falsy', (
         }
     ]);
 
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps.orderNumber).toBeNull();
 });
@@ -450,14 +487,14 @@ test('placeOrderLoading should be loading status of the place order mutation', (
         }
     ]);
 
-    const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps.placeOrderLoading).toBeTruthy();
 });
 
 describe('setShippingInformationDone', () => {
     test('should set the checkoutStep to SHIPPING_METHOD if current checkoutStep is SHIPPING_ADDRESS', () => {
-        const { talonProps, update } = getTalonProps(props);
+        const { talonProps, update } = getTalonProps(defaultProps);
 
         talonProps.setCheckoutStep(CHECKOUT_STEP.SHIPPING_ADDRESS);
 
@@ -473,7 +510,7 @@ describe('setShippingInformationDone', () => {
     });
 
     test('should not set the checkoutStep to SHIPPING_METHOD if current checkoutStep is not SHIPPING_ADDRESS', () => {
-        const { talonProps, update } = getTalonProps(props);
+        const { talonProps, update } = getTalonProps(defaultProps);
 
         talonProps.setCheckoutStep(CHECKOUT_STEP.PAYMENT);
 
@@ -491,7 +528,7 @@ describe('setShippingInformationDone', () => {
 
 describe('setShippingMethodDone', () => {
     test('should set the checkoutStep to PAYMENT if current checkoutStep is SHIPPING_METHOD', () => {
-        const { talonProps, update } = getTalonProps(props);
+        const { talonProps, update } = getTalonProps(defaultProps);
 
         talonProps.setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
 
@@ -507,7 +544,7 @@ describe('setShippingMethodDone', () => {
     });
 
     test('should not set the checkoutStep to PAYMENT if current checkoutStep is not SHIPPING_METHOD', () => {
-        const { talonProps, update } = getTalonProps(props);
+        const { talonProps, update } = getTalonProps(defaultProps);
 
         talonProps.setCheckoutStep(CHECKOUT_STEP.REVIEW);
 
@@ -525,7 +562,7 @@ describe('setShippingMethodDone', () => {
 
 describe('setPaymentInformationDone', () => {
     test('should set the checkoutStep to REVIEW if current checkoutStep is PAYMENT', () => {
-        const { talonProps, update } = getTalonProps(props);
+        const { talonProps, update } = getTalonProps(defaultProps);
 
         talonProps.setCheckoutStep(CHECKOUT_STEP.PAYMENT);
 
@@ -541,7 +578,7 @@ describe('setPaymentInformationDone', () => {
     });
 
     test('should not set the checkoutStep to REVIEW if current checkoutStep is not PAYMENT', () => {
-        const { talonProps, update } = getTalonProps(props);
+        const { talonProps, update } = getTalonProps(defaultProps);
 
         talonProps.setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
 
@@ -558,7 +595,7 @@ describe('setPaymentInformationDone', () => {
 });
 
 test('handleReviewOrder should set reviewOrderButtonClicked to true', () => {
-    const { talonProps, update } = getTalonProps(props);
+    const { talonProps, update } = getTalonProps(defaultProps);
 
     expect(talonProps.reviewOrderButtonClicked).toBeFalsy();
 
@@ -570,7 +607,7 @@ test('handleReviewOrder should set reviewOrderButtonClicked to true', () => {
 });
 
 test('resetReviewOrderButtonClicked should set reviewOrderButtonClicked to false', () => {
-    const { talonProps, update } = getTalonProps(props);
+    const { talonProps, update } = getTalonProps(defaultProps);
 
     expect(talonProps.reviewOrderButtonClicked).toBeFalsy();
 
@@ -588,7 +625,7 @@ test('resetReviewOrderButtonClicked should set reviewOrderButtonClicked to false
 });
 
 test('toggles addressBook content', () => {
-    const { talonProps: initialProps, update } = getTalonProps(props);
+    const { talonProps: initialProps, update } = getTalonProps(defaultProps);
 
     initialProps.toggleAddressBookContent();
     const step1Props = update();
@@ -602,7 +639,7 @@ test('toggles addressBook content', () => {
 });
 
 test('toggles signIn content', () => {
-    const { talonProps: initialProps, update } = getTalonProps(props);
+    const { talonProps: initialProps, update } = getTalonProps(defaultProps);
 
     initialProps.toggleSignInContent();
     const step1Props = update();
@@ -616,7 +653,7 @@ test('toggles signIn content', () => {
 });
 
 test('resets active content to checkout on sign in', () => {
-    const { talonProps: initialProps, update } = getTalonProps(props);
+    const { talonProps: initialProps, update } = getTalonProps(defaultProps);
 
     initialProps.toggleSignInContent();
     const step1Props = update();
@@ -627,4 +664,10 @@ test('resets active content to checkout on sign in', () => {
     const step2Props = update();
 
     expect(step2Props.activeContent).toBe('checkout');
+});
+
+test('check availablePaymentMethods, if not implemented then show page level message', () => {
+    const { talonProps } = getTalonProps(defaultProps);
+
+    expect(talonProps.availablePaymentMethods).toBeNull();
 });

@@ -9,6 +9,10 @@
     padding: 0.5rem;
 }
 
+.heading {
+    line-height: 1.25em;
+}
+
 .layout_default {
     padding: 0;
 }

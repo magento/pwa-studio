@@ -1,3 +1,0 @@
-{{#assets.bundles.load}}
-    <script defer src="{{.}}"></script>
-{{/assets.bundles.load}}
