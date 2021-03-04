@@ -15,26 +15,26 @@ import { StoreTitle } from '../Head';
 import Icon from '../Icon';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
+import FormError from '../FormError';
 import AddressBook from './AddressBook';
 import GuestSignIn from './GuestSignIn';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
+import payments from './PaymentInformation/paymentMethodCollection';
 import PriceAdjustments from './PriceAdjustments';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
+
 import defaultClasses from './checkoutPage.css';
-import CheckoutPageOperations from './checkoutPage.gql.js';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
-    const talonProps = useCheckoutPage({
-        ...CheckoutPageOperations
-    });
+    const talonProps = useCheckoutPage();
 
     const {
         /**
@@ -42,6 +42,7 @@ const CheckoutPage = props => {
          * SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
          */
         activeContent,
+        availablePaymentMethods,
         cartItems,
         checkoutStep,
         customer,
@@ -172,6 +173,26 @@ const CheckoutPage = props => {
                 </h3>
             );
 
+        const formErrors = [];
+        const paymentMethods = Object.keys(payments);
+
+        // If we have an implementation, or if this is a "zero" checkout,
+        // we can allow checkout to proceed.
+        const isPaymentAvailable = !!availablePaymentMethods.find(
+            ({ code }) => code === 'free' || paymentMethods.includes(code)
+        );
+
+        if (!isPaymentAvailable) {
+            formErrors.push(
+                new Error(
+                    formatMessage({
+                        id: 'checkoutPage.noPaymentAvailable',
+                        defaultMessage: 'Payment is currently unavailable.'
+                    })
+                )
+            );
+        }
+
         const paymentInformationSection =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <PaymentInformation
@@ -203,7 +224,11 @@ const CheckoutPage = props => {
                     onClick={handleReviewOrder}
                     priority="high"
                     className={classes.review_order_button}
-                    disabled={reviewOrderButtonClicked || isUpdating}
+                    disabled={
+                        reviewOrderButtonClicked ||
+                        isUpdating ||
+                        !isPaymentAvailable
+                    }
                 >
                     <FormattedMessage
                         id={'checkoutPage.reviewOrder'}
@@ -290,6 +315,12 @@ const CheckoutPage = props => {
         checkoutContent = (
             <div className={checkoutContentClass}>
                 <div className={classes.heading_container}>
+                    <FormError
+                        classes={{
+                            root: classes.formErrors
+                        }}
+                        errors={formErrors}
+                    />
                     <StockStatusMessage
                         cartItems={cartItems}
                         message={stockStatusMessageElement}

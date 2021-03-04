@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`displays open nav or drawer 1`] = `
+<div>
+  Title
+  <Main
+    isMasked={false}
+  >
+    <Routes />
+  </Main>
+  <button
+    onClick={[Function]}
+  />
+  <require('../Navigation') />
+  <ToastContainer />
+</div>
+`;
+
 exports[`renders with renderErrors 1`] = `
 <HeadProvider>
   <StoreTitle />
@@ -25,7 +41,11 @@ exports[`renders with unhandledErrors 1`] = `
     dismiss={[Function]}
     isActive={false}
   />
-  <Navigation />
+  <React.Suspense
+    fallback={null}
+  >
+    <require('../Navigation') />
+  </React.Suspense>
   <ToastContainer />
 </HeadProvider>
 `;
