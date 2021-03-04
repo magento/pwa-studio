@@ -282,3 +282,156 @@ test('receives update on data change', () => {
     const { talonProps: newTalonProps } = root.findByType('i').props;
     expect(newTalonProps.hasUpdate).toBe(true);
 });
+
+test('resets the update state when the timer runs out', () => {
+    jest.useFakeTimers();
+    clearTimeout.mockImplementation(jest.fn());
+
+    mockGetShippingInformationResult
+        .mockReturnValueOnce({
+            data: {
+                cart: {
+                    email: null,
+                    shipping_addresses: [
+                        {
+                            city: 'Manhattan',
+                            country: 'USA',
+                            email: 'fry@planet.express',
+                            firstname: 'Philip',
+                            lastname: 'Fry',
+                            postcode: '10019',
+                            region: 'New York',
+                            street: ['3000 57th Street', 'Suite 200'],
+                            telephone: '(123) 456-7890'
+                        }
+                    ]
+                }
+            },
+            loading: false
+        })
+        .mockReturnValueOnce({
+            data: {
+                cart: {
+                    email: null,
+                    shipping_addresses: [
+                        {
+                            city: 'Manhattan',
+                            country: 'USA',
+                            email: 'bender@planet.express',
+                            firstname: 'Bender',
+                            lastname: 'Rodríguez',
+                            postcode: '10019',
+                            region: 'New York',
+                            street: ['00100 100 001 00100'],
+                            telephone: '(555) 456-7890'
+                        }
+                    ]
+                }
+            },
+            loading: false
+        });
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { hasUpdate } = talonProps;
+
+    expect(hasUpdate).toBe(false);
+
+    act(() => {
+        tree.update(<Component {...mockProps} />);
+    });
+
+    const { talonProps: newTalonProps } = root.findByType('i').props;
+    expect(newTalonProps.hasUpdate).toBe(true);
+
+    jest.runAllTimers();
+
+    const { talonProps: finalTalonProps } = tree.root.findByType('i').props;
+
+    expect(finalTalonProps.hasUpdate).toBeFalsy();
+});
+
+test('sets the default address on cart when not done editing ', () => {
+    const mockSetDefaultAddressOnCart = jest.fn();
+
+    useMutation.mockImplementation(() => {
+        return [mockSetDefaultAddressOnCart, { loading: false }];
+    });
+
+    mockGetDefaultShippingResult.mockReturnValueOnce({
+        data: {
+            customer: {
+                default_shipping: '1'
+            }
+        },
+        loading: false
+    });
+
+    mockGetShippingInformationResult.mockReturnValueOnce({
+        data: {
+            cart: {
+                email: null,
+                shipping_addresses: [
+                    {
+                        city: undefined,
+                        country: 'USA',
+                        email: 'fry@planet.express',
+                        firstname: 'Philip',
+                        lastname: 'Fry',
+                        postcode: '10019',
+                        region: 'New York',
+                        street: ['3000 57th Street', 'Suite 200'],
+                        telephone: '(123) 456-7890'
+                    }
+                ]
+            }
+        },
+        loading: false
+    });
+
+    createTestInstance(<Component {...mockProps} />);
+
+    expect(mockSetDefaultAddressOnCart).toHaveBeenCalled();
+});
+
+test('does not set the default address on cart when there is not default shipping data', () => {
+    const mockSetDefaultAddressOnCart = jest.fn();
+
+    useMutation.mockImplementation(() => {
+        return [mockSetDefaultAddressOnCart, { loading: false }];
+    });
+
+    mockGetDefaultShippingResult.mockReturnValueOnce({
+        data: {
+            customer: {}
+        },
+        loading: false
+    });
+
+    mockGetShippingInformationResult.mockReturnValueOnce({
+        data: {
+            cart: {
+                email: null,
+                shipping_addresses: [
+                    {
+                        city: undefined,
+                        country: 'USA',
+                        email: 'fry@planet.express',
+                        firstname: 'Philip',
+                        lastname: 'Fry',
+                        postcode: '10019',
+                        region: 'New York',
+                        street: ['3000 57th Street', 'Suite 200'],
+                        telephone: '(123) 456-7890'
+                    }
+                ]
+            }
+        },
+        loading: false
+    });
+
+    createTestInstance(<Component {...mockProps} />);
+
+    expect(mockSetDefaultAddressOnCart).not.toHaveBeenCalled();
+});

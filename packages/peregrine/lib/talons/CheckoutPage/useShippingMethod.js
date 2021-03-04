@@ -11,8 +11,6 @@ export const displayStates = {
 };
 
 const serializeShippingMethod = method => {
-    if (!method) return '';
-
     const { carrier_code, method_code } = method;
 
     return `${carrier_code}|${method_code}`;
