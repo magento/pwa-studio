@@ -7,6 +7,8 @@ import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import WishlistItems from './wishlistItems';
 import defaultClasses from './wishlist.css';
+import WishlistListActionsDialog from './wishlistListActionsDialog';
+import WishlistEditFavoritesListDialog from './wishlistEditFavoritesListDialog';
 
 const ActionMenuIcon = <Icon src={MoreHorizontal} size={24} />;
 
@@ -22,7 +24,16 @@ const Wishlist = props => {
     } = data;
 
     const talonProps = useWishlist();
-    const { handleActionMenuClick, handleContentToggle, isOpen } = talonProps;
+    const {
+        editFavoritesListIsOpen,
+        handleActionMenuClick,
+        handleEditWishlist,
+        handleContentToggle,
+        handleHideDialogs,
+        handleShowEditFavorites,
+        isOpen,
+        listActionsIsOpen
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const contentClass = isOpen ? classes.content : classes.content_hidden;
@@ -62,6 +73,18 @@ const Wishlist = props => {
                         {contentToggleIcon}
                     </button>
                 </div>
+                <WishlistListActionsDialog
+                    isOpen={listActionsIsOpen}
+                    onCancel={handleHideDialogs}
+                    onEdit={handleShowEditFavorites}
+                />
+                <WishlistEditFavoritesListDialog
+                    hasError={false}
+                    isOpen={editFavoritesListIsOpen}
+                    isRemovalInProgress={false}
+                    onCancel={handleHideDialogs}
+                    onConfirm={handleEditWishlist}
+                />
             </div>
             <div className={contentClass}>{contentMessageElement}</div>
         </div>
