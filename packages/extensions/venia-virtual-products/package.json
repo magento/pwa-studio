@@ -1,0 +1,24 @@
+{
+  "name": "@magento/venia-virtual-products",
+  "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Adds support for additional fields when rendering virtual products",
+  "main": "./intercept.js",
+  "scripts": {
+    "clean": " "
+  },
+  "repository": "github:magento/pwa-studio",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "peerDependencies": {
+    "@apollo/client": "~3.1.2",
+    "@magento/pwa-buildpack": "~8.0.1",
+    "@magento/peregrine": "~9.0.0"
+  },
+  "pwa-studio": {
+    "targets": {
+      "intercept": "./intercept"
+    }
+  }
+}
