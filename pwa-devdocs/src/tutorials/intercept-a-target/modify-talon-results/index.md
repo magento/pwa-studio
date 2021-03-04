@@ -51,7 +51,7 @@ Edit the `packages.json` file so it looks like the following:
     "@magento/peregrine": "~7.0.0",
     "@magento/pwa-buildpack": "~6.0.0",
     "@magento/venia-ui": "~4.0.0",
-    "@apollo/client": "~3.0.0",
+    "@apollo/client": "~3.1.2",
     "graphql-tag": "~2.10.1",
     "react": "~17.0.1",
     "webpack": "~4.38.0"
