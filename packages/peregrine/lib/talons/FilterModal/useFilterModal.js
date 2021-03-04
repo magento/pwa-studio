@@ -123,11 +123,11 @@ export const useFilterModal = props => {
         }
     }, [filterKeys, filterState, history, isApplying, pathname, search]);
 
-    // on drawer toggle, read filter state from location
     useEffect(() => {
         const justOpened = prevDrawer.current === null && drawer === 'filter';
         const justClosed = prevDrawer.current === 'filter' && drawer === null;
 
+        // on drawer toggle, read filter state from location
         if (justOpened || justClosed) {
             const nextState = getStateFromSearch(
                 search,
@@ -137,8 +137,14 @@ export const useFilterModal = props => {
 
             filterApi.setItems(nextState);
         }
+
+        // on drawer close, update the modal visibility state
+        if (justClosed) {
+            handleCloseFilters();
+        }
+
         prevDrawer.current = drawer;
-    }, [drawer, filterApi, filterItems, filterKeys, search]);
+    }, [drawer, filterApi, filterItems, filterKeys, search, handleCloseFilters]);
 
     const handleApply = useCallback(() => {
         setIsApplying(true);
@@ -147,7 +153,7 @@ export const useFilterModal = props => {
 
     const handleClose = useCallback(() => {
         closeDrawer();
-        handleCloseFilters();
+        // handleCloseFilters();
     }, [closeDrawer, handleCloseFilters]);
 
     const handleReset = useCallback(() => {
