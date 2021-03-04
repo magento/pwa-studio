@@ -21,7 +21,7 @@ import DEFAULT_OPERATIONS from './filterModal.gql';
  * }}
  */
 export const useFilterModal = props => {
-    const { filters, closeFiltersModalButtonRef } = props;
+    const { filters, handleCloseFilters } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getFilterInputsQuery } = operations;
@@ -147,7 +147,8 @@ export const useFilterModal = props => {
 
     const handleClose = useCallback(() => {
         closeDrawer();
-    }, [closeDrawer]);
+        handleCloseFilters();
+    }, [closeDrawer, handleCloseFilters]);
 
     const handleReset = useCallback(() => {
         filterApi.clear();
@@ -171,13 +172,6 @@ export const useFilterModal = props => {
         [isOpen, handleClose]
     );
 
-    const handleTransitionEnd = useCallback(() => {
-        // focus the close button once the modal has been drawn on the screen
-        if (isOpen) {
-            closeFiltersModalButtonRef.current.focus();
-        }
-    }, [isOpen, closeFiltersModalButtonRef]);
-
     return {
         filterApi,
         filterItems,
@@ -188,7 +182,6 @@ export const useFilterModal = props => {
         handleClose,
         handleReset,
         handleKeyDownActions,
-        handleTransitionEnd,
         isApplying,
         isOpen
     };

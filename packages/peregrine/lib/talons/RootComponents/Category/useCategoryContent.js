@@ -31,15 +31,20 @@ export const useCategoryContent = props => {
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
     const [loadFilters, setLoadFilters] = useState(false);
-    const [, { toggleDrawer }] = useAppContext();
+    const [showFiltersModal, setShowFiltersModal] = useState(false);
+    const [, { toggleDrawer, closeDrawer }] = useAppContext();
 
     const handleLoadFilters = useCallback(() => {
         setLoadFilters(true);
     }, [setLoadFilters]);
     const handleOpenFilters = useCallback(() => {
-        setLoadFilters(true);
+        setShowFiltersModal(true);
         toggleDrawer(DRAWER_NAME);
-    }, [setLoadFilters, toggleDrawer]);
+    }, [setShowFiltersModal, toggleDrawer]);
+    const handleCloseFilters = useCallback(() => {
+        setShowFiltersModal(false);
+        closeDrawer(DRAWER_NAME);
+    }, [setShowFiltersModal, closeDrawer]);
 
     const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersByCategoryQuery,
@@ -77,8 +82,10 @@ export const useCategoryContent = props => {
         categoryName,
         categoryDescription,
         filters,
+        showFiltersModal,
         handleLoadFilters,
         handleOpenFilters,
+        handleCloseFilters,
         items,
         loadFilters,
         pageTitle,

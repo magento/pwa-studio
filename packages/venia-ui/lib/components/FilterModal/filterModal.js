@@ -20,10 +20,9 @@ import defaultClasses from './filterModal.css';
  * @param {Object} props.filters - filters to display
  */
 const FilterModal = props => {
-    const { filters } = props;
+    const { filters, handleCloseFilters } = props;
     const { formatMessage } = useIntl();
-    const closeFiltersModalButtonRef = useRef();
-    const talonProps = useFilterModal({ filters, closeFiltersModalButtonRef });
+    const talonProps = useFilterModal({ filters, handleCloseFilters });
     const {
         filterApi,
         filterItems,
@@ -33,7 +32,6 @@ const FilterModal = props => {
         handleClose,
         handleReset,
         handleKeyDownActions,
-        handleTransitionEnd,
         isOpen
     } = talonProps;
 
@@ -92,12 +90,11 @@ const FilterModal = props => {
 
     return (
         <Portal>
-            <FocusScope contain>
+            <FocusScope contain restoreFocus autoFocus>
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                 <aside
                     className={modalClass}
                     onKeyDown={handleKeyDownActions}
-                    onTransitionEnd={handleTransitionEnd}
                 >
                     <div className={classes.body}>
                         <div className={classes.header}>
@@ -109,7 +106,6 @@ const FilterModal = props => {
                             </h2>
                             <button
                                 onClick={handleClose}
-                                ref={closeFiltersModalButtonRef}
                                 aria-disabled={false}
                                 aria-label={closeAriaLabel}
                             >
