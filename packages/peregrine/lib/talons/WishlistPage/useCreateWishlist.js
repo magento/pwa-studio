@@ -1,32 +1,45 @@
 import { useState, useCallback } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import mergeOperations from '../../util/shallowMerge';
 
-export const CREATE_WISHLIST_MUTATION = gql`
-    mutation createWishlist(
-        $name: String!
-        $visibility: WishlistVisibilityEnum!
-    ) {
-        createWishlist(input: { name: $name, visibility: $visibility }) {
-            wishlist {
-                id
-                name
-                visibility
-            }
-        }
-    }
-`;
+import DEFAULT_OPERATIONS from './createWishlist.gql';
 
 /**
  * @function
  *
  * @returns {CreateWishListProps}
  */
-export const useCreateWishlist = () => {
+export const useCreateWishlist = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { createWishlistMutation, getCustomerWishlistsQuery } = operations;
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [
-        createWishlist,
-        { called: setCreateWishlistCalled, loading: setCreateWishlistLoading }
-    ] = useMutation(CREATE_WISHLIST_MUTATION);
+    const [createWishlist, { error: createWishlistErrors }] = useMutation(
+        createWishlistMutation,
+        {
+            update(
+                cache,
+                {
+                    data: { createWishlist }
+                }
+            ) {
+                const { customer } = cache.readQuery({
+                    query: getCustomerWishlistsQuery
+                });
+                cache.writeQuery({
+                    query: getCustomerWishlistsQuery,
+                    data: {
+                        customer: {
+                            ...customer,
+                            wishlists: customer.wishlists.concat([
+                                createWishlist.wishlist
+                            ])
+                        }
+                    }
+                });
+            }
+        }
+    );
 
     const handleShowModal = useCallback(() => {
         setIsModalOpen(true);
@@ -45,7 +58,7 @@ export const useCreateWishlist = () => {
                         visibility: data.visibility
                     }
                 });
-                setIsModalOpen(false);
+                await setIsModalOpen(false);
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
@@ -59,7 +72,8 @@ export const useCreateWishlist = () => {
         handleCreateList,
         handleHideModal,
         handleShowModal,
-        isModalOpen
+        isModalOpen,
+        formErrors: [createWishlistErrors]
     };
 };
 

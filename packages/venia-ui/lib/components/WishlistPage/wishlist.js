@@ -18,7 +18,6 @@ const Wishlist = props => {
         items_count: itemsCount,
         items_v2: items,
         name,
-        sharing_code: sharingCode,
         visibility
     } = data;
 

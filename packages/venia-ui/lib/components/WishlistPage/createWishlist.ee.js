@@ -14,6 +14,7 @@ import RadioGroup from '../RadioGroup';
 import TextInput from '../TextInput';
 
 import defaultClasses from './createWishlist.css';
+import FormErrors from '../FormError/formError';
 
 const CreateWishlist = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -23,7 +24,8 @@ const CreateWishlist = props => {
         handleCreateList,
         handleHideModal,
         handleShowModal,
-        isModalOpen
+        isModalOpen,
+        formErrors
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -105,6 +107,12 @@ const CreateWishlist = props => {
                 })}
             >
                 <div className={classes.form}>
+                    <FormErrors
+                        classes={{
+                            root: classes.errorMessage
+                        }}
+                        errors={formErrors}
+                    />
                     <Field
                         classes={{ root: classes.listName }}
                         label={formatMessage({
