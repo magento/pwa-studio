@@ -170,10 +170,10 @@ export const useCategory = props => {
     // If we get an error after loading we should try to reset to page 1.
     // If we continue to have errors after that, render an error message.
     useEffect(() => {
-        if (error && !categoryLoading && currentPage !== 1) {
+        if (error && !categoryLoading && !data && currentPage !== 1) {
             setCurrentPage(1);
         }
-    }, [currentPage, error, categoryLoading, setCurrentPage]);
+    }, [currentPage, error, categoryLoading, setCurrentPage, data]);
 
     // Reset the current page back to one (1) when the search string, filters
     // or sort criteria change.
