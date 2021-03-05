@@ -135,3 +135,15 @@ test('hasErrors in return props should be set to true if gql throws any errors',
 
     expect(talonProps.hasErrors).toBeTruthy();
 });
+
+test('handles no configurable thumbnail source data', () => {
+    useQuery.mockReturnValueOnce({});
+
+    const tree = createTestInstance(
+        <Component queries={{ getItemsInCart: jest.fn() }} />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.configurableThumbnailSource).toBeUndefined();
+});

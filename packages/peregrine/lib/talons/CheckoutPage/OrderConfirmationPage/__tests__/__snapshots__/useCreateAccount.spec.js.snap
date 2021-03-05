@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the correct shape 1`] = `
+Object {
+  "errors": Map {
+    "createAccountQuery" => undefined,
+    "signInMutation" => undefined,
+  },
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "philipfry@fake.email",
+      "firstname": "Philip",
+      "lastname": "Fry",
+    },
+  },
+  "isDisabled": false,
+}
+`;
+
+exports[`returns the correct shape with no initial values 1`] = `
+Object {
+  "errors": Map {
+    "createAccountQuery" => undefined,
+    "signInMutation" => undefined,
+  },
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": undefined,
+      "firstname": undefined,
+      "lastname": undefined,
+    },
+  },
+  "isDisabled": false,
+}
+`;
