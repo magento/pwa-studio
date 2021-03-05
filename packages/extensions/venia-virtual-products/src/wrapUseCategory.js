@@ -1,6 +1,6 @@
-const { GET_CATEGORY } = require('./category.gql');
+import { GET_CATEGORY } from './category.gql';
 
-module.exports = original => props => {
+const wrapUseCategory = original => props => {
     const newProps = {
         ...props,
         operations: {
@@ -10,3 +10,5 @@ module.exports = original => props => {
 
     return original(newProps);
 };
+
+export default wrapUseCategory;
