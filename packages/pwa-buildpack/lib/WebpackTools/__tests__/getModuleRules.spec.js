@@ -1,4 +1,4 @@
-import getModuleRules from '../configureWebpack/getModuleRules';
+const getModuleRules = require('../configureWebpack/getModuleRules');
 
 describe('css', async () => {
     const helper = {
