@@ -20,10 +20,11 @@ const Wishlist = props => {
         items_count: itemsCount,
         items_v2: items,
         name,
-        sharing_code: sharingCode
+        sharing_code: sharingCode,
+        visibility
     } = data;
 
-    const talonProps = useWishlist();
+    const talonProps = useWishlist({ id });
     const {
         editFavoritesListIsOpen,
         handleActionMenuClick,
@@ -56,6 +57,13 @@ const Wishlist = props => {
         </p>
     );
 
+    const formProps = {
+        initialValues: {
+            name: name,
+            visibility: visibility
+        }
+    };
+
     return (
         <div className={classes.root}>
             <div className={classes.header}>
@@ -79,6 +87,7 @@ const Wishlist = props => {
                     onEdit={handleShowEditFavorites}
                 />
                 <WishlistEditFavoritesListDialog
+                    formProps={formProps}
                     hasError={false}
                     isOpen={editFavoritesListIsOpen}
                     isRemovalInProgress={false}

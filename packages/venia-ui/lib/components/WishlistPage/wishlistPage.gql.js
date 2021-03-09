@@ -43,6 +43,7 @@ export const GET_CUSTOMER_WISHLIST = gql`
                 }
                 name
                 sharing_code
+                visibility
             }
         }
     }
@@ -104,7 +105,8 @@ const MOCK_WISHLISTS = [
             }
         ],
         name: 'Favorites',
-        sharing_code: null
+        sharing_code: null,
+        visibility: 'PRIVATE'
     }
 ];
 

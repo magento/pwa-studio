@@ -14,7 +14,8 @@ const dialogs = {
  *
  * @returns {WishListProps}
  */
-export const useWishlist = (props = {}) => {
+export const useWishlist = props => {
+    const { id } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { updateWishlistMutation } = operations;
     const [isOpen, setIsOpen] = useState(true);
@@ -43,15 +44,22 @@ export const useWishlist = (props = {}) => {
 
     const handleEditWishlist = useCallback(
         async data => {
-            updateWishlist({
-                variables: {
-                    name: data.name,
-                    visibility: data.visibility,
-                    wishlistId: data.id
+            try {
+                await updateWishlist({
+                    variables: {
+                        name: data.name,
+                        visibility: data.visibility,
+                        wishlistId: id
+                    }
+                });
+                await setCurrentDialog(dialogs.NONE);
+            } catch (error) {
+                if (process.env.NODE_ENV !== 'production') {
+                    console.error(error);
                 }
-            });
+            }
         },
-        [updateWishlist]
+        [id, updateWishlist]
     );
 
     return {

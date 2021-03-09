@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, func, object, shape, string } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { mergeClasses } from '../../classify';
@@ -12,6 +12,7 @@ import RadioGroup from '../RadioGroup/radioGroup';
 
 const WishlistEditFavoritesListDialog = props => {
     const {
+        formProps,
         hasError,
         isOpen,
         isRemovalInProgress,
@@ -81,12 +82,7 @@ const WishlistEditFavoritesListDialog = props => {
             confirmText={'Save'}
             cancelTranslationId={'global.cancelButton'}
             cancelText={'Cancel'}
-            formProps={{
-                initialValues: {
-                    name: 'Birthday Party x6',
-                    visibility: 'PRIVATE'
-                }
-            }}
+            formProps={formProps}
             isModal={true}
             isOpen={isOpen}
             onCancel={onCancel}
@@ -134,6 +130,7 @@ WishlistEditFavoritesListDialog.propTypes = {
         radioRoot: string,
         root: string
     }),
+    formProps: object,
     hasError: bool,
     isOpen: bool,
     isRemovalInProgress: bool,
