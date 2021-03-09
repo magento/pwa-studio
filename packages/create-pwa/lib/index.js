@@ -99,7 +99,7 @@ module.exports = async () => {
         {
             name: 'template',
             message: ({ name }) =>
-                `Which template would you like to use to bootstrap ${name}? Defaults to venia-concept.`,
+                `Which template would you like to use to bootstrap ${name}? Defaults to "@magento/venia-concept".`,
             default: '@magento/venia-concept'
         },
         {
