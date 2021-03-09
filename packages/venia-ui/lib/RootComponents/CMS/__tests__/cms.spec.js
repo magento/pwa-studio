@@ -3,7 +3,7 @@ import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useQuery } from '@apollo/client';
 import CategoryList from '../../../components/CategoryList';
 import RichContent from '../../../components/RichContent';
-import { Title } from '../../../components/Head';
+import { StoreTitle } from '../../../components/Head';
 import CMSPage from '../cms';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
@@ -11,7 +11,7 @@ jest.mock('../../../classify');
 
 jest.mock('../../../components/Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
-    Title: () => 'Title',
+    StoreTitle: () => 'Title',
     Meta: () => 'Meta'
 }));
 jest.mock('../../../components/LoadingIndicator', () => {
@@ -173,7 +173,7 @@ test('render meta information based on meta data from GraphQL', () => {
     });
 
     const { root } = createTestInstance(<CMSPage {...props} />);
-    const title = root.findByType(Title);
+    const title = root.findByType(StoreTitle);
     expect(title).toBeTruthy();
     expect(title.props.children).toEqual('Test Meta Title');
 

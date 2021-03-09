@@ -115,6 +115,44 @@ UPWARD server running.",
 }
 `;
 
+exports[`should throw a warning if key and cert paths are provided but cert doesnt exist 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [
+    "Custom key and cert paths provided but files not found, creating HTTP server.",
+  ],
+}
+`;
+
+exports[`should throw a warning if key and cert paths are provided but key doesnt exist 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [
+    "Custom key and cert paths provided but files not found, creating HTTP server.",
+  ],
+}
+`;
+
 exports[`should throw error if unable to load env 1`] = `[Error: Can not load environment config!]`;
 
 exports[`should throw error if unable to load env 2`] = `
@@ -143,6 +181,24 @@ Object {
   "error": Array [],
   "info": Array [
     "PORT is set in environment: 7899",
+    "Launching UPWARD server
+",
+  ],
+  "success": Array [
+    "
+UPWARD server running.",
+  ],
+  "warn": Array [],
+}
+`;
+
+exports[`should use custom https if key and cert paths provided from the env 1`] = `
+Object {
+  "error": Array [],
+  "info": Array [
+    "Custom key and cert paths provided, creating HTTPS server.",
+    "PORT is set in environment: 1234",
+    "NODE_ENV=production, will not attempt to use custom host or port",
     "Launching UPWARD server
 ",
   ],
