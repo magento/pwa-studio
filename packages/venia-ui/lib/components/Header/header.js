@@ -69,7 +69,10 @@ const Header = props => {
                         hasBeenOffline={hasBeenOffline}
                         isOnline={isOnline}
                     />
-                    <Link to={resourceUrl('/')}>
+                    <Link
+                        to={resourceUrl('/')}
+                        className={classes.logoContainer}
+                    >
                         <Logo classes={{ logo: classes.logo }} />
                     </Link>
                     <MegaMenu />

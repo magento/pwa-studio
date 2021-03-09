@@ -19,7 +19,7 @@
 
 @media (min-width: 1024px) {
     .root {
-        grid-area: primary;
+        grid-column: 2 / 3;
     }
 }
 

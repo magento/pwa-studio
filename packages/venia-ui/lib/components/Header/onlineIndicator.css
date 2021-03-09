@@ -12,12 +12,12 @@
     .root {
         justify-self: start;
         margin-left: 2.5rem;
-        grid-area: secondary;
+        grid-column: 3 / 4;
     }
 }
 
-@media (min-width: 641px) {
+@media (min-width: 1024px) {
     .root {
-        grid-area: primary;
+        grid-column: 2 / 3;
     }
 }

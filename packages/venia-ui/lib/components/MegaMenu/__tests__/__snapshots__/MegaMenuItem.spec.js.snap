@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Mega menu item renders correctly it not render submenu when item does not have children 1`] = `
+exports[`Mega menu item renders correctly it does not render submenu when item does not have children 1`] = `
 <div
   className="megaMenuItem"
 >

@@ -60,7 +60,7 @@ describe('Mega menu item renders correctly', () => {
         expect(instance.toJSON().children[0].children[0]).toEqual('Women');
     });
 
-    test('it not render submenu when item does not have children', () => {
+    test('it does not render submenu when item does not have children', () => {
         const categoryWithoutChildren = {
             id: 3,
             name: 'Tops',

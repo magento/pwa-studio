@@ -42,7 +42,17 @@ const MegaMenuItem = props => {
 export default MegaMenuItem;
 
 MegaMenuItem.propTypes = {
-    category: PropTypes.object.isRequired,
+    category: PropTypes.shape({
+        children: PropTypes.array,
+        id: PropTypes.number.isRequired,
+        include_in_menu: PropTypes.number,
+        isActive: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired,
+        path: PropTypes.array.isRequired,
+        position: PropTypes.number.isRequired,
+        url_path: PropTypes.string.isRequired,
+        url_suffix: PropTypes.string.isRequired
+    }).isRequired,
     activeCategoryId: PropTypes.number,
     mainNavWidth: PropTypes.number.isRequired
 };

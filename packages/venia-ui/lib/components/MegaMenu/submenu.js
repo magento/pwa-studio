@@ -34,6 +34,18 @@ const Submenu = props => {
 export default Submenu;
 
 Submenu.propTypes = {
-    items: PropTypes.array.isRequired,
+    items: PropTypes.arrayOf(
+        PropTypes.shape({
+            children: PropTypes.array.isRequired,
+            id: PropTypes.number.isRequired,
+            include_in_menu: PropTypes.number.isRequired,
+            isActive: PropTypes.bool.isRequired,
+            name: PropTypes.string.isRequired,
+            path: PropTypes.array.isRequired,
+            position: PropTypes.number.isRequired,
+            url_path: PropTypes.string.isRequired,
+            url_suffix: PropTypes.string.isRequired
+        })
+    ).isRequired,
     mainNavWidth: PropTypes.number.isRequired
 };

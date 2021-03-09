@@ -1,7 +1,7 @@
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './megaMenu.gql';
 import { useQuery } from '@apollo/client';
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /**
@@ -25,29 +25,13 @@ export const useMegaMenu = (props = {}) => {
     });
 
     /**
-     * Sort categories by position.
-     *
-     * @param {array} items - categories to sort
-     * @returns {array}
-     */
-    const sortItems = useCallback(items => {
-        if (items.length < 2) return items;
-
-        const [pivot, ...rest] = items;
-        const low = rest.filter(n => n.position <= pivot.position);
-        const high = rest.filter(n => n.position > pivot.position);
-
-        return [...sortItems(low), pivot, ...sortItems(high)];
-    }, []);
-
-    /**
      * Check if category should be visible on the storefront.
      *
      * @param {MegaMenuCategory} category
      * @returns {boolean}
      */
     const shouldRenderMegaMenuItem = category => {
-        return !!category.include_in_menu === true;
+        return !!category.include_in_menu;
     };
 
     /**
@@ -62,8 +46,6 @@ export const useMegaMenu = (props = {}) => {
                 '/' + category.url_path + category.url_suffix;
 
             if (location.pathname === categoryUrlPath) {
-                setActiveCategoryId(category.path[0]);
-
                 return true;
             }
 
@@ -95,8 +77,9 @@ export const useMegaMenu = (props = {}) => {
             megaMenuCategory.isActive = isActive(megaMenuCategory);
 
             if (megaMenuCategory.children) {
-                megaMenuCategory.children = sortItems(megaMenuCategory.children)
+                megaMenuCategory.children = [...megaMenuCategory.children]
                     .filter(category => shouldRenderMegaMenuItem(category))
+                    .sort((a, b) => (a.position > b.position ? 1 : -1))
                     .map(child =>
                         processData(child, megaMenuCategory.path, false)
                     );
@@ -104,12 +87,35 @@ export const useMegaMenu = (props = {}) => {
 
             return megaMenuCategory;
         },
-        [isActive, sortItems]
+        [isActive]
     );
 
     const megaMenuData = useMemo(() => {
         return data ? processData(data.categoryList[0]) : null;
     }, [data, processData]);
+
+    useEffect(() => {
+        const findActiveCategory = (pathname, category) => {
+            if ('/' + category.url_path + category.url_suffix === pathname) {
+                return category;
+            }
+
+            if (category.children) {
+                return category.children.find(category =>
+                    findActiveCategory(pathname, category)
+                );
+            }
+        };
+
+        const activeCategory = findActiveCategory(
+            location.pathname,
+            megaMenuData
+        );
+
+        if (activeCategory) {
+            setActiveCategoryId(activeCategory.path[0]);
+        }
+    }, [location.pathname, megaMenuData]);
 
     return {
         megaMenuData: megaMenuData ? megaMenuData : {},

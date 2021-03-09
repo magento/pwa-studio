@@ -66,13 +66,6 @@
     }
 }
 
-@media (min-width: 1024px) {
-    .toolbar {
-        grid-template-areas: 'title primary megaMenu secondary';
-        grid-template-columns: 0.5fr 1.5fr auto 2fr;
-    }
-}
-
 .logo {
     grid-area: title;
 }
@@ -96,6 +89,11 @@
 }
 
 @media (min-width: 641px) {
+    .logoContainer {
+        grid-column: 2/ 3;
+        grid-row: 1 / 1;
+    }
+
     .secondaryActions {
         column-gap: 1rem;
     }
@@ -151,6 +149,22 @@
 .loader:after {
     color: rgb(var(--venia-global-color-gray-darker));
     left: 3.5em;
+}
+
+@media (min-width: 1024px) {
+    .logoContainer {
+        grid-column: 1 / 2;
+        grid-row: 1 / 1;
+    }
+
+    .secondaryActions {
+        grid-column: 4 / 5;
+        grid-row: 1 / 1;
+    }
+
+    .toolbar {
+        grid-template-columns: 0.5fr 0.5fr 3fr 1fr;
+    }
 }
 
 @keyframes pulse {
