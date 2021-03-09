@@ -11,7 +11,7 @@ const renderer = new ShallowRenderer();
 
 jest.mock('../../Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
-    Title: () => 'Title'
+    StoreTitle: () => 'Title'
 }));
 jest.mock('../../Main', () => 'Main');
 
