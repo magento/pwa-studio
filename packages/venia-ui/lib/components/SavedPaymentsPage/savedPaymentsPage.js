@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { useSavedPaymentsPage } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useSavedPaymentsPage';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import { Title } from '../Head';
+import { StoreTitle } from '../Head';
 import PaymentCard from './paymentCard';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
@@ -54,7 +54,7 @@ const SavedPaymentsPage = props => {
 
     return (
         <div className={classes.root}>
-            <Title>{title}</Title>
+            <StoreTitle>{title}</StoreTitle>
             <h1 className={classes.heading}>{title}</h1>
             <div className={classes.content}>{savedPaymentElements}</div>
             <div className={classes.noPayments}>{noSavedPayments}</div>
