@@ -12,9 +12,9 @@ import { isRequired } from '../../util/formValidators';
 import { mergeClasses } from '../../classify';
 import RadioGroup from '../RadioGroup';
 import TextInput from '../TextInput';
+import FormError from '../FormError/formError';
 
 import defaultClasses from './createWishlist.css';
-import FormErrors from '../FormError/formError';
 
 const CreateWishlist = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -107,12 +107,7 @@ const CreateWishlist = props => {
                 })}
             >
                 <div className={classes.form}>
-                    <FormErrors
-                        classes={{
-                            root: classes.errorMessage
-                        }}
-                        errors={formErrors}
-                    />
+                    <FormError errors={Array.from(formErrors.values())} />
                     <Field
                         classes={{ root: classes.listName }}
                         label={formatMessage({

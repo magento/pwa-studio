@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { useMutation } from '@apollo/client';
+import { useState, useCallback, useMemo } from 'react';
+import { useMutation, useApolloClient } from '@apollo/client';
 import mergeOperations from '../../util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './createWishlist.gql';
@@ -12,9 +12,9 @@ import DEFAULT_OPERATIONS from './createWishlist.gql';
 export const useCreateWishlist = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { createWishlistMutation, getCustomerWishlistsQuery } = operations;
-
+    const apolloClient = useApolloClient();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [createWishlist, { error: createWishlistErrors }] = useMutation(
+    const [createWishlist, { error: createWishlistError }] = useMutation(
         createWishlistMutation,
         {
             update(
@@ -23,10 +23,10 @@ export const useCreateWishlist = (props = {}) => {
                     data: { createWishlist }
                 }
             ) {
-                const { customer } = cache.readQuery({
+                const { customer } = apolloClient.readQuery({
                     query: getCustomerWishlistsQuery
                 });
-                cache.writeQuery({
+                apolloClient.writeQuery({
                     query: getCustomerWishlistsQuery,
                     data: {
                         customer: {
@@ -58,7 +58,7 @@ export const useCreateWishlist = (props = {}) => {
                         visibility: data.visibility
                     }
                 });
-                await setIsModalOpen(false);
+                setIsModalOpen(false);
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
@@ -68,12 +68,17 @@ export const useCreateWishlist = (props = {}) => {
         [createWishlist, setIsModalOpen]
     );
 
+    const errors = useMemo(
+        () => new Map([['createWishlistMutation', createWishlistError]]),
+        [createWishlistError]
+    );
+
     return {
         handleCreateList,
         handleHideModal,
         handleShowModal,
         isModalOpen,
-        formErrors: [createWishlistErrors]
+        formErrors: errors
     };
 };
 

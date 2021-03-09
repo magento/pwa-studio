@@ -14,7 +14,8 @@ jest.mock(
             handleCreateList: jest.fn().mockName('handleCreateList'),
             handleHideModal: jest.fn().mockName('handleHideModal'),
             handleShowModal: jest.fn().mockName('handleShowModal'),
-            isModalOpen: false
+            isModalOpen: false,
+            formErrors: new Map([['error', new Error('Form Error')]])
         })
     })
 );

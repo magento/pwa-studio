@@ -2,6 +2,9 @@
 
 exports[`should return properly 1`] = `
 Object {
+  "formErrors": Map {
+    "createWishlistMutation" => undefined,
+  },
   "handleCreateList": [Function],
   "handleHideModal": [Function],
   "handleShowModal": [Function],
