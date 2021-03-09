@@ -6,6 +6,7 @@ import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOption
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
+import { useUserContext } from '../../context/user';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -178,6 +179,7 @@ export const useProductFullDetail = props => {
     );
 
     const [{ cartId }] = useCartContext();
+    const [{ isSignedIn }] = useUserContext();
 
     const [
         addConfigurableProductToCart,
@@ -309,6 +311,43 @@ export const useProductFullDetail = props => {
         [errorAddingConfigurableProduct, errorAddingSimpleProduct]
     );
 
+    const wishlistItemOptions = useMemo(() => {
+        const payload = {
+            item: product,
+            productType
+        };
+
+        if (isProductConfigurable(product)) {
+            appendOptionsToPayload(payload, optionSelections, optionCodes);
+        }
+
+        if (productType === 'ConfigurableProduct') {
+            return {
+                sku: payload.parentSku,
+                // TODO: It is not clear to me how to see which options were selected for a configurable product. When using the below syntax, the wishlist item product shows only the parent sku as the "item.product.sku". So we might be able to just use the "sku: product.sku" for both configurable and simple..
+                // parent_sku: payload.parentSku,
+                // sku: payload.item.sku,
+                quantity: 1 // TODO: Does this need to reflect the quantity selected?
+            };
+        } else if (productType === 'SimpleProduct') {
+            return {
+                sku: payload.item.sku,
+                quantity: 1
+            };
+        } else if (productType === 'BundledProduct') {
+            // return {
+            //     sku: '24-WG080',
+            //     quantity: 1,
+            //     selected_options: [
+            //         'YnVuZGxlLzEvMS8x',
+            //         'YnVuZGxlLzIvNC8x',
+            //         'YnVuZGxlLzMvNy8x',
+            //         'YnVuZGxlLzQvOC8x'
+            //     ]
+            // };
+        }
+    }, [optionCodes, optionSelections, product, productType]);
+
     return {
         breadcrumbCategoryId,
         errorMessage: derivedErrorMessage,
@@ -319,7 +358,9 @@ export const useProductFullDetail = props => {
             isMissingOptions ||
             isAddConfigurableLoading ||
             isAddSimpleLoading,
+        isSignedIn,
         mediaGalleryEntries,
-        productDetails
+        productDetails,
+        wishlistItemOptions
     };
 };

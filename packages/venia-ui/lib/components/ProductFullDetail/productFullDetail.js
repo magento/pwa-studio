@@ -22,6 +22,8 @@ import {
     ADD_SIMPLE_MUTATION
 } from './productFullDetail.gql';
 
+import WishlistButton from '../Wishlist/WishlistButton';
+
 const Options = React.lazy(() => import('../ProductOptions'));
 
 // Correlate a GQL error message to a field. GQL could return a longer error
@@ -53,8 +55,10 @@ const ProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isAddToCartDisabled,
+        isSignedIn,
         mediaGalleryEntries,
-        productDetails
+        productDetails,
+        wishlistItemOptions
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -130,6 +134,10 @@ const ProductFullDetail = props => {
         }
     }
 
+    const maybeWishlistButton = isSignedIn ? (
+        <WishlistButton itemOptions={wishlistItemOptions} />
+    ) : null;
+
     return (
         <Fragment>
             {breadcrumbs}
@@ -168,7 +176,7 @@ const ProductFullDetail = props => {
                         message={errors.get('quantity')}
                     />
                 </section>
-                <section className={classes.cartActions}>
+                <section className={classes.actions}>
                     <Button
                         disabled={isAddToCartDisabled}
                         priority="high"
@@ -179,6 +187,7 @@ const ProductFullDetail = props => {
                             defaultMessage={'Add to Cart'}
                         />
                     </Button>
+                    {maybeWishlistButton}
                 </section>
                 <section className={classes.description}>
                     <h2 className={classes.descriptionTitle}>
