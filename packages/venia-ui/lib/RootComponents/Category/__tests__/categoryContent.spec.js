@@ -14,7 +14,7 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 
 jest.mock('../../../components/Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
-    Title: () => 'Title'
+    StoreTitle: () => 'Title'
 }));
 
 jest.mock('../../../components/Breadcrumbs', () => 'Breadcrumbs');
