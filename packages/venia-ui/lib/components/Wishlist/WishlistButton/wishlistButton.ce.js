@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AlertCircle, Heart } from 'react-feather';
 import { useIntl } from 'react-intl';
 
@@ -33,8 +33,17 @@ const ADD_TO_WISHLIST = gql`
 const WishlistButton = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const { itemOptions } = props;
+
     const { formatMessage } = useIntl();
+
+    // TODO: Using local state is a temporary solution. The real solution will be some check to see if the sku (for simple items) or sku + selected_options (for configurable) exists in a wishlist (or _the_ wishlist for CE). Currently, there seems to be a server error when attempting to query for `configurable_product_option_value_uid` on ConfigurableWishlistItem.configurable_options.
     const [itemAdded, setItemAdded] = useState(false);
+
+    // TODO: As with above, this just mimics the behavior we anticipate - you can add a product with any number of selected options to your wishlist, so whenever you change options, indicate that this new selection is _not_ in the list. We can remove this when we fix the server error.
+    useEffect(() => {
+        if (itemOptions.selected_options) setItemAdded(false);
+    }, [itemOptions.selected_options]);
 
     const [, { addToast }] = useToasts();
 
@@ -48,7 +57,7 @@ const WishlistButton = props => {
                 variables: {
                     // TODO: "0" will create a wishlist if doesn't exist, and add to one if it does, regardless of the user's single wishlist id. In 2.4.3 this will be "fixed" by removing the `wishlistId` param entirely because all users will have a wishlist created automatically in CE. So should only have to pass items and it will add correctly.
                     wishlistId: '0',
-                    itemOptions: props.itemOptions
+                    itemOptions
                 }
             });
             setItemAdded(true);
@@ -68,7 +77,7 @@ const WishlistButton = props => {
                 console.log(err);
             }
         }
-    }, [addProductToWishlist, addToast, formatMessage, props.itemOptions]);
+    }, [addProductToWishlist, addToast, formatMessage, itemOptions]);
 
     const buttonText = formatMessage({
         id: 'wishlistButton.addText',
