@@ -1,6 +1,7 @@
 module.exports = targets => {
     targets.of('@magento/pwa-buildpack').specialFeatures.tap(features => {
         features[targets.name] = {
+            cssModules: true,
             esModules: true,
             graphqlQueries: true
         };
@@ -13,5 +14,13 @@ module.exports = targets => {
         useCategory.wrapWith(
             '@magento/venia-virtual-products/src/wrapUseCategory'
         );
+    });
+
+    const { categoryListProductAttributes } = targets.of('@magento/venia-ui');
+    categoryListProductAttributes.tap(target => {
+        target.insertAfterJSX({
+            matcher: 'Link className={classes.name}',
+            importStatement: `import SubTypeAttribute from '@magento/venia-virtual-products/src/components/SubTypeAttribute'`
+        });
     });
 };
