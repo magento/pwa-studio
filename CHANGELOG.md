@@ -1,4 +1,4 @@
-# Release  9.0.1
+# Release   9.0.1
 
 **NOTE:**
 _This changelog only contains release notes for PWA Studio and Venia 9.0.1._
