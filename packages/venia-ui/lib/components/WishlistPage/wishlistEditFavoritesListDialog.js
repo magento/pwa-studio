@@ -31,11 +31,8 @@ const WishlistEditFavoritesListDialog = props => {
     });
 
     const dialogClasses = {
-        body: classes.body,
-        buttons: classes.buttons,
         cancelButton: classes.cancelButton,
-        confirmButton: classes.confirmButton,
-        contents: classes.contents
+        confirmButton: classes.confirmButton
     };
 
     const listName = formatMessage({
@@ -112,11 +109,8 @@ export default WishlistEditFavoritesListDialog;
 
 WishlistEditFavoritesListDialog.propTypes = {
     classes: shape({
-        body: string,
-        buttons: string,
         cancelButton: string,
         confirmButton: string,
-        contents: string,
         errorMessage: string,
         form: string,
         radioLabel: string,
