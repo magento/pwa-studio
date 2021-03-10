@@ -223,6 +223,41 @@ export const useProductFullDetail = props => {
         [product, optionCodes, optionSelections]
     );
 
+    // The map of ids to values (and their uids)
+    // For example:
+    // { "179" => [{ uid: "abc", value_index: 1 }, { uid: "def", value_index: 2 }]}
+    const attributeIdToValuesMap = useMemo(
+        () =>
+            new Map(
+                product.configurable_options.map(option => [
+                    option.attribute_id,
+                    option.values
+                ])
+            ),
+        [product.configurable_options]
+    );
+
+    // An array of selected option uids. Useful for passing to mutations.
+    // For example:
+    // ["abc", "def"]
+    const selectedOptionsArray = useMemo(() => {
+        const selectedOptions = [];
+
+        optionSelections.forEach((value, key) => {
+            const values = attributeIdToValuesMap.get(key);
+
+            const selectedValue = values.find(
+                item => item.value_index === value
+            );
+
+            if (selectedValue) {
+                selectedOptions.push(selectedValue.uid);
+            }
+        });
+
+        return selectedOptions;
+    }, [attributeIdToValuesMap, optionSelections]);
+
     const handleAddToCart = useCallback(
         async formValues => {
             const { quantity } = formValues;
@@ -312,41 +347,18 @@ export const useProductFullDetail = props => {
     );
 
     const wishlistItemOptions = useMemo(() => {
-        const payload = {
-            item: product,
-            productType
+        const options = {
+            // TODO: Does this need to reflect the quantity selected?
+            quantity: 1,
+            sku: product.sku
         };
 
-        if (isProductConfigurable(product)) {
-            appendOptionsToPayload(payload, optionSelections, optionCodes);
+        if (productType === 'ConfigurableProduct') {
+            options.selected_options = selectedOptionsArray;
         }
 
-        if (productType === 'ConfigurableProduct') {
-            return {
-                sku: payload.parentSku,
-                // TODO: It is not clear to me how to see which options were selected for a configurable product. When using the below syntax, the wishlist item product shows only the parent sku as the "item.product.sku". So we might be able to just use the "sku: product.sku" for both configurable and simple..
-                // parent_sku: payload.parentSku,
-                // sku: payload.item.sku,
-                quantity: 1 // TODO: Does this need to reflect the quantity selected?
-            };
-        } else if (productType === 'SimpleProduct') {
-            return {
-                sku: payload.item.sku,
-                quantity: 1
-            };
-        } else if (productType === 'BundledProduct') {
-            // return {
-            //     sku: '24-WG080',
-            //     quantity: 1,
-            //     selected_options: [
-            //         'YnVuZGxlLzEvMS8x',
-            //         'YnVuZGxlLzIvNC8x',
-            //         'YnVuZGxlLzMvNy8x',
-            //         'YnVuZGxlLzQvOC8x'
-            //     ]
-            // };
-        }
-    }, [optionCodes, optionSelections, product, productType]);
+        return options;
+    }, [product, productType, selectedOptionsArray]);
 
     return {
         breadcrumbCategoryId,

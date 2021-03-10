@@ -121,7 +121,7 @@ WishlistButton.propTypes = {
         ),
         parent_sku: string,
         sku: string.isRequired,
-        selected_options: arrayOf(number),
+        selected_options: arrayOf(string),
         quantity: number.isRequired
     })
 };
