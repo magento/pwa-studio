@@ -14,9 +14,9 @@ import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryP
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
-import { Title } from '../Head';
 import Icon from '../Icon';
 import LoadingIndicator from '../LoadingIndicator';
+import { StoreTitle } from '../Head';
 import TextInput from '../TextInput';
 
 import defaultClasses from './orderHistoryPage.css';
@@ -101,9 +101,6 @@ const OrderHistoryPage = props => {
         searchText
     ]);
 
-    // STORE_NAME is injected by Webpack at build time.
-    const title = `${PAGE_TITLE} - ${STORE_NAME}`;
-
     const resetButtonElement = searchText ? (
         <ResetButton onReset={handleReset} />
     ) : null;
@@ -155,7 +152,7 @@ const OrderHistoryPage = props => {
     return (
         <OrderHistoryContextProvider>
             <div className={classes.root}>
-                <Title>{title}</Title>
+                <StoreTitle>{PAGE_TITLE}</StoreTitle>
                 <h1 className={classes.heading}>{PAGE_TITLE}</h1>
                 <div className={classes.filterRow}>
                     <span className={classes.pageInfo}>{pageInfoLabel}</span>

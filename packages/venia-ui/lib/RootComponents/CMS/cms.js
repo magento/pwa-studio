@@ -4,7 +4,7 @@ import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import { useCmsPage } from '@magento/peregrine/lib/talons/Cms/useCmsPage';
 import RichContent from '../../components/RichContent';
 import CategoryList from '../../components/CategoryList';
-import { Meta, Title } from '../../components/Head';
+import { Meta, StoreTitle } from '../../components/Head';
 import { mergeClasses } from '../../classify';
 import { useIntl } from 'react-intl';
 
@@ -46,7 +46,7 @@ const CMSPage = props => {
 
         return (
             <Fragment>
-                <Title>{pageTitle}</Title>
+                <StoreTitle>{pageTitle}</StoreTitle>
                 <Meta name="title" content={pageTitle} />
                 <Meta name="description" content={meta_description} />
                 {headingElement}
