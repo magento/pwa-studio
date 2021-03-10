@@ -1,5 +1,5 @@
 const useGalleryItem = props => {
-    const handleLinkClick = undefined;
+    const handleLinkClick = () => {};
     return { ...props, handleLinkClick };
 };
 
