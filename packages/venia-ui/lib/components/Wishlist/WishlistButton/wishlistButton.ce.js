@@ -1,28 +1,18 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AlertCircle, Heart } from 'react-feather';
 import { useIntl } from 'react-intl';
 
 import { useToasts } from '@magento/peregrine';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 
 import defaultClasses from './wishlistButton.css';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 const ErrorIcon = <Icon src={AlertCircle} attrs={{ width: 18 }} />;
 
-const GET_WISHLIST_DATA = gql`
-    query getWishlistData {
-        customer {
-            wishlists {
-                id
-            }
-        }
-    }
-`;
 const ADD_TO_WISHLIST = gql`
     mutation addProductToWishlist(
         $wishlistId: ID!
@@ -46,38 +36,18 @@ const WishlistButton = props => {
     const { formatMessage } = useIntl();
     const [itemAdded, setItemAdded] = useState(false);
 
-    const [{ isSignedIn }] = useUserContext();
     const [, { addToast }] = useToasts();
-    const { data: wishlistData, loading: wishlistDataLoading } = useQuery(
-        GET_WISHLIST_DATA,
-        {
-            fetchPolicy: 'cache-and-network',
-            skip: !isSignedIn
-        }
-    );
 
     const [addProductToWishlist, { loading: isAddLoading }] = useMutation(
         ADD_TO_WISHLIST
     );
 
-    const wishlistId = useMemo(() => {
-        if (wishlistData) {
-            if (wishlistData.customer.wishlists.length) {
-                // CE allows only a single wishlist.
-                return wishlistData.customer.wishlists[0].id;
-            } else {
-                // TODO: For some reason, passing a zero _created_ a wishlist during the add operation when there was no other wishlist. Additionally, it doesn't seem to matter, once created, what the wishlist id is for a CE client - passing a zero will always add to the single list. So:
-                // Do we even need to query for the wishlist id for CE?
-                return 0;
-            }
-        }
-    }, [wishlistData]);
-
     const handleClick = useCallback(async () => {
         try {
             await addProductToWishlist({
                 variables: {
-                    wishlistId,
+                    // TODO: "0" will create a wishlist if doesn't exist, and add to one if it does, regardless of the user's single wishlist id. In 2.4.3 this will be "fixed" by removing the `wishlistId` param entirely because all users will have a wishlist created automatically in CE. So should only have to pass items and it will add correctly.
+                    wishlistId: '0',
                     itemOptions: props.itemOptions
                 }
             });
@@ -98,20 +68,14 @@ const WishlistButton = props => {
                 console.log(err);
             }
         }
-    }, [
-        addProductToWishlist,
-        addToast,
-        formatMessage,
-        props.itemOptions,
-        wishlistId
-    ]);
+    }, [addProductToWishlist, addToast, formatMessage, props.itemOptions]);
 
     const buttonText = formatMessage({
         id: 'wishlistButton.addText',
         defaultMessage: 'Add to Favorites'
     });
 
-    const isDisabled = wishlistDataLoading || isAddLoading;
+    const isDisabled = isAddLoading;
 
     let buttonClass;
     let iconClass;
