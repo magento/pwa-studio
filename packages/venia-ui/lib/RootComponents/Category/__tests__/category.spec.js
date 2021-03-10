@@ -9,7 +9,7 @@ jest.mock('@magento/peregrine/lib/talons/RootComponents/Category', () => ({
 
 jest.mock('../../../components/Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
-    Title: () => 'Title',
+    StoreTitle: () => 'Title',
     Meta: () => 'Meta'
 }));
 
