@@ -40,7 +40,9 @@ export const useWishlist = props => {
         setCurrentDialog(dialogs.EDIT_WISHLIST);
     }, [setCurrentDialog]);
 
-    const [updateWishlist] = useMutation(updateWishlistMutation);
+    const [updateWishlist, { error: updateWishlistErrors }] = useMutation(
+        updateWishlistMutation
+    );
 
     const handleEditWishlist = useCallback(
         async data => {
@@ -64,6 +66,7 @@ export const useWishlist = props => {
 
     return {
         editFavoritesListIsOpen,
+        formErrors: [updateWishlistErrors],
         handleActionMenuClick,
         handleContentToggle,
         handleEditWishlist,

@@ -1,6 +1,6 @@
 import React from 'react';
-import { bool, func, object, shape, string } from 'prop-types';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { array, bool, func, object, shape, string } from 'prop-types';
+import { useIntl } from 'react-intl';
 
 import { mergeClasses } from '../../classify';
 import Dialog from '../Dialog';
@@ -9,11 +9,12 @@ import TextInput from '../TextInput/textInput';
 import { isRequired } from '../../util/formValidators';
 import Field from '../Field';
 import RadioGroup from '../RadioGroup/radioGroup';
+import FormError from '../FormError';
 
 const WishlistEditFavoritesListDialog = props => {
     const {
+        formErrors,
         formProps,
-        hasError,
         isOpen,
         isRemovalInProgress,
         onCancel,
@@ -36,16 +37,6 @@ const WishlistEditFavoritesListDialog = props => {
         confirmButton: classes.confirmButton,
         contents: classes.contents
     };
-    const maybeError = hasError ? (
-        <p className={classes.errorMessage}>
-            <FormattedMessage
-                id={'wishlistEditFavoritesListDialog.errorMessage'}
-                defaultMessage={
-                    'There was an error editing this product. Please try again later.'
-                }
-            />
-        </p>
-    ) : null;
 
     const listName = formatMessage({
         id: 'createWishlist.listName',
@@ -91,7 +82,10 @@ const WishlistEditFavoritesListDialog = props => {
             title={dialogTitle}
         >
             <div className={classes.root}>
-                {maybeError}
+                <FormError
+                    classes={{ root: classes.errorMessage }}
+                    errors={formErrors}
+                />
                 <div className={classes.form}>
                     <Field
                         classes={{ root: classes.listName }}
@@ -130,8 +124,8 @@ WishlistEditFavoritesListDialog.propTypes = {
         radioRoot: string,
         root: string
     }),
+    formErrors: array,
     formProps: object,
-    hasError: bool,
     isOpen: bool,
     isRemovalInProgress: bool,
     onCancel: func,

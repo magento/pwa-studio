@@ -27,6 +27,7 @@ const Wishlist = props => {
     const talonProps = useWishlist({ id });
     const {
         editFavoritesListIsOpen,
+        formErrors,
         handleActionMenuClick,
         handleEditWishlist,
         handleContentToggle,
@@ -87,8 +88,8 @@ const Wishlist = props => {
                     onEdit={handleShowEditFavorites}
                 />
                 <WishlistEditFavoritesListDialog
+                    formErrors={formErrors}
                     formProps={formProps}
-                    hasError={false}
                     isOpen={editFavoritesListIsOpen}
                     isRemovalInProgress={false}
                     onCancel={handleHideDialogs}
