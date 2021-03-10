@@ -8,6 +8,7 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 import defaultClasses from './wishlistButton.css';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { gql, useMutation } from '@apollo/client';
+import { useWishlistButton } from '@magento/peregrine/lib/talons/Wishlist/WishlistButton/useWishlistButton.ee';
 
 const ADD_TO_WISHLIST = gql`
     mutation addProductToWishlist($id: ID!, $itemOptions: WishlistItemInput!) {
@@ -23,6 +24,7 @@ const ADD_TO_WISHLIST = gql`
 const WishlistButton = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    useWishlistButton();
     const { formatMessage } = useIntl();
 
     const [addProductToWishlist, { loading: isAddLoading }] = useMutation(
