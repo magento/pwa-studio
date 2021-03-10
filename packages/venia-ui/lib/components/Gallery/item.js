@@ -4,7 +4,7 @@ import { Link, resourceUrl } from '@magento/venia-drivers';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
-import useGalleryItem from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
+import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
 
 import { mergeClasses } from '../../classify';
 import Image from '../Image';
