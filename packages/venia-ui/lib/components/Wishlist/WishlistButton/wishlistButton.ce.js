@@ -38,17 +38,26 @@ const WishlistButton = props => {
         }
     }, [addProductError, addToast, formatMessage]);
 
-    const buttonText = formatMessage({
-        id: 'wishlistButton.addText',
-        defaultMessage: 'Add to Favorites'
-    });
+    const buttonText = itemAdded
+        ? formatMessage({
+              id: 'wishlistButton.addedText',
+              defaultMessage: 'Added to Favorites'
+          })
+        : formatMessage({
+              id: 'wishlistButton.addText',
+              defaultMessage: 'Add to Favorites'
+          });
 
     let buttonClass;
     let iconClass;
 
     if (isDisabled) {
         buttonClass = classes.wishlistButton_disabled;
-        iconClass = classes.icon_disabled;
+        if (itemAdded) {
+            iconClass = classes.icon_filled_disabled;
+        } else {
+            iconClass = classes.icon_disabled;
+        }
     } else {
         buttonClass = classes.wishlistButton;
         if (itemAdded) {

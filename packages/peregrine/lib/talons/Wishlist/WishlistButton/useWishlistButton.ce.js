@@ -10,10 +10,8 @@ export const useWishlistButton = props => {
 
     const { addProductToWishlistMutation } = operations;
 
-    // TODO: Using local state is a temporary solution. The real solution will be some check to see if the sku (for simple items) or sku + selected_options (for configurable) exists in a wishlist (or _the_ wishlist for CE). Currently, there seems to be a server error when attempting to query for `configurable_product_option_value_uid` on ConfigurableWishlistItem.configurable_options.
     const [itemAdded, setItemAdded] = useState(false);
 
-    // TODO: As with above, this just mimics the behavior we anticipate - you can add a product with any number of selected options to your wishlist, so whenever you change options, indicate that this new selection is _not_ in the list. We can remove this when we fix the server error.
     useEffect(() => {
         if (itemOptions.selected_options) setItemAdded(false);
     }, [itemOptions.selected_options]);
@@ -43,7 +41,7 @@ export const useWishlistButton = props => {
     return {
         addProductError,
         handleClick,
-        isDisabled: isAddLoading,
+        isDisabled: itemAdded || isAddLoading,
         itemAdded
     };
 };

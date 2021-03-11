@@ -1,66 +1,70 @@
-import React, { useCallback } from 'react';
-import { Heart } from 'react-feather';
+import React, { useEffect } from 'react';
+import { AlertCircle, Heart } from 'react-feather';
 import { useIntl } from 'react-intl';
+
+import { useToasts } from '@magento/peregrine';
+import { useWishlistButton } from '@magento/peregrine/lib/talons/Wishlist/WishlistButton/useWishlistButton';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 
 import defaultClasses from './wishlistButton.css';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
-import { gql, useMutation } from '@apollo/client';
-import { useWishlistButton } from '@magento/peregrine/lib/talons/Wishlist/WishlistButton/useWishlistButton.ee';
 
-const ADD_TO_WISHLIST = gql`
-    mutation addProductToWishlist($id: ID!, $itemOptions: WishlistItemInput!) {
-        addProductsToWishlist(wishlistId: $id, wishlistItems: [$itemOptions]) {
-            user_errors {
-                code
-                message
-            }
-        }
-    }
-`;
+const ErrorIcon = <Icon src={AlertCircle} attrs={{ width: 18 }} />;
 
 const WishlistButton = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    useWishlistButton();
+    const talonProps = useWishlistButton({ itemOptions: props.itemOptions });
+
+    const { addProductError, handleClick, isDisabled, itemAdded } = talonProps;
+
     const { formatMessage } = useIntl();
+    const [, { addToast }] = useToasts();
 
-    const [addProductToWishlist, { loading: isAddLoading }] = useMutation(
-        ADD_TO_WISHLIST
-    );
+    useEffect(() => {
+        if (addProductError) {
+            addToast({
+                type: 'error',
+                icon: ErrorIcon,
+                message: formatMessage({
+                    id: 'wishlistButton.addError',
+                    defaultMessage:
+                        'Something went wrong adding the product to your wishlist.'
+                }),
+                timeout: 5000
+            });
+        }
+    }, [addProductError, addToast, formatMessage]);
 
-    const handleClick = useCallback(async () => {
-        alert('opening dialog');
-        // try {
-        //     await addProductToWishlist({
-        //         variables: {
-        //             id: 3, // TODO: CE only has single wishlist.
-        //             itemOptions: props.itemOptions
-        //         }
-        //     });
-        // } catch (err) {
-        //     console.log(err);
-        // }
-    }, []);
-
-    const buttonText = formatMessage({
-        id: 'wishlistButton.addText',
-        defaultMessage: 'Add to Favorites'
-    });
-
-    const isDisabled = isAddLoading;
+    const buttonText = itemAdded
+        ? formatMessage({
+              id: 'wishlistButton.addedText',
+              defaultMessage: 'Added to Favorites'
+          })
+        : formatMessage({
+              id: 'wishlistButton.addText',
+              defaultMessage: 'Add to Favorites'
+          });
 
     let buttonClass;
     let iconClass;
 
     if (isDisabled) {
         buttonClass = classes.wishlistButton_disabled;
-        iconClass = classes.icon_disabled;
+        if (itemAdded) {
+            iconClass = classes.icon_filled_disabled;
+        } else {
+            iconClass = classes.icon_disabled;
+        }
     } else {
         buttonClass = classes.wishlistButton;
-        iconClass = classes.icon;
+        if (itemAdded) {
+            iconClass = classes.icon_filled;
+        } else {
+            iconClass = classes.icon;
+        }
     }
 
     return (
@@ -92,7 +96,7 @@ WishlistButton.propTypes = {
         ),
         parent_sku: string,
         sku: string.isRequired,
-        selected_options: arrayOf(number),
+        selected_options: arrayOf(string),
         quantity: number.isRequired
     })
 };

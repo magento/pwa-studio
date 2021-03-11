@@ -28,3 +28,8 @@
 .icon_filled {
     fill: black;
 }
+
+.icon_filled_disabled {
+    fill: rgb(var(--venia-global-color-gray-dark));
+    stroke: rgb(var(--venia-global-color-gray-dark));
+}
