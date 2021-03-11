@@ -29,10 +29,11 @@ const Wishlist = props => {
         editFavoritesListIsOpen,
         formErrors,
         handleActionMenuClick,
-        handleEditWishlist,
         handleContentToggle,
+        handleEditWishlist,
         handleHideDialogs,
         handleShowEditFavorites,
+        isEditInProgress,
         isOpen,
         listActionsIsOpen
     } = talonProps;
@@ -91,7 +92,7 @@ const Wishlist = props => {
                     formErrors={formErrors}
                     formProps={formProps}
                     isOpen={editFavoritesListIsOpen}
-                    isRemovalInProgress={false}
+                    isEditInProgress={isEditInProgress}
                     onCancel={handleHideDialogs}
                     onConfirm={handleEditWishlist}
                 />

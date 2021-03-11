@@ -16,7 +16,7 @@ const WishlistEditFavoritesListDialog = props => {
         formErrors,
         formProps,
         isOpen,
-        isRemovalInProgress,
+        isEditInProgress,
         onCancel,
         onConfirm
     } = props;
@@ -75,7 +75,7 @@ const WishlistEditFavoritesListDialog = props => {
             isOpen={isOpen}
             onCancel={onCancel}
             onConfirm={onConfirm}
-            shouldDisableAllButtons={isRemovalInProgress}
+            shouldDisableAllButtons={isEditInProgress}
             title={dialogTitle}
         >
             <div className={classes.root}>
@@ -121,7 +121,7 @@ WishlistEditFavoritesListDialog.propTypes = {
     formErrors: array,
     formProps: object,
     isOpen: bool,
-    isRemovalInProgress: bool,
+    isEditInProgress: bool,
     onCancel: func,
     onConfirm: func
 };

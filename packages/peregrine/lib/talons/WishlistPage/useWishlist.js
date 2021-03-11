@@ -40,9 +40,10 @@ export const useWishlist = props => {
         setCurrentDialog(dialogs.EDIT_WISHLIST);
     }, [setCurrentDialog]);
 
-    const [updateWishlist, { error: updateWishlistErrors }] = useMutation(
-        updateWishlistMutation
-    );
+    const [
+        updateWishlist,
+        { error: updateWishlistErrors, loading: isEditInProgress }
+    ] = useMutation(updateWishlistMutation);
 
     const handleEditWishlist = useCallback(
         async data => {
@@ -72,6 +73,7 @@ export const useWishlist = props => {
         handleEditWishlist,
         handleHideDialogs,
         handleShowEditFavorites,
+        isEditInProgress,
         isOpen,
         listActionsIsOpen
     };
@@ -92,6 +94,7 @@ export const useWishlist = props => {
  * @property {Function} handleEditWishlist Callback to handle edit wishlist
  * @property {Function} handleHideDialogs Callback to handle hiding all dialogs
  * @property {Function} handleShowEditFavorites Callback to handle showing the Edit Favorites List Dialog
+ * @property {Boolean} isEditInProgress Whether the update wishlist operation is in progress
  * @property {Boolean} isOpen Boolean which represents if the content is expanded or not
  * @property {Boolean} listActionsIsOpen Whether the list actions dialog is open
  */
