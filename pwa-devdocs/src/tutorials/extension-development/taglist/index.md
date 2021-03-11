@@ -163,7 +163,7 @@ export default TagList;
 ### Add TagList component dependencies
 
 The TagList component requires third party libraries, such as React, to render the correct HTML.
-Since this package is an extension, you should list these as peer dependencies in your `package.json` file.
+Since your package is an extension, you should list these as peer dependencies in your `package.json` file.
 This safeguards against including more than one copy of the same dependency in the storefront project and final build.
 
 Use the following command to add the TagList component dependencies as peer dependencies:
