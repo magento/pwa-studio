@@ -50,7 +50,7 @@ jest.mock('@magento/peregrine/lib/Toasts', () => ({
 }));
 
 jest.mock('../../../classify');
-jest.mock('../../Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../Head', () => ({ StoreTitle: () => 'Title' }));
 jest.mock('../orderRow', () => 'OrderRow');
 
 const talonProps = {
