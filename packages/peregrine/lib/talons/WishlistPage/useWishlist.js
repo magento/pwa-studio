@@ -12,9 +12,11 @@ const dialogs = {
 /**
  * @function
  *
+ * @param {Object} props
+ * @param {ID} props.id - The unique identifier of the wish list
  * @returns {WishListProps}
  */
-export const useWishlist = props => {
+export const useWishlist = (props = {}) => {
     const { id } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { updateWishlistMutation } = operations;
