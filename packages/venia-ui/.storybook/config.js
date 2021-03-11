@@ -1,6 +1,6 @@
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
-import { Adapter } from '@magento/venia-drivers';
+import { Adapter } from '@magento/venia-ui/lib/drivers';
 import store from '@magento/venia-concept/src/store';
 import { PeregrineContextProvider } from '@magento/peregrine';
 import { AppContextProvider } from '@magento/venia-ui/lib/components/App';

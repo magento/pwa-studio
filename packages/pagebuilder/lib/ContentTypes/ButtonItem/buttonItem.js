@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { arrayOf, oneOf, string, bool } from 'prop-types';
-import { useHistory } from '@magento/venia-drivers';
+import { useHistory } from 'react-router-dom';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button/button';
 

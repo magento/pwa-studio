@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Redirect } from '@magento/venia-drivers';
+import { Redirect } from 'react-router-dom';
 import { useAccountInformationPage } from '@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage';
 
 import { mergeClasses } from '../../classify';

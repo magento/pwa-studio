@@ -28,6 +28,7 @@ const preInstantiatedCache = new InMemoryCache({
 });
 
 const storage = new BrowserPersistence();
+const isServer = !globalThis.document;
 
 /**
  * The counterpart to `@magento/venia-drivers` is an adapter that provides
@@ -53,15 +54,19 @@ const VeniaAdapter = props => {
     const apolloClient = useMemo(() => {
         const cache = apollo.cache || preInstantiatedCache;
         const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
-        const client = apollo.client || new ApolloClient({ cache, link });
-        const storeCode = storage.getItem('store_view_code') || 'default';
+        const client =
+            apollo.client ||
+            new ApolloClient({ cache, link, ssrMode: isServer });
 
-        const persistor = new CachePersistor({
-            key: `${CACHE_PERSIST_PREFIX}-${storeCode}`,
-            cache,
-            storage: globalThis.localStorage,
-            debug: process.env.NODE_ENV === 'development'
-        });
+        const storeCode = storage.getItem('store_view_code') || 'default';
+        const persistor = isServer
+            ? null
+            : new CachePersistor({
+                  key: `${CACHE_PERSIST_PREFIX}-${storeCode}`,
+                  cache,
+                  storage: globalThis.localStorage,
+                  debug: process.env.NODE_ENV === 'development'
+              });
 
         return Object.assign(client, { apiBase, persistor });
     }, [apiBase, apollo]);

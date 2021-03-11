@@ -1,14 +1,16 @@
-const {
-    configureWebpack,
-    graphQL: {
-        getMediaURL,
-        getStoreConfigData,
-        getAvailableStoresConfigData,
-        getPossibleTypes
-    }
-} = require('@magento/pwa-buildpack');
-const { DefinePlugin } = require('webpack');
+const { configureWebpack, graphQL } = require('@magento/pwa-buildpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+
+const {
+    getMediaURL,
+    getStoreConfigData,
+    getAvailableStoresConfigData,
+    getPossibleTypes
+} = graphQL;
+
+const { DefinePlugin } = webpack;
+const { LimitChunkCountPlugin } = webpack.optimize;
 
 module.exports = async env => {
     /**
@@ -91,5 +93,28 @@ module.exports = async env => {
         })
     ];
 
-    return config;
+    const serverConfig = Object.assign({}, config, {
+        target: 'node',
+        output: {
+            ...config.output,
+            filename: '[name].[hash].SERVER.js',
+            strictModuleExceptionHandling: true
+        },
+        devtool: false,
+        optimization: {
+            minimize: false
+        },
+        plugins: [...config.plugins]
+    });
+
+    // remove HtmlWebpackPlugin
+    serverConfig.plugins.pop();
+    // remove LocalizationPlugin for now, having problems with InjectPlugin
+    serverConfig.plugins.splice(6, 1);
+    // replace ServiceWorkerPlugin with LimitChunkCountPlugin
+    serverConfig.plugins[5] = new LimitChunkCountPlugin({
+        maxChunks: 1
+    });
+
+    return [config, serverConfig];
 };

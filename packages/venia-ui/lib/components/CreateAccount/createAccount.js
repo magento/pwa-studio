@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { func, shape, string, bool } from 'prop-types';
-import { Redirect } from '@magento/venia-drivers';
+import { Redirect } from 'react-router-dom';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
 
 import { mergeClasses } from '../../classify';

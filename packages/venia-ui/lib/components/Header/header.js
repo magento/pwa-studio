@@ -1,15 +1,15 @@
 import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
+import { Link, Route } from 'react-router-dom';
 
 import Logo from '../Logo';
-import { Link, resourceUrl, Route } from '@magento/venia-drivers';
-
 import AccountTrigger from './accountTrigger';
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
 import OnlineIndicator from './onlineIndicator';
 import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './header.css';

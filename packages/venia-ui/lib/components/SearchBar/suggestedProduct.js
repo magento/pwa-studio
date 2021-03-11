@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
 import { func, number, shape, string } from 'prop-types';
+import { Link } from 'react-router-dom';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { mergeClasses } from '../../classify';
-import { Link, resourceUrl } from '@magento/venia-drivers';
 
 import Image from '../Image';
 import defaultClasses from './suggestedProduct.css';

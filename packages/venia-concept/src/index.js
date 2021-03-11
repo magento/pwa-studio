@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
 import { ApolloLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -11,15 +11,18 @@ import setWithPath from 'lodash.set';
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
 
 import { Util } from '@magento/peregrine';
-import { Adapter } from '@magento/venia-drivers';
+import { Adapter } from '@magento/venia-ui/lib/drivers';
 import store from './store';
 import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
+import StyleContextProvider from '@magento/peregrine/lib/context/style';
 
 import { registerSW } from './registerSW';
 
+const isServer = !globalThis.document;
 const { BrowserPersistence } = Util;
-const apiBase = new URL('/graphql', location.origin).toString();
+const origin = 'https://magento-venia-concept-e1r4b.local.pwadev:8048';
+const apiBase = new URL('/graphql', origin).toString();
 
 /**
  * The Venia adapter provides basic context objects: a router, a store, a
@@ -102,7 +105,7 @@ const apolloLink = ApolloLink.from([
         },
         attempts: {
             max: 5,
-            retryIf: error => error && navigator.onLine
+            retryIf: error => error && !isServer && navigator.onLine
         }
     }),
     authLink,
@@ -112,17 +115,26 @@ const apolloLink = ApolloLink.from([
     Adapter.apolloLink(apiBase)
 ]);
 
-ReactDOM.render(
+// on the server, imported styles will be added to this set and rendered in bulk
+const styleSet = new Set();
+
+const tree = (
     <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
-        <AppContextProvider>
-            <App />
-        </AppContextProvider>
-    </Adapter>,
-    document.getElementById('root')
+        <StyleContextProvider initialState={styleSet}>
+            <AppContextProvider>
+                <App />
+            </AppContextProvider>
+        </StyleContextProvider>
+    </Adapter>
 );
 
-// avoid running browser-specific code in a Node environment
-if (globalThis.document) {
+if (isServer) {
+    // TODO: ensure this actually renders correctly
+    import('react-dom/server').then(({ default: ReactDOMServer }) => {
+        console.log(ReactDOMServer.renderToString(tree));
+    });
+} else {
+    render(tree, document.getElementById('root'));
     registerSW();
 
     globalThis.addEventListener('online', () => {

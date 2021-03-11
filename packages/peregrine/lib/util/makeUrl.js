@@ -3,8 +3,10 @@ import { BrowserPersistence } from '@magento/peregrine/lib/util';
 const storage = new BrowserPersistence();
 
 // If the root template supplies the backend URL at runtime, use it directly
-const htmlDataset = document.querySelector('html').dataset;
-const { imageOptimizingOrigin } = htmlDataset;
+const { documentElement: htmlElement } = globalThis.document || {};
+const { imageOptimizingOrigin } = htmlElement ? htmlElement.dataset : {};
+const alreadyOptimized = imageOptimizingOrigin === 'backend';
+
 // Protect against potential falsy values for `mediaBackend`.
 const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
 const storeSecureBaseMediaUrl = {};
@@ -21,8 +23,6 @@ if (!mediaBackend) {
     console.warn('A media backend URL should be defined in your config.');
     mediaBackend = 'https://backend.test/media/';
 }
-
-const useBackendForImgs = imageOptimizingOrigin === 'backend';
 
 // Tests if a URL begins with `http:` or `https:` or `data:`
 const absoluteUrl = /^(data|http|https)?:/i;
@@ -89,7 +89,7 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
         }
     }
 
-    if (baseURL.href.startsWith(magentoBackendURL) && !useBackendForImgs) {
+    if (baseURL.href.startsWith(magentoBackendURL) && !alreadyOptimized) {
         // Replace URL base so optimization middleware can handle request
         baseURL = new URL(baseURL.href.slice(magentoBackendURL.length), origin);
     }

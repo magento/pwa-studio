@@ -2,10 +2,11 @@ import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { string, number, shape, func, arrayOf, oneOf } from 'prop-types';
 import { Trash2 as DeleteIcon } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 import Price from '@magento/venia-ui/lib/components/Price';
-import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';

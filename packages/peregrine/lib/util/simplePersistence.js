@@ -2,6 +2,14 @@
  * Persistence layer with expiration based on localStorage.
  */
 
+const storageMock = {
+    length: 0,
+    getItem() {},
+    setItem() {},
+    removeItem() {},
+    clear() {}
+};
+
 class NamespacedLocalStorage {
     constructor(localStorage, key) {
         this.localStorage = localStorage;
@@ -21,11 +29,10 @@ class NamespacedLocalStorage {
     }
 }
 
-// TODO: confirm this works in Node
 export default class BrowserPersistence {
     static KEY = 'M2_VENIA_BROWSER_PERSISTENCE';
     /* istanbul ignore next: test injects localstorage mock */
-    constructor(localStorage = globalThis.localStorage) {
+    constructor(localStorage = globalThis.localStorage || storageMock) {
         this.storage = new NamespacedLocalStorage(
             localStorage,
             this.constructor.KEY || BrowserPersistence.KEY

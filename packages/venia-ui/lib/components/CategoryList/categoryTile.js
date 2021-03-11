@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { arrayOf, string, shape } from 'prop-types';
+import { Link } from 'react-router-dom';
 
-import { Link } from '@magento/venia-drivers';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
 
 import { mergeClasses } from '../../classify';

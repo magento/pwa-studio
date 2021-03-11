@@ -4,7 +4,8 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { arrayOf, bool, oneOf, shape, string, func } from 'prop-types';
 import Button from '@magento/venia-ui/lib/components/Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
-import { Link, resourceUrl } from '@magento/venia-drivers';
+import { Link } from 'react-router-dom';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 const { matchMedia } = globalThis;
 const toHTML = str => ({ __html: str });

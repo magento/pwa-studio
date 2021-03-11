@@ -1,9 +1,10 @@
 import React, { Fragment, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { number, string } from 'prop-types';
-import { Link, resourceUrl } from '@magento/venia-drivers';
+import { Link } from 'react-router-dom';
 
 import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBreadcrumbs';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './breadcrumbs.css';
 

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
-import { Redirect } from '@magento/venia-drivers';
+import { Redirect } from 'react-router-dom';
 import { useToasts } from '@magento/peregrine';
 import { useCommunicationsPage } from '@magento/peregrine/lib/talons/CommunicationsPage/useCommunicationsPage';
 
