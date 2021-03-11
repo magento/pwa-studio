@@ -19,7 +19,6 @@ Object {
     null,
   ],
   "loadFilters": false,
-  "pageTitle": "Venia",
   "totalPagesFromData": null,
 }
 `;
@@ -46,7 +45,6 @@ Object {
     },
   ],
   "loadFilters": false,
-  "pageTitle": "Jewelry - Venia",
   "totalPagesFromData": 1,
 }
 `;
