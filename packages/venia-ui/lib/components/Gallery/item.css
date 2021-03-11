@@ -36,8 +36,7 @@
 
 .name,
 .price {
-    font-size: var(--venia-typography-detail-L-fontSize);
-    line-height: 1rem;
+    font-size: var(--venia-typography-detail-XL-fontSize);
     min-height: 1rem;
 }
 
