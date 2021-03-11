@@ -2,32 +2,59 @@ import React from 'react';
 
 import { MockedProvider } from '@apollo/client/testing';
 import { renderHook, act } from '@testing-library/react-hooks';
-import { InMemoryCache } from '@apollo/client';
 
 import { useCreateWishlist } from '../useCreateWishlist';
 import defaultOperations from '../createWishlist.gql';
+
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {};
+    const api = { actions: { setPageLoading: jest.fn() } };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
 
 const createWishlistVariables = {
     name: 'Test WishList',
     visibility: 'PUBLIC'
 };
 
-const cache = new InMemoryCache().restore({
-    ROOT_QUERY: {
-        customer: {
-            id: 'customerId',
-            firstName: 'Veronica',
-            wishlists: []
-        }
+let createWishlistMutationCalled = false;
+let getCustomerWishlistsQueryCalled = false;
+
+const getCustomerWishlistsMock = {
+    request: {
+        query: defaultOperations.getCustomerWishlistsQuery
+    },
+    loading: false,
+    result: () => {
+        getCustomerWishlistsQueryCalled = true;
+        return {
+            data: {
+                customer: {
+                    id: 'customerId',
+                    wishlists: [
+                        {
+                            id: 42,
+                            items_count: 0,
+                            name: 'Test WishList',
+                            visibility: 'PUBLIC',
+                            sharing_code: 'code'
+                        }
+                    ]
+                }
+            }
+        };
     }
-});
+};
 
 const createWishlistMock = {
     request: {
         query: defaultOperations.createWishlistMutation,
-        variables: createWishlistVariables
+        variables: { input: createWishlistVariables }
     },
     result: () => {
+        createWishlistMutationCalled = true;
         return {
             data: {
                 createWishlist: {
@@ -44,10 +71,10 @@ const createWishlistMock = {
 
 const renderHookWithProviders = ({
     renderHookOptions = {},
-    mocks = [createWishlistMock]
+    mocks = [createWishlistMock, getCustomerWishlistsMock]
 } = {}) => {
     const wrapper = ({ children }) => (
-        <MockedProvider mocks={mocks} cache={cache}>
+        <MockedProvider mocks={mocks} addTypename={false}>
             {children}
         </MockedProvider>
     );
@@ -89,7 +116,7 @@ test('handleHideModal should set isModalOpen to false', async () => {
 test('handleCreateList should update cache and set isModalOpen to false', async () => {
     const { result } = renderHookWithProviders();
     await act(() => result.current.handleCreateList(createWishlistVariables));
-    const updatedCache = cache.extract();
-    expect(updatedCache[`ROOT_QUERY`].customer.wishlists[0].id).toBe('42');
+    expect(createWishlistMutationCalled).toBe(true);
+    expect(getCustomerWishlistsQueryCalled).toBe(true);
     expect(result.current.isModalOpen).toBe(false);
 });

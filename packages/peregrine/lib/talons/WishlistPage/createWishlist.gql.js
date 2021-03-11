@@ -1,11 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_WISHLIST = gql`
-    mutation createWishlist(
-        $name: String!
-        $visibility: WishlistVisibilityEnum!
-    ) {
-        createWishlist(input: { name: $name, visibility: $visibility }) {
+    mutation createWishlist($input: CreateWishlistInput!) {
+        createWishlist(input: $input) {
             wishlist {
                 id
                 items_count

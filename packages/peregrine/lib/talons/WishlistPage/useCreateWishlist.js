@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import mergeOperations from '../../util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './createWishlist.gql';
@@ -12,34 +12,11 @@ import DEFAULT_OPERATIONS from './createWishlist.gql';
 export const useCreateWishlist = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { createWishlistMutation, getCustomerWishlistsQuery } = operations;
-    const apolloClient = useApolloClient();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [createWishlist, { error: createWishlistError }] = useMutation(
-        createWishlistMutation,
-        {
-            update(
-                cache,
-                {
-                    data: { createWishlist }
-                }
-            ) {
-                const { customer } = apolloClient.readQuery({
-                    query: getCustomerWishlistsQuery
-                });
-                apolloClient.writeQuery({
-                    query: getCustomerWishlistsQuery,
-                    data: {
-                        customer: {
-                            ...customer,
-                            wishlists: customer.wishlists.concat([
-                                createWishlist.wishlist
-                            ])
-                        }
-                    }
-                });
-            }
-        }
-    );
+    const [
+        createWishlist,
+        { error: createWishlistError, loading }
+    ] = useMutation(createWishlistMutation);
 
     const handleShowModal = useCallback(() => {
         setIsModalOpen(true);
@@ -54,9 +31,10 @@ export const useCreateWishlist = (props = {}) => {
             try {
                 await createWishlist({
                     variables: {
-                        name: data.name,
-                        visibility: data.visibility
-                    }
+                        input: data
+                    },
+                    refetchQueries: [{ query: getCustomerWishlistsQuery }],
+                    awaitRefetchQueries: true
                 });
                 setIsModalOpen(false);
             } catch (error) {
@@ -65,7 +43,7 @@ export const useCreateWishlist = (props = {}) => {
                 }
             }
         },
-        [createWishlist, setIsModalOpen]
+        [createWishlist, setIsModalOpen, getCustomerWishlistsQuery]
     );
 
     const errors = useMemo(
@@ -78,7 +56,8 @@ export const useCreateWishlist = (props = {}) => {
         handleHideModal,
         handleShowModal,
         isModalOpen,
-        formErrors: errors
+        formErrors: errors,
+        loading
     };
 };
 

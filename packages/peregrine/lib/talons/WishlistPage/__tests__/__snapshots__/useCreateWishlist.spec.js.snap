@@ -9,5 +9,6 @@ Object {
   "handleHideModal": [Function],
   "handleShowModal": [Function],
   "isModalOpen": false,
+  "loading": false,
 }
 `;

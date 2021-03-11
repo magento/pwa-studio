@@ -25,7 +25,8 @@ const CreateWishlist = props => {
         handleHideModal,
         handleShowModal,
         isModalOpen,
-        formErrors
+        formErrors,
+        loading
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -105,6 +106,7 @@ const CreateWishlist = props => {
                     id: 'createWishlist.dialogTitle',
                     defaultMessage: 'New Favorites List'
                 })}
+                shouldDisableConfirmButton={loading}
             >
                 <div className={classes.form}>
                     <FormError errors={Array.from(formErrors.values())} />
