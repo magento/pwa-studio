@@ -10,10 +10,10 @@ export const useWishlistButton = props => {
 
     const { addProductToWishlistMutation } = operations;
 
-    const [itemAdded, setItemAdded] = useState(false);
+    const [isItemAdded, setIsItemAdded] = useState(false);
 
     useEffect(() => {
-        if (itemOptions.selected_options) setItemAdded(false);
+        if (itemOptions.selected_options) setIsItemAdded(false);
     }, [itemOptions.selected_options]);
 
     const [
@@ -30,7 +30,7 @@ export const useWishlistButton = props => {
                     itemOptions
                 }
             });
-            setItemAdded(true);
+            setIsItemAdded(true);
         } catch (err) {
             if (process.env.NODE_ENV === 'production') {
                 console.log(err);
@@ -41,7 +41,7 @@ export const useWishlistButton = props => {
     return {
         addProductError,
         handleClick,
-        isDisabled: itemAdded || isAddLoading,
-        itemAdded
+        isDisabled: isItemAdded || isAddLoading,
+        isItemAdded
     };
 };

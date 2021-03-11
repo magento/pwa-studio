@@ -18,7 +18,12 @@ const WishlistButton = props => {
 
     const talonProps = useWishlistButton({ itemOptions: props.itemOptions });
 
-    const { addProductError, handleClick, isDisabled, itemAdded } = talonProps;
+    const {
+        addProductError,
+        handleClick,
+        isDisabled,
+        isItemAdded
+    } = talonProps;
 
     const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
@@ -38,7 +43,7 @@ const WishlistButton = props => {
         }
     }, [addProductError, addToast, formatMessage]);
 
-    const buttonText = itemAdded
+    const buttonText = isItemAdded
         ? formatMessage({
               id: 'wishlistButton.addedText',
               defaultMessage: 'Added to Favorites'
@@ -53,14 +58,14 @@ const WishlistButton = props => {
 
     if (isDisabled) {
         buttonClass = classes.wishlistButton_disabled;
-        if (itemAdded) {
+        if (isItemAdded) {
             iconClass = classes.icon_filled_disabled;
         } else {
             iconClass = classes.icon_disabled;
         }
     } else {
         buttonClass = classes.wishlistButton;
-        if (itemAdded) {
+        if (isItemAdded) {
             iconClass = classes.icon_filled;
         } else {
             iconClass = classes.icon;
