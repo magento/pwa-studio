@@ -6,6 +6,7 @@ import { MiniCartFragment } from '../MiniCart/miniCart.gql';
 export const GET_WISHLIST_CONFIG = gql`
     query wishlistConfig {
         storeConfig {
+            id
             magento_wishlist_general_is_enabled
         }
     }
