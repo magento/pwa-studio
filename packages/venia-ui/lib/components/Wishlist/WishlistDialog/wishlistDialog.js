@@ -27,6 +27,7 @@ const WishlistDialog = props => {
         handleAddToWishlist,
         handleCancel,
         handleNewListClick,
+        handleCancelNewList,
         isAddLoading,
         isFormOpen,
         wishlistsData
@@ -83,7 +84,7 @@ const WishlistDialog = props => {
                 <NewWishlistForm
                     onCreateList={handleAddToWishlist}
                     isAddLoading={isAddLoading}
-                    onCancel={handleCancel}
+                    onCancel={handleCancelNewList}
                 />
             </Relevant>
         </Fragment>

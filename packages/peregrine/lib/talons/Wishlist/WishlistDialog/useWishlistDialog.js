@@ -53,6 +53,10 @@ export const useWishlistDialog = props => {
         setIsFormOpen(true);
     }, []);
 
+    const handleCancelNewList = useCallback(() => {
+        setIsFormOpen(false);
+    }, []);
+
     const handleCancel = useCallback(() => {
         onClose();
         setIsFormOpen(false);
@@ -63,6 +67,7 @@ export const useWishlistDialog = props => {
         canCreateWishlist,
         handleAddToWishlist,
         handleCancel,
+        handleCancelNewList,
         handleNewListClick,
         isAddLoading,
         isFormOpen,
