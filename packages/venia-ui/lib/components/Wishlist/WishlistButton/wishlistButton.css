@@ -4,6 +4,7 @@
     grid-auto-flow: column;
     font-weight: var(--venia-global-fontWeight-semibold);
     gap: 0.25rem;
+    text-decoration: underline;
     transition-property: color;
     transition-duration: 256ms;
     transition-timing-function: var(--venia-global-anim-standard);
@@ -12,6 +13,7 @@
 .wishlistButton_disabled {
     composes: wishlistButton;
     color: #535965;
+    text-decoration: none;
 }
 
 .icon {
