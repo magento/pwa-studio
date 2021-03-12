@@ -11,25 +11,19 @@
 
 .wishlistButton_disabled {
     composes: wishlistButton;
-    color: rgb(var(--venia-global-color-gray-dark));
+    color: #535965;
 }
 
 .icon {
-    fill: var(--fill, white);
-    transition-property: fill, stroke;
+    transition-property: stroke;
     transition-duration: 256ms;
     transition-timing-function: var(--venia-global-anim-standard);
 }
 
 .icon_disabled {
-    stroke: rgb(var(--venia-global-color-gray-dark));
+    stroke: #535965;
 }
 
-.icon_filled {
-    fill: black;
-}
-
-.icon_filled_disabled {
-    fill: rgb(var(--venia-global-color-gray-dark));
-    stroke: rgb(var(--venia-global-color-gray-dark));
+.checkIcon {
+    stroke: #238564;
 }

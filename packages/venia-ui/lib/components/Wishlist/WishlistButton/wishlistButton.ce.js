@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { AlertCircle, Heart } from 'react-feather';
+import { AlertCircle, Heart, Check } from 'react-feather';
 import { useIntl } from 'react-intl';
 
 import { useToasts } from '@magento/peregrine';
@@ -58,19 +58,18 @@ const WishlistButton = props => {
 
     if (isDisabled) {
         buttonClass = classes.wishlistButton_disabled;
-        if (isItemAdded) {
-            iconClass = classes.icon_filled_disabled;
-        } else {
-            iconClass = classes.icon_disabled;
-        }
+        iconClass = classes.icon_disabled;
     } else {
         buttonClass = classes.wishlistButton;
-        if (isItemAdded) {
-            iconClass = classes.icon_filled;
-        } else {
-            iconClass = classes.icon;
-        }
+        iconClass = classes.icon;
     }
+
+    const HeartIcon = <Icon src={Heart} classes={{ icon: iconClass }} />;
+    const CheckIcon = (
+        <Icon src={Check} classes={{ icon: classes.checkIcon }} />
+    );
+
+    const iconElement = isItemAdded ? CheckIcon : HeartIcon;
 
     return (
         <button
@@ -79,7 +78,7 @@ const WishlistButton = props => {
             className={buttonClass}
             onClick={handleClick}
         >
-            <Icon src={Heart} classes={{ icon: iconClass }} />
+            {iconElement}
             {buttonText}
         </button>
     );
