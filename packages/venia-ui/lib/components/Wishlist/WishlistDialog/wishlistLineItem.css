@@ -3,11 +3,7 @@
     width: 100%;
     text-align: left;
 
-    height: 3.5rem;
-    /* padding-top: 1.5rem; */
-    /* padding-bottom: 1.5rem; */
-
     border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
-
     font-weight: var(--venia-global-fontWeight-semibold);
+    height: 3.5rem;
 }

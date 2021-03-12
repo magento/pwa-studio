@@ -39,6 +39,7 @@ export const useWishlistDialog = props => {
                     }
                 });
                 onClose(true);
+                setIsFormOpen(false);
             } catch (err) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.log(err);

@@ -21,8 +21,6 @@ const WishlistDialog = props => {
         onClose
     });
 
-    const { formatMessage } = useIntl();
-
     const {
         canCreateWishlist,
         formErrors,
@@ -33,6 +31,13 @@ const WishlistDialog = props => {
         isFormOpen,
         wishlistsData
     } = talonProps;
+
+    const { formatMessage } = useIntl();
+
+    const createButtonText = formatMessage({
+        id: 'newWishlistForm.createButton',
+        defaultMessage: '+ Create a new list'
+    });
 
     const maybeListsElement = useMemo(() => {
         if (wishlistsData) {
@@ -83,11 +88,6 @@ const WishlistDialog = props => {
             </Relevant>
         </Fragment>
     ) : null;
-
-    const createButtonText = formatMessage({
-        id: 'newWishlistForm.createButton',
-        defaultMessage: '+ Create a new list'
-    });
 
     return (
         <Dialog
