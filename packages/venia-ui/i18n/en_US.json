@@ -381,7 +381,7 @@
     "wishlist.emptyListText": "There are currently no items in this list",
     "wishlist.privateText": "Private",
     "wishlist.publicText": "Public",
-    "wishlistDialog.createButton": "+ Create a new List",
+    "wishlistDialog.createButton": "+ Create a new list",
     "wishlistDialog.title": "Add to Favorites",
     "wishlistConfirmRemoveProductDialog.confirmationPrompt": "Are you sure you want to delete this product from the list?",
     "wishlistConfirmRemoveProductDialog.confirmButton": "Delete",
