@@ -7,6 +7,7 @@ export const useWishlistButton = props => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
+        // If a user changes selections, let them add that combination to a list.
         if (itemOptions.selected_options) setIsItemAdded(false);
     }, [itemOptions.selected_options]);
 

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -8,6 +8,8 @@ export const useWishlistDialog = props => {
     const { itemOptions, onClose } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
+    const [isFormOpen, setIsFormOpen] = useState(false);
+
     const { data: wishlistsData } = useQuery(operations.getWishlistsQuery, {
         fetchPolicy: 'cache-and-network'
     });
@@ -15,7 +17,9 @@ export const useWishlistDialog = props => {
     const [
         addProductToWishlist,
         { loading: isAddLoading, error: addProductError }
-    ] = useMutation(operations.addProductToWishlistMutation);
+    ] = useMutation(operations.addProductToWishlistMutation, {
+        refetchQueries: [{ query: operations.getWishlistsQuery }]
+    });
 
     // enable_multiple_wishlists is a string "1" or "0". See documentation here:
     // https://devdocs.magento.com/guides/v2.4/graphql/mutations/create-wishlist.html
@@ -27,7 +31,6 @@ export const useWishlistDialog = props => {
 
     const handleAddToWishlist = useCallback(
         async wishlistId => {
-            console.log('adding to id', wishlistId, itemOptions);
             try {
                 await addProductToWishlist({
                     variables: {
@@ -45,11 +48,23 @@ export const useWishlistDialog = props => {
         [addProductToWishlist, itemOptions, onClose]
     );
 
+    const handleNewListClick = useCallback(() => {
+        setIsFormOpen(true);
+    }, []);
+
+    const handleCancel = useCallback(() => {
+        onClose();
+        setIsFormOpen(false);
+    }, [onClose]);
+
     return {
         formErrors: [addProductError],
         canCreateWishlist,
         handleAddToWishlist,
+        handleCancel,
+        handleNewListClick,
         isAddLoading,
+        isFormOpen,
         wishlistsData
     };
 };

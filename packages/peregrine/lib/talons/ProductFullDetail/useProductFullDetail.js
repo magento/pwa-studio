@@ -232,16 +232,14 @@ export const useProductFullDetail = props => {
     // The map of ids to values (and their uids)
     // For example:
     // { "179" => [{ uid: "abc", value_index: 1 }, { uid: "def", value_index: 2 }]}
-    const attributeIdToValuesMap = useMemo(
-        () =>
-            new Map(
-                product.configurable_options.map(option => [
-                    option.attribute_id,
-                    option.values
-                ])
-            ),
-        [product.configurable_options]
-    );
+    const attributeIdToValuesMap = useMemo(() => {
+        const map = new Map();
+
+        for (const { attribute_id, values } of product.configurable_options) {
+            map.set(attribute_id, values);
+        }
+        return map;
+    }, [product.configurable_options]);
 
     // An array of selected option uids. Useful for passing to mutations.
     // For example:

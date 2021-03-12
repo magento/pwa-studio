@@ -1,5 +1,7 @@
 import React, { Fragment, useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
+import { Relevant } from 'informed';
+
 import { useWishlistDialog } from '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/useWishlistDialog';
 
 import Dialog from '@magento/venia-ui/lib/components/Dialog';
@@ -7,20 +9,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './wishlistDialog.css';
 import NewWishlistForm from './NewWishlistForm/newWishlistForm';
 import FormError from '../../FormError';
-
-const WishlistEntry = props => {
-    const { id, onClick } = props;
-
-    const handleClick = useCallback(() => {
-        onClick(id);
-    }, [id, onClick]);
-
-    return (
-        <button type="button" onClick={handleClick}>
-            {props.children}
-        </button>
-    );
-};
+import WishlistLineItem from './wishlistLineItem';
 
 const WishlistDialog = props => {
     const { isOpen, onClose } = props;
@@ -37,7 +26,10 @@ const WishlistDialog = props => {
         canCreateWishlist,
         formErrors,
         handleAddToWishlist,
+        handleCancel,
+        handleNewListClick,
         isAddLoading,
+        isFormOpen,
         wishlistsData
     } = talonProps;
 
@@ -48,12 +40,13 @@ const WishlistDialog = props => {
                 return (
                     <Fragment key={wishlist.id}>
                         <li>
-                            <WishlistEntry
+                            <WishlistLineItem
                                 id={wishlist.id}
+                                isDisabled={isAddLoading}
                                 onClick={handleAddToWishlist}
                             >
                                 {name}
-                            </WishlistEntry>
+                            </WishlistLineItem>
                         </li>
                         <hr />
                     </Fragment>
@@ -63,14 +56,24 @@ const WishlistDialog = props => {
         } else {
             return null;
         }
-    }, [handleAddToWishlist, wishlistsData]);
+    }, [handleAddToWishlist, isAddLoading, wishlistsData]);
+
+    const shouldRenderForm = useCallback(() => !!isFormOpen, [isFormOpen]);
 
     const maybeNewListElement = canCreateWishlist ? (
-        <NewWishlistForm
-            onCreateList={handleAddToWishlist}
-            isAddLoading={isAddLoading}
-        />
+        <Relevant when={shouldRenderForm}>
+            <NewWishlistForm
+                onCreateList={handleAddToWishlist}
+                isAddLoading={isAddLoading}
+                onCancel={handleCancel}
+            />
+        </Relevant>
     ) : null;
+
+    const createButtonText = formatMessage({
+        id: 'newWishlistForm.createButton',
+        defaultMessage: '+ Create a new list'
+    });
 
     return (
         <Dialog
@@ -90,6 +93,9 @@ const WishlistDialog = props => {
                     errors={formErrors}
                 />
                 {maybeListsElement}
+                <button onClick={handleNewListClick} type="button">
+                    {createButtonText}
+                </button>
                 {maybeNewListElement}
             </div>
         </Dialog>

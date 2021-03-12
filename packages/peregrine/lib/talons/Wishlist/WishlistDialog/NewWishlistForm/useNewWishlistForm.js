@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
@@ -7,23 +7,20 @@ import DEFAULT_OPERATIONS from './newWishlistForm.gql';
 import { useFormState } from 'informed';
 
 export const useNewWishlistForm = props => {
-    const { onCreateList, isAddLoading } = props;
-    const { values } = useFormState();
+    const { onCancel, onCreateList, isAddLoading } = props;
+
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+
     const [
         createList,
         { loading: isCreateLoading, error: createWishlistError }
     ] = useMutation(operations.createWishlistMutation);
 
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleNewListClick = useCallback(() => {
-        setIsOpen(true);
-    }, []);
+    const { values } = useFormState();
 
     const handleCancel = useCallback(() => {
-        setIsOpen(false);
-    }, []);
+        onCancel();
+    }, [onCancel]);
 
     const handleSave = useCallback(async () => {
         try {
@@ -48,9 +45,7 @@ export const useNewWishlistForm = props => {
     return {
         formErrors: [createWishlistError],
         handleCancel,
-        handleNewListClick,
         handleSave,
-        isOpen,
         isSaveDisabled: isCreateLoading || isAddLoading
     };
 };

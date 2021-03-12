@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { useIntl } from 'react-intl';
-import { Relevant } from 'informed';
 
 import { useNewWishlistForm } from '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/NewWishlistForm/useNewWishlistForm';
 
@@ -18,18 +17,12 @@ const NewWishlistForm = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
     const talonProps = useNewWishlistForm({
+        onCancel: props.onCancel,
         onCreateList: props.onCreateList,
         isAddLoading: props.isAddLoading
     });
 
-    const {
-        formErrors,
-        handleCancel,
-        handleNewListClick,
-        handleSave,
-        isOpen,
-        isSaveDisabled
-    } = talonProps;
+    const { formErrors, handleCancel, handleSave, isSaveDisabled } = talonProps;
 
     const privateRadioText = formatMessage({
         id: 'newWishlistForm.privateRadio',
@@ -39,11 +32,6 @@ const NewWishlistForm = props => {
     const publicRadioText = formatMessage({
         id: 'newWishlistForm.publicRadio',
         defaultMessage: 'Public'
-    });
-
-    const createButtonText = formatMessage({
-        id: 'newWishlistForm.createButton',
-        defaultMessage: '+ Create a new list'
     });
 
     const cancelButtonText = formatMessage({
@@ -56,7 +44,7 @@ const NewWishlistForm = props => {
         defaultMessage: 'Save'
     });
 
-    const maybeForm = isOpen ? (
+    return (
         <Fragment>
             <FormError
                 // classes={{
@@ -114,15 +102,6 @@ const NewWishlistForm = props => {
             >
                 {saveButtonText}
             </Button>
-        </Fragment>
-    ) : null;
-
-    return (
-        <Fragment>
-            <button onClick={handleNewListClick} type="button">
-                {createButtonText}
-            </button>
-            <Relevant when={() => !!isOpen}>{maybeForm}</Relevant>
         </Fragment>
     );
 };
