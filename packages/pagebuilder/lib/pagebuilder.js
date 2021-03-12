@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import ContentTypeFactory from './factory';
 import parseStorageHtml from './parseStorageHtml';
 
@@ -10,7 +10,7 @@ import parseStorageHtml from './parseStorageHtml';
  * @constructor
  */
 export default function PageBuilder({ html, classes }) {
-    const data = parseStorageHtml(html);
+    const data = useMemo(() => parseStorageHtml(html), [html]);
     return data.children.map((child, i) => {
         return (
             <div className={classes.root} key={i}>
