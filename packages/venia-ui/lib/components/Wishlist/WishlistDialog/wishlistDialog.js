@@ -35,7 +35,7 @@ const WishlistDialog = props => {
     const { formatMessage } = useIntl();
 
     const createButtonText = formatMessage({
-        id: 'newWishlistForm.createButton',
+        id: 'wishlistDialog.createButton',
         defaultMessage: '+ Create a new list'
     });
 
