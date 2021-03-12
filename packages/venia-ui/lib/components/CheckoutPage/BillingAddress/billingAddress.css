@@ -1,0 +1,50 @@
+.billing_address_fields_root {
+    display: grid;
+    gap: 0.9375rem 1.5rem;
+    padding: 1rem 0rem;
+}
+
+.billing_address_fields_root_hidden {
+    overflow: hidden;
+    visibility: hidden;
+    height: 0;
+    opacity: 0;
+}
+
+.formErrorContainer {
+    padding-top: 1.5rem;
+}
+
+.first_name,
+.last_name {
+    grid-column-end: span 1;
+}
+
+.country,
+.street1,
+.street2,
+.address_check,
+.city,
+.region,
+.postal_code,
+.phone_number {
+    grid-column-end: span 2;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .first_name,
+    .last_name,
+    .city,
+    .region,
+    .postal_code,
+    .phone_number,
+    .street1,
+    .street2,
+    .address_check {
+        grid-column-end: span 2;
+    }
+}

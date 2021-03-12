@@ -233,9 +233,16 @@ function setDebugDependencies(pkg) {
         try {
             packOutput = execSync('npm pack -s --ignore-scripts --json', {
                 cwd: packageDir
-            });
+            })
+                .toString('utf-8')
+                .trim();
             // NPM tells you where it saved the tarball it made
-            filename = JSON.parse(packOutput)[0].filename;
+            // modern versions just spit out the tarball name:
+            if (packOutput.endsWith('.tgz')) {
+                filename = packOutput;
+            } else {
+                filename = JSON.parse(packOutput)[0].filename;
+            }
         } catch (e) {
             throw new Error(
                 `DEBUG_PROJECT_CREATION: npm pack in ${name} package failed: output was ${packOutput}\n\nerror was ${

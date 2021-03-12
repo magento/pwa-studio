@@ -4,7 +4,7 @@ import { object, shape, string } from 'prop-types';
 import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
 import { mergeClasses } from '../../../classify';
-import { Title } from '../../../components/Head';
+import { StoreTitle } from '../../../components/Head';
 import CreateAccount from './createAccount';
 import ItemsReview from '../ItemsReview';
 import defaultClasses from './orderConfirmationPage.css';
@@ -61,15 +61,12 @@ const OrderConfirmationPage = props => {
 
     return (
         <div className={classes.root}>
-            <Title>
-                {formatMessage(
-                    {
-                        id: 'checkoutPage.titleReceipt',
-                        defaultMessage: 'Receipt'
-                    },
-                    { name: STORE_NAME }
-                )}
-            </Title>
+            <StoreTitle>
+                {formatMessage({
+                    id: 'checkoutPage.titleReceipt',
+                    defaultMessage: 'Receipt'
+                })}
+            </StoreTitle>
             <div className={classes.mainContainer}>
                 <h2 className={classes.heading}>
                     <FormattedMessage
