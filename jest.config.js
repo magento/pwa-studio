@@ -275,6 +275,16 @@ const jestConfig = {
                 path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
             ]
         })),
+        configureProject(
+            'extensions/venia-sample-payments-checkmo',
+            'Check Money Order Payment',
+            inPackage => ({
+                ...testReactComponents(inPackage),
+                setupFiles: [
+                    path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
+                ]
+            })
+        ),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({
             testEnvironment: 'node',
@@ -308,7 +318,9 @@ const jestConfig = {
         '!**/__[[:alpha:]]*__/**',
         '!**/.*/__[[:alpha:]]*__/**',
         // Not this file itself
-        '!jest.config.js'
+        '!jest.config.js',
+        // Exclude deprecated components from coverage report
+        '!**/venia-ui/lib/components/Checkout/**'
     ],
     // Don't look for test files in these directories.
     testPathIgnorePatterns: [

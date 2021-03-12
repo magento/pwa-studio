@@ -53,13 +53,9 @@ export const GET_CUSTOMER = gql`
 `;
 
 export default {
-    mutations: {
-        createCartMutation: CREATE_CART,
-        placeOrderMutation: PLACE_ORDER
-    },
-    queries: {
-        getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS,
-        getCustomerQuery: GET_CUSTOMER,
-        getOrderDetailsQuery: GET_ORDER_DETAILS
-    }
+    createCartMutation: CREATE_CART,
+    getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS,
+    getCustomerQuery: GET_CUSTOMER,
+    getOrderDetailsQuery: GET_ORDER_DETAILS,
+    placeOrderMutation: PLACE_ORDER
 };

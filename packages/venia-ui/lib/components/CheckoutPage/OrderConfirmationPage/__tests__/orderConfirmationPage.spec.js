@@ -23,7 +23,7 @@ jest.mock(
         };
     }
 );
-jest.mock('../../../../components/Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../../../components/Head', () => ({ StoreTitle: () => 'Title' }));
 jest.mock('../createAccount', () => 'CreateAccount');
 jest.mock('../../ItemsReview', () => 'ItemsReview');
 

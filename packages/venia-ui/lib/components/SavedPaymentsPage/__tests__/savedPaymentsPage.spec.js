@@ -6,7 +6,7 @@ import SavedPaymentsPage from '../savedPaymentsPage';
 
 jest.mock('@magento/venia-ui/lib/classify');
 
-jest.mock('../../Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../Head', () => ({ StoreTitle: () => 'Title' }));
 jest.mock(
     '@magento/peregrine/lib/talons/SavedPaymentsPage/useSavedPaymentsPage',
     () => {

@@ -36,7 +36,15 @@ For more information on reusable components and code sharing in front end develo
 {
     test: /\.css$/,
     use: [
-        'style-loader',
+        {
+            loader: 'style-loader',
+            options: {
+                injectType:
+                    mode === 'development'
+                        ? 'styleTag'
+                        : 'singletonStyleTag'
+            }
+        },
         {
             loader: 'css-loader',
             options: {
@@ -48,6 +56,12 @@ For more information on reusable components and code sharing in front end develo
     ]
 },
 ```
+
+The following is an explanation of the `style-loader` configuration:
+
+`injectType`
+
+: Allows to setup how styles will be injected into the DOM.
 
 The following is an explanation of each `css-loader` configuration:
 
