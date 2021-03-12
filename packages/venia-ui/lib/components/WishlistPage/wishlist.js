@@ -31,11 +31,11 @@ const Wishlist = props => {
     const visibilityLabel =
         visibility === 'PUBLIC'
             ? formatMessage({
-                  id: 'wishlist.publicText',
+                  id: 'global.public',
                   defaultMessage: 'Public'
               })
             : formatMessage({
-                  id: 'wishlist.privateText',
+                  id: 'global.private',
                   defaultMessage: 'Private'
               });
     const contentMessageElement = itemsCount ? (

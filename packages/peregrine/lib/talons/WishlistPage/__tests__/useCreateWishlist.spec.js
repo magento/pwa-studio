@@ -5,6 +5,7 @@ import { renderHook, act } from '@testing-library/react-hooks';
 
 import { useCreateWishlist } from '../useCreateWishlist';
 import defaultOperations from '../createWishlist.gql';
+import wishlistPageOperations from '../wishlistPage.gql';
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
@@ -24,7 +25,7 @@ let getCustomerWishlistsQueryCalled = false;
 
 const getCustomerWishlistsMock = {
     request: {
-        query: defaultOperations.getCustomerWishlistsQuery
+        query: wishlistPageOperations.getCustomerWishlistQuery
     },
     loading: false,
     result: () => {
@@ -59,9 +60,7 @@ const createWishlistMock = {
             data: {
                 createWishlist: {
                     wishlist: {
-                        id: '42',
-                        name: 'Test WishList',
-                        visibility: 'PUBLIC'
+                        id: '42'
                     }
                 }
             }

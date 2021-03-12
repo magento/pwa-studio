@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import mergeOperations from '../../util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './createWishlist.gql';
+import WISHLIST_PAGE_OPERATIONS from './wishlistPage.gql';
 
 /**
  * @function
@@ -10,8 +11,12 @@ import DEFAULT_OPERATIONS from './createWishlist.gql';
  * @returns {CreateWishListProps}
  */
 export const useCreateWishlist = (props = {}) => {
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { createWishlistMutation, getCustomerWishlistsQuery } = operations;
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        WISHLIST_PAGE_OPERATIONS,
+        props.operations
+    );
+    const { createWishlistMutation, getCustomerWishlistQuery } = operations;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [
         createWishlist,
@@ -33,7 +38,7 @@ export const useCreateWishlist = (props = {}) => {
                     variables: {
                         input: data
                     },
-                    refetchQueries: [{ query: getCustomerWishlistsQuery }],
+                    refetchQueries: [{ query: getCustomerWishlistQuery }],
                     awaitRefetchQueries: true
                 });
                 setIsModalOpen(false);
@@ -43,7 +48,7 @@ export const useCreateWishlist = (props = {}) => {
                 }
             }
         },
-        [createWishlist, setIsModalOpen, getCustomerWishlistsQuery]
+        [createWishlist, setIsModalOpen, getCustomerWishlistQuery]
     );
 
     const errors = useMemo(
