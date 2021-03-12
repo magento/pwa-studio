@@ -4,6 +4,7 @@ import { useFormState } from 'informed';
 
 import createTestInstance from '../../../../util/createTestInstance';
 import { useCreditCard, mapAddressData } from '../useCreditCard';
+import { act } from 'react-test-renderer';
 
 /**
  * Mock Functions
@@ -211,7 +212,7 @@ test('Should return correct shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-test('Shuold call onReady when payment is ready', () => {
+test('Should call onReady when payment is ready', () => {
     const onReady = jest.fn();
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
@@ -226,7 +227,22 @@ test('Shuold call onReady when payment is ready', () => {
     expect(onReady).toHaveBeenCalled();
 });
 
-test('Shuold call onError when payment nonce generation errored out', () => {
+test('Should not call onReady if it is not defined', () => {
+    const onReady = jest.fn();
+    const { talonProps } = getTalonProps({
+        shouldSubmit: false,
+        operations,
+        onSuccess: () => {},
+        onReady: undefined,
+        onError: () => {}
+    });
+
+    talonProps.onPaymentReady();
+
+    expect(onReady).not.toHaveBeenCalled();
+});
+
+test('Should call onError when payment nonce generation errored out', () => {
     const error = 'payment error';
     const onError = jest.fn();
     const resetShouldSubmit = jest.fn();
@@ -244,6 +260,25 @@ test('Shuold call onError when payment nonce generation errored out', () => {
 
     expect(onError).toHaveBeenCalledWith(error);
     expect(resetShouldSubmit).toHaveBeenCalled();
+});
+
+test('Should not call onError if it is not defined', () => {
+    const error = 'payment error';
+    const onError = jest.fn();
+    const resetShouldSubmit = jest.fn();
+
+    const { talonProps } = getTalonProps({
+        shouldSubmit: false,
+        operations,
+        onSuccess: () => {},
+        onError: undefined,
+        onReady: () => {},
+        resetShouldSubmit
+    });
+
+    talonProps.onPaymentError(error);
+
+    expect(onError).not.toHaveBeenCalled();
 });
 
 test('Should return errors from billing address and payment method mutations', () => {
@@ -372,6 +407,21 @@ test('Should set billingAddress to {} if isBillingAddress is true in initialValu
     expect(talonProps.initialValues).toMatchObject({
         isBillingAddressSame: true
     });
+});
+
+test('Should set shippingAddressCountry to US if there is no shipping address data', () => {
+    getShippingAddress.mockReturnValueOnce({});
+
+    const { talonProps } = getTalonProps({
+        shouldSubmit: false,
+        operations,
+        onSuccess: () => {},
+        onError: () => {},
+        onReady: () => {},
+        resetShouldSubmit: () => {}
+    });
+
+    expect(talonProps.shippingAddressCountry).toBe('US');
 });
 
 test('Should return isLoading true if isDropinLoading is true', () => {
@@ -609,6 +659,31 @@ describe('Testing payment success workflow', () => {
         expect(onSuccess).toHaveBeenCalled();
     });
 
+    test('Should not call onSuccess if it is not defined', () => {
+        setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
+            jest.fn(),
+            {
+                called: true,
+                loading: false,
+                error: null
+            }
+        ]);
+
+        const onSuccess = jest.fn();
+        const { talonProps } = getTalonProps({
+            shouldSubmit: false,
+            operations,
+            onSuccess: undefined,
+            onReady: () => {},
+            onError: () => {},
+            resetShouldSubmit: () => {}
+        });
+
+        talonProps.onPaymentSuccess(samplePaymentNonce);
+
+        expect(onSuccess).not.toHaveBeenCalled();
+    });
+
     test('Should not call onSuccess if setCreditCardDetailsOnCartMutation is not successful', () => {
         setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
             jest.fn(),
@@ -794,5 +869,102 @@ describe('Testing stepNumber', () => {
         expect(talonProps.stepNumber).toBe(0);
         expect(resetShouldSubmit).toBeCalled();
         expect(talonProps.shouldRequestPaymentNonce).toBeFalsy();
+    });
+
+    test('Should reset value for shouldTeardownDropin when the resetShouldTeardownDropin() is called', () => {
+        setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
+            () => {},
+            {
+                called: true,
+                loading: false,
+                error: { graphQLErrors: ['some error'] }
+            }
+        ]);
+
+        const resetShouldSubmit = jest.fn();
+        const { talonProps, tree } = getTalonProps({
+            shouldSubmit: false,
+            operations,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {},
+            resetShouldSubmit
+        });
+
+        expect(talonProps.shouldTeardownDropin).toBeTruthy();
+
+        act(() => {
+            talonProps.resetShouldTeardownDropin();
+        });
+
+        const finalProps = tree.root.findByType('i').props.talonProps;
+
+        expect(finalProps.shouldTeardownDropin).toBeFalsy();
+    });
+});
+
+test('mapAddressData() returns an empty object when given no rawAddressData', () => {
+    expect(mapAddressData()).toStrictEqual({});
+});
+
+describe('missing data', () => {
+    test('billing address is the same if data is missing', () => {
+        getIsBillingAddressSame.mockReturnValueOnce({});
+
+        const { talonProps } = getTalonProps({
+            shouldSubmit: false,
+            operations,
+            onSuccess: () => {},
+            onError: () => {},
+            onReady: () => {},
+            resetShouldSubmit: () => {}
+        });
+
+        expect(talonProps.initialValues.isBillingAddressSame).toBeTruthy();
+    });
+
+    test('does not return billing address data if fetched data is missing', () => {
+        getBillingAddress.mockReturnValueOnce({ data: { cart: {} } });
+
+        const { talonProps } = getTalonProps({
+            shouldSubmit: false,
+            operations,
+            onSuccess: () => {},
+            onError: () => {},
+            onReady: () => {},
+            resetShouldSubmit: () => {}
+        });
+
+        expect(talonProps.initialValues).not.toHaveProperty('city');
+    });
+
+    test('setting shipping address as billing address does not include shipping address if it does not exist', () => {
+        getShippingAddress.mockReturnValueOnce({});
+
+        useFormState.mockReturnValueOnce({
+            values: {
+                ...billingAddress,
+                isBillingAddressSame: true
+            },
+            errors: {}
+        });
+
+        getTalonProps({
+            shouldSubmit: true,
+            operations,
+            onSuccess: () => {},
+            onError: () => {},
+            onReady: () => {},
+            resetShouldSubmit: () => {}
+        });
+
+        expect(setBillingAddress.mock.calls[0][0]).toMatchInlineSnapshot(`
+            Object {
+              "variables": Object {
+                "cartId": "123",
+                "sameAsShipping": true,
+              },
+            }
+        `);
     });
 });
