@@ -84,6 +84,7 @@ exports[`renders components if cart has items 1`] = `
 <div
   className="root"
 >
+  Title
   <div
     className="heading_container"
   >
@@ -137,6 +138,7 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
 <div
   className="root"
 >
+  Title
   <div
     className="heading_container"
   >

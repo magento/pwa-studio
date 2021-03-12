@@ -12,5 +12,8 @@ export const CheckoutPageFragment = gql`
         }
         # If total quantity is falsy we render empty.
         total_quantity
+        available_payment_methods {
+            code
+        }
     }
 `;

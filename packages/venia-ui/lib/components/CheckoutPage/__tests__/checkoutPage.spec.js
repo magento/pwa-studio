@@ -7,6 +7,7 @@ import {
 } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
 import CheckoutPage from '../checkoutPage';
 import OrderConfirmationPage from '../OrderConfirmationPage';
+import FormError from '../../FormError';
 
 jest.mock('@magento/peregrine', () => {
     const actual = jest.requireActual('@magento/peregrine');
@@ -35,7 +36,8 @@ jest.mock('@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage', () => {
 
 jest.mock('../../../classify');
 
-jest.mock('../../../components/Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../../components/Head', () => ({ StoreTitle: () => 'Title' }));
+jest.mock('../../FormError', () => 'FormError');
 jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
 jest.mock('../ItemsReview', () => 'ItemsReview');
 jest.mock('../GuestSignIn', () => 'GuestSignIn');
@@ -44,11 +46,15 @@ jest.mock('../OrderConfirmationPage', () => 'OrderConfirmationPage');
 jest.mock('../ShippingInformation', () => 'ShippingInformation');
 jest.mock('../ShippingMethod', () => 'ShippingMethod');
 jest.mock('../PaymentInformation', () => 'PaymentInformation');
+jest.mock('../PaymentInformation/paymentMethodCollection', () => ({
+    braintree: {}
+}));
 jest.mock('../PriceAdjustments', () => 'PriceAdjustments');
 jest.mock('../AddressBook', () => 'AddressBook');
 
 const defaultTalonProps = {
     activeContent: 'checkout',
+    availablePaymentMethods: [{ code: 'braintree' }],
     cartItems: [],
     checkoutStep: 1,
     customer: null,
@@ -73,6 +79,7 @@ const defaultTalonProps = {
     toggleAddressBookContent: jest.fn().mockName('toggleAddressBookContent'),
     toggleSignInContent: jest.fn().mockName('toggleSignInContent')
 };
+
 describe('CheckoutPage', () => {
     test('throws a toast if there is an error', () => {
         useCheckoutPage.mockReturnValueOnce({
@@ -210,5 +217,26 @@ describe('CheckoutPage', () => {
 
         expect(priceAdjustmentsComponent.props).toMatchSnapshot();
         expect(reviewOrderButtonComponent.props).toMatchSnapshot();
+    });
+
+    test('renders an error and disables review order button if there is no payment method', () => {
+        useCheckoutPage.mockReturnValueOnce({
+            ...defaultTalonProps,
+            checkoutStep: CHECKOUT_STEP.PAYMENT,
+            isUpdating: true,
+            availablePaymentMethods: []
+        });
+
+        const tree = createTestInstance(<CheckoutPage />);
+        const formErrorComponent = tree.root.findByType(FormError);
+        const reviewOrderButtonComponent = tree.root.findByProps({
+            className: 'review_order_button'
+        });
+
+        expect(tree).toMatchSnapshot();
+        expect(formErrorComponent.props.errors[0]).toEqual(
+            new Error('Payment is currently unavailable.')
+        );
+        expect(reviewOrderButtonComponent.props.disabled).toBe(true);
     });
 });

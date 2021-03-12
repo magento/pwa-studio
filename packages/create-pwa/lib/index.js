@@ -186,7 +186,7 @@ module.exports = async () => {
         const buildpackBinLoc = resolve(
             require.resolve('@magento/pwa-buildpack'),
             '../../bin/buildpack'
-        );
+        ).replace(/([ '"])/g, '\\$1');
         await execa.shell(`${buildpackBinLoc} ${argsString}`, {
             stdio: 'inherit'
         });

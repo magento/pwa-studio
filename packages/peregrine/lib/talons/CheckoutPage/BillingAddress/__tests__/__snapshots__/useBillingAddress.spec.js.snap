@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "errors": Map {
+    "setBillingAddressMutation" => null,
+  },
+  "initialValues": Object {
+    "city": "Austin",
+    "country": "US",
+    "firstName": "ba fn",
+    "isBillingAddressSame": false,
+    "lastName": "ba ln",
+    "phoneNumber": "1234567891",
+    "postcode": "78945",
+    "region": "TX",
+    "street1": "45678 blvd",
+    "street2": "suite 300",
+  },
+  "isBillingAddressSame": false,
+  "shippingAddressCountry": "UK",
+}
+`;

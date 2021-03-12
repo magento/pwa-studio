@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+<div>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrorContainer",
+      }
+    }
+    errors={Array []}
+  />
+  <div
+    className="address_check"
+  >
+    <mock-Checkbox
+      field="isBillingAddressSame"
+      initialValue={false}
+      label="Billing address same as shipping address"
+    />
+  </div>
+  <div
+    className="billing_address_fields_root"
+  >
+    <mock-Field
+      classes={
+        Object {
+          "root": "first_name",
+        }
+      }
+      id="firstName"
+      label="First Name"
+    >
+      <mock-TextInput
+        field="firstName"
+        id="firstName"
+        initialValue="sample first name"
+        validate={[Function]}
+      />
+    </mock-Field>
+    <mock-Field
+      classes={
+        Object {
+          "root": "last_name",
+        }
+      }
+      id="lastName"
+      label="Last Name"
+    >
+      <mock-TextInput
+        field="lastName"
+        id="lastName"
+        initialValue="sample last name"
+        validate={[Function]}
+      />
+    </mock-Field>
+    <mock-Country
+      classes={
+        Object {
+          "root": "country",
+        }
+      }
+      initialValue="sample country"
+      validate={[Function]}
+    />
+    <mock-Field
+      classes={
+        Object {
+          "root": "street1",
+        }
+      }
+      id="street1"
+      label="Street Address"
+    >
+      <mock-TextInput
+        field="street1"
+        id="street1"
+        initialValue="sample street 1"
+        validate={[Function]}
+      />
+    </mock-Field>
+    <mock-Field
+      classes={
+        Object {
+          "root": "street2",
+        }
+      }
+      id="street2"
+      label="Street Address 2"
+      optional={true}
+    >
+      <mock-TextInput
+        field="street2"
+        id="street2"
+        initialValue="sample street 2"
+      />
+    </mock-Field>
+    <mock-Field
+      classes={
+        Object {
+          "root": "city",
+        }
+      }
+      id="city"
+      label="City"
+    >
+      <mock-TextInput
+        field="city"
+        id="city"
+        initialValue="sample city"
+        validate={[Function]}
+      />
+    </mock-Field>
+    <mock-Region
+      classes={
+        Object {
+          "root": "region",
+        }
+      }
+      initialValue="sample region"
+      validate={[Function]}
+    />
+    <mock-Postcode
+      classes={
+        Object {
+          "root": "postal_code",
+        }
+      }
+      initialValue="sample postal code"
+      validate={[Function]}
+    />
+    <mock-Field
+      classes={
+        Object {
+          "root": "phone_number",
+        }
+      }
+      id="phoneNumber"
+      label="Phone Number"
+    >
+      <mock-TextInput
+        field="phoneNumber"
+        id="phoneNumber"
+        initialValue="sample phone number"
+        validate={[Function]}
+      />
+    </mock-Field>
+  </div>
+</div>
+`;

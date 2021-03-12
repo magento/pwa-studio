@@ -32,7 +32,7 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-jest.mock('../../Head', () => ({ Title: () => 'Communications' }));
+jest.mock('../../Head', () => ({ StoreTitle: () => 'Communications' }));
 
 jest.mock('@magento/venia-drivers', () => ({
     Redirect: props => <mock-Redirect {...props} />

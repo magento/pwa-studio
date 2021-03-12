@@ -20,7 +20,7 @@ jest.mock('@magento/peregrine/lib/talons/MyAccount/useResetPassword', () => ({
 }));
 
 jest.mock('../../../Head', () => ({
-    Title: props => <mock-Title {...props} />
+    StoreTitle: props => <mock-StoreTitle {...props} />
 }));
 
 test('should render properly', () => {
