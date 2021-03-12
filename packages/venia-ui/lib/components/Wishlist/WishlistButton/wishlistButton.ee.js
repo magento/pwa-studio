@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { AlertCircle, Heart } from 'react-feather';
 import { useIntl } from 'react-intl';
 
@@ -10,6 +10,7 @@ import Icon from '@magento/venia-ui/lib/components/Icon';
 
 import defaultClasses from './wishlistButton.css';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
+import WishlistDialog from '../WishlistDialog';
 
 const ErrorIcon = <Icon src={AlertCircle} attrs={{ width: 18 }} />;
 
@@ -18,7 +19,14 @@ const WishlistButton = props => {
 
     const talonProps = useWishlistButton({ itemOptions: props.itemOptions });
 
-    const { addProductError, handleClick, isDisabled, itemAdded } = talonProps;
+    const {
+        addProductError,
+        handleButtonClick,
+        handleModalClose,
+        isDisabled,
+        isItemAdded,
+        isModalOpen
+    } = talonProps;
 
     const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
@@ -38,7 +46,7 @@ const WishlistButton = props => {
         }
     }, [addProductError, addToast, formatMessage]);
 
-    const buttonText = itemAdded
+    const buttonText = isItemAdded
         ? formatMessage({
               id: 'wishlistButton.addedText',
               defaultMessage: 'Added to Favorites'
@@ -53,14 +61,14 @@ const WishlistButton = props => {
 
     if (isDisabled) {
         buttonClass = classes.wishlistButton_disabled;
-        if (itemAdded) {
+        if (isItemAdded) {
             iconClass = classes.icon_filled_disabled;
         } else {
             iconClass = classes.icon_disabled;
         }
     } else {
         buttonClass = classes.wishlistButton;
-        if (itemAdded) {
+        if (isItemAdded) {
             iconClass = classes.icon_filled;
         } else {
             iconClass = classes.icon;
@@ -68,15 +76,22 @@ const WishlistButton = props => {
     }
 
     return (
-        <button
-            disabled={isDisabled}
-            type="button"
-            className={buttonClass}
-            onClick={handleClick}
-        >
-            <Icon src={Heart} classes={{ icon: iconClass }} />
-            {buttonText}
-        </button>
+        <Fragment>
+            <button
+                disabled={isDisabled}
+                type="button"
+                className={buttonClass}
+                onClick={handleButtonClick}
+            >
+                <Icon src={Heart} classes={{ icon: iconClass }} />
+                {buttonText}
+            </button>
+            <WishlistDialog
+                isOpen={isModalOpen}
+                onClose={handleModalClose}
+                itemOptions={props.itemOptions}
+            />
+        </Fragment>
     );
 };
 

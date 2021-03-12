@@ -1,34 +1,33 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useMutation } from '@apollo/client';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-
-import DEFAULT_OPERATIONS from './wishlistButton.gql';
 
 export const useWishlistButton = props => {
     const { itemOptions } = props;
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
-    const { addProductToWishlistMutation } = operations;
-
-    const [itemAdded, setItemAdded] = useState(false);
+    const [isItemAdded, setIsItemAdded] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        if (itemOptions.selected_options) setItemAdded(false);
+        if (itemOptions.selected_options) setIsItemAdded(false);
     }, [itemOptions.selected_options]);
 
-    const [
-        addProductToWishlist,
-        { loading: isAddLoading, error: addProductError }
-    ] = useMutation(addProductToWishlistMutation);
+    const handleButtonClick = useCallback(() => {
+        setIsModalOpen(true);
+    }, []);
 
-    const handleClick = useCallback(async () => {
-        alert('Opening Add To Wishlist Dialog!');
+    const handleModalClose = useCallback(success => {
+        setIsModalOpen(false);
+
+        // only set item added true if someone calls handleModalClose(true)
+        if (success === true) {
+            setIsItemAdded(true);
+        }
     }, []);
 
     return {
-        addProductError,
-        handleClick,
-        isDisabled: itemAdded || isAddLoading,
-        itemAdded
+        handleButtonClick,
+        handleModalClose,
+        isDisabled: isItemAdded || isModalOpen,
+        isItemAdded,
+        isModalOpen
     };
 };

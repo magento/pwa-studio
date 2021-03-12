@@ -3,6 +3,14 @@ import { gql } from '@apollo/client';
 import { CartTriggerFragment } from '../Header/cartTriggerFragments.gql';
 import { MiniCartFragment } from '../MiniCart/miniCart.gql';
 
+export const GET_WISHLIST_CONFIG = gql`
+    query wishlistConfig {
+        storeConfig {
+            magento_wishlist_general_is_enabled
+        }
+    }
+`;
+
 export const ADD_CONFIGURABLE_MUTATION = gql`
     mutation addConfigurableProductToCart(
         $cartId: String!

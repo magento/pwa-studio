@@ -1,5 +1,5 @@
 import { useCallback, useState, useMemo } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
@@ -151,6 +151,7 @@ const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 /**
  * @param {GraphQLQuery} props.addConfigurableProductToCartMutation - configurable product mutation
  * @param {GraphQLQuery} props.addSimpleProductToCartMutation - configurable product mutation
+ * @param {GraphQLQuery} props.getWishlistConfig - queries for whether wishlists are enabled.
  * @param {Object} props.product - the product, see RootComponents/Product
  *
  * @returns {{
@@ -169,6 +170,7 @@ export const useProductFullDetail = props => {
     const {
         addConfigurableProductToCartMutation,
         addSimpleProductToCartMutation,
+        getWishlistConfig,
         product
     } = props;
 
@@ -180,6 +182,10 @@ export const useProductFullDetail = props => {
 
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
+
+    const { data: storeConfigData } = useQuery(getWishlistConfig, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     const [
         addConfigurableProductToCart,
@@ -372,6 +378,10 @@ export const useProductFullDetail = props => {
             isAddSimpleLoading,
         isSignedIn,
         mediaGalleryEntries,
+        shouldShowWishlistButton:
+            isSignedIn &&
+            storeConfigData &&
+            !!storeConfigData.storeConfig.magento_wishlist_general_is_enabled,
         productDetails,
         wishlistItemOptions
     };

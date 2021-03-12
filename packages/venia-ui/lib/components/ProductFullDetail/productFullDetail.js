@@ -19,7 +19,8 @@ import RichText from '../RichText';
 import defaultClasses from './productFullDetail.css';
 import {
     ADD_CONFIGURABLE_MUTATION,
-    ADD_SIMPLE_MUTATION
+    ADD_SIMPLE_MUTATION,
+    GET_WISHLIST_CONFIG
 } from './productFullDetail.gql';
 
 import WishlistButton from '../Wishlist/WishlistButton';
@@ -46,6 +47,7 @@ const ProductFullDetail = props => {
     const talonProps = useProductFullDetail({
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
         addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
+        getWishlistConfig: GET_WISHLIST_CONFIG,
         product
     });
 
@@ -55,7 +57,7 @@ const ProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isAddToCartDisabled,
-        isSignedIn,
+        shouldShowWishlistButton,
         mediaGalleryEntries,
         productDetails,
         wishlistItemOptions
@@ -134,7 +136,7 @@ const ProductFullDetail = props => {
         }
     }
 
-    const maybeWishlistButton = isSignedIn ? (
+    const maybeWishlistButton = shouldShowWishlistButton ? (
         <WishlistButton itemOptions={wishlistItemOptions} />
     ) : null;
 
