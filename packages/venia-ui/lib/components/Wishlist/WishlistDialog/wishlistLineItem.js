@@ -13,7 +13,7 @@ const WishlistLineItem = props => {
 
     return (
         <button
-            classes={classes.root}
+            className={classes.root}
             disabled={isDisabled}
             type="button"
             onClick={handleClick}

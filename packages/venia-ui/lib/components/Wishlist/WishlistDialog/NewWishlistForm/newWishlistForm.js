@@ -47,9 +47,9 @@ const NewWishlistForm = props => {
     return (
         <Fragment>
             <FormError
-                // classes={{
-                //     root: classes.formErrors
-                // }}
+                classes={{
+                    root: classes.formErrors
+                }}
                 errors={formErrors}
             />
             <div className={classes.listname}>
@@ -63,10 +63,10 @@ const NewWishlistForm = props => {
             </div>
             <div className={classes.visibility}>
                 <RadioGroup
-                    // classes={{
-                    //     radioLabel: classes.radioContents,
-                    //     root: classes.radioRoot
-                    // }}
+                    classes={{
+                        radioLabel: classes.radioContents,
+                        root: classes.radioRoot
+                    }}
                     field="visibility"
                     initialValue={'PRIVATE'}
                     items={[
@@ -81,27 +81,19 @@ const NewWishlistForm = props => {
                     ]}
                 />
             </div>
-            <Button
-                // classes={{
-                //     root_lowPriority: classes.cancelButton
-                // }}
-                onClick={handleCancel}
-                priority="low"
-                type="reset"
-            >
-                {cancelButtonText}
-            </Button>
-            <Button
-                // classes={{
-                //     root_highPriority: classes.confirmButton
-                // }}
-                disabled={isSaveDisabled}
-                onClick={handleSave}
-                priority="high"
-                type="button"
-            >
-                {saveButtonText}
-            </Button>
+            <div className={classes.actions}>
+                <Button onClick={handleCancel} priority="low" type="reset">
+                    {cancelButtonText}
+                </Button>
+                <Button
+                    disabled={isSaveDisabled}
+                    onClick={handleSave}
+                    priority="high"
+                    type="button"
+                >
+                    {saveButtonText}
+                </Button>
+            </div>
         </Fragment>
     );
 };

@@ -6,10 +6,11 @@ import { useWishlistDialog } from '@magento/peregrine/lib/talons/Wishlist/Wishli
 
 import Dialog from '@magento/venia-ui/lib/components/Dialog';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import defaultClasses from './wishlistDialog.css';
 import NewWishlistForm from './NewWishlistForm/newWishlistForm';
 import FormError from '../../FormError';
 import WishlistLineItem from './wishlistLineItem';
+
+import defaultClasses from './wishlistDialog.css';
 
 const WishlistDialog = props => {
     const { isOpen, onClose } = props;
@@ -48,26 +49,39 @@ const WishlistDialog = props => {
                                 {name}
                             </WishlistLineItem>
                         </li>
-                        <hr />
                     </Fragment>
                 );
             });
-            return <ul>{wishlists}</ul>;
+            return <ul className={classes.existingWishlists}>{wishlists}</ul>;
         } else {
             return null;
         }
-    }, [handleAddToWishlist, isAddLoading, wishlistsData]);
+    }, [
+        classes.existingWishlists,
+        handleAddToWishlist,
+        isAddLoading,
+        wishlistsData
+    ]);
 
     const shouldRenderForm = useCallback(() => !!isFormOpen, [isFormOpen]);
 
     const maybeNewListElement = canCreateWishlist ? (
-        <Relevant when={shouldRenderForm}>
-            <NewWishlistForm
-                onCreateList={handleAddToWishlist}
-                isAddLoading={isAddLoading}
-                onCancel={handleCancel}
-            />
-        </Relevant>
+        <Fragment>
+            <button
+                className={classes.createListButton}
+                onClick={handleNewListClick}
+                type="button"
+            >
+                {createButtonText}
+            </button>
+            <Relevant when={shouldRenderForm}>
+                <NewWishlistForm
+                    onCreateList={handleAddToWishlist}
+                    isAddLoading={isAddLoading}
+                    onCancel={handleCancel}
+                />
+            </Relevant>
+        </Fragment>
     ) : null;
 
     const createButtonText = formatMessage({
@@ -78,7 +92,7 @@ const WishlistDialog = props => {
     return (
         <Dialog
             isOpen={isOpen}
-            onCancel={onClose}
+            onCancel={handleCancel}
             shouldShowButtons={false}
             title={formatMessage({
                 id: 'wishlistDialog.title',
@@ -93,9 +107,6 @@ const WishlistDialog = props => {
                     errors={formErrors}
                 />
                 {maybeListsElement}
-                <button onClick={handleNewListClick} type="button">
-                    {createButtonText}
-                </button>
                 {maybeNewListElement}
             </div>
         </Dialog>
