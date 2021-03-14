@@ -223,6 +223,29 @@
                     "default": false
                 }
             ]
+        },
+        {
+            "name": "Rendertron Settings",
+            "variables": [
+                {
+                    "name": "RENDERTRON_URL",
+                    "type": "str",
+                    "desc": "Specify the Base URL of the Rendertron proxy service.",
+                    "default": "https://render-tron.appspot.com/render"
+                },
+                {
+                    "name": "RENDERTRON_USER_AGENTS",
+                    "type": "str",
+                    "desc": "Regular expression to match user agent to proxy. Defaults to a set of bots that do not perform well with pages that require JavaScript.",
+                    "default": "PreCacher|SeoScan|SitemapCacheWarmer|Screaming|Mojolicious|googlebot|bingbot|yandex|Whatsapp|baiduspider|twitterbot|facebookexternalhit|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|slackbot|vkShare|W3C_Validator|Lighthouse"
+                },
+                {
+                    "name": "RENDERTRON_EXCLUDE_URL_PATTERN",
+                    "type": "str",
+                    "desc": "Regular expression used to exclude request URL paths. Defaults to a set of typical static asset file extensions.",
+                    "default": "\"graphql|\\.(js|css|xml|less|png|jpg|jpeg|gif|pdf|doc|txt|ico|rss|zip|mp3|rar|exe|wmv|doc|avi|ppt|mpg|mpeg|tif|wav|mov|psd|ai|xls|mp4|m4a|swf|dat|dmg|iso|flv|m4v|torrent|ttf|woff|svg|eot)$\""
+                }
+            ]
         }
     ],
     "changes": []

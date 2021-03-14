@@ -47,6 +47,20 @@ async function createUpwardServer({
         throw new Error(`upwardPath is required`);
     }
     const app = express();
+    if (env.RENDERTRON_URL) {
+        const rendertron = require('rendertron-middleware');
+        app.use(
+            rendertron.makeMiddleware({
+                proxyUrl: env.RENDERTRON_URL,
+                userAgentPattern: new RegExp(env.RENDERTRON_USER_AGENTS, 'i'),
+                excludeUrlPattern: new RegExp(
+                    env.RENDERTRON_EXCLUDE_URL_PATTERN,
+                    'i'
+                )
+            })
+        );
+    }
+
     before(app);
     const upward = await middleware(resolve(upwardPath), env);
 

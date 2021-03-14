@@ -80,6 +80,7 @@
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",
+    "rendertron-middleware": "^0.1.5",
     "sharp": "~0.23.3"
   },
   "resolutions": {
