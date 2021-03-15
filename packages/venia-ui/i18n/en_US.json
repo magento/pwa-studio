@@ -223,7 +223,7 @@
     "navigationTrigger.ariaLabel": "Toggle navigation panel",
     "newWishlistForm.privateRadio": "Private",
     "newWishlistForm.publicRadio": "Public",
-    "newWishlistForm.createButton": "Cancel",
+    "newWishlistForm.cancelButton": "Cancel",
     "newWishlistForm.saveButton": "Save",
     "noProductsFound.noProductsFound": "Sorry! We couldn't find any products.",
     "noProductsFound.tryOneOfTheseCategories": "Try one of these categories",

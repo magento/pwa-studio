@@ -352,7 +352,6 @@ export const useProductFullDetail = props => {
 
     const wishlistItemOptions = useMemo(() => {
         const options = {
-            // TODO: Does this need to reflect the quantity selected?
             quantity: 1,
             sku: product.sku
         };

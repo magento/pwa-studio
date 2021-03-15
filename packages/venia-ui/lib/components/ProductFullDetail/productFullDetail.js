@@ -23,8 +23,7 @@ import {
     GET_WISHLIST_CONFIG
 } from './productFullDetail.gql';
 
-import WishlistButton from '../Wishlist/WishlistButton';
-
+const WishlistButton = React.lazy(() => import('../Wishlist/WishlistButton'));
 const Options = React.lazy(() => import('../ProductOptions'));
 
 // Correlate a GQL error message to a field. GQL could return a longer error

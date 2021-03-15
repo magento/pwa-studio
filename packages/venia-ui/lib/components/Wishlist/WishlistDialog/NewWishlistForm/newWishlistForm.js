@@ -35,7 +35,7 @@ const NewWishlistForm = props => {
     });
 
     const cancelButtonText = formatMessage({
-        id: 'newWishlistForm.createButton',
+        id: 'newWishlistForm.cancelButton',
         defaultMessage: 'Cancel'
     });
 
