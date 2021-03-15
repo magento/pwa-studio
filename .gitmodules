@@ -1,6 +1,6 @@
 [submodule "packages/data-services-pwa-recs"]
 	path = packages/data-services-pwa-recs
-	url = https://github.com/magento/data-services-pwa-recs.git
+	url = https://github.com/magento-commerce/data-services-pwa-recs.git
 [submodule "data-services-pwa-recs"]
 	path = data-services-pwa-recs
 	url = https://github.com/magento-commerce/data-services-pwa-recs.git
