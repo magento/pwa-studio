@@ -13,11 +13,11 @@ import WishlistLineItem from './wishlistLineItem';
 import defaultClasses from './wishlistDialog.css';
 
 const WishlistDialog = props => {
-    const { isOpen, onClose } = props;
+    const { isOpen, itemOptions, onClose } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useWishlistDialog({
-        itemOptions: props.itemOptions,
+        itemOptions,
         onClose
     });
 
@@ -45,17 +45,15 @@ const WishlistDialog = props => {
             const wishlists = wishlistsData.customer.wishlists.map(wishlist => {
                 const name = `"${wishlist.name}"`;
                 return (
-                    <Fragment key={wishlist.id}>
-                        <li>
-                            <WishlistLineItem
-                                id={wishlist.id}
-                                isDisabled={isAddLoading}
-                                onClick={handleAddToWishlist}
-                            >
-                                {name}
-                            </WishlistLineItem>
-                        </li>
-                    </Fragment>
+                    <li key={wishlist.id}>
+                        <WishlistLineItem
+                            id={wishlist.id}
+                            isDisabled={isAddLoading}
+                            onClick={handleAddToWishlist}
+                        >
+                            {name}
+                        </WishlistLineItem>
+                    </li>
                 );
             });
             return <ul className={classes.existingWishlists}>{wishlists}</ul>;
