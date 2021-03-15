@@ -93,7 +93,7 @@ exports[`renders correctly 1`] = `
         <span
           className="errorMessage"
         >
-          Form Error
+          Wish list "Test" already exists., Only 5 wish list(s) can be created., Form Error
         </span>
       </div>
       <div
