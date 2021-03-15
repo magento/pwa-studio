@@ -1,0 +1,3 @@
+[submodule "packages/data-services-pwa-recs"]
+	path = packages/data-services-pwa-recs
+	url = https://github.com/magento/data-services-pwa-recs.git
