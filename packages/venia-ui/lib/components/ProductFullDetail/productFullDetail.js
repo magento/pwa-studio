@@ -137,7 +137,9 @@ const ProductFullDetail = props => {
     }
 
     const maybeWishlistButton = shouldShowWishlistButton ? (
-        <WishlistButton itemOptions={wishlistItemOptions} />
+        <Suspense fallback={null}>
+            <WishlistButton itemOptions={wishlistItemOptions} />
+        </Suspense>
     ) : null;
 
     return (
