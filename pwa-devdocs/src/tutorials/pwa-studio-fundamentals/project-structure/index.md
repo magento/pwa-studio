@@ -136,13 +136,11 @@ Now that you have a storefront project setup and understand its structure, lets 
 -   [Enable SASS or LESS support][]
 -   [Add a static route][]
 -   [Modify the site footer][]
--   [Create a TagList component][]
 
 
 [enable sass or less support]: <{%link tutorials/enable-sass-less-support/index.md %}>
 [add a static route]: <{%link tutorials/pwa-studio-fundamentals/add-a-static-route/index.md %}>
 [modify the site footer]: <{%link tutorials/pwa-studio-fundamentals/modify-site-footer/index.md %}>
-[create a taglist component]: <{%link tutorials/create-taglist-component/index.md %}>
 [modular components]: <{%link venia-pwa-concept/features/modular-components/index.md %}>
 [project setup]: <{%link tutorials/pwa-studio-fundamentals/index.md %}>
 [`configurewebpack`]: <{%link pwa-buildpack/reference/configure-webpack/index.md %}>
