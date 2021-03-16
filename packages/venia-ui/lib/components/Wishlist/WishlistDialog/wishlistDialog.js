@@ -6,7 +6,7 @@ import { useWishlistDialog } from '@magento/peregrine/lib/talons/Wishlist/Wishli
 
 import Dialog from '@magento/venia-ui/lib/components/Dialog';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import NewWishlistForm from './NewWishlistForm/newWishlistForm';
+import CreateWishlistForm from './CreateWishlistForm/createWishlistForm';
 import FormError from '../../FormError';
 import WishlistLineItem from './wishlistLineItem';
 
@@ -79,7 +79,7 @@ const WishlistDialog = props => {
                 {createButtonText}
             </button>
             <Relevant when={shouldRenderForm}>
-                <NewWishlistForm
+                <CreateWishlistForm
                     onCreateList={handleAddToWishlist}
                     isAddLoading={isAddLoading}
                     onCancel={handleCancelNewList}

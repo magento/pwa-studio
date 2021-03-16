@@ -3,10 +3,10 @@ import { useMutation } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
-import DEFAULT_OPERATIONS from './newWishlistForm.gql';
+import DEFAULT_OPERATIONS from './createWishlistForm.gql';
 import { useFormState } from 'informed';
 
-export const useNewWishlistForm = props => {
+export const useCreateWishlistForm = props => {
     const { onCancel, onCreateList, isAddLoading } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useIntl } from 'react-intl';
 
-import { useNewWishlistForm } from '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/NewWishlistForm/useNewWishlistForm';
+import { useCreateWishlistForm } from '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/CreateWishlistForm/useCreateWishlistForm';
 
 import Button from '@magento/venia-ui/lib/components/Button';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -10,13 +10,13 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import RadioGroup from '@magento/venia-ui/lib/components/RadioGroup';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
-import defaultClasses from './newWishlistForm.css';
+import defaultClasses from './createWishlistForm.css';
 import FormError from '../../../FormError';
 
-const NewWishlistForm = props => {
+const CreateWishlistForm = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
-    const talonProps = useNewWishlistForm({
+    const talonProps = useCreateWishlistForm({
         onCancel: props.onCancel,
         onCreateList: props.onCreateList,
         isAddLoading: props.isAddLoading
@@ -25,22 +25,22 @@ const NewWishlistForm = props => {
     const { formErrors, handleCancel, handleSave, isSaveDisabled } = talonProps;
 
     const privateRadioText = formatMessage({
-        id: 'newWishlistForm.privateRadio',
+        id: 'createWishlistForm.privateRadio',
         defaultMessage: 'Private'
     });
 
     const publicRadioText = formatMessage({
-        id: 'newWishlistForm.publicRadio',
+        id: 'createWishlistForm.publicRadio',
         defaultMessage: 'Public'
     });
 
     const cancelButtonText = formatMessage({
-        id: 'newWishlistForm.cancelButton',
+        id: 'createWishlistForm.cancelButton',
         defaultMessage: 'Cancel'
     });
 
     const saveButtonText = formatMessage({
-        id: 'newWishlistForm.saveButton',
+        id: 'createWishlistForm.saveButton',
         defaultMessage: 'Save'
     });
 
@@ -98,4 +98,4 @@ const NewWishlistForm = props => {
     );
 };
 
-export default NewWishlistForm;
+export default CreateWishlistForm;
