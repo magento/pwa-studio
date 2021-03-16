@@ -152,6 +152,7 @@ MAGENTO_BACKEND_URL=https://[your-cloud-url-here]/
 CHECKOUT_BRAINTREE_TOKEN=<generated token from Braintree>
 MAGENTO_BACKEND_EDITION=EE
 IMAGE_OPTIMIZING_ORIGIN=backend
+ENABLE_EXPRESS_SERVER_COMPRESSION=false
 ```
 
 ### Finding the correct UPWARD path value

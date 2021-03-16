@@ -51,7 +51,7 @@ Edit the `packages.json` file so it looks like the following:
     "@magento/peregrine": "~7.0.0",
     "@magento/pwa-buildpack": "~6.0.0",
     "@magento/venia-ui": "~4.0.0",
-    "apollo-client": "2.6.4",
+    "@apollo/client": "~3.1.2",
     "graphql-tag": "~2.10.1",
     "react": "~17.0.1",
     "webpack": "~4.38.0"
@@ -127,7 +127,7 @@ Inside the `useProductCategoriesList.js` file, add the following content:
 
 ```js
 import { useMemo } from "react";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 
 const GET_PRODUCT_CATEGORIES = gql`

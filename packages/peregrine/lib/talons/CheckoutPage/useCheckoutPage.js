@@ -9,6 +9,11 @@ import {
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
+
+import mergeOperations from '../../util/shallowMerge';
+
+import DEFAULT_OPERATIONS from './checkoutPage.gql.js';
+
 import CheckoutError from './CheckoutError';
 
 export const CHECKOUT_STEP = {
@@ -18,15 +23,16 @@ export const CHECKOUT_STEP = {
     REVIEW: 4
 };
 
-export const useCheckoutPage = props => {
+export const useCheckoutPage = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+
     const {
-        mutations: { createCartMutation, placeOrderMutation },
-        queries: {
-            getCheckoutDetailsQuery,
-            getCustomerQuery,
-            getOrderDetailsQuery
-        }
-    } = props;
+        createCartMutation,
+        getCheckoutDetailsQuery,
+        getCustomerQuery,
+        getOrderDetailsQuery,
+        placeOrderMutation
+    } = operations;
 
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
@@ -210,6 +216,9 @@ export const useCheckoutPage = props => {
 
     return {
         activeContent,
+        availablePaymentMethods: checkoutData
+            ? checkoutData.cart.available_payment_methods
+            : null,
         cartItems,
         checkoutStep,
         customer,

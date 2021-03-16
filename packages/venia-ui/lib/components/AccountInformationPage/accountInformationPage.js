@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Redirect } from '@magento/venia-drivers';
 import { useAccountInformationPage } from '@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage';
@@ -6,11 +6,13 @@ import { useAccountInformationPage } from '@magento/peregrine/lib/talons/Account
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
 import { Message } from '../Field';
-import { Title } from '../Head';
+import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import EditModal from './editModal';
+
 import defaultClasses from './accountInformationPage.css';
 import AccountInformationPageOperations from './accountInformationPage.gql.js';
+
+const EditModal = React.lazy(() => import('./editModal'));
 
 const AccountInformationPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -103,31 +105,30 @@ const AccountInformationPage = props => {
                         </Button>
                     </div>
                 </div>
-                <EditModal
-                    formErrors={formErrors}
-                    initialValues={customer}
-                    isDisabled={isDisabled}
-                    isOpen={isUpdateMode}
-                    onCancel={handleCancel}
-                    onChangePassword={handleChangePassword}
-                    onSubmit={handleSubmit}
-                    shouldShowNewPassword={shouldShowNewPassword}
-                />
+                <Suspense fallback={null}>
+                    <EditModal
+                        formErrors={formErrors}
+                        initialValues={customer}
+                        isDisabled={isDisabled}
+                        isOpen={isUpdateMode}
+                        onCancel={handleCancel}
+                        onChangePassword={handleChangePassword}
+                        onSubmit={handleSubmit}
+                        shouldShowNewPassword={shouldShowNewPassword}
+                    />
+                </Suspense>
             </Fragment>
         );
     }
 
     return (
         <div className={classes.root}>
-            <Title>
-                {formatMessage(
-                    {
-                        id: 'accountInformationPage.titleAccount',
-                        defaultMessage: 'Account Information'
-                    },
-                    { name: STORE_NAME }
-                )}
-            </Title>
+            <StoreTitle>
+                {formatMessage({
+                    id: 'accountInformationPage.titleAccount',
+                    defaultMessage: 'Account Information'
+                })}
+            </StoreTitle>
             <h1 className={classes.title}>
                 <FormattedMessage
                     id={'accountInformationPage.accountInformation'}

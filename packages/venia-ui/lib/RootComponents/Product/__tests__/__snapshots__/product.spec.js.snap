@@ -2,9 +2,9 @@
 
 exports[`renders product page correctly 1`] = `
 <React.Fragment>
-  <Title>
-    Fitted Dress with Belt - Venia
-  </Title>
+  <StoreTitle>
+    Fitted Dress with Belt
+  </StoreTitle>
   <Meta
     content="Team these printed palazzo pants with a solid tank top and summer-ready sandals"
     name="description"
@@ -99,9 +99,9 @@ exports[`renders product page correctly 1`] = `
 
 exports[`renders product page correctly when error and product data exist 1`] = `
 <React.Fragment>
-  <Title>
-    Fitted Dress with Belt - Venia
-  </Title>
+  <StoreTitle>
+    Fitted Dress with Belt
+  </StoreTitle>
   <Meta
     content="Team these printed palazzo pants with a solid tank top and summer-ready sandals"
     name="description"

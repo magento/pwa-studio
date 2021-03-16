@@ -1,6 +1,6 @@
 {
   "name": "@magento/create-pwa",
-  "version": "1.1.2",
+  "version": "1.2.1",
   "publishConfig": {
     "access": "public"
   },
@@ -29,7 +29,8 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/create-pwa#readme",
   "dependencies": {
-    "@magento/pwa-buildpack": "~7.0.0",
+    "@magento/pwa-buildpack": "~8.0.1",
+    "@magento/venia-concept": "~9.0.1",
     "chalk": "^2.4.2",
     "change-case": "^3.1.0",
     "execa": "^1.0.0",
@@ -37,8 +38,7 @@
     "inquirer": "^6.3.1",
     "is-invalid-path": "^1.0.2",
     "is-valid-npm-name": "^0.0.4",
-    "lodash": "~4.17.11",
     "node-fetch": "~2.3.0",
-    "webpack": "^4.29.5"
+    "webpack": "~4.46.0"
   }
 }

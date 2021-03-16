@@ -1,5 +1,14 @@
 import { gql } from '@apollo/client';
 
+export const GET_PAGE_SIZE = gql`
+    query getPageSize {
+        storeConfig {
+            id
+            grid_per_page
+        }
+    }
+`;
+
 export const GET_PRODUCT_FILTERS_BY_SEARCH = gql`
     query getProductFiltersBySearch($search: String!) {
         products(search: $search) {
@@ -71,6 +80,7 @@ export const GET_FILTER_INPUTS = gql`
 
 export default {
     getFilterInputsQuery: GET_FILTER_INPUTS,
+    getPageSize: GET_PAGE_SIZE,
     getProductFiltersBySearchQuery: GET_PRODUCT_FILTERS_BY_SEARCH,
     productSearchQuery: PRODUCT_SEARCH
 };

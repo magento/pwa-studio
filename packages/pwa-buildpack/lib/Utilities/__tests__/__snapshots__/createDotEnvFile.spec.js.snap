@@ -166,5 +166,25 @@ CHECKOUT_BRAINTREE_TOKEN=sandbox_8yrzsvtm_s2bg8fs563crhqzk
 BUILDBUS_DEPS_ADDITIONAL=
 #
 ################################################################################
+
+#### Custom HTTPS certificates #################################################
+#
+#   Absolute path to the custom HTTPS certificate key file.
+#   - Default when not set: 
+CUSTOM_HTTPS_KEY=
+#
+#   Absolute path to the custom HTTPS certificate cert file.
+#   - Default when not set: 
+CUSTOM_HTTPS_CERT=
+#
+################################################################################
+
+#### Express compression settings ##############################################
+#
+#   Specify if express server compression needs to be enabled. Defaults to false if not provided.
+#   - Default when not set: false
+ENABLE_EXPRESS_SERVER_COMPRESSION=false
+#
+################################################################################
 "
 `;

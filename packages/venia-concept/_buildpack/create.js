@@ -1,13 +1,21 @@
 const { resolve } = require('path');
-const { uniqBy } = require('lodash');
-const {
-    sampleBackends: defaultSampleBackends
-} = require('@magento/pwa-buildpack/lib/cli/create-project');
+
+const uniqBy = (array, property) => {
+    const map = new Map();
+
+    for (const element of array) {
+        if (element && element.hasOwnProperty(property)) {
+            map.set(element[property], element);
+        }
+    }
+
+    return Array.from(map.values());
+};
 
 const removeDuplicateBackends = backendEnvironments =>
     uniqBy(backendEnvironments, 'url');
 
-const fetchSampleBackends = async () => {
+const fetchSampleBackends = async defaultSampleBackends => {
     try {
         const res = await fetch(
             'https://fvp0esmt8f.execute-api.us-east-1.amazonaws.com/default/getSampleBackends'
@@ -23,9 +31,9 @@ const fetchSampleBackends = async () => {
     }
 };
 
-async function createProjectFromVenia({ fs, tasks, options }) {
+async function createProjectFromVenia({ fs, tasks, options, sampleBackends }) {
     const npmCli = options.npmClient;
-    const sampleBackendEnvironments = await fetchSampleBackends();
+    const sampleBackendEnvironments = await fetchSampleBackends(sampleBackends);
 
     const toCopyFromPackageJson = [
         'main',
@@ -225,9 +233,16 @@ function setDebugDependencies(pkg) {
         try {
             packOutput = execSync('npm pack -s --ignore-scripts --json', {
                 cwd: packageDir
-            });
+            })
+                .toString('utf-8')
+                .trim();
             // NPM tells you where it saved the tarball it made
-            filename = JSON.parse(packOutput)[0].filename;
+            // modern versions just spit out the tarball name:
+            if (packOutput.endsWith('.tgz')) {
+                filename = packOutput;
+            } else {
+                filename = JSON.parse(packOutput)[0].filename;
+            }
         } catch (e) {
             throw new Error(
                 `DEBUG_PROJECT_CREATION: npm pack in ${name} package failed: output was ${packOutput}\n\nerror was ${

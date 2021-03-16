@@ -14,7 +14,7 @@ veniaSecurityHeaders:
             use:
               inline: ""
         default:
-          inline: "script-src http: https: {{ backend }}; style-src 'self' https: 'unsafe-inline' {{ backend }}; img-src data: http: https:; object-src 'none'; base-uri 'none'; child-src 'self'; font-src 'self' fonts.gstatic.com; frame-src assets.braintreegateway.com *.youtube.com *.youtu.be *.vimeo.com"
+          inline: "script-src http: https: {{ backend }}; style-src 'self' blob: https: 'unsafe-inline' {{ backend }}; img-src data: http: https:; object-src 'none'; base-uri 'none'; child-src 'self'; font-src 'self' fonts.gstatic.com; frame-src assets.braintreegateway.com *.youtube.com *.youtu.be *.vimeo.com"
     strict-transport-security:
       inline: max-age=31536000
     x-content-type-options:

@@ -7,8 +7,6 @@
         <meta name="theme-color" content="#ff6334">
         <link rel="manifest" href="/manifest.json">
 
-        <title>Home Page - <%= STORE_NAME %></title>
-
         <!--
             Apple Specific Tags
 
@@ -24,7 +22,22 @@
         <link rel="apple-touch-icon" href="/venia-static/icons/venia_square_57.png">
         <link rel="apple-touch-icon" sizes="180x180" href="/venia-static/icons/apple-touch-icon.png">
         <link rel="preconnect" href="<%= process.env.MAGENTO_BACKEND_URL %>">
+        <!--
+            This following CSS is a copy of the css returned by Google's font API that
+            allows us to "skip" a network round trip.
 
+            CSS requests are _render_ blocking, while font requests are only _text_
+            blocking. By removing the link request we only wait for font request, to
+            shave off a few ms :)
+
+            The CSS below this comment is the response copied wholesale from Google's font
+            API. If you ever need to update it, get the response and replace what is below
+            this comment. Remember to replace the preload link above with the src URL!
+
+            Example API responses:
+            https://fonts.googleapis.com/css?family=Muli:400&display=swap
+            https://fonts.googleapis.com/css?family=Source+Serif+Pro:600&display=swap
+        -->
         <style type="text/css">
             /* vietnamese */
             @font-face {
@@ -128,7 +141,7 @@
         </style>
     </head>
     <body>
-        <div id="root" />
+        <div id="root"></div>
 
         <!-- Fallback for when JavaScript is disabled. -->
         <noscript>

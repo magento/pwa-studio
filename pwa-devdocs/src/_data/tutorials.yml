@@ -23,9 +23,6 @@ entries:
           - label: Modify the site footer
             url: /tutorials/pwa-studio-fundamentals/modify-site-footer/
 
-          - label: Create a TagList component
-            url: /tutorials/create-taglist-component/
-
     - label: Target interception
       url: /tutorials/intercept-a-target/
       entries:
@@ -39,6 +36,13 @@ entries:
     - label: Modify code with Targetables 
       url: /tutorials/targetables/
       entries:
+
+    - label: Extension development
+      url: /tutorials/extension-development/
+      entries:
+
+          - label: Create a tag list extension
+            url: /tutorials/extension-development/taglist/
 
     - label: Production deployments
       url: /tutorials/pwa-studio-fundamentals/production-launch-checklist/
