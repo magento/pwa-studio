@@ -91,7 +91,7 @@ export const useMegaMenu = (props = {}) => {
     );
 
     const megaMenuData = useMemo(() => {
-        return data ? processData(data.categoryList[0]) : null;
+        return data ? processData(data.categoryList[0]) : {};
     }, [data, processData]);
 
     useEffect(() => {
