@@ -33,7 +33,7 @@ export const useWishlist = (props = {}) => {
 
     const handleHideDialogs = useCallback(() => {
         setCurrentDialog(dialogs.NONE);
-    }, [setCurrentDialog]);
+    }, []);
 
     const listActionsIsOpen = currentDialog === dialogs.LIST_ACTIONS;
     const editFavoritesListIsOpen = currentDialog === dialogs.EDIT_WISHLIST;

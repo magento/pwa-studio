@@ -5,10 +5,10 @@ import { useIntl } from 'react-intl';
 import { mergeClasses } from '../../classify';
 import Dialog from '../Dialog';
 import defaultClasses from './wishlistEditFavoritesListDialog.css';
-import TextInput from '../TextInput/textInput';
+import TextInput from '../TextInput';
 import { isRequired } from '../../util/formValidators';
 import Field from '../Field';
-import RadioGroup from '../RadioGroup/radioGroup';
+import RadioGroup from '../RadioGroup';
 import FormError from '../FormError';
 
 const WishlistEditFavoritesListDialog = props => {

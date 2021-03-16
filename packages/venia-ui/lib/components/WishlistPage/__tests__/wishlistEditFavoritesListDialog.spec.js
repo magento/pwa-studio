@@ -11,8 +11,8 @@ const props = {
     formErrors: new Map([]),
     isOpen: false,
     isEditInProgress: false,
-    onCancel: jest.fn(),
-    onRemove: jest.fn()
+    onCancel: jest.fn().mockName('onCancel'),
+    onRemove: jest.fn().mockName('onRemove')
 };
 
 it('renders correctly when closed', () => {
