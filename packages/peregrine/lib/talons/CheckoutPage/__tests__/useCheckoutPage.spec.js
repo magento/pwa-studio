@@ -41,6 +41,18 @@ jest.mock('../../../context/cart', () => ({
         ])
 }));
 
+jest.mock('../../../context/header', () => ({
+    useHeaderContext: jest.fn().mockReturnValue([
+        {
+            headerRef: {
+                current: {
+                    clientHeight: 100
+                }
+            }
+        }
+    ])
+}));
+
 jest.mock('../../../Apollo/clearCartDataFromCache', () => ({
     clearCartDataFromCache: jest.fn()
 }));

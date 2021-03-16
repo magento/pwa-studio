@@ -29,6 +29,12 @@ Object {
   "setPaymentInformationDone": [Function],
   "setShippingInformationDone": [Function],
   "setShippingMethodDone": [Function],
+  "shippingInformationRef": Object {
+    "current": undefined,
+  },
+  "shippingMethodRef": Object {
+    "current": undefined,
+  },
   "toggleAddressBookContent": [Function],
   "toggleSignInContent": [Function],
 }

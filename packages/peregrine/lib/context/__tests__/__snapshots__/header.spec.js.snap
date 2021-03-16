@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`provides state and actions via context 1`] = `
+Array [
+  Array [
+    Object {
+      "headerRef": Object {
+        "current": null,
+      },
+    },
+    Object {
+      "updateHeaderState": [Function],
+    },
+  ],
+]
+`;
+
+exports[`renders children 1`] = `
+<i
+  symbol={Symbol()}
+/>
+`;
