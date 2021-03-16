@@ -9,11 +9,11 @@ import PropTypes from 'prop-types';
  * The MegaMenuItem component displays mega menu item
  *
  * @param {MegaMenuCategory} props.category
- * @param {bool} props.activeCategoryId - id of active category
+ * @param {int} props.activeCategoryId - id of active category
  * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
  */
 const MegaMenuItem = props => {
-    const { category, activeCategoryId, mainNavWidth } = props;
+    const { activeCategoryId, category, mainNavWidth } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const categoryUrl = resourceUrl(
         `/${category.url_path}${category.url_suffix}`

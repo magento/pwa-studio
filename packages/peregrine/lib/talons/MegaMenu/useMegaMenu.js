@@ -45,11 +45,7 @@ export const useMegaMenu = (props = {}) => {
             const categoryUrlPath =
                 '/' + category.url_path + category.url_suffix;
 
-            if (location.pathname === categoryUrlPath) {
-                return true;
-            }
-
-            return false;
+            return location.pathname === categoryUrlPath;
         },
         [location.pathname]
     );
@@ -94,9 +90,9 @@ export const useMegaMenu = (props = {}) => {
         return data ? processData(data.categoryList[0]) : {};
     }, [data, processData]);
 
-    useEffect(() => {
-        const findActiveCategory = (pathname, category) => {
-            if ('/' + category.url_path + category.url_suffix === pathname) {
+    const findActiveCategory = useCallback(
+        (pathname, category) => {
+            if (isActive(category)) {
                 return category;
             }
 
@@ -105,8 +101,11 @@ export const useMegaMenu = (props = {}) => {
                     findActiveCategory(pathname, category)
                 );
             }
-        };
+        },
+        [isActive]
+    );
 
+    useEffect(() => {
         const activeCategory = findActiveCategory(
             location.pathname,
             megaMenuData
@@ -114,11 +113,13 @@ export const useMegaMenu = (props = {}) => {
 
         if (activeCategory) {
             setActiveCategoryId(activeCategory.path[0]);
+        } else {
+            setActiveCategoryId(null);
         }
-    }, [location.pathname, megaMenuData]);
+    }, [findActiveCategory, location.pathname, megaMenuData]);
 
     return {
-        megaMenuData: megaMenuData ? megaMenuData : {},
+        megaMenuData,
         activeCategoryId
     };
 };
