@@ -4,7 +4,10 @@ import { createTestInstance } from '@magento/peregrine';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import CartPage from '../cartPage';
-import { HeadProvider } from '../../Head';
+
+jest.mock('../../../components/Head', () => ({
+    StoreTitle: () => 'Title'
+}));
 
 jest.mock('../../../classify');
 jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
@@ -55,11 +58,7 @@ test('renders a loading indicator when talon indicates', () => {
     useCartPage.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <HeadProvider>
-            <CartPage />
-        </HeadProvider>
-    );
+    const instance = createTestInstance(<CartPage />);
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -70,16 +69,9 @@ test('renders empty cart text (no adjustments, list or summary) if cart is empty
     useCartPage.mockReturnValueOnce(talonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <HeadProvider>
-            <CartPage />
-        </HeadProvider>
-    );
+    const instance = createTestInstance(<CartPage />);
 
     // Assert.
-    expect(document.getElementsByTagName('title')[0].innerHTML).toBe(
-        'Cart - Venia'
-    );
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
@@ -92,15 +84,8 @@ test('renders components if cart has items', () => {
     useCartPage.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <HeadProvider>
-            <CartPage />
-        </HeadProvider>
-    );
+    const instance = createTestInstance(<CartPage />);
 
     // Assert.
-    expect(document.getElementsByTagName('title')[0].innerHTML).toBe(
-        'Cart - Venia'
-    );
     expect(instance.toJSON()).toMatchSnapshot();
 });

@@ -275,6 +275,16 @@ const jestConfig = {
                 path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
             ]
         })),
+        configureProject(
+            'extensions/venia-sample-payments-checkmo',
+            'Check Money Order Payment',
+            inPackage => ({
+                ...testReactComponents(inPackage),
+                setupFiles: [
+                    path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
+                ]
+            })
+        ),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({
             testEnvironment: 'node',
