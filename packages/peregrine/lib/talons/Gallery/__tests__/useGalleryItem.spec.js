@@ -1,7 +1,5 @@
 import { useGalleryItem } from '../useGalleryItem';
-test('returns object handelLinkClick as a function', () => {
+test('returns empty object', () => {
     const props = useGalleryItem({});
-    expect(props).toEqual(
-        expect.objectContaining({ handleLinkClick: expect.any(Function) })
-    );
+    expect(props).toEqual({});
 });
