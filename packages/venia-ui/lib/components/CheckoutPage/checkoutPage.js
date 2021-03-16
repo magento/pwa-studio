@@ -62,6 +62,8 @@ const CheckoutPage = props => {
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone,
+        shippingInformationRef,
+        shippingMethodRef,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
@@ -328,13 +330,19 @@ const CheckoutPage = props => {
                     <h1 className={classes.heading}>{headerText}</h1>
                 </div>
                 {signInContainerElement}
-                <div className={classes.shipping_information_container}>
+                <div
+                    ref={shippingInformationRef}
+                    className={classes.shipping_information_container}
+                >
                     <ShippingInformation
                         onSave={setShippingInformationDone}
                         toggleActiveContent={toggleAddressBookContent}
                     />
                 </div>
-                <div className={classes.shipping_method_container}>
+                <div
+                    ref={shippingMethodRef}
+                    className={classes.shipping_method_container}
+                >
                     {shippingMethodSection}
                 </div>
                 <div className={classes.payment_information_container}>

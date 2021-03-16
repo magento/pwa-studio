@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
@@ -37,6 +37,9 @@ export const useCheckoutPage = (props = {}) => {
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
     );
+
+    const shippingInformationRef = useRef();
+    const shippingMethodRef = useRef();
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
@@ -135,26 +138,38 @@ export const useCheckoutPage = (props = {}) => {
     const setShippingInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS) {
             setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
-        }
 
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
-        });
-    }, [checkoutStep, setCheckoutStep]);
+            if (shippingInformationRef.current) {
+                const {
+                    top
+                } = shippingInformationRef.current.getBoundingClientRect();
+
+                window.scrollTo({
+                    top: top + window.scrollY,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, [checkoutStep, shippingInformationRef, setCheckoutStep]);
 
     const setShippingMethodDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD) {
             setCheckoutStep(CHECKOUT_STEP.PAYMENT);
-        }
 
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
-        });
-    }, [checkoutStep, setCheckoutStep]);
+            if (shippingMethodRef.current) {
+                const {
+                    top
+                } = shippingMethodRef.current.getBoundingClientRect();
+
+                window.scrollTo({
+                    top: top + window.scrollY - 60,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, [checkoutStep, shippingMethodRef, setCheckoutStep]);
 
     const setPaymentInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
@@ -252,6 +267,8 @@ export const useCheckoutPage = (props = {}) => {
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone,
+        shippingInformationRef,
+        shippingMethodRef,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
