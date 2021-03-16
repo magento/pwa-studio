@@ -18,8 +18,7 @@
                     "ignore": [
                         "../venia-ui/lib/**/giftOptions.js",
                         "../venia-ui/lib/**/wishlistPage.gql.js",
-                        "../venia-ui/lib/**/wishlistItem.gql.js",
-                        "../venia-ui/lib/**/giftCardQueries.js"
+                        "../venia-ui/lib/**/wishlistItem.gql.js"
                     ]
                 }
             }
