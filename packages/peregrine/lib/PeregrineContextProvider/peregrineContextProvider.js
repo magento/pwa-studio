@@ -5,6 +5,7 @@ import CartContextProvider from '../context/cart';
 import CatalogContextProvider from '../context/catalog';
 import CheckoutContextProvider from '../context/checkout';
 import ErrorContextProvider from '../context/unhandledErrors';
+import HeaderContextProvider from '../context/header';
 import RootComponentsProvider from '../context/rootComponents';
 import UserContextProvider from '../context/user';
 
@@ -20,7 +21,8 @@ const contextProviders = [
     CatalogContextProvider,
     CartContextProvider,
     CheckoutContextProvider,
-    RootComponentsProvider
+    RootComponentsProvider,
+    HeaderContextProvider
 ];
 
 const PeregrineContextProvider = ({ children }) => {

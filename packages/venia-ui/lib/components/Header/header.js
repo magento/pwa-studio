@@ -9,6 +9,7 @@ import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
 import OnlineIndicator from './onlineIndicator';
+import { useHeaderContext } from '@magento/peregrine/lib/context/header';
 import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 
 import { mergeClasses } from '../../classify';
@@ -29,6 +30,8 @@ const Header = props => {
         searchRef,
         searchTriggerRef
     } = useHeader();
+    const [headerState] = useHeaderContext();
+    const { headerRef } = headerState;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isSearchOpen ? classes.open : classes.closed;
@@ -58,7 +61,7 @@ const Header = props => {
                     <CurrencySwitcher />
                 </div>
             </div>
-            <header className={rootClass}>
+            <header ref={headerRef} className={rootClass}>
                 <div className={classes.toolbar}>
                     <div className={classes.primaryActions}>
                         <NavTrigger />
