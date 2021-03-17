@@ -60,6 +60,6 @@ SubmenuColumn.propTypes = {
         path: PropTypes.array.isRequired,
         position: PropTypes.number.isRequired,
         url_path: PropTypes.string.isRequired,
-        url_suffix: PropTypes.string.isRequired
+        url_suffix: PropTypes.string
     }).isRequired
 };
