@@ -30,6 +30,7 @@ export const GET_CUSTOMER_WISHLIST = gql`
                         ... on ConfigurableWishlistItem {
                             configurable_options {
                                 id
+                                value_id
                                 option_label
                                 value_label
                             }
