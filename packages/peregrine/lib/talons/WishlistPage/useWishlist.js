@@ -14,6 +14,8 @@ const dialogs = {
  *
  * @param {Object} props
  * @param {ID} props.id - The unique identifier of the wish list
+ * @param {Object} props.operations - GraphQL operations to be run by the talon.
+ *
  * @returns {WishListProps}
  */
 export const useWishlist = (props = {}) => {

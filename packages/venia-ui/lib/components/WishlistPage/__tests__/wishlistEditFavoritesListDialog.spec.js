@@ -12,7 +12,7 @@ const props = {
     isOpen: false,
     isEditInProgress: false,
     onCancel: jest.fn().mockName('onCancel'),
-    onRemove: jest.fn().mockName('onRemove')
+    onConfirm: jest.fn().mockName('onConfirm')
 };
 
 it('renders correctly when closed', () => {

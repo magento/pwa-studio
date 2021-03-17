@@ -87,6 +87,22 @@ exports[`render closed with items 1`] = `
         </span>
       </button>
     </div>
+    <WishlistListActionsDialog
+      onCancel={[MockFunction handleHideDialogs]}
+      onEdit={[MockFunction handleShowEditFavorites]}
+    />
+    <WishlistEditFavoritesListDialog
+      formProps={
+        Object {
+          "initialValues": Object {
+            "name": "Favorites List",
+            "visibility": "PUBLIC",
+          },
+        }
+      }
+      onCancel={[MockFunction handleHideDialogs]}
+      onConfirm={[MockFunction handleEditWishlist]}
+    />
   </div>
   <div
     className="content_hidden"
@@ -98,6 +114,7 @@ exports[`render closed with items 1`] = `
           "item2",
         ]
       }
+      wishlistId={5}
     />
   </div>
 </div>
@@ -190,6 +207,22 @@ exports[`render open with no items 1`] = `
         </span>
       </button>
     </div>
+    <WishlistListActionsDialog
+      onCancel={[MockFunction handleHideDialogs]}
+      onEdit={[MockFunction handleShowEditFavorites]}
+    />
+    <WishlistEditFavoritesListDialog
+      formProps={
+        Object {
+          "initialValues": Object {
+            "name": "Favorites List",
+            "visibility": "PUBLIC",
+          },
+        }
+      }
+      onCancel={[MockFunction handleHideDialogs]}
+      onConfirm={[MockFunction handleEditWishlist]}
+    />
   </div>
   <div
     className="content"

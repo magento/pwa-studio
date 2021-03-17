@@ -14,7 +14,8 @@ exports[`renders correctly when closed 1`] = `
   confirmTranslationId="global.save"
   isModal={true}
   isOpen={false}
-  onCancel={[MockFunction]}
+  onCancel={[MockFunction onCancel]}
+  onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
   title="Edit Favorites List"
 >
@@ -174,7 +175,8 @@ exports[`renders correctly when edit is in progress 1`] = `
   confirmTranslationId="global.save"
   isModal={true}
   isOpen={false}
-  onCancel={[MockFunction]}
+  onCancel={[MockFunction onCancel]}
+  onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={true}
   title="Edit Favorites List"
 >
@@ -334,7 +336,8 @@ exports[`renders correctly when opened 1`] = `
   confirmTranslationId="global.save"
   isModal={true}
   isOpen={true}
-  onCancel={[MockFunction]}
+  onCancel={[MockFunction onCancel]}
+  onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
   title="Edit Favorites List"
 >
@@ -494,7 +497,8 @@ exports[`renders correctly with error 1`] = `
   confirmTranslationId="global.save"
   isModal={true}
   isOpen={false}
-  onCancel={[MockFunction]}
+  onCancel={[MockFunction onCancel]}
+  onConfirm={[MockFunction onConfirm]}
   shouldDisableAllButtons={false}
   title="Edit Favorites List"
 >
