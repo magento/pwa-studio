@@ -14,27 +14,22 @@ const SubmenuColumn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const categoryUrl = resourceUrl(
-        `/${category.url_path}${category.url_suffix}`
+        `/${category.url_path}${category.url_suffix || ''}`
     );
     let children = null;
 
     if (category.children.length) {
         const childrenItems = category.children.map((category, index) => {
-            const categoryUrl = resourceUrl(
-                `/${category.url_path}${category.url_suffix}`
-            );
+            const { url_path, url_suffix, isActive, name } = category;
+            const categoryUrl = resourceUrl(`/${url_path}${url_suffix || ''}`);
 
             return (
                 <li key={index} className={classes.submenuChildItem}>
                     <Link
-                        className={
-                            category.isActive
-                                ? classes.linkActive
-                                : classes.link
-                        }
+                        className={isActive ? classes.linkActive : classes.link}
                         to={categoryUrl}
                     >
-                        {category.name}
+                        {name}
                     </Link>
                 </li>
             );

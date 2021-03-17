@@ -41,9 +41,8 @@ export const useMegaMenu = (props = {}) => {
      * @returns {boolean}
      */
     const isActive = useCallback(
-        category => {
-            const categoryUrlPath =
-                '/' + category.url_path + category.url_suffix;
+        ({ url_path, url_suffix }) => {
+            const categoryUrlPath = `/${url_path}${url_suffix || ''}`;
 
             return location.pathname === categoryUrlPath;
         },
