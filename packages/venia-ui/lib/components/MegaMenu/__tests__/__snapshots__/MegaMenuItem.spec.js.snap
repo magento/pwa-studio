@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Mega menu item renders correctly it does not render submenu when item does not have children 1`] = `
+<div
+  className="megaMenuItem"
+>
+  <a
+    className="megaMenuLink"
+    href="/tops.html"
+    onClick={[Function]}
+  >
+    Tops
+  </a>
+</div>
+`;
+
+exports[`Mega menu item renders correctly it renders correctly 1`] = `
+<div
+  className="megaMenuItem"
+>
+  <a
+    className="megaMenuLinkActive"
+    href="/women.html"
+    onClick={[Function]}
+  >
+    Women
+  </a>
+  <div
+    className="submenu"
+  >
+    <div
+      className="submenuItems"
+      style={
+        Object {
+          "minWidth": NaN,
+        }
+      }
+    >
+      <div
+        className="submenuColumn"
+      >
+        <a
+          className="link"
+          href="/bottoms.html"
+          onClick={[Function]}
+        >
+          <h3
+            className="heading"
+          >
+            Bottoms
+          </h3>
+        </a>
+      </div>
+      <div
+        className="submenuColumn"
+      >
+        <a
+          className="link"
+          href="/tops.html"
+          onClick={[Function]}
+        >
+          <h3
+            className="heading"
+          >
+            Tops
+          </h3>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
