@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import { mergeClasses } from '../../../classify';
+import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './wishlistLineItem.css';
+import { bool, func, number } from 'prop-types';
 
 const WishlistLineItem = props => {
     const { id, isDisabled, onClick } = props;
@@ -24,3 +25,9 @@ const WishlistLineItem = props => {
 };
 
 export default WishlistLineItem;
+
+WishlistLineItem.defaultProps = {
+    id: number,
+    isDisabled: bool,
+    onClick: func.isRequired
+};

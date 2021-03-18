@@ -6,9 +6,10 @@ import { useWishlistDialog } from '@magento/peregrine/lib/talons/Wishlist/Wishli
 
 import Dialog from '@magento/venia-ui/lib/components/Dialog';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import CreateWishlistForm from './CreateWishlistForm/createWishlistForm';
-import FormError from '../../FormError';
-import WishlistLineItem from './wishlistLineItem';
+import FormError from '@magento/venia-ui/lib/components/FormError';
+
+import CreateWishlistForm from './CreateWishlistForm';
+import WishlistLineItem from './WishlistLineItem';
 
 import defaultClasses from './wishlistDialog.css';
 
