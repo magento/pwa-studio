@@ -42,7 +42,7 @@ export const useWishlist = (props = {}) => {
 
     const handleShowEditFavorites = useCallback(() => {
         setCurrentDialog(dialogs.EDIT_WISHLIST);
-    }, [setCurrentDialog]);
+    }, []);
 
     const [
         updateWishlist,
