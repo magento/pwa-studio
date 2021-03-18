@@ -33,9 +33,7 @@ export const useWishlistButton = props => {
             });
             setIsItemAdded(true);
         } catch (err) {
-            if (process.env.NODE_ENV !== 'production') {
-                console.log(err);
-            }
+            console.log(err);
         }
     }, [addProductToWishlist, itemOptions]);
 
