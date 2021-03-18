@@ -10,8 +10,21 @@ jest.mock('@apollo/client', () => ({
         {
             error: null
         }
-    ])
+    ]),
+    useQuery: jest.fn().mockImplementation(() => ({
+        data: {},
+        loading: false,
+        error: false
+    }))
 }));
+
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const userState = { isSignedIn: false };
+    const userApi = {};
+    const useUserContext = jest.fn(() => [userState, userApi]);
+
+    return { useUserContext };
+});
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const cartState = { cartId: 'ThisIsMyCart' };

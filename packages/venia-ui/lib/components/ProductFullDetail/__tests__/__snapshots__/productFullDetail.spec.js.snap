@@ -94,7 +94,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
     QuantityFields
   </section>
   <section
-    className="cartActions"
+    className="actions"
   >
     <button
       className="root_highPriority"
@@ -208,7 +208,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
     QuantityFields
   </section>
   <section
-    className="cartActions"
+    className="actions"
   >
     <button
       className="root_highPriority"
@@ -356,7 +356,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
     QuantityFields
   </section>
   <section
-    className="cartActions"
+    className="actions"
   >
     <button
       className="root_highPriority"
@@ -505,7 +505,7 @@ Array [
       QuantityFields
     </section>
     <section
-      className="cartActions"
+      className="actions"
     >
       <button
         className="root_highPriority"
@@ -650,7 +650,7 @@ exports[`it renders correctly 1`] = `
     QuantityFields
   </section>
   <section
-    className="cartActions"
+    className="actions"
   >
     <button
       className="root_highPriority"
@@ -794,7 +794,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
     QuantityFields
   </section>
   <section
-    className="cartActions"
+    className="actions"
   >
     <button
       className="root_highPriority"
@@ -938,7 +938,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
     QuantityFields
   </section>
   <section
-    className="cartActions"
+    className="actions"
   >
     <button
       className="root_highPriority"
@@ -1082,7 +1082,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
     QuantityFields
   </section>
   <section
-    className="cartActions"
+    className="actions"
   >
     <button
       className="root_highPriority"
@@ -1230,7 +1230,7 @@ exports[`it renders form level errors 1`] = `
     QuantityFields
   </section>
   <section
-    className="cartActions"
+    className="actions"
   >
     <button
       className="root_highPriority"
