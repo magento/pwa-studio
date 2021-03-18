@@ -259,7 +259,6 @@ export const useProductFullDetail = props => {
                 selectedOptions.push(selectedValue.uid);
             }
         });
-
         return selectedOptions;
     }, [attributeIdToValuesMap, optionSelections]);
 

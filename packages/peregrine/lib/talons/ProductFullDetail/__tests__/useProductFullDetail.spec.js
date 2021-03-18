@@ -1,8 +1,10 @@
 import React from 'react';
-import { useMutation } from '@apollo/client';
+import { act } from 'react-test-renderer';
+import { useMutation, useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useProductFullDetail } from '../useProductFullDetail';
+import { useUserContext } from '../../../context/user';
 
 jest.mock('@apollo/client', () => ({
     useMutation: jest.fn().mockImplementation(() => [
@@ -12,7 +14,11 @@ jest.mock('@apollo/client', () => ({
         }
     ]),
     useQuery: jest.fn().mockImplementation(() => ({
-        data: {},
+        data: {
+            storeConfig: {
+                magento_wishlist_general_is_enabled: true
+            }
+        },
         loading: false,
         error: false
     }))
@@ -51,9 +57,122 @@ const defaultProps = {
                     value: 99
                 }
             }
-        }
+        },
+        sku: 'MySimpleProductSku'
     }
 };
+
+describe('shouldShowWishlistButton', () => {
+    test('is false if not signed in', () => {
+        useUserContext.mockReturnValueOnce([{ isSignedIn: false }]);
+        const tree = createTestInstance(<Component {...defaultProps} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.shouldShowWishlistButton).toBeFalsy();
+    });
+
+    test('is false if wishlist is disabled in config', () => {
+        useUserContext.mockReturnValueOnce([{ isSignedIn: true }]);
+        useQuery.mockReturnValueOnce({
+            data: {
+                storeConfig: {
+                    magento_wishlist_general_is_enabled: false
+                }
+            },
+            loading: false,
+            error: false
+        });
+        const tree = createTestInstance(<Component {...defaultProps} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.shouldShowWishlistButton).toBeFalsy();
+    });
+
+    test('is true if signed in and wishlist is enabled', () => {
+        useUserContext.mockReturnValueOnce([{ isSignedIn: true }]);
+        useQuery.mockReturnValueOnce({
+            data: {
+                storeConfig: {
+                    magento_wishlist_general_is_enabled: true
+                }
+            },
+            loading: false,
+            error: false
+        });
+        const tree = createTestInstance(<Component {...defaultProps} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.shouldShowWishlistButton).toBeTruthy();
+    });
+});
+
+describe('wishlistItemOptions', () => {
+    test('returns quantity and sku for all products', () => {
+        const tree = createTestInstance(<Component {...defaultProps} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.wishlistItemOptions).toMatchObject({
+            quantity: 1,
+            sku: defaultProps.product.sku
+        });
+    });
+
+    test('returns selected_options for ConfigurableProducts', () => {
+        const optionId = 1;
+        const selectionId = 2;
+        const uid = 'foo';
+
+        const props = {
+            ...defaultProps,
+            product: {
+                ...defaultProps.product,
+                sku: 'MyConfigurableProductSku',
+                __typename: 'ConfigurableProduct',
+                configurable_options: [
+                    {
+                        attribute_id: optionId,
+                        values: [{ uid, value_index: selectionId }]
+                    }
+                ],
+                variants: []
+            }
+        };
+        const tree = createTestInstance(<Component {...props} />);
+
+        const { root } = tree;
+
+        expect(
+            root.findByType('i').props.talonProps.wishlistItemOptions
+        ).toMatchObject({
+            quantity: 1,
+            sku: props.product.sku,
+            selected_options: []
+        });
+
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange(
+                optionId,
+                selectionId
+            );
+        });
+
+        expect(
+            root.findByType('i').props.talonProps.wishlistItemOptions
+        ).toMatchObject({
+            quantity: 1,
+            sku: props.product.sku,
+            selected_options: [uid]
+        });
+    });
+});
 
 test('returns undefined category if there are no categories for the product', () => {
     const props = {
