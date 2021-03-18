@@ -35,12 +35,6 @@ jest.mock('@magento/peregrine/lib/talons/Header/useHeader', () => {
     };
 });
 
-jest.mock('@magento/peregrine/lib/context/header', () => ({
-    useHeaderContext: jest
-        .fn()
-        .mockReturnValue([{ headerRef: { current: { clientHeight: 100 } } }])
-}));
-
 test('verify Header can render in default state', () => {
     const component = createTestInstance(<Header />);
 

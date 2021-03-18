@@ -139,9 +139,11 @@ export const useCheckoutPage = (props = {}) => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS) {
             setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
 
-            shippingInformationRef.current.scrollIntoView({
-                behavior: 'smooth'
-            });
+            if (shippingInformationRef.current) {
+                shippingInformationRef.current.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         }
     }, [checkoutStep, shippingInformationRef, setCheckoutStep]);
 
@@ -149,9 +151,11 @@ export const useCheckoutPage = (props = {}) => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD) {
             setCheckoutStep(CHECKOUT_STEP.PAYMENT);
 
-            shippingMethodRef.current.scrollIntoView({
-                behavior: 'smooth'
-            });
+            if (shippingMethodRef.current) {
+                shippingMethodRef.current.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         }
     }, [checkoutStep, shippingMethodRef, setCheckoutStep]);
 
