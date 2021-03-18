@@ -374,7 +374,6 @@ export const useProductFullDetail = props => {
             isMissingOptions ||
             isAddConfigurableLoading ||
             isAddSimpleLoading,
-        isSignedIn,
         mediaGalleryEntries,
         shouldShowWishlistButton:
             isSignedIn &&
