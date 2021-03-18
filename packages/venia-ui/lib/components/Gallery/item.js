@@ -4,6 +4,7 @@ import { Link, resourceUrl } from '@magento/venia-drivers';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
+import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
 
 import { mergeClasses } from '../../classify';
 import Image from '../Image';
@@ -37,7 +38,7 @@ const ItemPlaceholder = ({ classes }) => (
 );
 
 const GalleryItem = props => {
-    const { item } = props;
+    const { handleLinkClick, item } = useGalleryItem(props);
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -50,7 +51,11 @@ const GalleryItem = props => {
 
     return (
         <div className={classes.root}>
-            <Link to={productLink} className={classes.images}>
+            <Link
+                onClick={handleLinkClick}
+                to={productLink}
+                className={classes.images}
+            >
                 <Image
                     alt={name}
                     classes={{
@@ -62,7 +67,11 @@ const GalleryItem = props => {
                     widths={IMAGE_WIDTHS}
                 />
             </Link>
-            <Link to={productLink} className={classes.name}>
+            <Link
+                onClick={handleLinkClick}
+                to={productLink}
+                className={classes.name}
+            >
                 <span>{name}</span>
             </Link>
             <div className={classes.price}>

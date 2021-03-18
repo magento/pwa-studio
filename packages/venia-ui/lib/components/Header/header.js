@@ -16,6 +16,7 @@ import defaultClasses from './header.css';
 import PageLoadingIndicator from '../PageLoadingIndicator';
 import StoreSwitcher from './storeSwitcher';
 import CurrencySwitcher from './currencySwitcher';
+import MegaMenu from '../MegaMenu';
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
@@ -68,9 +69,13 @@ const Header = props => {
                         hasBeenOffline={hasBeenOffline}
                         isOnline={isOnline}
                     />
-                    <Link to={resourceUrl('/')}>
+                    <Link
+                        to={resourceUrl('/')}
+                        className={classes.logoContainer}
+                    >
                         <Logo classes={{ logo: classes.logo }} />
                     </Link>
+                    <MegaMenu />
                     <div className={classes.secondaryActions}>
                         <SearchTrigger
                             onClick={handleSearchTriggerClick}
