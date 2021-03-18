@@ -1,12 +1,12 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
-import { useUserContext } from '../../context/user';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -234,8 +234,9 @@ export const useProductFullDetail = props => {
     // { "179" => [{ uid: "abc", value_index: 1 }, { uid: "def", value_index: 2 }]}
     const attributeIdToValuesMap = useMemo(() => {
         const map = new Map();
-
-        for (const { attribute_id, values } of product.configurable_options) {
+        // For simple items, this will be an empty map.
+        const options = product.configurable_options || [];
+        for (const { attribute_id, values } of options) {
             map.set(attribute_id, values);
         }
         return map;
