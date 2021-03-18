@@ -57,3 +57,57 @@ test('toggles open state', () => {
     expect(talonPropsResult[1].isOpen).toBe(false);
     expect(talonPropsResult[2].isOpen).toBe(true);
 });
+
+test('it handles opening list actions dialog', () => {
+    const talonPropsResult = [];
+
+    const { root } = createTestInstance(<Component />);
+    talonPropsResult.push(root.findByType('i').props.talonProps);
+
+    act(() => {
+        talonPropsResult[0].handleActionMenuClick();
+    });
+
+    talonPropsResult.push(root.findByType('i').props.talonProps);
+
+    expect(talonPropsResult[0].editFavoritesListIsOpen).toBe(false);
+    expect(talonPropsResult[0].listActionsIsOpen).toBe(false);
+    expect(talonPropsResult[1].editFavoritesListIsOpen).toBe(false);
+    expect(talonPropsResult[1].listActionsIsOpen).toBe(true);
+});
+
+test('it handles hiding dialog', () => {
+    const talonPropsResult = [];
+
+    const { root } = createTestInstance(<Component />);
+    talonPropsResult.push(root.findByType('i').props.talonProps);
+
+    act(() => {
+        talonPropsResult[0].handleHideDialogs();
+    });
+
+    talonPropsResult.push(root.findByType('i').props.talonProps);
+
+    expect(talonPropsResult[0].editFavoritesListIsOpen).toBe(false);
+    expect(talonPropsResult[0].listActionsIsOpen).toBe(false);
+    expect(talonPropsResult[1].editFavoritesListIsOpen).toBe(false);
+    expect(talonPropsResult[1].listActionsIsOpen).toBe(false);
+});
+
+test('it handles showing edit favorites dialog', () => {
+    const talonPropsResult = [];
+
+    const { root } = createTestInstance(<Component />);
+    talonPropsResult.push(root.findByType('i').props.talonProps);
+
+    act(() => {
+        talonPropsResult[0].handleShowEditFavorites();
+    });
+
+    talonPropsResult.push(root.findByType('i').props.talonProps);
+
+    expect(talonPropsResult[0].editFavoritesListIsOpen).toBe(false);
+    expect(talonPropsResult[0].listActionsIsOpen).toBe(false);
+    expect(talonPropsResult[1].editFavoritesListIsOpen).toBe(true);
+    expect(talonPropsResult[1].listActionsIsOpen).toBe(false);
+});
