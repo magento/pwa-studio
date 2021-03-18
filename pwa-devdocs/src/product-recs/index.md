@@ -7,27 +7,25 @@ You can integrate [Adobe Sensei](https://www.adobe.com/sensei.html) powered prod
 
 ![Product Recommendations for Headless Deployment](images/pwa-arch-diag-sensei.svg)
 
-At a high level, Magento's Product Recommendations are deployed as a SaaS service.
+Magento's [Product Recommendations](https://docs.magento.com/user-guide/marketing/product-recommendations.html) feature is a SaaS service powered by Adobe Sensei.
 The **Store** side includes your PWA storefront, which contains the event collector and recommendations layout template, and the backend, which includes the GraphQL endpoints, SaaS Export module, and the Admin UI.
-Adobe Sensei intelligence services are leveraged on the SaaS services side.
 
-When you install and configure Product Recommendations on PWA Studio, [user events](https://devdocs.magento.com/recommendations/events.html) begin to track and collect behavioral data.
-This data is sent to Adobe Sensei.
-Adobe Sensei then processes this behavioral data along with your catalog data and calculates product associations that are leveraged by the recommendations service.
+After you install and add the Product Recommendations components to your storefront, it will start tracking and sending behavioral data to Adobe Sensei using [user events](https://devdocs.magento.com/recommendations/events.html).
+Adobe Sensei processes this behavioral data with the catalog data in the Magento backend and calculates the product associations leveraged by the recommendations service.
 At this point, the merchant can create and manage recommendation units from the Magento Admin UI then fetch those product recommendation units from their PWA storefront.
 
 ## Install the Product Recommendations module
 
 Product Recommendations support on PWA requires installing the `venia-product-recommendations` module and the Product Recommendations Magento module.
 
-1. You can install the PWA `venia-product-recommendations` module from NPM:
+1. You can install the PWA (_name of this module_) package from the NPM registry:
 
    ```sh
    npm install @magento/venia-product-recommendations
    ```
-   This module installs the storefront events that track and collect behavioral data.
+   This package contains everything you need to collect behavioral data and render the recommendations.
 
-1. To install the Magento Product Recommendations module, see the [Magento developer documentation](https://devdocs.magento.com/recommendations/install-configure.html).
+1. To install the Magento Product Recommendations backend module, see the [Magento developer documentation](https://devdocs.magento.com/recommendations/install-configure.html).
 This module expands Magento's existing GraphQL API to include fields that are used to fetch the recommendations from the Recommendations Service.
 
 ## Create recommendation units
@@ -38,15 +36,21 @@ The difference is that after you create a recommendation unit, you then need to 
 ## Fetch recommendations
 
 There are three ways you can fetch product recommendations from your PWA storefront.
-If you are using the Venia theme, Magento provides a component that contains the code used to track and collect behavioral events as well as render the recommendation units on your page.
-If you are not using the Venia theme, there are other options available to you.
+If you are using Venia as a the base storefront, PWA Studio provides components that track and collect behavioral events as well as components that render the recommendation units on your page.
+If you are not using Venia UI components in your storefront project, there are other options available to you.
 
-### Venia component (recommended)
+### Venia UI component (recommended)
 
-The `Recommendations` component is part of the [venia-ui package]: {link technologies/overview/#custom-react-hooks-and-component %} and contains React components that collect and send behavioral data from your storefront to Adobe Sensei, fetch recommendations from the recommendations service, and render the recommendation unit on your PWA storefront page.
+The `Recommendations` component is part of the [venia-ui package]: {link technologies/overview/#custom-react-hooks-and-component %}.
+It contains React components that do the following:
+
+-  Collect and send behavioral data to Adobe Sensei
+-  Fetch recommendations from the recommendations service
+-  Render the recommendation unit to your storefront page
+
 #### Example
 
-```js
+```jsx
 //Render recommendations using visual component
 return <Recommendations pageType={CMS} />
 ```
