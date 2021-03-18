@@ -28,6 +28,7 @@ import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
 
 import defaultClasses from './checkoutPage.css';
+import ScrollAnchor from '../ScrollAnchor/scrollAnchor';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -330,20 +331,18 @@ const CheckoutPage = props => {
                     <h1 className={classes.heading}>{headerText}</h1>
                 </div>
                 {signInContainerElement}
-                <div
-                    ref={shippingInformationRef}
-                    className={classes.shipping_information_container}
-                >
-                    <ShippingInformation
-                        onSave={setShippingInformationDone}
-                        toggleActiveContent={toggleAddressBookContent}
-                    />
+                <div className={classes.shipping_information_container}>
+                    <ScrollAnchor ref={shippingInformationRef}>
+                        <ShippingInformation
+                            onSave={setShippingInformationDone}
+                            toggleActiveContent={toggleAddressBookContent}
+                        />
+                    </ScrollAnchor>
                 </div>
-                <div
-                    ref={shippingMethodRef}
-                    className={classes.shipping_method_container}
-                >
-                    {shippingMethodSection}
+                <div className={classes.shipping_method_container}>
+                    <ScrollAnchor ref={shippingMethodRef}>
+                        {shippingMethodSection}
+                    </ScrollAnchor>
                 </div>
                 <div className={classes.payment_information_container}>
                     {paymentInformationSection}

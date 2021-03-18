@@ -72,10 +72,12 @@
 
 .shipping_information_container {
     grid-column: 1 / span 1;
+    position: relative;
 }
 
 .shipping_method_container {
     grid-column: 1 / span 1;
+    position: relative;
 }
 
 .payment_information_container {

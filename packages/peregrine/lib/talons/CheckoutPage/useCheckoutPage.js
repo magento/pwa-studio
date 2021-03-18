@@ -9,7 +9,6 @@ import {
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
-import { useHeaderContext } from '../../context/header';
 
 import mergeOperations from '../../util/shallowMerge';
 
@@ -50,9 +49,6 @@ export const useCheckoutPage = (props = {}) => {
     );
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
-
-    const [headerState] = useHeaderContext();
-    const { headerRef } = headerState;
 
     const [fetchCartId] = useMutation(createCartMutation);
     const [
@@ -143,43 +139,21 @@ export const useCheckoutPage = (props = {}) => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS) {
             setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
 
-            if (shippingInformationRef.current) {
-                const {
-                    top
-                } = shippingInformationRef.current.getBoundingClientRect();
-
-                const offset =
-                    window.scrollY - headerRef.current.clientHeight - 10; // we scroll another 10 pixels to accomodate the border
-
-                window.scrollTo({
-                    top: top + offset,
-                    left: 0,
-                    behavior: 'smooth'
-                });
-            }
+            shippingInformationRef.current.scrollIntoView({
+                behavior: 'smooth'
+            });
         }
-    }, [checkoutStep, headerRef, shippingInformationRef, setCheckoutStep]);
+    }, [checkoutStep, shippingInformationRef, setCheckoutStep]);
 
     const setShippingMethodDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD) {
             setCheckoutStep(CHECKOUT_STEP.PAYMENT);
 
-            if (shippingMethodRef.current) {
-                const {
-                    top
-                } = shippingMethodRef.current.getBoundingClientRect();
-
-                const offset =
-                    window.scrollY - headerRef.current.clientHeight - 10; // we scroll another 10 pixels to accomodate the border
-
-                window.scrollTo({
-                    top: top + offset,
-                    left: 0,
-                    behavior: 'smooth'
-                });
-            }
+            shippingMethodRef.current.scrollIntoView({
+                behavior: 'smooth'
+            });
         }
-    }, [checkoutStep, headerRef, shippingMethodRef, setCheckoutStep]);
+    }, [checkoutStep, shippingMethodRef, setCheckoutStep]);
 
     const setPaymentInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
