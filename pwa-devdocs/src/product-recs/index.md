@@ -18,12 +18,12 @@ At this point, the merchant can create and manage recommendation units from the 
 
 ## Install the Product Recommendations module
 
-Product Recommendations support on PWA requires installing a PWA module and the Product Recommendations Magento module.
+Product Recommendations support on PWA requires installing the `venia-product-recommendations` module and the Product Recommendations Magento module.
 
-1. You can install the PWA (_name of this module_) module from NPM:
+1. You can install the PWA `venia-product-recommendations` module from NPM:
 
    ```sh
-   npm install @magento/recommendations-pwa
+   npm install @magento/venia-product-recommendations
    ```
    This module installs the storefront events that track and collect behavioral data.
 
