@@ -33,12 +33,8 @@ yarn build:report
 A PWA Studio extension that allows check or money order payments is now available thanks to the contribution of community member [Lars Roettig][].
 If the Magento backend has the **Check or Money Order** option enabled, this extension lets storefront customers use this payment option.
 
-Storefront developers can install this extension to add the new payment feature instead of writing custom code to support this feature.
+Storefront developers can install this extension to add the new payment feature instead of writing custom frontend code to support this feature.
 Extension developers can view the extension's [source code][] to learn how to implement their own payment methods extension.
-
-(Ask Lars about missing graphql coverage)
-
-Extension points added
 
 ![Check or Money Order payment](https://user-images.githubusercontent.com/40405790/110977749-22296200-8328-11eb-89e2-4a0116a55647.png)
 
@@ -97,6 +93,7 @@ Previous coverage (9.0.1): **84.19%**
 
 | Description                                                                                       | Change type | PR        |
 | ------------------------------------------------------------------------------------------------- | ----------- | --------- |
+| Added MegeMenu feature and components                                                             | **Feature** | [#2932][] |
 | Added ability to lazy Load/trim unused bytes in main routes                                       | **Feature** | [#2988][] |
 | Implemented Check or Money Order payment feature                                                  | **Feature** | [#2969][] |
 | Added support for Configurable Product Image setting in the backend                               | **Feature** | [#2958][] |
@@ -104,6 +101,7 @@ Previous coverage (9.0.1): **84.19%**
 | Added ability to remove saved payment methods                                                     | **Feature** | [#2943][] |
 | Created ErrorView components                                                                      | **Feature** | [#2936][] |
 | Created Debugging Reporter feature                                                                | **Feature** | [#2910][] |
+| Added link click handler inside of GalleryItem                                                    | **Feature** | [#3053][] |
 | Excluded `venia-ui/lib/components/Checkout` from Coverage Report                                  | **Update**  | [#3023][] |
 | Increased test coverage for `venia-ui/lib/components/CreateAccountPage`                           | **Update**  | [#3021][] |
 | Increased test coverage in `venia-ui/lib/components/CheckoutPage`                                 | **Update**  | [#3018][] |
@@ -130,6 +128,7 @@ Previous coverage (9.0.1): **84.19%**
 | Increase test coverage in `peregrine/lib/talons/SignIn`                                   | **Update**   | [#2998][] |
 | Updated Media Url generation logic to use store code header with a default fallback value | **Update**   | [#2941][] |
 | Moved Price Summary GraphQL fragment into Peregrine                                       | **Refactor** | [#3007][] |
+| Refactor comment on cmsPage talon to reflect why we compare against default string        | **Refactor** | [#3062][] |
 
 ### Build tools
 
@@ -146,6 +145,7 @@ Previous coverage (9.0.1): **84.19%**
 | --------------------------------------------------------------- | ----------- | --------- |
 | Added support for express server compression middleware.        | **Feature** | [#2980][] |
 | Added ability to allow `blob` types for UPWARD security headers | **Feature** | [#2985][] |
+| Added the xfwd option to the proxyMiddleware                    | **Feature** | [#2986][] |
 
 ### Extensions
 
@@ -308,3 +308,7 @@ yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento
 [#2900]: https://github.com/magento/pwa-studio/pull/2900
 [#2895]: https://github.com/magento/pwa-studio/pull/2895
 [#2873]: https://github.com/magento/pwa-studio/pull/2873
+[#2986]: https://github.com/magento/pwa-studio/pull/2986
+[#3062]: https://github.com/magento/pwa-studio/pull/3062
+[#2932]: https://github.com/magento/pwa-studio/pull/2932
+[#3053]: https://github.com/magento/pwa-studio/pull/3053
