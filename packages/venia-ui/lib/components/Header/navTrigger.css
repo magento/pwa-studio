@@ -3,3 +3,9 @@
     height: 3rem;
     width: 3rem;
 }
+
+@media (min-width: 1024px) {
+    .root {
+        display: none;
+    }
+}

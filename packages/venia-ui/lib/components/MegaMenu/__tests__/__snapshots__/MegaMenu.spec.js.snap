@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+<nav
+  className="megaMenu"
+  role="navigation"
+>
+  <div
+    className="megaMenuItem"
+  >
+    <a
+      className="megaMenuLink"
+      href="/women.html"
+      onClick={[Function]}
+    >
+      Women
+    </a>
+    <div
+      className="submenu"
+    >
+      <div
+        className="submenuItems"
+        style={
+          Object {
+            "minWidth": 20,
+          }
+        }
+      >
+        <div
+          className="submenuColumn"
+        >
+          <a
+            className="link"
+            href="/bottoms.html"
+            onClick={[Function]}
+          >
+            <h3
+              className="heading"
+            >
+              Bottoms
+            </h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="megaMenuItem"
+  >
+    <a
+      className="megaMenuLink"
+      href="/men.html"
+      onClick={[Function]}
+    >
+      Men
+    </a>
+  </div>
+  <div
+    className="megaMenuItem"
+  >
+    <a
+      className="megaMenuLink"
+      href="/gear.html"
+      onClick={[Function]}
+    >
+      Gear
+    </a>
+  </div>
+</nav>
+`;
