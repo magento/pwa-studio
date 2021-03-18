@@ -12,7 +12,7 @@ const ScrollAnchor = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         scrollIntoView() {
-            anchorRef.current.scrollIntoView();
+            anchorRef.current.scrollIntoView(...arguments);
         }
     }));
 
