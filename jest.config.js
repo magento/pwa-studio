@@ -276,7 +276,7 @@ const jestConfig = {
             ]
         })),
         configureProject(
-            'extensions/venia-virtual-products',
+            'extensions/venia-sample-virtual-products',
             'Venia Virtual Products',
             inPackage => testReactComponents(inPackage)
         ),

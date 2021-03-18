@@ -12,7 +12,7 @@ module.exports = targets => {
     talons.tap(hooks => {
         const useCategory = hooks.RootComponents.Category.useCategory;
         useCategory.wrapWith(
-            '@magento/venia-virtual-products/src/wrapUseCategory'
+            '@magento/venia-sample-virtual-products/src/wrapUseCategory'
         );
     });
 
@@ -20,7 +20,7 @@ module.exports = targets => {
     categoryListProductAttributes.tap(target => {
         target.insertAfterJSX({
             matcher: 'Link className={classes.name}',
-            importStatement: `import SubTypeAttribute from '@magento/venia-virtual-products/src/components/SubTypeAttribute'`
+            importStatement: `import SubTypeAttribute from '@magento/venia-sample-virtual-products/src/components/SubTypeAttribute'`
         });
     });
 };
