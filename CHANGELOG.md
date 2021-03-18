@@ -36,6 +36,10 @@ If the Magento backend has the **Check or Money Order** option enabled, this ext
 Storefront developers can install this extension to add the new payment feature instead of writing custom code to support this feature.
 Extension developers can view the extension's [source code][] to learn how to implement their own payment methods extension.
 
+(Ask Lars about missing graphql coverage)
+
+Extension points added
+
 ![Check or Money Order payment](https://user-images.githubusercontent.com/40405790/110977749-22296200-8328-11eb-89e2-4a0116a55647.png)
 
 [Lars Roettig]: https://github.com/larsroettig
@@ -88,6 +92,91 @@ Previous coverage (9.0.1): **84.19%**
 [coveralls.io]: <https://coveralls.io/github/magento/pwa-studio>
 
 ## Pull requests merged in this release
+
+### Venia (storefront and visual component library)
+
+| Description                                                                                       | Change type | PR        |
+| ------------------------------------------------------------------------------------------------- | ----------- | --------- |
+| Added ability to lazy Load/trim unused bytes in main routes                                       | **Feature** | [#2988][] |
+| Implemented Check or Money Order payment feature                                                  | **Feature** | [#2969][] |
+| Added support for Configurable Product Image setting in the backend                               | **Feature** | [#2958][] |
+| Created Store Switcher Groups components                                                          | **Feature** | [#2956][] |
+| Added ability to remove saved payment methods                                                     | **Feature** | [#2943][] |
+| Created ErrorView components                                                                      | **Feature** | [#2936][] |
+| Created Debugging Reporter feature                                                                | **Feature** | [#2910][] |
+| Excluded `venia-ui/lib/components/Checkout` from Coverage Report                                  | **Update**  | [#3023][] |
+| Increased test coverage for `venia-ui/lib/components/CreateAccountPage`                           | **Update**  | [#3021][] |
+| Increased test coverage in `venia-ui/lib/components/CheckoutPage`                                 | **Update**  | [#3018][] |
+| Created Venia UI App related tests                                                                | **Update**  | [#3015][] |
+| Removed "Home Page" from Title                                                                    | **Update**  | [#3012][] |
+| Increased test coverage in `venia-ui/lib/components/MagentoRoute`                                 | **Update**  | [#3006][] |
+| Increased test coverage in `venia-ui/lib/components/Main`                                         | **Update**  | [#3004][] |
+| Removed data from all persisted Apollo caches                                                     | **Update**  | [#2992][] |
+| Investigated and improved render/blocking in Venia                                                | **Update**  | [#2952][] |
+| Fixed mini cart not updating when logged in user has the same simple product already added        | **Bugfix**  | [#2996][] |
+| Fixed CMS header line height                                                                      | **Bugfix**  | [#3032][] |
+| Fixed bug where default Toasts do not fall back to using the DEFAULT_TIMEOUT                      | **Bugfix**  | [#2982][] |
+| Fixed a bug where dialog component would not reset fields on close after submitting               | **Bugfix**  | [#2960][] |
+| Set a fixed minimum height on the main page                                                       | **Bugfix**  | [#2942][] |
+| Added a page level error and disabled checkout button when there are no available payment methods | **Bugfix**  | [#2873][] |
+
+### Peregrine library
+
+| Description                                                                               | Change type  | PR        |
+| ----------------------------------------------------------------------------------------- | ------------ | --------- |
+| Added middleware to schedule sign-out                                                     | **Feature**  | [#2904][] |
+| Added support for Product URL and Category URL Settings                                   | **Feature**  | [#2895][] |
+| Increased test coverage for `packages/peregrine/lib/talons/CheckoutPage`                  | **Update**   | [#3024][] |
+| Increase test coverage in `peregrine/lib/talons/SignIn`                                   | **Update**   | [#2998][] |
+| Updated Media Url generation logic to use store code header with a default fallback value | **Update**   | [#2941][] |
+| Moved Price Summary GraphQL fragment into Peregrine                                       | **Refactor** | [#3007][] |
+
+### Build tools
+
+| Description                                                            | Change type | PR        |
+| ---------------------------------------------------------------------- | ----------- | --------- |
+| Added ability to use custom template for scaffolding                   | **Feature** | [#3025][] |
+| Added option to use custom https certificates with buildpack           | **Feature** | [#2946][] |
+| Updated compile time logic to fetch store name from the GraphQL server | **Update**  | [#3019][] |
+| Fixed command escaping in the `create-pwa` shell command               | **Bugfix**  | [#3022][] |
+
+### UPWARD
+
+| Description                                                     | Change type | PR        |
+| --------------------------------------------------------------- | ----------- | --------- |
+| Added support for express server compression middleware.        | **Feature** | [#2980][] |
+| Added ability to allow `blob` types for UPWARD security headers | **Feature** | [#2985][] |
+
+### Extensions
+
+| Description                                           | Change type | PR        |
+| ----------------------------------------------------- | ----------- | --------- |
+| Added a null check for element styling in PageBuilder | **Update**  | [#3016][] |
+
+### Documentation
+
+| Description                                     | Change type       | PR        |
+| ----------------------------------------------- | ----------------- | --------- |
+| Published a new tag list extension tutorial     | **Documentation** | [#3044][] |
+| Published new topic about extension development | **Documentation** | [#2995][] |
+| Published new topic about Targetables           | **Documentation** | [#2966][] |
+| Updated code sample in documentation            | **Update**        | [#2938][] |
+| Updated getting started section in docs         | **Update**        | [#2926][] |
+| Updated "Modify talon results" tutorial         | **Bugfix**        | [#3039][] |
+| Fixed broken link in doc topic                  | **Bugfix**        | [#3002][] |
+
+### Misc
+
+| Description                                  | Change type | PR        |
+| -------------------------------------------- | ----------- | --------- |
+| Removed auto-assign logic for new docs issue | **Update**  | [#3040][] |
+| Upgraded workbox to v6                       | **Update**  | [#2983][] |
+| Added coveralls badge back to the README     | **Update**  | [#2978][] |
+| Upgraded React to v17                        | **Update**  | [#2962][] |
+| Enabled singleton style tag                  | **Update**  | [#2906][] |
+| Updated prettier config                      | **Update**  | [#2900][] |
+| Removed cyclic dependencies                  | **Bugfix**  | [#2967][] |
+
 ## Known issues
 
 - If you are using Multi-Source Inventory(MSI), a GraphQL issue prevents users from adding a configurable product to the shopping cart on non-default store views.
@@ -169,5 +258,53 @@ yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento
 
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
 
-[#3003]: https://github.com/magento/pwa-studio/pull/3003
-[#3008]: https://github.com/magento/pwa-studio/pull/3008
+[#3044]: https://github.com/magento/pwa-studio/pull/3044
+[#3040]: https://github.com/magento/pwa-studio/pull/3040
+[#3039]: https://github.com/magento/pwa-studio/pull/3039
+[#3032]: https://github.com/magento/pwa-studio/pull/3032
+[#3025]: https://github.com/magento/pwa-studio/pull/3025
+[#3024]: https://github.com/magento/pwa-studio/pull/3024
+[#3023]: https://github.com/magento/pwa-studio/pull/3023
+[#3022]: https://github.com/magento/pwa-studio/pull/3022
+[#3021]: https://github.com/magento/pwa-studio/pull/3021
+[#3019]: https://github.com/magento/pwa-studio/pull/3019
+[#3018]: https://github.com/magento/pwa-studio/pull/3018
+[#3016]: https://github.com/magento/pwa-studio/pull/3016
+[#3015]: https://github.com/magento/pwa-studio/pull/3015
+[#3012]: https://github.com/magento/pwa-studio/pull/3012
+[#3011]: https://github.com/magento/pwa-studio/pull/3011
+[#3007]: https://github.com/magento/pwa-studio/pull/3007
+[#3006]: https://github.com/magento/pwa-studio/pull/3006
+[#3004]: https://github.com/magento/pwa-studio/pull/3004
+[#3002]: https://github.com/magento/pwa-studio/pull/3002
+[#2998]: https://github.com/magento/pwa-studio/pull/2998
+[#2996]: https://github.com/magento/pwa-studio/pull/2996
+[#2995]: https://github.com/magento/pwa-studio/pull/2995
+[#2992]: https://github.com/magento/pwa-studio/pull/2992
+[#2988]: https://github.com/magento/pwa-studio/pull/2988
+[#2985]: https://github.com/magento/pwa-studio/pull/2985
+[#2983]: https://github.com/magento/pwa-studio/pull/2983
+[#2982]: https://github.com/magento/pwa-studio/pull/2982
+[#2980]: https://github.com/magento/pwa-studio/pull/2980
+[#2978]: https://github.com/magento/pwa-studio/pull/2978
+[#2969]: https://github.com/magento/pwa-studio/pull/2969
+[#2967]: https://github.com/magento/pwa-studio/pull/2967
+[#2966]: https://github.com/magento/pwa-studio/pull/2966
+[#2962]: https://github.com/magento/pwa-studio/pull/2962
+[#2960]: https://github.com/magento/pwa-studio/pull/2960
+[#2958]: https://github.com/magento/pwa-studio/pull/2958
+[#2956]: https://github.com/magento/pwa-studio/pull/2956
+[#2952]: https://github.com/magento/pwa-studio/pull/2952
+[#2946]: https://github.com/magento/pwa-studio/pull/2946
+[#2943]: https://github.com/magento/pwa-studio/pull/2943
+[#2942]: https://github.com/magento/pwa-studio/pull/2942
+[#2941]: https://github.com/magento/pwa-studio/pull/2941
+[#2938]: https://github.com/magento/pwa-studio/pull/2938
+[#2936]: https://github.com/magento/pwa-studio/pull/2936
+[#2926]: https://github.com/magento/pwa-studio/pull/2926
+[#2910]: https://github.com/magento/pwa-studio/pull/2910
+[#2906]: https://github.com/magento/pwa-studio/pull/2906
+[#2904]: https://github.com/magento/pwa-studio/pull/2904
+[#2900]: https://github.com/magento/pwa-studio/pull/2900
+[#2895]: https://github.com/magento/pwa-studio/pull/2895
+[#2873]: https://github.com/magento/pwa-studio/pull/2873
