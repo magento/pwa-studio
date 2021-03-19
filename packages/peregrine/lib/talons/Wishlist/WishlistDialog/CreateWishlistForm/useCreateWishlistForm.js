@@ -36,9 +36,7 @@ export const useCreateWishlistForm = props => {
 
             onCreateList(wishlistId);
         } catch (err) {
-            if (process.env.NODE_ENV !== 'production') {
-                console.log(err);
-            }
+            console.log(err);
         }
     }, [createList, onCreateList, values]);
 
