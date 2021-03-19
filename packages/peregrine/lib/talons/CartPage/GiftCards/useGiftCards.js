@@ -180,7 +180,7 @@ export const useGiftCards = props => {
  * @property {GraphQLAST} applyCardMutation The mutation used to apply a gift card to the cart.
  * @property {GraphQLAST} removeCardMutation The mutation used to remove a gift card from the cart.
  *
- * @see [`giftCardQueries.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
+ * @see [`giftCardQueries.ee.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
  * for queries used in Venia
  */
 
@@ -192,7 +192,7 @@ export const useGiftCards = props => {
  * @property {GraphQLAST} appliedCardsQuery The query used to get the gift cards currently applied to the cart.
  * @property {GraphQLAST} cardBalanceQuery The query used to get the gift cards currently applied to the cart.
  *
- * @see [`giftCardQueries.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
+ * @see [`giftCardQueries.ee.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
  * for queries used in Venia
  */
 
