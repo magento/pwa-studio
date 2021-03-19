@@ -1,12 +1,13 @@
 import { gql } from '@apollo/client';
 
+import { WishlistFragment } from './wishlistFragment.gql';
+
 export const GET_CUSTOMER_WISHLIST = gql`
     query GetCustomerWishlist {
         customer {
             id
             wishlists {
                 id
-                items_count
                 items_v2 {
                     items {
                         id
@@ -37,12 +38,11 @@ export const GET_CUSTOMER_WISHLIST = gql`
                         }
                     }
                 }
-                name
-                visibility
-                sharing_code
+                ...WishlistFragment
             }
         }
     }
+    ${WishlistFragment}
 `;
 
 export default {

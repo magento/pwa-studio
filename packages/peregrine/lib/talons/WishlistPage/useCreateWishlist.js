@@ -18,6 +18,7 @@ export const useCreateWishlist = (props = {}) => {
     );
     const { createWishlistMutation, getCustomerWishlistQuery } = operations;
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [displayError, setDisplayError] = useState(false);
     const [
         createWishlist,
         { error: createWishlistError, loading }
@@ -25,6 +26,7 @@ export const useCreateWishlist = (props = {}) => {
 
     const handleShowModal = useCallback(() => {
         setIsModalOpen(true);
+        setDisplayError(false);
     }, []);
 
     const handleHideModal = useCallback(() => {
@@ -43,6 +45,7 @@ export const useCreateWishlist = (props = {}) => {
                 });
                 setIsModalOpen(false);
             } catch (error) {
+                setDisplayError(true);
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
                 }
@@ -52,8 +55,11 @@ export const useCreateWishlist = (props = {}) => {
     );
 
     const errors = useMemo(
-        () => new Map([['createWishlistMutation', createWishlistError]]),
-        [createWishlistError]
+        () =>
+            displayError
+                ? new Map([['createWishlistMutation', createWishlistError]])
+                : new Map(),
+        [createWishlistError, displayError]
     );
 
     return {

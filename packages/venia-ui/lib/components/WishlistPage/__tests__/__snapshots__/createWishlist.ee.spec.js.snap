@@ -81,7 +81,7 @@ exports[`renders correctly 1`] = `
     isOpen={false}
     onCancel={[MockFunction handleHideModal]}
     onConfirm={[MockFunction handleCreateList]}
-    shouldUnmountOnHide={false}
+    shouldUnmountOnHide={true}
     title="New Favorites List"
   >
     <div
@@ -93,7 +93,7 @@ exports[`renders correctly 1`] = `
         <span
           className="errorMessage"
         >
-          Wish list "Test" already exists., Only 5 wish list(s) can be created., Form Error
+          Form Error
         </span>
       </div>
       <div

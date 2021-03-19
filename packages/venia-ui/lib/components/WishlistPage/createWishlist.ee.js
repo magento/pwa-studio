@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { shape, string } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { PlusSquare } from 'react-feather';
@@ -63,51 +63,6 @@ const CreateWishlist = props => {
         }
     ];
 
-    const errors = useMemo(() => {
-        const translatedErrors = [];
-        Array.from(formErrors.values()).forEach(error => {
-            if (!error) return;
-            if (error.message.includes('already exists')) {
-                translatedErrors.push(
-                    new Error(
-                        formatMessage(
-                            {
-                                id: 'wishlist.nameExistsError',
-                                defaultMessage:
-                                    'Wish list "{name}" already exists.'
-                            },
-                            {
-                                name: error.message.match(
-                                    /^Wish list "(?<name>.+)" already exists.$/
-                                ).groups.name
-                            }
-                        )
-                    )
-                );
-            } else if (error.message.includes('wish list(s) can be created')) {
-                translatedErrors.push(
-                    new Error(
-                        formatMessage(
-                            {
-                                id: 'wishlist.maxLimitError',
-                                defaultMessage:
-                                    'Only {limit} wish list(s) can be created.'
-                            },
-                            {
-                                limit: error.message.match(
-                                    /^Only (?<limit>\d+) wish list\(s\) can be created\.$/
-                                ).groups.limit
-                            }
-                        )
-                    )
-                );
-            } else {
-                translatedErrors.push(new Error(error.message));
-            }
-        });
-        return translatedErrors;
-    }, [formErrors, formatMessage]);
-
     return (
         <div className={classes.root}>
             <button
@@ -146,7 +101,7 @@ const CreateWishlist = props => {
                 isOpen={isModalOpen}
                 onCancel={handleHideModal}
                 onConfirm={handleCreateList}
-                shouldUnmountOnHide={false}
+                shouldUnmountOnHide={true}
                 title={formatMessage({
                     id: 'createWishlist.dialogTitle',
                     defaultMessage: 'New Favorites List'
@@ -154,7 +109,7 @@ const CreateWishlist = props => {
                 shouldDisableConfirmButton={loading}
             >
                 <div className={classes.form}>
-                    <FormError errors={errors} />
+                    <FormError errors={Array.from(formErrors.values())} />
                     <Field
                         classes={{ root: classes.listName }}
                         label={formatMessage({

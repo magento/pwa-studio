@@ -15,12 +15,7 @@ jest.mock(
             handleHideModal: jest.fn().mockName('handleHideModal'),
             handleShowModal: jest.fn().mockName('handleShowModal'),
             isModalOpen: false,
-            formErrors: new Map([
-                ['error1', new Error('Wish list "Test" already exists.')],
-                ['error2', new Error('Only 5 wish list(s) can be created.')],
-                ['error3', new Error('Form Error')],
-                ['error4', undefined]
-            ])
+            formErrors: new Map([['error3', new Error('Form Error')]])
         })
     })
 );

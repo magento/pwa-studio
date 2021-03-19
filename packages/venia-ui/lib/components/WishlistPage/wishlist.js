@@ -49,15 +49,19 @@ const Wishlist = props => {
         </p>
     );
 
+    const wishlistName = name ? (
+        <div className={classes.nameContainer}>
+            <h2 className={classes.name}>{name}</h2>
+            <span className={classes.visibility}>{visibilityLabel}</span>
+        </div>
+    ) : (
+        <div className={classes.nameContainer} />
+    );
+
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                <div className={classes.nameContainer}>
-                    <h2 className={classes.name}>{name}</h2>
-                    <span className={classes.visibility}>
-                        {visibilityLabel}
-                    </span>
-                </div>
+                {wishlistName}
                 <div className={classes.buttonsContainer}>
                     <button onClick={handleActionMenuClick} type="button">
                         {ActionMenuIcon}
