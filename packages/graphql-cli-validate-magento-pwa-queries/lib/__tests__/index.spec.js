@@ -51,21 +51,23 @@ describe('handler', () => {
     const mockArgs = {
         project: 'myApp'
     };
-    const mockContext = {
-        getProjectConfig: jest.fn(() => {
-            return Promise.resolve({
-                config: {
-                    extensions: {
-                        'validate-magento-pwa-queries': {
-                            clients: ['apollo', 'literal'],
-                            filesGlob: '*.graphql',
-                            ignore: ['*.js']
-                        }
-                    },
-                    schemaPath: 'unit test'
+    const getProjectConfig = jest.fn().mockResolvedValue({
+        config: {
+            extensions: {
+                'validate-magento-pwa-queries': {
+                    clients: ['apollo', 'literal'],
+                    filesGlob: '*.graphql',
+                    ignore: ['*.js'],
+                    magentoBackendEdition: 'CE',
+                    ceFilesGlob: 'ceFilesGlob',
+                    eeFilesGlob: 'eeFilesGlob'
                 }
-            });
-        }),
+            },
+            schemaPath: 'unit test'
+        }
+    });
+    const mockContext = {
+        getProjectConfig,
         spinner: {
             fail: jest.fn(),
             start: jest.fn(),
@@ -226,5 +228,33 @@ describe('handler', () => {
 
         expect(mockConsoleWarn).toHaveBeenCalled();
         expect(mockProcessExit).toHaveBeenCalledWith(1);
+    });
+
+    test('it ignores EE files if magentoBackendEdition is CE', async () => {
+        await plugin.handler(mockContext, mockArgs);
+
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('eeFilesGlob');
+    });
+
+    test('it ignores CE files if magentoBackendEdition is EE', async () => {
+        getProjectConfig.mockResolvedValueOnce({
+            config: {
+                extensions: {
+                    'validate-magento-pwa-queries': {
+                        clients: ['apollo', 'literal'],
+                        filesGlob: '*.graphql',
+                        ignore: ['*.js'],
+                        magentoBackendEdition: 'EE',
+                        ceFilesGlob: 'ceFilesGlob',
+                        eeFilesGlob: 'eeFilesGlob'
+                    }
+                },
+                schemaPath: 'unit test'
+            }
+        });
+
+        await plugin.handler(mockContext, mockArgs);
+
+        expect(globSyncSpy.mock.calls[0][1].ignore).toContain('ceFilesGlob');
     });
 });
