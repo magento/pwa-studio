@@ -258,6 +258,154 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
 </form>
 `;
 
+exports[`it renders an error for an invalid cart 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={
+      Array [
+        [Error: There was a problem with your cart. Please refresh the page and try adding the item once more.],
+      ]
+    }
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </h2>
+    QuantityFields
+  </section>
+  <section
+    className="actions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      type="submit"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Add to Cart"
+          id="productFullDetail.cartAction"
+        />
+      </span>
+    </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Product Description"
+        id="productFullDetail.productDescription"
+      />
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="SKU"
+        id="global.sku"
+      />
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
 exports[`it renders an error for an invalid user token when adding to cart 1`] = `
 <form
   className="root"
@@ -1246,6 +1394,157 @@ exports[`it renders form level errors 1`] = `
         />
       </span>
     </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Product Description"
+        id="productFullDetail.productDescription"
+      />
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="SKU"
+        id="global.sku"
+      />
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
+exports[`renders a WishlistButton 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <require('../ProductOptions')
+      onSelectionChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "attribute_code": "configurable_option",
+            "attribute_id": "1",
+            "id": 1,
+            "label": "Configurable Option",
+            "values": Array [
+              Object {
+                "default_label": "Option 1",
+                "label": "Option 1",
+                "store_label": "Option 1",
+                "use_default_value": true,
+                "value_index": 1,
+              },
+              Object {
+                "default_label": "Option 2",
+                "label": "Option 2",
+                "store_label": "Option 2",
+                "use_default_value": true,
+                "value_index": 2,
+              },
+            ],
+          },
+        ]
+      }
+    />
+  </section>
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </h2>
+    QuantityFields
+  </section>
+  <section
+    className="actions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      type="submit"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Add to Cart"
+          id="productFullDetail.cartAction"
+        />
+      </span>
+    </button>
+    <require('../Wishlist/WishlistButton')
+      itemOptions={
+        Object {
+          "foo": "bar",
+        }
+      }
+    />
   </section>
   <section
     className="description"
