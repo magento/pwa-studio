@@ -13,7 +13,7 @@ exports[`it renders correctly 1`] = `
       <div
         className="stockStatusMessageContainer"
       >
-        <StockStatusMessage
+        <mock-StockStatusMessage
           cartItems={
             Array [
               Object {
@@ -45,13 +45,24 @@ exports[`it renders correctly 1`] = `
       <span
         className="quantity"
       >
-        10 Items
+        <mock-FormattedMessage
+          defaultMessage="Items"
+          id="miniCart.totalQuantity"
+          values={
+            Object {
+              "totalQuantity": 10,
+            }
+          }
+        />
       </span>
       <span
         className="price"
       >
         <span>
-          Subtotal: 
+          <mock-FormattedMessage
+            defaultMessage="Subtotal: "
+            id="miniCart.subtotal"
+          />
         </span>
         <span>
           $420
@@ -61,9 +72,7 @@ exports[`it renders correctly 1`] = `
     <div
       className="body"
     >
-      <div>
-        Product List
-      </div>
+      <mock-ProductList />
     </div>
     <div
       className="footer"
@@ -104,7 +113,10 @@ exports[`it renders correctly 1`] = `
               />
             </svg>
           </span>
-          CHECKOUT
+          <mock-FormattedMessage
+            defaultMessage="CHECKOUT"
+            id="miniCart.checkout"
+          />
         </span>
       </button>
       <button
@@ -115,7 +127,10 @@ exports[`it renders correctly 1`] = `
         <span
           className="content"
         >
-          Edit Shopping Bag
+          <mock-FormattedMessage
+            defaultMessage="Edit Shopping Bag"
+            id="miniCart.editCartButton"
+          />
         </span>
       </button>
     </div>

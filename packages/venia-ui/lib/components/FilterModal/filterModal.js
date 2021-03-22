@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
@@ -12,8 +13,6 @@ import FilterBlock from './filterBlock';
 import FilterFooter from './filterFooter';
 import defaultClasses from './filterModal.css';
 
-import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
-
 /**
  * A view that displays applicable and applied filters.
  *
@@ -21,10 +20,7 @@ import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectio
  */
 const FilterModal = props => {
     const { filters } = props;
-    const talonProps = useFilterModal({
-        filters,
-        queries: { filterIntrospection: FILTER_INTROSPECTION }
-    });
+    const talonProps = useFilterModal({ filters });
     const {
         filterApi,
         filterItems,
@@ -62,7 +58,10 @@ const FilterModal = props => {
     const clearAll = filterState.size ? (
         <div className={classes.action}>
             <LinkButton type="button" onClick={handleReset}>
-                {'Clear all'}
+                <FormattedMessage
+                    id={'filterModal.action'}
+                    defaultMessage={'Clear all'}
+                />
             </LinkButton>
         </div>
     ) : null;
@@ -72,7 +71,12 @@ const FilterModal = props => {
             <aside className={modalClass}>
                 <div className={classes.body}>
                     <div className={classes.header}>
-                        <h2 className={classes.headerTitle}>{'Filters'}</h2>
+                        <h2 className={classes.headerTitle}>
+                            <FormattedMessage
+                                id={'filterModal.headerTitle'}
+                                defaultMessage={'Filters'}
+                            />
+                        </h2>
                         <button onClick={handleClose}>
                             <Icon src={CloseIcon} />
                         </button>

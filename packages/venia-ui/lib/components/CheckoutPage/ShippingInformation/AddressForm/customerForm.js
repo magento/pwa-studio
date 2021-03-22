@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Form, Text } from 'informed';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { useCustomerForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm';
@@ -11,6 +12,7 @@ import Country from '../../../Country';
 import Field, { Message } from '../../../Field';
 import FormError from '../../../FormError';
 import Region from '../../../Region';
+import Postcode from '../../../Postcode';
 import TextInput from '../../../TextInput';
 import defaultClasses from './customerForm.css';
 import CustomerFormOperations from './customerForm.gql';
@@ -35,10 +37,16 @@ const CustomerForm = props => {
         isSaving,
         isUpdate
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     if (isLoading) {
         return (
-            <LoadingIndicator>Fetching Customer Details...</LoadingIndicator>
+            <LoadingIndicator>
+                <FormattedMessage
+                    id={'customerForm.loading'}
+                    defaultMessage={'Fetching Customer Details...'}
+                />
+            </LoadingIndicator>
         );
     }
 
@@ -46,10 +54,17 @@ const CustomerForm = props => {
 
     const emailRow = !hasDefaultShipping ? (
         <div className={classes.email}>
-            <Field id="email" label="Email">
+            <Field
+                id="email"
+                label={formatMessage({
+                    id: 'global.email',
+                    defaultMessage: 'Email'
+                })}
+            >
                 <TextInput
                     disabled={true}
                     field="email"
+                    id="email"
                     validate={isRequired}
                 />
             </Field>
@@ -59,25 +74,39 @@ const CustomerForm = props => {
     const formMessageRow = !hasDefaultShipping ? (
         <div className={classes.formMessage}>
             <Message>
-                {
-                    'The shipping address you enter will be saved to your address book and set as your default for future purchases.'
-                }
+                <FormattedMessage
+                    id={'customerForm.formMessage'}
+                    defaultMessage={
+                        'The shipping address you enter will be saved to your address book and set as your default for future purchases.'
+                    }
+                />
             </Message>
         </div>
     ) : null;
 
     const cancelButton = isUpdate ? (
         <Button disabled={isSaving} onClick={handleCancel} priority="low">
-            {'Cancel'}
+            <FormattedMessage
+                id={'global.cancelButton'}
+                defaultMessage={'Cancel'}
+            />
         </Button>
     ) : null;
 
     const submitButtonText = !hasDefaultShipping
-        ? 'Save and Continue'
+        ? formatMessage({
+              id: 'global.saveAndContinueButton',
+              defaultMessage: 'Save and Continue'
+          })
         : isUpdate
-        ? 'Update'
-        : 'Add';
-
+        ? formatMessage({
+              id: 'global.updateButton',
+              defaultMessage: 'Update'
+          })
+        : formatMessage({
+              id: 'global.addButton',
+              defaultMessage: 'Add'
+          });
     const submitButtonProps = {
         disabled: isSaving,
         priority: !hasDefaultShipping ? 'normal' : 'high',
@@ -90,7 +119,10 @@ const CustomerForm = props => {
                 disabled={!!initialValues.default_shipping}
                 id="default_shipping"
                 field="default_shipping"
-                label="Make this my default address"
+                label={formatMessage({
+                    id: 'customerForm.defaultShipping',
+                    defaultMessage: 'Make this my default address'
+                })}
             />
         </div>
     ) : (
@@ -108,19 +140,33 @@ const CustomerForm = props => {
                 {formMessageRow}
                 {emailRow}
                 <div className={classes.firstname}>
-                    <Field id="firstname" label="First Name">
+                    <Field
+                        id="customer_firstname"
+                        label={formatMessage({
+                            id: 'global.firstName',
+                            defaultMessage: 'First Name'
+                        })}
+                    >
                         <TextInput
                             disabled={!hasDefaultShipping}
                             field="firstname"
+                            id="customer_firstname"
                             validate={isRequired}
                         />
                     </Field>
                 </div>
                 <div className={classes.lastname}>
-                    <Field id="lastname" label="Last Name">
+                    <Field
+                        id="customer_lastname"
+                        label={formatMessage({
+                            id: 'global.lastName',
+                            defaultMessage: 'Last Name'
+                        })}
+                    >
                         <TextInput
                             disabled={!hasDefaultShipping}
                             field="lastname"
+                            id="customer_lastname"
                             validate={isRequired}
                         />
                     </Field>
@@ -129,22 +175,45 @@ const CustomerForm = props => {
                     <Country validate={isRequired} />
                 </div>
                 <div className={classes.street0}>
-                    <Field id="street0" label="Street Address">
-                        <TextInput field="street[0]" validate={isRequired} />
+                    <Field
+                        id="customer_street0"
+                        label={formatMessage({
+                            id: 'global.streetAddress',
+                            defaultMessage: 'Street Address'
+                        })}
+                    >
+                        <TextInput
+                            field="street[0]"
+                            validate={isRequired}
+                            id="customer_street0"
+                        />
                     </Field>
                 </div>
                 <div className={classes.street1}>
                     <Field
-                        id="street1"
-                        label="Street Address 2"
+                        id="customer_street1"
+                        label={formatMessage({
+                            id: 'global.streetAddress2',
+                            defaultMessage: 'Street Address 2'
+                        })}
                         optional={true}
                     >
-                        <TextInput field="street[1]" />
+                        <TextInput field="street[1]" id="customer_street1" />
                     </Field>
                 </div>
                 <div className={classes.city}>
-                    <Field id="city" label="City">
-                        <TextInput field="city" validate={isRequired} />
+                    <Field
+                        id="customer_city"
+                        label={formatMessage({
+                            id: 'global.city',
+                            defaultMessage: 'City'
+                        })}
+                    >
+                        <TextInput
+                            field="city"
+                            validate={isRequired}
+                            id="customer_city"
+                        />
                     </Field>
                 </div>
                 <div className={classes.region}>
@@ -156,13 +225,21 @@ const CustomerForm = props => {
                     />
                 </div>
                 <div className={classes.postcode}>
-                    <Field id="postcode" label="ZIP / Postal Code">
-                        <TextInput field="postcode" validate={isRequired} />
-                    </Field>
+                    <Postcode validate={isRequired} />
                 </div>
                 <div className={classes.telephone}>
-                    <Field id="telephone" label="Phone Number">
-                        <TextInput field="telephone" validate={isRequired} />
+                    <Field
+                        id="customer_telephone"
+                        label={formatMessage({
+                            id: 'global.phoneNumber',
+                            defaultMessage: 'Phone Number'
+                        })}
+                    >
+                        <TextInput
+                            field="telephone"
+                            validate={isRequired}
+                            id="customer_telephone"
+                        />
                     </Field>
                 </div>
                 {defaultShippingElement}

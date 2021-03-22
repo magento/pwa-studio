@@ -31,6 +31,14 @@ staticFromRoot:
             resolver: inline
             inline:
                 content-type: contentTypeFromExtension
+                cache-control:
+                    when:
+                        - matches: env.NODE_ENV
+                          pattern: 'production'
+                          use:
+                            inline: public, max-age=604800
+                    default:
+                        inline: no-cache, no-store, must-revalidate
         body:
             resolver: file
             parse:

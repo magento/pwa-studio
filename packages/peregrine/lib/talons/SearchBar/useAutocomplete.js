@@ -22,7 +22,10 @@ export const useAutocomplete = props => {
     } = props;
 
     // Prepare to run the queries.
-    const [runSearch, productResult] = useLazyQuery(getAutocompleteResults);
+    const [runSearch, productResult] = useLazyQuery(getAutocompleteResults, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
 
     // Get the search term from the field.
     const { value } = useFieldState('search_query');
@@ -52,9 +55,12 @@ export const useAutocomplete = props => {
     const hasResult = products && products.items;
     const resultCount = products && products.total_count;
     const displayResult = valid && hasResult;
+    const invalidCharacterLength = !valid && value ? true : false;
     let messageType = '';
 
-    if (error) {
+    if (invalidCharacterLength) {
+        messageType = 'INVALID_CHARACTER_LENGTH';
+    } else if (error) {
         messageType = 'ERROR';
     } else if (loading) {
         messageType = 'LOADING';

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { shape, string, bool, func, arrayOf } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useAddressCard } from '@magento/peregrine/lib/talons/CheckoutPage/AddressBook/useAddressCard';
@@ -16,7 +17,11 @@ const AddressCard = props => {
         onSelection
     } = props;
 
-    const talonProps = useAddressCard({ address, onEdit, onSelection });
+    const talonProps = useAddressCard({
+        address,
+        onEdit,
+        onSelection
+    });
     const {
         handleClick,
         handleEditAddress,
@@ -50,7 +55,9 @@ const AddressCard = props => {
     const editButton = isSelected ? (
         <button className={classes.editButton} onClick={handleEditAddress}>
             <Icon
-                classes={{ icon: classes.editIcon }}
+                classes={{
+                    icon: classes.editIcon
+                }}
                 size={16}
                 src={EditIcon}
             />
@@ -58,8 +65,16 @@ const AddressCard = props => {
     ) : null;
 
     const defaultBadge = default_shipping ? (
-        <span className={classes.defaultBadge}>{'Default'}</span>
+        <span className={classes.defaultBadge}>
+            <FormattedMessage
+                id={'addressCard.defaultText'}
+                defaultMessage={'Default'}
+            />
+        </span>
     ) : null;
+
+    const nameString = `${firstname} ${lastname}`;
+    const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
 
     return (
         <div
@@ -71,9 +86,9 @@ const AddressCard = props => {
         >
             {editButton}
             {defaultBadge}
-            <span className={classes.name}>{`${firstname} ${lastname}`}</span>
+            <span className={classes.name}>{nameString}</span>
             {streetRows}
-            <span>{`${city}, ${region} ${postcode} ${country_code}`}</span>
+            <span>{additionalAddressString}</span>
         </div>
     );
 };

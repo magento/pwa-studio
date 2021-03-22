@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handles no data prop 1`] = `
+Object {
+  "categoryDescription": null,
+  "categoryName": null,
+  "filters": null,
+  "handleLoadFilters": [Function],
+  "handleOpenFilters": [Function],
+  "items": Array [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ],
+  "loadFilters": false,
+  "pageTitle": "Venia",
+  "totalPagesFromData": null,
+}
+`;
+
+exports[`returns the proper shape 1`] = `
+Object {
+  "categoryDescription": "Jewelry category",
+  "categoryName": "Jewelry",
+  "filters": Array [
+    Object {
+      "label": "Label",
+    },
+  ],
+  "handleLoadFilters": [Function],
+  "handleOpenFilters": [Function],
+  "items": Array [
+    Object {
+      "id": 1,
+      "name": "Ring",
+    },
+    Object {
+      "id": 2,
+      "name": "Necklace",
+    },
+  ],
+  "loadFilters": false,
+  "pageTitle": "Jewelry - Venia",
+  "totalPagesFromData": 1,
+}
+`;

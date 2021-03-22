@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
+import mergeOperations from '../../util/shallowMerge';
+
+import DEFAULT_OPERATIONS from './breadcrumbs.gql';
+
 // Just incase the data is unsorted, lets sort it.
 const sortCrumbs = (a, b) => a.category_level > b.category_level;
 
@@ -28,14 +32,18 @@ const getPath = (path, suffix) => {
  * }}
  */
 export const useBreadcrumbs = props => {
-    const { categoryId, query } = props;
+    const { categoryId } = props;
 
-    const { data, loading, error } = useQuery(query, {
-        variables: { category_id: categoryId }
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getBreadcrumbsQuery } = operations;
+
+    const { data, loading, error } = useQuery(getBreadcrumbsQuery, {
+        variables: { category_id: categoryId },
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
     });
 
-    // Default to .html for when the query has not yet returned.
-    const categoryUrlSuffix = (data && data.category.url_suffix) || '.html';
+    const categoryUrlSuffix = (data && data.category.url_suffix) || '';
 
     // When we have breadcrumb data sort and normalize it for easy rendering.
     const normalizedData = useMemo(() => {

@@ -152,3 +152,19 @@ test('renders a summary message', () => {
         })
     );
 });
+
+test('renders a message invalid character length', () => {
+    createTestInstance(
+        <Form>
+            <Text field="search_query" initialValue="a" />
+            <Component valid={false} visible={true} />
+        </Form>
+    );
+
+    expect(log).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+            messageType: 'INVALID_CHARACTER_LENGTH'
+        })
+    );
+});

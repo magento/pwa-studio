@@ -19,3 +19,9 @@ Array [
   ],
 ]
 `;
+
+exports[`throws on load if variable defs are invalid 1`] = `
+"Bad environment variable definition. Section inscrutable variable {
+ \\"type\\": \\"ineffable\\"
+} declares an unknown type ineffable"
+`;

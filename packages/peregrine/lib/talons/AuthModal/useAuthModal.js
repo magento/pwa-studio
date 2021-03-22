@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
+import mergeOperations from '../../util/shallowMerge';
 import { useUserContext } from '../../context/user';
-import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import DEFAULT_OPERATIONS from './authModal.gql';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -18,7 +18,7 @@ const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
  * @param {function} props.showMainMenu - callback that shows main menu view
  * @param {function} props.showMyAccount - callback that shows my account view
  * @param {function} props.showSignIn - callback that shows signin view
- * @param {DocumentNode} props.signOutMutation - mutation to call when signing out
+ * @param {DocumentNode} props.operations.signOutMutation - mutation to call when signing out
  * @param {string} props.view - string that represents the current view
  *
  * @return {{
@@ -40,11 +40,12 @@ export const useAuthModal = props => {
         showMainMenu,
         showMyAccount,
         showSignIn,
-        signOutMutation,
         view
     } = props;
 
-    const apolloClient = useApolloClient();
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { signOutMutation } = operations;
+
     const [isSigningOut, setIsSigningOut] = useState(false);
     const [username, setUsername] = useState('');
     const [{ currentUser, isSignedIn }, { signOut }] = useUserContext();
@@ -85,14 +86,12 @@ export const useAuthModal = props => {
 
         // Delete cart/user data from the redux store.
         await signOut({ revokeToken });
-        await clearCartDataFromCache(apolloClient);
-        await clearCustomerDataFromCache(apolloClient);
 
         // Refresh the page as a way to say "re-initialize". An alternative
         // would be to call apolloClient.resetStore() but that would require
         // a large refactor.
         history.go(0);
-    }, [apolloClient, history, revokeToken, signOut]);
+    }, [history, revokeToken, signOut]);
 
     return {
         handleCancel,

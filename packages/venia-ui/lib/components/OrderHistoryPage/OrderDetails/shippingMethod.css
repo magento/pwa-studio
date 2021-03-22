@@ -1,0 +1,18 @@
+.root {
+    display: grid;
+    row-gap: 0.375rem;
+}
+
+.heading {
+    font-weight: var(--venia-global-fontWeight-bold);
+    padding-bottom: 0.375rem;
+}
+
+.method:empty {
+    display: none;
+}
+
+.tracking {
+    display: grid;
+    row-gap: 0.375rem;
+}

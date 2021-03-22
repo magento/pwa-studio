@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { object, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useEditModal';
@@ -31,7 +32,10 @@ const EditModal = props => {
             <aside className={rootClass}>
                 <div className={classes.header}>
                     <span className={classes.headerText}>
-                        {'Edit Shipping Information'}
+                        <FormattedMessage
+                            id={'checkoutPage.editShippingInfo'}
+                            defaultMessage={'Edit Shipping Information'}
+                        />
                     </span>
                     <button
                         className={classes.closeButton}

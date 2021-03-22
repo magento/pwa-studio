@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
-import { string, number, shape, func, arrayOf } from 'prop-types';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { string, number, shape, func, arrayOf, oneOf } from 'prop-types';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
 
@@ -10,6 +11,7 @@ import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
+import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
 import defaultClasses from './item.css';
 
@@ -22,16 +24,23 @@ const Item = props => {
         configurable_options,
         handleRemoveItem,
         prices,
-        closeMiniCart
+        closeMiniCart,
+        configurableThumbnailSource
     } = props;
 
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, propClasses);
     const itemLink = useMemo(
-        () => resourceUrl(`/${product.url_key}${product.url_suffix}`),
+        () => resourceUrl(`/${product.url_key}${product.url_suffix || ''}`),
         [product.url_key, product.url_suffix]
     );
     const stockStatusText =
-        product.stock_status === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
+        product.stock_status === 'OUT_OF_STOCK'
+            ? formatMessage({
+                  id: 'productList.outOfStock',
+                  defaultMessage: 'Out-of-stock'
+              })
+            : '';
 
     const { isDeleting, removeItem } = useItem({
         id,
@@ -39,6 +48,7 @@ const Item = props => {
     });
 
     const rootClass = isDeleting ? classes.root_disabled : classes.root;
+    const configured_variant = configuredVariant(configurable_options, product);
 
     return (
         <div className={rootClass}>
@@ -49,9 +59,16 @@ const Item = props => {
             >
                 <Image
                     alt={product.name}
-                    classes={{ root: classes.thumbnail }}
+                    classes={{
+                        root: classes.thumbnail
+                    }}
                     width={100}
-                    resource={product.thumbnail.url}
+                    resource={
+                        configurableThumbnailSource === 'itself' &&
+                        configured_variant
+                            ? configured_variant.thumbnail.url
+                            : product.thumbnail.url
+                    }
                 />
             </Link>
             <Link
@@ -67,13 +84,22 @@ const Item = props => {
                     options: classes.options
                 }}
             />
-            <span className={classes.quantity}>{`Qty : ${quantity}`}</span>
+            <span className={classes.quantity}>
+                <FormattedMessage
+                    id={'productList.quantity'}
+                    defaultMessage={'Qty :'}
+                    values={{ quantity }}
+                />
+            </span>
             <span className={classes.price}>
                 <Price
                     currencyCode={prices.price.currency}
                     value={prices.price.value}
                 />
-                {' ea.'}
+                <FormattedMessage
+                    id={'productList.each'}
+                    defaultMessage={' ea.'}
+                />
             </span>
             <span className={classes.stockStatus}>{stockStatusText}</span>
             <button
@@ -85,7 +111,9 @@ const Item = props => {
                 <Icon
                     size={16}
                     src={DeleteIcon}
-                    classes={{ icon: classes.editIcon }}
+                    classes={{
+                        icon: classes.editIcon
+                    }}
                 />
             </button>
         </div>
@@ -127,5 +155,11 @@ Item.propTypes = {
             value: number,
             currency: string
         })
-    })
+    }),
+    configured_variant: shape({
+        thumbnail: shape({
+            url: string
+        })
+    }),
+    configurableThumbnailSource: oneOf(['parent', 'itself'])
 };

@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
 import { Form } from 'informed';
 import { func, shape, string } from 'prop-types';
@@ -9,10 +10,9 @@ import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
 import { ShippingInformationFragment } from '../../../CheckoutPage/ShippingInformation/shippingInformationFragments.gql';
 import Country from '../../../Country';
-import Field from '../../../Field';
 import FormError from '../../../FormError';
 import Region from '../../../Region';
-import TextInput from '../../../TextInput';
+import Postcode from '../../../Postcode';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import defaultClasses from './shippingForm.css';
 import { GET_SHIPPING_METHODS } from './shippingMethods.gql';
@@ -36,12 +36,28 @@ const ShippingForm = props => {
         handleZipChange,
         isSetShippingLoading
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const shippingStatusMessage = isSetShippingLoading
+        ? formatMessage({
+              id: 'shippingForm.loading',
+              defaultMessage: 'Loading Methods...'
+          })
+        : formatMessage({
+              id: 'shippingForm.getShippingOptions',
+              defaultMessage: 'Get Shipping Options'
+          });
+
     return (
         <Fragment>
-            <h3 className={classes.formTitle}>Destination</h3>
+            <h3 className={classes.formTitle}>
+                <FormattedMessage
+                    id={'shippingForm.formTitle'}
+                    defaultMessage={'Destination'}
+                />
+            </h3>
             <FormError errors={Array.from(errors.values)} />
             <Form
                 className={classes.root}
@@ -50,23 +66,21 @@ const ShippingForm = props => {
             >
                 <Country validate={isRequired} />
                 <Region validate={isRequired} />
-                <Field id="zip" label="ZIP" classes={{ root: classes.zip }}>
-                    <TextInput
-                        field="zip"
-                        validate={isRequired}
-                        onValueChange={handleZipChange}
-                    />
-                </Field>
+                <Postcode
+                    fieldInput="zip"
+                    validate={isRequired}
+                    onValueChange={handleZipChange}
+                />
                 {!hasMethods ? (
                     <Button
-                        classes={{ root_normalPriority: classes.submit }}
+                        classes={{
+                            root_normalPriority: classes.submit
+                        }}
                         disabled={isSetShippingLoading}
                         priority="normal"
                         type="submit"
                     >
-                        {isSetShippingLoading
-                            ? 'Loading Methods...'
-                            : 'Get Shipping Options'}
+                        {shippingStatusMessage}
                     </Button>
                 ) : null}
             </Form>

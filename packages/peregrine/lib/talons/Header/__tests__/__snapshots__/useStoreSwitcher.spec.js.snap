@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return correct shape 1`] = `
+Object {
+  "availableStores": Map {
+    "store1" => Object {
+      "category_url_suffix": null,
+      "currency": "USD",
+      "isCurrent": false,
+      "locale": "locale1",
+      "product_url_suffix": null,
+      "storeName": "Store 1",
+    },
+    "store2" => Object {
+      "category_url_suffix": ".html",
+      "currency": "EUR",
+      "isCurrent": true,
+      "locale": "locale2",
+      "product_url_suffix": ".html",
+      "storeName": "Store 2",
+    },
+    "store3" => Object {
+      "category_url_suffix": null,
+      "currency": "EUR",
+      "isCurrent": false,
+      "locale": "locale3",
+      "product_url_suffix": ".htm",
+      "storeName": "Store 3",
+    },
+    "store4" => Object {
+      "category_url_suffix": ".htm",
+      "currency": "EUR",
+      "isCurrent": false,
+      "locale": "locale4",
+      "product_url_suffix": null,
+      "storeName": "Store 4",
+    },
+    "store5" => Object {
+      "category_url_suffix": "-abc1",
+      "currency": "EUR",
+      "isCurrent": false,
+      "locale": "locale5",
+      "product_url_suffix": ".htm.htm",
+      "storeName": "Store 5",
+    },
+    "store6" => Object {
+      "category_url_suffix": ".some.some",
+      "currency": "EUR",
+      "isCurrent": false,
+      "locale": "locale6",
+      "product_url_suffix": "-123abc",
+      "storeName": "Store 6",
+    },
+  },
+  "currentStoreName": "Store 2",
+  "handleSwitchStore": [Function],
+  "handleTriggerClick": [Function],
+  "storeMenuIsOpen": false,
+  "storeMenuRef": "elementRef",
+  "storeMenuTriggerRef": [MockFunction],
+}
+`;

@@ -66,7 +66,7 @@ function wrapEsmLoader(content) {
     }
 
     if (importsMap.size === 0) {
-        this.callback(null, content);
+        return this.callback(null, content);
     }
 
     let imports = `// BUILDPACK: wrap-esm-loader added ${

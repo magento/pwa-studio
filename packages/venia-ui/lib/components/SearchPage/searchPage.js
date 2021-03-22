@@ -1,4 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
@@ -9,9 +10,7 @@ import FilterModal from '../FilterModal';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './searchPage.css';
-import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
-import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
-import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
+import { GET_PAGE_SIZE } from './searchPage.gql';
 import ProductSort from '../ProductSort';
 import Button from '../Button';
 
@@ -20,9 +19,7 @@ const SearchPage = props => {
 
     const talonProps = useSearchPage({
         queries: {
-            filterIntrospection: FILTER_INTROSPECTION,
-            getProductFiltersBySearch: GET_PRODUCT_FILTERS_BY_SEARCH,
-            productSearch: PRODUCT_SEARCH
+            getPageSize: GET_PAGE_SIZE
         }
     });
 
@@ -33,23 +30,38 @@ const SearchPage = props => {
         loading,
         openDrawer,
         pageControl,
+        searchCategory,
+        searchTerm,
         sortProps
     } = talonProps;
+    const { formatMessage } = useIntl();
 
     const [currentSort] = sortProps;
 
-    if (loading) return fullPageLoadingIndicator;
+    if (loading && !data) return fullPageLoadingIndicator;
     if (error) {
         return (
             <div className={classes.noResult}>
-                No results found. The search term may be missing or invalid.
+                <FormattedMessage
+                    id={'searchPage.noResult'}
+                    defaultMessage={
+                        'No results found. The search term may be missing or invalid.'
+                    }
+                />
             </div>
         );
     }
 
     let content;
     if (!data || data.products.items.length === 0) {
-        content = <div className={classes.noResult}>No results found!</div>;
+        content = (
+            <div className={classes.noResult}>
+                <FormattedMessage
+                    id={'searchPage.noResultImportant'}
+                    defaultMessage={'No results found!'}
+                />
+            </div>
+        );
     } else {
         content = (
             <Fragment>
@@ -69,11 +81,16 @@ const SearchPage = props => {
         filters && filters.length ? (
             <Button
                 priority={'low'}
-                classes={{ root_lowPriority: classes.filterButton }}
+                classes={{
+                    root_lowPriority: classes.filterButton
+                }}
                 onClick={openDrawer}
                 type="button"
             >
-                {'Filter'}
+                <FormattedMessage
+                    id={'searchPage.filterButton'}
+                    defaultMessage={'Filter'}
+                />
             </Button>
         ) : null;
 
@@ -85,24 +102,58 @@ const SearchPage = props => {
     ) : null;
 
     const maybeSortContainer = totalCount ? (
-        <div className={classes.sortContainer}>
-            {'Items sorted by '}
-            <span className={classes.sortText}>{currentSort.sortText}</span>
-        </div>
+        <span className={classes.sortContainer}>
+            <FormattedMessage
+                id={'searchPage.sortContainer'}
+                defaultMessage={'Items sorted by '}
+            />
+            <span className={classes.sortText}>
+                <FormattedMessage
+                    id={currentSort.sortId}
+                    defaultMessage={currentSort.sortText}
+                />
+            </span>
+        </span>
     ) : null;
+
+    const searchResultsHeading = searchTerm ? (
+        <FormattedMessage
+            id={'searchPage.searchTerm'}
+            values={{
+                highlight: chunks => (
+                    <span className={classes.headingHighlight}>{chunks}</span>
+                ),
+                category: searchCategory,
+                term: searchTerm
+            }}
+            defaultMessage={'Showing results:'}
+        />
+    ) : (
+        <FormattedMessage
+            id={'searchPage.searchTermEmpty'}
+            defaultMessage={'Showing all results:'}
+        />
+    );
 
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
-                <div className={classes.totalPages}>
-                    {`${totalCount} items`}
-                </div>
+                <span className={classes.totalPages}>
+                    {formatMessage(
+                        {
+                            id: 'searchPage.totalPages',
+                            defaultMessage: `items`
+                        },
+                        { totalCount }
+                    )}
+                </span>
                 <div className={classes.headerButtons}>
                     {maybeFilterButtons}
                     {maybeSortButton}
                 </div>
                 {maybeSortContainer}
             </div>
+            <div className={classes.heading}>{searchResultsHeading}</div>
             {content}
             <Suspense fallback={null}>{maybeFilterModal}</Suspense>
         </article>

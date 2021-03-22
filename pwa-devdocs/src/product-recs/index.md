@@ -40,7 +40,7 @@ The difference is that after you create a recommendation unit, you then need to 
 
 ## Render recommendations
 
-To render a recommendation unit onto your PWA storefront, use the local intercept file. See the [extensibility framework](https://magento.github.io/pwa-studio/pwa-buildpack/extensibility-framework/#targetables) documentation to learn more.
+To render a recommendation unit onto your PWA storefront, use the local intercept file. See the [extensibility framework][] documentation to learn more.
 
 ### Venia UI component
 
@@ -63,8 +63,8 @@ If you are not using the `venia-ui` package, you can call the recommendations se
 #### Example
 
 ```js
-import {CMS} from "@magento/{nameOfOurPackagesThatIsTBD}/lib/recommendations/constants"
-import useRecsData from "@magento/{nameOfOurPackagesThatIsTBD}/lib/recommendations/hooks/useRecsData"
+import {CMS} from "@magento/venia-product-recommendations/lib/recommendations/constants"
+import useRecsData from "@magento/venia-product-recommendations/lib/recommendations/hooks/useRecsData"
 ```
 Because this method does not automatically collect and send behavioral data (tie to events) from your storefront to Adobe Sensei, you will need to add it:
 
@@ -84,3 +84,4 @@ const recsData = useRecsData({pageType: CMS})
 If not using the `venia-ui` package, you will need to write code that renders the fetched recommendation unit on your PWA storefront.
 
 [venia-ui package]: <{%link technologies/overview/index.md %}#custom-react-hooks-and-component>
+[extensibility framework]: <{%link pwa-buildpack/extensibility-framework/index.md %}#intercept-files>

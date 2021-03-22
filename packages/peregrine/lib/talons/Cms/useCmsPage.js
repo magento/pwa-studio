@@ -1,6 +1,10 @@
 import { useEffect, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
+
+import mergeOperations from '../../util/shallowMerge';
 import { useAppContext } from '../../context/app';
+
+import DEFAULT_OPERATIONS from './cmsPage.gql';
 
 /**
  * Retrieves data necessary to render a CMS Page
@@ -12,12 +16,12 @@ import { useAppContext } from '../../context/app';
  * @returns {{shouldShowLoadingIndicator: *, hasContent: *, cmsPage: *, error: *}}
  */
 export const useCmsPage = props => {
-    const {
-        id,
-        queries: { getCmsPage }
-    } = props;
+    const { id } = props;
 
-    const { loading, error, data } = useQuery(getCmsPage, {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCMSPageQuery } = operations;
+
+    const { loading, error, data } = useQuery(getCMSPageQuery, {
         variables: {
             id: Number(id)
         },
@@ -44,9 +48,10 @@ export const useCmsPage = props => {
         setPageLoading(loading);
     }, [loading, setPageLoading]);
 
-    const shouldShowLoadingIndicator = !data;
+    const shouldShowLoadingIndicator = loading && !data;
 
     const cmsPage = data ? data.cmsPage : null;
+    const rootCategoryId = data ? data.storeConfig.root_category_id : null;
 
     // TODO: we shouldn't be validating strings to determine if the page has content or not
     const hasContent = useMemo(() => {
@@ -60,8 +65,9 @@ export const useCmsPage = props => {
 
     return {
         cmsPage,
-        hasContent,
         error,
+        hasContent,
+        rootCategoryId,
         shouldShowLoadingIndicator
     };
 };

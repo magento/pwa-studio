@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { gql } from '@apollo/client';
 import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
 
@@ -36,7 +37,14 @@ const ProductListing = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     if (isLoading) {
-        return <LoadingIndicator>{`Fetching Cart...`}</LoadingIndicator>;
+        return (
+            <LoadingIndicator>
+                <FormattedMessage
+                    id={'productListing.loading'}
+                    defaultMessage={'Fetching Cart...'}
+                />
+            </LoadingIndicator>
+        );
     }
 
     if (items.length) {
@@ -55,6 +63,7 @@ const ProductListing = props => {
                 <EditModal
                     item={activeEditItem}
                     setIsCartUpdating={setIsCartUpdating}
+                    setActiveEditItem={setActiveEditItem}
                 />
             </Fragment>
         );

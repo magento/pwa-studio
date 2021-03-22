@@ -13,7 +13,7 @@ Object {
     "isBillingAddressSame": false,
     "lastName": "ba ln",
     "phoneNumber": "1234567891",
-    "postalCode": "78945",
+    "postcode": "78945",
     "region": "TX",
     "street1": "45678 blvd",
     "street2": "suite 300",

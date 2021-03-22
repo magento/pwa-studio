@@ -72,7 +72,10 @@ exports[`renders loading indicator 1`] = `
   <span
     className="message"
   >
-    Fetching Customer Details...
+    <mock-FormattedMessage
+      defaultMessage="Fetching Customer Details..."
+      id="customerForm.loading"
+    />
   </span>
 </div>
 `;
@@ -96,7 +99,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="firstname"
+          htmlFor="customer_firstname"
         >
           First Name
         </label>
@@ -115,6 +118,7 @@ Array [
             <input
               className="input"
               disabled={false}
+              id="customer_firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -141,7 +145,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="lastname"
+          htmlFor="customer_lastname"
         >
           Last Name
         </label>
@@ -160,6 +164,7 @@ Array [
             <input
               className="input"
               disabled={false}
+              id="customer_lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -193,7 +198,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="street0"
+          htmlFor="customer_street0"
         >
           Street Address
         </label>
@@ -211,6 +216,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_street0"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -237,13 +243,16 @@ Array [
       >
         <label
           className="label"
-          htmlFor="street1"
+          htmlFor="customer_street1"
         >
           Street Address 2
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -260,6 +269,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_street1"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -286,7 +296,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="city"
+          htmlFor="customer_city"
         >
           City
         </label>
@@ -304,6 +314,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -340,7 +351,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -358,6 +369,7 @@ Array [
           >
             <input
               className="input"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -384,7 +396,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="telephone"
+          htmlFor="customer_telephone"
         >
           Phone Number
         </label>
@@ -402,6 +414,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -483,7 +496,10 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button
@@ -521,7 +537,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="firstname"
+          htmlFor="customer_firstname"
         >
           First Name
         </label>
@@ -540,6 +556,7 @@ Array [
             <input
               className="input"
               disabled={false}
+              id="customer_firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -566,7 +583,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="lastname"
+          htmlFor="customer_lastname"
         >
           Last Name
         </label>
@@ -585,6 +602,7 @@ Array [
             <input
               className="input"
               disabled={false}
+              id="customer_lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -618,7 +636,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="street0"
+          htmlFor="customer_street0"
         >
           Street Address
         </label>
@@ -636,6 +654,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_street0"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -662,13 +681,16 @@ Array [
       >
         <label
           className="label"
-          htmlFor="street1"
+          htmlFor="customer_street1"
         >
           Street Address 2
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -685,6 +707,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_street1"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -711,7 +734,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="city"
+          htmlFor="customer_city"
         >
           City
         </label>
@@ -729,6 +752,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -765,7 +789,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -783,6 +807,7 @@ Array [
           >
             <input
               className="input"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -809,7 +834,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="telephone"
+          htmlFor="customer_telephone"
         >
           Phone Number
         </label>
@@ -827,6 +852,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}
@@ -906,7 +932,10 @@ Array [
         <span
           className="content"
         >
-          Cancel
+          <mock-FormattedMessage
+            defaultMessage="Cancel"
+            id="global.cancelButton"
+          />
         </span>
       </button>
       <button
@@ -946,7 +975,10 @@ Array [
       <p
         className="root"
       >
-        The shipping address you enter will be saved to your address book and set as your default for future purchases.
+        <mock-FormattedMessage
+          defaultMessage="The shipping address you enter will be saved to your address book and set as your default for future purchases."
+          id="customerForm.formMessage"
+        />
       </p>
     </div>
     <div
@@ -976,6 +1008,7 @@ Array [
             <input
               className="input"
               disabled={true}
+              id="email"
               name="email"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1002,7 +1035,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="firstname"
+          htmlFor="customer_firstname"
         >
           First Name
         </label>
@@ -1021,6 +1054,7 @@ Array [
             <input
               className="input"
               disabled={true}
+              id="customer_firstname"
               name="firstname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1047,7 +1081,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="lastname"
+          htmlFor="customer_lastname"
         >
           Last Name
         </label>
@@ -1066,6 +1100,7 @@ Array [
             <input
               className="input"
               disabled={true}
+              id="customer_lastname"
               name="lastname"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1099,7 +1134,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="street0"
+          htmlFor="customer_street0"
         >
           Street Address
         </label>
@@ -1117,6 +1152,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_street0"
               name="street[0]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1143,13 +1179,16 @@ Array [
       >
         <label
           className="label"
-          htmlFor="street1"
+          htmlFor="customer_street1"
         >
           Street Address 2
           <span
             className="optional"
           >
-            Optional
+            <mock-FormattedMessage
+              defaultMessage="Optional"
+              id="field.optional"
+            />
           </span>
         </label>
         <span
@@ -1166,6 +1205,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_street1"
               name="street[1]"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1192,7 +1232,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="city"
+          htmlFor="customer_city"
         >
           City
         </label>
@@ -1210,6 +1250,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_city"
               name="city"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1246,7 +1287,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="postcode"
+          htmlFor="root"
         >
           ZIP / Postal Code
         </label>
@@ -1264,6 +1305,7 @@ Array [
           >
             <input
               className="input"
+              id="root"
               name="postcode"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1290,7 +1332,7 @@ Array [
       >
         <label
           className="label"
-          htmlFor="telephone"
+          htmlFor="customer_telephone"
         >
           Phone Number
         </label>
@@ -1308,6 +1350,7 @@ Array [
           >
             <input
               className="input"
+              id="customer_telephone"
               name="telephone"
               onBlur={[Function]}
               onChange={[Function]}

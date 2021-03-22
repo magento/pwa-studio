@@ -233,14 +233,6 @@ test('debugErrorMiddleware and notifier attached', async () => {
 test('graphql-playground middleware attached', async () => {
     const config = mockConfig();
 
-    const mockFileContents = {
-        'path/to/query.graphql': '{ foo { bar } }',
-        'path/to/otherQuery.graphql': '{ foo { bar, baz } }'
-    };
-    fs.readFile.mockImplementation((p, opts, cb) =>
-        cb(null, mockFileContents[p])
-    );
-
     const middleware = jest.fn();
     playgroundMiddleware.mockReturnValueOnce(middleware);
 
@@ -260,9 +252,7 @@ test('graphql-playground middleware attached', async () => {
         compilation: {
             fileDependencies: new Set([
                 'path/to/module.js',
-                'path/to/query.graphql',
                 'path/to/otherModule.js',
-                'path/to/otherQuery.graphql',
                 'path/to/thirdModule.js'
             ])
         }
@@ -301,21 +291,8 @@ test('graphql-playground middleware attached', async () => {
     await waitForExpect(() => {
         expect(playgroundMiddleware).toHaveBeenCalled();
     });
-    expect(fs.readFile).toHaveBeenCalledTimes(2);
     expect(playgroundMiddleware.mock.calls[0][0]).toMatchObject({
-        endpoint: '/graphql',
-        tabs: [
-            {
-                endpoint: '/graphql',
-                name: 'path/to/query.graphql',
-                query: '{ foo { bar } }'
-            },
-            {
-                endpoint: '/graphql',
-                name: 'path/to/otherQuery.graphql',
-                query: '{ foo { bar, baz } }'
-            }
-        ]
+        endpoint: '/graphql'
     });
     expect(middleware).toHaveBeenCalledWith(req, res, expect.any(Function));
     config.devServer.after(app, server);
@@ -327,64 +304,4 @@ test('graphql-playground middleware attached', async () => {
     expect(consoleOutput).toMatch(/GraphQL Playground ready at .+?\/graphiql/);
     middlewareProxy(req, res);
     expect(playgroundMiddleware).toHaveBeenCalledTimes(1);
-});
-
-test('graphql-playground middleware handles error during project query read', async () => {
-    const config = mockConfig();
-
-    fs.readFile.mockImplementation((p, opts, cb) =>
-        cb(new Error(`ENOENT: ${p} not found`))
-    );
-
-    const middleware = jest.fn();
-    playgroundMiddleware.mockReturnValueOnce(middleware);
-
-    await PWADevServer.configure({ graphqlPlayground: true }, config);
-
-    expect(config.devServer.before).toBeInstanceOf(Function);
-    const app = {
-        get: jest.fn(),
-        use: jest.fn()
-    };
-    const compilerStatsData = {
-        compilation: {
-            fileDependencies: new Set([
-                'path/to/module.js',
-                'path/to/query.graphql',
-                'path/to/otherModule.js',
-                'path/to/otherQuery.graphql',
-                'path/to/thirdModule.js'
-            ])
-        }
-    };
-    let readHook;
-    const compiler = {
-        hooks: {
-            done: {
-                tap(name, callback) {
-                    readHook = callback;
-                }
-            }
-        }
-    };
-    const waitUntilValid = jest.fn();
-    const server = {
-        listeningApp,
-        middleware: {
-            waitUntilValid,
-            context: {
-                compiler
-            }
-        }
-    };
-    config.devServer.before(app, server);
-    await waitForExpect(() => {
-        expect(app.get).toHaveBeenCalled();
-        expect(readHook).toBeTruthy();
-    });
-    const middlewareProxy = app.get.mock.calls[0][1];
-    const req = {};
-    const res = {};
-    readHook(compilerStatsData);
-    await expect(middlewareProxy(req, res)).rejects.toThrow('ENOENT');
 });

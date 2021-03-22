@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { useItemsReview } from '@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/useItemsReview';
 
@@ -21,7 +22,7 @@ const ItemsReview = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = useItemsReview({
-        queries: {
+        operations: {
             getItemsInCart: LIST_OF_PRODUCTS_IN_CART_QUERY
         },
         data: props.data
@@ -32,11 +33,17 @@ const ItemsReview = props => {
         totalQuantity,
         showAllItems,
         setShowAllItems,
-        isLoading
+        isLoading,
+        configurableThumbnailSource
     } = talonProps;
 
     const items = itemsInCart.map((item, index) => (
-        <Item key={item.id} {...item} isHidden={!showAllItems && index >= 2} />
+        <Item
+            key={item.id}
+            {...item}
+            isHidden={!showAllItems && index >= 2}
+            configurableThumbnailSource={configurableThumbnailSource}
+        />
     ));
 
     const showAllItemsFooter = !showAllItems ? (
@@ -45,7 +52,12 @@ const ItemsReview = props => {
 
     if (isLoading) {
         return (
-            <LoadingIndicator>{`Fetching Items in your Order`}</LoadingIndicator>
+            <LoadingIndicator>
+                <FormattedMessage
+                    id={'checkoutPage.fetchingItemsInYourOrder'}
+                    defaultMessage={'Fetching Items in your Order'}
+                />
+            </LoadingIndicator>
         );
     }
 
@@ -56,7 +68,10 @@ const ItemsReview = props => {
                     <span className={classes.total_quantity_amount}>
                         {totalQuantity}
                     </span>
-                    {` items in your order`}
+                    <FormattedMessage
+                        id={'checkoutPage.itemsInYourOrder'}
+                        defaultMessage={' items in your order'}
+                    />
                 </div>
                 {items}
             </div>

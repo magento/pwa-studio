@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { useRegion } from '@magento/peregrine/lib/talons/Region/useRegion';
 
@@ -17,14 +18,18 @@ import { GET_REGIONS_QUERY } from './region.gql';
 const Region = props => {
     const {
         classes: propClasses,
+        countryCodeField,
         fieldInput,
         fieldSelect,
         label,
+        translationId,
         optionValueKey,
         ...inputProps
     } = props;
+    const { formatMessage } = useIntl();
 
     const talonProps = useRegion({
+        countryCodeField,
         fieldInput,
         fieldSelect,
         optionValueKey,
@@ -41,15 +46,22 @@ const Region = props => {
 
     const regionField =
         regions.length || loading ? (
-            <Select {...regionProps} field={fieldSelect} items={regions} />
+            <Select
+                {...regionProps}
+                field={fieldSelect}
+                id={classes.root}
+                items={regions}
+            />
         ) : (
-            <TextInput {...regionProps} field={fieldInput} />
+            <TextInput {...regionProps} field={fieldInput} id={classes.root} />
         );
 
-    const fieldId = regions.length ? fieldSelect : fieldInput;
-
     return (
-        <Field id={fieldId} label={label} classes={{ root: classes.root }}>
+        <Field
+            id={classes.root}
+            label={formatMessage({ id: translationId, defaultMessage: label })}
+            classes={{ root: classes.root }}
+        >
             {regionField}
         </Field>
     );
@@ -58,9 +70,11 @@ const Region = props => {
 export default Region;
 
 Region.defaultProps = {
+    countryCodeField: 'country',
     fieldInput: 'region',
     fieldSelect: 'region',
     label: 'State',
+    translationId: 'region.label',
     optionValueKey: 'code'
 };
 
@@ -68,9 +82,11 @@ Region.propTypes = {
     classes: shape({
         root: string
     }),
+    countryCodeField: string,
     fieldInput: string,
     fieldSelect: string,
     label: string,
+    translationId: string,
     optionValueKey: string,
     validate: func,
     initialValue: string

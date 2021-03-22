@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it pops a toast on error 1`] = `
+Object {
+  "message": "Something went wrong. Please refresh and try again.",
+  "timeout": 5000,
+  "type": "error",
+}
+`;
+
+exports[`it renders a configurable wishlist item 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="root container"
+  >
+    <img
+      alt="Shoggoth Shirt"
+      className="image placeholder"
+      loading="eager"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+      width={400}
+    />
+    <img
+      alt="Shoggoth Shirt"
+      className="image notLoaded"
+      height={500}
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
+      src="https://magento.test/shoggoth-shirt.jpg"
+      width={400}
+    />
+  </div>
+  <span
+    className="name"
+  >
+    Shoggoth Shirt
+  </span>
+  <span
+    className="option"
+  >
+    Size : XL
+  </span>
+  <span
+    className="option"
+  >
+    Color : Black
+  </span>
+  <div
+    className="priceContainer"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      123
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      45
+    </span>
+  </div>
+  <div
+    className="actionsContainer"
+  >
+    <button
+      className="addToCart"
+      disabled={true}
+      onClick={[MockFunction handleAddToCart]}
+    >
+      Add to Cart
+    </button>
+    <button
+      className="moreActions"
+      onClick={[MockFunction handleShowMoreActions]}
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={16}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="1"
+          />
+          <circle
+            cx="19"
+            cy="12"
+            r="1"
+          />
+          <circle
+            cx="5"
+            cy="12"
+            r="1"
+          />
+        </svg>
+      </span>
+    </button>
+    <WishlistMoreActionsDialog
+      onCancel={[MockFunction handleHideDialogs]}
+      onRemove={[MockFunction handleShowConfirmRemoval]}
+    />
+    <WishlistConfirmRemoveProductDialog
+      onCancel={[MockFunction handleHideDialogs]}
+      onConfirm={[MockFunction handleRemoveProductFromWishlist]}
+    />
+  </div>
+</div>
+`;
+
+exports[`it renders a simple wishlist item 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="root container"
+  >
+    <img
+      alt="Shoggoth Shirt"
+      className="image placeholder"
+      loading="eager"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+      width={400}
+    />
+    <img
+      alt="Shoggoth Shirt"
+      className="image notLoaded"
+      height={500}
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
+      src="https://magento.test/shoggoth-shirt.jpg"
+      width={400}
+    />
+  </div>
+  <span
+    className="name"
+  >
+    Shoggoth Shirt
+  </span>
+  <div
+    className="priceContainer"
+  >
+    <span>
+      $
+    </span>
+    <span>
+      123
+    </span>
+    <span>
+      .
+    </span>
+    <span>
+      45
+    </span>
+  </div>
+  <div
+    className="actionsContainer"
+  >
+    <button
+      className="addToCart"
+      disabled={false}
+      onClick={[MockFunction handleAddToCart]}
+    >
+      Add to Cart
+    </button>
+    <button
+      className="moreActions"
+      onClick={[MockFunction handleShowMoreActions]}
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={16}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="1"
+          />
+          <circle
+            cx="19"
+            cy="12"
+            r="1"
+          />
+          <circle
+            cx="5"
+            cy="12"
+            r="1"
+          />
+        </svg>
+      </span>
+    </button>
+    <WishlistMoreActionsDialog
+      onCancel={[MockFunction handleHideDialogs]}
+      onRemove={[MockFunction handleShowConfirmRemoval]}
+    />
+    <WishlistConfirmRemoveProductDialog
+      onCancel={[MockFunction handleHideDialogs]}
+      onConfirm={[MockFunction handleRemoveProductFromWishlist]}
+    />
+  </div>
+</div>
+`;

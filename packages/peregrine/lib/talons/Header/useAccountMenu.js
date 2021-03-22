@@ -1,16 +1,17 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
-import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { clearCartDataFromCache } from '@magento/peregrine/lib/Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearCustomerDataFromCache';
+import mergeOperations from '../../util/shallowMerge';
+import { useUserContext } from '../../context/user';
+
+import DEFAULT_OPERATIONS from './accountMenu.gql';
 
 /**
  * The useAccountMenu talon complements the AccountMenu component.
  *
  * @param {Object} props
- * @param {DocumentNode} props.mutations.signOutMutation - Mutation to be called for signout.
+ * @param {DocumentNode} props.operations.signOutMutation - Mutation to be called for signout.
  * @param {Boolean} props.accountMenuIsOpen - Boolean to notify if the account menu dropdown is open.
  * @param {Function} props.setAccountMenuIsOpen - Function to set the value of accountMenuIsOpen
  *
@@ -25,13 +26,14 @@ import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearC
  */
 
 export const useAccountMenu = props => {
-    const { mutations, accountMenuIsOpen, setAccountMenuIsOpen } = props;
-    const { signOut: signOutMutation } = mutations;
+    const { accountMenuIsOpen, setAccountMenuIsOpen } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { signOutMutation } = operations;
 
     const [view, setView] = useState('SIGNIN');
     const [username, setUsername] = useState('');
 
-    const apolloClient = useApolloClient();
     const history = useHistory();
     const location = useLocation();
     const [revokeToken] = useMutation(signOutMutation);
@@ -43,14 +45,12 @@ export const useAccountMenu = props => {
 
         // Delete cart/user data from the redux store.
         await signOut({ revokeToken });
-        await clearCartDataFromCache(apolloClient);
-        await clearCustomerDataFromCache(apolloClient);
 
         // Refresh the page as a way to say "re-initialize". An alternative
         // would be to call apolloClient.resetStore() but that would require
         // a large refactor.
         history.go(0);
-    }, [apolloClient, history, revokeToken, setAccountMenuIsOpen, signOut]);
+    }, [history, revokeToken, setAccountMenuIsOpen, signOut]);
 
     const handleForgotPassword = useCallback(() => {
         setView('FORGOT_PASSWORD');

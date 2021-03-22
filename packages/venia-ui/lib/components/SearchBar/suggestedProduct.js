@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { func, number, shape, string } from 'prop-types';
-import { Price } from '@magento/peregrine';
+import Price from '@magento/venia-ui/lib/components/Price';
 import { mergeClasses } from '../../classify';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
@@ -19,7 +19,7 @@ const SuggestedProduct = props => {
         }
     }, [onNavigate]);
 
-    const uri = useMemo(() => resourceUrl(`/${url_key}${url_suffix}`), [
+    const uri = useMemo(() => resourceUrl(`/${url_key}${url_suffix || ''}`), [
         url_key,
         url_suffix
     ]);

@@ -25,15 +25,6 @@ jest.mock('@apollo/client', () => {
     return { useQuery };
 });
 
-jest.mock('@magento/peregrine/lib/context/app', () => {
-    const state = {};
-    const api = {
-        toggleDrawer: jest.fn()
-    };
-    const useAppContext = jest.fn(() => [state, api]);
-
-    return { useAppContext };
-});
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {
         cartId: 'cart123'
@@ -42,15 +33,6 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     const useCartContext = jest.fn(() => [state, api]);
 
     return { useCartContext };
-});
-jest.mock('@magento/peregrine/lib/context/user', () => {
-    const state = {
-        isSignedIn: false
-    };
-    const api = {};
-    const useUserContext = jest.fn(() => [state, api]);
-
-    return { useUserContext };
 });
 
 const log = jest.fn();
@@ -74,10 +56,8 @@ test('it returns the proper shape', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith({
         cartItems: expect.any(Array),
-        handleSignIn: expect.any(Function),
         hasItems: expect.any(Boolean),
         isCartUpdating: expect.any(Boolean),
-        isSignedIn: expect.any(Boolean),
         setIsCartUpdating: expect.any(Function),
         shouldShowLoadingIndicator: expect.any(Boolean)
     });

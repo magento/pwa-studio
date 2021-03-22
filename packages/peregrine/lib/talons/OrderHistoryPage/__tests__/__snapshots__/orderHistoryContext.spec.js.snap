@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders children 1`] = `"Context Provider Children"`;
+
+exports[`returns empty string if no suffix found in gql 1`] = `
+Object {
+  "productURLSuffix": "",
+}
+`;
+
+exports[`returns value from backend 1`] = `
+Object {
+  "productURLSuffix": ".jsx",
+}
+`;

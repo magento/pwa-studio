@@ -10,8 +10,8 @@
     "@magento/venia-drivers": "./lib/drivers"
   },
   "files": [
-    "{lib,venia-static,targets,templates}/*",
-    "{lib,venia-static,targets,templates}/**/*",
+    "{lib,venia-static,targets,templates,i18n}/*",
+    "{lib,venia-static,targets,templates,i18n}/**/*",
     "upward.yml",
     "CHANGELOG.md",
     "LICENSE_AFL.txt",
@@ -33,7 +33,6 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-ui#readme",
   "dependencies": {
-    "@babel/template": "~7.8.6",
     "informed": "~2.11.17",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",

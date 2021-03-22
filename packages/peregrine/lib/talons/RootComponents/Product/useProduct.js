@@ -1,5 +1,9 @@
 import { useQuery } from '@apollo/client';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+
+import mergeOperations from '../../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './product.gql';
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
@@ -9,8 +13,8 @@ import { useMemo } from 'react';
  *
  * @param {object}      props
  * @param {Function}    props.mapProduct - A function for updating products to the proper shape.
+ * @param {GraphQLAST}  props.queries.getStoreConfigData - Fetches storeConfig product url suffix using a server query
  * @param {GraphQLAST}  props.queries.getProductQuery - Fetches product using a server query
- * @param {String}      props.urlKey - The url_key of this product.
  *
  * @returns {object}    result
  * @returns {Bool}      result.error - Indicates a network error occurred.
@@ -18,15 +22,44 @@ import { useMemo } from 'react';
  * @returns {Bool}      result.product - The product's details.
  */
 export const useProduct = props => {
-    const { mapProduct, queries, urlKey } = props;
+    const { mapProduct } = props;
 
-    const { error, loading, data } = useQuery(queries.getProductQuery, {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getStoreConfigData, getProductDetailQuery } = operations;
+
+    const [
+        ,
+        {
+            actions: { setPageLoading }
+        }
+    ] = useAppContext();
+
+    const { data: storeConfigData } = useQuery(getStoreConfigData, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const productUrlSuffix = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.product_url_suffix;
+        }
+    }, [storeConfigData]);
+
+    const pathname = window.location.pathname.split('/').pop();
+    const urlKey = productUrlSuffix
+        ? pathname.replace(productUrlSuffix, '')
+        : pathname;
+
+    const { error, loading, data } = useQuery(getProductDetailQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
+        skip: !storeConfigData,
         variables: {
             urlKey
         }
     });
+
+    const isBackgroundLoading = !!data && loading;
 
     const product = useMemo(() => {
         if (!data) {
@@ -48,6 +81,11 @@ export const useProduct = props => {
 
         return mapProduct(product);
     }, [data, mapProduct, urlKey]);
+
+    // Update the page indicator if the GraphQL query is in flight.
+    useEffect(() => {
+        setPageLoading(isBackgroundLoading);
+    }, [isBackgroundLoading, setPageLoading]);
 
     return {
         error,

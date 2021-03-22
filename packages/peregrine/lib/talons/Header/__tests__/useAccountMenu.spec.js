@@ -14,15 +14,19 @@ jest.mock('react-router-dom', () => ({
     })
 }));
 
-jest.mock('@apollo/client', () => ({
-    useApolloClient: jest.fn().mockReturnValue({}),
-    useMutation: jest
-        .fn()
-        .mockReturnValue([
-            jest.fn(),
-            { error: { graphQLErrors: [{ message: 'Signout Error' }] } }
-        ])
-}));
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+    return {
+        ...apolloClient,
+        useApolloClient: jest.fn().mockReturnValue({}),
+        useMutation: jest
+            .fn()
+            .mockReturnValue([
+                jest.fn(),
+                { error: { graphQLErrors: [{ message: 'Signout Error' }] } }
+            ])
+    };
+});
 
 jest.mock('@magento/peregrine/lib/context/user', () => ({
     useUserContext: jest
@@ -42,20 +46,9 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
     })
 }));
 
-jest.mock('@magento/peregrine/lib/Apollo/clearCartDataFromCache', () => ({
-    clearCartDataFromCache: jest.fn().mockResolvedValue()
-}));
-
-jest.mock('@magento/peregrine/lib/Apollo/clearCustomerDataFromCache', () => ({
-    clearCustomerDataFromCache: jest.fn().mockResolvedValue()
-}));
-
 const defaultProps = {
     accountMenuIsOpen: false,
-    setAccountMenuIsOpen: jest.fn(),
-    mutations: {
-        signOut: 'signOutMutation'
-    }
+    setAccountMenuIsOpen: jest.fn()
 };
 
 const Component = props => {

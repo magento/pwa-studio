@@ -1,16 +1,12 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
-
 import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
 
+import { mergeClasses } from '../../classify';
 import CreateAccount from '../CreateAccount';
 import ForgotPassword from '../ForgotPassword';
 import MyAccount from '../MyAccount';
 import SignIn from '../SignIn';
-import { mergeClasses } from '../../classify';
-
-import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
-
 import defaultClasses from './authModal.css';
 
 const AuthModal = props => {
@@ -23,16 +19,19 @@ const AuthModal = props => {
         showForgotPassword,
         showMyAccount,
         username
-    } = useAuthModal({
-        ...props,
-        signOutMutation: SIGN_OUT_MUTATION
-    });
+    } = useAuthModal(props);
+
+    const classes = mergeClasses(defaultClasses, props.classes);
 
     let child = null;
     switch (props.view) {
         case 'CREATE_ACCOUNT': {
             child = (
                 <CreateAccount
+                    classes={{
+                        actions: classes.createAccountActions,
+                        submitButton: classes.createAccountSubmitButton
+                    }}
                     initialValues={{ email: username }}
                     isCancelButtonHidden={false}
                     onSubmit={handleCreateAccount}
@@ -68,7 +67,6 @@ const AuthModal = props => {
         }
     }
 
-    const classes = mergeClasses(defaultClasses, props.classes);
     return <div className={classes.root}>{child}</div>;
 };
 

@@ -3,6 +3,7 @@ jest.mock('../../util/pretty-logger', () => ({
     error: jest.fn()
 }));
 jest.mock('../getEnvVarDefinitions');
+jest.mock('../runEnvValidators', () => jest.fn().mockResolvedValue(true));
 const dotenv = require('dotenv');
 const getEnvVarDefinitions = require('../getEnvVarDefinitions');
 const createDotEnvFile = require('../createDotEnvFile');
@@ -45,47 +46,47 @@ beforeEach(() => {
     mockLog.error.mockClear();
 });
 
-test('logs errors to default logger if env is not valid', () => {
+test('logs errors to default logger if env is not valid', async () => {
     mockEnvVars.set({
         MAGENTO_BACKEND_URL: mockEnvVars.UNSET
     });
-    createDotEnvFile('./');
+    await createDotEnvFile('./');
     expect(prettyLogger.warn).toHaveBeenCalled();
 });
 
-test('uses alternate logger', () => {
+test('uses alternate logger', async () => {
     mockEnvVars.set({
         MAGENTO_BACKEND_URL: mockEnvVars.UNSET
     });
-    createDotEnvFile('./', { logger: mockLog });
+    await createDotEnvFile('./', { logger: mockLog });
     expect(mockLog.warn).toHaveBeenCalled();
 });
 
-test('returns valid dotenv file if env is valid', () => {
+test('returns valid dotenv file if env is valid', async () => {
     mockEnvVars.set(examples);
-    const fileText = createDotEnvFile('./', { logger: mockLog });
+    const fileText = await createDotEnvFile('./', { logger: mockLog });
     expect(snapshotEnvFile(fileText)).toMatchSnapshot();
     expect(dotenv.parse(fileText)).toMatchObject(examples);
 });
 
-test('populates with examples where available', () => {
+test('populates with examples where available', async () => {
     const unsetExamples = {};
     for (const key of Object.keys(examples)) {
         unsetExamples[key] = mockEnvVars.UNSET;
     }
     mockEnvVars.set(unsetExamples);
-    const fileText = createDotEnvFile('./', { useExamples: true });
+    const fileText = await createDotEnvFile('./', { useExamples: true });
     expect(dotenv.parse(fileText)).toMatchObject(examples);
 });
 
-test('does not print example comment if value is set custom', () => {
+test('does not print example comment if value is set custom', async () => {
     const fakeEnv = {
         ...examples,
         MAGENTO_BACKEND_URL: 'https://custom.url',
         IMAGE_SERVICE_CACHE_EXPIRES: 'a million years'
     };
     mockEnvVars.set(fakeEnv);
-    const fileText = createDotEnvFile(fakeEnv);
+    const fileText = await createDotEnvFile(fakeEnv);
     expect(fileText).not.toMatch(MAGENTO_BACKEND_URL_EXAMPLE);
     expect(fileText).not.toMatch(
         `Example: ${examples.IMAGE_SERVICE_CACHE_EXPIRES}`
@@ -93,7 +94,7 @@ test('does not print example comment if value is set custom', () => {
     expect(dotenv.parse(fileText)).not.toMatchObject(examples);
 });
 
-test('passing an env object works, but warns deprecation and assumes cwd is context', () => {
+test('passing an env object works, but warns deprecation and assumes cwd is context', async () => {
     getEnvVarDefinitions.mockReturnValue({
         sections: [
             {
@@ -117,7 +118,7 @@ test('passing an env object works, but warns deprecation and assumes cwd is cont
     });
     expect(
         snapshotEnvFile(
-            createDotEnvFile({
+            await createDotEnvFile({
                 TEST_ENV_VAR_NOTHING: 'foo'
             })
         )

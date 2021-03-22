@@ -35,6 +35,7 @@ jest.mock('../useFilterState', () => {
 
 // Mock introspection to return all the filters from the test data
 jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
     const introspectionData = {
         __type: {
             inputFields: [
@@ -51,6 +52,7 @@ jest.mock('@apollo/client', () => {
         }
     };
     return {
+        ...apolloClient,
         useQuery: jest.fn(() => ({ data: introspectionData, error: null }))
     };
 });
@@ -99,9 +101,7 @@ const defaultProps = {
             ]
         }
     ],
-    queries: {
-        FILTER_INTROSPECTION: 'FOO'
-    }
+    operations: {}
 };
 const log = jest.fn();
 

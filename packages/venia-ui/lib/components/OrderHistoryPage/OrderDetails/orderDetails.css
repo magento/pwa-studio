@@ -1,0 +1,108 @@
+.root {
+    display: grid;
+    gap: 2rem;
+}
+
+.shippingInformationContainer {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+}
+
+.shippingMethodContainer {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+}
+
+.billingInformationContainer {
+    grid-row: 1 / span 1;
+    grid-column: 3 / span 1;
+}
+
+.paymentMethodContainer {
+    grid-row: 1 / span 1;
+    grid-column: 4 / span 1;
+}
+
+.itemsContainer {
+    grid-row: 2 / span 4;
+    grid-column: 1 / span 2;
+}
+
+.orderTotalContainer {
+    grid-row: 2 / span 2;
+    grid-column: 3 / span 2;
+
+    min-width: 22rem;
+    max-width: 25rem;
+    margin: auto;
+}
+
+.printButton {
+    grid-row: 4 / span 1;
+    grid-column: 3 / span 2;
+
+    align-items: center;
+    column-gap: 0.5rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+    width: fit-content;
+    margin: auto;
+    /** Hide until PWA-978 is completed */
+    visibility: hidden;
+}
+
+.printLabel {
+    text-decoration: underline;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .root {
+        display: grid;
+        column-gap: 0rem;
+        gap: 1.5rem;
+    }
+
+    .shippingInformationContainer {
+        grid-row: 1 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .shippingMethodContainer {
+        grid-row: 2 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .billingInformationContainer {
+        grid-row: 3 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .paymentMethodContainer {
+        grid-row: 4 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .itemsContainer {
+        grid-row: 5 / span 1;
+        grid-column: 1 / span 1;
+    }
+
+    .orderTotalContainer {
+        grid-row: 6 / span 1;
+        grid-column: 1 / span 1;
+
+        min-width: 0rem;
+        max-width: none;
+        margin: unset;
+    }
+
+    .printButton {
+        grid-row: 7 / span 1;
+        grid-column: 1 / span 1;
+    }
+}

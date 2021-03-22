@@ -12,18 +12,23 @@ jest.mock('react-router-dom', () => {
     };
 });
 
-jest.mock('@apollo/client', () => ({
-    useQuery: jest.fn().mockReturnValue({
-        data: {
-            customer: {
-                orders: {
-                    items: ['order1', 'order2']
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
+    return {
+        ...apolloClient,
+        useQuery: jest.fn().mockReturnValue({
+            data: {
+                customer: {
+                    orders: {
+                        items: ['order1', 'order2']
+                    }
                 }
-            }
-        },
-        loading: false
-    })
-}));
+            },
+            loading: false
+        })
+    };
+});
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};

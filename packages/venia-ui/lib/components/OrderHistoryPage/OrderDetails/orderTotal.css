@@ -1,0 +1,51 @@
+.root {
+    display: grid;
+    gap: 1rem;
+    padding: 2rem;
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+}
+
+.heading {
+    font-weight: var(--venia-global-fontWeight-bold);
+    padding-bottom: 0.5rem;
+}
+
+.subTotal {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+}
+
+.discount {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+}
+
+.tax {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+}
+
+.shipping {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+}
+
+.total {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+@media (max-width: 960px) {
+    .root {
+        border: none;
+        border-radius: 0rem;
+        padding: 1rem 0rem;
+    }
+}

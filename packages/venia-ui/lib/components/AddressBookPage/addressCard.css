@@ -1,0 +1,121 @@
+.root {
+    align-content: flex-start;
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    padding: 1.25rem 2rem;
+    position: relative;
+}
+
+.root_updated {
+    composes: root;
+    animation: flash var(--venia-global-anim-bounce) 640ms 2;
+}
+
+.confirmDeleteContainer {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    height: 100%;
+    justify-items: center;
+    left: 0;
+    padding: 1.25rem 2rem;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.confirmDeleteButton {
+    composes: root_normalPriorityNegative from '../Button/button.css';
+
+    background-color: white;
+    order: 1;
+}
+.cancelDeleteButton {
+    composes: root_lowPriority from '../Button/button.css';
+
+    background-color: white;
+}
+
+.contentContainer {
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.actionContainer {
+    align-content: start;
+    display: grid;
+    justify-items: start;
+    row-gap: 0.5rem;
+}
+
+.defaultBadge {
+    width: max-content;
+    padding: 0.375rem 1.5rem;
+    margin-bottom: 0.25rem;
+    border: 1px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.telephone {
+    margin-top: 0.5rem;
+}
+
+.linkButton {
+    composes: root from '../LinkButton/linkButton.css';
+    text-decoration: none;
+}
+
+.editButton {
+    composes: linkButton;
+}
+
+.deleteButton {
+    composes: linkButton;
+}
+
+@media (max-width: 640px) {
+    .root {
+        padding: 1rem;
+    }
+
+    .confirmDeleteContainer {
+        padding: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    .confirmDeleteButton {
+        order: 0;
+    }
+}
+
+@media (max-width: 384px) {
+    .actionLabel {
+        display: none;
+    }
+
+    .linkButton {
+        padding: 0 0.25rem 0.25rem;
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

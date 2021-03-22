@@ -2,17 +2,82 @@
 
 exports[`Snapshot test 1`] = `
 <div>
-  <div>
-    Sample Image Component
-  </div>
+  <mock-Image
+    alt=""
+    classes={
+      Object {
+        "root": undefined,
+      }
+    }
+    resource="www.venia.com/p1"
+    width={100}
+  />
   <span>
     
   </span>
-  <div>
-    Sample Product Options Component
-  </div>
+  <mock-ProductOptions
+    classes={
+      Object {
+        "options": undefined,
+      }
+    }
+  />
   <span>
-    Qty : 5
+    <mock-FormattedMessage
+      defaultMessage="Qty :"
+      id="checkoutPage.quantity"
+      values={
+        Object {
+          "quantity": 5,
+        }
+      }
+    />
+  </span>
+</div>
+`;
+
+exports[`Snapshot test when configured to use variant image 1`] = `
+<div>
+  <mock-Image
+    alt="P1"
+    classes={
+      Object {
+        "root": undefined,
+      }
+    }
+    resource="www.venia.com/p1-variant1"
+    width={100}
+  />
+  <span>
+    P1
+  </span>
+  <mock-ProductOptions
+    classes={
+      Object {
+        "options": undefined,
+      }
+    }
+    options={
+      Array [
+        Object {
+          "id": 22,
+          "option_label": "Color",
+          "value_id": 2,
+          "value_label": "red",
+        },
+      ]
+    }
+  />
+  <span>
+    <mock-FormattedMessage
+      defaultMessage="Qty :"
+      id="checkoutPage.quantity"
+      values={
+        Object {
+          "quantity": 5,
+        }
+      }
+    />
   </span>
 </div>
 `;

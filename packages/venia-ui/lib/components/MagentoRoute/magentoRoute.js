@@ -1,48 +1,50 @@
 import React from 'react';
-import ErrorView from '../ErrorView';
-import {
-    INTERNAL_ERROR,
-    NOT_FOUND,
-    useMagentoRoute
-} from '@magento/peregrine/lib/talons/MagentoRoute';
+import { useIntl } from 'react-intl';
+import { useMagentoRoute } from '@magento/peregrine/lib/talons/MagentoRoute';
 
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
+import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 
 const MESSAGES = new Map()
-    .set(NOT_FOUND, 'That page could not be found. Please try again.')
-    .set(INTERNAL_ERROR, 'Something went wrong. Please try again.');
+    .set(
+        'NOT_FOUND',
+        "Looks like the page you were hoping to find doesn't exist. Sorry about that."
+    )
+    .set('INTERNAL_ERROR', 'Something went wrong. Sorry about that.');
 
 const MagentoRoute = () => {
-    const magentoRouteProps = {};
-    // If we have a specific store view code configured pass it into the url resolver
-    if (STORE_VIEW_CODE) {
-        magentoRouteProps.store = STORE_VIEW_CODE;
-    }
-    const talonProps = useMagentoRoute(magentoRouteProps);
+    const { formatMessage } = useIntl();
+    const talonProps = useMagentoRoute();
     const {
         component: RootComponent,
         id,
         isLoading,
-        isRedirect,
-        routeError
+        isNotFound,
+        isRedirect
     } = talonProps;
 
     if (isLoading || isRedirect) {
         return fullPageLoadingIndicator;
     } else if (RootComponent) {
         return <RootComponent id={id} />;
-    } else if (routeError === NOT_FOUND) {
+    } else if (isNotFound) {
         return (
-            <ErrorView>
-                <h1>{MESSAGES.get(routeError)}</h1>
-            </ErrorView>
+            <ErrorView
+                message={formatMessage({
+                    id: 'magentoRoute.routeError',
+                    defaultMessage: MESSAGES.get('NOT_FOUND')
+                })}
+            />
         );
     }
 
     return (
-        <ErrorView>
-            <h1>{MESSAGES.get(INTERNAL_ERROR)}</h1>
-        </ErrorView>
+        <ErrorView
+            message={formatMessage({
+                id: 'magentoRoute.internalError',
+                defaultMessage: MESSAGES.get('INTERNAL_ERROR')
+            })}
+        />
     );
 };
 
