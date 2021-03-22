@@ -18,12 +18,12 @@ At this point, the merchant can create and manage recommendation units from the 
 
 Product Recommendations support on PWA requires installing the `venia-product-recommendations` module and the Product Recommendations Magento module.
 
-1. You can install the PWA (_name of this module_) package from the NPM registry:
+1. You can install the PWA `venia-product-recommendations` package from the NPM registry:
 
    ```sh
    npm install @magento/venia-product-recommendations
    ```
-   This package contains everything you need to collect behavioral data and render the recommendations.
+   This package contains everything you need to collect behavioral data and render the recommendations. Some recommendation types use behavioral data from your shoppers to train machine learning models that build personalized recommendations. Other recommendation types use catalog data only and do not use any behavioral data. See the [Magento user guide](https://docs.magento.com/user-guide/marketing/product-recommendations.html#trainmlmodels) to learn how Adobe Sensei trains machine learning models that results in higher quality recommendations.
 
 1. To install the Magento Product Recommendations backend module, see the [Magento developer documentation](https://devdocs.magento.com/recommendations/install-configure.html).
 This module expands Magento's existing GraphQL API to include fields that are used to fetch the recommendations from the Recommendations Service.
@@ -31,7 +31,7 @@ This module expands Magento's existing GraphQL API to include fields that are us
 ## Create recommendation units
 
 Creating a product recommendation unit for your PWA storefront is similar to [creating one for a Magento storefront](https://docs.magento.com/user-guide/marketing/create-new-rec.html).
-The difference is that after you create a recommendation unit, you then need to fetch that recommendation unit from your PWA storefront.
+The difference is that after you create a recommendation unit, you then need to add code to your PWA storefront to explicitly fetch the recommendation unit from the Magento backend. You can use one of the methods described below.
 
 ## Fetch recommendations
 
@@ -39,9 +39,9 @@ There are three ways you can fetch product recommendations from your PWA storefr
 If you are using Venia as a the base storefront, PWA Studio provides components that track and collect behavioral events as well as components that render the recommendation units on your page.
 If you are not using Venia UI components in your storefront project, there are other options available to you.
 
-### Venia UI component (recommended)
+### Venia UI component
 
-The `Recommendations` component is part of the [venia-ui package]: {link technologies/overview/#custom-react-hooks-and-component %}.
+The `Recommendations` component is part of the [venia-ui package]: {% link technologies/overview/#custom-react-hooks-and-component %}.
 It contains React components that do the following:
 
 -  Collect and send behavioral data to Adobe Sensei
@@ -56,7 +56,7 @@ return <Recommendations pageType={CMS} />
 ```
 ### Fetch data only
 
-If you are not using the `venia-ui` package, you can call the recommendations service and receive a payload in JSON.
+If you are not using the `venia-ui` package, you can call the recommendations service and receive a JSON payload.
 #### Example
 
 ```js
