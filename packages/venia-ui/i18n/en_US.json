@@ -294,6 +294,7 @@
     "productFullDetail.errorToken": "There was a problem with your cart. Please sign in again and try adding the item once more.",
     "productFullDetail.errorUnknown": "Could not add item to cart. Please check required options and try again.",
     "productFullDetail.productDescription": "Product Description",
+    "productFullDetail.unavailableProduct":  "This product is currently unavailable for purchase.",
     "productList.each": " ea.",
     "productList.outOfStock": "Out-of-stock",
     "productList.quantity": "Qty : {quantity}",
