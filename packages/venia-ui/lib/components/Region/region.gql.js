@@ -5,8 +5,8 @@ export const GET_REGIONS_QUERY = gql`
         country(id: $countryCode) {
             id
             available_regions {
-                id
-                code
+                key: id
+                id: code
                 name
             }
         }

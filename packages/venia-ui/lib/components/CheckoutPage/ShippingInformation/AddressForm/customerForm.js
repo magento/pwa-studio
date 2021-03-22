@@ -219,8 +219,8 @@ const CustomerForm = props => {
                 <div className={classes.region}>
                     <Region
                         validate={isRequired}
-                        fieldInput={'region[region]'}
-                        fieldSelect={'region[region_id]'}
+                        fieldInput={'region[id]'}
+                        fieldSelect={'region[id]'}
                     />
                 </div>
                 <div className={classes.postcode}>
@@ -296,7 +296,7 @@ CustomerForm.propTypes = {
         lastname: string,
         postcode: string,
         region: shape({
-            id: number
+            id: string
         }).isRequired,
         street: arrayOf(string),
         telephone: string

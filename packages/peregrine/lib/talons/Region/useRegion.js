@@ -22,7 +22,7 @@ export const useRegion = props => {
         countryCodeField = 'country',
         fieldInput = 'region',
         fieldSelect = 'region',
-        optionValueKey = 'code',
+        optionValueKey = 'id',
         queries: { getRegionsQuery }
     } = props;
 
@@ -57,7 +57,7 @@ export const useRegion = props => {
         const { available_regions: availableRegions } = country;
         if (availableRegions) {
             formattedRegionsData = availableRegions.map(region => ({
-                key: region.id,
+                key: region.key,
                 label: region.name,
                 value: region[optionValueKey]
             }));
