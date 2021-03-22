@@ -9,7 +9,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 
 import defaultClasses from './wishlistButton.css';
-import { arrayOf, bool, number, shape, string } from 'prop-types';
+import { arrayOf, number, shape, string } from 'prop-types';
 import WishlistDialog from '../WishlistDialog';
 
 const ErrorIcon = <Icon src={AlertCircle} attrs={{ width: 18 }} />;
@@ -100,7 +100,6 @@ WishlistButton.propTypes = {
     classes: shape({
         wishlistButton: string
     }),
-    disabled: bool,
     itemOptions: shape({
         entered_options: arrayOf(
             shape({
