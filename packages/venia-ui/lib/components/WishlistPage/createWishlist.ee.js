@@ -26,7 +26,8 @@ const CreateWishlist = props => {
         handleShowModal,
         isModalOpen,
         formErrors,
-        loading
+        loading,
+        shouldRender
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -63,7 +64,7 @@ const CreateWishlist = props => {
         }
     ];
 
-    return (
+    return shouldRender ? (
         <div className={classes.root}>
             <button
                 className={classes.createButton}
@@ -131,7 +132,7 @@ const CreateWishlist = props => {
                 </div>
             </Dialog>
         </div>
-    );
+    ) : null;
 };
 
 export default CreateWishlist;

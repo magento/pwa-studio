@@ -1,5 +1,6 @@
 import BrowserPersistence from '../../../util/simplePersistence';
 import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
+import { clearWishlistDataFromCache } from '../../../Apollo/clearWishlistDataFromCache';
 import { clearCustomerDataFromCache } from '../../../Apollo/clearCustomerDataFromCache';
 import { removeCart } from '../cart';
 import { clearCheckoutDataFromStorage } from '../checkout';
@@ -26,6 +27,7 @@ export const signOut = (payload = {}) =>
         await dispatch(actions.reset());
         await clearCheckoutDataFromStorage();
         await clearCartDataFromCache(apolloClient);
+        await clearWishlistDataFromCache(apolloClient);
         await clearCustomerDataFromCache(apolloClient);
 
         // Now that we're signed out, forget the old (customer) cart.

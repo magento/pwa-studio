@@ -22,6 +22,7 @@ const createWishlistVariables = {
 
 let createWishlistMutationCalled = false;
 let getCustomerWishlistsQueryCalled = false;
+let getMultipleWishlistsEnabledQueryCalled = false;
 
 const getCustomerWishlistsMock = {
     request: {
@@ -49,6 +50,24 @@ const getCustomerWishlistsMock = {
     }
 };
 
+const getMultipleWishlistsEnabledQueryMock = {
+    request: {
+        query: defaultOperations.getMultipleWishlistsEnabledQuery
+    },
+    loading: false,
+    result: () => {
+        getMultipleWishlistsEnabledQueryCalled = true;
+        return {
+            data: {
+                storeConfig: {
+                    id: '42',
+                    enable_multiple_wishlists: '1'
+                }
+            }
+        };
+    }
+};
+
 const createWishlistMock = {
     request: {
         query: defaultOperations.createWishlistMutation,
@@ -70,7 +89,11 @@ const createWishlistMock = {
 
 const renderHookWithProviders = ({
     renderHookOptions = {},
-    mocks = [createWishlistMock, getCustomerWishlistsMock]
+    mocks = [
+        createWishlistMock,
+        getCustomerWishlistsMock,
+        getMultipleWishlistsEnabledQueryMock
+    ]
 } = {}) => {
     const wrapper = ({ children }) => (
         <MockedProvider mocks={mocks} addTypename={false}>
@@ -81,9 +104,29 @@ const renderHookWithProviders = ({
     return renderHook(useCreateWishlist, { wrapper, ...renderHookOptions });
 };
 
-test('should return properly', () => {
+test('should return properly', async () => {
     const { result } = renderHookWithProviders();
+    await new Promise(resolve => setTimeout(resolve, 0));
+    expect(getMultipleWishlistsEnabledQueryCalled).toBe(true);
     expect(result.current).toMatchSnapshot();
+});
+
+test('shouldRender is false when multiple wishlists disabled', async () => {
+    const multipleWishlistsDisabledMock = {
+        request: getMultipleWishlistsEnabledQueryMock.request,
+        result: {
+            data: { storeConfig: { id: '42', enable_multiple_wishlists: '0' } }
+        }
+    };
+    const { result } = renderHookWithProviders({
+        mocks: [
+            createWishlistMock,
+            getCustomerWishlistsMock,
+            multipleWishlistsDisabledMock
+        ]
+    });
+    await new Promise(resolve => setTimeout(resolve, 0));
+    expect(result.current.shouldRender).toBe(false);
 });
 
 test('should return error', async () => {
@@ -92,7 +135,7 @@ test('should return error', async () => {
         error: new Error('Only 5 wish list(s) can be created.')
     };
     const { result } = renderHookWithProviders({
-        mocks: [createWishlistErrorMock]
+        mocks: [createWishlistErrorMock, getMultipleWishlistsEnabledQueryMock]
     });
     await act(() => result.current.handleCreateList(createWishlistVariables));
     expect(

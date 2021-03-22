@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import mergeOperations from '../../util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './createWishlist.gql';
@@ -16,13 +16,34 @@ export const useCreateWishlist = (props = {}) => {
         WISHLIST_PAGE_OPERATIONS,
         props.operations
     );
-    const { createWishlistMutation, getCustomerWishlistQuery } = operations;
+    const {
+        createWishlistMutation,
+        getCustomerWishlistQuery,
+        getMultipleWishlistsEnabledQuery
+    } = operations;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [displayError, setDisplayError] = useState(false);
     const [
         createWishlist,
         { error: createWishlistError, loading }
     ] = useMutation(createWishlistMutation);
+
+    const { data: storeConfigData } = useQuery(
+        getMultipleWishlistsEnabledQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
+    );
+
+    const shouldRender = useMemo(() => {
+        return (
+            (storeConfigData &&
+                storeConfigData.storeConfig.enable_multiple_wishlists ===
+                    '1') ||
+            false
+        );
+    }, [storeConfigData]);
 
     const handleShowModal = useCallback(() => {
         setIsModalOpen(true);
@@ -68,7 +89,8 @@ export const useCreateWishlist = (props = {}) => {
         handleShowModal,
         isModalOpen,
         formErrors: errors,
-        loading
+        loading,
+        shouldRender
     };
 };
 
