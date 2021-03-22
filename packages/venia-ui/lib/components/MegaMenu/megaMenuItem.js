@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, resourceUrl } from '../../drivers';
+import { Link } from 'react-router-dom';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './megaMenuItem.css';
 import Submenu from './submenu';
