@@ -2,10 +2,10 @@
 title: Integrating Product Recommendations
 ---
 
-You can integrate [Adobe Sensei](https://www.adobe.com/sensei.html) powered product recommendations into your PWA storefront.
+You can integrate Product Recommendations powered by [Adobe Sensei](https://www.adobe.com/sensei.html) into your PWA storefront.
 ## Integration overview
 
-![Product Recommendations for Headless Deployment](images/pwa-arch-diag-sensei.svg)
+![Product Recommendations for PWA Studio](images/pwa-arch-diag-sensei.svg)
 
 Magento's [Product Recommendations](https://docs.magento.com/user-guide/marketing/product-recommendations.html) feature is a SaaS service powered by Adobe Sensei.
 The **Store** side includes your PWA storefront, which contains the event collector and recommendations layout template, and the backend, which includes the GraphQL endpoints, SaaS Export module, and the Admin UI.
