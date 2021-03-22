@@ -66,7 +66,7 @@ export const useShippingMethods = props => {
 
             selectedShippingFields = {
                 country: country.code,
-                region: region.code,
+                region: region.id,
                 zip: postcode
             };
 

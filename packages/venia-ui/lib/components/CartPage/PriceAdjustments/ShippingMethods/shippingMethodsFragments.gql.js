@@ -50,7 +50,7 @@ export const ShippingMethodsCartFragment = gql`
             }
             postcode
             region {
-                code
+                id: code
             }
             street
         }

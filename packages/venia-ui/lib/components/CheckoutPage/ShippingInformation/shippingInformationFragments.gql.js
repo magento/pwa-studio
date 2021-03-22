@@ -14,7 +14,7 @@ export const ShippingInformationFragment = gql`
             lastname
             postcode
             region {
-                code
+                id: code
                 label
             }
             street

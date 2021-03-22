@@ -75,7 +75,7 @@ Region.defaultProps = {
     fieldSelect: 'region',
     label: 'State',
     translationId: 'region.label',
-    optionValueKey: 'code'
+    optionValueKey: 'id'
 };
 
 Region.propTypes = {

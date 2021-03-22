@@ -17,7 +17,7 @@ exports[`renders address form and methods with address set 1`] = `
     selectedShippingFields={
       Object {
         "country": "US",
-        "region": "TX",
+        "region": undefined,
         "zip": "78701",
       }
     }

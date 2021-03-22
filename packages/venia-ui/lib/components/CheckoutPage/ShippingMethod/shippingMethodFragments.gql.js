@@ -54,7 +54,7 @@ export const ShippingMethodsCheckoutFragment = gql`
             }
             postcode
             region {
-                code
+                id: code
             }
             street
         }

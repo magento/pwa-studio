@@ -43,7 +43,7 @@ export const GET_SUMMARY_DATA = gql`
                 street
                 city
                 region {
-                    code
+                    id: code
                 }
                 postalCode: postcode
                 phoneNumber: telephone

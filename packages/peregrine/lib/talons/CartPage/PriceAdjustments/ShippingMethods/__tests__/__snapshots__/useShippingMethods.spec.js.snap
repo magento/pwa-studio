@@ -6,7 +6,7 @@ Object {
   "isShowingForm": true,
   "selectedShippingFields": Object {
     "country": "USA",
-    "region": "TX",
+    "region": undefined,
     "zip": "78725",
   },
   "selectedShippingMethod": null,
@@ -55,7 +55,7 @@ Object {
   "isShowingForm": true,
   "selectedShippingFields": Object {
     "country": "USA",
-    "region": "TX",
+    "region": undefined,
     "zip": "78725",
   },
   "selectedShippingMethod": "tablerate|bestway",

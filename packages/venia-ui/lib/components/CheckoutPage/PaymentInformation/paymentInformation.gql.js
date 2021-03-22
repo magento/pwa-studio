@@ -24,7 +24,7 @@ export const GET_PAYMENT_INFORMATION = gql`
                 street
                 city
                 region {
-                    code
+                    id: code
                 }
                 postcode
                 country {
@@ -92,7 +92,7 @@ export const SET_BILLING_ADDRESS = gql`
                     street
                     city
                     region {
-                        code
+                        id: code
                     }
                     postcode
                     telephone
