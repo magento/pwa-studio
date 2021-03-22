@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -23,11 +23,14 @@ export const useWishlistDialog = props => {
 
     // enable_multiple_wishlists is a string "1" or "0". See documentation here:
     // https://devdocs.magento.com/guides/v2.4/graphql/mutations/create-wishlist.html
-    const canCreateWishlist =
-        wishlistsData &&
-        !!wishlistsData.storeConfig.enable_multiple_wishlists &&
-        wishlistsData.storeConfig.maximum_number_of_wishlists >
-            wishlistsData.customer.wishlists.length;
+    const canCreateWishlist = useMemo(() => {
+        return (
+            wishlistsData &&
+            !!wishlistsData.storeConfig.enable_multiple_wishlists &&
+            wishlistsData.storeConfig.maximum_number_of_wishlists >
+                wishlistsData.customer.wishlists.length
+        );
+    }, [wishlistsData]);
 
     const handleAddToWishlist = useCallback(
         async wishlistId => {
@@ -41,9 +44,7 @@ export const useWishlistDialog = props => {
                 onClose(true);
                 setIsFormOpen(false);
             } catch (err) {
-                if (process.env.NODE_ENV !== 'production') {
-                    console.log(err);
-                }
+                console.log(err);
             }
         },
         [addProductToWishlist, itemOptions, onClose]
