@@ -7,11 +7,11 @@ You can integrate Product Recommendations powered by [Adobe Sensei](https://www.
 
 ![Product Recommendations for PWA Studio](images/pwa-arch-diag-sensei.svg)
 
-Magento's [Product Recommendations](https://docs.magento.com/user-guide/marketing/product-recommendations.html) feature is a SaaS service powered by Adobe Sensei.
+Magento's [Product Recommendations powered by Adobe Sensei](https://docs.magento.com/user-guide/marketing/product-recommendations.html) is a feature backed by several SaaS services.
 The **Store** side includes your PWA storefront, which contains the event collector and recommendations layout template, and the backend, which includes the GraphQL endpoints, SaaS Export module, and the Admin UI.
 
-After you install and add the Product Recommendations components to your storefront, it will start tracking and sending behavioral data to Adobe Sensei using [user events](https://devdocs.magento.com/recommendations/events.html).
-Adobe Sensei processes this behavioral data with the catalog data in the Magento backend and calculates the product associations leveraged by the recommendations service.
+After you install the Product Recommendations PWA extension on your store, it will start sending [behavioral data](https://devdocs.magento.com/recommendations/events.html) to Adobe Sensei.
+Adobe Sensei processes this behavioral data along with the catalog data from the Magento backend and calculates the product associations leveraged by the recommendations service.
 At this point, the merchant can create and manage recommendation units from the Magento Admin UI then fetch those product recommendation units from their PWA storefront.
 
 ## Install the Product Recommendations module
