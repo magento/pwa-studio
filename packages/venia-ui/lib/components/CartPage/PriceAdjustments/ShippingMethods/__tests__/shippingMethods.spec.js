@@ -71,7 +71,7 @@ test('renders address form and methods with address set', () => {
                         },
                         postcode: '78701',
                         region: {
-                            code: 'TX'
+                            id: 'TX'
                         },
                         selected_shipping_method: {
                             carrier_code: 'usps',
