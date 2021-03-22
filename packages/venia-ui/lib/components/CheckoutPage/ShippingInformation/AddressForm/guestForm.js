@@ -17,12 +17,19 @@ import defaultClasses from './guestForm.css';
 import GuestFormOperations from './guestForm.gql';
 
 const GuestForm = props => {
-    const { afterSubmit, classes: propClasses, onCancel, shippingData } = props;
+    const {
+        afterSubmit,
+        classes: propClasses,
+        onCancel,
+        onSuccess,
+        shippingData
+    } = props;
 
     const talonProps = useGuestForm({
         afterSubmit,
         ...GuestFormOperations,
         onCancel,
+        onSuccess,
         shippingData
     });
     const {

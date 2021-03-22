@@ -25,11 +25,17 @@ const errorIcon = (
 );
 
 const AddressBook = props => {
-    const { activeContent, classes: propClasses, toggleActiveContent } = props;
+    const {
+        activeContent,
+        classes: propClasses,
+        toggleActiveContent,
+        onSuccess
+    } = props;
 
     const talonProps = useAddressBook({
         ...AddressBookOperations,
-        toggleActiveContent
+        toggleActiveContent,
+        onSuccess
     });
 
     const {

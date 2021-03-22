@@ -8,13 +8,19 @@ export const useGuestForm = props => {
         afterSubmit,
         mutations: { setGuestShippingMutation },
         onCancel,
+        onSuccess,
         shippingData
     } = props;
 
     const [{ cartId }] = useCartContext();
 
     const [setGuestShipping, { error, loading }] = useMutation(
-        setGuestShippingMutation
+        setGuestShippingMutation,
+        {
+            onCompleted: () => {
+                onSuccess();
+            }
+        }
     );
 
     const { country, region } = shippingData;

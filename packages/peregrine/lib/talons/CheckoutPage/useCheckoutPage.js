@@ -135,32 +135,38 @@ export const useCheckoutPage = (props = {}) => {
         setReviewOrderButtonClicked(false);
     }, [setReviewOrderButtonClicked]);
 
+    const scrollShippingInformationIntoView = useCallback(() => {
+        if (shippingInformationRef.current) {
+            shippingInformationRef.current.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    }, [shippingInformationRef]);
+
     const setShippingInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS) {
             setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
-
-            if (shippingInformationRef.current) {
-                shippingInformationRef.current.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
         }
-    }, [checkoutStep, shippingInformationRef, setCheckoutStep]);
+    }, [checkoutStep, setCheckoutStep]);
+
+    const scrollShippingMethodIntoView = useCallback(() => {
+        if (shippingMethodRef.current) {
+            shippingMethodRef.current.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    }, [shippingMethodRef]);
 
     const setShippingMethodDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD) {
             setCheckoutStep(CHECKOUT_STEP.PAYMENT);
-
-            if (shippingMethodRef.current) {
-                shippingMethodRef.current.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
         }
-    }, [checkoutStep, shippingMethodRef, setCheckoutStep]);
+    }, [checkoutStep, setCheckoutStep]);
 
     const setPaymentInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
+            console.log('PM scrolling');
+
             window.scrollTo({
                 left: 0,
                 top: 0,
@@ -255,8 +261,10 @@ export const useCheckoutPage = (props = {}) => {
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone,
+        scrollShippingInformationIntoView,
         shippingInformationRef,
         shippingMethodRef,
+        scrollShippingMethodIntoView,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,

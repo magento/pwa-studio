@@ -61,7 +61,9 @@ const CheckoutPage = props => {
         setCheckoutStep,
         setIsUpdating,
         setShippingInformationDone,
+        scrollShippingInformationIntoView,
         setShippingMethodDone,
+        scrollShippingMethodIntoView,
         setPaymentInformationDone,
         shippingInformationRef,
         shippingMethodRef,
@@ -165,6 +167,7 @@ const CheckoutPage = props => {
                 <ShippingMethod
                     pageIsUpdating={isUpdating}
                     onSave={setShippingMethodDone}
+                    onSuccess={scrollShippingMethodIntoView}
                     setPageIsUpdating={setIsUpdating}
                 />
             ) : (
@@ -335,6 +338,7 @@ const CheckoutPage = props => {
                     <ScrollAnchor ref={shippingInformationRef}>
                         <ShippingInformation
                             onSave={setShippingInformationDone}
+                            onSuccess={scrollShippingInformationIntoView}
                             toggleActiveContent={toggleAddressBookContent}
                         />
                     </ScrollAnchor>
@@ -360,6 +364,7 @@ const CheckoutPage = props => {
         <AddressBook
             activeContent={activeContent}
             toggleActiveContent={toggleAddressBookContent}
+            onSuccess={scrollShippingInformationIntoView}
         />
     ) : null;
 

@@ -29,10 +29,11 @@ const initializingContents = (
 );
 
 const ShippingMethod = props => {
-    const { onSave, pageIsUpdating, setPageIsUpdating } = props;
+    const { onSave, onSuccess, pageIsUpdating, setPageIsUpdating } = props;
 
     const talonProps = useShippingMethod({
         onSave,
+        onSuccess,
         setPageIsUpdating,
         ...shippingMethodOperations
     });
