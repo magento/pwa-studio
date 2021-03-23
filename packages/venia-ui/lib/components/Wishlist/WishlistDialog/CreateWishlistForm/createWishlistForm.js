@@ -12,6 +12,7 @@ import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
 import defaultClasses from './createWishlistForm.css';
 import FormError from '../../../FormError';
+import { bool, func, shape, string } from 'prop-types';
 
 const CreateWishlistForm = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -99,3 +100,17 @@ const CreateWishlistForm = props => {
 };
 
 export default CreateWishlistForm;
+
+CreateWishlistForm.defaultProps = {
+    classes: shape({
+        actions: string,
+        formErrors: string,
+        listname: string,
+        radioContents: string,
+        radioRoot: string,
+        visibility: string
+    }),
+    onCancel: func.isRequired,
+    onCreateList: func.isRequired,
+    isAddLoading: bool.isRequired
+};
