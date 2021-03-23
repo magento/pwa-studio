@@ -159,6 +159,7 @@ const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
  *  handleSelectionChange: func,
  *  handleSetQuantity: func,
  *  isAddToCartDisabled: boolean,
+ *  isSupportedProductType: boolean,
  *  mediaGalleryEntries: array,
  *  productDetails: object,
  *  quantity: number
@@ -315,10 +316,8 @@ export const useProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isAddToCartDisabled:
-            !isSupportedProductType ||
-            isMissingOptions ||
-            isAddConfigurableLoading ||
-            isAddSimpleLoading,
+            isMissingOptions || isAddConfigurableLoading || isAddSimpleLoading,
+        isSupportedProductType,
         mediaGalleryEntries,
         productDetails
     };

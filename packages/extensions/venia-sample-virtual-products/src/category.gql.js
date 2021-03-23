@@ -1,9 +1,12 @@
 import { gql } from '@apollo/client';
 
-import { CategoryFragment, ProductsFragment } from './categoryFragments.gql';
+import {
+    CategoryFragment,
+    ProductsFragment
+} from '@magento/peregrine/lib/talons/RootComponents/Category/categoryFragments.gql';
 
 export const GET_CATEGORY = gql`
-    query GetCategories(
+    query GetCategoriesWithSubType(
         $id: Int!
         $pageSize: Int!
         $currentPage: Int!
@@ -20,27 +23,13 @@ export const GET_CATEGORY = gql`
             filter: $filters
             sort: $sort
         ) {
+            items {
+                id
+                sub_type
+            }
             ...ProductsFragment
         }
     }
     ${CategoryFragment}
     ${ProductsFragment}
 `;
-
-export const GET_FILTER_INPUTS = gql`
-    query GetFilterInputsForCategory {
-        __type(name: "ProductAttributeFilterInput") {
-            inputFields {
-                name
-                type {
-                    name
-                }
-            }
-        }
-    }
-`;
-
-export default {
-    getCategoryQuery: GET_CATEGORY,
-    getFilterInputsQuery: GET_FILTER_INPUTS
-};

@@ -107,7 +107,11 @@ module.exports = targets => {
          *   })
          * );
          */
-        savedPaymentTypes: new targets.types.Sync(['savedPaymentTypes'])
+        savedPaymentTypes: new targets.types.Sync(['savedPaymentTypes']),
+
+        categoryListProductAttributes: new targets.types.Sync([
+            'categoryListProductAttributes'
+        ])
     });
 };
 
