@@ -26,7 +26,7 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 jest.mock('react-router-dom', () => ({
     Link: ({ children, ...rest }) => <div {...rest}>{children}</div>
 }));
-// jest.mock('@magento/peregrine/lib/util/makeUrl');
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 jest.mock('../product', () => 'Product');
 jest.mock('../EditModal', () => 'EditModal');
 

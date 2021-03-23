@@ -6,7 +6,7 @@ import Gallery from '../gallery';
 jest.mock('react-router-dom', () => ({
     Link: ({ children }) => children
 }));
-// jest.mock('@magento/peregrine/lib/util/makeUrl');
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
     return {
         useImage: () => ({

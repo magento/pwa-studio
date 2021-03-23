@@ -6,7 +6,7 @@ import React from 'react';
 jest.mock('react-router-dom', () => ({
     withRouter: jest.fn(arg => arg)
 }));
-// jest.mock('@magento/peregrine/lib/util/makeUrl');
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 test('factory should render instance of content type', () => {
     const props = {

@@ -14,7 +14,7 @@ Object.defineProperty(HTMLElement.prototype, 'scrollWidth', {
     }
 });
 
-// jest.mock('@magento/peregrine/lib/util/makeUrl');
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock('@magento/venia-ui/lib/classify');
 

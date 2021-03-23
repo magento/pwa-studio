@@ -6,7 +6,7 @@ import * as config from '../../../config';
 jest.mock('react-router-dom', () => ({
     withRouter: jest.fn(arg => arg)
 }));
-// jest.mock('@magento/peregrine/lib/util/makeUrl');
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock(
     '@magento/venia-ui/lib/components/RichContent/richContentRenderers',

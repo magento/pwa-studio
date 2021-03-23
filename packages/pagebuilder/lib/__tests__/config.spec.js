@@ -4,7 +4,7 @@ import { getContentTypeConfig, setContentTypeConfig } from '../config';
 jest.mock('react-router-dom', () => ({
     withRouter: jest.fn(arg => arg)
 }));
-// jest.mock('@magento/peregrine/lib/util/makeUrl');
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 const dynamicContentType = 'dynamicContentType';
 const dynamicContentTypeConfig = {

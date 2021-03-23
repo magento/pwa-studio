@@ -6,7 +6,7 @@ jest.mock('../../../classify');
 jest.mock('react-router-dom', () => ({
     Link: ({ children }) => children
 }));
-// jest.mock('@magento/peregrine/lib/util/makeUrl');
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 const defaultProps = {
     handleOnProductOpen: jest.fn(),

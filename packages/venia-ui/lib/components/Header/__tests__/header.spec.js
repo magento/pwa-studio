@@ -17,7 +17,7 @@ jest.mock('../../PageLoadingIndicator', () => () => (
     <div id={'pageLoadingIndicator'} />
 ));
 
-// jest.mock('@magento/peregrine/lib/util/makeUrl');
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock('@magento/peregrine/lib/talons/Header/useHeader', () => {
     const state = {

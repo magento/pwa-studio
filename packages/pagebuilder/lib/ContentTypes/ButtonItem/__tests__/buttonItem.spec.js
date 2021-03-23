@@ -7,7 +7,7 @@ const history = {
     push: jest.fn()
 };
 jest.mock('@magento/venia-ui/lib/classify');
-// jest.mock('@magento/peregrine/lib/util/makeUrl');
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 jest.mock('react-router-dom', () => ({
     Link: jest.fn(() => null),
     useHistory: jest.fn()

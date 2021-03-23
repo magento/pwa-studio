@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useMemo } from 'react';
+import React, {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo
+} from 'react';
 
 const StyleContext = createContext();
 const isServer = !globalThis.document;
@@ -45,29 +51,31 @@ export default StyleContextProvider;
 export const useStyle = (...styles) => {
     const insertCss = useContext(StyleContext);
 
-    if (!insertCss) {
-        throw new Error('An `insertCss` function was not provided.');
-    }
+    const runInsert = useCallback(() => {
+        try {
+            // TODO: maybe throw an error instead of failing silently?
+            // unit tests would need to mock this hook, though
+            if (insertCss) {
+                insertCss(styles);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }, [insertCss, styles]);
 
     // React ignores effects on the server, so run this one during render
     // but ensure `initialState` is a `Set` to avoid duplicate styles
     if (isServer) {
-        try {
-            insertCss(styles);
-        } catch (error) {
-            console.error(error);
-        }
+        runInsert();
     }
 
+    // React hooks must be run the same number of times in the same order
+    // so the conditional goes inside the effect.
     useEffect(() => {
         if (!isServer) {
-            try {
-                insertCss(styles);
-            } catch (error) {
-                console.error(error);
-            }
+            runInsert();
         }
-    }, [insertCss, styles]);
+    }, [runInsert]);
 };
 
 /**
