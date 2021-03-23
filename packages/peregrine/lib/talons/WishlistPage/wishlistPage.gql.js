@@ -1,39 +1,13 @@
 import { gql } from '@apollo/client';
 
-import { CartTriggerFragment } from '../Header/cartTriggerFragments.gql';
-import { MiniCartFragment } from '../MiniCart/miniCart.gql';
+import { WishlistFragment } from './wishlistFragment.gql';
 
-export const ADD_WISHLIST_ITEM_TO_CART = gql`
-    mutation AddWishlistItemToCart(
-        $cartId: String!
-        $cartItem: ConfigurableProductCartItemInput!
-    ) {
-        addConfigurableProductsToCart(
-            input: { cart_id: $cartId, cart_items: [$cartItem] }
-        ) {
-            cart {
+export const GET_CUSTOMER_WISHLIST = gql`
+    query GetCustomerWishlist {
+        customer {
+            id
+            wishlists {
                 id
-                ...CartTriggerFragment
-                ...MiniCartFragment
-            }
-        }
-    }
-    ${CartTriggerFragment}
-    ${MiniCartFragment}
-`;
-
-export const REMOVE_PRODUCTS_FROM_WISHLIST = gql`
-    mutation RemoveProductsFromWishlist(
-        $wishlistId: ID!
-        $wishlistItemsId: [ID!]!
-    ) {
-        removeProductsFromWishlist(
-            wishlistId: $wishlistId
-            wishlistItemsIds: $wishlistItemsId
-        ) {
-            wishlist {
-                id
-                items_count
                 items_v2 {
                     items {
                         id
@@ -57,20 +31,20 @@ export const REMOVE_PRODUCTS_FROM_WISHLIST = gql`
                         ... on ConfigurableWishlistItem {
                             configurable_options {
                                 id
+                                value_id
                                 option_label
                                 value_label
                             }
                         }
                     }
                 }
-                name
-                sharing_code
+                ...WishlistFragment
             }
         }
     }
+    ${WishlistFragment}
 `;
 
 export default {
-    addWishlistItemToCartMutation: ADD_WISHLIST_ITEM_TO_CART,
-    removeProductsFromWishlistMutation: REMOVE_PRODUCTS_FROM_WISHLIST
+    getCustomerWishlistQuery: GET_CUSTOMER_WISHLIST
 };

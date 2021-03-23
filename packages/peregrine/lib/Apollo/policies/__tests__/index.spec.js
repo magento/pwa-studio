@@ -357,3 +357,40 @@ describe('CategoryTree type provides the correct values', () => {
         expect(result).toStrictEqual(incoming);
     });
 });
+
+test('wishlist entities have correct keys', () => {
+    const {
+        Wishlist,
+        WishlistItem,
+        SimpleWishlistItem,
+        VirtualWishlistItem,
+        DownloadableWishlistItem,
+        BundleWishlistItem,
+        GroupedProductWishlistItem,
+        ConfigurableWishlistItem,
+        GiftCardWishlistItem
+    } = typePolicies;
+    expect(Wishlist.keyFields({ id: 1 })).toBe('CustomerWishlist:1');
+    expect(WishlistItem.keyFields({ id: 1 })).toBe('CustomerWishlistItem:1');
+    expect(SimpleWishlistItem.keyFields({ id: 1 })).toBe(
+        'CustomerSimpleWishlistItem:1'
+    );
+    expect(VirtualWishlistItem.keyFields({ id: 1 })).toBe(
+        'CustomerVirtualWishlistItem:1'
+    );
+    expect(DownloadableWishlistItem.keyFields({ id: 1 })).toBe(
+        'CustomerDownloadableWishlistItem:1'
+    );
+    expect(BundleWishlistItem.keyFields({ id: 1 })).toBe(
+        'CustomerBundleWishlistItem:1'
+    );
+    expect(GroupedProductWishlistItem.keyFields({ id: 1 })).toBe(
+        'CustomerGroupedProductWishlistItem:1'
+    );
+    expect(ConfigurableWishlistItem.keyFields({ id: 1 })).toBe(
+        'CustomerConfigurableWishlistItem:1'
+    );
+    expect(GiftCardWishlistItem.keyFields({ id: 1 })).toBe(
+        'CustomerGiftCardWishlistItem:1'
+    );
+});
