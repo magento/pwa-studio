@@ -52,7 +52,20 @@ async function validateQueries(context, argv) {
 
         // Get the clients and filesGlob arguments from the .graphqlconfig.
         const configArgs = extensions[plugin.COMMAND];
-        const { clients, filesGlob, ignore } = configArgs;
+        const {
+            magentoBackendEdition,
+            clients,
+            filesGlob,
+            ceFilesGlob,
+            eeFilesGlob,
+            ignore
+        } = configArgs;
+
+        if (magentoBackendEdition === 'CE') {
+            ignore.push(eeFilesGlob);
+        } else {
+            ignore.push(ceFilesGlob);
+        }
 
         /**
          * List of files to run query validation on ignoring

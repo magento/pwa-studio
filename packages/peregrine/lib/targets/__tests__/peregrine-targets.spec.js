@@ -147,6 +147,7 @@ test('exposes all hooks and targets', async () => {
           talons.Footer.useFooter.wrapWith() wraps export "useFooter" from "Footer/useFooter.js"
           talons.ForgotPassword.useForgotPassword.wrapWith() wraps export "useForgotPassword" from "ForgotPassword/useForgotPassword.js"
           talons.FormError.useFormError.wrapWith() wraps export "useFormError" from "FormError/useFormError.js"
+          talons.Gallery.useGalleryItem.wrapWith() wraps export "useGalleryItem" from "Gallery/useGalleryItem.js"
           talons.Header.useAccountMenu.wrapWith() wraps export "useAccountMenu" from "Header/useAccountMenu.js"
           talons.Header.useAccountTrigger.wrapWith() wraps export "useAccountTrigger" from "Header/useAccountTrigger.js"
           talons.Header.useCartTrigger.wrapWith() wraps export "useCartTrigger" from "Header/useCartTrigger.js"

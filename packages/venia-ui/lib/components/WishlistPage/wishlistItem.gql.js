@@ -35,30 +35,31 @@ export const REMOVE_PRODUCTS_FROM_WISHLIST = gql`
                 id
                 items_count
                 items_v2 {
-                    id
-                    product {
+                    items {
                         id
-                        image {
-                            label
-                            url
-                        }
-                        name
-                        price_range {
-                            maximum_price {
-                                final_price {
-                                    currency
-                                    value
+                        product {
+                            id
+                            image {
+                                label
+                                url
+                            }
+                            name
+                            price_range {
+                                maximum_price {
+                                    final_price {
+                                        currency
+                                        value
+                                    }
                                 }
                             }
+                            sku
                         }
-                        sku
-                    }
-                    ... on ConfigurableWishlistItem {
-                        child_sku
-                        configurable_options {
-                            id
-                            option_label
-                            value_label
+                        ... on ConfigurableWishlistItem {
+                            configurable_options {
+                                id
+                                option_label
+                                value_label
+                            }
                         }
                     }
                 }

@@ -276,6 +276,11 @@ const jestConfig = {
             ]
         })),
         configureProject(
+            'extensions/venia-sample-virtual-products',
+            'Venia Virtual Products',
+            inPackage => testReactComponents(inPackage)
+        ),
+        configureProject(
             'extensions/venia-sample-payments-checkmo',
             'Check Money Order Payment',
             inPackage => ({

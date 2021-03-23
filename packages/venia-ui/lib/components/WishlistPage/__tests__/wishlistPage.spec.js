@@ -12,7 +12,8 @@ jest.mock('../createWishlist', () => 'CreateWishlist');
 test('renders loading indicator', () => {
     useWishlistPage.mockReturnValue({
         errors: new Map(),
-        wishlists: []
+        wishlists: [],
+        loading: true
     });
 
     const tree = createTestInstance(<WishlistPage />);

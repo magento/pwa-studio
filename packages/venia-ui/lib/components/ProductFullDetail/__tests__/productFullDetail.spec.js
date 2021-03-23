@@ -148,6 +148,7 @@ const talonProps = {
     handleAddToCart: mockHandleAddToCart,
     handleSelectionChange: mockHandleSelectionChange,
     isAddToCartDisabled: false,
+    isSupportedProductType: true,
     mediaGalleryEntries: [],
     productDetails: {
         name: 'Flux Capacitor',
@@ -297,4 +298,17 @@ test('renders a WishlistButton', () => {
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('it renders message with unsupported product type', () => {
+    useProductFullDetail.mockReturnValue({
+        ...talonProps,
+        isSupportedProductType: false
+    });
+
+    const tree = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(tree.toJSON()).toMatchSnapshot();
 });

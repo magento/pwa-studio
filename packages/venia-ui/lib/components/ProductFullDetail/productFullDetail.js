@@ -2,6 +2,7 @@ import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
+import { Info } from 'react-feather';
 
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
@@ -56,9 +57,10 @@ const ProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isAddToCartDisabled,
-        shouldShowWishlistButton,
+        isSupportedProductType,
         mediaGalleryEntries,
         productDetails,
+        shouldShowWishlistButton,
         wishlistItemOptions
     } = talonProps;
     const { formatMessage } = useIntl();
@@ -141,6 +143,27 @@ const ProductFullDetail = props => {
         </Suspense>
     ) : null;
 
+    const cartActionContent = isSupportedProductType ? (
+        <Button disabled={isAddToCartDisabled} priority="high" type="submit">
+            <FormattedMessage
+                id={'productFullDetail.cartAction'}
+                defaultMessage={'Add to Cart'}
+            />
+        </Button>
+    ) : (
+        <div className={classes.unavailableContainer}>
+            <Info />
+            <p>
+                <FormattedMessage
+                    id={'productFullDetail.unavailableProduct'}
+                    defaultMessage={
+                        'This product is currently unavailable for purchase.'
+                    }
+                />
+            </p>
+        </div>
+    );
+
     return (
         <Fragment>
             {breadcrumbs}
@@ -180,16 +203,7 @@ const ProductFullDetail = props => {
                     />
                 </section>
                 <section className={classes.actions}>
-                    <Button
-                        disabled={isAddToCartDisabled}
-                        priority="high"
-                        type="submit"
-                    >
-                        <FormattedMessage
-                            id={'productFullDetail.cartAction'}
-                            defaultMessage={'Add to Cart'}
-                        />
-                    </Button>
+                    {cartActionContent}
                     {maybeWishlistButton}
                 </section>
                 <section className={classes.description}>
@@ -229,7 +243,8 @@ ProductFullDetail.propTypes = {
         quantity: string,
         quantityTitle: string,
         root: string,
-        title: string
+        title: string,
+        unavailableContainer: string
     }),
     product: shape({
         __typename: string,
