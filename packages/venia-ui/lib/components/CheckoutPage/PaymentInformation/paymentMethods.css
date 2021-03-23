@@ -4,7 +4,12 @@
 }
 
 .payment_method {
+    padding-bottom: 1rem;
     border-bottom: 1px solid rgb(var(--venia-global-color-border));
+}
+
+.payment_method:not(:first-child) {
+    padding-top: 1rem;
 }
 
 .payment_method:last-of-type {

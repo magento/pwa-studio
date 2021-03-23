@@ -138,3 +138,24 @@ test('sets isAddToCartDisabled true if add simple mutation is loading', () => {
 
     expect(talonProps.isAddToCartDisabled).toBe(true);
 });
+
+test('returns correct value for supported product type', () => {
+    const tree = createTestInstance(<Component {...defaultProps} />);
+
+    const { root } = tree;
+    const { talonProps: talonProps1 } = root.findByType('i').props;
+
+    tree.update(
+        <Component
+            product={{
+                ...defaultProps.product,
+                __typename: 'Unsupported Type'
+            }}
+        />
+    );
+
+    const { talonProps: talonProps2 } = root.findByType('i').props;
+
+    expect(talonProps1.isSupportedProductType).toBe(true);
+    expect(talonProps2.isSupportedProductType).toBe(false);
+});

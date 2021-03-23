@@ -3,26 +3,23 @@ import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import { useUserContext } from '../../context/user';
-import { useTypePolicies } from '../../hooks/useTypePolicies';
+import mergeOperations from '../../util/shallowMerge';
+
+import DEFAULT_OPERATIONS from './wishlistPage.gql';
 
 /**
  * @function
  *
- * @param {WishlistQueries} props.queries Wishlist Page queries
- * @param {WishlistTypes} props.types Wishlist Page GQL types
- *
  * @returns {WishlistPageProps}
  */
-export const useWishlistPage = props => {
-    const { queries, types } = props;
-    const { getCustomerWishlistQuery } = queries;
-
-    useTypePolicies(types);
+export const useWishlistPage = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCustomerWishlistQuery } = operations;
 
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
 
-    const { data, error } = useQuery(getCustomerWishlistQuery, {
+    const { data, error, loading } = useQuery(getCustomerWishlistQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !isSignedIn
@@ -44,7 +41,8 @@ export const useWishlistPage = props => {
 
     return {
         errors,
-        wishlists: derivedWishlists
+        wishlists: derivedWishlists,
+        loading
     };
 };
 

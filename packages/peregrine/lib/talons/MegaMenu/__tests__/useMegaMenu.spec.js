@@ -1,0 +1,188 @@
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+
+import createTestInstance from '../../../util/createTestInstance';
+import { useMegaMenu } from '../useMegaMenu';
+
+jest.mock('@apollo/client');
+jest.mock('react-router-dom', () => ({
+    useLocation: jest.fn(() => ({ pathname: '/venia-tops.html' }))
+}));
+
+const Component = props => {
+    const talonProps = useMegaMenu(props);
+
+    return <i talonProps={talonProps} />;
+};
+
+const getTalonProps = props => {
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    return { talonProps, tree };
+};
+
+beforeAll(() => {
+    useQuery.mockReturnValue({
+        data: {
+            categoryList: [
+                {
+                    id: 2,
+                    name: 'Default Category',
+                    children: [
+                        {
+                            id: 3,
+                            include_in_menu: 1,
+                            name: 'Accessories',
+                            position: 4,
+                            url_path: 'venia-accessories',
+                            url_suffix: '.html',
+                            children: [
+                                {
+                                    id: 4,
+                                    include_in_menu: 1,
+                                    name: 'Belts',
+                                    position: 10,
+                                    url_path: 'venia-accessories/venia-belts',
+                                    url_suffix: '.html',
+                                    children: []
+                                },
+                                {
+                                    id: 5,
+                                    include_in_menu: 1,
+                                    name: 'Jewelry',
+                                    position: 2,
+                                    url_path: 'venia-accessories/venia-jewelry',
+                                    url_suffix: '.html',
+                                    children: []
+                                },
+                                {
+                                    id: 6,
+                                    include_in_menu: 0,
+                                    name: 'Scarves',
+                                    position: 3,
+                                    url_path: 'venia-accessories/venia-scarves',
+                                    url_suffix: '.html',
+                                    children: []
+                                }
+                            ]
+                        },
+                        {
+                            id: 7,
+                            include_in_menu: 1,
+                            name: 'Tops',
+                            position: 3,
+                            url_path: 'venia-tops',
+                            url_suffix: '.html',
+                            children: [
+                                {
+                                    id: 8,
+                                    include_in_menu: 1,
+                                    name: 'Blouses & Shirts',
+                                    position: 1,
+                                    url_path: 'venia-tops/venia-blouses',
+                                    url_suffix: '.html',
+                                    children: []
+                                },
+                                {
+                                    id: 9,
+                                    include_in_menu: 1,
+                                    name: 'Sweaters',
+                                    position: 2,
+                                    url_path: 'venia-tops/venia-sweaters',
+                                    url_suffix: '.html',
+                                    children: []
+                                }
+                            ]
+                        },
+                        {
+                            id: 13,
+                            include_in_menu: 0,
+                            name: 'Dresses',
+                            position: 3,
+                            url_path: 'venia-dresses',
+                            url_suffix: '.html',
+                            children: []
+                        }
+                    ]
+                }
+            ]
+        }
+    });
+});
+
+test('Should render proper shape', () => {
+    const { talonProps } = getTalonProps();
+
+    expect(talonProps).toMatchSnapshot();
+});
+
+test('Should set active category', () => {
+    useLocation.mockReturnValue({
+        pathname: '/venia-accessories/venia-belts.html'
+    });
+
+    const { talonProps } = getTalonProps();
+    /**
+     * Child category "Belts" is active and it root category should be mark as active
+     * Parent for Belts has id 3 (Accessories)
+     */
+    expect(talonProps.activeCategoryId).toEqual(3);
+});
+
+test('Should clear active category', () => {
+    useLocation.mockReturnValue({ pathname: '/' });
+
+    const { talonProps } = getTalonProps();
+    /**
+     * Child category "Belts" is active and it root category should be mark as active
+     * Parent for Belts has id 3 (Accessories)
+     */
+    expect(talonProps.activeCategoryId).toBeNull();
+});
+
+test('Should sort items', () => {
+    const { talonProps } = getTalonProps();
+
+    /**
+     * In mocked data:
+     * the Accessories category has position equals 4
+     * the Tops category has position equals 3
+     * so Tops category should be the first one in the megaMenuData object
+     *
+     */
+    expect(talonProps.megaMenuData.children[0].name).toEqual('Tops');
+
+    /**
+     * In mocked data:
+     * the Belts category has position equals 10
+     * the Jewelry category has position equals 2
+     * so Jewelry category should be the first one in the parent category object
+     *
+     */
+    expect(talonProps.megaMenuData.children[1].children[0].name).toEqual(
+        'Jewelry'
+    );
+});
+
+test('Should not render items that are not included in menu', () => {
+    const { talonProps } = getTalonProps();
+
+    /**
+     * In mocked data:
+     * there are 3 top level categories
+     * The last one has set up field include_in_menu to 0
+     * so the megaMenuData object should have only two top level categories
+     */
+    expect(talonProps.megaMenuData.children.length).toEqual(2);
+
+    /**
+     * In mocked data:
+     * there are 3 categories in Accessories category
+     * The last one has set up field include_in_menu to 0
+     * so the Accessories category  object should have only two top level categories
+     */
+    expect(talonProps.megaMenuData.children[1].children.length).toEqual(2);
+});
