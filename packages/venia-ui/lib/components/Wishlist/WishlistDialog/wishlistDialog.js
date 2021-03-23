@@ -12,6 +12,7 @@ import CreateWishlistForm from './CreateWishlistForm';
 import WishlistLineItem from './WishlistLineItem';
 
 import defaultClasses from './wishlistDialog.css';
+import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 
 const WishlistDialog = props => {
     const { isOpen, itemOptions, onClose } = props;
@@ -114,3 +115,21 @@ const WishlistDialog = props => {
 };
 
 export default WishlistDialog;
+
+WishlistDialog.defaultProps = {
+    classes: shape({}),
+    isOpen: bool,
+    itemOptions: shape({
+        entered_options: arrayOf(
+            shape({
+                uid: number.isRequired,
+                value: string.isRequired
+            })
+        ),
+        parent_sku: string,
+        sku: string.isRequired,
+        selected_options: arrayOf(string),
+        quantity: number.isRequired
+    }),
+    onClose: func
+};
