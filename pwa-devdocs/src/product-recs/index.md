@@ -16,7 +16,7 @@ At this point, the merchant can create and manage recommendation units from the 
 
 ## Install the Product Recommendations module
 
-Product Recommendations support on PWA requires installing the `venia-product-recommendations` module and the Product Recommendations Magento module.
+Product Recommendations support on PWA requires installing the `venia-product-recommendations` package and the Product Recommendations Magento module.
 
 1. You can install the PWA `venia-product-recommendations` package from the NPM registry:
 
@@ -27,20 +27,20 @@ Product Recommendations support on PWA requires installing the `venia-product-re
 
 1. To install the Magento Product Recommendations backend module, see the [Magento developer documentation](https://devdocs.magento.com/recommendations/install-configure.html).
 
-1. Additionally, you need to install the `whatever module` that expands Magento's existing GraphQL API to include fields that are used to fetch the recommendations from the Recommendations Service.
+1. Additionally, you need to install the `module-data-services-graphql` module that expands Magento's existing GraphQL API to include fields that are used to fetch the recommendations from the Recommendations Service.
 
    ```sh
-   npm install @magento/whatever module
+   npm install @magento/module-data-services-graphql
    ```
 
 ## Create recommendation units
 
 Creating a product recommendation unit for your PWA storefront is similar to [creating one for a Magento storefront](https://docs.magento.com/user-guide/marketing/create-new-rec.html).
-The difference is that after you create a recommendation unit, you then need to add code to your PWA storefront to explicitly fetch and render the recommendation unit from the Magento backend.
+The difference is that after you create a recommendation unit, you then need to add code to your PWA storefront to explicitly render the recommendation unit from the Magento backend.
 
 ## Render recommendations
 
-To render a recommendation unit onto your PWA storefront, use the local intercept file. See the [extensibility framework][] documentation to learn more.
+To control the recommendation unit placement on your PWA storefront, use the local intercept file. See the [extensibility framework][] documentation to learn more. To render the recommendation unit on your PWA storefront, use one of the methods described below.
 
 ### Venia UI component
 
@@ -63,25 +63,26 @@ If you are not using the `venia-ui` package, you can call the recommendations se
 #### Example
 
 ```js
-import {CMS} from "@magento/venia-product-recommendations/lib/recommendations/constants"
-import useRecsData from "@magento/venia-product-recommendations/lib/recommendations/hooks/useRecsData"
+import { Pagetypes, useRecsData, VeniaProductRecommendations } from "@magento/venia-product-recommendations"
+const recs = useRecsData({pagetype: Pagetypes.CMS}) 
+// or
+return <VeniaProductRecommendations pageType={Pagetypes.PRODUCT} />
 ```
-Because this method does not automatically collect and send behavioral data (tie to events) from your storefront to Adobe Sensei, you will need to add it:
+
+After installation, the `@magento/venia-product-recommendations` component will collect required shopper behavior on the storefront with no additional setup. In order to place the recommendation unit on the page, place the `VeniaProductRecommendations` component into the local intercept file for the page where you want the recommendation unit to appear.
 
 ```js
-import { ProductRecommendationsVenia } from '@magento/venia-product-recommendations'
+import { VeniaProductRecommendations } from '@magento/venia-product-recommendations'
 ```
 ### Wrapper functions
 
-To abstract the raw JSON, you can use wrapper functions that collect and send behavioral data (tie to events) from your storefront to Adobe Sensei and fetch recommendation units from the Recommendations service.
+To abstract the raw JSON, you can use wrapper functions that collect and send behavioral data from your storefront to Adobe Sensei and fetch recommendation units from the Recommendations service.
 #### Example
 
 ```js
 //recommendations JSON
 const recsData = useRecsData({pageType: CMS})
 ```
-
-If not using the `venia-ui` package, you will need to write code that renders the fetched recommendation unit on your PWA storefront.
 
 [venia-ui package]: <{%link technologies/overview/index.md %}#custom-react-hooks-and-component>
 [extensibility framework]: <{%link pwa-buildpack/extensibility-framework/index.md %}#intercept-files>
