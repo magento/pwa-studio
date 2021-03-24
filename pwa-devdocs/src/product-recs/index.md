@@ -10,7 +10,7 @@ You can integrate Product Recommendations powered by [Adobe Sensei](https://www.
 Magento's [Product Recommendations powered by Adobe Sensei](https://docs.magento.com/user-guide/marketing/product-recommendations.html) is a feature backed by several SaaS services.
 The **Store** side includes your PWA storefront, which contains the event collector and recommendations layout template, and the backend, which includes the GraphQL endpoints, SaaS Export module, and the Admin UI.
 
-After you install the Product Recommendations PWA extension on your store, it will start sending [behavioral data](https://devdocs.magento.com/recommendations/events.html) to Adobe Sensei.
+After you install the Product Recommendations PWA extension on your store, it will start sending [behavioral data](https://devdocs.magento.com/recommendations/events.html) to Adobe Sensei with no additional setup.
 Adobe Sensei processes this behavioral data along with the catalog data from the Magento backend and calculates the product associations leveraged by the recommendations service.
 At this point, the merchant can create and manage recommendation units from the Magento Admin UI then fetch those product recommendation units from their PWA storefront.
 
@@ -44,7 +44,7 @@ To control the recommendation unit placement on your PWA storefront, use the loc
 
 ### Venia UI component
 
-The `Recommendations` component is part of the [venia-ui package][].
+The `Recommendations` component is part of the [venia-product-recommendations][] package.
 It contains React components that do the following:
 
 -  Collect and send behavioral data to Adobe Sensei
@@ -55,6 +55,7 @@ It contains React components that do the following:
 
 ```jsx
 //Render recommendations using visual component
+import { VeniaProductRecommendations, PageTypes } from "@magento/venia-product-recommendations"
 return <Recommendations pageType={CMS} />
 ```
 ### Fetch data only
@@ -64,25 +65,8 @@ If you are not using the `venia-ui` package, you can call the recommendations se
 
 ```js
 import { Pagetypes, useRecsData, VeniaProductRecommendations } from "@magento/venia-product-recommendations"
-const recs = useRecsData({pagetype: Pagetypes.CMS}) 
-// or
-return <VeniaProductRecommendations pageType={Pagetypes.PRODUCT} />
+const {data, error, isLoading} = useRecsData({pagetype: Pagetypes.CMS})
 ```
 
-After installation, the `@magento/venia-product-recommendations` component will collect required shopper behavior on the storefront with no additional setup. In order to place the recommendation unit on the page, place the `VeniaProductRecommendations` component into the local intercept file for the page where you want the recommendation unit to appear.
-
-```js
-import { VeniaProductRecommendations } from '@magento/venia-product-recommendations'
-```
-### Wrapper functions
-
-To abstract the raw JSON, you can use wrapper functions that collect and send behavioral data from your storefront to Adobe Sensei and fetch recommendation units from the Recommendations service.
-#### Example
-
-```js
-//recommendations JSON
-const recsData = useRecsData({pageType: CMS})
-```
-
-[venia-ui package]: <{%link technologies/overview/index.md %}#custom-react-hooks-and-component>
+[venia-product-recommendations]: <{%link technologies/overview/index.md %}#custom-react-hooks-and-component>
 [extensibility framework]: <{%link pwa-buildpack/extensibility-framework/index.md %}#intercept-files>
