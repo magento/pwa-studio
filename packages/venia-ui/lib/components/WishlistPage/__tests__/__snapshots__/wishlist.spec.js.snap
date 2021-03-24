@@ -138,7 +138,7 @@ exports[`render open with no items 1`] = `
       <span
         className="visibility"
       >
-        Private
+        Public
       </span>
     </div>
     <div
