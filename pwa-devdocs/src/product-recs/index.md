@@ -3,6 +3,7 @@ title: Integrating Product Recommendations
 ---
 
 You can integrate Product Recommendations powered by [Adobe Sensei](https://www.adobe.com/sensei.html) into your PWA Studio storefront.
+
 ## Integration overview
 
 ![Product Recommendations for PWA Studio](images/pwa-arch-diag-sensei.svg)
@@ -69,7 +70,8 @@ const recs = useRecsData({pagetype: Pagetypes.CMS})
 return <VeniaProductRecommendations pageType={Pagetypes.PRODUCT} />
 ```
 
-After installation, the `@magento/venia-product-recommendations` component will collect required shopper behavior on the storefront with no additional setup. In order to place the recommendation unit on the page, place the `VeniaProductRecommendations` component into the local intercept file for the page where you want the recommendation unit to appear.
+After you install the `@magento/venia-product-recommendations` package, your storefront will collect shopper behavior with no additional setup.
+To place recommendation items on a page, use the Targetables feature in the local intercept file to insert the `VeniaProductRecommendations` component inside the UI component where you want the recommendation items to appear.
 
 ```js
 import { VeniaProductRecommendations } from '@magento/venia-product-recommendations'
