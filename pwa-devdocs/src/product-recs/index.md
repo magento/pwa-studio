@@ -3,6 +3,7 @@ title: Integrating Product Recommendations
 ---
 
 You can integrate Product Recommendations powered by [Adobe Sensei](https://www.adobe.com/sensei.html) into your PWA Studio storefront.
+
 ## Integration overview
 
 ![Product Recommendations for PWA Studio](images/pwa-arch-diag-sensei.svg)
