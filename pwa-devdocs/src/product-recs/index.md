@@ -36,7 +36,7 @@ Product Recommendations support on PWA requires installing the `venia-product-re
 ## Create recommendation units
 
 Creating a product recommendation unit for your PWA storefront is the same as [creating one for a Magento storefront](https://docs.magento.com/user-guide/marketing/create-new-rec.html).
-Once you create a recommendation unit in the admin panel, you will need to place components that render product recommendations on appropriate storefront pages. You will do this only once per [supported page type](https://docs.magento.com/user-guide/marketing/product-recommendations.html#supportedrecs). 
+When you create a recommendation unit in the Admin UI panel, you will need to place components that render product recommendations on appropriate storefront pages. You will do this only once per [supported page type](https://docs.magento.com/user-guide/marketing/product-recommendations.html#supportedrecs).
 
 ## Render recommendations
 
