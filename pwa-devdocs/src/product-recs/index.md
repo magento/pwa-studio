@@ -71,7 +71,7 @@ return <VeniaProductRecommendations pageType={Pagetypes.PRODUCT} />
 ```
 
 After you install the `@magento/venia-product-recommendations` package, your storefront will collect shopper behavior with no additional setup.
-To place recommendation items on a page, use the Targetables feature in the local intercept file to insert the `VeniaProductRecommendations` component inside the UI component where you want the recommendation items to appear.
+To place recommendation units on a page, use the Targetables feature in the local intercept file to insert the `VeniaProductRecommendations` component inside the UI component where you want the recommendation items to appear.
 
 ```js
 import { VeniaProductRecommendations } from '@magento/venia-product-recommendations'
