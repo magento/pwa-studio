@@ -60,11 +60,11 @@ It contains React components that do the following:
 ```jsx
 //Render recommendations using visual component
 import { VeniaProductRecommendations, PageTypes } from "@magento/venia-product-recommendations"
-return <Recommendations pageType={CMS} />
+return <VeniaProductRecommendations pageType={PageTypes.CMS} />
 ```
 ### Fetch data only
 
-If you are not using the `venia-ui` package, you can call the recommendations service and receive a JSON payload.
+If you are not using the `venia-product-recommendations` package, you can call the recommendations service and receive a JSON payload.
 #### Example
 
 ```js
