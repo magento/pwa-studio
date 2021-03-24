@@ -35,7 +35,7 @@
     grid-template-rows: 3rem;
     justify-items: center;
     max-width: var(--venia-global-maxWidth);
-    min-height: var(--venia-mobile-global-header-minHeight);
+    min-height: var(--venia-global-header-minHeight);
     padding: 0 0.5rem;
     width: 100%;
 }

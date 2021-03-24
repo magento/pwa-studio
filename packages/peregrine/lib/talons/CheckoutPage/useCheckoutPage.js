@@ -165,8 +165,6 @@ export const useCheckoutPage = (props = {}) => {
 
     const setPaymentInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
-            console.log('PM scrolling');
-
             window.scrollTo({
                 left: 0,
                 top: 0,

@@ -2,14 +2,3 @@
     position: absolute;
     top: calc(var(--venia-global-header-minHeight) * -1 - 5px);
 }
-
-/*
- * Mobile-specific styles.
- */
-
-@media (max-width: 960px) {
-    .anchor {
-        position: absolute;
-        top: calc(var(--venia-mobile-global-header-minHeight) * -1 - 5px);
-    }
-}
