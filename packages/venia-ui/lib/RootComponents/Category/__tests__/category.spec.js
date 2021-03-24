@@ -9,7 +9,7 @@ jest.mock('@magento/peregrine/lib/talons/RootComponents/Category', () => ({
 
 jest.mock('../../../components/Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
-    Title: () => 'Title',
+    StoreTitle: () => 'Title',
     Meta: () => 'Meta'
 }));
 
@@ -52,39 +52,52 @@ const categoryProps = {
     id: 3
 };
 
-test('renders the correct tree', () => {
-    useCategory.mockReturnValueOnce(talonProps);
-    const tree = createTestInstance(<Category {...categoryProps} />);
-    expect(tree.toJSON()).toMatchSnapshot();
-});
-
-describe('it renders a loading indicator when appropriate', () => {
-    test('renders no indicator when data is present', () => {
-        useCategory.mockReturnValueOnce({
-            ...talonProps,
-            loading: true
-        });
+describe('Category Root Component', () => {
+    test('renders the correct tree', () => {
+        useCategory.mockReturnValueOnce(talonProps);
         const tree = createTestInstance(<Category {...categoryProps} />);
         expect(tree.toJSON()).toMatchSnapshot();
     });
 
-    test('renders an indicator when data is not present', () => {
-        useCategory.mockReturnValueOnce({
-            ...talonProps,
-            loading: true,
-            categoryData: undefined
+    describe('loading indicator', () => {
+        test('does not render when data is present', () => {
+            useCategory.mockReturnValueOnce({
+                ...talonProps,
+                loading: true
+            });
+            const tree = createTestInstance(<Category {...categoryProps} />);
+            expect(tree.toJSON()).toMatchSnapshot();
         });
-        const tree = createTestInstance(<Category {...categoryProps} />);
-        expect(tree.toJSON()).toMatchSnapshot();
+        test('renders when data is not present', () => {
+            useCategory.mockReturnValueOnce({
+                ...talonProps,
+                loading: true,
+                categoryData: undefined
+            });
+            const tree = createTestInstance(<Category {...categoryProps} />);
+            expect(tree.toJSON()).toMatchSnapshot();
+        });
     });
-});
 
-test('it shows error when appropriate', () => {
-    useCategory.mockReturnValueOnce({
-        ...talonProps,
-        error: true,
-        loading: false
+    describe('error view', () => {
+        test('does not render when data is present', () => {
+            useCategory.mockReturnValueOnce({
+                ...talonProps,
+                error: true
+            });
+            const tree = createTestInstance(<Category {...categoryProps} />);
+            expect(tree.toJSON()).toMatchSnapshot();
+        });
+
+        test('renders when data is not present and not loading', () => {
+            useCategory.mockReturnValueOnce({
+                ...talonProps,
+                error: true,
+                loading: false,
+                categoryData: undefined
+            });
+            const tree = createTestInstance(<Category {...categoryProps} />);
+            expect(tree.toJSON()).toMatchSnapshot();
+        });
     });
-    const tree = createTestInstance(<Category {...categoryProps} />);
-    expect(tree.toJSON()).toMatchSnapshot();
 });

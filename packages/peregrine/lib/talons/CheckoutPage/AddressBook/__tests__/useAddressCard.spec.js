@@ -56,6 +56,38 @@ test('returns correct value for update animation', () => {
     expect(newTalonProps.hasUpdate).toBe(true);
 });
 
+test('returns correct value after an animation update completes', () => {
+    jest.useFakeTimers();
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.hasUpdate).toBe(false);
+
+    act(() => {
+        tree.update(
+            <Component
+                {...mockProps}
+                address={{ ...address, firstname: 'Bender' }}
+            />
+        );
+    });
+
+    jest.runAllTimers();
+
+    const { talonProps: newTalonProps } = root.findByType('i').props;
+
+    expect(newTalonProps.hasUpdate).toBe(false);
+    expect(clearTimeout).not.toHaveBeenCalled();
+
+    act(() => {
+        tree.update(<Component {...mockProps} />);
+    });
+
+    expect(clearTimeout).toHaveBeenCalled();
+});
+
 describe('event handlers fire callbacks', () => {
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
@@ -82,5 +114,25 @@ describe('event handlers fire callbacks', () => {
         handleEditAddress();
         expect(onEdit).toHaveBeenCalled();
         expect(onEdit.mock.calls[0][0]).toMatchSnapshot();
+    });
+});
+
+describe('handles null address', () => {
+    const tree = createTestInstance(
+        <Component {...mockProps} address={undefined} />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    test('calls onSelection() with null value', () => {
+        talonProps.handleClick();
+
+        expect(onSelection).toHaveBeenCalledWith(null);
+    });
+
+    test('calls onEdit() with null value', () => {
+        talonProps.handleEditAddress();
+
+        expect(onEdit).toHaveBeenCalledWith(null);
     });
 });

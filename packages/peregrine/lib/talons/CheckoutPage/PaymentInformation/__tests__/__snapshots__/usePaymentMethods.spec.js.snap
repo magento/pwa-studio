@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the correct shape 1`] = `
+Object {
+  "availablePaymentMethods": Array [
+    Object {
+      "code": "availablePaymentMethod",
+    },
+  ],
+  "currentSelectedPaymentMethod": "currentSelectedPaymentMethod",
+  "initialSelectedMethod": "availablePaymentMethod",
+  "isLoading": false,
+}
+`;

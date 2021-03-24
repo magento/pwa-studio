@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useFormApi } from 'informed';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -42,6 +43,8 @@ export const useGiftCards = props => {
     // We need the cartId for all of our queries and mutations.
     const [{ cartId }] = useCartContext();
 
+    const formApi = useFormApi();
+
     /*
      * Apollo hooks.
      *
@@ -66,7 +69,6 @@ export const useGiftCards = props => {
     /*
      *  useState hooks.
      */
-    const [formApi, setFormApi] = useState();
     const [mostRecentAction, setMostRecentAction] = useState(null);
 
     /*
@@ -163,7 +165,6 @@ export const useGiftCards = props => {
         isCheckingBalance: balanceResult.loading,
         isRemovingCard: removeCardLoading,
         removeGiftCard,
-        setFormApi,
         shouldDisplayCardBalance,
         shouldDisplayCardError
     };
@@ -179,7 +180,7 @@ export const useGiftCards = props => {
  * @property {GraphQLAST} applyCardMutation The mutation used to apply a gift card to the cart.
  * @property {GraphQLAST} removeCardMutation The mutation used to remove a gift card from the cart.
  *
- * @see [`giftCardQueries.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
+ * @see [`giftCardQueries.ee.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
  * for queries used in Venia
  */
 
@@ -191,7 +192,7 @@ export const useGiftCards = props => {
  * @property {GraphQLAST} appliedCardsQuery The query used to get the gift cards currently applied to the cart.
  * @property {GraphQLAST} cardBalanceQuery The query used to get the gift cards currently applied to the cart.
  *
- * @see [`giftCardQueries.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
+ * @see [`giftCardQueries.ee.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
  * for queries used in Venia
  */
 

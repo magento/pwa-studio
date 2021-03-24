@@ -5,6 +5,7 @@ exports[`renders correctly when closed 1`] = `
   isOpen={false}
   onCancel={[MockFunction]}
   shouldShowButtons={false}
+  shouldUnmountOnHide={false}
   title="Actions"
 >
   <div
@@ -212,6 +213,7 @@ exports[`renders correctly when open 1`] = `
   isOpen={true}
   onCancel={[MockFunction]}
   shouldShowButtons={false}
+  shouldUnmountOnHide={false}
   title="Actions"
 >
   <div

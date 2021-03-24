@@ -20,16 +20,55 @@
     row-gap: 1rem;
 }
 
-@media (max-width: 960px) {
-    .root {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
+.filterRow {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pageInfo {
+    font-size: var(--venia-typography-body-S-fontSize);
+}
+
+.search {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    width: 22rem;
+}
+
+.searchButton {
+    composes: root_highPriority from '../Button/button.css';
+
+    width: 5rem;
+    height: 2rem;
+    min-width: 5rem;
+}
+
+.submitIcon {
+    color: white;
+}
+
+.loadMoreButton {
+    composes: root_lowPriority from '../Button/button.css';
+    justify-self: center;
 }
 
 @media (max-width: 960px) {
     .root {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
+    }
+
+    .filterRow {
+        align-items: flex-start;
+        flex-direction: column;
+        row-gap: 1rem;
+    }
+
+    .search {
+        gap: 0.5rem;
+        width: 100%;
+        justify-self: center;
     }
 }

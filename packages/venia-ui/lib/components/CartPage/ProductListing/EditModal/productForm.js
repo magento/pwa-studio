@@ -135,6 +135,7 @@ const ProductForm = props => {
                 onConfirm={handleSubmit}
                 shouldDisableAllButtons={dialogButtonsDisabled}
                 shouldDisableConfirmButton={dialogSubmitButtonDisabled}
+                shouldUnmountOnHide={false}
                 title={formatMessage({
                     id: 'editModal.headerText',
                     defaultMessage: 'Edit Item'

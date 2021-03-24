@@ -100,6 +100,7 @@ exports[`renders dropdown with country data 1`] = `
         <option
           disabled={null}
           hidden={null}
+          id="SAMPLE-ID"
           value="US"
         >
           United State
@@ -107,6 +108,7 @@ exports[`renders dropdown with country data 1`] = `
         <option
           disabled={null}
           hidden={null}
+          id="SAMPLE-ID"
           value="FR"
         >
           France
