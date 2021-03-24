@@ -9,15 +9,9 @@ const chalk = require('chalk');
 const createProject = require('../Utilities/createProject');
 const { handler: createEnvFile } = require('./create-env-file');
 const execa = require('execa');
+const sampleBackends = require('../../sampleBackends.json');
 
 const tmpDir = os.tmpdir();
-
-const templateAliases = {
-    'venia-concept': {
-        npm: '@magento/venia-concept',
-        dir: resolve(__dirname, '../../../venia-concept')
-    }
-};
 
 async function makeDirFromNpmPackage(packageName) {
     const packageDir = resolve(tmpDir, packageName);
@@ -73,21 +67,17 @@ async function makeDirFromNpmPackage(packageName) {
 }
 
 async function findTemplateDir(templateName) {
-    const template = templateAliases[templateName] || {
-        npm: templateName,
-        dir: templateName
-    };
     try {
-        await fse.readdir(template.dir);
+        await fse.readdir(templateName);
         prettyLogger.info(`Found ${templateName} directory`);
         // if that succeeded, then...
-        return template.dir;
+        return templateName;
     } catch (e) {
-        return makeDirFromNpmPackage(template.npm);
+        return makeDirFromNpmPackage(templateName);
     }
 }
 
-module.exports.sampleBackends = require('../../sampleBackends.json');
+module.exports.sampleBackends = sampleBackends;
 
 module.exports.command = 'create-project <directory>';
 
@@ -110,8 +100,7 @@ module.exports.builder = yargs =>
         .options({
             template: {
                 describe:
-                    'Name of a "template" to clone and customize. Currently only the "venia-concept" template is supported: `buildpack create-project --template venia-concept`',
-                choices: ['venia-concept']
+                    'Name of a "template" to clone and customize. Currently only the "@magento/venia-concept" template is supported. Version labels are supported. For instance: @magento/venia-concept@8.0.0'
             },
             backendUrl: {
                 alias: 'b',

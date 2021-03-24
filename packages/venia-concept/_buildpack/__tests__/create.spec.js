@@ -12,6 +12,7 @@ const {
     makeCommonTasks,
     makeCopyStream
 } = require('@magento/pwa-buildpack/lib/Utilities/createProject');
+const sampleBackends = require('@magento/pwa-buildpack/sampleBackends.json');
 const createVenia = require('../create');
 
 const mockFs = data => {
@@ -50,7 +51,8 @@ const runCreate = async (fs, opts) => {
     const { after, before, visitor } = await createVenia({
         fs,
         tasks: makeCommonTasks(fs),
-        options
+        options,
+        sampleBackends
     });
     if (before) {
         await before({ options });
@@ -264,5 +266,17 @@ describe('when DEBUG_PROJECT_CREATION is set', () => {
         expect(fs.readJsonSync('/project/package.json')).not.toHaveProperty(
             'resolutions'
         );
+    });
+
+    test('works with modern versions of NPM that spit out the tarball name', async () => {
+        // Arrange.
+        execSync
+            .mockReturnValueOnce(mockWorkspaceResponse)
+            .mockReturnValueOnce('unit_test.tgz');
+
+        // Act & Assert.
+        await expect(
+            runCreate(fs, { name: 'foo', author: 'bar', npmClient: 'yarn' })
+        ).resolves.not.toThrow();
     });
 });

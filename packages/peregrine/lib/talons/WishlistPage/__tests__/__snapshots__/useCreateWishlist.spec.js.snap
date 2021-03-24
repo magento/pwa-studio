@@ -2,9 +2,12 @@
 
 exports[`should return properly 1`] = `
 Object {
+  "formErrors": Map {},
   "handleCreateList": [Function],
   "handleHideModal": [Function],
   "handleShowModal": [Function],
   "isModalOpen": false,
+  "loading": false,
+  "shouldRender": true,
 }
 `;

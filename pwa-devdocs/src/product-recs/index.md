@@ -23,11 +23,11 @@ Product Recommendations support on PWA requires installing the `venia-product-re
    ```sh
    npm install @magento/venia-product-recommendations
    ```
-   This package contains everything you need to collect behavioral data and render the recommendations. Some recommendation types use behavioral data from your shoppers to train machine learning models that build personalized recommendations. Other recommendation types use catalog data only and do not use any behavioral data. See the [Magento user guide](https://docs.magento.com/user-guide/marketing/product-recommendations.html#trainmlmodels) to learn how Adobe Sensei trains machine learning models that results in higher quality recommendations.
+   This package contains storefront functionality to collect required behavioral data and render the recommendations. Some recommendation types use behavioral data from your shoppers to train machine learning models that build personalized recommendations. Other recommendation types use catalog data only and do not use any behavioral data. See the [Magento user guide](https://docs.magento.com/user-guide/marketing/product-recommendations.html#trainmlmodels) to learn how Adobe Sensei trains machine learning models that results in higher quality recommendations.
 
-1. To install the Magento Product Recommendations backend module, see the [Magento developer documentation](https://devdocs.magento.com/recommendations/install-configure.html).
+1. The backend functionality is provided by the [Magento Product Recommendations module](https://devdocs.magento.com/recommendations/install-configure.html).
 
-1. Additionally, you need to install the `module-data-services-graphql` module that expands Magento's existing GraphQL API to include fields that are used to fetch the recommendations from the Recommendations Service.
+1. Additionally, you need to install the `module-data-services-graphql` module that expands Magento's existing GraphQL coverage to include fields required for storefront behavioral data collection.
 
    ```bash
    composer require magento/module-data-services-graphql
@@ -35,8 +35,8 @@ Product Recommendations support on PWA requires installing the `venia-product-re
 
 ## Create recommendation units
 
-Creating a product recommendation unit for your PWA storefront is similar to [creating one for a Magento storefront](https://docs.magento.com/user-guide/marketing/create-new-rec.html).
-The difference is that after you create a recommendation unit, you then need to add code to your PWA storefront to explicitly render the recommendation unit from the Magento backend.
+Creating a product recommendation unit for your PWA storefront is the same as [creating one for a Magento storefront](https://docs.magento.com/user-guide/marketing/create-new-rec.html).
+Once you create a recommendation unit in the admin panel, you will need to place components that render product recommendations on appropriate storefront pages. You will do this only once per [supported page type](https://docs.magento.com/user-guide/marketing/product-recommendations.html#supportedrecs). 
 
 ## Render recommendations
 

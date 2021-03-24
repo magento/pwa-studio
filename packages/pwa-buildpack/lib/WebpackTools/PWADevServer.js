@@ -3,6 +3,7 @@ const debug = require('../util/debug').makeFileLogger(__filename);
 const {
     default: playgroundMiddleware
 } = require('graphql-playground-middleware-express');
+const compression = require('compression');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const chalk = require('chalk');
 const configureHost = require('../Utilities/configureHost');
@@ -101,6 +102,13 @@ const PWADevServer = {
                 app.use(errorhandler());
             },
             before(app) {
+                if (process.env.ENABLE_EXPRESS_SERVER_COMPRESSION === 'true') {
+                    app.use(
+                        compression({
+                            threshold: 0
+                        })
+                    );
+                }
                 addImgOptMiddleware(app, {
                     ...imageService,
                     ...imageOptimizing

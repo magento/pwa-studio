@@ -4,7 +4,7 @@ import { PlusSquare } from 'react-feather';
 
 import { useAddressBookPage } from '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import { Title } from '@magento/venia-ui/lib/components/Head';
+import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
@@ -90,11 +90,9 @@ const AddressBookPage = props => {
         return fullPageLoadingIndicator;
     }
 
-    // STORE_NAME is injected by Webpack at build time.
-    const title = `${PAGE_TITLE} - ${STORE_NAME}`;
     return (
         <div className={classes.root}>
-            <Title>{title}</Title>
+            <StoreTitle>{PAGE_TITLE}</StoreTitle>
             <h1 className={classes.heading}>{PAGE_TITLE}</h1>
             <div className={classes.content}>
                 {addressBookElements}

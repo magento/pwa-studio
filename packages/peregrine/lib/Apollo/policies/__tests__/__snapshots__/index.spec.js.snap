@@ -23,6 +23,9 @@ Object {
       "category_id",
     ],
   },
+  "BundleWishlistItem": Object {
+    "keyFields": [Function],
+  },
   "Cart": Object {
     "fields": Object {
       "applied_gift_cards": Object {
@@ -50,11 +53,22 @@ Object {
       },
     },
   },
+  "ConfigurableWishlistItem": Object {
+    "keyFields": [Function],
+  },
   "Customer": Object {
     "fields": Object {
       "addresses": Object {
         "merge": [Function],
         "read": [Function],
+      },
+      "orders": Object {
+        "items": Object {
+          "merge": true,
+        },
+        "keyArgs": Array [
+          "filter",
+        ],
       },
     },
     "keyFields": [Function],
@@ -72,6 +86,15 @@ Object {
         "merge": [Function],
       },
     },
+    "keyFields": [Function],
+  },
+  "DownloadableWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "GiftCardWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "GroupedProductWishlistItem": Object {
     "keyFields": [Function],
   },
   "ProductImage": Object {
@@ -121,6 +144,18 @@ Object {
     "keyFields": Array [
       "street",
     ],
+  },
+  "SimpleWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "VirtualWishlistItem": Object {
+    "keyFields": [Function],
+  },
+  "Wishlist": Object {
+    "keyFields": [Function],
+  },
+  "WishlistItem": Object {
+    "keyFields": [Function],
   },
 }
 `;
