@@ -29,8 +29,8 @@ Product Recommendations support on PWA requires installing the `venia-product-re
 
 1. Additionally, you need to install the `module-data-services-graphql` module that expands Magento's existing GraphQL API to include fields that are used to fetch the recommendations from the Recommendations Service.
 
-   ```sh
-   npm install @magento/module-data-services-graphql
+   ```bash
+   composer require magento/module-data-services-graphql
    ```
 
 ## Create recommendation units
