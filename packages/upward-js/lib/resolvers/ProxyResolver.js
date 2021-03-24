@@ -63,7 +63,8 @@ class ProxyResolver extends AbstractResolver {
                 target: target.href,
                 changeOrigin: true,
                 autoRewrite: true,
-                cookieDomainRewrite: ''
+                cookieDomainRewrite: '',
+                xfwd: true
             };
             if (target.username) {
                 debug(`target URL contains a username, adding auth to proxy`);

@@ -7,12 +7,12 @@ import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Wishlist from './wishlist';
 import defaultClasses from './wishlistPage.css';
-import WishlistPageOperations from './wishlistPage.gql';
+
 import CreateWishlist from './createWishlist';
 
 const WishlistPage = props => {
-    const talonProps = useWishlistPage({ ...WishlistPageOperations });
-    const { errors, wishlists } = talonProps;
+    const talonProps = useWishlistPage();
+    const { errors, wishlists, loading } = talonProps;
     const { formatMessage } = useIntl();
     const error = errors.get('getCustomerWishlistQuery');
 
@@ -22,12 +22,13 @@ const WishlistPage = props => {
         defaultMessage: 'The wishlist is not currently available.'
     });
     const wishlistElements = useMemo(() => {
+        if (wishlists.length === 0) return null;
         return wishlists.map(wishlist => (
             <Wishlist key={wishlist.id} data={wishlist} />
         ));
     }, [wishlists]);
 
-    if (!wishlists.length && !error) {
+    if (loading && !error) {
         return fullPageLoadingIndicator;
     }
 
