@@ -21,7 +21,7 @@ const dialogs = {
 export const useWishlist = (props = {}) => {
     const { id } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { updateWishlistMutation } = operations;
+    const { getCustomerWishlistQuery, updateWishlistMutation } = operations;
     const [isOpen, setIsOpen] = useState(true);
     const [currentDialog, setCurrentDialog] = useState(dialogs.NONE);
 
@@ -57,7 +57,9 @@ export const useWishlist = (props = {}) => {
                         name: data.name,
                         visibility: data.visibility,
                         wishlistId: id
-                    }
+                    },
+                    refetchQueries: [{ query: getCustomerWishlistQuery }],
+                    awaitRefetchQueries: true
                 });
                 await setCurrentDialog(dialogs.NONE);
             } catch (error) {
@@ -66,7 +68,7 @@ export const useWishlist = (props = {}) => {
                 }
             }
         },
-        [id, updateWishlist]
+        [getCustomerWishlistQuery, id, updateWishlist]
     );
 
     return {
