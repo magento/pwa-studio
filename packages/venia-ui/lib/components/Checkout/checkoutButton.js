@@ -2,14 +2,14 @@ import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { Lock as LockIcon } from 'react-feather';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Button from '../Button';
 import Icon from '../Icon';
 import defaultClasses from './checkoutButton.css';
 
 const CheckoutButton = props => {
     const { disabled, onClick, classes: propsClasses } = props;
-    const classes = mergeClasses(defaultClasses, propsClasses);
+    const classes = useStyle(defaultClasses, propsClasses);
     const iconClasses = { root: classes.icon };
     const buttonText = 'Checkout';
 

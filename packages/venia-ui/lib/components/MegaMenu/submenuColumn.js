@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './submenuColumn.css';
 import PropTypes from 'prop-types';
 
@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
  */
 const SubmenuColumn = props => {
     const { category } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const categoryUrl = resourceUrl(
         `/${category.url_path}${category.url_suffix || ''}`

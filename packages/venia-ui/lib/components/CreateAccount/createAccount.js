@@ -5,7 +5,7 @@ import { func, shape, string, bool } from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import combine from '../../util/combineValidators';
 import {
     hasLengthAtLeast,
@@ -36,12 +36,11 @@ const CreateAccount = props => {
         initialValues
     } = talonProps;
     const { formatMessage } = useIntl();
+    const classes = useStyle(defaultClasses, props.classes);
 
     if (isSignedIn) {
         return <Redirect to="/" />;
     }
-
-    const classes = mergeClasses(defaultClasses, props.classes);
 
     const cancelButton = props.isCancelButtonHidden ? null : (
         <Button

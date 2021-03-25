@@ -1,7 +1,7 @@
 import React from 'react';
 import { oneOf, shape, string, bool } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './button.css';
 
 const getRootClassName = (priority, negative) =>
@@ -27,7 +27,7 @@ const Button = props => {
         disabled,
         ...restProps
     } = props;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const rootClassName = classes[getRootClassName(priority, negative)];
 
     return (

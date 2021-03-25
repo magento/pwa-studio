@@ -11,7 +11,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import Icon from '../../Icon';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
 import defaultClasses from './item.css';
@@ -30,7 +30,7 @@ const Item = props => {
     } = props;
 
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const itemLink = useMemo(
         () => resourceUrl(`/${product.url_key}${product.url_suffix || ''}`),
         [product.url_key, product.url_suffix]

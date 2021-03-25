@@ -2,13 +2,13 @@ import React from 'react';
 import { bool, shape, string } from 'prop-types';
 
 import Checkbox from '../../Checkbox';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import defaultClasses from './filterDefault.css';
 
 const FilterDefault = props => {
     const { classes: propsClasses, isSelected, item, ...restProps } = props;
     const { label, value_index } = item || {};
-    const classes = mergeClasses(defaultClasses, propsClasses);
+    const classes = useStyle(defaultClasses, propsClasses);
 
     return (
         <Checkbox

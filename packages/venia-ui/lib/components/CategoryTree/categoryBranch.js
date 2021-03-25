@@ -2,13 +2,13 @@ import React from 'react';
 import { func, number, shape, string } from 'prop-types';
 import { useCategoryBranch } from '@magento/peregrine/lib/talons/CategoryTree';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './categoryBranch.css';
 
 const Branch = props => {
     const { category, setCategoryId } = props;
     const { name } = category;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useCategoryBranch({ category, setCategoryId });
     const { exclude, handleClick } = talonProps;

@@ -6,13 +6,13 @@ import { useNoProductsFound } from '@magento/peregrine/lib/talons/RootComponents
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import Image from '../../../components/Image';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import noProductsFound from './noProductsFound.png';
 import defaultClasses from './noProductsFound.css';
 
 const NoProductsFound = props => {
     const { categoryId } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const { formatMessage } = useIntl();
     const talonProps = useNoProductsFound({

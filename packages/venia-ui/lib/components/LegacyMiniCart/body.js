@@ -1,7 +1,7 @@
 import React from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 
 import defaultClasses from './body.css';
@@ -32,6 +32,7 @@ const Body = props => {
     });
 
     const { editItem, handleBeginEditItem, handleEndEditItem } = talonProps;
+    const classes = useStyle(defaultClasses, props.classes);
 
     if (isUpdatingItem) {
         return <LoadingIndicator>{UPDATING_TEXT}</LoadingIndicator>;
@@ -56,7 +57,6 @@ const Body = props => {
         );
     }
 
-    const classes = mergeClasses(defaultClasses, props.classes);
     return (
         <div className={classes.root}>
             <ProductList

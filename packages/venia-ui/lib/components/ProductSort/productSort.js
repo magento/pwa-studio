@@ -3,13 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, oneOf } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import SortItem from './sortItem';
 import defaultClasses from './productSort.css';
 import Button from '../Button';
 
 const ProductSort = props => {
-    const classes = mergeClasses(defaultClasses);
+    const classes = useStyle(defaultClasses);
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();

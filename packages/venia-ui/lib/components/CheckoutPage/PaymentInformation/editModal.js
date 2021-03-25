@@ -4,7 +4,7 @@ import { func, shape, string } from 'prop-types';
 
 import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import CreditCard from './creditCard';
 import Dialog from '../../Dialog';
 import editModalOperations from './editModal.gql';
@@ -14,7 +14,7 @@ import defaultClasses from './editModal.css';
 const EditModal = props => {
     const { classes: propClasses, onClose, isOpen } = props;
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = useEditModal({ onClose, ...editModalOperations });
 

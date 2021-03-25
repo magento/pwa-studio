@@ -5,13 +5,13 @@ import { FormattedMessage } from 'react-intl';
 import { useCategoryLeaf } from '@magento/peregrine/lib/talons/CategoryTree';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './categoryLeaf.css';
 
 const Leaf = props => {
     const { category, onNavigate } = props;
     const { name, url_path, url_suffix, children } = category;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { handleClick } = useCategoryLeaf({ onNavigate });
     const destination = resourceUrl(`/${url_path}${url_suffix || ''}`);
 

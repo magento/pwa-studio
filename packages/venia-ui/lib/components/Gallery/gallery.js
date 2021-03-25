@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { string, shape, array } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import GalleryItem from './item';
 import defaultClasses from './gallery.css';
 
@@ -22,7 +22,7 @@ const mapGalleryItem = item => {
  * @params {Array} props.items an array of items to render
  */
 const Gallery = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const { items } = props;
 

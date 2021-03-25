@@ -3,7 +3,7 @@ import { func, number, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import Price from '@magento/venia-ui/lib/components/Price';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 
 import Image from '../Image';
 import defaultClasses from './suggestedProduct.css';
@@ -11,7 +11,7 @@ import defaultClasses from './suggestedProduct.css';
 const IMAGE_WIDTH = 60;
 
 const SuggestedProduct = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { url_key, small_image, name, onNavigate, price, url_suffix } = props;
 
     const handleClick = useCallback(() => {

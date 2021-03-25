@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { Trash2 as TrashIcon, Edit2 as EditIcon } from 'react-feather';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import defaultClasses from './addressCard.css';
@@ -35,7 +35,7 @@ const AddressCard = props => {
         telephone
     } = address;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const confirmDeleteButtonClasses = {
         root_normalPriorityNegative: classes.confirmDeleteButton
     };

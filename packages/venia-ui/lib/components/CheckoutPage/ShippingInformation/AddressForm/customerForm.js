@@ -4,7 +4,7 @@ import { Form, Text } from 'informed';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { useCustomerForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm';
 
-import { mergeClasses } from '../../../../classify';
+import { useStyle } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
@@ -38,6 +38,7 @@ const CustomerForm = props => {
         isUpdate
     } = talonProps;
     const { formatMessage } = useIntl();
+    const classes = useStyle(defaultClasses, propClasses);
 
     if (isLoading) {
         return (
@@ -49,8 +50,6 @@ const CustomerForm = props => {
             </LoadingIndicator>
         );
     }
-
-    const classes = mergeClasses(defaultClasses, propClasses);
 
     const emailRow = !hasDefaultShipping ? (
         <div className={classes.email}>

@@ -3,7 +3,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 import { useStyle } from '@magento/peregrine/lib/context/style';
 
-import { mergeClasses } from '../../classify';
 import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
@@ -46,8 +45,7 @@ const CartPage = props => {
     } = talonProps;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
-    useStyle(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;

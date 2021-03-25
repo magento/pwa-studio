@@ -2,7 +2,7 @@ import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './billingInformation.css';
 
@@ -17,7 +17,7 @@ const BillingInformation = props => {
         region,
         street
     } = data;
-    const classes = mergeClasses(defaultClasses, propsClasses);
+    const classes = useStyle(defaultClasses, propsClasses);
 
     const additionalAddressString = `${city}, ${region} ${postcode} ${country_code}`;
     const fullName = `${firstname} ${lastname}`;

@@ -71,7 +71,7 @@ export const useStyle = (...args) => {
                 insertCss(mergedModule);
             }
         } catch (error) {
-            console.error(error);
+            console.error("could not insert css:", mergedModule);
         }
     }, [insertCss, mergedModule]);
 

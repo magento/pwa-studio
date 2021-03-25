@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Image from '../Image';
 import defaultClasses from './categoryTile.css';
 
@@ -17,7 +17,7 @@ const CategoryTile = props => {
 
     const { image, item } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const imagePreview = useMemo(() => {
         return image.url ? (

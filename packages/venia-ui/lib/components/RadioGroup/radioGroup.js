@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { arrayOf, bool, node, oneOfType, shape, string } from 'prop-types';
 import { BasicRadioGroup, asField } from 'informed';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import { Message } from '../Field';
 import Radio from './radio';
 import defaultClasses from './radioGroup.css';
@@ -17,7 +17,7 @@ const RadioGroup = props => {
         ...rest
     } = props;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const options = items.map(({ value, ...item }) => (
         <Radio

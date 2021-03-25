@@ -2,7 +2,7 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountMenu';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import CreateAccount from '../CreateAccount';
 import SignIn from '../SignIn/signIn';
 import AccountMenuItems from './accountMenuItems';
@@ -26,7 +26,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
         updateUsername
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rootClass = accountMenuIsOpen ? classes.root_open : classes.root;
     const contentsClass = accountMenuIsOpen
         ? classes.contents_open

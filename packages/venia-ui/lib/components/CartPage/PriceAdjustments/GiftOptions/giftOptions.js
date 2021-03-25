@@ -5,7 +5,7 @@ import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/GiftOptions/u
 
 import Checkbox from '../../../Checkbox';
 import TextArea from '../../../TextArea';
-import { mergeClasses } from '../../../../classify';
+import { useStyle } from '../../../../classify';
 import GiftOptionsOperations from './giftOptions.gql';
 import defaultClasses from './giftOptions.css';
 
@@ -34,7 +34,7 @@ const GiftOptions = props => {
     } = useGiftOptions({ ...GiftOptionsOperations });
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <div className={classes.root}>

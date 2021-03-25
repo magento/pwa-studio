@@ -7,7 +7,7 @@ import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGallery
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Image from '../Image';
 import defaultClasses from './item.css';
 
@@ -41,7 +41,7 @@ const ItemPlaceholder = ({ classes }) => (
 const GalleryItem = props => {
     const { handleLinkClick, item } = useGalleryItem(props);
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     if (!item) {
         return <ItemPlaceholder classes={classes} />;

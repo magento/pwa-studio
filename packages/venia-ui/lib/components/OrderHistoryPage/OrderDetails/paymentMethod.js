@@ -2,13 +2,13 @@ import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './paymentMethod.css';
 
 const PaymentMethod = props => {
     const { data, classes: propsClasses } = props;
-    const classes = mergeClasses(defaultClasses, propsClasses);
+    const classes = useStyle(defaultClasses, propsClasses);
     /**
      * There can be multiple payment methods for an order but
      * since Venia does not support multiple payment methods yet

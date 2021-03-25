@@ -6,7 +6,7 @@ import { Form } from 'informed';
 import { useToasts } from '@magento/peregrine';
 import { useResetPassword } from '@magento/peregrine/lib/talons/MyAccount/useResetPassword';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
@@ -20,7 +20,7 @@ import resetPasswordOperations from './resetPassword.gql';
 const ResetPassword = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const talonProps = useResetPassword({ ...resetPasswordOperations });
     const {
         hasCompleted,

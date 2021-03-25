@@ -6,7 +6,7 @@ import { useToasts } from '@magento/peregrine';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useCreateAccount';
 
 import combine from '../../../util/combineValidators';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import {
     hasLengthAtLeast,
     isRequired,
@@ -24,7 +24,7 @@ import defaultClasses from './createAccount.css';
 
 const CreateAccount = props => {
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const [, { addToast }] = useToasts();
 
