@@ -24,16 +24,22 @@ Object {
   "placeOrderLoading": false,
   "resetReviewOrderButtonClicked": [Function],
   "reviewOrderButtonClicked": false,
+  "scrollShippingInformationIntoView": [Function],
+  "scrollShippingMethodIntoView": [Function],
   "setCheckoutStep": [Function],
   "setIsUpdating": [Function],
   "setPaymentInformationDone": [Function],
   "setShippingInformationDone": [Function],
   "setShippingMethodDone": [Function],
   "shippingInformationRef": Object {
-    "current": undefined,
+    "current": Object {
+      "scrollIntoView": [MockFunction],
+    },
   },
   "shippingMethodRef": Object {
-    "current": undefined,
+    "current": Object {
+      "scrollIntoView": [MockFunction],
+    },
   },
   "toggleAddressBookContent": [Function],
   "toggleSignInContent": [Function],
