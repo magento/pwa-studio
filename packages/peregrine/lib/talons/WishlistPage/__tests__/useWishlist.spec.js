@@ -18,6 +18,11 @@ jest.mock('@apollo/client', () => {
     };
 });
 
+jest.mock('../wishlist.gql', () => ({
+    getCustomerWishlistQuery: jest.fn().mockName('getCustomerWishlistQuery'),
+    updateWishlistMutation: jest.fn().mockName('updateWishlistMutation')
+}));
+
 const Component = props => {
     const talonProps = useWishlist({ ...props });
 
@@ -26,7 +31,10 @@ const Component = props => {
 
 const baseProps = {
     id: '5',
-    mutations: { updateWishlistMutation: 'updateWishlistMutation' }
+    mutations: { updateWishlistMutation: 'updateWishlistMutation' },
+    queries: {
+        getCustomerWishlistQuery: 'getCustomerWishlistQuery'
+    }
 };
 
 test('returns correct shape', () => {
