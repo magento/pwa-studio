@@ -17,7 +17,11 @@ const isServer = !globalThis.document;
  *
  * @param {object} cssModule
  */
-const insertModule = cssModule => cssModule._insertCss();
+const insertModule = cssModule => {
+    if (typeof cssModule._insertCss === 'function') {
+        cssModule._insertCss();
+    }
+};
 
 /**
  * Server-side. Creates a callback that adds rulesets to a global Set.
@@ -25,7 +29,9 @@ const insertModule = cssModule => cssModule._insertCss();
  * @param {Set} initialState
  */
 const addModule = initialState => cssModule => {
-    initialState.add(cssModule._getCss());
+    if (typeof cssModule._getCss === 'function') {
+        initialState.add(cssModule._getCss());
+    }
 };
 
 const StyleContextProvider = props => {
@@ -43,37 +49,37 @@ const StyleContextProvider = props => {
 
 export default StyleContextProvider;
 
-export const useStyle = (...args) => {
-    // `args` will always be a new array, even if the elements haven't changed
-    // so put them in a set and avoid changing that set if possible
-    const [modules, setModules] = useState(() => new Set(args));
+export const useStyle = (cssModule, ...overrides) => {
     const insertCss = useContext(StyleContext);
+    const [classes, setClasses] = useState(() =>
+        mergeClasses(cssModule, ...overrides)
+    );
 
-    // only update the set when elements have changed
+    // this effect always runs, since rest args are always a new array
     useEffect(() => {
-        if (
-            args.length !== modules.size ||
-            args.some(item => !modules.has(item))
-        ) {
-            setModules(new Set(args));
+        // even the override objects are not memoized, typically
+        // so it's easiest to just merge again
+        const nextClasses = mergeClasses(cssModule, ...overrides);
+
+        // and then compare the results to see if anything changed
+        if (hasChanged(classes, nextClasses)) {
+            // and then update if something did change
+            setClasses(nextClasses);
         }
-    }, [args, modules, setModules]);
+    }, [classes, cssModule, overrides]);
 
-    // only merge classes if the set has changed
-    const mergedModule = useMemo(() => mergeClasses(...modules), [modules]);
-
-    // only recreate the callback when the classes have been merged
+    // only recreate the callback when the classes have changed
     const runInsert = useCallback(() => {
         try {
             // TODO: maybe throw an error instead of failing silently?
             // unit tests would need to mock this hook, though
             if (insertCss) {
-                insertCss(mergedModule);
+                insertCss(classes);
             }
         } catch (error) {
-            console.error("could not insert css:", mergedModule);
+            console.error('could not insert css:', classes);
         }
-    }, [insertCss, mergedModule]);
+    }, [classes, insertCss]);
 
     // only run the effect when the callback has been recreated
     useEffect(() => {
@@ -90,5 +96,28 @@ export const useStyle = (...args) => {
         runInsert();
     }
 
-    return mergedModule;
+    return classes;
 };
+
+function hasChanged(prev, next) {
+    const prevEntries = Object.entries(prev);
+    const nextEntries = Object.entries(next);
+    const count = Math.max(prevEntries.length, nextEntries.length);
+    let hasChanged = false;
+
+    if (prevEntries.length !== nextEntries.length) {
+        return true;
+    }
+
+    for (let index = 0; index < count; index++) {
+        const [prevKey, prevValue] = prevEntries[index];
+        const [nextKey, nextValue] = nextEntries[index];
+
+        if (prevKey !== nextKey || prevValue !== nextValue) {
+            hasChanged = true;
+            break;
+        }
+    }
+
+    return hasChanged;
+}
