@@ -241,6 +241,7 @@ GuestForm.propTypes = {
         submit_update: string
     }),
     onCancel: func,
+    onSuccess: func.isRequired,
     shippingData: shape({
         city: string,
         country: shape({

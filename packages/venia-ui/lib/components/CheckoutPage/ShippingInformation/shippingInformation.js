@@ -125,5 +125,6 @@ ShippingInformation.propTypes = {
         editText: string
     }),
     onSave: func.isRequired,
+    onSuccess: func.isRequired,
     toggleActiveContent: func.isRequired
 };

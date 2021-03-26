@@ -184,5 +184,6 @@ AddressBook.propTypes = {
         addIcon: string,
         addText: string
     }),
+    onSuccess: func.isRequired,
     toggleActiveContent: func.isRequired
 };

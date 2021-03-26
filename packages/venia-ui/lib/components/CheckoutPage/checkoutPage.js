@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
+import { shape, string } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { Link } from 'react-router-dom';
@@ -391,3 +392,30 @@ const CheckoutPage = props => {
 };
 
 export default CheckoutPage;
+
+CheckoutPage.propTypes = {
+    classes: shape({
+        root: string,
+        checkoutContent: string,
+        checkoutContent_hidden: string,
+        heading_container: string,
+        heading: string,
+        cartLink: string,
+        stepper_heading: string,
+        shipping_method_heading: string,
+        payment_information_heading: string,
+        signInContainer: string,
+        signInLabel: string,
+        signInButton: string,
+        empty_cart_container: string,
+        shipping_information_container: string,
+        shipping_method_container: string,
+        payment_information_container: string,
+        price_adjustments_container: string,
+        items_review_container: string,
+        summaryContainer: string,
+        formErrors: string,
+        review_order_button: string,
+        place_order_button: string
+    })
+};

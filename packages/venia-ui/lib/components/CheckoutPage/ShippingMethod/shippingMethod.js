@@ -145,6 +145,7 @@ ShippingMethod.propTypes = {
         root: string
     }),
     onSave: func.isRequired,
+    onSuccess: func.isRequired,
     pageIsUpdating: bool,
     setPageIsUpdating: func.isRequired
 };

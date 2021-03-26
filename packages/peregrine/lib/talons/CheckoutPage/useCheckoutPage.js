@@ -23,6 +23,47 @@ export const CHECKOUT_STEP = {
     REVIEW: 4
 };
 
+/**
+ * 
+ * @param {DocumentNode} props.operations.getCheckoutDetailsQuery query to fetch checkout details
+ * @param {DocumentNode} props.operations.getCustomerQuery query to fetch customer details
+ * @param {DocumentNode} props.operations.getOrderDetailsQuery query to fetch order details
+ * @param {DocumentNode} props.operations.createCartMutation mutation to create a new cart
+ * @param {DocumentNode} props.operations.placeOrderMutation mutation to place order
+ * 
+ * @returns {
+ *  activeContent: String,
+ *  availablePaymentMethods: Array,
+ *  cartItems: Array,
+ *  checkoutStep: Number,
+ *  customer: Object,
+ *  error: ApolloError,
+ *  handlePlaceOrder: Function,
+ *  hasError: Boolean,
+ *  isCartEmpty: Boolean,
+ *  isGuestCheckout: Boolean,
+ *  isLoading: Boolean,
+ *  isUpdating: Boolean,
+ *  orderDetailsData: Object,
+ *  orderDetailsLoading: Boolean,
+ *  orderNumber: String,
+ *  placeOrderLoading: Boolean,
+ *  setCheckoutStep: Function,
+ *  setIsUpdating: Function,
+ *  setShippingInformationDone: Function,
+ *  setShippingMethodDone: Function,
+ *  setPaymentInformationDone: Function,
+ *  scrollShippingInformationIntoView: Function,
+ *  shippingInformationRef: ReactRef,
+ *  shippingMethodRef: ReactRef,
+ *  scrollShippingMethodIntoView: Function,
+ *  resetReviewOrderButtonClicked: Function,
+ *  handleReviewOrder: Function,
+ *  reviewOrderButtonClicked: Boolean,
+ *  toggleAddressBookContent: Function,
+ *  toggleSignInContent: Function,
+ * }
+ */
 export const useCheckoutPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 

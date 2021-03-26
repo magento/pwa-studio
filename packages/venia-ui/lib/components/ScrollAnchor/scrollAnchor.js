@@ -1,3 +1,4 @@
+import { shape, string } from 'prop-types';
 import React, {
     Fragment,
     forwardRef,
@@ -25,3 +26,9 @@ const ScrollAnchor = forwardRef((props, ref) => {
 });
 
 export default ScrollAnchor;
+
+ScrollAnchor.propTypes = {
+    classes: shape({
+        anchor: string
+    })
+};
