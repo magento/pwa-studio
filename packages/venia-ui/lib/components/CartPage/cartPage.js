@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
-import { useStyle } from '@magento/peregrine/lib/context/style';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
