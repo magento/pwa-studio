@@ -243,6 +243,33 @@ const typePolicies = {
                 }
             }
         }
+    },
+    Wishlist: {
+        keyFields: ({ id }) => `CustomerWishlist:${id}`
+    },
+    WishlistItem: {
+        keyFields: ({ id }) => `CustomerWishlistItem:${id}`
+    },
+    SimpleWishlistItem: {
+        keyFields: ({ id }) => `CustomerSimpleWishlistItem:${id}`
+    },
+    VirtualWishlistItem: {
+        keyFields: ({ id }) => `CustomerVirtualWishlistItem:${id}`
+    },
+    DownloadableWishlistItem: {
+        keyFields: ({ id }) => `CustomerDownloadableWishlistItem:${id}`
+    },
+    BundleWishlistItem: {
+        keyFields: ({ id }) => `CustomerBundleWishlistItem:${id}`
+    },
+    GroupedProductWishlistItem: {
+        keyFields: ({ id }) => `CustomerGroupedProductWishlistItem:${id}`
+    },
+    ConfigurableWishlistItem: {
+        keyFields: ({ id }) => `CustomerConfigurableWishlistItem:${id}`
+    },
+    GiftCardWishlistItem: {
+        keyFields: ({ id }) => `CustomerGiftCardWishlistItem:${id}`
     }
 };
 

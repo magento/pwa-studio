@@ -18,7 +18,7 @@ test('render open with no items', () => {
     const props = {
         data: {
             items_count: 0,
-            items_v2: [],
+            items_v2: { items: [] },
             name: 'Favorites List',
             sharing_code: null
         }
@@ -38,7 +38,7 @@ test('render closed with items', () => {
     const props = {
         data: {
             items_count: 20,
-            items_v2: ['item1', 'item2'],
+            items_v2: { items: ['item1', 'item2'] },
             name: 'Favorites List',
             sharing_code: 'abc123'
         }

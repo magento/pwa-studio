@@ -1,10 +1,12 @@
 .root {
+    align-content: start;
+    display: grid;
+    row-gap: 0.5rem;
 }
 
 .images {
     display: grid;
     grid-template-areas: 'main';
-    margin-bottom: 0.65rem;
 }
 
 .imageContainer {
@@ -13,7 +15,8 @@
 
 .image {
     display: block;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
     opacity: 1;
     transition-duration: 512ms;
     transition-property: opacity, visibility;
@@ -27,11 +30,13 @@
     background-color: rgb(var(--venia-global-color-gray));
 }
 
+.name {
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
 .name,
 .price {
-    font-size: 0.875rem;
-    line-height: 1rem;
-    margin: 0.5rem 0;
+    font-size: var(--venia-typography-detail-XL-fontSize);
     min-height: 1rem;
 }
 

@@ -1,0 +1,15 @@
+.megaMenu {
+    align-items: center;
+    align-self: center;
+    display: none;
+    grid-column: 3 / 4;
+    grid-row: 1 / 1;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    .megaMenu {
+        display: flex;
+    }
+}
