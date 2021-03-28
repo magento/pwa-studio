@@ -56,7 +56,8 @@ async function createUpwardServer({
                 excludeUrlPattern: new RegExp(
                     env.RENDERTRON_EXCLUDE_URL_PATTERN,
                     'i'
-                )
+                ),
+                timeout: 500
             })
         );
     }

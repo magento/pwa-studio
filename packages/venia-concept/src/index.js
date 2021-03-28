@@ -112,13 +112,15 @@ const apolloLink = ApolloLink.from([
     Adapter.apolloLink(apiBase)
 ]);
 
-ReactDOM.render(
+const rootElement = document.getElementById('root');
+const renderMethod = rootElement.hasChildNodes() ? 'hydrate' : 'render';
+ReactDOM[renderMethod](
     <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
         <AppContextProvider>
             <App />
         </AppContextProvider>
     </Adapter>,
-    document.getElementById('root')
+    rootElement
 );
 
 registerSW();
