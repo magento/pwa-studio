@@ -2,6 +2,7 @@
  * @module VeniaUI/Targets
  */
 const { Targetables } = require('@magento/pwa-buildpack');
+const CategoryListProductAttributes = require('./CategoryListProductAttributes');
 const RichContentRendererList = require('./RichContentRendererList');
 const makeRoutesTarget = require('./makeRoutesTarget');
 const CheckoutPagePaymentsList = require('./CheckoutPagePaymentsList');
@@ -41,4 +42,6 @@ module.exports = veniaTargets => {
         importPath:
             '@magento/venia-ui/lib/components/SavedPaymentsPage/creditCard'
     });
+
+    new CategoryListProductAttributes(venia);
 };

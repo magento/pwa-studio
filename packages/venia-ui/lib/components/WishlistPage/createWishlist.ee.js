@@ -12,6 +12,7 @@ import { isRequired } from '../../util/formValidators';
 import { mergeClasses } from '../../classify';
 import RadioGroup from '../RadioGroup';
 import TextInput from '../TextInput';
+import FormError from '../FormError/formError';
 
 import defaultClasses from './createWishlist.css';
 
@@ -23,7 +24,10 @@ const CreateWishlist = props => {
         handleCreateList,
         handleHideModal,
         handleShowModal,
-        isModalOpen
+        isModalOpen,
+        formErrors,
+        loading,
+        shouldRender
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -49,18 +53,18 @@ const CreateWishlist = props => {
                 id: 'global.private',
                 defaultMessage: 'Private'
             }),
-            value: 'private'
+            value: 'PRIVATE'
         },
         {
             label: formatMessage({
                 id: 'global.public',
                 defaultMessage: 'Public'
             }),
-            value: 'public'
+            value: 'PUBLIC'
         }
     ];
 
-    return (
+    return shouldRender ? (
         <div className={classes.root}>
             <button
                 className={classes.createButton}
@@ -93,18 +97,20 @@ const CreateWishlist = props => {
                     id: 'global.save',
                     defaultMessage: 'Save'
                 })}
-                formProps={{ initialValues: { sharing_code: 'private' } }}
+                formProps={{ initialValues: { visibility: 'PRIVATE' } }}
                 isModal={true}
                 isOpen={isModalOpen}
                 onCancel={handleHideModal}
                 onConfirm={handleCreateList}
-                shouldUnmountOnHide={false}
+                shouldUnmountOnHide={true}
                 title={formatMessage({
                     id: 'createWishlist.dialogTitle',
                     defaultMessage: 'New Favorites List'
                 })}
+                shouldDisableConfirmButton={loading}
             >
                 <div className={classes.form}>
+                    <FormError errors={Array.from(formErrors.values())} />
                     <Field
                         classes={{ root: classes.listName }}
                         label={formatMessage({
@@ -120,13 +126,13 @@ const CreateWishlist = props => {
                     </Field>
                     <RadioGroup
                         classes={radioGroupClasses}
-                        field="sharing_code"
+                        field="visibility"
                         items={radioGroupItems}
                     />
                 </div>
             </Dialog>
         </div>
-    );
+    ) : null;
 };
 
 export default CreateWishlist;
