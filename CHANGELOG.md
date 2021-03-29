@@ -17,7 +17,7 @@ PWA Studio 10.0.0 contains new features, refactors, bug fixes, and various impro
 
 ### Build report tool
 
-The build report tool is a Buildpack CLI command that returns information about their storefront setup and development environment.
+The build report tool is a Buildpack CLI command that returns information about a storefront setup and development environment.
 This feature makes it easier to provide information when reporting issues or for general debugging purposes.
 
 The following command is now available for newly scaffolded projects:
