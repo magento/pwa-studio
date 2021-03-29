@@ -1,0 +1,21 @@
+.root {
+}
+
+.formErrors {
+    border-color: rgb(var(--venia-global-color-error));
+    border-style: solid;
+    border-width: 0 0 0 5px;
+    padding: 1rem 0 1rem 1rem;
+    display: grid;
+    grid-column: 1 / span 1;
+}
+
+.existingWishlists {
+}
+
+.createListButton {
+    width: 100%;
+    text-align: left;
+    height: 3.5rem;
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
