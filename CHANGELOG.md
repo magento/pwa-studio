@@ -188,6 +188,9 @@ Previous coverage (9.0.1): **84.19%**
 - Prerender feature is unable to cache HTML on Fastly enabled environments.
 - The `yarn watch` process may run out of memory if left running for an extended amount of time.
   If an error occurs because of this, restart the watcher.
+- Navigating to the Venia storefront produces `TypeError: Failed to fetch` in the console.
+  This is caused by the service worker when it requests the `index.html` route.
+  This has no impact on Venia functionality but will be fixed in the next release.
 
 ## Upgrading from a previous version
 
