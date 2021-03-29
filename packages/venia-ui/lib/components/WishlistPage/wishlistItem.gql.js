@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-import { CartTriggerFragment } from '../Header/cartTriggerFragments.gql';
-import { MiniCartFragment } from '../MiniCart/miniCart.gql';
+import { CartTriggerFragment } from '@magento/peregrine/lib/talons/Header/cartTriggerFragments.gql';
+import { MiniCartFragment } from '@magento/peregrine/lib/talons/MiniCart/miniCartFragments.gql';
 
 export const ADD_WISHLIST_ITEM_TO_CART = gql`
     mutation AddWishlistItemToCart(
