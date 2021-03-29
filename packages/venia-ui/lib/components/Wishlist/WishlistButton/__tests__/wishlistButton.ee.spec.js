@@ -43,7 +43,9 @@ test('renders the correct tree', () => {
     const tree = createTestInstance(<WishlistButton {...defaultProps} />);
 
     expect(tree.toJSON()).toMatchInlineSnapshot(`
-        Array [
+        <div
+          className="root"
+        >
           <button
             className="wishlistButton"
             disabled={false}
@@ -71,7 +73,7 @@ test('renders the correct tree', () => {
               </svg>
             </span>
             Add to Favorites
-          </button>,
+          </button>
           <WishlistDialog
             isOpen={false}
             itemOptions={
@@ -81,8 +83,8 @@ test('renders the correct tree', () => {
               }
             }
             onClose={[MockFunction]}
-          />,
-        ]
+          />
+        </div>
     `);
 });
 
@@ -98,7 +100,9 @@ test('renders after item has been added', () => {
     const tree = createTestInstance(<WishlistButton {...defaultProps} />);
 
     expect(tree.toJSON()).toMatchInlineSnapshot(`
-        Array [
+        <div
+          className="root"
+        >
           <button
             className="wishlistButton_disabled"
             disabled={true}
@@ -126,7 +130,7 @@ test('renders after item has been added', () => {
               </svg>
             </span>
             Added to Favorites
-          </button>,
+          </button>
           <WishlistDialog
             isOpen={false}
             itemOptions={
@@ -136,8 +140,8 @@ test('renders after item has been added', () => {
               }
             }
             onClose={[MockFunction]}
-          />,
-        ]
+          />
+        </div>
     `);
 });
 
