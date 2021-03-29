@@ -1,9 +1,14 @@
+.root {
+    display: grid;
+    justify-content: center;
+}
+
 .wishlistButton {
     align-items: center;
     display: grid;
-    grid-auto-flow: column;
     font-weight: var(--venia-global-fontWeight-semibold);
     gap: 0.25rem;
+    grid-auto-flow: column;
     text-decoration: underline;
     transition-property: color;
     transition-duration: 256ms;

@@ -72,15 +72,17 @@ const WishlistButton = props => {
     const iconElement = isItemAdded ? CheckIcon : HeartIcon;
 
     return (
-        <button
-            disabled={isDisabled}
-            type="button"
-            className={buttonClass}
-            onClick={handleClick}
-        >
-            {iconElement}
-            {buttonText}
-        </button>
+        <div className={classes.root}>
+            <button
+                disabled={isDisabled}
+                type="button"
+                className={buttonClass}
+                onClick={handleClick}
+            >
+                {iconElement}
+                {buttonText}
+            </button>
+        </div>
     );
 };
 
@@ -88,7 +90,12 @@ export default WishlistButton;
 
 WishlistButton.propTypes = {
     classes: shape({
-        wishlistButton: string
+        checkIcon: string,
+        icon: string,
+        icon_disabled: string,
+        root: string,
+        wishlistButton: string,
+        wishlistButton_disabled: string
     }),
     itemOptions: shape({
         entered_options: arrayOf(

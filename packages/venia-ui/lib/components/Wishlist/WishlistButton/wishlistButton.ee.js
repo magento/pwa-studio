@@ -76,20 +76,22 @@ const WishlistButton = props => {
 
     return (
         <Fragment>
-            <button
-                disabled={isDisabled}
-                type="button"
-                className={buttonClass}
-                onClick={handleButtonClick}
-            >
-                {iconElement}
-                {buttonText}
-            </button>
-            <WishlistDialog
-                isOpen={isModalOpen}
-                onClose={handleModalClose}
-                itemOptions={props.itemOptions}
-            />
+            <div className={classes.root}>
+                <button
+                    disabled={isDisabled}
+                    type="button"
+                    className={buttonClass}
+                    onClick={handleButtonClick}
+                >
+                    {iconElement}
+                    {buttonText}
+                </button>
+                <WishlistDialog
+                    isOpen={isModalOpen}
+                    onClose={handleModalClose}
+                    itemOptions={props.itemOptions}
+                />
+            </div>
         </Fragment>
     );
 };
@@ -98,7 +100,12 @@ export default WishlistButton;
 
 WishlistButton.propTypes = {
     classes: shape({
-        wishlistButton: string
+        checkIcon: string,
+        icon: string,
+        icon_disabled: string,
+        root: string,
+        wishlistButton: string,
+        wishlistButton_disabled: string
     }),
     itemOptions: shape({
         entered_options: arrayOf(
