@@ -189,8 +189,10 @@ Previous coverage (9.0.1): **84.19%**
 - The `yarn watch` process may run out of memory if left running for an extended amount of time.
   If an error occurs because of this, restart the watcher.
 - Navigating to the Venia storefront produces `TypeError: Failed to fetch` in the console.
-  This is caused by the service worker when it requests the `index.html` route.
-  This has no impact on Venia functionality but will be fixed in the next release.
+  This is a [Workbox issue][] caused by the service worker when it requests the `index.html` route.
+  This has no impact on Venia functionality but will be fixed in the next release when the Workbox dependency is updated.
+
+  [workbox issue]: https://github.com/GoogleChrome/workbox/pull/2777
 
 ## Upgrading from a previous version
 
