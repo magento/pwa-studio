@@ -3,7 +3,10 @@
     justify-content: center;
 }
 
-.wishlistButton {
+.button {
+}
+
+.wishlistButtonContent {
     align-items: center;
     display: grid;
     font-weight: var(--venia-global-fontWeight-semibold);
@@ -15,8 +18,8 @@
     transition-timing-function: var(--venia-global-anim-standard);
 }
 
-.wishlistButton_disabled {
-    composes: wishlistButton;
+.wishlistButtonContent_disabled {
+    composes: wishlistButtonContent;
     color: #535965;
     text-decoration: none;
 }
