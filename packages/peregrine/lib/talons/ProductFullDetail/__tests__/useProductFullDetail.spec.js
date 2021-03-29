@@ -7,6 +7,7 @@ import { useProductFullDetail } from '../useProductFullDetail';
 import { useUserContext } from '../../../context/user';
 
 jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {
@@ -229,6 +230,31 @@ test('returns an error message if add configurable product mutation returns an e
     expect(talonProps.errorMessage).toEqual('OMG A CONFIGURABLE ERROR!');
 });
 
+test('returns an error message if generic add product mutation returns an error', () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: false, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: false, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: new Error('OMG A GENERIC ERROR!'), loading: false }
+    ]);
+
+    const props = {
+        product: defaultProps.product
+    };
+    const tree = createTestInstance(<Component {...props} />);
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.errorMessage).toEqual('OMG A GENERIC ERROR!');
+});
+
 test('sets isAddToCartDisabled true if add configurable mutation is loading', () => {
     useMutation.mockReturnValueOnce([
         jest.fn(),
@@ -262,6 +288,31 @@ test('sets isAddToCartDisabled true if add simple mutation is loading', () => {
 
     const props = {
         ...defaultProps
+    };
+    const tree = createTestInstance(<Component {...props} />);
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.isAddToCartDisabled).toBe(true);
+});
+
+test('sets isAddToCartDisabled true if generic add mutation is loading', () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: null, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: null, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: null, loading: true }
+    ]);
+
+    const props = {
+        product: defaultProps.product
     };
     const tree = createTestInstance(<Component {...props} />);
 
