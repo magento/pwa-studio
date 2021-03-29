@@ -5,6 +5,5 @@ export const WishlistFragment = gql`
         id
         items_count
         sharing_code
-        visibility
     }
 `;
