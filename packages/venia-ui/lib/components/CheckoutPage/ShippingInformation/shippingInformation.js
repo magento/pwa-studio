@@ -57,7 +57,7 @@ const ShippingInformation = props => {
 
     const editModal = !isSignedIn ? (
         <Suspense fallback={null}>
-            <EditModal shippingData={shippingData} />
+            <EditModal onSuccess={onSuccess} shippingData={shippingData} />
         </Suspense>
     ) : null;
 

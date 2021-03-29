@@ -24,13 +24,13 @@ export const CHECKOUT_STEP = {
 };
 
 /**
- * 
+ *
  * @param {DocumentNode} props.operations.getCheckoutDetailsQuery query to fetch checkout details
  * @param {DocumentNode} props.operations.getCustomerQuery query to fetch customer details
  * @param {DocumentNode} props.operations.getOrderDetailsQuery query to fetch order details
  * @param {DocumentNode} props.operations.createCartMutation mutation to create a new cart
  * @param {DocumentNode} props.operations.placeOrderMutation mutation to place order
- * 
+ *
  * @returns {
  *  activeContent: String,
  *  availablePaymentMethods: Array,

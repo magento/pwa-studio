@@ -164,7 +164,7 @@ const AddressBook = props => {
                 <div className={classes.content}>{addressElements}</div>
             </div>
             <Suspense fallback={null}>
-                <EditModal shippingData={activeAddress} />
+                <EditModal onSuccess={onSuccess} shippingData={activeAddress} />
             </Suspense>
         </Fragment>
     );
