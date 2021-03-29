@@ -1,6 +1,7 @@
 import { useCallback, useState, useMemo } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
@@ -150,6 +151,7 @@ const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 /**
  * @param {GraphQLQuery} props.addConfigurableProductToCartMutation - configurable product mutation
  * @param {GraphQLQuery} props.addSimpleProductToCartMutation - configurable product mutation
+ * @param {GraphQLQuery} props.getWishlistConfig - queries for whether wishlists are enabled.
  * @param {Object} props.product - the product, see RootComponents/Product
  *
  * @returns {{
@@ -159,6 +161,7 @@ const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
  *  handleSelectionChange: func,
  *  handleSetQuantity: func,
  *  isAddToCartDisabled: boolean,
+ *  isSupportedProductType: boolean,
  *  mediaGalleryEntries: array,
  *  productDetails: object,
  *  quantity: number
@@ -168,6 +171,7 @@ export const useProductFullDetail = props => {
     const {
         addConfigurableProductToCartMutation,
         addSimpleProductToCartMutation,
+        getWishlistConfig,
         product
     } = props;
 
@@ -178,6 +182,11 @@ export const useProductFullDetail = props => {
     );
 
     const [{ cartId }] = useCartContext();
+    const [{ isSignedIn }] = useUserContext();
+
+    const { data: storeConfigData } = useQuery(getWishlistConfig, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     const [
         addConfigurableProductToCart,
@@ -220,6 +229,39 @@ export const useProductFullDetail = props => {
         () => getMediaGalleryEntries(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
     );
+
+    // The map of ids to values (and their uids)
+    // For example:
+    // { "179" => [{ uid: "abc", value_index: 1 }, { uid: "def", value_index: 2 }]}
+    const attributeIdToValuesMap = useMemo(() => {
+        const map = new Map();
+        // For simple items, this will be an empty map.
+        const options = product.configurable_options || [];
+        for (const { attribute_id, values } of options) {
+            map.set(attribute_id, values);
+        }
+        return map;
+    }, [product.configurable_options]);
+
+    // An array of selected option uids. Useful for passing to mutations.
+    // For example:
+    // ["abc", "def"]
+    const selectedOptionsArray = useMemo(() => {
+        const selectedOptions = [];
+
+        optionSelections.forEach((value, key) => {
+            const values = attributeIdToValuesMap.get(key);
+
+            const selectedValue = values.find(
+                item => item.value_index === value
+            );
+
+            if (selectedValue) {
+                selectedOptions.push(selectedValue.uid);
+            }
+        });
+        return selectedOptions;
+    }, [attributeIdToValuesMap, optionSelections]);
 
     const handleAddToCart = useCallback(
         async formValues => {
@@ -309,17 +351,33 @@ export const useProductFullDetail = props => {
         [errorAddingConfigurableProduct, errorAddingSimpleProduct]
     );
 
+    const wishlistItemOptions = useMemo(() => {
+        const options = {
+            quantity: 1,
+            sku: product.sku
+        };
+
+        if (productType === 'ConfigurableProduct') {
+            options.selected_options = selectedOptionsArray;
+        }
+
+        return options;
+    }, [product, productType, selectedOptionsArray]);
+
     return {
         breadcrumbCategoryId,
         errorMessage: derivedErrorMessage,
         handleAddToCart,
         handleSelectionChange,
         isAddToCartDisabled:
-            !isSupportedProductType ||
-            isMissingOptions ||
-            isAddConfigurableLoading ||
-            isAddSimpleLoading,
+            isMissingOptions || isAddConfigurableLoading || isAddSimpleLoading,
+        isSupportedProductType,
         mediaGalleryEntries,
-        productDetails
+        shouldShowWishlistButton:
+            isSignedIn &&
+            storeConfigData &&
+            !!storeConfigData.storeConfig.magento_wishlist_general_is_enabled,
+        productDetails,
+        wishlistItemOptions
     };
 };

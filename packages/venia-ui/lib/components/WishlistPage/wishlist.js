@@ -18,7 +18,7 @@ const Wishlist = props => {
         items_count: itemsCount,
         items_v2: items,
         name,
-        sharing_code: sharingCode
+        visibility
     } = data;
 
     const talonProps = useWishlist();
@@ -28,14 +28,18 @@ const Wishlist = props => {
     const contentClass = isOpen ? classes.content : classes.content_hidden;
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
-    const visibilityLabel = sharingCode
-        ? formatMessage({ id: 'wishlist.publicText', defaultMessage: 'Public' })
-        : formatMessage({
-              id: 'wishlist.privateText',
-              defaultMessage: 'Private'
-          });
+    const visibilityLabel =
+        visibility === 'PUBLIC'
+            ? formatMessage({
+                  id: 'global.public',
+                  defaultMessage: 'Public'
+              })
+            : formatMessage({
+                  id: 'global.private',
+                  defaultMessage: 'Private'
+              });
     const contentMessageElement = itemsCount ? (
-        <WishlistItems items={items} wishlistId={id} />
+        <WishlistItems items={items.items} wishlistId={id} />
     ) : (
         <p>
             <FormattedMessage
@@ -45,15 +49,19 @@ const Wishlist = props => {
         </p>
     );
 
+    const wishlistName = name ? (
+        <div className={classes.nameContainer}>
+            <h2 className={classes.name}>{name}</h2>
+            <span className={classes.visibility}>{visibilityLabel}</span>
+        </div>
+    ) : (
+        <div className={classes.nameContainer} />
+    );
+
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                <div className={classes.nameContainer}>
-                    <h2 className={classes.name}>{name}</h2>
-                    <span className={classes.visibility}>
-                        {visibilityLabel}
-                    </span>
-                </div>
+                {wishlistName}
                 <div className={classes.buttonsContainer}>
                     <button onClick={handleActionMenuClick} type="button">
                         {ActionMenuIcon}

@@ -103,16 +103,17 @@
     composes: title from '../../components/ProductOptions/option.css';
 }
 
-.cartActions {
+.actions {
     composes: section;
     align-items: center;
-    display: flex;
+    display: grid;
     grid-area: cart;
+    row-gap: 1.5rem;
     justify-content: center;
 }
 
 @media (min-width: 1024px) {
-    .cartActions {
+    .actions {
         border-bottom-width: 0;
     }
 }
@@ -171,4 +172,17 @@
     composes: root from '../CartPage/ProductListing/quantity.css';
     grid-template-columns: auto 4rem auto;
     justify-content: start;
+}
+
+.unavailableContainer {
+    align-items: center;
+    background-color: rgb(var(--venia-global-color-gray));
+    color: rgb(var(--venia-global-color-gray-darker));
+    column-gap: 0.5rem;
+    display: grid;
+    font-style: italic;
+    grid-auto-flow: column;
+    justify-content: start;
+    padding: 0.75rem;
+    width: 100%;
 }

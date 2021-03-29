@@ -50,6 +50,12 @@ defaults:
 
   -
     scope:
+      path: "product-recs"
+    values:
+      toc-group: "product-recs"
+
+  -
+    scope:
       path: "peregrine"
     values:
       toc-group: "overview"

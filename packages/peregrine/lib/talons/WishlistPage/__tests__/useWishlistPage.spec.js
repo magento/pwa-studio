@@ -9,9 +9,13 @@ import { useQuery } from '@apollo/client';
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn()
 }));
-jest.mock('@apollo/client', () => ({
-    useQuery: jest.fn().mockReturnValue({})
-}));
+jest.mock('@apollo/client', () => {
+    const ApolloClient = jest.requireActual('@apollo/client');
+    return {
+        ...ApolloClient,
+        useQuery: jest.fn().mockReturnValue({})
+    };
+});
 jest.mock('../../../context/user', () => ({
     useUserContext: jest.fn().mockReturnValue([{ isSignedIn: true }])
 }));
@@ -26,7 +30,9 @@ const Component = props => {
 };
 
 const props = {
-    queries: {}
+    queries: {
+        getCustomerWishlistQuery: {}
+    }
 };
 
 test('return correct shape', () => {
