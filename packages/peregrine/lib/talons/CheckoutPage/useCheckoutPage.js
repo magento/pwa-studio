@@ -130,19 +130,19 @@ export const useCheckoutPage = (props = {}) => {
 
     const resetReviewOrderButtonClicked = useCallback(() => {
         setReviewOrderButtonClicked(false);
-    }, [setReviewOrderButtonClicked]);
+    }, []);
 
     const setShippingInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS) {
             setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
         }
-    }, [checkoutStep, setCheckoutStep]);
+    }, [checkoutStep]);
 
     const setShippingMethodDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD) {
             setCheckoutStep(CHECKOUT_STEP.PAYMENT);
         }
-    }, [checkoutStep, setCheckoutStep]);
+    }, [checkoutStep]);
 
     const setPaymentInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
@@ -153,18 +153,21 @@ export const useCheckoutPage = (props = {}) => {
             });
             setCheckoutStep(CHECKOUT_STEP.REVIEW);
         }
-    }, [checkoutStep, setCheckoutStep]);
+    }, [checkoutStep]);
+
+    const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
     const handlePlaceOrder = useCallback(async () => {
         // Fetch order details and then use an effect to actually place the
         // order. If/when Apollo returns promises for invokers from useLazyQuery
         // we can just await this function and then perform the rest of order
         // placement.
-        getOrderDetails({
+        await getOrderDetails({
             variables: {
                 cartId
             }
-        });
+        })
+        setIsPlacingOrder(true);
     }, [cartId, getOrderDetails]);
 
     // Go back to checkout if shopper logs in
@@ -182,7 +185,6 @@ export const useCheckoutPage = (props = {}) => {
                         cartId
                     }
                 });
-
                 // Cleanup stale cart and customer info.
                 await removeCart();
                 await clearCartDataFromCache(apolloClient);
@@ -200,8 +202,9 @@ export const useCheckoutPage = (props = {}) => {
             }
         }
 
-        if (orderDetailsData && !placeOrderCalled) {
-            placeOrderAndCleanup();
+        if (orderDetailsData && isPlacingOrder) {
+            setIsPlacingOrder(false);
+            placeOrderAndCleanup()
         }
     }, [
         apolloClient,
@@ -210,8 +213,8 @@ export const useCheckoutPage = (props = {}) => {
         fetchCartId,
         orderDetailsData,
         placeOrder,
-        placeOrderCalled,
-        removeCart
+        removeCart,
+        isPlacingOrder
     ]);
 
     return {
