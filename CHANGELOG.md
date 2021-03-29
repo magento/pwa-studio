@@ -36,6 +36,9 @@ If the Magento backend has the **Check or Money Order** option enabled, this ext
 Storefront developers can install this extension to add the new payment feature instead of writing custom frontend code to support this feature.
 Extension developers can view the extension's [source code][] to learn how to implement their own payment methods extension.
 
+**NOTE:**
+_Currently, the data for `Make Check Payable to` and `Send Check to` is static because data from the Admin is not available from the GraphQL endpoint in Magento 2.4.2._
+
 ![Check or Money Order payment](https://user-images.githubusercontent.com/40405790/110977749-22296200-8328-11eb-89e2-4a0116a55647.png)
 
 [Lars Roettig]: https://github.com/larsroettig
@@ -129,6 +132,7 @@ Previous coverage (9.0.1): **84.19%**
 | Updated Media Url generation logic to use store code header with a default fallback value | **Update**   | [#2941][] |
 | Moved Price Summary GraphQL fragment into Peregrine                                       | **Refactor** | [#3007][] |
 | Refactor comment on cmsPage talon to reflect why we compare against default string        | **Refactor** | [#3062][] |
+| Cleaned up an invalid function reference in billing address                               | **Refactor** | [#3065][] |
 
 ### Build tools
 
@@ -180,6 +184,7 @@ Previous coverage (9.0.1): **84.19%**
 ## Known issues
 
 - If you are using Multi-Source Inventory(MSI), a GraphQL issue prevents users from adding a configurable product to the shopping cart on non-default store views.
+  This issue is fixed in Magento's `2.4-develop` branch, and should be available in the next Magento release.
 - Prerender feature is unable to cache HTML on Fastly enabled environments.
 - The `yarn watch` process may run out of memory if left running for an extended amount of time.
   If an error occurs because of this, restart the watcher.
@@ -312,3 +317,4 @@ yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento
 [#3062]: https://github.com/magento/pwa-studio/pull/3062
 [#2932]: https://github.com/magento/pwa-studio/pull/2932
 [#3053]: https://github.com/magento/pwa-studio/pull/3053
+[#3065]: https://github.com/magento/pwa-studio/pull/3065
