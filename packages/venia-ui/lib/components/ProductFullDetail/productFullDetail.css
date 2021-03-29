@@ -103,16 +103,17 @@
     composes: title from '../../components/ProductOptions/option.css';
 }
 
-.cartActions {
+.actions {
     composes: section;
     align-items: center;
-    display: flex;
+    display: grid;
     grid-area: cart;
+    row-gap: 1.5rem;
     justify-content: center;
 }
 
 @media (min-width: 1024px) {
-    .cartActions {
+    .actions {
         border-bottom-width: 0;
     }
 }
