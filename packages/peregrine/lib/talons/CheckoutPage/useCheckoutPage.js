@@ -53,8 +53,7 @@ export const useCheckoutPage = (props = {}) => {
         {
             data: placeOrderData,
             error: placeOrderError,
-            loading: placeOrderLoading,
-            called: placeOrderCalled
+            loading: placeOrderLoading
         }
     ] = useMutation(placeOrderMutation);
 
@@ -166,7 +165,7 @@ export const useCheckoutPage = (props = {}) => {
             variables: {
                 cartId
             }
-        })
+        });
         setIsPlacingOrder(true);
     }, [cartId, getOrderDetails]);
 
@@ -204,7 +203,7 @@ export const useCheckoutPage = (props = {}) => {
 
         if (orderDetailsData && isPlacingOrder) {
             setIsPlacingOrder(false);
-            placeOrderAndCleanup()
+            placeOrderAndCleanup();
         }
     }, [
         apolloClient,
