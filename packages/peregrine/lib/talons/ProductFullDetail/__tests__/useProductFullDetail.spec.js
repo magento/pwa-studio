@@ -348,11 +348,11 @@ test('calls generic mutation when no deprecated operation props are passed', asy
     const mockAddConfigurableToCart = jest.fn();
     const mockAddProductToCart = jest.fn();
     useMutation.mockReturnValueOnce([
-        jest.fn(),
+        mockAddConfigurableToCart,
         { error: null, loading: false }
     ]);
     useMutation.mockReturnValueOnce([
-        jest.fn(),
+        mockAddSimpleToCart,
         { error: null, loading: false }
     ]);
     useMutation.mockReturnValueOnce([
