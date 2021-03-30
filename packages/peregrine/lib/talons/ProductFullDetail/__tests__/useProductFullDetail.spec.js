@@ -342,3 +342,46 @@ test('returns correct value for supported product type', () => {
     expect(talonProps1.isSupportedProductType).toBe(true);
     expect(talonProps2.isSupportedProductType).toBe(false);
 });
+
+test('calls generic mutation when no deprecated operation props are passed', async () => {
+    const mockAddSimpleToCart = jest.fn();
+    const mockAddConfigurableToCart = jest.fn();
+    const mockAddProductToCart = jest.fn();
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: null, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: null, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        mockAddProductToCart,
+        { error: null, loading: false }
+    ]);
+
+    const props = {
+        product: defaultProps.product
+    };
+    const tree = createTestInstance(<Component {...props} />);
+
+    const { root } = tree;
+    const { talonProps: talonPropsStep1 } = root.findByType('i').props;
+    const { handleAddToCart } = talonPropsStep1;
+
+    await handleAddToCart({ quantity: 2 });
+
+    expect(mockAddSimpleToCart).not.toHaveBeenCalled();
+    expect(mockAddConfigurableToCart).not.toHaveBeenCalled();
+    expect(mockAddProductToCart.mock.calls[0][0]).toMatchInlineSnapshot(`
+        Object {
+          "variables": Object {
+            "cartId": "ThisIsMyCart",
+            "product": Object {
+              "quantity": 2,
+              "sku": "MySimpleProductSku",
+            },
+          },
+        }
+    `);
+});
