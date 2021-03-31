@@ -289,7 +289,7 @@ test("should place order and cleanup when we have order details and place order 
     const removeCart = jest.fn();
     const fetchCartId = jest.fn();
 
-    useCartContext.mockReturnValueOnce([
+    useCartContext.mockReturnValue([
         { cartId: '123' },
         { createCart, removeCart }
     ]);
@@ -321,7 +321,7 @@ test('should set checkout step and review order button click state when an error
     });
     const fetchCartId = jest.fn();
 
-    useCartContext.mockReturnValueOnce([
+    useCartContext.mockReturnValue([
         { cartId: '123' },
         { createCart, removeCart }
     ]);
