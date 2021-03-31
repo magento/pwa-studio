@@ -1,8 +1,6 @@
-import { gql } from '@apollo/client';
-
-export const CartTriggerFragment = gql`
-    fragment CartTriggerFragment on Cart {
-        id
-        total_quantity
-    }
-`;
+/*
+    @deprecated - Moved to @magento/peregrine/lib/talons/Header/cartTriggerFragments.gql
+ */
+export {
+    CartTriggerFragment
+} from '@magento/peregrine/lib/talons/Header/cartTriggerFragments.gql';
