@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
@@ -23,6 +23,47 @@ export const CHECKOUT_STEP = {
     REVIEW: 4
 };
 
+/**
+ *
+ * @param {DocumentNode} props.operations.getCheckoutDetailsQuery query to fetch checkout details
+ * @param {DocumentNode} props.operations.getCustomerQuery query to fetch customer details
+ * @param {DocumentNode} props.operations.getOrderDetailsQuery query to fetch order details
+ * @param {DocumentNode} props.operations.createCartMutation mutation to create a new cart
+ * @param {DocumentNode} props.operations.placeOrderMutation mutation to place order
+ *
+ * @returns {
+ *  activeContent: String,
+ *  availablePaymentMethods: Array,
+ *  cartItems: Array,
+ *  checkoutStep: Number,
+ *  customer: Object,
+ *  error: ApolloError,
+ *  handlePlaceOrder: Function,
+ *  hasError: Boolean,
+ *  isCartEmpty: Boolean,
+ *  isGuestCheckout: Boolean,
+ *  isLoading: Boolean,
+ *  isUpdating: Boolean,
+ *  orderDetailsData: Object,
+ *  orderDetailsLoading: Boolean,
+ *  orderNumber: String,
+ *  placeOrderLoading: Boolean,
+ *  setCheckoutStep: Function,
+ *  setIsUpdating: Function,
+ *  setShippingInformationDone: Function,
+ *  setShippingMethodDone: Function,
+ *  setPaymentInformationDone: Function,
+ *  scrollShippingInformationIntoView: Function,
+ *  shippingInformationRef: ReactRef,
+ *  shippingMethodRef: ReactRef,
+ *  scrollShippingMethodIntoView: Function,
+ *  resetReviewOrderButtonClicked: Function,
+ *  handleReviewOrder: Function,
+ *  reviewOrderButtonClicked: Boolean,
+ *  toggleAddressBookContent: Function,
+ *  toggleSignInContent: Function,
+ * }
+ */
 export const useCheckoutPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
@@ -37,6 +78,9 @@ export const useCheckoutPage = (props = {}) => {
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
     );
+
+    const shippingInformationRef = useRef();
+    const shippingMethodRef = useRef();
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
@@ -131,11 +175,27 @@ export const useCheckoutPage = (props = {}) => {
         setReviewOrderButtonClicked(false);
     }, []);
 
+    const scrollShippingInformationIntoView = useCallback(() => {
+        if (shippingInformationRef.current) {
+            shippingInformationRef.current.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    }, [shippingInformationRef]);
+
     const setShippingInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS) {
             setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
         }
     }, [checkoutStep]);
+
+    const scrollShippingMethodIntoView = useCallback(() => {
+        if (shippingMethodRef.current) {
+            shippingMethodRef.current.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    }, [shippingMethodRef]);
 
     const setShippingMethodDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD) {
@@ -242,6 +302,10 @@ export const useCheckoutPage = (props = {}) => {
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone,
+        scrollShippingInformationIntoView,
+        shippingInformationRef,
+        shippingMethodRef,
+        scrollShippingMethodIntoView,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
