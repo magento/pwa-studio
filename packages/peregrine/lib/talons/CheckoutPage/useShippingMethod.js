@@ -42,6 +42,7 @@ const DEFAULT_AVAILABLE_SHIPPING_METHODS = [];
 export const useShippingMethod = props => {
     const {
         onSave,
+        onSuccess,
         mutations: { setShippingMethod },
         queries: { getSelectedAndAvailableShippingMethods },
         setPageIsUpdating
@@ -56,7 +57,11 @@ export const useShippingMethod = props => {
     const [
         setShippingMethodCall,
         { error: setShippingMethodError, loading: isSettingShippingMethod }
-    ] = useMutation(setShippingMethod);
+    ] = useMutation(setShippingMethod, {
+        onCompleted: () => {
+            onSuccess();
+        }
+    });
 
     const { data, loading: isLoadingShippingMethods } = useQuery(
         getSelectedAndAvailableShippingMethods,
