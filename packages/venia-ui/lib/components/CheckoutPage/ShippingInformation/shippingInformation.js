@@ -16,7 +16,12 @@ import LinkButton from '../../LinkButton';
 const EditModal = React.lazy(() => import('./editModal'));
 
 const ShippingInformation = props => {
-    const { classes: propClasses, onSave, toggleActiveContent } = props;
+    const {
+        classes: propClasses,
+        onSave,
+        onSuccess,
+        toggleActiveContent
+    } = props;
     const talonProps = useShippingInformation({
         onSave,
         toggleActiveContent,
@@ -52,7 +57,7 @@ const ShippingInformation = props => {
 
     const editModal = !isSignedIn ? (
         <Suspense fallback={null}>
-            <EditModal shippingData={shippingData} />
+            <EditModal onSuccess={onSuccess} shippingData={shippingData} />
         </Suspense>
     ) : null;
 
@@ -94,7 +99,10 @@ const ShippingInformation = props => {
                 />
             </h3>
             <div className={classes.editWrapper}>
-                <AddressForm shippingData={shippingData} />
+                <AddressForm
+                    onSuccess={onSuccess}
+                    shippingData={shippingData}
+                />
             </div>
         </Fragment>
     );
@@ -117,5 +125,6 @@ ShippingInformation.propTypes = {
         editText: string
     }),
     onSave: func.isRequired,
+    onSuccess: func.isRequired,
     toggleActiveContent: func.isRequired
 };

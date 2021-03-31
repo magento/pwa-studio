@@ -1,0 +1,4 @@
+.anchor {
+    position: absolute;
+    top: calc(var(--venia-global-header-minHeight) * -1 - 5px);
+}

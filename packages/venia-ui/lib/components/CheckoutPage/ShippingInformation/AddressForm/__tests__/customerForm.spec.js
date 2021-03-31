@@ -14,7 +14,8 @@ jest.mock('../../../../Region', () => 'Region');
 
 const mockProps = {
     afterSubmit: jest.fn(),
-    onCancel: jest.fn()
+    onCancel: jest.fn(),
+    onSuccess: jest.fn()
 };
 
 const handleCancel = jest.fn().mockName('handleCancel');

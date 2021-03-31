@@ -10,7 +10,8 @@ export const useAddressBook = props => {
     const {
         mutations: { setCustomerAddressOnCartMutation },
         queries: { getCustomerAddressesQuery, getCustomerCartAddressQuery },
-        toggleActiveContent
+        toggleActiveContent,
+        onSuccess
     } = props;
 
     const [, { toggleDrawer }] = useAppContext();
@@ -27,7 +28,11 @@ export const useAddressBook = props => {
             error: setCustomerAddressOnCartError,
             loading: setCustomerAddressOnCartLoading
         }
-    ] = useMutation(setCustomerAddressOnCartMutation);
+    ] = useMutation(setCustomerAddressOnCartMutation, {
+        onCompleted: () => {
+            onSuccess();
+        }
+    });
 
     const {
         data: customerAddressesData,
