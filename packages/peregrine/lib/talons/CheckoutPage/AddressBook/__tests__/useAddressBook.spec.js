@@ -105,13 +105,16 @@ const Component = props => {
 };
 
 const toggleActiveContent = jest.fn();
+const onSuccess = jest.fn();
+
 const mockProps = {
     mutations: {},
     queries: {
         getCustomerAddressesQuery: 'getCustomerAddressesQuery',
         getCustomerCartAddressQuery: 'getCustomerCartAddressQuery'
     },
-    toggleActiveContent
+    toggleActiveContent,
+    onSuccess
 };
 
 test('returns the correct shape', () => {
@@ -360,4 +363,13 @@ test('does not set a selected address when there are no available customer cart 
     const { talonProps } = root.findByType('i').props;
 
     expect(talonProps.selectedAddress).toBeUndefined();
+});
+
+test('should call onSuccess on mutation success', () => {
+    createTestInstance(<Component {...mockProps} />);
+
+    const { onCompleted } = useMutation.mock.calls[0][1];
+    onCompleted();
+
+    expect(onSuccess).toHaveBeenCalled();
 });
