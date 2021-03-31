@@ -85,6 +85,13 @@
 
     /* dimensions */
     --venia-global-maxWidth: 1440px;
+    --venia-global-header-minHeight: 5rem;
+}
+
+@media (max-width: 960px) {
+    :global(:root) {
+        --venia-global-header-minHeight: 3.5rem;
+    }
 }
 
 /* alias tokens */

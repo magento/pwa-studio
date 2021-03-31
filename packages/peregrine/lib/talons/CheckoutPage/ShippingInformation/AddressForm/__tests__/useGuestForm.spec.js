@@ -174,3 +174,22 @@ test('calls the onCancel() callback', () => {
 
     expect(onCancel).toHaveBeenCalled();
 });
+
+test('should call onSuccess on mutation success', () => {
+    const onSuccess = jest.fn();
+
+    createTestInstance(
+        <Component
+            onSuccess={onSuccess}
+            onCancel={jest.fn()}
+            afterSubmit={jest.fn()}
+            mutations={{}}
+            shippingData={shippingData}
+        />
+    );
+
+    const { onCompleted } = useMutation.mock.calls[0][1];
+    onCompleted();
+
+    expect(onSuccess).toHaveBeenCalled();
+});

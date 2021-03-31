@@ -7,6 +7,7 @@ import { useProductFullDetail } from '../useProductFullDetail';
 import { useUserContext } from '../../../context/user';
 
 jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {
@@ -229,6 +230,31 @@ test('returns an error message if add configurable product mutation returns an e
     expect(talonProps.errorMessage).toEqual('OMG A CONFIGURABLE ERROR!');
 });
 
+test('returns an error message if generic add product mutation returns an error', () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: false, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: false, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: new Error('OMG A GENERIC ERROR!'), loading: false }
+    ]);
+
+    const props = {
+        product: defaultProps.product
+    };
+    const tree = createTestInstance(<Component {...props} />);
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.errorMessage).toEqual('OMG A GENERIC ERROR!');
+});
+
 test('sets isAddToCartDisabled true if add configurable mutation is loading', () => {
     useMutation.mockReturnValueOnce([
         jest.fn(),
@@ -271,6 +297,31 @@ test('sets isAddToCartDisabled true if add simple mutation is loading', () => {
     expect(talonProps.isAddToCartDisabled).toBe(true);
 });
 
+test('sets isAddToCartDisabled true if generic add mutation is loading', () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: null, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: null, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: null, loading: true }
+    ]);
+
+    const props = {
+        product: defaultProps.product
+    };
+    const tree = createTestInstance(<Component {...props} />);
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.isAddToCartDisabled).toBe(true);
+});
+
 test('returns correct value for supported product type', () => {
     const tree = createTestInstance(<Component {...defaultProps} />);
 
@@ -290,4 +341,47 @@ test('returns correct value for supported product type', () => {
 
     expect(talonProps1.isSupportedProductType).toBe(true);
     expect(talonProps2.isSupportedProductType).toBe(false);
+});
+
+test('calls generic mutation when no deprecated operation props are passed', async () => {
+    const mockAddSimpleToCart = jest.fn();
+    const mockAddConfigurableToCart = jest.fn();
+    const mockAddProductToCart = jest.fn();
+    useMutation.mockReturnValueOnce([
+        mockAddConfigurableToCart,
+        { error: null, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        mockAddSimpleToCart,
+        { error: null, loading: false }
+    ]);
+    useMutation.mockReturnValueOnce([
+        mockAddProductToCart,
+        { error: null, loading: false }
+    ]);
+
+    const props = {
+        product: defaultProps.product
+    };
+    const tree = createTestInstance(<Component {...props} />);
+
+    const { root } = tree;
+    const { talonProps: talonPropsStep1 } = root.findByType('i').props;
+    const { handleAddToCart } = talonPropsStep1;
+
+    await handleAddToCart({ quantity: 2 });
+
+    expect(mockAddSimpleToCart).not.toHaveBeenCalled();
+    expect(mockAddConfigurableToCart).not.toHaveBeenCalled();
+    expect(mockAddProductToCart.mock.calls[0][0]).toMatchInlineSnapshot(`
+        Object {
+          "variables": Object {
+            "cartId": "ThisIsMyCart",
+            "product": Object {
+              "quantity": 2,
+              "sku": "MySimpleProductSku",
+            },
+          },
+        }
+    `);
 });

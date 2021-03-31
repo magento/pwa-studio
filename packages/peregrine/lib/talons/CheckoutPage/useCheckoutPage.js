@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
@@ -23,6 +23,47 @@ export const CHECKOUT_STEP = {
     REVIEW: 4
 };
 
+/**
+ *
+ * @param {DocumentNode} props.operations.getCheckoutDetailsQuery query to fetch checkout details
+ * @param {DocumentNode} props.operations.getCustomerQuery query to fetch customer details
+ * @param {DocumentNode} props.operations.getOrderDetailsQuery query to fetch order details
+ * @param {DocumentNode} props.operations.createCartMutation mutation to create a new cart
+ * @param {DocumentNode} props.operations.placeOrderMutation mutation to place order
+ *
+ * @returns {
+ *  activeContent: String,
+ *  availablePaymentMethods: Array,
+ *  cartItems: Array,
+ *  checkoutStep: Number,
+ *  customer: Object,
+ *  error: ApolloError,
+ *  handlePlaceOrder: Function,
+ *  hasError: Boolean,
+ *  isCartEmpty: Boolean,
+ *  isGuestCheckout: Boolean,
+ *  isLoading: Boolean,
+ *  isUpdating: Boolean,
+ *  orderDetailsData: Object,
+ *  orderDetailsLoading: Boolean,
+ *  orderNumber: String,
+ *  placeOrderLoading: Boolean,
+ *  setCheckoutStep: Function,
+ *  setIsUpdating: Function,
+ *  setShippingInformationDone: Function,
+ *  setShippingMethodDone: Function,
+ *  setPaymentInformationDone: Function,
+ *  scrollShippingInformationIntoView: Function,
+ *  shippingInformationRef: ReactRef,
+ *  shippingMethodRef: ReactRef,
+ *  scrollShippingMethodIntoView: Function,
+ *  resetReviewOrderButtonClicked: Function,
+ *  handleReviewOrder: Function,
+ *  reviewOrderButtonClicked: Boolean,
+ *  toggleAddressBookContent: Function,
+ *  toggleSignInContent: Function,
+ * }
+ */
 export const useCheckoutPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
@@ -37,6 +78,9 @@ export const useCheckoutPage = (props = {}) => {
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
     );
+
+    const shippingInformationRef = useRef();
+    const shippingMethodRef = useRef();
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
@@ -53,8 +97,7 @@ export const useCheckoutPage = (props = {}) => {
         {
             data: placeOrderData,
             error: placeOrderError,
-            loading: placeOrderLoading,
-            called: placeOrderCalled
+            loading: placeOrderLoading
         }
     ] = useMutation(placeOrderMutation);
 
@@ -130,19 +173,35 @@ export const useCheckoutPage = (props = {}) => {
 
     const resetReviewOrderButtonClicked = useCallback(() => {
         setReviewOrderButtonClicked(false);
-    }, [setReviewOrderButtonClicked]);
+    }, []);
+
+    const scrollShippingInformationIntoView = useCallback(() => {
+        if (shippingInformationRef.current) {
+            shippingInformationRef.current.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    }, [shippingInformationRef]);
 
     const setShippingInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS) {
             setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
         }
-    }, [checkoutStep, setCheckoutStep]);
+    }, [checkoutStep]);
+
+    const scrollShippingMethodIntoView = useCallback(() => {
+        if (shippingMethodRef.current) {
+            shippingMethodRef.current.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    }, [shippingMethodRef]);
 
     const setShippingMethodDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD) {
             setCheckoutStep(CHECKOUT_STEP.PAYMENT);
         }
-    }, [checkoutStep, setCheckoutStep]);
+    }, [checkoutStep]);
 
     const setPaymentInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
@@ -153,18 +212,21 @@ export const useCheckoutPage = (props = {}) => {
             });
             setCheckoutStep(CHECKOUT_STEP.REVIEW);
         }
-    }, [checkoutStep, setCheckoutStep]);
+    }, [checkoutStep]);
+
+    const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
     const handlePlaceOrder = useCallback(async () => {
         // Fetch order details and then use an effect to actually place the
         // order. If/when Apollo returns promises for invokers from useLazyQuery
         // we can just await this function and then perform the rest of order
         // placement.
-        getOrderDetails({
+        await getOrderDetails({
             variables: {
                 cartId
             }
         });
+        setIsPlacingOrder(true);
     }, [cartId, getOrderDetails]);
 
     // Go back to checkout if shopper logs in
@@ -182,7 +244,6 @@ export const useCheckoutPage = (props = {}) => {
                         cartId
                     }
                 });
-
                 // Cleanup stale cart and customer info.
                 await removeCart();
                 await clearCartDataFromCache(apolloClient);
@@ -200,7 +261,8 @@ export const useCheckoutPage = (props = {}) => {
             }
         }
 
-        if (orderDetailsData && !placeOrderCalled) {
+        if (orderDetailsData && isPlacingOrder) {
+            setIsPlacingOrder(false);
             placeOrderAndCleanup();
         }
     }, [
@@ -210,8 +272,8 @@ export const useCheckoutPage = (props = {}) => {
         fetchCartId,
         orderDetailsData,
         placeOrder,
-        placeOrderCalled,
-        removeCart
+        removeCart,
+        isPlacingOrder
     ]);
 
     return {
@@ -240,6 +302,10 @@ export const useCheckoutPage = (props = {}) => {
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone,
+        scrollShippingInformationIntoView,
+        shippingInformationRef,
+        shippingMethodRef,
+        scrollShippingMethodIntoView,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,

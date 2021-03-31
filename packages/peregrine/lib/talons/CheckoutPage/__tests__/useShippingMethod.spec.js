@@ -89,6 +89,7 @@ const Component = props => {
 };
 
 const setPageIsUpdating = jest.fn();
+const onSuccess = jest.fn();
 
 const props = {
     onSave: jest.fn(),
@@ -99,7 +100,8 @@ const props = {
     mutations: {
         setShippingMethod: 'setShippingMethod'
     },
-    setPageIsUpdating
+    setPageIsUpdating,
+    onSuccess
 };
 
 /*
@@ -427,4 +429,13 @@ test('does not auto-select a shipping method on a signed in user when it has alr
     useMutation.mockReturnValueOnce([setShippingMethod, {}]);
 
     expect(setShippingMethod).not.toHaveBeenCalled();
+});
+
+test('should call onSuccess on mutation success', () => {
+    createTestInstance(<Component {...props} />);
+
+    const { onCompleted } = useMutation.mock.calls[0][1];
+    onCompleted();
+
+    expect(onSuccess).toHaveBeenCalled();
 });
