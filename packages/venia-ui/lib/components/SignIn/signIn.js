@@ -5,7 +5,8 @@ import { Form } from 'informed';
 import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
 
 import { mergeClasses } from '../../classify';
-import { isRequired } from '../../util/formValidators';
+import combine from '../../util/combineValidators';
+import { isRequired, validateEmail } from '../../util/formValidators';
 import Button from '../Button';
 import Field from '../Field';
 import LoadingIndicator from '../LoadingIndicator';
@@ -77,7 +78,10 @@ const SignIn = props => {
                     <TextInput
                         autoComplete="email"
                         field="email"
-                        validate={isRequired}
+                        validate={combine([
+                            isRequired,
+                            validateEmail
+                        ])}
                     />
                 </Field>
                 <Password

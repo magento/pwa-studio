@@ -375,6 +375,7 @@
     "validation.isNotEqualToField": "{value} must be different",
     "validation.isRequired": "Is required.",
     "validation.mustBeChecked": "Must be checked.",
+    "validation.validateEmail": "Please enter a valid email address",
     "validation.validatePassword": "A password must contain at least 3 of the following: lowercase, uppercase, digits, special characters.",
     "wishlistButton.addError": "Something went wrong adding the product to your wishlist.",
     "wishlistButton.addText": "Add to Favorites",

@@ -5,7 +5,8 @@ import { func, shape, string, arrayOf } from 'prop-types';
 import { useGuestForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
 
 import { mergeClasses } from '../../../../classify';
-import { isRequired } from '../../../../util/formValidators';
+import combine from '../../../../util/combineValidators';
+import { isRequired, validateEmail } from '../../../../util/formValidators';
 import Button from '../../../Button';
 import Country from '../../../Country';
 import Field, { Message } from '../../../Field';
@@ -91,7 +92,10 @@ const GuestForm = props => {
                         <TextInput
                             field="email"
                             id="email"
-                            validate={isRequired}
+                            validate={combine([
+                                isRequired,
+                                validateEmail
+                            ])}
                         />
                         {guestEmailMessage}
                     </Field>
