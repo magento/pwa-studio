@@ -92,10 +92,7 @@ const GuestForm = props => {
                         <TextInput
                             field="email"
                             id="email"
-                            validate={combine([
-                                isRequired,
-                                validateEmail
-                            ])}
+                            validate={combine([isRequired, validateEmail])}
                         />
                         {guestEmailMessage}
                     </Field>

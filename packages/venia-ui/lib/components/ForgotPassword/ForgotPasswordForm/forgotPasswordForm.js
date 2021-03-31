@@ -32,10 +32,7 @@ const ForgotPasswordForm = props => {
                 <TextInput
                     autoComplete="email"
                     field="email"
-                    validate={combine([
-                        isRequired,
-                        validateEmail
-                    ])}
+                    validate={combine([isRequired, validateEmail])}
                 />
             </Field>
             <div className={classes.buttonContainer}>

@@ -78,10 +78,7 @@ const SignIn = props => {
                     <TextInput
                         autoComplete="email"
                         field="email"
-                        validate={combine([
-                            isRequired,
-                            validateEmail
-                        ])}
+                        validate={combine([isRequired, validateEmail])}
                     />
                 </Field>
                 <Password
