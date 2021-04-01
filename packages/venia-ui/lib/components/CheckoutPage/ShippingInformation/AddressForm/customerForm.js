@@ -19,12 +19,19 @@ import CustomerFormOperations from './customerForm.gql';
 import LoadingIndicator from '../../../LoadingIndicator';
 
 const CustomerForm = props => {
-    const { afterSubmit, classes: propClasses, onCancel, shippingData } = props;
+    const {
+        afterSubmit,
+        classes: propClasses,
+        onCancel,
+        onSuccess,
+        shippingData
+    } = props;
 
     const talonProps = useCustomerForm({
         afterSubmit,
         ...CustomerFormOperations,
         onCancel,
+        onSuccess,
         shippingData
     });
     const {
