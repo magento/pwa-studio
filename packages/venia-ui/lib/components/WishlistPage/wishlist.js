@@ -71,38 +71,43 @@ const Wishlist = props => {
         <div className={classes.nameContainer} />
     );
 
-    const formProps = {
-        initialValues: {
-            name: name,
-            visibility: visibility
-        }
-    };
+    // wishlist actions are limited in CE
+    const actionMenu = name ? (
+        <div>
+            <button onClick={handleActionMenuClick} type="button">
+                {ActionMenuIcon}
+            </button>
+            <WishlistListActionsDialog
+                isOpen={listActionsIsOpen}
+                onCancel={handleHideDialogs}
+                onEdit={handleShowEditFavorites}
+            />
+            <WishlistEditFavoritesListDialog
+                formErrors={formErrors}
+                formProps={{
+                    initialValues: {
+                        name: name,
+                        visibility: visibility
+                    }
+                }}
+                isOpen={editFavoritesListIsOpen}
+                isEditInProgress={isEditInProgress}
+                onCancel={handleHideDialogs}
+                onConfirm={handleEditWishlist}
+            />
+        </div>
+    ) : null;
 
     return (
         <div className={classes.root}>
             <div className={classes.header}>
                 {wishlistName}
                 <div className={classes.buttonsContainer}>
-                    <button onClick={handleActionMenuClick} type="button">
-                        {ActionMenuIcon}
-                    </button>
+                    {actionMenu}
                     <button onClick={handleContentToggle} type="button">
                         {contentToggleIcon}
                     </button>
                 </div>
-                <WishlistListActionsDialog
-                    isOpen={listActionsIsOpen}
-                    onCancel={handleHideDialogs}
-                    onEdit={handleShowEditFavorites}
-                />
-                <WishlistEditFavoritesListDialog
-                    formErrors={formErrors}
-                    formProps={formProps}
-                    isOpen={editFavoritesListIsOpen}
-                    isEditInProgress={isEditInProgress}
-                    onCancel={handleHideDialogs}
-                    onConfirm={handleEditWishlist}
-                />
             </div>
             <div className={contentClass}>{contentMessageElement}</div>
         </div>
