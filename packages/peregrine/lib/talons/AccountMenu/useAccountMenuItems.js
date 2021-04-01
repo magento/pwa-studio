@@ -26,11 +26,11 @@ export const useAccountMenuItems = props => {
         //     id: 'accountMenu.storeCreditLink',
         //     url: ''
         // },
-        // {
-        //     name: 'Favorites Lists',
-        //     id: 'accountMenu.favoritesListsLink',
-        //     url: '/wishlist'
-        // },
+        {
+            name: 'Favorites Lists',
+            id: 'accountMenu.favoritesListsLink',
+            url: '/wishlist'
+        },
         {
             name: 'Address Book',
             id: 'accountMenu.addressBookLink',
