@@ -72,6 +72,7 @@ const Wishlist = props => {
     );
 
     // wishlist actions are limited in CE
+    // name and visibility only available for EE, render menu based on edition
     const actionMenu = name ? (
         <div>
             <button onClick={handleActionMenuClick} type="button">
