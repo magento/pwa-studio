@@ -1,7 +1,7 @@
 {
-    "name": "pwa-automation-tests",
+    "name": "pwa-integration-tests",
     "version": "0.0.1",
-    "description": "Venia Automation Tests",
+    "description": "Venia Integration Automation Tests",
     "author": "Magento Commerce",
     "license": "MIT",
     "devDependencies": {
