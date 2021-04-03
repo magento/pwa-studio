@@ -3,7 +3,7 @@ import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 import { useFormState } from 'informed';
 
 import createTestInstance from '../../../../util/createTestInstance';
-import { useCreditCard, mapAddressData } from '../useCreditCard';
+import { useCreditCard, mapAddressData } from '../../../../../../extensions/venia-payments-braintree/src/components/useCreditCard';
 import { act } from 'react-test-renderer';
 
 /**

@@ -105,5 +105,8 @@
       "path": "./packages/venia-concept/dist/+([0-9]).*.js",
       "maxSize": "100 kB"
     }
-  ]
+  ],
+  "dependencies": {
+    "graphql-playground-middleware-express": "~1.7.18"
+  }
 }

@@ -7,12 +7,12 @@ import {
 } from 'react-feather';
 
 import { useToasts } from '@magento/peregrine';
-import { useCreditCard } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useCreditCard';
-
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import Button from '../Button';
-import Icon from '../Icon';
-import LinkButton from '../LinkButton';
+import Button from '@magento/venia-ui/lib/components/Button';
+import Icon from '@magento/venia-ui/lib/components/Icon';
+import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
+
+import { useCreditCard } from '../../talons/SavedPayment/useCreditCard';
 import defaultClasses from './creditCard.css';
 
 /**

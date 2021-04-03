@@ -5,7 +5,7 @@ import { func, shape, string } from 'prop-types';
 import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal';
 
 import { mergeClasses } from '../../../classify';
-import CreditCard from './creditCard';
+
 import Dialog from '../../Dialog';
 import editModalOperations from './editModal.gql';
 
@@ -29,7 +29,9 @@ const EditModal = props => {
         handlePaymentError
     } = talonProps;
 
-    const paymentMethod =
+    const paymentMethod = (
+        /*
+        * TODO needs to be extendable via targets
         selectedPaymentMethod === 'braintree' ? (
             <div className={classes.body}>
                 <CreditCard
@@ -40,17 +42,16 @@ const EditModal = props => {
                     shouldSubmit={updateButtonClicked}
                 />
             </div>
-        ) : (
-            <div>
-                <FormattedMessage
-                    id={'checkoutPage.paymentMethodStatus'}
-                    defaultMessage={
-                        'The selected method is not supported for editing.'
-                    }
-                    values={{ selectedPaymentMethod }}
-                />
-            </div>
-        );
+        ) :*/ <div>
+            <FormattedMessage
+                id={'checkoutPage.paymentMethodStatus'}
+                defaultMessage={
+                    'The selected method is not supported for editing.'
+                }
+                values={{ selectedPaymentMethod }}
+            />
+        </div>
+    );
 
     return (
         <Dialog

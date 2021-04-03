@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { SavedPaymentsFragment } from './savedPaymentsPage.gql';
+import { SavedPaymentsFragment } from '@magento/peregrine/lib/talons/SavedPaymentsPage/savedPaymentsPage.gql.js';
 
 export const DELETE_CREDIT_CARD_PAYMENT = gql`
     mutation DeleteCreditCardPayment($paymentHash: String!) {

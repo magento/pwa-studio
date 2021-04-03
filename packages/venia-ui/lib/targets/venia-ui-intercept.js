@@ -29,19 +29,7 @@ module.exports = veniaTargets => {
         importPath: './plainHtmlRenderer'
     });
 
-    const checkoutPagePaymentsList = new CheckoutPagePaymentsList(venia);
-    checkoutPagePaymentsList.add({
-        paymentCode: 'braintree',
-        importPath:
-            '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/creditCard'
-    });
-
-    const savedPaymentTypes = new SavedPaymentTypes(venia);
-    savedPaymentTypes.add({
-        paymentCode: 'braintree',
-        importPath:
-            '@magento/venia-ui/lib/components/SavedPaymentsPage/creditCard'
-    });
-
+    new CheckoutPagePaymentsList(venia);
+    new SavedPaymentTypes(venia);
     new CategoryListProductAttributes(venia);
 };
