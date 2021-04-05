@@ -36,7 +36,8 @@ const CategoryContent = props => {
         showFiltersModal,
         items,
         pageTitle,
-        totalPagesFromData
+        totalPagesFromData,
+        openFiltersFocus
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -49,6 +50,7 @@ const CategoryContent = props => {
             onFocus={handleLoadFilters}
             onMouseOver={handleLoadFilters}
             type="button"
+            autoFocus={openFiltersFocus}
         >
             <FormattedMessage
                 id={'categoryContent.filter'}

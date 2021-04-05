@@ -1,10 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useLazyQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
 import { useAppContext } from '../../../context/app';
 
 import DEFAULT_OPERATIONS from './categoryContent.gql';
+import { useFilterState } from "../../FilterModal";
+import {getStateFromSearch} from "../../FilterModal/helpers";
 
 const DRAWER_NAME = 'filter';
 
@@ -32,7 +34,10 @@ export const useCategoryContent = props => {
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
     const [loadFilters, setLoadFilters] = useState(false);
     const [showFiltersModal, setShowFiltersModal] = useState(false);
-    const [, { toggleDrawer, closeDrawer }] = useAppContext();
+    const [openFiltersFocus, setOpenFiltersFocus] = useState(false);
+    const [filterState] = useFilterState();
+    const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
+    const prevDrawer = useRef(null);
 
     const handleLoadFilters = useCallback(() => {
         setLoadFilters(true);
@@ -66,6 +71,25 @@ export const useCategoryContent = props => {
         }
     }, [categoryId, getFilters]);
 
+    // Focus for the button that opens filters should be set
+    // when filters just applied and filters drawer just closed
+    useEffect(() => {
+        const justClosed = prevDrawer.current === 'filter' && drawer === null;
+console.log(justClosed, prevDrawer.current, drawer);
+        // on drawer close, update the modal visibility state
+        // if (justClosed) {
+        //     setOpenFiltersFocus(true);
+        // } else {
+        //     setOpenFiltersFocus(false);
+        // }
+console.log(filterState, filterState.size);
+        prevDrawer.current = drawer;
+    }, [
+        drawer,
+        // setOpenFiltersFocus,
+        filterState
+    ]);
+
     const filters = filterData ? filterData.products.aggregations : null;
     const items = data ? data.products.items : placeholderItems;
     const totalPagesFromData = data
@@ -89,6 +113,7 @@ export const useCategoryContent = props => {
         items,
         loadFilters,
         pageTitle,
-        totalPagesFromData
+        totalPagesFromData,
+        openFiltersFocus
     };
 };
