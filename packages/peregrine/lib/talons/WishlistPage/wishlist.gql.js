@@ -1,16 +1,18 @@
 import { gql } from '@apollo/client';
 
+import { WishlistFragment } from './wishlistFragment.gql';
+
 export const GET_CUSTOMER_WISHLIST = gql`
     query GetCustomerWishlist {
         customer {
             id
             wishlists {
                 id
-                name
-                visibility
+                ...WishlistFragment
             }
         }
     }
+    ${WishlistFragment}
 `;
 
 export const UPDATE_WISHLIST = gql`

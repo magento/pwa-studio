@@ -1,16 +1,13 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { ChevronDown, ChevronUp, MoreHorizontal } from 'react-feather';
+import { ChevronDown, ChevronUp } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import WishlistItems from './wishlistItems';
 import defaultClasses from './wishlist.css';
-import WishlistListActionsDialog from './wishlistListActionsDialog';
-import WishlistEditFavoritesListDialog from './wishlistEditFavoritesListDialog';
-
-const ActionMenuIcon = <Icon src={MoreHorizontal} size={24} />;
+import ActionMenu from './actionMenu';
 
 const Wishlist = props => {
     const { data } = props;
@@ -23,19 +20,8 @@ const Wishlist = props => {
         visibility
     } = data;
 
-    const talonProps = useWishlist({ id });
-    const {
-        editFavoritesListIsOpen,
-        formErrors,
-        handleActionMenuClick,
-        handleContentToggle,
-        handleEditWishlist,
-        handleHideDialogs,
-        handleShowEditFavorites,
-        isEditInProgress,
-        isOpen,
-        listActionsIsOpen
-    } = talonProps;
+    const talonProps = useWishlist();
+    const { handleContentToggle, isOpen } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const contentClass = isOpen ? classes.content : classes.content_hidden;
@@ -71,40 +57,12 @@ const Wishlist = props => {
         <div className={classes.nameContainer} />
     );
 
-    // wishlist actions are limited in CE
-    // name and visibility only available for EE, render menu based on edition
-    const actionMenu = name ? (
-        <div>
-            <button onClick={handleActionMenuClick} type="button">
-                {ActionMenuIcon}
-            </button>
-            <WishlistListActionsDialog
-                isOpen={listActionsIsOpen}
-                onCancel={handleHideDialogs}
-                onEdit={handleShowEditFavorites}
-            />
-            <WishlistEditFavoritesListDialog
-                formErrors={formErrors}
-                formProps={{
-                    initialValues: {
-                        name: name,
-                        visibility: visibility
-                    }
-                }}
-                isOpen={editFavoritesListIsOpen}
-                isEditInProgress={isEditInProgress}
-                onCancel={handleHideDialogs}
-                onConfirm={handleEditWishlist}
-            />
-        </div>
-    ) : null;
-
     return (
         <div className={classes.root}>
             <div className={classes.header}>
                 {wishlistName}
                 <div className={classes.buttonsContainer}>
-                    {actionMenu}
+                    <ActionMenu id={id} name={name} visibility={visibility} />
                     <button onClick={handleContentToggle} type="button">
                         {contentToggleIcon}
                     </button>
