@@ -20,11 +20,12 @@ export const useAccountMenuItems = props => {
             id: 'accountMenu.orderHistoryLink',
             url: '/order-history'
         },
-        {
-            name: 'Store Credit & Gift Cards',
-            id: 'accountMenu.storeCreditLink',
-            url: ''
-        },
+        // Hide links until features are completed
+        // {
+        //     name: 'Store Credit & Gift Cards',
+        //     id: 'accountMenu.storeCreditLink',
+        //     url: ''
+        // },
         {
             name: 'Favorites Lists',
             id: 'accountMenu.favoritesListsLink',
