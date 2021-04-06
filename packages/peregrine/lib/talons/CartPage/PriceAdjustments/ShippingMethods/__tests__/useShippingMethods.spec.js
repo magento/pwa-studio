@@ -62,7 +62,7 @@ const mockData = {
                 },
                 postcode: '78725',
                 region: {
-                    id: 'TX'
+                    code: 'TX'
                 },
                 selected_shipping_method: {
                     carrier_code: 'tablerate',

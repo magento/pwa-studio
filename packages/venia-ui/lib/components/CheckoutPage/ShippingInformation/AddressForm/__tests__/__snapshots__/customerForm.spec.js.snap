@@ -338,8 +338,7 @@ Array [
     >
       <Region
         fieldInput="region[region]"
-        fieldSelect="region[region_id]"
-        optionValueKey="id"
+        fieldSelect="region[code]"
         validate={[Function]}
       />
     </div>
@@ -776,8 +775,7 @@ Array [
     >
       <Region
         fieldInput="region[region]"
-        fieldSelect="region[region_id]"
-        optionValueKey="id"
+        fieldSelect="region[code]"
         validate={[Function]}
       />
     </div>
@@ -1274,8 +1272,7 @@ Array [
     >
       <Region
         fieldInput="region[region]"
-        fieldSelect="region[region_id]"
-        optionValueKey="id"
+        fieldSelect="region[code]"
         validate={[Function]}
       />
     </div>
