@@ -1,0 +1,25 @@
+{
+  "name": "@magento/npm-is",
+  "version": "0.0.1",
+  "description": "Detect the package manager client running the current script. Detects NPM and yarn, as well as any hard executable path.",
+  "main": "./npm-is.js",
+  "homepage": "https://github.com/magento/pwa-studio/tree/develop/packages/npm-is#readme",
+  "repository": "github:magento/pwa-studio",
+  "bin": "./bin/npm-is",
+  "scripts": {
+    "format": "npx prettier --write .",
+    "preversion": "npm test",
+    "validate": "node ./bin/npm-is",
+    "test": "npx prettier -c . && node test.js"
+  },
+  "keywords": [
+    "npm",
+    "yarn",
+    "lifecycle",
+    "assert",
+    "scripts"
+  ],
+  "author": "Magento Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "prettier": {}
+}
