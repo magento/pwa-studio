@@ -12,8 +12,6 @@ In a monorepo, or any repo with `private: true`, it's safe to catch things as
 early as possible.
 Add a `preinstall` script to prevent the wrong package manager from even
 beginning to install dependencies.
-Use `npx` to dynamically install `npm-is` before any other
-modules are installed.
 
 ```diff
  {
@@ -24,7 +22,7 @@ modules are installed.
      "packages/*"
    ]
    "scripts": {
-+    "preinstall": "npx npm-is yarn"
++    "preinstall": "yarn @magento/npm-is yarn"
    }
  }
 ```
@@ -35,7 +33,7 @@ Now, this happens when you try to `npm install`.
 $ npm install
 
 > my-yarn-only-monorepo@1.0.0 preinstall /Users/me/repo
-> npx npm-is yarn
+> yarn @magento/npm-is yarn
 
 /Users/me/repo/node_modules/npm-is/npm-is.js:54
     throw new WrongPackageManagerError(allowed, invoked);
