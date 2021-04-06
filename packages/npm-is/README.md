@@ -22,7 +22,7 @@ beginning to install dependencies.
      "packages/*"
    ]
    "scripts": {
-+    "preinstall": "yarn @magento/npm-is yarn"
++    "preinstall": "yarn @magento/npm-is run validate yarn"
    }
  }
 ```
@@ -33,7 +33,7 @@ Now, this happens when you try to `npm install`.
 $ npm install
 
 > my-yarn-only-monorepo@1.0.0 preinstall /Users/me/repo
-> yarn @magento/npm-is yarn
+> yarn @magento/npm-is run validate yarn
 
 /Users/me/repo/node_modules/npm-is/npm-is.js:54
     throw new WrongPackageManagerError(allowed, invoked);
