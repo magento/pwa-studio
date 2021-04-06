@@ -16,13 +16,7 @@ import FormError from '../FormError';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichText from '../RichText';
-
 import defaultClasses from './productFullDetail.css';
-import {
-    ADD_CONFIGURABLE_MUTATION,
-    ADD_SIMPLE_MUTATION,
-    GET_WISHLIST_CONFIG
-} from './productFullDetail.gql';
 
 const WishlistButton = React.lazy(() => import('../Wishlist/WishlistButton'));
 const Options = React.lazy(() => import('../ProductOptions'));
@@ -44,12 +38,7 @@ const ERROR_FIELD_TO_MESSAGE_MAPPING = {
 const ProductFullDetail = props => {
     const { product } = props;
 
-    const talonProps = useProductFullDetail({
-        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
-        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
-        getWishlistConfig: GET_WISHLIST_CONFIG,
-        product
-    });
+    const talonProps = useProductFullDetail({ product });
 
     const {
         breadcrumbCategoryId,

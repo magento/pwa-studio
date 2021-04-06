@@ -48,6 +48,9 @@ exports[`CheckoutPage renders address book for customer 1`] = `
     <div
       className="shipping_information_container"
     >
+      <div
+        className="anchor"
+      />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
@@ -56,6 +59,9 @@ exports[`CheckoutPage renders address book for customer 1`] = `
     <div
       className="shipping_method_container"
     >
+      <div
+        className="anchor"
+      />
       <h3
         className="shipping_method_heading"
       >
@@ -171,6 +177,9 @@ exports[`CheckoutPage renders an error and disables review order button if there
     <div
       className="shipping_information_container"
     >
+      <div
+        className="anchor"
+      />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
@@ -179,6 +188,9 @@ exports[`CheckoutPage renders an error and disables review order button if there
     <div
       className="shipping_method_container"
     >
+      <div
+        className="anchor"
+      />
       <ShippingMethod
         onSave={[MockFunction setShippingMethodDone]}
         pageIsUpdating={true}
@@ -277,6 +289,9 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
     <div
       className="shipping_information_container"
     >
+      <div
+        className="anchor"
+      />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
@@ -285,6 +300,9 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
     <div
       className="shipping_method_container"
     >
+      <div
+        className="anchor"
+      />
       <h3
         className="shipping_method_heading"
       >
@@ -369,6 +387,9 @@ exports[`CheckoutPage renders checkout content for customer - no default address
     <div
       className="shipping_information_container"
     >
+      <div
+        className="anchor"
+      />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
@@ -377,6 +398,9 @@ exports[`CheckoutPage renders checkout content for customer - no default address
     <div
       className="shipping_method_container"
     >
+      <div
+        className="anchor"
+      />
       <h3
         className="shipping_method_heading"
       >
@@ -488,6 +512,9 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
     <div
       className="shipping_information_container"
     >
+      <div
+        className="anchor"
+      />
       <ShippingInformation
         onSave={[MockFunction setShippingInformationDone]}
         toggleActiveContent={[MockFunction toggleAddressBookContent]}
@@ -496,6 +523,9 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
     <div
       className="shipping_method_container"
     >
+      <div
+        className="anchor"
+      />
       <h3
         className="shipping_method_heading"
       >

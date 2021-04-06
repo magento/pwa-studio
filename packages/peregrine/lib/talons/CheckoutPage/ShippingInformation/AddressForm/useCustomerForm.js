@@ -9,6 +9,7 @@ export const useCustomerForm = props => {
             updateCustomerAddressMutation
         },
         onCancel,
+        onSuccess,
         queries: {
             getCustomerQuery,
             getCustomerAddressesQuery,
@@ -23,7 +24,11 @@ export const useCustomerForm = props => {
             error: createCustomerAddressError,
             loading: createCustomerAddressLoading
         }
-    ] = useMutation(createCustomerAddressMutation);
+    ] = useMutation(createCustomerAddressMutation, {
+        onCompleted: () => {
+            onSuccess();
+        }
+    });
 
     const [
         updateCustomerAddress,
@@ -31,7 +36,11 @@ export const useCustomerForm = props => {
             error: updateCustomerAddressError,
             loading: updateCustomerAddressLoading
         }
-    ] = useMutation(updateCustomerAddressMutation);
+    ] = useMutation(updateCustomerAddressMutation, {
+        onCompleted: () => {
+            onSuccess();
+        }
+    });
 
     const { data: customerData, loading: getCustomerLoading } = useQuery(
         getCustomerQuery
