@@ -105,13 +105,16 @@ const Component = props => {
 };
 
 const toggleActiveContent = jest.fn();
+const onSuccess = jest.fn();
+
 const mockProps = {
     mutations: {},
     queries: {
         getCustomerAddressesQuery: 'getCustomerAddressesQuery',
         getCustomerCartAddressQuery: 'getCustomerCartAddressQuery'
     },
-    toggleActiveContent
+    toggleActiveContent,
+    onSuccess
 };
 
 test('returns the correct shape', () => {
@@ -219,6 +222,27 @@ describe('callbacks update and return state', () => {
         expect(mockSetCustomerAddressOnCart.mock.calls[0][0]).toMatchSnapshot();
         expect(toggleActiveContent).toHaveBeenCalled();
     });
+
+    test('handleCancel', () => {
+        const { handleSelectAddress } = talonProps;
+
+        act(() => {
+            handleSelectAddress(318);
+        });
+
+        const { talonProps: newTalonProps } = root.findByType('i').props;
+
+        expect(newTalonProps.selectedAddress).toBe(318);
+
+        act(() => {
+            newTalonProps.handleCancel();
+        });
+
+        const { talonProps: finalTalonProps } = root.findByType('i').props;
+
+        expect(finalTalonProps.selectedAddress).toBe(2);
+        expect(toggleActiveContent).toHaveBeenCalled();
+    });
 });
 
 test('handleApplyAddress error will not toggle content', async () => {
@@ -242,4 +266,110 @@ test('handleApplyAddress error will not toggle content', async () => {
 
     expect(mockSetCustomerAddressOnCart).toHaveBeenCalled();
     expect(toggleActiveContent).not.toHaveBeenCalled();
+});
+
+test('handles no customer address data found', () => {
+    mockGetCustomerAddresses.mockReturnValueOnce({
+        data: {
+            customer: {}
+        },
+        error: false,
+        loading: false
+    });
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.customerAddresses).toEqual([]);
+});
+
+test('does not auto-select address when customer address count does not change', () => {
+    mockGetCustomerAddresses
+        .mockReturnValue({
+            data: {
+                customer: {
+                    addresses: [
+                        {
+                            firstname: 'Flexo',
+                            id: 44,
+                            lastname: 'Rodríguez',
+                            street: ['3000 57th Street']
+                        }
+                    ]
+                }
+            },
+            error: false,
+            loading: false
+        })
+        .mockReturnValueOnce({
+            data: {
+                customer: {
+                    addresses: [
+                        {
+                            firstname: 'Bender',
+                            id: 2,
+                            lastname: 'Rodríguez',
+                            street: ['3000 57th Street']
+                        }
+                    ]
+                }
+            },
+            error: false,
+            loading: false
+        })
+        .mockReturnValueOnce({
+            data: {
+                customer: {
+                    addresses: [
+                        {
+                            firstname: 'Philip',
+                            id: 1,
+                            lastname: 'Fry',
+                            street: ['3000 57th Street']
+                        }
+                    ]
+                }
+            },
+            error: false,
+            loading: false
+        });
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+
+    act(() => {
+        tree.update(<Component {...mockProps} />);
+    });
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    expect(talonProps.selectedAddress).toBe(2);
+});
+
+test('does not set a selected address when there are no available customer cart shipping addresses', () => {
+    mockGetCustomerCartAddress.mockReturnValueOnce({
+        data: {
+            customerCart: {
+                shipping_addresses: []
+            }
+        },
+        error: false,
+        loading: false
+    });
+    const tree = createTestInstance(<Component {...mockProps} />);
+
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.selectedAddress).toBeUndefined();
+});
+
+test('should call onSuccess on mutation success', () => {
+    createTestInstance(<Component {...mockProps} />);
+
+    const { onCompleted } = useMutation.mock.calls[0][1];
+    onCompleted();
+
+    expect(onSuccess).toHaveBeenCalled();
 });

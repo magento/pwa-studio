@@ -38,6 +38,7 @@ const Component = props => {
 
 const afterSubmit = jest.fn();
 const onCancel = jest.fn();
+const onSuccess = jest.fn();
 const shippingData = {
     country: {
         code: 'US'
@@ -59,7 +60,8 @@ const mockProps = {
         getCustomerAddressesQuery: 'getCustomerAddressesQuery',
         getDefaultShippingQuery: 'getCustomerAddressesQuery'
     },
-    shippingData
+    shippingData,
+    onSuccess
 };
 
 test('return correct shape for initial address entry', () => {
@@ -179,7 +181,7 @@ test('handleCancel fires provided callback', () => {
 });
 
 test('does not call afterSubmit if mutation fails', async () => {
-    mockCreateCustomerAddress.mockRejectedValue('Apollo Error');
+    mockCreateCustomerAddress.mockRejectedValueOnce('Apollo Error');
 
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
@@ -195,6 +197,34 @@ test('does not call afterSubmit if mutation fails', async () => {
 
     expect(mockCreateCustomerAddress).toHaveBeenCalled();
     expect(afterSubmit).not.toHaveBeenCalled();
+});
+
+test('does not call afterSubmit() if it is undefined', async () => {
+    const tree = createTestInstance(
+        <Component {...mockProps} afterSubmit={undefined} />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleSubmit } = talonProps;
+
+    await handleSubmit({
+        country: 'US',
+        email: 'fry@planet.express',
+        firstname: 'Philip',
+        region: 2
+    });
+
+    expect(mockCreateCustomerAddress).toHaveBeenCalled();
+    expect(afterSubmit).not.toHaveBeenCalled();
+});
+
+test('should call onSuccess on mutation success', () => {
+    createTestInstance(<Component {...mockProps} />);
+
+    const { onCompleted } = useMutation.mock.calls[0][1];
+    onCompleted();
+
+    expect(onSuccess).toHaveBeenCalled();
 });
 
 describe('returns Apollo errors', () => {

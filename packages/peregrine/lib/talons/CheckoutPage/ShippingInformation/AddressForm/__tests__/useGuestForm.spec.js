@@ -111,7 +111,9 @@ test('handle submit fires mutation and callback', async () => {
 });
 
 test('handle submit does not fire callback on error', async () => {
-    const setShippingInformation = jest.fn().mockRejectedValue('Apollo Error');
+    const setShippingInformation = jest
+        .fn()
+        .mockRejectedValueOnce('Apollo Error');
     useMutation.mockReturnValueOnce([setShippingInformation, {}]);
     const afterSubmit = jest.fn();
 
@@ -130,4 +132,64 @@ test('handle submit does not fire callback on error', async () => {
 
     expect(setShippingInformation).toHaveBeenCalled();
     expect(afterSubmit).not.toHaveBeenCalled();
+});
+
+test('handle submit does not call afterSubmit() if it is not defined', async () => {
+    const setShippingInformation = jest.fn();
+    useMutation.mockReturnValueOnce([
+        setShippingInformation,
+        { called: true, loading: true }
+    ]);
+    const afterSubmit = jest.fn();
+
+    const tree = createTestInstance(
+        <Component
+            afterSubmit={undefined}
+            mutations={{}}
+            shippingData={shippingData}
+        />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleSubmit } = talonProps;
+
+    await handleSubmit({ ...shippingData, country: 'US', region: 'NY' });
+    expect(afterSubmit).not.toHaveBeenCalled();
+});
+
+test('calls the onCancel() callback', () => {
+    const onCancel = jest.fn();
+    const tree = createTestInstance(
+        <Component
+            onCancel={onCancel}
+            afterSubmit={jest.fn()}
+            mutations={{}}
+            shippingData={shippingData}
+        />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    talonProps.handleCancel();
+
+    expect(onCancel).toHaveBeenCalled();
+});
+
+test('should call onSuccess on mutation success', () => {
+    const onSuccess = jest.fn();
+
+    createTestInstance(
+        <Component
+            onSuccess={onSuccess}
+            onCancel={jest.fn()}
+            afterSubmit={jest.fn()}
+            mutations={{}}
+            shippingData={shippingData}
+        />
+    );
+
+    const { onCompleted } = useMutation.mock.calls[0][1];
+    onCompleted();
+
+    expect(onSuccess).toHaveBeenCalled();
 });

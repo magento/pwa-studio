@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
     useLazyQuery,
     useApolloClient,
@@ -27,6 +27,15 @@ jest.mock('@apollo/client', () => {
         useQuery: jest.fn()
     };
 });
+
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useRef: jest.fn().mockReturnValue({
+        current: {
+            scrollIntoView: jest.fn()
+        }
+    })
+}));
 
 jest.mock('../../../context/user', () => ({
     useUserContext: jest.fn().mockReturnValue([{ isSignedIn: false }])
@@ -280,7 +289,7 @@ test("should place order and cleanup when we have order details and place order 
     const removeCart = jest.fn();
     const fetchCartId = jest.fn();
 
-    useCartContext.mockReturnValueOnce([
+    useCartContext.mockReturnValue([
         { cartId: '123' },
         { createCart, removeCart }
     ]);
@@ -302,6 +311,37 @@ test("should place order and cleanup when we have order details and place order 
     expect(removeCart).toHaveBeenCalled();
     expect(clearCartDataFromCache).toHaveBeenCalled();
     expect(createCart).toHaveBeenCalledWith({ fetchCartId });
+});
+
+test('should set checkout step and review order button click state when an error ocurrs during placeOrderAndCleanup()', async () => {
+    const consoleErrorSpy = jest.spyOn(console, 'error');
+    const createCart = jest.fn();
+    const removeCart = jest.fn(() => {
+        throw new Error('some error');
+    });
+    const fetchCartId = jest.fn();
+
+    useCartContext.mockReturnValue([
+        { cartId: '123' },
+        { createCart, removeCart }
+    ]);
+    createCartMutationResult.mockReturnValue([fetchCartId]);
+
+    useLazyQuery.mockImplementation(() => {
+        return [jest.fn(), { data: {}, loading: false }];
+    });
+
+    const { talonProps, update } = getTalonProps(defaultProps);
+
+    await act(async () => {
+        await talonProps.handlePlaceOrder();
+    });
+
+    const updatedProps = update(defaultProps);
+
+    expect(consoleErrorSpy).toHaveBeenCalled();
+    expect(updatedProps.reviewOrderButtonClicked).toBeFalsy();
+    expect(updatedProps.checkoutStep).toEqual(CHECKOUT_STEP.PAYMENT);
 });
 
 test('hasError should be true if place order mutation failed with errors', () => {
@@ -639,4 +679,28 @@ test('check availablePaymentMethods, if not implemented then show page level mes
     const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps.availablePaymentMethods).toBeNull();
+});
+
+test('should scroll shipping information into view when scrollShippingInformationIntoView is called', () => {
+    const scrollIntoView = jest.fn();
+    useRef.mockReturnValueOnce({ current: { scrollIntoView } });
+
+    const { talonProps } = getTalonProps(defaultProps);
+
+    talonProps.scrollShippingInformationIntoView();
+
+    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
+});
+
+test('should scroll shipping method into view when scrollShippingMethodIntoView is called', () => {
+    const scrollIntoView = jest.fn();
+    useRef
+        .mockReturnValueOnce({ current: { scrollIntoView: jest.fn() } })
+        .mockReturnValueOnce({ current: { scrollIntoView } });
+
+    const { talonProps } = getTalonProps(defaultProps);
+
+    talonProps.scrollShippingMethodIntoView();
+
+    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
 });

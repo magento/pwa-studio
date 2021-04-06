@@ -1,60 +1,7 @@
-import { gql } from '@apollo/client';
-
-import { CartTriggerFragment } from '../Header/cartTriggerFragments.gql';
-import { MiniCartFragment } from '../MiniCart/miniCart.gql';
-
-export const ADD_CONFIGURABLE_MUTATION = gql`
-    mutation addConfigurableProductToCart(
-        $cartId: String!
-        $quantity: Float!
-        $sku: String!
-        $parentSku: String!
-    ) {
-        addConfigurableProductsToCart(
-            input: {
-                cart_id: $cartId
-                cart_items: [
-                    {
-                        data: { quantity: $quantity, sku: $sku }
-                        parent_sku: $parentSku
-                    }
-                ]
-            }
-        ) @connection(key: "addConfigurableProductsToCart") {
-            cart {
-                id
-                # Update the cart trigger when adding an item.
-                ...CartTriggerFragment
-                # Update the mini cart when adding an item.
-                ...MiniCartFragment
-            }
-        }
-    }
-    ${CartTriggerFragment}
-    ${MiniCartFragment}
-`;
-
-export const ADD_SIMPLE_MUTATION = gql`
-    mutation addSimpleProductToCart(
-        $cartId: String!
-        $quantity: Float!
-        $sku: String!
-    ) {
-        addSimpleProductsToCart(
-            input: {
-                cart_id: $cartId
-                cart_items: [{ data: { quantity: $quantity, sku: $sku } }]
-            }
-        ) @connection(key: "addSimpleProductsToCart") {
-            cart {
-                id
-                # Update the cart trigger when adding an item.
-                ...CartTriggerFragment
-                # Update the mini cart when adding an item.
-                ...MiniCartFragment
-            }
-        }
-    }
-    ${CartTriggerFragment}
-    ${MiniCartFragment}
-`;
+/**
+ * @deprecated - replaced by general mutation in @magento/peregrine/lib/talons/productFullDetail.js
+ */
+export {
+    ADD_SIMPLE_MUTATION,
+    ADD_CONFIGURABLE_MUTATION
+} from '@magento/peregrine/lib/talons/ProductFullDetail/productFullDetail.gql';

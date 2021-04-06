@@ -42,6 +42,7 @@ export const ProductDetailsFragment = gql`
                 id
                 label
                 values {
+                    uid
                     default_label
                     label
                     store_label

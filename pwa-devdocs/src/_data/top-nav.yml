@@ -42,4 +42,6 @@
   children:
       - label: Page Builder
         url: /pagebuilder/
+      - label: Product Recommendations
+        url: /product-recs/
         

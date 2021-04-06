@@ -11,8 +11,6 @@ export const displayStates = {
 };
 
 const serializeShippingMethod = method => {
-    if (!method) return '';
-
     const { carrier_code, method_code } = method;
 
     return `${carrier_code}|${method_code}`;
@@ -44,6 +42,7 @@ const DEFAULT_AVAILABLE_SHIPPING_METHODS = [];
 export const useShippingMethod = props => {
     const {
         onSave,
+        onSuccess,
         mutations: { setShippingMethod },
         queries: { getSelectedAndAvailableShippingMethods },
         setPageIsUpdating
@@ -58,7 +57,11 @@ export const useShippingMethod = props => {
     const [
         setShippingMethodCall,
         { error: setShippingMethodError, loading: isSettingShippingMethod }
-    ] = useMutation(setShippingMethod);
+    ] = useMutation(setShippingMethod, {
+        onCompleted: () => {
+            onSuccess();
+        }
+    });
 
     const { data, loading: isLoadingShippingMethods } = useQuery(
         getSelectedAndAvailableShippingMethods,

@@ -5,8 +5,8 @@ import mergeOperations from '../../../util/shallowMerge';
 import { useAppContext } from '../../../context/app';
 
 import DEFAULT_OPERATIONS from './categoryContent.gql';
-import { useFilterState } from "../../FilterModal";
-import {getStateFromSearch} from "../../FilterModal/helpers";
+import { useFilterState } from '../../FilterModal';
+import { getStateFromSearch } from '../../FilterModal/helpers';
 
 const DRAWER_NAME = 'filter';
 
@@ -23,7 +23,6 @@ const DRAWER_NAME = 'filter';
  * @returns {func}   result.handleOpenFilters - A callback function that actually opens the filter drawer.
  * @returns {object} result.items - The items in this category.
  * @returns {bool}   result.loadFilters - Whether or not the user has signalled their intent to interact with the filters.
- * @returns {string} result.pageTitle - The text to put in the browser tab for this page.
  */
 export const useCategoryContent = props => {
     const { categoryId, data, pageSize = 6 } = props;
@@ -75,14 +74,14 @@ export const useCategoryContent = props => {
     // when filters just applied and filters drawer just closed
     useEffect(() => {
         const justClosed = prevDrawer.current === 'filter' && drawer === null;
-console.log(justClosed, prevDrawer.current, drawer);
+        console.log(justClosed, prevDrawer.current, drawer);
         // on drawer close, update the modal visibility state
         // if (justClosed) {
         //     setOpenFiltersFocus(true);
         // } else {
         //     setOpenFiltersFocus(false);
         // }
-console.log(filterState, filterState.size);
+        console.log(filterState, filterState.size);
         prevDrawer.current = drawer;
     }, [
         drawer,
@@ -97,10 +96,6 @@ console.log(filterState, filterState.size);
         : null;
     const categoryName = data ? data.category.name : null;
     const categoryDescription = data ? data.category.description : null;
-    // Note: STORE_NAME is injected by Webpack at build time.
-    const pageTitle = categoryName
-        ? `${categoryName} - ${STORE_NAME}`
-        : STORE_NAME;
 
     return {
         categoryName,
@@ -112,7 +107,6 @@ console.log(filterState, filterState.size);
         handleCloseFilters,
         items,
         loadFilters,
-        pageTitle,
         totalPagesFromData,
         openFiltersFocus
     };

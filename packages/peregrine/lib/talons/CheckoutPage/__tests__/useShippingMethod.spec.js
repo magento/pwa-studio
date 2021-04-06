@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
-import { useShippingMethod } from '../useShippingMethod';
-import { useMutation } from '@apollo/client';
+import { useShippingMethod, displayStates } from '../useShippingMethod';
+import { useMutation, useQuery } from '@apollo/client';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /*
  *  Mocks.
@@ -87,6 +89,7 @@ const Component = props => {
 };
 
 const setPageIsUpdating = jest.fn();
+const onSuccess = jest.fn();
 
 const props = {
     onSave: jest.fn(),
@@ -97,7 +100,8 @@ const props = {
     mutations: {
         setShippingMethod: 'setShippingMethod'
     },
-    setPageIsUpdating
+    setPageIsUpdating,
+    onSuccess
 };
 
 /*
@@ -210,4 +214,228 @@ test('handleSubmit bails on thrown exception', async () => {
     // a bit fragile, but the only check we can do is that our component state
     // didn't change because of the caught exception and has not rendered again
     expect(log).toHaveBeenCalledTimes(2);
+});
+
+test('returns the proper display state when loading data', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            loading: true
+        };
+    });
+    useMutation.mockImplementation(() => {
+        return [
+            jest.fn(),
+            {
+                loading: true
+            }
+        ];
+    });
+
+    createTestInstance(<Component {...props} />);
+
+    const talonProps = log.mock.calls[0][0];
+
+    expect(talonProps.displayState).toEqual(displayStates.INITIALIZING);
+});
+
+test('should return default values when shipping addresses data is not found', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            loading: false,
+            data: { cart: { shipping_addresses: {} } }
+        };
+    });
+
+    createTestInstance(<Component {...props} />);
+    const talonProps = log.mock.calls[0][0];
+
+    expect(talonProps.shippingMethods).toEqual([]);
+    expect(talonProps.selectedShippingMethod).toBeNull();
+});
+
+test('should handle cancelling an update', async () => {
+    createTestInstance(<Component {...props} />);
+    const talonProps = log.mock.calls[0][0];
+
+    await act(async () => {
+        talonProps.showUpdateMode();
+    });
+
+    createTestInstance(<Component {...props} />);
+    const updatedProps = log.mock.calls[1][0];
+
+    expect(updatedProps.isUpdateMode).toBeTruthy();
+
+    updatedProps.handleCancelUpdate();
+    const finalProps = log.mock.calls[2][0];
+
+    expect(finalProps.isUpdateMode).toBeFalsy();
+});
+
+test('should auto-select the least expensive shipping method when none is set', async () => {
+    useQuery.mockImplementation(() => {
+        return {
+            loading: false,
+            data: {
+                cart: {
+                    shipping_addresses: [
+                        {
+                            available_shipping_methods: [
+                                {
+                                    amount: {
+                                        currency: 'USD',
+                                        value: '99'
+                                    },
+                                    carrier_code: 'carrier code',
+                                    method_code: 'method code',
+                                    method_title: 'method title'
+                                },
+                                {
+                                    amount: {
+                                        currency: 'USD',
+                                        value: '50'
+                                    },
+                                    carrier_code: 'another carrier code',
+                                    method_code: 'another method code',
+                                    method_title: 'another method title'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        };
+    });
+
+    useUserContext.mockImplementation(() => [
+        {
+            isSignedIn: true
+        },
+        {}
+    ]);
+
+    const setShippingMethod = jest.fn();
+
+    useMutation.mockReturnValueOnce([setShippingMethod, {}]);
+
+    createTestInstance(<Component {...props} />);
+
+    expect(setShippingMethod).toHaveBeenCalledWith({
+        variables: {
+            cartId: expect.any(String),
+            shippingMethod: {
+                carrier_code: 'another carrier code',
+                method_code: 'another method code'
+            }
+        }
+    });
+});
+
+test('does not try to set shipping method when cartId is not present', () => {
+    useUserContext.mockImplementation(() => [
+        {
+            isSignedIn: true
+        },
+        {}
+    ]);
+
+    useCartContext.mockImplementation(() => [{}, {}]);
+
+    const setShippingMethod = jest.fn();
+
+    useMutation.mockReturnValueOnce([setShippingMethod, {}]);
+
+    createTestInstance(<Component {...props} />);
+
+    expect(setShippingMethod).not.toHaveBeenCalled();
+});
+
+test('does not auto-select a shipping method on a signed in user when there is no shipping methods available', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                cart: {
+                    shipping_addresses: [
+                        {
+                            available_shipping_methods: []
+                        }
+                    ]
+                }
+            }
+        };
+    });
+    useUserContext.mockImplementation(() => [
+        {
+            isSignedIn: true
+        },
+        {}
+    ]);
+    useCartContext.mockImplementation(() => [{ cartId: 'cart123' }, {}]);
+
+    createTestInstance(<Component {...props} />);
+
+    const setShippingMethod = jest.fn();
+
+    useMutation.mockReturnValueOnce([setShippingMethod, {}]);
+
+    expect(setShippingMethod).not.toHaveBeenCalled();
+});
+
+test('does not auto-select a shipping method on a signed in user when it has already been selected', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                cart: {
+                    shipping_addresses: [
+                        {
+                            available_shipping_methods: [
+                                {
+                                    amount: {
+                                        currency: 'USD',
+                                        value: '99'
+                                    },
+                                    carrier_code: 'carrier code',
+                                    method_code: 'method code',
+                                    method_title: 'method title'
+                                }
+                            ],
+                            selected_shipping_method: {
+                                amount: {
+                                    currency: 'USD',
+                                    value: '99'
+                                },
+                                carrier_code: 'carrier code',
+                                method_code: 'method code',
+                                method_title: 'method title'
+                            }
+                        }
+                    ]
+                }
+            }
+        };
+    });
+    useUserContext.mockImplementation(() => [
+        {
+            isSignedIn: true
+        },
+        {}
+    ]);
+    useCartContext.mockImplementation(() => [{ cartId: 'cart123' }, {}]);
+
+    createTestInstance(<Component {...props} />);
+
+    const setShippingMethod = jest.fn();
+
+    useMutation.mockReturnValueOnce([setShippingMethod, {}]);
+
+    expect(setShippingMethod).not.toHaveBeenCalled();
+});
+
+test('should call onSuccess on mutation success', () => {
+    createTestInstance(<Component {...props} />);
+
+    const { onCompleted } = useMutation.mock.calls[0][1];
+    onCompleted();
+
+    expect(onSuccess).toHaveBeenCalled();
 });
