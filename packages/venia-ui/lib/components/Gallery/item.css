@@ -30,6 +30,12 @@
     background-color: rgb(var(--venia-global-color-gray));
 }
 
+.nameRow {
+    column-gap: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
 .name {
     font-weight: var(--venia-global-fontWeight-semibold);
 }

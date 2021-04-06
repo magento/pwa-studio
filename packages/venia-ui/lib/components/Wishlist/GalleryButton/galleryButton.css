@@ -1,0 +1,8 @@
+.root {
+}
+
+.root_selected {
+    --selectedColor: rgb(var(--venia-global-color-red-400));
+    --fill: var(--selectedColor);
+    --stroke: var(--selectedColor);
+}
