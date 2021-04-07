@@ -22,7 +22,7 @@ export const useGalleryButton = props => {
     } = useQuery(operations.getProductsInWishlistsQuery);
 
     const handleClick = useCallback(() => {
-        if (storeConfig.enable_multiple_wishlists === '0' && isSignedIn) {
+        if (storeConfig.enable_multiple_wishlists === '1' && isSignedIn) {
             setIsModalOpen(true);
         } else {
             ceTalonProps.handleClick();
