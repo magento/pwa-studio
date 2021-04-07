@@ -59,6 +59,7 @@
 
 .root :global .slick-track .slick-slide > div {
     min-height: inherit;
+    margin: 3px;
 }
 
 .root :global .slick-track:before,
