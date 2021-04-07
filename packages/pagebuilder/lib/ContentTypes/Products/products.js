@@ -71,8 +71,8 @@ const Products = props => {
         paddingBottom,
         paddingLeft,
         cssClasses = [],
-        slidesToShow = 5,
-        slideToShowSmall = 2,
+        slidesToShow = 4,
+        slideToShowSmall = 1,
         slideToShowSmallCenterMode = 1
     } = props;
 
