@@ -56,7 +56,7 @@ export const useActionMenu = (props = {}) => {
                     refetchQueries: [{ query: getCustomerWishlistQuery }],
                     awaitRefetchQueries: true
                 });
-                await setCurrentDialog(dialogs.NONE);
+                setCurrentDialog(dialogs.NONE);
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
