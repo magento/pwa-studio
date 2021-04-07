@@ -7,11 +7,7 @@ import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishl
 jest.mock('@magento/peregrine/lib/talons/WishlistPage/useWishlist');
 jest.mock('../../../classify');
 jest.mock('../wishlistItems', () => 'WishlistItems');
-jest.mock('../wishlistListActionsDialog', () => 'WishlistListActionsDialog');
-jest.mock(
-    '../wishlistEditFavoritesListDialog',
-    () => 'WishlistEditFavoritesListDialog'
-);
+jest.mock('../actionMenu.ee', () => 'ActionMenu');
 
 const baseProps = {
     data: {
@@ -25,11 +21,7 @@ const baseProps = {
 };
 
 const baseTalonProps = {
-    handleActionMenuClick: jest.fn().mockName('handleActionMenuClick'),
     handleContentToggle: jest.fn().mockName('handleContentToggle'),
-    handleEditWishlist: jest.fn().mockName('handleEditWishlist'),
-    handleHideDialogs: jest.fn().mockName('handleHideDialogs'),
-    handleShowEditFavorites: jest.fn().mockName('handleShowEditFavorites'),
     isOpen: true
 };
 
