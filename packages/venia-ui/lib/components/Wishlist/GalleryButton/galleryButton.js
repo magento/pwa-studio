@@ -63,7 +63,7 @@ const GalleryButton = props => {
     return (
         <button
             className={buttonClass}
-            disabled={isLoading}
+            disabled={isLoading || isSelected}
             onClick={handleClick}
             type="button"
         >
