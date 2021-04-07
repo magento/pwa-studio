@@ -56,3 +56,7 @@
     composes: root;
     composes: root from '../Slider/slider.css';
 }
+
+.carousel :global .slick-track .slick-slide:not(:first-child) > div {
+    margin-left: 4px;
+}
