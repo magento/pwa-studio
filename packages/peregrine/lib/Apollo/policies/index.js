@@ -20,7 +20,7 @@ const typePolicies = {
             customerCart: {
                 keyArgs: () => 'Cart'
             },
-            wishlistProducts: {
+            customerWishlistProducts: {
                 read: existing => existing || []
             }
         }

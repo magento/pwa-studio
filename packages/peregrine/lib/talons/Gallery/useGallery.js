@@ -14,7 +14,7 @@ export const useGallery = (props = {}) => {
 
     const {
         client,
-        data: { wishlistProducts }
+        data: { customerWishlistProducts }
     } = useQuery(operations.getProductsInWishlistsQuery);
 
     const { data: wishlistConfigData } = useQuery(
@@ -33,7 +33,7 @@ export const useGallery = (props = {}) => {
                     const items = wishlist.items_v2.items;
                     items.map(item => {
                         const sku = item.product.sku;
-                        if (!wishlistProducts.includes(sku)) {
+                        if (!customerWishlistProducts.includes(sku)) {
                             itemsToAdd.add(sku);
                         }
                     });
@@ -43,8 +43,8 @@ export const useGallery = (props = {}) => {
                     client.writeQuery({
                         query: operations.getProductsInWishlistsQuery,
                         data: {
-                            wishlistProducts: [
-                                ...wishlistProducts,
+                            customerWishlistProducts: [
+                                ...customerWishlistProducts,
                                 ...itemsToAdd
                             ]
                         }

@@ -17,12 +17,12 @@ export const useGalleryButton = props => {
     ] = useMutation(operations.addProductToWishlistMutation);
 
     const {
-        data: { wishlistProducts }
+        data: { customerWishlistProducts }
     } = useQuery(operations.getProductsInWishlistsQuery);
 
     const isSelected = useMemo(() => {
-        return wishlistProducts.includes(item.sku);
-    }, [item.sku, wishlistProducts]);
+        return customerWishlistProducts.includes(item.sku);
+    }, [item.sku, customerWishlistProducts]);
 
     const [showLoginToast, setShowLoginToast] = useState(0);
 
@@ -40,7 +40,10 @@ export const useGalleryButton = props => {
                 client.writeQuery({
                     query: operations.getProductsInWishlistsQuery,
                     data: {
-                        wishlistProducts: [...wishlistProducts, item.sku]
+                        customerWishlistProducts: [
+                            ...customerWishlistProducts,
+                            item.sku
+                        ]
                     }
                 });
             } catch {
@@ -50,10 +53,10 @@ export const useGalleryButton = props => {
     }, [
         addProductToWishlist,
         client,
+        customerWishlistProducts,
         isSignedIn,
         item.sku,
-        operations.getProductsInWishlistsQuery,
-        wishlistProducts
+        operations.getProductsInWishlistsQuery
     ]);
 
     return {

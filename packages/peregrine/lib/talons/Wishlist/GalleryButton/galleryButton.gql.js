@@ -16,7 +16,7 @@ export const ADD_TO_WISHLIST = gql`
 
 export const GET_PRODUCTS_IN_WISHLISTS = gql`
     query GetProductsInWishlistsForGallery {
-        wishlistProducts @client
+        customerWishlistProducts @client
     }
 `;
 
