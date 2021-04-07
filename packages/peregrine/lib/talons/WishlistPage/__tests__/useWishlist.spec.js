@@ -3,25 +3,6 @@ import { act } from 'react-test-renderer';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useWishlist } from '../useWishlist';
-import { useMutation } from '@apollo/client';
-
-jest.mock('@apollo/client', () => {
-    return {
-        ...jest.requireActual('@apollo/client'),
-        useMutation: jest.fn(() => [
-            jest.fn(),
-            {
-                error: false,
-                loading: false
-            }
-        ])
-    };
-});
-
-jest.mock('../wishlist.gql', () => ({
-    getCustomerWishlistQuery: jest.fn().mockName('getCustomerWishlistQuery'),
-    updateWishlistMutation: jest.fn().mockName('updateWishlistMutation')
-}));
 
 const Component = () => {
     const talonProps = useWishlist();
