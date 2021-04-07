@@ -83,8 +83,8 @@ export const useGalleryButton = props => {
             });
         }
 
-        return null;
-    }, [formatMessage, successToastName]);
+        return ceTalonProps.getSuccessToastProps;
+    }, [ceTalonProps.getSuccessToastProps, formatMessage, successToastName]);
 
     return {
         ...ceTalonProps,
