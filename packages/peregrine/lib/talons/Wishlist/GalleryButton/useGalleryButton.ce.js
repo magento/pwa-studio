@@ -1,10 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import defaultOperations from './galleryButton.gql';
-import { useMutation, useQuery } from '@apollo/client';
 
 export const useGalleryButton = props => {
     const { item } = props;
@@ -26,6 +27,7 @@ export const useGalleryButton = props => {
 
     const [showLoginToast, setShowLoginToast] = useState(0);
 
+    const { formatMessage } = useIntl();
     const [{ isSignedIn }] = useUserContext();
 
     const handleClick = useCallback(async () => {
@@ -59,11 +61,28 @@ export const useGalleryButton = props => {
         operations.getProductsInWishlistsQuery
     ]);
 
+    const getSuccessToastProps = useMemo(() => {
+        if (addProductData) {
+            return (additionalProps = {}) => ({
+                type: 'success',
+                message: formatMessage({
+                    id: 'wishlist.galleryButton.successMessageGeneral',
+                    defaultMessage:
+                        'Item successfully added to your favorites list.'
+                }),
+                timeout: 5000,
+                ...additionalProps
+            });
+        }
+
+        return null;
+    }, [addProductData, formatMessage]);
+
     return {
+        getSuccessToastProps,
         handleClick,
         isLoading: loading,
         isSelected,
-        showLoginToast,
-        showSuccessToast: !!addProductData
+        showLoginToast
     };
 };
