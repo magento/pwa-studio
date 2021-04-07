@@ -33,6 +33,7 @@ export const useProduct = props => {
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
+        addProductToWishlistMutation,
         removeItemMutation,
         updateItemQuantityMutation,
         getConfigurableThumbnailSource
@@ -72,6 +73,11 @@ export const useProduct = props => {
         }
     ] = useMutation(updateItemQuantityMutation);
 
+    const [
+        addProductToWishlist,
+        { error: addProductToWishlistError }
+    ] = useMutation(addProductToWishlistMutation);
+
     useEffect(() => {
         if (updateItemCalled || removeItemCalled) {
             // If a product mutation is in flight, tell the cart.
@@ -90,8 +96,6 @@ export const useProduct = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const [isFavorite, setIsFavorite] = useState(false);
-
     // Use local state to determine whether to display errors or not.
     // Could be replaced by a "reset mutation" function from apollo client.
     // https://github.com/apollographql/apollo-feature-requests/issues/170
@@ -100,14 +104,45 @@ export const useProduct = props => {
     const derivedErrorMessage = useMemo(() => {
         return (
             (displayError &&
-                deriveErrorMessage([updateError, removeItemError])) ||
+                deriveErrorMessage([
+                    updateError,
+                    removeItemError,
+                    addProductToWishlistError
+                ])) ||
             ''
         );
-    }, [displayError, removeItemError, updateError]);
+    }, [displayError, addProductToWishlistError, removeItemError, updateError]);
 
-    const handleToggleFavorites = useCallback(() => {
-        setIsFavorite(!isFavorite);
-    }, [isFavorite]);
+    const handleToggleFavorites = useCallback(async () => {
+        const sku = item.product.sku;
+        const quantity = item.quantity;
+        const selected_options = item.configurable_options.map(
+            option => option.configurable_product_option_value_uid
+        );
+
+        try {
+            await addProductToWishlist({
+                variables: {
+                    wishlistId: '0',
+                    itemOptions: {
+                        sku,
+                        quantity,
+                        selected_options
+                    }
+                }
+            });
+
+            await removeItem({
+                variables: {
+                    cartId,
+                    itemId: item.id
+                }
+            });
+        } catch (err) {
+            // Make sure any errors from the mutation are displayed.
+            setDisplayError(true);
+        }
+    }, [addProductToWishlist, removeItem, cartId, item]);
 
     const handleEditItem = useCallback(() => {
         setActiveEditItem(item);
@@ -117,9 +152,9 @@ export const useProduct = props => {
         setDisplayError(false);
     }, [item, setActiveEditItem]);
 
-    const handleRemoveFromCart = useCallback(() => {
+    const handleRemoveFromCart = useCallback(async () => {
         try {
-            removeItem({
+            await removeItem({
                 variables: {
                     cartId,
                     itemId: item.id
@@ -156,7 +191,6 @@ export const useProduct = props => {
         handleToggleFavorites,
         handleUpdateItemQuantity,
         isEditable: !!flatProduct.options.length,
-        isFavorite,
         product: flatProduct
     };
 };
@@ -226,7 +260,6 @@ const flattenProduct = (item, configurableThumbnailSource) => {
  * @property {function} handleToggleFavorites Function to use for handling favorites toggling on a cart product.
  * @property {function} handleUpdateItemQuantity Function to use for handling updates to the product quantity in a cart.
  * @property {boolean} isEditable True if a cart product is editable. False otherwise.
- * @property {boolean} isFavorite True if the cart product is a favorite product. False otherwise.
  * @property {ProductItem} product Cart product data
  */
 
