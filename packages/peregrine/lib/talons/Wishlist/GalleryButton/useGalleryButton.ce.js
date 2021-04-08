@@ -14,10 +14,11 @@ export const useGalleryButton = props => {
 
     const [
         addProductToWishlist,
-        { client, data: addProductData, loading }
+        { data: addProductData, error: errorAddingProduct, loading }
     ] = useMutation(operations.addProductToWishlistMutation);
 
     const {
+        client,
         data: { customerWishlistProducts }
     } = useQuery(operations.getProductsInWishlistsQuery);
 
@@ -78,7 +79,23 @@ export const useGalleryButton = props => {
         return null;
     }, [addProductData, formatMessage]);
 
+    const getErrorToastProps = useMemo(() => {
+        if (errorAddingProduct) {
+            return (additionalProps = {}) => ({
+                type: 'error',
+                message: formatMessage({
+                    id: 'wishlist.galleryButton.addError',
+                    defaultMessage:
+                        'Something went wrong adding the product to your wishlist.'
+                }),
+                timeout: 5000,
+                ...additionalProps
+            });
+        }
+    }, [errorAddingProduct, formatMessage]);
+
     return {
+        getErrorToastProps,
         getSuccessToastProps,
         handleClick,
         isLoading: loading,

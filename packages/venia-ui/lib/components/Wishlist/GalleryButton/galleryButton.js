@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { Check, Heart, Info } from 'react-feather';
+import { AlertCircle, Check, Heart, Info } from 'react-feather';
 import { useIntl } from 'react-intl';
 import { useToasts } from '@magento/peregrine';
 import mergeClasses from '@magento/peregrine/lib/util/shallowMerge';
@@ -10,19 +10,20 @@ import defaultClasses from './galleryButton.css';
 import WishlistDialog from '../WishlistDialog';
 
 const CheckIcon = <Icon size={20} src={Check} />;
+const ErrorIcon = <Icon size={20} src={AlertCircle} />;
 const HeartIcon = <Icon size={20} src={Heart} />;
 const InfoIcon = <Icon size={20} src={Info} />;
 
 const GalleryButton = props => {
     const talonProps = useGalleryButton(props);
     const {
+        getErrorToastProps,
         getModalProps,
         getSuccessToastProps,
         handleClick,
         isLoading,
         isSelected,
-        showLoginToast,
-        showSuccessToast
+        showLoginToast
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -49,13 +50,13 @@ const GalleryButton = props => {
         if (getSuccessToastProps) {
             addToast(getSuccessToastProps({ icon: CheckIcon }));
         }
-    }, [
-        addToast,
-        formatMessage,
-        getSuccessToastProps,
-        showLoginToast,
-        showSuccessToast
-    ]);
+    }, [addToast, formatMessage, getSuccessToastProps]);
+
+    useEffect(() => {
+        if (getErrorToastProps) {
+            addToast(getErrorToastProps({ icon: ErrorIcon }));
+        }
+    }, [addToast, formatMessage, getErrorToastProps]);
 
     const multipleWishlistDialog = getModalProps ? (
         <WishlistDialog {...getModalProps()} />
