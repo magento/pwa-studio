@@ -1,7 +1,7 @@
 {
     "name": "pwa-devdocs",
     "private": true,
-    "version": "9.0.1",
+    "version": "10.0.0",
     "description": "A documentation site for Magento PWA",
     "main": "gulpfile.js",
     "dependencies": {
@@ -31,7 +31,7 @@
     },
     "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pwa-devdocs#readme",
     "devDependencies": {
-        "browser-sync": "~2.26.12",
+        "browser-sync": "~2.26.14",
         "css-loader": "^2.1.1",
         "jsdoc-to-markdown": "^5.0.3",
         "mdast-builder": "^1.1.1",
@@ -92,8 +92,8 @@
         "style-loader": "~2.0.0",
         "to-vfile": "^5.0.3",
         "vfile-reporter": "^5.1.2",
-        "webpack": "~4.44.1",
-        "webpack-cli": "^3.3.11"
+        "webpack": "~5.26.3",
+        "webpack-cli": "~4.5.0"
     },
     "resolutions": {
         "minimist": "^1.2.2",

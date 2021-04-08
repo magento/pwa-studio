@@ -156,7 +156,7 @@ const talonProps = {
         sku: 'BTTF123',
         price: {
             currency: 'USD',
-            value: '3.50'
+            value: 3.5
         }
     }
 };
@@ -197,6 +197,19 @@ test('it renders an error for an invalid user token when adding to cart', () => 
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
+test('it renders an error for an invalid cart', () => {
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        errorMessage: 'Variable "$cartId" got invalid value null'
+    });
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
 // TODO: Can we test the following 3 possible messages in a single test?
 test('it renders field level errors for quantity - message 1', () => {
     useProductFullDetail.mockReturnValueOnce({
@@ -223,6 +236,7 @@ test('it renders field level errors for quantity - message 2', () => {
 
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
+
 test('it renders field level errors for quantity - message 3', () => {
     useProductFullDetail.mockReturnValueOnce({
         ...talonProps,
@@ -263,6 +277,20 @@ test('it disables the add to cart button when the talon indicates', () => {
     useProductFullDetail.mockReturnValueOnce({
         ...talonProps,
         isAddToCartDisabled: true
+    });
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('renders a WishlistButton', () => {
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        shouldShowWishlistButton: true,
+        wishlistItemOptions: { foo: 'bar' }
     });
 
     const wrapper = createTestInstance(

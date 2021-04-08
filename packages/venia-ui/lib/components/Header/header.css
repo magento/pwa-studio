@@ -34,7 +34,7 @@
     grid-template-rows: 3rem;
     justify-items: center;
     max-width: var(--venia-global-maxWidth);
-    min-height: 3.5rem;
+    min-height: var(--venia-global-header-minHeight);
     padding: 0 0.5rem;
     width: 100%;
 }
@@ -61,7 +61,7 @@
     .toolbar {
         grid-template-areas: 'primary title secondary';
         grid-template-columns: auto auto 1fr;
-        min-height: 5rem;
+        min-height: var(--venia-global-header-minHeight);
         padding: 0 1rem;
     }
 }
