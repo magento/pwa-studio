@@ -56,7 +56,11 @@ describe('renders prefilled form with data', () => {
         firstname: 'Philip',
         lastname: 'Fry',
         postcode: '10019',
-        region: 'NY',
+        region: {
+            region: 'New York',
+            region_code: 'NY',
+            region_id: 12
+        },
         street: ['3000 57th Street', 'Suite 200'],
         telephone: '(123) 456-7890'
     };

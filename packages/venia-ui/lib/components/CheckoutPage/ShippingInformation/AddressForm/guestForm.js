@@ -179,7 +179,12 @@ const GuestForm = props => {
                     </Field>
                 </div>
                 <div className={classes.region}>
-                    <Region validate={isRequired} />
+                    <Region
+                        validate={isRequired}
+                        fieldInput={'region[region]'}
+                        fieldSelect={'region[region_id]'}
+                        optionValueKey={'id'}
+                    />
                 </div>
                 <div className={classes.postcode}>
                     <Postcode validate={isRequired} />

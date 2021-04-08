@@ -227,7 +227,8 @@ const CustomerForm = props => {
                     <Region
                         validate={isRequired}
                         fieldInput={'region[region]'}
-                        fieldSelect={'region[code]'}
+                        fieldSelect={'region[region_id]'}
+                        optionValueKey={'id'}
                     />
                 </div>
                 <div className={classes.postcode}>

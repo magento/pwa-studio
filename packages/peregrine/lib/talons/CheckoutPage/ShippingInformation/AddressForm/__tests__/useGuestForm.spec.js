@@ -33,7 +33,7 @@ const shippingData = {
     firstname: 'Philip',
     lastname: 'Fry',
     postcode: '10019',
-    region: { code: 'NY' },
+    region: { region_code: 'NY', region: 'New York', region_id: 12 },
     street: ['3000 57th Street', 'Suite 200'],
     telephone: '(123) 456-7890'
 };
