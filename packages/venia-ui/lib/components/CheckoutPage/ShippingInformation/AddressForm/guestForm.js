@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
-import { func, shape, string, arrayOf } from 'prop-types';
+import { func, shape, string, arrayOf, number } from 'prop-types';
 import { useGuestForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
 
 import { mergeClasses } from '../../../../classify';
@@ -257,7 +257,7 @@ GuestForm.propTypes = {
         lastname: string,
         postcode: string,
         region: shape({
-            code: string.isRequired
+            region_id: number.isRequired
         }).isRequired,
         street: arrayOf(string),
         telephone: string
