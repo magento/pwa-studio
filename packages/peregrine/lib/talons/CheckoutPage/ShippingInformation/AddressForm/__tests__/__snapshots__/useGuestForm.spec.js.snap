@@ -9,7 +9,7 @@ Object {
       "firstname": "Philip",
       "lastname": "Fry",
       "postcode": "10019",
-      "region": "NY",
+      "region": 12,
       "street": Array [
         "3000 57th Street",
         "Suite 200",

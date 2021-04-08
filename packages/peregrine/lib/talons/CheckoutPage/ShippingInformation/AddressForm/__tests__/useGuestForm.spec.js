@@ -103,7 +103,7 @@ test('handle submit fires mutation and callback', async () => {
     const { talonProps } = root.findByType('i').props;
     const { handleSubmit, isSaving } = talonProps;
 
-    await handleSubmit({ ...shippingData, country: 'US', region: 'NY' });
+    await handleSubmit({ ...shippingData, country: 'US' });
     expect(setShippingInformation).toHaveBeenCalled();
     expect(setShippingInformation.mock.calls[0][0]).toMatchSnapshot();
     expect(afterSubmit).toHaveBeenCalled();

@@ -36,7 +36,7 @@ export const useGuestForm = props => {
 
     const handleSubmit = useCallback(
         async formValues => {
-            const { country, email, ...address } = formValues;
+            const { country, email, region, ...address } = formValues;
             try {
                 await setGuestShipping({
                     variables: {
@@ -44,6 +44,7 @@ export const useGuestForm = props => {
                         email,
                         address: {
                             ...address,
+                            region: region.region_id,
                             country_code: country
                         }
                     }
