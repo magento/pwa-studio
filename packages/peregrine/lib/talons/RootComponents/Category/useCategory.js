@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLazyQuery, useQuery } from '@apollo/client';
+import { isEqual } from 'lodash';
 
 import mergeOperations from '../../../util/shallowMerge';
 import { useAppContext } from '../../../context/app';
@@ -11,7 +12,7 @@ import {
     getFiltersFromSearch,
     getFilterInput
 } from '../../../talons/FilterModal/helpers';
-import { isEqual } from 'lodash';
+
 import DEFAULT_OPERATIONS from './category.gql';
 
 /**
