@@ -62,44 +62,69 @@ export const useGalleryButton = props => {
         operations.getProductsInWishlistsQuery
     ]);
 
-    const getSuccessToastProps = useMemo(() => {
+    const loginToastProps = useMemo(() => {
+        if (showLoginToast) {
+            return {
+                type: 'info',
+                message: formatMessage({
+                    id: 'wishlist.galleryButton.loginMessage',
+                    defaultMessage:
+                        'Please sign-in to your Account to save items for later.'
+                }),
+                timeout: 5000
+            };
+        }
+
+        return null;
+    }, [formatMessage, showLoginToast]);
+
+    const successToastProps = useMemo(() => {
         if (addProductData) {
-            return (additionalProps = {}) => ({
+            return {
                 type: 'success',
                 message: formatMessage({
                     id: 'wishlist.galleryButton.successMessageGeneral',
                     defaultMessage:
                         'Item successfully added to your favorites list.'
                 }),
-                timeout: 5000,
-                ...additionalProps
-            });
+                timeout: 5000
+            };
         }
 
         return null;
     }, [addProductData, formatMessage]);
 
-    const getErrorToastProps = useMemo(() => {
+    const errorToastProps = useMemo(() => {
         if (errorAddingProduct) {
-            return (additionalProps = {}) => ({
+            return {
                 type: 'error',
                 message: formatMessage({
                     id: 'wishlist.galleryButton.addError',
                     defaultMessage:
                         'Something went wrong adding the product to your wishlist.'
                 }),
-                timeout: 5000,
-                ...additionalProps
-            });
+                timeout: 5000
+            };
         }
+
+        return null;
     }, [errorAddingProduct, formatMessage]);
 
+    const buttonProps = useMemo(
+        () => ({
+            disabled: loading || isSelected,
+            onClick: handleClick,
+            type: 'button'
+        }),
+        [handleClick, isSelected, loading]
+    );
+
     return {
-        getErrorToastProps,
-        getSuccessToastProps,
+        buttonProps,
+        errorToastProps,
         handleClick,
-        isLoading: loading,
-        isSelected,
-        showLoginToast
+        isSelected: isSelected || loading,
+        loginToastProps,
+        successToastProps
     };
 };

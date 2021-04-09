@@ -6,8 +6,8 @@ import mergeClasses from '@magento/peregrine/lib/util/shallowMerge';
 import { useGalleryButton } from '@magento/peregrine/lib/talons/Wishlist/GalleryButton/useGalleryButton';
 
 import Icon from '../../Icon';
-import defaultClasses from './galleryButton.css';
 import WishlistDialog from '../WishlistDialog';
+import defaultClasses from './galleryButton.css';
 
 const CheckIcon = <Icon size={20} src={Check} />;
 const ErrorIcon = <Icon size={20} src={AlertCircle} />;
@@ -17,13 +17,12 @@ const InfoIcon = <Icon size={20} src={Info} />;
 const GalleryButton = props => {
     const talonProps = useGalleryButton(props);
     const {
-        getErrorToastProps,
-        getModalProps,
-        getSuccessToastProps,
-        handleClick,
-        isLoading,
+        buttonProps,
+        errorToastProps,
         isSelected,
-        showLoginToast
+        loginToastProps,
+        modalProps,
+        successToastProps
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -32,47 +31,32 @@ const GalleryButton = props => {
     const [, { addToast }] = useToasts();
 
     useEffect(() => {
-        if (showLoginToast) {
-            addToast({
-                type: 'info',
-                icon: InfoIcon,
-                message: formatMessage({
-                    id: 'wishlist.galleryButton.loginMessage',
-                    defaultMessage:
-                        'Please sign-in to your Account to save items for later.'
-                }),
-                timeout: 5000
-            });
+        if (loginToastProps) {
+            addToast({ ...loginToastProps, icon: InfoIcon });
         }
-    }, [addToast, formatMessage, showLoginToast]);
+    }, [addToast, formatMessage, loginToastProps]);
 
     useEffect(() => {
-        if (getSuccessToastProps) {
-            addToast(getSuccessToastProps({ icon: CheckIcon }));
+        if (successToastProps) {
+            addToast({ ...successToastProps, icon: CheckIcon });
         }
-    }, [addToast, formatMessage, getSuccessToastProps]);
+    }, [addToast, formatMessage, successToastProps]);
 
     useEffect(() => {
-        if (getErrorToastProps) {
-            addToast(getErrorToastProps({ icon: ErrorIcon }));
+        if (errorToastProps) {
+            addToast({ ...errorToastProps, icon: ErrorIcon });
         }
-    }, [addToast, formatMessage, getErrorToastProps]);
+    }, [addToast, errorToastProps, formatMessage]);
 
-    const multipleWishlistDialog = getModalProps ? (
-        <WishlistDialog {...getModalProps()} />
+    const multipleWishlistDialog = modalProps ? (
+        <WishlistDialog {...modalProps} />
     ) : null;
 
-    const buttonClass =
-        isLoading || isSelected ? classes.root_selected : classes.root;
+    const buttonClass = isSelected ? classes.root_selected : classes.root;
 
     return (
         <Fragment>
-            <button
-                className={buttonClass}
-                disabled={isLoading || isSelected}
-                onClick={handleClick}
-                type="button"
-            >
+            <button className={buttonClass} {...buttonProps}>
                 {HeartIcon}
             </button>
             {multipleWishlistDialog}

@@ -17,7 +17,7 @@ export const GET_WISHLIST_ITEMS = gql`
             id
             wishlists {
                 id
-                items_v2(currentPage: $currentPage, pageSize: 100) {
+                items_v2(currentPage: $currentPage, pageSize: 10) {
                     items {
                         id
                         product {

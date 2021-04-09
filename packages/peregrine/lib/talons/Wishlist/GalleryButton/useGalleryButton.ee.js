@@ -21,13 +21,21 @@ export const useGalleryButton = props => {
         data: { customerWishlistProducts }
     } = useQuery(operations.getProductsInWishlistsQuery);
 
-    const handleClick = useCallback(() => {
+    const buttonProps = useMemo(() => {
+        const ceButtonProps = ceTalonProps.buttonProps;
         if (storeConfig.enable_multiple_wishlists === '1' && isSignedIn) {
-            setIsModalOpen(true);
-        } else {
-            ceTalonProps.handleClick();
+            return {
+                ...ceButtonProps,
+                onClick: () => setIsModalOpen(true)
+            };
         }
-    }, [ceTalonProps, isSignedIn, storeConfig.enable_multiple_wishlists]);
+
+        return ceButtonProps;
+    }, [
+        ceTalonProps.buttonProps,
+        isSignedIn,
+        storeConfig.enable_multiple_wishlists
+    ]);
 
     const handleModalClose = useCallback(
         (success, additionalData) => {
@@ -51,22 +59,30 @@ export const useGalleryButton = props => {
         [client, customerWishlistProducts, item.sku]
     );
 
-    const getModalProps = useCallback(
-        (additionalProps = {}) => ({
-            isOpen: isModalOpen,
-            itemOptions: {
-                sku: item.sku,
-                quantity: 1
-            },
-            onClose: handleModalClose,
-            ...additionalProps
-        }),
-        [handleModalClose, isModalOpen, item.sku]
-    );
+    const modalProps = useMemo(() => {
+        if (storeConfig.enable_multiple_wishlists === '1' && isSignedIn) {
+            return {
+                isOpen: isModalOpen,
+                itemOptions: {
+                    sku: item.sku,
+                    quantity: 1
+                },
+                onClose: handleModalClose
+            };
+        }
 
-    const getSuccessToastProps = useMemo(() => {
+        return null;
+    }, [
+        handleModalClose,
+        isModalOpen,
+        isSignedIn,
+        item.sku,
+        storeConfig.enable_multiple_wishlists
+    ]);
+
+    const successToastProps = useMemo(() => {
         if (successToastName) {
-            return (additionalProps = {}) => ({
+            return {
                 type: 'success',
                 message: formatMessage(
                     {
@@ -78,18 +94,17 @@ export const useGalleryButton = props => {
                         wishlistName: successToastName
                     }
                 ),
-                timeout: 5000,
-                ...additionalProps
-            });
+                timeout: 5000
+            };
         }
 
-        return ceTalonProps.getSuccessToastProps;
-    }, [ceTalonProps.getSuccessToastProps, formatMessage, successToastName]);
+        return ceTalonProps.successToastProps;
+    }, [ceTalonProps.successToastProps, formatMessage, successToastName]);
 
     return {
         ...ceTalonProps,
-        getModalProps,
-        getSuccessToastProps,
-        handleClick
+        buttonProps,
+        modalProps,
+        successToastProps
     };
 };
