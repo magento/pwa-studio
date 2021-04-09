@@ -77,13 +77,11 @@ export const useCustomerForm = props => {
     const handleSubmit = useCallback(
         async formValues => {
             // eslint-disable-next-line no-unused-vars
-            const { country, region, email, ...address } = formValues;
+            const { country, email, ...address } = formValues;
             try {
                 const customerAddress = {
                     ...address,
-                    country_code: country,
-                    // region_id is used for field select and region is used for field input
-                    region: region.region_id || region.region
+                    country_code: country
                 };
 
                 if (isUpdate) {
