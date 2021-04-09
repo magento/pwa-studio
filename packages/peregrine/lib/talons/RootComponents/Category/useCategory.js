@@ -11,7 +11,7 @@ import {
     getFiltersFromSearch,
     getFilterInput
 } from '../../../talons/FilterModal/helpers';
-
+import { isEqual } from 'lodash';
 import DEFAULT_OPERATIONS from './category.gql';
 
 /**
@@ -118,7 +118,8 @@ export const useCategory = props => {
         return typeMap;
     }, [introspectionData]);
 
-    // Run the category query immediately and whenever its variable values change.
+    // Keep a ref for deep equality check of filters object.
+    const filtersRef = useRef();
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
         if (!filterTypeMap.size || !pageSize) {
@@ -137,24 +138,43 @@ export const useCategory = props => {
         // applied filters. Follow-up in PWA-404.
         newFilters['category_id'] = { eq: String(id) };
 
-        runQuery({
-            variables: {
-                currentPage: Number(currentPage),
-                id: Number(id),
-                filters: newFilters,
-                pageSize: Number(pageSize),
-                sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
+        if (!isEqual(filtersRef.current, newFilters)) {
+            filtersRef.current = newFilters;
+        }
+    }, [filterTypeMap, id, pageSize, search]);
+
+    // Query with filters and whenenver they change.
+    useEffect(
+        () => {
+            if (filtersRef.current) {
+                console.log('filtersRef.current', filtersRef.current);
+                runQuery({
+                    variables: {
+                        currentPage: Number(currentPage),
+                        id: Number(id),
+                        filters: filtersRef.current,
+                        pageSize: Number(pageSize),
+                        sort: {
+                            [currentSort.sortAttribute]:
+                                currentSort.sortDirection
+                        }
+                    }
+                });
             }
-        });
-    }, [
-        currentPage,
-        currentSort,
-        filterTypeMap,
-        id,
-        pageSize,
-        runQuery,
-        search
-    ]);
+        },
+        // exhaustive-deps complains about refs...
+        /* eslint-disable react-hooks/exhaustive-deps */
+        [
+            currentPage,
+            currentSort.sortAttribute,
+            currentSort.sortDirection,
+            filtersRef.current,
+            id,
+            pageSize,
+            runQuery
+        ]
+        /* eslint-enable react-hooks/exhaustive-deps */
+    );
 
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
