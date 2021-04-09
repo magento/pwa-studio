@@ -16,13 +16,9 @@ import FormError from '../FormError';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichText from '../RichText';
-
 import defaultClasses from './productFullDetail.css';
-import {
-    ADD_CONFIGURABLE_MUTATION,
-    ADD_SIMPLE_MUTATION
-} from './productFullDetail.gql';
 
+const WishlistButton = React.lazy(() => import('../Wishlist/WishlistButton'));
 const Options = React.lazy(() => import('../ProductOptions'));
 
 // Correlate a GQL error message to a field. GQL could return a longer error
@@ -42,11 +38,7 @@ const ERROR_FIELD_TO_MESSAGE_MAPPING = {
 const ProductFullDetail = props => {
     const { product } = props;
 
-    const talonProps = useProductFullDetail({
-        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
-        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
-        product
-    });
+    const talonProps = useProductFullDetail({ product });
 
     const {
         breadcrumbCategoryId,
@@ -56,7 +48,9 @@ const ProductFullDetail = props => {
         isAddToCartDisabled,
         isSupportedProductType,
         mediaGalleryEntries,
-        productDetails
+        productDetails,
+        shouldShowWishlistButton,
+        wishlistItemOptions
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -132,6 +126,12 @@ const ProductFullDetail = props => {
         }
     }
 
+    const maybeWishlistButton = shouldShowWishlistButton ? (
+        <Suspense fallback={null}>
+            <WishlistButton itemOptions={wishlistItemOptions} />
+        </Suspense>
+    ) : null;
+
     const cartActionContent = isSupportedProductType ? (
         <Button disabled={isAddToCartDisabled} priority="high" type="submit">
             <FormattedMessage
@@ -191,8 +191,9 @@ const ProductFullDetail = props => {
                         message={errors.get('quantity')}
                     />
                 </section>
-                <section className={classes.cartActions}>
+                <section className={classes.actions}>
                     {cartActionContent}
+                    {maybeWishlistButton}
                 </section>
                 <section className={classes.description}>
                     <h2 className={classes.descriptionTitle}>

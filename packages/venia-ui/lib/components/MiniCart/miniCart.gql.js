@@ -1,22 +1,11 @@
 import { gql } from '@apollo/client';
-
-import { ProductListFragment } from './ProductList/productList.gql';
+import { MiniCartFragment } from '@magento/peregrine/lib/talons/MiniCart/miniCartFragments.gql';
 import { CartPageFragment } from '../CartPage/cartPageFragments.gql';
 
-export const MiniCartFragment = gql`
-    fragment MiniCartFragment on Cart {
-        id
-        total_quantity
-        prices {
-            subtotal_excluding_tax {
-                currency
-                value
-            }
-        }
-        ...ProductListFragment
-    }
-    ${ProductListFragment}
-`;
+/**
+ * @deprecated - Moved to @magento/peregrine/lib/talons/MiniCart/miniCartFragments.gql
+ */
+export { MiniCartFragment };
 
 export const MINI_CART_QUERY = gql`
     query MiniCartQuery($cartId: String!) {

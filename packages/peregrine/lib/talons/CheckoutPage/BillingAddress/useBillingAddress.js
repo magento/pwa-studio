@@ -270,12 +270,13 @@ export const useBillingAddress = props => {
                     }
                     setIsBillingAddressSameInCache();
                 } else {
-                    setErrors(formState.errors);
                     throw new Error('Errors in the billing address form');
                 }
             }
         } catch (err) {
-            console.error(err);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             onBillingAddressChangedError();
         }
     }, [
@@ -316,7 +317,9 @@ export const useBillingAddress = props => {
                 throw new Error('Billing address mutation failed');
             }
         } catch (err) {
-            console.error(err);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             onBillingAddressChangedError();
         }
     }, [
