@@ -257,7 +257,8 @@ GuestForm.propTypes = {
         lastname: string,
         postcode: string,
         region: shape({
-            region_id: number.isRequired
+            region_id: number,
+            region: string
         }).isRequired,
         street: arrayOf(string),
         telephone: string
