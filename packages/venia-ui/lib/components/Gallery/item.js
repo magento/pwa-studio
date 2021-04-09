@@ -75,22 +75,20 @@ const GalleryItem = props => {
                     widths={IMAGE_WIDTHS}
                 />
             </Link>
-            <div className={classes.nameRow}>
-                <Link
-                    onClick={handleLinkClick}
-                    to={productLink}
-                    className={classes.name}
-                >
-                    <span>{name}</span>
-                </Link>
-                {wishlistButton}
-            </div>
+            <Link
+                onClick={handleLinkClick}
+                to={productLink}
+                className={classes.name}
+            >
+                <span>{name}</span>
+            </Link>
             <div className={classes.price}>
                 <Price
                     value={price.regularPrice.amount.value}
                     currencyCode={price.regularPrice.amount.currency}
                 />
             </div>
+            <div className={classes.actionsContainer}>{wishlistButton}</div>
         </div>
     );
 };
