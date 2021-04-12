@@ -22,11 +22,47 @@ export const ADD_TO_WISHLIST = gql`
                 code
                 message
             }
+            wishlist {
+                id
+                items: items_v2 {
+                    items {
+                        id
+                        ... on ConfigurableWishlistItem {
+                            configurable_options {
+                                id
+                                value_id
+                                option_label
+                                value_label
+                            }
+                        }
+                        product {
+                            sku
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
+
+export const REMOVE_FROM_WISHLIST = gql`
+    mutation RemoveProductFromWishlist(
+        $wishlistId: ID!
+        $wishlistItemsId: ID!
+    ) {
+        removeProductsFromWishlist(
+            wishlistId: $wishlistId
+            wishlistItemsIds: [$wishlistItemsId]
+        ) {
+            wishlist {
+                id
+            }
         }
     }
 `;
 
 export default {
     addProductToWishlistMutation: ADD_TO_WISHLIST,
-    getConfigurableThumbnailSource: GET_CONFIGURABLE_THUMBNAIL_SOURCE
+    getConfigurableThumbnailSource: GET_CONFIGURABLE_THUMBNAIL_SOURCE,
+    removeProductFromWishlistMutation: REMOVE_FROM_WISHLIST
 };
