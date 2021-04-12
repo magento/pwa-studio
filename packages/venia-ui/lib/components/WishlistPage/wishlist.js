@@ -1,14 +1,13 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { ChevronDown, ChevronUp, MoreHorizontal } from 'react-feather';
+import { ChevronDown, ChevronUp } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import WishlistItems from './wishlistItems';
 import defaultClasses from './wishlist.css';
-
-const ActionMenuIcon = <Icon src={MoreHorizontal} size={24} />;
+import ActionMenu from './actionMenu';
 
 const Wishlist = props => {
     const { data } = props;
@@ -18,24 +17,28 @@ const Wishlist = props => {
         items_count: itemsCount,
         items_v2: items,
         name,
-        sharing_code: sharingCode
+        visibility
     } = data;
 
     const talonProps = useWishlist();
-    const { handleActionMenuClick, handleContentToggle, isOpen } = talonProps;
+    const { handleContentToggle, isOpen } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const contentClass = isOpen ? classes.content : classes.content_hidden;
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
-    const visibilityLabel = sharingCode
-        ? formatMessage({ id: 'wishlist.publicText', defaultMessage: 'Public' })
-        : formatMessage({
-              id: 'wishlist.privateText',
-              defaultMessage: 'Private'
-          });
+    const visibilityLabel =
+        visibility === 'PUBLIC'
+            ? formatMessage({
+                  id: 'global.public',
+                  defaultMessage: 'Public'
+              })
+            : formatMessage({
+                  id: 'global.private',
+                  defaultMessage: 'Private'
+              });
     const contentMessageElement = itemsCount ? (
-        <WishlistItems items={items} wishlistId={id} />
+        <WishlistItems items={items.items} wishlistId={id} />
     ) : (
         <p>
             <FormattedMessage
@@ -45,19 +48,21 @@ const Wishlist = props => {
         </p>
     );
 
+    const wishlistName = name ? (
+        <div className={classes.nameContainer}>
+            <h2 className={classes.name}>{name}</h2>
+            <span className={classes.visibility}>{visibilityLabel}</span>
+        </div>
+    ) : (
+        <div className={classes.nameContainer} />
+    );
+
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                <div className={classes.nameContainer}>
-                    <h2 className={classes.name}>{name}</h2>
-                    <span className={classes.visibility}>
-                        {visibilityLabel}
-                    </span>
-                </div>
+                {wishlistName}
                 <div className={classes.buttonsContainer}>
-                    <button onClick={handleActionMenuClick} type="button">
-                        {ActionMenuIcon}
-                    </button>
+                    <ActionMenu id={id} name={name} visibility={visibility} />
                     <button onClick={handleContentToggle} type="button">
                         {contentToggleIcon}
                     </button>

@@ -5,6 +5,7 @@ Object {
   "errors": Map {
     "getCustomerWishlistQuery" => undefined,
   },
+  "loading": undefined,
   "wishlists": Array [],
 }
 `;

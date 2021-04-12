@@ -407,7 +407,9 @@ export const useCreditCard = props => {
                 }
             }
         } catch (err) {
-            console.error(err);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             setStepNumber(0);
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
@@ -456,7 +458,9 @@ export const useCreditCard = props => {
                 throw new Error('Billing address mutation failed');
             }
         } catch (err) {
-            console.error(err);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             setStepNumber(0);
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
@@ -499,7 +503,9 @@ export const useCreditCard = props => {
                 throw new Error('Credit card nonce save mutation failed.');
             }
         } catch (err) {
-            console.error(err);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             setStepNumber(0);
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
