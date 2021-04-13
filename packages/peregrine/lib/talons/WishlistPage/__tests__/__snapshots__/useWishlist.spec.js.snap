@@ -2,7 +2,6 @@
 
 exports[`returns correct shape 1`] = `
 Object {
-  "handleActionMenuClick": [Function],
   "handleContentToggle": [Function],
   "isOpen": true,
 }
