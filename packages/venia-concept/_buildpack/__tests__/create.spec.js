@@ -179,8 +179,9 @@ describe('when DEBUG_PROJECT_CREATION is set', () => {
     const old = process.env.DEBUG_PROJECT_CREATION;
     const mockWorkspaceResponse = JSON.stringify({
         foo: { location: '/repo/packages/me' },
-        '@magento/peregrine': { location: 'packages/peregrine' },
         '@magento/create-pwa': { location: 'packages/create-pwa' },
+        '@magento/pwa-buildpack': { location: 'packages/pwa-buildpack' },
+        '@magento/peregrine': { location: 'packages/peregrine' },
         '@magento/venia-ui': { location: 'packages/venia-ui' }
     });
 
@@ -212,6 +213,12 @@ describe('when DEBUG_PROJECT_CREATION is set', () => {
             }),
             [resolve(packagesRoot, 'peregrine/package.json')]: JSON.stringify({
                 name: '@magento/peregrine'
+            }),
+            [resolve(
+                packagesRoot,
+                'pwa-buildpack/package.json'
+            )]: JSON.stringify({
+                name: '@magento/pwa-buildpack'
             })
         });
     });
@@ -229,11 +236,14 @@ describe('when DEBUG_PROJECT_CREATION is set', () => {
             author: 'bar',
             npmClient: 'npm'
         });
-        expect(
-            fs.readJsonSync('/project/package.json').resolutions[
-                '@magento/peregrine'
-            ]
-        ).toMatch(/^file/);
+
+        const packageJSON = fs.readJsonSync('/project/package.json');
+
+        expect(packageJSON.dependencies['@magento/pwa-buildpack']).toMatch(
+            /^file/
+        );
+        expect(packageJSON.dependencies['@magento/create-pwa']).toBeUndefined();
+        expect(packageJSON.resolutions['@magento/peregrine']).toMatch(/^file/);
     });
 
     test('handles unexpected child process responses', async () => {
