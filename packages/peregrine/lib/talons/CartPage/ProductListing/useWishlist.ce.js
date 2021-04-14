@@ -4,7 +4,7 @@ export const useWishlist = props => {
     const {
         addProductToWishlist,
         removeProductFromWishlist,
-        removeItem,
+        removeItemFromCart,
         cartId,
         item,
         setDisplayError
@@ -30,7 +30,7 @@ export const useWishlist = props => {
             });
 
             try {
-                await removeItem({
+                await removeItemFromCart({
                     variables: {
                         cartId,
                         itemId: item.id
@@ -88,7 +88,7 @@ export const useWishlist = props => {
     }, [
         addProductToWishlist,
         removeProductFromWishlist,
-        removeItem,
+        removeItemFromCart,
         cartId,
         item,
         setDisplayError
