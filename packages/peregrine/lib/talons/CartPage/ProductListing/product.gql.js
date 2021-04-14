@@ -48,11 +48,11 @@ export const ADD_TO_WISHLIST = gql`
 export const REMOVE_FROM_WISHLIST = gql`
     mutation RemoveProductFromWishlist(
         $wishlistId: ID!
-        $wishlistItemsId: ID!
+        $wishlistItemId: ID!
     ) {
         removeProductsFromWishlist(
             wishlistId: $wishlistId
-            wishlistItemsIds: [$wishlistItemsId]
+            wishlistItemsIds: [$wishlistItemId]
         ) {
             wishlist {
                 id

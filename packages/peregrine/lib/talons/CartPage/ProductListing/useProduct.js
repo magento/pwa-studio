@@ -144,7 +144,6 @@ export const useProduct = props => {
                     }
                 }
             });
-            console.log(wishlistData);
 
             try {
                 await removeItem({
@@ -156,61 +155,47 @@ export const useProduct = props => {
             } catch (err) {
                 // remove item from cart has failed, should roll back the change
                 // by removing the item from the wishlist
-                console.log(wishlistData);
+                const selectedOptionsMapper = item.configurable_options.reduce(
+                    (acc, option) => {
+                        const { option_label, value_label } = option;
+                        acc[option_label] = value_label;
 
-                /**
-                 * sample wishlistData object
-                 * 
-                 * {
-  "addProductsToWishlist": {
-    "user_errors": [],
-    "wishlist": {
-      "id": "97",
-      "items": {
-        "items": [
-          {
-            "id": "242",
-            "configurable_options": [
-              {
-                "id": 179,
-                "value_id": 23,
-                "option_label": "Color",
-                "value_label": "Lily",
-                "__typename": "SelectedConfigurableOption"
-              },
-              {
-                "id": 182,
-                "value_id": 27,
-                "option_label": "Size",
-                "value_label": "M",
-                "__typename": "SelectedConfigurableOption"
-              }
-            ],
-            "__typename": "ConfigurableWishlistItem",
-            "product": {
-              "sku": "VD02",
-              "__typename": "ConfigurableProduct"
-            }
-          }
-        ],
-        "__typename": "WishlistItems"
-      },
-      "__typename": "Wishlist"
-    },
-    "__typename": "AddProductsToWishlistOutput"
-  }
-}
+                        return acc;
+                    },
+                    {}
+                );
 
-                 */
+                const {
+                    items: { items },
+                    id: wishlistId
+                } = wishlistData.addProductsToWishlist.wishlist;
+
+                const productToDelete = items
+                    .filter(({ product }) => product.sku === sku)
+                    .find(item => {
+                        const { configurable_options } = item;
+
+                        return (
+                            configurable_options.length &&
+                            configurable_options.every(option => {
+                                const { option_label, value_label } = option;
+
+                                return (
+                                    selectedOptionsMapper[option_label] ===
+                                    value_label
+                                );
+                            })
+                        );
+                    });
 
                 await removeProductFromWishlist({
                     variables: {
-                        wishlistId: '0',
-                        wishlistItemsIds: ''
+                        wishlistId: wishlistId,
+                        wishlistItemId: productToDelete.id
                     }
                 });
 
-                setDisplayError(true);
+                throw new Error(err);
             }
         } catch (err) {
             // Make sure any errors from the mutation are displayed.
