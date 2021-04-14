@@ -54,7 +54,9 @@ jest.mock('../../../hooks/usePagination', () => ({
         {
             setCurrentPage: jest
                 .fn()
-                .mockImplementation(() => mockSetCurrentPage()),
+                .mockImplementation((page, bool = false) =>
+                    mockSetCurrentPage(page, bool)
+                ),
             setTotalPages: jest.fn()
         }
     ])
