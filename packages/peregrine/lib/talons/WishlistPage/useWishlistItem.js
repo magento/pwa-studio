@@ -4,8 +4,8 @@ import { useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import mergeOperations from '../../util/shallowMerge';
-// TODO: Import the actual default operations once we have them co-located.
-const DEFAULT_OPERATIONS = {};
+
+import DEFAULT_OPERATIONS from './wishlistItem.gql';
 
 // Note: There is only ever zero (0) or one (1) dialogs open for a wishlist item.
 const dialogs = {
@@ -95,6 +95,9 @@ export const useWishlistItem = props => {
             setCurrentDialog(dialogs.NONE);
         } catch (e) {
             setRemoveProductFromWishlistError(e);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(e);
+            }
         }
     }, [
         removeProductsFromWishlist,
