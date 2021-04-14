@@ -168,7 +168,6 @@ test('preserve history when search term changes on Search Page', () => {
         tree.update(<Component {...mockProps} />);
     });
 
-    expect(mockSetCurrentPage).toHaveBeenCalledTimes(1);
     expect(mockSetCurrentPage).toHaveBeenCalledWith(1, true);
 });
 
