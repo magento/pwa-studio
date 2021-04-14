@@ -9,6 +9,15 @@ export const GET_CONFIGURABLE_THUMBNAIL_SOURCE = gql`
     }
 `;
 
+export const GET_MULTIPLE_WISHLISTS_ENABLED = gql`
+    query getMultipleWishlistsEnabled {
+        storeConfig {
+            id
+            enable_multiple_wishlists
+        }
+    }
+`;
+
 export const ADD_TO_WISHLIST = gql`
     mutation addProductToWishlist(
         $wishlistId: ID!
@@ -46,10 +55,7 @@ export const ADD_TO_WISHLIST = gql`
 `;
 
 export const REMOVE_FROM_WISHLIST = gql`
-    mutation RemoveProductFromWishlist(
-        $wishlistId: ID!
-        $wishlistItemId: ID!
-    ) {
+    mutation RemoveProductFromWishlist($wishlistId: ID!, $wishlistItemId: ID!) {
         removeProductsFromWishlist(
             wishlistId: $wishlistId
             wishlistItemsIds: [$wishlistItemId]
@@ -63,6 +69,7 @@ export const REMOVE_FROM_WISHLIST = gql`
 
 export default {
     addProductToWishlistMutation: ADD_TO_WISHLIST,
+    getMultipleWishlistsEnabledQuery: GET_MULTIPLE_WISHLISTS_ENABLED,
     getConfigurableThumbnailSource: GET_CONFIGURABLE_THUMBNAIL_SOURCE,
     removeProductFromWishlistMutation: REMOVE_FROM_WISHLIST
 };

@@ -33,7 +33,7 @@ const Product = props => {
         errorMessage,
         handleEditItem,
         handleRemoveFromCart,
-        handleToggleFavorites,
+        handleAddToWishlist,
         handleUpdateItemQuantity,
         isEditable,
         isFavorite,
@@ -143,7 +143,7 @@ const Product = props => {
                 >
                     <Section
                         text={favoriteActionSection}
-                        onClick={handleToggleFavorites}
+                        onClick={handleAddToWishlist}
                         icon="Heart"
                         isFilled={isFavorite}
                         classes={{

@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+
+import { useWishlist } from './useWishlist';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 import mergeOperations from '../../../util/shallowMerge';
@@ -57,7 +59,7 @@ export const useProduct = props => {
     const flatProduct = flattenProduct(item, configurableThumbnailSource);
 
     const [
-        removeItem,
+        removeItemFromCart,
         {
             called: removeItemCalled,
             error: removeItemError,
@@ -84,28 +86,23 @@ export const useProduct = props => {
         { error: removeProductFromWishlistError }
     ] = useMutation(removeProductFromWishlistMutation);
 
-    useEffect(() => {
-        if (updateItemCalled || removeItemCalled) {
-            // If a product mutation is in flight, tell the cart.
-            setIsCartUpdating(updateItemLoading || removeItemLoading);
-        }
-
-        // Reset updating state on unmount
-        return () => setIsCartUpdating(false);
-    }, [
-        removeItemCalled,
-        removeItemLoading,
-        setIsCartUpdating,
-        updateItemCalled,
-        updateItemLoading
-    ]);
-
     const [{ cartId }] = useCartContext();
 
     // Use local state to determine whether to display errors or not.
     // Could be replaced by a "reset mutation" function from apollo client.
     // https://github.com/apollographql/apollo-feature-requests/issues/170
     const [displayError, setDisplayError] = useState(false);
+
+    const wishlistTalonProps = useWishlist({
+        addProductToWishlist,
+        removeProductFromWishlist,
+        removeItemFromCart,
+        cartId,
+        item,
+        setDisplayError,
+        operations: props.operations
+    });
+    const { handleAddToWishlist } = wishlistTalonProps;
 
     const derivedErrorMessage = useMemo(() => {
         return (
@@ -126,89 +123,6 @@ export const useProduct = props => {
         updateError
     ]);
 
-    const handleToggleFavorites = useCallback(async () => {
-        const sku = item.product.sku;
-        const quantity = item.quantity;
-        const selected_options = item.configurable_options.map(
-            option => option.configurable_product_option_value_uid
-        );
-
-        try {
-            const { data: wishlistData } = await addProductToWishlist({
-                variables: {
-                    wishlistId: '0',
-                    itemOptions: {
-                        sku,
-                        quantity,
-                        selected_options
-                    }
-                }
-            });
-
-            try {
-                await removeItem({
-                    variables: {
-                        cartId,
-                        itemId: item.id
-                    }
-                });
-            } catch (err) {
-                // remove item from cart has failed, should roll back the change
-                // by removing the item from the wishlist
-                const selectedOptionsMapper = item.configurable_options.reduce(
-                    (acc, option) => {
-                        const { option_label, value_label } = option;
-                        acc[option_label] = value_label;
-
-                        return acc;
-                    },
-                    {}
-                );
-
-                const {
-                    items: { items },
-                    id: wishlistId
-                } = wishlistData.addProductsToWishlist.wishlist;
-
-                const productToDelete = items
-                    .filter(({ product }) => product.sku === sku)
-                    .find(item => {
-                        const { configurable_options } = item;
-
-                        return (
-                            configurable_options.length &&
-                            configurable_options.every(option => {
-                                const { option_label, value_label } = option;
-
-                                return (
-                                    selectedOptionsMapper[option_label] ===
-                                    value_label
-                                );
-                            })
-                        );
-                    });
-
-                await removeProductFromWishlist({
-                    variables: {
-                        wishlistId: wishlistId,
-                        wishlistItemId: productToDelete.id
-                    }
-                });
-
-                throw new Error(err);
-            }
-        } catch (err) {
-            // Make sure any errors from the mutation are displayed.
-            setDisplayError(true);
-        }
-    }, [
-        addProductToWishlist,
-        removeProductFromWishlist,
-        removeItem,
-        cartId,
-        item
-    ]);
-
     const handleEditItem = useCallback(() => {
         setActiveEditItem(item);
 
@@ -219,7 +133,7 @@ export const useProduct = props => {
 
     const handleRemoveFromCart = useCallback(async () => {
         try {
-            await removeItem({
+            await removeItemFromCart({
                 variables: {
                     cartId,
                     itemId: item.id
@@ -229,7 +143,7 @@ export const useProduct = props => {
             // Make sure any errors from the mutation are displayed.
             setDisplayError(true);
         }
-    }, [cartId, item.id, removeItem]);
+    }, [cartId, item.id, removeItemFromCart]);
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
@@ -249,11 +163,27 @@ export const useProduct = props => {
         [cartId, item.id, updateItemQuantity]
     );
 
+    useEffect(() => {
+        if (updateItemCalled || removeItemCalled) {
+            // If a product mutation is in flight, tell the cart.
+            setIsCartUpdating(updateItemLoading || removeItemLoading);
+        }
+
+        // Reset updating state on unmount
+        return () => setIsCartUpdating(false);
+    }, [
+        removeItemCalled,
+        removeItemLoading,
+        setIsCartUpdating,
+        updateItemCalled,
+        updateItemLoading
+    ]);
+
     return {
         errorMessage: derivedErrorMessage,
         handleEditItem,
         handleRemoveFromCart,
-        handleToggleFavorites,
+        handleAddToWishlist,
         handleUpdateItemQuantity,
         isEditable: !!flatProduct.options.length,
         product: flatProduct
