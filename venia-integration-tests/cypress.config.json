@@ -10,6 +10,7 @@
   "testFiles": "**/*.spec.js",
   "viewportHeight": 900,
   "viewportWidth": 1440,
+  "scrollBehavior": false,
   "ignoreTestFiles": [
     "**/__snapshots__/*",
     "**/__image_snapshots__/*"
@@ -17,6 +18,7 @@
   "env": {
     "cypress-plugin-snapshots": {
       "autoCleanUp": false,
+      "scrollBehavior": false,
       "autopassNewSnapshots": true,
       "diffLines": 3,
       "excludeFields": [],
