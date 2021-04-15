@@ -54,7 +54,9 @@ jest.mock('../../../hooks/usePagination', () => ({
         {
             setCurrentPage: jest
                 .fn()
-                .mockImplementation(() => mockSetCurrentPage()),
+                .mockImplementation((page, bool = false) =>
+                    mockSetCurrentPage(page, bool)
+                ),
             setTotalPages: jest.fn()
         }
     ])
@@ -151,6 +153,23 @@ test.each(testCases)(
         expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
     }
 );
+
+test('preserve history when search term changes on Search Page', () => {
+    mockUseSort.mockReturnValueOnce([
+        {
+            sortText: 'Best Match',
+            sortAttribute: 'Changed',
+            sortDirection: 'DESC'
+        },
+        jest.fn()
+    ]);
+    expect(mockSetCurrentPage).not.toHaveBeenCalledWith(1, true);
+    act(() => {
+        tree.update(<Component {...mockProps} />);
+    });
+
+    expect(mockSetCurrentPage).toHaveBeenCalledWith(1, true);
+});
 
 describe('searchCategory', () => {
     const log = jest.fn();
