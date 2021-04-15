@@ -34,7 +34,12 @@ import DEFAULT_OPERATIONS from './product.gql';
  */
 
 export const useProduct = props => {
-    const { item, setActiveEditItem, setIsCartUpdating } = props;
+    const {
+        item,
+        onAddToWishlistSuccess,
+        setActiveEditItem,
+        setIsCartUpdating
+    } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
@@ -95,7 +100,6 @@ export const useProduct = props => {
     // Could be replaced by a "reset mutation" function from apollo client.
     // https://github.com/apollographql/apollo-feature-requests/issues/170
     const [displayError, setDisplayError] = useState(false);
-
     const [showLoginToast, setShowLoginToast] = useState(0);
 
     const { formatMessage } = useIntl();
@@ -124,6 +128,7 @@ export const useProduct = props => {
         cartId,
         item,
         setDisplayError,
+        onAddToWishlistSuccess,
         operations: props.operations
     });
     const { handleAddToWishlist } = wishlistTalonProps;

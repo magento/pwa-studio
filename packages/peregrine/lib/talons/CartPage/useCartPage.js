@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -29,6 +29,7 @@ export const useCartPage = props => {
     const [{ cartId }] = useCartContext();
 
     const [isCartUpdating, setIsCartUpdating] = useState(false);
+    const [wishlistSuccessProps, setWishlistSuccessProps] = useState(null);
 
     const { called, data, loading } = useQuery(getCartDetails, {
         fetchPolicy: 'cache-and-network',
@@ -49,12 +50,18 @@ export const useCartPage = props => {
         return (data && data.cart.items) || [];
     }, [data]);
 
+    const onAddToWishlistSuccess = useCallback(successToastProps => {
+        setWishlistSuccessProps(successToastProps);
+    }, []);
+
     return {
         cartItems,
         hasItems,
         isCartUpdating,
+        onAddToWishlistSuccess,
         setIsCartUpdating,
-        shouldShowLoadingIndicator
+        shouldShowLoadingIndicator,
+        wishlistSuccessProps
     };
 };
 

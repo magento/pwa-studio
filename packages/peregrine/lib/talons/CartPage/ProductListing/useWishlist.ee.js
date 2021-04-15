@@ -1,5 +1,6 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
+import { useIntl } from 'react-intl';
 
 import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './product.gql';
@@ -11,11 +12,14 @@ export const useWishlist = props => {
         removeItemFromCart,
         cartId,
         item,
+        onAddToWishlistSuccess,
         setDisplayError
     } = props;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getMultipleWishlistsEnabledQuery } = operations;
+
+    const { formatMessage } = useIntl();
 
     const { data: storeConfigData } = useQuery(
         getMultipleWishlistsEnabledQuery,
@@ -58,6 +62,22 @@ export const useWishlist = props => {
                     }
                 }
             });
+
+            if (wishlistData) {
+                const { name } = wishlistData.addProductsToWishlist.wishlist;
+
+                onAddToWishlistSuccess({
+                    type: 'info',
+                    message: formatMessage(
+                        {
+                            id: 'cartPage.wishlist.ee.successMessage',
+                            defaultMessage: `Item successfully added to ${name}.`
+                        },
+                        { wishlistName: name }
+                    ),
+                    timeout: 5000
+                });
+            }
 
             try {
                 await removeItemFromCart({
@@ -118,10 +138,12 @@ export const useWishlist = props => {
     }, [
         addProductToWishlist,
         isMultipleWishlistsEnabled,
+        formatMessage,
         removeProductFromWishlist,
         removeItemFromCart,
         cartId,
         item,
+        onAddToWishlistSuccess,
         setDisplayError
     ]);
 

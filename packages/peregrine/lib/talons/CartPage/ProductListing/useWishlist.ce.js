@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useIntl } from 'react-intl';
 
 export const useWishlist = props => {
     const {
@@ -7,8 +8,11 @@ export const useWishlist = props => {
         removeItemFromCart,
         cartId,
         item,
+        onAddToWishlistSuccess,
         setDisplayError
     } = props;
+
+    const { formatMessage } = useIntl();
 
     const handleAddToWishlist = useCallback(async () => {
         const sku = item.product.sku;
@@ -28,6 +32,17 @@ export const useWishlist = props => {
                     }
                 }
             });
+
+            wishlistData &&
+                onAddToWishlistSuccess({
+                    type: 'info',
+                    message: formatMessage({
+                        id: 'cartPage.wishlist.ce.successMessage',
+                        defaultMessage:
+                            'Item successfully added to your favorites list.'
+                    }),
+                    timeout: 5000
+                });
 
             try {
                 await removeItemFromCart({
@@ -89,8 +104,10 @@ export const useWishlist = props => {
         addProductToWishlist,
         removeProductFromWishlist,
         removeItemFromCart,
+        formatMessage,
         cartId,
         item,
+        onAddToWishlistSuccess,
         setDisplayError
     ]);
 

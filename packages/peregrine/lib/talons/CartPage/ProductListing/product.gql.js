@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+import { WishlistFragment } from './wishlistFragment';
+
 export const GET_CONFIGURABLE_THUMBNAIL_SOURCE = gql`
     query getConfigurableThumbnailSource {
         storeConfig {
@@ -32,26 +34,11 @@ export const ADD_TO_WISHLIST = gql`
                 message
             }
             wishlist {
-                id
-                items: items_v2 {
-                    items {
-                        id
-                        ... on ConfigurableWishlistItem {
-                            configurable_options {
-                                id
-                                value_id
-                                option_label
-                                value_label
-                            }
-                        }
-                        product {
-                            sku
-                        }
-                    }
-                }
+                ...WishlistFragment
             }
         }
     }
+    ${WishlistFragment}
 `;
 
 export const REMOVE_FROM_WISHLIST = gql`
@@ -62,6 +49,7 @@ export const REMOVE_FROM_WISHLIST = gql`
         ) {
             wishlist {
                 id
+                name
             }
         }
     }
