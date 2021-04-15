@@ -85,6 +85,10 @@ export const useWishlist = props => {
                 }
             });
         } catch (err) {
+            // Make sure any errors from the mutation are displayed.
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             setDisplayError(true);
         }
     }, [
