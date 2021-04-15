@@ -13,5 +13,8 @@
         "test:headless": "cypress open --browser chrome --headless --config-file cypress.config.json",
         "test:run": "cypress run --browser chrome --config-file cypress.config.json",
         "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress open --browser chrome --config-file cypress.config.json"
+    },
+    "dependencies": {
+        "cypress-plugin-snapshots": "~1.4.4"
     }
 }
