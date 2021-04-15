@@ -1,6 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { Info } from 'react-feather';
 import { gql } from '@apollo/client';
+import { useToasts } from '@magento/peregrine';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import Price from '@magento/venia-ui/lib/components/Price';
@@ -11,13 +13,19 @@ import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Quantity from './quantity';
 import Section from '../../LegacyMiniCart/section';
 import Image from '../../Image';
+import Icon from '../../Icon';
 import defaultClasses from './product.css';
 import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
+
 const IMAGE_SIZE = 100;
+
+const InfoIcon = <Icon size={20} src={Info} />;
 
 const Product = props => {
     const { item, setActiveEditItem, setIsCartUpdating } = props;
+
+    const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
     const talonProps = useProduct({
         item,
@@ -33,10 +41,11 @@ const Product = props => {
         errorMessage,
         handleEditItem,
         handleRemoveFromCart,
-        handleAddToWishlist,
+        handleSaveForLater,
         handleUpdateItemQuantity,
         isEditable,
         isFavorite,
+        loginToastProps,
         product
     } = talonProps;
 
@@ -53,16 +62,6 @@ const Product = props => {
     } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const favoriteActionSection = isFavorite
-        ? formatMessage({
-              id: 'product.removeFromFavorites',
-              defaultMessage: 'Remove from favorites'
-          })
-        : formatMessage({
-              id: 'product.moveToFavorites',
-              defaultMessage: 'Move to favorites'
-          });
 
     const editItemSection = isEditable ? (
         <Section
@@ -90,6 +89,12 @@ const Product = props => {
                   defaultMessage: 'Out-of-stock'
               })
             : '';
+
+    useEffect(() => {
+        if (loginToastProps) {
+            addToast({ ...loginToastProps, icon: InfoIcon });
+        }
+    }, [addToast, loginToastProps]);
 
     return (
         <li className={classes.root}>
@@ -141,15 +146,6 @@ const Product = props => {
                     }}
                     disabled={true}
                 >
-                    <Section
-                        text={favoriteActionSection}
-                        onClick={handleAddToWishlist}
-                        icon="Heart"
-                        isFilled={isFavorite}
-                        classes={{
-                            text: classes.sectionText
-                        }}
-                    />
                     {editItemSection}
                     <Section
                         text={formatMessage({
@@ -158,6 +154,18 @@ const Product = props => {
                         })}
                         onClick={handleRemoveFromCart}
                         icon="Trash"
+                        classes={{
+                            text: classes.sectionText
+                        }}
+                    />
+                    <Section
+                        text={formatMessage({
+                            id: 'product.saveForLater',
+                            defaultMessage: 'Save for later'
+                        })}
+                        onClick={handleSaveForLater}
+                        icon="Heart"
+                        isFilled={isFavorite}
                         classes={{
                             text: classes.sectionText
                         }}

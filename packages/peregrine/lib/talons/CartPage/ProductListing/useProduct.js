@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+import { useIntl } from 'react-intl';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
 import { useWishlist } from './useWishlist';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
-import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 import mergeOperations from '../../../util/shallowMerge';
+
 import DEFAULT_OPERATIONS from './product.gql';
 
 /**
@@ -93,6 +96,27 @@ export const useProduct = props => {
     // https://github.com/apollographql/apollo-feature-requests/issues/170
     const [displayError, setDisplayError] = useState(false);
 
+    const [showLoginToast, setShowLoginToast] = useState(0);
+
+    const { formatMessage } = useIntl();
+    const [{ isSignedIn }] = useUserContext();
+
+    const loginToastProps = useMemo(() => {
+        if (showLoginToast) {
+            return {
+                type: 'info',
+                message: formatMessage({
+                    id: 'wishlist.galleryButton.loginMessage',
+                    defaultMessage:
+                        'Please sign-in to your Account to save items for later.'
+                }),
+                timeout: 5000
+            };
+        }
+
+        return null;
+    }, [formatMessage, showLoginToast]);
+
     const wishlistTalonProps = useWishlist({
         addProductToWishlist,
         removeProductFromWishlist,
@@ -103,6 +127,17 @@ export const useProduct = props => {
         operations: props.operations
     });
     const { handleAddToWishlist } = wishlistTalonProps;
+
+    const handleSaveForLater = useCallback(
+        async (...args) => {
+            if (!isSignedIn) {
+                setShowLoginToast(current => ++current);
+            } else {
+                await handleAddToWishlist(args);
+            }
+        },
+        [isSignedIn, handleAddToWishlist]
+    );
 
     const derivedErrorMessage = useMemo(() => {
         return (
@@ -183,9 +218,10 @@ export const useProduct = props => {
         errorMessage: derivedErrorMessage,
         handleEditItem,
         handleRemoveFromCart,
-        handleAddToWishlist,
+        handleSaveForLater,
         handleUpdateItemQuantity,
         isEditable: !!flatProduct.options.length,
+        loginToastProps,
         product: flatProduct
     };
 };
