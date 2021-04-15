@@ -41,23 +41,8 @@ export const ADD_TO_WISHLIST = gql`
     ${WishlistFragment}
 `;
 
-export const REMOVE_FROM_WISHLIST = gql`
-    mutation RemoveProductFromWishlist($wishlistId: ID!, $wishlistItemId: ID!) {
-        removeProductsFromWishlist(
-            wishlistId: $wishlistId
-            wishlistItemsIds: [$wishlistItemId]
-        ) {
-            wishlist {
-                id
-                name
-            }
-        }
-    }
-`;
-
 export default {
     addProductToWishlistMutation: ADD_TO_WISHLIST,
     getMultipleWishlistsEnabledQuery: GET_MULTIPLE_WISHLISTS_ENABLED,
-    getConfigurableThumbnailSource: GET_CONFIGURABLE_THUMBNAIL_SOURCE,
-    removeProductFromWishlistMutation: REMOVE_FROM_WISHLIST
+    getConfigurableThumbnailSource: GET_CONFIGURABLE_THUMBNAIL_SOURCE
 };

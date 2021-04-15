@@ -46,8 +46,7 @@ export const useProduct = props => {
         addProductToWishlistMutation,
         removeItemMutation,
         updateItemQuantityMutation,
-        getConfigurableThumbnailSource,
-        removeProductFromWishlistMutation
+        getConfigurableThumbnailSource
     } = operations;
 
     const { data: configurableThumbnailSourceData } = useQuery(
@@ -89,11 +88,6 @@ export const useProduct = props => {
         { error: addProductToWishlistError }
     ] = useMutation(addProductToWishlistMutation);
 
-    const [
-        removeProductFromWishlist,
-        { error: removeProductFromWishlistError }
-    ] = useMutation(removeProductFromWishlistMutation);
-
     const [{ cartId }] = useCartContext();
 
     // Use local state to determine whether to display errors or not.
@@ -123,7 +117,6 @@ export const useProduct = props => {
 
     const wishlistTalonProps = useWishlist({
         addProductToWishlist,
-        removeProductFromWishlist,
         removeItemFromCart,
         cartId,
         item,
@@ -150,18 +143,11 @@ export const useProduct = props => {
                 deriveErrorMessage([
                     updateError,
                     removeItemError,
-                    addProductToWishlistError,
-                    removeProductFromWishlistError
+                    addProductToWishlistError
                 ])) ||
             ''
         );
-    }, [
-        displayError,
-        addProductToWishlistError,
-        removeProductFromWishlistError,
-        removeItemError,
-        updateError
-    ]);
+    }, [displayError, addProductToWishlistError, removeItemError, updateError]);
 
     const handleEditItem = useCallback(() => {
         setActiveEditItem(item);
