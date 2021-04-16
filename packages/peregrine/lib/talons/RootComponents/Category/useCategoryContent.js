@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
 import { useAppContext } from '../../../context/app';
 
 import DEFAULT_OPERATIONS from './categoryContent.gql';
 import { useFilterState } from '../../FilterModal';
-import { getStateFromSearch } from '../../FilterModal/helpers';
 
 const DRAWER_NAME = 'filter';
 
@@ -28,12 +27,15 @@ export const useCategoryContent = props => {
     const { categoryId, data, pageSize = 6 } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getProductFiltersByCategoryQuery } = operations;
+
+    const {
+        getCategoryContentQuery,
+        getProductFiltersByCategoryQuery
+    } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
     const [loadFilters, setLoadFilters] = useState(false);
     const [showFiltersModal, setShowFiltersModal] = useState(false);
-    const [openFiltersFocus, setOpenFiltersFocus] = useState(false);
     const [filterState] = useFilterState();
     const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
     const prevDrawer = useRef(null);
@@ -41,10 +43,12 @@ export const useCategoryContent = props => {
     const handleLoadFilters = useCallback(() => {
         setLoadFilters(true);
     }, [setLoadFilters]);
+
     const handleOpenFilters = useCallback(() => {
         setShowFiltersModal(true);
         toggleDrawer(DRAWER_NAME);
     }, [setShowFiltersModal, toggleDrawer]);
+
     const handleCloseFilters = useCallback(() => {
         setShowFiltersModal(false);
         closeDrawer(DRAWER_NAME);
@@ -57,6 +61,15 @@ export const useCategoryContent = props => {
             nextFetchPolicy: 'cache-first'
         }
     );
+
+    const { data: categoryData } = useQuery(getCategoryContentQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !categoryId,
+        variables: {
+            id: categoryId
+        }
+    });
 
     useEffect(() => {
         if (categoryId) {
@@ -73,29 +86,18 @@ export const useCategoryContent = props => {
     // Focus for the button that opens filters should be set
     // when filters just applied and filters drawer just closed
     useEffect(() => {
-        const justClosed = prevDrawer.current === 'filter' && drawer === null;
-        console.log(justClosed, prevDrawer.current, drawer);
-        // on drawer close, update the modal visibility state
-        // if (justClosed) {
-        //     setOpenFiltersFocus(true);
-        // } else {
-        //     setOpenFiltersFocus(false);
-        // }
-        console.log(filterState, filterState.size);
         prevDrawer.current = drawer;
-    }, [
-        drawer,
-        // setOpenFiltersFocus,
-        filterState
-    ]);
+    }, [drawer, filterState]);
 
     const filters = filterData ? filterData.products.aggregations : null;
     const items = data ? data.products.items : placeholderItems;
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
         : null;
-    const categoryName = data ? data.category.name : null;
-    const categoryDescription = data ? data.category.description : null;
+    const categoryName = categoryData ? categoryData.category.name : null;
+    const categoryDescription = categoryData
+        ? categoryData.category.description
+        : null;
 
     return {
         categoryName,
@@ -107,7 +109,6 @@ export const useCategoryContent = props => {
         handleCloseFilters,
         items,
         loadFilters,
-        totalPagesFromData,
-        openFiltersFocus
+        totalPagesFromData
     };
 };

@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment, Suspense, useMemo } from 'react';
 import { array, number, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
@@ -13,11 +13,19 @@ import ProductSort from '../../components/ProductSort';
 import RichContent from '../../components/RichContent';
 import defaultClasses from './category.css';
 import NoProductsFound from './NoProductsFound';
+import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
 const CategoryContent = props => {
-    const { categoryId, data, pageControl, sortProps, pageSize } = props;
+    const {
+        categoryId,
+        data,
+        isLoading,
+        pageControl,
+        sortProps,
+        pageSize
+    } = props;
     const [currentSort] = sortProps;
 
     const talonProps = useCategoryContent({
@@ -35,8 +43,7 @@ const CategoryContent = props => {
         handleCloseFilters,
         showFiltersModal,
         items,
-        totalPagesFromData,
-        openFiltersFocus
+        totalPagesFromData
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -49,7 +56,6 @@ const CategoryContent = props => {
             onFocus={handleLoadFilters}
             onMouseOver={handleLoadFilters}
             type="button"
-            autoFocus={openFiltersFocus}
         >
             <FormattedMessage
                 id={'categoryContent.filter'}
@@ -93,18 +99,34 @@ const CategoryContent = props => {
         <RichContent html={categoryDescription} />
     ) : null;
 
-    const content = totalPagesFromData ? (
-        <Fragment>
-            <section className={classes.gallery}>
-                <Gallery items={items} />
-            </section>
-            <div className={classes.pagination}>
-                <Pagination pageControl={pageControl} />
-            </div>
-        </Fragment>
-    ) : (
-        <NoProductsFound categoryId={categoryId} />
-    );
+    const content = useMemo(() => {
+        if (totalPagesFromData) {
+            return (
+                <Fragment>
+                    <section className={classes.gallery}>
+                        <Gallery items={items} />
+                    </section>
+                    <div className={classes.pagination}>
+                        <Pagination pageControl={pageControl} />
+                    </div>
+                </Fragment>
+            );
+        } else {
+            if (isLoading) {
+                return fullPageLoadingIndicator;
+            } else {
+                return <NoProductsFound categoryId={categoryId} />;
+            }
+        }
+    }, [
+        categoryId,
+        classes.gallery,
+        classes.pagination,
+        isLoading,
+        items,
+        pageControl,
+        totalPagesFromData
+    ]);
 
     return (
         <Fragment>
@@ -112,7 +134,9 @@ const CategoryContent = props => {
             <StoreTitle>{categoryName}</StoreTitle>
             <article className={classes.root}>
                 <h1 className={classes.title}>
-                    <div className={classes.categoryTitle}>{categoryName}</div>
+                    <div className={classes.categoryTitle}>
+                        {categoryName || '...'}
+                    </div>
                 </h1>
                 {categoryDescriptionElement}
                 <div className={classes.headerButtons}>
