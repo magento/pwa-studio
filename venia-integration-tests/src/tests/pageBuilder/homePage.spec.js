@@ -28,7 +28,7 @@ context('Assert Venia Home Page pagebuilder content', () => {
             // cy.get('[class^="richContent-root-"]').eq(2).toMatchImageSnapshot('homepage3');
             // cy.get('[class^="richContent-root-"]').eq(3).toMatchImageSnapshot('homepage4');
             // cy.get('[class^="richContent-root-"]').eq(4).toMatchImageSnapshot('homepage5');
-            cy.get('[class^="category-headerButtons-"]').toMatchImageSnapshot('homepage6');
+            cy.document().toMatchImageSnapshot('homepage7');
         })
     })
 })
