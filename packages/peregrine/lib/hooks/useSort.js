@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 const defaultSort = {
     sortText: 'Best Match',
-    sortId: 'sortItem.relevance',
-    sortAttribute: 'relevance',
-    sortDirection: 'DESC'
+    sortId: 'sortItem.position',
+    sortAttribute: 'position',
+    sortDirection: 'ASC'
 };
 
 /**
