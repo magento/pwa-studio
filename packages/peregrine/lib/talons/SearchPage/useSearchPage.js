@@ -186,7 +186,7 @@ export const useSearchPage = (props = {}) => {
                 currentSort.sortDirection.toString()
         ) {
             // The search term changed.
-            setCurrentPage(1);
+            setCurrentPage(1, true);
             // And update the ref.
             previousSearch.current = search;
             previousSort.current = currentSort;

@@ -197,12 +197,10 @@ function setDebugDependencies(pkg) {
         );
     }
 
-    // Venia does not depend on these packages.
-    const packagesToSkip = new Set([
-        '@magento/create-pwa',
-        '@magento/upward-spec',
-        // Venia especially does not depend on itself.
-        '@magento/venia-concept'
+    // Packages not found in the template that must also be locally packed
+    const transitivePackages = new Set([
+        '@magento/pwa-buildpack',
+        '@magento/upward-js'
     ]);
 
     // We'll look for existing dependencies in all of the dep collections that
@@ -217,7 +215,11 @@ function setDebugDependencies(pkg) {
     // dependencies instead of going to the NPM registry and getting the old
     // versions of packages that haven't yet been released.
     for (const [name, packageDir] of packageDirs) {
-        if (packagesToSkip.has(name)) {
+        // skip packages not in the template that are also not transitive
+        if (
+            !depTypes.find(type => pkg[type].hasOwnProperty(name)) &&
+            !transitivePackages.has(name)
+        ) {
             continue;
         }
 
