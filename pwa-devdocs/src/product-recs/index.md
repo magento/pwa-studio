@@ -24,6 +24,10 @@ Product Recommendations support on PWA requires installing the `venia-product-re
    ```sh
    npm install @magento/venia-product-recommendations
    ```
+
+   {:.bs-callout-info}
+   The `venia-product-recommendations` package requires [PWA Studio 10.0.0](https://github.com/magento/pwa-studio/releases/) or later.
+
    This package contains storefront functionality to collect required behavioral data and render the recommendations.
    Some recommendation types use behavioral data from your shoppers to train machine learning models that build personalized recommendations.
    Other recommendation types use catalog data only and do not use any behavioral data.
