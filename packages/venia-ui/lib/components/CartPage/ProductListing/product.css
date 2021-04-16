@@ -11,6 +11,11 @@
     grid-template-columns: 100px 1fr min-content;
 }
 
+.item_disabled {
+    composes: item;
+    opacity: 0.5;
+}
+
 .errorText {
     color: rgb(var(--venia-global-color-error));
     line-height: var(--venia-global-lineHeight-300);

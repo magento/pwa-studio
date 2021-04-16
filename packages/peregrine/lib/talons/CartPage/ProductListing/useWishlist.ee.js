@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useIntl } from 'react-intl';
 
 import mergeOperations from '../../../util/shallowMerge';
@@ -7,7 +7,6 @@ import DEFAULT_OPERATIONS from './product.gql';
 
 export const useWishlist = props => {
     const {
-        addProductToWishlist,
         removeItemFromCart,
         cartId,
         item,
@@ -16,7 +15,10 @@ export const useWishlist = props => {
     } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getMultipleWishlistsEnabledQuery } = operations;
+    const {
+        getMultipleWishlistsEnabledQuery,
+        addProductToWishlistMutation
+    } = operations;
 
     const { formatMessage } = useIntl();
 
@@ -26,6 +28,10 @@ export const useWishlist = props => {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first'
         }
+    );
+
+    const [addProductToWishlist, { loading, called, error }] = useMutation(
+        addProductToWishlistMutation
     );
 
     const isMultipleWishlistsEnabled = useMemo(() => {
@@ -103,6 +109,9 @@ export const useWishlist = props => {
     ]);
 
     return {
-        handleAddToWishlist
+        handleAddToWishlist,
+        loading,
+        called,
+        error
     };
 };

@@ -52,7 +52,8 @@ const Product = props => {
         isEditable,
         isFavorite,
         loginToastProps,
-        product
+        product,
+        isProductUpdating
     } = talonProps;
 
     const {
@@ -68,6 +69,10 @@ const Product = props => {
     } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    const itemClassName = isProductUpdating
+        ? classes.item_disabled
+        : classes.item;
 
     const editItemSection = isEditable ? (
         <Section
@@ -105,7 +110,7 @@ const Product = props => {
     return (
         <li className={classes.root}>
             <span className={classes.errorText}>{errorMessage}</span>
-            <div className={classes.item}>
+            <div className={itemClassName}>
                 <Link to={itemLink} className={classes.imageContainer}>
                     <Image
                         alt={name}

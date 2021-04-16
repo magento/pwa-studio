@@ -43,7 +43,6 @@ export const useProduct = props => {
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
-        addProductToWishlistMutation,
         removeItemMutation,
         updateItemQuantityMutation,
         getConfigurableThumbnailSource
@@ -83,11 +82,6 @@ export const useProduct = props => {
         }
     ] = useMutation(updateItemQuantityMutation);
 
-    const [
-        addProductToWishlist,
-        { error: addProductToWishlistError }
-    ] = useMutation(addProductToWishlistMutation);
-
     const [{ cartId }] = useCartContext();
 
     // Use local state to determine whether to display errors or not.
@@ -116,7 +110,6 @@ export const useProduct = props => {
     }, [formatMessage, showLoginToast]);
 
     const wishlistTalonProps = useWishlist({
-        addProductToWishlist,
         removeItemFromCart,
         cartId,
         item,
@@ -124,7 +117,31 @@ export const useProduct = props => {
         onAddToWishlistSuccess,
         operations: props.operations
     });
-    const { handleAddToWishlist } = wishlistTalonProps;
+    const {
+        handleAddToWishlist,
+        loading: wishlistItemLoading,
+        error: addProductToWishlistError,
+        called: addProductToWishlistCalled
+    } = wishlistTalonProps;
+
+    const isProductUpdating = useMemo(() => {
+        if (
+            addProductToWishlistCalled ||
+            updateItemCalled ||
+            removeItemCalled
+        ) {
+            return (
+                wishlistItemLoading || removeItemLoading || updateItemLoading
+            );
+        }
+    }, [
+        addProductToWishlistCalled,
+        updateItemCalled,
+        removeItemCalled,
+        wishlistItemLoading,
+        removeItemLoading,
+        updateItemLoading
+    ]);
 
     const handleSaveForLater = useCallback(
         async (...args) => {
@@ -190,20 +207,11 @@ export const useProduct = props => {
     );
 
     useEffect(() => {
-        if (updateItemCalled || removeItemCalled) {
-            // If a product mutation is in flight, tell the cart.
-            setIsCartUpdating(updateItemLoading || removeItemLoading);
-        }
+        setIsCartUpdating(isProductUpdating);
 
         // Reset updating state on unmount
         return () => setIsCartUpdating(false);
-    }, [
-        removeItemCalled,
-        removeItemLoading,
-        setIsCartUpdating,
-        updateItemCalled,
-        updateItemLoading
-    ]);
+    }, [setIsCartUpdating, isProductUpdating]);
 
     return {
         errorMessage: derivedErrorMessage,
@@ -213,7 +221,8 @@ export const useProduct = props => {
         handleUpdateItemQuantity,
         isEditable: !!flatProduct.options.length,
         loginToastProps,
-        product: flatProduct
+        product: flatProduct,
+        isProductUpdating
     };
 };
 
