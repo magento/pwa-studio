@@ -9,7 +9,6 @@ import Pagination from '../../components/Pagination';
 import Gallery from '../Gallery';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import ProductSort from '../ProductSort';
-import Button from '../Button';
 import defaultClasses from './searchPage.css';
 import SortedByContainer from "../SortedByContainer";
 import FilterModalOpenButton from "../FilterModalOpenButton";
