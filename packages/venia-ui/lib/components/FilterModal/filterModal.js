@@ -91,6 +91,9 @@ const FilterModal = props => {
     // If you want to defer the loading of the FilterModal until user interaction
     // (hover, focus, click), simply add the talon's `loadFilters` prop as
     // part of the conditional here.
+    if (!isOpen) {
+        return null;
+    }
 
     return (
         <Portal>
