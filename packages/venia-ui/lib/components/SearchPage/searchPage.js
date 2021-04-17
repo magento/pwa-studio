@@ -11,6 +11,8 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import ProductSort from '../ProductSort';
 import Button from '../Button';
 import defaultClasses from './searchPage.css';
+import SortedByContainer from "../SortedByContainer";
+import FilterModalOpenButton from "../FilterModalOpenButton";
 
 const FilterModal = React.lazy(() => import('../FilterModal'));
 
@@ -24,7 +26,6 @@ const SearchPage = props => {
         error,
         filters,
         loading,
-        openDrawer,
         pageControl,
         searchCategory,
         searchTerm,
@@ -76,21 +77,9 @@ const SearchPage = props => {
     const totalCount = data.products.total_count || 0;
 
     const maybeFilterButtons =
-        filters && filters.length ? (
-            <Button
-                priority={'low'}
-                classes={{
-                    root_lowPriority: classes.filterButton
-                }}
-                onClick={openDrawer}
-                type="button"
-            >
-                <FormattedMessage
-                    id={'searchPage.filterButton'}
-                    defaultMessage={'Filter'}
-                />
-            </Button>
-        ) : null;
+        filters && filters.length ?
+            <FilterModalOpenButton filters={filters} />
+        : null;
 
     const maybeFilterModal =
         filters && filters.length ? <FilterModal filters={filters} /> : null;
@@ -99,20 +88,10 @@ const SearchPage = props => {
         <ProductSort sortProps={sortProps} />
     ) : null;
 
-    const maybeSortContainer = totalCount ? (
-        <span className={classes.sortContainer}>
-            <FormattedMessage
-                id={'searchPage.sortContainer'}
-                defaultMessage={'Items sorted by '}
-            />
-            <span className={classes.sortText}>
-                <FormattedMessage
-                    id={currentSort.sortId}
-                    defaultMessage={currentSort.sortText}
-                />
-            </span>
-        </span>
-    ) : null;
+    const maybeSortContainer = <SortedByContainer
+        shouldDisplay={!!totalCount}
+        currentSort={currentSort}
+    />;
 
     const searchResultsHeading = searchTerm ? (
         <FormattedMessage

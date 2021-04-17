@@ -7,8 +7,6 @@ import { useAppContext } from '../../../context/app';
 import DEFAULT_OPERATIONS from './categoryContent.gql';
 import { useFilterState } from '../../FilterModal';
 
-const DRAWER_NAME = 'filter';
-
 /**
  * Returns props necessary to render the categoryContent component.
  *
@@ -35,24 +33,10 @@ export const useCategoryContent = props => {
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
     const [loadFilters, setLoadFilters] = useState(false);
-    const [showFiltersModal, setShowFiltersModal] = useState(false);
-    const [filterState] = useFilterState();
-    const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
-    const prevDrawer = useRef(null);
 
     const handleLoadFilters = useCallback(() => {
         setLoadFilters(true);
     }, [setLoadFilters]);
-
-    const handleOpenFilters = useCallback(() => {
-        setShowFiltersModal(true);
-        toggleDrawer(DRAWER_NAME);
-    }, [setShowFiltersModal, toggleDrawer]);
-
-    const handleCloseFilters = useCallback(() => {
-        setShowFiltersModal(false);
-        closeDrawer(DRAWER_NAME);
-    }, [setShowFiltersModal, closeDrawer]);
 
     const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersByCategoryQuery,
@@ -83,12 +67,6 @@ export const useCategoryContent = props => {
         }
     }, [categoryId, getFilters]);
 
-    // Focus for the button that opens filters should be set
-    // when filters just applied and filters drawer just closed
-    useEffect(() => {
-        prevDrawer.current = drawer;
-    }, [drawer, filterState]);
-
     const filters = filterData ? filterData.products.aggregations : null;
     const items = data ? data.products.items : placeholderItems;
     const totalPagesFromData = data
@@ -103,10 +81,7 @@ export const useCategoryContent = props => {
         categoryName,
         categoryDescription,
         filters,
-        showFiltersModal,
         handleLoadFilters,
-        handleOpenFilters,
-        handleCloseFilters,
         items,
         loadFilters,
         totalPagesFromData

@@ -20,9 +20,9 @@ import defaultClasses from './filterModal.css';
  * @param {Object} props.filters - filters to display
  */
 const FilterModal = props => {
-    const { filters, handleCloseFilters } = props;
+    const { filters } = props;
     const { formatMessage } = useIntl();
-    const talonProps = useFilterModal({ filters, handleCloseFilters });
+    const talonProps = useFilterModal({ filters });
     const {
         filterApi,
         filterItems,
@@ -87,6 +87,10 @@ const FilterModal = props => {
             </LinkButton>
         </div>
     ) : null;
+
+    // If you want to defer the loading of the FilterModal until user interaction
+    // (hover, focus, click), simply add the talon's `loadFilters` prop as
+    // part of the conditional here.
 
     return (
         <Portal>

@@ -1,11 +1,9 @@
 import React, { Fragment, Suspense, useMemo } from 'react';
 import { array, number, shape, string } from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
 import { mergeClasses } from '../../classify';
 import Breadcrumbs from '../../components/Breadcrumbs';
-import Button from '../../components/Button';
 import Gallery from '../../components/Gallery';
 import { StoreTitle } from '../../components/Head';
 import Pagination from '../../components/Pagination';
@@ -14,6 +12,8 @@ import RichContent from '../../components/RichContent';
 import defaultClasses from './category.css';
 import NoProductsFound from './NoProductsFound';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import SortedByContainer from "../../components/SortedByContainer";
+import FilterModalOpenButton from "../../components/FilterModalOpenButton";
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
@@ -38,62 +38,31 @@ const CategoryContent = props => {
         categoryName,
         categoryDescription,
         filters,
-        handleLoadFilters,
-        handleOpenFilters,
-        handleCloseFilters,
-        showFiltersModal,
         items,
         totalPagesFromData
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const maybeFilterButtons = filters ? (
-        <Button
-            priority={'low'}
-            classes={{ root_lowPriority: classes.filterButton }}
-            onClick={handleOpenFilters}
-            onFocus={handleLoadFilters}
-            onMouseOver={handleLoadFilters}
-            type="button"
-        >
-            <FormattedMessage
-                id={'categoryContent.filter'}
-                defaultMessage={'Filter'}
-            />
-        </Button>
+    const maybeFilterButtons = filters && filters.length ? (
+        <FilterModalOpenButton filters={filters} />
     ) : null;
 
+    const filtersModal = filters && filters.length ? (
+        <FilterModal filters={filters} />
+    ) : null;
+
+    const filtersAndTotalPagesPresent = !!(totalPagesFromData && filters);
+
     const maybeSortButton =
-        totalPagesFromData && filters ? (
+        filtersAndTotalPagesPresent ? (
             <ProductSort sortProps={sortProps} />
         ) : null;
 
-    const maybeSortContainer =
-        totalPagesFromData && filters ? (
-            <div className={classes.sortContainer}>
-                <FormattedMessage
-                    id={'categoryContent.itemsSortedBy'}
-                    defaultMessage={'Items sorted by '}
-                />
-                <span className={classes.sortText}>
-                    <FormattedMessage
-                        id={currentSort.sortId}
-                        defaultMessage={currentSort.sortText}
-                    />
-                </span>
-            </div>
-        ) : null;
-
-    // If you want to defer the loading of the FilterModal until user interaction
-    // (hover, focus, click), simply add the talon's `loadFilters` prop as
-    // part of the conditional here.
-    const modal = showFiltersModal ? (
-        <FilterModal
-            filters={filters}
-            handleCloseFilters={handleCloseFilters}
-        />
-    ) : null;
+    const maybeSortContainer = <SortedByContainer
+        shouldDisplay={filtersAndTotalPagesPresent}
+        currentSort={currentSort}
+    />;
 
     const categoryDescriptionElement = categoryDescription ? (
         <RichContent html={categoryDescription} />
@@ -145,7 +114,7 @@ const CategoryContent = props => {
                 </div>
                 {maybeSortContainer}
                 {content}
-                <Suspense fallback={null}>{modal}</Suspense>
+                <Suspense fallback={null}>{filtersModal}</Suspense>
             </article>
         </Fragment>
     );
