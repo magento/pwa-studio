@@ -47,12 +47,13 @@ export const useRegion = props => {
         }
     }, [country, regionInputFieldApi, regionSelectFieldApi]);
 
-    const { data, error, loading } = useQuery(getRegionsQuery, {
-        variables: { countryCode: country }
+    const { data, loading } = useQuery(getRegionsQuery, {
+        variables: { countryCode: country },
+        skip: !country
     });
 
     let formattedRegionsData = [{ label: 'Loading Regions...', value: '' }];
-    if (!loading && !error) {
+    if (data) {
         const { country } = data;
         const { available_regions: availableRegions } = country;
         if (availableRegions) {

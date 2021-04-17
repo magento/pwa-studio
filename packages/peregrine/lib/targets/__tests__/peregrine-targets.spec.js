@@ -206,6 +206,7 @@ test('exposes all hooks and targets', async () => {
           talons.Wishlist.WishlistButton.useWishlistButton.ee.wrapWith() wraps export "useWishlistButton.ee" from "Wishlist/WishlistButton/useWishlistButton.ee.js"
           talons.Wishlist.WishlistDialog.CreateWishlistForm.useCreateWishlistForm.wrapWith() wraps export "useCreateWishlistForm" from "Wishlist/WishlistDialog/CreateWishlistForm/useCreateWishlistForm.js"
           talons.Wishlist.WishlistDialog.useWishlistDialog.wrapWith() wraps export "useWishlistDialog" from "Wishlist/WishlistDialog/useWishlistDialog.js"
+          talons.WishlistPage.useActionMenu.wrapWith() wraps export "useActionMenu" from "WishlistPage/useActionMenu.js"
           talons.WishlistPage.useCreateWishlist.wrapWith() wraps export "useCreateWishlist" from "WishlistPage/useCreateWishlist.js"
           talons.WishlistPage.useWishlist.wrapWith() wraps export "useWishlist" from "WishlistPage/useWishlist.js"
           talons.WishlistPage.useWishlistItem.wrapWith() wraps export "useWishlistItem" from "WishlistPage/useWishlistItem.js"

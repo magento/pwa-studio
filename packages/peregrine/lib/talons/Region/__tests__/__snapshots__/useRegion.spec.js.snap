@@ -66,3 +66,15 @@ Object {
   ],
 }
 `;
+
+exports[`should return loading state if data is not available 1`] = `
+Object {
+  "loading": false,
+  "regions": Array [
+    Object {
+      "label": "Loading Regions...",
+      "value": "",
+    },
+  ],
+}
+`;
