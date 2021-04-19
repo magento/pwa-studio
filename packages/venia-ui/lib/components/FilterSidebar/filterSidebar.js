@@ -1,6 +1,6 @@
 import React, { useMemo, Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { array, arrayOf, shape, string } from 'prop-types';
+import { array, arrayOf, shape, string, number } from 'prop-types';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
 
 import { mergeClasses } from '../../classify';
@@ -9,7 +9,7 @@ import CurrentFilters from '../FilterModal/CurrentFilters';
 import FilterBlock from '../FilterModal/filterBlock';
 import defaultClasses from './filterSidebar.css';
 
-const FILTERS_OPEN_COUNT = 3;
+const DEFAULT_FILTERS_OPEN_COUNT = 3;
 
 /**
  * A view that displays applicable and applied filters.
@@ -17,7 +17,7 @@ const FILTERS_OPEN_COUNT = 3;
  * @param {Object} props.filters - filters to display
  */
 const FilterSidebar = props => {
-    const { filters } = props;
+    const { filters, filtersOpen } = props;
     const talonProps = useFilterModal({ filters });
     const {
         filterApi,
@@ -29,6 +29,7 @@ const FilterSidebar = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const filtersToOpen = typeof filtersOpen === 'number' ? filtersOpen : DEFAULT_FILTERS_OPEN_COUNT;
 
     const filtersList = useMemo(
         () =>
@@ -45,11 +46,11 @@ const FilterSidebar = props => {
                         items={items}
                         name={groupName}
                         handleApply={handleApply}
-                        initialOpen={iteration < FILTERS_OPEN_COUNT}
+                        initialOpen={iteration < filtersToOpen}
                     />
                 );
             }),
-        [filterApi, filterItems, filterNames, filterState]
+        [filterApi, filterItems, filterNames, filterState, filtersToOpen]
     );
 
     const clearAll = filterState.size ? (
@@ -81,6 +82,10 @@ const FilterSidebar = props => {
     );
 };
 
+FilterSidebar.defaultProps = {
+    filtersOpen: null
+};
+
 FilterSidebar.propTypes = {
     classes: shape({
         action: string,
@@ -96,7 +101,8 @@ FilterSidebar.propTypes = {
             attribute_code: string,
             items: array
         })
-    )
+    ),
+    filtersOpen: number
 };
 
 export default FilterSidebar;
