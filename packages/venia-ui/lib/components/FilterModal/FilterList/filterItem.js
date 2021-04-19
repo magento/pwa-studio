@@ -5,7 +5,7 @@ import setValidator from '@magento/peregrine/lib/validators/set';
 import FilterDefault from './filterDefault';
 
 const FilterItem = props => {
-    const { filterApi, filterState, group, item } = props;
+    const { filterApi, filterState, group, item, handleApply } = props;
     const { toggleItem } = filterApi;
     const { title, value } = item;
     const isSelected = filterState && filterState.has(item);
@@ -21,6 +21,10 @@ const FilterItem = props => {
 
     const handleClick = useCallback(() => {
         toggleItem({ group, item });
+
+        if (typeof handleApply === 'function') {
+            handleApply(group, item);
+        }
     }, [group, item, toggleItem]);
 
     return (
@@ -34,7 +38,9 @@ const FilterItem = props => {
     );
 };
 
-export default FilterItem;
+FilterItem.defaultProps = {
+    handleApply: null
+};
 
 FilterItem.propTypes = {
     filterApi: shape({
@@ -45,5 +51,8 @@ FilterItem.propTypes = {
     item: shape({
         title: string.isRequired,
         value: oneOfType([number, string]).isRequired
-    }).isRequired
+    }).isRequired,
+    handleApply: func
 };
+
+export default FilterItem;

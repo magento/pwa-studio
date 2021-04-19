@@ -1,0 +1,37 @@
+.root {
+    --stroke: var(--venia-global-color-border);
+    background-color: white;
+    bottom: 0;
+    display: none;
+    grid-template-rows: 1fr 7rem;
+    max-width: 360px;
+    width: 100%;
+    z-index: 3;
+}
+
+.body {
+    overflow: auto;
+}
+
+.action {
+    padding: 1rem 1.25rem 0;
+}
+
+.action button {
+    font-size: var(--venia-typography-body-S-fontSize);
+    text-decoration: none;
+}
+
+.blocks {
+    padding: 1rem 1.25rem 0;
+}
+
+.blocks > li:last-child {
+    border-bottom: 2px solid rgb(var(--stroke));
+}
+
+@media (min-width: 1024px) {
+    .root {
+        display: grid;
+    }
+}

@@ -37,3 +37,17 @@
     composes: root_lowPriority from '../../components/Button/button.css';
     min-width: 6.25rem;
 }
+
+.desktopText {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .desktopText {
+        display: inline;
+    }
+
+    .mobileText {
+        display: none;
+    }
+}

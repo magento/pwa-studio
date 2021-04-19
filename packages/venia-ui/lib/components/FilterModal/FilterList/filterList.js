@@ -1,15 +1,16 @@
 import React, { Fragment, useMemo } from 'react';
-import { array, shape, string } from 'prop-types';
+import { array, shape, string, func } from 'prop-types';
 import setValidator from '@magento/peregrine/lib/validators/set';
 
 import { mergeClasses } from '../../../classify';
 import FilterItem from './filterItem';
 import defaultClasses from './filterList.css';
+import FilterBlock from "../filterBlock";
 
 const labels = new WeakMap();
 
 const FilterList = props => {
-    const { filterApi, filterState, group, items } = props;
+    const { filterApi, filterState, group, items, handleApply } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     // memoize item creation
@@ -28,6 +29,7 @@ const FilterList = props => {
                             filterState={filterState}
                             group={group}
                             item={item}
+                            handleApply={handleApply}
                         />
                     </li>
                 );
@@ -48,6 +50,10 @@ const FilterList = props => {
     );
 };
 
+FilterList.defaultProps = {
+    handleApply: null
+};
+
 FilterList.propTypes = {
     classes: shape({
         item: string,
@@ -56,7 +62,8 @@ FilterList.propTypes = {
     filterApi: shape({}),
     filterState: setValidator,
     group: string,
-    items: array
+    items: array,
+    handleApply: func
 };
 
 export default FilterList;

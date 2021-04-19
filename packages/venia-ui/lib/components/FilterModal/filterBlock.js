@@ -1,5 +1,5 @@
-import React from 'react';
-import { arrayOf, shape, string } from 'prop-types';
+import React, { useMemo } from 'react';
+import { arrayOf, shape, string, func, bool } from 'prop-types';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import { Form } from 'informed';
 import { useFilterBlock } from '@magento/peregrine/lib/talons/FilterModal';
@@ -11,8 +11,13 @@ import FilterList from './FilterList';
 import defaultClasses from './filterBlock.css';
 
 const FilterBlock = props => {
-    const { filterApi, filterState, group, items, name } = props;
-    const talonProps = useFilterBlock();
+    const { filterApi, filterState, group, items, name, handleApply, initialOpen } = props;
+    const hasSelected = useMemo(() => {
+        return items.some((item) => {
+            return filterState && filterState.has(item);
+        });
+    }, [filterState, items]);
+    const talonProps = useFilterBlock(hasSelected, initialOpen);
     const { handleClick, isExpanded } = talonProps;
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -38,13 +43,17 @@ const FilterBlock = props => {
                     filterState={filterState}
                     group={group}
                     items={items}
+                    handleApply={handleApply}
                 />
             </Form>
         </li>
     );
 };
 
-export default FilterBlock;
+FilterBlock.defaultProps = {
+    handleApply: null,
+    initialOpen: false
+};
 
 FilterBlock.propTypes = {
     classes: shape({
@@ -59,5 +68,9 @@ FilterBlock.propTypes = {
     filterState: setValidator,
     group: string.isRequired,
     items: arrayOf(shape({})),
-    name: string.isRequired
+    name: string.isRequired,
+    handleApply: func,
+    initialOpen: bool
 };
+
+export default FilterBlock;

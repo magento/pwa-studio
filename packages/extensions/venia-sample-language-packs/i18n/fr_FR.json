@@ -280,6 +280,7 @@
     "productListing.loading": "Récupération du panier ...",
     "productOptions.selectedLabel": "Choisie {label}:",
     "productQuantity.label": "quantité de produit",
+    "productSort.sortByButton": "Trier par",
     "productSort.sortButton": "Trier",
     "postcode.label": "ZIP / Code Postal",
     "quantity.buttonDecrement": "Diminuer la quantité",

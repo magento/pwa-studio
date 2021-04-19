@@ -140,6 +140,12 @@ export const useFilterModal = props => {
         prevDrawer.current = drawer;
     }, [drawer, filterApi, filterItems, filterKeys, search]);
 
+    useEffect(() => {
+        const nextState = getStateFromSearch(search, filterKeys, filterItems);
+
+        filterApi.setItems(nextState);
+    }, [filterApi, filterItems, filterKeys, search]);
+
     const handleApply = useCallback(() => {
         setIsApplying(true);
         closeDrawer();

@@ -305,6 +305,7 @@
     "productListing.loading": "Fetching Cart...",
     "productOptions.selectedLabel": "Selected {label}:",
     "productQuantity.label": "product's quantity",
+    "productSort.sortByButton": "Sort by",
     "productSort.sortButton": "Sort",
     "quantity.buttonDecrement": "Decrease Quantity",
     "quantity.buttonIncrement": "Increase Quantity",

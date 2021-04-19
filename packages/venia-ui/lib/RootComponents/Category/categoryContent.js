@@ -15,6 +15,7 @@ import defaultClasses from './category.css';
 import NoProductsFound from './NoProductsFound';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
+const FilterSidebar = React.lazy(() => import('../../components/FilterSidebar'));
 
 const CategoryContent = props => {
     const { categoryId, data, pageControl, sortProps, pageSize } = props;
@@ -30,7 +31,6 @@ const CategoryContent = props => {
         categoryName,
         categoryDescription,
         filters,
-        handleLoadFilters,
         handleOpenFilters,
         items,
         totalPagesFromData
@@ -43,8 +43,6 @@ const CategoryContent = props => {
             priority={'low'}
             classes={{ root_lowPriority: classes.filterButton }}
             onClick={handleOpenFilters}
-            onFocus={handleLoadFilters}
-            onMouseOver={handleLoadFilters}
             type="button"
         >
             <FormattedMessage
@@ -79,6 +77,7 @@ const CategoryContent = props => {
     // (hover, focus, click), simply add the talon's `loadFilters` prop as
     // part of the conditional here.
     const modal = filters ? <FilterModal filters={filters} /> : null;
+    const sidebar = filters ? <FilterSidebar filters={filters} /> : null;
 
     const categoryDescriptionElement = categoryDescription ? (
         <RichContent html={categoryDescription} />
@@ -102,17 +101,26 @@ const CategoryContent = props => {
             <Breadcrumbs categoryId={categoryId} />
             <StoreTitle>{categoryName}</StoreTitle>
             <article className={classes.root}>
-                <h1 className={classes.title}>
-                    <div className={classes.categoryTitle}>{categoryName}</div>
-                </h1>
-                {categoryDescriptionElement}
-                <div className={classes.headerButtons}>
-                    {maybeFilterButtons}
-                    {maybeSortButton}
+                <div className={classes.categoryHeader}>
+                    <h1 className={classes.title}>
+                        <div className={classes.categoryTitle}>{categoryName}</div>
+                    </h1>
+                    {categoryDescriptionElement}
                 </div>
-                {maybeSortContainer}
-                {content}
-                <Suspense fallback={null}>{modal}</Suspense>
+                <div className={classes.sidebar}>
+                    <Suspense fallback={null}>{sidebar}</Suspense>
+                </div>
+                <div className={classes.categoryContent}>
+                    <div className={classes.headerButtons}>
+                        {maybeFilterButtons}
+                        {maybeSortButton}
+                    </div>
+                    {maybeSortContainer}
+                    <div className={classes.content}>
+                        {content}
+                    </div>
+                    <Suspense fallback={null}>{modal}</Suspense>
+                </div>
             </article>
         </Fragment>
     );

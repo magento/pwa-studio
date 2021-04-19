@@ -8,6 +8,8 @@ import SortItem from './sortItem';
 import defaultClasses from './productSort.css';
 import Button from '../Button';
 
+const formatSelectValue = (sortMethod) => (`${sortMethod.attribute}--${sortMethod.sortDirection}`);
+
 const ProductSort = props => {
     const classes = mergeClasses(defaultClasses);
     const { availableSortMethods, sortProps } = props;
@@ -81,10 +83,19 @@ const ProductSort = props => {
                 }}
                 onClick={handleSortClick}
             >
-                <FormattedMessage
-                    id={'productSort.sortButton'}
-                    defaultMessage={'Sort'}
-                />
+                <span className={classes.mobileText}>
+                    <FormattedMessage
+                        id={'productSort.sortButton'}
+                        defaultMessage={'Sort'}
+                    />
+                </span>
+                <span className={classes.desktopText}>
+                    <FormattedMessage
+                        id={'productSort.sortByButton'}
+                        defaultMessage={'Sort by'}
+                    />
+                    {` ${currentSort.sortText}`}
+                </span>
             </Button>
             {sortElements}
         </div>

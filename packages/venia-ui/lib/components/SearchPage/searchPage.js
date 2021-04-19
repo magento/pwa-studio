@@ -13,6 +13,7 @@ import Button from '../Button';
 import defaultClasses from './searchPage.css';
 
 const FilterModal = React.lazy(() => import('../FilterModal'));
+const FilterSidebar = React.lazy(() => import('../FilterSidebar'));
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -94,6 +95,7 @@ const SearchPage = props => {
 
     const maybeFilterModal =
         filters && filters.length ? <FilterModal filters={filters} /> : null;
+    const maybeSidebar = filters && filters.length ? <FilterSidebar filters={filters} /> : null;
 
     const maybeSortButton = totalCount ? (
         <ProductSort sortProps={sortProps} />
@@ -135,25 +137,32 @@ const SearchPage = props => {
 
     return (
         <article className={classes.root}>
-            <div className={classes.categoryTop}>
-                <span className={classes.totalPages}>
-                    {formatMessage(
-                        {
-                            id: 'searchPage.totalPages',
-                            defaultMessage: `items`
-                        },
-                        { totalCount }
-                    )}
-                </span>
-                <div className={classes.headerButtons}>
-                    {maybeFilterButtons}
-                    {maybeSortButton}
-                </div>
-                {maybeSortContainer}
+            <div className={classes.sidebar}>
+                <Suspense fallback={null}>{maybeSidebar}</Suspense>
             </div>
-            <div className={classes.heading}>{searchResultsHeading}</div>
-            {content}
-            <Suspense fallback={null}>{maybeFilterModal}</Suspense>
+            <div class={classes.categoryContent}>
+                <div className={classes.heading}>
+                    <div className={classes.searchInfo}>
+                        {searchResultsHeading}
+                        <span className={classes.totalPages}>
+                            {formatMessage(
+                                {
+                                    id: 'searchPage.totalPages',
+                                    defaultMessage: `items`
+                                },
+                                { totalCount }
+                            )}
+                        </span>
+                    </div>
+                    <div className={classes.headerButtons}>
+                        {maybeFilterButtons}
+                        {maybeSortButton}
+                    </div>
+                    {maybeSortContainer}
+                </div>
+                {content}
+                <Suspense fallback={null}>{maybeFilterModal}</Suspense>
+            </div>
         </article>
     );
 };

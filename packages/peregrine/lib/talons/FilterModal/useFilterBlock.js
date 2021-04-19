@@ -1,7 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
-export const useFilterBlock = () => {
-    const [isExpanded, setExpanded] = useState(false);
+export const useFilterBlock = (hasSelectedElements = false, initiallyOpen = false) => {
+    const [isExpanded, setExpanded] = useState(hasSelectedElements || initiallyOpen);
+
+    useEffect(() => {
+        setExpanded(hasSelectedElements || initiallyOpen);
+    }, [hasSelectedElements, initiallyOpen]);
 
     const handleClick = useCallback(() => {
         setExpanded(value => !value);
