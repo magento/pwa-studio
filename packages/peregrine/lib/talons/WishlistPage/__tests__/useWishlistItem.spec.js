@@ -104,7 +104,7 @@ test('handleRemoveProductFromWishlist callback fires mutation', () => {
     expect(mockMutate).toHaveBeenCalled();
 });
 
-test('handleRemoveProductFromWishlist callback error fires mutation', async () => {
+test('handleRemoveProductFromWishlist callback logs error if the mutation fails', async () => {
     const consoleErrorSpy = jest.spyOn(console, 'error');
     const error = new Error('Error.');
     const mockMutate = jest.fn(() => {
