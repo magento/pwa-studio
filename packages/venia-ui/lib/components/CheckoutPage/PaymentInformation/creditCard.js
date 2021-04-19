@@ -266,6 +266,9 @@ const CreditCard = props => {
                         classes={fieldClasses.region}
                         initialValue={initialValues.region}
                         validate={isFieldRequired}
+                        fieldInput={'region[region]'}
+                        fieldSelect={'region[region_id]'}
+                        optionValueKey={'id'}
                     />
                     <Postcode
                         classes={fieldClasses.postal_code}

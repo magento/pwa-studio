@@ -36,7 +36,8 @@ export const mapAddressData = rawAddressData => {
             street1: street[0],
             street2: street[1],
             country: country.code,
-            region: region.code
+            // region_id is used for field select and region is used for field input
+            region: region.region_id || region.region
         };
     } else {
         return {};
@@ -256,7 +257,8 @@ export const useCreditCard = props => {
                 street1,
                 street2,
                 city,
-                region,
+                // region_id is used for field select and region is used for field input
+                region: region.region_id || region.region,
                 postcode,
                 phoneNumber,
                 sameAsShipping: false
