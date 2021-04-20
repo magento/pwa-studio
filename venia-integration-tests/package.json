@@ -5,7 +5,8 @@
     "author": "Magento Commerce",
     "license": "MIT",
     "devDependencies": {
-        "cypress": "~6.8.0"
+        "cypress": "~7.1.0",
+        "cypress-plugin-snapshots": "~1.4.4"
     },
     "scripts": {
         "test": "cypress open --browser chrome --config-file cypress.config.json",
@@ -13,8 +14,5 @@
         "test:headless": "cypress open --browser chrome --headless --config-file cypress.config.json",
         "test:run": "cypress run --browser chrome --config-file cypress.config.json",
         "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress open --browser chrome --config-file cypress.config.json"
-    },
-    "dependencies": {
-        "cypress-plugin-snapshots": "~1.4.4"
     }
 }
