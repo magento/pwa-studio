@@ -7,9 +7,7 @@ context('Assert Venia Home Page pagebuilder content', () => {
 
             cy.wait(3000);
 
-            cy.captureFullPageSnapshot(
-                'should render page builder content correctly'
-            );
+            cy.captureFullPageScreenshot();
         });
     });
 });
