@@ -30,19 +30,28 @@ const FilterSidebar = props => {
 
     const filterRef = useRef();
     const classes = mergeClasses(defaultClasses, props.classes);
-    const filtersToOpen = typeof filtersOpen === 'number' ? filtersOpen : DEFAULT_FILTERS_OPEN_COUNT;
+    const filtersToOpen =
+        typeof filtersOpen === 'number'
+            ? filtersOpen
+            : DEFAULT_FILTERS_OPEN_COUNT;
 
-    const handleApplyFilter = useCallback((...args) => {
-        const filterElement = filterRef.current;
-        if (filterElement && typeof filterElement.getBoundingClientRect === 'function') {
-            const filterTop = filterElement.getBoundingClientRect().top;
-            const offset = 150;
-            const windowScrollY = window.scrollY + filterTop - offset;
-            window.scrollTo(0, windowScrollY);
-        }
+    const handleApplyFilter = useCallback(
+        (...args) => {
+            const filterElement = filterRef.current;
+            if (
+                filterElement &&
+                typeof filterElement.getBoundingClientRect === 'function'
+            ) {
+                const filterTop = filterElement.getBoundingClientRect().top;
+                const offset = 150;
+                const windowScrollY = window.scrollY + filterTop - offset;
+                window.scrollTo(0, windowScrollY);
+            }
 
-        handleApply(...args);
-    }, [handleApply, filterRef]);
+            handleApply(...args);
+        },
+        [handleApply, filterRef]
+    );
 
     const filtersList = useMemo(
         () =>
@@ -63,7 +72,14 @@ const FilterSidebar = props => {
                     />
                 );
             }),
-        [filterApi, filterItems, filterNames, filterState, filtersToOpen]
+        [
+            filterApi,
+            filterItems,
+            filterNames,
+            filterState,
+            filtersToOpen,
+            handleApplyFilter
+        ]
     );
 
     const clearAll = filterState.size ? (

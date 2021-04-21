@@ -20,7 +20,8 @@ exports[`renders correctly 1`] = `
             defaultMessage="Sort by"
             id="productSort.sortByButton"
           />
-           
+           
+          
         </span>
         <span>
           <svg

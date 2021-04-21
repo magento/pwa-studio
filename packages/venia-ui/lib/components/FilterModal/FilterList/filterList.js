@@ -12,11 +12,19 @@ const labels = new WeakMap();
 const DEFAULT_SHOW_ITEMS_COUNT = 5;
 
 const FilterList = props => {
-    const { filterApi, filterState, group, items, handleApply, showItems } = props;
+    const {
+        filterApi,
+        filterState,
+        group,
+        items,
+        handleApply,
+        showItems
+    } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = useFilterList();
     const { isExpanded, handleClick } = talonProps;
-    const showItemsCount = typeof showItems === 'number' ? showItems : DEFAULT_SHOW_ITEMS_COUNT;
+    const showItemsCount =
+        typeof showItems === 'number' ? showItems : DEFAULT_SHOW_ITEMS_COUNT;
     const { formatMessage } = useIntl();
 
     // memoize item creation
@@ -26,7 +34,10 @@ const FilterList = props => {
             items.map((item, index) => {
                 const { title, value } = item;
                 const key = `item-${group}-${value}`;
-                const itemClass = isExpanded || index < showItemsCount ? classes.item : classes.itemHidden;
+                const itemClass =
+                    isExpanded || index < showItemsCount
+                        ? classes.item
+                        : classes.itemHidden;
 
                 // create an element for each item
                 const element = (
@@ -47,7 +58,16 @@ const FilterList = props => {
 
                 return element;
             }),
-        [classes, filterApi, filterState, group, items, isExpanded, showItemsCount]
+        [
+            classes,
+            filterApi,
+            filterState,
+            group,
+            items,
+            isExpanded,
+            showItemsCount,
+            handleApply
+        ]
     );
 
     const showMoreLessItem = useMemo(() => {
@@ -56,8 +76,14 @@ const FilterList = props => {
         }
 
         const label = isExpanded
-            ? formatMessage({ id: 'filterList.showLess', defaultMessage: 'Show Less' })
-            : formatMessage({ id: 'filterList.showMore', defaultMessage: 'Show More' });
+            ? formatMessage({
+                  id: 'filterList.showLess',
+                  defaultMessage: 'Show Less'
+              })
+            : formatMessage({
+                  id: 'filterList.showMore',
+                  defaultMessage: 'Show More'
+              });
 
         return (
             <li className={classes.showMoreLessItem}>
@@ -69,11 +95,21 @@ const FilterList = props => {
                 </button>
             </li>
         );
-    }, [isExpanded, handleClick, items, showItemsCount, formatMessage]);
+    }, [
+        isExpanded,
+        handleClick,
+        items,
+        showItemsCount,
+        formatMessage,
+        classes
+    ]);
 
     return (
         <Fragment>
-            <ul className={classes.items}>{itemElements}{showMoreLessItem}</ul>
+            <ul className={classes.items}>
+                {itemElements}
+                {showMoreLessItem}
+            </ul>
         </Fragment>
     );
 };

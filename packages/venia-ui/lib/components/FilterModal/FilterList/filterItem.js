@@ -25,7 +25,7 @@ const FilterItem = props => {
         if (typeof handleApply === 'function') {
             handleApply(group, item);
         }
-    }, [group, item, toggleItem]);
+    }, [group, item, toggleItem, handleApply]);
 
     return (
         <FilterDefault

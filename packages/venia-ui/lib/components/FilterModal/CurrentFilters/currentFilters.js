@@ -32,7 +32,7 @@ const CurrentFilters = props => {
         }
 
         return elements;
-    }, [classes.item, filterState, removeItem]);
+    }, [classes.item, filterState, removeItem, handleApply]);
 
     return <ul className={classes.root}>{filterElements}</ul>;
 };

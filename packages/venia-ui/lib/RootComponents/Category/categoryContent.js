@@ -15,7 +15,9 @@ import defaultClasses from './category.css';
 import NoProductsFound from './NoProductsFound';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
-const FilterSidebar = React.lazy(() => import('../../components/FilterSidebar'));
+const FilterSidebar = React.lazy(() =>
+    import('../../components/FilterSidebar')
+);
 
 const CategoryContent = props => {
     const { categoryId, data, pageControl, sortProps, pageSize } = props;
@@ -74,15 +76,16 @@ const CategoryContent = props => {
             </div>
         ) : null;
 
-    const categoryResultsHeading = totalCount > 0 ? (
-        <FormattedMessage
-            id={'categoryContent.resultCount'}
-            values={{
-                count: totalCount
-            }}
-            defaultMessage={'{count} Results'}
-        />
-    ) : null;
+    const categoryResultsHeading =
+        totalCount > 0 ? (
+            <FormattedMessage
+                id={'categoryContent.resultCount'}
+                values={{
+                    count: totalCount
+                }}
+                defaultMessage={'{count} Results'}
+            />
+        ) : null;
 
     // If you want to defer the loading of the FilterModal until user interaction
     // (hover, focus, click), simply add the talon's `loadFilters` prop as
@@ -114,7 +117,9 @@ const CategoryContent = props => {
             <article className={classes.root}>
                 <div className={classes.categoryHeader}>
                     <h1 className={classes.title}>
-                        <div className={classes.categoryTitle}>{categoryName}</div>
+                        <div className={classes.categoryTitle}>
+                            {categoryName}
+                        </div>
                     </h1>
                     {categoryDescriptionElement}
                 </div>
@@ -123,7 +128,9 @@ const CategoryContent = props => {
                 </div>
                 <div className={classes.categoryContent}>
                     <div className={classes.heading}>
-                        <div className={classes.categoryInfo}>{categoryResultsHeading}</div>
+                        <div className={classes.categoryInfo}>
+                            {categoryResultsHeading}
+                        </div>
                         <div className={classes.headerButtons}>
                             {maybeFilterButtons}
                             {maybeSortButton}

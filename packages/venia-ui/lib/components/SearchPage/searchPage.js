@@ -95,7 +95,8 @@ const SearchPage = props => {
 
     const maybeFilterModal =
         filters && filters.length ? <FilterModal filters={filters} /> : null;
-    const maybeSidebar = filters && filters.length ? <FilterSidebar filters={filters} /> : null;
+    const maybeSidebar =
+        filters && filters.length ? <FilterSidebar filters={filters} /> : null;
 
     const maybeSortButton = totalCount ? (
         <ProductSort sortProps={sortProps} />

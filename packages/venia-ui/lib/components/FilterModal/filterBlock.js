@@ -11,9 +11,17 @@ import FilterList from './FilterList';
 import defaultClasses from './filterBlock.css';
 
 const FilterBlock = props => {
-    const { filterApi, filterState, group, items, name, handleApply, initialOpen } = props;
+    const {
+        filterApi,
+        filterState,
+        group,
+        items,
+        name,
+        handleApply,
+        initialOpen
+    } = props;
     const hasSelected = useMemo(() => {
-        return items.some((item) => {
+        return items.some(item => {
             return filterState && filterState.has(item);
         });
     }, [filterState, items]);

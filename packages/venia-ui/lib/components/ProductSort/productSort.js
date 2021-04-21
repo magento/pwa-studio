@@ -95,7 +95,7 @@ const ProductSort = props => {
                             id={'productSort.sortByButton'}
                             defaultMessage={'Sort by'}
                         />
-                        {` ${currentSort.sortText}`}
+                        &nbsp;{currentSort.sortText}
                     </span>
                     <Icon
                         src={ArrowDown}
