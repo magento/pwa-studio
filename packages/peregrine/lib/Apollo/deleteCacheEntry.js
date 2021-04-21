@@ -39,7 +39,6 @@ const deleteActiveCacheEntry = async (client, predicate) => {
     if (client.cache.data.data.ROOT_QUERY) {
         Object.keys(client.cache.data.data.ROOT_QUERY).forEach(key => {
             if (predicate(key)) {
-                console.log('Deleting Key' + key);
                 client.cache.data.delete('ROOT_QUERY', key);
             }
         });

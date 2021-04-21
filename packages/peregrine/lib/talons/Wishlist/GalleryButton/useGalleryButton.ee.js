@@ -1,10 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useQuery } from '@apollo/client';
 import { useIntl } from 'react-intl';
+import { useApolloClient } from '@apollo/client';
 
-import { useUserContext } from '../../../context/user';
-import operations from './galleryButton.gql';
-import { useGalleryButton as useGalleryButtonCE } from './useGalleryButton.ce';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useSingleWishlist } from './helpers/useSingleWishlist';
 
 export const useGalleryButton = props => {
     const { item, storeConfig } = props;
@@ -14,25 +13,23 @@ export const useGalleryButton = props => {
     const [{ isSignedIn }] = useUserContext();
     const { formatMessage } = useIntl();
 
-    const ceTalonProps = useGalleryButtonCE(props);
+    const singleWishlistProps = useSingleWishlist(props);
 
-    const {
-        client,
-        data: { customerWishlistProducts }
-    } = useQuery(operations.getProductsInWishlistsQuery);
+    const apolloClient = useApolloClient();
+    const { cache: apolloCache } = apolloClient;
 
     const buttonProps = useMemo(() => {
-        const ceButtonProps = ceTalonProps.buttonProps;
+        const singleButtonProps = singleWishlistProps.buttonProps;
         if (storeConfig.enable_multiple_wishlists === '1' && isSignedIn) {
             return {
-                ...ceButtonProps,
+                ...singleButtonProps,
                 onClick: () => setIsModalOpen(true)
             };
         }
 
-        return ceButtonProps;
+        return singleButtonProps;
     }, [
-        ceTalonProps.buttonProps,
+        singleWishlistProps.buttonProps,
         isSignedIn,
         storeConfig.enable_multiple_wishlists
     ]);
@@ -43,11 +40,11 @@ export const useGalleryButton = props => {
 
             // only set item added true if someone calls handleModalClose(true)
             if (success === true) {
-                client.writeQuery({
-                    query: operations.getProductsInWishlistsQuery,
-                    data: {
-                        customerWishlistProducts: [
-                            ...customerWishlistProducts,
+                apolloCache.modify({
+                    id: 'ROOT_QUERY',
+                    fields: {
+                        customerWishlistProducts: cachedProducts => [
+                            ...cachedProducts,
                             item.sku
                         ]
                     }
@@ -56,7 +53,7 @@ export const useGalleryButton = props => {
                 setSuccessToastName(additionalData.wishlistName);
             }
         },
-        [client, customerWishlistProducts, item.sku]
+        [apolloCache, item.sku]
     );
 
     const modalProps = useMemo(() => {
@@ -98,11 +95,15 @@ export const useGalleryButton = props => {
             };
         }
 
-        return ceTalonProps.successToastProps;
-    }, [ceTalonProps.successToastProps, formatMessage, successToastName]);
+        return singleWishlistProps.successToastProps;
+    }, [
+        singleWishlistProps.successToastProps,
+        formatMessage,
+        successToastName
+    ]);
 
     return {
-        ...ceTalonProps,
+        ...singleWishlistProps,
         buttonProps,
         modalProps,
         successToastProps

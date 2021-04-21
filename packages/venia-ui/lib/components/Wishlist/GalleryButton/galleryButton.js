@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
 import { AlertCircle, Check, Heart, Info } from 'react-feather';
-import { useIntl } from 'react-intl';
 import { useToasts } from '@magento/peregrine';
 import mergeClasses from '@magento/peregrine/lib/util/shallowMerge';
 import { useGalleryButton } from '@magento/peregrine/lib/talons/Wishlist/GalleryButton/useGalleryButton';
@@ -27,26 +26,25 @@ const GalleryButton = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
 
     useEffect(() => {
         if (loginToastProps) {
             addToast({ ...loginToastProps, icon: InfoIcon });
         }
-    }, [addToast, formatMessage, loginToastProps]);
+    }, [addToast, loginToastProps]);
 
     useEffect(() => {
         if (successToastProps) {
             addToast({ ...successToastProps, icon: CheckIcon });
         }
-    }, [addToast, formatMessage, successToastProps]);
+    }, [addToast, successToastProps]);
 
     useEffect(() => {
         if (errorToastProps) {
             addToast({ ...errorToastProps, icon: ErrorIcon });
         }
-    }, [addToast, errorToastProps, formatMessage]);
+    }, [addToast, errorToastProps]);
 
     const multipleWishlistDialog = modalProps ? (
         <WishlistDialog {...modalProps} />
