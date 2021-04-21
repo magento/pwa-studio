@@ -41,6 +41,7 @@ export const GET_BILLING_ADDRESS = gql`
                 city
                 region {
                     code
+                    label
                     region_id
                 }
                 postcode
@@ -116,6 +117,7 @@ export const SET_BILLING_ADDRESS = gql`
                     city
                     region {
                         code
+                        label
                         region_id
                     }
                     postcode

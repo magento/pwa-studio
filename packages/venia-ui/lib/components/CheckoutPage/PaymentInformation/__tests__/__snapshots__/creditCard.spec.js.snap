@@ -131,7 +131,10 @@ exports[`Should return correct shape 1`] = `
             "root": "region",
           }
         }
+        fieldInput="region[label]"
+        fieldSelect="region[region_id]"
         initialValue="sample region"
+        optionValueKey="id"
         validate={[Function]}
       />
       <mock-Postcode

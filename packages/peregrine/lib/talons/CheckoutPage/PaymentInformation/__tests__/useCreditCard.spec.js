@@ -27,7 +27,7 @@ const billingAddress = {
     },
     street: ['45678 blvd', 'suite 300'],
     city: 'Austin',
-    region: { code: 'TX' },
+    region: { code: 'TX', region_id: 5 },
     postcode: '78945',
     phoneNumber: '1234567891'
 };
@@ -446,7 +446,9 @@ describe('Testing payment nonce request workflow', () => {
             street1: 'test value',
             street2: 'test value',
             city: 'test value',
-            region: 'test value',
+            region: {
+                region_id: 20
+            },
             postcode: 'test value',
             phoneNumber: 'test value'
         };
@@ -479,7 +481,8 @@ describe('Testing payment nonce request workflow', () => {
             variables: {
                 ...billingAddress,
                 sameAsShipping: false,
-                cartId: '123'
+                cartId: '123',
+                region: 20
             }
         });
     });
