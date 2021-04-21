@@ -33,6 +33,7 @@ const CategoryContent = props => {
         filters,
         handleOpenFilters,
         items,
+        totalCount,
         totalPagesFromData
     } = talonProps;
 
@@ -54,7 +55,7 @@ const CategoryContent = props => {
 
     const maybeSortButton =
         totalPagesFromData && filters ? (
-            <ProductSort sortProps={sortProps} />
+            <ProductSort sortProps={sortProps} classes={{ sortButton: classes.sortButton }} />
         ) : null;
 
     const maybeSortContainer =
@@ -72,6 +73,16 @@ const CategoryContent = props => {
                 </span>
             </div>
         ) : null;
+
+    const categoryResultsHeading = totalCount > 0 ? (
+        <FormattedMessage
+            id={'categoryContent.resultCount'}
+            values={{
+                count: totalCount
+            }}
+            defaultMessage={'{count} Results'}
+        />
+    ) : null;
 
     // If you want to defer the loading of the FilterModal until user interaction
     // (hover, focus, click), simply add the talon's `loadFilters` prop as
@@ -111,14 +122,15 @@ const CategoryContent = props => {
                     <Suspense fallback={null}>{sidebar}</Suspense>
                 </div>
                 <div className={classes.categoryContent}>
-                    <div className={classes.headerButtons}>
-                        {maybeFilterButtons}
-                        {maybeSortButton}
+                    <div className={classes.heading}>
+                        <div className={classes.categoryInfo}>{categoryResultsHeading}</div>
+                        <div className={classes.headerButtons}>
+                            {maybeFilterButtons}
+                            {maybeSortButton}
+                        </div>
+                        {maybeSortContainer}
                     </div>
-                    {maybeSortContainer}
-                    <div className={classes.content}>
-                        {content}
-                    </div>
+                    {content}
                     <Suspense fallback={null}>{modal}</Suspense>
                 </div>
             </article>

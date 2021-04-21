@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
+import { ChevronDown as ArrowDown } from 'react-feather';
 import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, oneOf } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
@@ -7,11 +8,10 @@ import { mergeClasses } from '../../classify';
 import SortItem from './sortItem';
 import defaultClasses from './productSort.css';
 import Button from '../Button';
-
-const formatSelectValue = (sortMethod) => (`${sortMethod.attribute}--${sortMethod.sortDirection}`);
+import Icon from '../Icon';
 
 const ProductSort = props => {
-    const classes = mergeClasses(defaultClasses);
+    const classes = mergeClasses(defaultClasses, props.classes);
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
@@ -90,11 +90,20 @@ const ProductSort = props => {
                     />
                 </span>
                 <span className={classes.desktopText}>
-                    <FormattedMessage
-                        id={'productSort.sortByButton'}
-                        defaultMessage={'Sort by'}
+                    <span className={classes.sortText}>
+                        <FormattedMessage
+                            id={'productSort.sortByButton'}
+                            defaultMessage={'Sort by'}
+                        />
+                        {` ${currentSort.sortText}`}
+                    </span>
+                    <Icon
+                        src={ArrowDown}
+                        classes={{
+                            root: classes.desktopIconWrapper,
+                            icon: classes.desktopIcon
+                        }}
                     />
-                    {` ${currentSort.sortText}`}
                 </span>
             </Button>
             {sortElements}

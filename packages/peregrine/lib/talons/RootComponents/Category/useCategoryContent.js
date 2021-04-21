@@ -65,6 +65,8 @@ export const useCategoryContent = props => {
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
         : null;
+
+    const totalCount = data.products.total_count;
     const categoryName = data ? data.category.name : null;
     const categoryDescription = data ? data.category.description : null;
 
@@ -76,6 +78,7 @@ export const useCategoryContent = props => {
         handleOpenFilters,
         items,
         loadFilters,
+        totalCount,
         totalPagesFromData
     };
 };

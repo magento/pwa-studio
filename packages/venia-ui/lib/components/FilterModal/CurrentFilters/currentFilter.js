@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { shape, string } from 'prop-types';
+import { shape, string, func } from 'prop-types';
 import { X as Remove } from 'react-feather';
 
 import { mergeClasses } from '../../../classify';
@@ -8,12 +8,15 @@ import Trigger from '../../Trigger';
 import defaultClasses from './currentFilter.css';
 
 const CurrentFilter = props => {
-    const { group, item, removeItem } = props;
+    const { group, item, removeItem, handleApply } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {
         removeItem({ group, item });
-    }, [group, item, removeItem]);
+        if (typeof handleApply === 'function') {
+            handleApply(group, item);
+        }
+    }, [group, item, removeItem, handleApply]);
 
     return (
         <span className={classes.root}>
@@ -27,8 +30,13 @@ const CurrentFilter = props => {
 
 export default CurrentFilter;
 
+CurrentFilter.defaultProps = {
+    handleApply: null
+};
+
 CurrentFilter.propTypes = {
     classes: shape({
         root: string
-    })
+    }),
+    handleApply: func
 };

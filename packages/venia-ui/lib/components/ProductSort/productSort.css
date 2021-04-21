@@ -42,12 +42,34 @@
     display: none;
 }
 
+.sortText {
+    line-height: 24px;
+    font-size: var(--venia-global-fontSize-200);
+}
+
+.desktopIconWrapper {
+    composes: root from '../Icon/icon.css';
+    transform: translateX(10px);
+}
+
+.desktopIcon {
+    composes: icon from '../Icon/icon.css';
+    stroke: rgb(var(--venia-global-color-gray-500));
+}
+
 @media (min-width: 1024px) {
-    .desktopText {
-        display: inline;
+    .sortButton {
+        border-width: 2px;
+        border-color: rgb(var(--venia-global-color-gray-500));
+        font-weight: var(--venia-global-fontWeight-normal);
+        text-transform: none;
     }
 
     .mobileText {
         display: none;
+    }
+
+    .desktopText {
+        display: inline-flex;
     }
 }

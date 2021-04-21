@@ -21,12 +21,6 @@
     height: 100vh;
 }
 
-.headerButtons {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 1.5rem;
-}
-
 .categoryTitle {
     color: rgb(var(--venia-global-color-text));
     padding-bottom: 1rem;
@@ -36,11 +30,35 @@
     text-align: center;
 }
 
+.heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 0.5rem;
+}
+
+.categoryInfo {
+    line-height: var(--venia-global-typography-heading-lineHeight);
+    margin: 2.5rem 0 1rem;
+    max-width: 75vw;
+}
+
+.headerButtons {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+    padding-bottom: 1.5rem;
+}
+
 .sortContainer {
     color: rgb(var(--venia-global-color-text-alt));
     text-align: center;
     font-size: 0.875rem;
     padding-bottom: 1rem;
+}
+
+.sortButton {
+    composes: sortButton from '../../components/ProductSort/productSort.css';
 }
 
 .sortText {
@@ -74,8 +92,28 @@
         display: none;
     }
 
+    .heading {
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        align-items: center;
+        padding-bottom: 1.5rem;
+    }
+
+    .headerButtons {
+        padding-bottom: 0;
+    }
+
+    .categoryInfo {
+        margin: 0;
+        flex-basis: 100%;
+    }
+
     .sortContainer {
         display: none;
+    }
+
+    .sortButton {
+        border-radius: 6px;
     }
 
     .sidebar {

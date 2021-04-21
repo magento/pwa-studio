@@ -1,17 +1,9 @@
 :root {
-    --category-sidebar-width: 325px;
+    --search-sidebar-width: 325px;
 }
 
 .root {
     padding: 1rem;
-}
-
-.categoryTop {
-    align-items: center;
-    color: rgb(var(--venia-global-color-text-alt));
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 
 .noResult {
@@ -69,10 +61,6 @@
         flex-wrap: nowrap;
     }
 
-    .categoryTop {
-        width: 100%;
-    }
-
     .heading {
         justify-content: space-between;
         flex-wrap: nowrap;
@@ -99,11 +87,11 @@
     .sidebar {
         display: flex;
         align-self: flex-start;
-        width: var(--category-sidebar-width);
+        width: var(--search-sidebar-width);
         padding-top: 4rem;
     }
 
-    .categoryContent {
+    .searchContent {
         flex-grow: 1;
     }
 }

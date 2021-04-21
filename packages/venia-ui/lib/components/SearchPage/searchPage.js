@@ -140,7 +140,7 @@ const SearchPage = props => {
             <div className={classes.sidebar}>
                 <Suspense fallback={null}>{maybeSidebar}</Suspense>
             </div>
-            <div class={classes.categoryContent}>
+            <div className={classes.searchContent}>
                 <div className={classes.heading}>
                     <div className={classes.searchInfo}>
                         {searchResultsHeading}

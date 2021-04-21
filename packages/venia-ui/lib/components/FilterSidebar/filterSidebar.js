@@ -1,4 +1,4 @@
-import React, { useMemo, Fragment } from 'react';
+import React, { useMemo, useCallback, useRef, Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, number } from 'prop-types';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
@@ -28,8 +28,21 @@ const FilterSidebar = props => {
         handleReset
     } = talonProps;
 
+    const filterRef = useRef();
     const classes = mergeClasses(defaultClasses, props.classes);
     const filtersToOpen = typeof filtersOpen === 'number' ? filtersOpen : DEFAULT_FILTERS_OPEN_COUNT;
+
+    const handleApplyFilter = useCallback((...args) => {
+        const filterElement = filterRef.current;
+        if (filterElement && typeof filterElement.getBoundingClientRect === 'function') {
+            const filterTop = filterElement.getBoundingClientRect().top;
+            const offset = 150;
+            const windowScrollY = window.scrollY + filterTop - offset;
+            window.scrollTo(0, windowScrollY);
+        }
+
+        handleApply(...args);
+    }, [handleApply, filterRef]);
 
     const filtersList = useMemo(
         () =>
@@ -45,7 +58,7 @@ const FilterSidebar = props => {
                         group={group}
                         items={items}
                         name={groupName}
-                        handleApply={handleApply}
+                        handleApply={handleApplyFilter}
                         initialOpen={iteration < filtersToOpen}
                     />
                 );
@@ -66,13 +79,21 @@ const FilterSidebar = props => {
 
     return (
         <Fragment>
-            <aside className={classes.root}>
+            <aside className={classes.root} ref={filterRef}>
                 <div className={classes.body}>
+                    <div className={classes.header}>
+                        <h2 className={classes.headerTitle}>
+                            <FormattedMessage
+                                id={'filterModal.headerTitle'}
+                                defaultMessage={'Filters'}
+                            />
+                        </h2>
+                    </div>
                     <CurrentFilters
                         filterApi={filterApi}
                         filterNames={filterNames}
                         filterState={filterState}
-                        handleApply={handleApply}
+                        handleApply={handleApplyFilter}
                     />
                     {clearAll}
                     <ul className={classes.blocks}>{filtersList}</ul>
