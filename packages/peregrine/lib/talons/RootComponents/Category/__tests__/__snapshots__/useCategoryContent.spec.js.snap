@@ -19,6 +19,7 @@ Object {
     null,
   ],
   "loadFilters": false,
+  "totalCount": null,
   "totalPagesFromData": null,
 }
 `;
@@ -45,6 +46,7 @@ Object {
     },
   ],
   "loadFilters": false,
+  "totalCount": 2,
   "totalPagesFromData": 1,
 }
 `;

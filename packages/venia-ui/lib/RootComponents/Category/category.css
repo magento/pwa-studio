@@ -57,10 +57,6 @@
     padding-bottom: 1rem;
 }
 
-.sortButton {
-    composes: sortButton from '../../components/ProductSort/productSort.css';
-}
-
 .sortText {
     font-weight: 600;
 }
@@ -110,10 +106,6 @@
 
     .sortContainer {
         display: none;
-    }
-
-    .sortButton {
-        border-radius: 6px;
     }
 
     .sidebar {

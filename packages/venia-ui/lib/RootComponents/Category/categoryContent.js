@@ -55,7 +55,7 @@ const CategoryContent = props => {
 
     const maybeSortButton =
         totalPagesFromData && filters ? (
-            <ProductSort sortProps={sortProps} classes={{ sortButton: classes.sortButton }} />
+            <ProductSort sortProps={sortProps} />
         ) : null;
 
     const maybeSortContainer =

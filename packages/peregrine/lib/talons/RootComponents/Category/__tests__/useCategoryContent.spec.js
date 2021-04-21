@@ -52,7 +52,8 @@ const mockProps = {
                     id: 2,
                     name: 'Necklace'
                 }
-            ]
+            ],
+            total_count: 2
         }
     }
 };

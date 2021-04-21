@@ -7,15 +7,23 @@ Array [
   <article
     className="a"
   >
-    <h1
-      className="b"
-    >
-      <div>
-        Empty Name
-      </div>
-    </h1>
+    <div>
+      <h1
+        className="b"
+      >
+        <div>
+          Empty Name
+        </div>
+      </h1>
+    </div>
     <div />
-    <NoProductsFound />
+    <div>
+      <div>
+        <div />
+        <div />
+      </div>
+      <NoProductsFound />
+    </div>
   </article>,
 ]
 `;
@@ -27,31 +35,39 @@ Array [
   <article
     className="a"
   >
-    <h1
-      className="b"
-    >
-      <div>
-        Name
-      </div>
-    </h1>
+    <div>
+      <h1
+        className="b"
+      >
+        <div>
+          Name
+        </div>
+      </h1>
+    </div>
     <div />
-    <section
-      className="c"
-    >
-      <Gallery
-        items={
-          Object {
-            "id": 1,
+    <div>
+      <div>
+        <div />
+        <div />
+      </div>
+      <section
+        className="c"
+      >
+        <Gallery
+          items={
+            Object {
+              "id": 1,
+            }
           }
-        }
-      />
-    </section>
-    <div
-      className="d"
-    >
-      <Pagination
-        pageControl={Object {}}
-      />
+        />
+      </section>
+      <div
+        className="d"
+      >
+        <Pagination
+          pageControl={Object {}}
+        />
+      </div>
     </div>
   </article>,
 ]
