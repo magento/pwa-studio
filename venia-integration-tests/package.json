@@ -13,6 +13,7 @@
         "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",
         "test:headless": "cypress open --browser chrome --headless --config-file cypress.config.json",
         "test:run": "cypress run --browser chrome --config-file cypress.config.json",
-        "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress open --browser chrome --config-file cypress.config.json"
+        "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress open --browser chrome --config-file cypress.config.json",
+        "test:update-snapshots": "cypress run --browser chrome --config-file cypress.config.json --env updateSnapshots=true"
     }
 }
