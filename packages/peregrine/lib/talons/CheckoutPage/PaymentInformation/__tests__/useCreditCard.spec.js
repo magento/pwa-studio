@@ -766,6 +766,24 @@ describe('Testing stepNumber', () => {
     });
 
     test('Should set stepNumber to 1 if shouldSubmit is set to true', () => {
+        const testFormState = {
+            values: {
+                firstName: 'Unit',
+                lastName: 'Test',
+                country: '',
+                street1: '',
+                street2: '',
+                city: '',
+                region: { region_id: 7 },
+                postcode: '12345',
+                phoneNumber: '1234567890'
+            },
+            errors: {}
+        };
+        useFormState
+            .mockReturnValueOnce(testFormState)
+            .mockReturnValueOnce(testFormState);
+
         const { talonProps } = getTalonProps({
             shouldSubmit: true,
             operations,
