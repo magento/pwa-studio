@@ -771,7 +771,8 @@ describe('Testing stepNumber', () => {
             operations,
             onSuccess: () => {},
             onReady: () => {},
-            onError: () => {}
+            onError: () => {},
+            resetShouldSubmit: () => {}
         });
 
         expect(talonProps.stepNumber).toBe(1);
