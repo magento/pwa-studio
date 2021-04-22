@@ -94,6 +94,7 @@ export const useWishlistItem = props => {
             // Close the dialogs on success.
             setCurrentDialog(dialogs.NONE);
         } catch (e) {
+            console.error(e);
             setRemoveProductFromWishlistError(e);
         }
     }, [
