@@ -12,10 +12,11 @@ const shippingData = {
     firstname: 'Philip',
     lastname: 'Fry',
     postcode: '10019',
-    region: { label: 'New York' },
+    region: { region: 'New York' },
     street: ['3000 57th Street', 'Suite 200'],
     telephone: '(123) 456-7890'
 };
+
 test('renders card with data', () => {
     const tree = createTestInstance(<Card shippingData={shippingData} />);
     expect(tree.toJSON()).toMatchSnapshot();

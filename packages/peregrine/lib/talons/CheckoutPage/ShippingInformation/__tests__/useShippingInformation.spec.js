@@ -114,7 +114,11 @@ test('return correct shape with mock data from estimate', () => {
                         firstname: 'firstname',
                         lastname: 'lastname',
                         postcode: '10019',
-                        region: 'New York',
+                        region: {
+                            region_id: 12,
+                            label: 'New York',
+                            code: 'NY'
+                        },
                         street: ['street'],
                         telephone: 'telephone'
                     }
@@ -144,7 +148,11 @@ test('return correct shape with real data', () => {
                         firstname: 'Philip',
                         lastname: 'Fry',
                         postcode: '10019',
-                        region: 'New York',
+                        region: {
+                            region_id: 12,
+                            label: 'New York',
+                            code: 'NY'
+                        },
                         street: ['3000 57th Street', 'Suite 200'],
                         telephone: '(123) 456-7890'
                     }
@@ -236,7 +244,11 @@ test('receives update on data change', () => {
                         firstname: 'Philip',
                         lastname: 'Fry',
                         postcode: '10019',
-                        region: 'New York',
+                        region: {
+                            region_id: 12,
+                            label: 'New York',
+                            code: 'NY'
+                        },
                         street: ['3000 57th Street', 'Suite 200'],
                         telephone: '(123) 456-7890'
                     }
@@ -258,7 +270,11 @@ test('receives update on data change', () => {
                         firstname: 'Bender',
                         lastname: 'Rodríguez',
                         postcode: '10019',
-                        region: 'New York',
+                        region: {
+                            region_id: 12,
+                            label: 'New York',
+                            code: 'NY'
+                        },
                         street: ['00100 100 001 00100'],
                         telephone: '(555) 456-7890'
                     }
@@ -300,7 +316,11 @@ test('resets the update state when the timer runs out', () => {
                             firstname: 'Philip',
                             lastname: 'Fry',
                             postcode: '10019',
-                            region: 'New York',
+                            region: {
+                                region_id: 12,
+                                label: 'New York',
+                                code: 'NY'
+                            },
                             street: ['3000 57th Street', 'Suite 200'],
                             telephone: '(123) 456-7890'
                         }
@@ -321,7 +341,11 @@ test('resets the update state when the timer runs out', () => {
                             firstname: 'Bender',
                             lastname: 'Rodríguez',
                             postcode: '10019',
-                            region: 'New York',
+                            region: {
+                                region_id: 12,
+                                label: 'New York',
+                                code: 'NY'
+                            },
                             street: ['00100 100 001 00100'],
                             telephone: '(555) 456-7890'
                         }
@@ -380,7 +404,11 @@ test('sets the default address on cart when not done editing ', () => {
                         firstname: 'Philip',
                         lastname: 'Fry',
                         postcode: '10019',
-                        region: 'New York',
+                        region: {
+                            region_id: 12,
+                            label: 'New York',
+                            code: 'NY'
+                        },
                         street: ['3000 57th Street', 'Suite 200'],
                         telephone: '(123) 456-7890'
                     }
@@ -421,7 +449,11 @@ test('does not set the default address on cart when there is not default shippin
                         firstname: 'Philip',
                         lastname: 'Fry',
                         postcode: '10019',
-                        region: 'New York',
+                        region: {
+                            region_id: 12,
+                            label: 'New York',
+                            code: 'NY'
+                        },
                         street: ['3000 57th Street', 'Suite 200'],
                         telephone: '(123) 456-7890'
                     }

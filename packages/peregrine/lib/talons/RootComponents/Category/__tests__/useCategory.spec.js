@@ -45,7 +45,9 @@ jest.mock('../../../../hooks/usePagination', () => ({
         {
             setCurrentPage: jest
                 .fn()
-                .mockImplementation(page => mockSetCurrentPage(page)),
+                .mockImplementation((page, bool = false) =>
+                    mockSetCurrentPage(page, bool)
+                ),
             setTotalPages: jest.fn()
         }
     ])
@@ -179,7 +181,7 @@ test('resets the current page on error', () => {
     createTestInstance(<Component {...mockProps} />);
 
     expect(mockSetCurrentPage).toHaveBeenCalledTimes(1);
-    expect(mockSetCurrentPage).toHaveBeenCalledWith(1);
+    expect(mockSetCurrentPage).toHaveBeenCalledWith(1, false);
 });
 
 test('handles no filter type data available', () => {
@@ -256,7 +258,7 @@ test('sets current page to 1 if error, !loading, !data, and currentPage != 1', (
 
     createTestInstance(<Component {...mockProps} />);
 
-    expect(mockSetCurrentPage).toHaveBeenCalledWith(1);
+    expect(mockSetCurrentPage).toHaveBeenCalledWith(1, false);
 });
 
 const testCases = [
@@ -305,3 +307,24 @@ test.each(testCases)(
         expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
     }
 );
+
+test('preserve history when search term changes', () => {
+    useQuery.mockReturnValue(mockPageSizeData);
+    useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+
+    mockUseSort.mockReturnValueOnce([
+        {
+            sortText: 'Best Match',
+            sortAttribute: 'relevance',
+            sortDirection: 'Changed'
+        },
+        jest.fn()
+    ]);
+    expect(mockSetCurrentPage).not.toHaveBeenCalledWith(1, true);
+    act(() => {
+        tree.update(<Component {...mockProps} />);
+    });
+    expect(mockSetCurrentPage).toHaveBeenCalledWith(1, true);
+});

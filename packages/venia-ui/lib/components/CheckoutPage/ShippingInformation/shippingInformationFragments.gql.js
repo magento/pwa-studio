@@ -16,6 +16,7 @@ export const ShippingInformationFragment = gql`
             region {
                 code
                 label
+                region_id
             }
             street
             telephone
