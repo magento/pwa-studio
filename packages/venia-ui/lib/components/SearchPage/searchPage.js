@@ -52,6 +52,10 @@ const SearchPage = props => {
             );
         }
 
+        if (!data) {
+            return null;
+        }
+
         if (data.products.items.length === 0) {
             return (
                 <div className={classes.noResult}>
