@@ -10,8 +10,8 @@ import Gallery from '../Gallery';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import ProductSort from '../ProductSort';
 import defaultClasses from './searchPage.css';
-import SortedByContainer from "../SortedByContainer";
-import FilterModalOpenButton from "../FilterModalOpenButton";
+import SortedByContainer from '../SortedByContainer';
+import FilterModalOpenButton from '../FilterModalOpenButton';
 
 const FilterModal = React.lazy(() => import('../FilterModal'));
 
@@ -84,9 +84,9 @@ const SearchPage = props => {
     ]);
 
     const maybeFilterButtons =
-        filters && filters.length ?
+        filters && filters.length ? (
             <FilterModalOpenButton filters={filters} />
-        : null;
+        ) : null;
 
     const maybeFilterModal =
         filters && filters.length ? <FilterModal filters={filters} /> : null;
@@ -95,9 +95,9 @@ const SearchPage = props => {
         <ProductSort sortProps={sortProps} />
     ) : null;
 
-    const maybeSortContainer = data.products.total_count ? <SortedByContainer
-        currentSort={currentSort}
-    /> : null;
+    const maybeSortContainer = data.products.total_count ? (
+        <SortedByContainer currentSort={currentSort} />
+    ) : null;
 
     const searchResultsHeading = searchTerm ? (
         <FormattedMessage

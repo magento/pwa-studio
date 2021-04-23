@@ -12,8 +12,8 @@ import RichContent from '../../components/RichContent';
 import defaultClasses from './category.css';
 import NoProductsFound from './NoProductsFound';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import SortedByContainer from "../../components/SortedByContainer";
-import FilterModalOpenButton from "../../components/FilterModalOpenButton";
+import SortedByContainer from '../../components/SortedByContainer';
+import FilterModalOpenButton from '../../components/FilterModalOpenButton';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
@@ -44,24 +44,27 @@ const CategoryContent = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const maybeFilterButtons = filters && filters.length ? (
-        <FilterModalOpenButton filters={filters} />
-    ) : null;
-
-    const filtersModal = filters && filters.length ? (
-        <FilterModal filters={filters} />
-    ) : null;
-
-    const filtersAndTotalPagesPresent = !!(totalPagesFromData && filters && filters.length);
-
-    const maybeSortButton =
-        filtersAndTotalPagesPresent ? (
-            <ProductSort sortProps={sortProps} />
+    const maybeFilterButtons =
+        filters && filters.length ? (
+            <FilterModalOpenButton filters={filters} />
         ) : null;
 
-    const maybeSortContainer = filtersAndTotalPagesPresent ? <SortedByContainer
-        currentSort={currentSort}
-    /> : null;
+    const filtersModal =
+        filters && filters.length ? <FilterModal filters={filters} /> : null;
+
+    const filtersAndTotalPagesPresent = !!(
+        totalPagesFromData &&
+        filters &&
+        filters.length
+    );
+
+    const maybeSortButton = filtersAndTotalPagesPresent ? (
+        <ProductSort sortProps={sortProps} />
+    ) : null;
+
+    const maybeSortContainer = filtersAndTotalPagesPresent ? (
+        <SortedByContainer currentSort={currentSort} />
+    ) : null;
 
     const categoryDescriptionElement = categoryDescription ? (
         <RichContent html={categoryDescription} />

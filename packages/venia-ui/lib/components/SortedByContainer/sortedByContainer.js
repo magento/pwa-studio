@@ -1,13 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { FormattedMessage } from "react-intl";
-import { mergeClasses } from "../../classify";
-import defaultClasses from "./sortedByContainer.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import { mergeClasses } from '../../classify';
+import defaultClasses from './sortedByContainer.css';
 
-const SortedByContainer = props  => {
-    const {
-        currentSort
-    } = props;
+const SortedByContainer = props => {
+    const { currentSort } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -25,7 +23,7 @@ const SortedByContainer = props  => {
             </span>
         </span>
     );
-}
+};
 
 export default SortedByContainer;
 
@@ -35,4 +33,4 @@ SortedByContainer.propTypes = {
         sortId: PropTypes.string,
         sortText: PropTypes.string
     })
-}
+};

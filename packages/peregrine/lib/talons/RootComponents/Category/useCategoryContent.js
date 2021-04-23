@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
-import { useAppContext } from '../../../context/app';
 
 import DEFAULT_OPERATIONS from './categoryContent.gql';
-import { useFilterState } from '../../FilterModal';
 
 /**
  * Returns props necessary to render the categoryContent component.

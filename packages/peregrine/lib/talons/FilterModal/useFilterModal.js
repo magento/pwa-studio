@@ -161,8 +161,10 @@ export const useFilterModal = props => {
     );
 
     useEffect(() => {
-        const justOpened = prevDrawer.current === null && drawer === DRAWER_NAME;
-        const justClosed = prevDrawer.current === DRAWER_NAME && drawer === null;
+        const justOpened =
+            prevDrawer.current === null && drawer === DRAWER_NAME;
+        const justClosed =
+            prevDrawer.current === DRAWER_NAME && drawer === null;
 
         // on drawer toggle, read filter state from location
         if (justOpened || justClosed) {
@@ -181,14 +183,7 @@ export const useFilterModal = props => {
         }
 
         prevDrawer.current = drawer;
-    }, [
-        drawer,
-        filterApi,
-        filterItems,
-        filterKeys,
-        search,
-        handleClose
-    ]);
+    }, [drawer, filterApi, filterItems, filterKeys, search, handleClose]);
 
     return {
         filterApi,
