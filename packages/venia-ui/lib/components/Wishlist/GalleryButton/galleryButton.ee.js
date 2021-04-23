@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { shape, string } from 'prop-types';
 import { Heart } from 'react-feather';
 import { useGalleryButton } from '@magento/peregrine/lib/talons/Wishlist/GalleryButton/useGalleryButton';
 
@@ -41,3 +42,10 @@ const GalleryButton = props => {
 };
 
 export default GalleryButton;
+
+GalleryButton.propTypes = {
+    classes: shape({
+        root: string,
+        root_selected: string
+    })
+};
