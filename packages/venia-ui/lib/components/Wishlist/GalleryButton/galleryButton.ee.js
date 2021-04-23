@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Heart } from 'react-feather';
-import mergeClasses from '@magento/peregrine/lib/util/shallowMerge';
 import { useGalleryButton } from '@magento/peregrine/lib/talons/Wishlist/GalleryButton/useGalleryButton';
 
+import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import WishlistDialog from '../WishlistDialog';
 import defaultClasses from './galleryButton.css';
