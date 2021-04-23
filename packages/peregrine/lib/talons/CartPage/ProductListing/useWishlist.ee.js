@@ -36,10 +36,8 @@ export const useWishlist = props => {
 
     const isMultipleWishlistsEnabled = useMemo(() => {
         return (
-            (storeConfigData &&
-                storeConfigData.storeConfig.enable_multiple_wishlists ===
-                    '1') ||
-            false
+            storeConfigData &&
+            storeConfigData.storeConfig.enable_multiple_wishlists === '1'
         );
     }, [storeConfigData]);
 
@@ -91,10 +89,9 @@ export const useWishlist = props => {
                 }
             });
         } catch (err) {
+            console.error(err);
+
             // Make sure any errors from the mutation are displayed.
-            if (process.env.NODE_ENV !== 'production') {
-                console.error(err);
-            }
             setDisplayError(true);
         }
     }, [

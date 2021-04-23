@@ -50,7 +50,6 @@ const Product = props => {
         handleSaveForLater,
         handleUpdateItemQuantity,
         isEditable,
-        isFavorite,
         loginToastProps,
         product,
         isProductUpdating
@@ -176,7 +175,6 @@ const Product = props => {
                         })}
                         onClick={handleSaveForLater}
                         icon="Heart"
-                        isFilled={isFavorite}
                         classes={{
                             text: classes.sectionText
                         }}

@@ -42,7 +42,7 @@ export const useWishlist = props => {
                 }
             });
 
-            wishlistData &&
+            if (wishlistData) {
                 onAddToWishlistSuccess({
                     type: 'info',
                     message: formatMessage({
@@ -52,6 +52,7 @@ export const useWishlist = props => {
                     }),
                     timeout: 5000
                 });
+            }
 
             await removeItemFromCart({
                 variables: {
@@ -60,10 +61,9 @@ export const useWishlist = props => {
                 }
             });
         } catch (err) {
+            console.error(err);
+
             // Make sure any errors from the mutation are displayed.
-            if (process.env.NODE_ENV !== 'production') {
-                console.error(err);
-            }
             setDisplayError(true);
         }
     }, [

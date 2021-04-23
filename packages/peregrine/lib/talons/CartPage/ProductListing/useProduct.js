@@ -288,7 +288,6 @@ const flattenProduct = (item, configurableThumbnailSource) => {
  * @property {String} errorMessage Error message from an operation perfored on a cart product.
  * @property {function} handleEditItem Function to use for handling when a product is modified.
  * @property {function} handleRemoveFromCart Function to use for handling the removal of a cart product.
- * @property {function} handleToggleFavorites Function to use for handling favorites toggling on a cart product.
  * @property {function} handleUpdateItemQuantity Function to use for handling updates to the product quantity in a cart.
  * @property {boolean} isEditable True if a cart product is editable. False otherwise.
  * @property {ProductItem} product Cart product data
