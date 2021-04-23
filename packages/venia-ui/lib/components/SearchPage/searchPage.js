@@ -34,19 +34,12 @@ const SearchPage = props => {
         sortProps
     } = talonProps;
 
-    const {
-        products: {
-            items: productItems,
-            total_count: productsCount
-        }
-    } = data;
-
     const { formatMessage } = useIntl();
     const [currentSort] = sortProps;
     const content = useMemo(() => {
-        if (loading) return fullPageLoadingIndicator;
+        if (!data && loading) return fullPageLoadingIndicator;
 
-        if (error) {
+        if (!data && error) {
             return (
                 <div className={classes.noResult}>
                     <FormattedMessage
@@ -59,7 +52,7 @@ const SearchPage = props => {
             );
         }
 
-        if (productItems.length === 0) {
+        if (data.products.items.length === 0) {
             return (
                 <div className={classes.noResult}>
                     <FormattedMessage
@@ -72,7 +65,7 @@ const SearchPage = props => {
             return (
                 <Fragment>
                     <section className={classes.gallery}>
-                        <Gallery items={productItems} />
+                        <Gallery items={data.products.items} />
                     </section>
                     <section className={classes.pagination}>
                         <Pagination pageControl={pageControl} />
@@ -86,8 +79,8 @@ const SearchPage = props => {
         classes.pagination,
         error,
         loading,
-        pageControl,
-        productItems
+        data,
+        pageControl
     ]);
 
     const maybeFilterButtons =
@@ -98,14 +91,13 @@ const SearchPage = props => {
     const maybeFilterModal =
         filters && filters.length ? <FilterModal filters={filters} /> : null;
 
-    const maybeSortButton = productsCount ? (
+    const maybeSortButton = data.products.total_count ? (
         <ProductSort sortProps={sortProps} />
     ) : null;
 
-    const maybeSortContainer = <SortedByContainer
-        shouldDisplay={!!productsCount}
+    const maybeSortContainer = data.products.total_count ? <SortedByContainer
         currentSort={currentSort}
-    />;
+    /> : null;
 
     const searchResultsHeading = searchTerm ? (
         <FormattedMessage
@@ -135,7 +127,7 @@ const SearchPage = props => {
                             id: 'searchPage.totalPages',
                             defaultMessage: `items`
                         },
-                        { totalCount: productsCount }
+                        { totalCount: data.products.total_count }
                     )}
                 </span>
                 <div className={classes.headerButtons}>

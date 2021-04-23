@@ -20,7 +20,7 @@ const CurrentFilter = props => {
     const ariaLabel = formatMessage(
         {
             id: 'filterModal.action.clearFilterItem.ariaLabel',
-            defaultMessage: 'Clear filter "{name}"'
+            defaultMessage: 'Clear filter'
         },
         {
             name: item.title

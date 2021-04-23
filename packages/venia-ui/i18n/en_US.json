@@ -398,5 +398,15 @@
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "Favorites Lists",
-    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available."
+    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
+    "filterModal.action.clearFilterItem.ariaLabel": "Clear filter \"{name}\"",
+    "filterModal.currentFilters.ariaLabel": "Current Filters",
+    "filterModal.item.applyFilter": "Apply filter \"{optionName}\".",
+    "filterModal.item.clearFilter": "Remove filter \"{optionName}\".",
+    "filterModal.item.ariaLabel": "Filter products by \"{itemName}\"",
+    "filterModal.item.hideOptions": "Hide \"{itemName}\" filter item options.",
+    "filterModal.item.showOptions": "Show \"{itemName}\" filter item options.",
+    "filterModal.filters.ariaLabel": "Filters",
+    "filterModal.filters.close.ariaLabel": "Close filters popup.",
+    "filterModal.action.clearAll.ariaLabel": "Clear all applied filters"
 }

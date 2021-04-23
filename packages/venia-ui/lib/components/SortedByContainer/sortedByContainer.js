@@ -6,13 +6,8 @@ import defaultClasses from "./sortedByContainer.css";
 
 const SortedByContainer = props  => {
     const {
-        shouldDisplay,
         currentSort
     } = props;
-
-    if (!shouldDisplay) {
-        return null;
-    }
 
     const classes = mergeClasses(defaultClasses, props.classes);
 

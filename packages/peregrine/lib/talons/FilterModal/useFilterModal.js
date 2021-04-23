@@ -10,6 +10,8 @@ import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
 
 import DEFAULT_OPERATIONS from './filterModal.gql';
 
+const DRAWER_NAME = 'filter';
+
 /**
  * Filter Modal talon.
  *
@@ -23,7 +25,6 @@ import DEFAULT_OPERATIONS from './filterModal.gql';
 export const useFilterModal = props => {
     const { filters } = props;
 
-    const DRAWER_NAME = 'filter';
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getFilterInputsQuery } = operations;
 
@@ -129,7 +130,7 @@ export const useFilterModal = props => {
     }, [toggleDrawer]);
 
     const handleClose = useCallback(() => {
-        closeDrawer(DRAWER_NAME);
+        closeDrawer();
     }, [closeDrawer]);
 
     const handleApply = useCallback(() => {

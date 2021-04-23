@@ -52,17 +52,16 @@ const CategoryContent = props => {
         <FilterModal filters={filters} />
     ) : null;
 
-    const filtersAndTotalPagesPresent = !!(totalPagesFromData && filters);
+    const filtersAndTotalPagesPresent = !!(totalPagesFromData && filters && filters.length);
 
     const maybeSortButton =
         filtersAndTotalPagesPresent ? (
             <ProductSort sortProps={sortProps} />
         ) : null;
 
-    const maybeSortContainer = <SortedByContainer
-        shouldDisplay={filtersAndTotalPagesPresent}
+    const maybeSortContainer = filtersAndTotalPagesPresent ? <SortedByContainer
         currentSort={currentSort}
-    />;
+    /> : null;
 
     const categoryDescriptionElement = categoryDescription ? (
         <RichContent html={categoryDescription} />

@@ -25,7 +25,7 @@ const FilterBlock = props => {
     const itemAriaLabel = formatMessage(
         {
             id: 'filterModal.item.ariaLabel',
-            defaultMessage: 'Filter products by "{itemName}".'
+            defaultMessage: 'Filter products by'
         },
         {
             itemName: name
@@ -36,7 +36,7 @@ const FilterBlock = props => {
         ? formatMessage(
               {
                   id: 'filterModal.item.hideOptions',
-                  defaultMessage: 'Hide "{itemName}" filter item options.'
+                  defaultMessage: 'Hide filter item options.'
               },
               {
                   itemName: name
@@ -45,7 +45,7 @@ const FilterBlock = props => {
         : formatMessage(
               {
                   id: 'filterModal.item.showOptions',
-                  defaultMessage: 'Show "{itemName}" filter item options.'
+                  defaultMessage: 'Show filter item options.'
               },
               {
                   itemName: name
