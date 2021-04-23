@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { useIntl } from 'react-intl';
 
@@ -16,6 +16,8 @@ export const useWishlist = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { addProductToWishlistMutation } = operations;
 
+    const [isItemAdded, setIsItemAdded] = useState(false);
+
     const [addProductToWishlist, { loading, called, error }] = useMutation(
         addProductToWishlistMutation
     );
@@ -23,11 +25,7 @@ export const useWishlist = props => {
     const { formatMessage } = useIntl();
 
     const handleAddToWishlist = useCallback(async () => {
-        const sku = item.product.sku;
-        const quantity = item.quantity;
-        const selected_options = item.configurable_options.map(
-            option => option.configurable_product_option_value_uid
-        );
+        const { sku, quantity, selected_options } = item;
 
         try {
             const { data: wishlistData } = await addProductToWishlist({
@@ -41,7 +39,9 @@ export const useWishlist = props => {
                 }
             });
 
-            if (wishlistData) {
+            setIsItemAdded(true);
+
+            if (wishlistData && updateWishlistToastProps) {
                 updateWishlistToastProps({
                     type: 'info',
                     message: formatMessage({
@@ -60,7 +60,9 @@ export const useWishlist = props => {
             console.error(err);
 
             // Make sure any errors from the mutation are displayed.
-            setDisplayError(true);
+            if (setDisplayError) {
+                setDisplayError(true);
+            }
         }
     }, [
         addProductToWishlist,
@@ -71,10 +73,17 @@ export const useWishlist = props => {
         setDisplayError
     ]);
 
+    useEffect(() => {
+        // If a user changes selections, let them add that combination to a list.
+        if (item.selected_options) setIsItemAdded(false);
+    }, [item.selected_options]);
+
     return {
         handleAddToWishlist,
         loading,
         called,
-        error
+        error,
+        isDisabled: isItemAdded || loading,
+        isItemAdded
     };
 };

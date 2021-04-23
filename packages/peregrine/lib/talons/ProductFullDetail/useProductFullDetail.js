@@ -390,10 +390,10 @@ export const useProductFullDetail = props => {
 
     // Normalization object for product details we need for rendering.
     const productDetails = {
-        description: product.description,
-        name: product.name,
+        ...product,
+        quantity: 1,
         price: productPrice,
-        sku: product.sku
+        selected_options: selectedOptionsArray
     };
 
     const derivedErrorMessage = useMemo(

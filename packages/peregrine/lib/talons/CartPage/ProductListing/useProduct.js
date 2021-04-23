@@ -118,10 +118,18 @@ export const useProduct = props => {
         });
     }, [removeItemFromCart, item, cartId]);
 
+    const wishlistItemOptions = {
+        ...item,
+        sku: item.product.sku,
+        selected_options: item.configurable_options.map(
+            option => option.configurable_product_option_value_uid
+        )
+    };
+
     const wishlistTalonProps = useWishlist({
         removeItemFromCart,
         cartId,
-        item,
+        item: wishlistItemOptions,
         setDisplayError,
         updateWishlistToastProps,
         onWishlistUpdate,
