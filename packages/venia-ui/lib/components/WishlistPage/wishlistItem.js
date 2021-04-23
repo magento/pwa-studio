@@ -10,7 +10,6 @@ import Image from '../Image';
 import WishlistConfirmRemoveProductDialog from './wishlistConfirmRemoveProductDialog';
 import WishlistMoreActionsDialog from './wishlistMoreActionsDialog';
 import defaultClasses from './wishlistItem.css';
-import wishlistItemOperations from './wishlistItem.gql';
 
 const WishlistItem = props => {
     const { item, wishlistId } = props;
@@ -32,7 +31,6 @@ const WishlistItem = props => {
     const talonProps = useWishlistItem({
         childSku,
         itemId,
-        operations: { ...wishlistItemOperations },
         sku,
         wishlistId
     });
