@@ -2,15 +2,6 @@ import { gql } from '@apollo/client';
 
 import { WishlistFragment } from './wishlistFragment';
 
-export const GET_MULTIPLE_WISHLISTS_ENABLED = gql`
-    query getMultipleWishlistsEnabled {
-        storeConfig {
-            id
-            enable_multiple_wishlists
-        }
-    }
-`;
-
 export const ADD_TO_WISHLIST = gql`
     mutation addProductToWishlist(
         $wishlistId: ID!
@@ -30,6 +21,23 @@ export const ADD_TO_WISHLIST = gql`
         }
     }
     ${WishlistFragment}
+`;
+
+export const GET_MULTIPLE_WISHLISTS_ENABLED = gql`
+    query getWishlistsDialogData {
+        storeConfig {
+            id
+            enable_multiple_wishlists
+            maximum_number_of_wishlists
+        }
+        customer {
+            id
+            wishlists {
+                id
+                name
+            }
+        }
+    }
 `;
 
 export default {

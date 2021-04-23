@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useIntl } from 'react-intl';
 
@@ -19,91 +19,126 @@ export const useWishlist = props => {
         addProductToWishlistMutation
     } = operations;
 
+    const [isItemAdded, setIsItemAdded] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const { formatMessage } = useIntl();
+
+    const [addProductToWishlist, { loading, called, error }] = useMutation(
+        addProductToWishlistMutation,
+        {
+            refetchQueries: [{ query: getMultipleWishlistsEnabledQuery }]
+        }
+    );
 
     const { data: storeConfigData } = useQuery(
         getMultipleWishlistsEnabledQuery,
         {
-            fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
+            fetchPolicy: 'cache-and-network'
         }
     );
 
-    const [addProductToWishlist, { loading, called, error }] = useMutation(
-        addProductToWishlistMutation
-    );
-
+    // enable_multiple_wishlists is a string "1" or "0". See documentation here:
+    // https://devdocs.magento.com/guides/v2.4/graphql/mutations/create-wishlist.html
     const isMultipleWishlistsEnabled = useMemo(() => {
         return (
             storeConfigData &&
-            storeConfigData.storeConfig.enable_multiple_wishlists === '1'
+            !!storeConfigData.storeConfig.enable_multiple_wishlists &&
+            storeConfigData.storeConfig.maximum_number_of_wishlists >
+                storeConfigData.customer.wishlists.length
         );
     }, [storeConfigData]);
 
-    const handleAddToWishlist = useCallback(async () => {
-        const sku = item.product.sku;
-        const quantity = item.quantity;
-        const selected_options = item.configurable_options.map(
-            option => option.configurable_product_option_value_uid
-        );
+    const handleAddToWishlist = useCallback(
+        async (wishlistId = '0') => {
+            const { sku, quantity, selected_options } = item;
 
-        /**
-         * When we work on when we work on https://jira.corp.magento.com/browse/PWA-1599
-         * this logic will change to the wishlist the user would like to add the item to.
-         */
-        const wishlistId = isMultipleWishlistsEnabled ? '0' : '0';
-
-        try {
-            const { data: wishlistData } = await addProductToWishlist({
-                variables: {
-                    wishlistId,
-                    itemOptions: {
-                        sku,
-                        quantity,
-                        selected_options
+            try {
+                const { data: wishlistData } = await addProductToWishlist({
+                    variables: {
+                        wishlistId,
+                        itemOptions: {
+                            sku,
+                            quantity,
+                            selected_options
+                        }
                     }
-                }
-            });
-
-            if (wishlistData) {
-                const { name } = wishlistData.addProductsToWishlist.wishlist;
-
-                updateWishlistToastProps({
-                    type: 'info',
-                    message: formatMessage(
-                        {
-                            id: 'cartPage.wishlist.ee.successMessage',
-                            defaultMessage: `Item successfully added to ${name}.`
-                        },
-                        { wishlistName: name }
-                    ),
-                    timeout: 5000
                 });
-            }
 
-            if (onWishlistUpdate) {
-                await onWishlistUpdate();
-            }
-        } catch (err) {
-            console.error(err);
+                setIsItemAdded(true);
 
-            // Make sure any errors from the mutation are displayed.
-            setDisplayError(true);
+                if (wishlistData && updateWishlistToastProps) {
+                    const {
+                        name
+                    } = wishlistData.addProductsToWishlist.wishlist;
+
+                    updateWishlistToastProps({
+                        type: 'info',
+                        message: formatMessage(
+                            {
+                                id: 'cartPage.wishlist.ee.successMessage',
+                                defaultMessage: `Item successfully added to ${name}.`
+                            },
+                            { wishlistName: name }
+                        ),
+                        timeout: 5000
+                    });
+                }
+
+                if (isMultipleWishlistsEnabled) {
+                    setIsModalOpen(false);
+                }
+
+                if (onWishlistUpdate) {
+                    await onWishlistUpdate();
+                }
+            } catch (err) {
+                console.error(err);
+
+                // Make sure any errors from the mutation are displayed.
+                if (setDisplayError) {
+                    setDisplayError(true);
+                }
+            }
+        },
+        [
+            addProductToWishlist,
+            formatMessage,
+            onWishlistUpdate,
+            item,
+            updateWishlistToastProps,
+            setDisplayError,
+            isMultipleWishlistsEnabled
+        ]
+    );
+
+    const handleModalOpen = useCallback(() => {
+        setIsModalOpen(true);
+    }, []);
+
+    const handleModalClose = useCallback(success => {
+        setIsModalOpen(false);
+
+        // only set item added true if someone calls handleModalClose(true)
+        if (success === true) {
+            setIsItemAdded(true);
         }
-    }, [
-        addProductToWishlist,
-        isMultipleWishlistsEnabled,
-        formatMessage,
-        onWishlistUpdate,
-        item,
-        updateWishlistToastProps,
-        setDisplayError
-    ]);
+    }, []);
+
+    useEffect(() => {
+        // If a user changes selections, let them add that combination to a list.
+        if (item.selected_options) setIsItemAdded(false);
+    }, [item.selected_options]);
 
     return {
         handleAddToWishlist,
         loading,
         called,
-        error
+        error,
+        isDisabled: isItemAdded || loading,
+        isItemAdded,
+        isModalOpen,
+        handleModalOpen,
+        handleModalClose
     };
 };

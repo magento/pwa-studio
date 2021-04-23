@@ -3,7 +3,7 @@ import { AlertCircle, Heart, Check } from 'react-feather';
 import { useIntl } from 'react-intl';
 
 import { useToasts } from '@magento/peregrine';
-import { useWishlistButton } from '@magento/peregrine/lib/talons/Wishlist/WishlistButton/useWishlistButton';
+import { useWishlist } from '@magento/peregrine/lib/talons/Wishlist/Wishlist/useWishlist';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Icon from '@magento/venia-ui/lib/components/Icon';
@@ -17,15 +17,17 @@ const ErrorIcon = <Icon src={AlertCircle} attrs={{ width: 18 }} />;
 const WishlistButton = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const talonProps = useWishlistButton({ itemOptions: props.itemOptions });
+    const talonProps = useWishlist({ item: props.item });
 
     const {
-        addProductError,
-        handleButtonClick,
+        handleModalOpen,
         handleModalClose,
         isDisabled,
         isItemAdded,
-        isModalOpen
+        isModalOpen,
+        handleAddToWishlist,
+        error: addProductError,
+        loading: isLoading
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -81,7 +83,7 @@ const WishlistButton = props => {
                     disabled={isDisabled}
                     type="button"
                     className={classes.button}
-                    onClick={handleButtonClick}
+                    onClick={handleModalOpen}
                 >
                     <span className={contentClass}>
                         {iconElement}
@@ -92,6 +94,9 @@ const WishlistButton = props => {
                     isOpen={isModalOpen}
                     onClose={handleModalClose}
                     itemOptions={props.itemOptions}
+                    onSubmit={handleAddToWishlist}
+                    errors={[addProductError]}
+                    isLoading={isLoading}
                 />
             </div>
         </Fragment>
