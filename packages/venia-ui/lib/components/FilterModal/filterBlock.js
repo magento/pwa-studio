@@ -52,7 +52,7 @@ const FilterBlock = props => {
               }
           );
 
-    const filterItemOptions = isExpanded && (
+    const filterItemOptions = (
         <Form className={listClass}>
             <FilterList
                 filterApi={filterApi}
