@@ -7,10 +7,9 @@ import DEFAULT_OPERATIONS from './product.gql';
 
 export const useWishlist = props => {
     const {
-        removeItemFromCart,
-        cartId,
+        onWishlistUpdate,
         item,
-        onAddToWishlistSuccess,
+        updateWishlistToastProps,
         setDisplayError
     } = props;
 
@@ -69,7 +68,7 @@ export const useWishlist = props => {
             if (wishlistData) {
                 const { name } = wishlistData.addProductsToWishlist.wishlist;
 
-                onAddToWishlistSuccess({
+                updateWishlistToastProps({
                     type: 'info',
                     message: formatMessage(
                         {
@@ -82,12 +81,9 @@ export const useWishlist = props => {
                 });
             }
 
-            await removeItemFromCart({
-                variables: {
-                    cartId,
-                    itemId: item.id
-                }
-            });
+            if (onWishlistUpdate) {
+                await onWishlistUpdate();
+            }
         } catch (err) {
             console.error(err);
 
@@ -98,10 +94,9 @@ export const useWishlist = props => {
         addProductToWishlist,
         isMultipleWishlistsEnabled,
         formatMessage,
-        removeItemFromCart,
-        cartId,
+        onWishlistUpdate,
         item,
-        onAddToWishlistSuccess,
+        updateWishlistToastProps,
         setDisplayError
     ]);
 

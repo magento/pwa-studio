@@ -45,7 +45,7 @@ const CartPage = props => {
         cartItems,
         hasItems,
         isCartUpdating,
-        onAddToWishlistSuccess,
+        updateWishlistToastProps,
         setIsCartUpdating,
         shouldShowLoadingIndicator,
         wishlistSuccessProps
@@ -68,7 +68,7 @@ const CartPage = props => {
 
     const productListing = hasItems ? (
         <ProductListing
-            onAddToWishlistSuccess={onAddToWishlistSuccess}
+            updateWishlistToastProps={updateWishlistToastProps}
             setIsCartUpdating={setIsCartUpdating}
         />
     ) : (

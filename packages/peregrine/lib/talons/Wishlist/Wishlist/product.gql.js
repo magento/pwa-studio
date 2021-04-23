@@ -1,0 +1,38 @@
+import { gql } from '@apollo/client';
+
+import { WishlistFragment } from './wishlistFragment';
+
+export const GET_MULTIPLE_WISHLISTS_ENABLED = gql`
+    query getMultipleWishlistsEnabled {
+        storeConfig {
+            id
+            enable_multiple_wishlists
+        }
+    }
+`;
+
+export const ADD_TO_WISHLIST = gql`
+    mutation addProductToWishlist(
+        $wishlistId: ID!
+        $itemOptions: WishlistItemInput!
+    ) {
+        addProductsToWishlist(
+            wishlistId: $wishlistId
+            wishlistItems: [$itemOptions]
+        ) {
+            user_errors {
+                code
+                message
+            }
+            wishlist {
+                ...WishlistFragment
+            }
+        }
+    }
+    ${WishlistFragment}
+`;
+
+export default {
+    addProductToWishlistMutation: ADD_TO_WISHLIST,
+    getMultipleWishlistsEnabledQuery: GET_MULTIPLE_WISHLISTS_ENABLED
+};

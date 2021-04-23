@@ -50,7 +50,7 @@ export const useCartPage = props => {
         return (data && data.cart.items) || [];
     }, [data]);
 
-    const onAddToWishlistSuccess = useCallback(successToastProps => {
+    const updateWishlistToastProps = useCallback(successToastProps => {
         setWishlistSuccessProps(successToastProps);
     }, []);
 
@@ -58,7 +58,7 @@ export const useCartPage = props => {
         cartItems,
         hasItems,
         isCartUpdating,
-        onAddToWishlistSuccess,
+        updateWishlistToastProps,
         setIsCartUpdating,
         shouldShowLoadingIndicator,
         wishlistSuccessProps

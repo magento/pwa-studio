@@ -5,7 +5,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
-import { useWishlist } from './useWishlist';
+import { useWishlist } from '../../Wishlist/Wishlist/useWishlist';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 import mergeOperations from '../../../util/shallowMerge';
 
@@ -36,7 +36,7 @@ import DEFAULT_OPERATIONS from './product.gql';
 export const useProduct = props => {
     const {
         item,
-        onAddToWishlistSuccess,
+        updateWishlistToastProps,
         setActiveEditItem,
         setIsCartUpdating
     } = props;
@@ -109,12 +109,22 @@ export const useProduct = props => {
         return null;
     }, [formatMessage, showLoginToast]);
 
+    const onWishlistUpdate = useCallback(async () => {
+        await removeItemFromCart({
+            variables: {
+                cartId,
+                itemId: item.id
+            }
+        });
+    }, [removeItemFromCart, item, cartId]);
+
     const wishlistTalonProps = useWishlist({
         removeItemFromCart,
         cartId,
         item,
         setDisplayError,
-        onAddToWishlistSuccess,
+        updateWishlistToastProps,
+        onWishlistUpdate,
         operations: props.operations
     });
     const {
