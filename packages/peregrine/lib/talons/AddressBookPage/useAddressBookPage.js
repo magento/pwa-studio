@@ -102,7 +102,7 @@ export const useAddressBookPage = (props = {}) => {
         setDisplayError(false);
 
         setIsDialogEditMode(false);
-        setFormAddress({ country_code: 'US' });
+        setFormAddress({ country_code: process.env.DEFAULT_COUNTRY_CODE });
         setIsDialogOpen(true);
     }, []);
 

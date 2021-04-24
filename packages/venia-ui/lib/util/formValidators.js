@@ -80,12 +80,14 @@ export const mustBeChecked = value => {
 };
 
 export const validateRegionCode = (value, values, countries) => {
-    const country = countries.find(({ id }) => id === 'US');
+    const countryCode = process.env.DEFAULT_COUNTRY_CODE;
+    const country = countries.find(({ id }) => id === countryCode);
 
     if (!country) {
         const invalidCountry = {
             id: 'validation.invalidCountry',
-            defaultMessage: 'Country "US" is not an available country.'
+            defaultMessage: `Country "${countryCode}" is not an available country.`,
+            value: countryCode
         };
         return invalidCountry;
     }
@@ -95,7 +97,8 @@ export const validateRegionCode = (value, values, countries) => {
         const invalidRegions = {
             id: 'validation.invalidRegions',
             defaultMessage:
-                'Country "US" does not contain any available regions.'
+                `Country "${countryCode}" does not contain any available regions.`,
+            value: countryCode
         };
         return invalidRegions;
     }

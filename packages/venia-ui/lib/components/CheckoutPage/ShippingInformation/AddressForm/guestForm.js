@@ -218,7 +218,7 @@ export default GuestForm;
 GuestForm.defaultProps = {
     shippingData: {
         country: {
-            code: 'US'
+            code: process.env.DEFAULT_COUNTRY_CODE
         },
         region: {
             code: ''

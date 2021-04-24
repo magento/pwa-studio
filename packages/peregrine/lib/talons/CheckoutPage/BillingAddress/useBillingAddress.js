@@ -126,7 +126,7 @@ export const useBillingAddress = props => {
 
     const shippingAddressCountry = shippingAddressData
         ? shippingAddressData.cart.shippingAddresses[0].country.code
-        : 'US';
+        : process.env.DEFAULT_COUNTRY_CODE;
     const isBillingAddressSame = formState.values.isBillingAddressSame;
 
     const initialValues = useMemo(() => {
