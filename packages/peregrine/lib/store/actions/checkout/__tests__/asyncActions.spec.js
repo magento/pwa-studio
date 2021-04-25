@@ -25,6 +25,8 @@ const dispatch = jest.fn();
 const getState = jest.fn();
 const thunkArgs = [dispatch, getState];
 
+const oldDefaultCountry = process.env.DEFAULT_COUNTRY_CODE;
+
 const address = {
     country_id: 'US',
     firstname: 'Veronica',
@@ -56,6 +58,7 @@ beforeAll(() => {
         checkout: { countries },
         user: { isSignedIn: false }
     }));
+    process.env.DEFAULT_COUNTRY_CODE = 'US';
 });
 
 afterEach(() => {
@@ -68,6 +71,7 @@ afterEach(() => {
 
 afterAll(() => {
     getState.mockRestore();
+    process.env.DEFAULT_COUNTRY_CODE = oldDefaultCountry;
 });
 
 describe('beginCheckout', () => {

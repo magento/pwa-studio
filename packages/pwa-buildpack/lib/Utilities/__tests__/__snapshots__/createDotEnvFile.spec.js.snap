@@ -68,6 +68,14 @@ IMAGE_OPTIMIZING_ORIGIN=auto
 #
 ################################################################################
 
+#### Default Country ###########################################################
+#
+#   Specify the default country to be selected in forms containing country field such as address books and shipping information forms.
+#   - Default when not set: US
+DEFAULT_COUNTRY_CODE=US
+#
+################################################################################
+
 #### Custom local origin #######################################################
 #
 #   Get or create a secure, unique hostname/port combination and a trusted SSL certificate for local development.

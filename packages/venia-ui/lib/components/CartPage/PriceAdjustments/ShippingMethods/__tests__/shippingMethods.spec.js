@@ -25,6 +25,16 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 jest.mock('../shippingForm', () => 'ShippingForm');
 jest.mock('../shippingRadios', () => 'ShippingRadios');
 
+const oldDefaultCountry = process.env.DEFAULT_COUNTRY_CODE;
+
+beforeAll(() => {
+    process.env.DEFAULT_COUNTRY_CODE = 'US';
+});
+
+afterAll(() => {
+    process.env.DEFAULT_COUNTRY_CODE = oldDefaultCountry;
+});
+
 test('renders description and confirm link w/o shipping address set', () => {
     useQuery.mockReturnValue({
         data: null

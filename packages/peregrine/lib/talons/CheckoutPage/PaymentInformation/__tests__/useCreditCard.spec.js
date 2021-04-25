@@ -19,6 +19,8 @@ const getShippingAddressQuery = 'getShippingAddressQuery';
 const setBillingAddressMutation = 'setBillingAddressMutation';
 const setCreditCardDetailsOnCartMutation = 'setCreditCardDetailsOnCartMutation';
 
+const oldDefaultCountry = process.env.DEFAULT_COUNTRY_CODE;
+
 const billingAddress = {
     firstName: 'ba fn',
     lastName: 'ba ln',
@@ -174,6 +176,12 @@ beforeAll(() => {
     useApolloClient.mockReturnValue({
         writeQuery
     });
+
+    process.env.DEFAULT_COUNTRY_CODE = 'US';
+});
+
+afterAll(() => {
+    process.env.DEFAULT_COUNTRY_CODE = oldDefaultCountry;
 });
 
 const Component = props => {
