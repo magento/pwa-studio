@@ -96,8 +96,7 @@ export const validateRegionCode = (value, values, countries) => {
     if (!(Array.isArray(regions) && regions.length)) {
         const invalidRegions = {
             id: 'validation.invalidRegions',
-            defaultMessage:
-                `Country "${countryCode}" does not contain any available regions.`,
+            defaultMessage: `Country "${countryCode}" does not contain any available regions.`,
             value: countryCode
         };
         return invalidRegions;
