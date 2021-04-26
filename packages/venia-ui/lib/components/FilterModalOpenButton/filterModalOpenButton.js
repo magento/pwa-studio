@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, shape, string } from 'prop-types';
+import { shape, string, array } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '../Button';
 import { mergeClasses } from '../../classify';
@@ -31,8 +31,7 @@ const FilterModalOpenButton = props => {
 export default FilterModalOpenButton;
 
 FilterModalOpenButton.propTypes = {
-    handleOpenFilters: func,
-    handleLoadFilters: func,
+    filters: array,
     classes: shape({
         filterButton: string
     })
