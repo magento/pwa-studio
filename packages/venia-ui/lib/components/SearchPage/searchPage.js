@@ -90,11 +90,11 @@ const SearchPage = props => {
     const maybeFilterModal =
         filters && filters.length ? <FilterModal filters={filters} /> : null;
 
-    const maybeSortButton = data.products.total_count ? (
+    const maybeSortButton = data && data.products.total_count ? (
         <ProductSort sortProps={sortProps} />
     ) : null;
 
-    const maybeSortContainer = data.products.total_count ? (
+    const maybeSortContainer = data && data.products.total_count ? (
         <SortedByContainer currentSort={currentSort} />
     ) : null;
 
@@ -126,7 +126,7 @@ const SearchPage = props => {
                             id: 'searchPage.totalPages',
                             defaultMessage: `items`
                         },
-                        { totalCount: data.products.total_count }
+                        { totalCount: !data ? 0 : data.products.total_count }
                     )}
                 </span>
                 <div className={classes.headerButtons}>
