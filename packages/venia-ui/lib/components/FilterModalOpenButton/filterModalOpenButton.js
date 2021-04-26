@@ -18,8 +18,6 @@ const FilterModalOpenButton = props => {
                 root_lowPriority: classes.filterButton
             }}
             onClick={handleOpen}
-            // onFocus={onFocusAction}
-            // onMouseOver={onMouseOverAction}
             type="button"
         >
             <FormattedMessage

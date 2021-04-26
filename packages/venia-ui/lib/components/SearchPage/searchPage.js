@@ -19,12 +19,7 @@ const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = useSearchPage();
     const {
-        data = {
-            products: {
-                items: [],
-                total_count: 0
-            }
-        },
+        data,
         error,
         filters,
         loading,

@@ -52,17 +52,6 @@ const FilterBlock = props => {
               }
           );
 
-    const filterItemOptions = (
-        <Form className={listClass}>
-            <FilterList
-                filterApi={filterApi}
-                filterState={filterState}
-                group={group}
-                items={items}
-            />
-        </Form>
-    );
-
     return (
         <li className={classes.root} aria-label={itemAriaLabel}>
             <button
@@ -77,7 +66,14 @@ const FilterBlock = props => {
                     <Icon src={iconSrc} />
                 </span>
             </button>
-            {filterItemOptions}
+            <Form className={listClass}>
+                <FilterList
+                    filterApi={filterApi}
+                    filterState={filterState}
+                    group={group}
+                    items={items}
+                />
+            </Form>
         </li>
     );
 };

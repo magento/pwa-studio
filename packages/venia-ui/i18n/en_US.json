@@ -310,6 +310,7 @@
     "productFullDetail.productDescription": "Product Description",
     "productFullDetail.unavailableProduct": "This product is currently unavailable for purchase.",
     "productList.each": " ea.",
+    "productList.filter": "Filter",
     "productList.outOfStock": "Out-of-stock",
     "productList.quantity": "Qty : {quantity}",
     "productListing.loading": "Fetching Cart...",

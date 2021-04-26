@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../../util/shallowMerge';
@@ -14,8 +14,6 @@ import DEFAULT_OPERATIONS from './categoryContent.gql';
  * @returns {number} result.categoryId - This category's ID.
  * @returns {string} result.categoryName - This category's name.
  * @returns {object} result.filters - The filters object.
- * @returns {func}   result.handleLoadFilters - A callback function to signal the user's intent to interact with the filters.
- * @returns {func}   result.handleOpenFilters - A callback function that actually opens the filter drawer.
  * @returns {object} result.items - The items in this category.
  * @returns {bool}   result.loadFilters - Whether or not the user has signalled their intent to interact with the filters.
  */
@@ -30,11 +28,6 @@ export const useCategoryContent = props => {
     } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
-    const [loadFilters, setLoadFilters] = useState(false);
-
-    const handleLoadFilters = useCallback(() => {
-        setLoadFilters(true);
-    }, [setLoadFilters]);
 
     const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersByCategoryQuery,
@@ -79,9 +72,7 @@ export const useCategoryContent = props => {
         categoryName,
         categoryDescription,
         filters,
-        handleLoadFilters,
         items,
-        loadFilters,
         totalPagesFromData
     };
 };
