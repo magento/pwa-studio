@@ -165,16 +165,15 @@ export const useProduct = props => {
         updateItemLoading
     ]);
 
-    const handleSaveForLater = useCallback(
-        async (...args) => {
-            if (!isSignedIn) {
-                setShowLoginToast(current => ++current);
-            } else {
-                await handleAddToWishlist(args);
-            }
-        },
-        [isSignedIn, handleAddToWishlist]
-    );
+    const handleSaveForLater = useCallback(async () => {
+        if (!isSignedIn) {
+            setShowLoginToast(current => ++current);
+        } else {
+            // should update this to the wishlist selected by the user in
+            // https://jira.corp.magento.com/browse/PWA-1599
+            await handleAddToWishlist('0');
+        }
+    }, [isSignedIn, handleAddToWishlist]);
 
     const derivedErrorMessage = useMemo(() => {
         return (
