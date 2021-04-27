@@ -264,7 +264,7 @@ export default CustomerForm;
 CustomerForm.defaultProps = {
     shippingData: {
         country: {
-            code: process.env.DEFAULT_COUNTRY_CODE
+            code: DEFAULT_COUNTRY_CODE
         },
         region: {
             id: null

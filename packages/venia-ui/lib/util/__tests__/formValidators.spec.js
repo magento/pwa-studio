@@ -1,15 +1,5 @@
 import * as validators from '../formValidators';
 
-const oldDefaultCountry = process.env.DEFAULT_COUNTRY_CODE;
-
-beforeAll(() => {
-    process.env.DEFAULT_COUNTRY_CODE = 'US';
-});
-
-afterAll(() => {
-    process.env.DEFAULT_COUNTRY_CODE = oldDefaultCountry;
-});
-
 describe('hasLengthAtLeast', () => {
     test('it returns undefined on success', () => {
         const result = validators.hasLengthAtLeast('test', [], 1);

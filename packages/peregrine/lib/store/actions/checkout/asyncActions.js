@@ -334,7 +334,7 @@ export const createAccount = ({ history }) => async (dispatch, getState) => {
  */
 export const formatAddress = (address = {}, countries = []) => {
     const { region_code } = address;
-    const countryCode = process.env.DEFAULT_COUNTRY_CODE;
+    const countryCode = DEFAULT_COUNTRY_CODE;
 
     const country = countries.find(({ id }) => id === countryCode);
     const { available_regions: regions } = country;

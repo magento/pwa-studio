@@ -27,16 +27,6 @@ const props = {
     }
 };
 
-const oldDefaultCountry = process.env.DEFAULT_COUNTRY_CODE;
-
-beforeAll(() => {
-    process.env.DEFAULT_COUNTRY_CODE = 'US';
-});
-
-afterAll(() => {
-    process.env.DEFAULT_COUNTRY_CODE = oldDefaultCountry;
-});
-
 const Component = props => {
     const talonProps = useShippingMethods(props);
 

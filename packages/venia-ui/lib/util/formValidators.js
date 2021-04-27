@@ -80,7 +80,7 @@ export const mustBeChecked = value => {
 };
 
 export const validateRegionCode = (value, values, countries) => {
-    const countryCode = process.env.DEFAULT_COUNTRY_CODE;
+    const countryCode = DEFAULT_COUNTRY_CODE;
     const country = countries.find(({ id }) => id === countryCode);
 
     if (!country) {
