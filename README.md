@@ -63,6 +63,10 @@ For more information about contributing to this repository, see the [Contributio
 
 If you have any project questions, concerns, or contribution ideas, join our [#pwa slack channel][]!
 
+Here you can find a [public calendar][] with events that Magento PWA team runs  with Community. You can also [add that calendar][] to your calendar app to stay up to date with the changes and get notifications
+
+
+
 ### Community Maintainers
 
 A community maintainer is a point of contact from the community approved by the Core Team to help with community outreach and project administration.
@@ -131,3 +135,5 @@ We would like to recognize the following community members for their efforts on 
 [#pwa slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2
 [babel]: https://babeljs.io/
 [venia]: https://venia.magento.com/
+[public calendar]: https://calendar.google.com/calendar/embed?src=64ooaerhsq8ajsdtpgepc1h33k%40group.calendar.google.com&ctz=America%2FChicago
+[add that calendar]: https://calendar.google.com/calendar/ical/64ooaerhsq8ajsdtpgepc1h33k%40group.calendar.google.com/public/basic.ics
