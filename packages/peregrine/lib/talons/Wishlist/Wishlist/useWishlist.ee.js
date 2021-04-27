@@ -10,7 +10,7 @@ export const useWishlist = props => {
         onWishlistUpdate,
         item,
         updateWishlistToastProps,
-        setDisplayError
+        onWishlistUpdateError
     } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
@@ -95,9 +95,8 @@ export const useWishlist = props => {
             } catch (err) {
                 console.error(err);
 
-                // Make sure any errors from the mutation are displayed.
-                if (setDisplayError) {
-                    setDisplayError(true);
+                if (onWishlistUpdateError) {
+                    onWishlistUpdateError(err);
                 }
             }
         },
@@ -107,7 +106,7 @@ export const useWishlist = props => {
             onWishlistUpdate,
             item,
             updateWishlistToastProps,
-            setDisplayError,
+            onWishlistUpdateError,
             isMultipleWishlistsEnabled
         ]
     );

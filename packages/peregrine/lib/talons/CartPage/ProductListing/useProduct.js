@@ -126,11 +126,15 @@ export const useProduct = props => {
         )
     };
 
+    const onWishlistUpdateError = useCallback(() => {
+        setDisplayError(true);
+    }, []);
+
     const wishlistTalonProps = useWishlist({
         removeItemFromCart,
         cartId,
         item: wishlistItemOptions,
-        setDisplayError,
+        onWishlistUpdateError,
         updateWishlistToastProps,
         onWishlistUpdate,
         operations: props.operations
