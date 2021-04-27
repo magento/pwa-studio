@@ -8,7 +8,7 @@ export const forgotPasswordLink = 'input[data-id^="username"]';
 
 export const signInButton = 'input[data-id^="password"]';
 
-export const createAccountInitiateButton = 'button[data-id^="loginTrigger"]';
+export const createAccountInitiateButton = '[class^="signIn-buttonsContainer-"] > button';
 
 export const firstNameTextField = 'input[data-id^="username"]';
 

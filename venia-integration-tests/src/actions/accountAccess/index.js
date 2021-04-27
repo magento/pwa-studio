@@ -48,7 +48,7 @@ export const openLoginDialog = () => {
  */
 export const createAccount = (firstName, lastName, accountEmail, accountPassword) => {
     // Enter password into the password field
-    cy.get(createAccountInitiateButton).click;
+    cy.get(createAccountInitiateButton).eq(1).click();
 
     // Enter username into the username field
     cy.get(firstNameTextField).type(firstName);

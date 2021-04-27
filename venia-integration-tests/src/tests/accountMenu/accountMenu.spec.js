@@ -1,16 +1,13 @@
-import { username, password } from '../../fixtures/login';
+import {firstName, lastName, accountEmail, accountPassword} from '../../fixtures/accountAccess';
 
-import { login, openLoginDialog } from '../../actions/login';
+import { createAccount, openLoginDialog } from '../../actions/accountAccess';
 
-import { orderHistoryLink } from '../../fields/accountMenu';
+import { goToHomePage } from '../../actions/routes';
 
 describe('testing account menu items', () => {
     it('should render order history link', () => {
+        goToHomePage();
         openLoginDialog();
-
-        login(username, password);
-
-        // asset that order history link is visible
-        cy.get(orderHistoryLink).should('be.visible');
+        createAccount(firstName, lastName, accountEmail, accountPassword);
     });
 });
