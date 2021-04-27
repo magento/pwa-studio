@@ -63,9 +63,7 @@ For more information about contributing to this repository, see the [Contributio
 
 If you have any project questions, concerns, or contribution ideas, join our [#pwa slack channel][]!
 
-Here you can find a [public calendar][] with events that Magento PWA team runs  with Community. You can also [add that calendar][] to your calendar app to stay up to date with the changes and get notifications
-
-
+Here you can find a [public calendar][] with events that Magento PWA team runs with Community. You can also [add that calendar][] to your calendar app to stay up to date with the changes and get notifications.
 
 ### Community Maintainers
 
