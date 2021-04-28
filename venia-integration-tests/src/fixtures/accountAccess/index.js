@@ -7,4 +7,4 @@ export const accountPassword = '123123^q';
 // Need unique email for test account creation
 const uuid = () => Cypress._.random(0, 1e6)
 const id = uuid()
-export const accountEmail = `${id}test@tester.com`
+export const accountEmail = `${id}test@example.com`

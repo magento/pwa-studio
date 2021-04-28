@@ -1,0 +1,1 @@
+export const categoryTops = './venia-tops.html?page=1';
