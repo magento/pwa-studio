@@ -7,10 +7,9 @@ import {
  * Utility function to assert repective auth user exists
  * 
  * @param {String} firstName auth user name
- * @param {String} myAccountPage respective my account page to navigate
  */
 export const assertCreateAccount = (firstName) => {
-    // Enter username into the username field
+    // assert auth user exists
     cy.get(myAccountMenuItemsField).contains('Hi, ' + firstName);
 };
 

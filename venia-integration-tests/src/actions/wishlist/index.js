@@ -5,7 +5,7 @@ import {
 
 /**
  * Utility function to assert empty wishlist
- * @param {String} wishlistHeaderText respective my account page to navigate
+ * @param {String} wishlistHeaderText wishlist page header text 
  */
 export const assertEmptyWishlist = (wishlistHeaderText) => {
     // open the signin dialog

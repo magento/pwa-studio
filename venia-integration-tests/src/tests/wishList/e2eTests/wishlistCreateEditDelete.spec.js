@@ -2,7 +2,7 @@ import { firstName, lastName, accountEmail, accountPassword } from '../../../fix
 
 import { createAccount, openLoginDialog } from '../../../actions/accountAccess/index';
 
-import { goToHomePage, visitPage } from '../../../actions/routes/index';
+import { visitPage } from '../../../actions/routes/index';
 
 import { assertCreateAccount, goToMyAccount } from '../../../actions/myAccountMenu/index';
 
@@ -12,10 +12,14 @@ import { assertEmptyWishlist } from '../../../actions/wishlist/index';
 
 import { categoryTops } from '../../../fixtures/categoryPage/index';
 
+import { homePage } from '../../../fixtures/homePage/index';
+
+
+
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify wishlist basic features', () => {
     it('user should be able to add and remove products from wishlist', () => {
-        goToHomePage();
+        visitPage(homePage);
         openLoginDialog();
         createAccount(firstName, lastName, accountEmail, accountPassword);
         assertCreateAccount(firstName);
