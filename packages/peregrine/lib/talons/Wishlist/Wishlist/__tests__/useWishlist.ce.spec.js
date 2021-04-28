@@ -1,19 +1,34 @@
 import React from 'react';
-// import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import { useWishlist } from '../useWishlist.ce';
 import createTestInstance from '../../../../util/createTestInstance';
+import { useIntl } from 'react-intl';
 
-jest.mock('@apollo/client', () =>
-    jest.fn().mockReturnValue([
-        jest.fn(),
+jest.mock('@apollo/client', () => ({
+    useMutation: jest.fn().mockReturnValue([
+        jest.fn().mockResolvedValue({ data: 'data' }),
         {
             loading: false,
             called: false,
             error: null
         }
     ])
-);
+}));
+
+jest.mock('react-intl', () => ({
+    useIntl: jest.fn().mockReturnValue({ formatMessage: jest.fn() })
+}));
+
+jest.mock('../../../../util/shallowMerge', () => () => ({
+    addProductToWishlistMutation: 'addProductToWishlistMutation'
+}));
+
+jest.mock('../product.gql', () => () => ({}));
+
+const onWishlistUpdate = jest.fn();
+const onWishlistUpdateError = jest.fn();
+const updateWishlistToastProps = jest.fn();
 
 const defaultProps = {
     item: {
@@ -21,9 +36,9 @@ const defaultProps = {
         quantity: '1',
         selected_options: 'selected options'
     },
-    onWishlistUpdate: jest.fn(),
-    onWishlistUpdateError: jest.fn(),
-    updateWishlistToastProps: jest.fn()
+    onWishlistUpdate,
+    onWishlistUpdateError,
+    updateWishlistToastProps
 };
 
 const Component = props => {
@@ -46,14 +61,106 @@ const getTalonProps = props => {
     return { talonProps, tree, update };
 };
 
+const addProductToWishlist = jest.fn().mockResolvedValue({ data: 'data' });
+const formatMessage = jest
+    .fn()
+    .mockImplementation(({ defaultMessage }) => defaultMessage);
+
+beforeAll(() => {
+    useMutation.mockReturnValue([
+        addProductToWishlist,
+        { called: true, loading: true, error: null }
+    ]);
+
+    useIntl.mockReturnValue({
+        formatMessage
+    });
+});
+
+beforeEach(() => {
+    onWishlistUpdate.mockClear();
+    onWishlistUpdateError.mockClear();
+    updateWishlistToastProps.mockClear();
+});
+
 test('should return correct shape', () => {
     const { talonProps } = getTalonProps(defaultProps);
 
     expect(talonProps).toMatchSnapshot();
 });
 
-// test('handleAddToWishlist')
+describe('testing handleAddToWishlist', () => {
+    test('should add the product to list', async () => {
+        const { talonProps } = getTalonProps(defaultProps);
 
-// test('should use necessary translations', () => {
+        await talonProps.handleAddToWishlist();
 
-// })
+        expect(addProductToWishlist.mock.calls[0]).toMatchSnapshot();
+    });
+
+    test('should set isItemAdded to true if mutation is successful', async () => {
+        const { talonProps, update } = getTalonProps(defaultProps);
+
+        await talonProps.handleAddToWishlist();
+
+        const { isItemAdded } = update();
+
+        expect(isItemAdded).toBeTruthy();
+    });
+
+    test('should call updateWishlistToastProps', async () => {
+        const { talonProps } = getTalonProps(defaultProps);
+
+        await talonProps.handleAddToWishlist();
+
+        expect(updateWishlistToastProps.mock.calls[0]).toMatchSnapshot();
+    });
+
+    test('should call onWishlistUpdate', async () => {
+        const { talonProps } = getTalonProps(defaultProps);
+
+        await talonProps.handleAddToWishlist();
+
+        expect(onWishlistUpdate).toHaveBeenCalled();
+    });
+
+    test('should call onWishlistUpdateError if there was an error calling the mutation', async () => {
+        const error = 'Something went wrong';
+        addProductToWishlist.mockRejectedValueOnce(error);
+        const { talonProps } = getTalonProps(defaultProps);
+
+        await talonProps.handleAddToWishlist();
+
+        expect(onWishlistUpdateError.mock.calls[0]).toMatchSnapshot();
+    });
+
+    test('should use necessary translations', async () => {
+        const { talonProps } = getTalonProps(defaultProps);
+
+        await talonProps.handleAddToWishlist();
+
+        expect(formatMessage.mock.calls).toMatchSnapshot();
+    });
+});
+
+test('should reset isItemAdded if selected_options change', async () => {
+    const { talonProps, update } = getTalonProps(defaultProps);
+
+    await talonProps.handleAddToWishlist();
+
+    const { isItemAdded } = update();
+
+    expect(isItemAdded).toBeTruthy();
+
+    update({
+        ...defaultProps,
+        item: {
+            ...defaultProps.item,
+            selected_options: 'new selected options'
+        }
+    });
+
+    const { isItemAdded: newIsItemAdded } = update();
+
+    expect(newIsItemAdded).toBeFalsy();
+});
