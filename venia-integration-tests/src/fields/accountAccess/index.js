@@ -6,20 +6,14 @@ export const signInPasswordTextField = 'input[name="password"]';
 
 export const forgotPasswordLink = 'input[data-id^="username"]';
 
-export const signInButton = 'input[data-id^="password"]';
+export const createAccountInitiateButton = '[class^="button-content-"]';
 
-export const createAccountInitiateButton = '[class^="signIn-buttonsContainer-"] > button';
+export const firstNameTextField = 'input[name="customer.firstname"]';
 
-export const firstNameTextField = 'input[data-id^="username"]';
+export const lastNameTextField = 'input[name="customer.lastname"]';
 
-export const lastNameTextField = 'input[data-id^="password"]';
+export const createAccountEmailTextField = 'input[name="customer.email"]';
 
-export const createAccountEmailTextField = 'button[data-id^="loginTrigger"]';
+export const createAccountPasswordTextField = 'input[name="password"]';
 
-export const createAccountPasswordTextField = '';
-
-export const subscribeToNewsCheckBox = 'input[data-id^="password"]';
-
-export const createAccountSubmitButton = 'button[data-id^="loginTrigger"]';
-
-export const createAccountCancelButton = 'button[data-id^="loginTrigger"]';
+export const createAccountSubmitButton = '[class^="createAccount-submitButton-"]';

@@ -1,33 +1,12 @@
 import {
     accountTriggerButton,
-    signInEmailTextField,
-    signInPasswordTextField,
-    forgotPasswordLink,
-    signInButton,
     createAccountInitiateButton,
     firstNameTextField,
     lastNameTextField,
     createAccountEmailTextField,
     createAccountPasswordTextField,
-    subscribeToNewsCheckBox,
     createAccountSubmitButton,
-    createAccountCancelButton
 } from '../../fields/accountAccess';
-
-/**
- * Utility function to login to Venia using the
- * username and password provided.
- *
- * @param {String} username username to login
- * @param {String} password password to login
- */
-export const login = (username, password) => {
-    // Enter username into the username field
-    cy.get(usernameField).type(username);
-
-    // Enter password into the password field
-    cy.get(passwordField).type(password);
-};
 
 /**
  * Utility function to open the login dialog
@@ -47,10 +26,10 @@ export const openLoginDialog = () => {
  * @param {String} accountPassword accountPassword to createAccount
  */
 export const createAccount = (firstName, lastName, accountEmail, accountPassword) => {
-    // Enter password into the password field
-    cy.get(createAccountInitiateButton).eq(1).click();
+    // click on create account button
+    cy.get(createAccountInitiateButton).contains('Create an Account').click()
 
-    // Enter username into the username field
+    // enter user name
     cy.get(firstNameTextField).type(firstName);
 
     // Enter password into the password field
@@ -63,7 +42,7 @@ export const createAccount = (firstName, lastName, accountEmail, accountPassword
     cy.get(createAccountPasswordTextField).type(accountPassword);
 
     // Enter password into the password field
-    cy.get(createAccountSubmitButton).click;
+    cy.get(createAccountSubmitButton).contains('Create an Account').click()
 };
 
 export const assertCreateAccount = (firstName, lastName, accountEmail, accountPassword) => {
