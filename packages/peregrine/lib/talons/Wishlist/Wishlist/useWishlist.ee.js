@@ -115,11 +115,11 @@ export const useWishlist = props => {
         setIsModalOpen(true);
     }, []);
 
-    const handleModalClose = useCallback(success => {
+    const handleModalClose = useCallback(isSuccess => {
         setIsModalOpen(false);
 
         // only set item added true if someone calls handleModalClose(true)
-        if (success === true) {
+        if (isSuccess) {
             setIsItemAdded(true);
         }
     }, []);
