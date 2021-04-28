@@ -10,10 +10,11 @@ import { wishlistPage } from '../../../fixtures/myAccountMenu/index';
 
 import { assertEmptyWishlist } from '../../../actions/wishlist/index';
 
-import { categoryTops } from '../../../fixtures/categoryPage/index';
+import { categorySweaters } from '../../../fixtures/categoryPage/index';
 
 import { homePage } from '../../../fixtures/homePage/index';
 
+import { addProductToWishlistFromCategoryPage } from '../../../actions/categoryPage/index';
 
 
 // TODO add tags CE, EE to test to filter and run tests as needed
@@ -25,9 +26,9 @@ describe('verify wishlist basic features', () => {
         assertCreateAccount(firstName);
         goToMyAccount(firstName, wishlistPage);
         assertEmptyWishlist(wishlistPage);
-        visitPage(categoryTops);
-        // addProductToWishlist
-        // goToWishListPage
+        visitPage(categorySweaters);
+        addProductToWishlistFromCategoryPage();
+        visitPage(wishListPage);
         // assertProductInWishlist
         // goToProductsPage
         // addProductToWishlist
