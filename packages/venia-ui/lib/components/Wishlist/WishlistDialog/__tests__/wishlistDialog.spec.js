@@ -1,29 +1,26 @@
 import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import WishlistDialog from '../wishlistDialog';
-import { useWishlistDialog } from '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/useWishlistDialog';
+import { useWishlistDialog } from '@magento/peregrine/lib/talons/Wishlist/useWishlistDialog';
 
 jest.mock('@magento/venia-ui/lib/classify');
 jest.mock('@magento/venia-ui/lib/components/Dialog', () => props => (
     <mock-Dialog {...props}>{props.children}</mock-Dialog>
 ));
 
-jest.mock(
-    '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/useWishlistDialog',
-    () => ({
-        useWishlistDialog: jest.fn().mockReturnValue({
-            canCreateWishlist: false,
-            formErrors: [],
-            handleAddToWishlist: jest.fn(),
-            handleCancel: jest.fn(),
-            handleNewListClick: jest.fn(),
-            handleCancelNewList: jest.fn(),
-            isAddLoading: false,
-            isFormOpen: false,
-            wishlistsData: null
-        })
+jest.mock('@magento/peregrine/lib/talons/Wishlist/useWishlistDialog', () => ({
+    useWishlistDialog: jest.fn().mockReturnValue({
+        canCreateWishlist: false,
+        formErrors: [],
+        handleAddToWishlist: jest.fn(),
+        handleCancel: jest.fn(),
+        handleNewListClick: jest.fn(),
+        handleCancelNewList: jest.fn(),
+        isAddLoading: false,
+        isFormOpen: false,
+        wishlistsData: null
     })
-);
+}));
 
 const defaultTalonProps = {
     canCreateWishlist: false,

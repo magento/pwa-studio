@@ -5,7 +5,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
-import { useWishlist } from '../../Wishlist/Wishlist/useWishlist';
+import { useWishlist } from '../../Wishlist/useWishlist';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 import mergeOperations from '../../../util/shallowMerge';
 

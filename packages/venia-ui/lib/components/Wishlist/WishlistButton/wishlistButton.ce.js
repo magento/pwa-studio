@@ -3,7 +3,7 @@ import { AlertCircle, Heart, Check } from 'react-feather';
 import { useIntl } from 'react-intl';
 
 import { useToasts } from '@magento/peregrine';
-import { useWishlist } from '@magento/peregrine/lib/talons/Wishlist/Wishlist/useWishlist';
+import { useWishlist } from '@magento/peregrine/lib/talons/Wishlist/useWishlist';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Icon from '@magento/venia-ui/lib/components/Icon';
