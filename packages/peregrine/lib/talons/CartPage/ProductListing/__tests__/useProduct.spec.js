@@ -67,6 +67,19 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('@magento/peregrine/lib/context/user', () => ({
+    useUserContext: jest.fn().mockReturnValue([{ isSignedIn: true }])
+}));
+
+jest.mock('../useWishlist', () => ({
+    useWishlist: jest.fn().mockReturnValue({
+        handleAddToWishlist: jest.fn().mockResolvedValue(true),
+        loading: false,
+        called: true,
+        error: null
+    })
+}));
+
 const props = {
     item: {
         prices: {
@@ -89,7 +102,8 @@ const props = {
         updateItemQuantityMutation: ''
     },
     setActiveEditItem: jest.fn(),
-    setIsCartUpdating: jest.fn()
+    setIsCartUpdating: jest.fn(),
+    onAddToWishlistSuccess: jest.fn()
 };
 
 const log = jest.fn();
@@ -184,7 +198,7 @@ test('it returns the correct error message when the error is not graphql', async
         { error: new Error('test!') }
     ]);
 
-    useState.mockReturnValueOnce([false, jest.fn()]);
+    useState.mockReturnValueOnce([true, jest.fn()]);
     useState.mockReturnValueOnce([true, jest.fn()]);
 
     // Act.
@@ -207,7 +221,7 @@ test('it returns the correct error message when the error is graphql', () => {
         }
     ]);
 
-    useState.mockReturnValueOnce([false, jest.fn()]);
+    useState.mockReturnValueOnce([true, jest.fn()]);
     useState.mockReturnValueOnce([true, jest.fn()]);
 
     // Act.
@@ -252,24 +266,6 @@ test('it tells the cart when a mutation is in flight', () => {
     );
 
     expect(setIsCartUpdating).toHaveBeenCalledWith(true);
-});
-
-test('it provides a way to toggle favorites', () => {
-    const tree = createTestInstance(<Component {...props} />);
-
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-
-    expect(talonProps.isFavorite).toBeFalsy();
-
-    const { handleToggleFavorites } = talonProps;
-
-    act(() => {
-        handleToggleFavorites();
-    });
-
-    const { talonProps: updatedProps } = tree.root.findByType('i').props;
-    expect(updatedProps.isFavorite).toBeTruthy();
 });
 
 test('it handles editing the product', () => {
@@ -320,9 +316,9 @@ describe('it handles cart removal', () => {
 
         const { handleEditItem, handleRemoveFromCart } = talonProps;
 
-        act(() => {
+        act(async () => {
             handleEditItem();
-            handleRemoveFromCart();
+            await handleRemoveFromCart();
         });
 
         expect(removeItem).toHaveBeenCalled();
@@ -364,8 +360,8 @@ describe('it handles cart removal', () => {
 
         const { handleRemoveFromCart } = talonProps;
 
-        act(() => {
-            handleRemoveFromCart();
+        act(async () => {
+            await handleRemoveFromCart();
         });
 
         const { talonProps: updatedProps } = tree.root.findByType('i').props;
