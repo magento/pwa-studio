@@ -18,8 +18,13 @@
     composes: detail;
 }
 
+.outOfStock {
+    color: rgb(var(--venia-global-color-error));
+    font-size: var(--venia-typography-detail-L-fontSize);
+}
+
 .priceContainer {
-    composes: detail;
+    font-size: var(--venia-typography-detail-XL-fontSize);
 }
 
 .image {
@@ -28,39 +33,31 @@
     object-fit: contain;
 }
 
-.actionsContainer {
-    display: flex;
-    flex-wrap: wrap;
-    --gap: 0.5rem;
-    /** polyfill to support flexbox gap in Safari */
-    margin: calc(var(--gap) / -2) calc(var(--gap) / -2);
-}
-
-.action {
-    margin: calc(var(--gap) / 2) calc(var(--gap) / 2);
+.image_disabled {
+    composes: image;
+    opacity: 0.6;
 }
 
 .addToCart {
-    composes: action;
-    composes: root from '../Button/button.css';
-    border: none;
-    min-width: auto;
-    min-height: auto;
-    padding: 0;
-    text-align: left;
-    white-space: normal;
-}
-
-.addToCart:focus {
-    box-shadow: none;
-    outline: auto;
+    composes: root_highPriority from '../Button/button.css';
+    justify-self: left;
 }
 
 .moreActions {
-    composes: action;
     align-items: center;
     background-color: rgb(var(--venia-global-color-gray-100));
     border-radius: 50%;
-    display: inline-flex;
+    /**
+        Hide actions menu until PWA-1683
+
+        display: inline-flex;
+     */
+    display: none;
     padding: 0.125rem;
+}
+
+@media (max-width: 480px) {
+    .addToCart {
+        min-width: auto;
+    }
 }

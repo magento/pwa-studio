@@ -1,11 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-
 import mergeOperations from '../../util/shallowMerge';
-
-import DEFAULT_OPERATIONS from './wishlistItem.gql';
+import defaultOperations from './wishlistItem.gql';
 
 // Note: There is only ever zero (0) or one (1) dialogs open for a wishlist item.
 const dialogs = {
@@ -26,9 +24,12 @@ const dialogs = {
  * @returns {WishlistItemProps}
  */
 export const useWishlistItem = props => {
-    const { childSku, itemId, sku, wishlistId } = props;
+    const { item, wishlistId } = props;
+    const { child_sku: childSku, id: itemId, product } = item;
+    const { image, sku, stock_status: stockStatus } = product;
+    const { label: imageLabel, url: imageURL } = image;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(defaultOperations, props.operations);
     const {
         addWishlistItemToCartMutation,
         removeProductsFromWishlistMutation
@@ -82,8 +83,8 @@ export const useWishlistItem = props => {
     const handleAddToCart = useCallback(async () => {
         try {
             await addWishlistItemToCart();
-        } catch {
-            return;
+        } catch (e) {
+            console.error(e);
         }
     }, [addWishlistItemToCart]);
 
@@ -124,16 +125,32 @@ export const useWishlistItem = props => {
         currentDialog === dialogs.CONFIRM_REMOVE_PRODUCT;
     const moreActionsIsOpen = currentDialog === dialogs.MORE_ACTIONS;
 
+    const addToCartButtonProps = useMemo(() => {
+        return {
+            disabled:
+                addWishlistItemToCartLoading || stockStatus === 'OUT_OF_STOCK',
+            onClick: handleAddToCart
+        };
+    }, [addWishlistItemToCartLoading, handleAddToCart, stockStatus]);
+
+    const imageProps = useMemo(() => {
+        return {
+            alt: imageLabel,
+            src: imageURL,
+            width: 400
+        };
+    }, [imageLabel, imageURL]);
+
     return {
+        addToCartButtonProps,
         confirmRemovalIsOpen,
-        handleAddToCart,
         handleHideDialogs,
         handleRemoveProductFromWishlist,
         handleShowConfirmRemoval,
         handleShowMoreActions,
         hasError: !!addWishlistItemToCartError,
         hasRemoveProductFromWishlistError: !!removeProductFromWishlistError,
-        isLoading: addWishlistItemToCartLoading,
+        imageProps,
         isRemovalInProgress,
         moreActionsIsOpen
     };
@@ -148,8 +165,8 @@ export const useWishlistItem = props => {
  *
  * @typedef {Object} WishlistItemOperations
  *
- * @property {GraphQLAST} addWishlistItemToCartMutation Mutation to add item to the cart
- * @property {GraphQLAST} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
+ * @property {GraphQLDocument} addWishlistItemToCartMutation Mutation to add item to the cart
+ * @property {GraphQLDocument} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
  *
  * @see [`wishlistItem.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistItem.gql.js}
  * for queries used in Venia
@@ -161,7 +178,6 @@ export const useWishlistItem = props => {
  * @typedef {Object} WishlistItemProps
  *
  * @property {Boolean} confirmRemovalIsOpen Whether the confirm removal dialog is open
- * @property {Function} handleAddToCart Callback to handle item addition to cart
  * @property {Function} handleHideDialogs Callback to handle hiding all dialogs
  * @property {Function} handleRemoveProductFromWishlist Callback to actually remove product from wishlist
  * @property {Function} handleShowConfirmRemoval Callback to handle showing the removal confirmation prompt
