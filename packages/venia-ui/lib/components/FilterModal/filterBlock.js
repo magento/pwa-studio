@@ -72,6 +72,7 @@ const FilterBlock = props => {
                     filterState={filterState}
                     group={group}
                     items={items}
+                    isExpanded={isExpanded}
                 />
             </Form>
         </li>
