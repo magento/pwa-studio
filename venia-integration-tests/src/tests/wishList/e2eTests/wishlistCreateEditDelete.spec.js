@@ -16,6 +16,8 @@ import { homePage } from '../../../fixtures/homePage/index';
 
 import { addProductToWishlistFromCategoryPage } from '../../../actions/categoryPage/index';
 
+import { wishListPage } from '../../../fixtures/wishlist/index';
+
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify wishlist basic features', () => {
@@ -29,7 +31,7 @@ describe('verify wishlist basic features', () => {
         visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage();
         visitPage(wishListPage);
-        // assertProductInWishlist
+        // assertProductInWishlist();
         // goToProductsPage
         // addProductToWishlist
         // goToWishListPage

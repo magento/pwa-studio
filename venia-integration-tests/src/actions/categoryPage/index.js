@@ -7,7 +7,9 @@ import {
  * Utility function to add product to wishlist from category page
  */
 export const addProductToWishlistFromCategoryPage = () => {
-    // 
-    cy.xpath(categoryPageAddToWishListButton).click();
-};
+    // add product to wishlist
+    cy.xpath(categoryPageAddToWishListButton).contains('Carina Cardigan').click();
 
+    // assert product selected indicator
+    cy.xpath(categoryPageSelectedWishlistButton).contains('Carina Cardigan').should('exist');
+};
