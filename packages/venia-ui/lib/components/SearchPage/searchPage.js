@@ -90,13 +90,15 @@ const SearchPage = props => {
     const maybeFilterModal =
         filters && filters.length ? <FilterModal filters={filters} /> : null;
 
-    const maybeSortButton = data && data.products.total_count ? (
-        <ProductSort sortProps={sortProps} />
-    ) : null;
+    const maybeSortButton =
+        data && data.products.total_count ? (
+            <ProductSort sortProps={sortProps} />
+        ) : null;
 
-    const maybeSortContainer = data && data.products.total_count ? (
-        <SortedByContainer currentSort={currentSort} />
-    ) : null;
+    const maybeSortContainer =
+        data && data.products.total_count ? (
+            <SortedByContainer currentSort={currentSort} />
+        ) : null;
 
     const searchResultsHeading = searchTerm ? (
         <FormattedMessage

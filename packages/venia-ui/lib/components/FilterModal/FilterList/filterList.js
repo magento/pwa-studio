@@ -39,7 +39,7 @@ const FilterList = props => {
 
                 return element;
             }),
-        [classes, filterApi, filterState, group, items]
+        [classes, filterApi, filterState, group, items, isExpanded]
     );
 
     return (
