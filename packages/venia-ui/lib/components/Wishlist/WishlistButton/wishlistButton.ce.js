@@ -3,7 +3,7 @@ import { AlertCircle, Heart, Check } from 'react-feather';
 import { useIntl } from 'react-intl';
 
 import { useToasts } from '@magento/peregrine';
-import { useWishlistButton } from '@magento/peregrine/lib/talons/Wishlist/WishlistButton/useWishlistButton';
+import { useWishlist } from '@magento/peregrine/lib/talons/Wishlist/Wishlist/useWishlist';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Icon from '@magento/venia-ui/lib/components/Icon';
@@ -16,13 +16,13 @@ const ErrorIcon = <Icon src={AlertCircle} attrs={{ width: 18 }} />;
 const WishlistButton = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const talonProps = useWishlistButton({ itemOptions: props.itemOptions });
+    const talonProps = useWishlist({ item: props.item });
 
     const {
-        addProductError,
-        handleClick,
+        handleAddToWishlist,
         isDisabled,
-        isItemAdded
+        isItemAdded,
+        error: addProductError
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -77,7 +77,7 @@ const WishlistButton = props => {
                 disabled={isDisabled}
                 type="button"
                 className={classes.button}
-                onClick={handleClick}
+                onClick={handleAddToWishlist}
             >
                 <span className={contentClass}>
                     {iconElement}
