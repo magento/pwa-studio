@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-
+import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 import CategoryContent from '../categoryContent';
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
@@ -17,9 +17,15 @@ jest.mock('../../../components/Head', () => ({
     StoreTitle: () => 'Title'
 }));
 
+jest.mock('@magento/peregrine/lib/talons/RootComponents/Category', () => ({
+    useCategoryContent: jest.fn()
+}));
+
 jest.mock('../../../components/Breadcrumbs', () => 'Breadcrumbs');
 jest.mock('../../../components/Gallery', () => 'Gallery');
 jest.mock('../../../components/Pagination', () => 'Pagination');
+jest.mock('../../../components/SortedByContainer', () => 'SortedByContainer');
+jest.mock('../../../components/FilterModalOpenButton', () => 'FilterModalOpenButton');
 jest.mock('../NoProductsFound', () => 'NoProductsFound');
 
 const classes = {
@@ -34,12 +40,18 @@ const sortProps = [
     jest.fn()
 ];
 
+const talonProps = {
+    categoryName: 'Name',
+    categoryDescription: 'test',
+    filters: {},
+    items: {
+        id: 1
+    },
+    totalPagesFromData: 1
+};
+
 test('renders the correct tree', () => {
     const data = {
-        category: {
-            name: 'Name',
-            description: 'test'
-        },
         products: {
             items: {
                 id: 1
@@ -49,7 +61,7 @@ test('renders the correct tree', () => {
             }
         }
     };
-
+    useCategoryContent.mockReturnValueOnce(talonProps);
     const instance = createTestInstance(
         <CategoryContent
             pageControl={{}}
@@ -65,10 +77,6 @@ test('renders the correct tree', () => {
 
 test('renders empty page', () => {
     const data = {
-        category: {
-            name: 'Empty Name',
-            description: 'test'
-        },
         products: {
             items: null,
             page_info: {
@@ -76,7 +84,11 @@ test('renders empty page', () => {
             }
         }
     };
-
+    useCategoryContent.mockReturnValueOnce({
+        ...talonProps,
+        categoryName: 'Empty Name',
+        totalPagesFromData: 0
+    });
     const instance = createTestInstance(
         <CategoryContent
             pageControl={{}}
