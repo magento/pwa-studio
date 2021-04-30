@@ -12,6 +12,8 @@ jest.mock('../../FilterModal', () => 'FilterModal');
 jest.mock('../../ProductSort', () => 'ProductSort');
 jest.mock('../../../components/Pagination', () => 'Pagination');
 jest.mock('@magento/venia-ui/lib/classify');
+jest.mock('../../SortedByContainer', () => 'SortedByContainer');
+jest.mock('../../FilterModalOpenButton', () => 'FilterModalOpenButton');
 
 const talonProps = {
     data: {

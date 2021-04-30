@@ -82,6 +82,8 @@ const SearchPage = props => {
         pageControl
     ]);
 
+    const productsCount = data && data.products && data.products.total_count ? data.products.total_count : 0;
+
     const maybeFilterButtons =
         filters && filters.length ? (
             <FilterModalOpenButton filters={filters} />
@@ -100,7 +102,7 @@ const SearchPage = props => {
             <SortedByContainer currentSort={currentSort} />
         ) : null;
 
-    const searchResultsHeading = searchTerm ? (
+    const searchResultsHeading = !data ? null : searchTerm ? (
         <FormattedMessage
             id={'searchPage.searchTerm'}
             values={{
@@ -128,7 +130,7 @@ const SearchPage = props => {
                             id: 'searchPage.totalPages',
                             defaultMessage: `items`
                         },
-                        { totalCount: !data ? 0 : data.products.total_count }
+                        { totalCount: productsCount }
                     )}
                 </span>
                 <div className={classes.headerButtons}>
