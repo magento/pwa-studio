@@ -10,13 +10,15 @@ import { wishlistPage } from '../../../fixtures/myAccountMenu/index';
 
 import { assertEmptyWishlist } from '../../../actions/wishlist/index';
 
-import { categorySweaters } from '../../../fixtures/categoryPage/index';
+import { categorySweaters, productCarinaCardigan } from '../../../fixtures/categoryPage/index';
 
 import { homePage } from '../../../fixtures/homePage/index';
 
 import { addProductToWishlistFromCategoryPage } from '../../../actions/categoryPage/index';
 
-import { wishListPage } from '../../../fixtures/wishlist/index';
+import { wishistRoute } from '../../../fixtures/wishlist/index';
+
+import { assertProductInWishlist } from '../../../actions/wishlist/index';
 
 
 // TODO add tags CE, EE to test to filter and run tests as needed
@@ -29,15 +31,15 @@ describe('verify wishlist basic features', () => {
         goToMyAccount(firstName, wishlistPage);
         assertEmptyWishlist(wishlistPage);
         visitPage(categorySweaters);
-        addProductToWishlistFromCategoryPage();
-        visitPage(wishListPage);
-        // assertProductInWishlist();
+        addProductToWishlistFromCategoryPage(productCarinaCardigan);
+        visitPage(wishistRoute);
+        assertProductInWishlist(productCarinaCardigan);
         // goToProductsPage
         // addProductToWishlist
         // goToWishListPage
-        // assertProductInWishlist
+        assertProductInWishlist(productCarinaCardigan);
         // assertProductInWishlist
         // removeProduct
-        // assertEmptyWishlist
+        assertEmptyWishlist(wishlistPage);
     });
 });

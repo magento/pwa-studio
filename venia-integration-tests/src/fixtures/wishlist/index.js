@@ -1,1 +1,1 @@
-export const categorySweaters = './wishlist';
+export const wishistRoute = './wishlist';

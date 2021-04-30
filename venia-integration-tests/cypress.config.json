@@ -8,6 +8,5 @@
     "requestTimeout": 30000,
     "testFiles": "**/*.spec.js",
     "viewportHeight": 900,
-    "viewportWidth": 1440,
-    "supportFile": "src/support/index.js"
+    "viewportWidth": 1440
 }
