@@ -9,3 +9,7 @@ export const wishlistItemAddToCartSection = '*[class^="wishlistItem-actionsConta
 export const wishlistItemAddToCartButton = '*[class^="wishlistItem-addToCart-"]';
 
 export const wishlistItemMoreActionsButton = '*[class^="wishlistItem-moreActions-"]';
+
+export const removeProduct = 'button[class^="wishlistMoreActionsDialog-rowButton-"]';
+
+export const deleteProduct = 'button[class^="wishlistConfirmRemoveProductDialog-confirmButton-"]';

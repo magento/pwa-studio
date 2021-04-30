@@ -8,7 +8,7 @@ import { assertCreateAccount, goToMyAccount } from '../../../actions/myAccountMe
 
 import { wishlistPage } from '../../../fixtures/myAccountMenu/index';
 
-import { assertEmptyWishlist } from '../../../actions/wishlist/index';
+import { assertWishlistHeading, assertEmptyWishlist, assertProductInWishlist, removeProductFromWishlist } from '../../../actions/wishlist/index';
 
 import { categorySweaters, productCarinaCardigan } from '../../../fixtures/categoryPage/index';
 
@@ -18,8 +18,9 @@ import { addProductToWishlistFromCategoryPage } from '../../../actions/categoryP
 
 import { wishistRoute } from '../../../fixtures/wishlist/index';
 
-import { assertProductInWishlist } from '../../../actions/wishlist/index';
+import { } from '../../../actions/wishlist/index';
 
+import { productValeriaTwoLayeredTankUrl } from '../../../fixtures/productDetailsPage/index';
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify wishlist basic features', () => {
@@ -29,17 +30,18 @@ describe('verify wishlist basic features', () => {
         createAccount(firstName, lastName, accountEmail, accountPassword);
         assertCreateAccount(firstName);
         goToMyAccount(firstName, wishlistPage);
-        assertEmptyWishlist(wishlistPage);
+        assertWishlistHeading(wishlistPage);
+        assertEmptyWishlist();
         visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
         visitPage(wishistRoute);
         assertProductInWishlist(productCarinaCardigan);
-        // goToProductsPage
+        visitPage(productValeriaTwoLayeredTankUrl);
         // addProductToWishlist
-        // goToWishListPage
+        visitPage(wishistRoute);
         assertProductInWishlist(productCarinaCardigan);
         // assertProductInWishlist
-        // removeProduct
+        removeProductFromWishlist(productCarinaCardigan);
         assertEmptyWishlist(wishlistPage);
     });
 });
