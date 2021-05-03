@@ -1,3 +1,4 @@
+export const createAnAccount = 'Create an Account'
 export const firstName = 'John';
 
 export const lastName = 'Doe';
