@@ -20,12 +20,22 @@ export const WishlistItemFragment = gql`
             }
             sku
             stock_status
+            ... on ConfigurableProduct {
+                configurable_options {
+                    id
+                    attribute_id_v2
+                    values {
+                        uid
+                        value_index
+                    }
+                }
+            }
         }
         ... on ConfigurableWishlistItem {
             configurable_options {
                 id
-                value_id
                 option_label
+                value_id
                 value_label
             }
         }

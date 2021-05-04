@@ -25,8 +25,17 @@ const dialogs = {
  */
 export const useWishlistItem = props => {
     const { item, wishlistId } = props;
-    const { child_sku: childSku, id: itemId, product } = item;
-    const { image, sku, stock_status: stockStatus } = product;
+    const {
+        configurable_options: selectedConfigurableOptions = [],
+        id: itemId,
+        product
+    } = item;
+    const {
+        configurable_options: configurableOptions = [],
+        image,
+        sku,
+        stock_status: stockStatus
+    } = product;
     const { label: imageLabel, url: imageURL } = image;
 
     const operations = mergeOperations(defaultOperations, props.operations);
@@ -42,20 +51,42 @@ export const useWishlistItem = props => {
         setRemoveProductFromWishlistError
     ] = useState(null);
 
-    const cartItem = {
-        data: {
+    const cartItem = useMemo(() => {
+        const item = {
             quantity: 1,
-            sku: childSku || sku
-        }
-    };
+            sku
+        };
 
-    // Merge in additional input variables for configurable items
-    if (childSku) {
-        Object.assign(cartItem, {
-            parent_sku: sku,
-            variant_sku: childSku
-        });
-    }
+        // Merge in additional input variables for configurable items
+        if (
+            selectedConfigurableOptions.length &&
+            selectedConfigurableOptions.length === configurableOptions.length
+        ) {
+            const selectedOptionsArray = selectedConfigurableOptions.map(
+                selectedOption => {
+                    const {
+                        id: attributeId,
+                        value_id: selectedValueId
+                    } = selectedOption;
+                    const configurableOption = configurableOptions.find(
+                        option => option.attribute_id_v2 === attributeId
+                    );
+                    const configurableOptionValue = configurableOption.values.find(
+                        optionValue =>
+                            optionValue.value_index === selectedValueId
+                    );
+
+                    return configurableOptionValue.uid;
+                }
+            );
+
+            Object.assign(item, {
+                selected_options: selectedOptionsArray
+            });
+        }
+
+        return item;
+    }, [configurableOptions, selectedConfigurableOptions, sku]);
 
     const [
         addWishlistItemToCart,
