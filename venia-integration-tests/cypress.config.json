@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://pr-3105.pwa-venia.com/",
+    "baseUrl": "https://develop.pwa-venia.com/",
     "defaultCommandTimeout": 10000,
     "env": {},
     "fixturesFolder": "src/fixtures",
