@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { Relevant } from 'informed';
 
-import { useWishlistDialog } from '@magento/peregrine/lib/talons/Wishlist/useWishlistDialog';
+import { useWishlistDialog } from '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/useWishlistDialog';
 
 import Dialog from '@magento/venia-ui/lib/components/Dialog';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';

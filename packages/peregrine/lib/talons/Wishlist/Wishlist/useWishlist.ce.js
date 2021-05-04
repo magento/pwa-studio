@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { useIntl } from 'react-intl';
 
-import mergeOperations from '../../util/shallowMerge';
+import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './product.gql';
 
 export const useWishlist = props => {

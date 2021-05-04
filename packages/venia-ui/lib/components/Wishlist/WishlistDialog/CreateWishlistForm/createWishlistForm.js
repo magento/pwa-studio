@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useIntl } from 'react-intl';
 
-import { useCreateWishlistForm } from '@magento/peregrine/lib/talons/Wishlist/useCreateWishlistForm';
+import { useCreateWishlistForm } from '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/CreateWishlistForm/useCreateWishlistForm';
 
 import Button from '@magento/venia-ui/lib/components/Button';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
