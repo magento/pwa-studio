@@ -110,11 +110,10 @@ export const useProduct = props => {
     }, [formatMessage, showLoginToast]);
 
     const wishlistTalonProps = useWishlist({
-        removeItemFromCart,
-        cartId,
         item,
-        setDisplayError,
-        onAddToWishlistSuccess,
+        onWishlistUpdate: removeItemFromCart,
+        onWishlistUpdateError: setDisplayError,
+        updateWishlistToastProps: onAddToWishlistSuccess,
         operations: props.operations
     });
     const {
@@ -133,6 +132,8 @@ export const useProduct = props => {
             return (
                 wishlistItemLoading || removeItemLoading || updateItemLoading
             );
+        } else {
+            return false;
         }
     }, [
         addProductToWishlistCalled,

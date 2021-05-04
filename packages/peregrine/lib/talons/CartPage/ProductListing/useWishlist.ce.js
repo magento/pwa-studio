@@ -2,16 +2,17 @@ import { useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { useIntl } from 'react-intl';
 
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+
 import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './product.gql';
 
 export const useWishlist = props => {
     const {
-        removeItemFromCart,
-        cartId,
+        onWishlistUpdate,
         item,
-        onAddToWishlistSuccess,
-        setDisplayError
+        updateWishlistToastProps,
+        onWishlistUpdateError
     } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
@@ -22,6 +23,8 @@ export const useWishlist = props => {
     );
 
     const { formatMessage } = useIntl();
+
+    const [{ cartId }] = useCartContext();
 
     const handleAddToWishlist = useCallback(async () => {
         const sku = item.product.sku;
@@ -43,7 +46,7 @@ export const useWishlist = props => {
             });
 
             if (wishlistData) {
-                onAddToWishlistSuccess({
+                updateWishlistToastProps({
                     type: 'info',
                     message: formatMessage({
                         id: 'cartPage.wishlist.ce.successMessage',
@@ -54,7 +57,7 @@ export const useWishlist = props => {
                 });
             }
 
-            await removeItemFromCart({
+            await onWishlistUpdate({
                 variables: {
                     cartId,
                     itemId: item.id
@@ -64,16 +67,16 @@ export const useWishlist = props => {
             console.error(err);
 
             // Make sure any errors from the mutation are displayed.
-            setDisplayError(true);
+            onWishlistUpdateError(true);
         }
     }, [
         addProductToWishlist,
-        removeItemFromCart,
+        onWishlistUpdate,
         formatMessage,
         cartId,
         item,
-        onAddToWishlistSuccess,
-        setDisplayError
+        updateWishlistToastProps,
+        onWishlistUpdateError
     ]);
 
     return {

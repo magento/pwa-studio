@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useMutation, useQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { useProduct } from '../useProduct';
+import { useWishlist } from '../useWishlist';
+
 import { act } from 'react-test-renderer';
 
 jest.mock('react', () => {
@@ -74,7 +77,7 @@ jest.mock('@magento/peregrine/lib/context/user', () => ({
 jest.mock('../useWishlist', () => ({
     useWishlist: jest.fn().mockReturnValue({
         handleAddToWishlist: jest.fn().mockResolvedValue(true),
-        loading: false,
+        loading: true,
         called: true,
         error: null
     })
@@ -207,7 +210,7 @@ test('it returns the correct error message when the error is not graphql', async
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
-    expect(talonProps.errorMessage).toBe('test!');
+    expect(talonProps.errorMessage).toMatchInlineSnapshot(`"test!"`);
 });
 
 test('it returns the correct error message when the error is graphql', () => {
@@ -231,7 +234,49 @@ test('it returns the correct error message when the error is graphql', () => {
     const { talonProps } = root.findByType('i').props;
 
     // Assert.
-    expect(talonProps.errorMessage).toBe('test a, test b');
+    expect(talonProps.errorMessage).toMatchInlineSnapshot(`"test a, test b"`);
+});
+
+test('it returns correct error message when multiple sources report errors', () => {
+    // Arrange.
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        {
+            error: {
+                graphQLErrors: [new Error('test a'), new Error('test b')]
+            }
+        }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        {
+            error: {
+                graphQLErrors: [new Error('test c')]
+            }
+        }
+    ]);
+
+    useState.mockReturnValueOnce([true, jest.fn()]);
+    useState.mockReturnValueOnce([true, jest.fn()]);
+
+    useWishlist.mockReturnValueOnce({
+        handleAddToWishlist: jest.fn(),
+        loading: false,
+        called: true,
+        error: {
+            graphQLErrors: [new Error('test d'), new Error('test e')]
+        }
+    });
+
+    // Act.
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    // Assert.
+    expect(talonProps.errorMessage).toMatchInlineSnapshot(
+        `"test c, test a, test b, test d, test e"`
+    );
 });
 
 test('it resets cart updating flag on unmount', () => {
@@ -447,4 +492,43 @@ test('it does not set the active edit item when drawer is open', () => {
     );
 
     expect(setActiveEditItem).not.toHaveBeenCalled();
+});
+
+describe('testing save for later feature', () => {
+    test('it should show login toast if user is not logged in', async () => {
+        useUserContext.mockReturnValueOnce([{ isSignedIn: false }]);
+
+        const tree = createTestInstance(<Component {...props} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        await talonProps.handleSaveForLater();
+
+        tree.update(<Component {...props} />);
+        const { talonProps: updatedTalonProps } = root.findByType('i').props;
+
+        expect(updatedTalonProps.loginToastProps).toMatchSnapshot();
+    });
+
+    test('it should add item to wishlist when user is logged in', async () => {
+        useUserContext.mockReturnValueOnce([{ isSignedIn: true }]);
+
+        const handleAddToWishlist = jest.fn().mockResolvedValue(true);
+        useWishlist.mockReturnValueOnce({
+            handleAddToWishlist,
+            loading: false,
+            called: true,
+            error: null
+        });
+
+        const tree = createTestInstance(<Component {...props} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        await talonProps.handleSaveForLater();
+
+        expect(handleAddToWishlist).toHaveBeenCalled();
+    });
 });

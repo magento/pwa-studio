@@ -2,16 +2,17 @@ import { useCallback, useMemo } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useIntl } from 'react-intl';
 
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+
 import mergeOperations from '../../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './product.gql';
 
 export const useWishlist = props => {
     const {
-        removeItemFromCart,
-        cartId,
+        onWishlistUpdate,
         item,
-        onAddToWishlistSuccess,
-        setDisplayError
+        updateWishlistToastProps,
+        onWishlistUpdateError
     } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
@@ -21,6 +22,8 @@ export const useWishlist = props => {
     } = operations;
 
     const { formatMessage } = useIntl();
+
+    const [{ cartId }] = useCartContext();
 
     const { data: storeConfigData } = useQuery(
         getMultipleWishlistsEnabledQuery,
@@ -69,7 +72,7 @@ export const useWishlist = props => {
             if (wishlistData) {
                 const { name } = wishlistData.addProductsToWishlist.wishlist;
 
-                onAddToWishlistSuccess({
+                updateWishlistToastProps({
                     type: 'info',
                     message: formatMessage(
                         {
@@ -82,7 +85,7 @@ export const useWishlist = props => {
                 });
             }
 
-            await removeItemFromCart({
+            await onWishlistUpdate({
                 variables: {
                     cartId,
                     itemId: item.id
@@ -92,17 +95,17 @@ export const useWishlist = props => {
             console.error(err);
 
             // Make sure any errors from the mutation are displayed.
-            setDisplayError(true);
+            onWishlistUpdateError(true);
         }
     }, [
         addProductToWishlist,
         isMultipleWishlistsEnabled,
         formatMessage,
-        removeItemFromCart,
+        onWishlistUpdate,
         cartId,
         item,
-        onAddToWishlistSuccess,
-        setDisplayError
+        updateWishlistToastProps,
+        onWishlistUpdateError
     ]);
 
     return {
