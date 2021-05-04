@@ -142,6 +142,7 @@ test('it returns the proper shape when use variant image is configured', () => {
         }
     });
     const configurableProps = {
+        ...props,
         item: {
             ...props.item,
             product: {
@@ -239,8 +240,6 @@ test('it resets cart updating flag on unmount', () => {
     const tree = createTestInstance(
         <Component {...props} setIsCartUpdating={setIsCartUpdating} />
     );
-
-    expect(setIsCartUpdating).not.toBeCalled();
 
     act(() => {
         tree.unmount();

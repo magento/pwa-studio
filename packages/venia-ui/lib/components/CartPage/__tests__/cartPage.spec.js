@@ -24,6 +24,16 @@ jest.mock('@magento/peregrine/lib/talons/CartPage/useCartPage', () => {
     return Object.assign(useCartPageTalon, { useCartPage: spy });
 });
 
+jest.mock('@magento/peregrine', () => ({
+    ...jest.requireActual('@magento/peregrine'),
+    useToasts: jest.fn().mockReturnValue([
+        {},
+        {
+            addToast: jest.fn()
+        }
+    ])
+}));
+
 const talonProps = {
     hasItems: false,
     handleSignIn: jest.fn(),

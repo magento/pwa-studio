@@ -35,10 +35,11 @@ exports[`it returns the proper shape when use variant image is configured 1`] = 
       "errorMessage": "",
       "handleEditItem": [Function],
       "handleRemoveFromCart": [Function],
-      "handleToggleFavorites": [Function],
+      "handleSaveForLater": [Function],
       "handleUpdateItemQuantity": [Function],
       "isEditable": true,
-      "isFavorite": false,
+      "isProductUpdating": undefined,
+      "loginToastProps": null,
       "product": Object {
         "currency": "USD",
         "image": "variant1.webp",

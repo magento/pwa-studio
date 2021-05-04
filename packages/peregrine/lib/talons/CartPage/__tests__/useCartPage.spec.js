@@ -54,13 +54,19 @@ test('it returns the proper shape', () => {
     createTestInstance(<Component />);
 
     // Assert.
-    expect(log).toHaveBeenCalledWith({
-        cartItems: expect.any(Array),
-        hasItems: expect.any(Boolean),
-        isCartUpdating: expect.any(Boolean),
-        setIsCartUpdating: expect.any(Function),
-        shouldShowLoadingIndicator: expect.any(Boolean)
-    });
+    expect(log.mock.calls[0]).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "cartItems": Array [],
+            "hasItems": false,
+            "isCartUpdating": false,
+            "onAddToWishlistSuccess": [Function],
+            "setIsCartUpdating": [Function],
+            "shouldShowLoadingIndicator": false,
+            "wishlistSuccessProps": null,
+          },
+        ]
+    `);
 });
 
 test('returns cartItems from getCartDetails query', () => {
