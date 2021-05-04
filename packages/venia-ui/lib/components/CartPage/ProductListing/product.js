@@ -25,7 +25,7 @@ const InfoIcon = <Icon size={20} src={Info} />;
 const Product = props => {
     const {
         item,
-        updateWishlistToastProps,
+        onAddToWishlistSuccess,
         setActiveEditItem,
         setIsCartUpdating
     } = props;
@@ -38,7 +38,7 @@ const Product = props => {
             removeItemMutation: REMOVE_ITEM_MUTATION,
             updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
         },
-        updateWishlistToastProps,
+        onAddToWishlistSuccess,
         setActiveEditItem,
         setIsCartUpdating
     });

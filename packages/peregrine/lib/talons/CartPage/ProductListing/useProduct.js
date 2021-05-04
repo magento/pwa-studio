@@ -5,7 +5,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
-import { useWishlist } from '../../Wishlist/Wishlist/useWishlist';
+import { useWishlist } from './useWishlist';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 import mergeOperations from '../../../util/shallowMerge';
 
@@ -36,7 +36,7 @@ import DEFAULT_OPERATIONS from './product.gql';
 export const useProduct = props => {
     const {
         item,
-        updateWishlistToastProps,
+        onAddToWishlistSuccess,
         setActiveEditItem,
         setIsCartUpdating
     } = props;
@@ -109,34 +109,12 @@ export const useProduct = props => {
         return null;
     }, [formatMessage, showLoginToast]);
 
-    const onWishlistUpdate = useCallback(async () => {
-        await removeItemFromCart({
-            variables: {
-                cartId,
-                itemId: item.id
-            }
-        });
-    }, [removeItemFromCart, item, cartId]);
-
-    const wishlistItemOptions = {
-        ...item,
-        sku: item.product.sku,
-        selected_options: item.configurable_options.map(
-            option => option.configurable_product_option_value_uid
-        )
-    };
-
-    const onWishlistUpdateError = useCallback(() => {
-        setDisplayError(true);
-    }, []);
-
     const wishlistTalonProps = useWishlist({
         removeItemFromCart,
         cartId,
-        item: wishlistItemOptions,
-        onWishlistUpdateError,
-        updateWishlistToastProps,
-        onWishlistUpdate,
+        item,
+        setDisplayError,
+        onAddToWishlistSuccess,
         operations: props.operations
     });
     const {
@@ -165,15 +143,16 @@ export const useProduct = props => {
         updateItemLoading
     ]);
 
-    const handleSaveForLater = useCallback(async () => {
-        if (!isSignedIn) {
-            setShowLoginToast(current => ++current);
-        } else {
-            // should update this to the wishlist selected by the user in
-            // https://jira.corp.magento.com/browse/PWA-1599
-            await handleAddToWishlist('0');
-        }
-    }, [isSignedIn, handleAddToWishlist]);
+    const handleSaveForLater = useCallback(
+        async (...args) => {
+            if (!isSignedIn) {
+                setShowLoginToast(current => ++current);
+            } else {
+                await handleAddToWishlist(args);
+            }
+        },
+        [isSignedIn, handleAddToWishlist]
+    );
 
     const derivedErrorMessage = useMemo(() => {
         return (

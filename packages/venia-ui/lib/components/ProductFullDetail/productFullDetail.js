@@ -49,7 +49,8 @@ const ProductFullDetail = props => {
         isSupportedProductType,
         mediaGalleryEntries,
         productDetails,
-        shouldShowWishlistButton
+        shouldShowWishlistButton,
+        wishlistItemOptions
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -127,7 +128,7 @@ const ProductFullDetail = props => {
 
     const maybeWishlistButton = shouldShowWishlistButton ? (
         <Suspense fallback={null}>
-            <WishlistButton item={productDetails} />
+            <WishlistButton itemOptions={wishlistItemOptions} />
         </Suspense>
     ) : null;
 

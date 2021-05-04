@@ -26,7 +26,7 @@ const EditModal = React.lazy(() => import('./EditModal'));
  * import ProductListing from "@magento/venia-ui/lib/components/CartPage/ProductListing";
  */
 const ProductListing = props => {
-    const { updateWishlistToastProps, setIsCartUpdating } = props;
+    const { onAddToWishlistSuccess, setIsCartUpdating } = props;
     const talonProps = useProductListing({
         queries: {
             getProductListing: GET_PRODUCT_LISTING
@@ -54,7 +54,7 @@ const ProductListing = props => {
                 key={product.id}
                 setActiveEditItem={setActiveEditItem}
                 setIsCartUpdating={setIsCartUpdating}
-                updateWishlistToastProps={updateWishlistToastProps}
+                onAddToWishlistSuccess={onAddToWishlistSuccess}
             />
         ));
 

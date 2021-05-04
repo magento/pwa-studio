@@ -15,7 +15,7 @@ import defaultClasses from './wishlistDialog.css';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 
 const WishlistDialog = props => {
-    const { isOpen, itemOptions, onClose, onSubmit, errors, isLoading } = props;
+    const { isOpen, itemOptions, onClose } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useWishlistDialog({
@@ -25,9 +25,12 @@ const WishlistDialog = props => {
 
     const {
         canCreateWishlist,
+        formErrors,
+        handleAddToWishlist,
         handleCancel,
         handleNewListClick,
         handleCancelNewList,
+        isAddLoading,
         isFormOpen,
         wishlistsData
     } = talonProps;
@@ -47,8 +50,8 @@ const WishlistDialog = props => {
                     <li key={wishlist.id}>
                         <WishlistLineItem
                             id={wishlist.id}
-                            isDisabled={isLoading}
-                            onClick={onSubmit}
+                            isDisabled={isAddLoading}
+                            onClick={handleAddToWishlist}
                         >
                             {name}
                         </WishlistLineItem>
@@ -59,7 +62,12 @@ const WishlistDialog = props => {
         } else {
             return null;
         }
-    }, [classes.existingWishlists, onSubmit, isLoading, wishlistsData]);
+    }, [
+        classes.existingWishlists,
+        handleAddToWishlist,
+        isAddLoading,
+        wishlistsData
+    ]);
 
     const shouldRenderForm = useCallback(() => !!isFormOpen, [isFormOpen]);
 
@@ -74,8 +82,8 @@ const WishlistDialog = props => {
             </button>
             <Relevant when={shouldRenderForm}>
                 <CreateWishlistForm
-                    onCreateList={onSubmit}
-                    isAddLoading={isLoading}
+                    onCreateList={handleAddToWishlist}
+                    isAddLoading={isAddLoading}
                     onCancel={handleCancelNewList}
                 />
             </Relevant>
@@ -97,7 +105,7 @@ const WishlistDialog = props => {
                     classes={{
                         root: classes.formErrors
                     }}
-                    errors={errors}
+                    errors={formErrors}
                 />
                 {maybeListsElement}
                 {maybeNewListElement}

@@ -1,17 +1,24 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './wishlistDialog.gql';
 
 export const useWishlistDialog = props => {
-    const { onClose } = props;
+    const { itemOptions, onClose } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const [isFormOpen, setIsFormOpen] = useState(false);
 
     const { data: wishlistsData } = useQuery(operations.getWishlistsQuery, {
         fetchPolicy: 'cache-and-network'
+    });
+
+    const [
+        addProductToWishlist,
+        { loading: isAddLoading, error: addProductError }
+    ] = useMutation(operations.addProductToWishlistMutation, {
+        refetchQueries: [{ query: operations.getWishlistsQuery }]
     });
 
     // enable_multiple_wishlists is a string "1" or "0". See documentation here:
@@ -24,6 +31,24 @@ export const useWishlistDialog = props => {
                 wishlistsData.customer.wishlists.length
         );
     }, [wishlistsData]);
+
+    const handleAddToWishlist = useCallback(
+        async wishlistId => {
+            try {
+                await addProductToWishlist({
+                    variables: {
+                        wishlistId,
+                        itemOptions
+                    }
+                });
+                onClose(true);
+                setIsFormOpen(false);
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        [addProductToWishlist, itemOptions, onClose]
+    );
 
     const handleNewListClick = useCallback(() => {
         setIsFormOpen(true);
@@ -39,10 +64,13 @@ export const useWishlistDialog = props => {
     }, [onClose]);
 
     return {
+        formErrors: [addProductError],
         canCreateWishlist,
+        handleAddToWishlist,
         handleCancel,
         handleCancelNewList,
         handleNewListClick,
+        isAddLoading,
         isFormOpen,
         wishlistsData
     };
