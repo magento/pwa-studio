@@ -1,4 +1,4 @@
-const captureFullPageScreenshot = () => {
+const captureFullPageScreenshot = options => {
     /**
      * Set the header position to static instead
      * of sticky to not let it follow while taking
@@ -10,7 +10,7 @@ const captureFullPageScreenshot = () => {
         'position: static'
     );
 
-    cy.document().toMatchImageSnapshot();
+    cy.document().toMatchImageSnapshot(options);
 
     /**
      * Reset the position attribute to default

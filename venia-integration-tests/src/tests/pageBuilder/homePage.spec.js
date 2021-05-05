@@ -7,7 +7,11 @@ context('Assert Venia Home Page pagebuilder content', () => {
 
             cy.wait(3000);
 
-            cy.captureFullPageScreenshot();
+            cy.loadFullPage().then(() => {
+                cy.captureFullPageScreenshot({
+                    scale: false
+                });
+            });
         });
     });
 });
