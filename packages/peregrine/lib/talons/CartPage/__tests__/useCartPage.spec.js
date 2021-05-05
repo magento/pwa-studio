@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 import { useQuery } from '@apollo/client';
 
@@ -46,7 +47,7 @@ const Component = () => {
         log(talonProps);
     }, [talonProps]);
 
-    return null;
+    return <i talonProps={talonProps} />;
 };
 
 test('it returns the proper shape', () => {
@@ -111,4 +112,27 @@ test('it calls setIsCartUpdating false when loading is false', () => {
     // Assert.
     const { setIsCartUpdating } = log.mock.calls[0][0];
     expect(setIsCartUpdating).toBeCalledWith(false);
+});
+
+test('onAddToWishlistSuccess should update wishlistSuccessProps', () => {
+    const tree = createTestInstance(<Component />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    const successProps = {
+        message: 'Successfully added an item to wishlist'
+    };
+
+    act(() => {
+        talonProps.onAddToWishlistSuccess(successProps);
+    });
+
+    tree.update(<Component />);
+    const { talonProps: updatedTalonProps } = root.findByType('i').props;
+
+    expect(updatedTalonProps.wishlistSuccessProps).toMatchInlineSnapshot(`
+        Object {
+          "message": "Successfully added an item to wishlist",
+        }
+    `);
 });
