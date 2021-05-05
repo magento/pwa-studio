@@ -15,16 +15,14 @@ const dialogs = {
 /**
  * @function
  *
- * @param {String} props.childSku SKU of the child item
- * @param {String} props.itemId The ID of the item
+ * @param {String} props.item Wishlist Item data from GraphQL
  * @param {WishlistItemOperations} props.operations GraphQL operations for the Wishlist Item component
- * @param {String} props.sku SKU of the item
  * @param {String} props.wishlistId The ID of the wishlist this item belongs to
  *
  * @returns {WishlistItemProps}
  */
 export const useWishlistItem = props => {
-    const { item, wishlistId } = props;
+    const { item, onOpenAddToCartDialog, wishlistId } = props;
     const {
         configurable_options: selectedConfigurableOptions = [],
         id: itemId,
@@ -112,12 +110,25 @@ export const useWishlistItem = props => {
     });
 
     const handleAddToCart = useCallback(async () => {
-        try {
-            await addWishlistItemToCart();
-        } catch (e) {
-            console.error(e);
+        if (
+            configurableOptions.length === 0 ||
+            selectedConfigurableOptions.length === configurableOptions.length
+        ) {
+            try {
+                await addWishlistItemToCart();
+            } catch (e) {
+                console.error(e);
+            }
+        } else {
+            onOpenAddToCartDialog(item);
         }
-    }, [addWishlistItemToCart]);
+    }, [
+        addWishlistItemToCart,
+        configurableOptions.length,
+        item,
+        onOpenAddToCartDialog,
+        selectedConfigurableOptions.length
+    ]);
 
     const handleRemoveProductFromWishlist = useCallback(async () => {
         try {

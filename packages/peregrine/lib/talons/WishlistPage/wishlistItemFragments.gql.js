@@ -23,10 +23,23 @@ export const WishlistItemFragment = gql`
             ... on ConfigurableProduct {
                 configurable_options {
                     id
+                    attribute_code
+                    attribute_id
                     attribute_id_v2
+                    label
                     values {
                         uid
+                        default_label
+                        label
+                        store_label
+                        use_default_value
                         value_index
+                        swatch_data {
+                            ... on ImageSwatchData {
+                                thumbnail
+                            }
+                            value
+                        }
                     }
                 }
             }

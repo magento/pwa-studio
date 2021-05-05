@@ -1,0 +1,32 @@
+.root {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.image {
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+}
+
+.detailsContainer {
+    align-content: start;
+    display: grid;
+    row-gap: 1rem;
+}
+
+.name {
+    font-family: var(--venia-global-fontFamily-serif);
+    font-size: var(--venia-typography-body-XXXL-fontSize);
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.price {
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.optionTitle {
+    border-top: 1px solid rgb(var(--venia-global-color-border));
+    font-weight: var(--venia-global-fontWeight-semibold);
+    padding: 1rem 0;
+}
