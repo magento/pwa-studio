@@ -133,5 +133,5 @@ We would like to recognize the following community members for their efforts on 
 [#pwa slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2
 [babel]: https://babeljs.io/
 [venia]: https://venia.magento.com/
-[public calendar]: https://calendar.google.com/calendar/embed?src=64ooaerhsq8ajsdtpgepc1h33k%40group.calendar.google.com&ctz=America%2FChicago
-[add that calendar]: https://calendar.google.com/calendar/ical/64ooaerhsq8ajsdtpgepc1h33k%40group.calendar.google.com/public/basic.ics
+[public calendar]: https://opensource.magento.com/community-calendar
+[add that calendar]: https://calendar.google.com/calendar/ical/sn3me3pduhd92hhk9s7frkn57o%40group.calendar.google.com/public/basic.ics
