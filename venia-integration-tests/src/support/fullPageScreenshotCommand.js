@@ -1,3 +1,13 @@
+/**
+ * Checkout https://github.com/jaredpalmer/cypress-image-snapshot#options
+ * for more image config options.
+ */
+const defaultOptions = {
+    comparisonMethod: 'ssim',
+    failureThreshold: 0.01,
+    failureThresholdType: 'percent'
+};
+
 const captureFullPageScreenshot = options => {
     /**
      * Set the header position to static instead
@@ -10,7 +20,7 @@ const captureFullPageScreenshot = options => {
         'position: static'
     );
 
-    cy.document().toMatchImageSnapshot(options);
+    cy.document().toMatchImageSnapshot({ ...defaultOptions, ...options });
 
     /**
      * Reset the position attribute to default
