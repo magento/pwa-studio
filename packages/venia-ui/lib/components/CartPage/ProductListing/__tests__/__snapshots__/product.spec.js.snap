@@ -334,7 +334,9 @@ exports[`renders configurable product with options 1`] = `
         <li
           className="menuItem"
         >
-          <button>
+          <button
+            onMouseDown={[MockFunction]}
+          >
             <span
               className="root"
             >
@@ -637,7 +639,9 @@ exports[`renders out of stock product 1`] = `
         <li
           className="menuItem"
         >
-          <button>
+          <button
+            onMouseDown={[MockFunction]}
+          >
             <span
               className="root"
             >
@@ -940,7 +944,9 @@ exports[`renders simple product correctly 1`] = `
         <li
           className="menuItem"
         >
-          <button>
+          <button
+            onMouseDown={[MockFunction]}
+          >
             <span
               className="root"
             >

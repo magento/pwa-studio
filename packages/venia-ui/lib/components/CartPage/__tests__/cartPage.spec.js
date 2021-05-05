@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createTestInstance } from '@magento/peregrine';
+import { createTestInstance, useToasts } from '@magento/peregrine';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import CartPage from '../cartPage';
@@ -36,11 +36,13 @@ jest.mock('@magento/peregrine', () => ({
 
 const talonProps = {
     hasItems: false,
-    handleSignIn: jest.fn(),
+    handleSignIn: jest.fn().mockName('handleSignIn'),
     isSignedIn: false,
     isCartUpdating: false,
-    setIsCartUpdating: jest.fn(),
-    shouldShowLoadingIndicator: false
+    setIsCartUpdating: jest.fn().mockName('setIsCartUpdating'),
+    shouldShowLoadingIndicator: false,
+    onAddToWishlistSuccess: jest.fn().mockName('onAddToWishlistSuccess'),
+    wishlistSuccessProps: null
 };
 
 beforeAll(() => {
@@ -98,4 +100,29 @@ test('renders components if cart has items', () => {
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('renders toast if wishlistSuccessProps is not falsy', () => {
+    const addToast = jest.fn();
+    useToasts.mockReturnValueOnce([{}, { addToast }]);
+
+    const myTalonProps = {
+        ...talonProps,
+        wishlistSuccessProps: { message: 'Successfully added to wishlist' }
+    };
+    useCartPage.mockReturnValueOnce(myTalonProps);
+
+    createTestInstance(<CartPage />);
+
+    expect(addToast.mock.calls[0]).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "icon": <Icon
+              size={20}
+              src={[Function]}
+            />,
+            "message": "Successfully added to wishlist",
+          },
+        ]
+    `);
 });
