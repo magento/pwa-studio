@@ -11,7 +11,7 @@ import DEFAULT_OPERATIONS from './categoryContent.gql';
  * @param {object} props.data - The results of a getCategory GraphQL query.
  *
  * @returns {object} result
- * @returns {number} result.categoryDescription - This category's description.
+ * @returns {string} result.categoryDescription - This category's description.
  * @returns {string} result.categoryName - This category's name.
  * @returns {object} result.filters - The filters object.
  * @returns {object} result.items - The items in this category.
