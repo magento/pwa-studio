@@ -65,7 +65,7 @@ const mockCategoryData = {
         name: 'Jewelry',
         description: 'Jewelry category'
     }
-}
+};
 
 const mockGetFilters = jest.fn();
 
@@ -74,9 +74,7 @@ useLazyQuery.mockReturnValue([
     { data: mockProductFiltersByCategoryData }
 ]);
 
-useQuery.mockReturnValue(
-    { data: mockCategoryData }
-);
+useQuery.mockReturnValue({ data: mockCategoryData });
 
 it('returns the proper shape', () => {
     const rendered = createTestInstance(<Component {...mockProps} />);
@@ -113,10 +111,7 @@ it('handles no data prop', () => {
         data: null,
         pageSize: 9
     };
-    useLazyQuery.mockReturnValue([
-        mockGetFilters,
-        { data: null }
-    ]);
+    useLazyQuery.mockReturnValue([mockGetFilters, { data: null }]);
 
     const rendered = createTestInstance(<Component {...testProps} />);
 

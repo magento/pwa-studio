@@ -25,7 +25,10 @@ jest.mock('../../../components/Breadcrumbs', () => 'Breadcrumbs');
 jest.mock('../../../components/Gallery', () => 'Gallery');
 jest.mock('../../../components/Pagination', () => 'Pagination');
 jest.mock('../../../components/SortedByContainer', () => 'SortedByContainer');
-jest.mock('../../../components/FilterModalOpenButton', () => 'FilterModalOpenButton');
+jest.mock(
+    '../../../components/FilterModalOpenButton',
+    () => 'FilterModalOpenButton'
+);
 jest.mock('../NoProductsFound', () => 'NoProductsFound');
 
 const classes = {

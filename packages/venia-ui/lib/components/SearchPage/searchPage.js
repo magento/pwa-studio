@@ -82,7 +82,10 @@ const SearchPage = props => {
         pageControl
     ]);
 
-    const productsCount = data && data.products && data.products.total_count ? data.products.total_count : 0;
+    const productsCount =
+        data && data.products && data.products.total_count
+            ? data.products.total_count
+            : 0;
 
     const maybeFilterButtons =
         filters && filters.length ? (
