@@ -115,7 +115,8 @@ const globals = {
             store_name: 'French Store View'
         }
     ],
-    DEFAULT_LOCALE: 'en-US'
+    DEFAULT_LOCALE: 'en-US',
+    DEFAULT_COUNTRY_CODE: 'US'
 };
 
 // Reusable test configuration for Venia UI and storefront packages.
