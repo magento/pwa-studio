@@ -27,7 +27,7 @@ const billingAddress = {
     },
     street: ['45678 blvd', 'suite 300'],
     city: 'Austin',
-    region: { code: 'TX' },
+    region: { code: 'TX', region_id: 5 },
     postcode: '78945',
     phoneNumber: '1234567891'
 };
@@ -446,7 +446,9 @@ describe('Testing payment nonce request workflow', () => {
             street1: 'test value',
             street2: 'test value',
             city: 'test value',
-            region: 'test value',
+            region: {
+                region_id: 20
+            },
             postcode: 'test value',
             phoneNumber: 'test value'
         };
@@ -479,7 +481,8 @@ describe('Testing payment nonce request workflow', () => {
             variables: {
                 ...billingAddress,
                 sameAsShipping: false,
-                cartId: '123'
+                cartId: '123',
+                region: 20
             }
         });
     });
@@ -763,12 +766,31 @@ describe('Testing stepNumber', () => {
     });
 
     test('Should set stepNumber to 1 if shouldSubmit is set to true', () => {
+        const testFormState = {
+            values: {
+                firstName: 'Unit',
+                lastName: 'Test',
+                country: '',
+                street1: '',
+                street2: '',
+                city: '',
+                region: { region_id: 7 },
+                postcode: '12345',
+                phoneNumber: '1234567890'
+            },
+            errors: {}
+        };
+        useFormState
+            .mockReturnValueOnce(testFormState)
+            .mockReturnValueOnce(testFormState);
+
         const { talonProps } = getTalonProps({
             shouldSubmit: true,
             operations,
             onSuccess: () => {},
             onReady: () => {},
-            onError: () => {}
+            onError: () => {},
+            resetShouldSubmit: () => {}
         });
 
         expect(talonProps.stepNumber).toBe(1);

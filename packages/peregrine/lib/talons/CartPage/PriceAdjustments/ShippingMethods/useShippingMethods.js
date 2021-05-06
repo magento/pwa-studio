@@ -47,7 +47,7 @@ export const useShippingMethods = props => {
     let formattedShippingMethods = [];
     let selectedShippingMethod = null;
     let selectedShippingFields = {
-        country: 'US',
+        country: DEFAULT_COUNTRY_CODE,
         region: '',
         zip: ''
     };
