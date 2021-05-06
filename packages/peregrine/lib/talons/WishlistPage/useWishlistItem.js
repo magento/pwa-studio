@@ -73,6 +73,15 @@ export const useWishlistItem = props => {
         removeProductsFromWishlist,
         { loading: isRemovalInProgress }
     ] = useMutation(removeProductsFromWishlistMutation, {
+        update: cache => {
+            cache.modify({
+                id: 'ROOT_QUERY',
+                fields: {
+                    customerWishlistProducts: cachedProducts =>
+                        cachedProducts.filter(productSku => productSku !== sku)
+                }
+            });
+        },
         variables: {
             wishlistId: wishlistId,
             wishlistItemsId: [itemId]
@@ -82,8 +91,8 @@ export const useWishlistItem = props => {
     const handleAddToCart = useCallback(async () => {
         try {
             await addWishlistItemToCart();
-        } catch {
-            return;
+        } catch (error) {
+            console.error(error);
         }
     }, [addWishlistItemToCart]);
 
@@ -148,8 +157,8 @@ export const useWishlistItem = props => {
  *
  * @typedef {Object} WishlistItemOperations
  *
- * @property {GraphQLAST} addWishlistItemToCartMutation Mutation to add item to the cart
- * @property {GraphQLAST} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
+ * @property {GraphQLDocument} addWishlistItemToCartMutation Mutation to add item to the cart
+ * @property {GraphQLDocument} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
  *
  * @see [`wishlistItem.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistItem.gql.js}
  * for queries used in Venia

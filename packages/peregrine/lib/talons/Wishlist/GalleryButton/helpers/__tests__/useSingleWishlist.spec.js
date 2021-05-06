@@ -85,6 +85,7 @@ test('returns correct shape for selected product', () => {
     expect(result.current).toMatchInlineSnapshot(`
         Object {
           "buttonProps": Object {
+            "aria-label": "Add to Favorites",
             "disabled": true,
             "onClick": [Function],
             "type": "button",

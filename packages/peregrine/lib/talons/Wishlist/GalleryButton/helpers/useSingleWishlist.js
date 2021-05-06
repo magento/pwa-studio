@@ -112,11 +112,15 @@ export const useSingleWishlist = props => {
 
     const buttonProps = useMemo(
         () => ({
+            'aria-label': formatMessage({
+                id: 'wishlistButton.addText',
+                defaultMessage: 'Add to Favorites'
+            }),
             disabled: loading || isSelected,
             onClick: handleClick,
             type: 'button'
         }),
-        [handleClick, isSelected, loading]
+        [formatMessage, handleClick, isSelected, loading]
     );
 
     return {
