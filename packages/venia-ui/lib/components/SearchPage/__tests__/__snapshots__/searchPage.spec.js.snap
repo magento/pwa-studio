@@ -154,7 +154,28 @@ exports[`Search Page Component filter button/modal renders when there are filter
           ]
         }
       />
+      <ProductSort
+        sortProps={
+          Array [
+            Object {
+              "sortAttribute": "relevance",
+              "sortDirection": "DESC",
+              "sortText": "Best Match",
+            },
+            [MockFunction],
+          ]
+        }
+      />
     </div>
+    <SortedByContainer
+      currentSort={
+        Object {
+          "sortAttribute": "relevance",
+          "sortDirection": "DESC",
+          "sortText": "Best Match",
+        }
+      }
+    />
   </div>
   <div
     className="heading"
@@ -397,28 +418,6 @@ exports[`Search Page Component search results heading renders a generic message 
     </span>
     <div
       className="headerButtons"
-    >
-      <ProductSort
-        sortProps={
-          Array [
-            Object {
-              "sortAttribute": "relevance",
-              "sortDirection": "DESC",
-              "sortText": "Best Match",
-            },
-            [MockFunction],
-          ]
-        }
-      />
-    </div>
-    <SortedByContainer
-      currentSort={
-        Object {
-          "sortAttribute": "relevance",
-          "sortDirection": "DESC",
-          "sortText": "Best Match",
-        }
-      }
     />
   </div>
   <div
@@ -470,28 +469,6 @@ exports[`Search Page Component search results heading renders a specific message
     </span>
     <div
       className="headerButtons"
-    >
-      <ProductSort
-        sortProps={
-          Array [
-            Object {
-              "sortAttribute": "relevance",
-              "sortDirection": "DESC",
-              "sortText": "Best Match",
-            },
-            [MockFunction],
-          ]
-        }
-      />
-    </div>
-    <SortedByContainer
-      currentSort={
-        Object {
-          "sortAttribute": "relevance",
-          "sortDirection": "DESC",
-          "sortText": "Best Match",
-        }
-      }
     />
   </div>
   <div
@@ -636,28 +613,6 @@ exports[`Search Page Component sort button/container renders when total count > 
     </span>
     <div
       className="headerButtons"
-    >
-      <ProductSort
-        sortProps={
-          Array [
-            Object {
-              "sortAttribute": "relevance",
-              "sortDirection": "DESC",
-              "sortText": "Best Match",
-            },
-            [MockFunction],
-          ]
-        }
-      />
-    </div>
-    <SortedByContainer
-      currentSort={
-        Object {
-          "sortAttribute": "relevance",
-          "sortDirection": "DESC",
-          "sortText": "Best Match",
-        }
-      }
     />
   </div>
   <div
@@ -744,28 +699,6 @@ exports[`Search Page Component total count renders results from data 1`] = `
     </span>
     <div
       className="headerButtons"
-    >
-      <ProductSort
-        sortProps={
-          Array [
-            Object {
-              "sortAttribute": "relevance",
-              "sortDirection": "DESC",
-              "sortText": "Best Match",
-            },
-            [MockFunction],
-          ]
-        }
-      />
-    </div>
-    <SortedByContainer
-      currentSort={
-        Object {
-          "sortAttribute": "relevance",
-          "sortDirection": "DESC",
-          "sortText": "Best Match",
-        }
-      }
     />
   </div>
   <div

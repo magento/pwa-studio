@@ -44,25 +44,21 @@ const CategoryContent = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const maybeFilterButtons =
-        filters && filters.length ? (
-            <FilterModalOpenButton filters={filters} />
-        ) : null;
+    const shouldShowButtons = !!(filters && filters.length);
 
-    const filtersModal =
-        filters && filters.length ? <FilterModal filters={filters} /> : null;
+    const maybeFilterButtons = shouldShowButtons ? (
+        <FilterModalOpenButton filters={filters} />
+    ) : null;
 
-    const filtersAndTotalPagesPresent = !!(
-        totalPagesFromData &&
-        filters &&
-        filters.length
-    );
+    const filtersModal = shouldShowButtons ? (
+        <FilterModal filters={filters} />
+    ) : null;
 
-    const maybeSortButton = filtersAndTotalPagesPresent ? (
+    const maybeSortButton = shouldShowButtons ? (
         <ProductSort sortProps={sortProps} />
     ) : null;
 
-    const maybeSortContainer = filtersAndTotalPagesPresent ? (
+    const maybeSortContainer = shouldShowButtons ? (
         <SortedByContainer currentSort={currentSort} />
     ) : null;
 
