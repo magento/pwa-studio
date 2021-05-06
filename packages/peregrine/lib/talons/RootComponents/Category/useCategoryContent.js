@@ -11,11 +11,11 @@ import DEFAULT_OPERATIONS from './categoryContent.gql';
  * @param {object} props.data - The results of a getCategory GraphQL query.
  *
  * @returns {object} result
- * @returns {number} result.categoryId - This category's ID.
+ * @returns {number} result.categoryDescription - This category's description.
  * @returns {string} result.categoryName - This category's name.
  * @returns {object} result.filters - The filters object.
  * @returns {object} result.items - The items in this category.
- * @returns {bool}   result.loadFilters - Whether or not the user has signalled their intent to interact with the filters.
+ * @returns {number} result.totalPagesFromData - The total amount of pages for the query.
  */
 export const useCategoryContent = props => {
     const { categoryId, data, pageSize = 6 } = props;
