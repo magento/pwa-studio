@@ -192,10 +192,10 @@ export const useFilterModal = props => {
         filterNames,
         filterState,
         handleApply,
-        handleOpen,
         handleClose,
-        handleReset,
         handleKeyDownActions,
+        handleOpen,
+        handleReset,
         isApplying,
         isOpen
     };
