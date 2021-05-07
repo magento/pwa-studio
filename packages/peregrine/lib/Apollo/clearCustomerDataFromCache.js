@@ -10,5 +10,5 @@ import { deleteCacheEntry } from './deleteCacheEntry';
  * @param {ApolloClient} client
  */
 export const clearCustomerDataFromCache = async client => {
-    await deleteCacheEntry(client, key => key.match(/^\$?Customer/));
+    await deleteCacheEntry(client, key => key.match(/^\$?Customer/i));
 };

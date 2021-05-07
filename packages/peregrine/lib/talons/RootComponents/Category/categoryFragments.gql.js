@@ -25,6 +25,7 @@ export const ProductsFragment = gql`
                     }
                 }
             }
+            sku
             small_image {
                 url
             }

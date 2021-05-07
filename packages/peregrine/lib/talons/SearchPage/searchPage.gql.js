@@ -56,6 +56,7 @@ export const PRODUCT_SEARCH = gql`
                         }
                     }
                 }
+                sku
             }
             page_info {
                 total_pages

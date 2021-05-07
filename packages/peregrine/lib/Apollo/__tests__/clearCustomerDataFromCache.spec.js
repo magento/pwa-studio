@@ -34,6 +34,10 @@ test('clears customer data from cache', async () => {
     });
 
     cache.restore({
+        ROOT_QUERY: {
+            anotherLocalField: 'This entry should not get deleted',
+            customerLocalField: 'This entry should get deleted'
+        },
         Customer: {
             id: 'customerId',
             firstName: 'Veronica'
@@ -53,9 +57,32 @@ test('clears customer data from cache', async () => {
 
     expect(log).toHaveBeenCalledTimes(2);
 
-    const initialCacheDataKeys = Object.keys(log.mock.calls[0][0]);
-    expect(initialCacheDataKeys).toEqual(['Customer', 'AnotherCacheEntry']);
+    const initialCacheData = log.mock.calls[0][0];
+    expect(initialCacheData).toMatchInlineSnapshot(`
+        Object {
+          "AnotherCacheEntry": Object {
+            "value": "This entry should not get deleted",
+          },
+          "Customer": Object {
+            "firstName": "Veronica",
+            "id": "customerId",
+          },
+          "ROOT_QUERY": Object {
+            "anotherLocalField": "This entry should not get deleted",
+            "customerLocalField": "This entry should get deleted",
+          },
+        }
+    `);
 
-    const finalCacheDataKeys = Object.keys(log.mock.calls[1][0]);
-    expect(finalCacheDataKeys).toEqual(['AnotherCacheEntry']);
+    const finalCacheData = log.mock.calls[1][0];
+    expect(finalCacheData).toMatchInlineSnapshot(`
+        Object {
+          "AnotherCacheEntry": Object {
+            "value": "This entry should not get deleted",
+          },
+          "ROOT_QUERY": Object {
+            "anotherLocalField": "This entry should not get deleted",
+          },
+        }
+    `);
 });
