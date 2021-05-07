@@ -90,7 +90,7 @@ const SearchPage = props => {
     const shouldShowFilterButtons = filters && filters.length;
 
     // On the search page, if there are no products we can hide the sort buttons
-    const shouldShowSortButtons = shouldShowFilterButtons && productsCount;
+    const shouldShowSortButtons = productsCount;
 
     const maybeFilterButtons = shouldShowFilterButtons ? (
         <FilterModalOpenButton filters={filters} />

@@ -3,6 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 import CategoryContent from '../categoryContent';
 
+jest.mock('@magento/venia-ui/lib/classify');
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
     const api = {
@@ -31,17 +32,23 @@ jest.mock(
 );
 jest.mock('../NoProductsFound', () => 'NoProductsFound');
 
-const classes = {
-    root: 'a',
-    title: 'b',
-    gallery: 'c',
-    pagination: 'd'
+const defaultProps = {
+    categoryId: 42,
+    data: {
+        products: {
+            items: {
+                id: 1
+            }
+        }
+    },
+    isLoading: false,
+    pageControl: {},
+    sortProps: [
+        { sortDirection: '', sortAttribute: '', sortText: '' },
+        jest.fn()
+    ],
+    pageSize: 6
 };
-
-const sortProps = [
-    { sortDirection: '', sortAttribute: '', sortText: '' },
-    jest.fn()
-];
 
 const talonProps = {
     categoryName: 'Name',
@@ -54,37 +61,17 @@ const talonProps = {
 };
 
 test('renders the correct tree', () => {
-    const data = {
-        products: {
-            items: {
-                id: 1
-            },
-            page_info: {
-                total_pages: 1
-            }
-        }
-    };
     useCategoryContent.mockReturnValueOnce(talonProps);
-    const instance = createTestInstance(
-        <CategoryContent
-            pageControl={{}}
-            data={data}
-            pageSize={6}
-            sortProps={sortProps}
-            classes={classes}
-        />
-    );
+    const instance = createTestInstance(<CategoryContent {...defaultProps} />);
 
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('renders empty page', () => {
-    const data = {
+    const props = {
+        ...defaultProps,
         products: {
-            items: null,
-            page_info: {
-                total_pages: 0
-            }
+            items: null
         }
     };
     useCategoryContent.mockReturnValueOnce({
@@ -92,15 +79,61 @@ test('renders empty page', () => {
         categoryName: 'Empty Name',
         totalPagesFromData: 0
     });
-    const instance = createTestInstance(
-        <CategoryContent
-            pageControl={{}}
-            data={data}
-            pageSize={6}
-            sortProps={sortProps}
-            classes={classes}
-        />
-    );
+    const instance = createTestInstance(<CategoryContent {...props} />);
 
     expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('renders loading indicator if no data and  loading', () => {
+    const props = {
+        ...defaultProps,
+        isLoading: true
+    };
+    useCategoryContent.mockReturnValueOnce({
+        ...talonProps,
+        totalPagesFromData: 0
+    });
+    const instance = createTestInstance(<CategoryContent {...props} />);
+
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+describe('filter button/modal', () => {
+    test('does not render if there are no filters', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            filters: []
+        });
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders when there are filters', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            filters: [{}]
+        });
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+});
+
+describe('sort button/container', () => {
+    test('does not render if there are no filters', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            filters: []
+        });
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders when there are filters', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            filters: [{}]
+        });
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
 });
