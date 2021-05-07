@@ -1,5 +1,5 @@
 .root {
-    --stroke: var(--venia-global-color-border);
+    --borderColor: var(--venia-global-color-border);
     background-color: white;
     bottom: 0;
     display: grid;
@@ -22,7 +22,7 @@
 
 .root_open {
     composes: root;
-    box-shadow: 1px 0 rgb(var(--stroke));
+    box-shadow: 1px 0 rgb(var(--borderColor));
     opacity: 1;
     transform: translate3d(0, 0, 0);
     transition-duration: 224ms;
@@ -31,7 +31,7 @@
 }
 
 .body {
-    border-bottom: 1px solid rgb(var(--stroke));
+    border-bottom: 1px solid rgb(var(--borderColor));
     overflow: auto;
 }
 
@@ -62,5 +62,5 @@
 }
 
 .blocks > li:last-child {
-    border-bottom: 2px solid rgb(var(--stroke));
+    border-bottom: 2px solid rgb(var(--borderColor));
 }
