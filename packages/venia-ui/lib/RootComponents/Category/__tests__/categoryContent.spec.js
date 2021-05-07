@@ -84,7 +84,7 @@ test('renders empty page', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('renders loading indicator if no data and  loading', () => {
+test('renders loading indicator if no data and loading', () => {
     const props = {
         ...defaultProps,
         isLoading: true
