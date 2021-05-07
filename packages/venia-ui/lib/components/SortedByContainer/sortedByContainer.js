@@ -10,7 +10,7 @@ const SortedByContainer = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
-        <span className={classes.root}>
+        <div className={classes.root}>
             <FormattedMessage
                 id={'searchPage.sortContainer'}
                 defaultMessage={'Items sorted by '}
@@ -21,7 +21,7 @@ const SortedByContainer = props => {
                     defaultMessage={currentSort.sortText}
                 />
             </span>
-        </span>
+        </div>
     );
 };
 
