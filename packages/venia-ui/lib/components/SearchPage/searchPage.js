@@ -87,25 +87,26 @@ const SearchPage = props => {
             ? data.products.total_count
             : 0;
 
-    const shouldShowButtons = !!(filters && filters.length);
+    const shouldShowFilterButtons = filters && filters.length;
 
-    const maybeFilterButtons = shouldShowButtons ? (
+    // On the search page, if there are no products we can hide the sort buttons
+    const shouldShowSortButtons = shouldShowFilterButtons && productsCount;
+
+    const maybeFilterButtons = shouldShowFilterButtons ? (
         <FilterModalOpenButton filters={filters} />
     ) : null;
 
-    const maybeFilterModal = shouldShowButtons ? (
+    const maybeFilterModal = shouldShowFilterButtons ? (
         <FilterModal filters={filters} />
     ) : null;
 
-    const maybeSortButton =
-        shouldShowButtons && productsCount ? (
-            <ProductSort sortProps={sortProps} />
-        ) : null;
+    const maybeSortButton = shouldShowSortButtons ? (
+        <ProductSort sortProps={sortProps} />
+    ) : null;
 
-    const maybeSortContainer =
-        shouldShowButtons && productsCount ? (
-            <SortedByContainer currentSort={currentSort} />
-        ) : null;
+    const maybeSortContainer = shouldShowSortButtons ? (
+        <SortedByContainer currentSort={currentSort} />
+    ) : null;
 
     const searchResultsHeading = !data ? null : searchTerm ? (
         <FormattedMessage

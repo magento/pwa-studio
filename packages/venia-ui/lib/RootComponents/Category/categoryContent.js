@@ -44,25 +44,29 @@ const CategoryContent = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const shouldShowButtons = !!(filters && filters.length);
+    const shouldShowFilterButtons = filters && filters.length;
 
-    const maybeFilterButtons = shouldShowButtons ? (
+    // On the category page, we can show sort buttons whenever filter buttons
+    // are rendered unlike on search where we hide sort if there are no
+    // products. If there are no products on the category page, then this will
+    // be false as there won't be filters.
+    const shouldShowSortButtons = shouldShowFilterButtons;
+
+    const maybeFilterButtons = shouldShowFilterButtons ? (
         <FilterModalOpenButton filters={filters} />
     ) : null;
 
-    const filtersModal = shouldShowButtons ? (
+    const filtersModal = shouldShowFilterButtons ? (
         <FilterModal filters={filters} />
     ) : null;
 
-    const maybeSortButton =
-        shouldShowButtons && totalPagesFromData ? (
-            <ProductSort sortProps={sortProps} />
-        ) : null;
+    const maybeSortButton = shouldShowSortButtons ? (
+        <ProductSort sortProps={sortProps} />
+    ) : null;
 
-    const maybeSortContainer =
-        shouldShowButtons && totalPagesFromData ? (
-            <SortedByContainer currentSort={currentSort} />
-        ) : null;
+    const maybeSortContainer = shouldShowSortButtons ? (
+        <SortedByContainer currentSort={currentSort} />
+    ) : null;
 
     const categoryDescriptionElement = categoryDescription ? (
         <RichContent html={categoryDescription} />
