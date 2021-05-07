@@ -1,5 +1,4 @@
 .root {
-    --stroke: rgb(var(--venia-global-color-text));
     align-items: center;
     display: inline-flex;
     justify-content: center;
@@ -8,7 +7,7 @@
 
 .icon {
     fill: var(--fill, none);
-    stroke: var(--stroke);
+    stroke: var(--stroke, rgb(var(--venia-global-color-text)));
 }
 
 @media (min-width: 641px) {
