@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { useApolloClient } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { GET_PRODUCTS_IN_WISHLISTS } from './galleryButton.gql';
 import { useSingleWishlist } from './helpers/useSingleWishlist';
 
 export const useGalleryButton = props => {
@@ -16,7 +17,6 @@ export const useGalleryButton = props => {
     const singleWishlistProps = useSingleWishlist(props);
 
     const apolloClient = useApolloClient();
-    const { cache: apolloCache } = apolloClient;
 
     const buttonProps = useMemo(() => {
         const singleButtonProps = singleWishlistProps.buttonProps;
@@ -40,11 +40,11 @@ export const useGalleryButton = props => {
 
             // only set item added true if someone calls handleModalClose(true)
             if (success === true) {
-                apolloCache.modify({
-                    id: 'ROOT_QUERY',
-                    fields: {
-                        customerWishlistProducts: cachedProducts => [
-                            ...cachedProducts,
+                apolloClient.writeQuery({
+                    query: GET_PRODUCTS_IN_WISHLISTS,
+                    data: {
+                        customerWishlistProducts: [
+                            ...singleWishlistProps.customerWishlistProducts,
                             item.sku
                         ]
                     }
@@ -53,7 +53,7 @@ export const useGalleryButton = props => {
                 setSuccessToastName(additionalData.wishlistName);
             }
         },
-        [apolloCache, item.sku]
+        [apolloClient, item.sku, singleWishlistProps.customerWishlistProducts]
     );
 
     const modalProps = useMemo(() => {

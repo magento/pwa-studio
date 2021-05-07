@@ -3,10 +3,9 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { useApolloClient } from '@apollo/client';
 
 jest.mock('@apollo/client', () => ({
+    gql: jest.fn(() => 'graphql-ast'),
     useApolloClient: jest.fn().mockReturnValue({
-        cache: {
-            modify: jest.fn()
-        }
+        writeQuery: jest.fn()
     })
 }));
 
@@ -20,6 +19,7 @@ jest.mock('../helpers/useSingleWishlist', () => ({
             singleButtonProp: 'singleButtonValue',
             onClick: jest.fn().mockName('useSingleWishlist.onClick')
         },
+        customerWishlistProducts: [],
         singleWishlistProp: 'singleWishlistValue',
         successToastProps: {
             singleSuccessProp: 'singleSuccessValue'
@@ -54,6 +54,7 @@ test('returns single wishlist props when multiple wishlists is disabled', () => 
             "onClick": [MockFunction useSingleWishlist.onClick],
             "singleButtonProp": "singleButtonValue",
           },
+          "customerWishlistProducts": Array [],
           "modalProps": null,
           "singleWishlistProp": "singleWishlistValue",
           "successToastProps": Object {
@@ -72,6 +73,7 @@ test('returns multiple wishlist props when enabled', () => {
             "onClick": [Function],
             "singleButtonProp": "singleButtonValue",
           },
+          "customerWishlistProducts": Array [],
           "modalProps": Object {
             "isOpen": false,
             "itemOptions": Object {
@@ -114,25 +116,18 @@ test('handleModalClose updates cache and updates toast props', () => {
         });
     });
 
-    const cacheModifyProps = mockApolloClient.cache.modify.mock.calls[0][0];
-    const nextCacheProductResult = cacheModifyProps.fields.customerWishlistProducts(
-        ['existing-product']
-    );
+    const cacheWriteProps = mockApolloClient.writeQuery.mock.calls[0][0];
 
     expect(result.current.modalProps.isOpen).toBe(false);
-    expect(cacheModifyProps).toMatchInlineSnapshot(`
+    expect(cacheWriteProps).toMatchInlineSnapshot(`
         Object {
-          "fields": Object {
-            "customerWishlistProducts": [Function],
+          "data": Object {
+            "customerWishlistProducts": Array [
+              "holy-grail",
+            ],
           },
-          "id": "ROOT_QUERY",
+          "query": "graphql-ast",
         }
-    `);
-    expect(nextCacheProductResult).toMatchInlineSnapshot(`
-        Array [
-          "existing-product",
-          "holy-grail",
-        ]
     `);
     expect(result.current.successToastProps).toMatchInlineSnapshot(`
         Object {

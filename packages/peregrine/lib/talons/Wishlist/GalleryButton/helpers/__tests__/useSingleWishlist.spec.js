@@ -90,6 +90,9 @@ test('returns correct shape for selected product', () => {
             "onClick": [Function],
             "type": "button",
           },
+          "customerWishlistProducts": Array [
+            "shirt",
+          ],
           "errorToastProps": null,
           "handleClick": [Function],
           "isSelected": true,

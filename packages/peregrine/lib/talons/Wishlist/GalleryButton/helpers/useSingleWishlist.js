@@ -125,6 +125,7 @@ export const useSingleWishlist = props => {
 
     return {
         buttonProps,
+        customerWishlistProducts,
         errorToastProps,
         handleClick,
         isSelected: isSelected || loading,
