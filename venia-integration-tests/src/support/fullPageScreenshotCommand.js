@@ -20,7 +20,24 @@ const captureFullPageScreenshot = options => {
         'position: static'
     );
 
-    cy.document().toMatchImageSnapshot({ ...defaultOptions, ...options });
+    const { name } = options;
+
+    if (name) {
+        const normalizedName = name.split(' ').join('-');
+
+        cy.document().matchImageSnapshot(normalizedName, {
+            ...defaultOptions,
+            ...options,
+            name: normalizedName
+        });
+    } else {
+        // technically it is not a requirement for cypress but the code
+        // changes we made for DPI invariable testing, need the test to have
+        // a name so the script can find it every single time with certainity.
+        // This can change in the future when Cypress develops DPI invariant
+        // testing internally and incorporates into the code themselves.
+        throw new Error('Please provide a name to be used for the test');
+    }
 
     /**
      * Reset the position attribute to default
