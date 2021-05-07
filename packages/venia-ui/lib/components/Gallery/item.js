@@ -9,6 +9,7 @@ import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGallery
 import { mergeClasses } from '../../classify';
 import Image from '../Image';
 import defaultClasses from './item.css';
+import WishlistGalleryButton from '../Wishlist/GalleryButton';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -38,7 +39,7 @@ const ItemPlaceholder = ({ classes }) => (
 );
 
 const GalleryItem = props => {
-    const { handleLinkClick, item } = useGalleryItem(props);
+    const { handleLinkClick, item, storeConfig } = useGalleryItem(props);
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -47,7 +48,14 @@ const GalleryItem = props => {
     }
 
     const { name, price, small_image, url_key, url_suffix } = item;
+    const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${url_suffix || ''}`);
+
+    const wishlistButton =
+        storeConfig &&
+        storeConfig.magento_wishlist_general_is_enabled === '1' ? (
+            <WishlistGalleryButton item={item} storeConfig={storeConfig} />
+        ) : null;
 
     return (
         <div className={classes.root}>
@@ -63,7 +71,7 @@ const GalleryItem = props => {
                         root: classes.imageContainer
                     }}
                     height={IMAGE_HEIGHT}
-                    resource={small_image}
+                    resource={smallImageURL}
                     widths={IMAGE_WIDTHS}
                 />
             </Link>
@@ -80,6 +88,7 @@ const GalleryItem = props => {
                     currencyCode={price.regularPrice.amount.currency}
                 />
             </div>
+            <div className={classes.actionsContainer}>{wishlistButton}</div>
         </div>
     );
 };
@@ -102,7 +111,9 @@ GalleryItem.propTypes = {
     item: shape({
         id: number.isRequired,
         name: string.isRequired,
-        small_image: string.isRequired,
+        small_image: shape({
+            url: string.isRequired
+        }),
         url_key: string.isRequired,
         price: shape({
             regularPrice: shape({
@@ -112,6 +123,9 @@ GalleryItem.propTypes = {
                 }).isRequired
             }).isRequired
         }).isRequired
+    }),
+    storeConfig: shape({
+        magento_wishlist_general_is_enabled: string.isRequired
     })
 };
 

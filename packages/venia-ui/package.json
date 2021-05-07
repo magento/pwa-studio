@@ -60,6 +60,7 @@
     "@babel/preset-env": "~7.3.4",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
     "@storybook/react": "~6.1.14",
+    "@testing-library/react-hooks": "~5.0.3",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.4.1",
     "babel-core": "~7.0.0-bridge.0",
     "babel-jest": "~24.1.0",

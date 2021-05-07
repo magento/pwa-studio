@@ -103,6 +103,15 @@ export const useWishlistItem = props => {
         removeProductsFromWishlist,
         { loading: isRemovalInProgress }
     ] = useMutation(removeProductsFromWishlistMutation, {
+        update: cache => {
+            cache.modify({
+                id: 'ROOT_QUERY',
+                fields: {
+                    customerWishlistProducts: cachedProducts =>
+                        cachedProducts.filter(productSku => productSku !== sku)
+                }
+            });
+        },
         variables: {
             wishlistId: wishlistId,
             wishlistItemsId: [itemId]
@@ -116,8 +125,8 @@ export const useWishlistItem = props => {
         ) {
             try {
                 await addWishlistItemToCart();
-            } catch (e) {
-                console.error(e);
+            } catch (error) {
+                console.error(error);
             }
         } else {
             onOpenAddToCartDialog(item);

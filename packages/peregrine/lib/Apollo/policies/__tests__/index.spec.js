@@ -394,3 +394,14 @@ test('wishlist entities have correct keys', () => {
         'CustomerGiftCardWishlistItem:1'
     );
 });
+
+test('local customerWishlistProducts field returns expected data', () => {
+    const { read } = typePolicies.Query.fields.customerWishlistProducts;
+    const existing = jest.fn();
+
+    const defaultValue = read();
+    const existingValue = read(existing);
+
+    expect(defaultValue).toMatchInlineSnapshot(`Array []`);
+    expect(existingValue).toBe(existing);
+});
