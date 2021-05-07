@@ -119,19 +119,19 @@ describe('filter button/modal', () => {
 });
 
 describe('sort button/container', () => {
-    test('does not render if there are no filters', () => {
+    test('does not render if there are no products', () => {
         useCategoryContent.mockReturnValueOnce({
             ...talonProps,
-            filters: []
+            totalPagesFromData: 0
         });
         const tree = createTestInstance(<CategoryContent {...defaultProps} />);
         expect(tree.toJSON()).toMatchSnapshot();
     });
 
-    test('renders when there are filters', () => {
+    test('renders when there are products', () => {
         useCategoryContent.mockReturnValueOnce({
             ...talonProps,
-            filters: [{}]
+            totalPagesFromData: 1
         });
         const tree = createTestInstance(<CategoryContent {...defaultProps} />);
         expect(tree.toJSON()).toMatchSnapshot();

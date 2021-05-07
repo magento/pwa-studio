@@ -46,11 +46,8 @@ const CategoryContent = props => {
 
     const shouldShowFilterButtons = filters && filters.length;
 
-    // On the category page, we can show sort buttons whenever filter buttons
-    // are rendered unlike on search where we hide sort if there are no
-    // products. If there are no products on the category page, then this will
-    // be false as there won't be filters.
-    const shouldShowSortButtons = shouldShowFilterButtons;
+    // If there are no products we can hide the sort button.
+    const shouldShowSortButtons = totalPagesFromData;
 
     const maybeFilterButtons = shouldShowFilterButtons ? (
         <FilterModalOpenButton filters={filters} />

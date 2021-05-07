@@ -89,7 +89,7 @@ const SearchPage = props => {
 
     const shouldShowFilterButtons = filters && filters.length;
 
-    // On the search page, if there are no products we can hide the sort buttons
+    // If there are no products we can hide the sort button.
     const shouldShowSortButtons = productsCount;
 
     const maybeFilterButtons = shouldShowFilterButtons ? (

@@ -20,6 +20,35 @@ Array [
     </h1>
     <div
       className="headerButtons"
+    >
+      <div
+        className="root"
+      >
+        <button
+          className="root_lowPriority"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          <span
+            className="content"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Sort"
+              id="productSort.sortButton"
+            />
+          </span>
+        </button>
+      </div>
+    </div>
+    <SortedByContainer
+      currentSort={
+        Object {
+          "sortAttribute": "",
+          "sortDirection": "",
+          "sortText": "",
+        }
+      }
     />
     <section
       className="gallery"
@@ -279,100 +308,7 @@ Array [
     </h1>
     <div
       className="headerButtons"
-    />
-    <section
-      className="gallery"
     >
-      <Gallery
-        items={
-          Object {
-            "id": 1,
-          }
-        }
-      />
-    </section>
-    <div
-      className="pagination"
-    >
-      <Pagination
-        pageControl={Object {}}
-      />
-    </div>
-  </article>,
-]
-`;
-
-exports[`sort button/container does not render if there are no filters 1`] = `
-Array [
-  <Breadcrumbs
-    categoryId={42}
-  />,
-  "Title",
-  <article
-    className="root"
-  >
-    <h1
-      className="title"
-    >
-      <div
-        className="categoryTitle"
-      >
-        Name
-      </div>
-    </h1>
-    <div
-      className="headerButtons"
-    />
-    <section
-      className="gallery"
-    >
-      <Gallery
-        items={
-          Object {
-            "id": 1,
-          }
-        }
-      />
-    </section>
-    <div
-      className="pagination"
-    >
-      <Pagination
-        pageControl={Object {}}
-      />
-    </div>
-  </article>,
-]
-`;
-
-exports[`sort button/container renders when there are filters 1`] = `
-Array [
-  <Breadcrumbs
-    categoryId={42}
-  />,
-  "Title",
-  <article
-    className="root"
-  >
-    <h1
-      className="title"
-    >
-      <div
-        className="categoryTitle"
-      >
-        Name
-      </div>
-    </h1>
-    <div
-      className="headerButtons"
-    >
-      <FilterModalOpenButton
-        filters={
-          Array [
-            Object {},
-          ]
-        }
-      />
       <div
         className="root"
       >
@@ -420,13 +356,106 @@ Array [
         pageControl={Object {}}
       />
     </div>
-    <require('../../components/FilterModal')
-      filters={
-        Array [
-          Object {},
-        ]
+  </article>,
+]
+`;
+
+exports[`sort button/container does not render if there are no products 1`] = `
+Array [
+  <Breadcrumbs
+    categoryId={42}
+  />,
+  "Title",
+  <article
+    className="root"
+  >
+    <h1
+      className="title"
+    >
+      <div
+        className="categoryTitle"
+      >
+        Name
+      </div>
+    </h1>
+    <div
+      className="headerButtons"
+    />
+    <NoProductsFound
+      categoryId={42}
+    />
+  </article>,
+]
+`;
+
+exports[`sort button/container renders when there are products 1`] = `
+Array [
+  <Breadcrumbs
+    categoryId={42}
+  />,
+  "Title",
+  <article
+    className="root"
+  >
+    <h1
+      className="title"
+    >
+      <div
+        className="categoryTitle"
+      >
+        Name
+      </div>
+    </h1>
+    <div
+      className="headerButtons"
+    >
+      <div
+        className="root"
+      >
+        <button
+          className="root_lowPriority"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          <span
+            className="content"
+          >
+            <mock-FormattedMessage
+              defaultMessage="Sort"
+              id="productSort.sortButton"
+            />
+          </span>
+        </button>
+      </div>
+    </div>
+    <SortedByContainer
+      currentSort={
+        Object {
+          "sortAttribute": "",
+          "sortDirection": "",
+          "sortText": "",
+        }
       }
     />
+    <section
+      className="gallery"
+    >
+      <Gallery
+        items={
+          Object {
+            "id": 1,
+          }
+        }
+      />
+    </section>
+    <div
+      className="pagination"
+    >
+      <Pagination
+        pageControl={Object {}}
+      />
+    </div>
   </article>,
 ]
 `;
