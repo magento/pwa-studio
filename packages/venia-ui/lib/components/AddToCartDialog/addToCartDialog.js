@@ -8,12 +8,19 @@ import defaultClasses from './addToCartDialog.css';
 import Price from '../Price';
 import Options from '../ProductOptions';
 import Button from '../Button';
+import { FormattedMessage } from 'react-intl';
 
 const AddToCartDialog = props => {
-    const { item, onClose } = props;
+    const { item } = props;
 
-    const talonProps = useAddToCartDialog({ item });
-    const { configurableOptionProps, imageProps, priceProps } = talonProps;
+    const talonProps = useAddToCartDialog(props);
+    const {
+        buttonProps,
+        configurableOptionProps,
+        handleOnClose,
+        imageProps,
+        priceProps
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -42,20 +49,36 @@ const AddToCartDialog = props => {
                                 title: classes.optionTitle
                             }}
                         />
-                        <Button priority="high">Add to Cart</Button>
+                        <Button {...buttonProps}>
+                            <FormattedMessage
+                                id="addToCartDialog.addToCart"
+                                defaultMessage="Add to Cart"
+                            />
+                        </Button>
                     </div>
                 </div>
             );
         }
 
         return null;
-    }, [classes, configurableOptionProps, imageComponent, item, priceProps]);
+    }, [
+        buttonProps,
+        classes.detailsContainer,
+        classes.name,
+        classes.optionTitle,
+        classes.price,
+        classes.root,
+        configurableOptionProps,
+        imageComponent,
+        item,
+        priceProps
+    ]);
 
     return (
         <Dialog
             shouldShowButtons={false}
             isOpen={!!props.item}
-            onCancel={onClose}
+            onCancel={handleOnClose}
         >
             {dialogContent}
         </Dialog>

@@ -1,4 +1,6 @@
 import { gql } from '@apollo/client';
+import { CartTriggerFragment } from '../Header/cartTriggerFragments.gql';
+import { MiniCartFragment } from '../MiniCart/miniCartFragments.gql';
 
 const GET_PRODUCT_DETAIL = gql`
     query GetProductDetailForATCDialog(
@@ -47,6 +49,24 @@ const GET_PRODUCT_DETAIL = gql`
     }
 `;
 
+const ADD_PRODUCT_TO_CART = gql`
+    mutation AddProductToCartFromDialog(
+        $cartId: String!
+        $cartItem: CartItemInput!
+    ) {
+        addProductsToCart(cartId: $cartId, cartItems: [$cartItem]) {
+            cart {
+                id
+                ...CartTriggerFragment
+                ...MiniCartFragment
+            }
+        }
+    }
+    ${CartTriggerFragment}
+    ${MiniCartFragment}
+`;
+
 export default {
+    addProductToCartMutation: ADD_PRODUCT_TO_CART,
     getProductDetailQuery: GET_PRODUCT_DETAIL
 };

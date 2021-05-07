@@ -1,14 +1,20 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
+import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './addToCartDialog.gql';
+import { useCartContext } from '../../context/cart';
 
 export const useAddToCartDialog = props => {
-    const { item } = props;
+    const { item, onClose } = props;
     const sku = item && item.product.sku;
+
+    const operations = mergeOperations(defaultOperations, props.operations);
 
     const [userSelectedOptions, setUserSelectedOptions] = useState(new Map());
     const [currentImage, setCurrentImage] = useState();
+
+    const [{ cartId }] = useCartContext();
 
     const selectedOptionsArray = useMemo(() => {
         if (item) {
@@ -44,7 +50,7 @@ export const useAddToCartDialog = props => {
         return [];
     }, [item, userSelectedOptions]);
 
-    const { data } = useQuery(defaultOperations.getProductDetailQuery, {
+    const { data } = useQuery(operations.getProductDetailQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         variables: {
@@ -53,6 +59,10 @@ export const useAddToCartDialog = props => {
         },
         skip: !sku
     });
+
+    const [addProductToCart, { loading: isAddingToCart }] = useMutation(
+        operations.addProductToCartMutation
+    );
 
     useEffect(() => {
         if (data) {
@@ -67,18 +77,42 @@ export const useAddToCartDialog = props => {
         }
     }, [data, selectedOptionsArray.length]);
 
+    const handleOnClose = useCallback(() => {
+        onClose();
+        setCurrentImage();
+        setUserSelectedOptions(new Map());
+    }, [onClose]);
+
     const handleOptionSelection = useCallback((optionId, value) => {
         setUserSelectedOptions(existing =>
             new Map(existing).set(parseInt(optionId), value)
         );
     }, []);
 
+    const handleAddToCart = useCallback(async () => {
+        try {
+            await addProductToCart({
+                variables: {
+                    cartId,
+                    cartItem: {
+                        quantity: 1,
+                        selected_options: selectedOptionsArray,
+                        sku
+                    }
+                }
+            });
+
+            handleOnClose();
+        } catch (error) {
+            console.error(error);
+        }
+    }, [addProductToCart, cartId, handleOnClose, selectedOptionsArray, sku]);
+
     const imageProps = useMemo(() => {
         if (currentImage) {
             return {
                 alt: currentImage.label,
-                displayPlaceholder: true,
-                resource: currentImage.url,
+                src: currentImage.url,
                 width: 400
             };
         }
@@ -105,8 +139,22 @@ export const useAddToCartDialog = props => {
         }
     }, [handleOptionSelection, item]);
 
+    const buttonProps = useMemo(() => {
+        if (item) {
+            return {
+                disabled:
+                    item.product.configurable_options.length !==
+                        selectedOptionsArray.length || isAddingToCart,
+                onClick: handleAddToCart,
+                priority: 'high'
+            };
+        }
+    }, [handleAddToCart, isAddingToCart, item, selectedOptionsArray.length]);
+
     return {
+        buttonProps,
         configurableOptionProps,
+        handleOnClose,
         imageProps,
         priceProps
     };

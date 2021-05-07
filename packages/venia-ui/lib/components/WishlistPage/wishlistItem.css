@@ -58,6 +58,6 @@
 
 @media (max-width: 480px) {
     .addToCart {
-        min-width: auto;
+        min-width: 100%;
     }
 }
