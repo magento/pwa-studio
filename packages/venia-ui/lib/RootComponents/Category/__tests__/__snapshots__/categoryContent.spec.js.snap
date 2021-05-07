@@ -157,7 +157,7 @@ Array [
 ]
 `;
 
-exports[`renders loading indicator if no data and  loading 1`] = `
+exports[`renders loading indicator if no data and loading 1`] = `
 Array [
   <Breadcrumbs
     categoryId={42}
