@@ -8,7 +8,7 @@ const defaultOptions = {
     failureThresholdType: 'percent'
 };
 
-const captureFullPageScreenshot = options => {
+const captureFullPageScreenshot = (options = {}) => {
     /**
      * Set the header position to static instead
      * of sticky to not let it follow while taking
