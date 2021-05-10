@@ -14,6 +14,14 @@ const GET_PRODUCT_DETAIL = gql`
                     label
                     url
                 }
+                price_range {
+                    maximum_price {
+                        final_price {
+                            currency
+                            value
+                        }
+                    }
+                }
                 ... on ConfigurableProduct {
                     configurable_options {
                         attribute_uid

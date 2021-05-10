@@ -30,6 +30,8 @@ const AddToCartDialog = props => {
         <div className={classes.image} />
     );
 
+    const priceComponent = priceProps ? <Price {...priceProps} /> : null;
+
     const dialogContent = useMemo(() => {
         if (item) {
             return (
@@ -39,9 +41,7 @@ const AddToCartDialog = props => {
                         <span className={classes.name}>
                             {item.product.name}
                         </span>
-                        <span className={classes.price}>
-                            <Price {...priceProps} />
-                        </span>
+                        <span className={classes.price}>{priceComponent}</span>
                         <Options
                             {...configurableOptionProps}
                             classes={{
@@ -71,7 +71,7 @@ const AddToCartDialog = props => {
         configurableOptionProps,
         imageComponent,
         item,
-        priceProps
+        priceComponent
     ]);
 
     return (

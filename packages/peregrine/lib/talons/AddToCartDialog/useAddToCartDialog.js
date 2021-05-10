@@ -13,6 +13,7 @@ export const useAddToCartDialog = props => {
 
     const [userSelectedOptions, setUserSelectedOptions] = useState(new Map());
     const [currentImage, setCurrentImage] = useState();
+    const [currentPrice, setCurrentPrice] = useState();
 
     const [{ cartId }] = useCartContext();
 
@@ -67,19 +68,31 @@ export const useAddToCartDialog = props => {
     useEffect(() => {
         if (data) {
             const product = data.products.items[0];
+            const {
+                media_gallery: selectedProductMediaGallery,
+                variant: selectedVariant
+            } = product.configurable_product_options_selection;
 
-            const currentImage = selectedOptionsArray.length
-                ? product.configurable_product_options_selection
-                      .media_gallery[0]
-                : product.image;
+            const currentImage =
+                selectedProductMediaGallery.length &&
+                selectedOptionsArray.length
+                    ? selectedProductMediaGallery[0]
+                    : product.image;
 
             setCurrentImage(currentImage);
+
+            const finalPrice = selectedVariant
+                ? selectedVariant.price_range.maximum_price.final_price
+                : product.price_range.maximum_price.final_price;
+
+            setCurrentPrice(finalPrice);
         }
     }, [data, selectedOptionsArray.length]);
 
     const handleOnClose = useCallback(() => {
         onClose();
         setCurrentImage();
+        setCurrentPrice();
         setUserSelectedOptions(new Map());
     }, [onClose]);
 
@@ -119,15 +132,13 @@ export const useAddToCartDialog = props => {
     }, [currentImage]);
 
     const priceProps = useMemo(() => {
-        if (item) {
-            const finalPrice =
-                item.product.price_range.maximum_price.final_price;
+        if (currentPrice) {
             return {
-                currencyCode: finalPrice.currency,
-                value: finalPrice.value
+                currencyCode: currentPrice.currency,
+                value: currentPrice.value
             };
         }
-    }, [item]);
+    }, [currentPrice]);
 
     const configurableOptionProps = useMemo(() => {
         if (item) {

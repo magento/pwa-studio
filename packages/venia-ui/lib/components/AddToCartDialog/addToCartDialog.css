@@ -1,5 +1,6 @@
 .root {
     display: grid;
+    gap: 1rem;
     grid-template-columns: 1fr 1fr;
 }
 
@@ -25,6 +26,12 @@
     font-weight: var(--venia-global-fontWeight-semibold);
 }
 
+.price:empty {
+    background-color: rgb(var(--venia-global-color-gray));
+    min-height: 1rem;
+    width: 4rem;
+}
+
 .optionTitle {
     border-top: 1px solid rgb(var(--venia-global-color-border));
     font-weight: var(--venia-global-fontWeight-semibold);
@@ -34,6 +41,5 @@
 @media (max-width: 960px) {
     .root {
         grid-template-columns: auto;
-        row-gap: 1rem;
     }
 }
