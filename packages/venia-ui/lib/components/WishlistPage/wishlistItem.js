@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo } from 'react';
 import { MoreHorizontal } from 'react-feather';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { Price, useToasts } from '@magento/peregrine';
+import { useIntl } from 'react-intl';
+import { useToasts } from '@magento/peregrine';
 import { useWishlistItem } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItem';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import Image from '../Image';
+import Price from '../Price';
 import WishlistConfirmRemoveProductDialog from './wishlistConfirmRemoveProductDialog';
 import WishlistMoreActionsDialog from './wishlistMoreActionsDialog';
 import defaultClasses from './wishlistItem.css';
@@ -76,16 +77,6 @@ const WishlistItem = props => {
         });
     }, [classes.option, configurableOptions]);
 
-    const outOfStockElement =
-        stockStatus === 'OUT_OF_STOCK' ? (
-            <span className={classes.outOfStock}>
-                <FormattedMessage
-                    id="wishlistItem.outOfStock"
-                    defaultMessage="Currently out-of-stock"
-                />
-            </span>
-        ) : null;
-
     const imageProps = {
         classes: {
             image:
@@ -104,7 +95,6 @@ const WishlistItem = props => {
                 <Price currencyCode={currency} value={unitPrice} />
             </div>
             {optionElements}
-            {outOfStockElement}
             <button className={classes.addToCart} {...addToCartButtonProps}>
                 {formatMessage({
                     id: 'wishlistItem.addToCart',

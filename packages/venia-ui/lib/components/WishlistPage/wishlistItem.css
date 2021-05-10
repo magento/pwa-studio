@@ -41,6 +41,7 @@
 .addToCart {
     composes: root_highPriority from '../Button/button.css';
     justify-self: left;
+    margin-top: 0.25rem;
 }
 
 .moreActions {
