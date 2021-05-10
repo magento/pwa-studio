@@ -58,7 +58,7 @@ describe('testing resizeSnapshot', () => {
                 "width": 50,
               },
               "path": "path/to/the/snapshot/image",
-              "pixelRatio": 2,
+              "pixelRatio": 1,
             }
         `);
     });

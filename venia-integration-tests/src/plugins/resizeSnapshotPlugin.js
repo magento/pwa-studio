@@ -23,7 +23,8 @@ const resizeSnapshot = imageConfig => {
                     .then(() => {
                         return {
                             ...imageConfig,
-                            dimensions: newDimensions
+                            dimensions: newDimensions,
+                            pixelRatio: 1
                         };
                     });
             })
