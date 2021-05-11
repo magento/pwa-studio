@@ -71,7 +71,6 @@ test('renders simple product correctly', () => {
         handleSaveForLater: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isEditable: false,
-        isFavorite: false,
         product: {
             currency: 'USD',
             image: {},
@@ -98,7 +97,6 @@ test('renders out of stock product', () => {
         handleSaveForLater: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isEditable: false,
-        isFavorite: false,
         product: {
             currency: 'USD',
             image: {},
@@ -126,7 +124,6 @@ test('renders configurable product with options', () => {
         handleSaveForLater: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isEditable: true,
-        isFavorite: false,
         product: {
             currency: 'USD',
             image: {},
@@ -163,7 +160,6 @@ test('renders toast if wishlistSuccessProps is not falsy', () => {
         handleSaveForLater: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isEditable: false,
-        isFavorite: false,
         product: {
             currency: 'USD',
             image: {},
