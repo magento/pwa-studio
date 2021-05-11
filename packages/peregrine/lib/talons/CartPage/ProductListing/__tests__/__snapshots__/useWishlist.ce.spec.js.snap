@@ -9,6 +9,21 @@ Object {
 }
 `;
 
+exports[`testing handleAddToWishlist should add simple product to list 1`] = `
+Array [
+  Object {
+    "variables": Object {
+      "itemOptions": Object {
+        "quantity": "1",
+        "selected_options": Array [],
+        "sku": "sku",
+      },
+      "wishlistId": "0",
+    },
+  },
+]
+`;
+
 exports[`testing handleAddToWishlist should add the product to list 1`] = `
 Array [
   Object {

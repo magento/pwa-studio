@@ -29,9 +29,11 @@ export const useWishlist = props => {
     const handleAddToWishlist = useCallback(async () => {
         const sku = item.product.sku;
         const quantity = item.quantity;
-        const selected_options = item.configurable_options.map(
-            option => option.configurable_product_option_value_uid
-        );
+        const selected_options = item.configurable_options
+            ? item.configurable_options.map(
+                  option => option.configurable_product_option_value_uid
+              )
+            : [];
 
         try {
             const { data: wishlistData } = await addProductToWishlist({

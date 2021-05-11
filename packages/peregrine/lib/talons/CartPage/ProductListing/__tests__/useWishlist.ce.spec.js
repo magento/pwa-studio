@@ -60,6 +60,19 @@ const defaultProps = {
     updateWishlistToastProps
 };
 
+const simpleProductProps = {
+    item: {
+        product: {
+            sku: 'sku'
+        },
+        quantity: '1',
+        configurable_options: null
+    },
+    onWishlistUpdate,
+    onWishlistUpdateError,
+    updateWishlistToastProps
+};
+
 const Component = props => {
     const talonProps = useWishlist(props);
 
@@ -111,6 +124,14 @@ test('should return correct shape', () => {
 describe('testing handleAddToWishlist', () => {
     test('should add the product to list', async () => {
         const { talonProps } = getTalonProps(defaultProps);
+
+        await talonProps.handleAddToWishlist();
+
+        expect(addProductToWishlist.mock.calls[0]).toMatchSnapshot();
+    });
+
+    test('should add simple product to list', async () => {
+        const { talonProps } = getTalonProps(simpleProductProps);
 
         await talonProps.handleAddToWishlist();
 
