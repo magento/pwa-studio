@@ -4,8 +4,8 @@ import { useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import mergeOperations from '../../util/shallowMerge';
-// TODO: Import the actual default operations once we have them co-located.
-const DEFAULT_OPERATIONS = {};
+
+import DEFAULT_OPERATIONS from './wishlistItem.gql';
 
 // Note: There is only ever zero (0) or one (1) dialogs open for a wishlist item.
 const dialogs = {
@@ -73,6 +73,15 @@ export const useWishlistItem = props => {
         removeProductsFromWishlist,
         { loading: isRemovalInProgress }
     ] = useMutation(removeProductsFromWishlistMutation, {
+        update: cache => {
+            cache.modify({
+                id: 'ROOT_QUERY',
+                fields: {
+                    customerWishlistProducts: cachedProducts =>
+                        cachedProducts.filter(productSku => productSku !== sku)
+                }
+            });
+        },
         variables: {
             wishlistId: wishlistId,
             wishlistItemsId: [itemId]
@@ -82,8 +91,8 @@ export const useWishlistItem = props => {
     const handleAddToCart = useCallback(async () => {
         try {
             await addWishlistItemToCart();
-        } catch {
-            return;
+        } catch (error) {
+            console.error(error);
         }
     }, [addWishlistItemToCart]);
 
@@ -96,6 +105,9 @@ export const useWishlistItem = props => {
         } catch (e) {
             console.error(e);
             setRemoveProductFromWishlistError(e);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(e);
+            }
         }
     }, [
         removeProductsFromWishlist,
@@ -146,8 +158,8 @@ export const useWishlistItem = props => {
  *
  * @typedef {Object} WishlistItemOperations
  *
- * @property {GraphQLAST} addWishlistItemToCartMutation Mutation to add item to the cart
- * @property {GraphQLAST} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
+ * @property {GraphQLDocument} addWishlistItemToCartMutation Mutation to add item to the cart
+ * @property {GraphQLDocument} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
  *
  * @see [`wishlistItem.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistItem.gql.js}
  * for queries used in Venia

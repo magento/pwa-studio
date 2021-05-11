@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { func, shape, string } from 'prop-types';
+import { func, number, oneOfType, shape, string } from 'prop-types';
 import { useRegion } from '@magento/peregrine/lib/talons/Region/useRegion';
 
 import { mergeClasses } from '../../classify';
@@ -89,5 +89,5 @@ Region.propTypes = {
     translationId: string,
     optionValueKey: string,
     validate: func,
-    initialValue: string
+    initialValue: oneOfType([number, string])
 };

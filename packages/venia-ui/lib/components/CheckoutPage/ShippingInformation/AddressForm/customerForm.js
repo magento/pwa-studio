@@ -228,7 +228,7 @@ const CustomerForm = props => {
                         validate={isRequired}
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
-                        optionValueKey="id"
+                        optionValueKey={'id'}
                     />
                 </div>
                 <div className={classes.postcode}>
@@ -264,7 +264,7 @@ export default CustomerForm;
 CustomerForm.defaultProps = {
     shippingData: {
         country: {
-            code: 'US'
+            code: DEFAULT_COUNTRY_CODE
         },
         region: {
             id: null

@@ -5,6 +5,7 @@
  * https://www.apollographql.com/docs/react/caching/cache-configuration/#typepolicy-fields
  * https://www.apollographql.com/docs/react/caching/cache-field-behavior/
  */
+
 const typePolicies = {
     // Query/Mutation are "types" just like "Cart".
     Query: {
@@ -18,6 +19,9 @@ const typePolicies = {
             },
             customerCart: {
                 keyArgs: () => 'Cart'
+            },
+            customerWishlistProducts: {
+                read: existing => existing || []
             }
         }
     },

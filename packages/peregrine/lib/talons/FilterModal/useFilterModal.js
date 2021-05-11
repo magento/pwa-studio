@@ -10,6 +10,8 @@ import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
 
 import DEFAULT_OPERATIONS from './filterModal.gql';
 
+const DRAWER_NAME = 'filter';
+
 /**
  * Filter Modal talon.
  *
@@ -27,10 +29,10 @@ export const useFilterModal = props => {
     const { getFilterInputsQuery } = operations;
 
     const [isApplying, setIsApplying] = useState(false);
-    const [{ drawer }, { closeDrawer }] = useAppContext();
+    const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
     const [filterState, filterApi] = useFilterState();
     const prevDrawer = useRef(null);
-    const isOpen = drawer === 'filter';
+    const isOpen = drawer === DRAWER_NAME;
 
     const history = useHistory();
     const { pathname, search } = useLocation();
@@ -123,11 +125,48 @@ export const useFilterModal = props => {
         }
     }, [filterKeys, filterState, history, isApplying, pathname, search]);
 
-    // on drawer toggle, read filter state from location
-    useEffect(() => {
-        const justOpened = prevDrawer.current === null && drawer === 'filter';
-        const justClosed = prevDrawer.current === 'filter' && drawer === null;
+    const handleOpen = useCallback(() => {
+        toggleDrawer(DRAWER_NAME);
+    }, [toggleDrawer]);
 
+    const handleClose = useCallback(() => {
+        closeDrawer();
+    }, [closeDrawer]);
+
+    const handleApply = useCallback(() => {
+        setIsApplying(true);
+        handleClose();
+    }, [handleClose]);
+
+    const handleReset = useCallback(() => {
+        filterApi.clear();
+        setIsApplying(true);
+    }, [filterApi, setIsApplying]);
+
+    const handleKeyDownActions = useCallback(
+        event => {
+            // do not handle keyboard actions when the modal is closed
+            if (!isOpen) {
+                return;
+            }
+
+            switch (event.keyCode) {
+                // when "Esc" key fired -> close the modal
+                case 27:
+                    handleClose();
+                    break;
+            }
+        },
+        [isOpen, handleClose]
+    );
+
+    useEffect(() => {
+        const justOpened =
+            prevDrawer.current === null && drawer === DRAWER_NAME;
+        const justClosed =
+            prevDrawer.current === DRAWER_NAME && drawer === null;
+
+        // on drawer toggle, read filter state from location
         if (justOpened || justClosed) {
             const nextState = getStateFromSearch(
                 search,
@@ -137,22 +176,14 @@ export const useFilterModal = props => {
 
             filterApi.setItems(nextState);
         }
+
+        // on drawer close, update the modal visibility state
+        if (justClosed) {
+            handleClose();
+        }
+
         prevDrawer.current = drawer;
-    }, [drawer, filterApi, filterItems, filterKeys, search]);
-
-    const handleApply = useCallback(() => {
-        setIsApplying(true);
-        closeDrawer();
-    }, [closeDrawer]);
-
-    const handleClose = useCallback(() => {
-        closeDrawer();
-    }, [closeDrawer]);
-
-    const handleReset = useCallback(() => {
-        filterApi.clear();
-        setIsApplying(true);
-    }, [filterApi, setIsApplying]);
+    }, [drawer, filterApi, filterItems, filterKeys, search, handleClose]);
 
     return {
         filterApi,
@@ -162,6 +193,8 @@ export const useFilterModal = props => {
         filterState,
         handleApply,
         handleClose,
+        handleKeyDownActions,
+        handleOpen,
         handleReset,
         isApplying,
         isOpen

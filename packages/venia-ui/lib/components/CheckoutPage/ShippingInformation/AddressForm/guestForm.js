@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
-import { func, shape, string, arrayOf } from 'prop-types';
+import { func, shape, string, arrayOf, number } from 'prop-types';
 import { useGuestForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
 
 import { mergeClasses } from '../../../../classify';
@@ -179,7 +179,12 @@ const GuestForm = props => {
                     </Field>
                 </div>
                 <div className={classes.region}>
-                    <Region validate={isRequired} />
+                    <Region
+                        validate={isRequired}
+                        fieldInput={'region[region]'}
+                        fieldSelect={'region[region_id]'}
+                        optionValueKey={'id'}
+                    />
                 </div>
                 <div className={classes.postcode}>
                     <Postcode validate={isRequired} />
@@ -213,7 +218,7 @@ export default GuestForm;
 GuestForm.defaultProps = {
     shippingData: {
         country: {
-            code: 'US'
+            code: DEFAULT_COUNTRY_CODE
         },
         region: {
             code: ''
@@ -252,7 +257,8 @@ GuestForm.propTypes = {
         lastname: string,
         postcode: string,
         region: shape({
-            code: string.isRequired
+            region_id: number,
+            region: string
         }).isRequired,
         street: arrayOf(string),
         telephone: string

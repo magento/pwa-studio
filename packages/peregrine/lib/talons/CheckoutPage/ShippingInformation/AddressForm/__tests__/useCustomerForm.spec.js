@@ -98,7 +98,9 @@ test('return correct shape for new address and fire create mutation', async () =
         country: 'US',
         email: 'fry@planet.express',
         firstname: 'Philip',
-        region: 2
+        region: {
+            region_id: 2
+        }
     });
 
     expect(mockCreateCustomerAddress).toHaveBeenCalled();
@@ -136,7 +138,9 @@ test('return correct shape for update address and fire update mutation', async (
         country: 'UK',
         email: 'bender@planet.express',
         firstname: 'Bender',
-        region: 5
+        region: {
+            region: 5
+        }
     });
 
     expect(mockUpdateCustomerAddress).toHaveBeenCalled();
@@ -192,7 +196,9 @@ test('does not call afterSubmit if mutation fails', async () => {
         country: 'US',
         email: 'fry@planet.express',
         firstname: 'Philip',
-        region: 2
+        region: {
+            region_id: 2
+        }
     });
 
     expect(mockCreateCustomerAddress).toHaveBeenCalled();
@@ -211,7 +217,9 @@ test('does not call afterSubmit() if it is undefined', async () => {
         country: 'US',
         email: 'fry@planet.express',
         firstname: 'Philip',
-        region: 2
+        region: {
+            region_id: 2
+        }
     });
 
     expect(mockCreateCustomerAddress).toHaveBeenCalled();
