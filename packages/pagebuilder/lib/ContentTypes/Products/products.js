@@ -22,16 +22,6 @@ const restoreSortOrder = (skus, products) => {
     return skus.map(sku => productsBySku.get(sku)).filter(Boolean);
 };
 
-// map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
-const mapGalleryItem = item => {
-    const { small_image } = item;
-    return {
-        ...item,
-        small_image:
-            typeof small_image === 'object' ? small_image.url : small_image
-    };
-};
-
 /**
  * Page Builder Products component.
  *
@@ -106,7 +96,7 @@ const Products = props => {
 
     if (appearance === 'carousel') {
         const galleryItems = items.map((item, index) => {
-            return <GalleryItem key={index} item={mapGalleryItem(item)} />;
+            return <GalleryItem key={index} item={item} />;
         });
 
         //Settings conditions was made due to react-slick issues

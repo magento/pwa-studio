@@ -2,11 +2,9 @@
 
 exports[`handles no data prop 1`] = `
 Object {
-  "categoryDescription": null,
-  "categoryName": null,
+  "categoryDescription": "Jewelry category",
+  "categoryName": "Jewelry",
   "filters": null,
-  "handleLoadFilters": [Function],
-  "handleOpenFilters": [Function],
   "items": Array [
     null,
     null,
@@ -18,7 +16,6 @@ Object {
     null,
     null,
   ],
-  "loadFilters": false,
   "totalCount": null,
   "totalPagesFromData": null,
 }
@@ -33,8 +30,6 @@ Object {
       "label": "Label",
     },
   ],
-  "handleLoadFilters": [Function],
-  "handleOpenFilters": [Function],
   "items": Array [
     Object {
       "id": 1,
@@ -45,7 +40,6 @@ Object {
       "name": "Necklace",
     },
   ],
-  "loadFilters": false,
   "totalCount": 2,
   "totalPagesFromData": 1,
 }

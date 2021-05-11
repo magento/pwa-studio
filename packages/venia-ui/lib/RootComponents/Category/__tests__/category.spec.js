@@ -59,26 +59,6 @@ describe('Category Root Component', () => {
         expect(tree.toJSON()).toMatchSnapshot();
     });
 
-    describe('loading indicator', () => {
-        test('does not render when data is present', () => {
-            useCategory.mockReturnValueOnce({
-                ...talonProps,
-                loading: true
-            });
-            const tree = createTestInstance(<Category {...categoryProps} />);
-            expect(tree.toJSON()).toMatchSnapshot();
-        });
-        test('renders when data is not present', () => {
-            useCategory.mockReturnValueOnce({
-                ...talonProps,
-                loading: true,
-                categoryData: undefined
-            });
-            const tree = createTestInstance(<Category {...categoryProps} />);
-            expect(tree.toJSON()).toMatchSnapshot();
-        });
-    });
-
     describe('error view', () => {
         test('does not render when data is present', () => {
             useCategory.mockReturnValueOnce({

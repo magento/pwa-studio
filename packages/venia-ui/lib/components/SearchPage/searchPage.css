@@ -37,20 +37,6 @@
     font-weight: var(--venia-global-fontWeight-bold);
 }
 
-.filterButton {
-    composes: root_lowPriority from '../../components/Button/button.css';
-    min-width: 6.25rem;
-}
-
-.sortContainer {
-    font-size: 0.875rem;
-    margin: 1rem 0;
-}
-
-.sortText {
-    font-weight: 600;
-}
-
 .sidebar {
     display: none;
 }
@@ -74,14 +60,6 @@
 
     .headerButtons {
         justify-content: flex-end;
-    }
-
-    .filterButton {
-        display: none;
-    }
-
-    .sortContainer {
-        display: none;
     }
 
     .sidebar {

@@ -4,11 +4,13 @@ import { shape, string, func } from 'prop-types';
 import { mergeClasses } from '../../../classify';
 import CurrentFilter from './currentFilter';
 import defaultClasses from './currentFilters.css';
+import { useIntl } from 'react-intl';
 
 const CurrentFilters = props => {
     const { filterApi, filterState, handleApply } = props;
     const { removeItem } = filterApi;
     const classes = mergeClasses(defaultClasses, props.classes);
+    const { formatMessage } = useIntl();
 
     // create elements and params at the same time for efficiency
     const filterElements = useMemo(() => {
@@ -34,7 +36,16 @@ const CurrentFilters = props => {
         return elements;
     }, [classes.item, filterState, removeItem, handleApply]);
 
-    return <ul className={classes.root}>{filterElements}</ul>;
+    const currentFiltersAriaLabel = formatMessage({
+        id: 'filterModal.currentFilters.ariaLabel',
+        defaultMessage: 'Current Filters'
+    });
+
+    return (
+        <ul className={classes.root} aria-label={currentFiltersAriaLabel}>
+            {filterElements}
+        </ul>
+    );
 };
 
 CurrentFilters.defaultProps = {

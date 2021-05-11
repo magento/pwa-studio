@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useIntl } from 'react-intl';
 import { shape, string, func } from 'prop-types';
 import { X as Remove } from 'react-feather';
 
@@ -9,6 +10,7 @@ import defaultClasses from './currentFilter.css';
 
 const CurrentFilter = props => {
     const { group, item, removeItem, handleApply } = props;
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {
@@ -18,9 +20,19 @@ const CurrentFilter = props => {
         }
     }, [group, item, removeItem, handleApply]);
 
+    const ariaLabel = formatMessage(
+        {
+            id: 'filterModal.action.clearFilterItem.ariaLabel',
+            defaultMessage: 'Clear filter'
+        },
+        {
+            name: item.title
+        }
+    );
+
     return (
         <span className={classes.root}>
-            <Trigger action={handleClick}>
+            <Trigger action={handleClick} ariaLabel={ariaLabel}>
                 <Icon size={20} src={Remove} />
             </Trigger>
             <span className={classes.text}>{item.title}</span>

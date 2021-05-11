@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { arrayOf, shape, string, func, bool } from 'prop-types';
+import { useIntl } from 'react-intl';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import { Form } from 'informed';
 import { useFilterBlock } from '@magento/peregrine/lib/talons/FilterModal';
@@ -25,6 +26,7 @@ const FilterBlock = props => {
             return filterState && filterState.has(item);
         });
     }, [filterState, items]);
+    const { formatMessage } = useIntl();
     const talonProps = useFilterBlock(hasSelected, initialOpen);
     const { handleClick, isExpanded } = talonProps;
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
@@ -33,12 +35,44 @@ const FilterBlock = props => {
         ? classes.list_expanded
         : classes.list_collapsed;
 
+    const itemAriaLabel = formatMessage(
+        {
+            id: 'filterModal.item.ariaLabel',
+            defaultMessage: 'Filter products by'
+        },
+        {
+            itemName: name
+        }
+    );
+
+    const toggleItemOptionsAriaLabel = isExpanded
+        ? formatMessage(
+              {
+                  id: 'filterModal.item.hideOptions',
+                  defaultMessage: 'Hide filter item options.'
+              },
+              {
+                  itemName: name
+              }
+          )
+        : formatMessage(
+              {
+                  id: 'filterModal.item.showOptions',
+                  defaultMessage: 'Show filter item options.'
+              },
+              {
+                  itemName: name
+              }
+          );
+
     return (
-        <li className={classes.root}>
+        <li className={classes.root} aria-label={itemAriaLabel}>
             <button
                 className={classes.trigger}
                 onClick={handleClick}
                 type="button"
+                aria-expanded={isExpanded}
+                aria-label={toggleItemOptionsAriaLabel}
             >
                 <span className={classes.header}>
                     <span className={classes.name}>{name}</span>
@@ -52,6 +86,7 @@ const FilterBlock = props => {
                     group={group}
                     items={items}
                     handleApply={handleApply}
+                    isExpanded={isExpanded}
                 />
             </Form>
         </li>

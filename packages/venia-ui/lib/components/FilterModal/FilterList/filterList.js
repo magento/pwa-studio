@@ -1,5 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
-import { array, shape, string, func, number } from 'prop-types';
+import { array, shape, string, func, number, bool } from 'prop-types';
 import { useIntl } from 'react-intl';
 import setValidator from '@magento/peregrine/lib/validators/set';
 import { useFilterList } from '@magento/peregrine/lib/talons/FilterModal';
@@ -17,12 +17,13 @@ const FilterList = props => {
         filterState,
         group,
         items,
+        isExpanded,
         handleApply,
         showItems
     } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = useFilterList();
-    const { isExpanded, handleClick } = talonProps;
+    const { isExpanded: isShowAll, handleClick } = talonProps;
     const showItemsCount =
         typeof showItems === 'number' ? showItems : DEFAULT_SHOW_ITEMS_COUNT;
     const { formatMessage } = useIntl();
@@ -35,7 +36,7 @@ const FilterList = props => {
                 const { title, value } = item;
                 const key = `item-${group}-${value}`;
                 const itemClass =
-                    isExpanded || index < showItemsCount
+                    isShowAll || index < showItemsCount
                         ? classes.item
                         : classes.itemHidden;
 
@@ -48,6 +49,7 @@ const FilterList = props => {
                             group={group}
                             item={item}
                             handleApply={handleApply}
+                            isExpanded={isExpanded}
                         />
                     </li>
                 );
@@ -65,6 +67,7 @@ const FilterList = props => {
             group,
             items,
             isExpanded,
+            isShowAll,
             showItemsCount,
             handleApply
         ]
@@ -116,7 +119,8 @@ const FilterList = props => {
 
 FilterList.defaultProps = {
     handleApply: null,
-    showItems: null
+    showItems: null,
+    isExpanded: false
 };
 
 FilterList.propTypes = {
@@ -129,7 +133,8 @@ FilterList.propTypes = {
     group: string,
     items: array,
     handleApply: func,
-    showItems: number
+    showItems: number,
+    isExpanded: bool
 };
 
 export default FilterList;

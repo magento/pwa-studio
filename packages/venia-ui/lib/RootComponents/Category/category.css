@@ -50,22 +50,6 @@
     padding-bottom: 1.5rem;
 }
 
-.sortContainer {
-    color: rgb(var(--venia-global-color-text-alt));
-    text-align: center;
-    font-size: 0.875rem;
-    padding-bottom: 1rem;
-}
-
-.sortText {
-    font-weight: 600;
-}
-
-.filterButton {
-    composes: root_lowPriority from '../../components/Button/button.css';
-    min-width: 6.25rem;
-}
-
 .sidebar {
     display: none;
 }
@@ -84,10 +68,6 @@
         justify-content: flex-end;
     }
 
-    .filterButton {
-        display: none;
-    }
-
     .heading {
         justify-content: space-between;
         flex-wrap: nowrap;
@@ -102,10 +82,6 @@
     .categoryInfo {
         margin: 0;
         flex-basis: 100%;
-    }
-
-    .sortContainer {
-        display: none;
     }
 
     .sidebar {
