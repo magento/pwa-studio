@@ -34,6 +34,7 @@ export const ADD_TO_WISHLIST = gql`
                 message
             }
             wishlist {
+                id
                 ...WishlistFragment
             }
         }
