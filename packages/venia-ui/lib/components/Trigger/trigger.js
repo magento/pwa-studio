@@ -15,12 +15,17 @@ import defaultClasses from './trigger.css';
  * @returns {React.Element} A React component that when triggered invokes the action.
  */
 const Trigger = props => {
-    const { action, children } = props;
+    const { action, children, ariaLabel } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
-        <button className={classes.root} type="button" onClick={action}>
+        <button
+            className={classes.root}
+            type="button"
+            onClick={action}
+            aria-label={ariaLabel}
+        >
             {children}
         </button>
     );
