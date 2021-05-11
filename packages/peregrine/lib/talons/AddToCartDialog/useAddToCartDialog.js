@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
-import defaultOperations from './addToCartDialog.gql';
 import { useCartContext } from '../../context/cart';
+import defaultOperations from './addToCartDialog.gql';
 
 export const useAddToCartDialog = props => {
     const { item, onClose } = props;

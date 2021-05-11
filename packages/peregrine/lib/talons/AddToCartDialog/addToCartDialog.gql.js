@@ -9,6 +9,7 @@ const GET_PRODUCT_DETAIL = gql`
     ) {
         products(filter: { sku: { eq: $sku } }) {
             items {
+                id
                 uid
                 image {
                     label

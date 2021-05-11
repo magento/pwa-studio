@@ -1,14 +1,15 @@
 import React, { useMemo } from 'react';
+import { shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { useAddToCartDialog } from '@magento/peregrine/lib/talons/AddToCartDialog/useAddToCartDialog';
 
 import { mergeClasses } from '../../classify';
+import Button from '../Button';
 import Dialog from '../Dialog';
 import Image from '../Image';
-import defaultClasses from './addToCartDialog.css';
 import Price from '../Price';
 import Options from '../ProductOptions';
-import Button from '../Button';
-import { FormattedMessage } from 'react-intl';
+import defaultClasses from './addToCartDialog.css';
 
 const AddToCartDialog = props => {
     const { item } = props;
@@ -86,3 +87,19 @@ const AddToCartDialog = props => {
 };
 
 export default AddToCartDialog;
+
+AddToCartDialog.propTypes = {
+    classes: shape({
+        root: string,
+        image: string,
+        detailsContainer: string,
+        name: string,
+        price: string,
+        optionTitle: string
+    }),
+    item: shape({
+        product: shape({
+            name: string.isRequired
+        }).isRequired
+    })
+};

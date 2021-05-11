@@ -7,6 +7,7 @@ export const GET_CUSTOMER_WISHLIST = gql`
         customer {
             id
             wishlists {
+                id
                 ...WishlistFragment
             }
         }
