@@ -27,7 +27,10 @@ const addProductToWishlistMock = {
     result: {
         data: {
             addProductsToWishlist: {
-                user_errors: []
+                user_errors: [],
+                wishlist: {
+                    name: 'Favorites List'
+                }
             }
         }
     }
@@ -157,7 +160,14 @@ test('handleAddToWishlist calls mutation, onClose(true) and setIsformOpen(false)
         await result.current.handleAddToWishlist(mockWishlistId);
     });
 
-    expect(mockOnClose).toHaveBeenCalledWith(true);
+    expect(mockOnClose.mock.calls[0]).toMatchInlineSnapshot(`
+        Array [
+          true,
+          Object {
+            "wishlistName": "Favorites List",
+          },
+        ]
+    `);
     expect(result.current.isFormOpen).toMatchInlineSnapshot(`false`);
 });
 
