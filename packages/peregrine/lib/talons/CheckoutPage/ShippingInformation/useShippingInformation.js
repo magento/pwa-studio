@@ -66,6 +66,18 @@ export const useShippingInformation = props => {
                     }
                 }
 
+                const {
+                    region_id,
+                    label: region,
+                    code: region_code
+                } = primaryAddress.region;
+
+                primaryAddress.region = {
+                    region_code,
+                    region_id,
+                    region
+                };
+
                 filteredData = {
                     email,
                     ...primaryAddress

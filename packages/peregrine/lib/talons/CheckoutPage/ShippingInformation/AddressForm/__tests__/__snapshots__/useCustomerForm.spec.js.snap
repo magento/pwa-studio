@@ -59,7 +59,9 @@ Object {
     "address": Object {
       "country_code": "US",
       "firstname": "Philip",
-      "region": 2,
+      "region": Object {
+        "region_id": 2,
+      },
     },
   },
 }
@@ -99,7 +101,9 @@ Object {
     "address": Object {
       "country_code": "UK",
       "firstname": "Bender",
-      "region": 5,
+      "region": Object {
+        "region": 5,
+      },
     },
     "addressId": 66,
   },
