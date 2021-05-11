@@ -187,7 +187,7 @@ export const useFilterModal = props => {
 
     useEffect(() => {
         const nextState = getStateFromSearch(search, filterKeys, filterItems);
-    
+
         filterApi.setItems(nextState);
     }, [filterApi, filterItems, filterKeys, search]);
 

@@ -78,7 +78,7 @@ const FilterList = props => {
             return null;
         }
 
-        const label = isExpanded
+        const label = isShowAll
             ? formatMessage({
                   id: 'filterList.showLess',
                   defaultMessage: 'Show Less'
@@ -98,14 +98,7 @@ const FilterList = props => {
                 </button>
             </li>
         );
-    }, [
-        isExpanded,
-        handleClick,
-        items,
-        showItemsCount,
-        formatMessage,
-        classes
-    ]);
+    }, [isShowAll, handleClick, items, showItemsCount, formatMessage, classes]);
 
     return (
         <Fragment>
