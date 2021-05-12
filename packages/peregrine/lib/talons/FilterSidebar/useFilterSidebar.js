@@ -6,7 +6,11 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import mergeOperations from '../../util/shallowMerge';
 import { useFilterState } from '../FilterModal';
-import { getSearchFromState, getStateFromSearch, stripHtml } from '../FilterModal/helpers';
+import {
+    getSearchFromState,
+    getStateFromSearch,
+    stripHtml
+} from '../FilterModal/helpers';
 
 import DEFAULT_OPERATIONS from '../FilterModal/filterModal.gql';
 

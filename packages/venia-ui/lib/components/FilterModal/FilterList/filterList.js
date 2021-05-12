@@ -95,7 +95,14 @@ const FilterList = props => {
                 </button>
             </li>
         );
-    }, [isListExpanded, handleListToggle, items, itemCountToShow, formatMessage, classes]);
+    }, [
+        isListExpanded,
+        handleListToggle,
+        items,
+        itemCountToShow,
+        formatMessage,
+        classes
+    ]);
 
     return (
         <Fragment>

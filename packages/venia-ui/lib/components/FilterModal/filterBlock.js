@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { arrayOf, shape, string, func, bool } from 'prop-types';
 import { useIntl } from 'react-intl';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';

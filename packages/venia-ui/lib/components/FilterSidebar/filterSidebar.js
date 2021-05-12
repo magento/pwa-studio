@@ -39,7 +39,8 @@ const FilterSidebar = props => {
                 typeof filterElement.getBoundingClientRect === 'function'
             ) {
                 const filterTop = filterElement.getBoundingClientRect().top;
-                const windowScrollY = window.scrollY + filterTop - SCROLL_OFFSET;
+                const windowScrollY =
+                    window.scrollY + filterTop - SCROLL_OFFSET;
                 window.scrollTo(0, windowScrollY);
             }
 
