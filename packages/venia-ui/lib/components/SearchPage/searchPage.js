@@ -132,17 +132,18 @@ const SearchPage = props => {
         />
     );
 
-    const itemCountHeading = data && !loading ? (
-        <span className={classes.totalPages}>
-            {formatMessage(
-                {
-                    id: 'searchPage.totalPages',
-                    defaultMessage: `items`
-                },
-                { totalCount: productsCount }
-            )}
-        </span>
-    ) : null;
+    const itemCountHeading =
+        data && !loading ? (
+            <span className={classes.totalPages}>
+                {formatMessage(
+                    {
+                        id: 'searchPage.totalPages',
+                        defaultMessage: `items`
+                    },
+                    { totalCount: productsCount }
+                )}
+            </span>
+        ) : null;
 
     return (
         <article className={classes.root}>

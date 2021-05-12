@@ -9,9 +9,7 @@ export const useFilterBlock = props => {
         });
     }, [filterState, items]);
 
-    const [isExpanded, setExpanded] = useState(
-        hasSelected || initialOpen
-    );
+    const [isExpanded, setExpanded] = useState(hasSelected || initialOpen);
 
     useEffect(() => {
         setExpanded(hasSelected || initialOpen);
