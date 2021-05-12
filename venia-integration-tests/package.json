@@ -5,13 +5,18 @@
     "author": "Magento Commerce",
     "license": "MIT",
     "devDependencies": {
-        "cypress": "~6.8.0"
+        "cypress": "~7.1.0",
+        "cypress-image-snapshot": "~4.0.1",
+        "jest": "~26.0.1",
+        "jimp": "~0.16.1"
     },
     "scripts": {
         "test": "cypress open --browser chrome --config-file cypress.config.json",
         "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",
-        "test:headless": "cypress open --browser chrome --headless --config-file cypress.config.json",
+        "test:headless": "cypress run --browser chrome --headless --config-file cypress.config.json",
         "test:run": "cypress run --browser chrome --config-file cypress.config.json",
-        "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress open --browser chrome --config-file cypress.config.json"
+        "test:devTest": "jest",
+        "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
+        "test:update-snapshots": "cypress run --browser chrome --config-file cypress.config.json --env updateSnapshots=true"
     }
 }
