@@ -1,5 +1,4 @@
 .root {
-    --stroke: rgb(var(--venia-global-color-border));
     --borderColor: var(--venia-global-color-border);
     background-color: white;
     bottom: 0;

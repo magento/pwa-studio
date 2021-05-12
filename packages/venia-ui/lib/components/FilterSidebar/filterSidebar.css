@@ -1,5 +1,5 @@
 .root {
-    --stroke: rgb(var(--venia-global-color-border));
+    --borderColor: var(--venia-global-color-border);
     background-color: white;
     bottom: 0;
     display: none;
@@ -40,7 +40,7 @@
 }
 
 .blocks > li:last-child {
-    border-bottom: 2px solid rgb(var(--stroke));
+    border-bottom: 2px solid rgb(var(--borderColor));
 }
 
 @media (min-width: 1024px) {
