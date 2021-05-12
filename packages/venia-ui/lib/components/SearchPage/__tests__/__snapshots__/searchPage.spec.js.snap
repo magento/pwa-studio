@@ -52,14 +52,33 @@ exports[`Search Page Component error view does not render when data is present 1
 `;
 
 exports[`Search Page Component error view renders when data is not present and not loading 1`] = `
-<div
-  className="noResult"
+<article
+  className="root"
 >
-  <mock-FormattedMessage
-    defaultMessage="No results found. The search term may be missing or invalid."
-    id="searchPage.noResult"
+  <div
+    className="categoryTop"
+  >
+    <span
+      className="totalPages"
+    >
+      0 items
+    </span>
+    <div
+      className="headerButtons"
+    />
+  </div>
+  <div
+    className="heading"
   />
-</div>
+  <div
+    className="noResult"
+  >
+    <mock-FormattedMessage
+      defaultMessage="No results found. The search term may be missing or invalid."
+      id="searchPage.noResult"
+    />
+  </div>
+</article>
 `;
 
 exports[`Search Page Component filter button/modal does not render if there are no filters 1`] = `
@@ -128,21 +147,13 @@ exports[`Search Page Component filter button/modal renders when there are filter
     <div
       className="headerButtons"
     >
-      <button
-        className="root_lowPriority"
-        disabled={false}
-        onClick={[MockFunction]}
-        type="button"
-      >
-        <span
-          className="content"
-        >
-          <mock-FormattedMessage
-            defaultMessage="Filter"
-            id="searchPage.filterButton"
-          />
-        </span>
-      </button>
+      <FilterModalOpenButton
+        filters={
+          Array [
+            Object {},
+          ]
+        }
+      />
     </div>
   </div>
   <div
@@ -239,83 +250,102 @@ exports[`Search Page Component loading indicator does not render when data is pr
 `;
 
 exports[`Search Page Component loading indicator renders when data is not present 1`] = `
-<div
-  className="global"
+<article
+  className="root"
 >
-  <span
-    className="root"
+  <div
+    className="categoryTop"
   >
-    <svg
-      className="icon"
-      fill="none"
-      height={64}
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width={64}
-      xmlns="http://www.w3.org/2000/svg"
+    <span
+      className="totalPages"
     >
-      <line
-        x1="12"
-        x2="12"
-        y1="2"
-        y2="6"
-      />
-      <line
-        x1="12"
-        x2="12"
-        y1="18"
-        y2="22"
-      />
-      <line
-        x1="4.93"
-        x2="7.76"
-        y1="4.93"
-        y2="7.76"
-      />
-      <line
-        x1="16.24"
-        x2="19.07"
-        y1="16.24"
-        y2="19.07"
-      />
-      <line
-        x1="2"
-        x2="6"
-        y1="12"
-        y2="12"
-      />
-      <line
-        x1="18"
-        x2="22"
-        y1="12"
-        y2="12"
-      />
-      <line
-        x1="4.93"
-        x2="7.76"
-        y1="19.07"
-        y2="16.24"
-      />
-      <line
-        x1="16.24"
-        x2="19.07"
-        y1="7.76"
-        y2="4.93"
-      />
-    </svg>
-  </span>
-  <span
-    className="message"
-  >
-    <mock-FormattedMessage
-      defaultMessage="Fetching Data..."
-      id="loadingIndicator.message"
+      0 items
+    </span>
+    <div
+      className="headerButtons"
     />
-  </span>
-</div>
+  </div>
+  <div
+    className="heading"
+  />
+  <div
+    className="global"
+  >
+    <span
+      className="root"
+    >
+      <svg
+        className="icon"
+        fill="none"
+        height={64}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={64}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line
+          x1="12"
+          x2="12"
+          y1="2"
+          y2="6"
+        />
+        <line
+          x1="12"
+          x2="12"
+          y1="18"
+          y2="22"
+        />
+        <line
+          x1="4.93"
+          x2="7.76"
+          y1="4.93"
+          y2="7.76"
+        />
+        <line
+          x1="16.24"
+          x2="19.07"
+          y1="16.24"
+          y2="19.07"
+        />
+        <line
+          x1="2"
+          x2="6"
+          y1="12"
+          y2="12"
+        />
+        <line
+          x1="18"
+          x2="22"
+          y1="12"
+          y2="12"
+        />
+        <line
+          x1="4.93"
+          x2="7.76"
+          y1="19.07"
+          y2="16.24"
+        />
+        <line
+          x1="16.24"
+          x2="19.07"
+          y1="7.76"
+          y2="4.93"
+        />
+      </svg>
+    </span>
+    <span
+      className="message"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Fetching Data..."
+        id="loadingIndicator.message"
+      />
+    </span>
+  </div>
+</article>
 `;
 
 exports[`Search Page Component search results does not render if data returned has empty array 1`] = `
@@ -381,21 +411,15 @@ exports[`Search Page Component search results heading renders a generic message 
         }
       />
     </div>
-    <span
-      className="sortContainer"
-    >
-      <mock-FormattedMessage
-        defaultMessage="Items sorted by "
-        id="searchPage.sortContainer"
-      />
-      <span
-        className="sortText"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Best Match"
-        />
-      </span>
-    </span>
+    <SortedByContainer
+      currentSort={
+        Object {
+          "sortAttribute": "relevance",
+          "sortDirection": "DESC",
+          "sortText": "Best Match",
+        }
+      }
+    />
   </div>
   <div
     className="heading"
@@ -460,21 +484,15 @@ exports[`Search Page Component search results heading renders a specific message
         }
       />
     </div>
-    <span
-      className="sortContainer"
-    >
-      <mock-FormattedMessage
-        defaultMessage="Items sorted by "
-        id="searchPage.sortContainer"
-      />
-      <span
-        className="sortText"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Best Match"
-        />
-      </span>
-    </span>
+    <SortedByContainer
+      currentSort={
+        Object {
+          "sortAttribute": "relevance",
+          "sortDirection": "DESC",
+          "sortText": "Best Match",
+        }
+      }
+    />
   </div>
   <div
     className="heading"
@@ -632,21 +650,15 @@ exports[`Search Page Component sort button/container renders when total count > 
         }
       />
     </div>
-    <span
-      className="sortContainer"
-    >
-      <mock-FormattedMessage
-        defaultMessage="Items sorted by "
-        id="searchPage.sortContainer"
-      />
-      <span
-        className="sortText"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Best Match"
-        />
-      </span>
-    </span>
+    <SortedByContainer
+      currentSort={
+        Object {
+          "sortAttribute": "relevance",
+          "sortDirection": "DESC",
+          "sortText": "Best Match",
+        }
+      }
+    />
   </div>
   <div
     className="heading"
@@ -746,21 +758,15 @@ exports[`Search Page Component total count renders results from data 1`] = `
         }
       />
     </div>
-    <span
-      className="sortContainer"
-    >
-      <mock-FormattedMessage
-        defaultMessage="Items sorted by "
-        id="searchPage.sortContainer"
-      />
-      <span
-        className="sortText"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Best Match"
-        />
-      </span>
-    </span>
+    <SortedByContainer
+      currentSort={
+        Object {
+          "sortAttribute": "relevance",
+          "sortDirection": "DESC",
+          "sortText": "Best Match",
+        }
+      }
+    />
   </div>
   <div
     className="heading"
