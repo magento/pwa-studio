@@ -107,14 +107,23 @@ module.exports = async env => {
         plugins: [...config.plugins]
     });
 
-    // remove HtmlWebpackPlugin
-    serverConfig.plugins.pop();
-    // remove LocalizationPlugin for now, having problems with InjectPlugin
-    serverConfig.plugins.splice(6, 1);
-    // replace ServiceWorkerPlugin with LimitChunkCountPlugin
-    serverConfig.plugins[5] = new LimitChunkCountPlugin({
-        maxChunks: 1
-    });
+    // TODO: get LocalizationPlugin working in Node
+    const browserPlugins = new Set()
+        .add('HtmlWebpackPlugin')
+        .add('LocalizationPlugin')
+        .add('ServiceWorkerPlugin');
+
+    // remove browser-only plugins
+    serverConfig.plugins = serverConfig.plugins.filter(
+        plugin => !browserPlugins.has(plugin.constructor.name)
+    );
+
+    // add LimitChunkCountPlugin to avoid code splitting
+    serverConfig.plugins.push(
+        new LimitChunkCountPlugin({
+            maxChunks: 1
+        })
+    );
 
     return [config, serverConfig];
 };
