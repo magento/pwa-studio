@@ -73,13 +73,7 @@ exports[`Search Page Component error view renders when data is not present and n
     >
       <div
         className="searchInfo"
-      >
-        <span
-          className="totalPages"
-        >
-          0 items
-        </span>
-      </div>
+      />
       <div
         className="headerButtons"
       />
@@ -255,11 +249,6 @@ exports[`Search Page Component loading indicator does not render when data is pr
           defaultMessage="Showing all results:"
           id="searchPage.searchTermEmpty"
         />
-        <span
-          className="totalPages"
-        >
-          0 items
-        </span>
       </div>
       <div
         className="headerButtons"
@@ -308,13 +297,7 @@ exports[`Search Page Component loading indicator renders when data is not presen
     >
       <div
         className="searchInfo"
-      >
-        <span
-          className="totalPages"
-        >
-          0 items
-        </span>
-      </div>
+      />
       <div
         className="headerButtons"
       />
@@ -420,11 +403,6 @@ exports[`Search Page Component search results does not render if data returned h
           defaultMessage="Showing all results:"
           id="searchPage.searchTermEmpty"
         />
-        <span
-          className="totalPages"
-        >
-          0 items
-        </span>
       </div>
       <div
         className="headerButtons"
@@ -629,11 +607,6 @@ exports[`Search Page Component search results renders if data has items 1`] = `
           defaultMessage="Showing all results:"
           id="searchPage.searchTermEmpty"
         />
-        <span
-          className="totalPages"
-        >
-          0 items
-        </span>
       </div>
       <div
         className="headerButtons"

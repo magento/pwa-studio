@@ -145,6 +145,7 @@ test('exposes all hooks and targets', async () => {
           talons.FilterModal.useFilterList.wrapWith() wraps export "useFilterList" from "FilterModal/useFilterList.js"
           talons.FilterModal.useFilterModal.wrapWith() wraps export "useFilterModal" from "FilterModal/useFilterModal.js"
           talons.FilterModal.useFilterState.wrapWith() wraps export "useFilterState" from "FilterModal/useFilterState.js"
+          talons.FilterSidebar.useFilterSidebar.wrapWith() wraps export "useFilterSidebar" from "FilterSidebar/useFilterSidebar.js"
           talons.Footer.useFooter.wrapWith() wraps export "useFooter" from "Footer/useFooter.js"
           talons.ForgotPassword.useForgotPassword.wrapWith() wraps export "useForgotPassword" from "ForgotPassword/useForgotPassword.js"
           talons.FormError.useFormError.wrapWith() wraps export "useFormError" from "FormError/useFormError.js"
