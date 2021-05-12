@@ -1,16 +1,21 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 
-export const useFilterBlock = (
-    hasSelectedElements = false,
-    initiallyOpen = false
-) => {
+export const useFilterBlock = props => {
+    const { filterState, items, initialOpen } = props;
+
+    const hasSelected = useMemo(() => {
+        return items.some(item => {
+            return filterState && filterState.has(item);
+        });
+    }, [filterState, items]);
+
     const [isExpanded, setExpanded] = useState(
-        hasSelectedElements || initiallyOpen
+        hasSelected || initialOpen
     );
 
     useEffect(() => {
-        setExpanded(hasSelectedElements || initiallyOpen);
-    }, [hasSelectedElements, initiallyOpen]);
+        setExpanded(hasSelected || initialOpen);
+    }, [hasSelected, initialOpen]);
 
     const handleClick = useCallback(() => {
         setExpanded(value => !value);

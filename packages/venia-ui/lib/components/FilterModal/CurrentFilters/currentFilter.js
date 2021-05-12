@@ -9,16 +9,16 @@ import Trigger from '../../Trigger';
 import defaultClasses from './currentFilter.css';
 
 const CurrentFilter = props => {
-    const { group, item, removeItem, handleApply } = props;
+    const { group, item, removeItem, onRemove } = props;
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {
         removeItem({ group, item });
-        if (typeof handleApply === 'function') {
-            handleApply(group, item);
+        if (typeof onRemove === 'function') {
+            onRemove(group, item);
         }
-    }, [group, item, removeItem, handleApply]);
+    }, [group, item, removeItem, onRemove]);
 
     const ariaLabel = formatMessage(
         {
@@ -43,12 +43,12 @@ const CurrentFilter = props => {
 export default CurrentFilter;
 
 CurrentFilter.defaultProps = {
-    handleApply: null
+    onRemove: null
 };
 
 CurrentFilter.propTypes = {
     classes: shape({
         root: string
     }),
-    handleApply: func
+    onRemove: func
 };

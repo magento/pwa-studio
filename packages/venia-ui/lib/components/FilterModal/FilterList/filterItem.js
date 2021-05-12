@@ -11,7 +11,7 @@ const FilterItem = props => {
         group,
         item,
         isExpanded,
-        handleApply
+        onApply
     } = props;
     const { toggleItem } = filterApi;
     const { title, value } = item;
@@ -29,10 +29,10 @@ const FilterItem = props => {
     const handleClick = useCallback(() => {
         toggleItem({ group, item });
 
-        if (typeof handleApply === 'function') {
-            handleApply(group, item);
+        if (typeof onApply === 'function') {
+            onApply(group, item);
         }
-    }, [group, item, toggleItem, handleApply]);
+    }, [group, item, toggleItem, onApply]);
 
     return (
         <FilterDefault
@@ -47,7 +47,7 @@ const FilterItem = props => {
 };
 
 FilterItem.defaultProps = {
-    handleApply: null
+    onChange: null
 };
 
 FilterItem.propTypes = {
@@ -60,7 +60,7 @@ FilterItem.propTypes = {
         title: string.isRequired,
         value: oneOfType([number, string]).isRequired
     }).isRequired,
-    handleApply: func
+    onChange: func
 };
 
 export default FilterItem;

@@ -7,7 +7,7 @@ import defaultClasses from './currentFilters.css';
 import { useIntl } from 'react-intl';
 
 const CurrentFilters = props => {
-    const { filterApi, filterState, handleApply } = props;
+    const { filterApi, filterState, onRemove } = props;
     const { removeItem } = filterApi;
     const classes = mergeClasses(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
@@ -26,7 +26,7 @@ const CurrentFilters = props => {
                             group={group}
                             item={item}
                             removeItem={removeItem}
-                            handleApply={handleApply}
+                            onRemove={onRemove}
                         />
                     </li>
                 );
@@ -34,7 +34,7 @@ const CurrentFilters = props => {
         }
 
         return elements;
-    }, [classes.item, filterState, removeItem, handleApply]);
+    }, [classes.item, filterState, removeItem, onRemove]);
 
     const currentFiltersAriaLabel = formatMessage({
         id: 'filterModal.currentFilters.ariaLabel',
@@ -49,7 +49,7 @@ const CurrentFilters = props => {
 };
 
 CurrentFilters.defaultProps = {
-    handleApply: null
+    onRemove: null
 };
 
 CurrentFilters.propTypes = {
@@ -59,7 +59,7 @@ CurrentFilters.propTypes = {
         button: string,
         icon: string
     }),
-    handleApply: func
+    onRemove: func
 };
 
 export default CurrentFilters;

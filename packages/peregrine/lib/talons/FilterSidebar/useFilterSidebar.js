@@ -5,24 +5,14 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import mergeOperations from '../../util/shallowMerge';
-import { useFilterState } from './useFilterState';
-import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
+import { useFilterState } from '../FilterModal';
+import { getSearchFromState, getStateFromSearch, stripHtml } from '../FilterModal/helpers';
 
-import DEFAULT_OPERATIONS from './filterModal.gql';
+import DEFAULT_OPERATIONS from '../FilterModal/filterModal.gql';
 
 const DRAWER_NAME = 'filter';
 
-/**
- * Filter Modal talon.
- *
- * @returns {{
- *   filterApi: any,
- *   filterState: any,
- *   handleClose: function,
- *   isOpen: boolean
- * }}
- */
-export const useFilterModal = props => {
+export const useFilterSidebar = props => {
     const { filters } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
@@ -184,6 +174,12 @@ export const useFilterModal = props => {
 
         prevDrawer.current = drawer;
     }, [drawer, filterApi, filterItems, filterKeys, search, handleClose]);
+
+    useEffect(() => {
+        const nextState = getStateFromSearch(search, filterKeys, filterItems);
+
+        filterApi.setItems(nextState);
+    }, [filterApi, filterItems, filterKeys, search]);
 
     return {
         filterApi,

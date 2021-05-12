@@ -18,16 +18,16 @@ const FilterBlock = props => {
         group,
         items,
         name,
-        handleApply,
+        onApply,
         initialOpen
     } = props;
-    const hasSelected = useMemo(() => {
-        return items.some(item => {
-            return filterState && filterState.has(item);
-        });
-    }, [filterState, items]);
+
     const { formatMessage } = useIntl();
-    const talonProps = useFilterBlock(hasSelected, initialOpen);
+    const talonProps = useFilterBlock({
+        filterState,
+        items,
+        initialOpen
+    });
     const { handleClick, isExpanded } = talonProps;
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -85,7 +85,7 @@ const FilterBlock = props => {
                     filterState={filterState}
                     group={group}
                     items={items}
-                    handleApply={handleApply}
+                    onApply={onApply}
                     isExpanded={isExpanded}
                 />
             </Form>
@@ -94,7 +94,7 @@ const FilterBlock = props => {
 };
 
 FilterBlock.defaultProps = {
-    handleApply: null,
+    onApply: null,
     initialOpen: false
 };
 
@@ -112,7 +112,7 @@ FilterBlock.propTypes = {
     group: string.isRequired,
     items: arrayOf(shape({})),
     name: string.isRequired,
-    handleApply: func,
+    onApply: func,
     initialOpen: bool
 };
 

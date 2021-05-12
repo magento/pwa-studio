@@ -1,14 +1,14 @@
 import { useCallback, useState } from 'react';
 
 export const useFilterList = () => {
-    const [isExpanded, setExpanded] = useState(false);
+    const [isListExpanded, setExpanded] = useState(false);
 
-    const handleClick = useCallback(() => {
+    const handleListToggle = useCallback(() => {
         setExpanded(value => !value);
     }, [setExpanded]);
 
     return {
-        handleClick,
-        isExpanded
+        handleListToggle,
+        isListExpanded
     };
 };

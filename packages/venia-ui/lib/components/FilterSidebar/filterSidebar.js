@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback, useRef, Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, number } from 'prop-types';
-import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
+import { useFilterSidebar } from '@magento/peregrine/lib/talons/FilterSidebar';
 
 import { mergeClasses } from '../../classify';
 import LinkButton from '../LinkButton';
@@ -9,7 +9,7 @@ import CurrentFilters from '../FilterModal/CurrentFilters';
 import FilterBlock from '../FilterModal/filterBlock';
 import defaultClasses from './filterSidebar.css';
 
-const DEFAULT_FILTERS_OPEN_COUNT = 3;
+const SCROLL_OFFSET = 150;
 
 /**
  * A view that displays applicable and applied filters.
@@ -17,8 +17,8 @@ const DEFAULT_FILTERS_OPEN_COUNT = 3;
  * @param {Object} props.filters - filters to display
  */
 const FilterSidebar = props => {
-    const { filters, filtersOpen } = props;
-    const talonProps = useFilterModal({ filters });
+    const { filters, filterCountToOpen } = props;
+    const talonProps = useFilterSidebar({ filters });
     const {
         filterApi,
         filterItems,
@@ -30,10 +30,6 @@ const FilterSidebar = props => {
 
     const filterRef = useRef();
     const classes = mergeClasses(defaultClasses, props.classes);
-    const filtersToOpen =
-        typeof filtersOpen === 'number'
-            ? filtersOpen
-            : DEFAULT_FILTERS_OPEN_COUNT;
 
     const handleApplyFilter = useCallback(
         (...args) => {
@@ -43,8 +39,7 @@ const FilterSidebar = props => {
                 typeof filterElement.getBoundingClientRect === 'function'
             ) {
                 const filterTop = filterElement.getBoundingClientRect().top;
-                const offset = 150;
-                const windowScrollY = window.scrollY + filterTop - offset;
+                const windowScrollY = window.scrollY + filterTop - SCROLL_OFFSET;
                 window.scrollTo(0, windowScrollY);
             }
 
@@ -67,8 +62,8 @@ const FilterSidebar = props => {
                         group={group}
                         items={items}
                         name={groupName}
-                        handleApply={handleApplyFilter}
-                        initialOpen={iteration < filtersToOpen}
+                        onApply={handleApplyFilter}
+                        initialOpen={iteration < filterCountToOpen}
                     />
                 );
             }),
@@ -77,7 +72,7 @@ const FilterSidebar = props => {
             filterItems,
             filterNames,
             filterState,
-            filtersToOpen,
+            filterCountToOpen,
             handleApplyFilter
         ]
     );
@@ -109,7 +104,7 @@ const FilterSidebar = props => {
                         filterApi={filterApi}
                         filterNames={filterNames}
                         filterState={filterState}
-                        handleApply={handleApplyFilter}
+                        onRemove={handleApplyFilter}
                     />
                     {clearAll}
                     <ul className={classes.blocks}>{filtersList}</ul>
@@ -120,7 +115,7 @@ const FilterSidebar = props => {
 };
 
 FilterSidebar.defaultProps = {
-    filtersOpen: null
+    filterCountToOpen: 3
 };
 
 FilterSidebar.propTypes = {
@@ -139,7 +134,7 @@ FilterSidebar.propTypes = {
             items: array
         })
     ),
-    filtersOpen: number
+    filterCountToOpen: number
 };
 
 export default FilterSidebar;

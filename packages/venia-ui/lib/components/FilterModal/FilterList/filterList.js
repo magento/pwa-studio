@@ -9,7 +9,6 @@ import FilterItem from './filterItem';
 import defaultClasses from './filterList.css';
 
 const labels = new WeakMap();
-const DEFAULT_SHOW_ITEMS_COUNT = 5;
 
 const FilterList = props => {
     const {
@@ -18,14 +17,12 @@ const FilterList = props => {
         group,
         items,
         isExpanded,
-        handleApply,
-        showItems
+        onApply,
+        itemCountToShow
     } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = useFilterList();
-    const { isExpanded: isShowAll, handleClick } = talonProps;
-    const showItemsCount =
-        typeof showItems === 'number' ? showItems : DEFAULT_SHOW_ITEMS_COUNT;
+    const { isListExpanded, handleListToggle } = talonProps;
     const { formatMessage } = useIntl();
 
     // memoize item creation
@@ -36,7 +33,7 @@ const FilterList = props => {
                 const { title, value } = item;
                 const key = `item-${group}-${value}`;
                 const itemClass =
-                    isShowAll || index < showItemsCount
+                    isListExpanded || index < itemCountToShow
                         ? classes.item
                         : classes.itemHidden;
 
@@ -48,7 +45,7 @@ const FilterList = props => {
                             filterState={filterState}
                             group={group}
                             item={item}
-                            handleApply={handleApply}
+                            onApply={onApply}
                             isExpanded={isExpanded}
                         />
                     </li>
@@ -67,18 +64,18 @@ const FilterList = props => {
             group,
             items,
             isExpanded,
-            isShowAll,
-            showItemsCount,
-            handleApply
+            isListExpanded,
+            itemCountToShow,
+            onApply
         ]
     );
 
     const showMoreLessItem = useMemo(() => {
-        if (items.length <= showItemsCount) {
+        if (items.length <= itemCountToShow) {
             return null;
         }
 
-        const label = isShowAll
+        const label = isListExpanded
             ? formatMessage({
                   id: 'filterList.showLess',
                   defaultMessage: 'Show Less'
@@ -91,14 +88,14 @@ const FilterList = props => {
         return (
             <li className={classes.showMoreLessItem}>
                 <button
-                    onClick={handleClick}
+                    onClick={handleListToggle}
                     className={classes.showMoreLessButton}
                 >
                     {label}
                 </button>
             </li>
         );
-    }, [isShowAll, handleClick, items, showItemsCount, formatMessage, classes]);
+    }, [isListExpanded, handleListToggle, items, itemCountToShow, formatMessage, classes]);
 
     return (
         <Fragment>
@@ -111,8 +108,8 @@ const FilterList = props => {
 };
 
 FilterList.defaultProps = {
-    handleApply: null,
-    showItems: null,
+    onApply: null,
+    itemCountToShow: 5,
     isExpanded: false
 };
 
@@ -125,8 +122,8 @@ FilterList.propTypes = {
     filterState: setValidator,
     group: string,
     items: array,
-    handleApply: func,
-    showItems: number,
+    onApply: func,
+    itemCountToShow: number,
     isExpanded: bool
 };
 
