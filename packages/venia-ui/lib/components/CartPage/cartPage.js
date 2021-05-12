@@ -45,6 +45,7 @@ const CartPage = props => {
         cartItems,
         hasItems,
         isCartUpdating,
+        fetchCartDetails,
         onAddToWishlistSuccess,
         setIsCartUpdating,
         shouldShowLoadingIndicator,
@@ -70,6 +71,7 @@ const CartPage = props => {
         <ProductListing
             onAddToWishlistSuccess={onAddToWishlistSuccess}
             setIsCartUpdating={setIsCartUpdating}
+            fetchCartDetails={fetchCartDetails}
         />
     ) : (
         <h3>

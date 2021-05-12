@@ -27,7 +27,8 @@ const Product = props => {
         item,
         onAddToWishlistSuccess,
         setActiveEditItem,
-        setIsCartUpdating
+        setIsCartUpdating,
+        fetchCartDetails
     } = props;
 
     const [, { addToast }] = useToasts();
@@ -40,7 +41,8 @@ const Product = props => {
         },
         onAddToWishlistSuccess,
         setActiveEditItem,
-        setIsCartUpdating
+        setIsCartUpdating,
+        fetchCartDetails
     });
 
     const {

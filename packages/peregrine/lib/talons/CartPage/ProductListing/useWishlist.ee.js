@@ -97,7 +97,7 @@ export const useWishlist = props => {
             console.error(err);
 
             // Make sure any errors from the mutation are displayed.
-            onWishlistUpdateError(true);
+            await onWishlistUpdateError(true);
         }
     }, [
         addProductToWishlist,

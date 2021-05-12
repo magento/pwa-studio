@@ -38,7 +38,8 @@ export const useProduct = props => {
         item,
         onAddToWishlistSuccess,
         setActiveEditItem,
-        setIsCartUpdating
+        setIsCartUpdating,
+        fetchCartDetails
     } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
@@ -109,10 +110,18 @@ export const useProduct = props => {
         return null;
     }, [formatMessage, showLoginToast]);
 
+    const handleWishlistUpdateError = useCallback(() => {
+        setIsCartUpdating(true);
+
+        fetchCartDetails({ variables: { cartId } });
+
+        setDisplayError(true);
+    }, [fetchCartDetails, cartId, setIsCartUpdating]);
+
     const wishlistTalonProps = useWishlist({
         item,
         onWishlistUpdate: removeItemFromCart,
-        onWishlistUpdateError: setDisplayError,
+        onWishlistUpdateError: handleWishlistUpdateError,
         updateWishlistToastProps: onAddToWishlistSuccess,
         operations: props.operations
     });

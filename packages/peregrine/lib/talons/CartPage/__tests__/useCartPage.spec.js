@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
 import { useCartPage } from '../useCartPage';
 
@@ -16,14 +16,16 @@ jest.mock('react', () => {
 });
 
 jest.mock('@apollo/client', () => {
-    const queryResult = {
+    const queryConfig = {
         called: false,
         data: null,
         loading: false
     };
-    const useQuery = jest.fn(() => queryResult);
+    const queryFetcher = jest.fn().mockResolvedValue(true);
 
-    return { useQuery };
+    return {
+        useLazyQuery: jest.fn().mockReturnValue([queryFetcher, queryConfig])
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
@@ -59,6 +61,23 @@ test('it returns the proper shape', () => {
         Array [
           Object {
             "cartItems": Array [],
+            "fetchCartDetails": [MockFunction] {
+              "calls": Array [
+                Array [
+                  Object {
+                    "variables": Object {
+                      "cartId": "cart123",
+                    },
+                  },
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": Promise {},
+                },
+              ],
+            },
             "hasItems": false,
             "isCartUpdating": false,
             "onAddToWishlistSuccess": [Function],
@@ -72,19 +91,34 @@ test('it returns the proper shape', () => {
 
 test('returns cartItems from getCartDetails query', () => {
     const cartItems = ['item1', 'item2'];
-    useQuery.mockReturnValue({ data: { cart: { items: cartItems } } });
-    createTestInstance(<Component />);
+    useLazyQuery.mockReturnValueOnce([
+        jest.fn().mockReturnValueOnce({ data: { cart: { items: cartItems } } }),
+        {
+            called: true,
+            loading: false,
+            data: { cart: { items: cartItems } }
+        }
+    ]);
+    const tree = createTestInstance(<Component />);
 
-    expect(log.mock.calls[0][0].cartItems).toEqual(cartItems);
+    const { root } = tree;
+
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.cartItems).toEqual(cartItems);
 });
 
 test('it calls setIsCartUpdating true when loading is true', () => {
     // Arrange.
-    useQuery.mockReturnValueOnce({
-        called: true,
-        data: { cart: { total_quantity: 0 } },
-        loading: true
-    });
+    useLazyQuery.mockReturnValueOnce([
+        jest
+            .fn()
+            .mockReturnValueOnce({ data: { cart: { total_quantity: 0 } } }),
+        {
+            called: true,
+            loading: true
+        }
+    ]);
     // isCartUpdating
     useState.mockReturnValueOnce([false, jest.fn()]);
 
@@ -98,11 +132,15 @@ test('it calls setIsCartUpdating true when loading is true', () => {
 
 test('it calls setIsCartUpdating false when loading is false', () => {
     // Arrange.
-    useQuery.mockReturnValueOnce({
-        called: true,
-        data: { cart: { total_quantity: 0 } },
-        loading: false
-    });
+    useLazyQuery.mockReturnValueOnce([
+        jest
+            .fn()
+            .mockReturnValueOnce({ data: { cart: { total_quantity: 0 } } }),
+        {
+            called: true,
+            loading: false
+        }
+    ]);
     // isCartUpdating
     useState.mockReturnValueOnce([false, jest.fn()]);
 
