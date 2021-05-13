@@ -116,7 +116,28 @@ module.exports = targets => {
          *
          * @member {tapable.SyncHook}
          *
-         * @see [Intercept function signature]{@link savedPaymentInterceptFunction}
+         * @see [Intercept function signature]{@link editablePaymentInterceptFunction}
+         * @see [EditablePaymentTypes]{@link #EditabledPaymentTypesDefinition}
+         * @see [EditablePayment definition object]{@link EditablePaymentDefinition}
+         *
+         * @example <caption>Add a payment</caption>
+         * targets.of('@magento/venia-ui').editablePaymentTypes.tap(
+         *   editablePaymentTypes => editablePaymentTypes.add({
+         *     paymentCode: 'braintree',
+         *     importPath: '@magento/braintree_payment'
+         *   })
+         * );
+         */
+        editablePaymentTypes: new targets.types.Sync(['editablePaymentTypes']),
+
+        /**
+         * Provides access to Venia's summery page for a payment method.
+         *
+         * This target allows you to add custom payment summery rendering for the summery page in the checkout.
+         *
+         * @member {tapable.SyncHook}
+         *
+         * @see [Intercept function signature]{@link summeryPagePaymentTypesInterceptFunction}
          * @see [EditablePaymentTypes]{@link #SavedPaymentTypesDefinition}
          * @see [EditablePayment definition object]{@link SavedPaymentDefinition}
          *
@@ -128,7 +149,9 @@ module.exports = targets => {
          *   })
          * );
          */
-        editablePaymentTypes: new targets.types.Sync(['editablePaymentTypes']),
+        summeryPagePaymentTypes: new targets.types.Sync([
+            'summeryPagePaymentTypes'
+        ]),
 
         categoryListProductAttributes: new targets.types.Sync([
             'categoryListProductAttributes'
