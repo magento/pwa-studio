@@ -131,13 +131,13 @@ module.exports = targets => {
         editablePaymentTypes: new targets.types.Sync(['editablePaymentTypes']),
 
         /**
-         * Provides access to Venia's summery page for a payment method.
+         * Provides access to Venia's summary page for a payment method.
          *
-         * This target allows you to add custom payment summery rendering for the summery page in the checkout.
+         * This target allows you to add custom payment summary rendering for the summary page in the checkout.
          *
          * @member {tapable.SyncHook}
          *
-         * @see [Intercept function signature]{@link summeryPagePaymentTypesInterceptFunction}
+         * @see [Intercept function signature]{@link summaryPagePaymentTypesInterceptFunction}
          * @see [EditablePaymentTypes]{@link #SavedPaymentTypesDefinition}
          * @see [EditablePayment definition object]{@link SavedPaymentDefinition}
          *
@@ -149,8 +149,8 @@ module.exports = targets => {
          *   })
          * );
          */
-        summeryPagePaymentTypes: new targets.types.Sync([
-            'summeryPagePaymentTypes'
+        summaryPagePaymentTypes: new targets.types.Sync([
+            'summaryPagePaymentTypes'
         ]),
 
         categoryListProductAttributes: new targets.types.Sync([

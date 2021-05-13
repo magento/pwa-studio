@@ -1,6 +1,6 @@
 /**
  * This file is augmented at build time using the @magento/venia-ui build
- * target "summeryPagePaymentTypes", which allows third-party modules to
+ * target "summaryPagePaymentTypes", which allows third-party modules to
  * add new payment component mappings for the checkout page.
  *
  * @see [Payment definition object]{@link PaymentDefinition}
@@ -8,7 +8,7 @@
 export default {};
 
 /**
- * A payment definition object that describes a payment infor what be show on summery page.
+ * A payment definition object that describes a payment infor what be show on summary page.
  *
  * @typedef {Object} PaymentDefinition
  * @property {string} paymentCode is use to map your payment

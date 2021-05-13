@@ -39,15 +39,15 @@ const Summary = props => {
         );
     }
 
-    const hasCustomeSummeryComp = Object.keys(summaryPayments).includes(
+    const hasCustomeSummaryComp = Object.keys(summaryPayments).includes(
         selectedPaymentMethod.code
     );
 
-    if (hasCustomeSummeryComp) {
-        const SummeryPaymentMethodComponent =
+    if (hasCustomeSummaryComp) {
+        const SummaryPaymentMethodComponent =
             summaryPayments[selectedPaymentMethod.code];
         return (
-            <SummeryPaymentMethodComponent
+            <SummaryPaymentMethodComponent
                 selectedPaymentMethod={selectedPaymentMethod}
                 billingAddress={billingAddress}
                 paymentNonce={paymentNonce}

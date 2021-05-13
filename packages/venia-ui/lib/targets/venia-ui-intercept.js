@@ -52,8 +52,8 @@ module.exports = veniaTargets => {
             '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/editCard'
     });
 
-    const summeryPagePaymentTypes = new SummaryPaymentTypes(venia);
-    summeryPagePaymentTypes.add({
+    const summaryPagePaymentTypes = new SummaryPaymentTypes(venia);
+    summaryPagePaymentTypes.add({
         paymentCode: 'braintree',
         importPath:
             '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/braintreeSummary'
