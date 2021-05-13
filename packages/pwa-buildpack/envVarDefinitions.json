@@ -53,6 +53,17 @@
             ]
         },
         {
+            "name": "Default Country",
+            "variables": [
+                {
+                    "name": "DEFAULT_COUNTRY_CODE",
+                    "type": "str",
+                    "desc": "Specify the default country to be selected in forms containing country field such as address books and shipping information forms.",
+                    "default": "US"
+                }
+            ]
+        },
+        {
             "name": "Custom local origin",
             "variables": [
                 {

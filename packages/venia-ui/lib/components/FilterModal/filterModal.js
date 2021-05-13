@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { FocusScope } from 'react-aria';
 import { array, arrayOf, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
@@ -20,6 +21,7 @@ import defaultClasses from './filterModal.css';
  */
 const FilterModal = props => {
     const { filters } = props;
+    const { formatMessage } = useIntl();
     const talonProps = useFilterModal({ filters });
     const {
         filterApi,
@@ -29,6 +31,7 @@ const FilterModal = props => {
         handleApply,
         handleClose,
         handleReset,
+        handleKeyDownActions,
         isOpen
     } = talonProps;
 
@@ -55,9 +58,28 @@ const FilterModal = props => {
         [filterApi, filterItems, filterNames, filterState]
     );
 
+    const filtersAriaLabel = formatMessage({
+        id: 'filterModal.filters.ariaLabel',
+        defaultMessage: 'Filters'
+    });
+
+    const closeAriaLabel = formatMessage({
+        id: 'filterModal.filters.close.ariaLabel',
+        defaultMessage: 'Close filters popup.'
+    });
+
+    const clearAllAriaLabel = formatMessage({
+        id: 'filterModal.action.clearAll.ariaLabel',
+        defaultMessage: 'Clear all applied filters'
+    });
+
     const clearAll = filterState.size ? (
         <div className={classes.action}>
-            <LinkButton type="button" onClick={handleReset}>
+            <LinkButton
+                type="button"
+                onClick={handleReset}
+                ariaLabel={clearAllAriaLabel}
+            >
                 <FormattedMessage
                     id={'filterModal.action'}
                     defaultMessage={'Clear all'}
@@ -66,35 +88,52 @@ const FilterModal = props => {
         </div>
     ) : null;
 
+    if (!isOpen) {
+        return null;
+    }
+
     return (
         <Portal>
-            <aside className={modalClass}>
-                <div className={classes.body}>
-                    <div className={classes.header}>
-                        <h2 className={classes.headerTitle}>
-                            <FormattedMessage
-                                id={'filterModal.headerTitle'}
-                                defaultMessage={'Filters'}
-                            />
-                        </h2>
-                        <button onClick={handleClose}>
-                            <Icon src={CloseIcon} />
-                        </button>
+            {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
+            <FocusScope contain restoreFocus autoFocus>
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                <aside className={modalClass} onKeyDown={handleKeyDownActions}>
+                    <div className={classes.body}>
+                        <div className={classes.header}>
+                            <h2 className={classes.headerTitle}>
+                                <FormattedMessage
+                                    id={'filterModal.headerTitle'}
+                                    defaultMessage={'Filters'}
+                                />
+                            </h2>
+                            <button
+                                onClick={handleClose}
+                                aria-disabled={false}
+                                aria-label={closeAriaLabel}
+                            >
+                                <Icon src={CloseIcon} />
+                            </button>
+                        </div>
+                        <CurrentFilters
+                            filterApi={filterApi}
+                            filterNames={filterNames}
+                            filterState={filterState}
+                        />
+                        {clearAll}
+                        <ul
+                            className={classes.blocks}
+                            aria-label={filtersAriaLabel}
+                        >
+                            {filtersList}
+                        </ul>
                     </div>
-                    <CurrentFilters
-                        filterApi={filterApi}
-                        filterNames={filterNames}
-                        filterState={filterState}
+                    <FilterFooter
+                        applyFilters={handleApply}
+                        hasFilters={!!filterState.size}
+                        isOpen={isOpen}
                     />
-                    {clearAll}
-                    <ul className={classes.blocks}>{filtersList}</ul>
-                </div>
-                <FilterFooter
-                    applyFilters={handleApply}
-                    hasFilters={!!filterState.size}
-                    isOpen={isOpen}
-                />
-            </aside>
+                </aside>
+            </FocusScope>
         </Portal>
     );
 };

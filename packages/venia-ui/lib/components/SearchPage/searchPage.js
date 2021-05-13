@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment, Suspense, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
@@ -9,34 +9,32 @@ import Pagination from '../../components/Pagination';
 import Gallery from '../Gallery';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import ProductSort from '../ProductSort';
-import Button from '../Button';
 import defaultClasses from './searchPage.css';
+import SortedByContainer from '../SortedByContainer';
+import FilterModalOpenButton from '../FilterModalOpenButton';
 
 const FilterModal = React.lazy(() => import('../FilterModal'));
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-
     const talonProps = useSearchPage();
-
     const {
         data,
         error,
         filters,
         loading,
-        openDrawer,
         pageControl,
         searchCategory,
         searchTerm,
         sortProps
     } = talonProps;
+
     const { formatMessage } = useIntl();
-
     const [currentSort] = sortProps;
+    const content = useMemo(() => {
+        if (!data && loading) return fullPageLoadingIndicator;
 
-    if (!data) {
-        if (loading) return fullPageLoadingIndicator;
-        else if (error) {
+        if (!data && error) {
             return (
                 <div className={classes.noResult}>
                     <FormattedMessage
@@ -48,73 +46,69 @@ const SearchPage = props => {
                 </div>
             );
         }
-    }
 
-    let content;
-    if (data.products.items.length === 0) {
-        content = (
-            <div className={classes.noResult}>
-                <FormattedMessage
-                    id={'searchPage.noResultImportant'}
-                    defaultMessage={'No results found!'}
-                />
-            </div>
-        );
-    } else {
-        content = (
-            <Fragment>
-                <section className={classes.gallery}>
-                    <Gallery items={data.products.items} />
-                </section>
-                <section className={classes.pagination}>
-                    <Pagination pageControl={pageControl} />
-                </section>
-            </Fragment>
-        );
-    }
+        if (!data) {
+            return null;
+        }
 
-    const totalCount = data.products.total_count || 0;
+        if (data.products.items.length === 0) {
+            return (
+                <div className={classes.noResult}>
+                    <FormattedMessage
+                        id={'searchPage.noResultImportant'}
+                        defaultMessage={'No results found!'}
+                    />
+                </div>
+            );
+        } else {
+            return (
+                <Fragment>
+                    <section className={classes.gallery}>
+                        <Gallery items={data.products.items} />
+                    </section>
+                    <section className={classes.pagination}>
+                        <Pagination pageControl={pageControl} />
+                    </section>
+                </Fragment>
+            );
+        }
+    }, [
+        classes.gallery,
+        classes.noResult,
+        classes.pagination,
+        error,
+        loading,
+        data,
+        pageControl
+    ]);
 
-    const maybeFilterButtons =
-        filters && filters.length ? (
-            <Button
-                priority={'low'}
-                classes={{
-                    root_lowPriority: classes.filterButton
-                }}
-                onClick={openDrawer}
-                type="button"
-            >
-                <FormattedMessage
-                    id={'searchPage.filterButton'}
-                    defaultMessage={'Filter'}
-                />
-            </Button>
-        ) : null;
+    const productsCount =
+        data && data.products && data.products.total_count
+            ? data.products.total_count
+            : 0;
 
-    const maybeFilterModal =
-        filters && filters.length ? <FilterModal filters={filters} /> : null;
+    const shouldShowFilterButtons = filters && filters.length;
 
-    const maybeSortButton = totalCount ? (
+    // If there are no products we can hide the sort button.
+    const shouldShowSortButtons = productsCount;
+
+    const maybeFilterButtons = shouldShowFilterButtons ? (
+        <FilterModalOpenButton filters={filters} />
+    ) : null;
+
+    const maybeFilterModal = shouldShowFilterButtons ? (
+        <FilterModal filters={filters} />
+    ) : null;
+
+    const maybeSortButton = shouldShowSortButtons ? (
         <ProductSort sortProps={sortProps} />
     ) : null;
 
-    const maybeSortContainer = totalCount ? (
-        <span className={classes.sortContainer}>
-            <FormattedMessage
-                id={'searchPage.sortContainer'}
-                defaultMessage={'Items sorted by '}
-            />
-            <span className={classes.sortText}>
-                <FormattedMessage
-                    id={currentSort.sortId}
-                    defaultMessage={currentSort.sortText}
-                />
-            </span>
-        </span>
+    const maybeSortContainer = shouldShowSortButtons ? (
+        <SortedByContainer currentSort={currentSort} />
     ) : null;
 
-    const searchResultsHeading = searchTerm ? (
+    const searchResultsHeading = !data ? null : searchTerm ? (
         <FormattedMessage
             id={'searchPage.searchTerm'}
             values={{
@@ -142,7 +136,7 @@ const SearchPage = props => {
                             id: 'searchPage.totalPages',
                             defaultMessage: `items`
                         },
-                        { totalCount }
+                        { totalCount: productsCount }
                     )}
                 </span>
                 <div className={classes.headerButtons}>
