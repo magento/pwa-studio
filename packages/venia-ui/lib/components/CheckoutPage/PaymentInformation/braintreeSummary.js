@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { mergeClasses } from '../../../classify';
-import { shape, string } from 'prop-types';
+import { shape, string, func } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import Icon from '../../Icon';
 import LinkButton from '../../LinkButton';
