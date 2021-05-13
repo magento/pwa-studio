@@ -6,12 +6,15 @@
     "fixturesFolder": "src/fixtures",
     "integrationFolder": "src/tests",
     "screenshotsFolder": "src/snapshots",
-    "pageLoadTimeout": 30000,
-    "requestTimeout": 30000,
+    "pageLoadTimeout": 60000,
+    "requestTimeout": 60000,
     "testFiles": "**/*.spec.js",
     "viewportHeight": 900,
     "viewportWidth": 1440,
     "scrollBehavior": false,
-    "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"],
+    "ignoreTestFiles": [
+        "**/__snapshots__/*",
+        "**/__image_snapshots__/*"
+    ],
     "env": {}
 }
