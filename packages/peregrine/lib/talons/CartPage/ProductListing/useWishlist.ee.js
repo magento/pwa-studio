@@ -11,7 +11,7 @@ export const useWishlist = props => {
     const {
         onWishlistUpdate,
         item,
-        updateWishlistToastProps,
+        onAddToWishlistSuccess,
         onWishlistUpdateError
     } = props;
 
@@ -74,7 +74,7 @@ export const useWishlist = props => {
             if (wishlistData) {
                 const { name } = wishlistData.addProductsToWishlist.wishlist;
 
-                updateWishlistToastProps({
+                onAddToWishlistSuccess({
                     type: 'info',
                     message: formatMessage(
                         {
@@ -106,7 +106,7 @@ export const useWishlist = props => {
         onWishlistUpdate,
         cartId,
         item,
-        updateWishlistToastProps,
+        onAddToWishlistSuccess,
         onWishlistUpdateError
     ]);
 

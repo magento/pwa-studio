@@ -38,7 +38,7 @@ jest.mock('../product.gql', () => () => ({}));
 
 const onWishlistUpdate = jest.fn();
 const onWishlistUpdateError = jest.fn();
-const updateWishlistToastProps = jest.fn();
+const onAddToWishlistSuccess = jest.fn();
 
 const defaultProps = {
     item: {
@@ -57,7 +57,7 @@ const defaultProps = {
     },
     onWishlistUpdate,
     onWishlistUpdateError,
-    updateWishlistToastProps
+    onAddToWishlistSuccess
 };
 
 const simpleProductProps = {
@@ -70,7 +70,7 @@ const simpleProductProps = {
     },
     onWishlistUpdate,
     onWishlistUpdateError,
-    updateWishlistToastProps
+    onAddToWishlistSuccess
 };
 
 const Component = props => {
@@ -112,7 +112,7 @@ beforeAll(() => {
 beforeEach(() => {
     onWishlistUpdate.mockClear();
     onWishlistUpdateError.mockClear();
-    updateWishlistToastProps.mockClear();
+    onAddToWishlistSuccess.mockClear();
 });
 
 test('should return correct shape', () => {
@@ -138,12 +138,12 @@ describe('testing handleAddToWishlist', () => {
         expect(addProductToWishlist.mock.calls[0]).toMatchSnapshot();
     });
 
-    test('should call updateWishlistToastProps', async () => {
+    test('should call onAddToWishlistSuccess', async () => {
         const { talonProps } = getTalonProps(defaultProps);
 
         await talonProps.handleAddToWishlist();
 
-        expect(updateWishlistToastProps.mock.calls[0]).toMatchSnapshot();
+        expect(onAddToWishlistSuccess.mock.calls[0]).toMatchSnapshot();
     });
 
     test('should call onWishlistUpdate', async () => {

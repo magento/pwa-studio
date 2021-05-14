@@ -48,7 +48,7 @@ Array [
 ]
 `;
 
-exports[`testing handleAddToWishlist should call updateWishlistToastProps 1`] = `
+exports[`testing handleAddToWishlist should call onAddToWishlistSuccess 1`] = `
 Array [
   Object {
     "message": "Item successfully added to your favorites list.",

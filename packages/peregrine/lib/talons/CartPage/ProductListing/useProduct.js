@@ -122,7 +122,7 @@ export const useProduct = props => {
         item,
         onWishlistUpdate: removeItemFromCart,
         onWishlistUpdateError: handleWishlistUpdateError,
-        updateWishlistToastProps: onAddToWishlistSuccess,
+        onAddToWishlistSuccess,
         operations: props.operations
     });
     const {
