@@ -1,4 +1,4 @@
-# Release  10.0.0
+# Release 10.0.0
 
 **NOTE:**
 _This changelog only contains release notes for PWA Studio and Venia 10.0.0._
