@@ -13,6 +13,10 @@ export const ADD_TO_WISHLIST = gql`
                 code
                 message
             }
+            wishlist {
+                id
+                name
+            }
         }
     }
 `;

@@ -1,8 +1,9 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-
+import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 import CategoryContent from '../categoryContent';
 
+jest.mock('@magento/venia-ui/lib/classify');
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
     const api = {
@@ -17,75 +18,122 @@ jest.mock('../../../components/Head', () => ({
     StoreTitle: () => 'Title'
 }));
 
+jest.mock('@magento/peregrine/lib/talons/RootComponents/Category', () => ({
+    useCategoryContent: jest.fn()
+}));
+
 jest.mock('../../../components/Breadcrumbs', () => 'Breadcrumbs');
 jest.mock('../../../components/Gallery', () => 'Gallery');
 jest.mock('../../../components/Pagination', () => 'Pagination');
+jest.mock('../../../components/SortedByContainer', () => 'SortedByContainer');
+jest.mock(
+    '../../../components/FilterModalOpenButton',
+    () => 'FilterModalOpenButton'
+);
 jest.mock('../NoProductsFound', () => 'NoProductsFound');
 
-const classes = {
-    root: 'a',
-    title: 'b',
-    gallery: 'c',
-    pagination: 'd'
-};
-
-const sortProps = [
-    { sortDirection: '', sortAttribute: '', sortText: '' },
-    jest.fn()
-];
-
-test('renders the correct tree', () => {
-    const data = {
-        category: {
-            name: 'Name',
-            description: 'test'
-        },
+const defaultProps = {
+    categoryId: 42,
+    data: {
         products: {
             items: {
                 id: 1
-            },
-            page_info: {
-                total_pages: 1
             }
         }
-    };
+    },
+    isLoading: false,
+    pageControl: {},
+    sortProps: [
+        { sortDirection: '', sortAttribute: '', sortText: '' },
+        jest.fn()
+    ],
+    pageSize: 6
+};
 
-    const instance = createTestInstance(
-        <CategoryContent
-            pageControl={{}}
-            data={data}
-            pageSize={6}
-            sortProps={sortProps}
-            classes={classes}
-        />
-    );
+const talonProps = {
+    categoryName: 'Name',
+    categoryDescription: 'test',
+    filters: {},
+    items: {
+        id: 1
+    },
+    totalPagesFromData: 1
+};
+
+test('renders the correct tree', () => {
+    useCategoryContent.mockReturnValueOnce(talonProps);
+    const instance = createTestInstance(<CategoryContent {...defaultProps} />);
 
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('renders empty page', () => {
-    const data = {
-        category: {
-            name: 'Empty Name',
-            description: 'test'
-        },
+    const props = {
+        ...defaultProps,
         products: {
-            items: null,
-            page_info: {
-                total_pages: 0
-            }
+            items: null
         }
     };
-
-    const instance = createTestInstance(
-        <CategoryContent
-            pageControl={{}}
-            data={data}
-            pageSize={6}
-            sortProps={sortProps}
-            classes={classes}
-        />
-    );
+    useCategoryContent.mockReturnValueOnce({
+        ...talonProps,
+        categoryName: 'Empty Name',
+        totalPagesFromData: 0
+    });
+    const instance = createTestInstance(<CategoryContent {...props} />);
 
     expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('renders loading indicator if no data and loading', () => {
+    const props = {
+        ...defaultProps,
+        isLoading: true
+    };
+    useCategoryContent.mockReturnValueOnce({
+        ...talonProps,
+        totalPagesFromData: 0
+    });
+    const instance = createTestInstance(<CategoryContent {...props} />);
+
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+describe('filter button/modal', () => {
+    test('does not render if there are no filters', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            filters: []
+        });
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders when there are filters', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            filters: [{}]
+        });
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+});
+
+describe('sort button/container', () => {
+    test('does not render if there are no products', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            totalPagesFromData: 0
+        });
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders when there are products', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            totalPagesFromData: 1
+        });
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
 });

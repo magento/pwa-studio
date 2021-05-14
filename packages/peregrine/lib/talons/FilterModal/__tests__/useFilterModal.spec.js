@@ -131,6 +131,8 @@ describe('#useFilterModal', () => {
             filterState: expect.any(Object),
             handleApply: expect.any(Function),
             handleClose: expect.any(Function),
+            handleKeyDownActions: expect.any(Function),
+            handleOpen: expect.any(Function),
             handleReset: expect.any(Function),
             isApplying: expect.any(Boolean),
             isOpen: expect.any(Boolean)

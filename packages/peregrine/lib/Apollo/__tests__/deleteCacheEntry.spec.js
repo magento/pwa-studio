@@ -99,6 +99,9 @@ test('handle function call', async () => {
     });
 
     cache.restore({
+        ROOT_QUERY: {
+            CartLocalField: true
+        },
         Cart: {
             id: '12345',
             total_quantity: '3'
@@ -118,11 +121,21 @@ test('handle function call', async () => {
 
     expect(log).toHaveBeenCalledTimes(2);
 
-    const initialKeys = log.mock.calls[0][0];
-    expect(initialKeys).toEqual(['Cart', 'Test']);
+    const initialCacheKeys = log.mock.calls[0][0];
+    expect(initialCacheKeys).toMatchInlineSnapshot(`
+        Array [
+          "ROOT_QUERY",
+          "Cart",
+          "Test",
+        ]
+    `);
 
-    const finalKeys = log.mock.calls[1][0];
-    expect(finalKeys).toEqual(['Test']);
+    const finalCacheKeys = log.mock.calls[1][0];
+    expect(finalCacheKeys).toMatchInlineSnapshot(`
+        Array [
+          "Test",
+        ]
+    `);
 
     expect(spy).toHaveBeenCalledTimes(1);
 });
