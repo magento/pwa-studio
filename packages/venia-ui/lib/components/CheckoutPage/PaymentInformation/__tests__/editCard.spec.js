@@ -2,7 +2,6 @@ import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import EditCard from '../editCard';
 
-
 jest.mock('../../../../classify');
 jest.mock('../creditCard', () => props => <mock-CreditCard {...props} />);
 
