@@ -39,11 +39,11 @@ const Summary = props => {
         );
     }
 
-    const hasCustomeSummaryComp = Object.keys(summaryPayments).includes(
+    const hasCustomSummaryComp = Object.keys(summaryPayments).includes(
         selectedPaymentMethod.code
     );
 
-    if (hasCustomeSummaryComp) {
+    if (hasCustomSummaryComp) {
         const SummaryPaymentMethodComponent =
             summaryPayments[selectedPaymentMethod.code];
         return (
@@ -68,7 +68,6 @@ const Summary = props => {
                 </div>
                 <div className={classes.card_details_container}>
                     <span className={classes.payment_details}>
-                        {/* TODO: Do we want to display some other info? On mobile this can feel odd since price summary isn't seen until you go to the review step. */}
                         {selectedPaymentMethod.title}
                     </span>
                 </div>

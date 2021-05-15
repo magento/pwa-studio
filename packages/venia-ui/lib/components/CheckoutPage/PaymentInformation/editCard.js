@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string } from 'prop-types';
+import { shape, string, bool, func } from 'prop-types';
 import defaultClasses from './editCard.css';
 import { mergeClasses } from '../../../classify';
 import CreditCard from './creditCard';
@@ -30,7 +30,12 @@ const EditCard = props => {
 EditCard.propTypes = {
     classes: shape({
         root: string
-    })
+    }),
+    onDropinReady: func.isRequired,
+    onPaymentSuccess: func.isRequired,
+    onPaymentError: func.isRequired,
+    resetShouldSubmit: func.isRequired,
+    shouldSubmit: bool
 };
 
 export default EditCard;

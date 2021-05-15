@@ -21,7 +21,7 @@ jest.mock(
     }
 );
 
-jest.mock('../editablePaymentCollection', () => ({
+jest.mock('../summaryPaymentCollection', () => ({
     braintree: props => <mock-Braintree id={'BraintreeMockId'} {...props} />
 }));
 

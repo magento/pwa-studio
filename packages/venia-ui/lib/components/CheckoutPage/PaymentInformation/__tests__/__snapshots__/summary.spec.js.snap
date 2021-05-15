@@ -1,29 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render a braintree summary 1`] = `
-<div
-  className="root"
->
-  <div
-    className="heading_container"
-  >
-    <h5
-      className="heading"
-    >
-      <mock-FormattedMessage
-        defaultMessage="Payment Information"
-        id="checkoutPage.paymentInformation"
-      />
-    </h5>
-  </div>
-  <div
-    className="card_details_container"
-  >
-    <span
-      className="payment_details"
-    />
-  </div>
-</div>
+<mock-Braintree
+  billingAddress={
+    Object {
+      "city": "Austin",
+      "country": "Goose Land",
+      "firstName": "Goosey",
+      "lastName": "Goose",
+      "phoneNumber": "1234657890",
+      "postalCode": "12345",
+      "state": "Texas",
+      "street1": "12345 Goosey Blvd",
+      "street2": "Apt 123",
+    }
+  }
+  id="BraintreeMockId"
+  isBillingAddressSame={false}
+  onEdit={[MockFunction]}
+  paymentNonce={
+    Object {
+      "details": Object {
+        "cardType": "visa",
+        "lastFour": "1234",
+      },
+    }
+  }
+  selectedPaymentMethod={
+    Object {
+      "code": "braintree",
+    }
+  }
+/>
 `;
 
 exports[`should render a loading indicator 1`] = `
