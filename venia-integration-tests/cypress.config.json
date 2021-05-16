@@ -1,6 +1,6 @@
 {
     "baseUrl": "https://develop.pwa-venia.com/",
-    "defaultCommandTimeout": 10000,
+    "defaultCommandTimeout": 60000,
     "supportFile": "src/support/index.js",
     "pluginsFile": "src/plugins/index.js",
     "fixturesFolder": "src/fixtures",
