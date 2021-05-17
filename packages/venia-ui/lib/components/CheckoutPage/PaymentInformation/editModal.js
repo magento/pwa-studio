@@ -34,7 +34,7 @@ const EditModal = props => {
                 editablePayments[selectedPaymentMethod];
             return (
                 <PaymentMethodComponent
-                    onDropinReady={handleDropinReady}
+                    onPaymentReady={handlePaymentReady}
                     onPaymentSuccess={handlePaymentSuccess}
                     onPaymentError={handlePaymentError}
                     resetShouldSubmit={resetUpdateButtonClicked}
