@@ -50,7 +50,7 @@ const Summary = props => {
             <SummaryPaymentMethodComponent
                 selectedPaymentMethod={selectedPaymentMethod}
                 billingAddress={billingAddress}
-                paymentNonce={paymentNonce}
+                paymentDetails={detailsFromSummaryTalon}
                 isBillingAddressSame={isBillingAddressSame}
                 onEdit={onEdit}
             />
