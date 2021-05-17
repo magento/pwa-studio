@@ -38,7 +38,7 @@ const givenInitiallyOpen = () => {
 
 const givenSelectedItems = () => {
     const item = {
-        attribute_code: 'foo',
+        attribute_code: 'foo'
     };
 
     inputValues = {

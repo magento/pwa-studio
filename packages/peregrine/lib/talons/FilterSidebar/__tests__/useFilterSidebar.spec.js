@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 import { useFilterSidebar } from '../useFilterSidebar';
 
-jest.mock('../helpers', () => ({
+jest.mock('../../FilterModal/helpers', () => ({
     getStateFromSearch: jest.fn(() => ({})),
     getSearchFromState: jest.fn(() => 'searchFromState'),
     stripHtml: jest.fn(() => 'strippedHtml')
@@ -23,7 +23,7 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
     };
 });
 
-jest.mock('../useFilterState', () => {
+jest.mock('../../FilterModal/useFilterState', () => {
     const api = {
         setItems: jest.fn()
     };
