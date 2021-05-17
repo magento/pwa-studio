@@ -1,3 +1,4 @@
+import './visitPageCommand';
 import './fullPageScreenshotCommand';
 import './loadFullPageCommand';
 import './accountCommands';

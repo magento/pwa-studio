@@ -1,41 +1,44 @@
 import {
-    accountAccess,
-    myAccountMenu,
-    categoryPage,
+    accountAccess as accountAccessFixtures,
+    myAccountMenu as myAccountMenuFixtures,
+    categoryPage as categoryPageFixtures,
     homePage as homePageFixtures,
-    wishlist,
-    productPage
+    wishlist as wishlistFixtures,
+    productPage as productPageFixtures
 } from '../../../fixtures';
-
-import { visitPage } from '../../../actions/routes';
-
 import {
-    assertCreateAccount,
-    goToMyAccount
-} from '../../../actions/myAccountMenu';
+    categoryPage as categoryPageActions,
+    myAccountMenu as myAccountMenuActions,
+    productPage as productPageActions,
+    wishlist as wishlistActions
+} from '../../../actions';
 
-import {
+const {
+    firstName,
+    lastName,
+    accountEmail,
+    accountPassword
+} = accountAccessFixtures;
+const { wishlistPage } = myAccountMenuFixtures;
+const { categorySweaters, productCarinaCardigan } = categoryPageFixtures;
+const { homePage } = homePageFixtures;
+const { wishistRoute } = wishlistFixtures;
+const { productValeriaTwoLayeredTankUrl } = productPageFixtures;
+
+const { assertCreateAccount, goToMyAccount } = myAccountMenuActions;
+const {
     assertWishlistHeading,
     assertEmptyWishlist,
     assertProductInWishlist,
     removeProductFromWishlist
-} from '../../../actions/wishlist';
-
-import { addProductToWishlistFromCategoryPage } from '../../../actions/categoryPage';
-
-import { addProductToWishlistFromProductPage } from '../../../actions/productPage';
-
-const { firstName, lastName, accountEmail, accountPassword } = accountAccess;
-const { wishlistPage } = myAccountMenu;
-const { categorySweaters, productCarinaCardigan } = categoryPage;
-const { homePage } = homePageFixtures;
-const { wishistRoute } = wishlist;
-const { productValeriaTwoLayeredTankUrl } = productPage;
+} = wishlistActions;
+const { addProductToWishlistFromCategoryPage } = categoryPageActions;
+const { addProductToWishlistFromProductPage } = productPageActions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
     it('user should be able to add and remove products from wishlist', () => {
-        visitPage(homePage);
+        cy.visitPage(homePage);
 
         cy.openLoginDialog();
         cy.createAccount(firstName, lastName, accountEmail, accountPassword);
@@ -47,16 +50,16 @@ describe('verify single wishlist basic features', () => {
         assertWishlistHeading(wishlistPage);
         assertEmptyWishlist();
 
-        visitPage(categorySweaters);
+        cy.visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
-        visitPage(wishistRoute);
+        cy.visitPage(wishistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
 
-        visitPage(productValeriaTwoLayeredTankUrl);
+        cy.visitPage(productValeriaTwoLayeredTankUrl);
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
         addProductToWishlistFromProductPage();
-        visitPage(wishistRoute);
+        cy.visitPage(wishistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
