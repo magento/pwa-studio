@@ -138,7 +138,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page10',
-                timeout: 120000
+                timeout: 180000
 
             });
         });
