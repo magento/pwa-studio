@@ -7,8 +7,6 @@ import {
     productPage
 } from '../../../fixtures';
 
-import { createAccount, openLoginDialog } from '../../../actions/accountAccess';
-
 import { visitPage } from '../../../actions/routes';
 
 import {
@@ -38,8 +36,9 @@ const { productValeriaTwoLayeredTankUrl } = productPage;
 describe('verify single wishlist basic features', () => {
     it('user should be able to add and remove products from wishlist', () => {
         visitPage(homePage);
-        openLoginDialog();
-        createAccount(firstName, lastName, accountEmail, accountPassword);
+
+        cy.openLoginDialog();
+        cy.createAccount(firstName, lastName, accountEmail, accountPassword);
 
         assertCreateAccount(firstName);
 
