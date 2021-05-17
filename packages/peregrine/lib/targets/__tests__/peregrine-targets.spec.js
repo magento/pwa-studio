@@ -102,6 +102,8 @@ test('exposes all hooks and targets', async () => {
           talons.CartPage.ProductListing.useProduct.wrapWith() wraps export "useProduct" from "CartPage/ProductListing/useProduct.js"
           talons.CartPage.ProductListing.useProductListing.wrapWith() wraps export "useProductListing" from "CartPage/ProductListing/useProductListing.js"
           talons.CartPage.ProductListing.useQuantity.wrapWith() wraps export "useQuantity" from "CartPage/ProductListing/useQuantity.js"
+          talons.CartPage.ProductListing.useWishlist.ce.wrapWith() wraps export "useWishlist.ce" from "CartPage/ProductListing/useWishlist.ce.js"
+          talons.CartPage.ProductListing.useWishlist.ee.wrapWith() wraps export "useWishlist.ee" from "CartPage/ProductListing/useWishlist.ee.js"
           talons.CartPage.useCartPage.wrapWith() wraps export "useCartPage" from "CartPage/useCartPage.js"
           talons.CategoryList.useCategoryList.wrapWith() wraps export "useCategoryList" from "CategoryList/useCategoryList.js"
           talons.CategoryList.useCategoryTile.wrapWith() wraps export "useCategoryTile" from "CategoryList/useCategoryTile.js"
