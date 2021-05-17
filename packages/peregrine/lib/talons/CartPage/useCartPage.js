@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useLazyQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -29,18 +29,15 @@ export const useCartPage = props => {
     const [{ cartId }] = useCartContext();
 
     const [isCartUpdating, setIsCartUpdating] = useState(false);
+    const [wishlistSuccessProps, setWishlistSuccessProps] = useState(null);
 
-    const { called, data, loading } = useQuery(getCartDetails, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        skip: !cartId,
-        variables: { cartId }
-    });
-
-    useEffect(() => {
-        // Let the cart page know it is updating while we're waiting on network data.
-        setIsCartUpdating(loading);
-    }, [loading]);
+    const [fetchCartDetails, { called, data, loading }] = useLazyQuery(
+        getCartDetails,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
+    );
 
     const hasItems = !!(data && data.cart.total_quantity);
     const shouldShowLoadingIndicator = called && loading && !hasItems;
@@ -49,12 +46,28 @@ export const useCartPage = props => {
         return (data && data.cart.items) || [];
     }, [data]);
 
+    const onAddToWishlistSuccess = useCallback(successToastProps => {
+        setWishlistSuccessProps(successToastProps);
+    }, []);
+
+    useEffect(() => {
+        if (!called && cartId) {
+            fetchCartDetails({ variables: { cartId } });
+        }
+
+        // Let the cart page know it is updating while we're waiting on network data.
+        setIsCartUpdating(loading);
+    }, [fetchCartDetails, called, cartId, loading]);
+
     return {
         cartItems,
         hasItems,
         isCartUpdating,
+        fetchCartDetails,
+        onAddToWishlistSuccess,
         setIsCartUpdating,
-        shouldShowLoadingIndicator
+        shouldShowLoadingIndicator,
+        wishlistSuccessProps
     };
 };
 

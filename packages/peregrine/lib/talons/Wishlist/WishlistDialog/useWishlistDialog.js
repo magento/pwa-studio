@@ -35,13 +35,15 @@ export const useWishlistDialog = props => {
     const handleAddToWishlist = useCallback(
         async wishlistId => {
             try {
-                await addProductToWishlist({
+                const { data } = await addProductToWishlist({
                     variables: {
                         wishlistId,
                         itemOptions
                     }
                 });
-                onClose(true);
+                onClose(true, {
+                    wishlistName: data.addProductsToWishlist.wishlist.name
+                });
                 setIsFormOpen(false);
             } catch (err) {
                 console.log(err);

@@ -1,5 +1,5 @@
 const parseMethodOpts = {
-    plugins: ['syntax-jsx']
+    plugins: ['@babel/plugin-syntax-jsx']
 };
 const elementPatterns = [
     /^<>.+<\/>$/, // React fragments: <>{...}</>

@@ -1,6 +1,7 @@
 @value info: rgb(0, 104, 108);
 @value warning: rgb(var(--venia-global-color-orange));
 @value error: rgb(220, 20, 60);
+@value success: rgb(var(--venia-global-color-green-500));
 
 .root {
     align-items: start;
@@ -9,7 +10,7 @@
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     color: rgb(33, 33, 33);
     display: grid;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--venia-global-fontFamily-sansSerif);
     font-size: 0.8rem;
     font-weight: lighter;
     gap: 0.5rem 0.75rem;
@@ -48,7 +49,7 @@
 }
 
 .infoToast > .icon {
-    color: info;
+    --stroke: info;
 }
 
 .warningToast {
@@ -57,7 +58,7 @@
 }
 
 .warningToast > .icon {
-    color: warning;
+    --stroke: warning;
 }
 
 .errorToast {
@@ -66,7 +67,16 @@
 }
 
 .errorToast > .icon {
-    color: error;
+    --stroke: error;
+}
+
+.successToast {
+    composes: root;
+    border-bottom: 4px solid success;
+}
+
+.successToast > .icon {
+    --stroke: success;
 }
 
 .message {
