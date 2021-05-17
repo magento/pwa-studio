@@ -10,6 +10,8 @@ import Image from '../Image';
 import Price from '../Price';
 import Options from '../ProductOptions';
 import defaultClasses from './addToCartDialog.css';
+import FormError from '../FormError';
+import PageLoadingIndicator from '../PageLoadingIndicator';
 
 const AddToCartDialog = props => {
     const { item } = props;
@@ -18,8 +20,10 @@ const AddToCartDialog = props => {
     const {
         buttonProps,
         configurableOptionProps,
+        formErrors,
         handleOnClose,
         imageProps,
+        isFetchingProductDetail,
         priceProps
     } = talonProps;
 
@@ -75,12 +79,20 @@ const AddToCartDialog = props => {
         priceComponent
     ]);
 
+    const titleElement = isFetchingProductDetail ? (
+        <div className={classes.titleContainer}>
+            <PageLoadingIndicator />
+        </div>
+    ) : null;
+
     return (
         <Dialog
-            shouldShowButtons={false}
             isOpen={!!props.item}
             onCancel={handleOnClose}
+            shouldShowButtons={false}
+            title={titleElement}
         >
+            <FormError errors={formErrors} />
             {dialogContent}
         </Dialog>
     );

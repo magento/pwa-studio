@@ -25,6 +25,7 @@ const GET_PRODUCT_DETAIL = gql`
                 }
                 ... on ConfigurableProduct {
                     configurable_options {
+                        id
                         attribute_uid
                         label
                         position
@@ -41,6 +42,7 @@ const GET_PRODUCT_DETAIL = gql`
                             url
                         }
                         variant {
+                            id
                             uid
                             price_range {
                                 maximum_price {

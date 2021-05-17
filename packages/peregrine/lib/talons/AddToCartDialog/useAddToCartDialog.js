@@ -51,19 +51,23 @@ export const useAddToCartDialog = props => {
         return [];
     }, [item, userSelectedOptions]);
 
-    const { data } = useQuery(operations.getProductDetailQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        variables: {
-            configurableOptionValues: selectedOptionsArray,
-            sku
-        },
-        skip: !sku
-    });
-
-    const [addProductToCart, { loading: isAddingToCart }] = useMutation(
-        operations.addProductToCartMutation
+    const { data, loading: isFetchingProductDetail } = useQuery(
+        operations.getProductDetailQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first',
+            variables: {
+                configurableOptionValues: selectedOptionsArray,
+                sku
+            },
+            skip: !sku
+        }
     );
+
+    const [
+        addProductToCart,
+        { error: addProductToCartError, loading: isAddingToCart }
+    ] = useMutation(operations.addProductToCartMutation);
 
     useEffect(() => {
         if (data) {
@@ -165,8 +169,10 @@ export const useAddToCartDialog = props => {
     return {
         buttonProps,
         configurableOptionProps,
+        formErrors: [addProductToCartError],
         handleOnClose,
         imageProps,
+        isFetchingProductDetail,
         priceProps
     };
 };
