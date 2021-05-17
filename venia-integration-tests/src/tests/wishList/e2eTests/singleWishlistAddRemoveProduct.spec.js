@@ -1,29 +1,41 @@
-import { firstName, lastName, accountEmail, accountPassword } from '../../../fixtures/accountAccess/index';
+import {
+    accountAccess,
+    myAccountMenu,
+    categoryPage,
+    homePage as homePageFixtures,
+    wishlist,
+    productPage
+} from '../../../fixtures';
 
-import { createAccount, openLoginDialog } from '../../../actions/accountAccess/index';
+import {
+    createAccount,
+    openLoginDialog
+} from '../../../actions/accountAccess/index';
 
 import { visitPage } from '../../../actions/routes/index';
 
-import { assertCreateAccount, goToMyAccount } from '../../../actions/myAccountMenu/index';
+import {
+    assertCreateAccount,
+    goToMyAccount
+} from '../../../actions/myAccountMenu/index';
 
-import { wishlistPage } from '../../../fixtures/myAccountMenu/index';
-
-import { assertWishlistHeading, assertEmptyWishlist, assertProductInWishlist, removeProductFromWishlist } from '../../../actions/wishlist/index';
-
-import { categorySweaters, productCarinaCardigan } from '../../../fixtures/categoryPage/index';
-
-import { homePage } from '../../../fixtures/homePage/index';
+import {
+    assertWishlistHeading,
+    assertEmptyWishlist,
+    assertProductInWishlist,
+    removeProductFromWishlist
+} from '../../../actions/wishlist/index';
 
 import { addProductToWishlistFromCategoryPage } from '../../../actions/categoryPage/index';
 
-import { wishistRoute } from '../../../fixtures/wishlist/index';
-
-import { } from '../../../actions/wishlist/index';
-
-import { productValeriaTwoLayeredTankUrl } from '../../../fixtures/productPage/index';
-
 import { addProductToWishlistFromProductPage } from '../../../actions/productPage/index';
 
+const { firstName, lastName, accountEmail, accountPassword } = accountAccess;
+const { wishlistPage } = myAccountMenu;
+const { categorySweaters, productCarinaCardigan } = categoryPage;
+const { homePage } = homePageFixtures;
+const { wishistRoute } = wishlist;
+const { productValeriaTwoLayeredTankUrl } = productPage;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
