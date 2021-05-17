@@ -7,28 +7,25 @@ import {
     productPage
 } from '../../../fixtures';
 
-import {
-    createAccount,
-    openLoginDialog
-} from '../../../actions/accountAccess/index';
+import { createAccount, openLoginDialog } from '../../../actions/accountAccess';
 
-import { visitPage } from '../../../actions/routes/index';
+import { visitPage } from '../../../actions/routes';
 
 import {
     assertCreateAccount,
     goToMyAccount
-} from '../../../actions/myAccountMenu/index';
+} from '../../../actions/myAccountMenu';
 
 import {
     assertWishlistHeading,
     assertEmptyWishlist,
     assertProductInWishlist,
     removeProductFromWishlist
-} from '../../../actions/wishlist/index';
+} from '../../../actions/wishlist';
 
-import { addProductToWishlistFromCategoryPage } from '../../../actions/categoryPage/index';
+import { addProductToWishlistFromCategoryPage } from '../../../actions/categoryPage';
 
-import { addProductToWishlistFromProductPage } from '../../../actions/productPage/index';
+import { addProductToWishlistFromProductPage } from '../../../actions/productPage';
 
 const { firstName, lastName, accountEmail, accountPassword } = accountAccess;
 const { wishlistPage } = myAccountMenu;
@@ -43,24 +40,32 @@ describe('verify single wishlist basic features', () => {
         visitPage(homePage);
         openLoginDialog();
         createAccount(firstName, lastName, accountEmail, accountPassword);
+
         assertCreateAccount(firstName);
+
         goToMyAccount(firstName, wishlistPage);
+
         assertWishlistHeading(wishlistPage);
         assertEmptyWishlist();
+
         visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
         visitPage(wishistRoute);
+
         assertProductInWishlist(productCarinaCardigan);
+
         visitPage(productValeriaTwoLayeredTankUrl);
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
         addProductToWishlistFromProductPage();
         visitPage(wishistRoute);
+
         assertProductInWishlist(productCarinaCardigan);
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
         // assertProductInWishlist(productValeriaTwoLayeredTankUrl);
         removeProductFromWishlist(productCarinaCardigan);
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
         // removeProductFromWishlist(productValeriaTwoLayeredTankUrl);
+
         assertEmptyWishlist(wishlistPage);
     });
 });
