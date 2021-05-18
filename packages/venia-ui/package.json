@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "6.0.1",
+  "version": "7.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -41,6 +41,7 @@
     "lodash.throttle": "~4.1.1",
     "memoize-one": "~5.0.0",
     "prop-types": "~15.7.2",
+    "react-aria": "~3.4.0",
     "react-feather": "~2.0.3",
     "react-helmet-async": "^1.0.2",
     "react-slick": "~0.25.2",
@@ -60,6 +61,7 @@
     "@babel/preset-env": "~7.3.4",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
     "@storybook/react": "~6.1.14",
+    "@testing-library/react-hooks": "~5.0.3",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.4.1",
     "babel-core": "~7.0.0-bridge.0",
     "babel-jest": "~24.1.0",
@@ -76,8 +78,8 @@
   "peerDependencies": {
     "@apollo/client": "~3.1.2",
     "@magento/babel-preset-peregrine": "~1.1.0",
-    "@magento/peregrine": "~9.0.0",
-    "@magento/pwa-buildpack": "~8.0.1",
+    "@magento/peregrine": "~10.0.0",
+    "@magento/pwa-buildpack": "~9.0.0",
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.16.0",
     "graphql": "~15.3.0",

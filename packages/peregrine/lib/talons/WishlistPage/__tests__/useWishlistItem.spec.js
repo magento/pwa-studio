@@ -5,9 +5,13 @@ import { useMutation } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 import { useWishlistItem } from '../useWishlistItem';
 
-jest.mock('@apollo/client', () => ({
-    useMutation: jest.fn().mockReturnValue([jest.fn(), { loading: false }])
-}));
+jest.mock('@apollo/client', () => {
+    const ApolloClient = jest.requireActual('@apollo/client');
+    return {
+        ...ApolloClient,
+        useMutation: jest.fn().mockReturnValue([jest.fn(), { loading: false }])
+    };
+});
 
 jest.mock('../../../context/cart', () => {
     const state = { cartId: 'cart123' };
@@ -84,4 +88,40 @@ test('handleAddToCart callback fires mutation', () => {
     });
 
     expect(mockMutate).toHaveBeenCalled();
+});
+
+test('handleRemoveProductFromWishlist callback fires mutation', () => {
+    const mockMutate = jest.fn();
+    useMutation.mockReturnValue([mockMutate, { loading: false }]);
+    createTestInstance(<Component {...baseProps} />);
+
+    const talonProps = log.mock.calls[0][0];
+
+    act(() => {
+        talonProps.handleRemoveProductFromWishlist();
+    });
+
+    expect(mockMutate).toHaveBeenCalled();
+});
+
+test('handleRemoveProductFromWishlist callback logs error if the mutation fails', async () => {
+    const consoleErrorSpy = jest.spyOn(console, 'error');
+    const error = new Error('Error.');
+    const mockMutate = jest.fn(() => {
+        throw error;
+    });
+    useMutation.mockReturnValue([
+        mockMutate,
+        {
+            called: true,
+            error: error,
+            loading: false
+        }
+    ]);
+    createTestInstance(<Component {...baseProps} />);
+    const talonProps = log.mock.calls[0][0];
+    act(() => {
+        talonProps.handleRemoveProductFromWishlist();
+    });
+    expect(consoleErrorSpy).toHaveBeenCalled();
 });

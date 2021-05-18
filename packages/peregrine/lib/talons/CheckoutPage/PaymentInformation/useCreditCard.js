@@ -36,7 +36,7 @@ export const mapAddressData = rawAddressData => {
             street1: street[0],
             street2: street[1],
             country: country.code,
-            region: region.code
+            region: region.region_id
         };
     } else {
         return {};
@@ -163,7 +163,7 @@ export const useCreditCard = props => {
 
     const shippingAddressCountry = shippingAddressData
         ? shippingAddressData.cart.shippingAddresses[0].country.code
-        : 'US';
+        : DEFAULT_COUNTRY_CODE;
     const isBillingAddressSame = formState.values.isBillingAddressSame;
 
     const initialValues = useMemo(() => {
@@ -256,7 +256,7 @@ export const useCreditCard = props => {
                 street1,
                 street2,
                 city,
-                region,
+                region: region.region_id,
                 postcode,
                 phoneNumber,
                 sameAsShipping: false
@@ -407,7 +407,9 @@ export const useCreditCard = props => {
                 }
             }
         } catch (err) {
-            console.error(err);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             setStepNumber(0);
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
@@ -456,7 +458,9 @@ export const useCreditCard = props => {
                 throw new Error('Billing address mutation failed');
             }
         } catch (err) {
-            console.error(err);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             setStepNumber(0);
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
@@ -499,7 +503,9 @@ export const useCreditCard = props => {
                 throw new Error('Credit card nonce save mutation failed.');
             }
         } catch (err) {
-            console.error(err);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             setStepNumber(0);
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);

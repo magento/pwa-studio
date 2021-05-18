@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "8.0.1",
+  "version": "9.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
     "@magento/directive-parser": "~0.1.7",
-    "@magento/upward-js": "~5.0.1",
+    "@magento/upward-js": "~5.1.0",
     "@pmmmwh/react-refresh-webpack-plugin": "~0.4.1",
     "@yarnpkg/lockfile": "~1.1.0",
     "apicache": "~1.4.0",
@@ -72,6 +72,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.3.4",
+    "@babel/plugin-syntax-jsx": "~7.2.0",
     "@magento/eslint-config": "~1.5.0",
     "babel-loader": "~8.0.5",
     "compression": "~1.7.4",
@@ -86,7 +87,8 @@
     "workbox-webpack-plugin": "~6.0.2"
   },
   "peerDependencies": {
-    "@babel/core": "^7.3.4",
+    "@babel/core": "~7.3.4",
+    "@babel/plugin-syntax-jsx": "~7.2.0",
     "babel-loader": "~8.0.5",
     "compression": "~1.7.4",
     "css-loader": "~2.1.1",

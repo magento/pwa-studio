@@ -113,6 +113,9 @@ Object {
       "customerCart": Object {
         "keyArgs": [Function],
       },
+      "customerWishlistProducts": Object {
+        "read": [Function],
+      },
     },
   },
   "SelectedConfigurableOption": Object {
