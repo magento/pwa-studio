@@ -39,6 +39,7 @@
 }
 
 .titleContainer {
+    line-height: 1;
     width: fit-content;
 }
 
