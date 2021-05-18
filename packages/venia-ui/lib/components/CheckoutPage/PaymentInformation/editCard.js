@@ -4,10 +4,13 @@ import defaultClasses from './editCard.css';
 import { mergeClasses } from '../../../classify';
 import CreditCard from './creditCard';
 
+/**
+ * The edit view for the Braintree payment method.
+ */
 const EditCard = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const {
-        onDropinReady,
+        onPaymentReady,
         onPaymentSuccess,
         onPaymentError,
         resetShouldSubmit,
@@ -17,7 +20,7 @@ const EditCard = props => {
     return (
         <div className={classes.root}>
             <CreditCard
-                onDropinReady={onDropinReady}
+                onPaymentReady={onPaymentReady}
                 onPaymentSuccess={onPaymentSuccess}
                 onPaymentError={onPaymentError}
                 resetShouldSubmit={resetShouldSubmit}
@@ -31,7 +34,7 @@ EditCard.propTypes = {
     classes: shape({
         root: string
     }),
-    onDropinReady: func.isRequired,
+    onPaymentReady: func.isRequired,
     onPaymentSuccess: func.isRequired,
     onPaymentError: func.isRequired,
     resetShouldSubmit: func.isRequired,

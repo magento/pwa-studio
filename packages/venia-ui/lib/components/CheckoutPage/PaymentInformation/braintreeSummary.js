@@ -6,19 +6,32 @@ import { Edit2 as EditIcon } from 'react-feather';
 import Icon from '../../Icon';
 import LinkButton from '../../LinkButton';
 
+import { useBraintreeSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useBraintreeSummary';
 import defaultClasses from './braintreeSummary.css';
 
 const BraintreeSummary = props => {
-    const {
-        classes: propClasses,
-        paymentNonce,
-        billingAddress,
-        isBillingAddressSame,
-        onEdit
-    } = props;
+    const { classes: propClasses, onEdit } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const { formatMessage } = useIntl();
+
+    const {
+        billingAddress,
+        isBillingAddressSame,
+        isLoading,
+        paymentNonce
+    } = useBraintreeSummary();
+
+    if (isLoading) {
+        return (
+            <LoadingIndicator classes={{ root: classes.loading }}>
+                <FormattedMessage
+                    id={'checkoutPage.loadingPaymentInformation'}
+                    defaultMessage={'Fetching Payment Information'}
+                />
+            </LoadingIndicator>
+        );
+    }
 
     const paymentSummary = formatMessage(
         {
@@ -137,12 +150,6 @@ BraintreeSummary.propTypes = {
         city: string,
         state: string,
         postalCode: string
-    }),
-    paymentNonce: shape({
-        details: shape({
-            cardType: string,
-            lastFour: string
-        })
     }),
     onEdit: func.isRequired,
     isBillingAddressSame: bool

@@ -5,8 +5,6 @@ import { shape, string, func } from 'prop-types';
 import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
 import { mergeClasses } from '../../../classify';
 
-import summaryOperations, { CUSTOM_TYPES } from './summary.gql';
-
 import defaultClasses from './summary.css';
 import LoadingIndicator from '../../LoadingIndicator';
 import summaryPayments from './summaryPaymentCollection';
@@ -15,18 +13,9 @@ const Summary = props => {
     const { classes: propClasses, onEdit } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const talonProps = useSummary({
-        ...summaryOperations,
-        typePolicies: CUSTOM_TYPES
-    });
+    const talonProps = useSummary();
 
-    const {
-        billingAddress,
-        isBillingAddressSame,
-        isLoading,
-        paymentNonce,
-        selectedPaymentMethod
-    } = talonProps;
+    const { isLoading, selectedPaymentMethod } = talonProps;
 
     if (isLoading && !selectedPaymentMethod) {
         return (
@@ -46,15 +35,7 @@ const Summary = props => {
     if (hasCustomSummaryComp) {
         const SummaryPaymentMethodComponent =
             summaryPayments[selectedPaymentMethod.code];
-        return (
-            <SummaryPaymentMethodComponent
-                selectedPaymentMethod={selectedPaymentMethod}
-                billingAddress={billingAddress}
-                paymentDetails={detailsFromSummaryTalon}
-                isBillingAddressSame={isBillingAddressSame}
-                onEdit={onEdit}
-            />
-        );
+        return <SummaryPaymentMethodComponent onEdit={onEdit} />;
     } else {
         return (
             <div className={classes.root}>
