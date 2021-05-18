@@ -19,7 +19,7 @@ const EditModal = props => {
         handleUpdate,
         handleClose,
         handlePaymentSuccess,
-        handleDropinReady,
+        handlePaymentReady,
         updateButtonClicked,
         resetUpdateButtonClicked,
         handlePaymentError
@@ -55,8 +55,8 @@ const EditModal = props => {
             );
         }
     }, [
-        handleDropinReady,
         handlePaymentError,
+        handlePaymentReady,
         handlePaymentSuccess,
         resetUpdateButtonClicked,
         selectedPaymentMethod,
