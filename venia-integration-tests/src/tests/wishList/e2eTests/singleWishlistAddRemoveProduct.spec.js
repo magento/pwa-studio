@@ -41,7 +41,7 @@ describe('verify single wishlist basic features', () => {
         cy.visitPage(homePage);
 
         cy.openLoginDialog();
-        cy.createAccount(firstName, lastName, accountEmail, accountPassword);
+        cy.createAccount(accountAccessFixtures.firstName, lastName, accountEmail, accountPassword);
 
         assertCreateAccount(firstName);
 
@@ -68,6 +68,7 @@ describe('verify single wishlist basic features', () => {
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
         // removeProductFromWishlist(productValeriaTwoLayeredTankUrl);
 
-        assertEmptyWishlist(wishlistPage);
+        //This will be updated once https://jira.corp.magento.com/browse/PWA-1707 is code complete
+        // assertEmptyWishlist(wishlistPage);
     });
 });
