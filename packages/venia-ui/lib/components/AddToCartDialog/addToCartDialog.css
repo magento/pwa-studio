@@ -38,6 +38,11 @@
     padding: 1rem 0;
 }
 
+.dialogHeaderText {
+    composes: headerText from '../Dialog/dialog.css';
+    overflow: visible;
+}
+
 .titleContainer {
     line-height: 1;
     width: fit-content;

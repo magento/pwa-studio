@@ -87,6 +87,9 @@ const AddToCartDialog = props => {
 
     return (
         <Dialog
+            classes={{
+                headerText: classes.dialogHeaderText
+            }}
             isOpen={!!props.item}
             onCancel={handleOnClose}
             shouldShowButtons={false}
@@ -107,7 +110,9 @@ AddToCartDialog.propTypes = {
         detailsContainer: string,
         name: string,
         price: string,
-        optionTitle: string
+        optionTitle: string,
+        dialogHeaderText: string,
+        titleContainer: string
     }),
     item: shape({
         product: shape({
