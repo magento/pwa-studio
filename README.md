@@ -13,7 +13,7 @@ If you are looking for an issue to work on, visit our [community backlog board][
 
 For more information about contributing to this repository, see the [Contribution guide][].
 
-## Useful links
+## Useful links.   
    
 [PWA Studio documentation site][documentation site] - 
 The best place to start learning about the tools and the technologies that PWA Studio provides.
