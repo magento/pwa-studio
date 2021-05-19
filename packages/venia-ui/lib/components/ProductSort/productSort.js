@@ -134,6 +134,12 @@ ProductSort.propTypes = {
 ProductSort.defaultProps = {
     availableSortMethods: [
         {
+            text: 'Position',
+            id: 'sortItem.position',
+            attribute: 'position',
+            sortDirection: 'ASC'
+        },
+        {
             id: 'sortItem.relevance',
             text: 'Best Match',
             attribute: 'relevance',
