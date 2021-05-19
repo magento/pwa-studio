@@ -1,12 +1,14 @@
-import { GET_PRODUCTS_IN_WISHLISTS } from '@magento/peregrine/lib/talons/Wishlist/GalleryButton/galleryButton.gql';
+import { gql } from '@apollo/client';
 
-import {
-    GET_WISHLIST_CONFIG,
-    GET_WISHLIST_ITEMS
-} from '@magento/peregrine/lib/talons/Gallery/gallery.gql.ce';
+export const GET_WISHLIST_CONFIG = gql`
+    query GetWishlistConfigForCarouselCE {
+        storeConfig {
+            id
+            magento_wishlist_general_is_enabled
+        }
+    }
+`;
 
 export default {
-    getProductsInWishlistsQuery: GET_PRODUCTS_IN_WISHLISTS,
-    getWishlistConfigQuery: GET_WISHLIST_CONFIG,
-    getWishlistItemsQuery: GET_WISHLIST_ITEMS
+    getWishlistConfigQuery: GET_WISHLIST_CONFIG
 };
