@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 
 import { useCurrencySwitcher } from '@magento/peregrine/lib/talons/Header/useCurrencySwitcher';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './currencySwitcher.css';
 import SwitcherItem from './switcherItem';
 import CurrencySymbol from '@magento/venia-ui/lib/components/CurrencySymbol';
@@ -19,7 +19,7 @@ const CurrencySwitcher = props => {
         handleTriggerClick
     } = useCurrencySwitcher();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const menuClassName = currencyMenuIsOpen ? classes.menu_open : classes.menu;
 
     const currencySymbol = {

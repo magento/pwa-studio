@@ -3,7 +3,7 @@ import defaultClasses from './row.css';
 import { verticalAlignmentToFlex } from '../../utils';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
-import { resourceUrl } from '@magento/venia-drivers';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 const { matchMedia } = globalThis;
 

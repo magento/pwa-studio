@@ -3,7 +3,7 @@ import { bool, func, shape, string } from 'prop-types';
 import { ChevronRight, Copy, Move, Trash2 } from 'react-feather';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Dialog from '../Dialog';
 import Icon from '../Icon';
 import defaultClasses from './wishlistMoreActionsDialog.css';
@@ -13,7 +13,7 @@ const WishlistMoreActionsDialog = props => {
 
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const dialogTitle = formatMessage({
         id: 'wishlistMoreActionsDialog.title_initial',

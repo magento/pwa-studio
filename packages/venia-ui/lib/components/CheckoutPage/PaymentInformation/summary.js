@@ -5,7 +5,7 @@ import { Edit2 as EditIcon } from 'react-feather';
 import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
 
 import Icon from '../../Icon';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 import summaryOperations, { CUSTOM_TYPES } from './summary.gql';
 
@@ -17,7 +17,7 @@ const Summary = props => {
     const { classes: propClasses, onEdit } = props;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = useSummary({
         ...summaryOperations,

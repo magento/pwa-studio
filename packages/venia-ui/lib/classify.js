@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import getDisplayName from './util/getDisplayName';
 
+import { useStyle } from '@magento/peregrine/lib/context/style';
 import mergeClasses from '@magento/peregrine/lib/util/shallowMerge';
 
 const classify = defaultClasses => WrappedComponent =>
@@ -21,6 +22,6 @@ const classify = defaultClasses => WrappedComponent =>
         }
     };
 
-export { mergeClasses };
+export { mergeClasses, useStyle };
 
 export default classify;

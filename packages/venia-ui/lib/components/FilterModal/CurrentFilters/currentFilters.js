@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 import { shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import CurrentFilter from './currentFilter';
 import defaultClasses from './currentFilters.css';
 
 const CurrentFilters = props => {
     const { filterApi, filterState } = props;
     const { removeItem } = filterApi;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     // create elements and params at the same time for efficiency
     const filterElements = useMemo(() => {

@@ -2,9 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Column from '../column';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(src => src)
-}));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 test('renders a Column component', () => {
     const component = createTestInstance(<Column />);

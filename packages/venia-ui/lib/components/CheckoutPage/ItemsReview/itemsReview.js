@@ -6,7 +6,7 @@ import { useItemsReview } from '@magento/peregrine/lib/talons/CheckoutPage/Items
 import Item from './item';
 import ShowAllButton from './showAllButton';
 import LoadingIndicator from '../../LoadingIndicator';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 import defaultClasses from './itemsReview.css';
 
@@ -17,7 +17,7 @@ import defaultClasses from './itemsReview.css';
 const ItemsReview = props => {
     const { classes: propClasses } = props;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = useItemsReview({
         data: props.data

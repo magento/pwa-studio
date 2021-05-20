@@ -3,7 +3,7 @@ import { Form } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
 import { useAddressForm } from '@magento/peregrine/lib/talons/Checkout/useAddressForm';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import combine from '../../util/combineValidators';
 import {
     hasLengthExactly,
@@ -47,7 +47,7 @@ const AddressForm = props => {
         isSignedIn
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     // hide email field if user is signed in; cart already has address
     const emailField = !isSignedIn ? (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
-import { Adapter } from '@magento/venia-drivers';
+import { Adapter } from '@magento/venia-ui/lib/drivers';
 import store from '../store';
 import '@magento/venia-ui/lib/index.css';
 import { AppContextProvider } from '@magento/venia-ui/lib/components/App';

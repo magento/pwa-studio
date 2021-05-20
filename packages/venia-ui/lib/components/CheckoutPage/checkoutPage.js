@@ -9,7 +9,7 @@ import {
     useCheckoutPage
 } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Button from '../Button';
 import { StoreTitle } from '../Head';
 import Icon from '../Icon';
@@ -95,7 +95,7 @@ const CheckoutPage = props => {
         }
     }, [addToast, error, formatMessage, hasError]);
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const windowSize = useWindowSize();
     const isMobile = windowSize.innerWidth <= 960;

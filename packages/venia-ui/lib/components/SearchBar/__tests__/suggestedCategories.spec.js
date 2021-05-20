@@ -1,15 +1,10 @@
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
-
-import { Link } from '@magento/venia-drivers';
 import SuggestedCategories from '../suggestedCategories';
 
-jest.mock('@magento/venia-drivers', () => ({
-    Link: jest.fn(() => null)
-}));
-
 jest.mock('react-router-dom', () => ({
+    Link: jest.fn(() => null),
     useHistory: jest.fn(),
     useLocation: jest.fn()
 }));

@@ -3,10 +3,10 @@ import { createTestInstance } from '@magento/peregrine';
 
 import Gallery from '../gallery';
 
-jest.mock('@magento/venia-drivers', () => ({
-    Link: ({ children }) => children,
-    resourceUrl: () => 'a.url'
+jest.mock('react-router-dom', () => ({
+    Link: ({ children }) => children
 }));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
     return {
         useImage: () => ({

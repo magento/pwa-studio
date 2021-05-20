@@ -2,9 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import TabItem from '../tabItem';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(src => src)
-}));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 test('render tab item with no props', () => {
     const component = createTestInstance(<TabItem />);

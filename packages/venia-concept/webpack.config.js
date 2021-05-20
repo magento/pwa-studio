@@ -1,14 +1,16 @@
-const {
-    configureWebpack,
-    graphQL: {
-        getMediaURL,
-        getStoreConfigData,
-        getAvailableStoresConfigData,
-        getPossibleTypes
-    }
-} = require('@magento/pwa-buildpack');
-const { DefinePlugin } = require('webpack');
+const { configureWebpack, graphQL } = require('@magento/pwa-buildpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+
+const {
+    getMediaURL,
+    getStoreConfigData,
+    getAvailableStoresConfigData,
+    getPossibleTypes
+} = graphQL;
+
+const { DefinePlugin } = webpack;
+const { LimitChunkCountPlugin } = webpack.optimize;
 
 module.exports = async env => {
     /**
@@ -91,5 +93,37 @@ module.exports = async env => {
         })
     ];
 
-    return config;
+    const serverConfig = Object.assign({}, config, {
+        target: 'node',
+        output: {
+            ...config.output,
+            filename: '[name].[hash].SERVER.js',
+            strictModuleExceptionHandling: true
+        },
+        devtool: false,
+        optimization: {
+            minimize: false
+        },
+        plugins: [...config.plugins]
+    });
+
+    // TODO: get LocalizationPlugin working in Node
+    const browserPlugins = new Set()
+        .add('HtmlWebpackPlugin')
+        .add('LocalizationPlugin')
+        .add('ServiceWorkerPlugin');
+
+    // remove browser-only plugins
+    serverConfig.plugins = serverConfig.plugins.filter(
+        plugin => !browserPlugins.has(plugin.constructor.name)
+    );
+
+    // add LimitChunkCountPlugin to avoid code splitting
+    serverConfig.plugins.push(
+        new LimitChunkCountPlugin({
+            maxChunks: 1
+        })
+    );
+
+    return [config, serverConfig];
 };

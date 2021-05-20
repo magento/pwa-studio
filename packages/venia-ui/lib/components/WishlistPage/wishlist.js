@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { ChevronDown, ChevronUp, MoreHorizontal } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import WishlistItems from './wishlistItems';
 import defaultClasses from './wishlist.css';
@@ -24,7 +24,7 @@ const Wishlist = props => {
     const talonProps = useWishlist();
     const { handleActionMenuClick, handleContentToggle, isOpen } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const contentClass = isOpen ? classes.content : classes.content_hidden;
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;

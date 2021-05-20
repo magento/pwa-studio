@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 
 import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Radio from '../../RadioGroup/radio';
 import paymentMethodOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.css';
@@ -22,7 +22,7 @@ const PaymentMethods = props => {
 
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = usePaymentMethods({
         ...paymentMethodOperations

@@ -6,13 +6,13 @@ import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
 import Logo from '@magento/venia-ui/lib/components/Logo';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './footer.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
 
 const Footer = props => {
     const { links } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useFooter();
 
     const { copyrightText } = talonProps;

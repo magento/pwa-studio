@@ -3,7 +3,7 @@ import { array, number, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import Button from '../../components/Button';
 import Gallery from '../../components/Gallery';
@@ -36,7 +36,7 @@ const CategoryContent = props => {
         totalPagesFromData
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const maybeFilterButtons = filters ? (
         <Button

@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
 import { bool, func, number, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './tile.css';
 
 const Tile = props => {
     const { isActive, number, onClick } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isActive ? classes.root_active : classes.root;
     const handleClick = useCallback(() => onClick(number), [onClick, number]);
 

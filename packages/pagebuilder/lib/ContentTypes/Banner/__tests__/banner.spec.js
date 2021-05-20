@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 import Banner from '../banner';
 import { act } from 'react-test-renderer';
-import { Link } from '@magento/venia-drivers';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(url => url),
+jest.mock('react-router-dom', () => ({
     Link: jest.fn(() => null),
     withRouter: jest.fn(arg => arg)
 }));
+
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock('@magento/venia-ui/lib/classify');
 jest.mock('jarallax', () => {

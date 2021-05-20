@@ -2,9 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Row from '../row';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(src => src)
-}));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock('jarallax', () => {
     return {

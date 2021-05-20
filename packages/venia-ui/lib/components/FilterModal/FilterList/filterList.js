@@ -2,7 +2,7 @@ import React, { Fragment, useMemo } from 'react';
 import { array, shape, string } from 'prop-types';
 import setValidator from '@magento/peregrine/lib/validators/set';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import FilterItem from './filterItem';
 import defaultClasses from './filterList.css';
 
@@ -10,7 +10,7 @@ const labels = new WeakMap();
 
 const FilterList = props => {
     const { filterApi, filterState, group, items } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     // memoize item creation
     // search value is not referenced, so this array is stable

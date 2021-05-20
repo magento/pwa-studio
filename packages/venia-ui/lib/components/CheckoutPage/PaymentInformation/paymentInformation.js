@@ -8,7 +8,7 @@ import CheckoutError from '@magento/peregrine/lib/talons/CheckoutPage/CheckoutEr
 
 import PaymentMethods from './paymentMethods';
 import Summary from './summary';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 import paymentInformationOperations from './paymentInformation.gql';
 
@@ -27,7 +27,7 @@ const PaymentInformation = props => {
         checkoutError
     } = props;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = usePaymentInformation({
         onSave,

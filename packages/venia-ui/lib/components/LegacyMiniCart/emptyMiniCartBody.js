@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, string, shape } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 
 import defaultClasses from './emptyMiniCartBody.css';
 import { useEmptyMiniCart } from '@magento/peregrine/lib/talons/LegacyMiniCart/useEmptyMiniCart';
@@ -18,7 +18,7 @@ const EmptyMiniCart = props => {
 
     const { handleClick } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <div className={classes.root}>

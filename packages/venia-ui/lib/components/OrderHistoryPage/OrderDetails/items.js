@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape, arrayOf, string, number } from 'prop-types';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import Item from './item';
 
@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 
 const Items = props => {
     const { items, imagesData } = props.data;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const itemsComponent = items.map(item => (
         <Item key={item.id} {...item} {...imagesData[item.product_sku]} />
