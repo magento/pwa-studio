@@ -34,6 +34,10 @@
     display: none;
 }
 
+.visibilityToggle_hidden {
+    display: none;
+}
+
 @media (max-width: 960px) {
     .root {
         padding: 1.5rem;
