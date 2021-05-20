@@ -25,6 +25,7 @@ const Button = props => {
         type,
         negative,
         disabled,
+        ariaLabel,
         ...restProps
     } = props;
     const classes = useStyle(defaultClasses, propClasses);
@@ -35,6 +36,7 @@ const Button = props => {
             className={rootClassName}
             type={type}
             disabled={disabled}
+            aria-label={ariaLabel}
             {...restProps}
         >
             <span className={classes.content}>{children}</span>

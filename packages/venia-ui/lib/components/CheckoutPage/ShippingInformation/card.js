@@ -13,7 +13,7 @@ const Card = props => {
         firstname,
         lastname,
         postcode,
-        region: { label: region },
+        region: { region },
         street,
         telephone
     } = shippingData;
@@ -58,7 +58,7 @@ Card.propTypes = {
         lastname: string.isRequired,
         postcode: string.isRequired,
         region: shape({
-            label: string.isRequired
+            region: string.isRequired
         }).isRequired,
         street: arrayOf(string).isRequired,
         telephone: string.isRequired

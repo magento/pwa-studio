@@ -33,7 +33,7 @@ const shippingData = {
     firstname: 'Philip',
     lastname: 'Fry',
     postcode: '10019',
-    region: { code: 'NY' },
+    region: { region_code: 'NY', region: 'New York', region_id: 12 },
     street: ['3000 57th Street', 'Suite 200'],
     telephone: '(123) 456-7890'
 };
@@ -103,7 +103,7 @@ test('handle submit fires mutation and callback', async () => {
     const { talonProps } = root.findByType('i').props;
     const { handleSubmit, isSaving } = talonProps;
 
-    await handleSubmit({ ...shippingData, country: 'US', region: 'NY' });
+    await handleSubmit({ ...shippingData, country: 'US' });
     expect(setShippingInformation).toHaveBeenCalled();
     expect(setShippingInformation.mock.calls[0][0]).toMatchSnapshot();
     expect(afterSubmit).toHaveBeenCalled();
@@ -173,4 +173,23 @@ test('calls the onCancel() callback', () => {
     talonProps.handleCancel();
 
     expect(onCancel).toHaveBeenCalled();
+});
+
+test('should call onSuccess on mutation success', () => {
+    const onSuccess = jest.fn();
+
+    createTestInstance(
+        <Component
+            onSuccess={onSuccess}
+            onCancel={jest.fn()}
+            afterSubmit={jest.fn()}
+            mutations={{}}
+            shippingData={shippingData}
+        />
+    );
+
+    const { onCompleted } = useMutation.mock.calls[0][1];
+    onCompleted();
+
+    expect(onSuccess).toHaveBeenCalled();
 });

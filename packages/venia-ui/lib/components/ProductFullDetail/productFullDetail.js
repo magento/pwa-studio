@@ -2,6 +2,7 @@ import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
+import { Info } from 'react-feather';
 
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
@@ -15,13 +16,9 @@ import FormError from '../FormError';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichText from '../RichText';
-
 import defaultClasses from './productFullDetail.css';
-import {
-    ADD_CONFIGURABLE_MUTATION,
-    ADD_SIMPLE_MUTATION
-} from './productFullDetail.gql';
 
+const WishlistButton = React.lazy(() => import('../Wishlist/WishlistButton'));
 const Options = React.lazy(() => import('../ProductOptions'));
 
 // Correlate a GQL error message to a field. GQL could return a longer error
@@ -41,11 +38,7 @@ const ERROR_FIELD_TO_MESSAGE_MAPPING = {
 const ProductFullDetail = props => {
     const { product } = props;
 
-    const talonProps = useProductFullDetail({
-        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
-        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
-        product
-    });
+    const talonProps = useProductFullDetail({ product });
 
     const {
         breadcrumbCategoryId,
@@ -53,8 +46,11 @@ const ProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isAddToCartDisabled,
+        isSupportedProductType,
         mediaGalleryEntries,
-        productDetails
+        productDetails,
+        shouldShowWishlistButton,
+        wishlistItemOptions
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -130,6 +126,33 @@ const ProductFullDetail = props => {
         }
     }
 
+    const maybeWishlistButton = shouldShowWishlistButton ? (
+        <Suspense fallback={null}>
+            <WishlistButton itemOptions={wishlistItemOptions} />
+        </Suspense>
+    ) : null;
+
+    const cartActionContent = isSupportedProductType ? (
+        <Button disabled={isAddToCartDisabled} priority="high" type="submit">
+            <FormattedMessage
+                id={'productFullDetail.cartAction'}
+                defaultMessage={'Add to Cart'}
+            />
+        </Button>
+    ) : (
+        <div className={classes.unavailableContainer}>
+            <Info />
+            <p>
+                <FormattedMessage
+                    id={'productFullDetail.unavailableProduct'}
+                    defaultMessage={
+                        'This product is currently unavailable for purchase.'
+                    }
+                />
+            </p>
+        </div>
+    );
+
     return (
         <Fragment>
             {breadcrumbs}
@@ -168,17 +191,9 @@ const ProductFullDetail = props => {
                         message={errors.get('quantity')}
                     />
                 </section>
-                <section className={classes.cartActions}>
-                    <Button
-                        disabled={isAddToCartDisabled}
-                        priority="high"
-                        type="submit"
-                    >
-                        <FormattedMessage
-                            id={'productFullDetail.cartAction'}
-                            defaultMessage={'Add to Cart'}
-                        />
-                    </Button>
+                <section className={classes.actions}>
+                    {cartActionContent}
+                    {maybeWishlistButton}
                 </section>
                 <section className={classes.description}>
                     <h2 className={classes.descriptionTitle}>
@@ -217,7 +232,8 @@ ProductFullDetail.propTypes = {
         quantity: string,
         quantityTitle: string,
         root: string,
-        title: string
+        title: string,
+        unavailableContainer: string
     }),
     product: shape({
         __typename: string,

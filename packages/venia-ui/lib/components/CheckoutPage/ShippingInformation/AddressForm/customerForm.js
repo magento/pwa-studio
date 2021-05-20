@@ -19,12 +19,19 @@ import CustomerFormOperations from './customerForm.gql';
 import LoadingIndicator from '../../../LoadingIndicator';
 
 const CustomerForm = props => {
-    const { afterSubmit, classes: propClasses, onCancel, shippingData } = props;
+    const {
+        afterSubmit,
+        classes: propClasses,
+        onCancel,
+        onSuccess,
+        shippingData
+    } = props;
 
     const talonProps = useCustomerForm({
         afterSubmit,
         ...CustomerFormOperations,
         onCancel,
+        onSuccess,
         shippingData
     });
     const {
@@ -220,7 +227,7 @@ const CustomerForm = props => {
                         validate={isRequired}
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
-                        optionValueKey="id"
+                        optionValueKey={'id'}
                     />
                 </div>
                 <div className={classes.postcode}>
@@ -256,7 +263,7 @@ export default CustomerForm;
 CustomerForm.defaultProps = {
     shippingData: {
         country: {
-            code: 'US'
+            code: DEFAULT_COUNTRY_CODE
         },
         region: {
             id: null

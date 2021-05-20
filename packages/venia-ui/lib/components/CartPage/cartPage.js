@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { Check } from 'react-feather';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 import { useStyle } from '@magento/venia-ui/lib/classify';
+import { useToasts } from '@magento/peregrine';
 
+import Icon from '../Icon';
 import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
@@ -11,6 +14,8 @@ import ProductListing from './ProductListing';
 import PriceSummary from './PriceSummary';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
+
+const CheckIcon = <Icon size={20} src={Check} />;
 
 /**
  * Structural page component for the shopping cart.
@@ -40,19 +45,33 @@ const CartPage = props => {
         cartItems,
         hasItems,
         isCartUpdating,
+        fetchCartDetails,
+        onAddToWishlistSuccess,
         setIsCartUpdating,
-        shouldShowLoadingIndicator
+        shouldShowLoadingIndicator,
+        wishlistSuccessProps
     } = talonProps;
-    const { formatMessage } = useIntl();
 
     const classes = useStyle(defaultClasses, props.classes);
+    const { formatMessage } = useIntl();
+    const [, { addToast }] = useToasts();
+
+    useEffect(() => {
+        if (wishlistSuccessProps) {
+            addToast({ ...wishlistSuccessProps, icon: CheckIcon });
+        }
+    }, [addToast, wishlistSuccessProps]);
 
     if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;
     }
 
     const productListing = hasItems ? (
-        <ProductListing setIsCartUpdating={setIsCartUpdating} />
+        <ProductListing
+            onAddToWishlistSuccess={onAddToWishlistSuccess}
+            setIsCartUpdating={setIsCartUpdating}
+            fetchCartDetails={fetchCartDetails}
+        />
     ) : (
         <h3>
             <FormattedMessage
@@ -65,6 +84,7 @@ const CartPage = props => {
     const priceAdjustments = hasItems ? (
         <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
     ) : null;
+
     const priceSummary = hasItems ? (
         <PriceSummary isUpdating={isCartUpdating} />
     ) : null;

@@ -105,3 +105,17 @@ test('resets value on country change', () => {
 
     expect(mockReset).toHaveBeenCalled();
 });
+
+test('should return loading state if data is not available', () => {
+    useQuery.mockReturnValueOnce({
+        data: null,
+        error: false,
+        loading: false
+    });
+
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps).toMatchSnapshot();
+});

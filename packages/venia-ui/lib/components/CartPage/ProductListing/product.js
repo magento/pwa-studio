@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { Info } from 'react-feather';
 import { gql } from '@apollo/client';
 import { Link } from 'react-router-dom';
+import { useToasts } from '@magento/peregrine';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import Price from '@magento/venia-ui/lib/components/Price';
@@ -12,13 +14,25 @@ import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Quantity from './quantity';
 import Section from '../../LegacyMiniCart/section';
 import Image from '../../Image';
+import Icon from '../../Icon';
 import defaultClasses from './product.css';
 import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
+
 const IMAGE_SIZE = 100;
 
+const InfoIcon = <Icon size={20} src={Info} />;
+
 const Product = props => {
-    const { item, setActiveEditItem, setIsCartUpdating } = props;
+    const {
+        item,
+        onAddToWishlistSuccess,
+        setActiveEditItem,
+        setIsCartUpdating,
+        fetchCartDetails
+    } = props;
+
+    const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
     const talonProps = useProduct({
         item,
@@ -26,19 +40,22 @@ const Product = props => {
             removeItemMutation: REMOVE_ITEM_MUTATION,
             updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
         },
+        onAddToWishlistSuccess,
         setActiveEditItem,
-        setIsCartUpdating
+        setIsCartUpdating,
+        fetchCartDetails
     });
 
     const {
         errorMessage,
         handleEditItem,
         handleRemoveFromCart,
-        handleToggleFavorites,
+        handleSaveForLater,
         handleUpdateItemQuantity,
         isEditable,
-        isFavorite,
-        product
+        loginToastProps,
+        product,
+        isProductUpdating
     } = talonProps;
 
     const {
@@ -55,15 +72,9 @@ const Product = props => {
 
     const classes = useStyle(defaultClasses, props.classes);
 
-    const favoriteActionSection = isFavorite
-        ? formatMessage({
-              id: 'product.removeFromFavorites',
-              defaultMessage: 'Remove from favorites'
-          })
-        : formatMessage({
-              id: 'product.moveToFavorites',
-              defaultMessage: 'Move to favorites'
-          });
+    const itemClassName = isProductUpdating
+        ? classes.item_disabled
+        : classes.item;
 
     const editItemSection = isEditable ? (
         <Section
@@ -92,10 +103,16 @@ const Product = props => {
               })
             : '';
 
+    useEffect(() => {
+        if (loginToastProps) {
+            addToast({ ...loginToastProps, icon: InfoIcon });
+        }
+    }, [addToast, loginToastProps]);
+
     return (
         <li className={classes.root}>
             <span className={classes.errorText}>{errorMessage}</span>
-            <div className={classes.item}>
+            <div className={itemClassName}>
                 <Link to={itemLink} className={classes.imageContainer}>
                     <Image
                         alt={name}
@@ -142,15 +159,6 @@ const Product = props => {
                     }}
                     disabled={true}
                 >
-                    <Section
-                        text={favoriteActionSection}
-                        onClick={handleToggleFavorites}
-                        icon="Heart"
-                        isFilled={isFavorite}
-                        classes={{
-                            text: classes.sectionText
-                        }}
-                    />
                     {editItemSection}
                     <Section
                         text={formatMessage({
@@ -159,6 +167,17 @@ const Product = props => {
                         })}
                         onClick={handleRemoveFromCart}
                         icon="Trash"
+                        classes={{
+                            text: classes.sectionText
+                        }}
+                    />
+                    <Section
+                        text={formatMessage({
+                            id: 'product.saveForLater',
+                            defaultMessage: 'Save for later'
+                        })}
+                        onClick={handleSaveForLater}
+                        icon="Heart"
                         classes={{
                             text: classes.sectionText
                         }}

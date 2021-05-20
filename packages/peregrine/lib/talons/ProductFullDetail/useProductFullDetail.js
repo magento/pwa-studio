@@ -1,11 +1,14 @@
 import { useCallback, useState, useMemo } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
+import mergeOperations from '../../util/shallowMerge';
+import defaultOperations from './productFullDetail.gql';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -148,8 +151,9 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 
 /**
- * @param {GraphQLQuery} props.addConfigurableProductToCartMutation - configurable product mutation
- * @param {GraphQLQuery} props.addSimpleProductToCartMutation - configurable product mutation
+ * @param {GraphQLDocument} props.addConfigurableProductToCartMutation - configurable product mutation
+ * @param {GraphQLDocument} props.addSimpleProductToCartMutation - configurable product mutation
+ * @param {Object.<string, GraphQLDocument>} props.operations - collection of operation overrides merged into defaults
  * @param {Object} props.product - the product, see RootComponents/Product
  *
  * @returns {{
@@ -159,6 +163,7 @@ const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
  *  handleSelectionChange: func,
  *  handleSetQuantity: func,
  *  isAddToCartDisabled: boolean,
+ *  isSupportedProductType: boolean,
  *  mediaGalleryEntries: array,
  *  productDetails: object,
  *  quantity: number
@@ -171,6 +176,12 @@ export const useProductFullDetail = props => {
         product
     } = props;
 
+    const hasDeprecatedOperationProp = !!(
+        addConfigurableProductToCartMutation || addSimpleProductToCartMutation
+    );
+
+    const operations = mergeOperations(defaultOperations, props.operations);
+
     const productType = product.__typename;
 
     const isSupportedProductType = SUPPORTED_PRODUCT_TYPES.includes(
@@ -178,6 +189,14 @@ export const useProductFullDetail = props => {
     );
 
     const [{ cartId }] = useCartContext();
+    const [{ isSignedIn }] = useUserContext();
+
+    const { data: storeConfigData } = useQuery(
+        operations.getWishlistConfigQuery,
+        {
+            fetchPolicy: 'cache-and-network'
+        }
+    );
 
     const [
         addConfigurableProductToCart,
@@ -185,12 +204,23 @@ export const useProductFullDetail = props => {
             error: errorAddingConfigurableProduct,
             loading: isAddConfigurableLoading
         }
-    ] = useMutation(addConfigurableProductToCartMutation);
+    ] = useMutation(
+        addConfigurableProductToCartMutation ||
+            operations.addConfigurableProductToCartMutation
+    );
 
     const [
         addSimpleProductToCart,
         { error: errorAddingSimpleProduct, loading: isAddSimpleLoading }
-    ] = useMutation(addSimpleProductToCartMutation);
+    ] = useMutation(
+        addSimpleProductToCartMutation ||
+            operations.addSimpleProductToCartMutation
+    );
+
+    const [
+        addProductToCart,
+        { error: errorAddingProductToCart, loading: isAddProductLoading }
+    ] = useMutation(operations.addProductToCartMutation);
 
     const breadcrumbCategoryId = useMemo(
         () => getBreadcrumbCategoryId(product.categories),
@@ -221,58 +251,124 @@ export const useProductFullDetail = props => {
         [product, optionCodes, optionSelections]
     );
 
+    // The map of ids to values (and their uids)
+    // For example:
+    // { "179" => [{ uid: "abc", value_index: 1 }, { uid: "def", value_index: 2 }]}
+    const attributeIdToValuesMap = useMemo(() => {
+        const map = new Map();
+        // For simple items, this will be an empty map.
+        const options = product.configurable_options || [];
+        for (const { attribute_id, values } of options) {
+            map.set(attribute_id, values);
+        }
+        return map;
+    }, [product.configurable_options]);
+
+    // An array of selected option uids. Useful for passing to mutations.
+    // For example:
+    // ["abc", "def"]
+    const selectedOptionsArray = useMemo(() => {
+        const selectedOptions = [];
+
+        optionSelections.forEach((value, key) => {
+            const values = attributeIdToValuesMap.get(key);
+
+            const selectedValue = values.find(
+                item => item.value_index === value
+            );
+
+            if (selectedValue) {
+                selectedOptions.push(selectedValue.uid);
+            }
+        });
+        return selectedOptions;
+    }, [attributeIdToValuesMap, optionSelections]);
+
     const handleAddToCart = useCallback(
         async formValues => {
             const { quantity } = formValues;
-            const payload = {
-                item: product,
-                productType,
-                quantity
-            };
 
-            if (isProductConfigurable(product)) {
-                appendOptionsToPayload(payload, optionSelections, optionCodes);
-            }
-
-            if (isSupportedProductType) {
-                const variables = {
-                    cartId,
-                    parentSku: payload.parentSku,
-                    product: payload.item,
-                    quantity: payload.quantity,
-                    sku: payload.item.sku
+            /*
+                @deprecated in favor of general addProductsToCart mutation. Will support until the next MAJOR.
+             */
+            if (hasDeprecatedOperationProp) {
+                const payload = {
+                    item: product,
+                    productType,
+                    quantity
                 };
-                // Use the proper mutation for the type.
-                if (productType === 'SimpleProduct') {
-                    try {
-                        await addSimpleProductToCart({
-                            variables
-                        });
-                    } catch {
-                        return;
+
+                if (isProductConfigurable(product)) {
+                    appendOptionsToPayload(
+                        payload,
+                        optionSelections,
+                        optionCodes
+                    );
+                }
+
+                if (isSupportedProductType) {
+                    const variables = {
+                        cartId,
+                        parentSku: payload.parentSku,
+                        product: payload.item,
+                        quantity: payload.quantity,
+                        sku: payload.item.sku
+                    };
+                    // Use the proper mutation for the type.
+                    if (productType === 'SimpleProduct') {
+                        try {
+                            await addSimpleProductToCart({
+                                variables
+                            });
+                        } catch {
+                            return;
+                        }
+                    } else if (productType === 'ConfigurableProduct') {
+                        try {
+                            await addConfigurableProductToCart({
+                                variables
+                            });
+                        } catch {
+                            return;
+                        }
                     }
-                } else if (productType === 'ConfigurableProduct') {
-                    try {
-                        await addConfigurableProductToCart({
-                            variables
-                        });
-                    } catch {
-                        return;
-                    }
+                } else {
+                    console.error(
+                        'Unsupported product type. Cannot add to cart.'
+                    );
                 }
             } else {
-                console.error('Unsupported product type. Cannot add to cart.');
+                const variables = {
+                    cartId,
+                    product: {
+                        sku: product.sku,
+                        quantity
+                    }
+                };
+
+                if (selectedOptionsArray.length) {
+                    variables.product.selected_options = selectedOptionsArray;
+                }
+
+                try {
+                    await addProductToCart({ variables });
+                } catch {
+                    return;
+                }
             }
         },
         [
             addConfigurableProductToCart,
+            addProductToCart,
             addSimpleProductToCart,
             cartId,
+            hasDeprecatedOperationProp,
             isSupportedProductType,
             optionCodes,
             optionSelections,
             product,
-            productType
+            productType,
+            selectedOptionsArray
         ]
     );
 
@@ -304,10 +400,28 @@ export const useProductFullDetail = props => {
         () =>
             deriveErrorMessage([
                 errorAddingSimpleProduct,
-                errorAddingConfigurableProduct
+                errorAddingConfigurableProduct,
+                errorAddingProductToCart
             ]),
-        [errorAddingConfigurableProduct, errorAddingSimpleProduct]
+        [
+            errorAddingConfigurableProduct,
+            errorAddingProductToCart,
+            errorAddingSimpleProduct
+        ]
     );
+
+    const wishlistItemOptions = useMemo(() => {
+        const options = {
+            quantity: 1,
+            sku: product.sku
+        };
+
+        if (productType === 'ConfigurableProduct') {
+            options.selected_options = selectedOptionsArray;
+        }
+
+        return options;
+    }, [product, productType, selectedOptionsArray]);
 
     return {
         breadcrumbCategoryId,
@@ -315,11 +429,17 @@ export const useProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         isAddToCartDisabled:
-            !isSupportedProductType ||
             isMissingOptions ||
             isAddConfigurableLoading ||
-            isAddSimpleLoading,
+            isAddSimpleLoading ||
+            isAddProductLoading,
+        isSupportedProductType,
         mediaGalleryEntries,
-        productDetails
+        shouldShowWishlistButton:
+            isSignedIn &&
+            storeConfigData &&
+            !!storeConfigData.storeConfig.magento_wishlist_general_is_enabled,
+        productDetails,
+        wishlistItemOptions
     };
 };

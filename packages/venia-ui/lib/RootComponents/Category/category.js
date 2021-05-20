@@ -33,11 +33,6 @@ const Category = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     if (!categoryData) {
-        // Show the loading indicator until data has been fetched.
-        if (loading) {
-            return fullPageLoadingIndicator;
-        }
-
         if (error && pageControl.currentPage === 1) {
             if (process.env.NODE_ENV !== 'production') {
                 console.error(error);
@@ -54,6 +49,7 @@ const Category = props => {
                 categoryId={id}
                 classes={classes}
                 data={categoryData}
+                isLoading={loading}
                 pageControl={pageControl}
                 sortProps={sortProps}
                 pageSize={pageSize}

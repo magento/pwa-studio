@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 import { useFilterFooter } from '@magento/peregrine/lib/talons/FilterModal';
 
@@ -9,19 +9,28 @@ import defaultClasses from './filterFooter.css';
 
 const FilterFooter = props => {
     const { applyFilters, hasFilters, isOpen } = props;
+    const { formatMessage } = useIntl();
     const { touched } = useFilterFooter({
         hasFilters,
         isOpen
     });
+
     const classes = useStyle(defaultClasses, props.classes);
+    const buttonLabel = formatMessage({
+        id: 'filterFooter.results',
+        defaultMessage: 'See Results'
+    });
 
     return (
         <div className={classes.root}>
-            <Button disabled={!touched} onClick={applyFilters} priority="high">
-                <FormattedMessage
-                    id={'filterFooter.results'}
-                    defaultMessage={'See Results'}
-                />
+            <Button
+                disabled={!touched}
+                onClick={applyFilters}
+                aria-label={buttonLabel}
+                aria-disabled={!touched}
+                priority="high"
+            >
+                {buttonLabel}
             </Button>
         </div>
     );

@@ -11,7 +11,7 @@ import AddressForm from './AddressForm';
 import defaultClasses from './editModal.css';
 
 const EditModal = props => {
-    const { classes: propClasses, shippingData } = props;
+    const { classes: propClasses, shippingData, onSuccess } = props;
     const talonProps = useEditModal();
     const { handleClose, isOpen } = talonProps;
 
@@ -21,6 +21,7 @@ const EditModal = props => {
     // Unmount the form to force a reset back to original values on close
     const bodyElement = isOpen ? (
         <AddressForm
+            onSuccess={onSuccess}
             afterSubmit={handleClose}
             onCancel={handleClose}
             shippingData={shippingData}

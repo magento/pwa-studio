@@ -14,7 +14,9 @@ const CmsBlockGroup = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const { loading, error, data } = useQuery(GET_CMS_BLOCKS, {
-        variables: { identifiers }
+        variables: { identifiers },
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
     });
 
     if (!data) {

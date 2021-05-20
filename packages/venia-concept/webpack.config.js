@@ -81,7 +81,10 @@ module.exports = async env => {
                 ? JSON.stringify(process.env.STORE_VIEW_CODE)
                 : JSON.stringify(storeConfigData.code),
             AVAILABLE_STORE_VIEWS: JSON.stringify(availableStores),
-            DEFAULT_LOCALE: JSON.stringify(global.LOCALE)
+            DEFAULT_LOCALE: JSON.stringify(global.LOCALE),
+            DEFAULT_COUNTRY_CODE: JSON.stringify(
+                process.env.DEFAULT_COUNTRY_CODE || 'US'
+            )
         }),
         new HTMLWebpackPlugin({
             filename: 'index.html',

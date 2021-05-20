@@ -9,7 +9,7 @@ import defaultClasses from './filterList.css';
 const labels = new WeakMap();
 
 const FilterList = props => {
-    const { filterApi, filterState, group, items } = props;
+    const { filterApi, filterState, group, items, isExpanded } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     // memoize item creation
@@ -28,6 +28,7 @@ const FilterList = props => {
                             filterState={filterState}
                             group={group}
                             item={item}
+                            isExpanded={isExpanded}
                         />
                     </li>
                 );
@@ -38,7 +39,7 @@ const FilterList = props => {
 
                 return element;
             }),
-        [classes, filterApi, filterState, group, items]
+        [classes, filterApi, filterState, group, items, isExpanded]
     );
 
     return (

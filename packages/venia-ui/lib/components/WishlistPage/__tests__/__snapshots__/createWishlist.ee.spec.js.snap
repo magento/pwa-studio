@@ -73,7 +73,7 @@ exports[`renders correctly 1`] = `
     formProps={
       Object {
         "initialValues": Object {
-          "sharing_code": "private",
+          "visibility": "PRIVATE",
         },
       }
     }
@@ -81,12 +81,21 @@ exports[`renders correctly 1`] = `
     isOpen={false}
     onCancel={[MockFunction handleHideModal]}
     onConfirm={[MockFunction handleCreateList]}
-    shouldUnmountOnHide={false}
+    shouldUnmountOnHide={true}
     title="New Favorites List"
   >
     <div
       className="form"
     >
+      <div
+        className="root"
+      >
+        <span
+          className="errorMessage"
+        >
+          Form Error
+        </span>
+      </div>
       <div
         className="root"
       >
@@ -139,7 +148,7 @@ exports[`renders correctly 1`] = `
             onBlur={[Function]}
             onChange={[Function]}
             type="radio"
-            value="private"
+            value="PRIVATE"
           />
           <span
             className="icon"
@@ -177,7 +186,7 @@ exports[`renders correctly 1`] = `
             onBlur={[Function]}
             onChange={[Function]}
             type="radio"
-            value="public"
+            value="PUBLIC"
           />
           <span
             className="icon"

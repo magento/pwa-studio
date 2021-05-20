@@ -4,6 +4,15 @@
 
 Magento PWA Studio is a collection of tools that lets developers build complex Progressive Web Applications on top of Magento 2 stores.
 
+## Contributions
+
+Are you interested in contributing to the PWA Studio project?
+Check out the [community wiki][] to learn how to contribute to PWA Studio.
+
+If you are looking for an issue to work on, visit our [community backlog board][] and look at the **Ready for Development** column.
+
+For more information about contributing to this repository, see the [Contribution guide][].
+
 ## Useful links
 
 [PWA Studio documentation site][documentation site] - 
@@ -50,18 +59,11 @@ This repository includes the following packages:
 
 If you have an issue that cannot be resolved, please [create an issue][].
 
-## Contributions
-
-Are you interested in contributing to the PWA Studio project?
-Check out the [community wiki][] to learn how to contribute to PWA Studio.
-
-If you are looking for an issue to work on, visit our [backlog board][] and look at the **Good First Issue** column.
-
-For more information about contributing to this repository, see the [Contribution guide][].
-
 ### Join the conversation
 
 If you have any project questions, concerns, or contribution ideas, join our [#pwa slack channel][]!
+
+Here you can find a [public calendar][] with events that Magento PWA team runs with Community. You can also [add that calendar][] to your calendar app to stay up to date with the changes and get notifications.
 
 ### Community Maintainers
 
@@ -127,7 +129,9 @@ We would like to recognize the following community members for their efforts on 
 [tools and libraries]: https://magento.github.io/pwa-studio/technologies/tools-libraries/
 [venia storefront setup]: https://magento.github.io/pwa-studio/venia-pwa-concept/setup/
 [project coding standards and conventions]: https://github.com/magento/pwa-studio/wiki/Project-coding-standards-and-conventions
-[backlog board]: https://github.com/magento/pwa-studio/projects/1
+[community backlog board]: https://github.com/magento/pwa-studio/projects/1
 [#pwa slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2
 [babel]: https://babeljs.io/
 [venia]: https://venia.magento.com/
+[public calendar]: https://opensource.magento.com/community-calendar
+[add that calendar]: https://calendar.google.com/calendar/ical/sn3me3pduhd92hhk9s7frkn57o%40group.calendar.google.com/public/basic.ics

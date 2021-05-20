@@ -1,5 +1,5 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import { createTestInstance, useToasts } from '@magento/peregrine';
 
 import Product from '../product';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
@@ -68,10 +68,9 @@ test('renders simple product correctly', () => {
         errorMessage: undefined,
         handleEditItem: jest.fn(),
         handleRemoveFromCart: jest.fn(),
-        handleToggleFavorites: jest.fn(),
+        handleSaveForLater: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isEditable: false,
-        isFavorite: false,
         product: {
             currency: 'USD',
             image: {},
@@ -81,7 +80,9 @@ test('renders simple product correctly', () => {
             unitPrice: 1,
             urlKey: 'unittest',
             urlSuffix: '.html'
-        }
+        },
+        loginToastProps: null,
+        isProductUpdating: false
     });
     const tree = createTestInstance(<Product {...props} />);
 
@@ -93,10 +94,9 @@ test('renders out of stock product', () => {
         errorMessage: undefined,
         handleEditItem: jest.fn(),
         handleRemoveFromCart: jest.fn(),
-        handleToggleFavorites: jest.fn(),
+        handleSaveForLater: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isEditable: false,
-        isFavorite: false,
         product: {
             currency: 'USD',
             image: {},
@@ -107,7 +107,9 @@ test('renders out of stock product', () => {
             unitPrice: 55,
             urlKey: 'popular-product',
             urlSuffix: ''
-        }
+        },
+        loginToastProps: null,
+        isProductUpdating: false
     });
     const tree = createTestInstance(<Product {...props} />);
 
@@ -119,10 +121,9 @@ test('renders configurable product with options', () => {
         errorMessage: undefined,
         handleEditItem: jest.fn(),
         handleRemoveFromCart: jest.fn(),
-        handleToggleFavorites: jest.fn(),
+        handleSaveForLater: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isEditable: true,
-        isFavorite: false,
         product: {
             currency: 'USD',
             image: {},
@@ -141,10 +142,54 @@ test('renders configurable product with options', () => {
             ],
             quantity: 1,
             unitPrice: 1
-        }
+        },
+        loginToastProps: null,
+        isProductUpdating: false
     });
 
     const tree = createTestInstance(<Product {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders toast if wishlistSuccessProps is not falsy', () => {
+    useProduct.mockReturnValueOnce({
+        errorMessage: undefined,
+        handleEditItem: jest.fn(),
+        handleRemoveFromCart: jest.fn(),
+        handleSaveForLater: jest.fn(),
+        handleUpdateItemQuantity: jest.fn(),
+        isEditable: false,
+        product: {
+            currency: 'USD',
+            image: {},
+            name: '',
+            options: [],
+            quantity: 1,
+            unitPrice: 1,
+            urlKey: 'unittest',
+            urlSuffix: '.html'
+        },
+        loginToastProps: {
+            message: 'Successfully added an item to the wishlist'
+        },
+        isProductUpdating: false
+    });
+
+    const addToast = jest.fn();
+    useToasts.mockReturnValueOnce([{}, { addToast }]);
+
+    createTestInstance(<Product {...props} />);
+
+    expect(addToast.mock.calls[0]).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "icon": <Icon
+              size={20}
+              src={[Function]}
+            />,
+            "message": "Successfully added an item to the wishlist",
+          },
+        ]
+    `);
 });

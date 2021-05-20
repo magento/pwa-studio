@@ -35,6 +35,15 @@ const deleteActiveCacheEntry = async (client, predicate) => {
         }
     });
 
+    // Remove from ROOT_QUERY cache.
+    if (client.cache.data.data.ROOT_QUERY) {
+        Object.keys(client.cache.data.data.ROOT_QUERY).forEach(key => {
+            if (predicate(key)) {
+                client.cache.data.delete('ROOT_QUERY', key);
+            }
+        });
+    }
+
     // Immediately persist the cache changes to the active cache storage.
     if (client.persistor) {
         await client.persistor.persist();

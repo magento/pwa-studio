@@ -29,10 +29,11 @@ const initializingContents = (
 );
 
 const ShippingMethod = props => {
-    const { onSave, pageIsUpdating, setPageIsUpdating } = props;
+    const { onSave, onSuccess, pageIsUpdating, setPageIsUpdating } = props;
 
     const talonProps = useShippingMethod({
         onSave,
+        onSuccess,
         setPageIsUpdating,
         ...shippingMethodOperations
     });
@@ -144,6 +145,7 @@ ShippingMethod.propTypes = {
         root: string
     }),
     onSave: func.isRequired,
+    onSuccess: func.isRequired,
     pageIsUpdating: bool,
     setPageIsUpdating: func.isRequired
 };

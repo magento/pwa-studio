@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 /**
  * @function
@@ -12,12 +12,7 @@ export const useWishlist = () => {
         setIsOpen(currentValue => !currentValue);
     };
 
-    const handleActionMenuClick = useCallback(() => {
-        console.log('To be handled by PWA-632');
-    }, []);
-
     return {
-        handleActionMenuClick,
         handleContentToggle,
         isOpen
     };
@@ -32,7 +27,6 @@ export const useWishlist = () => {
  *
  * @typedef {Object} WishListProps
  *
- * @property {Function} handleActionMenuClick Callback to handle action menu clicks
  * @property {Function} handleContentToggle Callback to handle list expand toggle
  * @property {Boolean} isOpen Boolean which represents if the content is expanded or not
  */

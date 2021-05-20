@@ -58,7 +58,7 @@ Toast.propTypes = {
     onDismiss: func,
     handleAction: func,
     handleDismiss: func,
-    type: oneOf(['info', 'warning', 'error']).isRequired
+    type: oneOf(['info', 'warning', 'error', 'success']).isRequired
 };
 
 export default Toast;

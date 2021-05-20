@@ -126,7 +126,7 @@ export const useBillingAddress = props => {
 
     const shippingAddressCountry = shippingAddressData
         ? shippingAddressData.cart.shippingAddresses[0].country.code
-        : 'US';
+        : DEFAULT_COUNTRY_CODE;
     const isBillingAddressSame = formState.values.isBillingAddressSame;
 
     const initialValues = useMemo(() => {
@@ -270,12 +270,13 @@ export const useBillingAddress = props => {
                     }
                     setIsBillingAddressSameInCache();
                 } else {
-                    setErrors(formState.errors);
                     throw new Error('Errors in the billing address form');
                 }
             }
         } catch (err) {
-            console.error(err);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             onBillingAddressChangedError();
         }
     }, [
@@ -316,7 +317,9 @@ export const useBillingAddress = props => {
                 throw new Error('Billing address mutation failed');
             }
         } catch (err) {
-            console.error(err);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(err);
+            }
             onBillingAddressChangedError();
         }
     }, [

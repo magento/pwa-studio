@@ -31,19 +31,3 @@
     line-height: 1.375rem;
     text-align: center;
 }
-
-.sortContainer {
-    color: rgb(var(--venia-global-color-text-alt));
-    text-align: center;
-    font-size: 0.875rem;
-    padding-bottom: 1rem;
-}
-
-.sortText {
-    font-weight: 600;
-}
-
-.filterButton {
-    composes: root_lowPriority from '../../components/Button/button.css';
-    min-width: 6.25rem;
-}

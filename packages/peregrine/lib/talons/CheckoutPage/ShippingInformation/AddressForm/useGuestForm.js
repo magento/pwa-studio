@@ -8,23 +8,27 @@ export const useGuestForm = props => {
         afterSubmit,
         mutations: { setGuestShippingMutation },
         onCancel,
+        onSuccess,
         shippingData
     } = props;
 
     const [{ cartId }] = useCartContext();
 
     const [setGuestShipping, { error, loading }] = useMutation(
-        setGuestShippingMutation
+        setGuestShippingMutation,
+        {
+            onCompleted: () => {
+                onSuccess();
+            }
+        }
     );
 
-    const { country, region } = shippingData;
+    const { country } = shippingData;
     const { code: countryCode } = country;
-    const { code: regionCode } = region;
 
     const initialValues = {
         ...shippingData,
-        country: countryCode,
-        region: regionCode
+        country: countryCode
     };
 
     // Simple heuristic to indicate form was submitted prior to this render
@@ -32,7 +36,7 @@ export const useGuestForm = props => {
 
     const handleSubmit = useCallback(
         async formValues => {
-            const { country, email, ...address } = formValues;
+            const { country, email, region, ...address } = formValues;
             try {
                 await setGuestShipping({
                     variables: {
@@ -40,6 +44,8 @@ export const useGuestForm = props => {
                         email,
                         address: {
                             ...address,
+                            // region_id is used for field select and region is used for field input
+                            region: region.region_id || region.region,
                             country_code: country
                         }
                     }

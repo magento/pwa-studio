@@ -334,14 +334,15 @@ export const createAccount = ({ history }) => async (dispatch, getState) => {
  */
 export const formatAddress = (address = {}, countries = []) => {
     const { region_code } = address;
+    const countryCode = DEFAULT_COUNTRY_CODE;
 
-    const usa = countries.find(({ id }) => id === 'US');
-    const { available_regions: regions } = usa;
+    const country = countries.find(({ id }) => id === countryCode);
+    const { available_regions: regions } = country;
 
     const region = regions.find(({ code }) => code === region_code);
 
     return {
-        country_id: 'US',
+        country_id: countryCode,
         region_id: region.id,
         region_code: region.code,
         region: region.name,

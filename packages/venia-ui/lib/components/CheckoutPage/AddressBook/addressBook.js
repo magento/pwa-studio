@@ -25,11 +25,17 @@ const errorIcon = (
 );
 
 const AddressBook = props => {
-    const { activeContent, classes: propClasses, toggleActiveContent } = props;
+    const {
+        activeContent,
+        classes: propClasses,
+        toggleActiveContent,
+        onSuccess
+    } = props;
 
     const talonProps = useAddressBook({
         ...AddressBookOperations,
-        toggleActiveContent
+        toggleActiveContent,
+        onSuccess
     });
 
     const {
@@ -158,7 +164,7 @@ const AddressBook = props => {
                 <div className={classes.content}>{addressElements}</div>
             </div>
             <Suspense fallback={null}>
-                <EditModal shippingData={activeAddress} />
+                <EditModal onSuccess={onSuccess} shippingData={activeAddress} />
             </Suspense>
         </Fragment>
     );
@@ -178,5 +184,6 @@ AddressBook.propTypes = {
         addIcon: string,
         addText: string
     }),
+    onSuccess: func.isRequired,
     toggleActiveContent: func.isRequired
 };
