@@ -3,12 +3,12 @@ import { InMemoryCache } from '@apollo/client';
 import { MockedProvider } from '@apollo/client/testing';
 import { renderHook } from '@testing-library/react-hooks';
 
-import typePolicies from '../../../Apollo/policies';
+import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 import { mockGetWishlistConfig } from '../__fixtures__/apolloMocks';
-import { useGallery } from '../useGallery';
+import { useCarousel } from '../useCarousel';
 
 jest.mock(
-    '../../../hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
+    '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
     () => ({
         useCustomerWishlistSkus: jest.fn()
     })
@@ -28,7 +28,7 @@ const renderHookWithProviders = ({
         </MockedProvider>
     );
 
-    return renderHook(useGallery, { wrapper, ...renderHookOptions });
+    return renderHook(useCarousel, { wrapper, ...renderHookOptions });
 };
 
 test('returns store config', async () => {
