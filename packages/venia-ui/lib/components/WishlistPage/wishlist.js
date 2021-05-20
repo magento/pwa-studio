@@ -82,7 +82,7 @@ const Wishlist = props => {
                     <ActionMenu id={id} name={name} visibility={visibility} />
                     <button
                         className={visibilityToggleClass}
-                        toggleonClick={handleContentToggle}
+                        onClick={handleContentToggle}
                         type="button"
                     >
                         {contentToggleIcon}

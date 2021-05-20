@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders a single wishlist without visibility toggle 1`] = `
+<div
+  className="root"
+>
+  <h1
+    className="heading"
+  >
+    <mock-FormattedMessage
+      defaultMessage="Favorites Lists"
+      id="wishlistPage.headingText"
+    />
+  </h1>
+  <Wishlist
+    data={
+      Object {
+        "id": 1,
+        "name": "Favorites",
+      }
+    }
+    shouldRenderVisibilityToggle={false}
+  />
+  <CreateWishlist />
+</div>
+`;
+
 exports[`renders disabled feature error 1`] = `
 <div
   className="root"
@@ -151,6 +176,7 @@ exports[`renders wishlist data 1`] = `
         "name": "Favorites",
       }
     }
+    shouldRenderVisibilityToggle={true}
   />
   <Wishlist
     data={
@@ -159,6 +185,7 @@ exports[`renders wishlist data 1`] = `
         "name": "Registry",
       }
     }
+    shouldRenderVisibilityToggle={true}
   />
   <CreateWishlist />
 </div>
