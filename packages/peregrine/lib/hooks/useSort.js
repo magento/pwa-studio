@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
+// TODO: Read the default/initial sort from config.
 const defaultSort = {
-    sortText: 'Best Match',
-    sortId: 'sortItem.relevance',
-    sortAttribute: 'relevance',
-    sortDirection: 'DESC'
+    sortText: 'Position',
+    sortId: 'sortItem.position',
+    sortAttribute: 'position',
+    sortDirection: 'ASC'
 };
 
 /**
