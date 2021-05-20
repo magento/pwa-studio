@@ -12,6 +12,10 @@ import {
     productPage as productPageActions,
     wishlist as wishlistActions
 } from '../../../actions';
+import {
+    myAccountMenu as myAccountMenuAssertions,
+    wishlist as wishlistAssertions
+} from '../../../assertions';
 
 const {
     firstName,
@@ -25,15 +29,17 @@ const { homePage } = homePageFixtures;
 const { wishistRoute } = wishlistFixtures;
 const { productValeriaTwoLayeredTankUrl } = productPageFixtures;
 
-const { assertCreateAccount, goToMyAccount } = myAccountMenuActions;
+const { goToMyAccount } = myAccountMenuActions;
+const { removeProductFromWishlist } = wishlistActions;
+const { addProductToWishlistFromCategoryPage } = categoryPageActions;
+const { addProductToWishlistFromProductPage } = productPageActions;
+
+const { assertCreateAccount } = myAccountMenuAssertions;
 const {
     assertWishlistHeading,
     assertEmptyWishlist,
-    assertProductInWishlist,
-    removeProductFromWishlist
-} = wishlistActions;
-const { addProductToWishlistFromCategoryPage } = categoryPageActions;
-const { addProductToWishlistFromProductPage } = productPageActions;
+    assertProductInWishlist
+} = wishlistAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
@@ -41,7 +47,12 @@ describe('verify single wishlist basic features', () => {
         cy.visitPage(homePage);
 
         cy.openLoginDialog();
-        cy.createAccount(accountAccessFixtures.firstName, lastName, accountEmail, accountPassword);
+        cy.createAccount(
+            accountAccessFixtures.firstName,
+            lastName,
+            accountEmail,
+            accountPassword
+        );
 
         assertCreateAccount(firstName);
 
