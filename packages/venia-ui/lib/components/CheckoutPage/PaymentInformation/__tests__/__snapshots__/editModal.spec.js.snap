@@ -12,7 +12,10 @@ exports[`Should return correct shape 1`] = `
 >
   <mock-Braintree
     id="BraintreeMockId"
+    onPaymentError={[Function]}
+    onPaymentReady={[Function]}
     onPaymentSuccess={[Function]}
+    resetShouldSubmit={[Function]}
     shouldSubmit={false}
   />
 </mock-Dialog>

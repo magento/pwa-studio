@@ -8,7 +8,7 @@ jest.mock('../creditCard', () => props => <mock-CreditCard {...props} />);
 test('test renders correctly', () => {
     const tree = createTestInstance(
         <EditCard
-            onDropinReady={jest.fn()}
+            onPaymentReady={jest.fn()}
             onPaymentSuccess={jest.fn()}
             onPaymentError={jest.fn()}
             resetShouldSubmit={jest.fn()}

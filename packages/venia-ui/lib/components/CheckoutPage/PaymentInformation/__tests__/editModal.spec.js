@@ -15,9 +15,11 @@ jest.mock(
             isLoading: false,
             updateButtonClicked: false,
             handleClose: () => {},
-            handleUpdate: () => {},
+            handlePaymentError: () => {},
+            handlePaymentReady: () => {},
             handlePaymentSuccess: () => {},
-            handleDropinReady: () => {}
+            handleUpdate: () => {},
+            resetUpdateButtonClicked: () => {}
         })
     })
 );
@@ -48,7 +50,7 @@ test('Should render creditCard component if selectedPaymentMethod is braintree',
         handleClose: () => {},
         handleUpdate: () => {},
         handlePaymentSuccess: () => {},
-        handleDropinReady: () => {}
+        handlePaymentReady: () => {}
     });
 
     const tree = createTestInstance(<EditModal />);
@@ -66,7 +68,7 @@ test('Should not render creditCard component if selectedPaymentMethod is not bra
         handleClose: () => {},
         handleUpdate: () => {},
         handlePaymentSuccess: () => {},
-        handleDropinReady: () => {}
+        handlePaymentReady: () => {}
     });
 
     const tree = createTestInstance(<EditModal />);
