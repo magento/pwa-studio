@@ -2,35 +2,8 @@
 
 exports[`should render a braintree summary 1`] = `
 <mock-Braintree
-  billingAddress={
-    Object {
-      "city": "Austin",
-      "country": "Goose Land",
-      "firstName": "Goosey",
-      "lastName": "Goose",
-      "phoneNumber": "1234657890",
-      "postalCode": "12345",
-      "state": "Texas",
-      "street1": "12345 Goosey Blvd",
-      "street2": "Apt 123",
-    }
-  }
   id="BraintreeMockId"
-  isBillingAddressSame={false}
   onEdit={[MockFunction]}
-  paymentNonce={
-    Object {
-      "details": Object {
-        "cardType": "visa",
-        "lastFour": "1234",
-      },
-    }
-  }
-  selectedPaymentMethod={
-    Object {
-      "code": "braintree",
-    }
-  }
 />
 `;
 

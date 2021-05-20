@@ -12,7 +12,6 @@ exports[`Should return correct shape 1`] = `
 >
   <mock-Braintree
     id="BraintreeMockId"
-    onDropinReady={[Function]}
     onPaymentSuccess={[Function]}
     shouldSubmit={false}
   />

@@ -303,55 +303,5 @@ exports[`should render 1`] = `
       visa ending in 1234
     </span>
   </div>
-  <div
-    className="address_summary_container"
-  >
-    <div>
-      <span
-        className="first_name"
-      >
-        Goosey
-      </span>
-      <span
-        className="last_name"
-      >
-        Goose
-      </span>
-    </div>
-    <div>
-      <span
-        className="street1"
-      >
-        12345 Goosey Blvd
-      </span>
-      <span
-        className="street2"
-      >
-        Apt 123
-      </span>
-      <span
-        className="city"
-      >
-        Austin
-      </span>
-      <span
-        className="state"
-      >
-        Texas
-      </span>
-    </div>
-    <div>
-      <span
-        className="postalCode"
-      >
-        12345
-      </span>
-      <span
-        className="country"
-      >
-        Goose Land
-      </span>
-    </div>
-  </div>
 </div>
 `;

@@ -3,6 +3,7 @@ import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 jest.mock('../../../../classify');
 
 import classes from '../braintreeSummary.css';
+import { useBraintreeSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useBraintreeSummary';
 import BraintreeSummary from '../braintreeSummary';
 
 const billingAddress = {
@@ -21,26 +22,52 @@ const paymentNonce = {
     details: { cardType: 'visa', lastFour: '1234' }
 };
 
+jest.mock(
+    '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useBraintreeSummary',
+    () => {
+        return {
+            useBraintreeSummary: jest.fn(() => ({
+                billingAddress: {
+                    firstName: 'Goosey',
+                    lastName: 'Goose',
+                    country: 'Goose Land',
+                    street1: '12345 Goosey Blvd',
+                    street2: 'Apt 123',
+                    city: 'Austin',
+                    state: 'Texas',
+                    postalCode: '12345',
+                    phoneNumber: '1234657890'
+                },
+                isBillingAddressSame: true,
+                isLoading: false,
+                paymentNonce: {
+                    details: { cardType: 'visa', lastFour: '1234' }
+                }
+            }))
+        };
+    }
+);
+
 test('should render', () => {
-    const tree = createTestInstance(
-        <BraintreeSummary
-            billingAddress={billingAddress}
-            paymentNonce={paymentNonce}
-            isBillingAddressSame={false}
-        />
-    );
+    useBraintreeSummary.mockReturnValueOnce({
+        billingAddress,
+        isBillingAddressSame: true,
+        isLoading: false,
+        paymentNonce
+    });
+    const tree = createTestInstance(<BraintreeSummary />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
 test('Should render billing address if it is not same as shipping address', () => {
-    const tree = createTestInstance(
-        <BraintreeSummary
-            billingAddress={billingAddress}
-            paymentNonce={paymentNonce}
-            isBillingAddressSame={false}
-        />
-    );
+    useBraintreeSummary.mockReturnValueOnce({
+        billingAddress,
+        isBillingAddressSame: false,
+        isLoading: false,
+        paymentNonce
+    });
+    const tree = createTestInstance(<BraintreeSummary />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 
@@ -52,13 +79,13 @@ test('Should render billing address if it is not same as shipping address', () =
 });
 
 test('Should not render billing address if it is same as shipping address', () => {
-    const tree = createTestInstance(
-        <BraintreeSummary
-            billingAddress={{}}
-            paymentNonce={paymentNonce}
-            isBillingAddressSame={false}
-        />
-    );
+    useBraintreeSummary.mockReturnValueOnce({
+        billingAddress: {},
+        isBillingAddressSame: false,
+        isLoading: false,
+        paymentNonce
+    });
+    const tree = createTestInstance(<BraintreeSummary />);
 
     expect(tree.toJSON()).toMatchSnapshot();
     expect(

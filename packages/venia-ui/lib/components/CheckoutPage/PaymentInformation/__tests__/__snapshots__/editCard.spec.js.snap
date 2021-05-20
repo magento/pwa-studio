@@ -5,7 +5,6 @@ exports[`test renders correctly 1`] = `
   className="root"
 >
   <mock-CreditCard
-    onDropinReady={[MockFunction]}
     onPaymentError={[MockFunction]}
     onPaymentSuccess={[MockFunction]}
     resetShouldSubmit={[MockFunction]}
