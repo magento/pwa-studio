@@ -52,7 +52,7 @@ const ProductImageCarousel = props => {
         () =>
             sortedImages.map((item, index) => (
                 <Thumbnail
-                    key={`${item.file}--${item.label}`}
+                    key={item.id}
                     item={item}
                     itemIndex={index}
                     isActive={activeItemIndex === index}
@@ -156,7 +156,8 @@ ProductImageCarousel.propTypes = {
             label: string,
             position: number,
             disabled: bool,
-            file: string.isRequired
+            file: string.isRequired,
+            id: number
         })
     ).isRequired
 };
