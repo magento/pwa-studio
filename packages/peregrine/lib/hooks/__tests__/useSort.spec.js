@@ -19,7 +19,7 @@ test('should render without an error', () => {
     createTestInstance(<TestComponent />);
     const result = log.mock.calls[0][0];
     const [{ sortText }] = result;
-    expect(sortText).toBe('Best Match');
+    expect(sortText).toBe('Position');
 });
 
 test('should render with a different sort order', () => {
@@ -39,7 +39,7 @@ test('should render with updated sort order', () => {
     createTestInstance(<TestComponent />);
     const result = log.mock.calls[0][0];
     const [{ sortText }, setSort] = result;
-    expect(sortText).toBe('Best Match');
+    expect(sortText).toBe('Position');
 
     act(() => {
         setSort({
