@@ -146,6 +146,7 @@ export const useWishlistItem = props => {
             // Close the dialogs on success.
             setCurrentDialog(dialogs.NONE);
         } catch (e) {
+            console.error(e);
             setRemoveProductFromWishlistError(e);
             if (process.env.NODE_ENV !== 'production') {
                 console.error(e);

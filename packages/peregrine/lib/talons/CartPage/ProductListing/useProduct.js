@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+import { useIntl } from 'react-intl';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
+
+import { useWishlist } from './useWishlist';
+import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 import mergeOperations from '../../../util/shallowMerge';
+
 import DEFAULT_OPERATIONS from './product.gql';
 
 /**
@@ -29,7 +34,13 @@ import DEFAULT_OPERATIONS from './product.gql';
  */
 
 export const useProduct = props => {
-    const { item, setActiveEditItem, setIsCartUpdating } = props;
+    const {
+        item,
+        onAddToWishlistSuccess,
+        setActiveEditItem,
+        setIsCartUpdating,
+        fetchCartDetails
+    } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
@@ -55,7 +66,7 @@ export const useProduct = props => {
     const flatProduct = flattenProduct(item, configurableThumbnailSource);
 
     const [
-        removeItem,
+        removeItemFromCart,
         {
             called: removeItemCalled,
             error: removeItemError,
@@ -72,42 +83,98 @@ export const useProduct = props => {
         }
     ] = useMutation(updateItemQuantityMutation);
 
-    useEffect(() => {
-        if (updateItemCalled || removeItemCalled) {
-            // If a product mutation is in flight, tell the cart.
-            setIsCartUpdating(updateItemLoading || removeItemLoading);
-        }
-
-        // Reset updating state on unmount
-        return () => setIsCartUpdating(false);
-    }, [
-        removeItemCalled,
-        removeItemLoading,
-        setIsCartUpdating,
-        updateItemCalled,
-        updateItemLoading
-    ]);
-
     const [{ cartId }] = useCartContext();
-
-    const [isFavorite, setIsFavorite] = useState(false);
 
     // Use local state to determine whether to display errors or not.
     // Could be replaced by a "reset mutation" function from apollo client.
     // https://github.com/apollographql/apollo-feature-requests/issues/170
     const [displayError, setDisplayError] = useState(false);
+    const [showLoginToast, setShowLoginToast] = useState(0);
+
+    const { formatMessage } = useIntl();
+    const [{ isSignedIn }] = useUserContext();
+
+    const loginToastProps = useMemo(() => {
+        if (showLoginToast) {
+            return {
+                type: 'info',
+                message: formatMessage({
+                    id: 'wishlist.galleryButton.loginMessage',
+                    defaultMessage:
+                        'Please sign-in to your Account to save items for later.'
+                }),
+                timeout: 5000
+            };
+        }
+
+        return null;
+    }, [formatMessage, showLoginToast]);
+
+    const handleWishlistUpdateError = useCallback(() => {
+        setIsCartUpdating(true);
+
+        fetchCartDetails({ variables: { cartId } });
+
+        setDisplayError(true);
+    }, [fetchCartDetails, cartId, setIsCartUpdating]);
+
+    const wishlistTalonProps = useWishlist({
+        item,
+        onWishlistUpdate: removeItemFromCart,
+        onWishlistUpdateError: handleWishlistUpdateError,
+        onAddToWishlistSuccess,
+        operations: props.operations
+    });
+    const {
+        handleAddToWishlist,
+        loading: wishlistItemLoading,
+        error: addProductToWishlistError,
+        called: addProductToWishlistCalled
+    } = wishlistTalonProps;
+
+    const isProductUpdating = useMemo(() => {
+        if (
+            addProductToWishlistCalled ||
+            updateItemCalled ||
+            removeItemCalled
+        ) {
+            return (
+                wishlistItemLoading || removeItemLoading || updateItemLoading
+            );
+        } else {
+            return false;
+        }
+    }, [
+        addProductToWishlistCalled,
+        updateItemCalled,
+        removeItemCalled,
+        wishlistItemLoading,
+        removeItemLoading,
+        updateItemLoading
+    ]);
+
+    const handleSaveForLater = useCallback(
+        async (...args) => {
+            if (!isSignedIn) {
+                setShowLoginToast(current => ++current);
+            } else {
+                await handleAddToWishlist(args);
+            }
+        },
+        [isSignedIn, handleAddToWishlist]
+    );
 
     const derivedErrorMessage = useMemo(() => {
         return (
             (displayError &&
-                deriveErrorMessage([updateError, removeItemError])) ||
+                deriveErrorMessage([
+                    updateError,
+                    removeItemError,
+                    addProductToWishlistError
+                ])) ||
             ''
         );
-    }, [displayError, removeItemError, updateError]);
-
-    const handleToggleFavorites = useCallback(() => {
-        setIsFavorite(!isFavorite);
-    }, [isFavorite]);
+    }, [displayError, addProductToWishlistError, removeItemError, updateError]);
 
     const handleEditItem = useCallback(() => {
         setActiveEditItem(item);
@@ -117,9 +184,9 @@ export const useProduct = props => {
         setDisplayError(false);
     }, [item, setActiveEditItem]);
 
-    const handleRemoveFromCart = useCallback(() => {
+    const handleRemoveFromCart = useCallback(async () => {
         try {
-            removeItem({
+            await removeItemFromCart({
                 variables: {
                     cartId,
                     itemId: item.id
@@ -129,7 +196,7 @@ export const useProduct = props => {
             // Make sure any errors from the mutation are displayed.
             setDisplayError(true);
         }
-    }, [cartId, item.id, removeItem]);
+    }, [cartId, item.id, removeItemFromCart]);
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
@@ -149,15 +216,23 @@ export const useProduct = props => {
         [cartId, item.id, updateItemQuantity]
     );
 
+    useEffect(() => {
+        setIsCartUpdating(isProductUpdating);
+
+        // Reset updating state on unmount
+        return () => setIsCartUpdating(false);
+    }, [setIsCartUpdating, isProductUpdating]);
+
     return {
         errorMessage: derivedErrorMessage,
         handleEditItem,
         handleRemoveFromCart,
-        handleToggleFavorites,
+        handleSaveForLater,
         handleUpdateItemQuantity,
         isEditable: !!flatProduct.options.length,
-        isFavorite,
-        product: flatProduct
+        loginToastProps,
+        product: flatProduct,
+        isProductUpdating
     };
 };
 
@@ -223,10 +298,8 @@ const flattenProduct = (item, configurableThumbnailSource) => {
  * @property {String} errorMessage Error message from an operation perfored on a cart product.
  * @property {function} handleEditItem Function to use for handling when a product is modified.
  * @property {function} handleRemoveFromCart Function to use for handling the removal of a cart product.
- * @property {function} handleToggleFavorites Function to use for handling favorites toggling on a cart product.
  * @property {function} handleUpdateItemQuantity Function to use for handling updates to the product quantity in a cart.
  * @property {boolean} isEditable True if a cart product is editable. False otherwise.
- * @property {boolean} isFavorite True if the cart product is a favorite product. False otherwise.
  * @property {ProductItem} product Cart product data
  */
 
