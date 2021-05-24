@@ -52,7 +52,7 @@
     --venia-global-color-warning-light: var(--venia-global-color-gray-100);
 
     /* font family */
-    --venia-global-fontFamily-sansSerif: 'Muli', sans-serif;
+    --venia-global-fontFamily-sansSerif: 'Open Sans', sans-serif;
     --venia-global-fontFamily-serif: 'Source Serif Pro', serif;
 
     /* font size */
