@@ -74,6 +74,7 @@ const WishlistPage = props => {
         <div className={classes.root}>
             <h1 className={classes.heading}>
                 <FormattedMessage
+                    values={{ count: wishlists.length }}
                     id={'wishlistPage.headingText'}
                     defaultMessage={'Favorites Lists'}
                 />
