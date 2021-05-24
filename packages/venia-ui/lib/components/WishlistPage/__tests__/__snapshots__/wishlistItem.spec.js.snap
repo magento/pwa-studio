@@ -38,16 +38,6 @@ exports[`it renders a configurable wishlist item 1`] = `
   >
     Shoggoth Shirt
   </span>
-  <span
-    className="option"
-  >
-    Size : XL
-  </span>
-  <span
-    className="option"
-  >
-    Color : Black
-  </span>
   <div
     className="priceContainer"
   >
@@ -64,62 +54,68 @@ exports[`it renders a configurable wishlist item 1`] = `
       45
     </span>
   </div>
-  <div
-    className="actionsContainer"
+  <span
+    className="option"
   >
-    <button
-      className="addToCart"
-      disabled={true}
-      onClick={[MockFunction handleAddToCart]}
+    Size : XL
+  </span>
+  <span
+    className="option"
+  >
+    Color : Black
+  </span>
+  <button
+    className="addToCart"
+    disabled={true}
+    onClick={[MockFunction addToCartButtonProps.onClick]}
+  >
+    Add to Cart
+  </button>
+  <button
+    className="moreActions"
+    onClick={[MockFunction handleShowMoreActions]}
+  >
+    <span
+      className="root"
     >
-      Add to Cart
-    </button>
-    <button
-      className="moreActions"
-      onClick={[MockFunction handleShowMoreActions]}
-    >
-      <span
-        className="root"
+      <svg
+        className="icon"
+        fill="none"
+        height={16}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          className="icon"
-          fill="none"
-          height={16}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={16}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="1"
-          />
-          <circle
-            cx="19"
-            cy="12"
-            r="1"
-          />
-          <circle
-            cx="5"
-            cy="12"
-            r="1"
-          />
-        </svg>
-      </span>
-    </button>
-    <WishlistMoreActionsDialog
-      onCancel={[MockFunction handleHideDialogs]}
-      onRemove={[MockFunction handleShowConfirmRemoval]}
-    />
-    <WishlistConfirmRemoveProductDialog
-      onCancel={[MockFunction handleHideDialogs]}
-      onConfirm={[MockFunction handleRemoveProductFromWishlist]}
-    />
-  </div>
+        <circle
+          cx="12"
+          cy="12"
+          r="1"
+        />
+        <circle
+          cx="19"
+          cy="12"
+          r="1"
+        />
+        <circle
+          cx="5"
+          cy="12"
+          r="1"
+        />
+      </svg>
+    </span>
+  </button>
+  <WishlistMoreActionsDialog
+    onCancel={[MockFunction handleHideDialogs]}
+    onRemove={[MockFunction handleShowConfirmRemoval]}
+  />
+  <WishlistConfirmRemoveProductDialog
+    onCancel={[MockFunction handleHideDialogs]}
+    onConfirm={[MockFunction handleRemoveProductFromWishlist]}
+  />
 </div>
 `;
 
@@ -169,61 +165,57 @@ exports[`it renders a simple wishlist item 1`] = `
       45
     </span>
   </div>
-  <div
-    className="actionsContainer"
+  <button
+    className="addToCart"
+    disabled={false}
+    onClick={[MockFunction addToCartButtonProps.onClick]}
   >
-    <button
-      className="addToCart"
-      disabled={false}
-      onClick={[MockFunction handleAddToCart]}
+    Add to Cart
+  </button>
+  <button
+    className="moreActions"
+    onClick={[MockFunction handleShowMoreActions]}
+  >
+    <span
+      className="root"
     >
-      Add to Cart
-    </button>
-    <button
-      className="moreActions"
-      onClick={[MockFunction handleShowMoreActions]}
-    >
-      <span
-        className="root"
+      <svg
+        className="icon"
+        fill="none"
+        height={16}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          className="icon"
-          fill="none"
-          height={16}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={16}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="1"
-          />
-          <circle
-            cx="19"
-            cy="12"
-            r="1"
-          />
-          <circle
-            cx="5"
-            cy="12"
-            r="1"
-          />
-        </svg>
-      </span>
-    </button>
-    <WishlistMoreActionsDialog
-      onCancel={[MockFunction handleHideDialogs]}
-      onRemove={[MockFunction handleShowConfirmRemoval]}
-    />
-    <WishlistConfirmRemoveProductDialog
-      onCancel={[MockFunction handleHideDialogs]}
-      onConfirm={[MockFunction handleRemoveProductFromWishlist]}
-    />
-  </div>
+        <circle
+          cx="12"
+          cy="12"
+          r="1"
+        />
+        <circle
+          cx="19"
+          cy="12"
+          r="1"
+        />
+        <circle
+          cx="5"
+          cy="12"
+          r="1"
+        />
+      </svg>
+    </span>
+  </button>
+  <WishlistMoreActionsDialog
+    onCancel={[MockFunction handleHideDialogs]}
+    onRemove={[MockFunction handleShowConfirmRemoval]}
+  />
+  <WishlistConfirmRemoveProductDialog
+    onCancel={[MockFunction handleHideDialogs]}
+    onConfirm={[MockFunction handleRemoveProductFromWishlist]}
+  />
 </div>
 `;

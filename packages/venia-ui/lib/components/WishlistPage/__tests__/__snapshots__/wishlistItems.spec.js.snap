@@ -1,24 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders list of items 1`] = `
-<div
-  className="root"
->
-  <WishlistItem
-    item={
-      Object {
-        "id": 1,
-        "sku": "chain-wallet",
+Array [
+  <div
+    className="root"
+  >
+    <WishlistItem
+      item={
+        Object {
+          "id": 1,
+          "sku": "chain-wallet",
+        }
       }
-    }
-  />
-  <WishlistItem
-    item={
-      Object {
-        "id": 2,
-        "sku": "nike-shoes",
+      onOpenAddToCartDialog={[MockFunction handleOpenAddToCartDialog]}
+    />
+    <WishlistItem
+      item={
+        Object {
+          "id": 2,
+          "sku": "nike-shoes",
+        }
       }
-    }
-  />
-</div>
+      onOpenAddToCartDialog={[MockFunction handleOpenAddToCartDialog]}
+    />
+  </div>,
+  <AddToCartDialog
+    item="activeAddToCartItem"
+    onClose={[MockFunction handleCloseAddToCartDialog]}
+  />,
+]
 `;
