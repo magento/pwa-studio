@@ -1,22 +1,22 @@
 {
-    "name": "pwa-integration-tests",
-    "version": "0.0.1",
-    "description": "Venia Integration Automation Tests",
-    "author": "Magento Commerce",
-    "license": "MIT",
-    "devDependencies": {
-        "cypress": "~7.1.0",
-        "cypress-image-snapshot": "~4.0.1",
-        "jest": "~26.0.1",
-        "jimp": "~0.16.1"
-    },
-    "scripts": {
-        "test": "cypress open --browser chrome --config-file cypress.config.json",
-        "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",
-        "test:headless": "cypress run --browser chrome --headless --config-file cypress.config.json",
-        "test:run": "cypress run --browser chrome --config-file cypress.config.json",
-        "test:devTest": "jest",
-        "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
-        "test:update-snapshots": "cypress run --browser chrome --config-file cypress.config.json --env updateSnapshots=true"
-    }
+  "name": "pwa-integration-tests",
+  "version": "0.0.1",
+  "description": "Venia Integration Automation Tests",
+  "scripts": {
+    "test": "cypress open --browser chrome --config-file cypress.config.json",
+    "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
+    "test:devTest": "jest",
+    "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",
+    "test:headless": "cypress run --browser chrome --headless --config-file cypress.config.json",
+    "test:run": "cypress run --browser chrome --config-file cypress.config.json",
+    "test:update-snapshots": "cypress run --browser chrome --config-file cypress.config.json --env updateSnapshots=true"
+  },
+  "author": "Magento Commerce",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "~7.1.0",
+    "cypress-image-snapshot": "~4.0.1",
+    "jest": "~26.0.1",
+    "jimp": "~0.16.1"
+  }
 }
