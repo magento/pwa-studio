@@ -8,7 +8,7 @@ Validate your project's GraphQL queries against a schema.
 ## Installation
 
 ```
-yarn add graphql-cli graphql-cli-validate-magento-pwa-queries
+yarn add graphql-cli @magento/graphql-cli-validate-magento-pwa-queries
 ```
 
 ## Summary

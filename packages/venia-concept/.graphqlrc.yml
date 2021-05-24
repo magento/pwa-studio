@@ -1,0 +1,9 @@
+projects:
+  venia:
+    schema: ${MAGENTO_BACKEND_URL}/graphql
+    extensions:
+      codegen:
+        generates:
+          ./lastCachedGraphQLSchema.json:
+            plugins:
+              - introspection
