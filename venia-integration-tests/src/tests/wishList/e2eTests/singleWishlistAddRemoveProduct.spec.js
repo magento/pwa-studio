@@ -68,15 +68,18 @@ describe('verify single wishlist basic features', () => {
         assertProductInWishlist(productCarinaCardigan);
 
         cy.visitPage(productValeriaTwoLayeredTankUrl);
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
+        //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
         addProductToWishlistFromProductPage();
         cy.visitPage(wishistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
+        //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
         // assertProductInWishlist(productValeriaTwoLayeredTankUrl);
-        removeProductFromWishlist(productCarinaCardigan);
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
+
+        //This needs to be updated and uncommented based on https://jira.corp.magento.com/browse/PWA-1683 trash icon chnages
+        //removeProductFromWishlist(productCarinaCardigan);
+
+        //This needs to be updated and uncommented once https://jira.corp.magento.com/browse/PWA-1683 and PWA-1709 is code complete
         // removeProductFromWishlist(productValeriaTwoLayeredTankUrl);
 
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1707 is code complete
