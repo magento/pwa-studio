@@ -40,20 +40,8 @@ export const assertProductInWishlist = productName => {
         .children(wishlistItemPrice)
         .should('exist');
 
-    // assert Add To Cart Section  exists
-    cy.contains('div', productName)
-        .children(wishlistItemAddToCartSection)
-        .should('exist');
-
     // assert Add to Cart button exists
     cy.contains('div', productName)
-        .children()
-        .find(wishlistItemAddToCartButton)
-        .should('exist');
-
-    // assert more actions button exists
-    cy.contains('div', productName)
-        .children()
-        .find(wishlistItemMoreActionsButton)
+        .children(wishlistItemAddToCartButton)
         .should('exist');
 };
