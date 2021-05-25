@@ -12,7 +12,12 @@ import CreateWishlist from './createWishlist';
 
 const WishlistPage = props => {
     const talonProps = useWishlistPage();
-    const { errors, wishlists, loading } = talonProps;
+    const {
+        errors,
+        loading,
+        shouldRenderVisibilityToggle,
+        wishlists
+    } = talonProps;
     const { formatMessage } = useIntl();
     const error = errors.get('getCustomerWishlistQuery');
 
@@ -27,10 +32,10 @@ const WishlistPage = props => {
             <Wishlist
                 key={wishlist.id}
                 data={wishlist}
-                shouldRenderVisibilityToggle={wishlists.length > 1}
+                shouldRenderVisibilityToggle={shouldRenderVisibilityToggle}
             />
         ));
-    }, [wishlists]);
+    }, [shouldRenderVisibilityToggle, wishlists]);
 
     if (loading && !error) {
         return fullPageLoadingIndicator;

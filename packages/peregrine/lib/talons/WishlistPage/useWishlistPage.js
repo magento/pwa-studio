@@ -41,8 +41,9 @@ export const useWishlistPage = (props = {}) => {
 
     return {
         errors,
-        wishlists: derivedWishlists,
-        loading
+        loading,
+        shouldRenderVisibilityToggle: derivedWishlists.length > 1,
+        wishlists: derivedWishlists
     };
 };
 
@@ -78,5 +79,7 @@ export const useWishlistPage = (props = {}) => {
  * @typedef {Object} WishlistPageProps
  *
  * @property {Map} errors A map of all the GQL query errors
+ * @property {Boolean} loading is the query loading
+ * @property {Boolean} shouldRenderVisibilityToggle true if wishlists length is > 1.
  * @property {Object} wishlists List of all customer wishlists
  */
