@@ -2,9 +2,7 @@ import {
     wishlistPageHeading,
     wishlistRoot,
     wishlistItemPrice,
-    wishlistItemAddToCartSection,
-    wishlistItemAddToCartButton,
-    wishlistItemMoreActionsButton
+    wishlistItemAddToCartButton
 } from '../../fields/wishlist';
 
 /**

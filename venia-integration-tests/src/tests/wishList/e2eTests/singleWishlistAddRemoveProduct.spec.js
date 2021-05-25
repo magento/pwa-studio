@@ -9,8 +9,7 @@ import {
 import {
     categoryPage as categoryPageActions,
     myAccountMenu as myAccountMenuActions,
-    productPage as productPageActions,
-    wishlist as wishlistActions
+    productPage as productPageActions
 } from '../../../actions';
 import {
     myAccountMenu as myAccountMenuAssertions,

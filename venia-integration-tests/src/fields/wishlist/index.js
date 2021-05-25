@@ -4,11 +4,5 @@ export const wishlistRoot = 'div[class^="wishlist-root-"]';
 
 export const wishlistItemPrice = '*[class^="wishlistItem-priceContainer-"]';
 
-export const wishlistItemAddToCartSection =
-    '*[class^="wishlistItem-actionsContainer-"]';
-
 export const wishlistItemAddToCartButton =
     '*[class^="wishlistItem-addToCart-"]';
-
-export const wishlistItemMoreActionsButton =
-    '*[class^="wishlistItem-moreActions-"]';
