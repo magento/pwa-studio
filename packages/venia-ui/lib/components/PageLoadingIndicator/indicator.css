@@ -1,8 +1,6 @@
 .root {
-    justify-self: start;
     animation: spin 1920ms linear infinite;
     grid-area: primary;
-    margin-left: 3rem;
 }
 
 .indicator {
