@@ -11,7 +11,7 @@
     "testFiles": "**/*.spec.js",
     "viewportHeight": 900,
     "viewportWidth": 1440,
-    "scrollBehavior": false,
+    "scrollBehavior": "nearest",
     "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"],
     "env": {}
 }
