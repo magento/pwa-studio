@@ -30,7 +30,6 @@ const { wishistRoute } = wishlistFixtures;
 const { productValeriaTwoLayeredTankUrl } = productPageFixtures;
 
 const { goToMyAccount } = myAccountMenuActions;
-const { removeProductFromWishlist } = wishlistActions;
 const { addProductToWishlistFromCategoryPage } = categoryPageActions;
 const { addProductToWishlistFromProductPage } = productPageActions;
 
@@ -76,13 +75,6 @@ describe('verify single wishlist basic features', () => {
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
         // assertProductInWishlist(productValeriaTwoLayeredTankUrl);
 
-        //This needs to be updated and uncommented based on https://jira.corp.magento.com/browse/PWA-1683 trash icon chnages
-        //removeProductFromWishlist(productCarinaCardigan);
-
-        //This needs to be updated and uncommented once https://jira.corp.magento.com/browse/PWA-1683 and PWA-1709 is code complete
-        // removeProductFromWishlist(productValeriaTwoLayeredTankUrl);
-
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1707 is code complete
-        // assertEmptyWishlist(wishlistPage);
+        //This test also need to account for Remove the added product and assert for empty wishlist part of PWA-1683
     });
 });

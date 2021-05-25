@@ -12,9 +12,3 @@ export const wishlistItemAddToCartButton =
 
 export const wishlistItemMoreActionsButton =
     '*[class^="wishlistItem-moreActions-"]';
-
-export const removeProduct =
-    'button[class^="wishlistMoreActionsDialog-rowButton-"]';
-
-export const deleteProduct =
-    'button[class^="wishlistConfirmRemoveProductDialog-confirmButton-"]';
