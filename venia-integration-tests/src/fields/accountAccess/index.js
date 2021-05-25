@@ -16,4 +16,5 @@ export const createAccountEmailTextField = 'input[name="customer.email"]';
 
 export const createAccountPasswordTextField = 'input[name="password"]';
 
-export const createAccountSubmitButton = '[class^="createAccount-submitButton-"]';
+export const createAccountSubmitButton =
+    '[class^="createAccount-submitButton-"]';

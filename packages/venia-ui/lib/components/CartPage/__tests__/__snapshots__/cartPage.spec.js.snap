@@ -109,14 +109,15 @@ exports[`renders components if cart has items 1`] = `
       className="items_container"
     >
       <ProductListing
-        setIsCartUpdating={[MockFunction]}
+        onAddToWishlistSuccess={[MockFunction onAddToWishlistSuccess]}
+        setIsCartUpdating={[MockFunction setIsCartUpdating]}
       />
     </div>
     <div
       className="price_adjustments_container"
     >
       <PriceAdjustments
-        setIsCartUpdating={[MockFunction]}
+        setIsCartUpdating={[MockFunction setIsCartUpdating]}
       />
     </div>
     <div

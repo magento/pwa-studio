@@ -84,6 +84,7 @@ test('exposes all hooks and targets', async () => {
           talons.AccountChip.useAccountChip.wrapWith() wraps export "useAccountChip" from "AccountChip/useAccountChip.js"
           talons.AccountInformationPage.useAccountInformationPage.wrapWith() wraps export "useAccountInformationPage" from "AccountInformationPage/useAccountInformationPage.js"
           talons.AccountMenu.useAccountMenuItems.wrapWith() wraps export "useAccountMenuItems" from "AccountMenu/useAccountMenuItems.js"
+          talons.AddToCartDialog.useAddToCartDialog.wrapWith() wraps export "useAddToCartDialog" from "AddToCartDialog/useAddToCartDialog.js"
           talons.AddressBookPage.useAddressBookPage.wrapWith() wraps export "useAddressBookPage" from "AddressBookPage/useAddressBookPage.js"
           talons.App.useApp.wrapWith() wraps export "useApp" from "App/useApp.js"
           talons.AuthBar.useAuthBar.wrapWith() wraps export "useAuthBar" from "AuthBar/useAuthBar.js"
@@ -102,6 +103,8 @@ test('exposes all hooks and targets', async () => {
           talons.CartPage.ProductListing.useProduct.wrapWith() wraps export "useProduct" from "CartPage/ProductListing/useProduct.js"
           talons.CartPage.ProductListing.useProductListing.wrapWith() wraps export "useProductListing" from "CartPage/ProductListing/useProductListing.js"
           talons.CartPage.ProductListing.useQuantity.wrapWith() wraps export "useQuantity" from "CartPage/ProductListing/useQuantity.js"
+          talons.CartPage.ProductListing.useWishlist.ce.wrapWith() wraps export "useWishlist.ce" from "CartPage/ProductListing/useWishlist.ce.js"
+          talons.CartPage.ProductListing.useWishlist.ee.wrapWith() wraps export "useWishlist.ee" from "CartPage/ProductListing/useWishlist.ee.js"
           talons.CartPage.useCartPage.wrapWith() wraps export "useCartPage" from "CartPage/useCartPage.js"
           talons.CategoryList.useCategoryList.wrapWith() wraps export "useCategoryList" from "CategoryList/useCategoryList.js"
           talons.CategoryList.useCategoryTile.wrapWith() wraps export "useCategoryTile" from "CategoryList/useCategoryTile.js"
@@ -214,6 +217,7 @@ test('exposes all hooks and targets', async () => {
           talons.WishlistPage.useCreateWishlist.wrapWith() wraps export "useCreateWishlist" from "WishlistPage/useCreateWishlist.js"
           talons.WishlistPage.useWishlist.wrapWith() wraps export "useWishlist" from "WishlistPage/useWishlist.js"
           talons.WishlistPage.useWishlistItem.wrapWith() wraps export "useWishlistItem" from "WishlistPage/useWishlistItem.js"
+          talons.WishlistPage.useWishlistItems.wrapWith() wraps export "useWishlistItems" from "WishlistPage/useWishlistItems.js"
           talons.WishlistPage.useWishlistPage.wrapWith() wraps export "useWishlistPage" from "WishlistPage/useWishlistPage.js"
     `);
 });

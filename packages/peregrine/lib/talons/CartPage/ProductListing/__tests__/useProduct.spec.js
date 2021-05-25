@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useMutation, useQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { useProduct } from '../useProduct';
+import { useWishlist } from '../useWishlist';
+
 import { act } from 'react-test-renderer';
 
 jest.mock('react', () => {
@@ -67,6 +70,19 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('@magento/peregrine/lib/context/user', () => ({
+    useUserContext: jest.fn().mockReturnValue([{ isSignedIn: true }])
+}));
+
+jest.mock('../useWishlist', () => ({
+    useWishlist: jest.fn().mockReturnValue({
+        handleAddToWishlist: jest.fn().mockResolvedValue(true),
+        loading: true,
+        called: true,
+        error: null
+    })
+}));
+
 const props = {
     item: {
         prices: {
@@ -89,7 +105,8 @@ const props = {
         updateItemQuantityMutation: ''
     },
     setActiveEditItem: jest.fn(),
-    setIsCartUpdating: jest.fn()
+    setIsCartUpdating: jest.fn(),
+    onAddToWishlistSuccess: jest.fn()
 };
 
 const log = jest.fn();
@@ -128,6 +145,7 @@ test('it returns the proper shape when use variant image is configured', () => {
         }
     });
     const configurableProps = {
+        ...props,
         item: {
             ...props.item,
             product: {
@@ -184,7 +202,7 @@ test('it returns the correct error message when the error is not graphql', async
         { error: new Error('test!') }
     ]);
 
-    useState.mockReturnValueOnce([false, jest.fn()]);
+    useState.mockReturnValueOnce([true, jest.fn()]);
     useState.mockReturnValueOnce([true, jest.fn()]);
 
     // Act.
@@ -192,7 +210,7 @@ test('it returns the correct error message when the error is not graphql', async
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
-    expect(talonProps.errorMessage).toBe('test!');
+    expect(talonProps.errorMessage).toMatchInlineSnapshot(`"test!"`);
 });
 
 test('it returns the correct error message when the error is graphql', () => {
@@ -207,7 +225,7 @@ test('it returns the correct error message when the error is graphql', () => {
         }
     ]);
 
-    useState.mockReturnValueOnce([false, jest.fn()]);
+    useState.mockReturnValueOnce([true, jest.fn()]);
     useState.mockReturnValueOnce([true, jest.fn()]);
 
     // Act.
@@ -216,7 +234,49 @@ test('it returns the correct error message when the error is graphql', () => {
     const { talonProps } = root.findByType('i').props;
 
     // Assert.
-    expect(talonProps.errorMessage).toBe('test a, test b');
+    expect(talonProps.errorMessage).toMatchInlineSnapshot(`"test a, test b"`);
+});
+
+test('it returns correct error message when multiple sources report errors', () => {
+    // Arrange.
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        {
+            error: {
+                graphQLErrors: [new Error('test a'), new Error('test b')]
+            }
+        }
+    ]);
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        {
+            error: {
+                graphQLErrors: [new Error('test c')]
+            }
+        }
+    ]);
+
+    useState.mockReturnValueOnce([true, jest.fn()]);
+    useState.mockReturnValueOnce([true, jest.fn()]);
+
+    useWishlist.mockReturnValueOnce({
+        handleAddToWishlist: jest.fn(),
+        loading: false,
+        called: true,
+        error: {
+            graphQLErrors: [new Error('test d'), new Error('test e')]
+        }
+    });
+
+    // Act.
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    // Assert.
+    expect(talonProps.errorMessage).toMatchInlineSnapshot(
+        `"test c, test a, test b, test d, test e"`
+    );
 });
 
 test('it resets cart updating flag on unmount', () => {
@@ -225,8 +285,6 @@ test('it resets cart updating flag on unmount', () => {
     const tree = createTestInstance(
         <Component {...props} setIsCartUpdating={setIsCartUpdating} />
     );
-
-    expect(setIsCartUpdating).not.toBeCalled();
 
     act(() => {
         tree.unmount();
@@ -252,24 +310,6 @@ test('it tells the cart when a mutation is in flight', () => {
     );
 
     expect(setIsCartUpdating).toHaveBeenCalledWith(true);
-});
-
-test('it provides a way to toggle favorites', () => {
-    const tree = createTestInstance(<Component {...props} />);
-
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-
-    expect(talonProps.isFavorite).toBeFalsy();
-
-    const { handleToggleFavorites } = talonProps;
-
-    act(() => {
-        handleToggleFavorites();
-    });
-
-    const { talonProps: updatedProps } = tree.root.findByType('i').props;
-    expect(updatedProps.isFavorite).toBeTruthy();
 });
 
 test('it handles editing the product', () => {
@@ -320,9 +360,9 @@ describe('it handles cart removal', () => {
 
         const { handleEditItem, handleRemoveFromCart } = talonProps;
 
-        act(() => {
+        act(async () => {
             handleEditItem();
-            handleRemoveFromCart();
+            await handleRemoveFromCart();
         });
 
         expect(removeItem).toHaveBeenCalled();
@@ -364,8 +404,8 @@ describe('it handles cart removal', () => {
 
         const { handleRemoveFromCart } = talonProps;
 
-        act(() => {
-            handleRemoveFromCart();
+        act(async () => {
+            await handleRemoveFromCart();
         });
 
         const { talonProps: updatedProps } = tree.root.findByType('i').props;
@@ -452,4 +492,43 @@ test('it does not set the active edit item when drawer is open', () => {
     );
 
     expect(setActiveEditItem).not.toHaveBeenCalled();
+});
+
+describe('testing save for later feature', () => {
+    test('it should show login toast if user is not logged in', async () => {
+        useUserContext.mockReturnValueOnce([{ isSignedIn: false }]);
+
+        const tree = createTestInstance(<Component {...props} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        await talonProps.handleSaveForLater();
+
+        tree.update(<Component {...props} />);
+        const { talonProps: updatedTalonProps } = root.findByType('i').props;
+
+        expect(updatedTalonProps.loginToastProps).toMatchSnapshot();
+    });
+
+    test('it should add item to wishlist when user is logged in', async () => {
+        useUserContext.mockReturnValueOnce([{ isSignedIn: true }]);
+
+        const handleAddToWishlist = jest.fn().mockResolvedValue(true);
+        useWishlist.mockReturnValueOnce({
+            handleAddToWishlist,
+            loading: false,
+            called: true,
+            error: null
+        });
+
+        const tree = createTestInstance(<Component {...props} />);
+
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        await talonProps.handleSaveForLater();
+
+        expect(handleAddToWishlist).toHaveBeenCalled();
+    });
 });

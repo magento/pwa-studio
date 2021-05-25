@@ -1,54 +1,79 @@
-import { firstName, lastName, accountEmail, accountPassword } from '../../../fixtures/accountAccess/index';
+import {
+    accountAccess as accountAccessFixtures,
+    myAccountMenu as myAccountMenuFixtures,
+    categoryPage as categoryPageFixtures,
+    homePage as homePageFixtures,
+    wishlist as wishlistFixtures,
+    productPage as productPageFixtures
+} from '../../../fixtures';
+import {
+    categoryPage as categoryPageActions,
+    myAccountMenu as myAccountMenuActions,
+    productPage as productPageActions
+} from '../../../actions';
+import {
+    myAccountMenu as myAccountMenuAssertions,
+    wishlist as wishlistAssertions
+} from '../../../assertions';
 
-import { createAccount, openLoginDialog } from '../../../actions/accountAccess/index';
+const {
+    firstName,
+    lastName,
+    accountEmail,
+    accountPassword
+} = accountAccessFixtures;
+const { wishlistPage } = myAccountMenuFixtures;
+const { categorySweaters, productCarinaCardigan } = categoryPageFixtures;
+const { homePage } = homePageFixtures;
+const { wishistRoute } = wishlistFixtures;
+const { productValeriaTwoLayeredTankUrl } = productPageFixtures;
 
-import { visitPage } from '../../../actions/routes/index';
+const { goToMyAccount } = myAccountMenuActions;
+const { addProductToWishlistFromCategoryPage } = categoryPageActions;
+const { addProductToWishlistFromProductPage } = productPageActions;
 
-import { assertCreateAccount, goToMyAccount } from '../../../actions/myAccountMenu/index';
-
-import { wishlistPage } from '../../../fixtures/myAccountMenu/index';
-
-import { assertWishlistHeading, assertEmptyWishlist, assertProductInWishlist, removeProductFromWishlist } from '../../../actions/wishlist/index';
-
-import { categorySweaters, productCarinaCardigan } from '../../../fixtures/categoryPage/index';
-
-import { homePage } from '../../../fixtures/homePage/index';
-
-import { addProductToWishlistFromCategoryPage } from '../../../actions/categoryPage/index';
-
-import { wishistRoute } from '../../../fixtures/wishlist/index';
-
-import { } from '../../../actions/wishlist/index';
-
-import { productValeriaTwoLayeredTankUrl } from '../../../fixtures/productPage/index';
-
-import { addProductToWishlistFromProductPage } from '../../../actions/productPage/index';
-
+const { assertCreateAccount } = myAccountMenuAssertions;
+const {
+    assertWishlistHeading,
+    assertEmptyWishlist,
+    assertProductInWishlist
+} = wishlistAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
     it('user should be able to add and remove products from wishlist', () => {
-        visitPage(homePage);
-        openLoginDialog();
-        createAccount(firstName, lastName, accountEmail, accountPassword);
+        cy.visitPage(homePage);
+
+        cy.openLoginDialog();
+        cy.createAccount(
+            accountAccessFixtures.firstName,
+            lastName,
+            accountEmail,
+            accountPassword
+        );
+
         assertCreateAccount(firstName);
+
         goToMyAccount(firstName, wishlistPage);
+
         assertWishlistHeading(wishlistPage);
         assertEmptyWishlist();
-        visitPage(categorySweaters);
+
+        cy.visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
-        visitPage(wishistRoute);
+        cy.visitPage(wishistRoute);
+
         assertProductInWishlist(productCarinaCardigan);
-        visitPage(productValeriaTwoLayeredTankUrl);
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
+
+        cy.visitPage(productValeriaTwoLayeredTankUrl);
+        //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
         addProductToWishlistFromProductPage();
-        visitPage(wishistRoute);
+        cy.visitPage(wishistRoute);
+
         assertProductInWishlist(productCarinaCardigan);
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
+        //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
         // assertProductInWishlist(productValeriaTwoLayeredTankUrl);
-        removeProductFromWishlist(productCarinaCardigan);
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1267 is code complete
-        // removeProductFromWishlist(productValeriaTwoLayeredTankUrl);
-        assertEmptyWishlist(wishlistPage);
+
+        //This test also need to account for Remove the added product and assert for empty wishlist part of PWA-1683
     });
 });
