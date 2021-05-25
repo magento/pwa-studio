@@ -10,6 +10,11 @@ exports[`renders a single wishlist without visibility toggle 1`] = `
     <mock-FormattedMessage
       defaultMessage="Favorites Lists"
       id="wishlistPage.headingText"
+      values={
+        Object {
+          "count": 1,
+        }
+      }
     />
   </h1>
   <Wishlist
@@ -19,7 +24,6 @@ exports[`renders a single wishlist without visibility toggle 1`] = `
         "name": "Favorites",
       }
     }
-    shouldRenderVisibilityToggle={false}
   />
   <CreateWishlist />
 </div>
@@ -35,6 +39,11 @@ exports[`renders disabled feature error 1`] = `
     <mock-FormattedMessage
       defaultMessage="Favorites Lists"
       id="wishlistPage.headingText"
+      values={
+        Object {
+          "count": 0,
+        }
+      }
     />
   </h1>
   <div
@@ -60,6 +69,11 @@ exports[`renders general fetch error 1`] = `
     <mock-FormattedMessage
       defaultMessage="Favorites Lists"
       id="wishlistPage.headingText"
+      values={
+        Object {
+          "count": 0,
+        }
+      }
     />
   </h1>
   <div
@@ -167,6 +181,11 @@ exports[`renders wishlist data 1`] = `
     <mock-FormattedMessage
       defaultMessage="Favorites Lists"
       id="wishlistPage.headingText"
+      values={
+        Object {
+          "count": 2,
+        }
+      }
     />
   </h1>
   <Wishlist
@@ -176,7 +195,6 @@ exports[`renders wishlist data 1`] = `
         "name": "Favorites",
       }
     }
-    shouldRenderVisibilityToggle={true}
   />
   <Wishlist
     data={
@@ -185,7 +203,6 @@ exports[`renders wishlist data 1`] = `
         "name": "Registry",
       }
     }
-    shouldRenderVisibilityToggle={true}
   />
   <CreateWishlist />
 </div>
