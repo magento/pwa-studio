@@ -42,6 +42,13 @@ test('return correct shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
+test('works without props', () => {
+    const { root } = createTestInstance(<Component />);
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps).toMatchSnapshot();
+});
+
 test('unauth redirect to home', () => {
     const mockHistoryPush = jest.fn();
     useHistory.mockReturnValue({ push: mockHistoryPush });
@@ -53,7 +60,7 @@ test('unauth redirect to home', () => {
 });
 
 test('return wishlist data', () => {
-    useQuery.mockReturnValue({
+    useQuery.mockReturnValueOnce({
         data: { customer: { wishlists: ['wishlist1', 'wishlist2'] } }
     });
 
@@ -61,4 +68,33 @@ test('return wishlist data', () => {
     const { talonProps } = root.findByType('i').props;
 
     expect(talonProps.wishlists).toMatchSnapshot();
+});
+
+test('shouldRenderVisibilityToggle is false if 1 or less lists', () => {
+    useQuery.mockReturnValueOnce({
+        data: { customer: { wishlists: [] } }
+    });
+
+    let instance = createTestInstance(<Component {...props} />);
+    let talonProps = instance.root.findByType('i').props.talonProps;
+
+    expect(talonProps.shouldRenderVisibilityToggle).toBeFalsy();
+
+    useQuery.mockReturnValueOnce({
+        data: { customer: { wishlists: ['wishlist1'] } }
+    });
+
+    instance = createTestInstance(<Component {...props} />);
+    talonProps = instance.root.findByType('i').props.talonProps;
+
+    expect(talonProps.shouldRenderVisibilityToggle).toBeFalsy();
+
+    useQuery.mockReturnValueOnce({
+        data: { customer: { wishlists: ['wishlist1', 'wishlist2'] } }
+    });
+
+    instance = createTestInstance(<Component {...props} />);
+    talonProps = instance.root.findByType('i').props.talonProps;
+
+    expect(talonProps.shouldRenderVisibilityToggle).toBeTruthy();
 });
