@@ -5,7 +5,7 @@ import {
     lastNameTextField,
     createAccountEmailTextField,
     createAccountPasswordTextField,
-    createAccountSubmitButton,
+    createAccountSubmitButton
 } from '../../fields/accountAccess';
 
 /**
@@ -25,9 +25,16 @@ export const openLoginDialog = () => {
  * @param {String} accountEmail accountEmail to createAccount
  * @param {String} accountPassword accountPassword to createAccount
  */
-export const createAccount = (firstName, lastName, accountEmail, accountPassword) => {
+export const createAccount = (
+    firstName,
+    lastName,
+    accountEmail,
+    accountPassword
+) => {
     // click on create account button
-    cy.get(createAccountInitiateButton).contains('Create an Account').click()
+    cy.get(createAccountInitiateButton)
+        .contains('Create an Account')
+        .click();
 
     // enter user name
     cy.get(firstNameTextField).type(firstName);
@@ -42,10 +49,17 @@ export const createAccount = (firstName, lastName, accountEmail, accountPassword
     cy.get(createAccountPasswordTextField).type(accountPassword);
 
     // Enter password into the password field
-    cy.get(createAccountSubmitButton).contains('Create an Account').click()
+    cy.get(createAccountSubmitButton)
+        .contains('Create an Account')
+        .click();
 };
 
-export const assertCreateAccount = (firstName, lastName, accountEmail, accountPassword) => {
+export const assertCreateAccount = (
+    firstName,
+    lastName,
+    accountEmail,
+    accountPassword
+) => {
     // Enter username into the username field
     cy.get(firstNameTextField).type(firstName);
 
