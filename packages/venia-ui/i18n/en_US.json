@@ -390,6 +390,7 @@
     "validation.isRequired": "Is required.",
     "validation.mustBeChecked": "Must be checked.",
     "validation.validatePassword": "A password must contain at least 3 of the following: lowercase, uppercase, digits, special characters.",
+    "wishlist.name": "Wish List",
     "wishlist.emptyListText": "There are currently no items in this list",
     "wishlistButton.addedText": "Added to Favorites",
     "wishlistButton.addError": "Something went wrong adding the product to your wishlist.",
@@ -414,6 +415,6 @@
     "wishlistMoreActionsDialog.title": "Actions",
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
-    "wishlistPage.headingText": "Favorites Lists",
+    "wishlistPage.headingText": "{count, plural, one {Favorites List} other {Favorites Lists}}",
     "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available."
 }
