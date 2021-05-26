@@ -84,6 +84,7 @@ test('exposes all hooks and targets', async () => {
           talons.AccountChip.useAccountChip.wrapWith() wraps export "useAccountChip" from "AccountChip/useAccountChip.js"
           talons.AccountInformationPage.useAccountInformationPage.wrapWith() wraps export "useAccountInformationPage" from "AccountInformationPage/useAccountInformationPage.js"
           talons.AccountMenu.useAccountMenuItems.wrapWith() wraps export "useAccountMenuItems" from "AccountMenu/useAccountMenuItems.js"
+          talons.AddToCartDialog.useAddToCartDialog.wrapWith() wraps export "useAddToCartDialog" from "AddToCartDialog/useAddToCartDialog.js"
           talons.AddressBookPage.useAddressBookPage.wrapWith() wraps export "useAddressBookPage" from "AddressBookPage/useAddressBookPage.js"
           talons.App.useApp.wrapWith() wraps export "useApp" from "App/useApp.js"
           talons.AuthBar.useAuthBar.wrapWith() wraps export "useAuthBar" from "AuthBar/useAuthBar.js"
@@ -218,6 +219,7 @@ test('exposes all hooks and targets', async () => {
           talons.WishlistPage.useCreateWishlist.wrapWith() wraps export "useCreateWishlist" from "WishlistPage/useCreateWishlist.js"
           talons.WishlistPage.useWishlist.wrapWith() wraps export "useWishlist" from "WishlistPage/useWishlist.js"
           talons.WishlistPage.useWishlistItem.wrapWith() wraps export "useWishlistItem" from "WishlistPage/useWishlistItem.js"
+          talons.WishlistPage.useWishlistItems.wrapWith() wraps export "useWishlistItems" from "WishlistPage/useWishlistItems.js"
           talons.WishlistPage.useWishlistPage.wrapWith() wraps export "useWishlistPage" from "WishlistPage/useWishlistPage.js"
     `);
 });
