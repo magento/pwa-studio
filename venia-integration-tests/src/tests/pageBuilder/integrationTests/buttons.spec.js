@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('verify pagebuilder buttons content is rendered correctly', () => {
     it('verify buttons content', () => {
         cy.intercept('GET', '**/graphql?query=query+GetCmsPage*', {fixture: 'pageBuilder/buttons/buttons.json'}).as('getCMSMockData')
