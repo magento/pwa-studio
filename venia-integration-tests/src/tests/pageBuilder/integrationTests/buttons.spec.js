@@ -3,7 +3,7 @@ describe('verify pagebuilder buttons content is rendered correctly', () => {
         cy.intercept('GET', '**/graphql?query=query+GetCmsPage*', {
             fixture: 'pageBuilder/buttons/buttons.json'
         }).as('getCMSMockData');
-        cy.visit('/');
+        cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
