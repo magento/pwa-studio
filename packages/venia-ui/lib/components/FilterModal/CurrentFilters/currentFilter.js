@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useIntl } from 'react-intl';
-import { shape, string } from 'prop-types';
+import { shape, string, func } from 'prop-types';
 import { X as Remove } from 'react-feather';
 
 import { useStyle } from '../../../classify';
@@ -9,13 +9,16 @@ import Trigger from '../../Trigger';
 import defaultClasses from './currentFilter.css';
 
 const CurrentFilter = props => {
-    const { group, item, removeItem } = props;
+    const { group, item, removeItem, onRemove } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 
     const handleClick = useCallback(() => {
         removeItem({ group, item });
-    }, [group, item, removeItem]);
+        if (typeof onRemove === 'function') {
+            onRemove(group, item);
+        }
+    }, [group, item, removeItem, onRemove]);
 
     const ariaLabel = formatMessage(
         {
@@ -39,8 +42,13 @@ const CurrentFilter = props => {
 
 export default CurrentFilter;
 
+CurrentFilter.defaultProps = {
+    onRemove: null
+};
+
 CurrentFilter.propTypes = {
     classes: shape({
         root: string
-    })
+    }),
+    onRemove: func
 };

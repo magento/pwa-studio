@@ -27,10 +27,6 @@ jest.mock('../../../classify');
 const baseProps = {
     item: {
         product: {
-            image: {
-                label: 'Shoggoth Shirt',
-                url: 'https://magento.test/shoggoth-shirt.jpg'
-            },
             name: 'Shoggoth Shirt',
             price_range: {
                 maximum_price: {
@@ -40,13 +36,16 @@ const baseProps = {
                     }
                 }
             },
-            sku: 'shoggoth-shirt'
+            stock_status: 'IN_STOCK'
         }
     }
 };
 
 const baseTalonProps = {
-    handleAddToCart: jest.fn().mockName('handleAddToCart'),
+    addToCartButtonProps: {
+        disabled: false,
+        onClick: jest.fn().mockName('addToCartButtonProps.onClick')
+    },
     handleHideDialogs: jest.fn().mockName('handleHideDialogs'),
     handleRemoveProductFromWishlist: jest
         .fn()
@@ -54,7 +53,11 @@ const baseTalonProps = {
     handleShowConfirmRemoval: jest.fn().mockName('handleShowConfirmRemoval'),
     handleShowMoreActions: jest.fn().mockName('handleShowMoreActions'),
     hasError: false,
-    isLoading: false
+    imageProps: {
+        alt: 'Shoggoth Shirt',
+        src: 'https://magento.test/shoggoth-shirt.jpg',
+        width: 400
+    }
 };
 
 test('it renders a simple wishlist item', () => {
@@ -66,12 +69,17 @@ test('it renders a simple wishlist item', () => {
 });
 
 test('it renders a configurable wishlist item', () => {
-    useWishlistItem.mockReturnValue({ ...baseTalonProps, isLoading: true });
+    useWishlistItem.mockReturnValue({
+        ...baseTalonProps,
+        addToCartButtonProps: {
+            ...baseTalonProps.addToCartButtonProps,
+            disabled: true
+        }
+    });
 
     const configurableProps = {
         item: {
             ...baseProps.item,
-            child_sku: 'shaggoth-shirt-xl-black',
             configurable_options: [
                 { id: 1, option_label: 'Size', value_label: 'XL' },
                 { id: 2, option_label: 'Color', value_label: 'Black' }

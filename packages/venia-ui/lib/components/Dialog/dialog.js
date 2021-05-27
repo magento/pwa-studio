@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { bool, func, shape, string, object } from 'prop-types';
+import { bool, func, shape, string, object, node } from 'prop-types';
 import { Form } from 'informed';
 import { X as CloseIcon } from 'react-feather';
 
@@ -171,7 +171,7 @@ Dialog.propTypes = {
     shouldDisableAllButtons: bool,
     shouldDisableSubmitButton: bool,
     shouldUnmountOnHide: bool,
-    title: string
+    title: node
 };
 
 Dialog.defaultProps = {

@@ -17,7 +17,8 @@ const baseProps = {
         name: 'Favorites List',
         sharing_code: null,
         visibility: 'PUBLIC'
-    }
+    },
+    shouldRenderVisibilityToggle: true
 };
 
 const baseTalonProps = {
@@ -42,8 +43,47 @@ test('render closed with items', () => {
             items_count: 20,
             items_v2: { items: ['item1', 'item2'] },
             sharing_code: 'abc123'
-        }
+        },
+        shouldRenderVisibilityToggle: true
     };
+    const tree = createTestInstance(<Wishlist {...myProps} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders a name even if none in data', () => {
+    useWishlist.mockReturnValue({ ...baseTalonProps, isOpen: false });
+
+    const myProps = {
+        data: {
+            ...baseProps.data,
+            items_count: 20,
+            items_v2: { items: ['item1', 'item2'] },
+            sharing_code: 'abc123'
+        },
+        shouldRenderVisibilityToggle: true
+    };
+
+    delete myProps.data.name;
+
+    const tree = createTestInstance(<Wishlist {...myProps} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('hides visibility toggle', () => {
+    useWishlist.mockReturnValue({ ...baseTalonProps, isOpen: false });
+
+    const myProps = {
+        data: {
+            ...baseProps.data,
+            items_count: 20,
+            items_v2: { items: ['item1', 'item2'] },
+            sharing_code: 'abc123'
+        },
+        shouldRenderVisibilityToggle: false
+    };
+
     const tree = createTestInstance(<Wishlist {...myProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();

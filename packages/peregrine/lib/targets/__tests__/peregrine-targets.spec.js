@@ -85,6 +85,7 @@ test('exposes all hooks and targets', async () => {
           talons.AccountInformationPage.useAccountInformationPage.wrapWith() wraps export "useAccountInformationPage" from "AccountInformationPage/useAccountInformationPage.js"
           talons.AccountMenu.useAccountMenuItems.wrapWith() wraps export "useAccountMenuItems" from "AccountMenu/useAccountMenuItems.js"
           talons.Adapter.useAdapter.wrapWith() wraps export "useAdapter" from "Adapter/useAdapter.js"
+          talons.AddToCartDialog.useAddToCartDialog.wrapWith() wraps export "useAddToCartDialog" from "AddToCartDialog/useAddToCartDialog.js"
           talons.AddressBookPage.useAddressBookPage.wrapWith() wraps export "useAddressBookPage" from "AddressBookPage/useAddressBookPage.js"
           talons.App.useApp.wrapWith() wraps export "useApp" from "App/useApp.js"
           talons.AuthBar.useAuthBar.wrapWith() wraps export "useAuthBar" from "AuthBar/useAuthBar.js"
@@ -145,8 +146,10 @@ test('exposes all hooks and targets', async () => {
           talons.CreateAccountPage.useCreateAccountPage.wrapWith() wraps export "useCreateAccountPage" from "CreateAccountPage/useCreateAccountPage.js"
           talons.FilterModal.useFilterBlock.wrapWith() wraps export "useFilterBlock" from "FilterModal/useFilterBlock.js"
           talons.FilterModal.useFilterFooter.wrapWith() wraps export "useFilterFooter" from "FilterModal/useFilterFooter.js"
+          talons.FilterModal.useFilterList.wrapWith() wraps export "useFilterList" from "FilterModal/useFilterList.js"
           talons.FilterModal.useFilterModal.wrapWith() wraps export "useFilterModal" from "FilterModal/useFilterModal.js"
           talons.FilterModal.useFilterState.wrapWith() wraps export "useFilterState" from "FilterModal/useFilterState.js"
+          talons.FilterSidebar.useFilterSidebar.wrapWith() wraps export "useFilterSidebar" from "FilterSidebar/useFilterSidebar.js"
           talons.Footer.useFooter.wrapWith() wraps export "useFooter" from "Footer/useFooter.js"
           talons.ForgotPassword.useForgotPassword.wrapWith() wraps export "useForgotPassword" from "ForgotPassword/useForgotPassword.js"
           talons.FormError.useFormError.wrapWith() wraps export "useFormError" from "FormError/useFormError.js"
@@ -217,6 +220,7 @@ test('exposes all hooks and targets', async () => {
           talons.WishlistPage.useCreateWishlist.wrapWith() wraps export "useCreateWishlist" from "WishlistPage/useCreateWishlist.js"
           talons.WishlistPage.useWishlist.wrapWith() wraps export "useWishlist" from "WishlistPage/useWishlist.js"
           talons.WishlistPage.useWishlistItem.wrapWith() wraps export "useWishlistItem" from "WishlistPage/useWishlistItem.js"
+          talons.WishlistPage.useWishlistItems.wrapWith() wraps export "useWishlistItems" from "WishlistPage/useWishlistItems.js"
           talons.WishlistPage.useWishlistPage.wrapWith() wraps export "useWishlistPage" from "WishlistPage/useWishlistPage.js"
     `);
 });

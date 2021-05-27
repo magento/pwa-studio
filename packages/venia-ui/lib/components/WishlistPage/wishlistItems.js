@@ -1,11 +1,20 @@
-import React, { useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
+import { useWishlistItems } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItems';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './wishlistItems.css';
 import WishlistItem from './wishlistItem';
+import AddToCartDialog from '../AddToCartDialog';
 
 const WishlistItems = props => {
     const { items, wishlistId } = props;
+
+    const talonProps = useWishlistItems();
+    const {
+        activeAddToCartItem,
+        handleCloseAddToCartDialog,
+        handleOpenAddToCartDialog
+    } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -15,13 +24,22 @@ const WishlistItems = props => {
                 <WishlistItem
                     key={item.id}
                     item={item}
+                    onOpenAddToCartDialog={handleOpenAddToCartDialog}
                     wishlistId={wishlistId}
                 />
             );
         });
-    }, [items, wishlistId]);
+    }, [handleOpenAddToCartDialog, items, wishlistId]);
 
-    return <div className={classes.root}>{itemElements}</div>;
+    return (
+        <Fragment>
+            <div className={classes.root}>{itemElements}</div>
+            <AddToCartDialog
+                item={activeAddToCartItem}
+                onClose={handleCloseAddToCartDialog}
+            />
+        </Fragment>
+    );
 };
 
 export default WishlistItems;

@@ -2,15 +2,22 @@
 
 exports[`it returns the correct shape 1`] = `
 Object {
+  "addToCartButtonProps": Object {
+    "disabled": false,
+    "onClick": [Function],
+  },
   "confirmRemovalIsOpen": false,
-  "handleAddToCart": [Function],
   "handleHideDialogs": [Function],
   "handleRemoveProductFromWishlist": [Function],
   "handleShowConfirmRemoval": [Function],
   "handleShowMoreActions": [Function],
   "hasError": false,
   "hasRemoveProductFromWishlistError": false,
-  "isLoading": false,
+  "imageProps": Object {
+    "alt": "Shoggoth Shirt",
+    "src": "https://example.com/media/shoggoth-shirt.jpg",
+    "width": 400,
+  },
   "isRemovalInProgress": false,
   "moreActionsIsOpen": false,
 }
@@ -21,12 +28,11 @@ Object {
   "variables": Object {
     "cartId": "cart123",
     "cartItem": Object {
-      "data": Object {
-        "quantity": 1,
-        "sku": "shoggoth-shirt-xl-black",
-      },
-      "parent_sku": "shoggoth-shirt",
-      "variant_sku": "shoggoth-shirt-xl-black",
+      "quantity": 1,
+      "selected_options": Array [
+        "value-uid-1",
+      ],
+      "sku": "shoggoth-shirt",
     },
   },
 }
@@ -37,10 +43,8 @@ Object {
   "variables": Object {
     "cartId": "cart123",
     "cartItem": Object {
-      "data": Object {
-        "quantity": 1,
-        "sku": "shoggoth-shirt",
-      },
+      "quantity": 1,
+      "sku": "shoggoth-shirt",
     },
   },
 }
