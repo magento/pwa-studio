@@ -63,6 +63,7 @@ export const useCategoryContent = props => {
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
         : null;
+    const totalCount = data ? data.products.total_count : null;
     const categoryName = categoryData ? categoryData.category.name : null;
     const categoryDescription = categoryData
         ? categoryData.category.description
@@ -73,6 +74,7 @@ export const useCategoryContent = props => {
         categoryDescription,
         filters,
         items,
+        totalCount,
         totalPagesFromData
     };
 };

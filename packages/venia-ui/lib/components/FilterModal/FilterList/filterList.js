@@ -1,6 +1,8 @@
 import React, { Fragment, useMemo } from 'react';
-import { array, shape, string } from 'prop-types';
+import { array, shape, string, func, number, bool } from 'prop-types';
+import { useIntl } from 'react-intl';
 import setValidator from '@magento/peregrine/lib/validators/set';
+import { useFilterList } from '@magento/peregrine/lib/talons/FilterModal';
 
 import { mergeClasses } from '../../../classify';
 import FilterItem from './filterItem';
@@ -9,25 +11,41 @@ import defaultClasses from './filterList.css';
 const labels = new WeakMap();
 
 const FilterList = props => {
-    const { filterApi, filterState, group, items, isExpanded } = props;
+    const {
+        filterApi,
+        filterState,
+        group,
+        items,
+        isExpanded,
+        onApply,
+        itemCountToShow
+    } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
+    const talonProps = useFilterList();
+    const { isListExpanded, handleListToggle } = talonProps;
+    const { formatMessage } = useIntl();
 
     // memoize item creation
     // search value is not referenced, so this array is stable
     const itemElements = useMemo(
         () =>
-            items.map(item => {
+            items.map((item, index) => {
                 const { title, value } = item;
                 const key = `item-${group}-${value}`;
+                const itemClass =
+                    isListExpanded || index < itemCountToShow
+                        ? classes.item
+                        : classes.itemHidden;
 
                 // create an element for each item
                 const element = (
-                    <li key={key} className={classes.item}>
+                    <li key={key} className={itemClass}>
                         <FilterItem
                             filterApi={filterApi}
                             filterState={filterState}
                             group={group}
                             item={item}
+                            onApply={onApply}
                             isExpanded={isExpanded}
                         />
                     </li>
@@ -39,14 +57,67 @@ const FilterList = props => {
 
                 return element;
             }),
-        [classes, filterApi, filterState, group, items, isExpanded]
+        [
+            classes,
+            filterApi,
+            filterState,
+            group,
+            items,
+            isExpanded,
+            isListExpanded,
+            itemCountToShow,
+            onApply
+        ]
     );
+
+    const showMoreLessItem = useMemo(() => {
+        if (items.length <= itemCountToShow) {
+            return null;
+        }
+
+        const label = isListExpanded
+            ? formatMessage({
+                  id: 'filterList.showLess',
+                  defaultMessage: 'Show Less'
+              })
+            : formatMessage({
+                  id: 'filterList.showMore',
+                  defaultMessage: 'Show More'
+              });
+
+        return (
+            <li className={classes.showMoreLessItem}>
+                <button
+                    onClick={handleListToggle}
+                    className={classes.showMoreLessButton}
+                >
+                    {label}
+                </button>
+            </li>
+        );
+    }, [
+        isListExpanded,
+        handleListToggle,
+        items,
+        itemCountToShow,
+        formatMessage,
+        classes
+    ]);
 
     return (
         <Fragment>
-            <ul className={classes.items}>{itemElements}</ul>
+            <ul className={classes.items}>
+                {itemElements}
+                {showMoreLessItem}
+            </ul>
         </Fragment>
     );
+};
+
+FilterList.defaultProps = {
+    onApply: null,
+    itemCountToShow: 5,
+    isExpanded: false
 };
 
 FilterList.propTypes = {
@@ -57,7 +128,10 @@ FilterList.propTypes = {
     filterApi: shape({}),
     filterState: setValidator,
     group: string,
-    items: array
+    items: array,
+    onApply: func,
+    itemCountToShow: number,
+    isExpanded: bool
 };
 
 export default FilterList;
