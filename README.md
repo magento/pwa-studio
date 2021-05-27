@@ -27,7 +27,7 @@ Here are some popular topics to help you get started:
 
 [PWA learning resources from Magento U][magento u] -
 Just starting out with Progressive Web Application technologies in general?
-Check out Magento U's learning resource page for PWA.  
+Check out Magento U's learning resource page for PWA.          
 It contains links to online training, tutorials, and courses on the technologies you need to know to use PWA Studio.
 
 ### Venia. 
