@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-
+import { Form } from 'informed';
 import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
 
 import Checkbox from '../../../Checkbox';
@@ -37,7 +37,7 @@ const GiftOptions = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <div className={classes.root}>
+        <Form className={classes.root}>
             <ul className={classes.option}>
                 <Checkbox
                     id="includeGiftReceipt"
@@ -80,7 +80,7 @@ const GiftOptions = props => {
                     />
                 )}
             </ul>
-        </div>
+        </Form>
     );
 };
 

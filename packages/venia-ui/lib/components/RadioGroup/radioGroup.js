@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { arrayOf, bool, node, oneOfType, shape, string } from 'prop-types';
-import { BasicRadioGroup, asField } from 'informed';
+// import { arrayOf, bool, node, oneOfType, shape, string } from 'prop-types';
+import { RadioGroup as InformedRadioGroup, useFieldState } from 'informed';
 
 import { useStyle } from '../../classify';
 import { Message } from '../Field';
@@ -9,35 +9,41 @@ import defaultClasses from './radioGroup.css';
 
 const RadioGroup = props => {
     const {
+        children,
         classes: propClasses,
         disabled,
-        fieldState,
+        field,
+        id,
         items,
         message,
         ...rest
     } = props;
-
+    const fieldState = useFieldState(field);
     const classes = useStyle(defaultClasses, propClasses);
+    const domId = id || field;
 
-    const options = items.map(({ value, ...item }) => (
-        <Radio
-            disabled={disabled}
-            {...item}
-            classes={{
-                label: classes.radioLabel,
-                root: classes.radioContainer
-            }}
-            key={value}
-            value={value}
-        />
-    ));
+    const options =
+        children ||
+        items.map(({ value, ...item }) => (
+            <Radio
+                key={value}
+                disabled={disabled}
+                {...item}
+                classes={{
+                    label: classes.radioLabel,
+                    root: classes.radioContainer
+                }}
+                id={`${domId}--${value}`}
+                value={value}
+            />
+        ));
 
     return (
         <Fragment>
             <div className={classes.root}>
-                <BasicRadioGroup {...rest} fieldState={fieldState}>
+                <InformedRadioGroup {...rest} field={field} id={domId}>
                     {options}
-                </BasicRadioGroup>
+                </InformedRadioGroup>
             </div>
             <Message className={classes.message} fieldState={fieldState}>
                 {message}
@@ -46,24 +52,4 @@ const RadioGroup = props => {
     );
 };
 
-export default asField(RadioGroup);
-
-RadioGroup.propTypes = {
-    classes: shape({
-        message: string,
-        radio: string,
-        radioLabel: string,
-        root: string
-    }),
-    disabled: bool,
-    fieldState: shape({
-        value: string
-    }),
-    items: arrayOf(
-        shape({
-            label: oneOfType([string, node]).isRequired,
-            value: string
-        })
-    ),
-    message: node
-};
+export default RadioGroup;

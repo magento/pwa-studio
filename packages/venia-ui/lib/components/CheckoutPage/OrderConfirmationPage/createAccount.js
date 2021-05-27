@@ -140,6 +140,7 @@ const CreateAccount = props => {
                 <div className={classes.subscribe}>
                     <Checkbox
                         field="subscribe"
+                        id="subscribe"
                         label={formatMessage({
                             id: 'checkoutPage.subscribe',
                             defaultMessage: 'Subscribe to news and updates'

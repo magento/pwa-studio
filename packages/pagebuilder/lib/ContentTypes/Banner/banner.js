@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import defaultClasses from './banner.css';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, bool, oneOf, shape, string, func } from 'prop-types';
 import Button from '@magento/venia-ui/lib/components/Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
@@ -26,7 +26,7 @@ const handleDragStart = event => event.preventDefault();
 const Banner = props => {
     const backgroundElement = useRef(null);
     const viewportElement = useRef(null);
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const [hovered, setHovered] = useState(false);
     const toggleHover = () => setHovered(!hovered);
     const {

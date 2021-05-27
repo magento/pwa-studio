@@ -13,6 +13,15 @@ exports[`renders the correct tree 1`] = `
     <input
       checked={false}
       className="input"
+      classes={
+        Object {
+          "icon": "icon",
+          "input": "input",
+          "label": "label",
+          "message": "message",
+          "root": "root",
+        }
+      }
       id="a"
       name="a"
       onBlur={[Function]}

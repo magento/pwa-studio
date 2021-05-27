@@ -1,7 +1,7 @@
 import React from 'react';
 import { verticalAlignmentToFlex } from '../../utils';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './tabItem.css';
 import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
 
@@ -20,7 +20,7 @@ const { matchMedia } = globalThis;
  * @returns {React.Element} A React component that displays a TabItem.
  */
 const TabItem = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const {
         minHeight,
         verticalAlignment,

@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './divider.css';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, shape, string } from 'prop-types';
 
 /**
@@ -16,7 +16,7 @@ import { arrayOf, shape, string } from 'prop-types';
  * @returns {React.Element} A React component that displays a Divider.
  */
 const Divider = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const {
         width,
         color,

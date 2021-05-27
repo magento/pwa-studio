@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './products.css';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import SlickSlider from 'react-slick';
 import Gallery from '@magento/venia-ui/lib/components/Gallery';
@@ -35,7 +35,7 @@ const restoreSortOrder = (skus, products) => {
  * @returns {React.Element} A React component that displays a Products based on a number of skus.
  */
 const Products = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const {
         appearance,
         autoplay,

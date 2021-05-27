@@ -47,6 +47,7 @@ const ShippingRadios = props => {
             classes={radioGroupClasses}
             disabled={disabled}
             field="shipping_method"
+            id={'shippingMethod'}
             items={shippingRadios}
         />
     );
