@@ -6,7 +6,6 @@
     "packages/babel-preset-peregrine",
     "packages/create-pwa",
     "packages/extensions/*",
-    "packages/graphql-cli-validate-magento-pwa-queries",
     "packages/pagebuilder",
     "packages/peregrine",
     "packages/pwa-buildpack",
