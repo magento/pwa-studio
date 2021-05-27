@@ -15,6 +15,7 @@ describe('verify pagebuilder banner content', () => {
             });
         });
     });
+    
     it('verify banner content2', () => {
         cy.intercept('GET', '**/graphql?query=query+GetCmsPage*', {
             fixture: 'pageBuilder/banner/banner2.json'

@@ -53,25 +53,3 @@ export const createAccount = (
         .contains('Create an Account')
         .click();
 };
-
-export const assertCreateAccount = (
-    firstName,
-    lastName,
-    accountEmail,
-    accountPassword
-) => {
-    // Enter username into the username field
-    cy.get(firstNameTextField).type(firstName);
-
-    // Enter password into the password field
-    cy.get(lastNameTextField).type(lastName);
-
-    // Enter username into the username field
-    cy.get(createAccountEmailTextField).type(accountEmail);
-
-    // Enter password into the password field
-    cy.get(createAccountPasswordTextField).type(accountPassword);
-
-    // Enter password into the password field
-    cy.get(createAccountSubmitButton).click;
-};
