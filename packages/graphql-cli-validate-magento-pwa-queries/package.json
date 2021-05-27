@@ -1,5 +1,5 @@
 {
-  "name": "@magento/graphql-cli-validate-magento-pwa-queries",
+  "name": "graphql-cli-validate-magento-pwa-queries",
   "version": "1.4.0",
   "publishConfig": {
     "access": "public"
@@ -29,10 +29,10 @@
   },
   "devDependencies": {
     "glob": "~7.1.6",
-    "graphql-cli": "~4.1.0",
+    "graphql-cli": "^3",
     "rimraf": "~2.6.3"
   },
   "peerDependencies": {
-    "graphql-cli": "~4.1.0"
+    "graphql-cli": "^3"
   }
 }

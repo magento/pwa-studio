@@ -10,9 +10,9 @@ import { AvailablePaymentMethodsFragment } from '../PaymentInformation/paymentIn
 /* eslint-disable graphql/template-strings */
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
-        cart(cart_id: $cartId) @client {
+        cart(cart_id: $cartId) {
             id
-            isBillingAddressSame
+            isBillingAddressSame @client
         }
     }
 `;

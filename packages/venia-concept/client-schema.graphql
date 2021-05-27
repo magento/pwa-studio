@@ -1,0 +1,15 @@
+extend type Query {
+    customerWishlistProducts: [String!]!
+}
+
+extend type Cart {
+    include_gift_receipt: Boolean!
+    include_printed_card: Boolean!
+    isBillingAddressSame: Boolean!
+    local_gift_message: String
+    paymentNonce: String
+}
+
+extend type Currency {
+    current_currency_code: String!
+}

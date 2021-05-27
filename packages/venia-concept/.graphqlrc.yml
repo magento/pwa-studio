@@ -1,6 +1,11 @@
 projects:
-  venia:
-    schema: ${MAGENTO_BACKEND_URL}/graphql
+  default:
+    schema:
+      - ${MAGENTO_BACKEND_URL}/graphql
+      - "**/client-schema.graphql"
+    documents:
+      - '../{peregrine,venia-ui,venia-concept}/{lib,src}/**/!(*.spec).js'
+      - '!**/*.ce.js'
     extensions:
       codegen:
         generates:
