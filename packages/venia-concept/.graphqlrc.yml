@@ -9,6 +9,6 @@ projects:
     extensions:
       codegen:
         generates:
-          ./lastCachedGraphQLSchema.json:
+          ./merged-schema.v4.json:
             plugins:
               - introspection

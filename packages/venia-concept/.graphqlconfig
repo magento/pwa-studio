@@ -1,7 +1,7 @@
 {
     "projects": {
         "venia": {
-            "schemaPath": "merged-schema.json",
+            "schemaPath": "merged-schema.v3.json",
             "includes": ["**/client-schema.graphql"],
             "extensions": {
                 "endpoints": {
