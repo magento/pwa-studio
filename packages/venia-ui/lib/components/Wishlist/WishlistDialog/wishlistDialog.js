@@ -15,12 +15,13 @@ import defaultClasses from './wishlistDialog.css';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 
 const WishlistDialog = props => {
-    const { isOpen, itemOptions, onClose } = props;
+    const { isOpen, itemOptions, onClose, onSuccess } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useWishlistDialog({
         itemOptions,
-        onClose
+        onClose,
+        onSuccess
     });
 
     const {
@@ -131,5 +132,6 @@ WishlistDialog.defaultProps = {
         selected_options: arrayOf(string),
         quantity: number.isRequired
     }),
-    onClose: func
+    onClose: func,
+    onSuccess: func
 };
