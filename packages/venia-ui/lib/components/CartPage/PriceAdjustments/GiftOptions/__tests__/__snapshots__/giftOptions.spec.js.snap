@@ -6,17 +6,16 @@ exports[`it renders gift options in venia cart page 1`] = `
   onReset={[Function]}
   onSubmit={[Function]}
 >
-  <ul>
+  <div>
     <label
       htmlFor="includeGiftReceipt"
     >
       <input
-        checked={true}
+        checked={false}
         id="includeGiftReceipt"
         name="includeGiftReceipt"
         onBlur={[Function]}
         onChange={[Function]}
-        onClick={[Function]}
         type="checkbox"
       />
       <span>
@@ -46,8 +45,8 @@ exports[`it renders gift options in venia cart page 1`] = `
       </span>
     </label>
     <p />
-  </ul>
-  <ul>
+  </div>
+  <div>
     <label
       htmlFor="includePrintedCard"
     >
@@ -57,7 +56,6 @@ exports[`it renders gift options in venia cart page 1`] = `
         name="includePrintedCard"
         onBlur={[Function]}
         onChange={[Function]}
-        onClick={[Function]}
         type="checkbox"
       />
       <span>
@@ -87,7 +85,7 @@ exports[`it renders gift options in venia cart page 1`] = `
       </span>
     </label>
     <p />
-  </ul>
-  <ul />
+  </div>
+  <div />
 </form>
 `;

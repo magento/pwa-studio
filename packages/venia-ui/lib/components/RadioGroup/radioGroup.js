@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-// import { arrayOf, bool, node, oneOfType, shape, string } from 'prop-types';
+import { arrayOf, number, node, oneOfType, shape, string } from 'prop-types';
 import { RadioGroup as InformedRadioGroup, useFieldState } from 'informed';
 
 import { useStyle } from '../../classify';
@@ -53,3 +53,23 @@ const RadioGroup = props => {
 };
 
 export default RadioGroup;
+
+RadioGroup.propTypes = {
+    children: node,
+    classes: shape({
+        message: string,
+        radioContainer: string,
+        radioLabel: string,
+        root: string
+    }),
+    field: string.isRequired,
+    id: string,
+    items: arrayOf(
+        shape({
+            key: oneOfType([number, string]),
+            label: node,
+            value: oneOfType([number, string])
+        })
+    ),
+    message: node
+};

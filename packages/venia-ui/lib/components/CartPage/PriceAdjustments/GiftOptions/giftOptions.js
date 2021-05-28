@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { Form } from 'informed';
+import { Form, Relevant } from 'informed';
 import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
 
 import Checkbox from '../../../Checkbox';
@@ -25,61 +25,46 @@ import defaultClasses from './giftOptions.css';
  */
 const GiftOptions = props => {
     const {
-        includeGiftReceipt,
-        includePrintedCard,
-        giftMessage,
-        toggleIncludeGiftReceiptFlag,
-        toggleIncludePrintedCardFlag,
-        updateGiftMessage
+        cardMessageProps,
+        giftReceiptProps,
+        optionsFormProps,
+        printedCardProps,
+        shouldPromptForMessage
     } = useGiftOptions({ ...GiftOptionsOperations });
     const { formatMessage } = useIntl();
-
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <Form className={classes.root}>
-            <ul className={classes.option}>
+        <Form {...optionsFormProps} className={classes.root}>
+            <div className={classes.option}>
                 <Checkbox
-                    id="includeGiftReceipt"
-                    field="includeGiftReceipt"
+                    {...giftReceiptProps}
                     label={formatMessage({
                         id: 'giftOptions.includeGiftReceipt',
                         defaultMessage: 'Include gift receipt'
                     })}
-                    fieldState={{
-                        value: includeGiftReceipt
-                    }}
-                    onClick={toggleIncludeGiftReceiptFlag}
                 />
-            </ul>
-            <ul className={classes.option}>
+            </div>
+            <div className={classes.option}>
                 <Checkbox
-                    id="includePrintedCard"
-                    field="includePrintedCard"
+                    {...printedCardProps}
                     label={formatMessage({
                         id: 'giftOptions.includePrintedCard',
                         defaultMessage: 'Include printed card'
                     })}
-                    fieldState={{
-                        value: includePrintedCard
-                    }}
-                    onClick={toggleIncludePrintedCardFlag}
                 />
-            </ul>
-            <ul className={classes.option}>
-                {includePrintedCard && (
+            </div>
+            <div className={classes.option}>
+                <Relevant when={shouldPromptForMessage}>
                     <TextArea
-                        id="cardMessage"
-                        field="cardMessage"
+                        {...cardMessageProps}
                         placeholder={formatMessage({
                             id: 'giftOptions.cardMessage',
                             defaultMessage: 'Enter your message here'
                         })}
-                        initialValue={giftMessage}
-                        onChange={updateGiftMessage}
                     />
-                )}
-            </ul>
+                </Relevant>
+            </div>
         </Form>
     );
 };

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-// import { number, node, oneOf, oneOfType, shape, string } from 'prop-types';
+import { number, node, oneOf, oneOfType, shape, string } from 'prop-types';
 import { TextArea as InformedTextArea, useFieldState } from 'informed';
 
 import { useStyle } from '../../classify';
@@ -31,44 +31,13 @@ TextArea.defaultProps = {
     wrap: 'hard'
 };
 
-// export class TextArea extends Component {
-//     static propTypes = {
-//         classes: shape({
-//             input: string
-//         }),
-//         cols: oneOfType([number, string]),
-//         field: string.isRequired,
-//         fieldState: shape({
-//             value: string
-//         }),
-//         message: node,
-//         rows: oneOfType([number, string]),
-//         wrap: oneOf(['hard', 'soft'])
-//     };
-
-//     static defaultProps = {
-//         cols: 40,
-//         rows: 4,
-//         wrap: 'hard'
-//     };
-
-//     render() {
-//         const { classes, fieldState, message, ...rest } = this.props;
-
-//         return (
-//             <Fragment>
-//                 <BasicTextArea
-//                     {...rest}
-//                     fieldState={fieldState}
-//                     className={classes.input}
-//                 />
-//                 <Message fieldState={fieldState}>{message}</Message>
-//             </Fragment>
-//         );
-//     }
-// }
-
-// export default compose(
-//     classify(defaultClasses),
-//     asField
-// )(TextArea);
+TextArea.propTypes = {
+    classes: shape({
+        input: string
+    }),
+    cols: oneOfType([number, string]),
+    field: string.isRequired,
+    message: node,
+    rows: oneOfType([number, string]),
+    wrap: oneOf(['hard', 'soft'])
+};
