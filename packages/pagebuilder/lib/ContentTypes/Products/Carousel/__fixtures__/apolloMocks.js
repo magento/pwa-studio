@@ -1,5 +1,5 @@
-import eeOperations from '../gallery.gql.ee';
-import ceOperations from '../gallery.gql.ce';
+import eeOperations from '../carousel.gql.ee';
+import ceOperations from '../carousel.gql.ce';
 
 export const mockGetWishlistConfigEE = {
     request: {
