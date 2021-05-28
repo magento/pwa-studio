@@ -14,6 +14,7 @@ import SortedByContainer from '../SortedByContainer';
 import FilterModalOpenButton from '../FilterModalOpenButton';
 
 const FilterModal = React.lazy(() => import('../FilterModal'));
+const FilterSidebar = React.lazy(() => import('../FilterSidebar'));
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -100,6 +101,10 @@ const SearchPage = props => {
         <FilterModal filters={filters} />
     ) : null;
 
+    const maybeSidebar = shouldShowFilterButtons ? (
+        <FilterSidebar filters={filters} />
+    ) : null;
+
     const maybeSortButton = shouldShowSortButtons ? (
         <ProductSort sortProps={sortProps} />
     ) : null;
@@ -127,27 +132,39 @@ const SearchPage = props => {
         />
     );
 
+    const itemCountHeading =
+        data && !loading ? (
+            <span className={classes.totalPages}>
+                {formatMessage(
+                    {
+                        id: 'searchPage.totalPages',
+                        defaultMessage: `items`
+                    },
+                    { totalCount: productsCount }
+                )}
+            </span>
+        ) : null;
+
     return (
         <article className={classes.root}>
-            <div className={classes.categoryTop}>
-                <span className={classes.totalPages}>
-                    {formatMessage(
-                        {
-                            id: 'searchPage.totalPages',
-                            defaultMessage: `items`
-                        },
-                        { totalCount: productsCount }
-                    )}
-                </span>
-                <div className={classes.headerButtons}>
-                    {maybeFilterButtons}
-                    {maybeSortButton}
-                </div>
-                {maybeSortContainer}
+            <div className={classes.sidebar}>
+                <Suspense fallback={null}>{maybeSidebar}</Suspense>
             </div>
-            <div className={classes.heading}>{searchResultsHeading}</div>
-            {content}
-            <Suspense fallback={null}>{maybeFilterModal}</Suspense>
+            <div className={classes.searchContent}>
+                <div className={classes.heading}>
+                    <div className={classes.searchInfo}>
+                        {searchResultsHeading}
+                        {itemCountHeading}
+                    </div>
+                    <div className={classes.headerButtons}>
+                        {maybeFilterButtons}
+                        {maybeSortButton}
+                    </div>
+                    {maybeSortContainer}
+                </div>
+                {content}
+                <Suspense fallback={null}>{maybeFilterModal}</Suspense>
+            </div>
         </article>
     );
 };

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns configurable option props 1`] = `
+Object {
+  "onSelectionChange": [Function],
+  "options": Array [
+    Object {
+      "attribute_id_v2": 1,
+      "values": Array [
+        Object {
+          "uid": "red-uid",
+          "value_index": "red-id",
+        },
+        Object {
+          "uid": "blue-uid",
+          "value_index": "blue-id",
+        },
+      ],
+    },
+    Object {
+      "attribute_id_v2": 2,
+      "values": Array [
+        Object {
+          "uid": "large-uid",
+          "value_index": "large-id",
+        },
+        Object {
+          "uid": "medium-uid",
+          "value_index": "medium-id",
+        },
+      ],
+    },
+  ],
+  "selectedValues": Array [
+    Object {
+      "id": 1,
+      "value_id": "red-id",
+    },
+  ],
+}
+`;
