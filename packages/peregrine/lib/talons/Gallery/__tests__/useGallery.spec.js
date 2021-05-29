@@ -4,17 +4,23 @@ import { MockedProvider } from '@apollo/client/testing';
 import { renderHook } from '@testing-library/react-hooks';
 
 import typePolicies from '../../../Apollo/policies';
-import operations from '../gallery.gql.ee';
 import {
-    mockGetWishlistConfig,
-    mockGetWishlistItemsPage1,
-    mockGetWishlistItemsPage2
+    mockGetWishlistConfigCE,
+    mockGetWishlistConfigEE
 } from '../__fixtures__/apolloMocks';
+
 import { useGallery } from '../useGallery';
 
-jest.mock('../../../context/user', () => ({
-    useUserContext: jest.fn().mockReturnValue([{ isSignedIn: true }])
-}));
+import defaultOperations from '../gallery.gql';
+import ceOperations from '../gallery.gql.ce';
+import eeOperations from '../gallery.gql.ee';
+
+jest.mock(
+    '../../../hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
+    () => ({
+        useCustomerWishlistSkus: jest.fn()
+    })
+);
 
 const cache = new InMemoryCache({
     typePolicies
@@ -22,12 +28,7 @@ const cache = new InMemoryCache({
 
 const renderHookWithProviders = ({
     renderHookOptions = {},
-    mocks = [
-        mockGetWishlistConfig,
-        mockGetWishlistItemsPage1,
-        mockGetWishlistItemsPage1,
-        mockGetWishlistItemsPage2
-    ]
+    mocks = []
 } = {}) => {
     const wrapper = ({ children }) => (
         <MockedProvider mocks={mocks} addTypename={true} cache={cache}>
@@ -38,8 +39,13 @@ const renderHookWithProviders = ({
     return renderHook(useGallery, { wrapper, ...renderHookOptions });
 };
 
-test('returns store config', async () => {
-    const { result, waitForNextUpdate } = renderHookWithProviders();
+test('returns store config EE', async () => {
+    defaultOperations.getWishlistConfigQuery =
+        eeOperations.getWishlistConfigQuery;
+
+    const { result, waitForNextUpdate } = renderHookWithProviders({
+        mocks: [mockGetWishlistConfigEE]
+    });
 
     expect(result.current).toMatchInlineSnapshot(`
         Object {
@@ -60,21 +66,33 @@ test('returns store config', async () => {
     `);
 });
 
-test('pre-caches wishlist items', async () => {
-    const { waitForNextUpdate } = renderHookWithProviders();
+test('returns store config CE', async () => {
+    defaultOperations.getWishlistConfigQuery =
+        ceOperations.getWishlistConfigQuery;
+
+    const { result, waitForNextUpdate } = renderHookWithProviders({
+        mocks: [mockGetWishlistConfigCE]
+    });
+
+    // I am unsure why this test renders without a loading state whereas the EE
+    // test renders with a loading (null) state.
+    expect(result.current).toMatchInlineSnapshot(`
+        Object {
+          "storeConfig": Object {
+            "id": 1,
+            "magento_wishlist_general_is_enabled": "1",
+          },
+        }
+    `);
 
     await waitForNextUpdate();
 
-    const preCacheData = cache.readQuery({
-        query: operations.getProductsInWishlistsQuery
-    });
-
-    expect(preCacheData).toMatchInlineSnapshot(`
+    expect(result.current).toMatchInlineSnapshot(`
         Object {
-          "customerWishlistProducts": Array [
-            "Dress",
-            "Shirt",
-          ],
+          "storeConfig": Object {
+            "id": 1,
+            "magento_wishlist_general_is_enabled": "1",
+          },
         }
     `);
 });

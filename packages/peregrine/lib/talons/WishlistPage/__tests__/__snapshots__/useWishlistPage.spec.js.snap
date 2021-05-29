@@ -6,6 +6,7 @@ Object {
     "getCustomerWishlistQuery" => undefined,
   },
   "loading": undefined,
+  "shouldRenderVisibilityToggle": false,
   "wishlists": Array [],
 }
 `;
@@ -15,4 +16,15 @@ Array [
   "wishlist1",
   "wishlist2",
 ]
+`;
+
+exports[`works without props 1`] = `
+Object {
+  "errors": Map {
+    "getCustomerWishlistQuery" => undefined,
+  },
+  "loading": undefined,
+  "shouldRenderVisibilityToggle": false,
+  "wishlists": Array [],
+}
 `;
