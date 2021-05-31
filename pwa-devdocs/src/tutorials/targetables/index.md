@@ -40,7 +40,7 @@ module.exports = targets => {
     const targetables = Targetables.using(targets);
 
     // Create a TargetableModule instance that points to the main.js source
-    const MainComponent = targetables.module(
+    const MainComponent = targetables.reactComponent(
         '@magento/venia-ui/lib/components/Main/main.js'
     );
 
