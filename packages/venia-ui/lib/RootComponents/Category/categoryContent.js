@@ -1,4 +1,5 @@
 import React, { Fragment, Suspense, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { array, number, shape, string } from 'prop-types';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
@@ -16,6 +17,9 @@ import SortedByContainer from '../../components/SortedByContainer';
 import FilterModalOpenButton from '../../components/FilterModalOpenButton';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
+const FilterSidebar = React.lazy(() =>
+    import('../../components/FilterSidebar')
+);
 
 const CategoryContent = props => {
     const {
@@ -39,6 +43,7 @@ const CategoryContent = props => {
         categoryDescription,
         filters,
         items,
+        totalCount,
         totalPagesFromData
     } = talonProps;
 
@@ -57,6 +62,10 @@ const CategoryContent = props => {
         <FilterModal filters={filters} />
     ) : null;
 
+    const sidebar = shouldShowFilterButtons ? (
+        <FilterSidebar filters={filters} />
+    ) : null;
+
     const maybeSortButton = shouldShowSortButtons ? (
         <ProductSort sortProps={sortProps} />
     ) : null;
@@ -64,6 +73,17 @@ const CategoryContent = props => {
     const maybeSortContainer = shouldShowSortButtons ? (
         <SortedByContainer currentSort={currentSort} />
     ) : null;
+
+    const categoryResultsHeading =
+        totalCount > 0 ? (
+            <FormattedMessage
+                id={'categoryContent.resultCount'}
+                values={{
+                    count: totalCount
+                }}
+                defaultMessage={'{count} Results'}
+            />
+        ) : null;
 
     const categoryDescriptionElement = categoryDescription ? (
         <RichContent html={categoryDescription} />
@@ -103,19 +123,31 @@ const CategoryContent = props => {
             <Breadcrumbs categoryId={categoryId} />
             <StoreTitle>{categoryName}</StoreTitle>
             <article className={classes.root}>
-                <h1 className={classes.title}>
-                    <div className={classes.categoryTitle}>
-                        {categoryName || '...'}
-                    </div>
-                </h1>
-                {categoryDescriptionElement}
-                <div className={classes.headerButtons}>
-                    {maybeFilterButtons}
-                    {maybeSortButton}
+                <div className={classes.categoryHeader}>
+                    <h1 className={classes.title}>
+                        <div className={classes.categoryTitle}>
+                            {categoryName || '...'}
+                        </div>
+                    </h1>
+                    {categoryDescriptionElement}
                 </div>
-                {maybeSortContainer}
-                {content}
-                <Suspense fallback={null}>{filtersModal}</Suspense>
+                <div className={classes.sidebar}>
+                    <Suspense fallback={null}>{sidebar}</Suspense>
+                </div>
+                <div className={classes.categoryContent}>
+                    <div className={classes.heading}>
+                        <div className={classes.categoryInfo}>
+                            {categoryResultsHeading}
+                        </div>
+                        <div className={classes.headerButtons}>
+                            {maybeFilterButtons}
+                            {maybeSortButton}
+                        </div>
+                        {maybeSortContainer}
+                    </div>
+                    {content}
+                    <Suspense fallback={null}>{filtersModal}</Suspense>
+                </div>
             </article>
         </Fragment>
     );

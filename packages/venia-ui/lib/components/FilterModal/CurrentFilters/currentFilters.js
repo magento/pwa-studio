@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { shape, string } from 'prop-types';
+import { shape, string, func } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
 import CurrentFilter from './currentFilter';
@@ -7,7 +7,7 @@ import defaultClasses from './currentFilters.css';
 import { useIntl } from 'react-intl';
 
 const CurrentFilters = props => {
-    const { filterApi, filterState } = props;
+    const { filterApi, filterState, onRemove } = props;
     const { removeItem } = filterApi;
     const classes = mergeClasses(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
@@ -26,6 +26,7 @@ const CurrentFilters = props => {
                             group={group}
                             item={item}
                             removeItem={removeItem}
+                            onRemove={onRemove}
                         />
                     </li>
                 );
@@ -33,7 +34,7 @@ const CurrentFilters = props => {
         }
 
         return elements;
-    }, [classes.item, filterState, removeItem]);
+    }, [classes.item, filterState, removeItem, onRemove]);
 
     const currentFiltersAriaLabel = formatMessage({
         id: 'filterModal.currentFilters.ariaLabel',
@@ -47,13 +48,18 @@ const CurrentFilters = props => {
     );
 };
 
+CurrentFilters.defaultProps = {
+    onRemove: null
+};
+
 CurrentFilters.propTypes = {
     classes: shape({
         root: string,
         item: string,
         button: string,
         icon: string
-    })
+    }),
+    onRemove: func
 };
 
 export default CurrentFilters;
