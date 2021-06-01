@@ -2,6 +2,13 @@ import { createTestInstance } from '@magento/peregrine';
 import React from 'react';
 import Products, { GET_PRODUCTS_BY_SKU } from '../products';
 
+jest.mock(
+    '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
+    () => ({
+        useCustomerWishlistSkus: jest.fn()
+    })
+);
+
 jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
     return {
