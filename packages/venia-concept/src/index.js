@@ -24,6 +24,7 @@ const apiBase = new URL('/graphql', location.origin).toString();
 /**
  * The Venia adapter provides basic context objects: a router, a store, a
  * GraphQL client, and some common functions.
+ * hello
  */
 
 // The Venia adapter is not opinionated about auth.
