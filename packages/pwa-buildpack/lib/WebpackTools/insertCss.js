@@ -42,14 +42,14 @@ function b64EncodeUnicode(str) {
  * if they are no longer referenced by UI components.
  */
 function removeCss(ids) {
-    ids.forEach(id => {
+    for (const id of ids) {
         if (--inserted[id] <= 0) {
             const elem = document.getElementById(id);
             if (elem) {
                 elem.parentNode.removeChild(elem);
             }
         }
-    });
+    }
 }
 
 /**
@@ -64,12 +64,13 @@ function insertCss(
     styles,
     { replace = false, prepend = false, prefix = 's' } = {}
 ) {
-    const ids = [];
-    for (let i = 0; i < styles.length; i++) {
-        const [moduleId, css, media, sourceMap] = styles[i];
-        const id = `${prefix}${moduleId}-${i}`;
+    const ids = new Set();
 
-        ids.push(id);
+    for (const cssModule of styles) {
+        const [moduleId, css, media, sourceMap] = cssModule;
+        const id = `${prefix}${moduleId}`;
+
+        ids.add(id);
 
         if (inserted[id]) {
             if (!replace) {

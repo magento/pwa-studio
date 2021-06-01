@@ -64,10 +64,10 @@ const useGiftOptions = props => {
                 data: {
                     cart: {
                         __typename: 'Cart',
-                        gift_message: values.cardMessage,
+                        gift_message: values.cardMessage || '',
                         id: cartId,
-                        include_gift_receipt: values.includeGiftReceipt,
-                        include_printed_card: values.includePrintedCard
+                        include_gift_receipt: !!values.includeGiftReceipt,
+                        include_printed_card: !!values.includePrintedCard
                     }
                 }
             });
