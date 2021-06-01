@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders if \`items\` is an array of objects 1`] = `
+<mock-SlickSlider>
+  <div>
+    <div
+      className="undefined undefined"
+    >
+      <img
+        alt="Test Product 1"
+        className="undefined undefined"
+        height={375}
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width={840}
+      />
+      <img
+        alt="Test Product 1"
+        className="undefined undefined"
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        sizes="(max-width: 640px) 300px, 840px"
+        src="https://backend.test/media/catalog/product/test/product/1.png?auto=webp&format=png&width=840&height=375&fit=cover"
+        srcSet="https://backend.test/media/catalog/product/test/product/1.png?auto=webp&format=png&width=40&height=50&fit=cover 40w,
+https://backend.test/media/catalog/product/test/product/1.png?auto=webp&format=png&width=80&height=100&fit=cover 80w,
+https://backend.test/media/catalog/product/test/product/1.png?auto=webp&format=png&width=160&height=200&fit=cover 160w,
+https://backend.test/media/catalog/product/test/product/1.png?auto=webp&format=png&width=320&height=400&fit=cover 320w,
+https://backend.test/media/catalog/product/test/product/1.png?auto=webp&format=png&width=640&height=800&fit=cover 640w,
+https://backend.test/media/catalog/product/test/product/1.png?auto=webp&format=png&width=960&height=1200&fit=cover 960w,
+https://backend.test/media/catalog/product/test/product/1.png?auto=webp&format=png&width=1280&height=1600&fit=cover 1280w,
+https://backend.test/media/catalog/product/test/product/1.png?auto=webp&format=png&width=1600&height=2000&fit=cover 1600w,
+https://backend.test/media/catalog/product/test/product/1.png?auto=webp&format=png&width=2560&height=3200&fit=cover 2560w"
+        width={840}
+      />
+    </div>
+    <span>
+      Test Product 1
+    </span>
+    <div>
+      <span>
+        $
+      </span>
+      <span>
+        100
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
+    </div>
+    <div />
+  </div>
+  <div>
+    <div
+      className="undefined undefined"
+    >
+      <img
+        alt="Test Product 2"
+        className="undefined undefined"
+        height={375}
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width={840}
+      />
+      <img
+        alt="Test Product 2"
+        className="undefined undefined"
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        sizes="(max-width: 640px) 300px, 840px"
+        src="https://backend.test/media/catalog/product/test/product/2.png?auto=webp&format=png&width=840&height=375&fit=cover"
+        srcSet="https://backend.test/media/catalog/product/test/product/2.png?auto=webp&format=png&width=40&height=50&fit=cover 40w,
+https://backend.test/media/catalog/product/test/product/2.png?auto=webp&format=png&width=80&height=100&fit=cover 80w,
+https://backend.test/media/catalog/product/test/product/2.png?auto=webp&format=png&width=160&height=200&fit=cover 160w,
+https://backend.test/media/catalog/product/test/product/2.png?auto=webp&format=png&width=320&height=400&fit=cover 320w,
+https://backend.test/media/catalog/product/test/product/2.png?auto=webp&format=png&width=640&height=800&fit=cover 640w,
+https://backend.test/media/catalog/product/test/product/2.png?auto=webp&format=png&width=960&height=1200&fit=cover 960w,
+https://backend.test/media/catalog/product/test/product/2.png?auto=webp&format=png&width=1280&height=1600&fit=cover 1280w,
+https://backend.test/media/catalog/product/test/product/2.png?auto=webp&format=png&width=1600&height=2000&fit=cover 1600w,
+https://backend.test/media/catalog/product/test/product/2.png?auto=webp&format=png&width=2560&height=3200&fit=cover 2560w"
+        width={840}
+      />
+    </div>
+    <span>
+      Test Product 2
+    </span>
+    <div>
+      <span>
+        $
+      </span>
+      <span>
+        100
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        00
+      </span>
+    </div>
+    <div />
+  </div>
+</mock-SlickSlider>
+`;
+
+exports[`renders if \`items\` is an empty array 1`] = `<mock-SlickSlider />`;

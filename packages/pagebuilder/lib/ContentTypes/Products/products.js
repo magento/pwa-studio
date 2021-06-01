@@ -1,12 +1,11 @@
 import React from 'react';
-import defaultClasses from './products.css';
-import { useStyle } from '@magento/venia-ui/lib/classify';
-import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
-import SlickSlider from 'react-slick';
-import Gallery from '@magento/venia-ui/lib/components/Gallery';
 import { gql, useQuery } from '@apollo/client';
-import GalleryItem from '@magento/venia-ui/lib/components/Gallery/item';
+import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 
+import { useStyle } from '@magento/venia-ui/lib/classify';
+import Gallery from '@magento/venia-ui/lib/components/Gallery';
+import Carousel from './Carousel/carousel';
+import defaultClasses from './products.css';
 /**
  * Sort products based on the original order of SKUs
  *
@@ -95,10 +94,6 @@ const Products = props => {
     const items = restoreSortOrder(skus, data.products.items);
 
     if (appearance === 'carousel') {
-        const galleryItems = items.map((item, index) => {
-            return <GalleryItem key={index} item={item} />;
-        });
-
         //Settings conditions was made due to react-slick issues
         const carouselCenterMode =
             carouselMode === 'continuous' && items.length > slidesToShow;
@@ -152,7 +147,7 @@ const Products = props => {
                     centerModeSmallClass
                 ].join(' ')}
             >
-                <SlickSlider {...carouselSettings}>{galleryItems}</SlickSlider>
+                <Carousel settings={carouselSettings} items={items} />
             </div>
         );
     }
