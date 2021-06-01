@@ -5,7 +5,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './wishlistDialog.gql';
 
 export const useWishlistDialog = props => {
-    const { itemOptions, onClose, onSuccess } = props;
+    const { isLoading, itemOptions, onClose, onSuccess } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -80,7 +80,7 @@ export const useWishlistDialog = props => {
         handleCancel,
         handleCancelNewList,
         handleNewListClick,
-        isAddLoading,
+        isLoading: isLoading || isAddLoading,
         isFormOpen,
         wishlistsData
     };

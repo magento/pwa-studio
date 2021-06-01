@@ -129,6 +129,7 @@ const Product = props => {
                 }}
                 onClose={handleWishlistDialogClose}
                 onSuccess={handleAddToWishlistSuccess}
+                isLoading={isProductUpdating}
             />
         );
     } else {

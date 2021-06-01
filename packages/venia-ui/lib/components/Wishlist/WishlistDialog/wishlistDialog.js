@@ -19,6 +19,7 @@ const WishlistDialog = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useWishlistDialog({
+        isLoading: props.isLoading,
         itemOptions,
         onClose,
         onSuccess
@@ -31,7 +32,7 @@ const WishlistDialog = props => {
         handleCancel,
         handleNewListClick,
         handleCancelNewList,
-        isAddLoading,
+        isLoading,
         isFormOpen,
         wishlistsData
     } = talonProps;
@@ -51,7 +52,7 @@ const WishlistDialog = props => {
                     <li key={wishlist.id}>
                         <WishlistLineItem
                             id={wishlist.id}
-                            isDisabled={isAddLoading}
+                            isDisabled={isLoading}
                             onClick={handleAddToWishlist}
                         >
                             {name}
@@ -66,7 +67,7 @@ const WishlistDialog = props => {
     }, [
         classes.existingWishlists,
         handleAddToWishlist,
-        isAddLoading,
+        isLoading,
         wishlistsData
     ]);
 
@@ -84,7 +85,7 @@ const WishlistDialog = props => {
             <Relevant when={shouldRenderForm}>
                 <CreateWishlistForm
                     onCreateList={handleAddToWishlist}
-                    isAddLoading={isAddLoading}
+                    isAddLoading={isLoading}
                     onCancel={handleCancelNewList}
                 />
             </Relevant>
@@ -120,6 +121,7 @@ export default WishlistDialog;
 WishlistDialog.defaultProps = {
     classes: shape({}),
     isOpen: bool,
+    isLoading: bool,
     itemOptions: shape({
         entered_options: arrayOf(
             shape({
