@@ -29,9 +29,7 @@ export const isHomeRoute = url => {
  * @returns {boolean}
  */
 export const isSameOrigin = (url, serviceWorker) => {
-
     return url.origin === serviceWorker.location.origin;
-
 };
 
 /**
@@ -43,4 +41,4 @@ export const isSameOrigin = (url, serviceWorker) => {
  * @returns {boolean}
  */
 export const isHTMLRoute = url =>
-isHomeRoute(url) || new RegExp('\\.html$').test(url.pathname);
+    isHomeRoute(url) || new RegExp('\\.html$').test(url.pathname);
