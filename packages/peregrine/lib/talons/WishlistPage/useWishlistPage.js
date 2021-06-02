@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { useUserContext } from '../../context/user';
 import mergeOperations from '../../util/shallowMerge';
 
-import DEFAULT_OPERATIONS from './wishlistPage.gql';
+import defaultOperations from './wishlistPage.gql';
 
 /**
  * @function
@@ -13,7 +13,7 @@ import DEFAULT_OPERATIONS from './wishlistPage.gql';
  * @returns {WishlistPageProps}
  */
 export const useWishlistPage = (props = {}) => {
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(defaultOperations, props.operations);
     const { getCustomerWishlistQuery } = operations;
 
     const history = useHistory();
@@ -41,8 +41,9 @@ export const useWishlistPage = (props = {}) => {
 
     return {
         errors,
-        wishlists: derivedWishlists,
-        loading
+        loading,
+        shouldRenderVisibilityToggle: derivedWishlists.length > 1,
+        wishlists: derivedWishlists
     };
 };
 
@@ -55,7 +56,7 @@ export const useWishlistPage = (props = {}) => {
  *
  * @typedef {Object} WishlistQueries
  *
- * @property {GraphQLAST} getCustomerWishlistQuery Query to get customer wish lists
+ * @property {GraphQLDocument} getCustomerWishlistQuery Query to get customer wish lists
  *
  * @see [`wishlistPage.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistPage.gql.js}
  * for queries used in Venia
@@ -78,5 +79,7 @@ export const useWishlistPage = (props = {}) => {
  * @typedef {Object} WishlistPageProps
  *
  * @property {Map} errors A map of all the GQL query errors
+ * @property {Boolean} loading is the query loading
+ * @property {Boolean} shouldRenderVisibilityToggle true if wishlists length is > 1.
  * @property {Object} wishlists List of all customer wishlists
  */

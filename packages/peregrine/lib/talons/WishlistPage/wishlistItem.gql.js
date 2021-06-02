@@ -7,11 +7,9 @@ import { WishlistFragment } from './wishlistFragment.gql';
 export const ADD_WISHLIST_ITEM_TO_CART = gql`
     mutation AddWishlistItemToCart(
         $cartId: String!
-        $cartItem: ConfigurableProductCartItemInput!
+        $cartItem: CartItemInput!
     ) {
-        addConfigurableProductsToCart(
-            input: { cart_id: $cartId, cart_items: [$cartItem] }
-        ) {
+        addProductsToCart(cartId: $cartId, cartItems: [$cartItem]) {
             cart {
                 id
                 ...CartTriggerFragment
