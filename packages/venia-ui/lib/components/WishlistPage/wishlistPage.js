@@ -12,7 +12,12 @@ import CreateWishlist from './createWishlist';
 
 const WishlistPage = props => {
     const talonProps = useWishlistPage();
-    const { errors, wishlists, loading } = talonProps;
+    const {
+        errors,
+        loading,
+        shouldRenderVisibilityToggle,
+        wishlists
+    } = talonProps;
     const { formatMessage } = useIntl();
     const error = errors.get('getCustomerWishlistQuery');
 
@@ -24,9 +29,13 @@ const WishlistPage = props => {
     const wishlistElements = useMemo(() => {
         if (wishlists.length === 0) return null;
         return wishlists.map(wishlist => (
-            <Wishlist key={wishlist.id} data={wishlist} />
+            <Wishlist
+                key={wishlist.id}
+                data={wishlist}
+                shouldRenderVisibilityToggle={shouldRenderVisibilityToggle}
+            />
         ));
-    }, [wishlists]);
+    }, [shouldRenderVisibilityToggle, wishlists]);
 
     if (loading && !error) {
         return fullPageLoadingIndicator;
@@ -70,6 +79,7 @@ const WishlistPage = props => {
         <div className={classes.root}>
             <h1 className={classes.heading}>
                 <FormattedMessage
+                    values={{ count: wishlists.length }}
                     id={'wishlistPage.headingText'}
                     defaultMessage={'Favorites Lists'}
                 />

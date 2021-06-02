@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
+import { ChevronDown as ArrowDown } from 'react-feather';
 import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, oneOf } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
@@ -7,9 +8,10 @@ import { mergeClasses } from '../../classify';
 import SortItem from './sortItem';
 import defaultClasses from './productSort.css';
 import Button from '../Button';
+import Icon from '../Icon';
 
 const ProductSort = props => {
-    const classes = mergeClasses(defaultClasses);
+    const classes = mergeClasses(defaultClasses, props.classes);
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
@@ -81,10 +83,28 @@ const ProductSort = props => {
                 }}
                 onClick={handleSortClick}
             >
-                <FormattedMessage
-                    id={'productSort.sortButton'}
-                    defaultMessage={'Sort'}
-                />
+                <span className={classes.mobileText}>
+                    <FormattedMessage
+                        id={'productSort.sortButton'}
+                        defaultMessage={'Sort'}
+                    />
+                </span>
+                <span className={classes.desktopText}>
+                    <span className={classes.sortText}>
+                        <FormattedMessage
+                            id={'productSort.sortByButton'}
+                            defaultMessage={'Sort by'}
+                        />
+                        &nbsp;{currentSort.sortText}
+                    </span>
+                    <Icon
+                        src={ArrowDown}
+                        classes={{
+                            root: classes.desktopIconWrapper,
+                            icon: classes.desktopIcon
+                        }}
+                    />
+                </span>
             </Button>
             {sortElements}
         </div>
@@ -113,6 +133,12 @@ ProductSort.propTypes = {
 
 ProductSort.defaultProps = {
     availableSortMethods: [
+        {
+            text: 'Position',
+            id: 'sortItem.position',
+            attribute: 'position',
+            sortDirection: 'ASC'
+        },
         {
             id: 'sortItem.relevance',
             text: 'Best Match',
