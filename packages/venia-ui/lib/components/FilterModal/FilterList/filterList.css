@@ -5,3 +5,20 @@
     margin-left: -0.375rem;
     padding-bottom: 2rem;
 }
+
+.itemHidden {
+    display: none;
+}
+
+.showMoreLessItem {
+    padding-left: 3px;
+}
+
+.showMoreLessButton {
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.showMoreLessButton:hover {
+    text-decoration: none;
+}
