@@ -54,7 +54,7 @@ describe('isHomeRoute', () => {
         expect(isSameOrigin(new URL(homePageUrl), self)).toBeTruthy();
     });
 
-    test("returns false if route's pathname is not cross origin", () => {
+    test("returns false if route's pathname is cross origin", () => {
         expect(isSameOrigin(new URL(crossOriginRoute), self)).toBeFalsy();
     });
 
