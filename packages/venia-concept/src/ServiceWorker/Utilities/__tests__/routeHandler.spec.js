@@ -5,7 +5,7 @@ const urlWithHTML = 'https://develop.pwa-venia.com/isodora-skirt.html';
 const nonHTMLRoute =
     'https://magento-venia-concept-7bnnn.local.pwadev:9914/media/';
 
-const crossOriginRoute = 'https://www.google.com';
+const crossOriginRoute = 'https://www.google.com/';
 
 describe('isHomeRoute', () => {
     test('returns a boolean', () => {
