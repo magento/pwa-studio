@@ -13,3 +13,7 @@ extend type Cart {
 extend type Currency {
     current_currency_code: String!
 }
+
+# Apollo specific directives
+directive @client on FIELD
+directive @connection(key: String) on FIELD

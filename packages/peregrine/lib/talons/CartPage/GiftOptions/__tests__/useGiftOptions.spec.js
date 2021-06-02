@@ -10,18 +10,16 @@ import typePolicies from '../../../../Apollo/policies';
 
 import useGiftOptions from '../useGiftOptions';
 
-/* eslint-disable graphql/template-strings */
 const GET_GIFT_OPTIONS = gql`
     query getGiftOptions($cartId: String!) {
-        cart(cart_id: $cartId) @client {
+        cart(cart_id: $cartId) {
             id
-            include_gift_receipt
-            include_printed_card
-            gift_message
+            include_gift_receipt @client
+            include_printed_card @client
+            local_gift_message @client
         }
     }
 `;
-/* eslint-enable graphql/template-strings */
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {
@@ -68,7 +66,7 @@ beforeEach(() => {
             id: 'cart123',
             include_gift_receipt: true,
             include_printed_card: false,
-            gift_message: 'GiftMessage'
+            local_gift_message: 'GiftMessage'
         }
     });
 });
@@ -133,7 +131,7 @@ test('it updates cache after updating gift message', async () => {
     expect(cacheWriteSpy.mock.calls[0][0]).toMatchObject({
         data: {
             cart: {
-                gift_message: 'Hello World'
+                local_gift_message: 'Hello World'
             }
         }
     });
