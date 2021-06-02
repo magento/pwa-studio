@@ -13,7 +13,7 @@ RUN apk --no-cache --virtual add \
 ENV CI=true
 
 # copy root dependency files and configs needed for install
-COPY package.json yarn.lock babel.config.js magento-compatibility.js .eslintrc.js graphql.config.js ./
+COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 COPY scripts/monorepo-introduction.js ./scripts/monorepo-introduction.js
 
 # copy over the packages
