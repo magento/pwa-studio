@@ -21,6 +21,20 @@ export const isHomeRoute = url => {
 };
 
 /**
+ * Checks if the given URL object belongs to the same origin as the service worker.
+ *
+ * @param {URL} url
+ * @param {ServiceWorker} serviceWorker
+ *
+ * @returns {boolean}
+ */
+export const isSameOrigin = (url, serviceWorker) => {
+
+    return url.origin === serviceWorker.location.origin;
+
+};
+
+/**
  * Checks if the given URL object belongs to the home route `/`
  * or has a `.html` extension.
  *
@@ -28,5 +42,5 @@ export const isHomeRoute = url => {
  *
  * @returns {boolean}
  */
-export const isHTMLRoute = url =>
-    isHomeRoute(url) || new RegExp('\\.html$').test(url.pathname);
+export const isHTMLRoute = (url, serviceWorker) => isSameOrigin(url, serviceWorker) &&
+    (isHomeRoute(url) || new RegExp('\\.html$').test(url.pathname));

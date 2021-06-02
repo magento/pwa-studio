@@ -1,9 +1,11 @@
-import { isHTMLRoute, isHomeRoute } from '../routeHandler';
+import { isHTMLRoute, isHomeRoute, isSameOrigin } from '../routeHandler';
 
 const homePageUrl = 'https://develop.pwa-venia.com/';
 const urlWithHTML = 'https://develop.pwa-venia.com/isodora-skirt.html';
 const nonHTMLRoute =
     'https://magento-venia-concept-7bnnn.local.pwadev:9914/media/';
+
+const crossOriginRoute = 'https://www.google.com';
 
 describe('isHomeRoute', () => {
     test('returns a boolean', () => {
@@ -41,6 +43,21 @@ describe('isHomeRoute', () => {
         // Reset.
         process.env.USE_STORE_CODE_IN_URL = previousEnv;
     });
+});
+
+describe('isHomeRoute', () => {
+    test('returns a boolean', () => {
+        expect(typeof isSameOrigin(new URL(homePageUrl))).toBe('boolean');
+    });
+
+    test("returns true if route's pathname is same origin", () => {
+        expect(isSameOrigin(new URL(homePageUrl), self)).toBeTruthy();
+    });
+
+    test("returns false if route's pathname is not cross origin", () => {
+        expect(isSameOrigin(new URL(crossOriginRoute), self)).toBeFalsy();
+    });
+
 });
 
 describe('isHTMLRoute', () => {
