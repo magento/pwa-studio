@@ -7,7 +7,7 @@ import {
     findSameOrLargerImage,
     createImageCacheHandler
 } from './Utilities/imageCacheHandler';
-import { isHTMLRoute } from './Utilities/routeHandler';
+import { isHTMLRoute, isSameOrigin } from './Utilities/routeHandler';
 import {
     THIRTY_DAYS,
     MAX_NUM_OF_IMAGES_TO_CACHE,
@@ -83,7 +83,7 @@ export default function() {
      * and the cycle repeats.
      */
     registerRoute(
-        ({ url }) => isHTMLRoute(url, self),
+        ({ url }) => isSameOrigin(url, self) && isHTMLRoute(url),
         new StaleWhileRevalidate({
             plugins: [
                 {
