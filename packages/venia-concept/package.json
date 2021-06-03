@@ -56,7 +56,6 @@
     "@magento/pagebuilder": "~5.0.0",
     "@magento/peregrine": "~10.0.0",
     "@magento/upward-security-headers": "~1.0.3",
-    "@magento/venia-adobe-data-layer": "~1.0.0",
     "@magento/venia-ui": "~7.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
     "@storybook/react": "~6.1.14",
