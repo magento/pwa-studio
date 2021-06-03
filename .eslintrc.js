@@ -21,7 +21,7 @@ const config = {
     },
     overrides: [
         {
-            files: ['**/*.gql.js'],
+            files: ['**/*.gql*.js'],
             processor: '@graphql-eslint/graphql'
         },
         {

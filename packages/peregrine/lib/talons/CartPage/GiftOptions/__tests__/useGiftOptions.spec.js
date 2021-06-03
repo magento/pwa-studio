@@ -12,11 +12,11 @@ import useGiftOptions from '../useGiftOptions';
 
 const GET_GIFT_OPTIONS = gql`
     query getGiftOptions($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @client {
             id
-            include_gift_receipt @client
-            include_printed_card @client
-            local_gift_message @client
+            include_gift_receipt
+            include_printed_card
+            local_gift_message
         }
     }
 `;

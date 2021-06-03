@@ -5,18 +5,18 @@ import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @client {
             id
-            isBillingAddressSame @client
+            isBillingAddressSame
         }
     }
 `;
 
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @client {
             id
-            paymentNonce @client
+            paymentNonce
         }
     }
 `;

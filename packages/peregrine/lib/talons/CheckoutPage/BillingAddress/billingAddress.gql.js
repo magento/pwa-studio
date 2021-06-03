@@ -5,9 +5,9 @@ import { AvailablePaymentMethodsFragment } from '../PaymentInformation/paymentIn
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @client {
             id
-            isBillingAddressSame @client
+            isBillingAddressSame
         }
     }
 `;
