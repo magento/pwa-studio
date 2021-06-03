@@ -4,6 +4,7 @@
 
 .root {
     padding: 1rem;
+    --scrollBarWidth: var(--global-scrollbar-width, 0px);
 }
 
 .title {
@@ -28,6 +29,11 @@
     font-weight: 300;
     line-height: 1.375rem;
     text-align: center;
+    /* Example full page width */
+    background: red;
+    width: calc(100vw - var(--scrollBarWidth));
+    transform: translateX(-50%);
+    margin-left: 50%;
 }
 
 .heading {

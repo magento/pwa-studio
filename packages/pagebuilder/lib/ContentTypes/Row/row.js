@@ -4,6 +4,7 @@ import { verticalAlignmentToFlex } from '../../utils';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
 import { resourceUrl } from '@magento/venia-drivers';
+import { useDetectScrollWidth } from '@magento/peregrine';
 
 /**
  * Page Builder Row component.
@@ -18,11 +19,12 @@ import { resourceUrl } from '@magento/venia-drivers';
  * @returns {React.Element} A React component that displays a Row which contains content.
  */
 const Row = props => {
+
     const backgroundElement = useRef(null);
     const [bgImageStyle, setBgImageStyle] = useState(null);
     const classes = mergeClasses(defaultClasses, props.classes);
     const {
-        appearance = 'contained',
+        appearance,
         verticalAlignment,
         minHeight,
         backgroundColor,
@@ -105,7 +107,8 @@ const Row = props => {
         );
         dynamicStyles.flexDirection = 'column';
     }
-
+    console.log('useDetectScrollWidth();');
+    useDetectScrollWidth(backgroundElement);
     // Determine the containers width and optimize the image
     useEffect(() => {
         // Intelligently resize cover background images
@@ -217,8 +220,8 @@ const Row = props => {
         return (
             <div
                 ref={backgroundElement}
-                style={dynamicStyles}
-                className={[classes.root, ...cssClasses].join(' ')}
+                style={{...dynamicStyles, marginLeft: null, marginRight: null, '--pbRowMarginLeft': marginLeft, '--pbRowMarginRight': marginRight }}
+                className={[classes.fullBleed, classes.root, ...cssClasses].join(' ')}
             >
                 {videoOverlay}
                 {children}
@@ -230,8 +233,8 @@ const Row = props => {
         return (
             <div
                 ref={backgroundElement}
-                style={dynamicStyles}
-                className={[classes.root, ...cssClasses].join(' ')}
+                style={{...dynamicStyles, marginLeft: null, marginRight: null, '--pbRowMarginLeft': marginLeft, '--pbRowMarginRight': marginRight }}
+                className={[classes.fullBleed, classes.root, ...cssClasses].join(' ')}
             >
                 {videoOverlay}
                 <div className={classes.contained}>{children}</div>
@@ -299,6 +302,7 @@ Row.propTypes = {
     classes: shape({
         root: string,
         contained: string,
+        fullBleed: string,
         inner: string,
         videoOverlay: string
     }),
