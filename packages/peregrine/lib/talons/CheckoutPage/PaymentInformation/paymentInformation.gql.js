@@ -40,9 +40,9 @@ export const GET_PAYMENT_INFORMATION = gql`
 
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @client {
             id
-            paymentNonce @client
+            paymentNonce
         }
     }
 `;
