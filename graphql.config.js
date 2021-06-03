@@ -16,16 +16,7 @@ const config = {
     documents: [
         './packages/{peregrine,venia-ui,venia-concept}/{lib,src}/**/*.{js,graphql,gql}',
         ...excludePatterns
-    ],
-    extensions: {
-        codegen: {
-            generates: {
-                './merged-schema.v4.json': {
-                    plugins: ['introspection']
-                }
-            }
-        }
-    }
+    ]
 };
 
 module.exports = config;
