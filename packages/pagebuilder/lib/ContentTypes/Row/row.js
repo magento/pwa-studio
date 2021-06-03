@@ -19,7 +19,6 @@ import { useDetectScrollWidth } from '@magento/peregrine';
  * @returns {React.Element} A React component that displays a Row which contains content.
  */
 const Row = props => {
-
     const backgroundElement = useRef(null);
     const [bgImageStyle, setBgImageStyle] = useState(null);
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -220,8 +219,18 @@ const Row = props => {
         return (
             <div
                 ref={backgroundElement}
-                style={{...dynamicStyles, marginLeft: null, marginRight: null, '--pbRowMarginLeft': marginLeft, '--pbRowMarginRight': marginRight }}
-                className={[classes.fullBleed, classes.root, ...cssClasses].join(' ')}
+                style={{
+                    ...dynamicStyles,
+                    marginLeft: null,
+                    marginRight: null,
+                    '--pbRowMarginLeft': marginLeft,
+                    '--pbRowMarginRight': marginRight
+                }}
+                className={[
+                    classes.fullBleed,
+                    classes.root,
+                    ...cssClasses
+                ].join(' ')}
             >
                 {videoOverlay}
                 {children}
@@ -233,8 +242,18 @@ const Row = props => {
         return (
             <div
                 ref={backgroundElement}
-                style={{...dynamicStyles, marginLeft: null, marginRight: null, '--pbRowMarginLeft': marginLeft, '--pbRowMarginRight': marginRight }}
-                className={[classes.fullBleed, classes.root, ...cssClasses].join(' ')}
+                style={{
+                    ...dynamicStyles,
+                    marginLeft: null,
+                    marginRight: null,
+                    '--pbRowMarginLeft': marginLeft,
+                    '--pbRowMarginRight': marginRight
+                }}
+                className={[
+                    classes.fullBleed,
+                    classes.root,
+                    ...cssClasses
+                ].join(' ')}
             >
                 {videoOverlay}
                 <div className={classes.contained}>{children}</div>
