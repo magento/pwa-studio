@@ -14,7 +14,7 @@ export const ProductDetailsFragment = gql`
         }
         id
         media_gallery_entries {
-            id
+            uid
             label
             position
             disabled
@@ -64,7 +64,7 @@ export const ProductDetailsFragment = gql`
                 product {
                     id
                     media_gallery_entries {
-                        id
+                        uid
                         disabled
                         file
                         label

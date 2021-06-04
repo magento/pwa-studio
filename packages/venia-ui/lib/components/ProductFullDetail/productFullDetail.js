@@ -249,6 +249,7 @@ ProductFullDetail.propTypes = {
         }).isRequired,
         media_gallery_entries: arrayOf(
             shape({
+                uid: string,
                 label: string,
                 position: number,
                 disabled: bool,

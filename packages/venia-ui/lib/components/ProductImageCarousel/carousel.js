@@ -52,7 +52,7 @@ const ProductImageCarousel = props => {
         () =>
             sortedImages.map((item, index) => (
                 <Thumbnail
-                    key={item.id}
+                    key={item.uid}
                     item={item}
                     itemIndex={index}
                     isActive={activeItemIndex === index}
@@ -136,10 +136,11 @@ const ProductImageCarousel = props => {
  * @property {string} classes.previousButton classes for previous button
  * @property {string} classes.root classes for root container
  * @property {Object[]} images Product images input for Carousel
- * @property {string} images.label label for image
- * @property {string} image.position Position of image in Carousel
- * @property {bool} image.disabled Is image disabled
- * @property {string} image.file filePath of image
+ * @property {bool} images[].disabled Is image disabled
+ * @property {string} images[].file filePath of image
+ * @property {string} images[].uid the id of the image
+ * @property {string} images[].label label for image
+ * @property {string} images[].position Position of image in Carousel
  */
 ProductImageCarousel.propTypes = {
     classes: shape({
@@ -157,7 +158,7 @@ ProductImageCarousel.propTypes = {
             position: number,
             disabled: bool,
             file: string.isRequired,
-            id: number
+            uid: string.isRequired
         })
     ).isRequired
 };
