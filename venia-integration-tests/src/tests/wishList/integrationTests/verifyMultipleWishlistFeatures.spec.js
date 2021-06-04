@@ -1,6 +1,7 @@
 import {
     accountAccess as accountAccessFixtures,
-    homePage as homePageFixtures
+    homePage as homePageFixtures,
+    categoryPage as categoryPageFixtures
 } from '../../../fixtures';
 import {
     myAccountMenu as myAccountMenuAssertions
@@ -13,7 +14,7 @@ const {
     accountPassword
 } = accountAccessFixtures;
 const { homePage } = homePageFixtures;
-
+const { categoryTops, productCarinaCardigan } = categoryPageFixtures;
 
 const { assertCreateAccount } = myAccountMenuAssertions;
 
@@ -38,23 +39,44 @@ describe('verify single wishlist basic features', () => {
         }).as('getDefaultPage');
         cy.visitPage(wishistRoute);
         cy.wait(['@getDefaultPage']).its('response.body');
-        cy.intercept('POST', '**/graphql', {
-            fixture: 'wishlist/multipleWishlist/createWishlist.json'
-        }).as('createWishlist');
+
+        cy.intercept('POST', '**/graphql', (req) => {
+            if (req.body.operationName.includes('createWishlist')) {
+                req.reply({fixture: 'wishlist/multipleWishlist/createWishlist1.json'});
+            }
+        }).as('createWishlist1');
         cy.intercept('GET', '**/graphql?query=query+GetCustomerWishlis*', {
             fixture: 'wishlist/multipleWishlist/oneWishlistPage.json'
         }).as('getCustomerWishlist');
-        createWishlist
-        cy.wait(['@createWishlist']).its('response.body');
+
+        invokeCreateWishlistDialog();
+        createWishlist(name1);
+        cy.wait(['@createWishlist1']).its('response.body');
         cy.wait(['@getCustomerWishlist']).its('response.body');
 
-        cy.visitPage(categorySweaters);
+        assertWishlistExists
+        assertCreateListExists
+
+        cy.visitPage(categoryTops);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
-        cy.intercept('POST', '**/graphql', {
-            fixture: 'wishlist/multipleWishlist/createWishlist1.json'
-        }).as('createWishlist1');
-        createWishlistViaDialauge
-        cy.wait(['@createWishlist1']).its('response.body');
+
+        cy.intercept('POST', '**/graphql', (req) => {
+            if (req.body.operationName.includes('createWishlist')) {
+                req.reply({fixture: 'wishlist/multipleWishlist/createWishlist2.json'});
+            }
+        }).as('createWishlist2');
+        cy.intercept('POST', '**/graphql', (req) => {
+            if (req.body.operationName.includes('addProductToWishlist')) {
+                req.reply({fixture: 'wishlist/multipleWishlist/addProductToWishlistCategoryPage.json'});
+            }
+        }).as('addProductToWishlistCategoryPage');
+        cy.intercept('GET', '**/graphql?query=query+getWishlistsDialogData*', {
+            fixture: 'wishlist/multipleWishlist/categoryGetWishlistDialogData.json'
+        }).as('categoryGetWishlistDialogData');
+        
+   
+        createWishlist(name2);
+        cy.wait(['@createWishlist2']).its('response.body');
 
         cy.visitPage(wishistRoute);
         
