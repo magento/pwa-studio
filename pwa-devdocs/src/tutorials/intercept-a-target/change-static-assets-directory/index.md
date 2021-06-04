@@ -162,7 +162,7 @@ However, you can use the [`transformUpward` Buildpack target][] to make changes 
 
 [`transformUpward` Buildpack target]: <{% link pwa-buildpack/reference/targets/index.md %}>
 
-Open your project's `local-intercep.js` file and replace the content with the following:
+Open your project's `local-intercept.js` file and replace the content with the following:
 
 ```js
 function localIntercept(targets) {
