@@ -1,0 +1,3 @@
+# All PRs opened by external members require triaging.
+needs triage:
+    - '*'
