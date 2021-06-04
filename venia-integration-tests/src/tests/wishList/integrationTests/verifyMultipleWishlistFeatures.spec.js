@@ -1,13 +1,17 @@
 import {
     accountAccess as accountAccessFixtures,
     homePage as homePageFixtures,
-    categoryPage as categoryPageFixtures,
-    wishlist as wishlistFixtures
+    wishlist as wishlistFixtures,
+    categoryPage as categoryPageFixtures
 } from '../../../fixtures';
 import {
-    myAccountMenu as myAccountMenuAssertions
+    myAccountMenu as myAccountMenuAssertions,
+    wishlist as wishlistAssertions
 } from '../../../assertions';
-
+import {
+    wishlistPage as wishlistPageActions,
+    categoryPage as categoryPageActions,
+} from '../../../actions';
 const {
     firstName,
     lastName,
@@ -15,10 +19,16 @@ const {
     accountPassword
 } = accountAccessFixtures;
 const { homePage } = homePageFixtures;
-const { categoryTops, productCarinaCardigan } = categoryPageFixtures;
-
 const { assertCreateAccount } = myAccountMenuAssertions;
 const { wishistRoute } = wishlistFixtures;
+const { createWishlist } = wishlistPageActions;
+const {
+    assertEmptyWishlistPage,
+    assertEmptyWishlistExists,
+    assertCreateWishlistLink
+} = wishlistAssertions;
+const { categoryTops, productCarinaCardigan } = categoryPageFixtures;
+const { addProductToWishlistFromCategoryPage } = categoryPageActions;
 
 
 // TODO add tags CE, EE to test to filter and run tests as needed
@@ -44,29 +54,46 @@ describe('verify single wishlist basic features', () => {
         }).as('getWishlistConfig');
 
         cy.visitPage(wishistRoute);
+
+        assertEmptyWishlistPage();
+        assertCreateWishlistLink();
+
         cy.wait(['@getCustomerWishlist']).its('response.body');
         cy.wait(['@getWishlistConfig']).its('response.body');
 
 
-        // cy.intercept('POST', '**/graphql', (req) => {
-        //     if (req.body.operationName.includes('createWishlist')) {
-        //         req.reply({fixture: 'wishlist/multipleWishlist/wishlistPageCreateWishlist1.json'});
-        //     }
-        // }).as('createWishlist1');
-        // cy.intercept('GET', '**/graphql?query=query+GetCustomerWishlis*', {
-        //     fixture: 'wishlist/multipleWishlist/oneWishlistNoProductsPage.json'
-        // }).as('getCustomerWishlist');
+        cy.intercept('POST', '**/graphql', (req) => {
+            if (req.body.operationName.includes('createWishlist')) {
+                req.reply({ fixture: 'wishlist/multipleWishlist/wishlistPageCreateWishlist1.json' });
+            }
+        }).as('createWishlist1');
+        cy.intercept('GET', '**/graphql?query=query+GetCustomerWishlist*', {
+            fixture: 'wishlist/multipleWishlist/oneWishlistNoProductsPage.json'
+        }).as('getCustomerWishlist1');
 
-        // invokeCreateWishlistDialog();
-        // createWishlist(name1);
-        // cy.wait(['@createWishlist1']).its('response.body');
-        // cy.wait(['@getCustomerWishlist']).its('response.body');
+        createWishlist('Test List1');
+        cy.wait(['@createWishlist1']).its('response.body');
+        cy.wait(['@getCustomerWishlist1']).its('response.body');
 
-        // assertWishlistExists
-        // assertCreateListExists
+        assertEmptyWishlistExists('Test List1');
+        assertCreateWishlistLink();
 
-        // cy.visitPage(categoryTops);
-        // addProductToWishlistFromCategoryPage(productCarinaCardigan);
+        cy.intercept('GET', '**/graphql?query=query+GetWishlistItemsForLocalField*', {
+            fixture: 'wishlist/multipleWishlist/categoryPageGetWishListDataForLocalFields.json'
+        }).as('getWishlistLocalFields');
+        cy.intercept('GET', '**/graphql?query=query+GetWishlistConfigForGallery*', {
+            fixture: 'wishlist/multipleWishlist/categoryPageGetWishlistConfigForGallery.json'
+        }).as('getGalleryWishlist');
+        cy.intercept('GET', '**/graphql?query=query+getWishlistsDialogData*', {
+            fixture: 'wishlist/multipleWishlist/categoryPageGetWishlistDialogData.json'
+        }).as('getCustomerWishlist2');
+
+        cy.visitPage(categoryTops);
+        cy.wait(['@getWishlistLocalFields']).its('response.body');
+        cy.wait(['@getGalleryWishlist']).its('response.body');
+        cy.wait(['@getCustomerWishlist2']).its('response.body');
+
+        addProductToWishlistFromCategoryPage(productCarinaCardigan);
 
         // cy.intercept('POST', '**/graphql', (req) => {
         //     if (req.body.operationName.includes('createWishlist')) {
