@@ -1,6 +1,5 @@
 import {
-    categoryPageAddToWishListButton,
-    categoryPageSelectedWishlistButton
+    categoryPageAddToWishListButton
 } from '../../fields/categoryPage';
 
 /**
@@ -12,10 +11,4 @@ export const addProductToWishlistFromCategoryPage = productToAdd => {
         .siblings()
         .find(categoryPageAddToWishListButton)
         .click();
-
-    // assert product selected indicator
-    cy.contains(productToAdd)
-        .siblings()
-        .find(categoryPageSelectedWishlistButton)
-        .should('exist');
 };

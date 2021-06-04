@@ -13,7 +13,8 @@ import {
 } from '../../../actions';
 import {
     myAccountMenu as myAccountMenuAssertions,
-    wishlist as wishlistAssertions
+    wishlist as wishlistAssertions,
+    categoryPage as categoryPageAssertions
 } from '../../../assertions';
 
 const {
@@ -38,6 +39,7 @@ const {
     assertEmptyWishlistPage,
     assertProductInWishlist
 } = wishlistAssertions;
+const { assertWishlistSelectedProductOnCategoryPage } = categoryPageAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
@@ -61,6 +63,7 @@ describe('verify single wishlist basic features', () => {
 
         cy.visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
+        assertWishlistSelectedProductOnCategoryPage(productCarinaCardigan);
         cy.visitPage(wishistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
