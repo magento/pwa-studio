@@ -37,9 +37,7 @@ describe('verify single wishlist basic features', () => {
             fixture: 'wishlist/multipleWishlist/defaultPage.json'
         }).as('getDefaultPage');
         cy.visitPage(wishistRoute);
-        cy.wait(5000);
         cy.wait(['@getDefaultPage']).its('response.body');
-
         cy.intercept('POST', '**/graphql', {
             fixture: 'wishlist/multipleWishlist/createWishlist.json'
         }).as('createWishlist');
