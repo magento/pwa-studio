@@ -266,4 +266,22 @@ describe('child categories', () => {
         const { childCategories } = log.mock.calls[0][0];
         expect(childCategories.has(1)).toEqual(false);
     });
+
+    test('Does not include child category when include_in_menu is not true', () => {
+        // Arrange.
+        useLazyQuery.mockImplementation(() => {
+            return getNavigationMenuQueryResult();
+        });
+        // There's nothing to arrange here, the default values for props
+        // and categories are already arranged for this test to succeed.
+
+        // Act.
+        createTestInstance(<Component {...props} />);
+
+        // Assert.
+        const { childCategories } = log.mock.calls[0][0];
+        for (const childCategory of childCategories) {
+            expect(childCategory[1].category.include_in_menu).toBe(1);
+        }
+    });
 });
