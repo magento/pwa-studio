@@ -1,6 +1,6 @@
 import {
     productPageAddToWishListButton,
-    productPageSelectedWishlistButton
+    addProductToWishlist
 } from '../../fields/productPage';
 
 /**
@@ -9,7 +9,13 @@ import {
 export const addProductToWishlistFromProductPage = () => {
     // add product to wishlist
     cy.get(productPageAddToWishListButton).click();
-
-    // assert product selected indicator
-    cy.get(productPageSelectedWishlistButton).should('exist');
 };
+
+/**
+ * Utility function to add product to wishlist from product page Dialog window
+ */
+export const addProductToExistingWishlistFromDialog = (wishlistName) => {
+    // add product to wishlist
+    cy.get(addProductToWishlist).contains(wishlistName).click();
+};
+

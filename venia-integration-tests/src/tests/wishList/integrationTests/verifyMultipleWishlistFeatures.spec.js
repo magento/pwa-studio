@@ -2,16 +2,19 @@ import {
     accountAccess as accountAccessFixtures,
     homePage as homePageFixtures,
     wishlist as wishlistFixtures,
-    categoryPage as categoryPageFixtures
+    categoryPage as categoryPageFixtures,
+    productPage as productPageFixtures
 } from '../../../fixtures';
 import {
     myAccountMenu as myAccountMenuAssertions,
     wishlist as wishlistAssertions,
-    categoryPage as categoryPageAssertions
+    categoryPage as categoryPageAssertions,
+    productPage as productPageAssertions
 } from '../../../assertions';
 import {
     wishlistPage as wishlistPageActions,
     categoryPage as categoryPageActions,
+    productPage as productPageActions
 } from '../../../actions';
 const {
     firstName,
@@ -26,11 +29,15 @@ const { createWishlist } = wishlistPageActions;
 const {
     assertEmptyWishlistPage,
     assertEmptyWishlistExists,
-    assertCreateWishlistLink
+    assertCreateWishlistLink,
+    assertProductInWishlist
 } = wishlistAssertions;
 const { categoryTops, productCarinaCardigan } = categoryPageFixtures;
-const { addProductToWishlistFromCategoryPage } = categoryPageActions;
+const { addProductToWishlistFromCategoryPage, createWishlistViaDialog } = categoryPageActions;
 const { assertWishlistSelectedProductOnCategoryPage } = categoryPageAssertions;
+const { productAugustaEarningsUrl, productAugustaEarningsName } = productPageFixtures;
+const { addProductToWishlistFromProductPage, addProductToExistingWishlistFromDialog } = productPageActions;
+const { assertProductSelectIndicator } = productPageAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
@@ -53,15 +60,12 @@ describe('verify single wishlist basic features', () => {
         cy.intercept('GET', '**/graphql?query=query+getMultipleWishlistsEnabled*', {
             fixture: 'wishlist/multipleWishlist/multipleWishlistEnabled.json'
         }).as('getWishlistConfig');
-
         cy.visitPage(wishistRoute);
-
-        assertEmptyWishlistPage();
-        assertCreateWishlistLink();
-
         cy.wait(['@getCustomerWishlist']).its('response.body');
         cy.wait(['@getWishlistConfig']).its('response.body');
 
+        assertEmptyWishlistPage();
+        assertCreateWishlistLink();
 
         cy.intercept('POST', '**/graphql', (req) => {
             if (req.body.operationName.includes('createWishlist')) {
@@ -71,7 +75,6 @@ describe('verify single wishlist basic features', () => {
         cy.intercept('GET', '**/graphql?query=query+GetCustomerWishlist*', {
             fixture: 'wishlist/multipleWishlist/oneWishlistNoProductsPage.json'
         }).as('getCustomerWishlist1');
-
         createWishlist('Test List1');
         cy.wait(['@createWishlist1']).its('response.body');
         cy.wait(['@getCustomerWishlist1']).its('response.body');
@@ -112,8 +115,7 @@ describe('verify single wishlist basic features', () => {
         cy.intercept('GET', '**/graphql?query=query+GetWishlistItemsForLocalField*', {
             fixture: 'wishlist/multipleWishlist/categoryPageGetWishListDataForLocalFieldsUpdated.json'
         }).as('getWishlistLocalFields1');
-
-        createWishlist('Test List2');
+        createWishlistViaDialog('Test List2');
         cy.wait(['@createWishlist2']).its('response.body');
         cy.wait(['@addProductToWishlist']).its('response.body');
         cy.wait(['@getCustomerWishlist3']).its('response.body');
@@ -121,25 +123,57 @@ describe('verify single wishlist basic features', () => {
 
         assertWishlistSelectedProductOnCategoryPage(productCarinaCardigan);
 
-        // cy.intercept('POST', '**/graphql', (req) => {
-        //     if (req.body.operationName.includes('createWishlist')) {
-        //         req.reply({fixture: 'wishlist/multipleWishlist/createWishlist2.json'});
-        //     }
-        // }).as('createWishlist2');
-        // cy.intercept('POST', '**/graphql', (req) => {
-        //     if (req.body.operationName.includes('addProductToWishlist')) {
-        //         req.reply({fixture: 'wishlist/multipleWishlist/addProductToWishlistCategoryPage.json'});
-        //     }
-        // }).as('addProductToWishlistCategoryPage');
-        // cy.intercept('GET', '**/graphql?query=query+getWishlistsDialogData*', {
-        //     fixture: 'wishlist/multipleWishlist/categoryGetWishlistDialogData.json'
-        // }).as('categoryGetWishlistDialogData');
+        cy.intercept('GET', '**/graphql?query=query+GetCustomerWishlist*', {
+            fixture: 'wishlist/multipleWishlist/twoWishlistOneProductPage.json'
+        }).as('getCustomerWishlist4');
+        cy.intercept('GET', '**/graphql?query=query+getMultipleWishlistsEnabled*', {
+            fixture: 'wishlist/multipleWishlist/multipleWishlistEnabled.json'
+        }).as('getWishlistConfig2');
+        cy.visitPage(wishistRoute);
+        cy.wait(['@getCustomerWishlist4']).its('response.body');
+        cy.wait(['@getWishlistConfig2']).its('response.body');
 
+        assertCreateWishlistLink();
+        assertProductInWishlist(productCarinaCardigan);
 
-        // createWishlist(name2);
-        // cy.wait(['@createWishlist2']).its('response.body');
+        cy.intercept('GET', '**/graphql?query=query+wishlistConfig*', {
+            fixture: 'wishlist/multipleWishlist/productPageWishlistConfig.json'
+        }).as('getGeneralWishlistConfig');
+        cy.intercept('GET', '**/graphql?query=query+getWishlistsDialogData*', {
+            fixture: 'wishlist/multipleWishlist/productPageGetWishlistDialogData.json'
+        }).as('getProductPageWishlistDialogData');
+        cy.visitPage(productAugustaEarningsUrl);
+        cy.wait(['@getGeneralWishlistConfig']).its('response.body');
+        cy.wait(['@getProductPageWishlistDialogData']).its('response.body');
 
-        // cy.visitPage(wishistRoute);
+        addProductToWishlistFromProductPage();
 
+        cy.intercept('POST', '**/graphql', (req) => {
+            if (req.body.operationName.includes('addProductToWishlist')) {
+                req.reply({ fixture: 'wishlist/multipleWishlist/ProductPageAddProductToWishlist.json' });
+            }
+        }).as('addProductToWishlist2');
+        cy.intercept('GET', '**/graphql?query=query+getWishlistsDialogData*', {
+            fixture: 'wishlist/multipleWishlist/productPageGetWishlistDialogData.json'
+        }).as('getProductPageWishlistDialogData2');
+        addProductToExistingWishlistFromDialog('Test List1');
+        cy.wait(['@addProductToWishlist2']).its('response.body');
+        cy.wait(['@getProductPageWishlistDialogData2']).its('response.body');
+
+        assertProductSelectIndicator();
+
+        cy.intercept('GET', '**/graphql?query=query+GetCustomerWishlist*', {
+            fixture: 'wishlist/multipleWishlist/twoWishlistTwoProductPage.json'
+        }).as('getCustomerWishlist5');
+        cy.intercept('GET', '**/graphql?query=query+getMultipleWishlistsEnabled*', {
+            fixture: 'wishlist/multipleWishlist/multipleWishlistEnabled.json'
+        }).as('getWishlistConfig3');
+        cy.visitPage(wishistRoute);
+        cy.wait(['@getCustomerWishlist5']).its('response.body');
+        cy.wait(['@getWishlistConfig3']).its('response.body');
+
+        assertCreateWishlistLink();
+        assertProductInWishlist(productCarinaCardigan);
+        assertProductInWishlist(productAugustaEarningsName);
     });
 });
