@@ -15,7 +15,7 @@ In this tutorial, you will:
 1. Create your own static assets directory
 2. Configure Webpack to copy that directory over during the build process
 3. Configure the UPWARD server to look for specific files in that directory
-5. Build and verify your changes
+4. Build and verify your changes
 
 ## Create new static assets directory
 
