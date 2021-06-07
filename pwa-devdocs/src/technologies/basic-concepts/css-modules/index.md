@@ -1,5 +1,6 @@
 ---
 title: CSS Modules
+adobeio: /guides/general-concepts/css-modules/
 ---
 
 A [CSS Module][] is a CSS file that defines class and animation names that are scoped locally by default.

@@ -1,5 +1,6 @@
 ---
 title: State management
+adobeio: /guides/general-concepts/state-management/
 ---
 
 ## What is state management

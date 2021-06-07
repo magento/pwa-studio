@@ -1,5 +1,6 @@
 ---
 title: Internationalization
+adobeio: /guides/general-concepts/internationalization/
 ---
 
 Internationalization (i18n) is a feature that lets you localize content for a culture, region, or language.

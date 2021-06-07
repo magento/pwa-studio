@@ -1,6 +1,7 @@
 ---
 Title: GraphQL
 contributors: Jstein19
+adobeio: /guides/general-concepts/graphql/
 ---
 
 ## What is GraphQL

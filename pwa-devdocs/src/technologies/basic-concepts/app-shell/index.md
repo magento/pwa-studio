@@ -2,6 +2,7 @@
 title: Application Shell
 contributors:
     - gavin2point0
+adobeio: /guides/general-concepts/application-shell/
 ---
 
 Magento PWA Studio uses an application shell architecture to shorten the time it takes to load a branded experience in the UI instead of a blank page.
