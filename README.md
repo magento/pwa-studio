@@ -25,11 +25,6 @@ Here are some popular topics to help you get started:
 - [Tools and libraries][] - A list of tools and libraries developers need to be familiar with to use PWA Studio
 - [PWA Studio fundamentals][] - A series of tutorials covering common storefront development tasks
 
-[PWA learning resources from Magento U][magento u] -
-Just starting out with Progressive Web Application technologies in general?
-Check out Magento U's learning resource page for PWA.
-It contains links to online training, tutorials, and courses on the technologies you need to know to use PWA Studio.
-
 ### Venia
 
 [![Venia](https://raw.githubusercontent.com/wiki/magento/pwa-studio/images/venia.png)][venia]
@@ -123,7 +118,6 @@ We would like to recognize the following community members for their efforts on 
 [PWA Studio fundamentals]: https://pwastudio.io/tutorials/pwa-studio-fundamentals/
 [workspace commands]: https://yarnpkg.com/en/docs/cli/workspace
 [Yarn Workspaces]: https://yarnpkg.com/en/docs/workspaces/
-[magento u]: https://u.magento.com/pwa-learning-resources
 [community wiki]: https://github.com/magento/pwa-studio/wiki
 [pwa studio overview]: https://magento.github.io/pwa-studio/technologies/overview/
 [tools and libraries]: https://magento.github.io/pwa-studio/technologies/tools-libraries/
