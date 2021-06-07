@@ -75,7 +75,7 @@ These components also support grouped store views if available from Magento.
 This release improves the performance of the Venia storefront and its underlying components.
 These improvements include:
 
-- Enabling text compression for the UPWARD-JS server
+- Enabling text compression for the UPWARD-JS server 
 - Removing unused JavaScript in Venia
 - Investigating and improving render blocking and response in Venia
 
