@@ -26,6 +26,9 @@ In your storefront project's root directory, run the following command to copy t
 cp -r node_modules/@magento/venia-ui/venia-static my-static-assets
 ```
 
+**NOTE:**
+If your project does not have the `node_modules` directory, run `yarn install`.
+
 ### Update manifest file
 
 Replace the Venia icons in that directory with your own icons and update the `manifest.json` file to reflect those changes:
@@ -70,6 +73,20 @@ Replace the Venia icons in that directory with your own icons and update the `ma
           }
       ]
   }
+```
+
+### Update HTML template
+
+Your project's `template.html` file also contains references to Venia static assets which you may want to update.
+Edit this file and make the necessary changes to point these references to your new assets.
+
+For example:
+
+```diff
+- <link rel="apple-touch-icon" href="/venia-static/icons/venia_square_57.png">
+- <link rel="apple-touch-icon" sizes="180x180" href="/venia-static/icons/apple-touch-icon.png">
++ <link rel="apple-touch-icon" href="/my-static-assets/icons/my-storefront_57.png">
++ <link rel="apple-touch-icon" sizes="180x180" href="/my-static-assets/icons/apple-touch-icon.png">
 ```
 
 ## Add copy instructions
@@ -183,20 +200,6 @@ The build process generates the final `upward.yml` configuration under the `dist
 - Content in the base `upward.yml` file in the `venia-ui` package
 - Modifications to that file using the `transformUpward` target
 - Content in your project's `upward.yml` file
-
-## Update HTML template
-
-Your project's `template.html` file contains references to Venia static assets which you may want to update.
-Edit this file and make the necessary changes to point these references to your new assets.
-
-For example:
-
-```diff
-- <link rel="apple-touch-icon" href="/venia-static/icons/venia_square_57.png">
-- <link rel="apple-touch-icon" sizes="180x180" href="/venia-static/icons/apple-touch-icon.png">
-+ <link rel="apple-touch-icon" href="/my-static-assets/icons/my-storefront_57.png">
-+ <link rel="apple-touch-icon" sizes="180x180" href="/my-static-assets/icons/apple-touch-icon.png">
-```
 
 ## Build and verify
 
