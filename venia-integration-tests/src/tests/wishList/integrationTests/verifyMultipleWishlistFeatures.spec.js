@@ -94,7 +94,15 @@ describe('verify single wishlist basic features', () => {
 
         cy.visitPage(categoryTops);
         cy.wait(['@getWishlistLocalFields']).its('response.body');
-        cy.wait(['@getGalleryWishlist']).its('response.body');
+        cy.wait('@createWishlist1').should(result => {
+            expect(result.request.body.operationName).to.equal(
+                'createWishlist'
+            );
+            expect(result.request.body.query).to.exist;
+            expect(result.request.body.variables).to.eql({
+                input: { name: 'Test List1', visibility: 'PRIVATE' }
+            });
+        });
         cy.wait(['@getCustomerWishlist2']).its('response.body');
 
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
