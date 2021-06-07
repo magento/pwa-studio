@@ -1,5 +1,6 @@
 ---
 title: Overview
+adobeio: /guides/
 ---
 
 Magento's PWA Studio is a set of tools that let you create Progressive Web Apps (PWA).

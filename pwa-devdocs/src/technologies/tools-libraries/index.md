@@ -1,5 +1,6 @@
 ---
 title: Tools and libraries
+adobeio: /guides/project/tools-libraries/
 ---
 
 ![tools and technology overview][]

@@ -1,5 +1,6 @@
 ---
 title: Frequently Asked Questions(FAQ)
+adobeio: /guides/project/faq/
 ---
 
 ## How do I get started with PWA Studio

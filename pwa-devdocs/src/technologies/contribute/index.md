@@ -1,5 +1,6 @@
 ---
 title: Contributing
+adobeio: /guides/project/contributing/
 ---
 
 Thank you for your interest in contributing to the PWA Studio project!
@@ -31,9 +32,14 @@ This person is responsible for ensuring the issue is completed in a reasonable a
 
 ## Ways to contribute
 
--   [Identify and create issues](#identify-and-create-issues)
--   [Select a groomed issue](#select-a-groomed-issue)
--   [Help answer community questions](#help-answer-community-questions)
+- [Terms](#terms)
+- [Ways to contribute](#ways-to-contribute)
+  - [Identify and create issues](#identify-and-create-issues)
+    - [Grooming new issues](#grooming-new-issues)
+  - [Select a groomed issue](#select-a-groomed-issue)
+    - [Working on the solution](#working-on-the-solution)
+    - [PR review process](#pr-review-process)
+  - [Help answer community questions](#help-answer-community-questions)
 
 ### Identify and create issues
 
