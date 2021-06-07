@@ -267,21 +267,37 @@ describe('child categories', () => {
         expect(childCategories.has(1)).toEqual(false);
     });
 
-    test('Does not include child category when include_in_menu is not true', () => {
-        // Arrange.
+    test('Does not include child category when include_in_menu is falsy', () => {
+        const categoryId = 5;
         useLazyQuery.mockImplementation(() => {
-            return getNavigationMenuQueryResult();
+            return jest.fn().mockReturnValue([
+                getNavigationMenu,
+                {
+                    data: {
+                        category: {
+                            ...result.data.category,
+                            children: [
+                                ...result.data.category.children,
+                                {
+                                    id: categoryId,
+                                    include_in_menu: 0,
+                                    children_count: 0,
+                                    name: 'Five',
+                                    parentId: 1,
+                                    position: 0,
+                                    url_suffix: '.html',
+                                    url_path: '1/5'
+                                }
+                            ]
+                        }
+                    }
+                }
+            ])();
         });
-        // There's nothing to arrange here, the default values for props
-        // and categories are already arranged for this test to succeed.
 
-        // Act.
         createTestInstance(<Component {...props} />);
 
-        // Assert.
         const { childCategories } = log.mock.calls[0][0];
-        for (const childCategory of childCategories) {
-            expect(childCategory[1].category.include_in_menu).toBe(1);
-        }
+        expect(childCategories.get(categoryId)).toBeUndefined();
     });
 });
