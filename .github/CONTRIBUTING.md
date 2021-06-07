@@ -72,6 +72,23 @@ If you are unsure about anything, reach out to anyone in the Community Advisory 
 To get your contribution accepted, you must sign [Adobe's Contributor License Agreement (CLA)](https://opensource.adobe.com/cla.html).
 You only need to sign the CLA once.
 
+#### Testing your solution
+
+We require tests be provided with any contributions - please add or update tests
+to ensure your changes are covered. We're happy to work with you and to provide
+tests for your contributions in the event that you are unable to do so yourself.
+
+If you want to check test coverage locally, you can use the `--testPathPattern`
+and `--collectCoverageFrom` Jest arguments. Otherwise, wait for the CI tooling
+to report back in your PR on the test status/coverage.
+
+If you modified the `useCategoryTree` talon you would run the following command
+to check tests and coverage:
+
+```sh
+yarn test --testPathPattern="useCategoryTree" --collectCoverageFrom="**/useCategoryTree**"
+```
+
 #### PR review process
 
 After you submit your PR, the Community Advisory Board will assign one or more reviewers to look over your solution and ensure quality and adherence to standards.
