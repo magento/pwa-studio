@@ -1,8 +1,0 @@
-#!/usr/bin/env node
-const npmIs = require("../npm-is");
-const args = process.argv.slice(2);
-if (args.length === 0) {
-  console.log(npmIs.detect());
-} else {
-  npmIs.assert(args);
-}
