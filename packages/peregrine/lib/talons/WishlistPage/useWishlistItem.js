@@ -1,11 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-
 import mergeOperations from '../../util/shallowMerge';
-// TODO: Import the actual default operations once we have them co-located.
-const DEFAULT_OPERATIONS = {};
+import defaultOperations from './wishlistItem.gql';
 
 // Note: There is only ever zero (0) or one (1) dialogs open for a wishlist item.
 const dialogs = {
@@ -17,18 +15,28 @@ const dialogs = {
 /**
  * @function
  *
- * @param {String} props.childSku SKU of the child item
- * @param {String} props.itemId The ID of the item
+ * @param {String} props.item Wishlist Item data from GraphQL
  * @param {WishlistItemOperations} props.operations GraphQL operations for the Wishlist Item component
- * @param {String} props.sku SKU of the item
  * @param {String} props.wishlistId The ID of the wishlist this item belongs to
  *
  * @returns {WishlistItemProps}
  */
 export const useWishlistItem = props => {
-    const { childSku, itemId, sku, wishlistId } = props;
+    const { item, onOpenAddToCartDialog, wishlistId } = props;
+    const {
+        configurable_options: selectedConfigurableOptions = [],
+        id: itemId,
+        product
+    } = item;
+    const {
+        configurable_options: configurableOptions = [],
+        image,
+        sku,
+        stock_status: stockStatus
+    } = product;
+    const { label: imageLabel, url: imageURL } = image;
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(defaultOperations, props.operations);
     const {
         addWishlistItemToCartMutation,
         removeProductsFromWishlistMutation
@@ -41,20 +49,42 @@ export const useWishlistItem = props => {
         setRemoveProductFromWishlistError
     ] = useState(null);
 
-    const cartItem = {
-        data: {
+    const cartItem = useMemo(() => {
+        const item = {
             quantity: 1,
-            sku: childSku || sku
-        }
-    };
+            sku
+        };
 
-    // Merge in additional input variables for configurable items
-    if (childSku) {
-        Object.assign(cartItem, {
-            parent_sku: sku,
-            variant_sku: childSku
-        });
-    }
+        // Merge in additional input variables for configurable items
+        if (
+            selectedConfigurableOptions.length &&
+            selectedConfigurableOptions.length === configurableOptions.length
+        ) {
+            const selectedOptionsArray = selectedConfigurableOptions.map(
+                selectedOption => {
+                    const {
+                        id: attributeId,
+                        value_id: selectedValueId
+                    } = selectedOption;
+                    const configurableOption = configurableOptions.find(
+                        option => option.attribute_id_v2 === attributeId
+                    );
+                    const configurableOptionValue = configurableOption.values.find(
+                        optionValue =>
+                            optionValue.value_index === selectedValueId
+                    );
+
+                    return configurableOptionValue.uid;
+                }
+            );
+
+            Object.assign(item, {
+                selected_options: selectedOptionsArray
+            });
+        }
+
+        return item;
+    }, [configurableOptions, selectedConfigurableOptions, sku]);
 
     const [
         addWishlistItemToCart,
@@ -73,6 +103,15 @@ export const useWishlistItem = props => {
         removeProductsFromWishlist,
         { loading: isRemovalInProgress }
     ] = useMutation(removeProductsFromWishlistMutation, {
+        update: cache => {
+            cache.modify({
+                id: 'ROOT_QUERY',
+                fields: {
+                    customerWishlistProducts: cachedProducts =>
+                        cachedProducts.filter(productSku => productSku !== sku)
+                }
+            });
+        },
         variables: {
             wishlistId: wishlistId,
             wishlistItemsId: [itemId]
@@ -80,12 +119,25 @@ export const useWishlistItem = props => {
     });
 
     const handleAddToCart = useCallback(async () => {
-        try {
-            await addWishlistItemToCart();
-        } catch {
-            return;
+        if (
+            configurableOptions.length === 0 ||
+            selectedConfigurableOptions.length === configurableOptions.length
+        ) {
+            try {
+                await addWishlistItemToCart();
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            onOpenAddToCartDialog(item);
         }
-    }, [addWishlistItemToCart]);
+    }, [
+        addWishlistItemToCart,
+        configurableOptions.length,
+        item,
+        onOpenAddToCartDialog,
+        selectedConfigurableOptions.length
+    ]);
 
     const handleRemoveProductFromWishlist = useCallback(async () => {
         try {
@@ -94,7 +146,11 @@ export const useWishlistItem = props => {
             // Close the dialogs on success.
             setCurrentDialog(dialogs.NONE);
         } catch (e) {
+            console.error(e);
             setRemoveProductFromWishlistError(e);
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(e);
+            }
         }
     }, [
         removeProductsFromWishlist,
@@ -121,16 +177,32 @@ export const useWishlistItem = props => {
         currentDialog === dialogs.CONFIRM_REMOVE_PRODUCT;
     const moreActionsIsOpen = currentDialog === dialogs.MORE_ACTIONS;
 
+    const addToCartButtonProps = useMemo(() => {
+        return {
+            disabled:
+                addWishlistItemToCartLoading || stockStatus === 'OUT_OF_STOCK',
+            onClick: handleAddToCart
+        };
+    }, [addWishlistItemToCartLoading, handleAddToCart, stockStatus]);
+
+    const imageProps = useMemo(() => {
+        return {
+            alt: imageLabel,
+            src: imageURL,
+            width: 400
+        };
+    }, [imageLabel, imageURL]);
+
     return {
+        addToCartButtonProps,
         confirmRemovalIsOpen,
-        handleAddToCart,
         handleHideDialogs,
         handleRemoveProductFromWishlist,
         handleShowConfirmRemoval,
         handleShowMoreActions,
         hasError: !!addWishlistItemToCartError,
         hasRemoveProductFromWishlistError: !!removeProductFromWishlistError,
-        isLoading: addWishlistItemToCartLoading,
+        imageProps,
         isRemovalInProgress,
         moreActionsIsOpen
     };
@@ -145,8 +217,8 @@ export const useWishlistItem = props => {
  *
  * @typedef {Object} WishlistItemOperations
  *
- * @property {GraphQLAST} addWishlistItemToCartMutation Mutation to add item to the cart
- * @property {GraphQLAST} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
+ * @property {GraphQLDocument} addWishlistItemToCartMutation Mutation to add item to the cart
+ * @property {GraphQLDocument} removeProductsFromWishlistMutation Mutation to remove a product from a wishlist
  *
  * @see [`wishlistItem.gql.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/WishlistPage/wishlistItem.gql.js}
  * for queries used in Venia
@@ -158,7 +230,6 @@ export const useWishlistItem = props => {
  * @typedef {Object} WishlistItemProps
  *
  * @property {Boolean} confirmRemovalIsOpen Whether the confirm removal dialog is open
- * @property {Function} handleAddToCart Callback to handle item addition to cart
  * @property {Function} handleHideDialogs Callback to handle hiding all dialogs
  * @property {Function} handleRemoveProductFromWishlist Callback to actually remove product from wishlist
  * @property {Function} handleShowConfirmRemoval Callback to handle showing the removal confirmation prompt

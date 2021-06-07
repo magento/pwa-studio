@@ -2,10 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useCategoryContent } from '../useCategoryContent';
-import { useLazyQuery } from '@apollo/client';
-import { act } from 'react-test-renderer';
-
-import { useAppContext } from '../../../../context/app';
+import { useLazyQuery, useQuery } from '@apollo/client';
 
 global.STORE_NAME = 'Venia';
 
@@ -23,7 +20,8 @@ jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
     return {
         ...apolloClient,
-        useLazyQuery: jest.fn()
+        useLazyQuery: jest.fn(),
+        useQuery: jest.fn()
     };
 });
 const Component = props => {
@@ -35,10 +33,6 @@ const Component = props => {
 const mockProps = {
     categoryId: 3,
     data: {
-        category: {
-            name: 'Jewelry',
-            description: 'Jewelry category'
-        },
         products: {
             page_info: {
                 total_pages: 1
@@ -52,7 +46,8 @@ const mockProps = {
                     id: 2,
                     name: 'Necklace'
                 }
-            ]
+            ],
+            total_count: 2
         }
     }
 };
@@ -66,6 +61,12 @@ const mockProductFiltersByCategoryData = {
         ]
     }
 };
+const mockCategoryData = {
+    category: {
+        name: 'Jewelry',
+        description: 'Jewelry category'
+    }
+};
 
 const mockGetFilters = jest.fn();
 
@@ -74,58 +75,16 @@ useLazyQuery.mockReturnValue([
     { data: mockProductFiltersByCategoryData }
 ]);
 
+useQuery.mockReturnValue({ data: mockCategoryData });
+
 it('returns the proper shape', () => {
     const rendered = createTestInstance(<Component {...mockProps} />);
 
     const talonProps = rendered.root.findByType('i').props;
 
     expect(mockGetFilters).toHaveBeenCalled();
+    expect(useQuery).toHaveBeenCalled();
     expect(talonProps).toMatchSnapshot();
-});
-
-it('sets the filter loading state', () => {
-    const rendered = createTestInstance(<Component {...mockProps} />);
-
-    const talonProps = rendered.root.findByType('i').props;
-
-    const { loadFilters, handleLoadFilters } = talonProps;
-
-    expect(loadFilters).toBeFalsy();
-
-    act(() => {
-        handleLoadFilters();
-    });
-
-    const updatedProps = rendered.root.findByType('i').props;
-
-    expect(updatedProps.loadFilters).toBeTruthy();
-});
-
-it('toggles drawer when opening filters', () => {
-    const mockToggleDrawer = jest.fn();
-    useAppContext.mockReturnValue([
-        {},
-        {
-            toggleDrawer: mockToggleDrawer
-        }
-    ]);
-
-    const rendered = createTestInstance(<Component {...mockProps} />);
-
-    const talonProps = rendered.root.findByType('i').props;
-
-    const { loadFilters, handleOpenFilters } = talonProps;
-
-    expect(loadFilters).toBeFalsy();
-
-    act(() => {
-        handleOpenFilters();
-    });
-
-    const updatedProps = rendered.root.findByType('i').props;
-
-    expect(updatedProps.loadFilters).toBeTruthy();
-    expect(mockToggleDrawer).toHaveBeenCalled();
 });
 
 it('handles default category id', () => {
@@ -153,6 +112,7 @@ it('handles no data prop', () => {
         data: null,
         pageSize: 9
     };
+    useLazyQuery.mockReturnValue([mockGetFilters, { data: null }]);
 
     const rendered = createTestInstance(<Component {...testProps} />);
 

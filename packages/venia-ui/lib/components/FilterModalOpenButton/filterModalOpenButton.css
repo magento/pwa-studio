@@ -1,0 +1,10 @@
+.filterButton {
+    composes: root_lowPriority from '../../components/Button/button.css';
+    min-width: 6.25rem;
+}
+
+@media (min-width: 1024px) {
+    .filterButton {
+        display: none;
+    }
+}

@@ -2,6 +2,13 @@ import { createTestInstance } from '@magento/peregrine';
 import React from 'react';
 import Products, { GET_PRODUCTS_BY_SKU } from '../products';
 
+jest.mock(
+    '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
+    () => ({
+        useCustomerWishlistSkus: jest.fn()
+    })
+);
+
 jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
     return {
@@ -216,7 +223,9 @@ test('render carousel with default props and verify Slick is called correctly', 
         expect.objectContaining({
             item: {
                 sku: 'TEST-1',
-                small_image: '/test/product/1.png'
+                small_image: {
+                    url: '/test/product/1.png'
+                }
             }
         }),
         expect.anything()
@@ -225,7 +234,9 @@ test('render carousel with default props and verify Slick is called correctly', 
         expect.objectContaining({
             item: {
                 sku: 'TEST-2',
-                small_image: '/test/product/2.png'
+                small_image: {
+                    url: '/test/product/2.png'
+                }
             }
         }),
         expect.anything()

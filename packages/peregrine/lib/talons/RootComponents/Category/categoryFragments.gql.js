@@ -3,9 +3,6 @@ import { gql } from '@apollo/client';
 export const CategoryFragment = gql`
     fragment CategoryFragment on CategoryTree {
         id
-        description
-        name
-        product_count
         meta_title
         meta_keywords
         meta_description
@@ -25,6 +22,7 @@ export const ProductsFragment = gql`
                     }
                 }
             }
+            sku
             small_image {
                 url
             }

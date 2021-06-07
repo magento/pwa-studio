@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { shape, string } from 'prop-types';
+import { useIntl } from 'react-intl';
+import { shape, string, func } from 'prop-types';
 import { X as Remove } from 'react-feather';
 
 import { mergeClasses } from '../../../classify';
@@ -8,16 +9,30 @@ import Trigger from '../../Trigger';
 import defaultClasses from './currentFilter.css';
 
 const CurrentFilter = props => {
-    const { group, item, removeItem } = props;
+    const { group, item, removeItem, onRemove } = props;
+    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {
         removeItem({ group, item });
-    }, [group, item, removeItem]);
+        if (typeof onRemove === 'function') {
+            onRemove(group, item);
+        }
+    }, [group, item, removeItem, onRemove]);
+
+    const ariaLabel = formatMessage(
+        {
+            id: 'filterModal.action.clearFilterItem.ariaLabel',
+            defaultMessage: 'Clear filter'
+        },
+        {
+            name: item.title
+        }
+    );
 
     return (
         <span className={classes.root}>
-            <Trigger action={handleClick}>
+            <Trigger action={handleClick} ariaLabel={ariaLabel}>
                 <Icon size={20} src={Remove} />
             </Trigger>
             <span className={classes.text}>{item.title}</span>
@@ -27,8 +42,13 @@ const CurrentFilter = props => {
 
 export default CurrentFilter;
 
+CurrentFilter.defaultProps = {
+    onRemove: null
+};
+
 CurrentFilter.propTypes = {
     classes: shape({
         root: string
-    })
+    }),
+    onRemove: func
 };

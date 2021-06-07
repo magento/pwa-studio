@@ -1,12 +1,13 @@
 import React from 'react';
-import defaultClasses from './products.css';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
-import SlickSlider from 'react-slick';
-import Gallery from '@magento/venia-ui/lib/components/Gallery';
 import { gql, useQuery } from '@apollo/client';
-import GalleryItem from '@magento/venia-ui/lib/components/Gallery/item';
+import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 
+import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import Gallery from '@magento/venia-ui/lib/components/Gallery';
+
+import Carousel from './Carousel/carousel';
+
+import defaultClasses from './products.css';
 /**
  * Sort products based on the original order of SKUs
  *
@@ -20,16 +21,6 @@ const restoreSortOrder = (skus, products) => {
         productsBySku.set(product.sku, product);
     });
     return skus.map(sku => productsBySku.get(sku)).filter(Boolean);
-};
-
-// map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
-const mapGalleryItem = item => {
-    const { small_image } = item;
-    return {
-        ...item,
-        small_image:
-            typeof small_image === 'object' ? small_image.url : small_image
-    };
 };
 
 /**
@@ -105,10 +96,6 @@ const Products = props => {
     const items = restoreSortOrder(skus, data.products.items);
 
     if (appearance === 'carousel') {
-        const galleryItems = items.map((item, index) => {
-            return <GalleryItem key={index} item={mapGalleryItem(item)} />;
-        });
-
         //Settings conditions was made due to react-slick issues
         const carouselCenterMode =
             carouselMode === 'continuous' && items.length > slidesToShow;
@@ -162,7 +149,7 @@ const Products = props => {
                     centerModeSmallClass
                 ].join(' ')}
             >
-                <SlickSlider {...carouselSettings}>{galleryItems}</SlickSlider>
+                <Carousel settings={carouselSettings} items={items} />
             </div>
         );
     }

@@ -60,6 +60,9 @@ exports[`renders if \`items\` is an array of objects 1`] = `
           00
         </span>
       </div>
+      <div
+        className="actionsContainer"
+      />
     </div>
     <div
       className="root"
@@ -114,6 +117,9 @@ exports[`renders if \`items\` is an array of objects 1`] = `
           00
         </span>
       </div>
+      <div
+        className="actionsContainer"
+      />
     </div>
   </div>
 </div>

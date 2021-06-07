@@ -30,6 +30,16 @@
     background-color: rgb(var(--venia-global-color-gray));
 }
 
+.actionsContainer {
+    column-gap: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.actionsContainer:empty {
+    display: none;
+}
+
 .name {
     font-weight: var(--venia-global-fontWeight-semibold);
 }

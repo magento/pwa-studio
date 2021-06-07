@@ -5,9 +5,13 @@ import { useMutation } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 import { useWishlistItem } from '../useWishlistItem';
 
-jest.mock('@apollo/client', () => ({
-    useMutation: jest.fn().mockReturnValue([jest.fn(), { loading: false }])
-}));
+jest.mock('@apollo/client', () => {
+    const ApolloClient = jest.requireActual('@apollo/client');
+    return {
+        ...ApolloClient,
+        useMutation: jest.fn().mockReturnValue([jest.fn(), { loading: false }])
+    };
+});
 
 jest.mock('../../../context/cart', () => {
     const state = { cartId: 'cart123' };
@@ -31,7 +35,19 @@ const Component = props => {
 
 const baseProps = {
     mutations: {},
-    sku: 'shoggoth-shirt'
+    item: {
+        id: 'item-1',
+        product: {
+            image: {
+                label: 'Shoggoth Shirt',
+                url: 'https://example.com/media/shoggoth-shirt.jpg'
+            },
+            sku: 'shoggoth-shirt',
+            stock_status: 'IN_STOCK'
+        }
+    },
+    onOpenAddToCartDialog: jest.fn().mockName('onOpenAddToCartDialog'),
+    wishlistId: 'wishlist-1'
 };
 
 test('it returns the correct shape', () => {
@@ -49,7 +65,7 @@ test('it returns mutation response fields', () => {
     const talonProps = log.mock.calls[0][0];
 
     expect(talonProps.hasError).toBe(true);
-    expect(talonProps.isLoading).toBe(true);
+    expect(talonProps.addToCartButtonProps.disabled).toBe(true);
 });
 
 test('mutation passes options for simple item', () => {
@@ -63,7 +79,22 @@ test('mutation passes options for simple item', () => {
 test('mutation passes options for configurable item', () => {
     const configurableProps = {
         ...baseProps,
-        childSku: 'shoggoth-shirt-xl-black'
+        item: {
+            ...baseProps.item,
+            configurable_options: [{ id: 'option-1', value_id: 'value-1' }],
+            product: {
+                ...baseProps.item.product,
+                configurable_options: [
+                    {
+                        attribute_id_v2: 'option-1',
+                        values: [
+                            { value_index: 'value-1', uid: 'value-uid-1' },
+                            { value_index: 'value-2', uid: 'value-uid-2' }
+                        ]
+                    }
+                ]
+            }
+        }
     };
     createTestInstance(<Component {...configurableProps} />);
 
@@ -80,8 +111,98 @@ test('handleAddToCart callback fires mutation', () => {
     const talonProps = log.mock.calls[0][0];
 
     act(() => {
-        talonProps.handleAddToCart();
+        talonProps.addToCartButtonProps.onClick();
     });
 
     expect(mockMutate).toHaveBeenCalled();
+});
+
+test('handleRemoveProductFromWishlist callback fires mutation', () => {
+    const mockMutate = jest.fn();
+    useMutation.mockReturnValue([mockMutate, { loading: false }]);
+    createTestInstance(<Component {...baseProps} />);
+
+    const talonProps = log.mock.calls[0][0];
+
+    act(() => {
+        talonProps.handleRemoveProductFromWishlist();
+    });
+
+    expect(mockMutate).toHaveBeenCalled();
+});
+
+test('handleRemoveProductFromWishlist callback logs error if the mutation fails', async () => {
+    const consoleErrorSpy = jest.spyOn(console, 'error');
+    const error = new Error('Error.');
+    const mockMutate = jest.fn(() => {
+        throw error;
+    });
+    useMutation.mockReturnValue([
+        mockMutate,
+        {
+            called: true,
+            error: error,
+            loading: false
+        }
+    ]);
+    createTestInstance(<Component {...baseProps} />);
+    const talonProps = log.mock.calls[0][0];
+    act(() => {
+        talonProps.handleRemoveProductFromWishlist();
+    });
+    expect(consoleErrorSpy).toHaveBeenCalled();
+});
+
+test('disables addToCart button when out of stock', () => {
+    const outOfStockProps = {
+        ...baseProps,
+        item: {
+            ...baseProps.item,
+            product: {
+                ...baseProps.item.product,
+                stock_status: 'OUT_OF_STOCK'
+            }
+        }
+    };
+
+    createTestInstance(<Component {...outOfStockProps} />);
+
+    const talonProps = log.mock.calls[0][0];
+
+    expect(talonProps.addToCartButtonProps.disabled).toBe(true);
+});
+
+test('fires open dialog callback if not configured', () => {
+    const mockMutate = jest.fn();
+    useMutation.mockReturnValue([mockMutate, { loading: false }]);
+
+    const configurableProps = {
+        ...baseProps,
+        item: {
+            ...baseProps.item,
+            configurable_options: [],
+            product: {
+                ...baseProps.item.product,
+                configurable_options: [
+                    {
+                        attribute_id_v2: 'option-1',
+                        values: [
+                            { value_index: 'value-1', uid: 'value-uid-1' },
+                            { value_index: 'value-2', uid: 'value-uid-2' }
+                        ]
+                    }
+                ]
+            }
+        }
+    };
+
+    createTestInstance(<Component {...configurableProps} />);
+    const talonProps = log.mock.calls[0][0];
+
+    act(() => {
+        talonProps.addToCartButtonProps.onClick();
+    });
+
+    expect(mockMutate).not.toHaveBeenCalled();
+    expect(baseProps.onOpenAddToCartDialog).toHaveBeenCalled();
 });

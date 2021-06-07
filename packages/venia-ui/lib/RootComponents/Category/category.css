@@ -1,3 +1,7 @@
+:root {
+    --category-sidebar-width: 325px;
+}
+
 .root {
     padding: 1rem;
 }
@@ -17,12 +21,6 @@
     height: 100vh;
 }
 
-.headerButtons {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 1.5rem;
-}
-
 .categoryTitle {
     color: rgb(var(--venia-global-color-text));
     padding-bottom: 1rem;
@@ -32,18 +30,68 @@
     text-align: center;
 }
 
-.sortContainer {
-    color: rgb(var(--venia-global-color-text-alt));
-    text-align: center;
-    font-size: 0.875rem;
-    padding-bottom: 1rem;
+.heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 0.5rem;
 }
 
-.sortText {
-    font-weight: 600;
+.categoryInfo {
+    line-height: var(--venia-global-typography-heading-lineHeight);
+    margin: 1rem 0;
+    max-width: 75vw;
 }
 
-.filterButton {
-    composes: root_lowPriority from '../../components/Button/button.css';
-    min-width: 6.25rem;
+.headerButtons {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+    padding-bottom: 1.5rem;
+}
+
+.sidebar {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .root {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .categoryHeader {
+        width: 100%;
+    }
+
+    .headerButtons {
+        justify-content: flex-end;
+    }
+
+    .heading {
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        align-items: center;
+        padding-bottom: 1.5rem;
+    }
+
+    .headerButtons {
+        padding-bottom: 0;
+    }
+
+    .categoryInfo {
+        margin: 0;
+        flex-basis: 100%;
+    }
+
+    .sidebar {
+        display: flex;
+        align-self: flex-start;
+        width: var(--category-sidebar-width);
+        padding-top: 4rem;
+    }
+
+    .categoryContent {
+        flex-grow: 1;
+    }
 }

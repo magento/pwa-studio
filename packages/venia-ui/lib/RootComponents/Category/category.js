@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { number, shape, string } from 'prop-types';
 import { useCategory } from '@magento/peregrine/lib/talons/RootComponents/Category';
 import { mergeClasses } from '../../classify';
-import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
@@ -33,11 +32,6 @@ const Category = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     if (!categoryData) {
-        // Show the loading indicator until data has been fetched.
-        if (loading) {
-            return fullPageLoadingIndicator;
-        }
-
         if (error && pageControl.currentPage === 1) {
             if (process.env.NODE_ENV !== 'production') {
                 console.error(error);
@@ -54,6 +48,7 @@ const Category = props => {
                 categoryId={id}
                 classes={classes}
                 data={categoryData}
+                isLoading={loading}
                 pageControl={pageControl}
                 sortProps={sortProps}
                 pageSize={pageSize}

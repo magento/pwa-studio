@@ -7,43 +7,84 @@ import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishl
 jest.mock('@magento/peregrine/lib/talons/WishlistPage/useWishlist');
 jest.mock('../../../classify');
 jest.mock('../wishlistItems', () => 'WishlistItems');
+jest.mock('../actionMenu.ee', () => 'ActionMenu');
+
+const baseProps = {
+    data: {
+        id: 5,
+        items_count: 0,
+        items_v2: { items: [] },
+        name: 'Favorites List',
+        sharing_code: null,
+        visibility: 'PUBLIC'
+    },
+    shouldRenderVisibilityToggle: true
+};
+
+const baseTalonProps = {
+    handleContentToggle: jest.fn().mockName('handleContentToggle'),
+    isOpen: true
+};
 
 test('render open with no items', () => {
-    useWishlist.mockReturnValue({
-        handleActionMenuClick: jest.fn().mockName('handleActionMenuClick'),
-        handleContentToggle: jest.fn().mockName('handleContentToggle'),
-        isOpen: true
-    });
+    useWishlist.mockReturnValue(baseTalonProps);
 
-    const props = {
-        data: {
-            items_count: 0,
-            items_v2: { items: [] },
-            name: 'Favorites List',
-            sharing_code: null
-        }
-    };
-    const tree = createTestInstance(<Wishlist {...props} />);
+    const tree = createTestInstance(<Wishlist {...baseProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
 test('render closed with items', () => {
-    useWishlist.mockReturnValue({
-        handleActionMenuClick: jest.fn().mockName('handleActionMenuClick'),
-        handleContentToggle: jest.fn().mockName('handleContentToggle'),
-        isOpen: false
-    });
+    useWishlist.mockReturnValue({ ...baseTalonProps, isOpen: false });
 
-    const props = {
+    const myProps = {
         data: {
+            ...baseProps.data,
             items_count: 20,
             items_v2: { items: ['item1', 'item2'] },
-            name: 'Favorites List',
             sharing_code: 'abc123'
-        }
+        },
+        shouldRenderVisibilityToggle: true
     };
-    const tree = createTestInstance(<Wishlist {...props} />);
+    const tree = createTestInstance(<Wishlist {...myProps} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders a name even if none in data', () => {
+    useWishlist.mockReturnValue({ ...baseTalonProps, isOpen: false });
+
+    const myProps = {
+        data: {
+            ...baseProps.data,
+            items_count: 20,
+            items_v2: { items: ['item1', 'item2'] },
+            sharing_code: 'abc123'
+        },
+        shouldRenderVisibilityToggle: true
+    };
+
+    delete myProps.data.name;
+
+    const tree = createTestInstance(<Wishlist {...myProps} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('hides visibility toggle', () => {
+    useWishlist.mockReturnValue({ ...baseTalonProps, isOpen: false });
+
+    const myProps = {
+        data: {
+            ...baseProps.data,
+            items_count: 20,
+            items_v2: { items: ['item1', 'item2'] },
+            sharing_code: 'abc123'
+        },
+        shouldRenderVisibilityToggle: false
+    };
+
+    const tree = createTestInstance(<Wishlist {...myProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

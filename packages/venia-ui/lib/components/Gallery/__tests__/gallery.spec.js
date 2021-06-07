@@ -18,6 +18,9 @@ jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
         })
     };
 });
+jest.mock('@magento/peregrine/lib/talons/Gallery/useGallery', () => ({
+    useGallery: () => ({ storeConfig: jest.fn().mockName('storeConfig') })
+}));
 jest.mock('../../../classify');
 
 const classes = { root: 'foo' };
@@ -41,8 +44,9 @@ const items = [
     {
         id: 2,
         name: 'Test Product 2',
-        // Magento 2.3.0 schema for testing backwards compatibility
-        small_image: '/test/product/2.png',
+        small_image: {
+            url: '/test/product/2.png'
+        },
         price: {
             regularPrice: {
                 amount: {
