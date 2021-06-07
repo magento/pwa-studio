@@ -1,5 +1,6 @@
 ---
 title: Magento theme vs PWA storefront
+adobeio: /integrations/magento/theme-vs-storefront/
 ---
 
 A traditional Magento store uses theme components to define the look and feel of the front-end store.
