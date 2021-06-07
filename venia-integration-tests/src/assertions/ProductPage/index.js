@@ -1,6 +1,4 @@
-import {
-    productPageSelectedWishlistButton
-} from '../../fields/productPage';
+import { productPageSelectedWishlistButton } from '../../fields/productPage';
 
 /**
  * Utility function to add product to wishlist from product page

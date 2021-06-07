@@ -1,6 +1,4 @@
-import {
-    graphqlMockedCalls as graphqlMockedCallsFixtures
-} from '../../../fixtures';
+import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 describe('pagebuilder > image', () => {
     it('renders properly', () => {

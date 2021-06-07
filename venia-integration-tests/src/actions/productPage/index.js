@@ -14,8 +14,9 @@ export const addProductToWishlistFromProductPage = () => {
 /**
  * Utility function to add product to wishlist from product page Dialog window
  */
-export const addProductToExistingWishlistFromDialog = (wishlistName) => {
+export const addProductToExistingWishlistFromDialog = wishlistName => {
     // add product to wishlist
-    cy.get(addProductToWishlist).contains(wishlistName).click();
+    cy.get(addProductToWishlist)
+        .contains(wishlistName)
+        .click();
 };
-

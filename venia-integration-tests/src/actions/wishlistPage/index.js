@@ -9,17 +9,13 @@ import {
  *
  * @param {String} wishlistName wishlist name
  */
-export const createWishlist = (wishlistName) => {
+export const createWishlist = wishlistName => {
     // click on Create a List link
-    cy.get(createWishlistButton)
-        .click();
+    cy.get(createWishlistButton).click();
 
     // enter wishlist name
-    cy.get(wishlistNameField)
-        .type(wishlistName);
+    cy.get(wishlistNameField).type(wishlistName);
 
     // Create wishlist
-    cy.get(createWishlistConfirmButton)
-        .click();
-
+    cy.get(createWishlistConfirmButton).click();
 };

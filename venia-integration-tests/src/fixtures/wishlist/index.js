@@ -9,5 +9,4 @@ export const singleWishlistHeading = 'Remove';
 
 export const multipleWishlistHeading = 'Remove';
 
-export const emptyWishlistMessage =
-    'There are currently no items in this list';
+export const emptyWishlistMessage = 'There are currently no items in this list';

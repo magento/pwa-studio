@@ -4,11 +4,13 @@ export const wishlistRoot = 'div[class^="wishlist-root-"]';
 
 export const wishlistItemPrice = '*[class^="wishlistItem-priceContainer-"]';
 
-export const wishlistItemAddToCartButton = '*[class^="wishlistItem-addToCart-"]';
+export const wishlistItemAddToCartButton =
+    '*[class^="wishlistItem-addToCart-"]';
 
-export const createWishlistButton = 'button[class^="createWishlist-createButton-"]';
+export const createWishlistButton =
+    'button[class^="createWishlist-createButton-"]';
 
 export const wishlistNameField = 'input[name="name"]';
 
-export const createWishlistConfirmButton = 'button[class^="createWishlist-confirmButton-"]';
-
+export const createWishlistConfirmButton =
+    'button[class^="createWishlist-confirmButton-"]';

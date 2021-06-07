@@ -1,6 +1,4 @@
-import {
-    categoryPageSelectedWishlistButton
-} from '../../fields/categoryPage';
+import { categoryPageSelectedWishlistButton } from '../../fields/categoryPage';
 
 /**
  * Utility function to assert selected product in wishlist

@@ -6,11 +6,7 @@ import {
     createWishlistButton
 } from '../../fields/wishlist';
 
-import {
-    emptyWishlistMessage
-} from '../../fixtures/wishlist';
-
-
+import { emptyWishlistMessage } from '../../fixtures/wishlist';
 
 /**
  * Utility function to assert empty wishlist
@@ -62,7 +58,7 @@ export const assertCreateWishlistLink = () => {
 /**
  * Utility function to assert empty wishlist for multiple wishlists
  */
-export const assertEmptyWishlistExists = (wishlistName) => {
+export const assertEmptyWishlistExists = wishlistName => {
     // assert wishlist exists
     cy.get(wishlistRoot)
         .should('contain.text', wishlistName)
