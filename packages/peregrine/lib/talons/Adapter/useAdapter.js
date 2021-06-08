@@ -162,6 +162,8 @@ export const useAdapter = props => {
     const apolloLink = useMemo(
         () =>
             ApolloLink.from([
+                // preserve this array order, it's important
+                // as the terminating link, `httpLink` must be last
                 mutationQueueLink,
                 retryLink,
                 authLink,

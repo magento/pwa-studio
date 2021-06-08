@@ -127,7 +127,7 @@ module.exports = async env => {
 
     // remove browser-only module rules
     serverConfig.module.rules = serverConfig.module.rules.map(rule => {
-        if (rule.oneOf) {
+        if (`${rule.test}` === '/\\.css$/') {
             return {
                 ...rule,
                 oneOf: rule.oneOf.map(ruleConfig => ({
