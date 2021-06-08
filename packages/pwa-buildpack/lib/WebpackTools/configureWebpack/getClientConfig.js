@@ -69,6 +69,7 @@ async function getClientConfig(opts) {
         module: {
             rules: await getModuleRules(opts)
         },
+        name: 'client-config',
         resolve: resolver.config,
         resolveLoader: getResolveLoader(),
         plugins: [

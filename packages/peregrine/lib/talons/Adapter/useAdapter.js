@@ -162,12 +162,12 @@ export const useAdapter = props => {
     const apolloLink = useMemo(
         () =>
             ApolloLink.from([
-                authLink,
-                errorLink,
-                httpLink,
                 mutationQueueLink,
                 retryLink,
-                storeLink
+                authLink,
+                storeLink,
+                errorLink,
+                httpLink
             ]),
         [authLink, errorLink, httpLink, mutationQueueLink, retryLink, storeLink]
     );

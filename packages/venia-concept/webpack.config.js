@@ -98,6 +98,7 @@ module.exports = async env => {
 
     const serverConfig = Object.assign({}, config, {
         target: 'node',
+        name: 'server-config',
         output: {
             ...config.output,
             filename: '[name].[hash].SERVER.js',
@@ -121,6 +122,23 @@ module.exports = async env => {
         plugin => !browserPlugins.has(plugin.constructor.name)
     );
 
+    // remove browser-only module rules
+    serverConfig.module.rules = serverConfig.module.rules.map(rule => {
+        if (rule.oneOf) {
+            return {
+                ...rule,
+                oneOf: rule.oneOf.map(ruleConfig => ({
+                    ...ruleConfig,
+                    use: ruleConfig.use.filter(
+                        loaderConfig => loaderConfig.loader !== 'style-loader'
+                    )
+                }))
+            };
+        }
+
+        return rule;
+    });
+
     // add LimitChunkCountPlugin to avoid code splitting
     serverConfig.plugins.push(
         new LimitChunkCountPlugin({
@@ -128,5 +146,5 @@ module.exports = async env => {
         })
     );
 
-    return [config, serverConfig];
+    return config;
 };
