@@ -1,5 +1,6 @@
 ---
 title: Storefront architecture
+adobeio: /guides/storefront-architecture/
 ---
 
 Unlike a Magento theme, which is dependent on the core Magento application, a PWA Studio storefront exists on a different application layer from Magento.

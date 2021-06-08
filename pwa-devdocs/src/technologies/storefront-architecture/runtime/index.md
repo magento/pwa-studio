@@ -1,5 +1,6 @@
 ---
 title: Runtime architecture
+adobeio: /guides/storefront-architecture/run-time/
 ---
 
 A PWA Studio storefront's runtime architecture describes how each of its pieces interact with Magento when it is deployed.

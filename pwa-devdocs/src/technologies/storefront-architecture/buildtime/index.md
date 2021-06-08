@@ -1,5 +1,6 @@
 ---
 title: Buildtime architecture
+adobeio: /guides/storefront-architecture/build-time
 ---
 
 The build architecture of PWA Studio is the system used to compile JavaScript and CSS source code into a production-ready PWA storefront application.
