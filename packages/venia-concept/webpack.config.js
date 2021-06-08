@@ -98,13 +98,14 @@ module.exports = async env => {
 
     const serverConfig = Object.assign({}, config, {
         target: 'node',
+        devtool: false,
+        module: { ...config.module },
         name: 'server-config',
         output: {
             ...config.output,
             filename: '[name].[hash].SERVER.js',
             strictModuleExceptionHandling: true
         },
-        devtool: false,
         optimization: {
             minimize: false
         },
@@ -115,7 +116,9 @@ module.exports = async env => {
     const browserPlugins = new Set()
         .add('HtmlWebpackPlugin')
         .add('LocalizationPlugin')
-        .add('ServiceWorkerPlugin');
+        .add('ServiceWorkerPlugin')
+        .add('VirtualModulesPlugin')
+        .add('WebpackAssetsManifest');
 
     // remove browser-only plugins
     serverConfig.plugins = serverConfig.plugins.filter(
@@ -146,5 +149,5 @@ module.exports = async env => {
         })
     );
 
-    return config;
+    return [config, serverConfig];
 };
