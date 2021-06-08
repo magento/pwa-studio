@@ -1,5 +1,6 @@
 ---
 title: Venia storefront setup
+adobeio: /tutorials/setup-storefront/
 ---
 
 Venia is a PWA storefront that runs on top of an existing Magento 2 backend.

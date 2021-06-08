@@ -1,5 +1,6 @@
 ---
 title: Install Venia sample data
+adobeio: /guides/packages/venia/sample-data/
 ---
 
 ![Accessories sample data](images/accessories-sample-data.png)

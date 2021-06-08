@@ -1,5 +1,6 @@
 ---
 title: Venia project structure
+adobeio: /tutorials/setup-storefront/file-structure/
 ---
 
 This topic is an overview of the [`venia-concept`][] project structure.

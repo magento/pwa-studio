@@ -1,5 +1,6 @@
 ---
 title: Venia Storefront (Concept)
+adobeio: /guides/packages/venia/
 ---
 
 The Venia storefront is a proof-of-concept Magento PWA built using [PWA Buildpack][] tools and [Peregrine][] components.

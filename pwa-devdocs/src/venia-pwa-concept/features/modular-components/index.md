@@ -1,5 +1,6 @@
 ---
 title: Modular components
+adobeio: /guides/packages/venia/driver-adapter/
 ---
 
 {:.bs-callout .bs-callout-warning}
