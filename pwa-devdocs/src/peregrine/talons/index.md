@@ -1,5 +1,6 @@
 ---
 title: Talons
+adobeio: /guides/general-concepts/talons/
 ---
 
 Most [React component][] contain two distinct sections: a section for logic and a presentational section.

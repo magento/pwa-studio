@@ -1,5 +1,6 @@
 ---
 title: Peregrine
+adobeio: /guides/packages/peregrine/
 ---
 
 The Peregrine package is a collection of functions that act as the brains of your visual components.
