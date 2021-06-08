@@ -29,6 +29,7 @@ test('renders a Block component', () => {
 
 test('renders a Block component with all props configured and Page Builder rich content', () => {
     const MockRow = () => 'Row';
+    // eslint-disable-next-line no-import-assign
     config.getContentTypeConfig = jest.fn().mockImplementation(contentType => {
         if (contentType === 'row') {
             return {

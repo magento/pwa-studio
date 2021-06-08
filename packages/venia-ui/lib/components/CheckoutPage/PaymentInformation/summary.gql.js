@@ -24,10 +24,6 @@ export const CUSTOM_TYPES = {
     }
 };
 
-// We disable linting for local fields because there is no way to add them to
-// the fetched schema.
-// https://github.com/apollographql/eslint-plugin-graphql/issues/99
-/* eslint-disable graphql/template-strings */
 export const GET_SUMMARY_DATA = gql`
     query getSummaryData($cartId: String!) {
         cart(cart_id: $cartId) {
@@ -55,7 +51,6 @@ export const GET_SUMMARY_DATA = gql`
         }
     }
 `;
-/* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
