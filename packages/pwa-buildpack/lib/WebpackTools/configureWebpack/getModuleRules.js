@@ -100,17 +100,20 @@ getModuleRules.js = async ({
  * @returns Rule object for Webpack `module` configuration which parses
  *   CSS files
  */
-getModuleRules.css = async ({ hasFlag, paths }) => ({
+getModuleRules.css = async ({ mode, paths, hasFlag }) => ({
     test: /\.css$/,
     oneOf: [
         {
             test: [paths.src, ...hasFlag('cssModules')],
             use: [
                 {
-                    loader: path.resolve(
-                        __dirname,
-                        '../loaders/isomorphic-style-loader.js'
-                    )
+                    loader: 'style-loader',
+                    options: {
+                        injectType:
+                            mode === 'development'
+                                ? 'styleTag'
+                                : 'singletonStyleTag'
+                    }
                 },
                 {
                     loader: 'css-loader',
@@ -125,10 +128,13 @@ getModuleRules.css = async ({ hasFlag, paths }) => ({
             include: /node_modules/,
             use: [
                 {
-                    loader: path.resolve(
-                        __dirname,
-                        '../loaders/isomorphic-style-loader.js'
-                    )
+                    loader: 'style-loader',
+                    options: {
+                        injectType:
+                            mode === 'development'
+                                ? 'styleTag'
+                                : 'singletonStyleTag'
+                    }
                 },
                 {
                     loader: 'css-loader',

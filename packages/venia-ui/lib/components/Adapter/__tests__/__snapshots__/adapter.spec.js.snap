@@ -13,15 +13,11 @@ exports[`renders as expected when the URL does not have a store code 1`] = `
       title="BrowserRouter"
     >
       <i
-        title="StyleContextProvider"
+        title="AppContextProvider"
       >
         <i
-          title="AppContextProvider"
-        >
-          <i
-            title="App"
-          />
-        </i>
+          title="App"
+        />
       </i>
     </i>
   </i>
@@ -42,15 +38,11 @@ exports[`renders as expected when the URL has a store code 1`] = `
         title="StoreCodeRoute"
       />
       <i
-        title="StyleContextProvider"
+        title="AppContextProvider"
       >
         <i
-          title="AppContextProvider"
-        >
-          <i
-            title="App"
-          />
-        </i>
+          title="App"
+        />
       </i>
     </i>
   </i>

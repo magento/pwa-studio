@@ -98,12 +98,14 @@ module.exports = async env => {
 
     const serverConfig = Object.assign({}, config, {
         target: 'node',
+        devtool: false,
+        module: { ...config.module },
+        name: 'server-config',
         output: {
             ...config.output,
             filename: '[name].[hash].SERVER.js',
             strictModuleExceptionHandling: true
         },
-        devtool: false,
         optimization: {
             minimize: false
         },
@@ -114,12 +116,31 @@ module.exports = async env => {
     const browserPlugins = new Set()
         .add('HtmlWebpackPlugin')
         .add('LocalizationPlugin')
-        .add('ServiceWorkerPlugin');
+        .add('ServiceWorkerPlugin')
+        .add('VirtualModulesPlugin')
+        .add('WebpackAssetsManifest');
 
     // remove browser-only plugins
     serverConfig.plugins = serverConfig.plugins.filter(
         plugin => !browserPlugins.has(plugin.constructor.name)
     );
+
+    // remove browser-only module rules
+    serverConfig.module.rules = serverConfig.module.rules.map(rule => {
+        if (rule.oneOf) {
+            return {
+                ...rule,
+                oneOf: rule.oneOf.map(ruleConfig => ({
+                    ...ruleConfig,
+                    use: ruleConfig.use.filter(
+                        loaderConfig => loaderConfig.loader !== 'style-loader'
+                    )
+                }))
+            };
+        }
+
+        return rule;
+    });
 
     // add LimitChunkCountPlugin to avoid code splitting
     serverConfig.plugins.push(

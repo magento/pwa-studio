@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { useAddToCartDialog } from '@magento/peregrine/lib/talons/AddToCartDialog/useAddToCartDialog';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Button from '../Button';
 import Dialog from '../Dialog';
 import Image from '../Image';
@@ -27,7 +27,7 @@ const AddToCartDialog = props => {
         priceProps
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const imageComponent = imageProps ? (
         <Image {...imageProps} classes={{ image: classes.image }} />

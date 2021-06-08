@@ -4,7 +4,6 @@ import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
-import { useStyle } from '@magento/peregrine/lib/context/style';
 
 import globalCSS from '../../index.css';
 import { HeadProvider, StoreTitle } from '../Head';
@@ -30,8 +29,6 @@ const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
     const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
-
-    useStyle(globalCSS);
 
     const ERROR_MESSAGE = formatMessage({
         id: 'app.errorUnexpected',
