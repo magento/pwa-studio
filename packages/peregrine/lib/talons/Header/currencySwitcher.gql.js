@@ -25,10 +25,6 @@ export const CUSTOM_TYPES = {
     }
 };
 
-// We disable linting for local fields because there is no way to add them to
-// the fetched schema.
-// https://github.com/apollographql/eslint-plugin-graphql/issues/99
-/* eslint-disable graphql/template-strings */
 export const GET_CURRENCY = gql`
     query getCurrencyData {
         currency {
@@ -38,7 +34,6 @@ export const GET_CURRENCY = gql`
         }
     }
 `;
-/* eslint-enable graphql/template-strings */
 
 export default {
     getCurrencyQuery: GET_CURRENCY
