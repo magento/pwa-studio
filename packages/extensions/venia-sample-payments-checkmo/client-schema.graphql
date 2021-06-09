@@ -1,0 +1,4 @@
+extend type StoreConfig {
+    payment_checkmo_payable_to: String
+    payment_checkmo_mailing_address: String
+}

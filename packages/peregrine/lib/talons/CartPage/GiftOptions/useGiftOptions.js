@@ -57,7 +57,7 @@ const useGiftOptions = props => {
                         id: cartId,
                         include_gift_receipt: includeGiftReceipt,
                         include_printed_card: includePrintedCard,
-                        gift_message: giftMessage,
+                        local_gift_message: giftMessage,
                         ...optionsToUpdate
                     }
                 }
@@ -85,7 +85,7 @@ const useGiftOptions = props => {
         return throttle(
             (updateGiftOptions, newGiftMessage) => {
                 updateGiftOptions({
-                    gift_message: newGiftMessage
+                    local_gift_message: newGiftMessage
                 });
             },
             1000,
@@ -127,12 +127,12 @@ const useGiftOptions = props => {
             const {
                 include_gift_receipt,
                 include_printed_card,
-                gift_message
+                local_gift_message
             } = data.cart;
 
             setIncludeGiftReceipt(include_gift_receipt);
             setIncludePrintedCard(include_printed_card);
-            setGiftMessage(gift_message);
+            setGiftMessage(local_gift_message);
         }
     }, [setIncludeGiftReceipt, setIncludePrintedCard, data]);
 

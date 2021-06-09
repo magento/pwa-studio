@@ -14,13 +14,11 @@ export const ADD_TO_WISHLIST = gql`
     }
 `;
 
-/* eslint-disable graphql/template-strings */
 export const GET_PRODUCTS_IN_WISHLISTS = gql`
     query GetProductsInWishlistsForGallery {
         customerWishlistProducts @client
     }
 `;
-/* eslint-enable graphql/template-strings */
 
 export default {
     addProductToWishlistMutation: ADD_TO_WISHLIST,
