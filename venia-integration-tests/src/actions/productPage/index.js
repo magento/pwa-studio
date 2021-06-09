@@ -4,7 +4,7 @@ import {
 } from '../../fields/productPage';
 
 /**
- * Utility function to add product to wishlist from product page
+ * Utility function to add product to wishlist  from product page
  */
 export const addProductToWishlistFromProductPage = () => {
     // add product to wishlist
