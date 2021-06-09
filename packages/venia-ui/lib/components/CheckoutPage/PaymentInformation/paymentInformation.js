@@ -81,7 +81,7 @@ const PaymentInformation = props => {
     return (
         <div className={classes.root}>
             <div className={classes.payment_info_container}>
-                {paymentInformation}
+                <Suspense fallback={null}>{paymentInformation}</Suspense>
             </div>
             {editModal}
         </div>
