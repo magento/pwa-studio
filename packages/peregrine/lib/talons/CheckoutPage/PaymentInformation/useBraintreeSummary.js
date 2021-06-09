@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client';
-import { useTypePolicies } from '@magento/peregrine';
+
 import { useCartContext } from '../../../context/cart';
 
 import mergeOperations from '../../../util/shallowMerge';
-import defaultOperations, { CUSTOM_TYPES } from './braintreeSummary.gql';
+import defaultOperations from './braintreeSummary.gql';
 
 const mapBillingAddressData = rawBillingAddressData => {
     if (rawBillingAddressData) {
@@ -51,12 +51,8 @@ const mapBillingAddressData = rawBillingAddressData => {
  * }
  */
 export const useBraintreeSummary = (props = {}) => {
-    const { typePolicies = CUSTOM_TYPES } = props;
     const operations = mergeOperations(defaultOperations, props.operations);
-
-    const { getBraintreeSummaryData } = operations;
-
-    useTypePolicies(typePolicies);
+    const { getBraintreeSummaryData } = operations.queries;
 
     const [{ cartId }] = useCartContext();
     const { data: summaryData, loading: isLoading } = useQuery(
