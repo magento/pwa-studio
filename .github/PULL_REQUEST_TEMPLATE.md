@@ -65,9 +65,8 @@ Example
 - Yes, Browser testing is needed as X UI component is impacted 
 
 #### Any adhoc/edge case scenarios needs to be considered?
-<!-- Example -->
-<!-- Verify app behaviour when user enters Special characters in search field -->
-<!-- Enter Special characters in search field -->
+Example
+- Apply all filters to get 0 results and then remove filters to see respective products 
 
 ## Screenshots / Screen Captures (if appropriate)
 
