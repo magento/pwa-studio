@@ -47,21 +47,21 @@ Closes #ISSUE_NUMBER.
 <!-- Also, as part of Review/QA we will update test plan if needed -->
 
 #### Test scenario(s) for direct fix/feature - 
-<!-- Example -->
+Example
 -   Verify user is able to apply filters on category page
 -   Verify user is able to apply filters on search page
 
 #### Test scenario(s) for any existing impacted features/areas - 
-<!-- Example -->
+Example
 -   Verify user is able to sort data after applying filters on category page
 -   Verify user is able to sort data after applying filters on search page
 
 #### Test scenario(s) for any Magento Backend Supported Configurations -
-<!-- Example -->
+Example
 - Update default Sort value in backend and repeat above scenarios
 
 #### Does Browser/Device testing needed?
-<!-- Any change on Venia UI needs testing in Browser/Devices, Example -->
+Example
 - Yes, Browser testing is needed as X UI component is impacted 
 
 #### Any adhoc/edge case scenarios needs to be considered?
