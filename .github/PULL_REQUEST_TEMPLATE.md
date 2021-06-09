@@ -39,14 +39,35 @@ Closes #ISSUE_NUMBER.
 <!-- Changes to `upward-spec` and/or `upward-js` packages must be reviewed -->
 <!-- by `UPWARD-PHP` maintainers to ensure continued compatibility -->
 
-### Verification Steps
+## Test Plan
 
-<!-- Please describe in detail how a reviewer can verify your changes, -->
-<!-- OR how you will demonstrate the changes to the stakeholder(s). -->
+<!-- We look forward to have no/less bugs part of our code review and QA -->
+<!-- So, we request you to add detailed test plan on what needs to be QA'ed before this PR gets merged -->
+<!-- As you add the test plan you would also come across a scenario which might needs to checked -->
+<!-- Also, as part of Review/QA we will update test plan if needed -->
 
-1. Go to the FOO page.
-2. Verify the BAR shows up.
-3. Make sure BAZ does a thing.
+#### Test scenario(s) for direct fix/feature - 
+<!-- Example -->
+-   Verify user is able to apply filters on category page
+-   Verify user is able to apply filters on search page
+
+#### Test scenario(s) for any existing impacted features/areas - 
+<!-- Example -->
+-   Verify user is able to sort data after applying filters on category page
+-   Verify user is able to sort data after applying filters on search page
+
+#### Test scenario(s) for any Magento Backend Supported Configurations -
+<!-- Example -->
+- Update default Sort value in backend and repeat above scenarios
+
+#### Does Browser/Device testing needed?
+<!-- Any change on Venia UI needs testing in Browser/Devices, Example -->
+- Yes, Browser testing is needed as X UI component is impacted 
+
+#### Any adhoc/edge case scenarios needs to be considered?
+<!-- Example -->
+<!-- Verify app behaviour when user enters Special characters in search field -->
+<!-- Enter Special characters in search field -->
 
 ## Screenshots / Screen Captures (if appropriate)
 
