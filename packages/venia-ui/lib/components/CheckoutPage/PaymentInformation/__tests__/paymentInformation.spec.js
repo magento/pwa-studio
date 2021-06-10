@@ -31,7 +31,7 @@ jest.mock(
 jest.mock('../summary', () => props => <mock-Summary {...props} />);
 jest.mock('../editModal', () => props => <mock-EditModal {...props} />);
 jest.mock('../paymentMethods', () => props => (
-    <mock-PaymentMethodsd {...props} />
+    <mock-PaymentMethods {...props} />
 ));
 
 const defaultTalonResponse = {
