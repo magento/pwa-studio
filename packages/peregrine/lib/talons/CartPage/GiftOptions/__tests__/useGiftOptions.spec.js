@@ -18,7 +18,7 @@ const GET_GIFT_OPTIONS = gql`
             id
             include_gift_receipt
             include_printed_card
-            gift_message
+            local_gift_message
         }
     }
 `;
@@ -67,7 +67,7 @@ beforeEach(() => {
             id: 'cart123',
             include_gift_receipt: true,
             include_printed_card: false,
-            gift_message: 'GiftMessage'
+            local_gift_message: 'GiftMessage'
         }
     });
 });
@@ -130,7 +130,7 @@ test('it updates the cache after receiving user input', async () => {
     expect(cacheWriteSpy.mock.calls[0][0]).toMatchObject({
         data: {
             cart: {
-                gift_message: 'hello',
+                local_gift_message: 'hello',
                 include_gift_receipt: false,
                 include_printed_card: true
             }

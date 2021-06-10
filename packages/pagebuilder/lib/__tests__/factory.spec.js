@@ -16,6 +16,7 @@ test('factory should render instance of content type', () => {
         }
     };
     const TestComponent = () => <mock-TestComponent />;
+    // eslint-disable-next-line no-import-assign
     config.getContentTypeConfig = jest.fn().mockImplementation(contentType => {
         if (contentType === 'test') {
             return {
@@ -52,6 +53,7 @@ test('factory should render all children content types', () => {
         <mock-ParentComponent>{children}</mock-ParentComponent>
     );
     const ChildComponent = () => <mock-ChildComponent />;
+    // eslint-disable-next-line no-import-assign
     config.getContentTypeConfig = jest.fn().mockImplementation(contentType => {
         if (contentType === 'parent') {
             return {
@@ -95,6 +97,7 @@ test('factory should not render hidden instance of a content type', () => {
         }
     };
     const TestComponent = () => <mock-TestComponent />;
+    // eslint-disable-next-line no-import-assign
     config['contentTypesConfig'] = {
         test: {
             configAggregator: () => {

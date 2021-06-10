@@ -42,7 +42,7 @@ module.exports = targets => {
         'div className={pageClass}',
         '<span>appendJSX succeeded!</span>'
     )
-        .addJSXClassName('div className={pageClass}', 'newClass')
+        .addJSXClassName('div className={pageClass}', '"newClass"')
         .addJSXClassName('Header', '"anotherClass"')
         .insertAfterJSX(
             '<Footer/>',

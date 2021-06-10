@@ -41,7 +41,7 @@ const useGiftOptions = props => {
             // Afterward, treat client state as the single source of truth.
             if (!hasHydrated) {
                 formApiRef.current.setValues({
-                    cardMessage: data.cart.gift_message,
+                    cardMessage: data.cart.local_gift_message,
                     includeGiftReceipt: data.cart.include_gift_receipt,
                     includePrintedCard: data.cart.include_printed_card
                 });
@@ -64,10 +64,10 @@ const useGiftOptions = props => {
                 data: {
                     cart: {
                         __typename: 'Cart',
-                        gift_message: values.cardMessage || '',
                         id: cartId,
                         include_gift_receipt: !!values.includeGiftReceipt,
-                        include_printed_card: !!values.includePrintedCard
+                        include_printed_card: !!values.includePrintedCard,
+                        local_gift_message: values.cardMessage || ''
                     }
                 }
             });

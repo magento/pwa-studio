@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const GET_CHECKMO_CONFIG_DATA = gql`
     query storeConfigData {
         storeConfig {
+            id
             payment_checkmo_payable_to @client
             payment_checkmo_mailing_address @client
         }
