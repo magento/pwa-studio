@@ -62,7 +62,8 @@ Example
 
 #### Does Browser/Device testing needed?
 Example
-- Yes, Browser testing is needed as X UI component is impacted 
+- Yes, browser testing is needed as X UI component may be impacted on <browser>
+- Yes, device testing is needed as X UI component may be impacted on <mobile|desktop|etc>
 
 #### Any adhoc/edge case scenarios needs to be considered?
 Example
