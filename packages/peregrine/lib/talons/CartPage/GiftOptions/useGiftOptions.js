@@ -39,7 +39,7 @@ const useGiftOptions = props => {
         data => {
             // Only write values to the form once, ideally before user input.
             // Afterward, treat client state as the single source of truth.
-            if (!hasHydrated) {
+            if (data && !hasHydrated) {
                 formApiRef.current.setValues({
                     cardMessage: data.cart.local_gift_message,
                     includeGiftReceipt: data.cart.include_gift_receipt,
