@@ -74,20 +74,25 @@ const Wishlist = props => {
     const visibilityToggleClass = shouldRenderVisibilityToggle
         ? classes.visibilityToggle
         : classes.visibilityToggle_hidden;
+
+    const buttonsContainer = id ? (
+        <div className={classes.buttonsContainer}>
+            <ActionMenu id={id} name={name} visibility={visibility} />
+            <button
+                className={visibilityToggleClass}
+                onClick={handleContentToggle}
+                type="button"
+            >
+                {contentToggleIcon}
+            </button>
+        </div>
+    ) : null;
+
     return (
         <div className={classes.root}>
             <div className={classes.header}>
                 {wishlistName}
-                <div className={classes.buttonsContainer}>
-                    <ActionMenu id={id} name={name} visibility={visibility} />
-                    <button
-                        className={visibilityToggleClass}
-                        onClick={handleContentToggle}
-                        type="button"
-                    >
-                        {contentToggleIcon}
-                    </button>
-                </div>
+                {buttonsContainer}
             </div>
             <div className={contentClass}>{contentMessageElement}</div>
         </div>
