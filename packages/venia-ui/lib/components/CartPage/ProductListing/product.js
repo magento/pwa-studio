@@ -132,8 +132,6 @@ const Product = props => {
                 isLoading={isProductUpdating}
             />
         );
-    } else {
-        multipleWishlistDialog = null;
     }
 
     useEffect(() => {
