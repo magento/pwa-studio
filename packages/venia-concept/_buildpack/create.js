@@ -52,14 +52,12 @@ async function createProjectFromVenia({ fs, tasks, options, sampleBackends }) {
         'build:prod',
         'build:report',
         'clean',
-        'download-schema',
         'lint',
         'prettier',
         'prettier:check',
         'prettier:fix',
         'start',
         'start:debug',
-        'validate-queries',
         'watch'
     ];
     const scriptsToInsert = {

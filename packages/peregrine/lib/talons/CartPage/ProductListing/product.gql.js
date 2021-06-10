@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { WishlistFragment } from './wishlistFragment';
+import { WishlistNameFragment } from './wishlistFragment';
 
 export const GET_CONFIGURABLE_THUMBNAIL_SOURCE = gql`
     query getConfigurableThumbnailSource {
@@ -35,11 +35,11 @@ export const ADD_TO_WISHLIST = gql`
             }
             wishlist {
                 id
-                ...WishlistFragment
+                ...WishlistNameFragment
             }
         }
     }
-    ${WishlistFragment}
+    ${WishlistNameFragment}
 `;
 
 export default {
