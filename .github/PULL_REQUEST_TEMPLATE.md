@@ -41,31 +41,31 @@ Closes #ISSUE_NUMBER.
 
 ## Test Plan
 
-<!-- We look forward to have no/less bugs part of our code review and QA -->
-<!-- So, we request you to add detailed test plan on what needs to be QA'ed before this PR gets merged -->
-<!-- As you add the test plan you would also come across a scenario which might needs to checked -->
-<!-- Also, as part of Review/QA we will update test plan if needed -->
+<!-- During code review and QA we will try to ensure there are no bugs introduced by this change -->
+<!-- So, we request that you add a detailed test plan on what needs to be checked before this PR gets merged -->
+<!-- Feel free to update this after submitting the PR as you discover new scenarios -->
+<!-- As part of review/QA we may also add or update the test plan if necessary-->
 
-#### Test scenario(s) for direct fix/feature - 
+#### Test scenario(s) for direct fix/feature
 Example
 -   Verify user is able to apply filters on category page
 -   Verify user is able to apply filters on search page
 
-#### Test scenario(s) for any existing impacted features/areas - 
+#### Test scenario(s) for any existing impacted features/areas
 Example
 -   Verify user is able to sort data after applying filters on category page
 -   Verify user is able to sort data after applying filters on search page
 
-#### Test scenario(s) for any Magento Backend Supported Configurations -
+#### Test scenario(s) for any Magento Backend Supported Configurations
 Example
 - Update default Sort value in backend and repeat above scenarios
 
-#### Does Browser/Device testing needed?
+#### Is Browser/Device testing needed?
 Example
 - Yes, browser testing is needed as X UI component may be impacted on <browser>
 - Yes, device testing is needed as X UI component may be impacted on <mobile|desktop|etc>
 
-#### Any adhoc/edge case scenarios needs to be considered?
+#### Any ad-hoc/edge case scenarios that need to be considered?
 Example
 - Apply all filters to get 0 results and then remove filters to see respective products 
 
