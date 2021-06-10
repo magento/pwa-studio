@@ -47,7 +47,7 @@ const Wishlist = props => {
     const contentMessageElement = itemsCount ? (
         <WishlistItems items={items.items} wishlistId={id} />
     ) : (
-        <p>
+        <p className={classes.emptyListText}>
             <FormattedMessage
                 id={'wishlist.emptyListText'}
                 defaultMessage={'There are currently no items in this list'}
