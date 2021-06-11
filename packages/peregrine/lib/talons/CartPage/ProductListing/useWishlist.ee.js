@@ -123,11 +123,11 @@ export const useWishlist = props => {
         handleAddToWishlistSuccess
     ]);
 
-    const handleAddToWishlist = useCallback(() => {
+    const handleAddToWishlist = useCallback(async () => {
         if (isMultipleWishlistsEnabled) {
             setIsWishlistDialogOpen(true);
         } else {
-            moveProductToWishlist();
+            await moveProductToWishlist();
         }
     }, [moveProductToWishlist, isMultipleWishlistsEnabled]);
 
