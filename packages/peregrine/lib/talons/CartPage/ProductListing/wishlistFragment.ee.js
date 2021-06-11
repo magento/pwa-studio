@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const WishlistFragment = gql`
-    fragment WishlistFragment on Wishlist {
+export const WishlistNameFragment = gql`
+    fragment WishlistNameFragment on Wishlist {
         id
         name
     }

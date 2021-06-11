@@ -33,6 +33,9 @@ entries:
           - label: Add a new environment variable
             url: /tutorials/intercept-a-target/add-new-environment-variable/
 
+          - label: Change static assets directory
+            url: /tutorials/intercept-a-target/change-static-assets-directory/
+
     - label: Modify code with Targetables 
       url: /tutorials/targetables/
       entries:
