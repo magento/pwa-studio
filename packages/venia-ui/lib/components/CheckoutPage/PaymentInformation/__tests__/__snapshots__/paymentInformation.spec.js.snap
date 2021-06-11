@@ -7,7 +7,46 @@ exports[`Should render EditModal component only if doneEditing is true 1`] = `
   <div
     className="payment_info_container"
   >
-    <mock-Summary
+    <require('./summary')
+      onEdit={[MockFunction]}
+    />
+  </div>
+  <require('./editModal')
+    isOpen={false}
+    onClose={[MockFunction]}
+  />
+</div>
+`;
+
+exports[`Should render PaymentMethods component only if doneEditing is false 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="payment_info_container"
+  >
+    <form
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <require('./paymentMethods')
+        onPaymentError={[MockFunction]}
+        onPaymentSuccess={[MockFunction]}
+      />
+    </form>
+  </div>
+</div>
+`;
+
+exports[`Should render summary component only if doneEditing is true 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="payment_info_container"
+  >
+    <require('./summary')
       onEdit={[MockFunction]}
     />
   </div>
