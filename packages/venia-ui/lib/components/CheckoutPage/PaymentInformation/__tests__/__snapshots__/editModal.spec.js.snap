@@ -10,14 +10,13 @@ exports[`Should return correct shape 1`] = `
   shouldDisableConfirmButton={false}
   title="Edit Payment Information"
 >
-  <div
-    className="body"
-  >
-    <mock-CreditCard
-      onDropinReady={[Function]}
-      onPaymentSuccess={[Function]}
-      shouldSubmit={false}
-    />
-  </div>
+  <mock-Braintree
+    id="BraintreeMockId"
+    onPaymentError={[Function]}
+    onPaymentReady={[Function]}
+    onPaymentSuccess={[Function]}
+    resetShouldSubmit={[Function]}
+    shouldSubmit={false}
+  />
 </mock-Dialog>
 `;
