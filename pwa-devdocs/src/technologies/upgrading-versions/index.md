@@ -112,7 +112,7 @@ You can also use one of the many [diff tools in Visual Studio Code][] or a stand
 ## Check for new environment variables
 
 To check for new or updated environment variables, run a diff on the `envVarDefinitions.json` file in the **pwa-buildpack** package.
-For example, the following command shows the updates on that file between versions _v9.0.1_ and _v10.0.0_.
+For example, the following command shows the updates on that file between versions `v9.0.1` and `v10.0.0`.
 
 ```sh
 git diff v9.0.1...v10.0.0 packages/pwa-buildpack/envVarDefinitions.json
