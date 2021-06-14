@@ -28,9 +28,10 @@ const WishlistPage = props => {
     });
     const wishlistElements = useMemo(() => {
         if (wishlists.length === 0) return null;
-        return wishlists.map(wishlist => (
+        return wishlists.map((wishlist, index) => (
             <Wishlist
                 key={wishlist.id}
+                collapsed={index === 0}
                 data={wishlist}
                 shouldRenderVisibilityToggle={shouldRenderVisibilityToggle}
             />

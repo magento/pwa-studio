@@ -4,6 +4,7 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
 
 import { mergeClasses } from '../../classify';
+import LoadingIndicator from '../LoadingIndicator';
 import Icon from '../Icon';
 import WishlistItems from './wishlistItems';
 import defaultClasses from './wishlist.css';
@@ -16,18 +17,12 @@ import ActionMenu from './actionMenu';
  * @param {boolean} props.shouldRenderVisibilityToggle whether or not to render the visiblity toggle
  */
 const Wishlist = props => {
-    const { data, shouldRenderVisibilityToggle } = props;
+    const { data, shouldRenderVisibilityToggle, collapsed } = props;
     const { formatMessage } = useIntl();
-    const {
-        id,
-        items_count: itemsCount,
-        items_v2: items,
-        name,
-        visibility
-    } = data;
+    const { id, items_count: itemsCount, name, visibility } = data;
 
-    const talonProps = useWishlist();
-    const { handleContentToggle, isOpen } = talonProps;
+    const talonProps = useWishlist({ id, itemsCount, collapsed });
+    const { handleContentToggle, isOpen, items, isLoading } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const contentClass = isOpen ? classes.content : classes.content_hidden;
@@ -44,8 +39,20 @@ const Wishlist = props => {
                   defaultMessage: 'Private'
               });
 
+    const itemsCountMessage =
+        itemsCount && isOpen
+            ? formatMessage(
+                  {
+                      id: 'wishlist.itemCount',
+                      defaultMessage:
+                          'Showing {currentCount} of {count} items in this list'
+                  },
+                  { currentCount: items.length, count: itemsCount }
+              )
+            : null;
+
     const contentMessageElement = itemsCount ? (
-        <WishlistItems items={items.items} wishlistId={id} />
+        <WishlistItems items={items} wishlistId={id} />
     ) : (
         <p>
             <FormattedMessage
@@ -71,13 +78,17 @@ const Wishlist = props => {
         </div>
     );
 
+    if (isLoading) {
+        return <LoadingIndicator />;
+    }
+
     const visibilityToggleClass = shouldRenderVisibilityToggle
         ? classes.visibilityToggle
         : classes.visibilityToggle_hidden;
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                {wishlistName}
+                {wishlistName} {itemsCountMessage}
                 <div className={classes.buttonsContainer}>
                     <ActionMenu id={id} name={name} visibility={visibility} />
                     <button

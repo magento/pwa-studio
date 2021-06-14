@@ -54,13 +54,6 @@ const CreateWishlist = props => {
                 defaultMessage: 'Private'
             }),
             value: 'PRIVATE'
-        },
-        {
-            label: formatMessage({
-                id: 'global.public',
-                defaultMessage: 'Public'
-            }),
-            value: 'PUBLIC'
         }
     ];
 

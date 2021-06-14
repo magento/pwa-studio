@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 
-import { WishlistFragment } from './wishlistFragment.gql';
+import { WishlistPageFragment } from './wishlistFragment.gql';
+import { WishlistItemFragment } from './wishlistItemFragments.gql';
 
 export const GET_CUSTOMER_WISHLIST = gql`
     query GetCustomerWishlist {
@@ -8,11 +9,28 @@ export const GET_CUSTOMER_WISHLIST = gql`
             id
             wishlists {
                 id
-                ...WishlistFragment
+                ...WishlistPageFragment
             }
         }
     }
-    ${WishlistFragment}
+    ${WishlistPageFragment}
+`;
+
+export const GET_CUSTOMER_WISHLIST_ITEMS = gql`
+    query getCustomerWishlist($id: ID!) {
+        customer {
+            wishlist_v2(id: $id) {
+                id
+                items_v2 {
+                    items {
+                        id
+                        ...WishlistItemFragment
+                    }
+                }
+            }
+        }
+    }
+    ${WishlistItemFragment}
 `;
 
 export const UPDATE_WISHLIST = gql`
@@ -35,5 +53,6 @@ export const UPDATE_WISHLIST = gql`
 
 export default {
     getCustomerWishlistQuery: GET_CUSTOMER_WISHLIST,
+    getCustomerWhislistItems: GET_CUSTOMER_WISHLIST_ITEMS,
     updateWishlistMutation: UPDATE_WISHLIST
 };
