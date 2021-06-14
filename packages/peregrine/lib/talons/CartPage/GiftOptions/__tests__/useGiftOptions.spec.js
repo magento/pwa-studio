@@ -11,7 +11,6 @@ import typePolicies from '../../../../Apollo/policies';
 
 import useGiftOptions from '../useGiftOptions';
 
-/* eslint-disable graphql/template-strings */
 const GET_GIFT_OPTIONS = gql`
     query getGiftOptions($cartId: String!) {
         cart(cart_id: $cartId) @client {
@@ -22,7 +21,6 @@ const GET_GIFT_OPTIONS = gql`
         }
     }
 `;
-/* eslint-enable graphql/template-strings */
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {
