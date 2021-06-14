@@ -109,6 +109,50 @@ module.exports = targets => {
          */
         savedPaymentTypes: new targets.types.Sync(['savedPaymentTypes']),
 
+        /**
+         * Provides access to Venia's editable payment methods
+         *
+         * This target lets you add new editable payment method to your storefronts.
+         *
+         * @member {tapable.SyncHook}
+         *
+         * @see [Intercept function signature]{@link editablePaymentInterceptFunction}
+         * @see [EditablePaymentTypes]{@link #EditabledPaymentTypesDefinition}
+         * @see [EditablePayment definition object]{@link EditablePaymentDefinition}
+         *
+         * @example <caption>Add a payment</caption>
+         * targets.of('@magento/venia-ui').editablePaymentTypes.tap(
+         *   editablePaymentTypes => editablePaymentTypes.add({
+         *     paymentCode: 'braintree',
+         *     importPath: '@magento/braintree_payment'
+         *   })
+         * );
+         */
+        editablePaymentTypes: new targets.types.Sync(['editablePaymentTypes']),
+
+        /**
+         * Provides access to Venia's summary page for a payment method.
+         *
+         * This target allows you to add custom payment summary rendering for the summary page in the checkout.
+         *
+         * @member {tapable.SyncHook}
+         *
+         * @see [Intercept function signature]{@link summaryPagePaymentTypesInterceptFunction}
+         * @see [EditablePaymentTypes]{@link #SavedPaymentTypesDefinition}
+         * @see [EditablePayment definition object]{@link SavedPaymentDefinition}
+         *
+         * @example <caption>Add a payment</caption>
+         * targets.of('@magento/venia-ui').editablePaymentTypes.tap(
+         *   editablePaymentTypes => editablePaymentTypes.add({
+         *     paymentCode: 'braintree',
+         *     importPath: '@magento/braintree_payment'
+         *   })
+         * );
+         */
+        summaryPagePaymentTypes: new targets.types.Sync([
+            'summaryPagePaymentTypes'
+        ]),
+
         categoryListProductAttributes: new targets.types.Sync([
             'categoryListProductAttributes'
         ])
@@ -255,6 +299,35 @@ module.exports = targets => {
  * A payment definition object that describes a saved payment in your storefront.
  *
  * @typedef {Object} SavedPaymentDefinition
+ * @property {string} paymentCode is use to map your payment
+ * @property {string} importPath Resolvable path to the component the
+ *   Route component will render
+ *
+ * @example <caption>A custom payment method</caption>
+ * const myCustomPayment = {
+ *      paymentCode: 'cc',
+ *      importPath: '@partner/module/path_to_your_component'
+ * }
+ */
+
+/** Type definition related to: editablePaymentTypes */
+
+/**
+ * Intercept function signature for the `editablePaymentTypes` target.
+ *
+ * Interceptors of `editablePaymentTypes` should call `.add` on the provided [payment list]{@link #EditablePaymentTypesDefinition}.
+ *
+ * @callback editablePaymentInterceptFunction
+ *
+ * @param {EditablePaymentTypesDefinition} renderers
+ * so far in the build.
+ *
+ */
+
+/**
+ * A payment definition object that describes a saved payment in your storefront.
+ *
+ * @typedef {Object} EditablePaymentDefinition
  * @property {string} paymentCode is use to map your payment
  * @property {string} importPath Resolvable path to the component the
  *   Route component will render
