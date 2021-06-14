@@ -27,16 +27,28 @@ Sample command:
 yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento/pwa-buildpack @magento/upward-js @magento/venia-ui
 ```
 
+### Manual updates
+
 If your project uses `npm`, you can still manually edit the `package.json` file with the latest published version.
 Compare the contents of your project's `package.json` file with the one in `venia-concept` to see the latest published versions.
+
+You can find the latest package versions by opening the [template project's `package.json` file][] in GitHub and using the version switcher to view the latest release version under the **Tags** tab.
 For example, the `package.json` file for the **v10.0.0** release is at:
 
 <https://github.com/magento/pwa-studio/blob/v10.0.0/packages/venia-concept/package.json>
+
+[template project's `package.json` file]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/package.json
+
+![Switching versions in GitHub](images/switch-versions.png)
+
+Use the contents of this file to update the `@magento` packages listed in your project's `package.json` file.
+Next, run `npm install` to install the updated packages.
 
 ## Update template files
 
 Updating your dependencies does not update the initial template files in your project.
 You must identify and apply these changes manually so that they do not conflict with your own changes.
+Use the instructions in the following sections to update your project's template files.
 
 ### Clone PWA Studio
 
