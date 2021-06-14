@@ -228,7 +228,6 @@ export const useProduct = props => {
     }, [setIsCartUpdating, isProductUpdating]);
 
     return {
-        
         errorMessage: derivedErrorMessage,
         isMultipleWishlistsEnabled,
         isWishlistDialogOpen,
