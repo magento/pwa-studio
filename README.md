@@ -38,6 +38,8 @@ To facilitate local development, testing, and versioning, PWA Studio is structur
 Packages in this repository are independently published to [NPM][].
 Install individual packages as needed instead of installing the entire `pwa-studio` project as a dependency of your project.
 
+**Note:** If you are installing the whole PWA Studio monorepo, please be aware that the project uses `yarn workspaces` and does not support `npm install`. Please use `yarn install` instead.
+
 ### Packages
 
 This repository includes the following packages:
