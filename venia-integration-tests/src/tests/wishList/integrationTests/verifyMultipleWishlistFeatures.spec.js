@@ -40,8 +40,8 @@ const {
 } = categoryPageActions;
 const { assertWishlistSelectedProductOnCategoryPage } = categoryPageAssertions;
 const {
-    productAugustaEarningsUrl,
-    productAugustaEarningsName
+    productAugustaEarringsUrl,
+    productAugustaEarringsName
 } = productPageFixtures;
 const {
     addProductToWishlistFromProductPage,
@@ -187,7 +187,7 @@ describe('verify single wishlist basic features', () => {
             fixture:
                 'wishlist/multipleWishlist/productPageGetWishlistDialogData.json'
         }).as('getProductPageWishlistDialogData');
-        cy.visitPage(productAugustaEarningsUrl);
+        cy.visitPage(productAugustaEarringsUrl);
         cy.wait(['@getGeneralWishlistConfig']).its('response.body');
         cy.wait(['@getProductPageWishlistDialogData']).its('response.body');
 
@@ -223,6 +223,6 @@ describe('verify single wishlist basic features', () => {
 
         assertCreateWishlistLink();
         assertProductInWishlist(productCarinaCardigan);
-        assertProductInWishlist(productAugustaEarningsName);
+        assertProductInWishlist(productAugustaEarringsName);
     });
 });
