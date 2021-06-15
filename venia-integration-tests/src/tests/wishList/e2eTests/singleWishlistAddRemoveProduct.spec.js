@@ -26,7 +26,7 @@ const {
 const { wishlistPage } = myAccountMenuFixtures;
 const { categorySweaters, productCarinaCardigan } = categoryPageFixtures;
 const { homePage } = homePageFixtures;
-const { wishistRoute } = wishlistFixtures;
+const { wishlistRoute } = wishlistFixtures;
 const { productValeriaTwoLayeredTankUrl } = productPageFixtures;
 
 const { goToMyAccount } = myAccountMenuActions;
@@ -64,14 +64,14 @@ describe('verify single wishlist basic features', () => {
         cy.visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
         assertWishlistSelectedProductOnCategoryPage(productCarinaCardigan);
-        cy.visitPage(wishistRoute);
+        cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
 
         cy.visitPage(productValeriaTwoLayeredTankUrl);
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
         addProductToWishlistFromProductPage();
-        cy.visitPage(wishistRoute);
+        cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete

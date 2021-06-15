@@ -25,7 +25,7 @@ const {
 } = accountAccessFixtures;
 const { homePage } = homePageFixtures;
 const { assertCreateAccount } = myAccountMenuAssertions;
-const { wishistRoute } = wishlistFixtures;
+const { wishlistRoute } = wishlistFixtures;
 const { createWishlist } = wishlistPageActions;
 const {
     assertEmptyWishlistPage,
@@ -71,6 +71,7 @@ describe('verify single wishlist basic features', () => {
             accountPassword
         );
 
+        // This assert is not related to this test but just to make sure cypress waits for account creation before it jumps to next line
         assertCreateAccount(firstName);
 
         cy.intercept('GET', getCustomerWishlistCall, {
@@ -79,7 +80,7 @@ describe('verify single wishlist basic features', () => {
         cy.intercept('GET', getMultipleWishlistConfigCall, {
             fixture: 'wishlist/multipleWishlist/multipleWishlistEnabled.json'
         }).as('getWishlistConfig');
-        cy.visitPage(wishistRoute);
+        cy.visitPage(wishlistRoute);
         cy.wait(['@getCustomerWishlist']).its('response.body');
         cy.wait(['@getWishlistConfig']).its('response.body');
 
@@ -172,7 +173,7 @@ describe('verify single wishlist basic features', () => {
         cy.intercept('GET', getMultipleWishlistConfigCall, {
             fixture: 'wishlist/multipleWishlist/multipleWishlistEnabled.json'
         }).as('getWishlistConfig2');
-        cy.visitPage(wishistRoute);
+        cy.visitPage(wishlistRoute);
         cy.wait(['@getCustomerWishlist4']).its('response.body');
         cy.wait(['@getWishlistConfig2']).its('response.body');
 
@@ -216,7 +217,7 @@ describe('verify single wishlist basic features', () => {
         cy.intercept('GET', getMultipleWishlistConfigCall, {
             fixture: 'wishlist/multipleWishlist/multipleWishlistEnabled.json'
         }).as('getWishlistConfig3');
-        cy.visitPage(wishistRoute);
+        cy.visitPage(wishlistRoute);
         cy.wait(['@getCustomerWishlist5']).its('response.body');
         cy.wait(['@getWishlistConfig3']).its('response.body');
 

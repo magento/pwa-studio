@@ -1,4 +1,4 @@
-export const wishistRoute = 'wishlist';
+export const wishlistRoute = 'wishlist';
 
 export const wishlistRemove = 'Remove';
 
