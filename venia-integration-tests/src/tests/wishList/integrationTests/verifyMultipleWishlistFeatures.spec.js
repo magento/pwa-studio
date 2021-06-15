@@ -61,7 +61,6 @@ const {
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
     it('user should be able to add and remove products from wishlist', () => {
-
         //Create an user account
         cy.visitPage(homePage);
         cy.openLoginDialog();
