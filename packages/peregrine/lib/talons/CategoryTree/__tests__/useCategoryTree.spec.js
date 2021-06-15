@@ -266,4 +266,38 @@ describe('child categories', () => {
         const { childCategories } = log.mock.calls[0][0];
         expect(childCategories.has(1)).toEqual(false);
     });
+
+    test('Does not include child category when include_in_menu is falsy', () => {
+        const categoryId = 5;
+        useLazyQuery.mockImplementation(() => {
+            return jest.fn().mockReturnValue([
+                getNavigationMenu,
+                {
+                    data: {
+                        category: {
+                            ...result.data.category,
+                            children: [
+                                ...result.data.category.children,
+                                {
+                                    id: categoryId,
+                                    include_in_menu: 0,
+                                    children_count: 0,
+                                    name: 'Five',
+                                    parentId: 1,
+                                    position: 0,
+                                    url_suffix: '.html',
+                                    url_path: '1/5'
+                                }
+                            ]
+                        }
+                    }
+                }
+            ])();
+        });
+
+        createTestInstance(<Component {...props} />);
+
+        const { childCategories } = log.mock.calls[0][0];
+        expect(childCategories.get(categoryId)).toBeUndefined();
+    });
 });

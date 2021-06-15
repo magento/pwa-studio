@@ -1,0 +1,4 @@
+# Consolidated list of product skus across all wishlists
+extend type Query {
+    customerWishlistProducts: [String!]!
+}

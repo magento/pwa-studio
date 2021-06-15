@@ -37,11 +37,14 @@ const STEP_DESCRIPTIONS = [
     }
 ];
 
+/**
+ * The initial view for the Braintree payment method.
+ */
 const CreditCard = props => {
     const {
         classes: propClasses,
         onPaymentSuccess: onSuccess,
-        onDropinReady: onReady,
+        onPaymentReady: onReady,
         onPaymentError: onError,
         resetShouldSubmit,
         shouldSubmit
@@ -319,7 +322,7 @@ CreditCard.propTypes = {
     }),
     shouldSubmit: bool.isRequired,
     onPaymentSuccess: func,
-    onDropinReady: func,
+    onPaymentReady: func,
     onPaymentError: func,
     resetShouldSubmit: func.isRequired
 };
