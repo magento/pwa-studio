@@ -1,6 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { node, shape, string } from 'prop-types';
-import { Checkbox as InformedCheckbox, useFieldState } from 'informed';
+import {
+    Checkbox as InformedCheckbox,
+    useFieldApi,
+    useFieldState
+} from 'informed';
 
 import { useStyle } from '../../classify';
 import { Message } from '../Field';
@@ -14,11 +18,27 @@ const checkedIcon = <CheckSquare />;
 const uncheckedIcon = <Square />;
 
 const Checkbox = props => {
-    const { ariaLabel, field, id, label, message, ...rest } = props;
+    const {
+        ariaLabel,
+        classes: propClasses,
+        field,
+        fieldValue,
+        id,
+        label,
+        message,
+        ...rest
+    } = props;
+    const fieldApi = useFieldApi(field);
     const fieldState = useFieldState(field);
-    const classes = useStyle(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, propClasses);
     const icon = fieldState.value ? checkedIcon : uncheckedIcon;
     const domId = id || field;
+
+    useEffect(() => {
+        if (fieldValue != null && fieldValue !== fieldState.value) {
+            fieldApi.setValue(fieldValue);
+        }
+    }, [fieldApi, fieldState.value, fieldValue]);
 
     return (
         <Fragment>

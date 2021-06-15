@@ -41,11 +41,9 @@ const FilterDefault = props => {
 
     return (
         <Checkbox
-            classes={classes.root}
+            classes={classes}
             field={`${label}-${value_index}`}
-            fieldState={{
-                value: isSelected
-            }}
+            fieldValue={!!isSelected}
             disabled={!isExpanded}
             label={label}
             ariaLabel={ariaLabel}
