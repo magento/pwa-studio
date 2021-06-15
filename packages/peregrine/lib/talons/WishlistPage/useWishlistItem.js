@@ -49,8 +49,6 @@ export const useWishlistItem = props => {
         setRemoveProductFromWishlistError
     ] = useState(null);
 
-
-
     const cartItem = useMemo(() => {
         const item = {
             quantity: 1,
@@ -106,7 +104,6 @@ export const useWishlistItem = props => {
         { loading: isRemovalInProgress }
     ] = useMutation(removeProductsFromWishlistMutation, {
         update: cache => {
-
             cache.modify({
                 id: 'ROOT_QUERY',
                 fields: {

@@ -14,7 +14,6 @@ export const useWishlist = (props = {}) => {
     const { id, itemsCount, collapsed } = props;
     const operations = mergeOperations(defaultOperations, props.operations);
 
-    const [items, setItems] = useState([]);
     const [page, setPage] = useState(1);
     const [isOpen, setIsOpen] = useState(collapsed);
     const [isFetchMore, setIsFetchMore] = useState(false);
@@ -25,7 +24,8 @@ export const useWishlist = (props = {}) => {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first',
             variables: {
-                id
+                id,
+                currentPage: 1
             }
         }
     );
@@ -35,45 +35,32 @@ export const useWishlist = (props = {}) => {
         setIsOpen(currentValue => !currentValue);
     };
 
-    const onLoadMore = useCallback(
-        async function() {
-            setIsFetchMore(true);
-            const currentPage = page + 1;
-            const fetchMoreData = await fetchMore({
-                variables: {
-                    currentPage
-                }
-            });
-
-            setPage(currentPage);
-
-            if (
-                fetchMoreData &&
-                fetchMoreData.data.customer.wishlist_v2.items_v2.items
-            ) {
-                setItems(
-                    items.concat(
-                        fetchMoreData.data.customer.wishlist_v2.items_v2.items
-                    )
-                );
+    const onLoadMore = useCallback(async () => {
+        setIsFetchMore(true);
+        const currentPage = page + 1;
+        await fetchMore({
+            variables: {
+                id,
+                currentPage
             }
+        });
 
-            setIsFetchMore(false);
-        },
-        [fetchMore, items, page]
-    );
-
-    useEffect(() => {
-        if (data && data.customer.wishlist_v2.items_v2.items) {
-            setItems(data.customer.wishlist_v2.items_v2.items);
-        }
-    }, [data, fetchMore]);
+        setPage(currentPage);
+        setIsFetchMore(false);
+    }, [id, fetchMore, page]);
 
     useEffect(() => {
-        if (itemsCount >= 1 && isOpen === true && items.length === 0) {
+        if (itemsCount >= 1 && isOpen === true) {
             fetchWhislistItems();
         }
-    }, [id, itemsCount, isOpen, fetchWhislistItems, items]);
+    }, [id, itemsCount, isOpen, fetchWhislistItems]);
+
+    const items =
+        data && data.customer.wishlist_v2.items_v2.items
+            ? data.customer.wishlist_v2.items_v2.items
+            : [];
+
+    console.log('Count:', items.length);
 
     return {
         handleContentToggle,

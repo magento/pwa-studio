@@ -17,10 +17,7 @@ export const GET_CUSTOMER_WISHLIST = gql`
 `;
 
 export const GET_CUSTOMER_WISHLIST_ITEMS = gql`
-    query getCustomerWishlist(
-        $id: ID!
-        $currentPage: Int
-    ) {
+    query getCustomerWishlist($id: ID!, $currentPage: Int) {
         customer {
             wishlist_v2(id: $id) {
                 id

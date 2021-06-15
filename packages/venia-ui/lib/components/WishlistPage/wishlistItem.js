@@ -93,7 +93,7 @@ const WishlistItem = props => {
                 <button
                     className={classes.delteItem}
                     onClick={handleRemoveProductFromWishlist}
-                    ariaLabel={removeProductAriaLabel}
+                    aria-label={removeProductAriaLabel}
                 >
                     <Icon size={16} src={Trash2} />
                 </button>
