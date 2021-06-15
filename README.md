@@ -28,7 +28,7 @@ Here are some popular topics to help you get started:
 ### Venia
 
 [![Venia](https://raw.githubusercontent.com/wiki/magento/pwa-studio/images/venia.png)][venia]       
-
+   
 [Venia][] is a Magento PWA storefront created and powered by PWA Studio tools and libraries.
 Developers can use Venia as a reference storefront for their own projects or as a starting point for customization.
 
