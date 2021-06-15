@@ -61,8 +61,9 @@ const {
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
     it('user should be able to add and remove products from wishlist', () => {
-        cy.visitPage(homePage);
 
+        //Create an user account
+        cy.visitPage(homePage);
         cy.openLoginDialog();
         cy.createAccount(
             accountAccessFixtures.firstName,
@@ -74,6 +75,7 @@ describe('verify single wishlist basic features', () => {
         // This assert is not related to this test but just to make sure cypress waits for account creation before it jumps to next line
         assertCreateAccount(firstName);
 
+        //Go to wishlist page and assert empty wishlist page
         cy.intercept('GET', getCustomerWishlistCall, {
             fixture: 'wishlist/multipleWishlist/noWishlistPage.json'
         }).as('getCustomerWishlist');
@@ -87,6 +89,7 @@ describe('verify single wishlist basic features', () => {
         assertEmptyWishlistPage();
         assertCreateWishlistLink();
 
+        //create an empty wishlist and assert its empty
         cy.intercept('POST', hitGraphqlPath, req => {
             if (req.body.operationName.includes('createWishlist')) {
                 req.reply({
@@ -110,6 +113,7 @@ describe('verify single wishlist basic features', () => {
         assertEmptyWishlistExists('Test List1');
         assertCreateWishlistLink();
 
+        // Go to Category Page
         cy.intercept('GET', getWishlistitemsForLocalFieldsCall, {
             fixture:
                 'wishlist/multipleWishlist/categoryPageGetWishListDataForLocalFields.json'
@@ -122,13 +126,14 @@ describe('verify single wishlist basic features', () => {
             fixture:
                 'wishlist/multipleWishlist/categoryPageGetWishlistDialogData.json'
         }).as('getCustomerWishlist2');
-
         cy.visitPage(categoryTops);
         cy.wait(['@getWishlistLocalFields']).its('response.body');
         cy.wait(['@getCustomerWishlist2']).its('response.body');
 
+        // add product to wishlist
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
 
+        // create new list via dialog
         cy.intercept('POST', hitGraphqlPath, req => {
             if (req.body.operationName.includes('createWishlist')) {
                 req.reply({
@@ -165,6 +170,7 @@ describe('verify single wishlist basic features', () => {
         cy.wait(['@getCustomerWishlist3']).its('response.body');
         cy.wait(['@getWishlistLocalFields1']).its('response.body');
 
+        // assert product exists in wishlist on category page
         assertWishlistSelectedProductOnCategoryPage(productCarinaCardigan);
 
         cy.intercept('GET', getCustomerWishlistCall, {
@@ -177,9 +183,11 @@ describe('verify single wishlist basic features', () => {
         cy.wait(['@getCustomerWishlist4']).its('response.body');
         cy.wait(['@getWishlistConfig2']).its('response.body');
 
+        // assert product exists in wishlist on wishlist page
         assertCreateWishlistLink();
         assertProductInWishlist(productCarinaCardigan);
 
+        // got to product details page
         cy.intercept('GET', getWishlistConfigForProductPageCall, {
             fixture: 'wishlist/multipleWishlist/productPageWishlistConfig.json'
         }).as('getGeneralWishlistConfig');
@@ -191,6 +199,7 @@ describe('verify single wishlist basic features', () => {
         cy.wait(['@getGeneralWishlistConfig']).its('response.body');
         cy.wait(['@getProductPageWishlistDialogData']).its('response.body');
 
+        // add product to wishlist
         addProductToWishlistFromProductPage();
 
         cy.intercept('POST', hitGraphqlPath, req => {
@@ -209,6 +218,7 @@ describe('verify single wishlist basic features', () => {
         cy.wait(['@addProductToWishlist2']).its('response.body');
         cy.wait(['@getProductPageWishlistDialogData2']).its('response.body');
 
+        //assert product in wishlist on PDP page
         assertProductSelectIndicator();
 
         cy.intercept('GET', getCustomerWishlistCall, {
@@ -221,6 +231,7 @@ describe('verify single wishlist basic features', () => {
         cy.wait(['@getCustomerWishlist5']).its('response.body');
         cy.wait(['@getWishlistConfig3']).its('response.body');
 
+        // assert both products exists in wishlist
         assertCreateWishlistLink();
         assertProductInWishlist(productCarinaCardigan);
         assertProductInWishlist(productAugustaEarringsName);
