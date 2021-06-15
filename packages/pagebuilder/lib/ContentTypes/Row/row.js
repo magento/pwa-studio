@@ -4,7 +4,7 @@ import { verticalAlignmentToFlex } from '../../utils';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
 import { resourceUrl } from '@magento/venia-drivers';
-import { useDetectScrollWidth } from '@magento/peregrine';
+import { useDetectScrollWidth } from '@magento/peregrine/lib/hooks/useDetectScrollWidth';
 
 /**
  * Page Builder Row component.
