@@ -20,7 +20,7 @@ The best place to start learning about the tools and the technologies that PWA S
 Here, you can learn PWA Studio concepts, find API reference docs, and read tutorials on how to use PWA Studio to create your own PWA storefront.
 
 Here are some popular topics to help you get started:   
-
+     
 - [PWA Studio Overview][] - A high level overview of PWA Studio and what it provides to developers   
 - [Tools and libraries][] - A list of tools and libraries developers need to be familiar with to use PWA Studio
 - [PWA Studio fundamentals][] - A series of tutorials covering common storefront development tasks
