@@ -38,6 +38,16 @@
     display: none;
 }
 
+.loadMore {
+  composes: root_lowPriority from '../Button/button.css';
+  margin: 2rem auto;
+  display: block;
+  min-width: 20rem;
+}
+
+
+
+
 @media (max-width: 960px) {
     .root {
         padding: 1.5rem;

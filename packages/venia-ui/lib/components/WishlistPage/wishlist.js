@@ -7,6 +7,7 @@ import { mergeClasses } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Icon from '../Icon';
 import WishlistItems from './wishlistItems';
+import Button from '../Button';
 import defaultClasses from './wishlist.css';
 import ActionMenu from './actionMenu';
 
@@ -22,7 +23,14 @@ const Wishlist = props => {
     const { id, items_count: itemsCount, name, visibility } = data;
 
     const talonProps = useWishlist({ id, itemsCount, collapsed });
-    const { handleContentToggle, isOpen, items, isLoading } = talonProps;
+    const {
+        handleContentToggle,
+        isOpen,
+        items,
+        isLoading,
+        isFetchMore,
+        onLoadMore
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const contentClass = isOpen ? classes.content : classes.content_hidden;
@@ -51,8 +59,27 @@ const Wishlist = props => {
               )
             : null;
 
+    const loadMoreButton =
+        items.length < itemsCount ? (
+            <div>
+                <Button
+                    className={classes.loadMore}
+                    disabled={isFetchMore}
+                    onClick={onLoadMore}
+                >
+                    <FormattedMessage
+                        id={'wishlist.loadMore'}
+                        defaultMessage={'Load more'}
+                    />
+                </Button>
+            </div>
+        ) : null;
+
     const contentMessageElement = itemsCount ? (
-        <WishlistItems items={items} wishlistId={id} />
+        <>
+            <WishlistItems items={items} wishlistId={id} />
+            {loadMoreButton}
+        </>
     ) : (
         <p>
             <FormattedMessage
@@ -79,7 +106,21 @@ const Wishlist = props => {
     );
 
     if (isLoading) {
-        return <LoadingIndicator />;
+        return (
+            <div className={classes.root}>
+                <div className={classes.header}>
+                    {wishlistName} {itemsCountMessage}
+                    <div className={classes.buttonsContainer}>
+                        <ActionMenu
+                            id={id}
+                            name={name}
+                            visibility={visibility}
+                        />
+                    </div>
+                </div>
+                <LoadingIndicator />
+            </div>
+        );
     }
 
     const visibilityToggleClass = shouldRenderVisibilityToggle

@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-
-import { useUserContext } from '../../context/user';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './wishlist.gql';
 
@@ -13,54 +11,78 @@ import defaultOperations from './wishlist.gql';
  * @returns {WishListProps}
  */
 export const useWishlist = (props = {}) => {
-    console.log(props);
-
-
     const { id, itemsCount, collapsed } = props;
-    const [{ isSignedIn }] = useUserContext();
-    const operations = mergeOperations(defaultOperations, props.operations, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        skip: !isSignedIn
-    });
+    const operations = mergeOperations(defaultOperations, props.operations);
 
     const [items, setItems] = useState([]);
+    const [page, setPage] = useState(1);
     const [isOpen, setIsOpen] = useState(collapsed);
+    const [isFetchMore, setIsFetchMore] = useState(false);
 
     const [fetchWhislistItems, queryResult] = useLazyQuery(
-        operations.getCustomerWhislistItems
+        operations.getCustomerWhislistItems,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first',
+            variables: {
+                id
+            }
+        }
     );
-    const { data, error, loading } = queryResult;
+    const { data, error, loading, fetchMore } = queryResult;
 
     const handleContentToggle = () => {
         setIsOpen(currentValue => !currentValue);
     };
 
+    const onLoadMore = useCallback(
+        async function() {
+            setIsFetchMore(true);
+            const currentPage = page + 1;
+            const fetchMoreData = await fetchMore({
+                variables: {
+                    currentPage
+                }
+            });
+
+            setPage(currentPage);
+
+            if (
+                fetchMoreData &&
+                fetchMoreData.data.customer.wishlist_v2.items_v2.items
+            ) {
+                setItems(
+                    items.concat(
+                        fetchMoreData.data.customer.wishlist_v2.items_v2.items
+                    )
+                );
+            }
+
+            setIsFetchMore(false);
+        },
+        [fetchMore, items, page]
+    );
+
     useEffect(() => {
         if (data && data.customer.wishlist_v2.items_v2.items) {
             setItems(data.customer.wishlist_v2.items_v2.items);
         }
-    }, [data]);
+    }, [data, fetchMore]);
 
     useEffect(() => {
-        console.log(itemsCount + ' ' + isOpen);
-
-        if (itemsCount >= 1 && isOpen === true) {
-            console.log('fetch');
-            fetchWhislistItems({
-                variables: {
-                    id
-                }
-            });
+        if (itemsCount >= 1 && isOpen === true && items.length === 0) {
+            fetchWhislistItems();
         }
-    }, [id, itemsCount, isOpen, fetchWhislistItems]);
+    }, [id, itemsCount, isOpen, fetchWhislistItems, items]);
 
     return {
         handleContentToggle,
         isOpen,
         items,
         error,
-        loading
+        isLoading: !!loading,
+        isFetchMore,
+        onLoadMore
     };
 };
 
@@ -75,4 +97,6 @@ export const useWishlist = (props = {}) => {
  *
  * @property {Function} handleContentToggle Callback to handle list expand toggle
  * @property {Boolean} isOpen Boolean which represents if the content is expanded or not
+ * @property {Array} items list of items
+ * @property {Boolean} isLoading Boolean which represents if is in loading state
  */

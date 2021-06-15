@@ -17,11 +17,14 @@ export const GET_CUSTOMER_WISHLIST = gql`
 `;
 
 export const GET_CUSTOMER_WISHLIST_ITEMS = gql`
-    query getCustomerWishlist($id: ID!) {
+    query getCustomerWishlist(
+        $id: ID!
+        $currentPage: Int
+    ) {
         customer {
             wishlist_v2(id: $id) {
                 id
-                items_v2 {
+                items_v2(currentPage: $currentPage) {
                     items {
                         id
                         ...WishlistItemFragment

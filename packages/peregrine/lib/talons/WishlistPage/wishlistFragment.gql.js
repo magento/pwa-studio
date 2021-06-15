@@ -15,7 +15,7 @@ export const WishlistFragment = gql`
         id
         items_count
         sharing_code
-        items_v2(currentPage: $currentPage, pageSize: $pageSize){
+        items_v2{
             items {
                 id
                 ...WishlistItemFragment

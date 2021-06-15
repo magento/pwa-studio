@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { MoreHorizontal } from 'react-feather';
+import { MoreHorizontal, Trash2 } from 'react-feather';
 import { useIntl } from 'react-intl';
 import { useToasts } from '@magento/peregrine';
 import { useWishlistItem } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItem';
@@ -8,8 +8,7 @@ import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import Image from '../Image';
 import Price from '../Price';
-import WishlistConfirmRemoveProductDialog from './wishlistConfirmRemoveProductDialog';
-import WishlistMoreActionsDialog from './wishlistMoreActionsDialog';
+
 import defaultClasses from './wishlistItem.css';
 
 const WishlistItem = props => {
@@ -29,15 +28,8 @@ const WishlistItem = props => {
     const talonProps = useWishlistItem(props);
     const {
         addToCartButtonProps,
-        confirmRemovalIsOpen,
-        handleHideDialogs,
         handleRemoveProductFromWishlist,
-        handleShowConfirmRemoval,
-        handleShowMoreActions,
-        hasError,
-        hasRemoveProductFromWishlistError,
-        isRemovalInProgress,
-        moreActionsIsOpen
+        hasError
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -87,38 +79,36 @@ const WishlistItem = props => {
         ...talonProps.imageProps
     };
 
+    const removeProductAriaLabel = formatMessage({
+        id: 'wishlistItem.removeAriaLabel',
+        defaultMessage: 'Remove Product from whislist'
+    });
+
     return (
         <div className={classes.root}>
             <Image {...imageProps} />
-            <span className={classes.name}>{name}</span>
+
+            <div className={classes.actionWrap}>
+                <span className={classes.name}>{name}</span>{' '}
+                <button
+                    className={classes.delteItem}
+                    onClick={handleRemoveProductFromWishlist}
+                    ariaLabel={removeProductAriaLabel}
+                >
+                    <Icon size={16} src={Trash2} />
+                </button>
+            </div>
             <div className={classes.priceContainer}>
                 <Price currencyCode={currency} value={unitPrice} />
             </div>
             {optionElements}
+
             <button className={classes.addToCart} {...addToCartButtonProps}>
                 {formatMessage({
                     id: 'wishlistItem.addToCart',
                     defaultMessage: 'Add to Cart'
                 })}
             </button>
-            <button
-                className={classes.moreActions}
-                onClick={handleShowMoreActions}
-            >
-                <Icon size={16} src={MoreHorizontal} />
-            </button>
-            <WishlistMoreActionsDialog
-                isOpen={moreActionsIsOpen}
-                onCancel={handleHideDialogs}
-                onRemove={handleShowConfirmRemoval}
-            />
-            <WishlistConfirmRemoveProductDialog
-                hasError={hasRemoveProductFromWishlistError}
-                isOpen={confirmRemovalIsOpen}
-                isRemovalInProgress={isRemovalInProgress}
-                onCancel={handleHideDialogs}
-                onConfirm={handleRemoveProductFromWishlist}
-            />
         </div>
     );
 };

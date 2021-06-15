@@ -44,6 +44,16 @@
     margin-top: 0.25rem;
 }
 
+.delteItem {
+    margin: 0 0.5rem 0 1rem;
+    justify-self: right;
+}
+
+.actionWrap {
+    display: flex;
+    align-items: flex-start;
+}
+
 .moreActions {
     align-items: center;
     background-color: rgb(var(--venia-global-color-gray-100));
