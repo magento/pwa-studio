@@ -59,7 +59,7 @@ export const assertCreateWishlistLink = () => {
  * Utility function to assert empty wishlist for multiple wishlists
  */
 export const assertEmptyWishlistExists = wishlistName => {
-    // assert wishlist exists
+    // assert wishlist exists and is empty
     cy.get(wishlistRoot)
         .should('contain.text', wishlistName)
         .should('contain.text', emptyWishlistMessage);
