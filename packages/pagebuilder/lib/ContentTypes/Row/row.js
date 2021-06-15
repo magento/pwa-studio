@@ -106,8 +106,8 @@ const Row = props => {
         );
         dynamicStyles.flexDirection = 'column';
     }
-    console.log('useDetectScrollWidth();');
-    useDetectScrollWidth(backgroundElement);
+    //
+    useDetectScrollWidth();
     // Determine the containers width and optimize the image
     useEffect(() => {
         // Intelligently resize cover background images

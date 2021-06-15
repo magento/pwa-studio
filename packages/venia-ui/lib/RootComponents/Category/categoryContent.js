@@ -15,7 +15,6 @@ import NoProductsFound from './NoProductsFound';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import SortedByContainer from '../../components/SortedByContainer';
 import FilterModalOpenButton from '../../components/FilterModalOpenButton';
-import { useDetectScrollWidth } from '@magento/peregrine';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 const FilterSidebar = React.lazy(() =>
@@ -118,8 +117,6 @@ const CategoryContent = props => {
         pageControl,
         totalPagesFromData
     ]);
-    // Example: categoryHeader width will be full page width
-    useDetectScrollWidth();
 
     return (
         <Fragment>

@@ -1,6 +1,13 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect } from 'react';
+import { makeVar } from '@apollo/client';
 
-// Check if browser will add scrollbar to the viewport
+/**
+ * A hook that will detect if there is a scrollbar will be added to the viewport and
+ * will add its width value as a `--global-scrollbar-width` custom property to the body element,
+ * which can be used to calculate the full width of the viewport.
+ */
+
+// Check if the browser will add a scrollbar to the viewport
 const getScrollBarWidth = () => {
     const innerElement = document.createElement('div');
     innerElement.style.cssText = 'width:100%;height:200px';
@@ -21,6 +28,10 @@ const getScrollBarWidth = () => {
     return widthWithoutScroll - widthWithScroll;
 };
 
+const scrollBarWidth = getScrollBarWidth();
+console.log(scrollBarWidth);
+
+// Watching for body height changes, and setting custom property with scrollbar width, when scrollbar is present.
 const createObserver = () => {
     return new globalThis.ResizeObserver(entries => {
         for (const entry of entries) {
@@ -39,41 +50,18 @@ const createObserver = () => {
     });
 };
 
-const scrollBarWidth = getScrollBarWidth();
 const observer =
     typeof globalThis.ResizeObserver !== 'undefined' && scrollBarWidth !== 0
         ? createObserver()
         : null;
-const canObserve =
-    typeof globalThis.ResizeObserver !== 'undefined' && scrollBarWidth !== 0;
+// Using Apollo reactive var to store observer status, in order to add observer only once.
+const isObserverActive = makeVar(false);
 
 export const useDetectScrollWidth = () => {
-    const element = useRef(document.body);
-    const current = element && element.current;
-    const documentBody = element.current;
-
     useLayoutEffect(() => {
-        if (!canObserve) {
-            return;
+        if (observer && !isObserverActive()) {
+            observer.observe(document.body);
+            isObserverActive(true);
         }
-        if (observer && current) {
-            observer.unobserve(current);
-        }
-        observe();
-        return () => {
-            if (observer && element && documentBody) {
-                observer.unobserve(documentBody);
-                documentBody.style.setProperty(
-                    '--global-scrollbar-width',
-                    null
-                );
-            }
-        };
-    });
-
-    const observe = () => {
-        if (element && documentBody && observer) {
-            observer.observe(documentBody);
-        }
-    };
+    }, []);
 };
