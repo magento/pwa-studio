@@ -1,3 +1,12 @@
+<!-- 
+
+TODO: Include the following items in future release notes to help with version upgrades
+
+  * A table of the new versions published for individual packages
+  * List of updated template files
+  * Any updates to environmental variables
+
+-->
 # Release 10.0.0
 
 **NOTE:**
