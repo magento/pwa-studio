@@ -12,7 +12,7 @@ _For older release notes, see [PWA Studio releases][]._
 -   [Upgrading from a previous version](#upgrading-from-a-previous-version)
 
 ## What's new in 10.0.0
-    
+       
 PWA Studio 10.0.0 contains new features, refactors, bug fixes, and various improvements.
 This version is compatible with **Magento 2.4.2**.
 
