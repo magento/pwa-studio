@@ -104,11 +104,27 @@ export const useWishlistItem = props => {
         { loading: isRemovalInProgress }
     ] = useMutation(removeProductsFromWishlistMutation, {
         update: cache => {
+            // clean up for cache fav product on category page
             cache.modify({
                 id: 'ROOT_QUERY',
                 fields: {
                     customerWishlistProducts: cachedProducts =>
                         cachedProducts.filter(productSku => productSku !== sku)
+                }
+            });
+
+            cache.modify({
+                id: `CustomerWishlist:${wishlistId}`,
+                fields: {
+                    items_v2: (cachedItems, { readField, Remove }) => {
+                        for (var i = 0; i < cachedItems.items.length; i++) {
+                            if (readField('id', item) === itemId) {
+                                return Remove;
+                            }
+                        }
+
+                        return cachedItems;
+                    }
                 }
             });
         },

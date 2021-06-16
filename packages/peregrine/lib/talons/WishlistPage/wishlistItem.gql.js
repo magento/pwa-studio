@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 import { CartTriggerFragment } from '@magento/peregrine/lib/talons/Header/cartTriggerFragments.gql';
 import { MiniCartFragment } from '@magento/peregrine/lib/talons/MiniCart/miniCartFragments.gql';
-import { WishlistFragment } from './wishlistFragment.gql';
+import { WishlistPageFragment } from './wishlistFragment.gql';
 
 export const ADD_WISHLIST_ITEM_TO_CART = gql`
     mutation AddWishlistItemToCart(
@@ -32,10 +32,11 @@ export const REMOVE_PRODUCTS_FROM_WISHLIST = gql`
         ) {
             wishlist {
                 id
+                ...WishlistPageFragment
             }
         }
     }
-  
+    ${WishlistPageFragment}
 `;
 
 export default {

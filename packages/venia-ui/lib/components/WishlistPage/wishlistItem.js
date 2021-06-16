@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { MoreHorizontal, Trash2 } from 'react-feather';
+import { Trash2 } from 'react-feather';
 import { useIntl } from 'react-intl';
 import { useToasts } from '@magento/peregrine';
 import { useWishlistItem } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItem';

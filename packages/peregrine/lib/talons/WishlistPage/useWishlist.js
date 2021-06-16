@@ -50,17 +50,17 @@ export const useWishlist = (props = {}) => {
     }, [id, fetchMore, page]);
 
     useEffect(() => {
-        if (itemsCount >= 1 && isOpen === true) {
+        setPage(1);
+        if (itemsCount >= 1 && isOpen === true && !data) {
+            console.log('fetch');
             fetchWhislistItems();
         }
-    }, [id, itemsCount, isOpen, fetchWhislistItems]);
+    }, [itemsCount, isOpen, fetchWhislistItems, data]);
 
     const items =
         data && data.customer.wishlist_v2.items_v2.items
             ? data.customer.wishlist_v2.items_v2.items
             : [];
-
-    console.log('Count:', items.length);
 
     return {
         handleContentToggle,

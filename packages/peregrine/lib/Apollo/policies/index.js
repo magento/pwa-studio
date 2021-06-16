@@ -252,7 +252,8 @@ const typePolicies = {
         keyFields: ({ id }) => `CustomerWishlist:${id}`,
         fields: {
             items_v2: {
-                keyArgs: false
+                keyArgs: false,
+                merge: false
             }
         }
     },
@@ -268,11 +269,10 @@ const typePolicies = {
                         // reset cache collection if we're on the first page
 
                         if (currentPage === 1) {
-
                             return incoming;
                         }
                     }
-                   
+
                     return [...existing, ...incoming];
                 }
             }
