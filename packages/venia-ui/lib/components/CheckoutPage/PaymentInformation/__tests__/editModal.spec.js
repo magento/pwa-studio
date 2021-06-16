@@ -1,8 +1,6 @@
 import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal';
-
-import CreditCard from '../creditCard';
 import EditModal from '../editModal';
 
 jest.mock('../../../../classify');
@@ -17,14 +15,18 @@ jest.mock(
             isLoading: false,
             updateButtonClicked: false,
             handleClose: () => {},
-            handleUpdate: () => {},
+            handlePaymentError: () => {},
+            handlePaymentReady: () => {},
             handlePaymentSuccess: () => {},
-            handleDropinReady: () => {}
+            handleUpdate: () => {},
+            resetUpdateButtonClicked: () => {}
         })
     })
 );
 
-jest.mock('../creditCard', () => props => <mock-CreditCard {...props} />);
+jest.mock('../editablePaymentCollection', () => ({
+    braintree: props => <mock-Braintree id={'BraintreeMockId'} {...props} />
+}));
 
 jest.mock('../../../Button', () => {
     return props => <mock-Button {...props} />;
@@ -48,12 +50,14 @@ test('Should render creditCard component if selectedPaymentMethod is braintree',
         handleClose: () => {},
         handleUpdate: () => {},
         handlePaymentSuccess: () => {},
-        handleDropinReady: () => {}
+        handlePaymentReady: () => {}
     });
 
     const tree = createTestInstance(<EditModal />);
 
-    expect(tree.root.findByType(CreditCard)).not.toBeNull();
+    expect(() => {
+        tree.root.findByProps({ id: 'BraintreeMockId' });
+    }).not.toThrow();
 });
 
 test('Should not render creditCard component if selectedPaymentMethod is not braintree', () => {
@@ -64,12 +68,12 @@ test('Should not render creditCard component if selectedPaymentMethod is not bra
         handleClose: () => {},
         handleUpdate: () => {},
         handlePaymentSuccess: () => {},
-        handleDropinReady: () => {}
+        handlePaymentReady: () => {}
     });
 
     const tree = createTestInstance(<EditModal />);
 
     expect(() => {
-        tree.root.findByType(CreditCard);
-    }).toThrow();
+        tree.root.findByProps({ id: 'BraintreeMockId' });
+    }).toThrow('No instances found with props: {"id":"BraintreeMockId"}');
 });

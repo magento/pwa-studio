@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test renders correctly 1`] = `
+<div
+  className="root"
+>
+  <mock-CreditCard
+    onPaymentError={[MockFunction]}
+    onPaymentReady={[MockFunction]}
+    onPaymentSuccess={[MockFunction]}
+    resetShouldSubmit={[MockFunction]}
+    shouldSubmit={false}
+  />
+</div>
+`;
