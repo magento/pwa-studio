@@ -28,11 +28,8 @@ const getScrollBarWidth = () => {
     return widthWithoutScroll - widthWithScroll;
 };
 
-const scrollBarWidth = getScrollBarWidth();
-console.log(scrollBarWidth);
-
 // Watching for body height changes, and setting custom property with scrollbar width, when scrollbar is present.
-const createObserver = () => {
+const createObserver = scrollBarWidth => {
     return new globalThis.ResizeObserver(entries => {
         for (const entry of entries) {
             if (entry.target.scrollHeight > globalThis.innerHeight) {
@@ -49,19 +46,32 @@ const createObserver = () => {
         }
     });
 };
-
-const observer =
-    typeof globalThis.ResizeObserver !== 'undefined' && scrollBarWidth !== 0
-        ? createObserver()
-        : null;
 // Using Apollo reactive var to store observer status, in order to add observer only once.
 const isObserverActive = makeVar(false);
 
 export const useDetectScrollWidth = () => {
     useLayoutEffect(() => {
-        if (observer && !isObserverActive()) {
+        if (isObserverActive()) {
+            return;
+        }
+        const scrollBarWidth = getScrollBarWidth();
+        const observer =
+            typeof globalThis.ResizeObserver !== 'undefined' &&
+            scrollBarWidth !== 0
+                ? createObserver(scrollBarWidth)
+                : null;
+
+        if (observer) {
             observer.observe(document.body);
             isObserverActive(true);
         }
+
+        return () => {
+            if (observer) {
+                observer.disconnect();
+                document.body.style.removeProperty('--global-scrollbar-width');
+                isObserverActive(false);
+            }
+        };
     }, []);
 };
