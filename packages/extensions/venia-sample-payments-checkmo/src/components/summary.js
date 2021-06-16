@@ -50,9 +50,6 @@ const Summary = props => {
                 <span className={classes.payment_type}>
                     Check / Money Order
                 </span>
-                <span className={classes.payment_details}>
-                    {paymentSummary}
-                </span>
             </div>
         </div>
     );

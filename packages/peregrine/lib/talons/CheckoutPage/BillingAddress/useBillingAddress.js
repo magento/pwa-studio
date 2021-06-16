@@ -107,10 +107,7 @@ export const useBillingAddress = props => {
         { skip: !cartId, variables: { cartId } }
     );
 
-    const [
-        loadBillingAddressQuery,
-        { data: billingAddressData }
-    ] = useLazyQuery(getBillingAddressQuery, {
+    const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
         skip: !cartId,
         variables: { cartId }
     });
@@ -139,7 +136,11 @@ export const useBillingAddress = props => {
          * If billing address is same as shipping address, do
          * not auto fill the fields.
          */
-        if (billingAddressData && !isBillingAddressSame) {
+        if (isBillingAddressSame) {
+            return { isBillingAddressSame, ...billingAddress };
+        } else if (billingAddressData) {
+            // The billing address should not be the same.
+            // Attempt to pre-populate the form if a billing address is already set.
             if (billingAddressData.cart.billingAddress) {
                 const {
                     // eslint-disable-next-line no-unused-vars
@@ -230,15 +231,6 @@ export const useBillingAddress = props => {
     /**
      * Effects
      */
-
-    /**
-     * Loads billing address if is different to shipment address.
-     */
-    useEffect(() => {
-        if (!isBillingAddressSame) {
-            loadBillingAddressQuery();
-        }
-    }, [isBillingAddressSame, loadBillingAddressQuery]);
 
     /**
      *
