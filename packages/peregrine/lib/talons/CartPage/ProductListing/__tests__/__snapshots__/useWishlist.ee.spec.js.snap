@@ -5,11 +5,15 @@ Object {
   "called": true,
   "error": null,
   "handleAddToWishlist": [Function],
+  "handleAddToWishlistSuccess": [Function],
+  "handleWishlistDialogClose": [Function],
+  "isMultipleWishlistsEnabled": false,
+  "isWishlistDialogOpen": false,
   "loading": true,
 }
 `;
 
-exports[`testing handleAddToWishlist should add simple product to list 1`] = `
+exports[`testing handleAddToWishlist single wishlist mode should add simple product to list 1`] = `
 Array [
   Object {
     "variables": Object {
@@ -24,7 +28,7 @@ Array [
 ]
 `;
 
-exports[`testing handleAddToWishlist should add the product to list 1`] = `
+exports[`testing handleAddToWishlist single wishlist mode should add the product to list 1`] = `
 Array [
   Object {
     "variables": Object {
@@ -42,13 +46,7 @@ Array [
 ]
 `;
 
-exports[`testing handleAddToWishlist should call onWishlistUpdateError if there was an error calling the mutation 1`] = `
-Array [
-  true,
-]
-`;
-
-exports[`testing handleAddToWishlist should call onAddToWishlistSuccess 1`] = `
+exports[`testing handleAddToWishlist single wishlist mode should call onAddToWishlistSuccess 1`] = `
 Array [
   Object {
     "message": "Item successfully added to Bday List.",
@@ -58,7 +56,59 @@ Array [
 ]
 `;
 
-exports[`testing handleAddToWishlist should use necessary translations 1`] = `
+exports[`testing handleAddToWishlist single wishlist mode should call onWishlistUpdate 1`] = `
+Array [
+  Object {
+    "variables": Object {
+      "cartId": "cart123",
+      "itemId": "1234",
+    },
+  },
+]
+`;
+
+exports[`testing handleAddToWishlist single wishlist mode should call onWishlistUpdateError if there was an error calling the mutation 1`] = `
+Array [
+  true,
+]
+`;
+
+exports[`testing handleAddToWishlist single wishlist mode should use necessary translations 1`] = `
+Array [
+  Array [
+    Object {
+      "defaultMessage": "Item successfully added to Bday List.",
+      "id": "cartPage.wishlist.ee.successMessage",
+    },
+    Object {
+      "wishlistName": "Bday List",
+    },
+  ],
+]
+`;
+
+exports[`testing handleAddToWishlistSuccess should call onAddToWishlistSuccess 1`] = `
+Array [
+  Object {
+    "message": "Item successfully added to Bday List.",
+    "timeout": 5000,
+    "type": "info",
+  },
+]
+`;
+
+exports[`testing handleAddToWishlistSuccess should call onWishlistUpdate 1`] = `
+Array [
+  Object {
+    "variables": Object {
+      "cartId": "cart123",
+      "itemId": "1234",
+    },
+  },
+]
+`;
+
+exports[`testing handleAddToWishlistSuccess should use necessary translations 1`] = `
 Array [
   Array [
     Object {
