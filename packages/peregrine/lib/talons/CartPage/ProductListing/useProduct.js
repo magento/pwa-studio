@@ -126,7 +126,11 @@ export const useProduct = props => {
         operations: props.operations
     });
     const {
+        isMultipleWishlistsEnabled,
+        isWishlistDialogOpen,
         handleAddToWishlist,
+        handleWishlistDialogClose,
+        handleAddToWishlistSuccess,
         loading: wishlistItemLoading,
         error: addProductToWishlistError,
         called: addProductToWishlistCalled
@@ -225,10 +229,14 @@ export const useProduct = props => {
 
     return {
         errorMessage: derivedErrorMessage,
+        isMultipleWishlistsEnabled,
+        isWishlistDialogOpen,
         handleEditItem,
         handleRemoveFromCart,
         handleSaveForLater,
         handleUpdateItemQuantity,
+        handleWishlistDialogClose,
+        handleAddToWishlistSuccess,
         isEditable: !!flatProduct.options.length,
         loginToastProps,
         product: flatProduct,

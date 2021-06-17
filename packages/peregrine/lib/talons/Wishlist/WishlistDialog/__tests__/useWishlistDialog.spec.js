@@ -7,12 +7,16 @@ import { useWishlistDialog } from '../useWishlistDialog';
 import defaultOperations from '../wishlistDialog.gql';
 
 const mockOnClose = jest.fn();
+const mockOnSuccess = jest.fn();
+
 const initialProps = {
+    isLoading: false,
     itemOptions: {
         sku: 'MyProductSku',
         quantity: 1
     },
-    onClose: mockOnClose
+    onClose: mockOnClose,
+    onSuccess: mockOnSuccess
 };
 
 const mockWishlistId = '1';
@@ -113,8 +117,8 @@ test('returns correct shape', async () => {
           "handleCancel": [Function],
           "handleCancelNewList": [Function],
           "handleNewListClick": [Function],
-          "isAddLoading": false,
           "isFormOpen": false,
+          "isLoading": false,
           "wishlistsData": Object {
             "customer": Object {
               "id": "customerId",
@@ -151,7 +155,7 @@ test('formErrors includes errors from add product mutation', async () => {
     `);
 });
 
-test('handleAddToWishlist calls mutation, onClose(true) and setIsformOpen(false)', async () => {
+test('handleAddToWishlist calls mutation, onSuccess, onClose(true) and setIsformOpen(false)', async () => {
     const { result } = renderHookWithProviders();
 
     await act(async () => {
@@ -165,6 +169,18 @@ test('handleAddToWishlist calls mutation, onClose(true) and setIsformOpen(false)
           true,
           Object {
             "wishlistName": "Favorites List",
+          },
+        ]
+    `);
+    expect(mockOnSuccess.mock.calls[0]).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "addProductsToWishlist": Object {
+              "user_errors": Array [],
+              "wishlist": Object {
+                "name": "Favorites List",
+              },
+            },
           },
         ]
     `);

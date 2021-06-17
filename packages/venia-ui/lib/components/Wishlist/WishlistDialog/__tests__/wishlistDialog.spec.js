@@ -32,7 +32,7 @@ const defaultTalonProps = {
     handleCancel: jest.fn(),
     handleNewListClick: jest.fn(),
     handleCancelNewList: jest.fn(),
-    isAddLoading: false,
+    isLoading: false,
     isFormOpen: false,
     wishlistsData: null
 };
@@ -43,7 +43,8 @@ const defaultProps = {
         sku: 'bizzle-throp',
         quantity: 1
     },
-    onClose: jest.fn()
+    onClose: jest.fn(),
+    onSuccess: jest.fn()
 };
 
 test('renders the correct tree', () => {

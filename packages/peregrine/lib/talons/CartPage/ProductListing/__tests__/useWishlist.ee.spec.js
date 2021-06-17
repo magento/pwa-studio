@@ -43,6 +43,7 @@ const onAddToWishlistSuccess = jest.fn();
 
 const defaultProps = {
     item: {
+        id: '1234',
         product: {
             sku: 'sku'
         },
@@ -63,6 +64,7 @@ const defaultProps = {
 
 const simpleProductProps = {
     item: {
+        id: '123',
         product: {
             sku: 'sku'
         },
@@ -108,14 +110,6 @@ const formatMessage = jest
     .fn()
     .mockImplementation(({ defaultMessage }) => defaultMessage);
 
-const wishlistData = {
-    storeConfig: {
-        enable_multiple_wishlists: '1',
-        maximum_number_of_wishlists: 3
-    },
-    customer: { wishlists: ['Bday List', 'New Year List'] }
-};
-
 beforeAll(() => {
     useMutation.mockReturnValue([
         addProductToWishlist,
@@ -123,7 +117,11 @@ beforeAll(() => {
     ]);
 
     useQuery.mockReturnValue({
-        data: wishlistData
+        data: {
+            storeConfig: {
+                enable_multiple_wishlists: '0'
+            }
+        }
     });
 
     useIntl.mockReturnValue({
@@ -143,7 +141,29 @@ test('should return correct shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-describe('testing handleAddToWishlist', () => {
+test('handleWishlistDialogClose should close the dialog', async () => {
+    useQuery.mockReturnValueOnce({
+        data: {
+            storeConfig: {
+                enable_multiple_wishlists: '1'
+            }
+        }
+    });
+
+    const { talonProps, update } = getTalonProps(defaultProps);
+
+    await talonProps.handleAddToWishlist();
+
+    const { isWishlistDialogOpen } = update();
+
+    expect(isWishlistDialogOpen).toBeTruthy();
+
+    talonProps.handleWishlistDialogClose();
+
+    expect(update().isWishlistDialogOpen).toBeFalsy();
+});
+
+describe('testing handleAddToWishlist single wishlist mode', () => {
     test('should add the product to list', async () => {
         const { talonProps } = getTalonProps(defaultProps);
 
@@ -173,7 +193,7 @@ describe('testing handleAddToWishlist', () => {
 
         await talonProps.handleAddToWishlist();
 
-        expect(onWishlistUpdate).toHaveBeenCalled();
+        expect(onWishlistUpdate.mock.calls[0]).toMatchSnapshot();
     });
 
     test('should call onWishlistUpdateError if there was an error calling the mutation', async () => {
@@ -190,6 +210,70 @@ describe('testing handleAddToWishlist', () => {
         const { talonProps } = getTalonProps(defaultProps);
 
         await talonProps.handleAddToWishlist();
+
+        expect(formatMessage.mock.calls).toMatchSnapshot();
+    });
+});
+
+describe('testing handleAddToWishlist multiple wishlist mode', () => {
+    test('should open wishlist dialog if multiple wishlists is enabled', async () => {
+        useQuery.mockReturnValueOnce({
+            data: {
+                storeConfig: {
+                    enable_multiple_wishlists: '1'
+                }
+            }
+        });
+
+        const { talonProps, update } = getTalonProps(defaultProps);
+
+        await talonProps.handleAddToWishlist();
+
+        const { isWishlistDialogOpen } = update();
+
+        expect(isWishlistDialogOpen).toBeTruthy();
+    });
+});
+
+describe('testing handleAddToWishlistSuccess', () => {
+    test('should call onAddToWishlistSuccess', async () => {
+        const { talonProps } = getTalonProps(defaultProps);
+
+        await talonProps.handleAddToWishlistSuccess({
+            addProductsToWishlist: {
+                wishlist: {
+                    name: 'Bday List'
+                }
+            }
+        });
+
+        expect(onAddToWishlistSuccess.mock.calls[0]).toMatchSnapshot();
+    });
+
+    test('should call onWishlistUpdate', async () => {
+        const { talonProps } = getTalonProps(defaultProps);
+
+        await talonProps.handleAddToWishlistSuccess({
+            addProductsToWishlist: {
+                wishlist: {
+                    name: 'Bday List'
+                }
+            }
+        });
+
+        expect(onWishlistUpdate.mock.calls[0]).toMatchSnapshot();
+    });
+
+    test('should use necessary translations', async () => {
+        const { talonProps } = getTalonProps(defaultProps);
+
+        await talonProps.handleAddToWishlistSuccess({
+            addProductsToWishlist: {
+                wishlist: {
+                    name: 'Bday List'
+                }
+            }
+        });
 
         expect(formatMessage.mock.calls).toMatchSnapshot();
     });
