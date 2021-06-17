@@ -5,12 +5,16 @@ exports[`it returns the proper shape 1`] = `
   talonProps={
     Object {
       "errorMessage": "",
+      "handleAddToWishlistSuccess": [MockFunction handleAddToWishlistSuccess],
       "handleEditItem": [Function],
       "handleRemoveFromCart": [Function],
       "handleSaveForLater": [Function],
       "handleUpdateItemQuantity": [Function],
+      "handleWishlistDialogClose": [MockFunction handleWishlistDialogClose],
       "isEditable": false,
+      "isMultipleWishlistsEnabled": false,
       "isProductUpdating": true,
+      "isWishlistDialogOpen": false,
       "loginToastProps": null,
       "product": Object {
         "currency": "USD",
@@ -33,12 +37,16 @@ exports[`it returns the proper shape when use variant image is configured 1`] = 
   talonProps={
     Object {
       "errorMessage": "",
+      "handleAddToWishlistSuccess": [MockFunction handleAddToWishlistSuccess],
       "handleEditItem": [Function],
       "handleRemoveFromCart": [Function],
       "handleSaveForLater": [Function],
       "handleUpdateItemQuantity": [Function],
+      "handleWishlistDialogClose": [MockFunction handleWishlistDialogClose],
       "isEditable": true,
+      "isMultipleWishlistsEnabled": false,
       "isProductUpdating": true,
+      "isWishlistDialogOpen": false,
       "loginToastProps": null,
       "product": Object {
         "currency": "USD",
