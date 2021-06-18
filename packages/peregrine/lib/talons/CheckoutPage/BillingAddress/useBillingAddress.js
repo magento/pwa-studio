@@ -78,6 +78,7 @@ export const mapAddressData = rawAddressData => {
  */
 export const useBillingAddress = props => {
     const {
+        resetShouldSubmit,
         shouldSubmit,
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess
@@ -133,13 +134,13 @@ export const useBillingAddress = props => {
 
         let billingAddress = {};
         /**
-         * If billing address is same as shipping address, do
+         * If the user wants billing address same as shipping address, do
          * not auto fill the fields.
          */
         if (isBillingAddressSame) {
             return { isBillingAddressSame, ...billingAddress };
         } else if (billingAddressData) {
-            // The billing address should not be the same.
+            // The user does not want the billing address to be the same.
             // Attempt to pre-populate the form if a billing address is already set.
             if (billingAddressData.cart.billingAddress) {
                 const {
@@ -295,6 +296,7 @@ export const useBillingAddress = props => {
                 billingAddressMutationCompleted &&
                 !billingAddressMutationError
             ) {
+                resetShouldSubmit();
                 onBillingAddressChangedSuccess();
             }
 
@@ -312,6 +314,7 @@ export const useBillingAddress = props => {
             if (process.env.NODE_ENV !== 'production') {
                 console.error(err);
             }
+            resetShouldSubmit();
             onBillingAddressChangedError();
         }
     }, [
@@ -319,7 +322,8 @@ export const useBillingAddress = props => {
         billingAddressMutationCalled,
         billingAddressMutationLoading,
         onBillingAddressChangedError,
-        onBillingAddressChangedSuccess
+        onBillingAddressChangedSuccess,
+        resetShouldSubmit
     ]);
 
     const errors = useMemo(
