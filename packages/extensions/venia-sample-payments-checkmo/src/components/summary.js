@@ -11,13 +11,7 @@ import defaultClasses from './summary.css';
 const Summary = props => {
     const { onEdit } = props;
 
-    const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const paymentSummary = formatMessage({
-        id: 'checkoutPage.paymentSummary',
-        defaultMessage: 'Checkmo'
-    });
 
     return (
         <div className={classes.root}>
