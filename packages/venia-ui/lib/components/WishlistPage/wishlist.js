@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
-import { bool, shape, string, int, array } from 'prop-types';
+import { bool, shape, string, int, node } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
@@ -118,8 +118,6 @@ Wishlist.propTypes = {
     data: shape({
         id: int,
         items_count: int,
-        // will be moved to sub comp PWA-1683
-        items_v2: array,
         name: string,
         visibility: string
     })
@@ -127,6 +125,7 @@ Wishlist.propTypes = {
 
 Wishlist.defaultProps = {
     data: {
+        items_count: 0,
         items_v2: []
     }
 };
