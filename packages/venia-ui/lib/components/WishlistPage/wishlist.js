@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
+import { bool, shape, string, int, array } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
@@ -97,6 +98,37 @@ const Wishlist = props => {
             <div className={contentClass}>{contentMessageElement}</div>
         </div>
     );
+};
+
+Wishlist.propTypes = {
+    classes: shape({
+        root: string,
+        header: string,
+        content: string,
+        content_hidden: string,
+        emptyListText: string,
+        name: string,
+        nameContainer: string,
+        visibilityToggle: string,
+        visibilityToggle_hidden: string,
+        visibility: string,
+        buttonsContainer: string
+    }),
+    shouldRenderVisibilityToggle: bool,
+    data: shape({
+        id: int,
+        items_count: int,
+        // will be moved to sub comp PWA-1683
+        items_v2: array,
+        name: string,
+        visibility: string
+    })
+};
+
+Wishlist.defaultProps = {
+    data: {
+        items_v2: []
+    }
 };
 
 export default Wishlist;

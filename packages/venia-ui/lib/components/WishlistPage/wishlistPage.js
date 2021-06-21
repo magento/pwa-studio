@@ -28,7 +28,7 @@ const WishlistPage = props => {
     });
     const wishlistElements = useMemo(() => {
         if (wishlists.length === 0) {
-            return <Wishlist data={[]} />;
+            return <Wishlist />;
         }
 
         return wishlists.map(wishlist => (
