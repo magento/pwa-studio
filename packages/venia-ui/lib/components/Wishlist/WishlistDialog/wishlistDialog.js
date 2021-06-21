@@ -118,7 +118,7 @@ const WishlistDialog = props => {
 
 export default WishlistDialog;
 
-WishlistDialog.defaultProps = {
+WishlistDialog.propTypes = {
     classes: shape({}),
     isOpen: bool,
     isLoading: bool,
