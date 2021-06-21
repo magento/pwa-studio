@@ -70,9 +70,10 @@ export const useCategoryTree = props => {
         }
 
         children.map(category => {
-            const isLeaf = !parseInt(category.children_count);
-
-            childCategories.set(category.id, { category, isLeaf });
+            if (category.include_in_menu) {
+                const isLeaf = !parseInt(category.children_count);
+                childCategories.set(category.id, { category, isLeaf });
+            }
         });
 
         return childCategories;

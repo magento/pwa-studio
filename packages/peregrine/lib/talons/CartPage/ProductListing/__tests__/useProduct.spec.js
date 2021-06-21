@@ -76,6 +76,14 @@ jest.mock('@magento/peregrine/lib/context/user', () => ({
 
 jest.mock('../useWishlist', () => ({
     useWishlist: jest.fn().mockReturnValue({
+        isMultipleWishlistsEnabled: false,
+        isWishlistDialogOpen: false,
+        handleWishlistDialogClose: jest
+            .fn()
+            .mockName('handleWishlistDialogClose'),
+        handleAddToWishlistSuccess: jest
+            .fn()
+            .mockName('handleAddToWishlistSuccess'),
         handleAddToWishlist: jest.fn().mockResolvedValue(true),
         loading: true,
         called: true,

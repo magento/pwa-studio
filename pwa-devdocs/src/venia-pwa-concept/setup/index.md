@@ -46,6 +46,8 @@ In the PWA Studio project's root directory, run the following command to install
 yarn install
 ```
 
+**Note:** Please be aware that the project uses `yarn workspaces` and does not support `npm install`. Please use `yarn install` instead.
+
 ## Step 3. Generate SSL certificate
 
 PWA features require an HTTPS secure domain.

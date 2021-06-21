@@ -11,6 +11,9 @@ entries:
         - label: Versioning strategy
           url: /technologies/versioning/
 
+        - label: Upgrading versions
+          url: /technologies/upgrading-versions/
+
         - label: Contributing to PWA Studio
           url: /technologies/contribute/
 
