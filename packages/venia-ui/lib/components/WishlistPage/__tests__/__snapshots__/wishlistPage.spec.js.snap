@@ -17,9 +17,7 @@ exports[`empty single wishlist 1`] = `
       }
     />
   </h1>
-  <Wishlist
-    data={Array []}
-  />
+  <Wishlist />
   <CreateWishlist />
 </div>
 `;
