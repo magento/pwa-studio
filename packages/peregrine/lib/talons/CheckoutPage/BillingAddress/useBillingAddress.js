@@ -1,11 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
-import {
-    useQuery,
-    useApolloClient,
-    useMutation,
-    useLazyQuery
-} from '@apollo/client';
+import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -51,6 +46,7 @@ export const mapAddressData = rawAddressData => {
  * Talon to handle Billing address for payment forms.
  *
  * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
+ * @param {Funciton} props.resetShouldSubmit callback to invoke when submit has completed (success or fail)
  * @param {Function} props.onBillingAddressChangedError callback to invoke when an error was thrown while setting the billing address
  * @param {Function} props.onBillingAddressChangedSuccess callback to invoke when address was sucessfully set
  * @param {DocumentNode} props.operations.getShippingAddressQuery query to fetch shipping address from cache
