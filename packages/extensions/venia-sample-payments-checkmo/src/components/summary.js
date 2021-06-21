@@ -1,5 +1,6 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { func, shape, string } from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { Edit2 as EditIcon } from 'react-feather';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -8,6 +9,9 @@ import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
 
 import defaultClasses from './summary.css';
 
+/**
+ * The Summary component of the Check / Money Order payment method extension.
+ */
 const Summary = props => {
     const { onEdit } = props;
 
@@ -42,7 +46,10 @@ const Summary = props => {
             </div>
             <div className={classes.checkmo_details_container}>
                 <span className={classes.payment_type}>
-                    Check / Money Order
+                    <FormattedMessage
+                        id={'checkMo.paymentType'}
+                        defaultMessage={'Check / Money Order'}
+                    />
                 </span>
             </div>
         </div>
@@ -50,3 +57,17 @@ const Summary = props => {
 };
 
 export default Summary;
+
+Summary.propTypes = {
+    classes: shape({
+        root: string,
+        checkmo_details_container: string,
+        edit_button: string,
+        edit_icon: string,
+        edit_text: string,
+        heading_container: string,
+        heading: string,
+        payment_type: string
+    }),
+    onEdit: func
+};

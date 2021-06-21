@@ -10,18 +10,21 @@
     grid-template-columns: 1fr;
 }
 
+.heading {
+    font-weight: 600;
+}
+
 .edit_button {
     color: rgb(var(--venia-brand-color-1-700));
     padding: 1rem;
     margin: -1rem;
 }
 
-.heading {
-    font-weight: 600;
-}
-
 .edit_icon {
     stroke: rgb(var(--venia-brand-color-1-700));
+}
+
+.edit_text {
 }
 
 .checkmo_details_container {
