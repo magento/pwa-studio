@@ -2924,9 +2924,6 @@
   resolved "https://registry.yarnpkg.com/@magento/eslint-config/-/eslint-config-1.5.2.tgz#24083d869afd124a414ae8a15401e0a6e44a99a6"
   integrity sha512-iN5Ic0JQe549ycijZNyNRu3JHajGVrBPX3a5yy4zAjdF9gE8z6jCVQOUP3WGuff4bEJfJgs/VODSIPuEU4NjBg==
 
-"@magento/venia-sample-payments-checkmo@link:packages/extensions/venia-sample-payments-checkmo":
-  version "0.0.1"
-
 "@microsoft/fetch-event-source@2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@microsoft/fetch-event-source/-/fetch-event-source-2.0.1.tgz#9ceecc94b49fbaa15666e38ae8587f64acce007d"
