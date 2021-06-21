@@ -4,6 +4,11 @@
     row-gap: 0.5rem;
 }
 
+.root_disabled {
+    composes: root;
+    opacity: 0.5;
+}
+
 .name {
     font-size: var(--venia-typography-detail-XL-fontSize);
     font-weight: var(--venia-global-fontWeight-semibold);

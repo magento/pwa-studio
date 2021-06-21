@@ -59,6 +59,6 @@
 }
 
 .radioRoot {
-    display: grid;
-    gap: 1rem;
+    /** schould be display if we support multiple types */
+    display: none;
 }

@@ -22,6 +22,6 @@
 }
 
 .radioRoot {
-    composes: root from '../RadioGroup/radioGroup.css';
-    grid-template-columns: auto;
+    /** schould be display if we support multiple types */
+    display: none;
 }

@@ -156,6 +156,7 @@ export const useWishlistItem = props => {
     ]);
 
     const handleRemoveProductFromWishlist = useCallback(async () => {
+        setIsDeleting(true);
         try {
             await removeProductsFromWishlist();
 
@@ -163,6 +164,7 @@ export const useWishlistItem = props => {
             setCurrentDialog(dialogs.NONE);
         } catch (e) {
             console.error(e);
+            setIsDeleting(false);
             setRemoveProductFromWishlistError(e);
             if (process.env.NODE_ENV !== 'production') {
                 console.error(e);
@@ -209,6 +211,8 @@ export const useWishlistItem = props => {
         };
     }, [imageLabel, imageURL]);
 
+    const [isDeleting, setIsDeleting] = useState(false);
+
     return {
         addToCartButtonProps,
         confirmRemovalIsOpen,
@@ -220,7 +224,8 @@ export const useWishlistItem = props => {
         hasRemoveProductFromWishlistError: !!removeProductFromWishlistError,
         imageProps,
         isRemovalInProgress,
-        moreActionsIsOpen
+        moreActionsIsOpen,
+        isDeleting
     };
 };
 

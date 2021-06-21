@@ -29,7 +29,8 @@ const WishlistItem = props => {
     const {
         addToCartButtonProps,
         handleRemoveProductFromWishlist,
-        hasError
+        hasError,
+        isDeleting
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -84,8 +85,10 @@ const WishlistItem = props => {
         defaultMessage: 'Remove Product from whislist'
     });
 
+    const rootClass = isDeleting ? classes.root_disabled : classes.root;
+
     return (
-        <div className={classes.root}>
+        <div className={rootClass}>
             <Image {...imageProps} />
 
             <div className={classes.actionWrap}>

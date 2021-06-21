@@ -51,14 +51,19 @@ const Wishlist = props => {
         itemsCount && isOpen
             ? formatMessage(
                   {
-                      id: 'wishlist.itemCount',
+                      id: 'wishlist.itemCountOpen',
                       defaultMessage:
                           'Showing {currentCount} of {count} items in this list'
                   },
                   { currentCount: items.length, count: itemsCount }
               )
-            : null;
-
+            : formatMessage(
+                  {
+                      id: 'wishlist.itemCountClose',
+                      defaultMessage: 'You have {count} items in this list'
+                  },
+                  { count: itemsCount }
+              );
     const loadMoreButton =
         items.length < itemsCount ? (
             <div>

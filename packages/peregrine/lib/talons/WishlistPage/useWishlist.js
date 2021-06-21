@@ -52,7 +52,6 @@ export const useWishlist = (props = {}) => {
     useEffect(() => {
         setPage(1);
         if (itemsCount >= 1 && isOpen === true && !data) {
-            console.log('fetch');
             fetchWhislistItems();
         }
     }, [itemsCount, isOpen, fetchWhislistItems, data]);
