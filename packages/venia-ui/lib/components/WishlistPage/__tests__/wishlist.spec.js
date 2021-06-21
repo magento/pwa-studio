@@ -90,6 +90,6 @@ test('hides visibility toggle', () => {
 });
 
 test('render no button when id is not set', () => {
-    const tree = createTestInstance(<Wishlist data={{}} />);
+    const tree = createTestInstance(<Wishlist />);
     expect(tree.toJSON()).toMatchSnapshot();
 });
