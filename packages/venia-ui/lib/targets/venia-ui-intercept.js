@@ -7,6 +7,8 @@ const RichContentRendererList = require('./RichContentRendererList');
 const makeRoutesTarget = require('./makeRoutesTarget');
 const CheckoutPagePaymentsList = require('./CheckoutPagePaymentsList');
 const SavedPaymentTypes = require('./SavedPaymentTypes');
+const EditablePaymentTypes = require('./EditablePaymentTypes');
+const SummaryPaymentTypes = require('./SummaryPaymentTypes');
 
 module.exports = veniaTargets => {
     const venia = Targetables.using(veniaTargets);
@@ -41,6 +43,20 @@ module.exports = veniaTargets => {
         paymentCode: 'braintree',
         importPath:
             '@magento/venia-ui/lib/components/SavedPaymentsPage/creditCard'
+    });
+
+    const editablePayments = new EditablePaymentTypes(venia);
+    editablePayments.add({
+        paymentCode: 'braintree',
+        importPath:
+            '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/editCard'
+    });
+
+    const summaryPagePaymentTypes = new SummaryPaymentTypes(venia);
+    summaryPagePaymentTypes.add({
+        paymentCode: 'braintree',
+        importPath:
+            '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/braintreeSummary'
     });
 
     new CategoryListProductAttributes(venia);

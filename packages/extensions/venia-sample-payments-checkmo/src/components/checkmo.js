@@ -14,7 +14,7 @@ import { FormattedMessage } from 'react-intl';
  * @param {String} props.mailingAddress shop owner post address where you need to send.
  * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
  * @param {Function} props.onPaymentSuccess callback to invoke when the a payment nonce has been generated
- * @param {Function} props.onDropinReady callback to invoke when the braintree dropin component is ready
+ * @param {Function} props.onPaymentReady callback to invoke when the component is ready
  * @param {Function} props.onPaymentError callback to invoke when component throws an error
  * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
  */
@@ -84,7 +84,7 @@ CheckMo.propTypes = {
     mailingAddress: string,
     shouldSubmit: bool.isRequired,
     onPaymentSuccess: func,
-    onDropinReady: func,
+    onPaymentReady: func,
     onPaymentError: func,
     resetShouldSubmit: func.isRequired
 };

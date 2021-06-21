@@ -15,7 +15,10 @@ import Quantity from './quantity';
 import Section from '../../LegacyMiniCart/section';
 import Image from '../../Image';
 import Icon from '../../Icon';
+import WishlistDialog from '../../Wishlist/WishlistDialog';
+
 import defaultClasses from './product.css';
+
 import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
 
@@ -52,6 +55,10 @@ const Product = props => {
         handleRemoveFromCart,
         handleSaveForLater,
         handleUpdateItemQuantity,
+        handleWishlistDialogClose,
+        handleAddToWishlistSuccess,
+        isMultipleWishlistsEnabled,
+        isWishlistDialogOpen,
         isEditable,
         loginToastProps,
         product,
@@ -102,6 +109,31 @@ const Product = props => {
                   defaultMessage: 'Out-of-stock'
               })
             : '';
+
+    let multipleWishlistDialog = null;
+    if (isMultipleWishlistsEnabled) {
+        const sku = item.product.sku;
+        const quantity = item.quantity;
+        const selected_options = item.configurable_options
+            ? item.configurable_options.map(
+                  option => option.configurable_product_option_value_uid
+              )
+            : [];
+
+        multipleWishlistDialog = (
+            <WishlistDialog
+                isOpen={isWishlistDialogOpen}
+                itemOptions={{
+                    sku,
+                    quantity,
+                    selected_options
+                }}
+                onClose={handleWishlistDialogClose}
+                onSuccess={handleAddToWishlistSuccess}
+                isLoading={isProductUpdating}
+            />
+        );
+    }
 
     useEffect(() => {
         if (loginToastProps) {
@@ -183,6 +215,7 @@ const Product = props => {
                         }}
                     />
                 </Kebab>
+                {multipleWishlistDialog}
             </div>
         </li>
     );
