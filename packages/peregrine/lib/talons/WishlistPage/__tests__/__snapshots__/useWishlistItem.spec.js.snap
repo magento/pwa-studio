@@ -3,7 +3,7 @@
 exports[`it returns the correct shape 1`] = `
 Object {
   "addToCartButtonProps": Object {
-    "disabled": false,
+    "disabled": true,
     "onClick": [Function],
   },
   "confirmRemovalIsOpen": false,
@@ -18,7 +18,10 @@ Object {
     "src": "https://example.com/media/shoggoth-shirt.jpg",
     "width": 400,
   },
+  "isDeleting": false,
+  "isInStock": true,
   "isRemovalInProgress": false,
+  "isSupportedProductType": false,
   "moreActionsIsOpen": false,
 }
 `;

@@ -30,7 +30,9 @@ const WishlistItem = props => {
         addToCartButtonProps,
         handleRemoveProductFromWishlist,
         hasError,
-        isDeleting
+        isDeleting,
+        isSupportedProductType,
+        isInStock
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -87,6 +89,15 @@ const WishlistItem = props => {
 
     const rootClass = isDeleting ? classes.root_disabled : classes.root;
 
+    const addToCart = isSupportedProductType ? (
+        <button className={classes.addToCart} {...addToCartButtonProps}>
+            {formatMessage({
+                id: 'wishlistItem.addToCart',
+                defaultMessage: 'Add to Cart'
+            })}
+        </button>
+    ) : null;
+
     return (
         <div className={rootClass}>
             <Image {...imageProps} />
@@ -105,13 +116,7 @@ const WishlistItem = props => {
                 <Price currencyCode={currency} value={unitPrice} />
             </div>
             {optionElements}
-
-            <button className={classes.addToCart} {...addToCartButtonProps}>
-                {formatMessage({
-                    id: 'wishlistItem.addToCart',
-                    defaultMessage: 'Add to Cart'
-                })}
-            </button>
+            {addToCart}
         </div>
     );
 };

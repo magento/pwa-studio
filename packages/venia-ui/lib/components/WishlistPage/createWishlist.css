@@ -58,7 +58,3 @@
     justify-content: center;
 }
 
-.radioRoot {
-    /** schould be display if we support multiple types */
-    display: none;
-}

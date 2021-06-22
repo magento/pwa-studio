@@ -2,7 +2,12 @@
 
 exports[`returns correct shape 1`] = `
 Object {
+  "error": undefined,
   "handleContentToggle": [Function],
-  "isOpen": true,
+  "isFetchMore": false,
+  "isLoading": false,
+  "isOpen": undefined,
+  "items": Array [],
+  "onLoadMore": [Function],
 }
 `;

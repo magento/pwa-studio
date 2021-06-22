@@ -56,6 +56,10 @@ export const useCreateWishlist = (props = {}) => {
 
     const handleCreateList = useCallback(
         async data => {
+            if (data) {
+                data.visibility = 'PRIVATE';
+            }
+
             try {
                 await createWishlist({
                     variables: {

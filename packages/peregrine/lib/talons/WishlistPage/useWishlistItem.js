@@ -12,6 +12,16 @@ const dialogs = {
     MORE_ACTIONS: 3
 };
 
+const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
+
+const mergeSupportedProductTypes = (supportedProductTypes = []) => {
+    if (supportedProductTypes.length >= 0) {
+        return SUPPORTED_PRODUCT_TYPES.concat(supportedProductTypes);
+    }
+
+    return SUPPORTED_PRODUCT_TYPE;
+};
+
 /**
  * @function
  *
@@ -23,11 +33,18 @@ const dialogs = {
  */
 export const useWishlistItem = props => {
     const { item, onOpenAddToCartDialog, wishlistId } = props;
+
     const {
+        __typename: productType,
         configurable_options: selectedConfigurableOptions = [],
         id: itemId,
         product
     } = item;
+
+    const isSupportedProductType = mergeSupportedProductTypes(
+        props.supportedProductTypes
+    ).includes(productType);
+
     const {
         configurable_options: configurableOptions = [],
         image,
@@ -194,14 +211,13 @@ export const useWishlistItem = props => {
     const confirmRemovalIsOpen =
         currentDialog === dialogs.CONFIRM_REMOVE_PRODUCT;
     const moreActionsIsOpen = currentDialog === dialogs.MORE_ACTIONS;
-
+    const isInStock = stockStatus !== 'OUT_OF_STOCK';
     const addToCartButtonProps = useMemo(() => {
         return {
-            disabled:
-                addWishlistItemToCartLoading || stockStatus === 'OUT_OF_STOCK',
+            disabled: addWishlistItemToCartLoading || isInStock,
             onClick: handleAddToCart
         };
-    }, [addWishlistItemToCartLoading, handleAddToCart, stockStatus]);
+    }, [addWishlistItemToCartLoading, handleAddToCart, isInStock]);
 
     const imageProps = useMemo(() => {
         return {
@@ -225,7 +241,9 @@ export const useWishlistItem = props => {
         imageProps,
         isRemovalInProgress,
         moreActionsIsOpen,
-        isDeleting
+        isDeleting,
+        isSupportedProductType,
+        isInStock
     };
 };
 
@@ -260,4 +278,7 @@ export const useWishlistItem = props => {
  * @property {Boolean} isLoading Boolean which represents if data is loading
  * @property {Boolean} isRemovalInProgress Whether the remove product from wishlist operation is in progress
  * @property {Boolean} moreActionsIsOpen Whether more actions are showing or not
+ * @property {Boolean} isDeleting returns if delete was clicked
+ * @property {Boolean} isSupportedProductType is this product type suported
+ * @property {Boolean} isInStock is product in stock
  */

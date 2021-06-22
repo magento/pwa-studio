@@ -18,6 +18,7 @@ exports[`renders a single wishlist without visibility toggle 1`] = `
     />
   </h1>
   <Wishlist
+    collapsed={true}
     data={
       Object {
         "id": 1,
@@ -189,6 +190,7 @@ exports[`renders wishlist data 1`] = `
     />
   </h1>
   <Wishlist
+    collapsed={true}
     data={
       Object {
         "id": 1,
@@ -197,6 +199,7 @@ exports[`renders wishlist data 1`] = `
     }
   />
   <Wishlist
+    collapsed={false}
     data={
       Object {
         "id": 2,

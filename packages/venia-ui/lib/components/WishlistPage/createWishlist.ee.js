@@ -10,7 +10,6 @@ import Field from '../Field';
 import Icon from '../Icon';
 import { isRequired } from '../../util/formValidators';
 import { mergeClasses } from '../../classify';
-import RadioGroup from '../RadioGroup';
 import TextInput from '../TextInput';
 import FormError from '../FormError/formError';
 
@@ -40,22 +39,6 @@ const CreateWishlist = props => {
             src={PlusSquare}
         />
     );
-
-    const radioGroupClasses = {
-        message: classes.radioMessage,
-        radioLabel: classes.radioLabel,
-        root: classes.radioRoot
-    };
-
-    const radioGroupItems = [
-        {
-            label: formatMessage({
-                id: 'global.private',
-                defaultMessage: 'Private'
-            }),
-            value: 'PRIVATE'
-        }
-    ];
 
     return shouldRender ? (
         <div className={classes.root}>
@@ -117,11 +100,7 @@ const CreateWishlist = props => {
                             validateOnBlur
                         />
                     </Field>
-                    <RadioGroup
-                        classes={radioGroupClasses}
-                        field="visibility"
-                        items={radioGroupItems}
-                    />
+
                 </div>
             </Dialog>
         </div>
