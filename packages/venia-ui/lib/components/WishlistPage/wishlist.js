@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
+import { bool, shape, string, int } from 'prop-types';
 
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
@@ -47,7 +48,7 @@ const Wishlist = props => {
     const contentMessageElement = itemsCount ? (
         <WishlistItems items={items.items} wishlistId={id} />
     ) : (
-        <p>
+        <p className={classes.emptyListText}>
             <FormattedMessage
                 id={'wishlist.emptyListText'}
                 defaultMessage={'There are currently no items in this list'}
@@ -74,24 +75,59 @@ const Wishlist = props => {
     const visibilityToggleClass = shouldRenderVisibilityToggle
         ? classes.visibilityToggle
         : classes.visibilityToggle_hidden;
+
+    const buttonsContainer = id ? (
+        <div className={classes.buttonsContainer}>
+            <ActionMenu id={id} name={name} visibility={visibility} />
+            <button
+                className={visibilityToggleClass}
+                onClick={handleContentToggle}
+                type="button"
+            >
+                {contentToggleIcon}
+            </button>
+        </div>
+    ) : null;
+
     return (
         <div className={classes.root}>
             <div className={classes.header}>
                 {wishlistName}
-                <div className={classes.buttonsContainer}>
-                    <ActionMenu id={id} name={name} visibility={visibility} />
-                    <button
-                        className={visibilityToggleClass}
-                        onClick={handleContentToggle}
-                        type="button"
-                    >
-                        {contentToggleIcon}
-                    </button>
-                </div>
+                {buttonsContainer}
             </div>
             <div className={contentClass}>{contentMessageElement}</div>
         </div>
     );
+};
+
+Wishlist.propTypes = {
+    classes: shape({
+        root: string,
+        header: string,
+        content: string,
+        content_hidden: string,
+        emptyListText: string,
+        name: string,
+        nameContainer: string,
+        visibilityToggle: string,
+        visibilityToggle_hidden: string,
+        visibility: string,
+        buttonsContainer: string
+    }),
+    shouldRenderVisibilityToggle: bool,
+    data: shape({
+        id: int,
+        items_count: int,
+        name: string,
+        visibility: string
+    })
+};
+
+Wishlist.defaultProps = {
+    data: {
+        items_count: 0,
+        items_v2: []
+    }
 };
 
 export default Wishlist;
