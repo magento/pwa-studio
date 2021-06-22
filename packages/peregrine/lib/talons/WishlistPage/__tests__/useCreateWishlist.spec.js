@@ -138,17 +138,9 @@ test('should return error', async () => {
         mocks: [createWishlistErrorMock, getMultipleWishlistsEnabledQueryMock]
     });
     await act(() => result.current.handleCreateList(createWishlistVariables));
-    expect(result.current.formErrors.get('createWishlistMutation'))
-        .toMatchInlineSnapshot(`
-        [Error: No more mocked responses for the query: mutation createWishlist($input: CreateWishlistInput!) {
-          createWishlist(input: $input) {
-            wishlist {
-              id
-            }
-          }
-        }
-        , variables: {"input":{"name":"Test WishList","visibility":"PRIVATE"}}]
-    `);
+    expect(
+        result.current.formErrors.get('createWishlistMutation')
+    ).toMatchInlineSnapshot(`[Error: Only 5 wish list(s) can be created.]`);
 });
 
 test('handleShowModal should set isModalOpen to true', async () => {

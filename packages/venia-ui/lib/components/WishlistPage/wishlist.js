@@ -65,7 +65,7 @@ const Wishlist = props => {
                   { count: itemsCount }
               );
     const loadMoreButton =
-        items.length < itemsCount ? (
+        items && items.length < itemsCount ? (
             <div>
                 <Button
                     className={classes.loadMore}

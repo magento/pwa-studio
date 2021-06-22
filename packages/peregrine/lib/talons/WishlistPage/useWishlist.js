@@ -15,7 +15,7 @@ export const useWishlist = (props = {}) => {
     const operations = mergeOperations(defaultOperations, props.operations);
 
     const [page, setPage] = useState(1);
-    const [isOpen, setIsOpen] = useState(collapsed);
+    const [isOpen, setIsOpen] = useState(collapsed ? collapsed : true);
     const [isFetchMore, setIsFetchMore] = useState(false);
 
     const [fetchWhislistItems, queryResult] = useLazyQuery(
@@ -85,4 +85,6 @@ export const useWishlist = (props = {}) => {
  * @property {Boolean} isOpen Boolean which represents if the content is expanded or not
  * @property {Array} items list of items
  * @property {Boolean} isLoading Boolean which represents if is in loading state
+ * @property {Boolean} setIsFetchMore Boolean which represents if is in loading more state
+ * @property {Function} onLoadMore Callback to load more items
  */

@@ -31,8 +31,7 @@ const WishlistItem = props => {
         handleRemoveProductFromWishlist,
         hasError,
         isDeleting,
-        isSupportedProductType,
-        isInStock
+        isSupportedProductType
     } = talonProps;
 
     const { formatMessage } = useIntl();

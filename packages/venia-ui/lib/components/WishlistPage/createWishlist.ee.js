@@ -100,7 +100,6 @@ const CreateWishlist = props => {
                             validateOnBlur
                         />
                     </Field>
-
                 </div>
             </Dialog>
         </div>

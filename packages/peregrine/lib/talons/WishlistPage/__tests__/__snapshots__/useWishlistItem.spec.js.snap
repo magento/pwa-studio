@@ -3,7 +3,7 @@
 exports[`it returns the correct shape 1`] = `
 Object {
   "addToCartButtonProps": Object {
-    "disabled": true,
+    "disabled": false,
     "onClick": [Function],
   },
   "confirmRemovalIsOpen": false,

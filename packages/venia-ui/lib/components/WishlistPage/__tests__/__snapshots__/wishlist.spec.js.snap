@@ -21,6 +21,8 @@ exports[`hides visibility toggle 1`] = `
         Public
       </span>
     </div>
+     
+    You have 20 items in this list
     <div
       className="buttonsContainer"
     >
@@ -61,12 +63,6 @@ exports[`hides visibility toggle 1`] = `
     className="content_hidden"
   >
     <WishlistItems
-      items={
-        Array [
-          "item1",
-          "item2",
-        ]
-      }
       wishlistId={5}
     />
   </div>
@@ -94,6 +90,8 @@ exports[`render closed with items 1`] = `
         Public
       </span>
     </div>
+     
+    You have 20 items in this list
     <div
       className="buttonsContainer"
     >
@@ -134,12 +132,6 @@ exports[`render closed with items 1`] = `
     className="content_hidden"
   >
     <WishlistItems
-      items={
-        Array [
-          "item1",
-          "item2",
-        ]
-      }
       wishlistId={5}
     />
   </div>
@@ -167,6 +159,8 @@ exports[`render open with no items 1`] = `
         Public
       </span>
     </div>
+     
+    You have 0 items in this list
     <div
       className="buttonsContainer"
     >
@@ -235,6 +229,8 @@ exports[`renders a name even if none in data 1`] = `
         />
       </h2>
     </div>
+     
+    You have 20 items in this list
     <div
       className="buttonsContainer"
     >
@@ -274,12 +270,6 @@ exports[`renders a name even if none in data 1`] = `
     className="content_hidden"
   >
     <WishlistItems
-      items={
-        Array [
-          "item1",
-          "item2",
-        ]
-      }
       wishlistId={5}
     />
   </div>

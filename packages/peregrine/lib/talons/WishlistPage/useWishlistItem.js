@@ -35,23 +35,23 @@ export const useWishlistItem = props => {
     const { item, onOpenAddToCartDialog, wishlistId } = props;
 
     const {
-        __typename: productType,
         configurable_options: selectedConfigurableOptions = [],
         id: itemId,
         product
     } = item;
 
-    const isSupportedProductType = mergeSupportedProductTypes(
-        props.supportedProductTypes
-    ).includes(productType);
-
     const {
         configurable_options: configurableOptions = [],
+        __typename: productType,
         image,
         sku,
         stock_status: stockStatus
     } = product;
     const { label: imageLabel, url: imageURL } = image;
+
+    const isSupportedProductType = mergeSupportedProductTypes(
+        props.supportedProductTypes
+    ).includes(productType);
 
     const operations = mergeOperations(defaultOperations, props.operations);
     const {
@@ -214,7 +214,7 @@ export const useWishlistItem = props => {
     const isInStock = stockStatus !== 'OUT_OF_STOCK';
     const addToCartButtonProps = useMemo(() => {
         return {
-            disabled: addWishlistItemToCartLoading || isInStock,
+            disabled: addWishlistItemToCartLoading || !isInStock,
             onClick: handleAddToCart
         };
     }, [addWishlistItemToCartLoading, handleAddToCart, isInStock]);
