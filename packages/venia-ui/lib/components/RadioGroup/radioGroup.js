@@ -20,7 +20,6 @@ const RadioGroup = props => {
     } = props;
     const fieldState = useFieldState(field);
     const classes = useStyle(defaultClasses, propClasses);
-    const domId = id || field;
 
     const options =
         children ||
@@ -33,7 +32,7 @@ const RadioGroup = props => {
                     label: classes.radioLabel,
                     root: classes.radioContainer
                 }}
-                id={`${domId}--${value}`}
+                id={`${id}--${value}`}
                 value={value}
             />
         ));
@@ -41,7 +40,7 @@ const RadioGroup = props => {
     return (
         <Fragment>
             <div className={classes.root}>
-                <InformedRadioGroup {...rest} field={field} id={domId}>
+                <InformedRadioGroup {...rest} field={field} id={id}>
                     {options}
                 </InformedRadioGroup>
             </div>

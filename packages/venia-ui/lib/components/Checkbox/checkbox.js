@@ -32,7 +32,6 @@ const Checkbox = props => {
     const fieldState = useFieldState(field);
     const classes = useStyle(defaultClasses, propClasses);
     const icon = fieldState.value ? checkedIcon : uncheckedIcon;
-    const domId = id || field;
 
     useEffect(() => {
         if (fieldValue != null && fieldValue !== fieldState.value) {
@@ -42,16 +41,12 @@ const Checkbox = props => {
 
     return (
         <Fragment>
-            <label
-                aria-label={ariaLabel}
-                className={classes.root}
-                htmlFor={domId}
-            >
+            <label aria-label={ariaLabel} className={classes.root} htmlFor={id}>
                 <InformedCheckbox
                     {...rest}
                     className={classes.input}
                     field={field}
-                    id={domId}
+                    id={id}
                 />
                 <span className={classes.icon}>{icon}</span>
                 <span className={classes.label}>{label}</span>
