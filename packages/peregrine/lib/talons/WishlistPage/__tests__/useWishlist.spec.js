@@ -5,7 +5,11 @@ import createTestInstance from '../../../util/createTestInstance';
 import { useWishlist } from '../useWishlist';
 
 const Component = () => {
-    const talonProps = useWishlist();
+    const props = {
+        collapsed: false
+    };
+
+    const talonProps = useWishlist(props);
 
     return <i talonProps={talonProps} />;
 };

@@ -36,16 +36,6 @@ const Wishlist = props => {
     const contentClass = isOpen ? classes.content : classes.content_hidden;
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
-    const visibilityLabel =
-        visibility === 'PUBLIC'
-            ? formatMessage({
-                  id: 'global.public',
-                  defaultMessage: 'Public'
-              })
-            : formatMessage({
-                  id: 'global.private',
-                  defaultMessage: 'Private'
-              });
 
     const itemsCountMessage =
         itemsCount && isOpen
@@ -97,7 +87,6 @@ const Wishlist = props => {
     const wishlistName = name ? (
         <div className={classes.nameContainer}>
             <h2 className={classes.name}>{name}</h2>
-            <span className={classes.visibility}>{visibilityLabel}</span>
         </div>
     ) : (
         <div className={classes.nameContainer}>

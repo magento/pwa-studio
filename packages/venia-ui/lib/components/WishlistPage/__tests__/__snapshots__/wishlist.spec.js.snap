@@ -15,11 +15,6 @@ exports[`hides visibility toggle 1`] = `
       >
         Favorites List
       </h2>
-      <span
-        className="visibility"
-      >
-        Public
-      </span>
     </div>
      
     You have 20 items in this list
@@ -84,11 +79,6 @@ exports[`render closed with items 1`] = `
       >
         Favorites List
       </h2>
-      <span
-        className="visibility"
-      >
-        Public
-      </span>
     </div>
      
     You have 20 items in this list
@@ -153,11 +143,6 @@ exports[`render open with no items 1`] = `
       >
         Favorites List
       </h2>
-      <span
-        className="visibility"
-      >
-        Public
-      </span>
     </div>
      
     You have 0 items in this list

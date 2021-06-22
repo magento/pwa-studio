@@ -15,7 +15,7 @@ export const useWishlist = (props = {}) => {
     const operations = mergeOperations(defaultOperations, props.operations);
 
     const [page, setPage] = useState(1);
-    const [isOpen, setIsOpen] = useState(collapsed ? collapsed : true);
+    const [isOpen, setIsOpen] = useState(!collapsed);
     const [isFetchMore, setIsFetchMore] = useState(false);
 
     const [fetchWhislistItems, queryResult] = useLazyQuery(
