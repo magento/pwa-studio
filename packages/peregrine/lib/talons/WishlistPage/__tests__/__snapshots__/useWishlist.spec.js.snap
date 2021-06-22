@@ -6,7 +6,7 @@ Object {
   "handleContentToggle": [Function],
   "isFetchMore": false,
   "isLoading": false,
-  "isOpen": undefined,
+  "isOpen": true,
   "items": Array [],
   "onLoadMore": [Function],
 }
