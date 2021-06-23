@@ -19,6 +19,11 @@
     grid-auto-flow: column;
 }
 
+.emptyListText {
+    text-align: center;
+    padding: 2rem 0;
+}
+
 .name {
     font-weight: var(--venia-global-fontWeight-semibold);
 }
