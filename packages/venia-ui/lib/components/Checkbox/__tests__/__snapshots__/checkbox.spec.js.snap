@@ -12,7 +12,7 @@ exports[`renders the correct tree 1`] = `
     <input
       checked={false}
       className="input"
-      id="160dd731-459b-48b4-bc50-71b01c54c8ef"
+      id="00000000-0000-4000-8000-000000000000"
       name="a"
       onBlur={[Function]}
       onChange={[Function]}

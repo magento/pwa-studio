@@ -10,7 +10,7 @@ exports[`it renders gift options in venia cart page 1`] = `
     <label>
       <input
         checked={false}
-        id="b05200e0-cc95-4290-ae6e-8632eae99fd3"
+        id="00000000-0000-4000-8000-000000000000"
         name="includeGiftReceipt"
         onBlur={[Function]}
         onChange={[Function]}
@@ -48,7 +48,7 @@ exports[`it renders gift options in venia cart page 1`] = `
     <label>
       <input
         checked={false}
-        id="1927461c-65d9-475d-9624-0c4f3391ab5b"
+        id="00000000-0000-4000-8000-000000000000"
         name="includePrintedCard"
         onBlur={[Function]}
         onChange={[Function]}

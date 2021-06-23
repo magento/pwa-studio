@@ -21,6 +21,11 @@ const props = {
     onConfirm: jest.fn().mockName('onConfirm')
 };
 
+beforeAll(() => {
+    // informed's random ids make snapshots unstable
+    jest.spyOn(Math, "random").mockReturnValue(0);
+});
+
 it('renders correctly', () => {
     // Act.
     const instance = createTestInstance(
