@@ -440,3 +440,52 @@ test('Should not proceed with saving billing address if form state has errors', 
 
     expect(setBillingAddress).not.toHaveBeenCalled();
 });
+
+test('should call onBillingAddressChangedError when submit error occurs', () => {
+    // Arrange.
+    useFormState.mockReturnValueOnce({
+        values: {
+            isBillingAddressSame: true
+        },
+        errors: {
+            unit: 'test'
+        }
+    });
+    const errorFn = jest.fn().mockName('onBillingAddressChangedError');
+
+    // Act.
+    getTalonProps({
+        shouldSubmit: true,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
+        operations,
+        onBillingAddressChangedError: errorFn,
+        onBillingAddressChangedSuccess: jest
+            .fn()
+            .mockName('onBillingAddressChangedSuccess')
+    });
+
+    // Assert.
+    expect(errorFn).toHaveBeenCalled();
+});
+
+describe('mapAddressData', () => {
+    test('it should return the correct shape', () => {
+        // Act.
+        const result = mapAddressData(billingAddress);
+
+        // Assert.
+        expect(result.street1).toEqual(billingAddress.street[0]);
+        expect(result.street2).toEqual(billingAddress.street[1]);
+        expect(result.country).toEqual(billingAddress.country.code);
+        expect(result.region).toEqual(billingAddress.region.code);
+    });
+
+    test('it should return an empty object as a fallback', () => {
+        // Act.
+        const result = mapAddressData();
+
+        // Assert.
+        expect(result).toBeInstanceOf(Object);
+        expect(Object.keys(result).length).toEqual(0);
+    });
+});
