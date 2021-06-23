@@ -388,12 +388,11 @@ exports[`Edit Mode renders correctly 1`] = `
       >
         <label
           className="root"
-          htmlFor="default_shipping"
         >
           <input
             checked={false}
             className="input"
-            id="default_shipping"
+            id="95667e98-fba1-49db-a1b9-1c88d2d08452"
             name="default_shipping"
             onBlur={[Function]}
             onChange={[Function]}
@@ -831,12 +830,11 @@ exports[`Edit Mode renders correctly with errors 1`] = `
       >
         <label
           className="root"
-          htmlFor="default_shipping"
         >
           <input
             checked={false}
             className="input"
-            id="default_shipping"
+            id="71245a7a-9584-45a4-8a83-cb077181dece"
             name="default_shipping"
             onBlur={[Function]}
             onChange={[Function]}
@@ -1269,12 +1267,11 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="root"
-          htmlFor="default_shipping"
         >
           <input
             checked={false}
             className="input"
-            id="default_shipping"
+            id="a51a3dd8-81dd-4050-9006-02f08219d277"
             name="default_shipping"
             onBlur={[Function]}
             onChange={[Function]}
@@ -1712,12 +1709,11 @@ exports[`renders correctly with errors 1`] = `
       >
         <label
           className="root"
-          htmlFor="default_shipping"
         >
           <input
             checked={false}
             className="input"
-            id="default_shipping"
+            id="6ea89f5b-6530-479e-8373-31b7b04bfef6"
             name="default_shipping"
             onBlur={[Function]}
             onChange={[Function]}

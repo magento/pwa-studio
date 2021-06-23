@@ -42,12 +42,11 @@ exports[`renders empty form without data 1`] = `
       </label>
       <label
         className="root"
-        htmlFor="isSubscribed"
       >
         <input
           checked={true}
           className="input"
-          id="isSubscribed"
+          id="6323a4ef-b9aa-42aa-ba13-0e2434f8c3c7"
           name="isSubscribed"
           onBlur={[Function]}
           onChange={[Function]}
@@ -140,12 +139,11 @@ exports[`renders form error 1`] = `
       </label>
       <label
         className="root"
-        htmlFor="isSubscribed"
       >
         <input
           checked={true}
           className="input"
-          id="isSubscribed"
+          id="6b6123c7-ecef-43f7-a7ad-7bdc845581f3"
           name="isSubscribed"
           onBlur={[Function]}
           onChange={[Function]}
@@ -238,12 +236,11 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
       </label>
       <label
         className="root"
-        htmlFor="isSubscribed"
       >
         <input
           checked={false}
           className="input"
-          id="isSubscribed"
+          id="f5078365-3aa3-4a40-a92c-5dea0c566f0f"
           name="isSubscribed"
           onBlur={[Function]}
           onChange={[Function]}
@@ -338,12 +335,11 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
       </label>
       <label
         className="root"
-        htmlFor="isSubscribed"
       >
         <input
           checked={false}
           className="input"
-          id="isSubscribed"
+          id="822aaa66-7c4c-4a6a-9100-83e2e3c64b89"
           name="isSubscribed"
           onBlur={[Function]}
           onChange={[Function]}

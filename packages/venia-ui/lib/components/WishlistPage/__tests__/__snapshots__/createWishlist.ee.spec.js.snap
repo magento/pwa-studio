@@ -146,12 +146,12 @@ exports[`renders correctly 1`] = `
         >
           <label
             className="root"
-            htmlFor="visibility--PRIVATE"
+            htmlFor="undefined--PRIVATE"
           >
             <input
               checked={false}
               className="input"
-              id="visibility--PRIVATE"
+              id="undefined--PRIVATE"
               onBlur={[Function]}
               onChange={[Function]}
               type="radio"
@@ -186,12 +186,12 @@ exports[`renders correctly 1`] = `
           </label>
           <label
             className="root"
-            htmlFor="visibility--PUBLIC"
+            htmlFor="undefined--PUBLIC"
           >
             <input
               checked={false}
               className="input"
-              id="visibility--PUBLIC"
+              id="undefined--PUBLIC"
               onBlur={[Function]}
               onChange={[Function]}
               type="radio"

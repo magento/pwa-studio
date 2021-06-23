@@ -8,11 +8,11 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
 >
   <div>
     <label
-      htmlFor="foo--1"
+      htmlFor="undefined--1"
     >
       <mock-Radio
         disabled={true}
-        id="foo--1"
+        id="undefined--1"
         value="1"
       />
       <span>
@@ -39,11 +39,11 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--2"
+      htmlFor="undefined--2"
     >
       <mock-Radio
         disabled={true}
-        id="foo--2"
+        id="undefined--2"
         value="2"
       />
       <span>
@@ -70,11 +70,11 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--3"
+      htmlFor="undefined--3"
     >
       <mock-Radio
         disabled={true}
-        id="foo--3"
+        id="undefined--3"
         value="3"
       />
       <span>
@@ -101,11 +101,11 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--4"
+      htmlFor="undefined--4"
     >
       <mock-Radio
         disabled={true}
-        id="foo--4"
+        id="undefined--4"
         value="4"
       />
       <span>
@@ -132,11 +132,11 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--5"
+      htmlFor="undefined--5"
     >
       <mock-Radio
         disabled={true}
-        id="foo--5"
+        id="undefined--5"
         value="5"
       />
       <span>
@@ -163,11 +163,11 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--6"
+      htmlFor="undefined--6"
     >
       <mock-Radio
         disabled={true}
-        id="foo--6"
+        id="undefined--6"
         value="6"
       />
       <span>
@@ -194,11 +194,11 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--7"
+      htmlFor="undefined--7"
     >
       <mock-Radio
         disabled={true}
-        id="foo--7"
+        id="undefined--7"
         value="7"
       />
       <span>
@@ -225,11 +225,11 @@ exports[`disables all child radios when disable prop is truthy 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--whatever"
+      htmlFor="undefined--whatever"
     >
       <mock-Radio
         disabled={true}
-        id="foo--whatever"
+        id="undefined--whatever"
         value="whatever"
       />
       <span>
@@ -268,10 +268,10 @@ exports[`renders as expected 1`] = `
 >
   <div>
     <label
-      htmlFor="foo--1"
+      htmlFor="undefined--1"
     >
       <mock-Radio
-        id="foo--1"
+        id="undefined--1"
         value="1"
       />
       <span>
@@ -298,10 +298,10 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--2"
+      htmlFor="undefined--2"
     >
       <mock-Radio
-        id="foo--2"
+        id="undefined--2"
         value="2"
       />
       <span>
@@ -328,10 +328,10 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--3"
+      htmlFor="undefined--3"
     >
       <mock-Radio
-        id="foo--3"
+        id="undefined--3"
         value="3"
       />
       <span>
@@ -358,10 +358,10 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--4"
+      htmlFor="undefined--4"
     >
       <mock-Radio
-        id="foo--4"
+        id="undefined--4"
         value="4"
       />
       <span>
@@ -388,10 +388,10 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--5"
+      htmlFor="undefined--5"
     >
       <mock-Radio
-        id="foo--5"
+        id="undefined--5"
         value="5"
       />
       <span>
@@ -418,10 +418,10 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--6"
+      htmlFor="undefined--6"
     >
       <mock-Radio
-        id="foo--6"
+        id="undefined--6"
         value="6"
       />
       <span>
@@ -448,10 +448,10 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--7"
+      htmlFor="undefined--7"
     >
       <mock-Radio
-        id="foo--7"
+        id="undefined--7"
         value="7"
       />
       <span>
@@ -478,11 +478,11 @@ exports[`renders as expected 1`] = `
       </span>
     </label>
     <label
-      htmlFor="foo--whatever"
+      htmlFor="undefined--whatever"
     >
       <mock-Radio
         disabled={true}
-        id="foo--whatever"
+        id="undefined--whatever"
         value="whatever"
       />
       <span>
