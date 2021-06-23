@@ -40,7 +40,7 @@ jest.mock('@apollo/client', () => {
 
 beforeAll(() => {
     // informed's random ids make snapshots unstable
-    jest.spyOn(Math, "random").mockReturnValue(0);
+    jest.spyOn(Math, 'random').mockReturnValue(0);
 });
 
 test('it renders gift options in venia cart page', () => {

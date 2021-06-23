@@ -32,7 +32,7 @@ beforeEach(() => {
     mockSubmit.mockReset();
 
     // informed's random ids make snapshots unstable
-    jest.spyOn(Math, "random").mockReturnValue(0);
+    jest.spyOn(Math, 'random').mockReturnValue(0);
 });
 
 test('renders a PaymentsForm component', () => {
