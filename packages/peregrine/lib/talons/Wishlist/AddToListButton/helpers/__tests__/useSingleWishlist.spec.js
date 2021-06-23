@@ -5,7 +5,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import operations from '../../galleryButton.gql';
+import operations from '../../addToListButton.gql';
 import { useSingleWishlist } from '../useSingleWishlist';
 
 jest.mock('@magento/peregrine/lib/context/user', () => ({

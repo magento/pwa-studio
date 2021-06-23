@@ -9,7 +9,7 @@ import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGallery
 import { mergeClasses } from '../../classify';
 import Image from '../Image';
 import defaultClasses from './item.css';
-import WishlistGalleryButton from '../Wishlist/GalleryButton';
+import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -39,7 +39,9 @@ const ItemPlaceholder = ({ classes }) => (
 );
 
 const GalleryItem = props => {
-    const { handleLinkClick, item, storeConfig } = useGalleryItem(props);
+    const { handleLinkClick, item, wishlistButtonProps } = useGalleryItem(
+        props
+    );
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -51,11 +53,9 @@ const GalleryItem = props => {
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${url_suffix || ''}`);
 
-    const wishlistButton =
-        storeConfig &&
-        storeConfig.magento_wishlist_general_is_enabled === '1' ? (
-            <WishlistGalleryButton item={item} storeConfig={storeConfig} />
-        ) : null;
+    const wishlistButton = wishlistButtonProps ? (
+        <WishlistGalleryButton {...wishlistButtonProps} />
+    ) : null;
 
     return (
         <div className={classes.root}>

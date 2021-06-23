@@ -1,4 +1,4 @@
-import { useGalleryButton } from '../useGalleryButton.ee';
+import { useAddToListButton } from '../useAddToListButton';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useApolloClient } from '@apollo/client';
 
@@ -44,7 +44,7 @@ test('returns single wishlist props when multiple wishlists is disabled', () => 
         }
     };
 
-    const { result } = renderHook(useGalleryButton, {
+    const { result } = renderHook(useAddToListButton, {
         initialProps: singleWishlistProps
     });
 
@@ -65,7 +65,7 @@ test('returns single wishlist props when multiple wishlists is disabled', () => 
 });
 
 test('returns multiple wishlist props when enabled', () => {
-    const { result } = renderHook(useGalleryButton, { initialProps });
+    const { result } = renderHook(useAddToListButton, { initialProps });
 
     expect(result.current).toMatchInlineSnapshot(`
         Object {
@@ -91,7 +91,7 @@ test('returns multiple wishlist props when enabled', () => {
 });
 
 test('onClick handler opens modal', () => {
-    const { result } = renderHook(useGalleryButton, { initialProps });
+    const { result } = renderHook(useAddToListButton, { initialProps });
 
     expect(result.current.modalProps.isOpen).toBe(false);
 
@@ -104,7 +104,7 @@ test('onClick handler opens modal', () => {
 
 test('handleModalClose updates cache and updates toast props', () => {
     const mockApolloClient = useApolloClient();
-    const { result } = renderHook(useGalleryButton, { initialProps });
+    const { result } = renderHook(useAddToListButton, { initialProps });
 
     act(() => {
         result.current.buttonProps.onClick();

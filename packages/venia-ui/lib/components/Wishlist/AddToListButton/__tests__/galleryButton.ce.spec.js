@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import GalleryButton from '../galleryButton.ce';
+import AddToListButton from '../addToListButton.ce';
 import { useGalleryButton } from '@magento/peregrine/lib/talons/Wishlist/GalleryButton/useGalleryButton';
 import { useCommonToasts } from '../useCommonToasts';
 
@@ -22,7 +22,7 @@ jest.mock('../useCommonToasts', () => ({
 }));
 
 test('renders button', () => {
-    const tree = createTestInstance(<GalleryButton />);
+    const tree = createTestInstance(<AddToListButton />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -35,7 +35,7 @@ test('renders selected button', () => {
         isSelected: true
     });
 
-    const tree = createTestInstance(<GalleryButton />);
+    const tree = createTestInstance(<AddToListButton />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -45,7 +45,7 @@ test('passes props to talon', () => {
         foo: 'bar'
     };
 
-    createTestInstance(<GalleryButton {...props} />);
+    createTestInstance(<AddToListButton {...props} />);
 
     expect(useGalleryButton.mock.calls[0][0]).toEqual(props);
 });
@@ -59,7 +59,7 @@ test('passes talonProps to toast hook', () => {
 
     useGalleryButton.mockReturnValue(toastProps);
 
-    createTestInstance(<GalleryButton />);
+    createTestInstance(<AddToListButton />);
 
     expect(useCommonToasts.mock.calls[0][0]).toEqual(toastProps);
 });

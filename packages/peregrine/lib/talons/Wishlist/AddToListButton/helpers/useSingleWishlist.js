@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
-import defaultOperations from '../galleryButton.gql';
+import defaultOperations from '../addToListButton.gql';
 
 export const useSingleWishlist = props => {
     const { item } = props;
@@ -37,7 +37,7 @@ export const useSingleWishlist = props => {
         } else {
             try {
                 await addProductToWishlist({
-                    variables: { wishlistId: '0', sku: item.sku }
+                    variables: { wishlistId: '0', itemOptions: item }
                 });
 
                 client.writeQuery({
@@ -49,8 +49,8 @@ export const useSingleWishlist = props => {
                         ]
                     }
                 });
-            } catch {
-                // errors automatically logged by error link
+            } catch (error) {
+                console.error(error);
             }
         }
     }, [
@@ -58,7 +58,7 @@ export const useSingleWishlist = props => {
         client,
         customerWishlistProducts,
         isSignedIn,
-        item.sku,
+        item,
         operations.getProductsInWishlistsQuery
     ]);
 
@@ -125,6 +125,7 @@ export const useSingleWishlist = props => {
 
     return {
         buttonProps,
+        buttonText: props.buttonText && props.buttonText(isSelected),
         customerWishlistProducts,
         errorToastProps,
         handleClick,

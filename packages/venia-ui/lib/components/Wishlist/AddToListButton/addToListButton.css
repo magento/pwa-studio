@@ -1,6 +1,10 @@
 .root {
+    align-content: center;
+    column-gap: 0.5rem;
+    display: inline-flex;
     margin-left: -0.5rem;
     padding: 0 0.5rem;
+    text-decoration: underline;
 }
 
 .root_selected {

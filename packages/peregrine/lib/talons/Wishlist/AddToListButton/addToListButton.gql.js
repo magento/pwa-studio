@@ -1,10 +1,13 @@
 import { gql } from '@apollo/client';
 
 export const ADD_TO_WISHLIST = gql`
-    mutation AddProductToWishlistFromGallery($wishlistId: ID!, $sku: String!) {
+    mutation AddProductToWishlistFromGallery(
+        $wishlistId: ID!
+        $itemOptions: WishlistItemInput!
+    ) {
         addProductsToWishlist(
             wishlistId: $wishlistId
-            wishlistItems: [{ quantity: 1, sku: $sku }]
+            wishlistItems: [$itemOptions]
         ) {
             user_errors {
                 code

@@ -1,19 +1,20 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { Heart } from 'react-feather';
-import { useGalleryButton } from '@magento/peregrine/lib/talons/Wishlist/GalleryButton/useGalleryButton';
+import { useAddToListButton } from '@magento/peregrine/lib/talons/Wishlist/AddToListButton/useAddToListButton';
 
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
-import defaultClasses from './galleryButton.css';
+import defaultClasses from './addToListButton.css';
 import { useCommonToasts } from './useCommonToasts';
 
 const HeartIcon = <Icon size={20} src={Heart} />;
 
-const GalleryButton = props => {
-    const talonProps = useGalleryButton(props);
+const AddToListButton = props => {
+    const talonProps = useAddToListButton(props);
     const {
         buttonProps,
+        buttonText,
         errorToastProps,
         isSelected,
         loginToastProps,
@@ -27,14 +28,18 @@ const GalleryButton = props => {
 
     return (
         <button className={buttonClass} {...buttonProps}>
-            {HeartIcon}
+            {props.icon} {buttonText}
         </button>
     );
 };
 
-export default GalleryButton;
+export default AddToListButton;
 
-GalleryButton.propTypes = {
+AddToListButton.defaultProps = {
+    icon: HeartIcon
+};
+
+AddToListButton.propTypes = {
     classes: shape({
         root: string,
         root_selected: string
