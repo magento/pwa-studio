@@ -27,8 +27,11 @@ const WishlistPage = props => {
         defaultMessage: 'The wishlist is not currently available.'
     });
     const wishlistElements = useMemo(() => {
-        if (wishlists.length === 0) return null;
-        return wishlists.map((wishlist, index) => (
+        if (wishlists.length === 0) {
+            return <Wishlist />;
+        }
+
+        return wishlists.map(wishlist => (
             <Wishlist
                 key={wishlist.id}
                 collapsed={index !== 0}
