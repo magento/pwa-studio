@@ -1,1 +1,1 @@
-export { default } from './addTolistButton';
+export { default } from './addToListButton';
