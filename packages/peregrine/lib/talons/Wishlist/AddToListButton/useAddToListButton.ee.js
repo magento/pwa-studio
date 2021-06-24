@@ -7,7 +7,7 @@ import { GET_PRODUCTS_IN_WISHLISTS } from './addToListButton.gql';
 import { useSingleWishlist } from './helpers/useSingleWishlist';
 
 export const useAddToListButton = props => {
-    const { item, storeConfig } = props;
+    const { afterAdd, beforeAdd, item, storeConfig } = props;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [successToastName, setSuccessToastName] = useState();
@@ -23,15 +23,22 @@ export const useAddToListButton = props => {
         if (storeConfig.enable_multiple_wishlists === '1' && isSignedIn) {
             return {
                 ...singleButtonProps,
-                onClick: () => setIsModalOpen(true)
+                onClick: () => {
+                    setIsModalOpen(true);
+
+                    if (beforeAdd) {
+                        beforeAdd();
+                    }
+                }
             };
         }
 
         return singleButtonProps;
     }, [
         singleWishlistProps.buttonProps,
+        storeConfig.enable_multiple_wishlists,
         isSignedIn,
-        storeConfig.enable_multiple_wishlists
+        beforeAdd
     ]);
 
     const handleModalClose = useCallback(
@@ -51,19 +58,25 @@ export const useAddToListButton = props => {
                 });
 
                 setSuccessToastName(additionalData.wishlistName);
+
+                if (afterAdd) {
+                    afterAdd();
+                }
             }
         },
-        [apolloClient, item.sku, singleWishlistProps.customerWishlistProducts]
+        [
+            afterAdd,
+            apolloClient,
+            item.sku,
+            singleWishlistProps.customerWishlistProducts
+        ]
     );
 
     const modalProps = useMemo(() => {
         if (storeConfig.enable_multiple_wishlists === '1' && isSignedIn) {
             return {
                 isOpen: isModalOpen,
-                itemOptions: {
-                    sku: item.sku,
-                    quantity: 1
-                },
+                itemOptions: item,
                 onClose: handleModalClose
             };
         }
@@ -73,7 +86,7 @@ export const useAddToListButton = props => {
         handleModalClose,
         isModalOpen,
         isSignedIn,
-        item.sku,
+        item,
         storeConfig.enable_multiple_wishlists
     ]);
 

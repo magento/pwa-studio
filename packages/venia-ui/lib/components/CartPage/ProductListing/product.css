@@ -107,6 +107,20 @@
     display: none;
 }
 
+.addToListButton {
+    --stroke: rgb(var(--venia-global-color-teal));
+    align-content: center;
+    column-gap: 1.125rem;
+    display: inline-flex;
+    font-size: 0.875rem;
+    padding: 0.875rem 0.625rem;
+    width: 100%;
+}
+
+.addToListButton_selected {
+    display: none;
+}
+
 @media (max-width: 640px) {
     .details {
         grid-template: none;

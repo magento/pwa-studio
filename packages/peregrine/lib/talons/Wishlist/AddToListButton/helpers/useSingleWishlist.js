@@ -8,7 +8,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import defaultOperations from '../addToListButton.gql';
 
 export const useSingleWishlist = props => {
-    const { item } = props;
+    const { afterAdd, beforeAdd, item } = props;
 
     const operations = mergeOperations(defaultOperations, props.operations);
 
@@ -36,6 +36,10 @@ export const useSingleWishlist = props => {
             setShowLoginToast(current => ++current);
         } else {
             try {
+                if (beforeAdd) {
+                    await beforeAdd();
+                }
+
                 await addProductToWishlist({
                     variables: { wishlistId: '0', itemOptions: item }
                 });
@@ -49,12 +53,18 @@ export const useSingleWishlist = props => {
                         ]
                     }
                 });
+
+                if (afterAdd) {
+                    afterAdd();
+                }
             } catch (error) {
                 console.error(error);
             }
         }
     }, [
         addProductToWishlist,
+        afterAdd,
+        beforeAdd,
         client,
         customerWishlistProducts,
         isSignedIn,

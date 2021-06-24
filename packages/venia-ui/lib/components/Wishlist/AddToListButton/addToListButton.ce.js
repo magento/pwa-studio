@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string } from 'prop-types';
+import { element, func, shape, string } from 'prop-types';
 import { Heart } from 'react-feather';
 import { useAddToListButton } from '@magento/peregrine/lib/talons/Wishlist/AddToListButton/useAddToListButton';
 
@@ -40,8 +40,11 @@ AddToListButton.defaultProps = {
 };
 
 AddToListButton.propTypes = {
+    afterAdd: func,
+    beforeAdd: func,
     classes: shape({
         root: string,
         root_selected: string
-    })
+    }),
+    icon: element
 };
