@@ -21,5 +21,5 @@ In this category we add Cypress tests for any End to End user flows based on Mag
 ## Venia Integration Tests
 In this category we add Cypress tests for user flows which are on Magento non-default configurations. These tests run on mocked data. Please refer to [multiple wishlist][] test as an example. This example test is a very large test given auth user session restriction, but we prefer to have these mock data tests as small as possible.
 
-[single wishlist]: https://github.com/magento/pwa-studio/blob/develop/venia-integration-tests/src/tests/wishList/e2eTests/singleWishlistAddRemoveProduct.spec.js
-[multiple wishlist]: https://github.com/magento/pwa-studio/blob/develop/venia-integration-tests/src/tests/wishList/integrationTests/verifyMultipleWishlistFeatures.spec.js
+[single wishlist]: https://github.com/magento/pwa-studio/tree/develop/venia-integration-tests/src/tests/e2eTests/wishList
+[multiple wishlist]: https://github.com/magento/pwa-studio/tree/develop/venia-integration-tests/src/tests/integrationTests/wishList/verifyMultipleWishlistFeatures.spec.js
