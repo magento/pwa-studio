@@ -58,12 +58,12 @@ exports[`disables save if isSaveDisabled is true 1`] = `
     >
       <label
         className="root"
-        htmlFor="undefined--PRIVATE"
+        htmlFor="visibility--PRIVATE"
       >
         <input
           checked={true}
           className="input"
-          id="undefined--PRIVATE"
+          id="visibility--PRIVATE"
           onBlur={[Function]}
           onChange={[Function]}
           type="radio"
@@ -100,12 +100,12 @@ exports[`disables save if isSaveDisabled is true 1`] = `
       </label>
       <label
         className="root"
-        htmlFor="undefined--PUBLIC"
+        htmlFor="visibility--PUBLIC"
       >
         <input
           checked={false}
           className="input"
-          id="undefined--PUBLIC"
+          id="visibility--PUBLIC"
           onBlur={[Function]}
           onChange={[Function]}
           type="radio"
@@ -234,12 +234,12 @@ exports[`renders the correct tree 1`] = `
     >
       <label
         className="root"
-        htmlFor="undefined--PRIVATE"
+        htmlFor="visibility--PRIVATE"
       >
         <input
           checked={true}
           className="input"
-          id="undefined--PRIVATE"
+          id="visibility--PRIVATE"
           onBlur={[Function]}
           onChange={[Function]}
           type="radio"
@@ -276,12 +276,12 @@ exports[`renders the correct tree 1`] = `
       </label>
       <label
         className="root"
-        htmlFor="undefined--PUBLIC"
+        htmlFor="visibility--PUBLIC"
       >
         <input
           checked={false}
           className="input"
-          id="undefined--PUBLIC"
+          id="visibility--PUBLIC"
           onBlur={[Function]}
           onChange={[Function]}
           type="radio"

@@ -11,12 +11,12 @@ exports[`automatically selects first option when none selected 1`] = `
   >
     <label
       className="root"
-      htmlFor="undefined--usps|priority"
+      htmlFor="method--usps|priority"
     >
       <input
         checked={true}
         className="input"
-        id="undefined--usps|priority"
+        id="method--usps|priority"
         onBlur={[Function]}
         onChange={[Function]}
         type="radio"
@@ -63,12 +63,12 @@ exports[`automatically selects first option when none selected 1`] = `
     </label>
     <label
       className="root"
-      htmlFor="undefined--fedex|nextday"
+      htmlFor="method--fedex|nextday"
     >
       <input
         checked={false}
         className="input"
-        id="undefined--fedex|nextday"
+        id="method--fedex|nextday"
         onBlur={[Function]}
         onChange={[Function]}
         type="radio"
@@ -137,12 +137,12 @@ exports[`renders list of shipping methods 1`] = `
   >
     <label
       className="root"
-      htmlFor="undefined--usps|priority"
+      htmlFor="method--usps|priority"
     >
       <input
         checked={false}
         className="input"
-        id="undefined--usps|priority"
+        id="method--usps|priority"
         onBlur={[Function]}
         onChange={[Function]}
         type="radio"
@@ -189,12 +189,12 @@ exports[`renders list of shipping methods 1`] = `
     </label>
     <label
       className="root"
-      htmlFor="undefined--fedex|nextday"
+      htmlFor="method--fedex|nextday"
     >
       <input
         checked={true}
         className="input"
-        id="undefined--fedex|nextday"
+        id="method--fedex|nextday"
         onBlur={[Function]}
         onChange={[Function]}
         type="radio"
