@@ -78,3 +78,14 @@ test('renders a single wishlist without visibility toggle', () => {
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
+
+test('empty single wishlist', () => {
+    useWishlistPage.mockReturnValue({
+        errors: new Map(),
+        wishlists: []
+    });
+
+    const tree = createTestInstance(<WishlistPage />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
