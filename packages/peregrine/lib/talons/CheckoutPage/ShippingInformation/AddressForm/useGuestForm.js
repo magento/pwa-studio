@@ -45,7 +45,7 @@ export const useGuestForm = props => {
                         address: {
                             ...address,
                             // region_id is used for field select and region is used for field input
-                            region: region.region_id || region.label,
+                            region: region.region_id || region.label || region.code,
                             country_code: country
                         }
                     }
