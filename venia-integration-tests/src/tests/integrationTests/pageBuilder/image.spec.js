@@ -1,15 +1,15 @@
-import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
+import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures/index';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('verify pagebuilder buttons content is rendered correctly', () => {
-    it('verify buttons content', () => {
+describe('pagebuilder > image', () => {
+    it('renders properly', () => {
         cy.intercept('GET', getCMSPage, {
-            fixture: 'pageBuilder/buttons/buttons.json'
+            fixture: 'pageBuilder/image/image.json'
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
-                name: 'Page Builder Buttons Page',
+                name: 'Page Builder Image Snapshot',
                 timeout: 60000
             });
         });
