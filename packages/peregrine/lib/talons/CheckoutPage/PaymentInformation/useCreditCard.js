@@ -7,9 +7,6 @@ import { useCartContext } from '../../../context/cart';
 
 import DEFAULT_OPERATIONS from './creditCard.gql';
 
-/**
- * @returns
- */
 const getRegion = region => {
     return region.region_id || region.label || region.code;
 };
