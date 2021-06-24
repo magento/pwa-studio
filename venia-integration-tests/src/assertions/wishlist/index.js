@@ -17,13 +17,6 @@ export const assertWishlistHeading = wishlistHeaderText => {
     cy.get(wishlistPageHeading).contains(wishlistHeaderText);
 };
 
-/**
- * Utility function to assert empty wishlist
- */
-export const assertEmptyWishlistPage = () => {
-    // assert product container does not exists
-    cy.get(wishlistRoot).should('not.exist');
-};
 
 /**
  * Utility function to assert product exists in wishlist

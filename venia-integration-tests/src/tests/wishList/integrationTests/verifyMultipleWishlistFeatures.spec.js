@@ -82,7 +82,7 @@ describe('verify single wishlist basic features', () => {
         cy.wait(['@getCustomerWishlist']).its('response.body');
         cy.wait(['@getWishlistConfig']).its('response.body');
 
-        assertEmptyWishlistPage();
+        assertEmptyWishlistExists('Wish List');
         assertCreateWishlistLink();
 
         //create an empty wishlist and assert its empty

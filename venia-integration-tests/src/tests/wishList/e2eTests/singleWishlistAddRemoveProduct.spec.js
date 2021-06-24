@@ -36,7 +36,7 @@ const { addProductToWishlistFromProductPage } = productPageActions;
 const { assertCreateAccount } = myAccountMenuAssertions;
 const {
     assertWishlistHeading,
-    assertEmptyWishlistPage,
+    assertEmptyWishlistExists,
     assertProductInWishlist
 } = wishlistAssertions;
 const { assertWishlistSelectedProductOnCategoryPage } = categoryPageAssertions;
@@ -59,7 +59,7 @@ describe('verify single wishlist basic features', () => {
         goToMyAccount(firstName, wishlistPage);
 
         assertWishlistHeading(wishlistPage);
-        assertEmptyWishlistPage();
+        assertEmptyWishlistExists('Wish List');
 
         cy.visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
