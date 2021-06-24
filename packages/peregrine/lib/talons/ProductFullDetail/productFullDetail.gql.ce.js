@@ -18,7 +18,7 @@ export const ADD_PRODUCT_TO_CART = gql`
 `;
 
 export const GET_WISHLIST_CONFIG = gql`
-    query wishlistConfig {
+    query GetWishlistConfigForProductCE {
         storeConfig {
             id
             magento_wishlist_general_is_enabled

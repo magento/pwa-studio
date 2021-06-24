@@ -12,4 +12,6 @@
     --selectedColor: rgb(var(--venia-global-color-red-400));
     --fill: var(--selectedColor);
     --stroke: var(--selectedColor);
+
+    text-decoration: none;
 }
