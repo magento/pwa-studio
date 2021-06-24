@@ -8,6 +8,13 @@ import { useCartContext } from '../../../context/cart';
 import DEFAULT_OPERATIONS from './creditCard.gql';
 
 /**
+ * @returns
+ */
+const getRegion = region => {
+    return region.region_id || region.label || region.code;
+};
+
+/**
  * Maps address response data from GET_BILLING_ADDRESS and GET_SHIPPING_ADDRESS
  * queries to input names in the billing address form.
  * {@link creditCard.gql.js}.
@@ -27,6 +34,8 @@ export const mapAddressData = rawAddressData => {
             region
         } = rawAddressData;
 
+        debugger;
+
         return {
             firstName,
             lastName,
@@ -36,7 +45,7 @@ export const mapAddressData = rawAddressData => {
             street1: street[0],
             street2: street[1],
             country: country.code,
-            region: region.region_id
+            region: getRegion(region)
         };
     } else {
         return {};
@@ -256,7 +265,7 @@ export const useCreditCard = props => {
                 street1,
                 street2,
                 city,
-                region: region.region_id,
+                region: getRegion(region),
                 postcode,
                 phoneNumber,
                 sameAsShipping: false
