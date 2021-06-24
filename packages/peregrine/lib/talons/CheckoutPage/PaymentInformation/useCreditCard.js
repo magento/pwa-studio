@@ -34,8 +34,6 @@ export const mapAddressData = rawAddressData => {
             region
         } = rawAddressData;
 
-        debugger;
-
         return {
             firstName,
             lastName,
