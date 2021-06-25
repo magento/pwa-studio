@@ -5,17 +5,17 @@ import {
     homePage as homePageFixtures,
     wishlist as wishlistFixtures,
     productPage as productPageFixtures
-} from '../../../fixtures';
+} from '../../../fixtures/index';
 import {
     categoryPage as categoryPageActions,
     myAccountMenu as myAccountMenuActions,
     productPage as productPageActions
-} from '../../../actions';
+} from '../../../actions/index';
 import {
     myAccountMenu as myAccountMenuAssertions,
     wishlist as wishlistAssertions,
     categoryPage as categoryPageAssertions
-} from '../../../assertions';
+} from '../../../assertions/index';
 
 const {
     firstName,

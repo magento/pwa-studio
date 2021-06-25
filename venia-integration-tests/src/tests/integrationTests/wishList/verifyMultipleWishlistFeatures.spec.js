@@ -5,18 +5,18 @@ import {
     categoryPage as categoryPageFixtures,
     productPage as productPageFixtures,
     graphqlMockedCalls as graphqlMockedCallsFixtures
-} from '../../../fixtures';
+} from '../../../fixtures/index';
 import {
     myAccountMenu as myAccountMenuAssertions,
     wishlist as wishlistAssertions,
     categoryPage as categoryPageAssertions,
     productPage as productPageAssertions
-} from '../../../assertions';
+} from '../../../assertions/index';
 import {
     wishlistPage as wishlistPageActions,
     categoryPage as categoryPageActions,
     productPage as productPageActions
-} from '../../../actions';
+} from '../../../actions/index';
 const {
     firstName,
     lastName,
