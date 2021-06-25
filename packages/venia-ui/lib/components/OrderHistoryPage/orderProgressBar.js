@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './orderProgressBar.css';
 
 const TOTAL_STEPS = 4;
@@ -42,7 +42,7 @@ const OrderProgressBar = props => {
     ]);
     const currentStep = statusStepMap.get(status);
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const stepElements = useMemo(() => {
         const elements = [];

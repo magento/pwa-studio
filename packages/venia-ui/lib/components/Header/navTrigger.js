@@ -4,7 +4,7 @@ import { Menu as MenuIcon } from 'react-feather';
 import { useIntl } from 'react-intl';
 
 import Icon from '../Icon';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './navTrigger.css';
 import { useNavigationTrigger } from '@magento/peregrine/lib/talons/Header/useNavigationTrigger';
 
@@ -15,7 +15,7 @@ const NavigationTrigger = props => {
     const { formatMessage } = useIntl();
     const { handleOpenNavigation } = useNavigationTrigger();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     return (
         <button
             className={classes.root}

@@ -1,14 +1,14 @@
 import React from 'react';
 import { arrayOf, func, number, oneOfType, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import mapProduct from '../../util/mapProduct';
 import SuggestedProduct from './suggestedProduct';
 import defaultClasses from './suggestedProducts.css';
 
 const SuggestedProducts = props => {
     const { limit, onNavigate, products } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const items = products.slice(0, limit).map(product => (
         <li key={product.id} className={classes.item}>

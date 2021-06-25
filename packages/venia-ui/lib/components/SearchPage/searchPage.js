@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types';
 
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Pagination from '../../components/Pagination';
 import Gallery from '../Gallery';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
@@ -17,7 +17,7 @@ const FilterModal = React.lazy(() => import('../FilterModal'));
 const FilterSidebar = React.lazy(() => import('../FilterSidebar'));
 
 const SearchPage = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useSearchPage();
     const {
         data,

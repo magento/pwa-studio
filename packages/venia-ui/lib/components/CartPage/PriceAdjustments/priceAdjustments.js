@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { func } from 'prop-types';
 
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import { Accordion, Section } from '../../Accordion';
 import GiftCardSection from './giftCardSection';
 
@@ -30,7 +30,7 @@ const ShippingMethods = React.lazy(() => import('./ShippingMethods'));
  * import PriceAdjustments from '@magento/venia-ui/lib/components/CartPage/PriceAdjustments'
  */
 const PriceAdjustments = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const { setIsCartUpdating } = props;
     const { formatMessage } = useIntl();

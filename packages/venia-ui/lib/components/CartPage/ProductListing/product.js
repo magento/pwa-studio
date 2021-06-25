@@ -2,12 +2,13 @@ import React, { useMemo, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Info } from 'react-feather';
 import { gql } from '@apollo/client';
+import { Link } from 'react-router-dom';
 import { useToasts } from '@magento/peregrine';
-import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import Price from '@magento/venia-ui/lib/components/Price';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Kebab from '../../LegacyMiniCart/kebab';
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Quantity from './quantity';
@@ -76,7 +77,7 @@ const Product = props => {
         urlSuffix
     } = product;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const itemClassName = isProductUpdating
         ? classes.item_disabled

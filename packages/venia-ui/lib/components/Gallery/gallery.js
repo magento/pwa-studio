@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { string, shape, array } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import GalleryItem from './item';
 import defaultClasses from './gallery.css';
 import { useGallery } from '@magento/peregrine/lib/talons/Gallery/useGallery';
@@ -13,12 +13,10 @@ import { useGallery } from '@magento/peregrine/lib/talons/Gallery/useGallery';
  * @params {Array} props.items an array of items to render
  */
 const Gallery = props => {
+    const { items } = props;
+    const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useGallery();
     const { storeConfig } = talonProps;
-
-    const classes = mergeClasses(defaultClasses, props.classes);
-
-    const { items } = props;
 
     const galleryItems = useMemo(
         () =>

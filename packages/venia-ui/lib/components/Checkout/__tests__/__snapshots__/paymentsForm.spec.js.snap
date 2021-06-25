@@ -30,12 +30,11 @@ exports[`renders a PaymentsForm component 1`] = `
     >
       <label
         className="root"
-        htmlFor="addresses_same"
       >
         <input
           checked={true}
           className="input"
-          id="addresses_same"
+          id="00000000-0000-4000-8000-000000000000"
           name="addresses_same"
           onBlur={[Function]}
           onChange={[Function]}
@@ -134,12 +133,11 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     >
       <label
         className="root"
-        htmlFor="addresses_same"
       >
         <input
           checked={false}
           className="input"
-          id="addresses_same"
+          id="00000000-0000-4000-8000-000000000000"
           name="addresses_same"
           onBlur={[Function]}
           onChange={[Function]}

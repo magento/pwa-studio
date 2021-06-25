@@ -4,7 +4,7 @@ import { arrayOf, bool, instanceOf, shape, string } from 'prop-types';
 import { useFormError } from '@magento/peregrine/lib/talons/FormError/useFormError';
 import { useScrollIntoView } from '@magento/peregrine/lib/hooks/useScrollIntoView';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import ErrorMessage from '../ErrorMessage';
 import defaultClasses from './formError.css';
 
@@ -18,7 +18,7 @@ const FormError = props => {
 
     useScrollIntoView(errorRef, scrollOnError && errorMessage);
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     return errorMessage ? (
         <ErrorMessage classes={classes} ref={errorRef}>

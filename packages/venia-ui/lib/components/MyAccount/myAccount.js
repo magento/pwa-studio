@@ -3,13 +3,13 @@ import { func, shape, string } from 'prop-types';
 
 import { useMyAccount } from '@magento/peregrine/lib/talons/MyAccount/useMyAccount';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import AccountMenuItems from '../AccountMenu/accountMenuItems';
 import defaultClasses from './myAccount.css';
 
 const MyAccount = props => {
     const { classes: propClasses, onSignOut, onClose } = props;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = useMyAccount({
         onSignOut: onSignOut,

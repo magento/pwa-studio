@@ -2,9 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Row from '../row';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(src => src)
-}));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock('jarallax', () => {
     return {
@@ -177,7 +175,7 @@ test('render row with mobile image displayed and parallax enabled', () => {
         enableParallax: true
     };
 
-    window.matchMedia = jest.fn().mockImplementation(query => {
+    matchMedia.mockImplementation(query => {
         return {
             matches: true,
             media: query,

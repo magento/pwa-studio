@@ -6,10 +6,8 @@ import { shape, func, string, bool, instanceOf } from 'prop-types';
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
 import CheckoutError from '@magento/peregrine/lib/talons/CheckoutPage/CheckoutError';
 
-import { mergeClasses } from '../../../classify';
-
+import { useStyle } from '../../../classify';
 import paymentInformationOperations from './paymentInformation.gql';
-
 import defaultClasses from './paymentInformation.css';
 import LoadingIndicator from '../../LoadingIndicator';
 
@@ -27,7 +25,7 @@ const PaymentInformation = props => {
         checkoutError
     } = props;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = usePaymentInformation({
         onSave,
