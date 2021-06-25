@@ -97,9 +97,7 @@ describe('verify single wishlist basic features', () => {
             fixture: 'wishlist/multipleWishlist/oneWishlistNoProductsPage.json'
         }).as('getCustomerWishlist1');
         createWishlist('Test List1');
-        cy.wait(['@getCustomerWishlist1']).its(
-            'response.body'
-        );
+        cy.wait(['@getCustomerWishlist1']).its('response.body');
         cy.wait('@createWishlist1').should(result => {
             expect(result.request.body.variables).to.eql({
                 input: { name: 'Test List1', visibility: 'PRIVATE' }
