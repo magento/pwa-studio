@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`disables save if isSaveDisabled is true 1`] = `
-Array [
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
   <div
     className="listname"
   >
@@ -45,7 +49,7 @@ Array [
         className="root"
       />
     </div>
-  </div>,
+  </div>
   <div
     className="visibility"
   >
@@ -54,10 +58,12 @@ Array [
     >
       <label
         className="root"
+        htmlFor="visibility--PRIVATE"
       >
         <input
           checked={true}
           className="input"
+          id="visibility--PRIVATE"
           onBlur={[Function]}
           onChange={[Function]}
           type="radio"
@@ -94,10 +100,12 @@ Array [
       </label>
       <label
         className="root"
+        htmlFor="visibility--PUBLIC"
       >
         <input
           checked={false}
           className="input"
+          id="visibility--PUBLIC"
           onBlur={[Function]}
           onChange={[Function]}
           type="radio"
@@ -136,7 +144,7 @@ Array [
     <p
       className="root"
     />
-  </div>,
+  </div>
   <div
     className="actions"
   >
@@ -164,12 +172,16 @@ Array [
         Save
       </span>
     </button>
-  </div>,
-]
+  </div>
+</form>
 `;
 
 exports[`renders the correct tree 1`] = `
-Array [
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
   <div
     className="listname"
   >
@@ -213,7 +225,7 @@ Array [
         className="root"
       />
     </div>
-  </div>,
+  </div>
   <div
     className="visibility"
   >
@@ -222,10 +234,12 @@ Array [
     >
       <label
         className="root"
+        htmlFor="visibility--PRIVATE"
       >
         <input
           checked={true}
           className="input"
+          id="visibility--PRIVATE"
           onBlur={[Function]}
           onChange={[Function]}
           type="radio"
@@ -262,10 +276,12 @@ Array [
       </label>
       <label
         className="root"
+        htmlFor="visibility--PUBLIC"
       >
         <input
           checked={false}
           className="input"
+          id="visibility--PUBLIC"
           onBlur={[Function]}
           onChange={[Function]}
           type="radio"
@@ -304,7 +320,7 @@ Array [
     <p
       className="root"
     />
-  </div>,
+  </div>
   <div
     className="actions"
   >
@@ -332,6 +348,6 @@ Array [
         Save
       </span>
     </button>
-  </div>,
-]
+  </div>
+</form>
 `;

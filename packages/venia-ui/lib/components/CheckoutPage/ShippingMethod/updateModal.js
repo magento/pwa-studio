@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Dialog from '../../Dialog';
 import FormError from '../../FormError';
 import ShippingRadios from './shippingRadios';
@@ -28,7 +28,7 @@ const UpdateModal = props => {
         initialValues: formInitialValues
     };
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     return (
         <Dialog

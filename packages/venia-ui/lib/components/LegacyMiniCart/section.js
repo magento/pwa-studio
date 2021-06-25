@@ -6,7 +6,7 @@ import {
     Trash as TrashIcon
 } from 'react-feather';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 
 import defaultClasses from './section.css';
@@ -19,7 +19,7 @@ const icons = new Map()
 const Section = props => {
     const { icon, isFilled, onClick, text } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
     const iconSrc = icons.get(icon);
 

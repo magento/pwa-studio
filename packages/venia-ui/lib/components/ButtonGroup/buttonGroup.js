@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { arrayOf, node, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Button from './button';
 import defaultClasses from './buttonGroup.css';
 
@@ -17,7 +17,7 @@ import defaultClasses from './buttonGroup.css';
  */
 const ButtonGroup = props => {
     const { items } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const children = useMemo(
         () =>

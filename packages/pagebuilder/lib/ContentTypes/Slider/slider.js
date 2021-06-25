@@ -2,7 +2,7 @@ import React, { Children } from 'react';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import SlickSlider from 'react-slick';
 import defaultClasses from './slider.css';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { jarallax } from 'jarallax';
 
 /**
@@ -18,7 +18,7 @@ import { jarallax } from 'jarallax';
  * @returns {React.Element} A React component that displays a Slider which contains slides.
  */
 const Slider = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const {
         minHeight,

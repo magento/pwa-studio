@@ -28,10 +28,10 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
-jest.mock('@magento/venia-drivers', () => ({
-    Link: ({ children, ...rest }) => <div {...rest}>{children}</div>,
-    resourceUrl: x => x
+jest.mock('react-router-dom', () => ({
+    Link: ({ children, ...rest }) => <div {...rest}>{children}</div>
 }));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock('@magento/peregrine', () => {
     const useToasts = jest.fn(() => [

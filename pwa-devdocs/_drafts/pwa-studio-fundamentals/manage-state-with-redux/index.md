@@ -117,7 +117,7 @@ And lets assign `props.foo` to a `foo` constant in the _Foo.js_ component.
 // other code
 const Foo = props => {
   const { foo } = props;
-  const classes = mergeClasses(defaultClasses, props.classes);
+  const classes = useStyle(defaultClasses, props.classes);
   const [nameText, setNameText] = useState('');
   // other code
 ```

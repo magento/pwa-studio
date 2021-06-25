@@ -1,12 +1,12 @@
 import React from 'react';
 
 import defaultClasses from './indicator.css';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import { RotateCw as LoaderIcon } from 'react-feather';
 import Icon from '../Icon';
 
 const PageLoadingIndicator = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <div className={classes.root}>

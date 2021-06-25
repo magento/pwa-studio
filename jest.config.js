@@ -229,7 +229,13 @@ const jestConfig = {
         configureProject('babel-preset-peregrine', 'Babel Preset', () => ({
             testEnvironment: 'node'
         })),
-        configureProject('pagebuilder', 'Pagebuilder', testReactComponents),
+        configureProject('pagebuilder', 'Pagebuilder', inPackage => ({
+            ...testReactComponents(inPackage),
+            setupFiles: [
+                // Shim DOM properties not supported by jsdom
+                inPackage('scripts/shim.js')
+            ]
+        })),
         configureProject('peregrine', 'Peregrine', inPackage => ({
             // Make sure we can test extension files.
             moduleFileExtensions: [

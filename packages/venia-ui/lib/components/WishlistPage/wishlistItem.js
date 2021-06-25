@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { useToasts } from '@magento/peregrine';
 import { useWishlistItem } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItem';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import Image from '../Image';
 import Price from '../Price';
@@ -57,7 +57,7 @@ const WishlistItem = props => {
         }
     }, [addToast, formatMessage, hasError]);
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const optionElements = useMemo(() => {
         return configurableOptions.map(option => {

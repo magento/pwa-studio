@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 import { useCountry } from '@magento/peregrine/lib/talons/Country/useCountry';
 
@@ -20,7 +21,11 @@ test('renders a disabled dropdown while loading', () => {
         loading: true
     });
 
-    const tree = createTestInstance(<Country {...mockProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <Country {...mockProps} />
+        </Form>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -34,7 +39,11 @@ test('renders dropdown with country data', () => {
         loading: false
     });
 
-    const tree = createTestInstance(<Country {...mockProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <Country {...mockProps} />
+        </Form>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

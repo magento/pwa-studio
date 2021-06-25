@@ -6,7 +6,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 import { useCartOptions } from '@magento/peregrine/lib/talons/LegacyMiniCart/useCartOptions';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
 import Quantity from '../ProductQuantity';
@@ -58,7 +58,7 @@ const CartOptions = props => {
         isUpdateDisabled
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const options = isProductConfigurable(configItem) ? (
         <Suspense fallback={loadingIndicator}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 import { useRegion } from '@magento/peregrine/lib/talons/Region/useRegion';
 
@@ -18,7 +19,11 @@ test('renders disabled dropdown while loading', () => {
         regions: [{ label: 'Loading...', value: '' }]
     });
 
-    const tree = createTestInstance(<Region {...mockProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <Region {...mockProps} />
+        </Form>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -29,7 +34,11 @@ test('renders input with no regions', () => {
         regions: []
     });
 
-    const tree = createTestInstance(<Region {...mockProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <Region {...mockProps} />
+        </Form>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -43,7 +52,11 @@ test('renders dropdown with regions', () => {
         ]
     });
 
-    const tree = createTestInstance(<Region {...mockProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <Region {...mockProps} />
+        </Form>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

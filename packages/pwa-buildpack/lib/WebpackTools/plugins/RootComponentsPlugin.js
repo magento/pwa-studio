@@ -206,7 +206,7 @@ class RootComponentsPlugin {
         }`;
 
         // assign factory return value, the importer function, to global
-        const wrapped = `;window.fetchRootComponent = (${importerFactory})()`;
+        const wrapped = `;globalThis.fetchRootComponent = (${importerFactory})()`;
 
         return wrapped;
     }
