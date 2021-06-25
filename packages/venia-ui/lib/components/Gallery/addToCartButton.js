@@ -6,7 +6,7 @@ import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import defaultClasses from './addToCartButton.css';
 
-const addToCartIcon = <Icon size={20} src={Flag} />;
+//const addToCartIcon = <Icon size={20} src={Flag} />;
 
 const GalleryButton = props => {
     //const talonProps = useAddToCartButton(props);
@@ -19,9 +19,9 @@ const GalleryButton = props => {
     // for logic handleAddToCart later
 
     return (
-            <Button>
+            <button>
                 ADD TO CART
-            </Button>
+            </button>
     );
 };
 
