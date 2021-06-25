@@ -31,7 +31,7 @@ const WishlistPage = props => {
             return <Wishlist />;
         }
 
-        return wishlists.map(wishlist => (
+        return wishlists.map((wishlist, index) => (
             <Wishlist
                 key={wishlist.id}
                 collapsed={index !== 0}

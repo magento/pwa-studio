@@ -16,8 +16,11 @@ exports[`hides visibility toggle 1`] = `
         Favorites List
       </h2>
     </div>
-     
-    You have 20 items in this list
+    <div
+      className="itemsCountContainer"
+    >
+      You have 20 items in this list
+    </div>
     <div
       className="buttonsContainer"
     >
@@ -80,8 +83,11 @@ exports[`render closed with items 1`] = `
         Favorites List
       </h2>
     </div>
-     
-    You have 20 items in this list
+    <div
+      className="itemsCountContainer"
+    >
+      You have 20 items in this list
+    </div>
     <div
       className="buttonsContainer"
     >
@@ -147,6 +153,11 @@ exports[`render no button when id is not set 1`] = `
         />
       </h2>
     </div>
+    <div
+      className="itemsCountContainer"
+    >
+      You have 0 items in this list
+    </div>
   </div>
   <div
     className="content_hidden"
@@ -179,8 +190,11 @@ exports[`render open with no items 1`] = `
         Favorites List
       </h2>
     </div>
-     
-    You have 0 items in this list
+    <div
+      className="itemsCountContainer"
+    >
+      You have 0 items in this list
+    </div>
     <div
       className="buttonsContainer"
     >
@@ -251,8 +265,11 @@ exports[`renders a name even if none in data 1`] = `
         />
       </h2>
     </div>
-     
-    You have 20 items in this list
+    <div
+      className="itemsCountContainer"
+    >
+      You have 20 items in this list
+    </div>
     <div
       className="buttonsContainer"
     >

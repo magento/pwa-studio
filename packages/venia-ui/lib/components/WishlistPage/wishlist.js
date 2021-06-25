@@ -138,7 +138,10 @@ const Wishlist = props => {
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                {wishlistName} {itemsCountMessage}
+                {wishlistName}
+                <div className={classes.itemsCountContainer}>
+                    {itemsCountMessage}
+                </div>
                 {buttonsContainer}
             </div>
             <div className={contentClass}>{contentMessageElement}</div>

@@ -35,6 +35,11 @@
     grid-auto-flow: column;
 }
 
+.itemsCountContainer {
+    align-items: center;
+    display: grid;
+}
+
 .content_hidden {
     display: none;
 }
