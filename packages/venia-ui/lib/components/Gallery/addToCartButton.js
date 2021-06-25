@@ -1,5 +1,5 @@
 import React from 'react';
-//import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
+import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
 import { useScrollLock } from '@magento/peregrine';
 import Flag from 'react-feather'; 
 import { mergeClasses } from '../../classify';
@@ -20,11 +20,11 @@ const GalleryButton = props => {
         onClick: handleAddToCart, 
         disabled: isLoading, 
     }
-
+    //if selected 
     const buttonClass = isSelected ? classes.root_selected : classes.root; 
 
     return (
-            <button className = {buttonClass} {...buttonProps} >
+            <button onClick= {handleAddToCart} disabled={isLoading}>
                 {addToCartIcon}
             </button>
     );
