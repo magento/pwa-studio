@@ -97,7 +97,7 @@ describe('verify single wishlist basic features', () => {
             fixture: 'wishlist/multipleWishlist/oneWishlistNoProductsPage.json'
         }).as('getCustomerWishlist1');
         createWishlist('Test List1');
-        cy.wait(['@getCustomerWassertEmptyWishlistPageishlist1']).its(
+        cy.wait(['@getCustomerWishlist1']).its(
             'response.body'
         );
         cy.wait('@createWishlist1').should(result => {
