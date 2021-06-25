@@ -19,9 +19,10 @@ const GalleryButton = props => {
     // for logic handleAddToCart later
 
     return (
-            <button>
+            <Button>
                 ADD TO CART
-            </button>
+            </Button>
+            
     );
 };
 
