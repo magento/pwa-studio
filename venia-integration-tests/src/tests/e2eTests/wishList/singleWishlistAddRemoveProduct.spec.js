@@ -69,13 +69,11 @@ describe('verify single wishlist basic features', () => {
         assertProductInWishlist(productCarinaCardigan);
 
         cy.visitPage(productValeriaTwoLayeredTank.url);
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
         addProductToWishlistFromProductPage();
         cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
-        // assertProductInWishlist(productValeriaTwoLayeredTank.url);
+        assertProductInWishlist(productValeriaTwoLayeredTank.name);
 
         //This test also need to account for Remove the added product and assert for empty wishlist part of PWA-1683
     });

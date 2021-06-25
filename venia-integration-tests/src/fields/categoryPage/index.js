@@ -1,8 +1,8 @@
 export const categoryPageAddToWishListButton =
-    '*[class^="galleryButton-root-"]';
+    '*[class^="addToListButton-root-"]';
 
 export const categoryPageSelectedWishlistButton =
-    '*[class^="galleryButton-root_selected"]';
+    '*[class^="addToListButton-root_selected-"]';
 
 export const filterButton = 'button[class^="category-filterButton"]';
 
