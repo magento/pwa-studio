@@ -17,7 +17,6 @@ export const assertWishlistHeading = wishlistHeaderText => {
     cy.get(wishlistPageHeading).contains(wishlistHeaderText);
 };
 
-
 /**
  * Utility function to assert product exists in wishlist
  * @param {String} productName product to verify it exist in wishlist

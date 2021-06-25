@@ -7,4 +7,3 @@ export const productValeriaTwoLayeredTank = {
     name: 'Valeria Two-Layer Tank',
     url: '/valeria-two-layer-tank.html'
 };
-
