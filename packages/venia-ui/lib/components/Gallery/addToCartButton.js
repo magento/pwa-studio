@@ -19,11 +19,10 @@ const GalleryButton = props => {
     // for logic handleAddToCart later
 
     return (
-            <Button 
-            className={classes.root}
+            <button 
             type="button">
                 ADD TO CART
-            </Button>
+            </button>
             
     );
 };
