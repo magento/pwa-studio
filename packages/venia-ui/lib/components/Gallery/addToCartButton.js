@@ -1,29 +1,30 @@
 import React from 'react';
-//import { shape, string, number } from 'prop-types';
 //import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
 import { useScrollLock } from '@magento/peregrine';
-//import Dialog from '../Dialog/dialog';
 import Flag from 'react-feather'; 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
-import defaultClasses from './addToCartButton.css';
+//import defaultClasses from './addToCartButton.css';
 
 const addToCartIcon = <Icon size={20} src={Flag} />;
 
 const GalleryButton = props => {
     const talonProps = useAddToCartButton(props);
     const {
-        isOpen,
         isLoading,
-        handleOpenDialog,
-        handleCloseDialog,
         handleAddToCart
     } = talonProps;
-
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const buttonProps = {
+        onClick: handleAddToCart, 
+        disabled: isLoading, 
+    }
+
+    const buttonClass = isSelected ? classes.root_selected : classes.root; 
+
     return (
-            <button onClick={handleAddToCart} disabled = {isLoading} >
+            <button className = {buttonClass} {...buttonProps} >
                 {addToCartIcon}
             </button>
     );
