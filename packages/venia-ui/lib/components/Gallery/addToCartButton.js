@@ -1,10 +1,9 @@
 import React from 'react';
-import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
-import { useScrollLock } from '@magento/peregrine';
+//import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
+//import { useScrollLock } from '@magento/peregrine';
 import Button from '../Button';
 import { mergeClasses } from '../../classify';
-import Icon from '../Icon';
-import defaultClasses from './addToCartButton.css';
+//import defaultClasses from './addToCartButton.css';
 
 //const addToCartIcon = <Icon size={20} src={Flag} />;
 
@@ -19,10 +18,10 @@ const GalleryButton = props => {
     // for logic handleAddToCart later
 
     return (
-            <button 
+            <Button 
             type="button">
                 ADD TO CART
-            </button>
+            </Button>
             
     );
 };
