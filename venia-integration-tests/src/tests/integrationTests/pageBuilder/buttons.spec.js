@@ -1,4 +1,4 @@
-import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures/index';
+import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 describe('verify pagebuilder buttons content is rendered correctly', () => {
     it('verify buttons content', () => {
