@@ -9,7 +9,7 @@ import Icon from '../Icon';
 const addToCartIcon = <Icon size={20} src={Flag} />;
 
 const GalleryButton = props => {
-    const talonProps = useAddToCartButton(props);
+    //const talonProps = useAddToCartButton(props);
     const {
         isLoading,
         handleAddToCart
