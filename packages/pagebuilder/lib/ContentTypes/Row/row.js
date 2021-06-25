@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import defaultClasses from './row.css';
 import { verticalAlignmentToFlex } from '../../utils';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
-import { resourceUrl } from '@magento/venia-drivers';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useDetectScrollWidth } from '@magento/peregrine/lib/hooks/useDetectScrollWidth';
+
+const { matchMedia } = globalThis;
 
 /**
  * Page Builder Row component.
@@ -21,7 +23,7 @@ import { useDetectScrollWidth } from '@magento/peregrine/lib/hooks/useDetectScro
 const Row = props => {
     const backgroundElement = useRef(null);
     const [bgImageStyle, setBgImageStyle] = useState(null);
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const {
         appearance,
         verticalAlignment,
@@ -60,13 +62,10 @@ const Row = props => {
     } = props;
 
     let image = desktopImage;
-    if (
-        mobileImage &&
-        typeof window.matchMedia === 'function' &&
-        window.matchMedia('(max-width: 768px)').matches
-    ) {
+    if (mobileImage && matchMedia && matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
     }
+
     const dynamicStyles = {
         minHeight,
         backgroundColor,

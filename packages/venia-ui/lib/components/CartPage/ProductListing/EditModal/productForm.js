@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
 import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
 
-import { mergeClasses } from '../../../../classify';
+import { useStyle } from '../../../../classify';
 import FormError from '../../../FormError';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
@@ -43,7 +43,7 @@ const ProductForm = props => {
         handleClose
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const dialogButtonsDisabled = isLoading;
     const dialogSubmitButtonDisabled = isSaving;
     const dialogFormProps = {

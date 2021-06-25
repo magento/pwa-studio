@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 const MINUS_SYMBOL = '-';
 
@@ -38,7 +38,7 @@ const getDiscount = (discounts = []) => {
  * @param {Object} props.data fragment response data
  */
 const DiscountSummary = props => {
-    const classes = mergeClasses({}, props.classes);
+    const classes = useStyle({}, props.classes);
     const discount = getDiscount(props.data);
 
     return discount.value ? (

@@ -86,6 +86,7 @@ test('exposes all hooks and targets', async () => {
           talons.AccountChip.useAccountChip.wrapWith() wraps export "useAccountChip" from "AccountChip/useAccountChip.js"
           talons.AccountInformationPage.useAccountInformationPage.wrapWith() wraps export "useAccountInformationPage" from "AccountInformationPage/useAccountInformationPage.js"
           talons.AccountMenu.useAccountMenuItems.wrapWith() wraps export "useAccountMenuItems" from "AccountMenu/useAccountMenuItems.js"
+          talons.Adapter.useAdapter.wrapWith() wraps export "useAdapter" from "Adapter/useAdapter.js"
           talons.AddToCartDialog.useAddToCartDialog.wrapWith() wraps export "useAddToCartDialog" from "AddToCartDialog/useAddToCartDialog.js"
           talons.AddressBookPage.useAddressBookPage.wrapWith() wraps export "useAddressBookPage" from "AddressBookPage/useAddressBookPage.js"
           talons.App.useApp.wrapWith() wraps export "useApp" from "App/useApp.js"

@@ -1,18 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders gift options in venia cart page 1`] = `
-<div>
-  <ul>
-    <label
-      htmlFor="includeGiftReceipt"
-    >
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <label>
       <input
-        checked={true}
-        id="includeGiftReceipt"
+        checked={false}
+        id="00000000-0000-4000-8000-000000000000"
         name="includeGiftReceipt"
         onBlur={[Function]}
         onChange={[Function]}
-        onClick={[Function]}
         type="checkbox"
       />
       <span>
@@ -27,11 +28,13 @@ exports[`it renders gift options in venia cart page 1`] = `
           width="24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <polyline
-            points="9 11 12 14 22 4"
-          />
-          <path
-            d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+          <rect
+            height="18"
+            rx="2"
+            ry="2"
+            width="18"
+            x="3"
+            y="3"
           />
         </svg>
       </span>
@@ -40,18 +43,15 @@ exports[`it renders gift options in venia cart page 1`] = `
       </span>
     </label>
     <p />
-  </ul>
-  <ul>
-    <label
-      htmlFor="includePrintedCard"
-    >
+  </div>
+  <div>
+    <label>
       <input
         checked={false}
-        id="includePrintedCard"
+        id="00000000-0000-4000-8000-000000000000"
         name="includePrintedCard"
         onBlur={[Function]}
         onChange={[Function]}
-        onClick={[Function]}
         type="checkbox"
       />
       <span>
@@ -81,7 +81,7 @@ exports[`it renders gift options in venia cart page 1`] = `
       </span>
     </label>
     <p />
-  </ul>
-  <ul />
-</div>
+  </div>
+  <div />
+</form>
 `;

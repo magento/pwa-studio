@@ -4,7 +4,7 @@ import { shape, string, bool, func, arrayOf } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useAddressCard } from '@magento/peregrine/lib/talons/CheckoutPage/AddressBook/useAddressCard';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import defaultClasses from './addressCard.css';
 
@@ -44,7 +44,7 @@ const AddressCard = props => {
         return <span key={index}>{row}</span>;
     });
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const rootClass = isSelected
         ? hasUpdate

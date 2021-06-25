@@ -10,7 +10,7 @@ import {
     string
 } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import { Check as CheckIcon } from 'react-feather';
 
@@ -44,7 +44,7 @@ const Swatch = props => {
         return isSelected ? <Icon src={CheckIcon} /> : null;
     }, [isSelected]);
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     let finalStyle = style;
 

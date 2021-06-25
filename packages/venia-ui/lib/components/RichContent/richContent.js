@@ -1,5 +1,5 @@
 import React from 'react';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './richContent.css';
 import { shape, string } from 'prop-types';
 import richContentRenderers from './richContentRenderers';
@@ -18,7 +18,7 @@ import richContentRenderers from './richContentRenderers';
  * @returns {React.Element} A React component that renders Heading with optional styling properties.
  */
 const RichContent = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rendererProps = {
         ...props,
         classes

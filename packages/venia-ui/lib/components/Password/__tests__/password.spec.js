@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import { usePassword } from '@magento/peregrine/lib/talons/Password/usePassword';
@@ -14,12 +15,14 @@ jest.mock('@magento/peregrine/lib/talons/Password/usePassword', () => ({
 
 test('should render properly', () => {
     const tree = createTestInstance(
-        <Password
-            label="Password"
-            fieldName="password"
-            isToggleButtonHidden={true}
-            autoComplete="password"
-        />
+        <Form>
+            <Password
+                label="Password"
+                fieldName="password"
+                isToggleButtonHidden={true}
+                autoComplete="password"
+            />
+        </Form>
     );
 
     expect(tree.toJSON()).toMatchSnapshot();
@@ -32,12 +35,14 @@ test('should render toggle button if isToggleButtonHidden is false', () => {
     });
 
     const tree = createTestInstance(
-        <Password
-            label="Password"
-            fieldName="password"
-            isToggleButtonHidden={false}
-            autoComplete="password"
-        />
+        <Form>
+            <Password
+                label="Password"
+                fieldName="password"
+                isToggleButtonHidden={false}
+                autoComplete="password"
+            />
+        </Form>
     );
 
     expect(tree.toJSON()).toMatchSnapshot();
@@ -50,12 +55,14 @@ test('should render show button if visible is false', () => {
     });
 
     const tree = createTestInstance(
-        <Password
-            label="Password"
-            fieldName="password"
-            isToggleButtonHidden={false}
-            autoComplete="password"
-        />
+        <Form>
+            <Password
+                label="Password"
+                fieldName="password"
+                isToggleButtonHidden={false}
+                autoComplete="password"
+            />
+        </Form>
     );
 
     expect(tree.toJSON()).toMatchSnapshot();

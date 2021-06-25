@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useIntl } from 'react-intl';
 
@@ -20,6 +20,8 @@ export const useWishlist = props => {
         getMultipleWishlistsEnabledQuery,
         addProductToWishlistMutation
     } = operations;
+
+    const [isWishlistDialogOpen, setIsWishlistDialogOpen] = useState(false);
 
     const { formatMessage } = useIntl();
 
@@ -44,7 +46,49 @@ export const useWishlist = props => {
         );
     }, [storeConfigData]);
 
-    const handleAddToWishlist = useCallback(async () => {
+    const handleAddToWishlistSuccess = useCallback(
+        async wishlistData => {
+            try {
+                if (wishlistData) {
+                    const {
+                        name
+                    } = wishlistData.addProductsToWishlist.wishlist;
+
+                    onAddToWishlistSuccess({
+                        type: 'info',
+                        message: formatMessage(
+                            {
+                                id: 'cartPage.wishlist.ee.successMessage',
+                                defaultMessage: `Item successfully added to ${name}.`
+                            },
+                            { wishlistName: name }
+                        ),
+                        timeout: 5000
+                    });
+                }
+
+                await onWishlistUpdate({
+                    variables: {
+                        cartId,
+                        itemId: item.id
+                    }
+                });
+            } catch (err) {
+                console.error(err);
+
+                throw new Error(err);
+            }
+        },
+        [
+            cartId,
+            formatMessage,
+            item.id,
+            onAddToWishlistSuccess,
+            onWishlistUpdate
+        ]
+    );
+
+    const moveProductToWishlist = useCallback(async () => {
         const sku = item.product.sku;
         const quantity = item.quantity;
         const selected_options = item.configurable_options
@@ -53,16 +97,10 @@ export const useWishlist = props => {
               )
             : [];
 
-        /**
-         * When we work on when we work on https://jira.corp.magento.com/browse/PWA-1599
-         * this logic will change to the wishlist the user would like to add the item to.
-         */
-        const wishlistId = isMultipleWishlistsEnabled ? '0' : '0';
-
         try {
             const { data: wishlistData } = await addProductToWishlist({
                 variables: {
-                    wishlistId,
+                    wishlistId: '0',
                     itemOptions: {
                         sku,
                         quantity,
@@ -71,28 +109,7 @@ export const useWishlist = props => {
                 }
             });
 
-            if (wishlistData) {
-                const { name } = wishlistData.addProductsToWishlist.wishlist;
-
-                onAddToWishlistSuccess({
-                    type: 'info',
-                    message: formatMessage(
-                        {
-                            id: 'cartPage.wishlist.ee.successMessage',
-                            defaultMessage: `Item successfully added to ${name}.`
-                        },
-                        { wishlistName: name }
-                    ),
-                    timeout: 5000
-                });
-            }
-
-            await onWishlistUpdate({
-                variables: {
-                    cartId,
-                    itemId: item.id
-                }
-            });
+            await handleAddToWishlistSuccess(wishlistData);
         } catch (err) {
             console.error(err);
 
@@ -101,17 +118,29 @@ export const useWishlist = props => {
         }
     }, [
         addProductToWishlist,
-        isMultipleWishlistsEnabled,
-        formatMessage,
-        onWishlistUpdate,
-        cartId,
         item,
-        onAddToWishlistSuccess,
-        onWishlistUpdateError
+        onWishlistUpdateError,
+        handleAddToWishlistSuccess
     ]);
 
+    const handleAddToWishlist = useCallback(async () => {
+        if (isMultipleWishlistsEnabled) {
+            setIsWishlistDialogOpen(true);
+        } else {
+            await moveProductToWishlist();
+        }
+    }, [moveProductToWishlist, isMultipleWishlistsEnabled]);
+
+    const handleWishlistDialogClose = useCallback(() => {
+        setIsWishlistDialogOpen(false);
+    }, []);
+
     return {
+        isMultipleWishlistsEnabled,
+        isWishlistDialogOpen,
         handleAddToWishlist,
+        handleWishlistDialogClose,
+        handleAddToWishlistSuccess,
         loading,
         called,
         error

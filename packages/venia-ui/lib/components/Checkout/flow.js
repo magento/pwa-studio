@@ -6,7 +6,7 @@ import { gql } from '@apollo/client';
 import { useToasts } from '@magento/peregrine';
 import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import isObjectEmpty from '../../util/isObjectEmpty';
 import Icon from '../Icon';
 import CheckoutButton from './checkoutButton';
@@ -63,7 +63,7 @@ const Flow = props => {
         shippingMethod
     } = checkoutState;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     let child;
     switch (step) {

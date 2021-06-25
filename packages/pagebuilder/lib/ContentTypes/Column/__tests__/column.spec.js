@@ -2,9 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Column from '../column';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(src => src)
-}));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 test('renders a Column component', () => {
     const component = createTestInstance(<Column />);
@@ -22,19 +20,6 @@ test('renders a Column with appearance align bottom', () => {
 });
 
 test('renders a Column component with all props configured', () => {
-    window.matchMedia = jest.fn().mockImplementation(query => {
-        return {
-            matches: false,
-            media: query,
-            onchange: null,
-            addListener: jest.fn(), // deprecated
-            removeListener: jest.fn(), // deprecated
-            addEventListener: jest.fn(),
-            removeEventListener: jest.fn(),
-            dispatchEvent: jest.fn()
-        };
-    });
-
     const columnProps = {
         appearance: 'full-height',
         backgroundAttachment: 'scroll',
@@ -76,7 +61,7 @@ test('renders a Column component with all props configured', () => {
 });
 
 test('renders a Column component for mobile screen with mobileImage set', () => {
-    window.matchMedia = jest.fn().mockImplementation(query => {
+    matchMedia.mockImplementation(query => {
         return {
             matches: true,
             media: query,
@@ -108,7 +93,7 @@ test('renders a Column component for mobile screen with mobileImage set', () => 
 });
 
 test('renders a Column component for mobile screen without mobileImage set', () => {
-    window.matchMedia = jest.fn().mockImplementation(query => {
+    matchMedia.mockImplementation(query => {
         return {
             matches: true,
             media: query,

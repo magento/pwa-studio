@@ -1,12 +1,13 @@
 import React from 'react';
 import { string, number, shape } from 'prop-types';
-import { Link, resourceUrl } from '@magento/venia-drivers';
+import { Link } from 'react-router-dom';
 import Price from '@magento/venia-ui/lib/components/Price';
-import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
 import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
+import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Image from '../Image';
 import defaultClasses from './item.css';
 import WishlistGalleryButton from '../Wishlist/GalleryButton';
@@ -41,7 +42,7 @@ const ItemPlaceholder = ({ classes }) => (
 const GalleryItem = props => {
     const { handleLinkClick, item, storeConfig } = useGalleryItem(props);
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     if (!item) {
         return <ItemPlaceholder classes={classes} />;

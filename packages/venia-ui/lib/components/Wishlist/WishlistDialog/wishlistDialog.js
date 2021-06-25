@@ -5,7 +5,7 @@ import { Relevant } from 'informed';
 import { useWishlistDialog } from '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/useWishlistDialog';
 
 import Dialog from '@magento/venia-ui/lib/components/Dialog';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import FormError from '@magento/venia-ui/lib/components/FormError';
 
 import CreateWishlistForm from './CreateWishlistForm';
@@ -15,12 +15,14 @@ import defaultClasses from './wishlistDialog.css';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 
 const WishlistDialog = props => {
-    const { isOpen, itemOptions, onClose } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const { isOpen, itemOptions, onClose, onSuccess } = props;
+    const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useWishlistDialog({
+        isLoading: props.isLoading,
         itemOptions,
-        onClose
+        onClose,
+        onSuccess
     });
 
     const {
@@ -30,7 +32,7 @@ const WishlistDialog = props => {
         handleCancel,
         handleNewListClick,
         handleCancelNewList,
-        isAddLoading,
+        isLoading,
         isFormOpen,
         wishlistsData
     } = talonProps;
@@ -50,7 +52,7 @@ const WishlistDialog = props => {
                     <li key={wishlist.id}>
                         <WishlistLineItem
                             id={wishlist.id}
-                            isDisabled={isAddLoading}
+                            isDisabled={isLoading}
                             onClick={handleAddToWishlist}
                         >
                             {name}
@@ -65,7 +67,7 @@ const WishlistDialog = props => {
     }, [
         classes.existingWishlists,
         handleAddToWishlist,
-        isAddLoading,
+        isLoading,
         wishlistsData
     ]);
 
@@ -83,7 +85,7 @@ const WishlistDialog = props => {
             <Relevant when={shouldRenderForm}>
                 <CreateWishlistForm
                     onCreateList={handleAddToWishlist}
-                    isAddLoading={isAddLoading}
+                    isAddLoading={isLoading}
                     onCancel={handleCancelNewList}
                 />
             </Relevant>
@@ -116,9 +118,10 @@ const WishlistDialog = props => {
 
 export default WishlistDialog;
 
-WishlistDialog.defaultProps = {
+WishlistDialog.propTypes = {
     classes: shape({}),
     isOpen: bool,
+    isLoading: bool,
     itemOptions: shape({
         entered_options: arrayOf(
             shape({
@@ -131,5 +134,6 @@ WishlistDialog.defaultProps = {
         selected_options: arrayOf(string),
         quantity: number.isRequired
     }),
-    onClose: func
+    onClose: func,
+    onSuccess: func
 };

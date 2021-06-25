@@ -2,7 +2,7 @@ import React from 'react';
 import { func, shape, string } from 'prop-types';
 import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import CreateAccount from '../CreateAccount';
 import ForgotPassword from '../ForgotPassword';
 import MyAccount from '../MyAccount';
@@ -21,7 +21,7 @@ const AuthModal = props => {
         username
     } = useAuthModal(props);
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     let child = null;
     switch (props.view) {

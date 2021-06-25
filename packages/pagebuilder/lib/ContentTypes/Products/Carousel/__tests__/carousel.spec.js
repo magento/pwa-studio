@@ -5,8 +5,11 @@ import Carousel from '../carousel';
 
 jest.mock('react-slick', () => props => <mock-SlickSlider {...props} />);
 
+jest.mock('react-router-dom', () => ({
+    Link: ({ children }) => children
+}));
+
 jest.mock('@magento/venia-drivers', () => ({
-    Link: ({ children }) => children,
     resourceUrl: () => 'a.url'
 }));
 
