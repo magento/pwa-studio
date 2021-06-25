@@ -4,7 +4,7 @@ import { useScrollLock } from '@magento/peregrine';
 import Flag from 'react-feather'; 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
-//import defaultClasses from './addToCartButton.css';
+import defaultClasses from './addToCartButton.css';
 
 const addToCartIcon = <Icon size={20} src={Flag} />;
 
@@ -15,16 +15,11 @@ const GalleryButton = props => {
         handleAddToCart
     } = talonProps;
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const buttonProps = {
-        onClick: handleAddToCart, 
-        disabled: isLoading, 
-    }
     //if selected 
-    const buttonClass = isSelected ? classes.root_selected : classes.root; 
+    // for logic handleAddToCart later
 
     return (
-            <button onClick= {handleAddToCart} disabled={isLoading}>
+            <button>
                 {addToCartIcon}
             </button>
     );
