@@ -1,26 +1,32 @@
 import React from 'react';
-//import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
 //import { useScrollLock } from '@magento/peregrine';
-import Button from '../Button';
+
 import { mergeClasses } from '../../classify';
 import defaultClasses from './addToCartButton.css';
 
 const GalleryButton = props => {
+    /*
     //const talonProps = useAddToCartButton(props);
     const {
+        isSelected,
+        errorToastProps, // use commonToasts
+        loginToastProps, 
+        successToastProps, 
         isLoading,
         handleAddToCart
     } = talonProps;
+    */
     const classes = mergeClasses(defaultClasses, props.classes);
-    const buttonClass = isSelected? classes.root_selected : classes.root; 
+    const handleOnClick = () => { }
 
     return (
-            <Button 
-            className = {buttonClass}
-            type="button">
-                ADD TO CART
-            </Button>
-            
+        <button
+            className={classes.root}
+            type="button"
+            onClick={handleOnClick}
+        >
+            ADD TO CART
+        </button>
     );
 };
 
