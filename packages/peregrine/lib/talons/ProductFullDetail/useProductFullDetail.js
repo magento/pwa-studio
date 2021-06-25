@@ -9,7 +9,7 @@ import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingPro
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
-import defaultOperations from './productFullDetail.gql.ce';
+import defaultOperations from './productFullDetail.gql';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
