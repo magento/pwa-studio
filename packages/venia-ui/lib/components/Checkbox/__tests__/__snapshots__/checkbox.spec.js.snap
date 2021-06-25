@@ -8,12 +8,11 @@ exports[`renders the correct tree 1`] = `
 >
   <label
     className="root"
-    htmlFor="a"
   >
     <input
       checked={false}
       className="input"
-      id="a"
+      id="00000000-0000-4000-8000-000000000000"
       name="a"
       onBlur={[Function]}
       onChange={[Function]}

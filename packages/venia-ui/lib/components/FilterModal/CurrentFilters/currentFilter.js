@@ -3,15 +3,15 @@ import { useIntl } from 'react-intl';
 import { shape, string, func } from 'prop-types';
 import { X as Remove } from 'react-feather';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import Trigger from '../../Trigger';
 import defaultClasses from './currentFilter.css';
 
 const CurrentFilter = props => {
     const { group, item, removeItem, onRemove } = props;
+    const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {
         removeItem({ group, item });

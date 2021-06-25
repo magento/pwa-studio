@@ -4,11 +4,12 @@ import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBre
 
 import Breadcrumbs from '../breadcrumbs';
 
-jest.mock('@magento/venia-drivers', () => ({
-    Link: ({ children }) => children,
-    resourceUrl: url => `${url}.html`
+jest.mock('react-router-dom', () => ({
+    Link: ({ children }) => children
 }));
-
+jest.mock('@magento/peregrine/lib/util/makeUrl', () =>
+    jest.fn(url => `${url}.html`)
+);
 jest.mock('../../../classify');
 jest.mock('@magento/peregrine/lib/talons/Breadcrumbs/useBreadcrumbs');
 

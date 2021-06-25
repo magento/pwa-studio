@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Field from '../Field';
 import LinkButton from '../LinkButton';
 import Password from '../Password';
@@ -25,7 +25,7 @@ const EditForm = props => {
     } = props;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const maybeNewPasswordField = shouldShowNewPassword ? (
         <div className={classes.newPassword}>

@@ -1,18 +1,18 @@
 import React, { useMemo } from 'react';
 import { number, string, shape } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
-
-import { Link, resourceUrl } from '@magento/venia-drivers';
+import { Link } from 'react-router-dom';
 import { useNoProductsFound } from '@magento/peregrine/lib/talons/RootComponents/Category';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import Image from '../../../components/Image';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import noProductsFound from './noProductsFound.png';
 import defaultClasses from './noProductsFound.css';
 
 const NoProductsFound = props => {
     const { categoryId } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const { formatMessage } = useIntl();
     const talonProps = useNoProductsFound({

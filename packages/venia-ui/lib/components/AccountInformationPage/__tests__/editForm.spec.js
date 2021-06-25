@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import EditForm from '../editForm';
@@ -16,7 +17,11 @@ test('renders form when shouldShowNewPassword is false', () => {
         shouldShowNewPassword: false
     };
 
-    const tree = createTestInstance(<EditForm {...props} />);
+    const tree = createTestInstance(
+        <Form>
+            <EditForm {...props} />
+        </Form>
+    );
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
@@ -26,6 +31,10 @@ test('renders form when shouldShowNewPassword is true ', () => {
         shouldShowNewPassword: true
     };
 
-    const tree = createTestInstance(<EditForm {...props} />);
+    const tree = createTestInstance(
+        <Form>
+            <EditForm {...props} />
+        </Form>
+    );
     expect(tree.toJSON()).toMatchSnapshot();
 });

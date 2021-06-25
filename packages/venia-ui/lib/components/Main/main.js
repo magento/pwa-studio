@@ -2,14 +2,14 @@ import React from 'react';
 import { bool, shape, string } from 'prop-types';
 import { useScrollLock } from '@magento/peregrine';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Footer from '../Footer';
 import Header from '../Header';
 import defaultClasses from './main.css';
 
 const Main = props => {
     const { children, isMasked } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const rootClass = isMasked ? classes.root_masked : classes.root;
     const pageClass = isMasked ? classes.page_masked : classes.page;

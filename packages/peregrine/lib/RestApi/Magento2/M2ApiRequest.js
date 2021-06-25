@@ -152,7 +152,8 @@ class M2ApiRequest {
      */
     /* istanbul ignore next */
     _transport(...args) {
-        return window.fetch(...args);
+        // TODO: add isomorphic-fetch so this works in Node?
+        return globalThis.fetch(...args);
     }
     /**
      * Use the AbortController API to make a cancelable fetch request.
