@@ -14,7 +14,7 @@ Talons are React hooks, and React hooks are plain functions.
 Therefore, you can use the function wrapper pattern to intercept talon functions.
 
 The `talon.wrapWith(module)` method is similar to the [interceptor pattern](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/plugins.html) used in Magento backend plugins.
-During the build process, the extensibility framework dynamically wraps a talon implentation with code from a wrapper module by passing the talon function through the wrapper module before exporting it.
+During the build process, the extensibility framework dynamically wraps a talon implementation with code from a wrapper module by passing the talon function through the wrapper module before exporting it.
 
 ### Requirements
 
