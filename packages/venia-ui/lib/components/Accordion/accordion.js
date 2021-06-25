@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 
 import { useAccordion } from '@magento/peregrine/lib/talons/Accordion/useAccordion';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './accordion.css';
 
 const AccordionContext = createContext();
@@ -19,7 +19,7 @@ const Accordion = props => {
         openSectionIds
     };
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <Provider value={contextValue}>

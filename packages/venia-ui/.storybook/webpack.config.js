@@ -30,7 +30,7 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
     const { availableStores } = await getAvailableStoresConfigData();
     global.LOCALE = storeConfigData.locale.replace('_', '-');
 
-    const webpackConfig = await baseWebpackConfig(mode);
+    const [webpackConfig] = await baseWebpackConfig(mode);
 
     storybookBaseConfig.module = webpackConfig.module;
     storybookBaseConfig.resolve = webpackConfig.resolve;

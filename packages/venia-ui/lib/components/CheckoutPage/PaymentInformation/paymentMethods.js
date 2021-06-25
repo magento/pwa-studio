@@ -1,12 +1,12 @@
 import React from 'react';
 import { shape, string, bool, func } from 'prop-types';
-import { RadioGroup } from 'informed';
 import { useIntl } from 'react-intl';
 
 import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods';
 
-import { mergeClasses } from '../../../classify';
-import Radio from '../../RadioGroup/radio';
+import { useStyle } from '../../../classify';
+import RadioGroup from '@magento/venia-ui/lib/components/RadioGroup';
+import Radio from '@magento/venia-ui/lib/components/RadioGroup/radio';
 import paymentMethodOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.css';
 import payments from './paymentMethodCollection';
@@ -22,7 +22,7 @@ const PaymentMethods = props => {
 
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = usePaymentMethods({
         ...paymentMethodOperations
@@ -46,6 +46,7 @@ const PaymentMethods = props => {
                 return;
             }
 
+            const id = `paymentMethod--${code}`;
             const isSelected = currentSelectedPaymentMethod === code;
             const PaymentMethodComponent = payments[code];
             const renderedComponent = isSelected ? (
@@ -60,6 +61,7 @@ const PaymentMethods = props => {
             return (
                 <div key={code} className={classes.payment_method}>
                     <Radio
+                        id={id}
                         label={title}
                         value={code}
                         classes={{

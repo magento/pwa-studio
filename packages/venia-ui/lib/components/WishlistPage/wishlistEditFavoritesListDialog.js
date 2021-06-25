@@ -2,7 +2,7 @@ import React from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 import { useIntl } from 'react-intl';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Dialog from '../Dialog';
 import defaultClasses from './wishlistEditFavoritesListDialog.css';
 import TextInput from '../TextInput';
@@ -23,7 +23,7 @@ const WishlistEditFavoritesListDialog = props => {
 
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const dialogTitle = formatMessage({
         id: 'wishlistEditFavoritesListDialog.title',

@@ -4,10 +4,15 @@ import actions from '../actions/app';
 
 export const name = 'app';
 
+// as far as the server is concerned, the app is always online
+const isServer = !globalThis.navigator;
+const isOnline = !isServer && navigator.onLine;
+const hasBeenOffline = !isServer && !navigator.onLine;
+
 const initialState = {
     drawer: null,
-    hasBeenOffline: !navigator.onLine,
-    isOnline: navigator.onLine,
+    hasBeenOffline,
+    isOnline,
     isPageLoading: false,
     overlay: false,
     pending: {},

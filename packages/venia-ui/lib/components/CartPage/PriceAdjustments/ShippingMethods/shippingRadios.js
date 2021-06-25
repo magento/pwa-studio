@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import { arrayOf, string, shape, number } from 'prop-types';
 import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
 
-import { mergeClasses } from '../../../../classify';
+import { useStyle } from '../../../../classify';
 import RadioGroup from '../../../RadioGroup';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import ShippingRadio from './shippingRadio';
@@ -40,7 +40,7 @@ const ShippingRadios = props => {
         };
     });
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const radioGroupClasses = {
         radioLabel: classes.radioContents,
         root: classes.radioRoot

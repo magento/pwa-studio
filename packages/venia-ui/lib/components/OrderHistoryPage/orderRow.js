@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useOrderRow } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderRow';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import CollapsedImageGallery from './collapsedImageGallery';
 import OrderProgressBar from './orderProgressBar';
@@ -66,7 +66,7 @@ const OrderRow = props => {
     const talonProps = useOrderRow({ items });
     const { loading, isOpen, handleContentToggle, imagesData } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const contentClass = isOpen ? classes.content : classes.content_collapsed;
 

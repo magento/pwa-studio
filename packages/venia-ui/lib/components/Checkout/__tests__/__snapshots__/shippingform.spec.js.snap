@@ -14,6 +14,18 @@ exports[`renders a shipping form 1`] = `
       <label>
         Shipping Method
       </label>
+      <Select
+        field="shippingMethod"
+        initialValue="flatrate"
+        items={
+          Array [
+            Object {
+              "label": "Flat Rate",
+              "value": "flatrate",
+            },
+          ]
+        }
+      />
     </div>
   </div>
   <div>
@@ -52,6 +64,11 @@ exports[`renders no initial value and no shipping methods if no availableShippin
       <label>
         Shipping Method
       </label>
+      <Select
+        field="shippingMethod"
+        initialValue=""
+        items={Array []}
+      />
     </div>
   </div>
   <div>

@@ -5,17 +5,17 @@ import {
     homePage as homePageFixtures,
     wishlist as wishlistFixtures,
     productPage as productPageFixtures
-} from '../../../fixtures/index';
+} from '../../../fixtures';
 import {
     categoryPage as categoryPageActions,
     myAccountMenu as myAccountMenuActions,
     productPage as productPageActions
-} from '../../../actions/index';
+} from '../../../actions';
 import {
     myAccountMenu as myAccountMenuAssertions,
     wishlist as wishlistAssertions,
     categoryPage as categoryPageAssertions
-} from '../../../assertions/index';
+} from '../../../assertions';
 
 const {
     firstName,
@@ -26,8 +26,8 @@ const {
 const { wishlistPage } = myAccountMenuFixtures;
 const { categorySweaters, productCarinaCardigan } = categoryPageFixtures;
 const { homePage } = homePageFixtures;
-const { wishlistRoute } = wishlistFixtures;
-const { productValeriaTwoLayeredTank } = productPageFixtures;
+const { wishistRoute } = wishlistFixtures;
+const { productValeriaTwoLayeredTankUrl } = productPageFixtures;
 
 const { goToMyAccount } = myAccountMenuActions;
 const { addProductToWishlistFromCategoryPage } = categoryPageActions;
@@ -36,7 +36,7 @@ const { addProductToWishlistFromProductPage } = productPageActions;
 const { assertCreateAccount } = myAccountMenuAssertions;
 const {
     assertWishlistHeading,
-    assertEmptyWishlistPage,
+    assertEmptyWishlistExists,
     assertProductInWishlist
 } = wishlistAssertions;
 const { assertWishlistSelectedProductOnCategoryPage } = categoryPageAssertions;
@@ -59,7 +59,7 @@ describe('verify single wishlist basic features', () => {
         goToMyAccount(firstName, wishlistPage);
 
         assertWishlistHeading(wishlistPage);
-        assertEmptyWishlistPage();
+        assertEmptyWishlistExists('Wish List');
 
         cy.visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);

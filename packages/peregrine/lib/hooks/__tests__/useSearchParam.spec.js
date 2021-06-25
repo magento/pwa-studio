@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { useSearchParam } from '../useSearchParam';
 import createTestInstance from '../../util/createTestInstance';
@@ -38,14 +37,4 @@ test("sets value to empty string if `parameter` isn't found", () => {
 
     expect(setValue).toHaveBeenCalledTimes(1);
     expect(setValue).toHaveBeenNthCalledWith(1, '');
-});
-
-test("uses `window.location` if `location` isn't provided", () => {
-    useLocation.mockReturnValueOnce(undefined);
-    window.history.pushState({}, '', '/search.html?a=b&c=d');
-
-    createTestInstance(<Component parameter="c" setValue={setValue} />);
-
-    expect(setValue).toHaveBeenCalledTimes(1);
-    expect(setValue).toHaveBeenNthCalledWith(1, 'd');
 });

@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
@@ -11,7 +11,7 @@ import TextInput from '../../TextInput';
 import defaultClasses from './forgotPasswordForm.css';
 
 const ForgotPasswordForm = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { initialValues, isResettingPassword, onSubmit, onCancel } = props;
 
     const { formatMessage } = useIntl();

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import CreateWishlist from '../createWishlist.ee';
@@ -23,7 +24,11 @@ jest.mock(
 );
 
 test('renders correctly', () => {
-    const tree = createTestInstance(<CreateWishlist />);
+    const tree = createTestInstance(
+        <Form>
+            <CreateWishlist />
+        </Form>
+    );
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
@@ -31,6 +36,16 @@ test('does not renders when multiple wishlist disabled', () => {
     useCreateWishlist.mockReturnValue({
         shouldRender: false
     });
-    const tree = createTestInstance(<CreateWishlist />);
-    expect(tree.toJSON()).toMatchInlineSnapshot(`null`);
+    const tree = createTestInstance(
+        <Form>
+            <CreateWishlist />
+        </Form>
+    );
+    expect(tree.toJSON()).toMatchInlineSnapshot(`
+        <form
+          onKeyDown={[Function]}
+          onReset={[Function]}
+          onSubmit={[Function]}
+        />
+    `);
 });

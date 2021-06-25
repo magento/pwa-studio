@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
 import { useAccountTrigger } from '@magento/peregrine/lib/talons/Header/useAccountTrigger';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import AccountChip from '../AccountChip';
 
@@ -28,7 +28,7 @@ const AccountTrigger = props => {
         handleTriggerClick
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = accountMenuIsOpen ? classes.root_open : classes.root;
     const { formatMessage } = useIntl();
 
