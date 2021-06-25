@@ -13,7 +13,8 @@ import {
 } from '../../../actions';
 import {
     myAccountMenu as myAccountMenuAssertions,
-    wishlist as wishlistAssertions
+    wishlist as wishlistAssertions,
+    categoryPage as categoryPageAssertions
 } from '../../../assertions';
 
 const {
@@ -25,8 +26,8 @@ const {
 const { wishlistPage } = myAccountMenuFixtures;
 const { categorySweaters, productCarinaCardigan } = categoryPageFixtures;
 const { homePage } = homePageFixtures;
-const { wishistRoute } = wishlistFixtures;
-const { productValeriaTwoLayeredTankUrl } = productPageFixtures;
+const { wishlistRoute } = wishlistFixtures;
+const { productValeriaTwoLayeredTank } = productPageFixtures;
 
 const { goToMyAccount } = myAccountMenuActions;
 const { addProductToWishlistFromCategoryPage } = categoryPageActions;
@@ -35,9 +36,10 @@ const { addProductToWishlistFromProductPage } = productPageActions;
 const { assertCreateAccount } = myAccountMenuAssertions;
 const {
     assertWishlistHeading,
-    assertEmptyWishlist,
+    assertEmptyWishlistExists,
     assertProductInWishlist
 } = wishlistAssertions;
+const { assertWishlistSelectedProductOnCategoryPage } = categoryPageAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
@@ -57,22 +59,23 @@ describe('verify single wishlist basic features', () => {
         goToMyAccount(firstName, wishlistPage);
 
         assertWishlistHeading(wishlistPage);
-        assertEmptyWishlist();
+        assertEmptyWishlistExists('Wish List');
 
         cy.visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
-        cy.visitPage(wishistRoute);
+        assertWishlistSelectedProductOnCategoryPage(productCarinaCardigan);
+        cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
 
-        cy.visitPage(productValeriaTwoLayeredTankUrl);
+        cy.visitPage(productValeriaTwoLayeredTank.url);
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
         addProductToWishlistFromProductPage();
-        cy.visitPage(wishistRoute);
+        cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
         //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
-        // assertProductInWishlist(productValeriaTwoLayeredTankUrl);
+        // assertProductInWishlist(productValeriaTwoLayeredTank.url);
 
         //This test also need to account for Remove the added product and assert for empty wishlist part of PWA-1683
     });

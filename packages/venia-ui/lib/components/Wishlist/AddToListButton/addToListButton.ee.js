@@ -3,7 +3,7 @@ import { element, func, shape, string } from 'prop-types';
 import { Heart } from 'react-feather';
 import { useAddToListButton } from '@magento/peregrine/lib/talons/Wishlist/AddToListButton/useAddToListButton';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import WishlistDialog from '../WishlistDialog';
 import defaultClasses from './addToListButton.css';
@@ -29,7 +29,7 @@ const AddToListButton = props => {
         <WishlistDialog {...modalProps} />
     ) : null;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const buttonClass = isSelected ? classes.root_selected : classes.root;
 
     return (

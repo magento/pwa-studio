@@ -2,9 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import TabItem from '../tabItem';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(src => src)
-}));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 test('render tab item with no props', () => {
     const component = createTestInstance(<TabItem />);
@@ -48,7 +46,7 @@ test('render tab item with mobile image displayed', () => {
         mobileImage: 'mobile.jpg'
     };
 
-    window.matchMedia = jest.fn().mockImplementation(query => {
+    matchMedia.mockImplementation(query => {
         return {
             matches: true,
             media: query

@@ -1,6 +1,8 @@
+import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
+const { getCMSPage } = graphqlMockedCallsFixtures;
 describe('verify pagebuilder buttons content is rendered correctly', () => {
     it('verify buttons content', () => {
-        cy.intercept('GET', '**/graphql?query=query+GetCmsPage*', {
+        cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/buttons/buttons.json'
         }).as('getCMSMockData');
         cy.visitHomePage();

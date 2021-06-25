@@ -2,13 +2,13 @@ import React, { Fragment } from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './shippingInformation.css';
 
 const ShippingInformation = props => {
     const { data, classes: propsClasses } = props;
-    const classes = mergeClasses(defaultClasses, propsClasses);
+    const classes = useStyle(defaultClasses, propsClasses);
 
     let shippingContentElement;
 

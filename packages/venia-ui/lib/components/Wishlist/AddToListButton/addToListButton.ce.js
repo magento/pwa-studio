@@ -3,7 +3,7 @@ import { element, func, shape, string } from 'prop-types';
 import { Heart } from 'react-feather';
 import { useAddToListButton } from '@magento/peregrine/lib/talons/Wishlist/AddToListButton/useAddToListButton';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import defaultClasses from './addToListButton.css';
 import { useCommonToasts } from './useCommonToasts';
@@ -23,7 +23,7 @@ const AddToListButton = props => {
 
     useCommonToasts({ errorToastProps, loginToastProps, successToastProps });
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const buttonClass = isSelected ? classes.root_selected : classes.root;
 
     return (

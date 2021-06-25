@@ -6,7 +6,7 @@ import { useToasts } from '@magento/peregrine';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useCreateAccount';
 
 import combine from '../../../util/combineValidators';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import {
     hasLengthAtLeast,
     isRequired,
@@ -24,17 +24,21 @@ import defaultClasses from './createAccount.css';
 
 const CreateAccount = props => {
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const [, { addToast }] = useToasts();
 
     const onSubmit = useCallback(() => {
         // TODO: Redirect to account/order page when implemented.
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
-        });
+        const { scrollTo } = globalThis;
+
+        if (typeof scrollTo === 'function') {
+            scrollTo({
+                left: 0,
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
 
         addToast({
             type: 'info',
@@ -136,6 +140,7 @@ const CreateAccount = props => {
                 <div className={classes.subscribe}>
                     <Checkbox
                         field="subscribe"
+                        id="subscribe"
                         label={formatMessage({
                             id: 'checkoutPage.subscribe',
                             defaultMessage: 'Subscribe to news and updates'

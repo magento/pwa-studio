@@ -90,11 +90,13 @@ exports[`it disables the submit button while loading 1`] = `
             >
               <label
                 className="root"
+                htmlFor="shipping_method--flatrate|flatrate"
               >
                 <input
                   checked={true}
                   className="input"
                   disabled={false}
+                  id="shipping_method--flatrate|flatrate"
                   onBlur={[Function]}
                   onChange={[Function]}
                   type="radio"
@@ -274,11 +276,13 @@ exports[`it renders correctly 1`] = `
             >
               <label
                 className="root"
+                htmlFor="shipping_method--flatrate|flatrate"
               >
                 <input
                   checked={true}
                   className="input"
                   disabled={false}
+                  id="shipping_method--flatrate|flatrate"
                   onBlur={[Function]}
                   onChange={[Function]}
                   type="radio"

@@ -12,7 +12,7 @@ import Field from '../../Field';
 import TextInput from '../../TextInput';
 import BrainTreeDropin from './brainTreeDropIn';
 import LoadingIndicator from '../../LoadingIndicator';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 import defaultClasses from './creditCard.css';
 import FormError from '../../FormError';
@@ -51,7 +51,7 @@ const CreditCard = props => {
     } = props;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = useCreditCard({
         onSuccess,

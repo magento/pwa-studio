@@ -100,7 +100,7 @@ getModuleRules.js = async ({
  * @returns Rule object for Webpack `module` configuration which parses
  *   CSS files
  */
-getModuleRules.css = async ({ mode, paths, hasFlag }) => ({
+getModuleRules.css = async ({ hasFlag, mode, paths }) => ({
     test: /\.css$/,
     oneOf: [
         {

@@ -27,7 +27,7 @@ export const useDropdown = () => {
     }, []);
 
     // add listener to document, as an effect
-    useEventListener(document, 'mousedown', maybeCollapse);
+    useEventListener(globalThis.document, 'mousedown', maybeCollapse);
 
     /**
      * The object returned contains the pieces needed to add the dropdown logic to your components

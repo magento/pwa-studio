@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
 import defaultClasses from './item.css';
@@ -17,7 +17,7 @@ const Item = props => {
         isHidden,
         configurableThumbnailSource
     } = props;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const className = isHidden ? classes.root_hidden : classes.root;
     const configured_variant = configuredVariant(configurable_options, product);
     return (

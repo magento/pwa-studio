@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { gql } from '@apollo/client';
 import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
 import defaultClasses from './productListing.css';
 import Product from './product';
@@ -44,7 +44,7 @@ const ProductListing = props => {
         wishlistConfig
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     if (isLoading) {
         return (

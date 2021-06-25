@@ -205,7 +205,7 @@ export const useCheckoutPage = (props = {}) => {
 
     const setPaymentInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
-            window.scrollTo({
+            globalThis.scrollTo({
                 left: 0,
                 top: 0,
                 behavior: 'smooth'
