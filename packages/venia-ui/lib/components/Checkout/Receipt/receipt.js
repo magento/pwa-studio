@@ -3,7 +3,7 @@ import { func, shape, string } from 'prop-types';
 
 import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useReceipt';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
 
@@ -23,7 +23,7 @@ const Receipt = props => {
         isSignedIn
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const createAccountButtonText = 'Create an Account';
     const viewOrderButtonText = 'View Order Details';

@@ -1,9 +1,7 @@
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
-import { Adapter } from '@magento/venia-drivers';
+import Adapter from '@magento/venia-ui/lib/components/Adapter';
 import store from '@magento/venia-concept/src/store';
-import { PeregrineContextProvider } from '@magento/peregrine';
-import { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 import '@magento/venia-ui/lib/index.css';
 
 function loadStories() {
@@ -11,16 +9,11 @@ function loadStories() {
     context.keys().forEach(context);
 }
 
-const backendUrl = process.env.MAGENTO_BACKEND_URL;
-const apiBase = new URL('/graphql', backendUrl).toString();
+const origin = process.env.MAGENTO_BACKEND_URL;
 
 addDecorator(storyFn => (
-    <Adapter
-        apiBase={apiBase}
-        apollo={{ link: Adapter.apolloLink(apiBase) }}
-        store={store}
-    >
-        <AppContextProvider>{storyFn()}</AppContextProvider>
+    <Adapter origin={origin} store={store}>
+        {storyFn()}
     </Adapter>
 ));
 

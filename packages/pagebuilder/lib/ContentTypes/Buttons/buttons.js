@@ -1,7 +1,7 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import defaultClasses from './buttons.css';
 import { oneOf, arrayOf, string, bool, shape } from 'prop-types';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 /**
  * Page Builder Buttons component.
@@ -16,7 +16,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
  * @returns {React.Element} A React component that wraps {@link ButtonItem} components.
  */
 const Buttons = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const {
         appearance,

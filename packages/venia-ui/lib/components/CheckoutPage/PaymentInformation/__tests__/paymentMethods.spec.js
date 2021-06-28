@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'informed';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 
 import PaymentMethods from '../paymentMethods';
@@ -35,11 +36,11 @@ test('renders null when loading', () => {
         isLoading: true
     });
 
-    const props = {
-        ...defaultProps
-    };
-
-    const tree = createTestInstance(<PaymentMethods {...props} />);
+    const tree = createTestInstance(
+        <Form>
+            <PaymentMethods {...defaultProps} />
+        </Form>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -50,7 +51,11 @@ test('should render no method if not selected', () => {
         currentSelectedPaymentMethod: null
     });
 
-    const tree = createTestInstance(<PaymentMethods {...defaultProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <PaymentMethods {...defaultProps} />
+        </Form>
+    );
 
     expect(() => {
         tree.root.findByProps({ id: 'BraintreeMockId' });
@@ -63,7 +68,11 @@ test('should render CreditCard component if "braintree" is selected', () => {
         currentSelectedPaymentMethod: 'braintree'
     });
 
-    const tree = createTestInstance(<PaymentMethods {...defaultProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <PaymentMethods {...defaultProps} />
+        </Form>
+    );
 
     expect(() => {
         tree.root.findByProps({ id: 'BraintreeMockId' });
@@ -76,7 +85,11 @@ test('should render error message if availablePaymentMethods is empty', () => {
         availablePaymentMethods: []
     });
 
-    const tree = createTestInstance(<PaymentMethods {...defaultProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <PaymentMethods {...defaultProps} />
+        </Form>
+    );
 
     expect(tree).toMatchSnapshot();
 });

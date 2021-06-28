@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 import Banner from '../banner';
 import { act } from 'react-test-renderer';
-import { Link } from '@magento/venia-drivers';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(url => url),
+jest.mock('react-router-dom', () => ({
     Link: jest.fn(() => null),
     withRouter: jest.fn(arg => arg)
 }));
+
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock('@magento/venia-ui/lib/classify');
 jest.mock('jarallax', () => {
@@ -20,12 +21,6 @@ jest.mock('jarallax', () => {
 import { jarallax, jarallaxVideo } from 'jarallax';
 const mockJarallax = jarallax.mockImplementation(() => {});
 const mockJarallaxVideo = jarallaxVideo.mockImplementation(() => {});
-
-window.matchMedia = jest.fn().mockImplementation(() => {
-    return {
-        matches: false
-    };
-});
 
 test('renders an empty Banner component', () => {
     const component = createTestInstance(<Banner />);
@@ -116,7 +111,7 @@ test('renders a configured collage-left Banner component', () => {
 });
 
 test('renders a configured collage-left Banner component on mobile', () => {
-    window.matchMedia = jest.fn().mockImplementation(() => {
+    matchMedia.mockImplementation(() => {
         return {
             matches: true
         };

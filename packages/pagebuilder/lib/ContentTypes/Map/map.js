@@ -3,7 +3,7 @@ import { arrayOf, string, bool, number, object, shape } from 'prop-types';
 import loadGoogleMapsApi from 'load-google-maps-api';
 import defaultClasses from './map.css';
 import escape from 'lodash.escape';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { mapDefaultProps } from './configAggregator';
 
 const getLocationFormattedAsHtml = location => {
@@ -47,7 +47,7 @@ const getLocationFormattedAsHtml = location => {
  */
 const GoogleMap = props => {
     const mapElement = useRef(null);
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const {
         apiKey,

@@ -1,150 +1,162 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders a disabled dropdown while loading 1`] = `
-<div
-  className="root"
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
-  <label
-    className="label"
-    htmlFor="root"
-  >
-    Country
-  </label>
-  <span
+  <div
     className="root"
-    style={
-      Object {
-        "--iconsAfter": 1,
-        "--iconsBefore": 0,
-      }
-    }
   >
-    <span
-      className="input"
+    <label
+      className="label"
+      htmlFor="root"
     >
-      <select
-        className="input"
-        disabled={true}
-        id="root"
-        name="country"
-        onBlur={[Function]}
-        onChange={[Function]}
-        value="US"
-      />
-    </span>
+      Country
+    </label>
     <span
-      className="before"
-    />
-    <span
-      className="after"
+      className="root"
+      style={
+        Object {
+          "--iconsAfter": 1,
+          "--iconsBefore": 0,
+        }
+      }
     >
       <span
-        className="root"
+        className="input"
       >
-        <svg
-          className="icon"
-          fill="none"
-          height={24}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={24}
-          xmlns="http://www.w3.org/2000/svg"
+        <select
+          className="input"
+          disabled={true}
+          id="root"
+          name="country"
+          onBlur={[Function]}
+          onChange={[Function]}
+          value="US"
+        />
+      </span>
+      <span
+        className="before"
+      />
+      <span
+        className="after"
+      >
+        <span
+          className="root"
         >
-          <polyline
-            points="6 9 12 15 18 9"
-          />
-        </svg>
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
       </span>
     </span>
-  </span>
-  <p
-    className="root"
-  />
-</div>
+    <p
+      className="root"
+    />
+  </div>
+</form>
 `;
 
 exports[`renders dropdown with country data 1`] = `
-<div
-  className="root"
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
-  <label
-    className="label"
-    htmlFor="root"
-  >
-    Country
-  </label>
-  <span
+  <div
     className="root"
-    style={
-      Object {
-        "--iconsAfter": 1,
-        "--iconsBefore": 0,
-      }
-    }
   >
-    <span
-      className="input"
+    <label
+      className="label"
+      htmlFor="root"
     >
-      <select
-        className="input"
-        disabled={false}
-        id="root"
-        name="country"
-        onBlur={[Function]}
-        onChange={[Function]}
-        value="US"
-      >
-        <option
-          disabled={null}
-          hidden={null}
-          id="SAMPLE-ID"
-          value="US"
-        >
-          United State
-        </option>
-        <option
-          disabled={null}
-          hidden={null}
-          id="SAMPLE-ID"
-          value="FR"
-        >
-          France
-        </option>
-      </select>
-    </span>
+      Country
+    </label>
     <span
-      className="before"
-    />
-    <span
-      className="after"
+      className="root"
+      style={
+        Object {
+          "--iconsAfter": 1,
+          "--iconsBefore": 0,
+        }
+      }
     >
       <span
-        className="root"
+        className="input"
       >
-        <svg
-          className="icon"
-          fill="none"
-          height={24}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={24}
-          xmlns="http://www.w3.org/2000/svg"
+        <select
+          className="input"
+          disabled={false}
+          id="root"
+          name="country"
+          onBlur={[Function]}
+          onChange={[Function]}
+          value="US"
         >
-          <polyline
-            points="6 9 12 15 18 9"
-          />
-        </svg>
+          <option
+            disabled={null}
+            hidden={null}
+            id="SAMPLE-ID"
+            value="US"
+          >
+            United State
+          </option>
+          <option
+            disabled={null}
+            hidden={null}
+            id="SAMPLE-ID"
+            value="FR"
+          >
+            France
+          </option>
+        </select>
+      </span>
+      <span
+        className="before"
+      />
+      <span
+        className="after"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
       </span>
     </span>
-  </span>
-  <p
-    className="root"
-  />
-</div>
+    <p
+      className="root"
+    />
+  </div>
+</form>
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { func } from 'prop-types';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import { Accordion, Section } from '../../Accordion';
 import CouponCode from '../../CartPage/PriceAdjustments/CouponCode';
 import GiftCardSection from '../../CartPage/PriceAdjustments/giftCardSection';
@@ -16,7 +16,7 @@ import defaultClasses from './priceAdjustments.css';
  * @param {Function} props.setPageIsUpdating callback that sets checkout page updating state
  */
 const PriceAdjustments = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const { setPageIsUpdating } = props;
     const { formatMessage } = useIntl();

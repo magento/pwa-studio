@@ -8,7 +8,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
@@ -54,7 +54,7 @@ const ProductFullDetail = props => {
     } = talonProps;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const options = isProductConfigurable(product) ? (
         <Suspense fallback={fullPageLoadingIndicator}>

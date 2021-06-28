@@ -3,7 +3,7 @@ import { bool, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { useSearchBar } from '@magento/peregrine/lib/talons/SearchBar';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Autocomplete from './autocomplete';
 import SearchField from './searchField';
 import defaultClasses from './searchBar.css';
@@ -22,7 +22,7 @@ const SearchBar = React.forwardRef((props, ref) => {
         valid
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
 
     return (

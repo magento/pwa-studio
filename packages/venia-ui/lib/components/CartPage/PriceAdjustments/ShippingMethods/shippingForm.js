@@ -5,7 +5,7 @@ import { Form } from 'informed';
 import { func, shape, string } from 'prop-types';
 import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
 
-import { mergeClasses } from '../../../../classify';
+import { useStyle } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
 import { ShippingInformationFragment } from '../../../CheckoutPage/ShippingInformation/shippingInformationFragments.gql';
@@ -38,7 +38,7 @@ const ShippingForm = props => {
     } = talonProps;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const shippingStatusMessage = isSetShippingLoading
         ? formatMessage({

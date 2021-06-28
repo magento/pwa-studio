@@ -5,7 +5,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 import { useProduct } from '@magento/peregrine/lib/talons/LegacyMiniCart/useProduct';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Image from '../Image';
 import { REMOVE_ITEM_MUTATION } from './cartOptions.gql';
 import Kebab from './kebab';
@@ -42,7 +42,7 @@ const Product = props => {
         productQuantity
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const productImageComponent = useMemo(() => {
         const imageProps = {

@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 
-import { mergeClasses } from '../../../../classify';
+import { useStyle } from '../../../../classify';
 import Image from '../../../Image';
 import defaultClasses from './productDetail.css';
 
@@ -43,7 +43,7 @@ const ProductDetail = props => {
             id: 'productDetail.unknown',
             defaultMessage: 'Unknown'
         });
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <div className={classes.root}>

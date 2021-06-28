@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
-import { Redirect } from '@magento/venia-drivers';
+import { Redirect } from 'react-router-dom';
 import { useToasts } from '@magento/peregrine';
 import { useCommunicationsPage } from '@magento/peregrine/lib/talons/CommunicationsPage/useCommunicationsPage';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
@@ -16,7 +16,7 @@ import defaultClasses from './communicationsPage.css';
 
 const CommunicationsPage = props => {
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const [, { addToast }] = useToasts();
 

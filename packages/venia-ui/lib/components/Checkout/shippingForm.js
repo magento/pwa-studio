@@ -6,7 +6,7 @@ import Button from '../Button';
 import Label from './label';
 import Select from '../Select';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './shippingForm.css';
 import { useShippingForm } from '@magento/peregrine/lib/talons/Checkout/useShippingForm';
 
@@ -33,7 +33,7 @@ const ShippingForm = props => {
         selectableShippingMethods
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const formHeading = 'Shipping Information';
     const shippingMethodLabel = 'Shipping Method';
