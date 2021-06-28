@@ -1,4 +1,6 @@
 import React from 'react';
+import { string, number, shape } from 'prop-types';
+
 //import { useScrollLock } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
