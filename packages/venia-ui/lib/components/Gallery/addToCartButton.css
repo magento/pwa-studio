@@ -1,4 +1,5 @@
 .root {
+    composes: root_highPriority from '../Button/button.css';
     margin-left: -0.5rem;
     padding: 0 0.5rem;
 }
