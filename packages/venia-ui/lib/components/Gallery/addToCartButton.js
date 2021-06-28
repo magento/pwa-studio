@@ -1,16 +1,15 @@
 import React from 'react';
 import { string, number, shape } from 'prop-types';
 
-//import { useScrollLock } from '@magento/peregrine';
-
+import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './addToCartButton.css';
 import Button from '../Button';
 import { FormattedMessage } from 'react-intl';
 
 const GalleryButton = props => {
-    /*
-    //const talonProps = useAddToCartButton(props);
+    
+    const talonProps = useAddToCartButton(props);
     const {
         isSelected,
         errorToastProps, // use commonToasts
@@ -19,7 +18,7 @@ const GalleryButton = props => {
         isLoading,
         handleAddToCart
     } = talonProps;
-    */
+    
     const classes = mergeClasses(defaultClasses, props.classes);
     const handleOnClick = () => { }
 
