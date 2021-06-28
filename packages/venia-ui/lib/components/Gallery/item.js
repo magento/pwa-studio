@@ -10,6 +10,7 @@ import { mergeClasses } from '../../classify';
 import Image from '../Image';
 import defaultClasses from './item.css';
 import WishlistGalleryButton from '../Wishlist/GalleryButton';
+import AddToCartButton from './addToCartButton';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -88,7 +89,10 @@ const GalleryItem = props => {
                     currencyCode={price.regularPrice.amount.currency}
                 />
             </div>
-            <div className={classes.actionsContainer}>{wishlistButton}</div>
+            <div className={classes.actionsContainer}>
+                {wishlistButton}
+                <AddToCartButton item={item} />
+            </div>
         </div>
     );
 };
