@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
@@ -30,7 +30,7 @@ const Wishlist = props => {
         items,
         isLoading,
         isFetchMore,
-        onLoadMore
+        handleLoadMore
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -61,7 +61,7 @@ const Wishlist = props => {
                 <Button
                     className={classes.loadMore}
                     disabled={isFetchMore}
-                    onClick={onLoadMore}
+                    onClick={handleLoadMore}
                 >
                     <FormattedMessage
                         id={'wishlist.loadMore'}
@@ -72,10 +72,10 @@ const Wishlist = props => {
         ) : null;
 
     const contentMessageElement = itemsCount ? (
-        <>
+        <Fragment>
             <WishlistItems items={items} wishlistId={id} />
             {loadMoreButton}
-        </>
+        </Fragment>
     ) : (
         <p className={classes.emptyListText}>
             <FormattedMessage
@@ -88,7 +88,6 @@ const Wishlist = props => {
     const wishlistName = name ? (
         <div className={classes.nameContainer}>
             <h2 className={classes.name}>{name}</h2>
-            <span className={classes.visibility}>{visibilityLabel}</span>
         </div>
     ) : (
         <div className={classes.nameContainer}>
@@ -162,7 +161,8 @@ Wishlist.propTypes = {
         visibilityToggle: string,
         visibilityToggle_hidden: string,
         visibility: string,
-        buttonsContainer: string
+        buttonsContainer: string,
+        loadMore: string
     }),
     shouldRenderVisibilityToggle: bool,
     data: shape({

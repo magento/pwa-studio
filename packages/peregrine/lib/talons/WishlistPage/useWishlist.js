@@ -35,7 +35,7 @@ export const useWishlist = (props = {}) => {
         setIsOpen(currentValue => !currentValue);
     };
 
-    const onLoadMore = useCallback(async () => {
+    const handleLoadMore = useCallback(async () => {
         setIsFetchMore(true);
         const currentPage = page + 1;
         await fetchMore({
@@ -68,7 +68,7 @@ export const useWishlist = (props = {}) => {
         error,
         isLoading: !!loading,
         isFetchMore,
-        onLoadMore
+        handleLoadMore
     };
 };
 
@@ -86,5 +86,5 @@ export const useWishlist = (props = {}) => {
  * @property {Array} items list of items
  * @property {Boolean} isLoading Boolean which represents if is in loading state
  * @property {Boolean} setIsFetchMore Boolean which represents if is in loading more state
- * @property {Function} onLoadMore Callback to load more items
+ * @property {Function} handleLoadMore Callback to load more items
  */

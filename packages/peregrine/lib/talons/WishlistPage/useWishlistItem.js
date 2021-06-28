@@ -15,11 +15,13 @@ const dialogs = {
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 
 const mergeSupportedProductTypes = (supportedProductTypes = []) => {
-    if (supportedProductTypes.length >= 0) {
-        return SUPPORTED_PRODUCT_TYPES.concat(supportedProductTypes);
+    const newSupportedProductTypes = [...SUPPORTED_PRODUCT_TYPES];
+
+    if (supportedProductTypes) {
+        newSupportedProductTypes.push(...supportedProductTypes);
     }
 
-    return SUPPORTED_PRODUCT_TYPE;
+    return newSupportedProductTypes;
 };
 
 /**
@@ -60,6 +62,7 @@ export const useWishlistItem = props => {
     } = operations;
 
     const [{ cartId }] = useCartContext();
+    const [isDeleting, setIsDeleting] = useState(false);
     const [currentDialog, setCurrentDialog] = useState(dialogs.NONE);
     const [
         removeProductFromWishlistError,
@@ -180,8 +183,8 @@ export const useWishlistItem = props => {
             // Close the dialogs on success.
             setCurrentDialog(dialogs.NONE);
         } catch (e) {
-            console.error(e);
             setIsDeleting(false);
+            console.error(e);
             setRemoveProductFromWishlistError(e);
             if (process.env.NODE_ENV !== 'production') {
                 console.error(e);
@@ -226,8 +229,6 @@ export const useWishlistItem = props => {
             width: 400
         };
     }, [imageLabel, imageURL]);
-
-    const [isDeleting, setIsDeleting] = useState(false);
 
     return {
         addToCartButtonProps,

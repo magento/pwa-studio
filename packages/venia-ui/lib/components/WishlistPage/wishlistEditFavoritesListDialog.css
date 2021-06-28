@@ -21,7 +21,3 @@
     gap: 1.5rem;
 }
 
-.radioRoot {
-    /** schould be display if we support multiple types */
-    display: none;
-}
