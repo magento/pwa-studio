@@ -21,7 +21,6 @@ import { FormattedMessage } from 'react-intl';
 const CheckMo = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
-    const { resetShouldSubmit, onPaymentSuccess, onPaymentError } = props;
     const addressTemplate = str => (
         <span key={str} className={classes.addressLine}>
             {str} <br />
@@ -33,11 +32,7 @@ const CheckMo = props => {
         mailingAddress,
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess
-    } = useCheckmo({
-        resetShouldSubmit,
-        onPaymentSuccess,
-        onPaymentError
-    });
+    } = useCheckmo(props);
 
     const formatAddress = mailingAddress
         ? mailingAddress.split('\n').map(str => addressTemplate(str))
@@ -70,6 +65,7 @@ const CheckMo = props => {
                 />
             </p>
             <BillingAddress
+                resetShouldSubmit={props.resetShouldSubmit}
                 shouldSubmit={props.shouldSubmit}
                 onBillingAddressChangedError={onBillingAddressChangedError}
                 onBillingAddressChangedSuccess={onBillingAddressChangedSuccess}
