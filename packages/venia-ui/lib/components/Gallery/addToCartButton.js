@@ -5,6 +5,8 @@ import { string, number, shape } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './addToCartButton.css';
+import Button from '../Button';
+import { FormattedMessage } from 'react-intl';
 
 const GalleryButton = props => {
     /*
@@ -22,13 +24,13 @@ const GalleryButton = props => {
     const handleOnClick = () => { }
 
     return (
-        <button
+        <Button
             className={classes.root}
             type="button"
             onClick={handleOnClick}
         >
-            ADD TO CART
-        </button>
+           ADD TO CART
+        </Button>
     );
 };
 
