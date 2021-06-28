@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { bool, shape, string } from 'prop-types';
 
 import Checkbox from '../../Checkbox';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import defaultClasses from './filterDefault.css';
 
 const FilterDefault = props => {
@@ -14,9 +14,10 @@ const FilterDefault = props => {
         isExpanded,
         ...restProps
     } = props;
+
     const { label, value_index } = item || {};
+    const classes = useStyle(defaultClasses, propsClasses);
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, propsClasses);
 
     const ariaLabel = !isSelected
         ? formatMessage(
@@ -40,11 +41,9 @@ const FilterDefault = props => {
 
     return (
         <Checkbox
-            classes={classes.root}
+            classes={classes}
             field={`${label}-${value_index}`}
-            fieldState={{
-                value: isSelected
-            }}
+            fieldValue={!!isSelected}
             disabled={!isExpanded}
             label={label}
             ariaLabel={ariaLabel}

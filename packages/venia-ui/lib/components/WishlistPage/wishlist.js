@@ -4,7 +4,7 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
 import { bool, shape, string, int } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Icon from '../Icon';
 import WishlistItems from './wishlistItems';
@@ -33,7 +33,7 @@ const Wishlist = props => {
         onLoadMore
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const contentClass = isOpen ? classes.content : classes.content_hidden;
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
@@ -88,6 +88,7 @@ const Wishlist = props => {
     const wishlistName = name ? (
         <div className={classes.nameContainer}>
             <h2 className={classes.name}>{name}</h2>
+            <span className={classes.visibility}>{visibilityLabel}</span>
         </div>
     ) : (
         <div className={classes.nameContainer}>

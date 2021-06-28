@@ -5,7 +5,7 @@ import { Form } from 'informed';
 import { X as CloseIcon } from 'react-feather';
 
 import { useScrollLock } from '@magento/peregrine';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import Button from '../Button';
 import Icon from '../Icon';
@@ -60,7 +60,7 @@ const Dialog = props => {
     // when the Dialog is open.
     useScrollLock(isOpen);
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
     const isMaskDisabled = shouldDisableAllButtons || isModal;
     const confirmButtonDisabled =

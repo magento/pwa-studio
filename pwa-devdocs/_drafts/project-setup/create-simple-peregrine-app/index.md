@@ -44,9 +44,12 @@ const container = document.getElementById('root');
 app.component = App;
 app.mount(container);
 
-if ('serviceWorker' in navigator) {
+const { navigator } = globalThis;
+const { serviceWorker } = navigator || {};
+
+if (serviceWorker) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker
+        serviceWorker
             .register(process.env.SERVICE_WORKER_FILE_NAME);
     });
 }

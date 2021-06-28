@@ -189,7 +189,7 @@ beforeEach(() => {
 
     useApolloClient.mockReturnValue(client);
 
-    window.scrollTo = jest.fn();
+    globalThis.scrollTo = jest.fn();
 });
 
 /**

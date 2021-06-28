@@ -8,7 +8,7 @@ import {
     useShippingMethod
 } from '@magento/peregrine/lib/talons/CheckoutPage/useShippingMethod';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Button from '../../Button';
 import FormError from '../../FormError';
 import LoadingIndicator from '../../LoadingIndicator';
@@ -50,7 +50,7 @@ const ShippingMethod = props => {
         showUpdateMode
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     let contents;
 

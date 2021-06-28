@@ -3,12 +3,12 @@ import { FormattedMessage } from 'react-intl';
 import { arrayOf, node, shape, string } from 'prop-types';
 import { useStockStatusMessage } from '@magento/peregrine/lib/talons/StockStatusMessage/useStockStatusMessage';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './stockStatusMessage.css';
 
 const StockStatusMessage = props => {
     const { cartItems, messageId, message } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useStockStatusMessage({ cartItems });
     const { hasOutOfStockItem } = talonProps;

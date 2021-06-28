@@ -5,7 +5,7 @@ import { ArrowRight as ArrowRightIcon } from 'react-feather';
 
 import { useAuthBar } from '@magento/peregrine/lib/talons/AuthBar/useAuthBar';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import AccountChip from '../AccountChip';
 import Icon from '../Icon';
 import defaultClasses from './authBar.css';
@@ -19,7 +19,7 @@ const AuthBar = props => {
     } = useAuthBar(props);
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const fallBackText = formatMessage({
         id: 'authBar.fallbackText',

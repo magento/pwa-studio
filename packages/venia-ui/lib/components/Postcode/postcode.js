@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import { useIntl } from 'react-intl';
 import { usePostcode } from '@magento/peregrine/lib/talons/Postcode/usePostcode';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Field from '../Field';
 import TextInput from '../TextInput';
 import defaultClasses from './postcode.css';
@@ -11,7 +11,7 @@ import defaultClasses from './postcode.css';
 const Postcode = props => {
     const { classes: propClasses, fieldInput, label, ...inputProps } = props;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const postcodeProps = {
         classes,
         ...inputProps

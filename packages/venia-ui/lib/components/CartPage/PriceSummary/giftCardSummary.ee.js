@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 const MINUS_SYMBOL = '-';
 
@@ -37,7 +37,7 @@ const getGiftCards = (cards = []) => {
  * @param {Object} props.data fragment response data
  */
 export default props => {
-    const classes = mergeClasses({}, props.classes);
+    const classes = useStyle({}, props.classes);
     const cards = getGiftCards(props.data);
 
     return cards.value ? (

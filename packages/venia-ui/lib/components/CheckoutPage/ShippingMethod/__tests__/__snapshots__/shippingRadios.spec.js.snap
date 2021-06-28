@@ -18,6 +18,7 @@ exports[`it renders correctly 1`] = `
     }
   }
   field="shipping_method"
+  id="shippingMethod"
   items={
     Array [
       Object {

@@ -4,7 +4,7 @@ import { func, string, shape } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useShippingInformation } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useShippingInformation';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
 import AddressForm from './AddressForm';
@@ -36,7 +36,7 @@ const ShippingInformation = props => {
         shippingData
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const rootClassName = !doneEditing
         ? classes.root_editMode

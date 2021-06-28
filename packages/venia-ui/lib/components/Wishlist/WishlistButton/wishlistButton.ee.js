@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { useToasts } from '@magento/peregrine';
 import { useWishlistButton } from '@magento/peregrine/lib/talons/Wishlist/WishlistButton/useWishlistButton';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 
 import defaultClasses from './wishlistButton.css';
@@ -15,7 +15,7 @@ import WishlistDialog from '../WishlistDialog';
 const ErrorIcon = <Icon src={AlertCircle} attrs={{ width: 18 }} />;
 
 const WishlistButton = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useWishlistButton({ itemOptions: props.itemOptions });
 

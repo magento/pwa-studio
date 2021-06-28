@@ -1,6 +1,6 @@
 import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './text.css';
 
 const toHTML = str => ({ __html: str });
@@ -18,7 +18,7 @@ const toHTML = str => ({ __html: str });
  * @returns {React.Element} A React component that displays a Text content type which contains content.
  */
 const Text = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const {
         content,
         textAlign,

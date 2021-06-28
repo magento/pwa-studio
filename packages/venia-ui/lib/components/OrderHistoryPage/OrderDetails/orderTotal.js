@@ -3,7 +3,7 @@ import { arrayOf, string, shape, number } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import Price from '@magento/venia-ui/lib/components/Price';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './orderTotal.css';
 
@@ -16,7 +16,7 @@ const OrderTotal = props => {
         total_tax,
         total_shipping
     } = data;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const discountRowElement = useMemo(() => {
         if (!discounts || !discounts.length) {

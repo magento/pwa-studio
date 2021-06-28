@@ -1,12 +1,12 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './button.css';
 
 const Button = props => {
     const { children, classes: propClasses, ...rest } = props;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     return (
         <button {...rest} className={classes.root}>

@@ -14,7 +14,7 @@ import { DEFAULT_WIDTH_TO_HEIGHT_RATIO } from '@magento/peregrine/lib/util/image
 import PlaceholderImage from './placeholderImage';
 import ResourceImage from './resourceImage';
 import SimpleImage from './simpleImage';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 
 import defaultClasses from './image.css';
 /**
@@ -69,7 +69,7 @@ const Image = props => {
         resourceHeight: talonResourceHeight
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, propsClasses);
+    const classes = useStyle(defaultClasses, propsClasses);
     const containerClass = `${classes.root} ${classes.container}`;
     const isLoadedClass = isLoaded ? classes.loaded : classes.notLoaded;
     const imageClass = `${classes.image} ${isLoadedClass}`;

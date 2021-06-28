@@ -124,14 +124,14 @@ This example defines a component that wraps around Venia's Button component and 
 
 ### Adding the class name override feature
 
-The Venia UI library uses the `mergeClasses()` utility function in its `classify` module to add classname override functionality to its components.
-Use this function to add this same feature to your own custom components.
+The Venia UI library uses a `useStyle()` hook to add classname override functionality to its components.
+Use this hook to add this same feature to your own custom components.
 
 Example: `foo.js`
 
 ```diff
   import React from 'react';
-+ import { mergeClasses } from '@magento/venia-ui/lib/classify';
++ import { useStyle } from '@magento/venia-ui/lib/classify';
   
 - import classes from './foo.css';
 + import defaultClasses from './foo.css';
@@ -139,7 +139,7 @@ Example: `foo.js`
   const Foo = props => {
 +     const { classes: propClasses } = props;
 +
-+     const classes = mergeClasses(defaultClasses, propClasses);
++     const classes = useStyle(defaultClasses, propClasses);
 +
       return (
       <div className={classes.root}>

@@ -1,9 +1,9 @@
 import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Redirect } from '@magento/venia-drivers';
+import { Redirect } from 'react-router-dom';
 import { useAccountInformationPage } from '@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Button from '../Button';
 import { Message } from '../Field';
 import { StoreTitle } from '../Head';
@@ -15,7 +15,7 @@ import AccountInformationPageOperations from './accountInformationPage.gql.js';
 const EditModal = React.lazy(() => import('./editModal'));
 
 const AccountInformationPage = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useAccountInformationPage({
         ...AccountInformationPageOperations

@@ -9,14 +9,15 @@ import Dialog from '../Dialog';
 import Field from '../Field';
 import Icon from '../Icon';
 import { isRequired } from '../../util/formValidators';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
+
 import TextInput from '../TextInput';
 import FormError from '../FormError/formError';
 
 import defaultClasses from './createWishlist.css';
 
 const CreateWishlist = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useCreateWishlist();
     const {
