@@ -20,13 +20,14 @@ const GalleryButton = props => {
     } = talonProps;
     
     const classes = mergeClasses(defaultClasses, props.classes);
-    const handleOnClick = () => { }
 
     return (
         <Button
             className={classes.root}
             type="button"
-            onClick={handleOnClick}
+            priority="high"
+            onClick={handleAddToCart}
+            disabled ={isLoading}
         >
            ADD TO CART
         </Button>
