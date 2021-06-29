@@ -14,7 +14,11 @@ export const useSingleWishlist = props => {
 
     const [
         addProductToWishlist,
-        { data: addProductData, error: errorAddingProduct, loading }
+        {
+            data: addProductData,
+            error: errorAddingProduct,
+            loading: isAddingToWishlist
+        }
     ] = useMutation(operations.addProductToWishlistMutation);
 
     const {
@@ -23,8 +27,10 @@ export const useSingleWishlist = props => {
     } = useQuery(operations.getProductsInWishlistsQuery);
 
     const isSelected = useMemo(() => {
-        return customerWishlistProducts.includes(item.sku);
-    }, [item.sku, customerWishlistProducts]);
+        return (
+            customerWishlistProducts.includes(item.sku) || isAddingToWishlist
+        );
+    }, [customerWishlistProducts, isAddingToWishlist, item.sku]);
 
     const [showLoginToast, setShowLoginToast] = useState(0);
 
@@ -130,7 +136,7 @@ export const useSingleWishlist = props => {
             onClick: handleClick,
             type: 'button'
         }),
-        [formatMessage, handleClick, isSelected, loading]
+        [formatMessage, handleClick, isSelected]
     );
 
     return {
@@ -139,7 +145,7 @@ export const useSingleWishlist = props => {
         customerWishlistProducts,
         errorToastProps,
         handleClick,
-        isSelected: isSelected || loading,
+        isSelected,
         loginToastProps,
         successToastProps
     };
