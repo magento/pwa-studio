@@ -7,16 +7,16 @@ import defaultOperations from './wishlist.gql';
  * @function
  * @param {String} props.wishlistId The ID of the wishlist this item belongs to
  * @para  {itemsCount} props.itemsCount The items count fo the list.
- * @param {Boolean} props.collapsed state of is visable
+ * @param {Boolean} props.isCollapsed state of is visable
  * @returns {WishListProps}
  */
 export const useWishlist = (props = {}) => {
-    const { id, itemsCount, collapsed } = props;
+    const { id, itemsCount, isCollapsed } = props;
     const operations = mergeOperations(defaultOperations, props.operations);
 
     const [page, setPage] = useState(1);
-    const [isOpen, setIsOpen] = useState(!collapsed);
-    const [isFetchMore, setIsFetchMore] = useState(false);
+    const [isOpen, setIsOpen] = useState(!isCollapsed);
+    const [isFetchingMore, setIsFetchingMore] = useState(false);
 
     const [fetchWhislistItems, queryResult] = useLazyQuery(
         operations.getCustomerWhislistItems,
@@ -36,7 +36,7 @@ export const useWishlist = (props = {}) => {
     };
 
     const handleLoadMore = useCallback(async () => {
-        setIsFetchMore(true);
+        setIsFetchingMore(true);
         const currentPage = page + 1;
         await fetchMore({
             variables: {
@@ -46,7 +46,7 @@ export const useWishlist = (props = {}) => {
         });
 
         setPage(currentPage);
-        setIsFetchMore(false);
+        setIsFetchingMore(false);
     }, [id, fetchMore, page]);
 
     useEffect(() => {
@@ -67,7 +67,7 @@ export const useWishlist = (props = {}) => {
         items,
         error,
         isLoading: !!loading,
-        isFetchMore,
+        isFetchingMore,
         handleLoadMore
     };
 };
@@ -85,6 +85,6 @@ export const useWishlist = (props = {}) => {
  * @property {Boolean} isOpen Boolean which represents if the content is expanded or not
  * @property {Array} items list of items
  * @property {Boolean} isLoading Boolean which represents if is in loading state
- * @property {Boolean} setIsFetchMore Boolean which represents if is in loading more state
+ * @property {Boolean} isFetchingMore Boolean which represents if is in loading more state
  * @property {Function} handleLoadMore Callback to load more items
  */

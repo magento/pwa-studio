@@ -17,19 +17,20 @@ import ActionMenu from './actionMenu';
  *
  * @param {Object} props.data the data for this wishlist
  * @param {boolean} props.shouldRenderVisibilityToggle whether or not to render the visiblity toggle
+ * @param {boolean} props.isCollapsed whether or not is the whislist unfolded
  */
 const Wishlist = props => {
-    const { data, shouldRenderVisibilityToggle, collapsed } = props;
+    const { data, shouldRenderVisibilityToggle, isCollapsed } = props;
     const { formatMessage } = useIntl();
     const { id, items_count: itemsCount, name, visibility } = data;
 
-    const talonProps = useWishlist({ id, itemsCount, collapsed });
+    const talonProps = useWishlist({ id, itemsCount, isCollapsed });
     const {
         handleContentToggle,
         isOpen,
         items,
         isLoading,
-        isFetchMore,
+        isFetchingMore,
         handleLoadMore
     } = talonProps;
 
@@ -60,7 +61,7 @@ const Wishlist = props => {
             <div>
                 <Button
                     className={classes.loadMore}
-                    disabled={isFetchMore}
+                    disabled={isFetchingMore}
                     onClick={handleLoadMore}
                 >
                     <FormattedMessage
@@ -165,6 +166,7 @@ Wishlist.propTypes = {
         loadMore: string
     }),
     shouldRenderVisibilityToggle: bool,
+    isCollapsed: bool,
     data: shape({
         id: int,
         items_count: int,

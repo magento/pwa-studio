@@ -5,7 +5,7 @@ Object {
   "error": undefined,
   "handleContentToggle": [Function],
   "handleLoadMore": [Function],
-  "isFetchMore": false,
+  "isFetchingMore": false,
   "isLoading": false,
   "isOpen": true,
   "items": Array [],

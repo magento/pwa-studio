@@ -51,9 +51,13 @@ export const useWishlistItem = props => {
     } = product;
     const { label: imageLabel, url: imageURL } = image;
 
-    const isSupportedProductType = mergeSupportedProductTypes(
-        props.supportedProductTypes
-    ).includes(productType);
+    const isSupportedProductType = useMemo(
+        () =>
+            mergeSupportedProductTypes(props.supportedProductTypes).includes(
+                productType
+            ),
+        [props.supportedProductTypes, productType]
+    );
 
     const operations = mergeOperations(defaultOperations, props.operations);
     const {
