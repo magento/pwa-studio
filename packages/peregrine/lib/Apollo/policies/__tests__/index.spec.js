@@ -405,3 +405,23 @@ test('local customerWishlistProducts field returns expected data', () => {
     expect(defaultValue).toMatchInlineSnapshot(`Array []`);
     expect(existingValue).toBe(existing);
 });
+
+test('WishlistItems type merges items correctly first page', () => {
+    const { merge } = typePolicies.WishlistItems.fields.items;
+
+    const existing = [];
+    const incoming = [{ name: 'test1' }];
+
+    const result = merge(existing, incoming, { variables: { currentPage: 1 } });
+    expect(result).toStrictEqual([{ name: 'test1' }]);
+});
+
+test('WishlistItems type merges items correctly secound page', () => {
+    const { merge } = typePolicies.WishlistItems.fields.items;
+
+    const existing = [{ name: 'test1' }];
+    const incoming = [{ name: 'test2' }];
+
+    const result = merge(existing, incoming, { variables: { currentPage: 2 } });
+    expect(result).toStrictEqual([...existing, ...incoming]);
+});
