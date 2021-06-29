@@ -5,7 +5,7 @@ import { PlusSquare, AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useToasts } from '@magento/peregrine';
 import { useAddressBook } from '@magento/peregrine/lib/talons/CheckoutPage/AddressBook/useAddressBook';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './addressBook.css';
 import AddressBookOperations from './addressBook.gql';
@@ -51,7 +51,7 @@ const AddressBook = props => {
         selectedAddress
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const [, { addToast }] = useToasts();
 

@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { shape, string } from 'prop-types';
 import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import AuthBar from '../AuthBar';
 import CategoryTree from '../CategoryTree';
 import CurrencySwitcher from '../Header/currencySwitcher';
@@ -31,7 +31,7 @@ const Navigation = props => {
         view
     } = useNavigation();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
     const bodyClassName = hasModal ? classes.body_masked : classes.body;

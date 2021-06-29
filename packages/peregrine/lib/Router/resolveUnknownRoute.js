@@ -23,6 +23,7 @@ const castDigitsToNum = str =>
     typeof str === 'string' && numRE.test(str) ? Number(str) : str;
 export default async function resolveUnknownRoute(opts) {
     const { route, apiBase, store } = opts;
+    const isServer = !globalThis.document;
 
     if (!resolveUnknownRoute.preloadDone) {
         resolveUnknownRoute.preloadDone = true;
@@ -31,7 +32,7 @@ export default async function resolveUnknownRoute(opts) {
         // or the old style (handwritten JSON in a script element).
 
         // New style:
-        const preloadAttrs = document.body.dataset;
+        const preloadAttrs = !isServer && document.body.dataset;
         if (preloadAttrs && preloadAttrs.modelType) {
             return {
                 type: preloadAttrs.modelType,
@@ -40,7 +41,8 @@ export default async function resolveUnknownRoute(opts) {
         }
 
         // Old style:
-        const preloadScript = document.getElementById('url-resolver');
+        const preloadScript =
+            !isServer && document.getElementById('url-resolver');
         if (preloadScript) {
             try {
                 const preload = JSON.parse(preloadScript.textContent);
@@ -75,11 +77,12 @@ export default async function resolveUnknownRoute(opts) {
  */
 function remotelyResolveRoute(opts) {
     const urlResolve = persistence.getItem(getRouteCacheKey(opts.store));
+    const isOffline = globalThis.navigator && !navigator.onLine;
 
     // If it exists in localStorage, use that value
     // TODO: This can be handled by workbox once this issue is resolved in the
     // graphql repo: https://github.com/magento/graphql-ce/issues/229
-    if ((urlResolve && urlResolve[opts.route]) || !navigator.onLine) {
+    if ((urlResolve && urlResolve[opts.route]) || isOffline) {
         if (urlResolve && urlResolve[opts.route]) {
             return Promise.resolve(urlResolve[opts.route].data.urlResolver);
         } else {

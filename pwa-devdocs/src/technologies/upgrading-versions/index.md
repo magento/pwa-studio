@@ -11,7 +11,7 @@ The contents of this topic applies to storefront projects setup according to the
 These projects use the `venia-concept` package as a template to set up the directory structure and project dependencies.
 This is the recommended setup for new projects because it makes version upgrades easier.
 
-[setup your project]: <{% link /tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
+[setup your project]: <{% link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
 
 ## Update dependencies
 

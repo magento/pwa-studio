@@ -11,6 +11,8 @@ import { useLayoutEffect } from 'react';
  */
 export const useScrollLock = locked => {
     useLayoutEffect(() => {
+        if (!globalThis.document) return;
+
         document.documentElement.dataset.scrollLock = locked || '';
     }, [locked]);
 };

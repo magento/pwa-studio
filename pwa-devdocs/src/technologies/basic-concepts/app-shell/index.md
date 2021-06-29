@@ -6,7 +6,7 @@ contributors:
 
 Magento PWA Studio uses an application shell architecture to shorten the time it takes to load a branded experience in the UI instead of a blank page.
 
-This approach involves heavily caching the minimal amount of HTML, CSS and JS to load the basic UI of the page before fetching the rest through an API. 
+This approach involves heavily caching the minimal amount of HTML, CSS and JS to load the basic UI of the page before fetching the rest through an API.
 
 App shell rendering is instantaneous on repeat visits because the majority of the page is in the cache.
 It also prevents unnecessary data usage because it removes the need to download static content more than once.
@@ -31,7 +31,7 @@ The following is a simple example of an application shell:
     </header>
 
     <div class="nav">
-    
+
     </div>
 
     <div class="content">
@@ -44,9 +44,12 @@ The following is a simple example of an application shell:
 
 
     <script>
-        if (process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
+        const { navigator } = globalThis;
+        const { serviceWorker } = navigator || {};
+
+        if (process.env.SERVICE_WORKER && serviceWorker) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker
+                serviceWorker
                     .register(process.env.SERVICE_WORKER)
                     .then(registration => {
                         console.log('Service worker registered: ', registration);

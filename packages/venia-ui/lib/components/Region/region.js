@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { func, number, oneOfType, shape, string } from 'prop-types';
 import { useRegion } from '@magento/peregrine/lib/talons/Region/useRegion';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Field from '../Field';
 import Select from '../Select';
 import TextInput from '../TextInput';
@@ -37,7 +37,7 @@ const Region = props => {
     });
     const { loading, regions } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const regionProps = {
         classes,
         disabled: loading,

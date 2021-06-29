@@ -1,7 +1,7 @@
 import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Mask from '../Mask';
 
 import defaultClasses from './mask.css';
@@ -9,7 +9,7 @@ import defaultClasses from './mask.css';
 const MiniCartMask = props => {
     const { dismiss, isActive } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     // We're rendering the shared Mask component but passing it
     // our own custom class for its active state.

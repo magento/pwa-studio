@@ -5,7 +5,7 @@ import { useCmsPage } from '@magento/peregrine/lib/talons/Cms/useCmsPage';
 import RichContent from '../../components/RichContent';
 import CategoryList from '../../components/CategoryList';
 import { Meta, StoreTitle } from '../../components/Head';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import { useIntl } from 'react-intl';
 
 import defaultClasses from './cms.css';
@@ -21,12 +21,11 @@ const CMSPage = props => {
         shouldShowLoadingIndicator
     } = talonProps;
     const { formatMessage } = useIntl();
+    const classes = useStyle(defaultClasses, props.classes);
 
     if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;
     }
-
-    const classes = mergeClasses(defaultClasses, props.classes);
 
     if (hasContent) {
         const {

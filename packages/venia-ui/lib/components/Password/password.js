@@ -2,7 +2,7 @@ import React from 'react';
 import { string, bool, shape, func } from 'prop-types';
 import { Eye, EyeOff } from 'react-feather';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { usePassword } from '@magento/peregrine/lib/talons/Password/usePassword';
 
 import Button from '../Button';
@@ -25,7 +25,7 @@ const Password = props => {
 
     const talonProps = usePassword();
     const { handleBlur, togglePasswordVisibility, visible } = talonProps;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const passwordButton = (
         <Button

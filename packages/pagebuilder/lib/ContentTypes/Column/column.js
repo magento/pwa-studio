@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import defaultClasses from './column.css';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, string, bool } from 'prop-types';
-import { resourceUrl } from '@magento/venia-drivers';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+
+const { matchMedia } = globalThis;
 
 /**
  * Page Builder Column component.
@@ -17,7 +19,7 @@ import { resourceUrl } from '@magento/venia-drivers';
  * @returns {React.Element} A React component that displays a Column.
  */
 const Column = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const [bgImageStyle, setBgImageStyle] = useState(null);
     const columnElement = useRef(null);
     const {
@@ -50,7 +52,7 @@ const Column = props => {
     } = props;
 
     let image = desktopImage;
-    if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
+    if (mobileImage && matchMedia && matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
     }
 
