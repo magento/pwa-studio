@@ -104,7 +104,7 @@ test('should load items if any', () => {
     expect(result).toMatchSnapshot();
 });
 
-test('fetch more items', () => {
+test('should fetch more items', () => {
     const props = {
         ...baseProps,
         itemsCount: 21
