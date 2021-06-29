@@ -10,8 +10,11 @@ export const useAddToCartButton = props => {
     //const [addToCart,{data}] = useMutation(operations.ADD_PRODUCT_TO_CART); //added
 
     const handleAddToCart = useCallback(async () => {
+
         try {
             setIsLoading(true); 
+            console.log(`Adding ${item.name} to Cart`);
+
             /*
             await addToCart({
               cartId, 
@@ -21,9 +24,9 @@ export const useAddToCartButton = props => {
                   sku: item.sku
               }
             })
+            //prompt on console that item was added 
             */
-            console.log(`Adding ${item.name} to Cart`);
-            //disable button to add 
+            //disable button to after 1 second 
             setTimeout(() => {
                 setIsLoading(false);
             }, 2000);
