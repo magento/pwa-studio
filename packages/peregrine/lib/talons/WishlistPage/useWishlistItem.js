@@ -5,13 +5,6 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './wishlistItem.gql';
 
-// Note: There is only ever zero (0) or one (1) dialogs open for a wishlist item.
-const dialogs = {
-    NONE: 1,
-    CONFIRM_REMOVE_PRODUCT: 2,
-    MORE_ACTIONS: 3
-};
-
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 
 const mergeSupportedProductTypes = (supportedProductTypes = []) => {
@@ -66,8 +59,9 @@ export const useWishlistItem = props => {
     } = operations;
 
     const [{ cartId }] = useCartContext();
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [currentDialog, setCurrentDialog] = useState(dialogs.NONE);
+
+    const [isRemovalInProgress, setIsRemovalInProgress] = useState(false);
+
     const [
         removeProductFromWishlistError,
         setRemoveProductFromWishlistError
@@ -123,40 +117,42 @@ export const useWishlistItem = props => {
         }
     });
 
-    const [
-        removeProductsFromWishlist,
-        { loading: isRemovalInProgress }
-    ] = useMutation(removeProductsFromWishlistMutation, {
-        update: cache => {
-            // clean up for cache fav product on category page
-            cache.modify({
-                id: 'ROOT_QUERY',
-                fields: {
-                    customerWishlistProducts: cachedProducts =>
-                        cachedProducts.filter(productSku => productSku !== sku)
-                }
-            });
-
-            cache.modify({
-                id: `CustomerWishlist:${wishlistId}`,
-                fields: {
-                    items_v2: (cachedItems, { readField, Remove }) => {
-                        for (var i = 0; i < cachedItems.items.length; i++) {
-                            if (readField('id', item) === itemId) {
-                                return Remove;
-                            }
-                        }
-
-                        return cachedItems;
+    const [removeProductsFromWishlist] = useMutation(
+        removeProductsFromWishlistMutation,
+        {
+            update: cache => {
+                // clean up for cache fav product on category page
+                cache.modify({
+                    id: 'ROOT_QUERY',
+                    fields: {
+                        customerWishlistProducts: cachedProducts =>
+                            cachedProducts.filter(
+                                productSku => productSku !== sku
+                            )
                     }
-                }
-            });
-        },
-        variables: {
-            wishlistId: wishlistId,
-            wishlistItemsId: [itemId]
+                });
+
+                cache.modify({
+                    id: `CustomerWishlist:${wishlistId}`,
+                    fields: {
+                        items_v2: (cachedItems, { readField, Remove }) => {
+                            for (var i = 0; i < cachedItems.items.length; i++) {
+                                if (readField('id', item) === itemId) {
+                                    return Remove;
+                                }
+                            }
+
+                            return cachedItems;
+                        }
+                    }
+                });
+            },
+            variables: {
+                wishlistId: wishlistId,
+                wishlistItemsId: [itemId]
+            }
         }
-    });
+    );
 
     const handleAddToCart = useCallback(async () => {
         if (
@@ -180,44 +176,19 @@ export const useWishlistItem = props => {
     ]);
 
     const handleRemoveProductFromWishlist = useCallback(async () => {
-        setIsDeleting(true);
         try {
+            setIsRemovalInProgress(true);
             await removeProductsFromWishlist();
-
-            // Close the dialogs on success.
-            setCurrentDialog(dialogs.NONE);
         } catch (e) {
-            setIsDeleting(false);
+            setIsRemovalInProgress(false);
             console.error(e);
             setRemoveProductFromWishlistError(e);
             if (process.env.NODE_ENV !== 'production') {
                 console.error(e);
             }
         }
-    }, [
-        removeProductsFromWishlist,
-        setCurrentDialog,
-        setRemoveProductFromWishlistError
-    ]);
+    }, [removeProductsFromWishlist, setRemoveProductFromWishlistError]);
 
-    const handleShowConfirmRemoval = useCallback(() => {
-        // Before we show the removal confirmation dialog, clear out any previous errors.
-        setRemoveProductFromWishlistError(null);
-        setCurrentDialog(dialogs.CONFIRM_REMOVE_PRODUCT);
-    }, [setCurrentDialog, setRemoveProductFromWishlistError]);
-
-    const handleShowMoreActions = useCallback(() => {
-        setCurrentDialog(dialogs.MORE_ACTIONS);
-    }, [setCurrentDialog]);
-
-    const handleHideDialogs = useCallback(() => {
-        setCurrentDialog(dialogs.NONE);
-    }, [setCurrentDialog]);
-
-    // Derived state.
-    const confirmRemovalIsOpen =
-        currentDialog === dialogs.CONFIRM_REMOVE_PRODUCT;
-    const moreActionsIsOpen = currentDialog === dialogs.MORE_ACTIONS;
     const isInStock = stockStatus !== 'OUT_OF_STOCK';
     const addToCartButtonProps = useMemo(() => {
         return {
@@ -236,17 +207,11 @@ export const useWishlistItem = props => {
 
     return {
         addToCartButtonProps,
-        confirmRemovalIsOpen,
-        handleHideDialogs,
+        isRemovalInProgress,
         handleRemoveProductFromWishlist,
-        handleShowConfirmRemoval,
-        handleShowMoreActions,
         hasError: !!addWishlistItemToCartError,
         hasRemoveProductFromWishlistError: !!removeProductFromWishlistError,
         imageProps,
-        isRemovalInProgress,
-        moreActionsIsOpen,
-        isDeleting,
         isSupportedProductType,
         isInStock
     };
@@ -273,17 +238,10 @@ export const useWishlistItem = props => {
  *
  * @typedef {Object} WishlistItemProps
  *
- * @property {Boolean} confirmRemovalIsOpen Whether the confirm removal dialog is open
- * @property {Function} handleHideDialogs Callback to handle hiding all dialogs
  * @property {Function} handleRemoveProductFromWishlist Callback to actually remove product from wishlist
- * @property {Function} handleShowConfirmRemoval Callback to handle showing the removal confirmation prompt
- * @property {Function} handleShowMoreActions Callback to handle showing more actions
  * @property {Boolean} hasError Boolean which represents if there was an error adding the wishlist item to cart
  * @property {Boolean} hasRemoveProductFromWishlistError If there was an error removing a product from the wishlist
- * @property {Boolean} isLoading Boolean which represents if data is loading
  * @property {Boolean} isRemovalInProgress Whether the remove product from wishlist operation is in progress
- * @property {Boolean} moreActionsIsOpen Whether more actions are showing or not
- * @property {Boolean} isDeleting returns if delete was clicked
  * @property {Boolean} isSupportedProductType is this product type suported
  * @property {Boolean} isInStock is product in stock
  */

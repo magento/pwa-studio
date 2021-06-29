@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`fetch more items 1`] = `
+Object {
+  "error": undefined,
+  "handleContentToggle": [Function],
+  "handleLoadMore": [Function],
+  "isFetchingMore": false,
+  "isLoading": false,
+  "isOpen": true,
+  "items": Array [],
+}
+`;
+
 exports[`returns correct shape 1`] = `
 Object {
   "error": undefined,
@@ -9,5 +21,24 @@ Object {
   "isLoading": false,
   "isOpen": true,
   "items": Array [],
+}
+`;
+
+exports[`schould load if it has items 1`] = `
+Object {
+  "error": undefined,
+  "handleContentToggle": [Function],
+  "handleLoadMore": [Function],
+  "isFetchingMore": false,
+  "isLoading": false,
+  "isOpen": true,
+  "items": Array [
+    Object {
+      "name": "item1",
+    },
+    Object {
+      "name": "item2",
+    },
+  ],
 }
 `;

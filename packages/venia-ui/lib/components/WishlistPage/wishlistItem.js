@@ -30,7 +30,7 @@ const WishlistItem = props => {
         addToCartButtonProps,
         handleRemoveProductFromWishlist,
         hasError,
-        isDeleting,
+        isRemovalInProgress,
         isSupportedProductType
     } = talonProps;
 
@@ -86,7 +86,9 @@ const WishlistItem = props => {
         defaultMessage: 'Remove Product from whislist'
     });
 
-    const rootClass = isDeleting ? classes.root_disabled : classes.root;
+    const rootClass = isRemovalInProgress
+        ? classes.root_disabled
+        : classes.root;
 
     const addToCart = isSupportedProductType ? (
         <button className={classes.addToCart} {...addToCartButtonProps}>
