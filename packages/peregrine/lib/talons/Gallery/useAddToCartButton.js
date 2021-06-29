@@ -4,48 +4,36 @@ import { useCartContext } from '../../context/cart';
 import operations from './addToCart.gql';
 
 export const useAddToCartButton = props => {
-    const { item } = props;
-    const [isOpen, setIsOpen] = useState(false);
-
-    const [{ cartId }] = useCartContext();
-    const [addToCart,{data}] = useMutation(operations.ADD_PRODUCT_TO_CART); //added
-
-    const handleOpenDialog = useCallback(() => {
-        setIsOpen(true);
-    }, [item]);
-
-    const handleCloseDialog = useCallback(() => {
-        setIsOpen(false);
-    }, [setIsOpen]);
-    const getMutationVariables = useCallback(() => {
-        return {
-            cartId,
-            cartItem: {
-                quantity: 1,
-                selected_options: [],
-                sku: item.sku
-            }
-        };
-    }, [cartId, item]);
+    const { item } = props; // destructuring props.item ?
+    const [isLoading, setIsLoading] = useState(false); // isLoading set to false
+  
+    //const [addToCart,{data}] = useMutation(operations.ADD_PRODUCT_TO_CART); //added
 
     const handleAddToCart = useCallback(async () => {
-        const variables = getMutationVariables();
-
         try {
+            setIsLoading(true); 
+            /*
             await addToCart({
-              variables
+              cartId, 
+              cartItem: {
+                  quantity: 1, 
+                  selected_options: [], 
+                  sku: item.sku
+              }
             })
-
-            setIsOpen(false);
+            */
+            console.log(`Adding ${item.name} to Cart`);
+            //disable button to add 
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 2000);
         } catch (error) {
-            console.error(error);
+            console.error(error); // what would cause a console error
         }
-    }, [setIsOpen, getMutationVariables]);
+    }, [item]);//why [item]
 
     return {
-        isOpen,
-        handleOpenDialog,
-        handleCloseDialog,
+        isLoading, 
         handleAddToCart
     };
 };
