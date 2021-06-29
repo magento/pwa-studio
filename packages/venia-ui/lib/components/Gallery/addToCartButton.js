@@ -12,18 +12,16 @@ const GalleryButton = props => {
     const talonProps = useAddToCartButton(props);
     const {
         isSelected,
-        errorToastProps, // use commonToasts
-        loginToastProps, 
-        successToastProps, 
         isLoading,
         handleAddToCart
     } = talonProps;
     
     const classes = mergeClasses(defaultClasses, props.classes);
+    const buttonSelected = isSelected? classes.root_selected : classes.root
 
     return (
         <Button
-            className={classes.root}
+            className={buttonSelected}
             type="button"
             priority="high"
             onClick={handleAddToCart}
