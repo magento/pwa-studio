@@ -67,7 +67,7 @@ test('toggles open state', () => {
     expect(talonPropsResult[2].isOpen).toBe(true);
 });
 
-test('schould load if it has items', () => {
+test('should load items if any', () => {
     const props = {
         ...baseProps,
         itemsCount: 1
