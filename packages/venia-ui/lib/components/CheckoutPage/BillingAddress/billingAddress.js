@@ -17,24 +17,15 @@ import { useBillingAddress } from '@magento/peregrine/lib/talons/CheckoutPage/Bi
 
 const BillingAddress = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { formatMessage } = useIntl();
-
-    const {
-        shouldSubmit,
-        onBillingAddressChangedError,
-        onBillingAddressChangedSuccess
-    } = props;
 
     const {
         isBillingAddressSame,
         initialValues,
         shippingAddressCountry,
         errors
-    } = useBillingAddress({
-        shouldSubmit,
-        onBillingAddressChangedError,
-        onBillingAddressChangedSuccess
-    });
+    } = useBillingAddress(props);
+
+    const { formatMessage } = useIntl();
 
     /**
      * Instead of defining classes={root: classes.FIELD_NAME}
