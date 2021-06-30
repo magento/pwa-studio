@@ -29,6 +29,7 @@ jest.mock('../helpers/useSingleWishlist', () => ({
 
 const initialProps = {
     item: {
+        quantity: 1,
         sku: 'holy-grail'
     },
     storeConfig: {

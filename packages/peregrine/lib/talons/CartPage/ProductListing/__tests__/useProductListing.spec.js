@@ -17,17 +17,29 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
-jest.mock('@apollo/client', () => ({
-    useLazyQuery: jest.fn().mockReturnValue([
-        jest.fn(),
-        {
-            called: false,
-            error: null,
-            loading: false,
-            data: null
-        }
-    ])
-}));
+jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
+    return {
+        ...apolloClient,
+        useLazyQuery: jest.fn().mockReturnValue([
+            jest.fn(),
+            {
+                called: false,
+                error: null,
+                loading: false,
+                data: null
+            }
+        ]),
+        useQuery: jest.fn().mockReturnValue({
+            data: {
+                storeConfig: {
+                    wishlistEnabled: true
+                }
+            }
+        })
+    };
+});
 
 const Component = props => {
     const talonProps = useProductListing(props);

@@ -25,6 +25,7 @@ beforeEach(() => {
 });
 
 const mockNewItem = {
+    quantity: 1,
     sku: 'pants'
 };
 
@@ -33,7 +34,7 @@ const mockMutationSuccess = {
         query: operations.addProductToWishlistMutation,
         variables: {
             wishlistId: '0',
-            sku: mockNewItem.sku
+            itemOptions: mockNewItem
         }
     },
     result: {
@@ -90,6 +91,7 @@ test('returns correct shape for selected product', () => {
             "onClick": [Function],
             "type": "button",
           },
+          "buttonText": undefined,
           "customerWishlistProducts": Array [
             "shirt",
           ],
@@ -183,4 +185,27 @@ test('button appears selected while mutation is in flight', () => {
 
     expect(result.current.isSelected).toBe(true);
     expect(result.current.buttonProps.disabled).toBe(true);
+});
+
+test('returns buttonText based on selected status', () => {
+    const buttonTextRenderProp = isSelected =>
+        isSelected ? 'Selected' : 'Not Selected';
+
+    const { rerender, result } = renderHookWithProviders({
+        renderHookOptions: {
+            initialProps: {
+                ...initialProps,
+                buttonText: buttonTextRenderProp
+            }
+        }
+    });
+
+    expect(result.current.buttonText).toMatchInlineSnapshot(`"Selected"`);
+
+    rerender({
+        item: { sku: 'new-shirt' },
+        buttonText: buttonTextRenderProp
+    });
+
+    expect(result.current.buttonText).toMatchInlineSnapshot(`"Not Selected"`);
 });

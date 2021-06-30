@@ -1,14 +1,13 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useGalleryButton } from '@magento/peregrine/lib/talons/Wishlist/GalleryButton/useGalleryButton';
-
-import AddToListButton from '../addToListButton';
+import AddToListButton from '../addToListButton.ce';
+import { useAddToListButton } from '@magento/peregrine/lib/talons/Wishlist/AddToListButton/useAddToListButton';
 import { useCommonToasts } from '../useCommonToasts';
 
 jest.mock(
-    '@magento/peregrine/lib/talons/Wishlist/GalleryButton/useGalleryButton',
+    '@magento/peregrine/lib/talons/Wishlist/AddToListButton/useAddToListButton',
     () => ({
-        useGalleryButton: jest.fn().mockReturnValue({
+        useAddToListButton: jest.fn().mockReturnValue({
             buttonProps: {
                 disabled: false,
                 onClick: jest.fn().mockName('buttonProps.onClick')
@@ -18,7 +17,6 @@ jest.mock(
     })
 );
 jest.mock('../../../../classify');
-jest.mock('../../WishlistDialog', () => 'WishlistDialog');
 jest.mock('../useCommonToasts', () => ({
     useCommonToasts: jest.fn()
 }));
@@ -30,7 +28,7 @@ test('renders button', () => {
 });
 
 test('renders selected button', () => {
-    useGalleryButton.mockReturnValueOnce({
+    useAddToListButton.mockReturnValueOnce({
         buttonProps: {
             disabled: true
         },
@@ -49,7 +47,15 @@ test('passes props to talon', () => {
 
     createTestInstance(<AddToListButton {...props} />);
 
-    expect(useGalleryButton.mock.calls[0][0]).toEqual(props);
+    expect(useAddToListButton.mock.calls[0][0]).toMatchInlineSnapshot(`
+        Object {
+          "foo": "bar",
+          "icon": <Icon
+            size={20}
+            src={[Function]}
+          />,
+        }
+    `);
 });
 
 test('passes talonProps to toast hook', () => {
@@ -59,21 +65,9 @@ test('passes talonProps to toast hook', () => {
         successToastProps: jest.fn().mockName('successToastProps')
     };
 
-    useGalleryButton.mockReturnValue(toastProps);
+    useAddToListButton.mockReturnValue(toastProps);
 
     createTestInstance(<AddToListButton />);
 
     expect(useCommonToasts.mock.calls[0][0]).toEqual(toastProps);
-});
-
-test('renders wishlist dialog with modal props', () => {
-    useGalleryButton.mockReturnValue({
-        modalProps: {
-            baz: 'woof'
-        }
-    });
-
-    const tree = createTestInstance(<AddToListButton />);
-
-    expect(tree.toJSON()).toMatchSnapshot();
 });
