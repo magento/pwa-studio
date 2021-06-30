@@ -385,3 +385,17 @@ test('calls generic mutation when no deprecated operation props are passed', asy
         }
     `);
 });
+
+test('it returns text when render prop is executed', () => {
+    const tree = createTestInstance(<Component {...defaultProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(
+        talonProps.wishlistButtonProps.buttonText(true)
+    ).toMatchInlineSnapshot(`"Added to Favorites"`);
+
+    expect(
+        talonProps.wishlistButtonProps.buttonText(false)
+    ).toMatchInlineSnapshot(`"Add to Favorites"`);
+});

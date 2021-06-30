@@ -110,6 +110,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
         />
       </span>
     </button>
+    <require('../Wishlist/AddToListButton') />
   </section>
   <section
     className="description"
@@ -224,6 +225,7 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
         />
       </span>
     </button>
+    <require('../Wishlist/AddToListButton') />
   </section>
   <section
     className="description"
@@ -372,6 +374,7 @@ exports[`it renders an error for an invalid cart 1`] = `
         />
       </span>
     </button>
+    <require('../Wishlist/AddToListButton') />
   </section>
   <section
     className="description"
@@ -520,6 +523,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
         />
       </span>
     </button>
+    <require('../Wishlist/AddToListButton') />
   </section>
   <section
     className="description"
@@ -669,6 +673,7 @@ Array [
           />
         </span>
       </button>
+      <require('../Wishlist/AddToListButton') />
     </section>
     <section
       className="description"
@@ -814,6 +819,7 @@ exports[`it renders correctly 1`] = `
         />
       </span>
     </button>
+    <require('../Wishlist/AddToListButton') />
   </section>
   <section
     className="description"
@@ -958,6 +964,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
         />
       </span>
     </button>
+    <require('../Wishlist/AddToListButton') />
   </section>
   <section
     className="description"
@@ -1102,6 +1109,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
         />
       </span>
     </button>
+    <require('../Wishlist/AddToListButton') />
   </section>
   <section
     className="description"
@@ -1246,6 +1254,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
         />
       </span>
     </button>
+    <require('../Wishlist/AddToListButton') />
   </section>
   <section
     className="description"
@@ -1394,6 +1403,7 @@ exports[`it renders form level errors 1`] = `
         />
       </span>
     </button>
+    <require('../Wishlist/AddToListButton') />
   </section>
   <section
     className="description"
@@ -1563,6 +1573,7 @@ exports[`it renders message with unsupported product type 1`] = `
         />
       </p>
     </div>
+    <require('../Wishlist/AddToListButton') />
   </section>
   <section
     className="description"
@@ -1597,7 +1608,7 @@ exports[`it renders message with unsupported product type 1`] = `
 </form>
 `;
 
-exports[`renders a WishlistButton 1`] = `
+exports[`renders a WishlistButton with props 1`] = `
 <form
   className="root"
   onKeyDown={[Function]}
@@ -1707,12 +1718,8 @@ exports[`renders a WishlistButton 1`] = `
         />
       </span>
     </button>
-    <require('../Wishlist/WishlistButton')
-      itemOptions={
-        Object {
-          "foo": "bar",
-        }
-      }
+    <require('../Wishlist/AddToListButton')
+      foo="bar"
     />
   </section>
   <section

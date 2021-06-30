@@ -57,12 +57,12 @@
 
 .name {
     grid-area: name;
-    font-weight: 600;
+    font-weight: var(--venia-global-fontWeight-semibold);
 }
 
 .price {
     grid-area: price;
-    font-size: 0.875rem;
+    font-size: var(--venia-typography-body-S-fontSize);
 }
 
 .quantity {
@@ -79,13 +79,13 @@
 
 .sectionText {
     padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
+    font-size: var(--venia-typography-body-S-fontSize);
     pointer-events: none;
 }
 
 .options {
     grid-area: options;
-    font-size: 0.875rem;
+    font-size: var(--venia-typography-body-S-fontSize);
     display: grid;
     grid-gap: 0.125rem;
 }
@@ -104,6 +104,20 @@
 }
 
 .stockStatusMessage:empty {
+    display: none;
+}
+
+.addToListButton {
+    --stroke: rgb(var(--venia-global-color-teal));
+    align-content: center;
+    column-gap: 1.125rem;
+    display: inline-flex;
+    font-size: var(--venia-typography-body-S-fontSize);
+    padding: 0.875rem 0.625rem;
+    width: 100%;
+}
+
+.addToListButton_selected {
     display: none;
 }
 

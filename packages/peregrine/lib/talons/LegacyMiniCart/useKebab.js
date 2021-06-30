@@ -17,7 +17,7 @@ export const useKebab = () => {
         }
     }, []);
 
-    useEventListener(globalThis.document, 'mousedown', handleOutsideKebabClick);
+    useEventListener(globalThis.document, 'mouseup', handleOutsideKebabClick);
     useEventListener(globalThis.document, 'touchend', handleOutsideKebabClick);
 
     return {
