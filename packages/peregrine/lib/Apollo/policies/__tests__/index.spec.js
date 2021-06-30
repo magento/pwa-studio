@@ -423,5 +423,5 @@ test('WishlistItems type merges items correctly', () => {
     const result2 = merge(existing2, incoming2, {
         variables: { currentPage: 2 }
     });
-    expect(result2).toStrictEqual([...existing, ...incoming]);
+    expect(result2).toStrictEqual([{ name: 'test1' }, { name: 'test2' }]);
 });
