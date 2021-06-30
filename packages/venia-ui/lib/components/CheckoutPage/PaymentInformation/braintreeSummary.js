@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import { shape, string, func, bool } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import Icon from '../../Icon';
@@ -12,7 +12,7 @@ import defaultClasses from './braintreeSummary.css';
 const BraintreeSummary = props => {
     const { classes: propClasses, onEdit } = props;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const { formatMessage } = useIntl();
 
     const {

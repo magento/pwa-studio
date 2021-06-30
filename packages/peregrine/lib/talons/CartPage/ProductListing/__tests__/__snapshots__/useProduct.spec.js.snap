@@ -4,18 +4,24 @@ exports[`it returns the proper shape 1`] = `
 <i
   talonProps={
     Object {
+      "addToWishlistProps": Object {
+        "afterAdd": [Function],
+        "buttonText": [Function],
+        "item": Object {
+          "quantity": 7,
+          "selected_options": Array [],
+          "sku": "unit-test-sku",
+        },
+        "storeConfig": Object {
+          "wishlistEnabled": true,
+        },
+      },
       "errorMessage": "",
-      "handleAddToWishlistSuccess": [MockFunction handleAddToWishlistSuccess],
       "handleEditItem": [Function],
       "handleRemoveFromCart": [Function],
-      "handleSaveForLater": [Function],
       "handleUpdateItemQuantity": [Function],
-      "handleWishlistDialogClose": [MockFunction handleWishlistDialogClose],
       "isEditable": false,
-      "isMultipleWishlistsEnabled": false,
-      "isProductUpdating": true,
-      "isWishlistDialogOpen": false,
-      "loginToastProps": null,
+      "isProductUpdating": false,
       "product": Object {
         "currency": "USD",
         "image": "test.webp",
@@ -36,24 +42,33 @@ exports[`it returns the proper shape when use variant image is configured 1`] = 
 <i
   talonProps={
     Object {
+      "addToWishlistProps": Object {
+        "afterAdd": [Function],
+        "buttonText": [Function],
+        "item": Object {
+          "quantity": 7,
+          "selected_options": Array [
+            "selected-option-uid",
+          ],
+          "sku": "unit-test-sku",
+        },
+        "storeConfig": Object {
+          "wishlistEnabled": true,
+        },
+      },
       "errorMessage": "",
-      "handleAddToWishlistSuccess": [MockFunction handleAddToWishlistSuccess],
       "handleEditItem": [Function],
       "handleRemoveFromCart": [Function],
-      "handleSaveForLater": [Function],
       "handleUpdateItemQuantity": [Function],
-      "handleWishlistDialogClose": [MockFunction handleWishlistDialogClose],
       "isEditable": true,
-      "isMultipleWishlistsEnabled": false,
-      "isProductUpdating": true,
-      "isWishlistDialogOpen": false,
-      "loginToastProps": null,
+      "isProductUpdating": false,
       "product": Object {
         "currency": "USD",
         "image": "variant1.webp",
         "name": "unit test",
         "options": Array [
           Object {
+            "configurable_product_option_value_uid": "selected-option-uid",
             "id": 22,
             "option_label": "Color",
             "value_id": 2,

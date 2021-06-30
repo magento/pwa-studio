@@ -1,4 +1,5 @@
 import { useCallback, useState, useMemo } from 'react';
+import { useIntl } from 'react-intl';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -190,6 +191,7 @@ export const useProductFullDetail = props => {
 
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
+    const { formatMessage } = useIntl();
 
     const { data: storeConfigData } = useQuery(
         operations.getWishlistConfigQuery,
@@ -423,6 +425,21 @@ export const useProductFullDetail = props => {
         return options;
     }, [product, productType, selectedOptionsArray]);
 
+    const wishlistButtonProps = {
+        buttonText: isSelected =>
+            isSelected
+                ? formatMessage({
+                      id: 'wishlistButton.addedText',
+                      defaultMessage: 'Added to Favorites'
+                  })
+                : formatMessage({
+                      id: 'wishlistButton.addText',
+                      defaultMessage: 'Add to Favorites'
+                  }),
+        item: wishlistItemOptions,
+        storeConfig: storeConfigData ? storeConfigData.storeConfig : {}
+    };
+
     return {
         breadcrumbCategoryId,
         errorMessage: derivedErrorMessage,
@@ -440,6 +457,7 @@ export const useProductFullDetail = props => {
             storeConfigData &&
             !!storeConfigData.storeConfig.magento_wishlist_general_is_enabled,
         productDetails,
+        wishlistButtonProps,
         wishlistItemOptions
     };
 };
