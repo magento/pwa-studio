@@ -138,3 +138,33 @@ test('handleModalClose updates cache and updates toast props', () => {
         }
     `);
 });
+
+test('executes before and after methods', () => {
+    const beforeAdd = jest.fn();
+    const afterAdd = jest.fn();
+
+    const { result } = renderHook(useAddToListButton, {
+        initialProps: {
+            ...initialProps,
+            beforeAdd,
+            afterAdd
+        }
+    });
+
+    expect(beforeAdd).not.toHaveBeenCalled();
+    expect(afterAdd).not.toHaveBeenCalled();
+
+    act(() => {
+        result.current.buttonProps.onClick();
+    });
+
+    expect(beforeAdd).toHaveBeenCalled();
+
+    act(() => {
+        result.current.modalProps.onClose(true, {
+            wishlistName: 'Favorites List'
+        });
+    });
+
+    expect(afterAdd).toHaveBeenCalled();
+});

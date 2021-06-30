@@ -209,3 +209,28 @@ test('returns buttonText based on selected status', () => {
 
     expect(result.current.buttonText).toMatchInlineSnapshot(`"Not Selected"`);
 });
+
+test('executes before and after methods', async () => {
+    const beforeAdd = jest.fn().mockResolvedValue(undefined);
+    const afterAdd = jest.fn();
+
+    const { result } = renderHookWithProviders({
+        renderHookOptions: {
+            initialProps: {
+                afterAdd,
+                beforeAdd,
+                item: mockNewItem
+            }
+        }
+    });
+
+    expect(beforeAdd).not.toHaveBeenCalled();
+    expect(afterAdd).not.toHaveBeenCalled();
+
+    await act(async () => {
+        await result.current.buttonProps.onClick();
+    });
+
+    expect(beforeAdd).toHaveBeenCalled();
+    expect(afterAdd).toHaveBeenCalled();
+});

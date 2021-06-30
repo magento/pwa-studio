@@ -479,3 +479,13 @@ test('it does not set the active edit item when drawer is open', () => {
 
     expect(setActiveEditItem).not.toHaveBeenCalled();
 });
+
+test('it returns text when render prop is executed', () => {
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.addToWishlistProps.buttonText()).toMatchInlineSnapshot(
+        `"Save for later"`
+    );
+});

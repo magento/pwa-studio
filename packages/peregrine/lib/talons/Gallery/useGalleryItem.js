@@ -1,4 +1,4 @@
-export const useGalleryItem = props => {
+export const useGalleryItem = (props = {}) => {
     const { item, storeConfig } = props;
 
     const wishlistButtonProps =
