@@ -1,15 +1,18 @@
 import {
     accountAccess as accountAccessFixtures,
-    myAccountMenu as myAccountMenuFixtures,
     categoryPage as categoryPageFixtures,
+    cartPage as cartPageFixtures,
     homePage as homePageFixtures,
+    myAccountMenu as myAccountMenuFixtures,
     wishlist as wishlistFixtures,
     productPage as productPageFixtures
 } from '../../../fixtures';
 import {
+    cartPage as cartPageActions,
     categoryPage as categoryPageActions,
     myAccountMenu as myAccountMenuActions,
-    productPage as productPageActions, wishlistPage as wishlistPageActions
+    productPage as productPageActions,
+    wishlistPage as wishlistPageActions
 } from '../../../actions';
 import {
     myAccountMenu as myAccountMenuAssertions,
@@ -25,14 +28,22 @@ const {
 } = accountAccessFixtures;
 const { wishlistPage } = myAccountMenuFixtures;
 const { categorySweaters, productCarinaCardigan } = categoryPageFixtures;
+const { cartPageRoute } = cartPageFixtures;
 const { homePage } = homePageFixtures;
 const { wishlistRoute } = wishlistFixtures;
-const { productValeriaTwoLayeredTank } = productPageFixtures;
+const {
+    productValeriaTwoLayeredTank,
+    silverAmorBandleSet
+} = productPageFixtures;
 
+const { moveProductFromCartToSigleWishlist } = cartPageActions;
 const { goToMyAccount } = myAccountMenuActions;
 const { addProductToWishlistFromCategoryPage } = categoryPageActions;
-const { addProductToWishlistFromProductPage } = productPageActions;
-const {removeProductFromSingleWishlist} = wishlistPageActions
+const {
+    addProductToWishlistFromProductPage,
+    addSimpleProductToCartFromProductPage
+} = productPageActions;
+const { removeProductFromSingleWishlist } = wishlistPageActions;
 
 const { assertCreateAccount } = myAccountMenuAssertions;
 const {
@@ -76,6 +87,16 @@ describe('verify single wishlist basic features', () => {
 
         assertProductInWishlist(productCarinaCardigan);
         assertProductInWishlist(productValeriaTwoLayeredTank.name);
+
+        cy.visitPage(silverAmorBandleSet.url);
+        addSimpleProductToCartFromProductPage();
+        cy.visitPage(cartPageRoute);
+        moveProductFromCartToSigleWishlist(silverAmorBandleSet.name);
+        cy.visitPage(wishlistRoute);
+
+        assertProductInWishlist(productCarinaCardigan);
+        assertProductInWishlist(productValeriaTwoLayeredTank.name);
+        assertProductInWishlist(silverAmorBandleSet.name);
 
         removeProductFromSingleWishlist(productCarinaCardigan);
 

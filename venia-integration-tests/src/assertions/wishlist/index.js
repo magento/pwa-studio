@@ -26,15 +26,19 @@ export const assertProductInWishlist = productName => {
     cy.get(wishlistRoot).should('exist');
 
     // assert Product exists
-    cy.contains(productName).should('exist');
+    cy.get(wishlistRoot)
+        .contains(productName)
+        .should('exist');
 
     // assert Product Price exists
-    cy.contains('div', productName)
+    cy.get(wishlistRoot)
+        .contains('div', productName)
         .siblings(wishlistItemPrice)
         .should('exist');
 
     // assert Add to Cart button exists
-    cy.contains('div', productName)
+    cy.get(wishlistRoot)
+        .contains('div', productName)
         .siblings(wishlistItemAddToCartButton)
         .should('exist');
 };
@@ -48,7 +52,9 @@ export const asserProductNotInWishlist = productName => {
     cy.get(wishlistRoot).should('exist');
 
     // assert Product exists
-    cy.contains(productName).should('not.exist');
+    cy.get(wishlistRoot)
+        .contains(productName)
+        .should('not.exist');
 };
 
 /**

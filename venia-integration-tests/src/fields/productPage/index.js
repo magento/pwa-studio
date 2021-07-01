@@ -1,3 +1,5 @@
+export const productPageRoot = 'form[class^="productFullDetail-root-"]';
+
 export const productPageAddToWishListButton =
     'button[class^="addToListButton-root"]';
 
