@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { shape, string, func } from 'prop-types';
 
 import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 import defaultClasses from './summary.css';
 import LoadingIndicator from '../../LoadingIndicator';
@@ -11,7 +11,7 @@ import summaryPayments from './summaryPaymentCollection';
 
 const Summary = props => {
     const { classes: propClasses, onEdit } = props;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = useSummary();
 

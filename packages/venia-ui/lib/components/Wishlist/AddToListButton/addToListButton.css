@@ -1,0 +1,17 @@
+.root {
+    align-content: center;
+    column-gap: 0.5rem;
+    display: inline-flex;
+    margin-left: -0.5rem;
+    padding: 0 0.5rem;
+    text-decoration: underline;
+}
+
+.root_selected {
+    composes: root;
+    --selectedColor: rgb(var(--venia-global-color-red-400));
+    --fill: var(--selectedColor);
+    --stroke: var(--selectedColor);
+
+    text-decoration: none;
+}
