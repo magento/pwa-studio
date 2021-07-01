@@ -18,7 +18,7 @@ import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichText from '../RichText';
 import defaultClasses from './productFullDetail.css';
 
-const WishlistButton = React.lazy(() => import('../Wishlist/WishlistButton'));
+const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
 const Options = React.lazy(() => import('../ProductOptions'));
 
 // Correlate a GQL error message to a field. GQL could return a longer error
@@ -49,8 +49,7 @@ const ProductFullDetail = props => {
         isSupportedProductType,
         mediaGalleryEntries,
         productDetails,
-        shouldShowWishlistButton,
-        wishlistItemOptions
+        wishlistButtonProps
     } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -126,12 +125,6 @@ const ProductFullDetail = props => {
         }
     }
 
-    const maybeWishlistButton = shouldShowWishlistButton ? (
-        <Suspense fallback={null}>
-            <WishlistButton itemOptions={wishlistItemOptions} />
-        </Suspense>
-    ) : null;
-
     const cartActionContent = isSupportedProductType ? (
         <Button disabled={isAddToCartDisabled} priority="high" type="submit">
             <FormattedMessage
@@ -193,7 +186,9 @@ const ProductFullDetail = props => {
                 </section>
                 <section className={classes.actions}>
                     {cartActionContent}
-                    {maybeWishlistButton}
+                    <Suspense fallback={null}>
+                        <WishlistButton {...wishlistButtonProps} />
+                    </Suspense>
                 </section>
                 <section className={classes.description}>
                     <h2 className={classes.descriptionTitle}>

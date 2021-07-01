@@ -23,5 +23,8 @@ Object {
     },
   ],
   "setActiveEditItem": [Function],
+  "wishlistConfig": Object {
+    "wishlistEnabled": true,
+  },
 }
 `;

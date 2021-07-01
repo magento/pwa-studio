@@ -36,7 +36,13 @@ const ProductListing = props => {
             getProductListing: GET_PRODUCT_LISTING
         }
     });
-    const { activeEditItem, isLoading, items, setActiveEditItem } = talonProps;
+    const {
+        activeEditItem,
+        isLoading,
+        items,
+        setActiveEditItem,
+        wishlistConfig
+    } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -60,6 +66,7 @@ const ProductListing = props => {
                 setIsCartUpdating={setIsCartUpdating}
                 onAddToWishlistSuccess={onAddToWishlistSuccess}
                 fetchCartDetails={fetchCartDetails}
+                wishlistConfig={wishlistConfig}
             />
         ));
 
