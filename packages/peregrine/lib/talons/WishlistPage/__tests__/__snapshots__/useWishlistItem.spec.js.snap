@@ -6,11 +6,7 @@ Object {
     "disabled": false,
     "onClick": [Function],
   },
-  "confirmRemovalIsOpen": false,
-  "handleHideDialogs": [Function],
   "handleRemoveProductFromWishlist": [Function],
-  "handleShowConfirmRemoval": [Function],
-  "handleShowMoreActions": [Function],
   "hasError": false,
   "hasRemoveProductFromWishlistError": false,
   "imageProps": Object {
@@ -18,8 +14,9 @@ Object {
     "src": "https://example.com/media/shoggoth-shirt.jpg",
     "width": 400,
   },
+  "isInStock": true,
   "isRemovalInProgress": false,
-  "moreActionsIsOpen": false,
+  "isSupportedProductType": false,
 }
 `;
 

@@ -24,11 +24,13 @@ export const useCreateWishlistForm = props => {
 
     const handleSave = useCallback(async () => {
         try {
-            const { listname, visibility } = values;
+            const visibility = values.visibility
+                ? values.visibility
+                : 'PRIVATE';
 
             const { data } = await createList({
                 variables: {
-                    name: listname,
+                    name: values.listname,
                     visibility
                 }
             });

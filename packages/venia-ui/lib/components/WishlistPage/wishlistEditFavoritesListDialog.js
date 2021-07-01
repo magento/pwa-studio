@@ -8,7 +8,6 @@ import defaultClasses from './wishlistEditFavoritesListDialog.css';
 import TextInput from '../TextInput';
 import { isRequired } from '../../util/formValidators';
 import Field from '../Field';
-import RadioGroup from '../RadioGroup';
 import FormError from '../FormError';
 
 const WishlistEditFavoritesListDialog = props => {
@@ -39,29 +38,6 @@ const WishlistEditFavoritesListDialog = props => {
         id: 'createWishlist.listName',
         defaultMessage: 'List Name'
     });
-
-    const radioGroupClasses = {
-        message: classes.radioMessage,
-        radioLabel: classes.radioLabel,
-        root: classes.radioRoot
-    };
-
-    const radioGroupItems = [
-        {
-            label: formatMessage({
-                id: 'global.private',
-                defaultMessage: 'Private'
-            }),
-            value: 'PRIVATE'
-        },
-        {
-            label: formatMessage({
-                id: 'global.public',
-                defaultMessage: 'Public'
-            }),
-            value: 'PUBLIC'
-        }
-    ];
 
     return (
         <Dialog
@@ -94,11 +70,6 @@ const WishlistEditFavoritesListDialog = props => {
                             validateOnBlur
                         />
                     </Field>
-                    <RadioGroup
-                        classes={radioGroupClasses}
-                        field="visibility"
-                        items={radioGroupItems}
-                    />
                 </div>
             </div>
         </Dialog>
@@ -113,9 +84,7 @@ WishlistEditFavoritesListDialog.propTypes = {
         confirmButton: string,
         errorMessage: string,
         form: string,
-        radioLabel: string,
-        radioMessage: string,
-        radioRoot: string,
+
         root: string
     }),
     formErrors: array,

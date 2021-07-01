@@ -4,23 +4,8 @@
 .listname {
 }
 
-.visibility {
-}
-
-.radioContents {
-}
-
-.radioRoot {
-    /* We explicitly want one radio item per row. */
-    composes: root from '../../../RadioGroup/radioGroup.css';
-    grid-template-columns: auto;
-    grid-gap: 1.5rem;
-
-    padding-top: 1.5rem;
-    padding-bottom: 2rem;
-}
-
 .actions {
+    padding-top: 2rem;
     display: grid;
     grid-gap: 0.5rem;
     grid-auto-flow: column;

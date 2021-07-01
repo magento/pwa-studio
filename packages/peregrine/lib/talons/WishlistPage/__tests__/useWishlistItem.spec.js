@@ -7,6 +7,7 @@ import { useWishlistItem } from '../useWishlistItem';
 
 jest.mock('@apollo/client', () => {
     const ApolloClient = jest.requireActual('@apollo/client');
+
     return {
         ...ApolloClient,
         useMutation: jest.fn().mockReturnValue([jest.fn(), { loading: false }])
@@ -205,4 +206,25 @@ test('fires open dialog callback if not configured', () => {
 
     expect(mockMutate).not.toHaveBeenCalled();
     expect(baseProps.onOpenAddToCartDialog).toHaveBeenCalled();
+});
+
+test('test if cache clean works', () => {
+    const mockMutate = jest.fn();
+    useMutation.mockReturnValue([mockMutate, { loading: false }]);
+
+    createTestInstance(<Component {...baseProps} />);
+
+    const { update } = useMutation.mock.calls[1][1];
+    const talonProps = log.mock.calls[0][0];
+
+    const cache = {};
+    cache.modify = jest.fn();
+    update(cache);
+    expect(cache.modify.mock.calls.length).toBe(2);
+
+    act(() => {
+        talonProps.handleRemoveProductFromWishlist();
+    });
+
+    expect(mockMutate).toHaveBeenCalled();
 });
