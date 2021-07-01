@@ -26,6 +26,7 @@ export const ProductsFragment = gql`
             small_image {
                 url
             }
+            stock_status
             url_key
             url_suffix
         }

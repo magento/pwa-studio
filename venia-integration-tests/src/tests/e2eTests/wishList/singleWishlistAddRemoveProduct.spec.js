@@ -5,17 +5,17 @@ import {
     homePage as homePageFixtures,
     wishlist as wishlistFixtures,
     productPage as productPageFixtures
-} from '../../../fixtures/index';
+} from '../../../fixtures';
 import {
     categoryPage as categoryPageActions,
     myAccountMenu as myAccountMenuActions,
     productPage as productPageActions
-} from '../../../actions/index';
+} from '../../../actions';
 import {
     myAccountMenu as myAccountMenuAssertions,
     wishlist as wishlistAssertions,
     categoryPage as categoryPageAssertions
-} from '../../../assertions/index';
+} from '../../../assertions';
 
 const {
     firstName,
@@ -76,5 +76,13 @@ describe('verify single wishlist basic features', () => {
         assertProductInWishlist(productValeriaTwoLayeredTank.name);
 
         //This test also need to account for Remove the added product and assert for empty wishlist part of PWA-1683
+
+        /**
+         * Start of functionality that will only work once PWA-1683 is merged
+         */
+            
+        /**
+         * End of functionlity that will only work once PWA-1683 is merged
+         */
     });
 });

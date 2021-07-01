@@ -1,4 +1,4 @@
-import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures/index';
+import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify pagebuilder banner content', () => {
