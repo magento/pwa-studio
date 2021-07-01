@@ -4,39 +4,43 @@ import { useCartContext } from '../../context/cart';
 import operations from './addToCart.gql';
 
 export const useAddToCartButton = props => {
-    const { item } = props; // destructuring props.item ?
-    const [isLoading, setIsLoading] = useState(false); // isLoading set to false
-  
-    //const [addToCart,{data}] = useMutation(operations.ADD_PRODUCT_TO_CART); //added
+    const { item } = props; 
+    const [isLoading, setIsLoading] = useState(false); 
+
+    const getMutationVariables = useCallback(() => {
+        return {
+            cartId,
+            cartItem: {
+                quantity: 1,
+                selected_options: [],
+                sku: item.sku
+            }
+        };
+    }, [cartId, item]);
 
     const handleAddToCart = useCallback(async () => {
-
+        const variables = getMutationVariables();
+        const isDisabled = isLoading || item.stock_status === 'OUT_STOCK'
         try {
+            if (!isDisabled){
             setIsLoading(true); 
             console.log(`Adding ${item.name} to Cart`);
-
-            /*
-            await addToCart({
-              cartId, 
-              cartItem: {
-                  quantity: 1, 
-                  selected_options: [], 
-                  sku: item.sku
-              }
-            })
-            //prompt on console that item was added 
-            */
-            //disable button to after 1 second 
+            variables
+            console.log(`Added ${item.name} to Cart`);
+        }
             setTimeout(() => {
                 setIsLoading(false);
-            }, 2000);
-        } catch (error) {
-            console.error(error); // what would cause a console error
+            }, 1000);
+        }catch (error) {
+            console.error(error); 
         }
-    }, [item]);//why [item]
+    }, [cartId, item]);
+
 
     return {
         isLoading, 
-        handleAddToCart
+        handleAddToCart, 
+        isDisabled,
+        stock_status
     };
 };

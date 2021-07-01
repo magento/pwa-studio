@@ -1,31 +1,27 @@
 import React from 'react';
 import { string, number, shape } from 'prop-types';
-
 import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './addToCartButton.css';
 import Button from '../Button';
-import { FormattedMessage } from 'react-intl';
 
 const GalleryButton = props => {
     
     const talonProps = useAddToCartButton(props);
     const {
-        isSelected,
-        isLoading,
+        isDisabled,
         handleAddToCart
     } = talonProps;
     
     const classes = mergeClasses(defaultClasses, props.classes);
-    const buttonSelected = isSelected? classes.root_selected : classes.root
 
     return (
         <Button
-            className={buttonSelected}
+            className={classes.root}
             type="button"
             priority="high"
             onClick={handleAddToCart}
-            disabled ={isLoading}
+            disabled ={isDisabled}
         >
            ADD TO CART
         </Button>

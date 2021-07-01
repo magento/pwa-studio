@@ -10,28 +10,29 @@ export const CategoryFragment = gql`
 `;
 
 export const ProductsFragment = gql`
-    fragment ProductsFragment on Products {
-        items {
-            id
-            name
-            price {
-                regularPrice {
-                    amount {
-                        currency
-                        value
-                    }
+fragment ProductsFragment on Products {
+    items {
+        id
+        name
+        price {
+            regularPrice {
+                amount {
+                    currency
+                    value
                 }
             }
-            sku
-            small_image {
-                url
-            }
-            url_key
-            url_suffix
         }
-        page_info {
-            total_pages
+        sku
+        small_image {
+            url
         }
-        total_count
+        stock_status
+        url_key
+        url_suffix
     }
+    page_info {
+        total_pages
+    }
+    total_count
+}
 `;
