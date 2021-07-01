@@ -5,7 +5,7 @@ import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { useWindowSize } from '@magento/peregrine';
 import { useThumbnail } from '@magento/peregrine/lib/talons/ProductImageCarousel/useThumbnail';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './thumbnail.css';
 import Image from '../Image';
 
@@ -24,7 +24,7 @@ const DEFAULT_THUMBNAIL_WIDTH = 135;
  * @returns {React.Element} React thumbnail component that displays product thumbnail
  */
 const Thumbnail = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const {
         isActive,

@@ -3,10 +3,10 @@ import { createTestInstance } from '@magento/peregrine';
 import Block from '../block';
 import * as config from '../../../config';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(src => src),
+jest.mock('react-router-dom', () => ({
     withRouter: jest.fn(arg => arg)
 }));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock(
     '@magento/venia-ui/lib/components/RichContent/richContentRenderers',

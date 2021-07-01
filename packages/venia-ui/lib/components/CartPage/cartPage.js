@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Check } from 'react-feather';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { useToasts } from '@magento/peregrine';
 
 import Icon from '../Icon';
-import { mergeClasses } from '../../classify';
 import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
@@ -51,11 +51,10 @@ const CartPage = props => {
         shouldShowLoadingIndicator,
         wishlistSuccessProps
     } = talonProps;
+
+    const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
-
     const [, { addToast }] = useToasts();
-
-    const classes = mergeClasses(defaultClasses, props.classes);
 
     useEffect(() => {
         if (wishlistSuccessProps) {

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { number, shape, string } from 'prop-types';
 import { useCategory } from '@magento/peregrine/lib/talons/RootComponents/Category';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
@@ -29,7 +29,7 @@ const Category = props => {
         pageSize
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     if (!categoryData) {
         if (error && pageControl.currentPage === 1) {

@@ -1,0 +1,22 @@
+{
+    "data": {
+        "customer": {
+            "id": null,
+            "wishlists": [
+                {
+                    "id": "31",
+                    "items_count": 0,
+                    "sharing_code": "CRRIsCsMFbOFebmYKtFXV763eHm5xHOK",
+                    "name": "Test List1",
+                    "visibility": "PRIVATE",
+                    "items_v2": {
+                        "items": [],
+                        "__typename": "WishlistItems"
+                    },
+                    "__typename": "Wishlist"
+                }
+            ],
+            "__typename": "Customer"
+        }
+    }
+}

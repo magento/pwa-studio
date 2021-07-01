@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { string, func, arrayOf, shape, number, oneOf } from 'prop-types';
 
 import Item from './item';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 import defaultClasses from './productList.css';
 
@@ -14,7 +14,7 @@ const ProductList = props => {
         closeMiniCart,
         configurableThumbnailSource
     } = props;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const cartItems = useMemo(() => {
         if (items) {

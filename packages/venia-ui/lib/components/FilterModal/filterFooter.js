@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 import { useFilterFooter } from '@magento/peregrine/lib/talons/FilterModal';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Button from '../Button';
 import defaultClasses from './filterFooter.css';
 
@@ -14,7 +14,8 @@ const FilterFooter = props => {
         hasFilters,
         isOpen
     });
-    const classes = mergeClasses(defaultClasses, props.classes);
+
+    const classes = useStyle(defaultClasses, props.classes);
     const buttonLabel = formatMessage({
         id: 'filterFooter.results',
         defaultMessage: 'See Results'

@@ -2,7 +2,7 @@ import React from 'react';
 import { func, number, shape, string } from 'prop-types';
 import { useCategoryTree } from '@magento/peregrine/lib/talons/CategoryTree';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Branch from './categoryBranch';
 import Leaf from './categoryLeaf';
 import defaultClasses from './categoryTree.css';
@@ -16,7 +16,7 @@ const Tree = props => {
     });
 
     const { data, childCategories } = talonProps;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     // for each child category, render a direct link if it has no children
     // otherwise render a branch

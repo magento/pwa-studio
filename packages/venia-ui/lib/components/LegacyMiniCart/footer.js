@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { bool, number, object, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Checkout from '../Checkout';
 import CheckoutButton from '../Checkout/checkoutButton';
 
@@ -18,7 +18,7 @@ const Footer = props => {
         subtotal
     } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const footerClassName = isMiniCartMaskOpen
         ? classes.root_open
         : classes.root;

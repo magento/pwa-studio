@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { useCreateWishlistForm } from '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/CreateWishlistForm/useCreateWishlistForm';
 
 import Button from '@magento/venia-ui/lib/components/Button';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import Field from '@magento/venia-ui/lib/components/Field';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import RadioGroup from '@magento/venia-ui/lib/components/RadioGroup';
@@ -15,7 +15,7 @@ import FormError from '../../../FormError';
 import { bool, func, shape, string } from 'prop-types';
 
 const CreateWishlistForm = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
     const talonProps = useCreateWishlistForm({
         onCancel: props.onCancel,

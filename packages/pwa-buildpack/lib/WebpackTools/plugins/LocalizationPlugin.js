@@ -137,7 +137,7 @@ class LocalizationPlugin {
             });
         });
 
-        return `;window.__fetchLocaleData__ = (${importerFactory})()`;
+        return `;globalThis.__fetchLocaleData__ = (${importerFactory})()`;
     }
 
     /**

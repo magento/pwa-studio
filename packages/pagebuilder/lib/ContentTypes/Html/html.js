@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './html.css';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, shape, string } from 'prop-types';
 
 const toHTML = str => ({ __html: str });
@@ -18,7 +18,7 @@ const toHTML = str => ({ __html: str });
  * @returns {React.Element} A React component that renders HTML with optional styling properties.
  */
 const Html = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const {
         html,
         textAlign,

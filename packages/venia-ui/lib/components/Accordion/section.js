@@ -4,7 +4,7 @@ import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import { useAccordionContext } from './accordion';
 import Icon from '../Icon';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './section.css';
 
 const Section = props => {
@@ -21,7 +21,7 @@ const Section = props => {
     const titleIconSrc = isOpen ? ArrowUp : ArrowDown;
     const titleIcon = <Icon src={titleIconSrc} size={24} />;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const contentsContainerClass = isOpen
         ? classes.contents_container
         : classes.contents_container_closed;

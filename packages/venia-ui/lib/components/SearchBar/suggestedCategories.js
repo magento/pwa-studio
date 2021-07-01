@@ -1,13 +1,13 @@
 import React from 'react';
 import { arrayOf, func, number, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import SuggestedCategory from './suggestedCategory';
 import defaultClasses from './suggestedCategories.css';
 
 const SuggestedCategories = props => {
     const { categories, limit, onNavigate, value } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const items = categories
         .slice(0, limit)

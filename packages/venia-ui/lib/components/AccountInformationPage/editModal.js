@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { shape, string, bool, array, func, object } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import EditForm from './editForm';
 import FormError from '../FormError';
 import Dialog from '../Dialog';
@@ -22,7 +22,7 @@ const EditModal = props => {
     } = props;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const dialogFormProps = { initialValues };
 

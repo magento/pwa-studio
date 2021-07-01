@@ -34,7 +34,7 @@ const emptyFormProps = {
 
 jest.mock('../../Head', () => ({ StoreTitle: () => 'Account Information' }));
 
-jest.mock('@magento/venia-drivers', () => ({
+jest.mock('react-router-dom', () => ({
     Redirect: props => <mock-Redirect {...props} />
 }));
 

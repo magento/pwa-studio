@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import getDisplayName from './util/getDisplayName';
-
 import mergeClasses from '@magento/peregrine/lib/util/shallowMerge';
+import getDisplayName from '@magento/venia-ui/lib/util/getDisplayName';
 
 const classify = defaultClasses => WrappedComponent =>
     class extends Component {
@@ -21,6 +20,6 @@ const classify = defaultClasses => WrappedComponent =>
         }
     };
 
-export { mergeClasses };
+export { mergeClasses, mergeClasses as useStyle };
 
 export default classify;
