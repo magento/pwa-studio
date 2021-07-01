@@ -7,6 +7,8 @@ export const wishlistItemPrice = '*[class^="wishlistItem-priceContainer-"]';
 export const wishlistItemAddToCartButton =
     '*[class^="wishlistItem-addToCart-"]';
 
+export const wishlistItemRemoveButton = '*[class^="wishlistItem-delteItem-"]';
+
 export const createWishlistButton =
     'button[class^="createWishlist-createButton-"]';
 

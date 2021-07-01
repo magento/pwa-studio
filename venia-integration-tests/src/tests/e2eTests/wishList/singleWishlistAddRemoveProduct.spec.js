@@ -9,7 +9,7 @@ import {
 import {
     categoryPage as categoryPageActions,
     myAccountMenu as myAccountMenuActions,
-    productPage as productPageActions
+    productPage as productPageActions, wishlistPage as wishlistPageActions
 } from '../../../actions';
 import {
     myAccountMenu as myAccountMenuAssertions,
@@ -32,12 +32,14 @@ const { productValeriaTwoLayeredTank } = productPageFixtures;
 const { goToMyAccount } = myAccountMenuActions;
 const { addProductToWishlistFromCategoryPage } = categoryPageActions;
 const { addProductToWishlistFromProductPage } = productPageActions;
+const {removeProductFromSingleWishlist} = wishlistPageActions
 
 const { assertCreateAccount } = myAccountMenuAssertions;
 const {
     assertWishlistHeading,
     assertEmptyWishlistExists,
-    assertProductInWishlist
+    assertProductInWishlist,
+    asserProductNotInWishlist
 } = wishlistAssertions;
 const { assertWishlistSelectedProductOnCategoryPage } = categoryPageAssertions;
 
@@ -75,14 +77,8 @@ describe('verify single wishlist basic features', () => {
         assertProductInWishlist(productCarinaCardigan);
         assertProductInWishlist(productValeriaTwoLayeredTank.name);
 
-        //This test also need to account for Remove the added product and assert for empty wishlist part of PWA-1683
+        removeProductFromSingleWishlist(productCarinaCardigan);
 
-        /**
-         * Start of functionality that will only work once PWA-1683 is merged
-         */
-            
-        /**
-         * End of functionlity that will only work once PWA-1683 is merged
-         */
+        asserProductNotInWishlist(productCarinaCardigan);
     });
 });

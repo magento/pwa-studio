@@ -30,13 +30,25 @@ export const assertProductInWishlist = productName => {
 
     // assert Product Price exists
     cy.contains('div', productName)
-        .children(wishlistItemPrice)
+        .siblings(wishlistItemPrice)
         .should('exist');
 
     // assert Add to Cart button exists
     cy.contains('div', productName)
-        .children(wishlistItemAddToCartButton)
+        .siblings(wishlistItemAddToCartButton)
         .should('exist');
+};
+
+/**
+ * Utility function to assert product does not exist in the wishlist
+ * @param {String} productName product to verify it does not exist in wishlist
+ */
+export const asserProductNotInWishlist = productName => {
+    // assert Product container exists
+    cy.get(wishlistRoot).should('exist');
+
+    // assert Product exists
+    cy.contains(productName).should('not.exist');
 };
 
 /**

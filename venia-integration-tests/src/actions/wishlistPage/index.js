@@ -1,7 +1,8 @@
 import {
     createWishlistButton,
     wishlistNameField,
-    createWishlistConfirmButton
+    createWishlistConfirmButton,
+    wishlistItemRemoveButton
 } from '../../fields/wishlist';
 
 /**
@@ -18,4 +19,19 @@ export const createWishlist = wishlistName => {
 
     // Create wishlist
     cy.get(createWishlistConfirmButton).click();
+};
+
+/**
+ * Utility function to remove given item from a single wishlist.
+ * The utility assumes that the action is called from the wishlist page.
+ * 
+ * Note: Only useful if CE or EE with mutiple wishlists disabled
+ *
+ * @param {String} productName name of the product to remove
+ */
+export const removeProductFromSingleWishlist = productName => {
+    // assert Product Price exists
+    cy.contains('div', productName)
+        .children(wishlistItemRemoveButton)
+        .click();
 };
