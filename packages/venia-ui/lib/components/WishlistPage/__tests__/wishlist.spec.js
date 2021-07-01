@@ -41,7 +41,7 @@ test('render closed with items', () => {
         data: {
             ...baseProps.data,
             items_count: 20,
-            items_v2: { items: ['item1', 'item2'] },
+            items: { items: ['item1', 'item2'] },
             sharing_code: 'abc123'
         },
         shouldRenderVisibilityToggle: true
@@ -58,7 +58,7 @@ test('renders a name even if none in data', () => {
         data: {
             ...baseProps.data,
             items_count: 20,
-            items_v2: { items: ['item1', 'item2'] },
+            items: { items: ['item1', 'item2'] },
             sharing_code: 'abc123'
         },
         shouldRenderVisibilityToggle: true
@@ -78,7 +78,7 @@ test('hides visibility toggle', () => {
         data: {
             ...baseProps.data,
             items_count: 20,
-            items_v2: { items: ['item1', 'item2'] },
+            items: { items: ['item1', 'item2'] },
             sharing_code: 'abc123'
         },
         shouldRenderVisibilityToggle: false
@@ -91,5 +91,22 @@ test('hides visibility toggle', () => {
 
 test('render no button when id is not set', () => {
     const tree = createTestInstance(<Wishlist />);
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('render loading state', () => {
+    useWishlist.mockReturnValue({ ...baseTalonProps, isLoading: true });
+
+    const myProps = {
+        data: {
+            ...baseProps.data,
+            items_count: 0,
+            sharing_code: 'abc123'
+        },
+        shouldRenderVisibilityToggle: false
+    };
+
+    const tree = createTestInstance(<Wishlist {...myProps} />);
+
     expect(tree.toJSON()).toMatchSnapshot();
 });

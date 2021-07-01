@@ -411,6 +411,7 @@
     "wishlistEditFavoritesListDialog.title": "Edit Favorites List",
     "wishlistItem.addToCart": "Add to Cart",
     "wishlistItem.addToCartError": "Something went wrong. Please refresh and try again.",
+    "wishlistItem.removeAriaLabel": "Remove Product from Wishlist",
     "wishlistListActionsDialog.title_initial": "List Actions",
     "wishlistListActionsDialog.edit": "Edit List",
     "wishlistMoreActionsDialog.copy": "Copy to",
@@ -420,5 +421,8 @@
     "wishlistPage.disabledMessage": "Sorry, this feature has been disabled.",
     "wishlistPage.fetchErrorMessage": "Something went wrong. Please refresh and try again.",
     "wishlistPage.headingText": "{count, plural, one {Favorites List} other {Favorites Lists}}",
-    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available."
+    "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
+    "wishlist.itemCountOpen": "Showing {currentCount} of {count} items in this list",
+    "wishlist.itemCountClosed": "You have {count} items in this list",
+    "wishlist.loadMore": "Load More"
 }

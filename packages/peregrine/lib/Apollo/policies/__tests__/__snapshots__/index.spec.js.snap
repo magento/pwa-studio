@@ -155,10 +155,23 @@ Object {
     "keyFields": [Function],
   },
   "Wishlist": Object {
+    "fields": Object {
+      "items_v2": Object {
+        "keyArgs": false,
+        "merge": false,
+      },
+    },
     "keyFields": [Function],
   },
   "WishlistItem": Object {
     "keyFields": [Function],
+  },
+  "WishlistItems": Object {
+    "fields": Object {
+      "items": Object {
+        "merge": [Function],
+      },
+    },
   },
 }
 `;

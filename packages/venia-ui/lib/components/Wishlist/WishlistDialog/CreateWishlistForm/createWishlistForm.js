@@ -7,7 +7,6 @@ import Button from '@magento/venia-ui/lib/components/Button';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Field from '@magento/venia-ui/lib/components/Field';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
-import RadioGroup from '@magento/venia-ui/lib/components/RadioGroup';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
 import defaultClasses from './createWishlistForm.css';
@@ -24,16 +23,6 @@ const CreateWishlistForm = props => {
     });
 
     const { formErrors, handleCancel, handleSave, isSaveDisabled } = talonProps;
-
-    const privateRadioText = formatMessage({
-        id: 'createWishlistForm.privateRadio',
-        defaultMessage: 'Private'
-    });
-
-    const publicRadioText = formatMessage({
-        id: 'createWishlistForm.publicRadio',
-        defaultMessage: 'Public'
-    });
 
     const cancelButtonText = formatMessage({
         id: 'createWishlistForm.cancelButton',
@@ -62,26 +51,7 @@ const CreateWishlistForm = props => {
                     />
                 </Field>
             </div>
-            <div className={classes.visibility}>
-                <RadioGroup
-                    classes={{
-                        radioLabel: classes.radioContents,
-                        root: classes.radioRoot
-                    }}
-                    field="visibility"
-                    initialValue={'PRIVATE'}
-                    items={[
-                        {
-                            label: <span>{privateRadioText}</span>,
-                            value: 'PRIVATE'
-                        },
-                        {
-                            label: <span>{publicRadioText}</span>,
-                            value: 'PUBLIC'
-                        }
-                    ]}
-                />
-            </div>
+
             <div className={classes.actions}>
                 <Button onClick={handleCancel} priority="low" type="reset">
                     {cancelButtonText}

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { useWishlist } from '@magento/peregrine/lib/talons/WishlistPage/useWishlist';
 import { bool, shape, string, int } from 'prop-types';
 
 import { useStyle } from '../../classify';
+import LoadingIndicator from '../LoadingIndicator';
 import Icon from '../Icon';
 import WishlistItems from './wishlistItems';
+import Button from '../Button';
 import defaultClasses from './wishlist.css';
 import ActionMenu from './actionMenu';
 
@@ -15,38 +17,66 @@ import ActionMenu from './actionMenu';
  *
  * @param {Object} props.data the data for this wishlist
  * @param {boolean} props.shouldRenderVisibilityToggle whether or not to render the visiblity toggle
+ * @param {boolean} props.isCollapsed whether or not is the whislist unfolded
  */
 const Wishlist = props => {
-    const { data, shouldRenderVisibilityToggle } = props;
+    const { data, shouldRenderVisibilityToggle, isCollapsed } = props;
     const { formatMessage } = useIntl();
-    const {
-        id,
-        items_count: itemsCount,
-        items_v2: items,
-        name,
-        visibility
-    } = data;
+    const { id, items_count: itemsCount, name, visibility } = data;
 
-    const talonProps = useWishlist();
-    const { handleContentToggle, isOpen } = talonProps;
+    const talonProps = useWishlist({ id, itemsCount, isCollapsed });
+    const {
+        handleContentToggle,
+        isOpen,
+        items,
+        isLoading,
+        isFetchingMore,
+        handleLoadMore
+    } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
     const contentClass = isOpen ? classes.content : classes.content_hidden;
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
-    const visibilityLabel =
-        visibility === 'PUBLIC'
-            ? formatMessage({
-                  id: 'global.public',
-                  defaultMessage: 'Public'
-              })
-            : formatMessage({
-                  id: 'global.private',
-                  defaultMessage: 'Private'
-              });
+
+    const itemsCountMessage =
+        itemsCount && isOpen
+            ? formatMessage(
+                  {
+                      id: 'wishlist.itemCountOpen',
+                      defaultMessage:
+                          'Showing {currentCount} of {count} items in this list'
+                  },
+                  { currentCount: items.length, count: itemsCount }
+              )
+            : formatMessage(
+                  {
+                      id: 'wishlist.itemCountClose',
+                      defaultMessage: 'You have {count} items in this list'
+                  },
+                  { count: itemsCount }
+              );
+    const loadMoreButton =
+        items && items.length < itemsCount ? (
+            <div>
+                <Button
+                    className={classes.loadMore}
+                    disabled={isFetchingMore}
+                    onClick={handleLoadMore}
+                >
+                    <FormattedMessage
+                        id={'wishlist.loadMore'}
+                        defaultMessage={'Load more'}
+                    />
+                </Button>
+            </div>
+        ) : null;
 
     const contentMessageElement = itemsCount ? (
-        <WishlistItems items={items.items} wishlistId={id} />
+        <Fragment>
+            <WishlistItems items={items} wishlistId={id} />
+            {loadMoreButton}
+        </Fragment>
     ) : (
         <p className={classes.emptyListText}>
             <FormattedMessage
@@ -59,7 +89,6 @@ const Wishlist = props => {
     const wishlistName = name ? (
         <div className={classes.nameContainer}>
             <h2 className={classes.name}>{name}</h2>
-            <span className={classes.visibility}>{visibilityLabel}</span>
         </div>
     ) : (
         <div className={classes.nameContainer}>
@@ -71,6 +100,24 @@ const Wishlist = props => {
             </h2>
         </div>
     );
+
+    if (isLoading) {
+        return (
+            <div className={classes.root}>
+                <div className={classes.header}>
+                    {wishlistName} {itemsCountMessage}
+                    <div className={classes.buttonsContainer}>
+                        <ActionMenu
+                            id={id}
+                            name={name}
+                            visibility={visibility}
+                        />
+                    </div>
+                </div>
+                <LoadingIndicator />
+            </div>
+        );
+    }
 
     const visibilityToggleClass = shouldRenderVisibilityToggle
         ? classes.visibilityToggle
@@ -93,6 +140,9 @@ const Wishlist = props => {
         <div className={classes.root}>
             <div className={classes.header}>
                 {wishlistName}
+                <div className={classes.itemsCountContainer}>
+                    {itemsCountMessage}
+                </div>
                 {buttonsContainer}
             </div>
             <div className={contentClass}>{contentMessageElement}</div>
@@ -112,9 +162,11 @@ Wishlist.propTypes = {
         visibilityToggle: string,
         visibilityToggle_hidden: string,
         visibility: string,
-        buttonsContainer: string
+        buttonsContainer: string,
+        loadMore: string
     }),
     shouldRenderVisibilityToggle: bool,
+    isCollapsed: bool,
     data: shape({
         id: int,
         items_count: int,

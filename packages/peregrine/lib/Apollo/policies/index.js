@@ -249,10 +249,34 @@ const typePolicies = {
         }
     },
     Wishlist: {
-        keyFields: ({ id }) => `CustomerWishlist:${id}`
+        keyFields: ({ id }) => `CustomerWishlist:${id}`,
+        fields: {
+            items_v2: {
+                keyArgs: false,
+                merge: false
+            }
+        }
     },
     WishlistItem: {
         keyFields: ({ id }) => `CustomerWishlistItem:${id}`
+    },
+    WishlistItems: {
+        fields: {
+            items: {
+                merge: (existing = [], incoming, { variables }) => {
+                    if (variables) {
+                        const { currentPage = 1 } = variables;
+                        // reset cache collection if we're on the first page
+
+                        if (currentPage === 1) {
+                            return incoming;
+                        }
+                    }
+
+                    return [...existing, ...incoming];
+                }
+            }
+        }
     },
     SimpleWishlistItem: {
         keyFields: ({ id }) => `CustomerSimpleWishlistItem:${id}`

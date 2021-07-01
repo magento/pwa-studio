@@ -112,7 +112,6 @@ describe('it handles editing a wishlist', () => {
 
         const data = {
             name: 'Birthday Party',
-            visibility: 'PRIVATE',
             wishlistId: 5
         };
 
