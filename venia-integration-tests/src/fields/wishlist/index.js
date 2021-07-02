@@ -16,3 +16,6 @@ export const wishlistNameField = 'input[name="name"]';
 
 export const createWishlistConfirmButton =
     'button[class^="createWishlist-confirmButton-"]';
+
+export const wishlistHeadingButtonsContainer =
+    'div[class^="wishlist-buttonsContainer-"]';

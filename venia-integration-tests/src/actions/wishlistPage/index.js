@@ -2,7 +2,9 @@ import {
     createWishlistButton,
     wishlistNameField,
     createWishlistConfirmButton,
-    wishlistItemRemoveButton
+    wishlistItemRemoveButton,
+    wishlistRoot,
+    wishlistHeadingButtonsContainer
 } from '../../fields/wishlist';
 
 /**
@@ -24,7 +26,7 @@ export const createWishlist = wishlistName => {
 /**
  * Utility function to remove given item from a single wishlist.
  * The utility assumes that the action is called from the wishlist page.
- * 
+ *
  * Note: Only useful if CE or EE with mutiple wishlists disabled
  *
  * @param {String} productName name of the product to remove
@@ -34,4 +36,20 @@ export const removeProductFromSingleWishlist = productName => {
     cy.contains('div', productName)
         .children(wishlistItemRemoveButton)
         .click();
+};
+
+/**
+ * Utility function to expand all collapsed wishlists in the wishlist page.
+ */
+export const expandCollapsedWishlists = () => {
+    const wishlists = cy
+        .get(wishlistRoot)
+        .nextAll()
+        .children();
+
+    wishlists
+        .find(wishlistHeadingButtonsContainer)
+        .children()
+        .filter('button')
+        .click({ multiple: true });
 };
