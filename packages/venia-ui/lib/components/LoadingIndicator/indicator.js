@@ -1,12 +1,12 @@
 import React from 'react';
 
 import defaultClasses from './indicator.css';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import { Loader as LoaderIcon } from 'react-feather';
 import Icon from '../Icon';
 
 const LoadingIndicator = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const className = props.global ? classes.global : classes.root;
 
     return (

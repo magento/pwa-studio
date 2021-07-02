@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { arrayOf, oneOf, string, bool } from 'prop-types';
-import { useHistory } from '@magento/venia-drivers';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useHistory } from 'react-router-dom';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button/button';
 
 import resolveLinkProps from '../../resolveLinkProps';
@@ -20,7 +20,7 @@ import defaultClasses from './buttonItem.css';
  * @returns {React.Element} A React component that displays a button.
  */
 const ButtonItem = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const {
         buttonType,
@@ -78,12 +78,12 @@ const ButtonItem = props => {
             return;
         }
 
-        if (openInNewTab) {
-            window.open(url, '_blank');
+        if (openInNewTab && globalThis.open) {
+            globalThis.open(url, '_blank');
         } else if (linkProps.to) {
             history.push(url);
         } else {
-            window.location.assign(url);
+            globalThis.location.assign(url);
         }
     }, [openInNewTab, url, linkProps.to]); // eslint-disable-line react-hooks/exhaustive-deps
 

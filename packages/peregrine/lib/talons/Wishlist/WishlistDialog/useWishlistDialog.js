@@ -5,7 +5,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './wishlistDialog.gql';
 
 export const useWishlistDialog = props => {
-    const { itemOptions, onClose } = props;
+    const { isLoading, itemOptions, onClose, onSuccess } = props;
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -41,15 +41,23 @@ export const useWishlistDialog = props => {
                         itemOptions
                     }
                 });
-                onClose(true, {
-                    wishlistName: data.addProductsToWishlist.wishlist.name
-                });
+
+                if (onSuccess) {
+                    await onSuccess(data);
+                }
+
+                if (onClose) {
+                    onClose(true, {
+                        wishlistName: data.addProductsToWishlist.wishlist.name
+                    });
+                }
+
                 setIsFormOpen(false);
             } catch (err) {
                 console.log(err);
             }
         },
-        [addProductToWishlist, itemOptions, onClose]
+        [addProductToWishlist, itemOptions, onClose, onSuccess]
     );
 
     const handleNewListClick = useCallback(() => {
@@ -72,7 +80,7 @@ export const useWishlistDialog = props => {
         handleCancel,
         handleCancelNewList,
         handleNewListClick,
-        isAddLoading,
+        isLoading: isLoading || isAddLoading,
         isFormOpen,
         wishlistsData
     };

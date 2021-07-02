@@ -57,8 +57,3 @@
     height: 6rem;
     justify-content: center;
 }
-
-.radioRoot {
-    display: grid;
-    gap: 1rem;
-}

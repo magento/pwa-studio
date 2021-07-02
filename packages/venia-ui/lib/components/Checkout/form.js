@@ -6,7 +6,7 @@ import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useToasts } from '@magento/peregrine';
 import { useForm } from '@magento/peregrine/lib/talons/Checkout/useForm';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import LoadingIndicator from '../LoadingIndicator';
 import EditableForm from './editableForm';
@@ -24,7 +24,7 @@ const loadingIndicator = <LoadingIndicator>{loadingText}</LoadingIndicator>;
 const Form = props => {
     const { setStep } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const [, { addToast }] = useToasts();
     const [editing, setEditing] = useState(null);

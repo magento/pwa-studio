@@ -1,5 +1,5 @@
 import React from 'react';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './submenu.css';
 import SubmenuColumn from './submenuColumn';
 import PropTypes from 'prop-types';
@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 const Submenu = props => {
     const { items, mainNavWidth } = props;
     const PADDING_OFFSET = 20;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const subMenus = items.map(category => {
         return <SubmenuColumn category={category} key={category.id} />;

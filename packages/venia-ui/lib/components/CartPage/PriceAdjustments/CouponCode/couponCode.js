@@ -6,7 +6,7 @@ import { useToasts } from '@magento/peregrine';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
 
-import { mergeClasses } from '../../../../classify';
+import { useStyle } from '../../../../classify';
 
 import Button from '../../../Button';
 import { Form } from 'informed';
@@ -92,7 +92,7 @@ const REMOVE_COUPON_MUTATION = gql`
  * import CouponCode from "@magento/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode";
  */
 const CouponCode = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useCouponCode({
         setIsCartUpdating: props.setIsCartUpdating,

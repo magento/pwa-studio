@@ -5,23 +5,25 @@ title: Wrappable Peregrine Talons
 ## Usage
 
 An extension may need to modify or decorate the behavior of a Peregrine talon.
-Third-party code may need to log to an external source when certain events occur, or may need to extend the model returned by the talon when a component calls it.
+For example, third-party code may need to log to an external source when certain events occur or it may need to extend the model returned by the talon when a component calls it.
+To do this, you can wrap Peregrine talons to extend their functionality.
 
 ### Wrapper modules
 
 Talons are React hooks, and React hooks are plain functions.
 Therefore, you can use the function wrapper pattern to intercept talon functions.
 
-The `talon.wrapWith(module)` method is simlar to the [interceptor pattern](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/plugins.html) also used in Magento backend plugins.
-Peregrine will dynamically inject the code from the passed `module` "around" the implementation of a talon, by passing the talon function through the wrapper function before exporting it.
+The `talon.wrapWith(module)` method is similar to the [interceptor pattern](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/plugins.html) used in Magento backend plugins.
+During the build process, the extensibility framework dynamically wraps a talon implementation with code from a wrapper module by passing the talon function through the wrapper module before exporting it.
 
 ### Requirements
 
 Wrapper modules for Peregrine talons must:
+
 - be implemented in a separate file from the build-time Target code
 - be accessible in frontend code via an `import`
 - be a valid ES Module
-- export one default function that implements the [TalonWrapper][] interface, i.e. it receives the original talon function as its parameter and must return a new talon function
+- export one default function that implements the target talon's interface, i.e. it receives the original talon function as its parameter and must return a new talon function with the same function interface
 
 Extensions which use wrapper modules _must_ also intercept the [Buildpack `specialFeatures` target]({%link pwa-buildpack/reference/targets/index.md %}#module_BuiltinTargets.specialFeatures) and set the feature flag `esModule: true`.
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createTestInstance, useToasts } from '@magento/peregrine';
+import { createTestInstance } from '@magento/peregrine';
 
 import Product from '../product';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
@@ -17,6 +17,8 @@ jest.mock('@apollo/client', () => {
     };
 });
 
+jest.mock('../../../Wishlist/AddToListButton', () => 'AddToListButton');
+
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = { cartId: 'cart123' };
     const api = {};
@@ -25,22 +27,10 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
-jest.mock('@magento/venia-drivers', () => ({
-    Link: ({ children, ...rest }) => <div {...rest}>{children}</div>,
-    resourceUrl: x => x
+jest.mock('react-router-dom', () => ({
+    Link: ({ children, ...rest }) => <div {...rest}>{children}</div>
 }));
-
-jest.mock('@magento/peregrine', () => {
-    const useToasts = jest.fn(() => [
-        { toasts: new Map() },
-        { addToast: jest.fn() }
-    ]);
-
-    return {
-        ...jest.requireActual('@magento/peregrine'),
-        useToasts
-    };
-});
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 const props = {
     item: {
@@ -51,7 +41,8 @@ const props = {
                 url: 'unittest.jpg'
             },
             urlKey: 'unittest',
-            urlSuffix: '.html'
+            urlSuffix: '.html',
+            sku: '12345'
         },
         prices: {
             price: {
@@ -59,16 +50,26 @@ const props = {
                 value: 100
             }
         },
-        quantity: 1
+        quantity: 1,
+        configurable_options: [
+            {
+                configurable_product_option_value_uid: '12345asd'
+            },
+            {
+                configurable_product_option_value_uid: 'asf2134'
+            }
+        ]
     }
 };
 
 test('renders simple product correctly', () => {
     useProduct.mockReturnValueOnce({
+        addToWishlistProps: {
+            atwProp1: 'value1'
+        },
         errorMessage: undefined,
         handleEditItem: jest.fn(),
         handleRemoveFromCart: jest.fn(),
-        handleSaveForLater: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isEditable: false,
         product: {
@@ -81,7 +82,6 @@ test('renders simple product correctly', () => {
             urlKey: 'unittest',
             urlSuffix: '.html'
         },
-        loginToastProps: null,
         isProductUpdating: false
     });
     const tree = createTestInstance(<Product {...props} />);
@@ -91,10 +91,12 @@ test('renders simple product correctly', () => {
 
 test('renders out of stock product', () => {
     useProduct.mockReturnValueOnce({
+        addToWishlistProps: {
+            atwProp1: 'value1'
+        },
         errorMessage: undefined,
         handleEditItem: jest.fn(),
         handleRemoveFromCart: jest.fn(),
-        handleSaveForLater: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isEditable: false,
         product: {
@@ -118,10 +120,12 @@ test('renders out of stock product', () => {
 
 test('renders configurable product with options', () => {
     useProduct.mockReturnValueOnce({
+        addToWishlistProps: {
+            atwProp1: 'value1'
+        },
         errorMessage: undefined,
         handleEditItem: jest.fn(),
         handleRemoveFromCart: jest.fn(),
-        handleSaveForLater: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isEditable: true,
         product: {
@@ -150,46 +154,4 @@ test('renders configurable product with options', () => {
     const tree = createTestInstance(<Product {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
-});
-
-test('renders toast if wishlistSuccessProps is not falsy', () => {
-    useProduct.mockReturnValueOnce({
-        errorMessage: undefined,
-        handleEditItem: jest.fn(),
-        handleRemoveFromCart: jest.fn(),
-        handleSaveForLater: jest.fn(),
-        handleUpdateItemQuantity: jest.fn(),
-        isEditable: false,
-        product: {
-            currency: 'USD',
-            image: {},
-            name: '',
-            options: [],
-            quantity: 1,
-            unitPrice: 1,
-            urlKey: 'unittest',
-            urlSuffix: '.html'
-        },
-        loginToastProps: {
-            message: 'Successfully added an item to the wishlist'
-        },
-        isProductUpdating: false
-    });
-
-    const addToast = jest.fn();
-    useToasts.mockReturnValueOnce([{}, { addToast }]);
-
-    createTestInstance(<Product {...props} />);
-
-    expect(addToast.mock.calls[0]).toMatchInlineSnapshot(`
-        Array [
-          Object {
-            "icon": <Icon
-              size={20}
-              src={[Function]}
-            />,
-            "message": "Successfully added an item to the wishlist",
-          },
-        ]
-    `);
 });

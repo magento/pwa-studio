@@ -3,10 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useMutation, useQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { useProduct } from '../useProduct';
-import { useWishlist } from '../useWishlist';
 
 import { act } from 'react-test-renderer';
 
@@ -74,15 +72,6 @@ jest.mock('@magento/peregrine/lib/context/user', () => ({
     useUserContext: jest.fn().mockReturnValue([{ isSignedIn: true }])
 }));
 
-jest.mock('../useWishlist', () => ({
-    useWishlist: jest.fn().mockReturnValue({
-        handleAddToWishlist: jest.fn().mockResolvedValue(true),
-        loading: true,
-        called: true,
-        error: null
-    })
-}));
-
 const props = {
     item: {
         prices: {
@@ -93,6 +82,7 @@ const props = {
         },
         product: {
             name: 'unit test',
+            sku: 'unit-test-sku',
             small_image: {
                 url: 'test.webp'
             }
@@ -106,7 +96,9 @@ const props = {
     },
     setActiveEditItem: jest.fn(),
     setIsCartUpdating: jest.fn(),
-    onAddToWishlistSuccess: jest.fn()
+    wishlistConfig: {
+        wishlistEnabled: true
+    }
 };
 
 const log = jest.fn();
@@ -180,6 +172,8 @@ test('it returns the proper shape when use variant image is configured', () => {
             configurable_options: [
                 {
                     id: 22,
+                    configurable_product_option_value_uid:
+                        'selected-option-uid',
                     option_label: 'Color',
                     value_label: 'red',
                     value_id: 2
@@ -259,15 +253,6 @@ test('it returns correct error message when multiple sources report errors', () 
     useState.mockReturnValueOnce([true, jest.fn()]);
     useState.mockReturnValueOnce([true, jest.fn()]);
 
-    useWishlist.mockReturnValueOnce({
-        handleAddToWishlist: jest.fn(),
-        loading: false,
-        called: true,
-        error: {
-            graphQLErrors: [new Error('test d'), new Error('test e')]
-        }
-    });
-
     // Act.
     const tree = createTestInstance(<Component {...props} />);
     const { root } = tree;
@@ -275,7 +260,7 @@ test('it returns correct error message when multiple sources report errors', () 
 
     // Assert.
     expect(talonProps.errorMessage).toMatchInlineSnapshot(
-        `"test c, test a, test b, test d, test e"`
+        `"test c, test a, test b"`
     );
 });
 
@@ -339,6 +324,7 @@ test('it handles editing the product', () => {
           },
           "product": Object {
             "name": "unit test",
+            "sku": "unit-test-sku",
             "small_image": Object {
               "url": "test.webp",
             },
@@ -494,41 +480,12 @@ test('it does not set the active edit item when drawer is open', () => {
     expect(setActiveEditItem).not.toHaveBeenCalled();
 });
 
-describe('testing save for later feature', () => {
-    test('it should show login toast if user is not logged in', async () => {
-        useUserContext.mockReturnValueOnce([{ isSignedIn: false }]);
+test('it returns text when render prop is executed', () => {
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
 
-        const tree = createTestInstance(<Component {...props} />);
-
-        const { root } = tree;
-        const { talonProps } = root.findByType('i').props;
-
-        await talonProps.handleSaveForLater();
-
-        tree.update(<Component {...props} />);
-        const { talonProps: updatedTalonProps } = root.findByType('i').props;
-
-        expect(updatedTalonProps.loginToastProps).toMatchSnapshot();
-    });
-
-    test('it should add item to wishlist when user is logged in', async () => {
-        useUserContext.mockReturnValueOnce([{ isSignedIn: true }]);
-
-        const handleAddToWishlist = jest.fn().mockResolvedValue(true);
-        useWishlist.mockReturnValueOnce({
-            handleAddToWishlist,
-            loading: false,
-            called: true,
-            error: null
-        });
-
-        const tree = createTestInstance(<Component {...props} />);
-
-        const { root } = tree;
-        const { talonProps } = root.findByType('i').props;
-
-        await talonProps.handleSaveForLater();
-
-        expect(handleAddToWishlist).toHaveBeenCalled();
-    });
+    expect(talonProps.addToWishlistProps.buttonText()).toMatchInlineSnapshot(
+        `"Save for later"`
+    );
 });

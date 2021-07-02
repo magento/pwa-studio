@@ -1,13 +1,13 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './fieldIcons.css';
 
 const FieldIcons = props => {
     const { after, before, children } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const style = {
         '--iconsBefore': before ? 1 : 0,

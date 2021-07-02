@@ -8,7 +8,7 @@ import {
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductImageCarousel/useProductImageCarousel';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import Image from '../Image';
 import defaultClasses from './carousel.css';
@@ -62,7 +62,7 @@ const ProductImageCarousel = props => {
         [activeItemIndex, handleThumbnailClick, sortedImages]
     );
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     let image;
     if (currentImage.file) {

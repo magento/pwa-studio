@@ -3,13 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import { ChevronDown as ArrowDown } from 'react-feather';
 
 import Icon from '../../Icon';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 import defaultClasses from './showAllButton.css';
 
 const ShowAllButton = props => {
     const { onClick } = props;
-    const classes = mergeClasses(defaultClasses, props.classes || {});
+    const classes = useStyle(defaultClasses, props.classes || {});
 
     const handleClick = useCallback(() => {
         onClick();

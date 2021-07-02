@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 
 import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './storeSwitcher.css';
 import SwitcherItem from './switcherItem';
 
@@ -20,7 +20,7 @@ const StoreSwitcher = props => {
         handleTriggerClick
     } = useStoreSwitcher();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;
 
     if (!availableStores || availableStores.size <= 1) return null;

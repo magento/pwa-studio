@@ -4,7 +4,7 @@ import { object, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useEditModal';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import { Portal } from '../../Portal';
 import AddressForm from './AddressForm';
@@ -15,7 +15,7 @@ const EditModal = props => {
     const talonProps = useEditModal();
     const { handleClose, isOpen } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const rootClass = isOpen ? classes.root_open : classes.root;
 
     // Unmount the form to force a reset back to original values on close

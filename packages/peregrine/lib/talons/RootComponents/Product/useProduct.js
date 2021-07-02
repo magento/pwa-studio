@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import mergeOperations from '../../../util/shallowMerge';
@@ -26,7 +27,7 @@ export const useProduct = props => {
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getStoreConfigData, getProductDetailQuery } = operations;
-
+    const { pathname } = useLocation();
     const [
         ,
         {
@@ -45,10 +46,8 @@ export const useProduct = props => {
         }
     }, [storeConfigData]);
 
-    const pathname = window.location.pathname.split('/').pop();
-    const urlKey = productUrlSuffix
-        ? pathname.replace(productUrlSuffix, '')
-        : pathname;
+    const slug = pathname.split('/').pop();
+    const urlKey = productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
 
     const { error, loading, data } = useQuery(getProductDetailQuery, {
         fetchPolicy: 'cache-and-network',

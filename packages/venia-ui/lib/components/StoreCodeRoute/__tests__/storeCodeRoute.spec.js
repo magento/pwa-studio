@@ -45,9 +45,9 @@ test('StoreCodeRoute handler updates storage when store code in url is not curre
         createHref: createHrefMock
     });
 
-    const originalLocation = window.location;
-    delete window.location;
-    window.location = {
+    const originalLocation = globalThis.location;
+    delete globalThis.location;
+    globalThis.location = {
         ...originalLocation,
         pathname: '/french/test.html'
     };
@@ -67,7 +67,7 @@ test('StoreCodeRoute handler updates storage when store code in url is not curre
     ]);
     expect(goMock).toHaveBeenCalled();
 
-    window.location = originalLocation;
+    globalThis.location = originalLocation;
 });
 test('StoreCodeRoute handler updates storage when store code in url is same as  current store', () => {
     const goMock = jest.fn();
@@ -77,9 +77,9 @@ test('StoreCodeRoute handler updates storage when store code in url is same as  
         createHref: createHrefMock
     });
 
-    const originalLocation = window.location;
-    delete window.location;
-    window.location = {
+    const originalLocation = globalThis.location;
+    delete globalThis.location;
+    globalThis.location = {
         ...originalLocation,
         pathname: '/french/test.html'
     };
@@ -91,5 +91,5 @@ test('StoreCodeRoute handler updates storage when store code in url is same as  
 
     expect(goMock).not.toHaveBeenCalled();
 
-    window.location = originalLocation;
+    globalThis.location = originalLocation;
 });
