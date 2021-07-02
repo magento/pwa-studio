@@ -59,6 +59,7 @@ export const GET_SHIPPING_ADDRESS = gql`
                 city
                 region {
                     code
+                    label
                     region_id
                 }
                 postcode
