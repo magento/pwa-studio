@@ -1,46 +1,39 @@
 import { useCallback, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '../../context/cart';
-import operations from './addToCart.gql';
+import ADD_PRODUCT_TO_CART from './addToCart.gql';
 
 export const useAddToCartButton = props => {
-    const { item } = props; 
-    const [isLoading, setIsLoading] = useState(false); 
-
-    const getMutationVariables = useCallback(() => {
-        return {
-            cartId,
-            cartItem: {
-                quantity: 1,
-                selected_options: [],
-                sku: item.sku
-            }
-        };
-    }, [cartId, item]);
+    const { item } = props;
+    const [isLoading, setIsLoading] = useState(false);
+    const isInStock = item.stock_status === 'IN_STOCK';
+    const isDisabled = isLoading || !isInStock; 
+    const type = item.type_id; 
 
     const handleAddToCart = useCallback(async () => {
-        const variables = getMutationVariables();
-        const isDisabled = isLoading || item.stock_status === 'OUT_STOCK'
         try {
-            if (!isDisabled){
-            setIsLoading(true); 
+            if (type === "simple"){
+            setIsLoading(true);
             console.log(`Adding ${item.name} to Cart`);
-            variables
+
             console.log(`Added ${item.name} to Cart`);
-        }
+
             setTimeout(() => {
                 setIsLoading(false);
-            }, 1000);
-        }catch (error) {
-            console.error(error); 
+            }, 1000);}
+            else if (type === "configurable"){
+
+            }
+        } catch (error) {
+            console.error(error);
         }
-    }, [cartId, item]);
+    }, [item]);
 
 
     return {
-        isLoading, 
-        handleAddToCart, 
+        isLoading,
+        handleAddToCart,
         isDisabled,
-        stock_status
+        isInStock
     };
-};
+}
