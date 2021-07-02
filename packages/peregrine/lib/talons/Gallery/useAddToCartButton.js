@@ -1,28 +1,37 @@
 import { useCallback, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '../../context/cart';
-import ADD_PRODUCT_TO_CART from './addToCart.gql';
+import { useHistory } from 'react-router-dom';
+import operations from './addToCart.gql';
+
 
 export const useAddToCartButton = props => {
     const { item } = props;
     const [isLoading, setIsLoading] = useState(false);
     const isInStock = item.stock_status === 'IN_STOCK';
-    const isDisabled = isLoading || !isInStock; 
-    const type = item.type_id; 
+    const productType = item.type_id;
+    const unsupportedProductType = productType === "virtual" || productType === "bundle" || productType === "downloadable"; 
+    const isDisabled = isLoading || !isInStock || unsupportedProductType;
+    const history = useHistory();
+
+    //const [addToCart, {data}] = useMutation(operations.ADD_PRODUCT_TO_CART); 
 
     const handleAddToCart = useCallback(async () => {
         try {
-            if (type === "simple"){
-            setIsLoading(true);
-            console.log(`Adding ${item.name} to Cart`);
+            if (productType === "simple") {
+                setIsLoading(true);
+                console.log(`Adding ${item.name} to Cart`);
+                console.log(`Item is of type ${productType}`);
 
-            console.log(`Added ${item.name} to Cart`);
-
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 1000);}
-            else if (type === "configurable"){
-
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 1000);
+            }
+            else if (productType === "configurable") {
+                history.push(`${item.url_key}.html`);
+            }
+            else{
+                console.log('Unsupported product type unable to handle.');
             }
         } catch (error) {
             console.error(error);
