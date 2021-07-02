@@ -27,6 +27,7 @@ fragment ProductsFragment on Products {
             url
         }
         stock_status
+        type_id
         url_key
         url_suffix
     }
