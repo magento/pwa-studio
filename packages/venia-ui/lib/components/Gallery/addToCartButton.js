@@ -10,11 +10,13 @@ const GalleryButton = props => {
     const talonProps = useAddToCartButton(props);
     const {
         isDisabled,
-        handleAddToCart
+        handleAddToCart,
+        isInStock
     } = talonProps;
     
     const classes = mergeClasses(defaultClasses, props.classes);
-
+    const buttonText = isInStock ? "ADD TO CART" : "OUT OF STOCK"; 
+    // show button only if its simple product, configurable must pick color and size
     return (
         <Button
             className={classes.root}
@@ -23,7 +25,7 @@ const GalleryButton = props => {
             onClick={handleAddToCart}
             disabled ={isDisabled}
         >
-           ADD TO CART
+           {buttonText}
         </Button>
     );
 };
