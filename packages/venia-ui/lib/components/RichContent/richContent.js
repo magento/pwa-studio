@@ -3,6 +3,8 @@ import { useStyle } from '../../classify';
 import defaultClasses from './richContent.css';
 import { shape, string } from 'prop-types';
 import richContentRenderers from './richContentRenderers';
+import { setContentTypeConfig } from '@magento/pagebuilder/lib/config';
+import richContentTypes from './richContentTypes';
 
 /**
  * RichContent component.
@@ -23,6 +25,18 @@ const RichContent = props => {
         ...props,
         classes
     };
+    for (const ContentType of richContentTypes) {
+        const { component, configAggregator} = ContentType;
+        if (!ContentType.name) {
+            ContentType.name = component.name;
+        }
+        if (ContentType.name && component && configAggregator) {
+            setContentTypeConfig(ContentType.name, {
+                component,
+                configAggregator
+            });
+        }
+    }
     for (const Renderer of richContentRenderers) {
         const { Component, canRender } = Renderer;
         if (canRender(rendererProps.html)) {
