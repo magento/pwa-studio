@@ -1,58 +1,49 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Info } from 'react-feather';
+import { Heart } from 'react-feather';
 import { gql } from '@apollo/client';
-import { useToasts } from '@magento/peregrine';
-import { Link, resourceUrl } from '@magento/venia-drivers';
+import { Link } from 'react-router-dom';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import Price from '@magento/venia-ui/lib/components/Price';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
+import Icon from '../../Icon';
+import Image from '../../Image';
 import Kebab from '../../LegacyMiniCart/kebab';
 import ProductOptions from '../../LegacyMiniCart/productOptions';
-import Quantity from './quantity';
 import Section from '../../LegacyMiniCart/section';
-import Image from '../../Image';
-import Icon from '../../Icon';
+import AddToListButton from '../../Wishlist/AddToListButton';
+import Quantity from './quantity';
+
 import defaultClasses from './product.css';
+
 import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
 
 const IMAGE_SIZE = 100;
 
-const InfoIcon = <Icon size={20} src={Info} />;
+const HeartIcon = <Icon size={16} src={Heart} />;
 
 const Product = props => {
-    const {
-        item,
-        onAddToWishlistSuccess,
-        setActiveEditItem,
-        setIsCartUpdating,
-        fetchCartDetails
-    } = props;
+    const { item } = props;
 
-    const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
     const talonProps = useProduct({
-        item,
         operations: {
             removeItemMutation: REMOVE_ITEM_MUTATION,
             updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
         },
-        onAddToWishlistSuccess,
-        setActiveEditItem,
-        setIsCartUpdating,
-        fetchCartDetails
+        ...props
     });
 
     const {
+        addToWishlistProps,
         errorMessage,
         handleEditItem,
         handleRemoveFromCart,
-        handleSaveForLater,
         handleUpdateItemQuantity,
         isEditable,
-        loginToastProps,
         product,
         isProductUpdating
     } = talonProps;
@@ -69,7 +60,7 @@ const Product = props => {
         urlSuffix
     } = product;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const itemClassName = isProductUpdating
         ? classes.item_disabled
@@ -101,12 +92,6 @@ const Product = props => {
                   defaultMessage: 'Out-of-stock'
               })
             : '';
-
-    useEffect(() => {
-        if (loginToastProps) {
-            addToast({ ...loginToastProps, icon: InfoIcon });
-        }
-    }, [addToast, loginToastProps]);
 
     return (
         <li className={classes.root}>
@@ -170,17 +155,16 @@ const Product = props => {
                             text: classes.sectionText
                         }}
                     />
-                    <Section
-                        text={formatMessage({
-                            id: 'product.saveForLater',
-                            defaultMessage: 'Save for later'
-                        })}
-                        onClick={handleSaveForLater}
-                        icon="Heart"
-                        classes={{
-                            text: classes.sectionText
-                        }}
-                    />
+                    <li>
+                        <AddToListButton
+                            {...addToWishlistProps}
+                            classes={{
+                                root: classes.addToListButton,
+                                root_selected: classes.addToListButton_selected
+                            }}
+                            icon={HeartIcon}
+                        />
+                    </li>
                 </Kebab>
             </div>
         </li>

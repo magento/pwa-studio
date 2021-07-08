@@ -8,7 +8,7 @@ import Footer from './footer';
 import Header from './header';
 import Mask from './mask';
 import defaultClasses from './miniCart.css';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 
 const LegacyMiniCart = props => {
     const {
@@ -42,7 +42,7 @@ const LegacyMiniCart = props => {
         />
     ) : null;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
 
     return (

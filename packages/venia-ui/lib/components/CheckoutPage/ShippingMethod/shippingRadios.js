@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import RadioGroup from '../../RadioGroup';
 import ShippingRadio from '../../CartPage/PriceAdjustments/ShippingMethods/shippingRadio';
 import defaultClasses from './shippingRadios.css';
@@ -11,7 +11,7 @@ const ShippingRadios = props => {
     const { disabled, shippingMethods } = props;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const ERROR_MESSAGE = formatMessage({
         id: 'shippingRadios.errorLoading',
@@ -47,6 +47,7 @@ const ShippingRadios = props => {
             classes={radioGroupClasses}
             disabled={disabled}
             field="shipping_method"
+            id={'shippingMethod'}
             items={shippingRadios}
         />
     );

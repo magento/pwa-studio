@@ -2,13 +2,13 @@ import React, { useMemo } from 'react';
 import { arrayOf, func, object, shape, string } from 'prop-types';
 import Tile from './tile';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './tileList.css';
 
 const TileList = props => {
     const { getItemKey, selectedValue = {}, items, onSelectionChange } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const tiles = useMemo(
         () =>

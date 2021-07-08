@@ -9,7 +9,7 @@ import {
 import { useToasts } from '@magento/peregrine';
 import { useCreditCard } from '@magento/peregrine/lib/talons/SavedPaymentsPage/useCreditCard';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '../Button';
 import Icon from '../Icon';
 import LinkButton from '../LinkButton';
@@ -68,7 +68,7 @@ const CreditCard = props => {
         }
     }, [addToast, formatMessage, hasError]);
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const number = `**** ${details.maskedCC} \u00A0\u00A0 ${cardTypeMapper[
         details.type

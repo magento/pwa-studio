@@ -1,5 +1,39 @@
 import { useGalleryItem } from '../useGalleryItem';
-test('returns empty object', () => {
-    const props = useGalleryItem({});
-    expect(props).toEqual({});
+
+describe('returns correct shape when multiple wishlists are', () => {
+    test('disabled', () => {
+        const props = useGalleryItem();
+        expect(props).toMatchInlineSnapshot(`
+            Object {
+              "wishlistButtonProps": null,
+            }
+        `);
+    });
+
+    test('enabled', () => {
+        const props = useGalleryItem({
+            item: 'Austin FC Jersey',
+            storeConfig: {
+                magento_wishlist_general_is_enabled: '1'
+            }
+        });
+
+        expect(props).toMatchInlineSnapshot(`
+            Object {
+              "item": "Austin FC Jersey",
+              "storeConfig": Object {
+                "magento_wishlist_general_is_enabled": "1",
+              },
+              "wishlistButtonProps": Object {
+                "item": Object {
+                  "quantity": 1,
+                  "sku": undefined,
+                },
+                "storeConfig": Object {
+                  "magento_wishlist_general_is_enabled": "1",
+                },
+              },
+            }
+        `);
+    });
 });

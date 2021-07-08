@@ -109,7 +109,7 @@
     display: grid;
     grid-area: cart;
     row-gap: 1.5rem;
-    justify-content: center;
+    justify-items: center;
 }
 
 @media (min-width: 1024px) {

@@ -4,7 +4,7 @@ import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSum
 import PriceSummary from '../priceSummary';
 
 jest.mock('../../../../classify');
-jest.mock('@magento/venia-drivers', () => ({
+jest.mock('react-router-dom', () => ({
     Link: jest.fn(() => 'Proceed to Checkout')
 }));
 jest.mock('@apollo/client', () => {

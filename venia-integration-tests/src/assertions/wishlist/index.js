@@ -2,8 +2,11 @@ import {
     wishlistPageHeading,
     wishlistRoot,
     wishlistItemPrice,
-    wishlistItemAddToCartButton
+    wishlistItemAddToCartButton,
+    createWishlistButton
 } from '../../fields/wishlist';
+
+import { emptyWishlistMessage } from '../../fixtures/wishlist';
 
 /**
  * Utility function to assert empty wishlist
@@ -12,14 +15,6 @@ import {
 export const assertWishlistHeading = wishlistHeaderText => {
     // assert wishlist header text
     cy.get(wishlistPageHeading).contains(wishlistHeaderText);
-};
-
-/**
- * Utility function to assert empty wishlist
- */
-export const assertEmptyWishlist = () => {
-    // assert product container does not exists
-    cy.get(wishlistRoot).should('not.exist');
 };
 
 /**
@@ -42,4 +37,22 @@ export const assertProductInWishlist = productName => {
     cy.contains('div', productName)
         .children(wishlistItemAddToCartButton)
         .should('exist');
+};
+
+/**
+ * Utility function to assert create wishlist link exists
+ */
+export const assertCreateWishlistLink = () => {
+    // assert create a list link exists
+    cy.get(createWishlistButton).should('exist');
+};
+
+/**
+ * Utility function to assert empty wishlist for multiple wishlists
+ */
+export const assertEmptyWishlistExists = wishlistName => {
+    // assert wishlist exists and is empty
+    cy.get(wishlistRoot)
+        .should('contain.text', wishlistName)
+        .should('contain.text', emptyWishlistMessage);
 };

@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import { func, shape, string } from 'prop-types';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';
 import defaultClasses from './errorView.css';
 import backgroundUrl from './errorViewBackground-1400x600.png';
@@ -14,7 +14,7 @@ const DEFAULT_MESSAGE = 'Looks like something went wrong. Sorry about that.';
 const DEFAULT_PROMPT = 'Take me home';
 
 const ErrorView = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const history = useHistory();
 
     const handleGoHome = useCallback(() => {

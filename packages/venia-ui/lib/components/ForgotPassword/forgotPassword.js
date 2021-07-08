@@ -5,7 +5,7 @@ import { func, shape, string } from 'prop-types';
 import { useForgotPassword } from '@magento/peregrine/lib/talons/ForgotPassword/useForgotPassword';
 
 import FormErrors from '../FormError';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import FormSubmissionSuccessful from './FormSubmissionSuccessful';
 
@@ -31,7 +31,7 @@ const ForgotPassword = props => {
         isResettingPassword
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const INSTRUCTIONS = formatMessage({
         id: 'forgotPassword.instructions',
         defaultMessage:

@@ -34,9 +34,14 @@ jest.mock('@magento/peregrine', () => {
 
 jest.mock('../../Head', () => ({ StoreTitle: () => 'Communications' }));
 
-jest.mock('@magento/venia-drivers', () => ({
+jest.mock('react-router-dom', () => ({
     Redirect: props => <mock-Redirect {...props} />
 }));
+
+beforeAll(() => {
+    // informed's random ids make snapshots unstable
+    jest.spyOn(Math, 'random').mockReturnValue(0);
+});
 
 test('redirects when not authenticated', () => {
     useCommunicationsPage.mockReturnValue({

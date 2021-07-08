@@ -25,7 +25,7 @@ const reducer = (prevState = initialState, action = {}) => {
             if (isDuplicate) {
                 // If this is a _new_ duplicate toast we need to clear the
                 // previous timeout to prevent premature removal.
-                window.clearTimeout(prevToast.removalTimeoutId);
+                globalThis.clearTimeout(prevToast.removalTimeoutId);
 
                 // And to retain chronological order of addition, keep the
                 // original timestamp.
@@ -48,7 +48,7 @@ const reducer = (prevState = initialState, action = {}) => {
 
             const prevToast = nextToasts.get(payload.id);
             if (prevToast) {
-                window.clearTimeout(prevToast.removalTimeoutId);
+                globalThis.clearTimeout(prevToast.removalTimeoutId);
             }
 
             nextToasts.delete(payload.id);

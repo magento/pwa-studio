@@ -2,7 +2,7 @@ import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Dialog from '../Dialog';
 import defaultClasses from './wishlistConfirmRemoveProductDialog.css';
 
@@ -17,7 +17,7 @@ const WishlistConfirmRemoveProductDialog = props => {
 
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const dialogTitle = formatMessage({
         id: 'wishlistConfirmRemoveProductDialog.title',

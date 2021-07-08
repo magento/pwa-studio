@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useMegaMenu } from '@magento/peregrine/lib/talons/MegaMenu/useMegaMenu';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './megaMenu.css';
 import MegaMenuItem from './megaMenuItem';
 
@@ -9,7 +9,7 @@ import MegaMenuItem from './megaMenuItem';
  */
 const MegaMenu = props => {
     const { megaMenuData, activeCategoryId } = useMegaMenu();
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const mainNavRef = useRef(null);
     const [mainNavWidth, setMainNavWidth] = useState(0);

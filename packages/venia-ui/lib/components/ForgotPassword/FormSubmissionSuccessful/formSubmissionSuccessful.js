@@ -2,13 +2,13 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import defaultClasses from './formSubmissionSuccessful.css';
 
 const FormSubmissionSuccessful = props => {
     const { email } = props;
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const textMessage = formatMessage(
         {

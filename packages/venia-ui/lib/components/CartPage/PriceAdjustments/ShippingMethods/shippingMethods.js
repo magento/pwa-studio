@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Form } from 'informed';
 import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
 
-import { mergeClasses } from '../../../../classify';
+import { useStyle } from '../../../../classify';
 import Button from '../../../Button';
 import ShippingForm from './shippingForm';
 import defaultClasses from './shippingMethods.css';
@@ -36,7 +36,7 @@ const ShippingMethods = props => {
         showForm
     } = useShippingMethods({ ...ShippingMethodsOperations });
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const radios =
         isShowingForm && hasMethods ? (

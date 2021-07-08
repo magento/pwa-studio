@@ -20,8 +20,3 @@
     display: grid;
     gap: 1.5rem;
 }
-
-.radioRoot {
-    composes: root from '../RadioGroup/radioGroup.css';
-    grid-template-columns: auto;
-}

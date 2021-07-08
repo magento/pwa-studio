@@ -12,7 +12,7 @@ import {
     TabPanel
 } from 'react-tabs';
 import defaultClasses from './tabs.css';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, number, oneOf, shape, string } from 'prop-types';
 
 /**
@@ -40,7 +40,7 @@ const upperCaseString = string => {
  * @returns {React.Element} A React component that displays a set of Tabs.
  */
 const Tabs = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const navigationRef = useRef(null);
     const [scrollElement, setScrollElement] = useState(null);
     const [gradient, setGradient] = useState(null);
