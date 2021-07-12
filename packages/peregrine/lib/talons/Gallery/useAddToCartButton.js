@@ -23,12 +23,13 @@ export const useAddToCartButton = props => {
                 console.log(`Adding ${item.name} to Cart`);
                 console.log(`Item is of type ${productType}`);
                 await addToCart({
-                    cartId,
+                 variables:{   cartId,
                     cartItem: {
                         quantity: 1,
                         selected_options: [],
                         sku: item.sku
                     }
+                }
             })
 
                 setTimeout(() => {
