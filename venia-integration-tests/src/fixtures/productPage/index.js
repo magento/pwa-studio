@@ -11,7 +11,7 @@ export const productValeriaTwoLayeredTank = {
 /**
  * Sample simple product
  */
-export const silverAmorBandleSet = {
+export const silverAmorBangleSet = {
     name: 'Silver Amor Bangle Set',
     url: '/silver-amor-bangle-set.html'
 };

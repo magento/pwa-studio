@@ -237,9 +237,9 @@ describe('verify single wishlist basic features', () => {
         cy.intercept('GET', getNewCustomerWishlistCall, {
             fixture:
                 'wishlist/multipleWishlist/wishlistExpandWishlistPageEarrings.json'
-        }).as('getCustomerWishlist8');
+        }).as('getCustomerWishlist7');
         expandCollapsedWishlists();
-        cy.wait(['@getCustomerWishlist8']).its('response.body');
+        cy.wait(['@getCustomerWishlist7']).its('response.body');
 
         // assert both products exists in wishlist
         assertCreateWishlistLink();

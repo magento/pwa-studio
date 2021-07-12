@@ -51,7 +51,7 @@ export const asserProductNotInWishlist = productName => {
     // assert Product container exists
     cy.get(wishlistRoot).should('exist');
 
-    // assert Product exists
+    // assert Product does not exist
     cy.get(wishlistRoot)
         .contains(productName)
         .should('not.exist');

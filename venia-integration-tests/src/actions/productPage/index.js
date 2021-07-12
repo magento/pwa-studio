@@ -26,7 +26,7 @@ export const addProductToExistingWishlistFromDialog = wishlistName => {
  * Utility function to add simple product to cart from the product page
  *
  * Note: This only works for simple product because it doesnt consider
- * product options. A different funciton has to be used for different
+ * product options. A different function has to be used for different
  * types of products like configurable or virtual.
  */
 export const addSimpleProductToCartFromProductPage = () => {

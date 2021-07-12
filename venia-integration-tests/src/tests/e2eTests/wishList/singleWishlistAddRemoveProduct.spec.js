@@ -33,10 +33,10 @@ const { homePage } = homePageFixtures;
 const { wishlistRoute } = wishlistFixtures;
 const {
     productValeriaTwoLayeredTank,
-    silverAmorBandleSet
+    silverAmorBangleSet
 } = productPageFixtures;
 
-const { moveProductFromCartToSigleWishlist } = cartPageActions;
+const { moveProductFromCartToSingleWishlist } = cartPageActions;
 const { goToMyAccount } = myAccountMenuActions;
 const { addProductToWishlistFromCategoryPage } = categoryPageActions;
 const {
@@ -88,15 +88,15 @@ describe('verify single wishlist basic features', () => {
         assertProductInWishlist(productCarinaCardigan);
         assertProductInWishlist(productValeriaTwoLayeredTank.name);
 
-        cy.visitPage(silverAmorBandleSet.url);
+        cy.visitPage(silverAmorBangleSet.url);
         addSimpleProductToCartFromProductPage();
         cy.visitPage(cartPageRoute);
-        moveProductFromCartToSigleWishlist(silverAmorBandleSet.name);
+        moveProductFromCartToSingleWishlist(silverAmorBangleSet.name);
         cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
         assertProductInWishlist(productValeriaTwoLayeredTank.name);
-        assertProductInWishlist(silverAmorBandleSet.name);
+        assertProductInWishlist(silverAmorBangleSet.name);
 
         removeProductFromSingleWishlist(productCarinaCardigan);
 

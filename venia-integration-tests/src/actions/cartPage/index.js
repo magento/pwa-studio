@@ -7,7 +7,7 @@ import {
 /**
  * Utility to move a product from the cart page to a single wishlist
  */
-export const moveProductFromCartToSigleWishlist = productName => {
+export const moveProductFromCartToSingleWishlist = productName => {
     const itemToMove = cy.get(cartPageRoot).contains('li', productName);
 
     itemToMove.get(kebabMenuButton).click();

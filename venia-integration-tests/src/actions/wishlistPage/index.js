@@ -32,7 +32,6 @@ export const createWishlist = wishlistName => {
  * @param {String} productName name of the product to remove
  */
 export const removeProductFromSingleWishlist = productName => {
-    // assert Product Price exists
     cy.contains('div', productName)
         .children(wishlistItemRemoveButton)
         .click();
