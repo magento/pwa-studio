@@ -46,6 +46,11 @@ export const useActionMenu = (props = {}) => {
 
     const handleEditWishlist = useCallback(
         async data => {
+            // add private visibility because is required field for ee
+            if (data && !data.visibility) {
+                data.visibility = 'PRIVATE';
+            }
+
             try {
                 await updateWishlist({
                     variables: {

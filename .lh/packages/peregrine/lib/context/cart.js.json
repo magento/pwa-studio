@@ -1,0 +1,102 @@
+{
+    "sourceFile": "packages/peregrine/lib/context/cart.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 21,
+            "patches": [
+                {
+                    "date": 1626074277819,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1626074406961,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { createContext, useContext, useEffect, useMemo } from 'react';\n-import { ceconnt } from 'react-redux';\n+import { connect } from 'react-redux';\n import { useMutation } from '@apollo/client';\n import gql from 'graphql-tag';\n \n import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';\n@@ -59,9 +59,9 @@\n     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n-        cartApi.getCartDetails({\n+        cartApi.getCartyDetails({\n             fetchCartId,\n             fetchCartDetails\n         });\n     }, [cartApi, fetchCartDetails, fetchCartId]);\n"
+                },
+                {
+                    "date": 1626074663687,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,12 +59,9 @@\n     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n-        cartApi.getCartyDetails({\n-            fetchCartId,\n-            fetchCartDetails\n-        });\n+       \n     }, [cartApi, fetchCartDetails, fetchCartId]);\n \n     return (\n         <CartContext.Provider value={contextValue}>\n"
+                },
+                {
+                    "date": 1626074698607,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,9 +59,12 @@\n     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n-       \n+        cartApi.getCartDetails({\n+            fetchCartId,\n+            fetchCartDetails\n+        });\n     }, [cartApi, fetchCartDetails, fetchCartId]);\n \n     return (\n         <CartContext.Provider value={contextValue}>\n"
+                },
+                {
+                    "date": 1626074923511,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,12 +60,12 @@\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n         cartApi.getCartDetails({\n-            fetchCartId,\n+\n             fetchCartDetails\n         });\n-    }, [cartApi, fetchCartDetails, fetchCartId]);\n+    }, [cartApi, fetchCartDetails);\n \n     return (\n         <CartContext.Provider value={contextValue}>\n             {children}\n"
+                },
+                {
+                    "date": 1626074930105,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -63,9 +63,9 @@\n         cartApi.getCartDetails({\n \n             fetchCartDetails\n         });\n-    }, [cartApi, fetchCartDetails);\n+    }, [cartApi, fetchCartDetails,);\n \n     return (\n         <CartContext.Provider value={contextValue}>\n             {children}\n"
+                },
+                {
+                    "date": 1626074935910,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -63,9 +63,9 @@\n         cartApi.getCartDetails({\n \n             fetchCartDetails\n         });\n-    }, [cartApi, fetchCartDetails,);\n+    }, [cartApi, fetchCartDetails);\n \n     return (\n         <CartContext.Provider value={contextValue}>\n             {children}\n"
+                },
+                {
+                    "date": 1626074953709,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -63,9 +63,9 @@\n         cartApi.getCartDetails({\n \n             fetchCartDetails\n         });\n-    }, [cartApi, fetchCartDetails);\n+    }, [cartApi, fetchCartDetails, fetchCartId]);\n \n     return (\n         <CartContext.Provider value={contextValue}>\n             {children}\n"
+                },
+                {
+                    "date": 1626074963382,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,8 @@\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n         cartApi.getCartDetails({\n-\n             fetchCartDetails\n         });\n     }, [cartApi, fetchCartDetails, fetchCartId]);\n \n"
+                },
+                {
+                    "date": 1626074971006,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,9 @@\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n         cartApi.getCartDetails({\n             fetchCartDetails\n         });\n-    }, [cartApi, fetchCartDetails, fetchCartId]);\n+    }, [cartApi, fetchCartDetails]);\n \n     return (\n         <CartContext.Provider value={contextValue}>\n             {children}\n"
+                },
+                {
+                    "date": 1626075027956,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n         cartApi,\n         derivedCartState\n     ]);\n \n-    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);\n+\n     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n"
+                },
+                {
+                    "date": 1626075040075,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,8 +49,10 @@\n         }),\n         [actions, asyncActions]\n     );\n \n+    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);\n+\n     const contextValue = useMemo(() => [derivedCartState, cartApi], [\n         cartApi,\n         derivedCartState\n     ]);\n"
+                },
+                {
+                    "date": 1626075047232,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,8 +54,9 @@\n \n     const contextValue = useMemo(() => [derivedCartState, cartApi], [\n         cartApi,\n         derivedCartState\n+        fetchCartId\n     ]);\n \n \n     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n"
+                },
+                {
+                    "date": 1626075057492,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,10 +53,10 @@\n     const [fetchCartId] = useMutation(CREATE_CART_MUTATION);\n \n     const contextValue = useMemo(() => [derivedCartState, cartApi], [\n         cartApi,\n-        derivedCartState\n-        fetchCartId\n+        derivedCartState,\n+        create\n     ]);\n \n \n     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n"
+                },
+                {
+                    "date": 1626075077651,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n \n     const contextValue = useMemo(() => [derivedCartState, cartApi], [\n         cartApi,\n         derivedCartState,\n-        create\n+        createEmptyCart\n     ]);\n \n \n     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n"
+                },
+                {
+                    "date": 1626075083583,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,9 @@\n         }),\n         [actions, asyncActions]\n     );\n \n-    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);\n+    const [createEmptyCart] = useMutation(CREATE_CART_MUTATION);\n \n     const contextValue = useMemo(() => [derivedCartState, cartApi], [\n         cartApi,\n         derivedCartState,\n"
+                },
+                {
+                    "date": 1626094026684,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,25 +49,23 @@\n         }),\n         [actions, asyncActions]\n     );\n \n-    const [createEmptyCart] = useMutation(CREATE_CART_MUTATION);\n-\n     const contextValue = useMemo(() => [derivedCartState, cartApi], [\n         cartApi,\n-        derivedCartState,\n-        createEmptyCart\n+        derivedCartState\n     ]);\n \n-\n+    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);\n     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n         cartApi.getCartDetails({\n+            fetchCartId,\n             fetchCartDetails\n         });\n-    }, [cartApi, fetchCartDetails]);\n+    }, [cartApi, fetchCartDetails, fetchCartId]);\n \n     return (\n         <CartContext.Provider value={contextValue}>\n             {children}\n"
+                },
+                {
+                    "date": 1626094157181,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,9 @@\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n         cartApi.getCartDetails({\n-            fetchCartId,\n+            \n             fetchCartDetails\n         });\n     }, [cartApi, fetchCartDetails, fetchCartId]);\n \n"
+                },
+                {
+                    "date": 1626094162788,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,12 +60,12 @@\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n         cartApi.getCartDetails({\n-            \n+\n             fetchCartDetails\n         });\n-    }, [cartApi, fetchCartDetails, fetchCartId]);\n+    }, [cartApi, fetchCartDetails]);\n \n     return (\n         <CartContext.Provider value={contextValue}>\n             {children}\n"
+                },
+                {
+                    "date": 1626094259974,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,12 +60,12 @@\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n         cartApi.getCartDetails({\n-\n+            fetchCartId,\n             fetchCartDetails\n         });\n-    }, [cartApi, fetchCartDetails]);\n+    }, [cartApi, fetchCartDetails, fetchCartId]);\n \n     return (\n         <CartContext.Provider value={contextValue}>\n             {children}\n"
+                },
+                {
+                    "date": 1626096260389,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n         cartApi,\n         derivedCartState\n     ]);\n \n-    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);\n+   \n     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n"
+                },
+                {
+                    "date": 1626096266195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,16 +54,15 @@\n         cartApi,\n         derivedCartState\n     ]);\n \n-   \n+\n     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n \n     useEffect(() => {\n         // cartApi.getCartDetails initializes the cart if there isn't one.\n         cartApi.getCartDetails({\n             fetchCartId,\n-            fetchCartDetails\n         });\n     }, [cartApi, fetchCartDetails, fetchCartId]);\n \n     return (\n"
+                }
+            ],
+            "date": 1626074277819,
+            "name": "Commit-0",
+            "content": "import React, { createContext, useContext, useEffect, useMemo } from 'react';\nimport { ceconnt } from 'react-redux';\nimport { useMutation } from '@apollo/client';\nimport gql from 'graphql-tag';\n\nimport { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';\nimport actions from '../store/actions/cart/actions';\nimport * as asyncActions from '../store/actions/cart/asyncActions';\nimport bindActionCreators from '../util/bindActionCreators';\n\nconst CartContext = createContext();\n\nconst isCartEmpty = cart =>\n    !cart || !cart.details.items || cart.details.items.length === 0;\n\nconst getTotalQuantity = items =>\n    items.reduce((total, item) => total + item.quantity, 0);\n\nconst CartContextProvider = props => {\n    const { actions, asyncActions, cartState, children } = props;\n\n    // Make deeply nested details easier to retrieve and provide empty defaults\n    const derivedDetails = useMemo(() => {\n        if (isCartEmpty(cartState)) {\n            return {\n                currencyCode: 'USD',\n                numItems: 0,\n                subtotal: 0\n            };\n        } else {\n            return {\n                currencyCode: cartState.details.prices.grand_total.currency,\n                numItems: getTotalQuantity(cartState.details.items),\n                subtotal: cartState.details.prices.grand_total.value\n            };\n        }\n    }, [cartState]);\n\n    const derivedCartState = {\n        ...cartState,\n        isEmpty: isCartEmpty(cartState),\n        derivedDetails\n    };\n\n    const cartApi = useMemo(\n        () => ({\n            actions,\n            ...asyncActions\n        }),\n        [actions, asyncActions]\n    );\n\n    const contextValue = useMemo(() => [derivedCartState, cartApi], [\n        cartApi,\n        derivedCartState\n    ]);\n\n    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);\n    const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);\n\n    useEffect(() => {\n        // cartApi.getCartDetails initializes the cart if there isn't one.\n        cartApi.getCartDetails({\n            fetchCartId,\n            fetchCartDetails\n        });\n    }, [cartApi, fetchCartDetails, fetchCartId]);\n\n    return (\n        <CartContext.Provider value={contextValue}>\n            {children}\n        </CartContext.Provider>\n    );\n};\n\nconst mapStateToProps = ({ cart }) => ({ cartState: cart });\n\nconst mapDispatchToProps = dispatch => ({\n    actions: bindActionCreators(actions, dispatch),\n    asyncActions: bindActionCreators(asyncActions, dispatch)\n});\n\nexport default connect(\n    mapStateToProps,\n    mapDispatchToProps\n)(CartContextProvider);\n\nexport const useCartContext = () => useContext(CartContext);\n\n/**\n * We normally do not keep GQL queries in Peregrine. All components should pass\n * queries to talons/hooks. This is an exception to the rule because it would\n * be unecessarily complex to pass these queries to the context provider.\n */\nconst CREATE_CART_MUTATION = gql`\n    mutation createCart {\n        cartId: createEmptyCart\n    }\n`;\n\nconst CART_DETAILS_QUERY = gql`\n    query checkUserIsAuthed($cartId: String!) {\n        cart(cart_id: $cartId) {\n            # The purpose of this query is to check that the user is authorized\n            # to query on the current cart. Just fetch \"id\" to keep it small.\n            id\n        }\n    }\n`;\n"
+        }
+    ]
+}
