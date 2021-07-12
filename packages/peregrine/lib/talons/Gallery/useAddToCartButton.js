@@ -14,7 +14,7 @@ export const useAddToCartButton = props => {
     const isDisabled = isLoading || !isInStock || unsupportedProductType;
     const history = useHistory();
 
-    //const [addToCart, {data}] = useMutation(operations.ADD_PRODUCT_TO_CART); 
+    const [addToCart, {data}] = useMutation(operations.ADD_PRODUCT_TO_CART); 
 
     const handleAddToCart = useCallback(async () => {
         try {
@@ -22,6 +22,14 @@ export const useAddToCartButton = props => {
                 setIsLoading(true);
                 console.log(`Adding ${item.name} to Cart`);
                 console.log(`Item is of type ${productType}`);
+                return {
+                    cartId,
+                    cartItem: {
+                        quantity: 1,
+                        selected_options: [],
+                        sku: item.sku
+                    }
+                };
 
                 setTimeout(() => {
                     setIsLoading(false);

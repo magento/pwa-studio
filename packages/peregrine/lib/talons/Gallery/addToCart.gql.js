@@ -1,6 +1,17 @@
 import gql from 'graphql-tag';
 
 const ADD_PRODUCT_TO_CART = gql`
+mutation AddItemToCart(
+    $cartId: String!
+    $cartItem: CartItemInput!
+)
+{
+    addProductsToCart(cartId: $cartId, cartItems: [$cartItem]) {
+        cart {
+            id
+        }
+    }
+
 products(search: $searchString) {
     items {
       id
