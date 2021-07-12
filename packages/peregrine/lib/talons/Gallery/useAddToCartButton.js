@@ -5,16 +5,19 @@ import { useHistory } from 'react-router-dom';
 import operations from './addToCart.gql';
 
 
+
 export const useAddToCartButton = props => {
     const { item } = props;
     const [isLoading, setIsLoading] = useState(false);
     const isInStock = item.stock_status === 'IN_STOCK';
     const productType = item.type_id;
-    const unsupportedProductType = productType === "virtual" || productType === "bundle" || productType === "downloadable"; 
+    const unsupportedProductType = productType === "virtual" || productType === "bundle" || productType === "downloadable";
     const isDisabled = isLoading || !isInStock || unsupportedProductType;
     const history = useHistory();
+    const [{ cartId }] = useCartContext();
 
-    const [addToCart, {data}] = useMutation(operations.ADD_ITEM); 
+
+    const [addToCart, { data }] = useMutation(operations.ADD_ITEM);
 
     const handleAddToCart = useCallback(async () => {
         try {
@@ -23,14 +26,15 @@ export const useAddToCartButton = props => {
                 console.log(`Adding ${item.name} to Cart`);
                 console.log(`Item is of type ${productType}`);
                 await addToCart({
-                 variables:{   cartId,
-                    cartItem: {
-                        quantity: 1,
-                        selected_options: [],
-                        sku: item.sku
+                    variables: {
+                        cartId,
+                        cartItem: {
+                            quantity: 1,
+                            selected_options: [],
+                            sku: item.sku
+                        }
                     }
-                }
-            })
+                })
 
                 setTimeout(() => {
                     setIsLoading(false);
@@ -39,7 +43,7 @@ export const useAddToCartButton = props => {
             else if (productType === "configurable") {
                 history.push(`${item.url_key}.html`);
             }
-            else{
+            else {
                 console.log('Unsupported product type unable to handle.');
             }
         } catch (error) {
