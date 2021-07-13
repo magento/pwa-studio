@@ -13,8 +13,7 @@ class RichContentTypeList {
     constructor(venia) {
         const registry = this;
         this._types = venia.esModuleArray({
-            module:
-                '@magento/venia-ui/lib/components/RichContent/richContentTypes.js',
+            module: '@magento/venia-ui/lib/components/RichContent/richContentTypes.js',
             publish(targets) {
                 targets.richContentTypes.call(registry);
             }
@@ -35,8 +34,8 @@ class RichContentTypeList {
             !type.importPath
         ) {
             throw new Error(
-                `richContentTypes target: Argument is not a valid rich content type strategy.`
-                + ` A valid strategy must have a JSX element name as "contentType" and a resolvable path to the renderer module as "importPath".`
+                `richContentTypes target: Argument is not a valid rich content type strategy.` +
+                    ` A valid strategy must have a JSX element name as "contentType" and a resolvable path to the renderer module as "importPath".`
             );
         }
         const componentName = `${type.contentType}ContentType`;

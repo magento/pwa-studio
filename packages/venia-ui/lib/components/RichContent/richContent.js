@@ -19,14 +19,14 @@ import richContentTypes from './richContentTypes';
  *
  * @returns {React.Element} A React component that renders Heading with optional styling properties.
  */
-const RichContent = props => {
+const RichContent = (props) => {
     const classes = useStyle(defaultClasses, props.classes);
     const rendererProps = {
         ...props,
         classes
     };
     for (const ContentType of richContentTypes) {
-        const { component, configAggregator} = ContentType;
+        const { component, configAggregator } = ContentType;
         if (!ContentType.name) {
             ContentType.name = component.name;
         }
@@ -47,7 +47,7 @@ const RichContent = props => {
     if (process.env.NODE_ENV === 'development') {
         console.warn(
             `None of the following rich content renderers returned anything for the provided HTML.`,
-            richContentRenderers.map(r => `<${r.name}>`),
+            richContentRenderers.map((r) => `<${r.name}>`),
             props.html
         );
     }
