@@ -25,42 +25,176 @@ _For older release notes, see [PWA Studio releases][]._
 PWA Studio 11.0.0 contains new features, refactors, bug fixes, and various improvements.
 This version is compatible with **Magento 2.4.3**.
 
-## Pull requests merged in this release
+### Wish List feature
 
-### Venia (storefront and visual component library)
+Wish List is a feature introduced in this release and implemented in the Venia storefront template.
+It gives shoppers the ability to create and manage lists of items they may want to purchase in the future.
 
-| Description                                                                                       | Change type | PR        |
-| ------------------------------------------------------------------------------------------------- | ----------- | --------- |
+#### Pull Requests
 
-### Peregrine library
+| Description                                                                                                | PR        |
+| ---------------------------------------------------------------------------------------------------------- | --------- |
+| Removed the use of mock data for Wish List and connected to real GraphQL data                              | [#3041][] |
+| Implemented adding an item to a Wish List from the product page                                            | [#3048][] |
+| Implemented the ability to edit a Wish List's name and visibility                                          | [#3049][] |
+| Implemented adding an item to a Wish List from the category page                                           | [#3105][] |
+| Fixed a Wish List bug that prevented you from removing a product if the Wish List had 2 or more products   | [#3121][] |
+| Implemented adding an item to a Wish List from the cart                                                    | [#3130][] |
+| Implemented adding an item to the cart from a Wish List                                                    | [#3170][] |
+| Created a re-usable hook for Wish List logic for re-use in various components                              | [#3182][] |
+| Fixed a Wish List bug that allowed users to collapse the Wish List section when it only had a single entry | [#3184][] |
+| Implemented adding an item from the cart to multiple wishlists                                             | [#3207][] |
+| Added message to display when the Wish List is empty                                                       | [#3228][] |
+| Fixed a Wish List bug in the Create Wish List dialog that prevented users from creating a new Wish List    | [#3242][] |
+| Created a single Wish List button component to use throughout the application                              | [#3249][] |
 
-| Description                                                                               | Change type  | PR        |
-| ----------------------------------------------------------------------------------------- | ------------ | --------- |
+[#3242]: https://github.com/magento/pwa-studio/pull/3242
+[#3184]: https://github.com/magento/pwa-studio/pull/3184
+[#3249]: https://github.com/magento/pwa-studio/pull/3249
+[#3228]: https://github.com/magento/pwa-studio/pull/3228
+[#3182]: https://github.com/magento/pwa-studio/pull/3182
+[#3121]: https://github.com/magento/pwa-studio/pull/3121
+[#3207]: https://github.com/magento/pwa-studio/pull/3207
+[#3170]: https://github.com/magento/pwa-studio/pull/3170
+[#3130]: https://github.com/magento/pwa-studio/pull/3130
+[#3105]: https://github.com/magento/pwa-studio/pull/3105
+[#3048]: https://github.com/magento/pwa-studio/pull/3048
+[#3041]: https://github.com/magento/pwa-studio/pull/3041
+[#3049]: https://github.com/magento/pwa-studio/pull/3049
+### Cypress tests
 
-### Build tools
+[Cypress](https://www.cypress.io/) is an end-to-end testing suite written in JavaScript.
+This release adds this framework to the PWA Studio project to increase testing automation and reduce the time spent on manual testing.
+This will enable the team to release new versions faster and more often.
 
-| Description                                                            | Change type | PR        |
-| ---------------------------------------------------------------------- | ----------- | --------- |
+#### Pull Requests
 
-### UPWARD
+| Description                                   | PR        |
+| --------------------------------------------- | --------- |
+| Configured the project to use Cypress         | [#3082][] |
+| Added the Cypress Visual Testing plugin       | [#3136][] |
+| Added tests for the Wish List feature         | [#3146][] |
+| Added tests for PageBuilder banner component  | [#3178][] |
+| Added tests for PageBuilder buttons           | [#3194][] |
+| Added tests for multiple Wish Lists           | [#3218][] |
+| Updated the Cypress tests directory structure | [#3253][] |
 
-| Description                                                     | Change type | PR        |
-| --------------------------------------------------------------- | ----------- | --------- |
+[#3082]: https://github.com/magento/pwa-studio/pull/3082
+[#3136]: https://github.com/magento/pwa-studio/pull/3136
+[#3146]: https://github.com/magento/pwa-studio/pull/3146
+[#3178]: https://github.com/magento/pwa-studio/pull/3178
+[#3194]: https://github.com/magento/pwa-studio/pull/3194
+[#3218]: https://github.com/magento/pwa-studio/pull/3218
+[#3253]: https://github.com/magento/pwa-studio/pull/3253
 
-### Extensions
+### Virtual Product types
 
-| Description                                           | Change type | PR        |
-| ----------------------------------------------------- | ----------- | --------- |
+This release contains initial work to support Virtual Product types.
+The current implementation only lets you browse and view Virtual Product types in your storefront.
 
-### Documentation
+#### Pull Requests
 
-| Description                                     | Change type       | PR        |
-| ----------------------------------------------- | ----------------- | --------- |
+| Description                                                   | PR        |
+| ------------------------------------------------------------- | --------- |
+| Implemented ability to browse and view Virtual Products types | [#3052][] |
 
-### Misc
+[#3052]: https://github.com/magento/pwa-studio/pull/3052
 
-| Description                                  | Change type | PR        |
-| -------------------------------------------- | ----------- | --------- |
+### Documentation updates
+
+Since the last release, the documentation site has published new topics and updated an existing topic.
+
+#### New topics
+
+- [Upgrading versions](https://magento.github.io/pwa-studio/technologies/upgrading-versions/)
+- [Change static assets directory](https://magento.github.io/pwa-studio/tutorials/intercept-a-target/change-static-assets-directory/)
+- [Extension development](https://magento.github.io/pwa-studio/tutorials/extension-development/)
+- [Modify code with Targetables](https://magento.github.io/pwa-studio/tutorials/targetables/)
+- Targetable API reference
+  - [`TargetableModule`](https://magento.github.io/pwa-studio/pwa-buildpack/reference/targetables/TargetableModule/)
+  - [`TargetableESModule`](https://magento.github.io/pwa-studio/pwa-buildpack/reference/targetables/TargetableESModule/)
+  - [`TargetableESModuleArray`](https://magento.github.io/pwa-studio/pwa-buildpack/reference/targetables/TargetableESModuleArray/)
+  - [`TargetableESModuleObject`](https://magento.github.io/pwa-studio/pwa-buildpack/reference/targetables/TargetableESModuleObject/)
+  - [`TargetableReactComponent`](https://magento.github.io/pwa-studio/pwa-buildpack/reference/targetables/TargetableReactComponent/)
+  - [`TargetableSet`](https://magento.github.io/pwa-studio/pwa-buildpack/reference/targetables/TargetableSet/)
+  - [`SingleImportStatement`](https://magento.github.io/pwa-studio/pwa-buildpack/reference/targetables/SingleImportStatement/)
+
+#### Updated topics
+
+- [PWA Studio Overview](https://magento.github.io/pwa-studio/technologies/overview/)
+
+#### Pull Requests
+
+| Description                                                                                                            | PR        |
+| ---------------------------------------------------------------------------------------------------------------------- | --------- |
+| Published a new topic that provides guidance and best practices for upgrading to new versions                          | [#3231][] |
+| Published a new tutorial that shows how you can change the static assets directory used in your project                | [#3219][] |
+| Reorganize and refactor the navigation for the Overview sections                                                       | [#2926][] |
+| Published a new topic that provides general guidance for extension development                                         | [#2995][] |
+| Published a new tutorial that provides general guidance for working with Targetables along with a set of API reference | [#2966][] |
+
+[#3231]: https://github.com/magento/pwa-studio/pull/3231
+[#3219]: https://github.com/magento/pwa-studio/pull/3219
+[#2926]: https://github.com/magento/pwa-studio/pull/2926
+[#2995]: https://github.com/magento/pwa-studio/pull/2995
+[#2966]: https://github.com/magento/pwa-studio/pull/2966
+
+### Performance updates
+
+This release contains minor performance updates related to compressed HTML requests.
+
+#### Pull Requests
+
+| Description                                                        | PR        |
+| ------------------------------------------------------------------ | --------- |
+| Configured UPWARD to use `gzip` content encoding for HTML requests | [#3255][] |
+
+[#3255]: https://github.com/magento/pwa-studio/pull/3255
+
+### Bug fixes
+
+The following bugs have been fixed in 11.0.0.
+
+| Description                                                                                                         | PR        |
+| ------------------------------------------------------------------------------------------------------------------- | --------- |
+| Braintree error related to the use of UK addresses                                                                  | [#3251][] |
+| GraphQL bug related to line comments inside the query                                                               | [#3196][] |
+| Bug in the filter modal where certain icons would not be visible                                                    | [#3171][] |
+| Checkout bug that prevented you from changing your billing address when you pay with Check/Money Order              | [#3239][] |
+| Project bug that prevented the installation of dependencies                                                         | [#3106][] |
+| Scaffolding bug where the `DEBUG_PROJECT_CREATION` flag does not exclude optional extension packages                | [#3086][] |
+| Checkout bug that prevented validation of region codes across different countries                                   | [#3133][] |
+| Checkout bug that prevented you from placing another order after the initial order was declined                     | [#3091][] |
+| Scaffolding bug that prevented the `yarn build:dev` command working                                                 | [#3047][] |
+| Checkout bug where the mobile view of the checkout page would not scroll to the appropriate spot after each step    | [#3055][] |
+| Checkout page bug where it would not pick up the region code provided in the cart page under specific circumstances | [#3093][] |
+
+[#3251]: https://github.com/magento/pwa-studio/pull/3251
+[#3196]: https://github.com/magento/pwa-studio/pull/3196
+[#3171]: https://github.com/magento/pwa-studio/pull/3171
+[#3239]: https://github.com/magento/pwa-studio/pull/3239
+[#3106]: https://github.com/magento/pwa-studio/pull/3106
+[#3086]: https://github.com/magento/pwa-studio/pull/3086
+[#3133]: https://github.com/magento/pwa-studio/pull/3133
+[#3091]: https://github.com/magento/pwa-studio/pull/3091
+[#3047]: https://github.com/magento/pwa-studio/pull/3047
+[#3055]: https://github.com/magento/pwa-studio/pull/3055
+[#3093]: https://github.com/magento/pwa-studio/pull/3093
+
+### Refactors
+
+| Description                                                                            | PR                  |
+| -------------------------------------------------------------------------------------- | ------------------- |
+| Moved the `graphql-cli-validate-magento-pwa-queries` package into the `@magento` scope | [#3198]             |
+| Remove `window` references from Venia                                                  | [#2991][] [#3087][] |
+| Refactored the **Add to Cart** feature to use the generic `AddProductsToCart` mutation | [#3092]             |
+| Removed the Adobe Client Data Layer by default for scaffolded projects                 | [#3215]             |
+
+[#3198]: https://github.com/magento/pwa-studio/pull/3198
+[#2991]: https://github.com/magento/pwa-studio/pull/2991
+[#3087]: https://github.com/magento/pwa-studio/pull/3087
+[#3092]: https://github.com/magento/pwa-studio/pull/3092
+[#3215]: https://github.com/magento/pwa-studio/pull/3215
 
 ## Known issues
 
