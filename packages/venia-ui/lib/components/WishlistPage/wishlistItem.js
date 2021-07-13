@@ -106,7 +106,7 @@ const WishlistItem = props => {
             <div className={classes.actionWrap}>
                 <span className={classes.name}>{name}</span>{' '}
                 <button
-                    className={classes.delteItem}
+                    className={classes.deleteItem}
                     onClick={handleRemoveProductFromWishlist}
                     aria-label={removeProductAriaLabel}
                 >
