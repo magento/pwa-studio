@@ -196,6 +196,32 @@ The following bugs have been fixed in 11.0.0.
 [#3092]: https://github.com/magento/pwa-studio/pull/3092
 [#3215]: https://github.com/magento/pwa-studio/pull/3215
 
+## Package versions
+
+The following table lists the latest versions of each package as of 11.0.0.
+
+**Note:**
+Some package versions remain the same as in the previous release if there were no changes applied to them.
+
+| Package                         | Latest version |
+| ------------------------------- | -------------- |
+| `babel-preset-peregrine`        | 1.1.0          |
+| `create-pwa`                    | 1.3.0          |
+| `upward-security-headers`       | 1.0.3          |
+| `venia-adobe-data-layer`        | 1.0.0          |
+| `venia-sample-backends`         | 0.0.3          |
+| `venia-sample-language-packs`   | 0.0.3          |
+| `venia-sample-payments-checkmo` | 0.0.1          |
+| `pagebuilder`                   | 6.0.0          |
+| `peregrine`                     | 11.0.0         |
+| `pwa-buildpack`                 | 10.0.0         |
+| `upward-js`                     | 5.1.0          |
+| `upward-spec`                   | 5.0.0          |
+| `venia-concept`                 | 11.0.0         |
+| `venia-ui`                      | 8.0.0          |
+| `magento2-upward-connector`     | 1.2.0          |
+| `upward-php`                    | 1.1.5          |
+
 ## Known issues
 
 - If you are using Multi-Source Inventory(MSI), a GraphQL issue prevents users from adding a configurable product to the shopping cart on non-default store views.
