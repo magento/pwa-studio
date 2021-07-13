@@ -11,7 +11,7 @@ export const useAddToCartButton = props => {
     const [isLoading, setIsLoading] = useState(false);
     const isInStock = item.stock_status === 'IN_STOCK';
     const productType = item.type_id;
-    const unsupportedProductType = productType === "virtual" || productType === "bundle" || productType === "downloadable";
+    const unsupportedProductType = productType === "virtual" || productType === "bundle" || productType === "downloadable" || productType === "grouped";
     const isDisabled = isLoading || !isInStock || unsupportedProductType;
     const history = useHistory();
     const [{ cartId }] = useCartContext();
