@@ -26,10 +26,19 @@ _For older release notes, see [PWA Studio releases][]._
 PWA Studio 11.0.0 contains new features, refactors, bug fixes, and various improvements.
 This version is compatible with **Magento 2.4.3**.
 
-### Wish List feature
+### Wish List
 
-Wish List is a feature introduced in this release and implemented in the Venia storefront template.
+Wish List is feature introduced in this release and implemented in the Venia storefront template.
 It gives shoppers the ability to create and manage lists of items they may want to purchase in the future.
+
+The following Wish List features have been implemented in this release:
+
+- Add an item to a wish list from the product page
+- Add an item to a wish list from the category page
+- Add an item to a wish list from the cart page
+- Add an item to the cart from a wish list
+- Support for multiple wish lists
+- Edit the name and visibility of a wish list
 
 #### Pull Requests
 
@@ -47,6 +56,7 @@ It gives shoppers the ability to create and manage lists of items they may want 
 | Implemented adding an item from the cart to multiple wishlists                                             | [#3207][] |
 | Added message to display when the Wish List is empty                                                       | [#3228][] |
 | Fixed a Wish List bug in the Create Wish List dialog that prevented users from creating a new Wish List    | [#3242][] |
+| Cleaned up Multi Wish List code                                                                            | [#3246][] |
 | Created a single Wish List button component to use throughout the application                              | [#3249][] |
 
 [#3242]: https://github.com/magento/pwa-studio/pull/3242
@@ -62,11 +72,14 @@ It gives shoppers the ability to create and manage lists of items they may want 
 [#3048]: https://github.com/magento/pwa-studio/pull/3048
 [#3041]: https://github.com/magento/pwa-studio/pull/3041
 [#3049]: https://github.com/magento/pwa-studio/pull/3049
+[#3246]: https://github.com/magento/pwa-studio/pull/3246
 ### Cypress tests
 
 [Cypress](https://www.cypress.io/) is an end-to-end testing suite written in JavaScript.
 This release adds this framework to the PWA Studio project to increase testing automation and reduce the time spent on manual testing.
 This will enable the team to release new versions faster and more often.
+
+Integration tests for PageBuilder and the new Wish List feature are included in this release.
 
 #### Pull Requests
 
@@ -77,6 +90,7 @@ This will enable the team to release new versions faster and more often.
 | Added tests for the Wish List feature         | [#3146][] |
 | Added tests for PageBuilder banner component  | [#3178][] |
 | Added tests for PageBuilder buttons           | [#3194][] |
+| Added tests for PageBuilder images            | [#3195][] |
 | Added tests for multiple Wish Lists           | [#3218][] |
 | Updated the Cypress tests directory structure | [#3253][] |
 
@@ -87,6 +101,7 @@ This will enable the team to release new versions faster and more often.
 [#3194]: https://github.com/magento/pwa-studio/pull/3194
 [#3218]: https://github.com/magento/pwa-studio/pull/3218
 [#3253]: https://github.com/magento/pwa-studio/pull/3253
+[#3195]: https://github.com/magento/pwa-studio/pull/3195
 
 ### Virtual Product types
 
@@ -100,6 +115,49 @@ The current implementation only lets you browse and view Virtual Product types i
 | Implemented ability to browse and view Virtual Products types | [#3052][] |
 
 [#3052]: https://github.com/magento/pwa-studio/pull/3052
+
+### Extensible payment methods
+
+Two new extensions points related to payment methods have been added in this release.
+The `editablePaymentTypes` target lets you add new editable payment methods to your storefronts, and
+the `summaryPagePaymentTypes` target lets you add a custom payment summary in the checkout summary page.
+
+#### Pull Requests
+
+| Description                                                 | PR        |
+| ----------------------------------------------------------- | --------- |
+| Refactored payment methods and created new extension points | [#3103][] |
+
+[#3103]: https://github.com/magento/pwa-studio/pull/3103
+
+### Accessibility
+
+Keyboard focus and navigation now work as expected on the layered navigation UI feature.
+With the Filter modal open, users can press the `Tab` key to navigate across filter items such as "Price" and "Color".
+On filter items, the user can press `Space` to open and navigate through the options with `Tab`.
+Options are toggled using the `Tab` key.
+
+| Description                                                     | PR        |
+| --------------------------------------------------------------- | --------- |
+| Added keyboard focus and adjusted the way tab order should work | [#3034][] |
+
+[#3034]: https://github.com/magento/pwa-studio/pull/3034
+
+### Performance and optimization updates
+
+To help deliver a better customer experience, filtering products by their attributes on the product listing page has been optimized for desktop views.
+
+This release also contains a configuration change for UPWARD so that it can use the `gzip` content encoding for HTML requests.
+
+#### Pull Requests
+
+| Description                                                        | PR        |
+| ------------------------------------------------------------------ | --------- |
+| Optimized the layered navigation feature for the desktop           | [#3137][] |
+| Configured UPWARD to use `gzip` content encoding for HTML requests | [#3255][] |
+
+[#3255]: https://github.com/magento/pwa-studio/pull/3255
+[#3137]: https://github.com/magento/pwa-studio/pull/3137
 
 ### Documentation updates
 
@@ -133,24 +191,16 @@ Since the last release, the documentation site has published new topics and upda
 | Reorganize and refactor the navigation for the Overview sections                                                       | [#2926][] |
 | Published a new topic that provides general guidance for extension development                                         | [#2995][] |
 | Published a new tutorial that provides general guidance for working with Targetables along with a set of API reference | [#2966][] |
+| Updated the TargetableModule.spliceSource() example and added debugging tips                                           | [#3168][] |
+| Fixed a code sample error on the TargetableReactComponent page                                                         | [#3202][] |
 
 [#3231]: https://github.com/magento/pwa-studio/pull/3231
 [#3219]: https://github.com/magento/pwa-studio/pull/3219
 [#2926]: https://github.com/magento/pwa-studio/pull/2926
 [#2995]: https://github.com/magento/pwa-studio/pull/2995
 [#2966]: https://github.com/magento/pwa-studio/pull/2966
-
-### Performance updates
-
-This release contains minor performance updates related to compressed HTML requests.
-
-#### Pull Requests
-
-| Description                                                        | PR        |
-| ------------------------------------------------------------------ | --------- |
-| Configured UPWARD to use `gzip` content encoding for HTML requests | [#3255][] |
-
-[#3255]: https://github.com/magento/pwa-studio/pull/3255
+[#3202]: https://github.com/magento/pwa-studio/pull/3202
+[#3168]: https://github.com/magento/pwa-studio/pull/3168
 
 ### Bug fixes
 
@@ -169,6 +219,17 @@ The following bugs have been fixed in 11.0.0.
 | Scaffolding bug that prevented the `yarn build:dev` command working                                                 | [#3047][] |
 | Checkout bug where the mobile view of the checkout page would not scroll to the appropriate spot after each step    | [#3055][] |
 | Checkout page bug where it would not pick up the region code provided in the cart page under specific circumstances | [#3093][] |
+| Service worker bug related to URL origin for the service worker itself                                              | [#3191][] |
+| Sidebar menu bug related to filtering                                                                               | [#3210][] |
+| Routing bug when a user navigates to the `/undefined` route                                                         | [#3230][] |
+| Carousel bug showing duplicate thumbnails                                                                           | [#3186][] |
+| Toast component bug where it did not use the font-family token                                                      | [#3164][] |
+| CMS page bug where stale content would never get updated                                                            | [#3131][] |
+| Category sort bug where the default backend sort order would not be used                                            | [#3125][] |
+| Search page bug where the browser back button would not work                                                        | [#3119][] |
+| Babel JSX plugin dependency mismatch                                                                                | [#3098][] |
+| Category page bug where the browser back button would not work                                                      | [#3078][] |
+| Shipping Information form bug where guests would get stuck in the 'Loading Regions...' state                        | [#3142][] |
 
 [#3251]: https://github.com/magento/pwa-studio/pull/3251
 [#3196]: https://github.com/magento/pwa-studio/pull/3196
@@ -181,6 +242,17 @@ The following bugs have been fixed in 11.0.0.
 [#3047]: https://github.com/magento/pwa-studio/pull/3047
 [#3055]: https://github.com/magento/pwa-studio/pull/3055
 [#3093]: https://github.com/magento/pwa-studio/pull/3093
+[#3191]: https://github.com/magento/pwa-studio/pull/3191
+[#3210]: https://github.com/magento/pwa-studio/pull/3210
+[#3230]: https://github.com/magento/pwa-studio/pull/3230
+[#3186]: https://github.com/magento/pwa-studio/pull/3186
+[#3164]: https://github.com/magento/pwa-studio/pull/3164
+[#3131]: https://github.com/magento/pwa-studio/pull/3131
+[#3125]: https://github.com/magento/pwa-studio/pull/3125
+[#3119]: https://github.com/magento/pwa-studio/pull/3119
+[#3098]: https://github.com/magento/pwa-studio/pull/3098
+[#3078]: https://github.com/magento/pwa-studio/pull/3078
+[#3142]: https://github.com/magento/pwa-studio/pull/3142
 
 ### Refactors
 
@@ -208,12 +280,12 @@ Some package versions remain the same as in the previous release if there were n
 | Package                         | Latest version |
 | ------------------------------- | -------------- |
 | `babel-preset-peregrine`        | 1.1.0          |
-| `create-pwa`                    | 1.3.0          |
-| `upward-security-headers`       | 1.0.3          |
-| `venia-adobe-data-layer`        | 1.0.0          |
-| `venia-sample-backends`         | 0.0.3          |
-| `venia-sample-language-packs`   | 0.0.3          |
-| `venia-sample-payments-checkmo` | 0.0.1          |
+| `create-pwa`                    | **1.3.1**      |
+| `upward-security-headers`       | **1.0.4**      |
+| `venia-adobe-data-layer`        | **1.0.1**      |
+| `venia-sample-backends`         | **0.0.4**      |
+| `venia-sample-language-packs`   | **0.0.4**      |
+| `venia-sample-payments-checkmo` | **0.0.2**      |
 | `pagebuilder`                   | **6.0.0**      |
 | `peregrine`                     | **11.0.0**     |
 | `pwa-buildpack`                 | **10.0.0**     |
