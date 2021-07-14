@@ -1,5 +1,6 @@
 
 
+<!--
 TODO: Include the following items in future release notes to help with version upgrades
 
   * A table of the new versions published for individual packages
@@ -199,6 +200,7 @@ The following bugs have been fixed in 11.0.0.
 ## Package versions
 
 The following table lists the latest versions of each package as of 11.0.0.
+Versions that are in **bold** indicate a version change.
 
 **Note:**
 Some package versions remain the same as in the previous release if there were no changes applied to them.
@@ -212,13 +214,13 @@ Some package versions remain the same as in the previous release if there were n
 | `venia-sample-backends`         | 0.0.3          |
 | `venia-sample-language-packs`   | 0.0.3          |
 | `venia-sample-payments-checkmo` | 0.0.1          |
-| `pagebuilder`                   | 6.0.0          |
-| `peregrine`                     | 11.0.0         |
-| `pwa-buildpack`                 | 10.0.0         |
+| `pagebuilder`                   | **6.0.0**      |
+| `peregrine`                     | **11.0.0**     |
+| `pwa-buildpack`                 | **10.0.0**     |
 | `upward-js`                     | 5.1.0          |
 | `upward-spec`                   | 5.0.0          |
-| `venia-concept`                 | 11.0.0         |
-| `venia-ui`                      | 8.0.0          |
+| `venia-concept`                 | **11.0.0**     |
+| `venia-ui`                      | **8.0.0**      |
 | `magento2-upward-connector`     | 1.2.0          |
 | `upward-php`                    | 1.1.5          |
 
