@@ -66,8 +66,8 @@ export const useCmsPage = props => {
     const shouldShowLoadingIndicator = loading && !data;
 
     const checkPage = () => {
-        if(data.hasOwnProperty('cmsPageId')) return data.cmsPageId
-        if(data.hasOwnProperty('cmsPageIdentifier')) return data.cmsPageIdentifier
+        if(data.hasOwnProperty('cmsPageId')) return data.cmsPageId;
+        if(data.hasOwnProperty('cmsPageIdentifier')) return data.cmsPageIdentifier;
     }
 
     const cmsPage = data ? checkPage() : null;

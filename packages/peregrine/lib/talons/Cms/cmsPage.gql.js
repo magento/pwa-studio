@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_CMS_PAGE = gql`
     query GetCmsPage($id: Int, $identifier: String, $boolId:Boolean=false, $boolIdentifier:Boolean=false){
-       cmsPageId: cmsPage(id: $id)  @include(if: $boolId) {
+       cmsPageId: cmsPage(id: $id) @include(if: $boolId) {
             url_key
             content
             content_heading
