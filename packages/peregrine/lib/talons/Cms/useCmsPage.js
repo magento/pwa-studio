@@ -20,20 +20,20 @@ export const useCmsPage = props => {
     const { id, identifier } = props;
 
     const checkType = () => {
-        if(typeof id === "number") {
+        if (typeof id === 'number') {
             return {
                 boolId: true,
                 boolIdentifier: false,
                 id: Number(id)
-            }
+            };
         } else {
             return {
                 boolId: false,
                 boolIdentifier: true,
                 identifier: String(identifier)
-            }
+            };
         }
-    }
+    };
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCMSPageQuery } = operations;
@@ -66,9 +66,10 @@ export const useCmsPage = props => {
     const shouldShowLoadingIndicator = loading && !data;
 
     const checkPage = () => {
-        if(data.hasOwnProperty('cmsPageId')) return data.cmsPageId;
-        if(data.hasOwnProperty('cmsPageIdentifier')) return data.cmsPageIdentifier;
-    }
+        if (data.hasOwnProperty('cmsPageId')) return data.cmsPageId;
+        if (data.hasOwnProperty('cmsPageIdentifier'))
+            return data.cmsPageIdentifier;
+    };
 
     const cmsPage = data ? checkPage() : null;
     const rootCategoryId = data ? data.storeConfig.root_category_id : null;
