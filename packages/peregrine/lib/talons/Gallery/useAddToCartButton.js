@@ -5,8 +5,6 @@ import { useHistory } from 'react-router-dom';
 import { useCartContext } from '../../context/cart';
 import operations from './addToCart.gql';
 
-// give descruption for is required
-
 /** 
  * @param {Number} props.item.id - id of item
  * @param {String} props.item.name - name of item
