@@ -1,13 +1,3 @@
-
-
-<!--
-TODO: Include the following items in future release notes to help with version upgrades
-
-  * A table of the new versions published for individual packages
-  * List of updated template files
-  * Any updates to environmental variables
-
--->
 # Release 11.0.0
 
 **NOTE:**
@@ -269,13 +259,35 @@ The following bugs have been fixed in 11.0.0.
 [#3092]: https://github.com/magento/pwa-studio/pull/3092
 [#3215]: https://github.com/magento/pwa-studio/pull/3215
 
-## Package versions
+## Known issues
 
+- If you are using Multi-Source Inventory(MSI), a GraphQL issue prevents users from adding a configurable product to the shopping cart on non-default store views.
+  This issue is fixed in Magento's `2.4-develop` branch, and should be available in the next Magento release.
+- Prerender feature is unable to cache HTML on Fastly enabled environments.
+- The `yarn watch` process may run out of memory if left running for an extended amount of time.
+  If an error occurs because of this, restart the watcher.
+- Navigating to the Venia storefront produces `TypeError: Failed to fetch` in the console.
+  This is a [Workbox issue][] caused by the service worker when it requests the `index.html` route.
+  This has no impact on Venia functionality but will be fixed in the next release when the Workbox dependency is updated.
+
+  [workbox issue]: https://github.com/GoogleChrome/workbox/pull/2777
+
+## Upgrading from a previous version
+
+Use the steps outlined in this section to update your [scaffolded project][] from 10.0.0 to 11.0.0.
+See [Upgrading versions][] for more information about upgrading between PWA Studio versions.
+
+[scaffolded project]: https://magento.github.io/pwa-studio/tutorials/pwa-studio-fundamentals/project-setup/
+[upgrading versions]: https://magento.github.io/pwa-studio/technologies/upgrading-versions/
+
+### Update dependencies
+
+Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
 The following table lists the latest versions of each package as of 11.0.0.
-Versions that are in **bold** indicate a version change.
+Versions that are in **bold** indicate a version change for this release.
 
 **Note:**
-Some package versions remain the same as in the previous release if there were no changes applied to them.
+Your project may not depend on some of the packages listed on this table.
 
 | Package                         | Latest version |
 | ------------------------------- | -------------- |
@@ -296,89 +308,45 @@ Some package versions remain the same as in the previous release if there were n
 | `magento2-upward-connector`     | 1.2.0          |
 | `upward-php`                    | 1.1.5          |
 
-## Known issues
+### Update template files
 
-- If you are using Multi-Source Inventory(MSI), a GraphQL issue prevents users from adding a configurable product to the shopping cart on non-default store views.
-  This issue is fixed in Magento's `2.4-develop` branch, and should be available in the next Magento release.
-- Prerender feature is unable to cache HTML on Fastly enabled environments.
-- The `yarn watch` process may run out of memory if left running for an extended amount of time.
-  If an error occurs because of this, restart the watcher.
-- Navigating to the Venia storefront produces `TypeError: Failed to fetch` in the console.
-  This is a [Workbox issue][] caused by the service worker when it requests the `index.html` route.
-  This has no impact on Venia functionality but will be fixed in the next release when the Workbox dependency is updated.
+The following template files contain updates in 11.0.0:
 
-  [workbox issue]: https://github.com/GoogleChrome/workbox/pull/2777
+- [.eslintrc.js](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/.eslintrc.js)
+- [.gitignore](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/.gitignore)
+- [.graphqlconfig](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/.grpahqlconfig)
+- [package.json](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/package.json)
+- [src/.storybook/config.js](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/src/.storybook/config.js)
+- [src/.storybook/webpack.config.js](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/src/.storybook/webpack.config.js)
+- [src/ServiceWorker/registerRoutes.js](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/src/ServiceWorker/registerRoutes.js)
+- [src/drivers.js](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/src/drivers.js)
+- [src/index.js](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/src/index.js)
+- [src/registerSW.js](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/src/registerSW.js)
+- [webpack.config.js](https://github.com/magento/pwa-studio/blob/v11.0.0/packages/venia-concept/webpack.config.js)
 
-## Upgrading from a previous version
+If you did not make any modifications to these files, you can copy and paste the new content over your old template files in your project.
+If you made modifications to these files in your project, you will have to manually apply the changes by using `git diff` on the PWA Studio repository or by using a [diff tool][].
 
-The method for updating to 11.0.0 from a previous version depends on how PWA Studio is incorporated into your project.
-The following are common use cases we have identified and how to update the project code.
+[diff tool]: https://marketplace.visualstudio.com/search?term=diff&target=VSCode&category=All%20categories&sortBy=Relevance
 
-### Scaffolded project
+### New environment variables
 
-Using the [scaffolding tool][] is the recommended method for starting a new storefront project.
-This tool generates a copy of the storefront project defined in the [Venia concept][] package.
+The following environment variable has been added in this release:
 
-#### Upgrade method: Update dependencies and manual merge
-
-Since scaffolded projects consume PWA Studio libraries as dependencies, you just need to update your PWA Studio dependencies in your `package.json` file to use the released version.
-
-After that, install the new dependencies using the install command:
-
-```sh
-yarn install
+```json
+{
+    "name": "Default Country",
+    "variables": [
+        {
+            "name": "DEFAULT_COUNTRY_CODE",
+            "type": "str",
+            "desc": "Specify the default country to be selected in forms containing country field such as address books and shipping information forms.",
+            "default": "US"
+        }
+    ]
+},
 ```
 
-or
-
-```sh
-npm install
-```
-
-If you need to update other project files, such as configuration and build scripts,
-you need to use a diff tool to compare your projects files with those of [Venia concept][].
-This will help determine what changes you need to manually copy into your project files.
-
-[scaffolding tool]: http://pwastudio.io/pwa-buildpack/scaffolding/
-[venia concept]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
-
-### PWA Studio fork
-
-Many PWA Studio users have forked the PWA Studio Git repository.
-Even though their codebase may have diverged a great deal from the current codebase, there is still a Git relationship.
-
-#### Upgrade method: Update using Git
-
-_Pull_ and _Merge_ the changes from the upstream repository using Git.
-Most of the conflicts will be in components that we have fully refactored.
-
-We recommend merging the library code we changed and updating component calls with any new prop signatures introduced in this version.
-
-### Manual code copies
-
-Some PWA Studio users have copied parts of the code into their own projects.
-This is similar to the Git workflow, but without the merging tools Git provides.
-
-#### Upgrade method: Manual copy updates
-
-Updating this code involves manually copying updates for the code they use.
-New code may also need to be copied over if the updated code depends on it.
-
-This method can be a chore, and we hope that some of the features in 5.0.0+ will help these users migrate to a package management approach.
-
-### NPM packages
-
-Some users have imported the PWA Studio libraries using NPM.
-This is the easiest way to work with the released versions of PWA Studio.
-
-#### Upgrade method: Update `package.json`
-
-To upgrade to the latest version (currently 11.0.0), simply call `yarn add` on each of the `@magento` packages. This will both update `package.json` in your project, as well as install the latest versions.
-
-Sample command:
-
-```
-yarn add @magento/eslint-config @magento/pagebuilder @magento/peregrine @magento/pwa-buildpack @magento/upward-js @magento/venia-ui
-```
+Update the environment variables in your development, staging, or production environments if the default value does not apply to your project.
 
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
