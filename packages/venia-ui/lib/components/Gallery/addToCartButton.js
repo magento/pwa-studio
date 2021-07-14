@@ -42,23 +42,23 @@ GalleryButton.propTypes = {
         root_selected: string
     }),
     item: shape({
-        id: number.isRequired,
-        name: string.isRequired,
+        id: number,
+        name: string,
         small_image: shape({
-            url: string.isRequired
+            url: string
         }),
         stock_status: string.isRequired,
         type_id: string.isRequired, 
         url_key: string.isRequired,
-        url_suffix: string.isRequired, 
+        url_suffix: string,
+        sku: string.isRequired, 
         price: shape({
             regularPrice: shape({
                 amount: shape({
-                    value: number.isRequired,
-                    currency: string.isRequired
-                }).isRequired,
-               // sku: string.isRequired
-            }).isRequired
-        }).isRequired
+                    value: number,
+                    currency: string,
+                })
+            })
+        })
     })
 };

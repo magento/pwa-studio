@@ -5,17 +5,21 @@ import { useHistory } from 'react-router-dom';
 import { useCartContext } from '../../context/cart';
 import operations from './addToCart.gql';
 
+// give descruption for is required
+
 /** 
- * @param {Array}     UNSUPPORTED_PRODUCT_TYPES - contains list of product types that are not simple
- * @param {Object}    item
- * @param {Function}  item.stock_status - check if item is in stock
- * @param {Bool}      isLoading - Indicates whether the query is in flight 
- * @param {Bool}      isDisabled - diables button if true
- * @param {Function}  handleAddToCart - based on productType will add item to cart and update cart 
+ * @param {Number} props.item.id - id of item
+ * @param {String} props.item.name - name of item
+ * @param {String} props.item.stock_status - stock status of item
+ * @param {String} props.item.type_id - product type 
+ * @param {String} props.item.url_key - item url key
+ * @param {String} props.item.sku - item sku
  * 
- * @returns {Function}  handleAddTocart- adds item to cart
- * @returns {Bool}      isDisabled- disables button
- * @returns {Bool}      isInStock- Indicated if item is in stock
+ * @returns {
+ *      handleAddToCart: Function, 
+ *      isDisabled: Boolean, 
+ *      isInStock: Boolean
+ * }
  *
  */
 const UNSUPPORTED_PRODUCT_TYPES = ["virtual", "bundle", "grouped", "downloadable"]
@@ -67,7 +71,6 @@ export const useAddToCartButton = props => {
     }, [item]);
 
     return {
-        isLoading,
         handleAddToCart,
         isDisabled,
         isInStock
