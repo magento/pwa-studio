@@ -4,3 +4,9 @@
     min-height: 2rem;
     padding: 0 0.5rem;
 }
+
+@media (max-width: 640px) {
+    .root {
+        min-width: 8rem;
+    }
+}
