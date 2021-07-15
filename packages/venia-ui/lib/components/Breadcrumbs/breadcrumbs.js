@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBreadcrumbs';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useStyle } from '../../classify';
+import Shimmer from './breadcrumbs.shimmer';
 import defaultClasses from './breadcrumbs.css';
 
 const DELIMITER = '/';
@@ -44,9 +45,13 @@ const Breadcrumbs = props => {
         });
     }, [classes.divider, classes.link, normalizedData]);
 
-    // Don't display anything but the empty, static height div when loading or
-    // if there was an error.
-    if (isLoading || hasError) {
+
+    if (isLoading) {
+        return <Shimmer />;
+    }
+
+    // Don't display anything but the empty, static height div when there's an error.
+    if (hasError) {
         return <div className={classes.root} />;
     }
 

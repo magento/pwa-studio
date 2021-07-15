@@ -23,12 +23,38 @@ jest.mock('@magento/peregrine/lib/talons/RootComponents/Category', () => ({
 }));
 
 jest.mock('../../../components/Breadcrumbs', () => 'Breadcrumbs');
-jest.mock('../../../components/Gallery', () => 'Gallery');
+jest.mock('../../../components/Gallery', () => ({
+    __esModule: true,
+    default: 'Gallery',
+    GalleryShimmer: 'GalleryShimmer'
+}));
 jest.mock('../../../components/Pagination', () => 'Pagination');
-jest.mock('../../../components/SortedByContainer', () => 'SortedByContainer');
+jest.mock('../../../components/Shimmer', () => 'Shimmer');
+jest.mock('../../../components/ProductSort', () => ({
+    __esModule: true,
+    default: 'ProductSort',
+    ProductSortShimmer: 'ProductSortShimmer'
+}));
+jest.mock('../../../components/SortedByContainer', () => ({
+    __esModule: true,
+    default: 'SortedByContainer',
+    SortedByContainerShimmer: 'SortedByContainerShimmer'
+}));
 jest.mock(
     '../../../components/FilterModalOpenButton',
-    () => 'FilterModalOpenButton'
+    () => ({
+        __esModule: true,
+        default: 'FilterModalOpenButton',
+        FilterModalOpenButtonShimmer: 'FilterModalOpenButtonShimmer'
+    })
+);
+jest.mock(
+    '../../../components/FilterSidebar',
+    () => ({
+        __esModule: true,
+        default: 'FilterSidebar',
+        FilterSidebarShimmer: 'FilterSidebarShimmer'
+    })
 );
 jest.mock('../NoProductsFound', () => 'NoProductsFound');
 

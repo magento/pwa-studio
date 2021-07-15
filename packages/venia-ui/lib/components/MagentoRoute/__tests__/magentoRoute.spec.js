@@ -7,7 +7,9 @@ import MagentoRoute from '../magentoRoute';
 jest.mock('@magento/peregrine/lib/talons/MagentoRoute');
 jest.mock('@magento/venia-ui/lib/components/ErrorView', () => 'ErrorView');
 jest.mock('@magento/venia-ui/lib/components/LoadingIndicator', () => ({
-    fullPageLoadingIndicator: 'LoadingIndicator'
+    __esModule: true,
+    default: () => 'LoadingIndicator',
+    fullPageLoadingIndicator: 'FullLoadingIndicator'
 }));
 
 test('renders loading indicator while loading', () => {
@@ -27,7 +29,7 @@ test('renders loading indicator while redirecting', () => {
 
     const tree = createTestInstance(<MagentoRoute />);
 
-    expect(tree.toJSON()).toMatchInlineSnapshot(`"LoadingIndicator"`);
+    expect(tree.toJSON()).toMatchInlineSnapshot(`"FullLoadingIndicator"`);
 });
 
 test('renders component', () => {
