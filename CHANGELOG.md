@@ -18,7 +18,7 @@ This version is compatible with **Magento 2.4.3**.
 
 ### Wish List
 
-Wish List is feature introduced in this release and implemented in the Venia storefront template.
+Wish List is a feature introduced in this release and implemented in the Venia storefront template.
 It gives shoppers the ability to create and manage lists of items they may want to purchase in the future.
 
 The following Wish List features have been implemented in this release:
@@ -108,9 +108,13 @@ The current implementation only lets you browse and view Virtual Product types i
 
 ### Extensible payment methods
 
-Two new extensions points related to payment methods have been added in this release.
+Two new extensions points for the Venia UI package have been added in this release.
 The `editablePaymentTypes` target lets you add new editable payment methods to your storefronts, and
 the `summaryPagePaymentTypes` target lets you add a custom payment summary in the checkout summary page.
+
+See [Venia UI Extensibility Targets][] for more information.
+
+[venia ui extensibility targets]: https://magento.github.io/pwa-studio/venia-ui/reference/targets/
 
 #### Pull Requests
 
@@ -125,7 +129,7 @@ the `summaryPagePaymentTypes` target lets you add a custom payment summary in th
 Keyboard focus and navigation now work as expected on the layered navigation UI feature.
 With the Filter modal open, users can press the `Tab` key to navigate across filter items such as "Price" and "Color".
 On filter items, the user can press `Space` to open and navigate through the options with `Tab`.
-Options are toggled using the `Tab` key.
+Options are toggled using the `Space` key.
 
 | Description                                                     | PR        |
 | --------------------------------------------------------------- | --------- |
