@@ -261,16 +261,8 @@ The following bugs have been fixed in 11.0.0.
 
 ## Known issues
 
-- If you are using Multi-Source Inventory(MSI), a GraphQL issue prevents users from adding a configurable product to the shopping cart on non-default store views.
-  This issue is fixed in Magento's `2.4-develop` branch, and should be available in the next Magento release.
-- Prerender feature is unable to cache HTML on Fastly enabled environments.
 - The `yarn watch` process may run out of memory if left running for an extended amount of time.
   If an error occurs because of this, restart the watcher.
-- Navigating to the Venia storefront produces `TypeError: Failed to fetch` in the console.
-  This is a [Workbox issue][] caused by the service worker when it requests the `index.html` route.
-  This has no impact on Venia functionality but will be fixed in the next release when the Workbox dependency is updated.
-
-  [workbox issue]: https://github.com/GoogleChrome/workbox/pull/2777
 
 ## Upgrading from a previous version
 
