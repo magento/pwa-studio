@@ -317,7 +317,7 @@ const jestConfig = {
     ],
     // Include files with zero tests in overall coverage analysis by specifying
     // coverage paths manually.
-    collectCoverage: true,
+    collectCoverage: false,
     collectCoverageFrom: [
         // Code directories
         'packages/*/{src,lib,_buildpack}/**/*.js',
