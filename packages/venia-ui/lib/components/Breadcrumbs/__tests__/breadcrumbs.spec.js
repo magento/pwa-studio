@@ -27,7 +27,7 @@ jest.mock('../breadcrumbs.shimmer', () => {
 const defaultProps = {
     categoryId: 'category1'
 };
-test('renders an breadcrumb shimmer if breadcrumbs are loading', () => {
+test('renders the breadcrumb shimmer if breadcrumbs are loading', () => {
     useBreadcrumbs.mockReturnValueOnce({
         isLoading: true,
         normalizedData: []
