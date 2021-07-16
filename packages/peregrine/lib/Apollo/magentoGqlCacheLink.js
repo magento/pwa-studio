@@ -1,15 +1,23 @@
 import { ApolloLink } from '@apollo/client';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
+// The name of the header to exchange with the server.
 const CACHE_ID_HEADER = 'x-magento-cache-id';
+// The key in local storage where we save the cache id
 const LOCAL_STORAGE_KEY = 'magento_cache_id';
 const storage = new BrowserPersistence();
 
+/**
+ * The Magento GraphQL Cache Link class is an ApolloLink that is responsible for
+ * Venia sending the proper `x-magento-cache-id` header with each of its GraphQL requests.
+ */
 export default class MagentoGQLCacheLink extends ApolloLink {
     // The links get reinstantiated on refresh.
-    // If we have an existing cache id value from a previous browsing session, use that.
+    // If we have an existing cache id value from a previous browsing session, use it.
     #cacheId = storage.getItem(LOCAL_STORAGE_KEY) || null;
 
+    // Any time the cache id needs to be set, update both our internal variable and
+    // the value in local storage.
     setCacheId(value) {
         this.#cacheId = value;
         storage.setItem(LOCAL_STORAGE_KEY, value);
@@ -30,7 +38,7 @@ export default class MagentoGQLCacheLink extends ApolloLink {
             };
         });
 
-        // Update the cache id with each response.
+        // Update the cache id from each response.
         const updateCacheId = data => {
             const context = operation.getContext();
             const { response } = context;
