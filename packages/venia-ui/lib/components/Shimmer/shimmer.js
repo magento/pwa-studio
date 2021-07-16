@@ -1,23 +1,88 @@
 import React from 'react';
+import { node, number, oneOf, oneOfType, shape, string } from 'prop-types';
 
-const getDimensionStyle = (dimension) => {
-    return typeof dimension === 'string' ? dimension : `${dimension}px`;
-};
+import { useStyle } from '../../classify';
+import defaultClasses from './shimmer.css';
 
-export default (props) => {
-    const { width, height, className, style, ...restProps } = props;
-    const styles = {
-        ...style,
-        width: width ? getDimensionStyle(width) : '100%',
-        height: height ? getDimensionStyle(height) : 'auto',
-        backgroundColor: 'rgb(244,245,245)'
+const Shimmer = props => {
+    const {
+        borderRadius,
+        height,
+        width,
+        style: customStyles,
+        type,
+        children,
+        ...restProps
+    } = props;
+    const classes = useStyle(defaultClasses, props.classes);
+
+    const style = {
+        ...customStyles,
+        borderRadius: borderRadius
+            ? typeof borderRadius === 'number'
+                ? `${borderRadius}rem`
+                : borderRadius
+            : undefined,
+        height: height
+            ? typeof height === 'number'
+                ? `${height}rem`
+                : height
+            : undefined,
+        width: width
+            ? typeof width === 'number'
+                ? `${width}rem`
+                : width
+            : undefined
     };
 
+    const rootClass = `root_${type}`;
+
     return (
-        <div
-            {...restProps}
-            className={className}
-            style={styles}
-        />
+        <div className={classes[rootClass]} style={style} {...restProps}>
+            <span className={classes.content}>{children}</span>
+        </div>
     );
 };
+
+/**
+ * Props for {@link Shimmer}
+ *
+ * @typedef props
+ *
+ * @property {Object} classes is an object containing the class names for the
+ * Shimmer component.
+ * @property {string} classes.root is the class for the container
+ * @property {string} classes.content is the class for the content
+ * @property {number | string} borderRadius is the border radius of the Shimmer
+ * @property {number | string} height is the height of the Shimmer
+ * @property {number | string} width is the width of the Shimmer
+ * @property {Object} style is an object of inline styles
+ * @property {string} type is the type of the Shimmer
+ * @property {node} children are the children of the Shimmer
+ */
+Shimmer.propTypes = {
+    classes: shape({
+        root: string,
+        content: string
+    }),
+    borderRadius: oneOfType([number, string]),
+    height: oneOfType([number, string]),
+    width: oneOfType([number, string]),
+    style: shape({}),
+    type: oneOf([
+        'rectangle',
+        'button',
+        'checkbox',
+        'radio',
+        'textArea',
+        'textInput'
+    ]),
+    children: node
+};
+
+Shimmer.defaultProps = {
+    style: {},
+    type: 'rectangle'
+};
+
+export default Shimmer;

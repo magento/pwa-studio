@@ -45,14 +45,19 @@ const Breadcrumbs = props => {
         });
     }, [classes.divider, classes.link, normalizedData]);
 
-
     if (isLoading) {
         return <Shimmer />;
     }
 
     // Don't display anything but the empty, static height div when there's an error.
     if (hasError) {
-        return <div className={classes.root} />;
+        return (
+            <div
+                className={classes.root}
+                aria-live="polite"
+                aria-busy="false"
+            />
+        );
     }
 
     // If we have a "currentProduct" it means we're on a PDP so we want the last
@@ -74,7 +79,7 @@ const Breadcrumbs = props => {
     ) : null;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} aria-live="polite" aria-busy="false">
             <Link className={classes.link} to="/">
                 <FormattedMessage id={'global.home'} defaultMessage={'Home'} />
             </Link>

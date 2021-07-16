@@ -5,7 +5,9 @@ import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents
 
 import { useStyle } from '../../classify';
 import Breadcrumbs from '../../components/Breadcrumbs';
-import FilterModalOpenButton, { FilterModalOpenButtonShimmer } from '../../components/FilterModalOpenButton';
+import FilterModalOpenButton, {
+    FilterModalOpenButtonShimmer
+} from '../../components/FilterModalOpenButton';
 import { FilterSidebarShimmer } from '../../components/FilterSidebar';
 import Gallery, { GalleryShimmer } from '../../components/Gallery';
 import { StoreTitle } from '../../components/Head';
@@ -13,7 +15,9 @@ import Pagination from '../../components/Pagination';
 import ProductSort, { ProductSortShimmer } from '../../components/ProductSort';
 import RichContent from '../../components/RichContent';
 import Shimmer from '../../components/Shimmer';
-import SortedByContainer, { SortedByContainerShimmer } from '../../components/SortedByContainer';
+import SortedByContainer, {
+    SortedByContainerShimmer
+} from '../../components/SortedByContainer';
 import defaultClasses from './category.css';
 import NoProductsFound from './NoProductsFound';
 
@@ -95,7 +99,7 @@ const CategoryContent = props => {
                 defaultMessage={'{count} Results'}
             />
         ) : isLoading ? (
-            <Shimmer height={15} />
+            <Shimmer width={5} />
         ) : null;
 
     const categoryDescriptionElement = categoryDescription ? (
@@ -119,12 +123,8 @@ const CategoryContent = props => {
 
         return (
             <Fragment>
-                <section className={classes.gallery}>
-                    {gallery}
-                </section>
-                <div className={classes.pagination}>
-                    {pagination}
-                </div>
+                <section className={classes.gallery}>{gallery}</section>
+                <div className={classes.pagination}>{pagination}</div>
             </Fragment>
         );
     }, [
@@ -137,6 +137,8 @@ const CategoryContent = props => {
         totalPagesFromData
     ]);
 
+    const categoryTitle = categoryName ? categoryName : <Shimmer width={5} />;
+
     return (
         <Fragment>
             <Breadcrumbs categoryId={categoryId} />
@@ -145,13 +147,15 @@ const CategoryContent = props => {
                 <div className={classes.categoryHeader}>
                     <h1 className={classes.title}>
                         <div className={classes.categoryTitle}>
-                            {categoryName || '...'}
+                            {categoryTitle}
                         </div>
                     </h1>
                     {categoryDescriptionElement}
                 </div>
                 <div className={classes.sidebar}>
-                    <Suspense fallback={<FilterSidebarShimmer />}>{sidebar}</Suspense>
+                    <Suspense fallback={<FilterSidebarShimmer />}>
+                        {sidebar}
+                    </Suspense>
                 </div>
                 <div className={classes.categoryContent}>
                     <div className={classes.heading}>

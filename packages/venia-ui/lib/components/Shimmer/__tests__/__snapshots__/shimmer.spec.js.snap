@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Shimmer renders default size 1`] = `
+<div
+  className="root_rectangle"
+  style={
+    Object {
+      "borderRadius": undefined,
+      "height": undefined,
+      "width": "100%",
+    }
+  }
+>
+  <span
+    className="content"
+  />
+</div>
+`;

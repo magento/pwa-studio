@@ -269,7 +269,7 @@ Array [
           className="categoryInfo"
         >
           <Shimmer
-            height={15}
+            width={5}
           />
         </div>
         <div

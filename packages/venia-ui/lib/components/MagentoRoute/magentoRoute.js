@@ -1,9 +1,9 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { useMagentoRoute } from '@magento/peregrine/lib/talons/MagentoRoute';
 
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
-import LoadingIndicator, { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
+import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 
 const MESSAGES = new Map()
     .set(
@@ -23,16 +23,7 @@ const MagentoRoute = () => {
         isRedirect
     } = talonProps;
 
-    if (isLoading) {
-        return (
-            <LoadingIndicator>
-                <FormattedMessage
-                    id={'loadingIndicator.message'}
-                    defaultMessage={'Fetching Data...'}
-                />
-            </LoadingIndicator>
-        );
-    } else if (isRedirect) {
+    if (isLoading || isRedirect) {
         return fullPageLoadingIndicator;
     } else if (RootComponent) {
         return <RootComponent id={id} />;

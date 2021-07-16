@@ -1,30 +1,26 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { mergeClasses } from '../../classify';
-import Shimmer from '../Shimmer';
-import defaultClasses from './filterModalOpenButton.css';
+import { useStyle } from '../../classify';
 
-const FilterModalOpenButtonShimmer = (props) => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+import Shimmer from '../Shimmer';
+import defaultClasses from './filterModalOpenButton.shimmer.css';
+
+const FilterModalOpenButtonShimmer = props => {
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <Shimmer
-            className={classes.filterButton}
-            width={125}
-            height={45}
+            classes={{ root_button: classes.filterButtonShimmer }}
+            type="button"
             aria-live="polite"
             aria-busy="true"
         />
     );
 };
 
-FilterModalOpenButtonShimmer.defaultProps = {
-    classes: {}
-};
-
 FilterModalOpenButtonShimmer.propTypes = {
     classes: shape({
-        filterButton: string
+        filterButtonShimmer: string
     })
 };
 

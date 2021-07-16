@@ -4,12 +4,16 @@ exports[`renders an breadcrumb shimmer if breadcrumbs are loading 1`] = `null`;
 
 exports[`renders an empty div if there was an error fetching breadcrumbs 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
 />
 `;
 
 exports[`renders breadcrumbs for a category view 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
 >
   <mock-FormattedMessage
@@ -31,6 +35,8 @@ exports[`renders breadcrumbs for a category view 1`] = `
 
 exports[`renders breadcrumbs for a product view 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
 >
   <mock-FormattedMessage
@@ -58,6 +64,8 @@ exports[`renders breadcrumbs for a product view 1`] = `
 
 exports[`renders breadcrumbs for intermediate links 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
 >
   <mock-FormattedMessage

@@ -1,46 +1,37 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
+
 import Shimmer from '../Shimmer';
 import Image from '../Image';
 import defaultClasses from './item.css';
 
-const ItemShimmer = (props) => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+const GalleryItemShimmer = props => {
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <div className={classes.root_pending}>
-            <div className={classes.images_pending}>
+        <div className={classes.root} aria-live="polite" aria-busy="true">
+            <Shimmer>
                 <Image
                     alt="Placeholder for gallery item image"
                     classes={{
-                        image: classes.image_pending,
+                        image: classes.image,
                         root: classes.imageContainer
                     }}
                     src={transparentPlaceholder}
                 />
-            </div>
-            <div className={classes.name_pending} />
-            <div className={classes.price_pending} />
-            <Shimmer height={24} width={24} />
+            </Shimmer>
+            <Shimmer width="100%" />
+            <Shimmer width={3} />
         </div>
     );
 };
 
-ItemShimmer.defaultProps = {
-    classes: {}
-};
-
-ItemShimmer.propTypes = {
+GalleryItemShimmer.propTypes = {
     classes: shape({
-        root_pending: string,
-        images_pending: string,
-        image_pending: string,
-        imageContainer: string,
-        name_pending: string,
-        price_pending: string
+        root: string
     })
 };
 
-export default ItemShimmer;
+export default GalleryItemShimmer;

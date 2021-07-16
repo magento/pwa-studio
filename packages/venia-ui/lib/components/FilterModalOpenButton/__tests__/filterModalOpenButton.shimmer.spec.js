@@ -3,10 +3,9 @@ import { createTestInstance } from '@magento/peregrine';
 import { mockShimmer } from '../../Shimmer';
 import ShimmerComponent from '../filterModalOpenButton.shimmer';
 
-
-const mockClassName = 'filterButton';
+const mockClassName = 'filterButtonShimmer';
 const mockClasses = {
-    [mockClassName]: 'test-class'
+    [mockClassName]: { root_button: 'filterButtonShimmer' }
 };
 
 jest.mock('../../Shimmer', () => {
@@ -16,12 +15,10 @@ jest.mock('../../Shimmer', () => {
         __esModule: true,
         default: mockedShimmer,
         mockShimmer: mockedShimmer
-    }
+    };
 });
 
-jest.mock('../../../classify', () => ({
-    mergeClasses: (...objects) => Object.assign({}, ...objects)
-}));
+jest.mock('../../../classify');
 
 let passedProps = {};
 
@@ -43,19 +40,18 @@ describe('#FilterModalOpenButton Shimmer', () => {
     });
 
     test('renders Shimmer component', () => {
-        const instance = createTestInstance(<ShimmerComponent {...passedProps} />);
+        createTestInstance(<ShimmerComponent {...passedProps} />);
 
         expect(mockShimmer).toHaveBeenCalled();
     });
 
     test('passes merged class to Shimmer component', () => {
         givenPassedClasses();
-        const instance = createTestInstance(<ShimmerComponent {...passedProps} />);
-
+        createTestInstance(<ShimmerComponent {...passedProps} />);
 
         expect(mockShimmer).toHaveBeenCalledWith(
             expect.objectContaining({
-                className: mockClasses[mockClassName]
+                classes: mockClasses[mockClassName]
             }),
             expect.any(Object)
         );

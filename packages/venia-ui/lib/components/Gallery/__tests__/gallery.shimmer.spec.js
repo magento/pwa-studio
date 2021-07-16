@@ -16,12 +16,10 @@ jest.mock('../item.shimmer', () => {
         __esModule: true,
         default: mockedShimmer,
         mockShimmer: mockedShimmer
-    }
+    };
 });
 
-jest.mock('../../../classify', () => ({
-    mergeClasses: (...objects) => Object.assign({}, ...objects)
-}));
+jest.mock('../../../classify');
 
 let passedProps = {};
 
@@ -55,7 +53,7 @@ describe('#Gallery Shimmer', () => {
 
     test('renders Item Shimmer component for each item', () => {
         givenMultipleItems();
-        const instance = createTestInstance(<ShimmerComponent {...passedProps} />);
+        createTestInstance(<ShimmerComponent {...passedProps} />);
 
         expect(mockItems.length).toBeGreaterThan(0);
         expect(mockShimmer).toHaveBeenCalledTimes(mockItems.length);
@@ -63,8 +61,7 @@ describe('#Gallery Shimmer', () => {
 
     test('passes merged class to Shimmer component', () => {
         givenClassesAndItems();
-        const instance = createTestInstance(<ShimmerComponent {...passedProps} />);
-
+        createTestInstance(<ShimmerComponent {...passedProps} />);
 
         expect(mockShimmer).toHaveBeenCalledWith(
             expect.objectContaining({
