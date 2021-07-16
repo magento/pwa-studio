@@ -1,6 +1,6 @@
 import { ApolloLink } from '@apollo/client';
 
-const CACHE_ID_HEADER = 'X-Magento-Cache-Id';
+const CACHE_ID_HEADER = 'x-magento-cache-id';
 
 export default class MagentoGQLCacheLink extends ApolloLink {
     // Our very first request won't have a cache id.
@@ -15,8 +15,6 @@ export default class MagentoGQLCacheLink extends ApolloLink {
                 [CACHE_ID_HEADER]: this.#cacheId
             };
 
-            console.log('sending out', this.#cacheId);
-
             return {
                 ...previousContext,
                 headers: withCacheHeader
@@ -25,9 +23,14 @@ export default class MagentoGQLCacheLink extends ApolloLink {
 
         // Update the cache id with each response.
         const updateCacheId = data => {
-            this.#cacheId = Math.random();
+            const context = operation.getContext();
+            const { response } = context;
 
-            console.log('received', this.#cacheId);
+            const responseCacheId = response.headers.get(CACHE_ID_HEADER);
+
+            if (responseCacheId) {
+                this.#cacheId = responseCacheId;
+            }
 
             // Purposefully don't modify the result,
             // no other link needs to know about the cache id.
