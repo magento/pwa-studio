@@ -1,1 +1,1 @@
-export const wishlistPage = 'Favorites Lists';
+export const wishlistPage = 'Favorites List';
