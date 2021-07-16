@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "Venia Integration Automation Tests",
     "scripts": {
+        "clearCache:mac": "rm -rf ~/Library/Application\\ Support/Cypress/cy/*",
         "test": "cypress open --browser chrome --config-file cypress.config.json",
         "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
         "test:devTest": "jest",

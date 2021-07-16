@@ -85,11 +85,3 @@ exports[`it returns the proper shape when use variant image is configured 1`] = 
   }
 />
 `;
-
-exports[`testing save for later feature it should show login toast if user is not logged in 1`] = `
-Object {
-  "message": "Please sign-in to your Account to save items for later.",
-  "timeout": 5000,
-  "type": "info",
-}
-`;
