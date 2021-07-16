@@ -11,6 +11,22 @@ import defaultClasses from './formError.css';
 const FormError = props => {
     const { classes: propClasses, errors, scrollOnError } = props;
 
+    const { formatMessage } = useIntl();
+
+    var graphQLErrorMessage;
+    for (const error of errors) {
+        if (error) {
+            const { graphQLErrors } = error;
+            if (graphQLErrors) {
+                graphQLErrorMessage = formatMessage({
+                    id: 'formError.errorMessage',
+                    defaultMessage: 'An error has occurred. Please check the input and try again.'
+                })
+            }
+            
+        }
+    }
+
     const talonProps = useFormError({ errors });
     const { errorMessage } = talonProps;
 
@@ -20,9 +36,9 @@ const FormError = props => {
 
     const classes = useStyle(defaultClasses, propClasses);
 
-    return errorMessage ? (
+    return errorMessage || graphQLErrorMessage ? (
         <ErrorMessage classes={classes} ref={errorRef}>
-            {errorMessage}
+            {graphQLErrorMessage ? graphQLErrorMessage : errorMessage}
         </ErrorMessage>
     ) : null;
 };
