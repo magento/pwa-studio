@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { arrayOf, bool, instanceOf, shape, string } from 'prop-types';
+import { useIntl } from 'react-intl';
 
 import { useFormError } from '@magento/peregrine/lib/talons/FormError/useFormError';
 import { useScrollIntoView } from '@magento/peregrine/lib/hooks/useScrollIntoView';
@@ -14,16 +15,19 @@ const FormError = props => {
     const { formatMessage } = useIntl();
 
     var graphQLErrorMessage;
-    for (const error of errors) {
-        if (error) {
-            const { graphQLErrors } = error;
-            if (graphQLErrors) {
-                graphQLErrorMessage = formatMessage({
-                    id: 'formError.errorMessage',
-                    defaultMessage: 'An error has occurred. Please check the input and try again.'
-                })
+
+    if (typeof errors != 'undefined' && errors != null && errors.length > 0) {
+        for (const error of errors) {
+            if (error) {
+                const { graphQLErrors } = error;
+                if (graphQLErrors) {
+                    graphQLErrorMessage = formatMessage({
+                        id: 'formError.errorMessage',
+                        defaultMessage:
+                            'An error has occurred. Please check the input and try again.'
+                    });
+                }
             }
-            
         }
     }
 
