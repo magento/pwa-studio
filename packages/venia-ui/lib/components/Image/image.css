@@ -20,12 +20,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 1;
+    visibility: visible;
 }
 
 .notLoaded {
     composes: loaded;
-    opacity: 0;
+    visibility: hidden;
 }
 
 .placeholder {

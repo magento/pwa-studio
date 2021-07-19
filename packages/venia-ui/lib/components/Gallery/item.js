@@ -52,6 +52,8 @@ const GalleryItem = props => {
                     alt={name}
                     classes={{
                         image: classes.image,
+                        loaded: classes.imageLoaded,
+                        notLoaded: classes.imageNotLoaded,
                         root: classes.imageContainer
                     }}
                     height={IMAGE_HEIGHT}
@@ -80,16 +82,13 @@ const GalleryItem = props => {
 GalleryItem.propTypes = {
     classes: shape({
         image: string,
+        imageLoaded: string,
+        imageNotLoaded: string,
         imageContainer: string,
-        image_pending: string,
         images: string,
-        images_pending: string,
         name: string,
-        name_pending: string,
         price: string,
-        price_pending: string,
-        root: string,
-        root_pending: string
+        root: string
     }),
     item: shape({
         id: number.isRequired,

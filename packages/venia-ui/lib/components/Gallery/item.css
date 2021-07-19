@@ -21,6 +21,16 @@
     width: 100%;
 }
 
+.imageLoaded {
+    composes: loaded from '../Image/image.css';
+    opacity: 1;
+}
+
+.imageNotLoaded {
+    composes: notLoaded from '../Image/image.css';
+    opacity: 0;
+}
+
 .imagePlaceholder {
     composes: image;
     background-color: rgb(var(--venia-global-color-gray));
