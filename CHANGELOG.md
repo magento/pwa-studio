@@ -70,6 +70,10 @@ This release adds this framework to the PWA Studio project to increase testing a
 This will enable the team to release new versions faster and more often.
 
 Integration tests for PageBuilder and the new Wish List feature are included in this release.
+These tests are part of Venia's integration tests.
+If you want to use these tests in your own CICD pipeline, they can be found in [this directory][].
+
+[this directory]: https://github.com/magento/pwa-studio/tree/v11.0.0/venia-integration-tests/src/tests/integrationTests/pageBuilder
 
 #### Pull Requests
 
@@ -96,7 +100,8 @@ Integration tests for PageBuilder and the new Wish List feature are included in 
 ### Virtual Product types
 
 This release contains initial work to support Virtual Product types.
-The current implementation only lets you browse and view Virtual Product types in your storefront.
+In this initial implementation, you can browse and view Virtual Product types in your storefront, but
+you will not be able to add these types to the cart.
 
 #### Pull Requests
 
@@ -109,12 +114,11 @@ The current implementation only lets you browse and view Virtual Product types i
 ### Extensible payment methods
 
 Two new extensions points for the Venia UI package have been added in this release.
-The `editablePaymentTypes` target lets you add new editable payment methods to your storefronts, and
-the `summaryPagePaymentTypes` target lets you add a custom payment summary in the checkout summary page.
+The [`editablePaymentTypes`][] target lets you add new editable payment methods to your storefronts, and
+the [`summaryPagePaymentTypes`][] target lets you add a custom payment summary in the checkout summary page.
 
-See [Venia UI Extensibility Targets][] for more information.
-
-[venia ui extensibility targets]: https://magento.github.io/pwa-studio/venia-ui/reference/targets/
+[`editablepaymenttypes`]: https://magento.github.io/pwa-studio/venia-ui/reference/targets/#editablepaymenttypes--tapablesynchook
+[`summarypagepaymenttypes`]: https://magento.github.io/pwa-studio/venia-ui/reference/targets/#summarypagepaymenttypes--tapablesynchook
 
 #### Pull Requests
 
