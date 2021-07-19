@@ -8,7 +8,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
 import Image from '../Image';
-import GalleryItemShimmer from "./item.shimmer";
+import GalleryItemShimmer from './item.shimmer';
 import defaultClasses from './item.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 

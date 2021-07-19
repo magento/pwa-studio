@@ -3,12 +3,6 @@ import { createTestInstance } from '@magento/peregrine';
 import { mockShimmer } from '../../Shimmer';
 import ShimmerComponent from '../sortedByContainer.shimmer';
 
-
-const mockClassName = 'root';
-const mockClasses = {
-    [mockClassName]: 'test-class'
-};
-
 jest.mock('../../Shimmer', () => {
     const mockedShimmer = jest.fn(() => null);
 
@@ -16,7 +10,7 @@ jest.mock('../../Shimmer', () => {
         __esModule: true,
         default: mockedShimmer,
         mockShimmer: mockedShimmer
-    }
+    };
 });
 
 jest.mock('../../../classify');
@@ -25,12 +19,6 @@ let passedProps = {};
 
 const givenDefaultProps = () => {
     passedProps = {};
-};
-
-const givenPassedClasses = () => {
-    passedProps = {
-        classes: mockClasses
-    };
 };
 
 describe('#sortedByContainer Shimmer', () => {

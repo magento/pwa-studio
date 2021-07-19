@@ -53,7 +53,9 @@ describe('#FilterModalOpenButton Shimmer', () => {
 
         expect(mockShimmer).toHaveBeenCalledWith(
             expect.objectContaining({
-                classes:  expect.objectContaining({ root_button: mockClasses[mockClassName] })
+                classes: expect.objectContaining({
+                    root_button: mockClasses[mockClassName]
+                })
             }),
             expect.any(Object)
         );

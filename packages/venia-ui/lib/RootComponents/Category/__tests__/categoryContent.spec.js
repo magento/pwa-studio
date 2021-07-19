@@ -40,22 +40,16 @@ jest.mock('../../../components/SortedByContainer', () => ({
     default: 'SortedByContainer',
     SortedByContainerShimmer: 'SortedByContainerShimmer'
 }));
-jest.mock(
-    '../../../components/FilterModalOpenButton',
-    () => ({
-        __esModule: true,
-        default: 'FilterModalOpenButton',
-        FilterModalOpenButtonShimmer: 'FilterModalOpenButtonShimmer'
-    })
-);
-jest.mock(
-    '../../../components/FilterSidebar',
-    () => ({
-        __esModule: true,
-        default: 'FilterSidebar',
-        FilterSidebarShimmer: 'FilterSidebarShimmer'
-    })
-);
+jest.mock('../../../components/FilterModalOpenButton', () => ({
+    __esModule: true,
+    default: 'FilterModalOpenButton',
+    FilterModalOpenButtonShimmer: 'FilterModalOpenButtonShimmer'
+}));
+jest.mock('../../../components/FilterSidebar', () => ({
+    __esModule: true,
+    default: 'FilterSidebar',
+    FilterSidebarShimmer: 'FilterSidebarShimmer'
+}));
 jest.mock('../NoProductsFound', () => 'NoProductsFound');
 
 const defaultProps = {

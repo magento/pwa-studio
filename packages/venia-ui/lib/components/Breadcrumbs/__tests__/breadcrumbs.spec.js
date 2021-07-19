@@ -21,7 +21,7 @@ jest.mock('../breadcrumbs.shimmer', () => {
         __esModule: true,
         default: mockedShimmer,
         mockShimmer: mockedShimmer
-    }
+    };
 });
 
 const defaultProps = {

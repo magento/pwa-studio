@@ -3,7 +3,6 @@ import { createTestInstance } from '@magento/peregrine';
 import { mockShimmer } from '../../Shimmer';
 import ShimmerComponent from '../productSort.shimmer';
 
-
 const mockClassName = 'sortButtonShimmer';
 const mockClasses = {
     [mockClassName]: 'test-class'
@@ -16,7 +15,7 @@ jest.mock('../../Shimmer', () => {
         __esModule: true,
         default: mockedShimmer,
         mockShimmer: mockedShimmer
-    }
+    };
 });
 
 jest.mock('../../../classify', () => ({
@@ -52,10 +51,11 @@ describe('#productSort Shimmer', () => {
         givenPassedClasses();
         createTestInstance(<ShimmerComponent {...passedProps} />);
 
-
         expect(mockShimmer).toHaveBeenCalledWith(
             expect.objectContaining({
-                classes: expect.objectContaining({ root_button: mockClasses[mockClassName] })
+                classes: expect.objectContaining({
+                    root_button: mockClasses[mockClassName]
+                })
             }),
             expect.any(Object)
         );

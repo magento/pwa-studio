@@ -21,12 +21,14 @@ const Shimmer = props => {
             ...customStyles
         };
 
-        Object.entries({ borderRadius, height, width })
-            .forEach(([type, value]) => {
+        Object.entries({ borderRadius, height, width }).forEach(
+            ([type, value]) => {
                 if (typeof value !== 'undefined') {
-                    combinedStyles[type] = typeof value === 'number' ? `${value}rem` : value
+                    combinedStyles[type] =
+                        typeof value === 'number' ? `${value}rem` : value;
                 }
-            });
+            }
+        );
 
         return combinedStyles;
     }, [customStyles, borderRadius, height, width]);
