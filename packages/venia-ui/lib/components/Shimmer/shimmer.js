@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { node, number, oneOf, oneOfType, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
@@ -16,24 +16,20 @@ const Shimmer = props => {
     } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
-    const style = {
-        ...customStyles,
-        borderRadius: borderRadius
-            ? typeof borderRadius === 'number'
-                ? `${borderRadius}rem`
-                : borderRadius
-            : undefined,
-        height: height
-            ? typeof height === 'number'
-                ? `${height}rem`
-                : height
-            : undefined,
-        width: width
-            ? typeof width === 'number'
-                ? `${width}rem`
-                : width
-            : undefined
-    };
+    const style = useMemo(() => {
+        const combinedStyles = {
+            ...customStyles
+        };
+
+        Object.entries({ borderRadius, height, width })
+            .forEach(([type, value]) => {
+                if (typeof value !== 'undefined') {
+                    combinedStyles[type] = typeof value === 'number' ? `${value}rem` : value
+                }
+            });
+
+        return combinedStyles;
+    }, [customStyles, borderRadius, height, width]);
 
     const rootClass = `root_${type}`;
 

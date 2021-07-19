@@ -19,7 +19,9 @@ jest.mock('../item.shimmer', () => {
     };
 });
 
-jest.mock('../../../classify');
+jest.mock('../../../classify', () => ({
+    useStyle: (...classes) => Object.assign({}, ...classes)
+}));
 
 let passedProps = {};
 

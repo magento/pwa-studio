@@ -19,9 +19,7 @@ jest.mock('../../Shimmer', () => {
     }
 });
 
-jest.mock('../../../classify', () => ({
-    mergeClasses: (...objects) => Object.assign({}, ...objects)
-}));
+jest.mock('../../../classify');
 
 let passedProps = {};
 
@@ -43,21 +41,8 @@ describe('#sortedByContainer Shimmer', () => {
     });
 
     test('renders Shimmer component', () => {
-        const instance = createTestInstance(<ShimmerComponent {...passedProps} />);
+        createTestInstance(<ShimmerComponent {...passedProps} />);
 
         expect(mockShimmer).toHaveBeenCalled();
-    });
-
-    test('passes merged class to Shimmer component', () => {
-        givenPassedClasses();
-        const instance = createTestInstance(<ShimmerComponent {...passedProps} />);
-
-
-        expect(mockShimmer).toHaveBeenCalledWith(
-            expect.objectContaining({
-                className: mockClasses[mockClassName]
-            }),
-            expect.any(Object)
-        );
     });
 });

@@ -5,8 +5,6 @@ exports[`#Shimmer renders default size 1`] = `
   className="root_rectangle"
   style={
     Object {
-      "borderRadius": undefined,
-      "height": undefined,
       "width": "100%",
     }
   }

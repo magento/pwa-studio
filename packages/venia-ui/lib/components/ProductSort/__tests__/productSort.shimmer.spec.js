@@ -4,7 +4,7 @@ import { mockShimmer } from '../../Shimmer';
 import ShimmerComponent from '../productSort.shimmer';
 
 
-const mockClassName = 'sortButton';
+const mockClassName = 'sortButtonShimmer';
 const mockClasses = {
     [mockClassName]: 'test-class'
 };
@@ -20,7 +20,7 @@ jest.mock('../../Shimmer', () => {
 });
 
 jest.mock('../../../classify', () => ({
-    mergeClasses: (...objects) => Object.assign({}, ...objects)
+    useStyle: (...classes) => Object.assign({}, ...classes)
 }));
 
 let passedProps = {};
@@ -43,19 +43,19 @@ describe('#productSort Shimmer', () => {
     });
 
     test('renders Shimmer component', () => {
-        const instance = createTestInstance(<ShimmerComponent {...passedProps} />);
+        createTestInstance(<ShimmerComponent {...passedProps} />);
 
         expect(mockShimmer).toHaveBeenCalled();
     });
 
     test('passes merged class to Shimmer component', () => {
         givenPassedClasses();
-        const instance = createTestInstance(<ShimmerComponent {...passedProps} />);
+        createTestInstance(<ShimmerComponent {...passedProps} />);
 
 
         expect(mockShimmer).toHaveBeenCalledWith(
             expect.objectContaining({
-                className: mockClasses[mockClassName]
+                classes: expect.objectContaining({ root_button: mockClasses[mockClassName] })
             }),
             expect.any(Object)
         );

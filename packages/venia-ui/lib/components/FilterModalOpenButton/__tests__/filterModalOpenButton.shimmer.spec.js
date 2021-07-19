@@ -5,7 +5,7 @@ import ShimmerComponent from '../filterModalOpenButton.shimmer';
 
 const mockClassName = 'filterButtonShimmer';
 const mockClasses = {
-    [mockClassName]: { root_button: 'filterButtonShimmer' }
+    [mockClassName]: 'test-class'
 };
 
 jest.mock('../../Shimmer', () => {
@@ -18,7 +18,9 @@ jest.mock('../../Shimmer', () => {
     };
 });
 
-jest.mock('../../../classify');
+jest.mock('../../../classify', () => ({
+    useStyle: (...classes) => Object.assign({}, ...classes)
+}));
 
 let passedProps = {};
 
@@ -51,7 +53,7 @@ describe('#FilterModalOpenButton Shimmer', () => {
 
         expect(mockShimmer).toHaveBeenCalledWith(
             expect.objectContaining({
-                classes: mockClasses[mockClassName]
+                classes:  expect.objectContaining({ root_button: mockClasses[mockClassName] })
             }),
             expect.any(Object)
         );
