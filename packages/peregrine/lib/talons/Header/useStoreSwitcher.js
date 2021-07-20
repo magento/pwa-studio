@@ -147,9 +147,9 @@ export const useStoreSwitcher = (props = {}) => {
     // Get pathname with suffix based on page type
     const getPathname = useCallback(
         storeCode => {
-            // Use window.location.pathname to get the path with the store view code
+            // Use globalThis.location.pathname to get the path with the store view code
             // pathname from useLocation() does not include the store view code
-            const pathname = window.location.pathname;
+            const pathname = globalThis.location.pathname;
 
             if (pageType === 'CATEGORY') {
                 const currentSuffix =
@@ -187,7 +187,7 @@ export const useStoreSwitcher = (props = {}) => {
             if (!availableStores.has(storeCode)) return;
 
             const pathName = getPathname(storeCode);
-            const params = window.location.search || '';
+            const params = globalThis.location.search || '';
 
             storage.setItem('store_view_code', storeCode);
             storage.setItem(
@@ -200,7 +200,7 @@ export const useStoreSwitcher = (props = {}) => {
             );
 
             // Handle updating the URL if the store code should be present.
-            // In this block we use `window.location.assign` to work around the
+            // In this block we use `globalThis.location.assign` to work around the
             // static React Router basename, which is changed on initialization.
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
                 // Check to see if we're on a page outside of the homepage
@@ -218,20 +218,20 @@ export const useStoreSwitcher = (props = {}) => {
                             `/${storeCode}`
                         )}${params}`;
 
-                        window.location.assign(newPath);
+                        globalThis.location.assign(newPath);
                     } else {
                         // Otherwise include it and reload.
                         const newPath = `/${storeCode}${pathName}${params}`;
 
-                        window.location.assign(newPath);
+                        globalThis.location.assign(newPath);
                     }
                 } else {
-                    window.location.assign(`/${storeCode}`);
+                    globalThis.location.assign(`/${storeCode}`);
                 }
             } else {
                 // Refresh the page to re-trigger the queries once code/currency
                 // are saved in local storage.
-                window.location.assign(`${pathName}${params}`);
+                globalThis.location.assign(`${pathName}${params}`);
             }
         },
         [availableStores, getPathname]

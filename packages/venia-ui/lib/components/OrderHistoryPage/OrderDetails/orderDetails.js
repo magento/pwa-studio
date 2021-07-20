@@ -3,7 +3,7 @@ import { shape, string, arrayOf, number } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { Printer } from 'react-feather';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import BillingInformation from './billingInformation';
 import Items from './items';
@@ -27,7 +27,7 @@ const OrderDetails = props => {
         shipments,
         total
     } = orderData;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const shippingMethodData = {
         shippingMethod: shipping_method,

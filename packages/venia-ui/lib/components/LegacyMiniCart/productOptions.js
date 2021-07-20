@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 
 import defaultClasses from './productOptions.css';
 
 const ProductOptions = props => {
     const { options = [] } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const displayOptions = useMemo(
         () =>
             options.map(({ option_label, value_label }) => {

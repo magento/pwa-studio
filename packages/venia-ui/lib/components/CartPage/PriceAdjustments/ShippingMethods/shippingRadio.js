@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { number, string, shape } from 'prop-types';
 import Price from '@magento/venia-ui/lib/components/Price';
 
-import { mergeClasses } from '../../../../classify';
+import { useStyle } from '../../../../classify';
 import defaultClasses from './shippingRadio.css';
 
 const ShippingRadio = props => {
@@ -15,7 +15,7 @@ const ShippingRadio = props => {
         </span>
     );
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <Fragment>

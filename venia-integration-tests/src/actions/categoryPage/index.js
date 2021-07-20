@@ -1,6 +1,8 @@
 import {
     categoryPageAddToWishListButton,
-    categoryPageSelectedWishlistButton
+    createWishlistButton,
+    wishlistNameField,
+    createWishlistConfirmButton
 } from '../../fields/categoryPage';
 
 /**
@@ -12,10 +14,20 @@ export const addProductToWishlistFromCategoryPage = productToAdd => {
         .siblings()
         .find(categoryPageAddToWishListButton)
         .click();
+};
 
-    // assert product selected indicator
-    cy.contains(productToAdd)
-        .siblings()
-        .find(categoryPageSelectedWishlistButton)
-        .should('exist');
+/**
+ * Utility function to create wishlist
+ *
+ * @param {String} wishlistName wishlist name
+ */
+export const createWishlistViaDialog = wishlistName => {
+    // click on Create a List link
+    cy.get(createWishlistButton).click();
+
+    // enter wishlist name
+    cy.get(wishlistNameField).type(wishlistName);
+
+    // Create wishlist
+    cy.get(createWishlistConfirmButton).click();
 };

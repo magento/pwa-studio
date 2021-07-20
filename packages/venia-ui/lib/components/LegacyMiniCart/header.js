@@ -2,7 +2,7 @@ import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import Trigger from '../Trigger';
 
@@ -18,7 +18,7 @@ const Header = props => {
 
     const { handleClick } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const title = isEditingItem ? 'Edit Cart Item' : 'Shopping Cart';
 
     return (

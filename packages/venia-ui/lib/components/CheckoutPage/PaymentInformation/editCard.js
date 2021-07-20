@@ -1,14 +1,14 @@
 import React from 'react';
 import { shape, string, bool, func } from 'prop-types';
 import defaultClasses from './editCard.css';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import CreditCard from './creditCard';
 
 /**
  * The edit view for the Braintree payment method.
  */
 const EditCard = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const {
         onPaymentReady,
         onPaymentSuccess,

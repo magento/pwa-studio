@@ -128,14 +128,14 @@ For our component, we import our component stylesheet and the `mergeClasses` fun
 
 ```js
 import defaultClasses from './exampleQuote.css';
-import { mergeClasses } from '../../../../../classify';
+import { useStyle } from '../../../../../classify';
 
 ```
 
 We then merge the classes from our stylesheet with any classes passed in on the props and use a single variable (`classes`) to apply our consolidated classes to the correct nodes in the JSX:
 
 ```jsx
-const classes = mergeClasses(defaultClasses, props.classes);
+const classes = useStyle(defaultClasses, props.classes);
 
 return (
     <div style={formStyles}>

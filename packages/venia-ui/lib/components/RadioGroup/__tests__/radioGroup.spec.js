@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'informed';
 import RadioGroup from '../radioGroup';
 import { createTestInstance } from '@magento/peregrine';
 
@@ -23,14 +24,25 @@ const items = [
     { label: 'disabled', value: 'whatever', disabled: true }
 ];
 
+const props = {
+    field: 'foo',
+    items
+};
+
 test('renders as expected', () => {
-    const instance = createTestInstance(<RadioGroup items={items} />);
+    const instance = createTestInstance(
+        <Form>
+            <RadioGroup {...props} />
+        </Form>
+    );
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('disables all child radios when disable prop is truthy', () => {
     const instance = createTestInstance(
-        <RadioGroup disabled={true} items={items} />
+        <Form>
+            <RadioGroup {...props} disabled={true} />
+        </Form>
     );
     expect(instance.toJSON()).toMatchSnapshot();
 });

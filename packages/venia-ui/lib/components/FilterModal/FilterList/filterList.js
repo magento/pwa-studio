@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import setValidator from '@magento/peregrine/lib/validators/set';
 import { useFilterList } from '@magento/peregrine/lib/talons/FilterModal';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import FilterItem from './filterItem';
 import defaultClasses from './filterList.css';
 
@@ -15,12 +15,12 @@ const FilterList = props => {
         filterApi,
         filterState,
         group,
+        itemCountToShow,
         items,
         isExpanded,
-        onApply,
-        itemCountToShow
+        onApply
     } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useFilterList();
     const { isListExpanded, handleListToggle } = talonProps;
     const { formatMessage } = useIntl();

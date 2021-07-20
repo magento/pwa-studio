@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Image from '../Image';
 import logo from './VeniaLogo.svg';
 
@@ -17,7 +17,7 @@ import logo from './VeniaLogo.svg';
  */
 const Logo = props => {
     const { height, width } = props;
-    const classes = mergeClasses({}, props.classes);
+    const classes = useStyle({}, props.classes);
     const { formatMessage } = useIntl();
 
     const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });

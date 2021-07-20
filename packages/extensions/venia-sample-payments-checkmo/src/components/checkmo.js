@@ -1,5 +1,5 @@
 import React from 'react';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { shape, string, bool, func } from 'prop-types';
 import BillingAddress from '@magento/venia-ui/lib/components/CheckoutPage/BillingAddress';
 
@@ -19,9 +19,8 @@ import { FormattedMessage } from 'react-intl';
  * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
  */
 const CheckMo = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
-    const { resetShouldSubmit, onPaymentSuccess, onPaymentError } = props;
     const addressTemplate = str => (
         <span key={str} className={classes.addressLine}>
             {str} <br />
@@ -33,11 +32,7 @@ const CheckMo = props => {
         mailingAddress,
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess
-    } = useCheckmo({
-        resetShouldSubmit,
-        onPaymentSuccess,
-        onPaymentError
-    });
+    } = useCheckmo(props);
 
     const formatAddress = mailingAddress
         ? mailingAddress.split('\n').map(str => addressTemplate(str))
@@ -70,6 +65,7 @@ const CheckMo = props => {
                 />
             </p>
             <BillingAddress
+                resetShouldSubmit={props.resetShouldSubmit}
                 shouldSubmit={props.shouldSubmit}
                 onBillingAddressChangedError={onBillingAddressChangedError}
                 onBillingAddressChangedSuccess={onBillingAddressChangedSuccess}

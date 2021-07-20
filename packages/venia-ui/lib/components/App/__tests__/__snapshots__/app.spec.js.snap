@@ -22,7 +22,7 @@ exports[`renders with renderErrors 1`] = `
   <Main
     isMasked={true}
   />
-  <Classify(Mask)
+  <Mask
     isActive={true}
   />
   <ToastContainer />
@@ -37,7 +37,7 @@ exports[`renders with unhandledErrors 1`] = `
   >
     <Routes />
   </Main>
-  <Classify(Mask)
+  <Mask
     dismiss={[Function]}
     isActive={false}
   />

@@ -3,10 +3,10 @@ import ContentTypeFactory from '../factory';
 import * as config from '../config';
 import React from 'react';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(url => url),
+jest.mock('react-router-dom', () => ({
     withRouter: jest.fn(arg => arg)
 }));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 test('factory should render instance of content type', () => {
     const props = {

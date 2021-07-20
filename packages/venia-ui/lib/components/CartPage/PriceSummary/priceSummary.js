@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import defaultClasses from './priceSummary.css';
 import DiscountSummary from './discountSummary';
 import GiftCardSummary from './giftCardSummary';
@@ -38,7 +38,7 @@ const GET_PRICE_SUMMARY = gql`
  */
 const PriceSummary = props => {
     const { isUpdating } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
         queries: {
             getPriceSummary: GET_PRICE_SUMMARY

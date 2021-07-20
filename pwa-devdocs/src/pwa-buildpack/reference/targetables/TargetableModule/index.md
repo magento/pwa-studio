@@ -43,7 +43,7 @@ The following example makes the following code modifications to [`main.js`][] fo
   const Main = props => {
 +     console.log("Hello World");
       const { children, isMasked } = props;
-      const classes = mergeClasses(defaultClasses, props.classes);
+      const classes = useStyle(defaultClasses, props.classes);
 
       const rootClass = isMasked ? classes.root_masked : classes.root;
       const pageClass = isMasked ? classes.page_masked : classes.page;
@@ -126,10 +126,10 @@ const removeInstruction = {
 MainComponent.spliceSource(removeInstruction);
 
 const rewriteInstruction = {
-    after: 'mergeClasses(defaultClasses, ',
+    after: 'useStyle(defaultClasses, ',
     remove: 7,
     insert: 'propC'
-} 
+}
 
 MainComponent.spliceSource(rewriteInstruction);
 ```

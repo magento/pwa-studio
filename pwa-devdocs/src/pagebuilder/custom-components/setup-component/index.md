@@ -46,13 +46,13 @@ export default (node, props) => {
 
 ```jsx
 import React from 'react';
-import { mergeClasses } from '../../../../../classify';
+import { useStyle } from '../../../../../classify';
 import defaultClasses from './exampleQuote.css';
 import { shape, string } from 'prop-types';
 
 // Component for testing setup
 const ExampleQuote = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     return (
         <div className={classes.testClass}>
             <div>Content Type: {props.contentType}</div>
