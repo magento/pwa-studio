@@ -37,7 +37,7 @@ export const useAddToCartButton = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const [addToCart, { data }] = useMutation(operations.ADD_ITEM);
+    const [addToCart] = useMutation(operations.ADD_ITEM);
 
     const handleAddToCart = useCallback(async () => {
         try {
