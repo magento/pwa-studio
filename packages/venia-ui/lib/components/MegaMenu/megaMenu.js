@@ -33,15 +33,7 @@ const MegaMenu = props => {
     });
 
     const items = megaMenuData.children
-        ? megaMenuData.children.sort((a, b) => {
-            if (a.position > b.position) {
-                return 1;
-            } else if (a.position === b.position && a.id > b.id) {
-                return 1;
-            } else {
-                return -1;
-            }
-        }).map(category => {
+        ? megaMenuData.children.map(category => {
               return (
                   <MegaMenuItem
                       category={category}

@@ -74,7 +74,9 @@ export const useMegaMenu = (props = {}) => {
             if (megaMenuCategory.children) {
                 megaMenuCategory.children = [...megaMenuCategory.children]
                     .filter(category => shouldRenderMegaMenuItem(category))
-                    .sort((a, b) => (a.position > b.position ? 1 : -1))
+                    .sort((a, b) => (
+                        a.position > b.position || (a.position === b.position && a.id > b.id) ? 1 : -1
+                    ))
                     .map(child =>
                         processData(child, megaMenuCategory.path, false)
                     );
