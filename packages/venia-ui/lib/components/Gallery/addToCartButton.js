@@ -7,7 +7,7 @@ import { mergeClasses } from '../../classify';
 
 import defaultClasses from './addToCartButton.css';
 
-const GalleryButton = props => {
+const AddToCartButton = props => {
     const talonProps = useAddToCartButton({
         item: props.item
     });
@@ -34,9 +34,9 @@ const GalleryButton = props => {
     );
 };
 
-export default GalleryButton;
+export default AddToCartButton;
 
-GalleryButton.propTypes = {
+AddToCartButton.propTypes = {
     classes: shape({
         root: string,
         root_selected: string
