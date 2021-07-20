@@ -18,8 +18,8 @@ This version is compatible with **Magento 2.4.3**.
 
 ### Wish List
 
-Wish List is a feature introduced in this release and implemented in the Venia storefront template.
-It gives shoppers the ability to create and manage lists of items they may want to purchase in the future.
+Started in PWA Studio 9.0.0 with basic features and functionality, Wish List is feature complete in this release and implemented in the Venia storefront template.
+This feature gives shoppers the ability to create and manage lists of items they may want to purchase in the future using Wish List specific components and logic.
 
 The following Wish List features have been implemented in this release:
 
