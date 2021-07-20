@@ -52,7 +52,7 @@ test('returns proper shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-test('returns isDisabled true if product type is virutal', () => {
+test('returns isDisabled true if product type is virtual', () => {
     const { talonProps } = getTalonProps({
         item: {
             ...defaultProps.item,
@@ -63,9 +63,68 @@ test('returns isDisabled true if product type is virutal', () => {
     expect(talonProps.isDisabled).toBeTruthy();
 });
 
-test('returns isDisabled true if product type is downloadable', () => {});
+test('returns isDisabled true if product type is downloadable', () => {
+    const { talonProps } = getTalonProps({
+        item: {
+            ...defaultProps.item,
+            type_id: 'downloadable'
+        }
+    });
 
-test('returns isDisabled true if product type is grouped', () => {});
+    expect(talonProps.isDisabled).toBeTruthy();
+});
 
-test('returns isDisabled true if product type is bundle', () => {});
+test('returns isDisabled true if product type is grouped', () => {
+    const { talonProps } = getTalonProps({
+        item: {
+            ...defaultProps.item,
+            type_id: 'grouped'
+        }
+    });
 
+    expect(talonProps.isDisabled).toBeTruthy();
+});
+
+test('returns isDisabled true if product type is bundle', () => {
+    const { talonProps } = getTalonProps({
+        item: {
+            ...defaultProps.item,
+            type_id: 'bundle'
+        }
+    });
+
+    expect(talonProps.isDisabled).toBeTruthy();
+});
+
+test('returns isDisabled false if product type is simple', () => {
+    const { talonProps } = getTalonProps({
+        item: {
+            ...defaultProps.item,
+            type_id: 'simple'
+        }
+    });
+
+    expect(talonProps.isDisabled).toBeFalsy();
+});
+
+test('returns isInStock true if stock_status is IN_STOCK', () => {
+    const { talonProps } = getTalonProps({
+        item: {
+            ...defaultProps.item,
+            stock_status: 'IN_STOCK'
+        }
+    });
+
+    expect(talonProps.isInStock).toBeTruthy();
+});
+
+test('returns isInStock false if stock_status is not IN_STOCK', () => {
+    const { talonProps } = getTalonProps({
+        item: {
+            ...defaultProps.item,
+            stock_status: 'OUT_STOCK'
+        }
+    });
+
+    expect(talonProps.isInStock).toBeFalsy();
+});
