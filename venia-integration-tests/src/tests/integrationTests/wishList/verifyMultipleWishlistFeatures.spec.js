@@ -26,7 +26,7 @@ const {
 const { homePage } = homePageFixtures;
 const { assertCreateAccount } = myAccountMenuAssertions;
 const { wishlistRoute } = wishlistFixtures;
-const { createWishlist } = wishlistPageActions;
+const { createWishlist, expandCollapsedWishlists } = wishlistPageActions;
 const {
     assertEmptyWishlistExists,
     assertCreateWishlistLink,
@@ -51,7 +51,8 @@ const {
     getWishlistitemsForLocalFieldsCall,
     hitGraphqlPath,
     getWishlistConfigForGalleryCall,
-    getWishlistConfigForProductPageCall
+    getWishlistConfigForProductPageCall,
+    getNewCustomerWishlistCall
 } = graphqlMockedCallsFixtures;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
@@ -178,6 +179,12 @@ describe('verify single wishlist basic features', () => {
         cy.wait(['@getCustomerWishlist4']).its('response.body');
         cy.wait(['@getWishlistConfig2']).its('response.body');
 
+        cy.intercept('GET', getNewCustomerWishlistCall, {
+            fixture: 'wishlist/multipleWishlist/wishlistExpandWishlistPage.json'
+        }).as('getCustomerWishlist5');
+        expandCollapsedWishlists();
+        cy.wait(['@getCustomerWishlist5']).its('response.body');
+
         // assert product exists in wishlist on wishlist page
         assertCreateWishlistLink();
         assertProductInWishlist(productCarinaCardigan);
@@ -190,13 +197,14 @@ describe('verify single wishlist basic features', () => {
             fixture:
                 'wishlist/multipleWishlist/productPageGetWishlistDialogData.json'
         }).as('getProductPageWishlistDialogData');
+
         cy.visitPage(productAugustaEarrings.url);
+
         cy.wait(['@getGeneralWishlistConfig']).its('response.body');
         cy.wait(['@getProductPageWishlistDialogData']).its('response.body');
 
         // add product to wishlist
         addProductToWishlistFromProductPage();
-
         cy.intercept('POST', hitGraphqlPath, req => {
             if (req.body.operationName.includes('addProductToWishlist')) {
                 req.reply({
@@ -218,13 +226,20 @@ describe('verify single wishlist basic features', () => {
 
         cy.intercept('GET', getCustomerWishlistCall, {
             fixture: 'wishlist/multipleWishlist/twoWishlistTwoProductPage.json'
-        }).as('getCustomerWishlist5');
+        }).as('getCustomerWishlist6');
         cy.intercept('GET', getMultipleWishlistConfigCall, {
             fixture: 'wishlist/multipleWishlist/multipleWishlistEnabled.json'
         }).as('getWishlistConfig3');
         cy.visitPage(wishlistRoute);
-        cy.wait(['@getCustomerWishlist5']).its('response.body');
+        cy.wait(['@getCustomerWishlist6']).its('response.body');
         cy.wait(['@getWishlistConfig3']).its('response.body');
+        cy.wait(1000);
+        cy.intercept('GET', getNewCustomerWishlistCall, {
+            fixture:
+                'wishlist/multipleWishlist/wishlistExpandWishlistPageEarrings.json'
+        }).as('getCustomerWishlist7');
+        expandCollapsedWishlists();
+        cy.wait(['@getCustomerWishlist7']).its('response.body');
 
         // assert both products exists in wishlist
         assertCreateWishlistLink();

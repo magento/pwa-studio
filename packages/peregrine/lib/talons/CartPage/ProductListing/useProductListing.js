@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
+import mergeOperations from '../../../util/shallowMerge';
+import defaultOperations from './productListing.gql';
 
 /**
  * This talon contains logic for a component that renders a list of products for a cart.
@@ -27,6 +29,8 @@ export const useProductListing = props => {
         queries: { getProductListing }
     } = props;
 
+    const operations = mergeOperations(defaultOperations, props.operations);
+
     const [{ cartId }] = useCartContext();
     const [activeEditItem, setActiveEditItem] = useState(null);
 
@@ -37,6 +41,12 @@ export const useProductListing = props => {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
+
+    const { data: storeConfigData } = useQuery(
+        operations.getWishlistConfigQuery
+    );
+
+    const wishlistConfig = storeConfigData ? storeConfigData.storeConfig : {};
 
     useEffect(() => {
         if (cartId) {
@@ -57,7 +67,8 @@ export const useProductListing = props => {
         activeEditItem,
         isLoading: !!loading,
         items,
-        setActiveEditItem
+        setActiveEditItem,
+        wishlistConfig
     };
 };
 
@@ -69,7 +80,7 @@ export const useProductListing = props => {
  *
  * @typedef {Object} ProductListingQueries
  *
- * @property {GraphQLAST} getProductListing Query to get the product list for a cart
+ * @property {GraphQLDocument} getProductListing Query to get the product list for a cart
  *
  * @see [productListingFragments.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListingFragments.js}
  * for the queries used in Venia
