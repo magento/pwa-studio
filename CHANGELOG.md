@@ -63,40 +63,6 @@ The following Wish List features have been implemented in this release:
 [#3041]: https://github.com/magento/pwa-studio/pull/3041
 [#3049]: https://github.com/magento/pwa-studio/pull/3049
 [#3246]: https://github.com/magento/pwa-studio/pull/3246
-### Cypress tests
-
-[Cypress](https://www.cypress.io/) is an end-to-end testing suite written in JavaScript.
-This release adds this framework to the PWA Studio project to increase testing automation and reduce the time spent on manual testing.
-This will enable the team to release new versions faster and more often.
-
-Integration tests for PageBuilder and the new Wish List feature are included in this release.
-These tests are part of Venia's integration tests.
-If you want to use these tests in your own CICD pipeline, they can be found in [this directory][].
-
-[this directory]: https://github.com/magento/pwa-studio/tree/v11.0.0/venia-integration-tests/src/tests/integrationTests/pageBuilder
-
-#### Pull Requests
-
-| Description                                   | PR        |
-| --------------------------------------------- | --------- |
-| Configured the project to use Cypress         | [#3082][] |
-| Added the Cypress Visual Testing plugin       | [#3136][] |
-| Added tests for the Wish List feature         | [#3146][] |
-| Added tests for PageBuilder banner component  | [#3178][] |
-| Added tests for PageBuilder buttons           | [#3194][] |
-| Added tests for PageBuilder images            | [#3195][] |
-| Added tests for multiple Wish Lists           | [#3218][] |
-| Updated the Cypress tests directory structure | [#3253][] |
-
-[#3082]: https://github.com/magento/pwa-studio/pull/3082
-[#3136]: https://github.com/magento/pwa-studio/pull/3136
-[#3146]: https://github.com/magento/pwa-studio/pull/3146
-[#3178]: https://github.com/magento/pwa-studio/pull/3178
-[#3194]: https://github.com/magento/pwa-studio/pull/3194
-[#3218]: https://github.com/magento/pwa-studio/pull/3218
-[#3253]: https://github.com/magento/pwa-studio/pull/3253
-[#3195]: https://github.com/magento/pwa-studio/pull/3195
-
 ### Virtual Product types
 
 This release contains initial work to support Virtual Product types.
@@ -251,6 +217,40 @@ The following bugs have been fixed in 11.0.0.
 [#3098]: https://github.com/magento/pwa-studio/pull/3098
 [#3078]: https://github.com/magento/pwa-studio/pull/3078
 [#3142]: https://github.com/magento/pwa-studio/pull/3142
+
+### Cypress tests
+
+[Cypress](https://www.cypress.io/) is an end-to-end testing suite written in JavaScript.
+This release adds this framework to the PWA Studio project to increase testing automation and reduce the time spent on manual testing.
+This will enable the team to release new versions faster and more often.
+
+Integration tests for PageBuilder and the new Wish List feature are included in this release.
+These tests are part of Venia's integration tests.
+If you want to use these tests in your own CICD pipeline, they can be found in [this directory][].
+
+[this directory]: https://github.com/magento/pwa-studio/tree/v11.0.0/venia-integration-tests/src/tests/integrationTests/pageBuilder
+
+#### Pull Requests
+
+| Description                                   | PR        |
+| --------------------------------------------- | --------- |
+| Configured the project to use Cypress         | [#3082][] |
+| Added the Cypress Visual Testing plugin       | [#3136][] |
+| Added tests for the Wish List feature         | [#3146][] |
+| Added tests for PageBuilder banner component  | [#3178][] |
+| Added tests for PageBuilder buttons           | [#3194][] |
+| Added tests for PageBuilder images            | [#3195][] |
+| Added tests for multiple Wish Lists           | [#3218][] |
+| Updated the Cypress tests directory structure | [#3253][] |
+
+[#3082]: https://github.com/magento/pwa-studio/pull/3082
+[#3136]: https://github.com/magento/pwa-studio/pull/3136
+[#3146]: https://github.com/magento/pwa-studio/pull/3146
+[#3178]: https://github.com/magento/pwa-studio/pull/3178
+[#3194]: https://github.com/magento/pwa-studio/pull/3194
+[#3218]: https://github.com/magento/pwa-studio/pull/3218
+[#3253]: https://github.com/magento/pwa-studio/pull/3253
+[#3195]: https://github.com/magento/pwa-studio/pull/3195
 
 ### Refactors
 
