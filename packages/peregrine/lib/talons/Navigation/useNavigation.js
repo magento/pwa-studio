@@ -21,7 +21,13 @@ export const useNavigation = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerQuery, getRootCategoryId } = operations;
     // retrieve app state from context
-    const [appState, { closeDrawer }] = useAppContext();
+    const [
+        appState,
+        {
+            actions: { setNextRootComponent },
+            closeDrawer
+        }
+    ] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
     const [, { getUserDetails }] = useUserContext();
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
@@ -78,7 +84,9 @@ export const useNavigation = (props = {}) => {
 
     const handleClose = useCallback(() => {
         closeDrawer();
-    }, [closeDrawer]);
+        // Sets next root component to show proper loading effect
+        setNextRootComponent('category');
+    }, [closeDrawer, setNextRootComponent]);
 
     // create callbacks for local state
     const showCreateAccount = useCallback(() => {

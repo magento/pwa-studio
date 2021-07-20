@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
+import { useAppContext } from '../../context/app';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { getRootComponent, isRedirect } from './helpers';
@@ -13,6 +14,12 @@ export const useMagentoRoute = (props = {}) => {
     const { replace } = useHistory();
     const { pathname } = useLocation();
     const [componentMap, setComponentMap] = useRootComponents();
+    const [
+        { nextRootComponent },
+        {
+            actions: { setNextRootComponent }
+        }
+    ] = useAppContext();
 
     const setComponent = useCallback(
         (key, value) => {
@@ -54,7 +61,7 @@ export const useMagentoRoute = (props = {}) => {
         routeData = { isNotFound: true };
     } else {
         // LOADING
-        routeData = { isLoading: true };
+        routeData = { isLoading: true, nextRootComponent };
     }
 
     // fetch a component if necessary
@@ -69,11 +76,22 @@ export const useMagentoRoute = (props = {}) => {
             try {
                 const component = await getRootComponent(type);
                 setComponent(pathname, { component, id, type });
+                setNextRootComponent(null);
             } catch (error) {
                 setComponent(pathname, error);
+                setNextRootComponent(null);
             }
         })();
-    }, [component, empty, id, loading, pathname, setComponent, type]);
+    }, [
+        component,
+        empty,
+        id,
+        loading,
+        pathname,
+        setComponent,
+        setNextRootComponent,
+        type
+    ]);
 
     // perform a redirect if necesssary
     useEffect(() => {

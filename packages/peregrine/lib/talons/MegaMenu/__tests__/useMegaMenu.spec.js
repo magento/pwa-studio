@@ -10,6 +10,14 @@ jest.mock('react-router-dom', () => ({
     useLocation: jest.fn(() => ({ pathname: '/venia-tops.html' }))
 }));
 
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {};
+    const api = { actions: { setNextRootComponent: jest.fn() } };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 const Component = props => {
     const talonProps = useMegaMenu(props);
 

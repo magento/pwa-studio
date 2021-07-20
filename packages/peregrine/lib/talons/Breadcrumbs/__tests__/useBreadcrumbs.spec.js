@@ -40,6 +40,14 @@ jest.mock('@apollo/client', () => {
     };
 });
 
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {};
+    const api = { actions: { setNextRootComponent: jest.fn() } };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 const props = {
     categoryId: 1
 };
@@ -66,7 +74,8 @@ test('return correct shape while data is loading', () => {
         currentCategoryPath: '#',
         isLoading: true,
         hasError: false,
-        normalizedData: []
+        normalizedData: [],
+        handleClick: expect.any(Function)
     });
 });
 
@@ -117,7 +126,8 @@ test('returns sorted data', () => {
                 path: '/tiki/shopee/foo.html',
                 text: 'Foo'
             }
-        ]
+        ],
+        handleClick: expect.any(Function)
     });
 });
 
@@ -132,7 +142,8 @@ test('returns the correct shape', () => {
         'currentCategoryPath',
         'isLoading',
         'hasError',
-        'normalizedData'
+        'normalizedData',
+        'handleClick'
     ];
     const actualProperties = Object.keys(talonProps);
     expect(actualProperties.sort()).toEqual(expectedProperties.sort());

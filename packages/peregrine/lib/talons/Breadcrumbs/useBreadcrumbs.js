@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useQuery } from '@apollo/client';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import mergeOperations from '../../util/shallowMerge';
 
@@ -28,7 +29,8 @@ const getPath = (path, suffix) => {
  *   currentCategory: string,
  *   currentCategoryPath: string,
  *   isLoading: boolean,
- *   normalizedData: array
+ *   normalizedData: array,
+ *   handleClick: function
  * }}
  */
 export const useBreadcrumbs = props => {
@@ -36,6 +38,12 @@ export const useBreadcrumbs = props => {
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getBreadcrumbsQuery } = operations;
+    const [
+        ,
+        {
+            actions: { setNextRootComponent }
+        }
+    ] = useAppContext();
 
     const { data, loading, error } = useQuery(getBreadcrumbsQuery, {
         variables: { category_id: categoryId },
@@ -66,12 +74,18 @@ export const useBreadcrumbs = props => {
         }
     }, [categoryUrlSuffix, data, loading]);
 
+    const handleClick = useCallback(() => {
+        // Sets next root component to show proper loading effect
+        setNextRootComponent('category');
+    }, [setNextRootComponent]);
+
     return {
         currentCategory: (data && data.category.name) || '',
         currentCategoryPath:
             (data && `${data.category.url_path}${categoryUrlSuffix}`) || '#',
         isLoading: loading,
         hasError: !!error,
-        normalizedData: normalizedData || []
+        normalizedData: normalizedData || [],
+        handleClick
     };
 };

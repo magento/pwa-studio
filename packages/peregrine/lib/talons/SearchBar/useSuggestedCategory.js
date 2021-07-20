@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { DELIMITER } from '../FilterModal/helpers';
+
 // TODO: derive from store config when available
 const setSearchParams = (existing, options) => {
     const params = new URLSearchParams(existing);
@@ -25,6 +27,13 @@ export const useSuggestedCategory = props => {
     const { onNavigate, ...restProps } = props;
     const { createHref } = useHistory();
     const { search } = useLocation();
+    const [
+        ,
+        {
+            actions: { setNextRootComponent }
+        }
+    ] = useAppContext();
+
     const nextSearchParams = setSearchParams(search, restProps);
     const destination = createHref({
         pathname: '/search.html',
@@ -35,7 +44,9 @@ export const useSuggestedCategory = props => {
         if (typeof onNavigate === 'function') {
             onNavigate();
         }
-    }, [onNavigate]);
+        // Sets next root component to show proper loading effect
+        setNextRootComponent('category');
+    }, [onNavigate, setNextRootComponent]);
 
     return {
         destination,

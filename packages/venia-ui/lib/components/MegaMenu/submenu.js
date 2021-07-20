@@ -9,14 +9,21 @@ import PropTypes from 'prop-types';
  *
  * @param {array} props.items - categories to display
  * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
+ * @param {function} props.onNavigate - function called when clicking on Link
  */
 const Submenu = props => {
-    const { items, mainNavWidth } = props;
+    const { items, mainNavWidth, onNavigate } = props;
     const PADDING_OFFSET = 20;
     const classes = useStyle(defaultClasses, props.classes);
 
     const subMenus = items.map(category => {
-        return <SubmenuColumn category={category} key={category.id} />;
+        return (
+            <SubmenuColumn
+                category={category}
+                onNavigate={onNavigate}
+                key={category.id}
+            />
+        );
     });
 
     return (
@@ -47,5 +54,6 @@ Submenu.propTypes = {
             url_suffix: PropTypes.string
         })
     ).isRequired,
-    mainNavWidth: PropTypes.number.isRequired
+    mainNavWidth: PropTypes.number.isRequired,
+    onNavigate: PropTypes.func.isRequired
 };

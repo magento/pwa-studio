@@ -27,31 +27,7 @@ Array [
         hasBeenOffline={false}
         isOnline={true}
       />
-      <nav
-        className="megaMenu"
-        role="navigation"
-      >
-        <div
-          className="megaMenuItem"
-        >
-          <div
-            className="submenu"
-          >
-            <div
-              className="submenuItems"
-              style={
-                Object {
-                  "minWidth": 20,
-                }
-              }
-            >
-              <div
-                className="submenuColumn"
-              />
-            </div>
-          </div>
-        </div>
-      </nav>
+      <MegaMenu />
       <div
         className="secondaryActions"
       >

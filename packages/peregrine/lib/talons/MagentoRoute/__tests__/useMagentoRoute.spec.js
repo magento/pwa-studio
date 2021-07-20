@@ -7,6 +7,16 @@ import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents
 import { getRootComponent } from '../helpers';
 import { useMagentoRoute } from '../useMagentoRoute';
 
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {
+        nextRootComponent: null
+    };
+    const api = { actions: { setNextRootComponent: jest.fn() } };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 jest.mock('@apollo/client', () => {
     const ApolloClient = jest.requireActual('@apollo/client');
     const useQuery = jest.fn();
@@ -92,7 +102,8 @@ describe('returns LOADING while queries are pending', () => {
         expect(replace).toHaveBeenCalledTimes(0);
         expect(log).toHaveBeenCalledTimes(1);
         expect(log).toHaveBeenNthCalledWith(1, {
-            isLoading: true
+            isLoading: true,
+            nextRootComponent: null
         });
     });
 
@@ -104,7 +115,8 @@ describe('returns LOADING while queries are pending', () => {
         expect(replace).toHaveBeenCalledTimes(0);
         expect(log).toHaveBeenCalledTimes(1);
         expect(log).toHaveBeenNthCalledWith(1, {
-            isLoading: true
+            isLoading: true,
+            nextRootComponent: null
         });
     });
 });
@@ -141,7 +153,8 @@ describe('returns ERROR when queries fail', () => {
         expect(replace).toHaveBeenCalledTimes(0);
         expect(log).toHaveBeenCalledTimes(2);
         expect(log).toHaveBeenNthCalledWith(1, {
-            isLoading: true
+            isLoading: true,
+            nextRootComponent: null
         });
         expect(log).toHaveBeenNthCalledWith(2, {
             hasError: true,
@@ -242,7 +255,8 @@ describe('returns FOUND after fetching a component', () => {
         expect(replace).toHaveBeenCalledTimes(0);
         expect(log).toHaveBeenCalledTimes(2);
         expect(log).toHaveBeenNthCalledWith(1, {
-            isLoading: true
+            isLoading: true,
+            nextRootComponent: null
         });
         expect(log).toHaveBeenNthCalledWith(2, {
             component: 'MockComponent',
