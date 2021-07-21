@@ -107,9 +107,21 @@ Options are toggled using the `Space` key.
 
 [#3034]: https://github.com/magento/pwa-studio/pull/3034
 
-### Performance and optimization updates
+### Layered Navigation
 
 To help deliver a better customer experience, filtering products by their attributes on the product listing page has been optimized for desktop views.
+The changes included in this release focuses on improving how the user interacts with the layered navigation feature when filtering products.
+For example, filter options can be neatly collapsed and the product listing is automatically updated whenever the user selects a filter option.
+
+#### Pull Requests
+
+| Description                                                        | PR        |
+| ------------------------------------------------------------------ | --------- |
+| Optimized the layered navigation feature for the desktop           | [#3137][] |
+
+[#3137]: https://github.com/magento/pwa-studio/pull/3137
+
+### Performance and optimization updates
 
 This release also contains a configuration change for UPWARD so that it can use the `gzip` content encoding for HTML requests.
 
@@ -117,11 +129,9 @@ This release also contains a configuration change for UPWARD so that it can use 
 
 | Description                                                        | PR        |
 | ------------------------------------------------------------------ | --------- |
-| Optimized the layered navigation feature for the desktop           | [#3137][] |
 | Configured UPWARD to use `gzip` content encoding for HTML requests | [#3255][] |
 
 [#3255]: https://github.com/magento/pwa-studio/pull/3255
-[#3137]: https://github.com/magento/pwa-studio/pull/3137
 
 ### Documentation updates
 
