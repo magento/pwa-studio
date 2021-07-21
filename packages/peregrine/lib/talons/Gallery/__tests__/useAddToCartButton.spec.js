@@ -220,11 +220,62 @@ describe('testing handleAddToCart', () => {
         `);
     });
 
-    test('should console warn if item is a grouped product', async () => {});
+    test('should console warn if item is a grouped product', async () => {
+        const { talonProps } = getTalonProps({
+            item: {
+                ...defaultProps.item,
+                type_id: 'grouped',
+                stock_status: 'IN_STOCK'
+            }
+        });
 
-    test('should console warn if item is a virtual product', async () => {});
+        await talonProps.handleAddToCart();
 
-    test('should console warn if item is a downloadable product', async () => {});
+        expect(warn).toHaveBeenCalled();
+        expect(warn.mock.calls[0]).toMatchInlineSnapshot(`
+            Array [
+              "Unsupported product type unable to handle.",
+            ]
+        `);
+    });
+
+    test('should console warn if item is a virtual product', async () => {
+        const { talonProps } = getTalonProps({
+            item: {
+                ...defaultProps.item,
+                type_id: 'virtual',
+                stock_status: 'IN_STOCK'
+            }
+        });
+
+        await talonProps.handleAddToCart();
+
+        expect(warn).toHaveBeenCalled();
+        expect(warn.mock.calls[0]).toMatchInlineSnapshot(`
+            Array [
+              "Unsupported product type unable to handle.",
+            ]
+        `);
+    });
+
+    test('should console warn if item is a downloadable product', async () => {
+        const { talonProps } = getTalonProps({
+            item: {
+                ...defaultProps.item,
+                type_id: 'downloadable',
+                stock_status: 'IN_STOCK'
+            }
+        });
+
+        await talonProps.handleAddToCart();
+
+        expect(warn).toHaveBeenCalled();
+        expect(warn.mock.calls[0]).toMatchInlineSnapshot(`
+            Array [
+              "Unsupported product type unable to handle.",
+            ]
+        `);
+    });
 
     test('should console error if the mutation fails', async () => {
         const errorMessage = 'Something went wrong';
