@@ -1,4 +1,6 @@
 import React from 'react';
+import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useAddToCartButton } from '../useAddToCartButton';
@@ -16,6 +18,22 @@ jest.mock('../../../context/cart', () => ({
 }));
 
 jest.mock('../addToCart.gql', () => ({ ADD_ITEM: 'Add Item GQL Mutation' }));
+
+const warn = jest.fn();
+const error = jest.fn();
+
+const originalWarn = console.warn;
+const originalError = console.error;
+
+beforeAll(() => {
+    global.console.warn = warn;
+    global.console.error = error;
+});
+
+afterAll(() => {
+    global.console.warn = originalWarn;
+    global.console.error = originalError;
+});
 
 const Component = props => {
     const talonProps = useAddToCartButton(props);
@@ -127,4 +145,102 @@ test('returns isInStock false if stock_status is not IN_STOCK', () => {
     });
 
     expect(talonProps.isInStock).toBeFalsy();
+});
+
+describe('testing handleAddToCart', () => {
+    test('should add to cart if item is a simple product', async () => {
+        const addToCartMutation = jest.fn();
+        useMutation.mockReturnValueOnce([addToCartMutation]);
+
+        const { talonProps } = getTalonProps({
+            item: {
+                ...defaultProps.item,
+                type_id: 'simple',
+                stock_status: 'IN_STOCK'
+            }
+        });
+
+        await talonProps.handleAddToCart();
+
+        expect(addToCartMutation).toHaveBeenCalled();
+        expect(addToCartMutation.mock.calls[0]).toMatchInlineSnapshot(`
+            Array [
+              Object {
+                "variables": Object {
+                  "cartId": "1234",
+                  "cartItem": Object {
+                    "quantity": 1,
+                    "selected_options": Array [],
+                    "sku": "97ahsf9",
+                  },
+                },
+              },
+            ]
+        `);
+        expect(talonProps.isDisabled).toBeFalsy();
+    });
+
+    test('should navigate to PDP page if item is a configurable product', async () => {
+        const push = jest.fn();
+        const history = {
+            push
+        };
+        useHistory.mockReturnValueOnce(history);
+
+        const { talonProps } = getTalonProps({
+            item: {
+                ...defaultProps.item,
+                type_id: 'configurable',
+                stock_status: 'IN_STOCK',
+                url_key: 'configurable_product'
+            }
+        });
+
+        await talonProps.handleAddToCart();
+
+        expect(push).toHaveBeenCalledWith('configurable_product.html');
+    });
+
+    test('should console warn if item is a bundle product', async () => {
+        const { talonProps } = getTalonProps({
+            item: {
+                ...defaultProps.item,
+                type_id: 'bundle',
+                stock_status: 'IN_STOCK'
+            }
+        });
+
+        await talonProps.handleAddToCart();
+
+        expect(warn).toHaveBeenCalled();
+        expect(warn.mock.calls[0]).toMatchInlineSnapshot(`
+            Array [
+              "Unsupported product type unable to handle.",
+            ]
+        `);
+    });
+
+    test('should console warn if item is a grouped product', async () => {});
+
+    test('should console warn if item is a virtual product', async () => {});
+
+    test('should console warn if item is a downloadable product', async () => {});
+
+    test('should console error if the mutation fails', async () => {
+        const errorMessage = 'Something went wrong';
+        const addToCartMutation = jest.fn().mockRejectedValueOnce(errorMessage);
+        useMutation.mockReturnValueOnce([addToCartMutation]);
+
+        const { talonProps } = getTalonProps({
+            item: {
+                ...defaultProps.item,
+                type_id: 'simple',
+                stock_status: 'IN_STOCK'
+            }
+        });
+
+        await talonProps.handleAddToCart();
+
+        expect(error).toHaveBeenCalledWith(errorMessage);
+    });
 });
