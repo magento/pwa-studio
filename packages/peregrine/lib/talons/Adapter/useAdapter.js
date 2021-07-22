@@ -13,6 +13,7 @@ import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
 import attachClient from '@magento/peregrine/lib/Apollo/attachClientToStore';
 import { CACHE_PERSIST_PREFIX } from '@magento/peregrine/lib/Apollo/constants';
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
+import MagentoGQLCacheLink from '@magento/peregrine/lib/Apollo/magentoGqlCacheLink';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import shrinkQuery from '@magento/peregrine/lib/util/shrinkQuery';
 
@@ -160,6 +161,8 @@ export const useAdapter = props => {
         []
     );
 
+    const magentoGqlCacheLink = useMemo(() => new MagentoGQLCacheLink(), []);
+
     const apolloLink = useMemo(
         () =>
             ApolloLink.from([
@@ -168,11 +171,20 @@ export const useAdapter = props => {
                 mutationQueueLink,
                 retryLink,
                 authLink,
+                magentoGqlCacheLink,
                 storeLink,
                 errorLink,
                 httpLink
             ]),
-        [authLink, errorLink, httpLink, mutationQueueLink, retryLink, storeLink]
+        [
+            authLink,
+            errorLink,
+            httpLink,
+            magentoGqlCacheLink,
+            mutationQueueLink,
+            retryLink,
+            storeLink
+        ]
     );
 
     const apolloClient = useMemo(() => {

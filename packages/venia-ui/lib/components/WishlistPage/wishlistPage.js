@@ -31,9 +31,10 @@ const WishlistPage = props => {
             return <Wishlist />;
         }
 
-        return wishlists.map(wishlist => (
+        return wishlists.map((wishlist, index) => (
             <Wishlist
                 key={wishlist.id}
+                isCollapsed={index !== 0}
                 data={wishlist}
                 shouldRenderVisibilityToggle={shouldRenderVisibilityToggle}
             />

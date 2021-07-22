@@ -16,8 +16,7 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 });
 
 const createWishlistVariables = {
-    name: 'Test WishList',
-    visibility: 'PUBLIC'
+    name: 'Test WishList'
 };
 
 let createWishlistMutationCalled = false;
@@ -40,7 +39,7 @@ const getCustomerWishlistsMock = {
                             id: 42,
                             items_count: 0,
                             name: 'Test WishList',
-                            visibility: 'PUBLIC',
+                            visibility: 'PRIVATE',
                             sharing_code: 'code'
                         }
                     ]
@@ -138,9 +137,17 @@ test('should return error', async () => {
         mocks: [createWishlistErrorMock, getMultipleWishlistsEnabledQueryMock]
     });
     await act(() => result.current.handleCreateList(createWishlistVariables));
-    expect(
-        result.current.formErrors.get('createWishlistMutation')
-    ).toMatchInlineSnapshot(`[Error: Only 5 wish list(s) can be created.]`);
+    expect(result.current.formErrors.get('createWishlistMutation'))
+        .toMatchInlineSnapshot(`
+        [Error: No more mocked responses for the query: mutation createWishlist($input: CreateWishlistInput!) {
+          createWishlist(input: $input) {
+            wishlist {
+              id
+            }
+          }
+        }
+        , variables: {"input":{"name":"Test WishList","visibility":"PRIVATE"}}]
+    `);
 });
 
 test('handleShowModal should set isModalOpen to true', async () => {

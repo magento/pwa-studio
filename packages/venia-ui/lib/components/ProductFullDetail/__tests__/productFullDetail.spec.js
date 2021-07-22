@@ -286,11 +286,12 @@ test('it disables the add to cart button when the talon indicates', () => {
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
-test('renders a WishlistButton', () => {
+test('renders a WishlistButton with props', () => {
     useProductFullDetail.mockReturnValueOnce({
         ...talonProps,
-        shouldShowWishlistButton: true,
-        wishlistItemOptions: { foo: 'bar' }
+        wishlistButtonProps: {
+            foo: 'bar'
+        }
     });
 
     const wrapper = createTestInstance(
