@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { Form } from 'informed';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { shape, string } from 'prop-types';
 import defaultClasses from './newsletter.css';
 import FormError from '@magento/venia-ui/lib/components/FormError/formError';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
@@ -82,4 +83,15 @@ const Newsletter = props => {
         </Fragment>
     );
 };
+
+Newsletter.propTypes = {
+    classes: shape({
+        modal_active: string,
+        root: string,
+        title: string,
+        form: string,
+        buttonsContainer: string
+    })
+};
+
 export default Newsletter;
