@@ -61,7 +61,6 @@
 @media (min-width: 1024px) {
     .contentWrapper {
         display: flex;
-        flex-wrap: nowrap;
     }
 
     .categoryHeader {
