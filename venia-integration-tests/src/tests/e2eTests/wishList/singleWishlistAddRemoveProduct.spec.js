@@ -76,13 +76,17 @@ describe('verify single wishlist basic features', () => {
 
         cy.visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
+        cy.wait(3000);
+
         assertWishlistSelectedProductOnCategoryPage(productCarinaCardigan);
+
         cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
 
         cy.visitPage(productValeriaTwoLayeredTank.url);
         addProductToWishlistFromProductPage();
+        cy.wait(3000);
         cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
@@ -90,6 +94,7 @@ describe('verify single wishlist basic features', () => {
 
         cy.visitPage(silverAmorBangleSet.url);
         addSimpleProductToCartFromProductPage();
+        cy.wait(3000);
         cy.visitPage(cartPageRoute);
         moveProductFromCartToSingleWishlist(silverAmorBangleSet.name);
         cy.visitPage(wishlistRoute);
