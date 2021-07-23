@@ -15,8 +15,8 @@ const FormError = props => {
     const { formatMessage } = useIntl();
 
     const graphQLErrorMessage = () => {
-        if (Array.isArray(errors)) {
-            for (const error of errors) {
+        if (Array.isArray(errors) && errors.length > 0) {
+            return errors.map(error => {  
                 if (error) {
                     const { graphQLErrors } = error;
                     if (graphQLErrors) {
@@ -30,7 +30,7 @@ const FormError = props => {
                     }
                     
                 }
-            }
+            })
         }
     }
 
