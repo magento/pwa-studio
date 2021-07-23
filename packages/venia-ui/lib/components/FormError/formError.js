@@ -14,18 +14,21 @@ const FormError = props => {
 
     const { formatMessage } = useIntl();
 
-    var graphQLErrorMessage;
-
-    if (typeof errors != 'undefined' && errors != null && errors.length > 0) {
-        for (const error of errors) {
-            if (error) {
-                const { graphQLErrors } = error;
-                if (graphQLErrors) {
-                    graphQLErrorMessage = formatMessage({
-                        id: 'formError.errorMessage',
-                        defaultMessage:
-                            'An error has occurred. Please check the input and try again.'
-                    });
+    const graphQLErrorMessage = () => {
+        if (Array.isArray(errors)) {
+            for (const error of errors) {
+                if (error) {
+                    const { graphQLErrors } = error;
+                    if (graphQLErrors) {
+                        return (
+                            formatMessage({
+                                id: 'formError.errorMessage',
+                                defaultMessage:
+                                    'An error has occurred. Please check the input and try again.'
+                            })
+                        )
+                    }
+                    
                 }
             }
         }
@@ -40,9 +43,9 @@ const FormError = props => {
 
     const classes = useStyle(defaultClasses, propClasses);
 
-    return errorMessage || graphQLErrorMessage ? (
+    return errorMessage || graphQLErrorMessage() ? (
         <ErrorMessage classes={classes} ref={errorRef}>
-            {graphQLErrorMessage ? graphQLErrorMessage : errorMessage}
+            {graphQLErrorMessage() ? graphQLErrorMessage() : errorMessage}
         </ErrorMessage>
     ) : null;
 };
