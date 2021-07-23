@@ -20,19 +20,16 @@ const FormError = props => {
                 if (error) {
                     const { graphQLErrors } = error;
                     if (graphQLErrors) {
-                        return (
-                            formatMessage({
-                                id: 'formError.errorMessage',
-                                defaultMessage:
-                                    'An error has occurred. Please check the input and try again.'
-                            })
-                        )
+                        return formatMessage({
+                            id: 'formError.errorMessage',
+                            defaultMessage:
+                                'An error has occurred. Please check the input and try again.'
+                        });
                     }
-                    
                 }
             }
         }
-    }
+    };
 
     const talonProps = useFormError({ errors });
     const { errorMessage } = talonProps;
