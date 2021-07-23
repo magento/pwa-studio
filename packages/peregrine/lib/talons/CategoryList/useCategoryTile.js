@@ -1,5 +1,5 @@
-import { useCallback, useMemo } from 'react';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useMemo } from 'react';
+import useInternalLink from '../../hooks/useInternalLink';
 
 const previewImageSize = 480;
 
@@ -14,12 +14,6 @@ const previewImageSize = 480;
 export const useCategoryTile = props => {
     const { item } = props;
     const { image, productImagePreview } = item;
-    const [
-        ,
-        {
-            actions: { setNextRootComponent }
-        }
-    ] = useAppContext();
 
     const imageObj = useMemo(() => {
         const previewProduct = productImagePreview.items[0];
@@ -52,10 +46,7 @@ export const useCategoryTile = props => {
         [item]
     );
 
-    const handleClick = useCallback(() => {
-        // Sets next root component to show proper loading effect
-        setNextRootComponent('category');
-    }, [setNextRootComponent]);
+    const handleClick = useInternalLink('category');
 
     return {
         image: imageObj,

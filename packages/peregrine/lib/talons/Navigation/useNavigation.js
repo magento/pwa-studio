@@ -6,6 +6,7 @@ import { useAppContext } from '../../context/app';
 import { useCatalogContext } from '../../context/catalog';
 import { useUserContext } from '../../context/user';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
+import useInternalLink from '../../hooks/useInternalLink';
 
 import DEFAULT_OPERATIONS from './navigation.gql';
 
@@ -82,10 +83,12 @@ export const useNavigation = (props = {}) => {
         }
     }, [category, closeDrawer, isTopLevel, view]);
 
+    const { handleClick: setLoader } = useInternalLink('category');
+
     const handleClose = useCallback(() => {
         closeDrawer();
         // Sets next root component to show proper loading effect
-        setNextRootComponent('category');
+        setLoader();
     }, [closeDrawer, setNextRootComponent]);
 
     // create callbacks for local state

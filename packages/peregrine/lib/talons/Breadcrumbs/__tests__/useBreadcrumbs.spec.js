@@ -40,13 +40,7 @@ jest.mock('@apollo/client', () => {
     };
 });
 
-jest.mock('@magento/peregrine/lib/context/app', () => {
-    const state = {};
-    const api = { actions: { setNextRootComponent: jest.fn() } };
-    const useAppContext = jest.fn(() => [state, api]);
-
-    return { useAppContext };
-});
+jest.mock('../../../hooks/useInternalLink');
 
 const props = {
     categoryId: 1

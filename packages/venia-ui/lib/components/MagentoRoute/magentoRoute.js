@@ -1,10 +1,8 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useMagentoRoute } from '@magento/peregrine/lib/talons/MagentoRoute';
-
-import CategoryContentShimmer from '../../RootComponents/Category/categoryContent.shimmer';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
-import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
+import RootShimmerComponent from '../../RootComponents/Shimmer';
 
 const MESSAGES = new Map()
     .set(
@@ -22,15 +20,11 @@ const MagentoRoute = () => {
         isLoading,
         isNotFound,
         isRedirect,
-        nextRootComponent
+        type
     } = talonProps;
 
     if (isLoading || isRedirect) {
-        if (nextRootComponent && nextRootComponent === 'category') {
-            return <CategoryContentShimmer />;
-        }
-
-        return fullPageLoadingIndicator;
+        return <RootShimmerComponent type={type} />;
     } else if (RootComponent) {
         return <RootComponent id={id} />;
     } else if (isNotFound) {

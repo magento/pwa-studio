@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+import useInternalLink from '../../hooks/useInternalLink';
 
 import { DELIMITER } from '../FilterModal/helpers';
 
@@ -27,12 +27,6 @@ export const useSuggestedCategory = props => {
     const { onNavigate, ...restProps } = props;
     const { createHref } = useHistory();
     const { search } = useLocation();
-    const [
-        ,
-        {
-            actions: { setNextRootComponent }
-        }
-    ] = useAppContext();
 
     const nextSearchParams = setSearchParams(search, restProps);
     const destination = createHref({
@@ -40,13 +34,15 @@ export const useSuggestedCategory = props => {
         search: nextSearchParams
     });
 
+    const { handleClick: setLoader } = useInternalLink('category');
+
     const handleClick = useCallback(() => {
         if (typeof onNavigate === 'function') {
             onNavigate();
         }
         // Sets next root component to show proper loading effect
-        setNextRootComponent('category');
-    }, [onNavigate, setNextRootComponent]);
+        setLoader();
+    }, [onNavigate, setLoader]);
 
     return {
         destination,

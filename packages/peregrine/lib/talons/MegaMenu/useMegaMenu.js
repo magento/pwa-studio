@@ -3,7 +3,7 @@ import DEFAULT_OPERATIONS from './megaMenu.gql';
 import { useQuery } from '@apollo/client';
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+import useInternalLink from '../../hooks/useInternalLink';
 
 /**
  * The useMegaMenu talon complements the MegaMenu component.
@@ -19,13 +19,6 @@ export const useMegaMenu = (props = {}) => {
 
     const location = useLocation();
     const [activeCategoryId, setActiveCategoryId] = useState(null);
-
-    const [
-        ,
-        {
-            actions: { setNextRootComponent }
-        }
-    ] = useAppContext();
 
     const { data } = useQuery(getMegaMenuQuery, {
         fetchPolicy: 'cache-and-network',
@@ -132,9 +125,7 @@ export const useMegaMenu = (props = {}) => {
      *
      * @returns {void}
      */
-    const onNavigate = useCallback(() => {
-        setNextRootComponent('category');
-    }, [setNextRootComponent]);
+    const { handleClick: onNavigate } = useInternalLink('category');
 
     return {
         megaMenuData,

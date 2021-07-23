@@ -50,7 +50,9 @@ const CategoryContentShimmer = props => {
     );
 };
 
-export default CategoryContentShimmer;
+CategoryContentShimmer.defaultProps = {
+    classes: {}
+};
 
 CategoryContentShimmer.propTypes = {
     classes: shape({
@@ -66,3 +68,5 @@ CategoryContentShimmer.propTypes = {
         gallery: string
     })
 };
+
+export default CategoryContentShimmer;

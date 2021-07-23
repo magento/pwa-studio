@@ -1,6 +1,6 @@
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+import useInternalLink from '../../hooks/useInternalLink';
 
 import mergeOperations from '../../util/shallowMerge';
 
@@ -38,12 +38,6 @@ export const useBreadcrumbs = props => {
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getBreadcrumbsQuery } = operations;
-    const [
-        ,
-        {
-            actions: { setNextRootComponent }
-        }
-    ] = useAppContext();
 
     const { data, loading, error } = useQuery(getBreadcrumbsQuery, {
         variables: { category_id: categoryId },
@@ -74,10 +68,7 @@ export const useBreadcrumbs = props => {
         }
     }, [categoryUrlSuffix, data, loading]);
 
-    const handleClick = useCallback(() => {
-        // Sets next root component to show proper loading effect
-        setNextRootComponent('category');
-    }, [setNextRootComponent]);
+    const { handleClick } = useInternalLink('category');
 
     return {
         currentCategory: (data && data.category.name) || '',

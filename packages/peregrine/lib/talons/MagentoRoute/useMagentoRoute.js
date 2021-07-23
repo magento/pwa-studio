@@ -2,8 +2,8 @@ import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
-import { useAppContext } from '../../context/app';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useAppContext } from '../../context/app';
 
 import { getRootComponent, isRedirect } from './helpers';
 import DEFAULT_OPERATIONS from './magentoRoute.gql';
@@ -27,6 +27,10 @@ export const useMagentoRoute = (props = {}) => {
         },
         [setComponentMap]
     );
+
+    const resetLoadingComponent = useCallback(() => {
+        setNextRootComponent(null);
+    }, [setNextRootComponent ]);
 
     const queryResult = useQuery(resolveUrlQuery, {
         fetchPolicy: 'cache-and-network',
@@ -61,7 +65,7 @@ export const useMagentoRoute = (props = {}) => {
         routeData = { isNotFound: true };
     } else {
         // LOADING
-        routeData = { isLoading: true, nextRootComponent };
+        routeData = { isLoading: true, type: nextRootComponent };
     }
 
     // fetch a component if necessary
@@ -74,13 +78,13 @@ export const useMagentoRoute = (props = {}) => {
             if (component) return;
 
             try {
-                const component = await getRootComponent(type);
-                setComponent(pathname, { component, id, type });
-                setNextRootComponent(null);
+                const rootComponent = await getRootComponent(type);
+                setComponent(pathname, { component: rootComponent, id, type });
             } catch (error) {
                 setComponent(pathname, error);
-                setNextRootComponent(null);
             }
+
+            resetLoadingComponent();
         })();
     }, [
         component,
@@ -89,7 +93,7 @@ export const useMagentoRoute = (props = {}) => {
         loading,
         pathname,
         setComponent,
-        setNextRootComponent,
+        resetLoadingComponent,
         type
     ]);
 
