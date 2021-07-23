@@ -34,7 +34,8 @@ const createAccount = (firstName, lastName, accountEmail, accountPassword) => {
     // Enter password into the password field
     cy.get(createAccountSubmitButton)
         .contains('Create an Account')
-        .click();
+        .click()
+        .wait(5000);
 };
 
 Cypress.Commands.add('openLoginDialog', openLoginDialog);

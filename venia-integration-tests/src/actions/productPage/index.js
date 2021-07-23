@@ -9,7 +9,9 @@ import {
  */
 export const addProductToWishlistFromProductPage = () => {
     // add product to wishlist
-    cy.get(productPageAddToWishListButton).click();
+    cy.get(productPageAddToWishListButton)
+        .click()
+        .wait(5000);
 };
 
 /**
@@ -19,7 +21,8 @@ export const addProductToExistingWishlistFromDialog = wishlistName => {
     // add product to wishlist
     cy.get(addProductToWishlist)
         .contains(wishlistName)
-        .click();
+        .click()
+        .wait(5000);
 };
 
 /**
@@ -31,7 +34,9 @@ export const addProductToExistingWishlistFromDialog = wishlistName => {
  */
 export const addSimpleProductToCartFromProductPage = () => {
     // get the add to cart button and click it
+
     cy.get(productPageRoot)
         .contains('button', 'Add to Cart')
-        .click();
+        .click()
+        .wait(5000);
 };
