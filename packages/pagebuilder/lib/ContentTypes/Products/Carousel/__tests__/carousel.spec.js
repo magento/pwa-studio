@@ -17,6 +17,10 @@ jest.mock(
     })
 );
 
+jest.mock('@magento/venia-ui/lib/components/Gallery/item', () => props => (
+    <mock-GalleryItem {...props} />
+));
+
 const items = [
     {
         id: 1,

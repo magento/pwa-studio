@@ -22,6 +22,9 @@ jest.mock('@magento/peregrine/lib/talons/Gallery/useGallery', () => ({
     useGallery: () => ({ storeConfig: jest.fn().mockName('storeConfig') })
 }));
 jest.mock('../../../classify');
+jest.mock('../addToCartButton', () => props => (
+    <mock-AddToCartButton {...props} />
+));
 
 const classes = { root: 'foo' };
 const items = [

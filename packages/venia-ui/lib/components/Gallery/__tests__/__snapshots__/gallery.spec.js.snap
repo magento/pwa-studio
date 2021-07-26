@@ -62,7 +62,29 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       </div>
       <div
         className="actionsContainer"
-      />
+      >
+         
+        <mock-AddToCartButton
+          item={
+            Object {
+              "id": 1,
+              "name": "Test Product 1",
+              "price": Object {
+                "regularPrice": Object {
+                  "amount": Object {
+                    "currency": "USD",
+                    "value": 100,
+                  },
+                },
+              },
+              "small_image": Object {
+                "url": "/test/product/1.png",
+              },
+              "url_key": "test-product1",
+            }
+          }
+        />
+      </div>
     </div>
     <div
       className="root"
@@ -119,7 +141,29 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       </div>
       <div
         className="actionsContainer"
-      />
+      >
+         
+        <mock-AddToCartButton
+          item={
+            Object {
+              "id": 2,
+              "name": "Test Product 2",
+              "price": Object {
+                "regularPrice": Object {
+                  "amount": Object {
+                    "currency": "USD",
+                    "value": 100,
+                  },
+                },
+              },
+              "small_image": Object {
+                "url": "/test/product/2.png",
+              },
+              "url_key": "test-product2",
+            }
+          }
+        />
+      </div>
     </div>
   </div>
 </div>
