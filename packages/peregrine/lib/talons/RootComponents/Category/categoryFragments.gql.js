@@ -10,30 +10,30 @@ export const CategoryFragment = gql`
 `;
 
 export const ProductsFragment = gql`
-fragment ProductsFragment on Products {
-    items {
-        id
-        name
-        price {
-            regularPrice {
-                amount {
-                    currency
-                    value
+    fragment ProductsFragment on Products {
+        items {
+            id
+            name
+            price {
+                regularPrice {
+                    amount {
+                        currency
+                        value
+                    }
                 }
             }
+            sku
+            small_image {
+                url
+            }
+            stock_status
+            type_id
+            url_key
+            url_suffix
         }
-        sku
-        small_image {
-            url
+        page_info {
+            total_pages
         }
-        stock_status
-        type_id
-        url_key
-        url_suffix
+        total_count
     }
-    page_info {
-        total_pages
-    }
-    total_count
-}
 `;

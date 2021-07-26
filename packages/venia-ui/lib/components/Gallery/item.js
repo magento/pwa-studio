@@ -54,7 +54,7 @@ const GalleryItem = props => {
 
     const wishlistButton =
         storeConfig &&
-            storeConfig.magento_wishlist_general_is_enabled === '1' ? (
+        storeConfig.magento_wishlist_general_is_enabled === '1' ? (
             <WishlistGalleryButton item={item} storeConfig={storeConfig} />
         ) : null;
 
@@ -90,7 +90,9 @@ const GalleryItem = props => {
                 />
             </div>
 
-            <div className={classes.actionsContainer}>            <AddToCartbutton item={item} />
+            <div className={classes.actionsContainer}>
+                {' '}
+                <AddToCartbutton item={item} />
                 {wishlistButton}
             </div>
         </div>

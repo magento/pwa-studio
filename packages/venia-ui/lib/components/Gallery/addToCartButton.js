@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, number, shape, bool } from 'prop-types';
+import { string, number, shape } from 'prop-types';
 import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
 
 import Button from '../Button';
@@ -11,25 +11,21 @@ const AddToCartButton = props => {
     const talonProps = useAddToCartButton({
         item: props.item
     });
-    const {
-        handleAddToCart,
-        isDisabled,
-        isInStock
-    } = talonProps;
-    
+    const { handleAddToCart, isDisabled, isInStock } = talonProps;
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const buttonText = isInStock ? "ADD TO CART" : "OUT OF STOCK"; 
+    const buttonText = isInStock ? 'ADD TO CART' : 'OUT OF STOCK';
 
     return (
         <Button
             className={classes.root}
-            disabled ={isDisabled}
+            disabled={isDisabled}
             onClick={handleAddToCart}
             priority="high"
             type="button"
         >
-           {buttonText}
+            {buttonText}
         </Button>
     );
 };
@@ -48,15 +44,15 @@ AddToCartButton.propTypes = {
             url: string
         }),
         stock_status: string.isRequired,
-        type_id: string.isRequired, 
+        type_id: string.isRequired,
         url_key: string.isRequired,
         url_suffix: string,
-        sku: string.isRequired, 
+        sku: string.isRequired,
         price: shape({
             regularPrice: shape({
                 amount: shape({
                     value: number,
-                    currency: string,
+                    currency: string
                 })
             })
         })
