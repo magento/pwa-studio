@@ -3,7 +3,7 @@ import { bool, func, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { useGuestSignIn } from '@magento/peregrine/lib/talons/CheckoutPage/GuestSignIn/useGuestSignIn';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import CreateAccount from '@magento/venia-ui/lib/components/CreateAccount';
 import ForgotPassword from '@magento/venia-ui/lib/components/ForgotPassword';
 import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
@@ -21,7 +21,7 @@ const GuestSignIn = props => {
         view
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const rootClass = isActive ? classes.root : classes.root_hidden;
 

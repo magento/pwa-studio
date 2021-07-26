@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders as expected when the Apollo client has not initialized yet 1`] = `null`;
+
+exports[`renders as expected when the URL does not have a store code 1`] = `
+<i
+  title="ApolloProvider"
+>
+  <i
+    title="ReduxProvider"
+  >
+    <i
+      title="BrowserRouter"
+    >
+      <i
+        title="AppContextProvider"
+      >
+        <i
+          title="App"
+        />
+      </i>
+    </i>
+  </i>
+</i>
+`;
+
+exports[`renders as expected when the URL has a store code 1`] = `
+<i
+  title="ApolloProvider"
+>
+  <i
+    title="ReduxProvider"
+  >
+    <i
+      title="BrowserRouter"
+    >
+      <i
+        title="StoreCodeRoute"
+      />
+      <i
+        title="AppContextProvider"
+      >
+        <i
+          title="App"
+        />
+      </i>
+    </i>
+  </i>
+</i>
+`;

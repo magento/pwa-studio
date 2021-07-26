@@ -1,15 +1,16 @@
 import React from 'react';
 import { string, number, shape } from 'prop-types';
-import { Link, resourceUrl } from '@magento/venia-drivers';
+import { Link } from 'react-router-dom';
 import Price from '@magento/venia-ui/lib/components/Price';
-import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
 import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
+import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Image from '../Image';
 import defaultClasses from './item.css';
-import WishlistGalleryButton from '../Wishlist/GalleryButton';
+import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -39,9 +40,11 @@ const ItemPlaceholder = ({ classes }) => (
 );
 
 const GalleryItem = props => {
-    const { handleLinkClick, item, storeConfig } = useGalleryItem(props);
+    const { handleLinkClick, item, wishlistButtonProps } = useGalleryItem(
+        props
+    );
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     if (!item) {
         return <ItemPlaceholder classes={classes} />;
@@ -51,11 +54,9 @@ const GalleryItem = props => {
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${url_suffix || ''}`);
 
-    const wishlistButton =
-        storeConfig &&
-        storeConfig.magento_wishlist_general_is_enabled === '1' ? (
-            <WishlistGalleryButton item={item} storeConfig={storeConfig} />
-        ) : null;
+    const wishlistButton = wishlistButtonProps ? (
+        <WishlistGalleryButton {...wishlistButtonProps} />
+    ) : null;
 
     return (
         <div className={classes.root}>

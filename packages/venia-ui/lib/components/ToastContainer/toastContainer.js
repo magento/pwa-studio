@@ -2,7 +2,7 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 import { useToasts } from '@magento/peregrine';
 import Toast from './toast';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './toastContainer.css';
 
 /**
@@ -19,7 +19,7 @@ import defaultClasses from './toastContainer.css';
  * @returns {React.Element} A React component that displays toast notification data.
  */
 const ToastContainer = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const [{ toasts }] = useToasts();
 
     // Given a map of toasts each with a property "timestamp", sort and display

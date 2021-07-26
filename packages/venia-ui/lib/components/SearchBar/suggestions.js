@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { useSuggestions } from '@magento/peregrine/lib/talons/SearchBar';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import SuggestedCategories from './suggestedCategories';
 import SuggestedProducts from './suggestedProducts';
 import defaultClasses from './suggestions.css';
@@ -27,13 +27,12 @@ const Suggestions = props => {
         visible
     });
     const { categories, onNavigate, shouldRender } = talonProps;
+    const classes = useStyle(defaultClasses, props.classes);
 
     // render null without data
     if (!shouldRender) {
         return null;
     }
-
-    const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
         <Fragment>

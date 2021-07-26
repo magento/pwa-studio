@@ -1,15 +1,15 @@
 import React, { useMemo } from 'react';
-import { shape, string, func } from 'prop-types';
+import { func, shape, string } from 'prop-types';
+import { useIntl } from 'react-intl';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import CurrentFilter from './currentFilter';
 import defaultClasses from './currentFilters.css';
-import { useIntl } from 'react-intl';
 
 const CurrentFilters = props => {
     const { filterApi, filterState, onRemove } = props;
     const { removeItem } = filterApi;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
 
     // create elements and params at the same time for efficiency

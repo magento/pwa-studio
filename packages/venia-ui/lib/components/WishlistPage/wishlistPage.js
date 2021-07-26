@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useWishlistPage } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistPage';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Wishlist from './wishlist';
 import defaultClasses from './wishlistPage.css';
@@ -21,16 +21,20 @@ const WishlistPage = props => {
     const { formatMessage } = useIntl();
     const error = errors.get('getCustomerWishlistQuery');
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const WISHLIST_DISABLED_MESSAGE = formatMessage({
         id: 'wishlistPage.wishlistDisabledMessage',
         defaultMessage: 'The wishlist is not currently available.'
     });
     const wishlistElements = useMemo(() => {
-        if (wishlists.length === 0) return null;
-        return wishlists.map(wishlist => (
+        if (wishlists.length === 0) {
+            return <Wishlist />;
+        }
+
+        return wishlists.map((wishlist, index) => (
             <Wishlist
                 key={wishlist.id}
+                isCollapsed={index !== 0}
                 data={wishlist}
                 shouldRenderVisibilityToggle={shouldRenderVisibilityToggle}
             />

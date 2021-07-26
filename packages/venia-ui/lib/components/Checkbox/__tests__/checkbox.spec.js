@@ -14,6 +14,11 @@ const classes = ['icon', 'input', 'label', 'message', 'root'].reduce(
 
 const props = { classes, field, label };
 
+beforeAll(() => {
+    // informed's random ids make snapshots unstable
+    jest.spyOn(Math, 'random').mockReturnValue(0);
+});
+
 test('renders the correct tree', () => {
     const tree = createTestInstance(
         <Form>

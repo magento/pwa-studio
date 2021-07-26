@@ -15,7 +15,7 @@ import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 
 import defaultClasses from './braintreeDropin.css';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
 
@@ -36,7 +36,7 @@ const BraintreeDropin = props => {
         shouldTeardownDropin,
         resetShouldTeardownDropin
     } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const [isError, setIsError] = useState(false);
     const [dropinInstance, setDropinInstance] = useState();
 

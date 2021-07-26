@@ -6,7 +6,7 @@ const fakeSeconds = jest.fn();
 const fakeRandom = jest.fn();
 
 const fakeWindow = {
-    location: window.location,
+    location: globalThis.location,
     Date: class {
         getSeconds() {
             return fakeSeconds();

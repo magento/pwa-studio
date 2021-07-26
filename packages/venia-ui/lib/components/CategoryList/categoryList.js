@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { string, number, shape } from 'prop-types';
 import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useCategoryList';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 import defaultClasses from './categoryList.css';
@@ -34,7 +34,7 @@ const CategoryList = props => {
     const talonProps = useCategoryList({ id });
     const { childCategories, error, loading } = talonProps;
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const header = title ? (
         <div className={classes.header}>

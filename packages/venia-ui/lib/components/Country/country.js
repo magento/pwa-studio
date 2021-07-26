@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { useCountry } from '@magento/peregrine/lib/talons/Country/useCountry';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Field from '../Field';
 import Select from '../Select';
 import defaultClasses from './country.css';
@@ -25,7 +25,7 @@ const Country = props => {
     } = props;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const selectProps = {
         classes,
         disabled: loading,

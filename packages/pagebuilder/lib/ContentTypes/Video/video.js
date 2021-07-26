@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './video.css';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, shape, string, bool } from 'prop-types';
 
 /**
@@ -16,7 +16,7 @@ import { arrayOf, shape, string, bool } from 'prop-types';
  * @returns {React.Element} A React component that displays a Video using an iframe.
  */
 const Video = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const {
         url = '',
         autoplay,

@@ -10,7 +10,6 @@
     "pageLoadTimeout": 30000,
     "requestTimeout": 30000,
     "testFiles": "**/*.spec.js",
-    "video": false,
     "viewportHeight": 900,
     "viewportWidth": 1440,
     "scrollBehavior": "nearest",

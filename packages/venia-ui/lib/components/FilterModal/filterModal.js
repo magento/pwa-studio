@@ -5,7 +5,7 @@ import { array, arrayOf, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import LinkButton from '../LinkButton';
 import { Portal } from '../Portal';
@@ -35,7 +35,7 @@ const FilterModal = props => {
         isOpen
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const modalClass = isOpen ? classes.root_open : classes.root;
 
     const filtersList = useMemo(

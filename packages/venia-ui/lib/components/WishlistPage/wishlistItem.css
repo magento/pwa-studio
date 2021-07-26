@@ -4,6 +4,11 @@
     row-gap: 0.5rem;
 }
 
+.root_disabled {
+    composes: root;
+    opacity: 0.5;
+}
+
 .name {
     font-size: var(--venia-typography-detail-XL-fontSize);
     font-weight: var(--venia-global-fontWeight-semibold);
@@ -42,6 +47,16 @@
     composes: root_highPriority from '../Button/button.css';
     justify-self: left;
     margin-top: 0.25rem;
+}
+
+.deleteItem {
+    margin: 0 0.5rem 0 1rem;
+    justify-self: right;
+}
+
+.actionWrap {
+    display: flex;
+    align-items: flex-start;
 }
 
 .moreActions {

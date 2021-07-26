@@ -7,7 +7,7 @@ import {
     Rewind as RewindIcon
 } from 'react-feather';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import defaultClasses from './navButton.css';
 
@@ -20,7 +20,7 @@ const icons = new Map()
 const NavButton = props => {
     const { active, buttonLabel, name, onClick } = props;
     const iconSrc = icons.get(name);
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const iconClass = active ? classes.icon : classes.icon_disabled;
 
