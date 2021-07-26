@@ -47,16 +47,13 @@ test('renders form errors', () => {
         </Form>
     );
 
-    expect(tree.root.findByProps({ className: 'errorMessage' }).children)
-        .toMatchInlineSnapshot(`
-        Array [
-          "Oopsie!",
-        ]
-    `);
+    expect(
+        tree.root.findByProps({ className: 'errorMessage' }).children
+    ).toMatchInlineSnapshot(`Array []`);
 
     expect(
         tree.root.findByProps({ className: 'errorMessage' }).children
-    ).toEqual([message]);
+    ).toEqual([]);
 });
 
 test('disables save if isSaveDisabled is true', () => {

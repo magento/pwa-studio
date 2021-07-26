@@ -16,7 +16,7 @@ const FormError = props => {
 
     const graphQLErrorMessage = () => {
         if (Array.isArray(errors) && errors.length > 0) {
-            return errors.map(error => {  
+            return errors.map(error => {
                 if (error) {
                     const { graphQLErrors } = error;
                     if (graphQLErrors) {
@@ -27,7 +27,7 @@ const FormError = props => {
                         });
                     }
                 }
-            })
+            });
         }
     };
 
