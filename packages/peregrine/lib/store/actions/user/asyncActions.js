@@ -38,20 +38,6 @@ export const getUserDetails = ({ fetchUserDetails }) =>
     async function thunk(...args) {
         const [dispatch, getState] = args;
 
-        // check if the user's token is not expired
-        const storage = new BrowserPersistence();
-        const now = Date.now();
-        const item = storage.getRawItem('signin_token');
-        if (item) {
-            const { ttl, timeStored } = JSON.parse(item);
-            if (ttl && now - timeStored > ttl * 1000) {
-                // if the token's TTYL has expired, we need to sign out
-                dispatch(signOut());
-
-                return;
-            }
-        }
-
         const { user } = getState();
 
         if (user.isSignedIn) {
