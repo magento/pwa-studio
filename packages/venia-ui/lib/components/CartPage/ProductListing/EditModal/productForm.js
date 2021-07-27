@@ -191,14 +191,6 @@ export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
         $variantSku: String!
         $quantity: Float!
     ) {
-        removeItemFromCart(
-            input: { cart_id: $cartId, cart_item_id: $cartItemId }
-        ) @connection(key: "removeItemFromCart") {
-            cart {
-                id
-            }
-        }
-
         addConfigurableProductsToCart(
             input: {
                 cart_id: $cartId
@@ -210,6 +202,14 @@ export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
                 ]
             }
         ) @connection(key: "addConfigurableProductsToCart") {
+            cart {
+                id
+            }
+        }
+
+        removeItemFromCart(
+            input: { cart_id: $cartId, cart_item_id: $cartItemId }
+        ) @connection(key: "removeItemFromCart") {
             cart {
                 id
                 ...CartPageFragment
