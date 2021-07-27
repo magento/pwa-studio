@@ -176,6 +176,7 @@ export const useProductForm = props => {
             cartId,
             cartItem,
             handleClose,
+            optionSelections.size,
             selectedVariant,
             updateConfigurableOptions,
             updateItemQuantity
