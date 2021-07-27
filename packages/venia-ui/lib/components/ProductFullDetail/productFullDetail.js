@@ -146,6 +146,22 @@ const ProductFullDetail = props => {
         </div>
     );
 
+    const quantityContent = isSupportedProductType ? (
+        <section className={classes.quantity}>
+            <h2 className={classes.quantityTitle}>
+                <FormattedMessage
+                    id={'global.quantity'}
+                    defaultMessage={'Quantity'}
+                />
+            </h2>
+            <QuantityFields
+                classes={{ root: classes.quantityRoot }}
+                min={1}
+                message={errors.get('quantity')}
+            />
+        </section>
+    ) : null;
+
     return (
         <Fragment>
             {breadcrumbs}
@@ -171,19 +187,7 @@ const ProductFullDetail = props => {
                     errors={errors.get('form') || []}
                 />
                 <section className={classes.options}>{options}</section>
-                <section className={classes.quantity}>
-                    <h2 className={classes.quantityTitle}>
-                        <FormattedMessage
-                            id={'global.quantity'}
-                            defaultMessage={'Quantity'}
-                        />
-                    </h2>
-                    <QuantityFields
-                        classes={{ root: classes.quantityRoot }}
-                        min={1}
-                        message={errors.get('quantity')}
-                    />
-                </section>
+                {quantityContent}
                 <section className={classes.actions}>
                     {cartActionContent}
                     <Suspense fallback={null}>
