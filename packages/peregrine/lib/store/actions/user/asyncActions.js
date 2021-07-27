@@ -37,7 +37,6 @@ export const signOut = (payload = {}) =>
 export const getUserDetails = ({ fetchUserDetails }) =>
     async function thunk(...args) {
         const [dispatch, getState] = args;
-
         const { user } = getState();
 
         if (user.isSignedIn) {
