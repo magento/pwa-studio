@@ -24,6 +24,11 @@ const MagentoRoute = () => {
     } = talonProps;
 
     if (isLoading || isRedirect) {
+        // Show previous component
+        if (RootComponent) {
+            return <RootComponent id={id} />;
+        }
+
         return <RootShimmerComponent type={type} />;
     } else if (RootComponent) {
         return <RootComponent id={id} />;

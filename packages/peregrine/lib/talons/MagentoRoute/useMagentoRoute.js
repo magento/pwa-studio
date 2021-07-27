@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
@@ -14,10 +14,11 @@ export const useMagentoRoute = (props = {}) => {
     const { replace } = useHistory();
     const { pathname } = useLocation();
     const [componentMap, setComponentMap] = useRootComponents();
+    const [previousPathname, setPreviousPathname] = useState(null);
     const [
         { nextRootComponent },
         {
-            actions: { setNextRootComponent }
+            actions: { setNextRootComponent, setPageLoading }
         }
     ] = useAppContext();
 
@@ -30,7 +31,7 @@ export const useMagentoRoute = (props = {}) => {
 
     const resetLoadingComponent = useCallback(() => {
         setNextRootComponent(null);
-    }, [setNextRootComponent ]);
+    }, [setNextRootComponent]);
 
     const queryResult = useQuery(resolveUrlQuery, {
         fetchPolicy: 'cache-and-network',
@@ -45,10 +46,13 @@ export const useMagentoRoute = (props = {}) => {
 
     // evaluate both results and determine the response type
     const component = componentMap.get(pathname);
+    const previousComponent = previousPathname ? componentMap.get(previousPathname) : null;
     const empty = !urlResolver || !type || id < 1;
     const redirect = isRedirect(redirectCode);
     const fetchError = component instanceof Error && component;
     const routeError = fetchError || error;
+    const previousFetchError = previousComponent instanceof Error;
+    let showPageLoader = false;
     let routeData;
 
     if (component && !fetchError) {
@@ -63,6 +67,9 @@ export const useMagentoRoute = (props = {}) => {
     } else if (empty && !loading) {
         // NOT FOUND
         routeData = { isNotFound: true };
+    } else if (previousComponent && !previousFetchError) {
+        showPageLoader = true;
+        routeData = { isLoading: true, ...previousComponent };
     } else {
         // LOADING
         routeData = { isLoading: true, type: nextRootComponent };
@@ -93,6 +100,7 @@ export const useMagentoRoute = (props = {}) => {
         loading,
         pathname,
         setComponent,
+        setPreviousPathname,
         resetLoadingComponent,
         type
     ]);
@@ -103,6 +111,17 @@ export const useMagentoRoute = (props = {}) => {
             replace(routeData.relativeUrl);
         }
     }, [pathname, replace, routeData]);
+
+    useEffect(() => {
+        if (component) {
+            // Store pathname after component has changed
+            setPreviousPathname(pathname);
+        }
+    }, [component]);
+
+    useEffect(() => {
+        setPageLoading(showPageLoader);
+    }, [showPageLoader])
 
     return routeData;
 };
