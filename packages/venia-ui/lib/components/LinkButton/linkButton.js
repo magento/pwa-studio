@@ -1,7 +1,7 @@
 import React from 'react';
 import { oneOf, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './linkButton.css';
 import Button from '../Button';
 
@@ -17,7 +17,7 @@ import Button from '../Button';
  */
 const LinkButton = props => {
     const { children, classes: propClasses, type, ...restProps } = props;
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     return (
         <Button

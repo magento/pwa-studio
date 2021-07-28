@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 
 import Icon from '../Icon';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './searchTrigger.css';
 import { useSearchTrigger } from '@magento/peregrine/lib/talons/Header/useSearchTrigger';
 
@@ -18,7 +18,7 @@ const SearchTrigger = React.forwardRef((props, ref) => {
     const { handleClick } = talonProps;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const searchClass = active ? classes.open : classes.root;
 

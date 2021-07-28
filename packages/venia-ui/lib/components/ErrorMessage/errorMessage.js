@@ -1,13 +1,13 @@
 import React from 'react';
 import { node, shape, string } from 'prop-types';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './errorMessage.css';
 
 const ErrorMessage = React.forwardRef((props, ref) => {
     const { children } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <div className={classes.root} ref={ref}>

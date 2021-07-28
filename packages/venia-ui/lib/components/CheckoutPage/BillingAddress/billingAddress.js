@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { shape, string, func, bool } from 'prop-types';
 import { useIntl } from 'react-intl';
 import Country from '@magento/venia-ui/lib/components/Country';
@@ -16,25 +16,16 @@ import defaultClasses from './billingAddress.css';
 import { useBillingAddress } from '@magento/peregrine/lib/talons/CheckoutPage/BillingAddress/useBillingAddress';
 
 const BillingAddress = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const { formatMessage } = useIntl();
-
-    const {
-        shouldSubmit,
-        onBillingAddressChangedError,
-        onBillingAddressChangedSuccess
-    } = props;
+    const classes = useStyle(defaultClasses, props.classes);
 
     const {
         isBillingAddressSame,
         initialValues,
         shippingAddressCountry,
         errors
-    } = useBillingAddress({
-        shouldSubmit,
-        onBillingAddressChangedError,
-        onBillingAddressChangedSuccess
-    });
+    } = useBillingAddress(props);
+
+    const { formatMessage } = useIntl();
 
     /**
      * Instead of defining classes={root: classes.FIELD_NAME}

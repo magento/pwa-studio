@@ -111,7 +111,7 @@ function errorReducer(state, action) {
                     // `errorRecord()` requires the window argument for
                     // testability, through injection of the
                     // non-idempotent Date and Math methods for IDs.
-                    window,
+                    globalThis,
                     // Also call `errorRecord()` with the current
                     // context, which is the root reducer; that enables
                     // it to trim useful stack traces by omitting

@@ -150,11 +150,11 @@ To use these dependent components without copying them into your project, you mu
 Update the relative imports in `src/components/Footer/footer.js`.
 
 ```diff
-- import { mergeClasses } from '../../classify';
+- import { useStyle } from '../../classify';
 - import defaultClasses from './footer.css';
 - import { DEFAULT_LINKS, LOREM_IPSUM } from "./sampleData";
 - import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
-+ import { mergeClasses } from '@magento/venia-ui/lib/classify';
++ import { useStyle } from '@magento/venia-ui/lib/classify';
 + import defaultClasses from '@magento/venia-ui/lib/components/Footer/footer.css';
 + import { DEFAULT_LINKS, LOREM_IPSUM } from "@magento/venia-ui/lib/components/Footer/sampleData";
 + import GET_STORE_CONFIG_DATA from '@magento/venia-ui/lib/queries/getStoreConfigData.graphql';
@@ -174,8 +174,8 @@ Update the relative imports in `src/components/Main/main.js`.
 Skip updating the Footer import statement to use your project's modified Footer component.
 
 ```diff
-- import { mergeClasses } from '../../classify';
-+ import { mergeClasses } from '@magento/venia-ui/lib/classify';
+- import { useStyle } from '../../classify';
++ import { useStyle } from '@magento/venia-ui/lib/classify';
   import Footer from '../Footer';
 - import Header from '../Header';
 - import defaultClasses from './main.css';

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import AddEditDialog from '../addEditDialog';
@@ -20,9 +21,18 @@ const props = {
     onConfirm: jest.fn().mockName('onConfirm')
 };
 
+beforeAll(() => {
+    // informed's random ids make snapshots unstable
+    jest.spyOn(Math, 'random').mockReturnValue(0);
+});
+
 it('renders correctly', () => {
     // Act.
-    const instance = createTestInstance(<AddEditDialog {...props} />);
+    const instance = createTestInstance(
+        <Form>
+            <AddEditDialog {...props} />
+        </Form>
+    );
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -39,7 +49,11 @@ it('renders correctly with errors', () => {
     };
 
     // Act.
-    const instance = createTestInstance(<AddEditDialog {...testProps} />);
+    const instance = createTestInstance(
+        <Form>
+            <AddEditDialog {...testProps} />
+        </Form>
+    );
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -67,7 +81,9 @@ describe('Edit Mode', () => {
     it('renders correctly', () => {
         // Act.
         const instance = createTestInstance(
-            <AddEditDialog {...editModeProps} />
+            <Form>
+                <AddEditDialog {...editModeProps} />
+            </Form>
         );
 
         // Assert.
@@ -85,7 +101,11 @@ describe('Edit Mode', () => {
         };
 
         // Act.
-        const instance = createTestInstance(<AddEditDialog {...testProps} />);
+        const instance = createTestInstance(
+            <Form>
+                <AddEditDialog {...testProps} />
+            </Form>
+        );
 
         // Assert.
         expect(instance.toJSON()).toMatchSnapshot();

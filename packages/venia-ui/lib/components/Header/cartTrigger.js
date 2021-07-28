@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 
 import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrigger';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import defaultClasses from './cartTrigger.css';
 import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
@@ -28,7 +28,7 @@ const CartTrigger = props => {
         }
     });
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
     const buttonAriaLabel = formatMessage(
         {

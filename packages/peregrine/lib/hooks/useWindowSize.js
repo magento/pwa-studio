@@ -1,14 +1,15 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import { useEventListener } from './useEventListener';
 
 const WindowSizeContext = createContext();
 
 const getSize = () => {
+    // 1080x1920 is a common iPhone resolution
     return {
-        innerHeight: window.innerHeight,
-        innerWidth: window.innerWidth,
-        outerHeight: window.outerHeight,
-        outerWidth: window.outerWidth
+        innerHeight: globalThis.innerHeight || 1920,
+        innerWidth: globalThis.innerWidth || 1080,
+        outerHeight: globalThis.outerHeight || 1920,
+        outerWidth: globalThis.outerWidth || 1080
     };
 };
 
@@ -21,12 +22,13 @@ const getSize = () => {
  */
 const useWindowSizeListener = () => {
     const [windowSize, setWindowSize] = useState(getSize());
+    const element = globalThis.document ? window : null;
 
-    const handleResize = () => {
+    const handleResize = useCallback(() => {
         setWindowSize(getSize());
-    };
+    }, [setWindowSize]);
 
-    useEventListener(window, 'resize', handleResize);
+    useEventListener(element, 'resize', handleResize);
 
     return windowSize;
 };

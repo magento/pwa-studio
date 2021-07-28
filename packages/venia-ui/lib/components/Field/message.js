@@ -3,14 +3,14 @@ import { useIntl } from 'react-intl';
 import { node, number, oneOfType, shape, string } from 'prop-types';
 
 import defaultClasses from './message.css';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 
 const Message = props => {
     const { children, classes: propClasses, fieldState } = props;
     const { formatMessage } = useIntl();
     const { error } = fieldState;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
     const className = error ? classes.root_error : classes.root;
     let translatedErrorMessage;
 

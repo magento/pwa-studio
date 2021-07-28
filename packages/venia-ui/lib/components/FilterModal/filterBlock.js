@@ -6,7 +6,7 @@ import { Form } from 'informed';
 import { useFilterBlock } from '@magento/peregrine/lib/talons/FilterModal';
 import setValidator from '@magento/peregrine/lib/validators/set';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import FilterList from './FilterList';
 import defaultClasses from './filterBlock.css';
@@ -30,7 +30,7 @@ const FilterBlock = props => {
     });
     const { handleClick, isExpanded } = talonProps;
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const listClass = isExpanded
         ? classes.list_expanded
         : classes.list_collapsed;

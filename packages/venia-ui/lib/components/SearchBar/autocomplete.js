@@ -5,7 +5,7 @@ import { useAutocomplete } from '@magento/peregrine/lib/talons/SearchBar';
 import { useIntl } from 'react-intl';
 
 import defaultClasses from './autocomplete.css';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Suggestions from './suggestions';
 
 const GET_AUTOCOMPLETE_RESULTS = gql`
@@ -64,7 +64,7 @@ const Autocomplete = props => {
         value
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const rootClassName = visible ? classes.root_visible : classes.root_hidden;
 
     const { formatMessage } = useIntl();

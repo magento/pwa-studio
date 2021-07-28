@@ -3,7 +3,7 @@ import { number, shape, string } from 'prop-types';
 
 import Price from '@magento/venia-ui/lib/components/Price';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 
 import defaultClasses from './totalsSummary.css';
 
@@ -14,7 +14,7 @@ const TotalsSummary = props => {
     const { currencyCode, numItems, subtotal } = props;
 
     // Members.
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const hasSubtotal = Boolean(subtotal);
     const numItemsText = numItems === 1 ? 'item' : 'items';
     const subtotalValueString = `(${numItems} ${numItemsText})`;

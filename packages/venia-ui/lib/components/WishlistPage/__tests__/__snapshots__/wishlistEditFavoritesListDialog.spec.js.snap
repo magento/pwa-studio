@@ -1,649 +1,341 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly when closed 1`] = `
-<Dialog
-  cancelText="Cancel"
-  cancelTranslationId="global.cancelButton"
-  classes={
-    Object {
-      "cancelButton": "cancelButton",
-      "confirmButton": "confirmButton",
-    }
-  }
-  confirmText="Save"
-  confirmTranslationId="global.save"
-  isModal={true}
-  isOpen={false}
-  onCancel={[MockFunction onCancel]}
-  onConfirm={[MockFunction onConfirm]}
-  shouldDisableAllButtons={false}
-  title="Edit Favorites List"
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
-  <div
-    className="root"
-  >
-    <FormError
-      classes={
-        Object {
-          "root": "errorMessage",
-        }
+  <Dialog
+    cancelText="Cancel"
+    cancelTranslationId="global.cancelButton"
+    classes={
+      Object {
+        "cancelButton": "cancelButton",
+        "confirmButton": "confirmButton",
       }
-      errors={Map {}}
-    />
+    }
+    confirmText="Save"
+    confirmTranslationId="global.save"
+    isModal={true}
+    isOpen={false}
+    onCancel={[MockFunction onCancel]}
+    onConfirm={[MockFunction onConfirm]}
+    shouldDisableAllButtons={false}
+    title="Edit Favorites List"
+  >
     <div
-      className="form"
+      className="root"
     >
-      <div
-        className="root"
-      >
-        <label
-          className="label"
-        >
-          List Name
-        </label>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
+      <FormError
+        classes={
+          Object {
+            "root": "errorMessage",
           }
+        }
+        errors={Map {}}
+      />
+      <div
+        className="form"
+      >
+        <div
+          className="root"
         >
-          <span
-            className="input"
+          <label
+            className="label"
           >
-            <input
+            List Name
+          </label>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
               className="input"
-              id="name"
-              name="name"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
+            >
+              <input
+                className="input"
+                id="name"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                value=""
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
             />
           </span>
-          <span
-            className="before"
+          <p
+            className="root"
           />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
+        </div>
       </div>
-      <div
-        className="root"
-      >
-        <label
-          className="root"
-        >
-          <input
-            checked={false}
-            className="input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            type="radio"
-            value="PRIVATE"
-          />
-          <span
-            className="icon"
-          >
-            <svg
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-            </svg>
-          </span>
-          <span
-            className="label"
-          >
-            Private
-          </span>
-        </label>
-        <label
-          className="root"
-        >
-          <input
-            checked={false}
-            className="input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            type="radio"
-            value="PUBLIC"
-          />
-          <span
-            className="icon"
-          >
-            <svg
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-            </svg>
-          </span>
-          <span
-            className="label"
-          >
-            Public
-          </span>
-        </label>
-      </div>
-      <p
-        className="root"
-      />
     </div>
-  </div>
-</Dialog>
+  </Dialog>
+</form>
 `;
 
 exports[`renders correctly when edit is in progress 1`] = `
-<Dialog
-  cancelText="Cancel"
-  cancelTranslationId="global.cancelButton"
-  classes={
-    Object {
-      "cancelButton": "cancelButton",
-      "confirmButton": "confirmButton",
-    }
-  }
-  confirmText="Save"
-  confirmTranslationId="global.save"
-  isModal={true}
-  isOpen={false}
-  onCancel={[MockFunction onCancel]}
-  onConfirm={[MockFunction onConfirm]}
-  shouldDisableAllButtons={true}
-  title="Edit Favorites List"
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
-  <div
-    className="root"
-  >
-    <FormError
-      classes={
-        Object {
-          "root": "errorMessage",
-        }
+  <Dialog
+    cancelText="Cancel"
+    cancelTranslationId="global.cancelButton"
+    classes={
+      Object {
+        "cancelButton": "cancelButton",
+        "confirmButton": "confirmButton",
       }
-      errors={Map {}}
-    />
+    }
+    confirmText="Save"
+    confirmTranslationId="global.save"
+    isModal={true}
+    isOpen={false}
+    onCancel={[MockFunction onCancel]}
+    onConfirm={[MockFunction onConfirm]}
+    shouldDisableAllButtons={true}
+    title="Edit Favorites List"
+  >
     <div
-      className="form"
+      className="root"
     >
-      <div
-        className="root"
-      >
-        <label
-          className="label"
-        >
-          List Name
-        </label>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
+      <FormError
+        classes={
+          Object {
+            "root": "errorMessage",
           }
+        }
+        errors={Map {}}
+      />
+      <div
+        className="form"
+      >
+        <div
+          className="root"
         >
-          <span
-            className="input"
+          <label
+            className="label"
           >
-            <input
+            List Name
+          </label>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
               className="input"
-              id="name"
-              name="name"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
+            >
+              <input
+                className="input"
+                id="name"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                value=""
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
             />
           </span>
-          <span
-            className="before"
+          <p
+            className="root"
           />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
+        </div>
       </div>
-      <div
-        className="root"
-      >
-        <label
-          className="root"
-        >
-          <input
-            checked={false}
-            className="input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            type="radio"
-            value="PRIVATE"
-          />
-          <span
-            className="icon"
-          >
-            <svg
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-            </svg>
-          </span>
-          <span
-            className="label"
-          >
-            Private
-          </span>
-        </label>
-        <label
-          className="root"
-        >
-          <input
-            checked={false}
-            className="input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            type="radio"
-            value="PUBLIC"
-          />
-          <span
-            className="icon"
-          >
-            <svg
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-            </svg>
-          </span>
-          <span
-            className="label"
-          >
-            Public
-          </span>
-        </label>
-      </div>
-      <p
-        className="root"
-      />
     </div>
-  </div>
-</Dialog>
+  </Dialog>
+</form>
 `;
 
 exports[`renders correctly when opened 1`] = `
-<Dialog
-  cancelText="Cancel"
-  cancelTranslationId="global.cancelButton"
-  classes={
-    Object {
-      "cancelButton": "cancelButton",
-      "confirmButton": "confirmButton",
-    }
-  }
-  confirmText="Save"
-  confirmTranslationId="global.save"
-  isModal={true}
-  isOpen={true}
-  onCancel={[MockFunction onCancel]}
-  onConfirm={[MockFunction onConfirm]}
-  shouldDisableAllButtons={false}
-  title="Edit Favorites List"
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
-  <div
-    className="root"
-  >
-    <FormError
-      classes={
-        Object {
-          "root": "errorMessage",
-        }
+  <Dialog
+    cancelText="Cancel"
+    cancelTranslationId="global.cancelButton"
+    classes={
+      Object {
+        "cancelButton": "cancelButton",
+        "confirmButton": "confirmButton",
       }
-      errors={Map {}}
-    />
+    }
+    confirmText="Save"
+    confirmTranslationId="global.save"
+    isModal={true}
+    isOpen={true}
+    onCancel={[MockFunction onCancel]}
+    onConfirm={[MockFunction onConfirm]}
+    shouldDisableAllButtons={false}
+    title="Edit Favorites List"
+  >
     <div
-      className="form"
+      className="root"
     >
-      <div
-        className="root"
-      >
-        <label
-          className="label"
-        >
-          List Name
-        </label>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
+      <FormError
+        classes={
+          Object {
+            "root": "errorMessage",
           }
+        }
+        errors={Map {}}
+      />
+      <div
+        className="form"
+      >
+        <div
+          className="root"
         >
-          <span
-            className="input"
+          <label
+            className="label"
           >
-            <input
+            List Name
+          </label>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
               className="input"
-              id="name"
-              name="name"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
+            >
+              <input
+                className="input"
+                id="name"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                value=""
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
             />
           </span>
-          <span
-            className="before"
+          <p
+            className="root"
           />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
+        </div>
       </div>
-      <div
-        className="root"
-      >
-        <label
-          className="root"
-        >
-          <input
-            checked={false}
-            className="input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            type="radio"
-            value="PRIVATE"
-          />
-          <span
-            className="icon"
-          >
-            <svg
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-            </svg>
-          </span>
-          <span
-            className="label"
-          >
-            Private
-          </span>
-        </label>
-        <label
-          className="root"
-        >
-          <input
-            checked={false}
-            className="input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            type="radio"
-            value="PUBLIC"
-          />
-          <span
-            className="icon"
-          >
-            <svg
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-            </svg>
-          </span>
-          <span
-            className="label"
-          >
-            Public
-          </span>
-        </label>
-      </div>
-      <p
-        className="root"
-      />
     </div>
-  </div>
-</Dialog>
+  </Dialog>
+</form>
 `;
 
 exports[`renders correctly with error 1`] = `
-<Dialog
-  cancelText="Cancel"
-  cancelTranslationId="global.cancelButton"
-  classes={
-    Object {
-      "cancelButton": "cancelButton",
-      "confirmButton": "confirmButton",
-    }
-  }
-  confirmText="Save"
-  confirmTranslationId="global.save"
-  isModal={true}
-  isOpen={false}
-  onCancel={[MockFunction onCancel]}
-  onConfirm={[MockFunction onConfirm]}
-  shouldDisableAllButtons={false}
-  title="Edit Favorites List"
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
-  <div
-    className="root"
+  <Dialog
+    cancelText="Cancel"
+    cancelTranslationId="global.cancelButton"
+    classes={
+      Object {
+        "cancelButton": "cancelButton",
+        "confirmButton": "confirmButton",
+      }
+    }
+    confirmText="Save"
+    confirmTranslationId="global.save"
+    isModal={true}
+    isOpen={false}
+    onCancel={[MockFunction onCancel]}
+    onConfirm={[MockFunction onConfirm]}
+    shouldDisableAllButtons={false}
+    title="Edit Favorites List"
   >
-    <FormError
-      classes={
-        Object {
-          "root": "errorMessage",
-        }
-      }
-      errors={
-        Map {
-          "updateWishlistMutation" => "Unit Test Error 1",
-        }
-      }
-    />
     <div
-      className="form"
+      className="root"
     >
-      <div
-        className="root"
-      >
-        <label
-          className="label"
-        >
-          List Name
-        </label>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
+      <FormError
+        classes={
+          Object {
+            "root": "errorMessage",
           }
+        }
+        errors={
+          Map {
+            "updateWishlistMutation" => "Unit Test Error 1",
+          }
+        }
+      />
+      <div
+        className="form"
+      >
+        <div
+          className="root"
         >
-          <span
-            className="input"
+          <label
+            className="label"
           >
-            <input
+            List Name
+          </label>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
               className="input"
-              id="name"
-              name="name"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
+            >
+              <input
+                className="input"
+                id="name"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                value=""
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
             />
           </span>
-          <span
-            className="before"
+          <p
+            className="root"
           />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
+        </div>
       </div>
-      <div
-        className="root"
-      >
-        <label
-          className="root"
-        >
-          <input
-            checked={false}
-            className="input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            type="radio"
-            value="PRIVATE"
-          />
-          <span
-            className="icon"
-          >
-            <svg
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-            </svg>
-          </span>
-          <span
-            className="label"
-          >
-            Private
-          </span>
-        </label>
-        <label
-          className="root"
-        >
-          <input
-            checked={false}
-            className="input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            type="radio"
-            value="PUBLIC"
-          />
-          <span
-            className="icon"
-          >
-            <svg
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-            </svg>
-          </span>
-          <span
-            className="label"
-          >
-            Public
-          </span>
-        </label>
-      </div>
-      <p
-        className="root"
-      />
     </div>
-  </div>
-</Dialog>
+  </Dialog>
+</form>
 `;

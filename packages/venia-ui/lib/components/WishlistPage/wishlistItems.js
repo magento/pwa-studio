@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo } from 'react';
 import { useWishlistItems } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItems';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './wishlistItems.css';
 import WishlistItem from './wishlistItem';
 import AddToCartDialog from '../AddToCartDialog';
@@ -16,7 +16,7 @@ const WishlistItems = props => {
         handleOpenAddToCartDialog
     } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const itemElements = useMemo(() => {
         return items.map(item => {

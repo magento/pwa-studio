@@ -33,7 +33,7 @@ export const generateUrlFromContainerWidth = (
     type = 'image-product',
     ratio = DEFAULT_WIDTH_TO_HEIGHT_RATIO
 ) => {
-    const intrinsicWidth = window.devicePixelRatio * containerWidth;
+    const intrinsicWidth = (globalThis.devicePixelRatio || 1) * containerWidth;
 
     /**
      * Find the best width that is closest to the intrinsicWidth.

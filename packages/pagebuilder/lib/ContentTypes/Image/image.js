@@ -1,9 +1,10 @@
 import React from 'react';
 import defaultClasses from './image.css';
 import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
-import { Link, resourceUrl } from '@magento/venia-drivers';
+import { Link } from 'react-router-dom';
 import resolveLinkProps from '../../resolveLinkProps';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 /**
  * Page Builder Image component.
@@ -18,7 +19,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
  * @returns {React.Element} A React component that displays an Image.
  */
 const Image = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const {
         desktopImage,
         mobileImage,
@@ -102,7 +103,10 @@ const Image = props => {
         const LinkComponent = linkProps.to ? Link : 'a';
 
         return (
-            <figure style={figureStyles} className={cssClasses.join(' ')}>
+            <figure
+                style={figureStyles}
+                className={[classes.root, ...cssClasses].join(' ')}
+            >
                 <LinkComponent
                     {...linkProps}
                     {...(openInNewTab ? { target: '_blank' } : '')}
@@ -113,7 +117,10 @@ const Image = props => {
         );
     } else {
         return (
-            <figure style={figureStyles} className={cssClasses.join(' ')}>
+            <figure
+                style={figureStyles}
+                className={[classes.root, ...cssClasses].join(' ')}
+            >
                 {PictureFragment}
             </figure>
         );
@@ -152,6 +159,7 @@ const Image = props => {
  */
 Image.propTypes = {
     classes: shape({
+        root: string,
         img: string
     }),
     desktopImage: string,
