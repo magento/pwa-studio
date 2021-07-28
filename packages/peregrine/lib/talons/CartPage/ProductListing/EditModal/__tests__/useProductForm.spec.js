@@ -203,22 +203,27 @@ describe('form submission', () => {
     });
 
     test('does not call configurable item mutation when final options selection matches backend value', async () => {
-        // since this test renders twice, we need to double up the mocked returns
+        // since this test renders thrice, we need to triple up the mocked returns
+        setupMockedReturns();
         setupMockedReturns();
         const tree = createTestInstance(<Component {...mockProps} />);
         const { root } = tree;
-        const { talonProps } = root.findByType('i').props;
-        const { handleOptionSelection } = talonProps;
+        let { talonProps } = root.findByType('i').props;
 
         act(() => {
-            handleOptionSelection('123', 1);
+            talonProps.handleOptionSelection('123', 2);
         });
 
-        const { talonProps: newTalonProps } = root.findByType('i').props;
-        const { handleSubmit } = newTalonProps;
+        talonProps = root.findByType('i').props.talonProps;
+
+        act(() => {
+            talonProps.handleOptionSelection('123', 1);
+        });
+
+        talonProps = root.findByType('i').props.talonProps;
 
         await act(async () => {
-            await handleSubmit({ quantity: 5 });
+            await talonProps.handleSubmit({ quantity: 5 });
         });
 
         expect(updateItemQuantity).not.toHaveBeenCalled();
