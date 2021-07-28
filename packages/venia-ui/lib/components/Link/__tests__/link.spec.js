@@ -30,10 +30,12 @@ describe('#Link', () => {
             create(<Link prefetchType innerRef="foo" />);
         });
 
-        expect(useLink).toHaveBeenCalledWith(expect.objectContaining({
-            prefetchType: true,
-            innerRef: 'foo'
-        }));
+        expect(useLink).toHaveBeenCalledWith(
+            expect.objectContaining({
+                prefetchType: true,
+                innerRef: 'foo'
+            })
+        );
     });
 
     test('passes props to base link component', async () => {
@@ -41,8 +43,11 @@ describe('#Link', () => {
             create(<Link foo="bar" />);
         });
 
-        expect(RouterLink).toHaveBeenCalledWith(expect.objectContaining({
-            foo: 'bar'
-        }), {});
+        expect(RouterLink).toHaveBeenCalledWith(
+            expect.objectContaining({
+                foo: 'bar'
+            }),
+            {}
+        );
     });
 });

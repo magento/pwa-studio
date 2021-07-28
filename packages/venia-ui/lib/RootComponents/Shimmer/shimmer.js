@@ -3,7 +3,7 @@ import { string } from 'prop-types';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import * as Types from './types';
 
-const RootShimmer = (props) => {
+const RootShimmer = props => {
     const { type } = props;
 
     if (!type || typeof Types[type] === 'undefined') {

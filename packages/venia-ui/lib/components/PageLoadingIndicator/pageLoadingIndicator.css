@@ -7,20 +7,20 @@
 }
 
 .indicator {
-    animation: slide1 2.1s cubic-bezier(.65,.815,.735,.395) infinite;
+    animation: slide1 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
     width: auto;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0;
     background: rgb(var(--venia-global-color-blue-600));
-    transition: transform .2s linear;
-    transform-origin: left
+    transition: transform 0.2s linear;
+    transform-origin: left;
 }
 
 .indicator_secondary {
     composes: indicator;
-    animation: slide2 2.1s cubic-bezier(.165,.84,.44,1) 1.15s infinite;
+    animation: slide2 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite;
 }
 
 .root_absolute {
@@ -34,33 +34,33 @@
 @keyframes slide1 {
     0% {
         left: -40%;
-        right: 100%
+        right: 100%;
     }
 
     60% {
         left: 100%;
-        right: -90%
+        right: -90%;
     }
 
     100% {
         left: 100%;
-        right: -90%
+        right: -90%;
     }
 }
 
 @keyframes slide2 {
     0% {
         left: -200%;
-        right: 100%
+        right: 100%;
     }
 
     60% {
         left: 110%;
-        right: -10%
+        right: -10%;
     }
 
     100% {
         left: 110%;
-        right: -10%
+        right: -10%;
     }
 }

@@ -8,10 +8,12 @@ jest.mock('../../../context/app', () => {
 });
 
 const givenPageLoadingValue = () => {
-    useAppContext.mockImplementation(() => [{
-        isPageLoading: 'foo'
-    }]);
-}
+    useAppContext.mockImplementation(() => [
+        {
+            isPageLoading: 'foo'
+        }
+    ]);
+};
 
 beforeEach(() => {
     useAppContext.mockClear();
@@ -22,8 +24,10 @@ describe('#usePageLoadingIndicator', () => {
         givenPageLoadingValue();
         const result = usePageLoadingIndicator();
 
-        expect(result).toEqual(expect.objectContaining({
-            isPageLoading: 'foo'
-        }));
+        expect(result).toEqual(
+            expect.objectContaining({
+                isPageLoading: 'foo'
+            })
+        );
     });
 });

@@ -26,9 +26,11 @@ const props = {
 
 const log = jest.fn();
 
-jest.mock('../../../hooks/useInternalLink', () => jest.fn(() => ({
-    handleClick: jest.fn()
-})));
+jest.mock('../../../hooks/useInternalLink', () =>
+    jest.fn(() => ({
+        handleClick: jest.fn()
+    }))
+);
 
 const Component = props => {
     const talonProps = useCategoryTile(props);

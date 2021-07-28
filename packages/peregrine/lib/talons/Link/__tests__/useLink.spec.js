@@ -6,7 +6,7 @@ import useIntersectionObserver from '../../../hooks/useIntersectionObserver';
 
 jest.mock('react', () => {
     const react = jest.requireActual('react');
-    const useRef = jest.fn(() => ({ current: 'bar' }))
+    const useRef = jest.fn(() => ({ current: 'bar' }));
 
     return {
         ...react,
@@ -28,9 +28,11 @@ jest.mock('../../MagentoRoute/magentoRoute.gql', () => ({
     resolveUrlQuery: null
 }));
 
-jest.mock('../../../util/makeUrl', () => jest.fn((url) => {
-    return `TEST_PREFIX${url}`;
-}));
+jest.mock('../../../util/makeUrl', () =>
+    jest.fn(url => {
+        return `TEST_PREFIX${url}`;
+    })
+);
 
 jest.mock('../../../hooks/useIntersectionObserver');
 
@@ -60,15 +62,9 @@ class mockIntersectionObserver {
 
 const mockRunQuery = jest.fn();
 
-const mockValidUseLazyQuery = [
-    mockRunQuery,
-    {}
-];
+const mockValidUseLazyQuery = [mockRunQuery, {}];
 
-const mockInvalidUseLazyQuery = [
-    mockRunQuery,
-    { called: true }
-];
+const mockInvalidUseLazyQuery = [mockRunQuery, { called: true }];
 
 let props = {};
 
@@ -110,7 +106,7 @@ const givenNoReference = () => {
 
 const givenExistingQuery = () => {
     useLazyQuery.mockImplementation(() => mockInvalidUseLazyQuery);
-}
+};
 
 const givenInvalidIntersectionObserver = () => {
     useIntersectionObserver.mockImplementation(() => {
@@ -155,9 +151,11 @@ describe('#useLink fetches page information when', () => {
         await whenComponentIsVisible();
 
         expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenCalledWith(expect.objectContaining({
-            ref: expect.objectContaining({ current: 'foo' })
-        }));
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                ref: expect.objectContaining({ current: 'foo' })
+            })
+        );
         expect(mockRunQuery).toHaveBeenCalledTimes(1);
     });
 });
@@ -185,9 +183,11 @@ describe('#useLink does not run query when', () => {
         await whenComponentIsVisible();
 
         expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenCalledWith(expect.objectContaining({
-            ref: expect.objectContaining({ current: 'foo' })
-        }));
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                ref: expect.objectContaining({ current: 'foo' })
+            })
+        );
         expect(mockRunQuery).not.toHaveBeenCalled();
     });
 
@@ -249,9 +249,11 @@ describe('#useLink processes data', () => {
         await whenComponentIsVisible();
 
         expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenCalledWith(expect.objectContaining({
-            ref: expect.objectContaining({ current: 'foo' })
-        }));
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                ref: expect.objectContaining({ current: 'foo' })
+            })
+        );
     });
 
     test('generates its own reference', async () => {
@@ -263,9 +265,11 @@ describe('#useLink processes data', () => {
         await whenComponentIsVisible();
 
         expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenCalledWith(expect.objectContaining({
-            ref: expect.objectContaining({ current: 'bar' })
-        }));
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                ref: expect.objectContaining({ current: 'bar' })
+            })
+        );
         expect(useRef).toHaveBeenCalled();
     });
 
@@ -277,8 +281,12 @@ describe('#useLink processes data', () => {
         await whenComponentIsVisible();
 
         expect(log).toHaveBeenCalledTimes(1);
-        expect(mockRunQuery).toHaveBeenCalledWith(expect.objectContaining({
-            variables: expect.objectContaining({ url: 'TEST_PREFIX/bar.html' })
-        }));
+        expect(mockRunQuery).toHaveBeenCalledWith(
+            expect.objectContaining({
+                variables: expect.objectContaining({
+                    url: 'TEST_PREFIX/bar.html'
+                })
+            })
+        );
     });
 });

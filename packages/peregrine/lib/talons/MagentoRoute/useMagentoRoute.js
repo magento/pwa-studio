@@ -42,7 +42,9 @@ export const useMagentoRoute = (props = {}) => {
 
     // evaluate both results and determine the response type
     const component = componentMap.get(pathname);
-    const previousComponent = previousPathname ? componentMap.get(previousPathname) : null;
+    const previousComponent = previousPathname
+        ? componentMap.get(previousPathname)
+        : null;
     const empty = !urlResolver || !type || id < 1;
     const redirect = isRedirect(redirectCode);
     const fetchError = component instanceof Error && component;
@@ -87,15 +89,7 @@ export const useMagentoRoute = (props = {}) => {
                 setComponent(pathname, error);
             }
         })();
-    }, [
-        component,
-        empty,
-        id,
-        loading,
-        pathname,
-        setComponent,
-        type
-    ]);
+    }, [component, empty, id, loading, pathname, setComponent, type]);
 
     // perform a redirect if necesssary
     useEffect(() => {
@@ -114,7 +108,7 @@ export const useMagentoRoute = (props = {}) => {
 
     useEffect(() => {
         setPageLoading(showPageLoader);
-    }, [showPageLoader, setPageLoading])
+    }, [showPageLoader, setPageLoading]);
 
     return routeData;
 };

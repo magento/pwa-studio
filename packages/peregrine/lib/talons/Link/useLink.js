@@ -6,39 +6,43 @@ import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from '../MagentoRoute/magentoRoute.gql';
 
 const useLink = (props, passedOperations = {}) => {
-    const {
-        prefetchType: shouldPrefetch,
-        innerRef: originalRef,
-        to
-    } = props;
-    const operations = shouldPrefetch ? mergeOperations(DEFAULT_OPERATIONS, passedOperations) : {};
+    const { prefetchType: shouldPrefetch, innerRef: originalRef, to } = props;
+    const operations = shouldPrefetch
+        ? mergeOperations(DEFAULT_OPERATIONS, passedOperations)
+        : {};
 
     const intersectionObserver = useIntersectionObserver();
     const { resolveUrlQuery } = operations;
     const generatedRef = useRef();
-    const elementRef = originalRef || !shouldPrefetch ? originalRef : generatedRef;
-    const [
-        runQuery,
-        { called: pageTypeCalled }
-    ] = useLazyQuery(resolveUrlQuery);
+    const elementRef =
+        originalRef || !shouldPrefetch ? originalRef : generatedRef;
+    const [runQuery, { called: pageTypeCalled }] = useLazyQuery(
+        resolveUrlQuery
+    );
     const linkPath = shouldPrefetch ? resourceUrl(to) : null;
 
     useEffect(() => {
-        if (!shouldPrefetch || pageTypeCalled || !runQuery || !elementRef.current || typeof intersectionObserver === 'undefined') {
+        if (
+            !shouldPrefetch ||
+            pageTypeCalled ||
+            !runQuery ||
+            !elementRef.current ||
+            typeof intersectionObserver === 'undefined'
+        ) {
             return;
         }
 
         const htmlElement = elementRef.current;
 
-        const onIntersection = (entries) => {
-            if (entries.some((entry) => entry.isIntersecting)) {
+        const onIntersection = entries => {
+            if (entries.some(entry => entry.isIntersecting)) {
                 observer.unobserve(htmlElement);
 
                 runQuery({
                     variables: { url: linkPath }
                 });
             }
-        }
+        };
         const observer = new intersectionObserver(onIntersection);
         observer.observe(htmlElement);
 

@@ -3,7 +3,9 @@ import { act, create } from 'react-test-renderer';
 import usePageLoadingIndicator from '@magento/peregrine/lib/talons/PageLoadingIndicator/usePageLoadingIndicator';
 import PageLoadingIndicator from '../pageLoadingIndicator';
 
-jest.mock('@magento/peregrine/lib/talons/PageLoadingIndicator/usePageLoadingIndicator');
+jest.mock(
+    '@magento/peregrine/lib/talons/PageLoadingIndicator/usePageLoadingIndicator'
+);
 
 jest.mock('../../../classify');
 
@@ -42,7 +44,7 @@ describe('#PageLoadingIndicator displays', () => {
         let tree;
 
         await act(() => {
-            tree = create(<PageLoadingIndicator  />);
+            tree = create(<PageLoadingIndicator />);
         });
 
         expect(tree.toJSON()).not.toBeNull();

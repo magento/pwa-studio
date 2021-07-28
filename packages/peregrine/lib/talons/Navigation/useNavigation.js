@@ -22,12 +22,7 @@ export const useNavigation = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerQuery, getRootCategoryId } = operations;
     // retrieve app state from context
-    const [
-        appState,
-        {
-            closeDrawer
-        }
-    ] = useAppContext();
+    const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
     const [, { getUserDetails }] = useUserContext();
     const fetchUserDetails = useAwaitQuery(getCustomerQuery);
