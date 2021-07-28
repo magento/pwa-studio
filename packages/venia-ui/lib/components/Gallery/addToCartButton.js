@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { string, number, shape } from 'prop-types';
 import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
 
@@ -15,7 +16,17 @@ const AddToCartButton = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const buttonText = isInStock ? 'ADD TO CART' : 'OUT OF STOCK';
+    const buttonText = isInStock ? (
+        <FormattedMessage
+            id="addItemToCart"
+            defaultMessage="ADD TO CART"
+        />
+    ) : (
+        <FormattedMessage
+            id="itemOutOfStock"
+            defaultMessage="OUT OF STOCK"
+        />
+    );
 
     return (
         <Button
