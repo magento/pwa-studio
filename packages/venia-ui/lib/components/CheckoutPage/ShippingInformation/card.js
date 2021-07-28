@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import defaultClasses from './card.css';
 
 const Card = props => {
@@ -22,7 +22,7 @@ const Card = props => {
         return <span key={index}>{row}</span>;
     });
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const nameString = `${firstname} ${lastname}`;
     const additionalAddressString = `${city}, ${region} ${postcode} ${country}`;

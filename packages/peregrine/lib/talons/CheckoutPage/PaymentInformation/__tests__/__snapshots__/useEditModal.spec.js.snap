@@ -3,8 +3,8 @@
 exports[`Should return correct shape 1`] = `
 Object {
   "handleClose": [Function],
-  "handleDropinReady": [Function],
   "handlePaymentError": [Function],
+  "handlePaymentReady": [Function],
   "handlePaymentSuccess": [Function],
   "handleUpdate": [Function],
   "isLoading": true,

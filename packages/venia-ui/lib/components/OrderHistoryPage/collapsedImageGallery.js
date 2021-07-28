@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { arrayOf, object, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Image from '../Image';
 
 import defaultClasses from './collapsedImageGallery.css';
@@ -11,7 +11,7 @@ const DISPLAY_COUNT = 4;
 const CollapsedImageGallery = props => {
     const { items } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const remainderCount = items.length - DISPLAY_COUNT;
 
     const imageElements = useMemo(() => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 import { useIntl } from 'react-intl';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
 import Checkbox from '@magento/venia-ui/lib/components/Checkbox';
@@ -28,7 +28,7 @@ const AddEditDialog = props => {
 
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     let formatTitleArgs;
     if (isEditMode) {

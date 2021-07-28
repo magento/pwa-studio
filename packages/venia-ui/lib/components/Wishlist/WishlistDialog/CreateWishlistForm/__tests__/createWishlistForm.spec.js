@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'informed';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import CreateWishlistForm from '../createWishlistForm';
 import { useCreateWishlistForm } from '@magento/peregrine/lib/talons/Wishlist/WishlistDialog/CreateWishlistForm/useCreateWishlistForm';
@@ -24,7 +25,11 @@ const defaultProps = {
 };
 
 test('renders the correct tree', () => {
-    const tree = createTestInstance(<CreateWishlistForm {...defaultProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <CreateWishlistForm {...defaultProps} />
+        </Form>
+    );
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
@@ -36,7 +41,11 @@ test('renders form errors', () => {
         handleSave: jest.fn(),
         isSaveDisabled: false
     });
-    const tree = createTestInstance(<CreateWishlistForm {...defaultProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <CreateWishlistForm {...defaultProps} />
+        </Form>
+    );
 
     expect(tree.root.findByProps({ className: 'errorMessage' }).children)
         .toMatchInlineSnapshot(`
@@ -58,7 +67,11 @@ test('disables save if isSaveDisabled is true', () => {
         isSaveDisabled: true
     });
 
-    const tree = createTestInstance(<CreateWishlistForm {...defaultProps} />);
+    const tree = createTestInstance(
+        <Form>
+            <CreateWishlistForm {...defaultProps} />
+        </Form>
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

@@ -1,0 +1,84 @@
+.root {
+    display: grid;
+    gap: 1.125rem;
+    padding: 2rem;
+}
+
+.loading {
+    composes: root from '../../LoadingIndicator/indicator.css';
+    text-align: center;
+}
+
+.heading_container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+}
+
+.edit_button {
+    color: rgb(var(--venia-brand-color-1-700));
+    padding: 1rem;
+    margin: -1rem;
+}
+
+.heading {
+    font-weight: 600;
+}
+
+.address_summary_container {
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.first_name {
+    padding-right: 5px;
+}
+
+.last_name {
+    padding-right: 5px;
+}
+
+.street1 {
+    padding-right: 5px;
+}
+
+.street2 {
+    padding-right: 5px;
+}
+
+.city {
+    padding-right: 5px;
+}
+
+.state {
+    padding-right: 5px;
+}
+
+.postalCode {
+    padding-right: 5px;
+}
+
+.country {
+    padding-right: 5px;
+}
+
+.edit_icon {
+    stroke: rgb(var(--venia-brand-color-1-700));
+}
+
+.card_details_container {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.payment_type {
+}
+
+.payment_details {
+}
+
+@media (max-width: 960px) {
+    .edit_text {
+        display: none;
+    }
+}

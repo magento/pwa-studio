@@ -1,8 +1,17 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useProduct } from '../useProduct';
+
+jest.mock('react-router-dom', () => {
+    const useLocation = jest.fn().mockReturnValue({
+        pathname: '/'
+    });
+
+    return { useLocation };
+});
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
@@ -184,11 +193,9 @@ test('product is correct when included in items array', () => {
             loading: false
         });
 
-    const originalLocation = window.location;
-    delete window.location;
-    window.location = {
+    useLocation.mockImplementation(() => ({
         pathname: '/unit_test'
-    };
+    }));
 
     // Act.
     createTestInstance(<Component {...props} />);
@@ -197,7 +204,6 @@ test('product is correct when included in items array', () => {
     const talonProps = log.mock.calls[0][0];
     const { product } = talonProps;
     expect(product).toEqual({ name: 'VALID', url_key: 'unit_test' });
-    window.location = originalLocation;
 });
 
 test('product is correct when product url suffix is configured', () => {
@@ -220,11 +226,9 @@ test('product is correct when product url suffix is configured', () => {
             loading: false
         });
 
-    const originalLocation = window.location;
-    delete window.location;
-    window.location = {
+    useLocation.mockImplementation(() => ({
         pathname: '/unit_test.html'
-    };
+    }));
 
     // Act.
     createTestInstance(<Component {...props} />);
@@ -233,7 +237,6 @@ test('product is correct when product url suffix is configured', () => {
     const talonProps = log.mock.calls[0][0];
     const { product } = talonProps;
     expect(product).toEqual({ name: 'VALID', url_key: 'unit_test' });
-    window.location = originalLocation;
 });
 
 test('product is correct when product url suffix is configured with no period', () => {
@@ -256,11 +259,9 @@ test('product is correct when product url suffix is configured with no period', 
             loading: false
         });
 
-    const originalLocation = window.location;
-    delete window.location;
-    window.location = {
+    useLocation.mockImplementation(() => ({
         pathname: '/unit_testnoperiod'
-    };
+    }));
 
     // Act.
     createTestInstance(<Component {...props} />);
@@ -269,5 +270,4 @@ test('product is correct when product url suffix is configured with no period', 
     const talonProps = log.mock.calls[0][0];
     const { product } = talonProps;
     expect(product).toEqual({ name: 'VALID', url_key: 'unit_test' });
-    window.location = originalLocation;
 });

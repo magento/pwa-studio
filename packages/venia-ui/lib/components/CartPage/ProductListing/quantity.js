@@ -5,7 +5,7 @@ import { func, number, string } from 'prop-types';
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import TextInput from '../../TextInput';
 import { Message } from '../../Field';
@@ -14,7 +14,7 @@ import defaultClasses from './quantity.css';
 export const QuantityFields = props => {
     const { initialValue, itemId, label, min, onChange, message } = props;
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
 
     const talonProps = useQuantity({

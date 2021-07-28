@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
 import { useIntl } from 'react-intl';
+import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
-import { useWishlist } from './useWishlist';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 import mergeOperations from '../../../util/shallowMerge';
 
@@ -36,10 +34,9 @@ import DEFAULT_OPERATIONS from './product.gql';
 export const useProduct = props => {
     const {
         item,
-        onAddToWishlistSuccess,
         setActiveEditItem,
         setIsCartUpdating,
-        fetchCartDetails
+        wishlistConfig
     } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
@@ -48,6 +45,8 @@ export const useProduct = props => {
         updateItemQuantityMutation,
         getConfigurableThumbnailSource
     } = operations;
+
+    const { formatMessage } = useIntl();
 
     const { data: configurableThumbnailSourceData } = useQuery(
         getConfigurableThumbnailSource,
@@ -89,92 +88,27 @@ export const useProduct = props => {
     // Could be replaced by a "reset mutation" function from apollo client.
     // https://github.com/apollographql/apollo-feature-requests/issues/170
     const [displayError, setDisplayError] = useState(false);
-    const [showLoginToast, setShowLoginToast] = useState(0);
-
-    const { formatMessage } = useIntl();
-    const [{ isSignedIn }] = useUserContext();
-
-    const loginToastProps = useMemo(() => {
-        if (showLoginToast) {
-            return {
-                type: 'info',
-                message: formatMessage({
-                    id: 'wishlist.galleryButton.loginMessage',
-                    defaultMessage:
-                        'Please sign-in to your Account to save items for later.'
-                }),
-                timeout: 5000
-            };
-        }
-
-        return null;
-    }, [formatMessage, showLoginToast]);
-
-    const handleWishlistUpdateError = useCallback(() => {
-        setIsCartUpdating(true);
-
-        fetchCartDetails({ variables: { cartId } });
-
-        setDisplayError(true);
-    }, [fetchCartDetails, cartId, setIsCartUpdating]);
-
-    const wishlistTalonProps = useWishlist({
-        item,
-        onWishlistUpdate: removeItemFromCart,
-        onWishlistUpdateError: handleWishlistUpdateError,
-        onAddToWishlistSuccess,
-        operations: props.operations
-    });
-    const {
-        handleAddToWishlist,
-        loading: wishlistItemLoading,
-        error: addProductToWishlistError,
-        called: addProductToWishlistCalled
-    } = wishlistTalonProps;
 
     const isProductUpdating = useMemo(() => {
-        if (
-            addProductToWishlistCalled ||
-            updateItemCalled ||
-            removeItemCalled
-        ) {
-            return (
-                wishlistItemLoading || removeItemLoading || updateItemLoading
-            );
+        if (updateItemCalled || removeItemCalled) {
+            return removeItemLoading || updateItemLoading;
         } else {
             return false;
         }
     }, [
-        addProductToWishlistCalled,
         updateItemCalled,
         removeItemCalled,
-        wishlistItemLoading,
         removeItemLoading,
         updateItemLoading
     ]);
 
-    const handleSaveForLater = useCallback(
-        async (...args) => {
-            if (!isSignedIn) {
-                setShowLoginToast(current => ++current);
-            } else {
-                await handleAddToWishlist(args);
-            }
-        },
-        [isSignedIn, handleAddToWishlist]
-    );
-
     const derivedErrorMessage = useMemo(() => {
         return (
             (displayError &&
-                deriveErrorMessage([
-                    updateError,
-                    removeItemError,
-                    addProductToWishlistError
-                ])) ||
+                deriveErrorMessage([updateError, removeItemError])) ||
             ''
         );
-    }, [displayError, addProductToWishlistError, removeItemError, updateError]);
+    }, [displayError, removeItemError, updateError]);
 
     const handleEditItem = useCallback(() => {
         setActiveEditItem(item);
@@ -223,14 +157,32 @@ export const useProduct = props => {
         return () => setIsCartUpdating(false);
     }, [setIsCartUpdating, isProductUpdating]);
 
+    const addToWishlistProps = {
+        afterAdd: handleRemoveFromCart,
+        buttonText: () =>
+            formatMessage({
+                id: 'product.saveForLater',
+                defaultMessage: 'Save for later'
+            }),
+        item: {
+            quantity: item.quantity,
+            selected_options: item.configurable_options
+                ? item.configurable_options.map(
+                      option => option.configurable_product_option_value_uid
+                  )
+                : [],
+            sku: item.product.sku
+        },
+        storeConfig: wishlistConfig
+    };
+
     return {
+        addToWishlistProps,
         errorMessage: derivedErrorMessage,
         handleEditItem,
         handleRemoveFromCart,
-        handleSaveForLater,
         handleUpdateItemQuantity,
         isEditable: !!flatProduct.options.length,
-        loginToastProps,
         product: flatProduct,
         isProductUpdating
     };
@@ -282,8 +234,8 @@ const flattenProduct = (item, configurableThumbnailSource) => {
  *
  * @typedef {Object} ProductMutations
  *
- * @property {GraphQLAST} removeItemMutation Mutation for removing an item in a cart
- * @property {GraphQLAST} updateItemQuantityMutation Mutation for updating the item quantity in a cart
+ * @property {GraphQLDocument} removeItemMutation Mutation for removing an item in a cart
+ * @property {GraphQLDocument} updateItemQuantityMutation Mutation for updating the item quantity in a cart
  *
  * @see [product.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/product.js}
  * to see the mutations used in Venia

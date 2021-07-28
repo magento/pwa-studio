@@ -341,27 +341,27 @@ This prevents the Tags from overflowing off the side of the page.
 
 Open the `tagList.js` file and make the following changes to the component.
 
-**Change 1:** Import the `mergeClasses()` function and the `tagList.css` file:
+**Change 1:** Import the `useStyle()` hook and the `tagList.css` file:
 
 ```diff
  import { arrayOf, shape, string } from 'prop-types';
  
-+import { mergeClasses } from '../../classify';
++import { useStyle } from '../../classify';
 +import defaultClasses from './tagList.css';
  
  import Tag from './tag';
 ```
 
-**Change 2:** Use the `mergeClasses()` function to merge custom classes passed into the component:
+**Change 2:** Use the `useStyle()` hook to merge custom classes passed into the component:
 
 ```diff
  const { categories } = props;
  
-+const classes = mergeClasses(defaultClasses, props.classes);
++const classes = useStyle(defaultClasses, props.classes);
 ```
 
 {: .bs-callout .bs-callout-info}
-The `mergeClasses()` function is used for merging a component's default classes with custom class overrides.
+The `useStyle()` function is used for merging a component's default classes with custom class overrides.
 
 **Change 3:** Set the `className` property of the `div` container to the `root` class:
 
@@ -408,21 +408,21 @@ Open the `tag.css` file and add the following content:
 
 Open the `tag.js` file and make the following changes to the component.
 
-**Change 1:** Import the `mergeClasses()` function and the `tag.css` file:
+**Change 1:** Import the `useStyle()` hook and the `tag.css` file:
 
 ```diff
  import Button from '../Button';
-+import { mergeClasses } from '../../classify';
++import { useStyle } from '../../classify';
 +import defaultClasses from './tag.css';
  import { Link } from '@magento/venia-drivers';
 ```
 
-**Change 2:** Use the `mergeClasses()` function to merge custom classes passed into the component and create a new `buttonClasses` object:
+**Change 2:** Use the `useStyle()` hook to merge custom classes passed into the component and create a new `buttonClasses` object:
 
 ```diff
  const { value } = props;
  
-+const classes = mergeClasses(defaultClasses, props.classes);
++const classes = useStyle(defaultClasses, props.classes);
 +
 +const buttonClasses = {
 +    root_lowPriority: classes.root,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import WishlistEditFavoritesListDialog from '../wishlistEditFavoritesListDialog';
@@ -17,7 +18,9 @@ const props = {
 
 it('renders correctly when closed', () => {
     const instance = createTestInstance(
-        <WishlistEditFavoritesListDialog {...props} />
+        <Form>
+            <WishlistEditFavoritesListDialog {...props} />
+        </Form>
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
@@ -27,7 +30,9 @@ it('renders correctly when opened', () => {
     const myProps = { ...props, isOpen: true };
 
     const instance = createTestInstance(
-        <WishlistEditFavoritesListDialog {...myProps} />
+        <Form>
+            <WishlistEditFavoritesListDialog {...myProps} />
+        </Form>
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
@@ -39,7 +44,9 @@ test('renders correctly with error', () => {
         formErrors: new Map([['updateWishlistMutation', 'Unit Test Error 1']])
     };
     const instance = createTestInstance(
-        <WishlistEditFavoritesListDialog {...myProps} />
+        <Form>
+            <WishlistEditFavoritesListDialog {...myProps} />
+        </Form>
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
@@ -49,7 +56,9 @@ test('renders correctly when edit is in progress', () => {
     const myProps = { ...props, isEditInProgress: true };
 
     const tree = createTestInstance(
-        <WishlistEditFavoritesListDialog {...myProps} />
+        <Form>
+            <WishlistEditFavoritesListDialog {...myProps} />
+        </Form>
     );
 
     expect(tree.toJSON()).toMatchSnapshot();

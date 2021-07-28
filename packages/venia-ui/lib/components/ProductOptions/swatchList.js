@@ -2,13 +2,13 @@ import React, { useMemo } from 'react';
 import { arrayOf, func, object, shape, string } from 'prop-types';
 import Swatch from './swatch';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './swatchList.css';
 
 const SwatchList = props => {
     const { getItemKey, selectedValue = {}, items, onSelectionChange } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const swatches = useMemo(
         () =>

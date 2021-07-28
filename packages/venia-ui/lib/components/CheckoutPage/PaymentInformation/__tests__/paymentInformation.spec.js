@@ -9,17 +9,9 @@ import PaymentInformation from '../paymentInformation';
 
 jest.mock('../../../../classify');
 
-jest.mock('../paymentMethods', () => props => (
-    <mock-PaymentMethodsd {...props} />
-));
-
 jest.mock('../../PriceAdjustments', () => props => (
     <mock-PriceAdjustments {...props} />
 ));
-
-jest.mock('../summary', () => props => <mock-Summary {...props} />);
-
-jest.mock('../editModal', () => props => <mock-EditModal {...props} />);
 
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation',
@@ -35,6 +27,12 @@ jest.mock(
         })
     })
 );
+
+jest.mock('../summary', () => props => <mock-Summary {...props} />);
+jest.mock('../editModal', () => props => <mock-EditModal {...props} />);
+jest.mock('../paymentMethods', () => props => (
+    <mock-PaymentMethods {...props} />
+));
 
 const defaultTalonResponse = {
     doneEditing: false,
@@ -60,8 +58,7 @@ test('Should render summary component only if doneEditing is true', () => {
     });
 
     const tree = createTestInstance(<PaymentInformation {...defaultProps} />);
-
-    expect(tree.root.findByType(Summary)).not.toBeNull();
+    expect(tree.toJSON()).toMatchSnapshot();
 
     usePaymentInformation.mockReturnValueOnce({
         ...defaultTalonResponse,
@@ -82,8 +79,7 @@ test('Should render PaymentMethods component only if doneEditing is false', () =
     });
 
     const tree = createTestInstance(<PaymentInformation />);
-
-    expect(tree.root.findByType(PaymentMethods)).not.toBeNull();
+    expect(tree.toJSON()).toMatchSnapshot();
 
     usePaymentInformation.mockReturnValueOnce({
         ...defaultTalonResponse,

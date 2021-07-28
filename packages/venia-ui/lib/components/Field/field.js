@@ -2,12 +2,12 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { bool, node, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './field.css';
 
 const Field = props => {
     const { children, id, label, optional } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const optionalSymbol = optional ? (
         <span className={classes.optional}>
             <FormattedMessage

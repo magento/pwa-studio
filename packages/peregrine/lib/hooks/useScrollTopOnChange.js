@@ -7,7 +7,9 @@ import { useEffect } from 'react';
  */
 export const useScrollTopOnChange = watched => {
     useEffect(() => {
-        window.scrollTo({
+        if (!globalThis.scrollTo) return;
+
+        globalThis.scrollTo({
             behavior: 'smooth',
             left: 0,
             top: 0

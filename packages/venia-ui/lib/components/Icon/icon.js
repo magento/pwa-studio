@@ -1,7 +1,7 @@
 import React from 'react';
 import { elementType, number, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './icon.css';
 
 const Icon = props => {
@@ -14,7 +14,7 @@ const Icon = props => {
         ...restProps
     } = props;
     const { width, ...restAttrs } = attrs || {};
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     return (
         <span className={classes.root} {...restProps}>

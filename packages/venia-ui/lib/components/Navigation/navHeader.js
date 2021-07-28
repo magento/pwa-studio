@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 import { ArrowLeft as ArrowLeftIcon, X as CloseIcon } from 'react-feather';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import AccountChip from '../AccountChip';
 import Icon from '../Icon';
 import Trigger from '../Trigger';
@@ -22,7 +22,7 @@ const NavHeader = props => {
 
     const { handleBack, isTopLevelMenu } = talonProps;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const titles = {
         CREATE_ACCOUNT: formatMessage({
             id: 'navHeader.createAccountText',

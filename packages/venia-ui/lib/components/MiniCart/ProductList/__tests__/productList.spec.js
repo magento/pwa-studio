@@ -5,10 +5,10 @@ import ProductList from '../productList';
 
 jest.mock('../../../../classify');
 jest.mock('../item', () => 'Item');
-jest.mock('@magento/venia-drivers', () => ({
-    Link: ({ children, ...rest }) => <div {...rest}>{children}</div>,
-    resourceUrl: x => x
+jest.mock('react-router-dom', () => ({
+    Link: ({ children, ...rest }) => <div {...rest}>{children}</div>
 }));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 const props = {
     closeMiniCart: jest.fn().mockName('closeMiniCart'),

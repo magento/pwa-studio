@@ -1,5 +1,5 @@
 import React from 'react';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { shape, string, bool, func } from 'prop-types';
 import BillingAddress from '@magento/venia-ui/lib/components/CheckoutPage/BillingAddress';
 
@@ -14,14 +14,13 @@ import { FormattedMessage } from 'react-intl';
  * @param {String} props.mailingAddress shop owner post address where you need to send.
  * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
  * @param {Function} props.onPaymentSuccess callback to invoke when the a payment nonce has been generated
- * @param {Function} props.onDropinReady callback to invoke when the braintree dropin component is ready
+ * @param {Function} props.onPaymentReady callback to invoke when the component is ready
  * @param {Function} props.onPaymentError callback to invoke when component throws an error
  * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
  */
 const CheckMo = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
-    const { resetShouldSubmit, onPaymentSuccess, onPaymentError } = props;
     const addressTemplate = str => (
         <span key={str} className={classes.addressLine}>
             {str} <br />
@@ -33,11 +32,7 @@ const CheckMo = props => {
         mailingAddress,
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess
-    } = useCheckmo({
-        resetShouldSubmit,
-        onPaymentSuccess,
-        onPaymentError
-    });
+    } = useCheckmo(props);
 
     const formatAddress = mailingAddress
         ? mailingAddress.split('\n').map(str => addressTemplate(str))
@@ -70,6 +65,7 @@ const CheckMo = props => {
                 />
             </p>
             <BillingAddress
+                resetShouldSubmit={props.resetShouldSubmit}
                 shouldSubmit={props.shouldSubmit}
                 onBillingAddressChangedError={onBillingAddressChangedError}
                 onBillingAddressChangedSuccess={onBillingAddressChangedSuccess}
@@ -84,7 +80,7 @@ CheckMo.propTypes = {
     mailingAddress: string,
     shouldSubmit: bool.isRequired,
     onPaymentSuccess: func,
-    onDropinReady: func,
+    onPaymentReady: func,
     onPaymentError: func,
     resetShouldSubmit: func.isRequired
 };

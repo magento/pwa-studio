@@ -117,6 +117,8 @@ veniaAppShell:
             inline:
                 content-type:
                     inline: text/html
+                cache-control:
+                    inline: s-maxage=60
         body:
             resolver: file
             file:
