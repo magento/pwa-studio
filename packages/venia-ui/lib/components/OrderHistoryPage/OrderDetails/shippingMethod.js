@@ -2,14 +2,14 @@ import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './shippingMethod.css';
 
 const ShippingMethod = props => {
     const { data, classes: propsClasses } = props;
     const { shipments, shippingMethod } = data;
-    const classes = mergeClasses(defaultClasses, propsClasses);
+    const classes = useStyle(defaultClasses, propsClasses);
     let trackingElement;
 
     if (shipments.length) {

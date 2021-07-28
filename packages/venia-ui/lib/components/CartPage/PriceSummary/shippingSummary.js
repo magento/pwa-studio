@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 /**
  * A component that renders the shipping summary line item after address and
  * method are selected
@@ -11,7 +11,7 @@ import { mergeClasses } from '../../../classify';
  * @param {Object} props.data fragment response data
  */
 const ShippingSummary = props => {
-    const classes = mergeClasses({}, props.classes);
+    const classes = useStyle({}, props.classes);
     const { data, isCheckout } = props;
     const { formatMessage } = useIntl();
 

@@ -9,7 +9,7 @@ dist
 .env
 build-stats.json
 npm-debug.log
-lastCachedGraphQLSchema.json
+merged-schema*.json
 test-report.xml
 test-results.json
 yarn-error.log

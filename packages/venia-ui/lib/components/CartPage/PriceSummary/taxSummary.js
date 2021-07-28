@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 /**
  * Reduces applied tax amounts into a single amount.
  *
@@ -22,7 +22,7 @@ const getEstimatedTax = (applied_taxes = []) => {
  * @param {Object} props.data query response data
  */
 const TaxSummary = props => {
-    const classes = mergeClasses({}, props.classes);
+    const classes = useStyle({}, props.classes);
     const { data, isCheckout } = props;
     const { formatMessage } = useIntl();
 

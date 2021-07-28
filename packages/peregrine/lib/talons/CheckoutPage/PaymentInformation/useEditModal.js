@@ -15,9 +15,9 @@ import { useCartContext } from '../../../context/cart';
  *   updateButtonClicked: Boolean,
  *   handleClose: Function,
  *   handleUpdate: Function,
- *   handlePaymentSuccess: Function,
- *   handleDropinReady: Function,
  *   handlePaymentError: Function,
+ *   handlePaymentReady: Function,
+ *   handlePaymentSuccess: Function,
  *   resetUpdateButtonClicked: Function
  * }
  */
@@ -72,7 +72,7 @@ export const useEditModal = props => {
         setUpdateButtonClicked(false);
     }, []);
 
-    const handleDropinReady = useCallback(() => {
+    const handlePaymentReady = useCallback(() => {
         setIsLoading(false);
     }, [setIsLoading]);
 
@@ -86,9 +86,9 @@ export const useEditModal = props => {
         updateButtonClicked,
         handleClose,
         handleUpdate,
-        handlePaymentSuccess,
         handlePaymentError,
-        handleDropinReady,
+        handlePaymentReady,
+        handlePaymentSuccess,
         resetUpdateButtonClicked
     };
 };

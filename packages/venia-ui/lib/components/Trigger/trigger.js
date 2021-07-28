@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, node, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './trigger.css';
 
 /**
@@ -17,7 +17,7 @@ import defaultClasses from './trigger.css';
 const Trigger = props => {
     const { action, children, ariaLabel } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <button

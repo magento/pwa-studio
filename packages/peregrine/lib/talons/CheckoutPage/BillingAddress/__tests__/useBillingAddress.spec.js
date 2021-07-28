@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-    useQuery,
-    useMutation,
-    useLazyQuery,
-    useApolloClient
-} from '@apollo/client';
+import { useQuery, useMutation, useApolloClient } from '@apollo/client';
 import { useFormState } from 'informed';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useBillingAddress, mapAddressData } from '../useBillingAddress';
@@ -61,21 +56,18 @@ const isBillingAddressSameQueryResult = {
     data: { cart: { isBillingAddressSame: false } }
 };
 
-const getBillingAddress = jest.fn().mockReturnValue([
-    () => {},
-    {
-        data: {
-            cart: {
-                billingAddress: {
-                    __typename: 'Billing Address',
-                    ...billingAddress
-                }
+const getBillingAddress = jest.fn().mockReturnValue({
+    data: {
+        cart: {
+            billingAddress: {
+                __typename: 'Billing Address',
+                ...billingAddress
             }
-        },
-        loading: false,
-        called: false
-    }
-]);
+        }
+    },
+    loading: false,
+    called: false
+});
 
 const getShippingAddress = jest
     .fn()
@@ -142,21 +134,6 @@ beforeAll(() => {
         }
     });
 
-    useLazyQuery.mockReturnValue([
-        () => {},
-        {
-            data: null,
-            error: null,
-            loading: true
-        }
-    ]);
-
-    useLazyQuery.mockImplementation(query => {
-        if (query === getBillingAddressQuery) {
-            return getBillingAddress();
-        }
-    });
-
     useMutation.mockImplementation(mutation => {
         if (mutation === setBillingAddressMutation) {
             return setBillingAddressMutationResult();
@@ -196,13 +173,16 @@ const getTalonProps = props => {
  * Tests
  */
 test('Should return correct shape', () => {
+    // Act.
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
         operations,
         onBillingAddressChangedError: () => {},
         onBillingAddressChangedSuccess: () => {}
     });
 
+    // Assert.
     expect(talonProps).toMatchSnapshot();
 });
 
@@ -224,6 +204,7 @@ test('Should return errors from billing address mutation', () => {
 
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
         operations,
         onBillingAddressChangedError: () => {},
         onBillingAddressChangedSuccess: () => {}
@@ -248,21 +229,18 @@ test('Should return isBillingAddress and billingAddress from cache as initialVal
         phoneNumber: 'test'
     };
 
-    getBillingAddress.mockReturnValueOnce([
-        () => {},
-        {
-            data: {
-                cart: {
-                    billingAddress: {
-                        __typename: 'Billing Address',
-                        ...billingAddress
-                    }
+    getBillingAddress.mockReturnValueOnce({
+        data: {
+            cart: {
+                billingAddress: {
+                    __typename: 'Billing Address',
+                    ...billingAddress
                 }
-            },
-            loading: false,
-            called: true
-        }
-    ]);
+            }
+        },
+        loading: false,
+        called: true
+    });
 
     getIsBillingAddressSame.mockReturnValueOnce({
         data: { cart: { isBillingAddressSame: false } }
@@ -270,6 +248,7 @@ test('Should return isBillingAddress and billingAddress from cache as initialVal
 
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
         operations,
         onBillingAddressChangedError: () => {},
         onBillingAddressChangedSuccess: () => {}
@@ -294,25 +273,23 @@ test('Should set billingAddress to {} if isBillingAddress is true in initialValu
         postcode: 'test',
         phoneNumber: 'test'
     };
-    getBillingAddress.mockReturnValueOnce([
-        () => {},
-        {
-            data: {
-                cart: {
-                    billingAddress: {
-                        __typename: 'Billing Address',
-                        ...billingAddress
-                    }
+    getBillingAddress.mockReturnValueOnce({
+        data: {
+            cart: {
+                billingAddress: {
+                    __typename: 'Billing Address',
+                    ...billingAddress
                 }
             }
         }
-    ]);
+    });
     getIsBillingAddressSame.mockReturnValueOnce({
         data: { cart: { isBillingAddressSame: true } }
     });
 
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
         operations,
         onBillingAddressChangedError: () => {},
         onBillingAddressChangedSuccess: () => {}
@@ -357,6 +334,7 @@ test('Should call setBillingAddressMutation mutation with shipping address from 
 
     getTalonProps({
         shouldSubmit: true,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
         operations,
         onBillingAddressChangedError: () => {},
         onBillingAddressChangedSuccess: () => {}
@@ -385,6 +363,7 @@ test('Should call onBillingAddressChangedSuccess if billing address mutation is 
 
     getTalonProps({
         shouldSubmit: true,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
         operations,
         onBillingAddressChangedError: () => {},
         onBillingAddressChangedSuccess
@@ -407,6 +386,7 @@ test('Should call onBillingAddressChangedError if billing address mutation is fa
 
     getTalonProps({
         shouldSubmit: true,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
         operations,
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess: () => {}
@@ -425,6 +405,7 @@ test('Should save isBillingAddressSame in apollo cache', () => {
 
     getTalonProps({
         shouldSubmit: true,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
         operations,
         onBillingAddressChangedError: () => {},
         onBillingAddressChangedSuccess: () => {}
@@ -451,10 +432,60 @@ test('Should not proceed with saving billing address if form state has errors', 
 
     getTalonProps({
         shouldSubmit: false,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
         operations,
         onBillingAddressChangedError: () => {},
         onBillingAddressChangedSuccess: () => {}
     });
 
     expect(setBillingAddress).not.toHaveBeenCalled();
+});
+
+test('should call onBillingAddressChangedError when submit error occurs', () => {
+    // Arrange.
+    useFormState.mockReturnValueOnce({
+        values: {
+            isBillingAddressSame: true
+        },
+        errors: {
+            unit: 'test'
+        }
+    });
+    const errorFn = jest.fn().mockName('onBillingAddressChangedError');
+
+    // Act.
+    getTalonProps({
+        shouldSubmit: true,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
+        operations,
+        onBillingAddressChangedError: errorFn,
+        onBillingAddressChangedSuccess: jest
+            .fn()
+            .mockName('onBillingAddressChangedSuccess')
+    });
+
+    // Assert.
+    expect(errorFn).toHaveBeenCalled();
+});
+
+describe('mapAddressData', () => {
+    test('it should return the correct shape', () => {
+        // Act.
+        const result = mapAddressData(billingAddress);
+
+        // Assert.
+        expect(result.street1).toEqual(billingAddress.street[0]);
+        expect(result.street2).toEqual(billingAddress.street[1]);
+        expect(result.country).toEqual(billingAddress.country.code);
+        expect(result.region).toEqual(billingAddress.region.code);
+    });
+
+    test('it should return an empty object as a fallback', () => {
+        // Act.
+        const result = mapAddressData();
+
+        // Assert.
+        expect(result).toBeInstanceOf(Object);
+        expect(Object.keys(result).length).toEqual(0);
+    });
 });

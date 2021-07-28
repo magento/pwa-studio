@@ -6,7 +6,7 @@ import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
 import { Price, useToasts } from '@magento/peregrine';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
@@ -77,6 +77,7 @@ const GiftCards = props => {
         shouldDisplayCardError
     } = talonProps;
 
+    const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
     useEffect(() => {
@@ -106,7 +107,6 @@ const GiftCards = props => {
         );
     }
 
-    const classes = mergeClasses(defaultClasses, props.classes);
     const cardEntryErrorMessage = shouldDisplayCardError
         ? formatMessage({
               id: 'giftCards.errorInvalid',

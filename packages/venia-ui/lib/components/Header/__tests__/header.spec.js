@@ -17,11 +17,7 @@ jest.mock('../../PageLoadingIndicator', () => () => (
     <div id={'pageLoadingIndicator'} />
 ));
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(url => url),
-    Link: jest.fn(() => null),
-    Route: jest.fn(() => null)
-}));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock('@magento/peregrine/lib/talons/Header/useHeader', () => {
     const state = {
@@ -37,6 +33,8 @@ jest.mock('@magento/peregrine/lib/talons/Header/useHeader', () => {
 });
 
 jest.mock('react-router-dom', () => ({
+    Link: jest.fn(() => null),
+    Route: jest.fn(() => null),
     useLocation: jest.fn(() => ({ pathname: '/test.html' }))
 }));
 

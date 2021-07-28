@@ -1,0 +1,42 @@
+.root {
+    display: grid;
+    gap: 1.125rem;
+    padding: 2rem;
+}
+
+.heading_container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+}
+
+.heading {
+    font-weight: 600;
+}
+
+.edit_button {
+    color: rgb(var(--venia-brand-color-1-700));
+    padding: 1rem;
+    margin: -1rem;
+}
+
+.edit_icon {
+    stroke: rgb(var(--venia-brand-color-1-700));
+}
+
+.edit_text {
+}
+
+.checkmo_details_container {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.payment_type {
+}
+
+@media (max-width: 960px) {
+    .edit_text {
+        display: none;
+    }
+}

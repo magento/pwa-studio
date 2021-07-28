@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { array, func, oneOfType, shape, string } from 'prop-types';
 import { gql, useQuery } from '@apollo/client';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import Block from './block';
 import defaultClasses from './cmsBlock.css';
@@ -11,7 +11,7 @@ import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 
 const CmsBlockGroup = props => {
     const { identifiers } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const { loading, error, data } = useQuery(GET_CMS_BLOCKS, {
         variables: { identifiers },

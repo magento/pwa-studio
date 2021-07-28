@@ -3,11 +3,6 @@ import { gql } from '@apollo/client';
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
 
-// We disable linting for local fields because there is no way to add them to
-// the fetched schema. Additionally, since we don't want to make a network call
-// for "id" we disable "required-fields"
-// https://github.com/apollographql/eslint-plugin-graphql/issues/99
-/* eslint-disable graphql/template-strings */
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
         cart(cart_id: $cartId) @client {
@@ -25,7 +20,6 @@ export const GET_PAYMENT_NONCE = gql`
         }
     }
 `;
-/* eslint-enable graphql/template-strings */
 
 export const GET_BILLING_ADDRESS = gql`
     query getBillingAddress($cartId: String!) {
@@ -65,6 +59,7 @@ export const GET_SHIPPING_ADDRESS = gql`
                 city
                 region {
                     code
+                    label
                     region_id
                 }
                 postcode

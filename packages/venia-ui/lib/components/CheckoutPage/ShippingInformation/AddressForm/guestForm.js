@@ -4,7 +4,7 @@ import { Form } from 'informed';
 import { func, shape, string, arrayOf, number } from 'prop-types';
 import { useGuestForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
 
-import { mergeClasses } from '../../../../classify';
+import { useStyle } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
 import Country from '../../../Country';
@@ -42,7 +42,7 @@ const GuestForm = props => {
     } = talonProps;
 
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const guestEmailMessage = !isUpdate ? (
         <Message>

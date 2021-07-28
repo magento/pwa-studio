@@ -3,14 +3,14 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { object, shape, string } from 'prop-types';
 import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import { StoreTitle } from '../../../components/Head';
 import CreateAccount from './createAccount';
 import ItemsReview from '../ItemsReview';
 import defaultClasses from './orderConfirmationPage.css';
 
 const OrderConfirmationPage = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { data, orderNumber } = props;
     const { formatMessage } = useIntl();
 
@@ -41,11 +41,15 @@ const OrderConfirmationPage = props => {
     });
 
     useEffect(() => {
-        window.scrollTo({
-            left: 0,
-            top: 0,
-            behavior: 'smooth'
-        });
+        const { scrollTo } = globalThis;
+
+        if (typeof scrollTo === 'function') {
+            scrollTo({
+                left: 0,
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     }, []);
 
     const createAccountForm = !isSignedIn ? (

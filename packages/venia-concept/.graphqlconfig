@@ -1,25 +1,11 @@
 {
     "projects": {
         "venia": {
-            "schemaPath": "lastCachedGraphQLSchema.json",
+            "schemaPath": "merged-schema.v3.json",
+            "includes": ["**/client-schema.graphql"],
             "extensions": {
                 "endpoints": {
                     "default": "${env:MAGENTO_BACKEND_URL}/graphql"
-                },
-                "validate-magento-pwa-queries": {
-                    "clients": [
-                        "apollo",
-                        "literal"
-                    ],
-                    "magentoBackendEdition": "${env:MAGENTO_BACKEND_EDITION}",
-                    "filesGlob": "../{peregrine,venia-ui,venia-concept}/{lib,src}/**/*.{js,graphql,gql}",
-                    "ceFilesGlob": "../{peregrine,venia-ui,venia-concept}/{lib,src}/**/*.ce.js",
-                    "eeFilesGlob": "../{peregrine,venia-ui,venia-concept}/{lib,src}/**/*.ee.js",
-                    "ignore": [
-                        "../venia-ui/lib/**/giftOptions.js",
-                        "../venia-ui/lib/**/wishlistPage.gql.js",
-                        "../venia-ui/lib/**/wishlistItem.gql.js"
-                    ]
                 }
             }
         }

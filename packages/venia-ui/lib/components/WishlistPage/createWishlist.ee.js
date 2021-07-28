@@ -9,15 +9,15 @@ import Dialog from '../Dialog';
 import Field from '../Field';
 import Icon from '../Icon';
 import { isRequired } from '../../util/formValidators';
-import { mergeClasses } from '../../classify';
-import RadioGroup from '../RadioGroup';
+import { useStyle } from '../../classify';
+
 import TextInput from '../TextInput';
 import FormError from '../FormError/formError';
 
 import defaultClasses from './createWishlist.css';
 
 const CreateWishlist = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useCreateWishlist();
     const {
@@ -40,29 +40,6 @@ const CreateWishlist = props => {
             src={PlusSquare}
         />
     );
-
-    const radioGroupClasses = {
-        message: classes.radioMessage,
-        radioLabel: classes.radioLabel,
-        root: classes.radioRoot
-    };
-
-    const radioGroupItems = [
-        {
-            label: formatMessage({
-                id: 'global.private',
-                defaultMessage: 'Private'
-            }),
-            value: 'PRIVATE'
-        },
-        {
-            label: formatMessage({
-                id: 'global.public',
-                defaultMessage: 'Public'
-            }),
-            value: 'PUBLIC'
-        }
-    ];
 
     return shouldRender ? (
         <div className={classes.root}>
@@ -124,11 +101,6 @@ const CreateWishlist = props => {
                             validateOnBlur
                         />
                     </Field>
-                    <RadioGroup
-                        classes={radioGroupClasses}
-                        field="visibility"
-                        items={radioGroupItems}
-                    />
                 </div>
             </Dialog>
         </div>

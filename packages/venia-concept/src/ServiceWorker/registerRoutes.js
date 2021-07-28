@@ -83,7 +83,7 @@ export default function() {
      * and the cycle repeats.
      */
     registerRoute(
-        ({ url }) => isHTMLRoute(url),
+        ({ url }) => url.origin === self.location.origin && isHTMLRoute(url),
         new StaleWhileRevalidate({
             plugins: [
                 {

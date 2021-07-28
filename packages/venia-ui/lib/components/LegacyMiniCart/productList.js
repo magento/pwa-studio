@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 
 import Product from './product';
 import defaultClasses from './productList.css';
@@ -24,7 +24,7 @@ const ProductList = props => {
         [beginEditItem, cartItems, currencyCode]
     );
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return <ul className={classes.root}>{products}</ul>;
 };

@@ -4,14 +4,9 @@ import { useAccountMenuItems } from '@magento/peregrine/lib/talons/AccountMenu/u
 
 import AccountMenuItems from '../accountMenuItems';
 
-jest.mock('@magento/venia-drivers', () => {
-    const drivers = jest.requireActual('@magento/venia-drivers');
-
-    return {
-        ...drivers,
-        Link: children => `<Link>${children.children}</Link>`
-    };
-});
+jest.mock('react-router-dom', () => ({
+    Link: children => `<Link>${children.children}</Link>`
+}));
 jest.mock(
     '@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems',
     () => {

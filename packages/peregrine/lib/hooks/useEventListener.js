@@ -19,6 +19,11 @@ import { useEffect } from 'react';
  */
 export const useEventListener = (target, type, listener, ...rest) => {
     useEffect(() => {
+        // in a Node environment, exit early
+        if (!target || typeof target.addEventListener !== 'function') {
+            return;
+        }
+
         target.addEventListener(type, listener, ...rest);
 
         // return a callback, which is called on unmount

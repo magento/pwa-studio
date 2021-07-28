@@ -4,7 +4,7 @@ import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import { isRequired } from '../../util/formValidators';
 import Button from '../Button';
 import Field from '../Field';
@@ -17,7 +17,7 @@ import Password from '../Password';
 import FormError from '../FormError/formError';
 
 const SignIn = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
     const { formatMessage } = useIntl();

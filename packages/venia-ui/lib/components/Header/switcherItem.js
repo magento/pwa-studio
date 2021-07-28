@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import { Check } from 'react-feather';
 import { bool, func, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon/icon';
 import defaultClasses from './switcherItem.css';
 
 const SwitcherItem = props => {
     const { active, onClick, option, children } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {
         onClick(option);

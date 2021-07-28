@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 import { CartTriggerFragment } from '@magento/peregrine/lib/talons/Header/cartTriggerFragments.gql';
 import { MiniCartFragment } from '@magento/peregrine/lib/talons/MiniCart/miniCartFragments.gql';
-import { WishlistFragment } from './wishlistFragment.gql';
+import { WishlistPageFragment } from './wishlistFragment.gql';
 
 export const ADD_WISHLIST_ITEM_TO_CART = gql`
     mutation AddWishlistItemToCart(
@@ -32,41 +32,11 @@ export const REMOVE_PRODUCTS_FROM_WISHLIST = gql`
         ) {
             wishlist {
                 id
-                items_v2 {
-                    items {
-                        id
-                        product {
-                            id
-                            image {
-                                label
-                                url
-                            }
-                            name
-                            price_range {
-                                maximum_price {
-                                    final_price {
-                                        currency
-                                        value
-                                    }
-                                }
-                            }
-                            sku
-                        }
-                        ... on ConfigurableWishlistItem {
-                            configurable_options {
-                                id
-                                value_id
-                                option_label
-                                value_label
-                            }
-                        }
-                    }
-                }
-                ...WishlistFragment
+                ...WishlistPageFragment
             }
         }
     }
-    ${WishlistFragment}
+    ${WishlistPageFragment}
 `;
 
 export default {
