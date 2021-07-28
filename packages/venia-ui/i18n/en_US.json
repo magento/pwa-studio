@@ -28,6 +28,8 @@
     "addressBookPage.makeDefaultAddress": "Make this my default address",
     "addressBookPage.telephone": "Phone {telephone}",
     "addressCard.defaultText": "Default",
+    "addToCartButton.addItemToCart": "ADD TO CART", 
+    "addToCartButton.itemOutOfStock": "OUT OF STOCK",
     "addToCartDialog.addToCart": "Add to Cart",
     "app.errorOffline": "You are offline. Some features may be unavailable.",
     "app.errorUnexpected": "Sorry! An unexpected error occurred.",

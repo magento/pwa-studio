@@ -18,12 +18,12 @@ const AddToCartButton = props => {
 
     const buttonText = isInStock ? (
         <FormattedMessage
-            id="addItemToCart"
+            id="addToCartButton.addItemToCart"
             defaultMessage="ADD TO CART"
         />
     ) : (
         <FormattedMessage
-            id="itemOutOfStock"
+            id="addToCartButton.itemOutOfStock"
             defaultMessage="OUT OF STOCK"
         />
     );
