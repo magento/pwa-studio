@@ -44,7 +44,7 @@ exports[`it renders a configurable wishlist item 1`] = `
      
     <button
       aria-label="Remove Product from Wishlist"
-      className="delteItem"
+      className="deleteItem"
       onClick={[MockFunction handleRemoveProductFromWishlist]}
     >
       <span
@@ -149,7 +149,7 @@ exports[`it renders a simple wishlist item 1`] = `
      
     <button
       aria-label="Remove Product from Wishlist"
-      className="delteItem"
+      className="deleteItem"
       onClick={[MockFunction handleRemoveProductFromWishlist]}
     >
       <span

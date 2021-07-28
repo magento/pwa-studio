@@ -1,7 +1,9 @@
+export const productPageRoot = 'form[class^="productFullDetail-root-"]';
+
 export const productPageAddToWishListButton =
-    'button[class^="wishlistButton-button-"]';
+    'button[class^="addToListButton-root"]';
 
 export const productPageSelectedWishlistButton =
-    '*[class^="wishlistButton-wishlistButtonContent_disabled-"]';
+    '*[class^="addToListButton-root_selected-"]';
 
 export const addProductToWishlist = 'button[class^="wishlistLineItem-root-"]';
