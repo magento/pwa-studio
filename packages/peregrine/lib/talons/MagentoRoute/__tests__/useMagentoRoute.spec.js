@@ -9,9 +9,15 @@ import { useMagentoRoute } from '../useMagentoRoute';
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {
-        nextRootComponent: null
+        nextRootComponent: null,
+        isPageLoading: false
     };
-    const api = { actions: { setNextRootComponent: jest.fn() } };
+    const api = {
+        actions: {
+            setNextRootComponent: jest.fn(),
+            setPageLoading: jest.fn()
+        }
+    };
     const useAppContext = jest.fn(() => [state, api]);
 
     return { useAppContext };
@@ -73,6 +79,7 @@ const Component = () => {
 };
 
 beforeEach(() => {
+    log.mockReset();
     useQuery.mockReset();
     useQuery.mockImplementation(() => {
         return {
@@ -103,7 +110,7 @@ describe('returns LOADING while queries are pending', () => {
         expect(log).toHaveBeenCalledTimes(1);
         expect(log).toHaveBeenNthCalledWith(1, {
             isLoading: true,
-            nextRootComponent: null
+            type: null
         });
     });
 
@@ -116,7 +123,7 @@ describe('returns LOADING while queries are pending', () => {
         expect(log).toHaveBeenCalledTimes(1);
         expect(log).toHaveBeenNthCalledWith(1, {
             isLoading: true,
-            nextRootComponent: null
+            type: null
         });
     });
 });
@@ -154,7 +161,7 @@ describe('returns ERROR when queries fail', () => {
         expect(log).toHaveBeenCalledTimes(2);
         expect(log).toHaveBeenNthCalledWith(1, {
             isLoading: true,
-            nextRootComponent: null
+            type: null
         });
         expect(log).toHaveBeenNthCalledWith(2, {
             hasError: true,
@@ -165,7 +172,7 @@ describe('returns ERROR when queries fail', () => {
 
 describe('returns NOT_FOUND when queries come back empty', () => {
     test('urlResolver is null', async () => {
-        useQuery.mockImplementation(() => {
+        useQuery.mockImplementationOnce(() => {
             return {
                 data: {
                     urlResolver: null
@@ -256,7 +263,7 @@ describe('returns FOUND after fetching a component', () => {
         expect(log).toHaveBeenCalledTimes(2);
         expect(log).toHaveBeenNthCalledWith(1, {
             isLoading: true,
-            nextRootComponent: null
+            type: null
         });
         expect(log).toHaveBeenNthCalledWith(2, {
             component: 'MockComponent',

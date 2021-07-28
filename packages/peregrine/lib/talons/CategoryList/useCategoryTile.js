@@ -46,7 +46,7 @@ export const useCategoryTile = props => {
         [item]
     );
 
-    const handleClick = useInternalLink('category');
+    const { handleClick } = useInternalLink('category');
 
     return {
         image: imageObj,

@@ -38,6 +38,9 @@ Array [
         <CartTrigger />
       </div>
     </div>
+    <div
+      id="pageLoadingIndicator"
+    />
   </header>,
 ]
 `;

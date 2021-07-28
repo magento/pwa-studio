@@ -40,7 +40,9 @@ jest.mock('@apollo/client', () => {
     };
 });
 
-jest.mock('../../../hooks/useInternalLink');
+jest.mock('../../../hooks/useInternalLink', () => jest.fn(() => ({
+    handleClick: jest.fn()
+})));
 
 const props = {
     categoryId: 1

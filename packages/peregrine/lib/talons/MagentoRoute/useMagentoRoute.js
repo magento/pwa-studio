@@ -29,10 +29,6 @@ export const useMagentoRoute = (props = {}) => {
         [setComponentMap]
     );
 
-    const resetLoadingComponent = useCallback(() => {
-        setNextRootComponent(null);
-    }, [setNextRootComponent]);
-
     const queryResult = useQuery(resolveUrlQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
@@ -90,8 +86,6 @@ export const useMagentoRoute = (props = {}) => {
             } catch (error) {
                 setComponent(pathname, error);
             }
-
-            resetLoadingComponent();
         })();
     }, [
         component,
@@ -100,8 +94,6 @@ export const useMagentoRoute = (props = {}) => {
         loading,
         pathname,
         setComponent,
-        setPreviousPathname,
-        resetLoadingComponent,
         type
     ]);
 
@@ -113,10 +105,11 @@ export const useMagentoRoute = (props = {}) => {
     }, [pathname, replace, routeData]);
 
     useEffect(() => {
-        if (component) {
-            // Store pathname after component has changed
+        if (component && !(component instanceof Error)) {
             setPreviousPathname(pathname);
         }
+
+        setNextRootComponent(null);
     }, [component]);
 
     useEffect(() => {
