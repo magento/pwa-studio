@@ -79,7 +79,7 @@ const Component = () => {
 };
 
 beforeEach(() => {
-    log.mockReset();
+    log.mockClear();
     useQuery.mockReset();
     useQuery.mockImplementation(() => {
         return {

@@ -25,7 +25,6 @@ export const useNavigation = (props = {}) => {
     const [
         appState,
         {
-            actions: { setNextRootComponent },
             closeDrawer
         }
     ] = useAppContext();
@@ -89,7 +88,7 @@ export const useNavigation = (props = {}) => {
         closeDrawer();
         // Sets next root component to show proper loading effect
         setLoader();
-    }, [closeDrawer, setNextRootComponent]);
+    }, [closeDrawer, setLoader]);
 
     // create callbacks for local state
     const showCreateAccount = useCallback(() => {

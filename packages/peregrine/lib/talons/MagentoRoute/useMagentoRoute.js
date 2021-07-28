@@ -110,11 +110,11 @@ export const useMagentoRoute = (props = {}) => {
         }
 
         setNextRootComponent(null);
-    }, [component]);
+    }, [component, pathname, setNextRootComponent, setPreviousPathname]);
 
     useEffect(() => {
         setPageLoading(showPageLoader);
-    }, [showPageLoader])
+    }, [showPageLoader, setPageLoading])
 
     return routeData;
 };

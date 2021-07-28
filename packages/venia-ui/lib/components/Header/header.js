@@ -25,7 +25,6 @@ const Header = props => {
         handleSearchTriggerClick,
         hasBeenOffline,
         isOnline,
-        isPageLoading,
         isSearchOpen,
         searchRef,
         searchTriggerRef

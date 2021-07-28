@@ -1,4 +1,4 @@
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useAppContext } from '../../context/app';
 
 export default () => {
     const [{ isPageLoading }] = useAppContext();

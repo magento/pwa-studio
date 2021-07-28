@@ -5,26 +5,34 @@ import resourceUrl from '../../util/makeUrl';
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from '../MagentoRoute/magentoRoute.gql';
 
-const useLink = (shouldPrefetch, originalRef) => {
-    const operations = shouldPrefetch ? mergeOperations(DEFAULT_OPERATIONS, props.operations) : {};
+const useLink = (props, passedOperations = {}) => {
+    const {
+        prefetchType: shouldPrefetch,
+        innerRef: originalRef,
+        to
+    } = props;
+    const operations = shouldPrefetch ? mergeOperations(DEFAULT_OPERATIONS, passedOperations) : {};
 
     const intersectionObserver = useIntersectionObserver();
     const { resolveUrlQuery } = operations;
-    const elementRef = originalRef || !shouldPrefetch ? originalRef : useRef();
+    const generatedRef = useRef();
+    const elementRef = originalRef || !shouldPrefetch ? originalRef : generatedRef;
     const [
         runQuery,
         { called: pageTypeCalled }
-    ] = shouldPrefetch ? useLazyQuery(resolveUrlQuery) : [null, {}];
-    const linkPath = shouldPrefetch ? resourceUrl(props.to) : null;
+    ] = useLazyQuery(resolveUrlQuery);
+    const linkPath = shouldPrefetch ? resourceUrl(to) : null;
 
     useEffect(() => {
-        if (!shouldPrefetch || pageTypeCalled || !elementRef.current || typeof intersectionObserver === 'undefined') {
+        if (!shouldPrefetch || pageTypeCalled || !runQuery || !elementRef.current || typeof intersectionObserver === 'undefined') {
             return;
         }
 
+        const htmlElement = elementRef.current;
+
         const onIntersection = (entries) => {
             if (entries.some((entry) => entry.isIntersecting)) {
-                observer.unobserve(elementRef.current);
+                observer.unobserve(htmlElement);
 
                 runQuery({
                     variables: { url: linkPath }
@@ -32,14 +40,21 @@ const useLink = (shouldPrefetch, originalRef) => {
             }
         }
         const observer = new intersectionObserver(onIntersection);
-        observer.observe(elementRef.current);
+        observer.observe(htmlElement);
 
         return () => {
-            if (elementRef.current) {
-                observer.unobserve(elementRef.current);
+            if (htmlElement) {
+                observer.unobserve(htmlElement);
             }
         };
-    }, [shouldPrefetch, elementRef, pageTypeCalled, linkPath, intersectionObserver]);
+    }, [
+        shouldPrefetch,
+        elementRef,
+        pageTypeCalled,
+        linkPath,
+        intersectionObserver,
+        runQuery
+    ]);
 
     return {
         ref: elementRef
