@@ -1,15 +1,18 @@
 import {
     accountAccess as accountAccessFixtures,
-    myAccountMenu as myAccountMenuFixtures,
     categoryPage as categoryPageFixtures,
+    cartPage as cartPageFixtures,
     homePage as homePageFixtures,
+    myAccountMenu as myAccountMenuFixtures,
     wishlist as wishlistFixtures,
     productPage as productPageFixtures
 } from '../../../fixtures';
 import {
+    cartPage as cartPageActions,
     categoryPage as categoryPageActions,
     myAccountMenu as myAccountMenuActions,
-    productPage as productPageActions
+    productPage as productPageActions,
+    wishlistPage as wishlistPageActions
 } from '../../../actions';
 import {
     myAccountMenu as myAccountMenuAssertions,
@@ -25,19 +28,29 @@ const {
 } = accountAccessFixtures;
 const { wishlistPage } = myAccountMenuFixtures;
 const { categorySweaters, productCarinaCardigan } = categoryPageFixtures;
+const { cartPageRoute } = cartPageFixtures;
 const { homePage } = homePageFixtures;
 const { wishlistRoute } = wishlistFixtures;
-const { productValeriaTwoLayeredTank } = productPageFixtures;
+const {
+    productValeriaTwoLayeredTank,
+    silverAmorBangleSet
+} = productPageFixtures;
 
+const { moveProductFromCartToSingleWishlist } = cartPageActions;
 const { goToMyAccount } = myAccountMenuActions;
 const { addProductToWishlistFromCategoryPage } = categoryPageActions;
-const { addProductToWishlistFromProductPage } = productPageActions;
+const {
+    addProductToWishlistFromProductPage,
+    addSimpleProductToCartFromProductPage
+} = productPageActions;
+const { removeProductFromSingleWishlist } = wishlistPageActions;
 
 const { assertCreateAccount } = myAccountMenuAssertions;
 const {
     assertWishlistHeading,
     assertEmptyWishlistExists,
-    assertProductInWishlist
+    assertProductInWishlist,
+    asserProductNotInWishlist
 } = wishlistAssertions;
 const { assertWishlistSelectedProductOnCategoryPage } = categoryPageAssertions;
 
@@ -69,14 +82,24 @@ describe('verify single wishlist basic features', () => {
         assertProductInWishlist(productCarinaCardigan);
 
         cy.visitPage(productValeriaTwoLayeredTank.url);
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
         addProductToWishlistFromProductPage();
         cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
-        //This will be updated once https://jira.corp.magento.com/browse/PWA-1709 is code complete
-        // assertProductInWishlist(productValeriaTwoLayeredTank.url);
+        assertProductInWishlist(productValeriaTwoLayeredTank.name);
 
-        //This test also need to account for Remove the added product and assert for empty wishlist part of PWA-1683
+        cy.visitPage(silverAmorBangleSet.url);
+        addSimpleProductToCartFromProductPage();
+        cy.visitPage(cartPageRoute);
+        moveProductFromCartToSingleWishlist(silverAmorBangleSet.name);
+        cy.visitPage(wishlistRoute);
+
+        assertProductInWishlist(productCarinaCardigan);
+        assertProductInWishlist(productValeriaTwoLayeredTank.name);
+        assertProductInWishlist(silverAmorBangleSet.name);
+
+        removeProductFromSingleWishlist(productCarinaCardigan);
+
+        asserProductNotInWishlist(productCarinaCardigan);
     });
 });
