@@ -11,7 +11,12 @@ const path = require('path');
  */
 const requireGraphQL = filePath => {
     const absolutePath = path.resolve(__dirname, filePath);
-    return fs.readFileSync(absolutePath, { encoding: 'utf8' });
+    return stripComments(fs.readFileSync(absolutePath, { encoding: 'utf8' }));
+};
+
+const singleLineCommentRegex = /(^#.*\n)/gm;
+const stripComments = string => {
+    return string.replace(singleLineCommentRegex, '');
 };
 
 // Import all the build-time queries.

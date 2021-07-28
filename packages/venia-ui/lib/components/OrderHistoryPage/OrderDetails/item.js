@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { useOrderHistoryContext } from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '../../Button';
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
@@ -34,7 +34,7 @@ const Item = props => {
             })),
         [selected_options]
     );
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const thumbnailProps = {
         alt: product_name,

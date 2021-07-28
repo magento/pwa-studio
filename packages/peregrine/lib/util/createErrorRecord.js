@@ -41,11 +41,12 @@ export default function errorRecord(error, window, context, customStack) {
         stack = error.stack;
     }
     const messageStart = stack.indexOf(message);
+    const { origin } = globalThis.location || {};
     if (messageStart > -1) {
         const traceStart = messageStart + message.length;
         record.loc = stack
             .slice(traceStart)
-            .replace(window.location.origin, '')
+            .replace(origin, '')
             .trim()
             .split('\n')[0];
     }

@@ -132,3 +132,23 @@ test('There should be a route for all HTML routes with StaleWhileRevalidate stra
 
     registerRoute.mockClear();
 });
+
+test('does not register route with different origin', () => {
+    registerRoutes();
+
+    const mockURL = {
+        url: {
+            origin: 'https://third.party.origin',
+            pathname: '/'
+        }
+    };
+
+    const [registrationCall] = registerRoute.mock.calls.filter(call =>
+        call[0].toString().includes('isHTMLRoute')
+    );
+    const [captureFunction] = registrationCall;
+
+    const registerResult = captureFunction(mockURL);
+
+    expect(registerResult).toBe(false);
+});

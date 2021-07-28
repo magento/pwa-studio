@@ -1,50 +1,43 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { number, node, oneOf, oneOfType, shape, string } from 'prop-types';
-import { BasicTextArea, asField } from 'informed';
-import { compose } from 'redux';
+import { TextArea as InformedTextArea, useFieldState } from 'informed';
 
-import classify from '../../classify';
+import { useStyle } from '../../classify';
 import { Message } from '../Field';
 import defaultClasses from './textArea.css';
 
-export class TextArea extends Component {
-    static propTypes = {
-        classes: shape({
-            input: string
-        }),
-        cols: oneOfType([number, string]),
-        field: string.isRequired,
-        fieldState: shape({
-            value: string
-        }),
-        message: node,
-        rows: oneOfType([number, string]),
-        wrap: oneOf(['hard', 'soft'])
-    };
+const TextArea = props => {
+    const { classes: propClasses, field, message, ...rest } = props;
+    const fieldState = useFieldState(field);
+    const classes = useStyle(defaultClasses, propClasses);
 
-    static defaultProps = {
-        cols: 40,
-        rows: 4,
-        wrap: 'hard'
-    };
+    return (
+        <Fragment>
+            <InformedTextArea
+                {...rest}
+                className={classes.input}
+                field={field}
+            />
+            <Message fieldState={fieldState}>{message}</Message>
+        </Fragment>
+    );
+};
 
-    render() {
-        const { classes, fieldState, message, ...rest } = this.props;
+export default TextArea;
 
-        return (
-            <Fragment>
-                <BasicTextArea
-                    {...rest}
-                    fieldState={fieldState}
-                    className={classes.input}
-                />
-                <Message fieldState={fieldState}>{message}</Message>
-            </Fragment>
-        );
-    }
-}
+TextArea.defaultProps = {
+    cols: 40,
+    rows: 4,
+    wrap: 'hard'
+};
 
-export default compose(
-    classify(defaultClasses),
-    asField
-)(TextArea);
+TextArea.propTypes = {
+    classes: shape({
+        input: string
+    }),
+    cols: oneOfType([number, string]),
+    field: string.isRequired,
+    message: node,
+    rows: oneOfType([number, string]),
+    wrap: oneOf(['hard', 'soft'])
+};

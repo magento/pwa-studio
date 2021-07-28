@@ -37,10 +37,7 @@ export const GET_PAYMENT_INFORMATION = gql`
     }
     ${AvailablePaymentMethodsFragment}
 `;
-// We disable linting for local fields because there is no way to add them to
-// the fetched schema.
-// https://github.com/apollographql/eslint-plugin-graphql/issues/99
-/* eslint-disable graphql/template-strings */
+
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
         cart(cart_id: $cartId) @client {
@@ -49,7 +46,6 @@ export const GET_PAYMENT_NONCE = gql`
         }
     }
 `;
-/* eslint-enable graphql/template-strings */
 
 export const SET_BILLING_ADDRESS = gql`
     mutation setBillingAddress(

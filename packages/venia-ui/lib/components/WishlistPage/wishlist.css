@@ -19,6 +19,11 @@
     grid-auto-flow: column;
 }
 
+.emptyListText {
+    text-align: center;
+    padding: 2rem 0;
+}
+
 .name {
     font-weight: var(--venia-global-fontWeight-semibold);
 }
@@ -30,12 +35,24 @@
     grid-auto-flow: column;
 }
 
+.itemsCountContainer {
+    align-items: center;
+    display: grid;
+}
+
 .content_hidden {
     display: none;
 }
 
 .visibilityToggle_hidden {
     display: none;
+}
+
+.loadMore {
+    composes: root_lowPriority from '../Button/button.css';
+    margin: 2rem auto;
+    display: block;
+    min-width: 20rem;
 }
 
 @media (max-width: 960px) {

@@ -54,6 +54,7 @@ const alreadyProvisioned = hostname => {
 function getCert(hostname) {
     // Manually create a Promise here to obtain a "reject" function in closure,
     // so we can use a setTimeout to reject the promise after 30 seconds.
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
         const timeout = setTimeout(
             () =>

@@ -28,7 +28,6 @@ const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
     const { formatMessage } = useIntl();
-
     const [, { addToast }] = useToasts();
 
     const ERROR_MESSAGE = formatMessage({

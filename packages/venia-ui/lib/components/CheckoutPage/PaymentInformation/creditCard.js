@@ -12,7 +12,7 @@ import Field from '../../Field';
 import TextInput from '../../TextInput';
 import BrainTreeDropin from './brainTreeDropIn';
 import LoadingIndicator from '../../LoadingIndicator';
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 
 import defaultClasses from './creditCard.css';
 import FormError from '../../FormError';
@@ -37,18 +37,21 @@ const STEP_DESCRIPTIONS = [
     }
 ];
 
+/**
+ * The initial view for the Braintree payment method.
+ */
 const CreditCard = props => {
     const {
         classes: propClasses,
         onPaymentSuccess: onSuccess,
-        onDropinReady: onReady,
+        onPaymentReady: onReady,
         onPaymentError: onError,
         resetShouldSubmit,
         shouldSubmit
     } = props;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = useCreditCard({
         onSuccess,
@@ -319,7 +322,7 @@ CreditCard.propTypes = {
     }),
     shouldSubmit: bool.isRequired,
     onPaymentSuccess: func,
-    onDropinReady: func,
+    onPaymentReady: func,
     onPaymentError: func,
     resetShouldSubmit: func.isRequired
 };

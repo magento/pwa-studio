@@ -1,0 +1,7 @@
+# Mocked client fields used for gift receipt and message components
+# TODO: As of 2.4.2 these fields now exist, we should remove these and update components.
+extend type Cart {
+    include_gift_receipt: Boolean!
+    include_printed_card: Boolean!
+    local_gift_message: String
+}

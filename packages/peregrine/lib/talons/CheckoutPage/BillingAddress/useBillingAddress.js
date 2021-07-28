@@ -1,11 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
-import {
-    useQuery,
-    useApolloClient,
-    useMutation,
-    useLazyQuery
-} from '@apollo/client';
+import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -51,6 +46,7 @@ export const mapAddressData = rawAddressData => {
  * Talon to handle Billing address for payment forms.
  *
  * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
+ * @param {Funciton} props.resetShouldSubmit callback to invoke when submit has completed (success or fail)
  * @param {Function} props.onBillingAddressChangedError callback to invoke when an error was thrown while setting the billing address
  * @param {Function} props.onBillingAddressChangedSuccess callback to invoke when address was sucessfully set
  * @param {DocumentNode} props.operations.getShippingAddressQuery query to fetch shipping address from cache
@@ -78,6 +74,7 @@ export const mapAddressData = rawAddressData => {
  */
 export const useBillingAddress = props => {
     const {
+        resetShouldSubmit,
         shouldSubmit,
         onBillingAddressChangedError,
         onBillingAddressChangedSuccess
@@ -107,10 +104,7 @@ export const useBillingAddress = props => {
         { skip: !cartId, variables: { cartId } }
     );
 
-    const [
-        loadBillingAddressQuery,
-        { data: billingAddressData }
-    ] = useLazyQuery(getBillingAddressQuery, {
+    const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
         skip: !cartId,
         variables: { cartId }
     });
@@ -136,10 +130,14 @@ export const useBillingAddress = props => {
 
         let billingAddress = {};
         /**
-         * If billing address is same as shipping address, do
+         * If the user wants billing address same as shipping address, do
          * not auto fill the fields.
          */
-        if (billingAddressData && !isBillingAddressSame) {
+        if (isBillingAddressSame) {
+            return { isBillingAddressSame, ...billingAddress };
+        } else if (billingAddressData) {
+            // The user does not want the billing address to be the same.
+            // Attempt to pre-populate the form if a billing address is already set.
             if (billingAddressData.cart.billingAddress) {
                 const {
                     // eslint-disable-next-line no-unused-vars
@@ -232,15 +230,6 @@ export const useBillingAddress = props => {
      */
 
     /**
-     * Loads billing address if is different to shipment address.
-     */
-    useEffect(() => {
-        if (!isBillingAddressSame) {
-            loadBillingAddressQuery();
-        }
-    }, [isBillingAddressSame, loadBillingAddressQuery]);
-
-    /**
      *
      * User has clicked the update button
      */
@@ -303,6 +292,7 @@ export const useBillingAddress = props => {
                 billingAddressMutationCompleted &&
                 !billingAddressMutationError
             ) {
+                resetShouldSubmit();
                 onBillingAddressChangedSuccess();
             }
 
@@ -320,6 +310,7 @@ export const useBillingAddress = props => {
             if (process.env.NODE_ENV !== 'production') {
                 console.error(err);
             }
+            resetShouldSubmit();
             onBillingAddressChangedError();
         }
     }, [
@@ -327,7 +318,8 @@ export const useBillingAddress = props => {
         billingAddressMutationCalled,
         billingAddressMutationLoading,
         onBillingAddressChangedError,
-        onBillingAddressChangedSuccess
+        onBillingAddressChangedSuccess,
+        resetShouldSubmit
     ]);
 
     const errors = useMemo(

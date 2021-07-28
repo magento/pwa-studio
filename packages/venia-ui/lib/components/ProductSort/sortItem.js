@@ -3,13 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import { Check } from 'react-feather';
 import { bool, func, shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Icon from '../Icon/icon';
 import defaultClasses from './sortItem.css';
 
 const SortItem = props => {
     const { active, onClick, sortItem } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {
         onClick(sortItem);

@@ -8,7 +8,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
@@ -18,7 +18,7 @@ import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichText from '../RichText';
 import defaultClasses from './productFullDetail.css';
 
-const WishlistButton = React.lazy(() => import('../Wishlist/WishlistButton'));
+const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
 const Options = React.lazy(() => import('../ProductOptions'));
 
 // Correlate a GQL error message to a field. GQL could return a longer error
@@ -49,12 +49,11 @@ const ProductFullDetail = props => {
         isSupportedProductType,
         mediaGalleryEntries,
         productDetails,
-        shouldShowWishlistButton,
-        wishlistItemOptions
+        wishlistButtonProps
     } = talonProps;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const options = isProductConfigurable(product) ? (
         <Suspense fallback={fullPageLoadingIndicator}>
@@ -126,12 +125,6 @@ const ProductFullDetail = props => {
         }
     }
 
-    const maybeWishlistButton = shouldShowWishlistButton ? (
-        <Suspense fallback={null}>
-            <WishlistButton itemOptions={wishlistItemOptions} />
-        </Suspense>
-    ) : null;
-
     const cartActionContent = isSupportedProductType ? (
         <Button disabled={isAddToCartDisabled} priority="high" type="submit">
             <FormattedMessage
@@ -193,7 +186,9 @@ const ProductFullDetail = props => {
                 </section>
                 <section className={classes.actions}>
                     {cartActionContent}
-                    {maybeWishlistButton}
+                    <Suspense fallback={null}>
+                        <WishlistButton {...wishlistButtonProps} />
+                    </Suspense>
                 </section>
                 <section className={classes.description}>
                     <h2 className={classes.descriptionTitle}>

@@ -5,7 +5,7 @@ import { Edit2 as EditIcon } from 'react-feather';
 
 import Price from '@magento/venia-ui/lib/components/Price';
 
-import { mergeClasses } from '../../../classify';
+import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import defaultClasses from './completedView.css';
 import LinkButton from '../../LinkButton';
@@ -13,7 +13,7 @@ import LinkButton from '../../LinkButton';
 const CompletedView = props => {
     const { selectedShippingMethod, showUpdateMode } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     let contents;
     if (!selectedShippingMethod) {

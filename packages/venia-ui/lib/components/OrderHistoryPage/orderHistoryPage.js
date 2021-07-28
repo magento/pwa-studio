@@ -12,7 +12,7 @@ import { useToasts } from '@magento/peregrine/lib/Toasts';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import Button from '../Button';
 import Icon from '../Icon';
 import LoadingIndicator from '../LoadingIndicator';
@@ -56,7 +56,7 @@ const OrderHistoryPage = props => {
         id: 'orderHistoryPage.search',
         defaultMessage: 'Search by Order Number'
     });
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const orderRows = useMemo(() => {
         return orders.map(order => {

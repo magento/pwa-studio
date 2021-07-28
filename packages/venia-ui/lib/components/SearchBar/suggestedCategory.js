@@ -1,10 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { func, shape, string } from 'prop-types';
-import { Link } from '@magento/venia-drivers';
+import { Link } from 'react-router-dom';
 import { useSuggestedCategory } from '@magento/peregrine/lib/talons/SearchBar';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './suggestedCategory.css';
 
 const SuggestedCategory = props => {
@@ -16,7 +16,7 @@ const SuggestedCategory = props => {
         searchValue: value
     });
     const { destination, handleClick } = talonProps;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <Link className={classes.root} to={destination} onClick={handleClick}>

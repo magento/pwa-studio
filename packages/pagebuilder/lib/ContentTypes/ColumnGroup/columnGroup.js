@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './columnGroup.css';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import { shape, string } from 'prop-types';
 
 /**
@@ -16,7 +16,7 @@ import { shape, string } from 'prop-types';
  * @returns {React.Element} A React component that wraps {@link Column} components.
  */
 const ColumnGroup = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { display, children } = props;
     const dynamicStyles = {
         display

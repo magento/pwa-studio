@@ -2,9 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Row from '../row';
 
-jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(src => src)
-}));
+jest.mock('@magento/peregrine/lib/util/makeUrl');
 
 jest.mock('jarallax', () => {
     return {
@@ -115,7 +113,7 @@ test('row unmount causes Jarallax to be destroyed', () => {
 
 test('render row with all props configured', () => {
     const rowProps = {
-        appearance: 'full-width',
+        appearance: 'contained',
         verticalAlignment: 'middle',
         minHeight: '200px',
         backgroundColor: 'red',
@@ -156,7 +154,27 @@ test('render row with all props configured', () => {
 
 test('render full-bleed row', () => {
     const rowProps = {
+        marginRight: '10px',
+        marginLeft: '10px',
         appearance: 'full-bleed'
+    };
+    const component = createTestInstance(<Row {...rowProps} />, {
+        createNodeMock: () => {
+            return {
+                offsetWidth: 250,
+                offsetHeight: 250
+            };
+        }
+    });
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('render full-width row', () => {
+    const rowProps = {
+        marginRight: '10px',
+        marginLeft: '10px',
+        appearance: 'full-width'
     };
     const component = createTestInstance(<Row {...rowProps} />, {
         createNodeMock: () => {
@@ -177,7 +195,7 @@ test('render row with mobile image displayed and parallax enabled', () => {
         enableParallax: true
     };
 
-    window.matchMedia = jest.fn().mockImplementation(query => {
+    matchMedia.mockImplementation(query => {
         return {
             matches: true,
             media: query,

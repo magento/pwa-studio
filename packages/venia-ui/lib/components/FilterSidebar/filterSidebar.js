@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { array, arrayOf, shape, string, number } from 'prop-types';
 import { useFilterSidebar } from '@magento/peregrine/lib/talons/FilterSidebar';
 
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import LinkButton from '../LinkButton';
 import CurrentFilters from '../FilterModal/CurrentFilters';
 import FilterBlock from '../FilterModal/filterBlock';
@@ -29,7 +29,7 @@ const FilterSidebar = props => {
     } = talonProps;
 
     const filterRef = useRef();
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const handleApplyFilter = useCallback(
         (...args) => {

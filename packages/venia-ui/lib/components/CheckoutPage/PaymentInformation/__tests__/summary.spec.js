@@ -4,8 +4,6 @@ import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentIn
 
 import Summary from '../summary';
 
-import classes from '../summary.css';
-
 jest.mock('../../../../classify');
 
 jest.mock(
@@ -22,6 +20,10 @@ jest.mock(
         };
     }
 );
+
+jest.mock('../summaryPaymentCollection', () => ({
+    braintree: props => <mock-Braintree id={'BraintreeMockId'} {...props} />
+}));
 
 const billingAddress = {
     firstName: 'Goosey',
@@ -69,45 +71,7 @@ test('should render a braintree summary', () => {
         }
     });
 
-    const tree = createTestInstance(<Summary onEdit={mockOnEdit} />);
+    const tree = createTestInstance(<Summary onEdit={jest.fn()} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
-});
-
-test('Should render billing address if it is not same as shipping address', () => {
-    useSummary.mockReturnValueOnce({
-        isBillingAddressSame: false,
-        billingAddress,
-        paymentNonce: {
-            details: { cardType: 'visa', lastFour: '1234' }
-        },
-        selectedPaymentMethod: { code: 'braintree' }
-    });
-
-    const tree = createTestInstance(<Summary onEdit={mockOnEdit} />);
-
-    expect(
-        tree.root.findByProps({
-            className: classes.address_summary_container
-        })
-    ).not.toBeNull();
-});
-
-test('Should not render billing address if it is same as shipping address', () => {
-    useSummary.mockReturnValueOnce({
-        isBillingAddressSame: true,
-        billingAddress: {},
-        paymentNonce: {
-            details: { cardType: 'visa', lastFour: '1234' }
-        },
-        selectedPaymentMethod: { code: 'braintree' }
-    });
-
-    const tree = createTestInstance(<Summary onEdit={mockOnEdit} />);
-
-    expect(() => {
-        tree.root.findByProps({
-            className: classes.address_summary_container
-        });
-    }).toThrow();
 });

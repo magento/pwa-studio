@@ -1,9 +1,5 @@
 import { gql } from '@apollo/client';
 
-// We disable linting for local fields because there is no way to add them to
-// the fetched schema.
-// https://github.com/apollographql/eslint-plugin-graphql/issues/99
-/* eslint-disable graphql/template-strings */
 /**
  * Local query. GQL support is not available as of today.
  *
@@ -15,11 +11,10 @@ const GET_GIFT_OPTIONS = gql`
             id
             include_gift_receipt
             include_printed_card
-            gift_message
+            local_gift_message
         }
     }
 `;
-/* eslint-enable graphql/template-strings */
 
 export default {
     queries: {

@@ -1,0 +1,307 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should not render billing address if it is same as shipping address 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="heading_container"
+  >
+    <h5
+      className="heading"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Payment Information"
+        id="checkoutPage.paymentInformation"
+      />
+    </h5>
+    <button
+      className="edit_button"
+      disabled={false}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            />
+          </svg>
+        </span>
+        <span
+          className="edit_text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="global.editButton"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+  <div
+    className="card_details_container"
+  >
+    <span
+      className="payment_type"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Credit Card"
+        id="global.creditCard"
+      />
+    </span>
+    <span
+      className="payment_details"
+    >
+      visa ending in 1234
+    </span>
+  </div>
+  <div
+    className="address_summary_container"
+  >
+    <div>
+      <span
+        className="first_name"
+      />
+      <span
+        className="last_name"
+      />
+    </div>
+    <div>
+      <span
+        className="street1"
+      />
+      <span
+        className="street2"
+      />
+      <span
+        className="city"
+      />
+      <span
+        className="state"
+      />
+    </div>
+    <div>
+      <span
+        className="postalCode"
+      />
+      <span
+        className="country"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should render billing address if it is not same as shipping address 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="heading_container"
+  >
+    <h5
+      className="heading"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Payment Information"
+        id="checkoutPage.paymentInformation"
+      />
+    </h5>
+    <button
+      className="edit_button"
+      disabled={false}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            />
+          </svg>
+        </span>
+        <span
+          className="edit_text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="global.editButton"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+  <div
+    className="card_details_container"
+  >
+    <span
+      className="payment_type"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Credit Card"
+        id="global.creditCard"
+      />
+    </span>
+    <span
+      className="payment_details"
+    >
+      visa ending in 1234
+    </span>
+  </div>
+  <div
+    className="address_summary_container"
+  >
+    <div>
+      <span
+        className="first_name"
+      >
+        Goosey
+      </span>
+      <span
+        className="last_name"
+      >
+        Goose
+      </span>
+    </div>
+    <div>
+      <span
+        className="street1"
+      >
+        12345 Goosey Blvd
+      </span>
+      <span
+        className="street2"
+      >
+        Apt 123
+      </span>
+      <span
+        className="city"
+      >
+        Austin
+      </span>
+      <span
+        className="state"
+      >
+        Texas
+      </span>
+    </div>
+    <div>
+      <span
+        className="postalCode"
+      >
+        12345
+      </span>
+      <span
+        className="country"
+      >
+        Goose Land
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="heading_container"
+  >
+    <h5
+      className="heading"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Payment Information"
+        id="checkoutPage.paymentInformation"
+      />
+    </h5>
+    <button
+      className="edit_button"
+      disabled={false}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height={16}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            />
+          </svg>
+        </span>
+        <span
+          className="edit_text"
+        >
+          <mock-FormattedMessage
+            defaultMessage="Edit"
+            id="global.editButton"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+  <div
+    className="card_details_container"
+  >
+    <span
+      className="payment_type"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Credit Card"
+        id="global.creditCard"
+      />
+    </span>
+    <span
+      className="payment_details"
+    >
+      visa ending in 1234
+    </span>
+  </div>
+</div>
+`;

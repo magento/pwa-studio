@@ -44,7 +44,7 @@ const defaultTalonProps = {
 };
 describe('OrderConfirmationPage', () => {
     beforeEach(() => {
-        window.scrollTo = jest.fn();
+        globalThis.scrollTo = jest.fn();
     });
     test('renders OrderConfirmationPage component', () => {
         useOrderConfirmationPage.mockReturnValue({

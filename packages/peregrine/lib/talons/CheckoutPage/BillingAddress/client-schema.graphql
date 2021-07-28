@@ -1,0 +1,4 @@
+# Additional client field to persist same billing preference
+extend type Cart {
+    isBillingAddressSame: Boolean!
+}

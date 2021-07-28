@@ -6,16 +6,14 @@ import { shape, func, string, bool, instanceOf } from 'prop-types';
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
 import CheckoutError from '@magento/peregrine/lib/talons/CheckoutPage/CheckoutError';
 
-import PaymentMethods from './paymentMethods';
-import Summary from './summary';
-import { mergeClasses } from '../../../classify';
-
+import { useStyle } from '../../../classify';
 import paymentInformationOperations from './paymentInformation.gql';
-
 import defaultClasses from './paymentInformation.css';
 import LoadingIndicator from '../../LoadingIndicator';
 
+const PaymentMethods = React.lazy(() => import('./paymentMethods'));
 const EditModal = React.lazy(() => import('./editModal'));
+const Summary = React.lazy(() => import('./summary'));
 
 const PaymentInformation = props => {
     const {
@@ -27,7 +25,7 @@ const PaymentInformation = props => {
         checkoutError
     } = props;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const talonProps = usePaymentInformation({
         onSave,
@@ -81,7 +79,7 @@ const PaymentInformation = props => {
     return (
         <div className={classes.root}>
             <div className={classes.payment_info_container}>
-                {paymentInformation}
+                <Suspense fallback={null}>{paymentInformation}</Suspense>
             </div>
             {editModal}
         </div>

@@ -91,13 +91,13 @@ test('Should set updateButtonClicked to true when handleUpdate is called', () =>
     ).toBeTruthy();
 });
 
-test('Should set isLoading to false when handleDropinReady is called', () => {
+test('Should set isLoading to false when handlePaymentReady is called', () => {
     const { talonProps, tree } = getTalonProps({
         onClose: () => {},
         queries: { getSelectedPaymentMethodQuery: '' }
     });
 
-    talonProps.handleDropinReady();
+    talonProps.handlePaymentReady();
 
     expect(tree.root.findByType('i').props.talonProps.isLoading).toBeFalsy();
 });
