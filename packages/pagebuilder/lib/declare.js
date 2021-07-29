@@ -4,7 +4,7 @@
  * Their implementations are found in `./intercept.js`.
  *
  */
-module.exports = targets => {
+module.exports = (targets) => {
     targets.declare({
         /**
          * Provides access to Pagebuilder custom content types

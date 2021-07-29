@@ -13,8 +13,7 @@ class CustomContentTypeList {
     constructor(pagebuilder) {
         const registry = this;
         this._types = pagebuilder.esModuleArray({
-            module:
-                '@magento/pagebuilder/lib/ContentTypes/customContentTypes.js',
+            module: '@magento/pagebuilder/lib/ContentTypes/customContentTypes.js',
             publish(targets) {
                 targets.customContentTypes.call(registry);
             }
@@ -35,8 +34,8 @@ class CustomContentTypeList {
             !type.importPath
         ) {
             throw new Error(
-                `customContentTypes target: Argument is not a valid rich content type strategy.`
-                + ` A valid strategy must have a JSX element name as "contentType" and a resolvable path to the renderer module as "importPath".`
+                `customContentTypes target: Argument is not a valid rich content type strategy.` +
+                    ` A valid strategy must have a JSX element name as "contentType" and a resolvable path to the renderer module as "importPath".`
             );
         }
         const componentName = `${type.contentType}ContentType`;
