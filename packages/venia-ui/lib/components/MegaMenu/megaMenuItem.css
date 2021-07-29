@@ -18,6 +18,15 @@
     display: flex;
 }
 
+.megaMenuItem_active {
+    composes: megaMenuItem;
+    display: flex;
+}
+
+.arrowDown {
+    padding-left: 8px;
+}
+
 .megaMenuItem:hover .megaMenuLink,
 .megaMenuItem:focus .megaMenuLink {
     text-decoration: underline;
