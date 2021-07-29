@@ -10,7 +10,8 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useStyle } from '../../classify';
 import Image from '../Image';
 import defaultClasses from './item.css';
-import WishlistGalleryButton from '../Wishlist/GalleryButton';
+import WishlistGalleryButton from '../Wishlist/AddToListButton';
+
 import AddToCartbutton from '../Gallery/addToCartButton';
 
 // The placeholder image is 4:5, so we should make sure to size our product
