@@ -174,8 +174,9 @@ class ModuleTransformConfig {
         return requestorVendor.length > 0 && vendors.includes(requestorVendor);
     }
     _getTrustedExtensionVendors() {
-        const env = process.env.TRUSTED_VENDORS;
-        return env ? env.split(',') : [];
+        const context = path.resolve(__dirname, '../../../../../');
+        const config = require(path.resolve(context, 'package.json'))['pwa-studio'];
+        return config && config['trusted_vendors'] ? config['trusted_vendors'] : [];
     }
     _traceableError(msg) {
         const capturedError = new Error(`ModuleTransformConfig: ${msg}`);
