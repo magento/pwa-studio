@@ -81,6 +81,7 @@ const Component = () => {
 
 beforeEach(() => {
     log.mockClear();
+
     useQuery.mockReset();
     useQuery.mockImplementation(() => {
         return {
@@ -144,50 +145,9 @@ describe('returns LOADING while queries are pending', () => {
     });
 });
 
-describe('returns ERROR when queries fail', () => {
-    test('urlResolver fails', async () => {
-        useQuery.mockImplementation(() => {
-            return { error: new Error() };
-        });
-
-        await act(() => {
-            create(<Component />);
-        });
-
-        expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
-            hasError: true,
-            routeError: expect.any(Error)
-        });
-    });
-
-    test('getRootComponent fails', async () => {
-        const routeError = new Error();
-
-        await act(() => {
-            create(<Component />);
-        });
-
-        await act(() => {
-            reject(routeError);
-        });
-
-        expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(2);
-        expect(log).toHaveBeenNthCalledWith(1, {
-            isLoading: true
-        });
-        expect(log).toHaveBeenNthCalledWith(2, {
-            hasError: true,
-            routeError
-        });
-    });
-});
-
 describe('returns NOT_FOUND when queries come back empty', () => {
     test('urlResolver is null', async () => {
-        useQuery.mockImplementationOnce(() => {
+        useQuery.mockImplementation(() => {
             return {
                 data: {
                     urlResolver: null
@@ -505,5 +465,47 @@ describe('loading type', async () => {
         });
 
         expect(mockSetNextRootComponent).toHaveBeenCalledWith(null);
+    });
+});
+
+// This test must be last as reject(routeError) causes next tests to fail
+describe('returns ERROR when queries fail', () => {
+    test('urlResolver fails', async () => {
+        useQuery.mockImplementation(() => {
+            return { error: new Error() };
+        });
+
+        await act(() => {
+            create(<Component />);
+        });
+
+        expect(replace).toHaveBeenCalledTimes(0);
+        expect(log).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            hasError: true,
+            routeError: expect.any(Error)
+        });
+    });
+
+    test('getRootComponent fails', async () => {
+        const routeError = new Error();
+
+        await act(() => {
+            create(<Component />);
+        });
+
+        await act(() => {
+            reject(routeError);
+        });
+
+        expect(replace).toHaveBeenCalledTimes(0);
+        expect(log).toHaveBeenCalledTimes(2);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isLoading: true
+        });
+        expect(log).toHaveBeenNthCalledWith(2, {
+            hasError: true,
+            routeError
+        });
     });
 });

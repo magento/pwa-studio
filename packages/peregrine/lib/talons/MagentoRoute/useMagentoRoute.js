@@ -104,12 +104,9 @@ export const useMagentoRoute = (props = {}) => {
     }, [pathname, replace, routeData]);
 
     useEffect(() => {
-        if (component && !(component instanceof Error)) {
+        if (component) {
             // store previous component's path
             setPreviousPathname(pathname);
-        }
-
-        if (component) {
             // Reset loading shimmer whenever component resolves
             setNextRootComponent(null);
         }
