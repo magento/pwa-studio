@@ -20,16 +20,21 @@ const MagentoRoute = () => {
         isLoading,
         isNotFound,
         isRedirect,
-        type
+        shimmer
     } = talonProps;
 
     if (isLoading || isRedirect) {
+        // Show root component shimmer
+        if (shimmer) {
+            return <RootShimmerComponent type={shimmer} />;
+        }
+
         // Show previous component
         if (RootComponent) {
             return <RootComponent id={id} />;
         }
 
-        return <RootShimmerComponent type={type} />;
+        return <RootShimmerComponent />;
     } else if (RootComponent) {
         return <RootComponent id={id} />;
     } else if (isNotFound) {

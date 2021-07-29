@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { replace } from 'react-router-dom';
+import { replace, useLocation } from 'react-router-dom';
 import { act, create } from 'react-test-renderer';
 import { useQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
+import { useAppContext } from '../../../context/app';
 
 import { getRootComponent } from '../helpers';
 import { useMagentoRoute } from '../useMagentoRoute';
 
-jest.mock('@magento/peregrine/lib/context/app', () => {
+jest.mock('../../../context/app', () => {
     const state = {
         nextRootComponent: null,
         isPageLoading: false
@@ -94,6 +95,23 @@ beforeEach(() => {
             loading: false
         };
     });
+    useLocation.mockReset();
+    useLocation.mockImplementation(() => ({ pathname: '/foo.html' }));
+
+    useAppContext.mockImplementation(() => {
+        const state = {
+            nextRootComponent: null,
+            isPageLoading: false
+        };
+        const api = {
+            actions: {
+                setNextRootComponent: jest.fn(),
+                setPageLoading: jest.fn()
+            }
+        };
+
+        return [state, api];
+    });
 });
 
 describe('returns LOADING while queries are pending', () => {
@@ -109,8 +127,7 @@ describe('returns LOADING while queries are pending', () => {
         expect(replace).toHaveBeenCalledTimes(0);
         expect(log).toHaveBeenCalledTimes(1);
         expect(log).toHaveBeenNthCalledWith(1, {
-            isLoading: true,
-            type: null
+            isLoading: true
         });
     });
 
@@ -122,8 +139,7 @@ describe('returns LOADING while queries are pending', () => {
         expect(replace).toHaveBeenCalledTimes(0);
         expect(log).toHaveBeenCalledTimes(1);
         expect(log).toHaveBeenNthCalledWith(1, {
-            isLoading: true,
-            type: null
+            isLoading: true
         });
     });
 });
@@ -160,8 +176,7 @@ describe('returns ERROR when queries fail', () => {
         expect(replace).toHaveBeenCalledTimes(0);
         expect(log).toHaveBeenCalledTimes(2);
         expect(log).toHaveBeenNthCalledWith(1, {
-            isLoading: true,
-            type: null
+            isLoading: true
         });
         expect(log).toHaveBeenNthCalledWith(2, {
             hasError: true,
@@ -262,8 +277,7 @@ describe('returns FOUND after fetching a component', () => {
         expect(replace).toHaveBeenCalledTimes(0);
         expect(log).toHaveBeenCalledTimes(2);
         expect(log).toHaveBeenNthCalledWith(1, {
-            isLoading: true,
-            type: null
+            isLoading: true
         });
         expect(log).toHaveBeenNthCalledWith(2, {
             component: 'MockComponent',
@@ -311,5 +325,185 @@ describe('avoids setting state when unmounted', () => {
         });
 
         expect(tree).toBeTruthy();
+    });
+});
+
+describe('previous component', () => {
+    test('is returned when available', async () => {
+        useQuery.mockImplementation(() => {
+            return {
+                data: {
+                    urlResolver: {
+                        id: 1,
+                        type: 'CATEGORY'
+                    }
+                },
+                loading: false
+            };
+        });
+
+        let tree;
+
+        await act(() => {
+            tree = create(<Component key="a" />);
+        });
+
+        await act(() => {
+            resolve('MockComponent');
+        });
+
+        await act(() => {
+            tree.update(<Component key="a" />);
+        });
+
+        useLocation.mockImplementation(() => ({ pathname: '/bar.html' }));
+
+        useQuery.mockImplementation(() => {
+            return {
+                data: {
+                    urlResolver: {
+                        id: 2,
+                        type: 'CMS_PAGE'
+                    }
+                },
+                loading: false
+            };
+        });
+
+        await act(() => {
+            tree.update(<Component key="a" />);
+        });
+
+        await act(() => {
+            resolve('MockComponent2');
+        });
+
+        await act(() => {
+            tree.update(<Component key="a" />);
+        });
+
+        // loading w/ type null
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isLoading: true
+        });
+
+        // component = MockComponent
+        expect(log).toHaveBeenNthCalledWith(2, {
+            component: 'MockComponent',
+            id: 1,
+            type: 'CATEGORY'
+        });
+
+        // Skip calls 3,4 which return same value
+
+        // loading w/ previous component MockComponent
+        expect(log).toHaveBeenNthCalledWith(5, {
+            isLoading: true,
+            component: 'MockComponent',
+            id: 1,
+            type: 'CATEGORY'
+        });
+
+        // component = MockComponent2
+        expect(log).toHaveBeenNthCalledWith(6, {
+            component: 'MockComponent2',
+            id: 2,
+            type: 'CMS_PAGE'
+        });
+    });
+});
+
+describe('loading type', async () => {
+    test('is returned', async () => {
+        useAppContext.mockImplementationOnce(() => {
+            const state = {
+                nextRootComponent: 'TEST_TYPE_SHIMMER',
+                isPageLoading: false
+            };
+            const api = {
+                actions: {
+                    setNextRootComponent: jest.fn(),
+                    setPageLoading: jest.fn()
+                }
+            };
+
+            return [state, api];
+        });
+
+        useQuery.mockImplementationOnce(() => {
+            return { loading: true };
+        });
+
+        await act(() => {
+            create(<Component />);
+        });
+
+        expect(log).toHaveBeenCalledWith({
+            isLoading: true,
+            shimmer: 'TEST_TYPE_SHIMMER'
+        });
+    });
+
+    test('is reset when component is returned', async () => {
+        let mockNextRootComponent = 'TEST_TYPE_SHIMMER';
+        const mockSetNextRootComponent = jest.fn(type => {
+            mockNextRootComponent = type;
+        });
+
+        useAppContext.mockImplementation(() => {
+            const state = {
+                nextRootComponent: mockNextRootComponent,
+                isPageLoading: false
+            };
+            const api = {
+                actions: {
+                    setNextRootComponent: mockSetNextRootComponent,
+                    setPageLoading: jest.fn()
+                }
+            };
+
+            return [state, api];
+        });
+
+        useQuery.mockImplementationOnce(() => {
+            return { loading: true };
+        });
+
+        let tree;
+
+        await act(() => {
+            tree = create(<Component key="a" />);
+        });
+
+        useQuery.mockImplementation(() => {
+            return {
+                data: {
+                    urlResolver: {
+                        id: 1,
+                        type: 'CATEGORY'
+                    }
+                },
+                loading: false
+            };
+        });
+
+        await act(() => {
+            tree.update(<Component key="a" />);
+        });
+
+        await act(() => {
+            resolve('MockComponent');
+        });
+
+        await act(() => {
+            tree.update(<Component key="a" />);
+        });
+
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isLoading: true,
+            shimmer: 'TEST_TYPE_SHIMMER'
+        });
+
+        expect(mockSetNextRootComponent).toHaveBeenCalledWith(null);
     });
 });

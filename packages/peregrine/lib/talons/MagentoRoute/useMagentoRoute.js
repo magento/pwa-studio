@@ -65,12 +65,17 @@ export const useMagentoRoute = (props = {}) => {
     } else if (empty && !loading) {
         // NOT FOUND
         routeData = { isNotFound: true };
+    } else if (nextRootComponent) {
+        // LOADING with full page shimmer
+        showPageLoader = true;
+        routeData = { isLoading: true, shimmer: nextRootComponent };
     } else if (previousComponent && !previousFetchError) {
+        // LOADING with previous component
         showPageLoader = true;
         routeData = { isLoading: true, ...previousComponent };
     } else {
         // LOADING
-        routeData = { isLoading: true, type: nextRootComponent };
+        routeData = { isLoading: true };
     }
 
     // fetch a component if necessary
@@ -100,10 +105,14 @@ export const useMagentoRoute = (props = {}) => {
 
     useEffect(() => {
         if (component && !(component instanceof Error)) {
+            // store previous component's path
             setPreviousPathname(pathname);
         }
 
-        setNextRootComponent(null);
+        if (component) {
+            // Reset loading shimmer whenever component resolves
+            setNextRootComponent(null);
+        }
     }, [component, pathname, setNextRootComponent, setPreviousPathname]);
 
     useEffect(() => {
