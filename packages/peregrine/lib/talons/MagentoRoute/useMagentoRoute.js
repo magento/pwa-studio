@@ -48,7 +48,10 @@ export const useMagentoRoute = (props = {}) => {
         routeData = { hasError: true, routeError };
     } else if (redirect) {
         // REDIRECT
-        routeData = { isRedirect: true, relativeUrl: relative_url };
+        routeData = {
+            isRedirect: true,
+            relativeUrl: (relative_url.indexOf("/") !== 0) ? "/" + relative_url : relative_url
+        };
     } else if (empty && !loading) {
         // NOT FOUND
         routeData = { isNotFound: true };
