@@ -62,6 +62,7 @@
   },
   "pwa-studio": {
     "targets": {
+      "declare": "./lib/declare",
       "intercept": "./lib/intercept"
     }
   },
