@@ -50,7 +50,7 @@ export const useMagentoRoute = (props = {}) => {
         // REDIRECT
         routeData = {
             isRedirect: true,
-            relativeUrl: (relative_url.indexOf("/") !== 0) ? "/" + relative_url : relative_url
+            relativeUrl: relative_url.startsWith('/') ? "/" + relative_url : relative_url
         };
     } else if (empty && !loading) {
         // NOT FOUND
