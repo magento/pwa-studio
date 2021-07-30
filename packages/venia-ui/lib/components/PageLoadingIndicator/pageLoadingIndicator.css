@@ -40,14 +40,14 @@
 
 @keyframes grow {
     0% {
-        width: 10%
+        width: 10%;
     }
 
     60% {
-        width: 35%
+        width: 35%;
     }
 
     100% {
-        width: 75%
+        width: 75%;
     }
 }

@@ -9,7 +9,10 @@ export default () => {
     useEffect(() => {
         if (isPageLoading) {
             setLoadingState('loading');
-        } else if (typeof clearTimeout !== 'undefined' && typeof setTimeout !== 'undefined') {
+        } else if (
+            typeof clearTimeout !== 'undefined' &&
+            typeof setTimeout !== 'undefined'
+        ) {
             setLoadingState('done');
 
             if (doneTimeoutRef && doneTimeoutRef.current !== null) {
@@ -17,7 +20,7 @@ export default () => {
             }
 
             doneTimeoutRef.current = setTimeout(() => {
-                setLoadingState((currentLoadingState) => {
+                setLoadingState(currentLoadingState => {
                     if (currentLoadingState === 'loading') {
                         return 'loading';
                     }

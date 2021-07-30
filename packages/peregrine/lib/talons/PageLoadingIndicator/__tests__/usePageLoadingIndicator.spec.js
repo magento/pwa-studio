@@ -38,11 +38,11 @@ const whenMountingComponent = () => {
     return act(() => {
         tree = create(<Component key="a" />);
     });
-}
+};
 
 const whenUpdatingComponent = () => {
     return act(() => {
-        tree.update(<Component key="a" />)
+        tree.update(<Component key="a" />);
     });
 };
 
@@ -73,20 +73,22 @@ describe('#usePageLoadingIndicator', () => {
         await whenUpdatingComponent();
 
         // Wait for timeout to change status
-        await new Promise((resolve) => {
+        await new Promise(resolve => {
             setTimeout(() => {
                 resolve();
             }, 1000);
         });
         await whenUpdatingComponent();
 
-        expect(log).toHaveBeenNthCalledWith(1,
+        expect(log).toHaveBeenNthCalledWith(
+            1,
             expect.objectContaining({
                 loadingState: 'off'
             })
         );
 
-        expect(log).toHaveBeenNthCalledWith(2,
+        expect(log).toHaveBeenNthCalledWith(
+            2,
             expect.objectContaining({
                 loadingState: 'loading'
             })
@@ -94,13 +96,15 @@ describe('#usePageLoadingIndicator', () => {
 
         // Skip one call for state being set
 
-        expect(log).toHaveBeenNthCalledWith(4,
+        expect(log).toHaveBeenNthCalledWith(
+            4,
             expect.objectContaining({
                 loadingState: 'done'
             })
         );
 
-        expect(log).toHaveBeenNthCalledWith(5,
+        expect(log).toHaveBeenNthCalledWith(
+            5,
             expect.objectContaining({
                 loadingState: 'off'
             })
