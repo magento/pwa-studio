@@ -8,6 +8,7 @@ exports[`Mega menu item renders correctly it does not render submenu when item d
     className="megaMenuLink"
     href="/tops.html"
     onClick={[Function]}
+    onKeyDown={[Function]}
   >
     Tops
   </a>
@@ -22,51 +23,38 @@ exports[`Mega menu item renders correctly it renders correctly 1`] = `
     className="megaMenuLinkActive"
     href="/women.html"
     onClick={[Function]}
+    onKeyDown={[Function]}
   >
     Women
+    <mock-Icon
+      aria-label="Category: Women. 2 sub-categories"
+      className="arrowDown"
+      size={17}
+      src={[Function]}
+    />
   </a>
-  <div
-    className="submenu"
-  >
-    <div
-      className="submenuItems"
-      style={
+  <mock-Submenu
+    handleCloseSubMenu={[Function]}
+    isFocused={false}
+    items={
+      Array [
         Object {
-          "minWidth": NaN,
-        }
-      }
-    >
-      <div
-        className="submenuColumn"
-      >
-        <a
-          className="link"
-          href="/bottoms.html"
-          onClick={[Function]}
-        >
-          <h3
-            className="heading"
-          >
-            Bottoms
-          </h3>
-        </a>
-      </div>
-      <div
-        className="submenuColumn"
-      >
-        <a
-          className="link"
-          href="/tops.html"
-          onClick={[Function]}
-        >
-          <h3
-            className="heading"
-          >
-            Tops
-          </h3>
-        </a>
-      </div>
-    </div>
-  </div>
+          "children": Array [],
+          "id": 2,
+          "name": "Bottoms",
+          "url_path": "bottoms",
+          "url_suffix": ".html",
+        },
+        Object {
+          "children": Array [],
+          "id": 3,
+          "isActive": false,
+          "name": "Tops",
+          "url_path": "tops",
+          "url_suffix": ".html",
+        },
+      ]
+    }
+  />
 </div>
 `;

@@ -3,6 +3,7 @@
 exports[`it renders correctly 1`] = `
 <nav
   className="megaMenu"
+  onFocus={[Function]}
   role="navigation"
 >
   <div
@@ -12,8 +13,30 @@ exports[`it renders correctly 1`] = `
       className="megaMenuLink"
       href="/women.html"
       onClick={[Function]}
+      onKeyDown={[Function]}
     >
       Women
+      <span
+        aria-label="Category: Women. 1 sub-categories"
+        className="arrowDown"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={17}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={17}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="6 9 12 15 18 9"
+          />
+        </svg>
+      </span>
     </a>
     <div
       className="submenu"
@@ -33,6 +56,7 @@ exports[`it renders correctly 1`] = `
             className="link"
             href="/bottoms.html"
             onClick={[Function]}
+            onKeyDown={[Function]}
           >
             <h3
               className="heading"
@@ -51,6 +75,7 @@ exports[`it renders correctly 1`] = `
       className="megaMenuLink"
       href="/men.html"
       onClick={[Function]}
+      onKeyDown={[Function]}
     >
       Men
     </a>
@@ -62,6 +87,7 @@ exports[`it renders correctly 1`] = `
       className="megaMenuLink"
       href="/gear.html"
       onClick={[Function]}
+      onKeyDown={[Function]}
     >
       Gear
     </a>

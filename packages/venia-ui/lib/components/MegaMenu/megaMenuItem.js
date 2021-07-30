@@ -29,7 +29,7 @@ const MegaMenuItem = props => {
 
     const handleCloseSubMenu = useCallback(() => {
         setIsFocused(false);
-    }, [setIsFocused, category]);
+    }, [setIsFocused]);
 
     const megaMenuItemClassname = useCallback(() => {
         if (isFocused) {
@@ -100,9 +100,7 @@ const MegaMenuItem = props => {
                             ' sub-categories'
                         }
                     />
-                ) : (
-                    ''
-                )}
+                ) : null}
             </Link>
             {children}
         </div>

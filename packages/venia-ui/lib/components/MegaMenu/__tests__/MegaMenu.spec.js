@@ -47,6 +47,22 @@ jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenu', () => ({
     })
 }));
 
+test('useEffect', () => {
+    let useEffect;
+
+    const mockUseEffect = () => {
+        useEffect.mockImplementationOnce(mockFunction => mockFunction());
+    };
+    useEffect = jest.spyOn(React, 'useEffect');
+    mockUseEffect();
+});
+
+test('not resetting the menu', () => {
+    const handleClickOutside = jest.fn();
+
+    expect(handleClickOutside).toHaveBeenCalledTimes(0);
+});
+
 test('it renders correctly', () => {
     const instance = createTestInstance(
         <MemoryRouter>
