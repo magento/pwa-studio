@@ -49,4 +49,15 @@ describe('#PageLoadingIndicator displays', () => {
 
         expect(tree.toJSON()).not.toBeNull();
     });
+
+    test('when absolute is true and page is not loading', async () => {
+        givenLoadedPage();
+        let tree;
+
+        await act(() => {
+            tree = create(<PageLoadingIndicator absolute />);
+        });
+
+        expect(tree.toJSON()).not.toBeNull();
+    });
 });

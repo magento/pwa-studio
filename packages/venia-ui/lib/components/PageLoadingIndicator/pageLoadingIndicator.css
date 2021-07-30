@@ -6,61 +6,48 @@
     overflow: hidden;
 }
 
-.indicator {
-    animation: slide1 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-    width: auto;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: rgb(var(--venia-global-color-blue-600));
-    transition: transform 0.2s linear;
-    transform-origin: left;
-}
-
-.indicator_secondary {
-    composes: indicator;
-    animation: slide2 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite;
-}
-
 .root_absolute {
     composes: root;
     position: absolute;
     bottom: 0;
     left: 0;
-    z-index: 50;
+    z-index: 1;
 }
 
-@keyframes slide1 {
+.indicator_off {
+    width: 0;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    background: rgb(var(--venia-global-color-blue-600));
+    transition: width 0.75s linear;
+    transform-origin: left;
+}
+
+.indicator_loading {
+    composes: indicator_off;
+    opacity: 1;
+    width: 75%;
+}
+
+.indicator_done {
+    composes: indicator_off;
+    opacity: 1;
+    width: 100%;
+}
+
+@keyframes grow {
     0% {
-        left: -40%;
-        right: 100%;
+        width: 10%
     }
 
     60% {
-        left: 100%;
-        right: -90%;
+        width: 35%
     }
 
     100% {
-        left: 100%;
-        right: -90%;
-    }
-}
-
-@keyframes slide2 {
-    0% {
-        left: -200%;
-        right: 100%;
-    }
-
-    60% {
-        left: 110%;
-        right: -10%;
-    }
-
-    100% {
-        left: 110%;
-        right: -10%;
+        width: 75%
     }
 }

@@ -7,16 +7,15 @@ import usePageLoadingIndicator from '@magento/peregrine/lib/talons/PageLoadingIn
 const PageLoadingIndicator = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const { absolute } = props;
-    const { isPageLoading } = usePageLoadingIndicator();
+    const { isPageLoading, loadingState } = usePageLoadingIndicator();
 
-    if (!isPageLoading) {
+    if (!isPageLoading && !absolute) {
         return null;
     }
 
     return (
         <div className={absolute ? classes.root_absolute : classes.root}>
-            <div className={classes.indicator} />
-            <div className={classes.indicator_secondary} />
+            <div className={classes[`indicator_${loadingState}`]} />
         </div>
     );
 };
