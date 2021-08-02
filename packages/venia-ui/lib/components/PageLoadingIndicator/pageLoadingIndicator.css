@@ -22,7 +22,7 @@
     top: 0;
     opacity: 0;
     background: rgb(var(--venia-global-color-blue-600));
-    transition: width 0.75s linear;
+    transition: width 0.25s linear;
     transform-origin: left;
 }
 
@@ -36,18 +36,4 @@
     composes: indicator_off;
     opacity: 1;
     width: 100%;
-}
-
-@keyframes grow {
-    0% {
-        width: 10%;
-    }
-
-    60% {
-        width: 35%;
-    }
-
-    100% {
-        width: 75%;
-    }
 }
