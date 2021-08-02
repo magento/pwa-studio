@@ -13,7 +13,8 @@ class CustomContentTypeList {
     constructor(pagebuilder) {
         const registry = this;
         this._types = pagebuilder.esModuleArray({
-            module: '@magento/pagebuilder/lib/ContentTypes/customContentTypes.js',
+            module:
+                '@magento/pagebuilder/lib/ContentTypes/customContentTypes.js',
             publish(targets) {
                 targets.customContentTypes.call(registry);
             }

@@ -5,7 +5,7 @@ import customContentTypes from './ContentTypes/customContentTypes';
 /**
  *  add custom content types
  */
-const addCustomContentTypes = (contentTypes) => {
+const addCustomContentTypes = contentTypes => {
     for (const ContentType of contentTypes) {
         const { component, configAggregator } = ContentType;
         if (!ContentType.name) {
