@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const buildpackName = require('../../package.json').name;
 
 /**
@@ -175,8 +176,14 @@ class ModuleTransformConfig {
     }
     _getTrustedExtensionVendors() {
         const context = path.resolve(__dirname, '../../../../../');
-        const config = require(path.resolve(context, 'package.json'))['pwa-studio'];
-        return config && config['trusted_vendors'] ? config['trusted_vendors'] : [];
+        const configPath = path.resolve(context, 'package.json');
+        if (!fs.existsSync(configPath)) {
+            return [];
+        }
+        const config = require(configPath)['pwa-studio'];
+        return config && config['trusted_vendors']
+            ? config['trusted_vendors']
+            : [];
     }
     _traceableError(msg) {
         const capturedError = new Error(`ModuleTransformConfig: ${msg}`);
