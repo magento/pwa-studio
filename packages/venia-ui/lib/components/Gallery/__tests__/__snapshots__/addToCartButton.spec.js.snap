@@ -7,7 +7,10 @@ exports[`should render add to cart if in stock 1`] = `
   type="button"
 >
   <span>
-    ADD TO CART
+    <mock-FormattedMessage
+      defaultMessage="ADD TO CART"
+      id="addToCartButton.addItemToCart"
+    />
   </span>
 </button>
 `;
@@ -19,7 +22,10 @@ exports[`should render out of cart if not in stock 1`] = `
   type="button"
 >
   <span>
-    OUT OF STOCK
+    <mock-FormattedMessage
+      defaultMessage="OUT OF STOCK"
+      id="addToCartButton.itemOutOfStock"
+    />
   </span>
 </button>
 `;
@@ -31,7 +37,10 @@ exports[`should render properly 1`] = `
   type="button"
 >
   <span>
-    ADD TO CART
+    <mock-FormattedMessage
+      defaultMessage="ADD TO CART"
+      id="addToCartButton.addItemToCart"
+    />
   </span>
 </button>
 `;
