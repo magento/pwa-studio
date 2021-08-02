@@ -22,6 +22,29 @@ Object {
 }
 `;
 
+exports[`handle submit fires mutation with street2 as null 1`] = `
+Object {
+  "variables": Object {
+    "address": Object {
+      "city": "Manhattan",
+      "country_code": Object {
+        "code": "US",
+      },
+      "firstname": "Philip",
+      "lastname": "Fry",
+      "postcode": "10019",
+      "region": 12,
+      "street": Array [
+        "3000 57th Street",
+      ],
+      "telephone": "(123) 456-7890",
+    },
+    "cartId": "cart123",
+    "email": "fry@planet.express",
+  },
+}
+`;
+
 exports[`returns Apollo error 1`] = `undefined`;
 
 exports[`returns correct shape 1`] = `

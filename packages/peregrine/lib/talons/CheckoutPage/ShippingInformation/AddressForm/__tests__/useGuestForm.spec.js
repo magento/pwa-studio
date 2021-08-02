@@ -134,6 +134,30 @@ test('handle submit does not fire callback on error', async () => {
     expect(afterSubmit).not.toHaveBeenCalled();
 });
 
+test('handle submit fires mutation with street2 as null', async () => {
+    const setShippingInformation = jest.fn();
+    useMutation.mockReturnValueOnce([
+        setShippingInformation,
+        { called: true, loading: true }
+    ]);
+    const afterSubmit = jest.fn();
+
+    const tree = createTestInstance(
+        <Component
+            afterSubmit={afterSubmit}
+            mutations={{}}
+            shippingData={shippingData}
+        />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleSubmit } = talonProps;
+
+    await handleSubmit({ ...shippingData, street: ['3000 57th Street', null] });
+    expect(setShippingInformation).toHaveBeenCalled();
+    expect(setShippingInformation.mock.calls[0][0]).toMatchSnapshot();
+});
+
 test('handle submit does not call afterSubmit() if it is not defined', async () => {
     const setShippingInformation = jest.fn();
     useMutation.mockReturnValueOnce([
