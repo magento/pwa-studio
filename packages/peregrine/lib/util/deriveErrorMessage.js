@@ -7,9 +7,7 @@
 const toString = error => {
     const { graphQLErrors, message } = error;
 
-    return graphQLErrors && graphQLErrors.length
-        ? graphQLErrors.map(({ message }) => message).join(', ')
-        : message;
+    return graphQLErrors && graphQLErrors.length ? 'graphQLErrors' : message;
 };
 
 /**

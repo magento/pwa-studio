@@ -7,12 +7,6 @@ import FormError from '../formError';
 jest.mock('@magento/peregrine/lib/talons/FormError/useFormError');
 jest.mock('../../../classify');
 
-jest.mock('react-intl', () => ({
-    useIntl: jest.fn().mockReturnValue({
-        formatMessage: jest.fn().mockImplementation(options => options.id)
-    })
-}));
-
 test('renders null without errors', () => {
     useFormError.mockReturnValueOnce({ errorMessage: null });
 

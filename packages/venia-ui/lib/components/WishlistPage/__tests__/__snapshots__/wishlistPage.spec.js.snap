@@ -72,10 +72,12 @@ exports[`renders disabled feature error 1`] = `
   <div
     className="errorContainer"
   >
-    <p>
+    <p
+      className="fetchError"
+    >
       <mock-FormattedMessage
-        defaultMessage="Sorry, this feature has been disabled."
-        id="wishlistPage.disabledMessage"
+        defaultMessage="Something went wrong. Please refresh and try again."
+        id="wishlistPage.fetchErrorMessage"
       />
     </p>
   </div>

@@ -60,13 +60,16 @@ test('renders form errors', () => {
     });
     const tree = createTestInstance(<WishlistDialog {...defaultProps} />);
 
-    expect(
-        tree.root.findByProps({ className: 'errorMessage' }).children
-    ).toMatchInlineSnapshot(`Array []`);
+    expect(tree.root.findByProps({ className: 'errorMessage' }).children)
+        .toMatchInlineSnapshot(`
+        Array [
+          "Oopsie!",
+        ]
+    `);
 
     expect(
         tree.root.findByProps({ className: 'errorMessage' }).children
-    ).toEqual([]);
+    ).toEqual([message]);
 });
 
 test('renders existing wishlists', () => {
