@@ -3,6 +3,7 @@
 exports[`Should render proper shape 1`] = `
 Object {
   "activeCategoryId": 7,
+  "disableFocus": false,
   "megaMenuData": Object {
     "children": Array [
       Object {

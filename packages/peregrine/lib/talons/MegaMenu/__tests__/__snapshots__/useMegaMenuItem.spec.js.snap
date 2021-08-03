@@ -5,8 +5,8 @@ Object {
   "a11yClick": [Function],
   "handleCloseSubMenu": [Function],
   "isActive": true,
-  "isFocused": true,
-  "isMenuActive": true,
+  "isFocused": false,
+  "isMenuActive": false,
   "toggleSubMenu": [Function],
 }
 `;

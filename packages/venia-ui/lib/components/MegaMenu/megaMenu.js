@@ -11,7 +11,12 @@ import MegaMenuItem from './megaMenuItem';
  */
 const MegaMenu = props => {
     const [subMenuState, setSubMenuState] = useState(false);
-    const { megaMenuData, activeCategoryId, useOutsideAlerter } = useMegaMenu({
+    const {
+        megaMenuData,
+        activeCategoryId,
+        useOutsideAlerter,
+        disableFocus
+    } = useMegaMenu({
         setSubMenuState
     });
     const classes = useStyle(defaultClasses, props.classes);
@@ -46,6 +51,7 @@ const MegaMenu = props => {
                       activeCategoryId={activeCategoryId}
                       mainNavWidth={mainNavWidth}
                       key={category.id}
+                      disableFocus={disableFocus}
                   />
               );
           })

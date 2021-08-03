@@ -19,7 +19,13 @@ import Icon from '../Icon';
  * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
  */
 const MegaMenuItem = props => {
-    const { activeCategoryId, category, mainNavWidth, subMenuState } = props;
+    const {
+        activeCategoryId,
+        category,
+        mainNavWidth,
+        subMenuState,
+        disableFocus
+    } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const categoryUrl = resourceUrl(
         `/${category.url_path}${category.url_suffix || ''}`
@@ -28,7 +34,8 @@ const MegaMenuItem = props => {
     const talonProps = useMegaMenuItem({
         category,
         activeCategoryId,
-        subMenuState
+        subMenuState,
+        disableFocus
     });
 
     const {

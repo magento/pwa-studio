@@ -79,7 +79,7 @@ test('handleCloseSubMenu to be called', () => {
 
     talonProps.handleCloseSubMenu();
 
-    expect(talonProps.isMenuActive).toEqual(true);
+    expect(talonProps.isMenuActive).toEqual(false);
 });
 
 test('a11yClick to be called', () => {
@@ -92,7 +92,7 @@ test('a11yClick to be called', () => {
 
     talonProps.a11yClick(e);
 
-    expect(talonProps.isFocused).toEqual(true);
+    expect(talonProps.isFocused).toEqual(false);
 });
 
 test('toggleSubMenu to be called', () => {

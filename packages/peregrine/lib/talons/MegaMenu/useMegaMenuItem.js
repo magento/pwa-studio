@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 
 export const useMegaMenuItem = props => {
-    const { category, activeCategoryId, subMenuState } = props;
+    const { category, activeCategoryId, subMenuState, disableFocus } = props;
 
-    const [isFocused, setIsFocused] = useState(subMenuState);
+    const [isFocused, setIsFocused] = useState(false);
     const isActive = category.id === activeCategoryId;
 
     const handleCloseSubMenu = useCallback(() => {
@@ -14,10 +14,12 @@ export const useMegaMenuItem = props => {
         if (isFocused) {
             if (subMenuState) {
                 return true;
+            } else if (disableFocus) {
+                setIsFocused(false);
             }
         }
         return false;
-    }, [isFocused, subMenuState]);
+    }, [isFocused, subMenuState, disableFocus]);
 
     const a11yClick = e => {
         //checking down arrow or space

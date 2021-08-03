@@ -18,7 +18,7 @@ export const useMegaMenu = (props = {}) => {
 
     const location = useLocation();
     const [activeCategoryId, setActiveCategoryId] = useState(null);
-
+    const [disableFocus, setDisableFocus] = useState(false);
     const { data } = useQuery(getMegaMenuQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
@@ -125,6 +125,7 @@ export const useMegaMenu = (props = {}) => {
             const handleClickOutside = e => {
                 if (ref.current && !ref.current.contains(e.target)) {
                     props.setSubMenuState(false);
+                    setDisableFocus(true);
                 }
             };
 
@@ -145,7 +146,8 @@ export const useMegaMenu = (props = {}) => {
     return {
         megaMenuData,
         activeCategoryId,
-        useOutsideAlerter
+        useOutsideAlerter,
+        disableFocus
     };
 };
 
