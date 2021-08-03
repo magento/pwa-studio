@@ -119,9 +119,33 @@ export const useMegaMenu = (props = {}) => {
         }
     }, [findActiveCategory, location.pathname, megaMenuData]);
 
+    const useOutsideAlerter = ref => {
+        useEffect(() => {
+            // Reset menu if clicked outside
+            const handleClickOutside = e => {
+                if (ref.current && !ref.current.contains(e.target)) {
+                    props.setSubMenuState(false);
+                }
+            };
+
+            // Bind the event listener to both mouse and key events
+            window.addEventListener('mousedown', handleClickOutside);
+            window.addEventListener('keydown', handleClickOutside);
+            window.addEventListener('mouseout', handleClickOutside);
+
+            return () => {
+                // Unbind the event listener to clean up
+                window.removeEventListener('mousedown', handleClickOutside);
+                window.removeEventListener('keydown', handleClickOutside);
+                window.removeEventListener('mouseout', handleClickOutside);
+            };
+        }, [ref]);
+    };
+
     return {
         megaMenuData,
-        activeCategoryId
+        activeCategoryId,
+        useOutsideAlerter
     };
 };
 

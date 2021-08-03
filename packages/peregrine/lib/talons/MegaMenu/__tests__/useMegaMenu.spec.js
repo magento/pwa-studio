@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
@@ -10,8 +10,13 @@ jest.mock('react-router-dom', () => ({
     useLocation: jest.fn(() => ({ pathname: '/venia-tops.html' }))
 }));
 
+const log = jest.fn();
 const Component = props => {
-    const talonProps = useMegaMenu(props);
+    const talonProps = useMegaMenu({ ...props });
+
+    useEffect(() => {
+        log(talonProps);
+    }, [talonProps]);
 
     return <i talonProps={talonProps} />;
 };
@@ -185,4 +190,20 @@ test('Should not render items that are not included in menu', () => {
      * so the Accessories category  object should have only two top level categories
      */
     expect(talonProps.megaMenuData.children[1].children.length).toEqual(2);
+});
+
+test('should call handleClickOutside', () => {
+    const map = {};
+    const event = {
+        target: jest.fn()
+    };
+    window.addEventListener = jest.fn((mousedown, handleClickOutside) => {
+        map[mousedown] = handleClickOutside(event);
+    });
+    window.addEventListener = jest.fn((keydown, handleClickOutside) => {
+        map[keydown] = handleClickOutside(event);
+    });
+    window.addEventListener = jest.fn((mouseout, handleClickOutside) => {
+        map[mouseout] = handleClickOutside(event);
+    });
 });

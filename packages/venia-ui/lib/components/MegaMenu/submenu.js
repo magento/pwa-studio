@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react';
-import { useKeyboard } from 'react-aria';
+import React from 'react';
 import PropTypes from 'prop-types';
+
+import { useSubMenu } from '@magento/peregrine/lib/talons/MegaMenu/useSubMenu';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './submenu.css';
@@ -23,23 +24,17 @@ const Submenu = props => {
     const PADDING_OFFSET = 20;
     const classes = useStyle(defaultClasses, props.classes);
 
-    const { keyboardProps } = useKeyboard({
-        onKeyDown: e => {
-            //checking for Tab without Shift
-            if (e.keyCode == 9 && !e.shiftKey) {
-                e.target.addEventListener('blur', handleCloseSubMenu());
-            }
-        }
+    const talonProps = useSubMenu({
+        isFocused,
+        subMenuState,
+        handleCloseSubMenu
     });
 
-    const subMenuClassname = useCallback(() => {
-        if (isFocused) {
-            if (subMenuState) {
-                return classes.submenu_active;
-            }
-        }
-        return classes.submenu;
-    }, [isFocused, subMenuState]);
+    const { keyboardProps, isSubMenuActive } = talonProps;
+
+    const subMenuClassname = isSubMenuActive
+        ? classes.submenu_active
+        : classes.submenu;
 
     const subMenus = items.map((category, index) => {
         if (index === items.length - 1) {
@@ -64,7 +59,7 @@ const Submenu = props => {
     });
 
     return (
-        <div className={subMenuClassname()}>
+        <div className={subMenuClassname}>
             <div
                 className={classes.submenuItems}
                 style={{ minWidth: mainNavWidth + PADDING_OFFSET }}

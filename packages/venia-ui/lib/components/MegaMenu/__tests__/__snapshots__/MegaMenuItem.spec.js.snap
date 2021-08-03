@@ -5,7 +5,7 @@ exports[`Mega menu item renders correctly it does not render submenu when item d
   className="megaMenuItem"
 >
   <a
-    className="megaMenuLink"
+    className="megaMenuLinkActive"
     href="/tops.html"
     onClick={[Function]}
     onKeyDown={[Function]}
@@ -35,7 +35,7 @@ exports[`Mega menu item renders correctly it renders correctly 1`] = `
   </a>
   <mock-Submenu
     handleCloseSubMenu={[Function]}
-    isFocused={false}
+    isFocused={true}
     items={
       Array [
         Object {

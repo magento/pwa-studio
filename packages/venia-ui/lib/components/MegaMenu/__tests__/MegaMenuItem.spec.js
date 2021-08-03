@@ -10,13 +10,22 @@ jest.mock('../Submenu', () => props => <mock-Submenu {...props} />);
 jest.mock('react', () => {
     const React = jest.requireActual('react');
     const memoSpy = jest.spyOn(React, 'useMemo');
-    const stateSpy = jest.spyOn(React, 'useState');
 
     return Object.assign(React, {
-        useMemo: memoSpy,
-        useState: stateSpy
+        useMemo: memoSpy
     });
 });
+
+jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenuItem', () => ({
+    useMegaMenuItem: jest.fn().mockReturnValue({
+        isFocused: true,
+        isActive: true,
+        handleCloseSubMenu: () => {},
+        isSubMenuActive: true,
+        a11yClick: () => {},
+        toggleSubMenu: () => {}
+    })
+}));
 
 describe('Mega menu item renders correctly', () => {
     const props = {

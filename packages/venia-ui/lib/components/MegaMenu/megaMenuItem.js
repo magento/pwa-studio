@@ -1,9 +1,10 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { ChevronDown as ArrowDown } from 'react-feather';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useMegaMenuItem } from '@magento/peregrine/lib/talons/MegaMenu/useMegaMenuItem';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './megaMenuItem.css';
@@ -23,45 +24,25 @@ const MegaMenuItem = props => {
     const categoryUrl = resourceUrl(
         `/${category.url_path}${category.url_suffix || ''}`
     );
-    const [isFocused, setIsFocused] = useState(false);
 
-    const isActive = category.id === activeCategoryId;
+    const talonProps = useMegaMenuItem({
+        category,
+        activeCategoryId,
+        subMenuState
+    });
 
-    const handleCloseSubMenu = useCallback(() => {
-        setIsFocused(false);
-    }, [setIsFocused]);
+    const {
+        isFocused,
+        isActive,
+        handleCloseSubMenu,
+        isMenuActive,
+        a11yClick,
+        toggleSubMenu
+    } = talonProps;
 
-    const megaMenuItemClassname = useCallback(() => {
-        if (isFocused) {
-            if (subMenuState) {
-                return classes.megaMenuItem_active;
-            }
-        }
-        return classes.megaMenuItem;
-    }, [isFocused, subMenuState]);
-
-    const a11yClick = e => {
-        //checking down arrow or space
-        if (e.keyCode === 32 || e.keyCode === 40) {
-            return true;
-        }
-        //checking up arrow or escape
-        if (e.keyCode === 38 || e.keyCode === 27) {
-            setIsFocused(false);
-        }
-    };
-
-    const toggleSubMenu = e => {
-        e.preventDefault();
-        if (
-            category.children.length &&
-            !(e.keyCode === 38 || e.keyCode === 27)
-        ) {
-            setIsFocused(true);
-        } else {
-            setIsFocused(false);
-        }
-    };
+    const megaMenuItemClassname = isMenuActive
+        ? classes.megaMenuItem_active
+        : classes.megaMenuItem;
 
     const children = useMemo(() => {
         return category.children.length ? (
@@ -76,7 +57,7 @@ const MegaMenuItem = props => {
     }, [category, isFocused, mainNavWidth, subMenuState]);
 
     return (
-        <div className={megaMenuItemClassname()}>
+        <div className={megaMenuItemClassname}>
             <Link
                 onKeyDown={e => {
                     a11yClick(e) && toggleSubMenu(e);

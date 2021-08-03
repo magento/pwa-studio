@@ -43,7 +43,8 @@ jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenu', () => ({
                 }
             ]
         },
-        activeCategoryId: 5
+        activeCategoryId: 5,
+        useOutsideAlerter: () => {}
     })
 }));
 

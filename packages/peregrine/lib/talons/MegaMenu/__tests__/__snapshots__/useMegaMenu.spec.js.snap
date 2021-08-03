@@ -94,5 +94,6 @@ Object {
     "isActive": false,
     "name": "Default Category",
   },
+  "useOutsideAlerter": [Function],
 }
 `;

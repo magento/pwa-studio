@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "a11yClick": [Function],
+  "handleCloseSubMenu": [Function],
+  "isActive": true,
+  "isFocused": true,
+  "isMenuActive": true,
+  "toggleSubMenu": [Function],
+}
+`;
