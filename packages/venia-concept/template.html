@@ -168,5 +168,12 @@
                 </div>
             </div>
         </noscript>
+        <script>
+            try {
+                var INLINED_PAGE_TYPE = JSON.parse('{{pageType}}'.replace(/&quot;/g, '"'));
+            } catch(error) {
+                console.warn(error);
+            }
+        </script>
     </body>
 </html>

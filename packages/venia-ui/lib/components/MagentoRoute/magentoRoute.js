@@ -20,7 +20,8 @@ const MagentoRoute = () => {
         isLoading,
         isNotFound,
         isRedirect,
-        shimmer
+        shimmer,
+        initial
     } = talonProps;
 
     if (isLoading || isRedirect) {
@@ -34,7 +35,7 @@ const MagentoRoute = () => {
             return <RootComponent id={id} />;
         }
 
-        return <RootShimmerComponent />;
+        return initial ? null : <RootShimmerComponent />;
     } else if (RootComponent) {
         return <RootComponent id={id} />;
     } else if (isNotFound) {

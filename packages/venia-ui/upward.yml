@@ -100,6 +100,16 @@ veniaProxy:
       default:
         inline: true
 
+# page type data for initial render
+veniaPageType:
+  resolver: inline
+  inline:
+    data:
+      resolver: computed
+      type:
+        resolver: inline
+        inline: pageType
+
 # The veniaAppShell object resolves to a response that returns server-side
 # rendered HTML containing the PWA application shell.
 # For SEO purposes, the appropriate meta tags in the HTML head element are also
@@ -120,10 +130,16 @@ veniaAppShell:
                 cache-control:
                     inline: s-maxage=60
         body:
+          resolver: template
+          engine: mustache
+          provide:
+            pageType: veniaPageType.data
+          template:
             resolver: file
             file:
-                resolver: inline
-                inline: './index.html'
+              resolver: inline
+              inline: './index.html'
+
 
 # The veniaStatic object is a DirectoryResolver that allows access to the files
 # inside the project's compiled './dist' directory.

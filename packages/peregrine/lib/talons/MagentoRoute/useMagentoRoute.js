@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
@@ -8,6 +8,10 @@ import { useAppContext } from '../../context/app';
 import { getRootComponent, isRedirect } from './helpers';
 import DEFAULT_OPERATIONS from './magentoRoute.gql';
 
+const getInlinedPageData = () => {
+    return globalThis.INLINED_PAGE_TYPE && globalThis.INLINED_PAGE_TYPE.type ? globalThis.INLINED_PAGE_TYPE : null;
+};
+
 export const useMagentoRoute = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { resolveUrlQuery } = operations;
@@ -15,6 +19,7 @@ export const useMagentoRoute = (props = {}) => {
     const { pathname } = useLocation();
     const [componentMap, setComponentMap] = useRootComponents();
     const [previousPathname, setPreviousPathname] = useState(null);
+    const initialized = useRef();
     const [
         { nextRootComponent },
         {
@@ -64,7 +69,7 @@ export const useMagentoRoute = (props = {}) => {
         routeData = { isRedirect: true, relativeUrl: relative_url };
     } else if (empty && !loading) {
         // NOT FOUND
-        routeData = { isNotFound: true };
+        routeData = {isNotFound: true};
     } else if (nextRootComponent) {
         // LOADING with full page shimmer
         showPageLoader = true;
@@ -75,26 +80,35 @@ export const useMagentoRoute = (props = {}) => {
         routeData = { isLoading: true, ...previousComponent };
     } else {
         // LOADING
-        routeData = { isLoading: true };
+        const isInitialLoad = (!initialized || !initialized.current) && getInlinedPageData();
+        routeData = { isLoading: true, initial: isInitialLoad };
     }
 
     // fetch a component if necessary
     useEffect(() => {
         (async () => {
+            const isInitialized = (initialized && !initialized.current);
+            if (initialized) initialized.current = true;
+
             // don't fetch if we don't have data yet
-            if (loading || empty) return;
+            if (isInitialized && (loading || empty)) return;
+
+            // don't fetch if we don't have inlined type
+            const inlinedData = getInlinedPageData();
+            if (!isInitialized && !inlinedData) return;
 
             // don't fetch more than once
             if (component) return;
 
             try {
-                const rootComponent = await getRootComponent(type);
-                setComponent(pathname, { component: rootComponent, id, type });
+                const componentType = initialized ? type : inlinedData.type;
+                const rootComponent = await getRootComponent(componentType);
+                setComponent(pathname, { component: rootComponent, id, componentType });
             } catch (error) {
                 setComponent(pathname, error);
             }
         })();
-    }, [component, empty, id, loading, pathname, setComponent, type]);
+    }, [component, empty, id, loading, pathname, setComponent, type, initialized, getInlinedPageData]);
 
     // perform a redirect if necesssary
     useEffect(() => {

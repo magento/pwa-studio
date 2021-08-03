@@ -82,15 +82,15 @@ export default function() {
      * file from cache will be served till a new version of the app deployed
      * and the cycle repeats.
      */
-    registerRoute(
-        ({ url }) => url.origin === self.location.origin && isHTMLRoute(url),
-        new StaleWhileRevalidate({
-            plugins: [
-                {
-                    cacheKeyWillBeUsed: () => 'index.html'
-                }
-            ],
-            cacheName: cacheNames.precache
-        })
-    );
+    // registerRoute(
+    //     ({ url }) => url.origin === self.location.origin && isHTMLRoute(url),
+    //     new StaleWhileRevalidate({
+    //         plugins: [
+    //             {
+    //                 cacheKeyWillBeUsed: () => 'index.html'
+    //             }
+    //         ],
+    //         cacheName: cacheNames.precache
+    //     })
+    // );
 }
