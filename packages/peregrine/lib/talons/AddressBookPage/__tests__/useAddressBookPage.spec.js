@@ -1,23 +1,35 @@
 import React, { useEffect } from 'react';
+import { renderHook, act } from '@testing-library/react-hooks';
 import { useQuery } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useAddressBookPage } from '../useAddressBookPage';
 
+const mockDeleteCustomerAddress = jest.fn();
+const mockCreateCustomerAddress = jest.fn();
+const mockUpdateCustomerAddress = jest.fn();
+
 jest.mock('@apollo/client', () => {
+    const apolloClient = jest.requireActual('@apollo/client');
+
     return {
-        ...jest.requireActual('@apollo/client'),
-        useQuery: jest.fn(() => ({
+        ...apolloClient,
+        useMutation: jest.fn().mockImplementation(mutation => {
+            if (mutation === 'deleteCustomerAddressMutation')
+                return [mockDeleteCustomerAddress, { loading: false }];
+
+            if (mutation === 'createCustomerAddressMutation')
+                return [mockCreateCustomerAddress, { loading: false }];
+
+            if (mutation === 'updateCustomerAddressMutation')
+                return [mockUpdateCustomerAddress, { loading: false }];
+
+            return;
+        }),
+        useQuery: jest.fn().mockReturnValue({
             data: null,
             loading: false
-        })),
-        useMutation: jest.fn(() => [
-            jest.fn(),
-            {
-                error: false,
-                loading: false
-            }
-        ])
+        })
     };
 });
 
@@ -57,8 +69,11 @@ const Component = props => {
 };
 
 const props = {
-    queries: {
-        getCustomerAddressesQuery: 'getCustomerAddressesQuery'
+    operations: {
+        createCustomerAddressMutation: 'createCustomerAddressMutation',
+        deleteCustomerAddressMutation: 'deleteCustomerAddressMutation',
+        getCustomerAddressesQuery: 'getCustomerAddressesQuery',
+        updateCustomerAddressMutation: 'updateCustomerAddressMutation'
     }
 };
 
@@ -190,4 +205,72 @@ test('returns map of country display names', () => {
           "FR" => "France",
         }
     `);
+});
+
+test('return correct shape for an updated address with undefined middlename and null street2 values and fire update mutation', async () => {
+    const customerData = {
+        firstname: 'Philip',
+        lastname: 'Fry',
+        street: ['Street 1', null],
+        city: 'New-New York',
+        region: {
+            region_id: 2
+        },
+        telephone: '123-456-7890'
+    };
+    const { result } = renderHook(() => useAddressBookPage(props));
+
+    const activeAddress = { id: 'a' };
+    act(() => {
+        result.current.handleEditAddress(activeAddress);
+    });
+
+    await act(() => {
+        result.current.handleConfirmDialog(customerData);
+    });
+
+    expect(mockUpdateCustomerAddress).toHaveBeenCalled();
+    expect(mockUpdateCustomerAddress).toHaveBeenCalledWith(
+        expect.objectContaining({
+            variables: {
+                addressId: expect.anything(),
+                updated_address: {
+                    ...customerData,
+                    middlename: '',
+                    street: ['Street 1']
+                }
+            }
+        })
+    );
+});
+
+test('return correct shape for new address with undefined middlename and null street2 values and fire create mutation', async () => {
+    const customerData = {
+        firstname: 'Philip',
+        lastname: 'Fry',
+        street: ['Street 1', null],
+        city: 'New-New York',
+        region: {
+            region_id: 2
+        },
+        telephone: '123-456-7890'
+    };
+    const { result } = renderHook(() => useAddressBookPage(props));
+
+    await act(() => {
+        result.current.handleConfirmDialog(customerData);
+    });
+
+    expect(mockCreateCustomerAddress).toHaveBeenCalled();
+    expect(mockCreateCustomerAddress).toHaveBeenCalledWith(
+        expect.objectContaining({
+            variables: {
+                address: {
+                    ...customerData,
+                    middlename: '',
+                    street: ['Street 1']
+                }
+            }
+        })
+    );
 });
