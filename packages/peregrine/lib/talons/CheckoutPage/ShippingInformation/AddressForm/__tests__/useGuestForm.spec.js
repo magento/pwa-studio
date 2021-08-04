@@ -134,7 +134,7 @@ test('handle submit does not fire callback on error', async () => {
     expect(afterSubmit).not.toHaveBeenCalled();
 });
 
-test('handle submit fires mutation with street2 as null', async () => {
+test('handle submit fires mutation with street[1] as null', async () => {
     const setShippingInformation = jest.fn();
     useMutation.mockReturnValueOnce([
         setShippingInformation,

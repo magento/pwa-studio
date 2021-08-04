@@ -22,7 +22,7 @@ Object {
 }
 `;
 
-exports[`handle submit fires mutation with street2 as null 1`] = `
+exports[`handle submit fires mutation with street[1] as null 1`] = `
 Object {
   "variables": Object {
     "address": Object {
