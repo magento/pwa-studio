@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useAppContext } from '../../context/app';
@@ -19,7 +19,8 @@ export const useMagentoRoute = (props = {}) => {
     const { pathname } = useLocation();
     const [componentMap, setComponentMap] = useRootComponents();
     const [previousPathname, setPreviousPathname] = useState(null);
-    const initialized = useRef();
+    const initialized = useRef(false);
+
     const [
         { nextRootComponent },
         {
@@ -34,11 +35,7 @@ export const useMagentoRoute = (props = {}) => {
         [setComponentMap]
     );
 
-    const queryResult = useQuery(resolveUrlQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        variables: { url: pathname }
-    });
+    const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery);
 
     // destructure the query result
     const { data, error, loading } = queryResult;
@@ -67,7 +64,7 @@ export const useMagentoRoute = (props = {}) => {
     } else if (redirect) {
         // REDIRECT
         routeData = { isRedirect: true, relativeUrl: relative_url };
-    } else if (empty && !loading) {
+    } else if (empty && !loading && initialized.current) {
         // NOT FOUND
         routeData = {isNotFound: true};
     } else if (nextRootComponent) {
@@ -80,15 +77,24 @@ export const useMagentoRoute = (props = {}) => {
         routeData = { isLoading: true, ...previousComponent };
     } else {
         // LOADING
-        const isInitialLoad = (!initialized || !initialized.current) && getInlinedPageData();
+        const isInitialLoad = !initialized.current && getInlinedPageData();
         routeData = { isLoading: true, initial: isInitialLoad };
     }
+
+    useEffect(() => {
+        if (initialized.current) {
+            runQuery({
+                fetchPolicy: 'cache-and-network',
+                nextFetchPolicy: 'cache-first',
+                variables: { url: pathname }
+            });
+        }
+    }, [initialized, pathname]);
 
     // fetch a component if necessary
     useEffect(() => {
         (async () => {
-            const isInitialized = (initialized && !initialized.current);
-            if (initialized) initialized.current = true;
+            const isInitialized = initialized.current;
 
             // don't fetch if we don't have data yet
             if (isInitialized && (loading || empty)) return;
@@ -101,12 +107,20 @@ export const useMagentoRoute = (props = {}) => {
             if (component) return;
 
             try {
-                const componentType = initialized ? type : inlinedData.type;
+                const componentType = isInitialized ? type : inlinedData.type;
                 const rootComponent = await getRootComponent(componentType);
-                setComponent(pathname, { component: rootComponent, id, componentType });
+                setComponent(
+                    pathname,
+                    {
+                        component: rootComponent,
+                        id: isInitialized ? id : Number(inlinedData.id),
+                        type: componentType
+                    }
+                );
             } catch (error) {
                 setComponent(pathname, error);
             }
+            initialized.current = true;
         })();
     }, [component, empty, id, loading, pathname, setComponent, type, initialized, getInlinedPageData]);
 
