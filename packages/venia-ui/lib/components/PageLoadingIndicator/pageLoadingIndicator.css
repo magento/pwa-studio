@@ -1,9 +1,9 @@
 .root {
     position: relative;
+    overflow: hidden;
     width: 100%;
     height: 2px;
     background: rgb(var(--venia-global-color-gray-100));
-    overflow: hidden;
 }
 
 .root_absolute {
@@ -15,25 +15,26 @@
 }
 
 .indicator_off {
-    width: 0;
-    height: 100%;
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
     opacity: 0;
+    width: 100%;
+    height: 100%;
     background: rgb(var(--venia-global-color-blue-600));
-    transition: width 0.25s linear;
+    transform: translateX(-100%);
     transform-origin: left;
+    transition: transform 0.25s linear;
 }
 
 .indicator_loading {
     composes: indicator_off;
     opacity: 1;
-    width: 75%;
+    transform: translateX(-25%);
 }
 
 .indicator_done {
     composes: indicator_off;
     opacity: 1;
-    width: 100%;
+    transform: translateX(0%);
 }

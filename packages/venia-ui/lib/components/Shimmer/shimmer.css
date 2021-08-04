@@ -1,16 +1,27 @@
 .root {
+    position: relative;
     display: inline-block;
-    background: rgb(var(--venia-global-color-gray))
-        linear-gradient(
+    overflow: hidden;
+    background: rgb(var(--venia-global-color-gray));
+    pointer-events: none;
+}
+
+.root::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--venia-global-maxWidth);
+    height: 100%;
+    background: linear-gradient(
             to right,
-            rgb(var(--venia-global-color-gray)) 0%,
+            rgb(var(--venia-global-color-gray-50) / 0%) 0%,
             rgb(var(--venia-global-color-gray-50)) 40%,
-            rgb(var(--venia-global-color-gray)) 80%,
-            rgb(var(--venia-global-color-gray)) 100%
+            rgb(var(--venia-global-color-gray-50) / 0%) 80%,
+            rgb(var(--venia-global-color-gray-50) / 0%) 100%
         )
         no-repeat;
     background-size: var(--venia-global-maxWidth) 100%;
-    pointer-events: none;
     -webkit-animation-name: shimmerAnimation;
     -webkit-animation-duration: 1s;
     -webkit-animation-timing-function: linear;
@@ -62,10 +73,10 @@
 
 @-webkit-keyframes shimmerAnimation {
     0% {
-        background-position: calc(var(--venia-global-maxWidth) * -1) 0;
+        transform: translateX(-100%);
     }
 
     100% {
-        background-position: var(--venia-global-maxWidth) 0;
+        transform: translateX(100%);
     }
 }
