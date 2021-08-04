@@ -35,7 +35,24 @@ export const useMagentoRoute = (props = {}) => {
         [setComponentMap]
     );
 
-    const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery);
+    const component = componentMap.get(pathname);
+    const previousComponent = previousPathname
+        ? componentMap.get(previousPathname)
+        : null;
+
+    const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery, {
+        onCompleted: async ({ urlResolver }) => {
+            if (!component) {
+                const { id, type } = urlResolver || {};
+                try {
+                    const rootComponent = await getRootComponent(type);
+                    setComponent(pathname, { component: rootComponent, id, type });
+                } catch (error) {
+                    setComponent(pathname, error);
+                }
+            }
+        }
+    });
 
     // destructure the query result
     const { data, error, loading } = queryResult;
@@ -43,10 +60,6 @@ export const useMagentoRoute = (props = {}) => {
     const { id, redirectCode, relative_url, type } = urlResolver || {};
 
     // evaluate both results and determine the response type
-    const component = componentMap.get(pathname);
-    const previousComponent = previousPathname
-        ? componentMap.get(previousPathname)
-        : null;
     const empty = !urlResolver || !type || id < 1;
     const redirect = isRedirect(redirectCode);
     const fetchError = component instanceof Error && component;
@@ -82,7 +95,7 @@ export const useMagentoRoute = (props = {}) => {
     }
 
     useEffect(() => {
-        if (initialized.current) {
+        if (initialized.current || !getInlinedPageData()) {
             runQuery({
                 fetchPolicy: 'cache-and-network',
                 nextFetchPolicy: 'cache-first',
@@ -91,38 +104,28 @@ export const useMagentoRoute = (props = {}) => {
         }
     }, [initialized, pathname]);
 
-    // fetch a component if necessary
     useEffect(() => {
         (async () => {
-            const isInitialized = initialized.current;
-
-            // don't fetch if we don't have data yet
-            if (isInitialized && (loading || empty)) return;
-
-            // don't fetch if we don't have inlined type
             const inlinedData = getInlinedPageData();
-            if (!isInitialized && !inlinedData) return;
-
-            // don't fetch more than once
-            if (component) return;
-
-            try {
-                const componentType = isInitialized ? type : inlinedData.type;
-                const rootComponent = await getRootComponent(componentType);
-                setComponent(
-                    pathname,
-                    {
-                        component: rootComponent,
-                        id: isInitialized ? id : Number(inlinedData.id),
-                        type: componentType
-                    }
-                );
-            } catch (error) {
-                setComponent(pathname, error);
+            if (inlinedData) {
+                try {
+                    const componentType = inlinedData.type;
+                    const rootComponent = await getRootComponent(componentType);
+                    setComponent(
+                        pathname,
+                        {
+                            component: rootComponent,
+                            id: Number(inlinedData.id),
+                            type: componentType
+                        }
+                    );
+                } catch (error) {
+                    setComponent(pathname, error);
+                }
             }
             initialized.current = true;
         })();
-    }, [component, empty, id, loading, pathname, setComponent, type, initialized, getInlinedPageData]);
+    }, []);
 
     // perform a redirect if necesssary
     useEffect(() => {

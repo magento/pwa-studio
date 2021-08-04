@@ -100,7 +100,7 @@ veniaProxy:
       default:
         inline: true
 
-# page type data for initial render
+# Page type data for initial render
 veniaPageType:
   resolver: inline
   inline:
