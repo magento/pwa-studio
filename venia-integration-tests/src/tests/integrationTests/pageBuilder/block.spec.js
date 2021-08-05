@@ -10,9 +10,7 @@ describe('verify pagebuilder block content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Block Page',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -26,9 +24,7 @@ describe('verify pagebuilder block content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Dynamic Block',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -42,9 +38,7 @@ describe('verify pagebuilder block content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder CMS Block',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -58,9 +52,7 @@ describe('verify pagebuilder block content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder CMS Page',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
