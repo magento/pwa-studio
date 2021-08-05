@@ -10,9 +10,7 @@ describe('verify pagebuilder text content is rendered correctly', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Text Page',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
