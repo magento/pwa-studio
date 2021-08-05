@@ -228,7 +228,7 @@ test('it returns the correct error message when the error is graphql', () => {
     const { talonProps } = root.findByType('i').props;
 
     // Assert.
-    expect(talonProps.errorMessage).toMatchInlineSnapshot(`"graphQLErrors"`);
+    expect(talonProps.errorMessage).toMatchInlineSnapshot(`"test a, test b"`);
 });
 
 test('it returns correct error message when multiple sources report errors', () => {
@@ -260,7 +260,7 @@ test('it returns correct error message when multiple sources report errors', () 
 
     // Assert.
     expect(talonProps.errorMessage).toMatchInlineSnapshot(
-        `"graphQLErrors, graphQLErrors"`
+        `"test c, test a, test b"`
     );
 });
 

@@ -7,15 +7,12 @@ export const useFormError = props => {
     const { formatMessage } = useIntl();
 
     const derivedErrorMessage = useMemo(() => {
-        if (deriveErrorMessage(errors) === 'graphQLErrors') {
-            return formatMessage({
-                id: 'formError.errorMessage',
-                defaultMessage:
-                    'An error has occurred. Please check the input and try again.'
-            });
-        } else {
-            return deriveErrorMessage(errors);
-        }
+        const defaultErrorMessage = formatMessage({
+            id: 'formError.errorMessage',
+            defaultMessage:
+                'An error has occurred. Please check the input and try again.'
+        });
+        return deriveErrorMessage(errors, defaultErrorMessage);
     }, [errors]);
 
     return {

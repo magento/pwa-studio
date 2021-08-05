@@ -4,7 +4,7 @@ exports[`Should return correct shape 1`] = `
 Object {
   "closeMiniCart": [Function],
   "configurableThumbnailSource": "parent",
-  "errorMessage": "graphQLErrors",
+  "errorMessage": "Hey I am a mutation error, Hey I am another mutation error",
   "handleEditCart": [Function],
   "handleProceedToCheckout": [Function],
   "handleRemoveItem": [Function],

@@ -167,7 +167,7 @@ exports[`renders an error message if an error occurs on code entry 1`] = `
       <span />
     </span>
     <p>
-      graphQLErrors
+      A wild GQL error appeared!
     </p>
   </div>
   <div>
