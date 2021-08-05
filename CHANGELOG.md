@@ -293,7 +293,6 @@ If you want to use these tests in your own CICD pipeline, they can be found in [
 
 ## Known issues
 
-- During the checkout process, when you enter a shipping address and leave the Street Address 2 line blank
 - The `yarn watch` process may run out of memory if left running for an extended amount of time.
   If an error occurs because of this, restart the watcher.
 
