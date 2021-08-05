@@ -13,7 +13,7 @@ export const useFormError = props => {
                 'An error has occurred. Please check the input and try again.'
         });
         return deriveErrorMessage(errors, defaultErrorMessage);
-    }, [errors]);
+    }, [errors, formatMessage]);
 
     return {
         errorMessage: derivedErrorMessage
