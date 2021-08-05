@@ -131,15 +131,28 @@ export const useMegaMenu = (props = {}) => {
             };
 
             // Bind the event listener to both mouse and key events
-            window.addEventListener('mousedown', handleClickOutside);
-            window.addEventListener('keydown', handleClickOutside);
-            window.addEventListener('mouseout', handleClickOutside);
+            if (typeof globalThis.addEventListener === 'function') {
+                globalThis.addEventListener('mousedown', handleClickOutside);
+                globalThis.addEventListener('keydown', handleClickOutside);
+                globalThis.addEventListener('mouseout', handleClickOutside);
+            }
 
             return () => {
                 // Unbind the event listener to clean up
-                window.removeEventListener('mousedown', handleClickOutside);
-                window.removeEventListener('keydown', handleClickOutside);
-                window.removeEventListener('mouseout', handleClickOutside);
+                if (typeof globalThis.removeEventListener === 'function') {
+                    globalThis.removeEventListener(
+                        'mousedown',
+                        handleClickOutside
+                    );
+                    globalThis.removeEventListener(
+                        'keydown',
+                        handleClickOutside
+                    );
+                    globalThis.removeEventListener(
+                        'mouseout',
+                        handleClickOutside
+                    );
+                }
             };
         }, [ref]);
     };
