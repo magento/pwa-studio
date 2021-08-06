@@ -100,11 +100,6 @@ Array [
             aria-busy="true"
             aria-live="polite"
             className="root_button"
-            classes={
-              Object {
-                "root_button": "filterButtonShimmer",
-              }
-            }
             style={Object {}}
           >
             <span
@@ -118,11 +113,6 @@ Array [
           >
             <div
               className="root_button"
-              classes={
-                Object {
-                  "root_button": "sortButtonShimmer",
-                }
-              }
               style={Object {}}
             >
               <span
