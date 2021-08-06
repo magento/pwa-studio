@@ -1,5 +1,13 @@
 import React, { useMemo } from 'react';
-import { node, number, oneOf, oneOfType, shape, string } from 'prop-types';
+import {
+    node,
+    number,
+    object,
+    oneOf,
+    oneOfType,
+    shape,
+    string
+} from 'prop-types';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './shimmer.css';
@@ -13,6 +21,8 @@ const Shimmer = props => {
         style: customStyles,
         type,
         children,
+        childrenTag: ChildrenTag,
+        childrenStyles,
         ...restProps
     } = props;
     const classes = useStyle(defaultClasses, propClasses);
@@ -38,7 +48,9 @@ const Shimmer = props => {
 
     return (
         <div className={classes[rootClass]} style={style} {...restProps}>
-            <span className={classes.content}>{children}</span>
+            <ChildrenTag className={classes.content} style={childrenStyles}>
+                {children}
+            </ChildrenTag>
         </div>
     );
 };
@@ -70,6 +82,9 @@ const Shimmer = props => {
  * @property {Object} style is an object of inline styles
  * @property {string} type is the type of the Shimmer
  * @property {node} children are the children of the Shimmer
+ * @property {string} childrenTag is the html tag of the Shimmer content
+ * @property {object} childrenStyles are the custom styles of the
+ * Shimmer content
  */
 Shimmer.propTypes = {
     classes: shape({
@@ -94,12 +109,16 @@ Shimmer.propTypes = {
         'textArea',
         'textInput'
     ]),
-    children: node
+    children: node,
+    childrenTag: string,
+    childrenStyles: object
 };
 
 Shimmer.defaultProps = {
     style: {},
-    type: 'rectangle'
+    type: 'rectangle',
+    childrenTag: 'span',
+    childrenStyles: {}
 };
 
 export default Shimmer;

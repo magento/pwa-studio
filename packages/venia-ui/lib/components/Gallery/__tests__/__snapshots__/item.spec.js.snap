@@ -12,6 +12,7 @@ exports[`renders a placeholder item while awaiting item 1`] = `
   >
     <span
       className="content"
+      style={Object {}}
     >
       <div
         className="root container"
@@ -44,6 +45,7 @@ exports[`renders a placeholder item while awaiting item 1`] = `
   >
     <span
       className="content"
+      style={Object {}}
     />
   </div>
   <div
@@ -56,6 +58,7 @@ exports[`renders a placeholder item while awaiting item 1`] = `
   >
     <span
       className="content"
+      style={Object {}}
     />
   </div>
 </div>
