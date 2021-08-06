@@ -79,7 +79,7 @@
     "@apollo/client": "~3.1.2",
     "@magento/babel-preset-peregrine": "~1.1.0",
     "@magento/peregrine": "11.0.0-alpha.5",
-    "@magento/pwa-buildpack": "10.0.0-alpha.5",
+    "@magento/pwa-buildpack": "10.0.0-alpha.6",
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.16.0",
     "graphql": "~15.3.0",

@@ -13,7 +13,7 @@
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
-    "@magento/pwa-buildpack": "10.0.0-alpha.5",
+    "@magento/pwa-buildpack": "10.0.0-alpha.6",
     "@magento/venia-ui": "8.0.0-alpha.5",
     "webpack": "~4.46.0"
   },
