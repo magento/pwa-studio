@@ -175,5 +175,8 @@
                 console.warn(error);
             }
         </script>
+        {{#webpackChunks}}
+            <script type="text/javascript" src="/{{.}}"></script>
+        {{/webpackChunks}}
     </body>
 </html>
