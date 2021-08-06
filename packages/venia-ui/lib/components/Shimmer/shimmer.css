@@ -27,6 +27,7 @@
     -webkit-animation-timing-function: linear;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-fill-mode: forwards;
+    will-change: transform;
 }
 
 .root_rectangle {
