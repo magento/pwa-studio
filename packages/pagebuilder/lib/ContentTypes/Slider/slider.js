@@ -65,6 +65,7 @@ const Slider = props => {
     const sliderSettings = {
         dots: showDots,
         arrows: showArrows,
+        lazyLoad: 'ondemand',
         afterChange: () => {
             Object.keys(jarallaxInstances).map(key => {
                 jarallax(jarallaxInstances[key].element, 'onScroll');
@@ -97,6 +98,8 @@ const Slider = props => {
 
     return (
         <div
+            aria-live="polite"
+            aria-busy="false"
             className={[classes.root, ...cssClasses].join(' ')}
             style={dynamicStyles}
         >
