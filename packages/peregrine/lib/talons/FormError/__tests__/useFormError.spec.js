@@ -9,15 +9,6 @@ jest.mock('react-intl', () => ({
     })
 }));
 
-jest.mock('react', () => {
-    const React = jest.requireActual('react');
-    const memoSpy = jest.spyOn(React, 'useMemo');
-
-    return Object.assign(React, {
-        useMemo: memoSpy
-    });
-});
-
 const Component = props => {
     const talonProps = useFormError(props);
     return <i talonProps={talonProps} />;
