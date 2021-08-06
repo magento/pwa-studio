@@ -54,7 +54,7 @@ test('useEffect', () => {
     const mockUseEffect = () => {
         useEffect.mockImplementationOnce(mockFunction => mockFunction());
     };
-    
+
     mockUseEffect();
 });
 
