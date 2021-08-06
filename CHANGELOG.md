@@ -211,6 +211,7 @@ The following bugs have been fixed in 11.0.0.
 | Application fails to load on Safari 14                                                                              | [#3289][] |
 | Customer data persists after appearing to be signed out                                                             | [#3306][] |
 | Username disappears from the header when switching languages or store view                                          | [#3286][] |
+| Dependency bug related to Workbox version compatibilities                                                           | [#3329][] |
 
 [#3251]: https://github.com/magento/pwa-studio/pull/3251
 [#3196]: https://github.com/magento/pwa-studio/pull/3196
@@ -241,6 +242,7 @@ The following bugs have been fixed in 11.0.0.
 [#3289]: https://github.com/magento/pwa-studio/pull/3289
 [#3306]: https://github.com/magento/pwa-studio/pull/3306
 [#3286]: https://github.com/magento/pwa-studio/pull/3286
+[#3329]: https://github.com/magento/pwa-studio/pull/3329
 
 ### Cypress tests
 
