@@ -13,8 +13,7 @@ export const addProductToWishlistFromCategoryPage = productToAdd => {
     cy.contains(productToAdd)
         .siblings()
         .find(categoryPageAddToWishListButton)
-        .click()
-        .wait(5000);
+        .click();
 };
 
 /**
