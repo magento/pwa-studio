@@ -41,6 +41,7 @@ async function createProjectFromVenia({ fs, tasks, options, sampleBackends }) {
         'dependencies',
         'devDependencies',
         'optionalDependencies',
+        'resolutions',
         'engines',
         'pwa-studio'
     ];
