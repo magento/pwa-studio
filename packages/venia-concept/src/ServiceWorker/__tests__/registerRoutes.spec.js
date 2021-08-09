@@ -1,7 +1,6 @@
-import { cacheNames } from 'workbox-core';
 import { registerRoute } from 'workbox-routing';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
 
 import {
     THIRTY_DAYS,
@@ -9,12 +8,6 @@ import {
     IMAGES_CACHE_NAME
 } from '../defaults';
 import registerRoutes from '../registerRoutes';
-
-jest.mock('workbox-core', () => {
-    return {
-        cacheNames: { precache: 'precache_assets_cache_name' }
-    };
-});
 
 jest.mock('workbox-expiration', () => {
     return {
@@ -31,7 +24,8 @@ jest.mock('workbox-routing', () => {
 jest.mock('workbox-strategies', () => {
     return {
         CacheFirst: jest.fn(),
-        StaleWhileRevalidate: jest.fn()
+        StaleWhileRevalidate: jest.fn(),
+        NetworkFirst: jest.fn()
     };
 });
 
@@ -106,29 +100,14 @@ test('There should be a route for all js files with CacheFirst strategy', () => 
     registerRoute.mockClear();
 });
 
-test('There should be a route for all HTML routes with StaleWhileRevalidate strategy', () => {
+test('There should be a route for all HTML routes with NetworkFirst strategy', () => {
     registerRoutes();
 
-    /**
-     * This is a crude way to find the route by searching for
-     * isHTMLRoute function in the .toString() output, but I am
-     * out of options at this point.
-     *
-     * Obviously there might be a better way to do it just that I
-     * am not aware of it at this point. Feel free to change it.
-     */
     const [registrationCall] = registerRoute.mock.calls.filter(call =>
         call[0].toString().includes('isHTMLRoute')
     );
 
-    expect(registrationCall[1]).toBeInstanceOf(StaleWhileRevalidate);
-
-    const staleWhileRevalidateCallArgs = StaleWhileRevalidate.mock.calls[1][0];
-
-    expect(
-        staleWhileRevalidateCallArgs.plugins[0].cacheKeyWillBeUsed
-    ).toBeInstanceOf(Function);
-    expect(staleWhileRevalidateCallArgs.cacheName).toEqual(cacheNames.precache);
+    expect(registrationCall[1]).toBeInstanceOf(NetworkFirst);
 
     registerRoute.mockClear();
 });
