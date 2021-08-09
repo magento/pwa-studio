@@ -16,6 +16,9 @@ jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
     };
 });
 jest.mock('../../../classify');
+jest.mock('../../Gallery/addToCartButton', () => props => (
+    <mock-AddToCartButton {...props} />
+));
 
 const classes = {
     image: 'a',

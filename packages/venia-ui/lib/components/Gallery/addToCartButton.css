@@ -1,0 +1,12 @@
+.root {
+    composes: root_highPriority from '../Button/button.css';
+    margin-left: -0.5rem;
+    min-height: 2rem;
+    padding: 0 0.5rem;
+}
+
+@media (max-width: 640px) {
+    .root {
+        min-width: 8rem;
+    }
+}
