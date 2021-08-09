@@ -115,9 +115,9 @@ For example, filter options can be neatly collapsed and the product listing is a
 
 #### Pull Requests
 
-| Description                                                        | PR        |
-| ------------------------------------------------------------------ | --------- |
-| Optimized the layered navigation feature for the desktop           | [#3137][] |
+| Description                                              | PR        |
+| -------------------------------------------------------- | --------- |
+| Optimized the layered navigation feature for the desktop | [#3137][] |
 
 [#3137]: https://github.com/magento/pwa-studio/pull/3137
 
@@ -204,6 +204,14 @@ The following bugs have been fixed in 11.0.0.
 | Babel JSX plugin dependency mismatch                                                                                | [#3098][] |
 | Category page bug where the browser back button would not work                                                      | [#3078][] |
 | Shipping Information form bug where guests would get stuck in the 'Loading Regions...' state                        | [#3142][] |
+| Checkout bug that would fail to save the Address when Street Address 2 is left blank                                | [#3312][] |
+| Misaligned Payment Information UI                                                                                   | [#3290][] |
+| Wishlist UI squished on mobile screens                                                                              | [#3288][] |
+| Category page content disappears when the browser window width is between 1024px and 1100px                         | [#3285][] |
+| Application fails to load on Safari 14                                                                              | [#3289][] |
+| Customer data persists after appearing to be signed out                                                             | [#3306][] |
+| Username disappears from the header when switching languages or store view                                          | [#3286][] |
+| Dependency bug related to Workbox version compatibilities                                                           | [#3329][] |
 
 [#3251]: https://github.com/magento/pwa-studio/pull/3251
 [#3196]: https://github.com/magento/pwa-studio/pull/3196
@@ -227,6 +235,14 @@ The following bugs have been fixed in 11.0.0.
 [#3098]: https://github.com/magento/pwa-studio/pull/3098
 [#3078]: https://github.com/magento/pwa-studio/pull/3078
 [#3142]: https://github.com/magento/pwa-studio/pull/3142
+[#3312]: https://github.com/magento/pwa-studio/pull/3312
+[#3290]: https://github.com/magento/pwa-studio/pull/3290
+[#3288]: https://github.com/magento/pwa-studio/pull/3288
+[#3285]: https://github.com/magento/pwa-studio/pull/3285
+[#3289]: https://github.com/magento/pwa-studio/pull/3289
+[#3306]: https://github.com/magento/pwa-studio/pull/3306
+[#3286]: https://github.com/magento/pwa-studio/pull/3286
+[#3329]: https://github.com/magento/pwa-studio/pull/3329
 
 ### Cypress tests
 
