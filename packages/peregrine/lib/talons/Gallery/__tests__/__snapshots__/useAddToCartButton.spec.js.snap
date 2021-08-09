@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns proper shape 1`] = `
+Object {
+  "handleAddToCart": [Function],
+  "isDisabled": false,
+  "isInStock": true,
+}
+`;
