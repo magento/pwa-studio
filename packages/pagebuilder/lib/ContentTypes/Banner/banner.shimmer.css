@@ -1,9 +1,17 @@
-.root {
-    composes: root from './banner.css';
-}
-
 .shimmerRoot {
     composes: root_rectangle from '~@magento/venia-ui/lib/components/Shimmer/shimmer.css';
+    composes: root from './banner.css';
     display: block;
-    min-height: 0;
+}
+
+.wrapper {
+    composes: wrapper from './banner.css';
+}
+
+.overlay {
+    composes: overlay from './banner.css';
+}
+
+.content {
+    composes: content from './banner.css';
 }

@@ -32,17 +32,14 @@ const SliderShimmer = props => {
         cssClasses = []
     } = props;
 
-    const shimmerStyles = {
-        marginTop,
-        marginRight,
-        marginBottom,
-        marginLeft
-    };
-
-    const rootStyles = {
+    const dynamicStyles = {
         minHeight,
         border,
         borderWidth,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
         paddingTop,
         paddingRight,
         paddingBottom,
@@ -53,19 +50,19 @@ const SliderShimmer = props => {
 
     return (
         <Shimmer
+            aria-live="polite"
+            aria-busy="true"
             classes={{
-                root_rectangle: classes.shimmerRoot,
-                content: classes.shimmerContent
+                root_rectangle: [
+                    classes.root,
+                    classes.shimmerRoot,
+                    ...cssClasses
+                ].join(' ')
             }}
-            style={shimmerStyles}
+            style={dynamicStyles}
         >
-            <div
-                aria-live="polite"
-                aria-busy="true"
-                className={[classes.root, ...cssClasses].join(' ')}
-                style={rootStyles}
-            >
-                <div className="slick-slider" />
+            <div className="slick-slider">
+                <div className="slick-list" />
                 {dotsContainer}
             </div>
         </Shimmer>
@@ -79,10 +76,8 @@ const SliderShimmer = props => {
  *
  * @property {Object} classes An object containing the class names for the Slider
  * @property {String} classes.root CSS class for the slider root element
- * @property {String} classes.shimmerRoot CSS class for the slider
- * shimmer root_rectangle element
- * @property {String} classes.shimmerContent CSS class for the slider
- * shimmer content element
+ * @property {String} classes.shimmerRoot CSS class for the slider shimmer
+ * root_rectangle element
  * @property {String} minHeight CSS minimum height property
  * @property {String} showDots Whether to show navigation dots at the bottom of the slider
  * @property {String} border CSS border property
@@ -100,8 +95,7 @@ const SliderShimmer = props => {
 SliderShimmer.propTypes = {
     classes: shape({
         root: string,
-        shimmerRoot: string,
-        shimmerContent: string
+        shimmerRoot: string
     }),
     minHeight: string,
     showDots: bool,

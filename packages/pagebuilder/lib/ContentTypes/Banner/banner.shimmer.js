@@ -20,10 +20,10 @@ const BannerShimmer = props => {
         minHeight,
         border,
         borderWidth,
-        marginTop = 0,
-        marginRight = 0,
-        marginBottom = 0,
-        marginLeft = 0,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
         paddingTop,
         paddingRight,
         paddingBottom,
@@ -31,14 +31,14 @@ const BannerShimmer = props => {
         cssClasses = []
     } = props;
 
-    const shimmerStyles = {
+    const rootStyles = {
         marginTop,
         marginRight,
         marginBottom,
         marginLeft
     };
 
-    const rootStyles = {
+    const wrapperStyles = {
         minHeight,
         border,
         borderWidth,
@@ -50,18 +50,22 @@ const BannerShimmer = props => {
 
     return (
         <Shimmer
+            aria-live="polite"
+            aria-busy="true"
             classes={{
-                root_rectangle: classes.shimmerRoot,
-                content: classes.shimmerContent
+                root_rectangle: [
+                    classes.root,
+                    classes.shimmerRoot,
+                    ...cssClasses
+                ].join(' ')
             }}
-            style={shimmerStyles}
+            style={rootStyles}
         >
-            <div
-                aria-live="polite"
-                aria-busy="true"
-                className={[classes.root, ...cssClasses].join(' ')}
-                style={rootStyles}
-            />
+            <div className={classes.wrapper} style={wrapperStyles}>
+                <div className={classes.overlay}>
+                    <div className={classes.content} />
+                </div>
+            </div>
         </Shimmer>
     );
 };
@@ -75,8 +79,9 @@ const BannerShimmer = props => {
  * @property {String} classes.root CSS class for the banner root element
  * @property {String} classes.shimmerRoot CSS class for the banner
  * shimmer root_rectangle element
- * @property {String} classes.shimmerContent CSS class for the banner
- * shimmer content element
+ * @property {String} classes.wrapper CSS class for the banner wrapper element
+ * @property {String} classes.overlay CSS class for the banner overlay element
+ * @property {String} classes.content CSS class for the banner content element
  * @property {String} minHeight CSS minimum height property
  * @property {String} border CSS border property
  * @property {String} borderWidth CSS border width property
@@ -88,13 +93,16 @@ const BannerShimmer = props => {
  * @property {String} paddingRight CSS padding right property
  * @property {String} paddingBottom CSS padding bottom property
  * @property {String} paddingLeft CSS padding left property
- * @property {Array} cssClasses List of CSS classes to be applied to the component
+ * @property {Array} cssClasses List of CSS classes to be applied to
+ * the component
  */
 BannerShimmer.propTypes = {
     classes: shape({
         root: string,
         shimmerRoot: string,
-        shimmerContent: string
+        wrapper: string,
+        overlay: string,
+        content: string
     }),
     minHeight: string,
     border: string,

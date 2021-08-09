@@ -76,35 +76,39 @@ exports[`renders a BannerShimmer component with minHeight 1`] = `
 
 exports[`renders an empty BannerShimmer component 1`] = `
 <div
+  aria-busy="true"
+  aria-live="polite"
   className="root_rectangle"
   style={
     Object {
-      "marginBottom": 0,
-      "marginLeft": 0,
-      "marginRight": 0,
-      "marginTop": 0,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
     }
   }
 >
-  <span
-    className="content"
+  <div
+    className="wrapper"
+    style={
+      Object {
+        "border": undefined,
+        "borderWidth": undefined,
+        "minHeight": undefined,
+        "paddingBottom": undefined,
+        "paddingLeft": undefined,
+        "paddingRight": undefined,
+        "paddingTop": undefined,
+      }
+    }
   >
     <div
-      aria-busy="true"
-      aria-live="polite"
-      className="root"
-      style={
-        Object {
-          "border": undefined,
-          "borderWidth": undefined,
-          "minHeight": undefined,
-          "paddingBottom": undefined,
-          "paddingLeft": undefined,
-          "paddingRight": undefined,
-          "paddingTop": undefined,
-        }
-      }
-    />
-  </span>
+      className="overlay"
+    >
+      <div
+        className="content"
+      />
+    </div>
+  </div>
 </div>
 `;
