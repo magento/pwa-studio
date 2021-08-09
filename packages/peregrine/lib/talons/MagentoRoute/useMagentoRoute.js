@@ -65,6 +65,7 @@ export const useMagentoRoute = (props = {}) => {
     const fetchError = component instanceof Error && component;
     const routeError = fetchError || error;
     const previousFetchError = previousComponent instanceof Error;
+    const isInitialized = initialized.current || !getInlinedPageData();
     let showPageLoader = false;
     let routeData;
 
@@ -77,7 +78,7 @@ export const useMagentoRoute = (props = {}) => {
     } else if (redirect) {
         // REDIRECT
         routeData = { isRedirect: true, relativeUrl: relative_url };
-    } else if (empty && !loading && initialized.current) {
+    } else if (empty && !loading && isInitialized) {
         // NOT FOUND
         routeData = {isNotFound: true};
     } else if (nextRootComponent) {
@@ -90,7 +91,7 @@ export const useMagentoRoute = (props = {}) => {
         routeData = { isLoading: true, ...previousComponent };
     } else {
         // LOADING
-        const isInitialLoad = !initialized.current && getInlinedPageData();
+        const isInitialLoad = !isInitialized;
         routeData = { isLoading: true, initial: isInitialLoad };
     }
 
