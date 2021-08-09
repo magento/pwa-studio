@@ -93,17 +93,20 @@ describe('verify pagebuilder products content type', () => {
             }).as('getCMSMockData');
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
-            cy.get('h2').contains('No autoplay, loop, arrows, dots')
+            cy.get('h2')
+                .contains('No autoplay, loop, arrows, dots')
                 .next()
                 .find('li[role="tab"]')
                 .contains('Continuous')
                 .click();
-            cy.get('h2').contains('No autoplay, no loop, arrows, dots')
+            cy.get('h2')
+                .contains('No autoplay, no loop, arrows, dots')
                 .next()
                 .find('li[role="tab"]')
                 .contains('Continuous')
                 .click();
-            cy.get('h2').contains('No autoplay, loop, no arrows, no dots')
+            cy.get('h2')
+                .contains('No autoplay, loop, no arrows, no dots')
                 .next()
                 .find('li[role="tab"]')
                 .contains('Continuous')
@@ -116,12 +119,12 @@ describe('verify pagebuilder products content type', () => {
                 });
             });
         });
-    })
+    });
 
-    context('mobile viewport', ()=> {
+    context('mobile viewport', () => {
         beforeEach(() => {
-            cy.viewport('iphone-5')
-        })
+            cy.viewport('iphone-5');
+        });
 
         it('verify products grid mobile', () => {
             cy.intercept('GET', getCMSPage, {
@@ -150,5 +153,5 @@ describe('verify pagebuilder products content type', () => {
                 });
             });
         });
-    })
+    });
 });
