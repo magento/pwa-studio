@@ -171,12 +171,10 @@
         <script>
             try {
                 var INLINED_PAGE_TYPE = JSON.parse('{{pageType}}'.replace(/&quot;/g, '"'));
-            } catch(error) {
-                console.warn(error);
-            }
+            } catch(error) {}
         </script>
-        {{#webpackChunks}}
-            <script type="text/javascript" src="/{{.}}"></script>
-        {{/webpackChunks}}
+        <!-- {{#webpackChunks}} -->
+            <script type="text/javascript" src="/{{.}}" class="webpack-chunk-scripts"></script>
+        <!-- {{/webpackChunks}} -->
     </body>
 </html>
