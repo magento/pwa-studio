@@ -5,7 +5,8 @@ import {
     homePage as homePageFixtures,
     myAccountMenu as myAccountMenuFixtures,
     wishlist as wishlistFixtures,
-    productPage as productPageFixtures
+    productPage as productPageFixtures,
+    graphqlMockedCalls as graphqlMockedCallsFixtures
 } from '../../../fixtures';
 import {
     cartPage as cartPageActions,
@@ -19,6 +20,7 @@ import {
     wishlist as wishlistAssertions,
     categoryPage as categoryPageAssertions
 } from '../../../assertions';
+import { aliasMutation } from '../../../utils/graphql-test-utils';
 
 const {
     firstName,
@@ -35,6 +37,7 @@ const {
     productValeriaTwoLayeredTank,
     silverAmorBangleSet
 } = productPageFixtures;
+const { hitGraphqlPath } = graphqlMockedCallsFixtures;
 
 const { moveProductFromCartToSingleWishlist } = cartPageActions;
 const { goToMyAccount } = myAccountMenuActions;
@@ -57,6 +60,14 @@ const { assertWishlistSelectedProductOnCategoryPage } = categoryPageAssertions;
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
     it('user should be able to add and remove products from wishlist', () => {
+        cy.intercept('POST', hitGraphqlPath, req => {
+            aliasMutation(req, 'CreateAccount');
+            aliasMutation(req, 'SignInAfterCreate');
+            aliasMutation(req, 'AddProductToWishlistFromGallery');
+            aliasMutation(req, 'AddProductToCart');
+            aliasMutation(req, 'RemoveProductsFromWishlist');
+        });
+
         cy.visitPage(homePage);
 
         cy.openLoginDialog();
@@ -65,6 +76,13 @@ describe('verify single wishlist basic features', () => {
             lastName,
             accountEmail,
             accountPassword
+        );
+
+        cy.wait(
+            ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
+            {
+                timeout: 60000
+            }
         );
 
         assertCreateAccount(firstName);
@@ -77,6 +95,10 @@ describe('verify single wishlist basic features', () => {
         cy.visitPage(categorySweaters);
         addProductToWishlistFromCategoryPage(productCarinaCardigan);
 
+        cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
+            timeout: 60000
+        });
+
         assertWishlistSelectedProductOnCategoryPage(productCarinaCardigan);
 
         cy.visitPage(wishlistRoute);
@@ -85,6 +107,11 @@ describe('verify single wishlist basic features', () => {
 
         cy.visitPage(productValeriaTwoLayeredTank.url);
         addProductToWishlistFromProductPage();
+
+        cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
+            timeout: 60000
+        });
+
         cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
@@ -92,8 +119,18 @@ describe('verify single wishlist basic features', () => {
 
         cy.visitPage(silverAmorBangleSet.url);
         addSimpleProductToCartFromProductPage();
+
+        cy.wait(['@gqlAddProductToCartMutation'], {
+            timeout: 60000
+        });
+
         cy.visitPage(cartPageRoute);
         moveProductFromCartToSingleWishlist(silverAmorBangleSet.name);
+
+        cy.wait(['@gqlAddProductToWishlistFromGalleryMutation'], {
+            timeout: 60000
+        });
+
         cy.visitPage(wishlistRoute);
 
         assertProductInWishlist(productCarinaCardigan);
@@ -101,6 +138,10 @@ describe('verify single wishlist basic features', () => {
         assertProductInWishlist(silverAmorBangleSet.name);
 
         removeProductFromSingleWishlist(productCarinaCardigan);
+
+        cy.wait(['@gqlRemoveProductsFromWishlistMutation'], {
+            timeout: 60000
+        });
 
         asserProductNotInWishlist(productCarinaCardigan);
     });
