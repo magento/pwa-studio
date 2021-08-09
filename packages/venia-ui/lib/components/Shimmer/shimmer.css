@@ -66,12 +66,6 @@
     border: none;
 }
 
-.content {
-    overflow: hidden;
-    visibility: hidden;
-    opacity: 0;
-}
-
 @-webkit-keyframes shimmerAnimation {
     0% {
         transform: translateX(-100%);

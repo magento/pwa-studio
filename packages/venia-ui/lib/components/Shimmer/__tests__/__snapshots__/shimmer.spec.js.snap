@@ -8,10 +8,5 @@ exports[`#Shimmer renders default size 1`] = `
       "width": "100%",
     }
   }
->
-  <span
-    className="content"
-    style={Object {}}
-  />
-</div>
+/>
 `;
