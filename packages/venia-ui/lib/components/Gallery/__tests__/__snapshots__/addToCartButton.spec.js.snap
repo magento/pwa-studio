@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render add to cart if in stock 1`] = `
+<button
+  disabled={false}
+  onClick={[MockFunction]}
+  type="button"
+>
+  <span>
+    <mock-FormattedMessage
+      defaultMessage="ADD TO CART"
+      id="addToCartButton.addItemToCart"
+    />
+  </span>
+</button>
+`;
+
+exports[`should render out of cart if not in stock 1`] = `
+<button
+  disabled={true}
+  onClick={[MockFunction]}
+  type="button"
+>
+  <span>
+    <mock-FormattedMessage
+      defaultMessage="OUT OF STOCK"
+      id="addToCartButton.itemOutOfStock"
+    />
+  </span>
+</button>
+`;
+
+exports[`should render properly 1`] = `
+<button
+  disabled={false}
+  onClick={[MockFunction handleAddToCart]}
+  type="button"
+>
+  <span>
+    <mock-FormattedMessage
+      defaultMessage="ADD TO CART"
+      id="addToCartButton.addItemToCart"
+    />
+  </span>
+</button>
+`;

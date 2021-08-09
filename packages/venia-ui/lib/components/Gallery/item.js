@@ -12,6 +12,8 @@ import Image from '../Image';
 import defaultClasses from './item.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
+import AddToCartbutton from '../Gallery/addToCartButton';
+
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
 const IMAGE_WIDTH = 300;
@@ -89,7 +91,12 @@ const GalleryItem = props => {
                     currencyCode={price.regularPrice.amount.currency}
                 />
             </div>
-            <div className={classes.actionsContainer}>{wishlistButton}</div>
+
+            <div className={classes.actionsContainer}>
+                {' '}
+                <AddToCartbutton item={item} />
+                {wishlistButton}
+            </div>
         </div>
     );
 };
