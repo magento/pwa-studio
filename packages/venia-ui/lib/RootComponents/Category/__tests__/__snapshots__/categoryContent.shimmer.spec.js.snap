@@ -14,12 +14,7 @@ Array [
           "width": "5rem",
         }
       }
-    >
-      <span
-        className="content"
-        style={Object {}}
-      />
-    </div>
+    />
   </div>,
   <article
     className="root"
@@ -40,12 +35,7 @@ Array [
                 "width": "5rem",
               }
             }
-          >
-            <span
-              className="content"
-              style={Object {}}
-            />
-          </div>
+          />
         </div>
       </h1>
     </div>
@@ -66,12 +56,7 @@ Array [
               "width": "95%",
             }
           }
-        >
-          <span
-            className="content"
-            style={Object {}}
-          />
-        </div>
+        />
       </aside>
     </div>
     <div
@@ -90,12 +75,7 @@ Array [
                 "width": "5rem",
               }
             }
-          >
-            <span
-              className="content"
-              style={Object {}}
-            />
-          </div>
+          />
         </div>
         <div
           className="headerButtons"
@@ -105,12 +85,7 @@ Array [
             aria-live="polite"
             className="root_button"
             style={Object {}}
-          >
-            <span
-              className="content"
-              style={Object {}}
-            />
-          </div>
+          />
           <div
             aria-busy="true"
             aria-live="polite"
@@ -119,12 +94,7 @@ Array [
             <div
               className="root_button"
               style={Object {}}
-            >
-              <span
-                className="content"
-                style={Object {}}
-              />
-            </div>
+            />
           </div>
         </div>
         <div
@@ -139,12 +109,7 @@ Array [
                 "width": "10rem",
               }
             }
-          >
-            <span
-              className="content"
-              style={Object {}}
-            />
-          </div>
+          />
         </div>
       </div>
       <section
@@ -167,29 +132,24 @@ Array [
                 className="root_rectangle"
                 style={Object {}}
               >
-                <span
-                  className="content"
-                  style={Object {}}
+                <div
+                  className="root container"
                 >
-                  <div
-                    className="root container"
-                  >
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image placeholder"
-                      loading="eager"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image notLoaded"
-                      loading="lazy"
-                      onError={[Function]}
-                      onLoad={[Function]}
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                  </div>
-                </span>
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image placeholder"
+                    loading="eager"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image notLoaded"
+                    loading="lazy"
+                    onError={[Function]}
+                    onLoad={[Function]}
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                </div>
               </div>
               <div
                 className="root_rectangle"
@@ -198,12 +158,7 @@ Array [
                     "width": "100%",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
               <div
                 className="root_rectangle"
                 style={
@@ -211,12 +166,7 @@ Array [
                     "width": "3rem",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
             </div>
             <div
               aria-busy="true"
@@ -227,29 +177,24 @@ Array [
                 className="root_rectangle"
                 style={Object {}}
               >
-                <span
-                  className="content"
-                  style={Object {}}
+                <div
+                  className="root container"
                 >
-                  <div
-                    className="root container"
-                  >
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image placeholder"
-                      loading="eager"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image notLoaded"
-                      loading="lazy"
-                      onError={[Function]}
-                      onLoad={[Function]}
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                  </div>
-                </span>
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image placeholder"
+                    loading="eager"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image notLoaded"
+                    loading="lazy"
+                    onError={[Function]}
+                    onLoad={[Function]}
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                </div>
               </div>
               <div
                 className="root_rectangle"
@@ -258,12 +203,7 @@ Array [
                     "width": "100%",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
               <div
                 className="root_rectangle"
                 style={
@@ -271,12 +211,7 @@ Array [
                     "width": "3rem",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
             </div>
             <div
               aria-busy="true"
@@ -287,29 +222,24 @@ Array [
                 className="root_rectangle"
                 style={Object {}}
               >
-                <span
-                  className="content"
-                  style={Object {}}
+                <div
+                  className="root container"
                 >
-                  <div
-                    className="root container"
-                  >
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image placeholder"
-                      loading="eager"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image notLoaded"
-                      loading="lazy"
-                      onError={[Function]}
-                      onLoad={[Function]}
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                  </div>
-                </span>
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image placeholder"
+                    loading="eager"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image notLoaded"
+                    loading="lazy"
+                    onError={[Function]}
+                    onLoad={[Function]}
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                </div>
               </div>
               <div
                 className="root_rectangle"
@@ -318,12 +248,7 @@ Array [
                     "width": "100%",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
               <div
                 className="root_rectangle"
                 style={
@@ -331,12 +256,7 @@ Array [
                     "width": "3rem",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
             </div>
             <div
               aria-busy="true"
@@ -347,29 +267,24 @@ Array [
                 className="root_rectangle"
                 style={Object {}}
               >
-                <span
-                  className="content"
-                  style={Object {}}
+                <div
+                  className="root container"
                 >
-                  <div
-                    className="root container"
-                  >
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image placeholder"
-                      loading="eager"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image notLoaded"
-                      loading="lazy"
-                      onError={[Function]}
-                      onLoad={[Function]}
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                  </div>
-                </span>
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image placeholder"
+                    loading="eager"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image notLoaded"
+                    loading="lazy"
+                    onError={[Function]}
+                    onLoad={[Function]}
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                </div>
               </div>
               <div
                 className="root_rectangle"
@@ -378,12 +293,7 @@ Array [
                     "width": "100%",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
               <div
                 className="root_rectangle"
                 style={
@@ -391,12 +301,7 @@ Array [
                     "width": "3rem",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
             </div>
             <div
               aria-busy="true"
@@ -407,29 +312,24 @@ Array [
                 className="root_rectangle"
                 style={Object {}}
               >
-                <span
-                  className="content"
-                  style={Object {}}
+                <div
+                  className="root container"
                 >
-                  <div
-                    className="root container"
-                  >
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image placeholder"
-                      loading="eager"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image notLoaded"
-                      loading="lazy"
-                      onError={[Function]}
-                      onLoad={[Function]}
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                  </div>
-                </span>
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image placeholder"
+                    loading="eager"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image notLoaded"
+                    loading="lazy"
+                    onError={[Function]}
+                    onLoad={[Function]}
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                </div>
               </div>
               <div
                 className="root_rectangle"
@@ -438,12 +338,7 @@ Array [
                     "width": "100%",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
               <div
                 className="root_rectangle"
                 style={
@@ -451,12 +346,7 @@ Array [
                     "width": "3rem",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
             </div>
             <div
               aria-busy="true"
@@ -467,29 +357,24 @@ Array [
                 className="root_rectangle"
                 style={Object {}}
               >
-                <span
-                  className="content"
-                  style={Object {}}
+                <div
+                  className="root container"
                 >
-                  <div
-                    className="root container"
-                  >
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image placeholder"
-                      loading="eager"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image notLoaded"
-                      loading="lazy"
-                      onError={[Function]}
-                      onLoad={[Function]}
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-                    />
-                  </div>
-                </span>
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image placeholder"
+                    loading="eager"
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                  <img
+                    alt="Placeholder for gallery item image"
+                    className="image notLoaded"
+                    loading="lazy"
+                    onError={[Function]}
+                    onLoad={[Function]}
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                  />
+                </div>
               </div>
               <div
                 className="root_rectangle"
@@ -498,12 +383,7 @@ Array [
                     "width": "100%",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
               <div
                 className="root_rectangle"
                 style={
@@ -511,12 +391,7 @@ Array [
                     "width": "3rem",
                   }
                 }
-              >
-                <span
-                  className="content"
-                  style={Object {}}
-                />
-              </div>
+              />
             </div>
           </div>
         </div>
