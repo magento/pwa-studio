@@ -10,7 +10,7 @@ describe('verify pagebuilder block content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Block Page',
-                timeout: 60000
+                timeout: 120000
             });
         });
     });
