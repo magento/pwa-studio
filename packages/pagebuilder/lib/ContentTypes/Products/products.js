@@ -252,8 +252,11 @@ export const GET_PRODUCTS_BY_SKU = gql`
                 small_image {
                     url
                 }
+                stock_status
+                type_id
                 url_key
                 url_suffix
+                sku
                 price {
                     regularPrice {
                         amount {
