@@ -3,6 +3,12 @@ import React from 'react';
 import { useFormError } from '../useFormError';
 import createTestInstance from '../../../util/createTestInstance';
 
+jest.mock('react-intl', () => ({
+    useIntl: jest.fn().mockReturnValue({
+        formatMessage: jest.fn().mockImplementation(options => options.id)
+    })
+}));
+
 const Component = props => {
     const talonProps = useFormError(props);
     return <i talonProps={talonProps} />;
