@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { createTestInstance } from '@magento/peregrine';
+import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 
 import UserContextProvider, { useUserContext } from '../user';
+import BrowserPersistence from '../../util/simplePersistence';
 
 jest.mock('react-redux', () => ({
     connect: jest.fn((mapStateToProps, mapDispatchToProps) =>
@@ -12,6 +13,20 @@ jest.mock('react-redux', () => ({
         }))
     )
 }));
+
+const getRawItem = jest.fn();
+
+jest.mock('../../util/simplePersistence');
+
+beforeEach(() => {
+    const signin_token = JSON.stringify({ ttl: 3600, timeStored: Date.now() });
+
+    getRawItem.mockReturnValue(signin_token);
+
+    BrowserPersistence.mockImplementation(() => ({
+        getRawItem
+    }));
+});
 
 const log = jest.fn();
 const Consumer = jest.fn(() => {
@@ -89,4 +104,51 @@ test('provides state and actions via context', () => {
             two: 'two'
         })
     ]);
+});
+
+test('should signout if the user token has expired', () => {
+    const fiveSecondsAgo = Date.now() - 5000;
+    const signin_token = JSON.stringify({ ttl: 3, timeStored: fiveSecondsAgo });
+
+    getRawItem.mockReturnValueOnce(signin_token);
+
+    const signOut = jest.fn();
+
+    const { Component } = UserContextProvider;
+    const props = {
+        actions: {},
+        userState: 'userState',
+        asyncActions: { signOut }
+    };
+
+    createTestInstance(
+        <Component {...props}>
+            <Consumer />
+        </Component>
+    );
+
+    expect(signOut).toHaveBeenCalled();
+});
+
+test('should not signout if the user token has not expired', () => {
+    const signin_token = JSON.stringify({ ttl: 3600, timeStored: Date.now() });
+
+    getRawItem.mockReturnValueOnce(signin_token);
+
+    const signOut = jest.fn();
+
+    const { Component } = UserContextProvider;
+    const props = {
+        actions: {},
+        userState: 'userState',
+        asyncActions: { signOut }
+    };
+
+    createTestInstance(
+        <Component {...props}>
+            <Consumer />
+        </Component>
+    );
+
+    expect(signOut).not.toHaveBeenCalled();
 });
