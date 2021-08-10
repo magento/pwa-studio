@@ -13,10 +13,15 @@ const {
 const { DefinePlugin } = webpack;
 const { LimitChunkCountPlugin } = webpack.optimize;
 
-const getCleanTemplate = (templateFile) => {
-    return new Promise((resolve) => {
+const getCleanTemplate = templateFile => {
+    return new Promise(resolve => {
         fs.readFile(templateFile, 'utf8', (err, data) => {
-            resolve(data.replace(/(?<inlineddata><!-- Inlined Data -->.*\s<!-- \/Inlined Data -->)/gs, ''));
+            resolve(
+                data.replace(
+                    /(?<inlineddata><!-- Inlined Data -->.*\s<!-- \/Inlined Data -->)/gs,
+                    ''
+                )
+            );
         });
     });
 };
@@ -80,8 +85,13 @@ module.exports = async env => {
     };
 
     // Strip UPWARD mustache from template file during watch
-    if (process.env.npm_lifecycle_event && process.env.npm_lifecycle_event.includes('watch')) {
-        htmlWebpackConfig.templateContent = await getCleanTemplate('./template.html');
+    if (
+        process.env.npm_lifecycle_event &&
+        process.env.npm_lifecycle_event.includes('watch')
+    ) {
+        htmlWebpackConfig.templateContent = await getCleanTemplate(
+            './template.html'
+        );
     } else {
         htmlWebpackConfig.template = './template.html';
     }

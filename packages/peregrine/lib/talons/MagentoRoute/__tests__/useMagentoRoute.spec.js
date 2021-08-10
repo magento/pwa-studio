@@ -35,16 +35,15 @@ jest.mock('@apollo/client', () => {
     };
 });
 
-const givenQueryResult = (response) => {
+const givenQueryResult = response => {
     useLazyQuery.mockReset();
     useLazyQuery.mockImplementation((fetchUrl, { onCompleted }) => {
         const { data = {} } = response;
 
-        runQuery.mockImplementation(() => { onCompleted(data) });
-        return [
-            runQuery,
-            response
-        ];
+        runQuery.mockImplementation(() => {
+            onCompleted(data);
+        });
+        return [runQuery, response];
     });
 };
 
@@ -222,18 +221,16 @@ describe('returns REDIRECT after receiving a redirect code', () => {
     test('redirect adds a slash when appropriate', async () => {
         // Arrange: the relative_url does not have a '/'
         const relative_url = 'no_preceding_slash.html';
-        useQuery.mockImplementation(() => {
-            return {
-                data: {
-                    urlResolver: {
-                        id: 1,
-                        redirectCode: 302,
-                        relative_url,
-                        type: 'CATEGORY'
-                    }
-                },
-                loading: false
-            };
+        givenQueryResult({
+            data: {
+                urlResolver: {
+                    id: 1,
+                    redirectCode: 302,
+                    relative_url,
+                    type: 'CATEGORY'
+                }
+            },
+            loading: false
         });
 
         // Act
@@ -532,12 +529,12 @@ describe('handles INLINED_PAGE_TYPE', () => {
         await act(() => {
             create(<Component key="a" />);
         });
-        
-        expect(runQuery).not.toHaveBeenCalled()
+
+        expect(runQuery).not.toHaveBeenCalled();
 
         expect(getRootComponent).toHaveBeenCalled();
     });
-})
+});
 
 // This test must be last as reject(routeError) causes next tests to fail
 describe('returns ERROR when queries fail', () => {

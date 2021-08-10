@@ -1,6 +1,10 @@
 import { ExpirationPlugin } from 'workbox-expiration';
 import { registerRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
+import {
+    CacheFirst,
+    StaleWhileRevalidate,
+    NetworkFirst
+} from 'workbox-strategies';
 import {
     isResizedImage,
     findSameOrLargerImage,

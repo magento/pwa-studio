@@ -9,7 +9,9 @@ import { getRootComponent, isRedirect } from './helpers';
 import DEFAULT_OPERATIONS from './magentoRoute.gql';
 
 const getInlinedPageData = () => {
-    return globalThis.INLINED_PAGE_TYPE && globalThis.INLINED_PAGE_TYPE.type ? globalThis.INLINED_PAGE_TYPE : null;
+    return globalThis.INLINED_PAGE_TYPE && globalThis.INLINED_PAGE_TYPE.type
+        ? globalThis.INLINED_PAGE_TYPE
+        : null;
 };
 
 export const useMagentoRoute = (props = {}) => {
@@ -46,7 +48,11 @@ export const useMagentoRoute = (props = {}) => {
                 const { id, type } = urlResolver || {};
                 try {
                     const rootComponent = await getRootComponent(type);
-                    setComponent(pathname, { component: rootComponent, id, type });
+                    setComponent(pathname, {
+                        component: rootComponent,
+                        id,
+                        type
+                    });
                 } catch (error) {
                     setComponent(pathname, error);
                 }
@@ -85,7 +91,7 @@ export const useMagentoRoute = (props = {}) => {
         };
     } else if (empty && !loading && isInitialized) {
         // NOT FOUND
-        routeData = {isNotFound: true};
+        routeData = { isNotFound: true };
     } else if (nextRootComponent) {
         // LOADING with full page shimmer
         showPageLoader = true;
@@ -108,7 +114,7 @@ export const useMagentoRoute = (props = {}) => {
                 variables: { url: pathname }
             });
         }
-    }, [initialized, pathname]);
+    }, [initialized, pathname, runQuery]);
 
     useEffect(() => {
         (async () => {
@@ -117,21 +123,18 @@ export const useMagentoRoute = (props = {}) => {
                 try {
                     const componentType = inlinedData.type;
                     const rootComponent = await getRootComponent(componentType);
-                    setComponent(
-                        pathname,
-                        {
-                            component: rootComponent,
-                            id: Number(inlinedData.id),
-                            type: componentType
-                        }
-                    );
+                    setComponent(pathname, {
+                        component: rootComponent,
+                        id: Number(inlinedData.id),
+                        type: componentType
+                    });
                 } catch (error) {
                     setComponent(pathname, error);
                 }
             }
             initialized.current = true;
         })();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     // perform a redirect if necesssary
     useEffect(() => {
