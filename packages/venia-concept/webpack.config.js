@@ -1,6 +1,7 @@
 const { configureWebpack, graphQL } = require('@magento/pwa-buildpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const fs = require('fs');
 
 const {
     getMediaURL,
@@ -11,6 +12,14 @@ const {
 
 const { DefinePlugin } = webpack;
 const { LimitChunkCountPlugin } = webpack.optimize;
+
+const getCleanTemplate = (templateFile) => {
+    return new Promise((resolve) => {
+        fs.readFile(templateFile, 'utf8', (err, data) => {
+            resolve(data.replace(/(?<inlineddata><!-- Inlined Data -->.*\s<!-- \/Inlined Data -->)/gs, ''));
+        });
+    });
+};
 
 module.exports = async env => {
     /**
@@ -62,6 +71,21 @@ module.exports = async env => {
 
     const possibleTypes = await getPossibleTypes();
 
+    const htmlWebpackConfig = {
+        filename: 'index.html',
+        minify: {
+            collapseWhitespace: true,
+            removeComments: true
+        }
+    };
+
+    // Strip UPWARD mustache from template file during watch
+    if (process.env.npm_lifecycle_event && process.env.npm_lifecycle_event.includes('watch')) {
+        htmlWebpackConfig.templateContent = await getCleanTemplate('./template.html');
+    } else {
+        htmlWebpackConfig.template = './template.html';
+    }
+
     config.module.noParse = [
         /@adobe\/adobe\-client\-data\-layer/,
         /braintree\-web\-drop\-in/
@@ -86,14 +110,7 @@ module.exports = async env => {
                 process.env.DEFAULT_COUNTRY_CODE || 'US'
             )
         }),
-        new HTMLWebpackPlugin({
-            filename: 'index.html',
-            template: './template.html',
-            minify: {
-                collapseWhitespace: true,
-                removeComments: true
-            }
-        })
+        new HTMLWebpackPlugin(htmlWebpackConfig)
     ];
 
     const serverConfig = Object.assign({}, config, {

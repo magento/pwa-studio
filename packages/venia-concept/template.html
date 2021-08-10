@@ -168,6 +168,7 @@
                 </div>
             </div>
         </noscript>
+        <!-- Inlined Data -->
         <script>
             try {
                 var INLINED_PAGE_TYPE = JSON.parse('{{pageType}}'.replace(/&quot;/g, '"'));
@@ -176,5 +177,6 @@
         {{#webpackChunks}}
             <script type="text/javascript" src="/{{.}}"></script>
         {{/webpackChunks}}
+        <!-- /Inlined Data -->
     </body>
 </html>
