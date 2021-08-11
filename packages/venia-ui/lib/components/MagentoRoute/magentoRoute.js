@@ -16,12 +16,13 @@ const MagentoRoute = () => {
     const talonProps = useMagentoRoute();
     const {
         component: RootComponent,
-        id,
         isLoading,
         isNotFound,
         isRedirect,
         shimmer,
-        initial
+        initial,
+        type,
+        ...componentData
     } = talonProps;
 
     if (isLoading || isRedirect) {
@@ -32,12 +33,12 @@ const MagentoRoute = () => {
 
         // Show previous component
         if (RootComponent) {
-            return <RootComponent id={id} />;
+            return <RootComponent {...componentData} />;
         }
 
         return initial ? null : <RootShimmerComponent />;
     } else if (RootComponent) {
-        return <RootComponent id={id} />;
+        return <RootComponent {...componentData} />;
     } else if (isNotFound) {
         return (
             <ErrorView

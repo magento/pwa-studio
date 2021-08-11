@@ -14,6 +14,16 @@ const getInlinedPageData = () => {
         : null;
 };
 
+const getComponentData = (routeData) => {
+    const excludedKeys = ['redirect_code', 'relative_url'];
+
+    return Object.fromEntries(
+        Object.entries(routeData).filter(([key]) => {
+            return !excludedKeys.includes(key);
+        })
+    );
+};
+
 export const useMagentoRoute = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { resolveUrlQuery } = operations;
@@ -45,15 +55,15 @@ export const useMagentoRoute = (props = {}) => {
         : null;
 
     const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery, {
-        onCompleted: async ({ urlResolver }) => {
+        onCompleted: async ({ route }) => {
             fetching.current = false;
             if (!component) {
-                const { id, type } = urlResolver || {};
+                const { type, ...routeData } = route || {};
                 try {
                     const rootComponent = await getRootComponent(type);
                     setComponent(pathname, {
                         component: rootComponent,
-                        id,
+                        ...getComponentData(routeData),
                         type
                     });
                 } catch (error) {
@@ -80,12 +90,12 @@ export const useMagentoRoute = (props = {}) => {
 
     // destructure the query result
     const { data, error } = queryResult;
-    const { urlResolver } = data || {};
-    const { id, redirectCode, relative_url, type } = urlResolver || {};
+    const { route } = data || {};
+    const { id, redirect_code, relative_url, type } = route || {};
 
     // evaluate both results and determine the response type
-    const empty = !urlResolver || !type || id < 1;
-    const redirect = isRedirect(redirectCode);
+    const empty = !route || !type || id < 1;
+    const redirect = isRedirect(redirect_code);
     const fetchError = component instanceof Error && component;
     const routeError = fetchError || error;
     const previousFetchError = previousComponent instanceof Error;
@@ -133,8 +143,8 @@ export const useMagentoRoute = (props = {}) => {
                     const rootComponent = await getRootComponent(componentType);
                     setComponent(pathname, {
                         component: rootComponent,
-                        id: Number(inlinedData.id),
-                        type: componentType
+                        type: componentType,
+                        ...getComponentData(inlinedData)
                     });
                 } catch (error) {
                     setComponent(pathname, error);
