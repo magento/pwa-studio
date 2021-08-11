@@ -22,6 +22,8 @@ export const useMagentoRoute = (props = {}) => {
     const [componentMap, setComponentMap] = useRootComponents();
     const [previousPathname, setPreviousPathname] = useState(null);
     const initialized = useRef(false);
+    const fetchedPathname = useRef(null);
+    const fetching = useRef(false);
 
     const [
         { nextRootComponent },
@@ -44,6 +46,7 @@ export const useMagentoRoute = (props = {}) => {
 
     const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery, {
         onCompleted: async ({ urlResolver }) => {
+            fetching.current = false;
             if (!component) {
                 const { id, type } = urlResolver || {};
                 try {
@@ -57,11 +60,26 @@ export const useMagentoRoute = (props = {}) => {
                     setComponent(pathname, error);
                 }
             }
+        },
+        onError: () => {
+            fetching.current = false;
         }
     });
 
+    useEffect(() => {
+        if (initialized.current || !getInlinedPageData()) {
+            fetching.current = true;
+            runQuery({
+                fetchPolicy: 'cache-and-network',
+                nextFetchPolicy: 'cache-first',
+                variables: { url: pathname }
+            });
+            fetchedPathname.current = pathname;
+        }
+    }, [initialized, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+
     // destructure the query result
-    const { data, error, loading } = queryResult;
+    const { data, error } = queryResult;
     const { urlResolver } = data || {};
     const { id, redirectCode, relative_url, type } = urlResolver || {};
 
@@ -89,7 +107,7 @@ export const useMagentoRoute = (props = {}) => {
                 ? relative_url
                 : '/' + relative_url
         };
-    } else if (empty && !loading && isInitialized) {
+    } else if (empty && fetchedPathname.current === pathname && !fetching.current) {
         // NOT FOUND
         routeData = { isNotFound: true };
     } else if (nextRootComponent) {
@@ -105,16 +123,6 @@ export const useMagentoRoute = (props = {}) => {
         const isInitialLoad = !isInitialized;
         routeData = { isLoading: true, initial: isInitialLoad };
     }
-
-    useEffect(() => {
-        if (initialized.current || !getInlinedPageData()) {
-            runQuery({
-                fetchPolicy: 'cache-and-network',
-                nextFetchPolicy: 'cache-first',
-                variables: { url: pathname }
-            });
-        }
-    }, [initialized, pathname, runQuery]);
 
     useEffect(() => {
         (async () => {

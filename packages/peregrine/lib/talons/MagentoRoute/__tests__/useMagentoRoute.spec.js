@@ -180,13 +180,19 @@ describe('returns NOT_FOUND when queries come back empty', () => {
             loading: false
         });
 
+        let tree;
+
         await act(() => {
-            create(<Component />);
+            tree = create(<Component key="a" />);
+        });
+
+        await act(() => {
+            tree.update(<Component key="a" />);
         });
 
         expect(replace).toHaveBeenCalledTimes(0);
-        expect(log).toHaveBeenCalledTimes(1);
-        expect(log).toHaveBeenNthCalledWith(1, {
+        expect(log).toHaveBeenCalledTimes(2);
+        expect(log).toHaveBeenNthCalledWith(2, {
             isNotFound: true
         });
     });
