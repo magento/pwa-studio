@@ -1,5 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`return correct shape for address with street2 as null 1`] = `
+Object {
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
+  "handleCancel": [Function],
+  "handleSubmit": [Function],
+  "hasDefaultShipping": true,
+  "initialValues": Object {
+    "country": "US",
+    "region": Object {
+      "id": null,
+    },
+  },
+  "isLoading": true,
+  "isSaving": false,
+  "isUpdate": false,
+}
+`;
+
+exports[`return correct shape for address with street2 as null 2`] = `
+Object {
+  "refetchQueries": Array [
+    Object {
+      "query": "getCustomerAddressesQuery",
+    },
+    Object {
+      "query": "getCustomerAddressesQuery",
+    },
+  ],
+  "variables": Object {
+    "address": Object {
+      "country_code": "US",
+      "firstname": "Philip",
+      "region": Object {
+        "region_id": 2,
+      },
+      "street": Array [
+        "Street 1",
+      ],
+    },
+  },
+}
+`;
+
 exports[`return correct shape for initial address entry 1`] = `
 Object {
   "errors": Map {
@@ -62,6 +108,9 @@ Object {
       "region": Object {
         "region_id": 2,
       },
+      "street": Array [
+        "Street 1",
+      ],
     },
   },
 }
@@ -104,6 +153,9 @@ Object {
       "region": Object {
         "region": 5,
       },
+      "street": Array [
+        "Street 1",
+      ],
     },
     "addressId": 66,
   },
