@@ -9,8 +9,6 @@ jest.mock('react-router-dom', () => ({
     useLocation: jest.fn()
 }));
 
-const createHref = jest.fn(path => `${new URL(path, globalThis.location)}`);
-useHistory.mockReturnValue({ createHref });
 useLocation.mockReturnValue(globalThis.location);
 
 const categories = [
