@@ -33,7 +33,7 @@ export const mapAddressData = rawAddressData => {
             postcode,
             phoneNumber,
             street1: street[0],
-            street2: street[1],
+            street2: street[1] || '',
             country: country.code,
             region: region.code
         };
@@ -215,7 +215,7 @@ export const useBillingAddress = props => {
                 lastName,
                 country,
                 street1,
-                street2,
+                street2: street2 || '',
                 city,
                 region,
                 postcode,

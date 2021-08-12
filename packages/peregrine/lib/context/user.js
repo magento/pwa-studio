@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import actions from '../store/actions/user/actions';
 import * as asyncActions from '../store/actions/user/asyncActions';
 import bindActionCreators from '../util/bindActionCreators';
+import BrowserPersistence from '../util/simplePersistence';
 
 const UserContext = createContext();
 
@@ -22,6 +23,22 @@ const UserContextProvider = props => {
         userApi,
         userState
     ]);
+
+    useEffect(() => {
+        // check if the user's token is not expired
+        const storage = new BrowserPersistence();
+        const item = storage.getRawItem('signin_token');
+
+        if (item) {
+            const { ttl, timeStored } = JSON.parse(item);
+            const now = Date.now();
+
+            // if the token's TTYL has expired, we need to sign out
+            if (ttl && now - timeStored > ttl * 1000) {
+                asyncActions.signOut();
+            }
+        }
+    }, [asyncActions]);
 
     return (
         <UserContext.Provider value={contextValue}>
