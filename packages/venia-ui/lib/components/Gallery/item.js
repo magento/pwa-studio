@@ -12,7 +12,8 @@ import Image from '../Image';
 import defaultClasses from './item.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
-import AddToCartbutton from '../Gallery/addToCartButton';
+import AddToCartbutton from './addToCartButton';
+import UnsupportedProductTypeMessage from './unsupportedProductTypeMessage';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -94,7 +95,8 @@ const GalleryItem = props => {
 
             <div className={classes.actionsContainer}>
                 {' '}
-                <AddToCartbutton item={item} />
+                {/* <AddToCartbutton item={item} /> */}
+                <UnsupportedProductTypeMessage item = {item} />
                 {wishlistButton}
             </div>
         </div>
