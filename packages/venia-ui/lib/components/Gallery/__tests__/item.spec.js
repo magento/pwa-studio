@@ -41,8 +41,11 @@ const validItem = {
     small_image: {
         url: '/foo/bar/pic.png'
     },
+    stock_status: 'IN_STOCK',
+    type_id: 'simple',
     url_key: 'strive-shoulder-pack',
     url_suffix: '.html',
+    sku: 'sku-123',
     price: {
         regularPrice: {
             amount: {
