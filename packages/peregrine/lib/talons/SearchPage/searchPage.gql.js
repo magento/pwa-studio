@@ -57,6 +57,8 @@ export const PRODUCT_SEARCH = gql`
                     }
                 }
                 sku
+                stock_status
+                type_id
             }
             page_info {
                 total_pages
