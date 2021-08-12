@@ -11,7 +11,10 @@ const UnsupportedProductTypeMessage = props => {
     const { isUnsupportedProductType} = talonProps;
     const classes = useStyle(defaultClasses, props.classes);
 
-    return <Icon className={classes} />;
+    return <div>
+        <Icon className={classes} />
+        <span> Currently unavailable for purchase.</span>
+    </div>
 };
 
 export default UnsupportedProductTypeMessage;
