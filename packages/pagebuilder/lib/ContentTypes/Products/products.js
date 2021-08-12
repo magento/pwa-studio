@@ -248,6 +248,14 @@ export const GET_PRODUCTS_BY_SKU = gql`
             items {
                 id
                 name
+                price {
+                    regularPrice {
+                        amount {
+                            currency
+                            value
+                        }
+                    }
+                }
                 sku
                 small_image {
                     url
@@ -256,15 +264,6 @@ export const GET_PRODUCTS_BY_SKU = gql`
                 type_id
                 url_key
                 url_suffix
-                sku
-                price {
-                    regularPrice {
-                        amount {
-                            value
-                            currency
-                        }
-                    }
-                }
             }
             total_count
             filters {
