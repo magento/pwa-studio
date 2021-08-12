@@ -119,9 +119,12 @@ exports[`renders correctly with valid item data 1`] = `
               },
             },
           },
+          "sku": "sku-123",
           "small_image": Object {
             "url": "/foo/bar/pic.png",
           },
+          "stock_status": "IN_STOCK",
+          "type_id": "simple",
           "url_key": "strive-shoulder-pack",
           "url_suffix": ".html",
         }
