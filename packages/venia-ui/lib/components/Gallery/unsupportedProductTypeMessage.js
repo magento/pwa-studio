@@ -1,7 +1,9 @@
 import React from 'react';
 import { Info } from 'react-feather';
-
 import { FormattedMessage } from 'react-intl';
+
+import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
+
 
 const InfoIcon = <Icon size={20} src={Info} />;
 
@@ -9,33 +11,24 @@ const InfoIcon = <Icon size={20} src={Info} />;
 const UnsupportedProductTypeMessage = props => {
     const talonProps = useUnsupportedProductTypeMessage(props);
     const {
-        isUnsupportedProductType, 
-        
+        isUnsupportedProductType
         
     } = talonProps;
     const classes = useStyle(defaultClasses, props.classes);
-    
-    const buttonClass = isSelected ? classes.root_selected : classes.root;
 
     return (
-        <button className={buttonClass} {...buttonProps}>
-            {props.icon} {buttonText}
-        </button>
+        < Icon className={classes}/>
+        
     );
 };
 
-export default AddToListButton;
+export default UnsupportedProductTypeMessage;
 
-AddToListButton.defaultProps = {
-    icon: HeartIcon
+UnsupportedProductTypeMessage.defaultProps = {
+    icon: InfoIcon
 };
 
-AddToListButton.propTypes = {
-    afterAdd: func,
-    beforeAdd: func,
-    classes: shape({
-        root: string,
-        root_selected: string
-    }),
-    icon: element
+UnsupportedProductTypeMessage.propTypes = {
+
+    
 };
