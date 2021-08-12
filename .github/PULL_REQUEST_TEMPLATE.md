@@ -39,7 +39,7 @@ Closes #ISSUE_NUMBER.
 <!-- Changes to `upward-spec` and/or `upward-js` packages must be reviewed -->
 <!-- by `UPWARD-PHP` maintainers to ensure continued compatibility -->
 
-## Test Plan
+## Verification Steps
 
 <!-- During code review and QA we will try to ensure there are no bugs introduced by this change -->
 <!-- So, we request that you add a detailed test plan on what needs to be checked before this PR gets merged -->
@@ -47,27 +47,33 @@ Closes #ISSUE_NUMBER.
 <!-- As part of review/QA we may also add or update the test plan if necessary-->
 
 #### Test scenario(s) for direct fix/feature
-Example
--   Verify user is able to apply filters on category page
--   Verify user is able to apply filters on search page
+
+<!-- Examples: -->
+<!-- 1. Verify user is able to apply filters on category page -->
+<!-- 2. Verify user is able to apply filters on search page -->
 
 #### Test scenario(s) for any existing impacted features/areas
-Example
--   Verify user is able to sort data after applying filters on category page
--   Verify user is able to sort data after applying filters on search page
+
+<!-- Examples: -->
+<!-- Verify user is able to sort data after applying filters on category page -->
+<!-- Verify user is able to sort data after applying filters on search page -->
 
 #### Test scenario(s) for any Magento Backend Supported Configurations
-Example
-- Update default Sort value in backend and repeat above scenarios
+
+<!-- Examples: -->
+
+<!-- Update default Sort value in backend and repeat above scenarios -->
 
 #### Is Browser/Device testing needed?
-Example
-- Yes, browser testing is needed as X UI component may be impacted on <browser>
-- Yes, device testing is needed as X UI component may be impacted on <mobile|desktop|etc>
+
+<!-- Example: -->
+<!-- Yes, browser testing is needed as X UI component may be impacted on <browser> -->
+<!-- Yes, device testing is needed as X UI component may be impacted on <mobile|desktop|etc> -->
 
 #### Any ad-hoc/edge case scenarios that need to be considered?
-Example
-- Apply all filters to get 0 results and then remove filters to see respective products 
+
+<!-- Example: -->
+<!-- Apply all filters to get 0 results and then remove filters to see respective products -->
 
 ## Screenshots / Screen Captures (if appropriate)
 

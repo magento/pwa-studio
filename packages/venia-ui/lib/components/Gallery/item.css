@@ -31,9 +31,9 @@
 }
 
 .actionsContainer {
-    column-gap: 0.5rem;
+    column-gap: 1rem;
     display: flex;
-    justify-content: space-between;
+    padding-left: 0.5rem;
 }
 
 .actionsContainer:empty {

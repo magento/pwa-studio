@@ -114,15 +114,17 @@ export const useProductForm = props => {
 
     const selectedVariant = useMemo(() => {
         if (optionSelections.size && configItem) {
+            const mergedOptionSelections = new Map([...optionSelections]);
             cartItem.configurable_options.forEach(option => {
-                if (!optionSelections.has(`${option.id}`)) {
-                    optionSelections.set(`${option.id}`, option.value_id);
+                if (!mergedOptionSelections.has(`${option.id}`)) {
+                    mergedOptionSelections.set(`${option.id}`, option.value_id);
                 }
             });
+
             return findMatchingVariant({
                 variants: configItem.variants,
                 optionCodes: configurableOptionCodes,
-                optionSelections
+                optionSelections: mergedOptionSelections
             });
         }
     }, [cartItem, configItem, configurableOptionCodes, optionSelections]);
@@ -143,7 +145,7 @@ export const useProductForm = props => {
     const handleSubmit = useCallback(
         async formValues => {
             try {
-                if (selectedVariant) {
+                if (selectedVariant && optionSelections.size) {
                     await updateConfigurableOptions({
                         variables: {
                             cartId,
@@ -174,6 +176,7 @@ export const useProductForm = props => {
             cartId,
             cartItem,
             handleClose,
+            optionSelections.size,
             selectedVariant,
             updateConfigurableOptions,
             updateItemQuantity
