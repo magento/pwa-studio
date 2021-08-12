@@ -50,7 +50,7 @@ const Product = (props) => {
 };
 
 Product.propTypes = {
-    __typename: string.required
+    __typename: string.isRequired
 };
 
 export default Product;

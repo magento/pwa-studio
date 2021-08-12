@@ -8,16 +8,13 @@ export const RESOLVE_URL = gql`
             type
             ... on CmsPage {
                 identifier
-                title
             }
             ... on ProductInterface {
                 id
-                name
                 __typename
             }
             ... on CategoryInterface {
                 id
-                name
             }
         }
     }

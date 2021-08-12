@@ -114,6 +114,13 @@ veniaPageType:
             type:
               resolver: inline
               inline: pageType
+            additional:
+              - type: product
+                fetch: '__typename,id'
+              - type: cms_page
+                fetch: 'identifier'
+              - type: category
+                fetch: 'id'
       default:
         inline: ''
 

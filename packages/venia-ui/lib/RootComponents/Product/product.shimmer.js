@@ -1,8 +1,10 @@
-import React, { useMemo } from 'react';
-import { string } from 'prop-types';
+import React, { Fragment, useMemo } from 'react';
+import { string, shape } from 'prop-types';
 import Shimmer from '../../components/Shimmer';
 import { BreadcrumbShimmer } from '../../components/Breadcrumbs';
 import defaultClasses from '../../components/ProductFullDetail/productFullDetail.css';
+import CarouselShimmer from '../../components/ProductImageCarousel/carousel.shimmer';
+import { ProductOptionsShimmer } from '../../components/ProductOptions';
 import { useStyle } from '../../classify';
 
 const ProductShimmer = (props) => {
@@ -11,10 +13,7 @@ const ProductShimmer = (props) => {
 
     const options = useMemo(() => {
         if (productType.includes('Configurable')) {
-            // TODO return different shimmer structure
-            return (
-                <Shimmer />
-            );
+            return <ProductOptionsShimmer />;
         }
 
         return null;
@@ -25,70 +24,65 @@ const ProductShimmer = (props) => {
             <BreadcrumbShimmer />
             <div className={classes.root}>
                 <section className={classes.title}>
-                    <h1 className={classes.productName}>
-                        {productDetails.name}
-                    </h1>
-                    <p className={classes.productPrice}>
-                        <Price
-                            currencyCode={productDetails.price.currency}
-                            value={productDetails.price.value}
-                        />
-                    </p>
+                    <Shimmer width="100%" height={2} />
+                    <div className={classes.productPrice}>
+                        <Shimmer width={3} height={2} />
+                    </div>
                 </section>
                 <section className={classes.imageCarousel}>
-                    <Carousel images={mediaGalleryEntries} />
+                    <CarouselShimmer />
                 </section>
-                <FormError
-                    classes={{
-                        root: classes.formErrors
-                    }}
-                    errors={errors.get('form') || []}
-                />
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
-                    <h2 className={classes.quantityTitle}>
-                        <FormattedMessage
-                            id={'global.quantity'}
-                            defaultMessage={'Quantity'}
-                        />
-                    </h2>
-                    <QuantityFields
-                        classes={{ root: classes.quantityRoot }}
-                        min={1}
-                        message={errors.get('quantity')}
-                    />
+                    <div className={classes.quantityTitle}>
+                        <Shimmer width="100%" height={1} />
+                    </div>
+                    <Shimmer width={10} type="textInput" classes={{ root: classes.quantityRoot }} />
                 </section>
                 <section className={classes.actions}>
-                    {cartActionContent}
-                    <Suspense fallback={null}>
-                        <WishlistButton {...wishlistButtonProps} />
-                    </Suspense>
+                    <Shimmer type="button" />
                 </section>
                 <section className={classes.description}>
-                    <h2 className={classes.descriptionTitle}>
-                        <FormattedMessage
-                            id={'productFullDetail.productDescription'}
-                            defaultMessage={'Product Description'}
-                        />
-                    </h2>
-                    <RichText content={productDetails.description} />
+                    <div className={classes.descriptionTitle}>
+                        <Shimmer width="100%" height={1} />
+                    </div>
+                    <Shimmer width="100%" height={1} />
+                    <Shimmer width="100%" height={1} />
+                    <Shimmer width="100%" height={1} />
                 </section>
                 <section className={classes.details}>
-                    <h2 className={classes.detailsTitle}>
-                        <FormattedMessage
-                            id={'global.sku'}
-                            defaultMessage={'SKU'}
-                        />
-                    </h2>
-                    <strong>{productDetails.sku}</strong>
+                    <div className={classes.detailsTitle}>
+                        <Shimmer width="100%" height={1} />
+                    </div>
+                    <Shimmer width="100%" height={1} />
                 </section>
             </div>
         </Fragment>
     );
 };
 
+ProductShimmer.defaultProps = {
+    classes: {}
+};
+
 ProductShimmer.propTypes = {
-    productType: string.required
+    productType: string.isRequired,
+    classes: shape({
+        cartActions: string,
+        description: string,
+        descriptionTitle: string,
+        details: string,
+        detailsTitle: string,
+        imageCarousel: string,
+        options: string,
+        productName: string,
+        productPrice: string,
+        quantity: string,
+        quantityTitle: string,
+        root: string,
+        title: string,
+        unavailableContainer: string
+    }),
 };
 
 export default ProductShimmer;
