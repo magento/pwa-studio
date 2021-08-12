@@ -11,9 +11,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -27,9 +25,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page2',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -43,9 +39,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page3',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -59,9 +53,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page4',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -75,9 +67,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page5',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -91,9 +81,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page6',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -107,9 +95,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page7',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -123,9 +109,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page8',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -139,9 +123,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page9',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -155,9 +137,7 @@ describe('verify pagebuilder banner content', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Home Page10',
-                timeout: 180000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 180000
             });
         });
     });
