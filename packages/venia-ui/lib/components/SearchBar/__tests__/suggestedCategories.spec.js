@@ -5,7 +5,6 @@ import SuggestedCategories from '../suggestedCategories';
 
 jest.mock('react-router-dom', () => ({
     Link: jest.fn(() => null),
-    useHistory: jest.fn(),
     useLocation: jest.fn()
 }));
 
