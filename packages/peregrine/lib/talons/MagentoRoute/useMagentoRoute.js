@@ -152,6 +152,10 @@ export const useMagentoRoute = (props = {}) => {
             }
             initialized.current = true;
         })();
+
+        return () => {
+            setPreviousPathname(null);
+        };
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     // perform a redirect if necesssary

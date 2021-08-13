@@ -89,7 +89,7 @@ getRootComponent.mockImplementation(
 const givenInlinedPageData = () => {
     globalThis.INLINED_PAGE_TYPE = {
         id: 1,
-        redirectCode: 0,
+        redirect_code: 0,
         relative_url: '/home.html',
         type: 'CMS_PAGE'
     };
@@ -112,9 +112,9 @@ beforeEach(() => {
 
     givenQueryResult({
         data: {
-            urlResolver: {
+            route: {
                 id: 1,
-                redirectCode: 0,
+                redirect_code: 0,
                 relative_url: '/foo.html',
                 type: 'CATEGORY'
             }
@@ -175,7 +175,7 @@ describe('returns NOT_FOUND when queries come back empty', () => {
     test('urlResolver is null', async () => {
         givenQueryResult({
             data: {
-                urlResolver: null
+                route: null
             },
             loading: false
         });
@@ -202,9 +202,9 @@ describe('returns REDIRECT after receiving a redirect code', () => {
     test('redirect code 301', async () => {
         givenQueryResult({
             data: {
-                urlResolver: {
+                route: {
                     id: 1,
-                    redirectCode: 301,
+                    redirect_code: 301,
                     relative_url: '/foo.html',
                     type: 'CATEGORY'
                 }
@@ -229,9 +229,9 @@ describe('returns REDIRECT after receiving a redirect code', () => {
         const relative_url = 'no_preceding_slash.html';
         givenQueryResult({
             data: {
-                urlResolver: {
+                route: {
                     id: 1,
-                    redirectCode: 302,
+                    redirect_code: 302,
                     relative_url,
                     type: 'CATEGORY'
                 }
@@ -256,9 +256,9 @@ describe('returns REDIRECT after receiving a redirect code', () => {
     test('redirect code 302', async () => {
         givenQueryResult({
             data: {
-                urlResolver: {
+                route: {
                     id: 1,
-                    redirectCode: 302,
+                    redirect_code: 302,
                     relative_url: '/foo.html',
                     type: 'CATEGORY'
                 }
@@ -348,7 +348,7 @@ describe('previous component', () => {
     test('is returned when available', async () => {
         givenQueryResult({
             data: {
-                urlResolver: {
+                route: {
                     id: 1,
                     type: 'CATEGORY'
                 }
@@ -374,7 +374,7 @@ describe('previous component', () => {
 
         givenQueryResult({
             data: {
-                urlResolver: {
+                route: {
                     id: 2,
                     type: 'CMS_PAGE'
                 }
@@ -486,7 +486,7 @@ describe('loading type', async () => {
 
         givenQueryResult({
             data: {
-                urlResolver: {
+                route: {
                     id: 1,
                     type: 'CATEGORY'
                 }
