@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { DELIMITER } from '../FilterModal/helpers';
 // TODO: derive from store config when available
@@ -23,13 +23,9 @@ const setSearchParams = (existing, options) => {
  */
 export const useSuggestedCategory = props => {
     const { onNavigate, ...restProps } = props;
-    const { createHref } = useHistory();
     const { search } = useLocation();
     const nextSearchParams = setSearchParams(search, restProps);
-    const destination = createHref({
-        pathname: '/search.html',
-        search: nextSearchParams
-    });
+    const destination = `/search.html?${nextSearchParams}`;
 
     const handleClick = useCallback(() => {
         if (typeof onNavigate === 'function') {
