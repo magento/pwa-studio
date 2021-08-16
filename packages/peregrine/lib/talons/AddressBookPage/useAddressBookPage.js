@@ -152,7 +152,13 @@ export const useAddressBookPage = (props = {}) => {
                     await updateCustomerAddress({
                         variables: {
                             addressId: formAddress.id,
-                            updated_address: formValues
+                            updated_address: {
+                                ...formValues,
+                                // Sends value as empty if none are provided
+                                middlename: formValues.middlename || '',
+                                // Cleans up the street array when values are null or undefined
+                                street: formValues.street.filter(e => e)
+                            }
                         },
                         refetchQueries: [{ query: getCustomerAddressesQuery }],
                         awaitRefetchQueries: true
@@ -171,7 +177,15 @@ export const useAddressBookPage = (props = {}) => {
             } else {
                 try {
                     await createCustomerAddress({
-                        variables: { address: formValues },
+                        variables: {
+                            address: {
+                                ...formValues,
+                                // Sends value as empty if none are provided
+                                middlename: formValues.middlename || '',
+                                // Cleans up the street array when values are null or undefined
+                                street: formValues.street.filter(e => e)
+                            }
+                        },
                         refetchQueries: [{ query: getCustomerAddressesQuery }],
                         awaitRefetchQueries: true
                     });
