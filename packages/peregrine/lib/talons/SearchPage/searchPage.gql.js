@@ -43,22 +43,22 @@ export const PRODUCT_SEARCH = gql`
             items {
                 id
                 name
-                small_image {
-                    url
-                }
-                url_key
-                url_suffix
                 price {
                     regularPrice {
                         amount {
-                            value
                             currency
+                            value
                         }
                     }
                 }
                 sku
+                small_image {
+                    url
+                }
                 stock_status
                 type_id
+                url_key
+                url_suffix
             }
             page_info {
                 total_pages
