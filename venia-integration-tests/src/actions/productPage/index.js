@@ -31,6 +31,7 @@ export const addProductToExistingWishlistFromDialog = wishlistName => {
  */
 export const addSimpleProductToCartFromProductPage = () => {
     // get the add to cart button and click it
+
     cy.get(productPageRoot)
         .contains('button', 'Add to Cart')
         .click();
