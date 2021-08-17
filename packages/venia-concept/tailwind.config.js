@@ -2,7 +2,9 @@ const venia = {};
 
 const config = {
     mode: 'jit',
-    purge: { /* ... */ },
+    purge: {
+        /* ... */
+    },
     separator: '_',
     // if you created a theme, apply it here
     presets: [venia]
