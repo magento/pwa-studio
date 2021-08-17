@@ -142,7 +142,6 @@ export const useMagentoRoute = (props = {}) => {
         (async () => {
             const inlinedData = getInlinedPageData();
             if (inlinedData) {
-                resetInlinedPageData();
                 try {
                     const componentType = inlinedData.type;
                     const rootComponent = await getRootComponent(componentType);
@@ -159,6 +158,8 @@ export const useMagentoRoute = (props = {}) => {
         })();
 
         return () => {
+            // Unmount
+            resetInlinedPageData();
             setPreviousPathname(null);
         };
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
