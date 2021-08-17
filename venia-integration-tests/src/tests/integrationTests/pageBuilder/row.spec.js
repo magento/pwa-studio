@@ -130,6 +130,16 @@ describe('verify pagebuilder row content', () => {
             .and('have.attr', 'type')
             .and('contain', 'video/mp4');
 
+        cy.get('div[class^="richContent-root"]')
+            .eq(7)
+            .find('[id^="jarallax-container"] video source')
+            .invoke('attr', 'src')
+            .then(src => {
+                cy.request(src)
+                    .its('status')
+                    .should('eq', 200);
+            });
+
         // Scroll to bottom of the page to load all elements
         cy.scrollTo('bottom', { duration: 2000 });
 
@@ -291,17 +301,15 @@ describe('verify pagebuilder row content', () => {
             .and('have.attr', 'type')
             .and('contain', 'video/mp4');
 
-        // TODO: Test with publicly hosted file
-        // cy.get('div[class^="richContent-root"]')
-        //     .eq(6)
-        //     .scrollIntoView({ duration: 2000 })
-        //     .find('[id^="jarallax-container"] video source')
-        //     .invoke('attr', 'src')
-        //     .then(src => {
-        //         cy.request(src)
-        //             .its('status')
-        //             .should('eq', 200);
-        //     });
+        cy.get('div[class^="richContent-root"]')
+            .eq(6)
+            .find('[id^="jarallax-container"] video source')
+            .invoke('attr', 'src')
+            .then(src => {
+                cy.request(src)
+                    .its('status')
+                    .should('eq', 200);
+            });
 
         // Row with mp4 insecure
         cy.get('div[class^="richContent-root"]')
@@ -319,20 +327,18 @@ describe('verify pagebuilder row content', () => {
             .and('have.attr', 'type')
             .and('contain', 'video/mp4');
 
-        // TODO: Test with publicly hosted file
-        // cy.get('div[class^="richContent-root"]')
-        //     .eq(7)
-        //     .scrollIntoView({ duration: 2000 })
-        //     .find('[id^="jarallax-container"] video source')
-        //     .invoke('attr', 'src')
-        //     .then(src => {
-        //         cy.request(src)
-        //             .its('status')
-        //             .should('eq', 200);
-        //     });
+        cy.get('div[class^="richContent-root"]')
+            .eq(7)
+            .find('[id^="jarallax-container"] video source')
+            .invoke('attr', 'src')
+            .then(src => {
+                cy.request(src)
+                    .its('status')
+                    .should('eq', 200);
+            });
 
         // Hide iframes to prevent capturing moving images
-        cy.get('iframe').invoke(
+        cy.get('iframe, video').invoke(
             'attr',
             'style',
             'visibility: hidden !important'
