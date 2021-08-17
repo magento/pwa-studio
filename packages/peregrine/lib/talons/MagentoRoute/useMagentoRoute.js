@@ -14,6 +14,10 @@ const getInlinedPageData = () => {
         : null;
 };
 
+const resetInlinedPageData = () => {
+    globalThis.INLINED_PAGE_TYPE = false;
+};
+
 const getComponentData = (routeData) => {
     const excludedKeys = ['redirect_code', 'relative_url'];
 
@@ -138,6 +142,7 @@ export const useMagentoRoute = (props = {}) => {
         (async () => {
             const inlinedData = getInlinedPageData();
             if (inlinedData) {
+                resetInlinedPageData();
                 try {
                     const componentType = inlinedData.type;
                     const rootComponent = await getRootComponent(componentType);

@@ -30,6 +30,7 @@ const SubmenuColumn = props => {
                     <Link
                         className={isActive ? classes.linkActive : classes.link}
                         to={categoryUrl}
+                        onClick={onNavigate}
                     >
                         {name}
                     </Link>
