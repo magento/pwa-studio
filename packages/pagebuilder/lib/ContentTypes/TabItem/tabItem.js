@@ -81,9 +81,7 @@ const TabItem = props => {
         dynamicStyles.backgroundSize = backgroundSize;
         dynamicStyles.backgroundPosition = backgroundPosition;
         dynamicStyles.backgroundAttachment = backgroundAttachment;
-        dynamicStyles.backgroundRepeat = backgroundRepeat
-            ? 'repeat'
-            : 'no-repeat';
+        dynamicStyles.backgroundRepeat = backgroundRepeat;
     }
 
     if (verticalAlignment) {
@@ -120,7 +118,7 @@ const TabItem = props => {
  * @property {String} backgroundSize CSS background-size property
  * @property {String} backgroundPosition CSS background-position property
  * @property {String} backgroundAttachment CSS background-attachment property
- * @property {Boolean} backgroundRepeat CSS background-repeat property
+ * @property {String} backgroundRepeat CSS background-repeat property
  * @property {String} textAlign Alignment of content within the tab item
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
@@ -149,7 +147,7 @@ TabItem.propTypes = {
     backgroundSize: string,
     backgroundPosition: string,
     backgroundAttachment: string,
-    backgroundRepeat: bool,
+    backgroundRepeat: string,
     textAlign: string,
     border: string,
     borderColor: string,
