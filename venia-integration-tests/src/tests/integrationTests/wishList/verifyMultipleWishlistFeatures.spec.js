@@ -17,6 +17,8 @@ import {
     categoryPage as categoryPageActions,
     productPage as productPageActions
 } from '../../../actions';
+import { aliasMutation } from '../../../utils/graphql-test-utils';
+
 const {
     firstName,
     lastName,
@@ -58,6 +60,11 @@ const {
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify single wishlist basic features', () => {
     it('user should be able to add and remove products from wishlist', () => {
+        cy.intercept('POST', hitGraphqlPath, req => {
+            aliasMutation(req, 'CreateAccount');
+            aliasMutation(req, 'SignInAfterCreate');
+        });
+
         //Create an user account
         cy.visitPage(homePage);
         cy.openLoginDialog();
@@ -66,6 +73,13 @@ describe('verify single wishlist basic features', () => {
             lastName,
             accountEmail,
             accountPassword
+        );
+
+        cy.wait(
+            ['@gqlCreateAccountMutation', '@gqlSignInAfterCreateMutation'],
+            {
+                timeout: 60000
+            }
         );
 
         // This assert is not related to this test but just to make sure cypress waits for account creation before it jumps to next line
