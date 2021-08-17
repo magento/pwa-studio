@@ -39,7 +39,7 @@
     "inquirer": "^6.3.1",
     "is-invalid-path": "^1.0.2",
     "is-valid-npm-name": "^0.0.4",
-    "node-fetch": "~2.3.0",
+    "node-fetch": "~2.6.1",
     "webpack": "~4.46.0"
   }
 }
