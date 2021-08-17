@@ -100,6 +100,46 @@ describe('verify pagebuilder row content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+
+        // Row with mp4 video
+        cy.get('div[class^="richContent-root"]')
+            .eq(1)
+            .scrollIntoView({ duration: 2000 })
+            .find('[id^="jarallax-container"] video')
+            .should('exist')
+            .find('source')
+            .should('exist')
+            .and('have.attr', 'type')
+            .and('contain', 'video/mp4');
+
+        // Row with fallback image
+        cy.get('div[class^="richContent-root"]')
+            .eq(4)
+            .scrollIntoView({ duration: 2000 })
+            .find('[id^="jarallax-container"] img')
+            .should('exist');
+
+        // Row with active videos
+        cy.get('div[class^="richContent-root"]')
+            .eq(7)
+            .scrollIntoView({ duration: 2000 })
+            .find('[id^="jarallax-container"] video')
+            .should('exist')
+            .find('source')
+            .should('exist')
+            .and('have.attr', 'type')
+            .and('contain', 'video/mp4');
+
+        // Scroll to bottom of the page to load all elements
+        cy.scrollTo('bottom', { duration: 2000 });
+
+        // Hide videos to prevent capturing moving images
+        cy.get('video').invoke(
+            'attr',
+            'style',
+            'visibility: hidden !important'
+        );
+
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Row Video Background2',
