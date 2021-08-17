@@ -1,4 +1,4 @@
-const venia = {
+const venia = {}
     mode: 'jit',
     purge: {
         content: ['./src/**/*.css'],
