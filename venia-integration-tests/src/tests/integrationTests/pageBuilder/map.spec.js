@@ -7,12 +7,9 @@ const { createGoogleMapApi } = googleMapApiFixtures;
 
 describe('verify pagebuilder map content is rendered correctly', () => {
     it('verify google map api load with content', () => {
-        cy.intercept('https://maps.googleapis.com/maps/api/js?*', req => {
-            req.continue(res => {
-                expect(res.statusCode).to.eq(200);
-                expect(res.url).to.include('googleapis');
-            });
-        }).as('googleApi');
+        cy.intercept('https://maps.googleapis.com/maps/api/js?*').as(
+            'googleApi'
+        );
 
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/map/map1.json'
@@ -20,14 +17,14 @@ describe('verify pagebuilder map content is rendered correctly', () => {
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
 
-        cy.wait(['@googleApi']);
+        cy.wait(['@googleApi'])
+            .its('response.url')
+            .should('contain', 'googleapis');
 
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Verify Map - All content',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
@@ -73,9 +70,7 @@ describe('verify pagebuilder map content is rendered correctly', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Verify Map - 2 Locations',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
