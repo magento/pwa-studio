@@ -154,6 +154,190 @@ describe('verify pagebuilder row content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+
+        // Row with youtube embedded
+        cy.get('div[class^="richContent-root"]')
+            .eq(0)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'youtube.com');
+
+        cy.get('div[class^="richContent-root"]')
+            .eq(0)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .invoke('attr', 'src')
+            .then(src => {
+                cy.request(src)
+                    .its('status')
+                    .should('eq', 200);
+            });
+
+        // Row with youtube not embedded
+        cy.get('div[class^="richContent-root"]')
+            .eq(1)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'youtube.com');
+
+        cy.get('div[class^="richContent-root"]')
+            .eq(1)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .invoke('attr', 'src')
+            .then(src => {
+                cy.request(src)
+                    .its('status')
+                    .should('eq', 200);
+            });
+
+        // Row with youtube insecure
+        cy.get('div[class^="richContent-root"]')
+            .eq(2)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'youtube.com');
+
+        cy.get('div[class^="richContent-root"]')
+            .eq(2)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .invoke('attr', 'src')
+            .then(src => {
+                cy.request(src)
+                    .its('status')
+                    .should('eq', 200);
+            });
+
+        // Row with vimeo embedded
+        cy.get('div[class^="richContent-root"]')
+            .eq(3)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'player.vimeo.com');
+
+        cy.get('div[class^="richContent-root"]')
+            .eq(3)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .invoke('attr', 'src')
+            .then(src => {
+                cy.request(src)
+                    .its('status')
+                    .should('eq', 200);
+            });
+
+        // Row with vimeo not embedded
+        cy.get('div[class^="richContent-root"]')
+            .eq(4)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'player.vimeo.com');
+
+        cy.get('div[class^="richContent-root"]')
+            .eq(4)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .invoke('attr', 'src')
+            .then(src => {
+                cy.request(src)
+                    .its('status')
+                    .should('eq', 200);
+            });
+
+        // Row with vimeo insecure
+        cy.get('div[class^="richContent-root"]')
+            .eq(5)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'player.vimeo.com');
+
+        cy.get('div[class^="richContent-root"]')
+            .eq(5)
+            .scrollIntoView({ duration: 2000 })
+            .find('iframe')
+            .invoke('attr', 'src')
+            .then(src => {
+                cy.request(src)
+                    .its('status')
+                    .should('eq', 200);
+            });
+
+        // Row with mp4
+        cy.get('div[class^="richContent-root"]')
+            .eq(6)
+            .scrollIntoView({ duration: 2000 })
+            .find('[id^="jarallax-container"] video')
+            .should('exist')
+            .find('source')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'https://');
+        cy.get('div[class^="richContent-root"]')
+            .eq(6)
+            .find('[id^="jarallax-container"] video source')
+            .and('have.attr', 'type')
+            .and('contain', 'video/mp4');
+
+        // TODO: Test with publicly hosted file
+        // cy.get('div[class^="richContent-root"]')
+        //     .eq(6)
+        //     .scrollIntoView({ duration: 2000 })
+        //     .find('[id^="jarallax-container"] video source')
+        //     .invoke('attr', 'src')
+        //     .then(src => {
+        //         cy.request(src)
+        //             .its('status')
+        //             .should('eq', 200);
+        //     });
+
+        // Row with mp4 insecure
+        cy.get('div[class^="richContent-root"]')
+            .eq(7)
+            .scrollIntoView({ duration: 2000 })
+            .find('[id^="jarallax-container"] video')
+            .should('exist')
+            .find('source')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'http://');
+        cy.get('div[class^="richContent-root"]')
+            .eq(7)
+            .find('[id^="jarallax-container"] video source')
+            .and('have.attr', 'type')
+            .and('contain', 'video/mp4');
+
+        // TODO: Test with publicly hosted file
+        // cy.get('div[class^="richContent-root"]')
+        //     .eq(7)
+        //     .scrollIntoView({ duration: 2000 })
+        //     .find('[id^="jarallax-container"] video source')
+        //     .invoke('attr', 'src')
+        //     .then(src => {
+        //         cy.request(src)
+        //             .its('status')
+        //             .should('eq', 200);
+        //     });
+
+        // Hide iframes to prevent capturing moving images
+        cy.get('iframe').invoke(
+            'attr',
+            'style',
+            'visibility: hidden !important'
+        );
+
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Row Video Background3',
