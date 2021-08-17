@@ -34,6 +34,8 @@ const items = [
         small_image: {
             url: '/test/product/1.png'
         },
+        stock_status: 'IN_STOCK',
+        type_id: 'simple',
         price: {
             regularPrice: {
                 amount: {
@@ -42,7 +44,8 @@ const items = [
                 }
             }
         },
-        url_key: 'test-product1'
+        url_key: 'test-product1',
+        sku: 'sku-test-product1'
     },
     {
         id: 2,
@@ -50,6 +53,8 @@ const items = [
         small_image: {
             url: '/test/product/2.png'
         },
+        stock_status: 'OUT_OF_STOCK',
+        type_id: 'simple',
         price: {
             regularPrice: {
                 amount: {
@@ -58,7 +63,8 @@ const items = [
                 }
             }
         },
-        url_key: 'test-product2'
+        url_key: 'test-product2',
+        sku: 'sku-test-product2'
     }
 ];
 

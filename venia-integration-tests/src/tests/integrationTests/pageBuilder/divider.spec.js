@@ -10,9 +10,7 @@ describe('verify pagebuilder divider content is rendered correctly', () => {
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Divider Page',
-                timeout: 60000,
-                failureThreshold: 5,
-                failureThresholdType: 'percent'
+                timeout: 60000
             });
         });
     });
