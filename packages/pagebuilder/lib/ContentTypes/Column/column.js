@@ -121,9 +121,7 @@ const Column = props => {
         dynamicStyles.backgroundSize = backgroundSize;
         dynamicStyles.backgroundPosition = backgroundPosition;
         dynamicStyles.backgroundAttachment = backgroundAttachment;
-        dynamicStyles.backgroundRepeat = backgroundRepeat
-            ? 'repeat'
-            : 'no-repeat';
+        dynamicStyles.backgroundRepeat = backgroundRepeat;
     }
 
     // Determine the containers width and optimize the image
@@ -171,7 +169,7 @@ const Column = props => {
  * @property {String} backgroundAttachment CSS background-attachment property
  * @property {String} backgroundColor CSS background-color property
  * @property {String} backgroundPosition CSS background-position property
- * @property {Boolean} backgroundRepeat CSS background-repeat property
+ * @property {String} backgroundRepeat CSS background-repeat property
  * @property {String} backgroundSize CSS background-size property
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
@@ -206,7 +204,7 @@ Column.propTypes = {
     backgroundAttachment: string,
     backgroundColor: string,
     backgroundPosition: string,
-    backgroundRepeat: bool,
+    backgroundRepeat: string,
     backgroundSize: string,
     border: string,
     borderColor: string,
