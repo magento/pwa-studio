@@ -260,6 +260,90 @@ test('Should return isBillingAddress and billingAddress from cache as initialVal
     });
 });
 
+test('Should return empty street2 value when not provided', () => {
+    const billingAddress = {
+        firstName: 'test',
+        lastName: 'test',
+        country: {
+            code: 'test'
+        },
+        street: ['test'],
+        city: 'test',
+        region: { code: 'test' },
+        postcode: 'test',
+        phoneNumber: 'test'
+    };
+
+    getBillingAddress.mockReturnValueOnce({
+        data: {
+            cart: {
+                billingAddress: {
+                    __typename: 'Billing Address',
+                    ...billingAddress
+                }
+            }
+        },
+        loading: false,
+        called: true
+    });
+
+    getIsBillingAddressSame.mockReturnValueOnce({
+        data: { cart: { isBillingAddressSame: false } }
+    });
+
+    const { talonProps } = getTalonProps({
+        shouldSubmit: false,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
+        operations,
+        onBillingAddressChangedError: () => {},
+        onBillingAddressChangedSuccess: () => {}
+    });
+
+    expect(talonProps.initialValues.street2).toEqual('');
+});
+
+test('Should return street2 value when provided', () => {
+    const billingAddress = {
+        firstName: 'test',
+        lastName: 'test',
+        country: {
+            code: 'test'
+        },
+        street: ['test', 'test street2'],
+        city: 'test',
+        region: { code: 'test' },
+        postcode: 'test',
+        phoneNumber: 'test'
+    };
+
+    getBillingAddress.mockReturnValueOnce({
+        data: {
+            cart: {
+                billingAddress: {
+                    __typename: 'Billing Address',
+                    ...billingAddress
+                }
+            }
+        },
+        loading: false,
+        called: true
+    });
+
+    getIsBillingAddressSame.mockReturnValueOnce({
+        data: { cart: { isBillingAddressSame: false } }
+    });
+
+    const { talonProps } = getTalonProps({
+        shouldSubmit: false,
+        resetShouldSubmit: jest.fn().mockName('resetShouldSubmit'),
+        operations,
+        onBillingAddressChangedError: () => {},
+        onBillingAddressChangedSuccess: () => {}
+    });
+
+    expect(talonProps.initialValues.street2).toEqual('test street2');
+});
+
 test('Should set billingAddress to {} if isBillingAddress is true in initialValues', () => {
     const billingAddress = {
         firstName: 'test',
