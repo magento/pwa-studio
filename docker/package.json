@@ -5,10 +5,11 @@
   "author": "Kayden Althen",
   "license": "ISC",
   "dependencies": {
-    "devcert": "~1.1.0"
+    "devcert": "~1.1.2"
   },
   "resolutions": {
     "minimist": "^1.2.2",
-    "dot-prop": "^5.1.1"
+    "dot-prop": "^5.1.1",
+    "lodash": "^4.17.21"
   }
 }
