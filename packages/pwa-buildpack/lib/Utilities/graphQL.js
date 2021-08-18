@@ -1,3 +1,5 @@
+const debug = require('../util/debug').makeFileLogger(__filename);
+
 const fetch = require('node-fetch');
 const graphQLQueries = require('../queries');
 const https = require('https');
@@ -9,12 +11,15 @@ const fetchQuery = query => {
     const targetURL = new URL('graphql', process.env.MAGENTO_BACKEND_URL);
     const headers = {
         'Content-Type': 'application/json',
-        'Accept-Encoding': 'gzip'
+        'Accept-Encoding': 'gzip',
+        Accept: 'application/json'
     };
 
     if (process.env.STORE_VIEW_CODE) {
         headers['store'] = process.env.STORE_VIEW_CODE;
     }
+
+    debug(`Fetching ${query}`);
 
     return fetch(targetURL.toString(), {
         agent: targetURL.protocol === 'https:' ? httpsAgent : null,
@@ -22,9 +27,43 @@ const fetchQuery = query => {
         headers: headers,
         method: 'POST'
     })
-        .then(result => result.json())
+        .then(result => {
+            console.log(`Fetched ${query}`);
+            console.log(`Status code: ${result.status}`);
+            result
+                .clone()
+                .json()
+                .then(json => {
+                    debug(`Response json: ${JSON.stringify(json)}`);
+                })
+                .catch(err => {
+                    console.log('Failed to parsejson response');
+                    debug(`Failed to parse json response: ${e}`);
+                    result
+                        .clone()
+                        .text()
+                        .then(text => {
+                            console.log(text);
+                            debug(`Response: ${text}`);
+                        })
+                        .catch(err => {
+                            console.log('Failed to parse text response');
+                            debug(`Failed to parse text response: ${err}`);
+                            console.log(result);
+
+                            throw err;
+                        });
+
+                    throw err;
+                });
+
+            return result.json();
+        })
         .catch(err => {
             console.error(err);
+            debug(`Failed to fetch ${query}`);
+            debug(`Error: ${err}`);
+
             throw err;
         })
         .then(json =>
