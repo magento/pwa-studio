@@ -58,6 +58,14 @@ exports[`renders a placeholder item while awaiting item 1`] = `
       className="content"
     />
   </div>
+  <div
+    className="root_button"
+    style={Object {}}
+  >
+    <span
+      className="content"
+    />
+  </div>
 </div>
 `;
 

@@ -1,4 +1,15 @@
-// TODO
+/**
+ * Implementation of our 'RootShimmerTypes' target. This will gather
+ * RootShimmerTypes declarations { shimmerType, importPath } from all
+ * interceptors, and then inject them into the shimmer types export
+ *
+ * An instance of this class is made available when you use VeniaUI's
+ * `rootShimmerTypes` target.
+ *
+ * The RootShimmerTypes declarations collected as part of this target will be
+ * used to render the appropriate root shimmer component during page transition
+ * when using the useInternalLink hook.
+ */
 class RootShimmerTypes {
     /** @hideconstructor */
     constructor(venia) {

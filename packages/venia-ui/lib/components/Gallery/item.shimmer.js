@@ -12,7 +12,7 @@ const GalleryItemShimmer = props => {
 
     return (
         <div className={classes.root} aria-live="polite" aria-busy="true">
-            <Shimmer>
+            <Shimmer key="product-image">
                 <Image
                     alt="Placeholder for gallery item image"
                     classes={{
@@ -22,8 +22,9 @@ const GalleryItemShimmer = props => {
                     src={transparentPlaceholder}
                 />
             </Shimmer>
-            <Shimmer width="100%" />
-            <Shimmer width={3} />
+            <Shimmer width="100%" key="product-name" />
+            <Shimmer width={3} key="product-price" />
+            <Shimmer type="button" key="add-to-cart" />
         </div>
     );
 };
