@@ -50,8 +50,6 @@ module.exports = async env => {
 }
 ```
 
-
-
 {: .bs-callout .bs-callout-tip}
 The special `__dirname` variable in Node always refers to the directory containing the currently executing script file.
 This is different from the "working directory", which is the current directory of the shell when the current process was started.
