@@ -13,8 +13,9 @@ as usual, and then add an export to the venia-ui/lib/RootComponents/Shimmer/type
 `[TYPE]_SHIMMER`. This exported name will be used to match based on the app context state value when changing pages.
 
 ##### Example
-**RootComponent/Example/example.shimmer.js**
 ```jsx
+/** RootComponent/Example/example.shimmer.js **/
+
 import React from 'react';
 import Shimmer from '../../components/Shimmer';
 
@@ -29,8 +30,9 @@ export default () => {
 };
 ```
 
-**RootComponent/Example/index.js**
 ```jsx
+/** RootComponent/Example/index.js **/
+
 /**
  * @RootComponent
  * description = 'Some Example Page'
@@ -39,15 +41,29 @@ export default () => {
 export { default } from './example';
 ```
 
-**RootComponent/Shimmer/types/index.js**
 ```jsx
+/** RootComponent/Shimmer/types/index.js **/
+
 // ...
 export { default as EXAMPLE_PAGE_SHIMMER } from '../../Example/example.shimmer.js';
 // ...
 ```
 
 ##### For external root components (outside of venia-ui)
-You will need to use targetables to inject the export value into the `RootComponent/Shimmer/types/index.js` file
+The root shimmer types are tapable, so we can easily add new root component shimmers.
+
+##### Example
+```jsx
+/** local-intercept.js **/
+
+const { rootShimmerTypes } = targets.of('@magento/venia-ui');
+rootShimmerTypes.tap(target => {
+    target.add({
+        shimmerType: 'EXAMPLE_PAGE_SHIMMER',
+        importPath: `'src/RootComponent/Example/example.shimmer'`
+    });
+});
+```
 
 ### Setting the state value when changing pages
 In order for PWA Studio to automatically render this new root component shimmer when changing pages, we'll need to use
@@ -56,8 +72,9 @@ and appending `_SHIMMER` to it. So all we need to do is pass in the value of our
 care of setting the value in the app context state. This state value automatically resets once the page has rendered.
 
 ##### Example
-**components/Foo/foo.js**
 ```jsx
+/** components/Foo/foo.js **/
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useInternalLink from '@magento/peregrine/lib/hooks/useInternalLink';

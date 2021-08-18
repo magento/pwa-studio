@@ -9,6 +9,7 @@ const CheckoutPagePaymentsList = require('./CheckoutPagePaymentsList');
 const SavedPaymentTypes = require('./SavedPaymentTypes');
 const EditablePaymentTypes = require('./EditablePaymentTypes');
 const SummaryPaymentTypes = require('./SummaryPaymentTypes');
+const RootShimmerTypes = require('./RootShimmerTypes');
 
 module.exports = veniaTargets => {
     const venia = Targetables.using(veniaTargets);
@@ -60,4 +61,10 @@ module.exports = veniaTargets => {
     });
 
     new CategoryListProductAttributes(venia);
+
+    const rootShimmerTypes = new RootShimmerTypes(venia);
+    rootShimmerTypes.add({
+        shimmerType: 'CATEGORY_SHIMMER',
+        importPath: '@magento/venia-ui/lib/RootComponents/Category/categoryContent.shimmer'
+    });
 };
