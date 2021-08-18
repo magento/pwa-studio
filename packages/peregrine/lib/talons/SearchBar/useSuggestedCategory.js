@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import useInternalLink from '../../hooks/useInternalLink';
+import { useLocation } from 'react-router-dom';
 
 import { DELIMITER } from '../FilterModal/helpers';
 
@@ -25,24 +24,16 @@ const setSearchParams = (existing, options) => {
  */
 export const useSuggestedCategory = props => {
     const { onNavigate, ...restProps } = props;
-    const { createHref } = useHistory();
     const { search } = useLocation();
 
     const nextSearchParams = setSearchParams(search, restProps);
-    const destination = createHref({
-        pathname: '/search.html',
-        search: nextSearchParams
-    });
-
-    const { handleClick: setLoader } = useInternalLink('category');
+    const destination = `/search.html?${nextSearchParams}`;
 
     const handleClick = useCallback(() => {
         if (typeof onNavigate === 'function') {
             onNavigate();
         }
-        // Sets next root component to show proper loading effect
-        setLoader();
-    }, [onNavigate, setLoader]);
+    }, [onNavigate]);
 
     return {
         destination,

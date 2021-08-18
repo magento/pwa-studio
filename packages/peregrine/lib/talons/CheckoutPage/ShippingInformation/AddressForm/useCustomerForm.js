@@ -81,6 +81,8 @@ export const useCustomerForm = props => {
             try {
                 const customerAddress = {
                     ...address,
+                    // Cleans up the street array when values are null or undefined
+                    street: address.street.filter(e => e),
                     country_code: country
                 };
 
