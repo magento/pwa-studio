@@ -80,7 +80,7 @@
         "css-loader": "~2.1.1",
         "memory-fs": "~0.4.1",
         "postcss": "~8.3.6",
-        "postcss-loader": "^5.0.0",
+        "postcss-loader": "~4.3.0",
         "rimraf": "~2.6.3",
         "sharp": "~0.25.4",
         "strip-ansi": "~5.0.0",
@@ -99,7 +99,7 @@
         "webpack": "~4.46.0",
         "workbox-webpack-plugin": "~6.0.2",
         "postcss": "~8.3.6",
-        "postcss-loader": "^5.0.0"
+        "postcss-loader": "~4.3.0"
     },
     "resolutions": {
         "workbox-build": "~6.0.2"
