@@ -15,7 +15,8 @@ class RootShimmerTypes {
     constructor(venia) {
         const registry = this;
         this._shimmer = venia.esModuleObject({
-            module: '@magento/venia-ui/lib/RootComponents/Shimmer/types/index.js',
+            module:
+                '@magento/venia-ui/lib/RootComponents/Shimmer/types/index.js',
             publish(targets) {
                 targets.rootShimmerTypes.call(registry);
             }

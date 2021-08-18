@@ -6,11 +6,15 @@ import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearc
 
 import { useStyle } from '../../classify';
 import Pagination from '../../components/Pagination';
-import Gallery, {GalleryShimmer} from '../Gallery';
+import Gallery, { GalleryShimmer } from '../Gallery';
 import ProductSort, { ProductSortShimmer } from '../ProductSort';
 import defaultClasses from './searchPage.css';
-import SortedByContainer, {SortedByContainerShimmer} from '../SortedByContainer';
-import FilterModalOpenButton, { FilterModalOpenButtonShimmer } from '../FilterModalOpenButton';
+import SortedByContainer, {
+    SortedByContainerShimmer
+} from '../SortedByContainer';
+import FilterModalOpenButton, {
+    FilterModalOpenButtonShimmer
+} from '../FilterModalOpenButton';
 import { FilterSidebarShimmer } from '../FilterSidebar';
 import Shimmer from '../Shimmer';
 
@@ -38,7 +42,9 @@ const SearchPage = props => {
             return (
                 <Fragment>
                     <section className={classes.gallery}>
-                        <GalleryShimmer items={Array.from({ length: 12 }).fill(null)} />
+                        <GalleryShimmer
+                            items={Array.from({ length: 12 }).fill(null)}
+                        />
                     </section>
                     <section className={classes.pagination} />
                 </Fragment>
@@ -135,9 +141,7 @@ const SearchPage = props => {
 
     const searchResultsHeading = loading ? (
         <Shimmer width={5} />
-    ) : !data ?
-        null
-      : searchTerm ? (
+    ) : !data ? null : searchTerm ? (
         <FormattedMessage
             id={'searchPage.searchTerm'}
             values={{
@@ -174,7 +178,9 @@ const SearchPage = props => {
     return (
         <article className={classes.root}>
             <div className={classes.sidebar}>
-                <Suspense fallback={<FilterSidebarShimmer />}>{maybeSidebar}</Suspense>
+                <Suspense fallback={<FilterSidebarShimmer />}>
+                    {maybeSidebar}
+                </Suspense>
             </div>
             <div className={classes.searchContent}>
                 <div className={classes.heading}>

@@ -21,7 +21,6 @@ const MagentoRoute = () => {
         isRedirect,
         shimmer,
         initial,
-        type,
         ...componentData
     } = talonProps;
 

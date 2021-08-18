@@ -65,6 +65,7 @@ module.exports = veniaTargets => {
     const rootShimmerTypes = new RootShimmerTypes(venia);
     rootShimmerTypes.add({
         shimmerType: 'CATEGORY_SHIMMER',
-        importPath: '@magento/venia-ui/lib/RootComponents/Category/categoryContent.shimmer'
+        importPath:
+            '@magento/venia-ui/lib/RootComponents/Category/categoryContent.shimmer'
     });
 };

@@ -17,15 +17,16 @@ import ProductShimmer from './product.shimmer';
  * TODO: Replace with a single product query when possible.
  */
 
-const Product = (props) => {
-    const { __typename: productType } = props
+const Product = props => {
+    const { __typename: productType } = props;
     const talonProps = useProduct({
         mapProduct
     });
 
     const { error, loading, product } = talonProps;
 
-    if (loading && !product) return <ProductShimmer productType={productType} />;
+    if (loading && !product)
+        return <ProductShimmer productType={productType} />;
     if (error && !product) return <ErrorView />;
     if (!product) {
         return (

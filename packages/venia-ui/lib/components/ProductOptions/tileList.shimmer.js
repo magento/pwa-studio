@@ -9,16 +9,11 @@ const TileListShimmer = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const tiles = useMemo(() => {
-        return Array.from({ length: 3 }).fill(null).map((value, index) => {
-
-            return (
-                <Shimmer
-                    width={3}
-                    height={3}
-                    key={`tile-${index}`}
-                />
-            );
-        })
+        return Array.from({ length: 3 })
+            .fill(null)
+            .map((value, index) => {
+                return <Shimmer width={3} height={3} key={`tile-${index}`} />;
+            });
     }, []);
 
     return <div className={classes.root}>{tiles}</div>;

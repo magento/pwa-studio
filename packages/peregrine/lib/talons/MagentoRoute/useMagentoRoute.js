@@ -18,7 +18,7 @@ const resetInlinedPageData = () => {
     globalThis.INLINED_PAGE_TYPE = false;
 };
 
-const getComponentData = (routeData) => {
+const getComponentData = routeData => {
     const excludedKeys = ['redirect_code', 'relative_url'];
 
     return Object.fromEntries(
@@ -121,7 +121,11 @@ export const useMagentoRoute = (props = {}) => {
                 ? relative_url
                 : '/' + relative_url
         };
-    } else if (empty && fetchedPathname.current === pathname && !fetching.current) {
+    } else if (
+        empty &&
+        fetchedPathname.current === pathname &&
+        !fetching.current
+    ) {
         // NOT FOUND
         routeData = { isNotFound: true };
     } else if (nextRootComponent) {

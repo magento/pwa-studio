@@ -7,7 +7,7 @@ import CarouselShimmer from '../../components/ProductImageCarousel/carousel.shim
 import { ProductOptionsShimmer } from '../../components/ProductOptions';
 import { useStyle } from '../../classify';
 
-const ProductShimmer = (props) => {
+const ProductShimmer = props => {
     const { productType } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -37,14 +37,22 @@ const ProductShimmer = (props) => {
                     <div className={classes.quantityTitle}>
                         <Shimmer width="100%" height={1} key="quantity-title" />
                     </div>
-                    <Shimmer width={10} type="textInput" classes={{ root: classes.quantityRoot }} />
+                    <Shimmer
+                        width={10}
+                        type="textInput"
+                        classes={{ root: classes.quantityRoot }}
+                    />
                 </section>
                 <section className={classes.actions}>
                     <Shimmer type="button" key="add-to-cart" />
                 </section>
                 <section className={classes.description}>
                     <div className={classes.descriptionTitle}>
-                        <Shimmer width="100%" height={1} key="description-title" />
+                        <Shimmer
+                            width="100%"
+                            height={1}
+                            key="description-title"
+                        />
                     </div>
                     <Shimmer width="100%" height={1} key="description-line-1" />
                     <Shimmer width="100%" height={1} key="description-line-2" />
@@ -82,7 +90,7 @@ ProductShimmer.propTypes = {
         root: string,
         title: string,
         unavailableContainer: string
-    }),
+    })
 };
 
 export default ProductShimmer;

@@ -5,21 +5,30 @@ import Image from '../Image';
 import defaultClasses from './carousel.css';
 import defaultShimmerClasses from './carousel.shimmer.css';
 
-const CarouselShimmer = (props) => {
-    const classes = useStyle(defaultClasses, defaultShimmerClasses, props.classes);
+const CarouselShimmer = props => {
+    const classes = useStyle(
+        defaultClasses,
+        defaultShimmerClasses,
+        props.classes
+    );
 
     const thumbnails = useMemo(() => {
-        return Array.from({ length: 3 }).fill(null).map((value, index) => {
-            return (
-                <div className={classes.thumnailRoot} key={`thumbnail-${index}`}>
-                    <Image
-                        alt={'...'}
-                        classes={{ image: classes.thumbnailImage }}
-                        src={transparentPlaceholder}
-                    />
-                </div>
-            )
-        })
+        return Array.from({ length: 3 })
+            .fill(null)
+            .map((value, index) => {
+                return (
+                    <div
+                        className={classes.thumnailRoot}
+                        key={`thumbnail-${index}`}
+                    >
+                        <Image
+                            alt={'...'}
+                            classes={{ image: classes.thumbnailImage }}
+                            src={transparentPlaceholder}
+                        />
+                    </div>
+                );
+            });
     }, [classes]);
 
     return (
@@ -34,9 +43,7 @@ const CarouselShimmer = (props) => {
                     src={transparentPlaceholder}
                 />
             </div>
-            <div className={classes.thumbnailList}>
-                {thumbnails}
-            </div>
+            <div className={classes.thumbnailList}>{thumbnails}</div>
         </div>
     );
 };
