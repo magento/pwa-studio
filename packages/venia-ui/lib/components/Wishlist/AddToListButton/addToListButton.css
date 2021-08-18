@@ -5,6 +5,7 @@
     margin-left: -0.5rem;
     padding: 0 0.5rem;
     text-decoration: underline;
+    align-self: center;
 }
 
 .root_selected {
