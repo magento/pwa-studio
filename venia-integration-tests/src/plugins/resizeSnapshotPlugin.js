@@ -36,7 +36,7 @@ const resizeSnapshot = imageConfig => {
     }
 };
 
-const replaceSpace = str => str.split(' ').join('-');
+const replaceSpace = str => str && str.split(' ').join('-');
 
 const adjustDetails = screenshotDetails => {
     return {

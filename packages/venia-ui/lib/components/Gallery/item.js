@@ -103,7 +103,11 @@ GalleryItem.propTypes = {
         small_image: shape({
             url: string.isRequired
         }),
+        stock_status: string.isRequired,
+        type_id: string.isRequired,
         url_key: string.isRequired,
+        url_suffix: string,
+        sku: string.isRequired,
         price: shape({
             regularPrice: shape({
                 amount: shape({
