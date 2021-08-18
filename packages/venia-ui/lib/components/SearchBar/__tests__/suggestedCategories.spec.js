@@ -1,18 +1,15 @@
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 import SuggestedCategories from '../suggestedCategories';
 import SuggestedCategory from '../suggestedCategory';
 
 jest.mock('react-router-dom', () => ({
     Link: jest.fn(() => null),
-    useHistory: jest.fn(),
     useLocation: jest.fn()
 }));
 jest.mock('../suggestedCategory', () => 'SuggestedCategory');
 
-const createHref = jest.fn(path => `${new URL(path, globalThis.location)}`);
-useHistory.mockReturnValue({ createHref });
 useLocation.mockReturnValue(globalThis.location);
 
 const categories = [

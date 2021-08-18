@@ -27,6 +27,7 @@
     -webkit-animation-timing-function: linear;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-fill-mode: forwards;
+    will-change: transform;
 }
 
 .root_rectangle {
@@ -63,12 +64,6 @@
     composes: input from '../TextInput/textInput.css';
     composes: root;
     border: none;
-}
-
-.content {
-    overflow: hidden;
-    visibility: hidden;
-    opacity: 0;
 }
 
 @-webkit-keyframes shimmerAnimation {

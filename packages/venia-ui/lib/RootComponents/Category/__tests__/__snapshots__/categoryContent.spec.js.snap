@@ -23,60 +23,64 @@ Array [
       </h1>
     </div>
     <div
-      className="sidebar"
-    />
-    <div
-      className="categoryContent"
+      className="contentWrapper"
     >
       <div
-        className="heading"
+        className="sidebar"
+      />
+      <div
+        className="categoryContent"
       >
         <div
-          className="categoryInfo"
-        />
-        <div
-          className="headerButtons"
+          className="heading"
         >
-          <ProductSort
-            sortProps={
-              Array [
-                Object {
-                  "sortAttribute": "",
-                  "sortDirection": "",
-                  "sortText": "",
-                },
-                [MockFunction],
-              ]
+          <div
+            className="categoryInfo"
+          />
+          <div
+            className="headerButtons"
+          >
+            <ProductSort
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
+          </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
             }
           />
         </div>
-        <SortedByContainer
-          currentSort={
-            Object {
-              "sortAttribute": "",
-              "sortDirection": "",
-              "sortText": "",
+        <section
+          className="gallery"
+        >
+          <Gallery
+            items={
+              Object {
+                "id": 1,
+              }
             }
-          }
-        />
-      </div>
-      <section
-        className="gallery"
-      >
-        <Gallery
-          items={
-            Object {
-              "id": 1,
-            }
-          }
-        />
-      </section>
-      <div
-        className="pagination"
-      >
-        <Pagination
-          pageControl={Object {}}
-        />
+          />
+        </section>
+        <div
+          className="pagination"
+        >
+          <Pagination
+            pageControl={Object {}}
+          />
+        </div>
       </div>
     </div>
   </article>,
@@ -106,83 +110,87 @@ Array [
       </h1>
     </div>
     <div
-      className="sidebar"
-    >
-      <require('../../components/FilterSidebar')
-        filters={
-          Array [
-            Object {},
-          ]
-        }
-      />
-    </div>
-    <div
-      className="categoryContent"
+      className="contentWrapper"
     >
       <div
-        className="heading"
+        className="sidebar"
+      >
+        <require('../../components/FilterSidebar')
+          filters={
+            Array [
+              Object {},
+            ]
+          }
+        />
+      </div>
+      <div
+        className="categoryContent"
       >
         <div
-          className="categoryInfo"
-        />
-        <div
-          className="headerButtons"
+          className="heading"
         >
-          <FilterModalOpenButton
-            filters={
-              Array [
-                Object {},
-              ]
-            }
+          <div
+            className="categoryInfo"
           />
-          <ProductSort
-            sortProps={
-              Array [
-                Object {
-                  "sortAttribute": "",
-                  "sortDirection": "",
-                  "sortText": "",
-                },
-                [MockFunction],
-              ]
+          <div
+            className="headerButtons"
+          >
+            <FilterModalOpenButton
+              filters={
+                Array [
+                  Object {},
+                ]
+              }
+            />
+            <ProductSort
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
+          </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
             }
           />
         </div>
-        <SortedByContainer
-          currentSort={
-            Object {
-              "sortAttribute": "",
-              "sortDirection": "",
-              "sortText": "",
+        <section
+          className="gallery"
+        >
+          <Gallery
+            items={
+              Object {
+                "id": 1,
+              }
             }
+          />
+        </section>
+        <div
+          className="pagination"
+        >
+          <Pagination
+            pageControl={Object {}}
+          />
+        </div>
+        <require('../../components/FilterModal')
+          filters={
+            Array [
+              Object {},
+            ]
           }
         />
       </div>
-      <section
-        className="gallery"
-      >
-        <Gallery
-          items={
-            Object {
-              "id": 1,
-            }
-          }
-        />
-      </section>
-      <div
-        className="pagination"
-      >
-        <Pagination
-          pageControl={Object {}}
-        />
-      </div>
-      <require('../../components/FilterModal')
-        filters={
-          Array [
-            Object {},
-          ]
-        }
-      />
     </div>
   </article>,
 ]
@@ -211,24 +219,28 @@ Array [
       </h1>
     </div>
     <div
-      className="sidebar"
-    />
-    <div
-      className="categoryContent"
+      className="contentWrapper"
     >
       <div
-        className="heading"
+        className="sidebar"
+      />
+      <div
+        className="categoryContent"
       >
         <div
-          className="categoryInfo"
-        />
-        <div
-          className="headerButtons"
+          className="heading"
+        >
+          <div
+            className="categoryInfo"
+          />
+          <div
+            className="headerButtons"
+          />
+        </div>
+        <NoProductsFound
+          categoryId={42}
         />
       </div>
-      <NoProductsFound
-        categoryId={42}
-      />
     </div>
   </article>,
 ]
@@ -257,42 +269,46 @@ Array [
       </h1>
     </div>
     <div
-      className="sidebar"
-    />
-    <div
-      className="categoryContent"
+      className="contentWrapper"
     >
       <div
-        className="heading"
-      >
-        <div
-          className="categoryInfo"
-        >
-          <Shimmer
-            width={5}
-          />
-        </div>
-        <div
-          className="headerButtons"
-        >
-          <ProductSortShimmer />
-        </div>
-        <SortedByContainerShimmer />
-      </div>
-      <section
-        className="gallery"
-      >
-        <GalleryShimmer
-          items={
-            Object {
-              "id": 1,
-            }
-          }
-        />
-      </section>
-      <div
-        className="pagination"
+        className="sidebar"
       />
+      <div
+        className="categoryContent"
+      >
+        <div
+          className="heading"
+        >
+          <div
+            className="categoryInfo"
+          >
+            <Shimmer
+              width={5}
+            />
+          </div>
+          <div
+            className="headerButtons"
+          >
+            <ProductSortShimmer />
+          </div>
+          <SortedByContainerShimmer />
+        </div>
+        <section
+          className="gallery"
+        >
+          <GalleryShimmer
+            items={
+              Object {
+                "id": 1,
+              }
+            }
+          />
+        </section>
+        <div
+          className="pagination"
+        />
+      </div>
     </div>
   </article>,
 ]
@@ -321,60 +337,64 @@ Array [
       </h1>
     </div>
     <div
-      className="sidebar"
-    />
-    <div
-      className="categoryContent"
+      className="contentWrapper"
     >
       <div
-        className="heading"
+        className="sidebar"
+      />
+      <div
+        className="categoryContent"
       >
         <div
-          className="categoryInfo"
-        />
-        <div
-          className="headerButtons"
+          className="heading"
         >
-          <ProductSort
-            sortProps={
-              Array [
-                Object {
-                  "sortAttribute": "",
-                  "sortDirection": "",
-                  "sortText": "",
-                },
-                [MockFunction],
-              ]
+          <div
+            className="categoryInfo"
+          />
+          <div
+            className="headerButtons"
+          >
+            <ProductSort
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
+          </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
             }
           />
         </div>
-        <SortedByContainer
-          currentSort={
-            Object {
-              "sortAttribute": "",
-              "sortDirection": "",
-              "sortText": "",
+        <section
+          className="gallery"
+        >
+          <Gallery
+            items={
+              Object {
+                "id": 1,
+              }
             }
-          }
-        />
-      </div>
-      <section
-        className="gallery"
-      >
-        <Gallery
-          items={
-            Object {
-              "id": 1,
-            }
-          }
-        />
-      </section>
-      <div
-        className="pagination"
-      >
-        <Pagination
-          pageControl={Object {}}
-        />
+          />
+        </section>
+        <div
+          className="pagination"
+        >
+          <Pagination
+            pageControl={Object {}}
+          />
+        </div>
       </div>
     </div>
   </article>,
@@ -404,24 +424,28 @@ Array [
       </h1>
     </div>
     <div
-      className="sidebar"
-    />
-    <div
-      className="categoryContent"
+      className="contentWrapper"
     >
       <div
-        className="heading"
+        className="sidebar"
+      />
+      <div
+        className="categoryContent"
       >
         <div
-          className="categoryInfo"
-        />
-        <div
-          className="headerButtons"
+          className="heading"
+        >
+          <div
+            className="categoryInfo"
+          />
+          <div
+            className="headerButtons"
+          />
+        </div>
+        <NoProductsFound
+          categoryId={42}
         />
       </div>
-      <NoProductsFound
-        categoryId={42}
-      />
     </div>
   </article>,
 ]
@@ -450,60 +474,64 @@ Array [
       </h1>
     </div>
     <div
-      className="sidebar"
-    />
-    <div
-      className="categoryContent"
+      className="contentWrapper"
     >
       <div
-        className="heading"
+        className="sidebar"
+      />
+      <div
+        className="categoryContent"
       >
         <div
-          className="categoryInfo"
-        />
-        <div
-          className="headerButtons"
+          className="heading"
         >
-          <ProductSort
-            sortProps={
-              Array [
-                Object {
-                  "sortAttribute": "",
-                  "sortDirection": "",
-                  "sortText": "",
-                },
-                [MockFunction],
-              ]
+          <div
+            className="categoryInfo"
+          />
+          <div
+            className="headerButtons"
+          >
+            <ProductSort
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
+          </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
             }
           />
         </div>
-        <SortedByContainer
-          currentSort={
-            Object {
-              "sortAttribute": "",
-              "sortDirection": "",
-              "sortText": "",
+        <section
+          className="gallery"
+        >
+          <Gallery
+            items={
+              Object {
+                "id": 1,
+              }
             }
-          }
-        />
-      </div>
-      <section
-        className="gallery"
-      >
-        <Gallery
-          items={
-            Object {
-              "id": 1,
-            }
-          }
-        />
-      </section>
-      <div
-        className="pagination"
-      >
-        <Pagination
-          pageControl={Object {}}
-        />
+          />
+        </section>
+        <div
+          className="pagination"
+        >
+          <Pagination
+            pageControl={Object {}}
+          />
+        </div>
       </div>
     </div>
   </article>,

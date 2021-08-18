@@ -10,29 +10,25 @@ exports[`renders a placeholder item while awaiting item 1`] = `
     className="root_rectangle"
     style={Object {}}
   >
-    <span
-      className="content"
+    <div
+      className="root container"
     >
-      <div
-        className="root container"
-      >
-        <img
-          alt="Placeholder for gallery item image"
-          className="image placeholder_layoutOnly"
-          loading="eager"
-          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-          width={100}
-        />
-        <img
-          alt="Placeholder for gallery item image"
-          className="image loaded"
-          loading="lazy"
-          onError={[MockFunction]}
-          onLoad={[MockFunction]}
-          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-        />
-      </div>
-    </span>
+      <img
+        alt="Placeholder for gallery item image"
+        className="image placeholder_layoutOnly"
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width={100}
+      />
+      <img
+        alt="Placeholder for gallery item image"
+        className="image loaded"
+        loading="lazy"
+        onError={[MockFunction]}
+        onLoad={[MockFunction]}
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+      />
+    </div>
   </div>
   <div
     className="root_rectangle"
@@ -41,11 +37,7 @@ exports[`renders a placeholder item while awaiting item 1`] = `
         "width": "100%",
       }
     }
-  >
-    <span
-      className="content"
-    />
-  </div>
+  />
   <div
     className="root_rectangle"
     style={
@@ -53,19 +45,11 @@ exports[`renders a placeholder item while awaiting item 1`] = `
         "width": "3rem",
       }
     }
-  >
-    <span
-      className="content"
-    />
-  </div>
+  />
   <div
     className="root_button"
     style={Object {}}
-  >
-    <span
-      className="content"
-    />
-  </div>
+  />
 </div>
 `;
 
@@ -154,9 +138,12 @@ exports[`renders correctly with valid item data 1`] = `
               },
             },
           },
+          "sku": "sku-123",
           "small_image": Object {
             "url": "/foo/bar/pic.png",
           },
+          "stock_status": "IN_STOCK",
+          "type_id": "simple",
           "url_key": "strive-shoulder-pack",
           "url_suffix": ".html",
         }

@@ -6,6 +6,7 @@ import defaultClasses from './shimmer.css';
 
 const Shimmer = props => {
     const {
+        classes: propClasses,
         borderRadius,
         height,
         width,
@@ -14,7 +15,7 @@ const Shimmer = props => {
         children,
         ...restProps
     } = props;
-    const classes = useStyle(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, propClasses);
 
     const style = useMemo(() => {
         const combinedStyles = {
@@ -37,7 +38,7 @@ const Shimmer = props => {
 
     return (
         <div className={classes[rootClass]} style={style} {...restProps}>
-            <span className={classes.content}>{children}</span>
+            {children}
         </div>
     );
 };
@@ -50,7 +51,18 @@ const Shimmer = props => {
  * @property {Object} classes is an object containing the class names for the
  * Shimmer component.
  * @property {string} classes.root is the class for the container
- * @property {string} classes.content is the class for the content
+ * @property {string} classes.root_rectangle is the class for the container
+ * of type rectangle
+ * @property {string} classes.root_button is the class for the container
+ * of type button
+ * @property {string} classes.root_checkbox is the class for the container
+ * of type checkbox
+ * @property {string} classes.root_radio is the class for the container
+ * of type radio
+ * @property {string} classes.root_textArea is the class for the container
+ * of type textArea
+ * @property {string} classes.root_textInput is the class for the container
+ * of type textInput
  * @property {number | string} borderRadius is the border radius of the Shimmer
  * @property {number | string} height is the height of the Shimmer
  * @property {number | string} width is the width of the Shimmer
@@ -61,7 +73,12 @@ const Shimmer = props => {
 Shimmer.propTypes = {
     classes: shape({
         root: string,
-        content: string
+        root_rectangle: string,
+        root_button: string,
+        root_checkbox: string,
+        root_radio: string,
+        root_textArea: string,
+        root_textInput: string
     }),
     borderRadius: oneOfType([number, string]),
     height: oneOfType([number, string]),
