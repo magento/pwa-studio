@@ -31,7 +31,7 @@ In `webpack.config.js`:
 
 ``` js
 const buildpack = require('@magento/pwa-buildpack');
-const MagentoResolver = buildpack.Webpack.MagentoResolver;
+const MagentoResolver = buildpack.WebpackTools.MagentoResolver;
 
 module.exports = async env => {
     const config {
@@ -49,8 +49,6 @@ module.exports = async env => {
     return config;
 }
 ```
-
-
 
 {: .bs-callout .bs-callout-tip}
 The special `__dirname` variable in Node always refers to the directory containing the currently executing script file.
