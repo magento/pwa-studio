@@ -154,7 +154,9 @@ const CategoryContent = props => {
                 </div>
                 <div className={classes.contentWrapper}>
                     <div className={classes.sidebar}>
-                        <Suspense fallback={<FilterSidebarShimmer />}>{sidebar}</Suspense>
+                        <Suspense fallback={<FilterSidebarShimmer />}>
+                            {sidebar}
+                        </Suspense>
                     </div>
                     <div className={classes.categoryContent}>
                         <div className={classes.heading}>

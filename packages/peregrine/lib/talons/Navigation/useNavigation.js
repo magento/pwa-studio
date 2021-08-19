@@ -77,13 +77,13 @@ export const useNavigation = (props = {}) => {
         }
     }, [category, closeDrawer, isTopLevel, view]);
 
-    const { handleClick: setLoader } = useInternalLink('category');
+    const { setShimmerType } = useInternalLink('category');
 
     const handleClose = useCallback(() => {
         closeDrawer();
         // Sets next root component to show proper loading effect
-        setLoader();
-    }, [closeDrawer, setLoader]);
+        setShimmerType();
+    }, [closeDrawer, setShimmerType]);
 
     // create callbacks for local state
     const showCreateAccount = useCallback(() => {
