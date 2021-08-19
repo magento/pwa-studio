@@ -22,8 +22,10 @@ import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
 import videoConfigAggregator from './ContentTypes/Video/configAggregator';
 import mapConfigAggregator from './ContentTypes/Map/configAggregator';
 import bannerConfigAggregator from './ContentTypes/Banner/configAggregator';
+import { BannerShimmer } from './ContentTypes/Banner';
 import ButtonItem from './ContentTypes/ButtonItem';
 import sliderConfigAggregator from './ContentTypes/Slider/configAggregator';
+import { SliderShimmer } from './ContentTypes/Slider';
 
 /* istanbul ignore next */
 const contentTypesConfig = {
@@ -93,16 +95,19 @@ const contentTypesConfig = {
     },
     banner: {
         configAggregator: bannerConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Banner'))
+        component: React.lazy(() => import('./ContentTypes/Banner')),
+        componentShimmer: BannerShimmer
     },
     slider: {
         configAggregator: sliderConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Slider'))
+        component: React.lazy(() => import('./ContentTypes/Slider')),
+        componentShimmer: SliderShimmer
     },
     // Slide is just a banner wrapped inside a slider
     slide: {
         configAggregator: bannerConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Banner'))
+        component: React.lazy(() => import('./ContentTypes/Banner')),
+        componentShimmer: BannerShimmer
     }
 };
 

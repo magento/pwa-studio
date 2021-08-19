@@ -2,6 +2,8 @@
 
 exports[`on hover displays button and overlay 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
@@ -75,6 +77,8 @@ exports[`on hover displays button and overlay 1`] = `
 
 exports[`on hover displays button and overlay 2`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
@@ -148,6 +152,8 @@ exports[`on hover displays button and overlay 2`] = `
 
 exports[`renders a configured collage-left Banner component 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
@@ -171,7 +177,7 @@ exports[`renders a configured collage-left Banner component 1`] = `
         Object {
           "backgroundAttachment": "scroll",
           "backgroundColor": "blue",
-          "backgroundImage": "url(desktop-image.jpg)",
+          "backgroundImage": "url(null)",
           "backgroundPosition": "center center",
           "backgroundRepeat": "no-repeat",
           "backgroundSize": "cover",
@@ -228,6 +234,8 @@ exports[`renders a configured collage-left Banner component 1`] = `
 
 exports[`renders a configured collage-left Banner component on mobile 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
@@ -252,7 +260,7 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
         Object {
           "backgroundAttachment": "scroll",
           "backgroundColor": "blue",
-          "backgroundImage": "url(mobile-image.jpg)",
+          "backgroundImage": "url(null)",
           "backgroundPosition": "center center",
           "backgroundRepeat": "no-repeat",
           "backgroundSize": "cover",
@@ -309,6 +317,8 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
 
 exports[`renders a configured poster Banner component 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
@@ -333,7 +343,7 @@ exports[`renders a configured poster Banner component 1`] = `
         Object {
           "backgroundAttachment": "scroll",
           "backgroundColor": "blue",
-          "backgroundImage": "url(desktop-image.jpg)",
+          "backgroundImage": "url(null)",
           "backgroundPosition": "center center",
           "backgroundRepeat": "repeat",
           "backgroundSize": "cover",
@@ -395,6 +405,8 @@ exports[`renders a configured poster Banner component 1`] = `
 
 exports[`renders an empty Banner component 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}

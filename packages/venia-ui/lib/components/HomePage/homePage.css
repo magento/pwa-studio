@@ -80,6 +80,7 @@
  * Target the slider.
  */
 :global(.venia-home-slider .slick-slider) {
+    min-height: 628px !important;
     max-width: 1440px;
     width: 100vw;
 }
@@ -120,6 +121,10 @@
 }
 
 @media (max-width: 1280px) {
+    :global(.venia-home-slider .slick-slider) {
+        min-height: 548px !important;
+    }
+
     :global(.venia-home-slider .slick-slide > div > div > div) {
         min-height: 580px !important;
     }

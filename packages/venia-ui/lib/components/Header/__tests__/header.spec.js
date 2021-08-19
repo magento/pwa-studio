@@ -13,6 +13,7 @@ jest.mock('../searchTrigger', () => 'SearchTrigger');
 jest.mock('../onlineIndicator', () => 'OnlineIndicator');
 jest.mock('../storeSwitcher', () => 'StoreSwitcher');
 jest.mock('../currencySwitcher', () => 'CurrencySwitcher');
+jest.mock('../../MegaMenu', () => 'MegaMenu');
 jest.mock('../../PageLoadingIndicator', () => () => (
     <div id={'pageLoadingIndicator'} />
 ));

@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render empty SliderShimmer component 1`] = `
+<div
+  aria-busy="true"
+  aria-live="polite"
+  className="root_rectangle"
+  style={
+    Object {
+      "border": undefined,
+      "borderWidth": undefined,
+      "marginBottom": 0,
+      "marginLeft": 0,
+      "marginRight": 0,
+      "marginTop": 0,
+      "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+    }
+  }
+>
+  <div
+    className="slick-slider"
+  >
+    <div
+      className="slick-list"
+    />
+  </div>
+</div>
+`;
+
+exports[`renders a SliderShimmer component with minHeight 1`] = `
+<div
+  aria-busy="true"
+  aria-live="polite"
+  className="root_rectangle"
+  style={
+    Object {
+      "border": undefined,
+      "borderWidth": undefined,
+      "marginBottom": 0,
+      "marginLeft": 0,
+      "marginRight": 0,
+      "marginTop": 0,
+      "minHeight": "400px",
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+    }
+  }
+>
+  <div
+    className="slick-slider"
+  >
+    <div
+      className="slick-list"
+    />
+  </div>
+</div>
+`;
