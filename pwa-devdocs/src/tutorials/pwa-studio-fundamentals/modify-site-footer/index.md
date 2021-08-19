@@ -242,6 +242,36 @@ Open your project's `src/index.js` file and update the import for the App compon
 + import App from './components/App';
 ```
 
+If your file `src/index.js` doesn't have the import for **App, {AppContextProvider}**, your probably have the import of Adapter component. In this case, you have to create your Adapter component inside you `src/components`.
+
+In order to do that, you have to create its directory and copy the component.
+
+```sh
+mkdir -p src/components/Adapter && \
+cp node_modules/@magento/venia-ui/lib/components/Adapter/adapter.js src/components/Adapter
+```
+
+Now you have to open the file `adapter.js` in your `src/components` and make those changes:
+
+```diff
+- import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
++ import { AppContextProvider } from '@magento/venia-ui/lib/components/App';
++ import App from '../App';
+```
+
+Also you have to create the `index.js` inside your Adapter directory to create its default Adapter component.
+
+```js
+export {default} from './container'
+```
+
+Finally, you have to go back to your file `src/index.js` and change the import of the Adapter component:
+
+```diff
+- import Adapter from '@magento/venia-ui/lib/components/Adapter';
++ import Adapter from './components/Adapter/adapter';
+```
+
 ## Congratulations
 
 You just customized the Footer component in your storefront project!
