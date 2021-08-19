@@ -14,7 +14,7 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
     const useAppContext = jest.fn(() => [
         { drawer: 'nav' },
         {
-            actions: {},
+            actions: { setNextRootComponent: jest.fn() },
             closeDrawer
         }
     ]);

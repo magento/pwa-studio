@@ -154,7 +154,9 @@ const CategoryContent = props => {
                 </div>
                 <div className={classes.contentWrapper}>
                     <div className={classes.sidebar}>
-                        <Suspense fallback={<FilterSidebarShimmer />}>{sidebar}</Suspense>
+                        <Suspense fallback={<FilterSidebarShimmer />}>
+                            {sidebar}
+                        </Suspense>
                     </div>
                     <div className={classes.categoryContent}>
                         <div className={classes.heading}>
@@ -180,14 +182,17 @@ export default CategoryContent;
 
 CategoryContent.propTypes = {
     classes: shape({
-        filterContainer: string,
-        sortContainer: string,
         gallery: string,
-        headerButtons: string,
-        filterButton: string,
         pagination: string,
         root: string,
-        title: string
+        categoryHeader: string,
+        title: string,
+        categoryTitle: string,
+        sidebar: string,
+        categoryContent: string,
+        heading: string,
+        categoryInfo: string,
+        headerButtons: string
     }),
     // sortProps contains the following structure:
     // [{sortDirection: string, sortAttribute: string, sortText: string},

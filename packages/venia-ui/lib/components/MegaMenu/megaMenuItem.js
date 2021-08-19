@@ -12,16 +12,21 @@ import PropTypes from 'prop-types';
  * @param {MegaMenuCategory} props.category
  * @param {int} props.activeCategoryId - id of active category
  * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
+ * @param {function} props.onNavigate - function called when clicking on Link
  */
 const MegaMenuItem = props => {
-    const { activeCategoryId, category, mainNavWidth } = props;
+    const { activeCategoryId, category, mainNavWidth, onNavigate } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const categoryUrl = resourceUrl(
         `/${category.url_path}${category.url_suffix || ''}`
     );
 
     const children = category.children.length ? (
-        <Submenu items={category.children} mainNavWidth={mainNavWidth} />
+        <Submenu
+            items={category.children}
+            mainNavWidth={mainNavWidth}
+            onNavigate={onNavigate}
+        />
     ) : null;
     const isActive = category.id === activeCategoryId;
 
@@ -32,6 +37,7 @@ const MegaMenuItem = props => {
                     isActive ? classes.megaMenuLinkActive : classes.megaMenuLink
                 }
                 to={categoryUrl}
+                onClick={onNavigate}
             >
                 {category.name}
             </Link>
@@ -55,5 +61,6 @@ MegaMenuItem.propTypes = {
         url_suffix: PropTypes.string
     }).isRequired,
     activeCategoryId: PropTypes.number,
-    mainNavWidth: PropTypes.number.isRequired
+    mainNavWidth: PropTypes.number.isRequired,
+    onNavigate: PropTypes.func.isRequired
 };

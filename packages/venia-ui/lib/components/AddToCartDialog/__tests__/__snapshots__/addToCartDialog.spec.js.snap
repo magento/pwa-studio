@@ -89,7 +89,7 @@ exports[`renders dialog without content 1`] = `
     <div
       className="titleContainer"
     >
-      <PageLoadingIndicator />
+      <Spinner />
     </div>
   }
 >
