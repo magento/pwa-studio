@@ -38,7 +38,7 @@ export const mapAddressData = rawAddressData => {
             postcode,
             phoneNumber,
             street1: street[0],
-            street2: street[1],
+            street2: street[1] || '',
             country: country.code,
             region: getRegion(region)
         };
@@ -258,7 +258,7 @@ export const useCreditCard = props => {
                 lastName,
                 country,
                 street1,
-                street2,
+                street2: street2 || '',
                 city,
                 region: getRegion(region),
                 postcode,

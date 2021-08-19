@@ -12,7 +12,7 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('../../../hooks/useInternalLink', () =>
     jest.fn(() => ({
-        handleClick: jest.fn().mockName('onNavigate')
+        setShimmerType: jest.fn().mockName('onNavigate')
     }))
 );
 

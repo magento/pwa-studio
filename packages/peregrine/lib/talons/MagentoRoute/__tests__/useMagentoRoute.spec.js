@@ -196,6 +196,37 @@ describe('returns REDIRECT after receiving a redirect code', () => {
         });
     });
 
+    test('redirect adds a slash when appropriate', async () => {
+        // Arrange: the relative_url does not have a '/'
+        const relative_url = 'no_preceding_slash.html';
+        useQuery.mockImplementation(() => {
+            return {
+                data: {
+                    urlResolver: {
+                        id: 1,
+                        redirectCode: 302,
+                        relative_url,
+                        type: 'CATEGORY'
+                    }
+                },
+                loading: false
+            };
+        });
+
+        // Act
+        await act(() => {
+            create(<Component />);
+        });
+
+        // Assert
+        expect(replace).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenCalledTimes(1);
+        expect(log).toHaveBeenNthCalledWith(1, {
+            isRedirect: true,
+            relativeUrl: '/no_preceding_slash.html'
+        });
+    });
+
     test('redirect code 302', async () => {
         useQuery.mockImplementation(() => {
             return {

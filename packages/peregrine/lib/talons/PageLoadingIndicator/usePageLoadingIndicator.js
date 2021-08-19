@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppContext } from '../../context/app';
 
+const GROUP_LOADING_DELAY = 750;
+
 export default () => {
     const [{ isPageLoading }] = useAppContext();
     const doneTimeoutRef = useRef();
@@ -27,7 +29,7 @@ export default () => {
 
                     return 'off';
                 });
-            }, 750);
+            }, GROUP_LOADING_DELAY);
         } else {
             setLoadingState('off');
         }

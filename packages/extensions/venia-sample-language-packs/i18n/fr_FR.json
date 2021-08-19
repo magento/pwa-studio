@@ -24,6 +24,8 @@
     "addressBookPage.addAddressText": "Ajouter une adresse",
     "addressBookPage.addressBookText": "Carnet d'adresses",
     "addressCard.defaultText": "Défaut",
+    "addToCartButton.addItemToCart": "ADD TO CART", 
+    "addToCartButton.itemOutOfStock": "OUT OF STOCK",
     "app.errorOffline": "Vous êtes hors ligne. Certaines fonctionnalités peuvent ne pas être disponibles.",
     "app.errorUnexpected": "Pardon! Une erreur inattendue est apparue.",
     "app.infoOnline": "Vous êtes en ligne.",

@@ -57,24 +57,6 @@ describe('getItem', () => {
         // Make assertions.
         expect(result).toBeUndefined();
     });
-
-    test('it removes the item and returns undefined if the item has expired', () => {
-        // Test setup: an expired item.
-        mockGetItem.mockImplementationOnce(() =>
-            shape({
-                value: MOCK_VALUE,
-                timeStored: 0,
-                ttl: 1
-            })
-        );
-
-        // Call the function.
-        const result = instance.getItem(NAME);
-
-        // Make assertions.
-        expect(mockRemoveItem).toHaveBeenCalledWith(KEY);
-        expect(result).toBeUndefined();
-    });
 });
 
 describe('setItem', () => {

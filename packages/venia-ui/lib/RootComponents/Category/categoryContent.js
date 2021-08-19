@@ -152,24 +152,26 @@ const CategoryContent = props => {
                     </h1>
                     {categoryDescriptionElement}
                 </div>
-                <div className={classes.sidebar}>
-                    <Suspense fallback={<FilterSidebarShimmer />}>
-                        {sidebar}
-                    </Suspense>
-                </div>
-                <div className={classes.categoryContent}>
-                    <div className={classes.heading}>
-                        <div className={classes.categoryInfo}>
-                            {categoryResultsHeading}
-                        </div>
-                        <div className={classes.headerButtons}>
-                            {maybeFilterButtons}
-                            {maybeSortButton}
-                        </div>
-                        {maybeSortContainer}
+                <div className={classes.contentWrapper}>
+                    <div className={classes.sidebar}>
+                        <Suspense fallback={<FilterSidebarShimmer />}>
+                            {sidebar}
+                        </Suspense>
                     </div>
-                    {content}
-                    <Suspense fallback={null}>{filtersModal}</Suspense>
+                    <div className={classes.categoryContent}>
+                        <div className={classes.heading}>
+                            <div className={classes.categoryInfo}>
+                                {categoryResultsHeading}
+                            </div>
+                            <div className={classes.headerButtons}>
+                                {maybeFilterButtons}
+                                {maybeSortButton}
+                            </div>
+                            {maybeSortContainer}
+                        </div>
+                        {content}
+                        <Suspense fallback={null}>{filtersModal}</Suspense>
+                    </div>
                 </div>
             </article>
         </Fragment>

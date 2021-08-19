@@ -13,6 +13,7 @@
     "viewportHeight": 900,
     "viewportWidth": 1440,
     "scrollBehavior": "nearest",
+    "trashAssetsBeforeRuns": false,
     "ignoreTestFiles": [
         "**/__snapshots__/*",
         "**/__image_snapshots__/*"

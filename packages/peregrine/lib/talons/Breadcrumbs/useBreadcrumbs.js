@@ -68,7 +68,7 @@ export const useBreadcrumbs = props => {
         }
     }, [categoryUrlSuffix, data, loading]);
 
-    const { handleClick } = useInternalLink('category');
+    const { setShimmerType } = useInternalLink('category');
 
     return {
         currentCategory: (data && data.category.name) || '',
@@ -77,6 +77,6 @@ export const useBreadcrumbs = props => {
         isLoading: loading,
         hasError: !!error,
         normalizedData: normalizedData || [],
-        handleClick
+        handleClick: setShimmerType
     };
 };

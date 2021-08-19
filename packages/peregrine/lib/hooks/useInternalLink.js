@@ -12,11 +12,11 @@ export default rootType => {
     ] = useAppContext();
     const type = `${rootType.toUpperCase()}${SHIMMER_TYPE_SUFFIX}`;
 
-    const handleClick = useCallback(() => {
+    const setShimmerType = useCallback(() => {
         setNextRootComponent(type);
     }, [setNextRootComponent, type]);
 
     return {
-        handleClick
+        setShimmerType
     };
 };
