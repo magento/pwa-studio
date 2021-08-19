@@ -28,7 +28,7 @@ const log = jest.fn();
 
 jest.mock('../../../hooks/useInternalLink', () =>
     jest.fn(() => ({
-        handleClick: jest.fn()
+        setShimmerType: jest.fn()
     }))
 );
 

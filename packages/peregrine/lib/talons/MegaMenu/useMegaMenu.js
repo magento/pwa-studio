@@ -125,12 +125,12 @@ export const useMegaMenu = (props = {}) => {
      *
      * @returns {void}
      */
-    const { handleClick: onNavigate } = useInternalLink('category');
+    const { setShimmerType } = useInternalLink('category');
 
     return {
         megaMenuData,
         activeCategoryId,
-        onNavigate
+        handleNavigate: setShimmerType
     };
 };
 

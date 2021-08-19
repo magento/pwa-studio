@@ -42,7 +42,7 @@ jest.mock('@apollo/client', () => {
 
 jest.mock('../../../hooks/useInternalLink', () =>
     jest.fn(() => ({
-        handleClick: jest.fn()
+        setShimmerType: jest.fn()
     }))
 );
 

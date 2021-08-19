@@ -46,11 +46,11 @@ export const useCategoryTile = props => {
         [item]
     );
 
-    const { handleClick } = useInternalLink('category');
+    const { setShimmerType } = useInternalLink('category');
 
     return {
         image: imageObj,
         item: itemObject,
-        handleClick
+        handleClick: setShimmerType
     };
 };

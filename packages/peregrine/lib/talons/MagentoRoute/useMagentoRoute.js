@@ -15,12 +15,10 @@ export const useMagentoRoute = (props = {}) => {
     const { pathname } = useLocation();
     const [componentMap, setComponentMap] = useRootComponents();
     const [previousPathname, setPreviousPathname] = useState(null);
-    const [
-        { nextRootComponent },
-        {
-            actions: { setNextRootComponent, setPageLoading }
-        }
-    ] = useAppContext();
+    const [appState, appApi] = useAppContext();
+    const { actions: appActions } = appApi;
+    const { nextRootComponent } = appState;
+    const { setNextRootComponent, setPageLoading } = appActions;
 
     const setComponent = useCallback(
         (key, value) => {

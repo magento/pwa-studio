@@ -27,7 +27,7 @@ const useLink = (props, passedOperations = {}) => {
             pageTypeCalled ||
             !runQuery ||
             !elementRef.current ||
-            typeof intersectionObserver === 'undefined'
+            !intersectionObserver
         ) {
             return;
         }
