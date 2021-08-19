@@ -5,13 +5,14 @@ while maintaining or reducing the CLS (Content Layout Shift) on page load
 
 ## General Use
 ### Props
-* **classes** - `Object` Styles to apply to the `root` or the `content` of the Shimmer
+* **classes** - `Object` Styles to apply to the `root` of the Shimmer. Available classes are `root` and `root_[TYPE]`.
 * **borderRadius** - `string|number` Border radius of component
 * **height** - `string|number` Height to apply to component. **Number is used as `rem`**. String value is used directly.
 * **width** - `string|number` Width to apply to component. **Number is used as `rem`**. String value is used directly.
 * **style** - `Object` CSS styles to apply to component
 * **type** - `'rectangle'|'button'|'checkbox'|'radio'|'textArea'|'textInput'` Base style-category to apply to component
 * **children** - `node` Children to output within the Shimmer. Useful for Image placeholders
+Other props are passed to the root element
 
 ### Accessibility
 To maintain accessibility for screen readers, we can pass `aria-live="polite" aria-busy="true"` to the Shimmer component (or an
