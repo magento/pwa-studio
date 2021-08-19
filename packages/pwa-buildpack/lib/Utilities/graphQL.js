@@ -8,13 +8,16 @@ const https = require('https');
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const fetchQuery = query => {
-    const targetURL = new URL('graphql', process.env.MAGENTO_BACKEND_URL);
+    const targetURL = new URL('graphql', 'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/');
     const headers = {
         'Content-Type': 'application/json',
         'Accept-Encoding': 'gzip',
-        Accept: 'application/json'
+        'Accept': 'application/json',
+        'User-Agent': 'pwa-buildpack',
+        'Host': targetURL.host
     };
-
+    console.log(`targetURL: ${targetURL}`)
+    console.log(`headers: ${JSON.stringify(headers)}`)
     if (process.env.STORE_VIEW_CODE) {
         headers['store'] = process.env.STORE_VIEW_CODE;
     }
@@ -22,18 +25,21 @@ const fetchQuery = query => {
     debug(`Fetching ${query}`);
 
     return fetch(targetURL.toString(), {
-        agent: targetURL.protocol === 'https:' ? httpsAgent : null,
-        body: JSON.stringify({ query }),
-        headers: headers,
-        method: 'POST'
-    })
+            agent: targetURL.protocol === 'https:' ? httpsAgent : null,
+            body: JSON.stringify({ query }),
+            headers: headers,
+            method: 'POST'
+        })
         .then(result => {
             console.log(`Fetched ${query}`);
             console.log(`Status code: ${result.status}`);
+            console.log(`keys: ${Object.keys(result)}`)
+            console.log(`Statustext: ${result.statusText}`)
             result
                 .clone()
                 .json()
                 .then(json => {
+                    console.log(`JSON: ${JSON.stringify(json)}`);
                     debug(`Response json: ${JSON.stringify(json)}`);
                 })
                 .catch(err => {
@@ -67,14 +73,14 @@ const fetchQuery = query => {
             throw err;
         })
         .then(json =>
-            json && json.errors && json.errors.length > 0
-                ? Promise.reject(
-                      new Error(
-                          json.errors[0].message +
-                              ` (... ${json.errors.length} errors total)`
-                      )
-                  )
-                : json.data
+            json && json.errors && json.errors.length > 0 ?
+            Promise.reject(
+                new Error(
+                    json.errors[0].message +
+                    ` (... ${json.errors.length} errors total)`
+                )
+            ) :
+            json.data
         );
 };
 
@@ -142,7 +148,7 @@ const getUnionAndInterfaceTypes = () => {
  * https://www.apollographql.com/docs/react/data/fragments/#generating-possibletypes-automatically
  * @returns {Object}  This object maps the name of an interface or union type (the supertype) to the types that implement or belong to it (the subtypes).
  */
-const getPossibleTypes = async () => {
+const getPossibleTypes = async() => {
     const data = await getSchemaTypes();
 
     const possibleTypes = {};
