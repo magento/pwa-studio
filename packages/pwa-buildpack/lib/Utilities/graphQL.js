@@ -15,7 +15,7 @@ const fetchQuery = query => {
             'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/'
     );
 
-    const targetURL = new URL('graphql', 'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/');
+    const targetURL = new URL('graphql', process.env.MAGENTO_BACKEND_URL);
     const headers = {
         'Content-Type': 'application/json',
         'Accept-Encoding': 'gzip',
