@@ -1,3 +1,5 @@
+const debug = require('../util/debug').makeFileLogger(__filename);
+
 const fetch = require('node-fetch');
 const graphQLQueries = require('../queries');
 const https = require('https');
@@ -19,15 +21,25 @@ const fetchQuery = query => {
         headers['store'] = process.env.STORE_VIEW_CODE;
     }
 
+    debug('Fetching query: %s', query);
+
     return fetch(targetURL.toString(), {
         agent: targetURL.protocol === 'https:' ? httpsAgent : null,
         body: JSON.stringify({ query }),
         headers: headers,
         method: 'POST'
     })
-        .then(result => result.json())
+        .then(result => {
+            debug('Result received')
+            debug('Status: %s', result.status);
+
+            return result.json()
+        })
         .catch(err => {
+            debug('Error received: %s', err);
+
             console.error(err);
+
             throw err;
         })
         .then(json =>
