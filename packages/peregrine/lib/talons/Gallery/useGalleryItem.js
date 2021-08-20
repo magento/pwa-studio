@@ -1,5 +1,11 @@
+import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/util/isSupportedProductType';
+
 export const useGalleryItem = (props = {}) => {
     const { item, storeConfig } = props;
+
+    const productType = item.__typename;
+
+    const isSupportedProductType = isSupported(productType);
 
     const wishlistButtonProps =
         storeConfig && storeConfig.magento_wishlist_general_is_enabled === '1'
@@ -12,5 +18,5 @@ export const useGalleryItem = (props = {}) => {
               }
             : null;
 
-    return { ...props, wishlistButtonProps };
+    return { ...props, wishlistButtonProps, isSupportedProductType };
 };
