@@ -1,5 +1,3 @@
-const debug = require('../util/debug').makeFileLogger(__filename);
-
 const fetch = require('node-fetch');
 const graphQLQueries = require('../queries');
 const https = require('https');
@@ -20,51 +18,15 @@ const fetchQuery = query => {
         headers['store'] = process.env.STORE_VIEW_CODE;
     }
 
-    debug(`Fetching ${query}`);
-
     return fetch(targetURL.toString(), {
         agent: targetURL.protocol === 'https:' ? httpsAgent : null,
         body: JSON.stringify({ query }),
         headers: headers,
         method: 'POST'
     })
-        .then(result => {
-            console.log(`Fetched ${query}`);
-            console.log(`Status code: ${result.status}`);
-            result
-                .clone()
-                .json()
-                .then(json => {
-                    debug(`Response json: ${JSON.stringify(json)}`);
-                })
-                .catch(err => {
-                    console.log('Failed to parsejson response');
-                    debug(`Failed to parse json response: ${e}`);
-                    result
-                        .clone()
-                        .text()
-                        .then(text => {
-                            console.log(text);
-                            debug(`Response: ${text}`);
-                        })
-                        .catch(err => {
-                            console.log('Failed to parse text response');
-                            debug(`Failed to parse text response: ${err}`);
-                            console.log(result);
-
-                            throw err;
-                        });
-
-                    throw err;
-                });
-
-            return result.json();
-        })
+        .then(result => result.json())
         .catch(err => {
             console.error(err);
-            debug(`Failed to fetch ${query}`);
-            debug(`Error: ${err}`);
-
             throw err;
         })
         .then(json =>
