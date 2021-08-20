@@ -4,7 +4,16 @@ exports[`renders error toast 1`] = `
 Object {
   "icon": <Icon
     size={20}
-    src={[Function]}
+    src={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "color": [Function],
+          "size": [Function],
+        },
+        "render": [Function],
+      }
+    }
   />,
   "message": "Oh noes! Something went wrong.",
 }
@@ -14,7 +23,16 @@ exports[`renders login toast 1`] = `
 Object {
   "icon": <Icon
     size={20}
-    src={[Function]}
+    src={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "color": [Function],
+          "size": [Function],
+        },
+        "render": [Function],
+      }
+    }
   />,
   "message": "You must login to proceed!",
 }
@@ -24,7 +42,16 @@ exports[`renders success toast 1`] = `
 Object {
   "icon": <Icon
     size={20}
-    src={[Function]}
+    src={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "color": [Function],
+          "size": [Function],
+        },
+        "render": [Function],
+      }
+    }
   />,
   "message": "Added to favorites list!",
 }
