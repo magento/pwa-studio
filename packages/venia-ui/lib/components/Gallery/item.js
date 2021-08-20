@@ -57,7 +57,7 @@ const GalleryItem = props => {
         return <ItemPlaceholder classes={classes} />;
     }
 
-    const { name, price, small_image, url_key, url_suffix } = item;
+    const { name, price_range, small_image, url_key, url_suffix } = item;
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${url_suffix || ''}`);
 
@@ -108,8 +108,8 @@ const GalleryItem = props => {
             </Link>
             <div className={classes.price}>
                 <Price
-                    value={price.regularPrice.amount.value}
-                    currencyCode={price.regularPrice.amount.currency}
+                    value={price_range.maximum_price.regular_price.value}
+                    currencyCode={price_range.maximum_price.regular_price.currency}
                 />
             </div>
 
