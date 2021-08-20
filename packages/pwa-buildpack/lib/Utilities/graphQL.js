@@ -8,7 +8,14 @@ const https = require('https');
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const fetchQuery = query => {
-    const targetURL = new URL('graphql', process.env.MAGENTO_BACKEND_URL);
+    console.log('backend url: ', process.env.MAGENTO_BACKEND_URL);
+
+    console.log(
+        process.env.MAGENTO_BACKEND_URL ===
+            'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/'
+    );
+
+    const targetURL = new URL('graphql', 'https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/');
     const headers = {
         'Content-Type': 'application/json',
         'Accept-Encoding': 'gzip',
@@ -30,10 +37,10 @@ const fetchQuery = query => {
         method: 'POST'
     })
         .then(result => {
-            debug('Result received')
+            debug('Result received');
             debug('Status: %s', result.status);
 
-            return result.json()
+            return result.json();
         })
         .catch(err => {
             debug('Error received: %s', err);
