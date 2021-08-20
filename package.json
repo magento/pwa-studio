@@ -85,7 +85,7 @@
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",
-    "sharp": "~0.25.4"
+    "sharp": "~0.29.0"
   },
   "resolutions": {
     "https-proxy-agent": "~2.2.3"
