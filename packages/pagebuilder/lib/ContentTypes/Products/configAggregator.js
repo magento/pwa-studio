@@ -1,7 +1,7 @@
 import { getAdvanced } from '../../utils';
 
 export default (node, props) => {
-    const forms = node.querySelectorAll('[data-product-sku]');
+    const forms = node.querySelectorAll('.product-item-info[data-product-sku]');
     let carouselConfig = {};
 
     if (props.appearance === 'carousel') {
