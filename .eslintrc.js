@@ -1,7 +1,7 @@
 const graphQLConfig = require('./graphql.config');
 
 const config = {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
     plugins: ['react'],
     extends: ['@magento'],
     rules: {
