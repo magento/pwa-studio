@@ -13,7 +13,7 @@ const fetchQuery = query => {
         'Content-Type': 'application/json',
         'Accept-Encoding': 'gzip',
         'Accept': 'application/json',
-        'User-Agent': 'pwa-buildpack',
+        // 'User-Agent': 'pwa-buildpack',
         'Host': targetURL.host
     };
     console.log(`targetURL: ${targetURL}`)
