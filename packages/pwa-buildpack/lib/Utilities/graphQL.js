@@ -12,7 +12,8 @@ const fetchQuery = query => {
     const headers = {
         'Content-Type': 'application/json',
         'Accept-Encoding': 'gzip',
-        Accept: 'application/json'
+        Accept: 'application/json',
+        Host: targetURL.host
     };
 
     if (process.env.STORE_VIEW_CODE) {
