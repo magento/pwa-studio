@@ -12238,10 +12238,10 @@ inflight@^1.0.4:
     once "^1.3.0"
     wrappy "1"
 
-informed@~3.34.0:
-  version "3.34.0"
-  resolved "https://registry.yarnpkg.com/informed/-/informed-3.34.0.tgz#3bb03ae538d02d038fa5727a9e2bef38c64669f1"
-  integrity sha512-y28Q8fhVzCA3dGG9iS/8DCu+pMV0xJsDkbnD5W4D+fOxnPFDK79Pw3VOXzdvZZ0YGtH+2bT832vdXJB1Xd25KQ==
+informed@~3.29.0:
+  version "3.29.4"
+  resolved "https://registry.yarnpkg.com/informed/-/informed-3.29.4.tgz#70b6a9c81927c082f644e8a3309613c143bf15dc"
+  integrity sha512-gv2B/fYLXzrOK7wb2xPnYLgi5uFuZFYwHLdCKS5FstL3/j1ERCSbZuUkFu7a9JAGW3plZyNOXdUhRZY9P1qgJg==
 
 inherits@2, inherits@2.0.4, inherits@^2.0.0, inherits@^2.0.1, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.1, inherits@~2.0.3:
   version "2.0.4"

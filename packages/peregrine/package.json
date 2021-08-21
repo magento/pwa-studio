@@ -38,7 +38,7 @@
   "peerDependencies": {
     "@apollo/client": "~3.1.2",
     "@babel/runtime": "~7.4.2",
-    "informed": "~3.34.0",
+    "informed": "~3.29.0",
     "react": "~17.0.1",
     "react-dom": "~17.0.1",
     "react-intl": "~5.20.0",
