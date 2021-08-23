@@ -3,6 +3,7 @@ import DEFAULT_OPERATIONS from './megaMenu.gql';
 import { useQuery } from '@apollo/client';
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import useInternalLink from '../../hooks/useInternalLink';
 
 /**
  * The useMegaMenu talon complements the MegaMenu component.
@@ -119,9 +120,17 @@ export const useMegaMenu = (props = {}) => {
         }
     }, [findActiveCategory, location.pathname, megaMenuData]);
 
+    /**
+     * Sets next root component to show proper loading effect
+     *
+     * @returns {void}
+     */
+    const { setShimmerType } = useInternalLink('category');
+
     return {
         megaMenuData,
-        activeCategoryId
+        activeCategoryId,
+        handleNavigate: setShimmerType
     };
 };
 
@@ -133,7 +142,8 @@ export const useMegaMenu = (props = {}) => {
  * @property {MegaMenuCategory} megaMenuData - The Object with categories contains only categories
  *                                             with the include_in_menu = 1 flag. The categories are sorted
  *                                             based on the field position.
- * @property {int} loading whether the regions are loading
+ * @property {int} activeCategoryId - loading whether the regions are loading
+ * @property {function} onNavigate - callback to fire on link click
  *
  */
 

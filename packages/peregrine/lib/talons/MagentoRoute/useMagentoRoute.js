@@ -1,11 +1,32 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useAppContext } from '../../context/app';
 
 import { getRootComponent, isRedirect } from './helpers';
 import DEFAULT_OPERATIONS from './magentoRoute.gql';
+
+const getInlinedPageData = () => {
+    return globalThis.INLINED_PAGE_TYPE && globalThis.INLINED_PAGE_TYPE.type
+        ? globalThis.INLINED_PAGE_TYPE
+        : null;
+};
+
+const resetInlinedPageData = () => {
+    globalThis.INLINED_PAGE_TYPE = false;
+};
+
+const getComponentData = routeData => {
+    const excludedKeys = ['redirect_code', 'relative_url'];
+
+    return Object.fromEntries(
+        Object.entries(routeData).filter(([key]) => {
+            return !excludedKeys.includes(key);
+        })
+    );
+};
 
 export const useMagentoRoute = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
@@ -13,6 +34,14 @@ export const useMagentoRoute = (props = {}) => {
     const { replace } = useHistory();
     const { pathname } = useLocation();
     const [componentMap, setComponentMap] = useRootComponents();
+    const [previousPathname, setPreviousPathname] = useState(null);
+    const initialized = useRef(false);
+    const fetchedPathname = useRef(null);
+    const fetching = useRef(false);
+    const [appState, appApi] = useAppContext();
+    const { actions: appActions } = appApi;
+    const { nextRootComponent } = appState;
+    const { setNextRootComponent, setPageLoading } = appActions;
 
     const setComponent = useCallback(
         (key, value) => {
@@ -21,23 +50,58 @@ export const useMagentoRoute = (props = {}) => {
         [setComponentMap]
     );
 
-    const queryResult = useQuery(resolveUrlQuery, {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        variables: { url: pathname }
+    const component = componentMap.get(pathname);
+    const previousComponent = previousPathname
+        ? componentMap.get(previousPathname)
+        : null;
+
+    const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery, {
+        onCompleted: async ({ route }) => {
+            fetching.current = false;
+            if (!component) {
+                const { type, ...routeData } = route || {};
+                try {
+                    const rootComponent = await getRootComponent(type);
+                    setComponent(pathname, {
+                        component: rootComponent,
+                        ...getComponentData(routeData),
+                        type
+                    });
+                } catch (error) {
+                    setComponent(pathname, error);
+                }
+            }
+        },
+        onError: () => {
+            fetching.current = false;
+        }
     });
 
+    useEffect(() => {
+        if (initialized.current || !getInlinedPageData()) {
+            fetching.current = true;
+            runQuery({
+                fetchPolicy: 'cache-and-network',
+                nextFetchPolicy: 'cache-first',
+                variables: { url: pathname }
+            });
+            fetchedPathname.current = pathname;
+        }
+    }, [initialized, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+
     // destructure the query result
-    const { data, error, loading } = queryResult;
-    const { urlResolver } = data || {};
-    const { id, redirectCode, relative_url, type } = urlResolver || {};
+    const { data, error } = queryResult;
+    const { route } = data || {};
+    const { id, redirect_code, relative_url, type } = route || {};
 
     // evaluate both results and determine the response type
-    const component = componentMap.get(pathname);
-    const empty = !urlResolver || !type || id < 1;
-    const redirect = isRedirect(redirectCode);
+    const empty = !route || !type || id < 1;
+    const redirect = isRedirect(redirect_code);
     const fetchError = component instanceof Error && component;
     const routeError = fetchError || error;
+    const previousFetchError = previousComponent instanceof Error;
+    const isInitialized = initialized.current || !getInlinedPageData();
+    let showPageLoader = false;
     let routeData;
 
     if (component && !fetchError) {
@@ -54,31 +118,52 @@ export const useMagentoRoute = (props = {}) => {
                 ? relative_url
                 : '/' + relative_url
         };
-    } else if (empty && !loading) {
+    } else if (
+        empty &&
+        fetchedPathname.current === pathname &&
+        !fetching.current
+    ) {
         // NOT FOUND
         routeData = { isNotFound: true };
+    } else if (nextRootComponent) {
+        // LOADING with full page shimmer
+        showPageLoader = true;
+        routeData = { isLoading: true, shimmer: nextRootComponent };
+    } else if (previousComponent && !previousFetchError) {
+        // LOADING with previous component
+        showPageLoader = true;
+        routeData = { isLoading: true, ...previousComponent };
     } else {
         // LOADING
-        routeData = { isLoading: true };
+        const isInitialLoad = !isInitialized;
+        routeData = { isLoading: true, initial: isInitialLoad };
     }
 
-    // fetch a component if necessary
     useEffect(() => {
         (async () => {
-            // don't fetch if we don't have data yet
-            if (loading || empty) return;
-
-            // don't fetch more than once
-            if (component) return;
-
-            try {
-                const component = await getRootComponent(type);
-                setComponent(pathname, { component, id, type });
-            } catch (error) {
-                setComponent(pathname, error);
+            const inlinedData = getInlinedPageData();
+            if (inlinedData) {
+                try {
+                    const componentType = inlinedData.type;
+                    const rootComponent = await getRootComponent(componentType);
+                    setComponent(pathname, {
+                        component: rootComponent,
+                        type: componentType,
+                        ...getComponentData(inlinedData)
+                    });
+                } catch (error) {
+                    setComponent(pathname, error);
+                }
             }
+            initialized.current = true;
         })();
-    }, [component, empty, id, loading, pathname, setComponent, type]);
+
+        return () => {
+            // Unmount
+            resetInlinedPageData();
+            setPreviousPathname(null);
+        };
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     // perform a redirect if necesssary
     useEffect(() => {
@@ -86,6 +171,19 @@ export const useMagentoRoute = (props = {}) => {
             replace(routeData.relativeUrl);
         }
     }, [pathname, replace, routeData]);
+
+    useEffect(() => {
+        if (component) {
+            // store previous component's path
+            setPreviousPathname(pathname);
+            // Reset loading shimmer whenever component resolves
+            setNextRootComponent(null);
+        }
+    }, [component, pathname, setNextRootComponent, setPreviousPathname]);
+
+    useEffect(() => {
+        setPageLoading(showPageLoader);
+    }, [showPageLoader, setPageLoading]);
 
     return routeData;
 };

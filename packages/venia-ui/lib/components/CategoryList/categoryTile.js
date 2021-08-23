@@ -15,7 +15,7 @@ const CategoryTile = props => {
         item: props.item
     });
 
-    const { image, item } = talonProps;
+    const { image, item, handleClick } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -41,7 +41,7 @@ const CategoryTile = props => {
     ]);
 
     return (
-        <Link className={classes.root} to={item.url}>
+        <Link className={classes.root} to={item.url} onClick={handleClick}>
             {imagePreview}
             <span className={classes.name}>{item.name}</span>
         </Link>

@@ -6,6 +6,7 @@ import { useAppContext } from '../../context/app';
 import { useCatalogContext } from '../../context/catalog';
 import { useUserContext } from '../../context/user';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
+import useInternalLink from '../../hooks/useInternalLink';
 
 import DEFAULT_OPERATIONS from './navigation.gql';
 
@@ -76,9 +77,13 @@ export const useNavigation = (props = {}) => {
         }
     }, [category, closeDrawer, isTopLevel, view]);
 
+    const { setShimmerType } = useInternalLink('category');
+
     const handleClose = useCallback(() => {
         closeDrawer();
-    }, [closeDrawer]);
+        // Sets next root component to show proper loading effect
+        setShimmerType();
+    }, [closeDrawer, setShimmerType]);
 
     // create callbacks for local state
     const showCreateAccount = useCallback(() => {

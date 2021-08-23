@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Product Shimmer renders product options when product is configurable 1`] = `
+Array [
+  <BreadcrumbShimmer />,
+  <div>
+    <section>
+      <Shimmer
+        height={2}
+        width="100%"
+      />
+      <div>
+        <Shimmer
+          height={2}
+          width={3}
+        />
+      </div>
+    </section>
+    <section>
+      <Carousel />
+    </section>
+    <section>
+      ProductOptionsShimmer
+    </section>
+    <section>
+      <div>
+        <Shimmer
+          height={1}
+          width="100%"
+        />
+      </div>
+      <Shimmer
+        classes={
+          Object {
+            "root": undefined,
+          }
+        }
+        type="textInput"
+        width={10}
+      />
+    </section>
+    <section>
+      <Shimmer
+        type="button"
+      />
+    </section>
+    <section>
+      <div>
+        <Shimmer
+          height={1}
+          width="100%"
+        />
+      </div>
+      <Shimmer
+        height={1}
+        width="100%"
+      />
+      <Shimmer
+        height={1}
+        width="100%"
+      />
+      <Shimmer
+        height={1}
+        width="100%"
+      />
+    </section>
+    <section>
+      <div>
+        <Shimmer
+          height={1}
+          width="100%"
+        />
+      </div>
+      <Shimmer
+        height={1}
+        width="100%"
+      />
+    </section>
+  </div>,
+]
+`;
+
+exports[`#Product Shimmer renders shimmer without options for simple product 1`] = `
+Array [
+  <BreadcrumbShimmer />,
+  <div>
+    <section>
+      <Shimmer
+        height={2}
+        width="100%"
+      />
+      <div>
+        <Shimmer
+          height={2}
+          width={3}
+        />
+      </div>
+    </section>
+    <section>
+      <Carousel />
+    </section>
+    <section />
+    <section>
+      <div>
+        <Shimmer
+          height={1}
+          width="100%"
+        />
+      </div>
+      <Shimmer
+        classes={
+          Object {
+            "root": undefined,
+          }
+        }
+        type="textInput"
+        width={10}
+      />
+    </section>
+    <section>
+      <Shimmer
+        type="button"
+      />
+    </section>
+    <section>
+      <div>
+        <Shimmer
+          height={1}
+          width="100%"
+        />
+      </div>
+      <Shimmer
+        height={1}
+        width="100%"
+      />
+      <Shimmer
+        height={1}
+        width="100%"
+      />
+      <Shimmer
+        height={1}
+        width="100%"
+      />
+    </section>
+    <section>
+      <div>
+        <Shimmer
+          height={1}
+          width="100%"
+        />
+      </div>
+      <Shimmer
+        height={1}
+        width="100%"
+      />
+    </section>
+  </div>,
+]
+`;

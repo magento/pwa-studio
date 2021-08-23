@@ -8,7 +8,7 @@ import MegaMenuItem from './megaMenuItem';
  * The MegaMenu component displays menu with categories on desktop devices
  */
 const MegaMenu = props => {
-    const { megaMenuData, activeCategoryId } = useMegaMenu();
+    const { megaMenuData, activeCategoryId, handleNavigate } = useMegaMenu();
     const classes = useStyle(defaultClasses, props.classes);
 
     const mainNavRef = useRef(null);
@@ -39,6 +39,7 @@ const MegaMenu = props => {
                       category={category}
                       activeCategoryId={activeCategoryId}
                       mainNavWidth={mainNavWidth}
+                      onNavigate={handleNavigate}
                       key={category.id}
                   />
               );

@@ -1,14 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders product page correctly 1`] = `
-<React.Fragment>
-  <StoreTitle>
-    Fitted Dress with Belt
-  </StoreTitle>
-  <Meta
-    content="Team these printed palazzo pants with a solid tank top and summer-ready sandals"
-    name="description"
-  />
+Array [
+  "StoreTitle",
+  "Meta",
   <ProductFullDetail
     product={
       Object {
@@ -93,19 +88,14 @@ exports[`renders product page correctly 1`] = `
         "price": "$160.00",
       }
     }
-  />
-</React.Fragment>
+  />,
+]
 `;
 
 exports[`renders product page correctly when error and product data exist 1`] = `
-<React.Fragment>
-  <StoreTitle>
-    Fitted Dress with Belt
-  </StoreTitle>
-  <Meta
-    content="Team these printed palazzo pants with a solid tank top and summer-ready sandals"
-    name="description"
-  />
+Array [
+  "StoreTitle",
+  "Meta",
   <ProductFullDetail
     product={
       Object {
@@ -190,8 +180,8 @@ exports[`renders product page correctly when error and product data exist 1`] = 
         "price": "$160.00",
       }
     }
-  />
-</React.Fragment>
+  />,
+]
 `;
 
 exports[`renders product page failed when error data 1`] = `<ErrorView />`;
