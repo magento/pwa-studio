@@ -70,32 +70,30 @@ const AddressBook = props => {
     const rootClass =
         activeContent === 'addressBook' ? classes.root_active : classes.root;
 
-    const addAddressButton = useMemo(() =>(
-        <LinkButton
-            className={classes.addButton}
-            key="addAddressButton"
-            onClick={handleAddAddress}
-        >
-            <Icon
-                size={24}
-                src={PlusSquare}
-                classes={{
-                    icon: classes.addIcon
-                }}
-            />
-            <span className={classes.addText}>
-                <FormattedMessage
-                    id={'addressBook.addNewAddresstext'}
-                    defaultMessage={'Add New Address'}
+    const addAddressButton = useMemo(
+        () => (
+            <LinkButton
+                className={classes.addButton}
+                key="addAddressButton"
+                onClick={handleAddAddress}
+            >
+                <Icon
+                    size={24}
+                    src={PlusSquare}
+                    classes={{
+                        icon: classes.addIcon
+                    }}
                 />
-            </span>
-        </LinkButton>
-    ),[
-        classes.addButton, 
-        classes.addIcon, 
-        classes.addText, 
-        handleAddAddress
-    ]);
+                <span className={classes.addText}>
+                    <FormattedMessage
+                        id={'addressBook.addNewAddresstext'}
+                        defaultMessage={'Add New Address'}
+                    />
+                </span>
+            </LinkButton>
+        ),
+        [classes.addButton, classes.addIcon, classes.addText, handleAddAddress]
+    );
 
     const addressElements = useMemo(() => {
         let defaultIndex;

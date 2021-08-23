@@ -13,8 +13,8 @@ const StoreCodeRoute = () => {
     const history = useHistory();
 
     const storeCodes = [];
-    const storeCurrencies = useMemo(() => ({}),[]);
-    const storeSecureBaseMediaUrl = useMemo(() => ({}),[]);
+    const storeCurrencies = useMemo(() => ({}), []);
+    const storeSecureBaseMediaUrl = useMemo(() => ({}), []);
 
     AVAILABLE_STORE_VIEWS.forEach(store => {
         storeCodes.push(store.code);

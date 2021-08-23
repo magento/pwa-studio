@@ -55,8 +55,8 @@ export const useFilterSidebar = props => {
     const possibleFilters = useMemo(() => {
         const nextFilters = new Set();
         const inputFields = introspectionData
-        ? introspectionData.__type.inputFields
-        : []
+            ? introspectionData.__type.inputFields
+            : [];
 
         // perform mapping and filtering in the same cycle
         for (const { name } of inputFields) {

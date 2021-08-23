@@ -109,10 +109,13 @@ export const usePaymentInformation = props => {
      * Effects
      */
 
-    const availablePaymentMethods = useMemo(() => paymentInformationData
-        ? paymentInformationData.cart.available_payment_methods
-        : []
-    ,[paymentInformationData]);
+    const availablePaymentMethods = useMemo(
+        () =>
+            paymentInformationData
+                ? paymentInformationData.cart.available_payment_methods
+                : [],
+        [paymentInformationData]
+    );
 
     const selectedPaymentMethod =
         (paymentInformationData &&

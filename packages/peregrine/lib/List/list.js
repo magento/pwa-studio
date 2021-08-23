@@ -37,19 +37,16 @@ const List = props => {
         ...restProps
     } = props;
 
-    const customProps = useMemo(() =>({
-        classes,
-        getItemKey,
-        items,
-        onSelectionChange,
-        selectionModel
-    }),[
-        classes, 
-        getItemKey, 
-        items, 
-        onSelectionChange, 
-        selectionModel
-    ]);
+    const customProps = useMemo(
+        () => ({
+            classes,
+            getItemKey,
+            items,
+            onSelectionChange,
+            selectionModel
+        }),
+        [classes, getItemKey, items, onSelectionChange, selectionModel]
+    );
 
     const handleSelectionChange = useCallback(
         selection => {

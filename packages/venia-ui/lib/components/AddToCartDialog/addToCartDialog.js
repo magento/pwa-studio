@@ -29,13 +29,20 @@ const AddToCartDialog = props => {
 
     const classes = useStyle(defaultClasses, props.classes);
 
-    const imageComponent = useMemo(() => imageProps ? (
-        <Image {...imageProps} classes={{ image: classes.image }} />
-    ) : (
-        <div className={classes.image} />
-    ),[classes.image, imageProps]);
+    const imageComponent = useMemo(
+        () =>
+            imageProps ? (
+                <Image {...imageProps} classes={{ image: classes.image }} />
+            ) : (
+                <div className={classes.image} />
+            ),
+        [classes.image, imageProps]
+    );
 
-    const priceComponent = useMemo(() => priceProps ? <Price {...priceProps} /> : null, [priceProps]);
+    const priceComponent = useMemo(
+        () => (priceProps ? <Price {...priceProps} /> : null),
+        [priceProps]
+    );
 
     const dialogContent = useMemo(() => {
         if (item) {

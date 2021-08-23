@@ -36,7 +36,6 @@ const CartContextProvider = props => {
         }
     }, [cartState]);
 
-    
     const cartApi = useMemo(
         () => ({
             actions,
@@ -46,14 +45,13 @@ const CartContextProvider = props => {
     );
 
     const contextValue = useMemo(() => {
-
         const derivedCartState = {
             ...cartState,
             isEmpty: isCartEmpty(cartState),
             derivedDetails
         };
-        
-        return [derivedCartState, cartApi]
+
+        return [derivedCartState, cartApi];
     }, [cartApi, cartState, derivedDetails]);
 
     const [fetchCartId] = useMutation(CREATE_CART_MUTATION);

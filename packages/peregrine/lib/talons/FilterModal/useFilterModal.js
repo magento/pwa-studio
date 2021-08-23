@@ -39,8 +39,6 @@ export const useFilterModal = props => {
 
     const { data: introspectionData } = useQuery(getFilterInputsQuery);
 
-    
-
     const attributeCodes = useMemo(
         () => filters.map(({ attribute_code }) => attribute_code),
         [filters]
@@ -63,8 +61,8 @@ export const useFilterModal = props => {
     const possibleFilters = useMemo(() => {
         const nextFilters = new Set();
         const inputFields = introspectionData
-        ? introspectionData.__type.inputFields
-        : [];
+            ? introspectionData.__type.inputFields
+            : [];
 
         // perform mapping and filtering in the same cycle
         for (const { name } of inputFields) {
