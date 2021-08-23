@@ -3,7 +3,7 @@ import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/ut
 export const useGalleryItem = (props = {}) => {
     const { item, storeConfig } = props;
 
-    const productType = item.__typename;
+    const productType = item ? item.__typename : null;
 
     const isSupportedProductType = isSupported(productType);
 
