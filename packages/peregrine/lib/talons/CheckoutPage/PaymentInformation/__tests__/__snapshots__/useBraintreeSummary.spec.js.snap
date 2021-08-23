@@ -11,8 +11,10 @@ Object {
     "lastName": "Goose",
     "phoneNumber": "1234567890",
     "postalCode": "12345",
-    "region": "Gooseyork",
-    "state": undefined,
+    "region": Object {
+      "label": "Gooseyork",
+    },
+    "state": "Gooseyork",
     "street": Array [
       "12345 Gooseey Blvd",
       "Apt 123",
