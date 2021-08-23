@@ -73,9 +73,7 @@ const GalleryItem = props => {
             <p>
                 <FormattedMessage
                     id={'galleryItem.unavailableProduct'}
-                    defaultMessage={
-                        'Currently unavailable for purchase.'
-                    }
+                    defaultMessage={'Currently unavailable for purchase.'}
                 />
             </p>
         </div>
@@ -109,7 +107,9 @@ const GalleryItem = props => {
             <div className={classes.price}>
                 <Price
                     value={price_range.maximum_price.regular_price.value}
-                    currencyCode={price_range.maximum_price.regular_price.currency}
+                    currencyCode={
+                        price_range.maximum_price.regular_price.currency
+                    }
                 />
             </div>
 
