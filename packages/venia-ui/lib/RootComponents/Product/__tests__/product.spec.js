@@ -12,7 +12,10 @@ jest.mock('@magento/venia-ui/lib/components/Head', () => ({
     StoreTitle: jest.fn(() => 'StoreTitle'),
     Meta: jest.fn(() => 'Meta')
 }));
-jest.mock('@magento/venia-ui/lib/components/ProductFullDetail', () => 'ProductFullDetail');
+jest.mock(
+    '@magento/venia-ui/lib/components/ProductFullDetail',
+    () => 'ProductFullDetail'
+);
 jest.mock('@magento/venia-ui/lib/util/mapProduct');
 jest.mock('react-intl', () => ({
     FormattedMessage: jest.fn(({ defaultMessage }) => defaultMessage)
@@ -72,7 +75,7 @@ test('renders product page shimmer when loading data', async () => {
         loading: true
     });
 
-    await render({ '__typename': 'SimpleProduct' });
+    await render({ __typename: 'SimpleProduct' });
 
     expect(ProductShimmer).toHaveBeenCalled();
 });

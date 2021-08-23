@@ -8,13 +8,16 @@ jest.mock('../../../components/Breadcrumbs', () => ({
     default: 'Breadcrumbs',
     BreadcrumbShimmer: 'BreadcrumbShimmer'
 }));
-jest.mock('../../../components/ProductImageCarousel/carousel.shimmer', () => 'Carousel');
+jest.mock(
+    '../../../components/ProductImageCarousel/carousel.shimmer',
+    () => 'Carousel'
+);
 jest.mock('../../../components/ProductOptions', () => ({
     __esModule: true,
     default: 'ProductOptions',
     ProductOptionsShimmer: jest.fn(() => 'ProductOptionsShimmer')
 }));
-jest.mock('../../../components/Shimmer', () => 'Shimmer')
+jest.mock('../../../components/Shimmer', () => 'Shimmer');
 jest.mock('../../../classify', () => ({
     useStyle: (...classes) => Object.assign({}, ...classes)
 }));
