@@ -97,12 +97,12 @@
     "webpack": "~4.46.0",
     "workbox-webpack-plugin": "~6.0.2"
   },
-  "resolutions": {
-    "workbox-build": "~6.0.2"
-  },
   "engines": {
     "node": ">=10.x",
     "yarn": ">=1.12.0"
+  },
+  "resolutions": {
+    "workbox-build": "~6.0.2"
   },
   "pwa-studio": {
     "targets": {
