@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 
 import { useMegaMenu } from '@magento/peregrine/lib/talons/MegaMenu/useMegaMenu';
+import { useSubmenuBlurHandler } from '@magento/peregrine/lib/talons/MegaMenu/useSubmenuBlurHandler';
 
 import { useStyle } from '../../classify';
 import defaultClasses from './megaMenu.css';
@@ -14,8 +15,6 @@ const MegaMenu = props => {
     const {
         megaMenuData,
         activeCategoryId,
-        useOutsideAlerter,
-        disableFocus
     } = useMegaMenu({
         setSubMenuState
     });
@@ -23,6 +22,13 @@ const MegaMenu = props => {
 
     const mainNavRef = useRef(null);
     const [mainNavWidth, setMainNavWidth] = useState(0);
+
+    const {
+        disableFocus
+    } = useSubmenuBlurHandler({
+        mainNavRef,
+        setSubMenuState
+    });
 
     useEffect(() => {
         const handleResize = () => {
@@ -57,7 +63,7 @@ const MegaMenu = props => {
           })
         : null;
 
-    useOutsideAlerter(mainNavRef); // create bindings for closing menu from outside events
+    useSubmenuBlurHandler(mainNavRef, setSubMenuState)
 
     return (
         <nav

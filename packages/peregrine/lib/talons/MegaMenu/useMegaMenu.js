@@ -18,7 +18,6 @@ export const useMegaMenu = (props = {}) => {
 
     const location = useLocation();
     const [activeCategoryId, setActiveCategoryId] = useState(null);
-    const [disableFocus, setDisableFocus] = useState(false);
 
     const { data } = useQuery(getMegaMenuQuery, {
         fetchPolicy: 'cache-and-network',
@@ -120,48 +119,9 @@ export const useMegaMenu = (props = {}) => {
         }
     }, [findActiveCategory, location.pathname, megaMenuData]);
 
-    const useOutsideAlerter = ref => {
-        useEffect(() => {
-            // Reset menu if clicked outside
-            const handleClickOutside = e => {
-                if (ref.current && !ref.current.contains(e.target)) {
-                    props.setSubMenuState(false);
-                    setDisableFocus(true);
-                }
-            };
-
-            // Bind the event listener to both mouse and key events
-            if (typeof globalThis.addEventListener === 'function') {
-                globalThis.addEventListener('mousedown', handleClickOutside);
-                globalThis.addEventListener('keydown', handleClickOutside);
-                globalThis.addEventListener('mouseout', handleClickOutside);
-            }
-
-            return () => {
-                // Unbind the event listener to clean up
-                if (typeof globalThis.removeEventListener === 'function') {
-                    globalThis.removeEventListener(
-                        'mousedown',
-                        handleClickOutside
-                    );
-                    globalThis.removeEventListener(
-                        'keydown',
-                        handleClickOutside
-                    );
-                    globalThis.removeEventListener(
-                        'mouseout',
-                        handleClickOutside
-                    );
-                }
-            };
-        }, [ref]);
-    };
-
     return {
         megaMenuData,
         activeCategoryId,
-        useOutsideAlerter,
-        disableFocus
     };
 };
 
@@ -174,7 +134,7 @@ export const useMegaMenu = (props = {}) => {
  *                                             with the include_in_menu = 1 flag. The categories are sorted
  *                                             based on the field position.
  * @property {int} loading whether the regions are loading
- *
+ * @property {int} activeCategoryId returns the currently selected category id.
  */
 
 /**

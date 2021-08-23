@@ -192,18 +192,3 @@ test('Should not render items that are not included in menu', () => {
     expect(talonProps.megaMenuData.children[1].children.length).toEqual(2);
 });
 
-test('should call handleClickOutside', () => {
-    const map = {};
-    const event = {
-        target: jest.fn()
-    };
-    window.addEventListener = jest.fn((mousedown, handleClickOutside) => {
-        map[mousedown] = handleClickOutside(event);
-    });
-    window.addEventListener = jest.fn((keydown, handleClickOutside) => {
-        map[keydown] = handleClickOutside(event);
-    });
-    window.addEventListener = jest.fn((mouseout, handleClickOutside) => {
-        map[mouseout] = handleClickOutside(event);
-    });
-});
