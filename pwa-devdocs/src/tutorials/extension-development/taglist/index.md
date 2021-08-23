@@ -40,11 +40,11 @@ Use the following command to create a directory and the files that define this c
 
 ```sh
 mkdir -p src/TagList && \
-touch src/Taglist/index.js && \
-touch src/Taglist/tag.js && \
-touch src/Taglist/tag.css && \
-touch src/Taglist/tagList.js && \
-touch src/Taglist/tagList.css
+touch src/TagList/index.js && \
+touch src/TagList/tag.js && \
+touch src/TagList/tag.css && \
+touch src/TagList/tagList.js && \
+touch src/TagList/tagList.css
 ```
 
 ### `index.js`
@@ -433,7 +433,7 @@ function localIntercept(targets) {
         '<RichText content={productDetails.description} />',
         `<${TagList} categoriesListData={productDetails.categoriesListData} />`
     );
-    
+
     // Create an ES Module targetable linked to the useProductFullDetail.js file
     const useProductFullDetails = targetables.esModule(
         '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail.js'
