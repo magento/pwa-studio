@@ -1,6 +1,15 @@
 const childProcess = require('child_process');
 
-const child = childProcess.execFile('./packages/create-pwa/bin/create-pwa');
+const child = childProcess.spawn(
+    'node',
+    ['./packages/create-pwa/bin/create-pwa'],
+    {
+        env: {
+            ...process.env,
+            npm_config_user_agent: 'yarn'
+        }
+    }
+);
 
 const questions = {
     'Project root directory': {
@@ -11,17 +20,17 @@ const questions = {
         answer: 'test-pwa',
         answered: false
     },
-    'Name of the author to put in the package.json': {
-        answer: 'gooston <gooston@goosemail.com>',
-        answered: false
-    },
+    // 'Name of the author to put in the package.json': {
+    //     answer: 'gooston <gooston@goosemail.com>',
+    //     answered: false
+    // },
     'Which template would you like to use to bootstrap': {
         answer: '@magento/venia-concept@latest',
         answered: false
     },
     'Magento instance to use as a backend': {
         // should go to the last option and enter a value
-        answer: '\u001b[A',
+        answer: '',
         answered: false
     },
     'URL of a Magento instance to use as a backend': {
@@ -34,7 +43,7 @@ const questions = {
     },
     'NPM package management client to use': {
         // should go to the last option (yarn) and click enter
-        answer: '\u001b[A',
+        answer: '',
         answered: false
     },
     'Install package dependencies with yarn after creating project': {
@@ -44,27 +53,32 @@ const questions = {
 };
 
 const getAnswerKey = question => {
-    return Object.keys(questions).find(key => question.includes(key));
+    return Object.keys(questions).find(key => question.trim().includes(key));
 };
 
-child.stdout.setEncoding('utf8');
 child.stdout.on('data', data => {
-    const key = getAnswerKey(data);
-
-    if (key) {
-        if (questions[key].answered) {
-            return;
+    if (data) {
+        const key = getAnswerKey(data.toString());
+        if (key) {
+            if (questions[key].answered) {
+                return;
+            } else {
+                console.log(data.toString(), '\n\n', questions[key].answer);
+                child.stdin.write(questions[key].answer);
+                questions[key].answered = true;
+            }
         } else {
-            console.log(data, '\n\n', questions[key].answer);
-
-            child.stdin.write(questions[key].answer + '\n');
-            questions[key].answered = true;
+            console.log(data.toString());
+            child.stdin.write('\n');
         }
-    } else {
-        child.stdin.write('\n');
     }
+});
+
+child.stderr.on('data', data => {
+    console.error(`stderr: ${data}`);
 });
 
 child.on('close', () => {
     console.log('Child closed');
+    console.log(JSON.stringify(questions, null, 2));
 });
