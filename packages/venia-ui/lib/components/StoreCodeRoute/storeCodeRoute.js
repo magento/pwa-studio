@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 
@@ -13,8 +13,8 @@ const StoreCodeRoute = () => {
     const history = useHistory();
 
     const storeCodes = [];
-    const storeCurrencies = {};
-    const storeSecureBaseMediaUrl = {};
+    const storeCurrencies = useMemo(() => ({}),[]);
+    const storeSecureBaseMediaUrl = useMemo(() => ({}),[]);
 
     AVAILABLE_STORE_VIEWS.forEach(store => {
         storeCodes.push(store.code);

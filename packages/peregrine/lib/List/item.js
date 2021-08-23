@@ -35,7 +35,7 @@ const Item = props => {
     ]);
     const onFocus = useCallback(() => setFocus(key), [key, setFocus]);
 
-    const customProps = {
+    const customProps = useMemo(() => ({
         classes,
         hasFocus,
         isSelected,
@@ -43,7 +43,15 @@ const Item = props => {
         itemIndex,
         onClick,
         onFocus
-    };
+    }),[
+        classes, 
+        hasFocus, 
+        isSelected, 
+        item, 
+        itemIndex, 
+        onClick, 
+        onFocus
+    ]);
 
     const Root = useMemo(
         () => fromRenderProp(render, Object.keys(customProps)),

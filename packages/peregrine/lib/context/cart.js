@@ -36,12 +36,7 @@ const CartContextProvider = props => {
         }
     }, [cartState]);
 
-    const derivedCartState = {
-        ...cartState,
-        isEmpty: isCartEmpty(cartState),
-        derivedDetails
-    };
-
+    
     const cartApi = useMemo(
         () => ({
             actions,
@@ -50,10 +45,16 @@ const CartContextProvider = props => {
         [actions, asyncActions]
     );
 
-    const contextValue = useMemo(() => [derivedCartState, cartApi], [
-        cartApi,
-        derivedCartState
-    ]);
+    const contextValue = useMemo(() => {
+
+        const derivedCartState = {
+            ...cartState,
+            isEmpty: isCartEmpty(cartState),
+            derivedDetails
+        };
+        
+        return [derivedCartState, cartApi]
+    }, [cartApi, cartState, derivedDetails]);
 
     const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
