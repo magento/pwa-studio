@@ -1,5 +1,26 @@
 import React, { Suspense } from 'react';
-import { getContentTypeConfig } from './config';
+import { getContentTypeConfig, setContentTypeConfig } from './config';
+import customContentTypes from './ContentTypes/customContentTypes';
+
+/**
+ *  add custom content types
+ */
+const addCustomContentTypes = contentTypes => {
+    for (const ContentType of contentTypes) {
+        const { component, configAggregator } = ContentType;
+        if (!ContentType.name) {
+            ContentType.name = component.name;
+        }
+        if (ContentType.name && component && configAggregator) {
+            setContentTypeConfig(ContentType.name, {
+                component,
+                configAggregator
+            });
+        }
+    }
+};
+
+addCustomContentTypes(customContentTypes);
 
 /**
  * Render a content type
