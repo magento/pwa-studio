@@ -1,3 +1,5 @@
+const debug = require('../util/debug').makeFileLogger(__filename);
+
 const fetch = require('node-fetch');
 const graphQLQueries = require('../queries');
 const https = require('https');
@@ -9,12 +11,17 @@ const fetchQuery = query => {
     const targetURL = new URL('graphql', process.env.MAGENTO_BACKEND_URL);
     const headers = {
         'Content-Type': 'application/json',
-        'Accept-Encoding': 'gzip'
+        'Accept-Encoding': 'gzip',
+        Accept: 'application/json',
+        'User-Agent': 'pwa-buildpack',
+        Host: targetURL.host
     };
 
     if (process.env.STORE_VIEW_CODE) {
         headers['store'] = process.env.STORE_VIEW_CODE;
     }
+
+    debug('Fetching query: %s', query);
 
     return fetch(targetURL.toString(), {
         agent: targetURL.protocol === 'https:' ? httpsAgent : null,
@@ -22,9 +29,17 @@ const fetchQuery = query => {
         headers: headers,
         method: 'POST'
     })
-        .then(result => result.json())
+        .then(result => {
+            debug('Result received');
+            debug('Status: %s', result.status);
+
+            return result.json();
+        })
         .catch(err => {
+            debug('Error received: %s', err);
+
             console.error(err);
+
             throw err;
         })
         .then(json =>
