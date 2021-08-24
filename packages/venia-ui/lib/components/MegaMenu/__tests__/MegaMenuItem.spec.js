@@ -6,7 +6,7 @@ import MegaMenuItem from '../megaMenuItem';
 
 jest.mock('../../../classify');
 jest.mock('../../Icon', () => props => <mock-Icon {...props} />);
-jest.mock('../Submenu', () => props => <mock-Submenu {...props} />);
+jest.mock('../submenu', () => props => <mock-Submenu {...props} />);
 jest.mock('react', () => {
     const React = jest.requireActual('react');
     const memoSpy = jest.spyOn(React, 'useMemo');
