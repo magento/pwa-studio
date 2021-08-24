@@ -28,7 +28,7 @@ jest.mock('@apollo/client', () => ({
                     country: { code: 'United States of Gooseland' },
                     street: ['12345 Gooseey Blvd', 'Apt 123'],
                     city: { code: 'Goostin' },
-                    region: 'Gooseyork',
+                    region: { label: 'Gooseyork' },
                     postalCode: '12345',
                     phoneNumber: '1234567890'
                 },
