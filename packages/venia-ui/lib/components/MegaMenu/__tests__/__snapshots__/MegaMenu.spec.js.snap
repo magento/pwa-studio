@@ -3,7 +3,6 @@
 exports[`it renders correctly 1`] = `
 <nav
   className="megaMenu"
-  onFocus={[Function]}
   role="navigation"
 >
   <div

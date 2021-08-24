@@ -191,4 +191,3 @@ test('Should not render items that are not included in menu', () => {
      */
     expect(talonProps.megaMenuData.children[1].children.length).toEqual(2);
 });
-

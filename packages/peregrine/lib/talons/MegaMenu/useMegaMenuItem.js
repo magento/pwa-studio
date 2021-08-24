@@ -11,15 +11,15 @@ export const useMegaMenuItem = props => {
     }, [setIsFocused]);
 
     const isMenuActive = useMemo(() => {
-        if(!isFocused) {
-            return false
+        if (!isFocused) {
+            return false;
         }
-        if(subMenuState) {
-            return true
-        } else if(disableFocus) {
+        if (subMenuState) {
+            return true;
+        } else if (disableFocus) {
             setIsFocused(false);
         }
-        return false
+        return false;
     }, [isFocused, subMenuState, disableFocus]);
 
     const KEY_ESCAPE = 27;
@@ -29,7 +29,6 @@ export const useMegaMenuItem = props => {
     const KEY_SHIFT = 9;
 
     const a11yClick = e => {
-        console.log('shiftKey', e, e.shiftKey)
         //checking down arrow or space
         if (e.keyCode === KEY_SPACE || e.keyCode === KEY_DOWN) {
             return true;
@@ -38,9 +37,9 @@ export const useMegaMenuItem = props => {
         if (e.keyCode === KEY_UP || e.keyCode === KEY_ESCAPE) {
             setIsFocused(false);
         }
-        //checking Tab with Shift 
+        //checking Tab with Shift
         if (e.keyCode == KEY_SHIFT && e.shiftKey) {
-            setIsFocused(false);    
+            setIsFocused(false);
         }
     };
 

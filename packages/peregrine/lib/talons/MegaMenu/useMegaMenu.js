@@ -1,8 +1,11 @@
-import mergeOperations from '../../util/shallowMerge';
-import DEFAULT_OPERATIONS from './megaMenu.gql';
-import { useQuery } from '@apollo/client';
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+
+import { useQuery } from '@apollo/client';
+import { useEventListener } from '@magento/peregrine';
+
+import mergeOperations from '../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './megaMenu.gql';
 
 /**
  * The useMegaMenu talon complements the MegaMenu component.
@@ -18,6 +21,8 @@ export const useMegaMenu = (props = {}) => {
 
     const location = useLocation();
     const [activeCategoryId, setActiveCategoryId] = useState(null);
+    const [subMenuState, setSubMenuState] = useState(false);
+    const [disableFocus, setDisableFocus] = useState(false);
 
     const { data } = useQuery(getMegaMenuQuery, {
         fetchPolicy: 'cache-and-network',
@@ -106,6 +111,25 @@ export const useMegaMenu = (props = {}) => {
         [isActive]
     );
 
+    const handleClickOutside = e => {
+        if (
+            props.mainNavRef &&
+            props.mainNavRef.current &&
+            !props.mainNavRef.current.contains(e.target)
+        ) {
+            setSubMenuState(false);
+            setDisableFocus(true);
+        }
+    };
+
+    useEventListener(globalThis, 'mousedown', handleClickOutside);
+    useEventListener(globalThis, 'mouseout', handleClickOutside);
+    useEventListener(globalThis, 'keydown', handleClickOutside);
+
+    const handleSubMenuFocus = useCallback(() => {
+        setSubMenuState(true);
+    }, [setSubMenuState]);
+
     useEffect(() => {
         const activeCategory = findActiveCategory(
             location.pathname,
@@ -122,6 +146,10 @@ export const useMegaMenu = (props = {}) => {
     return {
         megaMenuData,
         activeCategoryId,
+        handleClickOutside,
+        subMenuState,
+        disableFocus,
+        handleSubMenuFocus
     };
 };
 
@@ -135,6 +163,10 @@ export const useMegaMenu = (props = {}) => {
  *                                             based on the field position.
  * @property {int} loading whether the regions are loading
  * @property {int} activeCategoryId returns the currently selected category id.
+ * @property {Function} handleClickOutside function to handle mouse/key events.
+ * @property {Boolean} subMenuState maintaining sub-menu open/close state
+ * @property {Boolean} disableFocus state to disable focus
+ * @property {Function} handleSubMenuFocus toggle function to handle sub-menu focus
  */
 
 /**
