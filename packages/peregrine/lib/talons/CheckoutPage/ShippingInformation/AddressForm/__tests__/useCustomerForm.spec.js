@@ -79,7 +79,8 @@ test('return correct shape for new address and fire create mutation', async () =
                 default_shipping: 5,
                 email: 'fry@planet.express',
                 firstname: 'Philip',
-                lastname: 'Fry'
+                lastname: 'Fry',
+                street: 'Street 1'
             }
         },
         error: null,
@@ -100,7 +101,8 @@ test('return correct shape for new address and fire create mutation', async () =
         firstname: 'Philip',
         region: {
             region_id: 2
-        }
+        },
+        street: ['Street 1']
     });
 
     expect(mockCreateCustomerAddress).toHaveBeenCalled();
@@ -114,7 +116,8 @@ test('return correct shape for update address and fire update mutation', async (
                 default_shipping: 5,
                 email: 'fry@planet.express',
                 firstname: 'Philip',
-                lastname: 'Fry'
+                lastname: 'Fry',
+                street: 'Street 1'
             }
         },
         error: null,
@@ -140,12 +143,50 @@ test('return correct shape for update address and fire update mutation', async (
         firstname: 'Bender',
         region: {
             region: 5
-        }
+        },
+        street: ['Street 1']
     });
 
     expect(mockUpdateCustomerAddress).toHaveBeenCalled();
     expect(mockUpdateCustomerAddress.mock.calls[0][0]).toMatchSnapshot();
     expect(afterSubmit).toHaveBeenCalled();
+});
+
+test('return correct shape for address with street2 as null', async () => {
+    useQuery.mockReturnValueOnce({
+        data: {
+            customer: {
+                default_shipping: 5,
+                email: 'fry@planet.express',
+                firstname: 'Philip',
+                lastname: 'Fry',
+                street: 'Street 1'
+            }
+        },
+        error: null,
+        loading: true
+    });
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps).toMatchSnapshot();
+
+    const { handleSubmit } = talonProps;
+
+    await handleSubmit({
+        country: 'US',
+        email: 'fry@planet.express',
+        firstname: 'Philip',
+        region: {
+            region_id: 2
+        },
+        street: ['Street 1', null]
+    });
+
+    expect(mockCreateCustomerAddress).toHaveBeenCalled();
+    expect(mockCreateCustomerAddress.mock.calls[0][0]).toMatchSnapshot();
 });
 
 test('update isSaving while mutations are in flight', () => {
@@ -198,7 +239,8 @@ test('does not call afterSubmit if mutation fails', async () => {
         firstname: 'Philip',
         region: {
             region_id: 2
-        }
+        },
+        street: ['Street 1']
     });
 
     expect(mockCreateCustomerAddress).toHaveBeenCalled();
@@ -219,7 +261,8 @@ test('does not call afterSubmit() if it is undefined', async () => {
         firstname: 'Philip',
         region: {
             region_id: 2
-        }
+        },
+        street: ['Street 1']
     });
 
     expect(mockCreateCustomerAddress).toHaveBeenCalled();
