@@ -1,5 +1,6 @@
 const myName = '@magento/pagebuilder';
 const { Targetables } = require('@magento/pwa-buildpack');
+const CustomContentTypeList = require('./ContentTypes/CustomContentTypeList');
 module.exports = targets => {
     const pagebuilder = Targetables.using(targets);
     pagebuilder.setSpecialFeatures('esModules', 'cssModules');
@@ -21,4 +22,6 @@ module.exports = targets => {
                 importPath: myName
             });
         });
+
+    new CustomContentTypeList(pagebuilder);
 };
