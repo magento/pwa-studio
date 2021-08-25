@@ -1,7 +1,9 @@
 import React from 'react';
+import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
-import { mockFilterBlock } from '../../FilterModal/filterBlock';
+import FilterBlock, { mockFilterBlock } from '../../FilterModal/filterBlock';
 import { mockCurrentFilters } from '../../FilterModal/CurrentFilters';
+import LinkButton from '../../LinkButton';
 import FilterSidebar from '../filterSidebar';
 
 const mockFilters = [
@@ -43,6 +45,16 @@ const mockFilters = [
 
 const mockFiltersOpenCount = 2;
 
+let mockFilterState = new Map();
+
+const mockHandleApply = jest.fn();
+
+const mockScrollTo = jest.fn();
+
+const mockGetBoundingClientRect = jest.fn();
+
+jest.mock('../../LinkButton', () => props => <mock-LinkButton {...props} />);
+
 jest.mock('@magento/peregrine/lib/talons/FilterSidebar', () => ({
     useFilterSidebar: jest.fn(({ filters }) => {
         const names = new Map();
@@ -65,8 +77,8 @@ jest.mock('@magento/peregrine/lib/talons/FilterSidebar', () => ({
             filterApi: null,
             filterItems: itemsByGroup,
             filterNames: names,
-            filterState: new Map(),
-            handleApply: jest.fn(),
+            filterState: mockFilterState,
+            handleApply: mockHandleApply,
             handleReset: jest.fn()
         };
     })
@@ -114,6 +126,14 @@ const givenFilters = () => {
     };
 };
 
+const givenSelectedFilters = () => {
+    inputProps = {
+        filters: mockFilters
+    };
+
+    mockFilterState = new Map([['group', 'item']]);
+};
+
 const givenFiltersAndAmountToShow = () => {
     inputProps = {
         filters: mockFilters,
@@ -136,11 +156,64 @@ describe('#FilterSidebar', () => {
         expect(mockCurrentFilters).toHaveBeenCalled();
     });
 
-    it('renders with filters', () => {
+    it('renders with filters and no selected filters', () => {
         givenFilters();
-        createTestInstance(<Component />);
 
+        const { root } = createTestInstance(<Component />);
+
+        expect(() => root.findByType(LinkButton)).toThrow();
         expect(mockFilterBlock).toHaveBeenCalledTimes(mockFilters.length);
+    });
+
+    it('renders with filters and selected filter', () => {
+        givenSelectedFilters();
+
+        const { root } = createTestInstance(<Component />);
+
+        expect(() => root.findByType(LinkButton)).not.toThrow();
+        expect(mockFilterBlock).toHaveBeenCalledTimes(mockFilters.length);
+    });
+
+    it('handles when a user applies a filter and ref is not provided', () => {
+        givenSelectedFilters();
+
+        const { root } = createTestInstance(<Component />);
+
+        act(() => {
+            root.findAllByType(FilterBlock)[0].props.onApply();
+        });
+
+        expect(mockHandleApply).toHaveBeenCalled();
+    });
+
+    it('handles when a user applies a filter and ref is provided', () => {
+        givenSelectedFilters();
+
+        Object.defineProperty(window, 'scrollTo', {
+            configurable: true,
+            writable: true,
+            value: mockScrollTo
+        });
+
+        const { root } = createTestInstance(<Component />, {
+            createNodeMock: () => {
+                return {
+                    getBoundingClientRect: mockGetBoundingClientRect.mockReturnValue(
+                        {
+                            top: 250
+                        }
+                    )
+                };
+            }
+        });
+
+        act(() => {
+            root.findAllByType(FilterBlock)[0].props.onApply();
+        });
+
+        expect(mockGetBoundingClientRect).toBeCalledTimes(1);
+        expect(window.scrollTo).toBeCalledTimes(1);
+        expect(mockHandleApply).toHaveBeenCalled();
     });
 
     it('accepts configurable amount of open filters', () => {
