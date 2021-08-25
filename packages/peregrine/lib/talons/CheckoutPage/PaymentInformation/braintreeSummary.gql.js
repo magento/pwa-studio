@@ -15,7 +15,7 @@ export const GET_SUMMARY_DATA = gql`
                 street
                 city
                 region {
-                    code
+                    label
                 }
                 postalCode: postcode
                 phoneNumber: telephone
