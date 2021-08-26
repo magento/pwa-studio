@@ -80,7 +80,6 @@ const givenDefaultValues = () => {
 
 describe('Mega menu item renders correctly', () => {
     beforeEach(() => {
-        // Given
         givenDefaultValues();
     });
 
@@ -106,7 +105,6 @@ describe('Mega menu item renders correctly', () => {
         });
 
         expect(mocka11yClick).toHaveBeenCalled();
-        expect(root).toMatchSnapshot();
     });
 
     test('it does not render submenu when item does not have children', () => {
