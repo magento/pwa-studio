@@ -1,6 +1,8 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
+
 import { createTestInstance } from '@magento/peregrine';
+
 import FilterBlock, { mockFilterBlock } from '../../FilterModal/filterBlock';
 import { mockCurrentFilters } from '../../FilterModal/CurrentFilters';
 import LinkButton from '../../LinkButton';

@@ -1,8 +1,10 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
-import CurrentFilter from '../currentFilter';
-import Trigger from '../../../Trigger';
 import { act } from 'react-test-renderer';
+
+import { createTestInstance } from '@magento/peregrine';
+
+import Trigger from '../../../Trigger';
+import CurrentFilter from '../currentFilter';
 
 const mockItem = {
     title: 'Item Title'

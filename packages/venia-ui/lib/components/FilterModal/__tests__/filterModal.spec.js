@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { createTestInstance } from '@magento/peregrine';
+
+import LinkButton from '../../LinkButton';
 import { mockFilterBlock } from '../filterBlock';
 import { mockCurrentFilters } from '../CurrentFilters';
-import LinkButton from '../../LinkButton';
 import FilterModal from '../filterModal';
 
 const mockFilters = [

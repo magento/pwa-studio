@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { createTestInstance } from '@magento/peregrine';
-import FilterFooter from '../filterFooter';
+
 import Button from '../../Button';
+import FilterFooter from '../filterFooter';
 
 jest.mock('../../Button', () => props => <mock-Button {...props} />);
 

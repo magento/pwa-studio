@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { createTestInstance } from '@magento/peregrine';
-import FilterDefault from '../filterDefault';
+
 import Checkbox from '../../../Checkbox';
+import FilterDefault from '../filterDefault';
 
 jest.mock('../../../Checkbox', () => props => <mock-Checkbox {...props} />);
 

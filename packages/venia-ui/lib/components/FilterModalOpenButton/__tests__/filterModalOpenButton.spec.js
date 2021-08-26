@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { createTestInstance } from '@magento/peregrine';
-import FilterModalOpenButton from '../filterModalOpenButton';
+
 import Button from '../../Button';
+import FilterModalOpenButton from '../filterModalOpenButton';
 
 const mockHandleOpen = jest.fn();
 

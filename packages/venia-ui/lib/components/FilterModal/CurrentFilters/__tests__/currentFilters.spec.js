@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { createTestInstance } from '@magento/peregrine';
+
 import CurrentFilters from '../currentFilters';
 import CurrentFilter from '../currentFilter';
 
