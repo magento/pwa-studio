@@ -44,9 +44,9 @@ const mockFilters = [
     }
 ];
 
-let mockFilterState = new Map();
+let mockFilterState;
 
-let mockIsOpen = true;
+let mockIsOpen;
 
 jest.mock('../../LinkButton', () => props => <mock-LinkButton {...props} />);
 
@@ -134,6 +134,9 @@ const givenDefaultValues = () => {
     inputProps = {
         filters: []
     };
+
+    mockFilterState = new Map();
+    mockIsOpen = true;
 };
 
 const givenFilters = () => {

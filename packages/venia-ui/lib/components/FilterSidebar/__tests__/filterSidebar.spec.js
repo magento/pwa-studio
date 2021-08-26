@@ -47,13 +47,13 @@ const mockFilters = [
 
 const mockFiltersOpenCount = 2;
 
-let mockFilterState = new Map();
-
 const mockHandleApply = jest.fn();
 
 const mockScrollTo = jest.fn();
 
 const mockGetBoundingClientRect = jest.fn();
+
+let mockFilterState;
 
 jest.mock('../../LinkButton', () => props => <mock-LinkButton {...props} />);
 
@@ -120,6 +120,8 @@ const givenDefaultValues = () => {
     inputProps = {
         filters: []
     };
+
+    mockFilterState = new Map();
 };
 
 const givenFilters = () => {

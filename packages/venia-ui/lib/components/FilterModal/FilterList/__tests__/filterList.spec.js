@@ -20,7 +20,7 @@ const mockShowLess = 'Show Less';
 
 const mockShowMore = 'Show More';
 
-let mockIsListExpanded = false;
+let mockIsListExpanded;
 
 jest.mock('../filterItem', () => props => <mock-FilterItem {...props} />);
 
@@ -46,6 +46,8 @@ const givenDefaultValues = () => {
         group: 'Group',
         items: mockItems
     };
+
+    mockIsListExpanded = false;
 };
 
 const givenShowMore = () => {

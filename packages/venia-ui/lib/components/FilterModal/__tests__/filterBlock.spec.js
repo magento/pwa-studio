@@ -5,9 +5,9 @@ import { createTestInstance } from '@magento/peregrine';
 import FilterList from '../FilterList';
 import FilterBlock from '../filterBlock';
 
-let mockIsExpanded = false;
+let mockIsExpanded;
 
-jest.mock('../filterList', () => props => <mock-FilterList {...props} />);
+jest.mock('../FilterList', () => props => <mock-FilterList {...props} />);
 
 jest.mock('@magento/peregrine/lib/talons/FilterModal', () => ({
     useFilterBlock: jest.fn(() => {
@@ -32,6 +32,8 @@ const givenDefaultValues = () => {
         items: [],
         name: 'Name'
     };
+
+    mockIsExpanded = false;
 };
 
 const givenExpanded = () => {
