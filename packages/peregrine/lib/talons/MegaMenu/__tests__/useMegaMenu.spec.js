@@ -210,28 +210,26 @@ test('Should add eventListner for keydown, mouseout, mousedown', () => {
 });
 
 test('handleClickOutside should setSubMenuState to false and setDisableFocus to true', () => {
-    
-    const {update} = getTalonProps({
-        mainNavRef: {current: {contains: () => false}}
+    const { update } = getTalonProps({
+        mainNavRef: { current: { contains: () => false } }
     });
 
     const handleClickOutside = useEventListener.mock.calls[0][2];
 
-    handleClickOutside({target: 'test'});
+    handleClickOutside({ target: 'test' });
     const talonProps = update();
     expect(talonProps.subMenuState).toBeFalsy();
     expect(talonProps.disableFocus).toBeTruthy();
 });
 
 test('handleSubMenuFocus should setSubMenuState to true', () => {
-
     const setSubMenuState = jest.fn(() => true);
 
-    const {update} = getTalonProps({
+    const { update } = getTalonProps({
         setSubMenuState
     });
     const talonProps = update();
-    const handleSubMenuFocus = talonProps.handleSubMenuFocus()
+    const handleSubMenuFocus = talonProps.handleSubMenuFocus();
 
     expect(handleSubMenuFocus).toMatchSnapshot();
 });
