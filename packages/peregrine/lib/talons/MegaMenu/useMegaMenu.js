@@ -2,7 +2,7 @@ import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
-import { useEventListener } from '@magento/peregrine';
+import { useEventListener } from '../../hooks/useEventListener';
 
 import mergeOperations from '../../util/shallowMerge';
 import DEFAULT_OPERATIONS from './megaMenu.gql';
