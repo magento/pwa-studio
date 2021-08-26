@@ -2,8 +2,8 @@ import React from 'react';
 
 import { createTestInstance } from '@magento/peregrine';
 
+import FilterList from '../FilterList';
 import FilterBlock from '../filterBlock';
-import FilterList from '../filterList';
 
 let mockIsExpanded = false;
 
