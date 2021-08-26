@@ -10,6 +10,8 @@ import Routes from '../../Routes';
 
 const renderer = new ShallowRenderer();
 
+let mockIsDesktop;
+
 jest.mock('../../Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
     StoreTitle: () => 'Title'
@@ -25,10 +27,14 @@ jest.mock('@magento/peregrine', () => {
         { toasts: new Map() },
         { addToast: mockAddToast }
     ]);
+    const useWindowSize = jest.fn(() => ({
+        isDesktop: mockIsDesktop
+    }));
 
     return {
         ...jest.requireActual('@magento/peregrine'),
-        useToasts
+        useToasts,
+        useWindowSize
     };
 });
 
@@ -136,12 +142,23 @@ const mockWindowLocation = {
 };
 
 let oldWindowLocation;
-beforeEach(() => {
+
+const givenDefault = () => {
     oldWindowLocation = globalThis.location;
     delete globalThis.location;
     globalThis.location = mockWindowLocation;
     mockWindowLocation.reload.mockClear();
+    mockIsDesktop = false;
+};
+
+const givenDesktop = () => {
+    mockIsDesktop = true;
+};
+
+beforeEach(() => {
+    givenDefault();
 });
+
 afterEach(() => {
     globalThis.location = oldWindowLocation;
 });
@@ -247,6 +264,27 @@ test('displays open nav or drawer', () => {
             },
             appApi
         ]);
+    const props = {
+        markErrorHandled: jest.fn(),
+        unhandledErrors: []
+    };
+
+    const root = createTestInstance(<App {...props} />);
+    expect(root.toJSON()).toMatchSnapshot();
+});
+
+test('displays as mobile', () => {
+    const props = {
+        markErrorHandled: jest.fn(),
+        unhandledErrors: []
+    };
+
+    const root = createTestInstance(<App {...props} />);
+    expect(root.toJSON()).toMatchSnapshot();
+});
+
+test('displays as desktop', () => {
+    givenDesktop();
     const props = {
         markErrorHandled: jest.fn(),
         unhandledErrors: []

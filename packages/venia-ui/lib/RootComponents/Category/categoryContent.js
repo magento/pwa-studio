@@ -1,6 +1,8 @@
 import React, { Fragment, Suspense, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, number, shape, string } from 'prop-types';
+
+import { useWindowSize } from '@magento/peregrine';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
 import { useStyle } from '../../classify';
@@ -14,9 +16,11 @@ import defaultClasses from './category.css';
 import NoProductsFound from './NoProductsFound';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import SortedByContainer from '../../components/SortedByContainer';
-import FilterModalOpenButton from '../../components/FilterModalOpenButton';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
+const FilterModalOpenButton = React.lazy(() =>
+    import('../../components/FilterModalOpenButton')
+);
 const FilterSidebar = React.lazy(() =>
     import('../../components/FilterSidebar')
 );
@@ -48,6 +52,8 @@ const CategoryContent = props => {
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
+
+    const { isDesktop } = useWindowSize();
 
     const shouldShowFilterButtons = filters && filters.length;
 
@@ -133,7 +139,9 @@ const CategoryContent = props => {
                 </div>
                 <div className={classes.contentWrapper}>
                     <div className={classes.sidebar}>
-                        <Suspense fallback={null}>{sidebar}</Suspense>
+                        <Suspense fallback={null}>
+                            {isDesktop ? sidebar : null}
+                        </Suspense>
                     </div>
                     <div className={classes.categoryContent}>
                         <div className={classes.heading}>
@@ -141,13 +149,17 @@ const CategoryContent = props => {
                                 {categoryResultsHeading}
                             </div>
                             <div className={classes.headerButtons}>
-                                {maybeFilterButtons}
+                                <Suspense fallback={null}>
+                                    {!isDesktop ? maybeFilterButtons : null}
+                                </Suspense>
                                 {maybeSortButton}
                             </div>
                             {maybeSortContainer}
                         </div>
                         {content}
-                        <Suspense fallback={null}>{filtersModal}</Suspense>
+                        <Suspense fallback={null}>
+                            {!isDesktop ? filtersModal : null}
+                        </Suspense>
                     </div>
                 </div>
             </article>

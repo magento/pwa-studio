@@ -4,6 +4,8 @@ import Header from '../header';
 import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 import { useQuery } from '@apollo/client';
 
+let mockIsDesktop;
+
 jest.mock('../../../classify');
 jest.mock('../../Logo', () => 'Logo');
 jest.mock('../accountTrigger', () => 'AccountTrigger');
@@ -32,6 +34,17 @@ jest.mock('@magento/peregrine/lib/talons/Header/useHeader', () => {
     };
 });
 
+jest.mock('@magento/peregrine', () => {
+    const useWindowSize = jest.fn(() => ({
+        isDesktop: mockIsDesktop
+    }));
+
+    return {
+        ...jest.requireActual('@magento/peregrine'),
+        useWindowSize
+    };
+});
+
 jest.mock('react-router-dom', () => ({
     Link: jest.fn(() => null),
     Route: jest.fn(() => null),
@@ -39,6 +52,14 @@ jest.mock('react-router-dom', () => ({
 }));
 
 jest.mock('@apollo/client');
+
+const givenDefault = () => {
+    mockIsDesktop = false;
+};
+
+const givenDesktop = () => {
+    mockIsDesktop = true;
+};
 
 beforeAll(() => {
     useQuery.mockReturnValue({
@@ -83,7 +104,18 @@ beforeAll(() => {
     });
 });
 
-test('verify Header can render in default state', () => {
+beforeEach(() => {
+    givenDefault();
+});
+
+test('verify Header can render in default mobile state', () => {
+    const component = createTestInstance(<Header />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('verify Header can render in default desktop state', () => {
+    givenDesktop();
     const component = createTestInstance(<Header />);
 
     expect(component.toJSON()).toMatchSnapshot();

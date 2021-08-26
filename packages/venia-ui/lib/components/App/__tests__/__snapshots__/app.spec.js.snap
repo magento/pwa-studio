@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`displays as desktop 1`] = `
+<div>
+  Title
+  <Main
+    isMasked={false}
+  >
+    <Routes />
+  </Main>
+  <button
+    onClick={[Function]}
+  />
+  <ToastContainer />
+</div>
+`;
+
+exports[`displays as mobile 1`] = `
+<div>
+  Title
+  <Main
+    isMasked={false}
+  >
+    <Routes />
+  </Main>
+  <button
+    onClick={[Function]}
+  />
+  <require('../Navigation') />
+  <ToastContainer />
+</div>
+`;
+
 exports[`displays open nav or drawer 1`] = `
 <div>
   Title

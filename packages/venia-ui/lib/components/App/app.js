@@ -2,7 +2,7 @@ import React, { useCallback, Suspense } from 'react';
 import { useIntl } from 'react-intl';
 import { array, func, shape, string } from 'prop-types';
 
-import { useToasts } from '@magento/peregrine';
+import { useToasts, useWindowSize } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import globalCSS from '../../index.css';
@@ -29,6 +29,7 @@ const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
     const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
+    const { isDesktop } = useWindowSize();
 
     const ERROR_MESSAGE = formatMessage({
         id: 'app.errorUnexpected',
@@ -108,7 +109,7 @@ const App = props => {
             </Main>
             <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
             <Suspense fallback={null}>
-                <Navigation />
+                {!isDesktop ? <Navigation /> : null}
             </Suspense>
             <ToastContainer />
         </HeadProvider>

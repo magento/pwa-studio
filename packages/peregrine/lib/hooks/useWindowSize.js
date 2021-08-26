@@ -1,6 +1,8 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { useEventListener } from './useEventListener';
 
+export const WINDOW_SIZE_DESKTOP = 1024;
+
 const WindowSizeContext = createContext();
 
 const getSize = () => {
@@ -51,9 +53,10 @@ export const WindowSizeContextProvider = props => {
     // This hook has side effects of adding listeners so we only want to create it
     // once and store it in context for reference by components.
     const windowSize = useWindowSizeListener();
+    const isDesktop = windowSize.innerWidth >= WINDOW_SIZE_DESKTOP;
 
     return (
-        <WindowSizeContext.Provider value={windowSize}>
+        <WindowSizeContext.Provider value={{ windowSize, isDesktop }}>
             {props.children}
         </WindowSizeContext.Provider>
     );
