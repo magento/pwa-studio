@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
@@ -14,7 +14,6 @@ export const useMagentoRoute = (props = {}) => {
     const { replace } = useHistory();
     const { pathname } = useLocation();
     const [componentMap, setComponentMap] = useRootComponents();
-    const [previousPathname, setPreviousPathname] = useState(null);
     const [appState, appApi] = useAppContext();
     const { actions: appActions } = appApi;
     const { nextRootComponent } = appState;
@@ -40,14 +39,10 @@ export const useMagentoRoute = (props = {}) => {
 
     // evaluate both results and determine the response type
     const component = componentMap.get(pathname);
-    const previousComponent = previousPathname
-        ? componentMap.get(previousPathname)
-        : null;
     const empty = !urlResolver || !type || id < 1;
     const redirect = isRedirect(redirectCode);
     const fetchError = component instanceof Error && component;
     const routeError = fetchError || error;
-    const previousFetchError = previousComponent instanceof Error;
     let showPageLoader = false;
     let routeData;
 
@@ -72,10 +67,6 @@ export const useMagentoRoute = (props = {}) => {
         // LOADING with full page shimmer
         showPageLoader = true;
         routeData = { isLoading: true, shimmer: nextRootComponent };
-    } else if (previousComponent && !previousFetchError) {
-        // LOADING with previous component
-        showPageLoader = true;
-        routeData = { isLoading: true, ...previousComponent };
     } else {
         // LOADING
         routeData = { isLoading: true };
@@ -108,12 +99,10 @@ export const useMagentoRoute = (props = {}) => {
 
     useEffect(() => {
         if (component) {
-            // store previous component's path
-            setPreviousPathname(pathname);
             // Reset loading shimmer whenever component resolves
             setNextRootComponent(null);
         }
-    }, [component, pathname, setNextRootComponent, setPreviousPathname]);
+    }, [component, pathname, setNextRootComponent]);
 
     useEffect(() => {
         setPageLoading(showPageLoader);

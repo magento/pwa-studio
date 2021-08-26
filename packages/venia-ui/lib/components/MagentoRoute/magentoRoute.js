@@ -29,11 +29,6 @@ const MagentoRoute = () => {
             return <RootShimmerComponent type={shimmer} />;
         }
 
-        // Show previous component
-        if (RootComponent) {
-            return <RootComponent id={id} />;
-        }
-
         return <RootShimmerComponent />;
     } else if (RootComponent) {
         return <RootComponent id={id} />;

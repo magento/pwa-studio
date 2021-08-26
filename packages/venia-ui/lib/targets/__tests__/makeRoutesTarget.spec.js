@@ -23,6 +23,7 @@ const targets = mockTargetProvider(
 );
 const targetable = TargetableSet.using(targets);
 const mockPrependJSX = jest.fn();
+const mockInsertAfterSource = jest.fn();
 
 jest.mock(
     '../../defaultRoutes.json',
@@ -46,7 +47,8 @@ jest.mock(
 beforeAll(() => {
     jest.spyOn(targetable, 'reactComponent').mockImplementation(() => ({
         addReactLazyImport: () => FAKE_ADDED_ROUTE,
-        prependJSX: mockPrependJSX
+        prependJSX: mockPrependJSX,
+        insertAfterSource: mockInsertAfterSource
     }));
 });
 
@@ -58,9 +60,21 @@ test('Call prependJSX with the correct path patterns', async () => {
         'Switch',
         `<Route exact path={"/simple"}><${FAKE_ADDED_ROUTE}/></Route>`
     );
+    expect(mockInsertAfterSource).toHaveBeenNthCalledWith(
+        1,
+        expect.stringContaining('availableRoutes'),
+        expect.stringContaining('/simple')
+    );
+
+
     expect(mockPrependJSX).toHaveBeenNthCalledWith(
         2,
         'Switch',
         `<Route exact path={["/one","/two"]}><${FAKE_ADDED_ROUTE}/></Route>`
+    );
+    expect(mockInsertAfterSource).toHaveBeenNthCalledWith(
+        2,
+        expect.stringContaining('availableRoutes'),
+        expect.stringContaining(JSON.stringify(["/one","/two"]))
     );
 });

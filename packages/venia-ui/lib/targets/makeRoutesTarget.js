@@ -9,6 +9,7 @@ function makeRoutesTarget(venia) {
 }
 
 function addRoutes(routeList, routes) {
+    const routesCount = routes.length;
     for (const route of routes) {
         const AddedRoute = routeList.addReactLazyImport(route.path, route.name);
         routeList.prependJSX(
@@ -16,6 +17,11 @@ function addRoutes(routeList, routes) {
             `<Route ${route.exact ? 'exact ' : ''}path={${JSON.stringify(
                 route.pattern
             )}}><${AddedRoute}/></Route>`
+        );
+
+        routeList.insertAfterSource(
+            'const availableRoutes = [];',
+            'availableRoutes.push(' + JSON.stringify(route) + ');'
         );
     }
 }
