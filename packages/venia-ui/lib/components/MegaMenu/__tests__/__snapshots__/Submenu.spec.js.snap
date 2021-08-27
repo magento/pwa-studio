@@ -12,51 +12,47 @@ exports[`Submenu renders correctly it renders correctly 1`] = `
       }
     }
   >
-    <div
-      className="submenuColumn"
-    >
-      <a
-        className="link"
-        href="/bottoms.html"
-        onClick={[Function]}
-      >
-        <h3
-          className="heading"
-        >
-          Bottoms
-        </h3>
-      </a>
-      <ul
-        className="submenuChild"
-      >
-        <li
-          className="submenuChildItem"
-        >
-          <a
-            className="link"
-            href="/pants.html"
-            onClick={[Function]}
-          >
-            Pants
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div
-      className="submenuColumn"
-    >
-      <a
-        className="link"
-        href="/tops.html"
-        onClick={[Function]}
-      >
-        <h3
-          className="heading"
-        >
-          Tops
-        </h3>
-      </a>
-    </div>
+    <mock-SubmenuColumn
+      category={
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "id": 3,
+              "isActive": false,
+              "name": "Pants",
+              "url_path": "pants",
+              "url_suffix": ".html",
+            },
+          ],
+          "id": 1,
+          "name": "Bottoms",
+          "url_path": "bottoms",
+          "url_suffix": ".html",
+        }
+      }
+      index={0}
+      keyboardProps={Object {}}
+    />
+    <mock-SubmenuColumn
+      category={
+        Object {
+          "children": Array [],
+          "id": 2,
+          "isActive": false,
+          "name": "Tops",
+          "url_path": "tops",
+          "url_suffix": ".html",
+        }
+      }
+      index={1}
+      keyboardProps={
+        Object {
+          "onKeyDown": [Function],
+          "onKeyUp": undefined,
+        }
+      }
+    />
   </div>
 </div>
 `;

@@ -29,6 +29,7 @@ Array [
       />
       <nav
         className="megaMenu"
+        onFocus={[Function]}
         role="navigation"
       >
         <div

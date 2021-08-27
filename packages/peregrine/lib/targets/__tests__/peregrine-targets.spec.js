@@ -178,6 +178,8 @@ test('exposes all hooks and targets', async () => {
           talons.LegacyMiniCart.useProduct.wrapWith() wraps export "useProduct" from "LegacyMiniCart/useProduct.js"
           talons.MagentoRoute.useMagentoRoute.wrapWith() wraps export "useMagentoRoute" from "MagentoRoute/useMagentoRoute.js"
           talons.MegaMenu.useMegaMenu.wrapWith() wraps export "useMegaMenu" from "MegaMenu/useMegaMenu.js"
+          talons.MegaMenu.useMegaMenuItem.wrapWith() wraps export "useMegaMenuItem" from "MegaMenu/useMegaMenuItem.js"
+          talons.MegaMenu.useSubMenu.wrapWith() wraps export "useSubMenu" from "MegaMenu/useSubMenu.js"
           talons.MiniCart.useItem.wrapWith() wraps export "useItem" from "MiniCart/useItem.js"
           talons.MiniCart.useMiniCart.wrapWith() wraps export "useMiniCart" from "MiniCart/useMiniCart.js"
           talons.MyAccount.useMyAccount.wrapWith() wraps export "useMyAccount" from "MyAccount/useMyAccount.js"

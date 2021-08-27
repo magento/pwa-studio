@@ -22,6 +22,11 @@
     top: 0;
 }
 
+.submenu_active {
+    composes: submenu;
+    display: flex;
+}
+
 .submenuItems {
     display: flex;
     flex-wrap: wrap;
