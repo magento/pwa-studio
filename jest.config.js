@@ -145,10 +145,6 @@ const testReactComponents = inPackage => ({
         inPackage('node_modules'),
         '<rootDir>/node_modules'
     ],
-    // Set up Enzyme React 16 adapter for testing React components
-    setupFilesAfterEnv: [
-        path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
-    ],
     // Give jsdom a real URL for router testing.
     testURL: 'http://localhost/',
     transform: {
@@ -255,10 +251,6 @@ const jestConfig = {
                 // Always mock `fetch` instead of doing real network calls
                 inPackage('scripts/fetch-mock.js'),
                 path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
-            ],
-            // Set up Enzyme React 16 adapter for testing React components
-            setupFilesAfterEnv: [
-                path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
             ],
             // Give jsdom a real URL for router testing.
             testURL: 'http://localhost/'

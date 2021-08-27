@@ -1,14 +1,18 @@
 import React from 'react';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import ContainerChild from '..';
-import { shallow } from 'enzyme';
+
+const renderer = new ShallowRenderer();
+const MockChild = () => 'mock-Child';
 
 test('Renders content from render prop', () => {
-    const wrapper = shallow(
+    renderer.render(
         <ContainerChild
             id="foo.bar"
-            render={() => <mock-Child />}
+            render={() => <MockChild />}
             processed={true}
         />
     );
-    expect(wrapper.equals(<mock-Child />)).toBe(true);
+    const wrapper = renderer.getRenderOutput();
+    expect(wrapper.type === MockChild).toBe(true);
 });
