@@ -36,9 +36,10 @@ const items = [
         },
         stock_status: 'IN_STOCK',
         type_id: 'simple',
-        price: {
-            regularPrice: {
-                amount: {
+        __typename: 'SimpleProduct',
+        price_range: {
+            maximum_price: {
+                regular_price: {
                     value: 100,
                     currency: 'USD'
                 }
@@ -55,9 +56,10 @@ const items = [
         },
         stock_status: 'OUT_OF_STOCK',
         type_id: 'simple',
-        price: {
-            regularPrice: {
-                amount: {
+        __typename: 'SimpleProduct',
+        price_range: {
+            maximum_price: {
+                regular_price: {
                     value: 100,
                     currency: 'USD'
                 }

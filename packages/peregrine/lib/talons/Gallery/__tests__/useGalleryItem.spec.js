@@ -5,6 +5,7 @@ describe('returns correct shape when multiple wishlists are', () => {
         const props = useGalleryItem();
         expect(props).toMatchInlineSnapshot(`
             Object {
+              "isSupportedProductType": false,
               "wishlistButtonProps": null,
             }
         `);
@@ -20,6 +21,7 @@ describe('returns correct shape when multiple wishlists are', () => {
 
         expect(props).toMatchInlineSnapshot(`
             Object {
+              "isSupportedProductType": false,
               "item": "Austin FC Jersey",
               "storeConfig": Object {
                 "magento_wishlist_general_is_enabled": "1",

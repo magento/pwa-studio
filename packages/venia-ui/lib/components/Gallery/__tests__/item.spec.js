@@ -43,12 +43,13 @@ const validItem = {
     },
     stock_status: 'IN_STOCK',
     type_id: 'simple',
+    __typename: 'SimpleProduct',
     url_key: 'strive-shoulder-pack',
     url_suffix: '.html',
     sku: 'sku-123',
-    price: {
-        regularPrice: {
-            amount: {
+    price_range: {
+        maximum_price: {
+            regular_price: {
                 value: 21,
                 currency: 'USD'
             }

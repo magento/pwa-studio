@@ -7,6 +7,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
+import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/util/isSupportedProductType';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './productFullDetail.gql';
@@ -149,8 +150,6 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
     return value;
 };
 
-const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
-
 /**
  * @param {GraphQLDocument} props.addConfigurableProductToCartMutation - configurable product mutation
  * @param {GraphQLDocument} props.addSimpleProductToCartMutation - configurable product mutation
@@ -185,9 +184,7 @@ export const useProductFullDetail = props => {
 
     const productType = product.__typename;
 
-    const isSupportedProductType = SUPPORTED_PRODUCT_TYPES.includes(
-        productType
-    );
+    const isSupportedProductType = isSupported(productType);
 
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();

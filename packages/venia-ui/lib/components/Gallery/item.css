@@ -50,6 +50,20 @@
     min-height: 1rem;
 }
 
+.unavailableContainer {
+    align-items: center;
+    background-color: rgb(var(--venia-global-color-gray));
+    color: rgb(var(--venia-global-color-gray-darker));
+    column-gap: 0.5rem;
+    display: grid;
+    font-style: italic;
+    grid-auto-flow: column;
+    justify-content: start;
+    padding: 0.75rem;
+    width: 100%;
+    font-size: var(--venia-global-fontSize-100);
+}
+
 /* state: pending */
 
 .root_pending {
