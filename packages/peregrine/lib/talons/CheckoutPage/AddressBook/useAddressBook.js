@@ -62,9 +62,13 @@ export const useAddressBook = props => {
         customerCartAddressLoading ||
         setCustomerAddressOnCartLoading;
 
-    const customerAddresses =
-        (customerAddressesData && customerAddressesData.customer.addresses) ||
-        [];
+    const customerAddresses = useMemo(
+        () =>
+            (customerAddressesData &&
+                customerAddressesData.customer.addresses) ||
+            [],
+        [customerAddressesData]
+    );
 
     useEffect(() => {
         if (customerAddresses.length !== addressCount.current) {

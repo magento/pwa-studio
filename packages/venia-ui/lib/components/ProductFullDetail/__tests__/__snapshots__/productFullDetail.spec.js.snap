@@ -1539,13 +1539,13 @@ exports[`it renders message with unsupported product type 1`] = `
     >
       <svg
         fill="none"
-        height="24"
+        height={24}
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
         viewBox="0 0 24 24"
-        width="24"
+        width={24}
         xmlns="http://www.w3.org/2000/svg"
       >
         <circle
@@ -1561,7 +1561,7 @@ exports[`it renders message with unsupported product type 1`] = `
         />
         <line
           x1="12"
-          x2="12"
+          x2="12.01"
           y1="8"
           y2="8"
         />

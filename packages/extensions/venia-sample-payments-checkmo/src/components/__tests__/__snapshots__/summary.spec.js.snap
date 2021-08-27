@@ -28,7 +28,16 @@ exports[`renders correctly 1`] = `
           }
         }
         size={16}
-        src={[Function]}
+        src={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "color": [Function],
+              "size": [Function],
+            },
+            "render": [Function],
+          }
+        }
       />
       <span
         className="edit_text"

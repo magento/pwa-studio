@@ -232,13 +232,13 @@ exports[`renders configurable product with options 1`] = `
           <svg
             className="icon"
             fill="none"
-            height="24"
+            height={24}
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
             viewBox="0 0 24 24"
-            width="24"
+            width={24}
             xmlns="http://www.w3.org/2000/svg"
           >
             <circle
@@ -343,7 +343,16 @@ exports[`renders configurable product with options 1`] = `
             icon={
               <Icon
                 size={16}
-                src={[Function]}
+                src={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "propTypes": Object {
+                      "color": [Function],
+                      "size": [Function],
+                    },
+                    "render": [Function],
+                  }
+                }
               />
             }
           />
@@ -554,13 +563,13 @@ exports[`renders out of stock product 1`] = `
           <svg
             className="icon"
             fill="none"
-            height="24"
+            height={24}
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
             viewBox="0 0 24 24"
-            width="24"
+            width={24}
             xmlns="http://www.w3.org/2000/svg"
           >
             <circle
@@ -632,7 +641,16 @@ exports[`renders out of stock product 1`] = `
             icon={
               <Icon
                 size={16}
-                src={[Function]}
+                src={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "propTypes": Object {
+                      "color": [Function],
+                      "size": [Function],
+                    },
+                    "render": [Function],
+                  }
+                }
               />
             }
           />
@@ -843,13 +861,13 @@ exports[`renders simple product correctly 1`] = `
           <svg
             className="icon"
             fill="none"
-            height="24"
+            height={24}
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
             viewBox="0 0 24 24"
-            width="24"
+            width={24}
             xmlns="http://www.w3.org/2000/svg"
           >
             <circle
@@ -921,7 +939,16 @@ exports[`renders simple product correctly 1`] = `
             icon={
               <Icon
                 size={16}
-                src={[Function]}
+                src={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "propTypes": Object {
+                      "color": [Function],
+                      "size": [Function],
+                    },
+                    "render": [Function],
+                  }
+                }
               />
             }
           />

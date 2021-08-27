@@ -32,13 +32,13 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
     <svg
       className="icon"
       fill="none"
-      height="24"
+      height={24}
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
       viewBox="0 0 24 24"
-      width="24"
+      width={24}
       xmlns="http://www.w3.org/2000/svg"
     >
       <polyline
@@ -81,13 +81,13 @@ exports[`renders an icon if isSelected is true 1`] = `
     <svg
       className="icon"
       fill="none"
-      height="24"
+      height={24}
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
       viewBox="0 0 24 24"
-      width="24"
+      width={24}
       xmlns="http://www.w3.org/2000/svg"
     >
       <polyline

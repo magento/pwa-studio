@@ -96,7 +96,7 @@ const FilterModal = props => {
         <Portal>
             {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
             <FocusScope contain restoreFocus autoFocus>
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
                 <aside className={modalClass} onKeyDown={handleKeyDownActions}>
                     <div className={classes.body}>
                         <div className={classes.header}>

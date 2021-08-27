@@ -6,7 +6,16 @@ exports[`it renders children passed to it 1`] = `
     onClick={[Function]}
   >
     <Icon
-      src={[Function]}
+      src={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "color": [Function],
+            "size": [Function],
+          },
+          "render": [Function],
+        }
+      }
     />
   </button>
   <ul>
@@ -23,7 +32,16 @@ exports[`it renders correctly without children 1`] = `
     onClick={[Function]}
   >
     <Icon
-      src={[Function]}
+      src={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "color": [Function],
+            "size": [Function],
+          },
+          "render": [Function],
+        }
+      }
     />
   </button>
   <ul />

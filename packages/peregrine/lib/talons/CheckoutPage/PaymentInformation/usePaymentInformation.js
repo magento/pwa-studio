@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
@@ -109,9 +109,13 @@ export const usePaymentInformation = props => {
      * Effects
      */
 
-    const availablePaymentMethods = paymentInformationData
-        ? paymentInformationData.cart.available_payment_methods
-        : [];
+    const availablePaymentMethods = useMemo(
+        () =>
+            paymentInformationData
+                ? paymentInformationData.cart.available_payment_methods
+                : [],
+        [paymentInformationData]
+    );
 
     const selectedPaymentMethod =
         (paymentInformationData &&

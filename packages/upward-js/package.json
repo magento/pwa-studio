@@ -36,7 +36,7 @@
     "camelspace": "~1.0.0",
     "connect": "~3.6.6",
     "contains-path": "~1.0.0",
-    "debug": "~4.1.1",
+    "debug": "~4.3.1",
     "dotenv": "~6.2.0",
     "errorhandler": "~1.5.1",
     "graphql": "~15.3.0",

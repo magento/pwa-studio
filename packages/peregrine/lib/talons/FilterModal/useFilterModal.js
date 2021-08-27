@@ -39,10 +39,6 @@ export const useFilterModal = props => {
 
     const { data: introspectionData } = useQuery(getFilterInputsQuery);
 
-    const inputFields = introspectionData
-        ? introspectionData.__type.inputFields
-        : [];
-
     const attributeCodes = useMemo(
         () => filters.map(({ attribute_code }) => attribute_code),
         [filters]
@@ -64,6 +60,9 @@ export const useFilterModal = props => {
     // that the api will understand.
     const possibleFilters = useMemo(() => {
         const nextFilters = new Set();
+        const inputFields = introspectionData
+            ? introspectionData.__type.inputFields
+            : [];
 
         // perform mapping and filtering in the same cycle
         for (const { name } of inputFields) {
@@ -76,7 +75,7 @@ export const useFilterModal = props => {
         }
 
         return nextFilters;
-    }, [DISABLED_FILTERS, attributeCodes, inputFields]);
+    }, [DISABLED_FILTERS, attributeCodes, introspectionData]);
 
     // iterate over filters once to set up all the collections we need
     const [filterNames, filterKeys, filterItems] = useMemo(() => {
