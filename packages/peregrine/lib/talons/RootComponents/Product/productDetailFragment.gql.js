@@ -37,6 +37,7 @@ export const ProductDetailsFragment = gql`
         small_image {
             url
         }
+        stock_status
         url_key
         ... on ConfigurableProduct {
             configurable_options {

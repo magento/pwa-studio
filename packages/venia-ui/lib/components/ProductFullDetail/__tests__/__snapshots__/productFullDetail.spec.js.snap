@@ -106,7 +106,7 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
       >
         <mock-FormattedMessage
           defaultMessage="Add to Cart"
-          id="productFullDetail.cartAction"
+          id="productFullDetail.addItemToCart"
         />
       </span>
     </button>
@@ -221,7 +221,122 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
       >
         <mock-FormattedMessage
           defaultMessage="Add to Cart"
-          id="productFullDetail.cartAction"
+          id="productFullDetail.addItemToCart"
+        />
+      </span>
+    </button>
+    <require('../Wishlist/AddToListButton') />
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Product Description"
+        id="productFullDetail.productDescription"
+      />
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="SKU"
+        id="global.sku"
+      />
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
+exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <span>
+        $
+      </span>
+      <span>
+        3
+      </span>
+      <span>
+        .
+      </span>
+      <span>
+        50
+      </span>
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  />
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      <mock-FormattedMessage
+        defaultMessage="Quantity"
+        id="global.quantity"
+      />
+    </h2>
+    QuantityFields
+  </section>
+  <section
+    className="actions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={true}
+      type="submit"
+    >
+      <span
+        className="content"
+      >
+        <mock-FormattedMessage
+          defaultMessage="Out of Stock"
+          id="productFullDetail.itemOutOfStock"
         />
       </span>
     </button>
@@ -370,7 +485,7 @@ exports[`it renders an error for an invalid cart 1`] = `
       >
         <mock-FormattedMessage
           defaultMessage="Add to Cart"
-          id="productFullDetail.cartAction"
+          id="productFullDetail.addItemToCart"
         />
       </span>
     </button>
@@ -519,7 +634,7 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
       >
         <mock-FormattedMessage
           defaultMessage="Add to Cart"
-          id="productFullDetail.cartAction"
+          id="productFullDetail.addItemToCart"
         />
       </span>
     </button>
@@ -669,7 +784,7 @@ Array [
         >
           <mock-FormattedMessage
             defaultMessage="Add to Cart"
-            id="productFullDetail.cartAction"
+            id="productFullDetail.addItemToCart"
           />
         </span>
       </button>
@@ -815,7 +930,7 @@ exports[`it renders correctly 1`] = `
       >
         <mock-FormattedMessage
           defaultMessage="Add to Cart"
-          id="productFullDetail.cartAction"
+          id="productFullDetail.addItemToCart"
         />
       </span>
     </button>
@@ -960,7 +1075,7 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
       >
         <mock-FormattedMessage
           defaultMessage="Add to Cart"
-          id="productFullDetail.cartAction"
+          id="productFullDetail.addItemToCart"
         />
       </span>
     </button>
@@ -1105,7 +1220,7 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
       >
         <mock-FormattedMessage
           defaultMessage="Add to Cart"
-          id="productFullDetail.cartAction"
+          id="productFullDetail.addItemToCart"
         />
       </span>
     </button>
@@ -1250,7 +1365,7 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
       >
         <mock-FormattedMessage
           defaultMessage="Add to Cart"
-          id="productFullDetail.cartAction"
+          id="productFullDetail.addItemToCart"
         />
       </span>
     </button>
@@ -1399,7 +1514,7 @@ exports[`it renders form level errors 1`] = `
       >
         <mock-FormattedMessage
           defaultMessage="Add to Cart"
-          id="productFullDetail.cartAction"
+          id="productFullDetail.addItemToCart"
         />
       </span>
     </button>
@@ -1714,7 +1829,7 @@ exports[`renders a WishlistButton with props 1`] = `
       >
         <mock-FormattedMessage
           defaultMessage="Add to Cart"
-          id="productFullDetail.cartAction"
+          id="productFullDetail.addItemToCart"
         />
       </span>
     </button>
