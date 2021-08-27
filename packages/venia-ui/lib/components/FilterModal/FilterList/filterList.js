@@ -21,7 +21,7 @@ const FilterList = props => {
         onApply
     } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const talonProps = useFilterList();
+    const talonProps = useFilterList({ filterState, items, itemCountToShow });
     const { isListExpanded, handleListToggle } = talonProps;
     const { formatMessage } = useIntl();
 
@@ -32,14 +32,14 @@ const FilterList = props => {
             items.map((item, index) => {
                 const { title, value } = item;
                 const key = `item-${group}-${value}`;
-                const itemClass =
-                    isListExpanded || index < itemCountToShow
-                        ? classes.item
-                        : classes.itemHidden;
+
+                if (!isListExpanded && index >= itemCountToShow) {
+                    return null;
+                }
 
                 // create an element for each item
                 const element = (
-                    <li key={key} className={itemClass}>
+                    <li key={key} className={classes.item}>
                         <FilterItem
                             filterApi={filterApi}
                             filterState={filterState}
