@@ -37,13 +37,13 @@ const useDelayedTransition = () => {
             }
         };
 
-        unblock.current = history.block((location) => {
+        unblock.current = history.block(location => {
             let currentPath = pathname;
 
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
-                const storeCodes = AVAILABLE_STORE_VIEWS
-                    .map((store) => `\/?${store.code}`)
-                    .join('|');
+                const storeCodes = AVAILABLE_STORE_VIEWS.map(
+                    store => `\/?${store.code}`
+                ).join('|');
                 const regex = new RegExp(`^${storeCodes}`);
                 currentPath = currentPath.replace(regex, '');
             }
@@ -54,12 +54,14 @@ const useDelayedTransition = () => {
             }
 
             // Ignore hardcoded routes
-            const isInternalRoute = availableRoutes.some(({ pattern: path, exact }) => {
-                return !!matchPath(location.pathname, {
-                    path,
-                    exact
-                });
-            });
+            const isInternalRoute = availableRoutes.some(
+                ({ pattern: path, exact }) => {
+                    return !!matchPath(location.pathname, {
+                        path,
+                        exact
+                    });
+                }
+            );
             if (isInternalRoute) {
                 return true;
             }
@@ -102,7 +104,13 @@ const useDelayedTransition = () => {
 
             if (type) {
                 const rootComponent = await getRootComponent(type);
-                setComponentMap(prevMap => new Map(prevMap).set(currentPathname, { component: rootComponent, id, type }));
+                setComponentMap(prevMap =>
+                    new Map(prevMap).set(currentPathname, {
+                        component: rootComponent,
+                        id,
+                        type
+                    })
+                );
             }
 
             setPageLoading(false);

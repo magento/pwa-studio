@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { act, create } from 'react-test-renderer';
 import { matchPath } from 'react-router';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -9,7 +9,6 @@ import { mockSetComponentMap } from '@magento/peregrine/lib/context/rootComponen
 
 import { getRootComponent } from '../../talons/MagentoRoute/helpers';
 import useDelayedTransition from '../useDelayedTransition';
-
 
 // jest.mock('react');
 
@@ -26,15 +25,17 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('@apollo/client', () => {
     return {
-        useApolloClient: jest.fn(),
+        useApolloClient: jest.fn()
     };
 });
 
 jest.mock('@magento/venia-ui/lib/components/Routes/routes', () => ({
-    availableRoutes: [{
-        pattern: '/hardcoded.html',
-        exact: true
-    }]
+    availableRoutes: [
+        {
+            pattern: '/hardcoded.html',
+            exact: true
+        }
+    ]
 }));
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
@@ -49,21 +50,18 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
                         setPageLoading: mockSetPageLoading
                     }
                 }
-            ]
+            ];
         }),
         mockSetPageLoading
     };
 });
 
 jest.mock('@magento/peregrine/lib/context/rootComponents', () => {
-    const mockSetComponentMap = jest.fn((fn) => fn());
+    const mockSetComponentMap = jest.fn(fn => fn());
 
     return {
         useRootComponents: jest.fn(() => {
-            return [
-                null,
-                mockSetComponentMap
-            ];
+            return [null, mockSetComponentMap];
         }),
         mockSetComponentMap
     };
@@ -77,26 +75,26 @@ jest.mock('../../talons/MagentoRoute/helpers', () => ({
     getRootComponent: jest.fn(() => 'RootComponent')
 }));
 
-const givenCurrentLocation = (currentPath) => {
+const givenCurrentLocation = currentPath => {
     useLocation.mockImplementation(() => ({
         pathname: currentPath
     }));
 };
 
 const mockQuery = jest.fn();
-const givenQueryResult = (result) => {
+const givenQueryResult = result => {
     mockQuery.mockImplementation(() => result);
     useApolloClient.mockImplementation(() => ({
         query: mockQuery
     }));
-}
+};
 
 const mockUnblock = jest.fn();
 const mockBlock = jest.fn();
 
 let blockFunction;
 let blockResult;
-const whenRunningBlock = (nextLocation) => {
+const whenRunningBlock = nextLocation => {
     blockResult = blockFunction(nextLocation);
 };
 
@@ -104,7 +102,6 @@ const mockProceed = jest.fn();
 const whenRunningConfirm = () => {
     return globalThis.handleRouteChangeConfirmation(blockResult, mockProceed);
 };
-
 
 const TestComponent = () => {
     useDelayedTransition();
@@ -137,7 +134,7 @@ beforeEach(() => {
     givenCurrentLocation('/foo.html');
 
     mockBlock.mockClear();
-    mockBlock.mockImplementation((fn) => {
+    mockBlock.mockImplementation(fn => {
         blockFunction = fn;
 
         return mockUnblock;
@@ -152,7 +149,7 @@ beforeEach(() => {
     mockSetComponentMap.mockClear();
     getRootComponent.mockClear();
     mockQuery.mockClear();
-})
+});
 
 describe('#useDelayedTransition registers history blocker', () => {
     test('should add history blocker', async () => {
@@ -191,13 +188,10 @@ describe('#useDelayedTransition registers history blocker', () => {
             pathname: '/hardcoded.html'
         });
 
-        expect(matchPath).toHaveBeenCalledWith(
-            '/hardcoded.html',
-            {
-                path: '/hardcoded.html',
-                exact: true
-            }
-        );
+        expect(matchPath).toHaveBeenCalledWith('/hardcoded.html', {
+            path: '/hardcoded.html',
+            exact: true
+        });
         expect(blockResult).toBe(true);
     });
 
@@ -222,15 +216,21 @@ describe('#useDelayedTransition registers history blocker', () => {
 
         await whenMountingComponent();
 
-        const wasCalledWithBeforeUnload = spyAddEventListener.mock.calls.some(([eventType]) => {
-            return eventType === 'beforeunload';
-        });
-        const wasCalledWithOther = spyAddEventListener.mock.calls.some(([eventType]) => {
-            return eventType === 'someotherevent';
-        });
+        const wasCalledWithBeforeUnload = spyAddEventListener.mock.calls.some(
+            ([eventType]) => {
+                return eventType === 'beforeunload';
+            }
+        );
+        const wasCalledWithOther = spyAddEventListener.mock.calls.some(
+            ([eventType]) => {
+                return eventType === 'someotherevent';
+            }
+        );
 
         // Test reset
-        expect(globalThis.addEventListener).toEqual(originalGlobalAddEventListener);
+        expect(globalThis.addEventListener).toEqual(
+            originalGlobalAddEventListener
+        );
         // Test bypass
         expect(wasCalledWithBeforeUnload).toBe(false);
         expect(wasCalledWithOther).toBe(true);
@@ -262,9 +262,11 @@ describe('#useDelayedTransition handleRouteChangeConfirmation', () => {
 
         await whenRunningConfirm();
 
-        expect(mockQuery).toHaveBeenCalledWith(expect.objectContaining({
-            variables: { url: '/bar.html' }
-        }));
+        expect(mockQuery).toHaveBeenCalledWith(
+            expect.objectContaining({
+                variables: { url: '/bar.html' }
+            })
+        );
     });
 
     test('should get root component', async () => {
@@ -285,14 +287,11 @@ describe('#useDelayedTransition handleRouteChangeConfirmation', () => {
 
         await whenRunningConfirm();
 
-        const expectedComponentMap = new Map().set(
-            '/bar.html',
-            {
-                component: 'RootComponent',
-                id: 'BAR123',
-                type: 'BAR_PAGE'
-            }
-        );
+        const expectedComponentMap = new Map().set('/bar.html', {
+            component: 'RootComponent',
+            id: 'BAR123',
+            type: 'BAR_PAGE'
+        });
 
         expect(getRootComponent).toHaveBeenCalledWith('BAR_PAGE');
         expect(mockSetComponentMap).toHaveReturnedWith(expectedComponentMap);
