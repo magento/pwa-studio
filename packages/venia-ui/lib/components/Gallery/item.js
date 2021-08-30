@@ -1,4 +1,6 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Info } from 'react-feather';
 import { string, number, shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 import Price from '@magento/venia-ui/lib/components/Price';
@@ -42,9 +44,12 @@ const ItemPlaceholder = ({ classes }) => (
 );
 
 const GalleryItem = props => {
-    const { handleLinkClick, item, wishlistButtonProps } = useGalleryItem(
-        props
-    );
+    const {
+        handleLinkClick,
+        item,
+        wishlistButtonProps,
+        isSupportedProductType
+    } = useGalleryItem(props);
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -52,13 +57,27 @@ const GalleryItem = props => {
         return <ItemPlaceholder classes={classes} />;
     }
 
-    const { name, price, small_image, url_key, url_suffix } = item;
+    const { name, price_range, small_image, url_key, url_suffix } = item;
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${url_suffix || ''}`);
 
     const wishlistButton = wishlistButtonProps ? (
         <WishlistGalleryButton {...wishlistButtonProps} />
     ) : null;
+
+    const addButton = isSupportedProductType ? (
+        <AddToCartbutton item={item} />
+    ) : (
+        <div className={classes.unavailableContainer}>
+            <Info />
+            <p>
+                <FormattedMessage
+                    id={'galleryItem.unavailableProduct'}
+                    defaultMessage={'Currently unavailable for purchase.'}
+                />
+            </p>
+        </div>
+    );
 
     return (
         <div className={classes.root}>
@@ -87,14 +106,16 @@ const GalleryItem = props => {
             </Link>
             <div className={classes.price}>
                 <Price
-                    value={price.regularPrice.amount.value}
-                    currencyCode={price.regularPrice.amount.currency}
+                    value={price_range.maximum_price.regular_price.value}
+                    currencyCode={
+                        price_range.maximum_price.regular_price.currency
+                    }
                 />
             </div>
 
             <div className={classes.actionsContainer}>
                 {' '}
-                <AddToCartbutton item={item} />
+                {addButton}
                 {wishlistButton}
             </div>
         </div>
