@@ -232,12 +232,15 @@ describe('shouldShowConfigurableProductOutOfStockButton', () => {
             <Component {...configurableProductProps} />
         );
         const { root } = tree;
-        const { talonProps } = root.findByType('i').props;
-        talonProps.handleSelectionChange('1', 2);
-        const talonPropsUpdated = root.findByType('i').props.talonProps;
 
-        expect(talonPropsUpdated.isOutOfStock).toBeFalsy();
-        expect(talonPropsUpdated.isAddToCartDisabled).toBeFalsy();
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange('1', 2);
+        });
+
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.isOutOfStock).toBeFalsy();
+        expect(talonProps.isAddToCartDisabled).toBeFalsy();
     });
 
     test('is true if product is in stock and an out of stock option is selected and disabled', () => {
@@ -246,12 +249,14 @@ describe('shouldShowConfigurableProductOutOfStockButton', () => {
         );
 
         const { root } = tree;
-        const { talonProps } = root.findByType('i').props;
-        talonProps.handleSelectionChange('1', 3);
-        const talonPropsUpdated = root.findByType('i').props.talonProps;
+        act(() => {
+            root.findByType('i').props.talonProps.handleSelectionChange('1', 3);
+        });
 
-        expect(talonPropsUpdated.isOutOfStock).toBeTruthy();
-        expect(talonPropsUpdated.isAddToCartDisabled).toBeTruthy();
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.isOutOfStock).toBeTruthy();
+        expect(talonProps.isAddToCartDisabled).toBeTruthy();
     });
 });
 
@@ -319,25 +324,11 @@ describe('wishlistItemOptions', () => {
     });
 
     test('returns selected_options for ConfigurableProducts', () => {
-        const optionId = 1;
+        const optionId = '1';
         const selectionId = 2;
-        const uid = 'foo';
+        const uid = '20';
 
-        const props = {
-            ...defaultProps,
-            product: {
-                ...defaultProps.product,
-                sku: 'MyConfigurableProductSku',
-                __typename: 'ConfigurableProduct',
-                configurable_options: [
-                    {
-                        attribute_id: optionId,
-                        values: [{ uid, value_index: selectionId }]
-                    }
-                ],
-                variants: []
-            }
-        };
+        const props = configurableProductProps;
         const tree = createTestInstance(<Component {...props} />);
 
         const { root } = tree;

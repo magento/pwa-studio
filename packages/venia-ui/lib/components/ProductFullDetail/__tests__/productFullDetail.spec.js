@@ -292,7 +292,8 @@ test('it does not render options if the product is not a ConfigurableProduct', (
 test('out of stock disabled CTA button is rendered if out of stock', () => {
     useProductFullDetail.mockReturnValueOnce({
         ...talonProps,
-        isOutOfStock: true
+        isOutOfStock: true,
+        isAddToCartDisabled: true
     });
 
     const wrapper = createTestInstance(
