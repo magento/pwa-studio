@@ -33,6 +33,16 @@ export default () => {
         } else {
             setLoadingState('off');
         }
+
+        return () => {
+            if (
+                typeof clearTimeout !== 'undefined' &&
+                doneTimeoutRef &&
+                doneTimeoutRef.current !== null
+            ) {
+                clearTimeout(doneTimeoutRef.current);
+            }
+        };
     }, [isPageLoading, doneTimeoutRef]);
 
     return {

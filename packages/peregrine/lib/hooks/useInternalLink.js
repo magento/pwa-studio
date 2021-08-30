@@ -13,6 +13,7 @@ export default rootType => {
     const type = `${rootType.toUpperCase()}${SHIMMER_TYPE_SUFFIX}`;
 
     const setShimmerType = useCallback(() => {
+        globalThis.avoidDelayedTransition = true;
         setNextRootComponent(type);
     }, [setNextRootComponent, type]);
 
