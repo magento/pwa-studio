@@ -136,11 +136,12 @@ exports[`renders correctly with valid item data 1`] = `
     <mock-AddToCartButton
       item={
         Object {
+          "__typename": "SimpleProduct",
           "id": 1,
           "name": "Test Product",
-          "price": Object {
-            "regularPrice": Object {
-              "amount": Object {
+          "price_range": Object {
+            "maximum_price": Object {
+              "regular_price": Object {
                 "currency": "USD",
                 "value": 21,
               },

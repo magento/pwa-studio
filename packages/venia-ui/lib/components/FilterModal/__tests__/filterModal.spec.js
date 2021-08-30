@@ -1,5 +1,8 @@
 import React from 'react';
+
 import { createTestInstance } from '@magento/peregrine';
+
+import LinkButton from '../../LinkButton';
 import { mockFilterBlock } from '../filterBlock';
 import { mockCurrentFilters } from '../CurrentFilters';
 import FilterModal from '../filterModal';
@@ -41,7 +44,11 @@ const mockFilters = [
     }
 ];
 
-jest.mock('../../../classify');
+let mockFilterState;
+
+let mockIsOpen;
+
+jest.mock('../../LinkButton', () => props => <mock-LinkButton {...props} />);
 
 jest.mock('../../Portal', () => ({
     Portal: jest.fn(({ children }) => {
@@ -77,12 +84,12 @@ jest.mock('@magento/peregrine/lib/talons/FilterModal', () => ({
             filterApi: null,
             filterItems: itemsByGroup,
             filterNames: names,
-            filterState: new Map(),
+            filterState: mockFilterState,
             handleApply: jest.fn(),
             handleClose: jest.fn(),
             handleReset: jest.fn(),
             handleKeyDownActions: jest.fn(),
-            isOpen: true
+            isOpen: mockIsOpen
         };
     })
 }));
@@ -127,12 +134,23 @@ const givenDefaultValues = () => {
     inputProps = {
         filters: []
     };
+
+    mockFilterState = new Map();
+    mockIsOpen = true;
 };
 
 const givenFilters = () => {
     inputProps = {
         filters: mockFilters
     };
+};
+
+const givenSelectedFilters = () => {
+    mockFilterState = new Map([['group', 'item']]);
+};
+
+const givenClosed = () => {
+    mockIsOpen = false;
 };
 
 describe('#FilterModal', () => {
@@ -155,5 +173,26 @@ describe('#FilterModal', () => {
         createTestInstance(<Component />);
 
         expect(mockFilterBlock).toHaveBeenCalledTimes(mockFilters.length);
+    });
+
+    it('renders without selected filters', () => {
+        const { root } = createTestInstance(<Component />);
+
+        expect(() => root.findByType(LinkButton)).toThrow();
+    });
+
+    it('renders with selected filters', () => {
+        givenSelectedFilters();
+        const { root } = createTestInstance(<Component />);
+
+        expect(() => root.findByType(LinkButton)).not.toThrow();
+    });
+
+    it('renders when closed', () => {
+        givenClosed();
+        createTestInstance(<Component />);
+
+        expect(mockFilterBlock).not.toHaveBeenCalled();
+        expect(mockCurrentFilters).not.toHaveBeenCalled();
     });
 });
