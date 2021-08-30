@@ -9,7 +9,6 @@ function makeRoutesTarget(venia) {
 }
 
 function addRoutes(routeList, routes) {
-    const routesCount = routes.length;
     for (const route of routes) {
         const AddedRoute = routeList.addReactLazyImport(route.path, route.name);
         routeList.prependJSX(

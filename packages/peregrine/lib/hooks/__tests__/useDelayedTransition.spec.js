@@ -106,7 +106,7 @@ const whenRunningConfirm = () => {
 };
 
 
-const TestComponent = (props = {}) => {
+const TestComponent = () => {
     useDelayedTransition();
 
     return null;

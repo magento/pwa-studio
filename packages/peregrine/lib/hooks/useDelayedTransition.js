@@ -74,7 +74,7 @@ const useDelayedTransition = () => {
                 unblock.current();
             }
         };
-    }, [pathname]);
+    }, [pathname, history]);
 
     useEffect(() => {
         globalThis.handleRouteChangeConfirmation = async (message, proceed) => {
@@ -87,13 +87,13 @@ const useDelayedTransition = () => {
             }
 
             setPageLoading(true);
-            let pathname = message.replace(DELAY_MESSAGE_PREFIX, '');
+            const currentPathname = message.replace(DELAY_MESSAGE_PREFIX, '');
 
             const queryResult = await client.query({
                 query: resolveUrlQuery,
                 fetchPolicy: 'cache-first',
                 nextFetchPolicy: 'cache-first',
-                variables: { url: pathname }
+                variables: { url: currentPathname }
             });
 
             const { data } = queryResult;
@@ -102,7 +102,7 @@ const useDelayedTransition = () => {
 
             if (type) {
                 const rootComponent = await getRootComponent(type);
-                setComponentMap(prevMap => new Map(prevMap).set(pathname, { component: rootComponent, id, type }));
+                setComponentMap(prevMap => new Map(prevMap).set(currentPathname, { component: rootComponent, id, type }));
             }
 
             setPageLoading(false);
@@ -111,7 +111,7 @@ const useDelayedTransition = () => {
             }
             proceed(true);
         };
-    }, [client]);
+    }, [client, resolveUrlQuery, setComponentMap, setPageLoading]);
 };
 
 export default useDelayedTransition;
