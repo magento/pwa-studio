@@ -17,10 +17,6 @@ import MagentoGQLCacheLink from '@magento/peregrine/lib/Apollo/magentoGqlCacheLi
 import { BrowserPersistence } from '@magento/peregrine/lib/util';
 import shrinkQuery from '@magento/peregrine/lib/util/shrinkQuery';
 
-const defaultHandleRouteChance = (message, callback) => {
-    callback(globalThis.confirm(message))
-};
-
 export const useAdapter = props => {
     const { origin, store, styles } = props;
     const storeCode = storage.getItem('store_view_code') || STORE_VIEW_CODE;
@@ -220,7 +216,7 @@ export const useAdapter = props => {
             return globalThis.handleRouteChangeConfirmation(message, callback);
         }
 
-        return defaultHandleRouteChance(message, callback);
+        return callback(globalThis.confirm(message));
     }, []);
 
     const apolloProps = { client: apolloClient };

@@ -39,6 +39,7 @@ const useDelayedTransition = () => {
 
         unblock.current = history.block((location) => {
             let currentPath = pathname;
+
             if (process.env.USE_STORE_CODE_IN_URL === 'true') {
                 const storeCodes = AVAILABLE_STORE_VIEWS
                     .map((store) => `\/?${store.code}`)
@@ -77,6 +78,14 @@ const useDelayedTransition = () => {
 
     useEffect(() => {
         globalThis.handleRouteChangeConfirmation = async (message, proceed) => {
+            if (globalThis.avoidDelayedTransition) {
+                globalThis.avoidDelayedTransition = false;
+                if (typeof unblock.current === 'function') {
+                    unblock.current();
+                }
+                return proceed(true);
+            }
+
             setPageLoading(true);
             let pathname = message.replace(DELAY_MESSAGE_PREFIX, '');
 
