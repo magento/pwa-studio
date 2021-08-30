@@ -175,8 +175,7 @@ class ModuleTransformConfig {
         return requestorVendor.length > 0 && vendors.includes(requestorVendor);
     }
     _getTrustedExtensionVendors() {
-        const context = path.resolve(__dirname, '../../../../../');
-        const configPath = path.resolve(context, 'package.json');
+        const configPath = path.resolve(process.cwd(), 'package.json');
         if (!fs.existsSync(configPath)) {
             return [];
         }
