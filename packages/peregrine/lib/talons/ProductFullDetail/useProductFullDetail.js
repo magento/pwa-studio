@@ -14,7 +14,7 @@ import defaultOperations from './productFullDetail.gql';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
-const OUT_OF_STOCK_CODE = "OUT_OF_STOCK";
+const OUT_OF_STOCK_CODE = 'OUT_OF_STOCK';
 
 const deriveOptionCodesFromProduct = product => {
     // If this is a simple product it has no option codes.
@@ -68,7 +68,9 @@ const getIsMissingOptions = (product, optionSelections) => {
 const getIsOutOfStock = (product, optionCodes, optionSelections) => {
     const { stock_status, variants } = product;
     const isConfigurable = isProductConfigurable(product);
-    const optionsSelected = Array.from(optionSelections.values()).filter(value => !!value).length > 0;
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
 
     if (isConfigurable && optionsSelected) {
         const item = findMatchingVariant({
@@ -77,7 +79,7 @@ const getIsOutOfStock = (product, optionCodes, optionSelections) => {
             variants
         });
 
-        return item.product.stock_status === OUT_OF_STOCK_CODE
+        return item.product.stock_status === OUT_OF_STOCK_CODE;
     }
     return stock_status === OUT_OF_STOCK_CODE;
 };
@@ -267,7 +269,7 @@ export const useProductFullDetail = props => {
     const isOutOfStock = useMemo(
         () => getIsOutOfStock(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
-    )
+    );
 
     const mediaGalleryEntries = useMemo(
         () => getMediaGalleryEntries(product, optionCodes, optionSelections),

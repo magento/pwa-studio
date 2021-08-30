@@ -106,7 +106,7 @@ const mockConfigurableProduct = {
                 ],
                 sku: 'SKU123-CO1',
                 stock_status: 'IN_STOCK'
-            },
+            }
         },
         {
             attributes: [
@@ -127,7 +127,7 @@ const mockConfigurableProduct = {
                 ],
                 sku: 'SKU124-CO2',
                 stock_status: 'OUT_OF_STOCK'
-            },
+            }
         }
     ]
 };
@@ -165,7 +165,7 @@ const mockSimpleProduct = {
 
 const mockSimpleOOSProduct = {
     ...mockSimpleProduct,
-    stock_status: 'OUT_OF_STOCK',
+    stock_status: 'OUT_OF_STOCK'
 };
 const mockHandleAddToCart = jest.fn();
 const mockHandleSelectionChange = jest.fn();
@@ -290,7 +290,10 @@ test('it does not render options if the product is not a ConfigurableProduct', (
 });
 
 test('out of stock disabled CTA button is rendered if out of stock', () => {
-    useProductFullDetail.mockReturnValueOnce({...talonProps, isOutOfStock: true});
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        isOutOfStock: true
+    });
 
     const wrapper = createTestInstance(
         <ProductFullDetail product={mockSimpleOOSProduct} />

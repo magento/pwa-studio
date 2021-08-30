@@ -60,7 +60,7 @@ const defaultProps = {
             }
         },
         sku: 'MySimpleProductSku',
-        stock_status: "IN_STOCK"
+        stock_status: 'IN_STOCK'
     }
 };
 
@@ -68,7 +68,7 @@ const outOfStockProductProps = {
     ...defaultProps,
     product: {
         ...defaultProps.product,
-        stock_status: "OUT_OF_STOCK"
+        stock_status: 'OUT_OF_STOCK'
     }
 };
 
@@ -85,47 +85,51 @@ const configurableProductProps = {
                 }
             }
         },
-        configurable_options: [{
-            attribute_code: 'config',
-            attribute_id: "1",
-            id: 1,
-            label: 'config',
-            values: [
-                {
-                    __typename: "ConfigurableProductOptionsValues",
-                    uid: "20",
-                    default_label: "config1",
-                    label: "config1",
-                    store_label: "config1",
-                    use_default_value: true,
-                    value_index: 2,
-                    swatch_data: null,
-                    media_gallery_entries: []
-                },
-                {
-                    __typename: "ConfigurableProductOptionsValues",
-                    uid: "30",
-                    default_label: "config2",
-                    label: "config2",
-                    store_label: "config2",
-                    use_default_value: true,
-                    value_index: 3,
-                    swatch_data: null,
-                    media_gallery_entries: []
-                }
-            ]
-        }],
+        configurable_options: [
+            {
+                attribute_code: 'config',
+                attribute_id: '1',
+                id: 1,
+                label: 'config',
+                values: [
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: '20',
+                        default_label: 'config1',
+                        label: 'config1',
+                        store_label: 'config1',
+                        use_default_value: true,
+                        value_index: 2,
+                        swatch_data: null,
+                        media_gallery_entries: []
+                    },
+                    {
+                        __typename: 'ConfigurableProductOptionsValues',
+                        uid: '30',
+                        default_label: 'config2',
+                        label: 'config2',
+                        store_label: 'config2',
+                        use_default_value: true,
+                        value_index: 3,
+                        swatch_data: null,
+                        media_gallery_entries: []
+                    }
+                ]
+            }
+        ],
         variants: [
             {
-                attributes: [{
-                    code: "config",
-                    value_index: 2,
-                    __typename: "ConfigurableAttributeOption"
-                }],
+                attributes: [
+                    {
+                        code: 'config',
+                        value_index: 2,
+                        __typename: 'ConfigurableAttributeOption'
+                    }
+                ],
                 product: {
                     __typename: 'SimpleProduct',
-                    sku: "configurableProductPropsConfig1",
-                    stock_status: "IN_STOCK",
+                    sku: 'configurableProductPropsConfig1',
+                    stock_status: 'IN_STOCK',
                     id: 2,
                     media_gallery_entries: [],
                     price: {
@@ -134,20 +138,22 @@ const configurableProductProps = {
                                 value: 99
                             }
                         }
-                    },
+                    }
                 },
-                __typename: "ConfigurableVariant"
+                __typename: 'ConfigurableVariant'
             },
             {
-                attributes: [{
-                    code: "config",
-                    value_index: 3,
-                    __typename: "ConfigurableAttributeOption"
-                }],
+                attributes: [
+                    {
+                        code: 'config',
+                        value_index: 3,
+                        __typename: 'ConfigurableAttributeOption'
+                    }
+                ],
                 product: {
                     __typename: 'SimpleProduct',
-                    sku: "configurableProductPropsConfig2",
-                    stock_status: "OUT_OF_STOCK",
+                    sku: 'configurableProductPropsConfig2',
+                    stock_status: 'OUT_OF_STOCK',
                     id: 3,
                     media_gallery_entries: [],
                     price: {
@@ -156,9 +162,9 @@ const configurableProductProps = {
                                 value: 99
                             }
                         }
-                    },
+                    }
                 },
-                __typename: "ConfigurableVariant"
+                __typename: 'ConfigurableVariant'
             }
         ]
     }
@@ -168,7 +174,7 @@ const configurableOutOfStockProductProps = {
     ...defaultProps,
     product: {
         ...defaultProps.product,
-        stock_status: "OUT_OF_STOCK"
+        stock_status: 'OUT_OF_STOCK'
     }
 };
 
@@ -184,7 +190,9 @@ describe('shouldShowSimpleProductOutOfStockButton', () => {
     });
 
     test('is true if product is out of stock', () => {
-        const tree = createTestInstance(<Component {...outOfStockProductProps} />);
+        const tree = createTestInstance(
+            <Component {...outOfStockProductProps} />
+        );
 
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
@@ -196,7 +204,9 @@ describe('shouldShowSimpleProductOutOfStockButton', () => {
 
 describe('shouldShowConfigurableProductOutOfStockButton', () => {
     test('is false if product is in stock and no option is selected but disabled', () => {
-        const tree = createTestInstance(<Component {...configurableProductProps} />);
+        const tree = createTestInstance(
+            <Component {...configurableProductProps} />
+        );
 
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
@@ -206,7 +216,9 @@ describe('shouldShowConfigurableProductOutOfStockButton', () => {
     });
 
     test('is true if product is out of stock and no option is selected and disabled', () => {
-        const tree = createTestInstance(<Component {...configurableOutOfStockProductProps} />);
+        const tree = createTestInstance(
+            <Component {...configurableOutOfStockProductProps} />
+        );
 
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
@@ -216,29 +228,31 @@ describe('shouldShowConfigurableProductOutOfStockButton', () => {
     });
 
     test('is false if product is in stock and an in stock option is selected', () => {
-        const tree = createTestInstance(<Component {...configurableProductProps} />);
+        const tree = createTestInstance(
+            <Component {...configurableProductProps} />
+        );
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
-        talonProps.handleSelectionChange("1", 2);
-        const talonPropsUpdated =  root.findByType('i').props.talonProps;
+        talonProps.handleSelectionChange('1', 2);
+        const talonPropsUpdated = root.findByType('i').props.talonProps;
 
         expect(talonPropsUpdated.isOutOfStock).toBeFalsy();
         expect(talonPropsUpdated.isAddToCartDisabled).toBeFalsy();
     });
 
     test('is true if product is in stock and an out of stock option is selected and disabled', () => {
-
-        const tree = createTestInstance(<Component {...configurableProductProps} />);
+        const tree = createTestInstance(
+            <Component {...configurableProductProps} />
+        );
 
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
-        talonProps.handleSelectionChange("1", 3);
-        const talonPropsUpdated =  root.findByType('i').props.talonProps;
+        talonProps.handleSelectionChange('1', 3);
+        const talonPropsUpdated = root.findByType('i').props.talonProps;
 
         expect(talonPropsUpdated.isOutOfStock).toBeTruthy();
         expect(talonPropsUpdated.isAddToCartDisabled).toBeTruthy();
     });
-
 });
 
 describe('shouldShowWishlistButton', () => {

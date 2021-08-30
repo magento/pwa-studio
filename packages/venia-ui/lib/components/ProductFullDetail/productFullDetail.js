@@ -127,9 +127,17 @@ const ProductFullDetail = props => {
     }
 
     const cartActionContent = isSupportedProductType ? (
-        <Button disabled={isAddToCartDisabled || isOutOfStock} priority="high" type="submit">
+        <Button
+            disabled={isAddToCartDisabled || isOutOfStock}
+            priority="high"
+            type="submit"
+        >
             <FormattedMessage
-                id={isOutOfStock ? 'productFullDetail.itemOutOfStock' : 'productFullDetail.addItemToCart'}
+                id={
+                    isOutOfStock
+                        ? 'productFullDetail.itemOutOfStock'
+                        : 'productFullDetail.addItemToCart'
+                }
                 defaultMessage={isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
             />
         </Button>
