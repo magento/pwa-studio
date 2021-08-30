@@ -119,7 +119,7 @@ class LocalizationPlugin {
             // Add individual fileDependencies for each i18n chunk
             compilation.chunks.forEach(chunk => {
                 if (chunk.name && chunk.name.startsWith('i18n')) {
-                    chunk.getModules().forEach(chunkModule => {
+                    compilation.chunkGraph.getChunkModules(chunk).forEach((chunkModule) => {
                         const chunkLocale = path.parse(chunkModule.resource)
                             .name;
                         if (
@@ -127,12 +127,17 @@ class LocalizationPlugin {
                             Array.isArray(locales[chunkLocale])
                         ) {
                             locales[chunkLocale].forEach(localePath => {
-                                chunkModule.buildInfo.fileDependencies.add(
-                                    localePath
-                                );
+                                if(chunkModule.buildInfo.fileDependencies) {
+                                    chunkModule.buildInfo.fileDependencies.add(
+                                        localePath
+                                    );
+                                } else {
+                                    const localePaths = new Set(localePath);
+                                    chunkModule.buildInfo.fileDependencies = localePaths;
+                                }
                             });
                         }
-                    });
+                    })
                 }
             });
         });

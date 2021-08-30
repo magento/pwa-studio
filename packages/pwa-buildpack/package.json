@@ -28,13 +28,13 @@
   "dependencies": {
     "@magento/directive-parser": "~0.1.7",
     "@magento/upward-js": "~5.1.0",
-    "@pmmmwh/react-refresh-webpack-plugin": "~0.4.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "~0.4.3",
     "@yarnpkg/lockfile": "~1.1.0",
     "apicache": "~1.4.0",
     "boxen": "~3.0.0",
     "camelspace": "~1.0.0",
     "chalk": "~2.4.2",
-    "copy-webpack-plugin": "~5.0.3",
+    "copy-webpack-plugin": "~8.1.1",
     "debug": "~4.1.1",
     "devcert": "~1.1.1",
     "dotenv": "~6.2.0",
@@ -63,12 +63,11 @@
     "tar": "~4.4.8",
     "unionfs": "~4.4.0",
     "walk-object": "~4.0.0",
-    "webpack-assets-manifest": "~3.1.1",
+    "webpack-assets-manifest": "~5.0.6",
     "webpack-inject-plugin": "~1.5.3",
     "webpack-node-externals": "~2.5.2",
-    "webpack-virtual-modules": "~0.3.1",
+    "webpack-virtual-modules": "~0.4.3",
     "word-wrap": "~1.2.3",
-    "write-file-webpack-plugin": "~4.5.0",
     "yargs": "~13.2.2"
   },
   "devDependencies": {
@@ -82,9 +81,8 @@
     "rimraf": "~2.6.3",
     "sharp": "~0.25.4",
     "strip-ansi": "~5.0.0",
-    "terser-webpack-plugin": "~1.2.3",
     "wait-for-expect": "~1.2.0",
-    "webpack": "~4.46.0",
+    "webpack": "~5.51.1",
     "workbox-webpack-plugin": "~6.0.2"
   },
   "peerDependencies": {
@@ -93,8 +91,7 @@
     "babel-loader": "~8.0.5",
     "compression": "~1.7.4",
     "css-loader": "~2.1.1",
-    "terser-webpack-plugin": "~1.2.3",
-    "webpack": "~4.46.0",
+    "webpack": "~5.51.1",
     "workbox-webpack-plugin": "~6.0.2"
   },
   "resolutions": {

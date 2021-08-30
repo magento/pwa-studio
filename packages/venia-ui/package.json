@@ -59,7 +59,7 @@
     "@babel/plugin-transform-react-jsx": "~7.3.0",
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@babel/preset-env": "~7.3.4",
-    "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "~0.4.3",
     "@storybook/react": "~6.1.14",
     "@testing-library/react-hooks": "~5.0.3",
     "@wojtekmaj/enzyme-adapter-react-17": "~0.4.1",
@@ -88,7 +88,7 @@
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",
     "redux": "~4.0.1",
-    "webpack": "~4.46.0"
+    "webpack": "~5.51.1"
   },
   "pwa-studio": {
     "targets": {

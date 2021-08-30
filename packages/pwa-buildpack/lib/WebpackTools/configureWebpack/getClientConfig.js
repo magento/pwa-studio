@@ -5,7 +5,6 @@ const debug = require('debug')('pwa-buildpack:createClientConfig');
 const path = require('path');
 const webpack = require('webpack');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
-const TerserPlugin = require('terser-webpack-plugin');
 
 const getModuleRules = require('./getModuleRules');
 const getResolveLoader = require('./getResolveLoader');
@@ -18,7 +17,7 @@ const LocalizationPlugin = require('../plugins/LocalizationPlugin');
 const VirtualModulesPlugin = require('webpack-virtual-modules');
 
 function isDevServer() {
-    return process.argv.find(v => v.includes('webpack-dev-server'));
+    return process.argv.find(v => v.includes('serve'));
 }
 
 /**
@@ -148,9 +147,11 @@ async function getClientConfig(opts) {
         optimization: {
             splitChunks: {
                 cacheGroups: {
-                    vendor: {
+                    defaultVendors: {
                         test: new RegExp(vendorTest),
-                        chunks: 'all'
+                        priority: -10,
+                        chunks: 'all',
+                        reuseExistingChunk: true
                     }
                 }
             }
@@ -160,10 +161,8 @@ async function getClientConfig(opts) {
     if (mode === 'development') {
         debug('Modifying client config for development environment');
         Object.assign(config.optimization, {
-            moduleIds: 'named',
             nodeEnv: 'development',
             minimize: false,
-            occurrenceOrder: true,
             usedExports: true,
             concatenateModules: true,
             sideEffects: true
@@ -204,7 +203,7 @@ async function getClientConfig(opts) {
             } catch (e) {
                 versionBanner = `${
                     require(path.resolve(context, './package.json')).version
-                }-[hash]`;
+                }-[contenthash]`;
             }
         }
 
@@ -215,7 +214,6 @@ async function getClientConfig(opts) {
         config.devtool = false;
         config.optimization = {
             ...config.optimization,
-            moduleIds: 'hashed',
             /**
              * This will move the runtime configuration to
              * its own bundle. Since runtime config tends to
@@ -234,32 +232,16 @@ async function getClientConfig(opts) {
                      * often, it is advantageous to bundle them
                      * separately and cache them on the client.
                      */
-                    vendor: {
+                    defaultVendors: {
                         test: new RegExp(vendorTest),
-                        name: 'vendors',
-                        chunks: 'all'
+                        idHint: 'vendors',
+                        chunks: 'all',
+                        priority: -10,
+                        reuseExistingChunk: true
                     }
                 }
             },
             minimizer: [
-                new TerserPlugin({
-                    parallel: true,
-                    cache: true,
-                    terserOptions: {
-                        ecma: 8,
-                        parse: {
-                            ecma: 8
-                        },
-                        compress: {
-                            drop_console: true
-                        },
-                        output: {
-                            ecma: 7,
-                            semicolons: false
-                        },
-                        keep_fnames: true
-                    }
-                }),
                 new webpack.BannerPlugin({
                     banner: `@version ${versionBanner}`
                 })

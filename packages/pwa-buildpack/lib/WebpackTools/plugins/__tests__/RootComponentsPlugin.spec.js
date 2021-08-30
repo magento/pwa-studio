@@ -22,6 +22,7 @@ const compile = config =>
             cacheGroups: {
                 default: {
                     minChunks: 2,
+                    priority: -20,
                     reuseExistingChunk: false
                 }
             }

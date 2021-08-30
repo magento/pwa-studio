@@ -31,15 +31,14 @@ class UpwardIncludePlugin {
         const { context } = this.compiler.options;
         this.assetMap = {
             'upward.yml': {
-                context,
-                from: './upward.yml',
-                to: './upward.yml',
-                transform: async () => {
-                    await this.bus
-                        .getTargetsOf('@magento/pwa-buildpack')
-                        .transformUpward.promise(this.definition);
-                    return jsYaml.safeDump(this.definition);
-                }
+                    from: './upward.yml',
+                    to: './upward.yml',
+                    transform: async () => {
+                        await this.bus
+                            .getTargetsOf('@magento/pwa-buildpack')
+                            .transformUpward.promise(this.definition);
+                        return jsYaml.safeDump(this.definition);
+                    }
             }
         };
         this.dirs = new Set([...this.upwardDirs, context]);
@@ -54,11 +53,7 @@ class UpwardIncludePlugin {
         debug('assigned %s definitions', Object.keys(this.definition));
 
         debug('assets collection complete, %O', this.assetMap);
-
-        new CopyPlugin(Object.values(this.assetMap), {
-            copyUnmodified: true,
-            logLevel: 'error'
-        }).apply(this.compiler);
+        new CopyPlugin({patterns: Object.values(this.assetMap)}).apply(this.compiler);
     }
     extractFileRefs(definition) {
         const refs = [];
@@ -108,8 +103,7 @@ class UpwardIncludePlugin {
                 dir
             );
             return {
-                context: dir,
-                from: ref,
+                from: fullOriginPath,
                 to: ref
             };
         }

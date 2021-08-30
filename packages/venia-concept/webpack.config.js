@@ -103,7 +103,7 @@ module.exports = async env => {
         name: 'server-config',
         output: {
             ...config.output,
-            filename: '[name].[hash].SERVER.js',
+            filename: '[name].[contenthash].SERVER.js',
             strictModuleExceptionHandling: true
         },
         optimization: {
@@ -149,5 +149,8 @@ module.exports = async env => {
         })
     );
 
+    return [config];
     return [config, serverConfig];
+    //TODO [webpack-cli] Error: Unique ports must be specified for each devServer option in your webpack configuration. Alternatively, run only 1 devServer config using the --config-name flag to specify your desired config.
+
 };

@@ -1,5 +1,4 @@
 const WorkboxPlugin = require('workbox-webpack-plugin');
-const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
 const optionsValidator = require('../../util/options-validator');
 
@@ -86,10 +85,11 @@ class ServiceWorkerPlugin {
             this.applyInjectManifest(compiler);
         } else {
             if (enableServiceWorkerDebugging) {
-                new WriteFileWebpackPlugin({
+                //TODO https://github.com/gajus/write-file-webpack-plugin#webpack-5
+                /*new WriteFileWebpackPlugin({
                     test: new RegExp(SW_FILENAME + '$'),
                     log: true
-                }).apply(compiler);
+                }).apply(compiler);*/
             }
             this.applyGenerateSW(compiler);
         }
