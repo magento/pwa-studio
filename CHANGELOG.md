@@ -295,6 +295,8 @@ If you want to use these tests in your own CICD pipeline, they can be found in [
 
 ## Known issues
 
+- The URL for the suggested category search result contains two store codes (for example, `default`) instead of one. For example: https://venia.magento.com/default/default/search.html?page=1&query=selena&category. This results in a 404 (page not found) error when selecting a suggested category from the search. This issue has been fixed in [PR #3344](https://github.com/magento/pwa-studio/pull/3344).
+
 - The `yarn watch` process may run out of memory if left running for an extended amount of time.
   If an error occurs because of this, restart the watcher.
 
