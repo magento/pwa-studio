@@ -43,9 +43,9 @@ export const PRODUCT_SEARCH = gql`
             items {
                 id
                 name
-                price {
-                    regularPrice {
-                        amount {
+                price_range {
+                    maximum_price {
+                        regular_price {
                             currency
                             value
                         }
