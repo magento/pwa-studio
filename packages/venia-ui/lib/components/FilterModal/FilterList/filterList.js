@@ -1,5 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
-import { array, shape, string, func, number, bool } from 'prop-types';
+import { array, shape, string, func, number } from 'prop-types';
 import { useIntl } from 'react-intl';
 import setValidator from '@magento/peregrine/lib/validators/set';
 import { useFilterList } from '@magento/peregrine/lib/talons/FilterModal';
@@ -17,7 +17,6 @@ const FilterList = props => {
         group,
         itemCountToShow,
         items,
-        isExpanded,
         onApply
     } = props;
     const classes = useStyle(defaultClasses, props.classes);
@@ -46,14 +45,13 @@ const FilterList = props => {
                             group={group}
                             item={item}
                             onApply={onApply}
-                            isExpanded={isExpanded}
                         />
                     </li>
                 );
 
                 // associate each element with its normalized title
                 // titles are not unique, so use the element as the key
-                labels.set(element, title.toUpperCase() || '');
+                labels.set(element, title.toUpperCase());
 
                 return element;
             }),
@@ -63,7 +61,6 @@ const FilterList = props => {
             filterState,
             group,
             items,
-            isExpanded,
             isListExpanded,
             itemCountToShow,
             onApply
@@ -116,8 +113,7 @@ const FilterList = props => {
 
 FilterList.defaultProps = {
     onApply: null,
-    itemCountToShow: 5,
-    isExpanded: false
+    itemCountToShow: 5
 };
 
 FilterList.propTypes = {
@@ -130,8 +126,7 @@ FilterList.propTypes = {
     group: string,
     items: array,
     onApply: func,
-    itemCountToShow: number,
-    isExpanded: bool
+    itemCountToShow: number
 };
 
 export default FilterList;

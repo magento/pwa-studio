@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { arrayOf, shape, string, func, bool } from 'prop-types';
 import { useIntl } from 'react-intl';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
@@ -9,9 +9,8 @@ import setValidator from '@magento/peregrine/lib/validators/set';
 
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
+import FilterList from './FilterList';
 import defaultClasses from './filterBlock.css';
-
-const FilterList = React.lazy(() => import('./FilterList'));
 
 const FilterBlock = props => {
     const {
@@ -64,7 +63,7 @@ const FilterBlock = props => {
               }
           );
 
-    const list = (
+    const list = isExpanded ? (
         <Form className={classes.list}>
             <FilterList
                 filterApi={filterApi}
@@ -72,10 +71,9 @@ const FilterBlock = props => {
                 group={group}
                 items={items}
                 onApply={onApply}
-                isExpanded={isExpanded}
             />
         </Form>
-    );
+    ) : null;
 
     return (
         <li className={classes.root} aria-label={itemAriaLabel}>
@@ -91,7 +89,7 @@ const FilterBlock = props => {
                     <Icon src={iconSrc} />
                 </span>
             </button>
-            <Suspense fallback={null}>{isExpanded ? list : null}</Suspense>
+            {list}
         </li>
     );
 };
