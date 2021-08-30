@@ -151,6 +151,7 @@
                   flex-direction: column;
                   justify-content: center;
                   align-items: center;
+                  text-align: center;
                 }
                 .fallback-nojs a {
                     color: currentColor;
@@ -158,11 +159,25 @@
                 .fallback-closed {
                     height: 40vh;
                 }
+                .fallback-heading {
+                    font-family: 'Source Serif Pro';
+                    font-weight: 600;
+                    padding-bottom: 16px;
+                    font-size: xx-large;
+                }
+                .fallback-message {
+                    font-family: 'Muli';
+                }
+                @media only screen and (max-width: 768px) {
+                  .fallback-heading {
+                    font-size: x-large;
+                  }
+                }
             </style>
             <div class="fallback-nojs">
                 <img class="fallback-closed" alt="JavaScript is disabled" src="/venia-static/veniaClosed.png">
-                <h1 class="fallback-heading">Oops! JavaScript is disabled</h1>
-                <div>
+                <div class="fallback-heading">Oops! JavaScript is disabled</div>
+                <div class="fallback-message">
                   To browse the Venia store,<br>
                   <a href="https://www.enable-javascript.com">enable JavaScript in your browser.</a>
                 </div>

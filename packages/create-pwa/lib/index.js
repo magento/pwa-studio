@@ -139,7 +139,7 @@ module.exports = async () => {
             name: 'npmClient',
             type: 'list',
             message: 'NPM package management client to use',
-            choices: ['npm', 'yarn'],
+            choices: ['yarn', 'npm'],
             default: isYarn ? 'yarn' : 'npm'
         },
         {
