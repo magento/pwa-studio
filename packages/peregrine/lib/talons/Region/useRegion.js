@@ -33,24 +33,25 @@ export const useRegion = props => {
     const regionInputFieldApi = useFieldApi(fieldInput);
     const regionSelectFieldApi = useFieldApi(fieldSelect);
 
-    // Reset region value when country changes. Because of how Informed sets
-    // initialValues, we want to skip the first state change of the value being
-    // initialized.
-    useEffect(() => {
-        if (country) {
-            if (hasInitialized.current) {
-                regionInputFieldApi.exists() && regionInputFieldApi.reset();
-                regionSelectFieldApi.exists() && regionSelectFieldApi.reset();
-            } else {
-                hasInitialized.current = true;
-            }
-        }
-    }, [country, regionInputFieldApi, regionSelectFieldApi]);
-
     const { data, loading } = useQuery(getRegionsQuery, {
         variables: { countryCode: country },
         skip: !country
     });
+
+    // Reset region value when country changes. Because of how Informed sets
+    // initialValues, we want to skip the first state change of the value being
+    // initialized.
+    useEffect(() => {
+        if (country && !loading) {
+            if (hasInitialized.current) {
+                regionInputFieldApi.exists() && regionInputFieldApi.setValue();
+                regionSelectFieldApi.exists() &&
+                    regionSelectFieldApi.setValue();
+            } else {
+                hasInitialized.current = true;
+            }
+        }
+    }, [country, regionInputFieldApi, regionSelectFieldApi, loading]);
 
     let formattedRegionsData = [{ label: 'Loading Regions...', value: '' }];
     if (data) {
