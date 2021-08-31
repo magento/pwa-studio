@@ -45,7 +45,8 @@ export const useRegion = props => {
         if (country && !loading) {
             if (hasInitialized.current) {
                 regionInputFieldApi.exists() && regionInputFieldApi.setValue();
-                regionSelectFieldApi.exists() && regionSelectFieldApi.setValue();
+                regionSelectFieldApi.exists() &&
+                    regionSelectFieldApi.setValue();
             } else {
                 hasInitialized.current = true;
             }
