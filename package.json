@@ -81,7 +81,8 @@
     "jest-transform-graphql": "~2.1.0",
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
-    "rimraf": "~2.6.3"
+    "rimraf": "~2.6.3",
+    "workbox-build": "~6.0.2"
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",
