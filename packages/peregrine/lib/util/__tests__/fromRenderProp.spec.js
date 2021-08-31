@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-
+import ShallowRenderer from 'react-test-renderer/shallow';
 import fromRenderProp, { filterProps } from '../fromRenderProp';
+
+const renderer = new ShallowRenderer();
 
 test('returns a component', () => {
     const Div = fromRenderProp('div');
@@ -12,33 +13,37 @@ test('returns a component', () => {
 test('returns a basic component that renders', () => {
     const child = 'foo';
     const Div = fromRenderProp('div');
-    const wrapper = shallow(<Div>{child}</Div>);
+    renderer.render(<Div>{child}</Div>);
+    const wrapper = renderer.getRenderOutput();
 
-    expect(wrapper.prop('children')).toBe(child);
+    expect(wrapper.props.children).toBe(child);
 });
 
 test('returns a composite component that renders', () => {
     const child = 'foo';
     const Foo = props => <div {...props} />;
     const WrappedFoo = fromRenderProp(Foo);
-    const wrapper = shallow(<WrappedFoo>{child}</WrappedFoo>);
+    renderer.render(<WrappedFoo>{child}</WrappedFoo>);
+    const wrapper = renderer.getRenderOutput();
 
-    expect(wrapper.prop('children')).toBe(child);
+    expect(wrapper.props.children).toBe(child);
 });
 
 test('excludes custom props for a basic component', () => {
     const Div = fromRenderProp('div', ['foo']);
-    const wrapper = shallow(<Div foo="bar" />);
+    renderer.render(<Div foo="bar" />);
+    const wrapper = renderer.getRenderOutput();
 
-    expect(wrapper.prop('foo')).toBeUndefined();
+    expect(wrapper.props.foo).toBeUndefined();
 });
 
 test('includes custom props for a composite component', () => {
     const Foo = props => <div {...props} />;
     const WrappedFoo = fromRenderProp(Foo, ['foo']);
-    const wrapper = shallow(<WrappedFoo foo="bar" />);
+    renderer.render(<WrappedFoo foo="bar" />);
+    const wrapper = renderer.getRenderOutput();
 
-    expect(wrapper.prop('foo')).toBe('bar');
+    expect(wrapper.props.foo).toBe('bar');
 });
 
 test('`filterProps` returns an object', () => {
