@@ -160,6 +160,7 @@ exports[`footer renders copyright 1`] = `
         </li>
       </ul>
     </div>
+    <i />
   </div>
   <div
     className="branding"
