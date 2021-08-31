@@ -70,12 +70,12 @@ const GalleryItem = props => {
     ) : (
         <div className={classes.unavailableContainer}>
             <Info />
-            <p>
+            <span>
                 <FormattedMessage
                     id={'galleryItem.unavailableProduct'}
-                    defaultMessage={'Currently unavailable for purchase.'}
+                    defaultMessage={'Currently unavailable.'}
                 />
-            </p>
+            </span>
         </div>
     );
 
