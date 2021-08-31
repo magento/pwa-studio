@@ -1,23 +1,23 @@
 import React, { Fragment, useEffect } from 'react';
-import { Form } from 'informed';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { Form } from 'informed';
 import { shape, string } from 'prop-types';
-import defaultClasses from './newsletter.css';
-import FormError from '@magento/venia-ui/lib/components/FormError/formError';
-import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import Button from '@magento/venia-ui/lib/components/Button';
-import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
-import TextInput from '@magento/venia-ui/lib/components/TextInput';
+
 import { useNewsletter } from '@magento/peregrine/lib/talons/Newsletter/useNewsletter';
-import { SUBSCRIBE_TO_NEWSLETTER } from './newsletter.gql';
 import { useToasts } from '@magento/peregrine';
+
+import { isRequired } from '../../util/formValidators';
+import { mergeClasses } from '../../classify';
+import FormError from '../FormError';
+import Button from '../Button';
+import LoadingIndicator from '../LoadingIndicator';
+import TextInput from '../TextInput';
+import defaultClasses from './newsletter.css';
+
 const Newsletter = props => {
     const { formatMessage } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
-    const talonProps = useNewsletter({
-        subscribeMutation: SUBSCRIBE_TO_NEWSLETTER
-    });
+    const talonProps = useNewsletter();
     const [, { addToast }] = useToasts();
     const {
         errors,
@@ -40,14 +40,12 @@ const Newsletter = props => {
     }, [addToast, formatMessage, newsLetterResponse]);
     if (isBusy) {
         return (
-            <div className={classes.modal_active}>
-                <LoadingIndicator>
-                    <FormattedMessage
-                        id={'newsletter.loadingText'}
-                        defaultMessage={'Subscribing'}
-                    />
-                </LoadingIndicator>
-            </div>
+            <LoadingIndicator global={true}>
+                <FormattedMessage
+                    id={'newsletter.loadingText'}
+                    defaultMessage={'Subscribing'}
+                />
+            </LoadingIndicator>
         );
     }
     return (

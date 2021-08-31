@@ -1,7 +1,12 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
 import { useMutation } from '@apollo/client';
-export const useNewsletter = props => {
-    const { subscribeMutation } = props;
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './newsletter.gql';
+export const useNewsletter = (props = {}) => {
+    const { subscribeMutation } = mergeOperations(
+        DEFAULT_OPERATIONS,
+        props.operations
+    );
     const [subscribing, setSubscribing] = useState(false);
     const [subscribeNewsLetter, { error: newsLetterError, data }] = useMutation(
         subscribeMutation,

@@ -1,2 +1,1 @@
-import Newsletter from './newsletter.js';
-export default Newsletter;
+export { default } from './newsletter';
