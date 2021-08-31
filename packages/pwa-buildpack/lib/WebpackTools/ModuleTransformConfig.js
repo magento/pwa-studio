@@ -181,7 +181,9 @@ class ModuleTransformConfig {
         }
         const config = require(configPath)['pwa-studio'];
         const configSectionName = 'trusted-vendors';
-        return config && config[configSectionName] ? config[configSectionName] : [];
+        return config && config[configSectionName]
+            ? config[configSectionName]
+            : [];
     }
     _traceableError(msg) {
         const capturedError = new Error(`ModuleTransformConfig: ${msg}`);
