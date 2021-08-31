@@ -32,7 +32,9 @@ describe('#useInternalLink setShimmerType', () => {
         const { setShimmerType } = useInternalLink('test_type');
         setShimmerType();
 
-        expect(mockSetNextRootComponent).toHaveBeenCalledWith(`TEST_TYPE${SHIMMER_TYPE_SUFFIX}`);
+        expect(mockSetNextRootComponent).toHaveBeenCalledWith(
+            `TEST_TYPE${SHIMMER_TYPE_SUFFIX}`
+        );
     });
 
     test('sets global transition flag', () => {
