@@ -7,7 +7,7 @@ import { useNewsletter } from '@magento/peregrine/lib/talons/Newsletter/useNewsl
 import { useToasts } from '@magento/peregrine';
 
 import { isRequired } from '../../util/formValidators';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import FormError from '../FormError';
 import Button from '../Button';
 import LoadingIndicator from '../LoadingIndicator';
@@ -16,7 +16,7 @@ import defaultClasses from './newsletter.css';
 
 const Newsletter = props => {
     const { formatMessage } = useIntl();
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useNewsletter();
     const [, { addToast }] = useToasts();
     const {
