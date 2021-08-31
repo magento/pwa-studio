@@ -89,21 +89,21 @@ test('returns empty array if no available regions', () => {
 });
 
 test('resets value on country change', () => {
-    const mockReset = jest.fn();
+    const mockSetValue = jest.fn();
     const mockExists = jest.fn(() => true);
 
     useFieldState.mockReturnValueOnce({ value: 'FR' });
-    useFieldApi.mockReturnValue({ reset: mockReset, exists: mockExists });
+    useFieldApi.mockReturnValue({ setValue: mockSetValue, exists: mockExists });
 
     const tree = createTestInstance(<Component {...props} />);
 
-    expect(mockReset).not.toHaveBeenCalled();
+    expect(mockSetValue).not.toHaveBeenCalled();
 
     act(() => {
         tree.update(<Component {...props} />);
     });
 
-    expect(mockReset).toHaveBeenCalled();
+    expect(mockSetValue).toHaveBeenCalledWith();
 });
 
 test('should return loading state if data is not available', () => {
