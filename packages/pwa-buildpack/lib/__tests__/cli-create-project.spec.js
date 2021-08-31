@@ -260,7 +260,7 @@ test('if backendEdition matches env', async () => {
     fse.readdir.mockResolvedValueOnce(true);
     await expect(
         createProjectCliBuilder.handler({
-            backendUrl: 'EE',
+            backendUrl: 'https://example.com',
             backendEdition: 'EE',
             name: 'goo',
             template: 'venia-concept',
