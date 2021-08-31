@@ -14,7 +14,7 @@ const mapBillingAddressData = rawBillingAddressData => {
             street1: street[0],
             street2: street[1],
             country: country.code,
-            state: region.code
+            state: region.label
         };
     } else {
         return {};

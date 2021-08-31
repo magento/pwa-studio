@@ -27,23 +27,25 @@ const CategoryContentShimmer = props => {
                         </div>
                     </h1>
                 </div>
-                <div className={classes.sidebar}>
-                    <FilterSidebarShimmer />
-                </div>
-                <div className={classes.categoryContent}>
-                    <div className={classes.heading}>
-                        <div className={classes.categoryInfo}>
-                            <Shimmer width={5} />
-                        </div>
-                        <div className={classes.headerButtons}>
-                            <FilterModalOpenButtonShimmer />
-                            <ProductSortShimmer />
-                        </div>
-                        <SortedByContainerShimmer />
+                <div className={classes.contentWrapper}>
+                    <div className={classes.sidebar}>
+                        <FilterSidebarShimmer />
                     </div>
-                    <section className={classes.gallery}>
-                        <GalleryShimmer items={placeholderItems} />
-                    </section>
+                    <div className={classes.categoryContent}>
+                        <div className={classes.heading}>
+                            <div className={classes.categoryInfo}>
+                                <Shimmer width={5} />
+                            </div>
+                            <div className={classes.headerButtons}>
+                                <FilterModalOpenButtonShimmer />
+                                <ProductSortShimmer />
+                            </div>
+                            <SortedByContainerShimmer />
+                        </div>
+                        <section className={classes.gallery}>
+                            <GalleryShimmer items={placeholderItems} />
+                        </section>
+                    </div>
                 </div>
             </article>
         </Fragment>
