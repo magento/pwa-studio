@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
-import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useRootComponents } from '../../context/rootComponents';
+import mergeOperations from '../../util/shallowMerge';
+import { getComponentData } from '../../util/magentoRouteData';
 import { useAppContext } from '../../context/app';
 
 import { getRootComponent, isRedirect } from './helpers';
@@ -16,16 +17,6 @@ const getInlinedPageData = () => {
 
 const resetInlinedPageData = () => {
     globalThis.INLINED_PAGE_TYPE = false;
-};
-
-const getComponentData = routeData => {
-    const excludedKeys = ['redirect_code', 'relative_url'];
-
-    return Object.fromEntries(
-        Object.entries(routeData).filter(([key]) => {
-            return !excludedKeys.includes(key);
-        })
-    );
 };
 
 export const useMagentoRoute = (props = {}) => {
