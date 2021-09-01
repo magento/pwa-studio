@@ -12,28 +12,26 @@ describe('Mega menu item renders correctly', () => {
             id: 1,
             name: 'Women',
             url_path: 'women',
-            url_suffix: '.html',
             isActive: true,
             children: [
                 {
                     id: 2,
                     name: 'Bottoms',
                     url_path: 'bottoms',
-                    url_suffix: '.html',
                     children: []
                 },
                 {
                     id: 3,
                     name: 'Tops',
                     url_path: 'tops',
-                    url_suffix: '.html',
                     isActive: false,
                     children: []
                 }
             ]
         },
         rootCategoryName: 'Clothing',
-        activeCategoryId: 1
+        activeCategoryId: 1,
+        categoryUrlSuffix: '.html'
     };
 
     test('it renders correctly', () => {
@@ -65,7 +63,6 @@ describe('Mega menu item renders correctly', () => {
             id: 3,
             name: 'Tops',
             url_path: 'tops',
-            url_suffix: '.html',
             isActive: false,
             children: []
         };

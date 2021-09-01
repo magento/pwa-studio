@@ -11,12 +11,18 @@ import PropTypes from 'prop-types';
  * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
  */
 const Submenu = props => {
-    const { items, mainNavWidth } = props;
+    const { items, mainNavWidth, categoryUrlSuffix } = props;
     const PADDING_OFFSET = 20;
     const classes = useStyle(defaultClasses, props.classes);
 
     const subMenus = items.map(category => {
-        return <SubmenuColumn category={category} key={category.id} />;
+        return (
+            <SubmenuColumn 
+                category={category} 
+                key={category.id} 
+                categoryUrlSuffix={categoryUrlSuffix} 
+            />
+        );
     });
 
     return (
@@ -44,8 +50,8 @@ Submenu.propTypes = {
             path: PropTypes.array.isRequired,
             position: PropTypes.number.isRequired,
             url_path: PropTypes.string.isRequired,
-            url_suffix: PropTypes.string
         })
     ).isRequired,
-    mainNavWidth: PropTypes.number.isRequired
+    mainNavWidth: PropTypes.number.isRequired,
+    categoryUrlSuffix: PropTypes.string
 };

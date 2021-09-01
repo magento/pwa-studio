@@ -14,14 +14,12 @@ jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenu', () => ({
                 {
                     id: 2,
                     name: 'Women',
-                    url_path: 'women',
-                    url_suffix: '.html',
+                    url_path: 'women', 
                     children: [
                         {
                             id: 5,
                             name: 'Bottoms',
                             url_path: 'bottoms',
-                            url_suffix: '.html',
                             isActive: true,
                             children: []
                         }
@@ -31,19 +29,18 @@ jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenu', () => ({
                     id: 3,
                     name: 'Men',
                     url_path: 'men',
-                    url_suffix: '.html',
                     children: []
                 },
                 {
                     id: 4,
                     name: 'Gear',
                     url_path: 'gear',
-                    url_suffix: '.html',
                     children: []
                 }
             ]
         },
-        activeCategoryId: 5
+        activeCategoryId: 5,
+        categoryUrlSuffix: '.html'
     })
 }));
 

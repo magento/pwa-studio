@@ -38,7 +38,6 @@ beforeAll(() => {
                             name: 'Accessories',
                             position: 4,
                             url_path: 'venia-accessories',
-                            url_suffix: '.html',
                             children: [
                                 {
                                     id: 4,
@@ -46,7 +45,6 @@ beforeAll(() => {
                                     name: 'Belts',
                                     position: 10,
                                     url_path: 'venia-accessories/venia-belts',
-                                    url_suffix: '.html',
                                     children: []
                                 },
                                 {
@@ -55,7 +53,6 @@ beforeAll(() => {
                                     name: 'Jewelry',
                                     position: 2,
                                     url_path: 'venia-accessories/venia-jewelry',
-                                    url_suffix: '.html',
                                     children: []
                                 },
                                 {
@@ -64,7 +61,6 @@ beforeAll(() => {
                                     name: 'Scarves',
                                     position: 3,
                                     url_path: 'venia-accessories/venia-scarves',
-                                    url_suffix: '.html',
                                     children: []
                                 }
                             ]
@@ -75,7 +71,6 @@ beforeAll(() => {
                             name: 'Tops',
                             position: 3,
                             url_path: 'venia-tops',
-                            url_suffix: '.html',
                             children: [
                                 {
                                     id: 8,
@@ -83,7 +78,6 @@ beforeAll(() => {
                                     name: 'Blouses & Shirts',
                                     position: 1,
                                     url_path: 'venia-tops/venia-blouses',
-                                    url_suffix: '.html',
                                     children: []
                                 },
                                 {
@@ -92,7 +86,6 @@ beforeAll(() => {
                                     name: 'Sweaters',
                                     position: 2,
                                     url_path: 'venia-tops/venia-sweaters',
-                                    url_suffix: '.html',
                                     children: []
                                 }
                             ]
@@ -103,12 +96,15 @@ beforeAll(() => {
                             name: 'Dresses',
                             position: 3,
                             url_path: 'venia-dresses',
-                            url_suffix: '.html',
                             children: []
                         }
                     ]
                 }
-            ]
+            ],
+            storeConfig: {
+                id: 1,
+                category_url_suffix: '.html'
+            }
         }
     });
 });
@@ -123,7 +119,7 @@ test('Should set active category', () => {
     useLocation.mockReturnValue({
         pathname: '/venia-accessories/venia-belts.html'
     });
-
+    
     const { talonProps } = getTalonProps();
     /**
      * Child category "Belts" is active and it root category should be mark as active
@@ -144,6 +140,7 @@ test('Should clear active category', () => {
 });
 
 test('Should sort items', () => {
+
     const { talonProps } = getTalonProps();
 
     /**
@@ -168,6 +165,7 @@ test('Should sort items', () => {
 });
 
 test('Should not render items that are not included in menu', () => {
+
     const { talonProps } = getTalonProps();
 
     /**

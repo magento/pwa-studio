@@ -6,7 +6,7 @@ exports[`Mega menu item renders correctly it does not render submenu when item d
 >
   <a
     className="megaMenuLink"
-    href="/tops.html"
+    href="/tops"
     onClick={[Function]}
   >
     Tops

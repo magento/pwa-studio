@@ -12,18 +12,17 @@ describe('Submenu column renders correctly', () => {
             id: 1,
             name: 'Pants',
             url_path: 'pants',
-            url_suffix: '.html',
             children: [
                 {
                     id: 2,
                     name: 'Jeans',
-                    url_path: 'jeans',
-                    url_suffix: '.html',
+                    url_path: 'jeans',   
                     isActive: true,
                     children: []
                 }
             ]
-        }
+        },
+        categoryUrlSuffix: '.html'
     };
 
     test('it renders correctly', () => {

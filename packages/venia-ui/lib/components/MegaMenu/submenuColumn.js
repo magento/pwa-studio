@@ -11,18 +11,18 @@ import PropTypes from 'prop-types';
  * @param {MegaMenuCategory} props.category
  */
 const SubmenuColumn = props => {
-    const { category } = props;
+    const { category, categoryUrlSuffix } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     const categoryUrl = resourceUrl(
-        `/${category.url_path}${category.url_suffix || ''}`
+        `/${category.url_path}${categoryUrlSuffix || ''}`
     );
     let children = null;
 
     if (category.children.length) {
         const childrenItems = category.children.map((category, index) => {
-            const { url_path, url_suffix, isActive, name } = category;
-            const categoryUrl = resourceUrl(`/${url_path}${url_suffix || ''}`);
+            const { url_path, isActive, name } = category;
+            const categoryUrl = resourceUrl(`/${url_path}${categoryUrlSuffix || ''}`);
 
             return (
                 <li key={index} className={classes.submenuChildItem}>
@@ -61,6 +61,6 @@ SubmenuColumn.propTypes = {
         path: PropTypes.array.isRequired,
         position: PropTypes.number.isRequired,
         url_path: PropTypes.string.isRequired,
-        url_suffix: PropTypes.string
-    }).isRequired
+    }).isRequired,
+    categoryUrlSuffix: PropTypes.string
 };

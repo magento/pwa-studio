@@ -14,14 +14,18 @@ import PropTypes from 'prop-types';
  * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
  */
 const MegaMenuItem = props => {
-    const { activeCategoryId, category, mainNavWidth } = props;
+    const { activeCategoryId, category, mainNavWidth, categoryUrlSuffix } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const categoryUrl = resourceUrl(
-        `/${category.url_path}${category.url_suffix || ''}`
+        `/${category.url_path}${categoryUrlSuffix || ''}`
     );
 
     const children = category.children.length ? (
-        <Submenu items={category.children} mainNavWidth={mainNavWidth} />
+        <Submenu 
+            items={category.children} 
+            mainNavWidth={mainNavWidth} 
+            categoryUrlSuffix={categoryUrlSuffix} 
+        />
     ) : null;
     const isActive = category.id === activeCategoryId;
 
@@ -52,8 +56,8 @@ MegaMenuItem.propTypes = {
         path: PropTypes.array.isRequired,
         position: PropTypes.number.isRequired,
         url_path: PropTypes.string.isRequired,
-        url_suffix: PropTypes.string
     }).isRequired,
     activeCategoryId: PropTypes.number,
-    mainNavWidth: PropTypes.number.isRequired
+    mainNavWidth: PropTypes.number.isRequired,
+    categoryUrlSuffix: PropTypes.string
 };
