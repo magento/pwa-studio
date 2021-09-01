@@ -1,5 +1,14 @@
 import { gql } from '@apollo/client';
 
+export const GET_STORE_CONFIG_DATA = gql`
+    query GetStoreConfigData {
+        storeConfig {
+            id
+            category_url_suffix
+        }
+    }
+`;
+
 export const GET_BREADCRUMBS = gql`
     query GetBreadcrumbs($category_id: Int!) {
         category(id: $category_id) {
@@ -13,11 +22,11 @@ export const GET_BREADCRUMBS = gql`
             id
             name
             url_path
-            url_suffix
         }
     }
 `;
 
 export default {
-    getBreadcrumbsQuery: GET_BREADCRUMBS
+    getBreadcrumbsQuery: GET_BREADCRUMBS,
+    getStoreConfigQuery: GET_STORE_CONFIG_DATA
 };
