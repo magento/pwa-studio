@@ -324,7 +324,9 @@ const jestConfig = {
         // Not this file itself
         '!jest.config.js',
         // Exclude deprecated components from coverage report
-        '!**/venia-ui/lib/components/Checkout/**'
+        '!**/venia-ui/lib/components/Checkout/**',
+        // Exclude storybook files
+        '!**/.storybook/**/*.js'
     ],
     // Don't look for test files in these directories.
     testPathIgnorePatterns: [
