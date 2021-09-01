@@ -24,7 +24,6 @@ const renderHookWithProviders = ({
     renderHookOptions = {},
     mocks = [
         mockGetWishlistItemsPage1,
-        mockGetWishlistItemsPage1,
         mockGetWishlistItemsPage2
     ]
 } = {}) => {
