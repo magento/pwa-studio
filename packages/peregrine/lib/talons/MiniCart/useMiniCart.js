@@ -33,7 +33,7 @@ export const useMiniCart = props => {
     const {
         removeItemMutation,
         miniCartQuery,
-        getConfigurableThumbnailSource
+        getStoreConfigQuery
     } = operations;
 
     const [{ cartId }] = useCartContext();
@@ -49,19 +49,21 @@ export const useMiniCart = props => {
         }
     );
 
-    const { data: configurableThumbnailSourceData } = useQuery(
-        getConfigurableThumbnailSource,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     const configurableThumbnailSource = useMemo(() => {
-        if (configurableThumbnailSourceData) {
-            return configurableThumbnailSourceData.storeConfig
-                .configurable_thumbnail_source;
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.configurable_thumbnail_source;
         }
-    }, [configurableThumbnailSourceData]);
+    }, [storeConfigData]);
+
+    const storeUrlSuffix = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.product_url_suffix;
+        }
+    }, [storeConfigData]);
 
     const [
         removeItem,
@@ -135,6 +137,7 @@ export const useMiniCart = props => {
         productList,
         subTotal,
         totalQuantity,
-        configurableThumbnailSource
+        configurableThumbnailSource,
+        storeUrlSuffix
     };
 };
