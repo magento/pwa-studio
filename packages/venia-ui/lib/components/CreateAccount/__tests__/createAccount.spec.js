@@ -18,8 +18,7 @@ jest.mock('@apollo/client', () => ({
 jest.mock('../../../util/formValidators');
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const userState = {
-        isGettingDetails: false,
-        isSignedIn: false
+        isGettingDetails: false
     };
     const userApi = {
         getUserDetails: jest.fn(),

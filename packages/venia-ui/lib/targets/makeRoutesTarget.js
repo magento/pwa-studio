@@ -13,9 +13,11 @@ function addRoutes(routeList, routes) {
         const AddedRoute = routeList.addReactLazyImport(route.path, route.name);
         routeList.prependJSX(
             'Switch',
-            `<Route ${route.exact ? 'exact ' : ''}path={${JSON.stringify(
+            `<AuthRoute ${route.exact ? 'exact ' : ''}${
+                route.authed ? 'authed ' : ''
+            }path={${JSON.stringify(
                 route.pattern
-            )}}><${AddedRoute}/></Route>`
+            )}}><${AddedRoute}/></AuthRoute>`
         );
     }
 }
