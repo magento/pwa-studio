@@ -81,15 +81,15 @@
     "jest-transform-graphql": "~2.1.0",
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
-    "rimraf": "~2.6.3",
-    "workbox-build": "~6.0.2"
+    "rimraf": "~2.6.3"
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",
     "sharp": "~0.29.0"
   },
   "resolutions": {
-    "https-proxy-agent": "~2.2.3"
+    "https-proxy-agent": "~2.2.3",
+    "@graphql-tools/prisma-loader": "6.3.0"
   },
   "engines": {
     "node": ">=10.x",
