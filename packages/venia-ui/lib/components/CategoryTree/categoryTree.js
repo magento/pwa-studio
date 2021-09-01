@@ -24,11 +24,12 @@ const Tree = props => {
         ? Array.from(childCategories, childCategory => {
               const [id, { category, isLeaf }] = childCategory;
               return isLeaf ? (
-                  <Leaf 
-                    key={id} 
-                    category={category} 
-                    onNavigate={onNavigate} 
-                    categoryUrlSuffix={categoryUrlSuffix} />
+                  <Leaf
+                      key={id}
+                      category={category}
+                      onNavigate={onNavigate}
+                      categoryUrlSuffix={categoryUrlSuffix}
+                  />
               ) : (
                   <Branch
                       key={id}

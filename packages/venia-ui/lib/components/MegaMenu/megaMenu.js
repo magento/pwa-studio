@@ -41,7 +41,6 @@ const MegaMenu = props => {
                       categoryUrlSuffix={categoryUrlSuffix}
                       mainNavWidth={mainNavWidth}
                       key={category.id}
-                      
                   />
               );
           })

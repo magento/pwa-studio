@@ -17,10 +17,10 @@ const Submenu = props => {
 
     const subMenus = items.map(category => {
         return (
-            <SubmenuColumn 
-                category={category} 
-                key={category.id} 
-                categoryUrlSuffix={categoryUrlSuffix} 
+            <SubmenuColumn
+                category={category}
+                key={category.id}
+                categoryUrlSuffix={categoryUrlSuffix}
             />
         );
     });
@@ -49,7 +49,7 @@ Submenu.propTypes = {
             name: PropTypes.string.isRequired,
             path: PropTypes.array.isRequired,
             position: PropTypes.number.isRequired,
-            url_path: PropTypes.string.isRequired,
+            url_path: PropTypes.string.isRequired
         })
     ).isRequired,
     mainNavWidth: PropTypes.number.isRequired,

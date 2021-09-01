@@ -16,7 +16,7 @@ describe('Submenu column renders correctly', () => {
                 {
                     id: 2,
                     name: 'Jeans',
-                    url_path: 'jeans',   
+                    url_path: 'jeans',
                     isActive: true,
                     children: []
                 }

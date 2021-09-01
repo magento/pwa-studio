@@ -22,18 +22,17 @@ export const useMegaMenu = (props = {}) => {
     const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
         fetchPolicy: 'cache-and-network'
     });
-    
+
     const { data } = useQuery(getMegaMenuQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-
     const categoryUrlSuffix = useMemo(() => {
         if (storeConfigData) {
             return storeConfigData.storeConfig.category_url_suffix;
         }
-    },[storeConfigData]);
+    }, [storeConfigData]);
 
     /**
      * Check if category should be visible on the storefront.
@@ -147,7 +146,7 @@ export const useMegaMenu = (props = {}) => {
  *                                             with the include_in_menu = 1 flag. The categories are sorted
  *                                             based on the field position.
  * @property {int} loading whether the regions are loading
- * 
+ *
  *
  */
 

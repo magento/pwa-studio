@@ -119,7 +119,7 @@ test('Should set active category', () => {
     useLocation.mockReturnValue({
         pathname: '/venia-accessories/venia-belts.html'
     });
-    
+
     const { talonProps } = getTalonProps();
     /**
      * Child category "Belts" is active and it root category should be mark as active
@@ -140,7 +140,6 @@ test('Should clear active category', () => {
 });
 
 test('Should sort items', () => {
-
     const { talonProps } = getTalonProps();
 
     /**
@@ -165,7 +164,6 @@ test('Should sort items', () => {
 });
 
 test('Should not render items that are not included in menu', () => {
-
     const { talonProps } = getTalonProps();
 
     /**

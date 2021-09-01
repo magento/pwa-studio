@@ -22,10 +22,7 @@ const cache = new InMemoryCache({
 
 const renderHookWithProviders = ({
     renderHookOptions = {},
-    mocks = [
-        mockGetWishlistItemsPage1,
-        mockGetWishlistItemsPage2
-    ]
+    mocks = [mockGetWishlistItemsPage1, mockGetWishlistItemsPage2]
 } = {}) => {
     const wrapper = ({ children }) => (
         <MockedProvider mocks={mocks} addTypename={true} cache={cache}>

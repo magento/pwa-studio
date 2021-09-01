@@ -14,7 +14,7 @@ jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenu', () => ({
                 {
                     id: 2,
                     name: 'Women',
-                    url_path: 'women', 
+                    url_path: 'women',
                     children: [
                         {
                             id: 5,

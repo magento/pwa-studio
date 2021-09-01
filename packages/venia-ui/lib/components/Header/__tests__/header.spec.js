@@ -79,7 +79,7 @@ beforeAll(() => {
             storeConfig: {
                 id: 1,
                 category_url_suffix: '.html'
-            } 
+            }
         }
     });
 });

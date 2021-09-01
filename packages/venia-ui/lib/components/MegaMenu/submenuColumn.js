@@ -22,7 +22,9 @@ const SubmenuColumn = props => {
     if (category.children.length) {
         const childrenItems = category.children.map((category, index) => {
             const { url_path, isActive, name } = category;
-            const categoryUrl = resourceUrl(`/${url_path}${categoryUrlSuffix || ''}`);
+            const categoryUrl = resourceUrl(
+                `/${url_path}${categoryUrlSuffix || ''}`
+            );
 
             return (
                 <li key={index} className={classes.submenuChildItem}>
@@ -60,7 +62,7 @@ SubmenuColumn.propTypes = {
         name: PropTypes.string.isRequired,
         path: PropTypes.array.isRequired,
         position: PropTypes.number.isRequired,
-        url_path: PropTypes.string.isRequired,
+        url_path: PropTypes.string.isRequired
     }).isRequired,
     categoryUrlSuffix: PropTypes.string
 };

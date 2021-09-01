@@ -5,7 +5,7 @@ export const GET_STORE_CONFIG_DATA = gql`
             id
             category_url_suffix
         }
-    } 
+    }
 `;
 
 export const GET_MEGA_MENU = gql`

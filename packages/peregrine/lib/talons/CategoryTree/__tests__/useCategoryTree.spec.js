@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 
 import { useCategoryTree } from '../useCategoryTree';
@@ -21,7 +21,7 @@ jest.mock('@apollo/client', () => {
                 category_url_suffix: '.html'
             }
         }
-    })
+    });
 
     return { ...apolloClient, useLazyQuery, useQuery };
 });
@@ -289,7 +289,7 @@ describe('child categories', () => {
                                     name: 'Five',
                                     parentId: 1,
                                     position: 0,
-                                    
+
                                     url_path: '1/5'
                                 }
                             ]

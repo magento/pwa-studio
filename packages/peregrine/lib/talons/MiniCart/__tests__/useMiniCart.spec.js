@@ -34,7 +34,10 @@ const getTalonProps = props => {
 };
 
 const defaultProps = {
-    queries: { miniCartQuery: 'miniCartQuery', getStoreConfigQuery: 'getStoreConfigQuery' },
+    queries: {
+        miniCartQuery: 'miniCartQuery',
+        getStoreConfigQuery: 'getStoreConfigQuery'
+    },
     mutations: { removeItemMutation: 'removeItemMutation' },
     setIsOpen: jest.fn()
 };

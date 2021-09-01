@@ -62,14 +62,14 @@ const defaultProps = {
     storeConfig: {
         product_url_suffix: '.html'
     }
-}
+};
 
 /**
  * STATE 0: awaiting item data
  * `item` is `null` or `undefined`
  */
 test('renders a placeholder item while awaiting item', () => {
-    const wrapper = createTestInstance(<Item {...defaultProps } />);
+    const wrapper = createTestInstance(<Item {...defaultProps} />);
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
