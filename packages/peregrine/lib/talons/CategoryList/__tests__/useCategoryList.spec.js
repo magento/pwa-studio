@@ -48,10 +48,10 @@ test('runs the query when id changes', () => {
     act(() => {
         instance.update(<Component {...props} id={2} />);
     });
-
-    expect(useQuery).toHaveBeenCalledTimes(2);
+ 
+    expect(useQuery).toHaveBeenCalledTimes(4);
     expect(useQuery).toHaveBeenNthCalledWith(
-        2,
+        3,
         expect.any(Object),
         expect.objectContaining({
             variables: {
@@ -67,7 +67,7 @@ test('returns the correct shape', () => {
 
     // Assert.
     const talonProps = log.mock.calls[0][0];
-    const expectedProperties = ['childCategories', 'error', 'loading'];
+    const expectedProperties = ['childCategories', 'error', 'loading', 'storeConfig'];
     const actualProperties = Object.keys(talonProps);
     expect(actualProperties.sort()).toEqual(expectedProperties.sort());
 });

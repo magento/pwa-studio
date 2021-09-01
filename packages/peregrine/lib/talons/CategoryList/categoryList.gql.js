@@ -1,5 +1,14 @@
 import { gql } from '@apollo/client';
 
+export const GET_STORE_CONFIG_DATA = gql`
+    query GetStoreConfigData {
+        storeConfig {
+            id
+            category_url_suffix
+        }
+    }
+`;
+
 export const GET_CATEGORY_LIST = gql`
     query GetCategoryList($id: Int!) {
         category(id: $id) {
@@ -9,7 +18,6 @@ export const GET_CATEGORY_LIST = gql`
                 name
                 url_key
                 url_path
-                url_suffix
                 children_count
                 path
                 image
@@ -27,5 +35,6 @@ export const GET_CATEGORY_LIST = gql`
 `;
 
 export default {
-    getCategoryListQuery: GET_CATEGORY_LIST
+    getCategoryListQuery: GET_CATEGORY_LIST,
+    getStoreConfig: GET_STORE_CONFIG_DATA
 };
