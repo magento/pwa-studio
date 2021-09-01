@@ -47,6 +47,7 @@
     "react-slick": "~0.25.2",
     "redux-actions": "~2.6.4",
     "redux-thunk": "~2.3.0",
+    "tailwindcss": "~2.2.7",
     "uuid": "~3.3.2"
   },
   "devDependencies": {

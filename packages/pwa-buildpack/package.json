@@ -59,6 +59,7 @@
     "pertain": "~0.2.0",
     "pkg-dir": "~4.1.0",
     "portscanner": "~2.2.0",
+    "tailwindcss": "~2.2.7",
     "tapable": "~1.1.3",
     "tar": "~4.4.8",
     "unionfs": "~4.4.0",
