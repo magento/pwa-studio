@@ -12,9 +12,9 @@ const props = {
         id: 1,
         name: 'One',
         url_path: 'one',
-        url_suffix: '.html'
     },
-    onNavigate: jest.fn()
+    onNavigate: jest.fn(),
+    categoryUrlSuffix: '.html'
 };
 
 test('renders correctly', () => {
