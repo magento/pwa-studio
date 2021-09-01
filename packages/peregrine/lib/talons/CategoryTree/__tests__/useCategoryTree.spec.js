@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 
 import { useCategoryTree } from '../useCategoryTree';
@@ -14,8 +14,16 @@ jest.mock('@apollo/client', () => {
         loading: false
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
+    const useQuery = jest.fn().mockReturnValue({
+        data: {
+            storeConfig: {
+                id: 1,
+                category_url_suffix: '.html'
+            }
+        }
+    })
 
-    return { ...apolloClient, useLazyQuery };
+    return { ...apolloClient, useLazyQuery, useQuery };
 });
 
 const result = {
@@ -26,7 +34,6 @@ const result = {
             url_path: '1',
             include_in_menu: 1,
             children_count: 3,
-            url_suffix: '.html',
             children: [
                 {
                     id: 2,
@@ -35,7 +42,6 @@ const result = {
                     name: 'Two',
                     parentId: 1,
                     position: 0,
-                    url_suffix: '.html',
                     url_path: '1/2'
                 },
                 {
@@ -45,7 +51,6 @@ const result = {
                     name: 'Three',
                     parentId: 2,
                     position: 0,
-                    url_suffix: '.html',
                     url_path: '1/2/3'
                 },
                 {
@@ -55,7 +60,6 @@ const result = {
                     name: 'Four',
                     parentId: 1,
                     position: 0,
-                    url_suffix: '.html',
                     url_path: '1/4'
                 }
             ]
@@ -285,7 +289,7 @@ describe('child categories', () => {
                                     name: 'Five',
                                     parentId: 1,
                                     position: 0,
-                                    url_suffix: '.html',
+                                    
                                     url_path: '1/5'
                                 }
                             ]

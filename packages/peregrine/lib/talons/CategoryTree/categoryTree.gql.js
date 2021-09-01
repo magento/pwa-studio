@@ -31,5 +31,5 @@ export const GET_NAVIGATION_MENU = gql`
 
 export default {
     getNavigationMenuQuery: GET_NAVIGATION_MENU,
-    getCategoryUrlSuffix: GET_CATEGORY_URL_SUFFIX
+    getCategoryUrlSuffixQuery: GET_CATEGORY_URL_SUFFIX
 };

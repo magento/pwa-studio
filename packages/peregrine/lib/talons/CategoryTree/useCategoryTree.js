@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
 
@@ -28,7 +28,7 @@ export const useCategoryTree = props => {
     const { categoryId, updateCategories } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getNavigationMenuQuery } = operations;
+    const { getNavigationMenuQuery, getCatergoryUrlSuffixQuery } = operations;
 
     const [runQuery, queryResult] = useLazyQuery(getNavigationMenuQuery, {
         fetchPolicy: 'cache-and-network',
@@ -36,6 +36,15 @@ export const useCategoryTree = props => {
     });
     const { data } = queryResult;
 
+    const { data: categoryUrlData } = useQuery(getCatergoryUrlSuffixQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
+
+    const categoryUrlSuffix = useMemo(() => {
+        if (categoryUrlData) {
+            return categoryUrlData.storeConfig.category_url_suffix;
+        }
+    },[categoryUrlData])
     // fetch categories
     useEffect(() => {
         if (categoryId != null) {
@@ -49,6 +58,7 @@ export const useCategoryTree = props => {
             updateCategories(data.category);
         }
     }, [data, updateCategories]);
+
 
     const rootCategory = data && data.category;
 
@@ -79,5 +89,5 @@ export const useCategoryTree = props => {
         return childCategories;
     }, [children, rootCategory]);
 
-    return { childCategories, data };
+    return { childCategories, data, categoryUrlSuffix };
 };
