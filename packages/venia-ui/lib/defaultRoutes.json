@@ -3,13 +3,15 @@
         "name": "AccountInformationPage",
         "pattern": "/account-information",
         "exact": true,
-        "path": "../AccountInformationPage"
+        "path": "../AccountInformationPage",
+        "authed": true
     },
     {
         "name": "AddressBook",
         "pattern": "/address-book",
         "exact": true,
-        "path": "../AddressBookPage"
+        "path": "../AddressBookPage",
+        "authed": true
     },
     {
         "name": "Cart",
@@ -27,7 +29,8 @@
         "name": "CommunicationsPage",
         "pattern": "/communications",
         "exact": true,
-        "path": "../CommunicationsPage"
+        "path": "../CommunicationsPage",
+        "authed": true
     },
     {
         "name": "CreateAccountPage",
@@ -39,7 +42,8 @@
         "name": "OrderHistory",
         "pattern": "/order-history",
         "exact": true,
-        "path": "../OrderHistoryPage"
+        "path": "../OrderHistoryPage",
+        "authed": true
     },
     {
         "name": "Reset Password",
@@ -51,7 +55,8 @@
         "name": "SavedPayments",
         "pattern": "/saved-payments",
         "exact": true,
-        "path": "../SavedPaymentsPage"
+        "path": "../SavedPaymentsPage",
+        "authed": true
     },
     {
         "name": "Search",
@@ -63,6 +68,7 @@
         "name": "WishlistPage",
         "pattern": "/wishlist",
         "exact": true,
-        "path": "../WishlistPage"
+        "path": "../WishlistPage",
+        "authed": true
     }
 ]

@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useAuthorizedComponent } from '@magento/peregrine/lib/hooks/useAuthorizedComponent';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import defaultOperations from './addressBookPage.gql';
@@ -37,8 +37,6 @@ export const useAddressBookPage = (props = {}) => {
         }
     ] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
-
-    const history = useHistory();
 
     const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
@@ -86,11 +84,7 @@ export const useAddressBookPage = (props = {}) => {
     const [displayError, setDisplayError] = useState(false);
 
     // If the user is no longer signed in, redirect to the home page.
-    useEffect(() => {
-        if (!isSignedIn) {
-            history.push('/');
-        }
-    }, [history, isSignedIn]);
+    useAuthorizedComponent();
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {

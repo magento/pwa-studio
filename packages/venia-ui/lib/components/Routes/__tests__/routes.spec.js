@@ -13,6 +13,9 @@ jest.mock(
             return null;
         }
 );
+jest.mock('../authRoute', () => ({ children, ...rest }) => (
+    <mock-AuthRoute {...rest}>{children}</mock-AuthRoute>
+));
 
 test('renders routes component', () => {
     const component = createTestInstance(

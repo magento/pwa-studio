@@ -34,6 +34,13 @@ jest.mock(
             path: '../AccountInformationPage'
         },
         {
+            name: 'Single path route that needs authentication',
+            pattern: '/authed',
+            exact: true,
+            path: '../AccountInformationPage',
+            authed: true
+        },
+        {
             name: 'Multiple path route',
             pattern: ['/one', '/two'],
             exact: true,
@@ -56,11 +63,16 @@ test('Call prependJSX with the correct path patterns', async () => {
     expect(mockPrependJSX).toHaveBeenNthCalledWith(
         1,
         'Switch',
-        `<Route exact path={"/simple"}><${FAKE_ADDED_ROUTE}/></Route>`
+        `<AuthRoute exact path={"/simple"}><${FAKE_ADDED_ROUTE}/></AuthRoute>`
     );
     expect(mockPrependJSX).toHaveBeenNthCalledWith(
         2,
         'Switch',
-        `<Route exact path={["/one","/two"]}><${FAKE_ADDED_ROUTE}/></Route>`
+        `<AuthRoute exact authed path={"/authed"}><${FAKE_ADDED_ROUTE}/></AuthRoute>`
+    );
+    expect(mockPrependJSX).toHaveBeenNthCalledWith(
+        3,
+        'Switch',
+        `<AuthRoute exact path={["/one","/two"]}><${FAKE_ADDED_ROUTE}/></AuthRoute>`
     );
 });
