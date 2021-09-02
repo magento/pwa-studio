@@ -39,6 +39,12 @@
         "path": "../CreateAccountPage"
     },
     {
+        "name": "ForgotPasswordPage",
+        "pattern": "/forgot-password",
+        "exact": true,
+        "path": "../ForgotPasswordPage"
+    },
+    {
         "name": "OrderHistory",
         "pattern": "/order-history",
         "exact": true,
@@ -63,6 +69,12 @@
         "pattern": "/search.html",
         "exact": true,
         "path": "../../RootComponents/Search"
+    },
+    {
+        "name": "SignInPage",
+        "pattern": "/sign-in",
+        "exact": true,
+        "path": "../SignInPage"
     },
     {
         "name": "WishlistPage",

@@ -1,13 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders correctly 1`] = `
-<div
-  className="container"
->
-  <CreateAccountForm
-    initialValues={Object {}}
-    isCancelButtonHidden={true}
-    onSubmit={[MockFunction handleCreateAccount]}
-  />
+exports[`#CreateAccountPage renders correctly 1`] = `
+<div>
+  Title
+  <h1>
+    <mock-FormattedMessage
+      defaultMessage="Create an Account"
+      id="createAccountPage.header"
+    />
+  </h1>
+  <div>
+    <mock-CreateAccount
+      initialValues={Object {}}
+      isCancelButtonHidden={false}
+      onCancel={[MockFunction]}
+      onSubmit={[MockFunction]}
+    />
+  </div>
 </div>
 `;
