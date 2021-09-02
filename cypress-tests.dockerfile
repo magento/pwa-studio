@@ -25,4 +25,4 @@ WORKDIR /usr/src/app/venia-integration-tests
 RUN yarn install --frozen-lockfile
 
 # command to run tests
-CMD ["sh", "-c", "yarn test:headless"]
+CMD ["sh", "-c", "CYPRESS_baseUrl=$PR_INSTANCE_URL yarn test:headless"]
