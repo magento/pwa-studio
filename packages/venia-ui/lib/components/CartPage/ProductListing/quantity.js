@@ -1,23 +1,33 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import { useIntl } from 'react-intl';
-import { Form } from 'informed';
+import {Form, useField} from 'informed';
 import { func, number, string } from 'prop-types';
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
 
 import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
-import TextInput from '../../TextInput';
-import { Message } from '../../Field';
+import {FieldIcons, Message} from '../../Field';
 import defaultClasses from './quantity.css';
 
 export const QuantityFields = props => {
-    const { initialValue, itemId, label, min, onChange, message } = props;
-    const { formatMessage } = useIntl();
-    const classes = useStyle(defaultClasses, props.classes);
-    const iconClasses = { root: classes.icon };
+    const field = 'quantity';
+    const { fieldState, fieldApi, render, ref } = useField({...props, field});
+    const {
+        initialValue,
+        min,
+        onChange,
+        after,
+        before,
+        itemId,
+        message,
+        label,
+        ...rest
+    } = props;
 
     const talonProps = useQuantity({
+        field,
+        fieldState,
         initialValue,
         min,
         onChange
@@ -32,9 +42,14 @@ export const QuantityFields = props => {
         maskInput
     } = talonProps;
 
+    const { value } = fieldState;
+    const classes = useStyle(defaultClasses, props.classes);
+    const iconClasses = { root: classes.icon };
+    const inputClass = fieldState.error ? classes.input_error : classes.input;
     const errorMessage = message ? <Message>{message}</Message> : null;
+    const { formatMessage } = useIntl();
 
-    return (
+    return render(
         <Fragment>
             <div className={classes.root}>
                 <label className={classes.label} htmlFor={itemId}>
@@ -52,20 +67,30 @@ export const QuantityFields = props => {
                 >
                     <Icon classes={iconClasses} src={MinusIcon} size={22} />
                 </button>
-                <TextInput
-                    aria-label={formatMessage({
-                        id: 'quantity.input',
-                        defaultMessage: 'Item Quantity'
-                    })}
-                    classes={{ input: classes.input }}
-                    field="quantity"
-                    id={itemId}
-                    inputMode="numeric"
-                    mask={maskInput}
-                    min={min}
-                    onBlur={handleBlur}
-                    pattern="[0-9]*"
-                />
+                <FieldIcons after={after} before={before}>
+                    <input
+                        {...rest}
+                        aria-label={formatMessage({
+                            id: 'quantity.input',
+                            defaultMessage: 'Item Quantity'
+                        })}
+                        id={itemId}
+                        inputMode="numeric"
+                        min={min}
+                        onBlur={handleBlur}
+                        pattern="[0-9]*"
+                        ref={ref}
+                        value={!value ? '' : value}
+                        onChange={e => {
+                            fieldApi.setValue(maskInput(e.target.value));
+                            if (onChange) {
+                                onChange(e);
+                            }
+                        }}
+                        className={inputClass}
+                    />
+                </FieldIcons>
+                <Message fieldState={fieldState}>{message}</Message>
                 <button
                     aria-label={formatMessage({
                         id: 'quantity.buttonIncrement',
@@ -82,7 +107,7 @@ export const QuantityFields = props => {
             {errorMessage}
         </Fragment>
     );
-};
+}
 
 const Quantity = props => {
     return (

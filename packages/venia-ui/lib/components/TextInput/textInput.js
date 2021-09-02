@@ -1,28 +1,48 @@
 import React, { Fragment } from 'react';
 import { node, shape, string } from 'prop-types';
-import { Text as InformedText, useFieldState } from 'informed';
+import {useField} from 'informed';
 
 import { useStyle } from '../../classify';
 import { FieldIcons, Message } from '../Field';
 import defaultClasses from './textInput.css';
 
 const TextInput = props => {
-    const {
-        after,
+    const { fieldState, fieldApi, render, ref, userProps } = useField(props);
+    const { after,
         before,
         classes: propClasses,
-        field,
         message,
+        onChange,
+        onBlur,
         ...rest
-    } = props;
-    const fieldState = useFieldState(field);
+    } = userProps;
+
+    const { value } = fieldState;
+    const { setValue, setTouched } = fieldApi;
     const classes = useStyle(defaultClasses, propClasses);
     const inputClass = fieldState.error ? classes.input_error : classes.input;
 
-    return (
+    return render(
         <Fragment>
             <FieldIcons after={after} before={before}>
-                <InformedText {...rest} className={inputClass} field={field} />
+                <input
+                    {...rest}
+                    value={!value && value !== 0 ? '' : value}
+                    onChange={e => {
+                        setValue(e.target.value);
+                        if (onChange) {
+                            onChange(e);
+                        }
+                    }}
+                    onBlur={e => {
+                        setTouched(true);
+                        if (onBlur) {
+                            onBlur(e);
+                        }
+                    }}
+                    className={inputClass}
+                    ref={ref}
+                />
             </FieldIcons>
             <Message fieldState={fieldState}>{message}</Message>
         </Fragment>
@@ -35,7 +55,8 @@ TextInput.propTypes = {
     after: node,
     before: node,
     classes: shape({
-        input: string
+        input: string,
+        input_error: string,
     }),
     field: string.isRequired,
     message: node

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState, useEffect } from 'react';
-import { useFieldState, useFieldApi } from 'informed';
+import { useFieldApi } from 'informed';
 import debounce from 'lodash.debounce';
 
 /**
@@ -24,12 +24,11 @@ import debounce from 'lodash.debounce';
  * import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
  */
 export const useQuantity = props => {
-    const { initialValue, min, onChange } = props;
-
+    const { field, fieldState, initialValue, min, onChange } = props;
     const [prevQuantity, setPrevQuantity] = useState(initialValue);
 
-    const quantityFieldApi = useFieldApi('quantity');
-    const { value: quantity } = useFieldState('quantity');
+    const quantityFieldApi = useFieldApi(field);
+    const { value: quantity } = fieldState;
 
     const isIncrementDisabled = useMemo(() => !quantity, [quantity]);
 
@@ -65,24 +64,21 @@ export const useQuantity = props => {
 
     const handleBlur = useCallback(() => {
         // Only submit the value change if it has changed.
-        if (typeof quantity === 'number' && quantity != prevQuantity) {
+        if (typeof quantity === 'number' && quantity !== prevQuantity) {
             debouncedOnChange(quantity);
         }
     }, [debouncedOnChange, prevQuantity, quantity]);
 
     const maskInput = useCallback(
         value => {
-            try {
-                // For some storefronts decimal values are allowed.
-                const nextVal = parseFloat(value);
-                if (value && isNaN(nextVal))
-                    throw new Error(`${value} is not a number.`);
-                if (nextVal < min) return min;
-                else return nextVal;
-            } catch (err) {
-                console.error(err);
+            // For some storefronts decimal values are allowed.
+            const nextVal = parseFloat(value);
+            if (value && isNaN(nextVal)) {
+                console.error(new Error(`${value} is not a number.`));
                 return prevQuantity;
             }
+            if (nextVal < min) return min;
+            else return nextVal;
         },
         [min, prevQuantity]
     );
