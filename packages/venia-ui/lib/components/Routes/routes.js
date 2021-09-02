@@ -1,11 +1,10 @@
 import React, { Suspense } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 
-import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import HomePage from '../HomePage';
 import MagentoRoute from '../MagentoRoute';
-import AuthRoute from './authRoute';
+import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 
 const Routes = () => {
     const { pathname } = useLocation();
@@ -18,7 +17,7 @@ const Routes = () => {
                  * Client-side routes are injected by BabelRouteInjectionPlugin here.
                  * Venia's are defined in packages/venia-ui/lib/targets/venia-ui-intercept.js
                  */}
-                <AuthRoute>
+                <Route>
                     <MagentoRoute />
                     {/*
                      * The Route below is purposefully nested with the MagentoRoute above.
@@ -28,7 +27,7 @@ const Routes = () => {
                     <Route exact path="/">
                         <HomePage />
                     </Route>
-                </AuthRoute>
+                </Route>
             </Switch>
         </Suspense>
     );

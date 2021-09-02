@@ -136,6 +136,7 @@ export const useAccountInformationPage = props => {
         initialValues,
         isDisabled: isUpdatingCustomerInformation || isChangingCustomerPassword,
         isUpdateMode,
+        isSignedIn,
         loadDataError,
         shouldShowNewPassword,
         showUpdateMode

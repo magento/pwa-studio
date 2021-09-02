@@ -27,7 +27,7 @@ jest.mock('../../../../lib/context/user', () => ({
     useUserContext: jest
         .fn()
         .mockReturnValue([
-            { isGettingDetails: false },
+            { isGettingDetails: false, isSignedIn: false },
             { getUserDetails: jest.fn(), setToken: jest.fn() }
         ])
 }));
@@ -199,7 +199,7 @@ test('errros should render properly', () => {
 
 test('isDisabled should be true if isGettingDetails is true', () => {
     useUserContext.mockReturnValueOnce([
-        { isGettingDetails: true },
+        { isGettingDetails: true, isSignedIn: false },
         { getUserDetails: jest.fn(), setToken: jest.fn() }
     ]);
 
@@ -273,7 +273,7 @@ describe('handleSubmit', () => {
         signInMutationFn.mockReturnValueOnce([signIn, { error: null }]);
         const setToken = jest.fn();
         useUserContext.mockReturnValueOnce([
-            { isGettingDetails: false },
+            { isGettingDetails: false, isSignedIn: false },
             { getUserDetails: jest.fn(), setToken }
         ]);
 
@@ -391,7 +391,7 @@ describe('handleSubmit', () => {
         customerQueryFn.mockReturnValueOnce(fetchUserDetails);
         const getUserDetails = jest.fn();
         useUserContext.mockReturnValueOnce([
-            { isGettingDetails: false },
+            { isGettingDetails: false, isSignedIn: false },
             { getUserDetails, setToken: jest.fn() }
         ]);
 

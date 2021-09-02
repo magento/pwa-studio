@@ -11,6 +11,7 @@ Object {
     "isSubscribed": false,
   },
   "isDisabled": false,
+  "isSignedIn": true,
 }
 `;
 
@@ -25,6 +26,7 @@ Object {
     "isSubscribed": false,
   },
   "isDisabled": false,
+  "isSignedIn": true,
 }
 `;
 
@@ -45,5 +47,6 @@ Object {
   "handleSubmit": [Function],
   "initialValues": undefined,
   "isDisabled": false,
+  "isSignedIn": true,
 }
 `;

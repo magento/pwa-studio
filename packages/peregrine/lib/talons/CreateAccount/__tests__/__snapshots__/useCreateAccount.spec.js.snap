@@ -24,5 +24,6 @@ Object {
     "userName": "gooseton",
   },
   "isDisabled": false,
+  "isSignedIn": false,
 }
 `;
