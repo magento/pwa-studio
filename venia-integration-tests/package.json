@@ -9,6 +9,7 @@
         "test:devTest": "jest",
         "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",
         "test:headless": "cypress run --browser chrome --headless --config-file cypress.config.json",
+        "test:ci": "cypress run --browser chrome --headless",
         "test:run": "cypress run --browser chrome --config-file cypress.config.json",
         "test:update-snapshots": "cypress run --browser chrome --config-file cypress.config.json --env updateSnapshots=true"
     },

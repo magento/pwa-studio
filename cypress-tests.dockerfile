@@ -4,9 +4,13 @@ FROM cypress/included:8.3.1 as cypress-included
 # working directory
 WORKDIR /usr/src/app
 
-# pick build argument and give default value
+# pick PR Instance build argument
 ARG PR_INSTANCE_URL
 ENV PR_INSTANCE_URL=$PR_INSTANCE_URL
+
+# pick update snapshot argument
+ARG UPDATE_SNAPSHOT
+ENV UPDATE_SNAPSHOT=$UPDATE_SNAPSHOT
 
 RUN apt-get install jq -y
 
@@ -15,9 +19,13 @@ ENV CI=true
 
 # copy over the venia-integration-tests package
 COPY venia-integration-tests ./venia-integration-tests
+COPY ./venia-integration-tests/cypress.config.json ./venia-integration-tests/cypress.json
 
 # update PR instance URL on which tests will run
-RUN jq --arg PR_INSTANCE_URL $PR_INSTANCE_URL '.baseUrl = $PR_INSTANCE_URL' ./venia-integration-tests/cypress.config.json > ./venia-integration-tests/cypress.json
+RUN jq --arg PR_INSTANCE_URL $PR_INSTANCE_URL '.baseUrl = $PR_INSTANCE_URL' ./venia-integration-tests/cypress.json > ./venia-integration-tests/cypress.json.tmp && mv ./venia-integration-tests/cypress.json.tmp ./venia-integration-tests/cypress.json
+
+# update snapshot updation env variable
+RUN jq --arg UPDATE_SNAPSHOT $UPDATE_SNAPSHOT '.env.updateSnapshots = $UPDATE_SNAPSHOT' ./venia-integration-tests/cypress.json > ./venia-integration-tests/cypress.json.tmp && mv ./venia-integration-tests/cypress.json.tmp ./venia-integration-tests/cypress.json
 
 WORKDIR /usr/src/app/venia-integration-tests
 
@@ -25,4 +33,4 @@ WORKDIR /usr/src/app/venia-integration-tests
 RUN yarn install --frozen-lockfile
 
 # command to run tests
-CMD ["sh", "-c", "CYPRESS_baseUrl=$PR_INSTANCE_URL yarn test:headless"]
+CMD ["sh", "-c", "CYPRESS_baseUrl=$PR_INSTANCE_URL yarn test:ci"]
