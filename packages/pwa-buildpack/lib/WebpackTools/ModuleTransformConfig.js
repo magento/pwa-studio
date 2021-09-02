@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const buildpackName = require('../../package.json').name;
 
 /**
@@ -154,6 +155,7 @@ class ModuleTransformConfig {
         if (
             !this._isLocal(requestor) && // Local project can modify anything
             !this._isBuiltin(requestor) && // Buildpack itself can modify anything
+            !this._isTrustedExtensionVendor(requestor) && // Trusted extension vendors can modify anything
             !fileToTransform.startsWith(requestor)
         ) {
             throw this._traceableError(
@@ -166,6 +168,22 @@ class ModuleTransformConfig {
     }
     _isLocal(requestor) {
         return requestor === this._localProjectName;
+    }
+    _isTrustedExtensionVendor(requestor) {
+        const vendors = this._getTrustedExtensionVendors();
+        const requestorVendor = requestor.split('/')[0];
+        return requestorVendor.length > 0 && vendors.includes(requestorVendor);
+    }
+    _getTrustedExtensionVendors() {
+        const configPath = path.resolve(process.cwd(), 'package.json');
+        if (!fs.existsSync(configPath)) {
+            return [];
+        }
+        const config = require(configPath)['pwa-studio'];
+        const configSectionName = 'trusted-vendors';
+        return config && config[configSectionName]
+            ? config[configSectionName]
+            : [];
     }
     _traceableError(msg) {
         const capturedError = new Error(`ModuleTransformConfig: ${msg}`);
