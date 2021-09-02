@@ -2,11 +2,10 @@
 
 exports[`Should return correct shape 1`] = `
 Object {
-  "a11yClick": [Function],
   "handleCloseSubMenu": [Function],
+  "handleKeyDown": [Function],
   "isActive": true,
   "isFocused": false,
   "isMenuActive": false,
-  "toggleSubMenu": [Function],
 }
 `;

@@ -82,27 +82,40 @@ test('handleCloseSubMenu to be called', () => {
     expect(talonProps.isMenuActive).toEqual(false);
 });
 
-test('a11yClick to be called', () => {
-    const e = { keyCode: '27' };
+test('handleKeyDown called with Escape key', () => {
+    const e = { key: 'Escape' };
 
     const props = {
         ...defaultProps
     };
     const { talonProps } = getTalonProps(props);
 
-    talonProps.a11yClick(e);
+    talonProps.handleKeyDown(e);
 
     expect(talonProps.isFocused).toEqual(false);
 });
 
-test('toggleSubMenu to be called', () => {
-    const e = { keyCode: '27', preventDefault: jest.fn() };
+test('handleKeyDown called with ArrowDown key', () => {
+    const e = { key: 'ArrowDown', preventDefault: jest.fn() };
     const props = {
         ...defaultProps
     };
     const { talonProps } = getTalonProps(props);
 
-    talonProps.toggleSubMenu(e);
+    talonProps.handleKeyDown(e);
 
-    expect(talonProps.isActive).toEqual(true);
+    expect(talonProps.isFocused).toEqual(false);
+});
+
+test('handleKeyDown called with Tab and shiftKey', () => {
+    const e = { key: 'Tab', shiftKey: true };
+
+    const props = {
+        ...defaultProps
+    };
+    const { talonProps } = getTalonProps(props);
+
+    talonProps.handleKeyDown(e);
+
+    expect(talonProps.isFocused).toEqual(false);
 });

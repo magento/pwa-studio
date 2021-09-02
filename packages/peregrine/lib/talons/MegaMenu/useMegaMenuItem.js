@@ -22,23 +22,17 @@ export const useMegaMenuItem = props => {
         return false;
     }, [isFocused, subMenuState, disableFocus]);
 
-    const KEY_ESCAPE = 27;
-    const KEY_SPACE = 32;
-    const KEY_UP = 38;
-    const KEY_DOWN = 40;
-    const KEY_SHIFT = 9;
-
     const a11yClick = e => {
-        //checking down arrow or space
-        if (e.keyCode === KEY_SPACE || e.keyCode === KEY_DOWN) {
+        //checking down arrow
+        if (e.key === 'ArrowDown') {
             return true;
         }
         //checking up arrow or escape
-        if (e.keyCode === KEY_UP || e.keyCode === KEY_ESCAPE) {
+        if (e.key === 'ArrowUp' || e.key === 'Escape') {
             setIsFocused(false);
         }
         //checking Tab with Shift
-        if (e.keyCode == KEY_SHIFT && e.shiftKey) {
+        if (e.shiftKey && e.key === 'Tab') {
             setIsFocused(false);
         }
     };
@@ -47,7 +41,7 @@ export const useMegaMenuItem = props => {
         e.preventDefault();
         if (
             category.children.length &&
-            !(e.keyCode === KEY_UP || e.keyCode === KEY_ESCAPE)
+            !(e.key === 'ArrowUp' || e.key === 'Escape')
         ) {
             setIsFocused(true);
         } else {
@@ -55,12 +49,15 @@ export const useMegaMenuItem = props => {
         }
     };
 
+    const handleKeyDown = e => {
+        a11yClick(e) && toggleSubMenu(e);
+    };
+
     return {
         isFocused,
         isActive,
         handleCloseSubMenu,
         isMenuActive,
-        a11yClick,
-        toggleSubMenu
+        handleKeyDown
     };
 };

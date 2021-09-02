@@ -18,8 +18,7 @@ jest.mock('react', () => {
     });
 });
 
-const mocka11yClick = jest.fn();
-const mockToggleSubMenu = jest.fn();
+const mockHandleKeyDown = jest.fn();
 
 jest.mock('react-router-dom', () => ({
     Link: jest.fn(() => props => <mock-Link {...props} />)
@@ -32,8 +31,7 @@ jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenuItem', () => ({
             isActive: false,
             handleCloseSubMenu: jest.fn(),
             isMenuActive: false,
-            a11yClick: mocka11yClick,
-            toggleSubMenu: mockToggleSubMenu
+            handleKeyDown: mockHandleKeyDown
         };
     })
 }));
@@ -104,7 +102,7 @@ describe('Mega menu item renders correctly', () => {
             root.findByType(Link).props.onKeyDown();
         });
 
-        expect(mocka11yClick).toHaveBeenCalled();
+        expect(mockHandleKeyDown).toHaveBeenCalled();
     });
 
     test('it does not render submenu when item does not have children', () => {

@@ -43,8 +43,7 @@ const MegaMenuItem = props => {
         isActive,
         handleCloseSubMenu,
         isMenuActive,
-        a11yClick,
-        toggleSubMenu
+        handleKeyDown
     } = talonProps;
 
     const megaMenuItemClassname = isMenuActive
@@ -63,11 +62,26 @@ const MegaMenuItem = props => {
         ) : null;
     }, [category, isFocused, mainNavWidth, subMenuState, handleCloseSubMenu]);
 
+    const maybeDownArrowIcon = category.children.length ? (
+        <Icon
+            className={classes.arrowDown}
+            src={ArrowDown}
+            size={16}
+            aria-label={
+                'Category: ' +
+                category.name +
+                '. ' +
+                category.children.length +
+                ' sub-categories'
+            }
+        />
+    ) : null;
+
     return (
         <div className={megaMenuItemClassname}>
             <Link
                 onKeyDown={e => {
-                    a11yClick(e) && toggleSubMenu(e);
+                    handleKeyDown(e);
                 }}
                 className={
                     isActive ? classes.megaMenuLinkActive : classes.megaMenuLink
@@ -75,20 +89,7 @@ const MegaMenuItem = props => {
                 to={categoryUrl}
             >
                 {category.name}
-                {category.children.length ? (
-                    <Icon
-                        className={classes.arrowDown}
-                        src={ArrowDown}
-                        size={17}
-                        aria-label={
-                            'Category: ' +
-                            category.name +
-                            '. ' +
-                            category.children.length +
-                            ' sub-categories'
-                        }
-                    />
-                ) : null}
+                {maybeDownArrowIcon}
             </Link>
             {children}
         </div>

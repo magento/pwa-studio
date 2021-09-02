@@ -37,7 +37,7 @@ test('Should return correct shape', () => {
 
 test('onKeyDown event called', () => {
     const event = {
-        keyCode: '9',
+        key: 'Tab',
         shiftKey: false,
         target: {
             addEventListener: jest.fn((onKeyDown, handleCloseSubMenu) => {

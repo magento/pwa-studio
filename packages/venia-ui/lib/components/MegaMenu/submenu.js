@@ -30,32 +30,23 @@ const Submenu = props => {
         handleCloseSubMenu
     });
 
-    const { keyboardProps, isSubMenuActive } = talonProps;
+    const { isSubMenuActive } = talonProps;
 
     const subMenuClassname = isSubMenuActive
         ? classes.submenu_active
         : classes.submenu;
 
     const subMenus = items.map((category, index) => {
-        if (index === items.length - 1) {
-            return (
-                <SubmenuColumn
-                    index={index}
-                    keyboardProps={keyboardProps}
-                    key={category.id}
-                    category={category}
-                />
-            );
-        } else {
-            return (
-                <SubmenuColumn
-                    index={index}
-                    keyboardProps={{}}
-                    key={category.id}
-                    category={category}
-                />
-            );
-        }
+        const keyboardProps =
+            index === items.length - 1 ? talonProps.keyboardProps : {};
+        return (
+            <SubmenuColumn
+                index={index}
+                keyboardProps={keyboardProps}
+                key={category.id}
+                category={category}
+            />
+        );
     });
 
     return (
