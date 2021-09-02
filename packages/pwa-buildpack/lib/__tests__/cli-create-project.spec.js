@@ -213,7 +213,7 @@ test('warns if backendUrl does not match env', async () => {
     process.env.MAGENTO_BACKEND_URL = old;
 });
 
-test('if backendUrl matches env', async () => {
+test('does not warn if backendUrl matches env', async () => {
     const old = process.env.MAGENTO_BACKEND_URL;
     process.env.MAGENTO_BACKEND_URL = 'https://example.com';
     fse.ensureDir.mockResolvedValueOnce(true);
@@ -253,7 +253,7 @@ test('warns if backendEdition does not match env', async () => {
     process.env.MAGENTO_BACKEND_EDITION = old;
 });
 
-test('if backendEdition matches env', async () => {
+test('does not warn if backendEdition matches env', async () => {
     const old = process.env.MAGENTO_BACKEND_EDITION;
     process.env.MAGENTO_BACKEND_EDITION = 'EE';
     fse.ensureDir.mockResolvedValueOnce(true);
@@ -294,7 +294,7 @@ test('warns if braintreeToken does not match env', async () => {
     process.env.CHECKOUT_BRAINTREE_TOKEN = old;
 });
 
-test('if braintreeToken matches env', async () => {
+test('does not warn if braintreeToken matches env', async () => {
     const old = process.env.CHECKOUT_BRAINTREE_TOKEN;
     process.env.CHECKOUT_BRAINTREE_TOKEN = '54321';
     fse.ensureDir.mockResolvedValueOnce(true);
