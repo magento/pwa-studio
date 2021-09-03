@@ -24,7 +24,7 @@ export const useMegaMenuItem = props => {
 
     const a11yClick = e => {
         //checking down arrow
-        if (e.key === 'ArrowDown') {
+        if (e.key === 'ArrowDown' || e.key === ' ') {
             return true;
         }
         //checking up arrow or escape
