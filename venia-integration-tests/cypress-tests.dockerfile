@@ -1,6 +1,5 @@
-# FROM cypress/browsers:node12.18.3-chrome89-ff86 as cypress-browsers
-# docker pull cypress/included:7.0.0
 FROM cypress/included:8.3.1 as cypress-included
+
 # working directory
 WORKDIR /usr/src/app/venia-integration-tests
 
