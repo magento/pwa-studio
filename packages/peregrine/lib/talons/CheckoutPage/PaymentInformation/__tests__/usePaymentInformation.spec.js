@@ -43,7 +43,7 @@ jest.mock('@apollo/client', () => {
     };
 });
 
-jest.mock('informed', () => {
+jest.mock('@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper', () => {
     return {
         useFieldState: jest.fn().mockReturnValue({ value: 'braintree' })
     };
