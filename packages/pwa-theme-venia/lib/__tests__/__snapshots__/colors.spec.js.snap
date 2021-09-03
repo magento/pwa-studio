@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getColors function returns the correct values with default parameters 1`] = `
+Object {
+  "black": Object {
+    "0": [Function],
+    "1": [Function],
+    "2": [Function],
+    "3": [Function],
+    "4": [Function],
+  },
+  "neutral": Object {
+    "d1": [Function],
+    "d2": [Function],
+    "l0": [Function],
+    "l1": [Function],
+    "l2": [Function],
+    "m1": [Function],
+  },
+  "primary": Object {
+    "d1": [Function],
+    "l1": [Function],
+    "l2": [Function],
+    "m1": [Function],
+  },
+  "white": Object {
+    "0": [Function],
+    "1": [Function],
+    "10": [Function],
+    "2": [Function],
+    "3": [Function],
+    "4": [Function],
+    "5": [Function],
+    "6": [Function],
+    "7": [Function],
+    "8": [Function],
+    "9": [Function],
+  },
+}
+`;
