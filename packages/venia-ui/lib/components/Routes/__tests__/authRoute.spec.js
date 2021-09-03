@@ -8,7 +8,8 @@ import AuthRoute from '../authRoute';
 
 jest.mock('react-router-dom', () => ({
     Redirect: props => <mock-Redirect {...props} />,
-    Route: props => <mock-Route {...props} />
+    Route: props => <mock-Route {...props} />,
+    useLocation: jest.fn(() => ({ from: '/from' }))
 }));
 
 jest.mock('@magento/peregrine/lib/context/user', () => ({

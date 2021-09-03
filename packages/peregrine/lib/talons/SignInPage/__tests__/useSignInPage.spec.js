@@ -8,12 +8,19 @@ import { useSignInPage } from '../useSignInPage';
 
 const log = jest.fn();
 const mockHistoryPush = jest.fn();
+const mockUrl = '/url';
+let mockLocationFrom = null;
 
 let handleShowCreateAccountProp = null;
 let handleShowForgotPasswordProp = null;
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({
+        location: {
+            state: {
+                from: mockLocationFrom
+            }
+        },
         push: mockHistoryPush
     }))
 }));
@@ -38,9 +45,9 @@ const Component = () => {
 
 const givenDefaultValues = () => {
     inputValues = {
-        createAccountPageUrl: 'url',
-        forgotPasswordPageUrl: 'url',
-        signedInRedirectUrl: 'url'
+        createAccountPageUrl: mockUrl,
+        forgotPasswordPageUrl: mockUrl,
+        signedInRedirectUrl: mockUrl
     };
 };
 
@@ -50,6 +57,10 @@ const givenUndefinedValues = () => {
         forgotPasswordPageUrl: undefined,
         signedInRedirectUrl: undefined
     };
+};
+
+const givenFrom = () => {
+    mockLocationFrom = '/from';
 };
 
 const givenSignedIn = () => {
@@ -64,11 +75,19 @@ describe('#useSignInPage', () => {
         givenDefaultValues();
     });
 
-    it('is redirected when user is signed in', () => {
+    it('is redirected to default url when user is signed in', () => {
         givenSignedIn();
         createTestInstance(<Component />);
 
-        expect(mockHistoryPush).toHaveBeenCalled();
+        expect(mockHistoryPush).toHaveBeenCalledWith(mockUrl);
+    });
+
+    it('is redirected to from url when user is signed in', () => {
+        givenFrom();
+        givenSignedIn();
+        createTestInstance(<Component />);
+
+        expect(mockHistoryPush).toHaveBeenCalledWith(mockLocationFrom);
     });
 
     it('handles create account callback with defined url', () => {

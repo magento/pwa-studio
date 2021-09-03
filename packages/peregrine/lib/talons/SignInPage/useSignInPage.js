@@ -23,13 +23,23 @@ export const useSignInPage = props => {
     } = props;
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
+    // Check if user went through AuthRoute and redirect to the `from` url instead
+    const fromRedirectUrl =
+        history &&
+        history.location &&
+        history.location.state &&
+        history.location.state.from
+            ? history.location.state.from
+            : null;
 
     // Redirect if user is signed in
     useEffect(() => {
-        if (isSignedIn && signedInRedirectUrl) {
-            history.push(signedInRedirectUrl);
+        if (isSignedIn) {
+            if (fromRedirectUrl || signedInRedirectUrl) {
+                history.push(fromRedirectUrl || signedInRedirectUrl);
+            }
         }
-    }, [history, isSignedIn, signedInRedirectUrl]);
+    }, [history, isSignedIn, fromRedirectUrl, signedInRedirectUrl]);
 
     const handleShowCreateAccount = useCallback(() => {
         if (createAccountPageUrl) {
