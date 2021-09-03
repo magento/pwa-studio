@@ -24,6 +24,7 @@ const Component = () => {
 const givenDefaultValues = () => {
     inputProps = {
         authed: false,
+        redirectTo: '/',
         children: []
     };
 };

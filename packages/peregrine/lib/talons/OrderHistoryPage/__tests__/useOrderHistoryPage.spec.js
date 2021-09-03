@@ -23,10 +23,6 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
     return { useAppContext };
 });
 
-jest.mock('@magento/peregrine/lib/hooks/useAuthorizedComponent', () => ({
-    useAuthorizedComponent: jest.fn()
-}));
-
 jest.mock('@magento/peregrine/lib/util/deriveErrorMessage', () => ({
     deriveErrorMessage: jest.fn().mockReturnValue(null)
 }));

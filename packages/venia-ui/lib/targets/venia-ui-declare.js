@@ -249,6 +249,9 @@ module.exports = targets => {
  *   exactly or not. This property is optional.
  * @property {boolean} [authed] Tells the custom AuthRoute component if the user
  *   needs to be signed in to access the route. This property is optional.
+ * @property {string} [redirectTo] Url will be the redirection url when user are
+ *   not signed in and are trying to access an authed route.
+ *   This property is optional. Default is "/".
  *
  * @example <caption>A custom route with a URL parameter</caption>
  * const myCustomRoute = {

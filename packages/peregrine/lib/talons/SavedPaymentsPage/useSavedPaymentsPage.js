@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useAuthorizedComponent } from '@magento/peregrine/lib/hooks/useAuthorizedComponent';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import defaultOperations from './savedPaymentsPage.gql';
@@ -55,9 +54,6 @@ export const useSavedPaymentsPage = (props = {}) => {
             skip: !isSignedIn
         }
     );
-
-    // If the user is no longer signed in, redirect to the home page.
-    useAuthorizedComponent();
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {

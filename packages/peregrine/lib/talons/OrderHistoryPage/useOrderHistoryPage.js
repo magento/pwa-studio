@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useAuthorizedComponent } from '@magento/peregrine/lib/hooks/useAuthorizedComponent';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
@@ -83,9 +82,6 @@ export const useOrderHistoryPage = (props = {}) => {
 
         return null;
     }, [orderData]);
-
-    // If the user is no longer signed in, redirect to the home page.
-    useAuthorizedComponent();
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {

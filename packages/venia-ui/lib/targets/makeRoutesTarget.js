@@ -11,13 +11,17 @@ function makeRoutesTarget(venia) {
 function addRoutes(routeList, routes) {
     for (const route of routes) {
         const AddedRoute = routeList.addReactLazyImport(route.path, route.name);
+        const exact = route.exact ? 'exact ' : '';
+        const authed = route.authed ? 'authed ' : '';
+        const path = JSON.stringify(route.pattern);
+        const redirectTo = route.redirectTo
+            ? JSON.stringify(route.redirectTo)
+            : null;
+        const redirectToProp = redirectTo ? `redirectTo={${redirectTo}} ` : '';
+
         routeList.prependJSX(
             'Switch',
-            `<AuthRoute ${route.exact ? 'exact ' : ''}${
-                route.authed ? 'authed ' : ''
-            }path={${JSON.stringify(
-                route.pattern
-            )}}><${AddedRoute}/></AuthRoute>`
+            `<AuthRoute ${exact}${authed}${redirectToProp}path={${path}}><${AddedRoute}/></AuthRoute>`
         );
     }
 }

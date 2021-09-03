@@ -17,7 +17,7 @@ jest.mock('@magento/peregrine/lib/context/user', () => ({
 }));
 
 const Component = () => {
-    useAuthorizedComponent();
+    useAuthorizedComponent({});
 
     return null;
 };

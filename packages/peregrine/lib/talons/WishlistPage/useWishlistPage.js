@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useAuthorizedComponent } from '@magento/peregrine/lib/hooks/useAuthorizedComponent';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import defaultOperations from './wishlistPage.gql';
@@ -31,9 +30,6 @@ export const useWishlistPage = (props = {}) => {
     const errors = useMemo(() => {
         return new Map([['getCustomerWishlistQuery', error]]);
     }, [error]);
-
-    // If the user is no longer signed in, redirect to the home page.
-    useAuthorizedComponent();
 
     return {
         errors,

@@ -6,13 +6,14 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 /**
  * A hook that will redirect the user if not signed in.
  */
-export const useAuthorizedComponent = () => {
+export const useAuthorizedComponent = props => {
+    const { redirectTo = '/' } = props;
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
 
     useEffect(() => {
-        if (!isSignedIn) {
-            history.push('/');
+        if (!isSignedIn && redirectTo) {
+            history.push(redirectTo);
         }
-    }, [history, isSignedIn]);
+    }, [history, isSignedIn, redirectTo]);
 };
