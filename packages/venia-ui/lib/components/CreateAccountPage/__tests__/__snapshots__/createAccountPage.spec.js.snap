@@ -14,7 +14,6 @@ exports[`#CreateAccountPage renders correctly 1`] = `
       initialValues={Object {}}
       isCancelButtonHidden={false}
       onCancel={[MockFunction]}
-      onSubmit={[MockFunction]}
     />
   </div>
 </div>

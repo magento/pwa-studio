@@ -23,14 +23,15 @@ export const useSignInPage = props => {
     } = props;
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
-    // Check if user went through AuthRoute and redirect to the `from` url instead
+
+    // Keep location state in memory when pushing history and redirect to
+    // the `from` url instead when signing in
+    const historyState =
+        history && history.location && history.location.state
+            ? history.location.state
+            : {};
     const fromRedirectUrl =
-        history &&
-        history.location &&
-        history.location.state &&
-        history.location.state.from
-            ? history.location.state.from
-            : null;
+        historyState && historyState.from ? historyState.from : null;
 
     // Redirect if user is signed in
     useEffect(() => {
@@ -43,15 +44,15 @@ export const useSignInPage = props => {
 
     const handleShowCreateAccount = useCallback(() => {
         if (createAccountPageUrl) {
-            history.push(createAccountPageUrl);
+            history.push(createAccountPageUrl, historyState);
         }
-    }, [createAccountPageUrl, history]);
+    }, [createAccountPageUrl, history, historyState]);
 
     const handleShowForgotPassword = useCallback(() => {
         if (forgotPasswordPageUrl) {
-            history.push(forgotPasswordPageUrl);
+            history.push(forgotPasswordPageUrl, historyState);
         }
-    }, [forgotPasswordPageUrl, history]);
+    }, [forgotPasswordPageUrl, history, historyState]);
 
     return {
         handleShowCreateAccount,

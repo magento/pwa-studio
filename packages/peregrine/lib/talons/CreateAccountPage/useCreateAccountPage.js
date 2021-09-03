@@ -17,51 +17,49 @@ const getCreateAccountInitialValues = search => {
 /**
  * @typedef {function} useCreateAccountPage
  *
- * @param {String} props.createAccountRedirectUrl - Url to push when user creates an account
  * @param {String} props.signedInRedirectUrl - Url to push when user is signed in
  * @param {String} props.signInPageUrl - Sign In Page url
  *
  * @returns {{
- *   handleCreateAccount: function,
  *   handleOnCancel: function,
  *   initialValues: object
  * }}
  */
 export const useCreateAccountPage = props => {
-    const {
-        createAccountRedirectUrl,
-        signedInRedirectUrl,
-        signInPageUrl
-    } = props;
+    const { signedInRedirectUrl, signInPageUrl } = props;
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
     const { search } = useLocation();
 
+    // Keep location state in memory when pushing history and redirect to
+    // the `from` url instead when creating an account
+    const historyState =
+        history && history.location && history.location.state
+            ? history.location.state
+            : {};
+    const fromRedirectUrl =
+        historyState && historyState.from ? historyState.from : null;
+
     // Redirect if user is signed in
     useEffect(() => {
-        if (isSignedIn && signedInRedirectUrl) {
-            history.push(signedInRedirectUrl);
+        if (isSignedIn) {
+            if (fromRedirectUrl || signedInRedirectUrl) {
+                history.push(fromRedirectUrl || signedInRedirectUrl);
+            }
         }
-    }, [history, isSignedIn, signedInRedirectUrl]);
-
-    const handleCreateAccount = useCallback(() => {
-        if (createAccountRedirectUrl) {
-            history.push(createAccountRedirectUrl);
-        }
-    }, [createAccountRedirectUrl, history]);
+    }, [fromRedirectUrl, history, isSignedIn, signedInRedirectUrl]);
 
     const handleOnCancel = useCallback(() => {
         if (signInPageUrl) {
-            history.push(signInPageUrl);
+            history.push(signInPageUrl, historyState);
         }
-    }, [history, signInPageUrl]);
+    }, [history, historyState, signInPageUrl]);
 
     const initialValues = useMemo(() => getCreateAccountInitialValues(search), [
         search
     ]);
 
     return {
-        handleCreateAccount,
         handleOnCancel,
         initialValues
     };

@@ -8,11 +8,17 @@ import { useForgotPasswordPage } from '../useForgotPasswordPage';
 
 const log = jest.fn();
 const mockHistoryPush = jest.fn();
+const mockUrl = '/url';
 
-let handleOnCancelProp = null;
+let handleOnCancelProp;
+let mockLocationState;
+let mockLocationFrom;
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({
+        location: {
+            state: mockLocationState
+        },
         push: mockHistoryPush
     }))
 }));
@@ -36,15 +42,26 @@ const Component = () => {
 
 const givenDefaultValues = () => {
     inputValues = {
-        signedInRedirectUrl: 'url',
-        signInPageUrl: 'url'
+        signedInRedirectUrl: mockUrl,
+        signInPageUrl: mockUrl
     };
+
+    handleOnCancelProp = null;
+    mockLocationState = null;
+    mockLocationFrom = null;
 };
 
 const givenUndefinedValues = () => {
     inputValues = {
         signedInRedirectUrl: undefined,
         signInPageUrl: undefined
+    };
+};
+
+const givenFrom = () => {
+    mockLocationFrom = '/from';
+    mockLocationState = {
+        from: mockLocationFrom
     };
 };
 
@@ -59,14 +76,14 @@ describe('#useForgotPasswordPage', () => {
         givenDefaultValues();
     });
 
-    it('is redirected when user is signed in', () => {
+    it('is redirected to default url when user is signed in', () => {
         givenSignedIn();
         createTestInstance(<Component />);
 
-        expect(mockHistoryPush).toHaveBeenCalled();
+        expect(mockHistoryPush).toHaveBeenCalledWith(mockUrl);
     });
 
-    it('handles cancel callback with defined url', () => {
+    it('handles cancel callback with defined url without previous state', () => {
         createTestInstance(<Component />);
 
         expect(typeof handleOnCancelProp).toBe('function');
@@ -75,7 +92,26 @@ describe('#useForgotPasswordPage', () => {
             handleOnCancelProp();
         });
 
-        expect(mockHistoryPush).toHaveBeenCalled();
+        expect(mockHistoryPush).toHaveBeenCalledWith(mockUrl, {});
+        expect(log).toHaveBeenLastCalledWith({
+            handleOnCancel: expect.any(Function)
+        });
+    });
+
+    it('handles cancel callback with defined url with previous state', () => {
+        givenFrom();
+        createTestInstance(<Component />);
+
+        expect(typeof handleOnCancelProp).toBe('function');
+
+        act(() => {
+            handleOnCancelProp();
+        });
+
+        expect(mockHistoryPush).toHaveBeenCalledWith(
+            mockUrl,
+            mockLocationState
+        );
         expect(log).toHaveBeenLastCalledWith({
             handleOnCancel: expect.any(Function)
         });

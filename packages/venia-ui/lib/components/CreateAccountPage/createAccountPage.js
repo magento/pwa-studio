@@ -10,18 +10,9 @@ import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import defaultClasses from './createAccountPage.css';
 
 const CreateAccountPage = props => {
-    const {
-        createAccountRedirectUrl,
-        signedInRedirectUrl,
-        signInPageUrl
-    } = props;
+    const { signedInRedirectUrl, signInPageUrl } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const {
-        handleCreateAccount,
-        handleOnCancel,
-        initialValues
-    } = useCreateAccountPage({
-        createAccountRedirectUrl,
+    const { handleOnCancel, initialValues } = useCreateAccountPage({
         signedInRedirectUrl,
         signInPageUrl
     });
@@ -46,7 +37,6 @@ const CreateAccountPage = props => {
                     initialValues={initialValues}
                     isCancelButtonHidden={false}
                     onCancel={handleOnCancel}
-                    onSubmit={handleCreateAccount}
                 />
             </div>
         </div>
@@ -54,7 +44,6 @@ const CreateAccountPage = props => {
 };
 
 CreateAccountPage.defaultProps = {
-    createAccountRedirectUrl: '/order-history',
     signedInRedirectUrl: '/order-history',
     signInPageUrl: '/sign-in'
 };
@@ -66,7 +55,6 @@ CreateAccountPage.propTypes = {
         contentContainer: string
     }),
     initialValues: shape({}),
-    createAccountRedirectUrl: string,
     signedInRedirectUrl: string,
     signInPageUrl: string
 };

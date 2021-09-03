@@ -9,17 +9,16 @@ import { useSignInPage } from '../useSignInPage';
 const log = jest.fn();
 const mockHistoryPush = jest.fn();
 const mockUrl = '/url';
-let mockLocationFrom = null;
 
-let handleShowCreateAccountProp = null;
-let handleShowForgotPasswordProp = null;
+let handleShowCreateAccountProp;
+let handleShowForgotPasswordProp;
+let mockLocationState;
+let mockLocationFrom;
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({
         location: {
-            state: {
-                from: mockLocationFrom
-            }
+            state: mockLocationState
         },
         push: mockHistoryPush
     }))
@@ -49,6 +48,11 @@ const givenDefaultValues = () => {
         forgotPasswordPageUrl: mockUrl,
         signedInRedirectUrl: mockUrl
     };
+
+    handleShowCreateAccountProp = null;
+    handleShowForgotPasswordProp = null;
+    mockLocationState = null;
+    mockLocationFrom = null;
 };
 
 const givenUndefinedValues = () => {
@@ -61,6 +65,9 @@ const givenUndefinedValues = () => {
 
 const givenFrom = () => {
     mockLocationFrom = '/from';
+    mockLocationState = {
+        from: mockLocationFrom
+    };
 };
 
 const givenSignedIn = () => {
@@ -90,7 +97,15 @@ describe('#useSignInPage', () => {
         expect(mockHistoryPush).toHaveBeenCalledWith(mockLocationFrom);
     });
 
-    it('handles create account callback with defined url', () => {
+    it('is not redirected when user is signed in and url is not defined', () => {
+        givenSignedIn();
+        givenUndefinedValues();
+        createTestInstance(<Component />);
+
+        expect(mockHistoryPush).not.toHaveBeenCalled();
+    });
+
+    it('handles create account callback with defined url without previous state', () => {
         createTestInstance(<Component />);
 
         expect(typeof handleShowCreateAccountProp).toBe('function');
@@ -99,7 +114,27 @@ describe('#useSignInPage', () => {
             handleShowCreateAccountProp();
         });
 
-        expect(mockHistoryPush).toHaveBeenCalled();
+        expect(mockHistoryPush).toHaveBeenCalledWith(mockUrl, {});
+        expect(log).toHaveBeenLastCalledWith({
+            handleShowCreateAccount: expect.any(Function),
+            handleShowForgotPassword: expect.any(Function)
+        });
+    });
+
+    it('handles create account callback with defined url with previous state', () => {
+        givenFrom();
+        createTestInstance(<Component />);
+
+        expect(typeof handleShowCreateAccountProp).toBe('function');
+
+        act(() => {
+            handleShowCreateAccountProp();
+        });
+
+        expect(mockHistoryPush).toHaveBeenCalledWith(
+            mockUrl,
+            mockLocationState
+        );
         expect(log).toHaveBeenLastCalledWith({
             handleShowCreateAccount: expect.any(Function),
             handleShowForgotPassword: expect.any(Function)
@@ -123,7 +158,7 @@ describe('#useSignInPage', () => {
         });
     });
 
-    it('handles forgot password callback with defined url', () => {
+    it('handles forgot password callback with defined url without previous state', () => {
         createTestInstance(<Component />);
 
         expect(typeof handleShowForgotPasswordProp).toBe('function');
@@ -132,7 +167,27 @@ describe('#useSignInPage', () => {
             handleShowForgotPasswordProp();
         });
 
-        expect(mockHistoryPush).toHaveBeenCalled();
+        expect(mockHistoryPush).toHaveBeenCalledWith(mockUrl, {});
+        expect(log).toHaveBeenLastCalledWith({
+            handleShowCreateAccount: expect.any(Function),
+            handleShowForgotPassword: expect.any(Function)
+        });
+    });
+
+    it('handles forgot password callback with defined url with previous state', () => {
+        givenFrom();
+        createTestInstance(<Component />);
+
+        expect(typeof handleShowForgotPasswordProp).toBe('function');
+
+        act(() => {
+            handleShowForgotPasswordProp();
+        });
+
+        expect(mockHistoryPush).toHaveBeenCalledWith(
+            mockUrl,
+            mockLocationState
+        );
         expect(log).toHaveBeenLastCalledWith({
             handleShowCreateAccount: expect.any(Function),
             handleShowForgotPassword: expect.any(Function)

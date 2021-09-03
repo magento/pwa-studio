@@ -18,6 +18,12 @@ export const useForgotPasswordPage = props => {
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
 
+    // Keep location state in memory when pushing history
+    const historyState =
+        history && history.location && history.location.state
+            ? history.location.state
+            : {};
+
     // Redirect if user is signed in
     useEffect(() => {
         if (isSignedIn && signedInRedirectUrl) {
@@ -27,9 +33,9 @@ export const useForgotPasswordPage = props => {
 
     const handleOnCancel = useCallback(() => {
         if (signInPageUrl) {
-            history.push(signInPageUrl);
+            history.push(signInPageUrl, historyState);
         }
-    }, [history, signInPageUrl]);
+    }, [history, historyState, signInPageUrl]);
 
     return {
         handleOnCancel
