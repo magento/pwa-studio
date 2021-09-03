@@ -1,6 +1,14 @@
-const { getColors } = require('../colors');
+const { declareColors, getColors } = require('../colors');
 
-describe('getColors function', () => {
+describe('declareColors()', () => {
+    test('returns the correct values with default parameters', () => {
+			const colorDeclarations = declareColors();
+
+			expect(colorDeclarations).toMatchSnapshot();
+		});
+});
+
+describe('getColors()', () => {
     test('returns the correct values with default parameters', () => {
         const colorConfig = getColors();
 

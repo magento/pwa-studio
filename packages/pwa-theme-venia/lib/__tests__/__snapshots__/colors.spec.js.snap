@@ -1,6 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getColors function returns the correct values with default parameters 1`] = `
+exports[`declareColors() returns the correct values with default parameters 1`] = `
+Object {
+  "--color-black-0": "0",
+  "--color-black-1": " ",
+  "--color-black-2": "0",
+  "--color-black-3": " ",
+  "--color-black-4": "0",
+  "--color-neutral-d1": "83 89 101",
+  "--color-neutral-d2": "24 28 36",
+  "--color-neutral-l0": "255 255 255",
+  "--color-neutral-l1": "229 229 231",
+  "--color-neutral-l2": "181 183 188",
+  "--color-neutral-m1": "145 149 156",
+  "--color-primary-d1": "31 57 255",
+  "--color-primary-l1": "61 132 255",
+  "--color-primary-l2": "51 109 255",
+  "--color-primary-m1": "41 84 255",
+  "--color-white-0": "2",
+  "--color-white-1": "5",
+  "--color-white-10": "5",
+  "--color-white-2": "5",
+  "--color-white-3": " ",
+  "--color-white-4": "2",
+  "--color-white-5": "5",
+  "--color-white-6": "5",
+  "--color-white-7": " ",
+  "--color-white-8": "2",
+  "--color-white-9": "5",
+}
+`;
+
+exports[`getColors() returns the correct values with default parameters 1`] = `
 Object {
   "black": Object {
     "0": [Function],
