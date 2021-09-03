@@ -80,9 +80,7 @@ const MegaMenuItem = props => {
     return (
         <div className={megaMenuItemClassname}>
             <Link
-                onKeyDown={e => {
-                    handleKeyDown(e);
-                }}
+                onKeyDown={handleKeyDown}
                 className={
                     isActive ? classes.megaMenuLinkActive : classes.megaMenuLink
                 }

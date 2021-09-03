@@ -22,36 +22,34 @@ export const useMegaMenuItem = props => {
         return false;
     }, [isFocused, subMenuState, disableFocus]);
 
-    const a11yClick = e => {
-        //checking down arrow
-        if (e.key === 'ArrowDown' || e.key === ' ') {
-            return true;
-        }
-        //checking up arrow or escape
-        if (e.key === 'ArrowUp' || e.key === 'Escape') {
-            setIsFocused(false);
-        }
-        //checking Tab with Shift
-        if (e.shiftKey && e.key === 'Tab') {
-            setIsFocused(false);
-        }
-    };
+    const handleKeyDown = useCallback(
+        event => {
+            const { key: pressedKey, shiftKey } = event;
 
-    const toggleSubMenu = e => {
-        e.preventDefault();
-        if (
-            category.children.length &&
-            !(e.key === 'ArrowUp' || e.key === 'Escape')
-        ) {
-            setIsFocused(true);
-        } else {
-            setIsFocused(false);
-        }
-    };
+            // checking down arrow and spacebar
+            if (pressedKey === 'ArrowDown' || pressedKey === ' ') {
+                event.preventDefault();
+                if (category.children.length) {
+                    setIsFocused(true);
+                } else {
+                    setIsFocused(false);
+                }
 
-    const handleKeyDown = e => {
-        a11yClick(e) && toggleSubMenu(e);
-    };
+                return;
+            }
+
+            //checking up arrow or escape
+            if (pressedKey === 'ArrowUp' || pressedKey === 'Escape') {
+                setIsFocused(false);
+            }
+
+            //checking Tab with Shift
+            if (shiftKey && pressedKey === 'Tab') {
+                setIsFocused(false);
+            }
+        },
+        [category.children.length]
+    );
 
     return {
         isFocused,

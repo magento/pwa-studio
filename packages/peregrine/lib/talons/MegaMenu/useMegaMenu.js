@@ -12,6 +12,7 @@ import DEFAULT_OPERATIONS from './megaMenu.gql';
  *
  * @param {Object} props
  * @param {*} props.operations GraphQL operations used by talons
+ * @param {React.RefObject} props.mainNavRef Reference to main navigation DOM node
  *
  * @return {MegaMenuTalonProps}
  */
@@ -112,11 +113,7 @@ export const useMegaMenu = (props = {}) => {
     );
 
     const handleClickOutside = e => {
-        if (
-            props.mainNavRef &&
-            props.mainNavRef.current &&
-            !props.mainNavRef.current.contains(e.target)
-        ) {
+        if (!props.mainNavRef.current.contains(e.target)) {
             setSubMenuState(false);
             setDisableFocus(true);
         }
