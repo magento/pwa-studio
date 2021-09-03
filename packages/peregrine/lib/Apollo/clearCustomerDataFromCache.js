@@ -10,7 +10,10 @@ export const clearCustomerDataFromCache = async client => {
     // Cached data
     client.cache.evict({ id: 'Customer' });
     // Remove createCustomerAddress which references newly created addresses, avoiding gc
-    client.cache.evict({ id: 'ROOT_MUTATION', fieldName: 'createCustomerAddress' });
+    client.cache.evict({
+        id: 'ROOT_MUTATION',
+        fieldName: 'createCustomerAddress'
+    });
     // Cached ROOT_QUERY
     client.cache.evict({ fieldName: 'customer' });
     client.cache.evict({ fieldName: 'customerWishlistProducts' });
