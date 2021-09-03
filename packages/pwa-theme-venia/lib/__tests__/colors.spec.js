@@ -2,10 +2,24 @@ const { declareColors, getColors } = require('../colors');
 
 describe('declareColors()', () => {
     test('returns the correct values with default parameters', () => {
-			const colorDeclarations = declareColors();
+        const colorDeclarations = declareColors();
 
-			expect(colorDeclarations).toMatchSnapshot();
-		});
+        expect(colorDeclarations).toMatchSnapshot();
+    });
+
+    test('handles non-nested definition', () => {
+        const data = {
+            white: '255 255 255'
+        };
+
+        const colorDeclarations = declareColors(data);
+
+        expect(colorDeclarations).toMatchInlineSnapshot(`
+            Object {
+              "--color-white": "255 255 255",
+            }
+        `);
+    });
 });
 
 describe('getColors()', () => {
@@ -22,11 +36,12 @@ describe('getColors()', () => {
                 500: '20 115 230',
                 600: '13 102 208',
                 700: '9 90 186'
-            }
+            },
+            black: '0 0 0'
         };
 
         const colorConfig = getColors(data);
-        const { brand } = colorConfig;
+        const { brand, black } = colorConfig;
 
         test('no opacity args', () => {
             const opacityArgs = {};
@@ -48,8 +63,8 @@ describe('getColors()', () => {
             const opacityArgs = {
                 opacityVariable: '--my-opacity'
             };
-            expect(brand[600](opacityArgs)).toMatchInlineSnapshot(
-                `"rgb(var(--color-brand-600) / var(--my-opacity, 1))"`
+            expect(black(opacityArgs)).toMatchInlineSnapshot(
+                `"rgb(var(--color-black) / var(--my-opacity, 1))"`
             );
         });
     });
