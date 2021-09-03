@@ -12,11 +12,14 @@ jest.mock('informed', () => {
     return { useFieldApi };
 });
 
-jest.mock('@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper', () => {
-    return jest.fn().mockReturnValue({
-        value: 'US'
-    });
-});
+jest.mock(
+    '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper',
+    () => {
+        return jest.fn().mockReturnValue({
+            value: 'US'
+        });
+    }
+);
 const Component = props => {
     const talonProps = usePostcode(props);
     return <i talonProps={talonProps} />;

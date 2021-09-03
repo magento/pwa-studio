@@ -1,9 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { node, shape, string } from 'prop-types';
-import {
-    Checkbox as InformedCheckbox,
-    useFieldApi
-} from 'informed';
+import { Checkbox as InformedCheckbox, useFieldApi } from 'informed';
 import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import { useStyle } from '../../classify';

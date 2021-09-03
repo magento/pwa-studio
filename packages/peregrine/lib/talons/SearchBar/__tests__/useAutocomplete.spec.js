@@ -7,14 +7,17 @@ import { useAutocomplete } from '../../../talons/SearchBar';
 import createTestInstance from '../../../util/createTestInstance';
 
 jest.mock('informed', () => ({
-    ...jest.requireActual('informed'),
+    ...jest.requireActual('informed')
 }));
 
-jest.mock('@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper', () => {
-    return jest.fn().mockReturnValue({
-        value: ''
-    });
-});
+jest.mock(
+    '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper',
+    () => {
+        return jest.fn().mockReturnValue({
+            value: ''
+        });
+    }
+);
 jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const queryResult = {
