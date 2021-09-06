@@ -11,6 +11,7 @@ ENV PR_INSTANCE_URL=$PR_INSTANCE_URL
 ARG UPDATE_SNAPSHOT
 ENV UPDATE_SNAPSHOT=$UPDATE_SNAPSHOT
 
+# install jq for updating json config file
 RUN apt-get install jq -y
 
 # set env variable for CI
