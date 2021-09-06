@@ -18,7 +18,6 @@ RUN apt-get install jq -y
 ENV CI=true
 
 # copy over the required files
-COPY cypress ./cypress
 COPY src ./src
 COPY package.json yarn.lock ./
 COPY cypress.config.json ./cypress.json
