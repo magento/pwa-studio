@@ -9,6 +9,7 @@
     "packages/pagebuilder",
     "packages/peregrine",
     "packages/pwa-buildpack",
+    "packages/pwa-theme-venia",
     "packages/upward-js",
     "packages/upward-spec",
     "packages/venia-concept",
