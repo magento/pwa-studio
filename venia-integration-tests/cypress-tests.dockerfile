@@ -28,7 +28,7 @@ RUN jq --arg PR_INSTANCE_URL $PR_INSTANCE_URL '.baseUrl = $PR_INSTANCE_URL' ./cy
 # update snapshot updation env variable
 RUN jq --arg UPDATE_SNAPSHOT $UPDATE_SNAPSHOT '.env.updateSnapshots = $UPDATE_SNAPSHOT' ./cypress.json > ./cypress.json.tmp && mv ./cypress.json.tmp ./cypress.json
 
-# install dependencies with yarn
+# install dependencies with yarn 
 RUN yarn install --frozen-lockfile
 
 # command to run tests
