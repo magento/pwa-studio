@@ -62,7 +62,14 @@ const MegaMenuItem = props => {
                 categoryUrlSuffix={categoryUrlSuffix}
             />
         ) : null;
-    }, [category, isFocused, mainNavWidth, subMenuState, handleCloseSubMenu, categoryUrlSuffix]);
+    }, [
+        category,
+        isFocused,
+        mainNavWidth,
+        subMenuState,
+        handleCloseSubMenu,
+        categoryUrlSuffix
+    ]);
 
     const maybeDownArrowIcon = category.children.length ? (
         <Icon

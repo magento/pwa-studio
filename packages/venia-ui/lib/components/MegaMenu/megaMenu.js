@@ -20,7 +20,7 @@ const MegaMenu = props => {
         handleSubMenuFocus,
         categoryUrlSuffix
     } = useMegaMenu({ mainNavRef });
-    
+
     const classes = useStyle(defaultClasses, props.classes);
 
     const [mainNavWidth, setMainNavWidth] = useState(0);
