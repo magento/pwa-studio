@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useMegaMenu } from '../useMegaMenu';
+import { useEventListener } from '../../../hooks/useEventListener';
 
 jest.mock('@apollo/client');
 jest.mock('react-router-dom', () => ({
     useLocation: jest.fn(() => ({ pathname: '/venia-tops.html' }))
 }));
 
+jest.mock('../../../hooks/useEventListener', () => ({
+    useEventListener: jest.fn()
+}));
+
+const log = jest.fn();
 const Component = props => {
-    const talonProps = useMegaMenu(props);
+    const talonProps = useMegaMenu({ ...props });
+
+    useEffect(() => {
+        log(talonProps);
+    }, [talonProps]);
 
     return <i talonProps={talonProps} />;
 };
@@ -21,7 +31,13 @@ const getTalonProps = props => {
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
-    return { talonProps, tree };
+    const update = newProps => {
+        tree.update(<Component {...{ ...props, ...newProps }} />);
+
+        return root.findByType('i').props.talonProps;
+    };
+
+    return { talonProps, tree, update };
 };
 
 beforeAll(() => {
@@ -181,4 +197,35 @@ test('Should not render items that are not included in menu', () => {
      * so the Accessories category  object should have only two top level categories
      */
     expect(talonProps.megaMenuData.children[1].children.length).toEqual(2);
+});
+
+test('Should add eventListner for keydown, mouseout, mousedown', () => {
+    createTestInstance(<Component />);
+
+    expect(useEventListener.mock.calls).toMatchSnapshot();
+});
+
+test('handleClickOutside should setSubMenuState to false and setDisableFocus to true', () => {
+    const { update } = getTalonProps({
+        mainNavRef: { current: { contains: () => false } }
+    });
+
+    const handleClickOutside = useEventListener.mock.calls[0][2];
+
+    handleClickOutside({ target: 'test' });
+    const talonProps = update();
+    expect(talonProps.subMenuState).toBeFalsy();
+    expect(talonProps.disableFocus).toBeTruthy();
+});
+
+test('handleSubMenuFocus should setSubMenuState to true', () => {
+    const setSubMenuState = jest.fn(() => true);
+
+    const { update } = getTalonProps({
+        setSubMenuState
+    });
+    const talonProps = update();
+    const handleSubMenuFocus = talonProps.handleSubMenuFocus();
+
+    expect(handleSubMenuFocus).toMatchSnapshot();
 });

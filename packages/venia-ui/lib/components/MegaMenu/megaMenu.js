@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
+
 import { useMegaMenu } from '@magento/peregrine/lib/talons/MegaMenu/useMegaMenu';
+
 import { useStyle } from '../../classify';
 import defaultClasses from './megaMenu.css';
 import MegaMenuItem from './megaMenuItem';
@@ -8,10 +10,19 @@ import MegaMenuItem from './megaMenuItem';
  * The MegaMenu component displays menu with categories on desktop devices
  */
 const MegaMenu = props => {
-    const { megaMenuData, activeCategoryId, categoryUrlSuffix } = useMegaMenu();
+    const mainNavRef = useRef(null);
+
+    const {
+        megaMenuData,
+        activeCategoryId,
+        subMenuState,
+        disableFocus,
+        handleSubMenuFocus,
+        categoryUrlSuffix
+    } = useMegaMenu({ mainNavRef });
+    
     const classes = useStyle(defaultClasses, props.classes);
 
-    const mainNavRef = useRef(null);
     const [mainNavWidth, setMainNavWidth] = useState(0);
 
     useEffect(() => {
@@ -41,13 +52,20 @@ const MegaMenu = props => {
                       categoryUrlSuffix={categoryUrlSuffix}
                       mainNavWidth={mainNavWidth}
                       key={category.id}
+                      subMenuState={subMenuState}
+                      disableFocus={disableFocus}
                   />
               );
           })
         : null;
 
     return (
-        <nav ref={mainNavRef} className={classes.megaMenu} role="navigation">
+        <nav
+            ref={mainNavRef}
+            className={classes.megaMenu}
+            role="navigation"
+            onFocus={handleSubMenuFocus}
+        >
             {items}
         </nav>
     );
