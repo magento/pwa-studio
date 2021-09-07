@@ -1,4 +1,4 @@
-const venia = {};
+const venia = require('@magento/pwa-theme-venia');
 
 const config = {
     mode: 'jit',

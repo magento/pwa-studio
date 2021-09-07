@@ -305,7 +305,10 @@ const jestConfig = {
                         '<rootDir>/magento-compatibility.js'
                 }
             })
-        )
+        ),
+        configureProject('pwa-theme-venia', 'Venia Theme', () => ({
+            testEnvironment: 'node'
+        }))
     ],
     // Include files with zero tests in overall coverage analysis by specifying
     // coverage paths manually.
