@@ -1,4 +1,4 @@
-const { getColors } = require('./lib/colors')
+const { getColors } = require('./lib/colors');
 /**
  * This is the main tailwindcss theme file for the Venia theme
  */

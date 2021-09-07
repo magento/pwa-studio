@@ -59,12 +59,12 @@ const getColors = (data = COLORS, prefix = PREFIX) => {
 
 /**
  * @ignore
- * 
- * helper function for generating the proper function for returning 
+ *
+ * helper function for generating the proper function for returning
  * the correct property value for a color entry
- * 
+ *
  * @param {string} property property variable name
- * 
+ *
  * @returns {function} a function that generates the correct property value for a color entry
  */
 const getPropertyValueFunction = property => {
