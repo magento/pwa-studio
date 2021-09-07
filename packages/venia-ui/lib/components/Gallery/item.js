@@ -51,7 +51,9 @@ const GalleryItem = props => {
         isSupportedProductType
     } = useGalleryItem(props);
 
-    const { product_url_suffix } = props.storeConfig;
+    const { storeConfig } = props;
+
+    const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -61,7 +63,7 @@ const GalleryItem = props => {
 
     const { name, price_range, small_image, url_key } = item;
     const { url: smallImageURL } = small_image;
-    const productLink = resourceUrl(`/${url_key}${product_url_suffix || ''}`);
+    const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
 
     const wishlistButton = wishlistButtonProps ? (
         <WishlistGalleryButton {...wishlistButtonProps} />
