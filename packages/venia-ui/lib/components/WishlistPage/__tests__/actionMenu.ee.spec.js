@@ -27,11 +27,23 @@ const baseTalonProps = {
     handleHideDialogs: jest.fn().mockName('handleHideDialogs'),
     handleShowEditFavorites: jest.fn().mockName('handleShowEditFavorites'),
     isEditInProgress: jest.fn().mockName('isEditInProgress'),
-    listActionsIsOpen: jest.fn().mockName('listActionsIsOpen')
+    listActionsIsOpen: jest.fn().mockName('listActionsIsOpen'),
+    shouldRender: true
 };
 
 test('renders correctly', () => {
     useActionMenu.mockReturnValue(baseTalonProps);
+    const instance = createTestInstance(<ActionMenu {...baseProps} />);
+
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('should not render if shouldRender is false', () => {
+    const shouldNotRenderProps = {
+        ...baseTalonProps,
+        shouldRender: false
+    }
+    useActionMenu.mockReturnValue(shouldNotRenderProps);
     const instance = createTestInstance(<ActionMenu {...baseProps} />);
 
     expect(instance.toJSON()).toMatchSnapshot();
