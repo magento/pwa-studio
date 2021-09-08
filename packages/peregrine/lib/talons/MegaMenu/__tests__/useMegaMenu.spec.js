@@ -10,6 +10,12 @@ jest.mock('react-router-dom', () => ({
     useLocation: jest.fn(() => ({ pathname: '/venia-tops.html' }))
 }));
 
+jest.mock('../../../hooks/useInternalLink', () =>
+    jest.fn(() => ({
+        setShimmerType: jest.fn().mockName('onNavigate')
+    }))
+);
+
 const Component = props => {
     const talonProps = useMegaMenu(props);
 

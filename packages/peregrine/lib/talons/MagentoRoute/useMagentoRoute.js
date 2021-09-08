@@ -3,6 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useAppContext } from '../../context/app';
 
 import { getRootComponent, isRedirect } from './helpers';
 import DEFAULT_OPERATIONS from './magentoRoute.gql';
@@ -13,6 +14,10 @@ export const useMagentoRoute = (props = {}) => {
     const { replace } = useHistory();
     const { pathname } = useLocation();
     const [componentMap, setComponentMap] = useRootComponents();
+    const [appState, appApi] = useAppContext();
+    const { actions: appActions } = appApi;
+    const { nextRootComponent } = appState;
+    const { setNextRootComponent, setPageLoading } = appActions;
 
     const setComponent = useCallback(
         (key, value) => {
@@ -38,6 +43,7 @@ export const useMagentoRoute = (props = {}) => {
     const redirect = isRedirect(redirectCode);
     const fetchError = component instanceof Error && component;
     const routeError = fetchError || error;
+    let showPageLoader = false;
     let routeData;
 
     if (component && !fetchError) {
@@ -57,6 +63,10 @@ export const useMagentoRoute = (props = {}) => {
     } else if (empty && !loading) {
         // NOT FOUND
         routeData = { isNotFound: true };
+    } else if (nextRootComponent) {
+        // LOADING with full page shimmer
+        showPageLoader = true;
+        routeData = { isLoading: true, shimmer: nextRootComponent };
     } else {
         // LOADING
         routeData = { isLoading: true };
@@ -72,8 +82,8 @@ export const useMagentoRoute = (props = {}) => {
             if (component) return;
 
             try {
-                const component = await getRootComponent(type);
-                setComponent(pathname, { component, id, type });
+                const rootComponent = await getRootComponent(type);
+                setComponent(pathname, { component: rootComponent, id, type });
             } catch (error) {
                 setComponent(pathname, error);
             }
@@ -86,6 +96,17 @@ export const useMagentoRoute = (props = {}) => {
             replace(routeData.relativeUrl);
         }
     }, [pathname, replace, routeData]);
+
+    useEffect(() => {
+        if (component) {
+            // Reset loading shimmer whenever component resolves
+            setNextRootComponent(null);
+        }
+    }, [component, pathname, setNextRootComponent]);
+
+    useEffect(() => {
+        setPageLoading(showPageLoader);
+    }, [showPageLoader, setPageLoading]);
 
     return routeData;
 };

@@ -9,9 +9,10 @@ import PropTypes from 'prop-types';
  * The SubmenuColumn component displays columns with categories in submenu
  *
  * @param {MegaMenuCategory} props.category
+ * @param {function} props.onNavigate - function called when clicking on Link
  */
 const SubmenuColumn = props => {
-    const { category } = props;
+    const { category, onNavigate } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     const categoryUrl = resourceUrl(
@@ -41,7 +42,11 @@ const SubmenuColumn = props => {
 
     return (
         <div className={classes.submenuColumn}>
-            <Link className={classes.link} to={categoryUrl}>
+            <Link
+                className={classes.link}
+                to={categoryUrl}
+                onClick={onNavigate}
+            >
                 <h3 className={classes.heading}>{category.name}</h3>
             </Link>
             {children}
@@ -62,5 +67,6 @@ SubmenuColumn.propTypes = {
         position: PropTypes.number.isRequired,
         url_path: PropTypes.string.isRequired,
         url_suffix: PropTypes.string
-    }).isRequired
+    }).isRequired,
+    onNavigate: PropTypes.func.isRequired
 };

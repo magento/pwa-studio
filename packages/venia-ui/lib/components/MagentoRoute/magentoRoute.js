@@ -1,9 +1,8 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useMagentoRoute } from '@magento/peregrine/lib/talons/MagentoRoute';
-
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
-import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
+import RootShimmerComponent from '../../RootComponents/Shimmer';
 
 const MESSAGES = new Map()
     .set(
@@ -20,11 +19,17 @@ const MagentoRoute = () => {
         id,
         isLoading,
         isNotFound,
-        isRedirect
+        isRedirect,
+        shimmer
     } = talonProps;
 
     if (isLoading || isRedirect) {
-        return fullPageLoadingIndicator;
+        // Show root component shimmer
+        if (shimmer) {
+            return <RootShimmerComponent type={shimmer} />;
+        }
+
+        return <RootShimmerComponent />;
     } else if (RootComponent) {
         return <RootComponent id={id} />;
     } else if (isNotFound) {

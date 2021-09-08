@@ -28,7 +28,8 @@ const Breadcrumbs = props => {
         currentCategoryPath,
         hasError,
         isLoading,
-        normalizedData
+        normalizedData,
+        handleClick
     } = talonProps;
 
     // For all links generate a fragment like "/ Text"
@@ -37,13 +38,17 @@ const Breadcrumbs = props => {
             return (
                 <Fragment key={text}>
                     <span className={classes.divider}>{DELIMITER}</span>
-                    <Link className={classes.link} to={resourceUrl(path)}>
+                    <Link
+                        className={classes.link}
+                        to={resourceUrl(path)}
+                        onClick={handleClick}
+                    >
                         {text}
                     </Link>
                 </Fragment>
             );
         });
-    }, [classes.divider, classes.link, normalizedData]);
+    }, [classes.divider, classes.link, handleClick, normalizedData]);
 
     if (isLoading) {
         return <Shimmer />;
@@ -64,7 +69,11 @@ const Breadcrumbs = props => {
     // category text to be a link. If we don't have a "currentProduct" we're on
     // a category page so it should be regular text.
     const currentCategoryLink = currentProduct ? (
-        <Link className={classes.link} to={resourceUrl(currentCategoryPath)}>
+        <Link
+            className={classes.link}
+            to={resourceUrl(currentCategoryPath)}
+            onClick={handleClick}
+        >
             {currentCategory}
         </Link>
     ) : (
