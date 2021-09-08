@@ -192,7 +192,7 @@ test('throws errors if npm view or tarball fetch error', async () => {
     process.env.DEBUG_PROJECT_CREATION = old;
 });
 
-test('warns if backendurl does not match env', async () => {
+test('warns if backendUrl does not match env', async () => {
     const old = process.env.MAGENTO_BACKEND_URL;
     process.env.MAGENTO_BACKEND_URL = 'https://other-example.com';
     fse.ensureDir.mockResolvedValueOnce(true);
@@ -213,7 +213,107 @@ test('warns if backendurl does not match env', async () => {
     process.env.MAGENTO_BACKEND_URL = old;
 });
 
-test('runs install', async () => {
+test('does not warn if backendUrl matches env', async () => {
+    const old = process.env.MAGENTO_BACKEND_URL;
+    process.env.MAGENTO_BACKEND_URL = 'https://example.com';
+    fse.ensureDir.mockResolvedValueOnce(true);
+    fse.readdir.mockResolvedValueOnce(true);
+    await expect(
+        createProjectCliBuilder.handler({
+            backendUrl: 'https://example.com',
+            name: 'goo',
+            template: 'venia-concept',
+            directory: '/project',
+            npmClient: 'yarn'
+        })
+    ).resolves.not.toThrow();
+    expect(process.env.MAGENTO_BACKEND_URL).toBe('https://example.com');
+    process.env.MAGENTO_BACKEND_URL = old;
+});
+
+test('warns if backendEdition does not match env', async () => {
+    const old = process.env.MAGENTO_BACKEND_EDITION;
+    process.env.MAGENTO_BACKEND_EDITION = 'CE';
+    fse.ensureDir.mockResolvedValueOnce(true);
+    fse.readdir.mockResolvedValueOnce(true);
+    await expect(
+        createProjectCliBuilder.handler({
+            backendUrl: 'https://example.com',
+            backendEdition: 'EE',
+            name: 'goo',
+            template: 'venia-concept',
+            directory: '/project',
+            npmClient: 'yarn'
+        })
+    ).resolves.not.toThrow();
+    expect(process.env.MAGENTO_BACKEND_EDITION).not.toBe('EE');
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringMatching('Environment variable overrides!')
+    );
+    process.env.MAGENTO_BACKEND_EDITION = old;
+});
+
+test('does not warn if backendEdition matches env', async () => {
+    const old = process.env.MAGENTO_BACKEND_EDITION;
+    process.env.MAGENTO_BACKEND_EDITION = 'EE';
+    fse.ensureDir.mockResolvedValueOnce(true);
+    fse.readdir.mockResolvedValueOnce(true);
+    await expect(
+        createProjectCliBuilder.handler({
+            backendUrl: 'https://example.com',
+            backendEdition: 'EE',
+            name: 'goo',
+            template: 'venia-concept',
+            directory: '/project',
+            npmClient: 'yarn'
+        })
+    ).resolves.not.toThrow();
+    expect(process.env.MAGENTO_BACKEND_EDITION).toBe('EE');
+    process.env.MAGENTO_BACKEND_EDITION = old;
+});
+
+test('warns if braintreeToken does not match env', async () => {
+    const old = process.env.CHECKOUT_BRAINTREE_TOKEN;
+    process.env.CHECKOUT_BRAINTREE_TOKEN = '12345';
+    fse.ensureDir.mockResolvedValueOnce(true);
+    fse.readdir.mockResolvedValueOnce(true);
+    await expect(
+        createProjectCliBuilder.handler({
+            backendUrl: 'https://example.com',
+            braintreeToken: '54321',
+            name: 'goo',
+            template: 'venia-concept',
+            directory: '/project',
+            npmClient: 'yarn'
+        })
+    ).resolves.not.toThrow();
+    expect(process.env.CHECKOUT_BRAINTREE_TOKEN).not.toBe('54321');
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringMatching('Environment variable overrides!')
+    );
+    process.env.CHECKOUT_BRAINTREE_TOKEN = old;
+});
+
+test('does not warn if braintreeToken matches env', async () => {
+    const old = process.env.CHECKOUT_BRAINTREE_TOKEN;
+    process.env.CHECKOUT_BRAINTREE_TOKEN = '54321';
+    fse.ensureDir.mockResolvedValueOnce(true);
+    fse.readdir.mockResolvedValueOnce(true);
+    await expect(
+        createProjectCliBuilder.handler({
+            backendUrl: 'https://example.com',
+            braintreeToken: '54321',
+            name: 'goo',
+            template: 'venia-concept',
+            directory: '/project',
+            npmClient: 'yarn'
+        })
+    ).resolves.not.toThrow();
+    expect(process.env.CHECKOUT_BRAINTREE_TOKEN).toBe('54321');
+    process.env.CHECKOUT_BRAINTREE_TOKEN = old;
+});
+
+test('runs install with yarn', async () => {
     fse.ensureDir.mockResolvedValueOnce(true);
     fse.readdir.mockResolvedValueOnce(true);
     await expect(
@@ -226,6 +326,21 @@ test('runs install', async () => {
         })
     ).resolves.not.toThrow();
     expect(shell).toHaveBeenCalledWith('yarn install', expect.anything());
+});
+
+test('runs install with npm', async () => {
+    fse.ensureDir.mockResolvedValueOnce(true);
+    fse.readdir.mockResolvedValueOnce(true);
+    await expect(
+        createProjectCliBuilder.handler({
+            name: 'goo',
+            template: 'venia-concept',
+            directory: process.cwd(),
+            install: true,
+            npmClient: 'npm'
+        })
+    ).resolves.not.toThrow();
+    expect(shell).toHaveBeenCalledWith('npm install', expect.anything());
 });
 
 test('errors out on a bad npm package', async () => {

@@ -94,7 +94,7 @@ module.exports.builder = yargs =>
             normalize: true
         })
         .group(
-            ['template', 'backendUrl', 'braintreeToken'],
+            ['template', 'backendUrl', 'backendEdition', 'braintreeToken'],
             'Project configuration:'
         )
         .options({
@@ -106,6 +106,10 @@ module.exports.builder = yargs =>
                 alias: 'b',
                 describe:
                     'URL of the Magento 2.3 instance to use as a backend. Will be added to `.env` file.'
+            },
+            backendEdition: {
+                describe:
+                    'Edition of the magento store (Enterprise Edition or Community Edition)'
             },
             braintreeToken: {
                 describe:
@@ -153,7 +157,8 @@ module.exports.handler = async function buildpackCli(argv) {
     prettyLogger.info(`Creating a new PWA project '${name}' in ${directory}`);
     await createProject(params);
 
-    // Update process.env with backendUrl and braintreeToken vars if necessary.
+    // Update process.env with backendUrl, backendEdition and braintreeToken
+    // vars if necessary.
     if (params.backendUrl) {
         const magentoNS = camelspace('magento');
         const { backendUrl } = magentoNS.fromEnv(process.env);
@@ -172,6 +177,26 @@ module.exports.handler = async function buildpackCli(argv) {
             );
         }
     }
+
+    if (params.backendEdition) {
+        const magentoNS = camelspace('magento');
+        const { backendEdition } = magentoNS.fromEnv(process.env);
+        if (backendEdition && backendEdition !== params.backendEdition) {
+            prettyLogger.warn(
+                `Command line option --backend-edition was set to '${
+                    params.backendEdition
+                }', but environment variable ${JSON.stringify(
+                    magentoNS.toEnv({ backendEdition })
+                )} conflicts with it. Environment variable overrides!`
+            );
+        } else {
+            Object.assign(
+                process.env,
+                magentoNS.toEnv({ backendEdition: params.backendEdition })
+            );
+        }
+    }
+
     if (params.braintreeToken) {
         // Corresponds to the CHECKOUT section in envVarDefinitions.json.
         const checkoutNS = camelspace('checkout');

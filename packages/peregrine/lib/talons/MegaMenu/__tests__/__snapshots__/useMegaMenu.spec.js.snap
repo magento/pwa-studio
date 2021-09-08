@@ -1,8 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Should add eventListner for keydown, mouseout, mousedown 1`] = `
+Array [
+  Array [
+    [Window],
+    "mousedown",
+    [Function],
+  ],
+  Array [
+    [Window],
+    "mouseout",
+    [Function],
+  ],
+  Array [
+    [Window],
+    "keydown",
+    [Function],
+  ],
+]
+`;
+
 exports[`Should render proper shape 1`] = `
 Object {
   "activeCategoryId": 7,
+  "disableFocus": false,
+  "handleClickOutside": [Function],
+  "handleSubMenuFocus": [Function],
   "megaMenuData": Object {
     "children": Array [
       Object {
@@ -94,5 +117,8 @@ Object {
     "isActive": false,
     "name": "Default Category",
   },
+  "subMenuState": false,
 }
 `;
+
+exports[`handleSubMenuFocus should setSubMenuState to true 1`] = `undefined`;
