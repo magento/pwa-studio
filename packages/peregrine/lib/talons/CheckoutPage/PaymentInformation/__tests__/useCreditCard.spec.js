@@ -537,6 +537,106 @@ describe('Testing payment nonce request workflow', () => {
         });
     });
 
+    test('Should return empty Shipping Address street2 value when not provided', () => {
+        const shippingAddress = {
+            firstName: 'test value',
+            lastName: 'test value',
+            country: {
+                code: 'test value'
+            },
+            street: ['test value'],
+            city: 'test value',
+            region: { code: 'test value' },
+            postcode: 'test value',
+            phoneNumber: 'test value'
+        };
+        getShippingAddress.mockReturnValueOnce({
+            data: {
+                cart: {
+                    shippingAddresses: [
+                        {
+                            __typename: 'Shipping Address',
+                            ...shippingAddress
+                        }
+                    ]
+                }
+            }
+        });
+        useFormState.mockReturnValueOnce({
+            values: {
+                isBillingAddressSame: true
+            },
+            errors: {}
+        });
+
+        getTalonProps({
+            shouldSubmit: true,
+            operations,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {},
+            resetShouldSubmit: () => {}
+        });
+
+        expect(setBillingAddress).toBeCalledWith({
+            variables: {
+                ...mapAddressData(shippingAddress),
+                sameAsShipping: true,
+                cartId: '123',
+                street2: ''
+            }
+        });
+    });
+
+    test('Should return empty Billing Address street2 value when not provided', () => {
+        const billingAddress = {
+            firstName: 'test value',
+            lastName: 'test value',
+            country: 'test value',
+            street1: 'test value',
+            city: 'test value',
+            region: {
+                region_id: 20
+            },
+            postcode: 'test value',
+            phoneNumber: 'test value'
+        };
+        useFormState
+            .mockReturnValueOnce({
+                values: {
+                    ...billingAddress,
+                    isBillingAddressSame: false
+                },
+                errors: {}
+            })
+            .mockReturnValueOnce({
+                values: {
+                    ...billingAddress,
+                    isBillingAddressSame: false
+                },
+                errors: {}
+            });
+
+        getTalonProps({
+            shouldSubmit: true,
+            operations,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {},
+            resetShouldSubmit: () => {}
+        });
+
+        expect(setBillingAddress).toBeCalledWith({
+            variables: {
+                ...billingAddress,
+                sameAsShipping: false,
+                cartId: '123',
+                region: 20,
+                street2: ''
+            }
+        });
+    });
+
     test('Should save isBillingAddressSame in apollo cache', () => {
         useFormState.mockReturnValueOnce({
             values: {

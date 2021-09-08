@@ -22,6 +22,9 @@ jest.mock('@magento/peregrine/lib/talons/Gallery/useGallery', () => ({
     useGallery: () => ({ storeConfig: jest.fn().mockName('storeConfig') })
 }));
 jest.mock('../../../classify');
+jest.mock('../addToCartButton', () => props => (
+    <mock-AddToCartButton {...props} />
+));
 
 const classes = { root: 'foo' };
 const items = [
@@ -31,15 +34,19 @@ const items = [
         small_image: {
             url: '/test/product/1.png'
         },
-        price: {
-            regularPrice: {
-                amount: {
+        stock_status: 'IN_STOCK',
+        type_id: 'simple',
+        __typename: 'SimpleProduct',
+        price_range: {
+            maximum_price: {
+                regular_price: {
                     value: 100,
                     currency: 'USD'
                 }
             }
         },
-        url_key: 'test-product1'
+        url_key: 'test-product1',
+        sku: 'sku-test-product1'
     },
     {
         id: 2,
@@ -47,15 +54,19 @@ const items = [
         small_image: {
             url: '/test/product/2.png'
         },
-        price: {
-            regularPrice: {
-                amount: {
+        stock_status: 'OUT_OF_STOCK',
+        type_id: 'simple',
+        __typename: 'SimpleProduct',
+        price_range: {
+            maximum_price: {
+                regular_price: {
                     value: 100,
                     currency: 'USD'
                 }
             }
         },
-        url_key: 'test-product2'
+        url_key: 'test-product2',
+        sku: 'sku-test-product2'
     }
 ];
 

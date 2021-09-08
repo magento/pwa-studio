@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { useFieldState, useFormApi } from 'informed';
+import { useFormApi } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import { getSearchParam } from '@magento/peregrine/lib/hooks/useSearchParam';
 

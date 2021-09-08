@@ -130,6 +130,14 @@ module.exports = async () => {
             when: ({ backendUrl }) => !backendUrl
         },
         {
+            name: 'backendEdition',
+            type: 'list',
+            message:
+                'Edition of the magento store (Enterprise Edition or Community Edition)',
+            choices: ['EE', 'CE'],
+            default: 'EE'
+        },
+        {
             name: 'braintreeToken',
             message:
                 'Braintree API token to use to communicate with your Braintree instance (will be added to `.env` file)',
@@ -139,7 +147,7 @@ module.exports = async () => {
             name: 'npmClient',
             type: 'list',
             message: 'NPM package management client to use',
-            choices: ['npm', 'yarn'],
+            choices: ['yarn', 'npm'],
             default: isYarn ? 'yarn' : 'npm'
         },
         {

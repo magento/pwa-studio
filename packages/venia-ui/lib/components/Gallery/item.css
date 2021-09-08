@@ -31,9 +31,9 @@
 }
 
 .actionsContainer {
-    column-gap: 0.5rem;
+    column-gap: 1rem;
     display: flex;
-    justify-content: space-between;
+    padding-left: 0.5rem;
 }
 
 .actionsContainer:empty {
@@ -48,6 +48,20 @@
 .price {
     font-size: var(--venia-typography-detail-XL-fontSize);
     min-height: 1rem;
+}
+
+.unavailableContainer {
+    align-items: center;
+    background-color: rgb(var(--venia-global-color-gray));
+    color: rgb(var(--venia-global-color-gray-darker));
+    column-gap: 0.5rem;
+    display: grid;
+    font-style: italic;
+    grid-auto-flow: column;
+    justify-content: start;
+    padding: 0.75rem;
+    width: 100%;
+    font-size: var(--venia-global-fontSize-100);
 }
 
 /* state: pending */

@@ -104,6 +104,33 @@ exports[`renders correctly with valid item data 1`] = `
   </div>
   <div
     className="actionsContainer"
-  />
+  >
+     
+    <mock-AddToCartButton
+      item={
+        Object {
+          "__typename": "SimpleProduct",
+          "id": 1,
+          "name": "Test Product",
+          "price_range": Object {
+            "maximum_price": Object {
+              "regular_price": Object {
+                "currency": "USD",
+                "value": 21,
+              },
+            },
+          },
+          "sku": "sku-123",
+          "small_image": Object {
+            "url": "/foo/bar/pic.png",
+          },
+          "stock_status": "IN_STOCK",
+          "type_id": "simple",
+          "url_key": "strive-shoulder-pack",
+          "url_suffix": ".html",
+        }
+      }
+    />
+  </div>
 </div>
 `;

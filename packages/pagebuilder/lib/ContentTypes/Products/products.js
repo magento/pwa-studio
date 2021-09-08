@@ -248,20 +248,22 @@ export const GET_PRODUCTS_BY_SKU = gql`
             items {
                 id
                 name
+                price_range {
+                    maximum_price {
+                        regular_price {
+                            currency
+                            value
+                        }
+                    }
+                }
                 sku
                 small_image {
                     url
                 }
+                stock_status
+                type_id
                 url_key
                 url_suffix
-                price {
-                    regularPrice {
-                        amount {
-                            value
-                            currency
-                        }
-                    }
-                }
             }
             total_count
             filters {

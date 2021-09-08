@@ -16,6 +16,9 @@ jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
     };
 });
 jest.mock('../../../classify');
+jest.mock('../../Gallery/addToCartButton', () => props => (
+    <mock-AddToCartButton {...props} />
+));
 
 const classes = {
     image: 'a',
@@ -38,11 +41,15 @@ const validItem = {
     small_image: {
         url: '/foo/bar/pic.png'
     },
+    stock_status: 'IN_STOCK',
+    type_id: 'simple',
+    __typename: 'SimpleProduct',
     url_key: 'strive-shoulder-pack',
     url_suffix: '.html',
-    price: {
-        regularPrice: {
-            amount: {
+    sku: 'sku-123',
+    price_range: {
+        maximum_price: {
+            regular_price: {
                 value: 21,
                 currency: 'USD'
             }

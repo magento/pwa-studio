@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -53,9 +53,9 @@
     "loader-utils": "~2.0.0",
     "lodash": "~4.17.11",
     "memfs": "~3.1.2",
-    "merge": "~1.2.1",
+    "merge": "~2.1.1",
     "micromatch": "~4.0.2",
-    "node-fetch": "~2.3.0",
+    "node-fetch": "~2.6.1",
     "pertain": "~0.2.0",
     "pkg-dir": "~4.1.0",
     "portscanner": "~2.2.0",
@@ -79,13 +79,15 @@
     "compression": "~1.7.4",
     "css-loader": "~2.1.1",
     "memory-fs": "~0.4.1",
+    "postcss": "~8.3.6",
+    "postcss-loader": "~4.3.0",
     "rimraf": "~2.6.3",
     "sharp": "~0.25.4",
     "strip-ansi": "~5.0.0",
     "terser-webpack-plugin": "~1.2.3",
     "wait-for-expect": "~1.2.0",
     "webpack": "~4.46.0",
-    "workbox-webpack-plugin": "~6.0.2"
+    "workbox-webpack-plugin": "~6.2.4"
   },
   "peerDependencies": {
     "@babel/core": "~7.3.4",
@@ -93,9 +95,11 @@
     "babel-loader": "~8.0.5",
     "compression": "~1.7.4",
     "css-loader": "~2.1.1",
+    "postcss": "~8.3.6",
+    "postcss-loader": "~4.3.0",
     "terser-webpack-plugin": "~1.2.3",
     "webpack": "~4.46.0",
-    "workbox-webpack-plugin": "~6.0.2"
+    "workbox-webpack-plugin": "~6.2.4"
   },
   "engines": {
     "node": ">=10.x",
