@@ -1,19 +1,26 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 import { useQuery } from '@apollo/client';
-import { useFieldApi, useFieldState } from 'informed';
+import { useFieldApi } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useRegion } from '../useRegion';
 
 jest.mock('informed', () => {
-    const useFieldState = jest.fn().mockReturnValue({
-        value: 'US'
-    });
     const useFieldApi = jest.fn();
 
-    return { useFieldApi, useFieldState };
+    return { useFieldApi };
 });
+
+jest.mock(
+    '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper',
+    () => {
+        return jest.fn().mockReturnValue({
+            value: 'US'
+        });
+    }
+);
 
 jest.mock('@apollo/client', () => ({
     useQuery: jest.fn().mockReturnValue({
