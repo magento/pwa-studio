@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_CATEGORY_URL_SUFFIX = gql`
-    query GetStoreConfigData {
+    query GetStoreConfigForCategoryTree {
         storeConfig {
             id
             category_url_suffix

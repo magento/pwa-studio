@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_STORE_CONFIG = gql`
-    query getStoreConfig {
+    query getStoreConfigForCartPage {
         storeConfig {
             id
             product_url_suffix

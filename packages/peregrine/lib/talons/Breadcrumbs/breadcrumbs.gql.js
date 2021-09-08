@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_STORE_CONFIG_DATA = gql`
-    query GetStoreConfigData {
+    query GetStoreConfigForBreadcrumbs {
         storeConfig {
             id
             category_url_suffix
