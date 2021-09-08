@@ -27,7 +27,7 @@ const Column = props => {
         backgroundAttachment,
         backgroundColor,
         backgroundPosition,
-        backgroundRepeat,
+        backgroundRepeat = 'repeat',
         backgroundSize,
         border,
         borderColor,

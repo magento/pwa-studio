@@ -30,7 +30,7 @@ const TabItem = props => {
         backgroundSize,
         backgroundPosition,
         backgroundAttachment,
-        backgroundRepeat,
+        backgroundRepeat = 'repeat',
         textAlign,
         border,
         borderColor,

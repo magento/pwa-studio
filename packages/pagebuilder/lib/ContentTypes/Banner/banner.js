@@ -38,7 +38,7 @@ const Banner = props => {
         backgroundSize,
         backgroundPosition,
         backgroundAttachment,
-        backgroundRepeat,
+        backgroundRepeat = 'repeat',
         textAlign,
         border,
         borderColor,

@@ -12,7 +12,7 @@ export function getBackgroundImages(node) {
         backgroundSize: node.style.backgroundSize,
         backgroundPosition: node.style.backgroundPosition,
         backgroundAttachment: node.style.backgroundAttachment,
-        backgroundRepeat: node.style.backgroundRepeat
+        backgroundRepeat: node.style.backgroundRepeat || 'repeat'
     };
 
     if (images) {
