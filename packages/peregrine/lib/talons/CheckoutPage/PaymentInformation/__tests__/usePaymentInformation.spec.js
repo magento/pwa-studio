@@ -43,11 +43,14 @@ jest.mock('@apollo/client', () => {
     };
 });
 
-jest.mock('informed', () => {
-    return {
-        useFieldState: jest.fn().mockReturnValue({ value: 'braintree' })
-    };
-});
+jest.mock(
+    '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper',
+    () => {
+        return {
+            useFieldState: jest.fn().mockReturnValue({ value: 'braintree' })
+        };
+    }
+);
 
 jest.mock('../../CheckoutError', () => {
     class CheckoutError extends Error {

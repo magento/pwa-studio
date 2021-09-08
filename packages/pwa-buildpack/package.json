@@ -79,13 +79,15 @@
     "compression": "~1.7.4",
     "css-loader": "~2.1.1",
     "memory-fs": "~0.4.1",
+    "postcss": "~8.3.6",
+    "postcss-loader": "~4.3.0",
     "rimraf": "~2.6.3",
     "sharp": "~0.25.4",
     "strip-ansi": "~5.0.0",
     "terser-webpack-plugin": "~1.2.3",
     "wait-for-expect": "~1.2.0",
     "webpack": "~4.46.0",
-    "workbox-webpack-plugin": "~6.0.2"
+    "workbox-webpack-plugin": "~6.2.4"
   },
   "peerDependencies": {
     "@babel/core": "~7.3.4",
@@ -93,9 +95,11 @@
     "babel-loader": "~8.0.5",
     "compression": "~1.7.4",
     "css-loader": "~2.1.1",
+    "postcss": "~8.3.6",
+    "postcss-loader": "~4.3.0",
     "terser-webpack-plugin": "~1.2.3",
     "webpack": "~4.46.0",
-    "workbox-webpack-plugin": "~6.0.2"
+    "workbox-webpack-plugin": "~6.2.4"
   },
   "engines": {
     "node": ">=10.x",
