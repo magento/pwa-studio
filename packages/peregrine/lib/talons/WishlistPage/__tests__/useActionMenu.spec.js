@@ -47,7 +47,6 @@ const baseProps = {
 };
 
 test('returns correct shape', () => {
-    jest.fn().mockName
     const { root } = createTestInstance(<Component {...baseProps} />);
     const { talonProps } = root.findByType('i').props;
 

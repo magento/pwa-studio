@@ -21,7 +21,7 @@ const dialogs = {
  */
 export const useActionMenu = (props = {}) => {
     const { id } = props;
-    const operations = mergeOperations(DEFAULT_OPERATIONS, getWishlistConfigQuery);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations, getWishlistConfigQuery);
     const { getCustomerWishlistQuery, updateWishlistMutation } = operations;
     const [currentDialog, setCurrentDialog] = useState(dialogs.NONE);
     const [displayError, setDisplayError] = useState(false);
