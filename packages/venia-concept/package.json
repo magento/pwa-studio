@@ -53,6 +53,7 @@
     "@magento/eslint-config": "~1.5.0",
     "@magento/pagebuilder": "~6.0.0",
     "@magento/peregrine": "~11.0.0",
+    "@magento/pwa-theme-venia": "~0.0.1",
     "@magento/upward-security-headers": "~1.0.4",
     "@magento/venia-ui": "~8.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
@@ -116,13 +117,13 @@
     "webpack-bundle-analyzer": "~3.3.2",
     "webpack-cli": "~3.2.3",
     "webpack-dev-server": "~3.2.1",
-    "workbox-cacheable-response": "~6.0.2",
-    "workbox-core": "~6.0.2",
-    "workbox-expiration": "~6.0.2",
-    "workbox-precaching": "~6.0.2",
-    "workbox-routing": "~6.0.2",
-    "workbox-strategies": "~6.0.2",
-    "workbox-webpack-plugin": "~6.0.2"
+    "workbox-cacheable-response": "~6.2.4",
+    "workbox-core": "~6.2.4",
+    "workbox-expiration": "~6.2.4",
+    "workbox-precaching": "~6.2.4",
+    "workbox-routing": "~6.2.4",
+    "workbox-strategies": "~6.2.4",
+    "workbox-webpack-plugin": "~6.2.4"
   },
   "optionalDependencies": {
     "sharp": "~0.23.3"
@@ -130,9 +131,6 @@
   "engines": {
     "node": ">=10.x",
     "yarn": ">=1.12.0"
-  },
-  "resolutions": {
-    "workbox-build": "~6.0.2"
   },
   "module": "src/index.js",
   "es2015": "src/index.js",

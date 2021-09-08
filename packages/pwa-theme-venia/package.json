@@ -1,0 +1,12 @@
+{
+  "name": "@magento/pwa-theme-venia",
+  "version": "0.0.1",
+  "description": "Venia theme for a PWA Studio storefront",
+  "main": "tailwind.preset.js",
+  "scripts": {
+    "clean": " "
+  },
+  "repository": "https://github.com/github:magento/pwa-studio",
+  "author": "Magento Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)"
+}

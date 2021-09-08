@@ -1,15 +1,23 @@
 import React, { useEffect } from 'react';
-import { Form, Text, useFieldState } from 'informed';
+import { Form, Text } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import { runQuery, useLazyQuery } from '@apollo/client';
 import { useAutocomplete } from '../../../talons/SearchBar';
 import createTestInstance from '../../../util/createTestInstance';
 
 jest.mock('informed', () => ({
-    ...jest.requireActual('informed'),
-    useFieldState: jest.fn().mockReturnValue({ value: '' })
+    ...jest.requireActual('informed')
 }));
 
+jest.mock(
+    '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper',
+    () => {
+        return jest.fn().mockReturnValue({
+            value: ''
+        });
+    }
+);
 jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const queryResult = {

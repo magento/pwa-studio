@@ -43,8 +43,8 @@ MAGENTO_BACKEND_URL=https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/
 #### Magento Store Edition #####################################################
 #
 #   Specify the edition of the magento store (Enterprise Edition or Community Edition). Can be one of CE or EE.
-#   - Default when not set: CE
-MAGENTO_BACKEND_EDITION=CE
+#   - Default when not set: EE
+MAGENTO_BACKEND_EDITION=EE
 #
 ################################################################################
 

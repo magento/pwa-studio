@@ -1,19 +1,25 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useFieldApi, useFieldState } from 'informed';
+import { useFieldApi } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { usePostcode } from '../usePostcode';
 
 jest.mock('informed', () => {
-    const useFieldState = jest.fn().mockReturnValue({
-        value: 'US'
-    });
     const useFieldApi = jest.fn();
 
-    return { useFieldApi, useFieldState };
+    return { useFieldApi };
 });
 
+jest.mock(
+    '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper',
+    () => {
+        return jest.fn().mockReturnValue({
+            value: 'US'
+        });
+    }
+);
 const Component = props => {
     const talonProps = usePostcode(props);
     return <i talonProps={talonProps} />;
