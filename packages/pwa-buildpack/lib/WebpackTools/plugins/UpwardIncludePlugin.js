@@ -42,14 +42,9 @@ class UpwardIncludePlugin {
                 }
             }
         };
-        this.dirs = new Set([...this.upwardDirs, context]);
-        const definitions = await Promise.all(
-            Array.from(this.dirs, async dir => {
-                const definition = await this.readUpwardFile(dir);
-                await this.populateAssetMap(dir, definition);
-                return definition;
-            })
-        );
+        const directories = [...this.upwardDirs, context];
+        this.dirs = new Set(directories);
+        const definitions = await this.getDefinitions(directories);
         Object.assign(this.definition, ...definitions);
         debug('assigned %s definitions', Object.keys(this.definition));
 
@@ -59,6 +54,18 @@ class UpwardIncludePlugin {
             copyUnmodified: true,
             logLevel: 'error'
         }).apply(this.compiler);
+    }
+    async getDefinitions(directories, definitions = []) {
+        const dir = directories.shift();
+        const definition = await this.readUpwardFile(dir);
+        await this.populateAssetMap(dir, definition);
+        definitions.push(definition);
+
+        if (directories.length > 0) {
+            return this.getDefinitions(directories, definitions);
+        }
+
+        return definitions;
     }
     extractFileRefs(definition) {
         const refs = [];
