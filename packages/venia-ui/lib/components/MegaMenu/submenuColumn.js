@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+
 import { useStyle } from '../../classify';
 import defaultClasses from './submenuColumn.css';
 import PropTypes from 'prop-types';
@@ -21,13 +23,20 @@ const SubmenuColumn = props => {
     let children = null;
 
     if (category.children.length) {
-        const childrenItems = category.children.map((category, index) => {
-            const { url_path, url_suffix, isActive, name } = category;
+        const childrenItems = category.children.map((item, index) => {
+            const { url_path, url_suffix, isActive, name } = item;
             const categoryUrl = resourceUrl(`/${url_path}${url_suffix || ''}`);
+
+            // setting keyboardProps if it is last child of that category
+            const keyboardProps =
+                index === category.children.length - 1
+                    ? props.keyboardProps
+                    : {};
 
             return (
                 <li key={index} className={classes.submenuChildItem}>
                     <Link
+                        {...keyboardProps}
                         className={isActive ? classes.linkActive : classes.link}
                         to={categoryUrl}
                     >
@@ -40,9 +49,13 @@ const SubmenuColumn = props => {
         children = <ul className={classes.submenuChild}>{childrenItems}</ul>;
     }
 
+    // setting keyboardProps if category does not have any sub-category
+    const keyboardProps = category.children.length ? {} : props.keyboardProps;
+
     return (
         <div className={classes.submenuColumn}>
             <Link
+                {...keyboardProps}
                 className={classes.link}
                 to={categoryUrl}
                 onClick={onNavigate}

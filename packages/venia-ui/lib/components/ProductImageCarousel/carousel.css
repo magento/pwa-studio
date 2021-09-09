@@ -18,7 +18,11 @@
 }
 
 .currentImage {
+    display: block;
     width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
 }
 
 .currentImage_placeholder {
@@ -87,5 +91,9 @@
         grid-gap: 1.5rem;
         grid-template-columns: 1fr;
         margin-top: 0;
+    }
+
+    .currentImage {
+        object-position: top center;
     }
 }

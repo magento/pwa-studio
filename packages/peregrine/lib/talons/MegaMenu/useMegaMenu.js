@@ -1,15 +1,19 @@
-import mergeOperations from '../../util/shallowMerge';
-import DEFAULT_OPERATIONS from './megaMenu.gql';
-import { useQuery } from '@apollo/client';
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import useInternalLink from '../../hooks/useInternalLink';
+
+import { useQuery } from '@apollo/client';
+import { useEventListener } from '../../hooks/useEventListener';
+
+import mergeOperations from '../../util/shallowMerge';
+import DEFAULT_OPERATIONS from './megaMenu.gql';
 
 /**
  * The useMegaMenu talon complements the MegaMenu component.
  *
  * @param {Object} props
  * @param {*} props.operations GraphQL operations used by talons
+ * @param {React.RefObject} props.mainNavRef Reference to main navigation DOM node
  *
  * @return {MegaMenuTalonProps}
  */
@@ -19,6 +23,8 @@ export const useMegaMenu = (props = {}) => {
 
     const location = useLocation();
     const [activeCategoryId, setActiveCategoryId] = useState(null);
+    const [subMenuState, setSubMenuState] = useState(false);
+    const [disableFocus, setDisableFocus] = useState(false);
 
     const { data } = useQuery(getMegaMenuQuery, {
         fetchPolicy: 'cache-and-network',
@@ -107,6 +113,21 @@ export const useMegaMenu = (props = {}) => {
         [isActive]
     );
 
+    const handleClickOutside = e => {
+        if (!props.mainNavRef.current.contains(e.target)) {
+            setSubMenuState(false);
+            setDisableFocus(true);
+        }
+    };
+
+    useEventListener(globalThis, 'mousedown', handleClickOutside);
+    useEventListener(globalThis, 'mouseout', handleClickOutside);
+    useEventListener(globalThis, 'keydown', handleClickOutside);
+
+    const handleSubMenuFocus = useCallback(() => {
+        setSubMenuState(true);
+    }, [setSubMenuState]);
+
     useEffect(() => {
         const activeCategory = findActiveCategory(
             location.pathname,
@@ -130,6 +151,10 @@ export const useMegaMenu = (props = {}) => {
     return {
         megaMenuData,
         activeCategoryId,
+        handleClickOutside,
+        subMenuState,
+        disableFocus,
+        handleSubMenuFocus,
         handleNavigate: setShimmerType
     };
 };
@@ -142,9 +167,13 @@ export const useMegaMenu = (props = {}) => {
  * @property {MegaMenuCategory} megaMenuData - The Object with categories contains only categories
  *                                             with the include_in_menu = 1 flag. The categories are sorted
  *                                             based on the field position.
- * @property {int} activeCategoryId - loading whether the regions are loading
- * @property {function} onNavigate - callback to fire on link click
- *
+ * @property {int} loading whether the regions are loading
+ * @property {int} activeCategoryId returns the currently selected category id.
+ * @property {Function} handleClickOutside function to handle mouse/key events.
+ * @property {Boolean} subMenuState maintaining sub-menu open/close state
+ * @property {Boolean} disableFocus state to disable focus
+ * @property {Function} handleSubMenuFocus toggle function to handle sub-menu focus
+ * @property {Function} handleNavigate set root component shimmer
  */
 
 /**

@@ -9,13 +9,14 @@ import createTestInstance from '../../../../util/createTestInstance';
 jest.mock('../../../../context/cart');
 useCartContext.mockReturnValue([{ cartId: '123456' }]);
 
-jest.mock('informed', () => {
-    return {
-        useFieldState: () => {
-            return { value: 'currentSelectedPaymentMethod' };
-        }
-    };
-});
+jest.mock(
+    '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper',
+    () => {
+        return jest.fn().mockReturnValue({
+            value: 'currentSelectedPaymentMethod'
+        });
+    }
+);
 
 jest.mock('@apollo/client', () => {
     return {
