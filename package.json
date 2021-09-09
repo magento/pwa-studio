@@ -51,6 +51,7 @@
     "@graphql-eslint/eslint-plugin": "~1.0.1",
     "@magento/eslint-config": "~1.5.0",
     "@types/jest": "~25.2.1",
+    "autoprefixer": "~10.3.3",
     "babel-eslint": "~10.1.0",
     "babel-plugin-dynamic-import-node": "~2.2.0",
     "babel-plugin-graphql-tag": "~2.0.0",
@@ -82,7 +83,8 @@
     "jest-transform-graphql": "~2.1.0",
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
-    "rimraf": "~2.6.3"
+    "rimraf": "~2.6.3",
+    "tailwindcss": "~2.2.7"
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",
