@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declareColors() returns the correct values with default parameters 1`] = `
+Object {
+  "--color-black": "0 0 0",
+  "--color-neutral-d1": "83 89 101",
+  "--color-neutral-d2": "24 28 36",
+  "--color-neutral-l0": "255 255 255",
+  "--color-neutral-l1": "229 229 231",
+  "--color-neutral-l2": "181 183 188",
+  "--color-neutral-m1": "145 149 156",
+  "--color-primary-d1": "31 57 255",
+  "--color-primary-l1": "61 132 255",
+  "--color-primary-l2": "51 109 255",
+  "--color-primary-m1": "41 84 255",
+  "--color-white": "255 255 255",
+}
+`;
+
+exports[`getColors() returns the correct values with default parameters 1`] = `
+Object {
+  "black": [Function],
+  "neutral": Object {
+    "d1": [Function],
+    "d2": [Function],
+    "l0": [Function],
+    "l1": [Function],
+    "l2": [Function],
+    "m1": [Function],
+  },
+  "primary": Object {
+    "d1": [Function],
+    "l1": [Function],
+    "l2": [Function],
+    "m1": [Function],
+  },
+  "white": [Function],
+}
+`;
