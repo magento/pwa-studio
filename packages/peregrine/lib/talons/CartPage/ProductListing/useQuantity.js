@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState, useEffect } from 'react';
-import { useFieldState, useFieldApi } from 'informed';
+import { useFieldApi } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 import debounce from 'lodash.debounce';
 
 /**

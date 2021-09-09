@@ -145,10 +145,6 @@ const testReactComponents = inPackage => ({
         inPackage('node_modules'),
         '<rootDir>/node_modules'
     ],
-    // Set up Enzyme React 16 adapter for testing React components
-    setupFilesAfterEnv: [
-        path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
-    ],
     // Give jsdom a real URL for router testing.
     testURL: 'http://localhost/',
     transform: {
@@ -256,10 +252,6 @@ const jestConfig = {
                 inPackage('scripts/fetch-mock.js'),
                 path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
             ],
-            // Set up Enzyme React 16 adapter for testing React components
-            setupFilesAfterEnv: [
-                path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
-            ],
             // Give jsdom a real URL for router testing.
             testURL: 'http://localhost/'
         })),
@@ -313,7 +305,10 @@ const jestConfig = {
                         '<rootDir>/magento-compatibility.js'
                 }
             })
-        )
+        ),
+        configureProject('pwa-theme-venia', 'Venia Theme', () => ({
+            testEnvironment: 'node'
+        }))
     ],
     // Include files with zero tests in overall coverage analysis by specifying
     // coverage paths manually.
