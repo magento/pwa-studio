@@ -25,9 +25,11 @@ export const useMagentoRoute = (props = {}) => {
     const { replace } = useHistory();
     const { pathname } = useLocation();
     const [componentMap, setComponentMap] = useRootComponents();
+
     const initialized = useRef(false);
     const fetchedPathname = useRef(null);
     const fetching = useRef(false);
+
     const [appState, appApi] = useAppContext();
     const { actions: appActions } = appApi;
     const { nextRootComponent } = appState;

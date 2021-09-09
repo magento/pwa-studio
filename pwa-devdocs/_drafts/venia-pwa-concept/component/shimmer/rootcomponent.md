@@ -50,6 +50,7 @@ export { default as EXAMPLE_PAGE_SHIMMER } from '../../Example/example.shimmer.j
 ```
 
 ##### For external root components (outside of venia-ui)
+
 The root shimmer types are tapable, so we can easily add new root component shimmers.
 
 ##### Example
@@ -72,6 +73,7 @@ and appending `_SHIMMER` to it. So all we need to do is pass in the value of our
 care of setting the value in the app context state. This state value automatically resets once the page has rendered.
 
 ##### Example
+
 ```jsx
 /** components/Foo/foo.js **/
 

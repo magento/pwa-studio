@@ -139,6 +139,23 @@ beforeEach(() => {
 
         return [state, api];
     });
+    useLocation.mockReset();
+    useLocation.mockImplementation(() => ({ pathname: '/foo.html' }));
+
+    useAppContext.mockImplementation(() => {
+        const state = {
+            nextRootComponent: null,
+            isPageLoading: false
+        };
+        const api = {
+            actions: {
+                setNextRootComponent: jest.fn(),
+                setPageLoading: jest.fn()
+            }
+        };
+
+        return [state, api];
+    });
 });
 
 describe('returns LOADING while queries are pending', () => {

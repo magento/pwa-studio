@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
 
 import { availableRoutes } from '@magento/venia-ui/lib/components/Routes/routes';
+
 import { useAppContext } from '../context/app';
 import { useRootComponents } from '../context/rootComponents';
 import mergeOperations from '../util/shallowMerge';
