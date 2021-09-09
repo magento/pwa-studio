@@ -1,0 +1,10 @@
+staticContent:
+  directory:
+    inline: './foo.txt'
+    other: './baz.txt'
+status: 200
+headers:
+  inline:
+    content-type: text/html
+body:
+  inline: 'test'
