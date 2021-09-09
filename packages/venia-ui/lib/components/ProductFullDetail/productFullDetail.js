@@ -45,6 +45,7 @@ const ProductFullDetail = props => {
         errorMessage,
         handleAddToCart,
         handleSelectionChange,
+        isOutOfStock,
         isAddToCartDisabled,
         isSupportedProductType,
         mediaGalleryEntries,
@@ -125,12 +126,21 @@ const ProductFullDetail = props => {
         }
     }
 
+    const cartCallToActionText = !isOutOfStock ? (
+        <FormattedMessage
+            id="productFullDetail.addItemToCart"
+            defaultMessage="Add to Cart"
+        />
+    ) : (
+        <FormattedMessage
+            id="productFullDetail.itemOutOfStock"
+            defaultMessage="Out of Stock"
+        />
+    );
+
     const cartActionContent = isSupportedProductType ? (
         <Button disabled={isAddToCartDisabled} priority="high" type="submit">
-            <FormattedMessage
-                id={'productFullDetail.cartAction'}
-                defaultMessage={'Add to Cart'}
-            />
+            {cartCallToActionText}
         </Button>
     ) : (
         <div className={classes.unavailableContainer}>
@@ -233,6 +243,7 @@ ProductFullDetail.propTypes = {
     product: shape({
         __typename: string,
         id: number,
+        stock_status: string,
         sku: string.isRequired,
         price: shape({
             regularPrice: shape({
