@@ -101,16 +101,18 @@ class UpwardIncludePlugin {
     }
     async populateAssetMap(dir, definition) {
         await Promise.all(
-            Object.entries(this.extractFileRefs(definition)).map(async entry => {
-                const [locationKey, ref] = entry;
-                const mapping = await this.getMapping(dir, ref);
-                if (mapping) {
-                    this.addAsset(locationKey, {
-                        ref,
-                        mapping
-                    });
+            Object.entries(this.extractFileRefs(definition)).map(
+                async entry => {
+                    const [locationKey, ref] = entry;
+                    const mapping = await this.getMapping(dir, ref);
+                    if (mapping) {
+                        this.addAsset(locationKey, {
+                            ref,
+                            mapping
+                        });
+                    }
                 }
-            })
+            )
         );
     }
     async getMapping(dir, ref) {
