@@ -5,7 +5,7 @@
     "scripts": {
         "clearCache:mac": "rm -rf ~/Library/Application\\ Support/Cypress/cy/*",
         "test": "cypress open --browser chrome --config-file cypress.config.json",
-        "test:ci": "cypress run --browser chrome --headless",
+        "test:ci": "sh run-tests.sh",
         "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
         "test:devTest": "jest",
         "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",

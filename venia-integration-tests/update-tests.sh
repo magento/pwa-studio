@@ -8,18 +8,5 @@ fi
 # collect pr instance url to run tests against
 PR_INSTANCE_URL=$1
 
-# build docker with UPDATE_SNAPSHOT=true to update failed snapshots
-docker build -f cypress-tests.dockerfile -t cypress-test --build-arg PR_INSTANCE_URL=$PR_INSTANCE_URL --build-arg UPDATE_SNAPSHOT=true .
-
-# run cypress tests
-docker run cypress-test
-
-# get container ID and copy new snapshots to the host
-conatinerId=$(docker ps -a | grep "cypress-test" | awk '{print $1}')
-docker cp $conatinerId:/usr/src/app/venia-integration-tests/src/snapshots ./src
-
-# remove container
-docker rm -f $conatinerId
-
-# remove image
-docker rmi -f cypress-test
+# run cypress tests and remove the container once done
+docker run --rm -it -v $PWD:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=$PR_INSTANCE_URL --config-file cypress.config.json --env updateSnapshots=true --headless
