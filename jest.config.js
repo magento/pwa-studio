@@ -305,7 +305,10 @@ const jestConfig = {
                         '<rootDir>/magento-compatibility.js'
                 }
             })
-        )
+        ),
+        configureProject('pwa-theme-venia', 'Venia Theme', () => ({
+            testEnvironment: 'node'
+        }))
     ],
     // Include files with zero tests in overall coverage analysis by specifying
     // coverage paths manually.
@@ -324,7 +327,9 @@ const jestConfig = {
         // Not this file itself
         '!jest.config.js',
         // Exclude deprecated components from coverage report
-        '!**/venia-ui/lib/components/Checkout/**'
+        '!**/venia-ui/lib/components/Checkout/**',
+        // Exclude storybook files
+        '!**/.storybook/**/*.js'
     ],
     // Don't look for test files in these directories.
     testPathIgnorePatterns: [
