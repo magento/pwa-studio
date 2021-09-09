@@ -1,8 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { useSubMenu } from '@magento/peregrine/lib/talons/MegaMenu/useSubMenu';
+
 import { useStyle } from '../../classify';
 import defaultClasses from './submenu.css';
 import SubmenuColumn from './submenuColumn';
-import PropTypes from 'prop-types';
 
 /**
  * The Submenu component displays submenu in mega menu
@@ -12,22 +15,45 @@ import PropTypes from 'prop-types';
  * @param {function} props.onNavigate - function called when clicking on Link
  */
 const Submenu = props => {
-    const { items, mainNavWidth, onNavigate } = props;
+    const {
+        items,
+        mainNavWidth,
+        isFocused,
+        subMenuState,
+        handleCloseSubMenu,
+        onNavigate
+    } = props;
     const PADDING_OFFSET = 20;
     const classes = useStyle(defaultClasses, props.classes);
 
-    const subMenus = items.map(category => {
+    const talonProps = useSubMenu({
+        isFocused,
+        subMenuState,
+        handleCloseSubMenu
+    });
+
+    const { isSubMenuActive } = talonProps;
+
+    const subMenuClassname = isSubMenuActive
+        ? classes.submenu_active
+        : classes.submenu;
+
+    const subMenus = items.map((category, index) => {
+        const keyboardProps =
+            index === items.length - 1 ? talonProps.keyboardProps : {};
         return (
             <SubmenuColumn
+                index={index}
+                keyboardProps={keyboardProps}
+                key={category.id}
                 category={category}
                 onNavigate={onNavigate}
-                key={category.id}
             />
         );
     });
 
     return (
-        <div className={classes.submenu}>
+        <div className={subMenuClassname}>
             <div
                 className={classes.submenuItems}
                 style={{ minWidth: mainNavWidth + PADDING_OFFSET }}
