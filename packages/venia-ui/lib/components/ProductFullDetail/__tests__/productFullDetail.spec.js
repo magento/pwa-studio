@@ -29,7 +29,7 @@ jest.mock('../../ProductOptions', () => () => 'ProductOptions');
 jest.mock('../../CartPage/ProductListing/quantity', () => ({
     QuantityFields: () => 'QuantityFields'
 }));
-jest.mock('../../RichText', () => 'RichText');
+jest.mock('../../RichContent', () => 'RichContent');
 
 jest.mock('../../../classify');
 
