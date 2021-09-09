@@ -9,4 +9,4 @@ fi
 PR_INSTANCE_URL=$1
 
 # run cypress tests and remove the container once done
-docker run --rm -it -v $PWD:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=$PR_INSTANCE_URL,screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=false --headless
+docker run --rm -v $PWD:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=$PR_INSTANCE_URL,screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=false --headless
