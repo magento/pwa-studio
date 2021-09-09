@@ -167,18 +167,12 @@ export const useMegaMenu = (props = {}) => {
  * @property {MegaMenuCategory} megaMenuData - The Object with categories contains only categories
  *                                             with the include_in_menu = 1 flag. The categories are sorted
  *                                             based on the field position.
-<<<<<<< HEAD
- * @property {int} activeCategoryId - loading whether the regions are loading
- * @property {function} onNavigate - callback to fire on link click
- *
-=======
- * @property {int} loading whether the regions are loading
  * @property {int} activeCategoryId returns the currently selected category id.
  * @property {Function} handleClickOutside function to handle mouse/key events.
  * @property {Boolean} subMenuState maintaining sub-menu open/close state
  * @property {Boolean} disableFocus state to disable focus
  * @property {Function} handleSubMenuFocus toggle function to handle sub-menu focus
->>>>>>> develop
+ * @property {Function} handleNavigate set root component shimmer
  */
 
 /**
