@@ -53,7 +53,7 @@
     "@types/jest": "~25.2.1",
     "autoprefixer": "~10.3.3",
     "babel-eslint": "~10.1.0",
-    "babel-plugin-dynamic-import-node": "~2.2.0",
+    "babel-plugin-dynamic-import-node": "~2.3.3",
     "babel-plugin-graphql-tag": "~2.0.0",
     "caller-id": "~0.1.0",
     "chalk": "~2.4.2",
@@ -64,11 +64,11 @@
     "eslint": "~7.27.0",
     "eslint-config-prettier": "~6.0.0",
     "eslint-plugin-babel": "~5.3.0",
-    "eslint-plugin-jsx-a11y": "~6.2.1",
+    "eslint-plugin-jsx-a11y": "~6.4.1",
     "eslint-plugin-node": "~8.0.1",
     "eslint-plugin-package-json": "~0.1.4",
     "eslint-plugin-react": "~7.21.5",
-    "eslint-plugin-react-hooks": "~2.0.1",
+    "eslint-plugin-react-hooks": "~4.2.0",
     "execa": "~1.0.0",
     "figures": "~2.0.0",
     "first-run": "~2.0.0",
@@ -88,10 +88,11 @@
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",
-    "sharp": "~0.23.3"
+    "sharp": "~0.29.0"
   },
   "resolutions": {
-    "https-proxy-agent": "~2.2.3"
+    "https-proxy-agent": "~2.2.3",
+    "@graphql-tools/prisma-loader": "6.3.0"
   },
   "engines": {
     "node": ">=10.x",
