@@ -7,7 +7,6 @@ jest.mock('@magento/peregrine/lib/talons/Header/useStoreSwitcher', () => ({
     useStoreSwitcher: jest.fn()
 }));
 
-jest.mock('@magento/peregrine/lib/talons/Header/useStoreSwitcher', () => {});
 jest.mock('@magento/venia-ui/lib/classify');
 
 const talonProps = {

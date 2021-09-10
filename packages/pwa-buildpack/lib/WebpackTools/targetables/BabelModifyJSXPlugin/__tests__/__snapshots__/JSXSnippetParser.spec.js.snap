@@ -9,6 +9,8 @@ Array [
         "column": 25,
         "line": 1,
       },
+      "filename": undefined,
+      "identifierName": undefined,
       "start": Position {
         "column": 3,
         "line": 1,
@@ -21,6 +23,8 @@ Array [
           "column": 12,
           "line": 1,
         },
+        "filename": undefined,
+        "identifierName": undefined,
         "start": Position {
           "column": 3,
           "line": 1,
@@ -43,6 +47,8 @@ Array [
           "column": 25,
           "line": 1,
         },
+        "filename": undefined,
+        "identifierName": undefined,
         "start": Position {
           "column": 13,
           "line": 1,
@@ -60,6 +66,8 @@ Array [
         "column": 43,
         "line": 1,
       },
+      "filename": undefined,
+      "identifierName": undefined,
       "start": Position {
         "column": 26,
         "line": 1,
@@ -72,6 +80,8 @@ Array [
           "column": 32,
           "line": 1,
         },
+        "filename": undefined,
+        "identifierName": undefined,
         "start": Position {
           "column": 26,
           "line": 1,
@@ -92,6 +102,7 @@ Array [
             "column": 42,
             "line": 1,
           },
+          "filename": undefined,
           "identifierName": "Chordata",
           "start": Position {
             "column": 34,
@@ -107,6 +118,8 @@ Array [
           "column": 43,
           "line": 1,
         },
+        "filename": undefined,
+        "identifierName": undefined,
         "start": Position {
           "column": 33,
           "line": 1,
@@ -123,6 +136,8 @@ Array [
         "column": 76,
         "line": 1,
       },
+      "filename": undefined,
+      "identifierName": undefined,
       "start": Position {
         "column": 44,
         "line": 1,
@@ -135,6 +150,8 @@ Array [
           "column": 50,
           "line": 1,
         },
+        "filename": undefined,
+        "identifierName": undefined,
         "start": Position {
           "column": 44,
           "line": 1,
@@ -155,6 +172,8 @@ Array [
           "column": 76,
           "line": 1,
         },
+        "filename": undefined,
+        "identifierName": undefined,
         "start": Position {
           "column": 51,
           "line": 1,
@@ -168,6 +187,8 @@ Array [
             "column": 76,
             "line": 1,
           },
+          "filename": undefined,
+          "identifierName": undefined,
           "start": Position {
             "column": 51,
             "line": 1,
@@ -180,6 +201,8 @@ Array [
               "column": 74,
               "line": 1,
             },
+            "filename": undefined,
+            "identifierName": undefined,
             "start": Position {
               "column": 52,
               "line": 1,
@@ -192,6 +215,8 @@ Array [
                 "column": 61,
                 "line": 1,
               },
+              "filename": undefined,
+              "identifierName": undefined,
               "start": Position {
                 "column": 52,
                 "line": 1,
@@ -208,6 +233,8 @@ Array [
                 "column": 74,
                 "line": 1,
               },
+              "filename": undefined,
+              "identifierName": undefined,
               "start": Position {
                 "column": 62,
                 "line": 1,
