@@ -16,10 +16,7 @@ const basic1PageProjectDir = join(
 );
 const missingUpwardFileDir = join(__dirname, '__fixtures/dupe-root-component');
 const badUpwardFileDir = join(__dirname, '__fixtures__/missing-page-types');
-const baseStaticContent = join(
-    __dirname,
-    '__fixtures__/base-static-content'
-);
+const baseStaticContent = join(__dirname, '__fixtures__/base-static-content');
 const overrideStaticContent = join(
     __dirname,
     '__fixtures__/override-static-content'
