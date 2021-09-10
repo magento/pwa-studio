@@ -5,13 +5,12 @@
     "scripts": {
         "clearCache:mac": "rm -rf ~/Library/Application\\ Support/Cypress/cy/*",
         "test": "cypress open --browser chrome --config-file cypress.config.json",
-        "test:ci": "sh run-tests.sh",
+        "test:ci": "./run-tests",
         "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
         "test:devTest": "jest",
         "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",
-        "test:headless": "sh run-tests.sh",
-        "test:run": "cypress run --browser chrome --config-file cypress.config.json",
-        "test:update-snapshots": "sh update-tests.sh"
+        "test:headless": "./run-tests",
+        "test:run": "cypress run --browser chrome --config-file cypress.config.json"
     },
     "author": "Magento Commerce",
     "license": "MIT",
