@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { useFieldState } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import { useCartContext } from '../../../context/cart';
 

@@ -74,7 +74,16 @@ exports[`renders correctly when there are existing addresses 1`] = `
             }
           }
           size={24}
-          src={[Function]}
+          src={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "propTypes": Object {
+                "color": [Function],
+                "size": [Function],
+              },
+              "render": [Function],
+            }
+          }
         />
         <span
           className="addText"
@@ -128,7 +137,16 @@ exports[`renders correctly when there are no existing addresses 1`] = `
             }
           }
           size={24}
-          src={[Function]}
+          src={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "propTypes": Object {
+                "color": [Function],
+                "size": [Function],
+              },
+              "render": [Function],
+            }
+          }
         />
         <span
           className="addText"
@@ -227,7 +245,16 @@ exports[`renders delete confirmation on address that is being deleted 1`] = `
             }
           }
           size={24}
-          src={[Function]}
+          src={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "propTypes": Object {
+                "color": [Function],
+                "size": [Function],
+              },
+              "render": [Function],
+            }
+          }
         />
         <span
           className="addText"
@@ -263,7 +290,16 @@ exports[`renders loading indicator 1`] = `
       }
     }
     size={64}
-    src={[Function]}
+    src={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "color": [Function],
+          "size": [Function],
+        },
+        "render": [Function],
+      }
+    }
   />
   <span
     className="message"
