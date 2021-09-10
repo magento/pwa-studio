@@ -242,10 +242,9 @@ Open your project's `src/index.js` file and update the import for the App compon
 + import App from './components/App';
 ```
 
-If your file `src/index.js` doesn't have the import for **App, {AppContextProvider}**, you probably have the import of Adapter component. 
-In this case, you have to create your Adapter component inside `src/components`.
+If your `src/index.js` file doesn't define the `import` statement for **App, {AppContextProvider}**, it might instead define an `import` statement for the Adapter component.
+If true, you need to add the Adapter component to your project's `src/components` directory, as follows:
 
-In order to do that, you have to create its directory and copy the component.
 
 ```sh
 mkdir -p src/components/Adapter && \
@@ -263,14 +262,14 @@ Open the file `adapter.js` in your `src/components` and make the following chang
 Create the `index.js` inside your Adapter directory to create its default Adapter component.
 
 ```js
-export { default } from './container'
+export { default } from './adapter'
 ```
 
 Finally, go back to your file `src/index.js` and change the import of the Adapter component:
 
 ```diff
 - import Adapter from '@magento/venia-ui/lib/components/Adapter';
-+ import Adapter from './components/Adapter/adapter';
++ import Adapter from './components/Adapter';
 ```
 
 ## Congratulations
