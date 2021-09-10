@@ -52,7 +52,16 @@ test('passes props to talon', () => {
           "foo": "bar",
           "icon": <Icon
             size={20}
-            src={[Function]}
+            src={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "color": [Function],
+                  "size": [Function],
+                },
+                "render": [Function],
+              }
+            }
           />,
         }
     `);

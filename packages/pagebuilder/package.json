@@ -37,13 +37,13 @@
     "@magento/peregrine": "~11.0.0",
     "@magento/pwa-buildpack": "~10.0.0",
     "@magento/venia-ui": "~8.0.0",
-    "@storybook/react": "~6.1.14",
+    "@storybook/react": "~6.3.7",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
     "lodash.escape": "~4.0.1",
     "react": "~17.0.1",
     "react-dom": "~17.0.1",
-    "react-slick": "~0.25.2",
+    "react-slick": "~0.28.0",
     "react-tabs": "~3.0.0",
     "react-test-renderer": "~17.0.1"
   },
@@ -57,7 +57,7 @@
     "load-google-maps-api": "~2.0.1",
     "lodash.escape": "~4.0.1",
     "react": "~17.0.1",
-    "react-slick": "~0.25.2",
+    "react-slick": "~0.28.0",
     "react-tabs": "~3.1.0"
   },
   "pwa-studio": {
