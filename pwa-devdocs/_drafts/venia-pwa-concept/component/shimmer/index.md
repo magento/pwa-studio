@@ -76,9 +76,8 @@ export default () => {
 **../path/to/SubComponent/index.js**
 ```jsx
 export { default } from './subComponent.js';
-/**
- * Export named shimmer component
- */
+
+// Export named shimmer component
 export { default as SubComponentShimmer } from './subComponent.shimmer.js';
 ```
 ---
@@ -122,9 +121,7 @@ import Shimmer from '../path/to/base/Shimmer';
 import defaultClasses from './subComponent.css'; // Load same classes as real SubComponent
 
 const SubComponentShimmer = (props) => {
-    /**
-     * Important to still merge-in prop classes for extensibility/targetability
-     **/
+    // Important to still merge-in prop classes for extensibility/targetability
     const classes = mergeClasses(defaultClasses, props.classes);
     
     return (

@@ -1,6 +1,6 @@
 # Preloading with UPWARD
 The Shimmer components help illustrate to the user that the application is still fetching data about the page they're visiting.
-This works well when navigating from page to page, but without SSR, the initial load had no choice but to show a loading
+This works well when navigating from page to page, but without Server Side Rendering, the initial load had no choice but to show a loading
 state since we didn't know what _type_ of page we were on.
 
 To fix this, we added capabilities to the UPWARD PHP package to prefetch information about the page, and through UPWARD's
@@ -69,7 +69,7 @@ veniaWebpackChunks:
 ```
 
 ### Application Template Resolver
-We need to change the resolver of the body from a simple file, to pass through Mustache. This allows us to pass in variables
+We need to change the resolver of the body from a simple file, to pass through [Mustache](https://github.com/janl/mustache.js/). This allows us to pass in variables
 from this UPWARD configuration file, to the template. We see here that we're passing in the `pageType` and `webpackChunks`
 values into the template
 ```yaml
