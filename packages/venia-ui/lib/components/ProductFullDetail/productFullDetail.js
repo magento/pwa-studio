@@ -182,12 +182,12 @@ const ProductFullDetail = props => {
                 />
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
-                    <h2 className={classes.quantityTitle}>
+                    <span className={classes.quantityTitle}>
                         <FormattedMessage
                             id={'global.quantity'}
                             defaultMessage={'Quantity'}
                         />
-                    </h2>
+                    </span>
                     <QuantityFields
                         classes={{ root: classes.quantityRoot }}
                         min={1}
@@ -201,21 +201,21 @@ const ProductFullDetail = props => {
                     </Suspense>
                 </section>
                 <section className={classes.description}>
-                    <h2 className={classes.descriptionTitle}>
+                    <span className={classes.descriptionTitle}>
                         <FormattedMessage
                             id={'productFullDetail.productDescription'}
                             defaultMessage={'Product Description'}
                         />
-                    </h2>
+                    </span>
                     <RichText content={productDetails.description} />
                 </section>
                 <section className={classes.details}>
-                    <h2 className={classes.detailsTitle}>
+                    <span className={classes.detailsTitle}>
                         <FormattedMessage
                             id={'global.sku'}
                             defaultMessage={'SKU'}
                         />
-                    </h2>
+                    </span>
                     <strong>{productDetails.sku}</strong>
                 </section>
             </Form>

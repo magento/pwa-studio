@@ -68,9 +68,9 @@ const NavHeader = props => {
             <Trigger key="backButton" action={handleBack}>
                 <Icon src={backIcon} />
             </Trigger>
-            <h2 key="title" className={classes.title}>
+            <span key="title" className={classes.title}>
                 {titleElement}
-            </h2>
+            </span>
         </Fragment>
     );
 };

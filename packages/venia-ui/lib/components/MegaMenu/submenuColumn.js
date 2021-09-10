@@ -54,7 +54,7 @@ const SubmenuColumn = props => {
     return (
         <div className={classes.submenuColumn}>
             <Link {...keyboardProps} className={classes.link} to={categoryUrl}>
-                <h3 className={classes.heading}>{category.name}</h3>
+                <span className={classes.heading}>{category.name}</span>
             </Link>
             {children}
         </div>
