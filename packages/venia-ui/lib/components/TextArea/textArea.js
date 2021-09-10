@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { number, node, oneOf, oneOfType, shape, string } from 'prop-types';
-import { TextArea as InformedTextArea, useFieldState } from 'informed';
+import { TextArea as InformedTextArea } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import { useStyle } from '../../classify';
 import { Message } from '../Field';

@@ -5,6 +5,17 @@ import { MemoryRouter } from 'react-router-dom';
 import Submenu from '../submenu';
 
 jest.mock('../../../classify');
+jest.mock('../submenuColumn', () => props => <mock-SubmenuColumn {...props} />);
+jest.mock('react', () => {
+    const React = jest.requireActual('react');
+    const callbackSpy = jest.spyOn(React, 'useCallback');
+
+    return Object.assign(React, {
+        callbackSpy: callbackSpy
+    });
+});
+
+const handleCloseSubMenu = jest.fn().mockName('handleCloseSubMenu');
 
 describe('Submenu renders correctly', () => {
     const props = {
@@ -35,7 +46,10 @@ describe('Submenu renders correctly', () => {
             }
         ],
         rootCategoryName: 'Clothing',
-        firstLevelCategoryName: 'Women'
+        firstLevelCategoryName: 'Women',
+        handleCloseSubMenu,
+        isFocused: false,
+        subMenuState: false
     };
     test('it renders correctly', () => {
         const instance = createTestInstance(
