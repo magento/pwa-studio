@@ -111,13 +111,13 @@ exports[`renders a Dialog with disabled buttons 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height="24"
+                height={24}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width="24"
+                width={24}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <line
@@ -219,13 +219,13 @@ exports[`renders a Dialog with no buttons 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height="24"
+                height={24}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width="24"
+                width={24}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <line
@@ -295,13 +295,13 @@ exports[`renders a basic Dialog 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height="24"
+                height={24}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width="24"
+                width={24}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <line
@@ -403,13 +403,13 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height="24"
+                height={24}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width="24"
+                width={24}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <line
@@ -511,13 +511,13 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
               <svg
                 className="icon"
                 fill="none"
-                height="24"
+                height={24}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width="24"
+                width={24}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <line
@@ -631,13 +631,13 @@ exports[`supports modifying title and button texts 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height="24"
+                height={24}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width="24"
+                width={24}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <line

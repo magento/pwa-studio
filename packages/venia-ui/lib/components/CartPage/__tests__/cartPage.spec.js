@@ -119,7 +119,16 @@ test('renders toast if wishlistSuccessProps is not falsy', () => {
           Object {
             "icon": <Icon
               size={20}
-              src={[Function]}
+              src={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "propTypes": Object {
+                    "color": [Function],
+                    "size": [Function],
+                  },
+                  "render": [Function],
+                }
+              }
             />,
             "message": "Successfully added to wishlist",
           },
