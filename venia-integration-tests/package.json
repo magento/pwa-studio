@@ -5,6 +5,7 @@
     "scripts": {
         "clearCache:mac": "rm -rf ~/Library/Application\\ Support/Cypress/cy/*",
         "test": "cypress open --browser chrome --config-file cypress.config.json",
+        "test:ci": "yarn run test:headless",
         "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
         "test:devTest": "jest",
         "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",
@@ -18,6 +19,9 @@
         "cypress": "~7.1.0",
         "cypress-image-snapshot": "~4.0.1",
         "jest": "~26.0.1",
-        "jimp": "~0.16.1"
+        "jimp": "~0.16.1",
+        "mochawesome": "~6.2.2",
+        "mochawesome-merge": "~4.2.0",
+        "rimraf": "~3.0.2"
     }
 }
