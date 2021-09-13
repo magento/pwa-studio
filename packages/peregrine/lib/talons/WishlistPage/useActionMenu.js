@@ -21,7 +21,7 @@ const dialogs = {
  */
 export const useActionMenu = (props = {}) => {
     const { id } = props;
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations, getWishlistConfigQuery);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, getWishlistConfigQuery, props.operations);
     const { getCustomerWishlistQuery, updateWishlistMutation } = operations;
     const [currentDialog, setCurrentDialog] = useState(dialogs.NONE);
     const [displayError, setDisplayError] = useState(false);
@@ -56,10 +56,17 @@ export const useActionMenu = (props = {}) => {
     );
 
     const shouldRender = useMemo(() => {
+        let multipleWishlistEnabled = false;
+        try {
+            if (storeConfigData.storeConfig.enable_multiple_wishlists === '1') {
+                multipleWishlistEnabled = true
+            }
+        } catch (e) {
+            return false
+        }
         return (
             storeConfigData
-            && storeConfigData.storeConfig.hasOwnProperty('enable_multiple_wishlists')
-            && storeConfigData.storeConfig.enable_multiple_wishlists === '1'
+            && multipleWishlistEnabled
         );
     }, [storeConfigData]);
 
