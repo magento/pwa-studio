@@ -26,7 +26,7 @@
 }
 
 .galleryItems {
-    composes: items from '~@magento/venia-ui/lib/components/Gallery/gallery.css';
+    composes: items from '~@magento/venia-ui/lib/components/Gallery/gallery.module.css';
     grid-template-columns: repeat(5, 1fr);
 }
 
@@ -54,5 +54,5 @@
 
 .carousel {
     composes: root;
-    composes: root from '../Slider/slider.css';
+    composes: root from '../Slider/slider.module.css';
 }

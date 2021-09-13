@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import defaultClasses from './banner.css';
+import defaultClasses from './banner.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, bool, oneOf, shape, string, func } from 'prop-types';
 import Button from '@magento/venia-ui/lib/components/Button/button';

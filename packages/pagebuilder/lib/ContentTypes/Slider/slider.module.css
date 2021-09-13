@@ -10,19 +10,19 @@
 }
 
 .bannerRoot {
-    composes: root from '../Banner/banner.css';
+    composes: root from '../Banner/banner.module.css';
     min-height: inherit;
 }
 .bannerLink {
-    composes: link from '../Banner/banner.css';
+    composes: link from '../Banner/banner.module.css';
     min-height: inherit;
 }
 .bannerWrapper {
-    composes: wrapper from '../Banner/banner.css';
+    composes: wrapper from '../Banner/banner.module.css';
     min-height: inherit;
 }
 .bannerPosterOverlay {
-    composes: posterOverlay from '../Banner/banner.css';
+    composes: posterOverlay from '../Banner/banner.module.css';
     min-height: inherit;
 }
 

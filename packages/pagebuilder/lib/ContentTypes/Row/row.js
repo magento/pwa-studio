@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import defaultClasses from './row.css';
+import defaultClasses from './row.module.css';
 import { verticalAlignmentToFlex } from '../../utils';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
