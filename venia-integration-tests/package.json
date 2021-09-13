@@ -9,9 +9,8 @@
         "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
         "test:devTest": "jest",
         "test:firefox": "cypress open --browser firefox --config-file cypress.config.json",
-        "test:headless": "cypress run --browser chrome --headless --config-file cypress.config.json",
-        "test:run": "cypress run --browser chrome --config-file cypress.config.json",
-        "test:update-snapshots": "cypress run --browser chrome --config-file cypress.config.json --env updateSnapshots=true"
+        "test:headless": "./run-tests",
+        "test:run": "cypress run --browser chrome --config-file cypress.config.json"
     },
     "author": "Magento Commerce",
     "license": "MIT",
