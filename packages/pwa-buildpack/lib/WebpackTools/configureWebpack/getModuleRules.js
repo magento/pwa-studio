@@ -104,7 +104,7 @@ getModuleRules.css = async ({ hasFlag, mode, paths }) => ({
     test: /\.css$/,
     oneOf: [
         {
-            test: [paths.src, ...hasFlag('cssModules')],
+            test: [/\.module\.css$/, ...hasFlag('cssModules')],
             use: [
                 {
                     loader: 'style-loader',
@@ -118,8 +118,9 @@ getModuleRules.css = async ({ hasFlag, mode, paths }) => ({
                 {
                     loader: 'css-loader',
                     options: {
-                        localIdentName: '[name]-[local]-[hash:base64:3]',
-                        modules: true,
+                        modules: {
+                            localIdentName: '[name]-[local]-[hash:base64:3]'
+                        },
                         sourceMap: mode === 'development'
                     }
                 },
@@ -127,7 +128,6 @@ getModuleRules.css = async ({ hasFlag, mode, paths }) => ({
             ]
         },
         {
-            include: /node_modules/,
             use: [
                 {
                     loader: 'style-loader',
