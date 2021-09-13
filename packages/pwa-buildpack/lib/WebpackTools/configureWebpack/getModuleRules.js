@@ -141,9 +141,11 @@ getModuleRules.css = async ({ hasFlag, mode }) => ({
                 {
                     loader: 'css-loader',
                     options: {
-                        modules: false
+                        modules: false,
+                        sourceMap: mode === 'development'
                     }
-                }
+                },
+                'postcss-loader'
             ]
         }
     ]

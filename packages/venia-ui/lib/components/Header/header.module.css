@@ -1,7 +1,7 @@
 .root {
+    composes: grid from global;
     background-color: rgb(var(--venia-global-color-gray-50));
     box-shadow: 0 2px rgb(var(--venia-global-color-gray-100));
-    display: grid;
     grid-auto-columns: 100%;
     justify-items: center;
     position: -webkit-sticky;
