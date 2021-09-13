@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Info } from 'react-feather';
+import { Info, Star } from 'react-feather';
 import { string, number, shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 import Price from '@magento/venia-ui/lib/components/Price';
@@ -15,6 +15,7 @@ import defaultClasses from './item.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 import AddToCartbutton from '../Gallery/addToCartButton';
+import Icon from '../Icon';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -57,7 +58,14 @@ const GalleryItem = props => {
         return <ItemPlaceholder classes={classes} />;
     }
 
-    const { name, price_range, small_image, url_key, url_suffix } = item;
+    const {
+        name,
+        price_range,
+        small_image,
+        url_key,
+        url_suffix,
+        rating_summary
+    } = item;
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${url_suffix || ''}`);
 
@@ -79,6 +87,15 @@ const GalleryItem = props => {
         </div>
     );
 
+    const ratingAverage = rating_summary ? (
+        <div className={classes.ratingAverage}>
+            <span className={classes.ratingValue}>
+                {((rating_summary * 5) / 100).toFixed(1)}
+            </span>{' '}
+            <Icon size={18} src={Star} classes={{ root: classes.ratingIcon }} />
+        </div>
+    ) : null;
+
     return (
         <div className={classes.root}>
             <Link
@@ -96,6 +113,7 @@ const GalleryItem = props => {
                     resource={smallImageURL}
                     widths={IMAGE_WIDTHS}
                 />
+                {ratingAverage}
             </Link>
             <Link
                 onClick={handleLinkClick}
