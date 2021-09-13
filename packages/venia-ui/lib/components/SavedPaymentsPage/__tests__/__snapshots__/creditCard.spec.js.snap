@@ -122,7 +122,16 @@ Object {
   "dismissable": true,
   "icon": <Icon
     size={20}
-    src={[Function]}
+    src={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "color": [Function],
+          "size": [Function],
+        },
+        "render": [Function],
+      }
+    }
   />,
   "message": "Something went wrong deleting this payment method. Please refresh and try again.",
   "timeout": 7000,
