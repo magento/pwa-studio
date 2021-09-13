@@ -7,7 +7,7 @@
 }
 
 .link {
-    composes: root from '../LinkButton/linkButton.css';
+    composes: root from '../LinkButton/linkButton.module.css';
 
     color: rgb(var(--venia-global-color-gray-700));
     justify-content: start;

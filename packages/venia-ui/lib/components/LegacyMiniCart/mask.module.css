@@ -1,4 +1,4 @@
 .root_active {
-    composes: root_active from '../Mask/mask.css';
+    composes: root_active from '../Mask/mask.module.css';
     opacity: 0.25;
 }

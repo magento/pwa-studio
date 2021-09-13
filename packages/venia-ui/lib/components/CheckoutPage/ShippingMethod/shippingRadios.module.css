@@ -16,7 +16,7 @@
 
 .radioRoot {
     /* We explicitly want one radio item per row. */
-    composes: root from '../../RadioGroup/radioGroup.css';
+    composes: root from '../../RadioGroup/radioGroup.module.css';
     grid-template-columns: auto;
 }
 

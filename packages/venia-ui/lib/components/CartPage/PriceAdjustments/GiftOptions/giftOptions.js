@@ -7,7 +7,7 @@ import Checkbox from '../../../Checkbox';
 import TextArea from '../../../TextArea';
 import { useStyle } from '../../../../classify';
 import GiftOptionsOperations from './giftOptions.gql';
-import defaultClasses from './giftOptions.css';
+import defaultClasses from './giftOptions.module.css';
 
 /**
  * A child component of the PriceAdjustments component.

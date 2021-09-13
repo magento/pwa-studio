@@ -100,7 +100,7 @@
 }
 
 .quantityTitle {
-    composes: title from '../../components/ProductOptions/option.css';
+    composes: title from '../../components/ProductOptions/option.module.css';
 }
 
 .actions {
@@ -169,7 +169,7 @@
 }
 
 .quantityRoot {
-    composes: root from '../CartPage/ProductListing/quantity.css';
+    composes: root from '../CartPage/ProductListing/quantity.module.css';
     grid-template-columns: auto 4rem auto;
     justify-content: start;
 }

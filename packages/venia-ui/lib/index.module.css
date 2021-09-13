@@ -1,4 +1,4 @@
-@import './tokens.css';
+@import './tokens.module.css';
 
 :global(*) {
     box-sizing: border-box;

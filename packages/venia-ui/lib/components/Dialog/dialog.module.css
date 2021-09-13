@@ -138,11 +138,11 @@
 }
 
 .confirmButton {
-    composes: root_highPriority from '../Button/button.css';
+    composes: root_highPriority from '../Button/button.module.css';
 }
 
 .cancelButton {
-    composes: root_lowPriority from '../Button/button.css';
+    composes: root_lowPriority from '../Button/button.module.css';
 }
 
 /*

@@ -1,5 +1,5 @@
 .root {
-    composes: root from '../clickable.css';
+    composes: root from '../clickable.module.css';
     color: rgb(var(--venia-brand-color-1-700));
     font-size: var(--venia-global-fontSize-200);
     font-weight: var(--venia-global-fontWeight-semibold);

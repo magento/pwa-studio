@@ -2,13 +2,13 @@
 }
 
 .body {
-    composes: body from './flow.css';
+    composes: body from './flow.module.css';
     grid-gap: 0;
     padding: 0;
 }
 
 .footer {
-    composes: footer from './flow.css';
+    composes: footer from './flow.module.css';
 }
 
 .informationPrompt {

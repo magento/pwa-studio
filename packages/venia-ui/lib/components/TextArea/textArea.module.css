@@ -1,5 +1,5 @@
 .input {
-    composes: input from '../Field/field.css';
+    composes: input from '../Field/field.module.css';
     height: auto;
     max-width: 100%;
     min-width: 100%;

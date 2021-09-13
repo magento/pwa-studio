@@ -10,7 +10,7 @@ import Icon from '../Icon';
 import CollapsedImageGallery from './collapsedImageGallery';
 import OrderProgressBar from './orderProgressBar';
 import OrderDetails from './OrderDetails';
-import defaultClasses from './orderRow.css';
+import defaultClasses from './orderRow.module.css';
 
 const OrderRow = props => {
     const { order } = props;

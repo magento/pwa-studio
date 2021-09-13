@@ -4,7 +4,7 @@ import { useCreateAccountPage } from '@magento/peregrine/lib/talons/CreateAccoun
 
 import CreateAccountForm from '../CreateAccount';
 import { useStyle } from '../../classify';
-import defaultClasses from './createAccountPage.css';
+import defaultClasses from './createAccountPage.module.css';
 
 const CreateAccountPage = props => {
     const talonProps = useCreateAccountPage();

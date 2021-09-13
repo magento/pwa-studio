@@ -14,7 +14,7 @@ import {
     ADD_CONFIGURABLE_MUTATION,
     ADD_SIMPLE_MUTATION
 } from '../ProductFullDetail/productFullDetail.gql';
-import defaultClasses from './cartOptions.css';
+import defaultClasses from './cartOptions.module.css';
 import { REMOVE_ITEM_MUTATION, UPDATE_ITEM_MUTATION } from './cartOptions.gql';
 import { gql } from '@apollo/client';
 

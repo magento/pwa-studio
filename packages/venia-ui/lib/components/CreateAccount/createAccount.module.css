@@ -27,11 +27,11 @@
 }
 
 .cancelButton {
-    composes: root_lowPriority from '../Button/button.css';
+    composes: root_lowPriority from '../Button/button.module.css';
 }
 
 .submitButton {
-    composes: root_highPriority from '../Button/button.css';
+    composes: root_highPriority from '../Button/button.module.css';
     grid-column-start: 2;
 }
 

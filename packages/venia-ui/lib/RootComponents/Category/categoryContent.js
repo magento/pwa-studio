@@ -10,7 +10,7 @@ import { StoreTitle } from '../../components/Head';
 import Pagination from '../../components/Pagination';
 import ProductSort from '../../components/ProductSort';
 import RichContent from '../../components/RichContent';
-import defaultClasses from './category.css';
+import defaultClasses from './category.module.css';
 import NoProductsFound from './NoProductsFound';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import SortedByContainer from '../../components/SortedByContainer';

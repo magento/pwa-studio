@@ -19,6 +19,6 @@
 }
 
 .arrowDown {
-    composes: root from '../../Icon/icon.css';
+    composes: root from '../../Icon/icon.module.css';
     --stroke: rgb(var(--venia-brand-color-1-700));
 }

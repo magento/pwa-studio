@@ -14,7 +14,7 @@ import OrderTotal from './orderTotal';
 import Icon from '../../Icon';
 import Button from '../../Button';
 
-import defaultClasses from './orderDetails.css';
+import defaultClasses from './orderDetails.module.css';
 
 const OrderDetails = props => {
     const { classes: propClasses, imagesData, orderData } = props;

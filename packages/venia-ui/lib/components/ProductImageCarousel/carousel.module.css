@@ -50,7 +50,7 @@
 }
 
 .chevron {
-    composes: root from '../Icon/icon.css';
+    composes: root from '../Icon/icon.module.css';
     align-self: center;
     border: 2px solid transparent;
 }

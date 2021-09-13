@@ -2,7 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './mask.css';
+import defaultClasses from './mask.module.css';
 
 const Mask = props => {
     const { dismiss, isActive } = props;

@@ -1,5 +1,5 @@
 .root {
-    composes: root from '../clickable.css';
+    composes: root from '../clickable.module.css';
     --stroke: var(--venia-brand-color-1-700);
     background: none;
     border-color: rgb(var(--stroke));

@@ -6,7 +6,7 @@ import { useFilterList } from '@magento/peregrine/lib/talons/FilterModal';
 
 import { useStyle } from '../../../classify';
 import FilterItem from './filterItem';
-import defaultClasses from './filterList.css';
+import defaultClasses from './filterList.module.css';
 
 const labels = new WeakMap();
 

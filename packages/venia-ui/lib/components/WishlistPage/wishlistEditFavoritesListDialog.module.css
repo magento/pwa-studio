@@ -3,17 +3,17 @@
 }
 
 .cancelButton {
-    composes: root_lowPriority from '../Button/button.css';
+    composes: root_lowPriority from '../Button/button.module.css';
 
     min-width: 9rem;
 }
 
 .confirmButton {
-    composes: confirmButton from '../Dialog/dialog.css';
+    composes: confirmButton from '../Dialog/dialog.module.css';
 }
 
 .errorMessage {
-    composes: errorMessage from './wishlistConfirmRemoveProductDialog.css';
+    composes: errorMessage from './wishlistConfirmRemoveProductDialog.module.css';
 }
 
 .form {

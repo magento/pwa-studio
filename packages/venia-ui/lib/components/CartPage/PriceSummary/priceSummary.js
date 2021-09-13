@@ -5,7 +5,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
 import { useStyle } from '../../../classify';
-import defaultClasses from './priceSummary.css';
+import defaultClasses from './priceSummary.module.css';
 import DiscountSummary from './discountSummary';
 import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';

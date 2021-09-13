@@ -6,7 +6,7 @@ import { useWindowSize } from '@magento/peregrine';
 import { useThumbnail } from '@magento/peregrine/lib/talons/ProductImageCarousel/useThumbnail';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './thumbnail.css';
+import defaultClasses from './thumbnail.module.css';
 import Image from '../Image';
 
 const DEFAULT_THUMBNAIL_HEIGHT = 170;

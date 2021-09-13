@@ -18,7 +18,7 @@ import TextInput from '../../../TextInput';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import { AppliedCouponsFragment } from './couponCodeFragments';
 
-import defaultClasses from './couponCode.css';
+import defaultClasses from './couponCode.module.css';
 
 const errorIcon = (
     <Icon

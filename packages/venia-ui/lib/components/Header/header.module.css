@@ -107,7 +107,7 @@
 }
 
 .input {
-    composes: input from '../TextInput/textInput.css';
+    composes: input from '../TextInput/textInput.module.css';
     max-width: 24rem;
 }
 

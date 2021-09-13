@@ -2,7 +2,7 @@ import React from 'react';
 import { oneOf, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './linkButton.css';
+import defaultClasses from './linkButton.module.css';
 import Button from '../Button';
 
 /**

@@ -51,7 +51,7 @@
 }
 
 .forgotPasswordButton {
-    composes: root from '../LinkButton/linkButton.css';
+    composes: root from '../LinkButton/linkButton.module.css';
 
     padding: 0;
 }

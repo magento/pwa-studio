@@ -38,7 +38,7 @@
 }
 
 .searchButton {
-    composes: root_highPriority from '../Button/button.css';
+    composes: root_highPriority from '../Button/button.module.css';
 
     width: 5rem;
     height: 2rem;
@@ -50,7 +50,7 @@
 }
 
 .loadMoreButton {
-    composes: root_lowPriority from '../Button/button.css';
+    composes: root_lowPriority from '../Button/button.module.css';
     justify-self: center;
 }
 

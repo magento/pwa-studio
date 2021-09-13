@@ -13,7 +13,7 @@ import Field from '../../Field';
 import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
 import TextInput from '../../TextInput';
-import defaultClasses from './giftCards.css';
+import defaultClasses from './giftCards.module.css';
 import GiftCard from './giftCard';
 
 import {

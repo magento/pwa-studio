@@ -17,7 +17,7 @@
 }
 
 .submit {
-    composes: root_normalPriority from '../../../Button/button.css';
+    composes: root_normalPriority from '../../../Button/button.module.css';
     justify-self: flex-start;
 }
 

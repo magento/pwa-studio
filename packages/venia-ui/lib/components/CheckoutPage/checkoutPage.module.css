@@ -25,7 +25,7 @@
 }
 
 .cartLink {
-    composes: root from '../LinkButton/linkButton.css';
+    composes: root from '../LinkButton/linkButton.module.css';
     font-size: inherit;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .signInButton {
-    composes: root_normalPriority from '../Button/button.css';
+    composes: root_normalPriority from '../Button/button.module.css';
     min-height: auto;
     min-width: auto;
     padding: 0.25rem 2rem;
@@ -116,13 +116,13 @@
 }
 
 .review_order_button {
-    composes: root_highPriority from '../Button/button.css';
+    composes: root_highPriority from '../Button/button.module.css';
     grid-column: 1 / span 1;
     margin: auto;
 }
 
 .place_order_button {
-    composes: root_highPriority from '../Button/button.css';
+    composes: root_highPriority from '../Button/button.module.css';
     grid-column: 1 / span 1;
     margin: auto;
 }

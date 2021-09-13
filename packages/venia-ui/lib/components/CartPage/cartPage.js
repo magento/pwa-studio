@@ -12,7 +12,7 @@ import StockStatusMessage from '../StockStatusMessage';
 import PriceAdjustments from './PriceAdjustments';
 import ProductListing from './ProductListing';
 import PriceSummary from './PriceSummary';
-import defaultClasses from './cartPage.css';
+import defaultClasses from './cartPage.module.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
 
 const CheckIcon = <Icon size={20} src={Check} />;

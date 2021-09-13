@@ -7,5 +7,5 @@
 }
 
 .loader {
-    composes: indicator from '../LoadingIndicator/indicator.css';
+    composes: indicator from '../LoadingIndicator/indicator.module.css';
 }

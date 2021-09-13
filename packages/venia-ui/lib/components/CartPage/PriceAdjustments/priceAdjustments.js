@@ -7,7 +7,7 @@ import { useStyle } from '../../../classify';
 import { Accordion, Section } from '../../Accordion';
 import GiftCardSection from './giftCardSection';
 
-import defaultClasses from './priceAdjustments.css';
+import defaultClasses from './priceAdjustments.module.css';
 
 const CouponCode = React.lazy(() => import('./CouponCode'));
 const GiftOptions = React.lazy(() => import('./GiftOptions'));

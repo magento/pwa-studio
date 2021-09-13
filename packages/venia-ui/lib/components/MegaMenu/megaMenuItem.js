@@ -7,7 +7,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useMegaMenuItem } from '@magento/peregrine/lib/talons/MegaMenu/useMegaMenuItem';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './megaMenuItem.css';
+import defaultClasses from './megaMenuItem.module.css';
 import Submenu from './submenu';
 import Icon from '../Icon';
 

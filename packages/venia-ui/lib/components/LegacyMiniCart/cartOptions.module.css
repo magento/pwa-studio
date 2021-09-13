@@ -41,9 +41,9 @@
 }
 
 .quantityTitle {
-    composes: title from '../../components/ProductOptions/option.css';
+    composes: title from '../../components/ProductOptions/option.module.css';
 }
 
 .save {
-    composes: footer from '../../components/Checkout/flow.css';
+    composes: footer from '../../components/Checkout/flow.module.css';
 }

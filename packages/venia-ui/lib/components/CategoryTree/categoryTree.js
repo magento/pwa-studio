@@ -5,7 +5,7 @@ import { useCategoryTree } from '@magento/peregrine/lib/talons/CategoryTree';
 import { useStyle } from '../../classify';
 import Branch from './categoryBranch';
 import Leaf from './categoryLeaf';
-import defaultClasses from './categoryTree.css';
+import defaultClasses from './categoryTree.module.css';
 
 const Tree = props => {
     const { categoryId, onNavigate, setCategoryId, updateCategories } = props;

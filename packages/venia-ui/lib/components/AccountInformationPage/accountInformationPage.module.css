@@ -45,7 +45,7 @@
 }
 
 .editInformationButton {
-    composes: root_normalPriority from '../Button/button.css';
+    composes: root_normalPriority from '../Button/button.module.css';
 }
 
 @media (min-width: 961px) {

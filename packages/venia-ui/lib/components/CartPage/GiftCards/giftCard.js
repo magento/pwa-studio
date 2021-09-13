@@ -5,7 +5,7 @@ import { useGiftCard } from '@magento/peregrine/lib/talons/CartPage/GiftCards/us
 import Price from '@magento/venia-ui/lib/components/Price';
 
 import { useStyle } from '../../../classify';
-import defaultClasses from './giftCard.css';
+import defaultClasses from './giftCard.module.css';
 import LinkButton from '../../LinkButton';
 
 const GiftCard = props => {

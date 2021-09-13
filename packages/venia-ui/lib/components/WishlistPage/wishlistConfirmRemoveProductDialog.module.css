@@ -3,8 +3,8 @@
 }
 
 .confirmButton {
-    composes: confirmButton from '../Dialog/dialog.css';
-    composes: root_highPriorityNegative from '../Button/button.css';
+    composes: confirmButton from '../Dialog/dialog.module.css';
+    composes: root_highPriorityNegative from '../Button/button.module.css';
 }
 
 .errorMessage {

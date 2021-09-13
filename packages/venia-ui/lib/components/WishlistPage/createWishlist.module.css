@@ -14,13 +14,13 @@
 }
 
 .cancelButton {
-    composes: root_lowPriority from '../Button/button.css';
+    composes: root_lowPriority from '../Button/button.module.css';
 
     min-width: 9rem;
 }
 
 .confirmButton {
-    composes: root_highPriority from '../Button/button.css';
+    composes: root_highPriority from '../Button/button.module.css';
 
     min-width: 9rem;
 }

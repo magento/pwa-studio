@@ -45,7 +45,7 @@
 }
 
 .loadMore {
-    composes: root_lowPriority from '../Button/button.css';
+    composes: root_lowPriority from '../Button/button.module.css';
     margin: 2rem auto;
     display: block;
     min-width: 20rem;

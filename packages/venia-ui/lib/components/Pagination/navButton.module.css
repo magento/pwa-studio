@@ -1,9 +1,9 @@
 .root {
-    composes: root from './tile.css';
+    composes: root from './tile.module.css';
 }
 
 .icon {
-    composes: root from '../Icon/icon.css';
+    composes: root from '../Icon/icon.module.css';
 }
 
 .icon_disabled {

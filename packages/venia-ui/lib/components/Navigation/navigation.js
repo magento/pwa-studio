@@ -9,7 +9,7 @@ import CurrencySwitcher from '../Header/currencySwitcher';
 import StoreSwitcher from '../Header/storeSwitcher';
 import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
-import defaultClasses from './navigation.css';
+import defaultClasses from './navigation.module.css';
 
 const AuthModal = React.lazy(() => import('../AuthModal'));
 

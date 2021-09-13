@@ -37,7 +37,7 @@
 }
 
 .deleteButton {
-    composes: root from '../LinkButton/linkButton.css';
+    composes: root from '../LinkButton/linkButton.module.css';
     text-decoration: none;
 }
 
@@ -73,13 +73,13 @@
 }
 
 .confirmDeleteButton {
-    composes: root_normalPriorityNegative from '../Button/button.css';
+    composes: root_normalPriorityNegative from '../Button/button.module.css';
     background-color: white;
     order: 1;
 }
 
 .cancelDeleteButton {
-    composes: root_lowPriority from '../Button/button.css';
+    composes: root_lowPriority from '../Button/button.module.css';
     background-color: white;
 }
 

@@ -6,7 +6,7 @@ import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
 import { useStyle } from '../../classify';
 import SortItem from './sortItem';
-import defaultClasses from './productSort.css';
+import defaultClasses from './productSort.module.css';
 import Button from '../Button';
 import Icon from '../Icon';
 

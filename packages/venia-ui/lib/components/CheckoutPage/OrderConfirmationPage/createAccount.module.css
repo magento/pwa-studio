@@ -15,7 +15,7 @@
 }
 
 .create_account_button {
-    composes: root_normalPriority from '../../Button/button.css';
+    composes: root_normalPriority from '../../Button/button.module.css';
 }
 
 /*

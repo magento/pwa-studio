@@ -16,7 +16,7 @@ import FormError from '../FormError';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import { QuantityFields } from '../CartPage/ProductListing/quantity';
 import RichText from '../RichText';
-import defaultClasses from './productFullDetail.css';
+import defaultClasses from './productFullDetail.module.css';
 
 const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
 const Options = React.lazy(() => import('../ProductOptions'));

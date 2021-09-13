@@ -71,6 +71,6 @@
 }
 
 .input {
-    composes: input from '../../TextInput/textInput.css';
+    composes: input from '../../TextInput/textInput.module.css';
     text-align: center;
 }

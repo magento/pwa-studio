@@ -3,7 +3,7 @@ import { shape, string, array } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '../Button';
 import { useStyle } from '../../classify';
-import defaultClasses from './filterModalOpenButton.css';
+import defaultClasses from './filterModalOpenButton.module.css';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
 
 const FilterModalOpenButton = props => {

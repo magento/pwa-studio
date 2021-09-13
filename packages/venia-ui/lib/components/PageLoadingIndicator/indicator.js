@@ -1,6 +1,6 @@
 import React from 'react';
 
-import defaultClasses from './indicator.css';
+import defaultClasses from './indicator.module.css';
 import { useStyle } from '../../classify';
 import { RotateCw as LoaderIcon } from 'react-feather';
 import Icon from '../Icon';

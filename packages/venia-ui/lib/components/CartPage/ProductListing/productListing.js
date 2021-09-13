@@ -5,7 +5,7 @@ import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/Produc
 
 import { useStyle } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
-import defaultClasses from './productListing.css';
+import defaultClasses from './productListing.module.css';
 import Product from './product';
 import { ProductListingFragment } from './productListingFragments';
 

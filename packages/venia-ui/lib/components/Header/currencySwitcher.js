@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types';
 import { useCurrencySwitcher } from '@magento/peregrine/lib/talons/Header/useCurrencySwitcher';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './currencySwitcher.css';
+import defaultClasses from './currencySwitcher.module.css';
 import SwitcherItem from './switcherItem';
 import CurrencySymbol from '@magento/venia-ui/lib/components/CurrencySymbol';
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './submenuColumn.css';
+import defaultClasses from './submenuColumn.module.css';
 import PropTypes from 'prop-types';
 
 /**

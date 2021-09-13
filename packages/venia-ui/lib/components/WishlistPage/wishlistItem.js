@@ -9,7 +9,7 @@ import Icon from '../Icon';
 import Image from '../Image';
 import Price from '../Price';
 
-import defaultClasses from './wishlistItem.css';
+import defaultClasses from './wishlistItem.module.css';
 
 const WishlistItem = props => {
     const { item } = props;

@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types';
 import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './storeSwitcher.css';
+import defaultClasses from './storeSwitcher.module.css';
 import SwitcherItem from './switcherItem';
 
 const StoreSwitcher = props => {

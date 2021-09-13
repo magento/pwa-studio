@@ -49,7 +49,7 @@
 }
 
 .loading {
-    composes: root from '../../LoadingIndicator/indicator.css';
+    composes: root from '../../LoadingIndicator/indicator.module.css';
     text-align: center;
 }
 

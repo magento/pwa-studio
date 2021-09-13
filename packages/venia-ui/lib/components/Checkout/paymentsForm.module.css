@@ -2,16 +2,16 @@
 }
 
 .heading {
-    composes: heading from './flow.css';
+    composes: heading from './flow.module.css';
 }
 
 .body {
-    composes: body from './flow.css';
+    composes: body from './flow.module.css';
     height: 30rem;
 }
 
 .footer {
-    composes: footer from './flow.css';
+    composes: footer from './flow.module.css';
 }
 
 .textInput {

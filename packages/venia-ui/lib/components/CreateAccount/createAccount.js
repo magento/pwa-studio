@@ -16,7 +16,7 @@ import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
-import defaultClasses from './createAccount.css';
+import defaultClasses from './createAccount.module.css';
 import FormError from '../FormError';
 import Password from '../Password';
 

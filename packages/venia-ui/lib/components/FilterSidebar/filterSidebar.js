@@ -7,7 +7,7 @@ import { useStyle } from '../../classify';
 import LinkButton from '../LinkButton';
 import CurrentFilters from '../FilterModal/CurrentFilters';
 import FilterBlock from '../FilterModal/filterBlock';
-import defaultClasses from './filterSidebar.css';
+import defaultClasses from './filterSidebar.module.css';
 
 const SCROLL_OFFSET = 150;
 

@@ -126,7 +126,7 @@
 }
 
 .checkoutButton {
-    composes: root_highPriority from '../Button/button.css';
+    composes: root_highPriority from '../Button/button.module.css';
     grid-column: 1 / span 1;
     width: 10rem;
     margin: auto;

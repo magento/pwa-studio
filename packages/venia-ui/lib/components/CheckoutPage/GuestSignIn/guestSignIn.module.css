@@ -22,15 +22,15 @@
 }
 
 .signInRoot {
-    composes: root from '../../SignIn/signIn.css';
+    composes: root from '../../SignIn/signIn.module.css';
 }
 
 .forgotPasswordRoot {
-    composes: root from '../../ForgotPassword/forgotPassword.css';
+    composes: root from '../../ForgotPassword/forgotPassword.module.css';
 }
 
 .createAccountRoot {
-    composes: root from '../../CreateAccount/createAccount.css';
+    composes: root from '../../CreateAccount/createAccount.module.css';
 }
 
 @media (max-width: 960px) {

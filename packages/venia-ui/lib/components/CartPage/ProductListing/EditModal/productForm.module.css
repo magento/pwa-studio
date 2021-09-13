@@ -1,5 +1,5 @@
 .contents {
-    composes: contents from '../../../Dialog/dialog.css';
+    composes: contents from '../../../Dialog/dialog.module.css';
     position: relative;
 }
 
@@ -17,14 +17,14 @@
 }
 
 .quantityRoot {
-    composes: root from '../quantity.css';
+    composes: root from '../quantity.module.css';
     grid-template-columns: auto 4rem auto;
     justify-content: start;
     padding: 0 1rem;
 }
 
 .loading {
-    composes: root from '../../../LoadingIndicator/indicator.css';
+    composes: root from '../../../LoadingIndicator/indicator.module.css';
     height: unset;
     left: 0;
     position: absolute;

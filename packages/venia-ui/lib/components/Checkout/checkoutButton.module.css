@@ -1,5 +1,5 @@
 .icon {
-    composes: root from '../Icon/icon.css';
+    composes: root from '../Icon/icon.module.css';
     --stroke: white;
     margin-top: -2px;
 }

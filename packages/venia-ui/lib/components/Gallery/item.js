@@ -11,7 +11,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
 import Image from '../Image';
-import defaultClasses from './item.css';
+import defaultClasses from './item.module.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 import AddToCartbutton from '../Gallery/addToCartButton';

@@ -2,15 +2,15 @@
 }
 
 .heading {
-    composes: heading from './flow.css';
+    composes: heading from './flow.module.css';
 }
 
 .body {
-    composes: body from './flow.css';
+    composes: body from './flow.module.css';
 }
 
 .footer {
-    composes: footer from './flow.css';
+    composes: footer from './flow.module.css';
 }
 
 /* fields */

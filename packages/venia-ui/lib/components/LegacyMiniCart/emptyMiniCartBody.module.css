@@ -14,5 +14,5 @@
 }
 
 .continue {
-    composes: root from '../Button/button.css';
+    composes: root from '../Button/button.module.css';
 }

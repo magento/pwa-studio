@@ -5,7 +5,7 @@ import { array, func, shape, string } from 'prop-types';
 import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
-import globalCSS from '../../index.css';
+import globalCSS from '../../index.module.css';
 import { HeadProvider, StoreTitle } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';

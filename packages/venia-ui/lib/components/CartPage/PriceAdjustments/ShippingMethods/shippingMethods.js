@@ -6,7 +6,7 @@ import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/Price
 import { useStyle } from '../../../../classify';
 import Button from '../../../Button';
 import ShippingForm from './shippingForm';
-import defaultClasses from './shippingMethods.css';
+import defaultClasses from './shippingMethods.module.css';
 import ShippingMethodsOperations from './shippingMethods.gql';
 import ShippingRadios from './shippingRadios';
 

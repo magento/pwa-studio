@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBreadcrumbs';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useStyle } from '../../classify';
-import defaultClasses from './breadcrumbs.css';
+import defaultClasses from './breadcrumbs.module.css';
 
 const DELIMITER = '/';
 /**

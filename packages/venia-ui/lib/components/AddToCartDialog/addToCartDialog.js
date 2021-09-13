@@ -9,7 +9,7 @@ import Dialog from '../Dialog';
 import Image from '../Image';
 import Price from '../Price';
 import Options from '../ProductOptions';
-import defaultClasses from './addToCartDialog.css';
+import defaultClasses from './addToCartDialog.module.css';
 import FormError from '../FormError';
 import PageLoadingIndicator from '../PageLoadingIndicator';
 

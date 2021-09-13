@@ -39,7 +39,7 @@
 }
 
 .dialogHeaderText {
-    composes: headerText from '../Dialog/dialog.css';
+    composes: headerText from '../Dialog/dialog.module.css';
     overflow: visible;
 }
 

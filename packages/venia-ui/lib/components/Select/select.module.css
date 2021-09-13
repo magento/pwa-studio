@@ -8,7 +8,7 @@
 
 .input,
 .input_error {
-    composes: input from '../Field/field.css';
+    composes: input from '../Field/field.module.css';
     grid-area: input-start / input-start / input-end / icon-end;
     padding-right: calc(2.25rem - 1px);
 }

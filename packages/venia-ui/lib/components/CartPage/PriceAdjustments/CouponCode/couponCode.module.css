@@ -38,6 +38,6 @@
 
 /* Styles for "removal" view. */
 .removeButton {
-    composes: root from '../../../LinkButton/linkButton.css';
+    composes: root from '../../../LinkButton/linkButton.module.css';
     margin-left: 1rem;
 }

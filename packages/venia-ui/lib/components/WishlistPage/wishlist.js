@@ -9,7 +9,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import Icon from '../Icon';
 import WishlistItems from './wishlistItems';
 import Button from '../Button';
-import defaultClasses from './wishlist.css';
+import defaultClasses from './wishlist.module.css';
 import ActionMenu from './actionMenu';
 
 /**
