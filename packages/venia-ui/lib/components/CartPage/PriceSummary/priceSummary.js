@@ -28,7 +28,7 @@ const GET_PRICE_SUMMARY = gql`
  *
  * @param {Object} props
  * @param {Object} props.classes CSS className overrides.
- * See [priceSummary.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.css}
+ * See [priceSummary.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}
