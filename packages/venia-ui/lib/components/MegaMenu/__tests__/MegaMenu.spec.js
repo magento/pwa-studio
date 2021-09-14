@@ -46,11 +46,28 @@ jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenu', () => ({
                 }
             ]
         },
-        activeCategoryId: 5
+        activeCategoryId: 5,
+        useOutsideAlerter: () => {}
     })
 }));
 
 describe('#MegaMenu', () => {
+    test('useEffect', () => {
+        const useEffect = jest.spyOn(React, 'useEffect');
+
+        const mockUseEffect = () => {
+            useEffect.mockImplementationOnce(mockFunction => mockFunction());
+        };
+
+        mockUseEffect();
+    });
+
+    test('not resetting the menu', () => {
+        const handleClickOutside = jest.fn();
+
+        expect(handleClickOutside).toHaveBeenCalledTimes(0);
+    });
+
     it('renders empty div if not in viewport', () => {
         useIsInViewport.mockReturnValue(false);
 

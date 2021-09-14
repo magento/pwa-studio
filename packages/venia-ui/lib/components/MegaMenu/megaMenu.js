@@ -11,10 +11,17 @@ import defaultClasses from './megaMenu.css';
  * The MegaMenu component displays menu with categories on desktop devices
  */
 const MegaMenu = props => {
-    const { megaMenuData, activeCategoryId } = useMegaMenu();
+    const mainNavRef = useRef(null);
+
+    const {
+        megaMenuData,
+        activeCategoryId,
+        subMenuState,
+        disableFocus,
+        handleSubMenuFocus
+    } = useMegaMenu({ mainNavRef });
     const classes = useStyle(defaultClasses, props.classes);
 
-    const mainNavRef = useRef(null);
     const [mainNavWidth, setMainNavWidth] = useState(0);
     const shouldRenderItems = useIsInViewport({
         elementRef: mainNavRef
@@ -46,13 +53,20 @@ const MegaMenu = props => {
                       activeCategoryId={activeCategoryId}
                       mainNavWidth={mainNavWidth}
                       key={category.id}
+                      subMenuState={subMenuState}
+                      disableFocus={disableFocus}
                   />
               );
           })
         : null;
 
     return (
-        <nav ref={mainNavRef} className={classes.megaMenu} role="navigation">
+        <nav
+            ref={mainNavRef}
+            className={classes.megaMenu}
+            role="navigation"
+            onFocus={handleSubMenuFocus}
+        >
             {shouldRenderItems ? items : null}
         </nav>
     );
