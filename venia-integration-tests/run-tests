@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# this file runs cypress tests in headless mode in a docker container
+# usage: ./run-tests <URL_TO_RUN_TESTS_ON> <UPDATE_SNAPSHOTS?>
+# URL_TO_RUN_TESTS_ON: string - the url to run the tests on
+# UPDATE_SNAPSHOTS: true or false - defaults to false
+# example: ./run-tests.sh https://develop.pwa-venia.com/ false
+
+if [ $# -eq 0 ]; then
+    echo "Please provide URL to run tests against."
+    exit 1
+fi
+
+# collect pr instance url to run tests against
+PR_INSTANCE_URL=$1
+
+# collect update screenshots flag
+UPDATE_SCREENSHOTS=${2:-false}
+
+# run cypress tests and remove the container once done
+docker run --rm -v $PWD:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=$PR_INSTANCE_URL,screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=$UPDATE_SCREENSHOTS --headless
