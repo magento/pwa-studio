@@ -103,7 +103,7 @@ const CheckoutPage = props => {
 
     const classes = useStyle(defaultClasses, propClasses);
 
-    const { windowSize } = useWindowSize();
+    const windowSize = useWindowSize();
     const isMobile = windowSize.innerWidth <= 960;
 
     let checkoutContent;

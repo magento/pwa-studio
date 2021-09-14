@@ -1,8 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
+
+import { useIsInViewport } from '@magento/peregrine/lib/hooks/useIsInViewport';
 import { useMegaMenu } from '@magento/peregrine/lib/talons/MegaMenu/useMegaMenu';
-import { useStyle } from '../../classify';
-import defaultClasses from './megaMenu.css';
+import { useStyle } from '@magento/venia-ui/lib/classify';
+
 import MegaMenuItem from './megaMenuItem';
+import defaultClasses from './megaMenu.css';
 
 /**
  * The MegaMenu component displays menu with categories on desktop devices
@@ -13,6 +16,9 @@ const MegaMenu = props => {
 
     const mainNavRef = useRef(null);
     const [mainNavWidth, setMainNavWidth] = useState(0);
+    const shouldRenderItems = useIsInViewport({
+        elementRef: mainNavRef
+    });
 
     useEffect(() => {
         const handleResize = () => {
@@ -47,7 +53,7 @@ const MegaMenu = props => {
 
     return (
         <nav ref={mainNavRef} className={classes.megaMenu} role="navigation">
-            {items}
+            {shouldRenderItems ? items : null}
         </nav>
     );
 };

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`verify Header can render in default desktop state 1`] = `
+exports[`verify Header can render in default state 1`] = `
 Array [
   <div
     className="switchersContainer"
@@ -27,48 +27,31 @@ Array [
         hasBeenOffline={false}
         isOnline={true}
       />
-      <require('../MegaMenu') />
-      <div
-        className="secondaryActions"
+      <nav
+        className="megaMenu"
+        role="navigation"
       >
-        <SearchTrigger
-          onClick={[MockFunction]}
-        />
-        <AccountTrigger />
-        <CartTrigger />
-      </div>
-    </div>
-  </header>,
-]
-`;
-
-exports[`verify Header can render in default mobile state 1`] = `
-Array [
-  <div
-    className="switchersContainer"
-  >
-    <div
-      className="switchers"
-    >
-      <StoreSwitcher />
-      <CurrencySwitcher />
-    </div>
-  </div>,
-  <header
-    className="closed"
-  >
-    <div
-      className="toolbar"
-    >
-      <div
-        className="primaryActions"
-      >
-        <NavTrigger />
-      </div>
-      <OnlineIndicator
-        hasBeenOffline={false}
-        isOnline={true}
-      />
+        <div
+          className="megaMenuItem"
+        >
+          <div
+            className="submenu"
+          >
+            <div
+              className="submenuItems"
+              style={
+                Object {
+                  "minWidth": 20,
+                }
+              }
+            >
+              <div
+                className="submenuColumn"
+              />
+            </div>
+          </div>
+        </div>
+      </nav>
       <div
         className="secondaryActions"
       >

@@ -1,9 +1,10 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
-import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
-import CategoryContent from '../categoryContent';
 
-let mockIsDesktop;
+import { createTestInstance } from '@magento/peregrine';
+import { useIsInViewport } from '@magento/peregrine/lib/hooks/useIsInViewport';
+import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
+
+import CategoryContent from '../categoryContent';
 
 jest.mock('@magento/venia-ui/lib/classify');
 jest.mock('@magento/peregrine/lib/context/app', () => {
@@ -14,22 +15,12 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
     const useAppContext = jest.fn(() => [state, api]);
     return { useAppContext };
 });
+jest.mock('@magento/peregrine/lib/hooks/useIsInViewport');
 
 jest.mock('../../../components/Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
     StoreTitle: () => 'Title'
 }));
-
-jest.mock('@magento/peregrine', () => {
-    const useWindowSize = jest.fn(() => ({
-        isDesktop: mockIsDesktop
-    }));
-
-    return {
-        ...jest.requireActual('@magento/peregrine'),
-        useWindowSize
-    };
-});
 
 jest.mock('@magento/peregrine/lib/talons/RootComponents/Category', () => ({
     useCategoryContent: jest.fn()
@@ -73,27 +64,7 @@ const talonProps = {
     totalPagesFromData: 1
 };
 
-const givenDefault = () => {
-    mockIsDesktop = false;
-};
-
-const givenDesktop = () => {
-    mockIsDesktop = true;
-};
-
-beforeEach(() => {
-    givenDefault();
-});
-
-test('renders the correct tree on mobile', () => {
-    useCategoryContent.mockReturnValueOnce(talonProps);
-    const instance = createTestInstance(<CategoryContent {...defaultProps} />);
-
-    expect(instance.toJSON()).toMatchSnapshot();
-});
-
-test('renders the correct tree on desktop', () => {
-    givenDesktop();
+test('renders the correct tree', () => {
     useCategoryContent.mockReturnValueOnce(talonProps);
     const instance = createTestInstance(<CategoryContent {...defaultProps} />);
 
@@ -141,7 +112,7 @@ describe('filter button/modal', () => {
         expect(tree.toJSON()).toMatchSnapshot();
     });
 
-    test('renders when there are filters on mobile', () => {
+    test('renders when there are filters', () => {
         useCategoryContent.mockReturnValueOnce({
             ...talonProps,
             filters: [{}]
@@ -149,13 +120,25 @@ describe('filter button/modal', () => {
         const tree = createTestInstance(<CategoryContent {...defaultProps} />);
         expect(tree.toJSON()).toMatchSnapshot();
     });
+});
 
-    test('renders when there are filters on desktop', () => {
-        givenDesktop();
+describe('filter sidebar', () => {
+    test('does not render if not in viewport', () => {
         useCategoryContent.mockReturnValueOnce({
             ...talonProps,
             filters: [{}]
         });
+        useIsInViewport.mockReturnValue(false);
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders when in viewport', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            filters: [{}]
+        });
+        useIsInViewport.mockReturnValue(true);
         const tree = createTestInstance(<CategoryContent {...defaultProps} />);
         expect(tree.toJSON()).toMatchSnapshot();
     });

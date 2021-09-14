@@ -2,7 +2,7 @@
 
 exports[`authModal is rendered when hasModal is true 1`] = `
 <aside
-  className="root"
+  className="root_open"
 >
   <header
     className="header"
@@ -38,32 +38,7 @@ exports[`authModal is rendered when hasModal is true 1`] = `
 exports[`renders correctly when closed 1`] = `
 <aside
   className="root"
->
-  <header
-    className="header"
-  >
-    <i />
-  </header>
-  <div
-    className="body"
-  >
-    <i />
-  </div>
-  <div
-    className="footer"
-  >
-    <div
-      className="switchers"
-    >
-      StoreSwitcher
-      CurrencySwitcher
-    </div>
-    <i />
-  </div>
-  <div
-    className="modal"
-  />
-</aside>
+/>
 `;
 
 exports[`renders correctly when open 1`] = `

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
 import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
 
@@ -51,8 +51,8 @@ const Navigation = props => {
         </Suspense>
     ) : null;
 
-    return (
-        <aside className={rootClassName}>
+    const content = isOpen ? (
+        <Fragment>
             <header className={classes.header}>
                 <NavHeader
                     isTopLevel={isTopLevel}
@@ -80,8 +80,10 @@ const Navigation = props => {
                 />
             </div>
             <div className={modalClassName}>{authModal}</div>
-        </aside>
-    );
+        </Fragment>
+    ) : null;
+
+    return <aside className={rootClassName}>{content}</aside>;
 };
 
 export default Navigation;

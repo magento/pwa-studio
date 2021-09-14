@@ -40,7 +40,8 @@ const Thumbnail = props => {
 
     const { handleClick } = talonProps;
 
-    const { isDesktop } = useWindowSize();
+    const windowSize = useWindowSize();
+    const isDesktop = windowSize.innerWidth >= 1024;
 
     const thumbnailImage = useMemo(() => {
         if (!isDesktop) {

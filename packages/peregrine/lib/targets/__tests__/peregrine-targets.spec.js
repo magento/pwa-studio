@@ -68,6 +68,8 @@ test('exposes all hooks and targets', async () => {
           hooks.useDetectScrollWidth.wrapWith() wraps export "useDetectScrollWidth" from "useDetectScrollWidth.js"
           hooks.useDropdown.wrapWith() wraps export "useDropdown" from "useDropdown.js"
           hooks.useEventListener.wrapWith() wraps export "useEventListener" from "useEventListener.js"
+          hooks.useIntersectionObserver.wrapWith() wraps export "useIntersectionObserver" from "useIntersectionObserver.js"
+          hooks.useIsInViewport.wrapWith() wraps export "useIsInViewport" from "useIsInViewport.js"
           hooks.usePagination.wrapWith() wraps export "usePagination" from "usePagination.js"
           hooks.useResetForm.wrapWith() wraps export "useResetForm" from "useResetForm.js"
           hooks.useRestApi.wrapWith() wraps export "useRestApi" from "useRestApi.js"

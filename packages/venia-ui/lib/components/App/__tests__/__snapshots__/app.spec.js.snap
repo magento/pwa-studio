@@ -1,36 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`displays as desktop 1`] = `
-<div>
-  Title
-  <Main
-    isMasked={false}
-  >
-    <Routes />
-  </Main>
-  <button
-    onClick={[Function]}
-  />
-  <ToastContainer />
-</div>
-`;
-
-exports[`displays as mobile 1`] = `
-<div>
-  Title
-  <Main
-    isMasked={false}
-  >
-    <Routes />
-  </Main>
-  <button
-    onClick={[Function]}
-  />
-  <require('../Navigation') />
-  <ToastContainer />
-</div>
-`;
-
 exports[`displays open nav or drawer 1`] = `
 <div>
   Title
@@ -42,7 +11,7 @@ exports[`displays open nav or drawer 1`] = `
   <button
     onClick={[Function]}
   />
-  <require('../Navigation') />
+  <Navigation />
   <ToastContainer />
 </div>
 `;
@@ -72,11 +41,7 @@ exports[`renders with unhandledErrors 1`] = `
     dismiss={[Function]}
     isActive={false}
   />
-  <React.Suspense
-    fallback={null}
-  >
-    <require('../Navigation') />
-  </React.Suspense>
+  <Navigation />
   <ToastContainer />
 </HeadProvider>
 `;

@@ -9,16 +9,15 @@ import NavTrigger from './navTrigger';
 import SearchTrigger from './searchTrigger';
 import OnlineIndicator from './onlineIndicator';
 import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
-import { useWindowSize } from '@magento/peregrine';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './header.css';
+import MegaMenu from '../MegaMenu';
 import PageLoadingIndicator from '../PageLoadingIndicator';
 import StoreSwitcher from './storeSwitcher';
 import CurrencySwitcher from './currencySwitcher';
+import defaultClasses from './header.css';
 
-const MegaMenu = React.lazy(() => import('../MegaMenu'));
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
 const Header = props => {
@@ -34,7 +33,6 @@ const Header = props => {
 
     const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isSearchOpen ? classes.open : classes.closed;
-    const { isDesktop } = useWindowSize();
 
     const searchBarFallback = (
         <div className={classes.searchFallback} ref={searchRef}>
@@ -78,9 +76,7 @@ const Header = props => {
                     >
                         <Logo classes={{ logo: classes.logo }} />
                     </Link>
-                    <Suspense fallback={null}>
-                        {isDesktop ? <MegaMenu /> : null}
-                    </Suspense>
+                    <MegaMenu />
                     <div className={classes.secondaryActions}>
                         <SearchTrigger
                             onClick={handleSearchTriggerClick}

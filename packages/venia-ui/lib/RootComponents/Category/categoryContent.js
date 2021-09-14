@@ -1,8 +1,8 @@
-import React, { Fragment, Suspense, useMemo } from 'react';
+import React, { Fragment, Suspense, useMemo, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, number, shape, string } from 'prop-types';
 
-import { useWindowSize } from '@magento/peregrine';
+import { useIsInViewport } from '@magento/peregrine/lib/hooks/useIsInViewport';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
 import { useStyle } from '../../classify';
@@ -16,11 +16,9 @@ import defaultClasses from './category.css';
 import NoProductsFound from './NoProductsFound';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import SortedByContainer from '../../components/SortedByContainer';
+import FilterModalOpenButton from '../../components/FilterModalOpenButton';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
-const FilterModalOpenButton = React.lazy(() =>
-    import('../../components/FilterModalOpenButton')
-);
 const FilterSidebar = React.lazy(() =>
     import('../../components/FilterSidebar')
 );
@@ -51,9 +49,11 @@ const CategoryContent = props => {
         totalPagesFromData
     } = talonProps;
 
+    const sidebarRef = useRef(null);
     const classes = useStyle(defaultClasses, props.classes);
-
-    const { isDesktop } = useWindowSize();
+    const shouldRenderSidebarContent = useIsInViewport({
+        elementRef: sidebarRef
+    });
 
     const shouldShowFilterButtons = filters && filters.length;
 
@@ -138,9 +138,9 @@ const CategoryContent = props => {
                     {categoryDescriptionElement}
                 </div>
                 <div className={classes.contentWrapper}>
-                    <div className={classes.sidebar}>
+                    <div ref={sidebarRef} className={classes.sidebar}>
                         <Suspense fallback={null}>
-                            {isDesktop ? sidebar : null}
+                            {shouldRenderSidebarContent ? sidebar : null}
                         </Suspense>
                     </div>
                     <div className={classes.categoryContent}>
@@ -149,17 +149,13 @@ const CategoryContent = props => {
                                 {categoryResultsHeading}
                             </div>
                             <div className={classes.headerButtons}>
-                                <Suspense fallback={null}>
-                                    {!isDesktop ? maybeFilterButtons : null}
-                                </Suspense>
+                                {maybeFilterButtons}
                                 {maybeSortButton}
                             </div>
                             {maybeSortContainer}
                         </div>
                         {content}
-                        <Suspense fallback={null}>
-                            {!isDesktop ? filtersModal : null}
-                        </Suspense>
+                        <Suspense fallback={null}>{filtersModal}</Suspense>
                     </div>
                 </div>
             </article>

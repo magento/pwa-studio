@@ -1,14 +1,15 @@
-import React, { useCallback, Suspense } from 'react';
+import React, { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { array, func, shape, string } from 'prop-types';
 
-import { useToasts, useWindowSize } from '@magento/peregrine';
+import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import globalCSS from '../../index.css';
 import { HeadProvider, StoreTitle } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
+import Navigation from '../Navigation';
 import Routes from '../Routes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
@@ -19,8 +20,6 @@ import {
     Wifi as WifiIcon
 } from 'react-feather';
 
-const Navigation = React.lazy(() => import('../Navigation'));
-
 const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
@@ -29,7 +28,6 @@ const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
     const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
-    const { isDesktop } = useWindowSize();
 
     const ERROR_MESSAGE = formatMessage({
         id: 'app.errorUnexpected',
@@ -108,9 +106,7 @@ const App = props => {
                 <Routes />
             </Main>
             <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
-            <Suspense fallback={null}>
-                {!isDesktop ? <Navigation /> : null}
-            </Suspense>
+            <Navigation />
             <ToastContainer />
         </HeadProvider>
     );
