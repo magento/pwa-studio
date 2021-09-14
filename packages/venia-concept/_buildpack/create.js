@@ -148,7 +148,7 @@ async function createProjectFromVenia({ fs, tasks, options, sampleBackends }) {
                 });
 
                 if (process.env.DEBUG_PROJECT_CREATION) {
-                    setDebugDependencies(pkg);
+                    setDebugDependencies(pkg, fs);
                 }
 
                 fs.outputJsonSync(targetPath, pkg, {
@@ -168,7 +168,7 @@ async function createProjectFromVenia({ fs, tasks, options, sampleBackends }) {
     };
 }
 
-function setDebugDependencies(pkg) {
+function setDebugDependencies(pkg, fs) {
     console.warn(
         'DEBUG_PROJECT_CREATION: Debugging Venia _buildpack/create.js, so we will assume we are inside the pwa-studio repo and replace those package dependency declarations with local file paths.'
     );
@@ -210,6 +210,24 @@ function setDebugDependencies(pkg) {
         'optionalDependencies'
     ].filter(type => pkg.hasOwnProperty(type));
 
+    const getNewestTarballIn = dir => {
+        const tarballsInDir = fs
+            .readdirSync(dir)
+            .filter(filename => filename.endsWith('.tgz'));
+        if (tarballsInDir.length === 0) {
+            throw new Error('Found no new .tgz files in ${dir}.');
+        }
+        // turn filename into a tuple of filename and modified time
+        const tarballsWithModifiedTime = tarballsInDir.map(filename => ({
+            filename,
+            modified: fs.statSync(resolve(dir, filename)).mtime
+        }));
+        // find the newest one (no need to sort, we only want the newest)
+        return tarballsWithModifiedTime.reduce((newest, candidate) =>
+            candidate.modified > newest.modified ? candidate : newest
+        ).filename;
+    };
+
     // Modify the new project's package.json file to use our generated local
     // dependencies instead of going to the NPM registry and getting the old
     // versions of packages that haven't yet been released.
@@ -229,25 +247,23 @@ function setDebugDependencies(pkg) {
         // aren't reliable in this case, because of the monorepo structure.
         // So instead, we use `npm pack` to make a tarball of each dependency,
         // which the scaffolded project will unzip and install.
+        //
+        // ADDENDUM 2021-09-14:
+        // NPM 7 has a bug where the JSON output "filename" is wrong. It says
+        // "@magento/package-name-X.X.X.tgz" when the actual filename is
+        // "magento-package-name-X.X.X.tgz". The most reliable way to find the
+        // newly generated tarball is to scan packageDir for new tarball files.
         let filename;
         let packOutput;
         try {
-            packOutput = execSync('npm pack -s --ignore-scripts --json', {
+            packOutput = execSync('npm pack -s --ignore-scripts', {
                 cwd: packageDir
-            })
-                .toString('utf-8')
-                .trim();
-            // NPM tells you where it saved the tarball it made
-            // modern versions just spit out the tarball name:
-            if (packOutput.endsWith('.tgz')) {
-                filename = packOutput;
-            } else {
-                filename = JSON.parse(packOutput)[0].filename;
-            }
+            });
+            filename = getNewestTarballIn(packageDir);
         } catch (e) {
             throw new Error(
-                `DEBUG_PROJECT_CREATION: npm pack in ${name} package failed: output was ${packOutput}\n\nerror was ${
-                    e.message
+                `DEBUG_PROJECT_CREATION: npm pack in ${name} package failed.\nOutput was:\n${packOutput}\n\nError was: ${
+                    e.stack
                 }`
             );
         }
