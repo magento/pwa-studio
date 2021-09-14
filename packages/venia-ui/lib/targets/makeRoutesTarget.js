@@ -12,16 +12,17 @@ function addRoutes(routeList, routes) {
     for (const route of routes) {
         const AddedRoute = routeList.addReactLazyImport(route.path, route.name);
         const exact = route.exact ? 'exact ' : '';
-        const authed = route.authed ? 'authed ' : '';
         const path = JSON.stringify(route.pattern);
-        const redirectTo = route.redirectTo
-            ? JSON.stringify(route.redirectTo)
-            : null;
+        const redirectTo =
+            route.authed && route.redirectTo
+                ? JSON.stringify(route.redirectTo)
+                : null;
         const redirectToProp = redirectTo ? `redirectTo={${redirectTo}} ` : '';
+        const Component = route.authed ? 'AuthRoute' : 'Route';
 
         routeList.prependJSX(
             'Switch',
-            `<AuthRoute ${exact}${authed}${redirectToProp}path={${path}}><${AddedRoute}/></AuthRoute>`
+            `<${Component} ${exact}${redirectToProp}path={${path}}><${AddedRoute}/></${Component}>`
         );
     }
 }

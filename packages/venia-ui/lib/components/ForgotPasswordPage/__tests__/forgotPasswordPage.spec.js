@@ -8,7 +8,7 @@ jest.mock(
     '@magento/peregrine/lib/talons/ForgotPasswordPage/useForgotPasswordPage',
     () => ({
         useForgotPasswordPage: jest.fn(() => ({
-            handleOnCancel: jest.fn()
+            forgotPasswordProps: {}
         }))
     })
 );

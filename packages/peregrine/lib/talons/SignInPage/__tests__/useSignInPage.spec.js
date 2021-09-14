@@ -9,9 +9,14 @@ import { useSignInPage } from '../useSignInPage';
 const log = jest.fn();
 const mockHistoryPush = jest.fn();
 const mockUrl = '/url';
+const mockSignInProps = {
+    classes: { modal_active: undefined },
+    showCreateAccount: expect.any(Function),
+    showForgotPassword: expect.any(Function)
+};
 
-let handleShowCreateAccountProp;
-let handleShowForgotPasswordProp;
+let showCreateAccountProp;
+let showForgotPasswordProp;
 let mockLocationState;
 let mockLocationFrom;
 
@@ -35,8 +40,8 @@ const Component = () => {
 
     useEffect(() => {
         log(talonProps);
-        handleShowCreateAccountProp = talonProps.handleShowCreateAccount;
-        handleShowForgotPasswordProp = talonProps.handleShowForgotPassword;
+        showCreateAccountProp = talonProps.signInProps.showCreateAccount;
+        showForgotPasswordProp = talonProps.signInProps.showForgotPassword;
     }, [talonProps]);
 
     return null;
@@ -49,8 +54,8 @@ const givenDefaultValues = () => {
         signedInRedirectUrl: mockUrl
     };
 
-    handleShowCreateAccountProp = null;
-    handleShowForgotPasswordProp = null;
+    showCreateAccountProp = null;
+    showForgotPasswordProp = null;
     mockLocationState = null;
     mockLocationFrom = null;
 };
@@ -77,8 +82,8 @@ const givenSignedIn = () => {
 describe('#useSignInPage', () => {
     beforeEach(() => {
         log.mockClear();
-        handleShowCreateAccountProp = null;
-        handleShowForgotPasswordProp = null;
+        showCreateAccountProp = null;
+        showForgotPasswordProp = null;
         givenDefaultValues();
     });
 
@@ -108,16 +113,15 @@ describe('#useSignInPage', () => {
     it('handles create account callback with defined url without previous state', () => {
         createTestInstance(<Component />);
 
-        expect(typeof handleShowCreateAccountProp).toBe('function');
+        expect(typeof showCreateAccountProp).toBe('function');
 
         act(() => {
-            handleShowCreateAccountProp();
+            showCreateAccountProp();
         });
 
         expect(mockHistoryPush).toHaveBeenCalledWith(mockUrl, {});
         expect(log).toHaveBeenLastCalledWith({
-            handleShowCreateAccount: expect.any(Function),
-            handleShowForgotPassword: expect.any(Function)
+            signInProps: mockSignInProps
         });
     });
 
@@ -125,10 +129,10 @@ describe('#useSignInPage', () => {
         givenFrom();
         createTestInstance(<Component />);
 
-        expect(typeof handleShowCreateAccountProp).toBe('function');
+        expect(typeof showCreateAccountProp).toBe('function');
 
         act(() => {
-            handleShowCreateAccountProp();
+            showCreateAccountProp();
         });
 
         expect(mockHistoryPush).toHaveBeenCalledWith(
@@ -136,8 +140,7 @@ describe('#useSignInPage', () => {
             mockLocationState
         );
         expect(log).toHaveBeenLastCalledWith({
-            handleShowCreateAccount: expect.any(Function),
-            handleShowForgotPassword: expect.any(Function)
+            signInProps: mockSignInProps
         });
     });
 
@@ -145,32 +148,30 @@ describe('#useSignInPage', () => {
         givenUndefinedValues();
         createTestInstance(<Component />);
 
-        expect(typeof handleShowCreateAccountProp).toBe('function');
+        expect(typeof showCreateAccountProp).toBe('function');
 
         act(() => {
-            handleShowCreateAccountProp();
+            showCreateAccountProp();
         });
 
         expect(mockHistoryPush).not.toHaveBeenCalled();
         expect(log).toHaveBeenLastCalledWith({
-            handleShowCreateAccount: expect.any(Function),
-            handleShowForgotPassword: expect.any(Function)
+            signInProps: mockSignInProps
         });
     });
 
     it('handles forgot password callback with defined url without previous state', () => {
         createTestInstance(<Component />);
 
-        expect(typeof handleShowForgotPasswordProp).toBe('function');
+        expect(typeof showForgotPasswordProp).toBe('function');
 
         act(() => {
-            handleShowForgotPasswordProp();
+            showForgotPasswordProp();
         });
 
         expect(mockHistoryPush).toHaveBeenCalledWith(mockUrl, {});
         expect(log).toHaveBeenLastCalledWith({
-            handleShowCreateAccount: expect.any(Function),
-            handleShowForgotPassword: expect.any(Function)
+            signInProps: mockSignInProps
         });
     });
 
@@ -178,10 +179,10 @@ describe('#useSignInPage', () => {
         givenFrom();
         createTestInstance(<Component />);
 
-        expect(typeof handleShowForgotPasswordProp).toBe('function');
+        expect(typeof showForgotPasswordProp).toBe('function');
 
         act(() => {
-            handleShowForgotPasswordProp();
+            showForgotPasswordProp();
         });
 
         expect(mockHistoryPush).toHaveBeenCalledWith(
@@ -189,8 +190,7 @@ describe('#useSignInPage', () => {
             mockLocationState
         );
         expect(log).toHaveBeenLastCalledWith({
-            handleShowCreateAccount: expect.any(Function),
-            handleShowForgotPassword: expect.any(Function)
+            signInProps: mockSignInProps
         });
     });
 
@@ -198,16 +198,15 @@ describe('#useSignInPage', () => {
         givenUndefinedValues();
         createTestInstance(<Component />);
 
-        expect(typeof handleShowForgotPasswordProp).toBe('function');
+        expect(typeof showForgotPasswordProp).toBe('function');
 
         act(() => {
-            handleShowForgotPasswordProp();
+            showForgotPasswordProp();
         });
 
         expect(mockHistoryPush).not.toHaveBeenCalled();
         expect(log).toHaveBeenLastCalledWith({
-            handleShowCreateAccount: expect.any(Function),
-            handleShowForgotPassword: expect.any(Function)
+            signInProps: mockSignInProps
         });
     });
 });

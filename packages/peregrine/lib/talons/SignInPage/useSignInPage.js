@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -11,8 +11,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  * @param {String} props.signedInRedirectUrl - Url to push when user is signed in
  *
  * @returns {{
- *   handleShowCreateAccount: function,
- *   handleShowForgotPassword: function
+ *   signInProps: object
  * }}
  */
 export const useSignInPage = props => {
@@ -26,12 +25,10 @@ export const useSignInPage = props => {
 
     // Keep location state in memory when pushing history and redirect to
     // the `from` url instead when signing in
-    const historyState =
-        history && history.location && history.location.state
-            ? history.location.state
-            : {};
-    const fromRedirectUrl =
-        historyState && historyState.from ? historyState.from : null;
+    const historyState = useMemo(() => {
+        return history && history.location.state ? history.location.state : {};
+    }, [history]);
+    const fromRedirectUrl = historyState.from || null;
 
     // Redirect if user is signed in
     useEffect(() => {
@@ -54,8 +51,13 @@ export const useSignInPage = props => {
         }
     }, [forgotPasswordPageUrl, history, historyState]);
 
+    const signInProps = {
+        classes: { modal_active: undefined },
+        showCreateAccount: handleShowCreateAccount,
+        showForgotPassword: handleShowForgotPassword
+    };
+
     return {
-        handleShowCreateAccount,
-        handleShowForgotPassword
+        signInProps
     };
 };

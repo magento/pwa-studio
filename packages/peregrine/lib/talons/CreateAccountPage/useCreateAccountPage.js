@@ -21,8 +21,7 @@ const getCreateAccountInitialValues = search => {
  * @param {String} props.signInPageUrl - Sign In Page url
  *
  * @returns {{
- *   handleOnCancel: function,
- *   initialValues: object
+ *   createAccountProps: object
  * }}
  */
 export const useCreateAccountPage = props => {
@@ -33,12 +32,10 @@ export const useCreateAccountPage = props => {
 
     // Keep location state in memory when pushing history and redirect to
     // the `from` url instead when creating an account
-    const historyState =
-        history && history.location && history.location.state
-            ? history.location.state
-            : {};
-    const fromRedirectUrl =
-        historyState && historyState.from ? historyState.from : null;
+    const historyState = useMemo(() => {
+        return history && history.location.state ? history.location.state : {};
+    }, [history]);
+    const fromRedirectUrl = historyState.from || null;
 
     // Redirect if user is signed in
     useEffect(() => {
@@ -59,8 +56,13 @@ export const useCreateAccountPage = props => {
         search
     ]);
 
+    const createAccountProps = {
+        initialValues,
+        isCancelButtonHidden: false,
+        onCancel: handleOnCancel
+    };
+
     return {
-        handleOnCancel,
-        initialValues
+        createAccountProps
     };
 };

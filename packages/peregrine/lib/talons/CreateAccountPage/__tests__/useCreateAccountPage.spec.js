@@ -15,8 +15,13 @@ const mockInitialValues = {
     lastName: null
 };
 const mockUrl = '/url';
+const mockCreateAccountProps = {
+    initialValues: mockInitialValues,
+    isCancelButtonHidden: false,
+    onCancel: expect.any(Function)
+};
 
-let handleOnCancelProp;
+let onCancelProp;
 let mockLocationState;
 let mockLocationFrom;
 
@@ -41,7 +46,7 @@ const Component = () => {
 
     useEffect(() => {
         log(talonProps);
-        handleOnCancelProp = talonProps.handleOnCancel;
+        onCancelProp = talonProps.createAccountProps.onCancel;
     }, [talonProps]);
 
     return null;
@@ -53,7 +58,7 @@ const givenDefaultValues = () => {
         signInPageUrl: mockUrl
     };
 
-    handleOnCancelProp = null;
+    onCancelProp = null;
     mockLocationState = null;
     mockLocationFrom = null;
 };
@@ -79,7 +84,7 @@ const givenSignedIn = () => {
 describe('#useCreateAccountPage', () => {
     beforeEach(() => {
         log.mockClear();
-        handleOnCancelProp = null;
+        onCancelProp = null;
         givenDefaultValues();
     });
 
@@ -109,16 +114,15 @@ describe('#useCreateAccountPage', () => {
     it('handles cancel callback with defined url without previous state', () => {
         createTestInstance(<Component />);
 
-        expect(typeof handleOnCancelProp).toBe('function');
+        expect(typeof onCancelProp).toBe('function');
 
         act(() => {
-            handleOnCancelProp();
+            onCancelProp();
         });
 
         expect(mockHistoryPush).toHaveBeenCalledWith(mockUrl, {});
         expect(log).toHaveBeenLastCalledWith({
-            handleOnCancel: expect.any(Function),
-            initialValues: mockInitialValues
+            createAccountProps: mockCreateAccountProps
         });
     });
 
@@ -126,10 +130,10 @@ describe('#useCreateAccountPage', () => {
         givenFrom();
         createTestInstance(<Component />);
 
-        expect(typeof handleOnCancelProp).toBe('function');
+        expect(typeof onCancelProp).toBe('function');
 
         act(() => {
-            handleOnCancelProp();
+            onCancelProp();
         });
 
         expect(mockHistoryPush).toHaveBeenCalledWith(
@@ -137,8 +141,7 @@ describe('#useCreateAccountPage', () => {
             mockLocationState
         );
         expect(log).toHaveBeenLastCalledWith({
-            handleOnCancel: expect.any(Function),
-            initialValues: mockInitialValues
+            createAccountProps: mockCreateAccountProps
         });
     });
 
@@ -146,16 +149,15 @@ describe('#useCreateAccountPage', () => {
         givenUndefinedValues();
         createTestInstance(<Component />);
 
-        expect(typeof handleOnCancelProp).toBe('function');
+        expect(typeof onCancelProp).toBe('function');
 
         act(() => {
-            handleOnCancelProp();
+            onCancelProp();
         });
 
         expect(mockHistoryPush).not.toHaveBeenCalled();
         expect(log).toHaveBeenLastCalledWith({
-            handleOnCancel: expect.any(Function),
-            initialValues: mockInitialValues
+            createAccountProps: mockCreateAccountProps
         });
     });
 });

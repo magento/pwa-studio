@@ -10,15 +10,7 @@ exports[`#SignInPage renders correctly 1`] = `
     />
   </h1>
   <div>
-    <mock-SignIn
-      classes={
-        Object {
-          "modal_active": undefined,
-        }
-      }
-      showCreateAccount={[MockFunction]}
-      showForgotPassword={[MockFunction]}
-    />
+    <mock-SignIn />
   </div>
 </div>
 `;

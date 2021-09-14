@@ -5,6 +5,9 @@ import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopO
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import HomePage from '../HomePage';
 import MagentoRoute from '../MagentoRoute';
+
+// Import used for makeRoutesTarget
+// eslint-disable-next-line no-unused-vars
 import AuthRoute from './authRoute';
 
 const Routes = () => {
@@ -18,7 +21,7 @@ const Routes = () => {
                  * Client-side routes are injected by BabelRouteInjectionPlugin here.
                  * Venia's are defined in packages/venia-ui/lib/targets/venia-ui-intercept.js
                  */}
-                <AuthRoute>
+                <Route>
                     <MagentoRoute />
                     {/*
                      * The Route below is purposefully nested with the MagentoRoute above.
@@ -28,7 +31,7 @@ const Routes = () => {
                     <Route exact path="/">
                         <HomePage />
                     </Route>
-                </AuthRoute>
+                </Route>
             </Switch>
         </Suspense>
     );

@@ -6,8 +6,7 @@ import SignInPage from '../signInPage';
 
 jest.mock('@magento/peregrine/lib/talons/SignInPage/useSignInPage', () => ({
     useSignInPage: jest.fn(() => ({
-        handleShowCreateAccount: jest.fn(),
-        handleShowForgotPassword: jest.fn()
+        signInProps: {}
     }))
 }));
 

@@ -24,16 +24,8 @@ const Component = () => {
 
 const givenDefaultValues = () => {
     inputProps = {
-        authed: false,
         redirectTo: '/',
         children: []
-    };
-};
-
-const givenAuthed = () => {
-    inputProps = {
-        ...inputProps,
-        authed: true
     };
 };
 
@@ -46,15 +38,7 @@ describe('#AuthRoute', () => {
         givenDefaultValues();
     });
 
-    it('renders Route', () => {
-        const { root } = createTestInstance(<Component />);
-
-        expect(() => root.findByType(Route)).not.toThrow();
-        expect(() => root.findByType(Redirect)).toThrow();
-    });
-
     it('redirects the user on protected route if not signed in', () => {
-        givenAuthed();
         const { root } = createTestInstance(<Component />);
 
         expect(() => root.findByType(Route)).toThrow();
@@ -62,7 +46,6 @@ describe('#AuthRoute', () => {
     });
 
     it('renders Route on protected route if signed in', () => {
-        givenAuthed();
         givenSignedIn();
         const { root } = createTestInstance(<Component />);
 

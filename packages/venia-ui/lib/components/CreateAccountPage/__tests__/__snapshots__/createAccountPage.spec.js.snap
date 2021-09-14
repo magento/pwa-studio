@@ -10,11 +10,7 @@ exports[`#CreateAccountPage renders correctly 1`] = `
     />
   </h1>
   <div>
-    <mock-CreateAccount
-      initialValues={Object {}}
-      isCancelButtonHidden={false}
-      onCancel={[MockFunction]}
-    />
+    <mock-CreateAccount />
   </div>
 </div>
 `;

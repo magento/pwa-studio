@@ -9,8 +9,11 @@ import { useForgotPasswordPage } from '../useForgotPasswordPage';
 const log = jest.fn();
 const mockHistoryPush = jest.fn();
 const mockUrl = '/url';
+const mockForgotPasswordProps = {
+    onCancel: expect.any(Function)
+};
 
-let handleOnCancelProp;
+let onCancelProp;
 let mockLocationState;
 let mockLocationFrom;
 
@@ -34,7 +37,7 @@ const Component = () => {
 
     useEffect(() => {
         log(talonProps);
-        handleOnCancelProp = talonProps.handleOnCancel;
+        onCancelProp = talonProps.forgotPasswordProps.onCancel;
     }, [talonProps]);
 
     return null;
@@ -46,7 +49,7 @@ const givenDefaultValues = () => {
         signInPageUrl: mockUrl
     };
 
-    handleOnCancelProp = null;
+    onCancelProp = null;
     mockLocationState = null;
     mockLocationFrom = null;
 };
@@ -72,7 +75,7 @@ const givenSignedIn = () => {
 describe('#useForgotPasswordPage', () => {
     beforeEach(() => {
         log.mockClear();
-        handleOnCancelProp = null;
+        onCancelProp = null;
         givenDefaultValues();
     });
 
@@ -86,15 +89,15 @@ describe('#useForgotPasswordPage', () => {
     it('handles cancel callback with defined url without previous state', () => {
         createTestInstance(<Component />);
 
-        expect(typeof handleOnCancelProp).toBe('function');
+        expect(typeof onCancelProp).toBe('function');
 
         act(() => {
-            handleOnCancelProp();
+            onCancelProp();
         });
 
         expect(mockHistoryPush).toHaveBeenCalledWith(mockUrl, {});
         expect(log).toHaveBeenLastCalledWith({
-            handleOnCancel: expect.any(Function)
+            forgotPasswordProps: mockForgotPasswordProps
         });
     });
 
@@ -102,10 +105,10 @@ describe('#useForgotPasswordPage', () => {
         givenFrom();
         createTestInstance(<Component />);
 
-        expect(typeof handleOnCancelProp).toBe('function');
+        expect(typeof onCancelProp).toBe('function');
 
         act(() => {
-            handleOnCancelProp();
+            onCancelProp();
         });
 
         expect(mockHistoryPush).toHaveBeenCalledWith(
@@ -113,7 +116,7 @@ describe('#useForgotPasswordPage', () => {
             mockLocationState
         );
         expect(log).toHaveBeenLastCalledWith({
-            handleOnCancel: expect.any(Function)
+            forgotPasswordProps: mockForgotPasswordProps
         });
     });
 
@@ -121,15 +124,15 @@ describe('#useForgotPasswordPage', () => {
         givenUndefinedValues();
         createTestInstance(<Component />);
 
-        expect(typeof handleOnCancelProp).toBe('function');
+        expect(typeof onCancelProp).toBe('function');
 
         act(() => {
-            handleOnCancelProp();
+            onCancelProp();
         });
 
         expect(mockHistoryPush).not.toHaveBeenCalled();
         expect(log).toHaveBeenLastCalledWith({
-            handleOnCancel: expect.any(Function)
+            forgotPasswordProps: mockForgotPasswordProps
         });
     });
 });

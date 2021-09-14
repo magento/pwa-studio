@@ -10,12 +10,8 @@ import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import defaultClasses from './forgotPasswordPage.css';
 
 const ForgotPasswordPage = props => {
-    const { signedInRedirectUrl, signInPageUrl } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const { handleOnCancel } = useForgotPasswordPage({
-        signedInRedirectUrl,
-        signInPageUrl
-    });
+    const { forgotPasswordProps } = useForgotPasswordPage(props);
     const { formatMessage } = useIntl();
 
     return (
@@ -33,7 +29,7 @@ const ForgotPasswordPage = props => {
                 />
             </h1>
             <div className={classes.contentContainer}>
-                <ForgotPassword onCancel={handleOnCancel} />
+                <ForgotPassword {...forgotPasswordProps} />
             </div>
         </div>
     );

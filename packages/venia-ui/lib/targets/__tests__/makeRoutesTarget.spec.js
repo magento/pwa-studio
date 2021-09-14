@@ -63,16 +63,16 @@ test('Call prependJSX with the correct path patterns', async () => {
     expect(mockPrependJSX).toHaveBeenNthCalledWith(
         1,
         'Switch',
-        `<AuthRoute path={"/simple"}><${FAKE_ADDED_ROUTE}/></AuthRoute>`
+        `<Route path={"/simple"}><${FAKE_ADDED_ROUTE}/></Route>`
     );
     expect(mockPrependJSX).toHaveBeenNthCalledWith(
         2,
         'Switch',
-        `<AuthRoute exact authed redirectTo={"/"} path={"/authed"}><${FAKE_ADDED_ROUTE}/></AuthRoute>`
+        `<AuthRoute exact redirectTo={"/"} path={"/authed"}><${FAKE_ADDED_ROUTE}/></AuthRoute>`
     );
     expect(mockPrependJSX).toHaveBeenNthCalledWith(
         3,
         'Switch',
-        `<AuthRoute exact path={["/one","/two"]}><${FAKE_ADDED_ROUTE}/></AuthRoute>`
+        `<Route exact path={["/one","/two"]}><${FAKE_ADDED_ROUTE}/></Route>`
     );
 });

@@ -8,8 +8,7 @@ jest.mock(
     '@magento/peregrine/lib/talons/CreateAccountPage/useCreateAccountPage',
     () => ({
         useCreateAccountPage: jest.fn(() => ({
-            handleOnCancel: jest.fn(),
-            initialValues: {}
+            createAccountProps: {}
         }))
     })
 );

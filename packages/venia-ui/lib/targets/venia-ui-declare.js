@@ -209,8 +209,9 @@ module.exports = targets => {
  * Intercept function signature for the `routes` target.
  *
  * Interceptors of `routes` receive an array of {@link RouteDefinition}
- * objects, which Venia will use to generate a custom `<AuthRoute />` component
- * in the final bundle.
+ * objects, which Venia will use to either generate a custom `<AuthRoute />`
+ * component or a React Router `<Route />` component in the final bundle based
+ * on the `authed` prop.
  *
  * The AuthRoute will either return a React Router `<Route />` component or a
  * `<Redirect />` component depending if the user is signed in and if the route
@@ -247,7 +248,7 @@ module.exports = targets => {
  *   `path` prop for the `<Route/>` component.
  * @property {boolean} [exact] Tells the router whether it should match the route
  *   exactly or not. This property is optional.
- * @property {boolean} [authed] Tells the custom AuthRoute component if the user
+ * @property {boolean} [authed] Uses the custom AuthRoute component if the user
  *   needs to be signed in to access the route. This property is optional.
  * @property {string} [redirectTo] Url will be the redirection url when user are
  *   not signed in and are trying to access an authed route.

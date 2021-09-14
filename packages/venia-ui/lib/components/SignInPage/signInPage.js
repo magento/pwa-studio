@@ -10,19 +10,8 @@ import SignIn from '@magento/venia-ui/lib/components/SignIn';
 import defaultClasses from './signInPage.css';
 
 const SignInPage = props => {
-    const {
-        createAccountPageUrl,
-        forgotPasswordPageUrl,
-        signedInRedirectUrl
-    } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const { handleShowCreateAccount, handleShowForgotPassword } = useSignInPage(
-        {
-            createAccountPageUrl,
-            forgotPasswordPageUrl,
-            signedInRedirectUrl
-        }
-    );
+    const { signInProps } = useSignInPage(props);
     const { formatMessage } = useIntl();
 
     return (
@@ -40,11 +29,7 @@ const SignInPage = props => {
                 />
             </h1>
             <div className={classes.contentContainer}>
-                <SignIn
-                    classes={{ modal_active: undefined }}
-                    showCreateAccount={handleShowCreateAccount}
-                    showForgotPassword={handleShowForgotPassword}
-                />
+                <SignIn {...signInProps} />
             </div>
         </div>
     );
