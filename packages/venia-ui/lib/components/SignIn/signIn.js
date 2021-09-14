@@ -56,12 +56,12 @@ const SignIn = props => {
 
     return (
         <div className={classes.root}>
-            <h2 className={classes.title}>
+            <span className={classes.title}>
                 <FormattedMessage
                     id={'signIn.titleText'}
                     defaultMessage={'Sign-in to Your Account'}
                 />
-            </h2>
+            </span>
             <FormError errors={Array.from(errors.values())} />
             <Form
                 getApi={setFormApi}
