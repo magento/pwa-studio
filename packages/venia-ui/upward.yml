@@ -124,6 +124,23 @@ veniaPageType:
       default:
         inline: ''
 
+# Nonce for page type inline script
+veniaPageTypeNonce:
+  resolver: inline
+  inline:
+    nonce:
+      resolver: conditional
+      when:
+        - matches: env.SCRIPT_NAME
+          pattern: '.*\.php$'
+          use:
+            resolver: computed
+            type:
+              resolver: inline
+              inline: pageTypeNonce
+      default:
+        inline: ''
+
 # Webpack chunks to preload on page based on page type
 veniaWebpackChunks:
   resolver: inline
@@ -165,6 +182,7 @@ veniaAppShell:
           engine: mustache
           provide:
             pageType: veniaPageType.data
+            pageTypeNonce: veniaPageTypeNonce.nonce
             webpackChunks: veniaWebpackChunks.scripts
           template:
             resolver: file
