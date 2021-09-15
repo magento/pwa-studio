@@ -9,6 +9,10 @@ function makeRoutesTarget(venia) {
 }
 
 function addRoutes(routeList, routes) {
+    const AuthRouteComponent = routeList.addImport(
+        'import AuthRoute from "./authRoute"'
+    );
+
     for (const route of routes) {
         const AddedRoute = routeList.addReactLazyImport(route.path, route.name);
         const exact = route.exact ? 'exact ' : '';
@@ -18,9 +22,6 @@ function addRoutes(routeList, routes) {
                 ? JSON.stringify(route.redirectTo)
                 : null;
         const redirectToProp = redirectTo ? `redirectTo={${redirectTo}} ` : '';
-        const AuthRouteComponent = routeList.addImport(
-            'import AuthRoute from "./authRoute"'
-        );
         const Component = route.authed ? AuthRouteComponent : 'Route';
 
         routeList.prependJSX(
