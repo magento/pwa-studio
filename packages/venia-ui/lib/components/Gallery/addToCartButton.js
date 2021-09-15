@@ -1,18 +1,34 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { string, number, shape } from 'prop-types';
 import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAddToCartButton';
-
+import { ShoppingBag, XSquare } from 'react-feather';
+import Icon from '../Icon';
 import Button from '../Button';
 import { mergeClasses } from '../../classify';
-
 import defaultClasses from './addToCartButton.css';
+
+const AddToCartIcon = (
+    <Icon
+        classes={{ icon: defaultClasses.icon }}
+        src={ShoppingBag}
+        attrs={{ width: 16 }}
+    />
+);
+const OutOfStockIcon = (
+    <Icon
+        classes={{ icon: defaultClasses.icon }}
+        src={XSquare}
+        attrs={{ width: 16 }}
+    />
+);
 
 const AddToCartButton = props => {
     const talonProps = useAddToCartButton({
         item: props.item
     });
     const { handleAddToCart, isDisabled, isInStock } = talonProps;
+    const { formatMessage } = useIntl();
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -28,15 +44,26 @@ const AddToCartButton = props => {
         />
     );
 
+    const buttonAriaLabel = formatMessage({
+        id: isInStock
+            ? 'addToCartButton.addItemToCartAriaLabel'
+            : 'addToCartButton.itemOutOfStockAriaLabel',
+        defaultMessage: isInStock ? 'Add to cart' : 'Out of stock'
+    });
+
+    const buttonIcon = isInStock ? AddToCartIcon : OutOfStockIcon;
+
     return (
         <Button
+            aria-label={buttonAriaLabel}
             className={classes.root}
             disabled={isDisabled}
             onClick={handleAddToCart}
             priority="high"
             type="button"
         >
-            {buttonText}
+            {buttonIcon}
+            <span className={classes.text}>{buttonText}</span>
         </Button>
     );
 };
