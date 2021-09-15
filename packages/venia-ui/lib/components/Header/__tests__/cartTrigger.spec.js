@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 
 import CartTrigger from '../cartTrigger';
@@ -21,9 +21,10 @@ jest.mock('@apollo/client', () => ({
 jest.mock('react-router-dom', () => {
     return {
         useHistory: jest.fn().mockReturnValue({
-            location: {
-                pathname: '/'
-            }
+            push: jest.fn()
+        }),
+        useLocation: jest.fn().mockReturnValue({
+            pathname: '/'
         })
     };
 });
@@ -94,10 +95,8 @@ test('Cart counter displays 99+ when items quantity is more than 99', () => {
 });
 
 test('Cart trigger should not be rendered on the checkout page', () => {
-    useHistory.mockReturnValueOnce({
-        location: {
-            pathname: '/checkout'
-        }
+    useLocation.mockReturnValueOnce({
+        pathname: '/checkout'
     });
 
     const component = createTestInstance(
