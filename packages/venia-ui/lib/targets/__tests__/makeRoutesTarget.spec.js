@@ -6,6 +6,7 @@ const makeRoutesTarget = require('../makeRoutesTarget');
 const TargetableSet = require('@magento/pwa-buildpack/lib/WebpackTools/targetables/TargetableSet');
 
 const FAKE_ADDED_ROUTE = 'ADDED_ROUTE';
+const FAKE_COMPONENT = 'Component';
 
 const targets = mockTargetProvider(
     '@magento/venia-ui',
@@ -52,6 +53,7 @@ jest.mock(
 
 beforeAll(() => {
     jest.spyOn(targetable, 'reactComponent').mockImplementation(() => ({
+        addImport: () => FAKE_COMPONENT,
         addReactLazyImport: () => FAKE_ADDED_ROUTE,
         prependJSX: mockPrependJSX
     }));
@@ -68,7 +70,7 @@ test('Call prependJSX with the correct path patterns', async () => {
     expect(mockPrependJSX).toHaveBeenNthCalledWith(
         2,
         'Switch',
-        `<AuthRoute exact redirectTo={"/"} path={"/authed"}><${FAKE_ADDED_ROUTE}/></AuthRoute>`
+        `<${FAKE_COMPONENT} exact redirectTo={"/"} path={"/authed"}><${FAKE_ADDED_ROUTE}/></${FAKE_COMPONENT}>`
     );
     expect(mockPrependJSX).toHaveBeenNthCalledWith(
         3,

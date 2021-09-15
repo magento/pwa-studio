@@ -18,7 +18,10 @@ function addRoutes(routeList, routes) {
                 ? JSON.stringify(route.redirectTo)
                 : null;
         const redirectToProp = redirectTo ? `redirectTo={${redirectTo}} ` : '';
-        const Component = route.authed ? 'AuthRoute' : 'Route';
+        const AuthRouteComponent = routeList.addImport(
+            'import AuthRoute from "./authRoute"'
+        );
+        const Component = route.authed ? AuthRouteComponent : 'Route';
 
         routeList.prependJSX(
             'Switch',

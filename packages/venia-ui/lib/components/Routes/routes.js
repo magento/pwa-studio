@@ -6,10 +6,6 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import HomePage from '../HomePage';
 import MagentoRoute from '../MagentoRoute';
 
-// Import used for makeRoutesTarget
-// eslint-disable-next-line no-unused-vars
-import AuthRoute from './authRoute';
-
 const Routes = () => {
     const { pathname } = useLocation();
     useScrollTopOnChange(pathname);
