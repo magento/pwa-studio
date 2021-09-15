@@ -1,6 +1,6 @@
-import { useCallback } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
@@ -30,13 +30,18 @@ export const useCartTrigger = props => {
     } = props;
 
     const [{ cartId }] = useCartContext();
+    const history = useHistory();
+    const location = useLocation();
+    const [isHidden, setIsHidden] = useState(() =>
+        DENIED_MINI_CART_ROUTES.includes(location.pathname)
+    );
+
     const {
         elementRef: miniCartRef,
         expanded: miniCartIsOpen,
         setExpanded: setMiniCartIsOpen,
         triggerRef: miniCartTriggerRef
     } = useDropdown();
-    const history = useHistory();
 
     const { data } = useQuery(getItemCountQuery, {
         fetchPolicy: 'cache-and-network',
@@ -46,10 +51,8 @@ export const useCartTrigger = props => {
         },
         skip: !cartId
     });
+
     const itemCount = data ? data.cart.total_quantity : 0;
-    const hideCartTrigger = DENIED_MINI_CART_ROUTES.includes(
-        history.location.pathname
-    );
 
     const handleTriggerClick = useCallback(() => {
         // Open the mini cart.
@@ -61,13 +64,17 @@ export const useCartTrigger = props => {
         history.push('/cart');
     }, [history]);
 
+    useEffect(() => {
+        setIsHidden(DENIED_MINI_CART_ROUTES.includes(location.pathname));
+    }, [location]);
+
     return {
         handleLinkClick,
         handleTriggerClick,
         itemCount,
         miniCartIsOpen,
         miniCartRef,
-        hideCartTrigger,
+        hideCartTrigger: isHidden,
         setMiniCartIsOpen,
         miniCartTriggerRef
     };
