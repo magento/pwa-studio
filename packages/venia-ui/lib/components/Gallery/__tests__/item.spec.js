@@ -57,12 +57,19 @@ const validItem = {
     }
 };
 
+const defaultProps = {
+    classes,
+    storeConfig: {
+        product_url_suffix: '.html'
+    }
+};
+
 /**
  * STATE 0: awaiting item data
  * `item` is `null` or `undefined`
  */
 test('renders a placeholder item while awaiting item', () => {
-    const wrapper = createTestInstance(<Item classes={classes} />);
+    const wrapper = createTestInstance(<Item {...defaultProps} />);
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
@@ -73,7 +80,7 @@ test('renders a placeholder item while awaiting item', () => {
 test('renders correctly with valid item data', () => {
     const wrapper = createTestInstance(
         <MemoryRouter>
-            <Item classes={classes} item={validItem} />
+            <Item item={validItem} {...defaultProps} />
         </MemoryRouter>
     );
     expect(wrapper.toJSON()).toMatchSnapshot();

@@ -2,6 +2,7 @@
 
 exports[`returns the correct shape 1`] = `
 Object {
+  "categoryUrlSuffix": ".html",
   "childCategories": Map {
     1 => Object {
       "category": Object {
@@ -14,7 +15,6 @@ Object {
             "parentId": 1,
             "position": 0,
             "url_path": "1/2",
-            "url_suffix": ".html",
           },
           Object {
             "children_count": 0,
@@ -24,7 +24,6 @@ Object {
             "parentId": 2,
             "position": 0,
             "url_path": "1/2/3",
-            "url_suffix": ".html",
           },
           Object {
             "children_count": 0,
@@ -34,7 +33,6 @@ Object {
             "parentId": 1,
             "position": 0,
             "url_path": "1/4",
-            "url_suffix": ".html",
           },
         ],
         "children_count": 3,
@@ -42,7 +40,6 @@ Object {
         "include_in_menu": 1,
         "name": "One",
         "url_path": "1",
-        "url_suffix": ".html",
       },
       "isLeaf": true,
     },
@@ -55,7 +52,6 @@ Object {
         "parentId": 1,
         "position": 0,
         "url_path": "1/2",
-        "url_suffix": ".html",
       },
       "isLeaf": false,
     },
@@ -68,7 +64,6 @@ Object {
         "parentId": 2,
         "position": 0,
         "url_path": "1/2/3",
-        "url_suffix": ".html",
       },
       "isLeaf": true,
     },
@@ -81,7 +76,6 @@ Object {
         "parentId": 1,
         "position": 0,
         "url_path": "1/4",
-        "url_suffix": ".html",
       },
       "isLeaf": true,
     },
@@ -97,7 +91,6 @@ Object {
           "parentId": 1,
           "position": 0,
           "url_path": "1/2",
-          "url_suffix": ".html",
         },
         Object {
           "children_count": 0,
@@ -107,7 +100,6 @@ Object {
           "parentId": 2,
           "position": 0,
           "url_path": "1/2/3",
-          "url_suffix": ".html",
         },
         Object {
           "children_count": 0,
@@ -117,7 +109,6 @@ Object {
           "parentId": 1,
           "position": 0,
           "url_path": "1/4",
-          "url_suffix": ".html",
         },
       ],
       "children_count": 3,
@@ -125,7 +116,6 @@ Object {
       "include_in_menu": 1,
       "name": "One",
       "url_path": "1",
-      "url_suffix": ".html",
     },
   },
 }

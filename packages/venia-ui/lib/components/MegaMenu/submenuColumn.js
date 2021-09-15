@@ -13,18 +13,20 @@ import PropTypes from 'prop-types';
  * @param {MegaMenuCategory} props.category
  */
 const SubmenuColumn = props => {
-    const { category } = props;
+    const { category, categoryUrlSuffix } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     const categoryUrl = resourceUrl(
-        `/${category.url_path}${category.url_suffix || ''}`
+        `/${category.url_path}${categoryUrlSuffix || ''}`
     );
     let children = null;
 
     if (category.children.length) {
-        const childrenItems = category.children.map((item, index) => {
-            const { url_path, url_suffix, isActive, name } = item;
-            const categoryUrl = resourceUrl(`/${url_path}${url_suffix || ''}`);
+        const childrenItems = category.children.map((category, index) => {
+            const { url_path, isActive, name } = category;
+            const categoryUrl = resourceUrl(
+                `/${url_path}${categoryUrlSuffix || ''}`
+            );
 
             // setting keyboardProps if it is last child of that category
             const keyboardProps =
@@ -72,7 +74,7 @@ SubmenuColumn.propTypes = {
         name: PropTypes.string.isRequired,
         path: PropTypes.array.isRequired,
         position: PropTypes.number.isRequired,
-        url_path: PropTypes.string.isRequired,
-        url_suffix: PropTypes.string
-    }).isRequired
+        url_path: PropTypes.string.isRequired
+    }).isRequired,
+    categoryUrlSuffix: PropTypes.string
 };
