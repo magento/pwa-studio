@@ -2,11 +2,9 @@
 
 exports[`renders a BannerShimmer component with minHeight 1`] = `
 <div
-  aria-busy="false"
+  aria-busy="true"
   aria-live="polite"
-  className="root"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
+  className="root_rectangle"
   style={
     Object {
       "marginBottom": undefined,
@@ -20,55 +18,22 @@ exports[`renders a BannerShimmer component with minHeight 1`] = `
     className="wrapper"
     style={
       Object {
-        "backgroundColor": undefined,
         "border": undefined,
-        "borderColor": undefined,
-        "borderRadius": undefined,
         "borderWidth": undefined,
         "minHeight": "400px",
-        "textAlign": undefined,
+        "paddingBottom": undefined,
+        "paddingLeft": undefined,
+        "paddingRight": undefined,
+        "paddingTop": undefined,
       }
     }
   >
     <div
-      className="posterOverlay"
-      style={
-        Object {
-          "backgroundColor": undefined,
-          "minHeight": "400px",
-          "paddingBottom": undefined,
-          "paddingLeft": undefined,
-          "paddingRight": undefined,
-          "paddingTop": undefined,
-        }
-      }
+      className="overlay"
     >
       <div
         className="content"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": undefined,
-          }
-        }
-        style={
-          Object {
-            "width": "100%",
-          }
-        }
       />
-      <div
-        className="button"
-      >
-        <button
-          className="root_normalPriority"
-          disabled={false}
-          type="button"
-        >
-          <span
-            className="content"
-          />
-        </button>
-      </div>
     </div>
   </div>
 </div>
