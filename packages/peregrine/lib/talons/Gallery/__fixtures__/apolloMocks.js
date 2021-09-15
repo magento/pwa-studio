@@ -1,30 +1,32 @@
 import eeOperations from '../gallery.gql.ee';
 import ceOperations from '../gallery.gql.ce';
 
-export const mockGetWishlistConfigEE = {
+export const mockGetStoreConfigEE = {
     request: {
-        query: eeOperations.getWishlistConfigQuery
+        query: eeOperations.getStoreConfigQuery
     },
     result: {
         data: {
             storeConfig: {
                 id: 1,
                 magento_wishlist_general_is_enabled: '1',
-                enable_multiple_wishlists: '1'
+                enable_multiple_wishlists: '1',
+                product_url_suffix: '.html'
             }
         }
     }
 };
 
-export const mockGetWishlistConfigCE = {
+export const mockGetStoreConfigCE = {
     request: {
-        query: ceOperations.getWishlistConfigQuery
+        query: ceOperations.getStoreConfigQuery
     },
     result: {
         data: {
             storeConfig: {
                 id: 1,
-                magento_wishlist_general_is_enabled: '1'
+                magento_wishlist_general_is_enabled: '1',
+                product_url_suffix: '.html'
             }
         }
     }
