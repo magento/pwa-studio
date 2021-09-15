@@ -12,7 +12,8 @@ const IMAGE_WIDTH = 80;
 
 const CategoryTile = props => {
     const talonProps = useCategoryTile({
-        item: props.item
+        item: props.item,
+        storeConfig: props.storeConfig
     });
 
     const { image, item } = talonProps;
@@ -66,6 +67,9 @@ CategoryTile.propTypes = {
         image: string,
         imageContainer: string,
         name: string
-    })
+    }),
+    storeConfig: shape({
+        category_url_suffix: string.isRequired
+    }).isRequired
 };
 export default CategoryTile;

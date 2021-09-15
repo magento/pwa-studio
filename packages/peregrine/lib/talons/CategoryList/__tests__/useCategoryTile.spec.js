@@ -19,8 +19,10 @@ const props = {
         },
         name: 'Tiki',
         url_key: 'tiki',
-        url_suffix: '.html',
         image: '/pub/media/1-large.png'
+    },
+    storeConfig: {
+        category_url_suffix: '.html'
     }
 };
 
