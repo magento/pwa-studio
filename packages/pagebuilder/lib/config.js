@@ -12,7 +12,9 @@ import Heading from './ContentTypes/Heading';
 import textConfigAggregator from './ContentTypes/Text/configAggregator';
 import Text from './ContentTypes/Text';
 import tabsConfigAggregator from './ContentTypes/Tabs/configAggregator';
+import { TabsShimmer } from './ContentTypes/Tabs';
 import tabItemConfigAggregator from './ContentTypes/TabItem/configAggregator';
+import { TabItemShimmer } from './ContentTypes/TabItem';
 import blockConfigAggregator from './ContentTypes/Block/configAggregator';
 import productsConfigAggregator from './ContentTypes/Products/configAggregator';
 import buttonsConfigAggregator from './ContentTypes/Buttons/configAggregator';
@@ -20,7 +22,9 @@ import buttonItemConfigAggregator from './ContentTypes/ButtonItem/configAggregat
 import htmlConfigAggregator from './ContentTypes/Html/configAggregator';
 import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
 import videoConfigAggregator from './ContentTypes/Video/configAggregator';
+import { VideoShimmer } from './ContentTypes/Video';
 import mapConfigAggregator from './ContentTypes/Map/configAggregator';
+import { MapShimmer } from './ContentTypes/Map';
 import bannerConfigAggregator from './ContentTypes/Banner/configAggregator';
 import { BannerShimmer } from './ContentTypes/Banner';
 import ButtonItem from './ContentTypes/ButtonItem';
@@ -55,11 +59,13 @@ const contentTypesConfig = {
     },
     tabs: {
         configAggregator: tabsConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Tabs'))
+        component: React.lazy(() => import('./ContentTypes/Tabs')),
+        componentShimmer: TabsShimmer
     },
     'tab-item': {
         configAggregator: tabItemConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/TabItem'))
+        component: React.lazy(() => import('./ContentTypes/TabItem')),
+        componentShimmer: TabItemShimmer
     },
     buttons: {
         configAggregator: buttonsConfigAggregator,
@@ -87,11 +93,13 @@ const contentTypesConfig = {
     },
     video: {
         configAggregator: videoConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Video'))
+        component: React.lazy(() => import('./ContentTypes/Video')),
+        componentShimmer: VideoShimmer
     },
     map: {
         configAggregator: mapConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Map'))
+        component: React.lazy(() => import('./ContentTypes/Map')),
+        componentShimmer: MapShimmer
     },
     banner: {
         configAggregator: bannerConfigAggregator,

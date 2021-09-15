@@ -105,6 +105,8 @@ const Video = props => {
 
     return (
         <div
+            aria-live="polite"
+            aria-busy="false"
             style={mainStyles}
             className={[classes.root, ...cssClasses].join(' ')}
         >

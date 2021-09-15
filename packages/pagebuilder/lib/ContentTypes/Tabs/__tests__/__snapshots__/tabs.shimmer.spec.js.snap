@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a TabsShimmer component with minHeight 1`] = `
+<div
+  aria-busy="true"
+  aria-live="polite"
+  className="root_rectangle"
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+    }
+  }
+>
+  <ul
+    className="navigation"
+  >
+    <li
+      className="header"
+    >
+      <span>
+         
+      </span>
+    </li>
+  </ul>
+  <div
+    className="content"
+    style={
+      Object {
+        "minHeight": "400px",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`renders an empty TabsShimmer component 1`] = `
+<div
+  aria-busy="true"
+  aria-live="polite"
+  className="root_rectangle"
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+    }
+  }
+>
+  <ul
+    className="navigation"
+  >
+    <li
+      className="header"
+    >
+      <span>
+         
+      </span>
+    </li>
+  </ul>
+  <div
+    className="content"
+    style={
+      Object {
+        "minHeight": undefined,
+      }
+    }
+  />
+</div>
+`;

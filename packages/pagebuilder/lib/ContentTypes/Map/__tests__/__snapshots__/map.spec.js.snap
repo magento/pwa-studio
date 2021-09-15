@@ -2,6 +2,8 @@
 
 exports[`render map with all props configured 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className=" test-class"
   style={
     Object {

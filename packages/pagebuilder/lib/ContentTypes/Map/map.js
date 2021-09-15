@@ -178,6 +178,8 @@ const GoogleMap = props => {
 
     return (
         <div
+            aria-live="polite"
+            aria-busy="false"
             ref={mapElement}
             style={dynamicStyles}
             className={[classes.root, ...cssClasses].join(' ')}

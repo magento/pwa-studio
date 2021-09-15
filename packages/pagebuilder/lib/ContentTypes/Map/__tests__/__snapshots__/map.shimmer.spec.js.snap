@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a MapShimmer component with height 1`] = `
+<div
+  aria-busy="true"
+  aria-live="polite"
+  className="root_rectangle"
+  style={
+    Object {
+      "border": undefined,
+      "borderWidth": undefined,
+      "height": "400px",
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+    }
+  }
+/>
+`;
+
+exports[`renders an empty MapShimmer component 1`] = `
+<div
+  aria-busy="true"
+  aria-live="polite"
+  className="root_rectangle"
+  style={
+    Object {
+      "border": undefined,
+      "borderWidth": undefined,
+      "height": undefined,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+    }
+  }
+/>
+`;

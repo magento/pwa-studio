@@ -203,6 +203,8 @@ const Tabs = props => {
 
     return (
         <TabWrapper
+            aria-live="polite"
+            aria-busy="false"
             style={wrapperStyles}
             className={[classes.root, ...cssClasses].join(' ')}
             disabledTabClassName={classes.disabled}

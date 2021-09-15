@@ -2,6 +2,8 @@
 
 exports[`render tab item with all props configured 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="test-class "
   style={
     Object {
@@ -36,6 +38,8 @@ exports[`render tab item with all props configured 1`] = `
 
 exports[`render tab item with mobile image displayed 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className=" "
   style={
     Object {
@@ -67,6 +71,8 @@ exports[`render tab item with mobile image displayed 1`] = `
 
 exports[`render tab item with no props 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className=" "
   style={
     Object {

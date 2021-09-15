@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a VideoShimmer component with maxWidth 1`] = `
+<div
+  aria-busy="true"
+  aria-live="polite"
+  className="root_rectangle"
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "maxWidth": "1200px",
+    }
+  }
+>
+  <div
+    className="inner"
+  >
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "border": undefined,
+          "borderWidth": undefined,
+          "paddingBottom": undefined,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": undefined,
+        }
+      }
+    >
+      <div
+        className="container"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders an empty VideoShimmer component 1`] = `
+<div
+  aria-busy="true"
+  aria-live="polite"
+  className="root_rectangle"
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "maxWidth": undefined,
+    }
+  }
+>
+  <div
+    className="inner"
+  >
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "border": undefined,
+          "borderWidth": undefined,
+          "paddingBottom": undefined,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": undefined,
+        }
+      }
+    >
+      <div
+        className="container"
+      />
+    </div>
+  </div>
+</div>
+`;

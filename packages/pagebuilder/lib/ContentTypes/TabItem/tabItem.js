@@ -96,6 +96,8 @@ const TabItem = props => {
 
     return (
         <div
+            aria-live="polite"
+            aria-busy="false"
             style={dynamicStyles}
             className={[cssClasses, classes.root].join(' ')}
         >

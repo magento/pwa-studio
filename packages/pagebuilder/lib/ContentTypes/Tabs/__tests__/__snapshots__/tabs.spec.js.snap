@@ -2,6 +2,8 @@
 
 exports[`render configured tab 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root test-class"
   data-tabs={true}
   onClick={[Function]}
