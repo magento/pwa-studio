@@ -184,14 +184,17 @@
             </div>
         </noscript>
         <!-- Inlined Data -->
+        {{#pageTypeNonce}}
         <script nonce="{{pageTypeNonce}}">
             try {
                 var INLINED_PAGE_TYPE = JSON.parse('{{pageType}}'.replace(/&quot;/g, '"'));
             } catch(error) {}
         </script>
+
         {{#webpackChunks}}
             <script type="text/javascript" src="/{{.}}"></script>
         {{/webpackChunks}}
+        {{/pageTypeNonce}}
         <!-- /Inlined Data -->
     </body>
 </html>
