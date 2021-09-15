@@ -13,7 +13,6 @@ import { useCommonToasts } from './useCommonToasts';
 const HeartIcon = <Icon size={20} src={Heart} />;
 
 const AddToListButton = props => {
-
     const buttonRef = useRef();
     const talonProps = useAddToListButton(props);
     const {
@@ -38,7 +37,11 @@ const AddToListButton = props => {
 
     return (
         <Fragment>
-            <button ref={buttonRef} className={buttonClass} {...buttonAriaProps}>
+            <button
+                ref={buttonRef}
+                className={buttonClass}
+                {...buttonAriaProps}
+            >
                 {props.icon} {buttonText}
             </button>
             {multipleWishlistDialog}

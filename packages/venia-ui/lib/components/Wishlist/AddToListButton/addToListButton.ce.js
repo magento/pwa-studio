@@ -14,7 +14,7 @@ const HeartIcon = <Icon size={20} src={Heart} />;
 const AddToListButton = props => {
     const talonProps = useAddToListButton(props);
     const buttonRef = useRef();
-    
+
     const {
         buttonProps,
         buttonText,
@@ -25,7 +25,7 @@ const AddToListButton = props => {
     } = talonProps;
 
     useCommonToasts({ errorToastProps, loginToastProps, successToastProps });
-    const { buttonProps: ariaButtonProps } = useButton(buttonProps, buttonRef)
+    const { buttonProps: ariaButtonProps } = useButton(buttonProps, buttonRef);
 
     const classes = useStyle(defaultClasses, props.classes);
     const buttonClass = isSelected ? classes.root_selected : classes.root;
