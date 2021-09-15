@@ -64,7 +64,14 @@ const MegaMenuItem = props => {
                 onNavigate={onNavigate}
             />
         ) : null;
-    }, [category, isFocused, mainNavWidth, subMenuState, handleCloseSubMenu]);
+    }, [
+        category,
+        isFocused,
+        mainNavWidth,
+        subMenuState,
+        handleCloseSubMenu,
+        onNavigate
+    ]);
 
     const maybeDownArrowIcon = category.children.length ? (
         <Icon
