@@ -1,8 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Should add eventListner for keydown, mouseout, mousedown 1`] = `
+Array [
+  Array [
+    [Window],
+    "mousedown",
+    [Function],
+  ],
+  Array [
+    [Window],
+    "mouseout",
+    [Function],
+  ],
+  Array [
+    [Window],
+    "keydown",
+    [Function],
+  ],
+]
+`;
+
 exports[`Should render proper shape 1`] = `
 Object {
   "activeCategoryId": 7,
+  "categoryUrlSuffix": ".html",
+  "disableFocus": false,
+  "handleClickOutside": [Function],
+  "handleSubMenuFocus": [Function],
   "megaMenuData": Object {
     "children": Array [
       Object {
@@ -19,7 +43,6 @@ Object {
             ],
             "position": 1,
             "url_path": "venia-tops/venia-blouses",
-            "url_suffix": ".html",
           },
           Object {
             "children": Array [],
@@ -33,7 +56,6 @@ Object {
             ],
             "position": 2,
             "url_path": "venia-tops/venia-sweaters",
-            "url_suffix": ".html",
           },
         ],
         "id": 7,
@@ -45,7 +67,6 @@ Object {
         ],
         "position": 3,
         "url_path": "venia-tops",
-        "url_suffix": ".html",
       },
       Object {
         "children": Array [
@@ -61,7 +82,6 @@ Object {
             ],
             "position": 2,
             "url_path": "venia-accessories/venia-jewelry",
-            "url_suffix": ".html",
           },
           Object {
             "children": Array [],
@@ -75,7 +95,6 @@ Object {
             ],
             "position": 10,
             "url_path": "venia-accessories/venia-belts",
-            "url_suffix": ".html",
           },
         ],
         "id": 3,
@@ -87,12 +106,14 @@ Object {
         ],
         "position": 4,
         "url_path": "venia-accessories",
-        "url_suffix": ".html",
       },
     ],
     "id": 2,
     "isActive": false,
     "name": "Default Category",
   },
+  "subMenuState": false,
 }
 `;
+
+exports[`handleSubMenuFocus should setSubMenuState to true 1`] = `undefined`;

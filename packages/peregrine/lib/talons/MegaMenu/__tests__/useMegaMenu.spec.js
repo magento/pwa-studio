@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useMegaMenu } from '../useMegaMenu';
+import { useEventListener } from '../../../hooks/useEventListener';
 
 jest.mock('@apollo/client');
 jest.mock('react-router-dom', () => ({
     useLocation: jest.fn(() => ({ pathname: '/venia-tops.html' }))
 }));
 
+jest.mock('../../../hooks/useEventListener', () => ({
+    useEventListener: jest.fn()
+}));
+
+const log = jest.fn();
 const Component = props => {
-    const talonProps = useMegaMenu(props);
+    const talonProps = useMegaMenu({ ...props });
+
+    useEffect(() => {
+        log(talonProps);
+    }, [talonProps]);
 
     return <i talonProps={talonProps} />;
 };
@@ -21,7 +31,13 @@ const getTalonProps = props => {
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
-    return { talonProps, tree };
+    const update = newProps => {
+        tree.update(<Component {...{ ...props, ...newProps }} />);
+
+        return root.findByType('i').props.talonProps;
+    };
+
+    return { talonProps, tree, update };
 };
 
 beforeAll(() => {
@@ -38,7 +54,6 @@ beforeAll(() => {
                             name: 'Accessories',
                             position: 4,
                             url_path: 'venia-accessories',
-                            url_suffix: '.html',
                             children: [
                                 {
                                     id: 4,
@@ -46,7 +61,6 @@ beforeAll(() => {
                                     name: 'Belts',
                                     position: 10,
                                     url_path: 'venia-accessories/venia-belts',
-                                    url_suffix: '.html',
                                     children: []
                                 },
                                 {
@@ -55,7 +69,6 @@ beforeAll(() => {
                                     name: 'Jewelry',
                                     position: 2,
                                     url_path: 'venia-accessories/venia-jewelry',
-                                    url_suffix: '.html',
                                     children: []
                                 },
                                 {
@@ -64,7 +77,6 @@ beforeAll(() => {
                                     name: 'Scarves',
                                     position: 3,
                                     url_path: 'venia-accessories/venia-scarves',
-                                    url_suffix: '.html',
                                     children: []
                                 }
                             ]
@@ -75,7 +87,6 @@ beforeAll(() => {
                             name: 'Tops',
                             position: 3,
                             url_path: 'venia-tops',
-                            url_suffix: '.html',
                             children: [
                                 {
                                     id: 8,
@@ -83,7 +94,6 @@ beforeAll(() => {
                                     name: 'Blouses & Shirts',
                                     position: 1,
                                     url_path: 'venia-tops/venia-blouses',
-                                    url_suffix: '.html',
                                     children: []
                                 },
                                 {
@@ -92,7 +102,6 @@ beforeAll(() => {
                                     name: 'Sweaters',
                                     position: 2,
                                     url_path: 'venia-tops/venia-sweaters',
-                                    url_suffix: '.html',
                                     children: []
                                 }
                             ]
@@ -103,12 +112,15 @@ beforeAll(() => {
                             name: 'Dresses',
                             position: 3,
                             url_path: 'venia-dresses',
-                            url_suffix: '.html',
                             children: []
                         }
                     ]
                 }
-            ]
+            ],
+            storeConfig: {
+                id: 1,
+                category_url_suffix: '.html'
+            }
         }
     });
 });
@@ -185,4 +197,35 @@ test('Should not render items that are not included in menu', () => {
      * so the Accessories category  object should have only two top level categories
      */
     expect(talonProps.megaMenuData.children[1].children.length).toEqual(2);
+});
+
+test('Should add eventListner for keydown, mouseout, mousedown', () => {
+    createTestInstance(<Component />);
+
+    expect(useEventListener.mock.calls).toMatchSnapshot();
+});
+
+test('handleClickOutside should setSubMenuState to false and setDisableFocus to true', () => {
+    const { update } = getTalonProps({
+        mainNavRef: { current: { contains: () => false } }
+    });
+
+    const handleClickOutside = useEventListener.mock.calls[0][2];
+
+    handleClickOutside({ target: 'test' });
+    const talonProps = update();
+    expect(talonProps.subMenuState).toBeFalsy();
+    expect(talonProps.disableFocus).toBeTruthy();
+});
+
+test('handleSubMenuFocus should setSubMenuState to true', () => {
+    const setSubMenuState = jest.fn(() => true);
+
+    const { update } = getTalonProps({
+        setSubMenuState
+    });
+    const talonProps = update();
+    const handleSubMenuFocus = talonProps.handleSubMenuFocus();
+
+    expect(handleSubMenuFocus).toMatchSnapshot();
 });

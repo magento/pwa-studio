@@ -13,14 +13,11 @@ export const useCarousel = (props = {}) => {
 
     useCustomerWishlistSkus();
 
-    const { data: wishlistConfigData } = useQuery(
-        operations.getWishlistConfigQuery,
-        { fetchPolicy: 'cache-and-network' }
-    );
+    const { data: storeConfigData } = useQuery(operations.getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
 
-    const storeConfig = wishlistConfigData
-        ? wishlistConfigData.storeConfig
-        : null;
+    const storeConfig = storeConfigData ? storeConfigData.storeConfig : null;
 
     return {
         storeConfig
