@@ -87,6 +87,8 @@ describe('verify single wishlist basic features', () => {
 
         assertCreateAccount(firstName);
 
+        cy.openLoginDialog();
+
         goToMyAccount(firstName, wishlistPage);
 
         assertWishlistHeading(wishlistPage);
