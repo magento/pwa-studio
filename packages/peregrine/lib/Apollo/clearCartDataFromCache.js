@@ -1,19 +1,22 @@
-import { deleteCacheEntry } from './deleteCacheEntry';
-
 /**
- * Deletes all references to Cart from the apollo cache including entries that
- * start with "$" which were automatically created by Apollo InMemoryCache.
+ * Deletes all references to Cart from the apollo cache
  *
  * @param {ApolloClient} client
  */
 export const clearCartDataFromCache = async client => {
-    await deleteCacheEntry(client, key => key.match(/^\$?Cart/));
+    // Cached data
+    client.cache.evict({ id: 'Cart' });
+    client.cache.evict({
+        id: 'ROOT_MUTATION',
+        fieldName: 'placeOrder'
+    });
+    // Cached ROOT_QUERY
+    client.cache.evict({ fieldName: 'cart' });
+    client.cache.evict({ fieldName: 'customerCart' });
 
-    // Any cart subtypes that have key fields must be manually cleared.
-    // TODO: we may be able to use cache.evict here instead.
-    await deleteCacheEntry(client, key => key.match(/^\$?AppliedGiftCard/));
-    await deleteCacheEntry(client, key => key.match(/^\$?ShippingCartAddress/));
-    await deleteCacheEntry(client, key =>
-        key.match(/^\$?AvailableShippingMethod/)
-    );
+    client.cache.gc();
+
+    if (client.persistor) {
+        await client.persistor.persist();
+    }
 };

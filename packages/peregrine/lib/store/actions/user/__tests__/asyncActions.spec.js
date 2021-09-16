@@ -8,17 +8,26 @@ const dispatch = jest.fn();
 const getState = jest.fn(() => ({
     user: { isSignedIn: false }
 }));
+
+const mockEvict = jest.fn();
+const mockGarbageClean = jest.fn();
+const mockPersist = jest.fn();
 const thunkArgs = [
     dispatch,
     getState,
     {
         apolloClient: {
+            cache: {
+                evict: mockEvict,
+                gc: mockGarbageClean
+            },
             persistor: {
                 persistor: {
                     storage: {
                         key: 'unit test key'
                     }
-                }
+                },
+                persist: mockPersist
             }
         }
     }

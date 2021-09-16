@@ -32,17 +32,26 @@ const getState = jest.fn(() => ({
     cart: { cartId: 'CART_ID' },
     user: { isSignedIn: false }
 }));
+
+const mockEvict = jest.fn();
+const mockGarbageClean = jest.fn();
+const mockPersist = jest.fn();
 const thunkArgs = [
     dispatch,
     getState,
     {
         apolloClient: {
+            cache: {
+                evict: mockEvict,
+                gc: mockGarbageClean
+            },
             persistor: {
                 persistor: {
                     storage: {
                         key: 'unit test key'
                     }
-                }
+                },
+                persist: mockPersist
             }
         }
     }
