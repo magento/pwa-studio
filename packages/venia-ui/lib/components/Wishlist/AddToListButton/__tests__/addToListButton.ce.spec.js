@@ -21,7 +21,6 @@ jest.mock('../useCommonToasts', () => ({
     useCommonToasts: jest.fn()
 }));
 
-
 test('renders button', () => {
     const tree = createTestInstance(<AddToListButton />);
 
@@ -69,7 +68,6 @@ test('passes props to talon', () => {
 });
 
 test('passes talonProps to toast hook', () => {
-
     const toastProps = {
         errorToastProps: jest.fn().mockName('errorToastProps'),
         loginToastProps: jest.fn().mockName('loginToastProps'),
