@@ -22,15 +22,14 @@ exports[`Submenu renders correctly it renders correctly 1`] = `
               "isActive": false,
               "name": "Pants",
               "url_path": "pants",
-              "url_suffix": ".html",
             },
           ],
           "id": 1,
           "name": "Bottoms",
           "url_path": "bottoms",
-          "url_suffix": ".html",
         }
       }
+      categoryUrlSuffix=".html"
       index={0}
       keyboardProps={Object {}}
     />
@@ -42,9 +41,9 @@ exports[`Submenu renders correctly it renders correctly 1`] = `
           "isActive": false,
           "name": "Tops",
           "url_path": "tops",
-          "url_suffix": ".html",
         }
       }
+      categoryUrlSuffix=".html"
       index={1}
       keyboardProps={
         Object {

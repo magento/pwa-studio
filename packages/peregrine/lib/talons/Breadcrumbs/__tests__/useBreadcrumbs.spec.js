@@ -13,7 +13,6 @@ jest.mock('@apollo/client', () => {
                 id: null,
                 name: 'Tiki',
                 url_path: 'tiki',
-                url_suffix: '.html',
                 breadcrumbs: [
                     {
                         category_id: 12,
@@ -40,6 +39,15 @@ jest.mock('@apollo/client', () => {
     };
 });
 
+const storeConfigResponse = {
+    data: {
+        storeConfig: {
+            id: 1,
+            category_url_suffix: '.html'
+        }
+    }
+};
+
 const props = {
     categoryId: 1
 };
@@ -53,10 +61,12 @@ const Component = props => {
     return <i />;
 };
 
-test('return correct shape while data is loading', () => {
-    useQuery.mockReturnValueOnce({
-        loading: true
-    });
+test('return correc shape while data is loading', () => {
+    useQuery
+        .mockReturnValueOnce({
+            loading: true
+        })
+        .mockReturnValueOnce(storeConfigResponse);
 
     createTestInstance(<Component {...props} />);
 
@@ -71,32 +81,33 @@ test('return correct shape while data is loading', () => {
 });
 
 test('returns sorted data', () => {
-    useQuery.mockReturnValueOnce({
-        data: {
-            category: {
-                id: null,
-                name: 'Tiki',
-                url_path: 'tiki',
-                url_suffix: '.html',
-                breadcrumbs: [
-                    {
-                        category_id: 12,
-                        category_name: 'Shopee',
-                        category_level: 1,
-                        category_url_path: 'tiki/shopee'
-                    },
-                    {
-                        category_id: 10,
-                        category_name: 'Foo',
-                        category_level: 2,
-                        category_url_path: 'tiki/shopee/foo'
-                    }
-                ]
-            }
-        },
-        error: false,
-        loading: false
-    });
+    useQuery
+        .mockReturnValueOnce({
+            data: {
+                category: {
+                    id: null,
+                    name: 'Tiki',
+                    url_path: 'tiki',
+                    breadcrumbs: [
+                        {
+                            category_id: 12,
+                            category_name: 'Shopee',
+                            category_level: 1,
+                            category_url_path: 'tiki/shopee'
+                        },
+                        {
+                            category_id: 10,
+                            category_name: 'Foo',
+                            category_level: 2,
+                            category_url_path: 'tiki/shopee/foo'
+                        }
+                    ]
+                }
+            },
+            error: false,
+            loading: false
+        })
+        .mockReturnValueOnce(storeConfigResponse);
 
     createTestInstance(<Component {...props} />);
     const talonProps = log.mock.calls[0][0];
@@ -122,6 +133,12 @@ test('returns sorted data', () => {
 });
 
 test('returns the correct shape', () => {
+    useQuery
+        .mockReturnValueOnce({
+            loading: true
+        })
+        .mockReturnValueOnce(storeConfigResponse);
+
     // Act.
     createTestInstance(<Component {...props} />);
 

@@ -43,26 +43,32 @@ export const useProduct = props => {
     const {
         removeItemMutation,
         updateItemQuantityMutation,
-        getConfigurableThumbnailSource
+        getStoreConfigQuery
     } = operations;
 
     const { formatMessage } = useIntl();
 
-    const { data: configurableThumbnailSourceData } = useQuery(
-        getConfigurableThumbnailSource,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     const configurableThumbnailSource = useMemo(() => {
-        if (configurableThumbnailSourceData) {
-            return configurableThumbnailSourceData.storeConfig
-                .configurable_thumbnail_source;
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.configurable_thumbnail_source;
         }
-    }, [configurableThumbnailSourceData]);
+    }, [storeConfigData]);
 
-    const flatProduct = flattenProduct(item, configurableThumbnailSource);
+    const storeUrlSuffix = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.product_url_suffix;
+        }
+    }, [storeConfigData]);
+
+    const flatProduct = flattenProduct(
+        item,
+        configurableThumbnailSource,
+        storeUrlSuffix
+    );
 
     const [
         removeItemFromCart,
@@ -188,7 +194,7 @@ export const useProduct = props => {
     };
 };
 
-const flattenProduct = (item, configurableThumbnailSource) => {
+const flattenProduct = (item, configurableThumbnailSource, storeUrlSuffix) => {
     const {
         configurable_options: options = [],
         prices,
@@ -205,8 +211,7 @@ const flattenProduct = (item, configurableThumbnailSource) => {
         name,
         small_image,
         stock_status: stockStatus,
-        url_key: urlKey,
-        url_suffix: urlSuffix
+        url_key: urlKey
     } = product;
     const { url: image } =
         configurableThumbnailSource === 'itself' && configured_variant
@@ -222,7 +227,7 @@ const flattenProduct = (item, configurableThumbnailSource) => {
         stockStatus,
         unitPrice,
         urlKey,
-        urlSuffix
+        urlSuffix: storeUrlSuffix
     };
 };
 
