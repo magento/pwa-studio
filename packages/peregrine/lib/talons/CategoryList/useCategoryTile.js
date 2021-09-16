@@ -12,8 +12,9 @@ const previewImageSize = 480;
  * @returns {Function} .handleClick - callback to fire on link click
  */
 export const useCategoryTile = props => {
-    const { item } = props;
+    const { item, storeConfig } = props;
     const { image, productImagePreview } = item;
+    const { category_url_suffix } = storeConfig;
 
     const imageObj = useMemo(() => {
         const previewProduct = productImagePreview.items[0];
@@ -41,9 +42,9 @@ export const useCategoryTile = props => {
     const itemObject = useMemo(
         () => ({
             name: item.name,
-            url: `/${item.url_key}${item.url_suffix || ''}`
+            url: `/${item.url_key}${category_url_suffix || ''}`
         }),
-        [item]
+        [item, category_url_suffix]
     );
 
     const { setShimmerType } = useInternalLink('category');

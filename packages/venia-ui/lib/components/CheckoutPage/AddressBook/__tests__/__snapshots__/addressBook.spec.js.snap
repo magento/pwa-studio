@@ -9,7 +9,16 @@ Object {
         "width": 18,
       }
     }
-    src={[Function]}
+    src={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "color": [Function],
+          "size": [Function],
+        },
+        "render": [Function],
+      }
+    }
   />,
   "message": "Error Message",
   "timeout": 10000,

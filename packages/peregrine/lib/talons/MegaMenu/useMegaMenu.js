@@ -19,17 +19,27 @@ import DEFAULT_OPERATIONS from './megaMenu.gql';
  */
 export const useMegaMenu = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getMegaMenuQuery } = operations;
+    const { getMegaMenuQuery, getStoreConfigQuery } = operations;
 
     const location = useLocation();
     const [activeCategoryId, setActiveCategoryId] = useState(null);
     const [subMenuState, setSubMenuState] = useState(false);
     const [disableFocus, setDisableFocus] = useState(false);
 
+    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
+
     const { data } = useQuery(getMegaMenuQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
+
+    const categoryUrlSuffix = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.category_url_suffix;
+        }
+    }, [storeConfigData]);
 
     /**
      * Check if category should be visible on the storefront.
@@ -47,15 +57,16 @@ export const useMegaMenu = (props = {}) => {
      * @param {MegaMenuCategory} category
      * @returns {boolean}
      */
+
     const isActive = useCallback(
-        ({ url_path, url_suffix }) => {
+        ({ url_path }) => {
             if (!url_path) return false;
 
-            const categoryUrlPath = `/${url_path}${url_suffix || ''}`;
+            const categoryUrlPath = `/${url_path}${categoryUrlSuffix || ''}`;
 
             return location.pathname === categoryUrlPath;
         },
-        [location.pathname]
+        [location.pathname, categoryUrlSuffix]
     );
 
     /**
@@ -151,6 +162,7 @@ export const useMegaMenu = (props = {}) => {
     return {
         megaMenuData,
         activeCategoryId,
+        categoryUrlSuffix,
         handleClickOutside,
         subMenuState,
         disableFocus,
@@ -168,11 +180,12 @@ export const useMegaMenu = (props = {}) => {
  *                                             with the include_in_menu = 1 flag. The categories are sorted
  *                                             based on the field position.
  * @property {int} activeCategoryId returns the currently selected category id.
+ * @property {String} categoryUrlSuffix  store's category url suffix to construct category URL
  * @property {Function} handleClickOutside function to handle mouse/key events.
  * @property {Boolean} subMenuState maintaining sub-menu open/close state
  * @property {Boolean} disableFocus state to disable focus
  * @property {Function} handleSubMenuFocus toggle function to handle sub-menu focus
- * @property {Function} handleNavigate set root component shimmer
+ * @property {function} handleNavigate - callback to fire on link click
  */
 
 /**
@@ -184,6 +197,5 @@ export const useMegaMenu = (props = {}) => {
  * @property {String} name - name of the category
  * @property {int} position - value used for sorting
  * @property {String} url_path - URL path for a category
- * @property {String} url_suffix - URL Suffix for the category
  * @property {MegaMenuCategory} children - child category
  */

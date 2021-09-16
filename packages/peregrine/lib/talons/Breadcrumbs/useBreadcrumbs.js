@@ -37,7 +37,7 @@ export const useBreadcrumbs = props => {
     const { categoryId } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getBreadcrumbsQuery } = operations;
+    const { getBreadcrumbsQuery, getStoreConfigQuery } = operations;
 
     const { data, loading, error } = useQuery(getBreadcrumbsQuery, {
         variables: { category_id: categoryId },
@@ -45,7 +45,15 @@ export const useBreadcrumbs = props => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const categoryUrlSuffix = (data && data.category.url_suffix) || '';
+    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
+
+    const categoryUrlSuffix = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.category_url_suffix;
+        }
+    }, [storeConfigData]);
 
     // When we have breadcrumb data sort and normalize it for easy rendering.
     const normalizedData = useMemo(() => {
@@ -73,7 +81,8 @@ export const useBreadcrumbs = props => {
     return {
         currentCategory: (data && data.category.name) || '',
         currentCategoryPath:
-            (data && `${data.category.url_path}${categoryUrlSuffix}`) || '#',
+            (data && `${data.category.url_path}${categoryUrlSuffix || ''}`) ||
+            '#',
         isLoading: loading,
         hasError: !!error,
         normalizedData: normalizedData || [],
