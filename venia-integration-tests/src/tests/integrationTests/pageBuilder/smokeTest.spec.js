@@ -7,7 +7,7 @@ describe('verify pagebuilder smoke test content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
-        cy.loadFullPage().then(() => {
+        cy.loadFullPage(20000).then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Smoke Test',
                 timeout: 60000
@@ -21,7 +21,7 @@ describe('verify pagebuilder smoke test content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
-        cy.loadFullPage().then(() => {
+        cy.loadFullPage(10000).then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Smoke Test CMS Block Content',
                 timeout: 60000
@@ -35,7 +35,7 @@ describe('verify pagebuilder smoke test content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
-        cy.loadFullPage().then(() => {
+        cy.loadFullPage(10000).then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Smoke Test Dynamic Block Content',
                 timeout: 60000

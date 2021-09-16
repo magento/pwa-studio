@@ -9,7 +9,7 @@ describe('verify pagebuilder products content type', () => {
             }).as('getCMSMockData');
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
-            cy.loadFullPage().then(() => {
+            cy.loadFullPage(10000).then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'PB Products Grid',
                     timeout: 60000
