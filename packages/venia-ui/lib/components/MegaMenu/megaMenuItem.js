@@ -72,23 +72,21 @@ const MegaMenuItem = props => {
     ]);
 
     const maybeDownArrowIcon = category.children.length ? (
-        <Icon
-            className={classes.arrowDown}
-            src={ArrowDown}
-            size={16}
-            aria-label={
-                'Category: ' +
-                category.name +
-                '. ' +
-                category.children.length +
-                ' sub-categories'
-            }
-        />
+        <Icon className={classes.arrowDown} src={ArrowDown} size={16} />
     ) : null;
+
+    const linkAttributes = category.children.length
+        ? {
+              'aria-label': `Category: ${category.name}. ${
+                  category.children.length
+              } sub-categories`
+          }
+        : {};
 
     return (
         <div className={megaMenuItemClassname}>
             <Link
+                {...linkAttributes}
                 onKeyDown={handleKeyDown}
                 className={
                     isActive ? classes.megaMenuLinkActive : classes.megaMenuLink
