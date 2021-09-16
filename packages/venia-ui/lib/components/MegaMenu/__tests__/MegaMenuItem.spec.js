@@ -49,27 +49,25 @@ const givenDefaultValues = () => {
             id: 1,
             name: 'Women',
             url_path: 'women',
-            url_suffix: '.html',
             isActive: true,
             children: [
                 {
                     id: 2,
                     name: 'Bottoms',
                     url_path: 'bottoms',
-                    url_suffix: '.html',
                     children: []
                 },
                 {
                     id: 3,
                     name: 'Tops',
                     url_path: 'tops',
-                    url_suffix: '.html',
                     isActive: false,
                     children: []
                 }
             ]
         },
         rootCategoryName: 'Clothing',
+        categoryUrlSuffix: '.html',
         mainNavWidth: 200,
         subMenuState: 'test',
         disableFocus: false
@@ -110,7 +108,6 @@ describe('Mega menu item renders correctly', () => {
             id: 3,
             name: 'Tops',
             url_path: 'tops',
-            url_suffix: '.html',
             isActive: false,
             children: []
         };

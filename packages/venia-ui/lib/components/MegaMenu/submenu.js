@@ -21,6 +21,7 @@ const Submenu = props => {
         isFocused,
         subMenuState,
         handleCloseSubMenu,
+        categoryUrlSuffix,
         onNavigate
     } = props;
     const PADDING_OFFSET = 20;
@@ -47,6 +48,7 @@ const Submenu = props => {
                 keyboardProps={keyboardProps}
                 key={category.id}
                 category={category}
+                categoryUrlSuffix={categoryUrlSuffix}
                 onNavigate={onNavigate}
             />
         );
@@ -76,10 +78,10 @@ Submenu.propTypes = {
             name: PropTypes.string.isRequired,
             path: PropTypes.array.isRequired,
             position: PropTypes.number.isRequired,
-            url_path: PropTypes.string.isRequired,
-            url_suffix: PropTypes.string
+            url_path: PropTypes.string.isRequired
         })
     ).isRequired,
     mainNavWidth: PropTypes.number.isRequired,
+    categoryUrlSuffix: PropTypes.string,
     onNavigate: PropTypes.func.isRequired
 };
