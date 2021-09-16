@@ -9,7 +9,6 @@ export const ProductListFragment = gql`
                 id
                 name
                 url_key
-                url_suffix
                 thumbnail {
                     url
                 }

@@ -9,11 +9,11 @@ import { useStyle } from '../../classify';
 import defaultClasses from './categoryLeaf.css';
 
 const Leaf = props => {
-    const { category, onNavigate } = props;
-    const { name, url_path, url_suffix, children } = category;
+    const { category, onNavigate, categoryUrlSuffix } = props;
+    const { name, url_path, children } = category;
     const classes = useStyle(defaultClasses, props.classes);
     const { handleClick } = useCategoryLeaf({ onNavigate });
-    const destination = resourceUrl(`/${url_path}${url_suffix || ''}`);
+    const destination = resourceUrl(`/${url_path}${categoryUrlSuffix || ''}`);
 
     const leafLabel =
         children && children.length ? (
@@ -53,5 +53,6 @@ Leaf.propTypes = {
         target: string,
         text: string
     }),
-    onNavigate: func.isRequired
+    onNavigate: func.isRequired,
+    categoryUrlSuffix: string
 };
