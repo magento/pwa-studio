@@ -34,7 +34,10 @@ const getTalonProps = props => {
 };
 
 const defaultProps = {
-    queries: { miniCartQuery: 'miniCartQuery' },
+    queries: {
+        miniCartQuery: 'miniCartQuery',
+        getStoreConfigQuery: 'getStoreConfigQuery'
+    },
     mutations: { removeItemMutation: 'removeItemMutation' },
     setIsOpen: jest.fn()
 };
@@ -72,7 +75,8 @@ beforeAll(() => {
             },
             storeConfig: {
                 id: 1,
-                configurable_thumbnail_source: 'parent'
+                configurable_thumbnail_source: 'parent',
+                product_url_suffix: '.html'
             }
         },
         loading: false
