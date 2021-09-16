@@ -42,7 +42,7 @@ test('should not render if shouldRender is false', () => {
     const shouldNotRenderProps = {
         ...baseTalonProps,
         shouldRender: false
-    }
+    };
     useActionMenu.mockReturnValue(shouldNotRenderProps);
     const instance = createTestInstance(<ActionMenu {...baseProps} />);
 

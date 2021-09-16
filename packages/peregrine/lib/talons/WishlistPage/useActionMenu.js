@@ -1,5 +1,5 @@
 import { useCallback, useState, useMemo } from 'react';
-import {useMutation, useQuery} from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import DEFAULT_OPERATIONS from './wishlist.gql';
 import getWishlistConfigQuery from './wishlistConfig.gql';
 import mergeOperations from '../../util/shallowMerge';
@@ -21,7 +21,11 @@ const dialogs = {
  */
 export const useActionMenu = (props = {}) => {
     const { id } = props;
-    const operations = mergeOperations(DEFAULT_OPERATIONS, getWishlistConfigQuery, props.operations);
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        getWishlistConfigQuery,
+        props.operations
+    );
     const { getCustomerWishlistQuery, updateWishlistMutation } = operations;
     const [currentDialog, setCurrentDialog] = useState(dialogs.NONE);
     const [displayError, setDisplayError] = useState(false);
@@ -59,15 +63,12 @@ export const useActionMenu = (props = {}) => {
         let multipleWishlistEnabled = false;
         try {
             if (storeConfigData.storeConfig.enable_multiple_wishlists === '1') {
-                multipleWishlistEnabled = true
+                multipleWishlistEnabled = true;
             }
         } catch (e) {
-            return false
+            return false;
         }
-        return (
-            storeConfigData
-            && multipleWishlistEnabled
-        );
+        return storeConfigData && multipleWishlistEnabled;
     }, [storeConfigData]);
 
     const handleEditWishlist = useCallback(
@@ -99,8 +100,7 @@ export const useActionMenu = (props = {}) => {
     );
 
     const errors = useMemo(
-        () =>
-            displayError ? [updateWishlistErrors] : [false],
+        () => (displayError ? [updateWishlistErrors] : [false]),
         [updateWishlistErrors, displayError]
     );
 
