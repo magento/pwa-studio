@@ -33,6 +33,7 @@ Object {
       "quantity": 10,
     },
   ],
+  "storeUrlSuffix": ".html",
   "subTotal": 4200,
   "totalQuantity": 10,
 }

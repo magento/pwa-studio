@@ -1,14 +1,15 @@
 import { gql } from '@apollo/client';
 
-export const GET_CONFIGURABLE_THUMBNAIL_SOURCE = gql`
-    query getConfigurableThumbnailSource {
+export const GET_STORE_CONFIG = gql`
+    query getStoreConfigForCartPage {
         storeConfig {
             id
+            product_url_suffix
             configurable_thumbnail_source
         }
     }
 `;
 
 export default {
-    getConfigurableThumbnailSource: GET_CONFIGURABLE_THUMBNAIL_SOURCE
+    getStoreConfigQuery: GET_STORE_CONFIG
 };

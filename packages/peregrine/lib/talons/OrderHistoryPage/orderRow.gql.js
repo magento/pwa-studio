@@ -20,7 +20,6 @@ export const GET_PRODUCT_THUMBNAILS_BY_URL_KEY = gql`
                     url
                 }
                 url_key
-                url_suffix
                 ... on ConfigurableProduct {
                     variants {
                         product {

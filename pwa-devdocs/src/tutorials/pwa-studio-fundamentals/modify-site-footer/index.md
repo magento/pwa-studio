@@ -165,7 +165,7 @@ Update the relative imports in `src/components/Footer/footer.js`.
 Create a `src/components/Footer/index.js` file with the following content to set the default component export for the `Footer` directory.
 
 ```js
-export {default} from './footer'
+export { default } from './footer'
 ```
 
 ### Update Main import statements
@@ -188,7 +188,7 @@ Skip updating the Footer import statement to use your project's modified Footer 
 Create a `src/components/Main/index.js` file with the following content to set the default component export for the `Main` directory.
 
 ```js
-export {default} from './main'
+export { default } from './main'
 ```
 
 ### Update App import statements
@@ -229,7 +229,7 @@ Instead of directly exporting the module in `app.js` in the `index.js` file, it 
 This is the default export for the App component.
 
 ```js
-export {default} from './container'
+export { default } from './container'
 ```
 
 ## Import new App component
@@ -240,6 +240,36 @@ Open your project's `src/index.js` file and update the import for the App compon
 - import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 + import { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 + import App from './components/App';
+```
+
+If your `src/index.js` file doesn't define the `import` statement for **App, {AppContextProvider}**, it might instead define an `import` statement for the Adapter component.
+If true, you need to add the Adapter component to your project's `src/components` directory, as follows:
+
+
+```sh
+mkdir -p src/components/Adapter && \
+cp node_modules/@magento/venia-ui/lib/components/Adapter/adapter.js src/components/Adapter
+```
+
+Open the file `adapter.js` in your `src/components` and make the following changes:
+
+```diff
+- import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
++ import { AppContextProvider } from '@magento/venia-ui/lib/components/App';
++ import App from '../App';
+```
+
+Create the `index.js` inside your Adapter directory to create its default Adapter component.
+
+```js
+export { default } from './adapter'
+```
+
+Finally, go back to your file `src/index.js` and change the import of the Adapter component:
+
+```diff
+- import Adapter from '@magento/venia-ui/lib/components/Adapter';
++ import Adapter from './components/Adapter';
 ```
 
 ## Congratulations
