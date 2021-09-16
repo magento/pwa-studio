@@ -126,20 +126,6 @@ const Products = props => {
                                 items.length > slideToShowSmall && infinite
                         }
                     }
-                },
-                {
-                    breakpoint: 960,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3
-                    }
-                },
-                {
-                    breakpoint: 1120,
-                    settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 4
-                    }
                 }
             ],
             ...(carouselCenterMode && { centerPadding }),
@@ -277,6 +263,7 @@ export const GET_PRODUCTS_BY_SKU = gql`
                 stock_status
                 type_id
                 url_key
+                url_suffix
             }
             total_count
             filters {

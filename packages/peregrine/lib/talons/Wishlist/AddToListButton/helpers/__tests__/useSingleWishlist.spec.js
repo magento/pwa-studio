@@ -88,7 +88,7 @@ test('returns correct shape for selected product', () => {
           "buttonProps": Object {
             "aria-label": "Add to Favorites",
             "disabled": true,
-            "onClick": [Function],
+            "onPress": [Function],
             "type": "button",
           },
           "buttonText": undefined,
@@ -108,10 +108,10 @@ test('onClick returns login toast props when not logged in', () => {
     useUserContext.mockReturnValueOnce([{ isSignedIn: false }]);
 
     const { result } = renderHookWithProviders();
-    const { onClick } = result.current.buttonProps;
+    const { onPress } = result.current.buttonProps;
 
     act(() => {
-        onClick();
+        onPress();
     });
 
     expect(result.current.loginToastProps).toMatchInlineSnapshot(`
@@ -128,10 +128,10 @@ test('onClick returns success toast props and updates cache', async () => {
         renderHookOptions: { initialProps: { item: mockNewItem } }
     });
 
-    const { onClick } = result.current.buttonProps;
+    const { onPress } = result.current.buttonProps;
 
     await act(async () => {
-        await onClick();
+        await onPress();
     });
 
     const updatedCache = cache.readQuery({
@@ -154,10 +154,10 @@ test('onClick returns error toast props', async () => {
         renderHookOptions: { initialProps: { item: mockErrorItem } }
     });
 
-    const { onClick } = result.current.buttonProps;
+    const { onPress } = result.current.buttonProps;
 
     await act(async () => {
-        await onClick();
+        await onPress();
     });
 
     expect(result.current.errorToastProps).toMatchInlineSnapshot(`
@@ -177,10 +177,10 @@ test('button appears selected while mutation is in flight', () => {
     expect(result.current.isSelected).toBe(false);
     expect(result.current.buttonProps.disabled).toBe(false);
 
-    const { onClick } = result.current.buttonProps;
+    const { onPress } = result.current.buttonProps;
 
     act(() => {
-        onClick();
+        onPress();
     });
 
     expect(result.current.isSelected).toBe(true);
@@ -228,7 +228,7 @@ test('executes before and after methods', async () => {
     expect(afterAdd).not.toHaveBeenCalled();
 
     await act(async () => {
-        await result.current.buttonProps.onClick();
+        await result.current.buttonProps.onPress();
     });
 
     expect(beforeAdd).toHaveBeenCalled();
