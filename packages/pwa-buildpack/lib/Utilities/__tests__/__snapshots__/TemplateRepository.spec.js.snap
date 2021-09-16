@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TemplateRepository for scaffolding #getPackageFromRegistry looks up tarball on registry throws if package info fetch failed 1`] = `"Invalid template: could not get tarball url from npm: 403"`;
+
+exports[`TemplateRepository for scaffolding #getPackageFromRegistry looks up tarball on registry throws if tarball extract failed 1`] = `"Could not extract http://example.com/tarball.tgz to /thecache/scaffold-templates/@testns/remote: oh no"`;
+
+exports[`TemplateRepository for scaffolding #getPackageFromRegistry looks up tarball on registry throws if tarball fetch failed 1`] = `"Invalid template: could not download tarball from NPM: 404"`;
+
+exports[`TemplateRepository for scaffolding #makeDirFromDevPackage currently errors if anything else is requested 1`] = `"Local template mode currently only works using \\"@magento/venia-concept\\" as the template. Supplied template name \\"@anything/else\\" is unsupported."`;

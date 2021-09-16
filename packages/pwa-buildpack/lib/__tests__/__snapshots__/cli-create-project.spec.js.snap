@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`errors out on a bad npm package 1`] = `"could not download"`;

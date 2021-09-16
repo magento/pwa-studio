@@ -1,81 +1,13 @@
 const { resolve } = require('path');
-const fetch = require('node-fetch');
-const os = require('os');
-const tar = require('tar');
 const camelspace = require('camelspace');
 const fse = require('fs-extra');
 const prettyLogger = require('../util/pretty-logger');
 const chalk = require('chalk');
 const createProject = require('../Utilities/createProject');
+const TemplateRepository = require('../Utilities/TemplateRepository');
 const { handler: createEnvFile } = require('./create-env-file');
 const execa = require('execa');
 const sampleBackends = require('../../sampleBackends.json');
-
-const tmpDir = os.tmpdir();
-
-async function makeDirFromNpmPackage(packageName) {
-    const packageDir = resolve(tmpDir, packageName);
-    // NPM extracts a tarball to './package'
-    const packageRoot = resolve(packageDir, 'package');
-    try {
-        if ((await fse.readdir(packageRoot)).includes('package.json')) {
-            prettyLogger.info(`Found ${packageName} template in cache`);
-            return packageRoot;
-        }
-    } catch (e) {
-        // Not cached.
-    }
-    let tarballUrl;
-    try {
-        prettyLogger.info(`Finding ${packageName} tarball on NPM`);
-        tarballUrl = JSON.parse(
-            execa.shellSync(`npm view --json ${packageName}`, {
-                encoding: 'utf-8'
-            }).stdout
-        ).dist.tarball;
-    } catch (e) {
-        throw new Error(
-            `Invalid template: could not get tarball url from npm: ${e.message}`
-        );
-    }
-
-    let tarballStream;
-    try {
-        prettyLogger.info(`Downloading and unpacking ${tarballUrl}`);
-        tarballStream = (await fetch(tarballUrl)).body;
-    } catch (e) {
-        throw new Error(
-            `Invalid template: could not download tarball from NPM: ${
-                e.message
-            }`
-        );
-    }
-
-    await fse.ensureDir(packageDir);
-    return new Promise((res, rej) => {
-        const untarStream = tar.extract({
-            cwd: packageDir
-        });
-        tarballStream.pipe(untarStream);
-        untarStream.on('finish', () => {
-            prettyLogger.info(`Unpacked ${packageName}`);
-            res(packageRoot);
-        });
-        untarStream.on('error', rej);
-        tarballStream.on('error', rej);
-    });
-}
-
-async function findTemplateDir(templateName) {
-    try {
-        await fse.readdir(templateName);
-        prettyLogger.info(`Found ${templateName} directory`);
-        // if that succeeded, then...
-        return templateName;
-    } catch (e) {
-        return makeDirFromNpmPackage(templateName);
-    }
-}
 
 module.exports.sampleBackends = sampleBackends;
 
@@ -129,7 +61,7 @@ module.exports.builder = yargs =>
                     'Name and (optionally <email address>) of the author to put in the package.json "author" field.'
             }
         })
-        .group(['install', 'npmClient'], 'Package management:')
+        .group(['install', 'npmClient', 'cache'], 'Package management:')
         .options({
             install: {
                 boolean: true,
@@ -140,15 +72,39 @@ module.exports.builder = yargs =>
                 describe: 'NPM package management client to use.',
                 choices: ['npm', 'yarn'],
                 default: 'npm'
+            },
+            cache: {
+                boolean: true,
+                describe: 'Use cache for template packages and dependencies.',
+                default: true
+            }
+        })
+        .options({
+            // Only added as an argument for testing. It's never necessary in
+            // the CLI itself; just set DEBUG_PROJECT_CREATION in the env.
+            testScaffolding: {
+                boolean: true,
+                hidden: true,
+                default: !!process.env.DEBUG_PROJECT_CREATION
             }
         })
         .help();
 
 module.exports.handler = async function buildpackCli(argv) {
+    const repoConfig = {
+        cache: argv.cache
+    };
+    if (argv.testScaffolding) {
+        repoConfig.cache = false;
+        repoConfig.local = true;
+    }
+
+    const templateRepo = new TemplateRepository(repoConfig);
+
     const params = {
         ...argv,
         name: argv.name || argv.directory,
-        template: await findTemplateDir(argv.template)
+        template: await templateRepo.findTemplateDir(argv.template)
     };
     const { directory, name } = params;
     await fse.ensureDir(directory);

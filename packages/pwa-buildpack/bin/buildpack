@@ -15,8 +15,11 @@ require('yargs')
         // https://github.com/yargs/yargs/issues/1102
         // In the meantime, this handler only pretty-prints the exception when
         // you provided no command or an unrecognized command.
-        const error = err || msg;
-        prettyLogger.error(error.toString());
+        const trace = err.stack;
+        const error = msg
+            ? new Error(`${msg}. Original error: ${trace}`)
+            : trace;
+        prettyLogger.error(error);
         // eslint-disable-next-line no-process-exit
         process.exit(1);
     })

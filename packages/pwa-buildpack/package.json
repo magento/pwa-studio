@@ -43,6 +43,7 @@
     "errorhandler": "~1.5.1",
     "execa": "~1.0.0",
     "figures": "~2.0.0",
+    "find-cache-dir": "~3.3.2",
     "fs-extra": "~7.0.1",
     "gitignore-to-glob": "~0.3.0",
     "graphql-playground-middleware-express": "~1.7.18",
