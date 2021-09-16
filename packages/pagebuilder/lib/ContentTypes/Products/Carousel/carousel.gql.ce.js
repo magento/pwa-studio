@@ -1,14 +1,15 @@
 import { gql } from '@apollo/client';
 
-export const GET_WISHLIST_CONFIG = gql`
-    query GetWishlistConfigForCarouselCE {
+export const GET_STORE_CONFIG = gql`
+    query GetStoreConfigForCarouselCE {
         storeConfig {
             id
+            product_url_suffix
             magento_wishlist_general_is_enabled
         }
     }
 `;
 
 export default {
-    getWishlistConfigQuery: GET_WISHLIST_CONFIG
+    getStoreConfigQuery: GET_STORE_CONFIG
 };

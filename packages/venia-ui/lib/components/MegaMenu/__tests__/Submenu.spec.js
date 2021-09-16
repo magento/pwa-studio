@@ -24,13 +24,11 @@ describe('Submenu renders correctly', () => {
                 id: 1,
                 name: 'Bottoms',
                 url_path: 'bottoms',
-                url_suffix: '.html',
                 children: [
                     {
                         id: 3,
                         name: 'Pants',
                         url_path: 'pants',
-                        url_suffix: '.html',
                         isActive: false,
                         children: []
                     }
@@ -40,13 +38,13 @@ describe('Submenu renders correctly', () => {
                 id: 2,
                 name: 'Tops',
                 url_path: 'tops',
-                url_suffix: '.html',
                 isActive: false,
                 children: []
             }
         ],
         rootCategoryName: 'Clothing',
         firstLevelCategoryName: 'Women',
+        categoryUrlSuffix: '.html',
         handleCloseSubMenu,
         isFocused: false,
         subMenuState: false
