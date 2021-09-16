@@ -62,13 +62,7 @@ const GalleryItem = props => {
         return <ItemPlaceholder classes={classes} />;
     }
 
-    const {
-        name,
-        price_range,
-        small_image,
-        url_key,
-        rating_summary
-    } = item;
+    const { name, price_range, small_image, url_key, rating_summary } = item;
 
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
