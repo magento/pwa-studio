@@ -72,7 +72,8 @@ const MegaMenuItem = props => {
         mainNavWidth,
         subMenuState,
         handleCloseSubMenu,
-        categoryUrlSuffix
+        categoryUrlSuffix,
+        onNavigate
     ]);
 
     const maybeDownArrowIcon = category.children.length ? (
