@@ -51,15 +51,19 @@ const GalleryItem = props => {
         isSupportedProductType
     } = useGalleryItem(props);
 
+    const { storeConfig } = props;
+
+    const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
+
     const classes = useStyle(defaultClasses, props.classes);
 
     if (!item) {
         return <ItemPlaceholder classes={classes} />;
     }
 
-    const { name, price_range, small_image, url_key, url_suffix } = item;
+    const { name, price_range, small_image, url_key } = item;
     const { url: smallImageURL } = small_image;
-    const productLink = resourceUrl(`/${url_key}${url_suffix || ''}`);
+    const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
 
     const wishlistButton = wishlistButtonProps ? (
         <WishlistGalleryButton {...wishlistButtonProps} />
@@ -158,7 +162,8 @@ GalleryItem.propTypes = {
         }).isRequired
     }),
     storeConfig: shape({
-        magento_wishlist_general_is_enabled: string.isRequired
+        magento_wishlist_general_is_enabled: string.isRequired,
+        product_url_suffix: string.isRequired
     })
 };
 

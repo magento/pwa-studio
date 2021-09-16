@@ -23,12 +23,13 @@ const MegaMenuItem = props => {
         activeCategoryId,
         category,
         mainNavWidth,
+        categoryUrlSuffix,
         subMenuState,
         disableFocus
     } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const categoryUrl = resourceUrl(
-        `/${category.url_path}${category.url_suffix || ''}`
+        `/${category.url_path}${categoryUrlSuffix || ''}`
     );
 
     const talonProps = useMegaMenuItem({
@@ -58,9 +59,17 @@ const MegaMenuItem = props => {
                 items={category.children}
                 mainNavWidth={mainNavWidth}
                 handleCloseSubMenu={handleCloseSubMenu}
+                categoryUrlSuffix={categoryUrlSuffix}
             />
         ) : null;
-    }, [category, isFocused, mainNavWidth, subMenuState, handleCloseSubMenu]);
+    }, [
+        category,
+        isFocused,
+        mainNavWidth,
+        subMenuState,
+        handleCloseSubMenu,
+        categoryUrlSuffix
+    ]);
 
     const maybeDownArrowIcon = category.children.length ? (
         <Icon
@@ -105,9 +114,9 @@ MegaMenuItem.propTypes = {
         name: PropTypes.string.isRequired,
         path: PropTypes.array.isRequired,
         position: PropTypes.number.isRequired,
-        url_path: PropTypes.string.isRequired,
-        url_suffix: PropTypes.string
+        url_path: PropTypes.string.isRequired
     }).isRequired,
     activeCategoryId: PropTypes.number,
-    mainNavWidth: PropTypes.number.isRequired
+    mainNavWidth: PropTypes.number.isRequired,
+    categoryUrlSuffix: PropTypes.string
 };
