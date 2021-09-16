@@ -30,7 +30,6 @@ export const ProductsFragment = gql`
             rating_summary
             type_id
             url_key
-            url_suffix
         }
         page_info {
             total_pages
