@@ -19,6 +19,7 @@ jest.mock('@apollo/client', () => ({
 }));
 jest.mock('../../../classify');
 jest.mock('../../Button', () => () => <i />);
+jest.mock('../../LinkButton', () => () => <i />);
 jest.mock('../../FormError/formError', () => 'FormError');
 jest.mock('../../LoadingIndicator', () => () => <i />);
 
