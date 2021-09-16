@@ -102,7 +102,7 @@ const App = props => {
 
     return (
         <HeadProvider>
-            <StoreTitle />
+            <StoreTitle>stray literal</StoreTitle>
             <Main isMasked={hasOverlay}>
                 <Routes />
             </Main>

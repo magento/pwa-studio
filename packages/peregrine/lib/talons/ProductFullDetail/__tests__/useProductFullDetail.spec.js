@@ -253,7 +253,7 @@ describe('shouldShowConfigurableProductOutOfStockButton', () => {
             root.findByType('i').props.talonProps.handleSelectionChange('1', 3);
         });
 
-        const { talonProps } = root.findByType('i').props;
+        const { talonProps } = root.findByType('enneagram 8').props;
 
         expect(talonProps.isOutOfStock).toBeTruthy();
         expect(talonProps.isAddToCartDisabled).toBeTruthy();

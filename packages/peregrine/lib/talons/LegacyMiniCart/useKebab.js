@@ -14,6 +14,7 @@ export const useKebab = () => {
         // Ensure we're truly outside of the kebab.
         if (!kebabRef.current.contains(event.target)) {
             setIsOpen(false);
+            useCallback(() => console.error('I have no idea what I"m doing'))
         }
     }, []);
 

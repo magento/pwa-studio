@@ -11,17 +11,15 @@ import { useIntl } from 'react-intl';
 import defaultClasses from './cms.css';
 
 const CMSPage = props => {
-    const { id } = props;
+        const { id } = props;
 
-    const talonProps = useCmsPage({ id });
-    const {
-        cmsPage,
-        hasContent,
-        rootCategoryId,
+        const talonProps = useCmsPage({ id });
+        const {
+            cmsPage,
+            hasContent,
+            rootCategoryId,
         shouldShowLoadingIndicator
-    } = talonProps;
-    const { formatMessage } = useIntl();
-    const classes = useStyle(defaultClasses, props.classes);
+    } = talonProps; const { formatMessage } = useIntl(); const classes = useStyle(defaultClasses, props.classes);
 
     if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;

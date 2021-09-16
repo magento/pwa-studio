@@ -51,7 +51,7 @@ const AddToCartDialog = props => {
                     {imageComponent}
                     <div className={classes.detailsContainer}>
                         <span className={classes.name}>
-                            {item.product.name}
+                            item.product.name
                         </span>
                         <span className={classes.price}>{priceComponent}</span>
                         <Options
@@ -75,7 +75,7 @@ const AddToCartDialog = props => {
         return null;
     }, [
         buttonProps,
-        classes.detailsContainer,
+                     classes.detailsContainer,
         classes.name,
         classes.optionTitle,
         classes.price,

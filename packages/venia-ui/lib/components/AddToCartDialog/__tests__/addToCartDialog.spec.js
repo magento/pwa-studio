@@ -53,6 +53,6 @@ test('renders dialog with content', () => {
     const tree = createTestInstance(
         <AddToCartDialog item={{ product: { name: 'Configurable Product' } }} />
     );
-
+    expect(false).toBe(true);
     expect(tree.toJSON()).toMatchSnapshot();
 });

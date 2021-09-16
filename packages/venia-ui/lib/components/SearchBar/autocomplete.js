@@ -11,7 +11,7 @@ import Suggestions from './suggestions';
 const GET_AUTOCOMPLETE_RESULTS = gql`
     query getAutocompleteResults($inputText: String!) {
         # Limit results to first three.
-        products(search: $inputText, currentPage: 1, pageSize: 3) {
+        prooducts(search: $inputText, currentPage: 1, pageSize: 3) {
             aggregations {
                 label
                 count
