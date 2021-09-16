@@ -431,6 +431,7 @@
     "wishlist.loadMore": "Load More",
     "newsletter.subscribeMessage": "The email address is subscribed.",
     "newsletter.loadingText": "Subscribing",
-    "newsletter.titleText": "Subscribe to your Newsletter",
-    "newsletter.subscribeText": "Subscribe"
+    "newsletter.titleText": "Subscribe to Venia",
+    "newsletter.subscribeText": "Subscribe",
+    "newsletter.infoText": "Recieve the latest news, update and special offers right to your inbox."
 }

@@ -13,6 +13,7 @@ import Button from '../Button';
 import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
 import defaultClasses from './newsletter.css';
+import LinkButton from '../LinkButton';
 
 const Newsletter = props => {
     const { formatMessage } = useIntl();
@@ -54,9 +55,18 @@ const Newsletter = props => {
                 <h2 className={classes.title}>
                     <FormattedMessage
                         id={'newsletter.titleText'}
-                        defaultMessage={'Subscribe to your Newsletter'}
+                        defaultMessage={'Subscribe to Venia'}
                     />
                 </h2>
+
+                <p className={classes.newsletter_text}>
+                    <FormattedMessage
+                        id={'newsletter.infoText'}
+                        defaultMessage={
+                            'Recieve the latest news, update and special offers right to your inbox.'
+                        }
+                    />
+                </p>
                 <FormError errors={Array.from(errors.values())} />
                 <Form
                     getApi={setFormApi}
@@ -68,8 +78,17 @@ const Newsletter = props => {
                         field="email"
                         validate={isRequired}
                     />
+                    <LinkButton
+                        className={classes.subscribe_link}
+                        type="submit"
+                    >
+                        <FormattedMessage
+                            id={'newsletter.subscribeText'}
+                            defaultMessage={'Subscribe'}
+                        />
+                    </LinkButton>
                     <div className={classes.buttonsContainer}>
-                        <Button priority="high" type="submit">
+                        <Button priority="normal" type="submit">
                             <FormattedMessage
                                 id={'newsletter.subscribeText'}
                                 defaultMessage={'Subscribe'}
