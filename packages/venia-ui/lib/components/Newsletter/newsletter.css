@@ -20,7 +20,7 @@
     color: rgb(var(--venia-global-color-gray-900));
     font-size: var(--venia-typography-body-S-fontSize);
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 .subscribe_link {
     display: inline-block;
@@ -52,5 +52,9 @@
     }
     .subscribe_link {
         display: none;
+    }
+    .root {
+        text-align: center;
+        grid-column: span 2;
     }
 }
