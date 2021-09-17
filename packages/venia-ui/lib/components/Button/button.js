@@ -13,7 +13,7 @@ const getRootClassName = (priority, negative) =>
  *
  * @typedef Button
  * @kind functional component
- *w
+ *
  * @param {props} props React component props
  *
  * @returns {React.Element} A React component that displays a single button.
