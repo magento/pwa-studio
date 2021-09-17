@@ -162,6 +162,17 @@ exports[`CheckoutPage renders an error and disables review order button if there
         className="signInButton"
         disabled={false}
         onClick={[MockFunction toggleSignInContent]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="button"
       >
         <span
@@ -215,6 +226,17 @@ exports[`CheckoutPage renders an error and disables review order button if there
     <button
       className="review_order_button"
       disabled={true}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -497,6 +519,17 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
         className="signInButton"
         disabled={false}
         onClick={[MockFunction toggleSignInContent]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="button"
       >
         <span

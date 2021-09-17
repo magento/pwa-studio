@@ -87,7 +87,7 @@ test('returns correct shape for selected product', () => {
         Object {
           "buttonProps": Object {
             "aria-label": "Add to Favorites",
-            "disabled": true,
+            "isDisabled": true,
             "onPress": [Function],
             "type": "button",
           },
@@ -175,7 +175,7 @@ test('button appears selected while mutation is in flight', () => {
     });
 
     expect(result.current.isSelected).toBe(false);
-    expect(result.current.buttonProps.disabled).toBe(false);
+    expect(result.current.buttonProps.isDisabled).toBe(false);
 
     const { onPress } = result.current.buttonProps;
 
@@ -184,7 +184,7 @@ test('button appears selected while mutation is in flight', () => {
     });
 
     expect(result.current.isSelected).toBe(true);
-    expect(result.current.buttonProps.disabled).toBe(true);
+    expect(result.current.buttonProps.isDisabled).toBe(true);
 });
 
 test('returns buttonText based on selected status', () => {

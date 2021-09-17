@@ -47,6 +47,17 @@ Array [
                 className="root_lowPriority"
                 disabled={false}
                 onClick={[Function]}
+                onDragStart={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchCancel={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
                 type="button"
               >
                 <span
@@ -194,6 +205,17 @@ Array [
                 className="root_lowPriority"
                 disabled={false}
                 onClick={[Function]}
+                onDragStart={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchCancel={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
                 type="button"
               >
                 <span
@@ -507,6 +529,17 @@ Array [
                 className="root_lowPriority"
                 disabled={false}
                 onClick={[Function]}
+                onDragStart={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchCancel={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
                 type="button"
               >
                 <span
@@ -689,6 +722,17 @@ Array [
                 className="root_lowPriority"
                 disabled={false}
                 onClick={[Function]}
+                onDragStart={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchCancel={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
                 type="button"
               >
                 <span

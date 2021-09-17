@@ -4,7 +4,19 @@ exports[`should render add to cart if in stock 1`] = `
 <button
   aria-label="Add to cart"
   disabled={false}
-  onClick={[MockFunction]}
+  onClick={[Function]}
+  onDragStart={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onPress={[MockFunction]}
+  onTouchCancel={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
   type="button"
 >
   <span>
@@ -49,7 +61,19 @@ exports[`should render out of cart if not in stock 1`] = `
 <button
   aria-label="Out of stock"
   disabled={true}
-  onClick={[MockFunction]}
+  onClick={[Function]}
+  onDragStart={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onPress={[MockFunction]}
+  onTouchCancel={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
   type="button"
 >
   <span>
@@ -102,7 +126,19 @@ exports[`should render properly 1`] = `
 <button
   aria-label="Add to cart"
   disabled={false}
-  onClick={[MockFunction handleAddToCart]}
+  onClick={[Function]}
+  onDragStart={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onPress={[MockFunction handleAddToCart]}
+  onTouchCancel={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
   type="button"
 >
   <span>
