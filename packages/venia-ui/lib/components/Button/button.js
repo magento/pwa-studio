@@ -26,6 +26,7 @@ const Button = props => {
         negative,
         disabled,
         ariaLabel,
+        onPress,
         ...restProps
     } = props;
 
@@ -35,7 +36,8 @@ const Button = props => {
         {
             ...props,
             isDisabled: disabled,
-            'aria-label': ariaLabel
+            'aria-label': ariaLabel,
+            onPress
         },
         buttonRef
     );
