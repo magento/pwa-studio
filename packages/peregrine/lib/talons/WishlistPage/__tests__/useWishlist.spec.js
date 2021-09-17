@@ -6,7 +6,7 @@ import createTestInstance from '../../../util/createTestInstance';
 import { useWishlist } from '../useWishlist';
 
 jest.mock('../wishlist.gql', () => ({
-    getCustomerWhislistItems: jest.fn().mockName('getCustomerWhislistItems')
+    getCustomerWishlistItems: jest.fn().mockName('getCustomerWishlistItems')
 }));
 
 jest.mock('@apollo/client', () => {
@@ -28,7 +28,7 @@ const baseProps = {
     isCollapsed: false,
     itemsCount: 0,
     operations: {
-        getCustomerWhislistItems: 'getCustomerWhislistItems'
+        getCustomerWishlistItems: 'getCustomerWishlistItems'
     }
 };
 
