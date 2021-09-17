@@ -17,14 +17,9 @@ execute_install () {
   composerParams='--no-interaction --ansi'
   moduleVendor='magento'
   moduleList=(
-      module-catalog-sample-data-venia
-      module-configurable-sample-data-venia
-      module-customer-sample-data-venia
-      module-sales-sample-data-venia
-      module-tax-sample-data-venia
-      sample-data-media-venia
+      venia-sample-data
   )
-  githubBaseUrl='git@github.com:PMET-public'
+  githubBaseUrl='git@github.com:magento'
 
   cd $install_path
 
