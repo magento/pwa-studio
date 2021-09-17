@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useButton } from 'react-aria'
+import { useButton } from 'react-aria';
 import { oneOf, shape, string, bool } from 'prop-types';
 
 import { useStyle } from '../../classify';
@@ -24,11 +24,21 @@ const Button = props => {
         classes: propClasses,
         priority,
         negative,
-        ariaLabel
+        disabled,
+        ariaLabel,
+        ...restProps
     } = props;
 
     const buttonRef = useRef();
-    const { buttonProps } = useButton(props, buttonRef);
+
+    const { buttonProps } = useButton(
+        {
+            ...props,
+            isDisabled: disabled,
+            'aria-label': ariaLabel
+        },
+        buttonRef
+    );
 
     const classes = useStyle(defaultClasses, propClasses);
     const rootClassName = classes[getRootClassName(priority, negative)];
@@ -37,8 +47,8 @@ const Button = props => {
         <button
             ref={buttonRef}
             className={rootClassName}
-            aria-label={ariaLabel}
             {...buttonProps}
+            {...restProps}
         >
             <span className={classes.content}>{children}</span>
         </button>

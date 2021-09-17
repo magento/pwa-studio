@@ -31,7 +31,11 @@ const AddToListButton = props => {
     const buttonClass = isSelected ? classes.root_selected : classes.root;
 
     return (
-        <button ref={buttonRef} className={buttonClass} {...ariaButtonProps}>
+        <button 
+            ref={buttonRef} 
+            className={buttonClass}
+            {...ariaButtonProps}
+        >
             {props.icon} {buttonText}
         </button>
     );
