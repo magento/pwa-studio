@@ -17,6 +17,7 @@ import Icon from '../Icon';
  * @param {MegaMenuCategory} props.category
  * @param {int} props.activeCategoryId - id of active category
  * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
+ * @param {function} props.onNavigate - function called when clicking on Link
  */
 const MegaMenuItem = props => {
     const {
@@ -25,8 +26,10 @@ const MegaMenuItem = props => {
         mainNavWidth,
         categoryUrlSuffix,
         subMenuState,
-        disableFocus
+        disableFocus,
+        onNavigate
     } = props;
+
     const classes = useStyle(defaultClasses, props.classes);
     const categoryUrl = resourceUrl(
         `/${category.url_path}${categoryUrlSuffix || ''}`
@@ -60,6 +63,7 @@ const MegaMenuItem = props => {
                 mainNavWidth={mainNavWidth}
                 handleCloseSubMenu={handleCloseSubMenu}
                 categoryUrlSuffix={categoryUrlSuffix}
+                onNavigate={onNavigate}
             />
         ) : null;
     }, [
@@ -68,7 +72,8 @@ const MegaMenuItem = props => {
         mainNavWidth,
         subMenuState,
         handleCloseSubMenu,
-        categoryUrlSuffix
+        categoryUrlSuffix,
+        onNavigate
     ]);
 
     const maybeDownArrowIcon = category.children.length ? (
@@ -92,6 +97,7 @@ const MegaMenuItem = props => {
                     isActive ? classes.megaMenuLinkActive : classes.megaMenuLink
                 }
                 to={categoryUrl}
+                onClick={onNavigate}
             >
                 {category.name}
                 {maybeDownArrowIcon}
@@ -116,5 +122,6 @@ MegaMenuItem.propTypes = {
     }).isRequired,
     activeCategoryId: PropTypes.number,
     mainNavWidth: PropTypes.number.isRequired,
-    categoryUrlSuffix: PropTypes.string
+    categoryUrlSuffix: PropTypes.string,
+    onNavigate: PropTypes.func.isRequired
 };
