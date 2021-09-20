@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import defaultClasses from './banner.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, bool, oneOf, shape, string, func } from 'prop-types';
@@ -6,6 +6,7 @@ import Button from '@magento/venia-ui/lib/components/Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
 import { Link } from 'react-router-dom';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import useIntersectionObserver from '@magento/peregrine/lib/hooks/useIntersectionObserver';
 
 const { matchMedia } = globalThis;
 const toHTML = str => ({ __html: str });
@@ -28,7 +29,9 @@ const Banner = props => {
     const viewportElement = useRef(null);
     const classes = useStyle(defaultClasses, props.classes);
     const [hovered, setHovered] = useState(false);
+    const [bgImageStyle, setBgImageStyle] = useState(null);
     const toggleHover = () => setHovered(!hovered);
+    const intersectionObserver = useIntersectionObserver();
     const {
         appearance = 'poster',
         minHeight,
@@ -153,11 +156,7 @@ const Banner = props => {
     /* eslint-enable react-hooks/exhaustive-deps */
 
     if (image) {
-        const resourceImage = resourceUrl(image, {
-            type: 'image-wysiwyg',
-            quality: 85
-        });
-        wrapperStyles.backgroundImage = `url(${resourceImage})`;
+        wrapperStyles.backgroundImage = `url(${bgImageStyle})`;
         wrapperStyles.backgroundSize = backgroundSize;
         wrapperStyles.backgroundPosition = backgroundPosition;
         wrapperStyles.backgroundAttachment = backgroundAttachment;
@@ -165,6 +164,48 @@ const Banner = props => {
             ? 'repeat'
             : 'no-repeat';
     }
+
+    const setBgImage = useCallback(() => {
+        const resourceImage = resourceUrl(image, {
+            type: 'image-wysiwyg',
+            quality: 85
+        });
+
+        const backgroundImage = document.createElement('img');
+        backgroundImage.src = resourceImage;
+        setBgImageStyle(resourceImage);
+    }, [image]);
+
+    // Load image only if in viewport
+    useEffect(() => {
+        if (!image || !backgroundElement.current) {
+            return;
+        }
+
+        // Fallback if IntersectionObserver is not supported
+        if (typeof intersectionObserver === 'undefined') {
+            setBgImage();
+            return;
+        }
+
+        const htmlElement = backgroundElement.current;
+
+        const onIntersection = entries => {
+            if (entries.some(entry => entry.isIntersecting)) {
+                observer.unobserve(htmlElement);
+
+                setBgImage();
+            }
+        };
+        const observer = new intersectionObserver(onIntersection);
+        observer.observe(htmlElement);
+
+        return () => {
+            if (htmlElement) {
+                observer.unobserve(htmlElement);
+            }
+        };
+    }, [backgroundElement, image, intersectionObserver, setBgImage]);
 
     if (appearance === 'poster') {
         wrapperStyles.minHeight = minHeight;
@@ -267,6 +308,8 @@ const Banner = props => {
 
     return (
         <div
+            aria-live="polite"
+            aria-busy="false"
             className={[classes.root, ...cssClasses].join(' ')}
             style={rootStyles}
             onMouseEnter={toggleHover}
