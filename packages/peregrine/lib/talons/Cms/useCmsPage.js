@@ -16,14 +16,14 @@ import DEFAULT_OPERATIONS from './cmsPage.gql';
  * @returns {{shouldShowLoadingIndicator: *, hasContent: *, cmsPage: *, error: *}}
  */
 export const useCmsPage = props => {
-    const { id } = props;
+    const { identifier } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCMSPageQuery } = operations;
 
     const { loading, error, data } = useQuery(getCMSPageQuery, {
         variables: {
-            id: Number(id)
+            identifier: identifier
         },
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'

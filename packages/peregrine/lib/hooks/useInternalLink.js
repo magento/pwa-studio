@@ -4,12 +4,10 @@ import { useAppContext } from '../context/app';
 export const SHIMMER_TYPE_SUFFIX = '_SHIMMER';
 
 export default rootType => {
-    const [
-        ,
-        {
-            actions: { setNextRootComponent }
-        }
-    ] = useAppContext();
+    const [, appApi] = useAppContext();
+    const { actions: appActions } = appApi;
+    const { setNextRootComponent } = appActions;
+
     const type = `${rootType.toUpperCase()}${SHIMMER_TYPE_SUFFIX}`;
 
     const setShimmerType = useCallback(() => {

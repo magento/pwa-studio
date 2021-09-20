@@ -1,16 +1,16 @@
 import React from 'react';
 import { string } from 'prop-types';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import * as Types from './types';
+import TYPES from './types';
 
 const RootShimmer = props => {
     const { type } = props;
 
-    if (!type || typeof Types[type] === 'undefined') {
+    if (!type || typeof TYPES[type] === 'undefined') {
         return fullPageLoadingIndicator;
     }
 
-    const Component = Types[type];
+    const Component = TYPES[type];
 
     return <Component />;
 };

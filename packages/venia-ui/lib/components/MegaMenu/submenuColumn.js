@@ -41,6 +41,7 @@ const SubmenuColumn = props => {
                         {...keyboardProps}
                         className={isActive ? classes.linkActive : classes.link}
                         to={categoryUrl}
+                        onClick={onNavigate}
                     >
                         {name}
                     </Link>

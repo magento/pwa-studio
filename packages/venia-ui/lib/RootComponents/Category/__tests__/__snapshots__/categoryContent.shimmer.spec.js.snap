@@ -170,95 +170,9 @@ Array [
                     }
                   }
                 />
-              </div>
-              <div
-                aria-busy="true"
-                aria-live="polite"
-                className="root"
-              >
                 <div
-                  className="root_rectangle"
+                  className="root_button"
                   style={Object {}}
-                >
-                  <div
-                    className="root container"
-                  >
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image placeholder"
-                      loading="eager"
-                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
-                    />
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image notLoaded"
-                      loading="lazy"
-                      onError={[Function]}
-                      onLoad={[Function]}
-                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
-                    />
-                  </div>
-                </div>
-                <div
-                  className="root_rectangle"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                />
-                <div
-                  className="root_rectangle"
-                  style={
-                    Object {
-                      "width": "3rem",
-                    }
-                  }
-                />
-              </div>
-              <div
-                aria-busy="true"
-                aria-live="polite"
-                className="root"
-              >
-                <div
-                  className="root_rectangle"
-                  style={Object {}}
-                >
-                  <div
-                    className="root container"
-                  >
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image placeholder"
-                      loading="eager"
-                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
-                    />
-                    <img
-                      alt="Placeholder for gallery item image"
-                      className="image notLoaded"
-                      loading="lazy"
-                      onError={[Function]}
-                      onLoad={[Function]}
-                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
-                    />
-                  </div>
-                </div>
-                <div
-                  className="root_rectangle"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                />
-                <div
-                  className="root_rectangle"
-                  style={
-                    Object {
-                      "width": "3rem",
-                    }
-                  }
                 />
               </div>
               <div
@@ -305,6 +219,10 @@ Array [
                     }
                   }
                 />
+                <div
+                  className="root_button"
+                  style={Object {}}
+                />
               </div>
               <div
                 aria-busy="true"
@@ -350,6 +268,10 @@ Array [
                     }
                   }
                 />
+                <div
+                  className="root_button"
+                  style={Object {}}
+                />
               </div>
               <div
                 aria-busy="true"
@@ -394,6 +316,108 @@ Array [
                       "width": "3rem",
                     }
                   }
+                />
+                <div
+                  className="root_button"
+                  style={Object {}}
+                />
+              </div>
+              <div
+                aria-busy="true"
+                aria-live="polite"
+                className="root"
+              >
+                <div
+                  className="root_rectangle"
+                  style={Object {}}
+                >
+                  <div
+                    className="root container"
+                  >
+                    <img
+                      alt="Placeholder for gallery item image"
+                      className="image placeholder"
+                      loading="eager"
+                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                    />
+                    <img
+                      alt="Placeholder for gallery item image"
+                      className="image notLoaded"
+                      loading="lazy"
+                      onError={[Function]}
+                      onLoad={[Function]}
+                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                    />
+                  </div>
+                </div>
+                <div
+                  className="root_rectangle"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                />
+                <div
+                  className="root_rectangle"
+                  style={
+                    Object {
+                      "width": "3rem",
+                    }
+                  }
+                />
+                <div
+                  className="root_button"
+                  style={Object {}}
+                />
+              </div>
+              <div
+                aria-busy="true"
+                aria-live="polite"
+                className="root"
+              >
+                <div
+                  className="root_rectangle"
+                  style={Object {}}
+                >
+                  <div
+                    className="root container"
+                  >
+                    <img
+                      alt="Placeholder for gallery item image"
+                      className="image placeholder"
+                      loading="eager"
+                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                    />
+                    <img
+                      alt="Placeholder for gallery item image"
+                      className="image notLoaded"
+                      loading="lazy"
+                      onError={[Function]}
+                      onLoad={[Function]}
+                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
+                    />
+                  </div>
+                </div>
+                <div
+                  className="root_rectangle"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                />
+                <div
+                  className="root_rectangle"
+                  style={
+                    Object {
+                      "width": "3rem",
+                    }
+                  }
+                />
+                <div
+                  className="root_button"
+                  style={Object {}}
                 />
               </div>
             </div>
