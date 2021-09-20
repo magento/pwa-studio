@@ -18,7 +18,8 @@ const MegaMenu = props => {
         subMenuState,
         disableFocus,
         handleSubMenuFocus,
-        categoryUrlSuffix
+        categoryUrlSuffix,
+        handleNavigate
     } = useMegaMenu({ mainNavRef });
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -51,6 +52,7 @@ const MegaMenu = props => {
                       activeCategoryId={activeCategoryId}
                       categoryUrlSuffix={categoryUrlSuffix}
                       mainNavWidth={mainNavWidth}
+                      onNavigate={handleNavigate}
                       key={category.id}
                       subMenuState={subMenuState}
                       disableFocus={disableFocus}
