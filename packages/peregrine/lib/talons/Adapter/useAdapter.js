@@ -7,7 +7,7 @@ import { RetryLink } from '@apollo/client/link/retry';
 import { CachePersistor } from 'apollo-cache-persist';
 import getWithPath from 'lodash.get';
 import setWithPath from 'lodash.set';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
 import attachClient from '@magento/peregrine/lib/Apollo/attachClientToStore';
@@ -211,9 +211,17 @@ export const useAdapter = props => {
         return client;
     }, [apiBase, apolloLink]);
 
+    const getUserConfirmation = useCallback(async (message, callback) => {
+        if (typeof globalThis.handleRouteChangeConfirmation === 'function') {
+            return globalThis.handleRouteChangeConfirmation(message, callback);
+        }
+
+        return callback(globalThis.confirm(message));
+    }, []);
+
     const apolloProps = { client: apolloClient };
     const reduxProps = { store };
-    const routerProps = { basename };
+    const routerProps = { basename, getUserConfirmation };
     const styleProps = { initialState: styles };
 
     // perform blocking async work here

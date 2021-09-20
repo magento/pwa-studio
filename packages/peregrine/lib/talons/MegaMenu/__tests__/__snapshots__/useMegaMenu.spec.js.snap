@@ -26,6 +26,7 @@ Object {
   "categoryUrlSuffix": ".html",
   "disableFocus": false,
   "handleClickOutside": [Function],
+  "handleNavigate": [MockFunction onNavigate],
   "handleSubMenuFocus": [Function],
   "megaMenuData": Object {
     "children": Array [

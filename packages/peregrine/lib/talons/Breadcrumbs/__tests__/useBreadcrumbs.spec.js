@@ -39,6 +39,12 @@ jest.mock('@apollo/client', () => {
     };
 });
 
+jest.mock('../../../hooks/useInternalLink', () =>
+    jest.fn(() => ({
+        setShimmerType: jest.fn()
+    }))
+);
+
 const storeConfigResponse = {
     data: {
         storeConfig: {
@@ -76,7 +82,8 @@ test('return correc shape while data is loading', () => {
         currentCategoryPath: '#',
         isLoading: true,
         hasError: false,
-        normalizedData: []
+        normalizedData: [],
+        handleClick: expect.any(Function)
     });
 });
 
@@ -128,7 +135,8 @@ test('returns sorted data', () => {
                 path: '/tiki/shopee/foo.html',
                 text: 'Foo'
             }
-        ]
+        ],
+        handleClick: expect.any(Function)
     });
 });
 
@@ -149,7 +157,8 @@ test('returns the correct shape', () => {
         'currentCategoryPath',
         'isLoading',
         'hasError',
-        'normalizedData'
+        'normalizedData',
+        'handleClick'
     ];
     const actualProperties = Object.keys(talonProps);
     expect(actualProperties.sort()).toEqual(expectedProperties.sort());

@@ -17,6 +17,11 @@ function addRoutes(routeList, routes) {
                 route.pattern
             )}}><${AddedRoute}/></Route>`
         );
+
+        routeList.insertAfterSource(
+            'const availableRoutes = [];',
+            'availableRoutes.push(' + JSON.stringify(route) + ');'
+        );
     }
 }
 
