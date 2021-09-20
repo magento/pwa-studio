@@ -1,0 +1,10 @@
+import { forgotPasswordSuccess } from '../../fields/accountAccess';
+
+/**
+ * Utility function to assert success of the Reset Password Form
+ */
+export const assertResetPasswordSuccess = accountEmail => {
+    cy.get(forgotPasswordSuccess).contains(
+        `If there is an account associated with ${accountEmail} you will receive an email with a link to change your password.`
+    );
+};

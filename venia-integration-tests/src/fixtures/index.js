@@ -1,4 +1,5 @@
 export * as accountAccess from './accountAccess';
+export * as accountInformationPage from './accountInformationPage';
 export * as categoryPage from './categoryPage';
 export * as cartPage from './cartPage';
 export * as googleMapApi from './googleMapApi';

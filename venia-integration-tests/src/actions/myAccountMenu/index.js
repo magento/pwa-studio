@@ -10,12 +10,12 @@ import {
  * @param {String} myAccountPage respective my account page to navigate
  */
 export const goToMyAccount = (firstName, myAccountPage) => {
-    // exapnd my account menu
+    // Expand my account menu
     cy.get(myAccountMenuItemsField)
         .contains(firstName)
         .click();
 
-    // click on my account page
+    // Click on my account page
     cy.get(myAccountMenuItemsList)
         .contains(myAccountPage)
         .click();

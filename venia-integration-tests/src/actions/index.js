@@ -1,3 +1,4 @@
+export * as accountInformationPage from './accountInformationPage';
 export * as cartPage from './cartPage';
 export * as categoryPage from './categoryPage';
 export * as myAccountMenu from './myAccountMenu';

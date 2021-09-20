@@ -70,7 +70,7 @@ describe('verify single wishlist basic features', () => {
 
         cy.visitPage(homePage);
 
-        cy.openLoginDialog();
+        cy.toggleLoginDialog();
         cy.createAccount(
             accountAccessFixtures.firstName,
             lastName,
@@ -86,8 +86,6 @@ describe('verify single wishlist basic features', () => {
         );
 
         assertCreateAccount(firstName);
-
-        cy.openLoginDialog();
 
         goToMyAccount(firstName, wishlistPage);
 

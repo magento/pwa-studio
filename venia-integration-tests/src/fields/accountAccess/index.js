@@ -1,10 +1,18 @@
 export const accountTriggerButton = 'button[class^="accountTrigger-trigger-"]';
 
-export const signInEmailTextField = 'input[name="email"]';
+export const signInEmailTextField =
+    'form[class^="signIn-form-"] input[name="email"]';
 
-export const signInPasswordTextField = 'input[name="password"]';
+export const signInPasswordTextField =
+    'form[class^="signIn-form-"] input[name="password"]';
 
-export const forgotPasswordLink = 'input[data-id^="username"]';
+export const signInSubmitButton =
+    'form[class^="signIn-form-"] [class^="button-root_highPriority-"]';
+
+export const signOutLink = 'button[class^="accountMenuItems-signOut-"]';
+
+export const forgotPasswordLink =
+    'button[class^="signIn-forgotPasswordButton-"]';
 
 export const createAccountInitiateButton = '[class^="button-content-"]';
 
@@ -18,3 +26,12 @@ export const createAccountPasswordTextField = 'input[name="password"]';
 
 export const createAccountSubmitButton =
     '[class^="createAccount-submitButton-"]';
+
+export const forgotPasswordEmailTextField =
+    'form[class^="forgotPasswordForm-root-"] input[name="email"]';
+
+export const forgotPasswordSubmitButton =
+    'button[class^="forgotPasswordForm-submitButton-"]';
+
+export const forgotPasswordSuccess =
+    '[class^="formSubmissionSuccessful-text-"]';

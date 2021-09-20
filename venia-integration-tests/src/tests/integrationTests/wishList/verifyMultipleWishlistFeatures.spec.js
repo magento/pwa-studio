@@ -67,7 +67,7 @@ describe('verify single wishlist basic features', () => {
 
         //Create an user account
         cy.visitPage(homePage);
-        cy.openLoginDialog();
+        cy.toggleLoginDialog();
         cy.createAccount(
             accountAccessFixtures.firstName,
             lastName,
