@@ -22,8 +22,8 @@ const SubmenuColumn = props => {
     let children = null;
 
     if (category.children.length) {
-        const childrenItems = category.children.map((category, index) => {
-            const { url_path, isActive, name } = category;
+        const childrenItems = category.children.map((subCategory, index) => {
+            const { url_path, isActive, name } = subCategory;
             const categoryUrl = resourceUrl(
                 `/${url_path}${categoryUrlSuffix || ''}`
             );
