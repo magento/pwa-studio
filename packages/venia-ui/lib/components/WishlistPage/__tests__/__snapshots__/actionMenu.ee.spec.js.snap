@@ -58,3 +58,5 @@ exports[`renders correctly 1`] = `
   />
 </div>
 `;
+
+exports[`should not render if shouldRender is false 1`] = `null`;
