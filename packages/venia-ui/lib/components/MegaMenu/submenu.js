@@ -12,6 +12,7 @@ import SubmenuColumn from './submenuColumn';
  *
  * @param {array} props.items - categories to display
  * @param {int} props.mainNavWidth - width of the main nav. It's used for setting min-width of the submenu
+ * @param {function} props.onNavigate - function called when clicking on Link
  */
 const Submenu = props => {
     const {
@@ -19,7 +20,9 @@ const Submenu = props => {
         mainNavWidth,
         isFocused,
         subMenuState,
-        handleCloseSubMenu
+        handleCloseSubMenu,
+        categoryUrlSuffix,
+        onNavigate
     } = props;
     const PADDING_OFFSET = 20;
     const classes = useStyle(defaultClasses, props.classes);
@@ -45,6 +48,8 @@ const Submenu = props => {
                 keyboardProps={keyboardProps}
                 key={category.id}
                 category={category}
+                categoryUrlSuffix={categoryUrlSuffix}
+                onNavigate={onNavigate}
             />
         );
     });
@@ -73,9 +78,10 @@ Submenu.propTypes = {
             name: PropTypes.string.isRequired,
             path: PropTypes.array.isRequired,
             position: PropTypes.number.isRequired,
-            url_path: PropTypes.string.isRequired,
-            url_suffix: PropTypes.string
+            url_path: PropTypes.string.isRequired
         })
     ).isRequired,
-    mainNavWidth: PropTypes.number.isRequired
+    mainNavWidth: PropTypes.number.isRequired,
+    categoryUrlSuffix: PropTypes.string,
+    onNavigate: PropTypes.func.isRequired
 };

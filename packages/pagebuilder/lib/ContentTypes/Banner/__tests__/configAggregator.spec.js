@@ -12,7 +12,7 @@ test('banner config aggregator retrieves default values from empty banner conten
         expect.objectContaining({
             backgroundAttachment: 'scroll',
             backgroundPosition: 'left top',
-            backgroundRepeat: false,
+            backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             border: 'none',
             borderColor: '',
@@ -56,7 +56,7 @@ test('banner config aggregator retrieves values from fully configured poster ban
             backgroundColor: 'blue',
             backgroundAttachment: 'scroll',
             backgroundPosition: 'center center',
-            backgroundRepeat: false,
+            backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             border: 'none',
             borderColor: '',
@@ -101,7 +101,7 @@ test('banner config aggregator retrieves values from fully configured collage-le
         expect.objectContaining({
             backgroundAttachment: 'scroll',
             backgroundPosition: 'center center',
-            backgroundRepeat: false,
+            backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             border: 'none',
             borderColor: '',
@@ -146,7 +146,7 @@ test('banner config aggregator retrieves values from fully configured collage-ce
         expect.objectContaining({
             backgroundAttachment: 'scroll',
             backgroundPosition: 'center center',
-            backgroundRepeat: false,
+            backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             border: 'none',
             borderColor: '',
@@ -191,7 +191,7 @@ test('banner config aggregator retrieves values from fully configured collage-ri
         expect.objectContaining({
             backgroundAttachment: 'scroll',
             backgroundPosition: 'center center',
-            backgroundRepeat: false,
+            backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             border: 'solid',
             borderColor: 'red',

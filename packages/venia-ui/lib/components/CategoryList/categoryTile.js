@@ -12,10 +12,11 @@ const IMAGE_WIDTH = 80;
 
 const CategoryTile = props => {
     const talonProps = useCategoryTile({
-        item: props.item
+        item: props.item,
+        storeConfig: props.storeConfig
     });
 
-    const { image, item } = talonProps;
+    const { image, item, handleClick } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -41,7 +42,7 @@ const CategoryTile = props => {
     ]);
 
     return (
-        <Link className={classes.root} to={item.url}>
+        <Link className={classes.root} to={item.url} onClick={handleClick}>
             {imagePreview}
             <span className={classes.name}>{item.name}</span>
         </Link>
@@ -66,6 +67,9 @@ CategoryTile.propTypes = {
         image: string,
         imageContainer: string,
         name: string
-    })
+    }),
+    storeConfig: shape({
+        category_url_suffix: string.isRequired
+    }).isRequired
 };
 export default CategoryTile;

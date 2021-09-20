@@ -109,6 +109,7 @@ const Products = props => {
             arrows,
             dots,
             centerMode: carouselCenterMode,
+            lazyLoad: 'ondemand',
             responsive: [
                 {
                     breakpoint: 640,
@@ -263,7 +264,6 @@ export const GET_PRODUCTS_BY_SKU = gql`
                 stock_status
                 type_id
                 url_key
-                url_suffix
             }
             total_count
             filters {

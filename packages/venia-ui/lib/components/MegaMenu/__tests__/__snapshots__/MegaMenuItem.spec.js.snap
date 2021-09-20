@@ -5,6 +5,7 @@ exports[`Mega menu item renders correctly it does not render submenu when item d
   className="megaMenuItem"
 >
   <mock-Submenu
+    categoryUrlSuffix=".html"
     handleCloseSubMenu={[MockFunction]}
     isFocused={false}
     items={
@@ -14,7 +15,6 @@ exports[`Mega menu item renders correctly it does not render submenu when item d
           "id": 2,
           "name": "Bottoms",
           "url_path": "bottoms",
-          "url_suffix": ".html",
         },
         Object {
           "children": Array [],
@@ -22,7 +22,6 @@ exports[`Mega menu item renders correctly it does not render submenu when item d
           "isActive": false,
           "name": "Tops",
           "url_path": "tops",
-          "url_suffix": ".html",
         },
       ]
     }
@@ -37,6 +36,7 @@ exports[`Mega menu item renders correctly it renders correctly 1`] = `
   className="megaMenuItem"
 >
   <mock-Submenu
+    categoryUrlSuffix=".html"
     handleCloseSubMenu={[MockFunction]}
     isFocused={false}
     items={
@@ -46,7 +46,6 @@ exports[`Mega menu item renders correctly it renders correctly 1`] = `
           "id": 2,
           "name": "Bottoms",
           "url_path": "bottoms",
-          "url_suffix": ".html",
         },
         Object {
           "children": Array [],
@@ -54,7 +53,6 @@ exports[`Mega menu item renders correctly it renders correctly 1`] = `
           "isActive": false,
           "name": "Tops",
           "url_path": "tops",
-          "url_suffix": ".html",
         },
       ]
     }

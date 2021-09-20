@@ -32,7 +32,7 @@ const mapCategory = categoryItem => {
 const CategoryList = props => {
     const { id, title } = props;
     const talonProps = useCategoryList({ id });
-    const { childCategories, error, loading } = talonProps;
+    const { childCategories, storeConfig, error, loading } = talonProps;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -64,6 +64,7 @@ const CategoryList = props => {
                         <CategoryTile
                             item={mapCategory(item)}
                             key={item.url_key}
+                            storeConfig={storeConfig}
                         />
                     ))}
                 </div>

@@ -16,7 +16,8 @@ const initialState = {
     isPageLoading: false,
     overlay: false,
     pending: {},
-    searchOpen: false
+    searchOpen: false,
+    nextRootComponent: null
 };
 
 const reducerMap = {
@@ -50,6 +51,12 @@ const reducerMap = {
         return {
             ...state,
             isPageLoading: !!payload
+        };
+    },
+    [actions.setNextRootComponent]: (state, { payload }) => {
+        return {
+            ...state,
+            nextRootComponent: payload
         };
     }
 };

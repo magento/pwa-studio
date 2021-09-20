@@ -26,14 +26,15 @@ const Item = props => {
         handleRemoveItem,
         prices,
         closeMiniCart,
-        configurableThumbnailSource
+        configurableThumbnailSource,
+        storeUrlSuffix
     } = props;
 
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, propClasses);
     const itemLink = useMemo(
-        () => resourceUrl(`/${product.url_key}${product.url_suffix || ''}`),
-        [product.url_key, product.url_suffix]
+        () => resourceUrl(`/${product.url_key}${storeUrlSuffix || ''}`),
+        [product.url_key, storeUrlSuffix]
     );
     const stockStatusText =
         product.stock_status === 'OUT_OF_STOCK'

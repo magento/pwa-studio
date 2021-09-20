@@ -13,6 +13,7 @@ jest.mock('../searchTrigger', () => 'SearchTrigger');
 jest.mock('../onlineIndicator', () => 'OnlineIndicator');
 jest.mock('../storeSwitcher', () => 'StoreSwitcher');
 jest.mock('../currencySwitcher', () => 'CurrencySwitcher');
+jest.mock('../../MegaMenu', () => 'MegaMenu');
 jest.mock('../../PageLoadingIndicator', () => () => (
     <div id={'pageLoadingIndicator'} />
 ));
@@ -54,7 +55,6 @@ beforeAll(() => {
                             name: 'Accessories',
                             position: 4,
                             url_path: 'venia-accessories',
-                            url_suffix: '.html',
                             children: [
                                 {
                                     id: 4,
@@ -62,7 +62,6 @@ beforeAll(() => {
                                     name: 'Belts',
                                     position: 10,
                                     url_path: 'venia-accessories/venia-belts',
-                                    url_suffix: '.html',
                                     children: []
                                 }
                             ]
@@ -73,12 +72,15 @@ beforeAll(() => {
                             name: 'Dresses',
                             position: 3,
                             url_path: 'venia-dresses',
-                            url_suffix: '.html',
                             children: []
                         }
                     ]
                 }
-            ]
+            ],
+            storeConfig: {
+                id: 1,
+                category_url_suffix: '.html'
+            }
         }
     });
 });

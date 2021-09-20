@@ -4,9 +4,10 @@ import { shape, string } from 'prop-types';
 import { useCurrencySwitcher } from '@magento/peregrine/lib/talons/Header/useCurrencySwitcher';
 
 import { useStyle } from '../../classify';
+import CurrencySymbol from '../CurrencySymbol';
 import defaultClasses from './currencySwitcher.module.css';
 import SwitcherItem from './switcherItem';
-import CurrencySymbol from '@magento/venia-ui/lib/components/CurrencySymbol';
+import Shimmer from './currencySwitcher.shimmer';
 
 const CurrencySwitcher = props => {
     const {
@@ -26,7 +27,9 @@ const CurrencySwitcher = props => {
         currency: classes.symbol
     };
 
-    if (!availableCurrencies || availableCurrencies.length === 1) return null;
+    if (!availableCurrencies) return <Shimmer />;
+
+    if (availableCurrencies.length === 1) return null;
 
     const currencies = availableCurrencies.map(code => {
         return (

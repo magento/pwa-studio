@@ -1,11 +1,11 @@
 import React from 'react';
 
-import defaultClasses from './indicator.module.css';
+import defaultClasses from './spinner.module.css';
 import { useStyle } from '../../classify';
 import { RotateCw as LoaderIcon } from 'react-feather';
 import Icon from '../Icon';
 
-const PageLoadingIndicator = props => {
+const Spinner = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
@@ -19,4 +19,4 @@ const PageLoadingIndicator = props => {
     );
 };
 
-export default PageLoadingIndicator;
+export default Spinner;
