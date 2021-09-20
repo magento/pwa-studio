@@ -34,5 +34,6 @@ Object {
   "handleShowEditFavorites": [Function],
   "isEditInProgress": false,
   "listActionsIsOpen": false,
+  "shouldRender": true,
 }
 `;
