@@ -25,7 +25,7 @@ test('renders a Column component with all props configured', () => {
         backgroundAttachment: 'scroll',
         backgroundColor: 'rgb(193, 193, 193)',
         backgroundPosition: 'left top',
-        backgroundRepeat: false,
+        backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         border: 'solid',
         borderColor: 'rgb(0, 0, 0)',
