@@ -16,7 +16,7 @@ import Button from '../../Button';
 
 import defaultClasses from './orderDetails.css';
 
-const ConditionalWrapper = (props) => Boolean(props.condition) ? props.children : null;
+const ConditionalWrapper = props => (props.condition ? props.children : null);
 
 const OrderDetails = props => {
     const { classes: propClasses, imagesData, orderData } = props;
@@ -56,7 +56,9 @@ const OrderDetails = props => {
                 </ConditionalWrapper>
             </div>
             <div className={classes.paymentMethodContainer}>
-                <ConditionalWrapper condition={payment_methods && payment_methods.length}>
+                <ConditionalWrapper
+                    condition={payment_methods && payment_methods.length}
+                >
                     <PaymentMethod data={payment_methods} />
                 </ConditionalWrapper>
             </div>
