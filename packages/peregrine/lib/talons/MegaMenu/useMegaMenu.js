@@ -1,5 +1,6 @@
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import useInternalLink from '../../hooks/useInternalLink';
 
 import { useQuery } from '@apollo/client';
 import { useEventListener } from '../../hooks/useEventListener';
@@ -151,6 +152,13 @@ export const useMegaMenu = (props = {}) => {
         }
     }, [findActiveCategory, location.pathname, megaMenuData]);
 
+    /**
+     * Sets next root component to show proper loading effect
+     *
+     * @returns {void}
+     */
+    const { setShimmerType } = useInternalLink('category');
+
     return {
         megaMenuData,
         activeCategoryId,
@@ -158,7 +166,8 @@ export const useMegaMenu = (props = {}) => {
         handleClickOutside,
         subMenuState,
         disableFocus,
-        handleSubMenuFocus
+        handleSubMenuFocus,
+        handleNavigate: setShimmerType
     };
 };
 
@@ -170,13 +179,13 @@ export const useMegaMenu = (props = {}) => {
  * @property {MegaMenuCategory} megaMenuData - The Object with categories contains only categories
  *                                             with the include_in_menu = 1 flag. The categories are sorted
  *                                             based on the field position.
- * @property {int} loading whether the regions are loading
  * @property {int} activeCategoryId returns the currently selected category id.
+ * @property {String} categoryUrlSuffix  store's category url suffix to construct category URL
  * @property {Function} handleClickOutside function to handle mouse/key events.
  * @property {Boolean} subMenuState maintaining sub-menu open/close state
  * @property {Boolean} disableFocus state to disable focus
  * @property {Function} handleSubMenuFocus toggle function to handle sub-menu focus
- * @property {String} categoryUrlSuffix  store's category url suffix to construct category URL
+ * @property {function} handleNavigate - callback to fire on link click
  */
 
 /**
