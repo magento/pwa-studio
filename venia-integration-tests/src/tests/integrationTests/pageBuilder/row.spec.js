@@ -57,7 +57,7 @@ describe('verify pagebuilder row content', () => {
             .find('iframe')
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
         // Row with youtube video outside viewport
         cy.get('div[class^="richContent-root"]')
@@ -172,7 +172,7 @@ describe('verify pagebuilder row content', () => {
             .find('iframe')
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
         cy.get('div[class^="richContent-root"]')
             .eq(0)
@@ -192,7 +192,7 @@ describe('verify pagebuilder row content', () => {
             .find('iframe')
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
         cy.get('div[class^="richContent-root"]')
             .eq(1)
@@ -212,7 +212,7 @@ describe('verify pagebuilder row content', () => {
             .find('iframe')
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
         cy.get('div[class^="richContent-root"]')
             .eq(2)
