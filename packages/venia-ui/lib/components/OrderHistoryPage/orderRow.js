@@ -82,6 +82,10 @@ const OrderRow = props => {
         <OrderDetails orderData={order} imagesData={imagesData} />
     );
 
+    const orderTotalPrice = currency && orderTotal !== null ? (
+        <Price currencyCode={currency} value={orderTotal} />
+    ) : '-';
+
     return (
         <li className={classes.root}>
             <div className={classes.orderNumberContainer}>
@@ -110,7 +114,7 @@ const OrderRow = props => {
                     />
                 </span>
                 <div className={classes.orderTotal}>
-                    <Price currencyCode={currency} value={orderTotal} />
+                    {orderTotalPrice}
                 </div>
             </div>
             <div className={classes.orderItemsContainer}>
