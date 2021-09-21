@@ -34,3 +34,5 @@ const Routes = () => {
 };
 
 export default Routes;
+const availableRoutes = [];
+export { availableRoutes };

@@ -28,6 +28,11 @@ function addRoutes(routeList, routes) {
             'Switch',
             `<${Component} ${exact}${redirectToProp}path={${path}}><${AddedRoute}/></${Component}>`
         );
+
+        routeList.insertAfterSource(
+            'const availableRoutes = [];',
+            'availableRoutes.push(' + JSON.stringify(route) + ');'
+        );
     }
 }
 

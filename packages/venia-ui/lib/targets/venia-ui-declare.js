@@ -155,7 +155,9 @@ module.exports = targets => {
 
         categoryListProductAttributes: new targets.types.Sync([
             'categoryListProductAttributes'
-        ])
+        ]),
+
+        rootShimmerTypes: new targets.types.Sync(['rootShimmerTypes'])
     });
 };
 
@@ -345,6 +347,34 @@ module.exports = targets => {
  * @example <caption>A custom payment method</caption>
  * const myCustomPayment = {
  *      paymentCode: 'cc',
+ *      importPath: '@partner/module/path_to_your_component'
+ * }
+ */
+
+/** Type definition related to: rootShimmerTypes */
+
+/**
+ * Intercept function signature for the `rootShimmerTypes` target.
+ *
+ * Interceptors of `rootShimmerTypes` should call `.add` on the provided [shimmer list]{@link #RootShimmerTypesDefinition}.
+ *
+ * @callback rootShimmerInterceptFunction
+ *
+ * @param {RootShimmerTypesDefinition} shimmers so far in the build.
+ *
+ */
+
+/**
+ * A root component shimmer object that can be used during page transitions on your storefront
+ *
+ * @typedef {Object} RootShimmerTypesDefinition
+ * @property {string} shimmerType is use to map your page type to the component
+ * @property {string} importPath Resolvable path to the component the
+ *   Shimmer component will render
+ *
+ * @example <caption>A CMS Page Shimmer</caption>
+ * const cmsShimmer = {
+ *      shimmerType: 'CMS_PAGE_SHIMMER',
  *      importPath: '@partner/module/path_to_your_component'
  * }
  */

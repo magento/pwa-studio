@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
+import useDelayedTransition from '@magento/peregrine/lib/hooks/useDelayedTransition';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import globalCSS from '../../index.css';
@@ -29,6 +30,7 @@ const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
     const { formatMessage } = useIntl();
     const [, { addToast }] = useToasts();
+    useDelayedTransition();
 
     const ERROR_MESSAGE = formatMessage({
         id: 'app.errorUnexpected',

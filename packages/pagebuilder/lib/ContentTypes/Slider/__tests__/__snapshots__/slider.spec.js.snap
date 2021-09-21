@@ -2,6 +2,8 @@
 
 exports[`render empty slider 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
   style={
     Object {

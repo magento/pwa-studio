@@ -28,6 +28,12 @@ const props = {
 
 const log = jest.fn();
 
+jest.mock('../../../hooks/useInternalLink', () =>
+    jest.fn(() => ({
+        setShimmerType: jest.fn()
+    }))
+);
+
 const Component = props => {
     const talonProps = useCategoryTile(props);
     log(talonProps);
@@ -41,7 +47,7 @@ test('returns the correct shape', () => {
 
     // Assert.
     const talonProps = log.mock.calls[0][0];
-    const expectedProperties = ['image', 'item'];
+    const expectedProperties = ['image', 'item', 'handleClick'];
     const actualProperties = Object.keys(talonProps);
     expect(actualProperties.sort()).toEqual(expectedProperties.sort());
 });

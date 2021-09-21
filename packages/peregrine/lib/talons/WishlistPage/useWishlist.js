@@ -18,8 +18,8 @@ export const useWishlist = (props = {}) => {
     const [isOpen, setIsOpen] = useState(!isCollapsed);
     const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-    const [fetchWhislistItems, queryResult] = useLazyQuery(
-        operations.getCustomerWhislistItems,
+    const [fetchWishlistItems, queryResult] = useLazyQuery(
+        operations.getCustomerWishlistItems,
         {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first',
@@ -52,9 +52,9 @@ export const useWishlist = (props = {}) => {
     useEffect(() => {
         setPage(1);
         if (itemsCount >= 1 && isOpen === true && !data) {
-            fetchWhislistItems();
+            fetchWishlistItems();
         }
-    }, [itemsCount, isOpen, fetchWhislistItems, data]);
+    }, [itemsCount, isOpen, fetchWishlistItems, data]);
 
     const items =
         data && data.customer.wishlist_v2.items_v2.items

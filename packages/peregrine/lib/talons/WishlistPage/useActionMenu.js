@@ -1,6 +1,7 @@
-import { useCallback, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useCallback, useState, useMemo } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 import DEFAULT_OPERATIONS from './wishlist.gql';
+import getWishlistConfigQuery from './wishlistConfig.gql';
 import mergeOperations from '../../util/shallowMerge';
 
 const dialogs = {
@@ -20,15 +21,21 @@ const dialogs = {
  */
 export const useActionMenu = (props = {}) => {
     const { id } = props;
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const operations = mergeOperations(
+        DEFAULT_OPERATIONS,
+        getWishlistConfigQuery,
+        props.operations
+    );
     const { getCustomerWishlistQuery, updateWishlistMutation } = operations;
     const [currentDialog, setCurrentDialog] = useState(dialogs.NONE);
+    const [displayError, setDisplayError] = useState(false);
 
     const handleActionMenuClick = useCallback(() => {
         setCurrentDialog(dialogs.LIST_ACTIONS);
     }, []);
 
     const handleHideDialogs = useCallback(() => {
+        setDisplayError(false);
         setCurrentDialog(dialogs.NONE);
     }, []);
 
@@ -43,6 +50,26 @@ export const useActionMenu = (props = {}) => {
         updateWishlist,
         { error: updateWishlistErrors, loading: isEditInProgress }
     ] = useMutation(updateWishlistMutation);
+
+    const { data: storeConfigData } = useQuery(
+        operations.getWishlistConfigQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
+    );
+
+    const shouldRender = useMemo(() => {
+        let multipleWishlistEnabled = false;
+        try {
+            if (storeConfigData.storeConfig.enable_multiple_wishlists === '1') {
+                multipleWishlistEnabled = true;
+            }
+        } catch (e) {
+            return false;
+        }
+        return storeConfigData && multipleWishlistEnabled;
+    }, [storeConfigData]);
 
     const handleEditWishlist = useCallback(
         async data => {
@@ -63,6 +90,7 @@ export const useActionMenu = (props = {}) => {
                 });
                 setCurrentDialog(dialogs.NONE);
             } catch (error) {
+                setDisplayError(true);
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
                 }
@@ -71,15 +99,21 @@ export const useActionMenu = (props = {}) => {
         [getCustomerWishlistQuery, id, updateWishlist]
     );
 
+    const errors = useMemo(
+        () => (displayError ? [updateWishlistErrors] : [false]),
+        [updateWishlistErrors, displayError]
+    );
+
     return {
         editFavoritesListIsOpen,
-        formErrors: [updateWishlistErrors],
+        formErrors: errors,
         handleActionMenuClick,
         handleEditWishlist,
         handleHideDialogs,
         handleShowEditFavorites,
         isEditInProgress,
-        listActionsIsOpen
+        listActionsIsOpen,
+        shouldRender
     };
 };
 
