@@ -6,7 +6,7 @@ exports[`Should disable delete icon while loading 1`] = `
 >
   <div
     className="thumbnailContainer"
-    to="/product.html"
+    to="/product"
   >
     <div
       className="root container"
@@ -41,7 +41,7 @@ exports[`Should disable delete icon while loading 1`] = `
   </div>
   <div
     className="name"
-    to="/product.html"
+    to="/product"
   >
     P1
   </div>
@@ -152,7 +152,7 @@ exports[`Should render correctly 1`] = `
 >
   <div
     className="thumbnailContainer"
-    to="/product.html"
+    to="/product"
   >
     <div
       className="root container"
@@ -187,7 +187,7 @@ exports[`Should render correctly 1`] = `
   </div>
   <div
     className="name"
-    to="/product.html"
+    to="/product"
   >
     P1
   </div>
@@ -298,7 +298,7 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
 >
   <div
     className="thumbnailContainer"
-    to="/product.html"
+    to="/product"
   >
     <div
       className="root container"
@@ -333,7 +333,7 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
   </div>
   <div
     className="name"
-    to="/product.html"
+    to="/product"
   >
     P1
   </div>
@@ -444,7 +444,7 @@ exports[`Should render correctly with out of stock product 1`] = `
 >
   <div
     className="thumbnailContainer"
-    to="/product.html"
+    to="/product"
   >
     <div
       className="root container"
@@ -479,7 +479,7 @@ exports[`Should render correctly with out of stock product 1`] = `
   </div>
   <div
     className="name"
-    to="/product.html"
+    to="/product"
   >
     P1
   </div>

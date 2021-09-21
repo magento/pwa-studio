@@ -55,11 +55,12 @@ const ContentTypeFactory = ({ data }) => {
 
     const contentTypeConfig = getContentTypeConfig(props.contentType);
     if (contentTypeConfig && contentTypeConfig.component) {
-        return (
-            <Suspense fallback={''}>
-                {renderContentType(contentTypeConfig.component, props)}
-            </Suspense>
-        );
+        const Component = renderContentType(contentTypeConfig.component, props);
+        const ComponentShimmer = contentTypeConfig.componentShimmer
+            ? renderContentType(contentTypeConfig.componentShimmer, props)
+            : '';
+
+        return <Suspense fallback={ComponentShimmer}>{Component}</Suspense>;
     }
 
     return null;

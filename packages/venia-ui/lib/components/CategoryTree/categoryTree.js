@@ -15,7 +15,7 @@ const Tree = props => {
         updateCategories
     });
 
-    const { data, childCategories } = talonProps;
+    const { data, childCategories, categoryUrlSuffix } = talonProps;
     const classes = useStyle(defaultClasses, props.classes);
 
     // for each child category, render a direct link if it has no children
@@ -24,7 +24,12 @@ const Tree = props => {
         ? Array.from(childCategories, childCategory => {
               const [id, { category, isLeaf }] = childCategory;
               return isLeaf ? (
-                  <Leaf key={id} category={category} onNavigate={onNavigate} />
+                  <Leaf
+                      key={id}
+                      category={category}
+                      onNavigate={onNavigate}
+                      categoryUrlSuffix={categoryUrlSuffix}
+                  />
               ) : (
                   <Branch
                       key={id}
