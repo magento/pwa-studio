@@ -57,7 +57,6 @@ test('authModal is rendered when hasModal is true', () => {
     // Arrange.
     const myTalonProps = {
         ...talonProps,
-        isOpen: true,
         hasModal: true
     };
     useNavigation.mockReturnValueOnce(myTalonProps);
@@ -74,7 +73,6 @@ test('view is passed to NavHeader', () => {
     const expected = 'UNIT_TEST';
     const myTalonProps = {
         ...talonProps,
-        isOpen: true,
         view: expected
     };
     useNavigation.mockReturnValueOnce(myTalonProps);
