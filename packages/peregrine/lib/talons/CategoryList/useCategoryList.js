@@ -16,7 +16,7 @@ export const useCategoryList = props => {
     const { id } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCategoryListQuery, getStoreConfigQuery } = operations;
+    const { getCategoryListQuery, getStoreConfigData } = operations;
 
     const { loading, error, data } = useQuery(getCategoryListQuery, {
         fetchPolicy: 'cache-and-network',
@@ -27,7 +27,7 @@ export const useCategoryList = props => {
         }
     });
 
-    const { data: storeConfigData } = useQuery(getStoreConfigQuery, {
+    const { data: storeConfigData } = useQuery(getStoreConfigData, {
         fetchPolicy: 'cache-and-network'
     });
 
