@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { useStyle } from '../../classify';
 import Image from '../Image';
-import defaultClasses from './carousel.css';
+import defaultClasses from './carousel.module.css';
 import defaultShimmerClasses from './carousel.shimmer.module.css';
 
 const CarouselShimmer = props => {

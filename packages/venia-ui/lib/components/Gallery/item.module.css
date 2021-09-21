@@ -22,12 +22,12 @@
 }
 
 .imageLoaded {
-    composes: loaded from '../Image/image.css';
+    composes: loaded from '../Image/image.module.css';
     opacity: 1;
 }
 
 .imageNotLoaded {
-    composes: notLoaded from '../Image/image.css';
+    composes: notLoaded from '../Image/image.module.css';
     opacity: 0;
 }
 
