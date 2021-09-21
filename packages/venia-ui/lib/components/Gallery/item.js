@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
 import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
-import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
 import Image from '../Image';
+import GalleryItemShimmer from './item.shimmer';
 import defaultClasses from './item.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
@@ -25,23 +25,6 @@ const IMAGE_HEIGHT = 375;
 const IMAGE_WIDTHS = new Map()
     .set(640, IMAGE_WIDTH)
     .set(UNCONSTRAINED_SIZE_KEY, 840);
-
-const ItemPlaceholder = ({ classes }) => (
-    <div className={classes.root_pending}>
-        <div className={classes.images_pending}>
-            <Image
-                alt="Placeholder for gallery item image"
-                classes={{
-                    image: classes.image_pending,
-                    root: classes.imageContainer
-                }}
-                src={transparentPlaceholder}
-            />
-        </div>
-        <div className={classes.name_pending} />
-        <div className={classes.price_pending} />
-    </div>
-);
 
 const GalleryItem = props => {
     const {
@@ -58,7 +41,7 @@ const GalleryItem = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     if (!item) {
-        return <ItemPlaceholder classes={classes} />;
+        return <GalleryItemShimmer classes={classes} />;
     }
 
     const { name, price_range, small_image, url_key } = item;
@@ -84,7 +67,7 @@ const GalleryItem = props => {
     );
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} aria-live="polite" aria-busy="false">
             <Link
                 onClick={handleLinkClick}
                 to={productLink}
@@ -94,6 +77,8 @@ const GalleryItem = props => {
                     alt={name}
                     classes={{
                         image: classes.image,
+                        loaded: classes.imageLoaded,
+                        notLoaded: classes.imageNotLoaded,
                         root: classes.imageContainer
                     }}
                     height={IMAGE_HEIGHT}
@@ -129,17 +114,13 @@ const GalleryItem = props => {
 GalleryItem.propTypes = {
     classes: shape({
         image: string,
+        imageLoaded: string,
+        imageNotLoaded: string,
         imageContainer: string,
-        imagePlaceholder: string,
-        image_pending: string,
         images: string,
-        images_pending: string,
         name: string,
-        name_pending: string,
         price: string,
-        price_pending: string,
-        root: string,
-        root_pending: string
+        root: string
     }),
     item: shape({
         id: number.isRequired,

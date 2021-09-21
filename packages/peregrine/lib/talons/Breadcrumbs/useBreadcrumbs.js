@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
+import useInternalLink from '../../hooks/useInternalLink';
 
 import mergeOperations from '../../util/shallowMerge';
 
@@ -28,7 +29,8 @@ const getPath = (path, suffix) => {
  *   currentCategory: string,
  *   currentCategoryPath: string,
  *   isLoading: boolean,
- *   normalizedData: array
+ *   normalizedData: array,
+ *   handleClick: function
  * }}
  */
 export const useBreadcrumbs = props => {
@@ -74,6 +76,8 @@ export const useBreadcrumbs = props => {
         }
     }, [categoryUrlSuffix, data, loading]);
 
+    const { setShimmerType } = useInternalLink('category');
+
     return {
         currentCategory: (data && data.category.name) || '',
         currentCategoryPath:
@@ -81,6 +85,7 @@ export const useBreadcrumbs = props => {
             '#',
         isLoading: loading,
         hasError: !!error,
-        normalizedData: normalizedData || []
+        normalizedData: normalizedData || [],
+        handleClick: setShimmerType
     };
 };
