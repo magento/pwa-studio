@@ -11,7 +11,7 @@ test('products config aggregator retrieves skus', () => {
         })
     ).toEqual(
         expect.objectContaining({
-            skus: ['24-WB07', '24-WB03']
+            pathNames: ['https://pagebuilder.test/overnight-duffle.html', 'https://pagebuilder.test/driven-backpack.html']
         })
     );
 });
