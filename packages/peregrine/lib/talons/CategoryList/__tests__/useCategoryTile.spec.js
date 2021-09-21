@@ -19,12 +19,20 @@ const props = {
         },
         name: 'Tiki',
         url_key: 'tiki',
-        url_suffix: '.html',
         image: '/pub/media/1-large.png'
+    },
+    storeConfig: {
+        category_url_suffix: '.html'
     }
 };
 
 const log = jest.fn();
+
+jest.mock('../../../hooks/useInternalLink', () =>
+    jest.fn(() => ({
+        setShimmerType: jest.fn()
+    }))
+);
 
 const Component = props => {
     const talonProps = useCategoryTile(props);
@@ -39,7 +47,7 @@ test('returns the correct shape', () => {
 
     // Assert.
     const talonProps = log.mock.calls[0][0];
-    const expectedProperties = ['image', 'item'];
+    const expectedProperties = ['image', 'item', 'handleClick'];
     const actualProperties = Object.keys(talonProps);
     expect(actualProperties.sort()).toEqual(expectedProperties.sort());
 });

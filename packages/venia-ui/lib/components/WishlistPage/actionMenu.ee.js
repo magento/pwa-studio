@@ -16,8 +16,13 @@ const ActionMenu = props => {
         handleHideDialogs,
         handleShowEditFavorites,
         isEditInProgress,
-        listActionsIsOpen
+        listActionsIsOpen,
+        shouldRender
     } = talonProps;
+
+    if (!shouldRender) {
+        return null;
+    }
 
     return (
         <div>
