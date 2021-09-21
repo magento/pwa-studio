@@ -36,7 +36,7 @@ test('clicking calls click handler with item index', () => {
         </WindowSizeContextProvider>
     );
 
-    component.root.findByType('button').props.onClick();
+    component.root.findByType('span').props.onClick();
 
     expect(onClickHandler).toHaveBeenCalledWith(itemIndex);
 
@@ -72,5 +72,5 @@ test('renders root class if not the active Thumbnail', () => {
     );
 
     expect(component.toJSON()).toMatchSnapshot();
-    expect(component.root.findByType('button').props.className).toEqual('root');
+    expect(component.root.findByType('span').props.className).toEqual('root');
 });
