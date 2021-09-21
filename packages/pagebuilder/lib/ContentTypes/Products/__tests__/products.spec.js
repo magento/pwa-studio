@@ -32,8 +32,8 @@ const mockGallery = Gallery.mockImplementation(() => 'Gallery');
 const mockGalleryItem = GalleryItem.mockImplementation(() => 'GalleryItem');
 
 test('render products with no props & no products', () => {
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -47,11 +47,10 @@ test('render products with no props & no products', () => {
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
-
+        };
     });
 
     const component = createTestInstance(<Products />);
@@ -60,8 +59,8 @@ test('render products with no props & no products', () => {
 });
 
 test('render products with all props & no products', () => {
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -75,15 +74,17 @@ test('render products with all props & no products', () => {
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
-
+        };
     });
 
     const productsProps = {
-        pathNames: ['https://test.com/TEST-1.html', 'https://test.com/TEST-2.html'],
+        pathNames: [
+            'https://test.com/TEST-1.html',
+            'https://test.com/TEST-2.html'
+        ],
         textAlign: 'right',
         border: 'solid',
         borderColor: 'red',
@@ -106,8 +107,8 @@ test('render products with all props & no products', () => {
 });
 
 test('render products with loading state', () => {
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -121,11 +122,10 @@ test('render products with loading state', () => {
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
-
+        };
     });
 
     const component = createTestInstance(<Products />);
@@ -134,8 +134,8 @@ test('render products with loading state', () => {
 });
 
 test('render products with error state in production mode', () => {
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -149,11 +149,10 @@ test('render products with error state in production mode', () => {
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
-
+        };
     });
 
     const component = createTestInstance(<Products />);
@@ -162,8 +161,8 @@ test('render products with error state in production mode', () => {
 });
 
 test('render products with error state in development mode', () => {
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -177,11 +176,10 @@ test('render products with error state in development mode', () => {
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
-
+        };
     });
 
     const component = createTestInstance(<Products />);
@@ -191,9 +189,12 @@ test('render products with error state in development mode', () => {
 
 test('render products and ensure order is correct passed to Gallery', () => {
     const urlKeys = ['TEST-1', 'TEST-2'];
-    const pathNames = ['https://test.com/TEST-1.html', 'https://test.com/TEST-2.html'];
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    const pathNames = [
+        'https://test.com/TEST-1.html',
+        'https://test.com/TEST-2.html'
+    ];
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -216,10 +217,10 @@ test('render products and ensure order is correct passed to Gallery', () => {
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
+        };
     });
 
     const productProps = { pathNames };
@@ -246,8 +247,8 @@ test('render products and ensure order is correct passed to Gallery', () => {
 });
 
 test('render carousel with default props and verify Slick is called correctly', () => {
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -276,14 +277,17 @@ test('render carousel with default props and verify Slick is called correctly', 
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
+        };
     });
 
     const productProps = {
-        pathNames: ['https://test.com/TEST-1.html', 'https://test.com/TEST-2.html'],
+        pathNames: [
+            'https://test.com/TEST-1.html',
+            'https://test.com/TEST-2.html'
+        ],
         appearance: 'carousel',
         autoplay: false,
         autoplaySpeed: 4000,
@@ -347,8 +351,8 @@ test('render carousel with default props and verify Slick is called correctly', 
 });
 
 test('render carousel with continuous mode and verify Slick is called correctly', () => {
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -393,10 +397,10 @@ test('render carousel with continuous mode and verify Slick is called correctly'
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
+        };
     });
 
     const productProps = {
@@ -449,8 +453,8 @@ test('render carousel with continuous mode and verify Slick is called correctly'
 });
 
 test('render carousel with infinite loop and verify Slick is called correctly', () => {
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -495,10 +499,10 @@ test('render carousel with infinite loop and verify Slick is called correctly', 
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
+        };
     });
 
     const productProps = {
@@ -548,8 +552,8 @@ test('render carousel with infinite loop and verify Slick is called correctly', 
 });
 
 test('render carousel with continuous mode with 5 products and verify Slick is called correctly', () => {
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -589,10 +593,10 @@ test('render carousel with continuous mode with 5 products and verify Slick is c
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
+        };
     });
 
     const productProps = {
@@ -643,8 +647,8 @@ test('render carousel with continuous mode with 5 products and verify Slick is c
 });
 
 test('render carousel with continuous mode with 1 product and verify Slick is called correctly', () => {
-    useQuery.mockImplementation((arg) => {
-        if (arg.definitions["0"].name.value === "getProductsByUrlKey") {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
             return {
                 data: {
                     products: {
@@ -664,10 +668,10 @@ test('render carousel with continuous mode with 1 product and verify Slick is ca
         return {
             data: {
                 storeConfig: {
-                    product_url_suffix: ".html"
+                    product_url_suffix: '.html'
                 }
             }
-        }
+        };
     });
 
     const productProps = {

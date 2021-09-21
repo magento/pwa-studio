@@ -11,7 +11,10 @@ test('products config aggregator retrieves skus', () => {
         })
     ).toEqual(
         expect.objectContaining({
-            pathNames: ['https://pagebuilder.test/overnight-duffle.html', 'https://pagebuilder.test/driven-backpack.html']
+            pathNames: [
+                'https://pagebuilder.test/overnight-duffle.html',
+                'https://pagebuilder.test/driven-backpack.html'
+            ]
         })
     );
 });
