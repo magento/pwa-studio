@@ -263,7 +263,7 @@ test('render carousel with default props and verify Slick is called correctly', 
                     }
                 },
                 {
-                    breakpoint: 960, 
+                    breakpoint: 960,
                     settings: {
                         slidesToShow: 3,
                         slidesToScroll: 3
@@ -368,7 +368,6 @@ test('render carousel with continuous mode and verify Slick is called correctly'
                         slidesToShow: 4,
                         slidesToScroll: 4
                     }
-
                 }
             ]
         }),
