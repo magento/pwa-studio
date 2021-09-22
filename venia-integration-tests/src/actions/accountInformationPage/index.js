@@ -13,7 +13,6 @@ import {
  * Utility function to open Account Information Edit Modal
  */
 export const openAccountInformationEditModal = () => {
-    // click on Edit
     cy.get(accountInformationEditButton).click();
 };
 

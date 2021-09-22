@@ -6,10 +6,10 @@ import {
 
 /**
  * Utility function to assert Account Information Page
+ *
  * @param {String} headerText header text
  */
 export const assertAccountInformationHeading = headerText => {
-    // assert header text
     cy.get(accountInformationPageHeading).contains(headerText);
 };
 
@@ -17,15 +17,14 @@ export const assertAccountInformationHeading = headerText => {
  * Utility function to assert Account Information Edit Button exists
  */
 export const assertAccountInformationEditButton = () => {
-    // assert button exists
     cy.get(accountInformationEditButton).should('exist');
 };
 
 /**
  * Utility function to assert Account Information Edit Modal
- * @param {String} modalText modal text
+ *
+ * @param {String} modalTitle modal text
  */
-export const assertAccountInformationEditHeading = modalText => {
-    // assert modal text
-    cy.get(accountInformationEditModalTitle).contains(modalText);
+export const assertAccountInformationEditHeading = modalTitle => {
+    cy.get(accountInformationEditModalTitle).contains(modalTitle);
 };

@@ -2,6 +2,8 @@ import { forgotPasswordSuccess } from '../../fields/accountAccess';
 
 /**
  * Utility function to assert success of the Reset Password Form
+ *
+ * @param {String} accountEmail account email
  */
 export const assertResetPasswordSuccess = accountEmail => {
     cy.get(forgotPasswordSuccess).contains(
