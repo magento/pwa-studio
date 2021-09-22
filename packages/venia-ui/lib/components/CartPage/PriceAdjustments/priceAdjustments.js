@@ -6,11 +6,11 @@ import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator'
 import { useStyle } from '../../../classify';
 import { Accordion, Section } from '../../Accordion';
 import GiftCardSection from './giftCardSection';
-
+import GiftWrappingSection from './giftWrappingSection';
 import defaultClasses from './priceAdjustments.css';
 
 const CouponCode = React.lazy(() => import('./CouponCode'));
-const GiftOptions = React.lazy(() => import('./GiftOptions'));
+
 const ShippingMethods = React.lazy(() => import('./ShippingMethods'));
 
 /**
@@ -63,17 +63,7 @@ const PriceAdjustments = props => {
                     </Suspense>
                 </Section>
                 <GiftCardSection setIsCartUpdating={setIsCartUpdating} />
-                <Section
-                    id={'gift_options'}
-                    title={formatMessage({
-                        id: 'priceAdjustments.giftOptions',
-                        defaultMessage: 'See Gift Options'
-                    })}
-                >
-                    <Suspense fallback={<LoadingIndicator />}>
-                        <GiftOptions />
-                    </Suspense>
-                </Section>
+                <GiftWrappingSection />
             </Accordion>
         </div>
     );

@@ -34,17 +34,24 @@ const GiftOptions = props => {
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
 
-    return (
-        <Form {...optionsFormProps} className={classes.root}>
-            <div className={classes.option}>
-                <Checkbox
-                    {...giftReceiptProps}
-                    label={formatMessage({
-                        id: 'giftOptions.includeGiftReceipt',
-                        defaultMessage: 'Include gift receipt'
-                    })}
-                />
-            </div>
+    const { allow_gift_receipt, allow_printed_card } = props?.wrappingConfigData || {};
+
+    const includeGiftReceipt = allow_gift_receipt ? (
+        <div className={classes.option}>
+            <Checkbox
+                {...giftReceiptProps}
+                label={formatMessage({
+                    id: 'giftOptions.includeGiftReceipt',
+                    defaultMessage: 'Include gift receipt'
+                })}
+            />
+        </div>
+    ) : (
+        ''
+    );
+
+    const includePrintedCard = allow_printed_card ? (
+        <>
             <div className={classes.option}>
                 <Checkbox
                     {...printedCardProps}
@@ -65,6 +72,15 @@ const GiftOptions = props => {
                     />
                 </Relevant>
             </div>
+        </>
+    ) : (
+        ''
+    );
+
+    return (
+        <Form {...optionsFormProps} className={classes.root}>
+            {includeGiftReceipt}
+            {includePrintedCard}
         </Form>
     );
 };
