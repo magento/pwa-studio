@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-
 import { useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
 import defaultOperations from './savedPaymentsPage.gql';
 
 export const normalizeTokens = responseData => {
@@ -46,7 +44,6 @@ export const useSavedPaymentsPage = (props = {}) => {
             actions: { setPageLoading }
         }
     ] = useAppContext();
-    const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
 
     const { data: savedPaymentsData, loading } = useQuery(
@@ -57,13 +54,6 @@ export const useSavedPaymentsPage = (props = {}) => {
             skip: !isSignedIn
         }
     );
-
-    // If the user is no longer signed in, redirect to the home page.
-    useEffect(() => {
-        if (!isSignedIn) {
-            history.push('/');
-        }
-    }, [history, isSignedIn]);
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
