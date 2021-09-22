@@ -10,7 +10,7 @@ import {
  * @param {String} headerText header text
  */
 export const assertAccountInformationHeading = headerText => {
-    cy.get(accountInformationPageHeading).contains(headerText);
+    cy.get(accountInformationPageHeading).should('contain', headerText);
 };
 
 /**
@@ -26,5 +26,5 @@ export const assertAccountInformationEditButton = () => {
  * @param {String} modalTitle modal text
  */
 export const assertAccountInformationEditHeading = modalTitle => {
-    cy.get(accountInformationEditModalTitle).contains(modalTitle);
+    cy.get(accountInformationEditModalTitle).should('contain', modalTitle);
 };

@@ -10,7 +10,7 @@ import {
  * @param {String} myAccountPage respective my account page to navigate
  */
 export const goToMyAccount = (firstName, myAccountPage) => {
-    cy.get(myAccountMenuItemsField).contains(firstName);
+    cy.get(myAccountMenuItemsField).should('contain', firstName);
 
     // Toggle my account menu if not visible
     cy.get('body').then($body => {

@@ -28,7 +28,7 @@ export const assertAddressBookEmpty = () => {
  * @param {String} headerText header text
  */
 export const assertAddressBookHeading = headerText => {
-    cy.get(addressBookPageHeading).contains(headerText);
+    cy.get(addressBookPageHeading).should('contain', headerText);
 };
 
 /**
@@ -37,7 +37,7 @@ export const assertAddressBookHeading = headerText => {
  * @param {String} modalText modal text
  */
 export const assertAddressBookModalHeading = modalText => {
-    cy.get(addressBookModalTitle).contains(modalText);
+    cy.get(addressBookModalTitle).should('contain', modalText);
 };
 
 /**
@@ -80,15 +80,15 @@ export const assertAddressInAddressBook = ({
         ? `${firstName} ${middleName} ${lastName}`
         : `${firstName} ${lastName}`;
 
-    cy.get(addressCardContentContainer).contains(fullName);
-    cy.get(addressCardContentContainer).contains(street1);
-    cy.get(addressCardContentContainer).contains(street1);
+    cy.get(addressCardContentContainer).should('contain', fullName);
+    cy.get(addressCardContentContainer).should('contain', street1);
+    cy.get(addressCardContentContainer).should('contain', street1);
     if (street2) {
-        cy.get(addressCardContentContainer).contains(street2);
+        cy.get(addressCardContentContainer).should('contain', street2);
     }
-    cy.get(addressCardContentContainer).contains(city);
-    cy.get(addressCardContentContainer).contains(postCode);
-    cy.get(addressCardContentContainer).contains(telephone);
+    cy.get(addressCardContentContainer).should('contain', city);
+    cy.get(addressCardContentContainer).should('contain', postCode);
+    cy.get(addressCardContentContainer).should('contain', telephone);
 };
 
 /**

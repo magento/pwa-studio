@@ -1,4 +1,5 @@
 import { myAccountMenuItemsField } from '../../fields/myAccountMenu';
+import { signOut } from '../../fixtures/accountAccess';
 
 /**
  * Utility function to assert respective auth user exists
@@ -7,12 +8,12 @@ import { myAccountMenuItemsField } from '../../fields/myAccountMenu';
  */
 export const assertCreateAccount = firstName => {
     // assert auth user exists
-    cy.get(myAccountMenuItemsField).contains('Hi, ' + firstName);
+    cy.get(myAccountMenuItemsField).should('contain', `Hi, ${firstName}`);
 };
 
 /**
  * Utility function to assert user is signed out
  */
 export const assertSignedOut = () => {
-    cy.get(myAccountMenuItemsField).contains('Sign In');
+    cy.get(myAccountMenuItemsField).should('contain', signOut);
 };

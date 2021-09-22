@@ -1,4 +1,5 @@
 export const createAnAccount = 'Create an Account';
+export const signOut = 'Sign In';
 
 export const firstName = 'John';
 export const lastName = 'Doe';
