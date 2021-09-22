@@ -94,7 +94,7 @@ const Products = props => {
         }
     }, [storeConfigData]);
 
-    const urlKeys = [...pathNames].map(pathName => {
+    const urlKeys = pathNames.map(pathName => {
         const slug = pathName.split('/').pop();
         return productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
     });
