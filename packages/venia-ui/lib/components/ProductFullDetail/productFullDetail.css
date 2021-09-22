@@ -177,7 +177,7 @@
 .unavailableContainer {
     align-items: center;
     background-color: rgb(var(--venia-global-color-gray));
-    color: rgb(var(--venia-global-color-gray-darker));
+    color: rgb(var(--venia-global-color-gray-700));
     column-gap: 0.5rem;
     display: grid;
     font-style: italic;
