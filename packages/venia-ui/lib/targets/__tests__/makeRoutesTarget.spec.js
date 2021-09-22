@@ -74,7 +74,6 @@ test('Call prependJSX with the correct path patterns', async () => {
         expect.stringContaining('availableRoutes'),
         expect.stringContaining('/simple')
     );
-
     expect(mockPrependJSX).toHaveBeenNthCalledWith(
         2,
         'Switch',
@@ -86,7 +85,7 @@ test('Call prependJSX with the correct path patterns', async () => {
         `<Route exact path={["/one","/two"]}><${FAKE_ADDED_ROUTE}/></Route>`
     );
     expect(mockInsertAfterSource).toHaveBeenNthCalledWith(
-        2,
+        3,
         expect.stringContaining('availableRoutes'),
         expect.stringContaining(JSON.stringify(['/one', '/two']))
     );
