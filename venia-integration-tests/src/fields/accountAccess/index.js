@@ -1,13 +1,13 @@
 export const accountTriggerButton = 'button[class^="accountTrigger-trigger-"]';
 
 export const signInEmailTextField =
-    'form[class^="signIn-form-"] input[name="email"]';
+    'aside[class^="accountMenu-root"] form[class^="signIn-form-"] input[name="email"]';
 
 export const signInPasswordTextField =
-    'form[class^="signIn-form-"] input[name="password"]';
+    'aside[class^="accountMenu-root"] form[class^="signIn-form-"] input[name="password"]';
 
 export const signInSubmitButton =
-    'form[class^="signIn-form-"] [class^="button-root_highPriority-"]';
+    'aside[class^="accountMenu-root"] form[class^="signIn-form-"] [class^="button-root_highPriority-"]';
 
 export const signOutLink = 'button[class^="accountMenuItems-signOut-"]';
 

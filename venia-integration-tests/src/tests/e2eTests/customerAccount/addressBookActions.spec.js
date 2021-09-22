@@ -80,6 +80,9 @@ describe('verify customer account address book actions', () => {
 
         assertCreateAccount(firstName);
 
+        // Close menu
+        cy.toggleLoginDialog();
+
         // Test - Add New Default Address
         goToMyAccount(firstName, addressBookPage);
 
