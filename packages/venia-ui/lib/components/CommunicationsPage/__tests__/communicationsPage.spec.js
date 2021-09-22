@@ -16,8 +16,7 @@ const emptyFormProps = {
     formErrors: [],
     handleSubmit,
     initialValues: { isSubscribed: true },
-    isDisabled: false,
-    isSignedIn: true
+    isDisabled: false
 };
 
 jest.mock('@magento/peregrine', () => {
@@ -43,19 +42,9 @@ beforeAll(() => {
     jest.spyOn(Math, 'random').mockReturnValue(0);
 });
 
-test('redirects when not authenticated', () => {
-    useCommunicationsPage.mockReturnValue({
-        isSignedIn: false
-    });
-
-    const tree = createTestInstance(<CommunicationsPage />);
-    expect(tree.toJSON()).toMatchSnapshot();
-});
-
 test('renders a loading indicator', () => {
     useCommunicationsPage.mockReturnValueOnce({
-        initialValues: null,
-        isSignedIn: true
+        initialValues: null
     });
 
     const { root } = createTestInstance(<CommunicationsPage />);
@@ -90,8 +79,7 @@ describe('renders prefilled form with data', () => {
             formErrors: [],
             handleSubmit,
             initialValues,
-            isDisabled: false,
-            isSignedIn: true
+            isDisabled: false
         });
 
         const tree = createTestInstance(<CommunicationsPage />);
@@ -103,8 +91,7 @@ describe('renders prefilled form with data', () => {
             formErrors: [],
             handleSubmit,
             initialValues,
-            isDisabled: true,
-            isSignedIn: true
+            isDisabled: true
         });
 
         const tree = createTestInstance(<CommunicationsPage />);

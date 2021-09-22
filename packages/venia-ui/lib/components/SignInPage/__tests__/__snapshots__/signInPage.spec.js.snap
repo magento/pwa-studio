@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#SignInPage renders correctly 1`] = `
+<div>
+  Title
+  <h1>
+    <mock-FormattedMessage
+      defaultMessage="Sign In or Create Account"
+      id="signInPage.header"
+    />
+  </h1>
+  <div>
+    <mock-SignIn />
+  </div>
+</div>
+`;

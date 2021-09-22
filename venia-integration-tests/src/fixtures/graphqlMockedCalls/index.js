@@ -11,6 +11,9 @@ export const getNewCustomerWishlistCall =
 export const getMultipleWishlistConfigCall =
     '**/graphql?query=query+getMultipleWishlistsEnabled*';
 
+export const getStoreConfigDataForGalleryEECall =
+    '**/graphql?query=query+GetStoreConfigDataForGalleryEE*';
+
 export const getWishlistDialogDataCall =
     '**/graphql?query=query+getWishlistsDialogData*';
 
@@ -22,3 +25,6 @@ export const getWishlistConfigForGalleryCall =
 
 export const getWishlistConfigForProductPageCall =
     '**/graphql?query=query+GetWishlistConfigForProductEE*';
+
+export const getWishlistConfigForWishlistPageCall =
+    '**/graphql?query=query+GetWishlistConfigForWishlistPageEE*';
