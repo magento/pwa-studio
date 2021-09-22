@@ -25,7 +25,6 @@ const Button = props => {
         priority,
         negative,
         disabled,
-        ariaLabel,
         onPress,
         ...restProps
     } = props;
@@ -34,10 +33,9 @@ const Button = props => {
 
     const { buttonProps } = useButton(
         {
-            ...props,
             isDisabled: disabled,
-            'aria-label': ariaLabel,
-            onPress
+            onPress,
+            ...restProps
         },
         buttonRef
     );

@@ -55,7 +55,7 @@ const AddToCartButton = props => {
 
     return (
         <Button
-            ariaLabel={buttonAriaLabel}
+            aria-label={buttonAriaLabel}
             className={classes.root}
             disabled={isDisabled}
             onPress={handleAddToCart}
