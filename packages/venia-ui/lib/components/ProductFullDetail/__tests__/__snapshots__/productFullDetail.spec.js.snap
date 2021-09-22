@@ -1797,121 +1797,6 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
     <button
       className="root_highPriority"
       disabled={true}
-      type="submit"
-    >
-      <span
-        className="content"
-      >
-        <mock-FormattedMessage
-          defaultMessage="Out of Stock"
-          id="productFullDetail.itemOutOfStock"
-        />
-      </span>
-    </button>
-    <require('../Wishlist/AddToListButton') />
-  </section>
-  <section
-    className="description"
-  >
-    <h2
-      className="descriptionTitle"
-    >
-      <mock-FormattedMessage
-        defaultMessage="Product Description"
-        id="productFullDetail.productDescription"
-      />
-    </h2>
-    <RichContent
-      html="Powers the Delorean"
-    />
-  </section>
-  <section
-    className="details"
-  >
-    <h2
-      className="detailsTitle"
-    >
-      <mock-FormattedMessage
-        defaultMessage="SKU"
-        id="global.sku"
-      />
-    </h2>
-    <strong>
-      BTTF123
-    </strong>
-  </section>
-</form>
-`;
-
-exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
-<form
-  className="root"
-  onKeyDown={[Function]}
-  onReset={[Function]}
-  onSubmit={[Function]}
->
-  <section
-    className="title"
-  >
-    <h1
-      className="productName"
-    >
-      Flux Capacitor
-    </h1>
-    <p
-      className="productPrice"
-    >
-      <span>
-        $
-      </span>
-      <span>
-        3
-      </span>
-      <span>
-        .
-      </span>
-      <span>
-        50
-      </span>
-    </p>
-  </section>
-  <section
-    className="imageCarousel"
-  >
-    <ProductImageCarousel
-      images={Array []}
-    />
-  </section>
-  <FormError
-    classes={
-      Object {
-        "root": "formErrors",
-      }
-    }
-    errors={Array []}
-  />
-  <section
-    className="options"
-  />
-  <section
-    className="quantity"
-  >
-    <h2
-      className="quantityTitle"
-    >
-      <mock-FormattedMessage
-        defaultMessage="Quantity"
-        id="global.quantity"
-      />
-    </h2>
-    QuantityFields
-  </section>
-  <section
-    className="actions"
-  >
-    <button
-      className="root_highPriority"
-      disabled={true}
       onClick={[Function]}
       onDragStart={[Function]}
       onKeyDown={[Function]}
@@ -1948,8 +1833,8 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
         id="productFullDetail.productDescription"
       />
     </h2>
-    <RichText
-      content="Powers the Delorean"
+    <RichContent
+      html="Powers the Delorean"
     />
   </section>
   <section
