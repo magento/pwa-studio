@@ -36,5 +36,5 @@ export const GET_CATEGORY_LIST = gql`
 
 export default {
     getCategoryListQuery: GET_CATEGORY_LIST,
-    getStoreConfig: GET_STORE_CONFIG_DATA
+    getStoreConfigQuery: GET_STORE_CONFIG_DATA
 };
