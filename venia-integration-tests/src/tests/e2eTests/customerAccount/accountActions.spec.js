@@ -79,9 +79,6 @@ describe('verify customer account actions', () => {
 
         assertCreateAccount(firstName);
 
-        // Close menu
-        cy.toggleLoginDialog();
-
         // Test - Edit Account Information
         goToMyAccount(firstName, accountInformationPage);
 
