@@ -46,7 +46,7 @@ export const useCreateAccount = props => {
         { createCart, removeCart, getCartDetails }
     ] = useCartContext();
     const [
-        { isGettingDetails, isSignedIn },
+        { isGettingDetails },
         { getUserDetails, setToken }
     ] = useUserContext();
 
@@ -178,8 +178,7 @@ export const useCreateAccount = props => {
         handleCancel,
         handleSubmit,
         initialValues: sanitizedInitialValues,
-        isDisabled: isSubmitting || isGettingDetails,
-        isSignedIn
+        isDisabled: isSubmitting || isGettingDetails
     };
 };
 
@@ -240,5 +239,4 @@ export const useCreateAccount = props => {
  * @property {Function} handleSubmit callback function to handle form submission
  * @property {SanitizedInitialValues} initialValues initial values for the create account form
  * @property {Boolean} isDisabled true if either details are being fetched or form is being submitted. False otherwise.
- * @property {Boolean} isSignedIn true if user is signed in. False otherwise.
  */
