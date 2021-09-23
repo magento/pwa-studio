@@ -7,11 +7,15 @@ import { gql } from '@apollo/client';
  */
 const GET_GIFT_OPTIONS = gql`
     query getGiftOptions($cartId: String!) {
-        cart(cart_id: $cartId) @client {
+        cart(cart_id: $cartId) {
             id
-            include_gift_receipt
-            include_printed_card
-            local_gift_message
+            gift_message {
+                from
+                to
+                message
+            }
+            gift_receipt_included
+            printed_card_included
         }
     }
 `;

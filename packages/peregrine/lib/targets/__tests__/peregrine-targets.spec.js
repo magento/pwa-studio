@@ -104,6 +104,7 @@ test('exposes all hooks and targets', async () => {
           talons.CartPage.PriceAdjustments.ShippingMethods.useShippingMethods.wrapWith() wraps export "useShippingMethods" from "CartPage/PriceAdjustments/ShippingMethods/useShippingMethods.js"
           talons.CartPage.PriceAdjustments.ShippingMethods.useShippingRadios.wrapWith() wraps export "useShippingRadios" from "CartPage/PriceAdjustments/ShippingMethods/useShippingRadios.js"
           talons.CartPage.PriceAdjustments.useCouponCode.wrapWith() wraps export "useCouponCode" from "CartPage/PriceAdjustments/useCouponCode.js"
+          talons.CartPage.PriceAdjustments.useGiftWrappingSection.wrapWith() wraps export "useGiftWrappingSection" from "CartPage/PriceAdjustments/useGiftWrappingSection.js"
           talons.CartPage.PriceSummary.usePriceSummary.wrapWith() wraps export "usePriceSummary" from "CartPage/PriceSummary/usePriceSummary.js"
           talons.CartPage.ProductListing.EditModal.useEditModal.wrapWith() wraps export "useEditModal" from "CartPage/ProductListing/EditModal/useEditModal.js"
           talons.CartPage.ProductListing.EditModal.useProductForm.wrapWith() wraps export "useProductForm" from "CartPage/ProductListing/EditModal/useProductForm.js"

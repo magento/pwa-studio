@@ -20,12 +20,20 @@ export const useGiftWrappingSection = (props = {}) => {
     });
 
     const storeConfig = data?.storeConfig;
-    const { allow_gift_receipt, allow_printed_card } = storeConfig;
+    const {
+        allow_gift_receipt,
+        allow_printed_card,
+        allow_gift_wrapping_on_order
+    } = storeConfig;
+    const isVisiable =
+        allow_gift_wrapping_on_order === '1' ||
+        allow_gift_receipt === '1' ||
+        allow_printed_card === '1';
 
     return {
         wrappingConfigData: storeConfig,
         isLoading: loading,
-        isVisiable: allow_gift_receipt || allow_printed_card
+        isVisiable
     };
 };
 
