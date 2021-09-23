@@ -74,9 +74,7 @@ const Slider = props => {
         infinite,
         autoplay,
         autoplaySpeed,
-        fade,
-        variableHeight: true,
-        variableWidth: true
+        fade
     };
 
     // Override classes on banner to ensure min height is respected
