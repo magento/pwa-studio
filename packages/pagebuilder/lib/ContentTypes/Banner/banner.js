@@ -41,7 +41,7 @@ const Banner = props => {
         backgroundSize,
         backgroundPosition,
         backgroundAttachment,
-        backgroundRepeat,
+        backgroundRepeat = 'repeat',
         textAlign,
         border,
         borderColor,
@@ -160,9 +160,7 @@ const Banner = props => {
         wrapperStyles.backgroundSize = backgroundSize;
         wrapperStyles.backgroundPosition = backgroundPosition;
         wrapperStyles.backgroundAttachment = backgroundAttachment;
-        wrapperStyles.backgroundRepeat = backgroundRepeat
-            ? 'repeat'
-            : 'no-repeat';
+        wrapperStyles.backgroundRepeat = backgroundRepeat;
     }
 
     const setBgImage = useCallback(() => {
@@ -351,7 +349,7 @@ const Banner = props => {
  * @property {String} backgroundSize CSS background-size property
  * @property {String} backgroundPosition CSS background-position property
  * @property {String} backgroundAttachment CSS background-attachment property
- * @property {Boolean} backgroundRepeat CSS background-repeat property
+ * @property {String} backgroundRepeat CSS background-repeat property
  * @property {String} content The HTML content to be rendered inside the banner content area
  * @property {String} link The link location for the banner
  * @property {String} linkType The type of link included with the banner. Values: default, product, category, page
@@ -416,7 +414,7 @@ Banner.propTypes = {
     backgroundSize: string,
     backgroundPosition: string,
     backgroundAttachment: string,
-    backgroundRepeat: bool,
+    backgroundRepeat: string,
     content: string,
     link: string,
     linkType: oneOf(['default', 'product', 'category', 'page']),

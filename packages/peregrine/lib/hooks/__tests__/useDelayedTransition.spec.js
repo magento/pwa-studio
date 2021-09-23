@@ -272,7 +272,7 @@ describe('#useDelayedTransition handleRouteChangeConfirmation', () => {
     test('should get root component', async () => {
         givenQueryResult({
             data: {
-                urlResolver: {
+                route: {
                     type: 'BAR_PAGE',
                     id: 'BAR123'
                 }

@@ -4,9 +4,11 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
 
 import { availableRoutes } from '@magento/venia-ui/lib/components/Routes/routes';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useRootComponents } from '@magento/peregrine/lib/context/rootComponents';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+
+import { useAppContext } from '../context/app';
+import { useRootComponents } from '../context/rootComponents';
+import mergeOperations from '../util/shallowMerge';
+import { getComponentData } from '../util/magentoRouteData';
 import DEFAULT_OPERATIONS from '../talons/MagentoRoute/magentoRoute.gql';
 import { getRootComponent } from '../talons/MagentoRoute/helpers';
 
@@ -99,15 +101,15 @@ const useDelayedTransition = () => {
             });
 
             const { data } = queryResult;
-            const { urlResolver } = data || {};
-            const { id, type } = urlResolver || {};
+            const { route } = data || {};
+            const { type, ...routeData } = route || {};
 
             if (type) {
                 const rootComponent = await getRootComponent(type);
                 setComponentMap(prevMap =>
                     new Map(prevMap).set(currentPathname, {
                         component: rootComponent,
-                        id,
+                        ...getComponentData(routeData),
                         type
                     })
                 );

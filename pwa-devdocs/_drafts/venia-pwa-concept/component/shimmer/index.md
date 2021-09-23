@@ -5,13 +5,14 @@ while maintaining or reducing the CLS (Content Layout Shift) on page load
 
 ## General Use
 ### Props
-* **classes** - `Object` Styles to apply to the `root` or the `content` of the Shimmer
+* **classes** - `Object` Styles to apply to the `root` of the Shimmer. Available classes are `root` and `root_[TYPE]`.
 * **borderRadius** - `string|number` Border radius of component
 * **height** - `string|number` Height to apply to component. **Number is used as `rem`**. String value is used directly.
 * **width** - `string|number` Width to apply to component. **Number is used as `rem`**. String value is used directly.
 * **style** - `Object` CSS styles to apply to component
 * **type** - `'rectangle'|'button'|'checkbox'|'radio'|'textArea'|'textInput'` Base style-category to apply to component
 * **children** - `node` Children to output within the Shimmer. Useful for Image placeholders
+Other props are passed to the root element
 
 ### Accessibility
 To maintain accessibility for screen readers, we can pass `aria-live="polite" aria-busy="true"` to the Shimmer component (or an
@@ -75,6 +76,7 @@ export default () => {
 **../path/to/SubComponent/index.js**
 ```jsx
 export { default } from './subComponent.js';
+
 // Export named shimmer component
 export { default as SubComponentShimmer } from './subComponent.shimmer.js';
 ```
@@ -141,4 +143,29 @@ SubComponentShimmer.propTypes = {
 }
 
 export default SubComponentShimmer;
+```
+
+### Adjusting existing Shimmers
+Since shimmers reflect the layout of their parent component, any changes to the main component should also be applied to
+the shimmer component. In this example, we'll add a custom attribute shimmer to the detail section of the product page.
+
+**local-intercept.js**
+```jsx
+const { Targetables } = require('@magento/pwa-buildpack');
+const targetables = Targetables.using(targets);
+const productShimmerComponent = targetables.reactComponent(
+    '@magento/venia-ui/lib/RootComponents/Product/product.shimmer'
+);
+
+/**
+ * To follow best-practices we would create a shimmer file for our new attribute, and import it into the
+ * productShimmerComponent. For simplicity's sake, we'll inline the jsx here.
+ */
+productShimmerComponent.appendJSX(
+    'section className={classes.details}'
+    `<div className={classes.detailsTitle}>
+          <Shimmer width="100%" height={1} />
+     </div>
+     <Shimmer width="100%" height={1} />`
+);
 ```
