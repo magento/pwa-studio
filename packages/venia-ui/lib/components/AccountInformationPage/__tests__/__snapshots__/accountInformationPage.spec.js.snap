@@ -1,11 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`redirects when not authenticated 1`] = `
-<mock-Redirect
-  to="/"
-/>
-`;
-
 exports[`renders form error 1`] = `
 <div
   className="root"
