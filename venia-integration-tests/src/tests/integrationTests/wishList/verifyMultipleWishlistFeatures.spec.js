@@ -49,11 +49,13 @@ const { assertProductSelectIndicator } = productPageAssertions;
 const {
     getCustomerWishlistCall,
     getMultipleWishlistConfigCall,
+    getStoreConfigDataForGalleryEECall,
     getWishlistDialogDataCall,
     getWishlistitemsForLocalFieldsCall,
     hitGraphqlPath,
     getWishlistConfigForGalleryCall,
     getWishlistConfigForProductPageCall,
+    getWishlistConfigForWishlistPageCall,
     getNewCustomerWishlistCall
 } = graphqlMockedCallsFixtures;
 
@@ -67,7 +69,7 @@ describe('verify single wishlist basic features', () => {
 
         //Create an user account
         cy.visitPage(homePage);
-        cy.openLoginDialog();
+        cy.toggleLoginDialog();
         cy.createAccount(
             accountAccessFixtures.firstName,
             lastName,
@@ -92,6 +94,9 @@ describe('verify single wishlist basic features', () => {
         cy.intercept('GET', getMultipleWishlistConfigCall, {
             fixture: 'wishlist/multipleWishlist/multipleWishlistEnabled.json'
         }).as('getWishlistConfig');
+        cy.intercept('GET', getWishlistConfigForWishlistPageCall, {
+            fixture: 'wishlist/multipleWishlist/wishlistPageConfig.json'
+        }).as('getWishlistPageConfig');
         cy.visitPage(wishlistRoute);
         cy.wait(['@getCustomerWishlist']).its('response.body');
         cy.wait(['@getWishlistConfig']).its('response.body');
@@ -132,6 +137,10 @@ describe('verify single wishlist basic features', () => {
             fixture:
                 'wishlist/multipleWishlist/categoryPageGetWishlistConfigForGallery.json'
         }).as('getGalleryWishlist');
+        cy.intercept('GET', getStoreConfigDataForGalleryEECall, {
+            fixture:
+                'wishlist/multipleWishlist/categoryPageGalleryWishlistConfig.json'
+        }).as('getGalleryWishlistConfig');
         cy.intercept('GET', getWishlistDialogDataCall, {
             fixture:
                 'wishlist/multipleWishlist/categoryPageGetWishlistDialogData.json'
