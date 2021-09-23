@@ -2,9 +2,29 @@
 
 exports[`renders correctly 1`] = `
 <ul>
-  <li />
-  <li />
-  <li />
-  <li />
+  <li>
+    <SuggestedCategory
+      label="A"
+      value="foo"
+    />
+  </li>
+  <li>
+    <SuggestedCategory
+      label="B"
+      value="foo"
+    />
+  </li>
+  <li>
+    <SuggestedCategory
+      label="C"
+      value="foo"
+    />
+  </li>
+  <li>
+    <SuggestedCategory
+      label="D"
+      value="foo"
+    />
+  </li>
 </ul>
 `;

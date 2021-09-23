@@ -11,7 +11,7 @@ import Price from '../Price';
 import Options from '../ProductOptions';
 import defaultClasses from './addToCartDialog.css';
 import FormError from '../FormError';
-import PageLoadingIndicator from '../PageLoadingIndicator';
+import { Spinner } from '../LoadingIndicator';
 
 const AddToCartDialog = props => {
     const { item } = props;
@@ -88,7 +88,7 @@ const AddToCartDialog = props => {
 
     const titleElement = isFetchingProductDetail ? (
         <div className={classes.titleContainer}>
-            <PageLoadingIndicator />
+            <Spinner />
         </div>
     ) : null;
 

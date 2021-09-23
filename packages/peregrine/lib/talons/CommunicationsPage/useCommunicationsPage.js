@@ -55,7 +55,6 @@ export const useCommunicationsPage = props => {
         formErrors: [setNewsletterSubscriptionError, subscriptionDataError],
         initialValues,
         handleSubmit,
-        isDisabled: isSubmitting,
-        isSignedIn
+        isDisabled: isSubmitting
     };
 };

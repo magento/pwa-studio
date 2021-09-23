@@ -3,13 +3,17 @@
         "name": "AccountInformationPage",
         "pattern": "/account-information",
         "exact": true,
-        "path": "../AccountInformationPage"
+        "path": "../AccountInformationPage",
+        "authed": true,
+        "redirectTo": "/sign-in"
     },
     {
         "name": "AddressBook",
         "pattern": "/address-book",
         "exact": true,
-        "path": "../AddressBookPage"
+        "path": "../AddressBookPage",
+        "authed": true,
+        "redirectTo": "/sign-in"
     },
     {
         "name": "Cart",
@@ -27,7 +31,9 @@
         "name": "CommunicationsPage",
         "pattern": "/communications",
         "exact": true,
-        "path": "../CommunicationsPage"
+        "path": "../CommunicationsPage",
+        "authed": true,
+        "redirectTo": "/sign-in"
     },
     {
         "name": "CreateAccountPage",
@@ -36,10 +42,18 @@
         "path": "../CreateAccountPage"
     },
     {
+        "name": "ForgotPasswordPage",
+        "pattern": "/forgot-password",
+        "exact": true,
+        "path": "../ForgotPasswordPage"
+    },
+    {
         "name": "OrderHistory",
         "pattern": "/order-history",
         "exact": true,
-        "path": "../OrderHistoryPage"
+        "path": "../OrderHistoryPage",
+        "authed": true,
+        "redirectTo": "/sign-in"
     },
     {
         "name": "Reset Password",
@@ -51,7 +65,9 @@
         "name": "SavedPayments",
         "pattern": "/saved-payments",
         "exact": true,
-        "path": "../SavedPaymentsPage"
+        "path": "../SavedPaymentsPage",
+        "authed": true,
+        "redirectTo": "/sign-in"
     },
     {
         "name": "Search",
@@ -60,9 +76,17 @@
         "path": "../../RootComponents/Search"
     },
     {
+        "name": "SignInPage",
+        "pattern": "/sign-in",
+        "exact": true,
+        "path": "../SignInPage"
+    },
+    {
         "name": "WishlistPage",
         "pattern": "/wishlist",
         "exact": true,
-        "path": "../WishlistPage"
+        "path": "../WishlistPage",
+        "authed": true,
+        "redirectTo": "/sign-in"
     }
 ]

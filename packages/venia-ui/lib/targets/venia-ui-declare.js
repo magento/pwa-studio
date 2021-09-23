@@ -155,7 +155,9 @@ module.exports = targets => {
 
         categoryListProductAttributes: new targets.types.Sync([
             'categoryListProductAttributes'
-        ])
+        ]),
+
+        rootShimmerTypes: new targets.types.Sync(['rootShimmerTypes'])
     });
 };
 
@@ -209,8 +211,13 @@ module.exports = targets => {
  * Intercept function signature for the `routes` target.
  *
  * Interceptors of `routes` receive an array of {@link RouteDefinition}
- * objects, which Venia will use to generate React Router `<Route />` in the
- * final bundle.
+ * objects, which Venia will use to either generate a custom `<AuthRoute />`
+ * component or a React Router `<Route />` component in the final bundle based
+ * on the `authed` prop.
+ *
+ * The AuthRoute will either return a React Router `<Route />` component or a
+ * `<Redirect />` component depending if the user is signed in and if the route
+ * needs authentication or not.
  *
  * Interceptors **must** return an array of RouteDefinitions, either by
  * mutating and then returning the array they received, or by returning a new
@@ -243,6 +250,11 @@ module.exports = targets => {
  *   `path` prop for the `<Route/>` component.
  * @property {boolean} [exact] Tells the router whether it should match the route
  *   exactly or not. This property is optional.
+ * @property {boolean} [authed] Uses the custom AuthRoute component if the user
+ *   needs to be signed in to access the route. This property is optional.
+ * @property {string} [redirectTo] Url will be the redirection url when user are
+ *   not signed in and are trying to access an authed route.
+ *   This property is optional. Default is "/".
  *
  * @example <caption>A custom route with a URL parameter</caption>
  * const myCustomRoute = {
@@ -335,6 +347,34 @@ module.exports = targets => {
  * @example <caption>A custom payment method</caption>
  * const myCustomPayment = {
  *      paymentCode: 'cc',
+ *      importPath: '@partner/module/path_to_your_component'
+ * }
+ */
+
+/** Type definition related to: rootShimmerTypes */
+
+/**
+ * Intercept function signature for the `rootShimmerTypes` target.
+ *
+ * Interceptors of `rootShimmerTypes` should call `.add` on the provided [shimmer list]{@link #RootShimmerTypesDefinition}.
+ *
+ * @callback rootShimmerInterceptFunction
+ *
+ * @param {RootShimmerTypesDefinition} shimmers so far in the build.
+ *
+ */
+
+/**
+ * A root component shimmer object that can be used during page transitions on your storefront
+ *
+ * @typedef {Object} RootShimmerTypesDefinition
+ * @property {string} shimmerType is use to map your page type to the component
+ * @property {string} importPath Resolvable path to the component the
+ *   Shimmer component will render
+ *
+ * @example <caption>A CMS Page Shimmer</caption>
+ * const cmsShimmer = {
+ *      shimmerType: 'CMS_PAGE_SHIMMER',
  *      importPath: '@partner/module/path_to_your_component'
  * }
  */
