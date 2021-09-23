@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
@@ -37,8 +36,6 @@ export const useAddressBookPage = (props = {}) => {
         }
     ] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
-
-    const history = useHistory();
 
     const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
@@ -84,13 +81,6 @@ export const useAddressBookPage = (props = {}) => {
     // Could be replaced by a "reset mutation" function from apollo client.
     // https://github.com/apollographql/apollo-feature-requests/issues/170
     const [displayError, setDisplayError] = useState(false);
-
-    // If the user is no longer signed in, redirect to the home page.
-    useEffect(() => {
-        if (!isSignedIn) {
-            history.push('/');
-        }
-    }, [history, isSignedIn]);
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
