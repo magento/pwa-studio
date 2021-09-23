@@ -1,9 +1,8 @@
-import { useEffect, useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { useUserContext } from '../../context/user';
-import mergeOperations from '../../util/shallowMerge';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import defaultOperations from './wishlistPage.gql';
 
@@ -16,7 +15,6 @@ export const useWishlistPage = (props = {}) => {
     const operations = mergeOperations(defaultOperations, props.operations);
     const { getCustomerWishlistQuery } = operations;
 
-    const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
 
     const { data, error, loading } = useQuery(getCustomerWishlistQuery, {
@@ -32,12 +30,6 @@ export const useWishlistPage = (props = {}) => {
     const errors = useMemo(() => {
         return new Map([['getCustomerWishlistQuery', error]]);
     }, [error]);
-
-    useEffect(() => {
-        if (!isSignedIn) {
-            history.push('/');
-        }
-    }, [history, isSignedIn]);
 
     return {
         errors,
