@@ -13,10 +13,7 @@ const Carousel = props => {
             <GalleryItem key={index} item={item} storeConfig={storeConfig} />
         );
     });
-    if (settings) {
-        settings.variableHeight = true;
-        settings.variableWidth = true;
-    }
+
     return <SlickSlider {...settings}>{galleryItems}</SlickSlider>;
 };
 
