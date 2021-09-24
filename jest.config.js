@@ -341,29 +341,4 @@ const jestConfig = {
     ]
 };
 
-if (process.env.npm_lifecycle_event === 'test:ci') {
-    // Extract test filename from full path, for use in JUnit report attributes.
-    const testPathRE = /(^\/packages\/[^\/]+\/|\.spec|\/__tests?__)/g;
-    const testPathToFilePath = filepath => filepath.replace(testPathRE, '');
-
-    // Add JUnit reporter for use in CI.
-    jestConfig.reporters = [
-        'default',
-        [
-            'jest-junit',
-            {
-                suiteName: 'Jest unit and functional tests',
-                output: './test-results/jest/results.xml',
-                suiteNameTemplate: ({ displayName, filepath }) =>
-                    `${displayName}: ${testPathToFilePath(
-                        testPathToFilePath(filepath)
-                    )}`,
-                classNameTemplate: ({ classname, title }) =>
-                    classname !== title ? classname : '',
-                titleTemplate: '{title}'
-            }
-        ]
-    ];
-}
-
 module.exports = jestConfig;

@@ -21,3 +21,7 @@ docker/certs
 
 ## May temporarily create tarballs during scaffolding debug
 packages/**/*.tgz
+
+## May be copied during CI runs
+.bin
+dangerfile.js
