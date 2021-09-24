@@ -23,7 +23,7 @@ const PaymentMethods = props => {
 
     const classes = useStyle(defaultClasses, propClasses);
 
-    const talonProps = usePaymentMethods();
+    const talonProps = usePaymentMethods({});
 
     const {
         availablePaymentMethods,
