@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { CheckoutPageFragment } from '../CheckoutPage/checkoutPageFragments.gql';
 
 export const CREATE_ACCOUNT = gql`
     mutation CreateAccount(
@@ -112,8 +113,10 @@ export const MERGE_CARTS = gql`
             items {
                 id
             }
+            ...CheckoutPageFragment
         }
     }
+    ${CheckoutPageFragment}
 `;
 
 export default {
