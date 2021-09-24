@@ -25,6 +25,7 @@
 
 .arrowDown {
     padding-left: 0.5rem;
+    line-height: 0;
 }
 
 .megaMenuItem:hover .megaMenuLink,
