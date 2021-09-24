@@ -14,7 +14,16 @@ jest.mock('@apollo/client', () => {
                 error: false,
                 loading: false
             }
-        ])
+        ]),
+        useQuery: jest.fn().mockReturnValue({
+            data: {
+                storeConfig: {
+                    id: '1',
+                    magento_wishlist_general_is_enabled: '1',
+                    enable_multiple_wishlists: '1'
+                }
+            }
+        })
     };
 });
 
@@ -127,7 +136,7 @@ describe('it handles editing a wishlist', () => {
         const editWishlist = jest.fn(() => {
             throw error;
         });
-        useMutation.mockReturnValueOnce([
+        useMutation.mockReturnValue([
             editWishlist,
             {
                 called: true,
@@ -139,6 +148,15 @@ describe('it handles editing a wishlist', () => {
         const tree = createTestInstance(<Component {...baseProps} />);
 
         const { root } = tree;
+        const data = {
+            name: 'Birthday Party',
+            wishlistId: 5
+        };
+
+        act(() => {
+            root.findByType('i').props.talonProps.handleEditWishlist(data);
+        });
+
         const { talonProps } = root.findByType('i').props;
 
         expect(talonProps.formErrors).toMatchSnapshot();

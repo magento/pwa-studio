@@ -2,10 +2,13 @@
 
 exports[`renders a placeholder item while awaiting item 1`] = `
 <div
-  className="root_pending"
+  aria-busy="true"
+  aria-live="polite"
+  className="root"
 >
   <div
-    className="images_pending"
+    className="root_rectangle"
+    style={Object {}}
   >
     <div
       className="root container"
@@ -28,16 +31,32 @@ exports[`renders a placeholder item while awaiting item 1`] = `
     </div>
   </div>
   <div
-    className="name_pending"
+    className="root_rectangle"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
   />
   <div
-    className="price_pending"
+    className="root_rectangle"
+    style={
+      Object {
+        "width": "3rem",
+      }
+    }
+  />
+  <div
+    className="root_button"
+    style={Object {}}
   />
 </div>
 `;
 
 exports[`renders correctly with valid item data 1`] = `
 <div
+  aria-busy="false"
+  aria-live="polite"
   className="root"
 >
   <a

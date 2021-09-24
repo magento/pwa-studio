@@ -1,6 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Redirect } from 'react-router-dom';
 import { useAccountInformationPage } from '@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage';
 
 import { useStyle } from '../../classify';
@@ -28,17 +27,12 @@ const AccountInformationPage = props => {
         handleSubmit,
         initialValues,
         isDisabled,
-        isSignedIn,
         isUpdateMode,
         loadDataError,
         shouldShowNewPassword,
         showUpdateMode
     } = talonProps;
     const { formatMessage } = useIntl();
-
-    if (!isSignedIn) {
-        return <Redirect to="/" />;
-    }
 
     const errorMessage = loadDataError ? (
         <Message>

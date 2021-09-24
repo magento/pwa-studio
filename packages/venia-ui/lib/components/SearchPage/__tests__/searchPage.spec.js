@@ -7,13 +7,35 @@ jest.mock('@magento/peregrine/lib/talons/SearchPage/useSearchPage', () => ({
     useSearchPage: jest.fn()
 }));
 
-jest.mock('../../Gallery', () => 'Gallery');
+jest.mock('../../Gallery', () => ({
+    __esModule: true,
+    default: 'Gallery',
+    GalleryShimmer: 'GalleryShimmer'
+}));
 jest.mock('../../FilterModal', () => 'FilterModal');
-jest.mock('../../ProductSort', () => 'ProductSort');
-jest.mock('../../../components/Pagination', () => 'Pagination');
+jest.mock('../../ProductSort', () => ({
+    __esModule: true,
+    default: 'ProductSort',
+    ProductSortShimmer: 'ProductSortShimmer'
+}));
+jest.mock('../../Pagination', () => 'Pagination');
+jest.mock('../../Shimmer', () => 'Shimmer');
 jest.mock('@magento/venia-ui/lib/classify');
-jest.mock('../../SortedByContainer', () => 'SortedByContainer');
-jest.mock('../../FilterModalOpenButton', () => 'FilterModalOpenButton');
+jest.mock('../../SortedByContainer', () => ({
+    __esModule: true,
+    default: 'SortedByContainer',
+    SortedByContainerShimmer: 'SortedByContainerShimmer'
+}));
+jest.mock('../../FilterModalOpenButton', () => ({
+    __esModule: true,
+    default: 'FilterModalOpenButton',
+    FilterModalOpenButtonShimmer: 'FilterModalOpenButtonShimmer'
+}));
+jest.mock('../../FilterSidebar', () => ({
+    __esModule: true,
+    default: 'FilterSidebar',
+    FilterSidebarShimmer: 'FilterSidebarShimmer'
+}));
 
 const talonProps = {
     data: {
