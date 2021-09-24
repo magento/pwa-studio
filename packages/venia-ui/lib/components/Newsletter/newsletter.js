@@ -10,6 +10,7 @@ import { isRequired } from '../../util/formValidators';
 import { useStyle } from '../../classify';
 import FormError from '../FormError';
 import Button from '../Button';
+import Field from '../Field';
 import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
 import defaultClasses from './newsletter.css';
@@ -27,6 +28,7 @@ const Newsletter = props => {
         setFormApi,
         newsLetterResponse
     } = talonProps;
+    //console.log(errors);
     useEffect(() => {
         if (newsLetterResponse && newsLetterResponse.status) {
             addToast({
@@ -39,25 +41,26 @@ const Newsletter = props => {
             });
         }
     }, [addToast, formatMessage, newsLetterResponse]);
-    if (isBusy) {
-        return (
-            <LoadingIndicator global={true}>
-                <FormattedMessage
-                    id={'newsletter.loadingText'}
-                    defaultMessage={'Subscribing'}
-                />
-            </LoadingIndicator>
-        );
-    }
+
+    const maybeLoadingIndicator = isBusy ? (
+        <LoadingIndicator global={true}>
+            <FormattedMessage
+                id={'newsletter.loadingText'}
+                defaultMessage={'Subscribing'}
+            />
+        </LoadingIndicator>
+    ) : null;
+
     return (
         <Fragment>
+            {maybeLoadingIndicator}
             <div className={classes.root}>
-                <h2 className={classes.title}>
+                <span className={classes.title}>
                     <FormattedMessage
                         id={'newsletter.titleText'}
                         defaultMessage={'Subscribe to Venia'}
                     />
-                </h2>
+                </span>
 
                 <p className={classes.newsletter_text}>
                     <FormattedMessage
@@ -73,14 +76,24 @@ const Newsletter = props => {
                     className={classes.form}
                     onSubmit={handleSubmit}
                 >
-                    <TextInput
-                        autoComplete="email"
-                        field="email"
-                        validate={isRequired}
-                    />
+                    <Field
+                        id="email"
+                        label={formatMessage({
+                            id: 'global.email',
+                            defaultMessage: 'Email'
+                        })}
+                    >
+                        <TextInput
+                            autoComplete="email"
+                            field="email"
+                            id="email"
+                            validate={isRequired}
+                        />
+                    </Field>
                     <LinkButton
                         className={classes.subscribe_link}
                         type="submit"
+                        disabled={isBusy}
                     >
                         <FormattedMessage
                             id={'newsletter.subscribeText'}
@@ -88,7 +101,11 @@ const Newsletter = props => {
                         />
                     </LinkButton>
                     <div className={classes.buttonsContainer}>
-                        <Button priority="normal" type="submit">
+                        <Button
+                            priority="normal"
+                            type="submit"
+                            disabled={isBusy}
+                        >
                             <FormattedMessage
                                 id={'newsletter.subscribeText'}
                                 defaultMessage={'Subscribe'}

@@ -8,6 +8,13 @@
     row-gap: 0.9375rem;
     position: relative;
 }
+.form input {
+    padding-right: calc(1.875rem * var(--iconsAfter) + 5.625rem);
+}
+.form label {
+    position: absolute;
+    z-index: -11111;
+}
 .buttonsContainer {
     gap: 1.5rem;
     grid-auto-flow: row;
@@ -21,6 +28,7 @@
     font-size: var(--venia-typography-body-S-fontSize);
     font-weight: 600;
     margin-bottom: 15px;
+    display: block;
 }
 .subscribe_link {
     display: inline-block;
@@ -56,5 +64,8 @@
     .root {
         text-align: center;
         grid-column: span 2;
+    }
+    .form input {
+        padding-right: calc(1.875rem * var(--iconsAfter) + 0.625rem);
     }
 }
