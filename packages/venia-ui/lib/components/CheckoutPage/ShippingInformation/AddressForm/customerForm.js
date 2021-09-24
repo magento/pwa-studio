@@ -15,7 +15,6 @@ import Region from '../../../Region';
 import Postcode from '../../../Postcode';
 import TextInput from '../../../TextInput';
 import defaultClasses from './customerForm.css';
-import CustomerFormOperations from './customerForm.gql';
 import LoadingIndicator from '../../../LoadingIndicator';
 
 const CustomerForm = props => {
@@ -29,7 +28,6 @@ const CustomerForm = props => {
 
     const talonProps = useCustomerForm({
         afterSubmit,
-        ...CustomerFormOperations,
         onCancel,
         onSuccess,
         shippingData
