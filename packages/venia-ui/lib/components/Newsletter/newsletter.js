@@ -28,7 +28,7 @@ const Newsletter = props => {
         setFormApi,
         newsLetterResponse
     } = talonProps;
-    //console.log(errors);
+
     useEffect(() => {
         if (newsLetterResponse && newsLetterResponse.status) {
             addToast({
