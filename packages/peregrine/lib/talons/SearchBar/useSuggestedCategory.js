@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { DELIMITER } from '../FilterModal/helpers';
+
 // TODO: derive from store config when available
 const setSearchParams = (existing, options) => {
     const params = new URLSearchParams(existing);
@@ -24,6 +25,7 @@ const setSearchParams = (existing, options) => {
 export const useSuggestedCategory = props => {
     const { onNavigate, ...restProps } = props;
     const { search } = useLocation();
+
     const nextSearchParams = setSearchParams(search, restProps);
     const destination = `/search.html?${nextSearchParams}`;
 

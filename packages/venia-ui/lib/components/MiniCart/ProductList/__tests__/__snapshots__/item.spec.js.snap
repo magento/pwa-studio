@@ -6,7 +6,7 @@ exports[`Should disable delete icon while loading 1`] = `
 >
   <div
     className="thumbnailContainer"
-    to="/product.html"
+    to="/product"
   >
     <div
       className="root container"
@@ -15,7 +15,7 @@ exports[`Should disable delete icon while loading 1`] = `
         alt="P1"
         className="image placeholder"
         loading="eager"
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
         width={100}
       />
       <img
@@ -41,7 +41,7 @@ exports[`Should disable delete icon while loading 1`] = `
   </div>
   <div
     className="name"
-    to="/product.html"
+    to="/product"
   >
     P1
   </div>
@@ -152,7 +152,7 @@ exports[`Should render correctly 1`] = `
 >
   <div
     className="thumbnailContainer"
-    to="/product.html"
+    to="/product"
   >
     <div
       className="root container"
@@ -161,7 +161,7 @@ exports[`Should render correctly 1`] = `
         alt="P1"
         className="image placeholder"
         loading="eager"
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
         width={100}
       />
       <img
@@ -187,7 +187,7 @@ exports[`Should render correctly 1`] = `
   </div>
   <div
     className="name"
-    to="/product.html"
+    to="/product"
   >
     P1
   </div>
@@ -298,7 +298,7 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
 >
   <div
     className="thumbnailContainer"
-    to="/product.html"
+    to="/product"
   >
     <div
       className="root container"
@@ -307,7 +307,7 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
         alt="P1"
         className="image placeholder"
         loading="eager"
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
         width={100}
       />
       <img
@@ -333,7 +333,7 @@ exports[`Should render correctly when configured to use variant thumbnail 1`] = 
   </div>
   <div
     className="name"
-    to="/product.html"
+    to="/product"
   >
     P1
   </div>
@@ -444,7 +444,7 @@ exports[`Should render correctly with out of stock product 1`] = `
 >
   <div
     className="thumbnailContainer"
-    to="/product.html"
+    to="/product"
   >
     <div
       className="root container"
@@ -453,7 +453,7 @@ exports[`Should render correctly with out of stock product 1`] = `
         alt="P1"
         className="image placeholder"
         loading="eager"
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
         width={100}
       />
       <img
@@ -479,7 +479,7 @@ exports[`Should render correctly with out of stock product 1`] = `
   </div>
   <div
     className="name"
-    to="/product.html"
+    to="/product"
   >
     P1
   </div>

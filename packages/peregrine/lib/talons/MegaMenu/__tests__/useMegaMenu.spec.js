@@ -11,11 +11,18 @@ jest.mock('react-router-dom', () => ({
     useLocation: jest.fn(() => ({ pathname: '/venia-tops.html' }))
 }));
 
+jest.mock('../../../hooks/useInternalLink', () =>
+    jest.fn(() => ({
+        setShimmerType: jest.fn().mockName('onNavigate')
+    }))
+);
+
 jest.mock('../../../hooks/useEventListener', () => ({
     useEventListener: jest.fn()
 }));
 
 const log = jest.fn();
+
 const Component = props => {
     const talonProps = useMegaMenu({ ...props });
 
@@ -54,7 +61,6 @@ beforeAll(() => {
                             name: 'Accessories',
                             position: 4,
                             url_path: 'venia-accessories',
-                            url_suffix: '.html',
                             children: [
                                 {
                                     id: 4,
@@ -62,7 +68,6 @@ beforeAll(() => {
                                     name: 'Belts',
                                     position: 10,
                                     url_path: 'venia-accessories/venia-belts',
-                                    url_suffix: '.html',
                                     children: []
                                 },
                                 {
@@ -71,7 +76,6 @@ beforeAll(() => {
                                     name: 'Jewelry',
                                     position: 2,
                                     url_path: 'venia-accessories/venia-jewelry',
-                                    url_suffix: '.html',
                                     children: []
                                 },
                                 {
@@ -80,7 +84,6 @@ beforeAll(() => {
                                     name: 'Scarves',
                                     position: 3,
                                     url_path: 'venia-accessories/venia-scarves',
-                                    url_suffix: '.html',
                                     children: []
                                 }
                             ]
@@ -91,7 +94,6 @@ beforeAll(() => {
                             name: 'Tops',
                             position: 3,
                             url_path: 'venia-tops',
-                            url_suffix: '.html',
                             children: [
                                 {
                                     id: 8,
@@ -99,7 +101,6 @@ beforeAll(() => {
                                     name: 'Blouses & Shirts',
                                     position: 1,
                                     url_path: 'venia-tops/venia-blouses',
-                                    url_suffix: '.html',
                                     children: []
                                 },
                                 {
@@ -108,7 +109,6 @@ beforeAll(() => {
                                     name: 'Sweaters',
                                     position: 2,
                                     url_path: 'venia-tops/venia-sweaters',
-                                    url_suffix: '.html',
                                     children: []
                                 }
                             ]
@@ -119,12 +119,15 @@ beforeAll(() => {
                             name: 'Dresses',
                             position: 3,
                             url_path: 'venia-dresses',
-                            url_suffix: '.html',
                             children: []
                         }
                     ]
                 }
-            ]
+            ],
+            storeConfig: {
+                id: 1,
+                category_url_suffix: '.html'
+            }
         }
     });
 });
