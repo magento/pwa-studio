@@ -1,28 +1,25 @@
-import React, { useEffect } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { Form } from 'informed';
-import { AlertCircle as AlertCircleIcon } from 'react-feather';
-
-import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
 import { Price, useToasts } from '@magento/peregrine';
-
+import {
+    APPLY_GIFT_CARD_MUTATION,
+    GET_APPLIED_GIFT_CARDS_QUERY,
+    GET_GIFT_CARD_BALANCE_QUERY,
+    REMOVE_GIFT_CARD_MUTATION
+} from '@magento/peregrine/lib/talons/CartPage/GiftCards/giftCardQueries.gql';
+import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
+import { Form } from 'informed';
+import React, { useEffect } from 'react';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useStyle } from '../../../classify';
 import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import Icon from '../../Icon';
+import LinkButton from '../../LinkButton';
 import LoadingIndicator from '../../LoadingIndicator';
 import TextInput from '../../TextInput';
-import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
-
-import {
-    GET_APPLIED_GIFT_CARDS_QUERY,
-    GET_GIFT_CARD_BALANCE_QUERY,
-    APPLY_GIFT_CARD_MUTATION,
-    REMOVE_GIFT_CARD_MUTATION
-} from './giftCardQueries';
-import LinkButton from '../../LinkButton';
+import defaultClasses from './giftCards.css';
 
 const errorIcon = (
     <Icon

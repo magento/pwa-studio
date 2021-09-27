@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
-
+import { useEffect, useState } from 'react';
 import { useCartContext } from '../../../context/cart';
 import mergeOperations from '../../../util/shallowMerge';
 import defaultOperations from './productListing.gql';
@@ -82,7 +81,7 @@ export const useProductListing = props => {
  *
  * @property {GraphQLDocument} getProductListing Query to get the product list for a cart
  *
- * @see [productListingFragments.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListingFragments.js}
+ * @see [productListingFragments.gql.js]{@link packages/peregrine/lib/talons/CartPage/ProductListing/productListingFragments.gql.js}
  * for the queries used in Venia
  */
 

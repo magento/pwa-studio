@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
 import { useToasts } from '@magento/peregrine';
 import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql';
-import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
+import { AppliedCouponsFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/couponCodeFragments.gql';
+import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/useCouponCode';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 import { Form } from 'informed';
 import React, { Fragment, useEffect } from 'react';
@@ -14,7 +15,6 @@ import Icon from '../../../Icon';
 import LinkButton from '../../../LinkButton';
 import TextInput from '../../../TextInput';
 import defaultClasses from './couponCode.css';
-import { AppliedCouponsFragment } from './couponCodeFragments';
 
 const errorIcon = (
     <Icon

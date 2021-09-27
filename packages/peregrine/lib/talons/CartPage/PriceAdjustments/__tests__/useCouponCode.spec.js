@@ -1,8 +1,8 @@
-import React from 'react';
-import { act } from 'react-test-renderer';
 import { useMutation } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
-import { useCouponCode } from '../useCouponCode';
+import React from 'react';
+import { act } from 'react-test-renderer';
+import { useCouponCode } from '../CouponCode/useCouponCode';
 
 jest.mock('@apollo/client', () => {
     return {
