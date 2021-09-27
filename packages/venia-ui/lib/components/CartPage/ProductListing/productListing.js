@@ -1,5 +1,3 @@
-import { gql } from '@apollo/client';
-import { ProductListingFragment } from '@magento/peregrine/lib/talons/CartPage/ProductListing/productListingFragments.gql';
 import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
 import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -30,11 +28,8 @@ const ProductListing = props => {
         setIsCartUpdating,
         fetchCartDetails
     } = props;
-    const talonProps = useProductListing({
-        queries: {
-            getProductListing: GET_PRODUCT_LISTING
-        }
-    });
+    const talonProps = useProductListing({});
+
     const {
         activeEditItem,
         isLoading,
@@ -85,15 +80,5 @@ const ProductListing = props => {
 
     return null;
 };
-
-export const GET_PRODUCT_LISTING = gql`
-    query getProductListing($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...ProductListingFragment
-        }
-    }
-    ${ProductListingFragment}
-`;
 
 export default ProductListing;

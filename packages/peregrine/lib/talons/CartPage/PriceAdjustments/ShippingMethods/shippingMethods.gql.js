@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-
 import { ShippingMethodsCartFragment } from './shippingMethodsFragments.gql';
 
 export const GET_SHIPPING_METHODS = gql`
@@ -13,8 +12,5 @@ export const GET_SHIPPING_METHODS = gql`
 `;
 
 export default {
-    mutations: {},
-    queries: {
-        getShippingMethodsQuery: GET_SHIPPING_METHODS
-    }
+    getShippingMethodsQuery: GET_SHIPPING_METHODS
 };

@@ -1,7 +1,4 @@
-import { gql } from '@apollo/client';
 import { useToasts } from '@magento/peregrine';
-import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql';
-import { AppliedCouponsFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/couponCodeFragments.gql';
 import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/useCouponCode';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 import { Form } from 'informed';
@@ -25,53 +22,6 @@ const errorIcon = (
     />
 );
 
-const GET_APPLIED_COUPONS = gql`
-    query getAppliedCoupons($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...AppliedCouponsFragment
-        }
-    }
-    ${AppliedCouponsFragment}
-`;
-
-const APPLY_COUPON_MUTATION = gql`
-    mutation applyCouponToCart($cartId: String!, $couponCode: String!) {
-        applyCouponToCart(
-            input: { cart_id: $cartId, coupon_code: $couponCode }
-        ) @connection(key: "applyCouponToCart") {
-            cart {
-                id
-                ...CartPageFragment
-                # If this mutation causes "free" to become available we need to know.
-                available_payment_methods {
-                    code
-                    title
-                }
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
-
-const REMOVE_COUPON_MUTATION = gql`
-    mutation removeCouponFromCart($cartId: String!) {
-        removeCouponFromCart(input: { cart_id: $cartId })
-            @connection(key: "removeCouponFromCart") {
-            cart {
-                id
-                ...CartPageFragment
-                # If this mutation causes "free" to become available we need to know.
-                available_payment_methods {
-                    code
-                    title
-                }
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
-
 /**
  * A child component of the PriceAdjustments component.
  * This component renders a form for addingg a coupon code to the cart.
@@ -91,14 +41,7 @@ const CouponCode = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useCouponCode({
-        setIsCartUpdating: props.setIsCartUpdating,
-        mutations: {
-            applyCouponMutation: APPLY_COUPON_MUTATION,
-            removeCouponMutation: REMOVE_COUPON_MUTATION
-        },
-        queries: {
-            getAppliedCouponsQuery: GET_APPLIED_COUPONS
-        }
+        setIsCartUpdating: props.setIsCartUpdating
     });
     const [, { addToast }] = useToasts();
     const {

@@ -1,10 +1,4 @@
 import { Price, useToasts } from '@magento/peregrine';
-import {
-    APPLY_GIFT_CARD_MUTATION,
-    GET_APPLIED_GIFT_CARDS_QUERY,
-    GET_GIFT_CARD_BALANCE_QUERY,
-    REMOVE_GIFT_CARD_MUTATION
-} from '@magento/peregrine/lib/talons/CartPage/GiftCards/giftCardQueries.gql';
 import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
 import { Form } from 'informed';
 import React, { useEffect } from 'react';
@@ -48,15 +42,7 @@ const errorIcon = (
  */
 const GiftCards = props => {
     const talonProps = useGiftCards({
-        setIsCartUpdating: props.setIsCartUpdating,
-        mutations: {
-            applyCardMutation: APPLY_GIFT_CARD_MUTATION,
-            removeCardMutation: REMOVE_GIFT_CARD_MUTATION
-        },
-        queries: {
-            appliedCardsQuery: GET_APPLIED_GIFT_CARDS_QUERY,
-            cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY
-        }
+        setIsCartUpdating: props.setIsCartUpdating
     });
     const {
         applyGiftCard,

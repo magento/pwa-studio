@@ -1,7 +1,5 @@
 import { useToasts } from '@magento/peregrine';
-import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CartPage/cartPage.gql';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import React, { useEffect } from 'react';
 import { Check } from 'react-feather';
@@ -35,15 +33,7 @@ const CheckIcon = <Icon size={20} src={Check} />;
  * import CartPage from "@magento/venia-ui/lib/components/CartPage";
  */
 const CartPage = props => {
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-
-    const { getCartDetails } = operations;
-
-    const talonProps = useCartPage({
-        queries: {
-            getCartDetails
-        }
-    });
+    const talonProps = useCartPage({});
 
     const {
         cartItems,

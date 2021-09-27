@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useFormApi } from 'informed';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useFormApi } from 'informed';
+import { useCallback, useEffect, useState } from 'react';
+import DEFAULT_OPERATIONS from './giftCardQueries.gql';
 
 // To keep track of the most recent action taken.
 const actions = {
@@ -34,11 +35,15 @@ const actions = {
  * import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards'
  */
 export const useGiftCards = props => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
-        setIsCartUpdating,
-        mutations: { applyCardMutation, removeCardMutation },
-        queries: { appliedCardsQuery, cardBalanceQuery }
-    } = props;
+        applyCardMutation,
+        removeCardMutation,
+        appliedCardsQuery,
+        cardBalanceQuery
+    } = operations;
+
+    const { setIsCartUpdating } = props;
 
     // We need the cartId for all of our queries and mutations.
     const [{ cartId }] = useCartContext();

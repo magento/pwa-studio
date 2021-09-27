@@ -1,6 +1,3 @@
-import { gql } from '@apollo/client';
-import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql';
-import { ProductFormFragment } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/productFormFragment.gql';
 import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
 import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -24,11 +21,8 @@ const ProductForm = props => {
     const { formatMessage } = useIntl();
     const talonProps = useProductForm({
         cartItem,
-        getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
         setIsCartUpdating,
         setVariantPrice,
-        updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS_MUTATION,
-        updateQuantityMutation: UPDATE_QUANTITY_MUTATION,
         setActiveEditItem
     });
     const {
@@ -148,72 +142,3 @@ const ProductForm = props => {
 };
 
 export default ProductForm;
-
-export const GET_CONFIGURABLE_OPTIONS = gql`
-    query productDetailBySku($sku: String) {
-        products(filter: { sku: { eq: $sku } }) {
-            items {
-                id
-                ...ProductFormFragment
-            }
-        }
-    }
-    ${ProductFormFragment}
-`;
-
-export const UPDATE_QUANTITY_MUTATION = gql`
-    mutation UpdateCartItemQuantity(
-        $cartId: String!
-        $cartItemId: Int!
-        $quantity: Float!
-    ) {
-        updateCartItems(
-            input: {
-                cart_id: $cartId
-                cart_items: [{ cart_item_id: $cartItemId, quantity: $quantity }]
-            }
-        ) @connection(key: "updateCartItems") {
-            cart {
-                id
-                ...CartPageFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
-
-export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
-    mutation UpdateConfigurableOptions(
-        $cartId: String!
-        $cartItemId: Int!
-        $parentSku: String!
-        $variantSku: String!
-        $quantity: Float!
-    ) {
-        addConfigurableProductsToCart(
-            input: {
-                cart_id: $cartId
-                cart_items: [
-                    {
-                        data: { quantity: $quantity, sku: $variantSku }
-                        parent_sku: $parentSku
-                    }
-                ]
-            }
-        ) @connection(key: "addConfigurableProductsToCart") {
-            cart {
-                id
-            }
-        }
-
-        removeItemFromCart(
-            input: { cart_id: $cartId, cart_item_id: $cartItemId }
-        ) @connection(key: "removeItemFromCart") {
-            cart {
-                id
-                ...CartPageFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-`;

@@ -24,11 +24,8 @@ import defaultOperations from './productListing.gql';
  * import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
  */
 export const useProductListing = props => {
-    const {
-        queries: { getProductListing }
-    } = props;
-
     const operations = mergeOperations(defaultOperations, props.operations);
+    const { getWishlistConfigQuery, getProductListingQuery } = operations;
 
     const [{ cartId }] = useCartContext();
     const [activeEditItem, setActiveEditItem] = useState(null);
@@ -36,14 +33,12 @@ export const useProductListing = props => {
     const [
         fetchProductListing,
         { called, data, error, loading }
-    ] = useLazyQuery(getProductListing, {
+    ] = useLazyQuery(getProductListingQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const { data: storeConfigData } = useQuery(
-        operations.getWishlistConfigQuery
-    );
+    const { data: storeConfigData } = useQuery(getWishlistConfigQuery);
 
     const wishlistConfig = storeConfigData ? storeConfigData.storeConfig : {};
 
