@@ -23,7 +23,7 @@ import {
  *
  * @returns {void}
  */
-export default function() {
+export default function () {
     const imageCacheHandler = createImageCacheHandler();
 
     registerRoute(
@@ -57,7 +57,10 @@ export default function() {
             plugins: [
                 new ExpirationPlugin({
                     maxEntries: MAX_NUM_OF_IMAGES_TO_CACHE, // 60 Images
-                    maxAgeSeconds: THIRTY_DAYS // 30 Days
+                    maxAgeSeconds: THIRTY_DAYS, // 30 Days
+                    matchOptions: {
+                        ignoreVary: true,
+                    },
                 })
             ]
         })
