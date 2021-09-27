@@ -129,6 +129,7 @@ test('There should be a route for resized images with cache handler', async () =
     const registerResult = await handlerCall(mockData);
 
     expect(mockFindSameOrLargerImage).toHaveBeenCalled();
+    expect(mockCacheHandler).toHaveBeenCalled();
     expect(registerResult).toStrictEqual({
         event: mockEvent,
         request: mockRequest
