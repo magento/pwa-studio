@@ -16,6 +16,7 @@ exports[`#MegaMenu renders menu if in viewport 1`] = `
     className="megaMenuItem"
   >
     <a
+      aria-label="Category: Women. 1 sub-categories"
       className="megaMenuLink"
       href="/women.html"
       onClick={[Function]}
@@ -23,7 +24,6 @@ exports[`#MegaMenu renders menu if in viewport 1`] = `
     >
       Women
       <span
-        aria-label="Category: Women. 1 sub-categories"
         className="arrowDown"
       >
         <svg

@@ -99,6 +99,11 @@
 
 :global .slick-initialized .slick-slide {
     display: block;
+    visibility: hidden;
+}
+
+:global .slick-initialized .slick-slide.slick-active {
+    visibility: visible;
 }
 
 :global .slick-loading .slick-slide {
@@ -198,6 +203,9 @@
 }
 .root :global .slick-dots li button:hover {
     filter: brightness(80%);
+}
+.root :global .slick-dots li button:focus {
+    outline: 1px solid;
 }
 
 .root :global .slick-dots li button:active,
