@@ -8,7 +8,9 @@ describe('verify slider content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
-        cy.get('*[class*="banner-content-"]',{timeout: 60000}).should('be.visible');
+        cy.get('*[class*="banner-content-"]', { timeout: 60000 }).should(
+            'be.visible'
+        );
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Slider Page',

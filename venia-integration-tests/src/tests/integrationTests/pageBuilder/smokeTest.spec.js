@@ -10,29 +10,35 @@ describe('verify pagebuilder smoke test content', () => {
 
         cy.scrollTo('bottom', { duration: 2000 });
 
-        cy.get('[role="tabpanel"] button', {timeout: 60000}).should('be.visible');
-        cy.get('.slick-slider').eq(0, {timeout: 60000}).scrollIntoView().get('img[class*="imageLoaded"]', {timeout: 60000}).should('be.visible');
-        cy.get('.slick-slider').eq(1, {timeout: 60000}).scrollIntoView().get('img[class*="imageLoaded"]', {timeout: 60000}).should('be.visible');
+        cy.get('[role="tabpanel"] button', { timeout: 60000 }).should(
+            'be.visible'
+        );
+        cy.get('.slick-slider')
+            .eq(0, { timeout: 60000 })
+            .scrollIntoView()
+            .get('img[class*="imageLoaded"]', { timeout: 60000 })
+            .should('be.visible');
+        cy.get('.slick-slider')
+            .eq(1, { timeout: 60000 })
+            .scrollIntoView()
+            .get('img[class*="imageLoaded"]', { timeout: 60000 })
+            .should('be.visible');
 
-        cy.get('div[class^="richContent-root"]', {timeout: 60000})
+        cy.get('div[class^="richContent-root"]', { timeout: 60000 })
             .eq(0)
-            .find('iframe', {timeout: 60000})
+            .find('iframe', { timeout: 60000 })
             .should('exist')
             .and('have.attr', 'src')
             .and('contain', 'youtube');
 
-        cy.get('iframe', {timeout: 60000}).invoke(
-            'attr',
-            'style',
-            'visibility: hidden !important'
-        ).should('not.be.visible');
+        cy.get('iframe', { timeout: 60000 })
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
 
         // Hide maps
-        cy.get('*[class^="map-root-"]', {timeout: 60000}).invoke(
-            'attr',
-            'style',
-            'visibility: hidden !important'
-        ).should('not.be.visible');
+        cy.get('*[class^="map-root-"]', { timeout: 60000 })
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
 
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
@@ -49,11 +55,13 @@ describe('verify pagebuilder smoke test content', () => {
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
 
-        cy.get('[role="tabpanel"] button', {timeout: 60000}).should('be.visible');
+        cy.get('[role="tabpanel"] button', { timeout: 60000 }).should(
+            'be.visible'
+        );
 
-        cy.get('div[class^="richContent-root"]', {timeout: 60000})
+        cy.get('div[class^="richContent-root"]', { timeout: 60000 })
             .eq(0)
-            .find('iframe', {timeout: 60000})
+            .find('iframe', { timeout: 60000 })
             .should('exist')
             .and('have.attr', 'src')
             .and('contain', 'youtube');
@@ -62,18 +70,14 @@ describe('verify pagebuilder smoke test content', () => {
         cy.scrollTo('bottom', { duration: 2000 });
 
         // Hide iframes to prevent capturing moving images
-        cy.get('iframe', {timeout: 60000}).invoke(
-            'attr',
-            'style',
-            'visibility: hidden !important'
-        ).should('not.be.visible');;
+        cy.get('iframe', { timeout: 60000 })
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
 
         // Hide maps
-        cy.get('*[class^="map-root-"]', {timeout: 60000}).invoke(
-            'attr',
-            'style',
-            'visibility: hidden !important'
-        ).should('not.be.visible');
+        cy.get('*[class^="map-root-"]', { timeout: 60000 })
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
 
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
@@ -90,11 +94,13 @@ describe('verify pagebuilder smoke test content', () => {
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
 
-        cy.get('[role="tabpanel"] button', {timeout: 60000}).should('be.visible');
+        cy.get('[role="tabpanel"] button', { timeout: 60000 }).should(
+            'be.visible'
+        );
 
-        cy.get('div[class^="richContent-root"]', {timeout: 60000})
+        cy.get('div[class^="richContent-root"]', { timeout: 60000 })
             .eq(0)
-            .find('iframe', {timeout: 60000})
+            .find('iframe', { timeout: 60000 })
             .should('exist')
             .and('have.attr', 'src')
             .and('contain', 'youtube');
@@ -103,18 +109,14 @@ describe('verify pagebuilder smoke test content', () => {
         cy.scrollTo('bottom', { duration: 2000 });
 
         // Hide iframes to prevent capturing moving images
-        cy.get('iframe', {timeout: 60000}).invoke(
-            'attr',
-            'style',
-            'visibility: hidden !important'
-        ).should('not.be.visible');
+        cy.get('iframe', { timeout: 60000 })
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
 
         // Hide maps
-        cy.get('*[class^="map-root-"]', {timeout: 60000}).invoke(
-            'attr',
-            'style',
-            'visibility: hidden !important'
-        ).should('not.be.visible');
+        cy.get('*[class^="map-root-"]', { timeout: 60000 })
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
 
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
