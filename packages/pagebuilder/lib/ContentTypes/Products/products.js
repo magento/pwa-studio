@@ -102,14 +102,13 @@ const Products = props => {
             items.length > slideToShowSmallCenterMode;
         const carouselSettings = {
             slidesToShow: slidesToShow,
-            slidesToScroll: carouselCenterMode ? 1 : slidesToShow,
+            slidesToScroll: slidesToShow,
             draggable,
             autoplay,
             autoplaySpeed,
             arrows,
             dots,
             centerMode: carouselCenterMode,
-            lazyLoad: carouselCenterMode ? null : 'ondemand',
             responsive: [
                 {
                     breakpoint: 640,
