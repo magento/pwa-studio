@@ -97,3 +97,37 @@ it('handles no returned data', () => {
 
     expect(flatData).toStrictEqual({});
 });
+
+it('handles error', () => {
+    useQuery.mockReturnValue({
+        error: { message: 'Some error happened' },
+        loading: false,
+        data: null
+    });
+
+    const rendered = createTestInstance(<Component {...props} />);
+
+    const talonProps = rendered.root.findByType('i').props;
+
+    const { hasError, hasCriticalError } = talonProps;
+
+    expect(hasError).toBe(true);
+    expect(hasCriticalError).toBe(true);
+});
+
+it('handles out of stock error', () => {
+    useQuery.mockReturnValue({
+        error: { message: 'The requested qty is not available' },
+        loading: false,
+        data: null
+    });
+
+    const rendered = createTestInstance(<Component {...props} />);
+
+    const talonProps = rendered.root.findByType('i').props;
+
+    const { hasError, hasCriticalError } = talonProps;
+
+    expect(hasError).toBe(true);
+    expect(hasCriticalError).toBe(false);
+});

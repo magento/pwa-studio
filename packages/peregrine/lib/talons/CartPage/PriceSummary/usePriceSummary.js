@@ -4,6 +4,25 @@ import { useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
+ * Validates if GraphQl error is critical
+ * @ignore
+ *
+ * @param error
+ * @returns {boolean}
+ */
+const isCriticalError = error => {
+    if (!error) {
+        return false;
+    }
+
+    const acceptedErrors = [/requested qty/g];
+
+    return acceptedErrors.every(
+        acceptedError => !acceptedError.test(error.message)
+    );
+};
+
+/**
  * @ignore
  *
  * Flattens query data into a simple object. We create this here rather than
@@ -69,6 +88,7 @@ export const usePriceSummary = props => {
     return {
         handleProceedToCheckout,
         hasError: !!error,
+        hasCriticalError: isCriticalError(error),
         hasItems: data && !!data.cart.items.length,
         isCheckout,
         isLoading: !!loading,
@@ -109,6 +129,7 @@ export const usePriceSummary = props => {
  *
  * @property {function} handleProceedToCheckout Callback function which navigates the browser to the checkout
  * @property {boolean} hasError True if a GraphQL query returns an error. False otherwise.
+ * @property {boolean} hasCriticalError True if a GraphQL query returns an error related to price summary. False otherwise.
  * @property {boolean} hasItems True if the cart has any items. False otherwise.
  * @property {boolean} isLoading True while the GraphQL query is still in flight. False otherwise.
  * @property {FlattenedData} flatData Query data that has been flattened into a simple object

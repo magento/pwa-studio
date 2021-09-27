@@ -7,6 +7,7 @@ import { useStyle } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
 import defaultClasses from './productListing.css';
 import Product from './product';
+import ErrorMessage from './errorMessage';
 import { ProductListingFragment } from './productListingFragments';
 
 const EditModal = React.lazy(() => import('./EditModal'));
@@ -39,6 +40,7 @@ const ProductListing = props => {
     const {
         activeEditItem,
         isLoading,
+        error,
         items,
         setActiveEditItem,
         wishlistConfig
@@ -72,6 +74,7 @@ const ProductListing = props => {
 
         return (
             <Fragment>
+                <ErrorMessage error={error} />
                 <ul className={classes.root}>{productComponents}</ul>
                 <Suspense fallback={null}>
                     <EditModal

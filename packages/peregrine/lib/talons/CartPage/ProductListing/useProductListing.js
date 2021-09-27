@@ -59,13 +59,14 @@ export const useProductListing = props => {
     }, [cartId, fetchProductListing]);
 
     let items = [];
-    if (called && !error && !loading) {
-        items = data.cart.items;
+    if (called && !loading) {
+        items = data.cart.items.filter(Boolean);
     }
 
     return {
         activeEditItem,
         isLoading: !!loading,
+        error,
         items,
         setActiveEditItem,
         wishlistConfig
@@ -94,6 +95,7 @@ export const useProductListing = props => {
  *
  * @property {Object} activeEditItem The product item currently being edited
  * @property {boolean} isLoading True if the query to get the product listing is still in progress. False otherwise.
+ * @property {Error|null} error An array of graphql errors
  * @property {Array<Object>} items A list of products in a cart
  * @property {function} setActiveEditItem Function for setting the current item to edit
  *
