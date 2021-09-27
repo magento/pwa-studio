@@ -7,6 +7,10 @@ import {
 } from 'workbox-strategies';
 
 import {
+    findSameOrLargerImage,
+    createImageCacheHandler
+} from '../Utilities/imageCacheHandler';
+import {
     THIRTY_DAYS,
     MAX_NUM_OF_IMAGES_TO_CACHE,
     IMAGES_CACHE_NAME
@@ -63,6 +67,76 @@ test('There should be a route for robots.txt, favicon.ico and manifest.json with
     registerRoute.mockClear();
 });
 
+test('There should be a route for resized images without cache handler', async () => {
+    const mockUrl = 'mockUrl';
+    const mockRequest = jest.fn();
+    const mockEvent = {
+        waitUntil: jest.fn()
+    };
+    const mockData = {
+        url: mockUrl,
+        request: mockRequest,
+        event: mockEvent
+    };
+
+    const mockFindSameOrLargerImage = jest.fn((url, request) => {
+        return Promise.resolve({ url, request });
+    });
+
+    findSameOrLargerImage.mockImplementation(mockFindSameOrLargerImage);
+
+    registerRoutes();
+
+    const [, handlerCall] = registerRoute.mock.calls[1];
+    const registerResult = await handlerCall(mockData);
+
+    expect(mockFindSameOrLargerImage).toHaveBeenCalled();
+    expect(registerResult).toStrictEqual({
+        url: mockUrl,
+        request: mockRequest
+    });
+
+    registerRoute.mockClear();
+});
+
+test('There should be a route for resized images with cache handler', async () => {
+    const mockUrl = 'mockUrl';
+    const mockRequest = jest.fn();
+    const mockEvent = {
+        waitUntil: jest.fn()
+    };
+    const mockData = {
+        url: mockUrl,
+        request: mockRequest,
+        event: mockEvent
+    };
+
+    const mockFindSameOrLargerImage = jest.fn(() => {
+        return Promise.resolve(null);
+    });
+
+    findSameOrLargerImage.mockImplementation(mockFindSameOrLargerImage);
+
+    const mockCacheHandler = jest.fn(data => data);
+
+    createImageCacheHandler.mockImplementation(() => ({
+        handle: mockCacheHandler
+    }));
+
+    registerRoutes();
+
+    const [, handlerCall] = registerRoute.mock.calls[1];
+    const registerResult = await handlerCall(mockData);
+
+    expect(mockFindSameOrLargerImage).toHaveBeenCalled();
+    expect(registerResult).toStrictEqual({
+        event: mockEvent,
+        request: mockRequest
+    });
+
+    registerRoute.mockClear();
+});
+
 test('There should be a route for all image types with CacheFirst strategy', () => {
     registerRoutes();
 
@@ -107,9 +181,7 @@ test('There should be a route for all js files with CacheFirst strategy', () => 
 test('There should be a route for all HTML routes with NetworkFirst strategy', () => {
     registerRoutes();
 
-    const [registrationCall] = registerRoute.mock.calls.filter(call =>
-        call[0].toString().includes('isHTMLRoute')
-    );
+    const registrationCall = registerRoute.mock.calls[4];
 
     expect(registrationCall[1]).toBeInstanceOf(NetworkFirst);
 
@@ -117,21 +189,43 @@ test('There should be a route for all HTML routes with NetworkFirst strategy', (
 });
 
 test('does not register route with different origin', () => {
-    registerRoutes();
-
     const mockURL = {
         url: {
             origin: 'https://third.party.origin',
             pathname: '/'
+        },
+        request: {
+            destination: 'document'
         }
     };
 
-    const [registrationCall] = registerRoute.mock.calls.filter(call =>
-        call[0].toString().includes('isHTMLRoute')
-    );
+    registerRoutes();
+
+    const registrationCall = registerRoute.mock.calls[4];
     const [captureFunction] = registrationCall;
 
     const registerResult = captureFunction(mockURL);
 
     expect(registerResult).toBe(false);
+});
+
+test('does not register route with same origin', () => {
+    const mockURL = {
+        url: {
+            origin: self.location.origin,
+            pathname: '/'
+        },
+        request: {
+            destination: 'document'
+        }
+    };
+
+    registerRoutes();
+
+    const registrationCall = registerRoute.mock.calls[4];
+    const [captureFunction] = registrationCall;
+
+    const registerResult = captureFunction(mockURL);
+
+    expect(registerResult).toBe(true);
 });
