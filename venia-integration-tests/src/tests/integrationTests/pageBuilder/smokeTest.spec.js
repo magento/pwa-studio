@@ -7,9 +7,34 @@ describe('verify pagebuilder smoke test content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+
+        cy.scrollTo('bottom', { duration: 2000 });
+
+        cy.get('[role="tabpanel"] button', {timeout: 60000}).should('be.visible');
+        cy.get('.slick-slider').eq(0, {timeout: 60000}).scrollIntoView().get('img[class*="imageLoaded"]', {timeout: 60000}).should('be.visible');
+        cy.get('.slick-slider').eq(1, {timeout: 60000}).scrollIntoView().get('img[class*="imageLoaded"]', {timeout: 60000}).should('be.visible');
+
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
+            .eq(0)
+            .find('iframe', {timeout: 60000})
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'youtube');
+
+        cy.get('iframe', {timeout: 60000}).invoke(
+            'attr',
+            'style',
+            'visibility: hidden !important'
+        ).should('not.be.visible');
+
+        // Hide maps
+        cy.get('*[class^="map-root-"]', {timeout: 60000}).invoke(
+            'attr',
+            'style',
+            'visibility: hidden !important'
+        ).should('not.be.visible');
+
         cy.loadFullPage().then(() => {
-            //Temporary measure to stabilize 3rd party content loading test results.
-            cy.wait(15000);
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Smoke Test',
                 timeout: 60000
@@ -23,9 +48,34 @@ describe('verify pagebuilder smoke test content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+
+        cy.get('[role="tabpanel"] button', {timeout: 60000}).should('be.visible');
+
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
+            .eq(0)
+            .find('iframe', {timeout: 60000})
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'youtube');
+
+        // Scroll to bottom of the page to load all iframes
+        cy.scrollTo('bottom', { duration: 2000 });
+
+        // Hide iframes to prevent capturing moving images
+        cy.get('iframe', {timeout: 60000}).invoke(
+            'attr',
+            'style',
+            'visibility: hidden !important'
+        ).should('not.be.visible');;
+
+        // Hide maps
+        cy.get('*[class^="map-root-"]', {timeout: 60000}).invoke(
+            'attr',
+            'style',
+            'visibility: hidden !important'
+        ).should('not.be.visible');
+
         cy.loadFullPage().then(() => {
-            //Temporary measure to stabilize 3rd party content loading test results.
-            cy.wait(15000);
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Smoke Test CMS Block Content',
                 timeout: 60000
@@ -39,9 +89,34 @@ describe('verify pagebuilder smoke test content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+
+        cy.get('[role="tabpanel"] button', {timeout: 60000}).should('be.visible');
+
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
+            .eq(0)
+            .find('iframe', {timeout: 60000})
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'youtube');
+
+        // Scroll to bottom of the page to load all iframes
+        cy.scrollTo('bottom', { duration: 2000 });
+
+        // Hide iframes to prevent capturing moving images
+        cy.get('iframe', {timeout: 60000}).invoke(
+            'attr',
+            'style',
+            'visibility: hidden !important'
+        ).should('not.be.visible');
+
+        // Hide maps
+        cy.get('*[class^="map-root-"]', {timeout: 60000}).invoke(
+            'attr',
+            'style',
+            'visibility: hidden !important'
+        ).should('not.be.visible');
+
         cy.loadFullPage().then(() => {
-            //Temporary measure to stabilize 3rd party content loading test results.
-            cy.wait(15000);
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Smoke Test Dynamic Block Content',
                 timeout: 60000

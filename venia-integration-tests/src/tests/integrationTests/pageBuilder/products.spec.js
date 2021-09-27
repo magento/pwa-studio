@@ -9,6 +9,7 @@ describe('verify pagebuilder products content type', () => {
             }).as('getCMSMockData');
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
+            cy.get('*[class*="products-root-"]',{timeout: 60000}).eq(0, {timeout: 60000}).scrollIntoView().get('img[class*="imageLoaded"]', {timeout: 60000}).should('be.visible');
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'PB Products Grid',

@@ -52,39 +52,39 @@ describe('verify pagebuilder row content', () => {
         cy.wait(['@getCMSMockData']).its('response.body');
 
         // Row with youtube video in viewport
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(0)
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
         // Row with youtube video outside viewport
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(8)
             .find('div[class^="richContent-root"]')
             .eq(0)
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .should('not.exist');
 
         // Scroll to element to test iframe lazy load
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(8)
             .find('div[class^="richContent-root"]')
             .eq(0)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .should('exist');
 
         // Scroll to bottom of the page to load all iframes
         cy.scrollTo('bottom', { duration: 2000 });
 
         // Hide iframes to prevent capturing moving images
-        cy.get('iframe').invoke(
+        cy.get('iframe', {timeout: 60000}).invoke(
             'attr',
             'style',
             'visibility: hidden !important'
-        );
+        ).should('not.be.visible');;
 
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
@@ -102,7 +102,7 @@ describe('verify pagebuilder row content', () => {
         cy.wait(['@getCMSMockData']).its('response.body');
 
         // Row with mp4 video
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(1)
             .scrollIntoView({ duration: 2000 })
             .find('[id^="jarallax-container"] video')
@@ -113,26 +113,26 @@ describe('verify pagebuilder row content', () => {
             .and('contain', 'video/mp4');
 
         // Row with fallback image
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(4)
             .scrollIntoView({ duration: 2000 })
             .find('[id^="jarallax-container"] img')
             .should('exist');
 
         // Row with active videos
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(7)
             .scrollIntoView({ duration: 2000 })
-            .find('[id^="jarallax-container"] video')
+            .find('[id^="jarallax-container"] video', {timeout: 60000})
             .should('exist')
-            .find('source')
+            .find('source', {timeout: 60000})
             .should('exist')
             .and('have.attr', 'type')
             .and('contain', 'video/mp4');
 
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(7)
-            .find('[id^="jarallax-container"] video source')
+            .find('[id^="jarallax-container"] video source', {timeout: 60000})
             .invoke('attr', 'src')
             .then(src => {
                 cy.request(src)
@@ -144,11 +144,11 @@ describe('verify pagebuilder row content', () => {
         cy.scrollTo('bottom', { duration: 2000 });
 
         // Hide videos to prevent capturing moving images
-        cy.get('video').invoke(
+        cy.get('video', {timeout: 60000}).invoke(
             'attr',
             'style',
             'visibility: hidden !important'
-        );
+        ).should('not.be.visible');
 
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
@@ -166,18 +166,18 @@ describe('verify pagebuilder row content', () => {
         cy.wait(['@getCMSMockData']).its('response.body');
 
         // Row with youtube embedded
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(0)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(0)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .invoke('attr', 'src')
             .then(src => {
                 cy.request(src)
@@ -186,18 +186,18 @@ describe('verify pagebuilder row content', () => {
             });
 
         // Row with youtube not embedded
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(1)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(1)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .invoke('attr', 'src')
             .then(src => {
                 cy.request(src)
@@ -206,18 +206,18 @@ describe('verify pagebuilder row content', () => {
             });
 
         // Row with youtube insecure
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(2)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(2)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .invoke('attr', 'src')
             .then(src => {
                 cy.request(src)
@@ -226,18 +226,18 @@ describe('verify pagebuilder row content', () => {
             });
 
         // Row with vimeo embedded
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(3)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .should('exist')
             .and('have.attr', 'src')
             .and('contain', 'player.vimeo.com');
 
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(3)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .invoke('attr', 'src')
             .then(src => {
                 cy.request(src)
@@ -246,18 +246,18 @@ describe('verify pagebuilder row content', () => {
             });
 
         // Row with vimeo not embedded
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(4)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .should('exist')
             .and('have.attr', 'src')
             .and('contain', 'player.vimeo.com');
 
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(4)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .invoke('attr', 'src')
             .then(src => {
                 cy.request(src)
@@ -266,18 +266,18 @@ describe('verify pagebuilder row content', () => {
             });
 
         // Row with vimeo insecure
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(5)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .should('exist')
             .and('have.attr', 'src')
             .and('contain', 'player.vimeo.com');
 
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(5)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('iframe', {timeout: 60000})
             .invoke('attr', 'src')
             .then(src => {
                 cy.request(src)
@@ -286,7 +286,7 @@ describe('verify pagebuilder row content', () => {
             });
 
         // Row with mp4
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(6)
             .scrollIntoView({ duration: 2000 })
             .find('[id^="jarallax-container"] video')
@@ -295,13 +295,13 @@ describe('verify pagebuilder row content', () => {
             .should('exist')
             .and('have.attr', 'src')
             .and('contain', 'https://');
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(6)
             .find('[id^="jarallax-container"] video source')
             .and('have.attr', 'type')
             .and('contain', 'video/mp4');
 
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(6)
             .find('[id^="jarallax-container"] video source')
             .invoke('attr', 'src')
@@ -312,7 +312,7 @@ describe('verify pagebuilder row content', () => {
             });
 
         // Row with mp4 insecure
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(7)
             .scrollIntoView({ duration: 2000 })
             .find('[id^="jarallax-container"] video')
@@ -321,13 +321,13 @@ describe('verify pagebuilder row content', () => {
             .should('exist')
             .and('have.attr', 'src')
             .and('contain', 'http://');
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(7)
             .find('[id^="jarallax-container"] video source')
             .and('have.attr', 'type')
             .and('contain', 'video/mp4');
 
-        cy.get('div[class^="richContent-root"]')
+        cy.get('div[class^="richContent-root"]', {timeout: 60000})
             .eq(7)
             .find('[id^="jarallax-container"] video source')
             .invoke('attr', 'src')
@@ -338,11 +338,11 @@ describe('verify pagebuilder row content', () => {
             });
 
         // Hide iframes to prevent capturing moving images
-        cy.get('iframe, video').invoke(
+        cy.get('iframe, video', {timeout: 60000}).invoke(
             'attr',
             'style',
             'visibility: hidden !important'
-        );
+        ).should('not.be.visible');;
 
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
