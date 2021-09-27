@@ -1,18 +1,17 @@
+import { gql } from '@apollo/client';
+import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql';
+import { ProductFormFragment } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/productFormFragment.gql';
+import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
 import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { gql } from '@apollo/client';
-import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
-
 import { useStyle } from '../../../../classify';
+import Dialog from '../../../Dialog';
 import FormError from '../../../FormError';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
-import defaultClasses from './productForm.css';
-import { CartPageFragment } from '../../cartPageFragments.gql';
-import { ProductFormFragment } from './productFormFragment.gql';
-import Dialog from '../../../Dialog';
 import ProductDetail from './productDetail';
+import defaultClasses from './productForm.css';
 
 const ProductForm = props => {
     const {

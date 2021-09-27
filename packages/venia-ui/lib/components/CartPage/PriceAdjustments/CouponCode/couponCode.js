@@ -1,24 +1,20 @@
-import React, { Fragment, useEffect } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
-import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useToasts } from '@magento/peregrine';
-import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
+import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql';
 import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
-
-import { useStyle } from '../../../../classify';
-
-import Button from '../../../Button';
+import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 import { Form } from 'informed';
+import React, { Fragment, useEffect } from 'react';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { useStyle } from '../../../../classify';
+import Button from '../../../Button';
 import Field from '../../../Field';
 import Icon from '../../../Icon';
 import LinkButton from '../../../LinkButton';
 import TextInput from '../../../TextInput';
-
-import { CartPageFragment } from '../../cartPageFragments.gql';
-import { AppliedCouponsFragment } from './couponCodeFragments';
-
 import defaultClasses from './couponCode.css';
+import { AppliedCouponsFragment } from './couponCodeFragments';
 
 const errorIcon = (
     <Icon

@@ -1,22 +1,21 @@
-import React, { Fragment } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { gql } from '@apollo/client';
+import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql';
+import { GET_SHIPPING_METHODS } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js';
+import { ShippingMethodsCartFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
+import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
 import { Form } from 'informed';
 import { func, shape, string } from 'prop-types';
-import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
-
+import React, { Fragment } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useStyle } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
 import { ShippingInformationFragment } from '../../../CheckoutPage/ShippingInformation/shippingInformationFragments.gql';
 import Country from '../../../Country';
 import FormError from '../../../FormError';
-import Region from '../../../Region';
 import Postcode from '../../../Postcode';
-import { CartPageFragment } from '../../cartPageFragments.gql';
+import Region from '../../../Region';
 import defaultClasses from './shippingForm.css';
-import { GET_SHIPPING_METHODS } from './shippingMethods.gql';
-import { ShippingMethodsCartFragment } from './shippingMethodsFragments.gql';
 
 const ShippingForm = props => {
     const { hasMethods, selectedShippingFields, setIsCartUpdating } = props;

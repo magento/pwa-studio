@@ -1,12 +1,11 @@
-import React, { Fragment, Suspense } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { gql } from '@apollo/client';
 import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
-
+import React, { Fragment, Suspense } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useStyle } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
-import defaultClasses from './productListing.css';
 import Product from './product';
+import defaultClasses from './productListing.css';
 import { ProductListingFragment } from './productListingFragments';
 
 const EditModal = React.lazy(() => import('./EditModal'));
