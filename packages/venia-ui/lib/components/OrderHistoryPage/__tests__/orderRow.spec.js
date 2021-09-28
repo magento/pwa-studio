@@ -267,3 +267,39 @@ test('it renders delivered status', () => {
 
     expect(orderProgressProps.status).toBe('Delivered');
 });
+
+test('it renders with missing order information', () => {
+    useOrderRow.mockReturnValue({
+        loading: false,
+        imagesData,
+        isOpen: false,
+        handleContentToggle: jest.fn()
+    });
+
+    const receivedOrder = {
+        ...mockOrder,
+        status: 'Received',
+        total: {
+            discounts: [],
+            grand_total: {
+                currency: null,
+                value: 1000
+            },
+            subtotal: {
+                currency: null,
+                value: null
+            },
+            total_shipping: {
+                currency: null,
+                value: null
+            },
+            total_tax: {
+                currency: null,
+                value: null
+            }
+        }
+    };
+
+    const tree = createTestInstance(<OrderRow order={receivedOrder} />);
+    expect(tree.toJSON()).toMatchSnapshot();
+});
