@@ -2,15 +2,9 @@ import React from 'react';
 import { act } from 'react-test-renderer';
 import { useQuery } from '@apollo/client';
 
-import createTestInstance from '../../../util/createTestInstance';
+import { createTestInstance } from '@magento/peregrine';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useOrderHistoryPage } from '../useOrderHistoryPage';
-import { useAppContext } from '../../../context/app';
-
-jest.mock('react-router-dom', () => {
-    return {
-        useHistory: jest.fn(() => ({ push: jest.fn() }))
-    };
-});
 
 jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
@@ -29,21 +23,7 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
     return { useAppContext };
 });
 
-jest.mock('@magento/peregrine/lib/context/user', () => {
-    const state = {
-        isSignedIn: false
-    };
-    const api = {};
-    const useUserContext = jest.fn(() => [state, api]);
-
-    return { useUserContext };
-});
-
-jest.mock('../../../hooks/useTypePolicies', () => ({
-    useTypePolicies: jest.fn()
-}));
-
-jest.mock('../../../util/deriveErrorMessage', () => ({
+jest.mock('@magento/peregrine/lib/util/deriveErrorMessage', () => ({
     deriveErrorMessage: jest.fn().mockReturnValue(null)
 }));
 

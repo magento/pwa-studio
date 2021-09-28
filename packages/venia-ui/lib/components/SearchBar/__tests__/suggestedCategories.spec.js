@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 import SuggestedCategories from '../suggestedCategories';
+import SuggestedCategory from '../suggestedCategory';
 
 jest.mock('react-router-dom', () => ({
     Link: jest.fn(() => null),
     useLocation: jest.fn()
 }));
+jest.mock('../suggestedCategory', () => 'SuggestedCategory');
 
 useLocation.mockReturnValue(globalThis.location);
 
@@ -31,7 +33,7 @@ test('renders a max of 4 categories by default', () => {
         <SuggestedCategories categories={categories} value="foo" />
     );
 
-    expect(root.findAllByType(Link)).toHaveLength(4);
+    expect(root.findAllByType(SuggestedCategory)).toHaveLength(4);
 });
 
 test('allows the render limit to be configured', () => {
@@ -39,5 +41,5 @@ test('allows the render limit to be configured', () => {
         <SuggestedCategories categories={categories} limit={2} value="foo" />
     );
 
-    expect(root.findAllByType(Link)).toHaveLength(2);
+    expect(root.findAllByType(SuggestedCategory)).toHaveLength(2);
 });

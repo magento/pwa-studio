@@ -13,9 +13,10 @@ import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
 import FormError from '../FormError';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import { QuantityFields } from '../CartPage/ProductListing/quantity';
-import RichText from '../RichText';
+import RichContent from '../RichContent/richContent';
+import { ProductOptionsShimmer } from '../ProductOptions';
+
 import defaultClasses from './productFullDetail.css';
 
 const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
@@ -57,7 +58,7 @@ const ProductFullDetail = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const options = isProductConfigurable(product) ? (
-        <Suspense fallback={fullPageLoadingIndicator}>
+        <Suspense fallback={<ProductOptionsShimmer />}>
             <Options
                 onSelectionChange={handleSelectionChange}
                 options={product.configurable_options}
@@ -207,7 +208,7 @@ const ProductFullDetail = props => {
                             defaultMessage={'Product Description'}
                         />
                     </h2>
-                    <RichText content={productDetails.description} />
+                    <RichContent html={productDetails.description} />
                 </section>
                 <section className={classes.details}>
                     <h2 className={classes.detailsTitle}>

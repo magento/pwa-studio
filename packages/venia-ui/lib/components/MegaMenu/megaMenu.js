@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 
+import { useIsInViewport } from '@magento/peregrine/lib/hooks/useIsInViewport';
 import { useMegaMenu } from '@magento/peregrine/lib/talons/MegaMenu/useMegaMenu';
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
-import { useStyle } from '../../classify';
-import defaultClasses from './megaMenu.css';
 import MegaMenuItem from './megaMenuItem';
+import defaultClasses from './megaMenu.css';
 
 /**
  * The MegaMenu component displays menu with categories on desktop devices
@@ -17,11 +18,17 @@ const MegaMenu = props => {
         activeCategoryId,
         subMenuState,
         disableFocus,
-        handleSubMenuFocus
+        handleSubMenuFocus,
+        categoryUrlSuffix,
+        handleNavigate
     } = useMegaMenu({ mainNavRef });
+
     const classes = useStyle(defaultClasses, props.classes);
 
     const [mainNavWidth, setMainNavWidth] = useState(0);
+    const shouldRenderItems = useIsInViewport({
+        elementRef: mainNavRef
+    });
 
     useEffect(() => {
         const handleResize = () => {
@@ -47,7 +54,9 @@ const MegaMenu = props => {
                   <MegaMenuItem
                       category={category}
                       activeCategoryId={activeCategoryId}
+                      categoryUrlSuffix={categoryUrlSuffix}
                       mainNavWidth={mainNavWidth}
+                      onNavigate={handleNavigate}
                       key={category.id}
                       subMenuState={subMenuState}
                       disableFocus={disableFocus}
@@ -63,7 +72,7 @@ const MegaMenu = props => {
             role="navigation"
             onFocus={handleSubMenuFocus}
         >
-            {items}
+            {shouldRenderItems ? items : null}
         </nav>
     );
 };

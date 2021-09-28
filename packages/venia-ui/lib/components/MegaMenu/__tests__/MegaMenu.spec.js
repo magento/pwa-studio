@@ -1,10 +1,13 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
 import { MemoryRouter } from 'react-router-dom';
+
+import { createTestInstance } from '@magento/peregrine';
+import { useIsInViewport } from '@magento/peregrine/lib/hooks/useIsInViewport';
+
 import MegaMenu from '../megaMenu';
 
-jest.mock('../../../classify');
-
+jest.mock('@magento/venia-ui/lib/classify');
+jest.mock('@magento/peregrine/lib/hooks/useIsInViewport');
 jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenu', () => ({
     useMegaMenu: jest.fn().mockReturnValue({
         megaMenuData: {
@@ -15,13 +18,11 @@ jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenu', () => ({
                     id: 2,
                     name: 'Women',
                     url_path: 'women',
-                    url_suffix: '.html',
                     children: [
                         {
                             id: 5,
                             name: 'Bottoms',
                             url_path: 'bottoms',
-                            url_suffix: '.html',
                             isActive: true,
                             children: []
                         }
@@ -31,45 +32,60 @@ jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenu', () => ({
                     id: 3,
                     name: 'Men',
                     url_path: 'men',
-                    url_suffix: '.html',
                     children: []
                 },
                 {
                     id: 4,
                     name: 'Gear',
                     url_path: 'gear',
-                    url_suffix: '.html',
                     children: []
                 }
             ]
         },
         activeCategoryId: 5,
+        categoryUrlSuffix: '.html',
         useOutsideAlerter: () => {}
     })
 }));
 
-test('useEffect', () => {
-    const useEffect = jest.spyOn(React, 'useEffect');
+describe('#MegaMenu', () => {
+    test('useEffect', () => {
+        const useEffect = jest.spyOn(React, 'useEffect');
 
-    const mockUseEffect = () => {
-        useEffect.mockImplementationOnce(mockFunction => mockFunction());
-    };
+        const mockUseEffect = () => {
+            useEffect.mockImplementationOnce(mockFunction => mockFunction());
+        };
 
-    mockUseEffect();
-});
+        mockUseEffect();
+    });
 
-test('not resetting the menu', () => {
-    const handleClickOutside = jest.fn();
+    test('not resetting the menu', () => {
+        const handleClickOutside = jest.fn();
 
-    expect(handleClickOutside).toHaveBeenCalledTimes(0);
-});
+        expect(handleClickOutside).toHaveBeenCalledTimes(0);
+    });
 
-test('it renders correctly', () => {
-    const instance = createTestInstance(
-        <MemoryRouter>
-            <MegaMenu />
-        </MemoryRouter>
-    );
+    it('renders empty div if not in viewport', () => {
+        useIsInViewport.mockReturnValue(false);
 
-    expect(instance.toJSON()).toMatchSnapshot();
+        const instance = createTestInstance(
+            <MemoryRouter>
+                <MegaMenu />
+            </MemoryRouter>
+        );
+
+        expect(instance.toJSON()).toMatchSnapshot();
+    });
+
+    it('renders menu if in viewport', () => {
+        useIsInViewport.mockReturnValue(true);
+
+        const instance = createTestInstance(
+            <MemoryRouter>
+                <MegaMenu />
+            </MemoryRouter>
+        );
+
+        expect(instance.toJSON()).toMatchSnapshot();
+    });
 });

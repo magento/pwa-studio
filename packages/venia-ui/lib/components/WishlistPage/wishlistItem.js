@@ -83,7 +83,7 @@ const WishlistItem = props => {
 
     const removeProductAriaLabel = formatMessage({
         id: 'wishlistItem.removeAriaLabel',
-        defaultMessage: 'Remove Product from whislist'
+        defaultMessage: 'Remove Product from wishlist'
     });
 
     const rootClass = isRemovalInProgress
