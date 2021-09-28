@@ -1,7 +1,5 @@
 import { handleActions } from 'redux-actions';
-
-import { Util } from '../../index';
-const { BrowserPersistence } = Util;
+import BrowserPersistence from '../../util/simplePersistence';
 
 const storage = new BrowserPersistence();
 
