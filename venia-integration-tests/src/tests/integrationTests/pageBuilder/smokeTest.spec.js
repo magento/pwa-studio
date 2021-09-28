@@ -10,9 +10,7 @@ describe('verify pagebuilder smoke test content', () => {
 
         cy.scrollTo('bottom', { duration: 2000 });
 
-        cy.get('[role="tabpanel"] button').should(
-            'be.visible'
-        );
+        cy.get('[role="tabpanel"] button').should('be.visible');
         cy.get('.slick-slider')
             .eq(0)
             .scrollIntoView()
@@ -55,9 +53,7 @@ describe('verify pagebuilder smoke test content', () => {
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
 
-        cy.get('[role="tabpanel"] button').should(
-            'be.visible'
-        );
+        cy.get('[role="tabpanel"] button').should('be.visible');
 
         cy.get('div[class^="richContent-root"]')
             .eq(0)
@@ -94,9 +90,7 @@ describe('verify pagebuilder smoke test content', () => {
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
 
-        cy.get('[role="tabpanel"] button').should(
-            'be.visible'
-        );
+        cy.get('[role="tabpanel"] button').should('be.visible');
 
         cy.get('div[class^="richContent-root"]')
             .eq(0)

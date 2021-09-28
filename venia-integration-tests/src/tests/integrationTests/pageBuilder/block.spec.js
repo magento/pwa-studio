@@ -8,9 +8,7 @@ describe('verify pagebuilder block content', () => {
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.scrollTo('bottom', { duration: 2000 });
-        cy.get('[role="tabpanel"] button').should(
-            'be.visible'
-        );
+        cy.get('[role="tabpanel"] button').should('be.visible');
         cy.get('.slick-slider')
             .eq(0)
             .scrollIntoView()
