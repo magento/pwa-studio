@@ -8,7 +8,7 @@ describe('verify slider content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
-        cy.get('*[class*="banner-content-"]', { timeout: 60000 }).should(
+        cy.get('*[class*="banner-content-"]').should(
             'be.visible'
         );
         cy.loadFullPage().then(() => {

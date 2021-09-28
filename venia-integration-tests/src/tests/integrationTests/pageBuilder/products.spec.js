@@ -9,10 +9,10 @@ describe('verify pagebuilder products content type', () => {
             }).as('getCMSMockData');
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
-            cy.get('*[class*="products-root-"]', { timeout: 60000 })
-                .eq(0, { timeout: 60000 })
+            cy.get('*[class*="products-root-"]')
+                .eq(0)
                 .scrollIntoView()
-                .get('img[class*="imageLoaded"]', { timeout: 60000 })
+                .get('img[class*="imageLoaded"]')
                 .should('be.visible');
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
@@ -43,14 +43,14 @@ describe('verify pagebuilder products content type', () => {
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
             cy.get('.slick-slider')
-                .eq(0, { timeout: 60000 })
+                .eq(0)
                 .scrollIntoView()
-                .get('img[loading="lazy"]', { timeout: 60000 })
+                .get('img[loading="lazy"]')
                 .should('be.visible');
             cy.get('.slick-slider')
-                .eq(1, { timeout: 60000 })
+                .eq(1)
                 .scrollIntoView()
-                .get('img[loading="lazy"]', { timeout: 60000 })
+                .get('img[loading="lazy"]')
                 .should('be.visible');
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
@@ -81,14 +81,14 @@ describe('verify pagebuilder products content type', () => {
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
             cy.get('.slick-slider')
-                .eq(0, { timeout: 60000 })
+                .eq(0)
                 .scrollIntoView()
-                .get('img[loading="lazy"]', { timeout: 60000 })
+                .get('img[loading="lazy"]')
                 .should('be.visible');
             cy.get('.slick-slider')
-                .eq(1, { timeout: 60000 })
+                .eq(1)
                 .scrollIntoView()
-                .get('img[loading="lazy"]', { timeout: 60000 })
+                .get('img[loading="lazy"]')
                 .should('be.visible');
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
@@ -119,14 +119,14 @@ describe('verify pagebuilder products content type', () => {
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
             cy.get('.slick-slider')
-                .eq(0, { timeout: 60000 })
+                .eq(0)
                 .scrollIntoView()
-                .get('img[loading="lazy"]', { timeout: 60000 })
+                .get('img[loading="lazy"]')
                 .should('be.visible');
             cy.get('.slick-slider')
-                .eq(1, { timeout: 60000 })
+                .eq(1)
                 .scrollIntoView()
-                .get('img[loading="lazy"]', { timeout: 60000 })
+                .get('img[loading="lazy"]')
                 .should('be.visible');
             cy.get('h2')
                 .contains('No autoplay, loop, arrows, dots')
@@ -182,14 +182,14 @@ describe('verify pagebuilder products content type', () => {
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
             cy.get('.slick-slider')
-                .eq(0, { timeout: 60000 })
+                .eq(0)
                 .scrollIntoView()
-                .get('img[loading="lazy"]', { timeout: 60000 })
+                .get('img[loading="lazy"]')
                 .should('be.visible');
             cy.get('.slick-slider')
-                .eq(1, { timeout: 60000 })
+                .eq(1)
                 .scrollIntoView()
-                .get('img[loading="lazy"]', { timeout: 60000 })
+                .get('img[loading="lazy"]')
                 .should('be.visible');
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({

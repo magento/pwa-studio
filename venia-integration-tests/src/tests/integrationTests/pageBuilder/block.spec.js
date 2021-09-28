@@ -8,18 +8,18 @@ describe('verify pagebuilder block content', () => {
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.scrollTo('bottom', { duration: 2000 });
-        cy.get('[role="tabpanel"] button', { timeout: 60000 }).should(
+        cy.get('[role="tabpanel"] button').should(
             'be.visible'
         );
         cy.get('.slick-slider')
-            .eq(0, { timeout: 60000 })
+            .eq(0)
             .scrollIntoView()
-            .get('img[loading="lazy"]', { timeout: 60000 })
+            .get('img[loading="lazy"]')
             .should('be.visible');
         cy.get('.slick-slider')
-            .eq(1, { timeout: 60000 })
+            .eq(1)
             .scrollIntoView()
-            .get('img[loading="lazy"]', { timeout: 60000 })
+            .get('img[loading="lazy"]')
             .should('be.visible');
 
         cy.loadFullPage().then(() => {
