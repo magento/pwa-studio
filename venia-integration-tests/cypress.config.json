@@ -20,5 +20,8 @@
     ],
     "env": {
         "updateSnapshots": false
+    },
+    "retries": {
+        "runMode": 3
     }
 }

@@ -8,6 +8,8 @@ describe('verify pagebuilder row content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+        // Scroll to bottom of the page to load all elements
+        cy.scrollTo('bottom', { duration: 2000 });
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Row',
@@ -22,6 +24,8 @@ describe('verify pagebuilder row content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+        // Scroll to bottom of the page to load all elements
+        cy.scrollTo('bottom', { duration: 2000 });
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Row2',
@@ -36,6 +40,8 @@ describe('verify pagebuilder row content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+        // Scroll to bottom of the page to load all elements
+        cy.scrollTo('bottom', { duration: 2000 });
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Row Min Height',
