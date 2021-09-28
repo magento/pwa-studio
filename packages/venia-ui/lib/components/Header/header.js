@@ -32,6 +32,7 @@ const Header = props => {
 
     const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isSearchOpen ? classes.open : classes.closed;
+
     const searchBarFallback = (
         <div className={classes.searchFallback} ref={searchRef}>
             <div className={classes.input}>

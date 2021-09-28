@@ -1,6 +1,8 @@
-import React, { Fragment, Suspense, useMemo } from 'react';
+import React, { Fragment, Suspense, useMemo, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { array, number, shape, string } from 'prop-types';
+
+import { useIsInViewport } from '@magento/peregrine/lib/hooks/useIsInViewport';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
 import { useStyle } from '../../classify';
@@ -52,7 +54,11 @@ const CategoryContent = props => {
         totalPagesFromData
     } = talonProps;
 
+    const sidebarRef = useRef(null);
     const classes = useStyle(defaultClasses, props.classes);
+    const shouldRenderSidebarContent = useIsInViewport({
+        elementRef: sidebarRef
+    });
 
     const shouldShowFilterButtons = filters && filters.length;
     const shouldShowFilterShimmer = filters === null;
@@ -153,9 +159,9 @@ const CategoryContent = props => {
                     {categoryDescriptionElement}
                 </div>
                 <div className={classes.contentWrapper}>
-                    <div className={classes.sidebar}>
+                    <div ref={sidebarRef} className={classes.sidebar}>
                         <Suspense fallback={<FilterSidebarShimmer />}>
-                            {sidebar}
+                            {shouldRenderSidebarContent ? sidebar : null}
                         </Suspense>
                     </div>
                     <div className={classes.categoryContent}>

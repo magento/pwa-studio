@@ -82,6 +82,13 @@ const OrderRow = props => {
         <OrderDetails orderData={order} imagesData={imagesData} />
     );
 
+    const orderTotalPrice =
+        currency && orderTotal !== null ? (
+            <Price currencyCode={currency} value={orderTotal} />
+        ) : (
+            '-'
+        );
+
     return (
         <li className={classes.root}>
             <div className={classes.orderNumberContainer}>
@@ -109,9 +116,7 @@ const OrderRow = props => {
                         defaultMessage={'Order Total'}
                     />
                 </span>
-                <div className={classes.orderTotal}>
-                    <Price currencyCode={currency} value={orderTotal} />
-                </div>
+                <div className={classes.orderTotal}>{orderTotalPrice}</div>
             </div>
             <div className={classes.orderItemsContainer}>
                 {collapsedImageGalleryElement}
