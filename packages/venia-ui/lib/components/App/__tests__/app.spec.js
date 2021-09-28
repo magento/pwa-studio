@@ -15,7 +15,7 @@ jest.mock('../../Head', () => ({
     StoreTitle: () => 'Title'
 }));
 jest.mock('../../Main', () => 'Main');
-
+jest.mock('../../Navigation', () => 'Navigation');
 jest.mock('../../Routes', () => 'Routes');
 jest.mock('../../ToastContainer', () => 'ToastContainer');
 jest.mock('@magento/peregrine/lib/hooks/useDelayedTransition', () => {

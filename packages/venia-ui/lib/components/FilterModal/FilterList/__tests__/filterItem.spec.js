@@ -36,7 +36,6 @@ const givenDefaultValues = () => {
             title: 'Bar',
             value: 'bar'
         },
-        isExpanded: true,
         onApply: null
     };
 };
@@ -52,7 +51,6 @@ const givenOnApply = () => {
             title: 'Bar',
             value: 'bar'
         },
-        isExpanded: true,
         onApply: mockOnApply
     };
 };
@@ -69,8 +67,7 @@ const givenSelectedItem = () => {
         },
         filterState: new Set().add(item),
         group: 'Foo',
-        item: item,
-        isExpanded: true
+        item: item
     };
 };
 
@@ -87,7 +84,6 @@ describe('#FilterItem', () => {
 
         expect(mockFilterDefault).toHaveBeenCalledWith(
             expect.objectContaining({
-                isExpanded: true,
                 isSelected: false,
                 onClick: expect.any(Function)
             }),
@@ -121,7 +117,6 @@ describe('#FilterItem', () => {
 
         expect(mockFilterDefault).toHaveBeenCalledWith(
             expect.objectContaining({
-                isExpanded: true,
                 onClick: expect.any(Function),
                 isSelected: true
             }),
