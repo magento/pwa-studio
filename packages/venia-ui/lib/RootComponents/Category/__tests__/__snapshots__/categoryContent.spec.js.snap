@@ -114,6 +114,208 @@ Array [
     >
       <div
         className="sidebar"
+      />
+      <div
+        className="categoryContent"
+      >
+        <div
+          className="heading"
+        >
+          <div
+            className="categoryInfo"
+          />
+          <div
+            className="headerButtons"
+          >
+            <FilterModalOpenButton
+              filters={
+                Array [
+                  Object {},
+                ]
+              }
+            />
+            <ProductSort
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
+          </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
+            }
+          />
+        </div>
+        <section
+          className="gallery"
+        >
+          <Gallery
+            items={
+              Object {
+                "id": 1,
+              }
+            }
+          />
+        </section>
+        <div
+          className="pagination"
+        >
+          <Pagination
+            pageControl={Object {}}
+          />
+        </div>
+        <require('../../components/FilterModal')
+          filters={
+            Array [
+              Object {},
+            ]
+          }
+        />
+      </div>
+    </div>
+  </article>,
+]
+`;
+
+exports[`filter sidebar does not render if not in viewport 1`] = `
+Array [
+  <Breadcrumbs
+    categoryId={42}
+  />,
+  "Title",
+  <article
+    className="root"
+  >
+    <div
+      className="categoryHeader"
+    >
+      <h1
+        className="title"
+      >
+        <div
+          className="categoryTitle"
+        >
+          Name
+        </div>
+      </h1>
+    </div>
+    <div
+      className="contentWrapper"
+    >
+      <div
+        className="sidebar"
+      />
+      <div
+        className="categoryContent"
+      >
+        <div
+          className="heading"
+        >
+          <div
+            className="categoryInfo"
+          />
+          <div
+            className="headerButtons"
+          >
+            <FilterModalOpenButton
+              filters={
+                Array [
+                  Object {},
+                ]
+              }
+            />
+            <ProductSort
+              sortProps={
+                Array [
+                  Object {
+                    "sortAttribute": "",
+                    "sortDirection": "",
+                    "sortText": "",
+                  },
+                  [MockFunction],
+                ]
+              }
+            />
+          </div>
+          <SortedByContainer
+            currentSort={
+              Object {
+                "sortAttribute": "",
+                "sortDirection": "",
+                "sortText": "",
+              }
+            }
+          />
+        </div>
+        <section
+          className="gallery"
+        >
+          <Gallery
+            items={
+              Object {
+                "id": 1,
+              }
+            }
+          />
+        </section>
+        <div
+          className="pagination"
+        >
+          <Pagination
+            pageControl={Object {}}
+          />
+        </div>
+        <require('../../components/FilterModal')
+          filters={
+            Array [
+              Object {},
+            ]
+          }
+        />
+      </div>
+    </div>
+  </article>,
+]
+`;
+
+exports[`filter sidebar renders when in viewport 1`] = `
+Array [
+  <Breadcrumbs
+    categoryId={42}
+  />,
+  "Title",
+  <article
+    className="root"
+  >
+    <div
+      className="categoryHeader"
+    >
+      <h1
+        className="title"
+      >
+        <div
+          className="categoryTitle"
+        >
+          Name
+        </div>
+      </h1>
+    </div>
+    <div
+      className="contentWrapper"
+    >
+      <div
+        className="sidebar"
       >
         <require('../../components/FilterSidebar')
           filters={

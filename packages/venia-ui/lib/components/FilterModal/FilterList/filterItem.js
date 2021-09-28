@@ -5,7 +5,7 @@ import setValidator from '@magento/peregrine/lib/validators/set';
 import FilterDefault from './filterDefault';
 
 const FilterItem = props => {
-    const { filterApi, filterState, group, item, isExpanded, onApply } = props;
+    const { filterApi, filterState, group, item, onApply } = props;
     const { toggleItem } = filterApi;
     const { title, value } = item;
     const isSelected = filterState && filterState.has(item);
@@ -30,7 +30,6 @@ const FilterItem = props => {
     return (
         <FilterDefault
             isSelected={isSelected}
-            isExpanded={isExpanded}
             item={tileItem}
             onClick={handleClick}
             title={title}
