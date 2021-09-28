@@ -177,8 +177,50 @@ const defaultProps = {
     }
 };
 
+const reducedProps = {
+    imagesData: [],
+    orderData: {
+        billing_address: null,
+        id: 'Ng==',
+        invoices: [],
+        items: [],
+        number: '000000001',
+        order_date: '2019-09-20 12:00:00',
+        payment_methods: [],
+        shipments: [],
+        shipping_address: null,
+        shipping_method: null,
+        status: 'Received',
+        total: {
+            discounts: [],
+            grand_total: {
+                currency: null,
+                value: 1000
+            },
+            subtotal: {
+                currency: null,
+                value: null
+            },
+            total_shipping: {
+                currency: null,
+                value: null
+            },
+            total_tax: {
+                currency: null,
+                value: null
+            }
+        }
+    }
+};
+
 test('should render properly', () => {
     const tree = createTestInstance(<OrderDetails {...defaultProps} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('should render with reduced order information', () => {
+    const tree = createTestInstance(<OrderDetails {...reducedProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
