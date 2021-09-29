@@ -9,11 +9,17 @@ import CheckoutPage from '../checkoutPage';
 import OrderConfirmationPage from '../OrderConfirmationPage';
 import FormError from '../../FormError';
 
+const defaultWindowSize = 960;
+
+let mockWindowSize;
+
 jest.mock('@magento/peregrine', () => {
     const actual = jest.requireActual('@magento/peregrine');
     const useToasts = jest.fn().mockReturnValue([{}, { addToast: jest.fn() }]);
     const useWindowSize = jest.fn().mockReturnValue({
-        innerWidth: 961
+        windowSize: {
+            innerWidth: () => mockWindowSize
+        }
     });
 
     return {
@@ -80,6 +86,18 @@ const defaultTalonProps = {
     toggleSignInContent: jest.fn().mockName('toggleSignInContent')
 };
 
+const givenDefault = () => {
+    mockWindowSize = defaultWindowSize;
+};
+
+const givenDesktop = () => {
+    mockWindowSize = defaultWindowSize + 1;
+};
+
+beforeEach(() => {
+    givenDefault();
+});
+
 describe('CheckoutPage', () => {
     test('throws a toast if there is an error', () => {
         useCheckoutPage.mockReturnValueOnce({
@@ -135,7 +153,15 @@ describe('CheckoutPage', () => {
         expect(tree.toJSON()).toMatchSnapshot();
     });
 
-    test('renders checkout content for guest', () => {
+    test('renders checkout content for guest on mobile', () => {
+        useCheckoutPage.mockReturnValueOnce(defaultTalonProps);
+
+        const tree = createTestInstance(<CheckoutPage />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders checkout content for guest on desktop', () => {
+        givenDesktop();
         useCheckoutPage.mockReturnValueOnce(defaultTalonProps);
 
         const tree = createTestInstance(<CheckoutPage />);
