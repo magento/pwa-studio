@@ -32,40 +32,51 @@ const AddToCartButton = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const buttonText = isInStock ? (
-        <FormattedMessage
-            id="addToCartButton.addItemToCart"
-            defaultMessage="ADD TO CART"
-        />
-    ) : (
-        <FormattedMessage
-            id="addToCartButton.itemOutOfStock"
-            defaultMessage="OUT OF STOCK"
-        />
-    );
-
-    const buttonAriaLabel = formatMessage({
-        id: isInStock
-            ? 'addToCartButton.addItemToCartAriaLabel'
-            : 'addToCartButton.itemOutOfStockAriaLabel',
-        defaultMessage: isInStock ? 'Add to cart' : 'Out of stock'
-    });
-
-    const buttonIcon = isInStock ? AddToCartIcon : OutOfStockIcon;
-
-    return (
+    const buttonInStock = (
         <Button
-            aria-label={buttonAriaLabel}
+            aria-label={formatMessage({
+                id: 'addToCartButton.addItemToCartAriaLabel',
+                defaultMessage: 'Add to Cart'
+            })}
             className={classes.root}
             disabled={isDisabled}
             onPress={handleAddToCart}
             priority="high"
             type="button"
         >
-            {buttonIcon}
-            <span className={classes.text}>{buttonText}</span>
+            {AddToCartIcon}
+            <span className={classes.text}>
+                <FormattedMessage
+                    id="addToCartButton.addItemToCart"
+                    defaultMessage="ADD TO CART"
+                />
+            </span>
         </Button>
     );
+
+    const buttonOutOfStock = (
+        <Button
+            aria-label={formatMessage({
+                id: 'addToCartButton.itemOutOfStockAriaLabel',
+                defaultMessage: 'Out of Stock'
+            })}
+            className={classes.root}
+            disabled={isDisabled}
+            onPress={handleAddToCart}
+            priority="high"
+            type="button"
+        >
+            {OutOfStockIcon}
+            <span className={classes.text}>
+                <FormattedMessage
+                    id="addToCartButton.itemOutOfStock"
+                    defaultMessage="OUT OF STOCK"
+                />
+            </span>
+        </Button>
+    );
+
+    return isInStock ? buttonInStock : buttonOutOfStock;
 };
 
 export default AddToCartButton;
