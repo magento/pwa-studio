@@ -1,0 +1,11 @@
+.root {
+    composes: root from './categoryLeaf.module.css';
+}
+
+.target {
+    composes: target from './categoryLeaf.module.css';
+}
+
+.text {
+    composes: text from './categoryLeaf.module.css';
+}

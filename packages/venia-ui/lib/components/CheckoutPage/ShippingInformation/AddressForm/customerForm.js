@@ -14,7 +14,7 @@ import FormError from '../../../FormError';
 import Region from '../../../Region';
 import Postcode from '../../../Postcode';
 import TextInput from '../../../TextInput';
-import defaultClasses from './customerForm.css';
+import defaultClasses from './customerForm.module.css';
 import LoadingIndicator from '../../../LoadingIndicator';
 
 const CustomerForm = props => {

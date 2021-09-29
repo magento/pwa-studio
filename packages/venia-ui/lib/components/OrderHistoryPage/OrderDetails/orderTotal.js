@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
-import defaultClasses from './orderTotal.css';
+import defaultClasses from './orderTotal.module.css';
 
 const OrderTotal = props => {
     const { classes: propClasses, data } = props;

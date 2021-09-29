@@ -9,7 +9,7 @@ import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
 import AddressForm from './AddressForm';
 import Card from './card';
-import defaultClasses from './shippingInformation.css';
+import defaultClasses from './shippingInformation.module.css';
 import LinkButton from '../../LinkButton';
 
 const EditModal = React.lazy(() => import('./editModal'));

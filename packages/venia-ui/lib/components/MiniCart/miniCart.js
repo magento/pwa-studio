@@ -14,7 +14,7 @@ import Button from '../Button';
 import Icon from '../Icon';
 import StockStatusMessage from '../StockStatusMessage';
 import ProductList from './ProductList';
-import defaultClasses from './miniCart.css';
+import defaultClasses from './miniCart.module.css';
 import operations from './miniCart.gql';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;

@@ -7,7 +7,7 @@ import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPag
 import CheckoutError from '@magento/peregrine/lib/talons/CheckoutPage/CheckoutError';
 
 import { useStyle } from '../../../classify';
-import defaultClasses from './paymentInformation.css';
+import defaultClasses from './paymentInformation.module.css';
 import LoadingIndicator from '../../LoadingIndicator';
 
 const PaymentMethods = React.lazy(() => import('./paymentMethods'));

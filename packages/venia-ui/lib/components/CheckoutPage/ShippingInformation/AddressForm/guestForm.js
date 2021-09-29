@@ -13,7 +13,7 @@ import FormError from '../../../FormError';
 import Region from '../../../Region';
 import Postcode from '../../../Postcode';
 import TextInput from '../../../TextInput';
-import defaultClasses from './guestForm.css';
+import defaultClasses from './guestForm.module.css';
 
 const GuestForm = props => {
     const {

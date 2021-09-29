@@ -13,7 +13,7 @@ import Field from '../../Field';
 import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
 import TextInput from '../../TextInput';
-import defaultClasses from './giftCards.css';
+import defaultClasses from './giftCards.module.css';
 import GiftCard from './giftCard';
 
 import {
@@ -41,7 +41,7 @@ const errorIcon = (
  * @param {Object} props Component props
  * @param {Function} props.setIsCartUpdating Callback function to call when adding or removing a gift card
  * @param {Object} props.classes CSS className overrides.
- * See [giftCards.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCards.css}
+ * See [giftCards.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCards.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useSuggestedCategory } from '@magento/peregrine/lib/talons/SearchBar';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './suggestedCategory.css';
+import defaultClasses from './suggestedCategory.module.css';
 
 const SuggestedCategory = props => {
     const { categoryId, label, onNavigate, value } = props;

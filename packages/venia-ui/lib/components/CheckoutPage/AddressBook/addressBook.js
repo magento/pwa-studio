@@ -7,7 +7,7 @@ import { useAddressBook } from '@magento/peregrine/lib/talons/CheckoutPage/Addre
 
 import { useStyle } from '../../../classify';
 import Button from '../../Button';
-import defaultClasses from './addressBook.css';
+import defaultClasses from './addressBook.module.css';
 import AddressCard from './addressCard';
 import Icon from '../../Icon';
 import LinkButton from '../../LinkButton';

@@ -15,7 +15,7 @@ import LoadingIndicator from '../../LoadingIndicator';
 import CompletedView from './completedView';
 import ShippingRadios from './shippingRadios';
 import UpdateModal from './updateModal';
-import defaultClasses from './shippingMethod.css';
+import defaultClasses from './shippingMethod.module.css';
 
 const initializingContents = (
     <LoadingIndicator>

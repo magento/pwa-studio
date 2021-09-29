@@ -7,7 +7,7 @@ import { useStyle } from '../../classify';
 import Field from '../Field';
 import Select from '../Select';
 import TextInput from '../TextInput';
-import defaultClasses from './region.css';
+import defaultClasses from './region.module.css';
 import { GET_REGIONS_QUERY } from './region.gql';
 
 /**
