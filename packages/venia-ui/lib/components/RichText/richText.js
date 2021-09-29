@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './richText.css';
+import defaultClasses from './richText.module.css';
 
 const toHTML = str => ({ __html: str });
 

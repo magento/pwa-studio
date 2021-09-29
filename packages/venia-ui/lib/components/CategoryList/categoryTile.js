@@ -6,7 +6,7 @@ import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useC
 
 import { useStyle } from '../../classify';
 import Image from '../Image';
-import defaultClasses from './categoryTile.css';
+import defaultClasses from './categoryTile.module.css';
 
 const IMAGE_WIDTH = 80;
 

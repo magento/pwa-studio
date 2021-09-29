@@ -3,7 +3,7 @@ import { useButton } from 'react-aria';
 import { oneOf, shape, string, bool } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './button.css';
+import defaultClasses from './button.module.css';
 
 const getRootClassName = (priority, negative) =>
     `root_${priority}Priority${negative ? 'Negative' : ''}`;

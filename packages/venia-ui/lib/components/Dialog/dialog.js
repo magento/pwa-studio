@@ -10,7 +10,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '../Button';
 import Icon from '../Icon';
 import { Portal } from '../Portal';
-import defaultClasses from './dialog.css';
+import defaultClasses from './dialog.module.css';
 
 /**
  * The Dialog component shows its children content in a dialog,

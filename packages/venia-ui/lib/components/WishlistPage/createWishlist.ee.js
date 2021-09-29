@@ -14,7 +14,7 @@ import { useStyle } from '../../classify';
 import TextInput from '../TextInput';
 import FormError from '../FormError/formError';
 
-import defaultClasses from './createWishlist.css';
+import defaultClasses from './createWishlist.module.css';
 
 const CreateWishlist = props => {
     const classes = useStyle(defaultClasses, props.classes);

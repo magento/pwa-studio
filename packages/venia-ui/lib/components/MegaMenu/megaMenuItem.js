@@ -7,7 +7,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useMegaMenuItem } from '@magento/peregrine/lib/talons/MegaMenu/useMegaMenuItem';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './megaMenuItem.css';
+import defaultClasses from './megaMenuItem.module.css';
 import Submenu from './submenu';
 import Icon from '../Icon';
 
@@ -77,23 +77,21 @@ const MegaMenuItem = props => {
     ]);
 
     const maybeDownArrowIcon = category.children.length ? (
-        <Icon
-            className={classes.arrowDown}
-            src={ArrowDown}
-            size={16}
-            aria-label={
-                'Category: ' +
-                category.name +
-                '. ' +
-                category.children.length +
-                ' sub-categories'
-            }
-        />
+        <Icon className={classes.arrowDown} src={ArrowDown} size={16} />
     ) : null;
+
+    const linkAttributes = category.children.length
+        ? {
+              'aria-label': `Category: ${category.name}. ${
+                  category.children.length
+              } sub-categories`
+          }
+        : {};
 
     return (
         <div className={megaMenuItemClassname}>
             <Link
+                {...linkAttributes}
                 onKeyDown={handleKeyDown}
                 className={
                     isActive ? classes.megaMenuLinkActive : classes.megaMenuLink

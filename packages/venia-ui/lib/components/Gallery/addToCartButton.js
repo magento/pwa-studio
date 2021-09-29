@@ -6,7 +6,7 @@ import { ShoppingBag, XSquare } from 'react-feather';
 import Icon from '../Icon';
 import Button from '../Button';
 import { mergeClasses } from '../../classify';
-import defaultClasses from './addToCartButton.css';
+import defaultClasses from './addToCartButton.module.css';
 
 const AddToCartIcon = (
     <Icon

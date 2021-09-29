@@ -16,7 +16,7 @@ import ResourceImage from './resourceImage';
 import SimpleImage from './simpleImage';
 import { useStyle } from '../../classify';
 
-import defaultClasses from './image.css';
+import defaultClasses from './image.module.css';
 /**
  * The Image component renders a placeholder until the image is loaded.
  *

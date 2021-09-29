@@ -1,0 +1,46 @@
+.contents {
+    composes: contents from '../../../Dialog/dialog.module.css';
+    position: relative;
+}
+
+.optionRoot {
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
+    padding: 1rem 0;
+}
+
+.quantityLabel {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+}
+
+.quantityRoot {
+    composes: root from '../quantity.module.css';
+    grid-template-columns: auto 4rem auto;
+    justify-content: start;
+    padding: 0 1rem;
+}
+
+.loading {
+    composes: root from '../../../LoadingIndicator/indicator.module.css';
+    height: unset;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.dataError {
+    color: rgb(var(--venia-global-color-error));
+    display: inline-block;
+    padding-top: 1rem;
+    line-height: var(--venia-global-lineHeight-300);
+}
+
+.errorContainer {
+    padding-top: 1rem;
+}

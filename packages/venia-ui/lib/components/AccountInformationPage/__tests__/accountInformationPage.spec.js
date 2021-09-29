@@ -26,7 +26,6 @@ const emptyFormProps = {
         }
     },
     isDisabled: false,
-    isSignedIn: true,
     isUpdateMode: false,
     loadDataError: null,
     showUpdateMode
@@ -38,19 +37,9 @@ jest.mock('react-router-dom', () => ({
     Redirect: props => <mock-Redirect {...props} />
 }));
 
-test('redirects when not authenticated', () => {
-    useAccountInformationPage.mockReturnValue({
-        isSignedIn: false
-    });
-
-    const tree = createTestInstance(<AccountInformationPage />);
-    expect(tree.toJSON()).toMatchSnapshot();
-});
-
 test('renders a loading indicator', () => {
     useAccountInformationPage.mockReturnValueOnce({
-        initialValues: null,
-        isSignedIn: true
+        initialValues: null
     });
 
     const { root } = createTestInstance(<AccountInformationPage />);

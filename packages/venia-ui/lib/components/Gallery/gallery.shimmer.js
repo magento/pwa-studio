@@ -3,7 +3,7 @@ import { shape, string, array, object } from 'prop-types';
 import { useStyle } from '../../classify';
 
 import GalleryItemShimmer from './item.shimmer';
-import defaultClasses from './gallery.css';
+import defaultClasses from './gallery.module.css';
 
 const GalleryShimmer = props => {
     const { items, itemProps } = props;

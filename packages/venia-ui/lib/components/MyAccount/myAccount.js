@@ -5,7 +5,7 @@ import { useMyAccount } from '@magento/peregrine/lib/talons/MyAccount/useMyAccou
 
 import { useStyle } from '../../classify';
 import AccountMenuItems from '../AccountMenu/accountMenuItems';
-import defaultClasses from './myAccount.css';
+import defaultClasses from './myAccount.module.css';
 
 const MyAccount = props => {
     const { classes: propClasses, onSignOut, onClose } = props;

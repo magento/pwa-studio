@@ -3,7 +3,7 @@ import { func, string, shape } from 'prop-types';
 
 import { useStyle } from '../../classify';
 
-import defaultClasses from './emptyMiniCartBody.css';
+import defaultClasses from './emptyMiniCartBody.module.css';
 import { useEmptyMiniCart } from '@magento/peregrine/lib/talons/LegacyMiniCart/useEmptyMiniCart';
 import Button from '../Button';
 

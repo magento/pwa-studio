@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultClasses from './video.css';
+import defaultClasses from './video.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, shape, string, bool } from 'prop-types';
 

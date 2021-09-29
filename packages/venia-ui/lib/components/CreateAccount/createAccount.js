@@ -2,7 +2,6 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { func, shape, string, bool } from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
 
 import { useStyle } from '../../classify';
@@ -16,7 +15,7 @@ import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
-import defaultClasses from './createAccount.css';
+import defaultClasses from './createAccount.module.css';
 import FormError from '../FormError';
 import Password from '../Password';
 
@@ -32,15 +31,10 @@ const CreateAccount = props => {
         handleCancel,
         handleSubmit,
         isDisabled,
-        isSignedIn,
         initialValues
     } = talonProps;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
-
-    if (isSignedIn) {
-        return <Redirect to="/" />;
-    }
 
     const cancelButton = props.isCancelButtonHidden ? null : (
         <Button

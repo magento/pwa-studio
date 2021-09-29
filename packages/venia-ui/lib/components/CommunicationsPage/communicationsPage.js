@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
-import { Redirect } from 'react-router-dom';
 import { useToasts } from '@magento/peregrine';
 import { useCommunicationsPage } from '@magento/peregrine/lib/talons/CommunicationsPage/useCommunicationsPage';
 
@@ -12,7 +11,7 @@ import Field from '../Field';
 import FormError from '../FormError';
 import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import defaultClasses from './communicationsPage.css';
+import defaultClasses from './communicationsPage.module.css';
 
 const CommunicationsPage = props => {
     const { formatMessage } = useIntl();
@@ -33,17 +32,7 @@ const CommunicationsPage = props => {
 
     const talonProps = useCommunicationsPage({ afterSubmit });
 
-    const {
-        formErrors,
-        handleSubmit,
-        initialValues,
-        isDisabled,
-        isSignedIn
-    } = talonProps;
-
-    if (!isSignedIn) {
-        return <Redirect to="/" />;
-    }
+    const { formErrors, handleSubmit, initialValues, isDisabled } = talonProps;
 
     if (!initialValues) {
         return fullPageLoadingIndicator;
