@@ -7,10 +7,11 @@ import LinkButton from '../../LinkButton';
 import defaultClasses from './giftCard.css';
 
 const GiftCard = props => {
-    const { code, currentBalance, isRemovingCard } = props;
+    const { code, currentBalance, isRemovingCard, removeGiftCard } = props;
 
     const { removeGiftCardWithCode } = useGiftCard({
-        code
+        code,
+        removeGiftCard
     });
 
     const classes = useStyle(defaultClasses, props.classes);
