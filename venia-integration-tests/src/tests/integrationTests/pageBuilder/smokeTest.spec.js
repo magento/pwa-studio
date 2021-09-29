@@ -7,6 +7,37 @@ describe('verify pagebuilder smoke test content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+
+        cy.scrollTo('bottom', { duration: 2000 });
+
+        cy.get('[role="tabpanel"] button').should('be.visible');
+        cy.get('.slick-slider')
+            .eq(0)
+            .scrollIntoView()
+            .get('img[class*="imageLoaded"]')
+            .should('be.visible');
+        cy.get('.slick-slider')
+            .eq(1)
+            .scrollIntoView()
+            .get('img[class*="imageLoaded"]')
+            .should('be.visible');
+
+        cy.get('div[class^="richContent-root"]')
+            .eq(0)
+            .find('iframe')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'youtube');
+
+        cy.get('iframe')
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
+
+        // Hide maps
+        cy.get('*[class^="map-root-"]')
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
+
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Smoke Test',
@@ -21,6 +52,29 @@ describe('verify pagebuilder smoke test content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+
+        cy.get('[role="tabpanel"] button').should('be.visible');
+
+        cy.get('div[class^="richContent-root"]')
+            .eq(0)
+            .find('iframe')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'youtube');
+
+        // Scroll to bottom of the page to load all iframes
+        cy.scrollTo('bottom', { duration: 2000 });
+
+        // Hide iframes to prevent capturing moving images
+        cy.get('iframe')
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
+
+        // Hide maps
+        cy.get('*[class^="map-root-"]')
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
+
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Smoke Test CMS Block Content',
@@ -35,6 +89,29 @@ describe('verify pagebuilder smoke test content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+
+        cy.get('[role="tabpanel"] button').should('be.visible');
+
+        cy.get('div[class^="richContent-root"]')
+            .eq(0)
+            .find('iframe')
+            .should('exist')
+            .and('have.attr', 'src')
+            .and('contain', 'youtube');
+
+        // Scroll to bottom of the page to load all iframes
+        cy.scrollTo('bottom', { duration: 2000 });
+
+        // Hide iframes to prevent capturing moving images
+        cy.get('iframe')
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
+
+        // Hide maps
+        cy.get('*[class^="map-root-"]')
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
+
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Smoke Test Dynamic Block Content',
