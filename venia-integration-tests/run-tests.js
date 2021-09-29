@@ -29,7 +29,7 @@ if (port) {
     // run docker on local instance
     console.log(`Running tests on local instance ${baseUrl}`)
 
-    dockerCommand = `docker run --rm --network host -v ${process.env.PWD}:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=https://host.docker.internal:${port},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${updateSnapshots} --headless`
+    dockerCommand = `docker run --rm -v ${process.env.PWD}:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=https://host.docker.internal:${port},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${updateSnapshots} --headless`
 } else {
     // run docker on remote instance
     console.log(`Running tests on remote instance ${baseUrl}`)
@@ -40,14 +40,18 @@ if (port) {
 for (let i = 0; i < parallelRuns; i++) {
     const filesToTest = files.slice(testsPerRun * (i), testsPerRun * (i + 1))
 
-    const run = exec(`${dockerCommand} --spec ${filesToTest.join(',')}`)
+    const commandWithSpecFiles = `${dockerCommand} --spec ${filesToTest.join(',')}`
+
+    console.log(`Running ${commandWithSpecFiles} \n`)
+
+    const run = exec(commandWithSpecFiles)
 
     run.stdout.on('data', (data) => {
-        console.log(`docker run ${i + 1} stdout: ${data}`);
+        console.log(`docker run ${i + 1} => ${data}`);
     });
 
     run.stderr.on('data', (data) => {
-        console.error(`docker run ${i + 1} stderr: ${data}`);
+        console.error(`docker run ${i + 1} => ${data}`);
     });
 
     run.on('close', (code) => {
