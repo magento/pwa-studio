@@ -2,7 +2,7 @@ import React from 'react';
 import { bool, func, number, oneOfType, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './tile.css';
+import defaultClasses from './tile.module.css';
 import { useTile } from '@magento/peregrine/lib/talons/ProductOptions/useTile';
 
 const getClassName = (name, isSelected, hasFocus) =>

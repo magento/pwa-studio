@@ -4,7 +4,7 @@ import { string, func, arrayOf, shape, number, oneOf } from 'prop-types';
 import Item from './item';
 import { useStyle } from '../../../classify';
 
-import defaultClasses from './productList.css';
+import defaultClasses from './productList.module.css';
 
 const ProductList = props => {
     const {

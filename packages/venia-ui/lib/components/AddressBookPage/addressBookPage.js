@@ -11,7 +11,7 @@ import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/Loadi
 
 import AddressCard from './addressCard';
 import AddEditDialog from './addEditDialog';
-import defaultClasses from './addressBookPage.css';
+import defaultClasses from './addressBookPage.module.css';
 
 const AddressBookPage = props => {
     const talonProps = useAddressBookPage();

@@ -8,7 +8,7 @@ import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import { Portal } from '../../Portal';
 import AddressForm from './AddressForm';
-import defaultClasses from './editModal.css';
+import defaultClasses from './editModal.module.css';
 
 const EditModal = props => {
     const { classes: propClasses, shippingData, onSuccess } = props;

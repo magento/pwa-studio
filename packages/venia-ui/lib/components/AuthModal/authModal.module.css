@@ -1,0 +1,13 @@
+.root {
+    display: block;
+}
+
+.createAccountActions {
+    composes: actions from '../CreateAccount/createAccount.module.css';
+    grid-auto-flow: row;
+}
+
+.createAccountSubmitButton {
+    composes: root_highPriority from '../Button/button.module.css';
+    grid-column-start: auto;
+}

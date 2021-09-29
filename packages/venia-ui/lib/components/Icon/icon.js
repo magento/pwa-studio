@@ -2,7 +2,7 @@ import React from 'react';
 import { object, number, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './icon.css';
+import defaultClasses from './icon.module.css';
 
 const Icon = props => {
     // destructure `propClasses` to exclude it from `restProps`

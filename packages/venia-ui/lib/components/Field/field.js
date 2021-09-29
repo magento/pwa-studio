@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { bool, node, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './field.css';
+import defaultClasses from './field.module.css';
 
 const Field = props => {
     const { children, id, label, optional } = props;

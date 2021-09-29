@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { useStyle } from '../../classify';
 import Dialog from '../Dialog';
-import defaultClasses from './wishlistEditFavoritesListDialog.css';
+import defaultClasses from './wishlistEditFavoritesListDialog.module.css';
 import TextInput from '../TextInput';
 import { isRequired } from '../../util/formValidators';
 import Field from '../Field';

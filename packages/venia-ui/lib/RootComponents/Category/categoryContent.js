@@ -20,7 +20,7 @@ import Shimmer from '../../components/Shimmer';
 import SortedByContainer, {
     SortedByContainerShimmer
 } from '../../components/SortedByContainer';
-import defaultClasses from './category.css';
+import defaultClasses from './category.module.css';
 import NoProductsFound from './NoProductsFound';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));

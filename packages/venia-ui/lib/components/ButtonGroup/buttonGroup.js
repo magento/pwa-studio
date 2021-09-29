@@ -3,7 +3,7 @@ import { arrayOf, node, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
 import Button from './button';
-import defaultClasses from './buttonGroup.css';
+import defaultClasses from './buttonGroup.module.css';
 
 /**
  * A component that creates a group of buttons.

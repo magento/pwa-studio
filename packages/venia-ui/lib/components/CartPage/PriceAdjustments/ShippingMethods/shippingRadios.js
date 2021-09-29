@@ -7,7 +7,7 @@ import { useStyle } from '../../../../classify';
 import RadioGroup from '../../../RadioGroup';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import ShippingRadio from './shippingRadio';
-import defaultClasses from './shippingRadios.css';
+import defaultClasses from './shippingRadios.module.css';
 import { SelectedShippingMethodCartFragment } from './shippingMethodsFragments.gql';
 
 const ShippingRadios = props => {
