@@ -9,6 +9,11 @@ describe('verify pagebuilder products content type', () => {
             }).as('getCMSMockData');
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
+            cy.get('*[class*="products-root-"]')
+                .eq(0)
+                .scrollIntoView()
+                .get('img[class*="imageLoaded"]')
+                .should('be.visible');
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'PB Products Grid',
@@ -37,6 +42,16 @@ describe('verify pagebuilder products content type', () => {
             }).as('getCMSMockData');
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
+            cy.get('.slick-slider')
+                .eq(0)
+                .scrollIntoView()
+                .get('img[loading="lazy"]')
+                .should('be.visible');
+            cy.get('.slick-slider')
+                .eq(1)
+                .scrollIntoView()
+                .get('img[loading="lazy"]')
+                .should('be.visible');
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'PB Products Carousel',
@@ -65,6 +80,16 @@ describe('verify pagebuilder products content type', () => {
             }).as('getCMSMockData');
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
+            cy.get('.slick-slider')
+                .eq(0)
+                .scrollIntoView()
+                .get('img[loading="lazy"]')
+                .should('be.visible');
+            cy.get('.slick-slider')
+                .eq(1)
+                .scrollIntoView()
+                .get('img[loading="lazy"]')
+                .should('be.visible');
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'PB Products Carousel Styles',
@@ -93,6 +118,16 @@ describe('verify pagebuilder products content type', () => {
             }).as('getCMSMockData');
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
+            cy.get('.slick-slider')
+                .eq(0)
+                .scrollIntoView()
+                .get('img[loading="lazy"]')
+                .should('be.visible');
+            cy.get('.slick-slider')
+                .eq(1)
+                .scrollIntoView()
+                .get('img[loading="lazy"]')
+                .should('be.visible');
             cy.get('h2')
                 .contains('No autoplay, loop, arrows, dots')
                 .next()
@@ -146,6 +181,16 @@ describe('verify pagebuilder products content type', () => {
             }).as('getCMSMockData');
             cy.visitHomePage();
             cy.wait(['@getCMSMockData']).its('response.body');
+            cy.get('.slick-slider')
+                .eq(0)
+                .scrollIntoView()
+                .get('img[loading="lazy"]')
+                .should('be.visible');
+            cy.get('.slick-slider')
+                .eq(1)
+                .scrollIntoView()
+                .get('img[loading="lazy"]')
+                .should('be.visible');
             cy.loadFullPage().then(() => {
                 cy.captureFullPageScreenshot({
                     name: 'PB Products Carousel Mobile',

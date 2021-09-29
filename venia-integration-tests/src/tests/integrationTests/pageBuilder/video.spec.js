@@ -8,6 +8,8 @@ describe('verify pagebuilder video content is rendered correctly', () => {
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
         cy.loadFullPage().then(() => {
+            //Temporary measure to stabilize 3rd party content loading test results.
+            cy.wait(10000);
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Video Alignment Page'
             });
