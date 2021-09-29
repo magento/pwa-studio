@@ -8,7 +8,7 @@ import { useStyle } from '../../classify';
 import Pagination from '../../components/Pagination';
 import Gallery, { GalleryShimmer } from '../Gallery';
 import ProductSort, { ProductSortShimmer } from '../ProductSort';
-import defaultClasses from './searchPage.css';
+import defaultClasses from './searchPage.module.css';
 import SortedByContainer, {
     SortedByContainerShimmer
 } from '../SortedByContainer';

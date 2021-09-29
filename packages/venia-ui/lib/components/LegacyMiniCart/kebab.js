@@ -5,7 +5,7 @@ import { MoreVertical as MoreVerticalIcon } from 'react-feather';
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
 
-import defaultClasses from './kebab.css';
+import defaultClasses from './kebab.module.css';
 import { useKebab } from '@magento/peregrine/lib/talons/LegacyMiniCart/useKebab';
 
 const Kebab = props => {

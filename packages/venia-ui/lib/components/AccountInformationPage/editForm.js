@@ -15,7 +15,7 @@ import {
     isNotEqualToField
 } from '../../util/formValidators';
 import combine from '../../util/combineValidators';
-import defaultClasses from './editForm.css';
+import defaultClasses from './editForm.module.css';
 
 const EditForm = props => {
     const {

@@ -4,7 +4,7 @@ import { number, string, shape } from 'prop-types';
 import Price from '@magento/venia-ui/lib/components/Price';
 
 import { useStyle } from '../../../../classify';
-import defaultClasses from './shippingRadio.css';
+import defaultClasses from './shippingRadio.module.css';
 
 const ShippingRadio = props => {
     const priceElement = props.price ? (

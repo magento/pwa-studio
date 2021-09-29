@@ -8,7 +8,7 @@ import CreateAccount from '@magento/venia-ui/lib/components/CreateAccount';
 import ForgotPassword from '@magento/venia-ui/lib/components/ForgotPassword';
 import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
 import SignIn from '@magento/venia-ui/lib/components/SignIn';
-import defaultClasses from './guestSignIn.css';
+import defaultClasses from './guestSignIn.module.css';
 
 const GuestSignIn = props => {
     const { isActive, toggleActiveContent } = props;

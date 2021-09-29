@@ -4,7 +4,7 @@ import { bool, func, shape, string } from 'prop-types';
 import { useAutocomplete } from '@magento/peregrine/lib/talons/SearchBar';
 import { useIntl } from 'react-intl';
 
-import defaultClasses from './autocomplete.css';
+import defaultClasses from './autocomplete.module.css';
 import { useStyle } from '../../classify';
 import Suggestions from './suggestions';
 

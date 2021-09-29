@@ -8,7 +8,7 @@ import { StoreTitle } from '../Head';
 import PaymentCard from './paymentCard';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
-import defaultClasses from './savedPaymentsPage.css';
+import defaultClasses from './savedPaymentsPage.module.css';
 
 const SavedPaymentsPage = props => {
     const talonProps = useSavedPaymentsPage();

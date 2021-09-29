@@ -11,7 +11,7 @@ import FormError from '@magento/venia-ui/lib/components/FormError';
 import CreateWishlistForm from './CreateWishlistForm';
 import WishlistLineItem from './WishlistLineItem';
 
-import defaultClasses from './wishlistDialog.css';
+import defaultClasses from './wishlistDialog.module.css';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 
 const WishlistDialog = props => {
