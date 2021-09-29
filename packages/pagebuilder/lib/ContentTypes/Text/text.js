@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import defaultClasses from './text.css';
+import defaultClasses from './text.module.css';
 
 const toHTML = str => ({ __html: str });
 

@@ -4,7 +4,7 @@ import { useCategory } from '@magento/peregrine/lib/talons/RootComponents/Catego
 import { useStyle } from '../../classify';
 
 import CategoryContent from './categoryContent';
-import defaultClasses from './category.css';
+import defaultClasses from './category.module.css';
 import { Meta } from '../../components/Head';
 import { GET_PAGE_SIZE } from './category.gql';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';

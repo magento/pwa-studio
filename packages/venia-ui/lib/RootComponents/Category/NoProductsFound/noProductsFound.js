@@ -8,7 +8,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import Image from '../../../components/Image';
 import { useStyle } from '../../../classify';
 import noProductsFound from './noProductsFound.png';
-import defaultClasses from './noProductsFound.css';
+import defaultClasses from './noProductsFound.module.css';
 
 const NoProductsFound = props => {
     const { categoryId } = props;

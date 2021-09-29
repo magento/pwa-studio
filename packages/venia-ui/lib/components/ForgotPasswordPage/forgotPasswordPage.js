@@ -7,7 +7,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import ForgotPassword from '@magento/venia-ui/lib/components/ForgotPassword';
 import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 
-import defaultClasses from './forgotPasswordPage.css';
+import defaultClasses from './forgotPasswordPage.module.css';
 
 const ForgotPasswordPage = props => {
     const classes = useStyle(defaultClasses, props.classes);

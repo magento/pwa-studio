@@ -8,7 +8,7 @@ import ShowAllButton from './showAllButton';
 import LoadingIndicator from '../../LoadingIndicator';
 import { useStyle } from '../../../classify';
 
-import defaultClasses from './itemsReview.css';
+import defaultClasses from './itemsReview.module.css';
 
 /**
  * Renders a list of items in an order.

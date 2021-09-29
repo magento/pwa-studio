@@ -14,7 +14,7 @@ import BrainTreeDropin from './brainTreeDropIn';
 import LoadingIndicator from '../../LoadingIndicator';
 import { useStyle } from '../../../classify';
 
-import defaultClasses from './creditCard.css';
+import defaultClasses from './creditCard.module.css';
 import FormError from '../../FormError';
 
 const STEP_DESCRIPTIONS = [

@@ -5,7 +5,7 @@ import { useStyle } from '../../classify';
 import Checkout from '../Checkout';
 import CheckoutButton from '../Checkout/checkoutButton';
 
-import defaultClasses from './footer.css';
+import defaultClasses from './footer.module.css';
 import TotalsSummary from './totalsSummary';
 
 const Footer = props => {

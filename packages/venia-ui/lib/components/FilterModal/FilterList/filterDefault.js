@@ -4,7 +4,7 @@ import { bool, shape, string } from 'prop-types';
 
 import Checkbox from '../../Checkbox';
 import { useStyle } from '../../../classify';
-import defaultClasses from './filterDefault.css';
+import defaultClasses from './filterDefault.module.css';
 
 const FilterDefault = props => {
     const { classes: propsClasses, isSelected, item, ...restProps } = props;

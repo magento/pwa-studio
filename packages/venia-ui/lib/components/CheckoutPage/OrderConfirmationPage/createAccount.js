@@ -20,7 +20,7 @@ import FormError from '../../FormError';
 import TextInput from '../../TextInput';
 import Password from '../../Password';
 
-import defaultClasses from './createAccount.css';
+import defaultClasses from './createAccount.module.css';
 
 const CreateAccount = props => {
     const { formatMessage } = useIntl();

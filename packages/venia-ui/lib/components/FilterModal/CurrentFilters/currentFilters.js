@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { useStyle } from '../../../classify';
 import CurrentFilter from './currentFilter';
-import defaultClasses from './currentFilters.css';
+import defaultClasses from './currentFilters.module.css';
 
 const CurrentFilters = props => {
     const { filterApi, filterState, onRemove } = props;
