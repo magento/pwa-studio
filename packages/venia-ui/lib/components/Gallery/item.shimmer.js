@@ -5,7 +5,7 @@ import { useStyle } from '../../classify';
 
 import Shimmer from '../Shimmer';
 import Image from '../Image';
-import defaultClasses from './item.css';
+import defaultClasses from './item.module.css';
 
 const GalleryItemShimmer = props => {
     const classes = useStyle(defaultClasses, props.classes);

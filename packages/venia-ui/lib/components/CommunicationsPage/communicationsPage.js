@@ -11,7 +11,7 @@ import Field from '../Field';
 import FormError from '../FormError';
 import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import defaultClasses from './communicationsPage.css';
+import defaultClasses from './communicationsPage.module.css';
 
 const CommunicationsPage = props => {
     const { formatMessage } = useIntl();

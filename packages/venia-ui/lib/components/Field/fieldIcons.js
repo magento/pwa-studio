@@ -2,7 +2,7 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './fieldIcons.css';
+import defaultClasses from './fieldIcons.module.css';
 
 const FieldIcons = props => {
     const { after, before, children } = props;

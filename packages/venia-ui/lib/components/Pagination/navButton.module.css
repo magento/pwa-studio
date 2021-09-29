@@ -1,0 +1,12 @@
+.root {
+    composes: root from './tile.module.css';
+}
+
+.icon {
+    composes: root from '../Icon/icon.module.css';
+}
+
+.icon_disabled {
+    composes: icon;
+    --stroke: rgb(var(--venia-global-color-text-hint));
+}

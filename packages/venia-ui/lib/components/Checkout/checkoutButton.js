@@ -5,7 +5,7 @@ import { Lock as LockIcon } from 'react-feather';
 import { useStyle } from '../../classify';
 import Button from '../Button';
 import Icon from '../Icon';
-import defaultClasses from './checkoutButton.css';
+import defaultClasses from './checkoutButton.module.css';
 
 const CheckoutButton = props => {
     const { disabled, onClick, classes: propsClasses } = props;

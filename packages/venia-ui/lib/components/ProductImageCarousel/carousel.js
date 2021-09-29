@@ -11,7 +11,7 @@ import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductIm
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import Image from '../Image';
-import defaultClasses from './carousel.css';
+import defaultClasses from './carousel.module.css';
 import Thumbnail from './thumbnail';
 
 const IMAGE_WIDTH = 640;

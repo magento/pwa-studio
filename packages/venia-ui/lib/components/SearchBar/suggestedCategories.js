@@ -3,7 +3,7 @@ import { arrayOf, func, number, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
 import SuggestedCategory from './suggestedCategory';
-import defaultClasses from './suggestedCategories.css';
+import defaultClasses from './suggestedCategories.module.css';
 
 const SuggestedCategories = props => {
     const { categories, limit, onNavigate, value } = props;
