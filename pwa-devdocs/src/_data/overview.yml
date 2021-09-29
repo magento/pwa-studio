@@ -20,8 +20,10 @@ entries:
         - label: Frequently Asked Questions
           url: /frequently-asked-questions/
 
-    - label: Magento integration
+    - label: Commerce integration
       entries:
+          - label: PWA Studio features
+            url: /technologies/features/
 
           - label: Version compatibility
             url: /technologies/magento-compatibility/

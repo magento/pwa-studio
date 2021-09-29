@@ -1,0 +1,157 @@
+catagories:
+  -
+    name: General
+    features:
+      -
+        name: Mobile View
+        support: full
+      -
+        name: Desktop View
+        support: partial
+      -
+        name: B2B
+        support: planned
+  -
+    name: Extensions
+    features:
+      -
+        name: Backend extensions
+        support: full
+      -
+        name: Frontend extensions
+        support: partial
+      -
+        name: FE/BE extensions
+        support: partial
+  -
+    name: Product Types
+    features:
+      -
+        name: Simple​
+        support: full
+      -
+        name: Configurable​
+        support: full
+      -
+        name: Virtual​
+        support: partial
+      -
+        name: Product with custom options ​
+        support: planned
+      -
+        name: Grouped​
+        support: planned
+      -
+        name: Bundled​
+        support: planned
+      -
+        name: Downloadable​
+        support: planned
+      -
+        name: Gift Cards​
+        support: planned
+  -
+    name: CMS
+    features:
+      -
+        name: AEM Fragments​
+        support: full
+      -
+        name: Page Builder​
+        support: full
+      -
+        name: CMS Pages​
+        support: full
+      -
+        name: CMS Blocks​
+        support: full
+      -
+        name: CMS Widgets​​
+        support: custom
+      -
+        name: Dynamic Blocks​
+        support: planned
+  -
+    name: Marketing
+    features:
+      -
+        name: Promotions​
+        support: planned
+      -
+        name: Customer Segmentation​
+        support: planned
+      -
+        name: Staging & Preview​
+        support: planned
+      -
+        name: Special Pricing ​
+        support: planned
+      -
+        name: Sensei Powered Product Recs​
+        support: planned
+      -
+        name: Related Products​
+        support: planned
+      -
+        name: Reward Points​
+        support: planned
+      -
+        name: Email Templates​
+        support: planned
+      -
+        name: Newsletter subscription​
+        support: planned
+      -
+        name: Contact Us​
+        support: planned
+  -
+    name: Product Page
+    features:
+      -
+        name: Product Description​
+        support: full
+      -
+        name: Product Swatches​
+        support: full
+      -
+        name: Add To Wishlist​
+        support: full
+      -
+        name: Gallery​
+        support: partial
+      -
+        name: Additional Attributes​
+        support: planned
+      -
+        name: Reviews​
+        support: custom
+      -
+        name: Add To Compare​
+        support: custom
+  -
+    name: Checkout
+    features:
+      -
+        name: Checkout Page​
+        support: full
+      -
+        name: Saved Addresses
+        support: full​
+      -
+        name: Customer Login​
+        support: full​
+      -
+        name: Subtotal / Tax / Shipping Cost
+        support: full​​
+      -
+        name: Third Party Payment Methods​
+        support: full​
+      -
+        name: Gift Options​
+        support: full​
+      -
+        name: Apply Discount Code​
+        support: full​
+      -
+        name: Apply Gift Card​
+        support: full​
