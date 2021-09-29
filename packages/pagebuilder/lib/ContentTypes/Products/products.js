@@ -5,7 +5,7 @@ import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Gallery from '@magento/venia-ui/lib/components/Gallery';
 import Carousel from './Carousel/carousel';
-import defaultClasses from './products.css';
+import defaultClasses from './products.module.css';
 /**
  * Sort products based on the original order of SKUs
  *
@@ -109,6 +109,7 @@ const Products = props => {
             arrows,
             dots,
             centerMode: carouselCenterMode,
+            lazyLoad: 'ondemand',
             responsive: [
                 {
                     breakpoint: 640,
@@ -248,9 +249,9 @@ export const GET_PRODUCTS_BY_SKU = gql`
             items {
                 id
                 name
-                price {
-                    regularPrice {
-                        amount {
+                price_range {
+                    maximum_price {
+                        regular_price {
                             currency
                             value
                         }
@@ -263,7 +264,6 @@ export const GET_PRODUCTS_BY_SKU = gql`
                 stock_status
                 type_id
                 url_key
-                url_suffix
             }
             total_count
             filters {

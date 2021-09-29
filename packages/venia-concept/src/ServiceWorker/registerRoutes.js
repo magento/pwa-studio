@@ -1,13 +1,15 @@
-import { cacheNames } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { registerRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import {
+    CacheFirst,
+    StaleWhileRevalidate,
+    NetworkFirst
+} from 'workbox-strategies';
 import {
     isResizedImage,
     findSameOrLargerImage,
     createImageCacheHandler
 } from './Utilities/imageCacheHandler';
-import { isHTMLRoute } from './Utilities/routeHandler';
 import {
     THIRTY_DAYS,
     MAX_NUM_OF_IMAGES_TO_CACHE,
@@ -68,29 +70,14 @@ export default function() {
     registerRoute(new RegExp(/\.js$/), new CacheFirst());
 
     /**
-     * Route for HTML files. This route uses a custom plugin
-     * to intercept all HTML file requests and return the response for
-     * `index.html` which is the default file. This enables the app to have
-     * offline capabilities by returning HTML for `index.html` irrespective
-     * of the route that was requsted since all routes use same HTML file.
-     *
-     * Also the cacheName is the precache cache name configured on workbox.
-     * This is because when a new version of the app is deployed, SW will be
-     * updated with new assets and delete the old `index.html` file. This will
-     * make sure that the SW will fetch the `index.html` file when the user
-     * requests from the server the first time. From next time onwards, the
-     * file from cache will be served till a new version of the app deployed
-     * and the cycle repeats.
+     * Route for HTML files. This route uses NetworkFirst strategy to fetch
+     * the most up to date inlined data for the page. When offline, it will fallback
+     * to the cache if available.
      */
     registerRoute(
-        ({ url }) => url.origin === self.location.origin && isHTMLRoute(url),
-        new StaleWhileRevalidate({
-            plugins: [
-                {
-                    cacheKeyWillBeUsed: () => 'index.html'
-                }
-            ],
-            cacheName: cacheNames.precache
-        })
+        ({ url, request }) =>
+            url.origin === self.location.origin &&
+            request.destination === 'document',
+        new NetworkFirst()
     );
 }

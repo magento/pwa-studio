@@ -13,9 +13,10 @@ jest.mock('@apollo/client', () => {
 jest.mock('react-router-dom', () => {
     return {
         useHistory: jest.fn().mockReturnValue({
-            location: {
-                pathname: '/'
-            }
+            push: jest.fn()
+        }),
+        useLocation: jest.fn().mockReturnValue({
+            pathname: '/'
         })
     };
 });

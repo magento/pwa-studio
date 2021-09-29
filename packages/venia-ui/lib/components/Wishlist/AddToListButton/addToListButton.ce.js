@@ -5,7 +5,7 @@ import { useAddToListButton } from '@magento/peregrine/lib/talons/Wishlist/AddTo
 
 import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
-import defaultClasses from './addToListButton.css';
+import defaultClasses from './addToListButton.module.css';
 import { useCommonToasts } from './useCommonToasts';
 
 const HeartIcon = <Icon size={20} src={Heart} />;

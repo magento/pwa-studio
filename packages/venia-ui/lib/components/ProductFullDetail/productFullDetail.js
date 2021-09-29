@@ -13,10 +13,10 @@ import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
 import FormError from '../FormError';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import { QuantityFields } from '../CartPage/ProductListing/quantity';
-import RichText from '../RichText';
-import defaultClasses from './productFullDetail.css';
+import RichContent from '../RichContent/richContent';
+import { ProductOptionsShimmer } from '../ProductOptions';
+import defaultClasses from './productFullDetail.module.css';
 
 const WishlistButton = React.lazy(() => import('../Wishlist/AddToListButton'));
 const Options = React.lazy(() => import('../ProductOptions'));
@@ -45,6 +45,7 @@ const ProductFullDetail = props => {
         errorMessage,
         handleAddToCart,
         handleSelectionChange,
+        isOutOfStock,
         isAddToCartDisabled,
         isSupportedProductType,
         mediaGalleryEntries,
@@ -56,7 +57,7 @@ const ProductFullDetail = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const options = isProductConfigurable(product) ? (
-        <Suspense fallback={fullPageLoadingIndicator}>
+        <Suspense fallback={<ProductOptionsShimmer />}>
             <Options
                 onSelectionChange={handleSelectionChange}
                 options={product.configurable_options}
@@ -125,12 +126,21 @@ const ProductFullDetail = props => {
         }
     }
 
+    const cartCallToActionText = !isOutOfStock ? (
+        <FormattedMessage
+            id="productFullDetail.addItemToCart"
+            defaultMessage="Add to Cart"
+        />
+    ) : (
+        <FormattedMessage
+            id="productFullDetail.itemOutOfStock"
+            defaultMessage="Out of Stock"
+        />
+    );
+
     const cartActionContent = isSupportedProductType ? (
         <Button disabled={isAddToCartDisabled} priority="high" type="submit">
-            <FormattedMessage
-                id={'productFullDetail.cartAction'}
-                defaultMessage={'Add to Cart'}
-            />
+            {cartCallToActionText}
         </Button>
     ) : (
         <div className={classes.unavailableContainer}>
@@ -197,7 +207,7 @@ const ProductFullDetail = props => {
                             defaultMessage={'Product Description'}
                         />
                     </h2>
-                    <RichText content={productDetails.description} />
+                    <RichContent html={productDetails.description} />
                 </section>
                 <section className={classes.details}>
                     <h2 className={classes.detailsTitle}>
@@ -233,6 +243,7 @@ ProductFullDetail.propTypes = {
     product: shape({
         __typename: string,
         id: number,
+        stock_status: string,
         sku: string.isRequired,
         price: shape({
             regularPrice: shape({

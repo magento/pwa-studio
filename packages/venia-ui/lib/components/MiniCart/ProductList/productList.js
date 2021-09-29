@@ -4,7 +4,7 @@ import { string, func, arrayOf, shape, number, oneOf } from 'prop-types';
 import Item from './item';
 import { useStyle } from '../../../classify';
 
-import defaultClasses from './productList.css';
+import defaultClasses from './productList.module.css';
 
 const ProductList = props => {
     const {
@@ -12,7 +12,8 @@ const ProductList = props => {
         handleRemoveItem,
         classes: propClasses,
         closeMiniCart,
-        configurableThumbnailSource
+        configurableThumbnailSource,
+        storeUrlSuffix
     } = props;
     const classes = useStyle(defaultClasses, propClasses);
 
@@ -25,10 +26,17 @@ const ProductList = props => {
                     closeMiniCart={closeMiniCart}
                     handleRemoveItem={handleRemoveItem}
                     configurableThumbnailSource={configurableThumbnailSource}
+                    storeUrlSuffix={storeUrlSuffix}
                 />
             ));
         }
-    }, [items, handleRemoveItem, closeMiniCart, configurableThumbnailSource]);
+    }, [
+        items,
+        handleRemoveItem,
+        closeMiniCart,
+        configurableThumbnailSource,
+        storeUrlSuffix
+    ]);
 
     return <div className={classes.root}>{cartItems}</div>;
 };

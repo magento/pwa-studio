@@ -9,7 +9,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import Icon from '../Icon';
 import WishlistItems from './wishlistItems';
 import Button from '../Button';
-import defaultClasses from './wishlist.css';
+import defaultClasses from './wishlist.module.css';
 import ActionMenu from './actionMenu';
 
 /**
@@ -17,7 +17,7 @@ import ActionMenu from './actionMenu';
  *
  * @param {Object} props.data the data for this wishlist
  * @param {boolean} props.shouldRenderVisibilityToggle whether or not to render the visiblity toggle
- * @param {boolean} props.isCollapsed whether or not is the whislist unfolded
+ * @param {boolean} props.isCollapsed whether or not is the wishlist unfolded
  */
 const Wishlist = props => {
     const { data, shouldRenderVisibilityToggle, isCollapsed } = props;

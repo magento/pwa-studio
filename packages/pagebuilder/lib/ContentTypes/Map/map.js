@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { arrayOf, string, bool, number, object, shape } from 'prop-types';
 import loadGoogleMapsApi from 'load-google-maps-api';
-import defaultClasses from './map.css';
+import defaultClasses from './map.module.css';
 import escape from 'lodash.escape';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { mapDefaultProps } from './configAggregator';

@@ -9,7 +9,7 @@ import Icon from '../Icon';
 import Image from '../Image';
 import Price from '../Price';
 
-import defaultClasses from './wishlistItem.css';
+import defaultClasses from './wishlistItem.module.css';
 
 const WishlistItem = props => {
     const { item } = props;
@@ -83,7 +83,7 @@ const WishlistItem = props => {
 
     const removeProductAriaLabel = formatMessage({
         id: 'wishlistItem.removeAriaLabel',
-        defaultMessage: 'Remove Product from whislist'
+        defaultMessage: 'Remove Product from wishlist'
     });
 
     const rootClass = isRemovalInProgress

@@ -14,7 +14,7 @@ import FormErrors from '../../FormError';
 import { StoreTitle } from '../../Head';
 import Password from '../../Password';
 import TextInput from '../../TextInput';
-import defaultClasses from './resetPassword.css';
+import defaultClasses from './resetPassword.module.css';
 import resetPasswordOperations from './resetPassword.gql';
 
 const ResetPassword = props => {

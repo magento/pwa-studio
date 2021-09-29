@@ -4,8 +4,9 @@ import { shape, string } from 'prop-types';
 import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './storeSwitcher.css';
+import defaultClasses from './storeSwitcher.module.css';
 import SwitcherItem from './switcherItem';
+import Shimmer from './storeSwitcher.shimmer';
 
 const StoreSwitcher = props => {
     const {
@@ -23,7 +24,9 @@ const StoreSwitcher = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const menuClassName = storeMenuIsOpen ? classes.menu_open : classes.menu;
 
-    if (!availableStores || availableStores.size <= 1) return null;
+    if (!availableStores) return <Shimmer />;
+
+    if (availableStores.size <= 1) return null;
 
     const groups = [];
     const hasOnlyOneGroup = storeGroups.size === 1;

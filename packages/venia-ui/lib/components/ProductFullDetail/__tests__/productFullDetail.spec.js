@@ -29,14 +29,15 @@ jest.mock('../../ProductOptions', () => () => 'ProductOptions');
 jest.mock('../../CartPage/ProductListing/quantity', () => ({
     QuantityFields: () => 'QuantityFields'
 }));
-jest.mock('../../RichText', () => 'RichText');
+jest.mock('../../RichContent/richContent', () => 'RichContent');
 
 jest.mock('../../../classify');
 
 const mockConfigurableProduct = {
     __typename: 'ConfigurableProduct',
     sku: 'SKU123',
-    name: 'Mock Configrable Product',
+    stock_status: 'IN_STOCK',
+    name: 'Mock Configurable Product',
     price: {
         regularPrice: {
             amount: {
@@ -106,6 +107,27 @@ const mockConfigurableProduct = {
                 sku: 'SKU123-CO1',
                 stock_status: 'IN_STOCK'
             }
+        },
+        {
+            attributes: [
+                {
+                    code: 'configurable_option',
+                    value_index: 2
+                }
+            ],
+            product: {
+                id: 124,
+                media_gallery_entries: [
+                    {
+                        disabled: false,
+                        file: '/variant/image-2.jpg',
+                        label: 'Mock Configurable Product - Variant 2',
+                        position: 1
+                    }
+                ],
+                sku: 'SKU124-CO2',
+                stock_status: 'OUT_OF_STOCK'
+            }
         }
     ]
 };
@@ -113,7 +135,8 @@ const mockConfigurableProduct = {
 const mockSimpleProduct = {
     __typename: 'SimpleProduct',
     sku: 'SKU123',
-    name: 'Mock Configrable Product',
+    stock_status: 'IN_STOCK',
+    name: 'Mock Configurable Product',
     price: {
         regularPrice: {
             amount: {
@@ -139,6 +162,11 @@ const mockSimpleProduct = {
         }
     ]
 };
+
+const mockSimpleOOSProduct = {
+    ...mockSimpleProduct,
+    stock_status: 'OUT_OF_STOCK'
+};
 const mockHandleAddToCart = jest.fn();
 const mockHandleSelectionChange = jest.fn();
 
@@ -147,6 +175,7 @@ const talonProps = {
     errorMessage: null,
     handleAddToCart: mockHandleAddToCart,
     handleSelectionChange: mockHandleSelectionChange,
+    isOutOfStock: false,
     isAddToCartDisabled: false,
     isSupportedProductType: true,
     mediaGalleryEntries: [],
@@ -255,6 +284,20 @@ test('it does not render options if the product is not a ConfigurableProduct', (
 
     const wrapper = createTestInstance(
         <ProductFullDetail product={mockSimpleProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('out of stock disabled CTA button is rendered if out of stock', () => {
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        isOutOfStock: true,
+        isAddToCartDisabled: true
+    });
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockSimpleOOSProduct} />
     );
 
     expect(wrapper.toJSON()).toMatchSnapshot();

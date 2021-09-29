@@ -1,28 +1,34 @@
 import React from 'react';
+
 import { createTestInstance } from '@magento/peregrine';
-import { useCreateAccountPage } from '@magento/peregrine/lib/talons/CreateAccountPage/useCreateAccountPage';
+
 import CreateAccountPage from '../createAccountPage';
 
-jest.mock('../../../classify');
 jest.mock(
-    '@magento/peregrine/lib/talons/CreateAccountPage/useCreateAccountPage'
+    '@magento/peregrine/lib/talons/CreateAccountPage/useCreateAccountPage',
+    () => ({
+        useCreateAccountPage: jest.fn(() => ({
+            createAccountProps: {}
+        }))
+    })
 );
-jest.mock('../../CreateAccount', () => 'CreateAccountForm');
 
-const handleCreateAccount = jest.fn().mockName('handleCreateAccount');
+jest.mock('@magento/venia-ui/lib/components/CreateAccount', () => props => (
+    <mock-CreateAccount {...props} />
+));
 
-const props = {
-    initialValues: {}
+jest.mock('@magento/venia-ui/lib/components/Head', () => ({
+    StoreTitle: () => 'Title'
+}));
+
+const Component = () => {
+    return <CreateAccountPage />;
 };
 
-const talonProps = {
-    handleCreateAccount,
-    initialValues: {}
-};
+describe('#CreateAccountPage', () => {
+    it('renders correctly', () => {
+        const tree = createTestInstance(<Component />);
 
-test('it renders correctly', () => {
-    useCreateAccountPage.mockReturnValueOnce(talonProps);
-    const tree = createTestInstance(<CreateAccountPage {...props} />);
-
-    expect(tree.toJSON()).toMatchSnapshot();
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
 });

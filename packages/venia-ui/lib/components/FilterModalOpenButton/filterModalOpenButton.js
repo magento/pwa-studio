@@ -3,7 +3,7 @@ import { shape, string, array } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '../Button';
 import { useStyle } from '../../classify';
-import defaultClasses from './filterModalOpenButton.css';
+import defaultClasses from './filterModalOpenButton.module.css';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
 
 const FilterModalOpenButton = props => {
@@ -19,6 +19,8 @@ const FilterModalOpenButton = props => {
             }}
             onClick={handleOpen}
             type="button"
+            aria-live="polite"
+            aria-busy="false"
         >
             <FormattedMessage
                 id={'productList.filter'}
@@ -31,8 +33,8 @@ const FilterModalOpenButton = props => {
 export default FilterModalOpenButton;
 
 FilterModalOpenButton.propTypes = {
-    filters: array,
     classes: shape({
         filterButton: string
-    })
+    }),
+    filters: array
 };

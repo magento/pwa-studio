@@ -7,7 +7,7 @@ import CreateAccount from '../CreateAccount';
 import ForgotPassword from '../ForgotPassword';
 import MyAccount from '../MyAccount';
 import SignIn from '../SignIn';
-import defaultClasses from './authModal.css';
+import defaultClasses from './authModal.module.css';
 
 const AuthModal = props => {
     const {

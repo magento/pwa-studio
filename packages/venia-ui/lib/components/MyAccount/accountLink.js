@@ -4,7 +4,7 @@ import { arrayOf, func, node, shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 import Button from '../Button';
 
-import defaultClasses from './accountLink.css';
+import defaultClasses from './accountLink.module.css';
 
 const AccountLink = props => {
     const { children, onClick } = props;

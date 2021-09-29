@@ -14,9 +14,9 @@ export const ProductsFragment = gql`
         items {
             id
             name
-            price {
-                regularPrice {
-                    amount {
+            price_range {
+                maximum_price {
+                    regular_price {
                         currency
                         value
                     }
@@ -29,7 +29,6 @@ export const ProductsFragment = gql`
             stock_status
             type_id
             url_key
-            url_suffix
         }
         page_info {
             total_pages

@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<div>
+<div
+  aria-busy="false"
+  aria-live="polite"
+>
   <button
     disabled={false}
     onClick={[Function]}
@@ -26,13 +29,13 @@ exports[`renders correctly 1`] = `
         <span>
           <svg
             fill="none"
-            height="24"
+            height={24}
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
             viewBox="0 0 24 24"
-            width="24"
+            width={24}
             xmlns="http://www.w3.org/2000/svg"
           >
             <polyline

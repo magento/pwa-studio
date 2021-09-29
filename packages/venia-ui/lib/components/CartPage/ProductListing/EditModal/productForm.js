@@ -8,7 +8,7 @@ import FormError from '../../../FormError';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
-import defaultClasses from './productForm.css';
+import defaultClasses from './productForm.module.css';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import { ProductFormFragment } from './productFormFragment.gql';
 import Dialog from '../../../Dialog';

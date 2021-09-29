@@ -14,7 +14,7 @@ import Button from '../Button';
 import Icon from '../Icon';
 import StockStatusMessage from '../StockStatusMessage';
 import ProductList from './ProductList';
-import defaultClasses from './miniCart.css';
+import defaultClasses from './miniCart.module.css';
 import operations from './miniCart.gql';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
@@ -47,7 +47,8 @@ const MiniCart = React.forwardRef((props, ref) => {
         productList,
         subTotal,
         totalQuantity,
-        configurableThumbnailSource
+        configurableThumbnailSource,
+        storeUrlSuffix
     } = talonProps;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -120,6 +121,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     handleRemoveItem={handleRemoveItem}
                     closeMiniCart={closeMiniCart}
                     configurableThumbnailSource={configurableThumbnailSource}
+                    storeUrlSuffix={storeUrlSuffix}
                 />
             </div>
             <div className={classes.footer}>

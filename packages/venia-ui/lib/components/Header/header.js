@@ -12,11 +12,11 @@ import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './header.css';
-import PageLoadingIndicator from '../PageLoadingIndicator';
+import defaultClasses from './header.module.css';
 import StoreSwitcher from './storeSwitcher';
 import CurrencySwitcher from './currencySwitcher';
 import MegaMenu from '../MegaMenu';
+import PageLoadingIndicator from '../PageLoadingIndicator';
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
@@ -25,7 +25,6 @@ const Header = props => {
         handleSearchTriggerClick,
         hasBeenOffline,
         isOnline,
-        isPageLoading,
         isSearchOpen,
         searchRef,
         searchTriggerRef
@@ -33,6 +32,7 @@ const Header = props => {
 
     const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isSearchOpen ? classes.open : classes.closed;
+
     const searchBarFallback = (
         <div className={classes.searchFallback} ref={searchRef}>
             <div className={classes.input}>
@@ -46,9 +46,6 @@ const Header = props => {
                 <SearchBar isOpen={isSearchOpen} ref={searchRef} />
             </Route>
         </Suspense>
-    ) : null;
-    const pageLoadingIndicator = isPageLoading ? (
-        <PageLoadingIndicator />
     ) : null;
 
     return (
@@ -64,7 +61,6 @@ const Header = props => {
                     <div className={classes.primaryActions}>
                         <NavTrigger />
                     </div>
-                    {pageLoadingIndicator}
                     <OnlineIndicator
                         hasBeenOffline={hasBeenOffline}
                         isOnline={isOnline}
@@ -86,6 +82,7 @@ const Header = props => {
                     </div>
                 </div>
                 {searchBar}
+                <PageLoadingIndicator absolute />
             </header>
         </Fragment>
     );

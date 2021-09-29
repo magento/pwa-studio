@@ -7,7 +7,7 @@ import { useStyle } from '../../../classify';
 import { StoreTitle } from '../../../components/Head';
 import CreateAccount from './createAccount';
 import ItemsReview from '../ItemsReview';
-import defaultClasses from './orderConfirmationPage.css';
+import defaultClasses from './orderConfirmationPage.module.css';
 
 const OrderConfirmationPage = props => {
     const classes = useStyle(defaultClasses, props.classes);

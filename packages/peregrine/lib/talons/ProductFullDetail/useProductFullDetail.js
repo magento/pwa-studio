@@ -7,12 +7,14 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
+import { isSupportedProductType as isSupported } from '@magento/peregrine/lib/util/isSupportedProductType';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 import mergeOperations from '../../util/shallowMerge';
 import defaultOperations from './productFullDetail.gql';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
+const OUT_OF_STOCK_CODE = 'OUT_OF_STOCK';
 
 const deriveOptionCodesFromProduct = product => {
     // If this is a simple product it has no option codes.
@@ -61,6 +63,25 @@ const getIsMissingOptions = (product, optionSelections) => {
     ).length;
 
     return numProductSelections < numProductOptions;
+};
+
+const getIsOutOfStock = (product, optionCodes, optionSelections) => {
+    const { stock_status, variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
+
+    if (isConfigurable && optionsSelected) {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        return item.product.stock_status === OUT_OF_STOCK_CODE;
+    }
+    return stock_status === OUT_OF_STOCK_CODE;
 };
 
 const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
@@ -149,8 +170,6 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
     return value;
 };
 
-const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
-
 /**
  * @param {GraphQLDocument} props.addConfigurableProductToCartMutation - configurable product mutation
  * @param {GraphQLDocument} props.addSimpleProductToCartMutation - configurable product mutation
@@ -185,9 +204,7 @@ export const useProductFullDetail = props => {
 
     const productType = product.__typename;
 
-    const isSupportedProductType = SUPPORTED_PRODUCT_TYPES.includes(
-        productType
-    );
+    const isSupportedProductType = isSupported(productType);
 
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
@@ -248,6 +265,12 @@ export const useProductFullDetail = props => {
         () => getIsMissingOptions(product, optionSelections),
         [product, optionSelections]
     );
+
+    const isOutOfStock = useMemo(
+        () => getIsOutOfStock(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
     const mediaGalleryEntries = useMemo(
         () => getMediaGalleryEntries(product, optionCodes, optionSelections),
         [product, optionCodes, optionSelections]
@@ -445,7 +468,9 @@ export const useProductFullDetail = props => {
         errorMessage: derivedErrorMessage,
         handleAddToCart,
         handleSelectionChange,
+        isOutOfStock,
         isAddToCartDisabled:
+            isOutOfStock ||
             isMissingOptions ||
             isAddConfigurableLoading ||
             isAddSimpleLoading ||

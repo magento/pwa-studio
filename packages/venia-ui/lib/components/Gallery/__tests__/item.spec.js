@@ -43,16 +43,24 @@ const validItem = {
     },
     stock_status: 'IN_STOCK',
     type_id: 'simple',
+    __typename: 'SimpleProduct',
     url_key: 'strive-shoulder-pack',
     url_suffix: '.html',
     sku: 'sku-123',
-    price: {
-        regularPrice: {
-            amount: {
+    price_range: {
+        maximum_price: {
+            regular_price: {
                 value: 21,
                 currency: 'USD'
             }
         }
+    }
+};
+
+const defaultProps = {
+    classes,
+    storeConfig: {
+        product_url_suffix: '.html'
     }
 };
 
@@ -61,7 +69,7 @@ const validItem = {
  * `item` is `null` or `undefined`
  */
 test('renders a placeholder item while awaiting item', () => {
-    const wrapper = createTestInstance(<Item classes={classes} />);
+    const wrapper = createTestInstance(<Item {...defaultProps} />);
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
@@ -72,7 +80,7 @@ test('renders a placeholder item while awaiting item', () => {
 test('renders correctly with valid item data', () => {
     const wrapper = createTestInstance(
         <MemoryRouter>
-            <Item classes={classes} item={validItem} />
+            <Item item={validItem} {...defaultProps} />
         </MemoryRouter>
     );
     expect(wrapper.toJSON()).toMatchSnapshot();

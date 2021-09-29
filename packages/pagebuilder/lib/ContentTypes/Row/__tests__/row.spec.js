@@ -26,7 +26,7 @@ test('render row with no props', () => {
 test('render row with parallax initializes Jarallax', () => {
     const rowProps = {
         desktopImage: 'parallax.jpg',
-        backgroundRepeat: true,
+        backgroundRepeat: 'repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         enableParallax: true,
@@ -82,7 +82,7 @@ test('render row with parallax initializes JarallaxVideo', () => {
 test('row unmount causes Jarallax to be destroyed', () => {
     const rowProps = {
         desktopImage: 'parallax.jpg',
-        backgroundRepeat: false,
+        backgroundRepeat: 'no-repeat',
         backgroundSize: 'contain',
         backgroundPosition: 'top left',
         enableParallax: true,
@@ -122,7 +122,7 @@ test('render row with all props configured', () => {
         backgroundSize: 'contain',
         backgroundPosition: 'center center',
         backgroundAttachment: 'fixed',
-        backgroundRepeat: true,
+        backgroundRepeat: 'repeat',
         enableParallax: false,
         parallaxSpeed: 0.5,
         textAlign: 'right',
@@ -191,6 +191,7 @@ test('render full-width row', () => {
 test('render row with mobile image displayed and parallax enabled', () => {
     const rowProps = {
         mobileImage: 'mobile.jpg',
+        backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         enableParallax: true
     };

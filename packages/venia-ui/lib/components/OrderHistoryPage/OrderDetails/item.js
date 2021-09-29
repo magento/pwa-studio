@@ -9,7 +9,7 @@ import Button from '../../Button';
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import Price from '../../Price';
-import defaultClasses from './item.css';
+import defaultClasses from './item.module.css';
 import PlaceholderImage from '../../Image/placeholderImage';
 
 const Item = props => {

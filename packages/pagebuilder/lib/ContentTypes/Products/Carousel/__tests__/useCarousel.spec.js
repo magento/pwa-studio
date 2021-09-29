@@ -5,8 +5,8 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 import {
-    mockGetWishlistConfigCE,
-    mockGetWishlistConfigEE
+    mockGetStoreConfigCE,
+    mockGetStoreConfigEE
 } from '../__fixtures__/apolloMocks';
 
 import { useCarousel } from '../useCarousel';
@@ -40,11 +40,10 @@ const renderHookWithProviders = ({
 };
 
 test('returns store config EE', async () => {
-    defaultOperations.getWishlistConfigQuery =
-        eeOperations.getWishlistConfigQuery;
+    defaultOperations.getStoreConfigQuery = eeOperations.getStoreConfigQuery;
 
     const { result, waitForNextUpdate } = renderHookWithProviders({
-        mocks: [mockGetWishlistConfigEE]
+        mocks: [mockGetStoreConfigEE]
     });
 
     expect(result.current).toMatchInlineSnapshot(`
@@ -61,17 +60,17 @@ test('returns store config EE', async () => {
             "enable_multiple_wishlists": "1",
             "id": 1,
             "magento_wishlist_general_is_enabled": "1",
+            "product_url_suffix": ".html",
           },
         }
     `);
 });
 
-test('returns store config CE', async () => {
-    defaultOperations.getWishlistConfigQuery =
-        ceOperations.getWishlistConfigQuery;
+test('returns store config C', async () => {
+    defaultOperations.getStoreConfigQuery = ceOperations.getStoreConfigQuery;
 
     const { result, waitForNextUpdate } = renderHookWithProviders({
-        mocks: [mockGetWishlistConfigCE]
+        mocks: [mockGetStoreConfigCE]
     });
 
     // I am unsure why this test renders without a loading state whereas the EE
@@ -81,6 +80,7 @@ test('returns store config CE', async () => {
           "storeConfig": Object {
             "id": 1,
             "magento_wishlist_general_is_enabled": "1",
+            "product_url_suffix": ".html",
           },
         }
     `);
@@ -92,6 +92,7 @@ test('returns store config CE', async () => {
           "storeConfig": Object {
             "id": 1,
             "magento_wishlist_general_is_enabled": "1",
+            "product_url_suffix": ".html",
           },
         }
     `);

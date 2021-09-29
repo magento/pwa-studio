@@ -3,7 +3,8 @@ import { string, shape, array } from 'prop-types';
 
 import { useStyle } from '../../classify';
 import GalleryItem from './item';
-import defaultClasses from './gallery.css';
+import GalleryItemShimmer from './item.shimmer';
+import defaultClasses from './gallery.module.css';
 import { useGallery } from '@magento/peregrine/lib/talons/Gallery/useGallery';
 
 /**
@@ -22,7 +23,7 @@ const Gallery = props => {
         () =>
             items.map((item, index) => {
                 if (item === null) {
-                    return <GalleryItem key={index} />;
+                    return <GalleryItemShimmer key={index} />;
                 }
                 return (
                     <GalleryItem
@@ -36,7 +37,7 @@ const Gallery = props => {
     );
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} aria-live="polite" aria-busy="false">
             <div className={classes.items}>{galleryItems}</div>
         </div>
     );

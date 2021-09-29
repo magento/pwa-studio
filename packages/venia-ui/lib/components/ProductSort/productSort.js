@@ -6,7 +6,7 @@ import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
 import { useStyle } from '../../classify';
 import SortItem from './sortItem';
-import defaultClasses from './productSort.css';
+import defaultClasses from './productSort.module.css';
 import Button from '../Button';
 import Icon from '../Icon';
 
@@ -75,7 +75,12 @@ const ProductSort = props => {
     };
 
     return (
-        <div ref={elementRef} className={classes.root}>
+        <div
+            ref={elementRef}
+            className={classes.root}
+            aria-live="polite"
+            aria-busy="false"
+        >
             <Button
                 priority={'low'}
                 classes={{

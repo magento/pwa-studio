@@ -9,9 +9,9 @@ import Dialog from '../Dialog';
 import Image from '../Image';
 import Price from '../Price';
 import Options from '../ProductOptions';
-import defaultClasses from './addToCartDialog.css';
+import defaultClasses from './addToCartDialog.module.css';
 import FormError from '../FormError';
-import PageLoadingIndicator from '../PageLoadingIndicator';
+import { Spinner } from '../LoadingIndicator';
 
 const AddToCartDialog = props => {
     const { item } = props;
@@ -29,13 +29,20 @@ const AddToCartDialog = props => {
 
     const classes = useStyle(defaultClasses, props.classes);
 
-    const imageComponent = imageProps ? (
-        <Image {...imageProps} classes={{ image: classes.image }} />
-    ) : (
-        <div className={classes.image} />
+    const imageComponent = useMemo(
+        () =>
+            imageProps ? (
+                <Image {...imageProps} classes={{ image: classes.image }} />
+            ) : (
+                <div className={classes.image} />
+            ),
+        [classes.image, imageProps]
     );
 
-    const priceComponent = priceProps ? <Price {...priceProps} /> : null;
+    const priceComponent = useMemo(
+        () => (priceProps ? <Price {...priceProps} /> : null),
+        [priceProps]
+    );
 
     const dialogContent = useMemo(() => {
         if (item) {
@@ -81,7 +88,7 @@ const AddToCartDialog = props => {
 
     const titleElement = isFetchingProductDetail ? (
         <div className={classes.titleContainer}>
-            <PageLoadingIndicator />
+            <Spinner />
         </div>
     ) : null;
 

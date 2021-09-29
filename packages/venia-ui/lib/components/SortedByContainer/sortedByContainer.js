@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { useStyle } from '../../classify';
-import defaultClasses from './sortedByContainer.css';
+import defaultClasses from './sortedByContainer.module.css';
 
 const SortedByContainer = props => {
     const { currentSort } = props;
@@ -10,7 +10,7 @@ const SortedByContainer = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} aria-live="polite" aria-busy="true">
             <FormattedMessage
                 id={'searchPage.sortContainer'}
                 defaultMessage={'Items sorted by '}

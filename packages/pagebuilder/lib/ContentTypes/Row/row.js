@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import defaultClasses from './row.css';
+import defaultClasses from './row.module.css';
 import { verticalAlignmentToFlex } from '../../utils';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
@@ -93,9 +93,7 @@ const Row = props => {
         dynamicStyles.backgroundSize = backgroundSize;
         dynamicStyles.backgroundPosition = backgroundPosition;
         dynamicStyles.backgroundAttachment = backgroundAttachment;
-        dynamicStyles.backgroundRepeat = backgroundRepeat
-            ? 'repeat'
-            : 'no-repeat';
+        dynamicStyles.backgroundRepeat = backgroundRepeat;
     }
 
     if (verticalAlignment) {
@@ -153,7 +151,7 @@ const Row = props => {
                 speed: parallaxSpeed,
                 imgSize: backgroundSize,
                 imgPosition: backgroundPosition,
-                imgRepeat: backgroundRepeat ? 'repeat' : 'no-repeat'
+                imgRepeat: backgroundRepeat
             });
         }
 
@@ -291,7 +289,7 @@ const Row = props => {
  * @property {String} backgroundSize CSS background-size property
  * @property {String} backgroundPosition CSS background-position property
  * @property {String} backgroundAttachment CSS background-attachment property
- * @property {Boolean} backgroundRepeat CSS background-repeat property
+ * @property {String} backgroundRepeat CSS background-repeat property
  * @property {Boolean} enableParallax Enable parallax on this row
  * @property {Number} parallaxSpeed The speed which Parallax should scroll, from -1.0 to 2.0
  * @property {String} textAlign Alignment of content within the row
@@ -333,7 +331,7 @@ Row.propTypes = {
     backgroundSize: string,
     backgroundPosition: string,
     backgroundAttachment: string,
-    backgroundRepeat: bool,
+    backgroundRepeat: string,
     enableParallax: bool,
     parallaxSpeed: number,
     textAlign: string,

@@ -8,12 +8,12 @@ import { Meta, StoreTitle } from '../../components/Head';
 import { useStyle } from '../../classify';
 import { useIntl } from 'react-intl';
 
-import defaultClasses from './cms.css';
+import defaultClasses from './cms.module.css';
 
 const CMSPage = props => {
-    const { id } = props;
+    const { identifier } = props;
 
-    const talonProps = useCmsPage({ id });
+    const talonProps = useCmsPage({ identifier });
     const {
         cmsPage,
         hasContent,

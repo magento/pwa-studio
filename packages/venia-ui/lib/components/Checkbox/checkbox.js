@@ -1,15 +1,12 @@
 import React, { Fragment, useEffect } from 'react';
 import { node, shape, string } from 'prop-types';
-import {
-    Checkbox as InformedCheckbox,
-    useFieldApi,
-    useFieldState
-} from 'informed';
+import { Checkbox as InformedCheckbox, useFieldApi } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import { useStyle } from '../../classify';
 import { Message } from '../Field';
 import { CheckSquare, Square } from 'react-feather';
-import defaultClasses from './checkbox.css';
+import defaultClasses from './checkbox.module.css';
 
 /* TODO: change lint config to use `label-has-associated-control` */
 /* eslint-disable jsx-a11y/label-has-for */

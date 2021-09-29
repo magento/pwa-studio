@@ -38,13 +38,13 @@ exports[`renders form errors 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height="24"
+                height={24}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width="24"
+                width={24}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <line
@@ -89,7 +89,7 @@ exports[`renders form errors 1`] = `
                     alt="Juno Sweater"
                     className="image placeholder"
                     loading="eager"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
                     width={240}
                   />
                   <img
@@ -370,13 +370,13 @@ exports[`renders form with data 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height="24"
+                height={24}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width="24"
+                width={24}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <line
@@ -412,7 +412,7 @@ exports[`renders form with data 1`] = `
                     alt="Juno Sweater"
                     className="image placeholder"
                     loading="eager"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0JyBoZWlnaHQ9JzUnPjxyZWN0IHdpZHRoPSc0JyBoZWlnaHQ9JzUnIHN0eWxlPSdmaWxsOiBub25lJyAvPjwvc3ZnPg=="
                     width={240}
                   />
                   <img
@@ -693,13 +693,13 @@ exports[`renders loading indicator while options are being fetched 1`] = `
               <svg
                 className="icon"
                 fill="none"
-                height="24"
+                height={24}
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                width="24"
+                width={24}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <line

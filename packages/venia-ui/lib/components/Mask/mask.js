@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStyle } from '../../classify';
-import defaultClasses from './mask.css';
+import defaultClasses from './mask.module.css';
 
 /**
  * A component that masks content.

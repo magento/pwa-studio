@@ -6,7 +6,7 @@ import { useCountry } from '@magento/peregrine/lib/talons/Country/useCountry';
 import { useStyle } from '../../classify';
 import Field from '../Field';
 import Select from '../Select';
-import defaultClasses from './country.css';
+import defaultClasses from './country.module.css';
 import { GET_COUNTRIES_QUERY } from './country.gql';
 
 const Country = props => {

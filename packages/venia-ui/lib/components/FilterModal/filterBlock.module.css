@@ -1,0 +1,27 @@
+.root {
+    border-color: rgb(var(--venia-global-color-border));
+    border-style: solid;
+    border-width: 2px 0 0;
+    display: grid;
+}
+
+.header {
+    align-items: center;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr auto;
+    min-height: 3.125rem;
+}
+
+.name {
+    height: 1.5rem;
+    line-height: 1.5rem;
+    text-align: left;
+}
+
+.list {
+}
+
+.list:empty {
+    display: none;
+}

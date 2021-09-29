@@ -1,63 +1,106 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { act } from 'react-test-renderer';
+
 import { createTestInstance } from '@magento/peregrine';
-import { MemoryRouter } from 'react-router-dom';
 
 import MegaMenuItem from '../megaMenuItem';
 
 jest.mock('../../../classify');
+jest.mock('../../Icon', () => props => <mock-Icon {...props} />);
+jest.mock('../submenu', () => props => <mock-Submenu {...props} />);
+jest.mock('react', () => {
+    const React = jest.requireActual('react');
+    const memoSpy = jest.spyOn(React, 'useMemo');
 
-describe('Mega menu item renders correctly', () => {
-    const props = {
+    return Object.assign(React, {
+        useMemo: memoSpy
+    });
+});
+
+const mockHandleKeyDown = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+    Link: jest.fn(() => props => <mock-Link {...props} />)
+}));
+
+jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenuItem', () => ({
+    useMegaMenuItem: jest.fn(() => {
+        return {
+            isFocused: false,
+            isActive: false,
+            handleCloseSubMenu: jest.fn(),
+            isMenuActive: false,
+            handleKeyDown: mockHandleKeyDown
+        };
+    })
+}));
+
+let inputProps = {};
+
+const Component = () => {
+    return <MegaMenuItem {...inputProps} />;
+};
+
+const givenDefaultValues = () => {
+    inputProps = {
+        activeCategoryId: 1,
         category: {
             id: 1,
             name: 'Women',
             url_path: 'women',
-            url_suffix: '.html',
             isActive: true,
             children: [
                 {
                     id: 2,
                     name: 'Bottoms',
                     url_path: 'bottoms',
-                    url_suffix: '.html',
                     children: []
                 },
                 {
                     id: 3,
                     name: 'Tops',
                     url_path: 'tops',
-                    url_suffix: '.html',
                     isActive: false,
                     children: []
                 }
             ]
         },
         rootCategoryName: 'Clothing',
-        activeCategoryId: 1
+        categoryUrlSuffix: '.html',
+        mainNavWidth: 200,
+        subMenuState: 'test',
+        disableFocus: false
     };
+};
+
+describe('Mega menu item renders correctly', () => {
+    beforeEach(() => {
+        givenDefaultValues();
+    });
 
     test('it renders correctly', () => {
-        const instance = createTestInstance(
-            <MemoryRouter>
-                <MegaMenuItem {...props} />
-            </MemoryRouter>
-        );
+        const instance = createTestInstance(<Component />);
 
         expect(instance.toJSON()).toMatchSnapshot();
     });
 
     test('it marks the active category', () => {
-        const instance = createTestInstance(
-            <MemoryRouter>
-                <MegaMenuItem {...props} />
-            </MemoryRouter>
-        );
+        const { root } = createTestInstance(<Component />);
 
-        expect(instance.toJSON().children[0].props.className).toEqual(
-            'megaMenuLinkActive'
-        );
-        expect(instance.toJSON().children[0].props.href).toEqual('/women.html');
-        expect(instance.toJSON().children[0].children[0]).toEqual('Women');
+        expect(root.findByType(Link).props.className).toEqual('megaMenuLink');
+        expect(root.findByType(Link).props.to).toEqual('/women.html');
+        expect(root.findByType(Link).props.children[0]).toEqual('Women');
+    });
+
+    it('should call a11yClick', () => {
+        const { root } = createTestInstance(<Component />);
+
+        act(() => {
+            root.findByType(Link).props.onKeyDown();
+        });
+
+        expect(mockHandleKeyDown).toHaveBeenCalled();
     });
 
     test('it does not render submenu when item does not have children', () => {
@@ -65,15 +108,12 @@ describe('Mega menu item renders correctly', () => {
             id: 3,
             name: 'Tops',
             url_path: 'tops',
-            url_suffix: '.html',
             isActive: false,
             children: []
         };
 
         const instance = createTestInstance(
-            <MemoryRouter>
-                <MegaMenuItem category={categoryWithoutChildren} />
-            </MemoryRouter>
+            <Component category={categoryWithoutChildren} />
         );
 
         expect(instance.toJSON().children.length).toEqual(1);

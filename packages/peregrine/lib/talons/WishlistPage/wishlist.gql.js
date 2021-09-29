@@ -54,6 +54,6 @@ export const UPDATE_WISHLIST = gql`
 
 export default {
     getCustomerWishlistQuery: GET_CUSTOMER_WISHLIST,
-    getCustomerWhislistItems: GET_CUSTOMER_WISHLIST_ITEMS,
+    getCustomerWishlistItems: GET_CUSTOMER_WISHLIST_ITEMS,
     updateWishlistMutation: UPDATE_WISHLIST
 };

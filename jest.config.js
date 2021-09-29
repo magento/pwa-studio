@@ -132,7 +132,7 @@ const testReactComponents = inPackage => ({
         // it hard to test React components using DOM classnames.
         // This mapping forces CSS Modules to return literal identies,
         // so e.g. `classes.root` is always `"root"`.
-        '\\.css$': 'identity-obj-proxy',
+        '\\.module.css$': 'identity-obj-proxy',
         '\\.svg$': 'identity-obj-proxy',
         '@magento/venia-drivers':
             '<rootDir>/packages/venia-ui/lib/drivers/index.js'
@@ -144,10 +144,6 @@ const testReactComponents = inPackage => ({
         inPackage(),
         inPackage('node_modules'),
         '<rootDir>/node_modules'
-    ],
-    // Set up Enzyme React 16 adapter for testing React components
-    setupFilesAfterEnv: [
-        path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
     ],
     // Give jsdom a real URL for router testing.
     testURL: 'http://localhost/',
@@ -256,10 +252,6 @@ const jestConfig = {
                 inPackage('scripts/fetch-mock.js'),
                 path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
             ],
-            // Set up Enzyme React 16 adapter for testing React components
-            setupFilesAfterEnv: [
-                path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
-            ],
             // Give jsdom a real URL for router testing.
             testURL: 'http://localhost/'
         })),
@@ -313,7 +305,10 @@ const jestConfig = {
                         '<rootDir>/magento-compatibility.js'
                 }
             })
-        )
+        ),
+        configureProject('pwa-theme-venia', 'Venia Theme', () => ({
+            testEnvironment: 'node'
+        }))
     ],
     // Include files with zero tests in overall coverage analysis by specifying
     // coverage paths manually.
@@ -332,7 +327,9 @@ const jestConfig = {
         // Not this file itself
         '!jest.config.js',
         // Exclude deprecated components from coverage report
-        '!**/venia-ui/lib/components/Checkout/**'
+        '!**/venia-ui/lib/components/Checkout/**',
+        // Exclude storybook files
+        '!**/.storybook/**/*.js'
     ],
     // Don't look for test files in these directories.
     testPathIgnorePatterns: [

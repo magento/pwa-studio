@@ -14,7 +14,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { bool, func, shape, string } from 'prop-types';
 
-import defaultClasses from './braintreeDropin.css';
+import defaultClasses from './braintreeDropin.module.css';
 import { useStyle } from '../../../classify';
 
 const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;

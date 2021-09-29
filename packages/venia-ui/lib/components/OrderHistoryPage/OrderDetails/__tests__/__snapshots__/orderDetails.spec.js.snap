@@ -201,13 +201,64 @@ exports[`should render properly 1`] = `
       <span>
         <svg
           fill="none"
-          height="24"
+          height={24}
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
           viewBox="0 0 24 24"
-          width="24"
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="6 9 6 2 18 2 18 9"
+          />
+          <path
+            d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+          />
+          <rect
+            height="8"
+            width="12"
+            x="6"
+            y="14"
+          />
+        </svg>
+      </span>
+      <span>
+        <mock-FormattedMessage
+          defaultMessage="Print Receipt"
+          id="orderDetails.printLabel"
+        />
+      </span>
+    </span>
+  </button>
+</div>
+`;
+
+exports[`should render with reduced order information 1`] = `
+<div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <button
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <span>
+      <span>
+        <svg
+          fill="none"
+          height={24}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={24}
           xmlns="http://www.w3.org/2000/svg"
         >
           <polyline

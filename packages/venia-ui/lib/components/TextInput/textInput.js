@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { node, shape, string } from 'prop-types';
-import { Text as InformedText, useFieldState } from 'informed';
+import { Text as InformedText } from 'informed';
+import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
 
 import { useStyle } from '../../classify';
 import { FieldIcons, Message } from '../Field';
-import defaultClasses from './textInput.css';
+import defaultClasses from './textInput.module.css';
 
 const TextInput = props => {
     const {

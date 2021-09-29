@@ -6,7 +6,7 @@ import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import Trigger from '../Trigger';
 
-import defaultClasses from './header.css';
+import defaultClasses from './header.module.css';
 import { useHeader } from '@magento/peregrine/lib/talons/LegacyMiniCart/useHeader';
 
 const Header = props => {

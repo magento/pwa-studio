@@ -2,8 +2,8 @@ import React from 'react';
 import { verticalAlignmentToFlex } from '../../utils';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import defaultClasses from './tabItem.css';
-import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
+import defaultClasses from './tabItem.module.css';
+import { arrayOf, oneOf, shape, string } from 'prop-types';
 
 const { matchMedia } = globalThis;
 
@@ -30,7 +30,7 @@ const TabItem = props => {
         backgroundSize,
         backgroundPosition,
         backgroundAttachment,
-        backgroundRepeat,
+        backgroundRepeat = 'repeat',
         textAlign,
         border,
         borderColor,
@@ -81,9 +81,7 @@ const TabItem = props => {
         dynamicStyles.backgroundSize = backgroundSize;
         dynamicStyles.backgroundPosition = backgroundPosition;
         dynamicStyles.backgroundAttachment = backgroundAttachment;
-        dynamicStyles.backgroundRepeat = backgroundRepeat
-            ? 'repeat'
-            : 'no-repeat';
+        dynamicStyles.backgroundRepeat = backgroundRepeat;
     }
 
     if (verticalAlignment) {
@@ -120,7 +118,7 @@ const TabItem = props => {
  * @property {String} backgroundSize CSS background-size property
  * @property {String} backgroundPosition CSS background-position property
  * @property {String} backgroundAttachment CSS background-attachment property
- * @property {Boolean} backgroundRepeat CSS background-repeat property
+ * @property {String} backgroundRepeat CSS background-repeat property
  * @property {String} textAlign Alignment of content within the tab item
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
@@ -149,7 +147,7 @@ TabItem.propTypes = {
     backgroundSize: string,
     backgroundPosition: string,
     backgroundAttachment: string,
-    backgroundRepeat: bool,
+    backgroundRepeat: string,
     textAlign: string,
     border: string,
     borderColor: string,
