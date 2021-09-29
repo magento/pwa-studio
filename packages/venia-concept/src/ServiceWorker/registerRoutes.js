@@ -10,7 +10,6 @@ import {
     findSameOrLargerImage,
     createImageCacheHandler
 } from './Utilities/imageCacheHandler';
-import { isHTMLRoute } from './Utilities/routeHandler';
 import {
     THIRTY_DAYS,
     MAX_NUM_OF_IMAGES_TO_CACHE,
@@ -79,7 +78,9 @@ export default function() {
      * to the cache if available.
      */
     registerRoute(
-        ({ url }) => url.origin === self.location.origin && isHTMLRoute(url),
+        ({ url, request }) =>
+            url.origin === self.location.origin &&
+            request.destination === 'document',
         new NetworkFirst()
     );
 }
