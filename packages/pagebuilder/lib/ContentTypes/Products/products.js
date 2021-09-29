@@ -100,7 +100,7 @@ const Products = props => {
     });
 
     const { loading, error, data } = useQuery(GET_PRODUCTS_BY_URL_KEY, {
-        variables: { urlKeys, pageSize: urlKeys.length }
+        variables: { url_keys: urlKeys, pageSize: urlKeys.length }
     });
 
     if (loading) return null;
