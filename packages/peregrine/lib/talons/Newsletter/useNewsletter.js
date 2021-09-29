@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
-import { useMutation } from '@apollo/client';
+import { empty, useMutation } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './newsletter.gql';
 export const useNewsletter = (props = {}) => {
@@ -23,6 +23,9 @@ export const useNewsletter = (props = {}) => {
                 await subscribeNewsLetter({
                     variables: { email }
                 });
+                if (formApiRef.current) {
+                    formApiRef.current.reset();
+                }
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
@@ -36,6 +39,7 @@ export const useNewsletter = (props = {}) => {
         () => new Map([['subscribeMutation', newsLetterError]]),
         [newsLetterError]
     );
+
     return {
         errors,
         handleSubmit,
