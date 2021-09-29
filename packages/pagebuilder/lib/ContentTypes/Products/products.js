@@ -109,7 +109,6 @@ const Products = props => {
             arrows,
             dots,
             centerMode: carouselCenterMode,
-            lazyLoad: 'ondemand',
             responsive: [
                 {
                     breakpoint: 640,
