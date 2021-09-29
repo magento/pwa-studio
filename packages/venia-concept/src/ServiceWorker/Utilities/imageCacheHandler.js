@@ -4,7 +4,11 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { MESSAGE_TYPES } from '@magento/peregrine/lib/util/swUtils';
 
 import { isFastNetwork } from './networkUtils';
-import { THIRTY_DAYS, IMAGES_CACHE_NAME, MAX_NUM_OF_IMAGES_TO_CACHE } from '../defaults';
+import {
+    THIRTY_DAYS,
+    IMAGES_CACHE_NAME,
+    MAX_NUM_OF_IMAGES_TO_CACHE
+} from '../defaults';
 import { registerMessageHandler } from './messageHandler';
 
 const imageRegex = new RegExp(/\.(?:png|jpg|jpeg)$/);
@@ -166,8 +170,8 @@ export const createImageCacheHandler = () =>
                 maxEntries: MAX_NUM_OF_IMAGES_TO_CACHE,
                 maxAgeSeconds: THIRTY_DAYS,
                 matchOptions: {
-                    ignoreVary: true,
-                },
+                    ignoreVary: true
+                }
             }),
             new CacheableResponsePlugin({
                 statuses: [0, 200]
