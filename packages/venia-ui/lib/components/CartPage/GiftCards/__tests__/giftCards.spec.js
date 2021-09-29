@@ -1,6 +1,6 @@
-import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
+import React from 'react';
 import { IntlProvider } from 'react-intl';
 import GiftCards from '../giftCards';
 
@@ -19,6 +19,16 @@ jest.mock(
 
         return Object.assign(useGiftCardsTalon, { useGiftCards: spy });
     }
+);
+
+jest.mock(
+    '@magento/peregrine/lib/talons/CartPage/GiftCards/giftCardQueries.gql.ee.js',
+    () => ({
+        getAppliedGiftCardsQuery: 'mock cart',
+        getGiftCardBalanceQuery: 'mock balance',
+        applyGiftCardMutation: 'mock apply',
+        removeGiftCardMutation: 'mock remove'
+    })
 );
 
 jest.mock('@magento/peregrine', () => {

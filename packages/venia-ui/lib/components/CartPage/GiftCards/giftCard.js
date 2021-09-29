@@ -1,4 +1,4 @@
-import { useGiftCard } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
+import { useGiftCard } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCard.js';
 import Price from '@magento/venia-ui/lib/components/Price';
 import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';

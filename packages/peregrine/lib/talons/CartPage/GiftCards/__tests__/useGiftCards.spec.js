@@ -33,10 +33,10 @@ jest.mock('informed', () => ({
 }));
 
 jest.mock('../giftCardQueries.gql', () => ({
-    getAppliedGiftCardsQuery: 'getAppliedGiftCardsQuery',
-    getGiftCardBalanceQuery: 'getGiftCardBalanceQuery',
-    applyGiftCardMutation: 'applyGiftCardMutation',
-    removeGiftCardMutation: 'removeGiftCardMutation'
+    getAppliedGiftCardsQuery: 'mock cart',
+    getGiftCardBalanceQuery: 'mock balance',
+    applyGiftCardMutation: 'mock apply',
+    removeGiftCardMutation: 'mock remove'
 }));
 
 /*
