@@ -1,13 +1,10 @@
+import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
 import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { gql } from '@apollo/client';
-import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
-
 import { useStyle } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
-import defaultClasses from './productListing.module.css';
 import Product from './product';
-import { ProductListingFragment } from './productListingFragments';
+import defaultClasses from './productListing.module.css';
 
 const EditModal = React.lazy(() => import('./EditModal'));
 /**
@@ -31,11 +28,9 @@ const ProductListing = props => {
         setIsCartUpdating,
         fetchCartDetails
     } = props;
-    const talonProps = useProductListing({
-        queries: {
-            getProductListing: GET_PRODUCT_LISTING
-        }
-    });
+
+    const talonProps = useProductListing({});
+
     const {
         activeEditItem,
         isLoading,
@@ -86,15 +81,5 @@ const ProductListing = props => {
 
     return null;
 };
-
-export const GET_PRODUCT_LISTING = gql`
-    query getProductListing($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...ProductListingFragment
-        }
-    }
-    ${ProductListingFragment}
-`;
 
 export default ProductListing;

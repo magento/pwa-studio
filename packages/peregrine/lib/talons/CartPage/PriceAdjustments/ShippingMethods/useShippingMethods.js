@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useCallback, useEffect, useState } from 'react';
 import { useCartContext } from '../../../../context/cart';
+import DEFAULT_OPERATIONS from './shippingMethods.gql';
 
 /**
  * Contains logic for a shipping method selector component.
@@ -22,9 +23,9 @@ import { useCartContext } from '../../../../context/cart';
  * import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
  */
 export const useShippingMethods = props => {
-    const {
-        queries: { getShippingMethodsQuery }
-    } = props;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getShippingMethodsQuery } = operations;
+
     const [{ cartId }] = useCartContext();
     const { data } = useQuery(getShippingMethodsQuery, {
         fetchPolicy: 'cache-and-network',

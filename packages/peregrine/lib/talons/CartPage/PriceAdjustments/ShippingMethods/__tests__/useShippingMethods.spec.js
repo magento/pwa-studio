@@ -1,9 +1,8 @@
-import React from 'react';
 import { useQuery } from '@apollo/client';
-
+import React from 'react';
+import { act } from 'react-test-renderer';
 import createTestInstance from '../../../../../util/createTestInstance';
 import { useShippingMethods } from '../useShippingMethods';
-import { act } from 'react-test-renderer';
 
 jest.mock('@apollo/client', () => ({
     useQuery: jest.fn().mockReturnValue({
@@ -20,6 +19,11 @@ jest.mock('../../../../../context/cart', () => {
 
     return { useCartContext };
 });
+
+jest.mock('../shippingMethods.gql', () => ({
+    getShippingMethodsQuery: 'getShippingMethodsQuery',
+    setShippingAddressMutation: 'setShippingAddressMutation'
+}));
 
 const props = {
     queries: {

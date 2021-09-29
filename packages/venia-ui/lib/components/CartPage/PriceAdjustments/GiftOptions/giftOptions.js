@@ -1,12 +1,10 @@
+import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions.js';
+import { Form, Relevant } from 'informed';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { Form, Relevant } from 'informed';
-import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
-
+import { useStyle } from '../../../../classify';
 import Checkbox from '../../../Checkbox';
 import TextArea from '../../../TextArea';
-import { useStyle } from '../../../../classify';
-import GiftOptionsOperations from './giftOptions.gql';
 import defaultClasses from './giftOptions.module.css';
 
 /**
@@ -30,7 +28,7 @@ const GiftOptions = props => {
         optionsFormProps,
         printedCardProps,
         shouldPromptForMessage
-    } = useGiftOptions({ ...GiftOptionsOperations });
+    } = useGiftOptions({});
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
 

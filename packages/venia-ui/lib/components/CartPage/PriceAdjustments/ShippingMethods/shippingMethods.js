@@ -1,13 +1,11 @@
+import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
+import { Form } from 'informed';
 import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Form } from 'informed';
-import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
-
 import { useStyle } from '../../../../classify';
 import Button from '../../../Button';
 import ShippingForm from './shippingForm';
 import defaultClasses from './shippingMethods.module.css';
-import ShippingMethodsOperations from './shippingMethods.gql';
 import ShippingRadios from './shippingRadios';
 
 /**
@@ -34,7 +32,7 @@ const ShippingMethods = props => {
         selectedShippingMethod,
         shippingMethods,
         showForm
-    } = useShippingMethods({ ...ShippingMethodsOperations });
+    } = useShippingMethods({});
 
     const classes = useStyle(defaultClasses, props.classes);
 

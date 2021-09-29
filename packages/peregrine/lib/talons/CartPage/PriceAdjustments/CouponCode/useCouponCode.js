@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useMemo } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useCallback, useEffect, useMemo } from 'react';
+import DEFAULT_OPERATIONS from './couponCode.gql';
 
 /**
  * This talon contains the logic for a coupon code form component.
@@ -24,11 +26,13 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
  */
 export const useCouponCode = props => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
-        setIsCartUpdating,
-        mutations: { applyCouponMutation, removeCouponMutation },
-        queries: { getAppliedCouponsQuery }
-    } = props;
+        getAppliedCouponsQuery,
+        applyCouponMutation,
+        removeCouponMutation
+    } = operations;
+    const { setIsCartUpdating } = props;
 
     const [{ cartId }] = useCartContext();
     const { data, error: fetchError } = useQuery(getAppliedCouponsQuery, {

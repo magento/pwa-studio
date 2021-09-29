@@ -1,13 +1,11 @@
+import { useMutation } from '@apollo/client';
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useMutation } from '@apollo/client';
-
 import { useAppContext } from '../../../../context/app';
 import { useCartContext } from '../../../../context/cart';
-import createTestInstance from '../../../../util/createTestInstance';
-
-import { useShippingInformation } from '../useShippingInformation';
 import { useUserContext } from '../../../../context/user';
+import createTestInstance from '../../../../util/createTestInstance';
+import { useShippingInformation } from '../useShippingInformation';
 
 const mockGetShippingInformationResult = jest.fn().mockReturnValue({
     data: null,
@@ -61,6 +59,14 @@ jest.mock('../../../../context/user', () => {
 
     return { useUserContext };
 });
+
+jest.mock(
+    '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js',
+    () => ({
+        getShippingMethodsQuery: 'getShippingMethodsQuery',
+        setShippingAddressMutation: 'setShippingAddressMutation'
+    })
+);
 
 const Component = props => {
     const talonProps = useShippingInformation(props);

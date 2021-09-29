@@ -1,8 +1,7 @@
+import { useLazyQuery } from '@apollo/client';
+import { createTestInstance } from '@magento/peregrine';
 import React, { useEffect, useState } from 'react';
 import { act } from 'react-test-renderer';
-import { createTestInstance } from '@magento/peregrine';
-import { useLazyQuery } from '@apollo/client';
-
 import { useCartPage } from '../useCartPage';
 
 jest.mock('react', () => {
@@ -14,6 +13,10 @@ jest.mock('react', () => {
         useState: spy
     };
 });
+
+jest.mock('../cartPage.gql', () => ({
+    getCartDetailsQuery: 'getCartDetailsQuery'
+}));
 
 jest.mock('@apollo/client', () => {
     const queryConfig = {
@@ -40,10 +43,7 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 
 const log = jest.fn();
 const Component = () => {
-    const getCartDetails = {};
-    const talonProps = useCartPage({
-        queries: { getCartDetails }
-    });
+    const talonProps = useCartPage({});
 
     useEffect(() => {
         log(talonProps);

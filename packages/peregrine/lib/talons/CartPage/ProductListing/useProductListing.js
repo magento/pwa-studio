@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
-
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useEffect, useState } from 'react';
 import { useCartContext } from '../../../context/cart';
-import mergeOperations from '../../../util/shallowMerge';
-import defaultOperations from './productListing.gql';
+import DEFAULT_OPERATIONS from './productListing.gql';
 
 /**
  * This talon contains logic for a component that renders a list of products for a cart.
@@ -25,11 +24,8 @@ import defaultOperations from './productListing.gql';
  * import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
  */
 export const useProductListing = props => {
-    const {
-        queries: { getProductListing }
-    } = props;
-
-    const operations = mergeOperations(defaultOperations, props.operations);
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getWishlistConfigQuery, getProductListingQuery } = operations;
 
     const [{ cartId }] = useCartContext();
     const [activeEditItem, setActiveEditItem] = useState(null);
@@ -37,14 +33,12 @@ export const useProductListing = props => {
     const [
         fetchProductListing,
         { called, data, error, loading }
-    ] = useLazyQuery(getProductListing, {
+    ] = useLazyQuery(getProductListingQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
 
-    const { data: storeConfigData } = useQuery(
-        operations.getWishlistConfigQuery
-    );
+    const { data: storeConfigData } = useQuery(getWishlistConfigQuery);
 
     const wishlistConfig = storeConfigData ? storeConfigData.storeConfig : {};
 
@@ -80,7 +74,7 @@ export const useProductListing = props => {
  *
  * @typedef {Object} ProductListingQueries
  *
- * @property {GraphQLDocument} getProductListing Query to get the product list for a cart
+ * @property {GraphQLDocument} getProductListingQuery Query to get the product list for a cart
  *
  * @see [productListingFragments.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListingFragments.js}
  * for the queries used in Venia
