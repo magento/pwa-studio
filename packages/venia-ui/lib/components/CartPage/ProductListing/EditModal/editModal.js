@@ -1,5 +1,6 @@
-import { useEditModal } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useEditModal';
 import React from 'react';
+import { useEditModal } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useEditModal';
+
 import ProductForm from './productForm';
 
 /**
@@ -9,7 +10,7 @@ import ProductForm from './productForm';
  * @param {Object} props
  * @param {Object} props.item Product to edit.
  * @param {function} props.setActiveEditItem Function for setting the actively editing item
- * See [productListingFragments.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/talons/CartPage/ProductListing/productListingFragments.gql.js}
+ * See [productListingFragments.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListingFragments.js}
  * for a list of properties for this object.
  * @param {Function} props.setIsCartUpdating Function for setting the updating state of the cart.
  * @param {Object} props.classes CSS className overrides.

@@ -9,3 +9,13 @@ exports[`uses RichContentRenderers to inject a default strategy into RichContent
   }
 />
 `;
+
+exports[`uses routes to inject client-routed pages 1`] = `
+<div
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<h1>word up</h1>",
+    }
+  }
+/>
+`;

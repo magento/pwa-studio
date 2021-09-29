@@ -1,7 +1,3 @@
-import { gql } from '@apollo/client';
-import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql';
-import { GET_SHIPPING_METHODS } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js';
-import { ShippingMethodsCartFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
 import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
 import { Form } from 'informed';
 import { func, shape, string } from 'prop-types';
@@ -10,7 +6,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useStyle } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
-import { ShippingInformationFragment } from '../../../CheckoutPage/ShippingInformation/shippingInformationFragments.gql';
 import Country from '../../../Country';
 import FormError from '../../../FormError';
 import Postcode from '../../../Postcode';
@@ -21,13 +16,7 @@ const ShippingForm = props => {
     const { hasMethods, selectedShippingFields, setIsCartUpdating } = props;
     const talonProps = useShippingForm({
         selectedValues: selectedShippingFields,
-        setIsCartUpdating,
-        mutations: {
-            setShippingAddressMutation: SET_SHIPPING_ADDRESS_MUTATION
-        },
-        queries: {
-            shippingMethodsQuery: GET_SHIPPING_METHODS
-        }
+        setIsCartUpdating
     });
     const {
         errors,
@@ -100,27 +89,3 @@ ShippingForm.propTypes = {
     }),
     setIsFetchingMethods: func
 };
-
-export const SET_SHIPPING_ADDRESS_MUTATION = gql`
-    mutation SetShippingAddressForEstimate(
-        $cartId: String!
-        $address: CartAddressInput!
-    ) {
-        setShippingAddressesOnCart(
-            input: {
-                cart_id: $cartId
-                shipping_addresses: [{ address: $address }]
-            }
-        ) @connection(key: "setShippingAddressesOnCart") {
-            cart {
-                id
-                ...CartPageFragment
-                ...ShippingMethodsCartFragment
-                ...ShippingInformationFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${ShippingMethodsCartFragment}
-    ${ShippingInformationFragment}
-`;

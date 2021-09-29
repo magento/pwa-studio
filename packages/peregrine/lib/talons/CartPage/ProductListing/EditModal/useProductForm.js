@@ -35,8 +35,8 @@ export const useProductForm = props => {
 
     const {
         getConfigurableOptionsQuery,
-        updateQuantityMutation,
-        updateConfigurableOptionsMutation
+        updateConfigurableOptionsMutation,
+        updateQuantityMutation
     } = operations;
 
     const {

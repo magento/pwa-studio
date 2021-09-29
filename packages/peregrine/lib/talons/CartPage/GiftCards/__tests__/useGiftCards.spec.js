@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
-import { createTestInstance } from '@magento/peregrine';
-
-import { useGiftCards } from '../useGiftCards';
-import { act } from 'react-test-renderer';
-
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
+import { createTestInstance } from '@magento/peregrine';
+import React, { useEffect } from 'react';
+import { act } from 'react-test-renderer';
+import { useGiftCards } from '../useGiftCards';
 
 /*
  *  Mocked Modules.
@@ -32,6 +30,13 @@ jest.mock('informed', () => ({
         getValue: jest.fn().mockReturnValue('mock card code'),
         reset: jest.fn()
     })
+}));
+
+jest.mock('../giftCardQueries.gql', () => ({
+    getAppliedGiftCardsQuery: 'getAppliedGiftCardsQuery',
+    getGiftCardBalanceQuery: 'getGiftCardBalanceQuery',
+    applyGiftCardMutation: 'applyGiftCardMutation',
+    removeGiftCardMutation: 'removeGiftCardMutation'
 }));
 
 /*
@@ -89,15 +94,7 @@ const removeCardResult = {
 const setIsCartUpdating = jest.fn();
 
 const props = {
-    setIsCartUpdating: setIsCartUpdating,
-    mutations: {
-        applyCardMutation: 'mock apply',
-        removeCardMutation: 'mock remove'
-    },
-    queries: {
-        cardBalanceQuery: 'mock balance',
-        appliedCardsQuery: 'mock cart'
-    }
+    setIsCartUpdating: setIsCartUpdating
 };
 
 /*

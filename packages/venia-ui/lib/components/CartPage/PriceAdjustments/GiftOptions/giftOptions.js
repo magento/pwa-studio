@@ -1,5 +1,4 @@
-import GiftOptionsOperations from '@magento/peregrine/lib/talons/CartPage/GiftOptions/giftOptions.gql';
-import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
+import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions.js';
 import { Form, Relevant } from 'informed';
 import React from 'react';
 import { useIntl } from 'react-intl';
@@ -29,7 +28,7 @@ const GiftOptions = props => {
         optionsFormProps,
         printedCardProps,
         shouldPromptForMessage
-    } = useGiftOptions({ ...GiftOptionsOperations });
+    } = useGiftOptions({});
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
 

@@ -9,6 +9,7 @@ import GiftCardSummary from './giftCardSummary';
 import defaultClasses from './priceSummary.css';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
+
 /**
  * A child component of the CartPage component.
  * This component fetches and renders cart data, such as subtotal, discounts applied,

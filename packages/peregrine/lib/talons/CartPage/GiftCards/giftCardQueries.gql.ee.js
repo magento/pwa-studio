@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql.js';
+import { CartPageFragment } from '../cartPageFragments.gql';
 import { GiftCardFragment } from './giftCardFragments.gql';
 
 const GET_APPLIED_GIFT_CARDS_QUERY = gql`

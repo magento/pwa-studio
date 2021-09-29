@@ -28,6 +28,7 @@ const ProductListing = props => {
         setIsCartUpdating,
         fetchCartDetails
     } = props;
+
     const talonProps = useProductListing({});
 
     const {

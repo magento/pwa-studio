@@ -32,7 +32,6 @@ export const useCouponCode = props => {
         applyCouponMutation,
         removeCouponMutation
     } = operations;
-
     const { setIsCartUpdating } = props;
 
     const [{ cartId }] = useCartContext();

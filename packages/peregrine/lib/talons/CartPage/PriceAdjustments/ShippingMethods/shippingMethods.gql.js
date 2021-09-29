@@ -1,7 +1,9 @@
 import { gql } from '@apollo/client';
+import { ShippingInformationFragment } from '@magento/venia-ui/lib/components/CheckoutPage/ShippingInformation/shippingInformationFragments.gql.js';
+import { CartPageFragment } from '../../cartPageFragments.gql';
 import { ShippingMethodsCartFragment } from './shippingMethodsFragments.gql';
 
-export const GET_SHIPPING_METHODS = gql`
+const GET_SHIPPING_METHODS = gql`
     query GetShippingMethods($cartId: String!) {
         cart(cart_id: $cartId) {
             id
@@ -11,6 +13,31 @@ export const GET_SHIPPING_METHODS = gql`
     ${ShippingMethodsCartFragment}
 `;
 
+const SET_SHIPPING_ADDRESS_MUTATION = gql`
+    mutation SetShippingAddressForEstimate(
+        $cartId: String!
+        $address: CartAddressInput!
+    ) {
+        setShippingAddressesOnCart(
+            input: {
+                cart_id: $cartId
+                shipping_addresses: [{ address: $address }]
+            }
+        ) @connection(key: "setShippingAddressesOnCart") {
+            cart {
+                id
+                ...CartPageFragment
+                ...ShippingMethodsCartFragment
+                ...ShippingInformationFragment
+            }
+        }
+    }
+    ${CartPageFragment}
+    ${ShippingMethodsCartFragment}
+    ${ShippingInformationFragment}
+`;
+
 export default {
-    getShippingMethodsQuery: GET_SHIPPING_METHODS
+    getShippingMethodsQuery: GET_SHIPPING_METHODS,
+    setShippingAddressMutation: SET_SHIPPING_ADDRESS_MUTATION
 };

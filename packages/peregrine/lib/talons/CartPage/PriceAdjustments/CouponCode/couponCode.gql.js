@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql';
+import { CartPageFragment } from '../../cartPageFragments.gql';
 import { AppliedCouponsFragment } from './couponCodeFragments.gql';
 
 const GET_APPLIED_COUPONS = gql`
@@ -50,7 +50,7 @@ const REMOVE_COUPON_MUTATION = gql`
 `;
 
 export default {
-    getAppliedCoupons: GET_APPLIED_COUPONS,
+    getAppliedCouponsQuery: GET_APPLIED_COUPONS,
     applyCouponMutation: APPLY_COUPON_MUTATION,
     removeCouponMutation: REMOVE_COUPON_MUTATION
 };

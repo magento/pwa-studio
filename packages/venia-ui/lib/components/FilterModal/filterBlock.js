@@ -3,6 +3,7 @@ import { arrayOf, shape, string, func, bool } from 'prop-types';
 import { useIntl } from 'react-intl';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import { Form } from 'informed';
+
 import { useFilterBlock } from '@magento/peregrine/lib/talons/FilterModal';
 import setValidator from '@magento/peregrine/lib/validators/set';
 
@@ -31,9 +32,6 @@ const FilterBlock = props => {
     const { handleClick, isExpanded } = talonProps;
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
     const classes = useStyle(defaultClasses, props.classes);
-    const listClass = isExpanded
-        ? classes.list_expanded
-        : classes.list_collapsed;
 
     const itemAriaLabel = formatMessage(
         {
@@ -65,6 +63,18 @@ const FilterBlock = props => {
               }
           );
 
+    const list = isExpanded ? (
+        <Form className={classes.list}>
+            <FilterList
+                filterApi={filterApi}
+                filterState={filterState}
+                group={group}
+                items={items}
+                onApply={onApply}
+            />
+        </Form>
+    ) : null;
+
     return (
         <li className={classes.root} aria-label={itemAriaLabel}>
             <button
@@ -79,16 +89,7 @@ const FilterBlock = props => {
                     <Icon src={iconSrc} />
                 </span>
             </button>
-            <Form className={listClass}>
-                <FilterList
-                    filterApi={filterApi}
-                    filterState={filterState}
-                    group={group}
-                    items={items}
-                    onApply={onApply}
-                    isExpanded={isExpanded}
-                />
-            </Form>
+            {list}
         </li>
     );
 };
@@ -101,8 +102,7 @@ FilterBlock.defaultProps = {
 FilterBlock.propTypes = {
     classes: shape({
         header: string,
-        list_collapsed: string,
-        list_expanded: string,
+        list: string,
         name: string,
         root: string,
         trigger: string

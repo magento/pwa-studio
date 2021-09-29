@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import { ProductFormFragment } from './productFormFragment.gql';
 
-export const GET_CONFIGURABLE_OPTIONS = gql`
+const GET_CONFIGURABLE_OPTIONS = gql`
     query productDetailBySku($sku: String) {
         products(filter: { sku: { eq: $sku } }) {
             items {
@@ -14,7 +14,7 @@ export const GET_CONFIGURABLE_OPTIONS = gql`
     ${ProductFormFragment}
 `;
 
-export const UPDATE_QUANTITY_MUTATION = gql`
+const UPDATE_QUANTITY_MUTATION = gql`
     mutation UpdateCartItemQuantity(
         $cartId: String!
         $cartItemId: Int!
@@ -35,7 +35,7 @@ export const UPDATE_QUANTITY_MUTATION = gql`
     ${CartPageFragment}
 `;
 
-export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
+const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
     mutation UpdateConfigurableOptions(
         $cartId: String!
         $cartItemId: Int!

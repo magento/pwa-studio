@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
-import { GiftCardFragment } from '@magento/peregrine/lib/talons/CartPage/GiftCards/giftCardFragments.gql';
-import { AppliedCouponsFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/couponCodeFragments.gql';
 import { PriceSummaryFragment } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/priceSummaryFragments.gql';
-import { ProductListingFragment } from '@magento/peregrine/lib/talons/CartPage/ProductListing/productListingFragments.gql';
+import { GiftCardFragment } from './GiftCards/giftCardFragments.gql';
+import { AppliedCouponsFragment } from './PriceAdjustments/CouponCode/couponCodeFragments.gql';
+import { ProductListingFragment } from './ProductListing/productListingFragments.gql';
 
 export const CartPageFragment = gql`
     fragment CartPageFragment on Cart {

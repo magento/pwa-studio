@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql';
+import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql.js';
 import { AvailableShippingMethodsCartFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql.js';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';

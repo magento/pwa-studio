@@ -1,4 +1,3 @@
-import ShippingMethodsOperations from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js';
 import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
 import { Form } from 'informed';
 import React, { Fragment } from 'react';
@@ -33,7 +32,7 @@ const ShippingMethods = props => {
         selectedShippingMethod,
         shippingMethods,
         showForm
-    } = useShippingMethods({ ...ShippingMethodsOperations });
+    } = useShippingMethods({});
 
     const classes = useStyle(defaultClasses, props.classes);
 

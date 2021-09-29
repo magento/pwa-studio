@@ -1,12 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useIntl } from 'react-intl';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
-
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
-import mergeOperations from '../../../util/shallowMerge';
-
 import DEFAULT_OPERATIONS from './product.gql';
 
 /**

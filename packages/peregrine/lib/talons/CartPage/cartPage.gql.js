@@ -11,4 +11,6 @@ const GET_CART_DETAILS = gql`
     ${CartPageFragment}
 `;
 
-export default { getCartDetailsQuery: GET_CART_DETAILS };
+export default {
+    getCartDetailsQuery: GET_CART_DETAILS
+};
