@@ -22,6 +22,6 @@
         "updateSnapshots": false
     },
     "retries": {
-        "runMode": 3
+        "runMode": 2
     }
 }
