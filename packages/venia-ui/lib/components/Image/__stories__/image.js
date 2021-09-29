@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
 
 import Image from '../image';
-import classes from './image.css';
+import classes from './image.module.css';
 
 const stories = storiesOf('Components/Image', module);
 

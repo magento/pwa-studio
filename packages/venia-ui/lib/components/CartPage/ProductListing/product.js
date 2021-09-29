@@ -15,7 +15,7 @@ import Kebab from '../../LegacyMiniCart/kebab';
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Section from '../../LegacyMiniCart/section';
 import AddToListButton from '../../Wishlist/AddToListButton';
-import defaultClasses from './product.css';
+import defaultClasses from './product.module.css';
 import Quantity from './quantity';
 
 const IMAGE_SIZE = 100;

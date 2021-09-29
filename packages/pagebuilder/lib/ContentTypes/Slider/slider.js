@@ -1,7 +1,7 @@
 import React, { Children } from 'react';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import SlickSlider from 'react-slick';
-import defaultClasses from './slider.css';
+import defaultClasses from './slider.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { jarallax } from 'jarallax';
 

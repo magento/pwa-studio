@@ -8,7 +8,7 @@ import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
 import ProductDetail from './productDetail';
-import defaultClasses from './productForm.css';
+import defaultClasses from './productForm.module.css';
 
 const ProductForm = props => {
     const {

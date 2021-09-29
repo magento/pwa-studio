@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { useStyle } from '../../../../classify';
 import Button from '../../../Button';
 import ShippingForm from './shippingForm';
-import defaultClasses from './shippingMethods.css';
+import defaultClasses from './shippingMethods.module.css';
 import ShippingRadios from './shippingRadios';
 
 /**
@@ -15,7 +15,7 @@ import ShippingRadios from './shippingRadios';
  * @param {Object} props
  * @param {Function} props.setIsCartUpdating Function for setting the updating state of the cart.
  * @param {Object} props.classes CSS className overrides.
- * See [shippingMethods.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.css}
+ * See [shippingMethods.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}

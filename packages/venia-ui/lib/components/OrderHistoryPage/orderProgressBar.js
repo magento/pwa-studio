@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './orderProgressBar.css';
+import defaultClasses from './orderProgressBar.module.css';
 
 const TOTAL_STEPS = 4;
 

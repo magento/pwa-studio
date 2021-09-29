@@ -7,7 +7,7 @@ import React from 'react';
 import { useStyle } from '../../../../classify';
 import RadioGroup from '../../../RadioGroup';
 import ShippingRadio from './shippingRadio';
-import defaultClasses from './shippingRadios.css';
+import defaultClasses from './shippingRadios.module.css';
 
 const ShippingRadios = props => {
     const {

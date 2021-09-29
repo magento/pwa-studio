@@ -3,7 +3,7 @@ import { arrayOf, func, object, shape, string } from 'prop-types';
 import Tile from './tile';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './tileList.css';
+import defaultClasses from './tileList.module.css';
 
 const TileList = props => {
     const { getItemKey, selectedValue = {}, items, onSelectionChange } = props;

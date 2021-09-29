@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { useStyle } from '../../../../classify';
 import Checkbox from '../../../Checkbox';
 import TextArea from '../../../TextArea';
-import defaultClasses from './giftOptions.css';
+import defaultClasses from './giftOptions.module.css';
 
 /**
  * A child component of the PriceAdjustments component.
@@ -13,7 +13,7 @@ import defaultClasses from './giftOptions.css';
  *
  * @param {Object} props
  * @param {Object} props.classes CSS className overrides.
- * See [giftOptions.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.css}
+ * See [giftOptions.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}

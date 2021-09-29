@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useStyle } from '../../../classify';
 import LinkButton from '../../LinkButton';
-import defaultClasses from './giftCard.css';
+import defaultClasses from './giftCard.module.css';
 
 const GiftCard = props => {
     const { code, currentBalance, isRemovingCard, removeGiftCard } = props;

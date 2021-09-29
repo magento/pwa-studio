@@ -2,7 +2,7 @@ import React, { Fragment, useMemo } from 'react';
 import { useWishlistItems } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistItems';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './wishlistItems.css';
+import defaultClasses from './wishlistItems.module.css';
 import WishlistItem from './wishlistItem';
 import AddToCartDialog from '../AddToCartDialog';
 

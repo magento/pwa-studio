@@ -14,7 +14,9 @@ import OrderTotal from './orderTotal';
 import Icon from '../../Icon';
 import Button from '../../Button';
 
-import defaultClasses from './orderDetails.css';
+import defaultClasses from './orderDetails.module.css';
+
+const ConditionalWrapper = props => (props.condition ? props.children : null);
 
 const ConditionalWrapper = props => (props.condition ? props.children : null);
 

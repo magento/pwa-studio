@@ -8,7 +8,7 @@ import { StoreTitle } from '../Head';
 import Icon from '../Icon';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
-import defaultClasses from './cartPage.css';
+import defaultClasses from './cartPage.module.css';
 import PriceAdjustments from './PriceAdjustments';
 import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
@@ -24,7 +24,7 @@ const CheckIcon = <Icon size={20} src={Check} />;
  *
  * @param {Object} props
  * @param {Object} props.classes CSS className overrides for the component.
- * See [cartPage.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.css}
+ * See [cartPage.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}

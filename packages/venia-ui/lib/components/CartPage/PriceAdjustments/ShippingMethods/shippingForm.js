@@ -10,7 +10,7 @@ import Country from '../../../Country';
 import FormError from '../../../FormError';
 import Postcode from '../../../Postcode';
 import Region from '../../../Region';
-import defaultClasses from './shippingForm.css';
+import defaultClasses from './shippingForm.module.css';
 
 const ShippingForm = props => {
     const { hasMethods, selectedShippingFields, setIsCartUpdating } = props;

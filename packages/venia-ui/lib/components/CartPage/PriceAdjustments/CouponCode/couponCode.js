@@ -11,7 +11,7 @@ import Field from '../../../Field';
 import Icon from '../../../Icon';
 import LinkButton from '../../../LinkButton';
 import TextInput from '../../../TextInput';
-import defaultClasses from './couponCode.css';
+import defaultClasses from './couponCode.module.css';
 
 const errorIcon = (
     <Icon
@@ -29,7 +29,7 @@ const errorIcon = (
  * @param {Object} props
  * @param {Function} props.setIsCartUpdating Function for setting the updating state for the cart.
  * @param {Object} props.classes CSS className overrides.
- * See [couponCode.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.css}
+ * See [couponCode.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}

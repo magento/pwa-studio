@@ -5,7 +5,7 @@ import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInforme
 
 import { useStyle } from '../../classify';
 import { FieldIcons, Message } from '../Field';
-import defaultClasses from './textInput.css';
+import defaultClasses from './textInput.module.css';
 
 const TextInput = props => {
     const {

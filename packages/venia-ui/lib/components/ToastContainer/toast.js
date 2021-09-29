@@ -1,6 +1,6 @@
 import React from 'react';
 import { bool, func, number, object, oneOf, string } from 'prop-types';
-import defaultClasses from './toast.css';
+import defaultClasses from './toast.module.css';
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
 

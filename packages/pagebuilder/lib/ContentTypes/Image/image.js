@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultClasses from './image.css';
+import defaultClasses from './image.module.css';
 import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import resolveLinkProps from '../../resolveLinkProps';
