@@ -6,7 +6,7 @@ import { useIntl } from 'react-intl';
 import Icon from '../Icon';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './searchTrigger.css';
+import defaultClasses from './searchTrigger.module.css';
 import { useSearchTrigger } from '@magento/peregrine/lib/talons/Header/useSearchTrigger';
 
 const SearchTrigger = React.forwardRef((props, ref) => {

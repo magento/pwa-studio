@@ -9,7 +9,7 @@ import {
 
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
-import defaultClasses from './navButton.css';
+import defaultClasses from './navButton.module.css';
 
 const icons = new Map()
     .set('ChevronLeft', ChevronLeftIcon)

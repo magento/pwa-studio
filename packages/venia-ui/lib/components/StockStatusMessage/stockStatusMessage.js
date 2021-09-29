@@ -4,7 +4,7 @@ import { arrayOf, node, shape, string } from 'prop-types';
 import { useStockStatusMessage } from '@magento/peregrine/lib/talons/StockStatusMessage/useStockStatusMessage';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './stockStatusMessage.css';
+import defaultClasses from './stockStatusMessage.module.css';
 
 const StockStatusMessage = props => {
     const { cartItems, messageId, message } = props;

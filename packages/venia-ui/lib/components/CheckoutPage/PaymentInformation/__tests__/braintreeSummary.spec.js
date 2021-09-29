@@ -2,7 +2,7 @@ import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 jest.mock('../../../../classify');
 
-import classes from '../braintreeSummary.css';
+import classes from '../braintreeSummary.module.css';
 import { useBraintreeSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useBraintreeSummary';
 import BraintreeSummary from '../braintreeSummary';
 

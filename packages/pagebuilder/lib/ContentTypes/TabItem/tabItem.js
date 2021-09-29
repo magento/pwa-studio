@@ -2,7 +2,7 @@ import React from 'react';
 import { verticalAlignmentToFlex } from '../../utils';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import defaultClasses from './tabItem.css';
+import defaultClasses from './tabItem.module.css';
 import { arrayOf, oneOf, shape, string } from 'prop-types';
 
 const { matchMedia } = globalThis;

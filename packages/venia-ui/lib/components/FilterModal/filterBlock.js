@@ -10,7 +10,7 @@ import setValidator from '@magento/peregrine/lib/validators/set';
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import FilterList from './FilterList';
-import defaultClasses from './filterBlock.css';
+import defaultClasses from './filterBlock.module.css';
 
 const FilterBlock = props => {
     const {

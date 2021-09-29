@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 
 import Icon from '../Icon';
 import { useStyle } from '../../classify';
-import defaultClasses from './navTrigger.css';
+import defaultClasses from './navTrigger.module.css';
 import { useNavigationTrigger } from '@magento/peregrine/lib/talons/Header/useNavigationTrigger';
 
 /**

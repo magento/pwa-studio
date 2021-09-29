@@ -9,7 +9,7 @@ import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import TextInput from '../../TextInput';
 import { Message } from '../../Field';
-import defaultClasses from './quantity.css';
+import defaultClasses from './quantity.module.css';
 
 export const QuantityFields = props => {
     const { initialValue, itemId, label, min, onChange, message } = props;

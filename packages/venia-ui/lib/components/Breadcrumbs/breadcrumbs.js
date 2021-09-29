@@ -7,7 +7,7 @@ import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBre
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useStyle } from '../../classify';
 import Shimmer from './breadcrumbs.shimmer';
-import defaultClasses from './breadcrumbs.css';
+import defaultClasses from './breadcrumbs.module.css';
 
 const DELIMITER = '/';
 /**
