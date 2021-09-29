@@ -15,11 +15,9 @@ const isCriticalError = error => {
         return false;
     }
 
-    const acceptedErrors = [/requested qty/g];
+    const acceptedErrors = ['The requested qty is not available'];
 
-    return acceptedErrors.every(
-        acceptedError => !acceptedError.test(error.message)
-    );
+    return !acceptedErrors.includes(error.message);
 };
 
 /**

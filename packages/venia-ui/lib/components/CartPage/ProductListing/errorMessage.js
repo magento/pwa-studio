@@ -4,6 +4,8 @@ import { shape, string } from 'prop-types';
 import { useStyle } from '../../../classify';
 import defaultClasses from './errorMessage.css';
 
+const acceptedErrors = ['The requested qty is not available'];
+
 const ErrorMessage = props => {
     const { error } = props;
     const classes = useStyle(defaultClasses, props.classes);
@@ -12,16 +14,11 @@ const ErrorMessage = props => {
         return null;
     }
 
-    const errorText = error.message.includes('qty') ? (
-        <FormattedMessage
-            id="stockStatusMessage.message"
-            defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout."
-        />
-    ) : (
-        error.message
-    );
+    if (acceptedErrors.includes(error.message)) {
+        return null;
+    }
 
-    return <div className={classes.root}>{errorText}</div>;
+    return <div className={classes.root}>{error.message}</div>;
 };
 
 ErrorMessage.defaultProps = {

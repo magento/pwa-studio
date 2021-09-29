@@ -49,10 +49,11 @@ export const useCartTrigger = props => {
         variables: {
             cartId
         },
-        skip: !cartId
+        skip: !cartId,
+        errorPolicy: 'all'
     });
 
-    const itemCount = data ? data.cart.total_quantity : 0;
+    const itemCount = data?.cart?.total_quantity || 0;
 
     const handleTriggerClick = useCallback(() => {
         // Open the mini cart.

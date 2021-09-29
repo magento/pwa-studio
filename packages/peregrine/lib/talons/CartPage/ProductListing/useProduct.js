@@ -108,13 +108,22 @@ export const useProduct = props => {
         updateItemLoading
     ]);
 
+    useEffect(() => {
+        if (item.error.has_error) {
+            setDisplayError(true);
+        }
+    }, [item.error]);
+
     const derivedErrorMessage = useMemo(() => {
         return (
             (displayError &&
-                deriveErrorMessage([updateError, removeItemError])) ||
+                (
+                    deriveErrorMessage([updateError, removeItemError])) ||
+                    item.error.message
+                ) ||
             ''
         );
-    }, [displayError, removeItemError, updateError]);
+    }, [displayError, removeItemError, updateError, item.error]);
 
     const handleEditItem = useCallback(() => {
         setActiveEditItem(item);

@@ -60,7 +60,7 @@ export const useProductListing = props => {
 
     let items = [];
     if (called && !loading) {
-        items = data.cart.items.filter(Boolean);
+        items = data?.cart?.items?.filter(Boolean) || [];
     }
 
     return {
