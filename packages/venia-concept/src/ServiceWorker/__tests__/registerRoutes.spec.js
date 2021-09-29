@@ -158,9 +158,9 @@ test('There should be a route for all image types with CacheFirst strategy', () 
     expect(expirationPluginCallArgs).toEqual({
         maxEntries: MAX_NUM_OF_IMAGES_TO_CACHE,
         maxAgeSeconds: THIRTY_DAYS,
-        "matchOptions": {
-            "ignoreVary": true,
-        },
+        matchOptions: {
+            ignoreVary: true
+        }
     });
     expect(expirationPluginCallArgs.maxEntries).toBe(
         MAX_NUM_OF_IMAGES_TO_CACHE
