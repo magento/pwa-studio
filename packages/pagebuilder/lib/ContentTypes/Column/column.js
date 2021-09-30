@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import defaultClasses from './column.css';
+import defaultClasses from './column.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, oneOf, shape, string } from 'prop-types';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';

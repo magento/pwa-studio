@@ -1,0 +1,3 @@
+.root {
+    composes: root from './tileList.module.css';
+}

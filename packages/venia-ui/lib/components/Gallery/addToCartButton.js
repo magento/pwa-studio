@@ -6,7 +6,7 @@ import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAdd
 import Button from '../Button';
 import { mergeClasses } from '../../classify';
 
-import defaultClasses from './addToCartButton.css';
+import defaultClasses from './addToCartButton.module.css';
 
 const AddToCartButton = props => {
     const talonProps = useAddToCartButton({

@@ -14,7 +14,7 @@ import { useStyle } from '../../classify';
 import getOptionType from './getOptionType';
 import SwatchList from './swatchList';
 import TileList from './tileList';
-import defaultClasses from './option.css';
+import defaultClasses from './option.module.css';
 import { useOption } from '@magento/peregrine/lib/talons/ProductOptions/useOption';
 
 const getItemKey = ({ value_index }) => value_index;

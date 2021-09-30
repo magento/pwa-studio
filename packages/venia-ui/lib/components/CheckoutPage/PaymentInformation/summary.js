@@ -5,7 +5,7 @@ import { shape, string, func } from 'prop-types';
 import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
 import { useStyle } from '../../../classify';
 
-import defaultClasses from './summary.css';
+import defaultClasses from './summary.module.css';
 import LoadingIndicator from '../../LoadingIndicator';
 import summaryPayments from './summaryPaymentCollection';
 

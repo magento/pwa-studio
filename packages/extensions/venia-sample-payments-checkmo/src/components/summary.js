@@ -7,7 +7,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
 
-import defaultClasses from './summary.css';
+import defaultClasses from './summary.module.css';
 
 /**
  * The Summary component of the Check / Money Order payment method extension.

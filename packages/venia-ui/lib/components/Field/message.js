@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { node, number, oneOfType, shape, string } from 'prop-types';
 
-import defaultClasses from './message.css';
+import defaultClasses from './message.module.css';
 import { useStyle } from '../../classify';
 
 const Message = props => {

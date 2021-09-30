@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
-import defaultClasses from './shippingMethod.css';
+import defaultClasses from './shippingMethod.module.css';
 
 const ShippingMethod = props => {
     const { data, classes: propsClasses } = props;

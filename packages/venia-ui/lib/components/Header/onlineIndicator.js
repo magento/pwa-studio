@@ -5,7 +5,7 @@ import { CloudOff as CloudOffIcon } from 'react-feather';
 import { useStyle } from '../../classify';
 
 import Icon from '../Icon';
-import defaultClasses from './onlineIndicator.css';
+import defaultClasses from './onlineIndicator.module.css';
 
 /**
  * Renders an online indicator when the app goes offline.

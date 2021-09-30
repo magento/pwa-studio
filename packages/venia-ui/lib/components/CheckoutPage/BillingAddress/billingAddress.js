@@ -11,7 +11,7 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import FormError from '@magento/venia-ui/lib/components/FormError';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
-import defaultClasses from './billingAddress.css';
+import defaultClasses from './billingAddress.module.css';
 
 import { useBillingAddress } from '@magento/peregrine/lib/talons/CheckoutPage/BillingAddress/useBillingAddress';
 

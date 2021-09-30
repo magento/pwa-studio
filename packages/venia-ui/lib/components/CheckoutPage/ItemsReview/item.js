@@ -6,7 +6,7 @@ import Image from '../../Image';
 import { useStyle } from '../../../classify';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
-import defaultClasses from './item.css';
+import defaultClasses from './item.module.css';
 
 const Item = props => {
     const {

@@ -7,7 +7,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import SignIn from '@magento/venia-ui/lib/components/SignIn';
 
-import defaultClasses from './signInPage.css';
+import defaultClasses from './signInPage.module.css';
 
 const SignInPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
