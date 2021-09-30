@@ -38,6 +38,8 @@ if (port) {
     dockerCommand = `docker run --rm -v ${process.env.PWD}:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=${baseUrl},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${updateSnapshots} --headless`
 }
 
+const start = process.hrtime()
+
 for (let i = 0; i < parallelRuns; i++) {
     const filesToTest = files.slice(testsPerRun * (i), testsPerRun * (i + 1))
 
@@ -48,7 +50,9 @@ for (let i = 0; i < parallelRuns; i++) {
     const run = exec(commandWithSpecFiles)
 
     run.stdout.on('data', (data) => {
-        console.log(`docker run ${i + 1} => ${data}`);
+        if (data !== '\n' || data !== '\r' || data.trim() !== '') {
+            console.log(`docker run ${i + 1} => ${data}`);
+        }
     });
 
     run.stderr.on('data', (data) => {
@@ -63,7 +67,7 @@ for (let i = 0; i < parallelRuns; i++) {
         console.log(`docker run ${i + 1} exited with ${code} code in ${timeTaken} seconds`);
 
         if (Object.values(dockerRuns).every(r => r.completed)) {
-            const totalTime = Object.values(dockerRuns).reduce((acc, cur) => acc + process.hrtime(cur.started)[0], 0)
+            const totalTime = process.hrtime(start)[0]
 
             console.log(`\nAll runs completed in ${totalTime}\n`)
 
