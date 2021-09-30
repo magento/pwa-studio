@@ -7,7 +7,7 @@ import Icon from '../../Icon';
 import LinkButton from '../../LinkButton';
 
 import { useBraintreeSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useBraintreeSummary';
-import defaultClasses from './braintreeSummary.css';
+import defaultClasses from './braintreeSummary.module.css';
 
 const BraintreeSummary = props => {
     const { classes: propClasses, onEdit } = props;

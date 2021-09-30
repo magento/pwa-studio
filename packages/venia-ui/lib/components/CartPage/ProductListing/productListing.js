@@ -5,7 +5,7 @@ import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/Produc
 
 import { useStyle } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
-import defaultClasses from './productListing.css';
+import defaultClasses from './productListing.module.css';
 import Product from './product';
 import ErrorMessage from './errorMessage';
 import { ProductListingFragment } from './productListingFragments';
@@ -18,7 +18,7 @@ const EditModal = React.lazy(() => import('./EditModal'));
  * @param {Object} props
  * @param {Function} props.setIsCartUpdating Function for setting the updating state of the cart.
  * @param {Object} props.classes CSS className overrides.
- * See [productListing.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListing.css}
+ * See [productListing.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListing.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}

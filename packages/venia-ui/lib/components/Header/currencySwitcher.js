@@ -5,7 +5,7 @@ import { useCurrencySwitcher } from '@magento/peregrine/lib/talons/Header/useCur
 
 import { useStyle } from '../../classify';
 import CurrencySymbol from '../CurrencySymbol';
-import defaultClasses from './currencySwitcher.css';
+import defaultClasses from './currencySwitcher.module.css';
 import SwitcherItem from './switcherItem';
 import Shimmer from './currencySwitcher.shimmer';
 

@@ -11,7 +11,7 @@ exports[`displays open nav or drawer 1`] = `
   <button
     onClick={[Function]}
   />
-  <require('../Navigation') />
+  <Navigation />
   <ToastContainer />
 </div>
 `;
@@ -41,11 +41,7 @@ exports[`renders with unhandledErrors 1`] = `
     dismiss={[Function]}
     isActive={false}
   />
-  <React.Suspense
-    fallback={null}
-  >
-    <require('../Navigation') />
-  </React.Suspense>
+  <Navigation />
   <ToastContainer />
 </HeadProvider>
 `;

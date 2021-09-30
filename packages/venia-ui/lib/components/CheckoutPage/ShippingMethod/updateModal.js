@@ -6,7 +6,7 @@ import { useStyle } from '../../../classify';
 import Dialog from '../../Dialog';
 import FormError from '../../FormError';
 import ShippingRadios from './shippingRadios';
-import defaultClasses from './updateModal.css';
+import defaultClasses from './updateModal.module.css';
 
 const UpdateModal = props => {
     const {

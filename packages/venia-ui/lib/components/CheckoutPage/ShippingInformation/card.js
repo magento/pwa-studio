@@ -2,7 +2,7 @@ import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 
 import { useStyle } from '../../../classify';
-import defaultClasses from './card.css';
+import defaultClasses from './card.module.css';
 
 const Card = props => {
     const { classes: propClasses, shippingData } = props;

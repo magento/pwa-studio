@@ -9,7 +9,11 @@ const config = {
     purge: {
         // Include paths to every file that may refer to Tailwind classnames.
         // Classnames not found in these files will be excluded at build time.
-        content: ['@magento/venia-ui/lib/**/*.css', './src/**/*.css'],
+        content: [
+            '@magento/venia-ui/lib/**/*.module.css',
+            '../venia-ui/lib/**/*.module.css',
+            './src/**/*.module.css'
+        ],
         // Extract Tailwind classnames from source files.
         // Our default matcher only matches targets of CSS Modules' `composes`,
         // not classnames included directly in HTML or JS!

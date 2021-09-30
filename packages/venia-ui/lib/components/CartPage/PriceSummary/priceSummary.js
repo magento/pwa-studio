@@ -5,7 +5,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
 import { useStyle } from '../../../classify';
-import defaultClasses from './priceSummary.css';
+import defaultClasses from './priceSummary.module.css';
 import DiscountSummary from './discountSummary';
 import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';
@@ -28,7 +28,7 @@ const GET_PRICE_SUMMARY = gql`
  *
  * @param {Object} props
  * @param {Object} props.classes CSS className overrides.
- * See [priceSummary.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.css}
+ * See [priceSummary.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}

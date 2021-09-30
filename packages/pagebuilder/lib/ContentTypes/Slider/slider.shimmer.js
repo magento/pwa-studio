@@ -1,6 +1,6 @@
 import React from 'react';
 import { arrayOf, bool, shape, string } from 'prop-types';
-import defaultClasses from './slider.shimmer.css';
+import defaultClasses from './slider.shimmer.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer';
 

@@ -6,7 +6,7 @@ import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInforme
 import { useStyle } from '../../classify';
 import { Message } from '../Field';
 import Radio from './radio';
-import defaultClasses from './radioGroup.css';
+import defaultClasses from './radioGroup.module.css';
 
 const RadioGroup = props => {
     const {

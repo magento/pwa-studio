@@ -8,7 +8,7 @@ import { useStyle } from '../../../classify';
 import RadioGroup from '@magento/venia-ui/lib/components/RadioGroup';
 import Radio from '@magento/venia-ui/lib/components/RadioGroup/radio';
 import paymentMethodOperations from './paymentMethods.gql';
-import defaultClasses from './paymentMethods.css';
+import defaultClasses from './paymentMethods.module.css';
 import payments from './paymentMethodCollection';
 
 const PaymentMethods = props => {
