@@ -2,13 +2,14 @@
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 const glob = require('glob')
-const exec = require('child_process').exec
+const { exec, execSync } = require('child_process')
 
 const argv = yargs(hideBin(process.argv)).argv
 
 const baseUrl = argv.baseUrl
 const parallelRuns = argv.parallel || 1
 const updateSnapshots = argv.updateSnapshots || false
+const spec = argv.spec || null
 
 if (!baseUrl) {
     console.error('Missing baseUrl. Please provide a baseUrl using the --baseUrl arg')
@@ -16,11 +17,16 @@ if (!baseUrl) {
     return;
 }
 
-const files = glob.sync('./src/tests/**/*.spec.js')
+const files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js')
+
+if (files.length < parallelRuns) {
+    console.log('Can not have more parallel runs than tests.')
+
+    return;
+}
 
 const testsPerRun = files.length / parallelRuns
-const dockerRuns = {
-}
+const dockerRuns = {}
 
 const port = new URL(baseUrl).port
 
@@ -81,3 +87,9 @@ for (let i = 0; i < parallelRuns; i++) {
         started: process.hrtime()
     }
 }
+
+process.on('SIGINT', function () {
+    console.log('Received kill signal. Killing all cypress tests. \n');
+
+    execSync("docker ps -a | awk '{ print $1,$2 }' | grep cypress/included | awk '{print $1 }' | xargs -I {} docker kill {}")
+});
