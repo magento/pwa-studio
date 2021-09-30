@@ -1,7 +1,9 @@
 import { getAdvanced } from '../../utils';
 
 export default (node, props) => {
-    const forms = node.querySelectorAll('[data-product-sku]');
+    const forms = node.querySelectorAll(
+        '.product-item-details > .product-item-name > a.product-item-link'
+    );
     let carouselConfig = {};
 
     if (props.appearance === 'carousel') {
@@ -17,7 +19,7 @@ export default (node, props) => {
     }
 
     return {
-        skus: [...forms].map(form => form.getAttribute('data-product-sku')),
+        pathNames: [...forms].map(form => form.getAttribute('href')),
         ...carouselConfig,
         ...getAdvanced(node)
     };
