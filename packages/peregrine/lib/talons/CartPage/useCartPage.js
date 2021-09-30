@@ -40,11 +40,11 @@ export const useCartPage = props => {
         }
     );
 
-    const hasItems = !!(data?.cart?.total_quantity);
+    const hasItems = !!data?.cart?.total_quantity;
     const shouldShowLoadingIndicator = called && loading && !hasItems;
 
     const cartItems = useMemo(() => {
-        return (data?.cart?.items?.filter(Boolean)) || [];
+        return data?.cart?.items?.filter(Boolean) || [];
     }, [data]);
 
     const onAddToWishlistSuccess = useCallback(successToastProps => {
