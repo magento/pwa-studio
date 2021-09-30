@@ -193,6 +193,7 @@ test('exposes all hooks and targets', async () => {
           talons.MyAccount.useResetPassword.wrapWith() wraps export "useResetPassword" from "MyAccount/useResetPassword.js"
           talons.Navigation.useNavigation.wrapWith() wraps export "useNavigation" from "Navigation/useNavigation.js"
           talons.Navigation.useNavigationHeader.wrapWith() wraps export "useNavigationHeader" from "Navigation/useNavigationHeader.js"
+          talons.Newsletter.useNewsletter.wrapWith() wraps export "useNewsletter" from "Newsletter/useNewsletter.js"
           talons.OrderHistoryPage.useOrderHistoryPage.wrapWith() wraps export "useOrderHistoryPage" from "OrderHistoryPage/useOrderHistoryPage.js"
           talons.OrderHistoryPage.useOrderRow.wrapWith() wraps export "useOrderRow" from "OrderHistoryPage/useOrderRow.js"
           talons.PageLoadingIndicator.usePageLoadingIndicator.wrapWith() wraps export "usePageLoadingIndicator" from "PageLoadingIndicator/usePageLoadingIndicator.js"

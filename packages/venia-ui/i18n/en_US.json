@@ -435,5 +435,10 @@
     "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
     "wishlist.itemCountOpen": "Showing {currentCount} of {count} items in this list",
     "wishlist.itemCountClosed": "You have {count} {count, plural, one {item} other {items}} in this list",
-    "wishlist.loadMore": "Load More"
+    "wishlist.loadMore": "Load More",
+    "newsletter.subscribeMessage": "The email address is subscribed.",
+    "newsletter.loadingText": "Subscribing",
+    "newsletter.titleText": "Subscribe to Venia",
+    "newsletter.subscribeText": "Subscribe",
+    "newsletter.infoText": "Recieve the latest news, update and special offers right to your inbox."
 }
