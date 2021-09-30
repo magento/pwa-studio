@@ -9,7 +9,7 @@ import Field from '@magento/venia-ui/lib/components/Field';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
 
-import defaultClasses from './createWishlistForm.css';
+import defaultClasses from './createWishlistForm.module.css';
 import FormError from '../../../FormError';
 import { bool, func, shape, string } from 'prop-types';
 

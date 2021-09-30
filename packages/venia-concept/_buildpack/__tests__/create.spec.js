@@ -74,7 +74,7 @@ test('copies files and writes new file structure, ignoring ignores', async () =>
     const fs = mockFs({
         '/repo/packages/me/src/index.js': 'alert("index")',
         '/repo/packages/me/src/components/Fake/Fake.js': 'alert("fake")',
-        '/repo/packages/me/src/components/Fake/Fake.css': '#fake {}',
+        '/repo/packages/me/src/components/Fake/Fake.module.css': '#fake {}',
         '/repo/packages/me/CHANGELOG.md': '#markdown',
         '/repo/packages/me/.graphqlconfig': JSON.stringify({
             projects: { venia: { 'venia-options': true } }
@@ -92,7 +92,7 @@ test('copies files and writes new file structure, ignoring ignores', async () =>
         fs.readFileSync('/project/src/components/Fake/Fake.js', 'utf8')
     ).toBe('alert("fake")');
     expect(
-        fs.readFileSync('/project/src/components/Fake/Fake.css', 'utf8')
+        fs.readFileSync('/project/src/components/Fake/Fake.module.css', 'utf8')
     ).toBe('#fake {}');
     expect(() => fs.readFileSync('/project/CHANGELOG.md', 'utf8')).toThrow();
     expect(fs.readJsonSync('/project/.graphqlconfig')).toMatchObject({

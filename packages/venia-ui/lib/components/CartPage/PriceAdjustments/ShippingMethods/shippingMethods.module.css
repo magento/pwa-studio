@@ -1,0 +1,42 @@
+.root {
+    display: grid;
+    gap: 1rem;
+}
+
+.message {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+}
+
+.prompt {
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.shipping_methods {
+    grid-area: methods;
+}
+
+.shipping_methods_hidden {
+    composes: shipping_methods;
+    display: none;
+}
+
+.mask {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.estimateButton {
+    composes: root_normalPriority from '../../../Button/button.module.css';
+    justify-self: start;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 640px) {
+    .root {
+        padding-right: unset;
+    }
+}

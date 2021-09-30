@@ -5,7 +5,7 @@ import { ChevronDown as ArrowDown } from 'react-feather';
 import Icon from '../../Icon';
 import { useStyle } from '../../../classify';
 
-import defaultClasses from './showAllButton.css';
+import defaultClasses from './showAllButton.module.css';
 
 const ShowAllButton = props => {
     const { onClick } = props;

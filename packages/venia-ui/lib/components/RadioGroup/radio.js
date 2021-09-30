@@ -4,7 +4,7 @@ import { node, shape, string } from 'prop-types';
 import { Radio as InformedRadio } from 'informed';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './radio.css';
+import defaultClasses from './radio.module.css';
 
 /* TODO: change lint config to use `label-has-associated-control` */
 /* eslint-disable jsx-a11y/label-has-for */

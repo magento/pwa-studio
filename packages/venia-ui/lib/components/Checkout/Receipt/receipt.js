@@ -5,7 +5,7 @@ import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useRe
 
 import { useStyle } from '../../../classify';
 import Button from '../../Button';
-import defaultClasses from './receipt.css';
+import defaultClasses from './receipt.module.css';
 
 /**
  * A component that displays some basic information about an order and has

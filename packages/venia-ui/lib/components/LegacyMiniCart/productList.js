@@ -4,7 +4,7 @@ import { array, func, shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 
 import Product from './product';
-import defaultClasses from './productList.css';
+import defaultClasses from './productList.module.css';
 
 const ProductList = props => {
     const { beginEditItem, cartItems, currencyCode } = props;

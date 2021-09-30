@@ -6,7 +6,7 @@ import { useCategoryList } from '@magento/peregrine/lib/talons/CategoryList/useC
 import { useStyle } from '../../classify';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
-import defaultClasses from './categoryList.css';
+import defaultClasses from './categoryList.module.css';
 import CategoryTile from './categoryTile';
 
 // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility

@@ -8,7 +8,7 @@ import { useAuthBar } from '@magento/peregrine/lib/talons/AuthBar/useAuthBar';
 import { useStyle } from '../../classify';
 import AccountChip from '../AccountChip';
 import Icon from '../Icon';
-import defaultClasses from './authBar.css';
+import defaultClasses from './authBar.module.css';
 
 const AuthBar = props => {
     const {

@@ -7,7 +7,7 @@ import { useAccountChip } from '@magento/peregrine/lib/talons/AccountChip/useAcc
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import Icon from '../Icon';
-import defaultClasses from './accountChip.css';
+import defaultClasses from './accountChip.module.css';
 import { GET_CUSTOMER_DETAILS } from './accountChip.gql';
 
 /**

@@ -1,6 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders correctly 1`] = `
+exports[`#MegaMenu renders empty div if not in viewport 1`] = `
+<nav
+  className="megaMenu"
+  role="navigation"
+/>
+`;
+
+exports[`#MegaMenu renders menu if in viewport 1`] = `
 <nav
   className="megaMenu"
   role="navigation"
@@ -9,6 +16,7 @@ exports[`it renders correctly 1`] = `
     className="megaMenuItem"
   >
     <a
+      aria-label="Category: Women. 1 sub-categories"
       className="megaMenuLink"
       href="/women.html"
       onClick={[Function]}
@@ -16,7 +24,6 @@ exports[`it renders correctly 1`] = `
     >
       Women
       <span
-        aria-label="Category: Women. 1 sub-categories"
         className="arrowDown"
       >
         <svg

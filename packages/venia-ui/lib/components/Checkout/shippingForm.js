@@ -7,7 +7,7 @@ import Label from './label';
 import Select from '../Select';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './shippingForm.css';
+import defaultClasses from './shippingForm.module.css';
 import { useShippingForm } from '@magento/peregrine/lib/talons/Checkout/useShippingForm';
 
 const ShippingForm = props => {
