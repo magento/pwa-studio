@@ -133,9 +133,9 @@ GalleryItem.propTypes = {
         url_key: string.isRequired,
         url_suffix: string,
         sku: string.isRequired,
-        price: shape({
-            regularPrice: shape({
-                amount: shape({
+        price_range: shape({
+            maximum_price: shape({
+                regular_price: shape({
                     value: number.isRequired,
                     currency: string.isRequired
                 }).isRequired
