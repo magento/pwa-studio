@@ -1,0 +1,17 @@
+.shimmerRoot {
+    composes: root_rectangle from '~@magento/venia-ui/lib/components/Shimmer/shimmer.module.css';
+    composes: root from './video.module.css';
+    display: block;
+}
+
+.inner {
+    composes: inner from './video.module.css';
+}
+
+.wrapper {
+    composes: wrapper from './video.module.css';
+}
+
+.container {
+    composes: container from './video.module.css';
+}

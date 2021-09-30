@@ -4,7 +4,7 @@ import { arrayOf, shape, string } from 'prop-types';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer';
 
-import defaultClasses from './tabItem.shimmer.css';
+import defaultClasses from './tabItem.shimmer.module.css';
 
 /**
  * Page Builder Tab Item Shimmer component.

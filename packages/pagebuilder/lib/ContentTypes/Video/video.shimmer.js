@@ -4,7 +4,7 @@ import { arrayOf, shape, string } from 'prop-types';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer';
 
-import defaultClasses from './video.shimmer.css';
+import defaultClasses from './video.shimmer.module.css';
 
 /**
  * Page Builder Video Shimmer component.

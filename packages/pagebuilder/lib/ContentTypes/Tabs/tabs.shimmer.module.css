@@ -1,0 +1,22 @@
+.shimmerRoot {
+    composes: root_rectangle from '~@magento/venia-ui/lib/components/Shimmer/shimmer.module.css';
+    composes: root from './tabs.module.css';
+    display: block;
+}
+
+.navigation {
+    composes: navigation from './tabs.module.css';
+}
+
+.header {
+    composes: header from './tabs.module.css';
+}
+
+.content {
+    composes: content from './tabs.module.css';
+}
+
+.header,
+.content {
+    opacity: 0;
+}
