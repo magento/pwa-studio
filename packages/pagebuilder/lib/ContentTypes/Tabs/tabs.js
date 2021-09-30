@@ -11,7 +11,7 @@ import {
     Tab as TabHeader,
     TabPanel
 } from 'react-tabs';
-import defaultClasses from './tabs.css';
+import defaultClasses from './tabs.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, number, oneOf, shape, string } from 'prop-types';
 

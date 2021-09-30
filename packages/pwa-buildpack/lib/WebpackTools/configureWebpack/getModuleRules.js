@@ -1,7 +1,46 @@
 /**
  * @module Buildpack/WebpackTools
  */
+const loaderUtils = require('loader-utils');
 const path = require('path');
+
+/**
+ * Replacement for the function `css-loader` uses to build classnames.
+ * Without this, our `*.module.css` files yield very long classnames.
+ *
+ * @param {*} loaderContext
+ * @param {*} localIdentName
+ * @param {*} localName
+ * @param {*} options
+ * @returns {String} Transformed local identity name, aka classname
+ */
+function getLocalIdent(loaderContext, localIdentName, localName, options) {
+    if (!options.context) {
+        // eslint-disable-next-line no-param-reassign
+        options.context = loaderContext.rootContext;
+    }
+
+    const request = path
+        .relative(options.context, loaderContext.resourcePath)
+        .replace(/\\/g, '/');
+
+    // eslint-disable-next-line no-param-reassign
+    options.content = `${options.hashPrefix + request}+${localName}`;
+
+    // eslint-disable-next-line no-param-reassign
+    localIdentName = localIdentName.replace(/\[local\]/gi, localName);
+
+    const hash = loaderUtils.interpolateName(
+        loaderContext,
+        localIdentName,
+        options
+    );
+
+    return hash
+        .replace('.module', '')
+        .replace(new RegExp('[^a-zA-Z0-9\\-_\u00A0-\uFFFF]', 'g'), '-')
+        .replace(/^((-?[0-9])|--)/, '_$1');
+}
 
 /**
  * Create a Webpack
@@ -100,11 +139,11 @@ getModuleRules.js = async ({
  * @returns Rule object for Webpack `module` configuration which parses
  *   CSS files
  */
-getModuleRules.css = async ({ hasFlag, mode, paths }) => ({
+getModuleRules.css = async ({ hasFlag, mode }) => ({
     test: /\.css$/,
     oneOf: [
         {
-            test: [paths.src, ...hasFlag('cssModules')],
+            test: [/\.module\.css$/, ...hasFlag('cssModules')],
             use: [
                 {
                     loader: 'style-loader',
@@ -118,8 +157,10 @@ getModuleRules.css = async ({ hasFlag, mode, paths }) => ({
                 {
                     loader: 'css-loader',
                     options: {
-                        localIdentName: '[name]-[local]-[hash:base64:3]',
-                        modules: true,
+                        modules: {
+                            getLocalIdent,
+                            localIdentName: `[name]-[local]-[hash:base64:3]`
+                        },
                         sourceMap: mode === 'development'
                     }
                 },
@@ -127,7 +168,6 @@ getModuleRules.css = async ({ hasFlag, mode, paths }) => ({
             ]
         },
         {
-            include: /node_modules/,
             use: [
                 {
                     loader: 'style-loader',
@@ -141,9 +181,11 @@ getModuleRules.css = async ({ hasFlag, mode, paths }) => ({
                 {
                     loader: 'css-loader',
                     options: {
-                        modules: false
+                        modules: false,
+                        sourceMap: mode === 'development'
                     }
-                }
+                },
+                'postcss-loader'
             ]
         }
     ]

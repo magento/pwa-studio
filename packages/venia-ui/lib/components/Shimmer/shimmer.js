@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { node, number, oneOf, oneOfType, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './shimmer.css';
+import defaultClasses from './shimmer.module.css';
 
 const Shimmer = props => {
     const {

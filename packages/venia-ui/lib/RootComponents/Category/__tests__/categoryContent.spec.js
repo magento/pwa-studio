@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { createTestInstance } from '@magento/peregrine';
+import { useIsInViewport } from '@magento/peregrine/lib/hooks/useIsInViewport';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
+
 import CategoryContent from '../categoryContent';
 
 jest.mock('@magento/venia-ui/lib/classify');
@@ -12,6 +15,7 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
     const useAppContext = jest.fn(() => [state, api]);
     return { useAppContext };
 });
+jest.mock('@magento/peregrine/lib/hooks/useIsInViewport');
 
 jest.mock('../../../components/Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
@@ -133,6 +137,28 @@ describe('filter button/modal', () => {
             ...talonProps,
             filters: [{}]
         });
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+});
+
+describe('filter sidebar', () => {
+    test('does not render if not in viewport', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            filters: [{}]
+        });
+        useIsInViewport.mockReturnValue(false);
+        const tree = createTestInstance(<CategoryContent {...defaultProps} />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders when in viewport', () => {
+        useCategoryContent.mockReturnValueOnce({
+            ...talonProps,
+            filters: [{}]
+        });
+        useIsInViewport.mockReturnValue(true);
         const tree = createTestInstance(<CategoryContent {...defaultProps} />);
         expect(tree.toJSON()).toMatchSnapshot();
     });

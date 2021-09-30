@@ -1,0 +1,22 @@
+.root {
+    padding: 1rem;
+}
+
+.cancelButton {
+    composes: root_lowPriority from '../Button/button.module.css';
+
+    min-width: 9rem;
+}
+
+.confirmButton {
+    composes: confirmButton from '../Dialog/dialog.module.css';
+}
+
+.errorMessage {
+    composes: errorMessage from './wishlistConfirmRemoveProductDialog.module.css';
+}
+
+.form {
+    display: grid;
+    gap: 1.5rem;
+}

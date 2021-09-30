@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 
 import Dialog from '../dialog';
 import TextInput from '../../TextInput';
-import classes from './dialog.css';
+import classes from './dialog.module.css';
 
 const stories = storiesOf('Components/Dialog', module);
 

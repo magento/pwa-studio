@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { usePagination } from '@magento/peregrine/lib/talons/Pagination/usePagination';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './pagination.css';
+import defaultClasses from './pagination.module.css';
 import Tile from './tile';
 import NavButton from './navButton';
 import { navButtons } from './constants';

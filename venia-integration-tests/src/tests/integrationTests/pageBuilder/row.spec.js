@@ -1,5 +1,9 @@
-import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
+import {
+    graphqlMockedCalls as graphqlMockedCallsFixtures,
+    mediaMockedCalls as mediaMockedCallsFixtures
+} from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
+const { successImage } = mediaMockedCallsFixtures;
 
 describe('verify pagebuilder row content', () => {
     it('verify row content', () => {
@@ -8,6 +12,8 @@ describe('verify pagebuilder row content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+        // Scroll to bottom of the page to load all elements
+        cy.scrollTo('bottom', { duration: 2000 });
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Row',
@@ -22,6 +28,8 @@ describe('verify pagebuilder row content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+        // Scroll to bottom of the page to load all elements
+        cy.scrollTo('bottom', { duration: 2000 });
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Row2',
@@ -36,6 +44,8 @@ describe('verify pagebuilder row content', () => {
         }).as('getCMSMockData');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+        // Scroll to bottom of the page to load all elements
+        cy.scrollTo('bottom', { duration: 2000 });
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
                 name: 'Page Builder Row Min Height',
@@ -48,23 +58,27 @@ describe('verify pagebuilder row content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/row/row-video-background-1.json'
         }).as('getCMSMockData');
+        cy.intercept('GET', successImage, {
+            fixture:
+                'mediaMockedCalls/images/round-gold-colored-analog-watch-with-pink-leather-strap-on-1162519_sm.png'
+        }).as('getVideoFallbackImage');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
-
+        cy.wait(['@getVideoFallbackImage']).its('response.body');
         // Row with youtube video in viewport
         cy.get('div[class^="richContent-root"]')
             .eq(0)
-            .find('iframe')
+            .find('source')
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'mockyoutubevideo');
 
         // Row with youtube video outside viewport
         cy.get('div[class^="richContent-root"]')
             .eq(8)
             .find('div[class^="richContent-root"]')
             .eq(0)
-            .find('iframe')
+            .find('video')
             .should('not.exist');
 
         // Scroll to element to test iframe lazy load
@@ -73,18 +87,11 @@ describe('verify pagebuilder row content', () => {
             .find('div[class^="richContent-root"]')
             .eq(0)
             .scrollIntoView({ duration: 2000 })
-            .find('iframe')
+            .find('video')
             .should('exist');
 
-        // Scroll to bottom of the page to load all iframes
+        // Scroll to bottom of the page to load all rows
         cy.scrollTo('bottom', { duration: 2000 });
-
-        // Hide iframes to prevent capturing moving images
-        cy.get('iframe').invoke(
-            'attr',
-            'style',
-            'visibility: hidden !important'
-        );
 
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
@@ -98,8 +105,13 @@ describe('verify pagebuilder row content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/row/row-video-background-2.json'
         }).as('getCMSMockData');
+        cy.intercept('GET', successImage, {
+            fixture:
+                'mediaMockedCalls/images/round-gold-colored-analog-watch-with-pink-leather-strap-on-1162519_sm.png'
+        }).as('getVideoFallbackImage');
         cy.visitHomePage();
         cy.wait(['@getCMSMockData']).its('response.body');
+        cy.wait(['@getVideoFallbackImage']).its('response.body');
 
         // Row with mp4 video
         cy.get('div[class^="richContent-root"]')
@@ -130,25 +142,13 @@ describe('verify pagebuilder row content', () => {
             .and('have.attr', 'type')
             .and('contain', 'video/mp4');
 
-        cy.get('div[class^="richContent-root"]')
-            .eq(7)
-            .find('[id^="jarallax-container"] video source')
-            .invoke('attr', 'src')
-            .then(src => {
-                cy.request(src)
-                    .its('status')
-                    .should('eq', 200);
-            });
-
         // Scroll to bottom of the page to load all elements
         cy.scrollTo('bottom', { duration: 2000 });
 
         // Hide videos to prevent capturing moving images
-        cy.get('video').invoke(
-            'attr',
-            'style',
-            'visibility: hidden !important'
-        );
+        cy.get('video')
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
 
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({
@@ -172,7 +172,7 @@ describe('verify pagebuilder row content', () => {
             .find('iframe')
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
         cy.get('div[class^="richContent-root"]')
             .eq(0)
@@ -192,7 +192,7 @@ describe('verify pagebuilder row content', () => {
             .find('iframe')
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
         cy.get('div[class^="richContent-root"]')
             .eq(1)
@@ -212,7 +212,7 @@ describe('verify pagebuilder row content', () => {
             .find('iframe')
             .should('exist')
             .and('have.attr', 'src')
-            .and('contain', 'youtube.com');
+            .and('contain', 'youtube');
 
         cy.get('div[class^="richContent-root"]')
             .eq(2)
@@ -338,11 +338,9 @@ describe('verify pagebuilder row content', () => {
             });
 
         // Hide iframes to prevent capturing moving images
-        cy.get('iframe, video').invoke(
-            'attr',
-            'style',
-            'visibility: hidden !important'
-        );
+        cy.get('iframe, video')
+            .invoke('attr', 'style', 'visibility: hidden !important')
+            .should('not.be.visible');
 
         cy.loadFullPage().then(() => {
             cy.captureFullPageScreenshot({

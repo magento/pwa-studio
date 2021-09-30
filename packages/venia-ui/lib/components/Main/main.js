@@ -5,7 +5,7 @@ import { useScrollLock } from '@magento/peregrine';
 import { useStyle } from '../../classify';
 import Footer from '../Footer';
 import Header from '../Header';
-import defaultClasses from './main.css';
+import defaultClasses from './main.module.css';
 
 const Main = props => {
     const { children, isMasked } = props;

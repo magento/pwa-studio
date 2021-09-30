@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 
 import Shimmer from '../Shimmer';
-import defaultClasses from './productSort.shimmer.css';
+import defaultClasses from './productSort.shimmer.module.css';
 
 const ProductSortShimmer = props => {
     const classes = useStyle(defaultClasses, props.classes);

@@ -1,0 +1,72 @@
+.root {
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    padding: 2rem;
+}
+
+.root_editMode {
+    composes: root;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray-400));
+    padding: 0;
+}
+
+.root_updated {
+    composes: root;
+    animation: flash var(--venia-global-anim-bounce) 640ms 2;
+}
+
+.cardHeader {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+}
+
+.cardTitle {
+    font-weight: 600;
+}
+
+.editButton {
+    padding: 1rem;
+    margin: -1rem;
+    color: rgb(var(--venia-brand-color-1-700));
+}
+
+.editWrapper {
+    display: grid;
+    padding: 1rem 0 1.5rem;
+    row-gap: 0.5rem;
+}
+
+.editTitle {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.editIcon {
+    stroke: rgb(var(--venia-brand-color-1-700));
+}
+
+.loading {
+    composes: root from '../../LoadingIndicator/indicator.module.css';
+    text-align: center;
+}
+
+@media (max-width: 960px) {
+    .editText {
+        display: none;
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

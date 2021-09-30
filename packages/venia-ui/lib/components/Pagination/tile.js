@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { bool, func, number, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './tile.css';
+import defaultClasses from './tile.module.css';
 
 const Tile = props => {
     const { isActive, number, onClick } = props;

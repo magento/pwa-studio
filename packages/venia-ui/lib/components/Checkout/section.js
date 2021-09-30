@@ -4,7 +4,7 @@ import { Edit2 as EditIcon } from 'react-feather';
 
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
-import defaultClasses from './section.css';
+import defaultClasses from './section.module.css';
 
 const editIconAttrs = {
     color: 'black',

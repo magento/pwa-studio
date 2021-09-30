@@ -1,0 +1,38 @@
+.root {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+}
+
+.actions {
+    text-align: center;
+}
+
+.create_account_button {
+    composes: root_normalPriority from '../../Button/button.module.css';
+}
+
+/*
+ * Desktop specific styles
+ */
+@media (min-width: 961px) {
+    .root {
+        position: sticky;
+        top: 5.5rem;
+    }
+}
+
+/*
+ * Mobile-specific styles.
+ */
+@media (max-width: 960px) {
+    .root {
+        padding-top: 1rem;
+    }
+}

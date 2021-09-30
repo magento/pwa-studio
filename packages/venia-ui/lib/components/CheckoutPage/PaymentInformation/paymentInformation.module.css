@@ -1,0 +1,25 @@
+.root {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.payment_info_container {
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+}
+
+.loading {
+    composes: root from '../../LoadingIndicator/indicator.module.css';
+    text-align: center;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .heading {
+        border-width: 0;
+    }
+}

@@ -5,7 +5,7 @@ import { useFilterFooter } from '@magento/peregrine/lib/talons/FilterModal';
 
 import { useStyle } from '../../classify';
 import Button from '../Button';
-import defaultClasses from './filterFooter.css';
+import defaultClasses from './filterFooter.module.css';
 
 const FilterFooter = props => {
     const { applyFilters, hasFilters, isOpen } = props;

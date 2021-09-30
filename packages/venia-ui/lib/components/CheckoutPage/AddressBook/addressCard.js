@@ -6,7 +6,7 @@ import { useAddressCard } from '@magento/peregrine/lib/talons/CheckoutPage/Addre
 
 import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
-import defaultClasses from './addressCard.css';
+import defaultClasses from './addressCard.module.css';
 
 const AddressCard = props => {
     const {
