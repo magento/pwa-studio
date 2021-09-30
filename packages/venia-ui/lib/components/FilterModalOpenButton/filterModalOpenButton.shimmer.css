@@ -1,4 +1,0 @@
-.filterButtonShimmer {
-    composes: root_button from '../Shimmer/shimmer.css';
-    composes: filterButton from './filterModalOpenButton.css';
-}

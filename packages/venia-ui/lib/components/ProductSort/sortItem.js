@@ -5,7 +5,7 @@ import { bool, func, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
 import Icon from '../Icon/icon';
-import defaultClasses from './sortItem.css';
+import defaultClasses from './sortItem.module.css';
 
 const SortItem = props => {
     const { active, onClick, sortItem } = props;

@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
-import defaultClasses from './shippingInformation.css';
+import defaultClasses from './shippingInformation.module.css';
 
 const ShippingInformation = props => {
     const { data, classes: propsClasses } = props;

@@ -4,7 +4,7 @@ import { shape, string, bool, func } from 'prop-types';
 import BillingAddress from '@magento/venia-ui/lib/components/CheckoutPage/BillingAddress';
 
 import { useCheckmo } from '../talons/useCheckmo';
-import defaultClasses from './checkmo.css';
+import defaultClasses from './checkmo.module.css';
 import { FormattedMessage } from 'react-intl';
 
 /**

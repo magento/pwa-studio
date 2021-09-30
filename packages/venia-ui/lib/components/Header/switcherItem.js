@@ -4,7 +4,7 @@ import { bool, func, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
 import Icon from '../Icon/icon';
-import defaultClasses from './switcherItem.css';
+import defaultClasses from './switcherItem.module.css';
 
 const SwitcherItem = props => {
     const { active, onClick, option, children } = props;

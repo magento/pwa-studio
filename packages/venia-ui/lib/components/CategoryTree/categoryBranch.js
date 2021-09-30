@@ -3,7 +3,7 @@ import { func, number, shape, string } from 'prop-types';
 import { useCategoryBranch } from '@magento/peregrine/lib/talons/CategoryTree';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './categoryBranch.css';
+import defaultClasses from './categoryBranch.module.css';
 
 const Branch = props => {
     const { category, setCategoryId } = props;

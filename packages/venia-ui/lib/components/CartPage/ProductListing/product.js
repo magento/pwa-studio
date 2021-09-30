@@ -16,7 +16,7 @@ import Section from '../../LegacyMiniCart/section';
 import AddToListButton from '../../Wishlist/AddToListButton';
 import Quantity from './quantity';
 
-import defaultClasses from './product.css';
+import defaultClasses from './product.module.css';
 
 import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';

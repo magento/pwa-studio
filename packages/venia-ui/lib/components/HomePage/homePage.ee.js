@@ -1,4 +1,4 @@
-import globalCSS from './homePage.css';
+import globalCSS from './homePage.module.css';
 
 // `MagentoRoute` renders the CMS page, so this component renders nothing.
 // This file would be obsolete if the CMS could deliver a stylesheet.

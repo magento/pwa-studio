@@ -4,7 +4,7 @@ import { shape, string, bool, func } from 'prop-types';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import CheckMo from './checkmo';
-import defaultClasses from './edit.css';
+import defaultClasses from './edit.module.css';
 
 /**
  * The edit view for the Checkmo payment method.

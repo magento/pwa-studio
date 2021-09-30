@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { useStyle } from '../../classify';
 import Dialog from '../Dialog';
-import defaultClasses from './wishlistConfirmRemoveProductDialog.css';
+import defaultClasses from './wishlistConfirmRemoveProductDialog.module.css';
 
 const WishlistConfirmRemoveProductDialog = props => {
     const {

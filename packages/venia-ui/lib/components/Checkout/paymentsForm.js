@@ -3,7 +3,7 @@ import { Form } from 'informed';
 import { array, bool, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './paymentsForm.css';
+import defaultClasses from './paymentsForm.module.css';
 import PaymentsFormItems from './paymentsFormItems';
 import { usePaymentsForm } from '@magento/peregrine/lib/talons/Checkout/usePaymentsForm';
 

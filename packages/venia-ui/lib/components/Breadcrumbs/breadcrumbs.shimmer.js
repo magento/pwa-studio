@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 
 import Shimmer from '../Shimmer';
-import defaultClasses from './breadcrumbs.css';
+import defaultClasses from './breadcrumbs.module.css';
 
 const BreadcrumbsShimmer = props => {
     const classes = useStyle(defaultClasses, props.classes);

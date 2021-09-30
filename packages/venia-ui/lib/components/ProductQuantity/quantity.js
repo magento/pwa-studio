@@ -5,7 +5,7 @@ import { arrayOf, number, shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 import Select from '../Select';
 import mockData from './mockData';
-import defaultClasses from './quantity.css';
+import defaultClasses from './quantity.module.css';
 
 const Quantity = props => {
     const { classes: propClasses, selectLabel, ...restProps } = props;

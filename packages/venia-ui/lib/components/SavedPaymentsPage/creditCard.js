@@ -13,7 +13,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '../Button';
 import Icon from '../Icon';
 import LinkButton from '../LinkButton';
-import defaultClasses from './creditCard.css';
+import defaultClasses from './creditCard.module.css';
 
 /**
  * Enumerated list of supported credit card types from
