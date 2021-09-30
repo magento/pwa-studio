@@ -13,7 +13,7 @@ import Button from '../Button';
 import Field from '../Field';
 import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
-import defaultClasses from './newsletter.css';
+import defaultClasses from './newsletter.module.css';
 import LinkButton from '../LinkButton';
 
 const Newsletter = props => {
