@@ -149,7 +149,7 @@ tbody tr.category-feature:last-child td {
 .support.Planned::before {
   display: inline-block;
   content: ' ';
-  background-image: url('./images/planned2.svg');
+  background-image: url('./images/planned.svg');
   background-size: 18px 18px;
   height: 18px;
   width: 18px;
