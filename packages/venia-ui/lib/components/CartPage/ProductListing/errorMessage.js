@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { shape, string } from 'prop-types';
 import { useStyle } from '../../../classify';
 import defaultClasses from './errorMessage.css';
