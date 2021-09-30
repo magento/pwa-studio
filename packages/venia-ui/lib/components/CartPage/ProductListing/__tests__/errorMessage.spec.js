@@ -12,7 +12,7 @@ test('renders error message', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('renders out of stock error message', () => {
+test('renders nothing when out of stock error message', () => {
     const error = new Error('The requested qty is not available');
     const tree = createTestInstance(<ErrorMessage error={error} />);
 

@@ -10,13 +10,4 @@ exports[`renders error message 1`] = `
 
 exports[`renders nothing when no error 1`] = `null`;
 
-exports[`renders out of stock error message 1`] = `
-<div
-  className="root"
->
-  <mock-FormattedMessage
-    defaultMessage="An item in your cart is currently out-of-stock and must be removed in order to Checkout."
-    id="stockStatusMessage.message"
-  />
-</div>
-`;
+exports[`renders nothing when out of stock error message 1`] = `null`;

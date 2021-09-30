@@ -51,6 +51,10 @@ const props = {
             }
         },
         quantity: 1,
+        error: {
+            has_error: false,
+            message: null
+        },
         configurable_options: [
             {
                 configurable_product_option_value_uid: '12345asd'

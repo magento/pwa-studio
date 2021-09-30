@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { useStyle } from '../../../classify';
-import defaultClasses from './errorMessage.css';
+import defaultClasses from './errorMessage.module.css';
 
 const acceptedErrors = ['The requested qty is not available'];
 
