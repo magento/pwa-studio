@@ -1,15 +1,45 @@
 #!/usr/bin/env node
-const yargs = require('yargs/yargs')
-const { hideBin } = require('yargs/helpers')
 const glob = require('glob')
-const { exec, execSync } = require('child_process')
+const { exec } = require('child_process')
 
-const argv = yargs(hideBin(process.argv)).argv
+var argv = require('yargs/yargs')(process.argv.slice(2))
+    .option('url', {
+        alias: 'baseUrl',
+        demandOption: true,
+        describe: 'URL to run tests against',
+        type: 'string',
+        nargs: 1
+    })
+    .option('p', {
+        alias: 'parallel',
+        default: 1,
+        describe: 'Number of parallel runs',
+        type: 'number',
+        nargs: 1
+    })
+    .option('u', {
+        alias: 'update',
+        default: false,
+        describe: 'Update snapshots',
+        type: 'boolean',
+        nargs: 1
+    })
+    .option('s', {
+        alias: 'spec',
+        default: null,
+        describe: 'Spec files to run',
+        type: 'string',
+        nargs: 1
+    })
+    .option('h', {
+        alias: 'help',
+        describe: 'Show run-tests help',
+    })
+    .help('h', 'Show run-tests help')
+    .version(false)
+    .argv
 
-const baseUrl = argv.baseUrl
-const parallelRuns = argv.parallel || 1
-const updateSnapshots = argv.updateSnapshots || false
-const spec = argv.spec || null
+const { baseUrl, parallel: parallelRuns, updateSnapshots, spec } = argv
 
 if (!baseUrl) {
     console.error('Missing baseUrl. Please provide a baseUrl using the --baseUrl arg')
@@ -20,7 +50,7 @@ if (!baseUrl) {
 const files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js')
 
 if (files.length < parallelRuns) {
-    console.log('Can not have more parallel runs than tests.')
+    console.error('Can not have more parallel runs than tests.')
 
     return;
 }
@@ -91,5 +121,5 @@ for (let i = 0; i < parallelRuns; i++) {
 process.on('SIGINT', function () {
     console.log('Received kill signal. Killing all cypress tests. \n');
 
-    execSync("docker ps -a | awk '{ print $1,$2 }' | grep cypress/included | awk '{print $1 }' | xargs -I {} docker kill {}")
+    exec("docker ps -a | awk '{ print $1,$2 }' | grep cypress/included | awk '{print $1 }' | xargs -I {} docker kill {}")
 });
