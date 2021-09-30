@@ -19,7 +19,8 @@ if (!baseUrl) {
 const files = glob.sync('./src/tests/**/*.spec.js')
 
 const testsPerRun = files.length / parallelRuns
-const dockerRuns = []
+const dockerRuns = {
+}
 
 const port = new URL(baseUrl).port
 
@@ -55,8 +56,24 @@ for (let i = 0; i < parallelRuns; i++) {
     });
 
     run.on('close', (code) => {
-        console.log(`docker run ${i + 1} exited with code ${code}`);
+        dockerRuns[i].completed = true
+
+        const timeTaken = process.hrtime(dockerRuns[i].started)[0]
+
+        console.log(`docker run ${i + 1} exited with ${code} code in ${timeTaken} seconds`);
+
+        if (Object.values(dockerRuns).every(r => r.completed)) {
+            const totalTime = Object.values(dockerRuns).reduce((acc, cur) => acc + process.hrtime(cur.started)[0], 0)
+
+            console.log(`\nAll runs completed in ${totalTime}\n`)
+
+            process.exit()
+        }
     });
 
-    dockerRuns.push(run)
+    dockerRuns[i] = {
+        process: run,
+        completed: false,
+        started: process.hrtime()
+    }
 }
