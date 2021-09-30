@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useSubMenu } from '@magento/peregrine/lib/talons/MegaMenu/useSubMenu';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './submenu.css';
+import defaultClasses from './submenu.module.css';
 import SubmenuColumn from './submenuColumn';
 
 /**

@@ -4,7 +4,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 
 import { useStyle } from '../../../../classify';
 import Image from '../../../Image';
-import defaultClasses from './productDetail.css';
+import defaultClasses from './productDetail.module.css';
 
 const IMAGE_SIZE = 240;
 

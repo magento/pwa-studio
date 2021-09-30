@@ -5,7 +5,7 @@ import Country from '@magento/venia-ui/lib/components/Country';
 
 import BillingAddress from '../billingAddress';
 
-import classes from '../billingAddress.css';
+import classes from '../billingAddress.module.css';
 
 jest.mock('@magento/venia-ui/lib/classify');
 jest.mock(

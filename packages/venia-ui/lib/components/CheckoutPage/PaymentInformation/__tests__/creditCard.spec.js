@@ -6,7 +6,7 @@ import CreditCard from '../creditCard';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Country from '../../../Country';
 
-import classes from '../creditCard.css';
+import classes from '../creditCard.module.css';
 
 jest.mock('../../../../classify');
 

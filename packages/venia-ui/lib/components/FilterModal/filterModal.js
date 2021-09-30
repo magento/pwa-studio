@@ -12,7 +12,7 @@ import { Portal } from '../Portal';
 import CurrentFilters from './CurrentFilters';
 import FilterBlock from './filterBlock';
 import FilterFooter from './filterFooter';
-import defaultClasses from './filterModal.css';
+import defaultClasses from './filterModal.module.css';
 
 /**
  * A view that displays applicable and applied filters.

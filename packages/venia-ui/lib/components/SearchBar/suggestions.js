@@ -6,7 +6,7 @@ import { useSuggestions } from '@magento/peregrine/lib/talons/SearchBar';
 import { useStyle } from '../../classify';
 import SuggestedCategories from './suggestedCategories';
 import SuggestedProducts from './suggestedProducts';
-import defaultClasses from './suggestions.css';
+import defaultClasses from './suggestions.module.css';
 
 const Suggestions = props => {
     const {

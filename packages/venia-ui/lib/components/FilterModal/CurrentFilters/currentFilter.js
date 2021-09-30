@@ -6,7 +6,7 @@ import { X as Remove } from 'react-feather';
 import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import Trigger from '../../Trigger';
-import defaultClasses from './currentFilter.css';
+import defaultClasses from './currentFilter.module.css';
 
 const CurrentFilter = props => {
     const { group, item, removeItem, onRemove } = props;

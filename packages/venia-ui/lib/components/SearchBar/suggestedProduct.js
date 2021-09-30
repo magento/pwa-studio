@@ -6,7 +6,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 import { useStyle } from '../../classify';
 
 import Image from '../Image';
-import defaultClasses from './suggestedProduct.css';
+import defaultClasses from './suggestedProduct.module.css';
 
 const IMAGE_WIDTH = 60;
 

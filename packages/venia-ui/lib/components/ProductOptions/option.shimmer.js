@@ -1,7 +1,7 @@
 import React from 'react';
 import Shimmer from '../Shimmer';
 import { useStyle } from '../../classify';
-import defaultClasses from './option.css';
+import defaultClasses from './option.module.css';
 import TileListShimmer from './tileList.shimmer';
 
 const OptionShimmer = props => {
