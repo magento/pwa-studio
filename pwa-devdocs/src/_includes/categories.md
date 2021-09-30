@@ -4,17 +4,25 @@
 {% endif %}
 
 <table class="comparison-table">
-  {% for category in categories %}
+  {% for categories in categories %}
   <tbody>
     <tr class="category-name">
-      <th>{{ category.name }}</th>
-      <th>Supported</th>
+      <th>{{ categories.name }}</th>
+      <th></th>
+      <th>Support</th>
     </tr>
-    {% for feature in categories.features %}
+    {% for categoryFeature in categories.features %}
     <tr class="category-feature">
-      <td>{{ feature.name }}</td>
+      <td>{{ categoryFeature.name }}</td>
       <td>
-        <span class="status {{ feature.support }}"></span>
+      <span class="tooltip left" data-text="{{ categoryFeature.product }}-only feature">
+        <span class="support {{ categoryFeature.product }}"></span>
+      </span>
+      </td>
+      <td>
+      <span class="tooltip left" data-text="{{ categoryFeature.support }} support">
+        <span class="support {{ categoryFeature.support }}"></span>
+      </span>
       </td>
     </tr>
     {% endfor %}
@@ -23,12 +31,62 @@
 </table>
 
 <style>
+
+.tooltip {
+  position:relative;
+}
+
+.tooltip:before {
+  content: attr(data-text);
+  position:absolute;
+  top:45%;
+  transform:translateY(-50%);
+  left:100%;
+  margin-left:5px;
+  width:120px;
+  padding:5px;
+  border-radius:3px;
+  border:1px solid #ccc;
+  background:#fefefe;
+  color: #222;
+  text-align:center;
+  display:none;
+  z-index:100;
+}
+
+.tooltip.left:before {
+  left:initial;
+  margin:initial;
+  right:100%;
+  margin-right:5px;
+}
+
+.tooltip:hover:before {
+  display:block;
+}
+
 .comparison-table {
-  table-layout: auto;
+  table-layout: fixed;
 }
 
 .category-feature {
   transition: all .2s;
+  height: 26px;
+}
+.category-feature td {
+  padding: 7px 0px 0px 10px;
+}
+
+tbody tr.category-feature:last-child td {
+  padding-bottom: 5px;
+}
+
+.category-feature td:nth-child(2) {
+  text-align: center;
+}
+
+.category-feature td:nth-child(3) {
+  text-align: center;
 }
 
 .category-feature:hover {
@@ -36,53 +94,74 @@
 }
 
 .comparison-table .category-name th {
-  padding: 15px 15px;
+  padding: 10px;
   font-size: 14px !important;
   font-weight: bold;
   color: black;
-  background-color: lightgray;
+  background-color: #f1f1f1;
+  width: 90px;
+  text-align: center;
 }
 
-.status {
-  height: 32px;
+.comparison-table .category-name th:nth-child(1) {
+  width: 100%;
+  text-align: left;
+}
+
+.comparison-table .category-name th:nth-child(2) {
+  width: 30px;
+}
+
+.support {
+  height: 18px;
   font-size: 14px;
   font-weight: 400;
+  padding: 5px 0;
 }
 
-.status.full::before {
+.support.Commerce::before {
   display: inline-block;
   content: ' ';
-  background-image: url('full.svg');
-  background-size: 24px 24px;
-  height: 24px;
-  width: 24px;
+  background-image: url('./images/commerce.svg');
+  background-size: 18px 18px;
+  height: 18px;
+  width: 18px;
 }
 
-.status.partial::before {
+.support.Full::before {
   display: inline-block;
   content: ' ';
-  background-image: url('partial.svg');
-  background-size: 24px 24px;
-  height: 24px;
-  width: 24px;
+  background-image: url('./images/full.svg');
+  background-size: 18px 18px;
+  height: 18px;
+  width: 18px;
 }
 
-.status.planned::before {
+.support.Partial::before {
   display: inline-block;
   content: ' ';
-  background-image: url('planned.svg');
-  background-size: 24px 24px;
-  height: 24px;
-  width: 24px;
+  background-image: url('./images/partial.svg');
+  background-size: 18px 18px;
+  height: 18px;
+  width: 18px;
 }
 
-.status.custom::before {
+.support.Planned::before {
   display: inline-block;
   content: ' ';
-  background-image: url('custom.svg');
-  background-size: 24px 24px;
-  height: 24px;
-  width: 24px;
+  background-image: url('./images/planned2.svg');
+  background-size: 18px 18px;
+  height: 18px;
+  width: 18px;
+}
+
+.support.Custom::before {
+  display: inline-block;
+  content: ' ';
+  background-image: url('./images/custom.svg');
+  background-size: 18px 18px;
+  height: 18px;
+  width: 18px;
 }
 
 </style>

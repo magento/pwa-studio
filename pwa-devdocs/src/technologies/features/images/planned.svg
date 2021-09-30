@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>planned</title>
+    <defs>
+        <circle id="path-1" cx="9" cy="9" r="8"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="16" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="planned" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-dasharray="3,2">
+        <use id="Oval" stroke="#979797" mask="url(#mask-2)" stroke-width="3" xlink:href="#path-1"></use>
+    </g>
+</svg>

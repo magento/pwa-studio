@@ -1,157 +1,221 @@
-catagories:
-  -
-    name: General
+categories:
+  - name: General
     features:
-      -
-        name: Mobile View
-        support: full
-      -
-        name: Desktop View
-        support: partial
-      -
-        name: B2B
-        support: planned
-  -
-    name: Extensions
+      - name: Mobile View
+        support: Full
+      - name: Desktop View
+        support: Partial
+      - name: B2B
+        support: Planned
+        product: Commerce
+  - name: Extensions
     features:
-      -
-        name: Backend extensions
-        support: full
-      -
-        name: Frontend extensions
-        support: partial
-      -
-        name: FE/BE extensions
-        support: partial
-  -
-    name: Product Types
+      - name: Backend extensions
+        support: Full
+      - name: Frontend extensions
+        support: Partial
+      - name: FE/BE extensions
+        support: Partial
+  - name: Product Types
     features:
-      -
-        name: Simple​
-        support: full
-      -
-        name: Configurable​
-        support: full
-      -
-        name: Virtual​
-        support: partial
-      -
-        name: Product with custom options ​
-        support: planned
-      -
-        name: Grouped​
-        support: planned
-      -
-        name: Bundled​
-        support: planned
-      -
-        name: Downloadable​
-        support: planned
-      -
-        name: Gift Cards​
-        support: planned
-  -
-    name: CMS
+      - name: Simple
+        support: Full
+      - name: Configurable
+        support: Full
+      - name: Virtual
+        support: Partial
+      - name: Product with Custom options
+        support: Planned
+      - name: Grouped
+        support: Planned
+      - name: Bundled
+        support: Planned
+      - name: Downloadable
+        support: Planned
+      - name: Gift Cards
+        support: Planned
+        product: Commerce
+  - name: CMS
     features:
-      -
-        name: AEM Fragments​
-        support: full
-      -
-        name: Page Builder​
-        support: full
-      -
-        name: CMS Pages​
-        support: full
-      -
-        name: CMS Blocks​
-        support: full
-      -
-        name: CMS Widgets​​
-        support: custom
-      -
-        name: Dynamic Blocks​
-        support: planned
-  -
-    name: Marketing
+      - name: AEM Fragments
+        support: Full
+        product: Commerce
+      - name: Page Builder
+        support: Full
+      - name: CMS Pages
+        support: Full
+      - name: CMS Blocks
+        support: Full
+      - name: Dynamic Blocks
+        support: Planned
+        product: Commerce
+      - name: CMS Widgets
+        support: Custom
+  - name: Marketing
     features:
-      -
-        name: Promotions​
-        support: planned
-      -
-        name: Customer Segmentation​
-        support: planned
-      -
-        name: Staging & Preview​
-        support: planned
-      -
-        name: Special Pricing ​
-        support: planned
-      -
-        name: Sensei Powered Product Recs​
-        support: planned
-      -
-        name: Related Products​
-        support: planned
-      -
-        name: Reward Points​
-        support: planned
-      -
-        name: Email Templates​
-        support: planned
-      -
-        name: Newsletter subscription​
-        support: planned
-      -
-        name: Contact Us​
-        support: planned
-  -
-    name: Product Page
+      - name: Sensei Powered Product Recommendations
+        support: Full
+        product: Commerce
+      - name: Promotions
+        support: Partial
+      - name: Special Pricing
+        support: Partial
+      - name: Email Templates
+        support: Partial
+      - name: Newsletter subscription
+        support: Partial
+      - name: Customer Segmentation
+        support: Planned
+        product: Commerce
+      - name: Staging & Preview
+        support: Planned
+        product: Commerce
+      - name: Related Products
+        support: Planned
+      - name: Contact Us
+        support: Planned
+      - name: Reward Points
+        support: Custom
+        product: Commerce
+  - name: Product Page
     features:
-      -
-        name: Product Description​
-        support: full
-      -
-        name: Product Swatches​
-        support: full
-      -
-        name: Add To Wishlist​
-        support: full
-      -
-        name: Gallery​
-        support: partial
-      -
-        name: Additional Attributes​
-        support: planned
-      -
-        name: Reviews​
-        support: custom
-      -
-        name: Add To Compare​
-        support: custom
-  -
-    name: Checkout
+      - name: Product Description
+        support: Full
+      - name: Product Swatches
+        support: Full
+      - name: Add To Wishlist
+        support: Full
+      - name: Gallery
+        support: Partial
+      - name: Additional Attributes
+        support: Planned
+      - name: Reviews
+        support: Custom
+      - name: Add To Compare
+        support: Custom
+  - name: Checkout
     features:
-      -
-        name: Checkout Page​
-        support: full
-      -
-        name: Saved Addresses
-        support: full​
-      -
-        name: Customer Login​
-        support: full​
-      -
-        name: Subtotal / Tax / Shipping Cost
-        support: full​​
-      -
-        name: Third Party Payment Methods​
-        support: full​
-      -
-        name: Gift Options​
-        support: full​
-      -
-        name: Apply Discount Code​
-        support: full​
-      -
-        name: Apply Gift Card​
-        support: full​
+      - name: Checkout Page
+        support: Full
+      - name: Saved Addresses
+        support: Full
+      - name: Customer Login
+        support: Full
+      - name: Subtotal / Tax / Shipping Cost
+        support: Full
+      - name: Apply Discount Code
+        support: Full
+      - name: Apply Gift Card
+        support: Full
+      - name: Gift Options
+        support: Partial
+        product: Commerce
+      - name: Third Party Payment Methods
+        support: Partial
+  - name: Category Page
+    features:
+      - name: Layered Navigation
+        support: Full
+      - name: Sorting
+        support: Full
+      - name: Product List
+        support: Full
+      - name: Pagination
+        support: Full
+      - name: Items Per Page
+        support: Custom
+  - name: Shopping Cart
+    features:
+      - name: Shopping Cart Page
+        support: Full
+      - name: Mini-cart
+        support: Full
+      - name: Estimate Shipping and Tax
+        support: Full
+      - name: Select Shipping Method
+        support: Full
+      - name: Apply Coupon Code
+        support: Full
+      - name: Apply Gift Card
+        support: Full
+      - name: Edit Item Quantity
+        support: Full
+      - name: Remove Item(s)
+        support: Full
+      - name: Save for later
+        support: Full
+      - name: Subtotal
+        support: Full
+  - name: Customer
+    features:
+      - name: Customer Login
+        support: Full
+      - name: Forgot Password
+        support: Full
+      - name: Create Account
+        support: Full
+      - name: Custom Customer Attributes
+        support: Full
+        product: Commerce
+  - name: Catalog
+    features:
+      - name: Search
+        support: Full
+      - name: MSI
+        support: Full
+      - name: Live Search
+        support: Planned
+        product: Commerce
+      - name: Custom Product Attributes
+        support: Planned
+      - name: Backorders
+        support: Planned
+      - name: Advanced Inventory
+        support: Planned
+  - name: Multi-Store
+    features:
+      - name: Language & Currency Switcher
+        support: Full
+      - name: Store Switcher
+        support: Full
+      - name: Separate catalogs per store
+        support: Full
+      - name: Shared cart and customers between stores
+        support: Full
+      - name: Stores on separate domains
+        support: Planned
+  - name: Account
+    features:
+      - name: Account Information
+        support: Full
+      - name: Reset Password
+        support: Full
+      - name: Address Book
+        support: Full
+      - name: Orders list
+        support: Full
+      - name: Order status
+        support: Full
+      - name: Wishlist
+        support: Full
+      - name: Multi-wish list
+        support: Full
+      - name: Store Payment Methods
+        support: Partial
+      - name: Re-order
+        support: Planned
+      - name: Returns
+        support: Planned
+      - name: Store Credit
+        support: Custom
+        product: Commerce
+      - name: Gift Registry
+        support: Custom
+        product: Commerce
+      - name: Product Reviews
+        support: Custom
+      - name: Invitations
+        support: Custom
+        product: Commerce
+      - name: Dashboard
+        support: Custom
