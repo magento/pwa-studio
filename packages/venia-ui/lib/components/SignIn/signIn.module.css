@@ -57,6 +57,7 @@
 }
 
 .title {
+    font-size: var(--venia-global-fontSize-400);
     padding-top: 0.5rem;
     text-transform: capitalize;
 }
