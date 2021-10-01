@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
-import { useShippingMethod, displayStates } from '../useShippingMethod';
+import {
+    useShippingMethod,
+    displayStates
+} from '../ShippingMethod/useShippingMethod';
 import { useMutation, useQuery } from '@apollo/client';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';

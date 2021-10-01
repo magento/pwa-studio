@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { PriceSummaryFragment } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/priceSummaryFragments.gql';
+import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments.gql';
 import { ShippingInformationFragment } from '../ShippingInformation/shippingInformationFragments.gql';
 
 import {
@@ -59,10 +59,6 @@ export const SET_SHIPPING_METHOD = gql`
 `;
 
 export default {
-    mutations: {
-        setShippingMethod: SET_SHIPPING_METHOD
-    },
-    queries: {
-        getSelectedAndAvailableShippingMethods: GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS
-    }
+    setShippingMethodMutation: SET_SHIPPING_METHOD,
+    getSelectedAndAvailableShippingMethodsQuery: GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS
 };

@@ -1,22 +1,19 @@
 import { useCallback, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+import DEFAULT_OPERATIONS from './customerForm.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useCustomerForm = props => {
+    const { afterSubmit, onCancel, onSuccess, shippingData } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
-        afterSubmit,
-        mutations: {
-            createCustomerAddressMutation,
-            updateCustomerAddressMutation
-        },
-        onCancel,
-        onSuccess,
-        queries: {
-            getCustomerQuery,
-            getCustomerAddressesQuery,
-            getDefaultShippingQuery
-        },
-        shippingData
-    } = props;
+        createCustomerAddressMutation,
+        updateCustomerAddressMutation,
+        getCustomerQuery,
+        getCustomerAddressesQuery,
+        getDefaultShippingQuery
+    } = operations;
 
     const [
         createCustomerAddress,
