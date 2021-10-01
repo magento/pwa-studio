@@ -7,16 +7,12 @@
   {% for categories in categories %}
   <tbody>
     <tr class="category-name">
-      <th></th>
       <th>{{ categories.name }}</th>
       <th>Support</th>
     </tr>
     {% for categoryFeature in categories.features %}
     <tr class="category-feature">
-      <td>
-         <span class="support {{ categoryFeature.product }}"></span>
-      </td>
-      <td>{{ categoryFeature.name }}</td>
+      <td>{{ categoryFeature.name }} <span class="support {{ categoryFeature.product }}"></span></td>
       <td>
         <span class="tooltip left" data-text="{{ categoryFeature.support }} support">
           <span class="support {{ categoryFeature.support }}"></span>
@@ -97,14 +93,10 @@ tbody tr.category-feature:last-child td {
 }
 
 .category-name th:nth-child(1) {
-   width: 30px;
-}
-
-.category-name th:nth-child(2) {
    width: 100%;
 }
 
-.category-name th:nth-child(3) {
+.category-name th:nth-child(2) {
   width: 90px;
   text-align: center;
 }
@@ -115,7 +107,7 @@ tbody tr.category-feature:last-child td {
   padding: 7px 0px 0px 10px;
 }
 
-.category-feature td:nth-child(3) {
+.category-feature td:nth-child(2) {
   text-align: center;
 }
 
@@ -132,9 +124,11 @@ tbody tr.category-feature:last-child td {
   display: inline-block;
   content: ' ';
   background-image: url('./images/commerce.svg');
-  background-size: 18px 18px;
-  height: 18px;
-  width: 18px;
+  background-size: 14px 14px;
+  height: 14px;
+  width: 14px;
+  margin-left: 5px;
+  margin-bottom: -2px;
 }
 
 .support.Full::before {
