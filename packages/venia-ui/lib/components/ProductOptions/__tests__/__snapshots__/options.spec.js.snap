@@ -5,13 +5,11 @@ Array [
   <div
     className="root"
   >
-    <h3
+    <span
       className="title"
     >
-      <span>
-        option-1
-      </span>
-    </h3>
+      option-1
+    </span>
     <div
       className="root"
     />
@@ -39,13 +37,11 @@ Array [
   <div
     className="root"
   >
-    <h3
+    <span
       className="title"
     >
-      <span>
-        option-1
-      </span>
-    </h3>
+      option-1
+    </span>
     <div
       className="root"
     />
