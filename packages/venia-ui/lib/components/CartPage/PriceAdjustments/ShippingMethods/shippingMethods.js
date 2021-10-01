@@ -33,7 +33,7 @@ const ShippingMethods = props => {
         selectedShippingMethod,
         shippingMethods,
         showForm
-    } = useShippingMethods({});
+    } = useShippingMethods();
 
     const classes = useStyle(defaultClasses, props.classes);
 

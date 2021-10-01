@@ -23,7 +23,7 @@ import DEFAULT_OPERATIONS from './cartPage.gql';
  * @example <caption>Importing into your project</caption>
  * import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
  */
-export const useCartPage = props => {
+export const useCartPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCartDetailsQuery } = operations;
 

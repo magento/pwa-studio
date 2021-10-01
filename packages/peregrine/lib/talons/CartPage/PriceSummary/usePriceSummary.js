@@ -44,7 +44,7 @@ const flattenData = data => {
  * @example <caption>Importing into your project</caption>
  * import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
  */
-export const usePriceSummary = props => {
+export const usePriceSummary = (props ={}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getPriceSummaryQuery } = operations;
 

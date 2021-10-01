@@ -44,7 +44,7 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 
 const log = jest.fn();
 const Component = () => {
-    const talonProps = useCartPage({});
+    const talonProps = useCartPage();
 
     useEffect(() => {
         log(talonProps);

@@ -24,7 +24,7 @@ import DEFAULT_OPERATIONS from './productListing.gql';
  * @example <caption>Importing into your project</caption>
  * import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
  */
-export const useProductListing = props => {
+export const useProductListing = (props={}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getWishlistConfigQuery, getProductListingQuery } = operations;
 

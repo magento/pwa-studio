@@ -23,7 +23,7 @@ import DEFAULT_OPERATIONS from './shippingMethods.gql';
  * @example <caption>Importing into your project</caption>
  * import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
  */
-export const useShippingMethods = props => {
+export const useShippingMethods = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getShippingMethodsQuery } = operations;
 

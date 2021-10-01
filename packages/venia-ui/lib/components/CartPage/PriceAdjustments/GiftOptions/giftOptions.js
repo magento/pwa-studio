@@ -29,7 +29,7 @@ const GiftOptions = props => {
         optionsFormProps,
         printedCardProps,
         shouldPromptForMessage
-    } = useGiftOptions({});
+    } = useGiftOptions();
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
 

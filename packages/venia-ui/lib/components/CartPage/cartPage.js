@@ -34,7 +34,7 @@ const CheckIcon = <Icon size={20} src={Check} />;
  * import CartPage from "@magento/venia-ui/lib/components/CartPage";
  */
 const CartPage = props => {
-    const talonProps = useCartPage({});
+    const talonProps = useCartPage();
 
     const {
         cartItems,

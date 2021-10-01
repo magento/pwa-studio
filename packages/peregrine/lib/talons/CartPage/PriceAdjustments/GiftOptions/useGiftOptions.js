@@ -24,7 +24,7 @@ import DEFAULT_OPERATIONS from './giftOptions.gql';
  * @example <caption>Importing into your project</caption>
  * import { useGiftOptions } from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
  */
-const useGiftOptions = props => {
+const useGiftOptions = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getGiftOptionsQuery } = operations;
 

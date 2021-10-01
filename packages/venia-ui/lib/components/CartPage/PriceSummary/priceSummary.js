@@ -28,7 +28,7 @@ import TaxSummary from './taxSummary';
 const PriceSummary = props => {
     const { isUpdating } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const talonProps = usePriceSummary({});
+    const talonProps = usePriceSummary();
 
     const {
         handleProceedToCheckout,

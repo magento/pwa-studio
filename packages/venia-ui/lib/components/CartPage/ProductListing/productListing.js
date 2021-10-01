@@ -30,7 +30,7 @@ const ProductListing = props => {
         fetchCartDetails
     } = props;
 
-    const talonProps = useProductListing({});
+    const talonProps = useProductListing();
 
     const {
         activeEditItem,
