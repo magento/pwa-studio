@@ -6,6 +6,17 @@ exports[`renders a ButtonItem component 1`] = `
     className="root_normalPriority"
     disabled={false}
     onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
     style={
       Object {
         "border": undefined,
@@ -40,6 +51,17 @@ exports[`renders a ButtonItem component with all properties configured 1`] = `
     className="root_normalPriority"
     disabled={false}
     onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
     style={
       Object {
         "border": "solid",

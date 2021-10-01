@@ -99,6 +99,17 @@ exports[`renders description and confirm link w/o shipping address set 1`] = `
     className="root_normalPriority"
     disabled={false}
     onClick={[Function]}
+    onDragStart={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchCancel={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
     type="button"
   >
     <span
