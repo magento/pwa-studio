@@ -229,7 +229,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       aria-hidden="true"
       className="rootSelected"
       onClick={[Function]}
-      type="button"
+      role="button"
     >
       <div
         className="root container"
@@ -267,7 +267,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       aria-hidden="true"
       className="root"
       onClick={[Function]}
-      type="button"
+      role="button"
     >
       <div
         className="root container"
@@ -305,7 +305,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       aria-hidden="true"
       className="root"
       onClick={[Function]}
-      type="button"
+      role="button"
     >
       <div
         className="root container"
@@ -343,7 +343,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       aria-hidden="true"
       className="root"
       onClick={[Function]}
-      type="button"
+      role="button"
     >
       <div
         className="root container"

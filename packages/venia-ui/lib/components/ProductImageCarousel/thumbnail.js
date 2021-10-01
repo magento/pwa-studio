@@ -69,7 +69,7 @@ const Thumbnail = props => {
         <span
             className={isActive ? classes.rootSelected : classes.root}
             onClick={handleClick}
-            type="button"
+            role="button"
             aria-hidden="true"
         >
             {thumbnailImage}

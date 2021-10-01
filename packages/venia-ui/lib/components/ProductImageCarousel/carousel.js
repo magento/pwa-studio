@@ -10,11 +10,11 @@ import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductImageCarousel/useProductImageCarousel';
 
 import { useStyle } from '../../classify';
+import AriaButton from '../AriaButton';
 import Icon from '../Icon';
 import Image from '../Image';
 import defaultClasses from './carousel.module.css';
 import Thumbnail from './thumbnail';
-import AriaButton from './ariaButton';
 
 const IMAGE_WIDTH = 640;
 

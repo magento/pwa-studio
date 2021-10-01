@@ -5,7 +5,7 @@ exports[`renders root class if not the active Thumbnail 1`] = `
   aria-hidden="true"
   className="root"
   onClick={[Function]}
-  type="button"
+  role="button"
 >
   <div
     className="root container"
@@ -46,7 +46,7 @@ exports[`renders the Thumbnail component correctly 1`] = `
   aria-hidden="true"
   className="rootSelected"
   onClick={[Function]}
-  type="button"
+  role="button"
 >
   <div
     className="root container"
@@ -87,7 +87,7 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
   aria-hidden="true"
   className="rootSelected"
   onClick={[Function]}
-  type="button"
+  role="button"
 >
   <div
     className="root container"
