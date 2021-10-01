@@ -16,9 +16,13 @@ Running tests in the headless mode is the preferred option when testing in the C
 `yarn test:headless` also takes couple other arguments:
 
 `--help`: Show all the CLI arguments supported by the headless mode
+
 `--parallel` or `-p`: Will take a number argument. Number provided will represent the number of parallel async processes that will be used to speed up the tests.
-_Note_: After testing we realized 4 is the best option while running locally. Adding more proccess might create more overhead so make sure you take due diligence while using this option.
+
+___Note___: _After testing we realized 4 is the best option while running locally. Adding more proccess might create more overhead so make sure you take due diligence while using this option._
+
 `--update` or `-u`: Use this option if you want to update the snapshots.
+
 `--spec` or `-s`: String of comma separated test files to run. If not provided all tests will run.
 
 Example:
