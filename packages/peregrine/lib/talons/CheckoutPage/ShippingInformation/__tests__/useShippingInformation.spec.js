@@ -9,8 +9,6 @@ import createTestInstance from '../../../../util/createTestInstance';
 import { useShippingInformation } from '../useShippingInformation';
 import { useUserContext } from '../../../../context/user';
 
-
-
 const mockGetShippingInformationResult = jest.fn().mockReturnValue({
     data: null,
     loading: false
