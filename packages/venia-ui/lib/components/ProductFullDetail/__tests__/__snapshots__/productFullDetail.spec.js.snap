@@ -83,14 +83,14 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -127,14 +127,14 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -142,14 +142,14 @@ exports[`it disables the add to cart button when the talon indicates 1`] = `
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -210,14 +210,14 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -254,14 +254,14 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -269,14 +269,14 @@ exports[`it does not render options if the product is not a ConfigurableProduct 
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -371,14 +371,14 @@ exports[`it renders an error for an invalid cart 1`] = `
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -415,14 +415,14 @@ exports[`it renders an error for an invalid cart 1`] = `
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -430,14 +430,14 @@ exports[`it renders an error for an invalid cart 1`] = `
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -532,14 +532,14 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -576,14 +576,14 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -591,14 +591,14 @@ exports[`it renders an error for an invalid user token when adding to cart 1`] =
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -694,14 +694,14 @@ Array [
     <section
       className="quantity"
     >
-      <h2
+      <span
         className="quantityTitle"
       >
         <mock-FormattedMessage
           defaultMessage="Quantity"
           id="global.quantity"
         />
-      </h2>
+      </span>
       QuantityFields
     </section>
     <section
@@ -738,14 +738,14 @@ Array [
     <section
       className="description"
     >
-      <h2
+      <span
         className="descriptionTitle"
       >
         <mock-FormattedMessage
           defaultMessage="Product Description"
           id="productFullDetail.productDescription"
         />
-      </h2>
+      </span>
       <RichContent
         html="Powers the Delorean"
       />
@@ -753,14 +753,14 @@ Array [
     <section
       className="details"
     >
-      <h2
+      <span
         className="detailsTitle"
       >
         <mock-FormattedMessage
           defaultMessage="SKU"
           id="global.sku"
         />
-      </h2>
+      </span>
       <strong>
         BTTF123
       </strong>
@@ -852,14 +852,14 @@ exports[`it renders correctly 1`] = `
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -896,14 +896,14 @@ exports[`it renders correctly 1`] = `
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -911,14 +911,14 @@ exports[`it renders correctly 1`] = `
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -1009,14 +1009,14 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -1053,14 +1053,14 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -1068,14 +1068,14 @@ exports[`it renders field level errors for quantity - message 1 1`] = `
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -1166,14 +1166,14 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -1210,14 +1210,14 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -1225,14 +1225,14 @@ exports[`it renders field level errors for quantity - message 2 1`] = `
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -1323,14 +1323,14 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -1367,14 +1367,14 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -1382,14 +1382,14 @@ exports[`it renders field level errors for quantity - message 3 1`] = `
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -1484,14 +1484,14 @@ exports[`it renders form level errors 1`] = `
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -1528,14 +1528,14 @@ exports[`it renders form level errors 1`] = `
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -1543,14 +1543,14 @@ exports[`it renders form level errors 1`] = `
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -1641,14 +1641,14 @@ exports[`it renders message with unsupported product type 1`] = `
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -1698,14 +1698,14 @@ exports[`it renders message with unsupported product type 1`] = `
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -1713,14 +1713,14 @@ exports[`it renders message with unsupported product type 1`] = `
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -1781,14 +1781,14 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -1825,14 +1825,14 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -1840,14 +1840,14 @@ exports[`out of stock disabled CTA button is rendered if out of stock 1`] = `
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
@@ -1938,14 +1938,14 @@ exports[`renders a WishlistButton with props 1`] = `
   <section
     className="quantity"
   >
-    <h2
+    <span
       className="quantityTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Quantity"
         id="global.quantity"
       />
-    </h2>
+    </span>
     QuantityFields
   </section>
   <section
@@ -1984,14 +1984,14 @@ exports[`renders a WishlistButton with props 1`] = `
   <section
     className="description"
   >
-    <h2
+    <span
       className="descriptionTitle"
     >
       <mock-FormattedMessage
         defaultMessage="Product Description"
         id="productFullDetail.productDescription"
       />
-    </h2>
+    </span>
     <RichContent
       html="Powers the Delorean"
     />
@@ -1999,14 +1999,14 @@ exports[`renders a WishlistButton with props 1`] = `
   <section
     className="details"
   >
-    <h2
+    <span
       className="detailsTitle"
     >
       <mock-FormattedMessage
         defaultMessage="SKU"
         id="global.sku"
       />
-    </h2>
+    </span>
     <strong>
       BTTF123
     </strong>
