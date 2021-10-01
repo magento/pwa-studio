@@ -21,8 +21,7 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
         alias: 'update',
         default: false,
         describe: 'Update snapshots',
-        type: 'boolean',
-        nargs: 1
+        type: 'boolean'
     })
     .option('s', {
         alias: 'spec',
@@ -39,7 +38,7 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .version(false)
     .argv
 
-const { baseUrl, parallel: parallelRuns, updateSnapshots, spec } = argv
+const { baseUrl, parallel: parallelRuns, update, spec } = argv
 
 if (!baseUrl) {
     console.error('Missing baseUrl. Please provide a baseUrl using the --baseUrl arg')
@@ -66,12 +65,12 @@ if (port) {
     // run docker on local instance
     console.log(`Running tests on local instance ${baseUrl}`)
 
-    dockerCommand = `docker run --rm -v ${process.env.PWD}:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=https://host.docker.internal:${port},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${updateSnapshots} --headless`
+    dockerCommand = `docker run --rm -v ${process.env.PWD}:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=https://host.docker.internal:${port},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --headless`
 } else {
     // run docker on remote instance
     console.log(`Running tests on remote instance ${baseUrl}`)
 
-    dockerCommand = `docker run --rm -v ${process.env.PWD}:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=${baseUrl},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${updateSnapshots} --headless`
+    dockerCommand = `docker run --rm -v ${process.env.PWD}:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=${baseUrl},screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=${update} --headless`
 }
 
 const start = process.hrtime()

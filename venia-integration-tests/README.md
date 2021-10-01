@@ -7,6 +7,24 @@
 3. Run `yarn test`
 4. Now select test to Run from Cypress UI.
 
+## Run tests in headless mode
+
+Running tests in the headless mode is the preferred option when testing in the CI. Before updating/creating the tests please run the tests in the headless mode to make sure they are running as expected.
+
+`yarn test:headless` runs the tests in headless mode. It takes `--url` or `--baseUrl` as a required CLI argument. The URL provided will be used to run the tests against.
+
+`yarn test:headless` also takes couple other arguments:
+
+`--help`: Show all the CLI arguments supported by the headless mode
+`--parallel` or `-p`: Will take a number argument. Number provided will represent the number of parallel async processes that will be used to speed up the tests.
+_Note_: After testing we realized 4 is the best option while running locally. Adding more proccess might create more overhead so make sure you take due diligence while using this option.
+`--update` or `-u`: Use this option if you want to update the snapshots.
+`--spec` or `-s`: String of comma separated test files to run. If not provided all tests will run.
+
+Example:
+
+`yarn test:headless -u --url https://develop.pwa-venia.com -p 4 -s ./src/tests/integrationTests/pageBuilder/banner.spec.js,./src/tests/e2eTests/wishList/singleWishlistAddRemoveProduct.spec.js`
+
 # Adding Cypress UI Tests
 
 We follow Test Triangle for testing pwa-studio project where we expect most of our code coverage by Unit tests. This allows us to be very less dependent on UI tests which are expensive to maintain and can be very unstable in long run.
