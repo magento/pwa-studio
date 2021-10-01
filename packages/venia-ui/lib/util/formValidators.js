@@ -159,3 +159,14 @@ export const isNotEqualToField = (value, values, fieldKey) => {
     };
     return value !== values[fieldKey] ? SUCCESS : message;
 };
+
+export const isValidateEmail = value => {
+    const FAILURE = {
+        id: 'validation.isValidateEmail',
+        defaultMessage: 'Please enter a valid email address (Ex: johndoe@domain.com).'
+    };
+    if (/^([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*@([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*\.(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]){2,})$/i.test(value)) {
+        return SUCCESS;
+    }
+    return FAILURE;
+};

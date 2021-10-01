@@ -12,7 +12,8 @@ import {
     isRequired,
     hasLengthAtLeast,
     validatePassword,
-    isNotEqualToField
+    isNotEqualToField,
+    isValidateEmail
 } from '../../util/formValidators';
 import combine from '../../util/combineValidators';
 import defaultClasses from './editForm.css';
@@ -103,7 +104,13 @@ const EditForm = props => {
                             defaultMessage: 'Email'
                         })}
                     >
-                        <TextInput field="email" validate={isRequired} />
+                        <TextInput
+                            field="email"
+                            validate={combine([
+                                isRequired,
+                                isValidateEmail
+                            ])}
+                        />
                     </Field>
                 </div>
                 <div className={classes.password}>
