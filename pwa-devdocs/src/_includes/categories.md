@@ -128,15 +128,6 @@ tbody tr.category-feature:last-child td {
   padding: 5px 0;
 }
 
-.support.OpenSource::before {
-  display: inline-block;
-  content: ' ';
-  background-image: url('./images/opensource.svg');
-  background-size: 18px 18px;
-  height: 18px;
-  width: 18px;
-}
-
 .support.Commerce::before {
   display: inline-block;
   content: ' ';

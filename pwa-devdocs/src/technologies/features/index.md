@@ -6,6 +6,6 @@ PWA Studio's storefront app — Venia — provides the following out-of-the-box 
 
 | ![Full support](./images/full.svg) — Full support | ![Planned support](./images/planned.svg) — Planned support |
 | ![Partial support](./images/partial.svg) — Partial support | ![Custom support](./images/custom.svg) — Customization required |
-| ![Commerce-only](./images/commerce.svg) — Commerce-only | ![Open Source](./images/opensource.svg) — Magento Open Source  |
+| ![Commerce-only](./images/commerce.svg) — Commerce-only | |
 
 {% include categories.md data=site.data.categories %}
