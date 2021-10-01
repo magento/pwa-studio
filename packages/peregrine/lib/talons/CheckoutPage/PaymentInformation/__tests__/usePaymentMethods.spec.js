@@ -33,11 +33,10 @@ jest.mock('@apollo/client', () => {
     };
 });
 
-const DEFAULT_PROPS = {
-    queries: {
-        getPaymentMethodsQuery: 'paymentMethodsQuery'
-    }
-};
+jest.mock('../paymentMethods.gql', () => ({
+    getPaymentMethodsQuery: 'paymentMethodsQuery'
+}));
+
 const Component = props => {
     const talonProps = usePaymentMethods(props);
 
@@ -45,9 +44,7 @@ const Component = props => {
 };
 
 const getTalonProps = props => {
-    const tree = createTestInstance(
-        <Component {...DEFAULT_PROPS} {...props} />
-    );
+    const tree = createTestInstance(<Component {...props} />);
 
     const { talonProps } = tree.root.findByType('i').props;
 

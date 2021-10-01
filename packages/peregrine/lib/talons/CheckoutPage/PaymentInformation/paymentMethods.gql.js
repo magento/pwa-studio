@@ -13,8 +13,5 @@ export const GET_PAYMENT_METHODS = gql`
 `;
 
 export default {
-    queries: {
-        getPaymentMethodsQuery: GET_PAYMENT_METHODS
-    },
-    mutations: {}
+    getPaymentMethodsQuery: GET_PAYMENT_METHODS
 };
