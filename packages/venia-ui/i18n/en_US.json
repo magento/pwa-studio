@@ -30,6 +30,8 @@
     "addressCard.defaultText": "Default",
     "addToCartButton.addItemToCart": "ADD TO CART",
     "addToCartButton.itemOutOfStock": "OUT OF STOCK",
+    "addToCartButton.addItemToCartAriaLabel": "Add to cart",
+    "addToCartButton.itemOutOfStockAriaLabel": "Out of stock",
     "addToCartDialog.addToCart": "Add to Cart",
     "app.errorOffline": "You are offline. Some features may be unavailable.",
     "app.errorUnexpected": "Sorry! An unexpected error occurred.",

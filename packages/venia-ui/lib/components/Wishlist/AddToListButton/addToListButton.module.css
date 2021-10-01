@@ -1,11 +1,9 @@
 .root {
-    align-content: center;
     column-gap: 0.5rem;
     display: inline-flex;
-    margin-left: -0.5rem;
-    padding: 0 0.5rem;
-    text-decoration: underline;
-    align-self: center;
+    align-items: center;
+    min-height: 3rem;
+    min-width: 3rem;
 }
 
 .root_selected {

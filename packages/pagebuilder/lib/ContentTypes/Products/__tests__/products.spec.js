@@ -343,6 +343,20 @@ test('render carousel with default props and verify Slick is called correctly', 
                         centerMode: false,
                         infinite: false
                     }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                    }
                 }
             ]
         }),
@@ -445,6 +459,20 @@ test('render carousel with continuous mode and verify Slick is called correctly'
                         infinite: true,
                         centerPadding: '90px'
                     }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                    }
                 }
             ]
         }),
@@ -544,6 +572,20 @@ test('render carousel with infinite loop and verify Slick is called correctly', 
                         centerMode: false,
                         infinite: true
                     }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                    }
                 }
             ]
         }),
@@ -639,6 +681,20 @@ test('render carousel with continuous mode with 5 products and verify Slick is c
                         centerPadding: '90px',
                         infinite: true
                     }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToScroll: 3,
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                    }
                 }
             ]
         }),
@@ -705,6 +761,20 @@ test('render carousel with continuous mode with 1 product and verify Slick is ca
                         slidesToScroll: 2,
                         centerMode: false,
                         infinite: false
+                    }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
                     }
                 }
             ]
