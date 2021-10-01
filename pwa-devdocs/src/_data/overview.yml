@@ -22,7 +22,7 @@ entries:
 
     - label: Commerce integration
       entries:
-        - label: PWA Studio features
+        - label: Commerce features
           url: /technologies/features/
 
         - label: Version compatibility
