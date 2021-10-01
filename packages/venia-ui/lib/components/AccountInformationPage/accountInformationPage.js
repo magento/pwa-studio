@@ -8,7 +8,7 @@ import { Message } from '../Field';
 import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
-import defaultClasses from './accountInformationPage.css';
+import defaultClasses from './accountInformationPage.module.css';
 import AccountInformationPageOperations from './accountInformationPage.gql.js';
 
 const EditModal = React.lazy(() => import('./editModal'));

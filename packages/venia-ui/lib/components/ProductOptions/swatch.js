@@ -14,7 +14,7 @@ import { useStyle } from '../../classify';
 import Icon from '../Icon';
 import { Check as CheckIcon } from 'react-feather';
 
-import defaultClasses from './swatch.css';
+import defaultClasses from './swatch.module.css';
 
 import { useSwatch } from '@magento/peregrine/lib/talons/ProductOptions/useSwatch';
 

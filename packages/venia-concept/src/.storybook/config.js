@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import Adapter from '@magento/venia-ui/lib/components/Adapter';
 import store from '../store';
-import '@magento/venia-ui/lib/index.css';
+import '@magento/venia-ui/lib/index.module.css';
 
 const loadStories = () => {
     // Load all stories from venia-ui

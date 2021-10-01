@@ -4,7 +4,7 @@ import { bool, func, shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 import Mask from '../Mask';
 
-import defaultClasses from './mask.css';
+import defaultClasses from './mask.module.css';
 
 const MiniCartMask = props => {
     const { dismiss, isActive } = props;

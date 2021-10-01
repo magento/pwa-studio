@@ -24,8 +24,21 @@ UPDATE_SCREENSHOTS=${2:-false}
 # remove old cypress results
 rimraf cypress/results/*
 
-# run cypress tests and remove the container once done
-docker run --rm -v $PWD:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=$PR_INSTANCE_URL,screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=$UPDATE_SCREENSHOTS --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true
+# see if its a local instance or a pr instance
+PORT="$(echo $1 | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')"
+
+if [ -z "$PORT" ]
+then
+    # run cypress tests on pr instance of venia
+    echo "Running cypress tests on pr instance of venia"
+    
+    docker run --rm -v $PWD:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl=$PR_INSTANCE_URL,screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=$UPDATE_SCREENSHOTS --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true
+else
+    # run cypress tests on local instance of venia
+    echo "Running cypress tests on local instance of venia"
+
+    docker run --rm --network host -v $PWD:/venia-integration-tests -w /venia-integration-tests --entrypoint=cypress cypress/included:8.3.1 run --browser chrome --config baseUrl="https://host.docker.internal:$PORT",screenshotOnRunFailure=false --config-file cypress.config.json --env updateSnapshots=$UPDATE_SCREENSHOTS --headless --reporter mochawesome --reporter-options reportDir=cypress/results,overwrite=false,html=false,json=true
+fi
 
 # construct new cypress results
 mochawesome-merge cypress/results/*.json -o cypress-test-results.json

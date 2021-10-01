@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 
 import Shimmer from '../Shimmer';
-import defaultClasses from './sortedByContainer.css';
+import defaultClasses from './sortedByContainer.module.css';
 
 const SortedByContainerShimmer = props => {
     const classes = useStyle(defaultClasses, props.classes);

@@ -7,7 +7,7 @@ import Body from './body';
 import Footer from './footer';
 import Header from './header';
 import Mask from './mask';
-import defaultClasses from './miniCart.css';
+import defaultClasses from './miniCart.module.css';
 import { useStyle } from '../../classify';
 
 const LegacyMiniCart = props => {

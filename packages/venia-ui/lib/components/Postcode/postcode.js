@@ -6,7 +6,7 @@ import { usePostcode } from '@magento/peregrine/lib/talons/Postcode/usePostcode'
 import { useStyle } from '../../classify';
 import Field from '../Field';
 import TextInput from '../TextInput';
-import defaultClasses from './postcode.css';
+import defaultClasses from './postcode.module.css';
 
 const Postcode = props => {
     const { classes: propClasses, fieldInput, label, ...inputProps } = props;

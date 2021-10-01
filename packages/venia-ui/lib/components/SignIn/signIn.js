@@ -10,7 +10,7 @@ import Button from '../Button';
 import Field from '../Field';
 import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
-import defaultClasses from './signIn.css';
+import defaultClasses from './signIn.module.css';
 import { GET_CART_DETAILS_QUERY } from './signIn.gql';
 import LinkButton from '../LinkButton';
 import Password from '../Password';

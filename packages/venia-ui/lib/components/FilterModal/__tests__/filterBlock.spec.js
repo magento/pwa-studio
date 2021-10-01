@@ -1,18 +1,24 @@
 import React from 'react';
+import { act } from 'react-test-renderer';
+import { Form } from 'informed';
 
 import { createTestInstance } from '@magento/peregrine';
 
-import FilterList from '../FilterList';
 import FilterBlock from '../filterBlock';
 
+const mockHandleClick = jest.fn();
 let mockIsExpanded;
+
+jest.mock('informed', () => ({
+    Form: ({ children, ...rest }) => <mock-Form {...rest}>{children}</mock-Form>
+}));
 
 jest.mock('../FilterList', () => props => <mock-FilterList {...props} />);
 
 jest.mock('@magento/peregrine/lib/talons/FilterModal', () => ({
     useFilterBlock: jest.fn(() => {
         return {
-            handleClick: jest.fn(),
+            handleClick: mockHandleClick,
             isExpanded: mockIsExpanded
         };
     })
@@ -48,8 +54,7 @@ describe('#FilterBlock', () => {
     it('renders not expanded', () => {
         const { root } = createTestInstance(<Component />);
 
-        expect(() => root.findByType(FilterList)).not.toThrow();
-        expect(root.findByType(FilterList).props.isExpanded).toBe(false);
+        expect(() => root.findByType(Form)).toThrow();
     });
 
     it('renders expanded', () => {
@@ -57,7 +62,16 @@ describe('#FilterBlock', () => {
 
         const { root } = createTestInstance(<Component />);
 
-        expect(() => root.findByType(FilterList)).not.toThrow();
-        expect(root.findByType(FilterList).props.isExpanded).toBe(true);
+        expect(() => root.findByType(Form)).not.toThrow();
+    });
+
+    it('renders not expanded and button is clicked', () => {
+        const { root } = createTestInstance(<Component />);
+
+        act(() => {
+            root.findByType('button').props.onClick();
+        });
+
+        expect(mockHandleClick).toHaveBeenCalled();
     });
 });
