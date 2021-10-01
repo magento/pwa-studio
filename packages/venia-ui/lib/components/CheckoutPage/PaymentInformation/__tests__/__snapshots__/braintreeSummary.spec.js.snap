@@ -18,6 +18,17 @@ exports[`Should not render billing address if it is same as shipping address 1`]
     <button
       className="edit_button"
       disabled={false}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -126,6 +137,17 @@ exports[`Should render billing address if it is not same as shipping address 1`]
     <button
       className="edit_button"
       disabled={false}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -250,6 +272,17 @@ exports[`should render 1`] = `
     <button
       className="edit_button"
       disabled={false}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span

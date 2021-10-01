@@ -31,6 +31,14 @@ jest.mock('@apollo/client', () => ({
     })
 }));
 
+jest.mock('../customerForm.gql', () => ({
+    createCustomerAddressMutation: 'createCustomerAddressMutation',
+    updateCustomerAddressMutation: 'updateCustomerAddressMutation',
+    getCustomerQuery: 'getCustomerQuery',
+    getCustomerAddressesQuery: 'getCustomerAddressesQuery',
+    getDefaultShippingQuery: 'getCustomerAddressesQuery'
+}));
+
 const Component = props => {
     const talonProps = useCustomerForm(props);
     return <i talonProps={talonProps} />;
@@ -50,16 +58,7 @@ const shippingData = {
 
 const mockProps = {
     afterSubmit,
-    mutations: {
-        createCustomerAddressMutation: 'createCustomerAddressMutation',
-        updateCustomerAddressMutation: 'updateCustomerAddressMutation'
-    },
     onCancel,
-    queries: {
-        getCustomerQuery: 'getCustomerQuery',
-        getCustomerAddressesQuery: 'getCustomerAddressesQuery',
-        getDefaultShippingQuery: 'getCustomerAddressesQuery'
-    },
     shippingData,
     onSuccess
 };

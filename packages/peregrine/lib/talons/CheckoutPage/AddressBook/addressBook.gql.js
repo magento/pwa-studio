@@ -28,11 +28,7 @@ export const GET_CUSTOMER_CART_ADDRESS = gql`
 `;
 
 export default {
-    mutations: {
-        setCustomerAddressOnCartMutation: SET_CUSTOMER_ADDRESS_ON_CART
-    },
-    queries: {
-        getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES,
-        getCustomerCartAddressQuery: GET_CUSTOMER_CART_ADDRESS
-    }
+    setCustomerAddressOnCartMutation: SET_CUSTOMER_ADDRESS_ON_CART,
+    getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES,
+    getCustomerCartAddressQuery: GET_CUSTOMER_CART_ADDRESS
 };

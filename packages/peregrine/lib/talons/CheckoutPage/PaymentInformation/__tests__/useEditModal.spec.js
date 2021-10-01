@@ -21,6 +21,10 @@ jest.mock('../../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
 }));
 
+jest.mock('../editModal.gql.js', () => ({
+    getSelectedPaymentMethodQuery: 'getSelectedPaymentMethodQuery'
+}));
+
 const Component = props => {
     const talonProps = useEditModal(props);
 
@@ -43,8 +47,7 @@ const getTalonProps = props => {
 
 test('Should return correct shape', () => {
     const { talonProps } = getTalonProps({
-        onClose: () => {},
-        queries: { getSelectedPaymentMethodQuery: '' }
+        onClose: () => {}
     });
 
     expect(talonProps).toMatchSnapshot();
@@ -54,8 +57,7 @@ test('Should call onClose when handleClose is called', () => {
     const onClose = jest.fn();
 
     const { talonProps } = getTalonProps({
-        onClose,
-        queries: { getSelectedPaymentMethodQuery: '' }
+        onClose
     });
     const { handleClose } = talonProps;
 
@@ -68,8 +70,7 @@ test('Should call onClose when handlePaymentSuccess is called', () => {
     const onClose = jest.fn();
 
     const { talonProps } = getTalonProps({
-        onClose,
-        queries: { getSelectedPaymentMethodQuery: '' }
+        onClose
     });
     const { handlePaymentSuccess } = talonProps;
 
@@ -80,8 +81,7 @@ test('Should call onClose when handlePaymentSuccess is called', () => {
 
 test('Should set updateButtonClicked to true when handleUpdate is called', () => {
     const { talonProps, tree } = getTalonProps({
-        onClose: () => {},
-        queries: { getSelectedPaymentMethodQuery: '' }
+        onClose: () => {}
     });
 
     talonProps.handleUpdate();
@@ -93,8 +93,7 @@ test('Should set updateButtonClicked to true when handleUpdate is called', () =>
 
 test('Should set isLoading to false when handlePaymentReady is called', () => {
     const { talonProps, tree } = getTalonProps({
-        onClose: () => {},
-        queries: { getSelectedPaymentMethodQuery: '' }
+        onClose: () => {}
     });
 
     talonProps.handlePaymentReady();
@@ -104,8 +103,7 @@ test('Should set isLoading to false when handlePaymentReady is called', () => {
 
 test('Should reset updateButtonClicked state when handlePaymentError() is called', () => {
     const { talonProps, tree } = getTalonProps({
-        onClose: () => {},
-        queries: { getSelectedPaymentMethodQuery: '' }
+        onClose: () => {}
     });
 
     talonProps.handleUpdate();
@@ -123,8 +121,7 @@ test('Should reset updateButtonClicked state when handlePaymentError() is called
 
 test('Should reset updateButtonClicked state when resetUpdatedButtonClicked() is called', () => {
     const { talonProps, tree } = getTalonProps({
-        onClose: () => {},
-        queries: { getSelectedPaymentMethodQuery: '' }
+        onClose: () => {}
     });
 
     talonProps.handleUpdate();
@@ -143,8 +140,7 @@ test('Should reset updateButtonClicked state when resetUpdatedButtonClicked() is
 test('Should return null selectedPaymentMethod when fetched data does not return any', () => {
     useQuery.mockReturnValueOnce({});
     const { talonProps } = getTalonProps({
-        onClose: () => {},
-        queries: { getSelectedPaymentMethodQuery: '' }
+        onClose: () => {}
     });
 
     expect(talonProps.selectedPaymentMethod).toBeFalsy();

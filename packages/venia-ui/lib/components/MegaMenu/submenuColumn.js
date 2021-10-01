@@ -63,7 +63,7 @@ const SubmenuColumn = props => {
                 to={categoryUrl}
                 onClick={onNavigate}
             >
-                <h3 className={classes.heading}>{category.name}</h3>
+                <span className={classes.heading}>{category.name}</span>
             </Link>
             {children}
         </div>

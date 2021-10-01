@@ -57,6 +57,17 @@ exports[`disables save if isSaveDisabled is true 1`] = `
       className="root_lowPriority"
       disabled={false}
       onClick={[MockFunction]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="reset"
     >
       <span
@@ -69,6 +80,17 @@ exports[`disables save if isSaveDisabled is true 1`] = `
       className="root_highPriority"
       disabled={true}
       onClick={[MockFunction]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -138,6 +160,17 @@ exports[`renders the correct tree 1`] = `
       className="root_lowPriority"
       disabled={false}
       onClick={[MockFunction]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="reset"
     >
       <span
@@ -150,6 +183,17 @@ exports[`renders the correct tree 1`] = `
       className="root_highPriority"
       disabled={false}
       onClick={[MockFunction]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span

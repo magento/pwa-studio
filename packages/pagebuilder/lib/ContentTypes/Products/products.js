@@ -63,8 +63,9 @@ const Products = props => {
         paddingLeft,
         cssClasses = [],
         slidesToShow = 5,
-        slideToShowSmall = 2,
-        slideToShowSmallCenterMode = 1
+        slidesToShowMedium = 4,
+        slidesToShowSmall = 2,
+        slidesToShowSmallCenterMode = 1
     } = props;
 
     const dynamicStyles = {
@@ -117,9 +118,9 @@ const Products = props => {
             carouselMode === 'continuous' && items.length > slidesToShow;
         const carouselSmallCenterMode =
             carouselMode === 'continuous' &&
-            items.length > slideToShowSmallCenterMode;
+            items.length > slidesToShowSmallCenterMode;
         const carouselSettings = {
-            slidesToShow: slidesToShow,
+            slidesToShow,
             slidesToScroll: slidesToShow,
             draggable,
             autoplay,
@@ -132,17 +133,31 @@ const Products = props => {
                     breakpoint: 640,
                     settings: {
                         slidesToShow: carouselSmallCenterMode
-                            ? slideToShowSmallCenterMode
-                            : slideToShowSmall,
+                            ? slidesToShowSmallCenterMode
+                            : slidesToShowSmall,
                         slidesToScroll: carouselSmallCenterMode
-                            ? slideToShowSmallCenterMode
-                            : slideToShowSmall,
+                            ? slidesToShowSmallCenterMode
+                            : slidesToShowSmall,
                         centerMode: carouselSmallCenterMode,
                         ...(carouselSmallCenterMode && { centerPadding }),
                         ...{
                             infinite:
-                                items.length > slideToShowSmall && infinite
+                                items.length > slidesToShowSmall && infinite
                         }
+                    }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: slidesToShowSmall + 1,
+                        slidesToScroll: slidesToShowSmall + 1
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: slidesToShowMedium,
+                        slidesToScroll: slidesToShowMedium
                     }
                 }
             ],
@@ -217,6 +232,7 @@ const Products = props => {
  * @property {String} paddingLeft CSS padding left property
  * @property {Array} cssClasses List of CSS classes to be applied to the component
  * @property {Number} slidesToShow # of slides to show at a time
+ * @property {Number} slidesToShowMedium # of slides to show at a time on medium sized screens
  * @property {Number} slidesToShowSmall # of slides to show at a time on small screen
  * @property {Number} slidesToShowSmallCenterMode # of slides to show at a time on small screen in centerMode
  */
@@ -254,6 +270,7 @@ Products.propTypes = {
     paddingLeft: string,
     cssClasses: arrayOf(string),
     slidesToShow: number,
+    slidesToShowMedium: number,
     slidesToShowSmall: number,
     slidesToShowSmallCenterMode: number
 };

@@ -40,6 +40,17 @@ exports[`does not render a close X button in modal mode 1`] = `
             <button
               className="root_lowPriority"
               disabled={false}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="reset"
             >
               <span
@@ -54,6 +65,18 @@ exports[`does not render a close X button in modal mode 1`] = `
             <button
               className="root_highPriority"
               disabled={false}
+              onClick={[Function]}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="submit"
             >
               <span
@@ -148,6 +171,17 @@ exports[`renders a Dialog with disabled buttons 1`] = `
             <button
               className="root_lowPriority"
               disabled={true}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="reset"
             >
               <span
@@ -162,6 +196,18 @@ exports[`renders a Dialog with disabled buttons 1`] = `
             <button
               className="root_highPriority"
               disabled={true}
+              onClick={[Function]}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="submit"
             >
               <span
@@ -332,6 +378,17 @@ exports[`renders a basic Dialog 1`] = `
             <button
               className="root_lowPriority"
               disabled={false}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="reset"
             >
               <span
@@ -346,6 +403,18 @@ exports[`renders a basic Dialog 1`] = `
             <button
               className="root_highPriority"
               disabled={false}
+              onClick={[Function]}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="submit"
             >
               <span
@@ -440,6 +509,17 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
             <button
               className="root_lowPriority"
               disabled={false}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="reset"
             >
               <span
@@ -454,6 +534,18 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
             <button
               className="root_highPriority"
               disabled={true}
+              onClick={[Function]}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="submit"
             >
               <span
@@ -552,6 +644,17 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
             <button
               className="root_lowPriority"
               disabled={false}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="reset"
             >
               <span
@@ -566,6 +669,18 @@ exports[`should render children even if dialog is hidden and if shouldUnmountOnH
             <button
               className="root_highPriority"
               disabled={false}
+              onClick={[Function]}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="submit"
             >
               <span
@@ -668,6 +783,17 @@ exports[`supports modifying title and button texts 1`] = `
             <button
               className="root_lowPriority"
               disabled={false}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="reset"
             >
               <span
@@ -682,6 +808,18 @@ exports[`supports modifying title and button texts 1`] = `
             <button
               className="root_highPriority"
               disabled={false}
+              onClick={[Function]}
+              onDragStart={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchCancel={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
               type="submit"
             >
               <span

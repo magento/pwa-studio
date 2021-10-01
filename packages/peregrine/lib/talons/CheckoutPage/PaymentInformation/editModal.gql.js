@@ -12,8 +12,5 @@ export const GET_SELECTED_PAYMENT_METHOD = gql`
 `;
 
 export default {
-    queries: {
-        getSelectedPaymentMethodQuery: GET_SELECTED_PAYMENT_METHOD
-    },
-    mutations: {}
+    getSelectedPaymentMethodQuery: GET_SELECTED_PAYMENT_METHOD
 };

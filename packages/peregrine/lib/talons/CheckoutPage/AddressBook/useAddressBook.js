@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState, useRef, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+import DEFAULT_OPERATIONS from './addressBook.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
@@ -7,12 +9,14 @@ import { useUserContext } from '../../../context/user';
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 
 export const useAddressBook = props => {
+    const { toggleActiveContent, onSuccess } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
-        mutations: { setCustomerAddressOnCartMutation },
-        queries: { getCustomerAddressesQuery, getCustomerCartAddressQuery },
-        toggleActiveContent,
-        onSuccess
-    } = props;
+        setCustomerAddressOnCartMutation,
+        getCustomerAddressesQuery,
+        getCustomerCartAddressQuery
+    } = operations;
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();

@@ -4,14 +4,13 @@ import { bool, func } from 'prop-types';
 
 import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal';
 import Dialog from '../../Dialog';
-import editModalOperations from './editModal.gql';
 import editablePayments from './editablePaymentCollection';
 
 const EditModal = props => {
     const { onClose, isOpen } = props;
     const { formatMessage } = useIntl();
 
-    const talonProps = useEditModal({ onClose, ...editModalOperations });
+    const talonProps = useEditModal({ onClose });
 
     const {
         selectedPaymentMethod,
