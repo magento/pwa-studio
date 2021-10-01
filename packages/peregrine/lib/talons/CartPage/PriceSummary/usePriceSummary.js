@@ -1,8 +1,8 @@
+import { useCallback } from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import { useCallback } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
 import DEFAULT_OPERATIONS from './priceSummary.gql';
 
 /**

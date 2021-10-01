@@ -1,11 +1,13 @@
-import { gql, InMemoryCache } from '@apollo/client';
-import { MockedProvider } from '@apollo/client/testing';
+import React from 'react';
+import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
-import { Form } from 'informed';
-import React from 'react';
-import { act } from 'react-test-renderer';
+import { gql, InMemoryCache } from '@apollo/client';
+
 import waitForExpect from 'wait-for-expect';
+
+import { MockedProvider } from '@apollo/client/testing';
+import { act } from 'react-test-renderer';
 import useGiftOptions from '../useGiftOptions';
 
 const GET_GIFT_OPTIONS = gql`

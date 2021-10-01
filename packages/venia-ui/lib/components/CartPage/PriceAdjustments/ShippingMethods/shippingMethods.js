@@ -1,7 +1,8 @@
-import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
-import { Form } from 'informed';
 import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Form } from 'informed';
+import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
+
 import { useStyle } from '../../../../classify';
 import Button from '../../../Button';
 import ShippingForm from './shippingForm';

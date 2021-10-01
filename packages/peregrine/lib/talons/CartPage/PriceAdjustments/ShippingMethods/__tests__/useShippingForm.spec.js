@@ -1,8 +1,9 @@
-import { useApolloClient, useMutation } from '@apollo/client';
 import React from 'react';
-import { act } from 'react-test-renderer';
+import { useApolloClient, useMutation } from '@apollo/client';
+
 import createTestInstance from '../../../../../util/createTestInstance';
 import { MOCKED_ADDRESS, useShippingForm } from '../useShippingForm';
+import { act } from 'react-test-renderer';
 
 jest.mock('@apollo/client', () => ({
     useApolloClient: jest.fn(),

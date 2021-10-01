@@ -1,10 +1,11 @@
-import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
 import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
+
 import { useStyle } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
-import Product from './product';
 import defaultClasses from './productListing.module.css';
+import Product from './product';
 
 const EditModal = React.lazy(() => import('./EditModal'));
 /**

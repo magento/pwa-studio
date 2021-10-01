@@ -1,8 +1,8 @@
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import { createTestInstance } from '@magento/peregrine';
 import React, { useEffect } from 'react';
-import { act } from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 import { useGiftCards } from '../useGiftCards';
+import { act } from 'react-test-renderer';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 
 /*
  *  Mocked Modules.

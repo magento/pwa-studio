@@ -1,7 +1,8 @@
-import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions.js';
-import { Form, Relevant } from 'informed';
 import React from 'react';
 import { useIntl } from 'react-intl';
+import { Form, Relevant } from 'informed';
+import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions.js';
+
 import { useStyle } from '../../../../classify';
 import Checkbox from '../../../Checkbox';
 import TextArea from '../../../TextArea';

@@ -1,17 +1,18 @@
-import { useToasts } from '@magento/peregrine';
+import React, { useEffect } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { Check } from 'react-feather';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import React, { useEffect } from 'react';
-import { Check } from 'react-feather';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { StoreTitle } from '../Head';
+import { useToasts } from '@magento/peregrine';
+
 import Icon from '../Icon';
+import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
-import defaultClasses from './cartPage.module.css';
 import PriceAdjustments from './PriceAdjustments';
 import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
+import defaultClasses from './cartPage.module.css';
 
 const CheckIcon = <Icon size={20} src={Check} />;
 

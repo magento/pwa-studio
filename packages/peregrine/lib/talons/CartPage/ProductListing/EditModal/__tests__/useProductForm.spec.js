@@ -1,12 +1,12 @@
-import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
 import { act } from 'react-test-renderer';
+import { useMutation, useQuery } from '@apollo/client';
 import createTestInstance from '../../../../../util/createTestInstance';
-import { useProductForm } from '../useProductForm';
 import {
     cartItem,
     configurableItemResponse
 } from '../__fixtures__/configurableProduct';
+import { useProductForm } from '../useProductForm';
 
 jest.mock('@apollo/client', () => ({
     useMutation: jest

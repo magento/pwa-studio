@@ -1,7 +1,7 @@
+import { useCallback, useEffect, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import { useCallback, useEffect, useMemo } from 'react';
 import DEFAULT_OPERATIONS from './couponCode.gql';
 
 /**

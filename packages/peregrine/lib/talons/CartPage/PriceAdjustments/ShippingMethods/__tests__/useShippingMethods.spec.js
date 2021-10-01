@@ -1,8 +1,8 @@
-import { useQuery } from '@apollo/client';
 import React from 'react';
-import { act } from 'react-test-renderer';
+import { useQuery } from '@apollo/client';
 import createTestInstance from '../../../../../util/createTestInstance';
 import { useShippingMethods } from '../useShippingMethods';
+import { act } from 'react-test-renderer';
 
 jest.mock('@apollo/client', () => ({
     useQuery: jest.fn().mockReturnValue({

@@ -1,10 +1,10 @@
-import { useQuery } from '@apollo/client';
-import { createTestInstance } from '@magento/peregrine';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { act } from 'react-test-renderer';
+import { useQuery } from '@apollo/client';
 import { usePriceSummary } from '../usePriceSummary';
+import { useHistory } from 'react-router-dom';
+import { createTestInstance } from '@magento/peregrine';
 import { priceSummaryResponse } from '../__fixtures__/priceSummary';
+import { act } from 'react-test-renderer';
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {

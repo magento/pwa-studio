@@ -1,12 +1,12 @@
-import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
-import Price from '@magento/venia-ui/lib/components/Price';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useStyle } from '../../../classify';
+import Price from '@magento/venia-ui/lib/components/Price';
+import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
+import { useStyle } from '../../../classify';
+import defaultClasses from './priceSummary.module.css';
 import DiscountSummary from './discountSummary';
 import GiftCardSummary from './giftCardSummary';
-import defaultClasses from './priceSummary.module.css';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
 

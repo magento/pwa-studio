@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+
 import { CartPageFragment } from '../cartPageFragments.gql';
 import { GiftCardFragment } from './giftCardFragments.gql';
 

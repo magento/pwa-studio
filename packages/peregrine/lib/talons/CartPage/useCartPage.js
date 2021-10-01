@@ -1,7 +1,8 @@
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
+
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import { useCallback, useEffect, useMemo, useState } from 'react';
 import DEFAULT_OPERATIONS from './cartPage.gql';
 
 /**

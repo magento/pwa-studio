@@ -1,6 +1,6 @@
+import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
-import React from 'react';
 import { IntlProvider } from 'react-intl';
 import GiftCards from '../giftCards';
 

@@ -1,7 +1,7 @@
+import { useCallback, useRef, useState } from 'react';
 import { useApolloClient, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
-import { useCallback, useRef, useState } from 'react';
 import DEFAULT_OPERATIONS from './giftOptions.gql';
 
 /**

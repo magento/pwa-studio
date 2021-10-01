@@ -1,14 +1,15 @@
-import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
 import React, { Fragment } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
+
 import { useStyle } from '../../../../classify';
-import Dialog from '../../../Dialog';
 import FormError from '../../../FormError';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
-import ProductDetail from './productDetail';
 import defaultClasses from './productForm.module.css';
+import Dialog from '../../../Dialog';
+import ProductDetail from './productDetail';
 
 const ProductForm = props => {
     const {

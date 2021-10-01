@@ -1,7 +1,8 @@
-import { useLazyQuery } from '@apollo/client';
-import { createTestInstance } from '@magento/peregrine';
 import React, { useEffect, useState } from 'react';
 import { act } from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
+import { useLazyQuery } from '@apollo/client';
+
 import { useCartPage } from '../useCartPage';
 
 jest.mock('react', () => {
