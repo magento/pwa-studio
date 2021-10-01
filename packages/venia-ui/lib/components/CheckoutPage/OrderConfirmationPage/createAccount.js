@@ -119,10 +119,7 @@ const CreateAccount = props => {
                     <TextInput
                         field="customer.email"
                         autoComplete="email"
-                        validate={combine([
-                            isRequired,
-                            isValidateEmail
-                        ])}
+                        validate={combine([isRequired, isValidateEmail])}
                         validateOnBlur
                     />
                 </Field>

@@ -5,7 +5,7 @@ import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { useCustomerForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm';
 
 import { useStyle } from '../../../../classify';
-import {isRequired, isValidateEmail} from '../../../../util/formValidators';
+import { isRequired, isValidateEmail } from '../../../../util/formValidators';
 import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
 import Country from '../../../Country';
@@ -17,7 +17,7 @@ import TextInput from '../../../TextInput';
 import defaultClasses from './customerForm.css';
 import CustomerFormOperations from './customerForm.gql';
 import LoadingIndicator from '../../../LoadingIndicator';
-import combine from "../../../../util/combineValidators";
+import combine from '../../../../util/combineValidators';
 
 const CustomerForm = props => {
     const {
@@ -72,10 +72,7 @@ const CustomerForm = props => {
                     disabled={true}
                     field="email"
                     id="email"
-                    validate={combine([
-                        isRequired,
-                        isValidateEmail
-                    ])}
+                    validate={combine([isRequired, isValidateEmail])}
                 />
             </Field>
         </div>

@@ -106,10 +106,7 @@ const EditForm = props => {
                     >
                         <TextInput
                             field="email"
-                            validate={combine([
-                                isRequired,
-                                isValidateEmail
-                            ])}
+                            validate={combine([isRequired, isValidateEmail])}
                         />
                     </Field>
                 </div>

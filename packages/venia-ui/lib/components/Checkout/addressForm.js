@@ -57,10 +57,7 @@ const AddressForm = props => {
                 <TextInput
                     id={classes.email}
                     field="email"
-                    validate={combine([
-                        isRequired,
-                        isValidateEmail
-                    ])}
+                    validate={combine([isRequired, isValidateEmail])}
                 />
             </Field>
         </div>
