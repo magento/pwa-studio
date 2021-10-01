@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { CheckoutPageFragment } from '../CheckoutPage/checkoutPageFragments.gql';
 
 export const GET_CUSTOMER = gql`
     query GetCustomerAfterSignIn {
@@ -39,8 +40,10 @@ export const MERGE_CARTS = gql`
             items {
                 id
             }
+            ...CheckoutPageFragment
         }
     }
+    ${CheckoutPageFragment}
 `;
 
 export default {

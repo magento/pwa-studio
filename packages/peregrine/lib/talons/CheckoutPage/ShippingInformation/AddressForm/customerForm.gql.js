@@ -47,13 +47,9 @@ export const GET_CUSTOMER_QUERY = gql`
 `;
 
 export default {
-    mutations: {
-        createCustomerAddressMutation: CREATE_CUSTOMER_ADDRESS_MUTATION,
-        updateCustomerAddressMutation: UPDATE_CUSTOMER_ADDRESS_MUTATION
-    },
-    queries: {
-        getCustomerQuery: GET_CUSTOMER_QUERY,
-        getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES,
-        getDefaultShippingQuery: GET_DEFAULT_SHIPPING
-    }
+    createCustomerAddressMutation: CREATE_CUSTOMER_ADDRESS_MUTATION,
+    updateCustomerAddressMutation: UPDATE_CUSTOMER_ADDRESS_MUTATION,
+    getCustomerQuery: GET_CUSTOMER_QUERY,
+    getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES,
+    getDefaultShippingQuery: GET_DEFAULT_SHIPPING
 };

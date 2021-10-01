@@ -69,6 +69,12 @@ jest.mock('@apollo/client', () => ({
     ])
 }));
 
+jest.mock('../addressBook.gql', () => ({
+    setCustomerAddressOnCartMutation: 'setCustomerAddressOnCartMutation',
+    getCustomerAddressesQuery: 'getCustomerAddressesQuery',
+    getCustomerCartAddressQuery: 'getCustomerCartAddressQuery'
+}));
+
 jest.mock('../../../../context/app', () => {
     const state = {};
     const api = {
@@ -108,11 +114,6 @@ const toggleActiveContent = jest.fn();
 const onSuccess = jest.fn();
 
 const mockProps = {
-    mutations: {},
-    queries: {
-        getCustomerAddressesQuery: 'getCustomerAddressesQuery',
-        getCustomerCartAddressQuery: 'getCustomerCartAddressQuery'
-    },
     toggleActiveContent,
     onSuccess
 };

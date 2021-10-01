@@ -31,6 +31,18 @@ exports[`renders a shipping form 1`] = `
   <div>
     <button
       disabled={false}
+      onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="submit"
     >
       <span>
@@ -40,6 +52,17 @@ exports[`renders a shipping form 1`] = `
     <button
       disabled={false}
       onClick={[MockFunction]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span>
@@ -74,6 +97,18 @@ exports[`renders no initial value and no shipping methods if no availableShippin
   <div>
     <button
       disabled={false}
+      onClick={[Function]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="submit"
     >
       <span>
@@ -83,6 +118,17 @@ exports[`renders no initial value and no shipping methods if no availableShippin
     <button
       disabled={false}
       onClick={[MockFunction]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span>

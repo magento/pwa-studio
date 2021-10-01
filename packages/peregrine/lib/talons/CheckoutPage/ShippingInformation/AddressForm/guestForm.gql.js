@@ -40,8 +40,5 @@ export const SET_GUEST_SHIPPING_MUTATION = gql`
 `;
 
 export default {
-    mutations: {
-        setGuestShippingMutation: SET_GUEST_SHIPPING_MUTATION
-    },
-    queries: {}
+    setGuestShippingMutation: SET_GUEST_SHIPPING_MUTATION
 };

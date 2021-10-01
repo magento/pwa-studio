@@ -9,6 +9,7 @@
     font-weight: 600;
     line-height: 1.5;
     margin-bottom: 1.5rem;
+    display: block;
 }
 
 .selection {
