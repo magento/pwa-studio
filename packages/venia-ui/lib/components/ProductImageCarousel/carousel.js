@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
+import { useIntl } from 'react-intl';
 import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon
@@ -9,6 +10,7 @@ import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductImageCarousel/useProductImageCarousel';
 
 import { useStyle } from '../../classify';
+import AriaButton from '../AriaButton';
 import Icon from '../Icon';
 import Image from '../Image';
 import defaultClasses from './carousel.module.css';
@@ -31,7 +33,7 @@ const IMAGE_WIDTH = 640;
  */
 const ProductImageCarousel = props => {
     const { images } = props;
-
+    const { formatMessage } = useIntl();
     const talonProps = useProductImageCarousel({
         images,
         imageWidth: IMAGE_WIDTH
@@ -90,13 +92,24 @@ const ProductImageCarousel = props => {
         );
     }
 
+    const previousButton = formatMessage({
+        id: 'productImageCarousel.previousButtonAriaLabel',
+        defaultMessage: 'Previous Image'
+    });
+
+    const nextButton = formatMessage({
+        id: 'productImageCarousel.nextButtonAriaLabel',
+        defaultMessage: 'Next Image'
+    });
+
     const chevronClasses = { root: classes.chevron };
     return (
         <div className={classes.root}>
             <div className={classes.carouselContainer}>
-                <button
+                <AriaButton
                     className={classes.previousButton}
-                    onClick={handlePrevious}
+                    onPress={handlePrevious}
+                    aria-label={previousButton}
                     type="button"
                 >
                     <Icon
@@ -104,11 +117,12 @@ const ProductImageCarousel = props => {
                         src={ChevronLeftIcon}
                         size={40}
                     />
-                </button>
+                </AriaButton>
                 {image}
-                <button
+                <AriaButton
                     className={classes.nextButton}
-                    onClick={handleNext}
+                    onPress={handleNext}
+                    aria-label={nextButton}
                     type="button"
                 >
                     <Icon
@@ -116,7 +130,7 @@ const ProductImageCarousel = props => {
                         src={ChevronRightIcon}
                         size={40}
                     />
-                </button>
+                </AriaButton>
             </div>
             <div className={classes.thumbnailList}>{thumbnails}</div>
         </div>
