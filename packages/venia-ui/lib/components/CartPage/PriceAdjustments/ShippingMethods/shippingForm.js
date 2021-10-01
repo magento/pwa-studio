@@ -8,7 +8,7 @@ import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdj
 import { useStyle } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
-import { ShippingInformationFragment } from '../../../CheckoutPage/ShippingInformation/shippingInformationFragments.gql';
+import { ShippingInformationFragment } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/shippingInformationFragments.gql';
 import Country from '../../../Country';
 import FormError from '../../../FormError';
 import Region from '../../../Region';

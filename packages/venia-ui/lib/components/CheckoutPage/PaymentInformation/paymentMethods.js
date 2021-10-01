@@ -7,7 +7,6 @@ import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/Pa
 import { useStyle } from '../../../classify';
 import RadioGroup from '@magento/venia-ui/lib/components/RadioGroup';
 import Radio from '@magento/venia-ui/lib/components/RadioGroup/radio';
-import paymentMethodOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.module.css';
 import payments from './paymentMethodCollection';
 
@@ -24,9 +23,7 @@ const PaymentMethods = props => {
 
     const classes = useStyle(defaultClasses, propClasses);
 
-    const talonProps = usePaymentMethods({
-        ...paymentMethodOperations
-    });
+    const talonProps = usePaymentMethods({});
 
     const {
         availablePaymentMethods,

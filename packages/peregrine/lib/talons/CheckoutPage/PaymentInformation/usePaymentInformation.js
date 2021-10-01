@@ -1,5 +1,7 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useQuery, useApolloClient, useMutation } from '@apollo/client';
+import DEFAULT_OPERATIONS from './paymentInformation.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '../../../context/cart';
 import CheckoutError from '../CheckoutError';
@@ -9,31 +11,31 @@ import { CHECKOUT_STEP } from '../useCheckoutPage';
  *
  * @param {Function} props.onSave callback to be called when user clicks review order button
  * @param {Object} props.checkoutError an instance of the `CheckoutError` error that has been generated using the error from the place order mutation
- * @param {DocumentNode} props.queries.getPaymentNonceQuery query to fetch and/or clear payment nonce from cache
  * @param {Boolean} props.shouldSubmit property telling us to proceed to next step
  * @param {Function} props.resetShouldSubmit callback to reset the review order button flag
- * @param {DocumentNode} props.queries.getPaymentInformation query to fetch data to render this component
- * @param {DocumentNode} props.mutation.setBillingAddressMutation
- * @param {DocumentNode} props.mutation.setFreePaymentMethodMutation
+ * @param {DocumentNode} props.operations.getPaymentNonceQuery query to fetch and/or clear payment nonce from cache
+ * @param {DocumentNode} props.operations.getPaymentInformationQuery query to fetch data to render this component
+ * @param {DocumentNode} props.operations.setBillingAddressMutation mutation to set billing address on Cart
+ * @param {DocumentNode} props.operations.setFreePaymentMethodMutation mutation to set free payment method on Cart
  *
  * @returns {PaymentInformationTalonProps}
  */
 export const usePaymentInformation = props => {
     const {
-        mutations,
         onSave,
         checkoutError,
-        queries,
         resetShouldSubmit,
         setCheckoutStep,
         shouldSubmit
     } = props;
-    const {
-        setFreePaymentMethodMutation,
-        setBillingAddressMutation
-    } = mutations;
-    const { getPaymentInformation, getPaymentNonceQuery } = queries;
 
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const {
+        getPaymentInformationQuery,
+        getPaymentNonceQuery,
+        setBillingAddressMutation,
+        setFreePaymentMethodMutation
+    } = operations;
     /**
      * Definitions
      */
@@ -73,7 +75,7 @@ export const usePaymentInformation = props => {
     const {
         data: paymentInformationData,
         loading: paymentInformationLoading
-    } = useQuery(getPaymentInformation, {
+    } = useQuery(getPaymentInformationQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !cartId,
