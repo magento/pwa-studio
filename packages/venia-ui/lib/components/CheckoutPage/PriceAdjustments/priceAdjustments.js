@@ -8,7 +8,7 @@ import CouponCode from '../../CartPage/PriceAdjustments/CouponCode';
 import GiftCardSection from '../../CartPage/PriceAdjustments/giftCardSection';
 import GiftOptions from '../../CartPage/PriceAdjustments/GiftOptions';
 
-import defaultClasses from './priceAdjustments.css';
+import defaultClasses from './priceAdjustments.module.css';
 
 /**
  * PriceAdjustments component for the Checkout page.

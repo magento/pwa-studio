@@ -14,7 +14,7 @@ import { useStyle } from '../../classify';
 import getOptionType from './getOptionType';
 import SwatchList from './swatchList';
 import TileList from './tileList';
-import defaultClasses from './option.css';
+import defaultClasses from './option.module.css';
 import { useOption } from '@magento/peregrine/lib/talons/ProductOptions/useOption';
 
 const getItemKey = ({ value_index }) => value_index;
@@ -60,9 +60,7 @@ const Option = props => {
 
     return (
         <div className={classes.root}>
-            <h3 className={classes.title}>
-                <span>{label}</span>
-            </h3>
+            <span className={classes.title}>{label}</span>
             <ValueList
                 getItemKey={getItemKey}
                 selectedValue={initialSelection}

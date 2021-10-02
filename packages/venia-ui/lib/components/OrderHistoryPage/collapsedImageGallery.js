@@ -4,7 +4,7 @@ import { arrayOf, object, shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 import Image from '../Image';
 
-import defaultClasses from './collapsedImageGallery.css';
+import defaultClasses from './collapsedImageGallery.module.css';
 
 const DISPLAY_COUNT = 4;
 

@@ -4,13 +4,11 @@ exports[`renders Option component correctly 1`] = `
 <div
   className="root"
 >
-  <h3
+  <span
     className="title"
   >
-    <span>
-      Foo
-    </span>
-  </h3>
+    Foo
+  </span>
   <i />
   <dl
     className="selection"

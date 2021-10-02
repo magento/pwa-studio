@@ -9,8 +9,7 @@ import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
 import AddressForm from './AddressForm';
 import Card from './card';
-import defaultClasses from './shippingInformation.css';
-import ShippingInformationOperations from './shippingInformation.gql';
+import defaultClasses from './shippingInformation.module.css';
 import LinkButton from '../../LinkButton';
 
 const EditModal = React.lazy(() => import('./editModal'));
@@ -24,8 +23,7 @@ const ShippingInformation = props => {
     } = props;
     const talonProps = useShippingInformation({
         onSave,
-        toggleActiveContent,
-        ...ShippingInformationOperations
+        toggleActiveContent
     });
     const {
         doneEditing,

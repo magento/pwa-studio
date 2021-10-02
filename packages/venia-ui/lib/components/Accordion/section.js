@@ -5,7 +5,7 @@ import { useAccordionContext } from './accordion';
 import Icon from '../Icon';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './section.css';
+import defaultClasses from './section.module.css';
 
 const Section = props => {
     const { children, id, title } = props;

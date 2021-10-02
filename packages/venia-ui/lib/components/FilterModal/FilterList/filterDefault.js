@@ -4,16 +4,10 @@ import { bool, shape, string } from 'prop-types';
 
 import Checkbox from '../../Checkbox';
 import { useStyle } from '../../../classify';
-import defaultClasses from './filterDefault.css';
+import defaultClasses from './filterDefault.module.css';
 
 const FilterDefault = props => {
-    const {
-        classes: propsClasses,
-        isSelected,
-        item,
-        isExpanded,
-        ...restProps
-    } = props;
+    const { classes: propsClasses, isSelected, item, ...restProps } = props;
 
     const { label, value_index } = item || {};
     const classes = useStyle(defaultClasses, propsClasses);
@@ -44,7 +38,6 @@ const FilterDefault = props => {
             classes={classes}
             field={`${label}-${value_index}`}
             fieldValue={!!isSelected}
-            disabled={!isExpanded}
             label={label}
             ariaLabel={ariaLabel}
             {...restProps}

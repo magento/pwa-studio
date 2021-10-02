@@ -1,17 +1,19 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef } from 'react';
 import { element, func, shape, string } from 'prop-types';
 import { Heart } from 'react-feather';
 import { useAddToListButton } from '@magento/peregrine/lib/talons/Wishlist/AddToListButton/useAddToListButton';
+import { useButton } from 'react-aria';
 
 import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
 import WishlistDialog from '../WishlistDialog';
-import defaultClasses from './addToListButton.css';
+import defaultClasses from './addToListButton.module.css';
 import { useCommonToasts } from './useCommonToasts';
 
 const HeartIcon = <Icon size={20} src={Heart} />;
 
 const AddToListButton = props => {
+    const buttonRef = useRef();
     const talonProps = useAddToListButton(props);
     const {
         buttonProps,
@@ -24,6 +26,7 @@ const AddToListButton = props => {
     } = talonProps;
 
     useCommonToasts({ errorToastProps, loginToastProps, successToastProps });
+    const { buttonProps: buttonAriaProps } = useButton(buttonProps, buttonRef);
 
     const multipleWishlistDialog = modalProps ? (
         <WishlistDialog {...modalProps} />
@@ -34,7 +37,11 @@ const AddToListButton = props => {
 
     return (
         <Fragment>
-            <button className={buttonClass} {...buttonProps}>
+            <button
+                ref={buttonRef}
+                className={buttonClass}
+                {...buttonAriaProps}
+            >
                 {props.icon} {buttonText}
             </button>
             {multipleWishlistDialog}

@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultClasses from './columnGroup.css';
+import defaultClasses from './columnGroup.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { shape, string } from 'prop-types';
 

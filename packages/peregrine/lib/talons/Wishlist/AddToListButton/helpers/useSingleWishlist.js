@@ -132,8 +132,8 @@ export const useSingleWishlist = props => {
                 id: 'wishlistButton.addText',
                 defaultMessage: 'Add to Favorites'
             }),
-            disabled: isSelected,
-            onClick: handleClick,
+            isDisabled: isSelected,
+            onPress: handleClick,
             type: 'button'
         }),
         [formatMessage, handleClick, isSelected]

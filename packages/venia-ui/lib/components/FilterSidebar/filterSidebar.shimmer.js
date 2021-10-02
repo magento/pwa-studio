@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 
 import Shimmer from '../Shimmer';
-import defaultClasses from './filterSidebar.css';
+import defaultClasses from './filterSidebar.module.css';
 
 const FilterSidebar = props => {
     const classes = useStyle(defaultClasses, props.classes);

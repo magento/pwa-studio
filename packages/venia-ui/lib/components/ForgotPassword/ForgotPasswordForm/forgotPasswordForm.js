@@ -8,7 +8,7 @@ import { isRequired, isValidateEmail } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import TextInput from '../../TextInput';
-import defaultClasses from './forgotPasswordForm.css';
+import defaultClasses from './forgotPasswordForm.module.css';
 import combine from '../../../util/combineValidators';
 
 const ForgotPasswordForm = props => {

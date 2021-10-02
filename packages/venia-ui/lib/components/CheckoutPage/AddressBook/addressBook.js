@@ -7,8 +7,7 @@ import { useAddressBook } from '@magento/peregrine/lib/talons/CheckoutPage/Addre
 
 import { useStyle } from '../../../classify';
 import Button from '../../Button';
-import defaultClasses from './addressBook.css';
-import AddressBookOperations from './addressBook.gql';
+import defaultClasses from './addressBook.module.css';
 import AddressCard from './addressCard';
 import Icon from '../../Icon';
 import LinkButton from '../../LinkButton';
@@ -33,7 +32,6 @@ const AddressBook = props => {
     } = props;
 
     const talonProps = useAddressBook({
-        ...AddressBookOperations,
         toggleActiveContent,
         onSuccess
     });

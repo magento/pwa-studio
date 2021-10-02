@@ -3,7 +3,7 @@ import { arrayOf, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
 
-import defaultClasses from './productOptions.css';
+import defaultClasses from './productOptions.module.css';
 
 const ProductOptions = props => {
     const { options = [] } = props;

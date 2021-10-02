@@ -14,7 +14,7 @@ import {
 import Button from '../Button';
 import Field from '../Field';
 import TextInput from '../TextInput';
-import defaultClasses from './addressForm.css';
+import defaultClasses from './addressForm.module.css';
 import { gql } from '@apollo/client';
 
 const fields = [

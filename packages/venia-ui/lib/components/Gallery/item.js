@@ -11,7 +11,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useStyle } from '../../classify';
 import Image from '../Image';
 import GalleryItemShimmer from './item.shimmer';
-import defaultClasses from './item.css';
+import defaultClasses from './item.module.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 import AddToCartbutton from '../Gallery/addToCartButton';
@@ -133,9 +133,9 @@ GalleryItem.propTypes = {
         url_key: string.isRequired,
         url_suffix: string,
         sku: string.isRequired,
-        price: shape({
-            regularPrice: shape({
-                amount: shape({
+        price_range: shape({
+            maximum_price: shape({
+                regular_price: shape({
                     value: number.isRequired,
                     currency: string.isRequired
                 }).isRequired

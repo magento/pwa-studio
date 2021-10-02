@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import classes from './subTypeAttribute.css';
+import classes from './subTypeAttribute.module.css';
 import operations from './subTypeAttribute.gql';
 import { useQuery } from '@apollo/client';
 

@@ -7,7 +7,7 @@ import { useStyle } from '../../../classify';
 import { Accordion, Section } from '../../Accordion';
 import GiftCardSection from './giftCardSection';
 
-import defaultClasses from './priceAdjustments.css';
+import defaultClasses from './priceAdjustments.module.css';
 
 const CouponCode = React.lazy(() => import('./CouponCode'));
 const GiftOptions = React.lazy(() => import('./GiftOptions'));
@@ -21,7 +21,7 @@ const ShippingMethods = React.lazy(() => import('./ShippingMethods'));
  * @param {Object} props
  * @param {Function} props.setIsCartUpdating A callback function for setting the updating state of the cart.
  * @param {Object} props.classes CSS className overrides.
- * See [priceAdjustments.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/priceAdjustments.css}
+ * See [priceAdjustments.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/priceAdjustments.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}

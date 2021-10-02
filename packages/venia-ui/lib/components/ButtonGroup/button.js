@@ -2,7 +2,7 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './button.css';
+import defaultClasses from './button.module.css';
 
 const Button = props => {
     const { children, classes: propClasses, ...rest } = props;

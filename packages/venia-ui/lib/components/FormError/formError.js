@@ -6,7 +6,7 @@ import { useScrollIntoView } from '@magento/peregrine/lib/hooks/useScrollIntoVie
 
 import { useStyle } from '../../classify';
 import ErrorMessage from '../ErrorMessage';
-import defaultClasses from './formError.css';
+import defaultClasses from './formError.module.css';
 
 const FormError = props => {
     const { classes: propClasses, errors, scrollOnError } = props;

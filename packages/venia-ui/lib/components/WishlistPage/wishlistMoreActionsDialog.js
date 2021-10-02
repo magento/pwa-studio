@@ -6,7 +6,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useStyle } from '../../classify';
 import Dialog from '../Dialog';
 import Icon from '../Icon';
-import defaultClasses from './wishlistMoreActionsDialog.css';
+import defaultClasses from './wishlistMoreActionsDialog.module.css';
 
 const WishlistMoreActionsDialog = props => {
     const { isOpen, onCancel, onRemove } = props;

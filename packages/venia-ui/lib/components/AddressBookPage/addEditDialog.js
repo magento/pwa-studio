@@ -13,7 +13,7 @@ import FormError from '@magento/venia-ui/lib/components/FormError';
 import Postcode from '@magento/venia-ui/lib/components/Postcode';
 import Region from '@magento/venia-ui/lib/components/Region';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
-import defaultClasses from './addEditDialog.css';
+import defaultClasses from './addEditDialog.module.css';
 
 const AddEditDialog = props => {
     const {

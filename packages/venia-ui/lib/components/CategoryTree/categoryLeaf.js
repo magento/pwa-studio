@@ -6,7 +6,7 @@ import { useCategoryLeaf } from '@magento/peregrine/lib/talons/CategoryTree';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './categoryLeaf.css';
+import defaultClasses from './categoryLeaf.module.css';
 
 const Leaf = props => {
     const { category, onNavigate, categoryUrlSuffix } = props;

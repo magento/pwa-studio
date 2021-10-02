@@ -1,0 +1,16 @@
+.root {
+    color: rgb(var(--venia-global-color-gray-700));
+    text-align: center;
+    font-size: var(--venia-global-fontSize-100);
+    padding-bottom: 1rem;
+}
+
+.sortText {
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+@media (min-width: 1024px) {
+    .root {
+        display: none;
+    }
+}
