@@ -10,7 +10,7 @@ import { useStyle } from '../../../classify';
 import {
     hasLengthAtLeast,
     isRequired,
-    isValidateEmail,
+    isValidEmail,
     validatePassword
 } from '../../../util/formValidators';
 
@@ -119,7 +119,7 @@ const CreateAccount = props => {
                     <TextInput
                         field="customer.email"
                         autoComplete="email"
-                        validate={combine([isRequired, isValidateEmail])}
+                        validate={combine([isRequired, isValidEmail])}
                         validateOnBlur
                     />
                 </Field>

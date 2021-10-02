@@ -160,9 +160,9 @@ export const isNotEqualToField = (value, values, fieldKey) => {
     return value !== values[fieldKey] ? SUCCESS : message;
 };
 
-export const isValidateEmail = value => {
+export const isValidEmail = value => {
     const FAILURE = {
-        id: 'validation.isValidateEmail',
+        id: 'validation.isValidEmail',
         defaultMessage:
             'Please enter a valid email address (Ex: johndoe@domain.com).'
     };

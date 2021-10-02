@@ -8,7 +8,7 @@ import combine from '../../util/combineValidators';
 import {
     hasLengthExactly,
     isRequired,
-    isValidateEmail,
+    isValidEmail,
     validateRegionCode
 } from '../../util/formValidators';
 import Button from '../Button';
@@ -57,7 +57,7 @@ const AddressForm = props => {
                 <TextInput
                     id={classes.email}
                     field="email"
-                    validate={combine([isRequired, isValidateEmail])}
+                    validate={combine([isRequired, isValidEmail])}
                 />
             </Field>
         </div>

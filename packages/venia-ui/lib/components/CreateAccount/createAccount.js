@@ -9,7 +9,7 @@ import combine from '../../util/combineValidators';
 import {
     hasLengthAtLeast,
     isRequired,
-    isValidateEmail,
+    isValidEmail,
     validatePassword
 } from '../../util/formValidators';
 import Button from '../Button';
@@ -118,7 +118,7 @@ const CreateAccount = props => {
                 <TextInput
                     field="customer.email"
                     autoComplete="email"
-                    validate={combine([isRequired, isValidateEmail])}
+                    validate={combine([isRequired, isValidEmail])}
                     validateOnBlur
                     mask={value => value && value.trim()}
                     maskOnBlur={true}

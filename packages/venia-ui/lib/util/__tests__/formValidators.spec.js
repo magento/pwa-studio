@@ -245,3 +245,19 @@ describe('isNotEqualToField', () => {
         expect(typeof result).toBe('object');
     });
 });
+
+describe('isValidEmail', () => {
+    test('it returns undefined on success', () => {
+        const email = 'test@test.com';
+        const result = validators.isValidEmail(email);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('it returns an object on failure', () => {
+        const email = 'test@test';
+        const result = validators.isValidEmail(email);
+
+        expect(typeof result).toBe('object');
+    });
+});

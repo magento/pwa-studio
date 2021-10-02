@@ -7,7 +7,7 @@ import { useToasts } from '@magento/peregrine';
 import { useResetPassword } from '@magento/peregrine/lib/talons/MyAccount/useResetPassword';
 
 import { useStyle } from '../../../classify';
-import { isRequired, isValidateEmail } from '../../../util/formValidators';
+import { isRequired, isValidEmail } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import FormErrors from '../../FormError';
@@ -85,7 +85,7 @@ const ResetPassword = props => {
             <Field label={'Email address'}>
                 <TextInput
                     field={'email'}
-                    validate={combine([isRequired, isValidateEmail])}
+                    validate={combine([isRequired, isValidEmail])}
                 />
             </Field>
             <Password

@@ -4,7 +4,7 @@ import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import { useStyle } from '../../../classify';
-import { isRequired, isValidateEmail } from '../../../util/formValidators';
+import { isRequired, isValidEmail } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import TextInput from '../../TextInput';
@@ -32,7 +32,7 @@ const ForgotPasswordForm = props => {
                 <TextInput
                     autoComplete="email"
                     field="email"
-                    validate={combine([isRequired, isValidateEmail])}
+                    validate={combine([isRequired, isValidEmail])}
                 />
             </Field>
             <div className={classes.buttonContainer}>
