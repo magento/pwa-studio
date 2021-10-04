@@ -1,13 +1,11 @@
 .root {
+    composes: w-full from global;
+    composes: top-0 from global;
+    composes: grid from global;
+    composes: sticky from global;
+    composes: justify-items-center from global;
     background-color: rgb(var(--venia-global-color-gray-50));
     box-shadow: 0 2px rgb(var(--venia-global-color-gray-100));
-    display: grid;
-    grid-auto-columns: 100%;
-    justify-items: center;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    width: 100%;
     z-index: 10;
     --header-height: 5rem;
 }
@@ -37,6 +35,10 @@
     min-height: var(--venia-global-header-minHeight);
     padding: 0 0.5rem;
     width: 100%;
+}
+
+.logo {
+    composes: h-full from global;
 }
 
 @media (min-width: 641px) {
