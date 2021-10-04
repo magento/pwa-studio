@@ -17,7 +17,7 @@ jest.mock('../helpers/useSingleWishlist', () => ({
     useSingleWishlist: jest.fn().mockReturnValue({
         buttonProps: {
             singleButtonProp: 'singleButtonValue',
-            onClick: jest.fn().mockName('useSingleWishlist.onClick')
+            onPress: jest.fn().mockName('useSingleWishlist.onPress')
         },
         customerWishlistProducts: [],
         singleWishlistProp: 'singleWishlistValue',
@@ -52,7 +52,7 @@ test('returns single wishlist props when multiple wishlists is disabled', () => 
     expect(result.current).toMatchInlineSnapshot(`
         Object {
           "buttonProps": Object {
-            "onClick": [MockFunction useSingleWishlist.onClick],
+            "onPress": [MockFunction useSingleWishlist.onPress],
             "singleButtonProp": "singleButtonValue",
           },
           "customerWishlistProducts": Array [],
@@ -71,7 +71,8 @@ test('returns multiple wishlist props when enabled', () => {
     expect(result.current).toMatchInlineSnapshot(`
         Object {
           "buttonProps": Object {
-            "onClick": [Function],
+            "aria-haspopup": "dialog",
+            "onPress": [Function],
             "singleButtonProp": "singleButtonValue",
           },
           "customerWishlistProducts": Array [],
@@ -91,13 +92,13 @@ test('returns multiple wishlist props when enabled', () => {
     `);
 });
 
-test('onClick handler opens modal', () => {
+test('onPress handler opens modal', () => {
     const { result } = renderHook(useAddToListButton, { initialProps });
 
     expect(result.current.modalProps.isOpen).toBe(false);
 
     act(() => {
-        result.current.buttonProps.onClick();
+        result.current.buttonProps.onPress();
     });
 
     expect(result.current.modalProps.isOpen).toBe(true);
@@ -108,7 +109,7 @@ test('handleModalClose updates cache and updates toast props', () => {
     const { result } = renderHook(useAddToListButton, { initialProps });
 
     act(() => {
-        result.current.buttonProps.onClick();
+        result.current.buttonProps.onPress();
     });
 
     act(() => {
@@ -155,7 +156,7 @@ test('executes before and after methods', () => {
     expect(afterAdd).not.toHaveBeenCalled();
 
     act(() => {
-        result.current.buttonProps.onClick();
+        result.current.buttonProps.onPress();
     });
 
     expect(beforeAdd).toHaveBeenCalled();

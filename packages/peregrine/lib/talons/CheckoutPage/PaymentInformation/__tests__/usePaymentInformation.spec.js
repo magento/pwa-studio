@@ -10,6 +10,13 @@ jest.mock('../../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
 }));
 
+jest.mock('../paymentInformation.gql', () => ({
+    setFreePaymentMethodMutation: 'setFreePaymentMethodMutation',
+    setBillingAddressMutation: 'setBillingAddressMutation',
+    getPaymentDetailsQuery: 'getPaymentDetailsQuery',
+    getPaymentNonceQuery: 'getPaymentNonceQuery'
+}));
+
 jest.mock('@apollo/client', () => {
     return {
         ...jest.requireActual('@apollo/client'),
@@ -70,15 +77,7 @@ const writeQuery = jest.fn();
 const client = { readQuery, writeQuery };
 
 const defaultTalonProps = {
-    mutations: {
-        setFreePaymentMethodMutation: 'setFreePaymentMethodMutation',
-        setBillingAddressMutation: 'setBillingAddressMutation'
-    },
     onSave,
-    queries: {
-        getPaymentDetailsQuery: 'getPaymentDetailsQuery',
-        getPaymentNonceQuery: 'getPaymentNonceQuery'
-    },
     resetShouldSubmit,
     setCheckoutStep,
     shouldSubmit: false,

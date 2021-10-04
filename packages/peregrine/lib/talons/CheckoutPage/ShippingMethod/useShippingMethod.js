@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+import DEFAULT_OPERATIONS from './shippingMethod.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -40,13 +42,14 @@ const DEFAULT_SELECTED_SHIPPING_METHOD = null;
 const DEFAULT_AVAILABLE_SHIPPING_METHODS = [];
 
 export const useShippingMethod = props => {
+    const { onSave, onSuccess, setPageIsUpdating } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+
     const {
-        onSave,
-        onSuccess,
-        mutations: { setShippingMethod },
-        queries: { getSelectedAndAvailableShippingMethods },
-        setPageIsUpdating
-    } = props;
+        getSelectedAndAvailableShippingMethodsQuery,
+        setShippingMethodMutation
+    } = operations;
 
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
@@ -57,14 +60,14 @@ export const useShippingMethod = props => {
     const [
         setShippingMethodCall,
         { error: setShippingMethodError, loading: isSettingShippingMethod }
-    ] = useMutation(setShippingMethod, {
+    ] = useMutation(setShippingMethodMutation, {
         onCompleted: () => {
             onSuccess();
         }
     });
 
     const { data, loading: isLoadingShippingMethods } = useQuery(
-        getSelectedAndAvailableShippingMethods,
+        getSelectedAndAvailableShippingMethodsQuery,
         {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first',

@@ -4,14 +4,14 @@ exports[`displays an error message if there is a sign in error 1`] = `
 <div
   className="root"
 >
-  <h2
+  <span
     className="title"
   >
     <mock-FormattedMessage
       defaultMessage="Sign-in to Your Account"
       id="signIn.titleText"
     />
-  </h2>
+  </span>
   <FormError
     errors={
       Array [
@@ -136,14 +136,14 @@ exports[`renders correctly 1`] = `
 <div
   className="root"
 >
-  <h2
+  <span
     className="title"
   >
     <mock-FormattedMessage
       defaultMessage="Sign-in to Your Account"
       id="signIn.titleText"
     />
-  </h2>
+  </span>
   <FormError
     errors={
       Array [

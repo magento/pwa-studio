@@ -21,6 +21,10 @@ jest.mock('../../../../../context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('../guestForm.gql', () => ({
+    setGuestShippingMutation: 'setGuestShippingMutation'
+}));
+
 const Component = props => {
     const talonProps = useGuestForm(props);
     return <i talonProps={talonProps} />;

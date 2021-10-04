@@ -60,9 +60,7 @@ const Option = props => {
 
     return (
         <div className={classes.root}>
-            <h3 className={classes.title}>
-                <span>{label}</span>
-            </h3>
+            <span className={classes.title}>{label}</span>
             <ValueList
                 getItemKey={getItemKey}
                 selectedValue={initialSelection}

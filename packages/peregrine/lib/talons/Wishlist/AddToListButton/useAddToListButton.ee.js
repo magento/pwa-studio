@@ -23,7 +23,8 @@ export const useAddToListButton = props => {
         if (storeConfig.enable_multiple_wishlists === '1' && isSignedIn) {
             return {
                 ...singleButtonProps,
-                onClick: () => {
+                'aria-haspopup': 'dialog',
+                onPress: () => {
                     setIsModalOpen(true);
 
                     if (beforeAdd) {

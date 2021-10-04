@@ -60,6 +60,17 @@ exports[`renders a default address 1`] = `
       className="root_normalPriority"
       disabled={false}
       onClick={[MockFunction onEdit]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -151,6 +162,17 @@ exports[`renders a non-default address 1`] = `
       className="root_normalPriority"
       disabled={false}
       onClick={[MockFunction onEdit]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -190,6 +212,17 @@ exports[`renders a non-default address 1`] = `
       className="root_normalPriority"
       disabled={false}
       onClick={[MockFunction onDelete]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -304,6 +337,17 @@ exports[`renders an address with a middle name 1`] = `
       className="root_normalPriority"
       disabled={false}
       onClick={[MockFunction onEdit]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -403,6 +447,17 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
       className="root_normalPriority"
       disabled={false}
       onClick={[MockFunction onEdit]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -445,6 +500,17 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
         className="root_normalPriorityNegative"
         disabled={false}
         onClick={[MockFunction onConfirmDelete]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="button"
       >
         <span
@@ -460,6 +526,17 @@ exports[`renders delete confirmation if isConfirmingDelete is true 1`] = `
         className="root_lowPriority"
         disabled={false}
         onClick={[MockFunction onCancelDelete]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="button"
       >
         <span
@@ -536,6 +613,17 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
       className="root_normalPriority"
       disabled={false}
       onClick={[MockFunction onEdit]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -578,6 +666,17 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
         className="root_normalPriorityNegative"
         disabled={true}
         onClick={[MockFunction onConfirmDelete]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="button"
       >
         <span
@@ -593,6 +692,17 @@ exports[`renders disabled delete confirmation if isConfirmingDelete and isDeleti
         className="root_lowPriority"
         disabled={true}
         onClick={[MockFunction onCancelDelete]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="button"
       >
         <span

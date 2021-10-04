@@ -51,6 +51,16 @@ const defaultProps = {
     shouldSubmit: false
 };
 
+test('Should render loading state', () => {
+    usePaymentInformation.mockReturnValueOnce({
+        ...defaultTalonResponse,
+        isLoading: true
+    });
+
+    const tree = createTestInstance(<PaymentInformation {...defaultProps} />);
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
 test('Should render summary component only if doneEditing is true', () => {
     usePaymentInformation.mockReturnValueOnce({
         ...defaultTalonResponse,

@@ -3,6 +3,17 @@
 exports[`renders a Checkout Button component 1`] = `
 <button
   disabled={false}
+  onDragStart={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchCancel={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
   type="button"
 >
   <span>
@@ -41,6 +52,17 @@ exports[`renders a Checkout Button component 1`] = `
 exports[`renders a disabled Checkout Button component 1`] = `
 <button
   disabled={true}
+  onDragStart={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchCancel={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
   type="button"
 >
   <span>

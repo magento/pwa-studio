@@ -20,14 +20,16 @@ entries:
         - label: Frequently Asked Questions
           url: /frequently-asked-questions/
 
-    - label: Magento integration
+    - label: Commerce integration
       entries:
+        - label: Commerce features
+          url: /technologies/features/
 
-          - label: Version compatibility
-            url: /technologies/magento-compatibility/
+        - label: Version compatibility
+          url: /technologies/magento-compatibility/
 
-          - label: Magento theme vs PWA storefront
-            url: /technologies/theme-vs-storefront/
+        - label: Magento theme vs PWA storefront
+          url: /technologies/theme-vs-storefront/
 
     - label: Basic concepts
       url: /technologies/basic-concepts/
