@@ -9,17 +9,21 @@
 
 ## Run tests in headless mode
 
-Running tests in the headless mode is the preferred option when testing in the CI. Before updating/creating the tests please run the tests in the headless mode to make sure they are running as expected.
+Running tests in the headless mode is the preferred option when testing in the Continuous Integration. Before updating/creating any tests, please run the test suite in headless mode to make sure they are running as expected.
 
-`yarn test:headless` runs the tests in headless mode. It takes `--url` or `--baseUrl` as a required CLI argument. The URL provided will be used to run the tests against.
+Run the following command to test in headless mode:
 
-`yarn test:headless` also takes couple other arguments:
+`yarn test:headless`
+
+Use the **required** `--url` or `--baseUrl` parameter to provide the URL of **your storefront application** the tests will run against.
+
+`yarn test:headless` also accepts the following arguments:
 
 `--help`: Show all the CLI arguments supported by the headless mode
 
-`--parallel` or `-p`: Will take a number argument. Number provided will represent the number of parallel async processes that will be used to speed up the tests.
+`--threads` or `-t`: Will take a number argument that specifies the number of parallel async processes that will be used to speed up the tests.
 
-___Note___: _After testing we realized 4 is the best option while running locally. Adding more proccess might create more overhead so make sure you take due diligence while using this option._
+___Note___: _After testing we realized 4 is the best option while running locally. Adding more proccess might create more overhead, so make sure you take due diligence while using this option._
 
 `--update` or `-u`: Use this option if you want to update the snapshots.
 

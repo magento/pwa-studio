@@ -6,12 +6,12 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .option('url', {
         alias: 'baseUrl',
         demandOption: true,
-        describe: 'URL to run tests against',
+        describe: 'Storefront application URL to run tests against',
         type: 'string',
         nargs: 1
     })
-    .option('p', {
-        alias: 'parallel',
+    .option('t', {
+        alias: 'threads',
         default: 1,
         describe: 'Number of parallel runs',
         type: 'number',
@@ -37,7 +37,7 @@ var argv = require('yargs/yargs')(process.argv.slice(2))
     .help('h', 'Show run-tests help')
     .version(false).argv;
 
-const { baseUrl, parallel: parallelRuns, update, spec } = argv;
+const { baseUrl, threads, update, spec } = argv;
 
 if (!baseUrl) {
     console.error(
@@ -49,13 +49,13 @@ if (!baseUrl) {
 
 const files = spec ? spec.split(',') : glob.sync('./src/tests/**/*.spec.js');
 
-if (files.length < parallelRuns) {
+if (files.length < threads) {
     console.error('Can not have more parallel runs than tests.');
 
     return;
 }
 
-const testsPerRun = files.length / parallelRuns;
+const testsPerRun = files.length / threads;
 const dockerRuns = {};
 
 const port = new URL(baseUrl).port;
@@ -80,7 +80,7 @@ if (port) {
 
 const start = process.hrtime();
 
-for (let i = 0; i < parallelRuns; i++) {
+for (let i = 0; i < threads; i++) {
     const filesToTest = files.slice(testsPerRun * i, testsPerRun * (i + 1));
 
     const commandWithSpecFiles = `${dockerCommand} --spec ${filesToTest.join(
