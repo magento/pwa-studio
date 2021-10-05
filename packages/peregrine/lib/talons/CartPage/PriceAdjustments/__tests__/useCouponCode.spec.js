@@ -2,7 +2,7 @@ import React from 'react';
 import { act } from 'react-test-renderer';
 import { useMutation } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
-import { useCouponCode } from '../useCouponCode';
+import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/useCouponCode';
 
 jest.mock('@apollo/client', () => {
     return {
@@ -20,13 +20,17 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('../CouponCode/couponCode.gql', () => ({
+    getAppliedCouponsQuery: 'getAppliedCouponsQuery',
+    applyCouponMutation: 'applyCouponMutation',
+    removeCouponMutation: 'removeCouponMutation'
+}));
+
 const setIsCartUpdating = jest.fn();
 const log = jest.fn();
 const Component = () => {
     const hookProps = useCouponCode({
-        setIsCartUpdating: setIsCartUpdating,
-        queries: {},
-        mutations: {}
+        setIsCartUpdating: setIsCartUpdating
     });
 
     log(hookProps);
