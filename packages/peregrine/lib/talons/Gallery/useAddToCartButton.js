@@ -56,7 +56,10 @@ export const useAddToCartButton = props => {
                         cartId,
                         cartItem: {
                             quantity: 1,
-                            selected_options: [],
+                            entered_options: [{
+                                uid: item.uid,
+                                value: item.name
+                            }],
                             sku: item.sku
                         }
                     }
