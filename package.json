@@ -37,7 +37,7 @@
     "stats:venia": "yarn venia run build:analyze && yarn venia run stats",
     "storybook:venia": "yarn workspace @magento/venia-ui run storybook",
     "test": "jest",
-    "test:ci": "jest --no-cache --max-workers=3 --json --outputFile=test-results.json",
+    "test:ci": "jest --testLocationInResults --no-cache --max-workers=3 --testTimeout 86400 --json --outputFile=test-results.json",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --no-cache --no-coverage --runInBand --testTimeout 86400",
     "test:dev": "jest --watch",
     "validate-queries": "graphql validate --keepClientFields --noStrictFragments",
