@@ -39,6 +39,9 @@
     margin-bottom: 1rem;
     line-height: 1.65em;
 }
+.root p:last-child {
+    margin-bottom: 0;
+}
 .root img {
     max-width: 100%;
     margin: 1rem 0;
@@ -76,28 +79,8 @@
 }
 .root table {
     width: 100%;
-    margin: 1rem 0;
     border-spacing: 0;
-    border-left: 1px solid rgb(var(--venia-global-color-border));
-    border-top: 1px solid rgb(var(--venia-global-color-border));
-}
-.root table td,
-.root table th {
     text-align: left;
-    padding: 1rem;
-    font-size: 0.875rem;
-    line-height: 1.125em;
-    border-right: 1px solid rgb(var(--venia-global-color-border));
-    border-bottom: 1px solid rgb(var(--venia-global-color-border));
-}
-.root table th {
-    background-color: rgb(var(--venia-global-color-gray));
-}
-.root :global .cms-content-important {
-    background: rgb(var(--venia-global-color-gray));
-    padding: 1.2rem 1rem;
-    font-size: 1.125rem;
-    border: 1px solid rgb(var(--venia-global-color-border));
 }
 .root pre {
     background: rgb(var(--venia-global-color-gray));
