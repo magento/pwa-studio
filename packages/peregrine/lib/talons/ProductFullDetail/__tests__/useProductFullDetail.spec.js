@@ -560,6 +560,12 @@ test('calls generic mutation when no deprecated operation props are passed', asy
         Object {
           "variables": Object {
             "cartId": "ThisIsMyCart",
+            "entered_options": Array [
+              Object {
+                "uid": undefined,
+                "value": undefined,
+              },
+            ],
             "product": Object {
               "quantity": 2,
               "sku": "MySimpleProductSku",

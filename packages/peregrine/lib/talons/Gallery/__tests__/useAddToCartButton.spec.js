@@ -169,8 +169,13 @@ describe('testing handleAddToCart', () => {
                 "variables": Object {
                   "cartId": "1234",
                   "cartItem": Object {
+                    "entered_options": Array [
+                      Object {
+                        "uid": undefined,
+                        "value": undefined,
+                      },
+                    ],
                     "quantity": 1,
-                    "selected_options": Array [],
                     "sku": "97ahsf9",
                   },
                 },

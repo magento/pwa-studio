@@ -24,7 +24,9 @@ const UPDATE_QUANTITY_MUTATION = gql`
         updateCartItems(
             input: {
                 cart_id: $cartId
-                cart_items: [{ cart_item_uid: $cartItemId, quantity: $quantity }]
+                cart_items: [
+                    { cart_item_uid: $cartItemId, quantity: $quantity }
+                ]
             }
         ) @connection(key: "updateCartItems") {
             cart {

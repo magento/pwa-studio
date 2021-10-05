@@ -369,10 +369,12 @@ export const useProductFullDetail = props => {
                         sku: product.sku,
                         quantity
                     },
-                    entered_options: [{
-                        uid: product.uid,
-                        value: product.name
-                    }]
+                    entered_options: [
+                        {
+                            uid: product.uid,
+                            value: product.name
+                        }
+                    ]
                 };
 
                 if (selectedOptionsArray.length) {
