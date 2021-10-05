@@ -3,12 +3,12 @@
 exports[`renders correctly 1`] = `
 Array [
   "<Trigger>",
-  <h2
+  <span
     className="title"
   >
     <span>
       Main Menu
     </span>
-  </h2>,
+  </span>,
 ]
 `;

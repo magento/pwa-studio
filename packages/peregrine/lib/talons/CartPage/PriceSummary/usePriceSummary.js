@@ -2,6 +2,8 @@ import { useCallback } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './priceSummary.gql';
 
 /**
  * @ignore
@@ -42,10 +44,9 @@ const flattenData = data => {
  * @example <caption>Importing into your project</caption>
  * import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
  */
-export const usePriceSummary = props => {
-    const {
-        queries: { getPriceSummary }
-    } = props;
+export const usePriceSummary = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getPriceSummaryQuery } = operations;
 
     const [{ cartId }] = useCartContext();
     const history = useHistory();
@@ -53,7 +54,7 @@ export const usePriceSummary = props => {
     const match = useRouteMatch('/checkout');
     const isCheckout = !!match;
 
-    const { error, loading, data } = useQuery(getPriceSummary, {
+    const { error, loading, data } = useQuery(getPriceSummaryQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !cartId,

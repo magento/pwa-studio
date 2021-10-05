@@ -9,11 +9,11 @@ exports[`Submenu column renders correctly it renders correctly 1`] = `
     href="/pants.html"
     onClick={[Function]}
   >
-    <h3
+    <span
       className="heading"
     >
       Pants
-    </h3>
+    </span>
   </a>
   <ul
     className="submenuChild"

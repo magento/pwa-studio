@@ -64,11 +64,11 @@ exports[`#MegaMenu renders menu if in viewport 1`] = `
             onClick={[Function]}
             onKeyDown={[Function]}
           >
-            <h3
+            <span
               className="heading"
             >
               Bottoms
-            </h3>
+            </span>
           </a>
         </div>
       </div>

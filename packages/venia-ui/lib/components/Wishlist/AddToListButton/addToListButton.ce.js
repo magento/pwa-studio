@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { element, func, shape, string } from 'prop-types';
 import { Heart } from 'react-feather';
 import { useAddToListButton } from '@magento/peregrine/lib/talons/Wishlist/AddToListButton/useAddToListButton';
+import { useButton } from 'react-aria';
 
 import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
@@ -12,6 +13,8 @@ const HeartIcon = <Icon size={20} src={Heart} />;
 
 const AddToListButton = props => {
     const talonProps = useAddToListButton(props);
+    const buttonRef = useRef();
+
     const {
         buttonProps,
         buttonText,
@@ -22,12 +25,13 @@ const AddToListButton = props => {
     } = talonProps;
 
     useCommonToasts({ errorToastProps, loginToastProps, successToastProps });
+    const { buttonProps: ariaButtonProps } = useButton(buttonProps, buttonRef);
 
     const classes = useStyle(defaultClasses, props.classes);
     const buttonClass = isSelected ? classes.root_selected : classes.root;
 
     return (
-        <button className={buttonClass} {...buttonProps}>
+        <button ref={buttonRef} className={buttonClass} {...ariaButtonProps}>
             {props.icon} {buttonText}
         </button>
     );

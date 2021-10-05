@@ -1,8 +1,10 @@
-import { useCallback, useState, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useCartContext } from '../../../../context/cart';
 import { findMatchingVariant } from '../../../../util/findMatchingProductVariant';
+import DEFAULT_OPERATIONS from './productForm.gql';
 
 /**
  * This talon contains logic for a product edit form.
@@ -30,13 +32,18 @@ import { findMatchingVariant } from '../../../../util/findMatchingProductVariant
  * import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
  */
 export const useProductForm = props => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+
+    const {
+        getConfigurableOptionsQuery,
+        updateConfigurableOptionsMutation,
+        updateQuantityMutation
+    } = operations;
+
     const {
         cartItem,
-        getConfigurableOptionsQuery,
         setIsCartUpdating,
         setVariantPrice,
-        updateConfigurableOptionsMutation,
-        updateQuantityMutation,
         setActiveEditItem
     } = props;
 
