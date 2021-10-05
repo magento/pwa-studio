@@ -34,34 +34,6 @@ exports[`renders a BannerShimmer component with minHeight 1`] = `
       <div
         className="content"
       />
-<<<<<<< HEAD
-=======
-      <div
-        className="button"
-      >
-        <button
-          className="root_normalPriority"
-          disabled={false}
-          onClick={[Function]}
-          onDragStart={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onTouchCancel={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          type="button"
-        >
-          <span
-            className="content"
-          />
-        </button>
-      </div>
->>>>>>> origin/develop
     </div>
   </div>
 </div>
