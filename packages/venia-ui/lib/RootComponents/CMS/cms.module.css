@@ -2,21 +2,31 @@
     padding: 1rem;
 }
 
-.title {
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin: 0 0 1rem;
-    padding: 0.5rem;
-}
-
 .heading {
-    line-height: 1.25em;
+    margin-bottom: 2rem;
+    font-size: var(--venia-global-fontSize-800);
+    text-align: center;
 }
 
-.layout_default {
-    padding: 0;
+.root_empty,
+.root_2columnsLeft,
+.root_2columnsRight,
+.root_3columns,
+.root_cmsFullWidth,
+.root_categoryFullWidth,
+.root_productFullWidth {
+    composes: root;
 }
 
-.layout_1column {
-    composes: layout_default;
+.root_1column {
+    composes: root;
+    max-width: var(--venia-global-maxWidth-1column);
+    margin: 0 auto;
+}
+
+@media only screen and (min-width: 769px) {
+    .heading {
+        margin-bottom: 3rem;
+        font-size: var(--venia-global-fontSize-1100);
+    }
 }

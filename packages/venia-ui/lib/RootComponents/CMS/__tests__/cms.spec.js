@@ -6,6 +6,7 @@ import RichContent from '../../../components/RichContent';
 import { StoreTitle } from '../../../components/Head';
 import CMSPage from '../cms';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import CheckoutButton from '../../../components/Checkout/checkoutButton';
 
 jest.mock('../../../classify');
 
@@ -150,6 +151,55 @@ test('render RichContent when default content is not present', () => {
     expect(contentHeading.props.children).toEqual(
         'This is a rich content heading'
     );
+});
+
+test('do not render heading when empty', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                cmsPage: {
+                    url_key: 'homepage',
+                    content_heading: '',
+                    content:
+                        '<div class="richContent">This is rich content</div>'
+                },
+                storeConfig: {
+                    root_category_id: 2
+                }
+            },
+            error: false,
+            loading: false
+        };
+    });
+
+    const { root } = createTestInstance(<CMSPage {...props} />);
+
+    expect(() => root.findByType('h1')).toThrow();
+});
+
+test('render root class with layout when defined', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                cmsPage: {
+                    url_key: 'homepage',
+                    content_heading: 'This is a rich content heading',
+                    content:
+                        '<div class="richContent">This is rich content</div>',
+                    page_layout: '1column'
+                },
+                storeConfig: {
+                    root_category_id: 2
+                }
+            },
+            error: false,
+            loading: false
+        };
+    });
+
+    const { root } = createTestInstance(<CMSPage {...props} />);
+
+    expect(root.findByProps({ className: 'root_1column' })).toBeTruthy();
 });
 
 test('render meta information based on meta data from GraphQL', () => {
