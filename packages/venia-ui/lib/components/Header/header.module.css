@@ -1,17 +1,39 @@
 .root {
     composes: w-full from global;
+    composes: h-auto from global;
     composes: top-0 from global;
     composes: grid from global;
+    composes: auto-cols-fr from global;
+    composes: justify-center from global;
     composes: sticky from global;
-    composes: justify-items-center from global;
-    background-color: rgb(var(--venia-global-color-gray-50));
-    box-shadow: 0 2px rgb(var(--venia-global-color-gray-100));
-    z-index: 10;
-    --header-height: 5rem;
+    composes: z-10 from global;
+    composes: bg-white from global;
+    composes: border-b from global;
+    composes: border-neutral-l1 from global;
+    composes: px-16 from global;
+
+    composes: laptop_px-32 from global;
+}
+
+.switchers {
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: auto-cols-max from global;
+    composes: justify-end from global;
+    composes: w-full from global;
+    composes: max-w-desktop from global;
+    composes: relative from global;
+    composes: z-11 from global;
+    composes: mx-auto from global;
 }
 
 .switchersContainer {
-    display: none;
+    composes: hidden from global;
+    composes: w-full from global;
+    composes: bg-gray-100 from global;
+    composes: px-32 from global;
+
+    composes: laptop_block from global;
 }
 
 .open {
@@ -23,94 +45,76 @@
 }
 
 .toolbar {
-    z-index: 3;
-    align-content: center;
-    align-items: center;
-    display: grid;
-    grid-template-areas: 'primary title secondary';
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: 3rem;
-    justify-items: center;
-    max-width: var(--venia-global-maxWidth);
-    min-height: var(--venia-global-header-minHeight);
-    padding: 0 0.5rem;
-    width: 100%;
+    composes: grid-cols-3 from global;
+    composes: gap-x-16 from global;
+    composes: border-0 from global;
+    composes: z-3 from global;
+    composes: content-center from global;
+    composes: items-center from global;
+    composes: justify-self-center from global;
+    composes: grid from global;
+    composes: grid-rows-header from global;
+    composes: w-full from global;
+    composes: max-w-desktop from global;
+    composes: min-height-header from global;
+    composes: h-14 from global;
+
+    composes: laptop_min-height-header from global;
+    composes: laptop_grid-cols-12 from global;
+    composes: laptop_gap-x-32 from global;
+    composes: laptop_pb-2 from global;
+    composes: laptop_h-20 from global;
 }
 
 .logo {
     composes: h-full from global;
 }
 
-@media (min-width: 641px) {
-    .switchers {
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: max-content;
-        justify-content: flex-end;
-        max-width: var(--venia-global-maxWidth);
-        width: 100%;
-        position: relative;
-        z-index: 11;
-        margin: 0 auto;
-    }
-
-    .switchersContainer {
-        display: block;
-        width: 100%;
-        background-color: rgb(var(--venia-global-color-gray-100));
-    }
-
-    .toolbar {
-        grid-template-areas: 'primary title secondary';
-        grid-template-columns: auto auto 1fr;
-        min-height: var(--venia-global-header-minHeight);
-        padding: 0 1rem;
-    }
-}
-
-.logo {
-    grid-area: title;
-}
-
 .primaryActions {
-    grid-area: primary;
-    justify-self: start;
-    display: grid;
-    grid-auto-flow: column;
-    align-items: center;
+    composes: col-start-1 from global;
+    composes: row-start-1 from global;
+    composes: self-center from global;
+    composes: justify-self-start from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+}
+
+.logoContainer {
+    composes: col-start-2 from global;
+    composes: my-16 from global;
+    composes: justify-self-center from global;
+
+    composes: laptop_col-start-1 from global;
+    composes: laptop_col-end-3 from global;
+    composes: laptop_row-start-1 from global;
+    composes: laptop_mr-32 from global;
+    composes: laptop_justify-self-start from global;
 }
 
 .secondaryActions {
-    grid-area: secondary;
-    width: max-content;
-    display: grid;
-    grid-auto-flow: column;
-    justify-items: end;
-    align-items: center;
-    justify-self: end;
-}
+    composes: col-start-3 from global;
+    composes: justify-self-end from global;
+    composes: w-max from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-items-end from global;
+    composes: items-center from global;
 
-@media (min-width: 641px) {
-    .logoContainer {
-        grid-column: 2/ 3;
-        grid-row: 1 / 1;
-    }
-
-    .secondaryActions {
-        column-gap: 1rem;
-    }
+    composes: laptop_col-start-10 from global;
+    composes: laptop_col-end-13 from global;
+    composes: laptop_gap-x-4 from global;
 }
 
 .searchFallback {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.5rem;
-    padding: 0 1rem;
+    composes: flex from global;
+    composes: justify-center from global;
+    composes: mb-2 from global;
+    composes: px-4 from global;
 }
 
 .input {
     composes: input from '../TextInput/textInput.module.css';
-    max-width: 24rem;
+    composes: max-w-sm from global;
 }
 
 .loader,
@@ -127,10 +131,10 @@
 }
 
 .loader {
+    composes: relative from global;
     color: rgb(var(--venia-global-color-gray-dark));
     font-size: var(--dot-font-size);
     margin: var(--dot-shadow-offset) auto 0;
-    position: relative;
     transform: translateZ(0);
     animation-delay: -0.16s;
 }
@@ -151,22 +155,6 @@
 .loader:after {
     color: rgb(var(--venia-global-color-gray-darker));
     left: 3.5em;
-}
-
-@media (min-width: 1024px) {
-    .logoContainer {
-        grid-column: 1 / 2;
-        grid-row: 1 / 1;
-    }
-
-    .secondaryActions {
-        grid-column: 4 / 5;
-        grid-row: 1 / 1;
-    }
-
-    .toolbar {
-        grid-template-columns: 0.5fr 0.5fr 3fr 1fr;
-    }
 }
 
 @keyframes pulse {
