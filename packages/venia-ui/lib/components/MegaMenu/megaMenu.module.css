@@ -1,15 +1,8 @@
 .megaMenu {
-    align-items: center;
-    align-self: center;
-    display: none;
-    grid-column: 3 / 4;
-    grid-row: 1 / 1;
-    justify-content: center;
-    margin: 0 auto;
-}
-
-@media (min-width: 1024px) {
-    .megaMenu {
-        display: flex;
-    }
+    composes: col-start-3 from global;
+    composes: col-end-10 from global;
+    composes: flex-grow from global;
+    composes: justify-self-center from global;
+    composes: hidden from global;
+    composes: laptop_flex from global;
 }
