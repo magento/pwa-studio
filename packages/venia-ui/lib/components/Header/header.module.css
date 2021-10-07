@@ -1,38 +1,44 @@
 .root {
-    composes: w-full from global;
-    composes: h-auto from global;
-    composes: top-0 from global;
-    composes: grid from global;
     composes: auto-cols-fr from global;
-    composes: justify-center from global;
-    composes: sticky from global;
-    composes: z-10 from global;
     composes: bg-white from global;
     composes: border-b from global;
     composes: border-neutral-l1 from global;
+    composes: grid from global;
+    composes: h-auto from global;
+    composes: justify-center from global;
     composes: px-4 from global;
+    composes: top-0 from global;
+    composes: sticky from global;
+    composes: w-full from global;
+    composes: z-10 from global;
+}
 
+/* Large screen styles */
+.root {
     composes: lg_px-8 from global;
 }
 
 .switchers {
+    composes: auto-cols-max from global;
     composes: grid from global;
     composes: grid-flow-col from global;
-    composes: auto-cols-max from global;
     composes: justify-end from global;
-    composes: w-full from global;
     composes: max-w-desktop from global;
-    composes: relative from global;
-    composes: z-11 from global;
     composes: mx-auto from global;
+    composes: relative from global;
+    composes: w-full from global;
+    composes: z-11 from global;
 }
 
 .switchersContainer {
-    composes: hidden from global;
-    composes: w-full from global;
     composes: bg-gray-100 from global;
+    composes: hidden from global;
     composes: px-8 from global;
+    composes: w-full from global;
+}
 
+/* Large screen styles */
+.switchersContainer {
     composes: lg_block from global;
 }
 
@@ -45,25 +51,28 @@
 }
 
 .toolbar {
-    composes: grid-cols-3 from global;
-    composes: gap-x-4 from global;
     composes: border-0 from global;
-    composes: z-3 from global;
     composes: content-center from global;
+    composes: gap-x-4 from global;
+    composes: grid from global;
+    composes: grid-cols-3 from global;
+    composes: grid-rows-header from global;
+    composes: h-14 from global;
     composes: items-center from global;
     composes: justify-self-center from global;
-    composes: grid from global;
-    composes: grid-rows-header from global;
-    composes: w-full from global;
     composes: max-w-desktop from global;
     composes: min-height-header from global;
-    composes: h-14 from global;
+    composes: w-full from global;
+    composes: z-3 from global;
+}
 
-    composes: lg_min-height-header from global;
-    composes: lg_grid-cols-12 from global;
-    composes: lg_gap-x-8 from global;
-    composes: lg_pb-2 from global;
+/* Large screen styles */
+.toolbar {
     composes: lg_h-20 from global;
+    composes: lg_gap-x-8 from global;
+    composes: lg_grid-cols-12 from global;
+    composes: lg_min-height-header from global;
+    composes: lg_pb-2 from global;
 }
 
 .logo {
@@ -72,36 +81,42 @@
 
 .primaryActions {
     composes: col-start-1 from global;
-    composes: row-start-1 from global;
-    composes: self-center from global;
-    composes: justify-self-start from global;
     composes: grid from global;
     composes: grid-flow-col from global;
+    composes: justify-self-start from global;
+    composes: row-start-1 from global;
+    composes: self-center from global;
 }
 
 .logoContainer {
     composes: col-start-2 from global;
-    composes: my-4 from global;
     composes: justify-self-center from global;
+    composes: my-4 from global;
+}
 
-    composes: lg_col-start-1 from global;
+/* Large screen styles */
+.logoContainer {
     composes: lg_col-end-3 from global;
-    composes: lg_row-start-1 from global;
-    composes: lg_mr-8 from global;
+    composes: lg_col-start-1 from global;
     composes: lg_justify-self-start from global;
+    composes: lg_mr-8 from global;
+    composes: lg_row-start-1 from global;
 }
 
 .secondaryActions {
     composes: col-start-3 from global;
-    composes: justify-self-end from global;
-    composes: w-max from global;
     composes: grid from global;
     composes: grid-flow-col from global;
-    composes: justify-items-end from global;
     composes: items-center from global;
+    composes: justify-items-end from global;
+    composes: justify-self-end from global;
+    composes: w-max from global;
+}
 
-    composes: lg_col-start-10 from global;
+/* Large screen styles */
+.secondaryActions {
     composes: lg_col-end-13 from global;
+    composes: lg_col-start-10 from global;
     composes: lg_gap-x-4 from global;
 }
 
