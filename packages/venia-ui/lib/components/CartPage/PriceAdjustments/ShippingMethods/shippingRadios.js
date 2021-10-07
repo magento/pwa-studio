@@ -1,14 +1,14 @@
 import React from 'react';
 import { gql } from '@apollo/client';
-import { arrayOf, string, shape, number } from 'prop-types';
+import { arrayOf, number, shape, string } from 'prop-types';
 import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
 
 import { useStyle } from '../../../../classify';
 import RadioGroup from '../../../RadioGroup';
-import { CartPageFragment } from '../../cartPageFragments.gql';
+import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql.js';
 import ShippingRadio from './shippingRadio';
 import defaultClasses from './shippingRadios.module.css';
-import { SelectedShippingMethodCartFragment } from './shippingMethodsFragments.gql';
+import { SelectedShippingMethodCartFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql.js';
 
 const ShippingRadios = props => {
     const {

@@ -17,7 +17,5 @@ const GET_GIFT_OPTIONS = gql`
 `;
 
 export default {
-    queries: {
-        getGiftOptionsQuery: GET_GIFT_OPTIONS
-    }
+    getGiftOptionsQuery: GET_GIFT_OPTIONS
 };
