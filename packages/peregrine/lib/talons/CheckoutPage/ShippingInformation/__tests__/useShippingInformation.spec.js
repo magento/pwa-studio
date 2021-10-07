@@ -68,6 +68,14 @@ jest.mock('../../../../context/user', () => {
     return { useUserContext };
 });
 
+jest.mock(
+    '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js',
+    () => ({
+        getShippingMethodsQuery: 'getShippingMethodsQuery',
+        setShippingAddressMutation: 'setShippingAddressMutation'
+    })
+);
+
 const Component = props => {
     const talonProps = useShippingInformation(props);
     return <i talonProps={talonProps} />;

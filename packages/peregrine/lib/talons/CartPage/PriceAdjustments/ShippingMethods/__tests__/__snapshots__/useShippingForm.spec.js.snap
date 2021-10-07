@@ -41,7 +41,7 @@ Object {
       ],
     },
   },
-  "query": "shippingMethodsQuery",
+  "query": "getShippingMethodsQuery",
 }
 `;
 
