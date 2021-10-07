@@ -4,5 +4,6 @@
     composes: flex-grow from global;
     composes: justify-self-center from global;
     composes: hidden from global;
-    composes: laptop_flex from global;
+
+    composes: lg_flex from global;
 }

@@ -12,7 +12,7 @@
     composes: border-neutral-l1 from global;
     composes: px-16 from global;
 
-    composes: laptop_px-32 from global;
+    composes: lg_px-32 from global;
 }
 
 .switchers {
@@ -33,7 +33,7 @@
     composes: bg-gray-100 from global;
     composes: px-32 from global;
 
-    composes: laptop_block from global;
+    composes: lg_block from global;
 }
 
 .open {
@@ -59,11 +59,11 @@
     composes: min-height-header from global;
     composes: h-14 from global;
 
-    composes: laptop_min-height-header from global;
-    composes: laptop_grid-cols-12 from global;
-    composes: laptop_gap-x-32 from global;
-    composes: laptop_pb-2 from global;
-    composes: laptop_h-20 from global;
+    composes: lg_min-height-header from global;
+    composes: lg_grid-cols-12 from global;
+    composes: lg_gap-x-32 from global;
+    composes: lg_pb-2 from global;
+    composes: lg_h-20 from global;
 }
 
 .logo {
@@ -84,11 +84,11 @@
     composes: my-16 from global;
     composes: justify-self-center from global;
 
-    composes: laptop_col-start-1 from global;
-    composes: laptop_col-end-3 from global;
-    composes: laptop_row-start-1 from global;
-    composes: laptop_mr-32 from global;
-    composes: laptop_justify-self-start from global;
+    composes: lg_col-start-1 from global;
+    composes: lg_col-end-3 from global;
+    composes: lg_row-start-1 from global;
+    composes: lg_mr-32 from global;
+    composes: lg_justify-self-start from global;
 }
 
 .secondaryActions {
@@ -100,9 +100,9 @@
     composes: justify-items-end from global;
     composes: items-center from global;
 
-    composes: laptop_col-start-10 from global;
-    composes: laptop_col-end-13 from global;
-    composes: laptop_gap-x-4 from global;
+    composes: lg_col-start-10 from global;
+    composes: lg_col-end-13 from global;
+    composes: lg_gap-x-4 from global;
 }
 
 .searchFallback {
