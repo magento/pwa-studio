@@ -10,10 +10,9 @@ import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
 import PriceAdjustments from './PriceAdjustments';
-import ProductListing from './ProductListing';
 import PriceSummary from './PriceSummary';
+import ProductListing from './ProductListing';
 import defaultClasses from './cartPage.module.css';
-import { GET_CART_DETAILS } from './cartPage.gql';
 
 const CheckIcon = <Icon size={20} src={Check} />;
 
@@ -35,11 +34,7 @@ const CheckIcon = <Icon size={20} src={Check} />;
  * import CartPage from "@magento/venia-ui/lib/components/CartPage";
  */
 const CartPage = props => {
-    const talonProps = useCartPage({
-        queries: {
-            getCartDetails: GET_CART_DETAILS
-        }
-    });
+    const talonProps = useCartPage();
 
     const {
         cartItems,

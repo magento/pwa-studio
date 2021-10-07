@@ -18,8 +18,8 @@ import Quantity from './quantity';
 
 import defaultClasses from './product.module.css';
 
-import { CartPageFragment } from '../cartPageFragments.gql';
-import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
+import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql.js';
+import { AvailableShippingMethodsCartFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql.js';
 
 const IMAGE_SIZE = 100;
 

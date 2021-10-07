@@ -1,0 +1,297 @@
+categories:
+  - name: General
+    features:
+      - name: Mobile View
+        support: Full
+        product: OpenSource
+      - name: Desktop View
+        support: Partial
+        product: OpenSource
+      - name: B2B
+        support: Planned
+        product: Commerce
+  - name: Extensions
+    features:
+      - name: Backend extensions
+        support: Full
+        product: OpenSource
+      - name: Frontend extensions
+        support: Partial
+        product: OpenSource
+      - name: FE/BE extensions
+        support: Partial
+        product: OpenSource
+  - name: Product Types
+    features:
+      - name: Simple
+        support: Full
+        product: OpenSource
+      - name: Configurable
+        support: Full
+        product: OpenSource
+      - name: Virtual
+        support: Partial
+        product: OpenSource
+      - name: Product with Custom options
+        support: Planned
+        product: OpenSource
+      - name: Grouped
+        support: Planned
+        product: OpenSource
+      - name: Bundled
+        support: Planned
+        product: OpenSource
+      - name: Downloadable
+        support: Planned
+        product: OpenSource
+      - name: Gift Cards
+        support: Planned
+        product: Commerce
+  - name: CMS
+    features:
+      - name: AEM Fragments
+        support: Full
+        product: Commerce
+      - name: Page Builder
+        support: Full
+        product: OpenSource
+      - name: CMS Pages
+        support: Full
+        product: OpenSource
+      - name: CMS Blocks
+        support: Full
+        product: OpenSource
+      - name: Dynamic Blocks
+        support: Planned
+        product: Commerce
+      - name: CMS Widgets
+        support: Custom
+        product: OpenSource
+  - name: Marketing
+    features:
+      - name: Sensei Powered Product Recommendations
+        support: Full
+        product: Commerce
+      - name: Promotions
+        support: Partial
+        product: OpenSource
+      - name: Special Pricing
+        support: Partial
+        product: OpenSource
+      - name: Email Templates
+        support: Partial
+        product: OpenSource
+      - name: Newsletter subscription
+        support: Partial
+        product: OpenSource
+      - name: Customer Segmentation
+        support: Planned
+        product: Commerce
+      - name: Staging & Preview
+        support: Planned
+        product: Commerce
+      - name: Related Products
+        support: Planned
+        product: OpenSource
+      - name: Contact Us
+        support: Planned
+        product: OpenSource
+      - name: Reward Points
+        support: Custom
+        product: Commerce
+  - name: Product Page
+    features:
+      - name: Product Description
+        support: Full
+        product: OpenSource
+      - name: Product Swatches
+        support: Full
+        product: OpenSource
+      - name: Add To Wishlist
+        support: Full
+        product: OpenSource
+      - name: Gallery
+        support: Partial
+        product: OpenSource
+      - name: Additional Attributes
+        support: Planned
+        product: OpenSource
+      - name: Reviews
+        support: Custom
+        product: OpenSource
+      - name: Add To Compare
+        support: Custom
+        product: OpenSource
+  - name: Checkout
+    features:
+      - name: Checkout Page
+        support: Full
+        product: OpenSource
+      - name: Saved Addresses
+        support: Full
+        product: OpenSource
+      - name: Customer Login
+        support: Full
+        product: OpenSource
+      - name: Subtotal / Tax / Shipping Cost
+        support: Full
+        product: OpenSource
+      - name: Apply Discount Code
+        support: Full
+        product: OpenSource
+      - name: Apply Gift Card
+        support: Full
+        product: OpenSource
+      - name: Gift Options
+        support: Partial
+        product: Commerce
+      - name: Third Party Payment Methods
+        support: Partial
+        product: OpenSource
+  - name: Category Page
+    features:
+      - name: Layered Navigation
+        support: Full
+        product: OpenSource
+      - name: Sorting
+        support: Full
+        product: OpenSource
+      - name: Product List
+        support: Full
+        product: OpenSource
+      - name: Pagination
+        support: Full
+        product: OpenSource
+      - name: Items Per Page
+        support: Custom
+        product: OpenSource
+  - name: Shopping Cart
+    features:
+      - name: Shopping Cart Page
+        support: Full
+        product: OpenSource
+      - name: Mini-cart
+        support: Full
+        product: OpenSource
+      - name: Estimate Shipping and Tax
+        support: Full
+        product: OpenSource
+      - name: Select Shipping Method
+        support: Full
+        product: OpenSource
+      - name: Apply Coupon Code
+        support: Full
+        product: OpenSource
+      - name: Apply Gift Card
+        support: Full
+        product: OpenSource
+      - name: Edit Item Quantity
+        support: Full
+        product: OpenSource
+      - name: Remove Item(s)
+        support: Full
+        product: OpenSource
+      - name: Save for later
+        support: Full
+        product: OpenSource
+      - name: Subtotal
+        support: Full
+        product: OpenSource
+  - name: Customer
+    features:
+      - name: Customer Login
+        support: Full
+        product: OpenSource
+      - name: Forgot Password
+        support: Full
+        product: OpenSource
+      - name: Create Account
+        support: Full
+        product: OpenSource
+      - name: Custom Customer Attributes
+        support: Full
+        product: Commerce
+  - name: Catalog
+    features:
+      - name: Search
+        support: Full
+        product: OpenSource
+      - name: MSI
+        support: Full
+        product: OpenSource
+      - name: Live Search
+        support: Planned
+        product: Commerce
+      - name: Custom Product Attributes
+        support: Planned
+        product: OpenSource
+      - name: Backorders
+        support: Planned
+        product: OpenSource
+      - name: Advanced Inventory
+        support: Planned
+        product: OpenSource
+  - name: Multi-Store
+    features:
+      - name: Language & Currency Switcher
+        support: Full
+        product: OpenSource
+      - name: Store Switcher
+        support: Full
+        product: OpenSource
+      - name: Separate catalogs per store
+        support: Full
+        product: OpenSource
+      - name: Shared cart and customers between stores
+        support: Full
+        product: OpenSource
+      - name: Stores on separate domains
+        support: Planned
+        product: OpenSource
+  - name: Account
+    features:
+      - name: Account Information
+        support: Full
+        product: OpenSource
+      - name: Reset Password
+        support: Full
+        product: OpenSource
+      - name: Address Book
+        support: Full
+        product: OpenSource
+      - name: Orders list
+        support: Full
+        product: OpenSource
+      - name: Order status
+        support: Full
+        product: OpenSource
+      - name: Wishlist
+        support: Full
+        product: OpenSource
+      - name: Multi-wish list
+        support: Full
+        product: OpenSource
+      - name: Store Payment Methods
+        support: Partial
+        product: OpenSource
+      - name: Re-order
+        support: Planned
+        product: OpenSource
+      - name: Returns
+        support: Planned
+        product: OpenSource
+      - name: Store Credit
+        support: Custom
+        product: Commerce
+      - name: Gift Registry
+        support: Custom
+        product: Commerce
+      - name: Product Reviews
+        support: Custom
+        product: OpenSource
+      - name: Invitations
+        support: Custom
+        product: Commerce
+      - name: Dashboard
+        support: Custom
+        product: OpenSource
