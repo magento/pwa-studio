@@ -26,6 +26,10 @@ jest.mock('@apollo/client', () => ({
     })
 }));
 
+jest.mock('../priceSummary.gql', () => ({
+    getPriceSummaryQuery: 'getPriceSummaryQuery'
+}));
+
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(),
     useRouteMatch: jest.fn()
@@ -37,12 +41,6 @@ const Component = props => {
     return <i {...talonProps} />;
 };
 
-const props = {
-    queries: {
-        getPriceSummary: 'getPriceSummaryQuery'
-    }
-};
-
 it('returns the proper shape', () => {
     useQuery.mockReturnValue({
         error: null,
@@ -50,7 +48,7 @@ it('returns the proper shape', () => {
         data: priceSummaryResponse
     });
 
-    const rendered = createTestInstance(<Component {...props} />);
+    const rendered = createTestInstance(<Component />);
 
     const talonProps = rendered.root.findByType('i').props;
 
@@ -69,7 +67,7 @@ it('handles proceeding to checkout', () => {
         push: historyPush
     });
 
-    const rendered = createTestInstance(<Component {...props} />);
+    const rendered = createTestInstance(<Component />);
 
     const talonProps = rendered.root.findByType('i').props;
 
@@ -89,7 +87,7 @@ it('handles no returned data', () => {
         data: null
     });
 
-    const rendered = createTestInstance(<Component {...props} />);
+    const rendered = createTestInstance(<Component />);
 
     const talonProps = rendered.root.findByType('i').props;
 

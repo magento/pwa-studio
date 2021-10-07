@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './cartPage.gql';
 
 /**
  * This talon contains logic for a cart page component.
@@ -21,10 +23,9 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * @example <caption>Importing into your project</caption>
  * import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
  */
-export const useCartPage = props => {
-    const {
-        queries: { getCartDetails }
-    } = props;
+export const useCartPage = (props = {}) => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getCartDetailsQuery } = operations;
 
     const [{ cartId }] = useCartContext();
 
@@ -32,7 +33,7 @@ export const useCartPage = props => {
     const [wishlistSuccessProps, setWishlistSuccessProps] = useState(null);
 
     const [fetchCartDetails, { called, data, loading }] = useLazyQuery(
-        getCartDetails,
+        getCartDetailsQuery,
         {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first',
@@ -79,7 +80,7 @@ export const useCartPage = props => {
  *
  * @typedef {Object} CartPageQueries
  *
- * @property {GraphQLAST} getCartDetails Query for getting the cart details.
+ * @property {GraphQLAST} getCartDetailsQuery Query for getting the cart details.
  *
  * @see [cartPage.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.gql.js}
  * for queries used in Venia

@@ -3,6 +3,8 @@ import { useFormApi } from 'informed';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './giftCardQueries.gql';
 
 // To keep track of the most recent action taken.
 const actions = {
@@ -34,11 +36,15 @@ const actions = {
  * import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards'
  */
 export const useGiftCards = props => {
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
-        setIsCartUpdating,
-        mutations: { applyCardMutation, removeCardMutation },
-        queries: { appliedCardsQuery, cardBalanceQuery }
-    } = props;
+        getAppliedGiftCardsQuery,
+        getGiftCardBalanceQuery,
+        applyGiftCardMutation,
+        removeGiftCardMutation
+    } = operations;
+
+    const { setIsCartUpdating } = props;
 
     // We need the cartId for all of our queries and mutations.
     const [{ cartId }] = useCartContext();
@@ -50,21 +56,24 @@ export const useGiftCards = props => {
      *
      * Immediately execute the cart query and set up the other graphql actions.
      */
-    const appliedCardsResult = useQuery(appliedCardsQuery, {
+    const appliedCardsResult = useQuery(getAppliedGiftCardsQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first',
         skip: !cartId,
         variables: { cartId }
     });
 
-    const [checkCardBalance, balanceResult] = useLazyQuery(cardBalanceQuery, {
-        // For security, always fetch this from the network and never cache the
-        // result.
-        fetchPolicy: 'no-cache'
-    });
+    const [checkCardBalance, balanceResult] = useLazyQuery(
+        getGiftCardBalanceQuery,
+        {
+            // For security, always fetch this from the network and never cache the
+            // result.
+            fetchPolicy: 'no-cache'
+        }
+    );
 
-    const [applyCard, applyCardResult] = useMutation(applyCardMutation);
-    const [removeCard, removeCardResult] = useMutation(removeCardMutation);
+    const [applyCard, applyCardResult] = useMutation(applyGiftCardMutation);
+    const [removeCard, removeCardResult] = useMutation(removeGiftCardMutation);
 
     /*
      *  useState hooks.
@@ -177,8 +186,8 @@ export const useGiftCards = props => {
  *
  * @typedef {Object} GiftCardsMutations
  *
- * @property {GraphQLAST} applyCardMutation The mutation used to apply a gift card to the cart.
- * @property {GraphQLAST} removeCardMutation The mutation used to remove a gift card from the cart.
+ * @property {GraphQLAST} applyGiftCardMutation The mutation used to apply a gift card to the cart.
+ * @property {GraphQLAST} removeGiftCardMutation The mutation used to remove a gift card from the cart.
  *
  * @see [`giftCardQueries.ee.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
  * for queries used in Venia
@@ -189,8 +198,8 @@ export const useGiftCards = props => {
  *
  * @typedef {Object} GiftCardsQueries
  *
- * @property {GraphQLAST} appliedCardsQuery The query used to get the gift cards currently applied to the cart.
- * @property {GraphQLAST} cardBalanceQuery The query used to get the gift cards currently applied to the cart.
+ * @property {GraphQLAST} getAppliedGiftCardsQuery The query used to get the gift cards currently applied to the cart.
+ * @property {GraphQLAST} getGiftCardBalanceQuery The query used to get the gift cards currently applied to the cart.
  *
  * @see [`giftCardQueries.ee.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
  * for queries used in Venia

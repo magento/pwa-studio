@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
-
-import { CartPageFragment } from '../CartPage/cartPageFragments.gql';
+import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql.js';
 
 export const GET_CART_DETAILS_QUERY = gql`
     query GetCartDetailsAfterSignIn($cartId: String!) {

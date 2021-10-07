@@ -1,11 +1,14 @@
 import { useQuery } from '@apollo/client';
 import useFieldState from '@magento/peregrine/lib/hooks/hook-wrappers/useInformedFieldStateWrapper';
+import DEFAULT_OPERATIONS from './paymentMethods.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '../../../context/cart';
 
 export const usePaymentMethods = props => {
-    const { queries } = props;
-    const { getPaymentMethodsQuery } = queries;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getPaymentMethodsQuery } = operations;
+
     const [{ cartId }] = useCartContext();
 
     const { data, loading } = useQuery(getPaymentMethodsQuery, {

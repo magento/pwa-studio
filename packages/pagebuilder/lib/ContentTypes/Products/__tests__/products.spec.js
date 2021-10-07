@@ -1,6 +1,6 @@
 import { createTestInstance } from '@magento/peregrine';
 import React from 'react';
-import Products, { GET_PRODUCTS_BY_SKU } from '../products';
+import Products, { GET_PRODUCTS_BY_URL_KEY } from '../products';
 
 jest.mock(
     '@magento/peregrine/lib/hooks/useCustomerWishlistSkus/useCustomerWishlistSkus',
@@ -32,15 +32,24 @@ const mockGallery = Gallery.mockImplementation(() => 'Gallery');
 const mockGalleryItem = GalleryItem.mockImplementation(() => 'GalleryItem');
 
 test('render products with no props & no products', () => {
-    useQuery.mockImplementation(() => {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: []
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: []
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: false,
-            loading: false
+            }
         };
     });
 
@@ -50,20 +59,32 @@ test('render products with no props & no products', () => {
 });
 
 test('render products with all props & no products', () => {
-    useQuery.mockImplementation(() => {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: []
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: []
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: false,
-            loading: false
+            }
         };
     });
 
     const productsProps = {
-        skus: ['TEST-1', 'TEST-2'],
+        pathNames: [
+            'https://test.com/TEST-1.html',
+            'https://test.com/TEST-2.html'
+        ],
         textAlign: 'right',
         border: 'solid',
         borderColor: 'red',
@@ -86,15 +107,24 @@ test('render products with all props & no products', () => {
 });
 
 test('render products with loading state', () => {
-    useQuery.mockImplementation(() => {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: []
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: []
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: false,
-            loading: true
+            }
         };
     });
 
@@ -104,15 +134,24 @@ test('render products with loading state', () => {
 });
 
 test('render products with error state in production mode', () => {
-    useQuery.mockImplementation(() => {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: []
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: []
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: true,
-            loading: false
+            }
         };
     });
 
@@ -122,15 +161,24 @@ test('render products with error state in production mode', () => {
 });
 
 test('render products with error state in development mode', () => {
-    useQuery.mockImplementation(() => {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: []
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: []
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: true,
-            loading: false
+            }
         };
     });
 
@@ -140,40 +188,57 @@ test('render products with error state in development mode', () => {
 });
 
 test('render products and ensure order is correct passed to Gallery', () => {
-    const skus = ['TEST-1', 'TEST-2'];
-    useQuery.mockImplementation(() => {
+    const urlKeys = ['TEST-1', 'TEST-2'];
+    const pathNames = [
+        'https://test.com/TEST-1.html',
+        'https://test.com/TEST-2.html'
+    ];
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: [
+                            {
+                                sku: 'TEST-2',
+                                url_key: 'TEST-2'
+                            },
+                            {
+                                sku: 'TEST-1',
+                                url_key: 'TEST-1'
+                            }
+                        ]
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: [
-                        {
-                            sku: 'TEST-2'
-                        },
-                        {
-                            sku: 'TEST-1'
-                        }
-                    ]
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: false,
-            loading: false
+            }
         };
     });
 
-    const productProps = { skus };
+    const productProps = { pathNames };
 
     createTestInstance(<Products {...productProps} />);
-    expect(useQuery).toHaveBeenCalledWith(GET_PRODUCTS_BY_SKU, {
-        variables: { skus, pageSize: skus.length }
+    expect(useQuery).toHaveBeenCalledWith(GET_PRODUCTS_BY_URL_KEY, {
+        variables: { url_keys: urlKeys, pageSize: urlKeys.length }
     });
     expect(mockGallery).toHaveBeenCalledWith(
         expect.objectContaining({
             items: [
                 {
-                    sku: 'TEST-1'
+                    sku: 'TEST-1',
+                    url_key: 'TEST-1'
                 },
                 {
-                    sku: 'TEST-2'
+                    sku: 'TEST-2',
+                    url_key: 'TEST-2'
                 }
             ]
         }),
@@ -182,32 +247,47 @@ test('render products and ensure order is correct passed to Gallery', () => {
 });
 
 test('render carousel with default props and verify Slick is called correctly', () => {
-    useQuery.mockImplementation(() => {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: [
+                            {
+                                sku: 'TEST-1',
+                                url_key: 'TEST-1',
+                                small_image: {
+                                    url: '/test/product/1.png'
+                                }
+                            },
+                            {
+                                sku: 'TEST-2',
+                                url_key: 'TEST-2',
+                                small_image: {
+                                    url: '/test/product/2.png'
+                                }
+                            }
+                        ]
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: [
-                        {
-                            sku: 'TEST-1',
-                            small_image: {
-                                url: '/test/product/1.png'
-                            }
-                        },
-                        {
-                            sku: 'TEST-2',
-                            small_image: {
-                                url: '/test/product/2.png'
-                            }
-                        }
-                    ]
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: false,
-            loading: false
+            }
         };
     });
+
     const productProps = {
-        skus: ['TEST-1', 'TEST-2'],
+        pathNames: [
+            'https://test.com/TEST-1.html',
+            'https://test.com/TEST-2.html'
+        ],
         appearance: 'carousel',
         autoplay: false,
         autoplaySpeed: 4000,
@@ -223,6 +303,7 @@ test('render carousel with default props and verify Slick is called correctly', 
         expect.objectContaining({
             item: {
                 sku: 'TEST-1',
+                url_key: 'TEST-1',
                 small_image: {
                     url: '/test/product/1.png'
                 }
@@ -234,6 +315,7 @@ test('render carousel with default props and verify Slick is called correctly', 
         expect.objectContaining({
             item: {
                 sku: 'TEST-2',
+                url_key: 'TEST-2',
                 small_image: {
                     url: '/test/product/2.png'
                 }
@@ -261,6 +343,20 @@ test('render carousel with default props and verify Slick is called correctly', 
                         centerMode: false,
                         infinite: false
                     }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                    }
                 }
             ]
         }),
@@ -269,44 +365,67 @@ test('render carousel with default props and verify Slick is called correctly', 
 });
 
 test('render carousel with continuous mode and verify Slick is called correctly', () => {
-    useQuery.mockImplementation(() => {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: [
+                            {
+                                sku: 'TEST-1',
+                                url_key: 'TEST-1',
+                                small_image: '/test/product/1.png'
+                            },
+                            {
+                                sku: 'TEST-2',
+                                url_key: 'TEST-2',
+                                small_image: '/test/product/2.png'
+                            },
+                            {
+                                sku: 'TEST-3',
+                                url_key: 'TEST-3',
+                                small_image: '/test/product/3.png'
+                            },
+                            {
+                                sku: 'TEST-4',
+                                url_key: 'TEST-4',
+                                small_image: '/test/product/4.png'
+                            },
+                            {
+                                sku: 'TEST-5',
+                                url_key: 'TEST-5',
+                                small_image: '/test/product/5.png'
+                            },
+                            {
+                                sku: 'TEST-6',
+                                url_key: 'TEST-6',
+                                small_image: '/test/product/6.png'
+                            }
+                        ]
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: [
-                        {
-                            sku: 'TEST-1',
-                            small_image: '/test/product/1.png'
-                        },
-                        {
-                            sku: 'TEST-2',
-                            small_image: '/test/product/2.png'
-                        },
-                        {
-                            sku: 'TEST-3',
-                            small_image: '/test/product/3.png'
-                        },
-                        {
-                            sku: 'TEST-4',
-                            small_image: '/test/product/4.png'
-                        },
-                        {
-                            sku: 'TEST-5',
-                            small_image: '/test/product/5.png'
-                        },
-                        {
-                            sku: 'TEST-6',
-                            small_image: '/test/product/6.png'
-                        }
-                    ]
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: false,
-            loading: false
+            }
         };
     });
+
     const productProps = {
-        skus: ['TEST-1', 'TEST-2', 'TEST-3', 'TEST-4', 'TEST-5', 'TEST-6'],
+        pathNames: [
+            'https://test.com/TEST-1.html',
+            'https://test.com/TEST-2.html',
+            'https://test.com/TEST-3.html',
+            'https://test.com/TEST-4.html',
+            'https://test.com/TEST-5.html',
+            'https://test.com/TEST-6.html'
+        ],
         appearance: 'carousel',
         autoplay: false,
         autoplaySpeed: 4000,
@@ -340,6 +459,20 @@ test('render carousel with continuous mode and verify Slick is called correctly'
                         infinite: true,
                         centerPadding: '90px'
                     }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                    }
                 }
             ]
         }),
@@ -348,44 +481,67 @@ test('render carousel with continuous mode and verify Slick is called correctly'
 });
 
 test('render carousel with infinite loop and verify Slick is called correctly', () => {
-    useQuery.mockImplementation(() => {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: [
+                            {
+                                sku: 'TEST-1',
+                                url_key: 'TEST-1',
+                                small_image: '/test/product/1.png'
+                            },
+                            {
+                                sku: 'TEST-2',
+                                url_key: 'TEST-2',
+                                small_image: '/test/product/2.png'
+                            },
+                            {
+                                sku: 'TEST-3',
+                                url_key: 'TEST-3',
+                                small_image: '/test/product/3.png'
+                            },
+                            {
+                                sku: 'TEST-4',
+                                url_key: 'TEST-4',
+                                small_image: '/test/product/4.png'
+                            },
+                            {
+                                sku: 'TEST-5',
+                                url_key: 'TEST-5',
+                                small_image: '/test/product/5.png'
+                            },
+                            {
+                                sku: 'TEST-6',
+                                url_key: 'TEST-6',
+                                small_image: '/test/product/6.png'
+                            }
+                        ]
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: [
-                        {
-                            sku: 'TEST-1',
-                            small_image: '/test/product/1.png'
-                        },
-                        {
-                            sku: 'TEST-2',
-                            small_image: '/test/product/2.png'
-                        },
-                        {
-                            sku: 'TEST-3',
-                            small_image: '/test/product/3.png'
-                        },
-                        {
-                            sku: 'TEST-4',
-                            small_image: '/test/product/4.png'
-                        },
-                        {
-                            sku: 'TEST-5',
-                            small_image: '/test/product/5.png'
-                        },
-                        {
-                            sku: 'TEST-6',
-                            small_image: '/test/product/6.png'
-                        }
-                    ]
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: false,
-            loading: false
+            }
         };
     });
+
     const productProps = {
-        skus: ['TEST-1', 'TEST-2', 'TEST-3', 'TEST-4', 'TEST-5', 'TEST-6'],
+        pathNames: [
+            'https://test.com/TEST-1.html',
+            'https://test.com/TEST-2.html',
+            'https://test.com/TEST-3.html',
+            'https://test.com/TEST-4.html',
+            'https://test.com/TEST-5.html',
+            'https://test.com/TEST-6.html'
+        ],
         appearance: 'carousel',
         autoplay: false,
         autoplaySpeed: 4000,
@@ -416,6 +572,20 @@ test('render carousel with infinite loop and verify Slick is called correctly', 
                         centerMode: false,
                         infinite: true
                     }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                    }
                 }
             ]
         }),
@@ -424,40 +594,61 @@ test('render carousel with infinite loop and verify Slick is called correctly', 
 });
 
 test('render carousel with continuous mode with 5 products and verify Slick is called correctly', () => {
-    useQuery.mockImplementation(() => {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: [
+                            {
+                                sku: 'TEST-1',
+                                url_key: 'TEST-1',
+                                small_image: '/test/product/1.png'
+                            },
+                            {
+                                sku: 'TEST-2',
+                                url_key: 'TEST-2',
+                                small_image: '/test/product/2.png'
+                            },
+                            {
+                                sku: 'TEST-3',
+                                url_key: 'TEST-3',
+                                small_image: '/test/product/3.png'
+                            },
+                            {
+                                sku: 'TEST-4',
+                                url_key: 'TEST-4',
+                                small_image: '/test/product/4.png'
+                            },
+                            {
+                                sku: 'TEST-5',
+                                url_key: 'TEST-5',
+                                small_image: '/test/product/5.png'
+                            }
+                        ]
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: [
-                        {
-                            sku: 'TEST-1',
-                            small_image: '/test/product/1.png'
-                        },
-                        {
-                            sku: 'TEST-2',
-                            small_image: '/test/product/2.png'
-                        },
-                        {
-                            sku: 'TEST-3',
-                            small_image: '/test/product/3.png'
-                        },
-                        {
-                            sku: 'TEST-4',
-                            small_image: '/test/product/4.png'
-                        },
-                        {
-                            sku: 'TEST-5',
-                            small_image: '/test/product/5.png'
-                        }
-                    ]
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: false,
-            loading: false
+            }
         };
     });
+
     const productProps = {
-        skus: ['TEST-1', 'TEST-2', 'TEST-3', 'TEST-4', 'TEST-5'],
+        pathNames: [
+            'https://test.com/TEST-1.html',
+            'https://test.com/TEST-2.html',
+            'https://test.com/TEST-3.html',
+            'https://test.com/TEST-4.html',
+            'https://test.com/TEST-5.html'
+        ],
         appearance: 'carousel',
         autoplay: false,
         autoplaySpeed: 4000,
@@ -490,6 +681,20 @@ test('render carousel with continuous mode with 5 products and verify Slick is c
                         centerPadding: '90px',
                         infinite: true
                     }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToScroll: 3,
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                    }
                 }
             ]
         }),
@@ -498,24 +703,35 @@ test('render carousel with continuous mode with 5 products and verify Slick is c
 });
 
 test('render carousel with continuous mode with 1 product and verify Slick is called correctly', () => {
-    useQuery.mockImplementation(() => {
+    useQuery.mockImplementation(arg => {
+        if (arg.definitions['0'].name.value === 'getProductsByUrlKey') {
+            return {
+                data: {
+                    products: {
+                        items: [
+                            {
+                                sku: 'TEST-1',
+                                url_key: 'TEST-1',
+                                small_image: '/test/product/1.png'
+                            }
+                        ]
+                    }
+                },
+                error: false,
+                loading: false
+            };
+        }
         return {
             data: {
-                products: {
-                    items: [
-                        {
-                            sku: 'TEST-1',
-                            small_image: '/test/product/1.png'
-                        }
-                    ]
+                storeConfig: {
+                    product_url_suffix: '.html'
                 }
-            },
-            error: false,
-            loading: false
+            }
         };
     });
+
     const productProps = {
-        skus: ['TEST-1'],
+        pathNames: ['https://test.com/TEST-1.html'],
         appearance: 'carousel',
         autoplay: true,
         autoplaySpeed: 4000,
@@ -545,6 +761,20 @@ test('render carousel with continuous mode with 1 product and verify Slick is ca
                         slidesToScroll: 2,
                         centerMode: false,
                         infinite: false
+                    }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
                     }
                 }
             ]

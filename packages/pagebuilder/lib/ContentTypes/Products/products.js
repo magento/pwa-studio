@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 
@@ -7,18 +7,20 @@ import Gallery from '@magento/venia-ui/lib/components/Gallery';
 import Carousel from './Carousel/carousel';
 import defaultClasses from './products.module.css';
 /**
- * Sort products based on the original order of SKUs
+ * Sort products based on the original order
  *
- * @param {Array} skus
+ * @param {Array} urlKeys
  * @param {Array} products
  * @returns {Array}
  */
-const restoreSortOrder = (skus, products) => {
-    const productsBySku = new Map();
+const restoreSortOrder = (urlKeys, products) => {
+    const productsByOriginalOrder = new Map();
     products.forEach(product => {
-        productsBySku.set(product.sku, product);
+        productsByOriginalOrder.set(product.url_key, product);
     });
-    return skus.map(sku => productsBySku.get(sku)).filter(Boolean);
+    return urlKeys
+        .map(urlKey => productsByOriginalOrder.get(urlKey))
+        .filter(Boolean);
 };
 
 /**
@@ -31,7 +33,7 @@ const restoreSortOrder = (skus, products) => {
  *
  * @param {props} props React component props
  *
- * @returns {React.Element} A React component that displays a Products based on a number of skus.
+ * @returns {React.Element} A React component that displays a Products based on a number of products
  */
 const Products = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -45,7 +47,7 @@ const Products = props => {
         draggable = false,
         carouselMode,
         centerPadding,
-        skus = [],
+        pathNames = [],
         textAlign,
         border,
         borderColor,
@@ -61,8 +63,9 @@ const Products = props => {
         paddingLeft,
         cssClasses = [],
         slidesToShow = 5,
-        slideToShowSmall = 2,
-        slideToShowSmallCenterMode = 1
+        slidesToShowMedium = 4,
+        slidesToShowSmall = 2,
+        slidesToShowSmallCenterMode = 1
     } = props;
 
     const dynamicStyles = {
@@ -81,8 +84,24 @@ const Products = props => {
         paddingLeft
     };
 
-    const { loading, error, data } = useQuery(GET_PRODUCTS_BY_SKU, {
-        variables: { skus, pageSize: skus.length }
+    const { data: storeConfigData } = useQuery(GET_STORE_CONFIG_DATA, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const productUrlSuffix = useMemo(() => {
+        if (storeConfigData) {
+            return storeConfigData.storeConfig.product_url_suffix;
+        }
+    }, [storeConfigData]);
+
+    const urlKeys = pathNames.map(pathName => {
+        const slug = pathName.split('/').pop();
+        return productUrlSuffix ? slug.replace(productUrlSuffix, '') : slug;
+    });
+
+    const { loading, error, data } = useQuery(GET_PRODUCTS_BY_URL_KEY, {
+        variables: { url_keys: urlKeys, pageSize: urlKeys.length }
     });
 
     if (loading) return null;
@@ -91,7 +110,7 @@ const Products = props => {
         return null;
     }
 
-    const items = restoreSortOrder(skus, data.products.items);
+    const items = restoreSortOrder(urlKeys, data.products.items);
 
     if (appearance === 'carousel') {
         //Settings conditions was made due to react-slick issues
@@ -99,9 +118,9 @@ const Products = props => {
             carouselMode === 'continuous' && items.length > slidesToShow;
         const carouselSmallCenterMode =
             carouselMode === 'continuous' &&
-            items.length > slideToShowSmallCenterMode;
+            items.length > slidesToShowSmallCenterMode;
         const carouselSettings = {
-            slidesToShow: slidesToShow,
+            slidesToShow,
             slidesToScroll: slidesToShow,
             draggable,
             autoplay,
@@ -114,17 +133,31 @@ const Products = props => {
                     breakpoint: 640,
                     settings: {
                         slidesToShow: carouselSmallCenterMode
-                            ? slideToShowSmallCenterMode
-                            : slideToShowSmall,
+                            ? slidesToShowSmallCenterMode
+                            : slidesToShowSmall,
                         slidesToScroll: carouselSmallCenterMode
-                            ? slideToShowSmallCenterMode
-                            : slideToShowSmall,
+                            ? slidesToShowSmallCenterMode
+                            : slidesToShowSmall,
                         centerMode: carouselSmallCenterMode,
                         ...(carouselSmallCenterMode && { centerPadding }),
                         ...{
                             infinite:
-                                items.length > slideToShowSmall && infinite
+                                items.length > slidesToShowSmall && infinite
                         }
+                    }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: slidesToShowSmall + 1,
+                        slidesToScroll: slidesToShowSmall + 1
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                        slidesToShow: slidesToShowMedium,
+                        slidesToScroll: slidesToShowMedium
                     }
                 }
             ],
@@ -183,7 +216,7 @@ const Products = props => {
  * @property {Boolean} draggable Enable scrollable via dragging on desktop
  * @property {String} carouselMode Carousel mode
  * @property {String} centerPadding Horizontal padding in centerMode
- * @property {Array} skus List of SKUs to load into product list
+ * @property {Array} pathNames List of Url path names to load into product list
  * @property {String} textAlign Alignment of content within the products list
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
@@ -199,6 +232,7 @@ const Products = props => {
  * @property {String} paddingLeft CSS padding left property
  * @property {Array} cssClasses List of CSS classes to be applied to the component
  * @property {Number} slidesToShow # of slides to show at a time
+ * @property {Number} slidesToShowMedium # of slides to show at a time on medium sized screens
  * @property {Number} slidesToShowSmall # of slides to show at a time on small screen
  * @property {Number} slidesToShowSmallCenterMode # of slides to show at a time on small screen in centerMode
  */
@@ -220,7 +254,7 @@ Products.propTypes = {
     draggable: bool,
     carouselMode: oneOf(['default', 'continuous']),
     centerPadding: string,
-    skus: arrayOf(string),
+    pathNames: arrayOf(string),
     textAlign: string,
     border: string,
     borderColor: string,
@@ -236,15 +270,16 @@ Products.propTypes = {
     paddingLeft: string,
     cssClasses: arrayOf(string),
     slidesToShow: number,
+    slidesToShowMedium: number,
     slidesToShowSmall: number,
     slidesToShowSmallCenterMode: number
 };
 
 export default Products;
 
-export const GET_PRODUCTS_BY_SKU = gql`
-    query getProductsBySku($skus: [String], $pageSize: Int!) {
-        products(filter: { sku: { in: $skus } }, pageSize: $pageSize) {
+export const GET_PRODUCTS_BY_URL_KEY = gql`
+    query getProductsByUrlKey($url_keys: [String], $pageSize: Int!) {
+        products(filter: { url_key: { in: $url_keys } }, pageSize: $pageSize) {
             items {
                 id
                 name
@@ -274,6 +309,15 @@ export const GET_PRODUCTS_BY_SKU = gql`
                     value_string
                 }
             }
+        }
+    }
+`;
+
+export const GET_STORE_CONFIG_DATA = gql`
+    query getStoreConfigData {
+        storeConfig {
+            id
+            product_url_suffix
         }
     }
 `;

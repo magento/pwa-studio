@@ -1,8 +1,8 @@
 import React from 'react';
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 
 import createTestInstance from '../../../../../util/createTestInstance';
-import { useShippingForm, MOCKED_ADDRESS } from '../useShippingForm';
+import { MOCKED_ADDRESS, useShippingForm } from '../useShippingForm';
 import { act } from 'react-test-renderer';
 
 jest.mock('@apollo/client', () => ({
@@ -26,6 +26,11 @@ jest.mock('../../../../../context/cart', () => {
 
     return { useCartContext };
 });
+
+jest.mock('../shippingMethods.gql', () => ({
+    getShippingMethodsQuery: 'getShippingMethodsQuery',
+    setShippingAddressMutation: 'setShippingAddressMutation'
+}));
 
 const Component = props => {
     const talonProps = useShippingForm(props);
