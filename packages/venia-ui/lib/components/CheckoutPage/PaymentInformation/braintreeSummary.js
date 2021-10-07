@@ -34,16 +34,18 @@ const BraintreeSummary = props => {
         );
     }
 
-    const paymentSummary = formatMessage(
-        {
-            id: 'checkoutPage.paymentSummary',
-            defaultMessage: 'Card'
-        },
-        {
-            cardType: paymentNonce.details.cardType,
-            lastFour: paymentNonce.details.lastFour
-        }
-    );
+    const paymentSummary =
+        paymentNonce &&
+        formatMessage(
+            {
+                id: 'checkoutPage.paymentSummary',
+                defaultMessage: 'Card'
+            },
+            {
+                cardType: paymentNonce.details.cardType,
+                lastFour: paymentNonce.details.lastFour
+            }
+        );
 
     const billingAddressSummary =
         !isBillingAddressSame && billingAddress ? (
