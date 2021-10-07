@@ -1,25 +1,31 @@
 .root h1 {
-    @apply text-3xl font-normal leading-tight mt-3 mb-2;
+    @apply font-normal leading-tight mb-2 mt-3 text-3xl;
+    @apply md_leading-tight md_text-5xl;
 }
 
 .root h2 {
-    @apply text-2xl font-normal leading-tight mt-4 mb-2;
+    @apply font-normal leading-tight mb-2 mt-4 text-2xl;
+    @apply md_leading-tight md_text-4xl;
 }
 
 .root h3 {
-    @apply text-xl font-normal leading-tight mt-4 mb-2;
+    @apply font-normal leading-tight mb-2 mt-4 text-xl;
+    @apply md_leading-tight md_text-3xl;
 }
 
 .root h4 {
-    @apply text-lg font-semibold leading-tight mt-4 mb-2;
+    @apply font-semibold leading-tight mb-2 mt-4 text-lg;
+    @apply md_leading-tight md_text-2xl;
 }
 
 .root h5 {
-    @apply text-base font-semibold leading-tight mt-4 mb-2;
+    @apply font-semibold leading-tight mb-2 mt-4 text-base;
+    @apply md_leading-tight md_text-lg;
 }
 
 .root h6 {
-    @apply text-sm font-semibold leading-tight mt-4 mb-2;
+    @apply font-semibold leading-tight mb-2 mt-4 text-sm;
+    @apply md_leading-tight md_text-base;
 }
 
 .root p {
@@ -36,7 +42,7 @@
 
 .root ol,
 .root ul {
-    @apply leading-normal pl-8 my-4;
+    @apply leading-normal my-4 pl-8;
 }
 
 .root p + ol,
@@ -57,39 +63,13 @@
 }
 
 .root blockquote {
-    @apply text-xl italic my-4 mx-0;
+    @apply italic text-xl mx-0 my-4;
 }
 
 .root table {
-    @apply w-full text-left;
+    @apply text-left w-full;
 }
 
 .root pre {
-    @apply p-4 bg-gray-100 border border-gray-300 border-solid;
-}
-
-@screen tablet {
-    .root h1 {
-        @apply text-5xl leading-tight;
-    }
-
-    .root h2 {
-        @apply text-4xl leading-tight;
-    }
-
-    .root h3 {
-        @apply text-3xl leading-tight;
-    }
-
-    .root h4 {
-        @apply text-2xl leading-tight;
-    }
-
-    .root h5 {
-        @apply text-lg leading-tight;
-    }
-
-    .root h6 {
-        @apply text-base leading-tight;
-    }
+    @apply bg-gray-100 border border-gray-300 border-solid p-4;
 }

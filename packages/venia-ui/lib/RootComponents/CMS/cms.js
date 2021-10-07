@@ -85,7 +85,8 @@ CMSPage.propTypes = {
         root_2columnsRight: string,
         root_3columns: string,
         root_cmsFullWidth: string,
-        root_categoryFullWidth: string
+        root_categoryFullWidth: string,
+        root_productFullWidth: string
     })
 };
 

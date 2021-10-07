@@ -6,8 +6,9 @@ const veniaPlugin = require('./plugins');
  */
 
 module.exports = {
+    important: '#root',
+    plugins: [veniaPlugin],
     theme: {
-        plugins: [veniaPlugin],
         backgroundColor: theme => theme('colors'),
         borderColor: theme => theme('colors'),
         colors: getColors(),
@@ -16,12 +17,9 @@ module.exports = {
             gridTemplateRows: {},
             lineHeight: {},
             maxHeight: {},
-            maxWidth: {}
-        },
-        screens: {
-            tablet: '640px',
-            laptop: '1024px',
-            desktop: '1280px'
+            maxWidth: {
+                '1column': '56.25rem'
+            }
         },
         transitionDuration: {}
     }

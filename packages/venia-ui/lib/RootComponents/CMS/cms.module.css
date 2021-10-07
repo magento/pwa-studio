@@ -1,11 +1,16 @@
 .root {
-    padding: 1rem;
+    composes: px-4 from global;
 }
 
 .heading {
-    margin-bottom: 2rem;
-    font-size: var(--venia-global-fontSize-800);
-    text-align: center;
+    composes: mb-2 from global;
+    composes: mt-4 from global;
+    composes: text-center from global;
+    composes: text-3xl from global;
+
+    /* Medium */
+    composes: md_mb-10 from global;
+    composes: md_text-5xl from global;
 }
 
 .root_empty,
@@ -20,13 +25,7 @@
 
 .root_1column {
     composes: root;
-    max-width: var(--venia-global-maxWidth-1column);
-    margin: 0 auto;
-}
-
-@media only screen and (min-width: 769px) {
-    .heading {
-        margin-bottom: 3rem;
-        font-size: var(--venia-global-fontSize-1100);
-    }
+    composes: max-w-1column from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
 }
