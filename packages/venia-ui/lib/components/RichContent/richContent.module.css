@@ -1,124 +1,95 @@
-.root h1,
-.root h2,
-.root h3,
-.root h4,
-.root h5,
-.root h6 {
-    word-break: break-word;
-    line-height: 1.25em;
-    margin-bottom: 0.5em;
-    margin-top: 1rem;
+.root h1 {
+    @apply text-3xl font-normal leading-tight mt-3 mb-2;
 }
 
-.root h1 {
-    font-size: 2rem;
-    margin-top: 0.9em;
-    font-weight: 300;
-}
 .root h2 {
-    font-size: 1.625rem;
-    font-weight: 400;
+    @apply text-2xl font-normal leading-tight mt-4 mb-2;
 }
+
 .root h3 {
-    font-size: 1.375rem;
-    font-weight: 400;
+    @apply text-xl font-normal leading-tight mt-4 mb-2;
 }
+
 .root h4 {
-    font-size: 1.125rem;
-    font-weight: 600;
+    @apply text-lg font-semibold leading-tight mt-4 mb-2;
 }
+
 .root h5 {
-    font-size: 1rem;
-    font-weight: 600;
+    @apply text-base font-semibold leading-tight mt-4 mb-2;
 }
+
 .root h6 {
-    font-size: 0.875rem;
-    font-weight: 600;
+    @apply text-sm font-semibold leading-tight mt-4 mb-2;
 }
+
 .root p {
-    margin-bottom: 1rem;
-    line-height: 1.65em;
+    @apply leading-normal mb-4;
 }
+
 .root p:last-child {
-    margin-bottom: 0;
+    @apply mb-0;
 }
+
 .root img {
-    max-width: 100%;
-    margin: 1rem 0;
+    @apply max-w-full my-0 mx-4;
 }
+
 .root ol,
 .root ul {
-    margin-block-start: 1.2em;
-    margin-block-end: 1.2em;
-    padding-left: 2em;
-}
-.root p + ol,
-.root p + ul {
-    margin-block-start: 0.2em;
-}
-.root ol {
-    list-style-type: decimal;
-}
-.root ul {
-    list-style-type: disc;
-}
-.root ol li,
-.root ul li {
-    line-height: 1.65em;
-    padding: 1px 0.5rem;
-}
-.root a {
-    text-decoration: underline;
-}
-.root blockquote {
-    font-size: 1.375rem;
-    line-height: 1.875rem;
-    margin: 1rem 0;
-    font-weight: 300;
-    font-style: italic;
-}
-.root table {
-    width: 100%;
-    border-spacing: 0;
-    text-align: left;
-}
-.root pre {
-    background: rgb(var(--venia-global-color-gray));
-    padding: 1rem;
-    border: 1px solid rgb(var(--venia-global-color-border));
+    @apply leading-normal pl-8 my-4;
 }
 
-@media only screen and (min-width: 769px) {
+.root p + ol,
+.root p + ul {
+    @apply mt-0;
+}
+
+.root ol {
+    @apply list-decimal;
+}
+
+.root ul {
+    @apply list-disc;
+}
+
+.root a {
+    @apply underline;
+}
+
+.root blockquote {
+    @apply text-xl italic my-4 mx-0;
+}
+
+.root table {
+    @apply w-full text-left;
+}
+
+.root pre {
+    @apply p-4 bg-gray-100 border border-gray-300 border-solid;
+}
+
+@screen tablet {
     .root h1 {
-        font-size: 3rem;
-        margin-top: 0.75em;
-        line-height: 1.05em;
+        @apply text-5xl leading-tight;
     }
+
     .root h2 {
-        font-size: 2.25rem;
-        line-height: 1.25em;
+        @apply text-4xl leading-tight;
     }
+
     .root h3 {
-        font-size: 1.75rem;
-        line-height: 1.25em;
+        @apply text-3xl leading-tight;
     }
+
     .root h4 {
-        font-size: 1.375rem;
-        line-height: 1.25em;
-        font-weight: 400;
+        @apply text-2xl leading-tight;
     }
+
     .root h5 {
-        font-size: 1.125rem;
-        line-height: 1.22em;
-        margin-bottom: 0.75em;
+        @apply text-lg leading-tight;
     }
+
     .root h6 {
-        font-size: 1rem;
-        line-height: 1.22em;
-        margin-bottom: 0.75em;
-    }
-    .root p {
-        margin-bottom: 1rem;
-        line-height: 1.5em;
+        @apply text-base leading-tight;
     }
 }
