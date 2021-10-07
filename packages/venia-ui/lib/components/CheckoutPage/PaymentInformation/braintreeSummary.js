@@ -5,6 +5,7 @@ import { shape, string, func, bool } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import Icon from '../../Icon';
 import LinkButton from '../../LinkButton';
+import LoadingIndicator from '../../LoadingIndicator';
 
 import { useBraintreeSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useBraintreeSummary';
 import defaultClasses from './braintreeSummary.module.css';
