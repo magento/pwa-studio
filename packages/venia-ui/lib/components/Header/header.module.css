@@ -10,9 +10,9 @@
     composes: bg-white from global;
     composes: border-b from global;
     composes: border-neutral-l1 from global;
-    composes: px-16 from global;
+    composes: px-4 from global;
 
-    composes: lg_px-32 from global;
+    composes: lg_px-8 from global;
 }
 
 .switchers {
@@ -31,7 +31,7 @@
     composes: hidden from global;
     composes: w-full from global;
     composes: bg-gray-100 from global;
-    composes: px-32 from global;
+    composes: px-8 from global;
 
     composes: lg_block from global;
 }
@@ -46,7 +46,7 @@
 
 .toolbar {
     composes: grid-cols-3 from global;
-    composes: gap-x-16 from global;
+    composes: gap-x-4 from global;
     composes: border-0 from global;
     composes: z-3 from global;
     composes: content-center from global;
@@ -61,7 +61,7 @@
 
     composes: lg_min-height-header from global;
     composes: lg_grid-cols-12 from global;
-    composes: lg_gap-x-32 from global;
+    composes: lg_gap-x-8 from global;
     composes: lg_pb-2 from global;
     composes: lg_h-20 from global;
 }
@@ -81,13 +81,13 @@
 
 .logoContainer {
     composes: col-start-2 from global;
-    composes: my-16 from global;
+    composes: my-4 from global;
     composes: justify-self-center from global;
 
     composes: lg_col-start-1 from global;
     composes: lg_col-end-3 from global;
     composes: lg_row-start-1 from global;
-    composes: lg_mr-32 from global;
+    composes: lg_mr-8 from global;
     composes: lg_justify-self-start from global;
 }
 

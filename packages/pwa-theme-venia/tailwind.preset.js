@@ -19,10 +19,7 @@ module.exports = {
                 3: '3',
                 11: '11'
             },
-            spacing: {
-                16: '16px',
-                32: '32px'
-            },
+            spacing: {},
             gridTemplateColumns: {},
             gridTemplateRows: {
                 header: '5rem'
