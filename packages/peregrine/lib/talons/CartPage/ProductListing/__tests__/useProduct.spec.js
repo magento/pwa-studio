@@ -88,10 +88,7 @@ const props = {
             }
         },
         quantity: 7,
-        error: {
-            has_error: false,
-            message: null
-        },
+        errors: null,
         id: 'ItemID'
     },
     mutations: {
@@ -319,10 +316,7 @@ test('it handles editing the product', () => {
     expect(setActiveEditItem).toHaveBeenCalled();
     expect(setActiveEditItem.mock.calls[0][0]).toMatchInlineSnapshot(`
         Object {
-          "error": Object {
-            "has_error": false,
-            "message": null,
-          },
+          "errors": null,
           "id": "ItemID",
           "prices": Object {
             "price": Object {
