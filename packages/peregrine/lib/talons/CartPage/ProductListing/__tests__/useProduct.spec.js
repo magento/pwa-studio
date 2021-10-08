@@ -511,10 +511,12 @@ test('it returns an error message when the item has an error', () => {
         ...props,
         item: {
             ...props.item,
-            errors: [{
-                code: 'SOME_MESSAGE',
-                message: 'Some error message'
-            }]
+            errors: [
+                {
+                    code: 'SOME_MESSAGE',
+                    message: 'Some error message'
+                }
+            ]
         }
     };
 

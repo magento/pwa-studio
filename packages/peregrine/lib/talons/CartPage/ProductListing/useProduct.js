@@ -117,7 +117,7 @@ export const useProduct = props => {
         return (
             (displayError &&
                 deriveErrorMessage([updateError, removeItemError])) ||
-            deriveErrorMessage([...item.errors || []]) ||
+            deriveErrorMessage([...(item.errors || [])]) ||
             ''
         );
     }, [displayError, removeItemError, updateError, item.errors]);

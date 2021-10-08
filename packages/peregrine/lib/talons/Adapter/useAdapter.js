@@ -76,8 +76,7 @@ export const useAdapter = props => {
                                 'Some of the products are out of stock.' ||
                             message ===
                                 'There are no source items with the in stock status' ||
-                            message ===
-                                'The requested qty is not available'
+                            message === 'The requested qty is not available'
                         ) {
                             if (!pathToCartItems) {
                                 pathToCartItems = path.slice(0, -1);
