@@ -517,10 +517,10 @@ test('it returns an error message when the item has an error', () => {
         ...props,
         item: {
             ...props.item,
-            error: {
-                has_error: true,
+            errors: [{
+                code: 'SOME_MESSAGE',
                 message: 'Some error message'
-            }
+            }]
         }
     };
 

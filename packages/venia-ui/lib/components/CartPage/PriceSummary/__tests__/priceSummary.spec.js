@@ -130,20 +130,7 @@ test('renders PriceSummary correctly on checkout page', () => {
 test('renders an error state if query fails', () => {
     usePriceSummary.mockReturnValueOnce({
         ...defaultTalonProps,
-        hasError: true,
-        hasCriticalError: true
-    });
-
-    const tree = createTestInstance(<PriceSummary />);
-
-    expect(tree.toJSON()).toMatchSnapshot();
-});
-
-test('renders summary with blocked state when non critical error', () => {
-    usePriceSummary.mockReturnValueOnce({
-        ...defaultTalonProps,
-        hasError: true,
-        hasCriticalError: false
+        hasError: true
     });
 
     const tree = createTestInstance(<PriceSummary />);

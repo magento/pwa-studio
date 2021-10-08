@@ -48,7 +48,6 @@ Object {
     },
   },
   "handleProceedToCheckout": [Function],
-  "hasCriticalError": false,
   "hasError": false,
   "hasItems": true,
   "isCheckout": false,

@@ -38,8 +38,8 @@ export const ProductListingFragment = gql`
                 }
             }
             quantity
-            error {
-                has_error
+            errors {
+                code
                 message
             }
             ... on ConfigurableCartItem {

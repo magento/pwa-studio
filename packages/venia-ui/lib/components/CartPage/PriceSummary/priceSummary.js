@@ -33,7 +33,6 @@ const PriceSummary = props => {
     const {
         handleProceedToCheckout,
         hasError,
-        hasCriticalError,
         hasItems,
         isCheckout,
         isLoading,
@@ -41,7 +40,7 @@ const PriceSummary = props => {
     } = talonProps;
     const { formatMessage } = useIntl();
 
-    if (hasCriticalError) {
+    if (hasError) {
         return (
             <div className={classes.root}>
                 <span className={classes.errorText}>
@@ -79,7 +78,7 @@ const PriceSummary = props => {
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
             <Button
-                disabled={isPriceUpdating || hasError}
+                disabled={isPriceUpdating}
                 priority={'high'}
                 onClick={handleProceedToCheckout}
             >

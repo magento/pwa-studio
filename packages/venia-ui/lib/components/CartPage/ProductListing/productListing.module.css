@@ -6,5 +6,5 @@
 .errorText {
     color: rgb(var(--venia-global-color-error));
     line-height: var(--venia-global-lineHeight-300);
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
 }

@@ -89,7 +89,7 @@ export const useMiniCart = props => {
 
     const productList = useMemo(() => {
         if (!miniCartLoading) {
-            return miniCartData?.cart?.items?.filter(Boolean);
+            return miniCartData?.cart?.items;
         }
     }, [miniCartData, miniCartLoading]);
 
