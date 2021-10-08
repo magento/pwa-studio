@@ -7,6 +7,7 @@ const GET_CONFIGURABLE_OPTIONS = gql`
         products(filter: { sku: { eq: $sku } }) {
             items {
                 id
+                uid
                 ...ProductFormFragment
             }
         }
@@ -17,13 +18,15 @@ const GET_CONFIGURABLE_OPTIONS = gql`
 const UPDATE_QUANTITY_MUTATION = gql`
     mutation UpdateCartItemQuantity(
         $cartId: String!
-        $cartItemId: Int!
+        $cartItemId: ID!
         $quantity: Float!
     ) {
         updateCartItems(
             input: {
                 cart_id: $cartId
-                cart_items: [{ cart_item_id: $cartItemId, quantity: $quantity }]
+                cart_items: [
+                    { cart_item_uid: $cartItemId, quantity: $quantity }
+                ]
             }
         ) @connection(key: "updateCartItems") {
             cart {
@@ -38,7 +41,7 @@ const UPDATE_QUANTITY_MUTATION = gql`
 const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
     mutation UpdateConfigurableOptions(
         $cartId: String!
-        $cartItemId: Int!
+        $cartItemId: ID!
         $parentSku: String!
         $variantSku: String!
         $quantity: Float!
@@ -60,7 +63,7 @@ const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
         }
 
         removeItemFromCart(
-            input: { cart_id: $cartId, cart_item_id: $cartItemId }
+            input: { cart_id: $cartId, cart_item_uid: $cartItemId }
         ) @connection(key: "removeItemFromCart") {
             cart {
                 id
