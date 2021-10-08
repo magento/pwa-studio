@@ -6,7 +6,6 @@ import RichContent from '../../../components/RichContent';
 import { StoreTitle } from '../../../components/Head';
 import CMSPage from '../cms';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import CheckoutButton from '../../../components/Checkout/checkoutButton';
 
 jest.mock('../../../classify');
 

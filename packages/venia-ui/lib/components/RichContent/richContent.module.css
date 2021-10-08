@@ -37,7 +37,7 @@
 }
 
 .root img {
-    @apply max-w-full my-0 mx-4;
+    @apply max-w-full mx-0 my-4;
 }
 
 .root ol,
