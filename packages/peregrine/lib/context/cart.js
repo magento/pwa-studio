@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useMemo } from 'react';
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useMemo,
+    useCallback
+} from 'react';
 import { connect } from 'react-redux';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -7,8 +13,11 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import actions from '../store/actions/cart/actions';
 import * as asyncActions from '../store/actions/cart/asyncActions';
 import bindActionCreators from '../util/bindActionCreators';
+import { useEventListener } from '../hooks/useEventListener';
+import BrowserPersistence from '../util/simplePersistence';
 
 const CartContext = createContext();
+const storage = new BrowserPersistence();
 
 const isCartEmpty = cart =>
     !cart || !cart.details.items || cart.details.items.length === 0;
@@ -56,6 +65,17 @@ const CartContextProvider = props => {
 
     const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
+
+    // Storage listener to force a state update if cartId changes from another browser tab.
+    const storageListener = useCallback(() => {
+        const currentCartId = storage.getItem('cartId');
+        const { cartId } = cartState;
+        if (cartId && currentCartId && cartId !== currentCartId) {
+            window.location.reload();
+        }
+    }, [cartState]);
+
+    useEventListener(window, 'storage', storageListener);
 
     useEffect(() => {
         // cartApi.getCartDetails initializes the cart if there isn't one.
