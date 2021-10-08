@@ -1,6 +1,6 @@
 {
   "name": "@magento/pagebuilder",
-  "version": "7.0.0-alpha.1",
+  "version": "7.0.0-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -34,9 +34,9 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pagebuilder#readme",
   "dependencies": {},
   "devDependencies": {
-    "@magento/peregrine": "12.0.0-alpha.1",
-    "@magento/pwa-buildpack": "11.0.0-alpha.1",
-    "@magento/venia-ui": "9.0.0-alpha.1",
+    "@magento/peregrine": "12.0.0-alpha.2",
+    "@magento/pwa-buildpack": "11.0.0-alpha.2",
+    "@magento/venia-ui": "9.0.0-alpha.2",
     "@storybook/react": "~6.3.7",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
@@ -50,9 +50,9 @@
   "peerDependencies": {
     "@apollo/client": "~3.1.2",
     "@magento/babel-preset-peregrine": "~1.1.0",
-    "@magento/peregrine": "12.0.0-alpha.1",
-    "@magento/pwa-buildpack": "11.0.0-alpha.1",
-    "@magento/venia-ui": "9.0.0-alpha.1",
+    "@magento/peregrine": "12.0.0-alpha.2",
+    "@magento/pwa-buildpack": "11.0.0-alpha.2",
+    "@magento/venia-ui": "9.0.0-alpha.2",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
     "lodash.escape": "~4.0.1",
