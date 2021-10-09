@@ -407,6 +407,7 @@
     "validation.isEqualToField": "{value} must match.",
     "validation.isNotEqualToField": "{value} must be different",
     "validation.isRequired": "Is required.",
+    "validation.isValidEmail": "Please enter a valid email address (Ex: johndoe@domain.com).",
     "validation.mustBeChecked": "Must be checked.",
     "validation.validatePassword": "A password must contain at least 3 of the following: lowercase, uppercase, digits, special characters.",
     "wishlist.name": "Wish List",

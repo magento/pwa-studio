@@ -357,6 +357,7 @@
     "validation.isEqualToField": "{value} doit correspondre.",
     "validation.isNotEqualToField": "{value} doit être différent",
     "validation.isRequired": "Est requis.",
+    "validation.isValidEmail": "Veuillez saisir une adresse e-mail valide (Ex: johndoe@domain.com).",
     "validation.mustBeChecked": "Doit être vérifié.",
     "validation.validatePassword": "Un mot de passe doit contenir au moins 3 des éléments suivants: minuscules, majuscules, chiffres, caractères spéciaux.",
     "wishlist.emptyListText": "Il n'y a actuellement aucun élément dans cette liste",
