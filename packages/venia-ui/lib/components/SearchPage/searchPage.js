@@ -17,7 +17,6 @@ import FilterModalOpenButton, {
 } from '../FilterModalOpenButton';
 import { FilterSidebarShimmer } from '../FilterSidebar';
 import Shimmer from '../Shimmer';
-import { Meta, Title } from '../Head';
 
 const FilterModal = React.lazy(() => import('../FilterModal'));
 const FilterSidebar = React.lazy(() => import('../FilterSidebar'));
@@ -176,10 +175,6 @@ const SearchPage = props => {
             <Shimmer width={5} />
         ) : null;
 
-    const metaLabel = [searchTerm, `${STORE_NAME} Search`]
-        .filter(Boolean)
-        .join(' - ');
-
     return (
         <article className={classes.root}>
             <div className={classes.sidebar}>
@@ -202,9 +197,6 @@ const SearchPage = props => {
                 {content}
                 <Suspense fallback={null}>{maybeFilterModal}</Suspense>
             </div>
-            <Title>{metaLabel}</Title>
-            <Meta name="title" content={metaLabel} />
-            <Meta name="description" content={metaLabel} />
         </article>
     );
 };

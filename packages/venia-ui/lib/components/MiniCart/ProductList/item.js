@@ -20,7 +20,7 @@ const Item = props => {
     const {
         classes: propClasses,
         product,
-        uid,
+        id,
         quantity,
         configurable_options,
         handleRemoveItem,
@@ -45,7 +45,7 @@ const Item = props => {
             : '';
 
     const { isDeleting, removeItem } = useItem({
-        uid,
+        id,
         handleRemoveItem
     });
 

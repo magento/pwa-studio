@@ -154,7 +154,7 @@ export const GET_CART_DETAILS_QUERY = gql`
         cart(cart_id: $cartId) {
             id
             items {
-                uid
+                id
                 prices {
                     price {
                         value

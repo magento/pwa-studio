@@ -3,7 +3,6 @@ import { gql } from '@apollo/client';
 export const ProductFormFragment = gql`
     fragment ProductFormFragment on ProductInterface {
         id
-        uid
         sku
         ... on ConfigurableProduct {
             configurable_options {

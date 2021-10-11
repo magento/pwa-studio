@@ -82,7 +82,6 @@ export const configurableItemResponse = {
 export const cartItem = {
     configurable_options: [{ id: 123, value_id: 1 }, { id: 456, value_id: 1 }],
     id: 123,
-    uid: 'NDA=',
     product: {
         sku: 'SP01'
     },

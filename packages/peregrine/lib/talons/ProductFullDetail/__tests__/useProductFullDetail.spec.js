@@ -60,9 +60,7 @@ const defaultProps = {
             }
         },
         sku: 'MySimpleProductSku',
-        stock_status: 'IN_STOCK',
-        name: 'Strive Shoulder Pac',
-        uid: 'NDA='
+        stock_status: 'IN_STOCK'
     }
 };
 
@@ -555,18 +553,13 @@ test('calls generic mutation when no deprecated operation props are passed', asy
     const { handleAddToCart } = talonPropsStep1;
 
     await handleAddToCart({ quantity: 2 });
+
     expect(mockAddSimpleToCart).not.toHaveBeenCalled();
     expect(mockAddConfigurableToCart).not.toHaveBeenCalled();
     expect(mockAddProductToCart.mock.calls[0][0]).toMatchInlineSnapshot(`
         Object {
           "variables": Object {
             "cartId": "ThisIsMyCart",
-            "entered_options": Array [
-              Object {
-                "uid": "NDA=",
-                "value": "Strive Shoulder Pac",
-              },
-            ],
             "product": Object {
               "quantity": 2,
               "sku": "MySimpleProductSku",

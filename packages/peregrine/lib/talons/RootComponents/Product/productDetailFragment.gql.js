@@ -5,7 +5,6 @@ export const ProductDetailsFragment = gql`
         __typename
         categories {
             id
-            uid
             breadcrumbs {
                 category_id
             }
@@ -14,7 +13,6 @@ export const ProductDetailsFragment = gql`
             html
         }
         id
-        uid
         media_gallery_entries {
             # id is deprecated and unused in our code, but lint rules require we
             # request it if available
@@ -69,7 +67,6 @@ export const ProductDetailsFragment = gql`
                 }
                 product {
                     id
-                    uid
                     media_gallery_entries {
                         # id is deprecated and unused in our code, but lint rules require we
                         # request it if available

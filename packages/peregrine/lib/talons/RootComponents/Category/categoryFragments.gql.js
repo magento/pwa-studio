@@ -13,7 +13,6 @@ export const ProductsFragment = gql`
     fragment ProductsFragment on Products {
         items {
             id
-            uid
             name
             price_range {
                 maximum_price {

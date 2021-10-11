@@ -60,9 +60,7 @@ const defaultProps = {
         stock_status: 'IN_STOCK',
         type_id: 'simple',
         sku: '97ahsf9',
-        url_key: 'simple_product.html',
-        uid: 'NDA=',
-        name: 'Strive Shoulder Pac'
+        url_key: 'simple_product.html'
     }
 };
 
@@ -171,13 +169,8 @@ describe('testing handleAddToCart', () => {
                 "variables": Object {
                   "cartId": "1234",
                   "cartItem": Object {
-                    "entered_options": Array [
-                      Object {
-                        "uid": "NDA=",
-                        "value": "Strive Shoulder Pac",
-                      },
-                    ],
                     "quantity": 1,
+                    "selected_options": Array [],
                     "sku": "97ahsf9",
                   },
                 },

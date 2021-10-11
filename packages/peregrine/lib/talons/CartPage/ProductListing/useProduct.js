@@ -128,14 +128,14 @@ export const useProduct = props => {
             await removeItemFromCart({
                 variables: {
                     cartId,
-                    itemId: item.uid
+                    itemId: item.id
                 }
             });
         } catch (err) {
             // Make sure any errors from the mutation are displayed.
             setDisplayError(true);
         }
-    }, [cartId, item.uid, removeItemFromCart]);
+    }, [cartId, item.id, removeItemFromCart]);
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
@@ -143,7 +143,7 @@ export const useProduct = props => {
                 await updateItemQuantity({
                     variables: {
                         cartId,
-                        itemId: item.uid,
+                        itemId: item.id,
                         quantity
                     }
                 });
@@ -152,7 +152,7 @@ export const useProduct = props => {
                 setDisplayError(true);
             }
         },
-        [cartId, item.uid, updateItemQuantity]
+        [cartId, item.id, updateItemQuantity]
     );
 
     useEffect(() => {

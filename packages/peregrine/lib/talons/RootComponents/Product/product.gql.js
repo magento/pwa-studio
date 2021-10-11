@@ -16,7 +16,6 @@ export const GET_PRODUCT_DETAIL_QUERY = gql`
         products(filter: { url_key: { eq: $urlKey } }) {
             items {
                 id
-                uid
                 ...ProductDetailsFragment
             }
         }

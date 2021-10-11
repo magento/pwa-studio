@@ -37,11 +37,6 @@ jest.mock('../../FilterSidebar', () => ({
     FilterSidebarShimmer: 'FilterSidebarShimmer'
 }));
 
-jest.mock('../../../components/Head', () => ({
-    Title: 'Title',
-    Meta: 'Meta'
-}));
-
 const talonProps = {
     data: {
         products: {
