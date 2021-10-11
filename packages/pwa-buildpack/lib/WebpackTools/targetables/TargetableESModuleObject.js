@@ -7,7 +7,7 @@ const TargetableESModule = require('./TargetableESModule');
  * imported bindings.
  * Useful for building named lists and associative arrays when making extension points.
  *
- * Uses [export-esm-collection-loader][] to build source code.
+ * Uses {@link https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/lib/WebpackTools/loaders/export-esm-collection-loader.js|export-esm-collection-loader} to build source code.
  */
 class TargetableESModuleObject extends TargetableESModule {
     constructor(...args) {
@@ -44,12 +44,9 @@ class TargetableESModuleObject extends TargetableESModule {
         const alreadyBound = this._bindings.get(importStatement.binding);
         if (alreadyBound) {
             this._errors.push(
-                `Cannot export "${importStatement.imported}" as "${
-                    importStatement.binding
-                }" from "${importStatement.source}". Export "${
-                    importStatement.binding
-                }" was already assigned to "${alreadyBound.imported}" from "${
-                    alreadyBound.source
+                `Cannot export "${importStatement.imported}" as "${importStatement.binding
+                }" from "${importStatement.source}". Export "${importStatement.binding
+                }" was already assigned to "${alreadyBound.imported}" from "${alreadyBound.source
                 }".`
             );
         } else {

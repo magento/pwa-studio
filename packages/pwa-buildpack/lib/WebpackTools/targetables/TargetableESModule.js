@@ -22,7 +22,7 @@ class TargetableESModule extends TargetableModule {
      * If a collision is detected, it renames the binding before inserting it.
      *
      * @param {(string|SingleImportStatement)} statement - A string representing the import statement, or a SingleImportStatement representing it.
-     * @returns {SingleImportStatement} An instance of the [`SingleImportStatement`] class.
+     * @returns {SingleImportStatement} An instance of the `SingleImportStatement` class.
      * @memberof TargetableESModule
      */
     addImport(statement) {
@@ -74,14 +74,14 @@ class TargetableESModule extends TargetableModule {
     wrapWithFile(exportNameOrWrapperModule, wrapperModule) {
         const opts = wrapperModule
             ? {
-                  exportName: exportNameOrWrapperModule,
-                  wrapperModule,
-                  defaultExport: false
-              }
+                exportName: exportNameOrWrapperModule,
+                wrapperModule,
+                defaultExport: false
+            }
             : {
-                  wrapperModule: exportNameOrWrapperModule,
-                  defaultExport: true
-              };
+                wrapperModule: exportNameOrWrapperModule,
+                defaultExport: true
+            };
         return this.addTransform(
             'source',
             '@magento/pwa-buildpack/lib/WebpackTools/loaders/wrap-esm-loader',
