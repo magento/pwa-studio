@@ -1,5 +1,6 @@
 ---
 title: Magento compatibility
+adobeio: /integrations/magento/version-compatibility/
 ---
 
 This page lists PWA Studio versions and their compatible Magento core version.
