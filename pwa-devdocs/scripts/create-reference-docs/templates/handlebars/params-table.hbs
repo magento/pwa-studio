@@ -1,11 +1,11 @@
-{{#if params}}## Parameters
+{{#if params}}**Parameters**
 
-{{tableHead params "name|Parameter" "type|Type" "default|Default" "description|Description" ~}}
+{{tableHead params "name|Name" "type|Type" "defaultvalue|Default" "description|Description" ~}}
 
-{{#tableRow params "name" "type" "default" "description" ~}}
+{{#tableRow params "name" "type" "defaultvalue" "description" ~}}
 | {{#if @col1}}{{>param-table-name}} | {{/if~}}
 {{#if @col2}}{{>linked-type-list types=type.names delimiter=" \| " }} | {{/if~}}
-{{#if @col3}}<inlineCode>{{>default}}</inlineCode> | {{/if~}}
+{{#if @col3}}<inlineCode>{{defaultvalue}}</inlineCode> | {{/if~}}
 {{#if @col4}}{{{stripNewlines (inlineLinks description)}}} |{{/if}}
 {{/tableRow}}
 
