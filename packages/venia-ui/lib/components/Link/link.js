@@ -10,11 +10,13 @@ const removeProps = (props, exclude) => {
 };
 
 /**
- * Use for links to pages within your app.
- *
  * @kind functional component
- * @param {props} props React component props
- * @returns {RouterLink} the `Link` component from `react-router-dom`. We add a `ref` to prefetch pages when the link enters the viewport.
+ *
+ * @property {bool} prefetchType `true` activates prefetching the target page when the link becomes visible in the viewport.
+ * @property {string} to From [react-router-dom Link](https://knowbody.github.io/react-router-docs/api/Link.html). The absolute path to the target page of the link. Uses the `to` prop from the `react-router-dom Link`.
+ *
+ * @example <caption>Basic usage</caption>
+ * <Link prefetchType={true} to="/about/">About Us</Link>
  */
 const Link = props => {
     const talonProps = useLink(props);

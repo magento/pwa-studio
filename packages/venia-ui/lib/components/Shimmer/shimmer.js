@@ -4,6 +4,27 @@ import { node, number, oneOf, oneOfType, shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 import defaultClasses from './shimmer.module.css';
 
+/**
+ * The Shimmer component is a loading indicator that takes the shape of the component being loaded.
+ * Instead of blocking the entire page like a traditional full-screen loader, Shimmer loaders are component specific.
+ * As soon as a component loads on the page, you can start using it, instead of waiting for all the components to load.
+ *
+ * Using Shimmer components improves both the perceived and actual speed of the site. User perception is improved because
+ * users and interact with parts of the page before the entire page is loaded. But actual performance is also improved.
+ * The Shimmer component eliminates most of the CLS (Content Layout Shift) on a page, which reduces CPU usage
+ * and render times when loading the entire page.
+ *
+ * @typedef Shimmer
+ * @kind functional component
+ *
+ * @param {Object} classes Styles to apply to the `root` of the Shimmer. Available classes are `root` and `root_[TYPE]`.
+ * @param {string|number} borderRadius Border radius for the shimmer.
+ * @param {string|number} height Sets the height of the Shimmer. Numbers are in `rem` units. Strings are used directly (Example: '100px').
+ * @param {string|number} width Sets the width of the Shimmer. Numbers are in `rem` units. Strings are used directly (Example: '100px').
+ * @param {Object} style CSS styles to apply to the Shimmer.
+ * @param {'rectangle'|'button'|'checkbox'|'radio'|'textArea'|'textInput'} type The base element shape to apply to the Shimmer.
+ * @param {node} children Children to output within the Shimmer. Useful for setting image placeholders.
+ */
 const Shimmer = props => {
     const {
         classes: propClasses,
