@@ -29,8 +29,8 @@ Link.defaultProps = {
 };
 
 /**
-* @property {bool} [prefetchType=false] Determine if the link should be prefetched using `IntersectionObserver`.
-*/
+ * @property {bool} [prefetchType=false] Determine if the link should be prefetched using `IntersectionObserver`.
+ */
 Link.propTypes = {
     prefetchType: bool
 };

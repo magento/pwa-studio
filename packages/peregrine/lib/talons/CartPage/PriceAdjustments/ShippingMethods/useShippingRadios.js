@@ -44,8 +44,9 @@ export const useShippingRadios = props => {
 
     const formattedShippingMethods = shippingMethods.map(shippingMethod => ({
         ...shippingMethod,
-        serializedValue: `${shippingMethod.carrier_code}|${shippingMethod.method_code
-            }`
+        serializedValue: `${shippingMethod.carrier_code}|${
+            shippingMethod.method_code
+        }`
     }));
 
     useEffect(() => {

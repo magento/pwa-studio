@@ -79,8 +79,9 @@ export const useShippingMethods = (props = {}) => {
             );
 
             if (shippingMethod) {
-                selectedShippingMethod = `${shippingMethod.carrier_code}|${shippingMethod.method_code
-                    }`;
+                selectedShippingMethod = `${shippingMethod.carrier_code}|${
+                    shippingMethod.method_code
+                }`;
             }
         }
     }
