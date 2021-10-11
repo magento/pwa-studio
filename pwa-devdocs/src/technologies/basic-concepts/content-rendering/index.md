@@ -1,5 +1,6 @@
 ---
 title: Content Rendering
+adobeio: /guides/general-concepts/content-rendering/
 ---
 
 Browsers require HTML to display page content.
