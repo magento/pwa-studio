@@ -20,6 +20,7 @@ let createFunctionDocs = ({ sourcePath, githubSource, githubSourceText, childCom
             path.join(__dirname, 'templates', 'handlebars', 'returns.hbs'),
             path.join(__dirname, 'templates', 'handlebars', 'examples.hbs'),
             path.join(__dirname, 'templates', 'handlebars', 'scope.hbs'),
+            path.join(__dirname, 'templates', 'handlebars', 'heading-indent.hbs'),
         ],
     };
     return jsDocs.render(config).then(content => {
@@ -28,7 +29,7 @@ let createFunctionDocs = ({ sourcePath, githubSource, githubSourceText, childCom
                 reject(Error(`Could not generate content for ${sourcePath}`, sourcePath));
             } else {
                 resolve(
-                    `${content}\n\n[pwa-studio/${githubSourceText}](${githubSource})`
+                    `${content}\n\n**Source Code**: [pwa-studio/${githubSourceText}](${githubSource})`
                 );
             }
         });
