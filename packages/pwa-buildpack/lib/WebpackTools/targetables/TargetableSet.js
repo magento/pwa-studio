@@ -164,9 +164,9 @@ class TargetableSet {
         const config =
             typeof firstArg === 'string'
                 ? {
-                    module: firstArg,
-                    publish: (secondArg && secondArg.publish) || secondArg
-                }
+                      module: firstArg,
+                      publish: (secondArg && secondArg.publish) || secondArg
+                  }
                 : firstArg;
         return config;
     }
@@ -186,8 +186,10 @@ class TargetableSet {
             return instance;
         }
         throw new Error(
-            `Cannot target the file "${modulePath}" using "${Targetable.name
-            }", because it has already been targeted by the ${instance.constructor.name
+            `Cannot target the file "${modulePath}" using "${
+                Targetable.name
+            }", because it has already been targeted by the ${
+                instance.constructor.name
             } created by "${this._targetProvider.name}".`
         );
     }

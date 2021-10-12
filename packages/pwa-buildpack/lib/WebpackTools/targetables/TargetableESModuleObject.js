@@ -44,9 +44,12 @@ class TargetableESModuleObject extends TargetableESModule {
         const alreadyBound = this._bindings.get(importStatement.binding);
         if (alreadyBound) {
             this._errors.push(
-                `Cannot export "${importStatement.imported}" as "${importStatement.binding
-                }" from "${importStatement.source}". Export "${importStatement.binding
-                }" was already assigned to "${alreadyBound.imported}" from "${alreadyBound.source
+                `Cannot export "${importStatement.imported}" as "${
+                    importStatement.binding
+                }" from "${importStatement.source}". Export "${
+                    importStatement.binding
+                }" was already assigned to "${alreadyBound.imported}" from "${
+                    alreadyBound.source
                 }".`
             );
         } else {

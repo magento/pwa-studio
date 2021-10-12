@@ -74,14 +74,14 @@ class TargetableESModule extends TargetableModule {
     wrapWithFile(exportNameOrWrapperModule, wrapperModule) {
         const opts = wrapperModule
             ? {
-                exportName: exportNameOrWrapperModule,
-                wrapperModule,
-                defaultExport: false
-            }
+                  exportName: exportNameOrWrapperModule,
+                  wrapperModule,
+                  defaultExport: false
+              }
             : {
-                wrapperModule: exportNameOrWrapperModule,
-                defaultExport: true
-            };
+                  wrapperModule: exportNameOrWrapperModule,
+                  defaultExport: true
+              };
         return this.addTransform(
             'source',
             '@magento/pwa-buildpack/lib/WebpackTools/loaders/wrap-esm-loader',
