@@ -25,7 +25,7 @@ const getTalonProps = props => {
 
 test('Should render proper shape', () => {
     const { talonProps } = getTalonProps({
-        id: '123',
+        uid: 'MTAyNDA=',
         handleRemoveItem: jest.fn()
     });
 
@@ -34,9 +34,9 @@ test('Should render proper shape', () => {
 
 test('Should set isDeleting to true and call handleRemoveItem when removeItem is called', () => {
     const handleRemoveItem = jest.fn();
-    const id = '123';
+    const uid = 'MTAyNDA=';
     const { talonProps, update } = getTalonProps({
-        id,
+        uid,
         handleRemoveItem
     });
 
@@ -44,5 +44,5 @@ test('Should set isDeleting to true and call handleRemoveItem when removeItem is
     const newTalonProps = update();
 
     expect(newTalonProps.isDeleting).toBeTruthy();
-    expect(handleRemoveItem).toHaveBeenCalledWith(id);
+    expect(handleRemoveItem).toHaveBeenCalledWith(uid);
 });

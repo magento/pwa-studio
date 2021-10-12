@@ -5,6 +5,7 @@ import { shape, string, func, bool } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import Icon from '../../Icon';
 import LinkButton from '../../LinkButton';
+import LoadingIndicator from '../../LoadingIndicator';
 
 import { useBraintreeSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useBraintreeSummary';
 import defaultClasses from './braintreeSummary.module.css';
@@ -33,16 +34,18 @@ const BraintreeSummary = props => {
         );
     }
 
-    const paymentSummary = formatMessage(
-        {
-            id: 'checkoutPage.paymentSummary',
-            defaultMessage: 'Card'
-        },
-        {
-            cardType: paymentNonce.details.cardType,
-            lastFour: paymentNonce.details.lastFour
-        }
-    );
+    const paymentSummary =
+        paymentNonce &&
+        formatMessage(
+            {
+                id: 'checkoutPage.paymentSummary',
+                defaultMessage: 'Card'
+            },
+            {
+                cardType: paymentNonce.details.cardType,
+                lastFour: paymentNonce.details.lastFour
+            }
+        );
 
     const billingAddressSummary =
         !isBillingAddressSame && billingAddress ? (
