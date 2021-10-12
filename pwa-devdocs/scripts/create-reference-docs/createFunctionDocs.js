@@ -5,9 +5,6 @@ const jsDocs = require('jsdoc-to-markdown');
 
 let createFunctionDocs = ({ sourcePath, githubSource, childComponents = [] }) => {
     const files = [sourcePath, ...childComponents];
-<<<<<<< HEAD
-    return jsDocs.render({ files: files }).then(content => {
-=======
     const config = {
         files: files,
         partial: [
@@ -26,17 +23,12 @@ let createFunctionDocs = ({ sourcePath, githubSource, childComponents = [] }) =>
         ],
     };
     return jsDocs.render(config).then(content => {
->>>>>>> a374e34f (Used the Link and Logo components as test components for the proposed changes to the API Reference docs templates.)
         return new Promise((resolve, reject) => {
             if (!content) {
                 reject(Error(`Could not generate content for ${sourcePath}`, sourcePath));
             } else {
                 resolve(
-<<<<<<< HEAD
-                    `${content}\n\nFor implementation details [**View Source**](${githubSource}).`
-=======
                     `${content}\n\n**Source Code**: [pwa-studio/${githubSourceText}](${githubSource})`
->>>>>>> a374e34f (Used the Link and Logo components as test components for the proposed changes to the API Reference docs templates.)
                 );
             }
         });
