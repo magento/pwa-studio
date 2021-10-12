@@ -5,16 +5,6 @@ import { useStyle } from '../../classify';
 import defaultClasses from './shimmer.module.css';
 
 /**
- * The Shimmer component is a loading indicator that takes the shape of the component being loaded.
- * Instead of blocking the entire page like a traditional full-screen loader, Shimmer loaders are component specific.
- * As soon as a component loads on the page, you can start using it, instead of waiting for all the components to load.
- *
- * Using Shimmer components improves both the perceived and actual speed of the site. User perception is improved because
- * users and interact with parts of the page before the entire page is loaded. But actual performance is also improved.
- * The Shimmer component eliminates most of the CLS (Content Layout Shift) on a page, which reduces CPU usage
- * and render times when loading the entire page.
- *
- * @typedef Shimmer
  * @kind functional component
  *
  * @param {Object} classes Styles to apply to the `root` of the Shimmer. Available classes are `root` and `root_[TYPE]`.
@@ -65,8 +55,6 @@ const Shimmer = props => {
 };
 
 /**
- * @typedef props
- *
  * @property {Object} classes is an object containing the class names for the
  * Shimmer component.
  * @property {string} classes.root is the class for the container
