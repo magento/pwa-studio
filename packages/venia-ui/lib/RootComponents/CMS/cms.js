@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { number, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 import { useIntl } from 'react-intl';
 
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -75,7 +75,7 @@ const CMSPage = props => {
 };
 
 CMSPage.propTypes = {
-    id: number,
+    identifier: string,
     classes: shape({
         root: string,
         heading: string,
