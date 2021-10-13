@@ -56,7 +56,12 @@ export const useAddToCartButton = props => {
                         cartId,
                         cartItem: {
                             quantity: 1,
-                            selected_options: [],
+                            entered_options: [
+                                {
+                                    uid: item.uid,
+                                    value: item.name
+                                }
+                            ],
                             sku: item.sku
                         }
                     }
@@ -71,7 +76,16 @@ export const useAddToCartButton = props => {
         } catch (error) {
             console.error(error);
         }
-    }, [addToCart, cartId, history, item.sku, item.url_key, productType]);
+    }, [
+        addToCart,
+        cartId,
+        history,
+        item.sku,
+        item.url_key,
+        productType,
+        item.uid,
+        item.name
+    ]);
 
     return {
         handleAddToCart,
