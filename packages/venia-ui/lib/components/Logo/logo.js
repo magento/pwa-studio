@@ -8,7 +8,6 @@ import logo from './VeniaLogo.svg';
 /**
  * A component that renders a logo in the header.
  *
- * @typedef Logo
  * @kind functional component
  *
  * @param {props} props React component props
@@ -35,14 +34,14 @@ const Logo = props => {
 };
 
 /**
- * Props for {@link Logo}
+ * Props for the Logo component.
  *
- * @typedef props
+ * @kind props
  *
- * @property {Object} classes An object containing the class names for the
- * Logo component.
- * @property {string} classes.logo classes for logo
- * @property {number} height the height of the logo.
+ * @property {Object} classes An object containing the class names for the Logo component.
+ * @property {string} classes.logo Classes for logo
+ * @property {number} [height=18] Height of the logo.
+ * @property {number} [width=102] Width of the logo.
  */
 Logo.propTypes = {
     classes: PropTypes.shape({

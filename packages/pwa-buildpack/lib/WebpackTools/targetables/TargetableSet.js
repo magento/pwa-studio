@@ -42,7 +42,7 @@ class TargetableSet {
      * @param {TargetablePublisher} [publisher] - Callback function to execute when this module
      * is about to commit its requested transforms to a build. If this function is passed,
      * the module will automatically bind to `builtins.transformModules`.
-     * @returns {TargetableModule} Returns an instance of [TargetableModule][]
+     * @returns {TargetableModule} Returns an instance of TargetableModule.
      */
     module(modulePath, publisher) {
         return this._provide(types.Module, modulePath, publisher);
@@ -53,7 +53,7 @@ class TargetableSet {
      * @param {TargetablePublisher} [publisher] - Callback function to execute when this module
      * is about to commit its requested transforms to a build. If this function is passed,
      * the module will automatically bind to `builtins.transformModules`.
-     * @returns {TargetableESModule} Returns an instance of [TargetableESModule][]
+     * @returns {TargetableESModule} Returns an instance of TargetableESModule.
      */
     esModule(modulePath, publisher) {
         return this._provide(types.ESModule, modulePath, publisher);
@@ -64,7 +64,7 @@ class TargetableSet {
      * @param {TargetablePublisher} [publisher] - Callback function to execute when this module
      * is about to commit its requested transforms to a build. If this function is passed,
      * the module will automatically bind to `builtins.transformModules`.
-     * @returns {TargetableESModuleArray} Returns an instance of [TargetableESModuleArray][]
+     * @returns {TargetableESModuleArray} Returns an instance of TargetableESModuleArray.
      */
     esModuleArray(modulePath, publisher) {
         return this._provide(types.ESModuleArray, modulePath, publisher);
@@ -75,7 +75,7 @@ class TargetableSet {
      * @param {TargetablePublisher} [publisher] - Callback function to execute when this module
      * is about to commit its requested transforms to a build. If this function is passed,
      * the module will automatically bind to `builtins.transformModules`.
-     * @returns {TargetableESModuleObject} Returns an instance of [TargetableESModuleObject][]
+     * @returns {TargetableESModuleObject} Returns an instance of TargetableESModuleObject.
      */
     esModuleObject(modulePath, publisher) {
         return this._provide(types.ESModuleObject, modulePath, publisher);
@@ -86,7 +86,7 @@ class TargetableSet {
      * @param {TargetablePublisher} [publisher] - Callback function to execute when this module
      * is about to commit its requested transforms to a build. If this function is passed,
      * the module will automatically bind to `builtins.transformModules`.
-     * @returns {TargetableReactComponent} Returns an instance of [TargetableReactComponent][]
+     * @returns {TargetableReactComponent} Returns an instance of TargetableReactComponent
      */
     reactComponent(modulePath, publisher) {
         return this._provide(types.ReactComponent, modulePath, publisher);

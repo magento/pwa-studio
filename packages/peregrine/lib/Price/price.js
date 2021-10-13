@@ -15,7 +15,6 @@ import { useIntl } from 'react-intl';
  * [polyfill]: https://www.npmjs.com/package/intl
  * [Intl.NumberFormat.prototype.formatToParts]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat/formatToParts
  */
-
 const Price = props => {
     const { locale } = useIntl();
     const { value, currencyCode, classes } = props;
