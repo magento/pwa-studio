@@ -7,7 +7,6 @@ import { useStyle } from '../../../../classify';
 import Button from '../../../Button';
 import ShippingForm from './shippingForm';
 import defaultClasses from './shippingMethods.module.css';
-import ShippingMethodsOperations from './shippingMethods.gql';
 import ShippingRadios from './shippingRadios';
 
 /**
@@ -34,7 +33,7 @@ const ShippingMethods = props => {
         selectedShippingMethod,
         shippingMethods,
         showForm
-    } = useShippingMethods({ ...ShippingMethodsOperations });
+    } = useShippingMethods();
 
     const classes = useStyle(defaultClasses, props.classes);
 

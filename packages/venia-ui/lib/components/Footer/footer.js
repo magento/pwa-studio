@@ -50,12 +50,12 @@ const Footer = props => {
             <div className={classes.links}>
                 {linkGroups}
                 <div className={classes.callout}>
-                    <h3 className={classes.calloutHeading}>
+                    <span className={classes.calloutHeading}>
                         <FormattedMessage
                             id={'footer.followText'}
                             defaultMessage={'Follow Us!'}
                         />
-                    </h3>
+                    </span>
                     <p className={classes.calloutBody}>
                         <FormattedMessage
                             id={'footer.calloutText'}

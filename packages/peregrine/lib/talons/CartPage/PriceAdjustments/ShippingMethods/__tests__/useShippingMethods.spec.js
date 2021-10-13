@@ -1,6 +1,5 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-
 import createTestInstance from '../../../../../util/createTestInstance';
 import { useShippingMethods } from '../useShippingMethods';
 import { act } from 'react-test-renderer';
@@ -20,6 +19,11 @@ jest.mock('../../../../../context/cart', () => {
 
     return { useCartContext };
 });
+
+jest.mock('../shippingMethods.gql', () => ({
+    getShippingMethodsQuery: 'getShippingMethodsQuery',
+    setShippingAddressMutation: 'setShippingAddressMutation'
+}));
 
 const props = {
     queries: {

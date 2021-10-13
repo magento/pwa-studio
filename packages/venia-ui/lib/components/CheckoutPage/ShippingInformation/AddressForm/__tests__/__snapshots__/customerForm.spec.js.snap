@@ -491,6 +491,17 @@ Array [
         className="root_lowPriority"
         disabled={true}
         onClick={[MockFunction handleCancel]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="button"
       >
         <span
@@ -505,6 +516,18 @@ Array [
       <button
         className="root_highPriority"
         disabled={true}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="submit"
       >
         <span
@@ -927,6 +950,17 @@ Array [
         className="root_lowPriority"
         disabled={false}
         onClick={[MockFunction handleCancel]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="button"
       >
         <span
@@ -941,6 +975,18 @@ Array [
       <button
         className="root_highPriority"
         disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="submit"
       >
         <span
@@ -1383,6 +1429,18 @@ Array [
       <button
         className="root_normalPriority"
         disabled={false}
+        onClick={[Function]}
+        onDragStart={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
         type="submit"
       >
         <span

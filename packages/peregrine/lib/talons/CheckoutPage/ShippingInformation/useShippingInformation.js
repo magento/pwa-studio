@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
+import DEFAULT_OPERATIONS from './shippingInformation.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
@@ -7,12 +9,9 @@ import { useUserContext } from '../../../context/user';
 import { MOCKED_ADDRESS } from '../../CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
 
 export const useShippingInformation = props => {
-    const {
-        mutations: { setDefaultAddressOnCartMutation },
-        onSave,
-        queries: { getDefaultShippingQuery, getShippingInformationQuery },
-        toggleActiveContent
-    } = props;
+    const { onSave, toggleActiveContent } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
@@ -20,6 +19,12 @@ export const useShippingInformation = props => {
 
     const [hasUpdate, setHasUpdate] = useState(false);
     const hasLoadedData = useRef(false);
+
+    const {
+        setDefaultAddressOnCartMutation,
+        getDefaultShippingQuery,
+        getShippingInformationQuery
+    } = operations;
 
     const {
         data: shippingInformationData,

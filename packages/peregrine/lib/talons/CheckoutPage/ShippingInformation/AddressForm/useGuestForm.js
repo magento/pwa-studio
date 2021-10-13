@@ -1,16 +1,15 @@
 import { useCallback, useMemo } from 'react';
 import { useMutation } from '@apollo/client';
+import DEFAULT_OPERATIONS from './guestForm.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '../../../../context/cart';
 
 export const useGuestForm = props => {
-    const {
-        afterSubmit,
-        mutations: { setGuestShippingMutation },
-        onCancel,
-        onSuccess,
-        shippingData
-    } = props;
+    const { afterSubmit, onCancel, onSuccess, shippingData } = props;
+
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { setGuestShippingMutation } = operations;
 
     const [{ cartId }] = useCartContext();
 
