@@ -5,7 +5,9 @@
     padding-left: var(--whitespace-start);
     padding-top: var(--whitespace-start);
     padding-bottom: var(--whitespace-end); /* Allow space for focus ring */
-    margin-bottom: calc(-1 * var(--whitespace-end)); /* Prevent focus ring space affecting the rest of the UI */
+    margin-bottom: calc(
+        -1 * var(--whitespace-end)
+    ); /* Prevent focus ring space affecting the rest of the UI */
     font-size: 0.875rem;
 
     /* Permanent height to prevent pop-in. */
