@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 
 import Shimmer from '../Shimmer';
-import defaultClasses from './filterModalOpenButton.shimmer.css';
+import defaultClasses from './filterModalOpenButton.shimmer.module.css';
 
 const FilterModalOpenButtonShimmer = props => {
     const classes = useStyle(defaultClasses, props.classes);

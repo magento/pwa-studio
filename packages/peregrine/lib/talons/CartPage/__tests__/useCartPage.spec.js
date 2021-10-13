@@ -15,6 +15,10 @@ jest.mock('react', () => {
     };
 });
 
+jest.mock('../cartPage.gql', () => ({
+    getCartDetailsQuery: 'getCartDetailsQuery'
+}));
+
 jest.mock('@apollo/client', () => {
     const queryConfig = {
         called: false,
@@ -40,10 +44,7 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 
 const log = jest.fn();
 const Component = () => {
-    const getCartDetails = {};
-    const talonProps = useCartPage({
-        queries: { getCartDetails }
-    });
+    const talonProps = useCartPage();
 
     useEffect(() => {
         log(talonProps);

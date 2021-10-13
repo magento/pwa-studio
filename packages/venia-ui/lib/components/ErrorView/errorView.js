@@ -5,7 +5,7 @@ import { func, shape, string } from 'prop-types';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';
-import defaultClasses from './errorView.css';
+import defaultClasses from './errorView.module.css';
 import backgroundUrl from './errorViewBackground-1400x600.png';
 import mobileBackgroundUrl from './errorViewBackground-380x600.png';
 

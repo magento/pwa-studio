@@ -1,25 +1,14 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { gql } from '@apollo/client';
 import Price from '@magento/venia-ui/lib/components/Price';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
 import { useStyle } from '../../../classify';
-import defaultClasses from './priceSummary.css';
+import defaultClasses from './priceSummary.module.css';
 import DiscountSummary from './discountSummary';
 import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
-import { PriceSummaryFragment } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/priceSummaryFragments.gql';
-const GET_PRICE_SUMMARY = gql`
-    query getPriceSummary($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...PriceSummaryFragment
-        }
-    }
-    ${PriceSummaryFragment}
-`;
 
 /**
  * A child component of the CartPage component.
@@ -28,7 +17,7 @@ const GET_PRICE_SUMMARY = gql`
  *
  * @param {Object} props
  * @param {Object} props.classes CSS className overrides.
- * See [priceSummary.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.css}
+ * See [priceSummary.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}
@@ -39,11 +28,7 @@ const GET_PRICE_SUMMARY = gql`
 const PriceSummary = props => {
     const { isUpdating } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const talonProps = usePriceSummary({
-        queries: {
-            getPriceSummary: GET_PRICE_SUMMARY
-        }
-    });
+    const talonProps = usePriceSummary();
 
     const {
         handleProceedToCheckout,

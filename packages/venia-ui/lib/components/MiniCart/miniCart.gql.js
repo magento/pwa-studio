@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { MiniCartFragment } from '@magento/peregrine/lib/talons/MiniCart/miniCartFragments.gql';
-import { CartPageFragment } from '../CartPage/cartPageFragments.gql';
+import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql.js';
 
 /**
  * @deprecated - Moved to @magento/peregrine/lib/talons/MiniCart/miniCartFragments.gql
@@ -18,8 +18,8 @@ export const MINI_CART_QUERY = gql`
 `;
 
 export const REMOVE_ITEM_MUTATION = gql`
-    mutation RemoveItemForMiniCart($cartId: String!, $itemId: Int!) {
-        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId })
+    mutation RemoveItemForMiniCart($cartId: String!, $itemId: ID!) {
+        removeItemFromCart(input: { cart_id: $cartId, cart_item_uid: $itemId })
             @connection(key: "removeItemFromCart") {
             cart {
                 id

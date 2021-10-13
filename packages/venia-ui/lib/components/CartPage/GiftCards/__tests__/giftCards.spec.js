@@ -21,6 +21,16 @@ jest.mock(
     }
 );
 
+jest.mock(
+    '@magento/peregrine/lib/talons/CartPage/GiftCards/giftCardQueries.gql.ee.js',
+    () => ({
+        getAppliedGiftCardsQuery: 'mock cart',
+        getGiftCardBalanceQuery: 'mock balance',
+        applyGiftCardMutation: 'mock apply',
+        removeGiftCardMutation: 'mock remove'
+    })
+);
+
 jest.mock('@magento/peregrine', () => {
     const useToasts = jest.fn(() => [
         { toasts: new Map() },

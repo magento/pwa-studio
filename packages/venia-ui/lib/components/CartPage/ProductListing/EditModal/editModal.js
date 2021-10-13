@@ -14,7 +14,7 @@ import ProductForm from './productForm';
  * for a list of properties for this object.
  * @param {Function} props.setIsCartUpdating Function for setting the updating state of the cart.
  * @param {Object} props.classes CSS className overrides.
- * See [editModal.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/EditModal/editModal.css}
+ * See [editModal.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/EditModal/editModal.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}

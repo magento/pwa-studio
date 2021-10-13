@@ -9,7 +9,7 @@ import {
 import { useStyle } from '../../classify';
 import Icon from '../Icon';
 
-import defaultClasses from './section.css';
+import defaultClasses from './section.module.css';
 
 const icons = new Map()
     .set('Heart', HeartIcon)

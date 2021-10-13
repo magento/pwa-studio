@@ -3,7 +3,7 @@ import { arrayOf, func, object, shape, string } from 'prop-types';
 import Swatch from './swatch';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './swatchList.css';
+import defaultClasses from './swatchList.module.css';
 
 const SwatchList = props => {
     const { getItemKey, selectedValue = {}, items, onSelectionChange } = props;

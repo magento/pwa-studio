@@ -1,0 +1,36 @@
+.root {
+    composes: root_highPriority from '../Button/button.module.css';
+    margin-left: -0.5rem;
+    min-height: 2rem;
+    padding: 0 0.5rem;
+    align-self: center;
+}
+
+.icon {
+    display: none;
+    stroke: #fff;
+}
+
+.text {
+    display: inline;
+}
+
+@media (max-width: 640px) {
+    .root {
+        min-width: 8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .root {
+        min-width: 6.125rem;
+    }
+
+    .icon {
+        display: inline;
+    }
+
+    .text {
+        display: none;
+    }
+}

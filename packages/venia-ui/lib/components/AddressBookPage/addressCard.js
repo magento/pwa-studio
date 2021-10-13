@@ -6,7 +6,7 @@ import { Trash2 as TrashIcon, Edit2 as EditIcon } from 'react-feather';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';
 import Icon from '@magento/venia-ui/lib/components/Icon';
-import defaultClasses from './addressCard.css';
+import defaultClasses from './addressCard.module.css';
 import LinkButton from '../LinkButton';
 
 const AddressCard = props => {

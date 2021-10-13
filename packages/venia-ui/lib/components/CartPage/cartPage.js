@@ -10,10 +10,9 @@ import { StoreTitle } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import StockStatusMessage from '../StockStatusMessage';
 import PriceAdjustments from './PriceAdjustments';
-import ProductListing from './ProductListing';
 import PriceSummary from './PriceSummary';
-import defaultClasses from './cartPage.css';
-import { GET_CART_DETAILS } from './cartPage.gql';
+import ProductListing from './ProductListing';
+import defaultClasses from './cartPage.module.css';
 
 const CheckIcon = <Icon size={20} src={Check} />;
 
@@ -26,7 +25,7 @@ const CheckIcon = <Icon size={20} src={Check} />;
  *
  * @param {Object} props
  * @param {Object} props.classes CSS className overrides for the component.
- * See [cartPage.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.css}
+ * See [cartPage.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}
@@ -35,11 +34,7 @@ const CheckIcon = <Icon size={20} src={Check} />;
  * import CartPage from "@magento/venia-ui/lib/components/CartPage";
  */
 const CartPage = props => {
-    const talonProps = useCartPage({
-        queries: {
-            getCartDetails: GET_CART_DETAILS
-        }
-    });
+    const talonProps = useCartPage();
 
     const {
         cartItems,

@@ -7,7 +7,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 
 import { useStyle } from '../../../classify';
 import Icon from '../../Icon';
-import defaultClasses from './completedView.css';
+import defaultClasses from './completedView.module.css';
 import LinkButton from '../../LinkButton';
 
 const CompletedView = props => {

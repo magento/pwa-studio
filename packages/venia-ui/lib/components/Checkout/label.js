@@ -2,7 +2,7 @@ import React from 'react';
 import { bool, node, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './label.css';
+import defaultClasses from './label.module.css';
 
 const Label = props => {
     const { children, plain, ...restProps } = props;

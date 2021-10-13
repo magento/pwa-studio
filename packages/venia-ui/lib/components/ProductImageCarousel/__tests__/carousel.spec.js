@@ -119,7 +119,7 @@ test('renders prior image when previous button is clicked', () => {
     })[0];
 
     act(() => {
-        leftButton.props.onClick();
+        leftButton.props.onPress();
     });
 
     const activeImage = component.root.findAllByType(Image)[0];
@@ -140,7 +140,7 @@ test('renders last image when previous button is clicked and first item is activ
     })[0];
 
     act(() => {
-        leftButton.props.onClick();
+        leftButton.props.onPress();
     });
 
     const activeImage = component.root.findAllByType(Image)[4];
@@ -161,7 +161,7 @@ test('renders next image when next Button is clicked', () => {
     })[0];
 
     act(() => {
-        rightButton.props.onClick();
+        rightButton.props.onPress();
     });
 
     const activeImage = component.root.findAllByType(Image)[0];
@@ -189,7 +189,7 @@ test('renders first image when next Button is clicked and last item is active', 
     })[0];
 
     act(() => {
-        rightButton.props.onClick();
+        rightButton.props.onPress();
     });
 
     const activeImage = component.root.findAllByType(Image)[1];

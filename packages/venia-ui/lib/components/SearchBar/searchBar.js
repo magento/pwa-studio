@@ -6,7 +6,7 @@ import { useSearchBar } from '@magento/peregrine/lib/talons/SearchBar';
 import { useStyle } from '../../classify';
 import Autocomplete from './autocomplete';
 import SearchField from './searchField';
-import defaultClasses from './searchBar.css';
+import defaultClasses from './searchBar.module.css';
 
 const SearchBar = React.forwardRef((props, ref) => {
     const { isOpen } = props;

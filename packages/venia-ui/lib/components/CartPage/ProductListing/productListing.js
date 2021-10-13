@@ -1,13 +1,11 @@
 import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { gql } from '@apollo/client';
 import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
 
 import { useStyle } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
-import defaultClasses from './productListing.css';
+import defaultClasses from './productListing.module.css';
 import Product from './product';
-import { ProductListingFragment } from './productListingFragments';
 
 const EditModal = React.lazy(() => import('./EditModal'));
 /**
@@ -17,7 +15,7 @@ const EditModal = React.lazy(() => import('./EditModal'));
  * @param {Object} props
  * @param {Function} props.setIsCartUpdating Function for setting the updating state of the cart.
  * @param {Object} props.classes CSS className overrides.
- * See [productListing.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListing.css}
+ * See [productListing.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListing.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}
@@ -31,11 +29,9 @@ const ProductListing = props => {
         setIsCartUpdating,
         fetchCartDetails
     } = props;
-    const talonProps = useProductListing({
-        queries: {
-            getProductListing: GET_PRODUCT_LISTING
-        }
-    });
+
+    const talonProps = useProductListing();
+
     const {
         activeEditItem,
         isLoading,
@@ -86,15 +82,5 @@ const ProductListing = props => {
 
     return null;
 };
-
-export const GET_PRODUCT_LISTING = gql`
-    query getProductListing($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...ProductListingFragment
-        }
-    }
-    ${ProductListingFragment}
-`;
 
 export default ProductListing;

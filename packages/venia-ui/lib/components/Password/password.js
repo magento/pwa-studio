@@ -10,7 +10,7 @@ import Field from '../Field';
 import TextInput from '../TextInput';
 import { isRequired } from '../../util/formValidators';
 
-import defaultClasses from './password.css';
+import defaultClasses from './password.module.css';
 
 const Password = props => {
     const {

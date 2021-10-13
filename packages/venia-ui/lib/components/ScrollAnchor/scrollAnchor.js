@@ -6,7 +6,7 @@ import React, {
     useRef
 } from 'react';
 
-import classes from './scrollAnchor.css';
+import classes from './scrollAnchor.module.css';
 
 const ScrollAnchor = forwardRef((props, ref) => {
     const anchorRef = useRef();

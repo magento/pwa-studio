@@ -1,6 +1,6 @@
 import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
-import defaultClasses from './banner.shimmer.css';
+import defaultClasses from './banner.shimmer.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer';
 

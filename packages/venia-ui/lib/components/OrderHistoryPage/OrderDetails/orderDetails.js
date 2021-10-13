@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string, arrayOf, number } from 'prop-types';
+import { arrayOf, number, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { Printer } from 'react-feather';
@@ -14,7 +14,9 @@ import OrderTotal from './orderTotal';
 import Icon from '../../Icon';
 import Button from '../../Button';
 
-import defaultClasses from './orderDetails.css';
+import defaultClasses from './orderDetails.module.css';
+
+const ConditionalWrapper = props => (props.condition ? props.children : null);
 
 const OrderDetails = props => {
     const { classes: propClasses, imagesData, orderData } = props;
@@ -34,25 +36,41 @@ const OrderDetails = props => {
         shipments
     };
 
+    const hasTotals = total.grand_total && total.grand_total.currency;
+
     return (
         <div className={classes.root}>
             <div className={classes.shippingInformationContainer}>
-                <ShippingInformation data={shipping_address} />
+                <ConditionalWrapper condition={shipping_address}>
+                    <ShippingInformation data={shipping_address} />
+                </ConditionalWrapper>
             </div>
             <div className={classes.shippingMethodContainer}>
-                <ShippingMethod data={shippingMethodData} />
+                <ConditionalWrapper condition={shipping_method}>
+                    <ShippingMethod data={shippingMethodData} />
+                </ConditionalWrapper>
             </div>
             <div className={classes.billingInformationContainer}>
-                <BillingInformation data={billing_address} />
+                <ConditionalWrapper condition={billing_address}>
+                    <BillingInformation data={billing_address} />
+                </ConditionalWrapper>
             </div>
             <div className={classes.paymentMethodContainer}>
-                <PaymentMethod data={payment_methods} />
+                <ConditionalWrapper
+                    condition={payment_methods && payment_methods.length}
+                >
+                    <PaymentMethod data={payment_methods} />
+                </ConditionalWrapper>
             </div>
             <div className={classes.itemsContainer}>
-                <Items data={{ imagesData, items }} />
+                <ConditionalWrapper condition={items && items.length}>
+                    <Items data={{ imagesData, items }} />
+                </ConditionalWrapper>
             </div>
             <div className={classes.orderTotalContainer}>
-                <OrderTotal data={total} />
+                <ConditionalWrapper condition={hasTotals}>
+                    <OrderTotal data={total} />
+                </ConditionalWrapper>
             </div>
             <Button
                 className={classes.printButton}

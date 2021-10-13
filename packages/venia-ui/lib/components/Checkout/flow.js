@@ -13,7 +13,7 @@ import CheckoutButton from './checkoutButton';
 import Form from './form';
 import Receipt from './Receipt';
 
-import defaultClasses from './flow.css';
+import defaultClasses from './flow.module.css';
 
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 

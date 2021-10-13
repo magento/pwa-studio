@@ -8,7 +8,7 @@ import {
 
 import { useStyle } from '../../classify';
 import { FieldIcons, Message } from '../Field';
-import defaultClasses from './select.css';
+import defaultClasses from './select.module.css';
 import Icon from '../Icon';
 import { ChevronDown as ChevronDownIcon } from 'react-feather';
 

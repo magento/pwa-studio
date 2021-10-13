@@ -11,7 +11,7 @@ import Icon from '../Icon';
 import LoadingIndicator from '../LoadingIndicator';
 import EditableForm from './editableForm';
 import Overview from './overview';
-import defaultClasses from './form.css';
+import defaultClasses from './form.module.css';
 
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 const loadingText = 'Loading Checkout...';

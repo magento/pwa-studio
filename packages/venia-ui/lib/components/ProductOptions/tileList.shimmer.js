@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import Shimmer from '../Shimmer';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './tileList.css';
+import defaultClasses from './tileList.module.css';
 
 const TileListShimmer = props => {
     const classes = useStyle(defaultClasses, props.classes);

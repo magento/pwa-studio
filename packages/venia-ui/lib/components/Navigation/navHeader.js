@@ -7,7 +7,7 @@ import { useStyle } from '../../classify';
 import AccountChip from '../AccountChip';
 import Icon from '../Icon';
 import Trigger from '../Trigger';
-import defaultClasses from './navHeader.css';
+import defaultClasses from './navHeader.module.css';
 import { useNavigationHeader } from '@magento/peregrine/lib/talons/Navigation/useNavigationHeader';
 
 const NavHeader = props => {
@@ -68,9 +68,9 @@ const NavHeader = props => {
             <Trigger key="backButton" action={handleBack}>
                 <Icon src={backIcon} />
             </Trigger>
-            <h2 key="title" className={classes.title}>
+            <span key="title" className={classes.title}>
                 {titleElement}
-            </h2>
+            </span>
         </Fragment>
     );
 };

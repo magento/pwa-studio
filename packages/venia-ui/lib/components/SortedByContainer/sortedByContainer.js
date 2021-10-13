@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { useStyle } from '../../classify';
-import defaultClasses from './sortedByContainer.css';
+import defaultClasses from './sortedByContainer.module.css';
 
 const SortedByContainer = props => {
     const { currentSort } = props;
