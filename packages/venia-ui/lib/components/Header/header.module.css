@@ -72,7 +72,6 @@
     composes: lg_gap-x-8 from global;
     composes: lg_grid-cols-12 from global;
     composes: lg_min-height-header from global;
-    composes: lg_pb-2 from global;
 }
 
 .logo {
