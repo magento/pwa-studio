@@ -36,6 +36,15 @@ Run the following command in the Magento root directory to update the composer.j
 composer require --no-interaction --ansi magento/venia-sample-data:0.0.1
 ```
 
+## Step 3. Install the sample data modules
+
+Run the following command in the Magento root directory to install the Venia data from the modules:
+
+```sh
+bin/magento setup:upgrade
+```
+
+
 ## Step 4. Reindex the new data
 
 Run the following command in the Magento root directory to reindex the data from the modules:
