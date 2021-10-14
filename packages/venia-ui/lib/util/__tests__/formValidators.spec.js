@@ -247,17 +247,38 @@ describe('isNotEqualToField', () => {
 });
 
 describe('isValidEmail', () => {
-    test('it returns undefined on success', () => {
-        const email = 'test@test.com';
-        const result = validators.isValidEmail(email);
-
-        expect(result).toBeUndefined();
+    test.each([
+        'simple@example.com',
+        'very.common@example.com',
+        'disposable.style.email.with+symbol@example.com',
+        'other.email-with-hyphen@example.com',
+        'fully-qualified-domain@example.com',
+        'user.name+tag+sorting@example.com',
+        'x@example.com',
+        'example-indeed@strange-example.com',
+        'test/test@test.com',
+        'admin@mailserver1',
+        'example@s.example',
+        '" "@example.org',
+        '"john..doe"@example.org',
+        'mailhost!username@example.org',
+        'user%example.com@example.org',
+        'user-@example.org',
+        'i_like_underscore@but_its_not_allowed_in_this_part.example.com'
+    ])('it returns undefined on success for %s', emailID => {
+        expect(validators.isValidEmail(emailID)).toBeUndefined();
     });
 
-    test('it returns an object on failure', () => {
-        const email = 'test@test';
-        const result = validators.isValidEmail(email);
-
-        expect(typeof result).toBe('object');
+    test.each([
+        'Abc.example.com',
+        'A@b@c@example.com',
+        'a"b(c)d,e:f;g<h>i[jk]l@example.com',
+        'just"not"right@example.com',
+        'this is"notallowed@example.com',
+        'this still"not\\allowed@example.com',
+        '1234567890123456789012345678901234567890123456789012345678901234+x@example.com',
+        'QA[icon]CHOCOLATE[icon]@test.com'
+    ])('it returns an object on failure for %s', emailID => {
+        expect(typeof validators.isValidEmail(emailID)).toBe('object');
     });
 });
