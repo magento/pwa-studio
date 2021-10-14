@@ -11,8 +11,7 @@ export const SET_GUEST_SHIPPING_MUTATION = gql`
         $email: String!
         $address: CartAddressInput!
     ) {
-        setGuestEmailOnCart(input: { cart_id: $cartId, email: $email })
-            @connection(key: "setGuestEmailOnCart") {
+        setGuestEmailOnCart(input: { cart_id: $cartId, email: $email }) {
             cart {
                 id
             }
@@ -23,7 +22,7 @@ export const SET_GUEST_SHIPPING_MUTATION = gql`
                 cart_id: $cartId
                 shipping_addresses: [{ address: $address }]
             }
-        ) @connection(key: "setShippingAddressesOnCart") {
+        ) {
             cart {
                 id
                 ...ShippingInformationFragment
