@@ -39,7 +39,7 @@
 
 /* Large screen styles */
 .switchersContainer {
-    composes: lg_block from global;
+    composes: sm_block from global;
 }
 
 .open {
