@@ -17,9 +17,7 @@ module.exports = {
             gridTemplateRows: {},
             lineHeight: {},
             maxHeight: {},
-            maxWidth: {
-                '1column': '56.25rem'
-            }
+            maxWidth: {}
         },
         transitionDuration: {}
     }

@@ -14,6 +14,7 @@
 }
 
 .root_empty,
+.root_1column,
 .root_2columnsLeft,
 .root_2columnsRight,
 .root_3columns,
@@ -21,11 +22,4 @@
 .root_categoryFullWidth,
 .root_productFullWidth {
     composes: root;
-}
-
-.root_1column {
-    composes: root;
-    composes: max-w-1column from global;
-    composes: mx-auto from global;
-    composes: my-0 from global;
 }
