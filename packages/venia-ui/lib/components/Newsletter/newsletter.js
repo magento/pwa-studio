@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { shape, string } from 'prop-types';
@@ -43,78 +43,74 @@ const Newsletter = props => {
     }, [addToast, formatMessage, newsLetterResponse]);
 
     const maybeLoadingIndicator = isBusy ? (
-        <LoadingIndicator global={true}>
-            <FormattedMessage
-                id={'newsletter.loadingText'}
-                defaultMessage={'Subscribing'}
-            />
-        </LoadingIndicator>
+        <div className={classes.loadingContainer}>
+            <LoadingIndicator>
+                <FormattedMessage
+                    id={'newsletter.loadingText'}
+                    defaultMessage={'Subscribing'}
+                />
+            </LoadingIndicator>
+        </div>
     ) : null;
 
     return (
-        <Fragment>
+        <div className={classes.root}>
             {maybeLoadingIndicator}
-            <div className={classes.root}>
-                <span className={classes.title}>
-                    <FormattedMessage
-                        id={'newsletter.titleText'}
-                        defaultMessage={'Subscribe to Venia'}
-                    />
-                </span>
+            <span className={classes.title}>
+                <FormattedMessage
+                    id={'newsletter.titleText'}
+                    defaultMessage={'Subscribe to Venia'}
+                />
+            </span>
 
-                <p className={classes.newsletter_text}>
-                    <FormattedMessage
-                        id={'newsletter.infoText'}
-                        defaultMessage={
-                            'Recieve the latest news, update and special offers right to your inbox.'
-                        }
-                    />
-                </p>
-                <FormError errors={Array.from(errors.values())} />
-                <Form
-                    getApi={setFormApi}
-                    className={classes.form}
-                    onSubmit={handleSubmit}
+            <p className={classes.newsletter_text}>
+                <FormattedMessage
+                    id={'newsletter.infoText'}
+                    defaultMessage={
+                        'Recieve the latest news, update and special offers right to your inbox.'
+                    }
+                />
+            </p>
+            <FormError errors={Array.from(errors.values())} />
+            <Form
+                getApi={setFormApi}
+                className={classes.form}
+                onSubmit={handleSubmit}
+            >
+                <Field
+                    id="email"
+                    label={formatMessage({
+                        id: 'global.email',
+                        defaultMessage: 'Email'
+                    })}
                 >
-                    <Field
+                    <TextInput
+                        autoComplete="email"
+                        field="email"
                         id="email"
-                        label={formatMessage({
-                            id: 'global.email',
-                            defaultMessage: 'Email'
-                        })}
-                    >
-                        <TextInput
-                            autoComplete="email"
-                            field="email"
-                            id="email"
-                            validate={isRequired}
-                        />
-                    </Field>
-                    <LinkButton
-                        className={classes.subscribe_link}
-                        type="submit"
-                        disabled={isBusy}
-                    >
+                        validate={isRequired}
+                    />
+                </Field>
+                <LinkButton
+                    className={classes.subscribe_link}
+                    type="submit"
+                    disabled={isBusy}
+                >
+                    <FormattedMessage
+                        id={'newsletter.subscribeText'}
+                        defaultMessage={'Subscribe'}
+                    />
+                </LinkButton>
+                <div className={classes.buttonsContainer}>
+                    <Button priority="normal" type="submit" disabled={isBusy}>
                         <FormattedMessage
                             id={'newsletter.subscribeText'}
                             defaultMessage={'Subscribe'}
                         />
-                    </LinkButton>
-                    <div className={classes.buttonsContainer}>
-                        <Button
-                            priority="normal"
-                            type="submit"
-                            disabled={isBusy}
-                        >
-                            <FormattedMessage
-                                id={'newsletter.subscribeText'}
-                                defaultMessage={'Subscribe'}
-                            />
-                        </Button>
-                    </div>
-                </Form>
-            </div>
-        </Fragment>
+                    </Button>
+                </div>
+            </Form>
+        </div>
     );
 };
 

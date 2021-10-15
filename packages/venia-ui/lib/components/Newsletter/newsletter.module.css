@@ -1,4 +1,5 @@
 .root {
+    position: relative;
     display: block;
     gap: 1.5rem;
     justify-items: stretch;
@@ -61,6 +62,16 @@
 
 .newsletter_text {
     margin-bottom: 20px;
+}
+
+.loadingContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(252, 252, 252, 0.75);
 }
 
 @media screen and (max-width: 767px) {
