@@ -63,7 +63,7 @@ Guest users (users not signed-in to the site) are now redirected to a new `/sign
 
 -  `AuthRoute` — New component that returns the `Route` or a `Redirect` to the `sign-in` page if the user is not signed-in.
 -  `SignInPage` — New component that returns a page with a sign-in form where users can sign-in to their existing account, create a new account, or reset their password.
--  `ForgotPasswordPage` — New component that returns a form to reset user's password.
+-  `ForgotPasswordPage` — New page that shows a form to reset user's password.
 -  `CreateAccountPage` — Updated to work with the new route-authentication handling.
 
 | Jira Issue     | Description                   | PR       |
@@ -155,7 +155,7 @@ TODO: Get lighthouse scores for the Performance category.
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | <!--PWA-1588--> | Removed `Enzyme` and `@wojtekmaj/enzyme-adapter-react-17` packages. Update any tests that use the `Enzyme` or `@wojtekmaj/enzyme-adapter-react-17` packages.                                                          | [3393][] |
 | <!--PWA-1704--> | Changed the UPWARD configuration to prevent a race condition that could prevent `yarn build` command from emmitting images. Overriden static asset configurations now only take the overriden value, instead of both. | [3410][] |
-| <!--PWA-1704--> | Hundreds of CSS files have been renamed and their components updated to point to the new filenames, so everything here requires a major version.                                                                      | [3414][] |
+| <!--PWA-1704--> | Hundreds of CSS files have been renamed and their components updated to point to the new filenames.                                                                     | [3414][] |
 
 ## Known Issues
 
