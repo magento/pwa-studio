@@ -12,9 +12,9 @@
   "repository": "github:magento/pwa-studio",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "peerDependencies": {
-    "@magento/peregrine": "12.0.0-alpha.3",
-    "@magento/pwa-buildpack": "11.0.0-alpha.3",
-    "@magento/venia-ui": "9.0.0-alpha.3",
+    "@magento/peregrine": "12.0.0-rc.1",
+    "@magento/pwa-buildpack": "11.0.0-rc.1",
+    "@magento/venia-ui": "9.0.0-rc.1",
     "react": "~17.0.1",
     "react-intl": "~5.7.0",
     "react-router-dom": "~5.1.0"
