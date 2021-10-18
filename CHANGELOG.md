@@ -14,7 +14,7 @@ _For older release notes, see [PWA Studio releases][]._
 
 ### Add To Cart from product category pages
 
-Shoppers can now add products to their cart directly from the product category pages, without going to the product detail page. Each product listed on the category page now has an **Add to Cart** button. And if the product is out of stock, the button disables itself and changes its text to **Out of Stock**.
+Shoppers can now add products to their cart directly from the product category pages, without going to the product detail page. Each product listed on the category page now has an **Add to Cart** button. If the product is out of stock, we either hide the button or disable the button and change its text to **Out of Stock**.
 
 #### Pull Requests
 
