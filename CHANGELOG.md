@@ -42,7 +42,7 @@ This loading improvement is most notable on product listing and product detail p
 | <!--PWA-2166-->  Slider movement causing Cypress test failures                     | [3436][] |
 | <!--PWA-1976-->  Customizing shimmer loader                                        | [3353][] |
 
-### Prepared PWA Studio for Themeing with Tailwind CSS
+### Prepared PWA Studio for Theming with Tailwind CSS
 
 In preparation for our full theming implementation in the next release, we have added the [Tailwind CSS framework][] and updated our CSS infrastructure to support a wider variety of custom theming approaches. Significant changes in this release include:
 
@@ -165,7 +165,7 @@ Google Lighthouse scores are now `100` for Best Practices, Accessibility, and SE
 Scaffolding projects using `npm` version 7 or above (`npm init @magento/pwa`) results in errors. While we investigate, you can use one of the following workarounds:
 
 1. Use `yarn` instead: `yarn create @magento/pwa`.
-2. When installing the scaffolded project, use the --legacy-peer-deps flag to force `npm` to treat peer dependencies as it did in versions 4-6.
+2. When installing the scaffolded project, use the `--legacy-peer-deps` flag to force `npm` to treat peer dependencies as it did in versions 4-6.
 
 ## Test Updates
 
