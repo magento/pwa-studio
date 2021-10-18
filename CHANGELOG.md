@@ -1,7 +1,7 @@
 # Release 12.0.0
 
 **NOTE:**
-_This changelog only contains release notes for PWA Studio and Venia 11.0.0._
+_This changelog only contains release notes for PWA Studio and Venia 12.0.0._
 _For older release notes, see [PWA Studio releases][]._
 
 ## New Features
@@ -27,7 +27,7 @@ Shoppers can now add products to their cart directly from the product category p
 ### Added Shimmer loader component
 <!--PWA-1865-->
 The `Shimmer` component is a loading indicator that takes the shape of the component being loaded. This gives users an idea of what content will be on the page before it's fully loaded, which improves the perceived loading performance and eliminates layout shift.
-This is loading improvements are most notable on product listing and product detail pages.
+This loading improvement is most notable on product listing and product detail pages.
 
 #### Pull Requests
 
@@ -46,7 +46,9 @@ This is loading improvements are most notable on product listing and product det
 
 ### Prepared PWA Studio for Themeing with Tailwind CSS.
 
-In preparation for our full Themeing implementation in the next release, we have added Tailwind CSS and udpated our CSS infrastructure to support a wide variety of custom themeing. Significant changes in this release include:
+In preparation for our full theming implementation in the next release, we have added the [Tailwind CSS framework][] and updated our CSS infrastructure to support a wider variety of custom theming approaches. Significant changes in this release include:
+
+[tailwind css framework]: https://tailwindcss.com/
 
 | Jira Issue      | Description                                                                                                                                                                                           | PR       |
 |-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
