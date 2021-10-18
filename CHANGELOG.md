@@ -64,7 +64,7 @@ Guest users (users not signed-in to the site) are now redirected to a new `/sign
 -  `AuthRoute` — New component that returns the `Route` or a `Redirect` to the `sign-in` page if the user is not signed-in.
 -  `SignInPage` — New component that returns a page with a sign-in form where users can sign-in to their existing account, create a new account, or reset their password.
 -  `ForgotPasswordPage` — New page that shows a form to reset user's password.
--  `RouteDefinition` - New component for defining a route in your storefront.
+-  `RouteDefinition` - Updated object with `authed` and `redirectTo` properties to support route-based authentication handling.
 -  `CreateAccountPage` — Updated to work with the new route-authentication handling.
 
 #### Pull Requests
@@ -79,16 +79,16 @@ Google Lighthouse scores are now `100` for Best Practices, Accessibility, and SE
 
 #### Pull Requests
 
-| Jira Issue                                                                                          | Description | PR |
-|-----------------------------------------------------------------------------------------------------|-------------|----|
-| <!--PWA-1798-->Avoid an excessive DOM size from duplication of navigation                           | [3388][]    |    |
-| <!--PWA-1204-->Improved loading experience for PLP and PDP page types                               | [3353][]    |    |
-| <!--PWA-2077-->Page Builder Slider Keyboard nav improved                                            | [3420][]    |    |
-| <!--PWA-1934-->Page Builder Banner and Slider content types load without layout shifts on the page. | [3328][]    |    |
-| <!--PWA-2071-->Markup updates to improve SEO and Accessibility                                      | [3412][]    |    |
-| <!--PWA-2070-->Tap Targets size and Color Contrast                                                  | [3421][]    |    |
-| <!--PWA-2074-->Image placeholders updates to improve the Best Practices score                       | [3411][]    |    |
-| <!--PWA-2075-->Meta information for Category Meta Descriptions                                      | [3471][]    |    |
+| Description                                                                                         | PR       |
+|-----------------------------------------------------------------------------------------------------|----------|
+| <!--PWA-1798-->Avoid an excessive DOM size from duplication of navigation                           | [3388][] |
+| <!--PWA-1204-->Improved loading experience for PLP and PDP page types                               | [3353][] |
+| <!--PWA-2077-->Page Builder Slider Keyboard nav improved                                            | [3420][] |
+| <!--PWA-1934-->Page Builder Banner and Slider content types load without layout shifts on the page. | [3328][] |
+| <!--PWA-2071-->Markup updates to improve SEO and Accessibility                                      | [3412][] |
+| <!--PWA-2070-->Tap Targets size and Color Contrast                                                  | [3421][] |
+| <!--PWA-2074-->Image placeholders updates to improve the Best Practices score                       | [3411][] |
+| <!--PWA-2075-->Meta information for Category Meta Descriptions                                      | [3471][] |
 
 ## Updates
 
@@ -154,16 +154,17 @@ Google Lighthouse scores are now `100` for Best Practices, Accessibility, and SE
 
 ## Breaking Changes
 
-| JDescription                                                                                                                                                                                                                         | PR       |
+| Description                                                                                                                                                                                                                          | PR       |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | <!--PWA-1588-->Removed `Enzyme` and `@wojtekmaj/enzyme-adapter-react-17` packages. Update any tests that use the `Enzyme` or `@wojtekmaj/enzyme-adapter-react-17` packages.                                                          | [3393][] |
 | <!--PWA-1704-->Changed the UPWARD configuration to prevent a race condition that could prevent `yarn build` command from emmitting images. Overriden static asset configurations now only take the overriden value, instead of both. | [3410][] |
 | <!--PWA-1704-->Hundreds of CSS files have been renamed and their components updated to point to the new filenames.                                                                                                                   | [3414][] |
-| <!--PWA-1704-->Page loading indicator component refactored/moved to LoadingIndicator.                                                                                                                                                | [3308][] |
-| <!--PWA-1704-->`makeRoutes` has changed to also export a list of available routes.                                                                                                                                                   | [3308][] |
-| <!--PWA-1704-->Any use of `getUserConfirmation` external of Venia must be updated as we are now using this functionality.                                                                                                            | [3308][] |
-| <!--PWA-1704-->Response from `useMagentoRoute` has changed for loading state. Wrappers should take account of this change.                                                                                                           | [3353][] |
-| <!--PWA-1704-->Added exports to index.js files for shimmers                                                                                                                                                                          | [3353][] |
+| <!--PWA-1908-->Page loading indicator component refactored/moved to LoadingIndicator.                                                                                                                                                | [3308][] |
+| <!--PWA-1908-->`makeRoutes` has changed to also export a list of available routes.                                                                                                                                                   | [3308][] |
+| <!--PWA-1908-->Any use of `getUserConfirmation` external of Venia must be updated as we are now using this functionality.                                                                                                            | [3308][] |
+| <!--PWA-1204-->Response from `useMagentoRoute` has changed for loading state. Wrappers should take account of this change.                                                                                                           | [3353][] |
+| <!--PWA-1878-->Added exports to index.js files for Shimmers.                                                                                                                                                                         | [3284][] |
+| <!--PWA-1878-->Changed content of `categoryContent` root component so targetables may change.                                                                                                                                        | [3284][] |
 
 ## Known Issues
 
