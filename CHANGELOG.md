@@ -48,6 +48,8 @@ In preparation for our full theming implementation in the next release, we have 
 
 [tailwind css framework]: https://tailwindcss.com/
 
+#### Pull Requests
+
 | Jira Issue      | Description                                                                                                                                                                                           | PR       |
 |-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | <!--PWA-1880--> | Added Tailwind to PWA Studio for Theme configuration.                                                                                                                                                 | [3341][] |
@@ -62,7 +64,10 @@ Guest users (users not signed-in to the site) are now redirected to a new `/sign
 -  `AuthRoute` — New component that returns the `Route` or a `Redirect` to the `sign-in` page if the user is not signed-in.
 -  `SignInPage` — New component that returns a page with a sign-in form where users can sign-in to their existing account, create a new account, or reset their password.
 -  `ForgotPasswordPage` — New page that shows a form to reset user's password.
+-  `RouteDefinition` - New component for defining a route in your storefront.
 -  `CreateAccountPage` — Updated to work with the new route-authentication handling.
+
+#### Pull Requests
 
 | Jira Issue     | Description                   | PR       |
 |----------------|-------------------------------|----------|
