@@ -1,5 +1,6 @@
 ---
 title: Client-side caching
+adobeio: /guides/general-concepts/client-side-caching/
 ---
 
 Client-server communication is slow and expensive.

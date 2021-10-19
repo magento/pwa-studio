@@ -1,6 +1,9 @@
 {
   "name": "@magento/pwa-theme-venia",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Venia theme for a PWA Studio storefront",
   "main": "tailwind.preset.js",
   "scripts": {
