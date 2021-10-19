@@ -57,6 +57,7 @@ export const QuantityFields = props => {
                         id: 'quantity.input',
                         defaultMessage: 'Item Quantity'
                     })}
+                    data-cy="QuantityFields-input"
                     classes={{ input: classes.input }}
                     field="quantity"
                     id={itemId}
