@@ -23,7 +23,7 @@ import DEFAULT_OPERATIONS from './couponCode.gql';
  * @return {CouponCodeTalonProps}
  *
  * @example <caption>Importing into your project</caption>
- * import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
+ * import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/useCouponCode';
  */
 export const useCouponCode = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);

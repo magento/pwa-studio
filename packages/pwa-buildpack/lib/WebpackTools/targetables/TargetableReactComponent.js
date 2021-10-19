@@ -149,7 +149,7 @@ class TargetableReactComponent extends TargetableESModule {
      *
      * @param {string} jsx - A JSX element matching the one in the source code
      * to modify. Use a JSX opening element or a self-closing element, like
-     * '<Route path="/">'.
+     * `<Route path="/">`.
      * @param {string} replacement - Replacement code as a string.
      * @param {JSXModifierOptions} [options]
      *

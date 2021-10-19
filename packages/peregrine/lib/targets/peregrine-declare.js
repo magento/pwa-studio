@@ -20,8 +20,6 @@ module.exports = targets => {
          *
          * @member {tapable.AsyncSeriesHook}
          *
-         * @see [list of wrappable hooks][]
-         *
          * @see [Intercept function signature]{@link hookInterceptFunction}
          *
          * @example <caption>Access the tapable object</caption>
@@ -48,8 +46,6 @@ module.exports = targets => {
          *
          *
          * @member {tapable.AsyncSeriesHook}
-         *
-         * @see [list of wrappable talons][]
          *
          * @see [Intercept function signature]{@link hookInterceptFunction}
          *

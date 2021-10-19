@@ -1,5 +1,13 @@
 module.exports = [
     {
+        target: 'venia-ui/lib/components/Shimmer/shimmer.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/Link/link.js',
+        type: 'function'
+    },
+    {
         target: 'venia-ui/lib/components/RichContent/richContent.js',
         type: 'function'
     },
@@ -70,5 +78,5 @@ module.exports = [
         childComponents: [
             'venia-ui/lib/components/CartPage/ProductListing/EditModal/editModal.js',
         ]
-    },
+    }
 ];
