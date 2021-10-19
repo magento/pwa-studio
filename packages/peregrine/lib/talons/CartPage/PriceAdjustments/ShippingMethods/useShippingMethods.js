@@ -120,7 +120,7 @@ export const useShippingMethods = (props = {}) => {
  * Can be used as a boolean value since having no shipping methods would return 0.
  * @property {boolean} isShowingForm True if the form should be shown. False otherwise.
  * @property {SelectShippingFields} selectedShippingFields Values for the select input fields on the shipping form
- * @property {String} selectedShippingMethod A serialized string of <carrier-code>|<method-code>, eg. usps|priority.
+ * @property {String} selectedShippingMethod A serialized string of <inlineCode>${carrier-code}\|${method-code}</inlineCode>, eg. <inlineCode>usps\|priority</inlineCode>.
  * @property {Array<Object>} shippingMethods A list of available shipping methods based on the primary shipping address
  * @property {function} showForm A function that sets the `isShowingForm` value to true.
  */

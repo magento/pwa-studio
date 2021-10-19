@@ -23,7 +23,7 @@ const renderPropEntry = ({ key, required, defaultValue, propDescription }) => {
  * Function for generating the table for props
  */
 const renderClassPropsTable = props => {
-    let result = `## Props\n\n `;
+    let result = `Props\n\n `;
 
     const propsKeys = Object.keys(props);
 

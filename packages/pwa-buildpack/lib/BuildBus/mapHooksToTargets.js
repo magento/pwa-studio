@@ -76,7 +76,7 @@ const appearsToBeTapable = hookLike =>
 /**
  * Get the string type name of a provided object. If it is one of the base
  * Tapable Hooks supported, returns the name of that Hook (without 'Hook' on
- * the end). Otherwise, returns '<unknown>'.
+ * the end). Otherwise, returns `<unknown>`.
  *
  * @param {object} hook Potental Tapable hook object
  *

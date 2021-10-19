@@ -1,5 +1,6 @@
 ---
 title: Routing in PWA Studio
+adobeio: /guides/general-concepts/routing/
 ---
 
 For web applications, routing is the process of mapping a URL to specific page resources.
