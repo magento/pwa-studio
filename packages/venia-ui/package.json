@@ -67,6 +67,7 @@
     "babel-loader": "~8.0.5",
     "babel-plugin-dynamic-import-node": "~2.2.0",
     "babel-plugin-graphql-tag": "~2.0.0",
+    "babel-plugin-react-remove-properties": "~0.3.0",
     "identity-obj-proxy": "~3.0.0",
     "react": "~17.0.1",
     "react-intl": "~5.20.0",
@@ -75,7 +76,7 @@
   },
   "peerDependencies": {
     "@apollo/client": "~3.1.2",
-    "@magento/babel-preset-peregrine": "~1.1.0",
+    "@magento/babel-preset-peregrine": "~1.2.0",
     "@magento/peregrine": "~11.0.0",
     "@magento/pwa-buildpack": "~10.0.0",
     "apollo-cache-persist": "~0.1.1",
