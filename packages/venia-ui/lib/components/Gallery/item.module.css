@@ -38,7 +38,8 @@
 
 .actionsContainer {
     column-gap: 1rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
     padding-left: 0.5rem;
 }
 
@@ -59,7 +60,7 @@
 .unavailableContainer {
     align-items: center;
     background-color: rgb(var(--venia-global-color-gray));
-    color: rgb(var(--venia-global-color-gray-darker));
+    color: rgb(var(--venia-global-color-gray-700));
     column-gap: 0.5rem;
     display: grid;
     font-style: italic;

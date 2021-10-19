@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { useApolloClient, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../../context/cart';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from './shippingMethods.gql';
 
 /**
  * GraphQL currently requires a complete address before it will return
@@ -43,12 +45,9 @@ export const MOCKED_ADDRESS = {
  * import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
  */
 export const useShippingForm = props => {
-    const {
-        selectedValues,
-        setIsCartUpdating,
-        mutations: { setShippingAddressMutation },
-        queries: { shippingMethodsQuery }
-    } = props;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { setShippingAddressMutation, getShippingMethodsQuery } = operations;
+    const { selectedValues, setIsCartUpdating } = props;
 
     const [{ cartId }] = useCartContext();
     const apolloClient = useApolloClient();
@@ -81,7 +80,7 @@ export const useShippingForm = props => {
         zip => {
             if (zip !== selectedValues.zip) {
                 const data = apolloClient.readQuery({
-                    query: shippingMethodsQuery,
+                    query: getShippingMethodsQuery,
                     variables: {
                         cartId
                     }
@@ -97,7 +96,7 @@ export const useShippingForm = props => {
                     } = primaryAddress;
                     if (availableMethods.length) {
                         apolloClient.writeQuery({
-                            query: shippingMethodsQuery,
+                            query: getShippingMethodsQuery,
                             data: {
                                 cart: {
                                     ...cart,
@@ -115,7 +114,7 @@ export const useShippingForm = props => {
                 }
             }
         },
-        [apolloClient, cartId, selectedValues.zip, shippingMethodsQuery]
+        [apolloClient, cartId, selectedValues.zip, getShippingMethodsQuery]
     );
 
     const handleOnSubmit = useCallback(

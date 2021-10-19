@@ -29,6 +29,17 @@ exports[`renders delete confirmation 1`] = `
       className="root_normalPriority"
       disabled={true}
       onClick={[MockFunction toggleDeleteConfirmation]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -87,6 +98,17 @@ exports[`renders delete confirmation 1`] = `
       className="root_normalPriorityNegative"
       disabled={true}
       onClick={[MockFunction handleDeletePayment]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -102,6 +124,17 @@ exports[`renders delete confirmation 1`] = `
       className="root_lowPriority"
       disabled={true}
       onClick={[MockFunction toggleDeleteConfirmation]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -168,6 +201,17 @@ exports[`should render properly 1`] = `
       className="root_normalPriority"
       disabled={false}
       onClick={[MockFunction toggleDeleteConfirmation]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -226,6 +270,17 @@ exports[`should render properly 1`] = `
       className="root_normalPriorityNegative"
       disabled={false}
       onClick={[MockFunction handleDeletePayment]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span
@@ -241,6 +296,17 @@ exports[`should render properly 1`] = `
       className="root_lowPriority"
       disabled={false}
       onClick={[MockFunction toggleDeleteConfirmation]}
+      onDragStart={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
       type="button"
     >
       <span

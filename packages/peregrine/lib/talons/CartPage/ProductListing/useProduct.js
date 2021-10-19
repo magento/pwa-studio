@@ -5,9 +5,8 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import configuredVariant from '@magento/peregrine/lib/util/configuredVariant';
 
 import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
-import mergeOperations from '../../../util/shallowMerge';
-
 import DEFAULT_OPERATIONS from './product.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 /**
  * This talon contains logic for a product component used in a product listing component.
@@ -129,14 +128,14 @@ export const useProduct = props => {
             await removeItemFromCart({
                 variables: {
                     cartId,
-                    itemId: item.id
+                    itemId: item.uid
                 }
             });
         } catch (err) {
             // Make sure any errors from the mutation are displayed.
             setDisplayError(true);
         }
-    }, [cartId, item.id, removeItemFromCart]);
+    }, [cartId, item.uid, removeItemFromCart]);
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
@@ -144,7 +143,7 @@ export const useProduct = props => {
                 await updateItemQuantity({
                     variables: {
                         cartId,
-                        itemId: item.id,
+                        itemId: item.uid,
                         quantity
                     }
                 });
@@ -153,7 +152,7 @@ export const useProduct = props => {
                 setDisplayError(true);
             }
         },
-        [cartId, item.id, updateItemQuantity]
+        [cartId, item.uid, updateItemQuantity]
     );
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string, arrayOf, number } from 'prop-types';
+import { arrayOf, number, shape, string } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { Printer } from 'react-feather';

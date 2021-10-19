@@ -18,8 +18,8 @@ import Quantity from './quantity';
 
 import defaultClasses from './product.module.css';
 
-import { CartPageFragment } from '../cartPageFragments.gql';
-import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
+import { CartPageFragment } from '@magento/peregrine/lib/talons/CartPage/cartPageFragments.gql.js';
+import { AvailableShippingMethodsCartFragment } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql.js';
 
 const IMAGE_SIZE = 100;
 
@@ -174,8 +174,8 @@ const Product = props => {
 export default Product;
 
 export const REMOVE_ITEM_MUTATION = gql`
-    mutation removeItem($cartId: String!, $itemId: Int!) {
-        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId })
+    mutation removeItem($cartId: String!, $itemId: ID!) {
+        removeItemFromCart(input: { cart_id: $cartId, cart_item_uid: $itemId })
             @connection(key: "removeItemFromCart") {
             cart {
                 id
@@ -191,13 +191,13 @@ export const REMOVE_ITEM_MUTATION = gql`
 export const UPDATE_QUANTITY_MUTATION = gql`
     mutation updateItemQuantity(
         $cartId: String!
-        $itemId: Int!
+        $itemId: ID!
         $quantity: Float!
     ) {
         updateCartItems(
             input: {
                 cart_id: $cartId
-                cart_items: [{ cart_item_id: $itemId, quantity: $quantity }]
+                cart_items: [{ cart_item_uid: $itemId, quantity: $quantity }]
             }
         ) @connection(key: "updateCartItems") {
             cart {
