@@ -7,7 +7,7 @@ The reference doc content is generated automatically from the source code.
 To update this section, update the doc blocks in the source code
 -->
 
-{% include auto-generated/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions.md %}
+{% include auto-generated/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions.md %}
 
 ## Examples
 
@@ -16,7 +16,7 @@ To update this section, update the doc blocks in the source code
 ```jsx
 import React from 'react'
 
-import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
+import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions';
 import MyGiftOptionsOperations from './myGiftOptions.gql';
 
 const MyGiftOptions = props => {
@@ -39,4 +39,3 @@ const MyGiftOptions = props => {
 
 export default MyGiftOptions
 ```
-
