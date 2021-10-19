@@ -18,7 +18,7 @@
         },
         "securityJiraQueue": {
             "projectKey": "MAGREQ",
-            "component": "MAGREQ/PWA"
+            "component": "PWA"
         }
     },
     "staticScan": {
