@@ -15,7 +15,7 @@
     "@adobe/adobe-client-data-layer": "~1.1.3"
   },
   "peerDependencies": {
-    "@magento/peregrine": "~11.0.0",
+    "@magento/peregrine": "~12.0.0",
     "react": "~17.0.1"
   },
   "pwa-studio": {
