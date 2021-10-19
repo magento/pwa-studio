@@ -1,10 +1,10 @@
 .root {
+    composes: p-0 from global;
     align-items: center;
     display: grid;
     justify-items: end;
     margin: 0 auto;
     max-width: var(--venia-global-maxWidth);
-    padding: 0.5rem 1rem;
     position: relative;
 }
 

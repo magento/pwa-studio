@@ -276,7 +276,7 @@ export const removeItemFromCart = payload => {
             await removeItem({
                 variables: {
                     cartId,
-                    itemId: item.id
+                    itemId: item.uid
                 }
             });
 

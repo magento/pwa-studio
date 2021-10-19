@@ -21,22 +21,20 @@ Follow the instructions on this page to install the Venia sample data into your 
 {: .bs-callout .bs-callout-warning}
 If you have the previous `magento2-sample-data` module installed, you need to [remove the sample data modules][] and re-install Magento with a clean database.
 
-## Step 1. Copy or create the deploy script
+## Step 1. Set the composer repository in the config
 
-If you have cloned the [PWA Studio][] repository into the same machine as your Magento instance, copy over the following PWA Studio file into the root directory of your Magento instance:
-
-`packages/venia-concept/deployVeniaSampleData.sh`
-
-If you do not have access to the PWA Studio repository, copy the following content into a file in the root directory of your Magento instance:
-
-{% include_relative _includes/deploy-venia-sample-data-script.md %}
-
-## Step 2. Execute the deploy script
-
-Execute the script in the root directory of your Magento instance to add the Venia sample data modules to Magento:
+Run the following command in the Magento root directory setup the repository for the sample data in https://repo.magento.com:
 
 ```sh
-bash deployVeniaSampleData.sh
+composer config --no-interaction --ansi repositories.venia-sample-data composer https://repo.magento.com
+```
+
+## Step 2. Require in the sample data
+
+Run the following command in the Magento root directory to update the composer.json to require in magento/venia-sample-data metapackage:
+
+```sh
+composer require --no-interaction --ansi magento/venia-sample-data:0.0.1
 ```
 
 ## Step 3. Install the sample data modules
@@ -46,6 +44,7 @@ Run the following command in the Magento root directory to install the Venia dat
 ```sh
 bin/magento setup:upgrade
 ```
+
 
 ## Step 4. Reindex the new data
 

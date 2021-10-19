@@ -1,19 +1,45 @@
 .root {
-    background-color: rgb(var(--venia-global-color-gray-50));
-    box-shadow: 0 2px rgb(var(--venia-global-color-gray-100));
-    display: grid;
-    grid-auto-columns: 100%;
-    justify-items: center;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-    --header-height: 5rem;
+    composes: auto-cols-fr from global;
+    composes: bg-white from global;
+    composes: border-b from global;
+    composes: border-neutral-l1 from global;
+    composes: grid from global;
+    composes: h-auto from global;
+    composes: justify-center from global;
+    composes: px-4 from global;
+    composes: top-0 from global;
+    composes: sticky from global;
+    composes: w-full from global;
+    composes: z-10 from global;
+}
+
+/* Large screen styles */
+.root {
+    composes: lg_px-8 from global;
+}
+
+.switchers {
+    composes: auto-cols-max from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-end from global;
+    composes: max-w-desktop from global;
+    composes: mx-auto from global;
+    composes: relative from global;
+    composes: w-full from global;
+    composes: z-11 from global;
 }
 
 .switchersContainer {
-    display: none;
+    composes: bg-gray-100 from global;
+    composes: hidden from global;
+    composes: px-8 from global;
+    composes: w-full from global;
+}
+
+/* Large screen styles */
+.switchersContainer {
+    composes: sm_block from global;
 }
 
 .open {
@@ -25,90 +51,84 @@
 }
 
 .toolbar {
-    z-index: 3;
-    align-content: center;
-    align-items: center;
-    display: grid;
-    grid-template-areas: 'primary title secondary';
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: 3rem;
-    justify-items: center;
-    max-width: var(--venia-global-maxWidth);
-    min-height: var(--venia-global-header-minHeight);
-    padding: 0 0.5rem;
-    width: 100%;
+    composes: border-0 from global;
+    composes: content-center from global;
+    composes: gap-x-4 from global;
+    composes: grid from global;
+    composes: grid-cols-3 from global;
+    composes: grid-rows-header from global;
+    composes: h-14 from global;
+    composes: items-center from global;
+    composes: justify-self-center from global;
+    composes: max-w-desktop from global;
+    composes: min-height-header from global;
+    composes: w-full from global;
+    composes: z-3 from global;
 }
 
-@media (min-width: 641px) {
-    .switchers {
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: max-content;
-        justify-content: flex-end;
-        max-width: var(--venia-global-maxWidth);
-        width: 100%;
-        position: relative;
-        z-index: 11;
-        margin: 0 auto;
-    }
-
-    .switchersContainer {
-        display: block;
-        width: 100%;
-        background-color: rgb(var(--venia-global-color-gray-100));
-    }
-
-    .toolbar {
-        grid-template-areas: 'primary title secondary';
-        grid-template-columns: auto auto 1fr;
-        min-height: var(--venia-global-header-minHeight);
-        padding: 0 1rem;
-    }
+/* Large screen styles */
+.toolbar {
+    composes: lg_h-20 from global;
+    composes: lg_gap-x-8 from global;
+    composes: lg_grid-cols-12 from global;
+    composes: lg_min-height-header from global;
 }
 
 .logo {
-    grid-area: title;
+    composes: h-full from global;
 }
 
 .primaryActions {
-    grid-area: primary;
-    justify-self: start;
-    display: grid;
-    grid-auto-flow: column;
-    align-items: center;
+    composes: col-start-1 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: justify-self-start from global;
+    composes: row-start-1 from global;
+    composes: self-center from global;
+}
+
+.logoContainer {
+    composes: col-start-2 from global;
+    composes: justify-self-center from global;
+    composes: my-4 from global;
+}
+
+/* Large screen styles */
+.logoContainer {
+    composes: lg_col-end-3 from global;
+    composes: lg_col-start-1 from global;
+    composes: lg_justify-self-start from global;
+    composes: lg_mr-8 from global;
+    composes: lg_row-start-1 from global;
 }
 
 .secondaryActions {
-    grid-area: secondary;
-    width: max-content;
-    display: grid;
-    grid-auto-flow: column;
-    justify-items: end;
-    align-items: center;
-    justify-self: end;
+    composes: col-start-3 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-items-end from global;
+    composes: justify-self-end from global;
+    composes: w-max from global;
 }
 
-@media (min-width: 641px) {
-    .logoContainer {
-        grid-column: 2/ 3;
-        grid-row: 1 / 1;
-    }
-
-    .secondaryActions {
-        column-gap: 1rem;
-    }
+/* Large screen styles */
+.secondaryActions {
+    composes: lg_col-end-13 from global;
+    composes: lg_col-start-10 from global;
+    composes: lg_gap-x-4 from global;
 }
 
 .searchFallback {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.5rem;
-    padding: 0 1rem;
+    composes: flex from global;
+    composes: justify-center from global;
+    composes: mb-2 from global;
+    composes: px-4 from global;
 }
 
 .input {
     composes: input from '../TextInput/textInput.module.css';
-    max-width: 24rem;
+    composes: max-w-sm from global;
 }
 
 .loader,
@@ -125,10 +145,10 @@
 }
 
 .loader {
+    composes: relative from global;
     color: rgb(var(--venia-global-color-gray-dark));
     font-size: var(--dot-font-size);
     margin: var(--dot-shadow-offset) auto 0;
-    position: relative;
     transform: translateZ(0);
     animation-delay: -0.16s;
 }
@@ -149,22 +169,6 @@
 .loader:after {
     color: rgb(var(--venia-global-color-gray-darker));
     left: 3.5em;
-}
-
-@media (min-width: 1024px) {
-    .logoContainer {
-        grid-column: 1 / 2;
-        grid-row: 1 / 1;
-    }
-
-    .secondaryActions {
-        grid-column: 4 / 5;
-        grid-row: 1 / 1;
-    }
-
-    .toolbar {
-        grid-template-columns: 0.5fr 0.5fr 3fr 1fr;
-    }
 }
 
 @keyframes pulse {

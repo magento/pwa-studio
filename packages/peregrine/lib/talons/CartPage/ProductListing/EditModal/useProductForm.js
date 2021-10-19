@@ -156,7 +156,7 @@ export const useProductForm = props => {
                     await updateConfigurableOptions({
                         variables: {
                             cartId,
-                            cartItemId: cartItem.id,
+                            cartItemId: cartItem.uid,
                             parentSku: cartItem.product.sku,
                             variantSku: selectedVariant.product.sku,
                             quantity: formValues.quantity
@@ -168,7 +168,7 @@ export const useProductForm = props => {
                     await updateItemQuantity({
                         variables: {
                             cartId,
-                            cartItemId: cartItem.id,
+                            cartItemId: cartItem.uid,
                             quantity: formValues.quantity
                         }
                     });
