@@ -9,7 +9,7 @@ The reference doc content is generated automatically from the source code.
 To update this section, update the doc blocks in the source code
 -->
 
-{% include auto-generated/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode.md %}
+{% include auto-generated/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/useCouponCode.md %}
 
 ## Examples
 
@@ -18,7 +18,7 @@ To update this section, update the doc blocks in the source code
 ```jsx
 import React from 'react'
 
-import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
+import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/useCouponCode';
 
 import {
     GET_APPLIED_COUPONS,

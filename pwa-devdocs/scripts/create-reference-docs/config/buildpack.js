@@ -13,7 +13,14 @@ module.exports = [
     },
     {
         target: 'pwa-buildpack/lib/BuildBus/BuildBus.js',
-        type: 'function'
+        type: 'function',
+        childComponents: [
+            'pwa-buildpack/lib/BuildBus/declare-base.js',
+            'pwa-buildpack/lib/BuildBus/mapHooksToTargets.js',
+            'pwa-buildpack/lib/BuildBus/Target.js',
+            'pwa-buildpack/lib/BuildBus/Trackable.js',
+            'pwa-buildpack/lib/BuildBus/TargetProvider.js',
+        ]
     },
     {
         target: 'pwa-buildpack/lib/BuildBus/Target.js',
@@ -51,4 +58,4 @@ module.exports = [
         target: 'pwa-buildpack/lib/WebpackTools/targetables/SingleImportStatement.js',
         type: 'function'
     }
-]
+];
