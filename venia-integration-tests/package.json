@@ -22,7 +22,6 @@
         "jimp": "~0.16.1",
         "mochawesome": "~6.2.2",
         "mochawesome-merge": "~4.2.0",
-        "rimraf": "~3.0.2",
         "yargs": "~17.2.1"
     }
 }

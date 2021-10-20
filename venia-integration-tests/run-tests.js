@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const glob = require('glob');
 const { exec, execSync } = require('child_process');
+const { rmSync } = require('fs');
 
 var argv = require('yargs/yargs')(process.argv.slice(2))
     .option('url', {
@@ -79,7 +80,7 @@ if (port) {
 const start = process.hrtime();
 
 // remove old test results
-execSync('rimraf cypress/results/*');
+rmSync('cypress/results', { recursive: true });
 
 for (let i = 0; i < threads; i++) {
     const filesToTest = files.slice(testsPerRun * i, testsPerRun * (i + 1));
