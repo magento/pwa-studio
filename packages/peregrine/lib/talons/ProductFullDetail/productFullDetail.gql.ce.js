@@ -46,7 +46,7 @@ export const ADD_CONFIGURABLE_MUTATION = gql`
                     }
                 ]
             }
-        ) {
+        ) @connection(key: "AddConfigurableProductsToCart") {
             cart {
                 id
                 # Update the cart trigger when adding an item.
@@ -74,7 +74,7 @@ export const ADD_SIMPLE_MUTATION = gql`
                 cart_id: $cartId
                 cart_items: [{ data: { quantity: $quantity, sku: $sku } }]
             }
-        ) {
+        ) @connection(key: "AddSimpleProductsToCart") {
             cart {
                 id
                 # Update the cart trigger when adding an item.

@@ -161,7 +161,10 @@ function getValidator({ clients, project, schemaPath }) {
         'FieldsOnCorrectType',
         'FragmentsOnCompositeTypes',
         'KnownArgumentNames',
-        'KnownDirectives',
+        /*
+         * PWA Studio queries sometimes use the @connection directive, which is Apollo-specific.
+         */
+        // 'KnownDirectives',
         /*
          * PWA Studio sometimes uses fragments imported from other JS files.
          * The parser does not recognize these.
