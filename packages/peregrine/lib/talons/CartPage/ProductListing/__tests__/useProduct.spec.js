@@ -89,7 +89,8 @@ const props = {
         },
         quantity: 7,
         errors: null,
-        id: 'ItemID'
+        id: 'ItemID',
+        uid: 'ItemUID'
     },
     mutations: {
         removeItemMutation: '',
@@ -332,6 +333,7 @@ test('it handles editing the product', () => {
             },
           },
           "quantity": 7,
+          "uid": "ItemUID",
         }
     `);
 });
@@ -358,7 +360,7 @@ describe('it handles cart removal', () => {
             Object {
               "variables": Object {
                 "cartId": "cart123",
-                "itemId": "ItemID",
+                "itemId": "ItemUID",
               },
             }
         `);
@@ -423,7 +425,7 @@ describe('it handles item quantity updates', () => {
             Object {
               "variables": Object {
                 "cartId": "cart123",
-                "itemId": "ItemID",
+                "itemId": "ItemUID",
                 "quantity": 100,
               },
             }

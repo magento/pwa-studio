@@ -1,5 +1,6 @@
 ---
 title: Versioning strategy
+adobeio: /guides/project/versioning/
 ---
 
 ## Rules for incrementing the version

@@ -5,6 +5,7 @@ export const ProductListingFragment = gql`
         id
         items {
             id
+            uid
             product {
                 id
                 name

@@ -24,7 +24,7 @@ class TargetableModule extends Trackable {
      * Add a transform request to this module's queue. The `fileToTransform` of
      * the transform request is automatically set to this module's filename.
      *
-     * @param {TransformType} type - [Transform type][]
+     * @param {TransformType} type - Transform type
      * @param {string} transformModule - The Node module that runs the transform, such as a Webpack loader for type `source` or a Babel plugin for type `babel`.
      * @param {Object} options - Configuration object to send to the transformModule.
      *
@@ -40,7 +40,7 @@ class TargetableModule extends Trackable {
     /**
      * Empty this module's queue of transforms, returning them as an array.
      *
-     * @returns {TransformRequest[]} An array of [Transform requests][].
+     * @returns {TransformRequest[]} An array of Transform requests.
      */
     flush() {
         return this._queuedTransforms.splice(0, this._queuedTransforms.length);
@@ -95,7 +95,7 @@ class TargetableModule extends Trackable {
         return this.spliceSource({ at: 0, insert });
     }
     /**
-     * Do any splice operation supported by [`splice-source-loader`][].
+     * Do any splice operation supported by {@link https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/lib/WebpackTools/loaders/splice-source-loader.js|splice-source-loader}.
      *
      * @param {object} instruction - Splice instruction.
      *

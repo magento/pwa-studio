@@ -44,8 +44,6 @@ const Shimmer = props => {
 };
 
 /**
- * Props for {@link Shimmer}
- *
  * @typedef props
  *
  * @property {Object} classes is an object containing the class names for the
