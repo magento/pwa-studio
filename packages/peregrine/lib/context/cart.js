@@ -17,7 +17,6 @@ import { useEventListener } from '../hooks/useEventListener';
 import BrowserPersistence from '../util/simplePersistence';
 
 const CartContext = createContext();
-const storage = new BrowserPersistence();
 
 const isCartEmpty = cart =>
     !cart || !cart.details.items || cart.details.items.length === 0;
@@ -68,14 +67,15 @@ const CartContextProvider = props => {
 
     // Storage listener to force a state update if cartId changes from another browser tab.
     const storageListener = useCallback(() => {
+        const storage = new BrowserPersistence();
         const currentCartId = storage.getItem('cartId');
         const { cartId } = cartState;
         if (cartId && currentCartId && cartId !== currentCartId) {
-            window.location.reload();
+            globalThis.location && globalThis.location.reload();
         }
     }, [cartState]);
 
-    useEventListener(window, 'storage', storageListener);
+    useEventListener(globalThis, 'storage', storageListener);
 
     useEffect(() => {
         // cartApi.getCartDetails initializes the cart if there isn't one.
