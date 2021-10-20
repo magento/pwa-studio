@@ -17,7 +17,7 @@ import { useCartContext } from '../../../../context/cart';
  *
  * @param {Object} props
  * @param {function} props.setIsCartUpdating Function for setting the updating state of the shopping cart
- * @param {String} props.selectedShippingMethod A serialized string of <carrier-code>|<method-code>, eg. usps|priority.
+ * @param {String} props.selectedShippingMethod A serialized string of <inlineCode>${carrier-code}\|${method-code}</inlineCode>, eg. <inlineCode>usps\|priority</inlineCode>.
  * @param {Array<Object>} props.shippingMethods An array of available shipping methods
  * @param {ShippingRadiosMutations} props.mutations GraphQL mutations for a shipping radio selector component.
  *

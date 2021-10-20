@@ -35,21 +35,17 @@ test('clears customer data from cache', async () => {
 
     cache.restore({
         ROOT_QUERY: {
-            anotherLocalField: { __ref: 'AnotherCacheEntry' },
-            customer: { __ref: 'Customer' }
+            anotherLocalField: 'This entry should not get deleted',
+            customerLocalField: 'This entry should get deleted'
         },
         Customer: {
-            __typename: 'Customer',
             id: 'customerId',
             firstName: 'Veronica'
         },
         AnotherCacheEntry: {
-            __typename: 'AnotherCacheEntry',
             value: 'This entry should not get deleted'
         }
     });
-
-    cache.retain('ROOT_QUERY');
 
     await act(async () => {
         TestRenderer.create(
@@ -65,21 +61,15 @@ test('clears customer data from cache', async () => {
     expect(initialCacheData).toMatchInlineSnapshot(`
         Object {
           "AnotherCacheEntry": Object {
-            "__typename": "AnotherCacheEntry",
             "value": "This entry should not get deleted",
           },
           "Customer": Object {
-            "__typename": "Customer",
             "firstName": "Veronica",
             "id": "customerId",
           },
           "ROOT_QUERY": Object {
-            "anotherLocalField": Object {
-              "__ref": "AnotherCacheEntry",
-            },
-            "customer": Object {
-              "__ref": "Customer",
-            },
+            "anotherLocalField": "This entry should not get deleted",
+            "customerLocalField": "This entry should get deleted",
           },
         }
     `);
@@ -88,13 +78,10 @@ test('clears customer data from cache', async () => {
     expect(finalCacheData).toMatchInlineSnapshot(`
         Object {
           "AnotherCacheEntry": Object {
-            "__typename": "AnotherCacheEntry",
             "value": "This entry should not get deleted",
           },
           "ROOT_QUERY": Object {
-            "anotherLocalField": Object {
-              "__ref": "AnotherCacheEntry",
-            },
+            "anotherLocalField": "This entry should not get deleted",
           },
         }
     `);

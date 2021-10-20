@@ -1,4 +1,5 @@
 .root {
+    composes: justify-self-center from global;
     align-items: center;
     display: none;
     justify-items: center;
