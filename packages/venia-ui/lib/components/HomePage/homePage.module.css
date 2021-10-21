@@ -12,7 +12,9 @@
 /*
  * Target all buttons.
  */
-:global(.venia-home-row-1 a) {
+:global(.venia-home-row-1 a > div a),
+:global(.venia-home-banner-a-content a),
+:global(.venia-home-banner-b-content a) {
     align-items: center;
     background-color: transparent;
     border: 2px solid hsl(var(--brightBlue));
@@ -30,8 +32,13 @@
     text-decoration: none !important;
     text-transform: uppercase;
 }
-:global(.venia-home-row-1 a:active),
-:global(.venia-home-row-1 a:focus) {
+
+:global(.venia-home-row-1 a > div a:active),
+:global(.venia-home-row-1 a > div a:focus),
+:global(.venia-home-banner-a-content a:active),
+:global(.venia-home-banner-a-content a:focus),
+:global(.venia-home-banner-b-content a:active),
+:global(.venia-home-banner-b-content a:focus) {
     box-shadow: -6px 6px hsl(var(--brightBlue) / 0.3);
     outline: none;
 }
@@ -109,7 +116,7 @@
 /*
  * Target the banner wrapper within a slide.
  */
-:global(.venia-home-slider .slick-slide > div > div > div) {
+:global(.venia-home-slider .slick-slide > div > div > a > div) {
     align-items: center;
     background-position: right top !important;
     background-size: cover !important;
@@ -125,13 +132,13 @@
         min-height: 548px !important;
     }
 
-    :global(.venia-home-slider .slick-slide > div > div > div) {
+    :global(.venia-home-slider .slick-slide > div > div > a > div) {
         min-height: 580px !important;
     }
 }
 
 @media (max-width: 960px) {
-    :global(.venia-home-slider .slick-slide > div > div > div) {
+    :global(.venia-home-slider .slick-slide > div > div > a > div) {
         align-content: end;
         background-position: right center !important;
         color: white;
@@ -141,7 +148,7 @@
         text-align: center;
     }
 
-    :global(.venia-home-slider .slick-slide > div > div > div::before) {
+    :global(.venia-home-slider .slick-slide > div > div > a > div::before) {
         background-image: linear-gradient(
             180deg,
             transparent,
@@ -158,7 +165,7 @@
     }
 }
 
-:global(.venia-home-slider .slick-slide > div > div > div > div) {
+:global(.venia-home-slider .slick-slide > div > div > a > div > div) {
     margin: 0 !important;
     padding: 0 !important;
 }
@@ -172,7 +179,7 @@
     font-weight: 600 !important;
 }
 
-:global(.venia-home-slider .slick-slide a) {
+:global(.venia-home-slider .slick-slide a > div a) {
     background-color: hsl(var(--brightBlue));
     color: white;
 }
