@@ -250,6 +250,7 @@ const Banner = props => {
                 <Button
                     priority={typeToPriorityMapping[buttonType]}
                     type="button"
+                    onPress={()=>{}}
                 >
                     {buttonText}
                 </Button>
