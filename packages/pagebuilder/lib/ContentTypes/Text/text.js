@@ -65,7 +65,12 @@ const Text = props => {
 
             const eventOrigin = e.view.location.origin;
 
-            const { origin: linkOrigin, pathname: path, target: tabTarget, href } = target;
+            const {
+                origin: linkOrigin,
+                pathname: path,
+                target: tabTarget,
+                href
+            } = target;
 
             if (tabTarget && globalThis.open) {
                 globalThis.open(href, '_blank');
