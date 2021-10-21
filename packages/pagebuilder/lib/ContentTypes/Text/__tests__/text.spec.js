@@ -110,7 +110,7 @@ describe('clicking on the element', () => {
                     origin: 'https://my-other-magento.store',
                     tagName: 'A',
                     pathname: '/shoes.html',
-                    href: 'https://my-magento.store/shoes.html'
+                    href: 'https://my-other-magento.store/shoes.html'
                 },
                 view: {
                     location: {
@@ -138,7 +138,7 @@ describe('clicking on the element', () => {
                     tagName: 'A',
                     pathname: '/shoes.html',
                     target: '_blank',
-                    href: 'https://my-magento.store/shoes.html'
+                    href: 'https://my-other-magento.store/shoes.html'
                 },
                 view: {
                     location: {
