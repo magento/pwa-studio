@@ -73,9 +73,12 @@ export const estimateShippingMethod = ({
     }
 
     if (regionCode) {
-        cy.get(shippingMethodRegionField).select(regionCode);
+        cy.get(shippingMethodRegionField)
+            .should('not.be.disabled')
+            .select(regionCode);
     } else if (region) {
         cy.get(shippingMethodRegionField)
+            .should('not.be.disabled')
             .clear()
             .type(region);
     }
