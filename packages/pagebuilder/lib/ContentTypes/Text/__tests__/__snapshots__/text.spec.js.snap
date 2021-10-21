@@ -8,6 +8,7 @@ exports[`renders a Text component 1`] = `
       "__html": "<p>Test text component.</p>",
     }
   }
+  onClick={[Function]}
   style={
     Object {
       "border": undefined,
@@ -36,6 +37,7 @@ exports[`renders a Text component with all props configured 1`] = `
       "__html": "<p>Another text component.</p>",
     }
   }
+  onClick={[Function]}
   style={
     Object {
       "border": "solid",

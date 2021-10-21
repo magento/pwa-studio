@@ -2,6 +2,7 @@ import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './text.module.css';
+import { useHistory } from 'react-router-dom';
 
 const toHTML = str => ({ __html: str });
 
@@ -53,8 +54,32 @@ const Text = props => {
         paddingLeft
     };
 
+    const history = useHistory();
+
+    const clickHandler = e => {
+        const { target } = e;
+        // Intercept link clicks and check to see if the
+        // destination is internal to avoid refreshing the page
+        if (target.tagName === 'A') {
+            e.preventDefault();
+
+            const eventOrigin = e.view.location.origin;
+
+            const { origin: linkOrigin, pathname: path, target: tabTarget, href } = target;
+
+            if (tabTarget && globalThis.open) {
+                globalThis.open(href, '_blank');
+            } else if (linkOrigin === eventOrigin) {
+                history.push(path);
+            } else {
+                globalThis.location.assign(href);
+            }
+        }
+    };
+
     return (
         <div
+            onClick={clickHandler}
             style={dynamicStyles}
             className={[classes.root, ...cssClasses].join(' ')}
             dangerouslySetInnerHTML={toHTML(content)}
