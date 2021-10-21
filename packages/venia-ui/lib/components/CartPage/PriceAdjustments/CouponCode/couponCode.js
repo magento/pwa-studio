@@ -133,6 +133,7 @@ const CouponCode = props => {
                     <TextInput
                         field="couponCode"
                         id={'couponCode'}
+                        data-cy="CouponCode-couponCode"
                         placeholder={formatMessage({
                             id: 'couponCode.enterCode',
                             defaultMessage: 'Enter code'
@@ -144,6 +145,7 @@ const CouponCode = props => {
                 </Field>
                 <Field>
                     <Button
+                        data-cy="CouponCode-submit"
                         disabled={applyingCoupon}
                         priority={'normal'}
                         type={'submit'}

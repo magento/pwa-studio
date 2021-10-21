@@ -8,6 +8,11 @@ export const productValeriaTwoLayeredTank = {
     url: '/valeria-two-layer-tank.html'
 };
 
+export const productIsadoraSkirt = {
+    name: 'Isadora Skirt',
+    url: '/isadora-skirt.html'
+};
+
 /**
  * Sample simple product
  */
