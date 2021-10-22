@@ -13,11 +13,11 @@ import defaultClasses from './mask.module.css';
  *
  */
 const Mask = props => {
-    const { dismiss, isActive } = props;
-    const classes = useStyle(defaultClasses, props.classes);
+    const { dismiss, isActive, classes: propClasses, ...restProps } = props;
+    const classes = useStyle(defaultClasses, propClasses);
     const className = isActive ? classes.root_active : classes.root;
 
-    return <button className={className} onClick={dismiss} />;
+    return <button className={className} onClick={dismiss} {...restProps} />;
 };
 
 export default Mask;

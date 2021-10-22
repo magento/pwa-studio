@@ -1,5 +1,7 @@
 export const hitGraphqlPath = '**/graphql';
 
+export const getCategoryDataCall = '**/graphql?query=query+getCategoryData*';
+
 export const getCheckoutDetailsCall =
     '**/graphql?query=query+getCheckoutDetails*';
 
