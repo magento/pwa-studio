@@ -73,3 +73,7 @@
 .root pre {
     @apply bg-gray-100 border border-gray-300 border-solid p-4;
 }
+
+.root :global .cms-content-important {
+    @apply bg-gray-100 border border-gray-300 border-solid p-4 text-lg;
+}
