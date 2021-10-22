@@ -7,6 +7,12 @@ export const kebabMenuButton = 'button[class^="kebab-kebab-"]';
 
 export const saveForLaterButton = 'button[class^="product-addToListButton-"]';
 
+export const cartPagePriceSummaryDiscountSummary =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-DiscountSummary-label"]';
+
+export const cartPagePriceSummaryGiftCardSummary =
+    '[data-cy="CartPage-root"] [data-cy="PriceSummary-root"] [data-cy="PriceSummary-GiftCardSummary-label"]';
+
 export const shippingMethodPriceAdjustments =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"]';
 
@@ -40,8 +46,14 @@ export const couponCodeCouponCodeTextField =
 export const couponCodeSubmitButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="CouponCode-submit"]';
 
+export const couponCodeRemoveButton =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="CouponCode-removeCouponButton"]';
+
 export const giftCardSectionButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-giftCardSection"] [data-cy="Section-titleContainer"]';
+
+export const giftCardRemoveButton =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-giftCardSection"] [data-cy="GiftCards-GiftCard-removeButton"]';
 
 export const giftCardCardTextField =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftCards-card"]';

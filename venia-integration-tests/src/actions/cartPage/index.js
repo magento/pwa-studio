@@ -14,8 +14,10 @@ import {
     shippingMethodCountrySelect,
     couponCodeCouponCodeTextField,
     couponCodeSubmitButton,
+    couponCodeRemoveButton,
     giftCardCardTextField,
     giftCardCardApplyButton,
+    giftCardRemoveButton,
     giftOptionsIncludeGiftReceiptCheckbox,
     giftOptionsIncludePrintedCardCheckbox,
     giftOptionsCardMessageTextarea
@@ -119,6 +121,13 @@ export const setCouponCodeFromCartPage = code => {
 };
 
 /**
+ * Utility function to remove Coupon Code from Cart Page
+ */
+export const removeCouponCodeFromCartPage = () => {
+    cy.get(couponCodeRemoveButton).click();
+};
+
+/**
  * Utility function to set Gift Card from Cart Page
  *
  * @param {String} cardNumber gift card number
@@ -129,6 +138,15 @@ export const setGiftCardFromCartPage = cardNumber => {
         .type(cardNumber);
 
     cy.get(giftCardCardApplyButton).click();
+};
+
+/**
+ * Utility function to remove Gift Cards from Cart Page
+ */
+export const removeGiftCardsFromCartPage = () => {
+    cy.get(giftCardRemoveButton).each($button => {
+        cy.wrap($button).click();
+    });
 };
 
 /**
