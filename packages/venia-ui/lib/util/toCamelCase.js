@@ -1,3 +1,3 @@
 export const toCamelCase = str => {
-    return str.replace(/-([a-z])/g, str => str.substr(1).toUpperCase());
+    return str.replace(/[-_ ]([a-zA-Z])/g, str => str.substr(1).toUpperCase());
 };
