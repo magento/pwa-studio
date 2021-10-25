@@ -181,7 +181,7 @@ const SearchPage = props => {
         .join(' - ');
 
     return (
-        <article className={classes.root}>
+        <article className={classes.root} data-cy="SearchPage-root">
             <div className={classes.sidebar}>
                 <Suspense fallback={<FilterSidebarShimmer />}>
                     {maybeSidebar}

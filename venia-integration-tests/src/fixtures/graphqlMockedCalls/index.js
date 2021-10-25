@@ -1,5 +1,9 @@
 export const hitGraphqlPath = '**/graphql';
 
+export const getCategoriesCall = '**/graphql?query=query+GetCategories*';
+
+export const getCategoryDataCall = '**/graphql?query=query+getCategoryData*';
+
 export const getCheckoutDetailsCall =
     '**/graphql?query=query+getCheckoutDetails*';
 
@@ -24,6 +28,14 @@ export const getProductDetailForProductPageCall =
 
 export const getProductListingCall =
     '**/graphql?query=query+getProductListing*';
+
+export const getProductFiltersByCategoryCall =
+    '**/graphql?query=query+getProductFiltersByCategory*';
+
+export const getProductFiltersBySearchCall =
+    '**/graphql?query=query+getProductFiltersBySearch*';
+
+export const getProductSearchCall = '**/graphql?query=query+ProductSearch*';
 
 export const getSelectedAndAvailableShippingMethodsCall =
     '**/graphql?query=query+getSelectedAndAvailableShippingMethods*';
