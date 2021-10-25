@@ -17,4 +17,7 @@ export const searchFromSearchBar = searchString => {
         .clear()
         .type(searchString)
         .type('{enter}');
+
+    // Close Search Bar after submit
+    triggerSearch();
 };

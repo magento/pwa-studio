@@ -1,7 +1,8 @@
 import {
     categoryPageSelectedWishlistButton,
     categoryContentTitle,
-    categoryContentNoProductsFound,
+    productsGalleryItemName,
+    productsNoProductsFound,
     productsPagination,
     productsPaginationTileActive
 } from '../../fields/categoryPage';
@@ -30,14 +31,14 @@ export const assertCategoryTitle = categoryName => {
  * Assert products were found
  */
 export const assertProductsFound = () => {
-    cy.get(categoryContentNoProductsFound).should('not.exist');
+    cy.get(productsNoProductsFound).should('not.exist');
 };
 
 /**
  * Assert no products were found
  */
 export const assertNoProductsFound = () => {
-    cy.get(categoryContentNoProductsFound).should('exist');
+    cy.get(productsNoProductsFound).should('exist');
 };
 
 /**
@@ -54,4 +55,13 @@ export const assertNoPagination = () => {
  */
 export const assertPaginationActivePage = pageNumber => {
     cy.get(productsPaginationTileActive).should('contain', pageNumber);
+};
+
+/**
+ * Assert Product is in Gallery
+ *
+ * @param {String} productName product name
+ */
+export const assertProductIsInGallery = productName => {
+    cy.get(productsGalleryItemName).should('contain', productName);
 };

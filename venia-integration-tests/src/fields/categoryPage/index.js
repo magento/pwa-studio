@@ -40,8 +40,11 @@ export const wishlistNameField = 'input[id^="createWishlistForm-listname-"]';
 export const createWishlistConfirmButton =
     'button[class^="button-root_highPriority-"]';
 
-export const categoryContentNoProductsFound =
-    '[data-cy="CategoryContent-root"] [data-cy="NoProductsFound-root"]';
+export const productsGalleryItemName =
+    '[data-cy="CategoryContent-root"] [data-cy="GalleryItem-name"], [data-cy="SearchPage-root"] [data-cy="GalleryItem-name"]';
+
+export const productsNoProductsFound =
+    '[data-cy="CategoryContent-root"] [data-cy="NoProductsFound-root"], [data-cy="SearchPage-noResult"]';
 
 export const productsPagination =
     '[data-cy="CategoryContent-root"] [data-cy="Pagination-root"], [data-cy="SearchPage-root"] [data-cy="Pagination-root"]';

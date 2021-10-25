@@ -71,7 +71,7 @@ const SearchPage = props => {
 
         if (data.products.items.length === 0) {
             return (
-                <div className={classes.noResult}>
+                <div className={classes.noResult} data-cy="SearchPage-noResult">
                     <FormattedMessage
                         id={'searchPage.noResultImportant'}
                         defaultMessage={'No results found!'}
