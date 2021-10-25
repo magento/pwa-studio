@@ -31,7 +31,7 @@ const APPLY_GIFT_CARD_MUTATION = gql`
     mutation applyGiftCardToCart($cartId: String!, $giftCardCode: String!) {
         applyGiftCardToCart(
             input: { cart_id: $cartId, gift_card_code: $giftCardCode }
-        ) @connection(key: "applyGiftCardToCart") {
+        ) {
             cart {
                 id
                 ...CartPageFragment
@@ -50,7 +50,7 @@ const REMOVE_GIFT_CARD_MUTATION = gql`
     mutation removeGiftCard($cartId: String!, $giftCardCode: String!) {
         removeGiftCardFromCart(
             input: { cart_id: $cartId, gift_card_code: $giftCardCode }
-        ) @connection(key: "removeGiftCardFromCart") {
+        ) {
             cart {
                 id
                 ...CartPageFragment

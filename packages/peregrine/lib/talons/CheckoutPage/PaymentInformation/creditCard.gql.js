@@ -99,7 +99,7 @@ export const SET_BILLING_ADDRESS = gql`
                     }
                 }
             }
-        ) @connection(key: "setBillingAddressOnCart") {
+        ) {
             cart {
                 id
                 billing_address {
@@ -143,7 +143,7 @@ export const SET_CC_DETAILS_ON_CART = gql`
                     }
                 }
             }
-        ) @connection(key: "setPaymentMethodOnCart") {
+        ) {
             cart {
                 id
                 selected_payment_method {
