@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
+import BrowserPersistence from '../../util/simplePersistence';
 
 import CartContextProvider, { useCartContext } from '../cart';
+
+jest.mock('../../util/simplePersistence.js');
+
 jest.mock('@apollo/client', () => ({
     useApolloClient: jest.fn(),
     useMutation: jest.fn(() => [jest.fn()])
@@ -26,6 +30,25 @@ const Consumer = jest.fn(() => {
     }, [contextValue]);
 
     return <i />;
+});
+
+let oldWindowLocation;
+
+beforeEach(() => {
+    oldWindowLocation = globalThis.location;
+    delete globalThis.location;
+    globalThis.location = {
+        reload: jest.fn()
+    };
+
+    BrowserPersistence.mockImplementation(() => {
+        return {
+            getItem: jest.fn().mockReturnValueOnce('CART_ID')
+        };
+    });
+});
+afterEach(() => {
+    globalThis.location = oldWindowLocation;
 });
 
 test('returns a connected component', () => {
@@ -164,4 +187,30 @@ test('calculates derivedDetails and isEmpty from state with cart data', () => {
         }),
         expect.any(Object)
     ]);
+});
+
+test('reloads window to force state update if cartId is modified externaly', () => {
+    const events = {};
+    globalThis.addEventListener = jest.fn((event, cb) => {
+        events[event] = cb;
+    });
+
+    const { Component } = CartContextProvider;
+    const props = {
+        actions: { one: 'one' },
+        cartState: {
+            cartId: '123',
+            details: {}
+        },
+        asyncActions: { getCartDetails: jest.fn(), one: 'one', two: 'two' }
+    };
+
+    createTestInstance(
+        <Component {...props}>
+            <Consumer />
+        </Component>
+    );
+
+    events.storage({ key: 'cartId' });
+    expect(globalThis.location.reload).toHaveBeenCalled();
 });
