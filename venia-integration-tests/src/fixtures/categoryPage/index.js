@@ -37,3 +37,10 @@ export const searchData = {
     validProductHref2: '/valeria-two-layer-tank.html',
     invalidProductName: 'Valeriaxyz'
 };
+
+export const sortData = {
+    bestMatch: 'Best Match',
+    position: 'Position',
+    priceLowHigh: 'Price: Low to High',
+    priceHighLow: 'Price: High to Low'
+};

@@ -9,6 +9,9 @@ import {
     filterListShowMoreLessButtonElement,
     filterDefaultCheckboxElement,
     productsFilterModalOpenButton,
+    productsPaginationTile,
+    productSortButton,
+    productSortSortItem,
     wishlistNameField
 } from '../../fields/categoryPage';
 
@@ -127,6 +130,35 @@ export const clearFilter = (filterLabel, isMobile = true) => {
                 .find(currentFilterTriggerElement)
                 .click();
         });
+};
+
+/**
+ * Utility function to toggle Product Sort
+ */
+export const toggleProductSort = () => {
+    cy.get(productSortButton).click();
+};
+
+/**
+ * Utility function to sort products
+ *
+ * @param {String} sortLabel sorting label
+ */
+export const sortProducts = sortLabel => {
+    cy.get(productSortSortItem)
+        .contains(productSortSortItem, sortLabel)
+        .click();
+};
+
+/**
+ * Utility function to navigate pagination
+ *
+ * @param {Number} pageNumber page number
+ */
+export const goToPage = pageNumber => {
+    cy.get(productsPaginationTile)
+        .contains(productsPaginationTile, pageNumber)
+        .click();
 };
 
 /**

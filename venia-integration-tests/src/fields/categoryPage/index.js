@@ -49,11 +49,22 @@ export const productsNoProductsFound =
 export const productsPagination =
     '[data-cy="CategoryContent-root"] [data-cy="Pagination-root"], [data-cy="SearchPage-root"] [data-cy="Pagination-root"]';
 
+export const productsPaginationTile =
+    '[data-cy="CategoryContent-root"] [data-cy="Pagination-root"] [data-cy="Tile-root"], [data-cy="SearchPage-root"] [data-cy="Pagination-root"] [data-cy="Tile-root"]';
+
 export const productsPaginationTileActive =
     '[data-cy="CategoryContent-root"] [data-cy="Pagination-root"] [data-cy="Tile-activeRoot"], [data-cy="SearchPage-root"] [data-cy="Pagination-root"] [data-cy="Tile-activeRoot"]';
 
 export const productsFilterModalOpenButton =
     '[data-cy="CategoryContent-root"] [data-cy="FilterModalOpenButton-button"], [data-cy="SearchPage-root"] [data-cy="FilterModalOpenButton-button"]';
+
+export const productSortButton = '[data-cy="ProductSort-sortButton"]';
+
+export const productSortSortItem =
+    '[data-cy="ProductSort-root"] [data-cy="SortItem-button"], [data-cy="ProductSort-root"] [data-cy="SortItem-activeButton"]';
+
+export const productSortSortItemActive =
+    '[data-cy="ProductSort-root"] [data-cy="SortItem-activeButton"]';
 
 export const searchBarSuggestedProduct =
     '[data-cy="SearchBar-root"] [data-cy="SuggestedProduct-root"]';

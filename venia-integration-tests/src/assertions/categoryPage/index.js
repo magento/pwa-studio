@@ -5,8 +5,8 @@ import {
     productsNoProductsFound,
     productsPagination,
     productsPaginationTileActive,
-    searchBarSuggestedProduct,
-    searchBarSuggestedProductName
+    productSortSortItemActive,
+    searchBarSuggestedProduct
 } from '../../fields/categoryPage';
 
 /**
@@ -89,4 +89,13 @@ export const assertProductIsInProductSuggestion = (
  */
 export const assertNoProductSuggestion = () => {
     cy.get(searchBarSuggestedProduct).should('not.exist');
+};
+
+/**
+ * Assert active Sort Item
+ *
+ * @param {String} sortLabel product name
+ */
+export const assertActiveSortItem = sortLabel => {
+    cy.get(productSortSortItemActive).should('contain', sortLabel);
 };

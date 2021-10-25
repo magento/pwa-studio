@@ -11,14 +11,14 @@ export const triggerSearch = () => {
  * Utility function to search element
  *
  * @param {String} searchString string to search for
- * @param {Boolean} [triggerSearch] submit form
+ * @param {Boolean} [submitForm] submit form
  */
-export const searchFromSearchBar = (searchString, triggerSearch = true) => {
+export const searchFromSearchBar = (searchString, submitForm = true) => {
     cy.get(searchBarSearchField)
         .clear()
         .type(searchString);
 
-    if (triggerSearch) {
+    if (submitForm) {
         cy.get(searchBarSearchField).type('{enter}');
 
         // Close Search Bar after submit
