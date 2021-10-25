@@ -109,7 +109,7 @@ const Product = props => {
                     />
                 </Link>
                 <div className={classes.details}>
-                    <div className={classes.name}>
+                    <div className={classes.name} data-cy="Product-name">
                         <Link to={itemLink}>{name}</Link>
                     </div>
                     <ProductOptions

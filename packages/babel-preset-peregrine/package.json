@@ -1,6 +1,6 @@
 {
   "name": "@magento/babel-preset-peregrine",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -28,6 +28,7 @@
     "@babel/runtime": "~7.4.2",
     "babel-plugin-dynamic-import-node": "~2.2.0",
     "babel-plugin-graphql-tag": "~2.0.0",
+    "babel-plugin-react-remove-properties": "~0.3.0",
     "react-refresh": "~0.8.3"
   },
   "engines": {
