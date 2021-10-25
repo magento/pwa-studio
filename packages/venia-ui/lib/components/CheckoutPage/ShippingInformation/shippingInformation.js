@@ -105,7 +105,11 @@ const ShippingInformation = props => {
         </Fragment>
     );
 
-    return <div className={rootClassName}>{shippingInformation}</div>;
+    return (
+        <div className={rootClassName} data-cy="ShippingInformation-root">
+            {shippingInformation}
+        </div>
+    );
 };
 
 export default ShippingInformation;

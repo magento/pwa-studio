@@ -64,7 +64,7 @@ const OrderConfirmationPage = props => {
     const additionalAddressString = `${city}, ${region} ${postcode} ${country}`;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="OrderConfirmationPage-root">
             <StoreTitle>
                 {formatMessage({
                     id: 'checkoutPage.titleReceipt',

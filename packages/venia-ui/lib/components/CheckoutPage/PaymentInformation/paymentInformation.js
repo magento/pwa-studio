@@ -75,7 +75,7 @@ const PaymentInformation = props => {
     ) : null;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="PaymentInformation-root">
             <div className={classes.payment_info_container}>
                 <Suspense fallback={null}>{paymentInformation}</Suspense>
             </div>

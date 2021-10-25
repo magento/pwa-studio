@@ -59,7 +59,7 @@ const Option = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="ProductOptions-Option-root">
             <span className={classes.title}>{label}</span>
             <ValueList
                 getItemKey={getItemKey}

@@ -30,7 +30,10 @@ const BillingInformation = props => {
     });
 
     return (
-        <div className={classes.root}>
+        <div
+            className={classes.root}
+            data-cy="OrderDetails-BillingInformation-root"
+        >
             <div className={classes.heading}>
                 <FormattedMessage
                     id="orderDetails.billingInformationLabel"
