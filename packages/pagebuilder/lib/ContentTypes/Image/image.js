@@ -44,6 +44,8 @@ const Image = props => {
         cssClasses = []
     } = props;
 
+    console.log(props);
+
     const figureStyles = {
         textAlign,
         marginTop,
@@ -83,11 +85,19 @@ const Image = props => {
             <picture>
                 {SourceFragment}
                 <img
-                    className={classes.img}
-                    src={resourceUrl(desktopImage, {
-                        type: 'image-wysiwyg',
-                        quality: 85
-                    })}
+                    className={
+                        mobileImage && !desktopImage
+                            ? [classes.img, classes.mobileOnly].join(' ')
+                            : classes.img
+                    }
+                    src={
+                        desktopImage
+                            ? resourceUrl(desktopImage, {
+                                  type: 'image-wysiwyg',
+                                  quality: 85
+                              })
+                            : ''
+                    }
                     title={title}
                     alt={altText}
                     style={imageStyles}
@@ -160,7 +170,8 @@ const Image = props => {
 Image.propTypes = {
     classes: shape({
         root: string,
-        img: string
+        img: string,
+        mobileOnly: string
     }),
     desktopImage: string,
     mobileImage: string,

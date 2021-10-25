@@ -86,6 +86,46 @@ exports[`renders a Image component with all props configured 1`] = `
 </figure>
 `;
 
+exports[`renders a Image component with only mobile image 1`] = `
+<figure
+  className="root"
+  style={
+    Object {
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <picture>
+    <source
+      media="(max-width: 768px)"
+      srcSet="mobile-image.png"
+    />
+    <img
+      className="img mobileOnly"
+      loading="lazy"
+      src=""
+      style={
+        Object {
+          "border": undefined,
+          "borderColor": undefined,
+          "borderRadius": undefined,
+          "borderWidth": undefined,
+        }
+      }
+    />
+  </picture>
+  
+</figure>
+`;
+
 exports[`renders a Image component with openInNewTab set to false 1`] = `
 <figure
   className="root"
