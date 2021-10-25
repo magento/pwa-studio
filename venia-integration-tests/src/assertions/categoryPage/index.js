@@ -4,7 +4,9 @@ import {
     productsGalleryItemName,
     productsNoProductsFound,
     productsPagination,
-    productsPaginationTileActive
+    productsPaginationTileActive,
+    searchBarSuggestedProduct,
+    searchBarSuggestedProductName
 } from '../../fields/categoryPage';
 
 /**
@@ -64,4 +66,27 @@ export const assertPaginationActivePage = pageNumber => {
  */
 export const assertProductIsInGallery = productName => {
     cy.get(productsGalleryItemName).should('contain', productName);
+};
+
+/**
+ * Assert Product is in Product Suggestion
+ *
+ * @param {String} productName product name
+ * @param {String} productHref product href
+ */
+export const assertProductIsInProductSuggestion = (
+    productName,
+    productHref
+) => {
+    cy.get(searchBarSuggestedProduct).should('contain', productName);
+    cy.get(searchBarSuggestedProduct)
+        .invoke('attr', 'href')
+        .should('contain', productHref);
+};
+
+/**
+ * Assert no Product Suggestion
+ */
+export const assertNoProductSuggestion = () => {
+    cy.get(searchBarSuggestedProduct).should('not.exist');
 };

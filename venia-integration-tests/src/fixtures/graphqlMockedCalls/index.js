@@ -4,6 +4,9 @@ export const getCategoriesCall = '**/graphql?query=query+GetCategories*';
 
 export const getCategoryDataCall = '**/graphql?query=query+getCategoryData*';
 
+export const getAutocompleteResultsCall =
+    '**/graphql?query=query+getAutocompleteResults*';
+
 export const getCheckoutDetailsCall =
     '**/graphql?query=query+getCheckoutDetails*';
 

@@ -55,6 +55,12 @@ export const productsPaginationTileActive =
 export const productsFilterModalOpenButton =
     '[data-cy="CategoryContent-root"] [data-cy="FilterModalOpenButton-button"], [data-cy="SearchPage-root"] [data-cy="FilterModalOpenButton-button"]';
 
+export const searchBarSuggestedProduct =
+    '[data-cy="SearchBar-root"] [data-cy="SuggestedProduct-root"]';
+
+export const searchBarSuggestedProductName =
+    '[data-cy="SearchBar-root"] [data-cy="SuggestedProduct-name"]';
+
 // Following elements are used with cy.get(parent).find(element) with a specified parent.
 // More specific selectors will break the tests.
 export const currentFilterTriggerElement = '[data-cy="CurrentFilter-trigger"]';
