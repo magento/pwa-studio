@@ -44,8 +44,6 @@ const Image = props => {
         cssClasses = []
     } = props;
 
-    console.log(props);
-
     const figureStyles = {
         textAlign,
         marginTop,
