@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/upward-js#readme",
   "dependencies": {
-    "@apollo/client": "~3.1.2",
+    "@apollo/client": "~3.4.0",
     "camelspace": "~1.0.0",
     "connect": "~3.6.6",
     "contains-path": "~1.0.0",
