@@ -144,6 +144,8 @@ describe('#useNewsletter subscribe', () => {
         // Assert.
         expect(mockSubscribeNewsletter).toHaveBeenCalled();
         expect(talonProps.errors).toBeInstanceOf(Map);
-        expect(talonProps.errors.get('subscribeMutation')).toEqual('some error');
+        expect(talonProps.errors.get('subscribeMutation')).toEqual(
+            'some error'
+        );
     });
 });
