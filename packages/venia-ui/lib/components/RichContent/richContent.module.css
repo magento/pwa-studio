@@ -1,31 +1,25 @@
 .root h1 {
-    @apply font-normal leading-tight mb-2 mt-3 text-3xl;
-    @apply md_leading-tight md_text-5xl;
+    @apply font-normal leading-tight mb-2 mt-3 text-3xl md_leading-tight md_text-5xl;
 }
 
 .root h2 {
-    @apply font-normal leading-tight mb-2 mt-4 text-2xl;
-    @apply md_leading-tight md_text-4xl;
+    @apply font-normal leading-tight mb-2 mt-4 text-2xl md_leading-tight md_text-4xl;
 }
 
 .root h3 {
-    @apply font-normal leading-tight mb-2 mt-4 text-xl;
-    @apply md_leading-tight md_text-3xl;
+    @apply font-normal leading-tight mb-2 mt-4 text-xl md_leading-tight md_text-3xl;
 }
 
 .root h4 {
-    @apply font-semibold leading-tight mb-2 mt-4 text-lg;
-    @apply md_leading-tight md_text-2xl;
+    @apply font-semibold leading-tight mb-2 mt-4 text-lg md_leading-tight md_text-2xl;
 }
 
 .root h5 {
-    @apply font-semibold leading-tight mb-2 mt-4 text-base;
-    @apply md_leading-tight md_text-lg;
+    @apply font-semibold leading-tight mb-2 mt-4 text-base md_leading-tight md_text-lg;
 }
 
 .root h6 {
-    @apply font-semibold leading-tight mb-2 mt-4 text-sm;
-    @apply md_leading-tight md_text-base;
+    @apply font-semibold leading-tight mb-2 mt-4 text-sm md_leading-tight md_text-base;
 }
 
 .root p {
