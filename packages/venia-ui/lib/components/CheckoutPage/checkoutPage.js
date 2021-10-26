@@ -152,6 +152,7 @@ const CheckoutPage = props => {
                 </span>
                 <Button
                     className={classes.signInButton}
+                    data-cy="CheckoutPage-signInButton"
                     onClick={toggleSignInContent}
                     priority="normal"
                 >
@@ -231,6 +232,7 @@ const CheckoutPage = props => {
                     onClick={handleReviewOrder}
                     priority="high"
                     className={classes.review_order_button}
+                    data-cy="CheckoutPage-reviewOrderButton"
                     disabled={
                         reviewOrderButtonClicked ||
                         isUpdating ||
@@ -257,6 +259,7 @@ const CheckoutPage = props => {
                     onClick={handlePlaceOrder}
                     priority="high"
                     className={classes.place_order_button}
+                    data-cy="CheckoutPage-placeOrderButton"
                     disabled={
                         isUpdating || placeOrderLoading || orderDetailsLoading
                     }
@@ -377,7 +380,7 @@ const CheckoutPage = props => {
     ) : null;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="CheckoutPage-root">
             <StoreTitle>
                 {formatMessage({
                     id: 'checkoutPage.titleCheckout',
