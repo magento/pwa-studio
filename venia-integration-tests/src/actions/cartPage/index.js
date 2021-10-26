@@ -1,7 +1,9 @@
 import {
     cartPageRoot,
     kebabMenuButton,
-    saveForLaterButton
+    saveForLaterButton,
+    cartPageProductImageLink,
+    cartPageProductLink
 } from '../../fields/cartPage';
 
 /**
@@ -13,4 +15,18 @@ export const moveProductFromCartToSingleWishlist = productName => {
     itemToMove.get(kebabMenuButton).click();
 
     itemToMove.get(saveForLaterButton).click();
+};
+
+/**
+ * Utility to click on product image link from cart page
+ */
+ export const clickProductImageLinkFromCart = () => {
+    cy.get(cartPageProductImageLink).click();
+};
+
+/**
+ * Utility to click on product link from cart page
+ */
+ export const clickProductLinkFromCart = () => {
+    cy.get(cartPageProductLink).click();
 };

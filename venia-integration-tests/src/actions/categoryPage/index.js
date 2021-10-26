@@ -2,7 +2,8 @@ import {
     categoryPageAddToWishListButton,
     createWishlistButton,
     wishlistNameField,
-    createWishlistConfirmButton
+    createWishlistConfirmButton,
+    categoryPageAddToCartButton
 } from '../../fields/categoryPage';
 
 /**
@@ -30,4 +31,15 @@ export const createWishlistViaDialog = wishlistName => {
 
     // Create wishlist
     cy.get(createWishlistConfirmButton).click();
+};
+
+/**
+ * Utility function to add product to wishlist from category page
+ */
+ export const addProductToCartFromCategoryPage = productToAdd => {
+    // add product to cart
+    cy.contains(productToAdd)
+        .siblings()
+        .find(categoryPageAddToCartButton)
+        .click();
 };
