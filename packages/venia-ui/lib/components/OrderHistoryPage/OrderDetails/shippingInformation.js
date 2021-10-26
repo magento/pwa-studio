@@ -52,7 +52,10 @@ const ShippingInformation = props => {
     }
 
     return (
-        <div className={classes.root}>
+        <div
+            className={classes.root}
+            data-cy="OrderDetails-ShippingInformation-root"
+        >
             <div className={classes.heading}>
                 <FormattedMessage
                     id="orderDetails.shippingInformationLabel"

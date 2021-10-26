@@ -151,7 +151,7 @@ const CreditCard = props => {
     ) : null;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="CreditCard-root">
             <div className={creditCardComponentClassName}>
                 <FormError
                     classes={{ root: classes.formErrorContainer }}

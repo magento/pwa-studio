@@ -139,7 +139,12 @@ const ProductFullDetail = props => {
     );
 
     const cartActionContent = isSupportedProductType ? (
-        <Button disabled={isAddToCartDisabled} priority="high" type="submit">
+        <Button
+            data-cy="ProductFullDetail-addToCartButton"
+            disabled={isAddToCartDisabled}
+            priority="high"
+            type="submit"
+        >
             {cartCallToActionText}
         </Button>
     ) : (
@@ -159,7 +164,11 @@ const ProductFullDetail = props => {
     return (
         <Fragment>
             {breadcrumbs}
-            <Form className={classes.root} onSubmit={handleAddToCart}>
+            <Form
+                className={classes.root}
+                data-cy="ProductFullDetail-root"
+                onSubmit={handleAddToCart}
+            >
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
                         {productDetails.name}

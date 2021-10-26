@@ -76,7 +76,7 @@ export const SET_BILLING_ADDRESS = gql`
                     }
                 }
             }
-        ) @connection(key: "setBillingAddressOnCart") {
+        ) {
             cart {
                 id
                 billing_address {
@@ -107,7 +107,7 @@ export const SET_FREE_PAYMENT_METHOD_ON_CART = gql`
     mutation setPaymentMethodOnCart($cartId: String!) {
         setPaymentMethodOnCart(
             input: { cart_id: $cartId, payment_method: { code: "free" } }
-        ) @connection(key: "setPaymentMethodOnCart") {
+        ) {
             cart {
                 id
                 selected_payment_method {
