@@ -12,7 +12,7 @@ export const CREATE_CART = gql`
 
 export const PLACE_ORDER = gql`
     mutation placeOrder($cartId: String!) {
-        placeOrder(input: { cart_id: $cartId }) @connection(key: "placeOrder") {
+        placeOrder(input: { cart_id: $cartId }) {
             order {
                 order_number
             }
