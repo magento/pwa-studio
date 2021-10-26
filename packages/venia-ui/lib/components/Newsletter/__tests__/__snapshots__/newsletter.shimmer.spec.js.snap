@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="root_rectangle"
+    style={
+      Object {
+        "display": "block",
+        "marginBottom": "1rem",
+      }
+    }
+  />
+  <div
+    className="root_rectangle"
+    style={
+      Object {
+        "display": "block",
+        "marginBottom": "0.5rem",
+      }
+    }
+  />
+  <div
+    className="root_rectangle"
+    style={
+      Object {
+        "display": "block",
+        "marginBottom": "1rem",
+        "width": "50%",
+      }
+    }
+  />
+  <div
+    className="form"
+  >
+    <div
+      className="root_textInput"
+      style={Object {}}
+    />
+    <div
+      className="buttonsContainer"
+    >
+      <div
+        className="root_button"
+        style={Object {}}
+      />
+    </div>
+  </div>
+</div>
+`;
