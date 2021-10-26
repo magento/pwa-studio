@@ -71,7 +71,9 @@ const ProductListing = props => {
         return (
             <Fragment>
                 <ErrorMessage error={error} />
-                <ul className={classes.root}>{productComponents}</ul>
+                <ul className={classes.root} data-cy="ProductListing-root">
+                    {productComponents}
+                </ul>
                 <Suspense fallback={null}>
                     <EditModal
                         item={activeEditItem}

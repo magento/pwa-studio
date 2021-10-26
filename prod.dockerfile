@@ -26,6 +26,8 @@ COPY ./docker/.env.docker.prod ./packages/venia-concept/.env
 RUN yarn install --frozen-lockfile
 
 ENV NODE_ENV=production
+# keep data attributes for Cypress testing
+ENV BABEL_KEEP_ATTRIBUTES=true
 # build the app
 RUN yarn run build
 
