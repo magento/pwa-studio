@@ -17,7 +17,7 @@ const PaymentMethod = props => {
     const [{ name }] = data;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="OrderDetails-PaymentMethod-root">
             <div className={classes.heading}>
                 <FormattedMessage
                     id="orderDetails.paymentMethodLabel"

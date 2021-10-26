@@ -85,7 +85,7 @@ const CartPage = props => {
     ) : null;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="CartPage-root">
             <StoreTitle>
                 {formatMessage({
                     id: 'cartPage.title',
