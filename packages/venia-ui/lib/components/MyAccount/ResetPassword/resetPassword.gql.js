@@ -10,7 +10,7 @@ export const RESET_PASSWORD_MUTATION = gql`
             email: $email
             resetPasswordToken: $token
             newPassword: $newPassword
-        ) @connection(key: "resetPassword")
+        )
     }
 `;
 

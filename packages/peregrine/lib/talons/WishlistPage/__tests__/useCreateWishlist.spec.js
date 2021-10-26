@@ -146,7 +146,12 @@ test('should return error', async () => {
             }
           }
         }
-        , variables: {"input":{"name":"Test WishList","visibility":"PRIVATE"}}]
+
+        Expected variables: {"input":{"name":"Test WishList","visibility":"PRIVATE"}}
+
+        Failed to match 1 mock for this query, which had the following variables:
+          {"input":{"name":"Test WishList"}}
+        ]
     `);
 });
 

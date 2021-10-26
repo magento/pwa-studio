@@ -13,7 +13,10 @@ const pluginsAndPresets = {
     presets: expect.any(Array)
 };
 
-beforeEach(() => env.mockReset());
+beforeEach(() => {
+    process.env.BABEL_KEEP_ATTRIBUTES = '';
+    env.mockReset();
+});
 
 test('returns dev config if api.env() returns nil', () => {
     env.mockReturnValueOnce(undefined);
@@ -64,5 +67,19 @@ test('returns production config if api.env() returns "production"', () => {
         findBabelModule(config.plugins, '@babel/plugin-transform-runtime')
     ).toBeTruthy();
     expect(findBabelModule(config.presets, '@babel/preset-env')).toBeTruthy();
+    expect(
+        findBabelModule(config.plugins, 'babel-plugin-react-remove-properties')
+    ).toBeTruthy();
+    expect(env).toHaveBeenCalled();
+});
+
+test('returns updated plugins list when BABEL_KEEP_ATTRIBUTES value is set', () => {
+    process.env.BABEL_KEEP_ATTRIBUTES = true;
+    env.mockReturnValueOnce('production');
+    const config = preset({ env });
+    expect(config).toMatchObject(pluginsAndPresets);
+    expect(
+        findBabelModule(config.plugins, 'babel-plugin-react-remove-properties')
+    ).toBeFalsy();
     expect(env).toHaveBeenCalled();
 });
