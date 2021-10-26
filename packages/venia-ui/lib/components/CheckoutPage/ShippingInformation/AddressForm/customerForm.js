@@ -122,6 +122,7 @@ const CustomerForm = props => {
             <Checkbox
                 disabled={!!initialValues.default_shipping}
                 id="default_shipping"
+                data-cy="CustomerForm-defaultShipping"
                 field="default_shipping"
                 label={formatMessage({
                     id: 'customerForm.defaultShipping',
@@ -138,6 +139,7 @@ const CustomerForm = props => {
             <FormError errors={Array.from(errors.values())} />
             <Form
                 className={classes.root}
+                data-cy="CustomerForm-root"
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
             >
@@ -155,6 +157,7 @@ const CustomerForm = props => {
                             disabled={!hasDefaultShipping}
                             field="firstname"
                             id="customer_firstname"
+                            data-cy="CustomerForm-firstName"
                             validate={isRequired}
                         />
                     </Field>
@@ -171,12 +174,16 @@ const CustomerForm = props => {
                             disabled={!hasDefaultShipping}
                             field="lastname"
                             id="customer_lastname"
+                            data-cy="CustomerForm-lastName"
                             validate={isRequired}
                         />
                     </Field>
                 </div>
                 <div className={classes.country}>
-                    <Country validate={isRequired} />
+                    <Country
+                        validate={isRequired}
+                        data-cy="CustomerForm-country"
+                    />
                 </div>
                 <div className={classes.street0}>
                     <Field
@@ -190,6 +197,7 @@ const CustomerForm = props => {
                             field="street[0]"
                             validate={isRequired}
                             id="customer_street0"
+                            data-cy="CustomerForm-street0"
                         />
                     </Field>
                 </div>
@@ -202,7 +210,11 @@ const CustomerForm = props => {
                         })}
                         optional={true}
                     >
-                        <TextInput field="street[1]" id="customer_street1" />
+                        <TextInput
+                            field="street[1]"
+                            id="customer_street1"
+                            data-cy="CustomerForm-street1"
+                        />
                     </Field>
                 </div>
                 <div className={classes.city}>
@@ -217,19 +229,24 @@ const CustomerForm = props => {
                             field="city"
                             validate={isRequired}
                             id="customer_city"
+                            data-cy="CustomerForm-city"
                         />
                     </Field>
                 </div>
                 <div className={classes.region}>
                     <Region
                         validate={isRequired}
+                        data-cy="CustomerForm-region"
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}
                     />
                 </div>
                 <div className={classes.postcode}>
-                    <Postcode validate={isRequired} />
+                    <Postcode
+                        validate={isRequired}
+                        data-cy="CustomerForm-postcode"
+                    />
                 </div>
                 <div className={classes.telephone}>
                     <Field
@@ -243,13 +260,19 @@ const CustomerForm = props => {
                             field="telephone"
                             validate={isRequired}
                             id="customer_telephone"
+                            data-cy="CustomerForm-telephone"
                         />
                     </Field>
                 </div>
                 {defaultShippingElement}
                 <div className={classes.buttons}>
                     {cancelButton}
-                    <Button {...submitButtonProps}>{submitButtonText}</Button>
+                    <Button
+                        {...submitButtonProps}
+                        data-cy="CustomerForm-submitButton"
+                    >
+                        {submitButtonText}
+                    </Button>
                 </div>
             </Form>
         </Fragment>
