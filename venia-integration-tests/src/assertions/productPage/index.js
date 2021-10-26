@@ -1,4 +1,7 @@
-import { productPageSelectedWishlistButton, productPageName } from '../../fields/productPage';
+import {
+    productPageSelectedWishlistButton,
+    productPageName
+} from '../../fields/productPage';
 
 /**
  * Utility function to assert the product is in wishlist
@@ -12,5 +15,5 @@ export const assertProductSelectIndicator = () => {
  * Utility function to assert the product name
  */
 export const assertProductName = name => {
-    cy.get(productPageName).should('contain', name); 
-}
+    cy.get(productPageName).should('contain', name);
+};

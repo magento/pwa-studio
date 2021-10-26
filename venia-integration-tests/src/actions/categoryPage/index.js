@@ -36,7 +36,7 @@ export const createWishlistViaDialog = wishlistName => {
 /**
  * Utility function to add product to wishlist from category page
  */
- export const addProductToCartFromCategoryPage = productToAdd => {
+export const addProductToCartFromCategoryPage = productToAdd => {
     // add product to cart
     cy.contains(productToAdd)
         .siblings()

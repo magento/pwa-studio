@@ -20,13 +20,13 @@ export const moveProductFromCartToSingleWishlist = productName => {
 /**
  * Utility to click on product image link from cart page
  */
- export const clickProductImageLinkFromCart = () => {
+export const clickProductImageLinkFromCart = () => {
     cy.get(cartPageProductImageLink).click();
 };
 
 /**
  * Utility to click on product link from cart page
  */
- export const clickProductLinkFromCart = () => {
+export const clickProductLinkFromCart = () => {
     cy.get(cartPageProductLink).click();
 };

@@ -8,25 +8,34 @@ import {
 import {
     cartPage as cartPageActions,
     miniCart as miniCartActions,
-    productPage as productPageActions,
+    productPage as productPageActions
 } from '../../../actions';
 import {
     productPage as productPageAssertions,
-    miniCart as miniCartAssertions,
+    miniCart as miniCartAssertions
 } from '../../../assertions';
 import { aliasMutation } from '../../../utils/graphql-test-utils';
-const { triggerMiniCart, moveToCheckoutFromMiniCart, clickProductLinkFromMiniCart, clickProductImageLinkFromMiniCart } = miniCartActions;
+const {
+    triggerMiniCart,
+    moveToCheckoutFromMiniCart,
+    clickProductLinkFromMiniCart,
+    clickProductImageLinkFromMiniCart
+} = miniCartActions;
 const { assertProductName } = productPageAssertions;
 
 const { checkoutRoute } = miniCartFixtures;
 const { homePage } = homePageFixtures;
 const { cartPageRoute } = cartPageFixtures;
+const { productValeriaTwoLayeredTank } = productPageFixtures;
 const {
-    productValeriaTwoLayeredTank,
-} = productPageFixtures;
-const { getProductDetailForProductPageCall, hitGraphqlPath } = graphqlMockedCallsFixtures;
+    getProductDetailForProductPageCall,
+    hitGraphqlPath
+} = graphqlMockedCallsFixtures;
 
-const { clickProductImageLinkFromCart, clickProductLinkFromCart } = cartPageActions;
+const {
+    clickProductImageLinkFromCart,
+    clickProductLinkFromCart
+} = cartPageActions;
 const {
     selectOptionsFromProductPage,
     setQuantityFromProductPage,
@@ -58,7 +67,7 @@ describe('verify anchor links', () => {
         });
         triggerMiniCart();
         moveToCheckoutFromMiniCart();
-        
+
         cy.visitPage(checkoutRoute);
         assertGuestCheckoutPage();
         assertAnchorLink('/checkout');
@@ -84,6 +93,5 @@ describe('verify anchor links', () => {
         clickProductLinkFromCart();
         assertProductName(productValeriaTwoLayeredTank.name);
         assertAnchorLink(productValeriaTwoLayeredTank.url);
-        
     });
 });

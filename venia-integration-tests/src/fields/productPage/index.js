@@ -14,5 +14,4 @@ export const productPageOptions = '[data-cy="ProductOptions-Option-root"]';
 export const productPageQuantityField =
     '[data-cy="ProductFullDetail-root"] [data-cy="QuantityFields-input"]';
 
-export const productPageName = 
-    'h1[class^="productFullDetail-productName-"]'
+export const productPageName = 'h1[class^="productFullDetail-productName-"]';
