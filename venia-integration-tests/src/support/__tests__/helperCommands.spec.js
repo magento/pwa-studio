@@ -1,4 +1,8 @@
 const mockAdd = jest.fn();
+const mockMatchImageSnapshot = jest.fn();
+const mockDocument = jest.fn().mockReturnValue({
+    matchImageSnapshot: mockMatchImageSnapshot
+});
 const mockThen = jest.fn();
 const mockShould = jest.fn().mockReturnValue({
     then: mockThen
