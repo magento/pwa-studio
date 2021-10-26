@@ -3,8 +3,7 @@ import { AccountInformationPageFragment } from './accountInformationPageFragment
 
 export const SET_CUSTOMER_INFORMATION = gql`
     mutation SetCustomerInformation($customerInput: CustomerInput!) {
-        updateCustomer(input: $customerInput)
-            @connection(key: "updateCustomer") {
+        updateCustomer(input: $customerInput) {
             customer {
                 id
                 ...AccountInformationPageFragment
@@ -22,7 +21,7 @@ export const CHANGE_CUSTOMER_PASSWORD = gql`
         changeCustomerPassword(
             currentPassword: $currentPassword
             newPassword: $newPassword
-        ) @connection(key: "changeCustomerPassword") {
+        ) {
             id
             email
         }
