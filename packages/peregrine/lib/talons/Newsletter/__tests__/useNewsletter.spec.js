@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useNewsletter } from '../useNewsletter';
 
 /*
@@ -9,8 +9,9 @@ import { useNewsletter } from '../useNewsletter';
  */
 jest.mock('@apollo/client', () => {
     const useMutation = jest.fn();
+    const useQuery = jest.fn();
 
-    return { useMutation };
+    return { useMutation, useQuery };
 });
 
 jest.mock('@magento/peregrine/lib/util/shallowMerge', () => {
@@ -38,57 +39,111 @@ const props = {};
 
 beforeEach(() => {
     talonProps = null;
+    useMutation.mockImplementation(() => {
+        return [
+            null,
+            {
+                data: null,
+                loading: false,
+                error: null
+            }
+        ];
+    });
+    useQuery.mockReturnValue({
+        data: {
+            storeConfig: {
+                newsletter_enabled: true
+            }
+        },
+        loading: false
+    });
 });
 
 /*
  * Tests.
  */
-test('it submits the form to the backend', async () => {
-    // Act.
-    const mockSubscribeNewsletter = jest.fn();
-    const mockResponse = { message: 'Success' };
-    useMutation.mockImplementation(() => {
-        return [
-            mockSubscribeNewsletter,
-            {
-                error: null,
-                data: { subscribeEmailToNewsletter: mockResponse }
-            }
-        ];
+describe('#useNewsletter display', () => {
+    test('it returns loading state when fetching store config', async () => {
+        // Act.
+        useQuery.mockReturnValue({
+            data: null,
+            loading: true
+        });
+
+        createTestInstance(<Component {...props} key="a" />);
+
+        // Assert.
+        const { isLoading } = talonProps;
+        expect(isLoading).toBeTruthy();
     });
 
-    createTestInstance(<Component {...props} key="a" />);
+    test('it returns enabled flag', async () => {
+        // Act.
+        useQuery.mockReturnValue({
+            data: {
+                storeConfig: {
+                    newsletter_enabled: false
+                }
+            },
+            loading: false
+        });
 
-    talonProps.handleSubmit(mockEmail);
+        createTestInstance(<Component {...props} key="a" />);
 
-    // Assert.
-    expect(mockSubscribeNewsletter).toHaveBeenCalledWith({
-        variables: mockEmail
+        // Assert.
+        const { isEnabled } = talonProps;
+        expect(isEnabled).toBeFalsy();
     });
-    expect(talonProps.newsLetterResponse).toEqual(mockResponse);
 });
 
-test('it handles submission errors', async () => {
-    // Act.
-    const mockSubscribeNewsletter = jest.fn(() => {
-        throw new Error('some error');
+describe('#useNewsletter subscribe', () => {
+    test('it submits the form to the backend', async () => {
+        // Act.
+        const mockSubscribeNewsletter = jest.fn();
+        const mockResponse = { message: 'Success' };
+        useMutation.mockImplementation(() => {
+            return [
+                mockSubscribeNewsletter,
+                {
+                    error: null,
+                    data: { subscribeEmailToNewsletter: mockResponse }
+                }
+            ];
+        });
+
+        createTestInstance(<Component {...props} key="a" />);
+
+        talonProps.handleSubmit(mockEmail);
+
+        // Assert.
+        expect(mockSubscribeNewsletter).toHaveBeenCalledWith({
+            variables: mockEmail
+        });
+        expect(talonProps.newsLetterResponse).toEqual(mockResponse);
     });
-    useMutation.mockImplementation(() => {
-        return [
-            mockSubscribeNewsletter,
-            {
-                error: 'some error',
-                data: null
-            }
-        ];
+
+    test('it handles submission errors', async () => {
+        // Act.
+        const mockSubscribeNewsletter = jest.fn(() => {
+            throw new Error('some error');
+        });
+        useMutation.mockImplementation(() => {
+            return [
+                mockSubscribeNewsletter,
+                {
+                    error: 'some error',
+                    data: null
+                }
+            ];
+        });
+
+        createTestInstance(<Component {...props} key="a" />);
+
+        talonProps.handleSubmit(mockEmail);
+
+        // Assert.
+        expect(mockSubscribeNewsletter).toHaveBeenCalled();
+        expect(talonProps.errors).toBeInstanceOf(Map);
+        expect(talonProps.errors.get('subscribeMutation')).toEqual('some error');
     });
-
-    createTestInstance(<Component {...props} key="a" />);
-
-    talonProps.handleSubmit(mockEmail);
-
-    // Assert.
-    expect(mockSubscribeNewsletter).toHaveBeenCalled();
-    expect(talonProps.errors).toBeInstanceOf(Map);
-    expect(talonProps.errors.get('subscribeMutation')).toEqual('some error');
 });
