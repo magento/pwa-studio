@@ -81,6 +81,7 @@ const GuestForm = props => {
         <Fragment>
             <FormError errors={Array.from(errors.values())} />
             <Form
+                data-cy="GuestForm-root"
                 className={classes.root}
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
@@ -94,6 +95,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="GuestForm-email"
                             field="email"
                             id="email"
                             validate={isRequired}
@@ -110,6 +112,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="GuestForm-firstname"
                             field="firstname"
                             id="firstname"
                             validate={isRequired}
@@ -125,6 +128,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="GuestForm-lastname"
                             field="lastname"
                             id="lastname"
                             validate={isRequired}
@@ -132,7 +136,10 @@ const GuestForm = props => {
                     </Field>
                 </div>
                 <div className={classes.country}>
-                    <Country validate={isRequired} />
+                    <Country
+                        data-cy="GuestForm-country"
+                        validate={isRequired}
+                    />
                 </div>
                 <div className={classes.street0}>
                     <Field
@@ -143,6 +150,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="GuestForm-street0"
                             field="street[0]"
                             id="street0"
                             validate={isRequired}
@@ -158,7 +166,11 @@ const GuestForm = props => {
                         })}
                         optional={true}
                     >
-                        <TextInput field="street[1]" id="street1" />
+                        <TextInput
+                            data-cy="GuestForm-street1"
+                            field="street[1]"
+                            id="street1"
+                        />
                     </Field>
                 </div>
                 <div className={classes.city}>
@@ -170,6 +182,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="GuestForm-city"
                             field="city"
                             id="city"
                             validate={isRequired}
@@ -178,6 +191,7 @@ const GuestForm = props => {
                 </div>
                 <div className={classes.region}>
                     <Region
+                        data-cy="GuestForm-region"
                         validate={isRequired}
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
@@ -185,7 +199,10 @@ const GuestForm = props => {
                     />
                 </div>
                 <div className={classes.postcode}>
-                    <Postcode validate={isRequired} />
+                    <Postcode
+                        data-cy="GuestForm-postcode"
+                        validate={isRequired}
+                    />
                 </div>
                 <div className={classes.telephone}>
                     <Field
@@ -196,6 +213,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="GuestForm-telephone"
                             field="telephone"
                             id="telephone"
                             validate={isRequired}
@@ -204,7 +222,12 @@ const GuestForm = props => {
                 </div>
                 <div className={classes.buttons}>
                     {cancelButton}
-                    <Button {...submitButtonProps}>{submitButtonText}</Button>
+                    <Button
+                        data-cy="GuestForm-submitButton"
+                        {...submitButtonProps}
+                    >
+                        {submitButtonText}
+                    </Button>
                 </div>
             </Form>
         </Fragment>
