@@ -6,7 +6,11 @@ import defaultClasses from './newsletter.module.css';
 import defaultShimmerClasses from './newsletter.shimmer.module.css';
 
 const NewsletterShimmer = props => {
-    const classes = useStyle(defaultClasses, defaultShimmerClasses, props.classes);
+    const classes = useStyle(
+        defaultClasses,
+        defaultShimmerClasses,
+        props.classes
+    );
 
     return (
         <div className={classes.root}>
