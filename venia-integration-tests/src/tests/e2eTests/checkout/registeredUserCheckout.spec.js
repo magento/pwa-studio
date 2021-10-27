@@ -44,7 +44,7 @@ const {
     toggleLoginDialog,
     reviewOrder,
     placeOrder,
-    editShippingAddress,
+    editCustomerShippingAddress,
     editCreditCardInformation
 } = checkoutPageActions;
 const {
@@ -171,7 +171,7 @@ describe('verify checkout actions', () => {
         // Test - Edit Shipping Address
         cy.visitCheckoutPage();
 
-        editShippingAddress(completeShippingAddress);
+        editCustomerShippingAddress(completeShippingAddress);
 
         cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
             timeout: 60000
@@ -207,8 +207,10 @@ describe('verify checkout actions', () => {
         );
         assertSelectedShippingMethodInCheckoutPage();
         assertPaymentInformationInCheckoutPage({ ...checkoutBillingData[0] });
-        assertProductInCheckoutPage(productValeriaTwoLayeredTank.name);
-        assertProductInCheckoutPage(productAugustaEarrings.name);
+        assertProductInCheckoutPage({
+            name: productValeriaTwoLayeredTank.name,
+            quantity: 2
+        });
 
         // Test - Place Order
         placeOrder();
@@ -222,8 +224,14 @@ describe('verify checkout actions', () => {
             true
         );
         assertSelectedShippingMethodInCheckoutPage(undefined, true);
-        assertProductInCheckoutPage(productValeriaTwoLayeredTank.name, true);
-        assertProductInCheckoutPage(productAugustaEarrings.name, true);
+        assertProductInCheckoutPage(
+            { name: productValeriaTwoLayeredTank.name, quantity: 2 },
+            true
+        );
+        assertProductInCheckoutPage(
+            { name: productAugustaEarrings.name, quantity: 2 },
+            true
+        );
 
         // Test - Order History
         cy.visitOrderHistoryPage();
