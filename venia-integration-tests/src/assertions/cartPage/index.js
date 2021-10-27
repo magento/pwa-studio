@@ -1,4 +1,4 @@
-import { productName } from '../../fields/cartPage';
+import { productListingProductName } from '../../fields/cartPage';
 
 /**
  * Utility function to assert Product is in Cart Page
@@ -6,5 +6,5 @@ import { productName } from '../../fields/cartPage';
  * @param {String} name Product's name
  */
 export const assertProductInCartPage = name => {
-    cy.get(productName).should('contain', name);
+    cy.get(productListingProductName).should('contain', name);
 };
