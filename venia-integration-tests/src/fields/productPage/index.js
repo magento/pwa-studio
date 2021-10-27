@@ -13,3 +13,9 @@ export const productPageOptions = '[data-cy="ProductOptions-Option-root"]';
 
 export const productPageQuantityField =
     '[data-cy="ProductFullDetail-root"] [data-cy="QuantityFields-input"]';
+export const productPageColorButton = 'button[class^="swatch-root-"]';
+
+export const productPageSizeButton = 'button[class^="tile-root-"]';
+
+export const productPageQuantityInput =
+    'input[class^="quantity-root"] [name*="quantity"]';
