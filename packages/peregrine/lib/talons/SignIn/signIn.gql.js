@@ -35,7 +35,7 @@ export const MERGE_CARTS = gql`
         mergeCarts(
             source_cart_id: $sourceCartId
             destination_cart_id: $destinationCartId
-        ) @connection(key: "mergeCarts") {
+        ) {
             id
             items {
                 id

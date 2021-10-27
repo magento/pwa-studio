@@ -31,7 +31,7 @@ export const SET_CUSTOMER_ADDRESS_ON_CART = gql`
                 cart_id: $cartId
                 shipping_addresses: [{ customer_address_id: $addressId }]
             }
-        ) @connection(key: "setShippingAddressesOnCart") {
+        ) {
             cart {
                 id
                 ...ShippingInformationFragment
