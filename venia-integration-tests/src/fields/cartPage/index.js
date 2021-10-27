@@ -1,4 +1,10 @@
-export const cartPageRoot = 'div[class^="cartPage-root-"]';
+export const cartPageRoot = '[data-cy="CartPage-root"]';
+
+export const productListingProduct =
+    '[data-cy="CartPage-root"] [data-cy="ProductListing-root"] [data-cy="Product-root"]';
+
+export const productListingProductName =
+    '[data-cy="CartPage-root"] [data-cy="ProductListing-root"] [data-cy="Product-name"]';
 
 export const productName =
     '[data-cy="CartPage-root"] [data-cy="ProductListing-root"] [data-cy="Product-name"]';
@@ -33,3 +39,7 @@ export const cartPageProductPrice = 'span[class^="product-price-"]';
 
 export const cartPageCheckoutButton =
     'div[class^="priceSummary-checkoutButton_container-"] button';
+export const productKebab = '[data-cy="LegacyMiniCart-Kebab-button"]';
+
+export const productSectionRemoveFromCartButton =
+    '[data-cy="Product-Section-removeFromCart"] [data-cy="LegacyMiniCart-Section-button"]';

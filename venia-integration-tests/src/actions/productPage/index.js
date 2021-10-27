@@ -3,9 +3,9 @@ import {
     productPageAddToWishListButton,
     productPageOptions,
     productPageQuantityField,
-    addProductToWishlist,
     productPageSizeButton,
-    productPageColorButton
+    productPageColorButton,
+    addProductToWishlist
 } from '../../fields/productPage';
 
 /**

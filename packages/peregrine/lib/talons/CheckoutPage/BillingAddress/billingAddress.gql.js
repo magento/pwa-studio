@@ -86,7 +86,7 @@ export const SET_BILLING_ADDRESS = gql`
                     }
                 }
             }
-        ) @connection(key: "setBillingAddressOnCart") {
+        ) {
             cart {
                 id
                 billing_address {

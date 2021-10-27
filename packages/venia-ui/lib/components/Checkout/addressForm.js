@@ -185,8 +185,7 @@ export default AddressForm;
 
 export const SET_GUEST_EMAIL_MUTATION = gql`
     mutation setGuestEmailOnCart($cartId: String!, $email: String!) {
-        setGuestEmailOnCart(input: { cart_id: $cartId, email: $email })
-            @connection(key: "setGuestEmailOnCart") {
+        setGuestEmailOnCart(input: { cart_id: $cartId, email: $email }) {
             cart {
                 id
             }
@@ -225,7 +224,7 @@ export const SET_SHIPPING_ADDRESS_MUTATION = gql`
                     }
                 ]
             }
-        ) @connection(key: "setShippingAddressesOnCart") {
+        ) {
             cart {
                 id
                 shipping_addresses {

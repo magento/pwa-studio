@@ -4,7 +4,8 @@ import {
     cartPageRoot,
     cartPageProductOption,
     cartPageProductQuantity,
-    cartPageProductPrice
+    cartPageProductPrice,
+    productListingProductName
 } from '../../fields/cartPage';
 
 /**
@@ -47,4 +48,5 @@ export const assertUpdatedProductPriceExists = (productName, price) => {
         .get(cartPageProductPrice)
         .contains('span', price)
         .should('exist');
+    cy.get(productListingProductName).should('contain', name);
 };

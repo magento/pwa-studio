@@ -7,7 +7,10 @@ import {
     editMenuSizeButton,
     editMenuIncreaseQtyStepper,
     editMenuUpdateCartButton,
-    cartPageCheckoutButton
+    cartPageCheckoutButton,
+    productKebab,
+    productListingProduct,
+    productSectionRemoveFromCartButton
 } from '../../fields/cartPage';
 
 /**
@@ -66,4 +69,19 @@ export const clickOnUpdateCart = () => {
  */
 export const goToCheckout = () => {
     cy.get(cartPageCheckoutButton).click();
+};
+
+/**
+ * Utility to remove product from Cart
+ *
+ * @param {String} productName product name
+ */
+export const removeProductFromCart = productName => {
+    cy.get(productListingProduct)
+        .contains(productListingProduct, productName)
+        .find(productKebab)
+        .click()
+        .closest(productListingProduct)
+        .find(productSectionRemoveFromCartButton)
+        .click();
 };
