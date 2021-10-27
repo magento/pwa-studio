@@ -6,28 +6,16 @@ exports[`renders correctly 1`] = `
 >
   <div
     className="root_rectangle"
-    style={
-      Object {
-        "display": "block",
-        "marginBottom": "1rem",
-      }
-    }
+    style={Object {}}
+  />
+  <div
+    className="root_rectangle"
+    style={Object {}}
   />
   <div
     className="root_rectangle"
     style={
       Object {
-        "display": "block",
-        "marginBottom": "0.5rem",
-      }
-    }
-  />
-  <div
-    className="root_rectangle"
-    style={
-      Object {
-        "display": "block",
-        "marginBottom": "1rem",
         "width": "50%",
       }
     }
