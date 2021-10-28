@@ -17,9 +17,16 @@ const icons = new Map()
     .set('Trash', TrashIcon);
 
 const Section = props => {
-    const { icon, isFilled, onClick, text } = props;
+    const {
+        icon,
+        isFilled,
+        onClick,
+        text,
+        classes: propClasses,
+        ...restProps
+    } = props;
 
-    const classes = useStyle(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, propClasses);
     const iconClasses = { root: classes.icon };
     const iconSrc = icons.get(icon);
 
@@ -28,8 +35,11 @@ const Section = props => {
     }
 
     return (
-        <li className={classes.menuItem}>
-            <button onMouseDown={onClick}>
+        <li className={classes.menuItem} {...restProps}>
+            <button
+                onMouseDown={onClick}
+                data-cy="LegacyMiniCart-Section-button"
+            >
                 <Icon classes={iconClasses} size={16} src={iconSrc} />
                 <span className={classes.text}>{text}</span>
             </button>
