@@ -9,10 +9,13 @@ const Tile = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const rootClass = isActive ? classes.root_active : classes.root;
     const handleClick = useCallback(() => onClick(number), [onClick, number]);
-    const dataCy = isActive ? 'Tile-activeRoot' : 'Tile-root';
 
     return (
-        <button className={rootClass} onClick={handleClick} data-cy={dataCy}>
+        <button
+            className={rootClass}
+            onClick={handleClick}
+            data-cy={isActive ? 'Tile-activeRoot' : 'Tile-root'}
+        >
             {number}
         </button>
     );
