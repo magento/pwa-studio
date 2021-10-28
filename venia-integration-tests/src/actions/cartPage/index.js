@@ -4,6 +4,9 @@ import {
     giftCardSectionButton,
     giftOptionsSectionButton,
     kebabMenuButton,
+    productKebab,
+    productListingProduct,
+    productSectionRemoveFromCartButton,
     saveForLaterButton,
     shippingMethodEstimateButton,
     shippingMethodRegionField,
@@ -51,6 +54,21 @@ export const moveProductFromCartToSingleWishlist = productName => {
     itemToMove.get(kebabMenuButton).click();
 
     itemToMove.get(saveForLaterButton).click();
+};
+
+/**
+ * Utility to remove product from Cart
+ *
+ * @param {String} productName product name
+ */
+export const removeProductFromCart = productName => {
+    cy.get(productListingProduct)
+        .contains(productListingProduct, productName)
+        .find(productKebab)
+        .click()
+        .closest(productListingProduct)
+        .find(productSectionRemoveFromCartButton)
+        .click();
 };
 
 /**
