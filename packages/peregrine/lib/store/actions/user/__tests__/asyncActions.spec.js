@@ -12,6 +12,7 @@ const getState = jest.fn(() => ({
 const mockEvict = jest.fn();
 const mockGarbageClean = jest.fn();
 const mockPersist = jest.fn();
+const mockClearCacheData = jest.fn();
 const thunkArgs = [
     dispatch,
     getState,
@@ -21,6 +22,7 @@ const thunkArgs = [
                 evict: mockEvict,
                 gc: mockGarbageClean
             },
+            clearCacheData: mockClearCacheData,
             persistor: {
                 persistor: {
                     storage: {
