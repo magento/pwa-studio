@@ -19,3 +19,14 @@
 .root_selected_focused {
     composes: root_selected;
 }
+
+.checkmark {
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 250ms;
+}
+
+.checkmarkHidden {
+    composes: checkmark;
+    opacity: 0;
+}
