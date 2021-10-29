@@ -6,10 +6,6 @@
 export const clearCartDataFromCache = async client => {
     // Cached data
     client.cache.evict({ id: 'Cart' });
-    client.cache.evict({
-        id: 'ROOT_MUTATION',
-        fieldName: 'placeOrder'
-    });
     // Cached ROOT_QUERY
     client.cache.evict({ fieldName: 'cart' });
     client.cache.evict({ fieldName: 'customerCart' });
