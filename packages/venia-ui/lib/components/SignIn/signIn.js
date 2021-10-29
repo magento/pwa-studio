@@ -18,7 +18,12 @@ import FormError from '../FormError/formError';
 
 const SignIn = props => {
     const classes = useStyle(defaultClasses, props.classes);
-    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
+    const {
+        setDefaultUsername,
+        showCreateAccount,
+        showForgotPassword,
+        initialValues
+    } = props;
 
     const { formatMessage } = useIntl();
     const talonProps = useSignIn({
@@ -67,6 +72,7 @@ const SignIn = props => {
                 getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
+                initialValues={initialValues && initialValues}
             >
                 <Field
                     label={formatMessage({

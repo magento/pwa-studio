@@ -11,7 +11,7 @@ import SignIn from '@magento/venia-ui/lib/components/SignIn';
 import defaultClasses from './guestSignIn.module.css';
 
 const GuestSignIn = props => {
-    const { isActive, toggleActiveContent } = props;
+    const { isActive, toggleActiveContent, initialValues } = props;
 
     const talonProps = useGuestSignIn({ toggleActiveContent });
     const {
@@ -32,6 +32,7 @@ const GuestSignIn = props => {
                 classes={{ modal_active: undefined, root: classes.signInRoot }}
                 showCreateAccount={toggleCreateAccountView}
                 showForgotPassword={toggleForgotPasswordView}
+                initialValues={initialValues}
             />
         );
     } else if (view === 'FORGOT_PASSWORD') {

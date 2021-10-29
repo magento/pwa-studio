@@ -88,6 +88,8 @@ export const useCheckoutPage = (props = {}) => {
     const [checkoutStep, setCheckoutStep] = useState(
         CHECKOUT_STEP.SHIPPING_ADDRESS
     );
+    const [guestSignInUsername, setGuestSignInUsername] = useState('');
+
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
@@ -285,6 +287,7 @@ export const useCheckoutPage = (props = {}) => {
         checkoutStep,
         customer,
         error: checkoutError,
+        guestSignInUsername,
         handlePlaceOrder,
         hasError: !!checkoutError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
@@ -298,6 +301,7 @@ export const useCheckoutPage = (props = {}) => {
             null,
         placeOrderLoading,
         setCheckoutStep,
+        setGuestSignInUsername,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,

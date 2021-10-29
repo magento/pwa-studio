@@ -49,6 +49,7 @@ const CheckoutPage = props => {
         checkoutStep,
         customer,
         error,
+        guestSignInUsername,
         handlePlaceOrder,
         hasError,
         isCartEmpty,
@@ -60,6 +61,7 @@ const CheckoutPage = props => {
         orderNumber,
         placeOrderLoading,
         setCheckoutStep,
+        setGuestSignInUsername,
         setIsUpdating,
         setShippingInformationDone,
         scrollShippingInformationIntoView,
@@ -344,6 +346,8 @@ const CheckoutPage = props => {
                             onSave={setShippingInformationDone}
                             onSuccess={scrollShippingInformationIntoView}
                             toggleActiveContent={toggleAddressBookContent}
+                            toggleSignInContent={toggleSignInContent}
+                            setGuestSignInUsername={setGuestSignInUsername}
                         />
                     </ScrollAnchor>
                 </div>
@@ -372,12 +376,14 @@ const CheckoutPage = props => {
         />
     ) : null;
 
-    const signInElement = isGuestCheckout ? (
-        <GuestSignIn
-            isActive={activeContent === 'signIn'}
-            toggleActiveContent={toggleSignInContent}
-        />
-    ) : null;
+    const signInElement =
+        isGuestCheckout && activeContent === 'signIn' ? (
+            <GuestSignIn
+                isActive={activeContent === 'signIn'}
+                toggleActiveContent={toggleSignInContent}
+                initialValues={{ email: guestSignInUsername }}
+            />
+        ) : null;
 
     return (
         <div className={classes.root} data-cy="CheckoutPage-root">
