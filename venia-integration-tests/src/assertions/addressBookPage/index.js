@@ -3,6 +3,8 @@ import {
     addressBookAddButton,
     addressBookContent,
     addressCardRoot,
+    addressCardRootDefault,
+    addressCardDefaultBadgeLabel,
     addressCardContentContainer,
     addressCardDefaultBadge,
     addressBookModalTitle
@@ -103,16 +105,9 @@ export const assertAddressIsDefault = ({ firstName, middleName, lastName }) => {
         ? `${firstName} ${middleName} ${lastName}`
         : `${firstName} ${lastName}`;
 
-    cy.get(addressBookContent).within($addressBookContent => {
-        cy.wrap($addressBookContent)
-            .get(addressCardRoot)
-            .eq(0)
-            .should('contain', fullName);
-
-        cy.wrap($addressBookContent)
-            .get(addressCardRoot)
-            .eq(0)
-            .find(addressCardDefaultBadge)
-            .should('exist');
-    });
+    cy.get(addressCardRoot)
+        .should('exist')
+        .and('contain', fullName)
+        .find(addressCardDefaultBadge)
+        .should('exist');
 };
