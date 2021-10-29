@@ -45,7 +45,28 @@ test('clears customer data from cache without persistor', async () => {
         Customer: {
             __typename: 'Customer',
             id: 'customerId',
-            firstName: 'Veronica'
+            firstName: 'Veronica',
+            orders: {
+                items: [
+                    {
+                        __ref: 'CustomerOrder'
+                    }
+                ]
+            }
+        },
+        CustomerOrder: {
+            __typename: 'CustomerOrder',
+            id: 'customerOrderId',
+            items: [
+                {
+                    __ref: 'OrderItem'
+                }
+            ]
+        },
+        OrderItem: {
+            __typename: 'OrderItem',
+            id: 'orderItemId',
+            product_name: 'Product Name'
         },
         AnotherCacheEntry: {
             __typename: 'AnotherCacheEntry',
@@ -77,6 +98,27 @@ test('clears customer data from cache without persistor', async () => {
             "__typename": "Customer",
             "firstName": "Veronica",
             "id": "customerId",
+            "orders": Object {
+              "items": Array [
+                Object {
+                  "__ref": "CustomerOrder",
+                },
+              ],
+            },
+          },
+          "CustomerOrder": Object {
+            "__typename": "CustomerOrder",
+            "id": "customerOrderId",
+            "items": Array [
+              Object {
+                "__ref": "OrderItem",
+              },
+            ],
+          },
+          "OrderItem": Object {
+            "__typename": "OrderItem",
+            "id": "orderItemId",
+            "product_name": "Product Name",
           },
           "ROOT_QUERY": Object {
             "anotherLocalField": Object {
