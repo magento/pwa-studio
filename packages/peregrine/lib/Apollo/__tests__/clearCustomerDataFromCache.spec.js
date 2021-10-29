@@ -8,9 +8,13 @@ import typePolicies from '../policies';
 import { clearCustomerDataFromCache } from '../clearCustomerDataFromCache';
 
 const log = jest.fn();
+const mockPersist = jest.fn();
 
-const Component = () => {
-    const client = useApolloClient();
+const Component = ({ clientOptions = {} }) => {
+    const client = {
+        ...useApolloClient(),
+        ...clientOptions
+    };
 
     const initialCacheData = Object.assign({}, client.cache.data.data);
     log(initialCacheData);
@@ -27,8 +31,8 @@ const Component = () => {
     return <i />;
 };
 
-test('clears customer data from cache', async () => {
-    expect.assertions(3);
+test('clears customer data from cache without persistor', async () => {
+    expect.assertions(4);
     const cache = new InMemoryCache({
         typePolicies
     });
@@ -60,6 +64,7 @@ test('clears customer data from cache', async () => {
     });
 
     expect(log).toHaveBeenCalledTimes(2);
+    expect(mockPersist).not.toHaveBeenCalled();
 
     const initialCacheData = log.mock.calls[0][0];
     expect(initialCacheData).toMatchInlineSnapshot(`
@@ -98,4 +103,25 @@ test('clears customer data from cache', async () => {
           },
         }
     `);
+});
+
+test('clears customer data from cache with persistor', async () => {
+    const clientOptions = {
+        persistor: {
+            persist: mockPersist
+        }
+    };
+    const cache = new InMemoryCache({
+        typePolicies
+    });
+
+    await act(async () => {
+        TestRenderer.create(
+            <MockedProvider cache={cache}>
+                <Component clientOptions={clientOptions} />
+            </MockedProvider>
+        );
+    });
+
+    expect(mockPersist).toHaveBeenCalled();
 });

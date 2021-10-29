@@ -7,20 +7,14 @@ import typePolicies from '../policies';
 
 import { clearCartDataFromCache } from '../clearCartDataFromCache';
 
-const persistor = {
-    persistor: {
-        storage: {
-            key: 'unit test key'
-        }
-    },
-    persist: jest.fn()
-};
-
 const log = jest.fn();
+const mockPersist = jest.fn();
 
-const Component = () => {
-    const client = useApolloClient();
-    client.persistor = persistor;
+const Component = ({ clientOptions = {} }) => {
+    const client = {
+        ...useApolloClient(),
+        ...clientOptions
+    };
 
     const initialCacheData = Object.assign({}, client.cache.data.data);
     log(initialCacheData);
@@ -37,7 +31,7 @@ const Component = () => {
     return <i />;
 };
 
-test('clears cart data from cache', async () => {
+test('clears cart data from cache without persistor', async () => {
     expect.assertions(3);
     const cache = new InMemoryCache({
         typePolicies
@@ -100,4 +94,25 @@ test('clears cart data from cache', async () => {
 
     const finalCacheDataKeys = Object.keys(log.mock.calls[1][0]);
     expect(finalCacheDataKeys).toEqual(['AnotherCacheEntry', 'ROOT_QUERY']);
+});
+
+test('clears cart data from cache with persistor', async () => {
+    const clientOptions = {
+        persistor: {
+            persist: mockPersist
+        }
+    };
+    const cache = new InMemoryCache({
+        typePolicies
+    });
+
+    await act(async () => {
+        TestRenderer.create(
+            <MockedProvider cache={cache}>
+                <Component clientOptions={clientOptions} />
+            </MockedProvider>
+        );
+    });
+
+    expect(mockPersist).toHaveBeenCalled();
 });
