@@ -45,7 +45,6 @@ export const useCartTrigger = props => {
 
     const { data } = useQuery(getItemCountQuery, {
         fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
         variables: {
             cartId
         },
