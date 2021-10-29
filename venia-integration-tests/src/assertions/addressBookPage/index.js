@@ -3,8 +3,6 @@ import {
     addressBookAddButton,
     addressBookContent,
     addressCardRoot,
-    addressCardRootDefault,
-    addressCardDefaultBadgeLabel,
     addressCardContentContainer,
     addressCardDefaultBadge,
     addressBookModalTitle

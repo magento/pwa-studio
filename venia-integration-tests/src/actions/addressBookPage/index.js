@@ -13,7 +13,6 @@ import {
     addressBookModalTelephoneTextField,
     addressBookModalDefaultCheckboxField,
     addressBookModalSubmitButton,
-    addressBookContent,
     addressCardRoot,
     addressCardEditButton,
     addressCardDeleteButton,
