@@ -13,7 +13,7 @@ const aboutLinks = new Map()
 
 const helpLinks = new Map()
     .set('Help', null)
-    .set('Live Chat', null)
+    .set('Customer Service', '/customer-service')
     .set('Contact Us', null)
     .set('Order Status', null)
     .set('Returns', null);
