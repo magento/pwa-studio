@@ -2,7 +2,13 @@ import {
     categoryPageAddToWishListButton,
     createWishlistButton,
     wishlistNameField,
-    createWishlistConfirmButton
+    createWishlistConfirmButton,
+    categoryTreeBranchTarget,
+    categoryTreeLeafTarget,
+    megaMenuMega,
+    megaMenuMegaMenuItem,
+    megaMenuMegaMenuItemLink,
+    megaMenuSubmenuColumnLink
 } from '../../fields/categoryPage';
 
 /**
@@ -30,4 +36,38 @@ export const createWishlistViaDialog = wishlistName => {
 
     // Create wishlist
     cy.get(createWishlistConfirmButton).click();
+};
+
+/**
+ * Select a Category from Category Tree
+ *
+ * @param {String} categoryName category name
+ */
+export const selectCategoryFromTree = categoryName => {
+    cy.get(`${categoryTreeBranchTarget}, ${categoryTreeLeafTarget}`)
+        .filter(`:contains("${categoryName}")`)
+        .click();
+};
+
+/**
+ * Hover a Category from Mega Menu
+ *
+ * @param {String} categoryName category name
+ */
+export const hoverCategoryFromMegaMenu = categoryName => {
+    cy.get(megaMenuMega).trigger('focusin');
+    cy.get(megaMenuMegaMenuItem)
+        .filter(`:contains("${categoryName}")`)
+        .trigger('keydown', { key: 'ArrowDown' });
+};
+
+/**
+ * Select a Category from Mega Menu
+ *
+ * @param {String} categoryName category name
+ */
+export const selectCategoryFromMegaMenu = categoryName => {
+    cy.get(`${megaMenuMegaMenuItemLink}, ${megaMenuSubmenuColumnLink}`)
+        .filter(`:contains("${categoryName}")`)
+        .click({ force: true });
 };

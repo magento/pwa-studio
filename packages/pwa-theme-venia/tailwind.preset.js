@@ -5,6 +5,7 @@ const veniaPlugin = require('./plugins');
  */
 
 module.exports = {
+    important: '#root',
     plugins: [veniaPlugin],
     theme: {
         backgroundColor: theme => theme('colors'),
