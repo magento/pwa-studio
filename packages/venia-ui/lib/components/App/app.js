@@ -107,7 +107,11 @@ const App = props => {
             <Main isMasked={hasOverlay}>
                 <Routes />
             </Main>
-            <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
+            <Mask
+                isActive={hasOverlay}
+                dismiss={handleCloseDrawer}
+                data-cy="App-Mask-button"
+            />
             <Navigation />
             <ToastContainer />
         </HeadProvider>

@@ -152,7 +152,10 @@ const CategoryContent = props => {
             <article className={classes.root}>
                 <div className={classes.categoryHeader}>
                     <h1 className={classes.title}>
-                        <div className={classes.categoryTitle}>
+                        <div
+                            className={classes.categoryTitle}
+                            data-cy="Category-CategoryContent-categoryTitle"
+                        >
                             {categoryTitle}
                         </div>
                     </h1>
