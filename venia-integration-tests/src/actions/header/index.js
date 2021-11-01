@@ -1,4 +1,9 @@
-import { appMaskButton, headerNavTrigger, headerSearchTrigger, searchBarSearchField } from '../../fields/header';
+import {
+    appMaskButton,
+    headerNavTrigger,
+    headerSearchTrigger,
+    searchBarSearchField
+} from '../../fields/header';
 
 export const toggleHeaderNav = () => {
     cy.get(headerNavTrigger).click();

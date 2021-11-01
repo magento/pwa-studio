@@ -125,4 +125,3 @@ export const assertNoProductSuggestion = () => {
 export const assertActiveSortItem = sortLabel => {
     cy.get(productSortSortItemActive).should('contain', sortLabel);
 };
-
