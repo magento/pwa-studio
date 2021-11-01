@@ -5,6 +5,7 @@ export const checkoutShippingData = {
     street1: '111 57th Street',
     street2: 'Suite 1000',
     city: 'New New York',
+    regionCode: 'NY',
     regionId: '43',
     postCode: '10019',
     telephone: '+12345678909'
@@ -28,5 +29,20 @@ export const checkoutBillingData = [
     }
 ];
 
+export const defaultGiftOptionsData = {
+    includeGiftReceipt: true,
+    includePrintedCard: true,
+    cardMessage: 'Space. It Seems To Go On Forever.'
+};
 export const defaultPaymentMethod = 'Credit Card';
-export const defaultShippingMethod = 'Free';
+
+export const defaultShippingMethods = {
+    free: {
+        code: 'free',
+        label: 'Free'
+    },
+    flatrate: {
+        code: 'flatrate',
+        label: 'Fixed'
+    }
+};
