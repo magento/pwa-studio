@@ -81,21 +81,22 @@ const Image = props => {
 
     const imgSrc = desktopImage
         ? resourceUrl(desktopImage, {
-            type: 'image-wysiwyg',
-            quality: 85
-        })
+              type: 'image-wysiwyg',
+              quality: 85
+          })
         : '';
+
+    const imgClassName =
+        mobileImage && !desktopImage
+            ? [classes.img, classes.mobileOnly].join(' ')
+            : classes.img;
 
     const PictureFragment = (
         <>
             <picture>
                 {SourceFragment}
                 <img
-                    className={
-                        mobileImage && !desktopImage
-                            ? [classes.img, classes.mobileOnly].join(' ')
-                            : classes.img
-                    }
+                    className={imgClassName}
                     srcSet={`${imgSrc} 1x`}
                     src={imgSrc}
                     title={title}
