@@ -16,7 +16,7 @@ const APPLY_COUPON_MUTATION = gql`
     mutation applyCouponToCart($cartId: String!, $couponCode: String!) {
         applyCouponToCart(
             input: { cart_id: $cartId, coupon_code: $couponCode }
-        ) @connection(key: "applyCouponToCart") {
+        ) {
             cart {
                 id
                 ...CartPageFragment
@@ -33,8 +33,7 @@ const APPLY_COUPON_MUTATION = gql`
 
 const REMOVE_COUPON_MUTATION = gql`
     mutation removeCouponFromCart($cartId: String!) {
-        removeCouponFromCart(input: { cart_id: $cartId })
-            @connection(key: "removeCouponFromCart") {
+        removeCouponFromCart(input: { cart_id: $cartId }) {
             cart {
                 id
                 ...CartPageFragment

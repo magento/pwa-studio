@@ -17,7 +17,7 @@ const Items = props => {
     ));
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="OrderDetails-Items-root">
             <h3 className={classes.heading}>
                 <FormattedMessage
                     id="orderItems.itemsHeading"

@@ -23,6 +23,7 @@ exports[`renders a Image component 1`] = `
       className="img"
       loading="lazy"
       src="test-image.png"
+      srcSet="test-image.png 1x"
       style={
         Object {
           "border": undefined,
@@ -60,7 +61,7 @@ exports[`renders a Image component with all props configured 1`] = `
   >
     <picture>
       <source
-        media="(max-width: 768px)"
+        media="(max-width: 48rem)"
         srcSet="mobile-image.png"
       />
       <img
@@ -68,6 +69,7 @@ exports[`renders a Image component with all props configured 1`] = `
         className="img"
         loading="lazy"
         src="desktop-image.png"
+        srcSet="desktop-image.png 1x"
         style={
           Object {
             "border": "solid",
@@ -152,6 +154,7 @@ exports[`renders a Image component with openInNewTab set to false 1`] = `
         className="img"
         loading="lazy"
         src="desktop-image.png"
+        srcSet="desktop-image.png 1x"
         style={
           Object {
             "border": undefined,

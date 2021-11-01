@@ -1,22 +1,25 @@
 .root {
-    padding: 1rem;
-}
-
-.title {
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin: 0 0 1rem;
-    padding: 0.5rem;
+    composes: px-4 from global;
 }
 
 .heading {
-    line-height: 1.25em;
+    composes: mb-2 from global;
+    composes: mt-4 from global;
+    composes: text-center from global;
+    composes: text-3xl from global;
+
+    /* Medium */
+    composes: md_mb-10 from global;
+    composes: md_text-5xl from global;
 }
 
-.layout_default {
-    padding: 0;
-}
-
-.layout_1column {
-    composes: layout_default;
+.root_empty,
+.root_1column,
+.root_2columnsLeft,
+.root_2columnsRight,
+.root_3columns,
+.root_cmsFullWidth,
+.root_categoryFullWidth,
+.root_productFullWidth {
+    composes: root;
 }
