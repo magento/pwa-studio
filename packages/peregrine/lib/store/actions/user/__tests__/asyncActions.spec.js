@@ -1,8 +1,14 @@
+import BrowserPersistence from '../../../../util/simplePersistence';
 import actions from '../actions';
-import { getUserDetails, resetPassword, signOut } from '../asyncActions';
+import {
+    getUserDetails,
+    resetPassword,
+    signOut,
+    setToken,
+    clearToken
+} from '../asyncActions';
 
 jest.mock('../../../../RestApi');
-jest.mock('../../../../util/simplePersistence');
 
 const dispatch = jest.fn();
 const getState = jest.fn(() => ({
@@ -39,6 +45,23 @@ const fetchUserDetails = jest
     .fn()
     .mockResolvedValue({ data: { customer: {} } });
 const revokeToken = jest.fn().mockResolvedValue({});
+const mockToken = jest.fn(() => {});
+const mockRemoveItem = jest.fn();
+const mockSetItem = jest.fn();
+
+jest.mock('../../../../util/simplePersistence', () => {
+    return jest.fn().mockImplementation(() => {
+        return {
+            removeItem: () => mockRemoveItem(),
+            setItem: () => mockSetItem()
+        };
+    });
+});
+
+beforeEach(() => {
+    BrowserPersistence.mockClear();
+    mockSetItem.mockClear();
+});
 
 describe('getUserDetails', () => {
     test('it returns a thunk', () => {
@@ -127,7 +150,7 @@ describe('signOut', () => {
         expect(signOut({ revokeToken })).toBeInstanceOf(Function);
     });
 
-    test('signOut thunk invokes revokeToken and dispatchs actions', async () => {
+    test('signOut thunk invokes revokeToken and dispatches actions', async () => {
         await signOut({ revokeToken })(...thunkArgs);
 
         expect(revokeToken).toHaveBeenCalledTimes(1);
@@ -145,5 +168,31 @@ describe('signOut', () => {
         expect(dispatch).toHaveBeenCalledTimes(3);
 
         consoleSpy.mockRestore();
+    });
+});
+
+describe('setToken', () => {
+    test('setToken returns a thunk', () => {
+        expect(setToken(mockToken)).toBeInstanceOf(Function);
+    });
+
+    test('setToken thunk sets token in storage and dispatches actions', async () => {
+        await setToken(mockToken)(...thunkArgs);
+
+        expect(mockSetItem).toHaveBeenCalled();
+        expect(dispatch).toHaveBeenCalled();
+    });
+});
+
+describe('clearToken', () => {
+    test('clearToken returns a thunk', () => {
+        expect(clearToken()).toBeInstanceOf(Function);
+    });
+
+    test('clearToken thunk clears token from storage and dispatches actions', async () => {
+        await clearToken()(...thunkArgs);
+
+        expect(mockRemoveItem).toHaveBeenCalled();
+        expect(dispatch).toHaveBeenCalled();
     });
 });
