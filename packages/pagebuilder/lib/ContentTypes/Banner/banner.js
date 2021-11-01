@@ -309,6 +309,7 @@ const Banner = props => {
             aria-live="polite"
             aria-busy="false"
             className={[classes.root, ...cssClasses].join(' ')}
+            data-cy="PageBuilder-Banner-root"
             style={rootStyles}
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}
