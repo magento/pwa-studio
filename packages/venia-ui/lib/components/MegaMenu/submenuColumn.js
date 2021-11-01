@@ -40,6 +40,7 @@ const SubmenuColumn = props => {
                     <Link
                         {...keyboardProps}
                         className={isActive ? classes.linkActive : classes.link}
+                        data-cy="MegaMenu-SubmenuColumn-link"
                         to={categoryUrl}
                         onClick={onNavigate}
                     >
@@ -60,6 +61,7 @@ const SubmenuColumn = props => {
             <Link
                 {...keyboardProps}
                 className={classes.link}
+                data-cy="MegaMenu-SubmenuColumn-link"
                 to={categoryUrl}
                 onClick={onNavigate}
             >

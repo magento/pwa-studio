@@ -1,5 +1,5 @@
 import {
-    productName,
+    productListingProductName,
     cartPagePriceSummaryDiscountSummary,
     cartPagePriceSummaryGiftCardSummary
 } from '../../fields/cartPage';
@@ -10,7 +10,7 @@ import {
  * @param {String} name Product's name
  */
 export const assertProductInCartPage = name => {
-    cy.get(productName).should('contain', name);
+    cy.get(productListingProductName).should('contain', name);
 };
 
 /**
