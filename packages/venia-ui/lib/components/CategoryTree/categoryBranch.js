@@ -21,6 +21,7 @@ const Branch = props => {
         <li className={classes.root}>
             <button
                 className={classes.target}
+                data-cy="CategoryTree-Branch-target"
                 type="button"
                 onClick={handleClick}
             >

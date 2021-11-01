@@ -5,5 +5,6 @@ export * as categoryPage from './categoryPage';
 export * as checkoutPage from './checkoutPage';
 export * as header from './header';
 export * as myAccountMenu from './myAccountMenu';
+export * as pageBuilder from './pageBuilder';
 export * as productPage from './productPage';
 export * as wishlistPage from './wishlistPage';

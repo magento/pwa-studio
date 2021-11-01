@@ -1,3 +1,13 @@
+export const categoryAccessories = 'Accessories';
+
+export const categoryBelts = 'Belts';
+
+export const categoryBottoms = 'Bottoms';
+
+export const categoryShopTheLook = 'Shop The Look';
+
+export const categorySkirts = 'Skirts';
+
 export const categoryTops = {
     name: 'Tops',
     url: 'venia-tops.html?page=1'

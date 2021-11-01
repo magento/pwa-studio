@@ -1,4 +1,12 @@
-import { headerSearchTrigger, searchBarSearchField } from '../../fields/header';
+import { appMaskButton, headerNavTrigger, headerSearchTrigger, searchBarSearchField } from '../../fields/header';
+
+export const toggleHeaderNav = () => {
+    cy.get(headerNavTrigger).click();
+};
+
+export const closeAppMask = () => {
+    cy.get(appMaskButton).click({ force: true });
+};
 
 /**
  * Utility function to trigger search

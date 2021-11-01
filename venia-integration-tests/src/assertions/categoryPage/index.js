@@ -1,5 +1,9 @@
 import {
     categoryPageSelectedWishlistButton,
+    categoryTreeBranchTarget,
+    categoryTreeLeafTarget,
+    megaMenuMegaMenuItemLink,
+    megaMenuSubmenuColumnLink,
     categoryContentTitle,
     productsGalleryItemName,
     productsNoProductsFound,
@@ -27,6 +31,28 @@ export const assertWishlistSelectedProductOnCategoryPage = selectedProduct => {
  */
 export const assertCategoryTitle = categoryName => {
     cy.get(categoryContentTitle).should('contain', categoryName);
+};
+
+/**
+ * Assert Category Tree contains a Category
+ *
+ * @param {String} categoryName category name
+ */
+export const assertCategoryInTree = categoryName => {
+    cy.get(`${categoryTreeBranchTarget}, ${categoryTreeLeafTarget}`)
+        .should('be.visible')
+        .and('contain', categoryName);
+};
+
+/**
+ * Assert Mega Menu contains a Category
+ *
+ * @param {String} categoryName category name
+ */
+export const assertCategoryInMegaMenu = categoryName => {
+    cy.get(`${megaMenuMegaMenuItemLink}, ${megaMenuSubmenuColumnLink}`)
+        .should('be.visible')
+        .and('contain', categoryName);
 };
 
 /**
@@ -99,3 +125,4 @@ export const assertNoProductSuggestion = () => {
 export const assertActiveSortItem = sortLabel => {
     cy.get(productSortSortItemActive).should('contain', sortLabel);
 };
+
