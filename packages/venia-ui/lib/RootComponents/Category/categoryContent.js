@@ -149,12 +149,12 @@ const CategoryContent = props => {
         <Fragment>
             <Breadcrumbs categoryId={categoryId} />
             <StoreTitle>{categoryName}</StoreTitle>
-            <article className={classes.root}>
+            <article className={classes.root} data-cy="CategoryContent-root">
                 <div className={classes.categoryHeader}>
                     <h1 className={classes.title}>
                         <div
                             className={classes.categoryTitle}
-                            data-cy="Category-CategoryContent-categoryTitle"
+                            data-cy="CategoryContent-categoryTitle"
                         >
                             {categoryTitle}
                         </div>

@@ -79,6 +79,7 @@ const FilterModal = props => {
                 type="button"
                 onClick={handleReset}
                 ariaLabel={clearAllAriaLabel}
+                data-cy="FilterModal-clearButton"
             >
                 <FormattedMessage
                     id={'filterModal.action'}
@@ -97,7 +98,11 @@ const FilterModal = props => {
             {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
             <FocusScope contain restoreFocus autoFocus>
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-                <aside className={modalClass} onKeyDown={handleKeyDownActions}>
+                <aside
+                    className={modalClass}
+                    onKeyDown={handleKeyDownActions}
+                    data-cy="FilterModal-root"
+                >
                     <div className={classes.body}>
                         <div className={classes.header}>
                             <h2 className={classes.headerTitle}>

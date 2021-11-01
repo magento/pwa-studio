@@ -42,7 +42,10 @@ export default props => {
 
     return cards.value ? (
         <Fragment>
-            <span className={classes.lineItemLabel}>
+            <span
+                className={classes.lineItemLabel}
+                data-cy="PriceSummary-GiftCardSummary-label"
+            >
                 <FormattedMessage
                     id={'giftCardSummary.lineItemLabel'}
                     defaultMessage={'Gift Card(s) applied'}

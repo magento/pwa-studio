@@ -15,9 +15,15 @@ import defaultClasses from './trigger.module.css';
  * @returns {React.Element} A React component that when triggered invokes the action.
  */
 const Trigger = props => {
-    const { action, children, ariaLabel } = props;
+    const {
+        action,
+        children,
+        ariaLabel,
+        classes: propClasses,
+        ...restProps
+    } = props;
 
-    const classes = useStyle(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, propClasses);
 
     return (
         <button
@@ -25,6 +31,7 @@ const Trigger = props => {
             type="button"
             onClick={action}
             aria-label={ariaLabel}
+            {...restProps}
         >
             {children}
         </button>
