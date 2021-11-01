@@ -10,7 +10,7 @@ const config = {
         // Include paths to every file that may refer to Tailwind classnames.
         // Classnames not found in these files will be excluded at build time.
         content: [
-            '@magento/venia-ui/lib/**/*.module.css',
+            './node_modules/@magento/venia-ui/lib/**/*.module.css',
             '../venia-ui/lib/**/*.module.css',
             './src/**/*.module.css'
         ],

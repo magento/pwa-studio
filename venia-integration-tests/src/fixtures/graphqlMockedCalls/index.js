@@ -6,6 +6,8 @@ export const getAppliedCouponsCall =
 export const getAppliedGiftCardsCall =
     '**/graphql?query=query+getAppliedGiftCards*';
 
+export const getCategoryDataCall = '**/graphql?query=query+getCategoryData*';
+
 export const getCheckoutDetailsCall =
     '**/graphql?query=query+getCheckoutDetails*';
 

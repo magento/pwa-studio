@@ -6,8 +6,7 @@ import { GET_DEFAULT_SHIPPING } from '../shippingInformation.gql';
 
 export const CREATE_CUSTOMER_ADDRESS_MUTATION = gql`
     mutation CreateCustomerAddress($address: CustomerAddressInput!) {
-        createCustomerAddress(input: $address)
-            @connection(key: "createCustomerAddress") {
+        createCustomerAddress(input: $address) {
             id
             ...CustomerAddressFragment
         }
@@ -27,8 +26,7 @@ export const UPDATE_CUSTOMER_ADDRESS_MUTATION = gql`
         $addressId: Int!
         $address: CustomerAddressInput!
     ) {
-        updateCustomerAddress(id: $addressId, input: $address)
-            @connection(key: "updateCustomerAddress") {
+        updateCustomerAddress(id: $addressId, input: $address) {
             id
         }
     }

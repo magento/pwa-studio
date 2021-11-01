@@ -32,6 +32,7 @@ const Leaf = props => {
         <li className={classes.root}>
             <Link
                 className={classes.target}
+                data-cy="CategoryTree-Leaf-target"
                 to={destination}
                 onClick={handleClick}
             >
