@@ -107,13 +107,14 @@ exports[`renders a Image component with only mobile image 1`] = `
 >
   <picture>
     <source
-      media="(max-width: 768px)"
+      media="(max-width: 48rem)"
       srcSet="mobile-image.png"
     />
     <img
       className="img mobileOnly"
       loading="lazy"
       src=""
+      srcSet=" 1x"
       style={
         Object {
           "border": undefined,
