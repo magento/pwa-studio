@@ -23,6 +23,7 @@ const SearchField = props => {
             after={resetButton}
             before={searchIcon}
             field="search_query"
+            data-cy="SearchField-textInput"
             onFocus={onFocus}
             onValueChange={onChange}
             forwardedRef={inputRef}
