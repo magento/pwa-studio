@@ -36,6 +36,7 @@ const GiftCard = props => {
             <LinkButton
                 disabled={isRemovingCard}
                 onClick={removeGiftCardWithCode}
+                data-cy="GiftCards-GiftCard-removeButton"
             >
                 <FormattedMessage
                     id={'giftCard.remove'}

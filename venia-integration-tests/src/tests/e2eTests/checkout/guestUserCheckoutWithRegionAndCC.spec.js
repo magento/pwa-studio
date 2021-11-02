@@ -3,18 +3,21 @@ import {
     cartPage as cartPageFixtures,
     checkoutPage as checkoutPageFixtures,
     graphqlMockedCalls as graphqlMockedCallsFixtures,
+    myAccountMenu as myAccountMenuFixtures,
     productPage as productPageFixtures
 } from '../../../fixtures';
 import {
+    cartPage as cartPageActions,
     checkoutPage as checkoutPageActions,
+    myAccountMenu as myAccountMenuActions,
     productPage as productPageActions
 } from '../../../actions';
 import {
+    accountInformationPage as accountInformationPageAssertions,
     cartPage as cartPageAssertions,
     checkoutPage as checkoutPageAssertions,
     header as headerAssertions,
-    myAccountMenu as myAccountMenuAssertions,
-    orderHistoryPage as orderHistoryPageAssertions
+    myAccountMenu as myAccountMenuAssertions
 } from '../../../assertions';
 import { aliasMutation } from '../../../utils/graphql-test-utils';
 
@@ -25,62 +28,76 @@ const {
     accountPassword
 } = accountAccessFixtures;
 const { cartPageRoute } = cartPageFixtures;
-const { checkoutShippingData, checkoutBillingData } = checkoutPageFixtures;
 const {
-    productAugustaEarrings,
-    productValeriaTwoLayeredTank
-} = productPageFixtures;
+    checkoutBillingData,
+    checkoutShippingData,
+    defaultShippingMethods
+} = checkoutPageFixtures;
+const { accountInformationPage } = myAccountMenuFixtures;
 const {
     getCheckoutDetailsCall,
+    getCountriesCall,
+    getCustomerAfterCheckoutCall,
     getItemsInCartCall,
     getPaymentInformationCall,
     getProductDetailForProductPageCall,
     getProductListingCall,
+    getRegionsCall,
     getSelectedAndAvailableShippingMethodsCall,
+    getShippingMethodsCall,
     hitGraphqlPath
 } = graphqlMockedCallsFixtures;
+const {
+    productIsadoraSkirt,
+    productValeriaTwoLayeredTank
+} = productPageFixtures;
 
 const {
-    toggleLoginDialog,
+    toggleShippingMethodSection,
+    toggleShippingMethodEstimate,
+    estimateShippingMethod,
+    selectShippingMethodFromCartPage
+} = cartPageActions;
+const {
     reviewOrder,
     placeOrder,
-    setCustomerShippingAddress,
-    editCreditCardInformation
+    setGuestShippingAddress,
+    editCreditCardInformation,
+    createAccountFromOrderConfirmationPage
 } = checkoutPageActions;
+const { goToMyAccount } = myAccountMenuActions;
 const {
     addToCartFromProductPage,
     selectOptionsFromProductPage,
     setQuantityFromProductPage
 } = productPageActions;
 
+const { assertAccountInformationHeading } = accountInformationPageAssertions;
 const { assertProductInCartPage } = cartPageAssertions;
 const {
     assertAddressInShippingInformationInCheckoutPage,
     assertSelectedShippingMethodInCheckoutPage,
-    assertPaymentInformationInCheckoutPage,
     assertProductInCheckoutPage
 } = checkoutPageAssertions;
 const { assertCartTriggerCount } = headerAssertions;
 const { assertCreateAccount } = myAccountMenuAssertions;
-const {
-    assertOrdersCountInOrderDetails,
-    assertAddressInformationInOrderDetails,
-    assertShippingMethodInOrderDetails,
-    assertPaymentMethodInOrderDetails,
-    assertProductInOrderDetails
-} = orderHistoryPageAssertions;
 
 const completeShippingAddress = {
-    ...checkoutShippingData.us,
+    ...checkoutShippingData.gb,
+    email: accountEmail,
     firstName,
     lastName
 };
 
 // TODO add tags CE, EE to test to filter and run tests as needed
 describe('verify checkout actions', () => {
-    it('user should be able to place an order as a registered customer', () => {
+    it('user should be able to place an order as a guest with an specified Region and a credit card', () => {
         cy.intercept('GET', getCheckoutDetailsCall).as(
             'gqlGetCheckoutDetailsQuery'
+        );
+        cy.intercept('GET', getCountriesCall).as('gqlGetCountriesQuery');
+        cy.intercept('GET', getCustomerAfterCheckoutCall).as(
+            'gqlCustomerAfterCheckoutQuery'
         );
         cy.intercept('GET', getItemsInCartCall).as('gqlGetItemsInCartQuery');
         cy.intercept('GET', getPaymentInformationCall).as(
@@ -92,20 +109,22 @@ describe('verify checkout actions', () => {
         cy.intercept('GET', getProductListingCall).as(
             'gqlGetProductListingQuery'
         );
+        cy.intercept('GET', getRegionsCall).as('gqlGetRegionsQuery');
         cy.intercept('GET', getSelectedAndAvailableShippingMethodsCall).as(
             'gqlGetSelectedAndAvailableShippingMethodsQuery'
         );
+        cy.intercept('GET', getShippingMethodsCall).as(
+            'gqlGetShippingMethodsQuery'
+        );
         cy.intercept('POST', hitGraphqlPath, req => {
-            aliasMutation(req, 'CreateAccount');
-            aliasMutation(req, 'placeOrder');
-            aliasMutation(req, 'setBillingAddress');
-            aliasMutation(req, 'setSelectedPaymentMethod');
-            aliasMutation(req, 'MergeCartsAfterAccountCreation');
-            aliasMutation(req, 'SignInAfterCreate');
             aliasMutation(req, 'AddProductToCart');
+            aliasMutation(req, 'CreateAccountAfterCheckout');
+            aliasMutation(req, 'placeOrder');
+            aliasMutation(req, 'SetShippingAddressForEstimate');
+            aliasMutation(req, 'SetShippingMethodForEstimate');
         });
 
-        // Test - Add configurable product to cart from Product Page
+        // Test - Add configurable products to cart from Product Pages
         cy.visit(productValeriaTwoLayeredTank.url);
         cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
             timeout: 60000
@@ -120,58 +139,59 @@ describe('verify checkout actions', () => {
 
         assertCartTriggerCount(2);
 
-        // Test - Create an account in Checkout
-        cy.visitCheckoutPage();
+        cy.visit(productIsadoraSkirt.url);
+        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
+            timeout: 60000
+        });
 
-        toggleLoginDialog();
+        selectOptionsFromProductPage();
+        setQuantityFromProductPage();
+        addToCartFromProductPage();
+        cy.wait(['@gqlAddProductToCartMutation'], {
+            timeout: 60000
+        });
 
-        cy.createAccount(
-            accountAccessFixtures.firstName,
-            lastName,
-            accountEmail,
-            accountPassword
-        );
+        assertCartTriggerCount(3);
+
+        // Test - Products are in Cart Page
+        cy.visit(cartPageRoute);
+        cy.wait(['@gqlGetProductListingQuery', '@gqlGetShippingMethodsQuery'], {
+            timeout: 60000
+        });
+
+        assertProductInCartPage(productValeriaTwoLayeredTank.name);
+        assertProductInCartPage(productIsadoraSkirt.name);
+
+        // Test - Estimate Shipping
+        toggleShippingMethodSection();
+        toggleShippingMethodEstimate();
+
+        cy.wait(['@gqlGetCountriesQuery', '@gqlGetRegionsQuery'], {
+            timeout: 60000
+        });
+
+        estimateShippingMethod(completeShippingAddress);
 
         cy.wait(
             [
-                '@gqlCreateAccountMutation',
-                '@gqlSignInAfterCreateMutation',
-                '@gqlMergeCartsAfterAccountCreationMutation'
+                '@gqlSetShippingAddressForEstimateMutation',
+                '@gqlSetShippingMethodForEstimateMutation'
             ],
             {
                 timeout: 60000
             }
         );
 
-        assertCreateAccount(firstName);
+        selectShippingMethodFromCartPage(defaultShippingMethods.flatrate.code);
 
-        // Test - Add simple product to cart from Product Page
-        cy.visit(productAugustaEarrings.url);
-        cy.wait(['@gqlGetProductDetailForProductPageQuery'], {
+        cy.wait(['@gqlSetShippingMethodForEstimateMutation'], {
             timeout: 60000
         });
 
-        setQuantityFromProductPage(2);
-        addToCartFromProductPage();
-        cy.wait(['@gqlAddProductToCartMutation'], {
-            timeout: 60000
-        });
-
-        assertCartTriggerCount(4);
-
-        // Test - Products are in Cart Page
-        cy.visit(cartPageRoute);
-        cy.wait(['@gqlGetProductListingQuery'], {
-            timeout: 60000
-        });
-
-        assertProductInCartPage(productValeriaTwoLayeredTank.name);
-        assertProductInCartPage(productAugustaEarrings.name);
-
-        // Test - Set Customer Shipping Address
+        // Test - Set Guest Shipping Address
         cy.visitCheckoutPage();
 
-        setCustomerShippingAddress(completeShippingAddress);
+        setGuestShippingAddress(completeShippingAddress);
 
         cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
             timeout: 60000
@@ -179,6 +199,9 @@ describe('verify checkout actions', () => {
 
         assertAddressInShippingInformationInCheckoutPage(
             completeShippingAddress
+        );
+        assertSelectedShippingMethodInCheckoutPage(
+            defaultShippingMethods.flatrate.label
         );
 
         // Test - Edit Payment Information
@@ -191,24 +214,15 @@ describe('verify checkout actions', () => {
         // Test - Review Order
         reviewOrder();
 
-        cy.wait(
-            [
-                '@gqlsetBillingAddressMutation',
-                '@gqlGetItemsInCartQuery',
-                '@gqlsetSelectedPaymentMethodMutation'
-            ],
-            {
-                timeout: 60000
-            }
-        );
+        cy.wait(['@gqlGetItemsInCartQuery'], {
+            timeout: 60000
+        });
 
         assertAddressInShippingInformationInCheckoutPage(
             completeShippingAddress
         );
-        assertSelectedShippingMethodInCheckoutPage();
-        assertPaymentInformationInCheckoutPage({ ...checkoutBillingData[0] });
         assertProductInCheckoutPage(productValeriaTwoLayeredTank.name);
-        assertProductInCheckoutPage(productAugustaEarrings.name);
+        assertProductInCheckoutPage(productIsadoraSkirt.name);
 
         // Test - Place Order
         placeOrder();
@@ -221,19 +235,32 @@ describe('verify checkout actions', () => {
             completeShippingAddress,
             true
         );
-        assertSelectedShippingMethodInCheckoutPage(undefined, true);
+        assertSelectedShippingMethodInCheckoutPage(
+            defaultShippingMethods.flatrate.label,
+            true
+        );
         assertProductInCheckoutPage(productValeriaTwoLayeredTank.name, true);
-        assertProductInCheckoutPage(productAugustaEarrings.name, true);
+        assertProductInCheckoutPage(productIsadoraSkirt.name, true);
 
-        // Test - Order History
-        cy.visitOrderHistoryPage();
+        // Test - Account create from Order Confirmation Page
+        createAccountFromOrderConfirmationPage({
+            password: accountPassword
+        });
 
-        assertOrdersCountInOrderDetails(1);
-        assertAddressInformationInOrderDetails(completeShippingAddress);
-        assertAddressInformationInOrderDetails(completeShippingAddress, true);
-        assertShippingMethodInOrderDetails();
-        assertPaymentMethodInOrderDetails();
-        assertProductInOrderDetails(productValeriaTwoLayeredTank.name);
-        assertProductInOrderDetails(productAugustaEarrings.name);
+        cy.wait(
+            [
+                '@gqlCreateAccountAfterCheckoutMutation',
+                '@gqlCustomerAfterCheckoutQuery'
+            ],
+            {
+                timeout: 60000
+            }
+        );
+
+        assertCreateAccount(firstName);
+
+        // Test - Access Account Information
+        goToMyAccount(firstName, accountInformationPage);
+        assertAccountInformationHeading(accountInformationPage);
     });
 });
