@@ -33,9 +33,6 @@ const givenDefaultValues = () => {
         styles: {}
     };
 
-    process.env.NODE_ENV = 'development';
-    process.env.USE_STORE_CODE_IN_URL = true;
-
     global.AVAILABLE_STORE_VIEWS = [
         {
             code: 'default'
@@ -44,6 +41,7 @@ const givenDefaultValues = () => {
             code: 'french'
         }
     ];
+    global.STORE_VIEW_CODE = 'default';
 
     globalThis.localStorage.setItem('signin_token', 'signin_token');
     globalThis.localStorage.setItem(
@@ -67,8 +65,8 @@ describe('#useAdapter', () => {
         givenDefaultValues();
     });
 
-    it('returns correct shape', async () => {
-        await createTestInstance(<Component />);
+    it('returns correct shape', () => {
+        createTestInstance(<Component />);
 
         expect(log).toMatchInlineSnapshot(`
             [MockFunction] {
