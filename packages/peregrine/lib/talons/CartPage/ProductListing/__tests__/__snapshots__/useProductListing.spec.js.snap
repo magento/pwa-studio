@@ -3,6 +3,7 @@
 exports[`returns the proper shape 1`] = `
 Object {
   "activeEditItem": null,
+  "error": null,
   "isLoading": false,
   "items": Array [
     Object {
