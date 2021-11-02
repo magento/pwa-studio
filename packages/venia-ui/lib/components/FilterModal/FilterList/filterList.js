@@ -38,7 +38,11 @@ const FilterList = props => {
 
                 // create an element for each item
                 const element = (
-                    <li key={key} className={classes.item}>
+                    <li
+                        key={key}
+                        className={classes.item}
+                        data-cy="FilterList-item"
+                    >
                         <FilterItem
                             filterApi={filterApi}
                             filterState={filterState}
@@ -87,6 +91,7 @@ const FilterList = props => {
                 <button
                     onClick={handleListToggle}
                     className={classes.showMoreLessButton}
+                    data-cy="FilterList-showMoreLessButton"
                 >
                     {label}
                 </button>

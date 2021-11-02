@@ -36,15 +36,16 @@ export const useCartPage = (props = {}) => {
         getCartDetailsQuery,
         {
             fetchPolicy: 'cache-and-network',
-            nextFetchPolicy: 'cache-first'
+            nextFetchPolicy: 'cache-first',
+            errorPolicy: 'all'
         }
     );
 
-    const hasItems = !!(data && data.cart.total_quantity);
+    const hasItems = !!data?.cart?.total_quantity;
     const shouldShowLoadingIndicator = called && loading && !hasItems;
 
     const cartItems = useMemo(() => {
-        return (data && data.cart.items) || [];
+        return data?.cart?.items || [];
     }, [data]);
 
     const onAddToWishlistSuccess = useCallback(successToastProps => {
