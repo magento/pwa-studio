@@ -30,6 +30,7 @@ const SearchTrigger = React.forwardRef((props, ref) => {
     return (
         <button
             className={searchClass}
+            data-cy="SearchTrigger-button"
             aria-label={searchText}
             onClick={handleClick}
             ref={ref}
