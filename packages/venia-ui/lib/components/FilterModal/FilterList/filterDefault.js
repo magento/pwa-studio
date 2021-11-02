@@ -40,6 +40,7 @@ const FilterDefault = props => {
             fieldValue={!!isSelected}
             label={label}
             ariaLabel={ariaLabel}
+            data-cy="FilterDefault-checkbox"
             {...restProps}
         />
     );

@@ -6,6 +6,11 @@ export const getAppliedCouponsCall =
 export const getAppliedGiftCardsCall =
     '**/graphql?query=query+getAppliedGiftCards*';
 
+export const getAutocompleteResultsCall =
+    '**/graphql?query=query+getAutocompleteResults*';
+
+export const getCategoriesCall = '**/graphql?query=query+GetCategories*';
+
 export const getCategoryDataCall = '**/graphql?query=query+getCategoryData*';
 
 export const getCheckoutDetailsCall =
@@ -37,6 +42,14 @@ export const getProductDetailForProductPageCall =
 
 export const getProductListingCall =
     '**/graphql?query=query+getProductListing*';
+
+export const getProductFiltersByCategoryCall =
+    '**/graphql?query=query+getProductFiltersByCategory*';
+
+export const getProductFiltersBySearchCall =
+    '**/graphql?query=query+getProductFiltersBySearch*';
+
+export const getProductSearchCall = '**/graphql?query=query+ProductSearch*';
 
 export const getRegionsCall = '**/graphql?query=query+GetRegions*';
 
