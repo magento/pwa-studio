@@ -98,6 +98,7 @@ const CouponCode = props => {
                     <LinkButton
                         className={classes.removeButton}
                         disabled={removingCoupon}
+                        data-cy="CouponCode-removeCouponButton"
                         onClick={() => {
                             handleRemoveCoupon(code);
                         }}
