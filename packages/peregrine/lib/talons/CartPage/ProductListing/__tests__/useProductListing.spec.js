@@ -140,3 +140,23 @@ it('does not fetch product listing when there is no cart id', () => {
 
     expect(mockFetchProductListing).not.toHaveBeenCalled();
 });
+
+it('returns error message', () => {
+    const mockError = { message: 'Some error message' };
+    useLazyQuery.mockReturnValue([
+        mockFetchProductListing,
+        {
+            called: true,
+            data: mockData,
+            error: mockError,
+            loading: false
+        }
+    ]);
+
+    const rendered = createTestInstance(<Component {...props} />);
+
+    const talonProps = rendered.root.findByType('i').props;
+    const { error } = talonProps;
+
+    expect(error).toEqual(mockError);
+});
