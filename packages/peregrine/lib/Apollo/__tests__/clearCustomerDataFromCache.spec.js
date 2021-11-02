@@ -36,11 +36,16 @@ test('clears customer data from cache', async () => {
     cache.restore({
         ROOT_QUERY: {
             anotherLocalField: 'This entry should not get deleted',
-            customerLocalField: 'This entry should get deleted'
+            customerLocalField: 'This entry should get deleted',
+            orderLocalField: 'This entry should get deleted'
         },
         Customer: {
             id: 'customerId',
             firstName: 'Veronica'
+        },
+        OrderItem: {
+            id: 'orderItemId',
+            product_name: 'Product Name'
         },
         AnotherCacheEntry: {
             value: 'This entry should not get deleted'
@@ -67,9 +72,14 @@ test('clears customer data from cache', async () => {
             "firstName": "Veronica",
             "id": "customerId",
           },
+          "OrderItem": Object {
+            "id": "orderItemId",
+            "product_name": "Product Name",
+          },
           "ROOT_QUERY": Object {
             "anotherLocalField": "This entry should not get deleted",
             "customerLocalField": "This entry should get deleted",
+            "orderLocalField": "This entry should get deleted",
           },
         }
     `);

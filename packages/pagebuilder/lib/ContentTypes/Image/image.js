@@ -69,7 +69,7 @@ const Image = props => {
 
     const SourceFragment = mobileImage ? (
         <source
-            media="(max-width: 768px)"
+            media="(max-width: 48rem)"
             srcSet={resourceUrl(mobileImage, {
                 type: 'image-wysiwyg',
                 quality: 85
@@ -78,16 +78,20 @@ const Image = props => {
     ) : (
         ''
     );
+
+    const imgSrc = resourceUrl(desktopImage, {
+        type: 'image-wysiwyg',
+        quality: 85
+    });
+
     const PictureFragment = (
         <>
             <picture>
                 {SourceFragment}
                 <img
                     className={classes.img}
-                    src={resourceUrl(desktopImage, {
-                        type: 'image-wysiwyg',
-                        quality: 85
-                    })}
+                    srcSet={`${imgSrc} 1x`}
+                    src={imgSrc}
                     title={title}
                     alt={altText}
                     style={imageStyles}

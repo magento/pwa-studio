@@ -76,10 +76,15 @@ const FilterBlock = props => {
     ) : null;
 
     return (
-        <li className={classes.root} aria-label={itemAriaLabel}>
+        <li
+            className={classes.root}
+            aria-label={itemAriaLabel}
+            data-cy="FilterBlock-root"
+        >
             <button
                 className={classes.trigger}
                 onClick={handleClick}
+                data-cy="FilterBlock-triggerButton"
                 type="button"
                 aria-expanded={isExpanded}
                 aria-label={toggleItemOptionsAriaLabel}

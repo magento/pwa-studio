@@ -89,13 +89,17 @@ const MegaMenuItem = props => {
         : {};
 
     return (
-        <div className={megaMenuItemClassname}>
+        <div
+            className={megaMenuItemClassname}
+            data-cy="MegaMenu-MegaMenuItem-megaMenuItem"
+        >
             <Link
                 {...linkAttributes}
                 onKeyDown={handleKeyDown}
                 className={
                     isActive ? classes.megaMenuLinkActive : classes.megaMenuLink
                 }
+                data-cy="MegaMenu-MegaMenuItem-link"
                 to={categoryUrl}
                 onClick={onNavigate}
             >
