@@ -1,14 +1,24 @@
 export const checkoutPageRoute = 'checkout';
 
 export const checkoutShippingData = {
-    countryCode: 'US',
-    street1: '111 57th Street',
-    street2: 'Suite 1000',
-    city: 'New New York',
-    regionCode: 'NY',
-    regionId: '43',
-    postCode: '10019',
-    telephone: '+12345678909'
+    gb: {
+        countryCode: 'GB',
+        street1: 'Great Russell St',
+        city: 'London',
+        region: 'England',
+        postCode: 'WC1B 3DG',
+        telephone: '+44 1234 5678'
+    },
+    us: {
+        countryCode: 'US',
+        street1: '111 57th Street',
+        street2: 'Suite 1000',
+        city: 'New New York',
+        regionCode: 'NY',
+        regionId: '43',
+        postCode: '10019',
+        telephone: '+12345678909'
+    }
 };
 
 export const checkoutBillingData = [

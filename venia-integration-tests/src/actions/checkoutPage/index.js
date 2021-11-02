@@ -120,9 +120,12 @@ export const setGuestShippingAddress = ({
     }
 
     if (regionId) {
-        cy.get(checkoutPageShippingGuestRegionField).select(regionId);
+        cy.get(checkoutPageShippingGuestRegionField)
+            .should('not.be.disabled')
+            .select(regionId);
     } else if (region) {
         cy.get(checkoutPageShippingGuestRegionField)
+            .should('not.be.disabled')
             .clear()
             .type(region);
     }
@@ -212,9 +215,12 @@ export const setCustomerShippingAddress = ({
     }
 
     if (regionId) {
-        cy.get(checkoutPageShippingCustomerRegionField).select(regionId);
+        cy.get(checkoutPageShippingCustomerRegionField)
+            .should('not.be.disabled')
+            .select(regionId);
     } else if (region) {
         cy.get(checkoutPageShippingCustomerRegionField)
+            .should('not.be.disabled')
             .clear()
             .type(region);
     }
