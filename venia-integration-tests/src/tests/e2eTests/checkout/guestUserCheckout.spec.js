@@ -91,7 +91,7 @@ const { assertCartTriggerCount } = headerAssertions;
 const { assertCreateAccount } = myAccountMenuAssertions;
 
 const completeShippingAddress = {
-    ...checkoutShippingData,
+    ...checkoutShippingData.us,
     email: accountEmail,
     firstName,
     lastName

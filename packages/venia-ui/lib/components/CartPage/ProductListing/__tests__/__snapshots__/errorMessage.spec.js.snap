@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders error message 1`] = `
+<div
+  className="root"
+>
+  Something went wrong.
+</div>
+`;
+
+exports[`renders nothing when no error 1`] = `null`;

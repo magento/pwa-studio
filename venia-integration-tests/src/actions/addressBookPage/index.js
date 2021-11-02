@@ -110,9 +110,12 @@ export const addEditAddressCard = ({
     }
 
     if (regionId) {
-        cy.get(addressBookModalRegionSelectField).select(regionId);
+        cy.get(addressBookModalRegionSelectField)
+            .should('not.be.disabled')
+            .select(regionId);
     } else if (region) {
         cy.get(addressBookModalRegionTextField)
+            .should('not.be.disabled')
             .clear()
             .type(region);
     }
