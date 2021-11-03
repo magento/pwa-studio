@@ -6,7 +6,7 @@ import { useCartContext } from '../../context/cart';
 import operations from './addToCart.gql';
 
 /**
- * @param {Number} props.item.uid - uid of item
+ * @param {String} props.item.uid - uid of item
  * @param {String} props.item.name - name of item
  * @param {String} props.item.stock_status - stock status of item
  * @param {String} props.item.type_id - product type
