@@ -1,11 +1,13 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { Form, Relevant } from 'informed';
+import { Form } from 'informed';
 import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions.js';
 
 import { useStyle } from '../../../../classify';
 import Checkbox from '../../../Checkbox';
 import TextArea from '../../../TextArea';
+import Field from '../../../Field';
+import TextInput from '../../../TextInput';
 import defaultClasses from './giftOptions.module.css';
 
 /**
@@ -24,17 +26,21 @@ import defaultClasses from './giftOptions.module.css';
  */
 const GiftOptions = props => {
     const {
-        cardMessageProps,
         giftReceiptProps,
-        optionsFormProps,
         printedCardProps,
-        shouldPromptForMessage
+        cardToProps,
+        cardFromProps,
+        cardMessageProps,
+        optionsFormProps
     } = useGiftOptions();
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
 
-    return (
-        <Form {...optionsFormProps} className={classes.root}>
+    const { allow_order, allow_gift_receipt, allow_printed_card } =
+        props?.giftOptionsConfigData || {};
+
+    const includeGiftReceipt =
+        allow_gift_receipt === '1' ? (
             <div className={classes.option}>
                 <Checkbox
                     {...giftReceiptProps}
@@ -45,6 +51,10 @@ const GiftOptions = props => {
                     })}
                 />
             </div>
+        ) : null;
+
+    const includePrintedCard =
+        allow_printed_card === '1' ? (
             <div className={classes.option}>
                 <Checkbox
                     {...printedCardProps}
@@ -55,18 +65,55 @@ const GiftOptions = props => {
                     })}
                 />
             </div>
-            <div className={classes.option}>
-                <Relevant when={shouldPromptForMessage}>
-                    <TextArea
-                        {...cardMessageProps}
-                        data-cy="GiftOptions-cardMessage"
-                        placeholder={formatMessage({
-                            id: 'giftOptions.cardMessage',
-                            defaultMessage: 'Enter your message here'
+        ) : null;
+
+    const includeGiftMessage =
+        allow_order === '1' ? (
+            <>
+                <Field
+                    id="to"
+                    label={formatMessage({
+                        id: 'giftOptions.to',
+                        defaultMessage: 'To'
+                    })}
+                >
+                    <TextInput {...cardToProps} />
+                </Field>
+                <Field
+                    id="from"
+                    label={formatMessage({
+                        id: 'giftOptions.from',
+                        defaultMessage: 'From'
+                    })}
+                >
+                    <TextInput {...cardFromProps} />
+                </Field>
+                <div className={classes.option}>
+                    <Field
+                        id="message"
+                        label={formatMessage({
+                            id: 'giftOptions.Message',
+                            defaultMessage: 'Message'
                         })}
-                    />
-                </Relevant>
-            </div>
+                    >
+                        <TextArea
+                            {...cardMessageProps}
+                            data-cy="GiftOptions-cardMessage"
+                            placeholder={formatMessage({
+                                id: 'giftOptions.cardMessage',
+                                defaultMessage: 'Enter your message here'
+                            })}
+                        />
+                    </Field>
+                </div>
+            </>
+        ) : null;
+
+    return (
+        <Form {...optionsFormProps} className={classes.root}>
+            {includeGiftReceipt}
+            {includePrintedCard}
+            {includeGiftMessage}
         </Form>
     );
 };

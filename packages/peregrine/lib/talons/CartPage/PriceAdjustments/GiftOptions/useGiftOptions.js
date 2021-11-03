@@ -1,6 +1,8 @@
-import { useCallback, useRef, useState } from 'react';
-import { useApolloClient, useQuery } from '@apollo/client';
+import { useCallback, useRef, useEffect } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import debounce from 'lodash.debounce';
+
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './giftOptions.gql';
 
@@ -26,68 +28,62 @@ import DEFAULT_OPERATIONS from './giftOptions.gql';
  */
 const useGiftOptions = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getGiftOptionsQuery } = operations;
+    const {
+        setGiftOptionsOnCartMutation,
+        getGiftOptionsOnCartQuery
+    } = operations;
 
     const [{ cartId }] = useCartContext();
-    const { cache } = useApolloClient();
 
     // The form will be a child, not a parent, so we can't call `useFormApi`.
     // Need to use a ref and `props.getApi` instead.
     const formApiRef = useRef();
-    const [hasHydrated, setHasHydrated] = useState(false);
 
-    // Could be an effect, but a callback should be slightly better.
-    const handleCompleted = useCallback(
-        data => {
-            // Only write values to the form once, ideally before user input.
-            // Afterward, treat client state as the single source of truth.
-            if (data && !hasHydrated) {
-                formApiRef.current.setValues({
-                    cardMessage: data.cart.local_gift_message,
-                    includeGiftReceipt: data.cart.include_gift_receipt,
-                    includePrintedCard: data.cart.include_printed_card
-                });
-
-                setHasHydrated(true);
-            }
-        },
-        [hasHydrated, setHasHydrated]
+    const [setGiftOptionsOnCart] = useMutation(setGiftOptionsOnCartMutation);
+    const { data: getGiftOptionsData, loading } = useQuery(
+        getGiftOptionsOnCartQuery,
+        {
+            variables: { cartId },
+            fetchPolicy: 'cache-and-network'
+        }
     );
+
+    useEffect(() => {
+        if ((!loading, getGiftOptionsData)) {
+            const { cart } = getGiftOptionsData;
+            const { from, to, message } = cart.gift_message || {};
+
+            formApiRef.current.setValues({
+                cardFrom: from,
+                cardTo: to,
+                cardMessage: message,
+                includeGiftReceipt: cart.include_gift_receipt,
+                includePrintedCard: cart.include_printed_card
+            });
+        }
+    }, [getGiftOptionsData, loading]);
 
     const handleValueChange = useCallback(
         values => {
-            // Write values to the cache after every user input.
-            // Apollo should batch these writes if the user inputs quickly.
-            cache.writeQuery({
-                query: getGiftOptionsQuery,
-                variables: {
-                    cart_id: cartId
-                },
-                data: {
-                    cart: {
-                        __typename: 'Cart',
-                        id: cartId,
-                        include_gift_receipt: !!values.includeGiftReceipt,
-                        include_printed_card: !!values.includePrintedCard,
-                        local_gift_message: values.cardMessage || ''
+            try {
+                setGiftOptionsOnCart({
+                    variables: {
+                        cartId,
+                        giftMessage: {
+                            to: values.cardTo || '',
+                            from: values.cardFrom || '',
+                            message: values.cardMessage || ''
+                        },
+                        giftReceiptIncluded: false,
+                        printedCardIncluded: false
                     }
-                }
-            });
+                });
+            } catch (e) {
+                // Error is logged by apollo link - no need to double log.
+            }
         },
-        [cartId, cache, getGiftOptionsQuery]
+        [cartId, setGiftOptionsOnCart]
     );
-
-    useQuery(getGiftOptionsQuery, {
-        onCompleted: handleCompleted,
-        skip: !cartId,
-        variables: { cartId }
-    });
-
-    const cardMessageProps = {
-        field: 'cardMessage',
-        initialValue: '',
-        keepState: true
-    };
 
     const giftReceiptProps = {
         field: 'includeGiftReceipt',
@@ -99,24 +95,39 @@ const useGiftOptions = (props = {}) => {
         initialValue: false
     };
 
+    const cardToProps = {
+        field: 'cardTo',
+        initialValue: '',
+        keepState: true
+    };
+
+    const cardFromProps = {
+        field: 'cardFrom',
+        initialValue: '',
+        keepState: true
+    };
+
+    const cardMessageProps = {
+        field: 'cardMessage',
+        initialValue: '',
+        keepState: true
+    };
+
     const optionsFormProps = {
         getApi: api => {
             formApiRef.current = api;
         },
-        onValueChange: handleValueChange
+        // Batch writes if the user inputs quickly.
+        onValueChange: debounce(handleValueChange, 500)
     };
 
-    const shouldPromptForMessage = useCallback(
-        ({ values }) => values.includePrintedCard,
-        []
-    );
-
     return {
-        cardMessageProps,
         giftReceiptProps,
-        optionsFormProps,
         printedCardProps,
-        shouldPromptForMessage
+        cardToProps,
+        cardFromProps,
+        cardMessageProps,
+        optionsFormProps
     };
 };
 
@@ -151,10 +162,10 @@ export default useGiftOptions;
  *
  * @typedef {Object} GiftOptionsTalonProps
  *
- * @property {object} cardMessageProps Props for the `cardMessage` textarea element.
  * @property {object} giftReceiptProps Props for the `includeGiftReceipt` checkbox element.
- * @property {object} optionsFormProps Props for the form element.
  * @property {object} printedCardProps Props for the `includePrintedCard` checkbox element.
- * @property {function} shouldPromptForMessage Determines whether to show the `cardMessage` textarea element.
- *
+ * @property {object} cardToProps Props for the `cardTo` text input element.
+ * @property {object} cardFromProps Props for the `cardFrom` text input element.
+ * @property {object} cardMessageProps Props for the `cardMessage` textarea element.
+ * @property {object} optionsFormProps Props for the form element.
  */
