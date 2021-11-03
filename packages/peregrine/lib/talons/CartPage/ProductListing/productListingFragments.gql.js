@@ -39,6 +39,10 @@ export const ProductListingFragment = gql`
                 }
             }
             quantity
+            errors {
+                code
+                message
+            }
             ... on ConfigurableCartItem {
                 configurable_options {
                     id

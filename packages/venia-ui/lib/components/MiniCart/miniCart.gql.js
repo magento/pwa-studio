@@ -19,8 +19,9 @@ export const MINI_CART_QUERY = gql`
 
 export const REMOVE_ITEM_MUTATION = gql`
     mutation RemoveItemForMiniCart($cartId: String!, $itemId: ID!) {
-        removeItemFromCart(input: { cart_id: $cartId, cart_item_uid: $itemId })
-            @connection(key: "removeItemFromCart") {
+        removeItemFromCart(
+            input: { cart_id: $cartId, cart_item_uid: $itemId }
+        ) {
             cart {
                 id
                 ...MiniCartFragment

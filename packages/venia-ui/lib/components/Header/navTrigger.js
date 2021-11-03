@@ -19,6 +19,7 @@ const NavigationTrigger = props => {
     return (
         <button
             className={classes.root}
+            data-cy="Header-NavigationTrigger-root"
             aria-label={formatMessage({
                 id: 'navigationTrigger.ariaLabel',
                 defaultMessage: 'Toggle navigation panel'

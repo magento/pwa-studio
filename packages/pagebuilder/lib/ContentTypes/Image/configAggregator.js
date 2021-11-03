@@ -17,9 +17,22 @@ export default node => {
             ? node.childNodes[0].childNodes
             : node.childNodes;
 
+    const mobileImageSrc = () => {
+        if (imageNode[1]) {
+            return imageNode[1].getAttribute('src');
+        }
+        if (imageNode[0]) {
+            return imageNode[0].getAttribute('src');
+        }
+        return null;
+    };
+
     const props = {
-        desktopImage: imageNode[0] ? imageNode[0].getAttribute('src') : null,
-        mobileImage: imageNode[1] ? imageNode[1].getAttribute('src') : null,
+        desktopImage:
+            imageNode[0] && imageNode[1]
+                ? imageNode[0].getAttribute('src')
+                : null,
+        mobileImage: mobileImageSrc(),
         altText: imageNode[0] ? imageNode[0].getAttribute('alt') : null,
         title: imageNode[0] ? imageNode[0].getAttribute('title') : null,
         openInNewTab: node.childNodes[0].getAttribute('target') === '_blank',

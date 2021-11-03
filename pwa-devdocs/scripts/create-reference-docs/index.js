@@ -23,14 +23,20 @@ config.files.forEach(file => {
     );
 
     const childComponents = children.map(child => {
-        return path.join(path.dirname(docsProjectRoot),config.packagesPath, child);
-    })
+        return path.join(path.dirname(docsProjectRoot), config.packagesPath, child);
+    });
 
-    let githubSource = "https://"+ path.join(
+    let githubSource = "https://" + path.join(
         config.baseGitHubPath,
         config.packagesPath,
         target
     );
+
+    let githubSourceText = path.join(
+        config.packagesPath,
+        target
+    );
+
 
     let fileDestination = path.join(
         docsProjectRoot,
@@ -48,12 +54,12 @@ config.files.forEach(file => {
             break;
 
         case 'function':
-            createFunctionDocs({ sourcePath, githubSource, childComponents }).then(
+            createFunctionDocs({ sourcePath, githubSource, childComponents, githubSourceText }).then(
                 fileContent => {
                     writeToFile(fileDestination, fileContent);
                 },
                 error => {
-                    console.log(error)
+                    console.log(error);
                 }
             );
             break;
@@ -67,7 +73,7 @@ const writeToFile = (fileDestination, fileContent) => {
     if (fileContent) {
         console.log(
             '> Generating reference docs: ' +
-                path.relative(docsProjectRoot, fileDestination)
+            path.relative(docsProjectRoot, fileDestination)
         );
 
         fs.mkdirSync(path.dirname(fileDestination), { recursive: true });

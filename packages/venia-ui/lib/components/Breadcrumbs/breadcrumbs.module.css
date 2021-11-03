@@ -2,6 +2,7 @@
     --whitespace-start: 1rem;
     --whitespace-end: 10px;
 
+    composes: h-auto from global;
     padding-left: var(--whitespace-start);
     padding-top: var(--whitespace-start);
     padding-bottom: var(--whitespace-end); /* Allow space for focus ring */

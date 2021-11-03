@@ -1,5 +1,6 @@
 ---
 title: Basic Concepts
+adobeio: /guides/general-concepts/
 ---
 
 The tools provided by the Magento PWA Studio project allows you to create websites that are fast, mobile-friendly, and reliable.

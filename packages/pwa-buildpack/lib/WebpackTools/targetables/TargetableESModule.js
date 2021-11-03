@@ -22,7 +22,7 @@ class TargetableESModule extends TargetableModule {
      * If a collision is detected, it renames the binding before inserting it.
      *
      * @param {(string|SingleImportStatement)} statement - A string representing the import statement, or a SingleImportStatement representing it.
-     * @returns {SingleImportStatement} An instance of the [`SingleImportStatement`] class.
+     * @returns {SingleImportStatement} An instance of the `SingleImportStatement` class.
      * @memberof TargetableESModule
      */
     addImport(statement) {
