@@ -1,5 +1,16 @@
 import {
     checkoutPageSignInButton,
+    checkoutPageShippingGuestEmailTextField,
+    checkoutPageShippingGuestFirstNameTextField,
+    checkoutPageShippingGuestLastNameTextField,
+    checkoutPageShippingGuestCountrySelect,
+    checkoutPageShippingGuestStreet1TextField,
+    checkoutPageShippingGuestStreet2TextField,
+    checkoutPageShippingGuestCityTextField,
+    checkoutPageShippingGuestRegionField,
+    checkoutPageShippingGuestPostCodeTextField,
+    checkoutPageShippingGuestTelephoneTextField,
+    checkoutPageShippingGuestSubmitButton,
     checkoutPageShippingCustomerFirstNameTextField,
     checkoutPageShippingCustomerLastNameTextField,
     checkoutPageShippingCustomerCountrySelect,
@@ -18,7 +29,13 @@ import {
     checkoutPageCreditCardCodeFrame,
     checkoutPageCreditCardFrameCodeField,
     checkoutPageReviewOrderButton,
-    checkoutPagePlaceOrderButton
+    checkoutPagePlaceOrderButton,
+    orderConfirmationCreateAccountFirstNameTextField,
+    orderConfirmationCreateAccountLastNameTextField,
+    orderConfirmationCreateAccountEmailTextField,
+    orderConfirmationCreateAccountPasswordTextField,
+    orderConfirmationCreateAccountNewsletterCheckbox,
+    orderConfirmationCreateAccountCreateAccountButton
 } from '../../fields/checkoutPage';
 
 export const toggleLoginDialog = () => {
@@ -34,7 +51,102 @@ export const placeOrder = () => {
 };
 
 /**
- * Utility function to edit Shipping Address
+ * Utility function to set Guest Shipping Address
+ *
+ * @param {Object} data address data
+ * @param {String} [data.email] email
+ * @param {String} [data.firstName] first name
+ * @param {String} [data.lastName] last name
+ * @param {String} [data.countryCode] country code
+ * @param {String} [data.street1] street 1
+ * @param {String} [data.street2] street 2
+ * @param {String} [data.city] city
+ * @param {String} [data.regionId] region id
+ * @param {String} [data.region] region text
+ * @param {String} [data.postCode] postal code
+ * @param {String} [data.telephone] phone number
+ */
+export const setGuestShippingAddress = ({
+    email,
+    firstName,
+    lastName,
+    countryCode,
+    street1,
+    street2,
+    city,
+    regionId,
+    region,
+    postCode,
+    telephone
+}) => {
+    if (email) {
+        cy.get(checkoutPageShippingGuestEmailTextField)
+            .clear()
+            .type(email);
+    }
+
+    if (firstName) {
+        cy.get(checkoutPageShippingGuestFirstNameTextField)
+            .clear()
+            .type(firstName);
+    }
+
+    if (lastName) {
+        cy.get(checkoutPageShippingGuestLastNameTextField)
+            .clear()
+            .type(lastName);
+    }
+
+    if (countryCode) {
+        cy.get(checkoutPageShippingGuestCountrySelect).select(countryCode);
+    }
+
+    if (street1) {
+        cy.get(checkoutPageShippingGuestStreet1TextField)
+            .clear()
+            .type(street1);
+    }
+
+    if (street2) {
+        cy.get(checkoutPageShippingGuestStreet2TextField)
+            .clear()
+            .type(street2);
+    }
+
+    if (city) {
+        cy.get(checkoutPageShippingGuestCityTextField)
+            .clear()
+            .type(city);
+    }
+
+    if (regionId) {
+        cy.get(checkoutPageShippingGuestRegionField)
+            .should('not.be.disabled')
+            .select(regionId);
+    } else if (region) {
+        cy.get(checkoutPageShippingGuestRegionField)
+            .should('not.be.disabled')
+            .clear()
+            .type(region);
+    }
+
+    if (postCode) {
+        cy.get(checkoutPageShippingGuestPostCodeTextField)
+            .clear()
+            .type(postCode);
+    }
+
+    if (telephone) {
+        cy.get(checkoutPageShippingGuestTelephoneTextField)
+            .clear()
+            .type(telephone);
+    }
+
+    cy.get(checkoutPageShippingGuestSubmitButton).click();
+};
+
+/**
+ * Utility function to set Customer Shipping Address
  *
  * @param {Object} data address data
  * @param {String} [data.firstName] first name
@@ -48,7 +160,7 @@ export const placeOrder = () => {
  * @param {String} [data.postCode] postal code
  * @param {String} [data.telephone] phone number
  */
-export const editShippingAddress = ({
+export const setCustomerShippingAddress = ({
     firstName,
     lastName,
     countryCode,
@@ -103,9 +215,12 @@ export const editShippingAddress = ({
     }
 
     if (regionId) {
-        cy.get(checkoutPageShippingCustomerRegionField).select(regionId);
+        cy.get(checkoutPageShippingCustomerRegionField)
+            .should('not.be.disabled')
+            .select(regionId);
     } else if (region) {
         cy.get(checkoutPageShippingCustomerRegionField)
+            .should('not.be.disabled')
             .clear()
             .type(region);
     }
@@ -158,4 +273,52 @@ export const editCreditCardInformation = ({
         .find(checkoutPageCreditCardFrameCodeField)
         .clear()
         .type(cvv);
+};
+
+/**
+ * Utility function to create account from Order Confirmation Page
+ *
+ * @param {Object} data user data
+ * @param {String} [data.firstName] first name
+ * @param {String} [data.lastName] last name
+ * @param {String} [data.email] email
+ * @param {String} data.password password
+ * @param {Boolean} [data.isSubscribed] subscribe to newsletter
+ */
+export const createAccountFromOrderConfirmationPage = ({
+    firstName,
+    lastName,
+    email,
+    password,
+    isSubscribed = false
+}) => {
+    if (firstName) {
+        cy.get(orderConfirmationCreateAccountFirstNameTextField)
+            .clear()
+            .type(firstName);
+    }
+
+    if (lastName) {
+        cy.get(orderConfirmationCreateAccountLastNameTextField)
+            .clear()
+            .type(lastName);
+    }
+
+    if (email) {
+        cy.get(orderConfirmationCreateAccountEmailTextField)
+            .clear()
+            .type(email);
+    }
+
+    cy.get(orderConfirmationCreateAccountPasswordTextField)
+        .clear()
+        .type(password);
+
+    if (isSubscribed) {
+        cy.get(orderConfirmationCreateAccountNewsletterCheckbox).check();
+    } else {
+        cy.get(orderConfirmationCreateAccountNewsletterCheckbox).uncheck();
+    }
+
+    cy.get(orderConfirmationCreateAccountCreateAccountButton).click();
 };

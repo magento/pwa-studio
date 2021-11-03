@@ -8,7 +8,7 @@ import {
 } from '../../fields/orderHistoryPage';
 import {
     defaultPaymentMethod,
-    defaultShippingMethod
+    defaultShippingMethods
 } from '../../fixtures/checkoutPage';
 
 /**
@@ -54,12 +54,12 @@ export const assertAddressInformationInOrderDetails = (
 /**
  * Utility function to assert Shipping Method
  *
- * @param {String} [shippingMethod]
+ * @param {String} [shippingMethodLabel]
  */
 export const assertShippingMethodInOrderDetails = (
-    shippingMethod = defaultShippingMethod
+    shippingMethodLabel = defaultShippingMethods.free.label
 ) => {
-    cy.get(orderDetailsShippingMethod).should('contain', shippingMethod);
+    cy.get(orderDetailsShippingMethod).should('contain', shippingMethodLabel);
 };
 
 /**

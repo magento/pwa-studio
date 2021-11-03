@@ -91,7 +91,7 @@ const PriceSummary = props => {
     ) : null;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="PriceSummary-root">
             <div className={classes.lineItems}>
                 <span className={classes.lineItemLabel}>
                     <FormattedMessage
