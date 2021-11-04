@@ -20,6 +20,11 @@ export const productValeriaTwoLayeredTank = {
     price: 68
 };
 
+export const productIsadoraSkirt = {
+    name: 'Isadora Skirt',
+    url: '/isadora-skirt.html'
+};
+
 /**
  * Sample simple product
  */

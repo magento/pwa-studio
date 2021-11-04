@@ -1,11 +1,12 @@
 import {
-    productName,
     kebabMenuButton,
     cartPageRoot,
     cartPageProductOption,
     cartPageProductQuantity,
     cartPageProductPrice,
-    productListingProductName
+    productListingProductName,
+    cartPagePriceSummaryDiscountSummary,
+    cartPagePriceSummaryGiftCardSummary
 } from '../../fields/cartPage';
 
 /**
@@ -14,7 +15,7 @@ import {
  * @param {String} name Product's name
  */
 export const assertProductInCartPage = name => {
-    cy.get(productName).should('contain', name);
+    cy.get(productListingProductName).should('contain', name);
 };
 
 export const assertKebabMenuExists = productName => {
@@ -49,4 +50,32 @@ export const assertUpdatedProductPriceExists = (productName, price) => {
         .contains('span', price)
         .should('exist');
     cy.get(productListingProductName).should('contain', name);
+};
+
+/**
+ * Utility function to assert a Coupon Code is applied
+ */
+export const assertAppliedCouponCodeInCartPage = () => {
+    cy.get(cartPagePriceSummaryDiscountSummary).should('exist');
+};
+
+/**
+ * Utility function to assert no Coupon Code is applied
+ */
+export const assertNoCouponCodeInCartPage = () => {
+    cy.get(cartPagePriceSummaryDiscountSummary).should('not.exist');
+};
+
+/**
+ * Utility function to assert a Gift Card is applied
+ */
+export const assertAppliedGiftCardInCartPage = () => {
+    cy.get(cartPagePriceSummaryGiftCardSummary).should('exist');
+};
+
+/**
+ * Utility function to assert no Gift Cards are applied
+ */
+export const assertNoGiftCardInCartPage = () => {
+    cy.get(cartPagePriceSummaryGiftCardSummary).should('not.exist');
 };

@@ -13,105 +13,7 @@ export const placeOrder = () => {
 };
 
 /**
- * Utility function to edit Customer Shipping Address
- *
- * @param {Object} data address data
- * @param {String} [data.firstName] first name
- * @param {String} [data.lastName] last name
- * @param {String} [data.countryCode] country code
- * @param {String} [data.street1] street 1
- * @param {String} [data.street2] street 2
- * @param {String} [data.city] city
- * @param {String} [data.regionId] region id
- * @param {String} [data.region] region text
- * @param {String} [data.postCode] postal code
- * @param {String} [data.telephone] phone number
- */
-export const editCustomerShippingAddress = ({
-    firstName,
-    lastName,
-    countryCode,
-    street1,
-    street2,
-    city,
-    regionId,
-    region,
-    postCode,
-    telephone
-}) => {
-    if (firstName) {
-        cy.get(fields.checkoutPageShippingCustomerFirstNameTextField).then(
-            $input => {
-                if ($input.attr('disabled') !== 'disabled') {
-                    cy.wrap($input)
-                        .clear()
-                        .type(firstName);
-                }
-            }
-        );
-    }
-
-    if (lastName) {
-        cy.get(fields.checkoutPageShippingCustomerLastNameTextField).then(
-            $input => {
-                if ($input.attr('disabled') !== 'disabled') {
-                    cy.wrap($input)
-                        .clear()
-                        .type(lastName);
-                }
-            }
-        );
-    }
-
-    if (countryCode) {
-        cy.get(fields.checkoutPageShippingCustomerCountrySelect).select(
-            countryCode
-        );
-    }
-
-    if (street1) {
-        cy.get(fields.checkoutPageShippingCustomerStreet1TextField)
-            .clear()
-            .type(street1);
-    }
-
-    if (street2) {
-        cy.get(fields.checkoutPageShippingCustomerStreet2TextField)
-            .clear()
-            .type(street2);
-    }
-
-    if (city) {
-        cy.get(fields.checkoutPageShippingCustomerCityTextField)
-            .clear()
-            .type(city);
-    }
-
-    if (regionId) {
-        cy.get(fields.checkoutPageShippingCustomerRegionField).select(regionId);
-    } else if (region) {
-        cy.get(fields.checkoutPageShippingCustomerRegionField)
-            .clear()
-            .type(region);
-    }
-
-    if (postCode) {
-        cy.get(fields.checkoutPageShippingCustomerPostCodeTextField)
-            .clear()
-            .type(postCode);
-    }
-
-    if (telephone) {
-        cy.get(fields.checkoutPageShippingCustomerTelephoneTextField)
-            .clear()
-            .type(telephone);
-    }
-
-    cy.get(fields.checkoutPageShippingCustomerSubmitButton).click();
-};
-
-/**
- * Utility function to edit Guest Shipping Address
+ * Utility function to set Guest Shipping Address
  *
  * @param {Object} data address data
  * @param {String} [data.email] email
@@ -126,7 +28,7 @@ export const editCustomerShippingAddress = ({
  * @param {String} [data.postCode] postal code
  * @param {String} [data.telephone] phone number
  */
-export const editGuestShippingAddress = ({
+export const setGuestShippingAddress = ({
     email,
     firstName,
     lastName,
@@ -217,6 +119,101 @@ export const editGuestShippingAddress = ({
 };
 
 /**
+ * Utility function to set Customer Shipping Address
+ *
+ * @param {Object} data address data
+ * @param {String} [data.firstName] first name
+ * @param {String} [data.lastName] last name
+ * @param {String} [data.countryCode] country code
+ * @param {String} [data.street1] street 1
+ * @param {String} [data.street2] street 2
+ * @param {String} [data.city] city
+ * @param {String} [data.regionId] region id
+ * @param {String} [data.region] region text
+ * @param {String} [data.postCode] postal code
+ * @param {String} [data.telephone] phone number
+ */
+export const setCustomerShippingAddress = ({
+    firstName,
+    lastName,
+    countryCode,
+    street1,
+    street2,
+    city,
+    regionId,
+    region,
+    postCode,
+    telephone
+}) => {
+    if (firstName) {
+        cy.get(fields.checkoutPageShippingCustomerFirstNameTextField).then($input => {
+            if ($input.attr('disabled') !== 'disabled') {
+                cy.wrap($input)
+                    .clear()
+                    .type(firstName);
+            }
+        });
+    }
+
+    if (lastName) {
+        cy.get(fields.checkoutPageShippingCustomerLastNameTextField).then($input => {
+            if ($input.attr('disabled') !== 'disabled') {
+                cy.wrap($input)
+                    .clear()
+                    .type(lastName);
+            }
+        });
+    }
+
+    if (countryCode) {
+        cy.get(fields.checkoutPageShippingCustomerCountrySelect).select(countryCode);
+    }
+
+    if (street1) {
+        cy.get(fields.checkoutPageShippingCustomerStreet1TextField)
+            .clear()
+            .type(street1);
+    }
+
+    if (street2) {
+        cy.get(fields.checkoutPageShippingCustomerStreet2TextField)
+            .clear()
+            .type(street2);
+    }
+
+    if (city) {
+        cy.get(fields.checkoutPageShippingCustomerCityTextField)
+            .clear()
+            .type(city);
+    }
+
+    if (regionId) {
+        cy.get(fields.checkoutPageShippingCustomerRegionField)
+            .should('not.be.disabled')
+            .select(regionId);
+    } else if (region) {
+        cy.get(fields.checkoutPageShippingCustomerRegionField)
+            .should('not.be.disabled')
+            .clear()
+            .type(region);
+    }
+
+    if (postCode) {
+        cy.get(fields.checkoutPageShippingCustomerPostCodeTextField)
+            .clear()
+            .type(postCode);
+    }
+
+    if (telephone) {
+        cy.get(fields.checkoutPageShippingCustomerTelephoneTextField)
+            .clear()
+            .type(telephone);
+    }
+
+    cy.get(fields.checkoutPageShippingCustomerSubmitButton).click();
+};
+
+/**
  * Utility function to edit Credit Cart Information
  *
  * @param {Object} data credit card data
@@ -249,6 +246,54 @@ export const editCreditCardInformation = ({
         .find(fields.checkoutPageCreditCardFrameCodeField)
         .clear()
         .type(cvv);
+};
+
+/**
+ * Utility function to create account from Order Confirmation Page
+ *
+ * @param {Object} data user data
+ * @param {String} [data.firstName] first name
+ * @param {String} [data.lastName] last name
+ * @param {String} [data.email] email
+ * @param {String} data.password password
+ * @param {Boolean} [data.isSubscribed] subscribe to newsletter
+ */
+export const createAccountFromOrderConfirmationPage = ({
+    firstName,
+    lastName,
+    email,
+    password,
+    isSubscribed = false
+}) => {
+    if (firstName) {
+        cy.get(fields.orderConfirmationCreateAccountFirstNameTextField)
+            .clear()
+            .type(firstName);
+    }
+
+    if (lastName) {
+        cy.get(fields.orderConfirmationCreateAccountLastNameTextField)
+            .clear()
+            .type(lastName);
+    }
+
+    if (email) {
+        cy.get(fields.orderConfirmationCreateAccountEmailTextField)
+            .clear()
+            .type(email);
+    }
+
+    cy.get(fields.orderConfirmationCreateAccountPasswordTextField)
+        .clear()
+        .type(password);
+
+    if (isSubscribed) {
+        cy.get(fields.orderConfirmationCreateAccountNewsletterCheckbox).check();
+    } else {
+        cy.get(fields.orderConfirmationCreateAccountNewsletterCheckbox).uncheck();
+    }
+
+    cy.get(fields.orderConfirmationCreateAccountCreateAccountButton).click();
 };
 
 /**

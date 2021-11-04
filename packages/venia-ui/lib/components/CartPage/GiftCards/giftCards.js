@@ -166,6 +166,7 @@ const GiftCards = props => {
                 <div className={containerClass}>
                     <TextInput
                         id={classes.card}
+                        data-cy="GiftCards-card"
                         disabled={isApplyingCard || isCheckingBalance}
                         field="card"
                         mask={value => value && value.trim()}
@@ -187,6 +188,7 @@ const GiftCards = props => {
             >
                 <Button
                     priority={'normal'}
+                    data-cy="GiftCards-apply"
                     disabled={isApplyingCard}
                     onClick={applyGiftCard}
                 >

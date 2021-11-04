@@ -44,7 +44,7 @@ const {
     toggleLoginDialog,
     reviewOrder,
     placeOrder,
-    editCustomerShippingAddress,
+    setCustomerShippingAddress,
     editCreditCardInformation
 } = checkoutPageActions;
 const {
@@ -71,7 +71,7 @@ const {
 } = orderHistoryPageAssertions;
 
 const completeShippingAddress = {
-    ...checkoutShippingData,
+    ...checkoutShippingData.us,
     firstName,
     lastName
 };
@@ -168,10 +168,10 @@ describe('verify checkout actions', () => {
         assertProductInCartPage(productValeriaTwoLayeredTank.name);
         assertProductInCartPage(productAugustaEarrings.name);
 
-        // Test - Edit Shipping Address
+        // Test - Set Customer Shipping Address
         cy.visitCheckoutPage();
 
-        editCustomerShippingAddress(completeShippingAddress);
+        setCustomerShippingAddress(completeShippingAddress);
 
         cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
             timeout: 60000

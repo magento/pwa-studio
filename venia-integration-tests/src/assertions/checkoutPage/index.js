@@ -3,7 +3,6 @@ import {
     checkoutPageSelectedShippingMethod,
     checkoutPagePaymentInformation,
     checkoutPageItemsReview,
-    orderConfirmationPage,
     checkoutPageHeading,
     checkoutPageSignInButton,
     checkoutPagePriceSummarySubtotalPrice,
@@ -12,9 +11,12 @@ import {
     checkoutPagePriceSummaryShippingPrice,
     checkoutPageOrderSummaryCard,
     checkoutPageOrderConfirmationHeader,
-    checkoutPageOrderConfirmationNumber
+    checkoutPageOrderConfirmationNumber,
+    checkoutPagePriceSummaryDiscountSummary,
+    checkoutPagePriceSummaryGiftCardSummary,
+    orderConfirmationPage
 } from '../../fields/checkoutPage';
-import { defaultShippingMethod } from '../../fixtures/checkoutPage';
+import { defaultShippingMethods } from '../../fixtures/checkoutPage';
 
 /**
  * Utility function to assert Address is in Shipping Information
@@ -73,20 +75,34 @@ export const assertAddressInShippingInformationInCheckoutPage = (
 };
 
 /**
+ * Utility function to assert a Coupon Code is applied
+ */
+export const assertAppliedCouponCodeInCheckoutPage = () => {
+    cy.get(checkoutPagePriceSummaryDiscountSummary).should('exist');
+};
+
+/**
+ * Utility function to assert a Gift Card is applied
+ */
+export const assertAppliedGiftCardInCheckoutPage = () => {
+    cy.get(checkoutPagePriceSummaryGiftCardSummary).should('exist');
+};
+
+/**
  * Utility function to assert selected Shipping Method
  *
- * @param {String} [shippingMethod]
+ * @param {String} [shippingMethodLabel]
  * @param {Boolean} [isOrderConfirmationPage] checks in Order Confirmation Page
  */
 export const assertSelectedShippingMethodInCheckoutPage = (
-    shippingMethod = defaultShippingMethod,
+    shippingMethodLabel = defaultShippingMethods.free.label,
     isOrderConfirmationPage = false
 ) => {
     const container = isOrderConfirmationPage
         ? orderConfirmationPage
         : checkoutPageSelectedShippingMethod;
 
-    cy.get(container).should('contain', shippingMethod);
+    cy.get(container).should('contain', shippingMethodLabel);
 };
 
 /**

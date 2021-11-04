@@ -8,7 +8,10 @@ import { useStyle } from '../../classify';
 import defaultClasses from './section.module.css';
 
 const Section = props => {
-    const { children, id, title } = props;
+    const { children, id, title, ...restProps } = props;
+
+    // Remove isOpen from restProps to avoid having it in the root container
+    delete restProps.isOpen;
 
     const { handleSectionToggle, openSectionIds } = useAccordionContext();
 
@@ -27,9 +30,10 @@ const Section = props => {
         : classes.contents_container_closed;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} {...restProps}>
             <button
                 className={classes.title_container}
+                data-cy="Section-titleContainer"
                 onClick={handleSectionToggleWithId}
                 type="button"
             >
