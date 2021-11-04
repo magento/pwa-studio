@@ -79,10 +79,7 @@ Your project may not depend on some of the packages listed on this table.
 | `upward-php`                    | 1.2.0          |
 
 
-[PWA-2332]: https://jira.corp.magento.com/browse/PWA-2332
-[PWA-2331]: https://jira.corp.magento.com/browse/PWA-2331
-[PWA-2330]: https://jira.corp.magento.com/browse/PWA-2330
-[PWA-2329]: https://jira.corp.magento.com/browse/PWA-2329
+[PWA-2364]: https://jira.corp.magento.com/browse/PWA-2364
 [PWA-2287]: https://jira.corp.magento.com/browse/PWA-2287
 [PWA-2286]: https://jira.corp.magento.com/browse/PWA-2286
 [PWA-2251]: https://jira.corp.magento.com/browse/PWA-2251
@@ -98,6 +95,7 @@ Your project may not depend on some of the packages listed on this table.
 [PWA-2004]: https://jira.corp.magento.com/browse/PWA-2004
 [PWA-1885]: https://jira.corp.magento.com/browse/PWA-1885
 
+[3535]: https://github.com/magento/pwa-studio/pull/3535
 [3506]: https://github.com/magento/pwa-studio/pull/3506
 [3513]: https://github.com/magento/pwa-studio/pull/3513
 [5]: https://github.com/magento-commerce/upward-php/pull/5
@@ -115,4 +113,4 @@ Your project may not depend on some of the packages listed on this table.
 [5]: https://github.com/magento-commerce/magento2-pwa/pull/5
 [3472]: https://github.com/magento/pwa-studio/pull/3472
 
-[PWA Studio releases]: https://github.com/magento/pwa-studio/releases
+[PWA Studio releases]: https://github.com/magento/pwa-studio/releases "releases"
