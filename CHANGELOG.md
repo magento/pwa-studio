@@ -4,6 +4,8 @@
 _This changelog only contains release notes for PWA Studio and Venia 12.1.0_
 _For older release notes, see_ [PWA Studio releases][].
 
+## Summary of changes
+
 | Type  | Description                                                              | Jira Issue   | GitHub PR     |
 | :---- | :----------------------------------------------------------------------- | :----------- | :------------ |
 | Bug   | Add to Cart flow for simple products on Home page is broken              | [PWA-2364][] | [3535][]      |
@@ -14,32 +16,48 @@ _For older release notes, see_ [PWA Studio releases][].
 | Story | Parallelize Cypress tests on the CI                                      | [PWA-2154][] | [3460][]      |
 | Story | Venia Sample Data metapackage deployVeniaSampleData.sh script update     | [PWA-2151][] | [3473][]      |
 | Task  | Add installation instructions to Venia Sample Data repo                  | [PWA-2141][] | [8][]         |
-| Task  | Add local and Cloud installation instructions to meta packages           | [PWA-2140][] | [4][][1][]    |
-| Bug   | Cart page out of stock crash                                             | [PWA-2133][] | [3447][][6][] |
+| Task  | Add local and Cloud installation instructions to meta packages           | [PWA-2140][] | [4][], [1][]    |
+| Bug   | Cart page out of stock crash                                             | [PWA-2133][] | [3447][], [6][] |
 | Story | Update Item Quantities                                                   | [PWA-2132][] | [3464][]      |
 | Bug   | Improve Venia "create" scaffold script to stop relying on NPM log output | [PWA-2131][] | [3463][]      |
 | Story | Create Venia Sample Data metapackage                                     | [PWA-2106][] | [2][]         |
 | Story | GQL Support for Contact Us & Newsletter                                  | [PWA-2004][] | [5][]         |
 | Story | Refactor Site Header to use Tailwind Theme                               | [PWA-1885][] | [3472][]      |
 
+## Highlights
 
-## New Features
-
-## Updates
+-  [3472][] — Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. All our other components will be updated in the next release.
+-  [3473][], [2][] — Created Venia sample data metapackage to create sample data for your Venia-based site.
+-  [5][] — Added GraphQL support for the Contact Us and Newsletter forms.
 
 ## Bug fixes
 
-## Documentation Updates
+-  [3464][] — Cart: Fixed an issue that prevented users from updating item quantities and removing items from the cart when using Magento 2.4-develop and 2.4.3 backends.
+-  [3447][] — Cart: Fixed a rendering issue where out-of-stock products in your cart could not be removed.
+-  [3495][] — Cart: Fixed issues that occurred when accessing the same store from different browser tabs or windows. To fix the problem, we introduced a storage listener on the cart context that fires a page reload whenever the `cartId` changes from another tab. Reloading the page forces Redux to persist a new `cartId` in storage.
+-  [3535][] — Cart: Fixed a regression issue (during 12.1.0 development) that prevented the Add to Cart button from working on simple products featured on the Venia Home page.
+-  [3513][] — Fixed broken `Header` style when using the `develop` branch in a scaffolded project.
+-  [3463][] - Scaffolding CLI: Fixed the Venia `_buildpack/create.js` `DEBUG_PROJECT_CREATION` test flag that broke when using NPM versions >=`7.23`.
+
+## Documentation updates
+
+-  [8][] — Added instructions for installing Venia sample data from the new [magento-commerce/venia-sample-data-modules](https://github.com/magento-commerce/venia-sample-data-modules) to the Venia Sample Data repo.
+
+-  [4][], [1][] — Added instructions for installing our new meta-packages for both local and cloud-based environments.
 
 ## Breaking Changes
 
+-  [3447][] — The fix for the cart rendering issue requires you to install our new meta-package. The meta-package adds a new GraphQL endpoint used to fix the cart rendering issue. This endpoint is not in then Commerce core.
+
 ## Known Issues
+
+No known issues.
 
 ## Test Updates
 
-## Repo Maintenance Tasks
+-  [3460][] — Added Docker parallelization for Cypress testing to cut testing times by 50%. When run synchronously, the whole suite of tests took about 30 minutes. Now it takes 13–15 minutes.
 
-
+-  [3506][] - Fixed outdated snapshots for failing Page Builder tests on the `develop`. The tests started failing when the Newsletter form was added to the footer.
 
 ## Upgrading from a previous version
 
@@ -112,4 +130,4 @@ Your project may not depend on some of the packages listed on this table.
 [5]: https://github.com/magento-commerce/magento2-pwa/pull/5
 [3472]: https://github.com/magento/pwa-studio/pull/3472
 
-[PWA Studio releases]: https://github.com/magento/pwa-studio/releases "releases"
+[PWA Studio releases]: https://github.com/magento/pwa-studio/releases
