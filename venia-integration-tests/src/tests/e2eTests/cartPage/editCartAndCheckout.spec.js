@@ -26,7 +26,7 @@ const {
 } = productPageActions;
 const { triggerMiniCart, goToCartPageFromEditCartButton } = miniCartActions;
 const {
-    editGuestShippingAddress,
+    setGuestShippingAddress,
     submitShippingMethod,
     editCreditCardInformation,
     reviewOrder,
@@ -169,7 +169,7 @@ describe('Verify cart editing and checkout', () => {
         goToCheckout();
         assertCheckoutHasGuestHeader();
 
-        editGuestShippingAddress(checkoutCustomer1);
+        setGuestShippingAddress(checkoutCustomer1);
         cy.wait(['@gqlGetSelectedAndAvailableShippingMethodsQuery'], {
             timeout: 60000
         });
@@ -210,7 +210,7 @@ describe('Verify cart editing and checkout', () => {
         });
 
         openEditShippingInformationDialog();
-        editGuestShippingAddress(checkoutCustomer2);
+        setGuestShippingAddress(checkoutCustomer2);
 
         cy.wait(['@gqlSetGuestShippingMutation'], {
             timeout: 60000
