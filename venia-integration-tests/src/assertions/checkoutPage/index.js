@@ -16,7 +16,10 @@ import {
     checkoutPagePriceSummaryGiftCardSummary,
     orderConfirmationPage
 } from '../../fields/checkoutPage';
-import { defaultShippingMethods } from '../../fixtures/checkoutPage';
+import {
+    defaultShippingMethod,
+    defaultShippingMethods
+} from '../../fixtures/checkoutPage';
 
 /**
  * Utility function to assert Address is in Shipping Information
