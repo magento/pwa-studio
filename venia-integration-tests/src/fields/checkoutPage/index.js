@@ -1,37 +1,37 @@
 export const checkoutPageSignInButton = '[data-cy="CheckoutPage-signInButton"]';
 
 export const checkoutPageShippingGuestEmailTextField =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-email"]';
+    '[data-cy="GuestForm-email"]';
 
 export const checkoutPageShippingGuestFirstNameTextField =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-firstName"]';
+    '[data-cy="GuestForm-firstName"]';
 
 export const checkoutPageShippingGuestLastNameTextField =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-lastName"]';
+    '[data-cy="GuestForm-lastName"]';
 
 export const checkoutPageShippingGuestCountrySelect =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-country"]';
+    '[data-cy="GuestForm-country"]';
 
 export const checkoutPageShippingGuestStreet1TextField =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-street0"]';
+    '[data-cy="GuestForm-street0"]';
 
 export const checkoutPageShippingGuestStreet2TextField =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-street1"]';
+    '[data-cy="GuestForm-street1"]';
 
 export const checkoutPageShippingGuestCityTextField =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-city"]';
+    '[data-cy="GuestForm-city"]';
 
 export const checkoutPageShippingGuestRegionField =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-region"]';
+    '[data-cy="GuestForm-region"]';
 
 export const checkoutPageShippingGuestPostCodeTextField =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-postcode"]';
+    '[data-cy="GuestForm-postcode"]';
 
 export const checkoutPageShippingGuestTelephoneTextField =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-telephone"]';
+    '[data-cy="GuestForm-telephone"]';
 
 export const checkoutPageShippingGuestSubmitButton =
-    '[data-cy="CheckoutPage-root"] [data-cy="ShippingInformation-root"] [data-cy="GuestForm-submitButton"]';
+    '[data-cy="GuestForm-submitButton"]';
 
 export const checkoutPageShippingCustomerForm =
     '[data-cy="ShippingInformation-root"] [data-cy="CustomerForm-root"]';

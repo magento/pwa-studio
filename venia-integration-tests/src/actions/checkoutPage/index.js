@@ -146,27 +146,33 @@ export const setCustomerShippingAddress = ({
     telephone
 }) => {
     if (firstName) {
-        cy.get(fields.checkoutPageShippingCustomerFirstNameTextField).then($input => {
-            if ($input.attr('disabled') !== 'disabled') {
-                cy.wrap($input)
-                    .clear()
-                    .type(firstName);
+        cy.get(fields.checkoutPageShippingCustomerFirstNameTextField).then(
+            $input => {
+                if ($input.attr('disabled') !== 'disabled') {
+                    cy.wrap($input)
+                        .clear()
+                        .type(firstName);
+                }
             }
-        });
+        );
     }
 
     if (lastName) {
-        cy.get(fields.checkoutPageShippingCustomerLastNameTextField).then($input => {
-            if ($input.attr('disabled') !== 'disabled') {
-                cy.wrap($input)
-                    .clear()
-                    .type(lastName);
+        cy.get(fields.checkoutPageShippingCustomerLastNameTextField).then(
+            $input => {
+                if ($input.attr('disabled') !== 'disabled') {
+                    cy.wrap($input)
+                        .clear()
+                        .type(lastName);
+                }
             }
-        });
+        );
     }
 
     if (countryCode) {
-        cy.get(fields.checkoutPageShippingCustomerCountrySelect).select(countryCode);
+        cy.get(fields.checkoutPageShippingCustomerCountrySelect).select(
+            countryCode
+        );
     }
 
     if (street1) {
@@ -290,7 +296,9 @@ export const createAccountFromOrderConfirmationPage = ({
     if (isSubscribed) {
         cy.get(fields.orderConfirmationCreateAccountNewsletterCheckbox).check();
     } else {
-        cy.get(fields.orderConfirmationCreateAccountNewsletterCheckbox).uncheck();
+        cy.get(
+            fields.orderConfirmationCreateAccountNewsletterCheckbox
+        ).uncheck();
     }
 
     cy.get(fields.orderConfirmationCreateAccountCreateAccountButton).click();

@@ -159,9 +159,9 @@ export const assertBillingInformationInCheckoutPage = ({
  *
  * @param {Object} data Product's data
  * @param {String} data.name Product's name
- * @param {string} [data.color] Product's color
+ * @param {String} [data.color] Product's color
  * @param {String} [data.size] Product's size
- * @param {String} data.quantity Product's quantity
+ * @param {String|Number} [data.quantity] Product's quantity
  * @param {Boolean} [isOrderConfirmationPage] checks in Order Confirmation Page
  */
 export const assertProductInCheckoutPage = (
@@ -180,8 +180,9 @@ export const assertProductInCheckoutPage = (
     if (size) {
         cy.get(container).should('contain', size);
     }
-
-    cy.get(container).should('contain', quantity);
+    if (quantity) {
+        cy.get(container).should('contain', quantity);
+    }
 };
 
 /**
