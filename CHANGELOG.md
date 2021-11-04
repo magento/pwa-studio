@@ -4,7 +4,14 @@
 _This changelog only contains release notes for PWA Studio and Venia 12.1.0_
 _For older release notes, see_ [PWA Studio releases][].
 
-## Summary of changes
+## New Features
+
+-  **Added new PWA Tailwind theming to Venia Header**: Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. All our other components will be updated in the next release. GitHub PR: [3472][].
+-  **Added PWA Studio metapackage**: This metapackage establishes a new way for PWA extension developers to add the additional features needed to support their PWA modules. Future PWA Studio features will depend on this metapackage being present. For more details, see the [PWA metapackage repo](https://github.com/magento-commerce/magento2-pwa). GitHub PRs: [4][], [1][].
+-  **Added Venia Sample Data metapackage**: This metapackage enables you to create your own sample data for your Venia-based PWA site. For more details, see the [Venia Sample Data metapackage repo](https://github.com/magento-commerce/venia-sample-data-modules). GitHub PRs: [3473][], [2][].
+-  **Added GraphQL endpoint for Contact and Newsletter froms**: You can now use GraphQL to submit data entered in the Contact Us and Newsletter subscription forms to the Commerce / Magento backend, where you can perforn additionsend an email to the address configuredContact Us and Newsletter forms. GitHub PR: [5][].
+
+## Summary of all changes
 
 | Type  | Description                                                              | Jira Issue   | GitHub PR     |
 | :---- | :----------------------------------------------------------------------- | :----------- | :------------ |
@@ -23,12 +30,6 @@ _For older release notes, see_ [PWA Studio releases][].
 | Story | Create Venia Sample Data metapackage                                     | [PWA-2106][] | [2][]         |
 | Story | GQL Support for Contact Us & Newsletter                                  | [PWA-2004][] | [5][]         |
 | Story | Refactor Site Header to use Tailwind Theme                               | [PWA-1885][] | [3472][]      |
-
-## Highlights
-
--  [3472][] — Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. All our other components will be updated in the next release.
--  [3473][], [2][] — Created Venia sample data metapackage to create sample data for your Venia-based site.
--  [5][] — Added GraphQL support for the Contact Us and Newsletter forms.
 
 ## Bug fixes
 
