@@ -78,7 +78,6 @@ Your project may not depend on some of the packages listed on this table.
 | `magento2-upward-connector`     | 1.3.0          |
 | `upward-php`                    | 1.2.0          |
 
-
 [PWA-2364]: https://jira.corp.magento.com/browse/PWA-2364
 [PWA-2287]: https://jira.corp.magento.com/browse/PWA-2287
 [PWA-2286]: https://jira.corp.magento.com/browse/PWA-2286
