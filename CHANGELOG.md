@@ -4,23 +4,24 @@
 _This changelog only contains release notes for PWA Studio and Venia 12.1.0_
 _For older release notes, see_ [PWA Studio releases][].
 
-| Type  | Status       | Assignee                 | Description                                                                           | Jira Issue   | GitHub PR       | Release    |
-| :---- | :----------- | :----------------------- | :------------------------------------------------------------------------------------ | :----------- | :-------------- | :--------- |
-| Task  | Done         |                          | Publish new Magento PWA meta package https://github.com/magento-commerce/magento2-pwa | [PWA-2329][] | No PR           | PWA-12.1.0 |
-| Bug   | Deployment Q | Tommy Wiebell            | Cypress snapshots outdated with newsletter in footer                                  | [PWA-2287][] | [3506][]        | PWA-12.1.0 |
-| Bug   | Deployment Q | Devagouda Patil          | Venia Mega nav is broken in scaffolded app on develop branch.                         | [PWA-2286][] | [3513][]        | PWA-12.1.0 |
-| Task  | Deployment Q | Devagouda Patil          | Repo Metadata Service Onboarding: UPWARD-PHP                                          | [PWA-2251][] | [5][]           | PWA-12.1.0 |
-| Bug   | Deployment Q | Justin Conabree          | Cart remains active in browser memory on PWA site even after checkout                 | [PWA-2190][] | [3495][]        | PWA-12.1.0 |
-| Story | Deployment Q | Tommy Wiebell            | Parallelize Cypress tests on the CI                                                   | [PWA-2154][] | [3460][]        | PWA-12.1.0 |
-| Story | Deployment Q | James Calcaben           | Venia Sample Data metapackage deployVeniaSampleData.sh script update                  | [PWA-2151][] | [3473][]        | PWA-12.1.0 |
-| Task  | Deployment Q | Tommy Wiebell            | Add installation instructions to Venia Sample Data repo                               | [PWA-2141][] | [8][]           | PWA-12.1.0 |
-| Task  | Deployment Q | Bruce Denham             | Add local and Cloud installation instructions to meta packages                        | [PWA-2140][] | [4][], [1][]    | PWA-12.1.0 |
-| Bug   | Deployment Q |                          | Cart page out of stock crash                                                          | [PWA-2133][] | [3447][], [6][] | PWA-12.1.0 |
-| Story | Deployment Q |                          | Update Item Quantities                                                                | [PWA-2132][] | [3464][]        | PWA-12.1.0 |
-| Bug   | Deployment Q | Revanth kumar Annavarapu | Improve Venia "create" scaffold script to stop relying on NPM log output              | [PWA-2131][] | [3463][]        | PWA-12.1.0 |
-| Story | Deployment Q | Ievgen Kolesov           | Create Venia Sample Data metapackage                                                  | [PWA-2106][] | [2][]           | PWA-12.1.0 |
-| Story | Deployment Q | Tommy Wiebell            | GQL Support for Contact Us & Newsletter                                               | [PWA-2004][] | [5][]           | PWA-12.1.0 |
-| Story | Deployment Q | Justin Conabree          | Refactor Site Header to use Tailwind Theme                                            | [PWA-1885][] | [3472][]        | PWA-12.1.0 |
+| Type  | Description                                                              | Jira Issue   | GitHub PR     |
+| :---- | :----------------------------------------------------------------------- | :----------- | :------------ |
+| Bug   | Add to Cart flow for simple products on Home page is broken              | [PWA-2364][] | [3535][]      |
+| Bug   | Cypress snapshots outdated with newsletter in footer                     | [PWA-2287][] | [3506][]      |
+| Bug   | Venia Mega nav is broken in scaffolded app on develop branch.            | [PWA-2286][] | [3513][]      |
+| Task  | Repo Metadata Service Onboarding: UPWARD-PHP                             | [PWA-2251][] | [5][]         |
+| Bug   | Cart remains active in browser memory on PWA site even after checkout    | [PWA-2190][] | [3495][]      |
+| Story | Parallelize Cypress tests on the CI                                      | [PWA-2154][] | [3460][]      |
+| Story | Venia Sample Data metapackage deployVeniaSampleData.sh script update     | [PWA-2151][] | [3473][]      |
+| Task  | Add installation instructions to Venia Sample Data repo                  | [PWA-2141][] | [8][]         |
+| Task  | Add local and Cloud installation instructions to meta packages           | [PWA-2140][] | [4][][1][]    |
+| Bug   | Cart page out of stock crash                                             | [PWA-2133][] | [3447][][6][] |
+| Story | Update Item Quantities                                                   | [PWA-2132][] | [3464][]      |
+| Bug   | Improve Venia "create" scaffold script to stop relying on NPM log output | [PWA-2131][] | [3463][]      |
+| Story | Create Venia Sample Data metapackage                                     | [PWA-2106][] | [2][]         |
+| Story | GQL Support for Contact Us & Newsletter                                  | [PWA-2004][] | [5][]         |
+| Story | Refactor Site Header to use Tailwind Theme                               | [PWA-1885][] | [3472][]      |
+
 
 ## New Features
 
@@ -37,9 +38,6 @@ _For older release notes, see_ [PWA Studio releases][].
 ## Test Updates
 
 ## Repo Maintenance Tasks
-
-
-
 
 
 
@@ -80,35 +78,6 @@ Your project may not depend on some of the packages listed on this table.
 | `magento2-upward-connector`     | 1.3.0          |
 | `upward-php`                    | 1.2.0          |
 
-### Update template files
-
-The following template files contain updates in 12.1.0:
-
-- [src/.storybook/config.js](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/src/.storybook/config.js)
-- [src/index.js](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/src/index.js)
-- [src/ServiceWorker/registerRoutes.js](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/src/ServiceWorker/registerRoutes.js)
-- [src/ServiceWorker/setupWorkbox.js](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/src/ServiceWorker/setupWorkbox.js)
-- [src/ServiceWorker/Utilities/ImageCacheHandler.js](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/src/ServiceWorker/Utilities/ImageCacheHandler.js)
-- [.graphqlconfig](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/.grpahqlconfig)
-- [package.json](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/package.json)
-- [template.html](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/template.html)
-- [webpack.config.js](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/webpack.config.js)
-
-If you did not make any modifications to these files, you can copy and paste the new content over your old template files in your project.
-If you made modifications to these files in your project, you will have to manually apply the changes by using `git diff` on the PWA Studio repository or by using a [diff tool][].
-
-[diff tool]: https://marketplace.visualstudio.com/search?term=diff&target=VSCode&category=All%20categories&sortBy=Relevance
-
-### New template files
-
-The following template files have been added in 12.1.0:
-
-- [src/index.css](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/src/index.css)
-- [postcss.config.js](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/postcss.config.js)
-- [tailwind.config.js](https://github.com/magento/pwa-studio/blob/v12.0.0/packages/venia-concept/tailwind.config.js)
-
-Add these files to your project as part of your project upgrade to 12.1.0.
-
 
 [PWA-2332]: https://jira.corp.magento.com/browse/PWA-2332
 [PWA-2331]: https://jira.corp.magento.com/browse/PWA-2331
@@ -146,4 +115,4 @@ Add these files to your project as part of your project upgrade to 12.1.0.
 [5]: https://github.com/magento-commerce/magento2-pwa/pull/5
 [3472]: https://github.com/magento/pwa-studio/pull/3472
 
-[PWA Studio releases]: https://github.com/magento/pwa-studio/releases "releases"
+[PWA Studio releases]: https://github.com/magento/pwa-studio/releases
