@@ -10,6 +10,7 @@ import { useStyle } from '../../classify';
 import { isRequired } from '../../util/formValidators';
 
 import Button from '../Button';
+import CmsBlock from '../CmsBlock/block';
 import { StoreTitle } from '../Head';
 import FormError from '../FormError';
 import Field from '../Field';
@@ -20,17 +21,25 @@ import ErrorView from '../ErrorView';
 import Shimmer from './contactPage.shimmer';
 import defaultClasses from './contactPage.module.css';
 
+const BANNER_IDENTIFIER = 'contact-us-banner';
+const SIDEBAR_IDENTIFIER = 'contact-us-sidebar';
 const NOT_FOUND_MESSAGE = "Looks like the page you were hoping to find doesn't exist. Sorry about that.";
 
 const ContactPage = props => {
     const { classes: propClasses } = props;
     const classes = useStyle(defaultClasses, propClasses);
     const { formatMessage } = useIntl();
-    const talonProps = useContactPage();
+    const talonProps = useContactPage({
+        cmsBlockIdentifiers: [
+            BANNER_IDENTIFIER,
+            SIDEBAR_IDENTIFIER
+        ]
+    });
     const [, { addToast }] = useToasts();
 
     const {
         isEnabled,
+        cmsBlocks,
         errors,
         handleSubmit,
         isBusy,
@@ -86,6 +95,26 @@ const ContactPage = props => {
         </div>
     ) : null;
 
+    const contactUsBannerContent = cmsBlocks.find(
+        item => item.identifier === BANNER_IDENTIFIER
+    )?.content;
+
+    const contactUsBanner = contactUsBannerContent ? (
+        <div className={classes.banner}>
+            <CmsBlock content={contactUsBannerContent} />
+        </div>
+    ) : null;
+
+    const contactUsSidebarContent = cmsBlocks.find(
+        item => item.identifier === SIDEBAR_IDENTIFIER
+    )?.content;
+
+    const contactUsSidebar = contactUsSidebarContent ? (
+        <div className={classes.sideContent}>
+            <CmsBlock content={contactUsSidebarContent} />
+        </div>
+    ) : null;
+
     return (
         <div className={classes.root} data-cy="ContactPage-root">
             <StoreTitle>
@@ -94,7 +123,7 @@ const ContactPage = props => {
                     defaultMessage: 'Contact Us'
                 })}
             </StoreTitle>
-            <div className={classes.banner}>{/** Banner CMS Block **/}</div>
+            {contactUsBanner}
             <div className={classes.content}>
                 <div className={classes.formContainer}>
                     {maybeLoadingIndicator}
@@ -202,9 +231,7 @@ const ContactPage = props => {
                         </div>
                     </Form>
                 </div>
-                <div className={classes.sideContent}>
-                    {/** Side content CMS Block **/}
-                </div>
+                {contactUsSidebar}
             </div>
         </div>
     );
