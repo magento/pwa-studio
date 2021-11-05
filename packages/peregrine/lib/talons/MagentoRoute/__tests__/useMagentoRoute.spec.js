@@ -208,6 +208,7 @@ describe('returns NOT_FOUND when queries come back empty', () => {
         });
 
         expect(replace).toHaveBeenCalledTimes(0);
+        expect(getRootComponent).not.toHaveBeenCalled();
         expect(log).toHaveBeenCalledTimes(2);
         expect(log).toHaveBeenNthCalledWith(2, {
             isNotFound: true
@@ -411,10 +412,7 @@ describe('loading type', async () => {
             return [state, api];
         });
 
-        givenQueryResult({ loading: true });
-
         let tree;
-
         await act(() => {
             tree = create(<Component key="a" />);
         });
@@ -440,6 +438,8 @@ describe('loading type', async () => {
         await act(() => {
             tree.update(<Component key="a" />);
         });
+
+        expect(getRootComponent).toHaveBeenCalled();
 
         expect(log).toHaveBeenNthCalledWith(1, {
             isLoading: true,

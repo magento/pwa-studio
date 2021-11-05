@@ -47,18 +47,29 @@ export const useMagentoRoute = (props = {}) => {
     const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery, {
         onCompleted: async ({ route }) => {
             fetching.current = false;
-            if (!component) {
-                const { type, ...routeData } = route || {};
-                try {
-                    const rootComponent = await getRootComponent(type);
-                    setComponent(pathname, {
-                        component: rootComponent,
-                        ...getComponentData(routeData),
-                        type
-                    });
-                } catch (error) {
-                    setComponent(pathname, error);
+            if (component) {
+                return;
+            }
+
+            const { type, ...routeData } = route || {};
+
+            if (!type) {
+                return;
+            }
+
+            try {
+                const rootComponent = await getRootComponent(type);
+                setComponent(pathname, {
+                    component: rootComponent,
+                    ...getComponentData(routeData),
+                    type
+                });
+            } catch (error) {
+                if (process.env.NODE_ENV !== 'production') {
+                    console.error(error);
                 }
+
+                setComponent(pathname, error);
             }
         },
         onError: () => {
