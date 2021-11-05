@@ -6,10 +6,10 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## New Features
 
--  **Added new PWA Tailwind theming to Venia Header**: Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. All our other components will be updated in the next release. GitHub PR: [3472][].
+-  **Added new PWA Tailwind theming to Venia Header**: Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. Other components will follow in the coming releases. GitHub PR: [3472][].
 -  **Added PWA Studio metapackages**: These metapackages establish a new way to add additional features to support your PWA modules. Future PWA Studio features will depend on one of these metapackages being present in your extension. For more details, see the [PWA Magento Open Source metapackage](https://github.com/magento-commerce/magento2-pwa) and [PWA Adobe Commerce metapackage](https://github.com/magento-commerce/magento2-pwa-commerce) GitHub PRs: [4][], [1][].
 -  **Added Venia Sample Data metapackage**: This metapackage provides a way to create your own sample data for your Venia-based PWA site. For more details, see the [Venia Sample Data metapackage repo](https://github.com/magento-commerce/venia-sample-data-modules). GitHub PRs: [3473][], [2][].
--  **Added GraphQL endpoint for Contact and Newsletter froms**: You can now use GraphQL to submit data entered in the Contact Us and Newsletter subscription forms to the Commerce / Magento backend, where you can perforn additionsend an email to the address configuredContact Us and Newsletter forms. GitHub PR: [5][].
+-  **Added GraphQL endpoint for Contact and Newsletter froms**: You can now use GraphQL to submit Contact Us and Newsletter form data to the Commerce backend. From there, you can use it to send emails and personalize your customer interactions. GitHub PR: [5][].
 
 ## Summary of all changes
 
@@ -33,22 +33,22 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Bug fixes
 
--  [3464][] — Cart: Fixed an issue that prevented users from updating item quantities and removing items from the cart when using Magento 2.4-develop and 2.4.3 backends.
--  [3447][] — Cart: Fixed a rendering issue where out-of-stock products in your cart could not be removed.
--  [3495][] — Cart: Fixed issues that occurred when accessing the same store from different browser tabs or windows. To fix the problem, we introduced a storage listener on the cart context that fires a page reload whenever the `cartId` changes from another tab. Reloading the page forces Redux to persist a new `cartId` in storage.
--  [3535][] — Cart: Fixed a regression issue (during 12.1.0 development) that prevented the Add to Cart button from working on simple products featured on the Venia Home page.
--  [3513][] — Fixed broken `Header` style when using the `develop` branch in a scaffolded project.
--  [3463][] - Scaffolding CLI: Fixed the Venia `_buildpack/create.js` `DEBUG_PROJECT_CREATION` test flag that broke when using NPM versions >=`7.23`.
+-  [3464][] — **Cart**: Fixed an issue that prevented users from updating item quantities and removing items from the cart when using Magento 2.4-develop and 2.4.3 backends.
+-  [3447][] — **Cart**: Fixed a rendering issue where out-of-stock products in your cart could not be removed.
+-  [3495][] — **Cart**: Fixed issues that occurred when accessing the same store from different browser tabs or windows. To fix the problem, we introduced a storage listener on the cart context that fires a page reload whenever the `cartId` changes from another tab. Reloading the page forces Redux to persist a new `cartId` in storage.
+-  [3535][] — **Cart**: Fixed a regression issue (during 12.1.0 development) that prevented the Add to Cart button from working on simple products featured on the Venia Home page.
+-  [3513][] — **Mega Menu**: Fixed broken `Header` style when using the `develop` branch in a scaffolded project.
+-  [3463][] — **Scaffolding CLI**: Fixed the Venia `_buildpack/create.js` `DEBUG_PROJECT_CREATION` test flag that broke when using NPM versions >=`7.23`.
 
 ## Documentation updates
 
--  [8][] — Added instructions for installing Venia sample data from the new [magento-commerce/venia-sample-data-modules](https://github.com/magento-commerce/venia-sample-data-modules) to the Venia Sample Data repo.
+-  [4][], [1][] — **Metapackage Installation**: Added instructions for installing our new metapackages for both local and cloud-based environments. The instructions have been added to the READMEs of the Open Source and Commerce repos: [PWA Open Source metapackage](https://github.com/magento-commerce/magento2-pwa) and [PWA Adobe Commerce metapackage](https://github.com/magento-commerce/magento2-pwa-commerce).
+-  [8][] — **Venia Sample Data installation**: Added instructions for installing Venia sample data from the new [magento-commerce/venia-sample-data-modules](https://github.com/magento-commerce/venia-sample-data-modules) repo.
 
--  [4][], [1][] — Added instructions for installing our new meta-packages for both local and cloud-based environments.
 
 ## Breaking Changes
 
--  [3447][] — The fix for the cart rendering issue requires you to install our new meta-package. The meta-package adds a new GraphQL endpoint used to fix the cart rendering issue. This endpoint is not in then Commerce core.
+-  [3447][] — The fix for the cart rendering issue requires you to install our new metapackage. The metapackage adds a new GraphQL field to the existing endpoint. And we used that field to fix the cart rendering issue ([3447][]). Therefor, if you try to run the Venia app without the metapackage, the app will break because the new field has not been added the endpoint for Commerce core.
 
 ## Known Issues
 
