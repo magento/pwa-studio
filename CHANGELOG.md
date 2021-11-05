@@ -18,7 +18,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 -  **Added Venia Sample Data metapackage** — This metapackage provides a new way to create your own sample data for your Venia-based PWA sites. For more details, see the [Venia Sample Data metapackage repo](https://github.com/magento-commerce/venia-sample-data-modules). GitHub PRs: [3473][], [2][].
 
--  **Added new GraphQL endpoint for Contact and Newsletter forms** — You can now use GraphQL to submit Contact Us and Newsletter form data to the Commerce backend. From there, you can use it to send emails and personalize other customer interactions. GitHub PR: [5][].
+-  **Added new GraphQL endpoint for Contact and Newsletter forms** — You can now use GraphQL to submit Contact Us and Newsletter form data to the Open Source backend. From there, you can use it to send emails and personalize other customer interactions. GitHub PR: [5][].
 
 ## Summary of all changes
 | Type  | Description                                                              | GitHub PR       | Jira Issue<br/>(internal link) |
@@ -70,7 +70,7 @@ No known issues.
 
 -  [3460][] — Added Docker parallelization for Cypress testing to cut testing times by 50%. When run synchronously, the whole suite of tests took about 30 minutes. Now it takes 13–15 minutes.
 
--  [3506][] - Fixed outdated snapshots for failing Page Builder tests on the `develop`. The tests started failing when the Newsletter form was added to the footer.
+-  [3506][] - Fixed outdated snapshots for failing Page Builder tests on the `develop` branch. The tests started failing when the Newsletter form was added to the footer.
 
 ## Upgrading from a previous version
 
