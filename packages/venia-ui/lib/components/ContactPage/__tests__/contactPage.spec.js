@@ -33,6 +33,7 @@ jest.mock('../../Head', () => ({
 }));
 
 jest.mock('../../Button', () => 'Button');
+jest.mock('../../CmsBlock/block', () => props => <mock-CmsBlock {...props} />);
 jest.mock('../../FormError', () => 'FormError');
 jest.mock('../../Field', () => 'Field');
 jest.mock('../../TextInput', () => 'TextInput');
@@ -44,6 +45,7 @@ jest.mock('../contactPage.shimmer', () => 'ContactPageShimmer');
 
 const defaultTalonProps = {
     isEnabled: true,
+    cmsBlocks: [],
     errors: new Map(),
     handleSubmit: jest.fn(),
     isBusy: false,
@@ -107,6 +109,26 @@ test('it displays errors', () => {
     useContactPage.mockImplementation(() => ({
         ...defaultTalonProps,
         errors: new Map([['someError', 'message here']])
+    }));
+
+    const instance = createTestInstance(<ContactPage />);
+
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it displays cms blocks', () => {
+    useContactPage.mockImplementation(() => ({
+        ...defaultTalonProps,
+        cmsBlocks: [
+            {
+                identifier: 'contact-us-banner',
+                content: 'Banner Content'
+            },
+            {
+                identifier: 'contact-us-sidebar',
+                content: 'Sidebar Content'
+            }
+        ]
     }));
 
     const instance = createTestInstance(<ContactPage />);
