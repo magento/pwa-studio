@@ -48,7 +48,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## Breaking Changes
 
--  [3447][] — The fix for the cart rendering issue requires you to install our new metapackage. The metapackage adds a new GraphQL field to the existing endpoint. And we used that field to fix the cart rendering issue ([3447][]). Therefor, if you try to run the Venia app without the metapackage, the app will break because the new field has not been added the endpoint for Commerce core.
+-  [3447][] — The fix for the cart rendering issue requires you to install our new metapackage. The metapackage adds a new GraphQL field to the existing endpoint. And we used that field to fix the cart rendering issue ([3447][]). Therefore, if you try to run the Venia app without the metapackage, the app will break because the new field has not been added the endpoint for Commerce core.
 
 ## Known Issues
 
