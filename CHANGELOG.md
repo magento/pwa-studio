@@ -6,29 +6,32 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## New Features
 
--  **Added new PWA Tailwind theming to Venia Header**: Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. Other components will follow in the coming releases. GitHub PR: [3472][].
--  **Added PWA Studio metapackages**: These metapackages establish a new way to add additional features to support your PWA modules. Future PWA Studio features will depend on one of these metapackages being present in your app. For more details, see the [PWA Magento Open Source metapackage](https://github.com/magento-commerce/magento2-pwa) and [PWA Adobe Commerce metapackage](https://github.com/magento-commerce/magento2-pwa-commerce) GitHub PRs: [4][], [1][].
--  **Added Venia Sample Data metapackage**: This metapackage provides a way to create your own sample data for your Venia-based PWA site. For more details, see the [Venia Sample Data metapackage repo](https://github.com/magento-commerce/venia-sample-data-modules). GitHub PRs: [3473][], [2][].
--  **Added GraphQL endpoint for Contact and Newsletter froms**: You can now use GraphQL to submit Contact Us and Newsletter form data to the Commerce backend. From there, you can use it to send emails and personalize your customer interactions. GitHub PR: [5][].
+-  **Added PWA Studio metapackages** — In this release, we introduce our PWA Studio metapackages: One for [Magento Open Source](https://github.com/magento-commerce/magento2-pwa) and one for [Adobe Commerce](https://github.com/magento-commerce/magento2-pwa-commerce). These metapackages introduce a new way of adding additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases.  In fact, we did just that in this release, by adding GraphQL endpoints and fields to the metapackages. All future PWA Studio releases will depend on these metapackages, which means you will need to add them to your PWA apps as well. GitHub PRs: [4][], [1][].
+
+-  **Added new PWA Tailwind theming to Venia Header** — Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. Other components will follow in the coming releases. GitHub PR: [3472][].
+
+-  **Added Venia Sample Data metapackage** — This metapackage provides a new way to create your own sample data for your Venia-based PWA sites. For more details, see the [Venia Sample Data metapackage repo](https://github.com/magento-commerce/venia-sample-data-modules). GitHub PRs: [3473][], [2][].
+
+-  **Added new GraphQL endpoint for Contact and Newsletter forms** — You can now use GraphQL to submit Contact Us and Newsletter form data to the Commerce backend. From there, you can use it to send emails and personalize other customer interactions. GitHub PR: [5][].
 
 ## Summary of all changes
-| Type  | Description                                                              | GitHub PR     | Jira Issue<br/>(internal link)   |
-| :---- | :----------------------------------------------------------------------- | :------------ | :----------- |
-| Bug   | Add to Cart flow for simple products on Home page is broken              | [3535][]      | [PWA-2364][] |
-| Bug   | Cypress snapshots outdated with newsletter in footer                     | [3506][]      | [PWA-2287][] |
-| Bug   | Venia Mega nav is broken in scaffolded app on develop branch.            | [3513][]      | [PWA-2286][] |
-| Task  | Repo Metadata Service Onboarding: UPWARD-PHP                             | [5][]         | [PWA-2251][] |
-| Bug   | Cart remains active in browser memory on PWA site even after checkout    | [3495][]      | [PWA-2190][] |
-| Story | Parallelize Cypress tests on the CI                                      | [3460][]      | [PWA-2154][] |
-| Story | Venia Sample Data metapackage deployVeniaSampleData.sh script update     | [3473][]      | [PWA-2151][] |
-| Task  | Add installation instructions to Venia Sample Data repo                  | [8][]         | [PWA-2141][] |
-| Task  | Add local and Cloud installation instructions to meta packages           | [4][], [1][]    | [PWA-2140][] |
-| Bug   | Cart page out of stock crash                                             | [3447][], [6][] | [PWA-2133][] |
-| Story | Update Item Quantities                                                   | [3464][]      | [PWA-2132][] |
-| Bug   | Improve Venia "create" scaffold script to stop relying on NPM log output | [3463][]      | [PWA-2131][] |
-| Story | Create Venia Sample Data metapackage                                     | [2][]         | [PWA-2106][] |
-| Story | GQL Support for Contact Us & Newsletter                                  | [5][]         | [PWA-2004][] |
-| Story | Refactor Site Header to use Tailwind Theme                               | [3472][]      | [PWA-1885][] |
+| Type  | Description                                                              | GitHub PR       | Jira Issue<br/>(internal link) |
+| :---- | :----------------------------------------------------------------------- | :-------------- | :----------------------------- |
+| Bug   | Add to Cart flow for simple products on Home page is broken              | [3535][]        | [PWA-2364][]                   |
+| Bug   | Cypress snapshots outdated with newsletter in footer                     | [3506][]        | [PWA-2287][]                   |
+| Bug   | Venia Mega nav is broken in scaffolded app on develop branch.            | [3513][]        | [PWA-2286][]                   |
+| Task  | Repo Metadata Service Onboarding: UPWARD-PHP                             | [5][]           | [PWA-2251][]                   |
+| Bug   | Cart remains active in browser memory on PWA site even after checkout    | [3495][]        | [PWA-2190][]                   |
+| Story | Parallelize Cypress tests on the CI                                      | [3460][]        | [PWA-2154][]                   |
+| Story | Venia Sample Data metapackage deployVeniaSampleData.sh script update     | [3473][]        | [PWA-2151][]                   |
+| Task  | Add installation instructions to Venia Sample Data repo                  | [8][]           | [PWA-2141][]                   |
+| Task  | Add local and Cloud installation instructions to meta packages           | [4][], [1][]    | [PWA-2140][]                   |
+| Bug   | Cart page out of stock crash                                             | [3447][], [6][] | [PWA-2133][]                   |
+| Story | Update Item Quantities                                                   | [3464][]        | [PWA-2132][]                   |
+| Bug   | Improve Venia "create" scaffold script to stop relying on NPM log output | [3463][]        | [PWA-2131][]                   |
+| Story | Create Venia Sample Data metapackage                                     | [2][]           | [PWA-2106][]                   |
+| Story | GQL Support for Contact Us & Newsletter                                  | [5][]           | [PWA-2004][]                   |
+| Story | Refactor Site Header to use Tailwind Theme                               | [3472][]        | [PWA-1885][]                   |
 
 ## Bug fixes
 
@@ -44,10 +47,9 @@ _For older release notes, see_ [PWA Studio releases][].
 -  [4][], [1][] — **Metapackage Installation**: Added instructions for installing our new metapackages for both local and cloud-based environments. The instructions have been added to the READMEs of the Open Source and Commerce repos: [PWA Open Source metapackage](https://github.com/magento-commerce/magento2-pwa) and [PWA Adobe Commerce metapackage](https://github.com/magento-commerce/magento2-pwa-commerce).
 -  [8][] — **Venia Sample Data installation**: Added instructions for installing Venia sample data from the new [magento-commerce/venia-sample-data-modules](https://github.com/magento-commerce/venia-sample-data-modules) repo.
 
+## Metapackage updates
 
-## Breaking Changes
-
--  [3447][] — The fix for the cart rendering issue requires you to install our new metapackage. The metapackage adds a new GraphQL field to the existing endpoint. And we used that field to fix the cart rendering issue ([3447][]). Therefore, if you try to run the Venia app without the metapackage, the app will break because the new field has not been added the endpoint for Commerce core.
+-  [3447][] — The fix for the cart rendering issue requires you to install one of our metapackages (depending on your backend target): [Magento Open Source](https://github.com/magento-commerce/magento2-pwa) or [Adobe Commerce](https://github.com/magento-commerce/magento2-pwa-commerce). Both metapackages add new GraphQL fields to the existing endpoint. In this release, we used those fields to fix the cart rendering issue ([3447][]). Therefore, if you try to run your PWA app without one of these metapackages, your app will break because the new fields were not added the endpoints in the Open Source / Commerce cores.
 
 ## Known Issues
 
@@ -74,27 +76,27 @@ The following table lists the latest versions of each package as of 12.1.0.
 Versions that are in **bold** indicate a version change for this release.
 
 **Note:**
-Your project may not depend on some of the packages listed on this table.
+Your project may not depend on some of the packages listed in this table.
 
-| Package                         | Latest version |
-| ------------------------------- | -------------- |
-| `babel-preset-peregrine`        | 1.1.0          |
-| **`create-pwa`**                    | _**2.0.1**_      |
-| **`upward-security-headers`**       | _**1.0.5**_      |
-| **`venia-adobe-data-layer`**        | _**1.0.2**_      |
-| `venia-sample-backends`         | 0.0.4          |
-| **`venia-sample-language-packs`**   | _**0.0.5**_      |
-| **`venia-sample-payments-checkmo`** | _**0.0.3**_      |
-| **`pagebuilder`**                   | _**7.0.1**_      |
-| **`peregrine`**                     | _**12.1.0**_     |
-| `pwa-buildpack`                 | 11.0.0         |
-| **`pwa-theme-venia`**               | _**1.1.0**_      |
-| `upward-js`                     | 5.2.0          |
-| `upward-spec`                   | 5.1.0          |
-| **`venia-concept`**                 | _**12.1.0**_     |
-| **`venia-ui`**                      | _**9.1.0**_      |
-| `magento2-upward-connector`     | 1.3.0          |
-| `upward-php`                    | 1.2.0          |
+| Package                               | Latest version |
+| ------------------------------------- | -------------- |
+| `babel-preset-peregrine`              | 1.1.0          |
+| **_`create-pwa`_**                    | _**2.0.1**_    |
+| **_`upward-security-headers`_**       | _**1.0.5**_    |
+| **_`venia-adobe-data-layer`_**        | _**1.0.2**_    |
+| `venia-sample-backends`               | 0.0.4          |
+| **_`venia-sample-language-packs`_**   | _**0.0.5**_    |
+| **_`venia-sample-payments-checkmo`_** | _**0.0.3**_    |
+| **_`pagebuilder`_**                   | _**7.0.1**_    |
+| **_`peregrine`_**                     | _**12.1.0**_   |
+| `pwa-buildpack`                       | 11.0.0         |
+| **_`pwa-theme-venia`_**               | _**1.1.0**_    |
+| `upward-js`                           | 5.2.0          |
+| `upward-spec`                         | 5.1.0          |
+| **_`venia-concept`_**                 | _**12.1.0**_   |
+| **_`venia-ui`_**                      | _**9.1.0**_    |
+| `magento2-upward-connector`           | 1.3.0          |
+| `upward-php`                          | 1.2.0          |
 
 [PWA-2364]: https://jira.corp.magento.com/browse/PWA-2364
 [PWA-2287]: https://jira.corp.magento.com/browse/PWA-2287
