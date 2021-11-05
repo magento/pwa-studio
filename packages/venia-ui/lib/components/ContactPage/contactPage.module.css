@@ -25,7 +25,8 @@
     position: relative;
 }
 
-.formContainer, .sideContent {
+.formContainer,
+.sideContent {
     width: 50%;
     padding: 0 1.5rem;
 }
@@ -74,7 +75,8 @@
         padding-right: 1.5rem;
     }
 
-    .formContainer, .sideContent {
+    .formContainer,
+    .sideContent {
         width: 100%;
         padding: 0;
     }

@@ -40,9 +40,7 @@ const Footer = props => {
 
             return (
                 <Component key={itemKey}>
-                    <li className={classes.linkItem}>
-                        {child}
-                    </li>
+                    <li className={classes.linkItem}>{child}</li>
                 </Component>
             );
         });

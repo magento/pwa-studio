@@ -52,10 +52,9 @@ export default (props = {}) => {
         },
         [submitForm]
     );
-    const errors = useMemo(
-        () => new Map([['contactMutation', contactError]]),
-        [contactError]
-    );
+    const errors = useMemo(() => new Map([['contactMutation', contactError]]), [
+        contactError
+    ]);
 
     return {
         isEnabled,

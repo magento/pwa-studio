@@ -2,28 +2,23 @@ import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
-import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { Form } from 'informed';
 
 import { useToasts } from '@magento/peregrine';
-import {
-    useContactPage
-} from '@magento/peregrine/lib/talons/ContactPage';
+import { useContactPage } from '@magento/peregrine/lib/talons/ContactPage';
 
 import { useStyle } from '../../classify';
 import { isRequired } from '../../util/formValidators';
 
 import Button from '../Button';
 import { StoreTitle } from '../Head';
-import Icon from '../Icon';
 import FormError from '../FormError';
-import defaultClasses from './contactPage.module.css';
 import Field from '../Field';
 import TextInput from '../TextInput';
 import TextArea from '../TextArea';
 import LoadingIndicator from '../LoadingIndicator';
-
-const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
+import Shimmer from './contactPage.shimmer';
+import defaultClasses from './contactPage.module.css';
 
 const ContactPage = props => {
     const { classes: propClasses } = props;
@@ -56,7 +51,11 @@ const ContactPage = props => {
     }, [addToast, formatMessage, response]);
 
     if (!isLoading && !isEnabled) {
-        return <Redirect to="/" />
+        return <Redirect to="/" />;
+    }
+
+    if (isLoading) {
+        return <Shimmer />;
     }
 
     const maybeLoadingIndicator = isBusy ? (
@@ -78,9 +77,7 @@ const ContactPage = props => {
                     defaultMessage: 'Contact Us'
                 })}
             </StoreTitle>
-            <div className={classes.banner}>
-                {/** Banner CMS Block **/}
-            </div>
+            <div className={classes.banner}>{/** Banner CMS Block **/}</div>
             <div className={classes.content}>
                 <div className={classes.formContainer}>
                     {maybeLoadingIndicator}
@@ -94,9 +91,7 @@ const ContactPage = props => {
                     <p className={classes.subtitle}>
                         <FormattedMessage
                             id={'contactPage.infoText'}
-                            defaultMessage={
-                                `Drop us a line and we'll get back to you as soon as possible.`
-                            }
+                            defaultMessage={`Drop us a line and we'll get back to you as soon as possible.`}
                         />
                     </p>
                     <FormError
@@ -149,7 +144,7 @@ const ContactPage = props => {
                             optional={true}
                         >
                             <TextInput
-                                autoComplete="telephone"
+                                autoComplete="tel"
                                 field="telephone"
                                 id="telephone"
                                 placeholder={formatMessage({
@@ -177,7 +172,11 @@ const ContactPage = props => {
                             />
                         </Field>
                         <div className={classes.buttonsContainer}>
-                            <Button priority="high" type="submit" disabled={isBusy}>
+                            <Button
+                                priority="high"
+                                type="submit"
+                                disabled={isBusy}
+                            >
                                 <FormattedMessage
                                     id={'contactPage.submit'}
                                     defaultMessage={'Send'}
@@ -200,7 +199,7 @@ ContactPage.propTypes = {
         banner: string,
         content: string,
         formContainer: string,
-        sideContent: string,
+        sideContent: string
     })
 };
 

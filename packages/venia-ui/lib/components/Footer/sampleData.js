@@ -1,4 +1,4 @@
-import ContactLink from '../ContactPage/contactLink';
+import { ContactLink } from '../ContactPage';
 
 const accountLinks = new Map()
     .set('Account', null)
