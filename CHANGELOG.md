@@ -6,7 +6,13 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## New Features
 
--  **Added PWA Studio metapackages** — In this release, we introduce our PWA Studio metapackages: One for [Magento Open Source](https://github.com/magento-commerce/magento2-pwa) and one for [Adobe Commerce](https://github.com/magento-commerce/magento2-pwa-commerce). These metapackages introduce a new way of adding additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases.  In fact, we did just that in this release, by adding GraphQL endpoints and fields to the metapackages. All future PWA Studio releases will depend on these metapackages, which means you will need to add them to your PWA apps as well. GitHub PRs: [4][], [1][].
+-  **Added PWA Studio metapackages** — In this release, we introduce our PWA Studio metapackages: One for [Magento Open Source](https://github.com/magento-commerce/magento2-pwa) and one for [Adobe Commerce](https://github.com/magento-commerce/magento2-pwa-commerce). These metapackages provide a new way to add any additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases as needed. In fact, we did that in this release. We added GraphQL endpoints and fields to the metapackages to fix some `Cart`-related bugs. GitHub PRs: [4][], [1][].
+
+    **UPDATES REQUIRED!:** This release and all future PWA Studio releases will have dependencies on these metapackages. That means you need to add one or both of the metapackages to your PWA apps (depending on your backend target). Instructions for installing these packages are in the README files for each metapackage repo:
+
+    **For Open Source backends**: Install the [Magento Open Source metapackage](https://github.com/magento-commerce/magento2-pwa).
+
+    **For Adobe Commerce backends**: Install the [Adobe Commerce metapackage](https://github.com/magento-commerce/magento2-pwa-commerce).
 
 -  **Added new PWA Tailwind theming to Venia Header** — Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. Other components will follow in the coming releases. GitHub PR: [3472][].
 
@@ -42,14 +48,17 @@ _For older release notes, see_ [PWA Studio releases][].
 -  [3513][] — **Mega Menu**: Fixed broken `Header` style when using the `develop` branch in a scaffolded project.
 -  [3463][] — **Scaffolding CLI**: Fixed the Venia `_buildpack/create.js` `DEBUG_PROJECT_CREATION` test flag that broke when using NPM versions >=`7.23`.
 
+## Metapackage introduction and updates
+
+As mentioned above, we not only introduced metapackages in this release, we used them! Our fix for the cart rendering issue ([3447][]) required new GraphQL fields that we added to the metapackages. These new fields require you to install one or both of our metapackages into your PWA apps (depending on your backend target).
+
+
+
 ## Documentation updates
 
 -  [4][], [1][] — **Metapackage Installation**: Added instructions for installing our new metapackages for both local and cloud-based environments. The instructions have been added to the READMEs of the Open Source and Commerce repos: [PWA Open Source metapackage](https://github.com/magento-commerce/magento2-pwa) and [PWA Adobe Commerce metapackage](https://github.com/magento-commerce/magento2-pwa-commerce).
+
 -  [8][] — **Venia Sample Data installation**: Added instructions for installing Venia sample data from the new [magento-commerce/venia-sample-data-modules](https://github.com/magento-commerce/venia-sample-data-modules) repo.
-
-## Metapackage updates
-
--  [3447][] — The fix for the cart rendering issue requires you to install one of our metapackages (depending on your backend target): [Magento Open Source](https://github.com/magento-commerce/magento2-pwa) or [Adobe Commerce](https://github.com/magento-commerce/magento2-pwa-commerce). Both metapackages add new GraphQL fields to the existing endpoint. In this release, we used those fields to fix the cart rendering issue ([3447][]). Therefore, if you try to run your PWA app without one of these metapackages, your app will break because the new fields were not added the endpoints in the Open Source / Commerce cores.
 
 ## Known Issues
 
