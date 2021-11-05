@@ -80,6 +80,14 @@ See [Upgrading versions][] for more information about upgrading between PWA Stud
 [scaffolded project]: https://magento.github.io/pwa-studio/tutorials/pwa-studio-fundamentals/project-setup/
 [upgrading versions]: https://magento.github.io/pwa-studio/technologies/upgrading-versions/
 
+### Add the new metapackages to your project
+
+As noted above, you need to add one or both of our new metapackages to your projects. Use these instructions:
+
+-  **For Open Source backends**: Install the [Magento Open Source metapackage](https://github.com/magento-commerce/magento2-pwa).
+
+-  **For Adobe Commerce backends**: Install the [Adobe Commerce metapackage](https://github.com/magento-commerce/magento2-pwa-commerce).
+
 ### Update dependencies
 
 Open your `package.json` file and update the PWA Studio package dependencies to the versions associated with this release.
