@@ -56,7 +56,9 @@ const ErrorView = props => {
         <div className={classes.root} style={style} data-cy="ErrorView-root">
             <div className={classes.content}>
                 <p className={classes.header}>{header}</p>
-                <p className={classes.message} data-cy="ErrorView-message">{message}</p>
+                <p className={classes.message} data-cy="ErrorView-message">
+                    {message}
+                </p>
                 <div className={classes.actionsContainer}>
                     <Button priority="high" type="button" onClick={handleClick}>
                         {buttonPrompt}
