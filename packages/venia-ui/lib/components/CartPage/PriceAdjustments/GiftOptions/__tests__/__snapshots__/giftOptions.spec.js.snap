@@ -1,87 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders gift options in venia cart page 1`] = `
+exports[`it renders empty form 1`] = `
 <form
   onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
->
-  <div>
-    <label>
-      <input
-        checked={false}
-        id="00000000-0000-4000-8000-000000000000"
-        name="includeGiftReceipt"
-        onBlur={[Function]}
-        onChange={[Function]}
-        type="checkbox"
-      />
-      <span>
-        <svg
-          fill="none"
-          height={24}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={24}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            height="18"
-            rx="2"
-            ry="2"
-            width="18"
-            x="3"
-            y="3"
-          />
-        </svg>
-      </span>
-      <span>
-        Include gift receipt
-      </span>
-    </label>
-    <p />
-  </div>
-  <div>
-    <label>
-      <input
-        checked={false}
-        id="00000000-0000-4000-8000-000000000000"
-        name="includePrintedCard"
-        onBlur={[Function]}
-        onChange={[Function]}
-        type="checkbox"
-      />
-      <span>
-        <svg
-          fill="none"
-          height={24}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={24}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            height="18"
-            rx="2"
-            ry="2"
-            width="18"
-            x="3"
-            y="3"
-          />
-        </svg>
-      </span>
-      <span>
-        Include printed card
-      </span>
-    </label>
-    <p />
-  </div>
-  <div />
-</form>
+/>
+`;
+
+exports[`it renders include gift receipt checkbox 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+/>
+`;
+
+exports[`it renders include printed card checkbox 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+/>
 `;

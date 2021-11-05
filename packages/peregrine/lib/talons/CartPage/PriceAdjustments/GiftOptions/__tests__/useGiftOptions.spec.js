@@ -1,136 +1,199 @@
 import React from 'react';
-import { Form } from 'informed';
-import { createTestInstance } from '@magento/peregrine';
-import typePolicies from '@magento/peregrine/lib/Apollo/policies';
-import { gql, InMemoryCache } from '@apollo/client';
-
-import waitForExpect from 'wait-for-expect';
-
 import { MockedProvider } from '@apollo/client/testing';
-import { act } from 'react-test-renderer';
-import useGiftOptions from '../useGiftOptions';
+import { act, renderHook } from '@testing-library/react-hooks';
 
-const GET_GIFT_OPTIONS = gql`
-    query getGiftOptions($cartId: String!) {
-        cart(cart_id: $cartId) @client {
-            id
-            include_gift_receipt
-            include_printed_card
-            local_gift_message
+import DEFAULT_OPERATIONS from '../giftOptions.gql';
+import { useGiftOptions } from '../useGiftOptions';
+
+// Could not figure out fakeTimers. Just mock debounce and call callback.
+jest.mock('lodash.debounce', () => {
+    return callback => args => callback(args);
+});
+
+jest.mock('@magento/peregrine/lib/context/cart', () => ({
+    useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
+}));
+
+const generateMockForSetGiftOptionsOnCart = mockedData => ({
+    request: {
+        query: DEFAULT_OPERATIONS.setGiftOptionsOnCartMutation,
+        variables: {
+            cartId: '123',
+            giftMessage: {
+                from: mockedData.cardFrom || '',
+                to: mockedData.cardTo || '',
+                message: mockedData.cardMessage || ''
+            },
+            giftReceiptIncluded: mockedData.includeGiftReceipt,
+            printedCardIncluded: mockedData.includePrintedCard
         }
-    }
-`;
-
-jest.mock('@magento/peregrine/lib/context/cart', () => {
-    const state = {
-        cartId: 'cart123'
-    };
-
-    const api = {};
-
-    const useCartContext = jest.fn(() => [state, api]);
-
-    return { useCartContext };
-});
-
-const Component = props => {
-    const talonProps = useGiftOptions(props);
-
-    return (
-        <Form {...talonProps.optionsFormProps}>
-            <i {...talonProps} />
-        </Form>
-    );
-};
-
-const props = {
-    queries: {
-        getGiftOptionsQuery: GET_GIFT_OPTIONS
-    }
-};
-
-const cache = new InMemoryCache({ typePolicies });
-
-beforeEach(() => {
-    cache.restore({
-        ROOT_QUERY: {
-            __typename: 'Query',
-            'cart:Cart': {
-                __ref: 'Cart'
-            }
-        },
-        Cart: {
-            __typename: 'Cart',
-            id: 'cart123',
-            include_gift_receipt: true,
-            include_printed_card: false,
-            local_gift_message: 'GiftMessage'
-        }
-    });
-});
-
-test('it returns the proper shape after data loads', async () => {
-    const cacheWriteSpy = jest.spyOn(cache, 'writeQuery');
-
-    const component = createTestInstance(
-        <MockedProvider cache={cache} addTypename={true} resolvers={{}}>
-            <Component {...props} />
-        </MockedProvider>
-    );
-
-    // Wait until the data has loaded
-    await waitForExpect(() => {
-        const received = component.root.findByType('i').props;
-        expect(received).toEqual({
-            cardMessageProps: {
-                field: 'cardMessage',
-                initialValue: '',
-                keepState: true
-            },
-            giftReceiptProps: {
-                field: 'includeGiftReceipt',
-                initialValue: false
-            },
-            optionsFormProps: {
-                getApi: expect.any(Function),
-                onValueChange: expect.any(Function)
-            },
-            printedCardProps: {
-                field: 'includePrintedCard',
-                initialValue: false
-            },
-            shouldPromptForMessage: expect.any(Function)
-        });
-    });
-
-    expect(cacheWriteSpy).not.toHaveBeenCalled();
-});
-
-test('it updates the cache after receiving user input', async () => {
-    const cacheWriteSpy = jest.spyOn(cache, 'writeQuery');
-
-    const { root } = createTestInstance(
-        <MockedProvider cache={cache} addTypename={true} resolvers={{}}>
-            <Component {...props} />
-        </MockedProvider>
-    );
-
-    act(() => {
-        root.findByType('i').props.optionsFormProps.onValueChange({
-            cardMessage: 'hello',
-            includeGiftReceipt: false,
-            includePrintedCard: true
-        });
-    });
-
-    expect(cacheWriteSpy).toHaveBeenCalledTimes(1);
-    expect(cacheWriteSpy.mock.calls[0][0]).toMatchObject({
+    },
+    newData: jest.fn(() => ({
         data: {
             cart: {
-                local_gift_message: 'hello',
-                include_gift_receipt: false,
-                include_printed_card: true
+                id: '123',
+                gift_message: {
+                    from: mockedData.cardFrom || '',
+                    to: mockedData.cardTo || '',
+                    message: mockedData.cardMessage || ''
+                },
+                gift_receipt_included: mockedData.includeGiftReceipt,
+                printed_card_included: mockedData.includePrintedCard
             }
         }
+    }))
+});
+
+const getGiftOptionsMock1 = {
+    request: {
+        query: DEFAULT_OPERATIONS.getGiftOptionsQuery,
+        variables: { cartId: '123' }
+    },
+    result: {
+        data: {
+            cart: {
+                id: '123',
+                gift_message: {
+                    from: 'from',
+                    to: 'to',
+                    message: 'message'
+                },
+                gift_receipt_included: false,
+                printed_card_included: false
+            }
+        }
+    }
+};
+
+const mockFormValues1 = {
+    cardTo: 'to2',
+    cardFrom: 'from2',
+    cardMessage: 'message2',
+    includeGiftReceipt: true,
+    includePrintedCard: false
+};
+
+const setGiftOptionsOnCartMock1 = generateMockForSetGiftOptionsOnCart(
+    mockFormValues1
+);
+
+const mockFormValues2 = {
+    includeGiftReceipt: false,
+    includePrintedCard: true
+};
+
+const setGiftOptionsOnCartMock2 = generateMockForSetGiftOptionsOnCart(
+    mockFormValues2
+);
+
+const renderHookWithProviders = ({
+    renderHookOptions = {},
+    mocks = [
+        getGiftOptionsMock1,
+        setGiftOptionsOnCartMock1,
+        setGiftOptionsOnCartMock2
+    ]
+} = {}) => {
+    const wrapper = ({ children }) => (
+        <MockedProvider
+            mocks={mocks}
+            addTypename={false}
+            defaultOptions={{
+                watchQuery: { fetchPolicy: 'no-cache' },
+                query: { fetchPolicy: 'no-cache' }
+            }}
+        >
+            {children}
+        </MockedProvider>
+    );
+
+    return renderHook(useGiftOptions, { wrapper, ...renderHookOptions });
+};
+
+describe('#useGiftOptions', () => {
+    it('returns correct shape while and after loading', async () => {
+        const { result, waitForNextUpdate } = renderHookWithProviders();
+
+        // Check data while loading
+        expect(result.current).toMatchInlineSnapshot(`
+            Object {
+              "cardFromProps": Object {
+                "field": "cardFrom",
+              },
+              "cardMessageProps": Object {
+                "field": "cardMessage",
+              },
+              "cardToProps": Object {
+                "field": "cardTo",
+              },
+              "giftReceiptProps": Object {
+                "field": "includeGiftReceipt",
+              },
+              "loading": true,
+              "optionsFormProps": Object {
+                "initialValues": undefined,
+                "onValueChange": [Function],
+              },
+              "printedCardProps": Object {
+                "field": "includePrintedCard",
+              },
+            }
+        `);
+
+        // Wait for query to finish loading
+        await waitForNextUpdate();
+
+        // Check data after load
+        expect(result.current).toMatchInlineSnapshot(`
+            Object {
+              "cardFromProps": Object {
+                "field": "cardFrom",
+              },
+              "cardMessageProps": Object {
+                "field": "cardMessage",
+              },
+              "cardToProps": Object {
+                "field": "cardTo",
+              },
+              "giftReceiptProps": Object {
+                "field": "includeGiftReceipt",
+              },
+              "loading": false,
+              "optionsFormProps": Object {
+                "initialValues": Object {
+                  "cardFrom": "from",
+                  "cardMessage": "message",
+                  "cardTo": "to",
+                  "includeGiftReceipt": false,
+                  "includePrintedCard": false,
+                },
+                "onValueChange": [Function],
+              },
+              "printedCardProps": Object {
+                "field": "includePrintedCard",
+              },
+            }
+        `);
+    });
+
+    it('returns mutation data when user updates form', async () => {
+        const { result, waitForNextUpdate } = renderHookWithProviders();
+
+        // Wait for query to finish loading
+        await waitForNextUpdate();
+
+        // Update form data - 1
+        await act(() => {
+            result.current.optionsFormProps.onValueChange(mockFormValues1);
+        });
+
+        expect(setGiftOptionsOnCartMock1.newData).toHaveBeenCalled();
+
+        // Update form data - 2
+        await act(() => {
+            result.current.optionsFormProps.onValueChange(mockFormValues2);
+        });
+
+        expect(setGiftOptionsOnCartMock2.newData).toHaveBeenCalled();
     });
 });

@@ -43,8 +43,29 @@ beforeAll(() => {
     jest.spyOn(Math, 'random').mockReturnValue(0);
 });
 
-test('it renders gift options in venia cart page', () => {
+test('it renders empty form', () => {
     const instance = createTestInstance(<GiftOptions />);
+    expect(instance.toJSON()).toMatchSnapshot();
+});
 
+test('it renders include gift receipt checkbox', () => {
+    const giftOptionsConfigData = {
+        allow_gift_receipt: true,
+        allow_printed_card: false
+    };
+    const instance = createTestInstance(
+        <GiftOptions giftOptionsConfigData={giftOptionsConfigData} />
+    );
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it renders include printed card checkbox', () => {
+    const giftOptionsConfigData = {
+        allow_gift_receipt: true,
+        allow_printed_card: true
+    };
+    const instance = createTestInstance(
+        <GiftOptions giftOptionsConfigData={giftOptionsConfigData} />
+    );
     expect(instance.toJSON()).toMatchSnapshot();
 });

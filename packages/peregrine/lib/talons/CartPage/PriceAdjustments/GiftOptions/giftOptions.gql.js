@@ -1,23 +1,19 @@
 import { gql } from '@apollo/client';
+import { GiftOptionsFragment } from './giftOptionsFragments.gql';
 
 const GET_GIFT_OPTIONS = gql`
-    query getGiftOptions($cartId: String!) {
-        cart(cart_id: $cartId) @client {
+    query GetGiftOptions($cartId: String!) {
+        cart(cart_id: $cartId) {
             id
-            gift_message {
-                from
-                to
-                message
-            }
-            gift_receipt_included
-            printed_card_included
+            ...GiftOptionsFragment
         }
     }
+    ${GiftOptionsFragment}
 `;
 
 // Currently Commerce only
 const SET_GIFT_OPTIONS_ON_CART = gql`
-    mutation setGiftOptionsOnCart(
+    mutation SetGiftOptionsOnCart(
         $cartId: String!
         $giftMessage: GiftMessageInput!
         $giftReceiptIncluded: Boolean!
@@ -33,16 +29,11 @@ const SET_GIFT_OPTIONS_ON_CART = gql`
         ) {
             cart {
                 id
-                gift_message {
-                    to
-                    from
-                    message
-                }
-                gift_receipt_included
-                printed_card_included
+                ...GiftOptionsFragment
             }
         }
     }
+    ${GiftOptionsFragment}
 `;
 
 export default {

@@ -14,8 +14,8 @@ jest.mock(
     () => 'GiftCardSection'
 );
 jest.mock(
-    '../../../CartPage/PriceAdjustments/GiftOptions',
-    () => 'GiftOptions'
+    '../../../CartPage/PriceAdjustments/giftOptionsSection',
+    () => 'GiftOptionsSection'
 );
 
 test('renders price adjustments', () => {

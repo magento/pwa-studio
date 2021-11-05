@@ -1,14 +1,16 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { Form } from 'informed';
-import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions.js';
 
-import { useStyle } from '../../../../classify';
+import { useStyle } from '@magento/venia-ui/lib/classify';
+import { useGiftOptions } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions.js';
+
 import Checkbox from '../../../Checkbox';
 import TextArea from '../../../TextArea';
 import Field from '../../../Field';
 import TextInput from '../../../TextInput';
 import defaultClasses from './giftOptions.module.css';
+import LoadingIndicator from '../../../LoadingIndicator';
 
 /**
  * A child component of the PriceAdjustments component.
@@ -26,6 +28,7 @@ import defaultClasses from './giftOptions.module.css';
  */
 const GiftOptions = props => {
     const {
+        loading,
         giftReceiptProps,
         printedCardProps,
         cardToProps,
@@ -35,6 +38,10 @@ const GiftOptions = props => {
     } = useGiftOptions();
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
+
+    if (loading) {
+        return <LoadingIndicator />;
+    }
 
     const { allow_order, allow_gift_receipt, allow_printed_card } =
         props?.giftOptionsConfigData || {};

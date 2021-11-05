@@ -1,4 +1,4 @@
-import { useCallback, useRef, useEffect } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import debounce from 'lodash.debounce';
@@ -18,50 +18,40 @@ import DEFAULT_OPERATIONS from './giftOptions.gql';
  * @function
  *
  * @param {Object} props
- * @param {GiftOptionsMutations} props.mutations GraphQL mutations for Gift Options
- * @param {GiftOptionsQueries} props.queries GraphQL queries for Gift Options
+ * @param {GiftOptionsOperations} props.operations
  *
  * @returns {GiftOptionsTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useGiftOptions } from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
  */
-const useGiftOptions = (props = {}) => {
+export const useGiftOptions = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const {
-        setGiftOptionsOnCartMutation,
-        getGiftOptionsOnCartQuery
-    } = operations;
+    const { setGiftOptionsOnCartMutation, getGiftOptionsQuery } = operations;
 
     const [{ cartId }] = useCartContext();
 
-    // The form will be a child, not a parent, so we can't call `useFormApi`.
-    // Need to use a ref and `props.getApi` instead.
-    const formApiRef = useRef();
-
     const [setGiftOptionsOnCart] = useMutation(setGiftOptionsOnCartMutation);
     const { data: getGiftOptionsData, loading } = useQuery(
-        getGiftOptionsOnCartQuery,
+        getGiftOptionsQuery,
         {
-            variables: { cartId },
-            fetchPolicy: 'cache-and-network'
+            variables: { cartId }
         }
     );
 
-    useEffect(() => {
-        if ((!loading, getGiftOptionsData)) {
-            const { cart } = getGiftOptionsData;
-            const { from, to, message } = cart.gift_message || {};
+    const { cart } = getGiftOptionsData || {};
 
-            formApiRef.current.setValues({
-                cardFrom: from,
-                cardTo: to,
-                cardMessage: message,
-                includeGiftReceipt: cart.include_gift_receipt,
-                includePrintedCard: cart.include_printed_card
-            });
+    const initialValues = useMemo(() => {
+        if (cart) {
+            return {
+                cardFrom: cart.gift_message.from,
+                cardTo: cart.gift_message.to,
+                cardMessage: cart.gift_message.message,
+                includeGiftReceipt: cart.gift_receipt_included,
+                includePrintedCard: cart.printed_card_included
+            };
         }
-    }, [getGiftOptionsData, loading]);
+    }, [cart]);
 
     const handleValueChange = useCallback(
         values => {
@@ -74,8 +64,8 @@ const useGiftOptions = (props = {}) => {
                             from: values.cardFrom || '',
                             message: values.cardMessage || ''
                         },
-                        giftReceiptIncluded: false,
-                        printedCardIncluded: false
+                        giftReceiptIncluded: values.includeGiftReceipt === true,
+                        printedCardIncluded: values.includePrintedCard === true
                     }
                 });
             } catch (e) {
@@ -85,43 +75,42 @@ const useGiftOptions = (props = {}) => {
         [cartId, setGiftOptionsOnCart]
     );
 
+    // Batch writes if the user inputs quickly.
+    const debouncedOnChange = useMemo(
+        () =>
+            debounce(value => {
+                handleValueChange(value);
+            }, 500),
+        [handleValueChange]
+    );
+
     const giftReceiptProps = {
-        field: 'includeGiftReceipt',
-        initialValue: false
+        field: 'includeGiftReceipt'
     };
 
     const printedCardProps = {
-        field: 'includePrintedCard',
-        initialValue: false
+        field: 'includePrintedCard'
     };
 
     const cardToProps = {
-        field: 'cardTo',
-        initialValue: '',
-        keepState: true
+        field: 'cardTo'
     };
 
     const cardFromProps = {
-        field: 'cardFrom',
-        initialValue: '',
-        keepState: true
+        field: 'cardFrom'
     };
 
     const cardMessageProps = {
-        field: 'cardMessage',
-        initialValue: '',
-        keepState: true
+        field: 'cardMessage'
     };
 
     const optionsFormProps = {
-        getApi: api => {
-            formApiRef.current = api;
-        },
-        // Batch writes if the user inputs quickly.
-        onValueChange: debounce(handleValueChange, 500)
+        initialValues: initialValues,
+        onValueChange: debouncedOnChange
     };
 
     return {
+        loading,
         giftReceiptProps,
         printedCardProps,
         cardToProps,
@@ -131,31 +120,7 @@ const useGiftOptions = (props = {}) => {
     };
 };
 
-export default useGiftOptions;
-
 /** JSDocs type definitions */
-
-/**
- * GraphQL mutations for Gift Options
- *
- * @typedef {Object} GiftOptionsMutations
- *
- * @property {GraphQLAST} setGiftOptionsMutation Mutation to use for setting the gift options for the cart
- *
- * @see [giftOptions.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql.js}
- * for the query Venia uses.
- */
-
-/**
- * GraphQL query for Gift Options
- *
- * @typedef {Object} GiftOptionsQueries
- *
- * @property {GraphQLAST} getGiftOptionsQuery Query to get gift options data
- *
- * @see [giftOptions.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql.js}
- * for the query Venia uses.
- */
 
 /**
  * Props data to use when rendering a gift options component.
@@ -168,4 +133,13 @@ export default useGiftOptions;
  * @property {object} cardFromProps Props for the `cardFrom` text input element.
  * @property {object} cardMessageProps Props for the `cardMessage` textarea element.
  * @property {object} optionsFormProps Props for the form element.
+ */
+
+/**
+ * This is a type used by the {@link useGiftOptions} talon.
+ *
+ * @typedef {Object} GiftOptionsOperations
+ *
+ * @property {GraphQLAST} setGiftOptionsOnCartMutation sets the gift options on cart.
+ * @property {GraphQLAST} getGiftOptionsQuery fetch the gift options.
  */
