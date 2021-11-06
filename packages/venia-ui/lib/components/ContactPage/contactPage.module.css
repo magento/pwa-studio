@@ -1,40 +1,51 @@
 .root {
-    max-width: 1080px;
-    margin: 0 auto;
+    composes: px-4 from global;
 }
 
 .title {
-    margin-bottom: 0.5rem;
-    justify-self: center;
-    font-family: var(--venia-global-fontFamily-serif);
-    font-weight: var(--venia-global-fontWeight-bold);
-    font-size: var(--venia-global-fontSize-800);
+    composes: mb-2 from global;
+    composes: mt-4 from global;
+    composes: text-center from global;
+    composes: text-3xl from global;
+
+    /* Medium */
+    composes: md_text-left from global;
+    composes: md_text-5xl from global;
 }
 
 .subtitle {
-    margin-bottom: 1rem;
+    composes: mb-4 from global;
 }
 
 .content {
-    display: flex;
-    padding: 2.5rem 3rem;
-    justify-content: center;
-}
-
-.formContainer {
-    position: relative;
+    /* Medium */
+    composes: md_flex from global;
+    composes: md_justify-center from global;
 }
 
 .formContainer,
 .sideContent {
-    width: 50%;
-    padding: 0 1.5rem;
+    /* Medium */
+    composes: md_w-1/2 from global;
+}
+
+.sideContent {
+    composes: border-gray-300 from global;
+    composes: border-solid from global;
+    composes: border-t from global;
+    composes: mt-6 from global;
+    composes: pt-10 from global;
+
+    /* Medium */
+    composes: md_border-none from global;
+    composes: md_mt-0 from global;
+    composes: md_pt-4 from global;
+    composes: md_pl-12 from global;
 }
 
 .form {
-    display: grid;
-    row-gap: 0.9375rem;
-    position: relative;
+    composes: gap-y-4 from global;
+    composes: grid from global;
 }
 
 .formErrors {
@@ -57,37 +68,10 @@
 }
 
 .buttonsContainer {
-    padding: 1rem 0;
-}
+    composes: px-0 from global;
+    composes: py-4 from global;
+    composes: text-center from global;
 
-/*
- * Mobile-specific styles.
- */
-
-@media (max-width: 960px) {
-    .title {
-        font-size: var(--venia-global-fontSize-600);
-    }
-
-    .content {
-        flex-wrap: wrap;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
-
-    .formContainer,
-    .sideContent {
-        width: 100%;
-        padding: 0;
-    }
-
-    .sideContent {
-        padding-top: 2.5rem;
-        margin-top: 1.5rem;
-        border-top: 1px solid rgb(var(--venia-global-color-border));
-    }
-
-    .buttonsContainer {
-        text-align: center;
-    }
+    /* Medium */
+    composes: md_text-left from global;
 }

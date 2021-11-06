@@ -11,7 +11,7 @@ import { isRequired } from '../../util/formValidators';
 
 import Button from '../Button';
 import CmsBlock from '../CmsBlock/block';
-import { StoreTitle } from '../Head';
+import { Meta, StoreTitle } from '../Head';
 import FormError from '../FormError';
 import Field from '../Field';
 import TextInput from '../TextInput';
@@ -115,125 +115,134 @@ const ContactPage = props => {
         </div>
     ) : null;
 
-    return (
-        <div className={classes.root} data-cy="ContactPage-root">
-            <StoreTitle>
-                {formatMessage({
-                    id: 'contactPage.title',
-                    defaultMessage: 'Contact Us'
-                })}
-            </StoreTitle>
-            {contactUsBanner}
-            <div className={classes.content}>
-                <div className={classes.formContainer}>
-                    {maybeLoadingIndicator}
-                    <h1 className={classes.title}>
-                        <FormattedMessage
-                            id={'contactPage.titleText'}
-                            defaultMessage={'Contact Us'}
-                        />
-                    </h1>
+    const pageTitle = formatMessage({
+        id: 'contactPage.title',
+        defaultMessage: 'Contact Us'
+    });
 
-                    <p className={classes.subtitle}>
-                        <FormattedMessage
-                            id={'contactPage.infoText'}
-                            defaultMessage={`Drop us a line and we'll get back to you as soon as possible.`}
+    const metaDescription = formatMessage({
+        id: 'contactPage.metaDescription',
+        defaultMessage: 'Contact Us'
+    });
+
+    return (
+        <Fragment>
+            <StoreTitle>{pageTitle}</StoreTitle>
+            <Meta name="title" content={pageTitle} />
+            <Meta name="description" content={metaDescription} />
+            <article className={classes.root} data-cy="ContactPage-root">
+                {contactUsBanner}
+                <div className={classes.content}>
+                    <div className={classes.formContainer}>
+                        {maybeLoadingIndicator}
+                        <h1 className={classes.title}>
+                            <FormattedMessage
+                                id={'contactPage.titleText'}
+                                defaultMessage={'Contact Us'}
+                            />
+                        </h1>
+
+                        <p className={classes.subtitle}>
+                            <FormattedMessage
+                                id={'contactPage.infoText'}
+                                defaultMessage={`Drop us a line and we'll get back to you as soon as possible.`}
+                            />
+                        </p>
+                        <FormError
+                            allowErrorMessages
+                            errors={Array.from(errors.values())}
                         />
-                    </p>
-                    <FormError
-                        allowErrorMessages
-                        errors={Array.from(errors.values())}
-                    />
-                    <Form
-                        getApi={setFormApi}
-                        className={classes.form}
-                        onSubmit={handleSubmit}
-                    >
-                        <Field
-                            id="contact-name"
-                            label={formatMessage({
-                                id: 'global.name',
-                                defaultMessage: 'Name'
-                            })}
+                        <Form
+                            getApi={setFormApi}
+                            className={classes.form}
+                            onSubmit={handleSubmit}
                         >
-                            <TextInput
-                                autoComplete="name"
-                                field="name"
+                            <Field
                                 id="contact-name"
-                                validate={isRequired}
-                            />
-                        </Field>
-                        <Field
-                            id="contact-email"
-                            label={formatMessage({
-                                id: 'global.email',
-                                defaultMessage: 'Email'
-                            })}
-                        >
-                            <TextInput
-                                autoComplete="email"
-                                field="email"
-                                id="contact-email"
-                                validate={isRequired}
-                                placeholder={formatMessage({
-                                    id: 'global.emailPlaceholder',
-                                    defaultMessage: 'abc@xyz.com'
+                                label={formatMessage({
+                                    id: 'global.name',
+                                    defaultMessage: 'Name'
                                 })}
-                            />
-                        </Field>
-                        <Field
-                            id="contact-telephone"
-                            label={formatMessage({
-                                id: 'contactPage.telephone',
-                                defaultMessage: 'Phone Number'
-                            })}
-                            optional={true}
-                        >
-                            <TextInput
-                                autoComplete="tel"
-                                field="telephone"
-                                id="contact-telephone"
-                                placeholder={formatMessage({
-                                    id: 'contactPage.telephonePlaceholder',
-                                    defaultMessage: '(222)-222-2222'
-                                })}
-                            />
-                        </Field>
-                        <Field
-                            id="contact-comment"
-                            label={formatMessage({
-                                id: 'contactPage.comment',
-                                defaultMessage: 'Message'
-                            })}
-                        >
-                            <TextArea
-                                autoComplete="comment"
-                                field="comment"
-                                id="contact-comment"
-                                validate={isRequired}
-                                placeholder={formatMessage({
-                                    id: 'contactPage.commentPlaceholder',
-                                    defaultMessage: `Tell us what's on your mind`
-                                })}
-                            />
-                        </Field>
-                        <div className={classes.buttonsContainer}>
-                            <Button
-                                priority="high"
-                                type="submit"
-                                disabled={isBusy}
                             >
-                                <FormattedMessage
-                                    id={'contactPage.submit'}
-                                    defaultMessage={'Send'}
+                                <TextInput
+                                    autoComplete="name"
+                                    field="name"
+                                    id="contact-name"
+                                    validate={isRequired}
                                 />
-                            </Button>
-                        </div>
-                    </Form>
+                            </Field>
+                            <Field
+                                id="contact-email"
+                                label={formatMessage({
+                                    id: 'global.email',
+                                    defaultMessage: 'Email'
+                                })}
+                            >
+                                <TextInput
+                                    autoComplete="email"
+                                    field="email"
+                                    id="contact-email"
+                                    validate={isRequired}
+                                    placeholder={formatMessage({
+                                        id: 'global.emailPlaceholder',
+                                        defaultMessage: 'abc@xyz.com'
+                                    })}
+                                />
+                            </Field>
+                            <Field
+                                id="contact-telephone"
+                                label={formatMessage({
+                                    id: 'contactPage.telephone',
+                                    defaultMessage: 'Phone Number'
+                                })}
+                                optional={true}
+                            >
+                                <TextInput
+                                    autoComplete="tel"
+                                    field="telephone"
+                                    id="contact-telephone"
+                                    placeholder={formatMessage({
+                                        id: 'contactPage.telephonePlaceholder',
+                                        defaultMessage: '(222)-222-2222'
+                                    })}
+                                />
+                            </Field>
+                            <Field
+                                id="contact-comment"
+                                label={formatMessage({
+                                    id: 'contactPage.comment',
+                                    defaultMessage: 'Message'
+                                })}
+                            >
+                                <TextArea
+                                    autoComplete="comment"
+                                    field="comment"
+                                    id="contact-comment"
+                                    validate={isRequired}
+                                    placeholder={formatMessage({
+                                        id: 'contactPage.commentPlaceholder',
+                                        defaultMessage: `Tell us what's on your mind`
+                                    })}
+                                />
+                            </Field>
+                            <div className={classes.buttonsContainer}>
+                                <Button
+                                    priority="high"
+                                    type="submit"
+                                    disabled={isBusy}
+                                >
+                                    <FormattedMessage
+                                        id={'contactPage.submit'}
+                                        defaultMessage={'Send'}
+                                    />
+                                </Button>
+                            </div>
+                        </Form>
+                    </div>
+                    {contactUsSidebar}
                 </div>
-                {contactUsSidebar}
-            </div>
-        </div>
+            </article>
+        </Fragment>
     );
 };
 

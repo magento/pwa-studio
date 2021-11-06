@@ -29,6 +29,7 @@ jest.mock('@magento/peregrine/lib/talons/ContactPage');
 jest.mock('../../../classify');
 
 jest.mock('../../Head', () => ({
+    Meta: () => 'Setting Meta',
     StoreTitle: () => 'Setting Store Title'
 }));
 
