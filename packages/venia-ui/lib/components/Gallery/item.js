@@ -16,6 +16,7 @@ import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 import AddToCartbutton from '../Gallery/addToCartButton';
 import Icon from '../Icon';
+import Rating from '../Rating';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -69,12 +70,7 @@ const GalleryItem = props => {
     );
 
     const ratingAverage = rating_summary ? (
-        <div className={classes.ratingAverage}>
-            <span className={classes.ratingValue}>
-                {((rating_summary * 5) / 100).toFixed(1)}
-            </span>{' '}
-            <Icon size={18} src={Star} classes={{ root: classes.ratingIcon }} />
-        </div>
+        <Rating rating={rating_summary} />
     ) : null;
 
     return (
