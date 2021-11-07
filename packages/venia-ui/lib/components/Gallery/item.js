@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Info, Star } from 'react-feather';
+import { Info } from 'react-feather';
 import { string, number, shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 import Price from '@magento/venia-ui/lib/components/Price';
@@ -15,7 +15,6 @@ import defaultClasses from './item.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 import AddToCartbutton from '../Gallery/addToCartButton';
-import Icon from '../Icon';
 import Rating from '../Rating';
 
 // The placeholder image is 4:5, so we should make sure to size our product
