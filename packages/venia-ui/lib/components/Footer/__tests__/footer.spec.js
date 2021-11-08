@@ -21,8 +21,16 @@ jest.mock('@magento/venia-ui/lib/components/Newsletter', () => {
     return props => <i {...props} />;
 });
 
+const mockLinkComponent = ({ children }) => {
+    return children;
+};
+
 const links = new Map()
-    .set('ab', [['a', '/a'], ['b', '/b']])
+    .set('ab', [
+        ['a', '/a'],
+        ['b', '/b'],
+        ['comp', { path: '/comp', Component: mockLinkComponent }]
+    ])
     .set('12', [['1', '/1'], ['2', '/2']]);
 
 test('footer renders copyright', () => {
