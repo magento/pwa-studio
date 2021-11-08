@@ -42,6 +42,7 @@ export const PRODUCT_SEARCH = gql`
         ) {
             items {
                 id
+                uid
                 name
                 price_range {
                     maximum_price {
