@@ -2,7 +2,8 @@ import {
     miniCartTriggerButton,
     miniCartCheckoutButton,
     miniCartProductImageLink,
-    miniCartProductLink
+    miniCartProductLink,
+    miniCartEditCartButton
 } from '../../fields/miniCart';
 
 /**
@@ -32,3 +33,7 @@ export const clickProductLinkFromMiniCart = () => {
 export const clickProductImageLinkFromMiniCart = () => {
     cy.get(miniCartProductImageLink).click();
 };
+
+export const goToCartPageFromEditCartButton = () => {
+    cy.get(miniCartEditCartButton).click();
+}
