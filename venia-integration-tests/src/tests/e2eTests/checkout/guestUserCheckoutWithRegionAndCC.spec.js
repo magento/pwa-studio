@@ -221,8 +221,10 @@ describe('verify checkout actions', () => {
         assertAddressInShippingInformationInCheckoutPage(
             completeShippingAddress
         );
-        assertProductInCheckoutPage(productValeriaTwoLayeredTank.name);
-        assertProductInCheckoutPage(productIsadoraSkirt.name);
+        assertProductInCheckoutPage({
+            name: productValeriaTwoLayeredTank.name
+        });
+        assertProductInCheckoutPage({ name: productIsadoraSkirt.name });
 
         // Test - Place Order
         placeOrder();
@@ -239,8 +241,11 @@ describe('verify checkout actions', () => {
             defaultShippingMethods.flatrate.label,
             true
         );
-        assertProductInCheckoutPage(productValeriaTwoLayeredTank.name, true);
-        assertProductInCheckoutPage(productIsadoraSkirt.name, true);
+        assertProductInCheckoutPage(
+            { name: productValeriaTwoLayeredTank.name },
+            true
+        );
+        assertProductInCheckoutPage({ name: productIsadoraSkirt.name }, true);
 
         // Test - Account create from Order Confirmation Page
         createAccountFromOrderConfirmationPage({

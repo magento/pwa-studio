@@ -40,6 +40,8 @@ export const wishlistNameField = 'input[id^="createWishlistForm-listname-"]';
 export const createWishlistConfirmButton =
     'button[class^="button-root_highPriority-"]';
 
+export const categoryPageAddToCartButton = '*[class^="addToCartButton-root-"]';
+
 export const categoryTreeBranchTarget =
     '[data-cy="CategoryTree-root"] [data-cy="CategoryTree-Branch-target"]';
 

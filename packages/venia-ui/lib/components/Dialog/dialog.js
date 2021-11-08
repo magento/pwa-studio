@@ -87,6 +87,7 @@ const Dialog = props => {
     const maybeButtons = shouldShowButtons ? (
         <div className={classes.buttons}>
             <Button
+                data-cy="Dialog-cancelButton"
                 classes={cancelButtonClasses}
                 disabled={shouldDisableAllButtons}
                 onClick={onCancel}
@@ -99,6 +100,7 @@ const Dialog = props => {
                 />
             </Button>
             <Button
+                data-cy="Dialog-confirmButton"
                 classes={confirmButtonClasses}
                 disabled={confirmButtonDisabled}
                 priority="high"
