@@ -2,6 +2,10 @@
     composes: px-4 from global;
 }
 
+.banner {
+    composes: mb-8 from global;
+}
+
 .title {
     composes: mb-2 from global;
     composes: mt-4 from global;

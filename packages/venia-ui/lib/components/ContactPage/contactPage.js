@@ -18,7 +18,7 @@ import TextInput from '../TextInput';
 import TextArea from '../TextArea';
 import LoadingIndicator from '../LoadingIndicator';
 import ErrorView from '../ErrorView';
-import Shimmer from './contactPage.shimmer';
+import ContactPageShimmer from './contactPage.shimmer';
 import defaultClasses from './contactPage.module.css';
 
 const BANNER_IDENTIFIER = 'contact-us-banner';
@@ -81,7 +81,7 @@ const ContactPage = props => {
     }
 
     if (isLoading) {
-        return <Shimmer />;
+        return <ContactPageShimmer />;
     }
 
     const maybeLoadingIndicator = isBusy ? (
@@ -248,11 +248,16 @@ const ContactPage = props => {
 
 ContactPage.propTypes = {
     classes: shape({
-        root: string,
+        loadingContainer: string,
         banner: string,
+        sideContent: string,
+        root: string,
         content: string,
         formContainer: string,
-        sideContent: string
+        title: string,
+        subtitle: string,
+        form: string,
+        buttonsContainer: string
     })
 };
 
