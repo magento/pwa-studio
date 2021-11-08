@@ -70,29 +70,3 @@
     width: 100%;
     font-size: var(--venia-global-fontSize-100);
 }
-
-/* state: pending */
-
-.root_pending {
-    composes: root;
-}
-
-.image_pending {
-    composes: image;
-    background-color: rgb(var(--venia-global-color-gray));
-}
-
-.images_pending {
-    composes: images;
-}
-
-.name_pending {
-    composes: name;
-    background-color: rgb(var(--venia-global-color-gray));
-}
-
-.price_pending {
-    composes: price;
-    background-color: rgb(var(--venia-global-color-gray));
-    width: 3rem;
-}
