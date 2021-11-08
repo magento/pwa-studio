@@ -10,6 +10,10 @@ export const kebabMenuButton = 'button[class^="kebab-kebab-"]';
 
 export const saveForLaterButton = 'button[class^="product-addToListButton-"]';
 
+export const cartPageProductImageLink = 'a[class^="product-imageContainer-"]';
+
+export const cartPageProductLink = 'a[class^="product-imageContainer-"]';
+
 export const kebabMenuEditButton =
     'li[class^="section-menuItem-"] button:first';
 
