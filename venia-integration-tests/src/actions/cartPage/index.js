@@ -4,6 +4,12 @@ import {
     giftCardSectionButton,
     giftOptionsSectionButton,
     kebabMenuButton,
+    kebabMenuEditButton,
+    editMenuColorButton,
+    editMenuSizeButton,
+    editMenuIncreaseQtyStepper,
+    editMenuUpdateCartButton,
+    cartPageCheckoutButton,
     productKebab,
     productListingProduct,
     productSectionRemoveFromCartButton,
@@ -17,8 +23,10 @@ import {
     shippingMethodCountrySelect,
     couponCodeCouponCodeTextField,
     couponCodeSubmitButton,
+    couponCodeRemoveButton,
     giftCardCardTextField,
     giftCardCardApplyButton,
+    giftCardRemoveButton,
     giftOptionsIncludeGiftReceiptCheckbox,
     giftOptionsIncludePrintedCardCheckbox,
     giftOptionsCardMessageTextarea
@@ -54,6 +62,53 @@ export const moveProductFromCartToSingleWishlist = productName => {
     itemToMove.get(kebabMenuButton).click();
 
     itemToMove.get(saveForLaterButton).click();
+};
+/**
+ * Utility to open a product's edit dialog from the cart page
+ */
+export const openProductKebabMenu = productName => {
+    const itemToEdit = cy.get(cartPageRoot).contains('li', productName);
+
+    itemToEdit.get(kebabMenuButton).click();
+};
+
+export const openProductEditMenu = productName => {
+    const itemToEdit = cy.get(cartPageRoot).contains('li', productName);
+
+    itemToEdit.get(kebabMenuEditButton).click();
+};
+
+/**
+ * Utility to select a product's color in edit dialog
+ */
+export const editProductColor = color => {
+    cy.get(`${editMenuColorButton}[title*="${color}"]`).click();
+};
+/**
+ * Utility to select a product's size in edit dialog
+ */
+export const editProductSize = size => {
+    cy.get(editMenuSizeButton)
+        .contains('span', size)
+        .click();
+};
+/**
+ * Utility to increase a product's quantity in edit dialog
+ */
+export const increaseProductQuantity = () => {
+    cy.get(editMenuIncreaseQtyStepper).click();
+};
+/**
+ * Utility to submit product modifications on edit dialog
+ */
+export const clickOnUpdateCart = () => {
+    cy.get(editMenuUpdateCartButton).click();
+};
+/**
+ * Utility to go to checkout page from cart page
+ */
+export const goToCheckout = () => {
+    cy.get(cartPageCheckoutButton).click();
 };
 
 /**
@@ -91,9 +146,12 @@ export const estimateShippingMethod = ({
     }
 
     if (regionCode) {
-        cy.get(shippingMethodRegionField).select(regionCode);
+        cy.get(shippingMethodRegionField)
+            .should('not.be.disabled')
+            .select(regionCode);
     } else if (region) {
         cy.get(shippingMethodRegionField)
+            .should('not.be.disabled')
             .clear()
             .type(region);
     }
@@ -134,6 +192,13 @@ export const setCouponCodeFromCartPage = code => {
 };
 
 /**
+ * Utility function to remove Coupon Code from Cart Page
+ */
+export const removeCouponCodeFromCartPage = () => {
+    cy.get(couponCodeRemoveButton).click();
+};
+
+/**
  * Utility function to set Gift Card from Cart Page
  *
  * @param {String} cardNumber gift card number
@@ -144,6 +209,15 @@ export const setGiftCardFromCartPage = cardNumber => {
         .type(cardNumber);
 
     cy.get(giftCardCardApplyButton).click();
+};
+
+/**
+ * Utility function to remove Gift Cards from Cart Page
+ */
+export const removeGiftCardsFromCartPage = () => {
+    cy.get(giftCardRemoveButton).each($button => {
+        cy.wrap($button).click();
+    });
 };
 
 /**

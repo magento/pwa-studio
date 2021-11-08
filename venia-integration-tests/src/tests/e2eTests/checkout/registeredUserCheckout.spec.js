@@ -71,7 +71,7 @@ const {
 } = orderHistoryPageAssertions;
 
 const completeShippingAddress = {
-    ...checkoutShippingData,
+    ...checkoutShippingData.us,
     firstName,
     lastName
 };
@@ -207,8 +207,10 @@ describe('verify checkout actions', () => {
         );
         assertSelectedShippingMethodInCheckoutPage();
         assertPaymentInformationInCheckoutPage({ ...checkoutBillingData[0] });
-        assertProductInCheckoutPage(productValeriaTwoLayeredTank.name);
-        assertProductInCheckoutPage(productAugustaEarrings.name);
+        assertProductInCheckoutPage({
+            name: productValeriaTwoLayeredTank.name,
+            quantity: 2
+        });
 
         // Test - Place Order
         placeOrder();
@@ -222,8 +224,14 @@ describe('verify checkout actions', () => {
             true
         );
         assertSelectedShippingMethodInCheckoutPage(undefined, true);
-        assertProductInCheckoutPage(productValeriaTwoLayeredTank.name, true);
-        assertProductInCheckoutPage(productAugustaEarrings.name, true);
+        assertProductInCheckoutPage(
+            { name: productValeriaTwoLayeredTank.name, quantity: 2 },
+            true
+        );
+        assertProductInCheckoutPage(
+            { name: productAugustaEarrings.name, quantity: 2 },
+            true
+        );
 
         // Test - Order History
         cy.visitOrderHistoryPage();
