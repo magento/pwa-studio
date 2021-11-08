@@ -28,7 +28,6 @@ export const useMagentoRoute = (props = {}) => {
 
     const initialized = useRef(false);
     const fetchedPathname = useRef(null);
-    const fetching = useRef(false);
 
     const [appState, appApi] = useAppContext();
     const { actions: appActions } = appApi;
@@ -46,7 +45,6 @@ export const useMagentoRoute = (props = {}) => {
 
     const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery, {
         onCompleted: async ({ route }) => {
-            fetching.current = false;
             if (component) {
                 return;
             }
@@ -71,15 +69,11 @@ export const useMagentoRoute = (props = {}) => {
 
                 setComponent(pathname, error);
             }
-        },
-        onError: () => {
-            fetching.current = false;
         }
     });
 
     useEffect(() => {
         if (initialized.current || !getInlinedPageData()) {
-            fetching.current = true;
             runQuery({
                 fetchPolicy: 'cache-and-network',
                 nextFetchPolicy: 'cache-first',
@@ -90,12 +84,12 @@ export const useMagentoRoute = (props = {}) => {
     }, [initialized, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // destructure the query result
-    const { data, error } = queryResult;
+    const { data, error, loading } = queryResult;
     const { route } = data || {};
-    const { id, redirect_code, relative_url, type } = route || {};
+    const { id, identifier, redirect_code, relative_url, type } = route || {};
 
     // evaluate both results and determine the response type
-    const empty = !route || !type || id < 1;
+    const empty = !route || !type || (id < 1 && !identifier);
     const redirect = isRedirect(redirect_code);
     const fetchError = component instanceof Error && component;
     const routeError = fetchError || error;
@@ -118,11 +112,7 @@ export const useMagentoRoute = (props = {}) => {
                 ? relative_url
                 : '/' + relative_url
         };
-    } else if (
-        empty &&
-        fetchedPathname.current === pathname &&
-        !fetching.current
-    ) {
+    } else if (empty && fetchedPathname.current === pathname && !loading) {
         // NOT FOUND
         routeData = { isNotFound: true };
     } else if (nextRootComponent) {
