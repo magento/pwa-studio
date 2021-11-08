@@ -36,4 +36,4 @@ export const clickProductImageLinkFromMiniCart = () => {
 
 export const goToCartPageFromEditCartButton = () => {
     cy.get(miniCartEditCartButton).click();
-}
+};
