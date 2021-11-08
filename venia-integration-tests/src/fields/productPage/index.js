@@ -20,3 +20,5 @@ export const productPageSizeButton = 'button[class^="tile-root-"]';
 
 export const productPageQuantityInput =
     'input[class^="quantity-root"] [name*="quantity"]';
+
+export const productPageName = 'h1[class^="productFullDetail-productName-"]';
