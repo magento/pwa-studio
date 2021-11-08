@@ -1,8 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders 1`] = `
-<div>
-  <div />
+<article>
+  <div>
+    <Shimmer
+      classes={
+        Object {
+          "root_rectangle": undefined,
+        }
+      }
+    />
+  </div>
   <div>
     <div>
       <div>
@@ -12,8 +20,9 @@ exports[`it renders 1`] = `
               "root_rectangle": "shimmer-class",
             }
           }
-          height={3}
-        />
+        >
+           
+        </Shimmer>
       </div>
       <div>
         <Shimmer
@@ -22,19 +31,21 @@ exports[`it renders 1`] = `
               "root_rectangle": "shimmer-class",
             }
           }
-          height={1.5}
-        />
+        >
+           
+        </Shimmer>
       </div>
       <div>
         <div>
           <Shimmer
             classes={
               Object {
-                "root_rectangle": "shimmer-class",
+                "root_rectangle": undefined,
               }
             }
-            height={1.5}
-          />
+          >
+             
+          </Shimmer>
           <Shimmer
             type="textInput"
           />
@@ -43,11 +54,12 @@ exports[`it renders 1`] = `
           <Shimmer
             classes={
               Object {
-                "root_rectangle": "shimmer-class",
+                "root_rectangle": undefined,
               }
             }
-            height={1.5}
-          />
+          >
+             
+          </Shimmer>
           <Shimmer
             type="textInput"
           />
@@ -56,11 +68,12 @@ exports[`it renders 1`] = `
           <Shimmer
             classes={
               Object {
-                "root_rectangle": "shimmer-class",
+                "root_rectangle": undefined,
               }
             }
-            height={1.5}
-          />
+          >
+             
+          </Shimmer>
           <Shimmer
             type="textInput"
           />
@@ -69,11 +82,12 @@ exports[`it renders 1`] = `
           <Shimmer
             classes={
               Object {
-                "root_rectangle": "shimmer-class",
+                "root_rectangle": undefined,
               }
             }
-            height={1.5}
-          />
+          >
+             
+          </Shimmer>
           <Shimmer
             type="textArea"
           />
@@ -85,7 +99,15 @@ exports[`it renders 1`] = `
         </div>
       </div>
     </div>
-    <div />
+    <div>
+      <Shimmer
+        classes={
+          Object {
+            "root_rectangle": undefined,
+          }
+        }
+      />
+    </div>
   </div>
-</div>
+</article>
 `;
