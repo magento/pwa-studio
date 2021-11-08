@@ -14,11 +14,14 @@
     "viewportWidth": 1440,
     "scrollBehavior": "nearest",
     "trashAssetsBeforeRuns": false,
+    "chromeWebSecurity": false,
     "ignoreTestFiles": [
         "**/__snapshots__/*",
         "**/__image_snapshots__/*"
     ],
     "env": {
+        "defaultData_couponCode": "PWA1423",
+        "defaultData_giftCardNumber": "02Y0LCHUNDRZ",
         "updateSnapshots": false
     },
     "retries": {

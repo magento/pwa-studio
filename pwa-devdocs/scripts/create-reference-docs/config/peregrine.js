@@ -1,19 +1,11 @@
 module.exports = [
     {
         target: 'peregrine/lib/Price/price.js',
-        type: 'class'
+        type: 'function'
     },
     {
         target: 'peregrine/lib/List/list.js',
-        type: 'class',
-        overrides: {
-            items: {
-                required: true
-            },
-            render: {
-                required: true
-            }
-        }
+        type: 'function'
     },
     {
         target: 'peregrine/lib/hooks/useEventListener.js',
@@ -55,11 +47,11 @@ module.exports = [
         ]
     },
     {
-        target: 'peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions.js',
+        target: 'peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions.js',
         type: 'function',
     },
     {
-        target: 'peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode.js',
+        target: 'peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/useCouponCode.js',
         type: 'function',
         childComponents: [
             'peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm.js',

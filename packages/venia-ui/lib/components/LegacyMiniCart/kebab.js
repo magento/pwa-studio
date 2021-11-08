@@ -18,6 +18,7 @@ const Kebab = props => {
         <div className={classes.root}>
             <button
                 className={classes.kebab}
+                data-cy="LegacyMiniCart-Kebab-button"
                 onClick={handleKebabClick}
                 ref={kebabRef}
             >

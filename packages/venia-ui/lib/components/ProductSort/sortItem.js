@@ -18,7 +18,11 @@ const SortItem = props => {
     const activeIcon = active ? <Icon size={20} src={Check} /> : null;
 
     return (
-        <button className={classes.root} onClick={handleClick}>
+        <button
+            className={classes.root}
+            data-cy={active ? 'SortItem-activeButton' : 'SortItem-button'}
+            onClick={handleClick}
+        >
             <span className={classes.content}>
                 <span className={classes.text}>
                     <FormattedMessage

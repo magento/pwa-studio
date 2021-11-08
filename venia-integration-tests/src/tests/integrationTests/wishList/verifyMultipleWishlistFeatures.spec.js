@@ -145,7 +145,7 @@ describe('verify single wishlist basic features', () => {
             fixture:
                 'wishlist/multipleWishlist/categoryPageGetWishlistDialogData.json'
         }).as('getCustomerWishlist2');
-        cy.visitPage(categoryTops);
+        cy.visitPage(categoryTops.url);
         cy.wait(['@getWishlistLocalFields']).its('response.body');
         cy.wait(['@getCustomerWishlist2']).its('response.body');
 

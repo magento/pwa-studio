@@ -19,7 +19,7 @@ const ShippingRadio = props => {
 
     return (
         <Fragment>
-            <span>{props.name}</span>
+            <span data-cy="ShippingRadio-name">{props.name}</span>
             <div className={classes.price}>{priceElement}</div>
         </Fragment>
     );

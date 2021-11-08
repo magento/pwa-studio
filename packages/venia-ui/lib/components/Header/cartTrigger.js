@@ -44,7 +44,9 @@ const CartTrigger = props => {
         : classes.triggerContainer;
 
     const maybeItemCounter = itemCount ? (
-        <span className={classes.counter}>{itemCountDisplay}</span>
+        <span className={classes.counter} data-cy="CartTrigger-counter">
+            {itemCountDisplay}
+        </span>
     ) : null;
 
     const cartTrigger = hideCartTrigger ? null : (

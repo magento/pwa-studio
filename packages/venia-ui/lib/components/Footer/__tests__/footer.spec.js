@@ -17,6 +17,10 @@ jest.mock('@magento/venia-ui/lib/components/Logo', () => {
     return props => <i {...props} />;
 });
 
+jest.mock('@magento/venia-ui/lib/components/Newsletter', () => {
+    return props => <i {...props} />;
+});
+
 const links = new Map()
     .set('ab', [['a', '/a'], ['b', '/b']])
     .set('12', [['1', '/1'], ['2', '/2']]);

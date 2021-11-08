@@ -50,7 +50,7 @@ const Pagination = props => {
     }
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="Pagination-root">
             <NavButton
                 name={navButtons.firstPage.name}
                 active={isActiveLeft}

@@ -17,6 +17,7 @@ const FilterModalOpenButton = props => {
             classes={{
                 root_lowPriority: classes.filterButton
             }}
+            data-cy="FilterModalOpenButton-button"
             onClick={handleOpen}
             type="button"
             aria-live="polite"

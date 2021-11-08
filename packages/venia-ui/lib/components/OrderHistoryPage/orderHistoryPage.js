@@ -89,7 +89,14 @@ const OrderHistoryPage = props => {
                 </h3>
             );
         } else {
-            return <ul className={classes.orderHistoryTable}>{orderRows}</ul>;
+            return (
+                <ul
+                    className={classes.orderHistoryTable}
+                    data-cy="OrderHistoryPage-orderHistoryTable"
+                >
+                    {orderRows}
+                </ul>
+            );
         }
     }, [
         classes.emptyHistoryMessage,

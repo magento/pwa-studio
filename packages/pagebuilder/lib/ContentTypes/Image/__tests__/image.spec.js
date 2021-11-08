@@ -62,3 +62,12 @@ test('renders a Image component with openInNewTab set to false', () => {
 
     expect(component.toJSON()).toMatchSnapshot();
 });
+
+test('renders a Image component with only mobile image', () => {
+    const imageProps = {
+        mobileImage: 'mobile-image.png'
+    };
+    const component = createTestInstance(<Image {...imageProps} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
