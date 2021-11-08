@@ -49,6 +49,19 @@ test('image config aggregator sets proper mobileImage when desktopImage equals m
         })
     );
 });
+test('image config aggregator sets proper mobileImage only', () => {
+    const node = document.createElement('div');
+    node.innerHTML = `<figure data-content-type="image" data-appearance="full-width" data-element="main" style="margin: 0px; padding: 0px; border-style: none;"><img class="pagebuilder-mobile-only" src="mobile-image.png" alt="Test Alt Text" title="Test Title Text" data-element="mobile_image" style="border-style: none; border-width: 1px; border-radius: 0px; max-width: 100%; height: auto;"></figure>`;
+
+    const config = configAggregator(node.childNodes[0]);
+
+    expect(config).toEqual(
+        expect.objectContaining({
+            desktopImage: null,
+            mobileImage: 'mobile-image.png'
+        })
+    );
+});
 
 test('image config aggregator doesnt fail on empty figure', () => {
     const node = document.createElement('div');
