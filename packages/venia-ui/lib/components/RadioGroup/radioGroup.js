@@ -26,6 +26,7 @@ const RadioGroup = props => {
         children ||
         items.map(({ value, ...item }) => (
             <Radio
+                data-cy=""
                 key={value}
                 disabled={disabled}
                 {...item}
@@ -40,7 +41,7 @@ const RadioGroup = props => {
 
     return (
         <Fragment>
-            <div className={classes.root}>
+            <div data-cy="RadioGroup-root" className={classes.root}>
                 <InformedRadioGroup {...rest} field={field} id={id}>
                     {options}
                 </InformedRadioGroup>
