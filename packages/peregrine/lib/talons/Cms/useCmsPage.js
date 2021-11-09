@@ -9,10 +9,9 @@ import DEFAULT_OPERATIONS from './cmsPage.gql';
 /**
  * Retrieves data necessary to render a CMS Page
  *
- * @param {object} props
- * @param {object} props.id - CMS Page ID
- * @param {object} props.queries - Collection of GraphQL queries
- * @param {object} props.queries.getCmsPage - Query for getting a CMS Page
+ * @param {Object} props
+ * @param {String} props.identifier - CMS Page Identifier
+ * @param {Object} props.operations - Collection of GraphQL queries
  * @returns {{shouldShowLoadingIndicator: *, hasContent: *, cmsPage: *, error: *}}
  */
 export const useCmsPage = props => {

@@ -41,7 +41,7 @@ const Tree = props => {
         : null;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="CategoryTree-root">
             <ul className={classes.tree}>{branches}</ul>
         </div>
     );

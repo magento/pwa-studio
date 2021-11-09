@@ -3,9 +3,26 @@ export const productAugustaEarrings = {
     url: '/augusta-earrings.html'
 };
 
+export const productCarminaEarrings = {
+    name: 'Carmina Earrings',
+    url: '/carmina-earrings.html'
+};
+
 export const productValeriaTwoLayeredTank = {
     name: 'Valeria Two-Layer Tank',
-    url: '/valeria-two-layer-tank.html'
+    url: '/valeria-two-layer-tank.html',
+    color: 'Lilac',
+    color1: 'Rain',
+    size: 'L',
+    size1: 'M',
+    qty: 2,
+    qty1: 3,
+    price: 68
+};
+
+export const productIsadoraSkirt = {
+    name: 'Isadora Skirt',
+    url: '/isadora-skirt.html'
 };
 
 /**

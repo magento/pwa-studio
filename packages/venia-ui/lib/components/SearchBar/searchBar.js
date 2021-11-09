@@ -26,7 +26,7 @@ const SearchBar = React.forwardRef((props, ref) => {
     const rootClassName = isOpen ? classes.root_open : classes.root;
 
     return (
-        <div className={rootClassName} ref={ref}>
+        <div className={rootClassName} data-cy="SearchBar-root" ref={ref}>
             <div ref={containerRef} className={classes.container}>
                 <Form
                     autoComplete="off"

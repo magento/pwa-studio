@@ -44,7 +44,7 @@ const { goToMyAccount } = myAccountMenuActions;
 const { addProductToWishlistFromCategoryPage } = categoryPageActions;
 const {
     addProductToWishlistFromProductPage,
-    addSimpleProductToCartFromProductPage
+    addToCartFromProductPage
 } = productPageActions;
 const { removeProductFromSingleWishlist } = wishlistPageActions;
 
@@ -118,7 +118,7 @@ describe('verify single wishlist basic features', () => {
         assertProductInWishlist(productValeriaTwoLayeredTank.name);
 
         cy.visitPage(silverAmorBangleSet.url);
-        addSimpleProductToCartFromProductPage();
+        addToCartFromProductPage();
 
         cy.wait(['@gqlAddProductToCartMutation'], {
             timeout: 60000

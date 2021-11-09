@@ -12,6 +12,7 @@ const GiftCardSection = props => {
     return (
         <Section
             id={'gift_card'}
+            data-cy="PriceAdjustments-giftCardSection"
             title={formatMessage({
                 id: 'giftCardSection.giftCard',
                 defaultMessage: 'Apply Gift Card'
