@@ -23,17 +23,15 @@ import defaultClasses from './contactPage.module.css';
 
 const BANNER_IDENTIFIER = 'contact-us-banner';
 const SIDEBAR_IDENTIFIER = 'contact-us-sidebar';
-const NOT_FOUND_MESSAGE = "Looks like the page you were hoping to find doesn't exist. Sorry about that.";
+const NOT_FOUND_MESSAGE =
+    "Looks like the page you were hoping to find doesn't exist. Sorry about that.";
 
 const ContactPage = props => {
     const { classes: propClasses } = props;
     const classes = useStyle(defaultClasses, propClasses);
     const { formatMessage } = useIntl();
     const talonProps = useContactPage({
-        cmsBlockIdentifiers: [
-            BANNER_IDENTIFIER,
-            SIDEBAR_IDENTIFIER
-        ]
+        cmsBlockIdentifiers: [BANNER_IDENTIFIER, SIDEBAR_IDENTIFIER]
     });
     const [, { addToast }] = useToasts();
 
