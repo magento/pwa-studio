@@ -6,7 +6,7 @@ import { useStyle } from '../../classify';
 import EditForm from './editForm';
 import FormError from '../FormError';
 import Dialog from '../Dialog';
-import defaultClasses from './editModal.css';
+import defaultClasses from './editModal.module.css';
 
 const EditModal = props => {
     const {

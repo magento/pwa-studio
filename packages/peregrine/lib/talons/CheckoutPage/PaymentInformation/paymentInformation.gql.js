@@ -120,12 +120,8 @@ export const SET_FREE_PAYMENT_METHOD_ON_CART = gql`
 `;
 
 export default {
-    queries: {
-        getPaymentNonceQuery: GET_PAYMENT_NONCE,
-        getPaymentInformation: GET_PAYMENT_INFORMATION
-    },
-    mutations: {
-        setBillingAddressMutation: SET_BILLING_ADDRESS,
-        setFreePaymentMethodMutation: SET_FREE_PAYMENT_METHOD_ON_CART
-    }
+    getPaymentNonceQuery: GET_PAYMENT_NONCE,
+    getPaymentInformationQuery: GET_PAYMENT_INFORMATION,
+    setBillingAddressMutation: SET_BILLING_ADDRESS,
+    setFreePaymentMethodMutation: SET_FREE_PAYMENT_METHOD_ON_CART
 };

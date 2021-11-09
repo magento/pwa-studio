@@ -1,0 +1,96 @@
+@import './tokens.module.css';
+
+:global(*) {
+    box-sizing: border-box;
+}
+
+:global(html) {
+    background-color: rgb(var(--venia-global-color-gray-50));
+    font-size: 100%;
+    font-weight: var(--venia-global-fontWeight-normal);
+    line-height: var(--venia-global-lineHeight-100);
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Lock the window's scroll position while an overlay is active.
+ * Has no effect in iOS Safari.
+ * https://bugs.webkit.org/show_bug.cgi?id=153852
+ *
+ * :global(html[data-scroll-lock='true'] body) {
+ *   overflow: hidden ;
+ * }
+ */
+
+:global(body),
+:global(button),
+:global(input),
+:global(select),
+:global(textarea) {
+    color: rgb(var(--venia-global-color-text));
+    font-family: var(--venia-global-fontFamily-sansSerif);
+}
+
+:global(body) {
+    background-color: rgb(var(--venia-global-color-gray-50));
+    margin: 0;
+    padding: 0;
+}
+
+:global(h1),
+:global(h2),
+:global(h3),
+:global(h4),
+:global(h5),
+:global(h6) {
+    font-size: var(--venia-global-fontSize-200);
+    font-weight: var(--venia-global-fontWeight-normal);
+    margin: 0;
+}
+
+:global(h1) {
+    font-size: var(--venia-global-fontSize-600);
+}
+
+:global(h2) {
+    font-size: var(--venia-global-fontSize-400);
+}
+
+:global(a) {
+    color: currentColor;
+    text-decoration: none;
+}
+
+:global(p) {
+    margin: 0;
+}
+
+:global(dl),
+:global(ol),
+:global(ul) {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+:global(dd),
+:global(dt) {
+    margin: 0;
+}
+
+:global(button) {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-size: 100%;
+    padding: 0;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-appearance: none;
+}
+
+:global(button:disabled) {
+    cursor: default;
+    touch-action: none;
+}

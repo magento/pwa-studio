@@ -11,7 +11,7 @@ import FormSubmissionSuccessful from './FormSubmissionSuccessful';
 
 import forgotPasswordOperations from './forgotPassword.gql';
 
-import defaultClasses from './forgotPassword.css';
+import defaultClasses from './forgotPassword.module.css';
 
 const ForgotPassword = props => {
     const { initialValues, onCancel } = props;

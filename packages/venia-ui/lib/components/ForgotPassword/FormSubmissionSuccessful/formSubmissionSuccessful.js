@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
 import { useStyle } from '../../../classify';
-import defaultClasses from './formSubmissionSuccessful.css';
+import defaultClasses from './formSubmissionSuccessful.module.css';
 
 const FormSubmissionSuccessful = props => {
     const { email } = props;

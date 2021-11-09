@@ -19,7 +19,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import { StoreTitle } from '../Head';
 import TextInput from '../TextInput';
 
-import defaultClasses from './orderHistoryPage.css';
+import defaultClasses from './orderHistoryPage.module.css';
 import OrderRow from './orderRow';
 import ResetButton from './resetButton';
 

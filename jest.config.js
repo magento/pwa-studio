@@ -132,7 +132,7 @@ const testReactComponents = inPackage => ({
         // it hard to test React components using DOM classnames.
         // This mapping forces CSS Modules to return literal identies,
         // so e.g. `classes.root` is always `"root"`.
-        '\\.css$': 'identity-obj-proxy',
+        '\\.(module.)?css$': 'identity-obj-proxy',
         '\\.svg$': 'identity-obj-proxy',
         '@magento/venia-drivers':
             '<rootDir>/packages/venia-ui/lib/drivers/index.js'

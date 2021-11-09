@@ -13,8 +13,7 @@ import FormError from '../../../FormError';
 import Region from '../../../Region';
 import Postcode from '../../../Postcode';
 import TextInput from '../../../TextInput';
-import defaultClasses from './guestForm.css';
-import GuestFormOperations from './guestForm.gql';
+import defaultClasses from './guestForm.module.css';
 
 const GuestForm = props => {
     const {
@@ -27,7 +26,6 @@ const GuestForm = props => {
 
     const talonProps = useGuestForm({
         afterSubmit,
-        ...GuestFormOperations,
         onCancel,
         onSuccess,
         shippingData

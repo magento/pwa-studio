@@ -4,7 +4,7 @@ import { string, shape, array } from 'prop-types';
 import { useStyle } from '../../classify';
 import GalleryItem from './item';
 import GalleryItemShimmer from './item.shimmer';
-import defaultClasses from './gallery.css';
+import defaultClasses from './gallery.module.css';
 import { useGallery } from '@magento/peregrine/lib/talons/Gallery/useGallery';
 
 /**

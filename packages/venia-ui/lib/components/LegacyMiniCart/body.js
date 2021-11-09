@@ -4,7 +4,7 @@ import { array, bool, func, object, shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 
-import defaultClasses from './body.css';
+import defaultClasses from './body.module.css';
 import EditItem from './editItem';
 import EmptyMiniCartBody from './emptyMiniCartBody';
 import ProductList from './productList';

@@ -3,7 +3,7 @@ import { shape, string } from 'prop-types';
 import { useToasts } from '@magento/peregrine';
 import Toast from './toast';
 import { useStyle } from '../../classify';
-import defaultClasses from './toastContainer.css';
+import defaultClasses from './toastContainer.module.css';
 
 /**
  * A container for toast notifications.

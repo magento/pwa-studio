@@ -5,7 +5,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 
 import { useStyle } from '../../classify';
 
-import defaultClasses from './totalsSummary.css';
+import defaultClasses from './totalsSummary.module.css';
 
 const cartTotalString = 'Cart Total : ';
 

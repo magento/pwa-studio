@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './submenuColumn.css';
+import defaultClasses from './submenuColumn.module.css';
 import PropTypes from 'prop-types';
 
 /**
@@ -63,7 +63,7 @@ const SubmenuColumn = props => {
                 to={categoryUrl}
                 onClick={onNavigate}
             >
-                <h3 className={classes.heading}>{category.name}</h3>
+                <span className={classes.heading}>{category.name}</span>
             </Link>
             {children}
         </div>

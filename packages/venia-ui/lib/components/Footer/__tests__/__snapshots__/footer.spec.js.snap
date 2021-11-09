@@ -74,14 +74,14 @@ exports[`footer renders copyright 1`] = `
     <div
       className="callout"
     >
-      <h3
+      <span
         className="calloutHeading"
       >
         <mock-FormattedMessage
           defaultMessage="Follow Us!"
           id="footer.followText"
         />
-      </h3>
+      </span>
       <p
         className="calloutBody"
       >
@@ -160,6 +160,7 @@ exports[`footer renders copyright 1`] = `
         </li>
       </ul>
     </div>
+    <i />
   </div>
   <div
     className="branding"

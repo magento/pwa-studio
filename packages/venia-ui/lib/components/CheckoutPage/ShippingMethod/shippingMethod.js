@@ -6,7 +6,7 @@ import { Form } from 'informed';
 import {
     displayStates,
     useShippingMethod
-} from '@magento/peregrine/lib/talons/CheckoutPage/useShippingMethod';
+} from '@magento/peregrine/lib/talons/CheckoutPage/ShippingMethod/useShippingMethod';
 
 import { useStyle } from '../../../classify';
 import Button from '../../Button';
@@ -15,9 +15,7 @@ import LoadingIndicator from '../../LoadingIndicator';
 import CompletedView from './completedView';
 import ShippingRadios from './shippingRadios';
 import UpdateModal from './updateModal';
-import defaultClasses from './shippingMethod.css';
-
-import shippingMethodOperations from './shippingMethod.gql';
+import defaultClasses from './shippingMethod.module.css';
 
 const initializingContents = (
     <LoadingIndicator>
@@ -34,8 +32,7 @@ const ShippingMethod = props => {
     const talonProps = useShippingMethod({
         onSave,
         onSuccess,
-        setPageIsUpdating,
-        ...shippingMethodOperations
+        setPageIsUpdating
     });
 
     const {

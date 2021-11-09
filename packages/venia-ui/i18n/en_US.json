@@ -30,6 +30,8 @@
     "addressCard.defaultText": "Default",
     "addToCartButton.addItemToCart": "ADD TO CART",
     "addToCartButton.itemOutOfStock": "OUT OF STOCK",
+    "addToCartButton.addItemToCartAriaLabel": "Add to cart",
+    "addToCartButton.itemOutOfStockAriaLabel": "Out of stock",
     "addToCartDialog.addToCart": "Add to Cart",
     "app.errorOffline": "You are offline. Some features may be unavailable.",
     "app.errorUnexpected": "Sorry! An unexpected error occurred.",
@@ -324,6 +326,8 @@
     "productFullDetail.errorUnknown": "Could not add item to cart. Please check required options and try again.",
     "productFullDetail.productDescription": "Product Description",
     "productFullDetail.unavailableProduct": "This product is currently unavailable for purchase.",
+    "productImageCarousel.previousButtonAriaLabel": "Previous Image",
+    "productImageCarousel.nextButtonAriaLabel": "Next Image",
     "productList.each": " ea.",
     "productList.filter": "Filter",
     "productList.outOfStock": "Out-of-stock",
@@ -435,5 +439,10 @@
     "wishlistPage.wishlistDisabledMessage": "The wishlist is not currently available.",
     "wishlist.itemCountOpen": "Showing {currentCount} of {count} items in this list",
     "wishlist.itemCountClosed": "You have {count} {count, plural, one {item} other {items}} in this list",
-    "wishlist.loadMore": "Load More"
+    "wishlist.loadMore": "Load More",
+    "newsletter.subscribeMessage": "The email address is subscribed.",
+    "newsletter.loadingText": "Subscribing",
+    "newsletter.titleText": "Subscribe to Venia",
+    "newsletter.subscribeText": "Subscribe",
+    "newsletter.infoText": "Recieve the latest news, update and special offers right to your inbox."
 }

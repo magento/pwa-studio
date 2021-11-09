@@ -7,8 +7,7 @@ import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPag
 import CheckoutError from '@magento/peregrine/lib/talons/CheckoutPage/CheckoutError';
 
 import { useStyle } from '../../../classify';
-import paymentInformationOperations from './paymentInformation.gql';
-import defaultClasses from './paymentInformation.css';
+import defaultClasses from './paymentInformation.module.css';
 import LoadingIndicator from '../../LoadingIndicator';
 
 const PaymentMethods = React.lazy(() => import('./paymentMethods'));
@@ -32,8 +31,7 @@ const PaymentInformation = props => {
         checkoutError,
         resetShouldSubmit,
         setCheckoutStep,
-        shouldSubmit,
-        ...paymentInformationOperations
+        shouldSubmit
     });
 
     const {

@@ -9,7 +9,7 @@ import { GalleryShimmer } from '../../components/Gallery';
 import { ProductSortShimmer } from '../../components/ProductSort';
 import Shimmer from '../../components/Shimmer';
 import { SortedByContainerShimmer } from '../../components/SortedByContainer';
-import defaultClasses from './category.css';
+import defaultClasses from './category.module.css';
 
 const CategoryContentShimmer = props => {
     const classes = useStyle(defaultClasses, props.classes);

@@ -9,7 +9,7 @@ import { useStyle } from '../../classify';
 import Image from '../Image';
 import { REMOVE_ITEM_MUTATION } from './cartOptions.gql';
 import Kebab from './kebab';
-import defaultClasses from './product.css';
+import defaultClasses from './product.module.css';
 import ProductOptions from './productOptions';
 import Section from './section';
 import { gql } from '@apollo/client';
@@ -131,7 +131,7 @@ export const GET_CART_DETAILS_QUERY = gql`
         cart(cart_id: $cartId) {
             id
             items {
-                id
+                uid
                 prices {
                     price {
                         value

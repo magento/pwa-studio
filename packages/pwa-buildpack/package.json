@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
     "@magento/directive-parser": "~0.1.7",
-    "@magento/upward-js": "~5.1.0",
+    "@magento/upward-js": "~5.2.0",
     "@pmmmwh/react-refresh-webpack-plugin": "~0.4.1",
     "@yarnpkg/lockfile": "~1.1.0",
     "apicache": "~1.4.0",
@@ -77,7 +77,7 @@
     "@magento/eslint-config": "~1.5.0",
     "babel-loader": "~8.0.5",
     "compression": "~1.7.4",
-    "css-loader": "~2.1.1",
+    "css-loader": "~5.2.7",
     "memory-fs": "~0.4.1",
     "postcss": "~8.3.6",
     "postcss-loader": "~4.3.0",
@@ -94,7 +94,7 @@
     "@babel/plugin-syntax-jsx": "~7.2.0",
     "babel-loader": "~8.0.5",
     "compression": "~1.7.4",
-    "css-loader": "~2.1.1",
+    "css-loader": "~5.2.7",
     "postcss": "~8.3.6",
     "postcss-loader": "~4.3.0",
     "terser-webpack-plugin": "~1.2.3",
@@ -104,9 +104,6 @@
   "engines": {
     "node": ">=10.x",
     "yarn": ">=1.12.0"
-  },
-  "resolutions": {
-    "workbox-build": "~6.0.2"
   },
   "pwa-studio": {
     "targets": {

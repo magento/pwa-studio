@@ -1,6 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders correctly 1`] = `
+exports[`#MegaMenu renders empty div if not in viewport 1`] = `
+<nav
+  className="megaMenu"
+  role="navigation"
+/>
+`;
+
+exports[`#MegaMenu renders menu if in viewport 1`] = `
 <nav
   className="megaMenu"
   role="navigation"
@@ -57,11 +64,11 @@ exports[`it renders correctly 1`] = `
             onClick={[Function]}
             onKeyDown={[Function]}
           >
-            <h3
+            <span
               className="heading"
             >
               Bottoms
-            </h3>
+            </span>
           </a>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessa
 import { useStyle } from '../../classify';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Wishlist from './wishlist';
-import defaultClasses from './wishlistPage.css';
+import defaultClasses from './wishlistPage.module.css';
 
 import CreateWishlist from './createWishlist';
 

@@ -28,7 +28,7 @@ import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
 
-import defaultClasses from './checkoutPage.css';
+import defaultClasses from './checkoutPage.module.css';
 import ScrollAnchor from '../ScrollAnchor/scrollAnchor';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;

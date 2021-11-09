@@ -11,18 +11,11 @@ import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import Icon from '../../Icon';
+import LinkButton from '../../LinkButton';
 import LoadingIndicator from '../../LoadingIndicator';
 import TextInput from '../../TextInput';
-import defaultClasses from './giftCards.css';
+import defaultClasses from './giftCards.module.css';
 import GiftCard from './giftCard';
-
-import {
-    GET_APPLIED_GIFT_CARDS_QUERY,
-    GET_GIFT_CARD_BALANCE_QUERY,
-    APPLY_GIFT_CARD_MUTATION,
-    REMOVE_GIFT_CARD_MUTATION
-} from './giftCardQueries';
-import LinkButton from '../../LinkButton';
 
 const errorIcon = (
     <Icon
@@ -41,7 +34,7 @@ const errorIcon = (
  * @param {Object} props Component props
  * @param {Function} props.setIsCartUpdating Callback function to call when adding or removing a gift card
  * @param {Object} props.classes CSS className overrides.
- * See [giftCards.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCards.css}
+ * See [giftCards.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCards.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}
@@ -51,15 +44,7 @@ const errorIcon = (
  */
 const GiftCards = props => {
     const talonProps = useGiftCards({
-        setIsCartUpdating: props.setIsCartUpdating,
-        mutations: {
-            applyCardMutation: APPLY_GIFT_CARD_MUTATION,
-            removeCardMutation: REMOVE_GIFT_CARD_MUTATION
-        },
-        queries: {
-            appliedCardsQuery: GET_APPLIED_GIFT_CARDS_QUERY,
-            cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY
-        }
+        setIsCartUpdating: props.setIsCartUpdating
     });
     const {
         applyGiftCard,

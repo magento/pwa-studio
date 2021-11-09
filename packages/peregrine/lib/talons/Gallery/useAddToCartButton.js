@@ -6,7 +6,7 @@ import { useCartContext } from '../../context/cart';
 import operations from './addToCart.gql';
 
 /**
- * @param {Number} props.item.id - id of item
+ * @param {String} props.item.uid - uid of item
  * @param {String} props.item.name - name of item
  * @param {String} props.item.stock_status - stock status of item
  * @param {String} props.item.type_id - product type
@@ -56,7 +56,12 @@ export const useAddToCartButton = props => {
                         cartId,
                         cartItem: {
                             quantity: 1,
-                            selected_options: [],
+                            entered_options: [
+                                {
+                                    uid: item.uid,
+                                    value: item.name
+                                }
+                            ],
                             sku: item.sku
                         }
                     }
@@ -71,7 +76,16 @@ export const useAddToCartButton = props => {
         } catch (error) {
             console.error(error);
         }
-    }, [addToCart, cartId, history, item.sku, item.url_key, productType]);
+    }, [
+        addToCart,
+        cartId,
+        history,
+        item.sku,
+        item.url_key,
+        productType,
+        item.uid,
+        item.name
+    ]);
 
     return {
         handleAddToCart,

@@ -10,7 +10,7 @@ jest.mock(
         useAddToListButton: jest.fn().mockReturnValue({
             buttonProps: {
                 disabled: false,
-                onClick: jest.fn().mockName('buttonProps.onClick')
+                onPress: jest.fn().mockName('buttonProps.onPress')
             },
             isSelected: false
         })
@@ -74,7 +74,13 @@ test('passes talonProps to toast hook', () => {
         successToastProps: jest.fn().mockName('successToastProps')
     };
 
-    useAddToListButton.mockReturnValue(toastProps);
+    useAddToListButton.mockReturnValue({
+        buttonProps: {
+            disabled: false,
+            onPress: jest.fn().mockName('buttonProps.onPress')
+        },
+        ...toastProps
+    });
 
     createTestInstance(<AddToListButton />);
 

@@ -1,5 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
+import DEFAULT_OPERATIONS from './editModal.gql';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import { useCartContext } from '../../../context/cart';
 
@@ -7,7 +9,7 @@ import { useCartContext } from '../../../context/cart';
  * Talon to handle checkout page's payment information edit modal.
  *
  * @param {Function} props.onClose callback to be called when the modal's close or cancel button is clicked.
- * @param {DocumentNode} props.queries.getSelectedPaymentMethodQuery query to fetch the payment method that was used in the payment information checkout step
+ * @param {DocumentNode} props.operations.getSelectedPaymentMethodQuery query to fetch the payment method that was used in the payment information checkout step
  *
  * @returns {
  *   selectedPaymentMethod: String,
@@ -22,11 +24,10 @@ import { useCartContext } from '../../../context/cart';
  * }
  */
 export const useEditModal = props => {
-    const {
-        onClose,
-        queries: { getSelectedPaymentMethodQuery }
-    } = props;
+    const { onClose } = props;
 
+    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
+    const { getSelectedPaymentMethodQuery } = operations;
     /**
      * Definitions
      */

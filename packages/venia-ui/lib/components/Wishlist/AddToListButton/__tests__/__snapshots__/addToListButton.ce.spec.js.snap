@@ -3,8 +3,19 @@
 exports[`renders button 1`] = `
 <button
   className="root"
-  disabled={false}
-  onClick={[MockFunction buttonProps.onClick]}
+  onClick={[Function]}
+  onDragStart={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchCancel={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  type="button"
 >
   <span
     className="root"
@@ -33,7 +44,19 @@ exports[`renders button 1`] = `
 exports[`renders selected button 1`] = `
 <button
   className="root_selected"
-  disabled={true}
+  onClick={[Function]}
+  onDragStart={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchCancel={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  type="button"
 >
   <span
     className="root"

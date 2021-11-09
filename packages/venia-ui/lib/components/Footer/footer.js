@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
-import Logo from '@magento/venia-ui/lib/components/Logo';
+import Logo from '../Logo';
+import Newsletter from '../Newsletter';
 import { useStyle } from '../../classify';
-import defaultClasses from './footer.css';
+import defaultClasses from './footer.module.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
 
 const Footer = props => {
@@ -49,12 +50,12 @@ const Footer = props => {
             <div className={classes.links}>
                 {linkGroups}
                 <div className={classes.callout}>
-                    <h3 className={classes.calloutHeading}>
+                    <span className={classes.calloutHeading}>
                         <FormattedMessage
                             id={'footer.followText'}
                             defaultMessage={'Follow Us!'}
                         />
-                    </h3>
+                    </span>
                     <p className={classes.calloutBody}>
                         <FormattedMessage
                             id={'footer.calloutText'}
@@ -73,6 +74,7 @@ const Footer = props => {
                         </li>
                     </ul>
                 </div>
+                <Newsletter />
             </div>
             <div className={classes.branding}>
                 <ul className={classes.legal}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { func, node, shape, string } from 'prop-types';
 
 import { useStyle } from '../../classify';
-import defaultClasses from './trigger.css';
+import defaultClasses from './trigger.module.css';
 
 /**
  * A component that will trigger a given action.

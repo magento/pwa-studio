@@ -1,0 +1,73 @@
+.root {
+    align-content: start;
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.images {
+    display: grid;
+    grid-template-areas: 'main';
+    position: relative;
+}
+
+.imageContainer {
+    grid-area: main;
+}
+
+.image {
+    display: block;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 512ms ease-out;
+    width: 100%;
+}
+
+.imageLoaded {
+    composes: loaded from '../Image/image.module.css';
+    opacity: 1;
+}
+
+.imageNotLoaded {
+    composes: notLoaded from '../Image/image.module.css';
+    opacity: 0;
+}
+
+.imagePlaceholder {
+    composes: image;
+    background-color: rgb(var(--venia-global-color-gray));
+}
+
+.actionsContainer {
+    column-gap: 1rem;
+    display: grid;
+    grid-template-columns: auto auto;
+    padding-left: 0.5rem;
+}
+
+.actionsContainer:empty {
+    display: none;
+}
+
+.name {
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.name,
+.price {
+    font-size: var(--venia-typography-detail-XL-fontSize);
+    min-height: 1rem;
+}
+
+.unavailableContainer {
+    align-items: center;
+    background-color: rgb(var(--venia-global-color-gray));
+    color: rgb(var(--venia-global-color-gray-700));
+    column-gap: 0.5rem;
+    display: grid;
+    font-style: italic;
+    grid-auto-flow: column;
+    justify-content: start;
+    padding: 0.75rem;
+    width: 100%;
+    font-size: var(--venia-global-fontSize-100);
+}

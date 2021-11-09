@@ -10,7 +10,7 @@ import Button from '../Button';
 import Field from '../Field';
 import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
-import defaultClasses from './signIn.css';
+import defaultClasses from './signIn.module.css';
 import { GET_CART_DETAILS_QUERY } from './signIn.gql';
 import LinkButton from '../LinkButton';
 import Password from '../Password';
@@ -56,12 +56,12 @@ const SignIn = props => {
 
     return (
         <div className={classes.root}>
-            <h2 className={classes.title}>
+            <span className={classes.title}>
                 <FormattedMessage
                     id={'signIn.titleText'}
                     defaultMessage={'Sign-in to Your Account'}
                 />
-            </h2>
+            </span>
             <FormError errors={Array.from(errors.values())} />
             <Form
                 getApi={setFormApi}

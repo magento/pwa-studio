@@ -19,6 +19,12 @@ const mockGetDefaultShippingResult = jest.fn().mockReturnValue({
     loading: false
 });
 
+jest.mock('../shippingInformation.gql.js', () => ({
+    setDefaultAddressOnCartMutation: 'setDefaultAddressOnCartMutation',
+    getDefaultShippingQuery: 'getDefaultShippingQuery',
+    getShippingInformationQuery: 'getShippingInformationQuery'
+}));
+
 jest.mock('@apollo/client', () => ({
     useQuery: jest.fn().mockImplementation(query => {
         if (query === 'getShippingInformationQuery')
@@ -62,18 +68,21 @@ jest.mock('../../../../context/user', () => {
     return { useUserContext };
 });
 
+jest.mock(
+    '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js',
+    () => ({
+        getShippingMethodsQuery: 'getShippingMethodsQuery',
+        setShippingAddressMutation: 'setShippingAddressMutation'
+    })
+);
+
 const Component = props => {
     const talonProps = useShippingInformation(props);
     return <i talonProps={talonProps} />;
 };
 
 const mockProps = {
-    mutations: {},
-    onSave: jest.fn(),
-    queries: {
-        getDefaultShippingQuery: 'getDefaultShippingQuery',
-        getShippingInformationQuery: 'getShippingInformationQuery'
-    }
+    onSave: jest.fn()
 };
 
 test('return correct shape without cart id', () => {

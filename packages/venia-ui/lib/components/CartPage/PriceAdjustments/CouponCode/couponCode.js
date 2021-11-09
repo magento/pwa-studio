@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { gql } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useToasts } from '@magento/peregrine';
 import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
-import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
+import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/CouponCode/useCouponCode';
 
 import { useStyle } from '../../../../classify';
 
@@ -15,10 +14,7 @@ import Icon from '../../../Icon';
 import LinkButton from '../../../LinkButton';
 import TextInput from '../../../TextInput';
 
-import { CartPageFragment } from '../../cartPageFragments.gql';
-import { AppliedCouponsFragment } from './couponCodeFragments';
-
-import defaultClasses from './couponCode.css';
+import defaultClasses from './couponCode.module.css';
 
 const errorIcon = (
     <Icon
@@ -29,53 +25,6 @@ const errorIcon = (
     />
 );
 
-const GET_APPLIED_COUPONS = gql`
-    query getAppliedCoupons($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...AppliedCouponsFragment
-        }
-    }
-    ${AppliedCouponsFragment}
-`;
-
-const APPLY_COUPON_MUTATION = gql`
-    mutation applyCouponToCart($cartId: String!, $couponCode: String!) {
-        applyCouponToCart(
-            input: { cart_id: $cartId, coupon_code: $couponCode }
-        ) @connection(key: "applyCouponToCart") {
-            cart {
-                id
-                ...CartPageFragment
-                # If this mutation causes "free" to become available we need to know.
-                available_payment_methods {
-                    code
-                    title
-                }
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
-
-const REMOVE_COUPON_MUTATION = gql`
-    mutation removeCouponFromCart($cartId: String!) {
-        removeCouponFromCart(input: { cart_id: $cartId })
-            @connection(key: "removeCouponFromCart") {
-            cart {
-                id
-                ...CartPageFragment
-                # If this mutation causes "free" to become available we need to know.
-                available_payment_methods {
-                    code
-                    title
-                }
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
-
 /**
  * A child component of the PriceAdjustments component.
  * This component renders a form for addingg a coupon code to the cart.
@@ -83,7 +32,7 @@ const REMOVE_COUPON_MUTATION = gql`
  * @param {Object} props
  * @param {Function} props.setIsCartUpdating Function for setting the updating state for the cart.
  * @param {Object} props.classes CSS className overrides.
- * See [couponCode.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.css}
+ * See [couponCode.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.module.css}
  * for a list of classes you can override.
  *
  * @returns {React.Element}
@@ -95,14 +44,7 @@ const CouponCode = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const talonProps = useCouponCode({
-        setIsCartUpdating: props.setIsCartUpdating,
-        mutations: {
-            applyCouponMutation: APPLY_COUPON_MUTATION,
-            removeCouponMutation: REMOVE_COUPON_MUTATION
-        },
-        queries: {
-            getAppliedCouponsQuery: GET_APPLIED_COUPONS
-        }
+        setIsCartUpdating: props.setIsCartUpdating
     });
     const [, { addToast }] = useToasts();
     const {
