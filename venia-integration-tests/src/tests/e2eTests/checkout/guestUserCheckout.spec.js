@@ -83,7 +83,6 @@ const {
 } = checkoutPageAssertions;
 const { assertCartTriggerCount } = headerAssertions;
 const { assertCreateAccount } = myAccountMenuAssertions;
-
 const completeShippingAddress = {
     ...checkoutShippingData.us,
     email: accountEmail,
@@ -247,8 +246,12 @@ describe('verify checkout actions', () => {
         );
         assertAppliedCouponCodeInCheckoutPage();
         assertAppliedGiftCardInCheckoutPage();
-        assertProductInCheckoutPage(productValeriaTwoLayeredTank.name);
-        assertProductInCheckoutPage(productIsadoraSkirt.name);
+        assertProductInCheckoutPage({
+            name: productValeriaTwoLayeredTank.name
+        });
+        assertProductInCheckoutPage({
+            name: productIsadoraSkirt.name
+        });
 
         // Test - Place Order
         placeOrder();
@@ -265,8 +268,18 @@ describe('verify checkout actions', () => {
             defaultShippingMethods.flatrate.label,
             true
         );
-        assertProductInCheckoutPage(productValeriaTwoLayeredTank.name, true);
-        assertProductInCheckoutPage(productIsadoraSkirt.name, true);
+        assertProductInCheckoutPage(
+            {
+                name: productValeriaTwoLayeredTank.name
+            },
+            true
+        );
+        assertProductInCheckoutPage(
+            {
+                name: productIsadoraSkirt.name
+            },
+            true
+        );
 
         // Test - Account create from Order Confirmation Page
         createAccountFromOrderConfirmationPage({

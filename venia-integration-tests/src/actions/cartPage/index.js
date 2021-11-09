@@ -4,6 +4,14 @@ import {
     giftCardSectionButton,
     giftOptionsSectionButton,
     kebabMenuButton,
+    cartPageProductImageLink,
+    cartPageProductLink,
+    kebabMenuEditButton,
+    editMenuColorButton,
+    editMenuSizeButton,
+    editMenuIncreaseQtyStepper,
+    editMenuUpdateCartButton,
+    cartPageCheckoutButton,
     productKebab,
     productListingProduct,
     productSectionRemoveFromCartButton,
@@ -58,6 +66,67 @@ export const moveProductFromCartToSingleWishlist = productName => {
     itemToMove.get(kebabMenuButton).click();
 
     itemToMove.get(saveForLaterButton).click();
+};
+/**
+ * Utility to open a product's edit dialog from the cart page
+ */
+export const openProductKebabMenu = productName => {
+    const itemToEdit = cy.get(cartPageRoot).contains('li', productName);
+
+    itemToEdit.get(kebabMenuButton).click();
+};
+
+export const openProductEditMenu = productName => {
+    const itemToEdit = cy.get(cartPageRoot).contains('li', productName);
+
+    itemToEdit.get(kebabMenuEditButton).click();
+};
+
+/**
+ * Utility to select a product's color in edit dialog
+ */
+export const editProductColor = color => {
+    cy.get(`${editMenuColorButton}[title*="${color}"]`).click();
+};
+/**
+ * Utility to select a product's size in edit dialog
+ */
+export const editProductSize = size => {
+    cy.get(editMenuSizeButton)
+        .contains('span', size)
+        .click();
+};
+/**
+ * Utility to increase a product's quantity in edit dialog
+ */
+export const increaseProductQuantity = () => {
+    cy.get(editMenuIncreaseQtyStepper).click();
+};
+/**
+ * Utility to submit product modifications on edit dialog
+ */
+export const clickOnUpdateCart = () => {
+    cy.get(editMenuUpdateCartButton).click();
+};
+/**
+ * Utility to go to checkout page from cart page
+ */
+export const goToCheckout = () => {
+    cy.get(cartPageCheckoutButton).click();
+};
+
+/**
+ * Utility to click on product image link from cart page
+ */
+export const clickProductImageLinkFromCart = () => {
+    cy.get(cartPageProductImageLink).click();
+};
+
+/**
+ * Utility to click on product link from cart page
+ */
+export const clickProductLinkFromCart = () => {
+    cy.get(cartPageProductLink).click();
 };
 
 /**

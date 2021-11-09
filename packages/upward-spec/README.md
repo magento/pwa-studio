@@ -57,6 +57,10 @@ See [UPWARD_MAGENTO.md](UPWARD_MAGENTO.md) for context on how UPWARD fills a nee
       - [UrlResolver Example](#urlresolver-example)
       - [UrlResolver Configuration Options](#urlresolver-configuration-options)
       - [UrlResolver Notes](#urlresolver-notes)
+    - [ComputedResolver](#computedresolver)
+      - [ComputedResolver Example](#computedresolver-example)
+      - [ComputedResolver Configuration Options](#computedresolver-configuration-options)
+      - [ComputedResolver Notes](#computedresolver-notes)
   - [Reducing boilerplate](#reducing-boilerplate)
     - [Default parameters](#default-parameters)
     - [Builtin constants](#builtin-constants)
@@ -505,6 +509,7 @@ A Resolver is an object which describes how a value is obtained. There are five 
 - `ProxyResolver` delegates request/response handling to a proxy
 - `DirectoryResolver` delegates request/response handling to a static file directory
 - `UrlResolver` builds a URL from strings and other URLs
+- `ComputedResolver` resolves to a PHP class to get data
 
 Each Resolver takes different configuration parameters. Like a context lookup string, a resolver represents an operation which will execute and then deliver its results upward in the tree, until all dependencies of the top-level `status`, `headers`, and `body` definitions are resolved.
 
@@ -1085,6 +1090,37 @@ https://admin.host:8081/api/rest/v1/adminToken?refreshToken=a1b2c3&role=owner
   evaluates to `https://fleet.local/ships/yamato/`
 
 - If both `search` and `query` are present, the parameters must be merged, giving preference to `query` where there are conflicts. _"Array" query parameters are not defined by this specification, since their behavior is inconsistent across platforms._
+
+### ComputedResolver
+
+The ComputedResolver is used for the UPWARD PHP implementation to inline key page data in the initial page response without needing to make external or
+round trip calls. This essentially provides a way to add more resolvers than are available in this spec. **It can be noted that this resolver breaks spec
+and its JS implementation is only to avoid crashing during build.**
+
+#### ComputedResolver Example
+
+```yaml
+someDataPoint:
+  resolver: computed
+  type:
+    resolver: inline
+    inline: typeKey
+```
+
+The ComputedResolver's resolved value can vary depending on the class used. The typeKey maps to a PHP class, who takes responsibility for returning a value.
+
+#### ComputedResolver Configuration Options
+
+| Property   | Type                        | Default  | Description                                                                                                                                                                                         |
+| ---------- | --------------------------- | -------- | -----------------------------------------------------------------------------------------------------------|
+| `type`     | `Resolved<string>`          |          | _Required_. This value is used to map to a PHP class that will return a value.                             |
+| `<other>`  | `Resolved<any>`             |          | Since this is essentially a way to add more resolvers, any data defined in the yaml is passed to the class |
+
+#### ComputedResolver Notes
+In its PHP implementation, the definition and resolver is passed to the class, so any information the class needs can be passed in this manner. The type is mapped
+to a PHP class through the di.xml and the class has access to any Magento dependency injection it needs.
+The JS implementation is only present to not break when the resolver type is defined.
+
 
 ## Reducing boilerplate
 

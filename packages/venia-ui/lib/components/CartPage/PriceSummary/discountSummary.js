@@ -52,7 +52,10 @@ const DiscountSummary = props => {
                     defaultMessage={'Discounts applied'}
                 />
             </span>
-            <span className={classes.price}>
+            <span
+                data-cy="DiscountSummary-discountValue"
+                className={classes.price}
+            >
                 {MINUS_SYMBOL}
                 <Price
                     value={discount.value}
