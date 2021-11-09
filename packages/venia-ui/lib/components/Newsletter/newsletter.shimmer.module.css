@@ -1,0 +1,11 @@
+.shimmerItem {
+    composes: root_rectangle from '../Shimmer/shimmer.module.css';
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.shimmerParagraphLine {
+    composes: root_rectangle from '../Shimmer/shimmer.module.css';
+    display: block;
+    margin-bottom: 0.5rem;
+}
