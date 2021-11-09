@@ -45,7 +45,12 @@ const ShippingSummary = props => {
     return (
         <>
             <span className={classes.lineItemLabel}>{shippingLabel}</span>
-            <span className={classes.price}>{price}</span>
+            <span
+                data-cy="ShippingSummary-shippingValue"
+                className={classes.price}
+            >
+                {price}
+            </span>
         </>
     );
 };

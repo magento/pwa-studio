@@ -169,6 +169,7 @@ const CreditCard = props => {
                 </div>
                 <div className={classes.address_check}>
                     <Checkbox
+                        data-cy="PaymentInformation-billingAddressSame"
                         field="isBillingAddressSame"
                         label={formatMessage({
                             id: 'checkoutPage.billingAddressSame',
@@ -188,6 +189,7 @@ const CreditCard = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="CreditCard-billingAddress-firstname"
                             id="firstName"
                             field="firstName"
                             validate={isFieldRequired}
@@ -203,6 +205,7 @@ const CreditCard = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="CreditCard-billingAddress-lastname"
                             id="lastName"
                             field="lastName"
                             validate={isFieldRequired}
@@ -210,6 +213,7 @@ const CreditCard = props => {
                         />
                     </Field>
                     <Country
+                        data-cy="CreditCard-billingAddress-country"
                         classes={fieldClasses.country}
                         validate={isFieldRequired}
                         initialValue={
@@ -229,6 +233,7 @@ const CreditCard = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="CreditCard-billingAddress-street1"
                             id="street1"
                             field="street1"
                             validate={isFieldRequired}
@@ -245,6 +250,7 @@ const CreditCard = props => {
                         optional={true}
                     >
                         <TextInput
+                            data-cy="CreditCard-billingAddress-street2"
                             id="street2"
                             field="street2"
                             initialValue={initialValues.street2}
@@ -259,6 +265,7 @@ const CreditCard = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="CreditCard-billingAddress-city"
                             id="city"
                             field="city"
                             validate={isFieldRequired}
@@ -266,6 +273,7 @@ const CreditCard = props => {
                         />
                     </Field>
                     <Region
+                        data-cy="CreditCard-billingAddress-region"
                         classes={fieldClasses.region}
                         initialValue={initialValues.region}
                         validate={isFieldRequired}
@@ -274,6 +282,7 @@ const CreditCard = props => {
                         optionValueKey={'id'}
                     />
                     <Postcode
+                        data-cy="CreditCard-billingAddress-postcode"
                         classes={fieldClasses.postal_code}
                         validate={isFieldRequired}
                         initialValue={initialValues.postcode}
@@ -287,6 +296,7 @@ const CreditCard = props => {
                         })}
                     >
                         <TextInput
+                            data-cy="CreditCard-billingAddress-phoneNumber"
                             id="phoneNumber"
                             field="phoneNumber"
                             validate={isFieldRequired}

@@ -148,8 +148,16 @@ async function getClientConfig(opts) {
         optimization: {
             splitChunks: {
                 cacheGroups: {
+                    /**
+                     * Creating the vendors bundle. This bundle
+                     * will have all the packages that the app
+                     * needs to render. Since these dont change
+                     * often, it is advantageous to bundle them
+                     * separately and cache them on the client.
+                     */
                     vendor: {
                         test: new RegExp(vendorTest),
+                        name: 'vendors',
                         chunks: 'all'
                     }
                 }
@@ -225,22 +233,6 @@ async function getClientConfig(opts) {
              * download runtime bundle and use the cached client code.
              */
             runtimeChunk: 'single',
-            splitChunks: {
-                cacheGroups: {
-                    /**
-                     * Creating the vendors bundle. This bundle
-                     * will have all the packages that the app
-                     * needs to render. Since these dont change
-                     * often, it is advantageous to bundle them
-                     * separately and cache them on the client.
-                     */
-                    vendor: {
-                        test: new RegExp(vendorTest),
-                        name: 'vendors',
-                        chunks: 'all'
-                    }
-                }
-            },
             minimizer: [
                 new TerserPlugin({
                     parallel: true,
