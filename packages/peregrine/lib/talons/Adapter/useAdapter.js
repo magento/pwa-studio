@@ -23,9 +23,12 @@ export const useAdapter = props => {
     const basename = urlHasStoreCode ? `/${storeCode}` : null;
     const [initialized, setInitialized] = useState(false);
 
-    const apiBase = useMemo(() => new URL('/graphql', origin).toString(), [
-        origin
-    ]);
+    // const apiBase = useMemo(() => new URL('/graphql', origin).toString(), [
+    //     origin
+    // ]);
+    const apiBase = new URL(
+        'https://commerce-int.adobe.io/api/runtime/graphql?api_key=adobeio_onboarding'
+    ).toString();
 
     const authLink = useMemo(
         () =>
@@ -116,6 +119,7 @@ export const useAdapter = props => {
         () =>
             createHttpLink({
                 fetch: customFetchToShrinkQuery,
+                fetchOptions: { mode: 'cors' },
                 useGETForQueries: true,
                 uri: apiBase
             }),
@@ -278,7 +282,7 @@ const preInstantiatedCache = new InMemoryCache({
  * @param {*} uri
  * @param {*} options
  */
-const customFetchToShrinkQuery = (uri, options) => {
+const customFetchToShrinkQuery = async (uri, options) => {
     // TODO: add `ismorphic-fetch` or equivalent to avoid this error
     if (typeof globalThis.fetch !== 'function') {
         console.error('This environment does not define `fetch`.');
@@ -287,5 +291,13 @@ const customFetchToShrinkQuery = (uri, options) => {
 
     const resource = options.method === 'GET' ? shrinkQuery(uri) : uri;
 
-    return globalThis.fetch(resource, options);
+    const nextOptions = {
+        ...options,
+        headers: {
+            ...options.headers,
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+
+    return globalThis.fetch(resource, nextOptions);
 };

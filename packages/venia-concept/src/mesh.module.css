@@ -1,0 +1,11 @@
+.root {
+    align-items: center;
+    background-image: var(--image);
+    background-position: 0% 50%;
+    border-radius: 8px;
+    display: grid;
+    font-size: 48px;
+    height: 240px;
+    margin-top: 32px;
+    padding: 32px;
+}
