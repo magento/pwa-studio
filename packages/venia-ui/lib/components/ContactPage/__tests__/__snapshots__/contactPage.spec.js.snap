@@ -100,8 +100,6 @@ exports[`it displays errors 1`] = `
 </div>
 `;
 
-exports[`it redirects if disabled 1`] = `"Redirect"`;
-
 exports[`it renders form 1`] = `
 <div
   className="root"
