@@ -26,6 +26,7 @@ const FilterFooter = props => {
             <Button
                 disabled={!touched}
                 onClick={applyFilters}
+                data-cy="FilterFooter-button"
                 aria-label={buttonLabel}
                 aria-disabled={!touched}
                 priority="high"

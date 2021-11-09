@@ -45,42 +45,27 @@ test('clears cart data from cache', async () => {
 
     cache.restore({
         Cart: {
-            __typename: 'Cart',
             id: '12345',
-            total_quantity: '3',
-            giftcard: { __ref: 'AppliedGiftCard' },
-            shipping_address: { __ref: 'ShippingCartAddress' },
-            available_shipping_methods: [{ __ref: 'AvailableShippingMethod' }]
+            total_quantity: '3'
         },
         AppliedGiftCard: {
-            __typename: 'AppliedGiftCard',
             code: 'GiftCardCode'
         },
         ShippingCartAddress: {
-            __typename: 'ShippingCartAddress',
             street: '747 Evergreen Terrace'
         },
         AvailableShippingMethod: {
-            __typename: 'AvailableShippingMethod',
             carrier_code: '4',
             method_code: '5'
         },
         AnotherCacheEntry: {
-            __typename: 'AnotherCacheEntry',
             value: 'This entry should not get deleted'
-        },
-        ROOT_QUERY: {
-            __typename: 'Query',
-            cart: { __ref: 'Cart' },
-            anotherCacheEntry: { __ref: 'AnotherCacheEntry' }
         }
     });
 
-    cache.retain('ROOT_QUERY');
-
     await act(async () => {
         TestRenderer.create(
-            <MockedProvider cache={cache} addTypename={false}>
+            <MockedProvider cache={cache}>
                 <Component />
             </MockedProvider>
         );
@@ -94,10 +79,9 @@ test('clears cart data from cache', async () => {
         'AppliedGiftCard',
         'ShippingCartAddress',
         'AvailableShippingMethod',
-        'AnotherCacheEntry',
-        'ROOT_QUERY'
+        'AnotherCacheEntry'
     ]);
 
     const finalCacheDataKeys = Object.keys(log.mock.calls[1][0]);
-    expect(finalCacheDataKeys).toEqual(['AnotherCacheEntry', 'ROOT_QUERY']);
+    expect(finalCacheDataKeys).toEqual(['AnotherCacheEntry']);
 });

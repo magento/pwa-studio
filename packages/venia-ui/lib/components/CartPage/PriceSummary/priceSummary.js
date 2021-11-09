@@ -91,7 +91,7 @@ const PriceSummary = props => {
     ) : null;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="PriceSummary-root">
             <div className={classes.lineItems}>
                 <span className={classes.lineItemLabel}>
                     <FormattedMessage
@@ -99,7 +99,10 @@ const PriceSummary = props => {
                         defaultMessage={'Subtotal'}
                     />
                 </span>
-                <span className={priceClass}>
+                <span
+                    data-cy="PriceSummary-subtotalValue"
+                    className={priceClass}
+                >
                     <Price
                         value={subtotal.value}
                         currencyCode={subtotal.currency}
@@ -136,7 +139,10 @@ const PriceSummary = props => {
                     isCheckout={isCheckout}
                 />
                 <span className={classes.totalLabel}>{totalPriceLabel}</span>
-                <span className={totalPriceClass}>
+                <span
+                    data-cy="PriceSummary-totalValue"
+                    className={totalPriceClass}
+                >
                     <Price value={total.value} currencyCode={total.currency} />
                 </span>
             </div>

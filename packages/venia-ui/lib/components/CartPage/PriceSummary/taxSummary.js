@@ -47,7 +47,7 @@ const TaxSummary = props => {
     return (
         <>
             <span className={classes.lineItemLabel}>{taxLabel}</span>
-            <span className={classes.price}>
+            <span data-cy="TaxSummary-taxValue" className={classes.price}>
                 <Price value={tax.value} currencyCode={tax.currency} />
             </span>
         </>

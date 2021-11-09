@@ -28,7 +28,7 @@ const Card = props => {
     const additionalAddressString = `${city}, ${region} ${postcode} ${country}`;
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="Card-root">
             <span>{email}</span>
             <span>{nameString}</span>
             <span>{telephone}</span>
