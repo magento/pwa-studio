@@ -87,8 +87,9 @@ AddToCartButton.propTypes = {
         root_selected: string
     }),
     item: shape({
-        id: number,
-        name: string,
+        id: number.isRequired,
+        uid: string.isRequired,
+        name: string.isRequired,
         small_image: shape({
             url: string
         }),

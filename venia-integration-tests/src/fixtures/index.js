@@ -12,3 +12,4 @@ export * as productPage from './productPage';
 export * as wishlist from './wishlist';
 export * as graphqlMockedCalls from './graphqlMockedCalls';
 export * as mediaMockedCalls from './mediaMockedCalls';
+export * as miniCart from './miniCart';
