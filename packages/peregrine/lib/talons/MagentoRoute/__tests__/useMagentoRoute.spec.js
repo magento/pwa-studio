@@ -214,6 +214,36 @@ describe('returns NOT_FOUND when queries come back empty', () => {
             isNotFound: true
         });
     });
+
+    test('identifier is invalid', async () => {
+        givenQueryResult({
+            data: {
+                route: {
+                    type: 'CMS',
+                    id: 0,
+                    identifier: null
+                }
+            },
+            loading: false
+        });
+
+        let tree;
+
+        await act(() => {
+            tree = create(<Component key="a" />);
+        });
+
+        await act(() => {
+            tree.update(<Component key="a" />);
+        });
+
+        expect(replace).toHaveBeenCalledTimes(0);
+        expect(getRootComponent).not.toHaveBeenCalled();
+        expect(log).toHaveBeenCalledTimes(2);
+        expect(log).toHaveBeenNthCalledWith(2, {
+            isNotFound: true
+        });
+    });
 });
 
 describe('returns REDIRECT after receiving a redirect code', () => {
@@ -323,6 +353,16 @@ describe('returns FOUND after fetching a component', () => {
 
 describe('avoids fetching the same component twice', () => {
     test('getRootComponent succeeds', async () => {
+        givenQueryResult({
+            data: {
+                route: {
+                    id: 1,
+                    type: 'CATEGORY'
+                }
+            },
+            loading: false
+        });
+
         let tree;
 
         await act(() => {
