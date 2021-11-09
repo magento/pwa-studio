@@ -1,25 +1,37 @@
-import { useCallback, useRef, useState, useMemo } from 'react';
-import { useMutation } from '@apollo/client';
+import { useCallback, useRef, useMemo } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './newsletter.gql';
 
 export const useNewsletter = (props = {}) => {
-    const { subscribeMutation } = mergeOperations(
+    const { subscribeMutation, getStoreConfigQuery } = mergeOperations(
         DEFAULT_OPERATIONS,
         props.operations
     );
-    const [subscribing, setSubscribing] = useState(false);
-    const [subscribeNewsLetter, { error: newsLetterError, data }] = useMutation(
-        subscribeMutation,
+
+    const formApiRef = useRef(null);
+
+    const [
+        subscribeNewsLetter,
+        { data, error: newsLetterError, loading: subscribeLoading }
+    ] = useMutation(subscribeMutation, {
+        fetchPolicy: 'no-cache'
+    });
+
+    const { data: storeConfigData, loading: configLoading } = useQuery(
+        getStoreConfigQuery,
         {
-            fetchPolicy: 'no-cache'
+            fetchPolicy: 'cache-and-network'
         }
     );
-    const formApiRef = useRef(null);
+
+    const isEnabled = useMemo(() => {
+        return !!storeConfigData?.storeConfig?.newsletter_enabled;
+    }, [storeConfigData]);
+
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
     const handleSubmit = useCallback(
         async ({ email }) => {
-            setSubscribing(true);
             try {
                 await subscribeNewsLetter({
                     variables: { email }
@@ -32,7 +44,6 @@ export const useNewsletter = (props = {}) => {
                     console.error(error);
                 }
             }
-            setSubscribing(false);
         },
         [subscribeNewsLetter]
     );
@@ -42,9 +53,11 @@ export const useNewsletter = (props = {}) => {
     );
 
     return {
+        isEnabled,
         errors,
         handleSubmit,
-        isBusy: subscribing,
+        isBusy: subscribeLoading,
+        isLoading: configLoading,
         setFormApi,
         newsLetterResponse: data && data.subscribeEmailToNewsletter
     };
