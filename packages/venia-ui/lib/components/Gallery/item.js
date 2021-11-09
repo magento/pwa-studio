@@ -125,6 +125,7 @@ GalleryItem.propTypes = {
     }),
     item: shape({
         id: number.isRequired,
+        uid: string.isRequired,
         name: string.isRequired,
         small_image: shape({
             url: string.isRequired
