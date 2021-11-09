@@ -23,6 +23,8 @@ import {
     giftCardRemoveButton,
     giftOptionsIncludeGiftReceiptCheckbox,
     giftOptionsIncludePrintedCardCheckbox,
+    giftOptionsCardToInput,
+    giftOptionsCardFromInput,
     giftOptionsCardMessageTextarea
 } from '../../fields/cartPage';
 import { defaultShippingMethods } from '../../fixtures/checkoutPage';
@@ -173,11 +175,15 @@ export const removeGiftCardsFromCartPage = () => {
  * @param {Object} data gift options data
  * @param {Boolean} [data.includeGiftReceipt] include gift receipt
  * @param {Boolean} [data.includePrintedCard] include printed card
+ * @param {String} [data.cardTo] card to
+ * @param {String} [data.cardFrom] card from
  * @param {String} [data.cardMessage] card message
  */
 export const setGiftOptionsFromCartPage = ({
     includeGiftReceipt = false,
     includePrintedCard = false,
+    cardTo,
+    cardFrom,
     cardMessage
 }) => {
     if (includeGiftReceipt) {
@@ -190,6 +196,18 @@ export const setGiftOptionsFromCartPage = ({
         cy.get(giftOptionsIncludePrintedCardCheckbox).check();
     } else {
         cy.get(giftOptionsIncludePrintedCardCheckbox).uncheck();
+    }
+
+    if (cardTo) {
+        cy.get(giftOptionsCardToInput)
+            .clear()
+            .type(cardTo);
+    }
+
+    if (cardFrom) {
+        cy.get(giftOptionsCardFromInput)
+            .clear()
+            .type(cardFrom);
     }
 
     if (cardMessage) {

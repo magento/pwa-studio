@@ -84,7 +84,7 @@ const GiftOptions = props => {
                         defaultMessage: 'To'
                     })}
                 >
-                    <TextInput {...cardToProps} />
+                    <TextInput {...cardToProps} data-cy="GiftOptions-cardTo" />
                 </Field>
                 <Field
                     id="from"
@@ -93,7 +93,10 @@ const GiftOptions = props => {
                         defaultMessage: 'From'
                     })}
                 >
-                    <TextInput {...cardFromProps} />
+                    <TextInput
+                        {...cardFromProps}
+                        data-cy="GiftOptions-cardFrom"
+                    />
                 </Field>
                 <div className={classes.option}>
                     <Field

@@ -69,6 +69,9 @@ export const giftCardCardTextField =
 export const giftCardCardApplyButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftCards-apply"]';
 
+export const giftOptionsSection =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-giftOptionsSection"]';
+
 export const giftOptionsSectionButton =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-giftOptionsSection"] [data-cy="Section-titleContainer"]';
 
@@ -77,6 +80,12 @@ export const giftOptionsIncludeGiftReceiptCheckbox =
 
 export const giftOptionsIncludePrintedCardCheckbox =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-includePrintedCard"]';
+
+export const giftOptionsCardToInput =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-cardTo"]';
+
+export const giftOptionsCardFromInput =
+    '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-cardFrom"]';
 
 export const giftOptionsCardMessageTextarea =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="GiftOptions-cardMessage"]';

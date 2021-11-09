@@ -44,9 +44,9 @@ export const useGiftOptions = (props = {}) => {
     const initialValues = useMemo(() => {
         if (cart) {
             return {
-                cardFrom: cart.gift_message.from,
-                cardTo: cart.gift_message.to,
-                cardMessage: cart.gift_message.message,
+                cardFrom: cart.gift_message?.from || '',
+                cardTo: cart.gift_message?.to || '',
+                cardMessage: cart.gift_message?.message || '',
                 includeGiftReceipt: cart.gift_receipt_included,
                 includePrintedCard: cart.printed_card_included
             };
