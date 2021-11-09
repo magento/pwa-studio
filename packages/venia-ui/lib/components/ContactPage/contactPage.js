@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { Fragment, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -17,8 +16,11 @@ import Field from '../Field';
 import TextInput from '../TextInput';
 import TextArea from '../TextArea';
 import LoadingIndicator from '../LoadingIndicator';
+import ErrorView from '../ErrorView';
 import Shimmer from './contactPage.shimmer';
 import defaultClasses from './contactPage.module.css';
+
+const NOT_FOUND_MESSAGE = "Looks like the page you were hoping to find doesn't exist. Sorry about that.";
 
 const ContactPage = props => {
     const { classes: propClasses } = props;
@@ -51,7 +53,22 @@ const ContactPage = props => {
     }, [addToast, formatMessage, response]);
 
     if (!isLoading && !isEnabled) {
-        return <Redirect to="/" />;
+        return (
+            <Fragment>
+                <StoreTitle>
+                    {formatMessage({
+                        id: 'contactPage.title',
+                        defaultMessage: 'Contact Us'
+                    })}
+                </StoreTitle>
+                <ErrorView
+                    message={formatMessage({
+                        id: 'magentoRoute.routeError',
+                        defaultMessage: NOT_FOUND_MESSAGE
+                    })}
+                />
+            </Fragment>
+        );
     }
 
     if (isLoading) {

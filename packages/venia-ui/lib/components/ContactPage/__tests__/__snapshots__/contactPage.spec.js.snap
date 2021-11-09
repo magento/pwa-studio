@@ -198,4 +198,13 @@ exports[`it renders form 1`] = `
 </div>
 `;
 
+exports[`it shows 404 if disabled 1`] = `
+Array [
+  "Setting Store Title",
+  <ErrorView
+    message="Looks like the page you were hoping to find doesn't exist. Sorry about that."
+  />,
+]
+`;
+
 exports[`it shows shimmer while loading 1`] = `<ContactPageShimmer />`;

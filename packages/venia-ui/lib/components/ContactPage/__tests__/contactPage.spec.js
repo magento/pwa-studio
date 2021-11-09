@@ -4,10 +4,6 @@ import { useContactPage } from '@magento/peregrine/lib/talons/ContactPage';
 import LoadingIndicator from '../../LoadingIndicator';
 import ContactPage from '../contactPage';
 
-jest.mock('react-router-dom', () => ({
-    Redirect: () => 'Redirect'
-}));
-
 jest.mock('react-intl', () => ({
     FormattedMessage: ({ defaultMessage }) => defaultMessage,
     useIntl: () => ({
@@ -42,6 +38,7 @@ jest.mock('../../Field', () => 'Field');
 jest.mock('../../TextInput', () => 'TextInput');
 jest.mock('../../TextArea', () => 'TextArea');
 jest.mock('../../LoadingIndicator', () => 'LoadingIndicator');
+jest.mock('../../ErrorView', () => 'ErrorView');
 
 jest.mock('../contactPage.shimmer', () => 'ContactPageShimmer');
 
@@ -84,7 +81,7 @@ test('it shows shimmer while loading', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('it redirects if disabled', () => {
+test('it shows 404 if disabled', () => {
     useContactPage.mockImplementation(() => ({
         ...defaultTalonProps,
         isEnabled: false
