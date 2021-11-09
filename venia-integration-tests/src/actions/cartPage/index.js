@@ -4,6 +4,8 @@ import {
     giftCardSectionButton,
     giftOptionsSectionButton,
     kebabMenuButton,
+    cartPageProductImageLink,
+    cartPageProductLink,
     kebabMenuEditButton,
     editMenuColorButton,
     editMenuSizeButton,
@@ -109,6 +111,20 @@ export const clickOnUpdateCart = () => {
  */
 export const goToCheckout = () => {
     cy.get(cartPageCheckoutButton).click();
+};
+
+/**
+ * Utility to click on product image link from cart page
+ */
+export const clickProductImageLinkFromCart = () => {
+    cy.get(cartPageProductImageLink).click();
+};
+
+/**
+ * Utility to click on product link from cart page
+ */
+export const clickProductLinkFromCart = () => {
+    cy.get(cartPageProductLink).click();
 };
 
 /**
