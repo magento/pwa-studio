@@ -34,48 +34,48 @@ exports[`it displays errors 1`] = `
       />
       <mock-Form>
         <Field
-          id="name"
+          id="contact-name"
           label="Name"
         >
           <TextInput
             autoComplete="name"
             field="name"
-            id="name"
+            id="contact-name"
             validate={[Function]}
           />
         </Field>
         <Field
-          id="email"
+          id="contact-email"
           label="Email"
         >
           <TextInput
             autoComplete="email"
             field="email"
-            id="email"
+            id="contact-email"
             placeholder="abc@xyz.com"
             validate={[Function]}
           />
         </Field>
         <Field
-          id="telephone"
+          id="contact-telephone"
           label="Phone Number"
           optional={true}
         >
           <TextInput
             autoComplete="tel"
             field="telephone"
-            id="telephone"
+            id="contact-telephone"
             placeholder="(222)-222-2222"
           />
         </Field>
         <Field
-          id="comment"
+          id="contact-comment"
           label="Message"
         >
           <TextArea
             autoComplete="comment"
             field="comment"
-            id="comment"
+            id="contact-comment"
             placeholder="Tell us what's on your mind"
             validate={[Function]}
           />
@@ -132,48 +132,48 @@ exports[`it renders form 1`] = `
       />
       <mock-Form>
         <Field
-          id="name"
+          id="contact-name"
           label="Name"
         >
           <TextInput
             autoComplete="name"
             field="name"
-            id="name"
+            id="contact-name"
             validate={[Function]}
           />
         </Field>
         <Field
-          id="email"
+          id="contact-email"
           label="Email"
         >
           <TextInput
             autoComplete="email"
             field="email"
-            id="email"
+            id="contact-email"
             placeholder="abc@xyz.com"
             validate={[Function]}
           />
         </Field>
         <Field
-          id="telephone"
+          id="contact-telephone"
           label="Phone Number"
           optional={true}
         >
           <TextInput
             autoComplete="tel"
             field="telephone"
-            id="telephone"
+            id="contact-telephone"
             placeholder="(222)-222-2222"
           />
         </Field>
         <Field
-          id="comment"
+          id="contact-comment"
           label="Message"
         >
           <TextArea
             autoComplete="comment"
             field="comment"
-            id="comment"
+            id="contact-comment"
             placeholder="Tell us what's on your mind"
             validate={[Function]}
           />

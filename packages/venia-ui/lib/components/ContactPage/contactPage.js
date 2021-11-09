@@ -104,7 +104,7 @@ const ContactPage = props => {
                         onSubmit={handleSubmit}
                     >
                         <Field
-                            id="name"
+                            id="contact-name"
                             label={formatMessage({
                                 id: 'global.name',
                                 defaultMessage: 'Name'
@@ -113,12 +113,12 @@ const ContactPage = props => {
                             <TextInput
                                 autoComplete="name"
                                 field="name"
-                                id="name"
+                                id="contact-name"
                                 validate={isRequired}
                             />
                         </Field>
                         <Field
-                            id="email"
+                            id="contact-email"
                             label={formatMessage({
                                 id: 'global.email',
                                 defaultMessage: 'Email'
@@ -127,7 +127,7 @@ const ContactPage = props => {
                             <TextInput
                                 autoComplete="email"
                                 field="email"
-                                id="email"
+                                id="contact-email"
                                 validate={isRequired}
                                 placeholder={formatMessage({
                                     id: 'global.emailPlaceholder',
@@ -136,7 +136,7 @@ const ContactPage = props => {
                             />
                         </Field>
                         <Field
-                            id="telephone"
+                            id="contact-telephone"
                             label={formatMessage({
                                 id: 'contactPage.telephone',
                                 defaultMessage: 'Phone Number'
@@ -146,7 +146,7 @@ const ContactPage = props => {
                             <TextInput
                                 autoComplete="tel"
                                 field="telephone"
-                                id="telephone"
+                                id="contact-telephone"
                                 placeholder={formatMessage({
                                     id: 'contactPage.telephonePlaceholder',
                                     defaultMessage: '(222)-222-2222'
@@ -154,7 +154,7 @@ const ContactPage = props => {
                             />
                         </Field>
                         <Field
-                            id="comment"
+                            id="contact-comment"
                             label={formatMessage({
                                 id: 'contactPage.comment',
                                 defaultMessage: 'Message'
@@ -163,7 +163,7 @@ const ContactPage = props => {
                             <TextArea
                                 autoComplete="comment"
                                 field="comment"
-                                id="comment"
+                                id="contact-comment"
                                 validate={isRequired}
                                 placeholder={formatMessage({
                                     id: 'contactPage.commentPlaceholder',
