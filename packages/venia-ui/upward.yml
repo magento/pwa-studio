@@ -105,58 +105,37 @@ veniaPageType:
   resolver: inline
   inline:
     data:
-      resolver: conditional
-      when:
-        - matches: env.SCRIPT_NAME
-          pattern: '.*\.php$'
-          use:
-            resolver: computed
-            type:
-              resolver: inline
-              inline: pageType
-            additional:
-              - type: product
-                fetch: '__typename,id'
-              - type: cms_page
-                fetch: 'identifier'
-              - type: category
-                fetch: 'id'
-      default:
-        inline: ''
+      resolver: computed
+      type:
+        resolver: inline
+        inline: pageType
+      additional:
+        - type: product
+          fetch: '__typename,id'
+        - type: cms_page
+          fetch: 'identifier'
+        - type: category
+          fetch: 'id'
 
 # Nonce for page type inline script
 veniaPageTypeNonce:
   resolver: inline
   inline:
     nonce:
-      resolver: conditional
-      when:
-        - matches: env.SCRIPT_NAME
-          pattern: '.*\.php$'
-          use:
-            resolver: computed
-            type:
-              resolver: inline
-              inline: pageTypeNonce
-      default:
-        inline: ''
+      resolver: computed
+      type:
+        resolver: inline
+        inline: pageTypeNonce
 
 # Webpack chunks to preload on page based on page type
 veniaWebpackChunks:
   resolver: inline
   inline:
     scripts:
-      resolver: conditional
-      when:
-        - matches: env.SCRIPT_NAME
-          pattern: '.*\.php$'
-          use:
-            resolver: computed
-            type:
-              resolver: inline
-              inline: webpackChunks
-      default:
-        inline: ''
+      resolver: computed
+      type:
+        resolver: inline
+        inline: webpackChunks
 
 # The veniaAppShell object resolves to a response that returns server-side
 # rendered HTML containing the PWA application shell.

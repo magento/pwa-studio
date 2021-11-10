@@ -43,13 +43,19 @@ const DiscountSummary = props => {
 
     return discount.value ? (
         <Fragment>
-            <span className={classes.lineItemLabel}>
+            <span
+                className={classes.lineItemLabel}
+                data-cy="PriceSummary-DiscountSummary-label"
+            >
                 <FormattedMessage
                     id={'discountSummary.lineItemLabel'}
                     defaultMessage={'Discounts applied'}
                 />
             </span>
-            <span className={classes.price}>
+            <span
+                data-cy="DiscountSummary-discountValue"
+                className={classes.price}
+            >
                 {MINUS_SYMBOL}
                 <Price
                     value={discount.value}

@@ -9,9 +9,14 @@ import ErrorMessage from '../ErrorMessage';
 import defaultClasses from './formError.module.css';
 
 const FormError = props => {
-    const { classes: propClasses, errors, scrollOnError } = props;
+    const {
+        classes: propClasses,
+        errors,
+        scrollOnError,
+        allowErrorMessages
+    } = props;
 
-    const talonProps = useFormError({ errors });
+    const talonProps = useFormError({ errors, allowErrorMessages });
     const { errorMessage } = talonProps;
 
     const errorRef = useRef(null);
@@ -35,7 +40,8 @@ FormError.propTypes = {
         errorMessage: string
     }),
     errors: arrayOf(instanceOf(Error)),
-    scrollOnError: bool
+    scrollOnError: bool,
+    allowErrorMessages: bool
 };
 
 FormError.defaultProps = {

@@ -26,7 +26,12 @@ const SuggestedProduct = props => {
     ]);
 
     return (
-        <Link className={classes.root} to={uri} onClick={handleClick}>
+        <Link
+            className={classes.root}
+            to={uri}
+            onClick={handleClick}
+            data-cy="SuggestedProduct-root"
+        >
             <Image
                 alt={name}
                 classes={{ image: classes.thumbnail, root: classes.image }}

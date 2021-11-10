@@ -80,7 +80,11 @@ const FilterSidebar = props => {
 
     const clearAll = filterState.size ? (
         <div className={classes.action}>
-            <LinkButton type="button" onClick={handleReset}>
+            <LinkButton
+                type="button"
+                onClick={handleReset}
+                data-cy="FilterSidebar-clearButton"
+            >
                 <FormattedMessage
                     id={'filterModal.action'}
                     defaultMessage={'Clear all'}
@@ -93,6 +97,7 @@ const FilterSidebar = props => {
         <aside
             className={classes.root}
             ref={filterRef}
+            data-cy="FilterSidebar-root"
             aria-live="polite"
             aria-busy="false"
         >

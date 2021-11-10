@@ -78,6 +78,7 @@ const ProductSort = props => {
         <div
             ref={elementRef}
             className={classes.root}
+            data-cy="ProductSort-root"
             aria-live="polite"
             aria-busy="false"
         >
@@ -87,6 +88,7 @@ const ProductSort = props => {
                     root_lowPriority: classes.sortButton
                 }}
                 onClick={handleSortClick}
+                data-cy="ProductSort-sortButton"
             >
                 <span className={classes.mobileText}>
                     <FormattedMessage
