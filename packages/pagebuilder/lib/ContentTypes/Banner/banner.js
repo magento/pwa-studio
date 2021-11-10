@@ -7,6 +7,8 @@ import resolveLinkProps from '../../resolveLinkProps';
 import { Link } from 'react-router-dom';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import useIntersectionObserver from '@magento/peregrine/lib/hooks/useIntersectionObserver';
+import { useHistory } from 'react-router-dom';
+import handleHtmlContentClick from '../../handleHtmlContentClick';
 
 const { matchMedia } = globalThis;
 const toHTML = str => ({ __html: str });
@@ -271,6 +273,12 @@ const Banner = props => {
             ? appearanceOverlayHoverClasses[appearance]
             : appearanceOverlayClasses[appearance];
 
+    const history = useHistory();
+
+    const clickHandler = e => {
+        handleHtmlContentClick(history, e);
+    };
+
     let BannerFragment = (
         <div
             className={classes.wrapper}
@@ -283,6 +291,7 @@ const Banner = props => {
                     className={classes.content}
                     style={contentStyles}
                     dangerouslySetInnerHTML={toHTML(content)}
+                    onClick={clickHandler}
                 />
                 {BannerButton}
             </div>
