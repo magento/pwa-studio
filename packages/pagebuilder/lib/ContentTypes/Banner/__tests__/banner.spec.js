@@ -6,7 +6,8 @@ import { act } from 'react-test-renderer';
 
 jest.mock('react-router-dom', () => ({
     Link: jest.fn(() => null),
-    withRouter: jest.fn(arg => arg)
+    withRouter: jest.fn(arg => arg),
+    useHistory: jest.fn()
 }));
 
 jest.mock('@magento/peregrine/lib/util/makeUrl');
@@ -21,6 +22,9 @@ jest.mock('jarallax', () => {
 import { jarallax, jarallaxVideo } from 'jarallax';
 const mockJarallax = jarallax.mockImplementation(() => {});
 const mockJarallaxVideo = jarallaxVideo.mockImplementation(() => {});
+
+jest.mock('../../../handleHtmlContentClick');
+import handleHtmlContentClick from '../../../handleHtmlContentClick';
 
 test('renders an empty Banner component', () => {
     const component = createTestInstance(<Banner />);
@@ -180,6 +184,41 @@ test('on hover displays button and overlay', () => {
         component.toTree().rendered.props.onMouseLeave();
     });
     expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('on click calls the HTML content click handler', () => {
+    const bannerProps = {
+        appearance: 'collage-left',
+        buttonType: 'primary',
+        content:
+            '<h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p>',
+        link: 'https://www.adobe.com',
+        linkType: 'default',
+        openInNewTab: false,
+        overlayColor: 'rgb(0,0,0,0.5)',
+        showButton: 'hover',
+        showOverlay: 'hover'
+    };
+
+    const mockHtmlContentClick = jest.fn();
+    handleHtmlContentClick.mockImplementation(mockHtmlContentClick);
+
+    const event = {
+        target: {
+            tagName: 'P'
+        },
+        preventDefault: jest.fn()
+    };
+
+    const component = createTestInstance(<Banner {...bannerProps} />);
+
+    const htmlElement = component.root.find(instance => {
+        return instance.props.dangerouslySetInnerHTML;
+    });
+
+    htmlElement.props.onClick(event);
+
+    expect(mockHtmlContentClick).toHaveBeenCalled();
 });
 
 test('generates an internal <Link /> when URL is internal', () => {

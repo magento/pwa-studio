@@ -8,6 +8,7 @@ exports[`renders a html component 1`] = `
       "__html": undefined,
     }
   }
+  onClick={[Function]}
   style={
     Object {
       "border": undefined,
@@ -36,6 +37,7 @@ exports[`renders a html component with all props configured 1`] = `
       "__html": "<button>Html button</button>",
     }
   }
+  onClick={[Function]}
   style={
     Object {
       "border": "solid",

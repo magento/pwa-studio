@@ -54,6 +54,7 @@ exports[`on hover displays button and overlay 1`] = `
               "__html": "<h1><span style=\\"color: #ffffff; background-color: #000000;\\">A new way of shopping</span></h1><p><span style=\\"color: #ffffff; background-color: #000000;\\">Experience the best way of shopping today!</span></p>",
             }
           }
+          onClick={[Function]}
           style={Object {}}
         />
         <div
@@ -141,6 +142,7 @@ exports[`on hover displays button and overlay 2`] = `
               "__html": "<h1><span style=\\"color: #ffffff; background-color: #000000;\\">A new way of shopping</span></h1><p><span style=\\"color: #ffffff; background-color: #000000;\\">Experience the best way of shopping today!</span></p>",
             }
           }
+          onClick={[Function]}
           style={Object {}}
         />
         <div
@@ -233,6 +235,7 @@ exports[`renders a configured collage-left Banner component 1`] = `
               "__html": "<h1><span style=\\"color: #ffffff; background-color: #000000;\\">A new way of shopping</span></h1><p><span style=\\"color: #ffffff; background-color: #000000;\\">Experience the best way of shopping today!</span></p>",
             }
           }
+          onClick={[Function]}
           style={Object {}}
         />
         <div
@@ -328,6 +331,7 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
               "__html": "<h1><span style=\\"color: #ffffff; background-color: #000000;\\">A new way of shopping</span></h1><p><span style=\\"color: #ffffff; background-color: #000000;\\">Experience the best way of shopping today!</span></p>",
             }
           }
+          onClick={[Function]}
           style={Object {}}
         />
         <div
@@ -424,6 +428,7 @@ exports[`renders a configured poster Banner component 1`] = `
               "__html": "<h1><span style=\\"color: #ffffff; background-color: #000000;\\">A new way of shopping</span></h1><p><span style=\\"color: #ffffff; background-color: #000000;\\">Experience the best way of shopping today!</span></p>",
             }
           }
+          onClick={[Function]}
           style={
             Object {
               "width": "100%",
@@ -513,6 +518,7 @@ exports[`renders an empty Banner component 1`] = `
             "__html": undefined,
           }
         }
+        onClick={[Function]}
         style={
           Object {
             "width": "100%",
