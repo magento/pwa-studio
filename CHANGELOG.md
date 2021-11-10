@@ -6,7 +6,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## New Features
 
--  **Added PWA Studio metapackages** — In this release, we introduce our PWA Studio metapackages: One for [Magento Open Source](https://github.com/magento/magento2-pwa) and one for [Adobe Commerce](https://github.com/magento/magento2-pwa-commerce). These metapackages provide a new way to add any additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases as needed. In fact, we did that in this release. We added a GraphQL mutation and several fields to the metapackages to fix some `Cart`-related bugs. GitHub PRs: [4][], [1][].
+-  **Added PWA Studio metapackages** — In this release, we introduce our PWA Studio metapackages: One for [Magento Open Source](https://github.com/magento/magento2-pwa) and one for [Adobe Commerce](https://github.com/magento/magento2-pwa-commerce). These metapackages provide a new way to add any additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases as needed. In fact, we did that in this release. We extended the GraphQL schema to include a new mutation and new fields to provide more details when a cart item error occurs.
 
     **UPDATES REQUIRED!** This release and all future PWA Studio releases will have dependencies on these metapackages. That means you need to add one or both of the metapackages to your PWA apps (depending on your backend target). Instructions for installing these packages are in the README files for each metapackage repo:
 
@@ -21,6 +21,8 @@ _For older release notes, see_ [PWA Studio releases][].
 -  **Added a GraphQL mutation for submitting the Contact Us form.** — You can now use the `contactUs` mutation to submit the Contact Us form data to the Open Source or Commerce backend.
 
 -  **Added GraphQL `storeConfig` fields** — Use the `contact_enabled` and `newsletter_enabled` fields in a `storeConfig` query to determine whether the Contact Us and Newsletter features are enabled.
+
+-  **Added GraphQL schema to expose the error status of cart items** — The `CartItemInterface` now contains the `errors` field, which uses the `CartItemError` data type to return an error code and message.
 
 ## Summary of all changes
 | Type  | Description                                                                             | GitHub PR             |
