@@ -20,13 +20,13 @@
     composes: root_selected;
 }
 
-.checkmark {
+.checked {
     opacity: 1;
     transition-property: opacity;
-    transition-duration: 250ms;
+    transition-duration: 256ms;
 }
 
-.checkmarkHidden {
+.unchecked {
     composes: checkmark;
     opacity: 0;
 }

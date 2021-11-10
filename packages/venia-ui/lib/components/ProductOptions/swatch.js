@@ -41,7 +41,7 @@ const Swatch = props => {
     const { handleClick } = talonProps;
 
     const checkStyle = useMemo(
-        () => isSelected ? defaultClasses.checkmark : defaultClasses.checkmarkHidden,
+        () => isSelected ? defaultClasses.checked : defaultClasses.unchecked,
         [isSelected]
     );
 
