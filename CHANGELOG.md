@@ -18,9 +18,9 @@ _For older release notes, see_ [PWA Studio releases][].
 
 -  **Added Venia Sample Data metapackage** — This metapackage provides a new way to create your own sample data for your Venia-based PWA sites. For more details, see the [Venia Sample Data metapackage repo](https://github.com/magento/venia-sample-data-modules). GitHub PRs: [3473][], [2][].
 
--  **Added a GraphQL mutation for submitting the Contact Us form.** — You can now use GraphQL to submit the Contact Us form data to the Open Source or Commerce backend.
+-  **Added a GraphQL mutation for submitting the Contact Us form.** — You can now use the `contactUs` mutation to submit the Contact Us form data to the Open Source or Commerce backend.
 
--  **Added GraphQL `storeConfig` fields** — Use these fields to determine whether the Contact Us and Newletter features are enabled.
+-  **Added GraphQL `storeConfig` fields** — Use the `contact_enabled` and `newsletter_enabled` fields in a `storeConfig` query to determine whether the Contact Us and Newsletter features are enabled.
 
 ## Summary of all changes
 | Type  | Description                                                                             | GitHub PR             |
