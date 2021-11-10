@@ -1,11 +1,18 @@
 .root {
+    --whitespace-start: 1rem;
+    --whitespace-end: 10px;
+
     composes: h-auto from global;
-    margin-left: 1rem;
-    margin-top: 1rem;
+    padding-left: var(--whitespace-start);
+    padding-top: var(--whitespace-start);
+    padding-bottom: var(--whitespace-end); /* Allow space for focus ring */
+    margin-bottom: calc(
+        -1 * var(--whitespace-end)
+    ); /* Prevent focus ring space affecting the rest of the UI */
     font-size: 0.875rem;
 
     /* Permanent height to prevent pop-in. */
-    height: 0.875rem;
+    height: calc(0.875rem + var(--whitespace-start) + var(--whitespace-end));
 
     /* Show ellipses when overflowing. */
     overflow: hidden;
