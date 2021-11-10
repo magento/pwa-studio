@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Newsletter displays an error message if the email already subscribed 1`] = `
+exports[`#Newsletter display it does not display when disabled 1`] = `null`;
+
+exports[`#Newsletter display it renders shimmer while loading config 1`] = `<NewsletterShimmer />`;
+
+exports[`#Newsletter display renders correctly 1`] = `
 <div
   className="root"
 >
@@ -21,11 +25,8 @@ exports[`Newsletter displays an error message if the email already subscribed 1`
     />
   </p>
   <FormError
-    errors={
-      Array [
-        "This email address is already subscribed.",
-      ]
-    }
+    allowErrorMessages={true}
+    errors={Array []}
   />
   <form
     className="form"
@@ -85,7 +86,7 @@ exports[`Newsletter displays an error message if the email already subscribed 1`
 </div>
 `;
 
-exports[`Newsletter renders correctly 1`] = `
+exports[`#Newsletter submit displays an error message if the email already subscribed 1`] = `
 <div
   className="root"
 >
@@ -106,7 +107,12 @@ exports[`Newsletter renders correctly 1`] = `
     />
   </p>
   <FormError
-    errors={Array []}
+    allowErrorMessages={true}
+    errors={
+      Array [
+        "This email address is already subscribed.",
+      ]
+    }
   />
   <form
     className="form"
