@@ -123,7 +123,7 @@ describe('verify customer account address book actions', () => {
         assertAddressIsDefault({ ...addressBookData[1] });
 
         // Test - Delete Address
-        deleteAddressCard(1);
+        deleteAddressCard({ ...addressBookData[0] });
 
         cy.wait(['@gqlDeleteCustomerAddressFromAddressBookMutation'], {
             timeout: 60000

@@ -32,7 +32,24 @@ test('filters out falsey errors', () => {
     expect(talonProps.errorMessage).toEqual('');
 });
 
-test('returns concatenated error message', () => {
+test('returns concatenated error message when allowErrorMessages', () => {
+    const graphQLError = {
+        graphQLErrors: [
+            { message: 'GraphQL Error 1' },
+            { message: 'GraphQL Error 2' }
+        ]
+    };
+
+    const tree = createTestInstance(
+        <Component errors={[graphQLError]} allowErrorMessages />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.errorMessage).toMatchSnapshot();
+});
+
+test('returns general error message', () => {
     const graphQLError = {
         graphQLErrors: [
             { message: 'GraphQL Error 1' },

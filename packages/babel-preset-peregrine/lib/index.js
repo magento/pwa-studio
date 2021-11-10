@@ -33,6 +33,19 @@ const config = (api, opts = {}) => {
         opts.targets
     );
 
+    const babelKeepAttributes =
+        process.env.BABEL_KEEP_ATTRIBUTES &&
+        process.env.BABEL_KEEP_ATTRIBUTES === 'true';
+
+    const removeAttributesPlugin = babelKeepAttributes
+        ? []
+        : [
+              [
+                  'babel-plugin-react-remove-properties',
+                  { properties: ['data-cy'] }
+              ]
+          ];
+
     const envConfigs = {
         development: {
             plugins: [...plugins, 'react-refresh/babel'],
@@ -43,6 +56,7 @@ const config = (api, opts = {}) => {
         production: {
             plugins: [
                 ...plugins,
+                ...removeAttributesPlugin,
                 [
                     // Some supported browsers will not support generators.
                     '@babel/plugin-transform-runtime',
@@ -58,7 +72,11 @@ const config = (api, opts = {}) => {
         test: {
             // Since the test environment runs in Node, dynamic import is not
             // natively supported.
-            plugins: [...plugins, ['babel-plugin-dynamic-import-node']],
+            plugins: [
+                ...plugins,
+                ...removeAttributesPlugin,
+                ['babel-plugin-dynamic-import-node']
+            ],
             presets: [
                 [
                     '@babel/preset-env',

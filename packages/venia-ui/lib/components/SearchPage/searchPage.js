@@ -71,7 +71,7 @@ const SearchPage = props => {
 
         if (data.products.items.length === 0) {
             return (
-                <div className={classes.noResult}>
+                <div className={classes.noResult} data-cy="SearchPage-noResult">
                     <FormattedMessage
                         id={'searchPage.noResultImportant'}
                         defaultMessage={'No results found!'}
@@ -181,7 +181,7 @@ const SearchPage = props => {
         .join(' - ');
 
     return (
-        <article className={classes.root}>
+        <article className={classes.root} data-cy="SearchPage-root">
             <div className={classes.sidebar}>
                 <Suspense fallback={<FilterSidebarShimmer />}>
                     {maybeSidebar}

@@ -11,4 +11,5 @@ import { deleteCacheEntry } from './deleteCacheEntry';
  */
 export const clearCustomerDataFromCache = async client => {
     await deleteCacheEntry(client, key => key.match(/^\$?Customer/i));
+    await deleteCacheEntry(client, key => key.match(/^\$?Order/i));
 };

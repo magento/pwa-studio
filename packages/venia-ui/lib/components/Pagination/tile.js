@@ -11,7 +11,11 @@ const Tile = props => {
     const handleClick = useCallback(() => onClick(number), [onClick, number]);
 
     return (
-        <button className={rootClass} onClick={handleClick}>
+        <button
+            className={rootClass}
+            onClick={handleClick}
+            data-cy={isActive ? 'Tile-activeRoot' : 'Tile-root'}
+        >
             {number}
         </button>
     );

@@ -98,6 +98,7 @@ const CouponCode = props => {
                     <LinkButton
                         className={classes.removeButton}
                         disabled={removingCoupon}
+                        data-cy="CouponCode-removeCouponButton"
                         onClick={() => {
                             handleRemoveCoupon(code);
                         }}
@@ -133,6 +134,7 @@ const CouponCode = props => {
                     <TextInput
                         field="couponCode"
                         id={'couponCode'}
+                        data-cy="CouponCode-couponCode"
                         placeholder={formatMessage({
                             id: 'couponCode.enterCode',
                             defaultMessage: 'Enter code'
@@ -144,6 +146,7 @@ const CouponCode = props => {
                 </Field>
                 <Field>
                     <Button
+                        data-cy="CouponCode-submit"
                         disabled={applyingCoupon}
                         priority={'normal'}
                         type={'submit'}
