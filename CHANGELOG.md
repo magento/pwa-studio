@@ -23,23 +23,23 @@ _For older release notes, see_ [PWA Studio releases][].
 -  **Added GraphQL `storeConfig` fields** — Use these fields to determine whether the Contact Us and Newletter features are enabled.
 
 ## Summary of all changes
-| Type  | Description                                                              | GitHub PR       | Jira Issue<br/>(internal link) |
-| :---- | :----------------------------------------------------------------------- | :-------------- | :----------------------------- |
-| Bug   | Add to Cart flow for simple products on Home page is broken              | [3535][]        | [PWA-2364][]                   |
-| Bug   | Cypress snapshots outdated with newsletter in footer                     | [3506][]        | [PWA-2287][]                   |
-| Bug   | Venia Mega nav is broken in scaffolded app on develop branch.            | [3513][]        | [PWA-2286][]                   |
-| Task  | Repo Metadata Service Onboarding: UPWARD-PHP                             | [5][]           | [PWA-2251][]                   |
-| Bug   | Cart remains active in browser memory on PWA site even after checkout    | [3495][]        | [PWA-2190][]                   |
-| Story | Parallelize Cypress tests on the CI                                      | [3460][]        | [PWA-2154][]                   |
-| Story | Venia Sample Data metapackage deployVeniaSampleData.sh script update     | [3473][]        | [PWA-2151][]                   |
-| Task  | Add installation instructions to Venia Sample Data repo                  | [8][]           | [PWA-2141][]                   |
-| Task  | Add local and Cloud installation instructions to meta packages           | [4][], [1][]    | [PWA-2140][]                   |
-| Bug   | Cart page out of stock crash                                             | [3447][], [6][] | [PWA-2133][]                   |
-| Story | Update Item Quantities                                                   | [3464][]        | [PWA-2132][]                   |
-| Bug   | Improve Venia "create" scaffold script to stop relying on NPM log output | [3463][]        | [PWA-2131][]                   |
-| Story | Create Venia Sample Data metapackage                                     | [2][]           | [PWA-2106][]                   |
-| Story | GQL Support for Contact Us & Newsletter                                  | [5][]           | [PWA-2004][]                   |
-| Story | Refactor Site Header to use Tailwind Theme                               | [3472][]        | [PWA-1885][]                   |
+| Type  | Description                                                              | GitHub PR        | Jira Issue<br/>(internal link) |
+| :---- | :----------------------------------------------------------------------- | :--------------- | :----------------------------- |
+| Bug   | Add to Cart flow for simple products on Home page is broken              | [3535][]         | [PWA-2364][]                   |
+| Bug   | Cypress snapshots outdated with newsletter in footer                     | [3506][]         | [PWA-2287][]                   |
+| Bug   | Venia Mega nav is broken in scaffolded app on develop branch.            | [3513][]         | [PWA-2286][]                   |
+| Task  | Repo Metadata Service Onboarding: UPWARD-PHP                             | [upward-php 5][] | [PWA-2251][]                   |
+| Bug   | Cart remains active in browser memory on PWA site even after checkout    | [3495][]         | [PWA-2190][]                   |
+| Story | Parallelize Cypress tests on the CI                                      | [3460][]         | [PWA-2154][]                   |
+| Story | Venia Sample Data metapackage deployVeniaSampleData.sh script update     | [3473][]         | [PWA-2151][]                   |
+| Task  | Add installation instructions to Venia Sample Data repo                  | [8][]            | [PWA-2141][]                   |
+| Task  | Add local and Cloud installation instructions to meta packages           | [4][], [1][]     | [PWA-2140][]                   |
+| Bug   | Cart page out of stock crash                                             | [3447][], [6][]  | [PWA-2133][]                   |
+| Story | Update Item Quantities                                                   | [3464][]         | [PWA-2132][]                   |
+| Bug   | Improve Venia "create" scaffold script to stop relying on NPM log output | [3463][]         | [PWA-2131][]                   |
+| Story | Create Venia Sample Data metapackage                                     | [2][]            | [PWA-2106][]                   |
+| Story | GQL Support for Contact Us & Newsletter                                  | [5][]            | [PWA-2004][]                   |
+| Story | Refactor Site Header to use Tailwind Theme                               | [3472][]         | [PWA-1885][]                   |
 
 ## Bug fixes
 
@@ -138,7 +138,7 @@ Your project may not depend on some of the packages listed in this table.
 [3535]: https://github.com/magento/pwa-studio/pull/3535
 [3506]: https://github.com/magento/pwa-studio/pull/3506
 [3513]: https://github.com/magento/pwa-studio/pull/3513
-[5]: https://github.com/magento-commerce/upward-php/pull/5
+[upward-php 5]: https://github.com/magento-commerce/upward-php/pull/5
 [3495]: https://github.com/magento/pwa-studio/pull/3495
 [3460]: https://github.com/magento/pwa-studio/pull/3460
 [3473]: https://github.com/magento/pwa-studio/pull/3473
