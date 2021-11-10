@@ -20,7 +20,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 -  **Added a GraphQL mutation for submitting the Contact Us form.** — You can now use GraphQL to submit the Contact Us form data to the Open Source or Commerce backend. From there, you can use it to send emails and personalize other customer interactions.
 
--  **Added GraphQL `storeConfig` fields** — Use these fields to determine whether the Contact Us and Newletter features are enabled.
+-  **Added GraphQL `storeConfig` fields** — Use this field to determine whether the Contact Us and Newletter features are enabled.
 
 ## Summary of all changes
 | Type  | Description                                                              | GitHub PR        | Jira Issue<br/>(internal link) |
@@ -72,7 +72,7 @@ No known issues.
 
 -  [3460][] — Added Docker parallelization for Cypress testing to cut testing times by 50%. When run synchronously, the whole suite of tests took about 30 minutes. Now it takes 13–15 minutes.
 
--  [3506][] - Fixed outdated snapshots for failing Page Builder tests on the `develop`. The tests started failing when the Newsletter form was added to the footer.
+-  [3506][] - Fixed outdated snapshots for failing Page Builder tests on the `develop` branch. The tests started failing when the Newsletter form was added to the footer.
 
 ## Upgrading from a previous version
 
