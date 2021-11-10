@@ -6,7 +6,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## New Features
 
--  **Added PWA Studio metapackages** — In this release, we introduce our PWA Studio metapackages: One for [Magento Open Source](https://github.com/magento/magento2-pwa) and one for [Adobe Commerce](https://github.com/magento/magento2-pwa-commerce). These metapackages provide a new way to add any additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases as needed. In fact, we did that in this release. We added GraphQL endpoints and fields to the metapackages to fix some `Cart`-related bugs. GitHub PRs: [4][], [1][].
+-  **Added PWA Studio metapackages** — In this release, we introduce our PWA Studio metapackages: One for [Magento Open Source](https://github.com/magento/magento2-pwa) and one for [Adobe Commerce](https://github.com/magento/magento2-pwa-commerce). These metapackages provide a new way to add any additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases as needed. In fact, we did that in this release. We added a GraphQL mutation and several fields to the metapackages to fix some `Cart`-related bugs. GitHub PRs: [4][], [1][].
 
     **UPDATES REQUIRED!** This release and all future PWA Studio releases will have dependencies on these metapackages. That means you need to add one or both of the metapackages to your PWA apps (depending on your backend target). Instructions for installing these packages are in the README files for each metapackage repo:
 
@@ -20,7 +20,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 -  **Added a GraphQL mutation for submitting the Contact Us form.** — You can now use GraphQL to submit the Contact Us form data to the Open Source or Commerce backend. From there, you can use it to send emails and personalize other customer interactions.
 
--  **Added GraphQL `storeConfig` fields** — Use this field to determine whether the Contact Us and Newletter features are enabled.
+-  **Added GraphQL `storeConfig` fields** — Use these fields to determine whether the Contact Us and Newletter features are enabled.
 
 ## Summary of all changes
 | Type  | Description                                                                             | GitHub PR             |
