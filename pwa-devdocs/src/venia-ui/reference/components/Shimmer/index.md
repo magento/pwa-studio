@@ -2,8 +2,6 @@
 title: Shimmer
 ---
 
-# Shimmer
-
 The Shimmer component is a loading indicator that takes the shape of the component being loaded.
 Instead of blocking the entire page like a traditional full-screen loader, Shimmer loaders are component-shape specific to show users previews of what's loading on the page.
 
@@ -16,27 +14,6 @@ To update this section, update the doc blocks in the source code
 -->
 
 {% include auto-generated/venia-ui/lib/components/Shimmer/shimmer.md %}
-
-## Accessibility
-
-To maintain accessibility for screen readers, we can pass `aria-live="polite" aria-busy="true"` to the Shimmer component (or an
-element that wraps the Shimmer(s) in a more complex instance).
-
-It's important to then add `aria-live="polite" aria-busy="false"` to the _normal_ component that replaces the shimmer.
-
-### Example
-
-```jsx
-// ....
-import Shimmer from '../path/to/base/Shimmer';
-// ....
-export default () => {
-  // ....
-  return (
-    <Shimmer />
-  );
-};
-```
 
 ## Shimmer for Components
 
@@ -97,10 +74,10 @@ export { default as SubComponentShimmer } from './subComponent.shimmer.js';
 ```jsx
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { mergeClasses } from '../../path/to/classify';
+import { useStyle } from '../../path/to/classify';
 import defaultClasses from './subComponent.css';
 const SubComponent = (props) => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
     const { someValue } = props;
 
     return (
@@ -126,12 +103,12 @@ export default SubComponent;
 
 ```jsx
 import React from 'react';
-import { mergeClasses } from '../../path/to/classify';
+import { useStyle } from '../../path/to/classify';
 import Shimmer from '../path/to/base/Shimmer';
 import defaultClasses from './subComponent.css'; // Load same classes as real SubComponent
 const SubComponentShimmer = (props) => {
     // Important to still merge-in prop classes for extensibility/targetability
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     return (
       <div className={classes.root}>
@@ -176,4 +153,25 @@ productShimmerComponent.appendJSX(
      </div>
      <Shimmer width="100%" height={1} />`
 );
+```
+
+## Accessibility
+
+To maintain accessibility for screen readers, we can pass `aria-live="polite" aria-busy="true"` to the Shimmer component (or an
+element that wraps the Shimmer(s) in a more complex instance).
+
+It's important to then add `aria-live="polite" aria-busy="false"` to the _normal_ component that replaces the shimmer.
+
+### Example
+
+```jsx
+// ....
+import Shimmer from '../path/to/base/Shimmer';
+// ....
+export default () => {
+  // ....
+  return (
+    <Shimmer />
+  );
+};
 ```
