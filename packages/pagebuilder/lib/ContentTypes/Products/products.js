@@ -282,6 +282,7 @@ export const GET_PRODUCTS_BY_URL_KEY = gql`
         products(filter: { url_key: { in: $url_keys } }, pageSize: $pageSize) {
             items {
                 id
+                uid
                 name
                 price_range {
                     maximum_price {

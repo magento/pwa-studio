@@ -1,0 +1,21 @@
+.ratingAverage {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 0.5rem;
+    align-items: center;
+    column-gap: 0.5rem;
+    background-color: rgb(var(--venia-global-color-gray-darker));
+    color: rgb(var(--venia-global-color-gray-50));
+}
+
+.ratingValue {
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.ratingIcon {
+    composes: root from '../Icon/icon.module.css';
+    --stroke: rgb(var(--venia-global-color-gray-50));
+}
