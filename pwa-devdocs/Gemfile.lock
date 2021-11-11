@@ -19,7 +19,7 @@ GEM
     ffi (1.15.4)
     forwardable-extended (2.6.0)
     http_parser.rb (0.6.0)
-    i18n (1.8.11)
+    i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     jekyll (4.2.1)
       addressable (~> 2.4)
@@ -67,11 +67,11 @@ GEM
     unicode-display_width (1.8.0)
 
 PLATFORMS
-  ruby
+  x86_64-darwin-20
 
 DEPENDENCIES
   devdocs!
   jekyll-redirect-from
 
 BUNDLED WITH
-   1.17.2
+   2.2.27
