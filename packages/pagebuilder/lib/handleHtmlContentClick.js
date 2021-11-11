@@ -1,9 +1,9 @@
 /**
  * Helper function for onClick() HTML Events
- *  
+ *
  * @param {object} history history object
  * @param {function} history.push Pushes a new entry onto the history stack
- * @param {Event} event 
+ * @param {Event} event
  */
 const handleHtmlContentClick = (history, event) => {
     const { target } = event;

@@ -67,6 +67,8 @@ const Text = props => {
             style={dynamicStyles}
             className={[classes.root, ...cssClasses].join(' ')}
             dangerouslySetInnerHTML={toHTML(content)}
+            onKeyDown={clickHandler}
+            role="presentation"
         />
     );
 };

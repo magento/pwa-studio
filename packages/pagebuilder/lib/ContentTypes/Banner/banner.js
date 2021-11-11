@@ -4,10 +4,9 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, bool, oneOf, shape, string, func } from 'prop-types';
 import Button from '@magento/venia-ui/lib/components/Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import useIntersectionObserver from '@magento/peregrine/lib/hooks/useIntersectionObserver';
-import { useHistory } from 'react-router-dom';
 import handleHtmlContentClick from '../../handleHtmlContentClick';
 
 const { matchMedia } = globalThis;
@@ -292,6 +291,8 @@ const Banner = props => {
                     style={contentStyles}
                     dangerouslySetInnerHTML={toHTML(content)}
                     onClick={clickHandler}
+                    onKeyDown={clickHandler}
+                    role="presentation"
                 />
                 {BannerButton}
             </div>

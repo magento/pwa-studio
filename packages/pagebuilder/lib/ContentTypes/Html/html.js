@@ -67,6 +67,8 @@ const Html = props => {
             className={[classes.root, ...cssClasses].join(' ')}
             dangerouslySetInnerHTML={toHTML(html)}
             onClick={clickHandler}
+            onKeyDown={clickHandler}
+            role="presentation"
         />
     );
 };
