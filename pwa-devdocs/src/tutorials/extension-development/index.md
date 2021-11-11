@@ -1,5 +1,6 @@
 ---
 title: Extension development
+adobeio: /tutorials/extensions/
 ---
 
 PWA Studio follows the Magento way of merging third-party code to build web functionality on a simple platform.
@@ -133,7 +134,7 @@ module.exports = (targets) => {
 
 For more information on the Targetables API used in this example, see the following reference pages:
 
-- [Targetables manager][]  
+- [Targetables manager][]
 - [TargetableModule][]
 - [TargetablePublisher][]
 
@@ -214,7 +215,7 @@ yarn add file:../relative/path/to/my-extension
 ```
 
 ```sh
-npm install -S ../relative/path/to/my-extension 
+npm install -S ../relative/path/to/my-extension
 ```
 
 ### Adding as a build dependency
