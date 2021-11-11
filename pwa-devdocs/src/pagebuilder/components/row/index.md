@@ -1,5 +1,6 @@
 ---
 title: Row
+adobeio: /integrations/pagebuilder/components/Row/
 ---
 
 <!--

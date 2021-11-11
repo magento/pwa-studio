@@ -1,5 +1,6 @@
 ---
 title: Project structure
+adobeio: /tutorials/setup-storefront/file-structure/
 ---
 
 This topic covers the project structure created using the steps outlined in the [Project setup][] tutorial.

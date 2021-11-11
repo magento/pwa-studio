@@ -1,5 +1,6 @@
 ---
 title: Production launch checklist
+adobeio: /tutorials/production-deployment/checklist/
 ---
 
 Launching a production site is the final step in the storefront development process.

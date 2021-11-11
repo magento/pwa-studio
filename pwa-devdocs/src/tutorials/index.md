@@ -1,5 +1,6 @@
 ---
 title: Getting started
+adobeio: /tutorials/
 ---
 
 PWA Studio is a library of tools and packages designed to help you create a Magento PWA storefront.

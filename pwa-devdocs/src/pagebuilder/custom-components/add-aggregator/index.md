@@ -1,5 +1,6 @@
 ---
 title: Add aggregator
+adobeio: /integrations/pagebuilder/custom-components/add-aggregator/
 ---
 
 The purpose of the configuration aggregator (`configAggregator`) is to retrieve properties from a content type's HTML and return those properties as a flat object of `key:values`. The framework (specifically the `<ContentTypeFactory />`) then passes this object to your component, where you can assign the properties to your component's corresponding properties for rendering within a PWA Studio app.
