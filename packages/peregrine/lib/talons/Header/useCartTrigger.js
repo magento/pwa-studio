@@ -45,14 +45,14 @@ export const useCartTrigger = props => {
 
     const { data } = useQuery(getItemCountQuery, {
         fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
         variables: {
             cartId
         },
-        skip: !cartId
+        skip: !cartId,
+        errorPolicy: 'all'
     });
 
-    const itemCount = data ? data.cart.total_quantity : 0;
+    const itemCount = data?.cart?.total_quantity || 0;
 
     const handleTriggerClick = useCallback(() => {
         // Open the mini cart.

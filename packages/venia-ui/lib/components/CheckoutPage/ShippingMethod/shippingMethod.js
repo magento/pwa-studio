@@ -58,7 +58,7 @@ const ShippingMethod = props => {
 
         contents = (
             <Fragment>
-                <div className={classes.done}>
+                <div className={classes.done} data-cy="ShippingMethod-done">
                     <CompletedView
                         selectedShippingMethod={selectedShippingMethod}
                         showUpdateMode={showUpdateMode}
@@ -100,6 +100,7 @@ const ShippingMethod = props => {
                     />
                     <div className={classes.formButtons}>
                         <Button
+                            data-cy="ShippingMethod-submitButton"
                             priority="normal"
                             type="submit"
                             disabled={pageIsUpdating || isLoading}

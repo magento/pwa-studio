@@ -69,6 +69,7 @@ const MegaMenu = props => {
         <nav
             ref={mainNavRef}
             className={classes.megaMenu}
+            data-cy="MegaMenu-megaMenu"
             role="navigation"
             onFocus={handleSubMenuFocus}
         >
