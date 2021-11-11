@@ -1,5 +1,6 @@
 ---
 title: Divider
+adobeio: /integrations/pagebuilder/components/Divider/
 ---
 
 <!--

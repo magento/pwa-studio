@@ -1,5 +1,6 @@
 ---
 title: Gift Cards component
+adobeio: /api/venia/components/CartPage/GiftCards/
 ---
 
 <!--

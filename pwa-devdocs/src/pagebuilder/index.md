@@ -1,5 +1,6 @@
 ---
 title: Page Builder to PWA integration
+adobeio: /integrations/pagebuilder/
 ---
 
 {: .bs-callout-info}
