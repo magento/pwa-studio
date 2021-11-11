@@ -9,6 +9,8 @@ exports[`renders a Text component 1`] = `
     }
   }
   onClick={[Function]}
+  onKeyDown={[Function]}
+  role="presentation"
   style={
     Object {
       "border": undefined,
@@ -38,6 +40,8 @@ exports[`renders a Text component with all props configured 1`] = `
     }
   }
   onClick={[Function]}
+  onKeyDown={[Function]}
+  role="presentation"
   style={
     Object {
       "border": "solid",

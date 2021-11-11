@@ -51,6 +51,8 @@ exports[`renders a BannerShimmer component with minHeight 1`] = `
           }
         }
         onClick={[Function]}
+        onKeyDown={[Function]}
+        role="presentation"
         style={
           Object {
             "width": "100%",

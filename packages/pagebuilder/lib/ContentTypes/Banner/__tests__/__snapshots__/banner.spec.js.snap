@@ -55,6 +55,8 @@ exports[`on hover displays button and overlay 1`] = `
             }
           }
           onClick={[Function]}
+          onKeyDown={[Function]}
+          role="presentation"
           style={Object {}}
         />
         <div
@@ -143,6 +145,8 @@ exports[`on hover displays button and overlay 2`] = `
             }
           }
           onClick={[Function]}
+          onKeyDown={[Function]}
+          role="presentation"
           style={Object {}}
         />
         <div
@@ -236,6 +240,8 @@ exports[`renders a configured collage-left Banner component 1`] = `
             }
           }
           onClick={[Function]}
+          onKeyDown={[Function]}
+          role="presentation"
           style={Object {}}
         />
         <div
@@ -332,6 +338,8 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
             }
           }
           onClick={[Function]}
+          onKeyDown={[Function]}
+          role="presentation"
           style={Object {}}
         />
         <div
@@ -429,6 +437,8 @@ exports[`renders a configured poster Banner component 1`] = `
             }
           }
           onClick={[Function]}
+          onKeyDown={[Function]}
+          role="presentation"
           style={
             Object {
               "width": "100%",
@@ -519,6 +529,8 @@ exports[`renders an empty Banner component 1`] = `
           }
         }
         onClick={[Function]}
+        onKeyDown={[Function]}
+        role="presentation"
         style={
           Object {
             "width": "100%",
