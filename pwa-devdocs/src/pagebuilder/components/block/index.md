@@ -1,5 +1,6 @@
 ---
 title: Block
+adobeio: /integrations/pagebuilder/components/Block/
 ---
 
 <!--
