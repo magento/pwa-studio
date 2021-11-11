@@ -20,7 +20,8 @@ import ErrorView from '../ErrorView';
 import Shimmer from './contactPage.shimmer';
 import defaultClasses from './contactPage.module.css';
 
-const NOT_FOUND_MESSAGE = "Looks like the page you were hoping to find doesn't exist. Sorry about that.";
+const NOT_FOUND_MESSAGE =
+    "Looks like the page you were hoping to find doesn't exist. Sorry about that.";
 
 const ContactPage = props => {
     const { classes: propClasses } = props;
