@@ -1,5 +1,6 @@
 ---
 title: Product Listing components
+adobeio: /api/venia/components/CartPage/ProductListing/
 ---
 
 <!--

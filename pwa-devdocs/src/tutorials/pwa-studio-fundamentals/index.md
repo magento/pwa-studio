@@ -1,5 +1,6 @@
 ---
 title: PWA Studio fundamentals
+adobeio: /tutorials/setup-storefront/
 ---
 
 ## Overview

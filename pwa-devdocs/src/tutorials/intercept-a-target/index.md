@@ -1,5 +1,6 @@
 ---
 title: Target interception
+adobeio: /tutorials/targets/
 ---
 
 Target interception is a feature provided by PWA Studio's extensibility framework.
