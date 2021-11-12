@@ -3,6 +3,7 @@ const plugins = [
      * See:
      * https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
      * https://babeljs.io/docs/en/babel-plugin-proposal-object-rest-spread
+     * https://babeljs.io/docs/en/babel-plugin-proposal-optional-chaining
      * https://babeljs.io/docs/en/next/babel-plugin-syntax-dynamic-import.html
      * https://babeljs.io/docs/en/next/babel-plugin-syntax-jsx.html
      * https://babeljs.io/docs/en/babel-plugin-transform-react-jsx
@@ -10,6 +11,7 @@ const plugins = [
      */
     ['@babel/plugin-proposal-class-properties'],
     ['@babel/plugin-proposal-object-rest-spread'],
+    ['@babel/plugin-proposal-optional-chaining'],
     ['@babel/plugin-syntax-dynamic-import'],
     ['@babel/plugin-syntax-jsx'],
     ['@babel/plugin-transform-react-jsx'],
