@@ -1,5 +1,6 @@
 ---
 title: Add component
+adobeio: /integrations/pagebuilder/custom-components/add-component/
 ---
 
 The purpose of a Page Builder component is to recreate a Page Builder content type (from your Magento instance) to display inside a PWA app. Developing this component is similar to developing other React components in PWA Studio. However, the properties defined within a Page Builder component are determined by the properties returned from your configuration aggregator. The following steps highlight how to put these properties to use in your component:

@@ -1,5 +1,6 @@
 ---
 title: Add a static route
+adobeio: /tutorials/basic-modifications/add-static-route/
 ---
 
 Magento's built in CMS system and [PageBuilder][] feature lets you create highly customized content pages for your storefront, but

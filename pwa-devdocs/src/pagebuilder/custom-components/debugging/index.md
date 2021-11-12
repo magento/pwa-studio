@@ -1,5 +1,6 @@
 ---
 title: Debugging tips
+adobeio: /integrations/pagebuilder/custom-components/debugging/
 ---
 
 If you haven't yet modified the config object and setup the references you'll see the following console warning, telling you the component is missing:

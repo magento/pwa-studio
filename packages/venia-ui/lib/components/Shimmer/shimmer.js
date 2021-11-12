@@ -4,6 +4,17 @@ import { node, number, oneOf, oneOfType, shape, string } from 'prop-types';
 import { useStyle } from '../../classify';
 import defaultClasses from './shimmer.module.css';
 
+/**
+ * @kind functional component
+ *
+ * @param {Object} classes Styles to apply to the `root` of the Shimmer. Available classes are `root` and `root_[TYPE]`.
+ * @param {string|number} borderRadius Border radius for the shimmer.
+ * @param {string|number} height Sets the height of the Shimmer. Numbers are in `rem` units. Strings are used directly (Example: '100px').
+ * @param {string|number} width Sets the width of the Shimmer. Numbers are in `rem` units. Strings are used directly (Example: '100px').
+ * @param {Object} style CSS styles to apply to the Shimmer.
+ * @param {'rectangle'|'button'|'checkbox'|'radio'|'textArea'|'textInput'} type The base element shape to apply to the Shimmer.
+ * @param {node} children Children to output within the Shimmer. Useful for setting image placeholders.
+ */
 const Shimmer = props => {
     const {
         classes: propClasses,
@@ -44,8 +55,6 @@ const Shimmer = props => {
 };
 
 /**
- * @typedef props
- *
  * @property {Object} classes is an object containing the class names for the
  * Shimmer component.
  * @property {string} classes.root is the class for the container

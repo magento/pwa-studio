@@ -1,5 +1,6 @@
 ---
 title: Portal
+adobeio: /api/venia/components/general/Portal/
 ---
 
 <!--

@@ -1,5 +1,6 @@
 ---
 title: Trigger
+adobeio: /api/venia/components/general/Trigger/
 ---
 
 <!--

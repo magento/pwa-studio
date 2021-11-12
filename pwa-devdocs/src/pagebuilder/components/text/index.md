@@ -1,5 +1,6 @@
 ---
 title: Text
+adobeio: /integrations/pagebuilder/components/Text/
 ---
 
 <!--

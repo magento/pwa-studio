@@ -1,5 +1,6 @@
 ---
 title: ButtonGroup
+adobeio: /api/venia/components/general/ButtonGroup/
 ---
 
 <!--
