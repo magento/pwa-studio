@@ -27,6 +27,6 @@
 }
 
 .unchecked {
-    composes: checkmark;
+    composes: checked;
     opacity: 0;
 }
