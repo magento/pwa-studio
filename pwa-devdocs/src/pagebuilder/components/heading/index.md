@@ -1,5 +1,6 @@
 ---
 title: Heading
+adobeio: /integrations/pagebuilder/components/Heading/
 ---
 
 <!--

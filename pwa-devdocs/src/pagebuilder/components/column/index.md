@@ -1,5 +1,6 @@
 ---
 title: Column
+adobeio: /integrations/pagebuilder/components/Column/
 ---
 
 <!--

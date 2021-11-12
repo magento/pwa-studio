@@ -15,6 +15,7 @@ import defaultClasses from './item.module.css';
 import WishlistGalleryButton from '../Wishlist/AddToListButton';
 
 import AddToCartbutton from '../Gallery/addToCartButton';
+import Rating from '../Rating';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -44,7 +45,8 @@ const GalleryItem = props => {
         return <GalleryItemShimmer classes={classes} />;
     }
 
-    const { name, price_range, small_image, url_key } = item;
+    const { name, price_range, small_image, url_key, rating_summary } = item;
+
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
 
@@ -66,6 +68,10 @@ const GalleryItem = props => {
         </div>
     );
 
+    const ratingAverage = rating_summary ? (
+        <Rating rating={rating_summary} />
+    ) : null;
+
     return (
         <div className={classes.root} aria-live="polite" aria-busy="false">
             <Link
@@ -85,6 +91,7 @@ const GalleryItem = props => {
                     resource={smallImageURL}
                     widths={IMAGE_WIDTHS}
                 />
+                {ratingAverage}
             </Link>
             <Link
                 onClick={handleLinkClick}
@@ -133,7 +140,6 @@ GalleryItem.propTypes = {
         stock_status: string.isRequired,
         type_id: string.isRequired,
         url_key: string.isRequired,
-        url_suffix: string,
         sku: string.isRequired,
         price_range: shape({
             maximum_price: shape({

@@ -1,5 +1,6 @@
 ---
 title: Logo
+adobeio: /api/venia/components/general/Logo/
 ---
 
 <!--
