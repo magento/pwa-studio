@@ -1,5 +1,6 @@
 ---
 title: Set up component
+adobeio: /integrations/pagebuilder/custom-components/setup/
 ---
 
 Setting up your component is about getting the essential component files in place so that your component is actively participating in the Page Builder component framework. After you create these files and wire them into the component framework, you can focus all your attention on developing each file to faithfully recreate your content type as a PWA component. The following steps highlight the tasks for setting up your component:

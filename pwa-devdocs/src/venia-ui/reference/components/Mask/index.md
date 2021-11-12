@@ -1,5 +1,6 @@
 ---
 title: Mask
+adobeio: /api/venia/components/general/Mask/
 ---
 
 <!--

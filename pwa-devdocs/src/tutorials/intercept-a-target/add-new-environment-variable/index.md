@@ -1,5 +1,6 @@
 ---
 title: Add a new environment variable
+adobeio: /tutorials/targets/add-environment-variable/
 ---
 
 Environment variables provide values that may vary across different instances of the same project.
@@ -241,12 +242,14 @@ module.exports = localIntercept
 
 Now, when you start your project, you can navigate to `/placeholder-image-demo` and see the PlaceholderImage component in action.
 
+```html
 <iframe src="https://codesandbox.io/embed/environment-variable-tutorial-9z0rb?fontsize=11&hidenavigation=1&initialpath=%2Fplaceholder-image-demo&module=%2Fsrc%2Fcomponents%2FPlaceholderImageDemo%2FplaceholderImageDemo.js&theme=dark"
      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
      title="environment-variable-tutorial"
      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
+```
 
 [core environment variable definitions]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}>
 

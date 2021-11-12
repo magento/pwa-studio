@@ -1,5 +1,6 @@
 ---
 title: ProductImageCarousel
+adobeio: /api/venia/components/general/ProductImageCarousel/
 ---
 
 <!--
