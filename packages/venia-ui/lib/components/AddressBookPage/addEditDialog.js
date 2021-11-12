@@ -95,7 +95,7 @@ const AddEditDialog = props => {
             <div className={classes.root}>
                 <div className={classes.firstname}>
                     <Field id="firstname" label={firstNameLabel}>
-                        <TextInput field="firstname" validate={isRequired} />
+                        <TextInput field="firstname" validate={isRequired} data-cy="firstname"/>
                     </Field>
                 </div>
                 <div className={classes.middlename}>
@@ -104,12 +104,12 @@ const AddEditDialog = props => {
                         label={middleNameLabel}
                         optional={true}
                     >
-                        <TextInput field="middlename" />
+                        <TextInput field="middlename" data-cy="middlename"/>
                     </Field>
                 </div>
                 <div className={classes.lastname}>
                     <Field id="lastname" label={lastNameLabel}>
-                        <TextInput field="lastname" validate={isRequired} />
+                        <TextInput field="lastname" validate={isRequired} data-cy="lastname"/>
                     </Field>
                 </div>
                 <div className={classes.country}>
@@ -117,17 +117,17 @@ const AddEditDialog = props => {
                 </div>
                 <div className={classes.street1}>
                     <Field id="street1" label={street1Label}>
-                        <TextInput field="street[0]" validate={isRequired} />
+                        <TextInput field="street[0]" validate={isRequired} data-cy="street[0]"/>
                     </Field>
                 </div>
                 <div className={classes.street2}>
                     <Field id="street2" label={street2Label} optional={true}>
-                        <TextInput field="street[1]" />
+                        <TextInput field="street[1]" data-cy="street[1]"/>
                     </Field>
                 </div>
                 <div className={classes.city}>
                     <Field id="city" label={cityLabel}>
-                        <TextInput field="city" validate={isRequired} />
+                        <TextInput field="city" validate={isRequired} data-cy="city"/>
                     </Field>
                 </div>
                 <div className={classes.region}>
@@ -144,13 +144,14 @@ const AddEditDialog = props => {
                 </div>
                 <div className={classes.telephone}>
                     <Field id="telephone" label={telephoneLabel}>
-                        <TextInput field="telephone" validate={isRequired} />
+                        <TextInput field="telephone" validate={isRequired} data-cy="telephone"/>
                     </Field>
                 </div>
                 <div className={classes.default_address_check}>
                     <Checkbox
                         field="default_shipping"
                         label={defaultAddressCheckLabel}
+												data-cy="default_shipping"
                     />
                 </div>
             </div>

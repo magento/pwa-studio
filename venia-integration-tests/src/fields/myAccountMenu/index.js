@@ -1,4 +1,3 @@
-export const myAccountMenuItemsField =
-    'button[class^="accountTrigger-trigger-"]';
+export const myAccountMenuItemsField = '[data-cy="AccountTrigger-trigger"]'; 
 
-export const myAccountMenuItemsList = 'div[class^="accountMenuItems-root-"]';
+export const myAccountMenuItemsList = '[data-cy="accountMenuItems-root"]';

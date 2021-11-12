@@ -34,13 +34,15 @@ const AddToListButton = props => {
 
     const classes = useStyle(defaultClasses, props.classes);
     const buttonClass = isSelected ? classes.root_selected : classes.root;
-
-    return (
+		const dataCySelector = isSelected ? 'addToListButton-root_selected' : 'addToListButton-root';
+    
+		return (
         <Fragment>
             <button
                 ref={buttonRef}
                 className={buttonClass}
                 {...buttonAriaProps}
+								data-cy={dataCySelector}
             >
                 {props.icon} {buttonText}
             </button>

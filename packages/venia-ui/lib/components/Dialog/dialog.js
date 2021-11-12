@@ -103,6 +103,7 @@ const Dialog = props => {
                 disabled={confirmButtonDisabled}
                 priority="high"
                 type="submit"
+								data-cy="Dialog-confirmButton"
             >
                 <FormattedMessage
                     id={confirmTranslationId}
@@ -114,7 +115,7 @@ const Dialog = props => {
 
     const maybeForm =
         isOpen || !shouldUnmountOnHide ? (
-            <Form className={classes.form} {...formProps} onSubmit={onConfirm}>
+            <Form className={classes.form} {...formProps} onSubmit={onConfirm} data-cy="Dialog-form">
                 {/* The Mask. */}
                 <button
                     className={classes.mask}
@@ -125,7 +126,7 @@ const Dialog = props => {
                 {/* The Dialog. */}
                 <div className={classes.dialog}>
                     <div className={classes.header}>
-                        <span className={classes.headerText}>{title}</span>
+                        <span className={classes.headerText} data-cy="Dialog-headerText">{title}</span>
                         {maybeCloseXButton}
                     </div>
                     <div className={classes.body}>

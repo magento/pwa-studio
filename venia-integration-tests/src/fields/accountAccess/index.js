@@ -1,37 +1,37 @@
-export const accountTriggerButton = 'button[class^="accountTrigger-trigger-"]';
+export const accountTriggerButton = '[data-cy="AccountTrigger-trigger"]';
 
 export const signInEmailTextField =
-    'aside[class^="accountMenu-root"] form[class^="signIn-form-"] input[name="email"]';
+    '[data-cy="AccountMenu-root"] [data-cy="SignIn-form"] [data-cy="email"]';
 
 export const signInPasswordTextField =
-    'aside[class^="accountMenu-root"] form[class^="signIn-form-"] input[name="password"]';
+    '[data-cy="AccountMenu-root"] [data-cy="SignIn-form"] [data-cy="password"]';
 
 export const signInSubmitButton =
-    'aside[class^="accountMenu-root"] form[class^="signIn-form-"] [class^="button-root_highPriority-"]';
+    '[data-cy="AccountMenu-root"] [data-cy="SignIn-form"] [data-cy="SignInButton-root_highPriority"]';
 
-export const signOutLink = 'button[class^="accountMenuItems-signOut-"]';
+export const signOutLink = '[data-cy="accountMenuItems-signOut"]';
 
 export const forgotPasswordLink =
-    'button[class^="signIn-forgotPasswordButton-"]';
+    '[data-cy="SignIn-forgotPasswordButton"]';
 
-export const createAccountInitiateButton = '[class^="button-content-"]';
+export const createAccountInitiateButton = '[data-cy="CreateAccount-initiateButton"]';
 
-export const firstNameTextField = 'input[name="customer.firstname"]';
+export const firstNameTextField = '[data-cy="customer-firstname"]';
 
-export const lastNameTextField = 'input[name="customer.lastname"]';
+export const lastNameTextField = '[data-cy="customer-lastname"]';
 
-export const createAccountEmailTextField = 'input[name="customer.email"]';
+export const createAccountEmailTextField = '[data-cy="customer-email"]';
 
-export const createAccountPasswordTextField = 'input[name="password"]';
+export const createAccountPasswordTextField = '[data-cy="password"]';
 
 export const createAccountSubmitButton =
-    '[class^="createAccount-submitButton-"]';
+    '[data-cy="CreateAccount-submitButton"]';
 
 export const forgotPasswordEmailTextField =
-    'form[class^="forgotPasswordForm-root-"] input[name="email"]';
+    '[data-cy="forgotPasswordForm-root"] [data-cy="email"]';
 
 export const forgotPasswordSubmitButton =
-    'button[class^="forgotPasswordForm-submitButton-"]';
+    '[data-cy="forgotPasswordForm-submitButton"]';
 
 export const forgotPasswordSuccess =
-    '[class^="formSubmissionSuccessful-text-"]';
+    '[data-cy="formSubmissionSuccessful-text"]';

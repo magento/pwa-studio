@@ -3,7 +3,6 @@ import {
     couponCodeSectionButton,
     giftCardSectionButton,
     giftOptionsSectionButton,
-    kebabMenuButton,
     productKebab,
     productListingProduct,
     productSectionRemoveFromCartButton,
@@ -53,7 +52,7 @@ export const toggleGiftOptionsSection = () => {
 export const moveProductFromCartToSingleWishlist = productName => {
     const itemToMove = cy.get(cartPageRoot).contains('li', productName);
 
-    itemToMove.get(kebabMenuButton).click();
+    itemToMove.get(productKebab).click();
 
     itemToMove.get(saveForLaterButton).click();
 };

@@ -57,6 +57,7 @@ const CreateAccount = props => {
             disabled={isDisabled}
             type="submit"
             priority="high"
+						data-cy="CreateAccount-submitButton"
         >
             <FormattedMessage
                 id={'createAccount.createAccountText'}
@@ -91,6 +92,7 @@ const CreateAccount = props => {
                     validateOnBlur
                     mask={value => value && value.trim()}
                     maskOnBlur={true}
+										data-cy="customer-firstname"
                 />
             </Field>
             <Field
@@ -106,6 +108,7 @@ const CreateAccount = props => {
                     validateOnBlur
                     mask={value => value && value.trim()}
                     maskOnBlur={true}
+										data-cy="customer-lastname"
                 />
             </Field>
             <Field
@@ -121,6 +124,7 @@ const CreateAccount = props => {
                     validateOnBlur
                     mask={value => value && value.trim()}
                     maskOnBlur={true}
+										data-cy="customer-email"
                 />
             </Field>
             <Password
@@ -139,6 +143,7 @@ const CreateAccount = props => {
                 validateOnBlur
                 mask={value => value && value.trim()}
                 maskOnBlur={true}
+								data-cy="password"
             />
             <div className={classes.subscribe}>
                 <Checkbox

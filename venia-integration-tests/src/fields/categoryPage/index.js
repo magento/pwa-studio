@@ -1,8 +1,8 @@
 export const categoryPageAddToWishListButton =
-    '*[class^="addToListButton-root-"]';
+    '*[data-cy="addToListButton-root"]';
 
 export const categoryPageSelectedWishlistButton =
-    '*[class^="addToListButton-root_selected-"]';
+    '*[data-cy="addToListButton-root_selected"]';
 
 export const categoryContentTitle = '[data-cy="CategoryContent-categoryTitle"]';
 

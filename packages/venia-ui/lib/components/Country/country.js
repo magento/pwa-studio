@@ -40,7 +40,7 @@ const Country = props => {
             label={formatMessage({ id: translationId, defaultMessage: label })}
             classes={{ root: classes.root }}
         >
-            <Select {...selectProps} id={classes.root} />
+            <Select {...selectProps} id={classes.root} data-cy="Country-code"/>
         </Field>
     );
 };

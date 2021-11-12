@@ -6,9 +6,7 @@ export const productListingProduct =
 export const productListingProductName =
     '[data-cy="CartPage-root"] [data-cy="ProductListing-root"] [data-cy="Product-name"]';
 
-export const kebabMenuButton = 'button[class^="kebab-kebab-"]';
-
-export const saveForLaterButton = 'button[class^="product-addToListButton-"]';
+export const saveForLaterButton = '[data-cy="addToListButton-root"]';
 
 export const productKebab = '[data-cy="LegacyMiniCart-Kebab-button"]';
 

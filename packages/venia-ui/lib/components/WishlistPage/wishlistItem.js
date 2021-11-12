@@ -91,7 +91,7 @@ const WishlistItem = props => {
         : classes.root;
 
     const addToCart = isSupportedProductType ? (
-        <button className={classes.addToCart} {...addToCartButtonProps}>
+        <button className={classes.addToCart} {...addToCartButtonProps} data-cy="wishlistItem-addToCart">
             {formatMessage({
                 id: 'wishlistItem.addToCart',
                 defaultMessage: 'Add to Cart'
@@ -109,12 +109,13 @@ const WishlistItem = props => {
                     className={classes.deleteItem}
                     onClick={handleRemoveProductFromWishlist}
                     aria-label={removeProductAriaLabel}
+										data-cy="wishlistItem-deleteItem"
                 >
                     <Icon size={16} src={Trash2} />
                 </button>
             </div>
-            <div className={classes.priceContainer}>
-                <Price currencyCode={currency} value={unitPrice} />
+            <div className={classes.priceContainer} data-cy="wishlistItem-priceContainer">
+                <Price currencyCode={currency} value={unitPrice}/>
             </div>
             {optionElements}
             {addToCart}

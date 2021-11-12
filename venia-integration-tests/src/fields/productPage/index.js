@@ -2,7 +2,7 @@ export const productPageAddToCartButton =
     '[data-cy="ProductFullDetail-addToCartButton"]';
 
 export const productPageAddToWishListButton =
-    'button[class^="addToListButton-root"]';
+    '[data-cy="addToListButton-root"]';
 
 export const productPageSelectedWishlistButton =
     '*[class^="addToListButton-root_selected-"]';

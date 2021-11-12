@@ -67,6 +67,7 @@ const SignIn = props => {
                 getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
+								data-cy="SignIn-form"
             >
                 <Field
                     label={formatMessage({
@@ -78,6 +79,7 @@ const SignIn = props => {
                         autoComplete="email"
                         field="email"
                         validate={isRequired}
+												data-cy="email"
                     />
                 </Field>
                 <Password
@@ -89,12 +91,14 @@ const SignIn = props => {
                     validate={isRequired}
                     autoComplete="current-password"
                     isToggleButtonHidden={false}
+										data-cy="password"
                 />
                 <div className={classes.forgotPasswordButtonContainer}>
                     <LinkButton
                         classes={forgotPasswordClasses}
                         type="button"
                         onClick={handleForgotPassword}
+												data-cy="SignIn-forgotPasswordButton"
                     >
                         <FormattedMessage
                             id={'signIn.forgotPasswordText'}
@@ -103,7 +107,7 @@ const SignIn = props => {
                     </LinkButton>
                 </div>
                 <div className={classes.buttonsContainer}>
-                    <Button priority="high" type="submit">
+                    <Button priority="high" type="submit" data-cy="SignInButton-root_highPriority">
                         <FormattedMessage
                             id={'signIn.signInText'}
                             defaultMessage={'Sign In'}
@@ -113,6 +117,7 @@ const SignIn = props => {
                         priority="normal"
                         type="button"
                         onClick={handleCreateAccount}
+												data-cy="CreateAccount-initiateButton"
                     >
                         <FormattedMessage
                             id={'signIn.createAccountText'}
