@@ -40,12 +40,12 @@ const Swatch = props => {
 
     const { handleClick } = talonProps;
 
-    const checkStyle = useMemo(
-        () => (isSelected ? defaultClasses.checked : defaultClasses.unchecked),
-        [isSelected]
-    );
-
     const classes = useStyle(defaultClasses, props.classes);
+
+    const checkStyle = useMemo(
+        () => (isSelected ? classes.checked : classes.unchecked),
+        [classes.checked, classes.unchecked, isSelected]
+    );
 
     let finalStyle = style;
 
