@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it does not render children when inactive 1`] = `null`;
+
+exports[`it renders children 1`] = `
+<div>
+  Contact Link
+</div>
+`;
+
+exports[`it shows shimmer while loading 1`] = `<Shimmer />`;
