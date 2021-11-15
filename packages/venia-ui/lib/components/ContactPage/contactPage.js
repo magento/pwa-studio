@@ -97,7 +97,10 @@ const ContactPage = props => {
             </StoreTitle>
             <div className={classes.banner}>{/** Banner CMS Block **/}</div>
             <div className={classes.content}>
-                <div className={classes.formContainer}>
+                <div
+                    className={classes.formContainer}
+                    data-cy="ContactPage-formContainer"
+                >
                     {maybeLoadingIndicator}
                     <h1 className={classes.title}>
                         <FormattedMessage
