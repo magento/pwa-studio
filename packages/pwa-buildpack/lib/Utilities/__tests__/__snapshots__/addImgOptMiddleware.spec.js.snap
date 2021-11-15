@@ -12,16 +12,3 @@ If possible, install additional tools to build NodeJS native dependencies:
 https://github.com/nodejs/node-gyp#installation",
 ]
 `;
-
-exports[`recovers from missing hastily dep 1`] = `
-Array [
-  "Cannot add image optimization middleware due to dependencies that are not installed or are not compatible with this environment:
-- hastily: Reason: hastily was not compatible
-- hastily: Reason: Cannot read properties of undefined (reading 'imageopto')
-
-Images will be served uncompressed.
-
-If possible, install additional tools to build NodeJS native dependencies:
-https://github.com/nodejs/node-gyp#installation",
-]
-`;
