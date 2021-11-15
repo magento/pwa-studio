@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@apollo/client": "~3.4.0",
-    "@magento/eslint-config": "git+ssh://git@github.com:mikhaelbois/magento-eslint#mikhaelbois/PWA-1020-node-update",
+    "@magento/eslint-config": "git+ssh://git@github.com:magento-commerce/magento-eslint",
     "@testing-library/react-hooks": "~5.0.3",
     "intl": "~1.2.5",
     "intl-locales-supported": "~1.8.12",

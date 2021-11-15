@@ -74,7 +74,7 @@
   "devDependencies": {
     "@babel/core": "~7.15.0",
     "@babel/plugin-syntax-jsx": "~7.2.0",
-    "@magento/eslint-config": "git+ssh://git@github.com:mikhaelbois/magento-eslint#mikhaelbois/PWA-1020-node-update",
+    "@magento/eslint-config": "git+ssh://git@github.com:magento-commerce/magento-eslint",
     "babel-loader": "~8.0.5",
     "compression": "~1.7.4",
     "css-loader": "~5.2.7",

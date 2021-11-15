@@ -2895,9 +2895,9 @@
   dependencies:
     es-comments "^1.0.1"
 
-"@magento/eslint-config@git+ssh://git@github.com:mikhaelbois/magento-eslint#mikhaelbois/PWA-1020-node-update":
+"@magento/eslint-config@git+ssh://git@github.com:magento-commerce/magento-eslint":
   version "1.5.3"
-  resolved "git+ssh://git@github.com:mikhaelbois/magento-eslint#60308df2e1baf39ee6349eaf03f8f2953a418e9e"
+  resolved "git+ssh://git@github.com:magento-commerce/magento-eslint#c2a0390dc59b06c681d9cd082e9bb4c9604dc0ca"
 
 "@mdx-js/mdx@^1.6.22":
   version "1.6.22"

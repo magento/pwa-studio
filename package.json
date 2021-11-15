@@ -49,7 +49,7 @@
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@graphql-cli/validate": "~2.1.0",
     "@graphql-eslint/eslint-plugin": "~1.0.1",
-    "@magento/eslint-config": "git+ssh://git@github.com:mikhaelbois/magento-eslint#mikhaelbois/PWA-1020-node-update",
+    "@magento/eslint-config": "git+ssh://git@github.com:magento-commerce/magento-eslint",
     "@types/jest": "~25.2.1",
     "autoprefixer": "~10.3.3",
     "babel-eslint": "~10.1.0",
