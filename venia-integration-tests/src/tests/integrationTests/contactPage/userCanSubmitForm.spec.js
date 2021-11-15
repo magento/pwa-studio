@@ -8,9 +8,7 @@ import {
     submitContactForm
 } from '../../../actions/contactPage';
 
-import {
-    assertSuccessToast
-} from '../../../assertions/contactPage';
+import { assertSuccessToast } from '../../../assertions/contactPage';
 
 const {
     getContactPageEnabledCall,
@@ -22,7 +20,7 @@ const {
     contactFormName,
     contactFormEmail,
     contactFormTelephone,
-    contactFormComment,
+    contactFormComment
 } = contactPageFixtures;
 
 describe('verify contact form', () => {
