@@ -24,7 +24,9 @@ const OutOfStockIcon = (
 );
 
 const AddToCartButton = props => {
+    const { urlSuffix } = props;
     const talonProps = useAddToCartButton({
+        urlSuffix,
         item: props.item
     });
     const { handleAddToCart, isDisabled, isInStock } = talonProps;
@@ -106,5 +108,6 @@ AddToCartButton.propTypes = {
                 })
             })
         })
-    })
+    }),
+    urlSuffix: string
 };
