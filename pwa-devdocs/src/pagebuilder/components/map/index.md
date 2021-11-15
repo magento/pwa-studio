@@ -1,5 +1,6 @@
 ---
 title: Map
+adobeio: /integrations/pagebuilder/components/Map/
 ---
 
 <!--

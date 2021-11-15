@@ -1,5 +1,6 @@
 ---
 title: Add stylesheet
+adobeio: /integrations/pagebuilder/custom-components/add-stylesheet/
 ---
 
 Styling your Page Builder components is the same as styling any other component in PWA Studio. However, the CSS stylesheet for your component should define CSS classes that are comparable to the CSS classes you use on the frontend for original content type (`view/frontend/web/css/source/content-type/<your-content-type>/_import.less`). The following steps highlight the tasks for setting up the CSS classes for your component:
