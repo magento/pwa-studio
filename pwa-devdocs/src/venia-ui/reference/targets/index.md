@@ -1,5 +1,6 @@
 ---
 title: Venia UI Extensibility Targets
+adobeio: /api/venia/targets/
 ---
 
 This page lists the Targets declared in the Venia UI package. Access these in your intercept files by calling `targets.of('@magento/venia-ui')` on the TargetProvider object.

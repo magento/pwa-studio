@@ -1,5 +1,6 @@
 ---
 title: Products
+adobeio: /integrations/pagebuilder/components/Products/
 ---
 
 <!--

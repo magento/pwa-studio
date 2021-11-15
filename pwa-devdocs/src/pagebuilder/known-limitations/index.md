@@ -1,5 +1,6 @@
 ---
 title: Known limitations
+adobeio: /integrations/pagebuilder/limitations/
 ---
 
 The following items are known limitations to implementing PWA Studio components for Page Builder content types:
