@@ -9,8 +9,7 @@ import {
 } from '../../../actions/contactPage';
 
 import {
-    assertSuccessToast,
-    assertInvalidEmailErrorMessage
+    assertSuccessToast
 } from '../../../assertions/contactPage';
 
 const {
@@ -24,7 +23,6 @@ const {
     contactFormEmail,
     contactFormTelephone,
     contactFormComment,
-    contactFormInvalidEmail
 } = contactPageFixtures;
 
 describe('verify contact form', () => {
@@ -54,33 +52,5 @@ describe('verify contact form', () => {
         cy.wait(['@submitContactForm']).its('response.body');
 
         assertSuccessToast();
-    });
-
-    it('user sees errors from response', () => {
-        cy.intercept('GET', getContactPageEnabledCall, {
-            fixture: 'contactPage/contactPageConfigEnabled.json'
-        }).as('gqlGetContactPageQuery');
-
-        cy.intercept('POST', hitGraphqlPath, req => {
-            if (req.body.operationName.includes('contactUs')) {
-                req.reply({
-                    fixture: 'contactPage/contactFormSubmitInvalidEmail.json'
-                });
-            }
-        }).as('submitContactForm');
-
-        cy.visit(contactPageRoute);
-
-        fillContactForm({
-            name: contactFormName,
-            email: contactFormInvalidEmail,
-            telephone: contactFormTelephone,
-            comment: contactFormComment
-        });
-
-        submitContactForm();
-        cy.wait(['@submitContactForm']).its('response.body');
-
-        assertInvalidEmailErrorMessage();
     });
 });

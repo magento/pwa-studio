@@ -14,5 +14,3 @@ export const contactFormComment =
 
 export const contactFormSubmitButton =
     '[data-cy="ContactPage-formContainer"] button[type="submit"]';
-
-export const contactFormErrors = '[data-cy="ContactPage-formContainer"] TBD';
