@@ -1,5 +1,6 @@
 ---
 title: Video
+adobeio: /integrations/pagebuilder/components/Video/
 ---
 
 <!--

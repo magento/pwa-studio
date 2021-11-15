@@ -1,5 +1,6 @@
 ---
 title: HTML Code
+adobeio: /integrations/pagebuilder/components/HTML-Code/
 ---
 
 <!--

@@ -1,5 +1,6 @@
 ---
 title: Project setup
+adobeio: /tutorials/setup-storefront/
 ---
 
 This tutorial provides the first steps for working with PWA Studio.
