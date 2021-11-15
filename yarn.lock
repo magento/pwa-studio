@@ -2895,9 +2895,10 @@
   dependencies:
     es-comments "^1.0.1"
 
-"@magento/eslint-config@git+ssh://git@github.com:magento-commerce/magento-eslint":
-  version "1.5.3"
-  resolved "git+ssh://git@github.com:magento-commerce/magento-eslint#c2a0390dc59b06c681d9cd082e9bb4c9604dc0ca"
+"@magento/eslint-config@~1.5.0":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@magento/eslint-config/-/eslint-config-1.5.2.tgz#24083d869afd124a414ae8a15401e0a6e44a99a6"
+  integrity sha512-iN5Ic0JQe549ycijZNyNRu3JHajGVrBPX3a5yy4zAjdF9gE8z6jCVQOUP3WGuff4bEJfJgs/VODSIPuEU4NjBg==
 
 "@mdx-js/mdx@^1.6.22":
   version "1.6.22"

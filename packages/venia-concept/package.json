@@ -51,7 +51,7 @@
     "@babel/preset-env": "~7.16.0",
     "@babel/runtime": "~7.15.3",
     "@magento/babel-preset-peregrine": "~1.3.0",
-    "@magento/eslint-config": "git+ssh://git@github.com:magento-commerce/magento-eslint",
+    "@magento/eslint-config": "~1.5.0",
     "@magento/pagebuilder": "~7.0.2",
     "@magento/peregrine": "~12.2.0",
     "@magento/pwa-theme-venia": "~1.1.0",
