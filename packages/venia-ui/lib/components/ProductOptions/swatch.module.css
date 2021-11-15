@@ -19,3 +19,14 @@
 .root_selected_focused {
     composes: root_selected;
 }
+
+.checked {
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 256ms;
+}
+
+.unchecked {
+    composes: checked;
+    opacity: 0;
+}
