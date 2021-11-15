@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Facebook, Instagram, Twitter } from 'react-feather';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
@@ -19,7 +19,14 @@ const Footer = props => {
     const { copyrightText } = talonProps;
 
     const linkGroups = Array.from(links, ([groupKey, linkProps]) => {
-        const linkElements = Array.from(linkProps, ([text, path]) => {
+        const linkElements = Array.from(linkProps, ([text, pathInfo]) => {
+            let path = pathInfo;
+            let Component = Fragment;
+            if (pathInfo && typeof pathInfo === 'object') {
+                path = pathInfo.path;
+                Component = pathInfo.Component;
+            }
+
             const itemKey = `text: ${text} path:${path}`;
             const child = path ? (
                 <Link className={classes.link} to={path}>
@@ -32,9 +39,9 @@ const Footer = props => {
             );
 
             return (
-                <li key={itemKey} className={classes.linkItem}>
-                    {child}
-                </li>
+                <Component key={itemKey}>
+                    <li className={classes.linkItem}>{child}</li>
+                </Component>
             );
         });
 
