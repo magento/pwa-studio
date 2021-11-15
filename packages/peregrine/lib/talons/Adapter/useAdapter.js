@@ -190,15 +190,15 @@ export const useAdapter = props => {
         ]
     );
 
-    const createApolloClient = (cache, link) => {
+    const createApolloClient = useCallback((cache, link) => {
         return new ApolloClient({
             cache,
             link,
             ssrMode: isServer
         });
-    };
+    }, []);
 
-    const createCachePersistor = (storeCode, cache) => {
+    const createCachePersistor = useCallback((storeCode, cache) => {
         return isServer
             ? null
             : new CachePersistor({
@@ -207,7 +207,7 @@ export const useAdapter = props => {
                   storage: globalThis.localStorage,
                   debug: process.env.NODE_ENV === 'development'
               });
-    };
+    }, []);
 
     const clearCacheData = useCallback(
         async (client, cacheType) => {
@@ -257,7 +257,7 @@ export const useAdapter = props => {
                 }
             }
         },
-        [apolloLink]
+        [apolloLink, createApolloClient, createCachePersistor]
     );
 
     const apolloClient = useMemo(() => {
@@ -272,7 +272,13 @@ export const useAdapter = props => {
         client.clearCacheData = clearCacheData;
 
         return client;
-    }, [apiBase, apolloLink, clearCacheData]);
+    }, [
+        apiBase,
+        apolloLink,
+        clearCacheData,
+        createApolloClient,
+        createCachePersistor
+    ]);
 
     const getUserConfirmation = useCallback(async (message, callback) => {
         if (typeof globalThis.handleRouteChangeConfirmation === 'function') {

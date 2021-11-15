@@ -6,13 +6,34 @@ import { useAdapter } from '../useAdapter';
 
 const log = jest.fn();
 
-jest.mock('@apollo/client');
-jest.mock('@apollo/client/cache');
-jest.mock('@apollo/client/core');
-jest.mock('@apollo/client/link/context');
-jest.mock('@apollo/client/link/error');
-jest.mock('@apollo/client/link/retry');
-jest.mock('apollo-cache-persist');
+jest.mock('@apollo/client', () => ({
+    ApolloLink: {
+        from: jest.fn(() => {})
+    },
+    createHttpLink: jest.fn(() => ({
+        fetch: jest.fn(),
+        useGETForQueries: jest.fn(),
+        uri: jest.fn()
+    }))
+}));
+jest.mock('@apollo/client/core', () => ({
+    ApolloClient: jest.fn(() => ({
+        persistor: jest.fn(() => {})
+    }))
+}));
+jest.mock('apollo-cache-persist', () => ({
+    CachePersistor: jest.fn(() => ({
+        restore: jest.fn()
+    }))
+}));
+jest.mock('@magento/peregrine/lib/Apollo/magentoGqlCacheLink', () => {
+    return {
+        __esModule: true,
+        default: jest.fn().mockImplementation(() => {
+            return {};
+        })
+    };
+});
 
 let inputValues = {};
 
@@ -74,26 +95,10 @@ describe('#useAdapter', () => {
                 Array [
                   Object {
                     "apolloProps": Object {
-                      "client": ApolloClient {
-                        "__actionHookForDevTools": [MockFunction],
-                        "__requestRaw": [MockFunction],
-                        "addResolvers": [MockFunction],
+                      "client": Object {
                         "apiBase": "https://example.com/graphql",
                         "clearCacheData": [Function],
-                        "clearStore": [MockFunction],
-                        "extract": [MockFunction],
-                        "getObservableQueries": [MockFunction],
-                        "getResolvers": [MockFunction],
-                        "mutate": [MockFunction],
-                        "onClearStore": [MockFunction],
-                        "onResetStore": [MockFunction],
-                        "persistor": CachePersistor {
-                          "getLogs": [MockFunction],
-                          "getSize": [MockFunction],
-                          "pause": [MockFunction],
-                          "persist": [MockFunction],
-                          "purge": [MockFunction],
-                          "remove": [MockFunction],
+                        "persistor": Object {
                           "restore": [MockFunction] {
                             "calls": Array [
                               Array [],
@@ -105,23 +110,7 @@ describe('#useAdapter', () => {
                               },
                             ],
                           },
-                          "resume": [MockFunction],
                         },
-                        "query": [MockFunction],
-                        "reFetchObservableQueries": [MockFunction],
-                        "readFragment": [MockFunction],
-                        "readQuery": [MockFunction],
-                        "refetchQueries": [MockFunction],
-                        "resetStore": [MockFunction],
-                        "restore": [MockFunction],
-                        "setLink": [MockFunction],
-                        "setLocalStateFragmentMatcher": [MockFunction],
-                        "setResolvers": [MockFunction],
-                        "stop": [MockFunction],
-                        "subscribe": [MockFunction],
-                        "watchQuery": [MockFunction],
-                        "writeFragment": [MockFunction],
-                        "writeQuery": [MockFunction],
                       },
                     },
                     "initialized": false,
