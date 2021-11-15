@@ -7,6 +7,7 @@ export * as checkoutPage from './checkoutPage';
 export * as googleMapApi from './googleMapApi';
 export * as homePage from './homePage';
 export * as myAccountMenu from './myAccountMenu';
+export * as notFoundPage from './notFoundPage';
 export * as pageBuilder from './pageBuilder';
 export * as productPage from './productPage';
 export * as wishlist from './wishlist';

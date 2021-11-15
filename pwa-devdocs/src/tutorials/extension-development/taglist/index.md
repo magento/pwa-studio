@@ -1,5 +1,6 @@
 ---
 title: Create a tag list extension
+adobeio: /tutorials/extensions/taglist/
 ---
 
 A tag list is a group of tags associated with a product.
@@ -380,7 +381,6 @@ Next, edit your `package.json` file to point to the location of this extension's
 +     }
     }
   }
-
 ```
 
 ## Install extension locally
@@ -459,12 +459,14 @@ Now, when you start your storefront application and navigate to a product page, 
 
 You can see this extension running live in this [CodeSandbox instance][] or you can check out the source repository in the [`taglist-extension-tutorial`][] branch in the **magento-devdocs/pwa-studio-code-sandbox** GitHub project.
 
+```html
 <iframe src="https://codesandbox.io/embed/github/magento-devdocs/pwa-studio-code-sandbox/tree/taglist-extension-tutorial/?fontsize=12&hidenavigation=1&module=%2Fextensions%2FtagList%2Fpackage.json&moduleview=1&theme=dark"
      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
      title="dev-sandbox"
      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
+```
 
 [setup your project]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
 [targets and targetables]: <{%link pwa-buildpack/extensibility-framework/index.md %}>

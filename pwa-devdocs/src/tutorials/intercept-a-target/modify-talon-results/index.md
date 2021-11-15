@@ -1,5 +1,6 @@
 ---
 title: Modify talon results
+adobeio: /tutorials/targets/modify-talon-results/
 ---
 
 In core Magento development:
@@ -272,4 +273,4 @@ To test the new props data the wrapped talon returns, you will need to create a 
 
 [`npm init`]: https://docs.npmjs.com/cli/init
 [`yarn init`]: https://classic.yarnpkg.com/en/docs/cli/init/
-[plugins (interceptors)]: https://devdocs.magento.com/guides/v2.4/extension-dev-guide/plugins.html 
+[plugins (interceptors)]: https://devdocs.magento.com/guides/v2.4/extension-dev-guide/plugins.html
