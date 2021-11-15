@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "11.0.0",
+  "version": "11.1.0",
   "publishConfig": {
     "access": "public"
   },
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
     "@magento/directive-parser": "~0.1.7",
-    "@magento/upward-js": "~5.2.0",
+    "@magento/upward-js": "~5.3.0",
     "@pmmmwh/react-refresh-webpack-plugin": "~0.4.1",
     "@yarnpkg/lockfile": "~1.1.0",
     "apicache": "~1.4.0",
@@ -72,9 +72,9 @@
     "yargs": "~13.2.2"
   },
   "devDependencies": {
-    "@babel/core": "~7.3.4",
+    "@babel/core": "~7.15.0",
     "@babel/plugin-syntax-jsx": "~7.2.0",
-    "@magento/eslint-config": "~1.5.0",
+    "@magento/eslint-config": "git+ssh://git@github.com:mikhaelbois/magento-eslint#mikhaelbois/PWA-1020-node-update",
     "babel-loader": "~8.0.5",
     "compression": "~1.7.4",
     "css-loader": "~5.2.7",
@@ -90,7 +90,7 @@
     "workbox-webpack-plugin": "~6.2.4"
   },
   "peerDependencies": {
-    "@babel/core": "~7.3.4",
+    "@babel/core": "~7.15.0",
     "@babel/plugin-syntax-jsx": "~7.2.0",
     "babel-loader": "~8.0.5",
     "compression": "~1.7.4",
@@ -102,7 +102,7 @@
     "workbox-webpack-plugin": "~6.2.4"
   },
   "engines": {
-    "node": ">=10.x",
+    "node": ">=14.x",
     "yarn": ">=1.12.0"
   },
   "pwa-studio": {

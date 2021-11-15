@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-js",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "publishConfig": {
     "access": "public"
   },
@@ -39,7 +39,7 @@
     "debug": "~4.3.1",
     "dotenv": "~6.2.0",
     "errorhandler": "~1.5.1",
-    "graphql": "~15.3.0",
+    "graphql": "~15.5.0",
     "hogan.js": "~3.0.2",
     "http-proxy-middleware": "~0.19.1",
     "js-yaml": "~3.13.1",
@@ -48,7 +48,7 @@
     "node-fetch": "~2.6.1"
   },
   "devDependencies": {
-    "@magento/upward-spec": "~5.1.0",
+    "@magento/upward-spec": "~5.2.0",
     "express": "~4.16.4",
     "supertest": "~3.4.2"
   },
@@ -56,7 +56,7 @@
     "express": "^4.16.4"
   },
   "engines": {
-    "node": ">=10.x",
+    "node": ">=14.x",
     "yarn": ">=1.12.0"
   }
 }
