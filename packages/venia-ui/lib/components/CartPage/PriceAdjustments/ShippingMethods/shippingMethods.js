@@ -72,6 +72,7 @@ const ShippingMethods = props => {
             classes={{
                 root_normalPriority: classes.estimateButton
             }}
+            data-cy="ShippingMethods-estimateButton"
             onClick={showForm}
         >
             <FormattedMessage
@@ -82,7 +83,7 @@ const ShippingMethods = props => {
     );
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="ShippingMethods-root">
             <p className={classes.message}>
                 <FormattedMessage
                     id={'shippingMethods.message'}

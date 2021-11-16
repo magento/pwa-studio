@@ -131,6 +131,7 @@ const GuestForm = props => {
             <FormError errors={Array.from(errors.values())} />
             <Form
                 className={classes.root}
+                data-cy="GuestForm-root"
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
                 getApi={getFormApi}
@@ -146,6 +147,7 @@ const GuestForm = props => {
                         <TextInput
                             field="email"
                             id="email"
+                            data-cy="GuestForm-email"
                             validate={isRequired}
                             onBlur={() =>
                                 handleValidateEmail(
@@ -167,6 +169,7 @@ const GuestForm = props => {
                         <TextInput
                             field="firstname"
                             id="firstname"
+                            data-cy="GuestForm-firstName"
                             validate={isRequired}
                         />
                     </Field>
@@ -182,12 +185,16 @@ const GuestForm = props => {
                         <TextInput
                             field="lastname"
                             id="lastname"
+                            data-cy="GuestForm-lastName"
                             validate={isRequired}
                         />
                     </Field>
                 </div>
                 <div className={classes.country}>
-                    <Country validate={isRequired} />
+                    <Country
+                        validate={isRequired}
+                        data-cy="GuestForm-country"
+                    />
                 </div>
                 <div className={classes.street0}>
                     <Field
@@ -200,6 +207,7 @@ const GuestForm = props => {
                         <TextInput
                             field="street[0]"
                             id="street0"
+                            data-cy="GuestForm-street0"
                             validate={isRequired}
                         />
                     </Field>
@@ -213,7 +221,11 @@ const GuestForm = props => {
                         })}
                         optional={true}
                     >
-                        <TextInput field="street[1]" id="street1" />
+                        <TextInput
+                            field="street[1]"
+                            id="street1"
+                            data-cy="GuestForm-street1"
+                        />
                     </Field>
                 </div>
                 <div className={classes.city}>
@@ -227,6 +239,7 @@ const GuestForm = props => {
                         <TextInput
                             field="city"
                             id="city"
+                            data-cy="GuestForm-city"
                             validate={isRequired}
                         />
                     </Field>
@@ -234,13 +247,17 @@ const GuestForm = props => {
                 <div className={classes.region}>
                     <Region
                         validate={isRequired}
+                        data-cy="GuestForm-region"
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}
                     />
                 </div>
                 <div className={classes.postcode}>
-                    <Postcode validate={isRequired} />
+                    <Postcode
+                        validate={isRequired}
+                        data-cy="GuestForm-postcode"
+                    />
                 </div>
                 <div className={classes.telephone}>
                     <Field
@@ -253,13 +270,19 @@ const GuestForm = props => {
                         <TextInput
                             field="telephone"
                             id="telephone"
+                            data-cy="GuestForm-telephone"
                             validate={isRequired}
                         />
                     </Field>
                 </div>
                 <div className={classes.buttons}>
                     {cancelButton}
-                    <Button {...submitButtonProps}>{submitButtonText}</Button>
+                    <Button
+                        {...submitButtonProps}
+                        data-cy="GuestForm-submitButton"
+                    >
+                        {submitButtonText}
+                    </Button>
                 </div>
             </Form>
         </Fragment>

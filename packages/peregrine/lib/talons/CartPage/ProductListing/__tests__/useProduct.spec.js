@@ -88,6 +88,7 @@ const props = {
             }
         },
         quantity: 7,
+        errors: null,
         id: 'ItemID',
         uid: 'ItemUID'
     },
@@ -316,6 +317,7 @@ test('it handles editing the product', () => {
     expect(setActiveEditItem).toHaveBeenCalled();
     expect(setActiveEditItem.mock.calls[0][0]).toMatchInlineSnapshot(`
         Object {
+          "errors": null,
           "id": "ItemID",
           "prices": Object {
             "price": Object {
@@ -490,4 +492,36 @@ test('it returns text when render prop is executed', () => {
     expect(talonProps.addToWishlistProps.buttonText()).toMatchInlineSnapshot(
         `"Save for later"`
     );
+});
+
+test('it returns an error message when the item has an error', () => {
+    // Arrange.
+    useMutation.mockReturnValueOnce([jest.fn(), {}]);
+    useMutation.mockReturnValueOnce([jest.fn(), {}]);
+    useQuery.mockReturnValueOnce({
+        called: false,
+        error: null,
+        loading: false,
+        data: {
+            storeConfig: {
+                id: 1,
+                configurable_thumbnail_source: 'itself'
+            }
+        }
+    });
+    const errorItemProps = {
+        ...props,
+        item: {
+            ...props.item,
+            errors: [
+                {
+                    code: 'SOME_MESSAGE',
+                    message: 'Some error message'
+                }
+            ]
+        }
+    };
+
+    const tree = createTestInstance(<Component {...errorItemProps} />);
+    expect(tree.toJSON()).toMatchSnapshot();
 });

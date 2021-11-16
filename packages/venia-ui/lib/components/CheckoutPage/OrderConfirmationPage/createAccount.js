@@ -92,6 +92,7 @@ const CreateAccount = props => {
                     <TextInput
                         field="customer.firstname"
                         autoComplete="given-name"
+                        data-cy="OrderConfirmationPage-CreateAccount-firstName"
                         validate={isRequired}
                         validateOnBlur
                     />
@@ -105,6 +106,7 @@ const CreateAccount = props => {
                     <TextInput
                         field="customer.lastname"
                         autoComplete="family-name"
+                        data-cy="OrderConfirmationPage-CreateAccount-lastName"
                         validate={isRequired}
                         validateOnBlur
                     />
@@ -118,6 +120,7 @@ const CreateAccount = props => {
                     <TextInput
                         field="customer.email"
                         autoComplete="email"
+                        data-cy="OrderConfirmationPage-CreateAccount-email"
                         validate={isRequired}
                         validateOnBlur
                     />
@@ -130,6 +133,7 @@ const CreateAccount = props => {
                     fieldName="password"
                     isToggleButtonHidden={false}
                     autoComplete="new-password"
+                    data-cy="OrderConfirmationPage-CreateAccount-password"
                     validate={combine([
                         isRequired,
                         [hasLengthAtLeast, 8],
@@ -141,6 +145,7 @@ const CreateAccount = props => {
                     <Checkbox
                         field="subscribe"
                         id="subscribe"
+                        data-cy="OrderConfirmationPage-CreateAccount-subscribe"
                         label={formatMessage({
                             id: 'checkoutPage.subscribe',
                             defaultMessage: 'Subscribe to news and updates'
@@ -152,6 +157,7 @@ const CreateAccount = props => {
                         disabled={isDisabled}
                         type="submit"
                         className={classes.create_account_button}
+                        data-cy="OrderConfirmationPage-CreateAccount-createAccountButton"
                     >
                         <FormattedMessage
                             id={'checkoutPage.createAccount'}

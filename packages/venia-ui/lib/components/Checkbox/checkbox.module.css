@@ -11,15 +11,19 @@
     line-height: 1.5rem;
 }
 
+.input_base {
+    border-radius: 4px;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
 .input {
+    composes: input_base;
     -webkit-appearance: none;
     background: none;
     border: 2px solid transparent;
-    border-radius: 4px;
     cursor: pointer;
     grid-area: input;
-    height: 1.5rem;
-    width: 1.5rem;
 }
 
 .icon {
@@ -57,4 +61,8 @@
 .input:focus:enabled {
     box-shadow: -3px 3px rgb(var(--venia-brand-color-1-100));
     outline: none;
+}
+
+.input_shimmer {
+    composes: input_base;
 }

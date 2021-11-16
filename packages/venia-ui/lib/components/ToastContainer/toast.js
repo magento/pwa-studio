@@ -49,9 +49,11 @@ const Toast = props => {
     ) : null;
 
     return (
-        <div className={classes[`${type}Toast`]}>
+        <div className={classes[`${type}Toast`]} data-cy="Toast-root">
             <span className={classes.icon}>{iconElement}</span>
-            <div className={classes.message}>{message}</div>
+            <div className={classes.message} data-cy="Toast-message">
+                {message}
+            </div>
             <div className={classes.controls}>{controls}</div>
             {actions}
         </div>
