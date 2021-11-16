@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 # global environment setup : yarn + dependencies needed to support node-gyp
 RUN apk --no-cache --virtual add \
-    python \
+    python3 \
     make \
     g++ \
     yarn
