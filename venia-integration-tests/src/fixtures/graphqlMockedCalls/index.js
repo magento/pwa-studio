@@ -20,6 +20,9 @@ export const getCountriesCall = '**/graphql?query=query+GetCountries*';
 
 export const getCMSPage = '**/graphql?query=query+GetCmsPage*';
 
+export const getContactPageEnabledCall =
+    '**/graphql?query=query+GetStoreConfigForContactUs*';
+
 export const getCustomerAfterCheckoutCall =
     '**/graphql?query=query+GetCustomerAfterCheckout*';
 

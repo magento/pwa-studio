@@ -1,0 +1,5 @@
+.shimmer {
+    composes: root_rectangle from '../Shimmer/shimmer.module.css';
+    margin-bottom: 0.5rem;
+    display: block;
+}
