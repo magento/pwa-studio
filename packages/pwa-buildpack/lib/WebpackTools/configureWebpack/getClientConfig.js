@@ -200,16 +200,18 @@ async function getClientConfig(opts) {
     } else if (mode === 'production') {
         let versionBanner = '';
         const packageJson = require(path.resolve(context, './package.json'));
-        const packageRegex = /^@magento|^@apollo/
+        const packageRegex = /^@magento|^@apollo/;
         const pwaStudioVersions = {
             'pwa-studio': packageJson.version,
             ...Object.fromEntries(
-                Object.entries(packageJson.dependencies || {})
-                    .filter(([packageKey]) => packageRegex.test(packageKey))
+                Object.entries(packageJson.dependencies || {}).filter(
+                    ([packageKey]) => packageRegex.test(packageKey)
+                )
             ),
             ...Object.fromEntries(
-                Object.entries(packageJson.devDependencies || {})
-                    .filter(([packageKey]) => packageRegex.test(packageKey))
+                Object.entries(packageJson.devDependencies || {}).filter(
+                    ([packageKey]) => packageRegex.test(packageKey)
+                )
             )
         };
         versionBanner = Object.entries(pwaStudioVersions)
