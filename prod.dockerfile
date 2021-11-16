@@ -1,4 +1,4 @@
-FROM node:16.13.0-alpine as build
+FROM node:14.18.1-alpine as build
 # working directory
 WORKDIR /usr/src/app
 
@@ -32,7 +32,7 @@ ENV BABEL_KEEP_ATTRIBUTES=true
 RUN yarn run build
 
 # MULTI-STAGE BUILD
-FROM node:16.13.0-alpine
+FROM node:14.18.1-alpine
 # working directory
 WORKDIR /usr/src/app
 # node:alpine comes with a configured user and group
