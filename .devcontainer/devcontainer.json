@@ -1,0 +1,17 @@
+{
+	"name": "PWA Studio",
+	"image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:0-14",
+	"settings": {},
+	"extensions": [
+		"EditorConfig.EditorConfig",
+		"jeremyrajan.webpack",
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"graphql.vscode-graphql",
+		"bradlc.vscode-tailwindcss"
+	],
+	"postStartCommand": "yarn run watch:venia",
+	"postCreateCommand": "yarn install && yarn run build:dev",
+	"remoteUser": "node",
+	"features": {}
+}
