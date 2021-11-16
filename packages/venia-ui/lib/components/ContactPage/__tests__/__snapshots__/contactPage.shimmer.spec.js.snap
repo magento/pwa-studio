@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div>
+        <Shimmer
+          classes={
+            Object {
+              "root_rectangle": "shimmer-class",
+            }
+          }
+          height={3}
+        />
+      </div>
+      <div>
+        <Shimmer
+          classes={
+            Object {
+              "root_rectangle": "shimmer-class",
+            }
+          }
+          height={1.5}
+        />
+      </div>
+      <div>
+        <div>
+          <Shimmer
+            classes={
+              Object {
+                "root_rectangle": "shimmer-class",
+              }
+            }
+            height={1.5}
+          />
+          <Shimmer
+            type="textInput"
+          />
+        </div>
+        <div>
+          <Shimmer
+            classes={
+              Object {
+                "root_rectangle": "shimmer-class",
+              }
+            }
+            height={1.5}
+          />
+          <Shimmer
+            type="textInput"
+          />
+        </div>
+        <div>
+          <Shimmer
+            classes={
+              Object {
+                "root_rectangle": "shimmer-class",
+              }
+            }
+            height={1.5}
+          />
+          <Shimmer
+            type="textInput"
+          />
+        </div>
+        <div>
+          <Shimmer
+            classes={
+              Object {
+                "root_rectangle": "shimmer-class",
+              }
+            }
+            height={1.5}
+          />
+          <Shimmer
+            type="textArea"
+          />
+        </div>
+        <div>
+          <Shimmer
+            type="button"
+          />
+        </div>
+      </div>
+    </div>
+    <div />
+  </div>
+</div>
+`;

@@ -36,6 +36,12 @@
         "redirectTo": "/sign-in"
     },
     {
+        "name": "ContactPage",
+        "pattern": "/contact-us",
+        "exact": true,
+        "path": "../ContactPage"
+    },
+    {
         "name": "CreateAccountPage",
         "pattern": "/create-account",
         "exact": true,
