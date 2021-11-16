@@ -204,11 +204,11 @@ async function getClientConfig(opts) {
         const pwaStudioVersions = {
             'pwa-studio': packageJson.version,
             ...Object.fromEntries(
-                Object.entries(packageJson.dependencies)
+                Object.entries(packageJson.dependencies || {})
                     .filter(([packageKey]) => packageRegex.test(packageKey))
             ),
             ...Object.fromEntries(
-                Object.entries(packageJson.devDependencies)
+                Object.entries(packageJson.devDependencies || {})
                     .filter(([packageKey]) => packageRegex.test(packageKey))
             )
         };
