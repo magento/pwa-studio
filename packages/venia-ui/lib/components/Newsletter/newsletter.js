@@ -35,7 +35,7 @@ const Newsletter = props => {
     useEffect(() => {
         if (newsLetterResponse && newsLetterResponse.status) {
             addToast({
-                type: 'info',
+                type: 'success',
                 message: formatMessage({
                     id: 'newsletter.subscribeMessage',
                     defaultMessage: 'The email address is subscribed.'
