@@ -199,22 +199,22 @@ async function getClientConfig(opts) {
         }
     } else if (mode === 'production') {
         let versionBanner = '';
-        try {
-            versionBanner = projectConfig.section('staging').buildId;
-            if (!versionBanner || versionBanner.trim().length === 0) {
-                throw new Error('invalid build id');
-            }
-        } catch (error) {
-            try {
-                versionBanner = require('child_process')
-                    .execSync('git describe --long --always --dirty=-dev')
-                    .toString();
-            } catch (e) {
-                versionBanner = `${
-                    require(path.resolve(context, './package.json')).version
-                }-[hash]`;
-            }
-        }
+        const packageJson = require(path.resolve(context, './package.json'));
+        const packageRegex = /^@magento|^@apollo/
+        const pwaStudioVersions = {
+            'pwa-studio': packageJson.version,
+            ...Object.fromEntries(
+                Object.entries(packageJson.dependencies)
+                    .filter(([packageKey]) => packageRegex.test(packageKey))
+            ),
+            ...Object.fromEntries(
+                Object.entries(packageJson.devDependencies)
+                    .filter(([packageKey]) => packageRegex.test(packageKey))
+            )
+        };
+        versionBanner = Object.entries(pwaStudioVersions)
+            .map(([packageKey, version]) => `${packageKey}: ${version}`)
+            .join(', ');
 
         debug('Modifying client config for production environment');
         config.performance = {
