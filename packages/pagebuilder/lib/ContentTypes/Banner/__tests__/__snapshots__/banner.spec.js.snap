@@ -478,6 +478,7 @@ exports[`renders a configured poster Banner component 1`] = `
 </div>
 `;
 
+
 exports[`renders an empty Banner component 1`] = `
 <div
   aria-busy="false"
