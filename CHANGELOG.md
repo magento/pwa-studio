@@ -6,15 +6,15 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## New Features
 
--  **Added PWA Studio metapackages** — In this release, we introduce our PWA Studio metapackages: One for [Magento Open Source](https://github.com/magento/magento2-pwa) and one for [Adobe Commerce](https://github.com/magento/magento2-pwa-commerce). These metapackages provide a new way to add any additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases as needed. In fact, we did that in this release. We extended the GraphQL schema to include a new mutation and new fields to provide more details when a cart item error occurs.
+-  **Added PWA Studio metapackages** — In this release, we introduce our [PWA Studio metapackages][]: One for [Magento Open Source][] and one for [Adobe Commerce][]. These metapackages provide a new way to add any additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases as needed. In fact, we did that in this release. We extended the GraphQL schema to include a new mutation and new fields to provide more details when a cart item error occurs.
 
     **UPDATES REQUIRED!** This release and all future PWA Studio releases will have dependencies on these metapackages. That means you need to add one or both of the metapackages to your PWA apps (depending on your backend target). Instructions for installing these packages are in the README files for each metapackage repo:
 
-    **For Open Source backends**: Install the [Magento Open Source metapackage](https://github.com/magento/magento2-pwa).
+    **For Open Source backends**: Install the [PWA Magento Open Source metapackage][]].
 
-    **For Adobe Commerce backends**: Install the [Adobe Commerce metapackage](https://github.com/magento/magento2-pwa-commerce).
+    **For Adobe Commerce backends**: Install the [PWA Adobe Commerce metapackage][]].
 
--  **Added new PWA Tailwind theming to Venia Header** — Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. Other components will follow in the coming releases. GitHub PR: [3472][].
+-  **Added new PWA Tailwind theming to Venia Header** — Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. Other components will follow in the coming releases.
 
 -  **Added Venia Sample Data metapackage** — This metapackage provides a new way to create your own sample data for your Venia-based PWA sites. For more details, see the [Venia Sample Data metapackage repo](https://github.com/magento/venia-sample-data-modules). GitHub PRs: [3473][], [2][].
 
@@ -56,15 +56,13 @@ _For older release notes, see_ [PWA Studio releases][].
 
 As mentioned above, we not only introduced metapackages in this release, we used them! Our fix for the cart rendering issue ([3447][]) required new GraphQL fields that we added to the metapackages. These new fields require you to install one or both of our metapackages into your PWA apps (depending on your backend target). If you missed the links provided above, here they are again:
 
-**For Open Source backends**: Install the [Magento Open Source metapackage](https://github.com/magento/magento2-pwa).
+**For Open Source backends**: Install the [PWA Magento Open Source metapackage][].
 
-**For Adobe Commerce backends**: Install the [Adobe Commerce metapackage](https://github.com/magento/magento2-pwa-commerce).
+**For Adobe Commerce backends**: Install the [PWA Adobe Commerce metapackage][].
 
 ## Documentation updates
+-   **Metapackage Installation**: Added instructions for installing our new metapackages for both local and cloud-based environments. The instructions have been added to the READMEs of the Open Source and Commerce repos: [PWA Magento Open Source metapackage][] and [PWA Adobe Commerce metapackage][].
 
--  [4][], [1][] — **Metapackage Installation**: Added instructions for installing our new metapackages for both local and cloud-based environments. The instructions have been added to the READMEs of the Open Source and Commerce repos: [PWA Open Source metapackage](https://github.com/magento/magento2-pwa) and [PWA Adobe Commerce metapackage](https://github.com/magento/magento2-pwa-commerce).
-
--  [8][] — **Venia Sample Data installation**: Added instructions for installing Venia sample data from the new [magento/venia-sample-data-modules](https://github.com/magento/venia-sample-data-modules) repo.
 
 ## Known Issues
 
@@ -88,9 +86,9 @@ See [Upgrading versions][] for more information about upgrading between PWA Stud
 
 As noted above, you need to add one or both of our new metapackages to your projects. Use these instructions:
 
--  **For Open Source backends**: Install the [Magento Open Source metapackage](https://github.com/magento/magento2-pwa).
+-  **For Open Source backends**: Install the [PWA Magento Open Source metapackage][].
 
--  **For Adobe Commerce backends**: Install the [Adobe Commerce metapackage](https://github.com/magento/magento2-pwa-commerce).
+-  **For Adobe Commerce backends**: Install the [PWA Adobe Commerce metapackage][].
 
 ### Update dependencies
 
@@ -149,3 +147,9 @@ Your project may not depend on some of the packages listed in this table.
 [3472]: https://github.com/magento/pwa-studio/pull/3472
 
 [PWA Studio releases]: https://github.com/magento/pwa-studio/releases
+
+[PWA Studio metapackages]: https://developer.adobe.com/commerce/pwa-studio/metapackages/
+[Magento Open Source]: https://developer.adobe.com/commerce/pwa-studio/metapackages/open-source/
+[Adobe Commerce]: https://developer.adobe.com/commerce/pwa-studio/metapackages/commerce/
+[PWA Magento Open Source metapackage]: https://developer.adobe.com/commerce/pwa-studio/metapackages/open-source/
+[PWA Adobe Commerce metapackage]: https://developer.adobe.com/commerce/pwa-studio/metapackages/commerce/
