@@ -1,5 +1,6 @@
 ---
 title: Buttons
+adobeio: /integrations/pagebuilder/components/Buttons/
 ---
 
 <!--

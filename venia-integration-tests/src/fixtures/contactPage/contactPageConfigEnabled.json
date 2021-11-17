@@ -1,0 +1,9 @@
+{
+    "data": {
+        "storeConfig": {
+            "id": 1,
+            "contact_enabled": true,
+            "__typename": "StoreConfig"
+        }
+    }
+}

@@ -20,8 +20,6 @@ const defaultProps = {
 test('renders a Swatch correctly', () => {
     const component = testRenderer.create(<Swatch {...defaultProps} />);
 
-    expect(() => component.root.findByType(Icon)).toThrow();
-
     expect(component.root.findByType('button').props.className).not.toContain(
         '_selected'
     );

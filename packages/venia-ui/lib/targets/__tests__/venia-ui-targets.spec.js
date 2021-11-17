@@ -85,6 +85,7 @@ test('uses routes to inject client-routed pages', async () => {
             '../CartPage/index.js': mockDefault('Cart'),
             '../CreateAccountPage/index.js': mockDefault('CreateAccount'),
             '../CheckoutPage/index.js': mockDefault('Checkout'),
+            '../ContactPage/index.js': mockDefault('ContactPage'),
             '../MagentoRoute/index.js': mockDefault('MagentoRoute')
         },
         optimization: {
@@ -97,6 +98,7 @@ test('uses routes to inject client-routed pages', async () => {
     expect(built.bundle).toContain('DynamicCart');
     expect(built.bundle).toContain('DynamicCreateAccount');
     expect(built.bundle).toContain('DynamicCheckout');
+    expect(built.bundle).toContain('DynamicContactPage');
 });
 
 test('declares checkoutPagePaymentTypes target', async () => {

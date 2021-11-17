@@ -1,5 +1,6 @@
 ---
 title: Tabs
+adobeio: /integrations/pagebuilder/components/Tabs/
 ---
 
 <!--

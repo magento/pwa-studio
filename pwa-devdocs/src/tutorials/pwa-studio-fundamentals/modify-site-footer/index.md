@@ -1,5 +1,6 @@
 ---
 title: Modify the Footer component
+adobeio: /tutorials/basic-modifications/modify-footer/
 ---
 
 One way to customize a storefront is to modify its UI components.

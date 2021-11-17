@@ -1,5 +1,6 @@
 ---
 title: Overview
+adobeio: /integrations/pagebuilder/custom-components/
 ---
 
 Let's assume you have at least one _custom_ Page Builder content type rendering content on your Magento storefront. But now you want that content to show up in your PWA app as well. What do you do? Short answer: You create a custom PWA Page Builder component (also know as a "content type component"). The long answer is described in this series of topics. The steps shown here describe the recommended process for developing content type components:
