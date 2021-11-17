@@ -162,7 +162,7 @@ const MiniCart = React.forwardRef((props, ref) => {
     );
 
     return (
-        <aside className={rootClass} data-cy="MiniCart-ProductList-root">
+        <aside className={rootClass} data-cy="MiniCart-root">
             <div ref={ref} className={contentsClass}>
                 {contents}
             </div>
