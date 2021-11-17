@@ -300,12 +300,10 @@ const Banner = props => {
         </div>
     );
 
-    let FinalBannerFragment = BannerFragment ? BannerFragment : (<span>Test</span>);
-
     if (typeof link === 'string') {
         const linkProps = resolveLinkProps(link);
         const LinkComponent = linkProps.to ? Link : 'a';
-        FinalBannerFragment = BannerFragment ? (
+        BannerFragment = (
             <LinkComponent
                 className={classes.link}
                 {...linkProps}
@@ -314,7 +312,7 @@ const Banner = props => {
             >
                 {BannerFragment}
             </LinkComponent>
-        ): (<span>Test2</span>);
+        );
     }
 
     return (
@@ -327,7 +325,7 @@ const Banner = props => {
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}
         >
-            {FinalBannerFragment}
+            {BannerFragment}
         </div>
     );
 };
