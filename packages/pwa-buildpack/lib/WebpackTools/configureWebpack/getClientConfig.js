@@ -198,7 +198,6 @@ async function getClientConfig(opts) {
             );
         }
     } else if (mode === 'production') {
-        let versionBanner = '';
         const packageJson = require(path.resolve(context, './package.json'));
         const packageRegex = /^@magento|^@apollo/;
         const pwaStudioVersions = {
@@ -214,7 +213,21 @@ async function getClientConfig(opts) {
                 )
             )
         };
-        versionBanner = Object.entries(pwaStudioVersions)
+
+
+        try {
+            let buildId = projectConfig.section('staging').buildId;
+            buildId = buildId ? buildId.trim() : false;
+
+            if (buildId && buildId.length > 0) {
+                pwaStudioVersions['build-id'] = buildId;
+            }
+        } catch {}
+
+        const versionBanner = Object.entries(pwaStudioVersions)
+            .sort(([packageKeyOne], [packageKeyTwo]) => {
+                return -1 * packageKeyOne.localeCompare(packageKeyTwo);
+            })
             .map(([packageKey, version]) => `${packageKey}: ${version}`)
             .join(', ');
 
