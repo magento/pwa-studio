@@ -189,7 +189,6 @@ exports[`renders a configured collage-left Banner component 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
-      "marginBottom": "1px",
       "marginLeft": "2px",
       "marginRight": "3px",
       "marginTop": "4px",
@@ -384,7 +383,6 @@ exports[`renders a configured poster Banner component 1`] = `
   onMouseLeave={[Function]}
   style={
     Object {
-      "marginBottom": "1px",
       "marginLeft": "2px",
       "marginRight": "3px",
       "marginTop": "4px",
