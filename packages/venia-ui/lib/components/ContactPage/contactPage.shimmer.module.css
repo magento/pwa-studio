@@ -1,0 +1,27 @@
+.shimmer {
+    composes: root_rectangle from '../Shimmer/shimmer.module.css';
+    display: block;
+}
+
+.shimmerBanner {
+    composes: shimmer;
+    width: 100%;
+    height: 510px;
+}
+
+.shimmerLabel {
+    composes: label from '../Field/field.module.css';
+    composes: shimmer;
+}
+
+.shimmerSideContent {
+    composes: shimmer;
+    width: 100%;
+    height: 500px;
+}
+
+@media only screen and (min-width: 769px) {
+    .shimmerBanner {
+        height: 300px;
+    }
+}

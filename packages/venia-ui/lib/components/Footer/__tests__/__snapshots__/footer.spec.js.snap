@@ -38,6 +38,20 @@ exports[`footer renders copyright 1`] = `
           />
         </a>
       </li>
+      <li
+        className="linkItem"
+      >
+        <a
+          className="link"
+          href="/comp"
+          onClick={[Function]}
+        >
+          <mock-FormattedMessage
+            defaultMessage="comp"
+            id="comp"
+          />
+        </a>
+      </li>
     </ul>
     <ul
       className="linkGroup"
