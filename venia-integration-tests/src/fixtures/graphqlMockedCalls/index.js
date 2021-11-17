@@ -31,8 +31,6 @@ export const getCustomerWishlistCall =
 
 export const getItemsInCartCall = '**/graphql?query=query+getItemsInCart*';
 
-export const getMiniCartItems = '**/graphql?query=query+MiniCartQuery*';
-
 export const getMultipleWishlistConfigCall =
     '**/graphql?query=query+getMultipleWishlistsEnabled*';
 

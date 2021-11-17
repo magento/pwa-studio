@@ -43,5 +43,5 @@ export const goToCartPageFromEditCartButton = () => {
 export const removeProductFromMiniCart = (itemIndex = 0) => {
     const item = cy.get(miniCartProduct).eq(itemIndex);
 
-    item.get(miniCartProductDelete).click();
+    item.find(miniCartProductDelete).click();
 };
