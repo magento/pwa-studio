@@ -211,7 +211,6 @@ test('on click calls the HTML content click handler', () => {
     };
 
     const component = createTestInstance(<Banner {...bannerProps} />);
-
     const htmlElement = component.root.find(instance => {
         return instance.props.dangerouslySetInnerHTML;
     });
