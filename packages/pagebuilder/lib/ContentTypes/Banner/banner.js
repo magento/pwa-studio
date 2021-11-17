@@ -305,7 +305,7 @@ const Banner = props => {
     if (typeof link === 'string') {
         const linkProps = resolveLinkProps(link);
         const LinkComponent = linkProps.to ? Link : 'a';
-        FinalBannerFragment = (
+        FinalBannerFragment = BannerFragment ? (
             <LinkComponent
                 className={classes.link}
                 {...linkProps}
@@ -314,7 +314,7 @@ const Banner = props => {
             >
                 {BannerFragment}
             </LinkComponent>
-        );
+        ): (<span>Test2</span>);
     }
 
     return (
