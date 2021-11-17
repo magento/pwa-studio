@@ -300,7 +300,7 @@ const Banner = props => {
         </div>
     );
 
-    let FinalBannerFragment = BannerFragment;
+    let FinalBannerFragment = BannerFragment ? BannerFragment : (<span>Test</span>);
 
     if (typeof link === 'string') {
         const linkProps = resolveLinkProps(link);
