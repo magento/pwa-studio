@@ -16,8 +16,6 @@ _For older release notes, see_ [PWA Studio releases][].
 
 -  **Added new PWA Tailwind theming to Venia Header** — Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. Other components will follow in the coming releases.
 
--  **Added Venia Sample Data metapackage** — This metapackage provides a new way to create your own sample data for your Venia-based PWA sites. For more details, see the [Venia Sample Data metapackage repo](https://github.com/magento/venia-sample-data-modules). GitHub PRs: [3473][], [2][].
-
 -  **Added a GraphQL mutation for submitting the Contact Us form.** — You can now use the `contactUs` mutation to submit the Contact Us form data to the Open Source or Commerce backend.
 
 -  **Added GraphQL `storeConfig` fields** — Use the `contact_enabled` and `newsletter_enabled` fields in a `storeConfig` query to determine whether the Contact Us and Newsletter features are enabled.
@@ -33,13 +31,11 @@ _For older release notes, see_ [PWA Studio releases][].
 | Task  | <!--PWA-2251-->Repo Metadata Service Onboarding: UPWARD-PHP                             | `magento-commerce` PR |
 | Bug   | <!--PWA-2190-->Cart remains active in browser memory on PWA site even after checkout    | [3495][]              |
 | Story | <!--PWA-2154-->Parallelize Cypress tests on the CI                                      | [3460][]              |
-| Story | <!--PWA-2151-->Venia Sample Data metapackage deployVeniaSampleData.sh script update     | [3473][]              |
 | Task  | <!--PWA-2141-->Add installation instructions to Venia Sample Data repo                  | `magento-commerce` PR |
 | Task  | <!--PWA-2140-->Add local and Cloud installation instructions to meta packages           | `magento-commerce` PR |
 | Bug   | <!--PWA-2133-->Cart page out of stock crash                                             | [3447][]              |
 | Story | <!--PWA-2132-->Update Item Quantities                                                   | [3464][]              |
 | Bug   | <!--PWA-2131-->Improve Venia "create" scaffold script to stop relying on NPM log output | [3463][]              |
-| Story | <!--PWA-2106-->Create Venia Sample Data metapackage                                     | `magento-commerce` PR |
 | Story | <!--PWA-2004-->GQL Support for Contact Us & Newsletter                                  | `magento-commerce` PR |
 | Story | <!--PWA-1885-->Refactor Site Header to use Tailwind Theme                               | [3472][]              |
 
@@ -61,8 +57,8 @@ As mentioned above, we not only introduced metapackages in this release, we used
 **For Adobe Commerce backends**: Install the [PWA Adobe Commerce metapackage][].
 
 ## Documentation updates
--   **Metapackage Installation**: Added instructions for installing our new metapackages for both local and cloud-based environments. The instructions have been added to the READMEs of the Open Source and Commerce repos: [PWA Magento Open Source metapackage][] and [PWA Adobe Commerce metapackage][].
 
+-  **Metapackage Installation**: Added instructions for installing our new metapackages for both local and cloud-based environments. The instructions have been added to the READMEs of the Open Source and Commerce repos: [PWA Magento Open Source metapackage][] and [PWA Adobe Commerce metapackage][].
 
 ## Known Issues
 
