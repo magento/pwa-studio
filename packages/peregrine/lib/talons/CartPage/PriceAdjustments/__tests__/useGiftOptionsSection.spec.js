@@ -1,5 +1,4 @@
 import React from 'react';
-import { gql } from '@apollo/client';
 import { MockedProvider } from '@apollo/client/testing';
 import { renderHook } from '@testing-library/react-hooks';
 
@@ -33,35 +32,6 @@ const getGiftOptionsConfigMock2 = {
                 allow_order: '1',
                 allow_gift_receipt: '1',
                 allow_printed_card: '1'
-            }
-        }
-    }
-};
-
-const MOCK_GET_GIFT_OPTIONS_CONFIG_PROPS = gql`
-    query GetStoreConfigForGiftOptionsFromProps {
-        storeConfig {
-            id
-            allow_order
-            allow_gift_receipt
-            allow_printed_card
-            custom_value
-        }
-    }
-`;
-
-const getGiftOptionsConfigMock3 = {
-    request: {
-        query: MOCK_GET_GIFT_OPTIONS_CONFIG_PROPS
-    },
-    result: {
-        data: {
-            storeConfig: {
-                id: '123',
-                allow_order: '0',
-                allow_gift_receipt: '0',
-                allow_printed_card: '0',
-                custom_value: 'custom_value'
             }
         }
     }
@@ -134,36 +104,6 @@ describe('#useGiftOptionsSection', () => {
               },
               "isLoading": false,
               "isVisible": true,
-            }
-        `);
-    });
-
-    it('returns correct shape with operations set in props', async () => {
-        const { result, waitForNextUpdate } = renderHookWithProviders({
-            renderHookOptions: {
-                initialProps: {
-                    operations: {
-                        getGiftOptionsConfigQuery: MOCK_GET_GIFT_OPTIONS_CONFIG_PROPS
-                    }
-                }
-            },
-            mocks: [getGiftOptionsConfigMock3]
-        });
-
-        // Wait for query to finish loading
-        await waitForNextUpdate();
-
-        expect(result.current).toMatchInlineSnapshot(`
-            Object {
-              "giftOptionsConfigData": Object {
-                "allow_gift_receipt": "0",
-                "allow_order": "0",
-                "allow_printed_card": "0",
-                "custom_value": "custom_value",
-                "id": "123",
-              },
-              "isLoading": false,
-              "isVisible": false,
             }
         `);
     });
