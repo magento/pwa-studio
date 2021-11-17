@@ -4,6 +4,7 @@ export * as addressBookPage from './addressBookPage';
 export * as categoryPage from './categoryPage';
 export * as cartPage from './cartPage';
 export * as checkoutPage from './checkoutPage';
+export * as contactPage from './contactPage';
 export * as googleMapApi from './googleMapApi';
 export * as homePage from './homePage';
 export * as myAccountMenu from './myAccountMenu';
