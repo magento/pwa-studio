@@ -6,7 +6,7 @@ _For older release notes, see_ [PWA Studio releases][].
 
 ## New Features
 
--  **Added PWA Studio metapackages** — In this release, we introduce our [PWA Studio metapackages][]: One for [Magento Open Source][] and one for [Adobe Commerce][]. These metapackages provide a new way to add any additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases as needed. In fact, we did that in this release. We extended the GraphQL schema to include a new mutation and new fields to provide more details when a cart item error occurs.
+-  **Added PWA Studio metapackages** — In this release, we introduce our [PWA Studio metapackages][]: One for [Magento Open Source][] and one for [Adobe Commerce][]. These metapackages provide a new way to add any additional Open Source or Commerce features needed by your PWA modules. The PWA Studio team will also use these metapackages to add new features to the Open Source and Commerce code bases as needed. In fact, we did that in this release. We extended the GraphQL schema to include a new mutation and query as well as new fields that provide more details when a cart item error occurs.
 
     **UPDATES REQUIRED!** This release and all future PWA Studio releases will have dependencies on these metapackages. That means you need to add one or both of the metapackages to your PWA apps (depending on your backend target). Instructions for installing these packages are in the README files for each metapackage repo:
 
