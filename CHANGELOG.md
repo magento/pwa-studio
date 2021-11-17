@@ -10,9 +10,9 @@ _For older release notes, see_ [PWA Studio releases][].
 
     **UPDATES REQUIRED!** This release and all future PWA Studio releases will have dependencies on these metapackages. That means you need to add one or both of the metapackages to your PWA apps (depending on your backend target). Instructions for installing these packages are in the README files for each metapackage repo:
 
-    **For Open Source backends**: Install the [PWA Magento Open Source metapackage][]].
+    **For Open Source backends**: Install the [PWA Magento Open Source metapackage][].
 
-    **For Adobe Commerce backends**: Install the [PWA Adobe Commerce metapackage][]].
+    **For Adobe Commerce backends**: Install the [PWA Adobe Commerce metapackage][].
 
 -  **Added new PWA Tailwind theming to Venia Header** — Refactored the Venia site `Header` component to use our new [Tailwind](https://tailwindcss.com/) theming framework. The `Header` component is the first component to use our theming framework. Other components will follow in the coming releases.
 
