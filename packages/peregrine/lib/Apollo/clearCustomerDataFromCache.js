@@ -1,15 +1,21 @@
-import { deleteCacheEntry } from './deleteCacheEntry';
-
 /**
- * Deletes all references to Customer from the apollo cache including entries
- * that start with "$" which were automatically created by Apollo InMemoryCache.
- * By coincidence this rule additionally clears CustomerAddress entries, but
- * we'll need to keep this in mind by adding additional patterns as MyAccount
- * features are completed.
+ * Deletes all references to Customer from the apollo cache.
+ * Related queries that have reference to the customer are also deleted
+ * through the cascade. Note, however, that all secondary references must
+ * be deleted in order for garbage collection to do its job.
  *
  * @param {ApolloClient} client
  */
 export const clearCustomerDataFromCache = async client => {
-    await deleteCacheEntry(client, key => key.match(/^\$?Customer/i));
-    await deleteCacheEntry(client, key => key.match(/^\$?Order/i));
+    // Cached data
+    client.cache.evict({ id: 'Customer' });
+    // Cached ROOT_QUERY
+    client.cache.evict({ fieldName: 'customer' });
+    client.cache.evict({ fieldName: 'customerWishlistProducts' });
+
+    client.cache.gc();
+
+    if (client.persistor) {
+        await client.persistor.persist();
+    }
 };
