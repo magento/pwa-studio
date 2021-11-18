@@ -59,6 +59,7 @@ const CartTrigger = props => {
                     aria-label={buttonAriaLabel}
                     className={classes.trigger}
                     onClick={handleTriggerClick}
+										data-cy="cartTrigger-trigger"
                 >
                     <Icon src={ShoppingCartIcon} />
                     {maybeItemCounter}

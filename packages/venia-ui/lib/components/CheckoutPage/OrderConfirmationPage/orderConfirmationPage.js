@@ -72,13 +72,19 @@ const OrderConfirmationPage = props => {
                 })}
             </StoreTitle>
             <div className={classes.mainContainer}>
-                <h2 className={classes.heading}>
+                <h2
+                    data-cy="OrderConfirmationPage-header"
+                    className={classes.heading}
+                >
                     <FormattedMessage
                         id={'checkoutPage.thankYou'}
                         defaultMessage={'Thank you for your order!'}
                     />
                 </h2>
-                <div className={classes.orderNumber}>
+                <div
+                    data-cy="OrderConfirmationPage-orderNumber"
+                    className={classes.orderNumber}
+                >
                     <FormattedMessage
                         id={'checkoutPage.orderNumber'}
                         defaultMessage={'Order Number'}

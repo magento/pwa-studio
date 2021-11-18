@@ -51,7 +51,6 @@ const Region = props => {
                 field={fieldSelect}
                 id={classes.root}
                 items={regions}
-								data-cy="Region[region-id]"
             />
         ) : (
             <TextInput {...regionProps} field={fieldInput} id={classes.root} data-cy="Region[region]"/>

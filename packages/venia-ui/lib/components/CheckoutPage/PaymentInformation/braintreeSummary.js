@@ -94,6 +94,7 @@ const BraintreeSummary = props => {
                     className={classes.edit_button}
                     onClick={onEdit}
                     type="button"
+										data-cy="BrainTreeSummary-editButton"
                 >
                     <Icon
                         size={16}

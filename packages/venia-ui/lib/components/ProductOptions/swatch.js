@@ -82,6 +82,7 @@ const Swatch = props => {
             style={finalStyle}
             title={label}
             type="button"
+						data-cy="Swatch-root"
         >
             {icon}
         </button>

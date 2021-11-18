@@ -22,6 +22,7 @@ jest.mock('../../Button', () => () => <i />);
 jest.mock('../../LinkButton', () => () => <i />);
 jest.mock('../../FormError/formError', () => 'FormError');
 jest.mock('../../LoadingIndicator', () => () => <i />);
+jest.mock('../newsletter.shimmer', () => 'NewsletterShimmer');
 
 jest.mock('@magento/peregrine', () => {
     const actual = jest.requireActual('@magento/peregrine');
@@ -45,20 +46,42 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
 });
 const mockHandleSubmit = jest.fn();
 const talonProps = {
+    isEnabled: true,
     errors: [],
     handleSubmit: mockHandleSubmit,
     isBusy: false,
+    isLoading: false,
     setFormApi: jest.fn()
 };
 const props = {};
 
-describe('Newsletter', () => {
+describe('#Newsletter display', () => {
     test('renders correctly', () => {
         useNewsletter.mockReturnValueOnce(talonProps);
         const component = createTestInstance(<Newsletter {...props} />);
         expect(component.toJSON()).toMatchSnapshot();
     });
 
+    test('it renders shimmer while loading config', () => {
+        useNewsletter.mockReturnValueOnce({
+            ...talonProps,
+            isLoading: true
+        });
+        const component = createTestInstance(<Newsletter {...props} />);
+        expect(component.toJSON()).toMatchSnapshot();
+    });
+
+    test('it does not display when disabled', () => {
+        useNewsletter.mockReturnValueOnce({
+            ...talonProps,
+            isEnabled: false
+        });
+        const component = createTestInstance(<Newsletter {...props} />);
+        expect(component.toJSON()).toMatchSnapshot();
+    });
+});
+
+describe('#Newsletter submit', () => {
     test('calls `handleSubmit` on submit', () => {
         useNewsletter.mockReturnValueOnce(talonProps);
         useMutation.mockReturnValueOnce([mockHandleSubmit, {}]);
@@ -108,7 +131,7 @@ describe('Newsletter', () => {
         expect(component.toJSON()).toMatchSnapshot();
     });
 
-    test('throws a toast if there is response', () => {
+    test('shows a toast if there is response', () => {
         useNewsletter.mockReturnValueOnce({
             ...talonProps,
             newsLetterResponse: { status: 'SUBSCRIBED' }

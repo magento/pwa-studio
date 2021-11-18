@@ -72,6 +72,7 @@ const Product = props => {
                 id: 'product.editItem',
                 defaultMessage: 'Edit item'
             })}
+						data-cy="Product-Section-editItem"
             onClick={handleEditItem}
             icon="Edit2"
             classes={{
@@ -97,7 +98,7 @@ const Product = props => {
         <li className={classes.root} data-cy="Product-root">
             <span className={classes.errorText}>{errorMessage}</span>
             <div className={itemClassName}>
-                <Link to={itemLink} className={classes.imageContainer}>
+                <Link to={itemLink} className={classes.imageContainer} data-cy="Product-imageContainer">
                     <Image
                         alt={name}
                         classes={{
@@ -106,6 +107,7 @@ const Product = props => {
                         }}
                         width={IMAGE_SIZE}
                         resource={image}
+												
                     />
                 </Link>
                 <div className={classes.details}>
@@ -119,7 +121,7 @@ const Product = props => {
                             optionLabel: classes.optionLabel
                         }}
                     />
-                    <span className={classes.price}>
+                    <span className={classes.price} data-cy="Product-price">
                         <Price currencyCode={currency} value={unitPrice} />
                         <FormattedMessage
                             id={'product.price'}

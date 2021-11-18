@@ -38,7 +38,6 @@ const Postcode = props => {
                 {...postcodeProps}
                 field={fieldInput}
                 id={classes.root}
-								data-cy="Postcode"
             />
         </Field>
     );

@@ -6,9 +6,39 @@ export const productListingProduct =
 export const productListingProductName =
     '[data-cy="CartPage-root"] [data-cy="ProductListing-root"] [data-cy="Product-name"]';
 
-export const saveForLaterButton = '[data-cy="addToListButton-root"]';
+export const kebabMenuButton = '[data-cy="Kebab-button"]';
 
-export const productKebab = '[data-cy="LegacyMiniCart-Kebab-button"]';
+export const saveForLaterButton = 'button[class^="product-addToListButton-"]';
+
+export const cartPageProductLink = '[data-cy="Product-imageContainer"]';
+
+export const kebabMenuEditButton =
+    '[data-cy="Product-Section-editItem"]';
+
+export const editMenuColorButton =
+    'aside[class^="dialog-root_open-"] button[class^="swatch-root-"]';
+
+export const editMenuSizeButton =
+    '[data-cy="Tile-button"]';
+
+export const editMenuIncreaseQtyStepper =
+    '[data-cy="Dialog-root"] [data-cy="Quantity-incrementButton"]';
+
+export const editMenuUpdateCartButton =
+    '[data-cy="Dialog-root"] [data-cy="Dialog-confirmButton"]';
+
+export const cartPageProductName = 'div[class^="product-name-"]';
+
+export const cartPageProductOption = '[data-cy="ProductOptions-optionValue"]';
+
+export const cartPageProductQuantity =
+    '[data-cy="QuantityFields-input"]';
+
+export const cartPageProductPrice = '[data-cy="Product-price"]';
+
+export const cartPageCheckoutButton = '[data-cy="PriceSummary-checkoutButton"]';
+
+export const productKebab = '[data-cy="Kebab-button"]';
 
 export const productSectionRemoveFromCartButton =
     '[data-cy="Product-Section-removeFromCart"] [data-cy="LegacyMiniCart-Section-button"]';

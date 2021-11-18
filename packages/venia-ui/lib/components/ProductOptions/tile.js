@@ -32,6 +32,7 @@ const Tile = props => {
             onClick={handleClick}
             title={label}
             type="button"
+						data-cy="Tile-button"
         >
             <span>{label}</span>
         </button>

@@ -1,5 +1,6 @@
 ---
 title: Banner
+adobeio: /integrations/pagebuilder/components/Banner/
 ---
 
 <!--

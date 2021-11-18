@@ -1,5 +1,6 @@
 ---
 title: Image
+adobeio: /integrations/pagebuilder/components/Image/
 ---
 
 <!--

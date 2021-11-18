@@ -3,7 +3,10 @@ import {
     productPageAddToWishListButton,
     productPageOptions,
     productPageQuantityField,
-    addProductToWishlist
+    productPageSizeButton,
+    productPageColorButton,
+    addProductToWishlist,
+		swatchRoot,
 } from '../../fields/productPage';
 
 /**
@@ -58,4 +61,20 @@ export const setQuantityFromProductPage = (qty = 1) => {
     cy.get(productPageQuantityField)
         .clear()
         .type(qty.toString());
+};
+
+/**
+ * Utility function to select a ConfigurableProduct size option from the product page
+ */
+export const setProductSizeOption = size => {
+    cy.get(productPageSizeButton)
+        .contains('span', size)
+        .click();
+};
+
+/**
+ * Utility function to select a ConfigurableProduct color option from the product page
+ */
+export const setProductColorOption = color => {
+    cy.get(`${swatchRoot}[title*="${color}"]`).click();
 };

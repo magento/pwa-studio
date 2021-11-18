@@ -7,6 +7,7 @@
 .images {
     display: grid;
     grid-template-areas: 'main';
+    position: relative;
 }
 
 .imageContainer {
