@@ -37,7 +37,7 @@ const {
 } = categoryPageAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('verify category actions', () => {
+describe('PWA-1402: verify category actions', () => {
     it('user should be able to filter results in Category and Search pages', () => {
         cy.intercept('GET', getCategoriesCall).as('gqlGetCategoriesQuery');
         cy.intercept('GET', getCategoryDataCall).as('gqlGetCategoryDataQuery');

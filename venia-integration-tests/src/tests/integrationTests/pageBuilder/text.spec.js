@@ -1,6 +1,6 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('verify pagebuilder text content is rendered correctly', () => {
+describe('PWA-1164: verify pagebuilder text content is rendered correctly', () => {
     it('verify text content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/text/text.json'

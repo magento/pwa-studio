@@ -5,55 +5,67 @@ import Shimmer from '../Shimmer';
 import defaultClasses from './contactPage.module.css';
 import shimmerClasses from './contactPage.shimmer.module.css';
 
-const ContactPage = props => {
+const ContactPageShimmer = props => {
     const { classes: propClasses } = props;
     const classes = useStyle(defaultClasses, shimmerClasses, propClasses);
 
     return (
-        <div className={classes.root} data-cy="ContactPage-root">
-            <div className={classes.banner}>{/** Banner CMS Block **/}</div>
+        <article className={classes.root} data-cy="ContactPage-root">
+            <div className={classes.banner}>
+                <Shimmer classes={{ root_rectangle: classes.shimmerBanner }} />
+            </div>
             <div className={classes.content}>
                 <div className={classes.formContainer}>
                     <div className={classes.title}>
-                        <Shimmer
-                            classes={{ root_rectangle: classes.shimmer }}
-                            height={3}
-                        />
+                        <Shimmer classes={{ root_rectangle: classes.shimmer }}>
+                            &nbsp;
+                        </Shimmer>
                     </div>
 
                     <div className={classes.subtitle}>
-                        <Shimmer
-                            classes={{ root_rectangle: classes.shimmer }}
-                            height={1.5}
-                        />
+                        <Shimmer classes={{ root_rectangle: classes.shimmer }}>
+                            &nbsp;
+                        </Shimmer>
                     </div>
                     <div className={classes.form}>
                         <div key="name">
                             <Shimmer
-                                classes={{ root_rectangle: classes.shimmer }}
-                                height={1.5}
-                            />
+                                classes={{
+                                    root_rectangle: classes.shimmerLabel
+                                }}
+                            >
+                                &nbsp;
+                            </Shimmer>
                             <Shimmer type="textInput" />
                         </div>
                         <div key="email">
                             <Shimmer
-                                classes={{ root_rectangle: classes.shimmer }}
-                                height={1.5}
-                            />
+                                classes={{
+                                    root_rectangle: classes.shimmerLabel
+                                }}
+                            >
+                                &nbsp;
+                            </Shimmer>
                             <Shimmer type="textInput" />
                         </div>
                         <div key="telephone">
                             <Shimmer
-                                classes={{ root_rectangle: classes.shimmer }}
-                                height={1.5}
-                            />
+                                classes={{
+                                    root_rectangle: classes.shimmerLabel
+                                }}
+                            >
+                                &nbsp;
+                            </Shimmer>
                             <Shimmer type="textInput" />
                         </div>
                         <div key="comment">
                             <Shimmer
-                                classes={{ root_rectangle: classes.shimmer }}
-                                height={1.5}
-                            />
+                                classes={{
+                                    root_rectangle: classes.shimmerLabel
+                                }}
+                            >
+                                &nbsp;
+                            </Shimmer>
                             <Shimmer type="textArea" />
                         </div>
                         <div className={classes.buttonsContainer}>
@@ -62,21 +74,31 @@ const ContactPage = props => {
                     </div>
                 </div>
                 <div className={classes.sideContent}>
-                    {/** Side content CMS Block **/}
+                    <Shimmer
+                        classes={{ root_rectangle: classes.shimmerSideContent }}
+                    />
                 </div>
             </div>
-        </div>
+        </article>
     );
 };
 
-ContactPage.propTypes = {
+ContactPageShimmer.propTypes = {
     classes: shape({
         root: string,
         banner: string,
         content: string,
         formContainer: string,
-        sideContent: string
+        title: string,
+        subtitle: string,
+        form: string,
+        buttonsContainer: string,
+        sideContent: string,
+        shimmer: string,
+        shimmerBanner: string,
+        shimmerLabel: string,
+        shimmerSideContent: string
     })
 };
 
-export default ContactPage;
+export default ContactPageShimmer;

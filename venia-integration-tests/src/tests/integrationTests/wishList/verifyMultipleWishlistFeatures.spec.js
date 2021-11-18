@@ -60,7 +60,7 @@ const {
 } = graphqlMockedCallsFixtures;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('verify single wishlist basic features', () => {
+describe('PWA-1782: verify single wishlist basic features', () => {
     it('user should be able to add and remove products from wishlist', () => {
         cy.intercept('POST', hitGraphqlPath, req => {
             aliasMutation(req, 'CreateAccount');

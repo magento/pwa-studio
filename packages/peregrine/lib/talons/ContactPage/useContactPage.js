@@ -3,11 +3,13 @@ import { useMutation, useQuery } from '@apollo/client';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './contactUs.gql';
 
-export default (props = {}) => {
-    const { contactMutation, getStoreConfigQuery } = mergeOperations(
-        DEFAULT_OPERATIONS,
-        props.operations
-    );
+export default props => {
+    const { cmsBlockIdentifiers = [], operations } = props;
+    const {
+        contactMutation,
+        getStoreConfigQuery,
+        getContactPageCmsBlocksQuery
+    } = mergeOperations(DEFAULT_OPERATIONS, operations);
 
     const formApiRef = useRef(null);
 
@@ -25,9 +27,23 @@ export default (props = {}) => {
         }
     );
 
+    const { data: cmsBlocksData, loading: cmsBlocksLoading } = useQuery(
+        getContactPageCmsBlocksQuery,
+        {
+            variables: {
+                cmsBlockIdentifiers
+            },
+            fetchPolicy: 'cache-and-network'
+        }
+    );
+
     const isEnabled = useMemo(() => {
         return !!storeConfigData?.storeConfig?.contact_enabled;
     }, [storeConfigData]);
+
+    const cmsBlocks = useMemo(() => {
+        return cmsBlocksData?.cmsBlocks?.items || [];
+    }, [cmsBlocksData]);
 
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
     const handleSubmit = useCallback(
@@ -58,10 +74,11 @@ export default (props = {}) => {
 
     return {
         isEnabled,
+        cmsBlocks,
         errors,
         handleSubmit,
         isBusy: submitLoading,
-        isLoading: configLoading,
+        isLoading: configLoading && cmsBlocksLoading,
         setFormApi,
         response: data && data.contactUs
     };
