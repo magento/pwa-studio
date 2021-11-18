@@ -1,8 +1,6 @@
 import { useCallback, useRef, useState, useMemo } from 'react';
 import { useApolloClient, useMutation } from '@apollo/client';
 
-import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 import mergeOperations from '../../util/shallowMerge';
 import { useCartContext } from '../../context/cart';
 import { useUserContext } from '../../context/user';
@@ -67,8 +65,8 @@ export const useSignIn = props => {
                 await setToken(token);
 
                 // Clear all cart/customer data from cache and redux.
-                await clearCartDataFromCache(apolloClient);
-                await clearCustomerDataFromCache(apolloClient);
+                await apolloClient.clearCacheData(apolloClient, 'cart');
+                await apolloClient.clearCacheData(apolloClient, 'checkout');
                 await removeCart();
 
                 // Create and get the customer's cart id.
