@@ -69,7 +69,7 @@ test('renders signIn suggestion toast message', () => {
         showSignInToast: true
     });
 
-    const tree = createTestInstance(<GuestForm {...mockProps} />);
+    createTestInstance(<GuestForm {...mockProps} />);
 
     expect(addToast).toHaveBeenCalled();
     expect(addToast.mock.calls[0][0]).toMatchInlineSnapshot(`
@@ -101,7 +101,6 @@ test('renders signIn suggestion toast message', () => {
           "type": "info",
         }
     `);
-    expect(tree.toJSON()).toMatchSnapshot();
 });
 
 describe('renders prefilled form with data', () => {
