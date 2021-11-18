@@ -44,7 +44,7 @@ const {
 const { assertGuestCheckoutPage, assertAnchorLink } = miniCartAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('verify anchor links', () => {
+describe('PWA-1424: verify anchor links', () => {
     it('user should be able to add products to the cart', () => {
         cy.intercept('GET', getProductDetailForProductPageCall).as(
             'gqlGetProductDetailForProductPageQuery'
