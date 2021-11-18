@@ -15,6 +15,7 @@
 
 .fallbackContainer {
     margin: 2rem;
+    padding: 2rem;
     border: 2px dashed rgb(var(--venia-global-color-gray-400));
     border-radius: 1rem;
     height: 40rem;
@@ -26,6 +27,7 @@
     display: inline-grid;
     justify-content: center;
     justify-items: center;
+    text-align: center;
     font-size: 1.25rem;
     font-weight: 600;
 }
