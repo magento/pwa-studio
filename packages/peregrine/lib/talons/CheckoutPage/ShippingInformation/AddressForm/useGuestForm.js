@@ -30,12 +30,9 @@ export const useGuestForm = props => {
         }
     );
 
-    const [runQuery, { data, error: getEmailError }] = useLazyQuery(
-        getEmailAvailableQuery,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const [runQuery, { data }] = useLazyQuery(getEmailAvailableQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     const { country } = shippingData;
     const { code: countryCode } = country;
@@ -84,7 +81,9 @@ export const useGuestForm = props => {
     const handleValidateEmail = useCallback(
         email => {
             setShowSignInToast(false);
-            runQuery({ variables: { email } });
+            if (email) {
+                runQuery({ variables: { email } });
+            }
         },
         [runQuery]
     );
@@ -99,12 +98,8 @@ export const useGuestForm = props => {
     );
 
     const errors = useMemo(
-        () =>
-            new Map([
-                ['setGuestShippingMutation', error],
-                ['getEmailAvailableQuery', getEmailError]
-            ]),
-        [error, getEmailError]
+        () => new Map([['setGuestShippingMutation', error]]),
+        [error]
     );
 
     useEffect(() => {
