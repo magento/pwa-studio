@@ -376,14 +376,14 @@ const CheckoutPage = props => {
         />
     ) : null;
 
-    const signInElement =
-        isGuestCheckout && activeContent === 'signIn' ? (
-            <GuestSignIn
-                isActive={activeContent === 'signIn'}
-                toggleActiveContent={toggleSignInContent}
-                initialValues={{ email: guestSignInUsername }}
-            />
-        ) : null;
+    const signInElement = isGuestCheckout ? (
+        <GuestSignIn
+            key={guestSignInUsername}
+            isActive={activeContent === 'signIn'}
+            toggleActiveContent={toggleSignInContent}
+            initialValues={{ email: guestSignInUsername }}
+        />
+    ) : null;
 
     return (
         <div className={classes.root} data-cy="CheckoutPage-root">
