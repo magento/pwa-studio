@@ -221,7 +221,9 @@ async function getClientConfig(opts) {
             if (buildId && buildId.length > 0) {
                 pwaStudioVersions['build-id'] = buildId;
             }
-        } catch {}
+        } catch {
+            // Continue version banner
+        }
 
         const versionBanner = Object.entries(pwaStudioVersions)
             .sort(([packageKeyOne], [packageKeyTwo]) => {
