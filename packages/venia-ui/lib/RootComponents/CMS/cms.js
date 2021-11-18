@@ -59,7 +59,7 @@ const CMSPage = props => {
     // Fallback message if there is no cms content.
     const fallBackMessage = formatMessage({
         id: 'cms.fallBackMessage',
-        defaultMessage: 'Your homepage content goes here.'
+        defaultMessage: 'Your homepage content goes here'
     });
     return (
         <Fragment>

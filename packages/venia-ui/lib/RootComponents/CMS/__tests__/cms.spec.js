@@ -253,5 +253,5 @@ test('renders fallback message when no content', () => {
 
     const { root } = createTestInstance(<CMSPage {...props} />);
     const pageContent = root.findByType('span').props.children;
-    expect(pageContent).toContain('Your homepage content goes here.');
+    expect(pageContent).toContain('Your homepage content goes here');
 });
