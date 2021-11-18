@@ -5,7 +5,7 @@ import {
 const { getCMSPage } = graphqlMockedCallsFixtures;
 const { createGoogleMapApi } = googleMapApiFixtures;
 
-describe('verify pagebuilder map content is rendered correctly', () => {
+describe('PWA-1172: verify pagebuilder map content is rendered correctly', () => {
     it('verify google map api load with content', () => {
         cy.intercept('https://maps.googleapis.com/maps/api/js?*').as(
             'googleApi'
