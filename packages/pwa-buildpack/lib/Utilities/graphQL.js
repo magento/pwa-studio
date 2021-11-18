@@ -42,16 +42,24 @@ const fetchQuery = query => {
 
             throw err;
         })
-        .then(json =>
-            json && json.errors && json.errors.length > 0
-                ? Promise.reject(
-                      new Error(
-                          json.errors[0].message +
-                              ` (... ${json.errors.length} errors total)`
-                      )
-                  )
-                : json.data
-        );
+        .then(json => {
+            if (json && json.errors && json.errors.length > 0) {
+                console.warn(
+                    '\x1b[36m%s\x1b[0m',
+                    'As of version 12.1.0, PWA Studio requires the appropriate PWA metapackage to be installed on the backend.\n' +
+                        'For more information, refer to the 12.1.0 release notes here: https://github.com/magento/pwa-studio/releases/tag/v12.1.0'
+                );
+
+                return Promise.reject(
+                    new Error(
+                        json.errors[0].message +
+                            ` (... ${json.errors.length} errors total)`
+                    )
+                );
+            }
+
+            return json.data;
+        });
 };
 
 /**
