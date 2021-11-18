@@ -214,7 +214,6 @@ async function getClientConfig(opts) {
             )
         };
 
-
         try {
             let buildId = projectConfig.section('staging').buildId;
             buildId = buildId ? buildId.trim() : false;
