@@ -47,7 +47,7 @@ const {
 const { assertCartTriggerCount } = headerAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('verify cart actions', () => {
+describe('PWA-1407: verify cart actions', () => {
     it('user should be able to add and remove promotions from cart', () => {
         cy.intercept('GET', getAppliedCouponsCall).as(
             'gqlGetAppliedCouponsQuery'
