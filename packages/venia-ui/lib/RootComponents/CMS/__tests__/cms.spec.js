@@ -1,7 +1,6 @@
 import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useQuery } from '@apollo/client';
-import CategoryList from '../../../components/CategoryList';
 import RichContent from '../../../components/RichContent';
 import { StoreTitle } from '../../../components/Head';
 import CMSPage from '../cms';
@@ -20,7 +19,6 @@ jest.mock('../../../components/LoadingIndicator', () => {
     };
 });
 jest.mock('../../../components/RichContent', () => 'RichContent');
-jest.mock('../../../components/CategoryList', () => 'CategoryList');
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {
@@ -99,11 +97,12 @@ test('page is set to loading when checking the network for updates', () => {
     expect(mockSetPageLoading).toHaveBeenCalledWith(true);
 });
 
-test('render CategoryList when default content is present', () => {
+test('renders default content', () => {
     useQuery.mockImplementation(() => {
         return {
             data: {
                 cmsPage: {
+                    title: 'Home Page',
                     url_key: 'homepage',
                     content: 'CMS homepage content goes here.'
                 },
@@ -117,13 +116,13 @@ test('render CategoryList when default content is present', () => {
     });
 
     const { root } = createTestInstance(<CMSPage {...props} />);
-    const categoryList = root.findByType(CategoryList);
-    expect(categoryList).toBeTruthy();
-    expect(categoryList.props.title).toEqual('Shop by category');
-    expect(categoryList.props.id).toEqual(2);
+    const pageTitle = root.findByType(StoreTitle).props.children;
+    const pageContent = root.findByType(RichContent).props.html;
+    expect(pageTitle).toEqual('Home Page');
+    expect(pageContent).toEqual('CMS homepage content goes here.');
 });
 
-test('render RichContent when default content is not present', () => {
+test('render RichContent when content is present', () => {
     useQuery.mockImplementation(() => {
         return {
             data: {
@@ -233,4 +232,26 @@ test('render meta information based on meta data from GraphQL', () => {
     const metaDescription = root.findByProps({ name: 'description' });
     expect(metaDescription).toBeTruthy();
     expect(metaDescription.props.content).toEqual('Test Meta Description');
+});
+
+test('renders fallback message when no content', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                cmsPage: {
+                    title: 'Home Page',
+                    url_key: 'homepage'
+                },
+                storeConfig: {
+                    root_category_id: 2
+                }
+            },
+            error: false,
+            loading: false
+        };
+    });
+
+    const { root } = createTestInstance(<CMSPage {...props} />);
+    const pageContent = root.findByType('span').props.children;
+    expect(pageContent).toContain('Your homepage content goes here.');
 });

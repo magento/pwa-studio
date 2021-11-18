@@ -9,7 +9,7 @@ import DEFAULT_OPERATIONS from './cmsPage.gql';
 /**
  * Retrieves data necessary to render a CMS Page
  *
- * @param {Object} props
+ * @param {{identifier}} props
  * @param {String} props.identifier - CMS Page Identifier
  * @param {Object} props.operations - Collection of GraphQL queries
  * @returns {{shouldShowLoadingIndicator: *, hasContent: *, cmsPage: *, error: *}}
@@ -56,12 +56,7 @@ export const useCmsPage = props => {
     // the default CMS Page text. We do this so there is at least a useable home
     // page by default, the category list component.
     const hasContent = useMemo(() => {
-        return (
-            cmsPage &&
-            cmsPage.content &&
-            cmsPage.content.length > 0 &&
-            !cmsPage.content.includes('CMS homepage content goes here.')
-        );
+        return cmsPage && cmsPage.content && cmsPage.content.length > 0;
     }, [cmsPage]);
 
     return {

@@ -1,3 +1,5 @@
+/* Deprecated in PWA-12.1.0*/
+
 import { useQuery } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
