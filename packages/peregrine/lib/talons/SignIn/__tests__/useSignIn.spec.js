@@ -1,4 +1,5 @@
 import React from 'react';
+import { useApolloClient } from '@apollo/client';
 import { MockedProvider } from '@apollo/client/testing';
 import { renderHook, act } from '@testing-library/react-hooks';
 
@@ -7,8 +8,12 @@ import { useUserContext } from '../../../context/user';
 import defaultOperations from '../signIn.gql';
 import { useSignIn } from '../useSignIn';
 
-jest.mock('../../../Apollo/clearCartDataFromCache');
-jest.mock('../../../Apollo/clearCustomerDataFromCache');
+jest.mock('@apollo/client', () => {
+    return {
+        ...jest.requireActual('@apollo/client'),
+        useApolloClient: jest.fn()
+    };
+});
 jest.mock('../../../hooks/useAwaitQuery');
 jest.mock('../../../store/actions/cart', () => ({
     retrieveCartId: jest.fn().mockReturnValue('new-cart-id')
@@ -71,6 +76,9 @@ const initialProps = {
     showForgotPassword: jest.fn()
 };
 
+const clearCacheData = jest.fn();
+const client = { clearCacheData };
+
 const renderHookWithProviders = ({
     renderHookOptions = { initialProps },
     mocks = [signInMock, mergeCartsMock]
@@ -83,6 +91,10 @@ const renderHookWithProviders = ({
 
     return renderHook(useSignIn, { wrapper, ...renderHookOptions });
 };
+
+beforeEach(() => {
+    useApolloClient.mockReturnValue(client);
+});
 
 test('returns correct shape', () => {
     const { result } = renderHookWithProviders();
