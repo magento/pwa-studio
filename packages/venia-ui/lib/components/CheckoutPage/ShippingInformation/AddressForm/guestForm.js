@@ -192,7 +192,6 @@ const GuestForm = props => {
                 <div className={classes.region}>
                     <Region
                         validate={isRequired}
-                        data-cy="GuestForm-region"
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}

@@ -8,7 +8,7 @@ export const productListingProductName =
 
 export const kebabMenuButton = '[data-cy="Kebab-button"]';
 
-export const saveForLaterButton = 'button[class^="product-addToListButton-"]';
+export const saveForLaterButton = '[data-cy="addToListButton-root"]';
 
 export const cartPageProductLink = '[data-cy="Product-imageContainer"]';
 

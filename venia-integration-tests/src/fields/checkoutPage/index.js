@@ -10,7 +10,7 @@ export const checkoutPageShippingGuestLastNameTextField =
     '[data-cy="GuestForm-lastName"]';
 
 export const checkoutPageShippingGuestCountrySelect =
-    '[data-cy="Country-code"]';
+    '[data-cy="GuestForm-country"]';
 
 export const checkoutPageShippingGuestStreet1TextField =
     '[data-cy="GuestForm-street0"]';
@@ -22,7 +22,7 @@ export const checkoutPageShippingGuestCityTextField =
     '[data-cy="GuestForm-city"]';
 
 export const checkoutPageShippingGuestRegionField =
-    '[data-cy="GuestForm-region"]';
+    '[data-cy="Region[region_id]"]';
 
 export const checkoutPageShippingGuestPostCodeTextField =
     '[data-cy="GuestForm-postcode"]';
@@ -178,7 +178,7 @@ export const checkoutPageBillingAddressLastNameTextField =
     '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-lastname"]';
 
 export const checkoutPageBillingAddressCountrySelectField =
-    '[data-cy="Country-code"]';
+    '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-country"]';
 
 export const checkoutPageBillingAddressStreet1TextField =
     '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-street1"]';
@@ -190,7 +190,7 @@ export const checkoutPageBillingAddressCityTextField =
     '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-city"]';
 
 export const checkoutPageBillingAddressRegionField =
-    '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-region"]';
+    '[data-cy="CreditCard-root"] [data-cy="Region[region_id]"]';
 
 export const checkoutPageBillingAddressPostcodeTextField =
     '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-postcode"]';
@@ -199,7 +199,9 @@ export const checkoutPageBillingAddressPhoneNumberTextField =
     '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-phoneNumber"]';
 
 export const checkoutPageOpenedDialogSubmitButton =
-    'aside[data-cy="Dialog-root"] form[data-cy="Dialog-form"] [data-cy="Dialog-confirmButton"]';
+    '[data-cy="Dialog-root"] [data-cy="Dialog-form"] [data-cy="Dialog-confirmButton"]';
+
+export const checkoutPageOpenedDialogEditPaymentSubmitButton = '[data-cy="Dialog-root"] [data-cy="Dialog-form"] [data-cy="Edit Payment Information"] [data-cy="Dialog-confirmButton"]';
 
 export const checkoutPageOrderConfirmationNumber =
     '[data-cy="OrderConfirmationPage-root"] [data-cy="OrderConfirmationPage-orderNumber"]';

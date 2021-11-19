@@ -55,7 +55,7 @@ const Dialog = props => {
         shouldUnmountOnHide,
         title
     } = props;
-
+		
     // Prevent the page from scrolling in the background
     // when the Dialog is open.
     useScrollLock(isOpen);
@@ -125,7 +125,7 @@ const Dialog = props => {
                     type="reset"
                 />
                 {/* The Dialog. */}
-                <div className={classes.dialog}>
+                <div className={classes.dialog} data-cy={title}>
                     <div className={classes.header}>
                         <span className={classes.headerText} data-cy="Dialog-headerText">{title}</span>
                         {maybeCloseXButton}

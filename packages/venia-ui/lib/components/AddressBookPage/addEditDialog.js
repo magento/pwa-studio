@@ -92,7 +92,7 @@ const AddEditDialog = props => {
                 classes={{ root: classes.errorContainer }}
                 errors={Array.from(formErrors.values())}
             />
-            <div className={classes.root}>
+            <div className={classes.root} data-cy="AddEditDialog-root">
                 <div className={classes.firstname}>
                     <Field id="firstname" label={firstNameLabel}>
                         <TextInput field="firstname" validate={isRequired} data-cy="firstname"/>
@@ -113,7 +113,7 @@ const AddEditDialog = props => {
                     </Field>
                 </div>
                 <div className={classes.country}>
-                    <Country field={'country_code'} validate={isRequired} />
+                    <Country field={'country_code'} validate={isRequired} data-cy="country"/>
                 </div>
                 <div className={classes.street1}>
                     <Field id="street1" label={street1Label}>
@@ -140,7 +140,7 @@ const AddEditDialog = props => {
                     />
                 </div>
                 <div className={classes.postcode}>
-                    <Postcode validate={isRequired} />
+                    <Postcode validate={isRequired} data-cy="Postcode"/>
                 </div>
                 <div className={classes.telephone}>
                     <Field id="telephone" label={telephoneLabel}>
