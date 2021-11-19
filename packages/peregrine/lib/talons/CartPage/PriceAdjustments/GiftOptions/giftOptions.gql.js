@@ -15,7 +15,7 @@ const GET_GIFT_OPTIONS = gql`
 const SET_GIFT_OPTIONS_ON_CART = gql`
     mutation SetGiftOptionsOnCart(
         $cartId: String!
-        $giftMessage: GiftMessageInput!
+        $giftMessage: GiftMessageInput
         $giftReceiptIncluded: Boolean!
         $printedCardIncluded: Boolean!
     ) {

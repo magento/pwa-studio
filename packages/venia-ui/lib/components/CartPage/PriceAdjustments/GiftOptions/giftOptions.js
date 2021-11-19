@@ -18,6 +18,7 @@ import LoadingIndicator from '../../../LoadingIndicator';
  *
  * @param {Object} props
  * @param {Object} props.classes CSS className overrides.
+ * @param {Boolean} props.shouldSubmit property telling us to submit data
  * See [giftOptions.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.module.css}
  * for a list of classes you can override.
  *
@@ -27,6 +28,7 @@ import LoadingIndicator from '../../../LoadingIndicator';
  * import GiftOptions from "@magento/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions";
  */
 const GiftOptions = props => {
+    const { classes: propClasses, shouldSubmit } = props;
     const {
         loading,
         giftReceiptProps,
@@ -35,9 +37,11 @@ const GiftOptions = props => {
         cardFromProps,
         cardMessageProps,
         optionsFormProps
-    } = useGiftOptions();
+    } = useGiftOptions({
+        shouldSubmit
+    });
     const { formatMessage } = useIntl();
-    const classes = useStyle(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, propClasses);
 
     if (loading) {
         return <LoadingIndicator />;

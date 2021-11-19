@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { useIntl } from 'react-intl';
-import { func } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 import { useStyle } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
@@ -15,11 +15,12 @@ import defaultClasses from './priceAdjustments.module.css';
  * PriceAdjustments component for the Checkout page.
 
  * @param {Function} props.setPageIsUpdating callback that sets checkout page updating state
+ * @param {Boolean} props.shouldSubmit property telling us to submit data
  */
 const PriceAdjustments = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
-    const { setPageIsUpdating } = props;
+    const { setPageIsUpdating, shouldSubmit } = props;
     const { formatMessage } = useIntl();
 
     return (
@@ -37,7 +38,7 @@ const PriceAdjustments = props => {
                     </Suspense>
                 </Section>
                 <GiftCardSection setIsCartUpdating={setPageIsUpdating} />
-                <GiftOptionsSection />
+                <GiftOptionsSection shouldSubmit={shouldSubmit} />
             </Accordion>
         </div>
     );
@@ -46,5 +47,6 @@ const PriceAdjustments = props => {
 export default PriceAdjustments;
 
 PriceAdjustments.propTypes = {
-    setPageIsUpdating: func
+    setPageIsUpdating: func,
+    shouldSubmit: bool
 };
