@@ -28,7 +28,7 @@ const UNSUPPORTED_PRODUCT_TYPES = [
 ];
 
 export const useAddToCartButton = props => {
-    const { item } = props;
+    const { item, urlSuffix } = props;
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -69,7 +69,7 @@ export const useAddToCartButton = props => {
 
                 setIsLoading(false);
             } else if (productType === 'configurable') {
-                history.push(`${item.url_key}.html`);
+                history.push(`${item.url_key}${urlSuffix || ''}`);
             } else {
                 console.warn('Unsupported product type unable to handle.');
             }
@@ -84,7 +84,8 @@ export const useAddToCartButton = props => {
         item.url_key,
         productType,
         item.uid,
-        item.name
+        item.name,
+        urlSuffix
     ]);
 
     return {

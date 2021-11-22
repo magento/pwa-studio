@@ -40,11 +40,12 @@ const Swatch = props => {
 
     const { handleClick } = talonProps;
 
-    const icon = useMemo(() => {
-        return isSelected ? <Icon src={CheckIcon} /> : null;
-    }, [isSelected]);
-
     const classes = useStyle(defaultClasses, props.classes);
+
+    const checkStyle = useMemo(
+        () => (isSelected ? classes.checked : classes.unchecked),
+        [classes.checked, classes.unchecked, isSelected]
+    );
 
     let finalStyle = style;
 
@@ -84,7 +85,7 @@ const Swatch = props => {
             type="button"
 						data-cy="Swatch-root"
         >
-            {icon}
+            <Icon classes={{ root: checkStyle }} src={CheckIcon} />
         </button>
     );
 };

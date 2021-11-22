@@ -1,0 +1,312 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it displays cms blocks 1`] = `
+Array [
+  "Setting Store Title",
+  "Setting Meta",
+  "Setting Meta",
+  <article
+    className="root"
+  >
+    <div
+      className="banner"
+    >
+      <mock-CmsBlock
+        content="Banner Content"
+      />
+    </div>
+    <div
+      className="content"
+    >
+      <div
+        className="formContainer"
+      >
+        <h1
+          className="title"
+        >
+          Contact Us
+        </h1>
+        <p
+          className="subtitle"
+        >
+          Drop us a line and we'll get back to you as soon as possible.
+        </p>
+        <FormError
+          allowErrorMessages={true}
+          errors={Array []}
+        />
+        <mock-Form>
+          <Field
+            id="contact-name"
+            label="Name"
+          >
+            <TextInput
+              autoComplete="name"
+              field="name"
+              id="contact-name"
+              validate={[Function]}
+            />
+          </Field>
+          <Field
+            id="contact-email"
+            label="Email"
+          >
+            <TextInput
+              autoComplete="email"
+              field="email"
+              id="contact-email"
+              placeholder="abc@xyz.com"
+              validate={[Function]}
+            />
+          </Field>
+          <Field
+            id="contact-telephone"
+            label="Phone Number"
+            optional={true}
+          >
+            <TextInput
+              autoComplete="tel"
+              field="telephone"
+              id="contact-telephone"
+              placeholder="(222)-222-2222"
+            />
+          </Field>
+          <Field
+            id="contact-comment"
+            label="Message"
+          >
+            <TextArea
+              autoComplete="comment"
+              field="comment"
+              id="contact-comment"
+              placeholder="Tell us what's on your mind"
+              validate={[Function]}
+            />
+          </Field>
+          <div
+            className="buttonsContainer"
+          >
+            <Button
+              disabled={false}
+              priority="high"
+              type="submit"
+            >
+              Send
+            </Button>
+          </div>
+        </mock-Form>
+      </div>
+      <div
+        className="sideContent"
+      >
+        <mock-CmsBlock
+          content="Sidebar Content"
+        />
+      </div>
+    </div>
+  </article>,
+]
+`;
+
+exports[`it displays errors 1`] = `
+Array [
+  "Setting Store Title",
+  "Setting Meta",
+  "Setting Meta",
+  <article
+    className="root"
+  >
+    <div
+      className="content"
+    >
+      <div
+        className="formContainer"
+      >
+        <h1
+          className="title"
+        >
+          Contact Us
+        </h1>
+        <p
+          className="subtitle"
+        >
+          Drop us a line and we'll get back to you as soon as possible.
+        </p>
+        <FormError
+          allowErrorMessages={true}
+          errors={
+            Array [
+              "message here",
+            ]
+          }
+        />
+        <mock-Form>
+          <Field
+            id="contact-name"
+            label="Name"
+          >
+            <TextInput
+              autoComplete="name"
+              field="name"
+              id="contact-name"
+              validate={[Function]}
+            />
+          </Field>
+          <Field
+            id="contact-email"
+            label="Email"
+          >
+            <TextInput
+              autoComplete="email"
+              field="email"
+              id="contact-email"
+              placeholder="abc@xyz.com"
+              validate={[Function]}
+            />
+          </Field>
+          <Field
+            id="contact-telephone"
+            label="Phone Number"
+            optional={true}
+          >
+            <TextInput
+              autoComplete="tel"
+              field="telephone"
+              id="contact-telephone"
+              placeholder="(222)-222-2222"
+            />
+          </Field>
+          <Field
+            id="contact-comment"
+            label="Message"
+          >
+            <TextArea
+              autoComplete="comment"
+              field="comment"
+              id="contact-comment"
+              placeholder="Tell us what's on your mind"
+              validate={[Function]}
+            />
+          </Field>
+          <div
+            className="buttonsContainer"
+          >
+            <Button
+              disabled={false}
+              priority="high"
+              type="submit"
+            >
+              Send
+            </Button>
+          </div>
+        </mock-Form>
+      </div>
+    </div>
+  </article>,
+]
+`;
+
+exports[`it renders form 1`] = `
+Array [
+  "Setting Store Title",
+  "Setting Meta",
+  "Setting Meta",
+  <article
+    className="root"
+  >
+    <div
+      className="content"
+    >
+      <div
+        className="formContainer"
+      >
+        <h1
+          className="title"
+        >
+          Contact Us
+        </h1>
+        <p
+          className="subtitle"
+        >
+          Drop us a line and we'll get back to you as soon as possible.
+        </p>
+        <FormError
+          allowErrorMessages={true}
+          errors={Array []}
+        />
+        <mock-Form>
+          <Field
+            id="contact-name"
+            label="Name"
+          >
+            <TextInput
+              autoComplete="name"
+              field="name"
+              id="contact-name"
+              validate={[Function]}
+            />
+          </Field>
+          <Field
+            id="contact-email"
+            label="Email"
+          >
+            <TextInput
+              autoComplete="email"
+              field="email"
+              id="contact-email"
+              placeholder="abc@xyz.com"
+              validate={[Function]}
+            />
+          </Field>
+          <Field
+            id="contact-telephone"
+            label="Phone Number"
+            optional={true}
+          >
+            <TextInput
+              autoComplete="tel"
+              field="telephone"
+              id="contact-telephone"
+              placeholder="(222)-222-2222"
+            />
+          </Field>
+          <Field
+            id="contact-comment"
+            label="Message"
+          >
+            <TextArea
+              autoComplete="comment"
+              field="comment"
+              id="contact-comment"
+              placeholder="Tell us what's on your mind"
+              validate={[Function]}
+            />
+          </Field>
+          <div
+            className="buttonsContainer"
+          >
+            <Button
+              disabled={false}
+              priority="high"
+              type="submit"
+            >
+              Send
+            </Button>
+          </div>
+        </mock-Form>
+      </div>
+    </div>
+  </article>,
+]
+`;
+
+exports[`it shows 404 if disabled 1`] = `
+Array [
+  "Setting Store Title",
+  <ErrorView
+    message="Looks like the page you were hoping to find doesn't exist. Sorry about that."
+  />,
+]
+`;
+
+exports[`it shows shimmer while loading 1`] = `<ContactPageShimmer />`;

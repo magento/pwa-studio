@@ -1,7 +1,7 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
 
-describe('verify slider content', () => {
+describe('PWA-1151: verify slider content', () => {
     it('verify slider content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/slider/slider.json'

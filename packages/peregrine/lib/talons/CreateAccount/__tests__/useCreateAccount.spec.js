@@ -2,8 +2,6 @@ import React from 'react';
 import { useMutation, useApolloClient } from '@apollo/client';
 import { act } from 'react-test-renderer';
 
-import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '../../../Apollo/clearCustomerDataFromCache';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
 import { useAwaitQuery } from '../../../hooks/useAwaitQuery';
@@ -40,12 +38,6 @@ jest.mock('../../../../lib/context/cart', () => ({
             getCartDetails: jest.fn()
         }
     ])
-}));
-jest.mock('../../../Apollo/clearCartDataFromCache', () => ({
-    clearCartDataFromCache: jest.fn().mockResolvedValue(true)
-}));
-jest.mock('../../../Apollo/clearCustomerDataFromCache', () => ({
-    clearCustomerDataFromCache: jest.fn().mockResolvedValue(true)
 }));
 jest.mock('../../../store/actions/cart', () => {
     const cartActions = jest.requireActual(
@@ -104,6 +96,8 @@ const signInMutationFn = jest.fn().mockReturnValue([
     { error: null }
 ]);
 const mergeCartsMutationFn = jest.fn().mockReturnValue([jest.fn()]);
+const clearCacheData = jest.fn();
+const client = { clearCacheData };
 
 const defaultProps = {
     operations: {
@@ -158,6 +152,8 @@ beforeAll(() => {
             return [jest.fn()];
         }
     });
+
+    useApolloClient.mockReturnValue(client);
 });
 
 test('should return properly', () => {
@@ -293,29 +289,23 @@ describe('handleSubmit', () => {
     });
 
     test('should clear cart data from cache', async () => {
-        const apolloClient = {};
-        useApolloClient.mockReturnValueOnce(apolloClient);
-
         const { talonProps } = getTalonProps({
             ...defaultProps
         });
 
         await talonProps.handleSubmit(defaultFormValues);
 
-        expect(clearCartDataFromCache).toHaveBeenCalledWith(apolloClient);
+        expect(clearCacheData).toHaveBeenCalledWith(client, 'cart');
     });
 
     test('should clear customer data from cache', async () => {
-        const apolloClient = {};
-        useApolloClient.mockReturnValueOnce(apolloClient);
-
         const { talonProps } = getTalonProps({
             ...defaultProps
         });
 
         await talonProps.handleSubmit(defaultFormValues);
 
-        expect(clearCustomerDataFromCache).toHaveBeenCalledWith(apolloClient);
+        expect(clearCacheData).toHaveBeenCalledWith(client, 'customer');
     });
 
     test('should remove cart', async () => {

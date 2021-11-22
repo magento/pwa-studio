@@ -104,7 +104,10 @@ const MiniCart = React.forwardRef((props, ref) => {
 
     const contents = isCartEmpty ? (
         <div className={classes.emptyCart}>
-            <div className={classes.emptyMessage}>
+            <div
+                className={classes.emptyMessage}
+                data-cy="MiniCart-emptyMessage"
+            >
                 <FormattedMessage
                     id={'miniCart.emptyMessage'}
                     defaultMessage={'There are no items in your cart.'}
@@ -161,7 +164,7 @@ const MiniCart = React.forwardRef((props, ref) => {
     );
 
     return (
-        <aside className={rootClass}>
+        <aside className={rootClass} data-cy="MiniCart-root">
             <div ref={ref} className={contentsClass}>
                 {contents}
             </div>
