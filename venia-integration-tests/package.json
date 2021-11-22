@@ -4,6 +4,7 @@
     "description": "Venia Integration Automation Tests",
     "scripts": {
         "clearCache:mac": "rm -rf ~/Library/Application\\ Support/Cypress/cy/*",
+        "danger": "danger-ci",
         "test": "cypress open --browser chrome --config-file cypress.config.json",
         "test:ci": "./run-tests.js -t 4",
         "test:debug": "node --inspect-brk ./node_modules/cypress/bin/cypress run --browser chrome --config-file cypress.config.json",
@@ -17,11 +18,13 @@
     "devDependencies": {
         "cypress": "~7.1.0",
         "cypress-image-snapshot": "~4.0.1",
+        "danger": "^7.1.4",
         "glob": "~7.2.0",
         "jest": "~26.0.1",
         "jimp": "~0.16.1",
         "mochawesome": "~6.2.2",
         "mochawesome-merge": "~4.2.0",
         "yargs": "~17.2.1"
-    }
+    },
+    "dependencies": {}
 }

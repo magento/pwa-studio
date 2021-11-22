@@ -54,10 +54,17 @@ const ShippingForm = props => {
                 initialValues={selectedShippingFields}
                 onSubmit={handleOnSubmit}
             >
-                <Country validate={isRequired} />
-                <Region validate={isRequired} />
+                <Country
+                    data-cy="ShippingMethods-ShippingForm-country"
+                    validate={isRequired}
+                />
+                <Region
+                    data-cy="ShippingMethods-ShippingForm-region"
+                    validate={isRequired}
+                />
                 <Postcode
                     fieldInput="zip"
+                    data-cy="ShippingMethods-ShippingForm-postCode"
                     validate={isRequired}
                     onValueChange={handleZipChange}
                 />
@@ -66,6 +73,7 @@ const ShippingForm = props => {
                         classes={{
                             root_normalPriority: classes.submit
                         }}
+                        data-cy="ShippingMethods-ShippingForm-submit"
                         disabled={isSetShippingLoading}
                         priority="normal"
                         type="submit"

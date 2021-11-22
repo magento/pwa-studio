@@ -24,8 +24,10 @@ const OutOfStockIcon = (
 );
 
 const AddToCartButton = props => {
+    const { item, urlSuffix } = props;
     const talonProps = useAddToCartButton({
-        item: props.item
+        item,
+        urlSuffix
     });
     const { handleAddToCart, isDisabled, isInStock } = talonProps;
     const { formatMessage } = useIntl();
@@ -87,8 +89,9 @@ AddToCartButton.propTypes = {
         root_selected: string
     }),
     item: shape({
-        id: number,
-        name: string,
+        id: number.isRequired,
+        uid: string.isRequired,
+        name: string.isRequired,
         small_image: shape({
             url: string
         }),
@@ -105,5 +108,6 @@ AddToCartButton.propTypes = {
                 })
             })
         })
-    })
+    }),
+    urlSuffix: string
 };

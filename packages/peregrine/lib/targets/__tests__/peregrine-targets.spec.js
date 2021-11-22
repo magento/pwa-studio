@@ -147,6 +147,8 @@ test('exposes all hooks and targets', async () => {
           talons.CheckoutPage.useCheckoutPage.wrapWith() wraps export "useCheckoutPage" from "CheckoutPage/useCheckoutPage.js"
           talons.Cms.useCmsPage.wrapWith() wraps export "useCmsPage" from "Cms/useCmsPage.js"
           talons.CommunicationsPage.useCommunicationsPage.wrapWith() wraps export "useCommunicationsPage" from "CommunicationsPage/useCommunicationsPage.js"
+          talons.ContactPage.useContactLink.wrapWith() wraps export "useContactLink" from "ContactPage/useContactLink.js"
+          talons.ContactPage.useContactPage.wrapWith() wraps export "useContactPage" from "ContactPage/useContactPage.js"
           talons.Country.useCountry.wrapWith() wraps export "useCountry" from "Country/useCountry.js"
           talons.CreateAccount.useCreateAccount.wrapWith() wraps export "useCreateAccount" from "CreateAccount/useCreateAccount.js"
           talons.CreateAccountPage.useCreateAccountPage.wrapWith() wraps export "useCreateAccountPage" from "CreateAccountPage/useCreateAccountPage.js"

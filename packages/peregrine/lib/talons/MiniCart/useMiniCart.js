@@ -45,7 +45,8 @@ export const useMiniCart = props => {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first',
             variables: { cartId },
-            skip: !cartId
+            skip: !cartId,
+            errorPolicy: 'all'
         }
     );
 
@@ -75,20 +76,20 @@ export const useMiniCart = props => {
     ] = useMutation(removeItemMutation);
 
     const totalQuantity = useMemo(() => {
-        if (!miniCartLoading && miniCartData) {
-            return miniCartData.cart.total_quantity;
+        if (!miniCartLoading) {
+            return miniCartData?.cart?.total_quantity;
         }
     }, [miniCartData, miniCartLoading]);
 
     const subTotal = useMemo(() => {
-        if (!miniCartLoading && miniCartData) {
-            return miniCartData.cart.prices.subtotal_excluding_tax;
+        if (!miniCartLoading) {
+            return miniCartData?.cart?.prices?.subtotal_excluding_tax;
         }
     }, [miniCartData, miniCartLoading]);
 
     const productList = useMemo(() => {
-        if (!miniCartLoading && miniCartData) {
-            return miniCartData.cart.items;
+        if (!miniCartLoading) {
+            return miniCartData?.cart?.items;
         }
     }, [miniCartData, miniCartLoading]);
 

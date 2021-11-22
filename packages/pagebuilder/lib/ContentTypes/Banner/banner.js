@@ -4,9 +4,10 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import { arrayOf, bool, oneOf, shape, string, func } from 'prop-types';
 import Button from '@magento/venia-ui/lib/components/Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import useIntersectionObserver from '@magento/peregrine/lib/hooks/useIntersectionObserver';
+import handleHtmlContentClick from '../../handleHtmlContentClick';
 
 const { matchMedia } = globalThis;
 const toHTML = str => ({ __html: str });
@@ -250,6 +251,7 @@ const Banner = props => {
                 <Button
                     priority={typeToPriorityMapping[buttonType]}
                     type="button"
+                    onClick={() => {}}
                 >
                     {buttonText}
                 </Button>
@@ -270,6 +272,12 @@ const Banner = props => {
             ? appearanceOverlayHoverClasses[appearance]
             : appearanceOverlayClasses[appearance];
 
+    const history = useHistory();
+
+    const clickHandler = e => {
+        handleHtmlContentClick(history, e);
+    };
+
     let BannerFragment = (
         <div
             className={classes.wrapper}
@@ -282,6 +290,9 @@ const Banner = props => {
                     className={classes.content}
                     style={contentStyles}
                     dangerouslySetInnerHTML={toHTML(content)}
+                    onClick={clickHandler}
+                    onKeyDown={clickHandler}
+                    role="presentation"
                 />
                 {BannerButton}
             </div>
@@ -309,6 +320,7 @@ const Banner = props => {
             aria-live="polite"
             aria-busy="false"
             className={[classes.root, ...cssClasses].join(' ')}
+            data-cy="PageBuilder-Banner-root"
             style={rootStyles}
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}

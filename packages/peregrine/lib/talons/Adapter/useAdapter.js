@@ -7,10 +7,12 @@ import { RetryLink } from '@apollo/client/link/retry';
 import { CachePersistor } from 'apollo-cache-persist';
 import getWithPath from 'lodash.get';
 import setWithPath from 'lodash.set';
-import { useEffect, useMemo, useState, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
 import attachClient from '@magento/peregrine/lib/Apollo/attachClientToStore';
+import { clearCartDataFromCache } from '@magento/peregrine/lib/Apollo/clearCartDataFromCache';
+import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearCustomerDataFromCache';
 import { CACHE_PERSIST_PREFIX } from '@magento/peregrine/lib/Apollo/constants';
 import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 import MagentoGQLCacheLink from '@magento/peregrine/lib/Apollo/magentoGqlCacheLink';
@@ -75,7 +77,8 @@ export const useAdapter = props => {
                             message ===
                                 'Some of the products are out of stock.' ||
                             message ===
-                                'There are no source items with the in stock status'
+                                'There are no source items with the in stock status' ||
+                            message === 'The requested qty is not available'
                         ) {
                             if (!pathToCartItems) {
                                 pathToCartItems = path.slice(0, -1);
@@ -187,29 +190,95 @@ export const useAdapter = props => {
         ]
     );
 
-    const apolloClient = useMemo(() => {
-        const storeCode = storage.getItem('store_view_code') || 'default';
-
-        const client = new ApolloClient({
-            cache: preInstantiatedCache,
-            link: apolloLink,
+    const createApolloClient = useCallback((cache, link) => {
+        return new ApolloClient({
+            cache,
+            link,
             ssrMode: isServer
         });
+    }, []);
 
-        const persistor = isServer
+    const createCachePersistor = useCallback((storeCode, cache) => {
+        return isServer
             ? null
             : new CachePersistor({
                   key: `${CACHE_PERSIST_PREFIX}-${storeCode}`,
-                  cache: preInstantiatedCache,
+                  cache,
                   storage: globalThis.localStorage,
                   debug: process.env.NODE_ENV === 'development'
               });
+    }, []);
+
+    const clearCacheData = useCallback(
+        async (client, cacheType) => {
+            const storeCode = storage.getItem('store_view_code') || 'default';
+
+            // Clear current store
+            if (cacheType === 'cart') {
+                await clearCartDataFromCache(client);
+            } else if (cacheType === 'customer') {
+                await clearCustomerDataFromCache(client);
+            }
+
+            // Clear other stores
+            for (const store of AVAILABLE_STORE_VIEWS) {
+                if (store.code !== storeCode) {
+                    // Get saved data directly from local storage
+                    const existingStorePersistor = globalThis.localStorage.getItem(
+                        `${CACHE_PERSIST_PREFIX}-${store.code}`
+                    );
+
+                    // Make sure we have data available
+                    if (
+                        existingStorePersistor &&
+                        Object.keys(existingStorePersistor).length > 0
+                    ) {
+                        const storeCache = new InMemoryCache();
+
+                        // Restore available data
+                        storeCache.restore(JSON.parse(existingStorePersistor));
+
+                        const storeClient = createApolloClient(
+                            storeCache,
+                            apolloLink
+                        );
+
+                        storeClient.persistor = isServer
+                            ? null
+                            : createCachePersistor(store.code, storeCache);
+
+                        // Clear other store
+                        if (cacheType === 'cart') {
+                            await clearCartDataFromCache(storeClient);
+                        } else if (cacheType === 'customer') {
+                            await clearCustomerDataFromCache(storeClient);
+                        }
+                    }
+                }
+            }
+        },
+        [apolloLink, createApolloClient, createCachePersistor]
+    );
+
+    const apolloClient = useMemo(() => {
+        const storeCode = storage.getItem('store_view_code') || 'default';
+        const client = createApolloClient(preInstantiatedCache, apolloLink);
+        const persistor = isServer
+            ? null
+            : createCachePersistor(storeCode, preInstantiatedCache);
 
         client.apiBase = apiBase;
         client.persistor = persistor;
+        client.clearCacheData = clearCacheData;
 
         return client;
-    }, [apiBase, apolloLink]);
+    }, [
+        apiBase,
+        apolloLink,
+        clearCacheData,
+        createApolloClient,
+        createCachePersistor
+    ]);
 
     const getUserConfirmation = useCallback(async (message, callback) => {
         if (typeof globalThis.handleRouteChangeConfirmation === 'function') {

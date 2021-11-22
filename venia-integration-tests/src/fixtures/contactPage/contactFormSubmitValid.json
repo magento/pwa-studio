@@ -1,0 +1,8 @@
+{
+    "data": {
+        "contactUs": {
+            "status": true,
+            "__typename": "ContactUsOutput"
+        }
+    }
+}

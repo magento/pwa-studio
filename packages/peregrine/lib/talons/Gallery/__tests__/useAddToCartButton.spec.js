@@ -200,12 +200,13 @@ describe('testing handleAddToCart', () => {
                 type_id: 'configurable',
                 stock_status: 'IN_STOCK',
                 url_key: 'configurable_product'
-            }
+            },
+            urlSuffix: '.suffix'
         });
 
         await talonProps.handleAddToCart();
 
-        expect(push).toHaveBeenCalledWith('configurable_product.html');
+        expect(push).toHaveBeenCalledWith('configurable_product.suffix');
     });
 
     test('should console warn if item is a bundle product', async () => {

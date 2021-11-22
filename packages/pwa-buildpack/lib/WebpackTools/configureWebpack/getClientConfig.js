@@ -148,8 +148,16 @@ async function getClientConfig(opts) {
         optimization: {
             splitChunks: {
                 cacheGroups: {
+                    /**
+                     * Creating the vendors bundle. This bundle
+                     * will have all the packages that the app
+                     * needs to render. Since these dont change
+                     * often, it is advantageous to bundle them
+                     * separately and cache them on the client.
+                     */
                     vendor: {
                         test: new RegExp(vendorTest),
+                        name: 'vendors',
                         chunks: 'all'
                     }
                 }
@@ -190,23 +198,39 @@ async function getClientConfig(opts) {
             );
         }
     } else if (mode === 'production') {
-        let versionBanner = '';
+        const packageJson = require(path.resolve(context, './package.json'));
+        const packageRegex = /^@magento|^@apollo/;
+        const pwaStudioVersions = {
+            'pwa-studio': packageJson.version,
+            ...Object.fromEntries(
+                Object.entries(packageJson.dependencies || {}).filter(
+                    ([packageKey]) => packageRegex.test(packageKey)
+                )
+            ),
+            ...Object.fromEntries(
+                Object.entries(packageJson.devDependencies || {}).filter(
+                    ([packageKey]) => packageRegex.test(packageKey)
+                )
+            )
+        };
+
         try {
-            versionBanner = projectConfig.section('staging').buildId;
-            if (!versionBanner || versionBanner.trim().length === 0) {
-                throw new Error('invalid build id');
+            let buildId = projectConfig.section('staging').buildId;
+            buildId = buildId ? buildId.trim() : false;
+
+            if (buildId && buildId.length > 0) {
+                pwaStudioVersions['build-id'] = buildId;
             }
-        } catch (error) {
-            try {
-                versionBanner = require('child_process')
-                    .execSync('git describe --long --always --dirty=-dev')
-                    .toString();
-            } catch (e) {
-                versionBanner = `${
-                    require(path.resolve(context, './package.json')).version
-                }-[hash]`;
-            }
+        } catch {
+            // Continue version banner
         }
+
+        const versionBanner = Object.entries(pwaStudioVersions)
+            .sort(([packageKeyOne], [packageKeyTwo]) => {
+                return -1 * packageKeyOne.localeCompare(packageKeyTwo);
+            })
+            .map(([packageKey, version]) => `${packageKey}: ${version}`)
+            .join(', ');
 
         debug('Modifying client config for production environment');
         config.performance = {
@@ -225,22 +249,6 @@ async function getClientConfig(opts) {
              * download runtime bundle and use the cached client code.
              */
             runtimeChunk: 'single',
-            splitChunks: {
-                cacheGroups: {
-                    /**
-                     * Creating the vendors bundle. This bundle
-                     * will have all the packages that the app
-                     * needs to render. Since these dont change
-                     * often, it is advantageous to bundle them
-                     * separately and cache them on the client.
-                     */
-                    vendor: {
-                        test: new RegExp(vendorTest),
-                        name: 'vendors',
-                        chunks: 'all'
-                    }
-                }
-            },
             minimizer: [
                 new TerserPlugin({
                     parallel: true,

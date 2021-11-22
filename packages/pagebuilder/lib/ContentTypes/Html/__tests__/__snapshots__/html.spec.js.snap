@@ -8,6 +8,9 @@ exports[`renders a html component 1`] = `
       "__html": undefined,
     }
   }
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  role="presentation"
   style={
     Object {
       "border": undefined,
@@ -36,6 +39,9 @@ exports[`renders a html component with all props configured 1`] = `
       "__html": "<button>Html button</button>",
     }
   }
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  role="presentation"
   style={
     Object {
       "border": "solid",

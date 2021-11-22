@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const glob = require('glob');
 const { exec, execSync } = require('child_process');
 const { rmSync } = require('fs');
@@ -82,7 +83,7 @@ if (port) {
 const start = process.hrtime();
 
 // remove old test results
-rmSync('cypress/results', { recursive: true });
+rmSync('cypress/results', { recursive: true, force: true });
 
 for (let i = 0; i < threads; i++) {
     const filesToTest = files.slice(testsPerRun * i, testsPerRun * (i + 1));

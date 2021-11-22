@@ -1,5 +1,6 @@
 ---
 title: Button
+adobeio: /api/venia/components/general/Button/
 ---
 
 <!--

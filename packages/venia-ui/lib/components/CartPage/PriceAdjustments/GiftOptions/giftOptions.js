@@ -38,6 +38,7 @@ const GiftOptions = props => {
             <div className={classes.option}>
                 <Checkbox
                     {...giftReceiptProps}
+                    data-cy="GiftOptions-includeGiftReceipt"
                     label={formatMessage({
                         id: 'giftOptions.includeGiftReceipt',
                         defaultMessage: 'Include gift receipt'
@@ -47,6 +48,7 @@ const GiftOptions = props => {
             <div className={classes.option}>
                 <Checkbox
                     {...printedCardProps}
+                    data-cy="GiftOptions-includePrintedCard"
                     label={formatMessage({
                         id: 'giftOptions.includePrintedCard',
                         defaultMessage: 'Include printed card'
@@ -57,6 +59,7 @@ const GiftOptions = props => {
                 <Relevant when={shouldPromptForMessage}>
                     <TextArea
                         {...cardMessageProps}
+                        data-cy="GiftOptions-cardMessage"
                         placeholder={formatMessage({
                             id: 'giftOptions.cardMessage',
                             defaultMessage: 'Enter your message here'
