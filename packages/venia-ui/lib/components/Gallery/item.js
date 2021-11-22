@@ -55,7 +55,7 @@ const GalleryItem = props => {
     ) : null;
 
     const addButton = isSupportedProductType ? (
-        <AddToCartbutton item={item} />
+        <AddToCartbutton item={item} urlSuffix={productUrlSuffix} />
     ) : (
         <div className={classes.unavailableContainer}>
             <Info />
