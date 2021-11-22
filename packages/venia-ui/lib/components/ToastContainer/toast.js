@@ -34,7 +34,11 @@ const Toast = props => {
 
     const dismissActionButton =
         hasDismissAction && (onDismiss || dismissable) ? (
-            <button className={classes.actionButton} onClick={handleDismiss}>
+            <button
+                data-cy="Toast-dismissActionButton"
+                className={classes.actionButton}
+                onClick={handleDismiss}
+            >
                 {dismissActionText}
             </button>
         ) : null;
@@ -42,7 +46,11 @@ const Toast = props => {
     const actions = onAction ? (
         <div className={classes.actions}>
             {dismissActionButton}
-            <button className={classes.actionButton} onClick={handleAction}>
+            <button
+                data-cy="Toast-actionButton"
+                className={classes.actionButton}
+                onClick={handleAction}
+            >
                 {actionText}
             </button>
         </div>
