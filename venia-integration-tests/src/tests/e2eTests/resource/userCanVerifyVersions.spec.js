@@ -3,14 +3,9 @@ import {
     resource as resourceFixtures
 } from '../../../fixtures';
 
-const {
-    homePage
-} = homePageFixtures;
+const { homePage } = homePageFixtures;
 
-const {
-    clientJs
-} = resourceFixtures;
-
+const { clientJs } = resourceFixtures;
 
 describe('verify version banner', () => {
     it('user can see list of important package versions', () => {
@@ -18,8 +13,8 @@ describe('verify version banner', () => {
 
         cy.visit(homePage);
         cy.wait('@resourceClientJs', {
-                timeout: 20000
-            })
+            timeout: 20000
+        })
             .its('response.body')
             .should('match', /@version pwa-studio: \d+\.\d+\.\d+/i)
             .should('match', /@magento\/pwa-buildpack: [~^]?\d+\.\d+\.\d+/i)

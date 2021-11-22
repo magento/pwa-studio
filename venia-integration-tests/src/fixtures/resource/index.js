@@ -1,1 +1,1 @@
-export const clientJs = /client\.\S+\.js/
+export const clientJs = /client\.\S+\.js/;
