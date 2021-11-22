@@ -9,10 +9,7 @@ import {
     productPage as productPageActions
 } from '../../../actions';
 import { cartPage as cartPageAssertions } from '../../../assertions';
-import {
-    hasOperationName,
-    aliasMutation
-} from '../../../utils/graphql-test-utils';
+import { aliasMutation } from '../../../utils/graphql-test-utils';
 
 const { cartPageRoute } = cartPageFixtures;
 const { defaultGiftOptionsData } = checkoutPageFixtures;
@@ -56,15 +53,6 @@ describe('verify gift options actions in cart', () => {
         );
         cy.intercept('POST', hitGraphqlPath, req => {
             aliasMutation(req, 'AddProductToCart');
-        });
-        cy.intercept('POST', hitGraphqlPath, req => {
-            if (hasOperationName(req, 'SetGiftOptionsOnCart')) {
-                req.alias = 'gqlSetGiftOptionsOnCartMutation';
-                // Stop mutation and return variables
-                req.reply({
-                    data: req.body.variables
-                });
-            }
         });
 
         // Test - Add configurable products to cart from Product Pages
@@ -146,26 +134,6 @@ describe('verify gift options actions in cart', () => {
         // Test - Update Gift Options
         setGiftOptionsFromCartPage(defaultGiftOptionsData[0]);
 
-        cy.wait(['@gqlSetGiftOptionsOnCartMutation'], {
-            timeout: 60000
-        })
-            .its('response.body.data')
-            .should(giftOptions => {
-                expect(giftOptions.giftReceiptIncluded).to.equal(
-                    defaultGiftOptionsData[0].includeGiftReceipt
-                );
-                expect(giftOptions.printedCardIncluded).to.equal(
-                    defaultGiftOptionsData[0].includePrintedCard
-                );
-                expect(giftOptions.giftMessage.to).to.equal(
-                    defaultGiftOptionsData[0].cardTo
-                );
-                expect(giftOptions.giftMessage.from).to.equal(
-                    defaultGiftOptionsData[0].cardFrom
-                );
-                expect(giftOptions.giftMessage.message).to.equal(
-                    defaultGiftOptionsData[0].cardMessage
-                );
-            });
+        assertCartGiftOptions(defaultGiftOptionsData[0]);
     });
 });
