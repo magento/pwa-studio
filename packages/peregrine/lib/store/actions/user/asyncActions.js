@@ -1,6 +1,4 @@
 import BrowserPersistence from '../../../util/simplePersistence';
-import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '../../../Apollo/clearCustomerDataFromCache';
 import { removeCart } from '../cart';
 import { clearCheckoutDataFromStorage } from '../checkout';
 
@@ -25,8 +23,8 @@ export const signOut = (payload = {}) =>
         await dispatch(clearToken());
         await dispatch(actions.reset());
         await clearCheckoutDataFromStorage();
-        await clearCartDataFromCache(apolloClient);
-        await clearCustomerDataFromCache(apolloClient);
+        await apolloClient.clearCacheData(apolloClient, 'cart');
+        await apolloClient.clearCacheData(apolloClient, 'customer');
 
         // Now that we're signed out, forget the old (customer) cart.
         // We don't need to create a new cart here because we're going to refresh
