@@ -34,13 +34,17 @@ export const useGiftOptions = props => {
     const [{ cartId }] = useCartContext();
 
     const client = useApolloClient();
-    const [setGiftOptionsOnCart] = useMutation(setGiftOptionsOnCartMutation);
-    const { data: getGiftOptionsData, loading } = useQuery(
-        getGiftOptionsQuery,
-        {
-            variables: { cartId }
-        }
-    );
+    const [
+        setGiftOptionsOnCart,
+        { error: setGiftOptionsOnCartError }
+    ] = useMutation(setGiftOptionsOnCartMutation);
+    const {
+        data: getGiftOptionsData,
+        error: getGiftOptionsError,
+        loading
+    } = useQuery(getGiftOptionsQuery, {
+        variables: { cartId }
+    });
 
     const { cart } = getGiftOptionsData || {};
 
@@ -94,10 +98,8 @@ export const useGiftOptions = props => {
                     printedCardIncluded: formValues.includePrintedCard
                 }
             });
-        } catch (err) {
-            if (process.env.NODE_ENV !== 'production') {
-                console.error(err);
-            }
+        } catch (e) {
+            // Error is logged by apollo link - no need to double log.
         }
     }, [
         cartId,
@@ -153,8 +155,19 @@ export const useGiftOptions = props => {
         onValueChange: debouncedOnChange
     };
 
+    // Create a memoized error map and toggle individual errors when they change
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['setGiftOptionsOnCartMutation', setGiftOptionsOnCartError],
+                ['getGiftOptionsQuery', getGiftOptionsError]
+            ]),
+        [getGiftOptionsError, setGiftOptionsOnCartError]
+    );
+
     return {
         loading,
+        errors,
         giftReceiptProps,
         printedCardProps,
         cardToProps,
@@ -171,12 +184,14 @@ export const useGiftOptions = props => {
  *
  * @typedef {Object} GiftOptionsTalonProps
  *
- * @property {object} giftReceiptProps Props for the `includeGiftReceipt` checkbox element.
- * @property {object} printedCardProps Props for the `includePrintedCard` checkbox element.
- * @property {object} cardToProps Props for the `cardTo` text input element.
- * @property {object} cardFromProps Props for the `cardFrom` text input element.
- * @property {object} cardMessageProps Props for the `cardMessage` textarea element.
- * @property {object} optionsFormProps Props for the form element.
+ * @property {Boolean} loading Query loading indicator.
+ * @property {Object} errors Errors for GraphQl query and mutation.
+ * @property {Object} giftReceiptProps Props for the `includeGiftReceipt` checkbox element.
+ * @property {Object} printedCardProps Props for the `includePrintedCard` checkbox element.
+ * @property {Object} cardToProps Props for the `cardTo` text input element.
+ * @property {Object} cardFromProps Props for the `cardFrom` text input element.
+ * @property {Object} cardMessageProps Props for the `cardMessage` textarea element.
+ * @property {Object} optionsFormProps Props for the form element.
  */
 
 /**

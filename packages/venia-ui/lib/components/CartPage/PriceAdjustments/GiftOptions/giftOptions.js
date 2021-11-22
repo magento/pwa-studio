@@ -2,15 +2,17 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { Form } from 'informed';
 
+import { useGiftOptions } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import { useGiftOptions } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions.js';
 
 import Checkbox from '../../../Checkbox';
-import TextArea from '../../../TextArea';
 import Field from '../../../Field';
-import TextInput from '../../../TextInput';
-import defaultClasses from './giftOptions.module.css';
+import FormError from '../../../FormError';
 import LoadingIndicator from '../../../LoadingIndicator';
+import TextArea from '../../../TextArea';
+import TextInput from '../../../TextInput';
+
+import defaultClasses from './giftOptions.module.css';
 
 /**
  * A child component of the PriceAdjustments component.
@@ -19,6 +21,7 @@ import LoadingIndicator from '../../../LoadingIndicator';
  * @param {Object} props
  * @param {Object} props.classes CSS className overrides.
  * @param {Boolean} props.shouldSubmit property telling us to submit data
+ * @param {Object} props.giftOptionsConfigData config data
  * See [giftOptions.module.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.module.css}
  * for a list of classes you can override.
  *
@@ -31,6 +34,7 @@ const GiftOptions = props => {
     const { classes: propClasses, shouldSubmit } = props;
     const {
         loading,
+        errors,
         giftReceiptProps,
         printedCardProps,
         cardToProps,
@@ -125,6 +129,7 @@ const GiftOptions = props => {
 
     return (
         <Form {...optionsFormProps} className={classes.root}>
+            <FormError errors={Array.from(errors.values())} />
             {includeGiftReceipt}
             {includePrintedCard}
             {includeGiftMessage}

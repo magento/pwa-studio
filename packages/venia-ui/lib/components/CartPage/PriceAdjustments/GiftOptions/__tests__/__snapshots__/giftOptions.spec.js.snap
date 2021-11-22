@@ -1,25 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders empty form 1`] = `
-<form
-  onKeyDown={[Function]}
-  onReset={[Function]}
-  onSubmit={[Function]}
-/>
+exports[`#GiftOptions renders empty form when no options are enabled 1`] = `
+<mock-Form>
+  <mock-FormError
+    errors={Array []}
+  />
+</mock-Form>
 `;
 
-exports[`it renders include gift receipt checkbox 1`] = `
-<form
-  onKeyDown={[Function]}
-  onReset={[Function]}
-  onSubmit={[Function]}
-/>
+exports[`#GiftOptions renders form when options are enabled 1`] = `
+<mock-Form>
+  <mock-FormError
+    errors={Array []}
+  />
+  <div>
+    <mock-Checkbox
+      label="Include gift receipt"
+    />
+  </div>
+  <div>
+    <mock-Checkbox
+      label="Include printed card"
+    />
+  </div>
+  <mock-Field
+    id="to"
+    label="To"
+  >
+    <mock-TextInput />
+  </mock-Field>
+  <mock-Field
+    id="from"
+    label="From"
+  >
+    <mock-TextInput />
+  </mock-Field>
+  <div>
+    <mock-Field
+      id="message"
+      label="Message"
+    >
+      <mock-TextArea
+        placeholder="Enter your message here"
+      />
+    </mock-Field>
+  </div>
+</mock-Form>
 `;
 
-exports[`it renders include printed card checkbox 1`] = `
-<form
-  onKeyDown={[Function]}
-  onReset={[Function]}
-  onSubmit={[Function]}
-/>
-`;
+exports[`#GiftOptions renders loading indicator when loading 1`] = `<mock-LoadingIndicator />`;

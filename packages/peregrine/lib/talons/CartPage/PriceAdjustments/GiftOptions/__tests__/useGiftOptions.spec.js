@@ -1,6 +1,9 @@
 import React from 'react';
+import { InMemoryCache } from '@apollo/client';
 import { MockedProvider } from '@apollo/client/testing';
 import { act, renderHook } from '@testing-library/react-hooks';
+
+import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 
 import DEFAULT_OPERATIONS from '../giftOptions.gql';
 import { useGiftOptions } from '../useGiftOptions';
@@ -31,8 +34,10 @@ const generateMockForSetGiftOptionsOnCart = mockedData => ({
     newData: jest.fn(() => ({
         data: {
             cart: {
+                __typename: 'Cart',
                 id: '123',
                 gift_message: {
+                    __typename: 'GiftMessage',
                     from: mockedData.cardFrom || '',
                     to: mockedData.cardTo || '',
                     message: mockedData.cardMessage || ''
@@ -52,6 +57,7 @@ const getGiftOptionsMock1 = {
     result: {
         data: {
             cart: {
+                __typename: 'Cart',
                 id: '123',
                 gift_message: {
                     from: 'from',
@@ -86,8 +92,16 @@ const setGiftOptionsOnCartMock2 = generateMockForSetGiftOptionsOnCart(
     mockFormValues2
 );
 
+const initialProps = {
+    shouldSubmit: false
+};
+
+const cache = new InMemoryCache({
+    typePolicies
+});
+
 const renderHookWithProviders = ({
-    renderHookOptions = {},
+    renderHookOptions = { initialProps },
     mocks = [
         getGiftOptionsMock1,
         setGiftOptionsOnCartMock1,
@@ -95,14 +109,7 @@ const renderHookWithProviders = ({
     ]
 } = {}) => {
     const wrapper = ({ children }) => (
-        <MockedProvider
-            mocks={mocks}
-            addTypename={false}
-            defaultOptions={{
-                watchQuery: { fetchPolicy: 'no-cache' },
-                query: { fetchPolicy: 'no-cache' }
-            }}
-        >
+        <MockedProvider mocks={mocks} cache={cache} addTypename={true}>
             {children}
         </MockedProvider>
     );
@@ -118,20 +125,33 @@ describe('#useGiftOptions', () => {
         expect(result.current).toMatchInlineSnapshot(`
             Object {
               "cardFromProps": Object {
+                "allowEmptyString": true,
                 "field": "cardFrom",
               },
               "cardMessageProps": Object {
+                "allowEmptyString": true,
                 "field": "cardMessage",
               },
               "cardToProps": Object {
+                "allowEmptyString": true,
                 "field": "cardTo",
+              },
+              "errors": Map {
+                "setGiftOptionsOnCartMutation" => undefined,
+                "getGiftOptionsQuery" => undefined,
               },
               "giftReceiptProps": Object {
                 "field": "includeGiftReceipt",
               },
               "loading": true,
               "optionsFormProps": Object {
-                "initialValues": undefined,
+                "initialValues": Object {
+                  "cardFrom": "",
+                  "cardMessage": "",
+                  "cardTo": "",
+                  "includeGiftReceipt": false,
+                  "includePrintedCard": false,
+                },
                 "onValueChange": [Function],
               },
               "printedCardProps": Object {
@@ -147,13 +167,20 @@ describe('#useGiftOptions', () => {
         expect(result.current).toMatchInlineSnapshot(`
             Object {
               "cardFromProps": Object {
+                "allowEmptyString": true,
                 "field": "cardFrom",
               },
               "cardMessageProps": Object {
+                "allowEmptyString": true,
                 "field": "cardMessage",
               },
               "cardToProps": Object {
+                "allowEmptyString": true,
                 "field": "cardTo",
+              },
+              "errors": Map {
+                "setGiftOptionsOnCartMutation" => undefined,
+                "getGiftOptionsQuery" => undefined,
               },
               "giftReceiptProps": Object {
                 "field": "includeGiftReceipt",
@@ -177,14 +204,36 @@ describe('#useGiftOptions', () => {
     });
 
     it('returns mutation data when user updates form', async () => {
-        const { result, waitForNextUpdate } = renderHookWithProviders();
-
-        // Wait for query to finish loading
-        await waitForNextUpdate();
+        const { result, rerender } = renderHookWithProviders();
 
         // Update form data - 1
         await act(() => {
             result.current.optionsFormProps.onValueChange(mockFormValues1);
+        });
+
+        // Validate that the cache is updated
+        const preCacheData1 = cache.readQuery({
+            query: DEFAULT_OPERATIONS.getGiftOptionsQuery
+        });
+
+        expect(preCacheData1).toMatchInlineSnapshot(`
+            Object {
+              "cart": Object {
+                "__typename": "Cart",
+                "gift_message": Object {
+                  "from": "from2",
+                  "message": "message2",
+                  "to": "to2",
+                },
+                "gift_receipt_included": true,
+                "id": "123",
+                "printed_card_included": false,
+              },
+            }
+        `);
+
+        rerender({
+            shouldSubmit: true
         });
 
         expect(setGiftOptionsOnCartMock1.newData).toHaveBeenCalled();
@@ -192,6 +241,31 @@ describe('#useGiftOptions', () => {
         // Update form data - 2
         await act(() => {
             result.current.optionsFormProps.onValueChange(mockFormValues2);
+        });
+
+        // Validate that the cache is updated
+        const preCacheData2 = cache.readQuery({
+            query: DEFAULT_OPERATIONS.getGiftOptionsQuery
+        });
+
+        expect(preCacheData2).toMatchInlineSnapshot(`
+            Object {
+              "cart": Object {
+                "__typename": "Cart",
+                "gift_message": Object {
+                  "from": "",
+                  "message": "",
+                  "to": "",
+                },
+                "gift_receipt_included": false,
+                "id": "123",
+                "printed_card_included": true,
+              },
+            }
+        `);
+
+        rerender({
+            shouldSubmit: true
         });
 
         expect(setGiftOptionsOnCartMock2.newData).toHaveBeenCalled();

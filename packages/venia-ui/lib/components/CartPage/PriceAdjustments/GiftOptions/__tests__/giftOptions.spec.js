@@ -1,71 +1,95 @@
 import React from 'react';
+
 import { createTestInstance } from '@magento/peregrine';
+import { useGiftOptions } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions';
 
 import GiftOptions from '../giftOptions';
 
-jest.mock('@magento/peregrine/lib/context/cart', () => {
-    const state = { cartId: 'fakeCartId' };
-    const api = {};
-    const useCartContext = jest.fn(() => [state, api]);
+jest.mock('informed', () => ({
+    Form: ({ children, ...rest }) => <mock-Form {...rest}>{children}</mock-Form>
+}));
 
-    return { useCartContext };
-});
+jest.mock(
+    '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions'
+);
 
-jest.mock('@apollo/client', () => {
-    const queryResult = {
-        data: {
-            cart: {
-                include_gift_receipt: true,
-                include_printed_card: false,
-                gift_message: 'Sample Message'
-            }
-        },
-        error: null,
-        loading: false
+jest.mock('../../../../Checkbox', () => props => <mock-Checkbox {...props} />);
+jest.mock('../../../../Field', () => ({ children, ...rest }) => (
+    <mock-Field {...rest}>{children}</mock-Field>
+));
+jest.mock('../../../../FormError', () => props => (
+    <mock-FormError {...props} />
+));
+jest.mock('../../../../LoadingIndicator', () => props => (
+    <mock-LoadingIndicator {...props} />
+));
+jest.mock('../../../../TextArea', () => props => <mock-TextArea {...props} />);
+jest.mock('../../../../TextInput', () => props => (
+    <mock-TextInput {...props} />
+));
+
+let inputProps = {};
+
+const talonProps = {
+    loading: false,
+    errors: [],
+    giftReceiptProps: {},
+    printedCardProps: {},
+    cardToProps: {},
+    cardFromProps: {},
+    cardMessageProps: {},
+    optionsFormProps: {}
+};
+
+const Component = () => {
+    return <GiftOptions {...inputProps} />;
+};
+
+const givenDefaultValues = () => {
+    inputProps = {
+        shouldSubmit: jest.fn(),
+        giftOptionsConfigData: null
     };
+};
 
-    const useQuery = jest.fn(() => queryResult);
-
-    const useMutation = jest.fn(() => [() => {}]);
-
-    return {
-        gql: jest.fn(),
-        useApolloClient: jest.fn(() => ({
-            cache: {}
-        })),
-        useQuery,
-        useMutation
+const givenOptionsConfigData = () => {
+    inputProps.giftOptionsConfigData = {
+        allow_order: '1',
+        allow_gift_receipt: '1',
+        allow_printed_card: '1'
     };
-});
+};
 
-beforeAll(() => {
-    // informed's random ids make snapshots unstable
-    jest.spyOn(Math, 'random').mockReturnValue(0);
-});
+describe('#GiftOptions', () => {
+    beforeEach(() => {
+        givenDefaultValues();
+    });
 
-test('it renders empty form', () => {
-    const instance = createTestInstance(<GiftOptions />);
-    expect(instance.toJSON()).toMatchSnapshot();
-});
+    it('renders loading indicator when loading', () => {
+        useGiftOptions.mockReturnValueOnce({
+            ...talonProps,
+            loading: true
+        });
 
-test('it renders include gift receipt checkbox', () => {
-    const giftOptionsConfigData = {
-        allow_gift_receipt: true,
-        allow_printed_card: false
-    };
-    const instance = createTestInstance(
-        <GiftOptions giftOptionsConfigData={giftOptionsConfigData} />
-    );
-    expect(instance.toJSON()).toMatchSnapshot();
-});
+        const tree = createTestInstance(<Component />);
 
-test('it renders include printed card checkbox', () => {
-    const giftOptionsConfigData = {
-        allow_gift_receipt: true,
-        allow_printed_card: true
-    };
-    const instance = createTestInstance(
-        <GiftOptions giftOptionsConfigData={giftOptionsConfigData} />
-    );
-    expect(instance.toJSON()).toMatchSnapshot();
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    it('renders empty form when no options are enabled', () => {
+        useGiftOptions.mockReturnValueOnce(talonProps);
+
+        const tree = createTestInstance(<Component />);
+
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    it('renders form when options are enabled', () => {
+        givenOptionsConfigData();
+        useGiftOptions.mockReturnValueOnce(talonProps);
+
+        const tree = createTestInstance(<Component />);
+
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
 });
