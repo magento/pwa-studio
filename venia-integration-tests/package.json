@@ -25,5 +25,6 @@
         "mochawesome": "~6.2.2",
         "mochawesome-merge": "~4.2.0",
         "yargs": "~17.2.1"
-    }
+    },
+    "dependencies": {}
 }
