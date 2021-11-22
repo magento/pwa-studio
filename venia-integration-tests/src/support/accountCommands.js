@@ -61,9 +61,7 @@ const resetPassword = accountEmail => {
 
 const signInAccount = (accountEmail, accountPassword) => {
     // Enter username into the username field
-    cy.get(signInEmailTextField)
-        .clear()
-        .type(accountEmail);
+    cy.get(signInEmailTextField).type(accountEmail);
 
     // Enter password into the password field
     cy.get(signInPasswordTextField).type(accountPassword);

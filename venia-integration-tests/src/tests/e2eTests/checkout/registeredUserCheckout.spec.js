@@ -49,7 +49,8 @@ const {
     placeOrder,
     setCustomerShippingAddress,
     editCreditCardInformation,
-    setGuestShippingAddress
+    setGuestShippingAddress,
+    signInFromCheckoutPage
 } = checkoutPageActions;
 const {
     addToCartFromProductPage,
@@ -294,7 +295,7 @@ describe('PWA-1412: verify checkout actions', () => {
         assertToastExists();
         clickOnToastAction();
 
-        cy.signInAccount(accountEmail, accountPassword);
+        signInFromCheckoutPage(undefined, accountPassword);
 
         cy.wait(
             [
