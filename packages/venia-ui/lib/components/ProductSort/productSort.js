@@ -54,7 +54,8 @@ const ProductSort = props => {
             );
         });
 
-        return (
+        // ensure filters are loaded so application doesn't crash
+        return availableSortMethods && (
             <div className={classes.menu}>
                 <ul>{itemElements}</ul>
             </div>
@@ -141,8 +142,8 @@ ProductSort.propTypes = {
 ProductSort.defaultProps = {
     availableSortMethods: [
         {
-            text: 'Position',
             id: 'sortItem.position',
+            text: 'Position',
             attribute: 'position',
             sortDirection: 'ASC'
         },

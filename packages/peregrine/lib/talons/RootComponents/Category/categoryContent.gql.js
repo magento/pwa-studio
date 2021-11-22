@@ -28,7 +28,23 @@ export const GET_CATEGORY_CONTENT = gql`
     }
 `;
 
+export const GET_CATEGORY_AVAILABLE_SORT_METHODS = gql`
+    query getCategoryAvailableSortMethods(
+        $categoryIdFilter: FilterEqualTypeInput!
+    ) {
+        products(filter: { category_id: $categoryIdFilter }) {
+            sort_fields {
+                options {
+                    label
+                    value
+                }
+            }
+        }
+    }
+`;
+
 export default {
     getCategoryContentQuery: GET_CATEGORY_CONTENT,
-    getProductFiltersByCategoryQuery: GET_PRODUCT_FILTERS_BY_CATEGORY
+    getProductFiltersByCategoryQuery: GET_PRODUCT_FILTERS_BY_CATEGORY,
+    getCategoryAvailableSortMethodsQuery: GET_CATEGORY_AVAILABLE_SORT_METHODS
 };

@@ -24,7 +24,8 @@ export const useCategoryContent = props => {
 
     const {
         getCategoryContentQuery,
-        getProductFiltersByCategoryQuery
+        getProductFiltersByCategoryQuery,
+        getCategoryAvailableSortMethodsQuery,
     } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
@@ -36,6 +37,14 @@ export const useCategoryContent = props => {
             nextFetchPolicy: 'cache-first'
         }
     );
+
+    const [getSortMethods, { data: sortData }] = useLazyQuery(
+        getCategoryAvailableSortMethodsQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first'
+        }
+    );   
 
     const { data: categoryData } = useQuery(getCategoryContentQuery, {
         fetchPolicy: 'cache-and-network',
@@ -58,6 +67,18 @@ export const useCategoryContent = props => {
         }
     }, [categoryId, getFilters]);
 
+    useEffect(() => {
+        if (categoryId) {
+            getSortMethods({
+                variables: {
+                    categoryIdFilter: {
+                        eq: categoryId
+                    }
+                }
+            });
+        }
+    }, [categoryId, getSortMethods]);
+
     const filters = filterData ? filterData.products.aggregations : null;
     const items = data ? data.products.items : placeholderItems;
     const totalPagesFromData = data
@@ -68,8 +89,33 @@ export const useCategoryContent = props => {
     const categoryDescription = categoryData
         ? categoryData.category.description
         : null;
+    const sortingMethods = sortData ? sortData.products.sort_fields.options : null;
+    const sortingMethodsDirections = sortingMethods ? sortingMethods.map(method => {
+        const sortingMethodAscending = {
+            id: `sortItem.${method.value}Asc`,
+            text: `${method.label} Asc`,
+            attribute: method.value,
+            sortDirection: 'ASC'
+        };
+        const sortingMethodDescending = {
+            id: `sortItem.${method.value}Desc`,
+            text: `${method.label} Desc`,
+            attribute: method.value,
+            sortDirection: 'DESC'
+        }
+
+        return [
+                sortingMethodAscending,
+                sortingMethodDescending
+        ];
+        
+    }) : null;
+    const availableSortMethods = sortingMethodsDirections 
+        ? sortingMethodsDirections.flat() 
+        : null;
 
     return {
+        availableSortMethods,
         categoryName,
         categoryDescription,
         filters,
