@@ -9,7 +9,7 @@ export default link => {
 
     try {
         const baseUrlObj = new URL(process.env.MAGENTO_BACKEND_URL);
-        const urlObj = new URL(link);
+        const urlObj = new URL(link, baseUrlObj);
         isExternalUrl = baseUrlObj.host !== urlObj.host;
 
         if (isExternalUrl) {
