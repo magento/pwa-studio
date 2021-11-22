@@ -6,7 +6,6 @@ import {
     useQuery
 } from '@apollo/client';
 
-import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 
@@ -248,7 +247,7 @@ export const useCheckoutPage = (props = {}) => {
                 });
                 // Cleanup stale cart and customer info.
                 await removeCart();
-                await clearCartDataFromCache(apolloClient);
+                await apolloClient.clearCacheData(apolloClient, 'cart');
 
                 await createCart({
                     fetchCartId
