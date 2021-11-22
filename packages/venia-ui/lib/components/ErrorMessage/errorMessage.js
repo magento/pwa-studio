@@ -10,8 +10,13 @@ const ErrorMessage = React.forwardRef((props, ref) => {
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
-        <div className={classes.root} ref={ref}>
-            <span className={classes.errorMessage}>{children}</span>
+        <div className={classes.root} ref={ref} data-cy="ErrorMessage-root">
+            <span
+                className={classes.errorMessage}
+                data-cy="ErrorMessage-errorMessage"
+            >
+                {children}
+            </span>
         </div>
     );
 });

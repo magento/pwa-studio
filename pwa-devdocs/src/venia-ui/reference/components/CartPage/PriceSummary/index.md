@@ -1,5 +1,6 @@
 ---
 title: Price Summary component
+adobeio: /api/venia/components/CartPage/PriceSummary/
 ---
 
 <!--

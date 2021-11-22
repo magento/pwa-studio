@@ -41,7 +41,7 @@ const NoProductsFound = props => {
     });
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="NoProductsFound-root">
             <Image
                 alt={headerText}
                 classes={{ image: classes.image, root: classes.imageContainer }}

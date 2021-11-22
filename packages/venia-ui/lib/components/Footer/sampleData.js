@@ -1,3 +1,5 @@
+import { ContactLink } from '../ContactPage';
+
 const accountLinks = new Map()
     .set('Account', null)
     .set('Sign In', null)
@@ -6,15 +8,18 @@ const accountLinks = new Map()
     .set('Returns', null);
 
 const aboutLinks = new Map()
-    .set('About Us', null)
+    .set('About Us', '/about-us')
     .set('Our Story', null)
     .set('Email Signup', null)
     .set('Give Back', null);
 
 const helpLinks = new Map()
     .set('Help', null)
-    .set('Live Chat', null)
-    .set('Contact Us', null)
+    .set('Customer Service', '/customer-service')
+    .set('Contact Us', {
+        path: '/contact-us',
+        Component: ContactLink
+    })
     .set('Order Status', null)
     .set('Returns', null);
 

@@ -1,5 +1,6 @@
 ---
 title: Price Adjustments components
+adobeio: /api/venia/components/CartPage/PriceAdjustments/
 ---
 
 <!--

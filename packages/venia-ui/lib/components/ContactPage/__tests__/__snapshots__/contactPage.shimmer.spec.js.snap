@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders 1`] = `
+<article>
+  <div>
+    <Shimmer
+      classes={
+        Object {
+          "root_rectangle": undefined,
+        }
+      }
+    />
+  </div>
+  <div>
+    <div>
+      <div>
+        <Shimmer
+          classes={
+            Object {
+              "root_rectangle": "shimmer-class",
+            }
+          }
+        >
+           
+        </Shimmer>
+      </div>
+      <div>
+        <Shimmer
+          classes={
+            Object {
+              "root_rectangle": "shimmer-class",
+            }
+          }
+        >
+           
+        </Shimmer>
+      </div>
+      <div>
+        <div>
+          <Shimmer
+            classes={
+              Object {
+                "root_rectangle": undefined,
+              }
+            }
+          >
+             
+          </Shimmer>
+          <Shimmer
+            type="textInput"
+          />
+        </div>
+        <div>
+          <Shimmer
+            classes={
+              Object {
+                "root_rectangle": undefined,
+              }
+            }
+          >
+             
+          </Shimmer>
+          <Shimmer
+            type="textInput"
+          />
+        </div>
+        <div>
+          <Shimmer
+            classes={
+              Object {
+                "root_rectangle": undefined,
+              }
+            }
+          >
+             
+          </Shimmer>
+          <Shimmer
+            type="textInput"
+          />
+        </div>
+        <div>
+          <Shimmer
+            classes={
+              Object {
+                "root_rectangle": undefined,
+              }
+            }
+          >
+             
+          </Shimmer>
+          <Shimmer
+            type="textArea"
+          />
+        </div>
+        <div>
+          <Shimmer
+            type="button"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      <Shimmer
+        classes={
+          Object {
+            "root_rectangle": undefined,
+          }
+        }
+      />
+    </div>
+  </div>
+</article>
+`;

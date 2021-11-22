@@ -11,7 +11,6 @@ import { useCheckoutPage, CHECKOUT_STEP } from '../useCheckoutPage';
 import createTestInstance from '../../../util/createTestInstance';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
-import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
 import CheckoutError from '../CheckoutError';
 
 /**
@@ -50,10 +49,6 @@ jest.mock('../../../context/cart', () => ({
         ])
 }));
 
-jest.mock('../../../Apollo/clearCartDataFromCache', () => ({
-    clearCartDataFromCache: jest.fn()
-}));
-
 jest.mock('../CheckoutError', () => {
     class CheckoutError extends Error {
         constructor(props) {
@@ -86,7 +81,8 @@ const defaultProps = {
 
 const readQuery = jest.fn().mockReturnValue({ cart: {} });
 const writeQuery = jest.fn();
-const client = { readQuery, writeQuery };
+const clearCacheData = jest.fn();
+const client = { readQuery, writeQuery, clearCacheData };
 
 const getOrderDetails = jest.fn();
 const getOrderDetailsQueryResult = jest.fn().mockReturnValue([
@@ -309,7 +305,7 @@ test("should place order and cleanup when we have order details and place order 
         variables: { cartId: '123' }
     });
     expect(removeCart).toHaveBeenCalled();
-    expect(clearCartDataFromCache).toHaveBeenCalled();
+    expect(clearCacheData).toHaveBeenCalled();
     expect(createCart).toHaveBeenCalledWith({ fetchCartId });
 });
 

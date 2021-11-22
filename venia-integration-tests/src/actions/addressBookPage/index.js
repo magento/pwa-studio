@@ -110,9 +110,12 @@ export const addEditAddressCard = ({
     }
 
     if (regionId) {
-        cy.get(addressBookModalRegionSelectField).select(regionId);
+        cy.get(addressBookModalRegionSelectField)
+            .should('not.be.disabled')
+            .select(regionId);
     } else if (region) {
         cy.get(addressBookModalRegionTextField)
+            .should('not.be.disabled')
             .clear()
             .type(region);
     }
@@ -139,15 +142,26 @@ export const addEditAddressCard = ({
 };
 
 /**
- * Utility function to delete and Address
+ * Utility function to delete an Address
  *
- * @param {Number} addressPosition address position
+ * @param {Object} data address data
+ * @param {String} data.firstName first name
+ * @param {String} [data.middleName] middle name
  */
-export const deleteAddressCard = addressPosition => {
+export const deleteAddressCard = ({ firstName, middleName, lastName }) => {
+    const fullName = middleName
+        ? `${firstName} ${middleName} ${lastName}`
+        : `${firstName} ${lastName}`;
+
     cy.get(addressCardRoot)
-        .eq(addressPosition)
+        .should('exist')
+        .contains(addressCardRoot, fullName)
         .find(addressCardDeleteButton)
         .click();
 
-    cy.get(addressCardConfirmDeleteButton).click();
+    cy.get(addressCardRoot)
+        .should('exist')
+        .contains(addressCardRoot, fullName)
+        .find(addressCardConfirmDeleteButton)
+        .click();
 };

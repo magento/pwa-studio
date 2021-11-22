@@ -36,10 +36,11 @@ const PriceAdjustments = props => {
     const { formatMessage } = useIntl();
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} data-cy="PriceAdjustments-root">
             <Accordion canOpenMultiple={true}>
                 <Section
                     id={'shipping_method'}
+                    data-cy="PriceAdjustments-shippingMethodSection"
                     title={formatMessage({
                         id: 'priceAdjustments.shippingMethod',
                         defaultMessage: 'Estimate your Shipping'
@@ -53,6 +54,7 @@ const PriceAdjustments = props => {
                 </Section>
                 <Section
                     id={'coupon_code'}
+                    data-cy="PriceAdjustments-couponCodeSection"
                     title={formatMessage({
                         id: 'priceAdjustments.couponCode',
                         defaultMessage: 'Enter Coupon Code'
@@ -65,6 +67,7 @@ const PriceAdjustments = props => {
                 <GiftCardSection setIsCartUpdating={setIsCartUpdating} />
                 <Section
                     id={'gift_options'}
+                    data-cy="PriceAdjustments-giftOptionsSection"
                     title={formatMessage({
                         id: 'priceAdjustments.giftOptions',
                         defaultMessage: 'See Gift Options'

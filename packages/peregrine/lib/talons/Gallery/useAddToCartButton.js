@@ -6,7 +6,7 @@ import { useCartContext } from '../../context/cart';
 import operations from './addToCart.gql';
 
 /**
- * @param {Number} props.item.id - id of item
+ * @param {String} props.item.uid - uid of item
  * @param {String} props.item.name - name of item
  * @param {String} props.item.stock_status - stock status of item
  * @param {String} props.item.type_id - product type
@@ -28,7 +28,7 @@ const UNSUPPORTED_PRODUCT_TYPES = [
 ];
 
 export const useAddToCartButton = props => {
-    const { item } = props;
+    const { item, urlSuffix } = props;
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -69,7 +69,7 @@ export const useAddToCartButton = props => {
 
                 setIsLoading(false);
             } else if (productType === 'configurable') {
-                history.push(`${item.url_key}.html`);
+                history.push(`${item.url_key}${urlSuffix || ''}`);
             } else {
                 console.warn('Unsupported product type unable to handle.');
             }
@@ -84,7 +84,8 @@ export const useAddToCartButton = props => {
         item.url_key,
         productType,
         item.uid,
-        item.name
+        item.name,
+        urlSuffix
     ]);
 
     return {

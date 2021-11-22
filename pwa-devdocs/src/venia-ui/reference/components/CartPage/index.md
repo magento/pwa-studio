@@ -1,5 +1,6 @@
 ---
 title: Cart Page component
+adobeio: /api/venia/components/CartPage/
 ---
 
 <!--

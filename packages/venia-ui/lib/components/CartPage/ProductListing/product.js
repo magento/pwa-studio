@@ -94,7 +94,7 @@ const Product = props => {
             : '';
 
     return (
-        <li className={classes.root}>
+        <li className={classes.root} data-cy="Product-root">
             <span className={classes.errorText}>{errorMessage}</span>
             <div className={itemClassName}>
                 <Link to={itemLink} className={classes.imageContainer}>
@@ -149,6 +149,7 @@ const Product = props => {
                             id: 'product.removeFromCart',
                             defaultMessage: 'Remove from cart'
                         })}
+                        data-cy="Product-Section-removeFromCart"
                         onClick={handleRemoveFromCart}
                         icon="Trash"
                         classes={{

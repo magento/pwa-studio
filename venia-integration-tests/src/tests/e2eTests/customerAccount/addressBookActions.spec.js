@@ -50,7 +50,7 @@ const {
 const { assertCreateAccount } = myAccountMenuAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('verify customer account address book actions', () => {
+describe('PWA-1421: verify customer account address book actions', () => {
     it('user should be able to update their address book', () => {
         // Test - Create an account
         cy.intercept('POST', hitGraphqlPath, req => {
@@ -123,7 +123,7 @@ describe('verify customer account address book actions', () => {
         assertAddressIsDefault({ ...addressBookData[1] });
 
         // Test - Delete Address
-        deleteAddressCard(1);
+        deleteAddressCard({ ...addressBookData[0] });
 
         cy.wait(['@gqlDeleteCustomerAddressFromAddressBookMutation'], {
             timeout: 60000

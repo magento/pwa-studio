@@ -38,7 +38,11 @@ const ProductList = props => {
         storeUrlSuffix
     ]);
 
-    return <div className={classes.root}>{cartItems}</div>;
+    return (
+        <div className={classes.root} data-cy="MiniCart-ProductList-root">
+            {cartItems}
+        </div>
+    );
 };
 
 export default ProductList;

@@ -47,7 +47,7 @@ const {
 const { assertCreateAccount, assertSignedOut } = myAccountMenuAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('verify customer account actions', () => {
+describe('PWA-1423: verify customer account actions', () => {
     it('user should be able to create a new account and edit their information', () => {
         // Test - Create an account
         cy.intercept('POST', hitGraphqlPath, req => {

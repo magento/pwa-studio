@@ -13,8 +13,9 @@ import Button from '../Button';
 import Field from '../Field';
 import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
-import defaultClasses from './newsletter.module.css';
 import LinkButton from '../LinkButton';
+import Shimmer from './newsletter.shimmer';
+import defaultClasses from './newsletter.module.css';
 
 const Newsletter = props => {
     const { formatMessage } = useIntl();
@@ -22,9 +23,11 @@ const Newsletter = props => {
     const talonProps = useNewsletter();
     const [, { addToast }] = useToasts();
     const {
+        isEnabled,
         errors,
         handleSubmit,
         isBusy,
+        isLoading,
         setFormApi,
         newsLetterResponse
     } = talonProps;
@@ -32,7 +35,7 @@ const Newsletter = props => {
     useEffect(() => {
         if (newsLetterResponse && newsLetterResponse.status) {
             addToast({
-                type: 'info',
+                type: 'success',
                 message: formatMessage({
                     id: 'newsletter.subscribeMessage',
                     defaultMessage: 'The email address is subscribed.'
@@ -41,6 +44,14 @@ const Newsletter = props => {
             });
         }
     }, [addToast, formatMessage, newsLetterResponse]);
+
+    if (isLoading) {
+        return <Shimmer />;
+    }
+
+    if (!isEnabled) {
+        return null;
+    }
 
     const maybeLoadingIndicator = isBusy ? (
         <div className={classes.loadingContainer}>
@@ -71,7 +82,10 @@ const Newsletter = props => {
                     }
                 />
             </p>
-            <FormError errors={Array.from(errors.values())} />
+            <FormError
+                allowErrorMessages
+                errors={Array.from(errors.values())}
+            />
             <Form
                 getApi={setFormApi}
                 className={classes.form}

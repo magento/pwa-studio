@@ -8,9 +8,13 @@ import typePolicies from '../policies';
 import { clearCustomerDataFromCache } from '../clearCustomerDataFromCache';
 
 const log = jest.fn();
+const mockPersist = jest.fn();
 
-const Component = () => {
-    const client = useApolloClient();
+const Component = ({ clientOptions = {} }) => {
+    const client = {
+        ...useApolloClient(),
+        ...clientOptions
+    };
 
     const initialCacheData = Object.assign({}, client.cache.data.data);
     log(initialCacheData);
@@ -27,25 +31,50 @@ const Component = () => {
     return <i />;
 };
 
-test('clears customer data from cache', async () => {
-    expect.assertions(3);
+test('clears customer data from cache without persistor', async () => {
+    expect.assertions(4);
     const cache = new InMemoryCache({
         typePolicies
     });
 
     cache.restore({
         ROOT_QUERY: {
-            anotherLocalField: 'This entry should not get deleted',
-            customerLocalField: 'This entry should get deleted'
+            anotherLocalField: { __ref: 'AnotherCacheEntry' },
+            customer: { __ref: 'Customer' }
         },
         Customer: {
+            __typename: 'Customer',
             id: 'customerId',
-            firstName: 'Veronica'
+            firstName: 'Veronica',
+            orders: {
+                items: [
+                    {
+                        __ref: 'CustomerOrder'
+                    }
+                ]
+            }
+        },
+        CustomerOrder: {
+            __typename: 'CustomerOrder',
+            id: 'customerOrderId',
+            items: [
+                {
+                    __ref: 'OrderItem'
+                }
+            ]
+        },
+        OrderItem: {
+            __typename: 'OrderItem',
+            id: 'orderItemId',
+            product_name: 'Product Name'
         },
         AnotherCacheEntry: {
+            __typename: 'AnotherCacheEntry',
             value: 'This entry should not get deleted'
         }
     });
+
+    cache.retain('ROOT_QUERY');
 
     await act(async () => {
         TestRenderer.create(
@@ -56,20 +85,48 @@ test('clears customer data from cache', async () => {
     });
 
     expect(log).toHaveBeenCalledTimes(2);
+    expect(mockPersist).not.toHaveBeenCalled();
 
     const initialCacheData = log.mock.calls[0][0];
     expect(initialCacheData).toMatchInlineSnapshot(`
         Object {
           "AnotherCacheEntry": Object {
+            "__typename": "AnotherCacheEntry",
             "value": "This entry should not get deleted",
           },
           "Customer": Object {
+            "__typename": "Customer",
             "firstName": "Veronica",
             "id": "customerId",
+            "orders": Object {
+              "items": Array [
+                Object {
+                  "__ref": "CustomerOrder",
+                },
+              ],
+            },
+          },
+          "CustomerOrder": Object {
+            "__typename": "CustomerOrder",
+            "id": "customerOrderId",
+            "items": Array [
+              Object {
+                "__ref": "OrderItem",
+              },
+            ],
+          },
+          "OrderItem": Object {
+            "__typename": "OrderItem",
+            "id": "orderItemId",
+            "product_name": "Product Name",
           },
           "ROOT_QUERY": Object {
-            "anotherLocalField": "This entry should not get deleted",
-            "customerLocalField": "This entry should get deleted",
+            "anotherLocalField": Object {
+              "__ref": "AnotherCacheEntry",
+            },
+            "customer": Object {
+              "__ref": "Customer",
+            },
           },
         }
     `);
@@ -78,11 +135,35 @@ test('clears customer data from cache', async () => {
     expect(finalCacheData).toMatchInlineSnapshot(`
         Object {
           "AnotherCacheEntry": Object {
+            "__typename": "AnotherCacheEntry",
             "value": "This entry should not get deleted",
           },
           "ROOT_QUERY": Object {
-            "anotherLocalField": "This entry should not get deleted",
+            "anotherLocalField": Object {
+              "__ref": "AnotherCacheEntry",
+            },
           },
         }
     `);
+});
+
+test('clears customer data from cache with persistor', async () => {
+    const clientOptions = {
+        persistor: {
+            persist: mockPersist
+        }
+    };
+    const cache = new InMemoryCache({
+        typePolicies
+    });
+
+    await act(async () => {
+        TestRenderer.create(
+            <MockedProvider cache={cache}>
+                <Component clientOptions={clientOptions} />
+            </MockedProvider>
+        );
+    });
+
+    expect(mockPersist).toHaveBeenCalled();
 });
