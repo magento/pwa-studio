@@ -149,7 +149,10 @@ SignIn.propTypes = {
     }),
     setDefaultUsername: func,
     showCreateAccount: func,
-    showForgotPassword: func
+    showForgotPassword: func,
+    initialValues: shape({
+        email: string.isRequired
+    })
 };
 SignIn.defaultProps = {
     setDefaultUsername: () => {},

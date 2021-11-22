@@ -338,5 +338,7 @@ GuestForm.propTypes = {
         }).isRequired,
         street: arrayOf(string),
         telephone: string
-    })
+    }),
+    toggleSignInContent: func.isRequired,
+    setGuestSignInUsername: func.isRequired
 };

@@ -132,5 +132,7 @@ ShippingInformation.propTypes = {
     }),
     onSave: func.isRequired,
     onSuccess: func.isRequired,
-    toggleActiveContent: func.isRequired
+    toggleActiveContent: func.isRequired,
+    toggleSignInContent: func.isRequired,
+    setGuestSignInUsername: func.isRequired
 };

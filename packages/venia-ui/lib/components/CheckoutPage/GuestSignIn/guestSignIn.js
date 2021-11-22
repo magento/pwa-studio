@@ -86,5 +86,8 @@ GuestSignIn.propTypes = {
         createAccountRoot: string
     }),
     isActive: bool.isRequired,
-    toggleActiveContent: func.isRequired
+    toggleActiveContent: func.isRequired,
+    initialValues: shape({
+        email: string.isRequired
+    })
 };
