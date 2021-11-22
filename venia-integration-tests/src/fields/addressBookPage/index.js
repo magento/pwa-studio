@@ -45,10 +45,10 @@ export const addressBookModalCityTextField =
     '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="city"]';
 
 export const addressBookModalRegionSelectField =
-    '[data-cy="AddEditDialog-root"] [data-cy="Region[region_id]"]';
+    '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="region"]';
 
 export const addressBookModalRegionTextField =
-    '[data-cy="Dialog-form"] [data-cy="Region[region]"]';
+    '[data-cy="Dialog-form"] [data-cy="AddEditDialog-root"] [data-cy="region"]';
 
 export const addressBookModalPostCodeTextField =
     '[data-cy="Dialog-root"] [data-cy="AddEditDialog-root"] [data-cy="Postcode"]';

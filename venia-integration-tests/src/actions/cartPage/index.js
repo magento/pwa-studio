@@ -17,6 +17,7 @@ import {
     saveForLaterButton,
     shippingMethodEstimateButton,
     shippingMethodRegionField,
+		shippingMethodRegionFieldId,
     shippingMethodPostCodeTextField,
     shippingMethodSubmitButton,
     shippingMethodSectionButton,
@@ -165,7 +166,7 @@ export const estimateShippingMethod = ({
     }
 
     if (regionCode) {
-        cy.get(shippingMethodRegionField)
+        cy.get(shippingMethodRegionFieldId)
             .should('not.be.disabled')
             .select(regionCode);
     } else if (region) {

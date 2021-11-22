@@ -22,7 +22,7 @@ export const checkoutPageShippingGuestCityTextField =
     '[data-cy="GuestForm-city"]';
 
 export const checkoutPageShippingGuestRegionField =
-    '[data-cy="Region[region_id]"]';
+    '[data-cy="GuestForm-region"]';
 
 export const checkoutPageShippingGuestPostCodeTextField =
     '[data-cy="GuestForm-postcode"]';
@@ -190,7 +190,7 @@ export const checkoutPageBillingAddressCityTextField =
     '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-city"]';
 
 export const checkoutPageBillingAddressRegionField =
-    '[data-cy="CreditCard-root"] [data-cy="Region[region_id]"]';
+    '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-region"]';
 
 export const checkoutPageBillingAddressPostcodeTextField =
     '[data-cy="CreditCard-root"] [data-cy="CreditCard-billingAddress-postcode"]';

@@ -67,6 +67,9 @@ export const shippingMethodCountrySelect =
 export const shippingMethodRegionField =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="ShippingMethods-ShippingForm-region"]';
 
+export const shippingMethodRegionFieldId =
+    '[data-cy="CartPage-root"] [data-cy="ShippingMethods-root"] [data-cy="ShippingMethods-ShippingForm-region"]';
+
 export const shippingMethodPostCodeTextField =
     '[data-cy="CartPage-root"] [data-cy="PriceAdjustments-root"] [data-cy="ShippingMethods-ShippingForm-postCode"]';
 
