@@ -14,7 +14,7 @@ const FormSubmissionSuccessful = props => {
         {
             id: 'formSubmissionSuccessful.textMessage',
             defaultMessage:
-                'If there is an account associated with your email address, you will receive an email with a link to change your password.'
+                'If there is an account associated with {email} you will receive an email with a link to change your password.'
         },
         { email }
     );

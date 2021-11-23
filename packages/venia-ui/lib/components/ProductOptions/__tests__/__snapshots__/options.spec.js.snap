@@ -20,7 +20,7 @@ Array [
         className="selectionLabel"
       >
         <mock-FormattedMessage
-          defaultMessage="Selected option-1:"
+          defaultMessage="Selected {label}:"
           id="productOptions.selectedLabel"
           values={
             Object {
@@ -52,7 +52,7 @@ Array [
         className="selectionLabel"
       >
         <mock-FormattedMessage
-          defaultMessage="Selected option-1:"
+          defaultMessage="Selected {label}:"
           id="productOptions.selectedLabel"
           values={
             Object {

@@ -122,6 +122,7 @@ const AddressCard = props => {
                 <span className={classes.telephone}>
                     <FormattedMessage
                         id="addressBookPage.telephone"
+                        defaultMessage="Phone {telephone}"
                         values={{ telephone }}
                     />
                 </span>

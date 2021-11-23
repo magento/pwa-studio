@@ -24,7 +24,7 @@ exports[`Snapshot test 1`] = `
   />
   <span>
     <mock-FormattedMessage
-      defaultMessage="Qty :"
+      defaultMessage="Qty : {quantity}"
       id="checkoutPage.quantity"
       values={
         Object {
@@ -70,7 +70,7 @@ exports[`Snapshot test when configured to use variant image 1`] = `
   />
   <span>
     <mock-FormattedMessage
-      defaultMessage="Qty :"
+      defaultMessage="Qty : {quantity}"
       id="checkoutPage.quantity"
       values={
         Object {

@@ -24,7 +24,7 @@ const SuggestedCategory = props => {
             <span className={classes.label}>
                 <FormattedMessage
                     id={'searchBar.label'}
-                    defaultMessage={' in category'}
+                    defaultMessage={' in {label}'}
                     values={{
                         label
                     }}
