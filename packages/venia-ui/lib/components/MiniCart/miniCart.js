@@ -83,7 +83,7 @@ const MiniCart = React.forwardRef((props, ref) => {
             <span className={quantityClassName}>
                 <FormattedMessage
                     id={'miniCart.totalQuantity'}
-                    defaultMessage={'Items'}
+                    defaultMessage={'{totalQuantity} Items'}
                     values={{ totalQuantity }}
                 />
             </span>
