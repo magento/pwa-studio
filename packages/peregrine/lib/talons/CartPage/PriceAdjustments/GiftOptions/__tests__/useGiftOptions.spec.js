@@ -8,9 +8,17 @@ import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 import DEFAULT_OPERATIONS from '../giftOptions.gql';
 import { useGiftOptions } from '../useGiftOptions';
 
+const { isEqual } = require('lodash');
+
 // Could not figure out fakeTimers. Just mock debounce and call callback.
 jest.mock('lodash.debounce', () => {
     return callback => args => callback(args);
+});
+
+jest.mock('lodash', () => {
+    return {
+        isEqual: jest.fn().mockReturnValue(false)
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => ({
@@ -203,7 +211,7 @@ describe('#useGiftOptions', () => {
         `);
     });
 
-    it('returns mutation data when user updates form', async () => {
+    it('returns mutation data when user updates form and data is not the same', async () => {
         const { result, rerender } = renderHookWithProviders();
 
         // Update form data - 1
@@ -269,5 +277,22 @@ describe('#useGiftOptions', () => {
         });
 
         expect(setGiftOptionsOnCartMock2.newData).toHaveBeenCalled();
+    });
+
+    it('does not return mutation data when user updates form and data is the same', async () => {
+        // Emulate form data was not changed
+        isEqual.mockReturnValue(true);
+
+        const { result, rerender } = renderHookWithProviders();
+
+        await act(() => {
+            result.current.optionsFormProps.onValueChange(mockFormValues1);
+        });
+
+        rerender({
+            shouldSubmit: true
+        });
+
+        expect(setGiftOptionsOnCartMock1.newData).not.toHaveBeenCalled();
     });
 });

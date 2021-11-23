@@ -1,10 +1,12 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import debounce from 'lodash.debounce';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './giftOptions.gql';
+
+const { isEqual } = require('lodash');
 
 /**
  * This talon contains the logic for a gift options component.
@@ -59,6 +61,8 @@ export const useGiftOptions = props => {
         [cart]
     );
 
+    const previousFormValues = useRef(formValues);
+
     const handleValueChange = useCallback(
         values => {
             // Save data in cache until we submit it on Review Order
@@ -86,30 +90,27 @@ export const useGiftOptions = props => {
 
     const handleSubmit = useCallback(() => {
         try {
-            setGiftOptionsOnCart({
-                variables: {
-                    cartId,
-                    giftMessage: {
-                        to: formValues.cardTo,
-                        from: formValues.cardFrom,
-                        message: formValues.cardMessage
-                    },
-                    giftReceiptIncluded: formValues.includeGiftReceipt,
-                    printedCardIncluded: formValues.includePrintedCard
-                }
-            });
+            // Submit data only if changed
+            if (!isEqual(previousFormValues.current, formValues)) {
+                previousFormValues.current = formValues;
+
+                setGiftOptionsOnCart({
+                    variables: {
+                        cartId,
+                        giftMessage: {
+                            to: formValues.cardTo,
+                            from: formValues.cardFrom,
+                            message: formValues.cardMessage
+                        },
+                        giftReceiptIncluded: formValues.includeGiftReceipt,
+                        printedCardIncluded: formValues.includePrintedCard
+                    }
+                });
+            }
         } catch (e) {
             // Error is logged by apollo link - no need to double log.
         }
-    }, [
-        cartId,
-        formValues.cardFrom,
-        formValues.cardMessage,
-        formValues.cardTo,
-        formValues.includeGiftReceipt,
-        formValues.includePrintedCard,
-        setGiftOptionsOnCart
-    ]);
+    }, [cartId, formValues, setGiftOptionsOnCart]);
 
     // Submit data only when we click on "Review Order" in the Checkout Page
     useEffect(() => {
