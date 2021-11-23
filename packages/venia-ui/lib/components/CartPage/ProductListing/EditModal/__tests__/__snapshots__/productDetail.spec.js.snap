@@ -25,7 +25,7 @@ exports[`renders product details with base price and in stock 1`] = `
   >
     <span>
       <mock-FormattedMessage
-        defaultMessage="SKU #"
+        defaultMessage="SKU # {sku}"
         id="productDetail.skuNumber"
         values={
           Object {
@@ -82,7 +82,7 @@ exports[`renders product details with unknown stock value 1`] = `
   >
     <span>
       <mock-FormattedMessage
-        defaultMessage="SKU #"
+        defaultMessage="SKU # {sku}"
         id="productDetail.skuNumber"
         values={
           Object {
@@ -139,7 +139,7 @@ exports[`renders product details with variant price and out of stock 1`] = `
   >
     <span>
       <mock-FormattedMessage
-        defaultMessage="SKU #"
+        defaultMessage="SKU # {sku}"
         id="productDetail.skuNumber"
         values={
           Object {
