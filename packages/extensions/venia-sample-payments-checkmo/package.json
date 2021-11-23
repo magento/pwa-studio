@@ -14,7 +14,10 @@
   "peerDependencies": {
     "@magento/peregrine": ">=12.1.0",
     "@magento/pwa-buildpack": ">=11.0.0",
-    "@magento/venia-ui": ">=9.1.0"
+    "@magento/venia-ui": ">=9.1.0",
+    "react": ">=17.0.1",
+    "react-intl": ">=5.7.0",
+    "react-router-dom": ">=5.1.0"
   },
   "pwa-studio": {
     "targets": {
