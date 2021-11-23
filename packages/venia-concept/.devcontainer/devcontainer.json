@@ -1,5 +1,5 @@
 {
-	"name": "PWA Studio",
+	"name": "PWA Studio - Venia Template",
 	"image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:0-14",
 	"settings": {},
 	"extensions": [
