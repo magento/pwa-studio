@@ -89,7 +89,7 @@ const Item = props => {
             <span className={classes.quantity}>
                 <FormattedMessage
                     id={'productList.quantity'}
-                    defaultMessage={'Qty :'}
+                    defaultMessage={'Qty : {quantity}'}
                     values={{ quantity }}
                 />
             </span>

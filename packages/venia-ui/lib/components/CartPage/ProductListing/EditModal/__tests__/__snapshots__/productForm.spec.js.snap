@@ -122,7 +122,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
                 >
                   <span>
                     <mock-FormattedMessage
-                      defaultMessage="SKU #"
+                      defaultMessage="SKU # {sku}"
                       id="productDetail.skuNumber"
                       values={
                         Object {
@@ -468,7 +468,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
                 >
                   <span>
                     <mock-FormattedMessage
-                      defaultMessage="SKU #"
+                      defaultMessage="SKU # {sku}"
                       id="productDetail.skuNumber"
                       values={
                         Object {

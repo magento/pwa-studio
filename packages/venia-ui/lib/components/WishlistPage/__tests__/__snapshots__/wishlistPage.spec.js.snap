@@ -8,7 +8,7 @@ exports[`empty single wishlist 1`] = `
     className="heading"
   >
     <mock-FormattedMessage
-      defaultMessage="Favorites Lists"
+      defaultMessage="{count, plural, one {Favorites List} other {Favorites Lists}}"
       id="wishlistPage.headingText"
       values={
         Object {
@@ -30,7 +30,7 @@ exports[`renders a single wishlist without visibility toggle 1`] = `
     className="heading"
   >
     <mock-FormattedMessage
-      defaultMessage="Favorites Lists"
+      defaultMessage="{count, plural, one {Favorites List} other {Favorites Lists}}"
       id="wishlistPage.headingText"
       values={
         Object {
@@ -60,7 +60,7 @@ exports[`renders disabled feature error 1`] = `
     className="heading"
   >
     <mock-FormattedMessage
-      defaultMessage="Favorites Lists"
+      defaultMessage="{count, plural, one {Favorites List} other {Favorites Lists}}"
       id="wishlistPage.headingText"
       values={
         Object {
@@ -90,7 +90,7 @@ exports[`renders general fetch error 1`] = `
     className="heading"
   >
     <mock-FormattedMessage
-      defaultMessage="Favorites Lists"
+      defaultMessage="{count, plural, one {Favorites List} other {Favorites Lists}}"
       id="wishlistPage.headingText"
       values={
         Object {
@@ -202,7 +202,7 @@ exports[`renders wishlist data 1`] = `
     className="heading"
   >
     <mock-FormattedMessage
-      defaultMessage="Favorites Lists"
+      defaultMessage="{count, plural, one {Favorites List} other {Favorites Lists}}"
       id="wishlistPage.headingText"
       values={
         Object {
