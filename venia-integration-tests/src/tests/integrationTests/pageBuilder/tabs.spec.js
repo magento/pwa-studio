@@ -1,6 +1,6 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('verify pagebuilder tabs content is rendered correctly', () => {
+describe('PWA-1155: verify pagebuilder tabs content is rendered correctly', () => {
     it('verify tabs content', () => {
         cy.intercept('GET', getCMSPage, {
             fixture: 'pageBuilder/tabs/tabs.json'

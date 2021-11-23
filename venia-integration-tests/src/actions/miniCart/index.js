@@ -3,7 +3,9 @@ import {
     miniCartCheckoutButton,
     miniCartProductImageLink,
     miniCartProductLink,
-    miniCartEditCartButton
+    miniCartEditCartButton,
+    miniCartProduct,
+    miniCartProductDelete
 } from '../../fields/miniCart';
 
 /**
@@ -36,4 +38,10 @@ export const clickProductImageLinkFromMiniCart = () => {
 
 export const goToCartPageFromEditCartButton = () => {
     cy.get(miniCartEditCartButton).click();
+};
+
+export const removeProductFromMiniCart = (itemIndex = 0) => {
+    const item = cy.get(miniCartProduct).eq(itemIndex);
+
+    item.find(miniCartProductDelete).click();
 };

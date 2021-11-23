@@ -1,4 +1,3 @@
-import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { signOut } from '../user';
 import actions from './actions';
@@ -368,7 +367,7 @@ export const getCartDetails = payload => {
                 }
 
                 // Clear cart data from Apollo cache
-                await clearCartDataFromCache(apolloClient);
+                await apolloClient.clearCacheData(apolloClient, 'cart');
 
                 // Create a new cart
                 try {

@@ -2,6 +2,8 @@ import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './text.module.css';
+import { useHistory } from 'react-router-dom';
+import handleHtmlContentClick from '../../handleHtmlContentClick';
 
 const toHTML = str => ({ __html: str });
 
@@ -53,11 +55,20 @@ const Text = props => {
         paddingLeft
     };
 
+    const history = useHistory();
+
+    const clickHandler = e => {
+        handleHtmlContentClick(history, e);
+    };
+
     return (
         <div
+            onClick={clickHandler}
             style={dynamicStyles}
             className={[classes.root, ...cssClasses].join(' ')}
             dangerouslySetInnerHTML={toHTML(content)}
+            onKeyDown={clickHandler}
+            role="presentation"
         />
     );
 };

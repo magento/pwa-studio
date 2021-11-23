@@ -112,7 +112,7 @@ test('clicking button with internal link goes to correct destination', () => {
 
 test('clicking button without link', () => {
     const buttonItemProps = {
-        link: ' ',
+        link: undefined,
         linkType: 'product',
         openInNewTab: false,
         buttonText: 'Shop Bags',

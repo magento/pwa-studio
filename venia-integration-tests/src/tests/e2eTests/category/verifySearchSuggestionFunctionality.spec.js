@@ -20,7 +20,7 @@ const {
 } = categoryPageAssertions;
 
 // TODO add tags CE, EE to test to filter and run tests as needed
-describe('verify category actions', () => {
+describe('PWA-1400: verify category actions', () => {
     it('user should be able search with different inputs and view different suggestions', () => {
         cy.intercept('GET', getAutocompleteResultsCall).as(
             'gqlGetAutocompleteResultsQuery'
