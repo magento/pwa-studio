@@ -172,7 +172,5 @@ export const useMagentoRoute = (props = {}) => {
         setPageLoading(showPageLoader);
     }, [showPageLoader, setPageLoading]);
 
-    console.log(routeData, route);
-
     return routeData;
 };
