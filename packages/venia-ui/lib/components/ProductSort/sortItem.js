@@ -15,11 +15,11 @@ const SortItem = props => {
         onClick(sortItem);
     }, [sortItem, onClick]);
 
-    const handleKeyDown = (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handleClick()
-      }
+    const handleKeyDown = e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleClick();
+        }
     };
 
     const activeIcon = active ? <Icon size={20} src={Check} /> : null;

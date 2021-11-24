@@ -27,13 +27,12 @@ const FilterItem = props => {
         }
     }, [group, item, toggleItem, onApply]);
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = e => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             handleClick();
         }
     };
-
 
     return (
         <FilterDefault
