@@ -48,7 +48,7 @@ const AddToCartButton = props => {
             priority="high"
             type="button"
         >
-            <AddToCartIcon classes={{ icon: classes.icon }} />
+            {AddToCartIcon}
             <span className={classes.text}>
                 <FormattedMessage
                     id="addToCartButton.addItemToCart"
@@ -71,7 +71,7 @@ const AddToCartButton = props => {
             priority="high"
             type="button"
         >
-            <OutOfStockIcon classes={{ icon: classes.icon }} />
+            {OutOfStockIcon}
             <span className={classes.text}>
                 <FormattedMessage
                     id="addToCartButton.itemOutOfStock"
