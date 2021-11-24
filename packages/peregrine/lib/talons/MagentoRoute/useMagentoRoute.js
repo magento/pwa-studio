@@ -88,7 +88,7 @@ export const useMagentoRoute = (props = {}) => {
                 setComponent(pathname, error);
             }
         })();
-    }, [route]);
+    }, [route]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const { id, identifier, redirect_code, relative_url, type } = route || {};
 
