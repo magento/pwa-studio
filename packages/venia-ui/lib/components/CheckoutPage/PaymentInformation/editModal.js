@@ -45,7 +45,7 @@ const EditModal = props => {
                     <FormattedMessage
                         id={'checkoutPage.paymentMethodStatus'}
                         defaultMessage={
-                            'The selected method is not supported for editing.'
+                            '{selectedPaymentMethod} is not supported for editing.'
                         }
                         values={{ selectedPaymentMethod }}
                     />

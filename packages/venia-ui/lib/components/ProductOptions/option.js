@@ -71,7 +71,7 @@ const Option = props => {
                 <dt className={classes.selectionLabel}>
                     <FormattedMessage
                         id="productOptions.selectedLabel"
-                        defaultMessage={`Selected ${label}:`}
+                        defaultMessage="Selected {label}:"
                         values={{ label }}
                     />
                 </dt>
