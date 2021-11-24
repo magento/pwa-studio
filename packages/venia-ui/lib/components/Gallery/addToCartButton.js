@@ -9,21 +9,13 @@ import { useStyle } from '../../classify';
 import defaultClasses from './addToCartButton.module.css';
 
 const AddToCartIcon = ({ classes, width = 16 }) => (
-    <Icon
-        classes={classes}
-        src={ShoppingBag}
-        attrs={{ width}}
-    />
+    <Icon classes={classes} src={ShoppingBag} attrs={{ width }} />
 );
-const OutOfStockIcon = ({ classes, width = 16 }) =>(
-    <Icon
-        classes={classes}
-        src={XSquare}
-        attrs={{ width }}
-    />
+const OutOfStockIcon = ({ classes, width = 16 }) => (
+    <Icon classes={classes} src={XSquare} attrs={{ width }} />
 );
 
-const AddToCartButton = props => {
+const AddToCartButton = (props) => {
     const { item, urlSuffix } = props;
     const talonProps = useAddToCartButton({
         item,
