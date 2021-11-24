@@ -195,6 +195,7 @@ const GuestForm = props => {
                         fieldInput={'region[region]'}
                         fieldSelect={'region[region_id]'}
                         optionValueKey={'id'}
+												data-cy="GuestForm-region"
                     />
                 </div>
                 <div className={classes.postcode}>

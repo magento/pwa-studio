@@ -131,7 +131,7 @@ const ContactPage = props => {
             <article className={classes.root} data-cy="ContactPage-root">
                 {contactUsBanner}
                 <div className={classes.content}>
-                    <div className={classes.formContainer}>
+                    <div className={classes.formContainer} data-cy="ContactPage-formContainer">
                         {maybeLoadingIndicator}
                         <h1 className={classes.title}>
                             <FormattedMessage
@@ -167,6 +167,7 @@ const ContactPage = props => {
                                     field="name"
                                     id="contact-name"
                                     validate={isRequired}
+																		data-cy="name"
                                 />
                             </Field>
                             <Field
@@ -185,6 +186,7 @@ const ContactPage = props => {
                                         id: 'global.emailPlaceholder',
                                         defaultMessage: 'abc@xyz.com'
                                     })}
+																		data-cy="email"
                                 />
                             </Field>
                             <Field
@@ -203,6 +205,7 @@ const ContactPage = props => {
                                         id: 'contactPage.telephonePlaceholder',
                                         defaultMessage: '(222)-222-2222'
                                     })}
+																		data-cy="telephone"
                                 />
                             </Field>
                             <Field
@@ -221,6 +224,7 @@ const ContactPage = props => {
                                         id: 'contactPage.commentPlaceholder',
                                         defaultMessage: `Tell us what's on your mind`
                                     })}
+																		data-cy="comment"
                                 />
                             </Field>
                             <div className={classes.buttonsContainer}>
@@ -228,6 +232,7 @@ const ContactPage = props => {
                                     priority="high"
                                     type="submit"
                                     disabled={isBusy}
+																		data-cy="submit"
                                 >
                                     <FormattedMessage
                                         id={'contactPage.submit'}

@@ -137,6 +137,7 @@ const AddEditDialog = props => {
                         fieldSelect={'region[region_id]'}
                         optionValueKey="id"
                         validate={isRequired}
+												data-cy="region"
                     />
                 </div>
                 <div className={classes.postcode}>
