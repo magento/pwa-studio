@@ -6,8 +6,8 @@ import FilterItem from '../filterItem';
 const mockOnApply = jest.fn();
 
 jest.mock('../filterDefault', () => {
-    const mockedFilterDefault = jest.fn(({ onClick }) => {
-        onClick();
+    const mockedFilterDefault = jest.fn(({ onMouseDown }) => {
+        onMouseDown();
 
         return null;
     });
@@ -85,7 +85,8 @@ describe('#FilterItem', () => {
         expect(mockFilterDefault).toHaveBeenCalledWith(
             expect.objectContaining({
                 isSelected: false,
-                onClick: expect.any(Function)
+                onKeyDown: expect.any(Function),
+                onMouseDown: expect.any(Function)
             }),
             {}
         );
@@ -117,7 +118,8 @@ describe('#FilterItem', () => {
 
         expect(mockFilterDefault).toHaveBeenCalledWith(
             expect.objectContaining({
-                onClick: expect.any(Function),
+                onMouseDown: expect.any(Function),
+                onKeyDown: expect.any(Function),
                 isSelected: true
             }),
             {}

@@ -27,11 +27,20 @@ const FilterItem = props => {
         }
     }, [group, item, toggleItem, onApply]);
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleClick();
+        }
+    };
+
+
     return (
         <FilterDefault
             isSelected={isSelected}
             item={tileItem}
-            onClick={handleClick}
+            onMouseDown={handleClick}
+            onKeyDown={handleKeyDown}
             title={title}
             value={value}
         />
