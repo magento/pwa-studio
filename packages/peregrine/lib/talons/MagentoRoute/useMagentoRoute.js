@@ -43,12 +43,28 @@ export const useMagentoRoute = (props = {}) => {
 
     const component = componentMap.get(pathname);
 
-    const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery, {
-        onCompleted: async ({ route }) => {
-            if (component) {
-                return;
-            }
+    const [runQuery, queryResult] = useLazyQuery(resolveUrlQuery);
+    // destructure the query result
+    const { data, error, loading } = queryResult;
+    const { route } = data || {};
 
+    useEffect(() => {
+        if (initialized.current || !getInlinedPageData()) {
+            runQuery({
+                fetchPolicy: 'cache-and-network',
+                nextFetchPolicy: 'cache-first',
+                variables: { url: pathname }
+            });
+            fetchedPathname.current = pathname;
+        }
+    }, [initialized, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        if (component) {
+            return;
+        }
+
+        (async () => {
             const { type, ...routeData } = route || {};
             const { id, identifier } = routeData || {};
             const isEmpty = !id && !identifier;
@@ -71,23 +87,9 @@ export const useMagentoRoute = (props = {}) => {
 
                 setComponent(pathname, error);
             }
-        }
-    });
+        })();
+    }, [route]);
 
-    useEffect(() => {
-        if (initialized.current || !getInlinedPageData()) {
-            runQuery({
-                fetchPolicy: 'cache-and-network',
-                nextFetchPolicy: 'cache-first',
-                variables: { url: pathname }
-            });
-            fetchedPathname.current = pathname;
-        }
-    }, [initialized, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
-
-    // destructure the query result
-    const { data, error, loading } = queryResult;
-    const { route } = data || {};
     const { id, identifier, redirect_code, relative_url, type } = route || {};
 
     // evaluate both results and determine the response type
@@ -169,6 +171,8 @@ export const useMagentoRoute = (props = {}) => {
     useEffect(() => {
         setPageLoading(showPageLoader);
     }, [showPageLoader, setPageLoading]);
+
+    console.log(routeData, route);
 
     return routeData;
 };
