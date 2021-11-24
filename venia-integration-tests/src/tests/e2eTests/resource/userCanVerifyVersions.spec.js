@@ -9,17 +9,16 @@ const { clientJs } = resourceFixtures;
 
 beforeEach(() => {
     if (window.navigator && navigator.serviceWorker) {
-        navigator.serviceWorker.getRegistrations()
-            .then((registrations) => {
-                registrations.forEach((registration) => {
-                    registration.unregister()
-                })
-            })
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => {
+                registration.unregister();
+            });
+        });
     }
 });
 
 afterEach(() => {
-    window.navigator.serviceWorker.register
+    window.navigator.serviceWorker.register;
 });
 
 describe('verify version banner', () => {
