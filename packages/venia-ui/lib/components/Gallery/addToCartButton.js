@@ -5,7 +5,7 @@ import { useAddToCartButton } from '@magento/peregrine/lib/talons/Gallery/useAdd
 import { ShoppingBag, XSquare } from 'react-feather';
 import Icon from '../Icon';
 import Button from '../Button';
-import { mergeClasses } from '../../classify';
+import { useStyle } from '../../classify';
 import defaultClasses from './addToCartButton.module.css';
 
 const AddToCartIcon = (
@@ -32,7 +32,7 @@ const AddToCartButton = props => {
     const { handleAddToCart, isDisabled, isInStock } = talonProps;
     const { formatMessage } = useIntl();
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = useStyle(defaultClasses, props.classes);
 
     const buttonInStock = (
         <Button
