@@ -35,7 +35,6 @@ const AddToCartButton = props => {
         />
     );
 
-
     const buttonInStock = (
         <Button
             data-cy="AddToCartButton-buttonInStock"
@@ -49,7 +48,7 @@ const AddToCartButton = props => {
             priority="high"
             type="button"
         >
-            {AddToCartIcon}
+            <AddToCartIcon classes={{ icon: classes.icon }} />
             <span className={classes.text}>
                 <FormattedMessage
                     id="addToCartButton.addItemToCart"
@@ -72,7 +71,7 @@ const AddToCartButton = props => {
             priority="high"
             type="button"
         >
-            {OutOfStockIcon}
+            <OutOfStockIcon classes={{ icon: classes.icon }} />
             <span className={classes.text}>
                 <FormattedMessage
                     id="addToCartButton.itemOutOfStock"
