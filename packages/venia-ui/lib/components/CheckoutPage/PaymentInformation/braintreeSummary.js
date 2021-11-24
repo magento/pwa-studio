@@ -39,7 +39,7 @@ const BraintreeSummary = props => {
         formatMessage(
             {
                 id: 'checkoutPage.paymentSummary',
-                defaultMessage: 'Card'
+                defaultMessage: '{cardType} ending in {lastFour}'
             },
             {
                 cardType: paymentNonce.details.cardType,

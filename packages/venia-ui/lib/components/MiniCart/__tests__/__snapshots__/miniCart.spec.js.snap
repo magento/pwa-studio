@@ -46,7 +46,7 @@ exports[`it renders correctly 1`] = `
         className="quantity"
       >
         <mock-FormattedMessage
-          defaultMessage="Items"
+          defaultMessage="{totalQuantity} Items"
           id="miniCart.totalQuantity"
           values={
             Object {

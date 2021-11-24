@@ -573,7 +573,7 @@ exports[`Search Page Component search results heading renders a specific message
         className="searchInfo"
       >
         <mock-FormattedMessage
-          defaultMessage="Showing results:"
+          defaultMessage="Showing results for <highlight>{term}</highlight>{category, select, null {} other { in <highlight>{category}</highlight>}}:"
           id="searchPage.searchTerm"
           values={
             Object {

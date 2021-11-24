@@ -17,7 +17,7 @@ const FilterDefault = props => {
         ? formatMessage(
               {
                   id: 'filterModal.item.applyFilter',
-                  defaultMessage: 'Apply filter'
+                  defaultMessage: 'Apply filter "{optionName}".'
               },
               {
                   optionName: label
@@ -26,7 +26,7 @@ const FilterDefault = props => {
         : formatMessage(
               {
                   id: 'filterModal.item.clearFilter',
-                  defaultMessage: 'Remove filter'
+                  defaultMessage: 'Remove filter "{optionName}".'
               },
               {
                   optionName: label
