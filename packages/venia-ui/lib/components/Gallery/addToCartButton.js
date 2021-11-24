@@ -35,6 +35,7 @@ const AddToCartButton = props => {
         />
     );
 
+
     const buttonInStock = (
         <Button
             data-cy="AddToCartButton-buttonInStock"
