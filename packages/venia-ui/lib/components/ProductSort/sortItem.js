@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Check } from 'react-feather';
 import { bool, func, shape, string } from 'prop-types';
+import { useButton } from 'react-aria';
 
 import { useStyle } from '../../classify';
 import Icon from '../Icon/icon';
@@ -14,22 +15,18 @@ const SortItem = props => {
     const handleClick = useCallback(() => {
         onClick(sortItem);
     }, [sortItem, onClick]);
+    const buttonRef = useRef();
 
-    const handleKeyDown = e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleClick();
-        }
-    };
+    const { buttonProps } = useButton({ onPress: handleClick }, buttonRef);
 
     const activeIcon = active ? <Icon size={20} src={Check} /> : null;
 
     return (
         <button
+            ref={buttonRef}
             className={classes.root}
             data-cy={active ? 'SortItem-activeButton' : 'SortItem-button'}
-            onMouseDown={handleClick}
-            onKeyDown={handleKeyDown}
+            {...buttonProps}
         >
             <span className={classes.content}>
                 <span className={classes.text}>
