@@ -12,7 +12,7 @@ export const GET_WISHLIST_ITEMS = gql`
                     items {
                         id
                         product {
-                            id
+                            uid
                             sku
                         }
                     }

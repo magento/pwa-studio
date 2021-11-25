@@ -6,7 +6,7 @@ export const CheckoutPageFragment = gql`
         items {
             id
             product {
-                id
+                uid
                 stock_status
             }
         }

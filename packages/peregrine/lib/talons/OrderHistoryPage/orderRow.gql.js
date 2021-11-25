@@ -13,7 +13,7 @@ export const GET_PRODUCT_THUMBNAILS_BY_URL_KEY = gql`
     query GetProductThumbnailsByURLKey($urlKeys: [String!]!) {
         products(filter: { url_key: { in: $urlKeys } }) {
             items {
-                id
+                uid
                 sku
                 thumbnail {
                     label
@@ -24,7 +24,7 @@ export const GET_PRODUCT_THUMBNAILS_BY_URL_KEY = gql`
                     variants {
                         product {
                             sku
-                            id
+                            uid
                             thumbnail {
                                 label
                                 url

@@ -298,7 +298,22 @@ const typePolicies = {
     },
     GiftCardWishlistItem: {
         keyFields: ({ id }) => `CustomerGiftCardWishlistItem:${id}`
-    }
+    },
+    SimpleProduct: {
+        keyFields: ['uid']
+    },
+    ConfigurableProduct: {
+        keyFields: ['uid']
+    },
+    BundleProduct: {
+        keyFields: ['uid']
+    },
+    GroupedProduct: {
+        keyFields: ['uid']
+    },
+    VirtualProduct: {
+        keyFields: ['uid']
+    },
 };
 
 export default typePolicies;

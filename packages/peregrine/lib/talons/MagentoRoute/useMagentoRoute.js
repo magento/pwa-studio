@@ -50,8 +50,8 @@ export const useMagentoRoute = (props = {}) => {
             }
 
             const { type, ...routeData } = route || {};
-            const { id, identifier } = routeData || {};
-            const isEmpty = !id && !identifier;
+            const { id, identifier, uid } = routeData || {};
+            const isEmpty = !id && !identifier && !uid;
 
             if (!type || isEmpty) {
                 return;
@@ -88,10 +88,10 @@ export const useMagentoRoute = (props = {}) => {
     // destructure the query result
     const { data, error, loading } = queryResult;
     const { route } = data || {};
-    const { id, identifier, redirect_code, relative_url, type } = route || {};
+    const { id, identifier, uid, redirect_code, relative_url, type } = route || {};
 
     // evaluate both results and determine the response type
-    const empty = !route || !type || (!id && !identifier);
+    const empty = !route || !type || (!id && !identifier && !uid);
     const redirect = isRedirect(redirect_code);
     const fetchError = component instanceof Error && component;
     const routeError = fetchError || error;

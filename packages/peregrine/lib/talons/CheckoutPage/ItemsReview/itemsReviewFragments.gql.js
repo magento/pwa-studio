@@ -7,7 +7,7 @@ export const ItemsReviewFragment = gql`
         items {
             id
             product {
-                id
+                uid
                 name
                 thumbnail {
                     url
@@ -18,7 +18,7 @@ export const ItemsReviewFragment = gql`
                             uid
                         }
                         product {
-                            id
+                            uid
                             thumbnail {
                                 url
                             }

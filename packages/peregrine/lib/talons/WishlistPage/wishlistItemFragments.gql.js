@@ -4,7 +4,7 @@ export const WishlistItemFragment = gql`
     fragment WishlistItemFragment on WishlistItemInterface {
         id
         product {
-            id
+            uid
             image {
                 label
                 url

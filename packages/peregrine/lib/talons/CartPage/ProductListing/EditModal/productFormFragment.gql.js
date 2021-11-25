@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 
 export const ProductFormFragment = gql`
     fragment ProductFormFragment on ProductInterface {
-        id
         uid
         sku
         ... on ConfigurableProduct {
@@ -31,7 +30,7 @@ export const ProductFormFragment = gql`
                     value_index
                 }
                 product {
-                    id
+                    uid
                     price {
                         regularPrice {
                             amount {

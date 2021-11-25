@@ -7,7 +7,7 @@ export const ProductListingFragment = gql`
             id
             uid
             product {
-                id
+                uid
                 name
                 sku
                 url_key
@@ -24,7 +24,7 @@ export const ProductListingFragment = gql`
                             uid
                         }
                         product {
-                            id
+                            uid
                             small_image {
                                 url
                             }

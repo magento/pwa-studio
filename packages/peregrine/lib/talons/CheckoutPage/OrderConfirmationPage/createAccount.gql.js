@@ -64,7 +64,7 @@ export const GET_CART_DETAILS = gql`
                     }
                 }
                 product {
-                    id
+                    uid
                     name
                     sku
                     small_image {

@@ -10,7 +10,7 @@ export const RESOLVE_URL = gql`
                 identifier
             }
             ... on ProductInterface {
-                id
+                uid
                 __typename
             }
             ... on CategoryInterface {
