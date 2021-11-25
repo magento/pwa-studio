@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const EditFormFragment = gql`
     fragment EditFormFragment on ProductInterface {
-        id
+        uid
         name
         sku
         url_key
@@ -33,7 +33,7 @@ export const EditFormFragment = gql`
                     value_index
                 }
                 product {
-                    id
+                    uid
                     media_gallery_entries {
                         id
                         disabled

@@ -8,7 +8,7 @@ export const GET_CART_DETAILS_QUERY = gql`
             items {
                 id
                 product {
-                    id
+                    uid
                     name
                     sku
                     small_image {
