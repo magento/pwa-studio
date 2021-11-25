@@ -8,7 +8,7 @@ import Button from '../Button';
 import { useStyle } from '../../classify';
 import defaultClasses from './addToCartButton.module.css';
 
-const AddToCartButton = (props) => {
+const AddToCartButton = props => {
     const { item, urlSuffix } = props;
     const talonProps = useAddToCartButton({
         item,
