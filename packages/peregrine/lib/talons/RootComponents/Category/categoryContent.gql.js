@@ -22,6 +22,7 @@ export const GET_CATEGORY_CONTENT = gql`
     query getCategoryData($id: String!) {
         categories(filters: { ids: { in: [$id] } }) {
             items {
+                id
                 uid
                 name
                 description

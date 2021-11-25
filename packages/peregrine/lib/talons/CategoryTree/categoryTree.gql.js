@@ -13,10 +13,12 @@ export const GET_NAVIGATION_MENU = gql`
     query GetNavigationMenu($id: String!) {
         categories(filters: { ids: { in: [$id] } }) {
             items {
+                id
                 uid
                 name
                 children {
                     children_count
+                    id
                     uid
                     include_in_menu
                     name

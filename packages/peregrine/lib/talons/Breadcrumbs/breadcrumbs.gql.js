@@ -20,6 +20,7 @@ export const GET_BREADCRUMBS = gql`
                     category_name
                     category_url_path
                 }
+                id
                 uid
                 name
                 url_path
