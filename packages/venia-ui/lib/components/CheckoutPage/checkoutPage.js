@@ -222,10 +222,7 @@ const CheckoutPage = props => {
         const priceAdjustmentsSection =
             checkoutStep === CHECKOUT_STEP.PAYMENT ? (
                 <div className={classes.price_adjustments_container}>
-                    <PriceAdjustments
-                        setPageIsUpdating={setIsUpdating}
-                        shouldSubmit={reviewOrderButtonClicked}
-                    />
+                    <PriceAdjustments setPageIsUpdating={setIsUpdating} />
                 </div>
             ) : null;
 

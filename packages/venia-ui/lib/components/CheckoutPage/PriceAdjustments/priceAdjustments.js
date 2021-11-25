@@ -15,12 +15,11 @@ import defaultClasses from './priceAdjustments.module.css';
  * PriceAdjustments component for the Checkout page.
 
  * @param {Function} props.setPageIsUpdating callback that sets checkout page updating state
- * @param {Boolean} props.shouldSubmit property telling us to submit data
  */
 const PriceAdjustments = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
-    const { setPageIsUpdating, shouldSubmit } = props;
+    const { setPageIsUpdating } = props;
     const { formatMessage } = useIntl();
 
     return (
@@ -38,7 +37,7 @@ const PriceAdjustments = props => {
                     </Suspense>
                 </Section>
                 <GiftCardSection setIsCartUpdating={setPageIsUpdating} />
-                <GiftOptionsSection shouldSubmit={shouldSubmit} />
+                <GiftOptionsSection />
             </Accordion>
         </div>
     );
@@ -47,6 +46,5 @@ const PriceAdjustments = props => {
 export default PriceAdjustments;
 
 PriceAdjustments.propTypes = {
-    setPageIsUpdating: func,
-    shouldSubmit: bool
+    setPageIsUpdating: func
 };

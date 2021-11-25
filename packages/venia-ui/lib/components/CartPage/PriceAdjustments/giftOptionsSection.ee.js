@@ -7,8 +7,7 @@ import { useGiftOptionsSection } from '@magento/peregrine/lib/talons/CartPage/Pr
 
 const GiftOptions = React.lazy(() => import('./GiftOptions'));
 
-const GiftOptionsSection = props => {
-    const { shouldSubmit } = props;
+const GiftOptionsSection = () => {
     const { formatMessage } = useIntl();
     const {
         giftOptionsConfigData,
@@ -30,10 +29,7 @@ const GiftOptionsSection = props => {
             })}
         >
             <Suspense fallback={<LoadingIndicator />}>
-                <GiftOptions
-                    giftOptionsConfigData={giftOptionsConfigData}
-                    shouldSubmit={shouldSubmit}
-                />
+                <GiftOptions giftOptionsConfigData={giftOptionsConfigData} />
             </Suspense>
         </Section>
     );

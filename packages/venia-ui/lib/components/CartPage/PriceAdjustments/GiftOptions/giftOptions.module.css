@@ -2,5 +2,48 @@
 }
 
 .option {
-    padding: 0.5rem 0rem;
+    composes: px-0 from global;
+    composes: py-2 from global;
+    display: grid;
+    grid-template-columns: auto min-content;
+}
+
+.option + .giftMessage {
+    margin-top: 1rem;
+}
+
+.giftMessageTitleContainer {
+    composes: mb-4 from global;
+    display: grid;
+    grid-template-columns: auto min-content;
+}
+
+.giftMessageTitle {
+    composes: font-bold from global;
+}
+
+.giftMessageActions {
+    composes: gap-4 from global;
+    composes: grid from global;
+    composes: mt-4 from global;
+
+    /* Small */
+    composes: sm_flex from global;
+    composes: sm_justify-end from global;
+}
+
+.savingContainer {
+    display: flex;
+    color: rgb(var(--venia-global-color-text-hint));
+    padding-left: 1rem;
+    align-items: center;
+}
+
+.savingSpinner {
+    composes: root from '../../../LoadingIndicator/spinner.module.css';
+    margin-left: 0.5rem;
+}
+
+.hidden {
+    composes: hidden from global;
 }
