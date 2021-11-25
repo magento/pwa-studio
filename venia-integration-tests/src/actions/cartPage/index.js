@@ -6,7 +6,6 @@ import {
     kebabMenuButton,
     cartPageProductLink,
     kebabMenuEditButton,
-    editMenuColorButton,
     editMenuSizeButton,
     editMenuIncreaseQtyStepper,
     editMenuUpdateCartButton,

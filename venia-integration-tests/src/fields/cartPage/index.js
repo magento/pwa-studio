@@ -15,9 +15,6 @@ export const cartPageProductLink = '[data-cy="Product-imageContainer"]';
 export const kebabMenuEditButton =
     '[data-cy="Product-Section-editItem"]';
 
-export const editMenuColorButton =
-    'aside[class^="dialog-root_open-"] button[class^="swatch-root-"]';
-
 export const editMenuSizeButton =
     '[data-cy="Tile-button"]';
 
@@ -26,8 +23,6 @@ export const editMenuIncreaseQtyStepper =
 
 export const editMenuUpdateCartButton =
     '[data-cy="Dialog-root"] [data-cy="Dialog-confirmButton"]';
-
-export const cartPageProductName = 'div[class^="product-name-"]';
 
 export const cartPageProductOption = '[data-cy="ProductOptions-optionValue"]';
 
