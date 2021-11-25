@@ -18,9 +18,9 @@ jest.mock('@apollo/client', () => {
                         breadcrumbs: [
                             {
                                 category_uid: 'Mw==',
-                                category_name: 'Shope',
+                                category_name: 'Shop',
                                 category_level: 1,
-                                category_url_path: 'tiki/sho'
+                                category_url_path: 'tiki/shop'
                             },
                             {
                                 category_uid: 'MTQ==',
