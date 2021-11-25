@@ -78,7 +78,7 @@ export const useGoogleReCaptcha = props => {
                 // TODO: Use Apollo Link middleware when solution is found
                 context: {
                     headers: {
-                        [GOOGLE_RECAPTCHA_HEADER]: grecaptchaApi.execute(
+                        [GOOGLE_RECAPTCHA_HEADER]: globalThis.grecaptcha.execute(
                             recaptchaKey,
                             { action: currentForm }
                         )
@@ -92,7 +92,7 @@ export const useGoogleReCaptcha = props => {
         }
 
         return {};
-    }, [currentForm, grecaptchaApi, isEnabled, recaptchaKey]);
+    }, [currentForm, isEnabled, recaptchaKey]);
 
     return {
         generateReCaptchaData,
