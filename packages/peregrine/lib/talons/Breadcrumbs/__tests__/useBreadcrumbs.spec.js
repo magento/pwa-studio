@@ -12,7 +12,7 @@ jest.mock('@apollo/client', () => {
             categories: {
                 items: [
                     {
-                        uid: "NA==",
+                        uid: 'NA==',
                         name: 'Tiki',
                         url_path: 'tiki',
                         breadcrumbs: [

@@ -81,7 +81,9 @@ export const useBreadcrumbs = props => {
     return {
         currentCategory: (data && data.categories.items[0].name) || '',
         currentCategoryPath:
-            (data && `${data.categories.items[0].url_path}${categoryUrlSuffix || ''}`) ||
+            (data &&
+                `${data.categories.items[0].url_path}${categoryUrlSuffix ||
+                    ''}`) ||
             '#',
         isLoading: loading,
         hasError: !!error,

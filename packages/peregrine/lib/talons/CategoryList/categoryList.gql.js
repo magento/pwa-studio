@@ -11,11 +11,7 @@ export const GET_STORE_CONFIG_DATA = gql`
 
 export const GET_CATEGORY_LIST = gql`
     query GetCategoryList($id: String!) {
-        categories(
-            filters: {
-                ids: {in: [$id]}
-            }
-        ) {
+        categories(filters: { ids: { in: [$id] } }) {
             items {
                 uid
                 children {

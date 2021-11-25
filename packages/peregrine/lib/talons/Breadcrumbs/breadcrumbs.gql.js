@@ -11,22 +11,18 @@ export const GET_STORE_CONFIG_DATA = gql`
 
 export const GET_BREADCRUMBS = gql`
     query GetBreadcrumbs($category_id: String!) {
-        categories(
-            filters: {
-                ids: {in: [$category_id]}
-            }
-        ) {
+        categories(filters: { ids: { in: [$category_id] } }) {
             items {
-              breadcrumbs {
-                category_uid
-                # We may not need level if \`breadcrumbs\` is sorted.
-                category_level
-                category_name
-                category_url_path
-              }
-              uid
-              name
-              url_path
+                breadcrumbs {
+                    category_uid
+                    # We may not need level if \`breadcrumbs\` is sorted.
+                    category_level
+                    category_name
+                    category_url_path
+                }
+                uid
+                name
+                url_path
             }
         }
     }

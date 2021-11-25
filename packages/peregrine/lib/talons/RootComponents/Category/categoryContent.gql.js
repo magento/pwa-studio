@@ -20,11 +20,7 @@ export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
 
 export const GET_CATEGORY_CONTENT = gql`
     query getCategoryData($id: String!) {
-        categories(
-            filters: {
-                ids: {in: [$id]}
-            }
-        ) {
+        categories(filters: { ids: { in: [$id] } }) {
             items {
                 uid
                 name

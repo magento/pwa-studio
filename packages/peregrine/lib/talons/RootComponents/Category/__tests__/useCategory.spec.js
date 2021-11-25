@@ -144,8 +144,8 @@ describe('useCategory tests', () => {
         useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
 
         const tree = createTestInstance(<Component {...mockProps} />);
-        const {root} = tree;
-        const {talonProps} = root.findByType('i').props;
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
 
         expect(talonProps).toMatchSnapshot();
     });
@@ -214,10 +214,10 @@ describe('useCategory tests', () => {
             .mockReturnValueOnce(mockFilterInputsData);
 
         const tree = createTestInstance(<Component {...mockProps} />);
-        const {root} = tree;
-        const {talonProps} = root.findByType('i').props;
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
 
-        const {loading, categoryData} = talonProps;
+        const { loading, categoryData } = talonProps;
 
         expect(loading).toBeTruthy();
         expect(categoryData).toBeNull();
@@ -241,10 +241,10 @@ describe('useCategory tests', () => {
         });
 
         const tree = createTestInstance(<Component {...mockProps} />);
-        const {root} = tree;
-        const {talonProps} = root.findByType('i').props;
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
 
-        const {loading} = talonProps;
+        const { loading } = talonProps;
 
         expect(loading).toBeTruthy();
     });

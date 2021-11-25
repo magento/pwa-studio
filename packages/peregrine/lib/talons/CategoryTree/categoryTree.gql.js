@@ -11,11 +11,7 @@ export const GET_CATEGORY_URL_SUFFIX = gql`
 
 export const GET_NAVIGATION_MENU = gql`
     query GetNavigationMenu($id: String!) {
-        categories(
-            filters: {
-                ids: {in: [$id]}
-            }
-        ) {
+        categories(filters: { ids: { in: [$id] } }) {
             items {
                 uid
                 name

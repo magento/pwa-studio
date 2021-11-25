@@ -201,7 +201,9 @@ export const useCategory = props => {
 
     const categoryData = categoryLoading && !data ? null : data;
     const metaDescription =
-        data && data.categories.items[0] && data.categories.items[0].meta_description
+        data &&
+        data.categories.items[0] &&
+        data.categories.items[0].meta_description
             ? data.categories.items[0].meta_description
             : '';
 

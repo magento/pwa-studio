@@ -10,11 +10,7 @@ export const GET_CATEGORY = gql`
         $filters: ProductAttributeFilterInput!
         $sort: ProductAttributeSortInput
     ) {
-        categories(
-            filters: {
-                ids: {in: [$id]}
-            }
-        ) {
+        categories(filters: { ids: { in: [$id] } }) {
             items {
                 uid
                 ...CategoryFragment

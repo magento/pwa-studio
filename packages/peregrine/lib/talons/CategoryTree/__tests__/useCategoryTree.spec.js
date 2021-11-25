@@ -31,14 +31,14 @@ const result = {
         categories: {
             items: [
                 {
-                    uid: "UID1==",
+                    uid: 'UID1==',
                     name: 'One',
                     url_path: '1',
                     include_in_menu: 1,
                     children_count: 3,
                     children: [
                         {
-                            uid: "UID2==",
+                            uid: 'UID2==',
                             include_in_menu: 1,
                             children_count: 1,
                             name: 'Two',
@@ -46,7 +46,7 @@ const result = {
                             url_path: '1/2'
                         },
                         {
-                            uid: "UID3==",
+                            uid: 'UID3==',
                             include_in_menu: 1,
                             children_count: 0,
                             name: 'Three',
@@ -54,7 +54,7 @@ const result = {
                             url_path: '1/2/3'
                         },
                         {
-                            uid: "UID4==",
+                            uid: 'UID4==',
                             include_in_menu: 1,
                             children_count: 0,
                             name: 'Four',
@@ -238,7 +238,6 @@ describe('child categories', () => {
                                     include_in_menu: 0
                                 }
                             ]
-
                         }
                     }
                 }
@@ -267,7 +266,6 @@ describe('child categories', () => {
                                     url_path: ''
                                 }
                             ]
-
                         }
                     }
                 }
@@ -294,7 +292,8 @@ describe('child categories', () => {
                                 {
                                     ...result.data.categories.items[0],
                                     children: [
-                                        ...result.data.categories.items[0].children,
+                                        ...result.data.categories.items[0]
+                                            .children,
                                         {
                                             id: categoryId,
                                             include_in_menu: 0,
@@ -306,7 +305,6 @@ describe('child categories', () => {
                                     ]
                                 }
                             ]
-
                         }
                     }
                 }
