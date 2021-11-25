@@ -8,13 +8,6 @@ import Button from '../Button';
 import { useStyle } from '../../classify';
 import defaultClasses from './addToCartButton.module.css';
 
-const AddToCartIcon = ({ classes, width = 16 }) => (
-    <Icon classes={classes} src={ShoppingBag} attrs={{ width }} />
-);
-const OutOfStockIcon = ({ classes, width = 16 }) => (
-    <Icon classes={classes} src={XSquare} attrs={{ width }} />
-);
-
 const AddToCartButton = (props) => {
     const { item, urlSuffix } = props;
     const talonProps = useAddToCartButton({
@@ -25,6 +18,22 @@ const AddToCartButton = (props) => {
     const { formatMessage } = useIntl();
 
     const classes = useStyle(defaultClasses, props.classes);
+
+    const AddToCartIcon = (
+        <Icon
+            classes={{ icon: classes.icon }}
+            src={ShoppingBag}
+            attrs={{ width: 16 }}
+        />
+    );
+
+    const OutOfStockIcon = (
+        <Icon
+            classes={{ icon: classes.icon }}
+            src={XSquare}
+            attrs={{ width: 16 }}
+        />
+    );
 
     const buttonInStock = (
         <Button
@@ -38,7 +47,7 @@ const AddToCartButton = (props) => {
             priority="high"
             type="button"
         >
-            <AddToCartIcon classes={{ icon: classes.icon }} />
+            {AddToCartIcon}
             <span className={classes.text}>
                 <FormattedMessage
                     id="addToCartButton.addItemToCart"
@@ -60,7 +69,7 @@ const AddToCartButton = (props) => {
             priority="high"
             type="button"
         >
-            <OutOfStockIcon classes={{ icon: classes.icon }} />
+            {OutOfStockIcon}
             <span className={classes.text}>
                 <FormattedMessage
                     id="addToCartButton.itemOutOfStock"
