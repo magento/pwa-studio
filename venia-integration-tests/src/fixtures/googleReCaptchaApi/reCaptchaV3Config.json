@@ -1,0 +1,15 @@
+{
+    "data": {
+        "recaptchaV3Config": {
+            "website_key": "websitekey",
+            "minimum_score": 0.5,
+            "badge_position": "bottomleft",
+            "language_code": "en",
+            "failure_message": "reCAPTCHA verification failed.",
+            "forms": [
+                "CUSTOMER_FORGOT_PASSWORD"
+            ],
+            "__typename": "ReCaptchaConfigurationV3"
+        }
+    }
+}

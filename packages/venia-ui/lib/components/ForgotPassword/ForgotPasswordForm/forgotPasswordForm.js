@@ -32,6 +32,7 @@ const ForgotPasswordForm = props => {
                     autoComplete="email"
                     field="email"
                     validate={isRequired}
+                    data-cy="ForgotPasswordForm-email"
                 />
             </Field>
             <div className={classes.buttonContainer}>
@@ -52,6 +53,7 @@ const ForgotPasswordForm = props => {
                     disabled={isBusy}
                     type="submit"
                     priority="high"
+                    data-cy="ForgotPasswordForm-submitButton"
                 >
                     <FormattedMessage
                         id={'forgotPasswordForm.submitButtonText'}

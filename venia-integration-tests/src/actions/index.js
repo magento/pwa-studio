@@ -3,6 +3,7 @@ export * as addressBookPage from './addressBookPage';
 export * as cartPage from './cartPage';
 export * as categoryPage from './categoryPage';
 export * as checkoutPage from './checkoutPage';
+export * as forgotPasswordPage from './forgotPasswordPage';
 export * as header from './header';
 export * as myAccountMenu from './myAccountMenu';
 export * as pageBuilder from './pageBuilder';
