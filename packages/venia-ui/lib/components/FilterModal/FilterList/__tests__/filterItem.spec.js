@@ -8,7 +8,6 @@ const mockOnApply = jest.fn();
 jest.mock('../filterDefault', () => {
     const mockedFilterDefault = jest.fn(({ onMouseDown }) => {
         onMouseDown();
-
         return null;
     });
 
@@ -124,5 +123,19 @@ describe('#FilterItem', () => {
             }),
             {}
         );
+    });
+
+    it('calls onApply when keyboard Enter or space is pressed', () => {
+        givenOnApply();
+        mockFilterDefault.mockImplementationOnce(({ onKeyDown }) => {
+            onKeyDown({
+                key: 'Enter',
+                preventDefault: jest.fn()
+            });
+            return null;
+        });
+
+        createTestInstance(<Component />);
+        expect(mockOnApply).toHaveBeenCalled();
     });
 });
