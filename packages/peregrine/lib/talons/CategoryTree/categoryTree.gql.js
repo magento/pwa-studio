@@ -10,21 +10,28 @@ export const GET_CATEGORY_URL_SUFFIX = gql`
 `;
 
 export const GET_NAVIGATION_MENU = gql`
-    query GetNavigationMenu($id: Int!) {
-        category(id: $id) {
-            id
-            name
-            children {
-                children_count
-                id
-                include_in_menu
-                name
-                position
-                url_path
-                url_suffix
+    query GetNavigationMenu($id: String!) {
+        categories(
+            filters: {
+                ids: {in: [$id]}
             }
-            include_in_menu
-            url_path
+        ) {
+            items {
+                uid
+                name
+                children {
+                    children_count
+                    uid
+                    include_in_menu
+                    name
+                    position
+                    url_path
+                    url_suffix
+                }
+                children_count
+                include_in_menu
+                url_path
+            }
         }
     }
 `;

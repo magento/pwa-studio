@@ -10,22 +10,28 @@ export const GET_STORE_CONFIG_DATA = gql`
 `;
 
 export const GET_CATEGORY_LIST = gql`
-    query GetCategoryList($id: Int!) {
-        category(id: $id) {
-            id
-            children {
-                id
-                name
-                url_key
-                url_path
-                children_count
-                path
-                image
-                productImagePreview: products(pageSize: 1) {
-                    items {
-                        id
-                        small_image {
-                            url
+    query GetCategoryList($id: String!) {
+        categories(
+            filters: {
+                ids: {in: [$id]}
+            }
+        ) {
+            items {
+                uid
+                children {
+                    uid
+                    name
+                    url_key
+                    url_path
+                    children_count
+                    path
+                    image
+                    productImagePreview: products(pageSize: 1) {
+                        items {
+                            uid
+                            small_image {
+                                url
+                            }
                         }
                     }
                 }

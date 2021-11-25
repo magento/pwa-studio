@@ -20,7 +20,7 @@ Object {
   },
   "Breadcrumb": Object {
     "keyFields": Array [
-      "category_id",
+      "category_uid",
     ],
   },
   "BundleWishlistItem": Object {

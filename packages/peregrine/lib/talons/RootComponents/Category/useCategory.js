@@ -140,7 +140,7 @@ export const useCategory = props => {
         runQuery({
             variables: {
                 currentPage: Number(currentPage),
-                id: Number(id),
+                id: String(id),
                 filters: newFilters,
                 pageSize: Number(pageSize),
                 sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
@@ -201,8 +201,8 @@ export const useCategory = props => {
 
     const categoryData = categoryLoading && !data ? null : data;
     const metaDescription =
-        data && data.category && data.category.meta_description
-            ? data.category.meta_description
+        data && data.categories.items[0] && data.categories.items[0].meta_description
+            ? data.categories.items[0].meta_description
             : '';
 
     // When only categoryLoading is involved, noProductsFound component flashes for a moment
