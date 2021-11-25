@@ -88,7 +88,8 @@ export const useMagentoRoute = (props = {}) => {
     // destructure the query result
     const { data, error, loading } = queryResult;
     const { route } = data || {};
-    const { id, identifier, uid, redirect_code, relative_url, type } = route || {};
+    const { id, identifier, uid, redirect_code, relative_url, type } =
+        route || {};
 
     // evaluate both results and determine the response type
     const empty = !route || !type || (!id && !identifier && !uid);

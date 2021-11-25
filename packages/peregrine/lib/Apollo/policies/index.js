@@ -313,7 +313,7 @@ const typePolicies = {
     },
     VirtualProduct: {
         keyFields: ['uid']
-    },
+    }
 };
 
 export default typePolicies;
