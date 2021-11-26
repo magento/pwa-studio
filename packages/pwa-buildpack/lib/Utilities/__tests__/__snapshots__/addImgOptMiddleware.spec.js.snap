@@ -17,7 +17,7 @@ exports[`recovers from missing hastily dep 1`] = `
 Array [
   "Cannot add image optimization middleware due to dependencies that are not installed or are not compatible with this environment:
 - hastily: Reason: hastily was not compatible
-- hastily: Reason: Cannot read property 'imageopto' of undefined
+- hastily: Reason: Cannot read properties of undefined (reading 'imageopto')
 
 Images will be served uncompressed.
 

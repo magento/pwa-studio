@@ -44,7 +44,7 @@ export const useCategoryContent = props => {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first'
         }
-    );   
+    );
 
     const { data: categoryData } = useQuery(getCategoryContentQuery, {
         fetchPolicy: 'cache-and-network',

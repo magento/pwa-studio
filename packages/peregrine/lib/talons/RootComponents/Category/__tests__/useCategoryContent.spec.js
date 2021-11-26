@@ -68,11 +68,27 @@ const mockCategoryData = {
     }
 };
 
+const mockAvailableSortMethods = {
+    products: {
+        sort_fileds: {
+            options: [
+                {
+                    label: 'Position', 
+                    value: 'position'
+                }
+            ]
+        }
+    }
+}
+
 const mockGetFilters = jest.fn();
+const mockGetCategoryAvailableSortMethods = jest.fn();
 
 useLazyQuery.mockReturnValue([
     mockGetFilters,
-    { data: mockProductFiltersByCategoryData }
+    mockGetCategoryAvailableSortMethods,
+    { data: mockProductFiltersByCategoryData },
+    { data: mockAvailableSortMethods } 
 ]);
 
 useQuery.mockReturnValue({ data: mockCategoryData });

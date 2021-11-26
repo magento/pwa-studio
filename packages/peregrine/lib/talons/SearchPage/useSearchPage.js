@@ -245,6 +245,7 @@ export const useSearchPage = (props = {}) => {
     useScrollTopOnChange(currentPage);
 
     const sortingMethods = sortData ? sortData.products.sort_fields.options : null;
+    console.log(sortingMethods)
     const sortingMethodsDirections = sortingMethods ? sortingMethods.map(method => {
         const sortingMethodAscending = {
             id: `sortItem.${method.value}Asc`,

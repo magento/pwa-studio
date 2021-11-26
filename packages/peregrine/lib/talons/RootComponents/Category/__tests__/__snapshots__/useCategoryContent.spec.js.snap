@@ -2,6 +2,7 @@
 
 exports[`handles no data prop 1`] = `
 Object {
+  "availableSortMethods": null,
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
   "filters": null,
@@ -23,13 +24,10 @@ Object {
 
 exports[`returns the proper shape 1`] = `
 Object {
+  "availableSortMethods": null,
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
-  "filters": Array [
-    Object {
-      "label": "Label",
-    },
-  ],
+  "filters": null,
   "items": Array [
     Object {
       "id": 1,

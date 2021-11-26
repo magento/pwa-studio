@@ -39,28 +39,6 @@ Array [
           />
           <div
             className="headerButtons"
-          >
-            <ProductSort
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
-          </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
           />
         </div>
         <section
@@ -134,28 +112,7 @@ Array [
                 ]
               }
             />
-            <ProductSort
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
           </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
-          />
         </div>
         <section
           className="gallery"
@@ -235,28 +192,7 @@ Array [
                 ]
               }
             />
-            <ProductSort
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
           </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
-          />
         </div>
         <section
           className="gallery"
@@ -344,28 +280,7 @@ Array [
                 ]
               }
             />
-            <ProductSort
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
           </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
-          />
         </div>
         <section
           className="gallery"
@@ -555,28 +470,6 @@ Array [
           />
           <div
             className="headerButtons"
-          >
-            <ProductSort
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
-          </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
           />
         </div>
         <section
@@ -692,28 +585,6 @@ Array [
           />
           <div
             className="headerButtons"
-          >
-            <ProductSort
-              sortProps={
-                Array [
-                  Object {
-                    "sortAttribute": "",
-                    "sortDirection": "",
-                    "sortText": "",
-                  },
-                  [MockFunction],
-                ]
-              }
-            />
-          </div>
-          <SortedByContainer
-            currentSort={
-              Object {
-                "sortAttribute": "",
-                "sortDirection": "",
-                "sortText": "",
-              }
-            }
           />
         </div>
         <section
