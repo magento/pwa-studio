@@ -1,9 +1,11 @@
 import { gql } from '@apollo/client';
 
 export const ProductFormFragment = gql`
+    # eslint-disable-next-line @graphql-eslint/require-id-when-available
     fragment ProductFormFragment on ProductInterface {
         uid
         sku
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         ... on ConfigurableProduct {
             configurable_options {
                 attribute_code
@@ -29,6 +31,7 @@ export const ProductFormFragment = gql`
                     code
                     value_index
                 }
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 product {
                     uid
                     price {

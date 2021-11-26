@@ -6,6 +6,7 @@ export const ProductListFragment = gql`
         items {
             id
             uid
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             product {
                 uid
                 name
@@ -14,11 +15,13 @@ export const ProductListFragment = gql`
                     url
                 }
                 stock_status
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableProduct {
                     variants {
                         attributes {
                             uid
                         }
+                        # eslint-disable-next-line @graphql-eslint/require-id-when-available
                         product {
                             uid
                             thumbnail {

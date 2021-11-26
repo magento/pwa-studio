@@ -63,6 +63,7 @@ export const GET_CART_DETAILS = gql`
                         value
                     }
                 }
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 product {
                     uid
                     name

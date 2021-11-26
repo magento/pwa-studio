@@ -7,6 +7,7 @@ export const GET_CART_DETAILS_QUERY = gql`
             id
             items {
                 id
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 product {
                     uid
                     name
