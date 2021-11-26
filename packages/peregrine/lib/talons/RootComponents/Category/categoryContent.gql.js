@@ -9,6 +9,7 @@ export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
                 label
                 count
                 attribute_code
+                position
                 options {
                     label
                     value

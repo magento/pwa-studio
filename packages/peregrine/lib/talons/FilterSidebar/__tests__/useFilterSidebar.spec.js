@@ -46,7 +46,25 @@ jest.mock('@apollo/client', () => {
                     name: 'category_id'
                 },
                 {
-                    name: 'foo'
+                    name: 'foo1'
+                },
+                {
+                    name: 'foo2'
+                },
+                {
+                    name: 'foo3'
+                },
+                {
+                    name: 'foo4'
+                },
+                {
+                    name: 'foo5'
+                },
+                {
+                    name: 'foo6'
+                },
+                {
+                    name: 'foo7'
                 }
             ]
         }
@@ -69,6 +87,7 @@ const defaultProps = {
         {
             attribute_code: 'price',
             label: 'Price',
+            position: 1,
             options: [
                 {
                     label: '*-100',
@@ -79,6 +98,7 @@ const defaultProps = {
         {
             attribute_code: 'category_id',
             label: 'Category',
+            position: 2,
             options: [
                 {
                     label: 'Bottoms',
@@ -91,12 +111,79 @@ const defaultProps = {
             ]
         },
         {
-            attribute_code: 'foo',
-            label: 'Foo',
+            attribute_code: 'foo1',
+            label: 'Foo 1',
+            position: null,
             options: [
                 {
-                    label: 'Bar',
-                    value: 'bar'
+                    label: 'Bar 1',
+                    value: 'bar 1'
+                }
+            ]
+        },
+        {
+            attribute_code: 'foo2',
+            label: 'Foo 2',
+            position: 0,
+            options: [
+                {
+                    label: 'Bar 2',
+                    value: 'bar 2'
+                }
+            ]
+        },
+        {
+            attribute_code: 'foo3',
+            label: 'Foo 3',
+            position: 1,
+            options: [
+                {
+                    label: 'Bar 3',
+                    value: 'bar 3'
+                }
+            ]
+        },
+        {
+            attribute_code: 'foo4',
+            label: 'Foo 4',
+            position: 10,
+            options: [
+                {
+                    label: 'Bar 4',
+                    value: 'bar 4'
+                }
+            ]
+        },
+        {
+            attribute_code: 'foo5',
+            label: 'Foo 5',
+            position: 9,
+            options: [
+                {
+                    label: 'Bar 5',
+                    value: 'bar 5'
+                }
+            ]
+        },
+        {
+            attribute_code: 'foo6',
+            label: null,
+            position: null,
+            options: [
+                {
+                    label: 'Bar 6',
+                    value: 'bar 6'
+                }
+            ]
+        },
+        {
+            attribute_code: 'foo7',
+            label: 'Foo 7',
+            position: 7,
+            options: [
+                {
+                    label: 'Bar 7',
+                    value: 'bar 7'
                 }
             ]
         }
@@ -151,7 +238,18 @@ describe('#useFilterSidebar', () => {
     it('only renders filters that are valid and enabled', () => {
         createTestInstance(<Component />);
         const { filterNames } = log.mock.calls[0][0];
-        expect(filterNames.get('foo')).toBeTruthy();
+        expect(filterNames).toMatchInlineSnapshot(`
+            Map {
+              "price" => "Price",
+              "foo1" => "Foo 1",
+              "foo2" => "Foo 2",
+              "foo3" => "Foo 3",
+              "foo7" => "Foo 7",
+              "foo5" => "Foo 5",
+              "foo4" => "Foo 4",
+              "foo6" => null,
+            }
+        `);
     });
 
     it('writes filter state to history when "isApplying"', () => {

@@ -77,7 +77,33 @@ export const useFilterSidebar = props => {
         const keys = new Set();
         const itemsByGroup = new Map();
 
-        for (const filter of filters) {
+        const sortedFilters = [...filters].sort((a, b) => {
+            // Sort by position if provided
+            if (
+                a.position !== null &&
+                b.position !== null &&
+                a.position < b.position
+            ) {
+                return -1;
+            } else if (
+                a.position !== null &&
+                b.position !== null &&
+                a.position > b.position
+            ) {
+                return 1;
+            }
+
+            // Sort by label if position is not provided
+            if (a.label < b.label) {
+                return -1;
+            } else if (a.label > b.label) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
+        for (const filter of sortedFilters) {
             const { options, label: name, attribute_code: group } = filter;
 
             // If this aggregation is not a possible filter, just back out.

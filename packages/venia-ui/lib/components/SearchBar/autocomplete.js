@@ -16,6 +16,7 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                 label
                 count
                 attribute_code
+                position
                 options {
                     label
                     value
