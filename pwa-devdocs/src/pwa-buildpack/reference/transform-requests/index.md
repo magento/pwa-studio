@@ -1,5 +1,6 @@
 ---
 title: Transform Requests
+adobeio: /api/buildpack/transform-requests/
 ---
 
 The built-in [`transformModules`][] target is a powerful way to customize the build process for a partiular file or set of files.

@@ -1,5 +1,6 @@
 ---
 title: Items
+adobeio: /api/peregrine/components-and-utilities/Items/
 ---
 
 The `Items` component uses content in a data object to render a list of [`Item`] components.
