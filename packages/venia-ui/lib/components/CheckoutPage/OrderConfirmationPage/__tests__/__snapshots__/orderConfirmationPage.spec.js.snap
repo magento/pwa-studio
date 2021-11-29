@@ -12,7 +12,7 @@ exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
     </h2>
     <div>
       <mock-FormattedMessage
-        defaultMessage="Order Number"
+        defaultMessage="Order Number: {orderNumber}"
         id="checkoutPage.orderNumber"
         values={
           Object {

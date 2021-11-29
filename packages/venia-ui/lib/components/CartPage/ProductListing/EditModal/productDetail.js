@@ -61,7 +61,7 @@ const ProductDetail = props => {
                 <span>
                     <FormattedMessage
                         id={'productDetail.skuNumber'}
-                        defaultMessage={'SKU #'}
+                        defaultMessage={'SKU # {sku}'}
                         values={{ sku }}
                     />
                 </span>

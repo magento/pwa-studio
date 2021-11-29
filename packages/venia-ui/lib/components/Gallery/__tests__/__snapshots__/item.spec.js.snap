@@ -149,6 +149,7 @@ exports[`renders correctly with valid item data 1`] = `
           "url_suffix": ".html",
         }
       }
+      urlSuffix=".html"
     />
   </div>
 </div>

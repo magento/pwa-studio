@@ -153,7 +153,7 @@ const SearchPage = props => {
                 category: searchCategory,
                 term: searchTerm
             }}
-            defaultMessage={'Showing results:'}
+            defaultMessage="Showing results for <highlight>{term}</highlight>{category, select, null {} other { in <highlight>{category}</highlight>}}:"
         />
     ) : (
         <FormattedMessage
@@ -168,7 +168,7 @@ const SearchPage = props => {
                 {formatMessage(
                     {
                         id: 'searchPage.totalPages',
-                        defaultMessage: `items`
+                        defaultMessage: '{totalCount} items'
                     },
                     { totalCount: productsCount }
                 )}

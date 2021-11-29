@@ -1,6 +1,6 @@
 import { graphqlMockedCalls as graphqlMockedCallsFixtures } from '../../../fixtures';
 const { getCMSPage } = graphqlMockedCallsFixtures;
-describe('pagebuilder > image', () => {
+describe('PWA-1166: pagebuilder > image', () => {
     context('desktop viewport', () => {
         it('renders properly', () => {
             cy.intercept('GET', getCMSPage, {

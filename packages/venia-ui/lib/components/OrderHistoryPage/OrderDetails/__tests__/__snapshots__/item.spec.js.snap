@@ -57,7 +57,7 @@ https://www.venia.com/product1-thumbnail.jpg?auto=webp&format=pjpg&width=2560&he
   </dl>
   <span>
     <mock-FormattedMessage
-      defaultMessage="Qty"
+      defaultMessage="Qty : {quantity}"
       id="orderDetails.quantity"
       values={
         Object {

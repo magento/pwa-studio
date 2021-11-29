@@ -83,7 +83,7 @@ const {
     checkoutCustomer3
 } = checkoutPageFixtures;
 
-describe('Verify cart editing and checkout', () => {
+describe('PWA-1414: Verify cart editing and checkout', () => {
     it('should be able to edit a configurable product and place an order', () => {
         cy.intercept('GET', getProductDetailForProductPageCall).as(
             'gqlGetProductDetailForProductPageQuery'

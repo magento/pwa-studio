@@ -53,7 +53,7 @@ const Item = props => {
     const configured_variant = configuredVariant(configurable_options, product);
 
     return (
-        <div className={rootClass}>
+        <div className={rootClass} data-cy="MiniCart-Item-root">
             <Link
                 className={classes.thumbnailContainer}
                 to={itemLink}
@@ -89,7 +89,7 @@ const Item = props => {
             <span className={classes.quantity}>
                 <FormattedMessage
                     id={'productList.quantity'}
-                    defaultMessage={'Qty :'}
+                    defaultMessage={'Qty : {quantity}'}
                     values={{ quantity }}
                 />
             </span>
@@ -109,6 +109,7 @@ const Item = props => {
                 type="button"
                 className={classes.deleteButton}
                 disabled={isDeleting}
+                data-cy="MiniCart-Item-deleteButton"
             >
                 <Icon
                     size={16}

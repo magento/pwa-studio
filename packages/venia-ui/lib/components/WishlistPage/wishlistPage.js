@@ -85,7 +85,9 @@ const WishlistPage = props => {
                 <FormattedMessage
                     values={{ count: wishlists.length }}
                     id={'wishlistPage.headingText'}
-                    defaultMessage={'Favorites Lists'}
+                    defaultMessage={
+                        '{count, plural, one {Favorites List} other {Favorites Lists}}'
+                    }
                 />
             </h1>
             {content}
