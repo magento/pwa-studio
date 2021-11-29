@@ -9,18 +9,8 @@ In this section you will learn how to set up your storefront project using the s
 ## Prerequisites
 
 -   A basic understanding of working with [React][]
--   Node >= 10.14.1
+-   [NodeJS >= 14.18.1](https://nodejs.org/en/)
 -   Yarn (recommended) or NPM
-
-### Node 12 deprecation warning
-
-If you are using Node 12, you may see the following deprecation warning in the log when you run `yarn watch:venia`.
-
-```sh
-(node:89176) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
-```
-
-This is caused by a project dependency used by PWA Studio and not by PWA Studio itself.
 
 ## First steps
 
