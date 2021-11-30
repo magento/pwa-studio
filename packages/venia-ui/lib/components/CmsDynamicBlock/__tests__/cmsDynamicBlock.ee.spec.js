@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { act } from 'react-test-renderer';
 import { useQuery } from '@apollo/client';
 
