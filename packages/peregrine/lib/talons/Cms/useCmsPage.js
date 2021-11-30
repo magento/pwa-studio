@@ -52,17 +52,9 @@ export const useCmsPage = props => {
     const cmsPage = data ? data.cmsPage : null;
     const rootCategoryId = data ? data.storeConfig.root_category_id : null;
 
-    // Only render <RichContent /> if the page isn't empty and doesn't contain
-    // the default CMS Page text. We do this so there is at least a useable home
-    // page by default, the category list component.
-    const hasContent = useMemo(() => {
-        return cmsPage && cmsPage.content && cmsPage.content.length > 0;
-    }, [cmsPage]);
-
     return {
         cmsPage,
         error,
-        hasContent,
         rootCategoryId,
         shouldShowLoadingIndicator
     };

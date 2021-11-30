@@ -15,58 +15,40 @@ const CMSPage = props => {
     const { identifier } = props;
 
     const talonProps = useCmsPage({ identifier });
-    const { cmsPage, hasContent, shouldShowLoadingIndicator } = talonProps;
-    const { formatMessage } = useIntl();
+    const { cmsPage, shouldShowLoadingIndicator } = talonProps;
     const classes = useStyle(defaultClasses, props.classes);
 
     if (shouldShowLoadingIndicator) {
         return fullPageLoadingIndicator;
     }
 
-    if (hasContent) {
-        const {
-            content_heading,
-            title,
-            meta_title,
-            meta_description,
-            page_layout,
-            content
-        } = cmsPage;
+    const {
+        content_heading,
+        title,
+        meta_title,
+        meta_description,
+        page_layout,
+        content
+    } = cmsPage;
 
-        const headingElement =
-            content_heading !== '' ? (
-                <h1 className={classes.heading}>{content_heading}</h1>
-            ) : null;
+    const headingElement =
+        content_heading !== '' ? (
+            <h1 className={classes.heading}>{content_heading}</h1>
+        ) : null;
 
-        const pageTitle = meta_title || title;
-        const rootClassName = page_layout
-            ? classes[`root_${toCamelCase(page_layout)}`]
-            : classes.root;
+    const pageTitle = meta_title || title;
+    const rootClassName = page_layout
+        ? classes[`root_${toCamelCase(page_layout)}`]
+        : classes.root;
 
-        return (
-            <Fragment>
-                <StoreTitle>{pageTitle}</StoreTitle>
-                <Meta name="title" content={pageTitle} />
-                <Meta name="description" content={meta_description} />
-                <article className={rootClassName}>
-                    {headingElement}
-                    <RichContent html={content} />
-                </article>
-            </Fragment>
-        );
-    }
-
-    // Fallback message if there is no cms content.
-    const fallBackMessage = formatMessage({
-        id: 'cms.fallBackMessage',
-        defaultMessage: 'Your homepage content goes here'
-    });
     return (
         <Fragment>
-            <article className={classes.fallbackContainer}>
-                <span className={classes.fallbackMessage}>
-                    {fallBackMessage}
-                </span>
+            <StoreTitle>{pageTitle}</StoreTitle>
+            <Meta name="title" content={pageTitle} />
+            <Meta name="description" content={meta_description} />
+            <article className={rootClassName}>
+                {headingElement}
+                <RichContent html={content} />
             </article>
         </Fragment>
     );
@@ -84,9 +66,7 @@ CMSPage.propTypes = {
         root_3columns: string,
         root_cmsFullWidth: string,
         root_categoryFullWidth: string,
-        root_productFullWidth: string,
-        fallbackContainer: string,
-        fallbackMessage: string
+        root_productFullWidth: string
     })
 };
 

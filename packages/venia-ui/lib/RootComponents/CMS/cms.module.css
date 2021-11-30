@@ -13,25 +13,6 @@
     composes: md_text-5xl from global;
 }
 
-.fallbackContainer {
-    margin: 2rem;
-    padding: 2rem;
-    border: 2px dashed rgb(var(--venia-global-color-gray-400));
-    border-radius: 1rem;
-    height: 40rem;
-    display: grid;
-}
-
-.fallbackMessage {
-    align-items: center;
-    display: inline-grid;
-    justify-content: center;
-    justify-items: center;
-    text-align: center;
-    font-size: 1.25rem;
-    font-weight: 600;
-}
-
 .root_empty,
 .root_1column,
 .root_2columnsLeft,
@@ -41,10 +22,4 @@
 .root_categoryFullWidth,
 .root_productFullWidth {
     composes: root;
-}
-
-@media (max-width: 960px) {
-    .fallbackContainer {
-        height: 32rem;
-    }
 }

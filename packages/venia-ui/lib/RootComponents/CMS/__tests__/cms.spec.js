@@ -233,25 +233,3 @@ test('render meta information based on meta data from GraphQL', () => {
     expect(metaDescription).toBeTruthy();
     expect(metaDescription.props.content).toEqual('Test Meta Description');
 });
-
-test('renders fallback message when no content', () => {
-    useQuery.mockImplementation(() => {
-        return {
-            data: {
-                cmsPage: {
-                    title: 'Home Page',
-                    url_key: 'homepage'
-                },
-                storeConfig: {
-                    root_category_id: 2
-                }
-            },
-            error: false,
-            loading: false
-        };
-    });
-
-    const { root } = createTestInstance(<CMSPage {...props} />);
-    const pageContent = root.findByType('span').props.children;
-    expect(pageContent).toContain('Your homepage content goes here');
-});
