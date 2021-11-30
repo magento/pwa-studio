@@ -11,7 +11,7 @@ const SUCCESS = undefined;
 export const hasLengthAtLeast = (value, values, minimumLength) => {
     const message = {
         id: 'validation.hasLengthAtLeast',
-        defaultMessage: 'Must contain more characters',
+        defaultMessage: 'Must contain at least {value} character(s).',
         value: minimumLength
     };
     if (!value || value.length < minimumLength) {
@@ -25,7 +25,7 @@ export const hasLengthAtMost = (value, values, maximumLength) => {
     if (value && value.length > maximumLength) {
         const message = {
             id: 'validation.hasLengthAtMost',
-            defaultMessage: 'Must have less characters',
+            defaultMessage: 'Must not exceed {value} character(s).',
             value: maximumLength
         };
         return message;
@@ -38,7 +38,7 @@ export const hasLengthExactly = (value, values, length) => {
     if (value && value.length !== length) {
         const message = {
             id: 'validation.hasLengthExactly',
-            defaultMessage: 'Does not have exact number of characters',
+            defaultMessage: 'Must contain exactly {value} character(s).',
             value: length
         };
         return message;
@@ -86,7 +86,7 @@ export const validateRegionCode = (value, values, countries) => {
     if (!country) {
         const invalidCountry = {
             id: 'validation.invalidCountry',
-            defaultMessage: `Country "${countryCode}" is not an available country.`,
+            defaultMessage: 'Country "{value}" is not an available country.',
             value: countryCode
         };
         return invalidCountry;
@@ -96,7 +96,8 @@ export const validateRegionCode = (value, values, countries) => {
     if (!(Array.isArray(regions) && regions.length)) {
         const invalidRegions = {
             id: 'validation.invalidRegions',
-            defaultMessage: `Country "${countryCode}" does not contain any available regions.`,
+            defaultMessage:
+                'Country "{value}" does not contain any available regions.',
             value: countryCode
         };
         return invalidRegions;
@@ -106,7 +107,8 @@ export const validateRegionCode = (value, values, countries) => {
     if (!region) {
         const invalidAbbrev = {
             id: 'validation.invalidAbbreviation',
-            defaultMessage: 'That is not a valid state abbreviation.',
+            defaultMessage:
+                'State "{value}" is not a valid state abbreviation.',
             value: value
         };
         return invalidAbbrev;
@@ -145,7 +147,7 @@ export const validatePassword = value => {
 export const isEqualToField = (value, values, fieldKey) => {
     const message = {
         id: 'validation.isEqualToField',
-        defaultMessage: 'Fields must match',
+        defaultMessage: '{value} must match.',
         value: fieldKey
     };
     return value === values[fieldKey] ? SUCCESS : message;
@@ -154,7 +156,7 @@ export const isEqualToField = (value, values, fieldKey) => {
 export const isNotEqualToField = (value, values, fieldKey) => {
     const message = {
         id: 'validation.isNotEqualToField',
-        defaultMessage: 'Fields must be different',
+        defaultMessage: '{value} must be different',
         value: fieldKey
     };
     return value !== values[fieldKey] ? SUCCESS : message;

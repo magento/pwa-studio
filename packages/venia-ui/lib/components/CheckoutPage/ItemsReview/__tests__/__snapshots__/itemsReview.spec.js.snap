@@ -66,7 +66,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
       </dl>
       <span>
         <mock-FormattedMessage
-          defaultMessage="Qty :"
+          defaultMessage="Qty : {quantity}"
           id="checkoutPage.quantity"
           values={
             Object {
@@ -130,7 +130,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
       </dl>
       <span>
         <mock-FormattedMessage
-          defaultMessage="Qty :"
+          defaultMessage="Qty : {quantity}"
           id="checkoutPage.quantity"
           values={
             Object {
@@ -194,7 +194,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
       </dl>
       <span>
         <mock-FormattedMessage
-          defaultMessage="Qty :"
+          defaultMessage="Qty : {quantity}"
           id="checkoutPage.quantity"
           values={
             Object {

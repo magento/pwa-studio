@@ -23,6 +23,7 @@ const ShippingMethod = props => {
                         <span className={classes.trackingRow} key={number}>
                             <FormattedMessage
                                 id="orderDetails.trackingInformation"
+                                defaultMessage="<strong>Tracking number:</strong> {number}"
                                 values={{
                                     number,
                                     strong: chunks => <strong>{chunks}</strong>
