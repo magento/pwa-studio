@@ -62,7 +62,7 @@ export const useStoreSwitcher = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const {
         getStoreConfigData,
-        getUrlResolverData,
+        getRouteData,
         getAvailableStoresData
     } = operations;
     const { pathname } = useLocation();
@@ -78,7 +78,7 @@ export const useStoreSwitcher = (props = {}) => {
         nextFetchPolicy: 'cache-first'
     });
 
-    const { data: urlResolverData } = useQuery(getUrlResolverData, {
+    const { data: routeData } = useQuery(getRouteData, {
         fetchPolicy: 'cache-first',
         variables: { url: pathname }
     });
@@ -107,10 +107,10 @@ export const useStoreSwitcher = (props = {}) => {
     }, [storeConfigData]);
 
     const pageType = useMemo(() => {
-        if (urlResolverData && urlResolverData.urlResolver) {
-            return urlResolverData.urlResolver.type;
+        if (routeData && routeData.urlResolver) {
+            return routeData.urlResolver.type;
         }
-    }, [urlResolverData]);
+    }, [routeData]);
 
     // availableStores => mapped options or empty map if undefined.
     const availableStores = useMemo(() => {

@@ -11,10 +11,9 @@ export const GET_STORE_CONFIG_DATA = gql`
     }
 `;
 
-export const GET_URL_RESOLVER_DATA = gql`
+export const GET_ROUTE_DATA = gql`
     query getUrlResolverData($url: String!) {
-        urlResolver(url: $url) {
-            id
+        route(url: $url) {
             type
         }
     }
@@ -40,6 +39,6 @@ export const GET_AVAILABLE_STORES_DATA = gql`
 
 export default {
     getStoreConfigData: GET_STORE_CONFIG_DATA,
-    getUrlResolverData: GET_URL_RESOLVER_DATA,
+    getRouteData: GET_ROUTE_DATA,
     getAvailableStoresData: GET_AVAILABLE_STORES_DATA
 };

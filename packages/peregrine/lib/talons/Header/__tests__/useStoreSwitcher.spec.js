@@ -43,7 +43,7 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
 const defaultProps = {
     queries: {
         getStoreConfigData: 'getStoreConfigData',
-        getUrlResolverData: 'getUrlResolverData',
+        getRouteData: 'getRouteData',
         getAvailableStoresData: 'getAvailableStoresData'
     }
 };
@@ -75,12 +75,10 @@ const storeConfigResponse = {
 };
 
 const categoryPageResponse = {
-    id: 1,
     type: 'CATEGORY'
 };
 
 const productPageResponse = {
-    id: 1,
     type: 'PRODUCT'
 };
 
