@@ -2,3 +2,5 @@ node_modules
 .DS_Store
 .idea
 /src/snapshots/integrationTests/pageBuilder/**/__diff_output__/
+cypress/results/*
+cypress-test-results.json
