@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
-import { useIntl } from 'react-intl';
 
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import { useCmsPage } from '@magento/peregrine/lib/talons/Cms/useCmsPage';

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 
 import mergeOperations from '../../util/shallowMerge';
