@@ -107,8 +107,8 @@ export const useStoreSwitcher = (props = {}) => {
     }, [storeConfigData]);
 
     const pageType = useMemo(() => {
-        if (routeData && routeData.urlResolver) {
-            return routeData.urlResolver.type;
+        if (routeData && routeData.route) {
+            return routeData.route.type;
         }
     }, [routeData]);
 
