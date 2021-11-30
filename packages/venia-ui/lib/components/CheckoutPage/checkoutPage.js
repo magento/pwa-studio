@@ -298,7 +298,10 @@ const CheckoutPage = props => {
             });
         } else {
             headerText = formatMessage(
-                { id: 'checkoutPage.greeting', defaultMessage: 'Welcome' },
+                {
+                    id: 'checkoutPage.greeting',
+                    defaultMessage: 'Welcome {firstname}!'
+                },
                 { firstname: customer.firstname }
             );
         }
