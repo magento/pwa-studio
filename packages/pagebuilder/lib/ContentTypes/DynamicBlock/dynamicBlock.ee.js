@@ -1,7 +1,9 @@
 import React from 'react';
-import { arrayOf, oneOf, string } from 'prop-types';
+import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
 
+import { useStyle } from '@magento/venia-ui/lib/classify';
 import CmsDynamicBlockGroup from '@magento/venia-ui/lib/components/CmsDynamicBlock/cmsDynamicBlock';
+import defaultClasses from './dynamicBlock.module.css';
 
 /**
  * Page Builder Dynamic Block component.
@@ -16,7 +18,9 @@ import CmsDynamicBlockGroup from '@magento/venia-ui/lib/components/CmsDynamicBlo
  * @returns {React.Element} A React component that displays a Dynamic Block.
  */
 const DynamicBlock = props => {
+    const classes = useStyle(defaultClasses, props.classes);
     const {
+        displayInline,
         displayMode,
         uids,
         textAlign,
@@ -51,10 +55,15 @@ const DynamicBlock = props => {
         paddingLeft
     };
 
+    const RootTag = displayInline ? 'span' : 'div';
+
     return (
-        <div style={dynamicStyles} className={cssClasses.join(' ')}>
+        <RootTag
+            style={dynamicStyles}
+            className={[classes.root, ...cssClasses].join(' ')}
+        >
             <CmsDynamicBlockGroup displayMode={displayMode} uids={uids} />
-        </div>
+        </RootTag>
     );
 };
 
@@ -63,9 +72,12 @@ const DynamicBlock = props => {
  *
  * @typedef props
  *
+ * @property {Object} classes An object containing the class names for the component
+ * @property {String} classes.root CSS class for the component root element
+ * @property {Boolean} displayInline Select display inline or display block
  * @property {String} displayMode Display mode of the dynamic block
  * @property {String} uids ID of the dynamic block
- * @property {String} textAlign Alignment of the dynamic block within the parent container
+ * @property {String} textAlign Alignment of the component within the parent container
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
  * @property {String} borderWidth CSS border width property
@@ -81,6 +93,10 @@ const DynamicBlock = props => {
  * @property {Array} cssClasses List of CSS classes to be applied to the component
  */
 DynamicBlock.propTypes = {
+    classes: shape({
+        root: string
+    }),
+    displayInline: bool,
     displayMode: oneOf(['fixed', 'salesrule', 'catalogrule']),
     uids: string,
     textAlign: string,

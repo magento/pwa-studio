@@ -1,8 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a Dynamic Block component with custom classes 1`] = `
+exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component inlined 1`] = `
+<span
+  className=""
+  style={
+    Object {
+      "border": "solid",
+      "borderColor": "red",
+      "borderRadius": "15px",
+      "borderWidth": "10px",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "right",
+    }
+  }
+>
+  <mock-CmsDynamicBlockGroup
+    displayMode="fixed"
+    uids="uids"
+  />
+</span>
+`;
+
+exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component with custom classes 1`] = `
 <div
-  className="test-class"
+  className=" test-class"
   style={
     Object {
       "border": "solid",
@@ -28,7 +56,7 @@ exports[`renders a Dynamic Block component with custom classes 1`] = `
 </div>
 `;
 
-exports[`renders a Dynamic Block component without custom classes 1`] = `
+exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component without custom classes 1`] = `
 <div
   className=""
   style={
