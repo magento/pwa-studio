@@ -81,7 +81,7 @@ export default CmsDynamicBlockGroup;
 export const GET_CMS_DYNAMIC_BLOCKS = gql`
     query dynamicBlocks(
         $type: DynamicBlockTypeEnum!
-        $locations: [String]
+        $locations: [DynamicBlockLocationEnum]
         $uids: [ID]!
     ) {
         dynamicBlocks(
