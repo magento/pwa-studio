@@ -1,5 +1,6 @@
 ---
 title: TargetableSet
+adobeio: /api/buildpack/targetables/TargetableSet/
 ---
 
 <!--
