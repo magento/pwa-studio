@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client';
 import { CartTriggerFragment } from '../Header/cartTriggerFragments.gql';
 import { MiniCartFragment } from '../MiniCart/miniCartFragments.gql';
-
 const GET_PRODUCT_DETAIL = gql`
     query GetProductDetailForATCDialog(
         $sku: String!
         $configurableOptionValues: [ID!]
     ) {
         products(filter: { sku: { eq: $sku } }) {
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
                 uid
                 image {
@@ -22,7 +22,9 @@ const GET_PRODUCT_DETAIL = gql`
                         }
                     }
                 }
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableProduct {
+                    # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     configurable_options {
                         uid
                         attribute_uid
@@ -40,6 +42,7 @@ const GET_PRODUCT_DETAIL = gql`
                             label
                             url
                         }
+                        # eslint-disable-next-line @graphql-eslint/require-id-when-available
                         variant {
                             uid
                             price_range {
