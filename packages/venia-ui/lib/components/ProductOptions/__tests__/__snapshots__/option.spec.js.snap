@@ -17,7 +17,7 @@ exports[`renders Option component correctly 1`] = `
       className="selectionLabel"
     >
       <mock-FormattedMessage
-        defaultMessage="Selected Foo:"
+        defaultMessage="Selected {label}:"
         id="productOptions.selectedLabel"
         values={
           Object {

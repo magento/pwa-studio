@@ -7,6 +7,20 @@ const { homePage } = homePageFixtures;
 
 const { clientJs } = resourceFixtures;
 
+beforeEach(() => {
+    if (window.navigator && navigator.serviceWorker) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => {
+                registration.unregister();
+            });
+        });
+    }
+});
+
+afterEach(() => {
+    window.navigator.serviceWorker.register;
+});
+
 describe('verify version banner', () => {
     it('user can see list of important package versions', () => {
         cy.intercept('GET', clientJs).as('resourceClientJs');

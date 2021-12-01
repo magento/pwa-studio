@@ -1,5 +1,6 @@
 ---
 title: usePagination
+adobeio: /api/peregrine/hooks/usePagination/
 ---
 
 <!--

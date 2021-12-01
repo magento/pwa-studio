@@ -1,5 +1,6 @@
 ---
 title: SingleImportStatement
+adobeio: /api/buildpack/targetables/SingleImportStatement/
 ---
 
 <!--

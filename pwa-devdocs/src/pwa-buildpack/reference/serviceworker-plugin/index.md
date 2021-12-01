@@ -1,5 +1,6 @@
 ---
 title: ServiceWorkerPlugin
+adobeio: /api/buildpack/webpack/service-worker/
 ---
 
 A webpack plugin for configuring a ServiceWorker for different PWA development scenarios.

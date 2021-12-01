@@ -1,5 +1,6 @@
 ---
 title: useWindowSize
+adobeio: /api/peregrine/hooks/useWindowSize/
 ---
 
 <!--
