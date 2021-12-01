@@ -25,7 +25,7 @@ export const useCategoryContent = props => {
     const {
         getCategoryContentQuery,
         getProductFiltersByCategoryQuery,
-        getCategoryAvailableSortMethodsQuery,
+        getCategoryAvailableSortMethodsQuery
     } = operations;
 
     const placeholderItems = Array.from({ length: pageSize }).fill(null);
@@ -89,29 +89,29 @@ export const useCategoryContent = props => {
     const categoryDescription = categoryData
         ? categoryData.category.description
         : null;
-    const sortingMethods = sortData ? sortData.products.sort_fields.options : null;
-    const sortingMethodsDirections = sortingMethods ? sortingMethods.map(method => {
-        const sortingMethodAscending = {
-            id: `sortItem.${method.value}Asc`,
-            text: `${method.label} Asc`,
-            attribute: method.value,
-            sortDirection: 'ASC'
-        };
-        const sortingMethodDescending = {
-            id: `sortItem.${method.value}Desc`,
-            text: `${method.label} Desc`,
-            attribute: method.value,
-            sortDirection: 'DESC'
-        }
+    const sortingMethods = sortData
+        ? sortData?.products?.sort_fields?.options
+        : null;
+    const sortingMethodsDirections = sortingMethods
+        ? sortingMethods.map(method => {
+              const sortingMethodAscending = {
+                  id: `sortItem.${method.value}Asc`,
+                  text: `${method.label} Asc`,
+                  attribute: method.value,
+                  sortDirection: 'ASC'
+              };
+              const sortingMethodDescending = {
+                  id: `sortItem.${method.value}Desc`,
+                  text: `${method.label} Desc`,
+                  attribute: method.value,
+                  sortDirection: 'DESC'
+              };
 
-        return [
-                sortingMethodAscending,
-                sortingMethodDescending
-        ];
-        
-    }) : null;
-    const availableSortMethods = sortingMethodsDirections 
-        ? sortingMethodsDirections.flat() 
+              return [sortingMethodAscending, sortingMethodDescending];
+          })
+        : null;
+    const availableSortMethods = sortingMethodsDirections
+        ? sortingMethodsDirections.flat()
         : null;
 
     return {

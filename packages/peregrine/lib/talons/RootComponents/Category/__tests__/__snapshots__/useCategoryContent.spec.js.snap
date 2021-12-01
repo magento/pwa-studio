@@ -27,7 +27,11 @@ Object {
   "availableSortMethods": null,
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
-  "filters": null,
+  "filters": Array [
+    Object {
+      "label": "Label",
+    },
+  ],
   "items": Array [
     Object {
       "id": 1,

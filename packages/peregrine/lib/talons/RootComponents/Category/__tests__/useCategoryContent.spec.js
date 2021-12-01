@@ -73,27 +73,28 @@ const mockAvailableSortMethods = {
         sort_fileds: {
             options: [
                 {
-                    label: 'Position', 
+                    label: 'Position',
                     value: 'position'
                 }
             ]
         }
     }
-}
+};
 
 const mockGetFilters = jest.fn();
 const mockGetCategoryAvailableSortMethods = jest.fn();
 
-useLazyQuery.mockReturnValue([
-    mockGetFilters,
-    mockGetCategoryAvailableSortMethods,
-    { data: mockProductFiltersByCategoryData },
-    { data: mockAvailableSortMethods } 
-]);
-
 useQuery.mockReturnValue({ data: mockCategoryData });
 
 it('returns the proper shape', () => {
+    useLazyQuery.mockReturnValueOnce([
+        mockGetFilters,
+        { data: mockProductFiltersByCategoryData }
+    ]);
+    useLazyQuery.mockReturnValueOnce([
+        mockGetCategoryAvailableSortMethods,
+        { data: mockAvailableSortMethods }
+    ]);
     const rendered = createTestInstance(<Component {...mockProps} />);
 
     const talonProps = rendered.root.findByType('i').props;
@@ -104,6 +105,15 @@ it('returns the proper shape', () => {
 });
 
 it('handles default category id', () => {
+    useLazyQuery.mockReturnValueOnce([
+        mockGetFilters,
+        { data: mockProductFiltersByCategoryData }
+    ]);
+    useLazyQuery.mockReturnValueOnce([
+        mockGetCategoryAvailableSortMethods,
+        { data: mockAvailableSortMethods }
+    ]);
+
     const testProps = Object.assign({}, mockProps, {
         categoryId: 0
     });
@@ -111,6 +121,7 @@ it('handles default category id', () => {
     createTestInstance(<Component {...testProps} />);
 
     expect(mockGetFilters).not.toHaveBeenCalled();
+    expect(mockGetCategoryAvailableSortMethods).not.toHaveBeenCalled();
 });
 
 it('handles no filter data returned', () => {
