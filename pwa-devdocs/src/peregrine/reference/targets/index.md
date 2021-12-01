@@ -1,5 +1,6 @@
 ---
 title: Peregrine Extensibility Targets
+adobeio: /api/peregrine/targets/
 ---
 
 This page lists the Targets declared in the Peregrine package.

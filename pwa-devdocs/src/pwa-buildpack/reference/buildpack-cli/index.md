@@ -1,5 +1,6 @@
 ---
 title: buildpack Command Line Interface
+adobeio: /api/buildpack/cli/
 ---
 
 The `buildpack` command is a command line toolkit with subcommands.
