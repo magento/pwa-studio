@@ -75,11 +75,14 @@ const storeConfigResponse = {
 };
 
 const categoryPageResponse = {
+    id: 1,
     type: 'CATEGORY'
 };
 
 const productPageResponse = {
-    type: 'PRODUCT'
+    id: 1,
+    type: 'PRODUCT',
+    __typename: 'ConfigurableProduct'
 };
 
 const availableStoresResponse = [
@@ -163,7 +166,7 @@ beforeEach(() => {
         return {
             data: {
                 storeConfig: storeConfigResponse,
-                urlResolver: categoryPageResponse,
+                route: categoryPageResponse,
                 availableStores: availableStoresResponse
             },
             error: null,
@@ -361,7 +364,7 @@ describe('handleSwitchStore updates url with configured store code', () => {
             return {
                 data: {
                     storeConfig: storeConfigResponse,
-                    urlResolver: productPageResponse,
+                    route: productPageResponse,
                     availableStores: availableStoresResponse
                 }
             };
@@ -471,7 +474,7 @@ describe('handleSwitchStore updates url with store code not configured', () => {
             return {
                 data: {
                     storeConfig: storeConfigResponse,
-                    urlResolver: productPageResponse,
+                    route: productPageResponse,
                     availableStores: availableStoresResponse
                 }
             };

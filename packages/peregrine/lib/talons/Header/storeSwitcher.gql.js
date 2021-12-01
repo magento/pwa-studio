@@ -12,9 +12,19 @@ export const GET_STORE_CONFIG_DATA = gql`
 `;
 
 export const GET_ROUTE_DATA = gql`
-    query getUrlResolverData($url: String!) {
+    query getRouteData($url: String!) {
         route(url: $url) {
             type
+            ... on CmsPage {
+                identifier
+            }
+            ... on ProductInterface {
+                id
+                __typename
+            }
+            ... on CategoryInterface {
+                id
+            }
         }
     }
 `;
