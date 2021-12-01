@@ -1,5 +1,6 @@
 ---
 title: MagentoResolver
+adobeio: /api/buildpack/webpack/magento-resolver/
 ---
 
 An adapter that configures Webpack to resolve assets using Magento PWA conventions.

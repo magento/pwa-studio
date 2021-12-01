@@ -1,9 +1,10 @@
 ---
 title: Item
+adobeio: /api/peregrine/components-and-utilities/Item/
 ---
 
 
-The `Item` component takes a data object and renders it using a [render prop] or wraps it in an HTML element. 
+The `Item` component takes a data object and renders it using a [render prop] or wraps it in an HTML element.
 
 This component is used as a direct child of the [`Items`] fragment.
 
