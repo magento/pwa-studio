@@ -10,10 +10,11 @@ export const GET_STORE_CONFIG_DATA = gql`
 `;
 
 export const GET_BREADCRUMBS = gql`
-    query GetBreadcrumbs($category_id: Int!) {
-        category(id: $category_id) {
+    query GetBreadcrumbs($category_uid: Int!) {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
+        category(uid: $category_uid) {
             breadcrumbs {
-                category_id
+                category_uid
                 # We may not need level if \`breadcrumbs\` is sorted.
                 category_level
                 category_name

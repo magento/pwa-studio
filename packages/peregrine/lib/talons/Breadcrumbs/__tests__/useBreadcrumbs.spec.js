@@ -15,13 +15,13 @@ jest.mock('@apollo/client', () => {
                 url_path: 'tiki',
                 breadcrumbs: [
                     {
-                        category_id: 12,
+                        category_uid: 12,
                         category_name: 'Shopee',
                         category_level: 1,
                         category_url_path: 'tiki/shopee'
                     },
                     {
-                        category_id: 10,
+                        category_uid: 10,
                         category_name: 'Foo',
                         category_level: 2,
                         category_url_path: 'tiki/shopee/foo'
@@ -97,13 +97,13 @@ test('returns sorted data', () => {
                     url_path: 'tiki',
                     breadcrumbs: [
                         {
-                            category_id: 12,
+                            category_uid: 12,
                             category_name: 'Shopee',
                             category_level: 1,
                             category_url_path: 'tiki/shopee'
                         },
                         {
-                            category_id: 10,
+                            category_uid: 10,
                             category_name: 'Foo',
                             category_level: 2,
                             category_url_path: 'tiki/shopee/foo'
