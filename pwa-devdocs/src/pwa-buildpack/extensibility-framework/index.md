@@ -1,5 +1,6 @@
 ---
 title: Extensibility framework
+adobeio: /guides/general-concepts/extensibility/
 ---
 
 PWA Studio's extensibility framework provides the tools you need to customize and extend your storefront without copying over code from the core PWA Studio project.

@@ -1,5 +1,6 @@
 ---
 title: configureWebpack
+adobeio: /api/buildpack/webpack/configure/
 ---
 
 ## `configureWebpack(options)`

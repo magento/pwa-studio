@@ -1,5 +1,6 @@
 ---
 title: Price Adjustments Talons
+adobeio: /api/peregrine/talons/CartPage/PriceAdjustments/
 ---
 
 These talons provide logic for components that may adjust the total price in a shopping cart.

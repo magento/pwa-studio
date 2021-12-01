@@ -1,5 +1,6 @@
 ---
 title: List
+adobeio: /api/peregrine/components-and-utilities/List/
 ---
 
 <!--

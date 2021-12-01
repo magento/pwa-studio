@@ -1,5 +1,6 @@
 ---
 title: Built-in Targets
+adobeio: /api/buildpack/targets/
 ---
 
 Buildpack's targets follow the same Target API as other packages' targets, but they play a unique role. Buildpack targets are the fundamental "roots" of the PWA Studio Target system.
