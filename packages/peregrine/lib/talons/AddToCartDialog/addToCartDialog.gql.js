@@ -9,7 +9,6 @@ const GET_PRODUCT_DETAIL = gql`
     ) {
         products(filter: { sku: { eq: $sku } }) {
             items {
-                id
                 uid
                 image {
                     label
@@ -25,7 +24,7 @@ const GET_PRODUCT_DETAIL = gql`
                 }
                 ... on ConfigurableProduct {
                     configurable_options {
-                        id
+                        uid
                         attribute_uid
                         label
                         position
@@ -42,7 +41,6 @@ const GET_PRODUCT_DETAIL = gql`
                             url
                         }
                         variant {
-                            id
                             uid
                             price_range {
                                 maximum_price {
