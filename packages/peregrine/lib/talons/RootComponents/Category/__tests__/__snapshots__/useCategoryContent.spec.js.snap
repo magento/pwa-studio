@@ -24,7 +24,20 @@ Object {
 
 exports[`returns the proper shape 1`] = `
 Object {
-  "availableSortMethods": null,
+  "availableSortMethods": Array [
+    Object {
+      "attribute": "position",
+      "id": "sortItem.positionAsc",
+      "sortDirection": "ASC",
+      "text": "Position Asc",
+    },
+    Object {
+      "attribute": "position",
+      "id": "sortItem.positionDesc",
+      "sortDirection": "DESC",
+      "text": "Position Desc",
+    },
+  ],
   "categoryDescription": "Jewelry category",
   "categoryName": "Jewelry",
   "filters": Array [

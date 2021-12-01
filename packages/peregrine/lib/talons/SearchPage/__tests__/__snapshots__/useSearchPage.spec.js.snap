@@ -2,6 +2,20 @@
 
 exports[`returns the correct shape 1`] = `
 Object {
+  "availableSortMethods": Array [
+    Object {
+      "attribute": "position",
+      "id": "sortItem.positionAsc",
+      "sortDirection": "ASC",
+      "text": "Position Asc",
+    },
+    Object {
+      "attribute": "position",
+      "id": "sortItem.positionDesc",
+      "sortDirection": "DESC",
+      "text": "Position Desc",
+    },
+  ],
   "data": Object {
     "products": Object {
       "page_info": Object {

@@ -5,6 +5,7 @@ import { useSearchPage } from '../useSearchPage';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { getFiltersFromSearch } from '../../FilterModal/helpers';
+import { useLazyQuery } from '@apollo/client';
 
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn(() => ({ push: jest.fn() })),
@@ -97,6 +98,21 @@ jest.mock('@apollo/client', () => {
     return { ...apolloClient, useLazyQuery, useQuery };
 });
 
+const mockAvailableSortMethods = {
+    products: {
+        sort_fields: {
+            options: [
+                {
+                    label: 'Position',
+                    value: 'position'
+                }
+            ]
+        }
+    }
+};
+
+const mockGetSearchAvailableSortMethods = jest.fn();
+
 const Component = props => {
     const talonProps = useSearchPage(props);
     return <i talonProps={talonProps} />;
@@ -104,6 +120,11 @@ const Component = props => {
 
 const mockProps = { queries: {} };
 const tree = createTestInstance(<Component {...mockProps} />);
+
+useLazyQuery.mockReturnValueOnce([
+    mockGetSearchAvailableSortMethods,
+    { data: mockAvailableSortMethods }
+]);
 
 test('returns the correct shape', () => {
     const { root } = tree;

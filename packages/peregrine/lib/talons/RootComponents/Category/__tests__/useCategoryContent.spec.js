@@ -70,7 +70,7 @@ const mockCategoryData = {
 
 const mockAvailableSortMethods = {
     products: {
-        sort_fileds: {
+        sort_fields: {
             options: [
                 {
                     label: 'Position',
@@ -100,6 +100,7 @@ it('returns the proper shape', () => {
     const talonProps = rendered.root.findByType('i').props;
 
     expect(mockGetFilters).toHaveBeenCalled();
+    expect(mockGetCategoryAvailableSortMethods).toHaveBeenCalled();
     expect(useQuery).toHaveBeenCalled();
     expect(talonProps).toMatchSnapshot();
 });
