@@ -1,5 +1,6 @@
 ---
 title: PWADevServer
+adobeio: /api/buildpack/webpack/dev-server/
 ---
 
 A utility for configuring a development OS and a `webpack-dev-server` for PWA development.
