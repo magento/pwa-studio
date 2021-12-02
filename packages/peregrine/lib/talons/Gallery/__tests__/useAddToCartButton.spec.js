@@ -58,7 +58,7 @@ const getTalonProps = props => {
 const defaultProps = {
     item: {
         stock_status: 'IN_STOCK',
-        type_id: 'simple',
+        __typename: 'SimpleProduct',
         sku: '97ahsf9',
         url_key: 'simple_product.html',
         uid: 'NDA=',
@@ -76,7 +76,7 @@ test('returns isDisabled true if product type is virtual', () => {
     const { talonProps } = getTalonProps({
         item: {
             ...defaultProps.item,
-            type_id: 'virtual'
+            __typename: 'VirtualProduct'
         }
     });
 
@@ -87,7 +87,7 @@ test('returns isDisabled true if product type is downloadable', () => {
     const { talonProps } = getTalonProps({
         item: {
             ...defaultProps.item,
-            type_id: 'downloadable'
+            __typename: 'DownloadableProduct'
         }
     });
 
@@ -98,7 +98,7 @@ test('returns isDisabled true if product type is grouped', () => {
     const { talonProps } = getTalonProps({
         item: {
             ...defaultProps.item,
-            type_id: 'grouped'
+            __typename: 'GroupedProduct'
         }
     });
 
@@ -109,7 +109,7 @@ test('returns isDisabled true if product type is bundle', () => {
     const { talonProps } = getTalonProps({
         item: {
             ...defaultProps.item,
-            type_id: 'bundle'
+            __typename: 'BundleProduct'
         }
     });
 
@@ -120,7 +120,7 @@ test('returns isDisabled false if product type is simple', () => {
     const { talonProps } = getTalonProps({
         item: {
             ...defaultProps.item,
-            type_id: 'simple'
+            __typename: 'SimpleProduct'
         }
     });
 
@@ -157,7 +157,7 @@ describe('testing handleAddToCart', () => {
         const { talonProps } = getTalonProps({
             item: {
                 ...defaultProps.item,
-                type_id: 'simple',
+                __typename: 'SimpleProduct',
                 stock_status: 'IN_STOCK'
             }
         });
@@ -197,7 +197,7 @@ describe('testing handleAddToCart', () => {
         const { talonProps } = getTalonProps({
             item: {
                 ...defaultProps.item,
-                type_id: 'configurable',
+                __typename: 'ConfigurableProduct',
                 stock_status: 'IN_STOCK',
                 url_key: 'configurable_product'
             },
@@ -213,7 +213,7 @@ describe('testing handleAddToCart', () => {
         const { talonProps } = getTalonProps({
             item: {
                 ...defaultProps.item,
-                type_id: 'bundle',
+                __typename: 'BundleProduct',
                 stock_status: 'IN_STOCK'
             }
         });
@@ -232,7 +232,7 @@ describe('testing handleAddToCart', () => {
         const { talonProps } = getTalonProps({
             item: {
                 ...defaultProps.item,
-                type_id: 'grouped',
+                __typename: 'GroupedProduct',
                 stock_status: 'IN_STOCK'
             }
         });
@@ -251,7 +251,7 @@ describe('testing handleAddToCart', () => {
         const { talonProps } = getTalonProps({
             item: {
                 ...defaultProps.item,
-                type_id: 'virtual',
+                __typename: 'VirtualProduct',
                 stock_status: 'IN_STOCK'
             }
         });
@@ -270,7 +270,7 @@ describe('testing handleAddToCart', () => {
         const { talonProps } = getTalonProps({
             item: {
                 ...defaultProps.item,
-                type_id: 'downloadable',
+                __typename: 'DownloadableProduct',
                 stock_status: 'IN_STOCK'
             }
         });
@@ -293,7 +293,7 @@ describe('testing handleAddToCart', () => {
         const { talonProps } = getTalonProps({
             item: {
                 ...defaultProps.item,
-                type_id: 'simple',
+                __typename: 'SimpleProduct',
                 stock_status: 'IN_STOCK'
             }
         });
