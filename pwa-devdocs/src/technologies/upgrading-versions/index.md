@@ -1,5 +1,6 @@
 ---
 title: Upgrading versions
+adobeio: /guides/upgrading-versions/
 ---
 
 Upgrading to the latest PWA Studio version gives your project access to the new features, bugfixes, and improvements associated with that release.

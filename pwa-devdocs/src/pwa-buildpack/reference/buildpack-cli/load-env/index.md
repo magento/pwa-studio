@@ -1,5 +1,6 @@
 ---
 title: load-env
+adobeio: /api/buildpack/cli/load-environment-file/
 ---
 
 The `load-env` subcommand for the [`buildpack`][] CLI command loads and validates the local `.env` file according to the variable declarations in the [`envVarDefinitions.json`][] file.

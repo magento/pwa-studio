@@ -1,5 +1,6 @@
 ---
 title: MagentoRootComponentsPlugin
+adobeio: /api/buildpack/webpack/magento-root-components-plugin/
 ---
 
 This plugin creates [unique chunks] for each Root Component in a Magento PWA project and extension.
