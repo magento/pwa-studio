@@ -228,7 +228,7 @@ test('should call onSuccess on mutation success', () => {
     expect(onSuccess).toHaveBeenCalled();
 });
 
-test('handleValidateEmail calls isEmailAvailable query if email exists', () => {
+test('handleValidateEmail calls isEmailAvailable query if email is valid', () => {
     const validadeEmailQuery = jest.fn();
     useLazyQuery.mockReturnValueOnce([validadeEmailQuery, { data: null }]);
 
@@ -241,6 +241,8 @@ test('handleValidateEmail calls isEmailAvailable query if email exists', () => {
     const { handleValidateEmail } = talonProps;
 
     handleValidateEmail();
+    expect(validadeEmailQuery).not.toHaveBeenCalled();
+    handleValidateEmail('testmail.com');
     expect(validadeEmailQuery).not.toHaveBeenCalled();
     handleValidateEmail('test@mail.com');
     expect(validadeEmailQuery).toHaveBeenCalled();
