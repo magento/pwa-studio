@@ -5,8 +5,9 @@ export const CheckoutPageFragment = gql`
         id
         items {
             id
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             product {
-                id
+                uid
                 stock_status
             }
         }
