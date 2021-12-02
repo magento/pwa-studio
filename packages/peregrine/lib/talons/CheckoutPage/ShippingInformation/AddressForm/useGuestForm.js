@@ -81,7 +81,7 @@ export const useGuestForm = props => {
     const handleValidateEmail = useCallback(
         email => {
             setShowSignInToast(false);
-            if (email) {
+            if (email && email.includes('@')) {
                 runQuery({ variables: { email } });
             }
         },

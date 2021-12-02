@@ -145,6 +145,7 @@ const GuestForm = props => {
                         })}
                     >
                         <TextInput
+                            autoComplete="off"
                             field="email"
                             id="email"
                             data-cy="GuestForm-email"
@@ -154,6 +155,13 @@ const GuestForm = props => {
                                     formApiRef.current.getValue('email')
                                 )
                             }
+                            onPaste={e => {
+                                const text = e.clipboardData.getData(
+                                    'text/plain'
+                                );
+                                console.log(`pasted ${text}`);
+                                handleValidateEmail(text);
+                            }}
                         />
                         {guestEmailMessage}
                     </Field>
