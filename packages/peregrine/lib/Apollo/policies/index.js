@@ -170,7 +170,7 @@ const typePolicies = {
     SelectedConfigurableOption: {
         // id alone is not enough to identify a selected option as it can refer
         // to something like "size" where value_id refers to "large".
-        keyFields: ['id', 'value_id']
+        keyFields: ['uid', 'value_id']
     },
     SelectedPaymentMethod: {
         keyFields: ['code']

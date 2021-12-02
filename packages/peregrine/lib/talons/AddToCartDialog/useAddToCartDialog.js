@@ -22,7 +22,7 @@ export const useAddToCartDialog = props => {
             const existingOptionsMap = item.configurable_options.reduce(
                 (optionsMap, selectedOption) => {
                     return optionsMap.set(
-                        selectedOption.id,
+                        selectedOption.uid,
                         selectedOption.value_id
                     );
                 },
@@ -36,7 +36,7 @@ export const useAddToCartDialog = props => {
             const selectedOptions = [];
             mergedOptionsMap.forEach((selectedValueId, attributeId) => {
                 const configurableOption = item.product.configurable_options.find(
-                    option => option.attribute_id_v2 === attributeId
+                    option => option.attribute_uid === attributeId
                 );
                 const configurableOptionValue = configurableOption.values.find(
                     optionValue => optionValue.value_index === selectedValueId

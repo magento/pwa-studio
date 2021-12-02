@@ -5,7 +5,7 @@ Object {
   "onSelectionChange": [Function],
   "options": Array [
     Object {
-      "attribute_id_v2": 1,
+      "attribute_uid": 1,
       "values": Array [
         Object {
           "uid": "red-uid",
@@ -18,7 +18,7 @@ Object {
       ],
     },
     Object {
-      "attribute_id_v2": 2,
+      "attribute_uid": 2,
       "values": Array [
         Object {
           "uid": "large-uid",
@@ -33,7 +33,7 @@ Object {
   ],
   "selectedValues": Array [
     Object {
-      "id": 1,
+      "uid": 1,
       "value_id": "red-id",
     },
   ],
