@@ -2,24 +2,36 @@
 }
 
 .option {
+    composes: grid from global;
     composes: px-0 from global;
     composes: py-2 from global;
-    display: grid;
     grid-template-columns: auto min-content;
 }
 
-.option + .giftMessage {
-    margin-top: 1rem;
+.giftMessageResultContainer,
+.giftMessageFields {
+    composes: pb-4 from global;
+    composes: pl-8 from global;
 }
 
-.giftMessageTitleContainer {
-    composes: mb-4 from global;
-    display: grid;
-    grid-template-columns: auto min-content;
+.giftMessageResultContainer {
+    composes: gap-8 from global;
+    composes: items-center from global;
+
+    /* Small */
+    composes: sm_flex from global;
 }
 
-.giftMessageTitle {
-    composes: font-bold from global;
+.giftMessageResult p {
+    padding: 0.25rem 0;
+}
+
+.editGiftMessageButton {
+    composes: root from '../../../LinkButton/linkButton.module.css';
+    composes: mt-4 from global;
+
+    /* Small */
+    composes: sm_mt-0 from global;
 }
 
 .giftMessageActions {
@@ -29,19 +41,18 @@
 
     /* Small */
     composes: sm_flex from global;
-    composes: sm_justify-end from global;
 }
 
 .savingContainer {
-    display: flex;
-    color: rgb(var(--venia-global-color-text-hint));
-    padding-left: 1rem;
-    align-items: center;
+    composes: flex from global;
+    composes: items-center from global;
+    composes: pl-4 from global;
+    composes: text-gray-500 from global;
 }
 
 .savingSpinner {
     composes: root from '../../../LoadingIndicator/spinner.module.css';
-    margin-left: 0.5rem;
+    composes: ml-2 from global;
 }
 
 .hidden {

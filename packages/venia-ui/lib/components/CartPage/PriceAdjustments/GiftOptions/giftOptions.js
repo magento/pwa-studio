@@ -1,17 +1,22 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { Edit2 as EditIcon } from 'react-feather';
 import { Form } from 'informed';
 
 import { useGiftOptions } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/GiftOptions/useGiftOptions';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-
-import Button from '../../../Button';
-import Checkbox from '../../../Checkbox';
-import Field from '../../../Field';
-import FormError from '../../../FormError';
-import LoadingIndicator, { Spinner } from '../../../LoadingIndicator';
-import TextArea from '../../../TextArea';
-import TextInput from '../../../TextInput';
+import Button from '@magento/venia-ui/lib/components/Button';
+import Checkbox from '@magento/venia-ui/lib/components/Checkbox';
+import Field from '@magento/venia-ui/lib/components/Field';
+import FormError from '@magento/venia-ui/lib/components/FormError';
+import Icon from '@magento/venia-ui/lib/components/Icon';
+import LoadingIndicator, {
+    Spinner
+} from '@magento/venia-ui/lib/components/LoadingIndicator';
+import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
+import Price from '@magento/venia-ui/lib/components/Price';
+import TextArea from '@magento/venia-ui/lib/components/TextArea';
+import TextInput from '@magento/venia-ui/lib/components/TextInput';
 
 import defaultClasses from './giftOptions.module.css';
 
@@ -34,20 +39,21 @@ const GiftOptions = props => {
     const { classes: propClasses } = props;
     const {
         loading,
-        savingOptions,
         errors,
+        savingOptions,
         giftReceiptProps,
         printedCardProps,
+        printedCardPrice,
+        giftMessageCheckboxProps,
         giftMessageResult,
         hasGiftMessage,
         showGiftMessageResult,
         cardToProps,
         cardFromProps,
         cardMessageProps,
-        removeGiftMessageButtonProps,
         editGiftMessageButtonProps,
         cancelGiftMessageButtonProps,
-        updateGiftMessageButtonProps,
+        saveGiftMessageButtonProps,
         optionsFormProps
     } = useGiftOptions();
     const { formatMessage } = useIntl();
@@ -69,7 +75,7 @@ const GiftOptions = props => {
                         data-cy="GiftOptions-includeGiftReceipt"
                         label={formatMessage({
                             id: 'giftOptions.includeGiftReceipt',
-                            defaultMessage: 'Include gift receipt (Optional)'
+                            defaultMessage: 'Include gift receipt'
                         })}
                     />
                 </div>
@@ -88,42 +94,18 @@ const GiftOptions = props => {
             </div>
         ) : null;
 
-    const includePrintedCard =
-        allow_printed_card === '1' ? (
-            <div className={classes.option}>
-                <div className={classes.checkboxContainer}>
-                    <Checkbox
-                        {...printedCardProps}
-                        data-cy="GiftOptions-includePrintedCard"
-                        label={formatMessage({
-                            id: 'giftOptions.includePrintedCard',
-                            defaultMessage: 'Include printed card (Optional)'
-                        })}
-                    />
-                </div>
-
-                {savingOptions.includes(printedCardProps.field) ? (
-                    <div className={classes.savingContainer}>
-                        <span className={classes.savingText}>
-                            <FormattedMessage
-                                id={'giftOptions.saving'}
-                                defaultMessage={'Saving'}
-                            />
-                        </span>
-                        <Spinner classes={{ root: classes.savingSpinner }} />
-                    </div>
-                ) : null}
-            </div>
-        ) : null;
-
     const includeGiftMessage =
         allow_order === '1' ? (
-            <div className={classes.giftMessage}>
-                <div className={classes.giftMessageTitleContainer}>
-                    <div className={classes.giftMessageTitle}>
-                        <FormattedMessage
-                            id="giftOptions.giftMessageTitle"
-                            defaultMessage="Gift Message (Optional)"
+            <>
+                <div className={classes.option}>
+                    <div className={classes.checkboxContainer}>
+                        <Checkbox
+                            {...giftMessageCheckboxProps}
+                            data-cy="GiftOptions-includeGiftMessage"
+                            label={formatMessage({
+                                id: 'giftOptions.includeGiftMessage',
+                                defaultMessage: 'Optional Message'
+                            })}
                         />
                     </div>
 
@@ -145,35 +127,50 @@ const GiftOptions = props => {
                 <div
                     className={
                         showGiftMessageResult
-                            ? classes.giftMessageResult
+                            ? classes.giftMessageResultContainer
                             : classes.hidden
                     }
                 >
-                    <p>
-                        <FormattedMessage
-                            id="giftOptions.giftMessageTo"
-                            defaultMessage="To: {cardTo}"
-                            values={{
-                                cardTo: giftMessageResult.cardTo
-                            }}
+                    <div className={classes.giftMessageResult}>
+                        <p>
+                            <FormattedMessage
+                                id="giftOptions.giftMessageTo"
+                                defaultMessage="<strong>To:</strong> {cardTo}"
+                                values={{
+                                    cardTo: giftMessageResult.cardTo,
+                                    strong: chunks => <strong>{chunks}</strong>
+                                }}
+                            />
+                        </p>
+                        <p>
+                            <FormattedMessage
+                                id="giftOptions.giftMessageFrom"
+                                defaultMessage="<strong>From:</strong> {cardFrom}"
+                                values={{
+                                    cardFrom: giftMessageResult.cardFrom,
+                                    strong: chunks => <strong>{chunks}</strong>
+                                }}
+                            />
+                        </p>
+                        <p>{giftMessageResult.cardMessage}</p>
+                    </div>
+
+                    <LinkButton
+                        {...editGiftMessageButtonProps}
+                        classes={{ root: classes.editGiftMessageButton }}
+                    >
+                        <Icon
+                            classes={{ icon: null }}
+                            size={16}
+                            src={EditIcon}
                         />
-                    </p>
-                    <p>
-                        <FormattedMessage
-                            id="giftOptions.giftMessageFrom"
-                            defaultMessage="From: {cardFrom}"
-                            values={{
-                                cardFrom: giftMessageResult.cardFrom
-                            }}
-                        />
-                    </p>
-                    <p>
-                        <FormattedMessage
-                            id="giftOptions.giftMessageMessage"
-                            defaultMessage="Message:"
-                        />
-                    </p>
-                    <p>{giftMessageResult.cardMessage}</p>
+                        <span className={classes.actionLabel}>
+                            <FormattedMessage
+                                id="giftOptions.editGiftMessageButton"
+                                defaultMessage="Edit"
+                            />
+                        </span>
+                    </LinkButton>
                 </div>
 
                 <div
@@ -207,42 +204,23 @@ const GiftOptions = props => {
                             data-cy="GiftOptions-cardFrom"
                         />
                     </Field>
-                    <div className={classes.option}>
-                        <Field
-                            id="message"
-                            label={formatMessage({
-                                id: 'giftOptions.Message',
-                                defaultMessage: 'Message'
+                    <Field
+                        id="message"
+                        label={formatMessage({
+                            id: 'giftOptions.Message',
+                            defaultMessage: 'Message'
+                        })}
+                    >
+                        <TextArea
+                            {...cardMessageProps}
+                            data-cy="GiftOptions-cardMessage"
+                            placeholder={formatMessage({
+                                id: 'giftOptions.cardMessage',
+                                defaultMessage: 'Enter your message here'
                             })}
-                        >
-                            <TextArea
-                                {...cardMessageProps}
-                                data-cy="GiftOptions-cardMessage"
-                                placeholder={formatMessage({
-                                    id: 'giftOptions.cardMessage',
-                                    defaultMessage: 'Enter your message here'
-                                })}
-                            />
-                        </Field>
-                    </div>
-                </div>
+                        />
+                    </Field>
 
-                {showGiftMessageResult ? (
-                    <div className={classes.giftMessageActions}>
-                        <Button {...removeGiftMessageButtonProps}>
-                            <FormattedMessage
-                                id="giftOptions.removeGiftMessageButton"
-                                defaultMessage="Remove Gift Message"
-                            />
-                        </Button>
-                        <Button {...editGiftMessageButtonProps}>
-                            <FormattedMessage
-                                id="giftOptions.editGiftMessageButton"
-                                defaultMessage="Edit Gift Message"
-                            />
-                        </Button>
-                    </div>
-                ) : (
                     <div className={classes.giftMessageActions}>
                         {hasGiftMessage ? (
                             <Button {...cancelGiftMessageButtonProps}>
@@ -252,21 +230,67 @@ const GiftOptions = props => {
                                 />
                             </Button>
                         ) : null}
-                        <Button {...updateGiftMessageButtonProps}>
+                        <Button {...saveGiftMessageButtonProps}>
                             {hasGiftMessage ? (
                                 <FormattedMessage
                                     id="giftOptions.updateGiftMessageButton"
-                                    defaultMessage="Update Gift Message"
+                                    defaultMessage="Update Message"
                                 />
                             ) : (
                                 <FormattedMessage
                                     id="giftOptions.addGiftMessage"
-                                    defaultMessage="Add Gift Message"
+                                    defaultMessage="Add Message"
                                 />
                             )}
                         </Button>
                     </div>
-                )}
+                </div>
+            </>
+        ) : null;
+
+    const includePrintedCard =
+        allow_printed_card === '1' ? (
+            <div className={classes.option}>
+                <div className={classes.checkboxContainer}>
+                    <Checkbox
+                        {...printedCardProps}
+                        data-cy="GiftOptions-includePrintedCard"
+                        label={formatMessage(
+                            {
+                                id: 'giftOptions.includePrintedCard',
+                                defaultMessage: 'Add printed card{price}'
+                            },
+                            {
+                                price:
+                                    printedCardPrice &&
+                                    printedCardPrice.value > 0 ? (
+                                        <>
+                                            {' ( + '}
+                                            <Price
+                                                currencyCode={
+                                                    printedCardPrice.currency
+                                                }
+                                                value={printedCardPrice.value}
+                                            />
+                                            {')'}
+                                        </>
+                                    ) : null
+                            }
+                        )}
+                    />
+                </div>
+
+                {savingOptions.includes(printedCardProps.field) ? (
+                    <div className={classes.savingContainer}>
+                        <span className={classes.savingText}>
+                            <FormattedMessage
+                                id={'giftOptions.saving'}
+                                defaultMessage={'Saving'}
+                            />
+                        </span>
+                        <Spinner classes={{ root: classes.savingSpinner }} />
+                    </div>
+                ) : null}
             </div>
         ) : null;
 
@@ -274,8 +298,8 @@ const GiftOptions = props => {
         <Form {...optionsFormProps} className={classes.root}>
             <FormError errors={Array.from(errors.values())} />
             {includeGiftReceipt}
-            {includePrintedCard}
             {includeGiftMessage}
+            {includePrintedCard}
         </Form>
     );
 };

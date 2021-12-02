@@ -77,6 +77,7 @@ const defaultTalonProps = {
         total: { currency: 'USD', value: 8.5 },
         discounts: null,
         giftCards: [],
+        giftOptions: {},
         taxes: [],
         shipping: { currency: 'USD', value: 5 }
     }
@@ -95,6 +96,7 @@ jest.mock(
                 total: { currency: 'USD', value: 8.5 },
                 discounts: null,
                 giftCards: [],
+                giftOptions: {},
                 taxes: [],
                 shipping: { currency: 'USD', value: 5 }
             }

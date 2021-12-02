@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import debounce from 'lodash.debounce';
 
@@ -35,16 +35,16 @@ export const useGiftOptions = (props = {}) => {
 
     const [
         setGiftOptionsOnCart,
-        {
-            error: setGiftOptionsOnCartError,
-            loading: setGiftOptionsOnCartLoading
-        }
+        { error: setGiftOptionsOnCartError }
     ] = useMutation(setGiftOptionsOnCartMutation);
     const {
         data: getGiftOptionsData,
         error: getGiftOptionsError,
         loading
     } = useQuery(getGiftOptionsQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !cartId,
         variables: { cartId }
     });
 
@@ -74,6 +74,8 @@ export const useGiftOptions = (props = {}) => {
         ]
     );
 
+    const printedCardPrice = cart?.prices?.gift_options?.printed_card || {};
+
     const hasGiftMessage =
         giftMessageResult.cardFrom.length > 0 &&
         giftMessageResult.cardTo.length > 0 &&
@@ -81,6 +83,9 @@ export const useGiftOptions = (props = {}) => {
 
     const formApiRef = useRef(null);
 
+    const [giftMessageIsEnabled, setGiftMessageIsEnabled] = useState(
+        hasGiftMessage
+    );
     const [showGiftMessageResult, setShowGiftMessageResult] = useState(
         hasGiftMessage
     );
@@ -122,6 +127,17 @@ export const useGiftOptions = (props = {}) => {
                 // Indicates Gift Message is currently saving
                 setSavingOptions([...savingOptions, 'giftMessage']);
 
+                // Reset form data and form errors
+                formApi.setValues({
+                    cardTo: '',
+                    cardFrom: '',
+                    cardMessage: ''
+                });
+                formApi.setError('cardTo');
+                formApi.setError('cardFrom');
+                formApi.setError('cardMessage');
+                setShowGiftMessageResult(false);
+
                 await setGiftOptionsOnCart({
                     variables: {
                         cartId,
@@ -140,14 +156,6 @@ export const useGiftOptions = (props = {}) => {
                     }
                 });
 
-                // Reset form data
-                formApi.setValues({
-                    cardTo: '',
-                    cardFrom: '',
-                    cardMessage: ''
-                });
-
-                setShowGiftMessageResult(false);
                 // Reset saving options when mutation is complete
                 setSavingOptions([]);
             }
@@ -195,7 +203,19 @@ export const useGiftOptions = (props = {}) => {
         }
     }, [cartId, savingOptions, setGiftOptionsOnCart]);
 
-    const handleToggleGiftMessage = useCallback(() => {
+    const handleToggleGiftMessageIsEnabled = useCallback(
+        async isChecked => {
+            if (!isChecked) {
+                // Remove Gift Message and reset form
+                await handleRemoveGiftMessage();
+            }
+
+            setGiftMessageIsEnabled(!giftMessageIsEnabled);
+        },
+        [giftMessageIsEnabled, handleRemoveGiftMessage]
+    );
+
+    const handleToggleGiftMessageResult = useCallback(() => {
         setShowGiftMessageResult(!showGiftMessageResult);
     }, [showGiftMessageResult]);
 
@@ -232,17 +252,30 @@ export const useGiftOptions = (props = {}) => {
         onChange: updateSavingOptionsOnChange
     };
 
+    const giftMessageCheckboxProps = {
+        disabled: savingOptions.includes('giftMessage'),
+        field: 'includeGiftMessage',
+        initialValue: giftMessageIsEnabled,
+        onValueChange: handleToggleGiftMessageIsEnabled
+    };
+
     const cardToProps = {
+        disabled:
+            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
         field: 'cardTo',
         validate: isRequired
     };
 
     const cardFromProps = {
+        disabled:
+            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
         field: 'cardFrom',
         validate: isRequired
     };
 
     const cardMessageProps = {
+        disabled:
+            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
         field: 'cardMessage',
         validate: isRequired
     };
@@ -252,29 +285,25 @@ export const useGiftOptions = (props = {}) => {
         getApi: setFormApi
     };
 
-    const removeGiftMessageButtonProps = {
-        disabled: setGiftOptionsOnCartLoading,
-        priority: 'low',
-        type: 'button',
-        onClick: handleRemoveGiftMessage
-    };
-
     const editGiftMessageButtonProps = {
-        disabled: setGiftOptionsOnCartLoading,
+        disabled:
+            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
         priority: 'normal',
         type: 'button',
-        onClick: handleToggleGiftMessage
+        onClick: handleToggleGiftMessageResult
     };
 
     const cancelGiftMessageButtonProps = {
-        disabled: setGiftOptionsOnCartLoading,
+        disabled:
+            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
         priority: 'low',
         type: 'button',
-        onClick: handleToggleGiftMessage
+        onClick: handleToggleGiftMessageResult
     };
 
-    const updateGiftMessageButtonProps = {
-        disabled: setGiftOptionsOnCartLoading,
+    const saveGiftMessageButtonProps = {
+        disabled:
+            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
         priority: 'normal',
         type: 'button',
         onClick: handleUpdateGiftMessage
@@ -292,20 +321,21 @@ export const useGiftOptions = (props = {}) => {
 
     return {
         loading,
-        savingOptions,
         errors,
+        savingOptions,
         giftReceiptProps,
         printedCardProps,
+        printedCardPrice,
+        giftMessageCheckboxProps,
         giftMessageResult,
         hasGiftMessage,
         showGiftMessageResult,
         cardToProps,
         cardFromProps,
         cardMessageProps,
-        removeGiftMessageButtonProps,
         editGiftMessageButtonProps,
         cancelGiftMessageButtonProps,
-        updateGiftMessageButtonProps,
+        saveGiftMessageButtonProps,
         optionsFormProps
     };
 };
@@ -319,18 +349,20 @@ export const useGiftOptions = (props = {}) => {
  *
  * @property {Boolean} loading Query loading indicator.
  * @property {Object} errors Errors for GraphQl query and mutation.
+ * @property {Array} savingOptions Array containing fields that are busy.
  * @property {Object} giftReceiptProps Props for the `includeGiftReceipt` checkbox element.
  * @property {Object} printedCardProps Props for the `includePrintedCard` checkbox element.
+ * @property {Object} printedCardPrice Printed Card Price object.
+ * @property {Object} giftMessageCheckboxProps Props for the `includeGiftMessage` checkbox element.
  * @property {Object} giftMessageResult Object containing Gift Message data.
  * @property {Boolean} hasGiftMessage Checks if Gift Message data has all fields filled.
  * @property {Boolean} showGiftMessageResult Show or hide Gift Message result.
  * @property {Object} cardToProps Props for the `cardTo` text input element.
  * @property {Object} cardFromProps Props for the `cardFrom` text input element.
  * @property {Object} cardMessageProps Props for the `cardMessage` textarea element.
- * @property {Object} removeGiftMessageButtonProps Props for the Remove Gift Message button.
  * @property {Object} editGiftMessageButtonProps Props for the Edit Gift Message button.
  * @property {Object} cancelGiftMessageButtonProps Props for the Cancel Gift Message button.
- * @property {Object} updateGiftMessageButtonProps Props for the Update Gift Message button.
+ * @property {Object} saveGiftMessageButtonProps Props for the Update Gift Message button.
  * @property {Object} optionsFormProps Props for the form element.
  */
 

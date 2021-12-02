@@ -35,6 +35,11 @@
     -webkit-appearance: none;
 }
 
+.input:disabled {
+    background: rgb(var(--venia-global-color-gray-100));
+    color: rgb(var(--venia-global-color-gray-darker));
+}
+
 .input:focus {
     box-shadow: -6px 6px rgb(var(--venia-brand-color-1-100));
     outline: none;

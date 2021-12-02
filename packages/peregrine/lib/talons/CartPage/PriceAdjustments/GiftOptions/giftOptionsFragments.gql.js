@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+import { GiftOptionsSummaryFragment } from '../../PriceSummary/queries/giftOptionsSummary';
+
 export const GiftOptionsFragment = gql`
     fragment GiftOptionsFragment on Cart {
         __typename
@@ -11,5 +13,7 @@ export const GiftOptionsFragment = gql`
         }
         gift_receipt_included
         printed_card_included
+        ...GiftOptionsSummaryFragment
     }
+    ${GiftOptionsSummaryFragment}
 `;

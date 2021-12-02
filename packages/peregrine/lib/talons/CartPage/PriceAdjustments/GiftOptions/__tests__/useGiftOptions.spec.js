@@ -8,17 +8,9 @@ import typePolicies from '@magento/peregrine/lib/Apollo/policies';
 import DEFAULT_OPERATIONS from '../giftOptions.gql';
 import { useGiftOptions } from '../useGiftOptions';
 
-const { isEqual } = require('lodash');
-
 // Could not figure out fakeTimers. Just mock debounce and call callback.
 jest.mock('lodash.debounce', () => {
     return callback => args => callback(args);
-});
-
-jest.mock('lodash', () => {
-    return {
-        isEqual: jest.fn().mockReturnValue(false)
-    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => ({
@@ -73,13 +65,42 @@ const getGiftOptionsMock1 = {
                     message: 'message'
                 },
                 gift_receipt_included: false,
-                printed_card_included: false
+                printed_card_included: false,
+                prices: {
+                    gift_options: {
+                        printed_card: {
+                            currency: 'USD',
+                            value: 10
+                        }
+                    }
+                }
             }
         }
     }
 };
 
-const mockFormValues1 = {
+const setGiftOptionsOnCartMock1 = {
+    request: {
+        query: DEFAULT_OPERATIONS.setGiftOptionsOnCartMutation,
+        variables: {
+            cartId: '123',
+            giftReceiptIncluded: true,
+            printedCardIncluded: true
+        }
+    },
+    newData: jest.fn(() => ({
+        data: {
+            cart: {
+                __typename: 'Cart',
+                id: '123',
+                gift_receipt_included: true,
+                printed_card_included: true
+            }
+        }
+    }))
+};
+
+const mockFormValues2 = {
     cardTo: 'to2',
     cardFrom: 'from2',
     cardMessage: 'message2',
@@ -87,22 +108,23 @@ const mockFormValues1 = {
     includePrintedCard: false
 };
 
-const setGiftOptionsOnCartMock1 = generateMockForSetGiftOptionsOnCart(
-    mockFormValues1
-);
-
-const mockFormValues2 = {
-    includeGiftReceipt: false,
-    includePrintedCard: true
-};
-
 const setGiftOptionsOnCartMock2 = generateMockForSetGiftOptionsOnCart(
     mockFormValues2
 );
 
-const initialProps = {
-    shouldSubmit: false
+const mockFormValues3 = {
+    cardTo: '',
+    cardFrom: '',
+    cardMessage: '',
+    includeGiftReceipt: false,
+    includePrintedCard: false
 };
+
+const setGiftOptionsOnCartMock3 = generateMockForSetGiftOptionsOnCart(
+    mockFormValues3
+);
+
+const initialProps = undefined;
 
 const cache = new InMemoryCache({
     typePolicies
@@ -110,11 +132,7 @@ const cache = new InMemoryCache({
 
 const renderHookWithProviders = ({
     renderHookOptions = { initialProps },
-    mocks = [
-        getGiftOptionsMock1,
-        setGiftOptionsOnCartMock1,
-        setGiftOptionsOnCartMock2
-    ]
+    mocks = [getGiftOptionsMock1]
 } = {}) => {
     const wrapper = ({ children }) => (
         <MockedProvider mocks={mocks} cache={cache} addTypename={true}>
@@ -132,27 +150,56 @@ describe('#useGiftOptions', () => {
         // Check data while loading
         expect(result.current).toMatchInlineSnapshot(`
             Object {
+              "cancelGiftMessageButtonProps": Object {
+                "disabled": true,
+                "onClick": [Function],
+                "priority": "low",
+                "type": "button",
+              },
               "cardFromProps": Object {
-                "allowEmptyString": true,
+                "disabled": true,
                 "field": "cardFrom",
+                "validate": [Function],
               },
               "cardMessageProps": Object {
-                "allowEmptyString": true,
+                "disabled": true,
                 "field": "cardMessage",
+                "validate": [Function],
               },
               "cardToProps": Object {
-                "allowEmptyString": true,
+                "disabled": true,
                 "field": "cardTo",
+                "validate": [Function],
+              },
+              "editGiftMessageButtonProps": Object {
+                "disabled": true,
+                "onClick": [Function],
+                "priority": "normal",
+                "type": "button",
               },
               "errors": Map {
                 "setGiftOptionsOnCartMutation" => undefined,
                 "getGiftOptionsQuery" => undefined,
               },
+              "giftMessageCheckboxProps": Object {
+                "disabled": false,
+                "field": "includeGiftMessage",
+                "initialValue": false,
+                "onValueChange": [Function],
+              },
+              "giftMessageResult": Object {
+                "cardFrom": "",
+                "cardMessage": "",
+                "cardTo": "",
+              },
               "giftReceiptProps": Object {
                 "field": "includeGiftReceipt",
+                "onChange": [Function],
               },
+              "hasGiftMessage": false,
               "loading": true,
               "optionsFormProps": Object {
+                "getApi": [Function],
                 "initialValues": Object {
                   "cardFrom": "",
                   "cardMessage": "",
@@ -160,11 +207,20 @@ describe('#useGiftOptions', () => {
                   "includeGiftReceipt": false,
                   "includePrintedCard": false,
                 },
-                "onValueChange": [Function],
               },
+              "printedCardPrice": Object {},
               "printedCardProps": Object {
                 "field": "includePrintedCard",
+                "onChange": [Function],
               },
+              "saveGiftMessageButtonProps": Object {
+                "disabled": true,
+                "onClick": [Function],
+                "priority": "normal",
+                "type": "button",
+              },
+              "savingOptions": Array [],
+              "showGiftMessageResult": false,
             }
         `);
 
@@ -174,27 +230,56 @@ describe('#useGiftOptions', () => {
         // Check data after load
         expect(result.current).toMatchInlineSnapshot(`
             Object {
+              "cancelGiftMessageButtonProps": Object {
+                "disabled": true,
+                "onClick": [Function],
+                "priority": "low",
+                "type": "button",
+              },
               "cardFromProps": Object {
-                "allowEmptyString": true,
+                "disabled": true,
                 "field": "cardFrom",
+                "validate": [Function],
               },
               "cardMessageProps": Object {
-                "allowEmptyString": true,
+                "disabled": true,
                 "field": "cardMessage",
+                "validate": [Function],
               },
               "cardToProps": Object {
-                "allowEmptyString": true,
+                "disabled": true,
                 "field": "cardTo",
+                "validate": [Function],
+              },
+              "editGiftMessageButtonProps": Object {
+                "disabled": true,
+                "onClick": [Function],
+                "priority": "normal",
+                "type": "button",
               },
               "errors": Map {
                 "setGiftOptionsOnCartMutation" => undefined,
                 "getGiftOptionsQuery" => undefined,
               },
+              "giftMessageCheckboxProps": Object {
+                "disabled": false,
+                "field": "includeGiftMessage",
+                "initialValue": false,
+                "onValueChange": [Function],
+              },
+              "giftMessageResult": Object {
+                "cardFrom": "from",
+                "cardMessage": "message",
+                "cardTo": "to",
+              },
               "giftReceiptProps": Object {
                 "field": "includeGiftReceipt",
+                "onChange": [Function],
               },
+              "hasGiftMessage": true,
               "loading": false,
               "optionsFormProps": Object {
+                "getApi": [Function],
                 "initialValues": Object {
                   "cardFrom": "from",
                   "cardMessage": "message",
@@ -202,97 +287,172 @@ describe('#useGiftOptions', () => {
                   "includeGiftReceipt": false,
                   "includePrintedCard": false,
                 },
-                "onValueChange": [Function],
+              },
+              "printedCardPrice": Object {
+                "currency": "USD",
+                "value": 10,
               },
               "printedCardProps": Object {
                 "field": "includePrintedCard",
+                "onChange": [Function],
               },
+              "saveGiftMessageButtonProps": Object {
+                "disabled": true,
+                "onClick": [Function],
+                "priority": "normal",
+                "type": "button",
+              },
+              "savingOptions": Array [],
+              "showGiftMessageResult": false,
             }
         `);
     });
 
-    it('returns mutation data when user updates form and data is not the same', async () => {
-        const { result, rerender } = renderHookWithProviders();
-
-        // Update form data - 1
-        await act(() => {
-            result.current.optionsFormProps.onValueChange(mockFormValues1);
+    it('returns mutation data when user select gift receipt', async () => {
+        const { result, waitForValueToChange } = renderHookWithProviders({
+            mocks: [setGiftOptionsOnCartMock1]
         });
 
-        // Validate that the cache is updated
-        const preCacheData1 = cache.readQuery({
-            query: DEFAULT_OPERATIONS.getGiftOptionsQuery
-        });
-
-        expect(preCacheData1).toMatchInlineSnapshot(`
-            Object {
-              "cart": Object {
-                "__typename": "Cart",
-                "gift_message": Object {
-                  "from": "from2",
-                  "message": "message2",
-                  "to": "to2",
-                },
-                "gift_receipt_included": true,
-                "id": "123",
-                "printed_card_included": false,
-              },
+        const fieldName = result.current.giftReceiptProps.field;
+        const element = {
+            target: {
+                name: fieldName
             }
-        `);
+        };
 
-        rerender({
-            shouldSubmit: true
-        });
+        expect(result.current.savingOptions).toEqual([]);
 
-        expect(setGiftOptionsOnCartMock1.newData).toHaveBeenCalled();
-
-        // Update form data - 2
+        // Test without form api
         await act(() => {
-            result.current.optionsFormProps.onValueChange(mockFormValues2);
+            result.current.giftReceiptProps.onChange(element);
         });
 
-        // Validate that the cache is updated
-        const preCacheData2 = cache.readQuery({
-            query: DEFAULT_OPERATIONS.getGiftOptionsQuery
+        // Test checkbox checked
+        await act(() => {
+            result.current.optionsFormProps.getApi({
+                getValue: jest.fn().mockReturnValue(true)
+            });
+
+            result.current.giftReceiptProps.onChange(element);
         });
 
-        expect(preCacheData2).toMatchInlineSnapshot(`
-            Object {
-              "cart": Object {
-                "__typename": "Cart",
-                "gift_message": Object {
-                  "from": "",
-                  "message": "",
-                  "to": "",
-                },
-                "gift_receipt_included": false,
-                "id": "123",
-                "printed_card_included": true,
-              },
-            }
-        `);
+        expect(result.current.savingOptions).toContain(fieldName);
 
-        rerender({
-            shouldSubmit: true
-        });
+        // Wait for value to change
+        await waitForValueToChange(() => result.current.savingOptions);
 
-        expect(setGiftOptionsOnCartMock2.newData).toHaveBeenCalled();
+        expect(result.current.savingOptions).toEqual([]);
     });
 
-    it('does not return mutation data when user updates form and data is the same', async () => {
-        // Emulate form data was not changed
-        isEqual.mockReturnValue(true);
+    it('returns mutation data when user adds gift message', async () => {
+        const { result, waitForValueToChange } = renderHookWithProviders({
+            mocks: [setGiftOptionsOnCartMock2]
+        });
 
-        const { result, rerender } = renderHookWithProviders();
+        expect(result.current.savingOptions).toEqual([]);
 
+        // Toggle Gift Message section
         await act(() => {
-            result.current.optionsFormProps.onValueChange(mockFormValues1);
+            result.current.giftMessageCheckboxProps.onValueChange(true);
         });
 
-        rerender({
-            shouldSubmit: true
+        // Test without form api
+        await act(() => {
+            result.current.saveGiftMessageButtonProps.onClick();
         });
 
-        expect(setGiftOptionsOnCartMock1.newData).not.toHaveBeenCalled();
+        // Test with invalid form
+        await act(() => {
+            result.current.optionsFormProps.getApi({
+                getState: jest.fn().mockImplementation(() => {
+                    return {
+                        invalid: true
+                    };
+                }),
+                getValue: jest.fn().mockImplementation(field => {
+                    return mockFormValues2[field];
+                }),
+                validate: jest.fn()
+            });
+
+            result.current.saveGiftMessageButtonProps.onClick();
+        });
+
+        // Test with valid form
+        await act(() => {
+            result.current.optionsFormProps.getApi({
+                getState: jest.fn().mockImplementation(() => {
+                    return {
+                        invalid: false
+                    };
+                }),
+                getValue: jest.fn().mockImplementation(field => {
+                    return mockFormValues2[field];
+                }),
+                validate: jest.fn()
+            });
+
+            result.current.saveGiftMessageButtonProps.onClick();
+        });
+
+        expect(result.current.savingOptions).toContain('giftMessage');
+
+        // Wait for value to change
+        await waitForValueToChange(() => result.current.savingOptions);
+
+        expect(result.current.savingOptions).toEqual([]);
+        expect(result.current.showGiftMessageResult).toBe(true);
+
+        // Start Edit Gift Message
+        await act(() => {
+            result.current.editGiftMessageButtonProps.onClick();
+        });
+
+        expect(result.current.showGiftMessageResult).toBe(false);
+
+        // Cancel Edit Gift Message
+        await act(() => {
+            result.current.cancelGiftMessageButtonProps.onClick();
+        });
+
+        expect(result.current.showGiftMessageResult).toBe(true);
+    });
+
+    it('returns mutation data when user removes gift message', async () => {
+        const { result, waitForValueToChange } = renderHookWithProviders({
+            mocks: [getGiftOptionsMock1, setGiftOptionsOnCartMock3]
+        });
+
+        expect(result.current.savingOptions).toEqual([]);
+
+        // Test without form api
+        await act(() => {
+            result.current.giftMessageCheckboxProps.onValueChange(false);
+        });
+
+        // Toggle form
+        await act(() => {
+            result.current.giftMessageCheckboxProps.onValueChange(true);
+        });
+
+        // Removes Gift Message
+        await act(() => {
+            result.current.optionsFormProps.getApi({
+                getValue: jest.fn().mockImplementation(field => {
+                    return mockFormValues3[field];
+                }),
+                setError: jest.fn,
+                setValues: jest.fn()
+            });
+
+            result.current.giftMessageCheckboxProps.onValueChange(false);
+        });
+
+        expect(result.current.savingOptions).toContain('giftMessage');
+
+        // Wait for value to change
+        await waitForValueToChange(() => result.current.savingOptions);
+
+        expect(result.current.savingOptions).toEqual([]);
     });
 });

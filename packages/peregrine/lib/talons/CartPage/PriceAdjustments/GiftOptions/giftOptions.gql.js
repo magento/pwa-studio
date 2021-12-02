@@ -1,4 +1,6 @@
 import { gql } from '@apollo/client';
+
+import { CartPageFragment } from '../../cartPageFragments.gql';
 import { GiftOptionsFragment } from './giftOptionsFragments.gql';
 
 const GET_GIFT_OPTIONS = gql`
@@ -29,10 +31,12 @@ const SET_GIFT_OPTIONS_ON_CART = gql`
         ) {
             cart {
                 id
+                ...CartPageFragment
                 ...GiftOptionsFragment
             }
         }
     }
+    ${CartPageFragment}
     ${GiftOptionsFragment}
 `;
 
