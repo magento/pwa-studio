@@ -316,8 +316,9 @@ export const GET_PRODUCTS_BY_URL_KEY = gql`
 
 export const GET_STORE_CONFIG_DATA = gql`
     query getStoreConfigData {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             product_url_suffix
         }
     }

@@ -23,8 +23,9 @@ export const ADD_TO_WISHLIST = gql`
 
 export const GET_WISHLISTS = gql`
     query getWishlistsDialogData {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             enable_multiple_wishlists
             maximum_number_of_wishlists
         }

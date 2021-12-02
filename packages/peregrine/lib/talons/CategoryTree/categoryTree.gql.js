@@ -2,8 +2,9 @@ import { gql } from '@apollo/client';
 
 export const GET_CATEGORY_URL_SUFFIX = gql`
     query GetStoreConfigForCategoryTree {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             category_url_suffix
         }
     }

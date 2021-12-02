@@ -2,8 +2,9 @@ import { gql } from '@apollo/client';
 
 export const GET_STORE_CONFIG_DATA = gql`
     query getStoreConfigData {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             code
             store_name
             store_group_name

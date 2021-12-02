@@ -74,7 +74,7 @@ beforeAll(() => {
                 total_quantity: 10
             },
             storeConfig: {
-                id: 1,
+                store_code: 1,
                 configurable_thumbnail_source: 'parent',
                 product_url_suffix: '.html'
             }

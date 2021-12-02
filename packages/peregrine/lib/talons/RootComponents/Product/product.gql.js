@@ -4,8 +4,9 @@ import { ProductDetailsFragment } from './productDetailFragment.gql';
 
 export const GET_STORE_CONFIG_DATA = gql`
     query getStoreConfigData {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         storeConfig {
-            id
+            store_code
             product_url_suffix
         }
     }
