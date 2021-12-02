@@ -159,7 +159,6 @@ const GuestForm = props => {
                                 const text = e.clipboardData.getData(
                                     'text/plain'
                                 );
-                                console.log(`pasted ${text}`);
                                 handleValidateEmail(text);
                             }}
                         />
