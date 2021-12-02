@@ -58,7 +58,7 @@ export const PRODUCT_SEARCH = gql`
                     url
                 }
                 stock_status
-                type_id
+                __typename
                 url_key
             }
             page_info {
