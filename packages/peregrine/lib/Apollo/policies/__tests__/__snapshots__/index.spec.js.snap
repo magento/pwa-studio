@@ -120,7 +120,7 @@ Object {
   },
   "SelectedConfigurableOption": Object {
     "keyFields": Array [
-      "id",
+      "uid",
       "value_id",
     ],
   },
