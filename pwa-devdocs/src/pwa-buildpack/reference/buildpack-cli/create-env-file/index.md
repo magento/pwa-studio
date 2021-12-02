@@ -1,5 +1,6 @@
 ---
 title: create-env-file
+adobeio: /api/buildpack/cli/create-environment-file/
 ---
 
 Whether its a new storefront project or a fresh PWA Studio repository clone, PWA Studio requires a `.env` file to set up the environment for your site.

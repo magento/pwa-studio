@@ -1,5 +1,6 @@
 ---
 title: Modify code with Targetables
+adobeio: /tutorials/targets/
 ---
 
 _Targetables_ are objects that give you access to the source code for the files in your project or library.

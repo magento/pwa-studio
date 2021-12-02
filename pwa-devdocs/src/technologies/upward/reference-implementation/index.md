@@ -1,5 +1,6 @@
 ---
 title: Reference Implementation
+adobeio: /guides/packages/upward/javascript/
 ---
 
 The [upward-js][] package is a reference implementation of the [UPWARD][] specification built using JavaScript.

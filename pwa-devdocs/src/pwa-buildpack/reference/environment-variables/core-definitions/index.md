@@ -1,5 +1,6 @@
 ---
 title: Core environment variable definitions
+adobeio: /api/buildpack/environment/variables/
 ---
 
 Environment variable definitions are used for validation and documentation of the [configuration management system][] of PWA Studio.

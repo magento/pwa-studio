@@ -1,5 +1,6 @@
 ---
 title: Troubleshooting
+adobeio: /troubleshooting/
 ---
 
 This page lists solutions for common issues reported by community members for the PWA Buildpack project.

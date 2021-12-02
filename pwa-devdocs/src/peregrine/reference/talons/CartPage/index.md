@@ -1,5 +1,6 @@
 ---
 title: Cart Page Talons
+adobeio: /api/peregrine/talons/CartPage/
 ---
 
 <!--

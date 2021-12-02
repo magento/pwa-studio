@@ -1,5 +1,6 @@
 ---
 title: Target
+adobeio: /api/buildpack/targets/
 ---
 
 <!--
