@@ -1,5 +1,6 @@
 ---
 title: Gift Cards Talons
+adobeio: /api/peregrine/talons/CartPage/GiftCards/
 ---
 
 <!--

@@ -1,5 +1,6 @@
 ---
 title: useSearchParam
+adobeio: /api/peregrine/hooks/useSearchParam/
 ---
 
 <!--

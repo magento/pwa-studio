@@ -1,5 +1,6 @@
 ---
 title: Shimmer
+adobeio: /api/venia/components/general/Shimmer/
 ---
 
 The Shimmer component is a loading indicator that takes the shape of the component being loaded.

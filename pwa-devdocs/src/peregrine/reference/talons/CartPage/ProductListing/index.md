@@ -1,5 +1,6 @@
 ---
 title: Product Listing Talons
+adobeio: /api/peregrine/talons/CartPage/ProductListing/
 ---
 
 These talons provide logic for components that render products in a shopping cart and forms that update the quantity or configuration for each product.
