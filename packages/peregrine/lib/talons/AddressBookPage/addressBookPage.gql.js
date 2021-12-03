@@ -4,6 +4,7 @@ import { CustomerAddressBookAddressFragment } from './addressBookFragments.gql';
 
 export const GET_CUSTOMER_ADDRESSES = gql`
     query GetCustomerAddressesForAddressBook {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
             addresses {
                 id

@@ -5,6 +5,7 @@ import { WishlistItemFragment } from './wishlistItemFragments.gql';
 
 export const GET_CUSTOMER_WISHLIST = gql`
     query GetCustomerWishlist {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
             wishlists {
                 id
@@ -17,6 +18,7 @@ export const GET_CUSTOMER_WISHLIST = gql`
 
 export const GET_CUSTOMER_WISHLIST_ITEMS = gql`
     query getCustomerWishlist($id: ID!, $currentPage: Int) {
+        # eslint-disable-next-line @graphql-eslint/require-id-when-available
         customer {
             wishlist_v2(id: $id) {
                 id
