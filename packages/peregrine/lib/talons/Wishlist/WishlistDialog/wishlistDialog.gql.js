@@ -29,7 +29,6 @@ export const GET_WISHLISTS = gql`
             maximum_number_of_wishlists
         }
         customer {
-            id
             wishlists {
                 id
                 name

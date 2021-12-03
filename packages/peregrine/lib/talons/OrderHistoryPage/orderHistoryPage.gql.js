@@ -99,7 +99,6 @@ export const GET_CUSTOMER_ORDERS = gql`
         $pageSize: Int!
     ) {
         customer {
-            id
             orders(filter: $filter, pageSize: $pageSize) {
                 ...CustomerOrdersFragment
             }

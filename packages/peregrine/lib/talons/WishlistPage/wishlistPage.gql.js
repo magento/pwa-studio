@@ -5,7 +5,6 @@ import { WishlistPageFragment } from './wishlistFragment.gql';
 export const GET_CUSTOMER_WISHLIST = gql`
     query GetCustomerWishlist {
         customer {
-            id
             wishlists {
                 id
                 ...WishlistPageFragment

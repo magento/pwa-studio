@@ -5,7 +5,6 @@ import { CustomerAddressBookAddressFragment } from './addressBookFragments.gql';
 export const GET_CUSTOMER_ADDRESSES = gql`
     query GetCustomerAddressesForAddressBook {
         customer {
-            id
             addresses {
                 id
                 ...CustomerAddressBookAddressFragment
@@ -19,10 +18,6 @@ export const GET_CUSTOMER_ADDRESSES = gql`
     ${CustomerAddressBookAddressFragment}
 `;
 
-/**
- * We use the connection key directive here because Apollo will save
- * this customer's PII in localStorage if not.
- */
 export const ADD_NEW_CUSTOMER_ADDRESS = gql`
     mutation AddNewCustomerAddressToAddressBook(
         $address: CustomerAddressInput!

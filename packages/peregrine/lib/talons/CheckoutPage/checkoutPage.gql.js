@@ -45,7 +45,6 @@ export const GET_CHECKOUT_DETAILS = gql`
 export const GET_CUSTOMER = gql`
     query GetCustomerForCheckout {
         customer {
-            id
             default_shipping
             firstname
         }

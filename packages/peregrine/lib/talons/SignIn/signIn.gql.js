@@ -4,7 +4,6 @@ import { CheckoutPageFragment } from '../CheckoutPage/checkoutPageFragments.gql'
 export const GET_CUSTOMER = gql`
     query GetCustomerAfterSignIn {
         customer {
-            id
             email
             firstname
             lastname

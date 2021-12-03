@@ -35,7 +35,6 @@ export const UPDATE_CUSTOMER_ADDRESS_MUTATION = gql`
 export const GET_CUSTOMER_QUERY = gql`
     query GetCustomer {
         customer {
-            id
             default_shipping
             email
             firstname

@@ -5,7 +5,6 @@ import { GET_PRODUCTS_IN_WISHLISTS } from '@magento/peregrine/lib/talons/Wishlis
 export const GET_WISHLIST_ITEMS = gql`
     query GetWishlistItemsForLocalField($currentPage: Int!) {
         customer {
-            id
             wishlists {
                 id
                 items_v2(currentPage: $currentPage, pageSize: 10) {

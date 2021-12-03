@@ -7,7 +7,6 @@ import { ShippingInformationFragment } from '../ShippingInformation/shippingInfo
 export const GET_CUSTOMER_ADDRESSES = gql`
     query GetCustomerAddresses {
         customer {
-            id
             addresses {
                 id
                 ...CustomerAddressFragment

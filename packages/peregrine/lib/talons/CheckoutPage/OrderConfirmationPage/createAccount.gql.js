@@ -20,7 +20,7 @@ export const CREATE_ACCOUNT = gql`
             # The createCustomer mutation returns a non-nullable CustomerOutput type
             # which requires that at least one of the sub fields be returned.
             customer {
-                id
+                email
             }
         }
     }
@@ -29,7 +29,6 @@ export const CREATE_ACCOUNT = gql`
 export const GET_CUSTOMER = gql`
     query GetCustomerAfterCheckout {
         customer {
-            id
             email
             firstname
             lastname
