@@ -7,6 +7,10 @@
 3. Run `yarn test`
 4. Now select test to Run from Cypress UI.
 
+### NOTE
+
+`packages/venia-concept/.env` must have variable set `BABEL_KEEP_ATTRIBUTES=true` in order to load `data-cy` and keep data attributes for Cypress on test deployed instances.
+
 ## Run tests in headless mode
 
 Running tests in the headless mode is the preferred option when testing in the Continuous Integration. Before updating/creating any tests, please run the test suite in headless mode to make sure they are running as expected.
