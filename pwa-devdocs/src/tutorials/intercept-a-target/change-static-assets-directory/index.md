@@ -1,5 +1,6 @@
 ---
 title: Change static assets directory
+adobeio: /tutorials/targets/change-static-assets-directory/
 ---
 
 When you build a storefront project based on the Venia template, it copies the [`venia-static` directory][] from the `venia-ui` package into your `dist` directory.

@@ -1,5 +1,6 @@
 ---
 title: create-project
+adobeio: /api/buildpack/cli/create-project/
 ---
 
 The `create-project` sub-command of the [`pwa-buildpack`][] CLI is a [scaffolding][] tool used to create a fresh PWA Studio app in a new project directory.

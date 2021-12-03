@@ -1,5 +1,6 @@
 ---
 title: Scaffolding
+adobeio: /guides/packages/buildpack/scaffolding/
 ---
 
 Project scaffolding is a technique for auto-generating files to support a specific project structure.

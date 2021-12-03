@@ -1,5 +1,6 @@
 ---
 title: useEventListener
+adobeio: /api/peregrine/hooks/useEventListener/
 ---
 
 <!--

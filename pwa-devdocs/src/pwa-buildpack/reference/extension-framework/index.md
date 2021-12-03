@@ -1,5 +1,6 @@
 ---
 title: BuildBus
+adobeio: /api/buildpack/buildbus/
 ---
 
 <!--
