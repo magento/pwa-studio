@@ -1,5 +1,6 @@
 ---
 title: Gift Options Talons
+adobeio: /api/peregrine/talons/CartPage/GiftOptions/
 ---
 
 <!--

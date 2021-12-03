@@ -1,5 +1,6 @@
 ---
 title: Custom project templates
+adobeio: /guides/packages/buildpack/project-templates/
 ---
 
 PWA Studio [scaffolding tools][] allow you to specify a template to build a new storefront project.

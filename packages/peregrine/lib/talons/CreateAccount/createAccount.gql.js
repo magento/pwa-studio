@@ -64,8 +64,9 @@ export const GET_CART_DETAILS = gql`
                         value
                     }
                 }
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 product {
-                    id
+                    uid
                     name
                     sku
                     small_image {
