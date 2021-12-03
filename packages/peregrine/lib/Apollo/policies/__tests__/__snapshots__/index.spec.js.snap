@@ -51,6 +51,11 @@ Object {
     },
     "keyFields": [Function],
   },
+  "CartItemInterface": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
   "CategoryTree": Object {
     "fields": Object {
       "children": Object {

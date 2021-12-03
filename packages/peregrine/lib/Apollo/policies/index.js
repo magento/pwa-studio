@@ -313,6 +313,9 @@ const typePolicies = {
     },
     VirtualProduct: {
         keyFields: ['uid']
+    },
+    CartItemInterface: {
+        keyFields: ['uid']
     }
 };
 

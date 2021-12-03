@@ -57,8 +57,9 @@ export const GET_CART_DETAILS = gql`
     query GetCartDetailsAfterAccountCreation($cartId: String!) {
         cart(cart_id: $cartId) {
             id
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
-                id
+                uid
                 prices {
                     price {
                         value
@@ -82,6 +83,7 @@ export const GET_CART_DETAILS = gql`
                     }
                 }
                 quantity
+                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableCartItem {
                     configurable_options {
                         id
@@ -111,8 +113,9 @@ export const MERGE_CARTS = gql`
             destination_cart_id: $destinationCartId
         ) {
             id
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
-                id
+                uid
             }
             ...CheckoutPageFragment
         }
