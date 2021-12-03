@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { useIntl } from 'react-intl';
-import { bool, func } from 'prop-types';
+import { func } from 'prop-types';
 
 import { useStyle } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
