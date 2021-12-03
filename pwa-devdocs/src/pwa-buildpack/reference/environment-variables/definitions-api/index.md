@@ -1,5 +1,6 @@
 ---
 title: Environment variable definition API
+adobeio: /api/buildpack/environment/definition-object/
 ---
 
 <!--

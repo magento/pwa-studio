@@ -1,5 +1,6 @@
 ---
 title: Router
+adobeio: /api/peregrine/components-and-utilities/Router/
 ---
 
 The Peregrine Router is a client-side router that is designed to understand the different storefront routes within Magento 2.
