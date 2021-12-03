@@ -1,9 +1,10 @@
 .megaMenuItem,
 .megaMenuItemClicked {
-    padding: 0 10px;
+    padding: 0;
 }
 
 .megaMenuLink {
+    padding: 0 10px;
     align-items: center;
     display: inline-flex;
     min-height: 5rem;
