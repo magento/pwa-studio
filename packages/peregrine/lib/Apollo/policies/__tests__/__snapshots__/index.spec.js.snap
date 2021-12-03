@@ -53,6 +53,11 @@ Object {
       },
     },
   },
+  "ConfigurableProductOptions": Object {
+    "keyFields": Array [
+      "uid",
+    ],
+  },
   "ConfigurableWishlistItem": Object {
     "keyFields": [Function],
   },
@@ -120,7 +125,7 @@ Object {
   },
   "SelectedConfigurableOption": Object {
     "keyFields": Array [
-      "uid",
+      "id",
       "value_id",
     ],
   },

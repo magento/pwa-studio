@@ -91,18 +91,18 @@ const getProductDetailMock2 = {
 };
 
 const mockItem = {
-    configurable_options: [{ uid: 1, value_id: 'red-id' }],
+    configurable_options: [{ id: 1, value_id: 'red-id' }],
     product: {
         configurable_options: [
             {
-                attribute_uid: 1,
+                attribute_id_v2: 1,
                 values: [
                     { value_index: 'red-id', uid: 'red-uid' },
                     { value_index: 'blue-id', uid: 'blue-uid' }
                 ]
             },
             {
-                attribute_uid: 2,
+                attribute_id_v2: 2,
                 values: [
                     { value_index: 'large-id', uid: 'large-uid' },
                     { value_index: 'medium-id', uid: 'medium-uid' }

@@ -7,8 +7,8 @@ const GET_PRODUCT_DETAIL = gql`
         $configurableOptionValues: [ID!]
     ) {
         products(filter: { sku: { eq: $sku } }) {
-            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
+                id
                 uid
                 image {
                     label
@@ -22,7 +22,6 @@ const GET_PRODUCT_DETAIL = gql`
                         }
                     }
                 }
-                # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableProduct {
                     # eslint-disable-next-line @graphql-eslint/require-id-when-available
                     configurable_options {
@@ -42,8 +41,8 @@ const GET_PRODUCT_DETAIL = gql`
                             label
                             url
                         }
-                        # eslint-disable-next-line @graphql-eslint/require-id-when-available
                         variant {
+                            id
                             uid
                             price_range {
                                 maximum_price {
