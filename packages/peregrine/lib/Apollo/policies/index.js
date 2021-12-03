@@ -37,8 +37,8 @@ const typePolicies = {
         keyFields: ['carrier_code', 'method_code']
     },
     Breadcrumb: {
-        // Uses provided fields on the object as the `id`.
-        keyFields: ['category_id']
+        // Uses provided fields on the object as the `uid`.
+        keyFields: ['category_uid']
     },
     Cart: {
         keyFields: () => 'Cart',
@@ -298,6 +298,21 @@ const typePolicies = {
     },
     GiftCardWishlistItem: {
         keyFields: ({ id }) => `CustomerGiftCardWishlistItem:${id}`
+    },
+    SimpleProduct: {
+        keyFields: ['uid']
+    },
+    ConfigurableProduct: {
+        keyFields: ['uid']
+    },
+    BundleProduct: {
+        keyFields: ['uid']
+    },
+    GroupedProduct: {
+        keyFields: ['uid']
+    },
+    VirtualProduct: {
+        keyFields: ['uid']
     }
 };
 
