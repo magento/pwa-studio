@@ -19,11 +19,11 @@ export const GET_ROUTE_DATA = gql`
                 identifier
             }
             ... on ProductInterface {
-                id
+                uid
                 __typename
             }
             ... on CategoryInterface {
-                id
+                uid
             }
         }
     }

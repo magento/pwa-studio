@@ -75,12 +75,12 @@ const storeConfigResponse = {
 };
 
 const categoryPageResponse = {
-    id: 1,
+    uid: "Mw==",
     type: 'CATEGORY'
 };
 
 const productPageResponse = {
-    id: 1,
+    uid: 'MTEwMw==',
     type: 'PRODUCT',
     __typename: 'ConfigurableProduct'
 };
