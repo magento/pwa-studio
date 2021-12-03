@@ -54,12 +54,12 @@ export const useCategoryTree = props => {
 
     // update redux with fetched categories
     useEffect(() => {
-        if (data && data.category) {
-            updateCategories(data.category);
+        if (data && data.categories.items[0]) {
+            updateCategories(data.categories.items[0]);
         }
     }, [data, updateCategories]);
 
-    const rootCategory = data && data.category;
+    const rootCategory = data && data.categories.items[0];
 
     const { children = [] } = rootCategory || {};
 
@@ -72,7 +72,7 @@ export const useCategoryTree = props => {
             rootCategory.include_in_menu &&
             rootCategory.url_path
         ) {
-            childCategories.set(rootCategory.id, {
+            childCategories.set(rootCategory.uid, {
                 category: rootCategory,
                 isLeaf: true
             });
@@ -81,7 +81,7 @@ export const useCategoryTree = props => {
         children.map(category => {
             if (category.include_in_menu) {
                 const isLeaf = !parseInt(category.children_count);
-                childCategories.set(category.id, { category, isLeaf });
+                childCategories.set(category.uid, { category, isLeaf });
             }
         });
 
