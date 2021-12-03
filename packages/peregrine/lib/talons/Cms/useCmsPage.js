@@ -12,7 +12,7 @@ import DEFAULT_OPERATIONS from './cmsPage.gql';
  * @param {{identifier}} props
  * @param {String} props.identifier - CMS Page Identifier
  * @param {Object} props.operations - Collection of GraphQL queries
- * @returns {{shouldShowLoadingIndicator: *, hasContent: *, cmsPage: *, error: *}}
+ * @returns {{cmsPage: *, shouldShowLoadingIndicator: *}}
  */
 export const useCmsPage = props => {
     const { identifier } = props;
@@ -20,7 +20,7 @@ export const useCmsPage = props => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCMSPageQuery } = operations;
 
-    const { loading, error, data } = useQuery(getCMSPageQuery, {
+    const { loading, data } = useQuery(getCMSPageQuery, {
         variables: {
             identifier: identifier
         },
@@ -50,12 +50,9 @@ export const useCmsPage = props => {
     const shouldShowLoadingIndicator = loading && !data;
 
     const cmsPage = data ? data.cmsPage : null;
-    const rootCategoryId = data ? data.storeConfig.root_category_id : null;
 
     return {
         cmsPage,
-        error,
-        rootCategoryId,
         shouldShowLoadingIndicator
     };
 };
