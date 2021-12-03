@@ -130,7 +130,12 @@ const SearchPage = props => {
     ) : null;
 
     const maybeSortButton = shouldShowSortButtons ? (
-        availableSortMethods && <ProductSort sortProps={sortProps} availableSortMethods={availableSortMethods}/>
+        availableSortMethods && (
+            <ProductSort
+                sortProps={sortProps}
+                availableSortMethods={availableSortMethods}
+            />
+        )
     ) : shouldShowSortShimmer ? (
         <ProductSortShimmer />
     ) : null;

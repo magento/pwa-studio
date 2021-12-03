@@ -55,10 +55,12 @@ const ProductSort = props => {
         });
 
         // ensure filters are loaded so application doesn't crash
-        return availableSortMethods && (
-            <div className={classes.menu}>
-                <ul>{itemElements}</ul>
-            </div>
+        return (
+            availableSortMethods && (
+                <div className={classes.menu}>
+                    <ul>{itemElements}</ul>
+                </div>
+            )
         );
     }, [
         availableSortMethods,

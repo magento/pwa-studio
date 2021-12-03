@@ -85,7 +85,10 @@ const CategoryContent = props => {
     ) : null;
 
     const maybeSortButton = shouldShowSortButtons ? (
-        <ProductSort sortProps={sortProps} availableSortMethods={availableSortMethods} />
+        <ProductSort
+            sortProps={sortProps}
+            availableSortMethods={availableSortMethods}
+        />
     ) : shouldShowSortShimmer ? (
         <ProductSortShimmer />
     ) : null;

@@ -44,7 +44,12 @@ jest.mock('../../../components/Head', () => ({
 
 const talonProps = {
     availableSortMethods: [
-        {id: 'sortItem.positionAsc', text: 'Position Asc', attribute: 'position', sortDirection: 'ASC'}
+        {
+            id: 'sortItem.positionAsc',
+            text: 'Position Asc',
+            attribute: 'position',
+            sortDirection: 'ASC'
+        }
     ],
     data: {
         products: {
