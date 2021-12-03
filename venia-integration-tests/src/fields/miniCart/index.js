@@ -2,11 +2,9 @@ export const miniCartCounter = '[data-cy="CartTrigger-counter"]';
 
 export const miniCartTriggerButton = '[data-cy="CartTrigger-trigger"]';
 
-export const miniCartEditCartButton =
-    '[data-cy="Minicart-editCartButton"]';
+export const miniCartEditCartButton = '[data-cy="Minicart-editCartButton"]';
 
-export const miniCartCheckoutButton =
-    '[data-cy="Minicart-checkoutButton"]';
+export const miniCartCheckoutButton = '[data-cy="Minicart-checkoutButton"]';
 
 export const guestElementSelector = '[data-cy="GuestForm-root"]';
 

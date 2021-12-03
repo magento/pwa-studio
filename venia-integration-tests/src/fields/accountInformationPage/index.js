@@ -4,8 +4,7 @@ export const accountInformationPageHeading =
 export const accountInformationEditButton =
     '[data-cy="AccountInformationPage-editInformationButton"]';
 
-export const accountInformationEditModalTitle =
-    '[data-cy="Dialog-headerText"]';
+export const accountInformationEditModalTitle = '[data-cy="Dialog-headerText"]';
 
 export const accountInformationEditModalFirstNameTextField =
     '[data-cy="Dialog-root"] [data-cy="firstname"]';
@@ -17,10 +16,10 @@ export const accountInformationEditModalEmailTextField =
     '[data-cy="Dialog-root"] [data-cy="email"]';
 
 export const accountInformationEditModalCurrentPasswordTextField =
-		'[data-cy="Dialog-root"] [data-cy="password"]';
+    '[data-cy="Dialog-root"] [data-cy="password"]';
 
 export const accountInformationEditModalNewPasswordTextField =
-		'[data-cy="Dialog-root"] [data-cy="newPassword"]';
+    '[data-cy="Dialog-root"] [data-cy="newPassword"]';
 
 export const accountInformationEditModalChangePasswordLink =
     '[data-cy="editForm-changePasswordButtonContainer"] [data-cy="linkButton-root"]';

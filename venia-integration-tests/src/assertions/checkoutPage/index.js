@@ -15,7 +15,7 @@ import {
     checkoutPagePriceSummaryDiscountSummary,
     checkoutPagePriceSummaryGiftCardSummary,
     orderConfirmationPage,
-		checkoutPageOpenedDialogSubmitButton
+    checkoutPageOpenedDialogSubmitButton
 } from '../../fields/checkoutPage';
 import {
     defaultShippingMethod,
@@ -223,7 +223,7 @@ export const assertOrderConfirmationHeadingInCheckoutPage = () => {
 };
 
 export const assertUpdateDataButtonIsVisible = () => {
-	cy.get(checkoutPageOpenedDialogSubmitButton).should($updateButton => {
-		expect($updateButton).to.be.visible;
-	});
+    cy.get(checkoutPageOpenedDialogSubmitButton).should($updateButton => {
+        expect($updateButton).to.be.visible;
+    });
 };

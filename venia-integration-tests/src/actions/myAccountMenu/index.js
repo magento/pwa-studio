@@ -21,6 +21,6 @@ export const goToMyAccount = (firstName, myAccountPage) => {
 
     // Click on my account page
     cy.get(myAccountMenuItemsList)
-			.contains(myAccountPage)
-			.click();
+        .contains(myAccountPage)
+        .click();
 };

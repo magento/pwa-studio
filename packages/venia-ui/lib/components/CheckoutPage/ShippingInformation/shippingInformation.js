@@ -71,7 +71,7 @@ const ShippingInformation = props => {
                 <LinkButton
                     onClick={handleEditShipping}
                     className={classes.editButton}
-										data-cy="ShippingInformation-editButton"
+                    data-cy="ShippingInformation-editButton"
                 >
                     <Icon
                         size={16}

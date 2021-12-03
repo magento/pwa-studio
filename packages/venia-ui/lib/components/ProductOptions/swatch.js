@@ -83,7 +83,7 @@ const Swatch = props => {
             style={finalStyle}
             title={label}
             type="button"
-						data-cy="Swatch-root"
+            data-cy="Swatch-root"
         >
             <Icon classes={{ root: checkStyle }} src={CheckIcon} />
         </button>

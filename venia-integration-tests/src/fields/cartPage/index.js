@@ -12,11 +12,9 @@ export const saveForLaterButton = '[data-cy="addToListButton-root"]';
 
 export const cartPageProductLink = '[data-cy="Product-imageContainer"]';
 
-export const kebabMenuEditButton =
-    '[data-cy="Product-Section-editItem"]';
+export const kebabMenuEditButton = '[data-cy="Product-Section-editItem"]';
 
-export const editMenuSizeButton =
-    '[data-cy="Tile-button"]';
+export const editMenuSizeButton = '[data-cy="Tile-button"]';
 
 export const editMenuIncreaseQtyStepper =
     '[data-cy="Dialog-root"] [data-cy="Quantity-incrementButton"]';
@@ -26,8 +24,7 @@ export const editMenuUpdateCartButton =
 
 export const cartPageProductOption = '[data-cy="ProductOptions-optionValue"]';
 
-export const cartPageProductQuantity =
-    '[data-cy="QuantityFields-input"]';
+export const cartPageProductQuantity = '[data-cy="QuantityFields-input"]';
 
 export const cartPageProductPrice = '[data-cy="Product-price"]';
 

@@ -133,7 +133,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     priority="high"
                     className={classes.checkoutButton}
                     disabled={loading || isCartEmpty}
-										data-cy="Minicart-checkoutButton"
+                    data-cy="Minicart-checkoutButton"
                 >
                     <Icon
                         size={16}
@@ -152,7 +152,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     priority="high"
                     className={classes.editCartButton}
                     disabled={loading || isCartEmpty}
-										data-cy="Minicart-editCartButton"
+                    data-cy="Minicart-editCartButton"
                 >
                     <FormattedMessage
                         id={'miniCart.editCartButton'}

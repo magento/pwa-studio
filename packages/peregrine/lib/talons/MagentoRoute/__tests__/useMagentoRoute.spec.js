@@ -37,12 +37,8 @@ jest.mock('@apollo/client', () => {
 
 const givenQueryResult = response => {
     useLazyQuery.mockReset();
-    useLazyQuery.mockImplementation((fetchUrl, { onCompleted }) => {
-        const { data = {} } = response;
-
-        runQuery.mockImplementation(() => {
-            onCompleted(data);
-        });
+    runQuery.mockReset();
+    useLazyQuery.mockImplementation(() => {
         return [runQuery, response];
     });
 };

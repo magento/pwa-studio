@@ -5,9 +5,9 @@ export const productPageAddToWishListButton =
     '[data-cy="addToListButton-root"]';
 
 export const productPageSelectedWishlistButton =
-    '*[class^="addToListButton-root_selected-"]';
+    '[data-cy="addToListButton-root"]';
 
-export const addProductToWishlist = 'button[class^="wishlistLineItem-root-"]';
+export const addProductToWishlist = '[data-cy="WishlistLineItem-button"]';
 
 export const productPageOptions = '[data-cy="ProductOptions-Option-root"]';
 

@@ -52,7 +52,10 @@ const AddressCard = props => {
     });
 
     const defaultBadge = default_shipping ? (
-        <span className={classes.defaultBadge} data-cy="addressCard-defaultBadge">
+        <span
+            className={classes.defaultBadge}
+            data-cy="addressCard-defaultBadge"
+        >
             <FormattedMessage
                 id={'addressCard.defaultText'}
                 defaultMessage={'Default'}
@@ -66,7 +69,11 @@ const AddressCard = props => {
     const additionalAddressString = `${city}, ${region} ${postcode}`;
 
     const deleteButtonElement = !default_shipping ? (
-        <LinkButton classes={{ root: classes.deleteButton }} onClick={onDelete} data-cy="addressCard-deleteButton">
+        <LinkButton
+            classes={{ root: classes.deleteButton }}
+            onClick={onDelete}
+            data-cy="addressCard-deleteButton"
+        >
             <Icon classes={{ icon: null }} size={16} src={TrashIcon} />
             <span className={classes.actionLabel}>
                 <FormattedMessage
@@ -86,7 +93,7 @@ const AddressCard = props => {
                 type="button"
                 negative={true}
                 onClick={onConfirmDelete}
-								data-cy="addressCard-confirmDeleteButton"
+                data-cy="addressCard-confirmDeleteButton"
             >
                 <FormattedMessage
                     id={'global.deleteButton'}
@@ -110,7 +117,10 @@ const AddressCard = props => {
 
     return (
         <div className={classes.root} data-cy="addressCard-root">
-            <div className={classes.contentContainer} data-cy="addressCard-contentContainer">
+            <div
+                className={classes.contentContainer}
+                data-cy="addressCard-contentContainer"
+            >
                 {defaultBadge}
                 <span className={classes.name}>{nameString}</span>
                 {streetRows}
@@ -132,7 +142,7 @@ const AddressCard = props => {
                 <LinkButton
                     classes={{ root: classes.editButton }}
                     onClick={onEdit}
-										data-cy="addressCard-editButton"
+                    data-cy="addressCard-editButton"
                 >
                     <Icon classes={{ icon: null }} size={16} src={EditIcon} />
                     <span className={classes.actionLabel}>

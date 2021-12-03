@@ -1,92 +1,92 @@
 import {
-	accountAccess as accountAccessFixtures,
-	cartPage as cartPageFixtures,
-	checkoutPage as checkoutPageFixtures,
-	graphqlMockedCalls as graphqlMockedCallsFixtures,
-	myAccountMenu as myAccountMenuFixtures,
-	productPage as productPageFixtures
+    accountAccess as accountAccessFixtures,
+    cartPage as cartPageFixtures,
+    checkoutPage as checkoutPageFixtures,
+    graphqlMockedCalls as graphqlMockedCallsFixtures,
+    myAccountMenu as myAccountMenuFixtures,
+    productPage as productPageFixtures
 } from '../../../fixtures';
 import {
-	cartPage as cartPageActions,
-	checkoutPage as checkoutPageActions,
-	myAccountMenu as myAccountMenuActions,
-	productPage as productPageActions
+    cartPage as cartPageActions,
+    checkoutPage as checkoutPageActions,
+    myAccountMenu as myAccountMenuActions,
+    productPage as productPageActions
 } from '../../../actions';
 import {
-	accountInformationPage as accountInformationPageAssertions,
-	cartPage as cartPageAssertions,
-	checkoutPage as checkoutPageAssertions,
-	header as headerAssertions,
-	myAccountMenu as myAccountMenuAssertions
+    accountInformationPage as accountInformationPageAssertions,
+    cartPage as cartPageAssertions,
+    checkoutPage as checkoutPageAssertions,
+    header as headerAssertions,
+    myAccountMenu as myAccountMenuAssertions
 } from '../../../assertions';
 import { aliasMutation } from '../../../utils/graphql-test-utils';
 
 const {
-	firstName,
-	lastName,
-	accountEmail,
-	accountPassword
+    firstName,
+    lastName,
+    accountEmail,
+    accountPassword
 } = accountAccessFixtures;
 const { cartPageRoute } = cartPageFixtures;
 const {
-	checkoutBillingData,
-	checkoutShippingData,
-	defaultShippingMethods
+    checkoutBillingData,
+    checkoutShippingData,
+    defaultShippingMethods
 } = checkoutPageFixtures;
 const { accountInformationPage } = myAccountMenuFixtures;
 const {
-	getCheckoutDetailsCall,
-	getCountriesCall,
-	getCustomerAfterCheckoutCall,
-	getItemsInCartCall,
-	getPaymentInformationCall,
-	getProductDetailForProductPageCall,
-	getProductListingCall,
-	getRegionsCall,
-	getSelectedAndAvailableShippingMethodsCall,
-	getShippingMethodsCall,
-	hitGraphqlPath
+    getCheckoutDetailsCall,
+    getCountriesCall,
+    getCustomerAfterCheckoutCall,
+    getItemsInCartCall,
+    getPaymentInformationCall,
+    getProductDetailForProductPageCall,
+    getProductListingCall,
+    getRegionsCall,
+    getSelectedAndAvailableShippingMethodsCall,
+    getShippingMethodsCall,
+    hitGraphqlPath
 } = graphqlMockedCallsFixtures;
 const {
-	productIsadoraSkirt,
-	productValeriaTwoLayeredTank
+    productIsadoraSkirt,
+    productValeriaTwoLayeredTank
 } = productPageFixtures;
 
 const {
-	toggleShippingMethodSection,
-	toggleShippingMethodEstimate,
-	estimateShippingMethod,
-	selectShippingMethodFromCartPage
+    toggleShippingMethodSection,
+    toggleShippingMethodEstimate,
+    estimateShippingMethod,
+    selectShippingMethodFromCartPage
 } = cartPageActions;
 const {
-	reviewOrder,
-	placeOrder,
-	setGuestShippingAddress,
-	editCreditCardInformation,
-	createAccountFromOrderConfirmationPage
+    reviewOrder,
+    placeOrder,
+    setGuestShippingAddress,
+    editCreditCardInformation,
+    createAccountFromOrderConfirmationPage
 } = checkoutPageActions;
 const { goToMyAccount } = myAccountMenuActions;
 const {
-	addToCartFromProductPage,
-	selectOptionsFromProductPage,
-	setQuantityFromProductPage
+    addToCartFromProductPage,
+    selectOptionsFromProductPage,
+    setQuantityFromProductPage
 } = productPageActions;
 
 const { assertAccountInformationHeading } = accountInformationPageAssertions;
 const { assertProductInCartPage } = cartPageAssertions;
 const {
-	assertAddressInShippingInformationInCheckoutPage,
-	assertSelectedShippingMethodInCheckoutPage,
-	assertProductInCheckoutPage
+    assertAddressInShippingInformationInCheckoutPage,
+    assertSelectedShippingMethodInCheckoutPage,
+    assertProductInCheckoutPage
 } = checkoutPageAssertions;
 const { assertCartTriggerCount } = headerAssertions;
 const { assertCreateAccount } = myAccountMenuAssertions;
 
 const completeShippingAddress = {
-	...checkoutShippingData.gb,
-	email: accountEmail,
-	firstName,
-	lastName
+    ...checkoutShippingData.gb,
+    email: accountEmail,
+    firstName,
+    lastName
 };
 
 // TODO add tags CE, EE to test to filter and run tests as needed

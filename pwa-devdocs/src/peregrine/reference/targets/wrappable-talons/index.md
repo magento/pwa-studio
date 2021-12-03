@@ -1,5 +1,6 @@
 ---
 title: Wrappable Peregrine Talons
+adobeio: /api/peregrine/targets/
 ---
 
 ## Usage

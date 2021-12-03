@@ -1,5 +1,6 @@
 ---
 title: Configuration management
+adobeio: /guides/general-concepts/configuration/
 ---
 
 The PWA buildpack library provides small tools to configure your environment and larger, overall workflows that a developer has to configure and control.

@@ -63,7 +63,7 @@ const CompletedView = props => {
                     <LinkButton
                         className={classes.editButton}
                         onClick={showUpdateMode}
-												data-cy="CompletedView-editButton"
+                        data-cy="CompletedView-editButton"
                     >
                         <Icon
                             size={16}

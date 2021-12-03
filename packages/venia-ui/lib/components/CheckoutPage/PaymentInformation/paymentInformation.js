@@ -70,7 +70,7 @@ const PaymentInformation = props => {
 
     const editModal = doneEditing ? (
         <Suspense fallback={null}>
-            <EditModal onClose={hideEditModal} isOpen={isEditModalActive}/>
+            <EditModal onClose={hideEditModal} isOpen={isEditModalActive} />
         </Suspense>
     ) : null;
 

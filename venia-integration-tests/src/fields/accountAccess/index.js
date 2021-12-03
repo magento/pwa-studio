@@ -11,10 +11,10 @@ export const signInSubmitButton =
 
 export const signOutLink = '[data-cy="accountMenuItems-signOut"]';
 
-export const forgotPasswordLink =
-    '[data-cy="SignIn-forgotPasswordButton"]';
+export const forgotPasswordLink = '[data-cy="SignIn-forgotPasswordButton"]';
 
-export const createAccountInitiateButton = '[data-cy="CreateAccount-initiateButton"]';
+export const createAccountInitiateButton =
+    '[data-cy="CreateAccount-initiateButton"]';
 
 export const firstNameTextField = '[data-cy="customer-firstname"]';
 

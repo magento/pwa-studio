@@ -91,7 +91,7 @@ const AccountInformationPage = props => {
                             disabled={false}
                             onClick={showUpdateMode}
                             priority="normal"
-														data-cy="AccountInformationPage-editInformationButton"
+                            data-cy="AccountInformationPage-editInformationButton"
                         >
                             <FormattedMessage
                                 id={'global.editButton'}
@@ -124,7 +124,10 @@ const AccountInformationPage = props => {
                     defaultMessage: 'Account Information'
                 })}
             </StoreTitle>
-            <h1 className={classes.title} data-cy="AccountInformationPage-title">
+            <h1
+                className={classes.title}
+                data-cy="AccountInformationPage-title"
+            >
                 <FormattedMessage
                     id={'accountInformationPage.accountInformation'}
                     defaultMessage={'Account Information'}

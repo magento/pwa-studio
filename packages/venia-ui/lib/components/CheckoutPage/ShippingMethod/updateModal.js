@@ -45,7 +45,7 @@ const UpdateModal = props => {
                 id: 'checkoutPage.editShippingMethod',
                 defaultMessage: 'Edit Shipping Method'
             })}
-						data-cy="ShippingMethod-updateModal"
+            data-cy="ShippingMethod-updateModal"
         >
             <FormError
                 classes={{ root: classes.errorContainer }}

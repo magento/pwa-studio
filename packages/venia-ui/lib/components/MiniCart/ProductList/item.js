@@ -58,7 +58,7 @@ const Item = props => {
                 className={classes.thumbnailContainer}
                 to={itemLink}
                 onClick={closeMiniCart}
-								data-cy="item-thumbnailContainer"
+                data-cy="item-thumbnailContainer"
             >
                 <Image
                     alt={product.name}
@@ -78,7 +78,7 @@ const Item = props => {
                 className={classes.name}
                 to={itemLink}
                 onClick={closeMiniCart}
-								data-cy="item-name"
+                data-cy="item-name"
             >
                 {product.name}
             </Link>

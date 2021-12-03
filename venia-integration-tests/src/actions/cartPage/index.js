@@ -16,7 +16,7 @@ import {
     saveForLaterButton,
     shippingMethodEstimateButton,
     shippingMethodRegionField,
-		shippingMethodRegionFieldId,
+    shippingMethodRegionFieldId,
     shippingMethodPostCodeTextField,
     shippingMethodSubmitButton,
     shippingMethodSectionButton,
@@ -30,11 +30,9 @@ import {
     giftCardRemoveButton,
     giftOptionsIncludeGiftReceiptCheckbox,
     giftOptionsIncludePrintedCardCheckbox,
-    giftOptionsCardMessageTextarea,
+    giftOptionsCardMessageTextarea
 } from '../../fields/cartPage';
-import {
-	swatchRoot
-} from '../../fields/productPage';
+import { swatchRoot } from '../../fields/productPage';
 
 import { defaultShippingMethods } from '../../fixtures/checkoutPage';
 

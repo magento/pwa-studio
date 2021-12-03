@@ -4,9 +4,8 @@ import {
     productPageOptions,
     productPageQuantityField,
     productPageSizeButton,
-    productPageColorButton,
     addProductToWishlist,
-		swatchRoot,
+    swatchRoot
 } from '../../fields/productPage';
 
 /**

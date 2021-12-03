@@ -93,14 +93,16 @@ const AddressBookPage = props => {
     return (
         <div className={classes.root}>
             <StoreTitle>{PAGE_TITLE}</StoreTitle>
-            <h1 className={classes.heading} data-cy="AddressBookPage-heading">{PAGE_TITLE}</h1>
+            <h1 className={classes.heading} data-cy="AddressBookPage-heading">
+                {PAGE_TITLE}
+            </h1>
             <div className={classes.content} data-cy="AddressBookPage-content">
                 {addressBookElements}
                 <LinkButton
                     className={classes.addButton}
                     key="addAddressButton"
                     onClick={handleAddAddress}
-										data-cy="AddressBookPage-addButton"
+                    data-cy="AddressBookPage-addButton"
                 >
                     <Icon
                         classes={{

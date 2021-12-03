@@ -1,4 +1,4 @@
-export const contactFormContainer = '[data-cy="ContactPage-formContainer"]';
+export const contactFormContainer = '[data-cy="ContactPage-root"]';
 
 export const contactFormName =
     '[data-cy="ContactPage-formContainer"] [data-cy="name"]';

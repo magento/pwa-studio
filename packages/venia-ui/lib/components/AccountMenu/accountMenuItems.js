@@ -31,7 +31,7 @@ const AccountMenuItems = props => {
                 className={classes.signOut}
                 onClick={handleSignOut}
                 type="button"
-								data-cy="accountMenuItems-signOut"
+                data-cy="accountMenuItems-signOut"
             >
                 <FormattedMessage
                     id={'accountMenu.signOutButtonText'}

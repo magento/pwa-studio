@@ -42,7 +42,7 @@ const AccountTrigger = props => {
                     })}
                     className={classes.trigger}
                     onClick={handleTriggerClick}
-										data-cy="AccountTrigger-trigger"
+                    data-cy="AccountTrigger-trigger"
                 >
                     <AccountChip
                         fallbackText={formatMessage({

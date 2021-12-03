@@ -2,7 +2,7 @@ export const categoryPageAddToWishListButton =
     '*[data-cy="addToListButton-root"]';
 
 export const categoryPageSelectedWishlistButton =
-    '*[data-cy="addToListButton-root_selected"]';
+    '*[data-cy="addToListButton-root"]';
 
 export const categoryContentTitle = '[data-cy="CategoryContent-categoryTitle"]';
 
@@ -32,13 +32,12 @@ export const sharedFilterElements = {
 export const filterModalFilterFooterButton =
     '[data-cy="FilterModal-root"] [data-cy="FilterFooter-button"]';
 
-export const createWishlistButton =
-    'button[class^="wishlistDialog-createListButton-"]';
+export const createWishlistButton = '[data-cy="WishlistDialog-createButton"]';
 
-export const wishlistNameField = 'input[id^="createWishlistForm-listname-"]';
+export const wishlistNameField = '[data-cy="createWishlistForm-listname"]';
 
 export const createWishlistConfirmButton =
-    'button[class^="button-root_highPriority-"]';
+    '[data-cy="createWishListForm-saveButton"]';
 
 export const categoryPageAddToCartButton = '*[class^="addToCartButton-root-"]';
 

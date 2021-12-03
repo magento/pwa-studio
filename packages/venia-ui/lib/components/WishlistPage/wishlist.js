@@ -91,7 +91,9 @@ const Wishlist = props => {
 
     const wishlistName = name ? (
         <div className={classes.nameContainer}>
-            <h2 className={classes.name} data-cy="Wishlist-name">{name}</h2>
+            <h2 className={classes.name} data-cy="Wishlist-name">
+                {name}
+            </h2>
         </div>
     ) : (
         <div className={classes.nameContainer}>
@@ -127,7 +129,10 @@ const Wishlist = props => {
         : classes.visibilityToggle_hidden;
 
     const buttonsContainer = id ? (
-        <div className={classes.buttonsContainer} data-cy="wishlist-buttonsContainer">
+        <div
+            className={classes.buttonsContainer}
+            data-cy="wishlist-buttonsContainer"
+        >
             <ActionMenu id={id} name={name} visibility={visibility} />
             <button
                 className={visibilityToggleClass}

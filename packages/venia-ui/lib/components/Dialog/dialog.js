@@ -55,7 +55,7 @@ const Dialog = props => {
         shouldUnmountOnHide,
         title
     } = props;
-		
+
     // Prevent the page from scrolling in the background
     // when the Dialog is open.
     useScrollLock(isOpen);
@@ -116,7 +116,12 @@ const Dialog = props => {
 
     const maybeForm =
         isOpen || !shouldUnmountOnHide ? (
-            <Form className={classes.form} {...formProps} onSubmit={onConfirm} data-cy="Dialog-form">
+            <Form
+                className={classes.form}
+                {...formProps}
+                onSubmit={onConfirm}
+                data-cy="Dialog-form"
+            >
                 {/* The Mask. */}
                 <button
                     className={classes.mask}
@@ -127,7 +132,12 @@ const Dialog = props => {
                 {/* The Dialog. */}
                 <div className={classes.dialog} data-cy={title}>
                     <div className={classes.header}>
-                        <span className={classes.headerText} data-cy="Dialog-headerText">{title}</span>
+                        <span
+                            className={classes.headerText}
+                            data-cy="Dialog-headerText"
+                        >
+                            {title}
+                        </span>
                         {maybeCloseXButton}
                     </div>
                     <div className={classes.body}>
@@ -140,7 +150,9 @@ const Dialog = props => {
 
     return (
         <Portal>
-            <aside className={rootClass} data-cy="Dialog-root">{maybeForm}</aside>
+            <aside className={rootClass} data-cy="Dialog-root">
+                {maybeForm}
+            </aside>
         </Portal>
     );
 };

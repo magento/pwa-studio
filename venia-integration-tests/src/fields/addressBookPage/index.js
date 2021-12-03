@@ -1,7 +1,6 @@
 export const addressBookPageHeading = '[data-cy="AddressBookPage-heading"]';
 
-export const addressBookAddButton =
-    '[data-cy="AddressBookPage-addButton"]';
+export const addressBookAddButton = '[data-cy="AddressBookPage-addButton"]';
 
 export const addressBookContent = '[data-cy="AddressBookPage-content"]';
 
@@ -10,13 +9,11 @@ export const addressCardRoot = '[data-cy="addressCard-root"]';
 export const addressCardContentContainer =
     '[data-cy="addressCard-contentContainer"]';
 
-export const addressCardDefaultBadge =
-    '[data-cy="addressCard-defaultBadge"]';
+export const addressCardDefaultBadge = '[data-cy="addressCard-defaultBadge"]';
 
 export const addressCardEditButton = '[data-cy="addressCard-editButton"]';
 
-export const addressCardDeleteButton =
-    '[data-cy="addressCard-deleteButton"]';
+export const addressCardDeleteButton = '[data-cy="addressCard-deleteButton"]';
 
 export const addressCardConfirmDeleteButton =
     '[data-cy="addressCard-confirmDeleteButton"]';

@@ -170,7 +170,10 @@ const ProductFullDetail = props => {
                 onSubmit={handleAddToCart}
             >
                 <section className={classes.title}>
-                    <h1 className={classes.productName} data-cy="ProductFullDetail-productName">
+                    <h1
+                        className={classes.productName}
+                        data-cy="ProductFullDetail-productName"
+                    >
                         {productDetails.name}
                     </h1>
                     <p className={classes.productPrice}>

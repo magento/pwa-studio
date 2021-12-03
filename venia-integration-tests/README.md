@@ -64,7 +64,7 @@ Where the test assertions are located, what should be expected when performing a
 [Chai assertion library]: https://docs.cypress.io/guides/references/assertions
 
 ## src/fields
-In this folder are located the files that refer to the Venia UI element selectors, so that Cypress can select the correct element.
+In this folder you can locate the files that refer to the Venia UI element selectors, so that Cypress can select the correct element.
 The selection pattern `'[data-cy="element"]'` has been used according to the [Cypress API selector patterns][].
 
 [Cypress API selector patterns]: https://docs.cypress.io/api/cypress-api/selector-playground-api

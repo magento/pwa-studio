@@ -137,8 +137,7 @@ export const orderConfirmationCreateAccountCreateAccountButton =
 
 export const checkoutPageHeaderText = '[data-cy="ChekoutPage-headerText"]';
 
-export const checkoutPageGuestEmailInput =
-    '[data-cy="GuestForm-email"]';
+export const checkoutPageGuestEmailInput = '[data-cy="GuestForm-email"]';
 
 export const checkoutPageShippingMethodSubmitButton =
     '[data-cy="ShippingMethod-submitButton"]';
@@ -157,7 +156,8 @@ export const checkoutPagePriceSummaryTaxPrice =
 export const checkoutPagePriceSummaryShippingPrice =
     '[data-cy="OrderSummary-root"] [data-cy="ShippingSummary-shippingValue"]';
 
-export const checkoutPageEditShippingInfoButton = '[data-cy="ShippingInformation-editButton"]';
+export const checkoutPageEditShippingInfoButton =
+    '[data-cy="ShippingInformation-editButton"]';
 
 export const checkoutPageEditShippingMethodButton =
     '[data-cy="CheckoutPage-root"] [data-cy="ShippingMethod-done"] [data-cy="CompletedView-editButton"]';
@@ -201,7 +201,8 @@ export const checkoutPageBillingAddressPhoneNumberTextField =
 export const checkoutPageOpenedDialogSubmitButton =
     '[data-cy="Dialog-root"] [data-cy="Dialog-form"] [data-cy="Dialog-confirmButton"]';
 
-export const checkoutPageOpenedDialogEditPaymentSubmitButton = '[data-cy="Dialog-root"] [data-cy="Dialog-form"] [data-cy="Edit Payment Information"] [data-cy="Dialog-confirmButton"]';
+export const checkoutPageOpenedDialogEditPaymentSubmitButton =
+    '[data-cy="Dialog-root"] [data-cy="Dialog-form"] [data-cy="Edit Payment Information"] [data-cy="Dialog-confirmButton"]';
 
 export const checkoutPageOrderConfirmationNumber =
     '[data-cy="OrderConfirmationPage-root"] [data-cy="OrderConfirmationPage-orderNumber"]';

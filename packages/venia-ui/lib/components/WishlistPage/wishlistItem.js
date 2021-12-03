@@ -91,7 +91,11 @@ const WishlistItem = props => {
         : classes.root;
 
     const addToCart = isSupportedProductType ? (
-        <button className={classes.addToCart} {...addToCartButtonProps} data-cy="wishlistItem-addToCart">
+        <button
+            className={classes.addToCart}
+            {...addToCartButtonProps}
+            data-cy="wishlistItem-addToCart"
+        >
             {formatMessage({
                 id: 'wishlistItem.addToCart',
                 defaultMessage: 'Add to Cart'
@@ -100,22 +104,30 @@ const WishlistItem = props => {
     ) : null;
 
     return (
-        <div className={rootClass}>
+        <div className={rootClass} data-cy="wishlistItem-root">
             <Image {...imageProps} />
 
             <div className={classes.actionWrap}>
-                <span className={classes.name}>{name}</span>{' '}
+                <span
+                    className={classes.name}
+                    data-cy="wishlistItem-productName"
+                >
+                    {name}
+                </span>{' '}
                 <button
                     className={classes.deleteItem}
                     onClick={handleRemoveProductFromWishlist}
                     aria-label={removeProductAriaLabel}
-										data-cy="wishlistItem-deleteItem"
+                    data-cy="wishlistItem-deleteItem"
                 >
                     <Icon size={16} src={Trash2} />
                 </button>
             </div>
-            <div className={classes.priceContainer} data-cy="wishlistItem-priceContainer">
-                <Price currencyCode={currency} value={unitPrice}/>
+            <div
+                className={classes.priceContainer}
+                data-cy="wishlistItem-priceContainer"
+            >
+                <Price currencyCode={currency} value={unitPrice} />
             </div>
             {optionElements}
             {addToCart}

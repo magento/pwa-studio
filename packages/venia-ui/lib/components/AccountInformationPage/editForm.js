@@ -42,18 +42,21 @@ const EditForm = props => {
                     [isNotEqualToField, 'password']
                 ])}
                 isToggleButtonHidden={false}
-								data-cy="newPassword"
+                data-cy="newPassword"
             />
         </div>
     ) : null;
 
     const maybeChangePasswordButton = !shouldShowNewPassword ? (
-        <div className={classes.changePasswordButtonContainer} data-cy="editForm-changePasswordButtonContainer">
+        <div
+            className={classes.changePasswordButtonContainer}
+            data-cy="editForm-changePasswordButtonContainer"
+        >
             <LinkButton
                 classes={classes.changePasswordButton}
                 type="button"
                 onClick={handleChangePassword}
-								data-cy="linkButton-root"
+                data-cy="linkButton-root"
             >
                 <FormattedMessage
                     id={'global.changePassword'}
@@ -83,7 +86,11 @@ const EditForm = props => {
                             defaultMessage: 'First Name'
                         })}
                     >
-                        <TextInput field="firstname" validate={isRequired} data-cy="firstname"/>
+                        <TextInput
+                            field="firstname"
+                            validate={isRequired}
+                            data-cy="firstname"
+                        />
                     </Field>
                 </div>
                 <div className={classes.lastname}>
@@ -94,7 +101,11 @@ const EditForm = props => {
                             defaultMessage: 'Last Name'
                         })}
                     >
-                        <TextInput field="lastname" validate={isRequired} data-cy="lastname"/>
+                        <TextInput
+                            field="lastname"
+                            validate={isRequired}
+                            data-cy="lastname"
+                        />
                     </Field>
                 </div>
                 <div className={classes.email}>
@@ -105,7 +116,11 @@ const EditForm = props => {
                             defaultMessage: 'Email'
                         })}
                     >
-                        <TextInput field="email" validate={isRequired} data-cy="email"/>
+                        <TextInput
+                            field="email"
+                            validate={isRequired}
+                            data-cy="email"
+                        />
                     </Field>
                 </div>
                 <div className={classes.password}>
@@ -115,7 +130,7 @@ const EditForm = props => {
                         validate={isRequired}
                         autoComplete="current-password"
                         isToggleButtonHidden={false}
-												data-cy="password"
+                        data-cy="password"
                     />
                 </div>
                 {maybeNewPasswordField}
