@@ -59,3 +59,48 @@ Object {
   "totalPagesFromData": 1,
 }
 `;
+
+exports[`useCategoryContent tests handles no data prop 1`] = `
+Object {
+  "categoryDescription": "Jewelry category",
+  "categoryName": "Jewelry",
+  "filters": null,
+  "items": Array [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ],
+  "totalCount": null,
+  "totalPagesFromData": null,
+}
+`;
+
+exports[`useCategoryContent tests returns the proper shape 1`] = `
+Object {
+  "categoryDescription": "Jewelry category",
+  "categoryName": "Jewelry",
+  "filters": Array [
+    Object {
+      "label": "Label",
+    },
+  ],
+  "items": Array [
+    Object {
+      "id": 1,
+      "name": "Ring",
+    },
+    Object {
+      "id": 2,
+      "name": "Necklace",
+    },
+  ],
+  "totalCount": 2,
+  "totalPagesFromData": 1,
+}
+`;

@@ -46,40 +46,41 @@ const mockCatalogContext = {
         }
     ]
 };
+describe('useNoProductsFound tests', () => {
+    it('returns the proper shape', () => {
+        useCatalogContext.mockReturnValue([mockCatalogContext]);
 
-it('returns the proper shape', () => {
-    useCatalogContext.mockReturnValue([mockCatalogContext]);
+        const rendered = createTestInstance(<Component {...props} />);
 
-    const rendered = createTestInstance(<Component {...props} />);
+        const talonProps = rendered.root.findByType('i').props;
 
-    const talonProps = rendered.root.findByType('i').props;
+        const { recommendedCategories } = talonProps;
 
-    const { recommendedCategories } = talonProps;
+        expect(recommendedCategories).toHaveLength(3);
+    });
 
-    expect(recommendedCategories).toHaveLength(3);
-});
+    it('handles fewer categories than default amount to show', () => {
+        useCatalogContext.mockReturnValue([
+            {
+                categories: [
+                    {
+                        parentId: 0,
+                        id: 1
+                    },
+                    {
+                        parentId: 1,
+                        id: 2
+                    }
+                ]
+            }
+        ]);
 
-it('handles fewer categories than default amount to show', () => {
-    useCatalogContext.mockReturnValue([
-        {
-            categories: [
-                {
-                    parentId: 0,
-                    id: 1
-                },
-                {
-                    parentId: 1,
-                    id: 2
-                }
-            ]
-        }
-    ]);
+        const rendered = createTestInstance(<Component {...props} />);
 
-    const rendered = createTestInstance(<Component {...props} />);
+        const talonProps = rendered.root.findByType('i').props;
 
-    const talonProps = rendered.root.findByType('i').props;
+        const { recommendedCategories } = talonProps;
 
-    const { recommendedCategories } = talonProps;
-
-    expect(recommendedCategories).toHaveLength(1);
+        expect(recommendedCategories).toHaveLength(1);
+    });
 });
