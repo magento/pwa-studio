@@ -29,7 +29,7 @@ export const ProductsFragment = gql`
             }
             stock_status
             rating_summary
-            type_id
+            __typename
             url_key
         }
         page_info {
