@@ -7,7 +7,7 @@ export const ProductDetailsFragment = gql`
             id
             uid
             breadcrumbs {
-                category_id
+                category_uid
             }
         }
         description {
