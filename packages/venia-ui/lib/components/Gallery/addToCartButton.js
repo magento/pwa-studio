@@ -96,7 +96,7 @@ AddToCartButton.propTypes = {
             url: string
         }),
         stock_status: string.isRequired,
-        type_id: string.isRequired,
+        __typename: string.isRequired,
         url_key: string.isRequired,
         url_suffix: string,
         sku: string.isRequired,

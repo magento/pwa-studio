@@ -20,11 +20,14 @@ export const GET_PRODUCT_FILTERS_BY_CATEGORY = gql`
 `;
 
 export const GET_CATEGORY_CONTENT = gql`
-    query getCategoryData($id: Int!) {
-        category(id: $id) {
-            id
-            name
-            description
+    query getCategoryData($id: String!) {
+        categories(filters: { ids: { in: [$id] } }) {
+            items {
+                id
+                uid
+                name
+                description
+            }
         }
     }
 `;

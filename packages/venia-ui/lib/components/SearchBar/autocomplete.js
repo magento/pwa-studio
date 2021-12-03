@@ -22,8 +22,10 @@ const GET_AUTOCOMPLETE_RESULTS = gql`
                     value
                 }
             }
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             items {
                 id
+                uid
                 name
                 small_image {
                     url

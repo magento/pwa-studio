@@ -1,5 +1,6 @@
 ---
 title: Price Summary Talons
+adobeio: /api/peregrine/talons/CartPage/PriceSummary/
 ---
 
 <!--

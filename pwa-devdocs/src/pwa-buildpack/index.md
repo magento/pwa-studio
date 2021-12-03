@@ -1,8 +1,9 @@
 ---
 title: PWA Buildpack
+adobeio: /guides/packages/buildpack/
 ---
 
-PWA Buildpack is a build and development tool and library for Magento Progressive Web Apps. 
+PWA Buildpack is a build and development tool and library for Magento Progressive Web Apps.
 Use the PWA Buildpack project to set up and configure your local environment for PWA development.
 
 ## Setup

@@ -90,6 +90,8 @@ test('recovers from missing hastily dep', () => {
     const noopt = require('../addImgOptMiddleware');
     expect(() => noopt(app, config)).not.toThrow();
     expect(console.warn).toHaveBeenCalled();
-    expect(console.warn.mock.calls[0]).toMatchSnapshot();
+    expect(console.warn.mock.calls[0][0]).toContain(
+        'Cannot add image optimization middleware due to dependencies that are not installed or are not compatible with this environment'
+    );
     console.warn.mockRestore();
 });
