@@ -13,7 +13,6 @@ const isNonDefaultCategory = category => Boolean(category.parentId);
  * @param {number} props.categoryId - The ID of the category that has no products.
  *
  * @returns {object}
- * @param {array} recommendedCategories - A list of categories for the UI to recommend.
  */
 export const useNoProductsFound = props => {
     const { categoryId } = props;
