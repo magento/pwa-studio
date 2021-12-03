@@ -35,7 +35,7 @@ jest.mock('@magento/peregrine/lib/context/user', () => ({
 jest.mock('@magento/venia-ui/lib/components/ErrorView', () => props => (
     <mock-ErrorView {...props} />
 ));
-jest.mock('../DynamicBlock', () => props => <mock-DynamicBlock {...props} />);
+jest.mock('../dynamicBlock', () => props => <mock-DynamicBlock {...props} />);
 
 let inputProps = {};
 
