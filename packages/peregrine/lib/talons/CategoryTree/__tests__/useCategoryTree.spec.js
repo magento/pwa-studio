@@ -28,39 +28,40 @@ jest.mock('@apollo/client', () => {
 
 const result = {
     data: {
-        category: {
-            id: 1,
-            name: 'One',
-            url_path: '1',
-            include_in_menu: 1,
-            children_count: 3,
-            children: [
+        categories: {
+            items: [
                 {
-                    id: 2,
+                    uid: 'UID1==',
+                    name: 'One',
+                    url_path: '1',
                     include_in_menu: 1,
-                    children_count: 1,
-                    name: 'Two',
-                    parentId: 1,
-                    position: 0,
-                    url_path: '1/2'
-                },
-                {
-                    id: 3,
-                    include_in_menu: 1,
-                    children_count: 0,
-                    name: 'Three',
-                    parentId: 2,
-                    position: 0,
-                    url_path: '1/2/3'
-                },
-                {
-                    id: 4,
-                    include_in_menu: 1,
-                    children_count: 0,
-                    name: 'Four',
-                    parentId: 1,
-                    position: 0,
-                    url_path: '1/4'
+                    children_count: 3,
+                    children: [
+                        {
+                            uid: 'UID2==',
+                            include_in_menu: 1,
+                            children_count: 1,
+                            name: 'Two',
+                            position: 0,
+                            url_path: '1/2'
+                        },
+                        {
+                            uid: 'UID3==',
+                            include_in_menu: 1,
+                            children_count: 0,
+                            name: 'Three',
+                            position: 0,
+                            url_path: '1/2/3'
+                        },
+                        {
+                            uid: 'UID4==',
+                            include_in_menu: 1,
+                            children_count: 0,
+                            name: 'Four',
+                            position: 0,
+                            url_path: '1/4'
+                        }
+                    ]
                 }
             ]
         }
@@ -220,7 +221,7 @@ describe('child categories', () => {
         //
         // Assert.
         const { childCategories } = log.mock.calls[0][0];
-        expect(childCategories.has(1)).toEqual(true);
+        expect(childCategories.has('UID1==')).toEqual(true);
     });
 
     test('does not include root category when include_in_menu is falsy', () => {
@@ -230,9 +231,13 @@ describe('child categories', () => {
                 getNavigationMenu,
                 {
                     data: {
-                        category: {
-                            ...result.data.category,
-                            include_in_menu: 0
+                        categories: {
+                            items: [
+                                {
+                                    ...result.data.categories.items[0],
+                                    include_in_menu: 0
+                                }
+                            ]
                         }
                     }
                 }
@@ -254,9 +259,13 @@ describe('child categories', () => {
                 getNavigationMenu,
                 {
                     data: {
-                        category: {
-                            ...result.data.category,
-                            url_path: ''
+                        categories: {
+                            items: [
+                                {
+                                    ...result.data.categories.items[0],
+                                    url_path: ''
+                                }
+                            ]
                         }
                     }
                 }
@@ -278,19 +287,22 @@ describe('child categories', () => {
                 getNavigationMenu,
                 {
                     data: {
-                        category: {
-                            ...result.data.category,
-                            children: [
-                                ...result.data.category.children,
+                        categories: {
+                            items: [
                                 {
-                                    id: categoryId,
-                                    include_in_menu: 0,
-                                    children_count: 0,
-                                    name: 'Five',
-                                    parentId: 1,
-                                    position: 0,
-
-                                    url_path: '1/5'
+                                    ...result.data.categories.items[0],
+                                    children: [
+                                        ...result.data.categories.items[0]
+                                            .children,
+                                        {
+                                            id: categoryId,
+                                            include_in_menu: 0,
+                                            children_count: 0,
+                                            name: 'Five',
+                                            position: 0,
+                                            url_path: '1/5'
+                                        }
+                                    ]
                                 }
                             ]
                         }
