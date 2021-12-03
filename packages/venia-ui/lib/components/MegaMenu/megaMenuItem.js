@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, {useMemo} from 'react';
 import { ChevronDown as ArrowDown } from 'react-feather';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -47,7 +47,9 @@ const MegaMenuItem = props => {
         isActive,
         handleCloseSubMenu,
         isMenuActive,
-        handleKeyDown
+        handleKeyDown,
+        isClicked,
+        handleCloseMenuItem
     } = talonProps;
 
     const megaMenuItemClassname = isMenuActive
@@ -64,6 +66,7 @@ const MegaMenuItem = props => {
                 handleCloseSubMenu={handleCloseSubMenu}
                 categoryUrlSuffix={categoryUrlSuffix}
                 onNavigate={onNavigate}
+                handleCloseMenuItem={handleCloseMenuItem}
             />
         ) : null;
     }, [
@@ -73,7 +76,8 @@ const MegaMenuItem = props => {
         subMenuState,
         handleCloseSubMenu,
         categoryUrlSuffix,
-        onNavigate
+        onNavigate,
+        handleCloseMenuItem
     ]);
 
     const maybeDownArrowIcon = category.children.length ? (
@@ -90,7 +94,7 @@ const MegaMenuItem = props => {
 
     return (
         <div
-            className={megaMenuItemClassname}
+            className={isClicked ? classes.megaMenuItemClicked : megaMenuItemClassname}
             data-cy="MegaMenu-MegaMenuItem-megaMenuItem"
         >
             <Link

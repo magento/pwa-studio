@@ -4,6 +4,7 @@ export const useMegaMenuItem = props => {
     const { category, activeCategoryId, subMenuState, disableFocus } = props;
 
     const [isFocused, setIsFocused] = useState(false);
+    const [isClicked, setIsClicked] = useState(false);
     const isActive = category.id === activeCategoryId;
 
     const handleCloseSubMenu = useCallback(() => {
@@ -51,11 +52,21 @@ export const useMegaMenuItem = props => {
         [category.children.length]
     );
 
+    // Used to remove hover state on parent as the menu is done in CSS only
+    const handleCloseMenuItem = useCallback(() => {
+        setIsClicked(true);
+        setTimeout(() => {
+            setIsClicked(false);
+        }, 300);
+    }, [setIsClicked]);
+
     return {
         isFocused,
         isActive,
         handleCloseSubMenu,
         isMenuActive,
-        handleKeyDown
+        handleKeyDown,
+        isClicked,
+        handleCloseMenuItem
     };
 };
