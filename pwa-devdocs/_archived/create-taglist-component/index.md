@@ -161,7 +161,7 @@ Edit the `categories` entry for this query and add the following:
  categories {
      id
      breadcrumbs {
-         category_id
+         category_uid
      }
 +    name
 +    url_path

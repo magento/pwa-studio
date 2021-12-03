@@ -117,8 +117,12 @@ const mockCategoryData = {
     error: null,
     loading: false,
     data: {
-        category: {
-            meta_description: 'Category meta-description'
+        categories: {
+            items: [
+                {
+                    meta_description: 'Category meta-description'
+                }
+            ]
         },
         products: {
             page_info: {
@@ -134,197 +138,198 @@ const Component = props => {
     const talonProps = useCategory(props);
     return <i talonProps={talonProps} />;
 };
+describe('useCategory tests', () => {
+    test('returns the correct shape', () => {
+        useQuery.mockReturnValue(mockPageSizeData);
+        useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
 
-test('returns the correct shape', () => {
-    useQuery.mockReturnValue(mockPageSizeData);
-    useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
 
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-
-    expect(talonProps).toMatchSnapshot();
-});
-
-test('runs the category query', () => {
-    useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
-    useQuery
-        .mockReturnValueOnce(mockPageSizeData)
-        .mockReturnValueOnce(mockFilterInputsData);
-
-    useLocation.mockReturnValue({
-        pathname: '',
-        search: 'page=1&price%5Bfilter%5D=0-100%2C0_100'
+        expect(talonProps).toMatchSnapshot();
     });
 
-    createTestInstance(<Component {...mockProps} />);
+    test('runs the category query', () => {
+        useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
+        useQuery
+            .mockReturnValueOnce(mockPageSizeData)
+            .mockReturnValueOnce(mockFilterInputsData);
 
-    expect(mockRunQuery).toHaveBeenCalledTimes(1);
-    expect(mockRunQuery.mock.calls[0][0]).toMatchSnapshot();
-});
+        useLocation.mockReturnValue({
+            pathname: '',
+            search: 'page=1&price%5Bfilter%5D=0-100%2C0_100'
+        });
 
-test('resets the current page on error', () => {
-    useLazyQuery.mockReturnValue([
-        mockRunQuery,
-        {
+        createTestInstance(<Component {...mockProps} />);
+
+        expect(mockRunQuery).toHaveBeenCalledTimes(1);
+        expect(mockRunQuery.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    test('resets the current page on error', () => {
+        useLazyQuery.mockReturnValue([
+            mockRunQuery,
+            {
+                loading: false,
+                error: {
+                    message: 'An error ocurred!'
+                },
+                data: null
+            }
+        ]);
+        useQuery
+            .mockReturnValueOnce(mockPageSizeData)
+            .mockReturnValueOnce(mockFilterInputsData);
+
+        createTestInstance(<Component {...mockProps} />);
+
+        expect(mockSetCurrentPage).toHaveBeenCalledTimes(1);
+        expect(mockSetCurrentPage).toHaveBeenCalledWith(1, false);
+    });
+
+    test('handles no filter type data available', () => {
+        useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
+        useQuery.mockReturnValueOnce(mockPageSizeData).mockReturnValueOnce({
+            error: null,
+            loading: true,
+            data: null
+        });
+        createTestInstance(<Component {...mockProps} />);
+
+        expect(mockRunQuery).toHaveBeenCalledTimes(0);
+    });
+
+    test('category query loading state', () => {
+        useLazyQuery.mockReturnValue([
+            mockRunQuery,
+            {
+                loading: true,
+                error: null,
+                data: null
+            }
+        ]);
+        useQuery
+            .mockReturnValueOnce(mockPageSizeData)
+            .mockReturnValueOnce(mockFilterInputsData);
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        const { loading, categoryData } = talonProps;
+
+        expect(loading).toBeTruthy();
+        expect(categoryData).toBeNull();
+    });
+
+    test('loading state when only categoryLoading is involved', () => {
+        useLazyQuery.mockReturnValue([
+            mockRunQuery,
+            {
+                called: true,
+                loading: true,
+                error: null,
+                data: null
+            }
+        ]);
+        useQuery.mockReturnValueOnce(mockPageSizeData).mockReturnValueOnce({
+            called: false,
             loading: false,
-            error: {
-                message: 'An error ocurred!'
+            error: null,
+            data: null
+        });
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        const { loading } = talonProps;
+
+        expect(loading).toBeTruthy();
+    });
+
+    test('sets current page to 1 if error, !loading, !data, and currentPage != 1', () => {
+        useLazyQuery.mockReturnValue([
+            mockRunQuery,
+            {
+                ...mockCategoryData,
+                loading: false,
+                data: null,
+                error: true
+            }
+        ]);
+
+        createTestInstance(<Component {...mockProps} />);
+
+        expect(mockSetCurrentPage).toHaveBeenCalledWith(1, false);
+    });
+
+    const testCases = [
+        [
+            'sortText does not reset',
+            {
+                sortText: 'Changed',
+                sortAttribute: 'relevance',
+                sortDirection: 'DESC'
             },
-            data: null
+            0
+        ],
+        [
+            'sortAttribute resets',
+            {
+                sortText: 'Best Match',
+                sortAttribute: 'Changed',
+                sortDirection: 'DESC'
+            },
+            1
+        ],
+        [
+            'sortDirection resets',
+            {
+                sortText: 'Best Match',
+                sortAttribute: 'relevance',
+                sortDirection: 'Changed'
+            },
+            1
+        ]
+    ];
+
+    test.each(testCases)(
+        'Changing %s current page to 1.',
+        (description, sortParams, expected) => {
+            useQuery.mockReturnValue(mockPageSizeData);
+            useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
+
+            const tree = createTestInstance(<Component {...mockProps} />);
+
+            mockUseSort.mockReturnValueOnce([sortParams, jest.fn()]);
+            act(() => {
+                tree.update(<Component {...mockProps} />);
+            });
+
+            expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
         }
-    ]);
-    useQuery
-        .mockReturnValueOnce(mockPageSizeData)
-        .mockReturnValueOnce(mockFilterInputsData);
+    );
 
-    createTestInstance(<Component {...mockProps} />);
-
-    expect(mockSetCurrentPage).toHaveBeenCalledTimes(1);
-    expect(mockSetCurrentPage).toHaveBeenCalledWith(1, false);
-});
-
-test('handles no filter type data available', () => {
-    useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
-    useQuery.mockReturnValueOnce(mockPageSizeData).mockReturnValueOnce({
-        error: null,
-        loading: true,
-        data: null
-    });
-    createTestInstance(<Component {...mockProps} />);
-
-    expect(mockRunQuery).toHaveBeenCalledTimes(0);
-});
-
-test('category query loading state', () => {
-    useLazyQuery.mockReturnValue([
-        mockRunQuery,
-        {
-            loading: true,
-            error: null,
-            data: null
-        }
-    ]);
-    useQuery
-        .mockReturnValueOnce(mockPageSizeData)
-        .mockReturnValueOnce(mockFilterInputsData);
-
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-
-    const { loading, categoryData } = talonProps;
-
-    expect(loading).toBeTruthy();
-    expect(categoryData).toBeNull();
-});
-
-test('loading state when only categoryLoading is involved', () => {
-    useLazyQuery.mockReturnValue([
-        mockRunQuery,
-        {
-            called: true,
-            loading: true,
-            error: null,
-            data: null
-        }
-    ]);
-    useQuery.mockReturnValueOnce(mockPageSizeData).mockReturnValueOnce({
-        called: false,
-        loading: false,
-        error: null,
-        data: null
-    });
-
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-
-    const { loading } = talonProps;
-
-    expect(loading).toBeTruthy();
-});
-
-test('sets current page to 1 if error, !loading, !data, and currentPage != 1', () => {
-    useLazyQuery.mockReturnValue([
-        mockRunQuery,
-        {
-            ...mockCategoryData,
-            loading: false,
-            data: null,
-            error: true
-        }
-    ]);
-
-    createTestInstance(<Component {...mockProps} />);
-
-    expect(mockSetCurrentPage).toHaveBeenCalledWith(1, false);
-});
-
-const testCases = [
-    [
-        'sortText does not reset',
-        {
-            sortText: 'Changed',
-            sortAttribute: 'relevance',
-            sortDirection: 'DESC'
-        },
-        0
-    ],
-    [
-        'sortAttribute resets',
-        {
-            sortText: 'Best Match',
-            sortAttribute: 'Changed',
-            sortDirection: 'DESC'
-        },
-        1
-    ],
-    [
-        'sortDirection resets',
-        {
-            sortText: 'Best Match',
-            sortAttribute: 'relevance',
-            sortDirection: 'Changed'
-        },
-        1
-    ]
-];
-
-test.each(testCases)(
-    'Changing %s current page to 1.',
-    (description, sortParams, expected) => {
+    test('preserve history when search term changes', () => {
         useQuery.mockReturnValue(mockPageSizeData);
         useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
 
         const tree = createTestInstance(<Component {...mockProps} />);
 
-        mockUseSort.mockReturnValueOnce([sortParams, jest.fn()]);
+        mockUseSort.mockReturnValueOnce([
+            {
+                sortText: 'Best Match',
+                sortAttribute: 'relevance',
+                sortDirection: 'Changed'
+            },
+            jest.fn()
+        ]);
+        expect(mockSetCurrentPage).not.toHaveBeenCalledWith(1, true);
         act(() => {
             tree.update(<Component {...mockProps} />);
         });
-
-        expect(mockSetCurrentPage).toHaveBeenCalledTimes(expected);
-    }
-);
-
-test('preserve history when search term changes', () => {
-    useQuery.mockReturnValue(mockPageSizeData);
-    useLazyQuery.mockReturnValue([mockRunQuery, mockCategoryData]);
-
-    const tree = createTestInstance(<Component {...mockProps} />);
-
-    mockUseSort.mockReturnValueOnce([
-        {
-            sortText: 'Best Match',
-            sortAttribute: 'relevance',
-            sortDirection: 'Changed'
-        },
-        jest.fn()
-    ]);
-    expect(mockSetCurrentPage).not.toHaveBeenCalledWith(1, true);
-    act(() => {
-        tree.update(<Component {...mockProps} />);
+        expect(mockSetCurrentPage).toHaveBeenCalledWith(1, true);
     });
-    expect(mockSetCurrentPage).toHaveBeenCalledWith(1, true);
 });
