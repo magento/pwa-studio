@@ -42,10 +42,11 @@ export const ProductDetailsFragment = gql`
         stock_status
         url_key
         ... on ConfigurableProduct {
+            # eslint-disable-next-line @graphql-eslint/require-id-when-available
             configurable_options {
                 attribute_code
                 attribute_id
-                id
+                uid
                 label
                 values {
                     uid
