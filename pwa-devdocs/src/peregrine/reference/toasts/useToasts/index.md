@@ -1,5 +1,6 @@
 ---
 title: useToasts
+adobeio: /api/peregrine/hooks/toasts/useToasts/
 ---
 
 <!--

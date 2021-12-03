@@ -1,5 +1,6 @@
 ---
 title: useToastContext
+adobeio: /api/peregrine/hooks/toasts/useToastContext/
 ---
 
 <!--

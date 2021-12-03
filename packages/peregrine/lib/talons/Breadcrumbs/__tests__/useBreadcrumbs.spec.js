@@ -9,22 +9,26 @@ jest.mock('@apollo/client', () => {
     const apolloClient = jest.requireActual('@apollo/client');
     const useQueryMock = jest.fn().mockReturnValue({
         data: {
-            category: {
-                id: null,
-                name: 'Tiki',
-                url_path: 'tiki',
-                breadcrumbs: [
+            categories: {
+                items: [
                     {
-                        category_id: 12,
-                        category_name: 'Shopee',
-                        category_level: 1,
-                        category_url_path: 'tiki/shopee'
-                    },
-                    {
-                        category_id: 10,
-                        category_name: 'Foo',
-                        category_level: 2,
-                        category_url_path: 'tiki/shopee/foo'
+                        uid: 'NA==',
+                        name: 'Tiki',
+                        url_path: 'tiki',
+                        breadcrumbs: [
+                            {
+                                category_uid: 'Mw==',
+                                category_name: 'Shop',
+                                category_level: 1,
+                                category_url_path: 'tiki/shop'
+                            },
+                            {
+                                category_uid: 'MTQ==',
+                                category_name: 'Foo',
+                                category_level: 2,
+                                category_url_path: 'tiki/shop/foo'
+                            }
+                        ]
                     }
                 ]
             }
@@ -67,7 +71,7 @@ const Component = props => {
     return <i />;
 };
 
-test('return correc shape while data is loading', () => {
+test('return correct shape while data is loading', () => {
     useQuery
         .mockReturnValueOnce({
             loading: true
@@ -91,22 +95,26 @@ test('returns sorted data', () => {
     useQuery
         .mockReturnValueOnce({
             data: {
-                category: {
-                    id: null,
-                    name: 'Tiki',
-                    url_path: 'tiki',
-                    breadcrumbs: [
+                categories: {
+                    items: [
                         {
-                            category_id: 12,
-                            category_name: 'Shopee',
-                            category_level: 1,
-                            category_url_path: 'tiki/shopee'
-                        },
-                        {
-                            category_id: 10,
-                            category_name: 'Foo',
-                            category_level: 2,
-                            category_url_path: 'tiki/shopee/foo'
+                            uid: 'NA==',
+                            name: 'Tiki',
+                            url_path: 'tiki',
+                            breadcrumbs: [
+                                {
+                                    category_id: 'Mw==',
+                                    category_name: 'Shop',
+                                    category_level: 1,
+                                    category_url_path: 'tiki/shop'
+                                },
+                                {
+                                    category_id: 'MTQ==',
+                                    category_name: 'Foo',
+                                    category_level: 2,
+                                    category_url_path: 'tiki/shop/foo'
+                                }
+                            ]
                         }
                     ]
                 }
@@ -127,12 +135,12 @@ test('returns sorted data', () => {
         normalizedData: [
             {
                 category_level: 1,
-                path: '/tiki/shopee.html',
-                text: 'Shopee'
+                path: '/tiki/shop.html',
+                text: 'Shop'
             },
             {
                 category_level: 2,
-                path: '/tiki/shopee/foo.html',
+                path: '/tiki/shop/foo.html',
                 text: 'Foo'
             }
         ],

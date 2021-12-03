@@ -297,7 +297,7 @@ export const GET_PRODUCTS_BY_URL_KEY = gql`
                     url
                 }
                 stock_status
-                type_id
+                __typename
                 url_key
             }
             total_count
