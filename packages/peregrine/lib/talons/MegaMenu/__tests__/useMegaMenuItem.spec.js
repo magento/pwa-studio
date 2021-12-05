@@ -71,13 +71,13 @@ test('Should return correct shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-test('handleCloseSubMenu to be called', () => {
+test('handleMenuItemFocus to be called', () => {
     const props = {
         ...defaultProps
     };
     const { talonProps } = getTalonProps(props);
 
-    talonProps.handleCloseSubMenu();
+    talonProps.handleMenuItemFocus();
 
     expect(talonProps.isMenuActive).toEqual(false);
 });

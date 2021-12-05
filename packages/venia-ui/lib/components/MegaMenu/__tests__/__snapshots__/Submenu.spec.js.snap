@@ -30,6 +30,7 @@ exports[`Submenu renders correctly it renders correctly 1`] = `
         }
       }
       categoryUrlSuffix=".html"
+      handleMenuItemFocus={[MockFunction handleMenuItemFocus]}
       index={0}
       keyboardProps={Object {}}
     />
@@ -44,6 +45,7 @@ exports[`Submenu renders correctly it renders correctly 1`] = `
         }
       }
       categoryUrlSuffix=".html"
+      handleMenuItemFocus={[MockFunction handleMenuItemFocus]}
       index={1}
       keyboardProps={
         Object {

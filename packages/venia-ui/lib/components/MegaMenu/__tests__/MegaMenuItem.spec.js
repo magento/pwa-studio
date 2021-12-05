@@ -29,7 +29,7 @@ jest.mock('@magento/peregrine/lib/talons/MegaMenu/useMegaMenuItem', () => ({
         return {
             isFocused: false,
             isActive: false,
-            handleCloseSubMenu: jest.fn(),
+            handleMenuItemFocus: jest.fn(),
             isMenuActive: false,
             handleKeyDown: mockHandleKeyDown
         };
