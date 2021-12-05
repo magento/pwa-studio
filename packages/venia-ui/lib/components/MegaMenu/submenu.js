@@ -20,7 +20,7 @@ const Submenu = props => {
         mainNavWidth,
         isFocused,
         subMenuState,
-        handleCloseSubMenu,
+        handleMenuItemFocus,
         categoryUrlSuffix,
         onNavigate
     } = props;
@@ -30,7 +30,7 @@ const Submenu = props => {
     const talonProps = useSubMenu({
         isFocused,
         subMenuState,
-        handleCloseSubMenu
+        handleMenuItemFocus
     });
 
     const { isSubMenuActive } = talonProps;
@@ -50,6 +50,7 @@ const Submenu = props => {
                 category={category}
                 categoryUrlSuffix={categoryUrlSuffix}
                 onNavigate={onNavigate}
+                handleMenuItemFocus={handleMenuItemFocus}
             />
         );
     });
@@ -83,5 +84,6 @@ Submenu.propTypes = {
     ).isRequired,
     mainNavWidth: PropTypes.number.isRequired,
     categoryUrlSuffix: PropTypes.string,
-    onNavigate: PropTypes.func.isRequired
+    onNavigate: PropTypes.func.isRequired,
+    handleMenuItemFocus: PropTypes.func.isRequired
 };

@@ -6,8 +6,8 @@ export const useMegaMenuItem = props => {
     const [isFocused, setIsFocused] = useState(false);
     const isActive = category.id === activeCategoryId;
 
-    const handleCloseSubMenu = useCallback(() => {
-        setIsFocused(false);
+    const handleMenuItemFocus = useCallback((state = false) => {
+        setIsFocused(state);
     }, [setIsFocused]);
 
     const isMenuActive = useMemo(() => {
@@ -54,7 +54,7 @@ export const useMegaMenuItem = props => {
     return {
         isFocused,
         isActive,
-        handleCloseSubMenu,
+        handleMenuItemFocus,
         isMenuActive,
         handleKeyDown
     };

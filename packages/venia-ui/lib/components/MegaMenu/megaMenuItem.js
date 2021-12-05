@@ -27,7 +27,9 @@ const MegaMenuItem = props => {
         categoryUrlSuffix,
         subMenuState,
         disableFocus,
-        onNavigate
+        onNavigate,
+        handleSubMenuFocus,
+        handleClickOutside
     } = props;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -45,7 +47,7 @@ const MegaMenuItem = props => {
     const {
         isFocused,
         isActive,
-        handleCloseSubMenu,
+        handleMenuItemFocus,
         isMenuActive,
         handleKeyDown
     } = talonProps;
@@ -61,7 +63,7 @@ const MegaMenuItem = props => {
                 subMenuState={subMenuState}
                 items={category.children}
                 mainNavWidth={mainNavWidth}
-                handleCloseSubMenu={handleCloseSubMenu}
+                handleMenuItemFocus={handleMenuItemFocus}
                 categoryUrlSuffix={categoryUrlSuffix}
                 onNavigate={onNavigate}
             />
@@ -71,7 +73,7 @@ const MegaMenuItem = props => {
         isFocused,
         mainNavWidth,
         subMenuState,
-        handleCloseSubMenu,
+        handleMenuItemFocus,
         categoryUrlSuffix,
         onNavigate
     ]);
@@ -92,6 +94,18 @@ const MegaMenuItem = props => {
         <div
             className={megaMenuItemClassname}
             data-cy="MegaMenu-MegaMenuItem-megaMenuItem"
+            onMouseEnter={() => {
+                handleSubMenuFocus();
+                handleMenuItemFocus(true);
+            }}
+            onTouchStart={() => {
+                handleSubMenuFocus();
+                handleMenuItemFocus(true);
+            }}
+            onMouseLeave={(e) => {
+                handleClickOutside(e);
+                handleMenuItemFocus();
+            }}
         >
             <Link
                 {...linkAttributes}
@@ -127,5 +141,7 @@ MegaMenuItem.propTypes = {
     activeCategoryId: PropTypes.number,
     mainNavWidth: PropTypes.number.isRequired,
     categoryUrlSuffix: PropTypes.string,
-    onNavigate: PropTypes.func.isRequired
+    onNavigate: PropTypes.func.isRequired,
+    handleSubMenuFocus: PropTypes.func.isRequired,
+    handleClickOutside: PropTypes.func.isRequired
 };
