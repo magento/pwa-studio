@@ -56,4 +56,14 @@ describe('#PageBuilder DynamicBlock EE', () => {
 
         expect(component.toJSON()).toMatchSnapshot();
     });
+
+    it('does not render a Dynamic Block component when no uids are provided', () => {
+        const blockProps = {
+            ...defaultProps,
+            uids: undefined
+        };
+        const component = createTestInstance(<DynamicBlock {...blockProps} />);
+
+        expect(component.toJSON()).toMatchSnapshot();
+    });
 });

@@ -22,7 +22,7 @@ const DynamicBlock = props => {
     const {
         displayInline,
         displayMode,
-        uids,
+        uids = '',
         textAlign,
         border,
         borderColor,
@@ -56,6 +56,11 @@ const DynamicBlock = props => {
     };
 
     const RootTag = displayInline ? 'span' : 'div';
+
+    // If no uids are found, do not render
+    if (uids.length === 0) {
+        return null;
+    }
 
     return (
         <RootTag

@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`#PageBuilder DynamicBlock EE does not render a Dynamic Block component when no uids are provided 1`] = `null`;
+
 exports[`#PageBuilder DynamicBlock EE renders a Dynamic Block component inlined 1`] = `
 <span
   className=""
