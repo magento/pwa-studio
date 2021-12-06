@@ -13,10 +13,8 @@ export const GET_CATEGORY_LIST = gql`
     query GetCategoryList($id: String!) {
         categories(filters: { ids: { in: [$id] } }) {
             items {
-                id
                 uid
                 children {
-                    id
                     uid
                     name
                     url_key
@@ -26,7 +24,6 @@ export const GET_CATEGORY_LIST = gql`
                     image
                     productImagePreview: products(pageSize: 1) {
                         items {
-                            id
                             uid
                             small_image {
                                 url
