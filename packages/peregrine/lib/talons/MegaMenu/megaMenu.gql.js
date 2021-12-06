@@ -14,19 +14,19 @@ export const GET_MEGA_MENU = gql`
             uid
             name
             children {
-                id
+                uid
                 include_in_menu
                 name
                 position
                 url_path
                 children {
-                    id
+                    uid
                     include_in_menu
                     name
                     position
                     url_path
                     children {
-                        id
+                        uid
                         include_in_menu
                         name
                         position
