@@ -35,7 +35,7 @@ export default Branch;
 
 Branch.propTypes = {
     category: shape({
-        id: number.isRequired,
+        uid: string.isRequired,
         include_in_menu: number,
         name: string.isRequired
     }).isRequired,
