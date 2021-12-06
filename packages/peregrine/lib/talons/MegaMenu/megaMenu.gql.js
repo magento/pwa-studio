@@ -11,7 +11,7 @@ export const GET_STORE_CONFIG_DATA = gql`
 export const GET_MEGA_MENU = gql`
     query getMegaMenu {
         categoryList {
-            id
+            uid
             name
             children {
                 id

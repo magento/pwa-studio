@@ -86,7 +86,7 @@ export const useMegaMenu = (props = {}) => {
             const megaMenuCategory = Object.assign({}, category);
 
             if (!isRoot) {
-                megaMenuCategory.path = [...path, category.id];
+                megaMenuCategory.path = [...path, category.uid];
             }
 
             megaMenuCategory.isActive = isActive(megaMenuCategory);
