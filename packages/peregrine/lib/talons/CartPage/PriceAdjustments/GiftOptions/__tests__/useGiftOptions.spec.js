@@ -184,7 +184,6 @@ describe('#useGiftOptions', () => {
               "giftMessageCheckboxProps": Object {
                 "disabled": false,
                 "field": "includeGiftMessage",
-                "initialValue": false,
                 "onValueChange": [Function],
               },
               "giftMessageResult": Object {
@@ -204,6 +203,7 @@ describe('#useGiftOptions', () => {
                   "cardFrom": "",
                   "cardMessage": "",
                   "cardTo": "",
+                  "includeGiftMessage": false,
                   "includeGiftReceipt": false,
                   "includePrintedCard": false,
                 },
@@ -231,28 +231,28 @@ describe('#useGiftOptions', () => {
         expect(result.current).toMatchInlineSnapshot(`
             Object {
               "cancelGiftMessageButtonProps": Object {
-                "disabled": true,
+                "disabled": false,
                 "onClick": [Function],
                 "priority": "low",
                 "type": "button",
               },
               "cardFromProps": Object {
-                "disabled": true,
+                "disabled": false,
                 "field": "cardFrom",
                 "validate": [Function],
               },
               "cardMessageProps": Object {
-                "disabled": true,
+                "disabled": false,
                 "field": "cardMessage",
                 "validate": [Function],
               },
               "cardToProps": Object {
-                "disabled": true,
+                "disabled": false,
                 "field": "cardTo",
                 "validate": [Function],
               },
               "editGiftMessageButtonProps": Object {
-                "disabled": true,
+                "disabled": false,
                 "onClick": [Function],
                 "priority": "normal",
                 "type": "button",
@@ -264,7 +264,6 @@ describe('#useGiftOptions', () => {
               "giftMessageCheckboxProps": Object {
                 "disabled": false,
                 "field": "includeGiftMessage",
-                "initialValue": false,
                 "onValueChange": [Function],
               },
               "giftMessageResult": Object {
@@ -284,6 +283,7 @@ describe('#useGiftOptions', () => {
                   "cardFrom": "from",
                   "cardMessage": "message",
                   "cardTo": "to",
+                  "includeGiftMessage": true,
                   "includeGiftReceipt": false,
                   "includePrintedCard": false,
                 },
@@ -297,13 +297,13 @@ describe('#useGiftOptions', () => {
                 "onChange": [Function],
               },
               "saveGiftMessageButtonProps": Object {
-                "disabled": true,
+                "disabled": false,
                 "onClick": [Function],
                 "priority": "normal",
                 "type": "button",
               },
               "savingOptions": Array [],
-              "showGiftMessageResult": false,
+              "showGiftMessageResult": true,
             }
         `);
     });

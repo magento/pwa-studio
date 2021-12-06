@@ -131,7 +131,10 @@ const GiftOptions = props => {
                             : classes.hidden
                     }
                 >
-                    <div className={classes.giftMessageResult}>
+                    <div
+                        className={classes.giftMessageResult}
+                        data-cy="GiftOptions-giftMessageResult"
+                    >
                         <p>
                             <FormattedMessage
                                 id="giftOptions.giftMessageTo"
@@ -158,6 +161,7 @@ const GiftOptions = props => {
                     <LinkButton
                         {...editGiftMessageButtonProps}
                         classes={{ root: classes.editGiftMessageButton }}
+                        data-cy="GiftOptions-editGiftMessageButton"
                     >
                         <Icon
                             classes={{ icon: null }}
@@ -223,14 +227,20 @@ const GiftOptions = props => {
 
                     <div className={classes.giftMessageActions}>
                         {hasGiftMessage ? (
-                            <Button {...cancelGiftMessageButtonProps}>
+                            <Button
+                                {...cancelGiftMessageButtonProps}
+                                data-cy="GiftOptions-cancelGiftMessageButton"
+                            >
                                 <FormattedMessage
                                     id="giftOptions.cancelGiftMessageButton"
                                     defaultMessage="Cancel"
                                 />
                             </Button>
                         ) : null}
-                        <Button {...saveGiftMessageButtonProps}>
+                        <Button
+                            {...saveGiftMessageButtonProps}
+                            data-cy="GiftOptions-updateGiftMessageButton"
+                        >
                             {hasGiftMessage ? (
                                 <FormattedMessage
                                     id="giftOptions.updateGiftMessageButton"

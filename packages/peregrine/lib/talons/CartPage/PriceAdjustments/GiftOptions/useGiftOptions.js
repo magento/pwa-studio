@@ -50,16 +50,30 @@ export const useGiftOptions = (props = {}) => {
 
     const { cart } = getGiftOptionsData || {};
 
-    const initialValues = useMemo(
-        () => ({
+    const formApiRef = useRef(null);
+
+    const [giftMessageIsChecked, setGiftMessageIsChecked] = useState(false);
+    const [showGiftMessageResult, setShowGiftMessageResult] = useState(false);
+    const [savingOptions, setSavingOptions] = useState([]);
+
+    const initialValues = useMemo(() => {
+        const hasInitialGiftMessage =
+            cart?.gift_message?.from.length > 0 ||
+            cart?.gift_message?.to.length > 0 ||
+            cart?.gift_message?.message.length > 0;
+
+        setGiftMessageIsChecked(hasInitialGiftMessage);
+        setShowGiftMessageResult(hasInitialGiftMessage);
+
+        return {
             cardFrom: cart?.gift_message?.from || '',
             cardTo: cart?.gift_message?.to || '',
             cardMessage: cart?.gift_message?.message || '',
             includeGiftReceipt: cart?.gift_receipt_included === true,
+            includeGiftMessage: hasInitialGiftMessage,
             includePrintedCard: cart?.printed_card_included === true
-        }),
-        [cart]
-    );
+        };
+    }, [cart]);
 
     const giftMessageResult = useMemo(
         () => ({
@@ -80,16 +94,6 @@ export const useGiftOptions = (props = {}) => {
         giftMessageResult.cardFrom.length > 0 &&
         giftMessageResult.cardTo.length > 0 &&
         giftMessageResult.cardMessage.length > 0;
-
-    const formApiRef = useRef(null);
-
-    const [giftMessageIsEnabled, setGiftMessageIsEnabled] = useState(
-        hasGiftMessage
-    );
-    const [showGiftMessageResult, setShowGiftMessageResult] = useState(
-        hasGiftMessage
-    );
-    const [savingOptions, setSavingOptions] = useState([]);
 
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
 
@@ -203,16 +207,16 @@ export const useGiftOptions = (props = {}) => {
         }
     }, [cartId, savingOptions, setGiftOptionsOnCart]);
 
-    const handleToggleGiftMessageIsEnabled = useCallback(
+    const handleToggleGiftMessageIsChecked = useCallback(
         async isChecked => {
             if (!isChecked) {
                 // Remove Gift Message and reset form
                 await handleRemoveGiftMessage();
             }
 
-            setGiftMessageIsEnabled(!giftMessageIsEnabled);
+            setGiftMessageIsChecked(!giftMessageIsChecked);
         },
-        [giftMessageIsEnabled, handleRemoveGiftMessage]
+        [giftMessageIsChecked, handleRemoveGiftMessage]
     );
 
     const handleToggleGiftMessageResult = useCallback(() => {
@@ -255,27 +259,26 @@ export const useGiftOptions = (props = {}) => {
     const giftMessageCheckboxProps = {
         disabled: savingOptions.includes('giftMessage'),
         field: 'includeGiftMessage',
-        initialValue: giftMessageIsEnabled,
-        onValueChange: handleToggleGiftMessageIsEnabled
+        onValueChange: handleToggleGiftMessageIsChecked
     };
 
     const cardToProps = {
         disabled:
-            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
+            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         field: 'cardTo',
         validate: isRequired
     };
 
     const cardFromProps = {
         disabled:
-            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
+            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         field: 'cardFrom',
         validate: isRequired
     };
 
     const cardMessageProps = {
         disabled:
-            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
+            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         field: 'cardMessage',
         validate: isRequired
     };
@@ -287,7 +290,7 @@ export const useGiftOptions = (props = {}) => {
 
     const editGiftMessageButtonProps = {
         disabled:
-            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
+            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         priority: 'normal',
         type: 'button',
         onClick: handleToggleGiftMessageResult
@@ -295,7 +298,7 @@ export const useGiftOptions = (props = {}) => {
 
     const cancelGiftMessageButtonProps = {
         disabled:
-            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
+            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         priority: 'low',
         type: 'button',
         onClick: handleToggleGiftMessageResult
@@ -303,7 +306,7 @@ export const useGiftOptions = (props = {}) => {
 
     const saveGiftMessageButtonProps = {
         disabled:
-            !giftMessageIsEnabled || savingOptions.includes('giftMessage'),
+            !giftMessageIsChecked || savingOptions.includes('giftMessage'),
         priority: 'normal',
         type: 'button',
         onClick: handleUpdateGiftMessage
