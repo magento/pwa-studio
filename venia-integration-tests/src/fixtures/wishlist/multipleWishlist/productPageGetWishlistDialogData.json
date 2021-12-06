@@ -1,26 +1,31 @@
 {
-    "data": {
-        "storeConfig": {
-            "id": 1,
-            "enable_multiple_wishlists": "1",
-            "maximum_number_of_wishlists": "5",
-            "__typename": "StoreConfig"
+  "data": {
+    "storeConfig": {
+      "id": 1,
+      "enable_multiple_wishlists": "1",
+      "maximum_number_of_wishlists": "5",
+      "__typename": "StoreConfig"
+    },
+    "customer": {
+      "id": null,
+      "wishlists": [
+        {
+          "id": "101",
+          "name": "Wish List",
+          "__typename": "Wishlist"
         },
-        "customer": {
-            "id": null,
-            "wishlists": [
-                {
-                    "id": "31",
-                    "name": "Test List1",
-                    "__typename": "Wishlist"
-                },
-                {
-                    "id": "32",
-                    "name": "Test List2",
-                    "__typename": "Wishlist"
-                }
-            ],
-            "__typename": "Customer"
+        {
+          "id": "103",
+          "name": "Test List1",
+          "__typename": "Wishlist"
+        },
+        {
+          "id": "104",
+          "name": "Test List2",
+          "__typename": "Wishlist"
         }
+      ],
+      "__typename": "Customer"
     }
+  }
 }
